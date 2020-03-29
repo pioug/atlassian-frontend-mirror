@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 45.1 (43504) - http://www.bohemiancoding.com/sketch -->
+    <title>icons/tray</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Global" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icons/tray" fill="#42526E">
+            <path d="M5,19 L19,19 L19,5 L5,5 L5,19 Z M3,4.99508929 C3,3.8932319 3.8926228,3 4.99508929,3 L19.0049107,3 C20.1067681,3 21,3.8926228 21,4.99508929 L21,19.0049107 C21,20.1067681 20.1073772,21 19.0049107,21 L4.99508929,21 C3.8932319,21 3,20.1073772 3,19.0049107 L3,4.99508929 Z" id="Rectangle-2" fill-rule="nonzero"></path>
+            <path d="M9.17070571,17 L4,17 L4,18.5 C4,19.3342028 4.67391942,20 5.50524116,20 L18.4947588,20 C19.3328702,20 20,19.3284271 20,18.5 L20,17 L14.8292943,17 C14.4174579,18.1651924 13.3062188,19 12,19 C10.6937812,19 9.58254212,18.1651924 9.17070571,17 Z" id="Combined-Shape"></path>
+            <rect id="Rectangle-8-Copy-3" x="7" y="12" width="10" height="2"></rect>
+            <rect id="Rectangle-8-Copy-4" x="7" y="8" width="10" height="2"></rect>
+        </g>
+    </g>
+</svg>

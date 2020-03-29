@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 45.1 (43504) - http://www.bohemiancoding.com/sketch -->
+    <title>icons/document-filled</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Global" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icons/document-filled" fill="#42526E">
+            <path d="M18.99,8.9892 L19,10.0052 L19,19.0002 C19,20.1042 18.105,21.0002 17,21.0002 L7,21.0002 C5.895,21.0002 5,20.1042 5,19.0002 L5,5.0002 C5,3.8952 5.895,3.0002 7,3.0002 L12.275,3.0002 C12.744,3.0002 13.197,3.1642 13.557,3.4642 L18.631,7.7002 C18.858,7.8902 18.99,8.1712 18.99,8.4682 L18.99,8.9892 Z M12.0190612,5 L12.0000176,8.19168993 C11.9967738,8.73534869 12.4417319,9.18300332 12.9939103,9.18300332 L16.9941028,9.18300332 L12.0190612,5 Z" id="Combined-Shape"></path>
+        </g>
+    </g>
+</svg>

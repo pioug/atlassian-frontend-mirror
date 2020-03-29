@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a skeleton representation of the container sidebar 1`] = `
+<SkeletonContainerNavigationInner
+  isCollapsed={false}
+>
+  <SkeletonNavigationContentOuter>
+    <div>
+      <ShownWhenCollapsed
+        isCollapsed={false}
+      >
+        <SkeletonGlobalTopItems />
+      </ShownWhenCollapsed>
+      <SkeletonContainerHeaderWrapper>
+        <DummyContainerHeader
+          isCollapsed={false}
+        />
+      </SkeletonContainerHeaderWrapper>
+      <SkeletonContainerItems
+        isCollapsed={false}
+      />
+    </div>
+    <ShownWhenCollapsed
+      isCollapsed={false}
+    >
+      <SkeletonGlobalBottomItems />
+    </ShownWhenCollapsed>
+  </SkeletonNavigationContentOuter>
+</SkeletonContainerNavigationInner>
+`;
+
+exports[`shows the global sidebar items when collapsed 1`] = `
+<SkeletonContainerNavigationInner
+  isCollapsed={true}
+>
+  <SkeletonNavigationContentOuter>
+    <div>
+      <ShownWhenCollapsed
+        isCollapsed={true}
+      >
+        <SkeletonGlobalTopItems />
+      </ShownWhenCollapsed>
+      <SkeletonContainerHeaderWrapper>
+        <DummyContainerHeader
+          isCollapsed={true}
+        />
+      </SkeletonContainerHeaderWrapper>
+      <SkeletonContainerItems
+        isCollapsed={true}
+      />
+    </div>
+    <ShownWhenCollapsed
+      isCollapsed={true}
+    >
+      <SkeletonGlobalBottomItems />
+    </ShownWhenCollapsed>
+  </SkeletonNavigationContentOuter>
+</SkeletonContainerNavigationInner>
+`;

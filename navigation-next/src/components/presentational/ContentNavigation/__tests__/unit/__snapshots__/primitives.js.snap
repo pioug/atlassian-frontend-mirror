@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ContentNavigation primitives ContainerNavigationMask should render correctly with default props 1`] = `
+.emotion-0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  overflow: hidden;
+  height: 100%;
+}
+
+<ContainerNavigationMask>
+  <div
+    className="emotion-0"
+  />
+</ContainerNavigationMask>
+`;
+
+exports[`ContentNavigation primitives ContainerNavigationMask should set pointerEvents to none when interaction is disabled 1`] = `
+.emotion-0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  overflow: hidden;
+  height: 100%;
+  pointer-events: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+<ContainerNavigationMask
+  disableInteraction={true}
+>
+  <div
+    className="emotion-0"
+  />
+</ContainerNavigationMask>
+`;

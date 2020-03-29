@@ -1,0 +1,70 @@
+---
+order: 0
+---
+
+import InlineMessageDefault from '../../examples/constellation/InlineMessage-default';
+import InlineMessageWarning from '../../examples/constellation/InlineMessage-warning';
+import InlineMessageError from '../../examples/constellation/InlineMessage-error';
+import InlineMessageConfirmation from '../../examples/constellation/InlineMessage-confirmation';
+import InlineMessageInfo from '../../examples/constellation/InlineMessage-info';
+import InlineMessagePlacement from '../../examples/constellation/InlineMessage-placement';
+import InlineMessageTitle from '../../examples/constellation/InlineMessage-title';
+import InlineMessageSecondary from '../../examples/constellation/InlineMessage-secondarytext';
+
+## Default
+
+Use default inline messages to alert users about important information or actions.
+
+<Example Component={InlineMessageDefault} componentName="@atlaskit/inline-message" />
+
+## Type
+
+
+### Warning
+
+Warning messages appear before we request the user to take action. This is usually in anticipation of a significant change. Warnings should also be used for authentication issues.
+
+<Example Component={InlineMessageWarning} componentName="@atlaskit/inline-message" />
+
+### Error
+
+Error messages let the user know that something has gone wrong after they've tried to do something. They also advise the user of connectivity issues.
+
+<Example Component={InlineMessageError} componentName="@atlaskit/inline-message" />
+
+### Confirmation
+
+Confirmation messages let the user know that they have completed an action.
+
+<Example Component={InlineMessageConfirmation} componentName="@atlaskit/inline-message" />
+
+### Info
+
+Info messages alert the user to additional information without requiring an action.
+
+<Example Component={InlineMessageInfo} componentName="@atlaskit/inline-message" />
+
+
+## Title
+
+Text to display first, bolded for emphasis.
+
+<Example Component={InlineMessageTitle} componentName="@atlaskit/inline-message" />
+
+
+## Secondary text
+
+Text to display second.
+
+<Example Component={InlineMessageSecondary} componentName="@atlaskit/inline-message" />
+
+
+## Placement
+By default, the inline dialog is placed at the bottom at the beginning of the text. This placement can be specified, for example, to the right of the text.
+
+<Example Component={InlineMessagePlacement} componentName="@atlaskit/inline-message" />
+
+
+
+
+

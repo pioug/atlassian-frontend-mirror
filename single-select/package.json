@@ -1,0 +1,42 @@
+{
+  "name": "@atlaskit/single-select",
+  "version": "9.0.1",
+  "description": "React component which allows selection of a single item from a dropdown list. Substitute for the native select element",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "license": "Apache-2.0",
+  "module": "dist/esm/index.js",
+  "main": "dist/cjs/index.js",
+  "atlaskit:src": "src/index.js",
+  "sideEffects": false,
+  "atlaskit:designLink": "https://atlassian.design/guidelines/product/components/single-select",
+  "author": "Atlassian Pty Ltd",
+  "atlaskit": {
+    "internal": true,
+    "deprecated": "Please use @atlaskit/select instead.",
+    "name": "Single Select"
+  },
+  "team": "Design System Team",
+  "repository": "https://bitbucket.org/atlassian/atlaskit-mk-2",
+  "dependencies": {
+    "@atlaskit/droplist": "^10.0.1",
+    "@atlaskit/field-base": "^14.0.1",
+    "@atlaskit/icon": "^20.0.1",
+    "@atlaskit/spinner": "^12.1.4",
+    "@atlaskit/theme": "^9.5.1",
+    "@babel/runtime": "^7.0.0",
+    "classnames": "^2.2.5"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0",
+    "styled-components": "^3.2.6"
+  },
+  "devDependencies": {
+    "@atlaskit/avatar": "^17.1.7",
+    "@atlaskit/button": "^13.3.7",
+    "@atlaskit/docs": "^8.3.2",
+    "@atlaskit/section-message": "^4.1.5",
+    "enzyme": "^3.10.0"
+  }
+}

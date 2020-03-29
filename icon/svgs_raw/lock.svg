@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 45.1 (43504) - http://www.bohemiancoding.com/sketch -->
+    <title>icons/lock</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Global" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icons/lock" fill-rule="nonzero" fill="#42526E">
+            <path d="M16,11 L16,9 L14,9 L14,7.00236948 C14,5.89616855 13.1043465,5 12,5 C10.8982909,5 10,5.89812584 10,7.00236948 L10,9 L8,9 L8,11 L7,11 L7,19 L17,19 L17,11 L16,11 Z M14,11 L10,11 L10,9 L14,9 L14,11 Z M8,9 L8,7.00236948 C8,4.79192185 9.79535615,3 12,3 C14.209139,3 16,4.79182182 16,7.00236948 L16,9 L16.9941413,9 C18.1019465,9 19,9.90195036 19,11.0085302 L19,18.9914698 C19,20.1007504 18.1029399,21 16.9941413,21 L7.00585866,21 C5.89805351,21 5,20.0980496 5,18.9914698 L5,11.0085302 C5,9.8992496 5.89706013,9 7.00585866,9 L8,9 Z M8,9 L10,9 L10,11 L8,11 L8,9 Z M14,9 L16,9 L16,11 L14,11 L14,9 Z" id="Combined-Shape"></path>
+            <circle id="Oval-7" cx="12" cy="15" r="2"></circle>
+        </g>
+    </g>
+</svg>

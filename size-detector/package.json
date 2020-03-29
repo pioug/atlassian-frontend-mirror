@@ -1,0 +1,38 @@
+{
+  "name": "@atlaskit/size-detector",
+  "version": "9.0.1",
+  "description": "Wrapper for components that need to respond to size changes",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "license": "Apache-2.0",
+  "module": "dist/esm/index.js",
+  "main": "dist/cjs/index.js",
+  "atlaskit:src": "src/index.js",
+  "sideEffects": false,
+  "author": "Atlassian Pty Ltd",
+  "atlaskit": {
+    "name": "Size Detector",
+    "internal": true,
+    "deprecated": "Please use @atlaskit/width-detector instead."
+  },
+  "team": "Design System Team",
+  "repository": "https://bitbucket.org/atlassian/atlaskit-mk-2",
+  "dependencies": {
+    "@babel/runtime": "^7.0.0",
+    "raf-schd": "^2.1.0"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0",
+    "styled-components": "^3.2.6"
+  },
+  "devDependencies": {
+    "@atlaskit/build-utils": "^2.2.5",
+    "@atlaskit/docs": "^8.3.2",
+    "@atlaskit/section-message": "^4.1.5",
+    "@atlaskit/ssr": "^0.1.1",
+    "@atlaskit/visual-regression": "^0.1.9",
+    "enzyme": "^3.10.0",
+    "react-dom": "^16.8.0"
+  }
+}

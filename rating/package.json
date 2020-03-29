@@ -1,0 +1,39 @@
+{
+  "name": "@atlaskit/rating",
+  "version": "0.0.4",
+  "description": "An accessible rating component that can be heavily customized.",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "license": "Apache-2.0",
+  "module": "dist/esm/index.js",
+  "main": "dist/cjs/index.js",
+  "types": "dist/cjs/index.d.ts",
+  "atlaskit:src": "src/index.tsx",
+  "sideEffects": false,
+  "author": "Atlassian Pty Ltd",
+  "atlaskit": {
+    "name": "Rating"
+  },
+  "team": "Design System Team",
+  "repository": "https://bitbucket.org/atlassian/atlaskit-mk-2",
+  "dependencies": {
+    "@atlaskit/icon": "^20.0.1",
+    "@atlaskit/motion": "^0.2.2",
+    "@atlaskit/theme": "^9.5.1",
+    "@atlaskit/tooltip": "^15.2.3",
+    "@emotion/core": "^10.0.9",
+    "tslib": "^1.9.3"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0"
+  },
+  "devDependencies": {
+    "@atlaskit/button": "^13.3.7",
+    "@atlaskit/docs": "^8.3.2",
+    "@atlaskit/ssr": "^0.1.1",
+    "@atlaskit/visual-regression": "^0.1.9",
+    "@testing-library/react": "^8.0.1"
+  }
+}

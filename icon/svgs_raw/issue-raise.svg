@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 45.1 (43504) - http://www.bohemiancoding.com/sketch -->
+    <title>icons/issue-raise</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Global" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icons/issue-raise" fill="#42526E">
+            <rect id="Rectangle-37" x="11" y="9" width="2" height="6" rx="1"></rect>
+            <path d="M5,15.9914698 C5,15.9978202 19.0049107,16 19.0049107,16 C18.9994849,16 19,8.0085302 19,8.0085302 C19,8.00217984 4.99508929,8 4.99508929,8 C5.00051505,8 5,15.9914698 5,15.9914698 Z M3,8.0085302 C3,6.8992496 3.8926228,6 4.99508929,6 L19.0049107,6 C20.1067681,6 21,6.90195036 21,8.0085302 L21,15.9914698 C21,17.1007504 20.1073772,18 19.0049107,18 L4.99508929,18 C3.8932319,18 3,17.0980496 3,15.9914698 L3,8.0085302 Z" id="Rectangle-42" fill-rule="nonzero"></path>
+            <rect id="Rectangle-44" x="9" y="11" width="6" height="2" rx="1"></rect>
+        </g>
+    </g>
+</svg>

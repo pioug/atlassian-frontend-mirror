@@ -1,0 +1,440 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GoToItemBase Default After prop should only show on hover or active or focus 1`] = `
+<ArrowRightCircleIcon
+  primaryColor="currentColor"
+  secondaryColor="inherit"
+/>
+`;
+
+exports[`GoToItemBase Default After prop should show a spinner if the incoming view equals the 'goTo' prop of GoToItem 1`] = `
+.c1 {
+  -webkit-animation: 0.2s bZGgwh;
+  animation: 0.2s bZGgwh;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  height: 16px;
+  width: 16px;
+}
+
+div + .c1 {
+  display: none;
+}
+
+.c2 {
+  -webkit-animation: 0.86s cubic-bezier(0.4,0.15,0.6,0.85) infinite ibwhYF;
+  animation: 0.86s cubic-bezier(0.4,0.15,0.6,0.85) infinite ibwhYF;
+  fill: none;
+  stroke: #FFFFFF;
+  stroke-dasharray: 43.982297150257104px;
+  stroke-dashoffset: 35.18583772020568px;
+  stroke-linecap: round;
+  stroke-width: 2px;
+  -webkit-transform-origin: center;
+  -ms-transform-origin: center;
+  transform-origin: center;
+}
+
+.c0 {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+<Spinner
+  delay={200}
+  invertColor={true}
+  isCompleting={false}
+  onComplete={[Function]}
+  size="small"
+>
+  <Outer>
+    <span
+      className="c0"
+    >
+      <Transition
+        addEndListener={[Function]}
+        appear={true}
+        enter={true}
+        exit={true}
+        in={true}
+        mountOnEnter={true}
+        onEnter={[Function]}
+        onEntered={[Function]}
+        onEntering={[Function]}
+        onExit={[Function]}
+        onExited={[Function]}
+        onExiting={[Function]}
+        timeout={0}
+        unmountOnExit={true}
+      >
+        <SpinnerContainer
+          delay={0.2}
+          phase="DELAY"
+          size={16}
+        >
+          <span
+            className="c1"
+            size={16}
+          >
+            <SpinnerSvg
+              focusable="false"
+              height={16}
+              invertColor={true}
+              phase="DELAY"
+              size={16}
+              viewBox="0 0 16 16"
+              width={16}
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <svg
+                className="c2"
+                focusable="false"
+                height={16}
+                size={16}
+                viewBox="0 0 16 16"
+                width={16}
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <circle
+                  cx={8}
+                  cy={8}
+                  r={7}
+                />
+              </svg>
+            </SpinnerSvg>
+          </span>
+        </SpinnerContainer>
+      </Transition>
+    </span>
+  </Outer>
+</Spinner>
+`;
+
+exports[`GoToItemBase should render a ConnectedItem 1`] = `
+.emotion-5 {
+  width: 100%;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+
+.emotion-3.emotion-3 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border: none;
+  border-radius: 3px;
+  box-sizing: border-box;
+  color: inherit;
+  cursor: pointer;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  font-size: inherit;
+  height: 40px;
+  outline: none;
+  text-align: left;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  width: 100%;
+  padding-left: 12px;
+  padding-right: 12px;
+  background-color: #F4F5F7;
+  fill: #F4F5F7;
+}
+
+.emotion-3.emotion-3:focus {
+  box-shadow: 0 0 0 2px #4C9AFF inset;
+}
+
+.emotion-1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  overflow-x: hidden;
+}
+
+@media screen and (-ms-high-contrast:none) {
+  .emotion-1 {
+    font-family: -apple-system,BlinkMacSystemFont,'Segoe UI','Roboto','Oxygen','Ubuntu','Fira Sans','Droid Sans','Helvetica Neue',sans-serif;
+  }
+}
+
+@supports (-ms-ime-align:auto) {
+  .emotion-1 {
+    font-family: -apple-system,BlinkMacSystemFont,'Segoe UI','Roboto','Oxygen','Ubuntu','Fira Sans','Droid Sans','Helvetica Neue',sans-serif;
+  }
+}
+
+.emotion-0 {
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 1.1428571428571428;
+  color: #42526E;
+}
+
+@media screen and (-ms-high-contrast:none) {
+  .emotion-0 {
+    line-height: 1.2857142857142858;
+  }
+}
+
+@supports (-ms-ime-align:auto) {
+  .emotion-0 {
+    line-height: 1.2857142857142858;
+  }
+}
+
+@-moz-document url-prefix()  {
+  .emotion-0 {
+    line-height: 1.2857142857142858;
+  }
+}
+
+.emotion-2 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  margin-left: 16px;
+  color: #42526E;
+}
+
+<GoToItem
+  goTo="another-view"
+  id="another-view-item"
+  navigationViewController={
+    Object {
+      "setView": [MockFunction],
+      "state": Object {},
+    }
+  }
+  text="Another View"
+>
+  <ConnectedItem
+    after={[Function]}
+    afterGoTo="another-view"
+    id="another-view-item"
+    onClick={[Function]}
+    spinnerDelay={200}
+    text="Another View"
+  >
+    <WithAnalyticsContext(WithAnalyticsEvents(Item))
+      after={[Function]}
+      afterGoTo="another-view"
+      id="another-view-item"
+      onClick={[Function]}
+      spinnerDelay={200}
+      text="Another View"
+    >
+      <AnalyticsContext
+        data={
+          Object {
+            "componentName": "item",
+          }
+        }
+      >
+        <WithAnalyticsEvents(Item)
+          after={[Function]}
+          afterGoTo="another-view"
+          id="another-view-item"
+          onClick={[Function]}
+          spinnerDelay={200}
+          text="Another View"
+        >
+          <AnalyticsContextConsumer
+            createEventMap={
+              Object {
+                "onClick": [Function],
+              }
+            }
+            wrappedComponentProps={
+              Object {
+                "after": [Function],
+                "afterGoTo": "another-view",
+                "id": "another-view-item",
+                "incomingView": undefined,
+                "onClick": [Function],
+                "spinnerDelay": 200,
+                "text": "Another View",
+              }
+            }
+          >
+            <Item
+              after={[Function]}
+              afterGoTo="another-view"
+              createAnalyticsEvent={[Function]}
+              id="another-view-item"
+              isSelected={false}
+              onClick={[Function]}
+              spacing="default"
+              spinnerDelay={200}
+              styles={[Function]}
+              text="Another View"
+            >
+              <InteractionStateManager>
+                <div
+                  className="emotion-5"
+                  onBlur={[Function]}
+                  onFocus={[Function]}
+                  onMouseDown={[Function]}
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  onMouseUp={[Function]}
+                  role="presentation"
+                >
+                  <WithTheme(ItemPrimitive)
+                    after={[Function]}
+                    afterGoTo="another-view"
+                    id="another-view-item"
+                    isActive={false}
+                    isFocused={false}
+                    isHover={false}
+                    isSelected={false}
+                    onClick={[Function]}
+                    spacing="default"
+                    spinnerDelay={200}
+                    styles={[Function]}
+                    text="Another View"
+                  >
+                    <Component
+                      after={[Function]}
+                      afterGoTo="another-view"
+                      id="another-view-item"
+                      isActive={false}
+                      isFocused={false}
+                      isHover={false}
+                      isSelected={false}
+                      onClick={[Function]}
+                      spacing="default"
+                      spinnerDelay={200}
+                      styles={[Function]}
+                      text="Another View"
+                      theme={Object {}}
+                    >
+                      <ItemPrimitive
+                        after={[Function]}
+                        afterGoTo="another-view"
+                        dataset={
+                          Object {
+                            "data-testid": "NavigationItem",
+                          }
+                        }
+                        id="another-view-item"
+                        isActive={false}
+                        isDragging={false}
+                        isFocused={false}
+                        isHover={false}
+                        isSelected={false}
+                        onClick={[Function]}
+                        spacing="default"
+                        spinnerDelay={200}
+                        styles={[Function]}
+                        text="Another View"
+                        theme={
+                          Object {
+                            "context": "container",
+                            "mode": Object {
+                              "contentNav": [Function],
+                              "globalItem": [Function],
+                              "globalNav": [Function],
+                              "heading": [Function],
+                              "item": [Function],
+                              "section": [Function],
+                              "separator": [Function],
+                              "skeletonItem": [Function],
+                            },
+                          }
+                        }
+                      >
+                        <ComponentSwitch
+                          as="button"
+                          className="emotion-3"
+                          dataset={
+                            Object {
+                              "data-testid": "NavigationItem",
+                            }
+                          }
+                          onClick={[Function]}
+                        >
+                          <button
+                            className="emotion-3"
+                            data-testid="NavigationItem"
+                            onClick={[Function]}
+                          >
+                            <div
+                              className="emotion-1"
+                            >
+                              <div
+                                className="emotion-0"
+                              >
+                                Another View
+                              </div>
+                            </div>
+                            <div
+                              className="emotion-2"
+                            >
+                              <After
+                                afterGoTo="another-view"
+                                isActive={false}
+                                isDragging={false}
+                                isFocused={false}
+                                isHover={false}
+                                isSelected={false}
+                                spacing="default"
+                                spinnerDelay={200}
+                              />
+                            </div>
+                          </button>
+                        </ComponentSwitch>
+                      </ItemPrimitive>
+                    </Component>
+                  </WithTheme(ItemPrimitive)>
+                </div>
+              </InteractionStateManager>
+            </Item>
+          </AnalyticsContextConsumer>
+        </WithAnalyticsEvents(Item)>
+      </AnalyticsContext>
+    </WithAnalyticsContext(WithAnalyticsEvents(Item))>
+  </ConnectedItem>
+</GoToItem>
+`;

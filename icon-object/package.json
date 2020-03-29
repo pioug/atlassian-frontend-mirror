@@ -1,0 +1,50 @@
+{
+  "name": "@atlaskit/icon-object",
+  "version": "5.0.3",
+  "description": "A React package that contains object icons",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": "https://bitbucket.org/atlassian/atlaskit-mk-2",
+  "license": "SEE LICENSE IN LICENSE",
+  "types": "cjs/index.d.ts",
+  "atlaskit:src": "src/index.ts",
+  "module": "cjs/index.js",
+  "main": "cjs/index.js",
+  "sideEffects": false,
+  "author": "Atlassian Pty Ltd",
+  "atlaskit": {
+    "name": "Icon Object"
+  },
+  "team": "Design System Team",
+  "scripts": {
+    "update": "ts-node --project build/cjs/tsconfig.json ./build/index.ts && yarn build:typescript:cjs",
+    "build:typescript:cjs": "NODE_ENV=production tsc --project build/cjs/tsconfig.json"
+  },
+  "dependencies": {
+    "@atlaskit/theme": "^9.5.1",
+    "tslib": "^1.9.3"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0",
+    "styled-components": "^3.2.6"
+  },
+  "devDependencies": {
+    "@atlaskit/build-utils": "^2.6.0",
+    "@atlaskit/button": "^13.3.9",
+    "@atlaskit/docs": "^8.4.0",
+    "@atlaskit/icon-build-process": "^0.1.2",
+    "@atlaskit/modal-dialog": "^10.5.4",
+    "@atlaskit/ssr": "^0.1.1",
+    "@atlaskit/textfield": "^3.1.9",
+    "@atlaskit/tooltip": "^15.2.5",
+    "enzyme": "^3.10.0",
+    "fs-extra": "^4.0.2",
+    "pkg-dir": "^4.2.0",
+    "react-dom": "^16.8.0"
+  },
+  "keywords": [
+    "atlaskit",
+    "ui"
+  ]
+}

@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ScreenTracker should render correctly 1`] = `
+<WithAnalyticsEvents(ScreenTrackerBase)
+  isVisible={false}
+  name="test"
+>
+  <AnalyticsContextConsumer
+    createEventMap={Object {}}
+    wrappedComponentProps={
+      Object {
+        "isVisible": false,
+        "name": "test",
+      }
+    }
+  >
+    <ScreenTrackerBase
+      createAnalyticsEvent={[Function]}
+      isVisible={false}
+      name="test"
+    />
+  </AnalyticsContextConsumer>
+</WithAnalyticsEvents(ScreenTrackerBase)>
+`;

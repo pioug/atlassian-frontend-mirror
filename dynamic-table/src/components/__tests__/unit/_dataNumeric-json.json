@@ -1,0 +1,122 @@
+[
+  {
+    "cells": [
+      {
+        "key": "empty1",
+        "content": "Empty String 1"
+      },
+      {
+        "key": "",
+        "content": ""
+      }
+    ]
+  },
+  {
+    "cells": [
+      {
+        "key": "one",
+        "content": "One"
+      },
+      {
+        "key": 1,
+        "content": 1
+      }
+    ]
+  },
+  {
+    "cells": [
+      {
+        "key": "string",
+        "content": "Sample String 1"
+      },
+      {
+        "key": "string",
+        "content": "string"
+      }
+    ]
+  },
+  {
+    "cells": [
+      {
+        "key": "zero",
+        "content": "Zero"
+      },
+      {
+        "key": 0,
+        "content": 0
+      }
+    ]
+  },
+  {
+    "cells": [
+      {
+        "key": "none",
+        "content": "Negative One"
+      },
+      {
+        "key": -1,
+        "content": -1
+      }
+    ]
+  },
+  {
+    "cells": [
+      {
+        "key": "string",
+        "content": "Sample String 2"
+      },
+      {
+        "key": "a string",
+        "content": "a string"
+      }
+    ]
+  },
+  {
+    "cells": [
+      {
+        "key": "space",
+        "content": "Single Space String"
+      },
+      {
+        "key": " ",
+        "content": " "
+      }
+    ]
+  },
+  {
+    "cells": [
+      {
+        "key": "number1",
+        "content": "String 1"
+      },
+      {
+        "key": "1",
+        "content": "1"
+      }
+    ]
+  },
+  {
+    "cells": [
+      {
+        "key": "number5",
+        "content": "String 5"
+      },
+      {
+        "key": "5",
+        "content": "5"
+      }
+    ]
+  },
+  {
+    "cells": [
+      {
+        "key": "number10",
+        "content": "String 10"
+      },
+      {
+        "key": "10",
+        "content": "10"
+      }
+    ]
+  }
+]

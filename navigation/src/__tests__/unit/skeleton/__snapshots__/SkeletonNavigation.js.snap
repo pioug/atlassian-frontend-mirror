@@ -1,0 +1,295 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`collapses its inner components 1`] = `
+<SkeletonNavigationOuter
+  isCollapsed={true}
+>
+  <SkeletonNavigationInner>
+    <HiddenWhenCollapsed
+      isCollapsed={true}
+    >
+      <SkeletonGlobalNavigation
+        isCollapsed={false}
+        theme={
+          Object {
+            "background": Object {
+              "primary": [Function],
+              "secondary": [Function],
+              "tertiary": [Function],
+            },
+            "dropdown": Object {
+              "active": Object {
+                "background": [Function],
+                "text": [Function],
+              },
+              "default": Object {
+                "background": [Function],
+              },
+              "dragging": Object {
+                "background": "#2684FF",
+              },
+              "focus": Object {
+                "outline": [Function],
+              },
+              "hover": Object {
+                "background": "rgba(9, 30, 66, 0.48)",
+              },
+              "selected": Object {
+                "background": [Function],
+                "text": "#DEEBFF",
+              },
+            },
+            "hasDarkmode": true,
+            "item": Object {
+              "active": Object {
+                "background": [Function],
+                "text": [Function],
+              },
+              "default": Object {
+                "background": "#0747A6",
+              },
+              "dragging": Object {
+                "background": "#2684FF",
+              },
+              "focus": Object {
+                "outline": [Function],
+              },
+              "hover": Object {
+                "background": [Function],
+              },
+              "selected": Object {
+                "background": [Function],
+                "text": "#DEEBFF",
+              },
+            },
+            "keyline": [Function],
+            "scrollBar": Object {
+              "default": Object {
+                "background": [Function],
+              },
+              "hover": Object {
+                "background": [Function],
+              },
+            },
+            "subText": [Function],
+            "text": [Function],
+          }
+        }
+      />
+    </HiddenWhenCollapsed>
+    <SkeletonContainerNavigation
+      containerHeaderComponent={[Function]}
+      isCollapsed={true}
+      theme={
+        Object {
+          "background": Object {
+            "primary": [Function],
+            "secondary": [Function],
+            "tertiary": [Function],
+          },
+          "dropdown": Object {
+            "active": Object {
+              "background": [Function],
+            },
+            "default": Object {
+              "background": [Function],
+            },
+            "dragging": Object {
+              "background": [Function],
+            },
+            "focus": Object {
+              "outline": [Function],
+            },
+            "hover": Object {
+              "background": [Function],
+            },
+            "selected": Object {
+              "background": "rgba(9, 30, 66, 0.04)",
+              "text": "#0052CC",
+            },
+          },
+          "item": Object {
+            "active": Object {
+              "background": [Function],
+            },
+            "default": Object {
+              "background": "transparent",
+            },
+            "dragging": Object {
+              "background": [Function],
+            },
+            "focus": Object {
+              "outline": [Function],
+            },
+            "hover": Object {
+              "background": [Function],
+            },
+            "selected": Object {
+              "background": "rgba(9, 30, 66, 0.04)",
+              "text": "#0052CC",
+            },
+          },
+          "keyline": [Function],
+          "scrollBar": Object {
+            "default": Object {
+              "background": [Function],
+            },
+            "hover": Object {
+              "background": [Function],
+            },
+          },
+          "subText": [Function],
+          "text": [Function],
+        }
+      }
+    />
+  </SkeletonNavigationInner>
+</SkeletonNavigationOuter>
+`;
+
+exports[`renders a skeleton representation of the navigation 1`] = `
+<SkeletonNavigationOuter
+  isCollapsed={false}
+>
+  <SkeletonNavigationInner>
+    <HiddenWhenCollapsed
+      isCollapsed={false}
+    >
+      <SkeletonGlobalNavigation
+        isCollapsed={false}
+        theme={
+          Object {
+            "background": Object {
+              "primary": [Function],
+              "secondary": [Function],
+              "tertiary": [Function],
+            },
+            "dropdown": Object {
+              "active": Object {
+                "background": [Function],
+                "text": [Function],
+              },
+              "default": Object {
+                "background": [Function],
+              },
+              "dragging": Object {
+                "background": "#2684FF",
+              },
+              "focus": Object {
+                "outline": [Function],
+              },
+              "hover": Object {
+                "background": "rgba(9, 30, 66, 0.48)",
+              },
+              "selected": Object {
+                "background": [Function],
+                "text": "#DEEBFF",
+              },
+            },
+            "hasDarkmode": true,
+            "item": Object {
+              "active": Object {
+                "background": [Function],
+                "text": [Function],
+              },
+              "default": Object {
+                "background": "#0747A6",
+              },
+              "dragging": Object {
+                "background": "#2684FF",
+              },
+              "focus": Object {
+                "outline": [Function],
+              },
+              "hover": Object {
+                "background": [Function],
+              },
+              "selected": Object {
+                "background": [Function],
+                "text": "#DEEBFF",
+              },
+            },
+            "keyline": [Function],
+            "scrollBar": Object {
+              "default": Object {
+                "background": [Function],
+              },
+              "hover": Object {
+                "background": [Function],
+              },
+            },
+            "subText": [Function],
+            "text": [Function],
+          }
+        }
+      />
+    </HiddenWhenCollapsed>
+    <SkeletonContainerNavigation
+      containerHeaderComponent={[Function]}
+      isCollapsed={false}
+      theme={
+        Object {
+          "background": Object {
+            "primary": [Function],
+            "secondary": [Function],
+            "tertiary": [Function],
+          },
+          "dropdown": Object {
+            "active": Object {
+              "background": [Function],
+            },
+            "default": Object {
+              "background": [Function],
+            },
+            "dragging": Object {
+              "background": [Function],
+            },
+            "focus": Object {
+              "outline": [Function],
+            },
+            "hover": Object {
+              "background": [Function],
+            },
+            "selected": Object {
+              "background": "rgba(9, 30, 66, 0.04)",
+              "text": "#0052CC",
+            },
+          },
+          "item": Object {
+            "active": Object {
+              "background": [Function],
+            },
+            "default": Object {
+              "background": "transparent",
+            },
+            "dragging": Object {
+              "background": [Function],
+            },
+            "focus": Object {
+              "outline": [Function],
+            },
+            "hover": Object {
+              "background": [Function],
+            },
+            "selected": Object {
+              "background": "rgba(9, 30, 66, 0.04)",
+              "text": "#0052CC",
+            },
+          },
+          "keyline": [Function],
+          "scrollBar": Object {
+            "default": Object {
+              "background": [Function],
+            },
+            "hover": Object {
+              "background": [Function],
+            },
+          },
+          "subText": [Function],
+          "text": [Function],
+        }
+      }
+    />
+  </SkeletonNavigationInner>
+</SkeletonNavigationOuter>
+`;

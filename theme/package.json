@@ -1,0 +1,57 @@
+{
+  "name": "@atlaskit/theme",
+  "version": "9.5.2",
+  "description": "The Atlaskit theme framework",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "license": "Apache-2.0",
+  "module": "dist/esm/index.js",
+  "main": "dist/cjs/index.js",
+  "types": "dist/cjs/index.d.ts",
+  "atlaskit:src": "src/index.ts",
+  "sideEffects": false,
+  "author": "Atlassian Pty Ltd",
+  "atlaskit": {
+    "name": "Theme"
+  },
+  "team": "Design System Team",
+  "repository": "https://bitbucket.org/atlassian/atlaskit-mk-2",
+  "dependencies": {
+    "exenv": "^1.2.2",
+    "prop-types": "^15.5.10",
+    "tslib": "^1.9.3"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0",
+    "styled-components": "^3.2.6"
+  },
+  "devDependencies": {
+    "@atlaskit/build-utils": "^2.2.5",
+    "@atlaskit/button": "^13.3.7",
+    "@atlaskit/docs": "^8.3.2",
+    "@atlaskit/lozenge": "^9.1.4",
+    "@atlaskit/section-message": "^4.1.5",
+    "@atlaskit/ssr": "^0.1.1",
+    "@atlaskit/visual-regression": "^0.1.9",
+    "@emotion/core": "^10.0.9",
+    "@testing-library/react": "^8.0.1",
+    "@types/color": "^3.0.0",
+    "color": "^3.0.0",
+    "enzyme": "^3.10.0",
+    "react-dom": "^16.8.0",
+    "wait-for-expect": "^1.2.0"
+  },
+  "keywords": [
+    "atlaskit",
+    "css",
+    "theme",
+    "react",
+    "ui"
+  ],
+  "techstack": {
+    "@atlassian/frontend": {
+      "tree-shaking": []
+    }
+  }
+}

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 45.1 (43504) - http://www.bohemiancoding.com/sketch -->
+    <title>icons/documents</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Global" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icons/documents" fill="#42526E">
+            <path d="M6,17 L5,17 L5,7 L6,7 L6,5 L5,5 C3.895,5 3,5.895 3,7 L3,17 C3,18.105 3.895,19 5,19 L6,19 L6,17 Z" id="Fill-4"></path>
+            <path d="M19,10.0052 L19,19.0002 L9,19.0002 L9,5.0002 L14.99,5.0002 L14.99,7.4892 C14.99,8.3182 15.661,8.9892 16.49,8.9892 L20.99,8.9892 L20.99,8.4682 C20.99,8.1712 20.858,7.8902 20.631,7.7002 L15.557,3.4642 C15.197,3.1642 14.744,3.0002 14.275,3.0002 L9,3.0002 C7.895,3.0002 7,3.8952 7,5.0002 L7,19.0002 C7,20.1042 7.895,21.0002 9,21.0002 L19,21.0002 C20.105,21.0002 21,20.1042 21,19.0002 L21,10.0052 L19,10.0052 Z" id="Fill-1"></path>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 45.1 (43504) - http://www.bohemiancoding.com/sketch -->
+    <title>icons/audio</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Global" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icons/audio" fill-rule="nonzero" fill="#42526E">
+            <path d="M19,6.67298232 L19,14.9 L19,15.2 C19,16.7463973 17.7463973,18 16.2,18 L15.8,18 C14.2536027,18 13,16.7463973 13,15.2 L13,14.8 C13,13.2536027 14.2536027,12 15.8,12 L15.8,12 L16.2,12 L16.2,12 C16.477989,12 16.7465162,12.040511 17,12.1159515 L17,8.24223259 L11,8.86334889 L11,15.9 L11,16.2 C11,17.7463973 9.7463973,19 8.2,19 L7.8,19 L7.8,19 C6.2536027,19 5,17.7463973 5,16.2 L5,15.8 L5,15.8 C5,14.2536027 6.2536027,13 7.8,13 L7.8,13 L8.2,13 L8.2,13 C8.47798904,13 8.74651623,13.040511 9,13.1159515 L9,8.19057923 L9,6.65403536 C9,6.27338459 9.31024575,5.93268972 9.71917534,5.89035759 L18.2808247,5.00406093 C18.6780142,4.96294411 19,5.23874117 19,5.61884153 L19,6.67298232 Z" id="Combined-Shape"></path>
+        </g>
+    </g>
+</svg>

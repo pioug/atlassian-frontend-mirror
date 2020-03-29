@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 45.1 (43504) - http://www.bohemiancoding.com/sketch -->
+    <title>jira/labs</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="JIRA" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="jira/labs" fill="#42526E">
+            <path d="M10.9354703,6 L10.9354703,10.738006 L6.9972298,19 L17.0023186,19 L13.0640781,10.738006 L13.0640781,6 L10.9354703,6 Z M18.8077038,18.1394279 C19.2829846,19.1365147 18.8599774,20.3301044 17.8628906,20.8053852 C17.5940975,20.9335107 17.3000867,21 17.0023186,21 L6.9972298,21 C5.8926603,21 4.9972298,20.1045695 4.9972298,19 C4.9972298,18.7022318 5.06371912,18.4082211 5.1918446,18.1394279 L8.93547031,10.2857143 L8.93547031,4 L15.0640781,4 L15.0640781,10.2857143 L18.8077038,18.1394279 Z" id="Combined-Shape" fill-rule="nonzero"></path>
+            <polygon id="Rectangle-3-Copy" points="9 13 15 13 18 20 6 20"></polygon>
+            <rect id="Rectangle" x="8" y="3" width="8" height="2" rx="1"></rect>
+        </g>
+    </g>
+</svg>

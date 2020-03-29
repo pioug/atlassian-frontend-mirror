@@ -1,0 +1,182 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`@atlaskit/page-header should render correctly 1`] = `
+.c0 {
+  margin: 24px 0 16px 0;
+}
+
+.c3 {
+  font-size: 1.7142857142857142em;
+  font-style: inherit;
+  line-height: 1.1666666666666667;
+  color: #172B4D;
+  font-weight: 500;
+  -webkit-letter-spacing: -0.01em;
+  -moz-letter-spacing: -0.01em;
+  -ms-letter-spacing: -0.01em;
+  letter-spacing: -0.01em;
+  margin-top: 40px;
+  line-height: 32px;
+  margin-top: 0;
+}
+
+.c1 {
+  -webkit-align-items: flex-start;
+  -webkit-box-align: flex-start;
+  -ms-flex-align: flex-start;
+  align-items: flex-start;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.c2 {
+  -webkit-flex: 1 0 auto;
+  -ms-flex: 1 0 auto;
+  flex: 1 0 auto;
+  margin-bottom: 8px;
+  max-width: 100%;
+  min-width: 0;
+}
+
+.c4 {
+  -webkit-flex: 0 0 auto;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+  margin-bottom: 8px;
+  margin-left: auto;
+  max-width: 100%;
+  padding-left: 32px;
+  white-space: nowrap;
+}
+
+.c4 > {
+  text-align: right;
+}
+
+.c5 {
+  margin-top: 16px;
+}
+
+<div
+  className="c0"
+>
+  <div>
+    Breadcrumb
+  </div>
+  <div
+    className="c1"
+  >
+    <div
+      className="c2"
+    >
+      <h1
+        className="c3"
+      >
+        Test
+      </h1>
+    </div>
+    <div
+      className="c4"
+    >
+      <div>
+        Action
+      </div>
+    </div>
+  </div>
+  <div
+    className="c5"
+  >
+     
+    <div>
+      Bar
+    </div>
+     
+  </div>
+</div>
+`;
+
+exports[`@atlaskit/page-header should render correctly with disableTitleStyles prop 1`] = `
+.c0 {
+  margin: 24px 0 16px 0;
+}
+
+.c1 {
+  -webkit-align-items: flex-start;
+  -webkit-box-align: flex-start;
+  -ms-flex-align: flex-start;
+  align-items: flex-start;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.c2 {
+  -webkit-flex: 1 0 auto;
+  -ms-flex: 1 0 auto;
+  flex: 1 0 auto;
+  margin-bottom: 8px;
+  max-width: 100%;
+  min-width: 0;
+}
+
+.c3 {
+  -webkit-flex: 0 0 auto;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+  margin-bottom: 8px;
+  margin-left: auto;
+  max-width: 100%;
+  padding-left: 32px;
+  white-space: nowrap;
+}
+
+.c3 > {
+  text-align: right;
+}
+
+.c4 {
+  margin-top: 16px;
+}
+
+<div
+  className="c0"
+>
+  <div>
+    Breadcrumb
+  </div>
+  <div
+    className="c1"
+  >
+    <div
+      className="c2"
+    >
+      Test
+    </div>
+    <div
+      className="c3"
+    >
+      <div>
+        Action
+      </div>
+    </div>
+  </div>
+  <div
+    className="c4"
+  >
+     
+    <div>
+      Bar
+    </div>
+     
+  </div>
+</div>
+`;

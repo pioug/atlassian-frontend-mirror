@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MenuSection should render Section with correct props 1`] = `
+<Section
+  alwaysShowScrollHint={false}
+  shouldGrow={true}
+  styles={[Function]}
+>
+  <Component />
+</Section>
+`;
+
+exports[`MenuSection should render children with section styles containing paddingBottom 1`] = `
+.emotion-0 {
+  box-sizing: border-box;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-bottom: 12px;
+}
+
+<MyHeader
+  MenuSectionCss={
+    Object {
+      "boxSizing": "border-box",
+      "paddingBottom": 12,
+      "paddingLeft": "16px",
+      "paddingRight": "16px",
+    }
+  }
+  className="emotion-0"
+>
+  <div
+    className="emotion-0"
+  >
+    My Header
+  </div>
+</MyHeader>
+`;

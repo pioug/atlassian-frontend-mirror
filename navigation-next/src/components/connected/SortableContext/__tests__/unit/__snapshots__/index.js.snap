@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SortableContext should render a DragDropContext Component 1`] = `
+<DragDropContext
+  onDragEnd={[Function]}
+  onDragStart={[Function]}
+  onDragUpdate={[Function]}
+>
+  <div>
+    Children
+  </div>
+</DragDropContext>
+`;

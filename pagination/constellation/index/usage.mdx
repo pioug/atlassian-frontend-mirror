@@ -1,0 +1,35 @@
+---
+order: 1
+---
+
+## Usage
+
+Use pagination when there are too many results to show on the one page, so the user isn't overwhelmed by too much information.
+
+Pagination is commonly used for things like table listings, search results, and directories. What constitutes “too many results” can be influenced by:
+
+- system load times
+- amount of data in each entry
+- screen space
+
+Pagination is a control that sits at the bottom of the page and allows the user to easily move between each page.
+
+## Anatomy
+
+![Pagination anatomy](./images/pagination-anatomy.png)
+
+1. **Previous and next:** Navigate backward and forwards from the currently selected page.
+2. **Page navigation:** Navigate to a specific page by selecting the page number.
+3. **Truncation:** When a threshold of pages is reached, the list is truncated using an ellipsis.
+
+## Best practices
+
+- For smaller screens, it's best to show a maximum of 7 pages (including the ellipsis).
+- For larger screens, show a maximum of 14 pages (including the ellipsis).
+
+![Pagination page limits](./images/pagination-page-limits.png)
+
+## Related
+
+- Each page in the pagination control is a [button link](/components/button) that allows the them to quickly navigate through the results.
+- This component is mostly used with tables, see [dynamic-table](/components/dynamic-table) for example.

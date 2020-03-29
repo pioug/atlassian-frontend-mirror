@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render the component 1`] = `
+<styled.td
+  aria-selected="false"
+  onClick={[Function]}
+  onMouseDown={[Function]}
+  onMouseUp={[Function]}
+  role="gridcell"
+>
+  <styled.div
+    disabled={false}
+    focused={false}
+    isActive={false}
+    isToday={false}
+    previouslySelected={false}
+    selected={false}
+    sibling={false}
+  >
+    15
+  </styled.div>
+</styled.td>
+`;

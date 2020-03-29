@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51 (57462) - http://www.bohemiancoding.com/sketch -->
+    <title>layout-three-even</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="layout-three-even" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M5,5 L7,5 C7.55228475,5 8,5.44771525 8,6 L8,18 C8,18.5522847 7.55228475,19 7,19 L5,19 C4.44771525,19 4,18.5522847 4,18 L4,6 C4,5.44771525 4.44771525,5 5,5 Z M11,5 L13,5 C13.5522847,5 14,5.44771525 14,6 L14,18 C14,18.5522847 13.5522847,19 13,19 L11,19 C10.4477153,19 10,18.5522847 10,18 L10,6 C10,5.44771525 10.4477153,5 11,5 Z M17,5 L19,5 C19.5522847,5 20,5.44771525 20,6 L20,18 C20,18.5522847 19.5522847,19 19,19 L17,19 C16.4477153,19 16,18.5522847 16,18 L16,6 C16,5.44771525 16.4477153,5 17,5 Z" id="Icon" fill="#42526E"></path>
+    </g>
+</svg>

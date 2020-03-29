@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 45.1 (43504) - http://www.bohemiancoding.com/sketch -->
+    <title>icons/file</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Global" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icons/file" fill="#42526E">
+            <path d="M17,10.0052 L17,19.0002 L7,19.0002 L7,5.0002 L12.99,5.0002 L12.99,7.4892 C12.99,8.3182 13.661,8.9892 14.49,8.9892 L18.99,8.9892 L18.99,8.4682 C18.99,8.1712 18.858,7.8902 18.631,7.7002 L13.557,3.4642 C13.197,3.1642 12.744,3.0002 12.275,3.0002 L7,3.0002 C5.895,3.0002 5,3.8952 5,5.0002 L5,19.0002 C5,20.1042 5.895,21.0002 7,21.0002 L17,21.0002 C18.105,21.0002 19,20.1042 19,19.0002 L19,10.0052 L17,10.0052 Z" id="Fill-1"></path>
+            <rect id="Rectangle-34" x="8" y="12" width="8" height="2" rx="1"></rect>
+            <rect id="Rectangle-34-Copy" x="8" y="15" width="4" height="2" rx="1"></rect>
+        </g>
+    </g>
+</svg>

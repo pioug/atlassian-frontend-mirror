@@ -1,0 +1,64 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SortableItem should not trigger onClick if the item is dragged 1`] = `
+<WithAnalyticsContext(WithAnalyticsEvents(Item))
+  draggableProps={
+    Object {
+      "anotherProp": "bar",
+      "mySpecialProp": "foo",
+      "tabIndex": 0,
+    }
+  }
+  id="my-item"
+  innerRef={Object {}}
+  isDragging={true}
+  styles={[Function]}
+  text="My item"
+/>
+`;
+
+exports[`SortableItem should render an Item component 1`] = `
+<WithAnalyticsContext(WithAnalyticsEvents(Item))
+  draggableProps={
+    Object {
+      "anotherProp": "bar",
+      "mySpecialProp": "foo",
+      "tabIndex": 0,
+    }
+  }
+  id="my-item"
+  innerRef={Object {}}
+  isDragging={false}
+  onClick={[Function]}
+  styles={[Function]}
+  text="My item"
+/>
+`;
+
+exports[`SortableItem should supply some extra styling: not dragging 1`] = `
+Object {
+  "itemBase": Object {
+    "boxShadow": undefined,
+    "cursor": "pointer",
+  },
+}
+`;
+
+exports[`SortableItem should supply some extra styling: while dragging 1`] = `
+Object {
+  "itemBase": Object {
+    "boxShadow": "rgba(9, 30, 66, 0.31) 0px 4px 8px -2px, rgba(9, 30, 66, 0.31) 0px 0px 1px",
+    "cursor": "grabbing",
+  },
+}
+`;
+
+exports[`SortableItem should wrap Item with a Draggable component 1`] = `
+<MockDraggable
+  disableInteractiveElementBlocking={true}
+  draggableId="my-item"
+  index={0}
+>
+  <Component />
+</MockDraggable>
+`;

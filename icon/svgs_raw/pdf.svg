@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 45.1 (43504) - http://www.bohemiancoding.com/sketch -->
+    <title>icons/pdf</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Global" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icons/pdf">
+            <rect id="Rectangle-39" fill="#42526E" x="5" y="4" width="14" height="16" rx="2"></rect>
+            <rect id="Rectangle-3-Copy-2" fill="#79F2C0" x="8" y="8" width="8" height="2" rx="1"></rect>
+            <path d="M15.5124509,16 L13.4885321,16 C13.2182176,16 13,15.7777733 13,15.5034936 L13,11.4974074 C13,11.2221267 13.2182176,10.9999 13.4885321,10.9999 L15.5124509,10.9999 C15.7817824,10.9999 16,11.2221267 16,11.4974074 L16,15.5034936 C16,15.7777733 15.7817824,16 15.5124509,16" id="Fill-11" fill="#79F2C0"></path>
+            <rect id="Rectangle-33" fill="#79F2C0" x="8" y="11" width="4" height="2" rx="1"></rect>
+            <rect id="Rectangle-33-Copy" fill="#79F2C0" x="8" y="14" width="4" height="2" rx="1"></rect>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,138 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ItemPrimitiveBase should allow applying custom styles 1`] = `
+.emotion-5.emotion-5 {
+  color: itemBase-fake-color;
+}
+
+.emotion-0 {
+  color: beforeWrapper-fake-color;
+}
+
+.emotion-3 {
+  color: contentWrapper-fake-color;
+}
+
+.emotion-1 {
+  color: textWrapper-fake-color;
+}
+
+.emotion-2 {
+  color: subTextWrapper-fake-color;
+}
+
+.emotion-4 {
+  color: afterWrapper-fake-color;
+}
+
+<ItemPrimitive
+  after={[Function]}
+  before={[Function]}
+  dataset={
+    Object {
+      "data-testid": "NavigationItem",
+    }
+  }
+  isActive={false}
+  isDragging={false}
+  isFocused={false}
+  isHover={false}
+  isSelected={false}
+  spacing="default"
+  styles={[Function]}
+  subText="subtext"
+  text="item content"
+  theme={
+    Object {
+      "context": "default",
+      "mode": Object {
+        "item": [MockFunction] {
+          "calls": Array [
+            Array [
+              Object {
+                "isActive": false,
+                "isDragging": false,
+                "isFocused": false,
+                "isHover": false,
+                "isSelected": false,
+                "spacing": "default",
+              },
+            ],
+          ],
+          "results": Array [
+            Object {
+              "type": "return",
+              "value": Object {
+                "default": Object {},
+              },
+            },
+          ],
+        },
+      },
+    }
+  }
+>
+  <ComponentSwitch
+    as="div"
+    className="emotion-5"
+    dataset={
+      Object {
+        "data-testid": "NavigationItem",
+      }
+    }
+  >
+    <div
+      className="emotion-5"
+      data-testid="NavigationItem"
+    >
+      <div
+        className="emotion-0"
+      >
+        <BeforeOrAfterComponent
+          isActive={false}
+          isDragging={false}
+          isFocused={false}
+          isHover={false}
+          isSelected={false}
+          spacing="default"
+        >
+          <div>
+            Before/After Component 
+            default
+          </div>
+        </BeforeOrAfterComponent>
+      </div>
+      <div
+        className="emotion-3"
+      >
+        <div
+          className="emotion-1"
+        >
+          item content
+        </div>
+        <div
+          className="emotion-2"
+        >
+          subtext
+        </div>
+      </div>
+      <div
+        className="emotion-4"
+      >
+        <AfterComponent
+          isActive={false}
+          isDragging={false}
+          isFocused={false}
+          isHover={false}
+          isSelected={false}
+          spacing="default"
+        >
+          <div>
+            after
+          </div>
+        </AfterComponent>
+      </div>
+    </div>
+  </ComponentSwitch>
+</ItemPrimitive>
+`;

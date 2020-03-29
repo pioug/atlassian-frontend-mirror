@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 47.1 (45422) - http://www.bohemiancoding.com/sketch -->
+    <title>editor/underline</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Desktop" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="editor/underline" fill-rule="nonzero" fill="#42526E">
+            <path d="M7,7 L7,7 C7,6.44771525 7.44771525,6 8,6 L8,6 L8,6 C8.55228475,6 9,6.44771525 9,7 L9,7 L9,11 C9,12.8839334 9.93005548,14 12,14 C14.0699445,14 15,12.8839334 15,11 L15,7 C15,6.44771525 15.4477153,6 16,6 C16.5522847,6 17,6.44771525 17,7 L17,7 L17,11 C17,13.9160666 15.2633888,16 12,16 C8.73661118,16 7,13.9160666 7,11 L7,7 Z M7,17 L17,17 C17.5522847,17 18,17.4477153 18,18 C18,18.5522847 17.5522847,19 17,19 L7,19 C6.44771525,19 6,18.5522847 6,18 C6,17.4477153 6.44771525,17 7,17 L7,17 Z" id="underline"></path>
+        </g>
+    </g>
+</svg>

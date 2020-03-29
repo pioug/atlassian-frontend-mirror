@@ -1,0 +1,61 @@
+Atlassian Design Guidelines
+License Agreement
+
+License Grant.
+Subject to the terms of this License Agreement, Atlassian Pty Lty ("Atlassian") grants you a limited, worldwide,
+royalty-free, non-assignable, and non-exclusive license to use the Atlassian Design Guidelines ("ADG") solely in
+connection with creating, testing, and distributing plugins, extensions, add-ons or other software products or services
+that interoperate or are integrated with Atlassian's software and hosted products ("Add-Ons").
+
+License Restrictions.
+You may not use the ADG for any purpose not expressly permitted by this License Agreement.  You may not modify, adapt,
+redistribute, decompile, reverse engineer, disassemble, or create derivative works of the ADG or any part of the ADG.
+
+IP Ownership in ADG.
+You agree that Atlassian or third parties own all legal right, title and interest in and to the ADG, including any
+Intellectual Property Rights that subsist in the ADG. "Intellectual Property Rights" means any and all rights under
+patent law, copyright law, trade secret law, trademark law, and any and all other proprietary rights.  Atlassian
+reserves all rights not expressly granted to you.
+
+Term and Termination.
+Atlassian may terminate this Agreement:  (a) if you breach any of the terms of this Agreement or (b) if Atlassian
+ceases to offer ADG generally.  You may also terminate this Agreement at any time. Upon termination, your ADG license
+will end.  This means that you must cease using ADG and delete all copies of ADG.  From a legal perspective, everything
+in this Agreement other than your license right will survive this Agreement's termination.  For the avoidance of doubt,
+you may continue to distribute Add-Ons that you developed under this Agreement prior to termination.
+
+No Warranty.
+THE ADG is provided "AS IS" and "WITH ALL FAULTS". ATLASSIAN AND ITS THIRD PARTY LICENSORS DISCLAIM ALL
+REPRESENTATIONS, WARRANTIES AND GUARANTEES, WHETHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING IMPLIED WARRANTIES OF
+MERCHANTABILITY, TITLE, NON-INFRINGEMENT AND FITNESS FOR ANY PURPOSE. ATLASSIAN MAKES NO REPRESENTATION, WARRANTY OR
+GUARANTEE RELATED TO RELIABILITY, ACCURACY, OR COMPLETENESS OF THE ADG OR THAT YOUR USE OF THE ADG WILL BE SECURE,
+TIMELY, UNINTERRUPTED OR ERROR-FREE. THE ADG MAY NOT MEET YOUR REQUIREMENTS OR EXPECTATIONS.
+
+Limitation of Liability.
+IN NO EVENT SHALL ATLASSIAN BE LIABLE FOR ANY LOSS OF USE, LOST DATA, FAILURE OF SECURITY MECHANISMS, INTERRUPTION OF
+BUSINESS, OR ANY INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES OF ANY KIND (INCLUDING LOST PROFITS OR LOST
+DATA), REGARDLESS OF THE FORM OF ACTION, WHETHER IN CONTRACT, TORT (INCLUDING NEGLIGENCE), STRICT LIABILITY OR
+OTHERWISE, EVEN IF INFORMED OF THE POSSIBILITY OF SUCH DAMAGES IN ADVANCE. ATLASSIAN SHALL NOT BE LIABLE FOR ANY
+DAMAGES THAT YOU MAY SUFFER IN CONNECTION WITH FAILURE IN THE PERFORMANCE OF THE ADG. NOTWITHSTANDING ANY OTHER
+PROVISION OF THIS AGREEMENT, ATLASSIAN'S ENTIRE LIABILITY TO YOU UNDER THIS AGREEMENT SHALL NOT EXCEED FIVE HUNDRED US
+DOLLARS ($500). THE ABOVE WARRANTY DISCLAIMERS AND LIMITATIONS OF LIABILITY APPLY TO THE MAXIMUM EXTENT PERMITTED BY
+LAW, BUT YOU MAY HAVE OTHER STATUTORY RIGHTS, WHICH THIS AGREEMENT CANNOT CHANGE. The limitations in this Section 6
+will survive and apply even if any limited remedy specified in this Agreement is found to have failed of its essential
+purpose.
+
+Responsibility for Your Add-Ons; Indemnification.
+You are solely responsible for your Add-Ons, your use of ADG, and your compliance with this Agreement. You agree to
+indemnify, defend and hold Atlassian harmless from and against any and all claims, costs, damages, losses, liabilities
+and expenses (including reasonable attorneys' fees and costs) arising out of any claim relating to (a) your Add-Ons,
+(b) your use of the ADG or (c) your breach of this Agreement.  Atlassian may participate in defending the claim at its
+own expense. You may not settle any claim without Atlassian's prior written consent. If you distribute your Add-Ons to
+others, you agree to require the end users to agree that Atlassian has no liability, warranty, or support or other
+obligations related to your Add-Ons.
+
+General.
+This Agreement will be governed by and construed in accordance with the laws of the State of California, excluding
+conflicts of law rules and principles. Each party submits to the personal and exclusive jurisdiction of the federal or
+state courts located in San Francisco County, California. Nothing in this Agreement limits Atlassian's rights to seek
+equitable relief.
+
+Last Updated: February 3, 2014

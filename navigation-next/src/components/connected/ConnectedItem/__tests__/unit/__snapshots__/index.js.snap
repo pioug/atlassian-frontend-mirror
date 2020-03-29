@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ConnectedItem should render a GoToItem if goTo prop exists 1`] = `
+<WithNavigationViewController(GoToItem)
+  goTo="another-view"
+  id="my-item"
+  text="My item"
+/>
+`;
+
+exports[`ConnectedItem should render a presentational Item if goTo prop does NOT exist 1`] = `
+<WithAnalyticsContext(WithAnalyticsEvents(Item))
+  id="my-item"
+  text="My item"
+/>
+`;

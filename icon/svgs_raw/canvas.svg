@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 45.1 (43504) - http://www.bohemiancoding.com/sketch -->
+    <title>icons/canvas</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Global" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icons/canvas" fill="#42526E">
+            <path d="M10.2499706,19 L9.23,21.4616 C9.019,21.9716 8.438,22.2156 7.924,22.0016 C7.413,21.7906 7.169,21.2096 7.383,20.6966 L8.08563232,19 L10.2499706,19 Z" id="Combined-Shape"></path>
+            <path d="M15.6759797,19 L16.378,20.6966 C16.59,21.2056 16.351,21.7896 15.837,22.0016 C15.327,22.2136 14.744,21.9746 14.531,21.4616 L13.5119171,19 L15.6759797,19 Z" id="Combined-Shape"></path>
+            <path d="M11,2.99895656 C11,2.44724809 11.4438648,2 12,2 C12.5522847,2 13,2.44266033 13,2.99895656 L13,5 L11,5 L11,2.99895656 Z" id="Rectangle-28" fill-rule="nonzero"></path>
+            <path d="M8,15.9972399 C8,15.9990346 15.9914698,16 15.9914698,16 C15.996113,16 16,7.00276013 16,7.00276013 C16,7.00096545 8.0085302,7 8.0085302,7 C8.003887,7 8,15.9972399 8,15.9972399 Z M6,7.00276013 C6,5.89666625 6.90195036,5 8.0085302,5 L15.9914698,5 C17.1007504,5 18,5.89354265 18,7.00276013 L18,15.9972399 C18,17.1033337 17.0980496,18 15.9914698,18 L8.0085302,18 C6.8992496,18 6,17.1064574 6,15.9972399 L6,7.00276013 Z" id="Rectangle-3" fill-rule="nonzero"></path>
+            <rect id="Rectangle-24" x="5" y="16" width="14" height="2" rx="1"></rect>
+            <rect id="Rectangle-24-Copy" x="5" y="5" width="14" height="2" rx="1"></rect>
+        </g>
+    </g>
+</svg>

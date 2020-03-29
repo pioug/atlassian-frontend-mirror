@@ -1,0 +1,47 @@
+{
+  "children": [
+    {
+      "id": "1",
+      "content": {
+        "title": "First top-level entry",
+        "numbering": "1"
+      },
+      "hasChildren": true,
+      "children": [
+        {
+          "id": "1.1.",
+          "content": {
+            "title": "First child",
+            "numbering": "1.1"
+          },
+          "hasChildren": false
+        },
+        {
+          "id": "1.2",
+          "content": {
+            "title": "Second child",
+            "numbering": "1.2"
+          },
+          "hasChildren": true,
+          "children": [
+            {
+              "id": "1.2.1",
+              "content": {
+                "title": "First grandchild",
+                "numbering": "1.2.1"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "content": {
+        "title": "Second top-level entry",
+        "numbering": "2"
+      },
+      "hasChildren": false
+    }
+  ]
+}

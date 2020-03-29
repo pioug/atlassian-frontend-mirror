@@ -1,0 +1,54 @@
+{
+  "name": "@atlaskit/inline-dialog",
+  "version": "12.1.11",
+  "description": "An inline dialog is a pop-up container for small amounts of information. It can also contain controls",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "license": "Apache-2.0",
+  "types": "dist/cjs/index.d.ts",
+  "module": "dist/esm/index.js",
+  "main": "dist/cjs/index.js",
+  "atlaskit:src": "src/index.ts",
+  "atlaskit:designLink": "https://atlassian.design/guidelines/product/components/inline-dialog",
+  "sideEffects": false,
+  "author": "Atlassian Pty Ltd",
+  "atlaskit": {
+    "name": "Inline dialog"
+  },
+  "team": "Design System Team",
+  "repository": "https://bitbucket.org/atlassian/atlaskit-mk-2",
+  "dependencies": {
+    "@atlaskit/analytics-next": "^6.3.5",
+    "@atlaskit/popper": "^3.1.11",
+    "@atlaskit/theme": "^9.5.1",
+    "react-node-resolver": "^1.0.1",
+    "tslib": "^1.9.3"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0",
+    "styled-components": "^3.2.6"
+  },
+  "devDependencies": {
+    "@atlaskit/build-utils": "^2.2.7",
+    "@atlaskit/button": "^13.3.9",
+    "@atlaskit/datetime-picker": "^9.2.8",
+    "@atlaskit/docs": "^8.4.0",
+    "@atlaskit/icon": "^20.1.0",
+    "@atlaskit/select": "^11.0.9",
+    "@atlaskit/single-select": "^9.0.1",
+    "@atlaskit/ssr": "^0.1.1",
+    "@atlaskit/visual-regression": "^0.1.9",
+    "@atlaskit/webdriver-runner": "^0.3.0",
+    "@testing-library/react": "^8.0.1",
+    "enzyme": "^3.10.0",
+    "react-dom": "^16.8.0",
+    "react-lorem-component": "^0.12.2",
+    "wait-for-expect": "^1.2.0"
+  },
+  "keywords": [
+    "atlaskit",
+    "react",
+    "ui"
+  ]
+}

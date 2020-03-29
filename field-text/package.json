@@ -1,0 +1,48 @@
+{
+  "name": "@atlaskit/field-text",
+  "version": "10.0.2",
+  "description": "Field Text Component",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "license": "Apache-2.0",
+  "module": "dist/esm/index.js",
+  "main": "dist/cjs/index.js",
+  "atlaskit:src": "src/index.js",
+  "atlaskit:designLink": "https://atlassian.design/guidelines/product/components/text-field",
+  "types": "index.d.ts",
+  "sideEffects": false,
+  "author": "Atlassian Pty Ltd",
+  "atlaskit": {
+    "name": "Field Text",
+    "internal": true,
+    "deprecated": "@atlaskit/field-text is deprecated in favor of @atlaskit/textfield."
+  },
+  "team": "Design System Team",
+  "repository": "https://bitbucket.org/atlassian/atlaskit-mk-2",
+  "dependencies": {
+    "@atlaskit/analytics-next": "^6.3.5",
+    "@atlaskit/field-base": "^14.0.2",
+    "@atlaskit/theme": "^9.5.1",
+    "@babel/runtime": "^7.0.0"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0",
+    "styled-components": "^3.2.6"
+  },
+  "devDependencies": {
+    "@atlaskit/build-utils": "^2.2.7",
+    "@atlaskit/button": "^13.3.9",
+    "@atlaskit/docs": "^8.4.0",
+    "@atlaskit/section-message": "^4.1.7",
+    "@atlaskit/ssr": "^0.1.1",
+    "enzyme": "^3.10.0",
+    "react-dom": "^16.8.0",
+    "wait-for-expect": "^1.2.0"
+  },
+  "keywords": [
+    "atlaskit",
+    "react",
+    "ui"
+  ]
+}

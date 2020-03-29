@@ -1,0 +1,61 @@
+---
+order: 2
+---
+
+## Usage
+Flags messages appear at the bottom left of the screen and overlay any content.
+
+There are 2 types of flag message: standard and bold.
+
+Standard flag messages are for general, event-driven messages that are dismissible. For example, as notifications for recent activity. One common use case for standard flags is as a notification about recent activity. This allows people to easily jump into a conversation or activity feed to get a quick update. In these cases, an avatar is used instead of the icon.
+
+![Flag message with avatar](../images/flag-avatar-attachment.png)
+
+Bold flag messages are non-dismissible and use color to indicate the type and severity of the message.
+
+## Anatomy
+![Flag message Anatomy](../images/flag-anatomy.png)
+
+1. **Icon (or avatar) and title:** Flag messages should always contain a concise title and an appropriate [icon](/foundations/iconography), [color](/foundations/color) (or user avatar).
+2. **Message (optional):** Flag descriptions are restricted to five lines in length. If the text overflows, it truncates using an ellipsis.
+3. **Actions (optional):** A maximum of two links that enable users to act on the flag's content.
+4. **Dismiss:** Use to close the flag. This is for standard flags only.
+
+## Best Practices
+- Use the [color system](/foundations/color) guide the usage for flag messages, and keep a consistent visual language.
+- When there are multiple flags, they will stack on top of one another with the most recent flag on top. When a user dismisses a flag, any older flags 'below' will come to the top. Careful consideration should be taken to take into account the ordering and priority of flags in the stack.
+- Never use dismissible and non-dismissible flags in a stack as flags that automatically dismiss can do so and not be visible to the user.
+- When a modal is active, flags should always be visible above the modal.
+
+## Content guidelines
+
+#### Warning
+- Put yourself in the user's shoes.
+- Make sure you're not talking about something that has already occurred (this should be an error message instead).
+
+![Warning flag (bold) expanded](../images/flag-bold-warning-expanded.png)
+
+#### Error
+- Avoid blame and accept if something is our fault - "we're having trouble connecting" rather than "you're having connection issues."
+- Let the user know what's causing the error, rather than writing a general error message that works for a number of things.
+- Be clear and conversational by thinking about how you might explain a technical error to your non-technical friends.
+
+![Error flag (bold) expanded](../images/flag-bold-error-expanded.png)
+
+#### Success
+- Messages that appear more frequently should have less wink and be more concise.
+- Messages that appear after a bigger or more infrequent action can be more playful.
+
+![Success flag (bold) expanded](../images/flag-bold-success-expanded.png)
+
+#### Information
+- Say why it's important.
+- Get right to the point.
+- Based on the situation, you can add more "wink" to your message, but keep it clear and concise.
+
+![Info flag (bold) expanded](../images/flag-bold-info-expanded.png)
+
+## Related
+- For critical messaging about loss of data or functionality use [banners](/components/banners)
+- For confirmations, alerts, and acknowledgments that require minimal user interaction use a [flag](/components/flag) message
+- To alert users that important information is available or an action is required use an [inline message](/components/inline-message)

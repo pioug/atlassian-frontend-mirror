@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 45.1 (43504) - http://www.bohemiancoding.com/sketch -->
+    <title>icons/lightbulb-filled</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Global" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icons/lightbulb-filled" fill="#42526E">
+            <path d="M11.9979,4 C8.6849,4 5.9999,6.685 5.9999,9.998 C5.9999,12.216 8.2879,14.482 8.2879,14.482 C8.6779,14.869 8.9979,15.594 8.9979,16.093 C8.9979,16.592 9.4479,17 9.9979,17 L13.9979,17 C14.5479,17 14.9979,16.592 14.9979,16.093 C14.9979,15.594 15.3179,14.869 15.7079,14.482 C15.7079,14.482 17.9959,12.216 17.9959,9.998 C17.9959,6.685 15.3109,4 11.9979,4 L11.9979,4 Z M14.9628,19 C14.9628,18.45 14.5128,18 13.9628,18 L9.9628,18 C9.4128,18 8.9628,18.45 8.9628,19 L8.9628,19.003 C8.9628,19.553 9.4128,20.003 9.9628,20.003 L13.9628,20.003 C14.5128,20.003 14.9628,19.553 14.9628,19.003 L14.9628,19 Z" id="Shape"></path>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,50 @@
+{
+  "children": [
+    {
+      "id": "1",
+      "title": "First top-level entry",
+      "numbering": "1",
+      "children": [
+        {
+          "id": "1.1.",
+          "title": "First child",
+          "numbering": "1.1",
+          "children": []
+        },
+        {
+          "id": "1.2",
+          "title": "Second child",
+          "numbering": "1.2",
+          "children": [
+            {
+              "id": "1.2.1",
+              "title": "First grandchild with a very long name",
+              "numbering": "1.2.1",
+              "children": []
+            },
+            {
+              "id": "1.2.2",
+              "title": "Second grandchild",
+              "numbering": "1.2.2",
+              "children": [
+                {
+                  "id": "1.2.2.1",
+                  "title": "First great grandchild",
+                  "numbering": "1.2.2.1",
+                  "children": [
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "title": "Second top-level entry",
+      "numbering": "2",
+      "children": []
+    }
+  ]
+}

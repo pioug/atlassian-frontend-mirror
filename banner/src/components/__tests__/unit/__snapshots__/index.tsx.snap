@@ -1,0 +1,209 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`banner should render error banner correctly 1`] = `
+.c1 {
+  max-height: 52px;
+  overflow: visible;
+  background-color: #DE350B;
+}
+
+.c2 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background-color: #DE350B;
+  color: #FFFFFF;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  fill: #DE350B;
+  font-weight: 500;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  padding: 12px;
+  text-align: center;
+  margin: auto;
+  -webkit-transition: color 0.25s ease-in-out;
+  transition: color 0.25s ease-in-out;
+}
+
+.c2 a,
+.c2 a:visited,
+.c2 a:hover,
+.c2 a:active,
+.c2 a:focus {
+  color: #FFFFFF;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c3 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-flex: 0 0 auto;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+}
+
+.c0 {
+  max-height: 0px;
+  overflow: hidden;
+  -webkit-transition: max-height 0.25s ease-in-out;
+  transition: max-height 0.25s ease-in-out;
+}
+
+.c4 {
+  -webkit-flex: 0 1 auto;
+  -ms-flex: 0 1 auto;
+  flex: 0 1 auto;
+  padding: 4px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+<div
+  className="c0"
+>
+  <div
+    aria-hidden={false}
+    className="c1"
+    role="alert"
+  >
+    <div
+      className="c2"
+    >
+      <span
+        className="c3"
+      />
+      <span
+        className="c4"
+      >
+        This is an error banner with a 
+        <a
+          href="http://atlassian.com"
+        >
+          link
+        </a>
+      </span>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`banner should render warning banner correctly 1`] = `
+.c1 {
+  max-height: 52px;
+  overflow: visible;
+  background-color: #FFAB00;
+}
+
+.c2 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background-color: #FFAB00;
+  color: #253858;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  fill: #FFAB00;
+  font-weight: 500;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  padding: 12px;
+  text-align: center;
+  margin: auto;
+  -webkit-transition: color 0.25s ease-in-out;
+  transition: color 0.25s ease-in-out;
+}
+
+.c2 a,
+.c2 a:visited,
+.c2 a:hover,
+.c2 a:active,
+.c2 a:focus {
+  color: #253858;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c3 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-flex: 0 0 auto;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+}
+
+.c0 {
+  max-height: 0px;
+  overflow: hidden;
+  -webkit-transition: max-height 0.25s ease-in-out;
+  transition: max-height 0.25s ease-in-out;
+}
+
+.c4 {
+  -webkit-flex: 0 1 auto;
+  -ms-flex: 0 1 auto;
+  flex: 0 1 auto;
+  padding: 4px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+<div
+  className="c0"
+>
+  <div
+    aria-hidden={false}
+    className="c1"
+    role="alert"
+  >
+    <div
+      className="c2"
+    >
+      <span
+        className="c3"
+      />
+      <span
+        className="c4"
+      >
+        This is a warning banner with a 
+        <a
+          href="http://atlassian.com"
+        >
+          link
+        </a>
+      </span>
+    </div>
+  </div>
+</div>
+`;

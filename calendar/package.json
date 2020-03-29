@@ -1,0 +1,50 @@
+{
+  "name": "@atlaskit/calendar",
+  "version": "9.2.6",
+  "description": "A React component for displaying a calendar.",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "license": "Apache-2.0",
+  "module": "dist/esm/index.js",
+  "main": "dist/cjs/index.js",
+  "atlaskit:src": "src/index.ts",
+  "atlaskit:designLink": "https://atlassian.design/guidelines/product/components/date-picker",
+  "sideEffects": false,
+  "author": "Atlassian Pty Ltd",
+  "atlaskit": {
+    "name": "Calendar"
+  },
+  "team": "Design System Team",
+  "repository": "https://bitbucket.org/atlassian/atlaskit-mk-2",
+  "dependencies": {
+    "@atlaskit/analytics-next": "^6.3.5",
+    "@atlaskit/button": "^13.3.9",
+    "@atlaskit/icon": "^20.1.0",
+    "@atlaskit/locale": "^1.0.5",
+    "@atlaskit/theme": "^9.5.1",
+    "calendar-base": "^0.3.0",
+    "lodash.pick": "^4.4.0",
+    "react-uid": "^2.2.0",
+    "tslib": "^1.9.3"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0",
+    "styled-components": "^3.2.6"
+  },
+  "devDependencies": {
+    "@atlaskit/build-utils": "^2.2.7",
+    "@atlaskit/docs": "^8.4.0",
+    "@atlaskit/select": "^11.0.9",
+    "@atlaskit/ssr": "^0.1.1",
+    "@atlaskit/webdriver-runner": "^0.3.0",
+    "@testing-library/react": "^8.0.1",
+    "date-fns": "^1.30.1",
+    "enzyme": "^3.10.0",
+    "jest-in-case": "^1.0.2",
+    "react-dom": "^16.8.0",
+    "react-test-renderer": "^16.8.0",
+    "wait-for-expect": "^1.2.0"
+  },
+  "types": "dist/cjs/index.d.ts"
+}

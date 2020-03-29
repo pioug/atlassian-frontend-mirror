@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 45.1 (43504) - http://www.bohemiancoding.com/sketch -->
+    <title>media-services/line-thickness</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Media-services" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="media-services/line-thickness" fill-rule="nonzero" fill="#42526E">
+            <path d="M4,4.49538898 C4,4.2217932 4.22618103,4 4.4963932,4 L19.5036068,4 C19.7777572,4 20,4.2157526 20,4.49538898 L20,6.50461102 C20,6.7782068 19.773819,7 19.5036068,7 L4.4963932,7 C4.22224281,7 4,6.7842474 4,6.50461102 L4,4.49538898 Z M4,12.5046844 C4,12.2259549 4.22618103,12 4.4963932,12 L19.5036068,12 C19.7777572,12 20,12.214035 20,12.5046844 L20,13.4953156 C20,13.7740451 19.773819,14 19.5036068,14 L4.4963932,14 C4.22224281,14 4,13.785965 4,13.4953156 L4,12.5046844 Z M4,19.2523422 C4,19.1129775 4.10217285,19 4.25132179,19 L19.7486782,19 C19.8874794,19 20,19.1070175 20,19.2523422 L20,19.7476578 C20,19.8870225 19.8978271,20 19.7486782,20 L4.25132179,20 C4.1125206,20 4,19.8929825 4,19.7476578 L4,19.2523422 Z" id="Shape"></path>
+        </g>
+    </g>
+</svg>

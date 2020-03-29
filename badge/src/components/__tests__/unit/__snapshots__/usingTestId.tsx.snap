@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Badge should be found by data-testid Using container snapshot 1`] = `
+<div>
+  <span
+    class="sc-htpNat kZCqmS"
+    data-testid="the-badge"
+  >
+    3000
+  </span>
+</div>
+`;

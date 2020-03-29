@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a header text skeleton 1`] = `
+.c0 {
+  height: 20px;
+  background-color: currentColor;
+  border-radius: 4px;
+  opacity: 0.3;
+  margin-left: 16px;
+  width: 144px;
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`renders a header text skeleton differently when avatar is hidden 1`] = `
+.c0 {
+  height: 20px;
+  background-color: currentColor;
+  border-radius: 4px;
+  opacity: 0.3;
+  width: 144px;
+}
+
+<div
+  className="c0"
+/>
+`;

@@ -1,0 +1,56 @@
+{
+  "name": "@atlaskit/dropdown-menu",
+  "version": "9.0.2",
+  "description": "A dropdown menu displays a list of actions or options to a user.",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "license": "Apache-2.0",
+  "module": "dist/esm/index.js",
+  "main": "dist/cjs/index.js",
+  "atlaskit:src": "src/index.ts",
+  "atlaskit:designLink": "https://atlassian.design/guidelines/product/components/drop-menu",
+  "sideEffects": false,
+  "author": "Atlassian Pty Ltd",
+  "atlaskit": {
+    "name": "Dropdown menu"
+  },
+  "team": "Design System Team",
+  "repository": "https://bitbucket.org/atlassian/atlaskit-mk-2",
+  "dependencies": {
+    "@atlaskit/analytics-next": "^6.3.5",
+    "@atlaskit/button": "^13.3.9",
+    "@atlaskit/droplist": "^10.0.3",
+    "@atlaskit/icon": "^20.1.0",
+    "@atlaskit/item": "^11.0.2",
+    "@atlaskit/theme": "^9.5.1",
+    "@babel/runtime": "^7.0.0",
+    "array-find": "^1.0.0",
+    "prop-types": "^15.5.10",
+    "react-uid": "^2.2.0",
+    "tslib": "^1.9.3"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0",
+    "styled-components": "^3.2.6"
+  },
+  "devDependencies": {
+    "@atlaskit/avatar": "^17.1.9",
+    "@atlaskit/build-utils": "^2.2.7",
+    "@atlaskit/docs": "^8.4.0",
+    "@atlaskit/lozenge": "9.1.6",
+    "@atlaskit/ssr": "^0.1.1",
+    "@atlaskit/tooltip": "^15.2.5",
+    "@atlaskit/webdriver-runner": "^0.3.0",
+    "@testing-library/react": "^8.0.1",
+    "enzyme": "^3.10.0",
+    "react-dom": "^16.8.0"
+  },
+  "keywords": [
+    "atlaskit",
+    "react",
+    "ui"
+  ],
+  "types": "dist/cjs/index.d.ts"
+}

@@ -1,0 +1,51 @@
+---
+order: 2
+---
+
+## Usage
+
+Use modal dialogs to present a short-term task the user needs to perform. This can include critical or warning information where a response is required, however they’re also intended to support efficient task completion without losing the context of the underlying page. Users won't be able to interact with the page until the dialog is closed.
+
+In some cases, modals may contain information that requires additional help and support. Elements, such as filters or hint text, can be added to the modal dialog to help users respond with clarity and efficiency at the expense of dialog real estate.
+
+Although highly versatile, this doesn't mean modal dialogs are fit for all purposes.
+
+## Anatomy
+
+![Modal dialog anatomy](../images/modal-dialog-anatomy.png)
+
+- **Header:** Contains the modal title.
+- **Body:** Provides an overview of the modal's purpose and, optionally, controls to complete a task.
+- **Footer:** Contains a primary action and the ability to cancel and close the dialog.
+
+## Best practices
+
+- Modal dialogs are invasive and should be used sparingly. The ability of the user to access and view their own content is paramount to a good experience.
+- Try to limit the number of interactions in a modal dialog. Simplify by removing unnecessary elements or content that does not support the task.
+- Avoid multiple steps that require navigation within the modal dialog.
+- Avoid complex decision making that requires additional sources of information unavailable in the modal.
+- It's best to support multiple methods for dismissal, however the use of both Cancel and X is not required on desktop.
+
+## Content guidelines
+
+- Modal dialog titles should use sentence case and prioritize keywords.
+- Modal dialog body copy should contain only valuable and relevant information that is both helpful and concise.
+- Label elements with action verbs that indicate what happens when the element is selected. For example, label a select menu with Choose a user instead of Users.
+- The main action (a [primary button](/components/button/examples#primary)) should reflect the modal title. For example, a modal with the title Fork &lt;repository name&gt; has a button labeled Fork repository. The title Select a template has a button labeled Select.
+
+## Accessibility
+
+### Dismissing modals
+
+To cater for both mouse and keyboard interactions we've included numerous ways to dismiss a modal dialog:
+
+- click **Cancel** in the footer
+- click **X** in the header (if included)
+- press `Esc` on a keyboard
+- click anywhere on the blanket
+
+## Related
+
+- Use [inline dialogs](/components/inline-dialog) for smaller amounts of information along with controls.
+- To onboard or update users on new functionality, use the [benefits modal](/patterns/benefits-modal) or [spotlight](/patterns/spotlight) patterns.
+- To alert users of important information, or an action that's required to complete a task, use [inline messages](/components/inline-message).

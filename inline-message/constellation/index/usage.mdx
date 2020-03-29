@@ -1,0 +1,54 @@
+---
+order: 2
+---
+
+## Usage
+To reveal an inline message, users click the icon or secondary text. When a message is triggered, an [inline dialog](/components/inline-dialog) appears providing a summary of the issue and links to information or actions. These messages can't be dismissed, and will only disappear once a selection has been made.
+
+Inline messages can contain an icon, title, and message. They can be configured with each of these depending on the use case.
+
+## Anatomy
+
+![Inline edit anatomy](images/inline-edit-anatomy.png)
+
+1. **Icon:** Indicates the status of the message. The icon's color and symbol give a quick visual indicator of the type and urgency of the message.
+2. **Title (optional):** Should be concise and bolded when in use.
+3. **Message:** Use regular text for the message body. The message is restricted to five lines in length. If the text overflows, the message body will be truncated with an ellipsis.
+
+## Content guidelines
+
+### Warning messages
+
+Have empathy for the user. Inform, but don't alarm. If the warning comes before an action, clearly communicate what will happen if the they proceed, and provide an alternative where possible.
+
+- Put yourself in the user's shoes.
+- Make sure you're not talking about something that has already occurred (this should be an error message instead).
+- For authentication messages include a link that describes the appropriate action if available. Keep the message short and only include relevant information.
+
+### Error messages
+
+Explain the problem and provide the user with a next step or an alternative. Keep the message simple and direct, and avoid confusing the user with technical details. If it's our fault, own up to it.
+
+- Avoid blame and accept if something is our fault - "we're having trouble connecting" rather than "you're having connection issues."
+- Let the user know what's causing the error, rather than writing a general error message that works for a number of things.
+- Be clear and conversational by thinking about how you might explain a technical error to your non-technical friends.
+
+### Confirmation messages
+
+For these messages, it's best to reaffirm the outcome and get out of the user's way. If they have just created something, give them an option to view it.
+
+- Messages that appear more frequently should have less wink and be more concise.
+- Messages that appear after a bigger or more infrequent action can be more playful.
+
+### Info messages
+
+Include a link to the appropriate action if available. Keep the message short and only include relevant information.
+
+- Let the user know what will happen when they select the link.
+- Get right to the point.
+
+
+## Related
+
+- For confirmations, alerts, and acknowledgments that require minimal user interaction use a [flag message](/components/flag).
+- For critical system-level messaging (warnings and errors) about loss of data or functionality use a [banner](/components/banner).

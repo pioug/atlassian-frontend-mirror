@@ -1,0 +1,51 @@
+---
+order: 0
+---
+
+import DefaultModal from '../../examples/constellation/DefaultModal';
+import WarningModal from '../../examples/constellation/WarningModal';
+import DangerModal from '../../examples/constellation/DangerModal';
+import Width from '../../examples/50-width';
+import ScrollModal from '../../examples/constellation/ScrollModal';
+
+## Default
+
+The default form of modal dialog.
+
+<Example Component={DefaultModal} componentName="@atlaskit/modal" />
+
+## Appearance
+
+A modal dialog is available in 2 other variations. The appearance of the primary action and icon will change per variation.
+
+### Warning
+
+Warning modals appear in anticipation of a significant change that affects the user. Have empathy for the user. Inform, but don't alarm. If the warning comes before an action, clearly communicate what will happen if they proceed, and provide an alternative where possible.
+
+<Example Component={WarningModal} componentName="@atlaskit/modal" />
+
+### Danger
+
+Danger modals let the user know that something potentially destructive will happen if they continue. Explain the problem and provide the user with a next step or an alternative.
+
+<Example Component={DangerModal} componentName="@atlaskit/modal" />
+
+## Width
+
+The width of the modal can be specified in different ways.
+
+- If a number is provided, the width is set to that number in pixels.
+- If a string including pixels or a percentage is provided, the width will be directly applied as a style.
+- Several size options are also recognized.
+
+<Example Component={Width} componentName="@atlaskit/modal" />
+
+## Scrolling behavior
+
+Modal dialogs differ in width, whereas height is determined by the content. Once it reaches a certain threshold, the body content will scroll while the header and footer remain fixed until the bottom of the modal dialog is reached.
+
+The scroll behavior of modals can be configured so that scrolling happens inside the modal body or outside the modal, within the viewport.
+
+In either case, modals prevent the window from being scrolled both natively and programatically. This means that certain browser issues such as `scrollIntoView` scrolling the window instead of only the closest scroll parent will be prevented.
+
+<Example Component={ScrollModal} componentName="@atlaskit/modal" />

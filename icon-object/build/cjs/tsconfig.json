@@ -1,0 +1,17 @@
+{
+  "extends": "../../tsconfig",
+  "compilerOptions": {
+    "declaration": true,
+    "outDir": "../../cjs",
+    "target": "es5",
+    "module": "commonjs",
+    "paths": {}
+  },
+  "include": [
+    "../../src/**/*.ts",
+    "../../src/**/*.tsx"
+  ],
+  "exclude": [
+    "../../src/**/__tests__/*"
+  ]
+}

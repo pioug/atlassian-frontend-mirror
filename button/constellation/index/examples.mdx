@@ -1,0 +1,65 @@
+---
+order: 0
+---
+
+import DefaultButton from '../../examples/C11N-DefaultButton';
+import PrimaryButton from '../../examples/C11N-PrimaryButton';
+import SubtleButton from '../../examples/C11N-SubtleButton';
+import LinkButton from '../../examples/C11N-LinkButton';
+import SubtleLinkButton from '../../examples/C11N-SubtleLinkButton';
+import WarningButton from '../../examples/C11N-WarningButton';
+import DangerButton from '../../examples/C11N-DangerButton';
+import DisabledButton from '../../examples/C11N-DisabledButton';
+
+## Default
+
+The default form of a button for most use cases. Use these for most use cases. They’re not impactful enough to represent the primary action in a container.
+
+<Example Component={DefaultButton} componentName="@atlaskit/button" />
+
+## Appearance
+
+### Primary
+
+Use to call attention to an action on a [form](patterns/forms), or to highlight the strongest call to action on a page. Primary buttons should only appear once per container (not including the application header or in a [modal dialog](components/modal-dialog)). Not every screen requires a primary button.
+
+<Example Component={PrimaryButton} componentName="@atlaskit/button" />
+
+### Subtle
+
+Use with a primary button for secondary actions, e.g. “Cancel".
+
+<Example Component={SubtleButton} componentName="@atlaskit/button" />
+
+### Button link
+
+Use button links to navigate to another page. These should open in the same window unless:
+
+- information may be lost, e.g. when someone is filling out a form
+- the destination is an external site, e.g. for a knowledge base article
+
+<Example Component={LinkButton} componentName="@atlaskit/button" />
+
+### Subtle link
+
+Similar to a subtle button, but behaves like a link button. We use these to avoid overwhelming the page with blue links.
+
+<Example Component={SubtleLinkButton} componentName="@atlaskit/button" />
+
+### Warning
+
+A warning button appears before we request the user to take action, usually in anticipation of a significant change. These are found mostly in confirmation modals.
+
+<Example Component={WarningButton} componentName="@atlaskit/button" />
+
+### Danger
+
+The danger button appears as a final confirmation for a destructive action such as deleting. These are found mostly in confirmation modals.
+
+<Example Component={DangerButton} componentName="@atlaskit/button" />
+
+### Disabled
+
+Use a disabled button when another action has to be completed before the button is usable, such as changing a field value or waiting for a system response.
+
+<Example Component={DisabledButton} componentName="@atlaskit/button" />

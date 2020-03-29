@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 45.1 (43504) - http://www.bohemiancoding.com/sketch -->
+    <title>icons/ship</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Global" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icons/ship" fill="#42526E">
+            <path d="M6,12 L14,12 L14,10 L6,10 L6,12 Z M4,8.99077797 C4,8.44358641 4.45576096,8 5.00247329,8 L14.9975267,8 C15.5511774,8 16,8.45097518 16,8.99077797 L16,14 L4,14 L4,8.99077797 Z" id="Rectangle-16" fill-rule="nonzero"></path>
+            <path d="M6,7.0048815 C6,5.89761602 6.89826062,5 7.99791312,5 L10.0020869,5 C11.1055038,5 12,5.8938998 12,7.0048815 L12,10 L6,10 L6,7.0048815 Z M10,7.0048815 C10,7.00140179 10.0003981,7.00030191 10.0008994,7 L7.99791312,7 C8.00250768,7 8,7.00251316 8,7.0048815 L8,8 L10,8 L10,7.0048815 Z" id="Combined-Shape"></path>
+            <path d="M4.50025392,17 L18.4943904,17 L19.4961962,14 L4.14043982,14 L4.50025392,17 Z M2.00473865,12.9880824 C1.93928812,12.4423796 2.33098826,12 2.883309,12 L21.2755538,12 C21.8262253,12 22.1334089,12.4169188 21.9573808,12.9440511 L20.2503379,18.0559489 C20.076229,18.5773339 19.4923914,19 18.935457,19 L3.72542515,19 C3.17334534,19 2.67327759,18.5621186 2.60728755,18.0119176 L2.00473865,12.9880824 Z" id="Rectangle-51" fill-rule="nonzero"></path>
+        </g>
+    </g>
+</svg>

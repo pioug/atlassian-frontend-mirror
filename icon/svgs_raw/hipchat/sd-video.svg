@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 45.1 (43504) - http://www.bohemiancoding.com/sketch -->
+    <title>hipchat/sd-video</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="HipChat" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="hipchat/sd-video" fill="#42526E">
+            <path d="M20.9992,7 C21.5232,7 22.0002,7.39473684 22.0002,7.94078947 L22.0002,16.0592105 C22.0002,16.6052632 21.5232,17 20.9992,17 C20.8432,17 20.6822,16.9652256 20.5292,16.8881579 L17.0002,15.1174812 L17.0002,8.87406015 L20.5312,7.11090226 C20.6832,7.03477444 20.8432,7 20.9992,7 Z M3.99857245,6.0004 L14.0014276,6.0004 C15.1056388,6.0004 16,6.89659493 16,8.00307023 L16,15.9977298 C16,17.1042051 15.1056388,18.0004 14.0014276,18.0004 L3.99857245,18.0004 C2.89436117,18.0004 2,17.1042051 2,15.9977298 L2,8.00307023 C2,6.89659493 2.89436117,6.0004 3.99857245,6.0004 Z" id="Combined-Shape"></path>
+        </g>
+    </g>
+</svg>

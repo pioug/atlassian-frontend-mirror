@@ -1,0 +1,121 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`reset 1`] = `
+.c0 {
+  background-color: #FFFFFF;
+  color: #091E42;
+}
+
+.c0 a {
+  color: #0052CC;
+}
+
+.c0 a:hover {
+  color: #0065FF;
+}
+
+.c0 a:active {
+  color: #0747A6;
+}
+
+.c0 a:focus {
+  outline-color: #4C9AFF;
+}
+
+.c0 h1,
+.c0 h2,
+.c0 h3,
+.c0 h4,
+.c0 h5 {
+  color: #172B4D;
+}
+
+.c0 h6 {
+  color: #6B778C;
+}
+
+.c0 small {
+  color: #6B778C;
+}
+
+<Reset>
+  <Provider>
+    <Consumer>
+      <styled.div
+        backgroundColor="#FFFFFF"
+        headingColor="#172B4D"
+        linkColor="#0052CC"
+        linkColorActive="#0747A6"
+        linkColorHover="#0065FF"
+        linkColorOutline="#4C9AFF"
+        subtleHeadingColor="#6B778C"
+        subtleTextColor="#6B778C"
+        textColor="#091E42"
+      >
+        <div
+          className="c0"
+        />
+      </styled.div>
+    </Consumer>
+  </Provider>
+</Reset>
+`;
+
+exports[`themed reset 1`] = `
+.c0 {
+  background-color: #000;
+  color: #fff;
+}
+
+.c0 a {
+  color: blue;
+}
+
+.c0 a:hover {
+  color: #fff;
+}
+
+.c0 a:active {
+  color: #fff;
+}
+
+.c0 a:focus {
+  outline-color: #fff;
+}
+
+.c0 h1,
+.c0 h2,
+.c0 h3,
+.c0 h4,
+.c0 h5 {
+  color: #fff;
+}
+
+.c0 h6 {
+  color: #fff;
+}
+
+.c0 small {
+  color: #fff;
+}
+
+<Provider
+  value={[Function]}
+>
+  <Reset>
+    <Provider>
+      <Consumer>
+        <styled.div
+          backgroundColor="#000"
+          linkColor="blue"
+          textColor="#fff"
+        >
+          <div
+            className="c0"
+          />
+        </styled.div>
+      </Consumer>
+    </Provider>
+  </Reset>
+</Provider>
+`;

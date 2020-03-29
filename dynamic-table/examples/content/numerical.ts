@@ -1,0 +1,111 @@
+export const presidents = [
+  {
+    id: 1,
+    nm: 'George Washington',
+    pp: 'None, Federalist',
+    num: -1,
+  },
+  {
+    id: 2,
+    nm: 'John Adams',
+    pp: 'Federalist',
+    num: 2,
+  },
+  {
+    id: 3,
+    nm: 'Thomas Jefferson',
+    pp: 'Democratic-Republican',
+    num: -3,
+  },
+  {
+    id: 4,
+    nm: 'James Madison',
+    pp: 'Democratic-Republican',
+    num: -4,
+  },
+  {
+    id: 5,
+    nm: 'Jámes Monroe',
+    pp: 'Democratic-Republican',
+    num: -20,
+  },
+  {
+    id: 6,
+    nm: 'John Quincy Adams',
+    pp: 'Democratic-Republican',
+    num: -1,
+  },
+  {
+    id: 7,
+    nm: 'Andrew Jackson',
+    pp: 'Democrat',
+    num: -2,
+  },
+  {
+    id: 8,
+    nm: 'Martin van Buren',
+    pp: 'Democrat',
+    num: -3,
+  },
+  {
+    id: 9,
+    nm: 'William H. Harrison',
+    pp: 'Whig',
+    num: 0,
+  },
+  {
+    id: 10,
+    nm: 'John Tyler',
+    pp: 'Whig',
+    num: 5,
+  },
+  {
+    id: 11,
+    nm: 'Zachary Taylor',
+    pp: 'Whig',
+    num: 0,
+  },
+  {
+    id: 12,
+    nm: 'Millard Fillmore',
+    pp: 'Whig',
+    num: 4,
+  },
+  {
+    id: 13,
+    nm: '<Test String 2>',
+    pp: 'Democrat',
+    num: 'test',
+  },
+  {
+    id: 14,
+    nm: '<Test String 1>',
+    pp: 'Democrat',
+    num: 'a test',
+  },
+
+  {
+    id: 15,
+    nm: '<Number as string>',
+    pp: 'Democrat',
+    num: '1',
+  },
+  {
+    id: 16,
+    nm: '<Number as string 2>',
+    pp: 'Democrat',
+    num: '5',
+  },
+  {
+    id: 17,
+    nm: '<Number as string 3>',
+    pp: 'Democrat',
+    num: '10',
+  },
+  {
+    id: 18,
+    nm: '<Empty String>',
+    pp: 'Democrat',
+    num: '',
+  },
+];

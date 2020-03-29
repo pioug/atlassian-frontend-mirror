@@ -1,0 +1,30 @@
+---
+order: 2
+---
+
+## Usage
+
+Spinners indicate that a system process is going on that will end with content being displayed to the user. They animate as soon as user action is initiated and disappear once the content appears.
+
+
+## Best practices
+
+- If a spinner is triggered by a button, place the spinner in the button, and disable the button while the spinner is visible.
+
+- If only a portion of a page is displaying new content or being updated, place the spinner in that part of the page.
+
+- If you are unsure where to place the spinner, place it where you want the user's attention to be when loading is finished.
+
+- Only show a spinner if the expected wait time is more than a second.
+
+- Make sure there’s a minimum of 100ms delay before the intro to mitigate flickering on the page.
+
+- There should only be a single spinner on a page at one time.
+
+## Intro animation
+
+Always use the intro animation for the loader. It should play as soon as a user action is initiated and then transition into the standard spinner.
+
+## Outro animation
+
+Only use the outro animation if you're loading multiple things at the same time, and if what you're loading is not the main focal point of the page. If the content that is loading should be the main focal point or if it's content that was requested by a user action, skip the outro and display the content immediately.

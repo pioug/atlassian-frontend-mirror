@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 47.1 (45422) - http://www.bohemiancoding.com/sketch -->
+    <title>editor/media-center</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Desktop" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="editor/media-center" fill="#42526E">
+            <path d="M6,5 L18,5 C18.5522847,5 19,5.44771525 19,6 L19,6 C19,6.55228475 18.5522847,7 18,7 L6,7 C5.44771525,7 5,6.55228475 5,6 L5,6 L5,6 C5,5.44771525 5.44771525,5 6,5 L6,5 Z M6,17 L18,17 C18.5522847,17 19,17.4477153 19,18 L19,18 L19,18 C19,18.5522847 18.5522847,19 18,19 L6,19 C5.44771525,19 5,18.5522847 5,18 L5,18 L5,18 C5,17.4477153 5.44771525,17 6,17 L6,17 Z M6,9 L18,9 C18.5522847,9 19,9.44771525 19,10 L19,14 C19,14.5522847 18.5522847,15 18,15 L6,15 C5.44771525,15 5,14.5522847 5,14 L5,10 C5,9.44771525 5.44771525,9 6,9 L6,9 Z" id="Combined-Shape"></path>
+        </g>
+    </g>
+</svg>

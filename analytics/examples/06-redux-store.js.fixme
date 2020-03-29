@@ -1,0 +1,75 @@
+import React, { Component, type Element } from 'react';
+import { Provider, connect } from 'react-redux';
+import { createStore } from 'redux';
+
+import {
+  AnalyticsDecorator,
+  cleanProps,
+  withAnalytics,
+} from '../src';
+
+/* eslint-disable react/no-multi-comp */
+const Button = withAnalytics(
+  class T extends Component<{
+    getParentAnalyticsData: () => {},
+    doSomething: (analyticsData: {}) => void,
+    children?: Element<any>,
+  }, {}> {
+    onClick = () => {
+      const { getParentAnalyticsData, doSomething } = this.props;
+      doSomething(getParentAnalyticsData());
+    };
+    render() {
+      const { children, ...props } = this.props;
+      return (
+        <button {...cleanProps(props)} onClick={this.onClick}>
+          {children}
+        </button>
+      );
+    }
+  }
+);
+
+const onEvent = (eventName: string, eventData: Object) => {
+  console.log(eventName, eventData);
+};
+
+const reducer = (action) => {
+  switch (action.type) {
+    case 'DO_SOMETHING':
+      onEvent('did.something', action.analyticsData);
+      break;
+    default:
+      break;
+  }
+};
+
+const mapStateToProps = () => ({ });
+
+const mapDispatchToProps = dispatch => ({
+  doSomething: (analyticsData) => dispatch({
+    type: 'DO_SOMETHING',
+    analyticsData,
+  }),
+});
+
+const App = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(({ doSomething }) => (
+  <AnalyticsDecorator data={{ privateTime: Date.now() }}>
+    <Button analyticsId="button" doSomething={doSomething}>Send analytics event</Button>
+  </AnalyticsDecorator>
+));
+
+const store = createStore(reducer);
+export default class ReduxStoreExample extends Component<{}, {}> {
+  render() {
+    return (
+      <Provider store={store}>
+        <App />
+      </Provider>
+    );
+  }
+}
+/* eslint-disable react/no-multi-comp */

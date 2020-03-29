@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <title>zoom-out-updated</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="zoom-out-updated" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M16.4355852,15.085219 L20.3769078,19.0953162 C20.7640398,19.4892036 20.7585636,20.1223449 20.3646762,20.5094769 C19.9707889,20.8966089 19.3376476,20.8911327 18.9505156,20.4972453 L15.0128538,16.4908729 C13.7571682,17.438259 12.1941849,18 10.5,18 C6.35786438,18 3,14.6421356 3,10.5 C3,6.35786438 6.35786438,3 10.5,3 C14.6421356,3 18,6.35786438 18,10.5 C18,12.2268852 17.4163648,13.8174552 16.4355852,15.085219 Z M13.5,11.5 L7.5,11.5 C6.948,11.5 6.5,11.052 6.5,10.5 C6.5,9.948 6.948,9.5 7.5,9.5 L13.5,9.5 C14.052,9.5 14.5,9.948 14.5,10.5 C14.5,11.052 14.052,11.5 13.5,11.5" id="Combined-Shape" fill="#42526E"></path>
+    </g>
+</svg>

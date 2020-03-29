@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders an item text skeleton 1`] = `
+.c0 {
+  height: 20px;
+  background-color: currentColor;
+  border-radius: 4px;
+  opacity: 0.15;
+  margin-left: 24px;
+  width: 136px;
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`renders an item text skeleton with custom width 1`] = `
+.c0 {
+  height: 20px;
+  background-color: currentColor;
+  border-radius: 4px;
+  opacity: 0.15;
+  margin-left: 24px;
+  width: 100%;
+}
+
+<div
+  className="c0"
+/>
+`;

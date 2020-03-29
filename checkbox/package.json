@@ -1,0 +1,54 @@
+{
+  "name": "@atlaskit/checkbox",
+  "version": "10.1.10",
+  "description": "A checkbox is an input control that allows a user to select one or more options from a number of choices.",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "license": "Apache-2.0",
+  "module": "dist/esm/index.js",
+  "main": "dist/cjs/index.js",
+  "types": "dist/cjs/index.d.ts",
+  "atlaskit:src": "src/index.ts",
+  "atlaskit:designLink": "https://atlassian.design/guidelines/product/components/checkboxes",
+  "sideEffects": false,
+  "author": "Atlassian Pty Ltd",
+  "atlaskit": {
+    "name": "Checkbox"
+  },
+  "team": "Design System Team",
+  "repository": "https://bitbucket.org/atlassian/atlaskit-mk-2",
+  "dependencies": {
+    "@atlaskit/analytics-next": "^6.3.5",
+    "@atlaskit/icon": "^20.1.0",
+    "@atlaskit/theme": "^9.5.1",
+    "@emotion/core": "^10.0.9",
+    "emotion-theming": "^10.0.7",
+    "lodash.merge": "^4.6.2",
+    "memoize-one": "^5.1.0",
+    "tslib": "^1.9.3"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0"
+  },
+  "devDependencies": {
+    "@atlaskit/build-utils": "^2.2.7",
+    "@atlaskit/button": "^13.3.9",
+    "@atlaskit/docs": "^8.4.0",
+    "@atlaskit/form": "^7.1.5",
+    "@atlaskit/section-message": "^4.1.7",
+    "@atlaskit/ssr": "^0.1.1",
+    "@atlaskit/visual-regression": "^0.1.9",
+    "@atlaskit/webdriver-runner": "^0.3.0",
+    "@testing-library/react": "^8.0.1",
+    "enzyme": "^3.10.0",
+    "react-dom": "^16.8.0",
+    "styled-components": "^3.2.6",
+    "wait-for-expect": "^1.2.0"
+  },
+  "keywords": [
+    "atlaskit",
+    "react",
+    "ui"
+  ]
+}

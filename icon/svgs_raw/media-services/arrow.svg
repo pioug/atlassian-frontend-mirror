@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 45.1 (43504) - http://www.bohemiancoding.com/sketch -->
+    <title>media-services/arrow</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Media-services" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="media-services/arrow" fill-rule="nonzero" fill="#42526E">
+            <path d="M10.5272019,11.0782079 L9.6848819,9.2105282 C9.0967598,7.9064826 8.2291518,7.9423831 7.7426312,9.2809715 L4.0524004,19.4340882 C3.8891728,19.8831846 4.1202259,20.1097746 4.5657474,19.9476872 L14.7138822,16.2556448 C16.0530273,15.7684438 16.0833368,14.8988832 14.7842909,14.3124406 L12.928311,13.4745752 C13.3205614,13.1045093 13.7179234,12.7186023 14.1172824,12.3190473 C17.9792507,8.4551831 20.5655173,4.77815781 19.8938707,4.10618143 C19.222224,3.43420505 15.547003,6.0217414 11.6850347,9.8856055 C11.2846421,10.2861948 10.8979615,10.6847758 10.5272019,11.0782079 Z" id="Shape"></path>
+        </g>
+    </g>
+</svg>

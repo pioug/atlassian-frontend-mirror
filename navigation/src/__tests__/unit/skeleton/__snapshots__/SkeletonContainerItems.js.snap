@@ -1,0 +1,66 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`collapses its children container items 1`] = `
+<SkeletonNavigationItems>
+  <SkeletonContainerItem
+    isCollapsed={true}
+  />
+  <SkeletonContainerItem
+    isCollapsed={true}
+  />
+  <SkeletonContainerItem
+    isCollapsed={true}
+  />
+  <SkeletonContainerItem
+    isCollapsed={true}
+  />
+  <SkeletonContainerItem
+    isCollapsed={true}
+  />
+</SkeletonNavigationItems>
+`;
+
+exports[`passes down custom styles 1`] = `
+<SkeletonNavigationItems>
+  <SkeletonContainerItem
+    isCollapsed={false}
+    itemTextWidth="100%"
+  />
+  <SkeletonContainerItem
+    isCollapsed={false}
+    itemTextWidth="100%"
+  />
+  <SkeletonContainerItem
+    isCollapsed={false}
+    itemTextWidth="100%"
+  />
+  <SkeletonContainerItem
+    isCollapsed={false}
+    itemTextWidth="100%"
+  />
+  <SkeletonContainerItem
+    isCollapsed={false}
+    itemTextWidth="100%"
+  />
+</SkeletonNavigationItems>
+`;
+
+exports[`renders a skeleton representation of a container item 1`] = `
+<SkeletonNavigationItems>
+  <SkeletonContainerItem
+    isCollapsed={false}
+  />
+  <SkeletonContainerItem
+    isCollapsed={false}
+  />
+  <SkeletonContainerItem
+    isCollapsed={false}
+  />
+  <SkeletonContainerItem
+    isCollapsed={false}
+  />
+  <SkeletonContainerItem
+    isCollapsed={false}
+  />
+</SkeletonNavigationItems>
+`;

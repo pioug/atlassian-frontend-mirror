@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 45.1 (43504) - http://www.bohemiancoding.com/sketch -->
+    <title>icons/add-circle</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Global" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icons/add-circle">
+            <circle id="Combined-Shape" fill="#42526E" cx="12" cy="12" r="10"></circle>
+            <path d="M11.0463475,7.95842075 L11.0463475,11.0463475 L7.95842075,11.0463475 C7.43009727,11.0463475 7,11.4697692 7,12 C7,12.5264162 7.43009727,12.9536525 7.95842075,12.9536525 L11.0463475,12.9536525 L11.0463475,16.0415792 C11.0463475,16.5699027 11.4697692,17 12,17 C12.5264162,17 12.9536525,16.5699027 12.9536525,16.0415792 L12.9536525,12.9536525 L16.0415792,12.9536525 C16.5708564,12.9536525 17,12.5302308 17,12 C17,11.4735838 16.5699027,11.0463475 16.0415792,11.0463475 L12.9536525,11.0463475 L12.9536525,7.95842075 C12.9536525,7.42914362 12.5302308,7 12,7 C11.4735838,7 11.0463475,7.43009727 11.0463475,7.95842075 Z" id="Clip-2" fill="#79F2C0"></path>
+        </g>
+    </g>
+</svg>

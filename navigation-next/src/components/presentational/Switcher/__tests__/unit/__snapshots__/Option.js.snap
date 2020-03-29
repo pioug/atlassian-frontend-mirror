@@ -1,0 +1,70 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Option should render correctly 1`] = `
+<div
+  aria-selected={false}
+  id="id"
+  innerRef={
+    Object {
+      "current": null,
+    }
+  }
+  onClick={[Function]}
+  onMouseMove={[Function]}
+  onMouseOver={[Function]}
+  role="role"
+  tabIndex={0}
+>
+  <Option
+    cx={[Function]}
+    data={
+      Object {
+        "avatar": "/url-to-avatar",
+        "subText": "subText",
+        "text": "text",
+      }
+    }
+    getStyles={[Function]}
+    innerProps={
+      Object {
+        "aria-selected": false,
+        "id": "id",
+        "innerRef": Object {
+          "current": null,
+        },
+        "onClick": [Function],
+        "onMouseMove": [Function],
+        "onMouseOver": [Function],
+        "role": "role",
+        "tabIndex": 0,
+      }
+    }
+    innerRef={
+      Object {
+        "current": null,
+      }
+    }
+    isFocused={false}
+    isSelected={false}
+    theme={Object {}}
+  >
+    <ElementWrapper
+      is="before"
+    >
+      <WithAnalyticsContext(WithAnalyticsEvents(mapProps(withPseudoState(Avatar))))
+        appearance="square"
+        borderColor="transparent"
+        src="/url-to-avatar"
+      />
+    </ElementWrapper>
+    <ContentWrapper>
+      <TextWrapper>
+        text
+      </TextWrapper>
+      <SubTextWrapper>
+        subText
+      </SubTextWrapper>
+    </ContentWrapper>
+  </Option>
+</div>
+`;

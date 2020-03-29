@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshot 1`] = `
+.c0 {
+  background-color: #DFE1E6;
+  color: #172B4D;
+  border-radius: 2em;
+  display: inline-block;
+  font-size: 12px;
+  font-weight: normal;
+  line-height: 1;
+  min-width: 1px;
+  padding: 0.16666666666667em 0.5em;
+  text-align: center;
+}
+
+<Badge>
+  <Provider>
+    <Consumer>
+      <Consumer
+        appearance="default"
+        mode="light"
+      >
+        <styled.span
+          backgroundColor="#DFE1E6"
+          textColor="#172B4D"
+        >
+          <span
+            className="c0"
+          >
+            <Format
+              max={99}
+            >
+              0
+            </Format>
+          </span>
+        </styled.span>
+      </Consumer>
+    </Consumer>
+  </Provider>
+</Badge>
+`;

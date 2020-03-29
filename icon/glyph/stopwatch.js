@@ -1,0 +1,24 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _Icon = _interopRequireDefault(require("../cjs/components/Icon"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+var StopwatchIcon = function StopwatchIcon(props) {
+  return _react.default.createElement(_Icon.default, _extends({
+    dangerouslySetGlyph: "<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" focusable=\"false\" role=\"presentation\"><path d=\"M15.587 6.988l.626-.664c.203-.215.481-.324.76-.324.247 0 .496.086.694.262a.982.982 0 0 1 .063 1.414l-.565.6a7 7 0 1 1-10.33 0l-.564-.6a.981.981 0 0 1 .062-1.414A1.04 1.04 0 0 1 7.03 6c.278 0 .556.109.76.324l.624.664a6.955 6.955 0 0 1 2.582-.916L10.998 5H10.5a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-.498l.001 1.071a6.955 6.955 0 0 1 2.584.917zM12 18a5 5 0 1 0 0-10 5 5 0 0 0 0 10zm.368-4.232a.796.796 0 0 1-1.14-.018.834.834 0 0 1 .018-1.163l2.386-2.355a.796.796 0 0 1 1.14.018.834.834 0 0 1-.018 1.163l-2.386 2.355z\" fill=\"currentColor\" fill-rule=\"evenodd\"/></svg>"
+  }, props));
+};
+
+StopwatchIcon.displayName = 'StopwatchIcon';
+var _default = StopwatchIcon;
+exports.default = _default;

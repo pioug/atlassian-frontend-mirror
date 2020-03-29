@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 45.1 (43504) - http://www.bohemiancoding.com/sketch -->
+    <title>icons/arrow-up-circle</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Global" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icons/arrow-up-circle">
+            <circle id="Combined-Shape" fill="#42526E" fill-rule="nonzero" cx="12" cy="12" r="10"></circle>
+            <path d="M11.288,7.293 L8.294,10.27 C8.098,10.467 8,10.723 8,10.979 C8,11.234 8.098,11.49 8.294,11.686 C8.688,12.076 9.323,12.076 9.715,11.686 L10.994,10.414 L10.994,11.712 L10.994,13.623 L10.994,16 C10.994,16.552 11.445,17 12,17 C12.555,17 13.005,16.552 13.005,16 L13.005,13.623 L13.005,11.712 L13.005,10.414 L14.284,11.686 C14.676,12.076 15.312,12.076 15.705,11.686 C16.098,11.295 16.098,10.662 15.705,10.27 L12.711,7.293 C12.514,7.098 12.256,7 11.999,7 C11.741,7 11.484,7.098 11.288,7.293 Z" id="Clip-2" fill="#79F2C0"></path>
+        </g>
+    </g>
+</svg>

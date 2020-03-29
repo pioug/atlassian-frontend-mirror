@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Item ItemBase should render an InteractionStateManager 1`] = `
+<InteractionStateManager>
+  <Component />
+</InteractionStateManager>
+`;
+
+exports[`Item ItemBase should render the Item primitive 1`] = `
+<WithTheme(ItemPrimitive)
+  isActive={false}
+  isFocused={false}
+  isHover={false}
+  isSelected={false}
+  spacing="default"
+  styles={[Function]}
+  text="My item"
+/>
+`;
+
+exports[`Item should render correctly 1`] = `
+<AnalyticsContext
+  data={
+    Object {
+      "componentName": "item",
+    }
+  }
+>
+  <WithAnalyticsEvents(Item)
+    text="My item"
+  />
+</AnalyticsContext>
+`;

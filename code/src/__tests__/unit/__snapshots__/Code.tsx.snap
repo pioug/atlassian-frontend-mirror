@@ -1,0 +1,65 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Code should passe along code style to LineNumbers 1`] = `
+<ThemeProvider
+  theme={Object {}}
+>
+  <WithTheme(Code)
+    codeStyle={
+      Object {
+        "style": Object {
+          "color": "blue",
+        },
+      }
+    }
+    language="python"
+    showLineNumbers={true}
+    text="def transform_data(data_frame, rolling_value):
+rolling_df = pd.DataFrame(data_frame)
+return rolling_df.rolling(rolling_value, min_periods=1, center=True).mean()"
+  />
+</ThemeProvider>
+`;
+
+exports[`Code should render a container with a blue color 1`] = `
+<ThemeProvider
+  theme={Object {}}
+>
+  <WithTheme(Code)
+    language="python"
+    lineNumberContainerStyle={
+      Object {
+        "style": Object {
+          "color": "blue",
+        },
+      }
+    }
+    preTag="div"
+    showLineNumbers={true}
+    text="def transform_data(data_frame, rolling_value):
+rolling_df = pd.DataFrame(data_frame)
+return rolling_df.rolling(rolling_value, min_periods=1, center=True).mean()"
+  />
+</ThemeProvider>
+`;
+
+exports[`Code should render a div with a red color 1`] = `
+<ThemeProvider
+  theme={Object {}}
+>
+  <WithTheme(Code)
+    codeTagProps={
+      Object {
+        "style": Object {
+          "color": "red",
+        },
+      }
+    }
+    language="python"
+    preTag="div"
+    text="def transform_data(data_frame, rolling_value):
+rolling_df = pd.DataFrame(data_frame)
+return rolling_df.rolling(rolling_value, min_periods=1, center=True).mean()"
+  />
+</ThemeProvider>
+`;

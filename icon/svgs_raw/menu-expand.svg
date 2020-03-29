@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.4 (67378) - http://www.bohemiancoding.com/sketch -->
+    <title>export/global/menu-expand</title>
+    <desc>Created with Sketch.</desc>
+    <g id="export/global/menu-expand" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M6,12 C6,11.4477153 6.45576096,11 7.00247329,11 L16.9975267,11 C17.5511774,11 18,11.4438648 18,12 C18,12.5522847 17.544239,13 16.9975267,13 L7.00247329,13 C6.44882258,13 6,12.5561352 6,12 Z M6,16 C6,15.4477153 6.45576096,15 7.00247329,15 L16.9975267,15 C17.5511774,15 18,15.4438648 18,16 C18,16.5522847 17.544239,17 16.9975267,17 L7.00247329,17 C6.44882258,17 6,16.5561352 6,16 Z M6,8 C6,7.44771525 6.45576096,7 7.00247329,7 L16.9975267,7 C17.5511774,7 18,7.44386482 18,8 C18,8.55228475 17.544239,9 16.9975267,9 L7.00247329,9 C6.44882258,9 6,8.55613518 6,8 Z" id="icon" fill="currentColor" fill-rule="nonzero"></path>
+    </g>
+</svg>

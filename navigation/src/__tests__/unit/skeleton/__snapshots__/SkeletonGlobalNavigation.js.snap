@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a skeleton representation of the global sidebar 1`] = `
+<SkeletonGlobalNavigationInner>
+  <SkeletonNavigationContentOuter>
+    <SkeletonGlobalTopItems />
+    <SkeletonGlobalBottomItems />
+  </SkeletonNavigationContentOuter>
+</SkeletonGlobalNavigationInner>
+`;

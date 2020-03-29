@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49.3 (51167) - http://www.bohemiancoding.com/sketch -->
+    <title>icons/check-circle-outline</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="icons/check-circle-outline" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M12,20 C16.418278,20 20,16.418278 20,12 C20,7.581722 16.418278,4 12,4 C7.581722,4 4,7.581722 4,12 C4,16.418278 7.581722,20 12,20 Z M12,22 C6.4771525,22 2,17.5228475 2,12 C2,6.4771525 6.4771525,2 12,2 C17.5228475,2 22,6.4771525 22,12 C22,17.5228475 17.5228475,22 12,22 Z" id="Combined-Shape" fill="currentColor" fill-rule="nonzero"></path>
+        <path d="M9.70710678,11.2928932 C9.31658249,10.9023689 8.68341751,10.9023689 8.29289322,11.2928932 C7.90236893,11.6834175 7.90236893,12.3165825 8.29289322,12.7071068 L10.2928932,14.7071068 C10.6834175,15.0976311 11.3165825,15.0976311 11.7071068,14.7071068 L15.7071068,10.7071068 C16.0976311,10.3165825 16.0976311,9.68341751 15.7071068,9.29289322 C15.3165825,8.90236893 14.6834175,8.90236893 14.2928932,9.29289322 L11,12.5857864 L9.70710678,11.2928932 Z" id="Path-3" fill="currentColor"></path>
+    </g>
+</svg>

@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GlobalItem GlobalItemBase should render an InteractionStateManager 1`] = `
+<InteractionStateManager>
+  <Component />
+</InteractionStateManager>
+`;
+
+exports[`GlobalItem GlobalItemBase should render an item wrapper with the globalItem.itemWrapper theme styles when size is large: largeItem 1`] = `
+<InteractionStateManager>
+  <Component />
+</InteractionStateManager>
+`;
+
+exports[`GlobalItem GlobalItemBase should render an item wrapper with the globalItem.itemWrapper theme styles when size is small: smallItem 1`] = `
+<InteractionStateManager>
+  <Component />
+</InteractionStateManager>
+`;
+
+exports[`GlobalItem GlobalItemBase should render the GlobalItem primitive 1`] = `
+<WithTheme(GlobalNavigationItemPrimitive)
+  icon={[Function]}
+  isActive={false}
+  isFocused={false}
+  isHover={false}
+  label=""
+  size="large"
+  styles={[Function]}
+/>
+`;
+
+exports[`GlobalItem should render correctly 1`] = `
+<AnalyticsContext
+  data={
+    Object {
+      "componentName": "globalItem",
+    }
+  }
+>
+  <WithAnalyticsEvents(WithTheme(GlobalItemBase))
+    icon={[Function]}
+  />
+</AnalyticsContext>
+`;

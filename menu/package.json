@@ -1,0 +1,47 @@
+{
+  "name": "@atlaskit/menu",
+  "version": "0.3.1",
+  "description": "A collection of composable menu components that can be used anywhere.",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "license": "Apache-2.0",
+  "module": "dist/esm/index.js",
+  "main": "dist/cjs/index.js",
+  "types": "dist/cjs/index.d.ts",
+  "atlaskit:src": "src/index.ts",
+  "sideEffects": false,
+  "author": "Atlassian Pty Ltd",
+  "atlaskit": {
+    "name": "Menu"
+  },
+  "team": "Design System Team",
+  "repository": "https://bitbucket.org/atlassian/atlaskit-mk-2",
+  "dependencies": {
+    "@atlaskit/theme": "^9.5.1",
+    "@emotion/core": "^10.0.9",
+    "tslib": "^1.9.3"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0"
+  },
+  "devDependencies": {
+    "@atlaskit/avatar": "^17.1.9",
+    "@atlaskit/button": "^13.3.9",
+    "@atlaskit/docs": "^8.5.0",
+    "@atlaskit/icon": "^20.1.0",
+    "@atlaskit/icon-file-type": "^5.0.3",
+    "@atlaskit/icon-object": "^5.0.3",
+    "@atlaskit/visual-regression": "^0.1.9",
+    "@testing-library/react": "^8.0.1",
+    "jest-axe": "^3.3.0",
+    "jest-emotion": "^10.0.10",
+    "react-router-dom": "^4.2.2"
+  },
+  "keywords": [
+    "atlaskit",
+    "react",
+    "ui"
+  ]
+}

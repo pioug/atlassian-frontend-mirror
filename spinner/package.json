@@ -1,0 +1,43 @@
+{
+  "name": "@atlaskit/spinner",
+  "version": "12.1.6",
+  "description": "A React component that displays a spinning icon to show a loading stateA spinner is an animated spinning icon that lets users know content is being loaded.",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "license": "Apache-2.0",
+  "module": "dist/esm/index.js",
+  "main": "dist/cjs/index.js",
+  "types": "dist/cjs/index.d.ts",
+  "atlaskit:src": "src/index.ts",
+  "sideEffects": false,
+  "atlaskit:designLink": "https://atlassian.design/guidelines/product/components/spinners",
+  "src": "src/index.js",
+  "author": "Atlassian Pty Ltd",
+  "atlaskit": {
+    "name": "Spinner"
+  },
+  "team": "Design System Team",
+  "repository": "https://bitbucket.org/atlassian/atlaskit-mk-2",
+  "dependencies": {
+    "@atlaskit/theme": "^9.5.1",
+    "react-transition-group": "^2.2.1",
+    "tslib": "^1.9.3"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0",
+    "styled-components": "^3.2.6"
+  },
+  "devDependencies": {
+    "@atlaskit/build-utils": "^2.2.5",
+    "@atlaskit/button": "^13.3.9",
+    "@atlaskit/docs": "^8.4.0",
+    "@atlaskit/ssr": "^0.1.1",
+    "@atlaskit/webdriver-runner": "^0.3.0",
+    "@testing-library/react": "^8.0.1",
+    "enzyme": "^3.10.0",
+    "react-dom": "^16.8.0",
+    "sinon": "^2.2.0",
+    "wait-for-expect": "^1.2.0"
+  }
+}

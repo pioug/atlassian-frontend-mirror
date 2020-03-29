@@ -1,0 +1,34 @@
+---
+order: 0
+---
+
+import Default from '../../examples/defaultTooltip';
+import Truncate from '../../examples/truncate-prop';
+import Position from '../../examples/position';
+import Custom from '../../examples/component-prop';
+
+## Default
+
+The default form of tooltip.
+
+<Example Component={Default} componentName="@atlaskit/tooltip" />
+
+## Overflow
+
+The tooltip text wraps when the content is wider than the max-width. Additionally, the text can be set to truncate, which is useful when displaying user-generated content of variable length.
+
+<Example Component={Truncate} componentName="@atlaskit/tooltip" />
+
+## Positioning
+
+The position of tooltips is flexible and will change depending on how close the element is to the edge of the screen. Tooltips have four standard positions available; ```top```, ```right```, ```bottom```, and ```left```. Each standard position center-aligns itself along the appropriate axis and appears outside the target element. 
+
+If set to "mouse" the tooltip will display next to the mouse pointer instead. Make sure to utilize the ```mousePosition``` if you want to customize where the tooltip will show in relation to the mouse.
+
+<Example Component={Position} componentName="@atlaskit/tooltip" />
+
+## Custom component
+
+The tooltip component accepts a component prop, which enables users to customise the look and feel of the tooltip area.
+
+<Example Component={Custom} componentName="@atlaskit/tooltip" />

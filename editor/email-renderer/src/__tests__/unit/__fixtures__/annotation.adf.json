@@ -1,0 +1,19 @@
+{
+  "type": "doc",
+  "version": 1,
+  "content": [
+    {
+      "type": "text",
+      "text": "I am annotated text and this sentence is a lie.",
+      "marks": [
+        {
+          "type": "annotation",
+          "attrs": {
+            "id": "asdfgbn",
+            "annotationType": "inlineComment"
+          }
+        }
+      ]
+    }
+  ]
+}

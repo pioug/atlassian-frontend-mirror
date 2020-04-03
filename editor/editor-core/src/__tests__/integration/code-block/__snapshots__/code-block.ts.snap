@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`code-block: produces correct ADF after language change for comment 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "type": "paragraph",
+    },
+    Object {
+      "attrs": Object {
+        "language": "javascript",
+        "uniqueId": null,
+      },
+      "type": "codeBlock",
+    },
+    Object {
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`code-block: produces correct ADF after language change for full-page 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "type": "paragraph",
+    },
+    Object {
+      "attrs": Object {
+        "language": "javascript",
+        "uniqueId": null,
+      },
+      "type": "codeBlock",
+    },
+  ],
+  "type": "doc",
+}
+`;

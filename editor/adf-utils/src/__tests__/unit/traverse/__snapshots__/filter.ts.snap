@@ -1,0 +1,68 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Traverse#filter should return all matched elements 1`] = `
+Array [
+  Object {
+    "attrs": Object {
+      "id": "1f600",
+      "shortName": ":grinning:",
+      "text": "😀",
+    },
+    "type": "emoji",
+  },
+  Object {
+    "attrs": Object {
+      "id": "1f926-200d-2642-fe0f",
+      "shortName": ":man_facepalming:",
+      "text": "🤦‍♂️",
+    },
+    "type": "emoji",
+  },
+  Object {
+    "attrs": Object {
+      "id": "1f1f7-1f1fa",
+      "shortName": ":flag_ru:",
+      "text": "🇷🇺",
+    },
+    "type": "emoji",
+  },
+  Object {
+    "attrs": Object {
+      "id": "wtf",
+      "shortName": ":wtf:",
+      "text": ":wtf:",
+    },
+    "type": "emoji",
+  },
+]
+`;
+
+exports[`Traverse#filter should return all matched elements of that are satisfying predicate 1`] = `
+Array [
+  Object {
+    "attrs": Object {
+      "id": "wtf",
+      "shortName": ":wtf:",
+      "text": ":wtf:",
+    },
+    "type": "emoji",
+  },
+]
+`;
+
+exports[`Traverse#filter should return all nodes with links 1`] = `
+Array [
+  Object {
+    "marks": Array [
+      Object {
+        "attrs": Object {
+          "href": "https://www.atlassian.com",
+        },
+        "type": "link",
+      },
+    ],
+    "text": "Hello, World!",
+    "type": "text",
+  },
+]
+`;

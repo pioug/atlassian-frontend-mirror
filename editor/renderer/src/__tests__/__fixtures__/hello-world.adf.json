@@ -1,0 +1,47 @@
+{
+  "type": "doc",
+  "version": 1,
+  "content": [
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Hello, ",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "https://www.atlassian.com"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": "World!",
+          "marks": [
+            {
+              "type": "strong"
+            },
+            {
+              "type": "link",
+              "attrs": {
+                "href": "https://www.atlassian.com"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": "Yo!",
+          "marks": [
+            {
+              "type": "strong"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "name": "@atlaskit/media-filmstrip",
+  "version": "38.0.0",
+  "description": "Includes components that show media cards as a filmstrip",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "author": "Atlassian Pty Ltd",
+  "license": "Apache-2.0",
+  "module": "dist/esm/index.js",
+  "main": "dist/cjs/index.js",
+  "types": "dist/cjs/index.d.ts",
+  "sideEffects": false,
+  "atlaskit:src": "src/index.tsx",
+  "atlassian": {
+    "team": "Media Platform",
+    "releaseModel": "scheduled",
+    "website": {
+      "name": "Media Filmstrip"
+    }
+  },
+  "dependencies": {
+    "@atlaskit/icon": "^20.1.0",
+    "@atlaskit/media-card": "^67.1.1",
+    "@atlaskit/media-client": "^6.0.0",
+    "@atlaskit/theme": "^9.5.1",
+    "@atlaskit/type-helpers": "^4.2.3",
+    "debounce": "^1.0.0",
+    "tslib": "^1.9.3"
+  },
+  "peerDependencies": {
+    "@atlaskit/media-core": "^31.1.0",
+    "react": "^16.8.0",
+    "styled-components": "^3.2.6"
+  },
+  "devDependencies": {
+    "@atlaskit/build-utils": "^2.6.4",
+    "@atlaskit/button": "^13.3.9",
+    "@atlaskit/checkbox": "^10.1.10",
+    "@atlaskit/docs": "^8.5.0",
+    "@atlaskit/field-radio-group": "^7.0.2",
+    "@atlaskit/field-range": "^8.0.2",
+    "@atlaskit/media-core": "^31.1.0",
+    "@atlaskit/media-test-helpers": "^27.1.0",
+    "@atlaskit/ssr": "^0.1.1",
+    "@types/debounce": "^1.2.0",
+    "enzyme": "^3.10.0",
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0",
+    "rxjs": "^5.5.0",
+    "wait-for-expect": "^1.2.0"
+  }
+}

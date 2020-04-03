@@ -1,0 +1,178 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "taskList",
+      "attrs": {
+        "localId": "638aece7-97ac-4acd-99ee-4c76bebcd6ba"
+      },
+      "content": [
+        {
+          "type": "taskItem",
+          "attrs": {
+            "localId": "b5fc19b3-0742-4279-bccc-60ddd404a8e1",
+            "state": "TODO"
+          },
+          "content": [
+            {
+              "type": "text",
+              "text": "just text"
+            }
+          ]
+        },
+        {
+          "type": "taskItem",
+          "attrs": {
+            "localId": "c800bf19-e4dc-4e5b-9189-cc6673a4fe4c",
+            "state": "TODO"
+          },
+          "content": [
+            {
+              "type": "mention",
+              "attrs": {
+                "id": "0",
+                "text": "@Carolyn",
+                "accessLevel": ""
+              }
+            },
+            {
+              "type": "text",
+              "text": "  with mention"
+            }
+          ]
+        },
+        {
+          "type": "taskItem",
+          "attrs": {
+            "localId": "9f523424-081b-4bb8-8031-e4450acce7de",
+            "state": "TODO"
+          },
+          "content": [
+            {
+              "type": "date",
+              "attrs": {
+                "timestamp": "1554422400000"
+              }
+            },
+            {
+              "type": "text",
+              "text": " with date"
+            }
+          ]
+        },
+        {
+          "type": "taskItem",
+          "attrs": {
+            "localId": "f70222ac-4e36-41d4-a6df-ebe687a5e97f",
+            "state": "TODO"
+          },
+          "content": [
+            {
+              "type": "text",
+              "text": "with emoji "
+            },
+            {
+              "type": "emoji",
+              "attrs": {
+                "shortName": ":slight_smile:",
+                "id": "1f642",
+                "text": "🙂"
+              }
+            },
+            {
+              "type": "text",
+              "text": " "
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "taskList",
+      "attrs": {
+        "localId": "e10bc6bd-ad20-426a-9d65-351907af90bf"
+      },
+      "content": [
+        {
+          "type": "taskItem",
+          "attrs": {
+            "localId": "fd7f6239-17c3-4bf9-89a0-51291ab8474f",
+            "state": "DONE"
+          },
+          "content": [
+            {
+              "type": "text",
+              "text": "ticked off plain text"
+            }
+          ]
+        },
+        {
+          "type": "taskItem",
+          "attrs": {
+            "localId": "22f227d1-6ff0-43da-8f76-9a57c5853a36",
+            "state": "DONE"
+          },
+          "content": [
+            {
+              "type": "mention",
+              "attrs": {
+                "id": "0",
+                "text": "@Carolyn",
+                "accessLevel": ""
+              }
+            },
+            {
+              "type": "text",
+              "text": " ticked off mention"
+            }
+          ]
+        },
+        {
+          "type": "taskItem",
+          "attrs": {
+            "localId": "815c9ab3-2393-4041-8c82-4dcc1a31343a",
+            "state": "DONE"
+          },
+          "content": [
+            {
+              "type": "date",
+              "attrs": {
+                "timestamp": "1554422400000"
+              }
+            },
+            {
+              "type": "text",
+              "text": " ticked off date"
+            }
+          ]
+        },
+        {
+          "type": "taskItem",
+          "attrs": {
+            "localId": "82f316ca-d334-4ea4-a377-400e687de75a",
+            "state": "DONE"
+          },
+          "content": [
+            {
+              "type": "text",
+              "text": "with emoji "
+            },
+            {
+              "type": "emoji",
+              "attrs": {
+                "shortName": ":slight_smile:",
+                "id": "1f642",
+                "text": "🙂"
+              }
+            },
+            {
+              "type": "text",
+              "text": " "
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

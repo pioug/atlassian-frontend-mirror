@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ADF => WikiMarkup - List should convert bulletList node 1`] = `
+"* item 1
+* item 2"
+`;
+
+exports[`ADF => WikiMarkup - List should convert codeblock node 1`] = `
+"* item 1
+* item 2
+{code:javascript}const i = 0;{code}"
+`;
+
+exports[`ADF => WikiMarkup - List should convert listItem with multiple paragraph 1`] = `
+"* item 1A
+item 1B
+* item 2"
+`;
+
+exports[`ADF => WikiMarkup - List should convert mediaSingle node 1`] = `
+"* item 1
+* item 2
+!file1.txt|width=100,height=100!"
+`;
+
+exports[`ADF => WikiMarkup - List should convert nested bulletList inside orderedList 1`] = `
+"# item 1
+#* innner item 1
+#* innner item 2
+# item 2"
+`;
+
+exports[`ADF => WikiMarkup - List should convert nested orderedList inside bulletList 1`] = `
+"* item 1
+*# innner item 1
+*# innner item 2
+* item 2"
+`;
+
+exports[`ADF => WikiMarkup - List should convert orderedList node 1`] = `
+"# item 1
+# item 2"
+`;

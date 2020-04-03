@@ -1,0 +1,983 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`JIRA wiki markup - Text effects [CS-576] should allow {color} macro in formatters 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "This is ",
+          "type": "text",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "type": "strong",
+            },
+            Object {
+              "attrs": Object {
+                "color": "#ff0000",
+              },
+              "type": "textColor",
+            },
+            Object {
+              "type": "em",
+            },
+          ],
+          "text": "Strong Red and Italic",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Text effects should NOT auto-linkify monospace formatted text 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "marks": Array [
+            Object {
+              "type": "code",
+            },
+          ],
+          "text": "text prefix https://example.com/~abc/def/^xyz!bang$.#!.bang text suffix",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Text effects should auto-link ftp urls 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "text prefix ",
+          "type": "text",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "attrs": Object {
+                "__confluenceMetadata": null,
+                "href": "ftp://example.com/~abc/",
+              },
+              "type": "link",
+            },
+          ],
+          "text": "ftp://example.com/~abc/",
+          "type": "text",
+        },
+        Object {
+          "text": " text suffix",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Text effects should auto-linkify text links with tilde character in it 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "text prefix ",
+          "type": "text",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "attrs": Object {
+                "__confluenceMetadata": null,
+                "href": "https://example.com/~abc/def/^xyz!bang$.#!.bang",
+              },
+              "type": "link",
+            },
+          ],
+          "text": "https://example.com/~abc/def/^xyz!bang$.#!.bang",
+          "type": "text",
+        },
+        Object {
+          "text": " text suffix",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Text effects should convert double baskslash to a hardBreak node 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "this is a text with a",
+          "type": "text",
+        },
+        Object {
+          "type": "hardBreak",
+        },
+        Object {
+          "text": "new line in it",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Text effects should default unknown color to black #000000 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "This is a unknown ",
+          "type": "text",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "attrs": Object {
+                "color": "#000000",
+              },
+              "type": "textColor",
+            },
+          ],
+          "text": "color",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Text effects should differentiate raw comma from url-encoded comma 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "text ",
+          "type": "text",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "attrs": Object {
+                "__confluenceMetadata": null,
+                "href": "https://example.com/test%2C,%20space",
+              },
+              "type": "link",
+            },
+          ],
+          "text": "https://example.com/test%2C,%20space",
+          "type": "text",
+        },
+        Object {
+          "text": " text",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Text effects should differentiate raw comma from url-encoded comma in a mailto: 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "text ",
+          "type": "text",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "attrs": Object {
+                "__confluenceMetadata": null,
+                "href": "mailto:test%2C,%20space@example.com",
+              },
+              "type": "link",
+            },
+          ],
+          "text": "test%2C,%20space@example.com",
+          "type": "text",
+        },
+        Object {
+          "text": " text",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Text effects should divide marks intervals into combination of marks 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "This is a *string with a ",
+          "type": "text",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "attrs": Object {
+                "color": "#ff0000",
+              },
+              "type": "textColor",
+            },
+          ],
+          "text": "bold red* text",
+          "type": "text",
+        },
+        Object {
+          "text": ".",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Text effects should find monospace text 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "This is a string with ",
+          "type": "text",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "type": "code",
+            },
+          ],
+          "text": "monospaced text",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Text effects should find strong marks in the text 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "This is a string with a ",
+          "type": "text",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "type": "strong",
+            },
+          ],
+          "text": "strong",
+          "type": "text",
+        },
+        Object {
+          "text": " text",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Text effects should let auto-links end with parenthesis 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "text prefix ",
+          "type": "text",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "attrs": Object {
+                "__confluenceMetadata": null,
+                "href": "https://example.com/abc)",
+              },
+              "type": "link",
+            },
+          ],
+          "text": "https://example.com/abc)",
+          "type": "text",
+        },
+        Object {
+          "text": " text suffix",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Text effects should let auto-links end with parenthesis in url hash segment 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "text prefix ",
+          "type": "text",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "attrs": Object {
+                "__confluenceMetadata": null,
+                "href": "https://example.com/abc#abc)",
+              },
+              "type": "link",
+            },
+          ],
+          "text": "https://example.com/abc#abc)",
+          "type": "text",
+        },
+        Object {
+          "text": " text suffix",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Text effects should not apply marks on separate lines 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "this is a line with an *asterisk",
+          "type": "text",
+        },
+        Object {
+          "type": "hardBreak",
+        },
+        Object {
+          "text": "another one is here and it should* not be applied",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Text effects should not apply strong when ending line is two strong symbols 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "*not valid strong **",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Text effects should not double url-encode text links 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "text ",
+          "type": "text",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "attrs": Object {
+                "__confluenceMetadata": null,
+                "href": "http://example.com/query=some%20text%20with%20encoded%20space",
+              },
+              "type": "link",
+            },
+          ],
+          "text": "http://example.com/query=some%20text%20with%20encoded%20space",
+          "type": "text",
+        },
+        Object {
+          "text": " text",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Text effects should not double url-encode text links with a url-encoded comma 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "text ",
+          "type": "text",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "attrs": Object {
+                "__confluenceMetadata": null,
+                "href": "https://example.com/test%2C%20space",
+              },
+              "type": "link",
+            },
+          ],
+          "text": "https://example.com/test%2C%20space",
+          "type": "text",
+        },
+        Object {
+          "text": " text",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Text effects should not double url-encode text links with raw comma 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "text ",
+          "type": "text",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "attrs": Object {
+                "__confluenceMetadata": null,
+                "href": "https://example.com/test,%20space",
+              },
+              "type": "link",
+            },
+          ],
+          "text": "https://example.com/test,%20space",
+          "type": "text",
+        },
+        Object {
+          "text": " text",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Text effects should not fail while applying marks to a string containing double backslash 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "this is a text ",
+          "type": "text",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "type": "strong",
+            },
+          ],
+          "text": "with a",
+          "type": "text",
+        },
+        Object {
+          "type": "hardBreak",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "type": "strong",
+            },
+          ],
+          "text": "new",
+          "type": "text",
+        },
+        Object {
+          "text": " line in it",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Text effects should not let auto-links end with a bang 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "text prefix ",
+          "type": "text",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "attrs": Object {
+                "__confluenceMetadata": null,
+                "href": "https://example.com/",
+              },
+              "type": "link",
+            },
+          ],
+          "text": "https://example.com",
+          "type": "text",
+        },
+        Object {
+          "text": "! text suffix",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Text effects should not let auto-links end with a period 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "text prefix ",
+          "type": "text",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "attrs": Object {
+                "__confluenceMetadata": null,
+                "href": "https://example.com/",
+              },
+              "type": "link",
+            },
+          ],
+          "text": "https://example.com",
+          "type": "text",
+        },
+        Object {
+          "text": ". text suffix",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Text effects should not replace marks in the middle of the word 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "marks": Array [
+            Object {
+              "attrs": Object {
+                "__confluenceMetadata": null,
+                "href": "https://app.datadoghq.com/screen/220506/product-fabric-content-service?tv_mode=true",
+              },
+              "type": "link",
+            },
+          ],
+          "text": "https://app.datadoghq.com/screen/220506/product-fabric-content-service?tv_mode=true",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "marks": Array [
+            Object {
+              "attrs": Object {
+                "__confluenceMetadata": null,
+                "href": "https://app.datadoghq.com/screen/282018/product-fabric-adf-service?tv_mode=true#close",
+              },
+              "type": "link",
+            },
+          ],
+          "text": "https://app.datadoghq.com/screen/282018/product-fabric-adf-service?tv_mode=true#close",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Text effects should not search for monospace text inside code macro 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "This is a string with ",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "attrs": Object {
+        "language": "java",
+        "uniqueId": null,
+      },
+      "content": Array [
+        Object {
+          "text": "mono {{space}} text",
+          "type": "text",
+        },
+      ],
+      "type": "codeBlock",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Text effects should process citation 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "This is a ",
+          "type": "text",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "type": "em",
+            },
+          ],
+          "text": "— citation",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Text effects should process deleted 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "This is a ",
+          "type": "text",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "type": "strike",
+            },
+          ],
+          "text": "deleted",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Text effects should process emphasis 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "This is a ",
+          "type": "text",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "type": "em",
+            },
+          ],
+          "text": "emphasis",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Text effects should process inserted 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "This is a ",
+          "type": "text",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "type": "underline",
+            },
+          ],
+          "text": "inserted",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Text effects should process string with a wrong order of effects 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "This is a ",
+          "type": "text",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "type": "strong",
+            },
+          ],
+          "text": "strong ^string",
+          "type": "text",
+        },
+        Object {
+          "text": " with a ",
+          "type": "text",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "attrs": Object {
+                "type": "sub",
+              },
+              "type": "subsup",
+            },
+          ],
+          "text": "^ bla*",
+          "type": "text",
+        },
+        Object {
+          "text": "~",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Text effects should process subscript 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "This is a ",
+          "type": "text",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "attrs": Object {
+                "type": "sub",
+              },
+              "type": "subsup",
+            },
+          ],
+          "text": "subscript",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Text effects should process superscript 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "This is a ",
+          "type": "text",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "attrs": Object {
+                "type": "sup",
+              },
+              "type": "subsup",
+            },
+          ],
+          "text": "superscript",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Text effects should use code mark first if it's the inner mark 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "This is a ",
+          "type": "text",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "type": "strong",
+            },
+          ],
+          "text": "bold ",
+          "type": "text",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "type": "code",
+            },
+          ],
+          "text": "monospace",
+          "type": "text",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "type": "strong",
+            },
+          ],
+          "text": " thingy",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;

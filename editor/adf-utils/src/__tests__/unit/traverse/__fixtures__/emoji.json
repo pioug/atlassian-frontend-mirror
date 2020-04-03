@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "My favourite emoji is "
+        },
+        {
+          "type": "emoji",
+          "attrs": {
+            "shortName": ":man_facepalming:",
+            "id": "1f926-200d-2642-fe0f",
+            "text": "🤦‍♂️"
+          }
+        },
+        {
+          "type": "text",
+          "text": " . What is yours?"
+        }
+      ]
+    }
+  ]
+}

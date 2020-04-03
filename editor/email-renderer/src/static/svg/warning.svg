@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="18px" height="17px" viewBox="0 0 18 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 55.1 (78136) - https://sketchapp.com -->
+    <title>🌐 Icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M12.9376881,4.96728867 L20.0623119,18.4249113 C20.5779827,19.3989562 20.1067681,20.1961 19.0049107,20.1961 L4.99508929,20.1961 C3.8926228,20.1961 3.41981727,19.4031118 3.93768812,18.4249113 L11.0623119,4.96728867 C11.5779827,3.99324377 12.4198173,3.98908818 12.9376881,4.96728867 Z M12,15 C12.552,15 13,14.552 13,14 L13,9 C13,8.448 12.552,8 12,8 C11.448,8 11,8.448 11,9 L11,14 C11,14.552 11.448,15 12,15 Z M12,18 C12.552,18 13,17.552 13,17 C13,16.448 12.552,16 12,16 C11.448,16 11,16.448 11,17 C11,17.552 11.448,18 12,18 Z" id="path-1"></path>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Section-message-/-Info---no-title" transform="translate(-19.000000, -20.000000)">
+            <g id="DO-NOT-CHANGE-THIS">
+                <g id="global/warning" transform="translate(16.000000, 16.000000)">
+                    <mask id="mask-2" fill="white">
+                        <use xlink:href="#path-1"></use>
+                    </mask>
+                    <use id="Combined-Shape" fill="#42526E" fill-rule="evenodd" xlink:href="#path-1"></use>
+                    <g id="Yellow-/-Y500" mask="url(#mask-2)" fill="#FF8B00" fill-rule="evenodd">
+                        <rect id="Y500" x="0" y="0" width="24" height="24"></rect>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,111 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Traverse should remove node when visitor returns false 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "My favourite emoji is ",
+          "type": "text",
+        },
+        Object {
+          "text": " . What is yours?",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+  "version": 1,
+}
+`;
+
+exports[`Traverse should replace a node when visitor returns a new adf node 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "Hi, my name is... My name is... My name is... My name is ",
+          "type": "text",
+        },
+        Object {
+          "attrs": Object {
+            "accessLevel": "",
+            "id": "1",
+            "text": "@Oscar Wallhult – updated",
+          },
+          "type": "mention",
+        },
+        Object {
+          "text": " :D",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "text": "This is a ",
+          "type": "text",
+        },
+        Object {
+          "attrs": Object {
+            "accessLevel": "",
+            "id": "2",
+            "text": "@mention – updated",
+          },
+          "type": "mention",
+        },
+        Object {
+          "text": ". And this is a broken ",
+          "type": "text",
+        },
+        Object {
+          "attrs": Object {
+            "accessLevel": "",
+            "id": "mention",
+            "text": "@unknown – updated",
+          },
+          "type": "mention",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "text": "Mentions with generic ids ",
+          "type": "text",
+        },
+        Object {
+          "attrs": Object {
+            "accessLevel": "CONTAINER",
+            "id": "here",
+            "text": "@here – updated",
+          },
+          "type": "mention",
+        },
+        Object {
+          "text": " ",
+          "type": "text",
+        },
+        Object {
+          "attrs": Object {
+            "accessLevel": "CONTAINER",
+            "id": "all",
+            "text": "@all – updated",
+          },
+          "type": "mention",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+  "version": 1,
+}
+`;

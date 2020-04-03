@@ -1,0 +1,53 @@
+{
+  "name": "@atlaskit/adf-schema",
+  "version": "8.0.0",
+  "description": "Shared package that contains the ADF-schema (json) and ProseMirror node/mark specs",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "author": "Atlassian Pty Ltd",
+  "license": "Apache-2.0",
+  "module": "dist/esm/index.js",
+  "main": "dist/cjs/index.js",
+  "types": "dist/cjs/index.d.ts",
+  "sideEffects": false,
+  "atlaskit:src": "src/index.ts",
+  "atlassian": {
+    "team": "Editor",
+    "releaseModel": "scheduled"
+  },
+  "scripts": {
+    "build:json-schema": "mkdir -p dist && cp -r json-schema dist",
+    "generate:json-schema": "mkdir -p json-schema/v1/ && yarn generate:json-schema:full && yarn generate:json-schema:stage-0",
+    "generate:json-schema:stage-0": "json-schema-generator --outDir=./json-schema/v1/ --stage=0 ./src/schema/nodes/doc.ts",
+    "generate:json-schema:full": "json-schema-generator --outDir=./json-schema/v1/ ./src/schema/nodes/doc.ts",
+    "ak-postbuild": "yarn build:json-schema"
+  },
+  "dependencies": {
+    "@types/linkify-it": "^2.0.4",
+    "@types/prosemirror-model": "^1.7.2",
+    "@types/prosemirror-state": "^1.2.0",
+    "@types/prosemirror-view": "^1.9.0",
+    "css-color-names": "0.0.4",
+    "linkify-it": "^2.0.3",
+    "prosemirror-model": "^1.7.0",
+    "prosemirror-view": "^1.9.12",
+    "tslib": "^1.9.3"
+  },
+  "devDependencies": {
+    "@atlaskit/editor-json-transformer": "^7.0.9",
+    "@atlaskit/editor-test-helpers": "^11.0.0",
+    "@atlaskit/json-schema-generator": "^2.3.0",
+    "ajv": "^4.11.3",
+    "json-schema-diff-validator": "^0.4.1",
+    "prosemirror-state": "^1.2.2"
+  },
+  "techstack": {
+    "@atlassian/frontend": {
+      "circular-dependencies": [
+        "file-level"
+      ]
+    }
+  }
+}

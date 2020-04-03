@@ -1,0 +1,683 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`JIRA wiki markup - Links [CS-240] should handle links with titles 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "marks": Array [
+            Object {
+              "attrs": Object {
+                "__confluenceMetadata": null,
+                "href": "http://www.google.com",
+              },
+              "type": "link",
+            },
+          ],
+          "text": "Link Description",
+          "type": "text",
+        },
+        Object {
+          "text": " boy I hope this doesn't go all the way to here] that would be bad.",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Links [CS-240] should know where to end the link 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "marks": Array [
+            Object {
+              "attrs": Object {
+                "__confluenceMetadata": null,
+                "href": "http://www.google.com",
+              },
+              "type": "link",
+            },
+          ],
+          "text": "Link Title",
+          "type": "text",
+        },
+        Object {
+          "text": " boy I hope this doesn't go all the way to here] that would be bad.",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Links [CS-385] should link text in link format 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "marks": Array [
+            Object {
+              "attrs": Object {
+                "__confluenceMetadata": null,
+                "href": "https://www.google.com",
+              },
+              "type": "link",
+            },
+          ],
+          "text": "https://splunk.paas-inf.net/en-GB/app/search/search?earliest=-1d&latest=now",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Links [CS-478] should resolve link with | in the url 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "marks": Array [
+            Object {
+              "attrs": Object {
+                "__confluenceMetadata": null,
+                "href": "https://hello.atlassian.net/wiki/spaces/Engage/pages/296780133/EP+Chrome+Extension#Set-test-metadata-without-having-to-create-a-message-in-targeting--",
+              },
+              "type": "link",
+            },
+          ],
+          "text": "page",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Links [CS-542] should correctly style superscript links 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "marks": Array [
+            Object {
+              "attrs": Object {
+                "type": "sup",
+              },
+              "type": "subsup",
+            },
+            Object {
+              "attrs": Object {
+                "__confluenceMetadata": null,
+                "href": "http://example.com",
+              },
+              "type": "link",
+            },
+          ],
+          "text": "link title",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Links [CS-542] should correctly style superscript links 2`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "marks": Array [
+            Object {
+              "attrs": Object {
+                "type": "sub",
+              },
+              "type": "subsup",
+            },
+            Object {
+              "attrs": Object {
+                "__confluenceMetadata": null,
+                "href": "http://example.com",
+              },
+              "type": "link",
+            },
+          ],
+          "text": "link title",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Links [CS-542] should not parse nested links 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "[test",
+          "type": "text",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "attrs": Object {
+                "__confluenceMetadata": null,
+                "href": "http://example.com",
+              },
+              "type": "link",
+            },
+          ],
+          "text": "test",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Links [CS-676] should trim escape in href 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "This is a link ",
+          "type": "text",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "attrs": Object {
+                "__confluenceMetadata": null,
+                "href": "https://extranet.atlassian.com/display/JPLAT/Atlaskit+components+needed+for+Bento",
+              },
+              "type": "link",
+            },
+          ],
+          "text": "https://extranet.atlassian.com/display/JPLAT/Atlaskit\\\\+components\\\\+needed\\\\+for\\\\+Bento",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Links [CS-787] should convert back to inline card 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "This is a smart link ",
+          "type": "text",
+        },
+        Object {
+          "attrs": Object {
+            "data": null,
+            "url": "https://www.dropbox.com/s/2mh79iuglsnmbwf/Get%20Started%20with%20Dropbox.pdf?dl=0",
+          },
+          "type": "inlineCard",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Links [EX-500] should jump over the link if it is invalid 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "This ",
+          "type": "text",
+        },
+        Object {
+          "type": "hardBreak",
+        },
+        Object {
+          "text": "[waves hands around",
+          "type": "text",
+        },
+        Object {
+          "type": "hardBreak",
+        },
+        Object {
+          "text": "]. Be",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Links should convert IRC address text 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "An IRC address: ",
+          "type": "text",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "attrs": Object {
+                "__confluenceMetadata": null,
+                "href": "irc://atlassian.com/confluence",
+              },
+              "type": "link",
+            },
+          ],
+          "text": "irc://atlassian.com/confluence",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Links should convert links with port to link marks 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "Link with port ",
+          "type": "text",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "attrs": Object {
+                "__confluenceMetadata": null,
+                "href": "http://localhost:8080",
+              },
+              "type": "link",
+            },
+          ],
+          "text": "http://localhost:8080",
+          "type": "text",
+        },
+        Object {
+          "text": " here",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Links should convert links with text to link marks 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "This is an ",
+          "type": "text",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "attrs": Object {
+                "__confluenceMetadata": null,
+                "href": "https://www.atlassian.com",
+              },
+              "type": "link",
+            },
+          ],
+          "text": "Atlassian",
+          "type": "text",
+        },
+        Object {
+          "text": " link",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Links should convert mailto address text 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "An IRC address: ",
+          "type": "text",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "attrs": Object {
+                "__confluenceMetadata": null,
+                "href": "mailto:example@email.com",
+              },
+              "type": "link",
+            },
+          ],
+          "text": "example@email.com",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Links should convert mailto: links to link marks + remove mailto: prefix 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "This is a ",
+          "type": "text",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "attrs": Object {
+                "__confluenceMetadata": null,
+                "href": "mailto:legendaryservice@atlassian.com",
+              },
+              "type": "link",
+            },
+          ],
+          "text": "legendaryservice@atlassian.com",
+          "type": "text",
+        },
+        Object {
+          "text": " link",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Links should convert normal url text to link marks 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "Hey, checkout atlassian=",
+          "type": "text",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "attrs": Object {
+                "__confluenceMetadata": null,
+                "href": "http://www.atlassian.com/",
+              },
+              "type": "link",
+            },
+          ],
+          "text": "http://www.atlassian.com",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Links should convert simple links to link marks 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "This is a ",
+          "type": "text",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "attrs": Object {
+                "__confluenceMetadata": null,
+                "href": "https://www.atlassian.com",
+              },
+              "type": "link",
+            },
+          ],
+          "text": "https://www.atlassian.com",
+          "type": "text",
+        },
+        Object {
+          "text": " link",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Links should convert url text inside <> to link marks 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "Hey, this is amazing <",
+          "type": "text",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "attrs": Object {
+                "__confluenceMetadata": null,
+                "href": "https://www.atlassian.com/",
+              },
+              "type": "link",
+            },
+          ],
+          "text": "https://www.atlassian.com",
+          "type": "text",
+        },
+        Object {
+          "text": ">",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Links should create Media Image and Link from linkable-image 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "This is a linkable image ",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "attrs": Object {
+        "layout": "center",
+        "width": null,
+      },
+      "content": Array [
+        Object {
+          "attrs": Object {
+            "__contextId": null,
+            "__displayType": null,
+            "__external": false,
+            "__fileMimeType": null,
+            "__fileName": null,
+            "__fileSize": null,
+            "alt": null,
+            "collection": "",
+            "height": 183,
+            "id": "abc-123",
+            "occurrenceKey": null,
+            "type": "file",
+            "url": null,
+            "width": 200,
+          },
+          "type": "media",
+        },
+      ],
+      "type": "mediaSingle",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "marks": Array [
+            Object {
+              "attrs": Object {
+                "__confluenceMetadata": null,
+                "href": "https://www.atlassian.com",
+              },
+              "type": "link",
+            },
+          ],
+          "text": "!image.jpg!",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Links should ignore anchor-links starting with # 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "This is an [#anchor] link",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Links should ignore anchors 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "Anchor  here",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Links should ignore file links 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "This is a local file [file:///c:/temp/foo.txt] link",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Links should ignore invalid protocal 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "An invalid URL: invalid://nowhere.com/hello",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;

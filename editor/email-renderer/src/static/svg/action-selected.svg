@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 55.1 (78136) - https://sketchapp.com -->
+    <title>action-selected</title>
+    <desc>Created with Sketch.</desc>
+    <g id="action-selected" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="checkbox-selected">
+            <rect id="Rectangle-23-Copy-3" fill="#0052CC" x="0" y="0" width="20" height="20" rx="2"></rect>
+            <path d="M9.09305682,14.2208295 C8.84162702,14.4709765 8.51451173,14.5966914 8.18611364,14.5966914 C7.85771554,14.5966914 7.52931744,14.4709765 7.27917045,14.2208295 L4.37618259,11.3178417 C3.8746058,10.8175477 3.8746058,10.0055321 4.37618259,9.50395532 C4.87775937,9.00237853 5.68849217,9.00237853 6.19006895,9.50395532 L8.18611364,11.5 L13.809931,5.87618259 C14.3115078,5.3746058 15.1222406,5.3746058 15.6238174,5.87618259 C16.1253942,6.37775937 16.1253942,7.18849217 15.6238174,7.69006895 L9.09305682,14.2208295 Z" id="Fill-1" fill="#FFFFFF"></path>
+        </g>
+    </g>
+</svg>

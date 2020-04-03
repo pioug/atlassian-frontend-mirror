@@ -1,0 +1,74 @@
+{
+  "name": "@atlaskit/media-card",
+  "version": "67.1.1",
+  "description": "Includes all media card related components, CardView, CardViewSmall, Card...",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "author": "Atlassian Pty Ltd",
+  "license": "Apache-2.0",
+  "module": "dist/esm/index.js",
+  "main": "dist/cjs/index.js",
+  "types": "dist/cjs/index.d.ts",
+  "sideEffects": false,
+  "atlaskit:src": "src/index.ts",
+  "atlassian": {
+    "team": "Media Platform",
+    "releaseModel": "scheduled",
+    "website": {
+      "name": "Media Card"
+    }
+  },
+  "dependencies": {
+    "@atlaskit/analytics-gas-types": "^4.0.13",
+    "@atlaskit/analytics-next": "^6.3.5",
+    "@atlaskit/dropdown-menu": "^9.0.2",
+    "@atlaskit/icon": "^20.1.0",
+    "@atlaskit/media-client": "^6.0.0",
+    "@atlaskit/media-ui": "^12.0.1",
+    "@atlaskit/media-viewer": "^44.3.0",
+    "@atlaskit/spinner": "^12.1.6",
+    "@atlaskit/theme": "^9.5.1",
+    "@atlaskit/type-helpers": "^4.2.3",
+    "@babel/runtime": "^7.0.0",
+    "classnames": "^2.2.5",
+    "react-lazily-render": "^1.2.0",
+    "tslib": "^1.9.3",
+    "uuid": "^3.1.0",
+    "video-snapshot": "^1.0.3"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0",
+    "react-intl": "^2.6.0",
+    "rxjs": "^5.5.0",
+    "styled-components": "^3.2.6"
+  },
+  "devDependencies": {
+    "@atlaskit/analytics-listeners": "^6.2.4",
+    "@atlaskit/build-utils": "^2.6.4",
+    "@atlaskit/button": "^13.3.9",
+    "@atlaskit/checkbox": "^10.1.10",
+    "@atlaskit/docs": "^8.5.0",
+    "@atlaskit/field-radio-group": "^7.0.2",
+    "@atlaskit/field-range": "^8.0.2",
+    "@atlaskit/item": "^11.0.2",
+    "@atlaskit/media-core": "^31.1.0",
+    "@atlaskit/media-test-helpers": "^27.1.0",
+    "@atlaskit/ssr": "^0.1.1",
+    "@atlaskit/textfield": "^3.1.9",
+    "@atlaskit/toggle": "^8.1.6",
+    "@atlaskit/webdriver-runner": "^0.3.0",
+    "@types/classnames": "^2.2.6",
+    "deepcopy": "0.6.3",
+    "enzyme": "^3.10.0",
+    "exenv": "^1.2.2",
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0",
+    "react-intl": "^2.6.0",
+    "rxjs": "^5.5.0",
+    "scrollparent": "^2.0.1",
+    "wait-for-expect": "^1.2.0"
+  }
+}

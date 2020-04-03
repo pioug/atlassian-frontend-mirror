@@ -1,0 +1,54 @@
+{
+  "type": "doc",
+  "version": 1,
+  "content": [
+    {
+      "type": "decisionList",
+      "attrs": {
+        "localId": "Wubalubadubdub"
+      },
+      "content": [
+        {
+          "type": "decisionItem",
+          "attrs": {
+            "localId": "no-content-plz-no-render",
+            "state": "DECIDED"
+          }
+        },
+        {
+          "type": "decisionItem",
+          "attrs": {
+            "localId": "number-1",
+            "state": "DECIDED"
+          },
+          "content": [
+            {
+              "type": "text",
+              "text": "decision 1 of 2 in list"
+            }
+          ]
+        },
+        {
+          "type": "decisionItem",
+          "attrs": {
+            "localId": "number-2",
+            "state": "DECIDED"
+          },
+          "content": [
+            {
+              "type": "text",
+              "text": "decision 2 of 2 in list"
+            }
+          ]
+        },
+        {
+          "type": "decisionItem",
+          "attrs": {
+            "localId": "to-be-ignored-as-no-content",
+            "state": "DECIDED"
+          }
+        }
+      ]
+    }
+  ]
+}

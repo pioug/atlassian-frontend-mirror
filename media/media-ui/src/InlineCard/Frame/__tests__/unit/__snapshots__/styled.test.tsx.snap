@@ -1,0 +1,114 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Wrapper it should have interactive styles 1`] = `
+.c0 {
+  line-height: 16px;
+  padding: 1px 0.24em 2px 0.24em;
+  display: inline;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  border-radius: 3px;
+  background-color: white;
+  box-shadow: 0 1px 1px rgba(9,30,66,0.25),0 0 1px 0 rgba(9,30,66,0.31);
+  cursor: pointer;
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+  -webkit-transition: 0.1s all ease-in-out;
+  transition: 0.1s all ease-in-out;
+}
+
+.c0:hover {
+  background-color: #F4F5F7;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c0:active {
+  background-color: #DEEBFF;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c0:focus {
+  cursor: pointer;
+  box-shadow: 0 0 0 2px #4C9AFF;
+  outline: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c0:focus,
+.c0:focus:hover,
+.c0:focus:focus,
+.c0:focus:active {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+<a
+  className="c0"
+/>
+`;
+
+exports[`Wrapper it should have selected styles 1`] = `
+.c0 {
+  line-height: 16px;
+  padding: 1px 0.24em 2px 0.24em;
+  display: inline;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  border-radius: 3px;
+  background-color: white;
+  box-shadow: 0 1px 1px rgba(9,30,66,0.25),0 0 1px 0 rgba(9,30,66,0.31);
+  cursor: pointer;
+  box-shadow: 0 0 0 2px #4C9AFF;
+  outline: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-transition: 0.1s all ease-in-out;
+  transition: 0.1s all ease-in-out;
+}
+
+.c0,
+.c0:hover,
+.c0:focus,
+.c0:active {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+<a
+  className="c0"
+/>
+`;
+
+exports[`Wrapper it should not have interactive or selected styles 1`] = `
+.c0 {
+  line-height: 16px;
+  padding: 1px 0.24em 2px 0.24em;
+  display: inline;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  border-radius: 3px;
+  background-color: white;
+  box-shadow: 0 1px 1px rgba(9,30,66,0.25),0 0 1px 0 rgba(9,30,66,0.31);
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+  -webkit-transition: 0.1s all ease-in-out;
+  transition: 0.1s all ease-in-out;
+}
+
+<a
+  className="c0"
+/>
+`;

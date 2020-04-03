@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Decoding url URL class does not exist 1`] = `"https://example.com/test%2C,%20,%20space?qu%20ery=some%20text&query=a%20a,b%20b,c%2Cc#d,e%2Ce%20f%20g"`;
+
+exports[`Decoding url URL class does not have a href property 1`] = `"https://example.com/test%2C,%20,%20space?qu%20ery=some%20text&query=a%20a,b%20b,c%2Cc#d,e%2Ce%20f%20g"`;
+
+exports[`Decoding url URL class is used if it exists 1`] = `"https://example.com/test%2C,%20,%20space?qu%20ery=some%20text&query=a%20a,b%20b,c%2Cc#d,e%2Ce%20f%20g"`;

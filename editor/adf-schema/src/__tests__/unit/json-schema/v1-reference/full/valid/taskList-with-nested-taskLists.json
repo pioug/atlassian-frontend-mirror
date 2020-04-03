@@ -1,0 +1,74 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "taskList",
+      "attrs": {
+        "localId": "test-list-id"
+      },
+      "content": [
+        {
+          "type": "taskItem",
+          "attrs": {
+            "localId": "test-id",
+            "state": "TODO"
+          },
+          "content": [
+            {
+              "type": "text",
+              "text": "Do this!"
+            }
+          ]
+        },
+        {
+          "type": "taskItem",
+          "attrs": {
+            "localId": "test-id",
+            "state": "DONE"
+          },
+          "content": [
+            {
+              "type": "text",
+              "text": "This is completed"
+            }
+          ]
+        },
+        {
+          "type": "taskList",
+          "attrs": {
+            "localId": "second-test-list-id"
+          },
+          "content": [
+            {
+              "type": "taskItem",
+              "attrs": {
+                "localId": "nested-test-id",
+                "state": "TODO"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "A nested task!"
+                }
+              ]
+            },
+            {
+              "type": "taskItem",
+              "attrs": {
+                "localId": "nested-test-id-2",
+                "state": "DONE"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "A second one"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

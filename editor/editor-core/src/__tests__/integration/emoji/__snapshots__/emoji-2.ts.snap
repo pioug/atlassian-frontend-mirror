@@ -1,0 +1,204 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`emoji-2.ts: should be able remove emoji on backspace 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "this ",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`emoji-2.ts: should be able to change text with emoji into decisions 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "localId": "abc-123",
+      },
+      "content": Array [
+        Object {
+          "attrs": Object {
+            "localId": "abc-123",
+            "state": "DECIDED",
+          },
+          "content": Array [
+            Object {
+              "text": "this ",
+              "type": "text",
+            },
+            Object {
+              "attrs": Object {
+                "id": "1f604",
+                "shortName": ":smile:",
+                "text": "😄",
+              },
+              "type": "emoji",
+            },
+            Object {
+              "text": " ",
+              "type": "text",
+            },
+          ],
+          "type": "decisionItem",
+        },
+      ],
+      "type": "decisionList",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`emoji-2.ts: should be able to select emoji by clicking inside decisions 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "localId": "abc-123",
+      },
+      "content": Array [
+        Object {
+          "attrs": Object {
+            "localId": "abc-123",
+            "state": "DECIDED",
+          },
+          "content": Array [
+            Object {
+              "text": "this ",
+              "type": "text",
+            },
+            Object {
+              "attrs": Object {
+                "id": "1f604",
+                "shortName": ":smile:",
+                "text": "😄",
+              },
+              "type": "emoji",
+            },
+            Object {
+              "text": " ",
+              "type": "text",
+            },
+          ],
+          "type": "decisionItem",
+        },
+      ],
+      "type": "decisionList",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`emoji-2.ts: should be able to use emoji inside blockquote 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "text": "some text ",
+              "type": "text",
+            },
+            Object {
+              "attrs": Object {
+                "id": "1f170",
+                "shortName": ":a:",
+                "text": "🅰",
+              },
+              "type": "emoji",
+            },
+            Object {
+              "text": " ",
+              "type": "text",
+            },
+          ],
+          "type": "paragraph",
+        },
+      ],
+      "type": "blockquote",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`emoji-2.ts: should be able to use emoji inside bulletList 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "content": Array [
+                Object {
+                  "attrs": Object {
+                    "id": "1f604",
+                    "shortName": ":smile:",
+                    "text": "😄",
+                  },
+                  "type": "emoji",
+                },
+                Object {
+                  "text": " ",
+                  "type": "text",
+                },
+              ],
+              "type": "paragraph",
+            },
+          ],
+          "type": "listItem",
+        },
+      ],
+      "type": "bulletList",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`emoji-2.ts: should be able to use emoji inside orderedList 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "content": Array [
+                Object {
+                  "attrs": Object {
+                    "id": "1f170",
+                    "shortName": ":a:",
+                    "text": "🅰",
+                  },
+                  "type": "emoji",
+                },
+                Object {
+                  "text": " ",
+                  "type": "text",
+                },
+              ],
+              "type": "paragraph",
+            },
+          ],
+          "type": "listItem",
+        },
+      ],
+      "type": "orderedList",
+    },
+  ],
+  "type": "doc",
+}
+`;

@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "hello "
+        },
+        {
+          "type": "text",
+          "text": "there",
+          "marks": [
+            {
+              "type": "annotation",
+              "attrs": {
+                "id": "123456",
+                "annotationType": "inlineComment"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

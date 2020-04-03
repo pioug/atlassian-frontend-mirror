@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`text-color.ts: Can change text color 1`] = `
+Array [
+  Object {
+    "states": "{\\"color\\":\\"#172b4d\\",\\"disabled\\":false,\\"palette\\":{\\"Dark gray\\":\\"#172b4d\\",\\"Light gray\\":\\"#97a0af\\",\\"Purple\\":\\"#6554c0\\",\\"Teal\\":\\"#00b8d9\\",\\"Green\\":\\"#36b37e\\",\\"Red\\":\\"#ff5630\\",\\"Orange\\":\\"#ff991f\\"},\\"defaultColor\\":\\"#172b4d\\",\\"borderColorPalette\\":{\\"dark-gray\\":\\"rgba(23, 43, 77, 0.12)\\",\\"light-gray\\":\\"rgba(23, 43, 77, 0.12)\\",\\"purple\\":\\"rgba(23, 43, 77, 0.12)\\",\\"teal\\":\\"rgba(23, 43, 77, 0.12)\\",\\"green\\":\\"rgba(23, 43, 77, 0.12)\\",\\"red\\":\\"rgba(23, 43, 77, 0.12)\\",\\"orange\\":\\"rgba(23, 43, 77, 0.12)\\"}}",
+  },
+  Object {
+    "states": "{\\"color\\":\\"#008DA6\\",\\"disabled\\":false}",
+  },
+]
+`;

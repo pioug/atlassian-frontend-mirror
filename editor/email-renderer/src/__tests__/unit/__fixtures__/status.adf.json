@@ -1,0 +1,48 @@
+{
+  "type": "doc",
+  "version": 1,
+  "content": [
+    {
+      "type": "status",
+      "attrs": {
+        "text": "In progress",
+        "color": "blue"
+      }
+    },
+    {
+      "type": "status",
+      "attrs": {
+        "text": "Neutral",
+        "color": "neutral"
+      }
+    },
+    {
+      "type": "status",
+      "attrs": {
+        "text": "Overdue",
+        "color": "red"
+      }
+    },
+    {
+      "type": "status",
+      "attrs": {
+        "text": "Yellow",
+        "color": "yellow"
+      }
+    },
+    {
+      "type": "status",
+      "attrs": {
+        "text": "Purple",
+        "color": "purple"
+      }
+    },
+    {
+      "type": "status",
+      "attrs": {
+        "text": "Green",
+        "color": "green"
+      }
+    }
+  ]
+}

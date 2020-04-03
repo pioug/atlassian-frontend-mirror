@@ -1,0 +1,36 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "taskList",
+      "attrs": {
+        "localId": "7be85c43-8607-4e75-8ab2-4f44864f09e0"
+      },
+      "content": [
+        {
+          "type": "taskItem",
+          "attrs": {
+            "localId": "94a01414-6621-48ce-a798-4a4c5b52caf2",
+            "state": "TODO"
+          },
+          "content": [
+            {
+              "type": "status",
+              "attrs": {
+                "text": "H",
+                "color": "neutral",
+                "localId": "6b0aa417-eb2a-4693-91e9-529f352a90da",
+                "style": ""
+              }
+            },
+            {
+              "type": "text",
+              "text": " "
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`JIRA wiki markup - Triple Dash should not replace with triple dashes when sticked with parenthesis or alphanumerical 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "---foo",
+          "type": "text",
+        },
+        Object {
+          "type": "hardBreak",
+        },
+        Object {
+          "text": "bar---",
+          "type": "text",
+        },
+        Object {
+          "type": "hardBreak",
+        },
+        Object {
+          "text": "(---",
+          "type": "text",
+        },
+        Object {
+          "type": "hardBreak",
+        },
+        Object {
+          "text": "---)",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Triple Dash should replace triple dash with a special symbol 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "foo — bar",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;

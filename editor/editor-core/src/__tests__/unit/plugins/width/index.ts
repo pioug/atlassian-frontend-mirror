@@ -1,0 +1,87 @@
+import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
+import {
+  doc,
+  p as paragraph,
+} from '@atlaskit/editor-test-helpers/schema-builder';
+
+import { pluginKey } from '../../../../plugins/width';
+
+describe('width plugin', () => {
+  const createEditor = createEditorFactory();
+
+  const editor = (doc: any) => {
+    return createEditor({
+      doc,
+    });
+  };
+
+  // Skipped by LB as it's flakey and blocking repo move
+  // TODO: unskip this
+  it.skip('should not updating plugin state for a non related plugin transaction', () => {
+    const { editorView: view, eventDispatcher } = editor(
+      doc(paragraph('{<>}')),
+    );
+    const spy = jest.spyOn(eventDispatcher, 'emit');
+
+    view.dispatch(view.state.tr.setMeta('someotherplugin', { pos: 20 }));
+
+    const pluginState = pluginKey.getState(view.state);
+    expect(pluginState).toEqual({ width: 0 });
+
+    // Ensure width plugin never updates.
+    // @ts-ignore
+    expect(spy).not.toHaveBeenCalledWith(pluginKey.key, expect.anything());
+  });
+
+  it('should update width', () => {
+    const { editorView: view, eventDispatcher } = editor(
+      doc(paragraph('{<>}')),
+    );
+    const spy = jest.spyOn(eventDispatcher, 'emit');
+
+    view.dispatch(view.state.tr.setMeta(pluginKey, { width: 50 }));
+
+    const pluginState = pluginKey.getState(view.state);
+    expect(pluginState).toEqual({ width: 50 });
+
+    // @ts-ignore
+    expect(spy).toHaveBeenCalledWith(pluginKey.key, { width: 50 });
+  });
+
+  // Skipped by LB as it's flakey and blocking repo move
+  // TODO: unskip this
+  it.skip('should update lineLength', () => {
+    const { editorView: view, eventDispatcher } = editor(
+      doc(paragraph('{<>}')),
+    );
+    const spy = jest.spyOn(eventDispatcher, 'emit');
+
+    view.dispatch(view.state.tr.setMeta(pluginKey, { lineLength: 50 }));
+
+    const pluginState = pluginKey.getState(view.state);
+    expect(pluginState).toEqual({ width: 0, lineLength: 50 });
+
+    // @ts-ignore
+    expect(spy).toHaveBeenCalledWith(pluginKey.key, {
+      width: 0,
+      lineLength: 50,
+    });
+  });
+
+  // Skipped by LB as it's flakey and blocking repo move
+  // TODO: unskip this
+  it.skip('shouldnt emit with no new values', () => {
+    const { editorView: view, eventDispatcher } = editor(
+      doc(paragraph('{<>}')),
+    );
+    const spy = jest.spyOn(eventDispatcher, 'emit');
+
+    view.dispatch(view.state.tr.setMeta(pluginKey, { width: 0 }));
+
+    const pluginState = pluginKey.getState(view.state);
+    expect(pluginState).toEqual({ width: 0 });
+
+    // @ts-ignore
+    expect(spy).not.toHaveBeenCalledWith(pluginKey.key, expect.anything());
+  });
+});

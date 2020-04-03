@@ -1,0 +1,18 @@
+{
+  "type": "doc",
+  "version": 1,
+  "content": [
+    {
+      "type": "text",
+      "text": "Hello, world!",
+      "marks": [
+        {
+          "type": "link",
+          "attrs": {
+            "href": "https://www.atlassian.com"
+          }
+        }
+      ]
+    }
+  ]
+}

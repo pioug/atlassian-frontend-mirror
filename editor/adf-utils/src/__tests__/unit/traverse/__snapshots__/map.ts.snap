@@ -1,0 +1,234 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Traverse#map should return an array of all nodes 1`] = `
+Array [
+  Object {
+    "content": Array [
+      Object {
+        "content": Array [
+          Object {
+            "text": "Hi, my name is... My name is... My name is... My name is ",
+            "type": "text",
+          },
+          Object {
+            "attrs": Object {
+              "accessLevel": "",
+              "id": "1",
+              "text": "@Oscar Wallhult",
+            },
+            "type": "mention",
+          },
+          Object {
+            "text": " :D",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "text": "This is a ",
+            "type": "text",
+          },
+          Object {
+            "attrs": Object {
+              "accessLevel": "",
+              "id": "2",
+              "text": "@mention",
+            },
+            "type": "mention",
+          },
+          Object {
+            "text": ". And this is a broken ",
+            "type": "text",
+          },
+          Object {
+            "attrs": Object {
+              "accessLevel": "",
+              "id": "mention",
+              "text": "@unknown",
+            },
+            "type": "mention",
+          },
+        ],
+        "type": "paragraph",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "text": "Mentions with generic ids ",
+            "type": "text",
+          },
+          Object {
+            "attrs": Object {
+              "accessLevel": "CONTAINER",
+              "id": "here",
+              "text": "@here",
+            },
+            "type": "mention",
+          },
+          Object {
+            "text": " ",
+            "type": "text",
+          },
+          Object {
+            "attrs": Object {
+              "accessLevel": "CONTAINER",
+              "id": "all",
+              "text": "@all",
+            },
+            "type": "mention",
+          },
+        ],
+        "type": "paragraph",
+      },
+    ],
+    "type": "doc",
+    "version": 1,
+  },
+  Object {
+    "content": Array [
+      Object {
+        "text": "Hi, my name is... My name is... My name is... My name is ",
+        "type": "text",
+      },
+      Object {
+        "attrs": Object {
+          "accessLevel": "",
+          "id": "1",
+          "text": "@Oscar Wallhult",
+        },
+        "type": "mention",
+      },
+      Object {
+        "text": " :D",
+        "type": "text",
+      },
+    ],
+    "type": "paragraph",
+  },
+  Object {
+    "text": "Hi, my name is... My name is... My name is... My name is ",
+    "type": "text",
+  },
+  Object {
+    "attrs": Object {
+      "accessLevel": "",
+      "id": "1",
+      "text": "@Oscar Wallhult",
+    },
+    "type": "mention",
+  },
+  Object {
+    "text": " :D",
+    "type": "text",
+  },
+  Object {
+    "content": Array [
+      Object {
+        "text": "This is a ",
+        "type": "text",
+      },
+      Object {
+        "attrs": Object {
+          "accessLevel": "",
+          "id": "2",
+          "text": "@mention",
+        },
+        "type": "mention",
+      },
+      Object {
+        "text": ". And this is a broken ",
+        "type": "text",
+      },
+      Object {
+        "attrs": Object {
+          "accessLevel": "",
+          "id": "mention",
+          "text": "@unknown",
+        },
+        "type": "mention",
+      },
+    ],
+    "type": "paragraph",
+  },
+  Object {
+    "text": "This is a ",
+    "type": "text",
+  },
+  Object {
+    "attrs": Object {
+      "accessLevel": "",
+      "id": "2",
+      "text": "@mention",
+    },
+    "type": "mention",
+  },
+  Object {
+    "text": ". And this is a broken ",
+    "type": "text",
+  },
+  Object {
+    "attrs": Object {
+      "accessLevel": "",
+      "id": "mention",
+      "text": "@unknown",
+    },
+    "type": "mention",
+  },
+  Object {
+    "content": Array [
+      Object {
+        "text": "Mentions with generic ids ",
+        "type": "text",
+      },
+      Object {
+        "attrs": Object {
+          "accessLevel": "CONTAINER",
+          "id": "here",
+          "text": "@here",
+        },
+        "type": "mention",
+      },
+      Object {
+        "text": " ",
+        "type": "text",
+      },
+      Object {
+        "attrs": Object {
+          "accessLevel": "CONTAINER",
+          "id": "all",
+          "text": "@all",
+        },
+        "type": "mention",
+      },
+    ],
+    "type": "paragraph",
+  },
+  Object {
+    "text": "Mentions with generic ids ",
+    "type": "text",
+  },
+  Object {
+    "attrs": Object {
+      "accessLevel": "CONTAINER",
+      "id": "here",
+      "text": "@here",
+    },
+    "type": "mention",
+  },
+  Object {
+    "text": " ",
+    "type": "text",
+  },
+  Object {
+    "attrs": Object {
+      "accessLevel": "CONTAINER",
+      "id": "all",
+      "text": "@all",
+    },
+    "type": "mention",
+  },
+]
+`;

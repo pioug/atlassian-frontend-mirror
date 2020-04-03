@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`upload-external-media.ts: Keeps existing external as is 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "layout": "center",
+        "width": null,
+      },
+      "content": Array [
+        Object {
+          "attrs": Object {
+            "__contextId": null,
+            "__displayType": null,
+            "__external": false,
+            "__fileMimeType": null,
+            "__fileName": "example.png",
+            "__fileSize": null,
+            "alt": null,
+            "collection": "",
+            "height": null,
+            "id": "",
+            "occurrenceKey": null,
+            "type": "external",
+            "url": "https://images2.minutemediacdn.com/image/upload/c_crop,h_1193,w_2121,x_0,y_175/f_auto,q_auto,w_1100/v1554921998/shape/mentalfloss/549585-istock-909106260.jpg",
+            "width": null,
+          },
+          "type": "media",
+        },
+      ],
+      "type": "mediaSingle",
+    },
+    Object {
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;

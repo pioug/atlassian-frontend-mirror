@@ -1,0 +1,438 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Builders should be able to generate correct ADF for example #0 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "My favourite emoji is ",
+          "type": "text",
+        },
+        Object {
+          "attrs": Object {
+            "shortName": ":man_facepalming:",
+            "text": "🤦‍♂️",
+          },
+          "type": "emoji",
+        },
+        Object {
+          "text": " . What is yours?",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+  "version": 1,
+}
+`;
+
+exports[`Builders should be able to generate correct ADF for example #1 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "marks": Array [
+            Object {
+              "attrs": Object {
+                "href": "https://www.atlassian.com",
+              },
+              "type": "link",
+            },
+          ],
+          "text": "Hello, World!",
+          "type": "text",
+        },
+        Object {
+          "text": " Look I can do",
+          "type": "text",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "type": "em",
+            },
+          ],
+          "text": "italic",
+          "type": "text",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "type": "strong",
+            },
+            Object {
+              "type": "em",
+            },
+          ],
+          "text": ", strong ",
+          "type": "text",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "type": "underline",
+            },
+            Object {
+              "type": "strong",
+            },
+            Object {
+              "type": "em",
+            },
+          ],
+          "text": "and underlined text!",
+          "type": "text",
+        },
+        Object {
+          "text": " and action mark and invalid action mark.",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+  "version": 1,
+}
+`;
+
+exports[`Builders should be able to generate correct ADF for example #2 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "Hi, my name is... My name is... My name is... My name is ",
+          "type": "text",
+        },
+        Object {
+          "attrs": Object {
+            "accessLevel": "",
+            "id": "1",
+            "text": "@Oscar Wallhult",
+          },
+          "type": "mention",
+        },
+        Object {
+          "text": " :D",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "text": "This is a ",
+          "type": "text",
+        },
+        Object {
+          "attrs": Object {
+            "accessLevel": "",
+            "id": "2",
+            "text": "@mention",
+          },
+          "type": "mention",
+        },
+        Object {
+          "text": ". And this is a broken ",
+          "type": "text",
+        },
+        Object {
+          "attrs": Object {
+            "accessLevel": "",
+            "id": "mention",
+            "text": "@unknown",
+          },
+          "type": "mention",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "text": "Mentions with generic ids ",
+          "type": "text",
+        },
+        Object {
+          "attrs": Object {
+            "accessLevel": "CONTAINER",
+            "id": "here",
+            "text": "@here",
+          },
+          "type": "mention",
+        },
+        Object {
+          "text": " ",
+          "type": "text",
+        },
+        Object {
+          "attrs": Object {
+            "accessLevel": "CONTAINER",
+            "id": "all",
+            "text": "@all",
+          },
+          "type": "mention",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+  "version": 1,
+}
+`;
+
+exports[`Builders should be able to generate correct ADF for example #3 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "attrs": Object {
+            "shortName": ":grinning:",
+            "text": "😀",
+          },
+          "type": "emoji",
+        },
+        Object {
+          "text": " ",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "attrs": Object {
+            "shortName": ":man_facepalming:",
+            "text": "🤦‍♂️",
+          },
+          "type": "emoji",
+        },
+        Object {
+          "text": " ",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "attrs": Object {
+            "shortName": ":flag_ru:",
+            "text": "🇷🇺",
+          },
+          "type": "emoji",
+        },
+        Object {
+          "text": " ",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "attrs": Object {
+            "shortName": ":wtf:",
+            "text": ":wtf:",
+          },
+          "type": "emoji",
+        },
+        Object {
+          "text": " ",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+  "version": 1,
+}
+`;
+
+exports[`Builders should be able to generate correct ADF for example #4 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {},
+      "content": Array [
+        Object {
+          "text": "some code",
+          "type": "text",
+        },
+      ],
+      "marks": Array [
+        Object {
+          "attrs": Object {
+            "mode": "wide",
+          },
+          "type": "breakout",
+        },
+      ],
+      "type": "codeBlock",
+    },
+  ],
+  "type": "doc",
+  "version": 1,
+}
+`;
+
+exports[`Builders should be able to generate correct ADF for example #5 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "hello",
+          "type": "text",
+        },
+      ],
+      "marks": Array [
+        Object {
+          "attrs": Object {
+            "align": "end",
+          },
+          "type": "alignment",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "attrs": Object {
+        "level": 2,
+      },
+      "content": Array [
+        Object {
+          "text": "world!",
+          "type": "text",
+        },
+      ],
+      "marks": Array [
+        Object {
+          "attrs": Object {
+            "align": "end",
+          },
+          "type": "alignment",
+        },
+      ],
+      "type": "heading",
+    },
+  ],
+  "type": "doc",
+  "version": 1,
+}
+`;
+
+exports[`Builders should be able to generate correct ADF for example #6 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "hello",
+          "type": "text",
+        },
+      ],
+      "marks": Array [
+        Object {
+          "attrs": Object {
+            "level": 1,
+          },
+          "type": "indentation",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "attrs": Object {
+        "level": 2,
+      },
+      "content": Array [
+        Object {
+          "text": "world!",
+          "type": "text",
+        },
+      ],
+      "marks": Array [
+        Object {
+          "attrs": Object {
+            "level": 2,
+          },
+          "type": "indentation",
+        },
+      ],
+      "type": "heading",
+    },
+  ],
+  "type": "doc",
+  "version": 1,
+}
+`;
+
+exports[`Builders should be able to generate correct ADF for example #7 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "layout": "center",
+      },
+      "content": Array [
+        Object {
+          "attrs": Object {
+            "collection": "SampleCollection",
+            "id": "1234",
+            "type": "file",
+          },
+          "type": "media",
+        },
+      ],
+      "type": "mediaSingle",
+    },
+  ],
+  "type": "doc",
+  "version": 1,
+}
+`;
+
+exports[`Builders should be able to generate correct ADF for example #8 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "layout": "center",
+      },
+      "content": Array [
+        Object {
+          "attrs": Object {
+            "collection": "SampleCollection",
+            "id": "1234",
+            "type": "file",
+          },
+          "type": "media",
+        },
+      ],
+      "marks": Array [
+        Object {
+          "attrs": Object {
+            "href": "https://www.atlassian.com",
+          },
+          "type": "link",
+        },
+      ],
+      "type": "mediaSingle",
+    },
+  ],
+  "type": "doc",
+  "version": 1,
+}
+`;

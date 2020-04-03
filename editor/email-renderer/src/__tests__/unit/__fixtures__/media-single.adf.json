@@ -1,0 +1,229 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Wrap-left:"
+        }
+      ]
+    },
+    {
+      "type": "mediaSingle",
+      "attrs": {
+        "width": 33.33,
+        "layout": "wrap-left"
+      },
+      "content": [
+        {
+          "type": "media",
+          "attrs": {
+            "id": "media-type-image",
+            "type": "file",
+            "collection": "MediaServicesSample",
+            "width": 491,
+            "height": 489
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Bacon ipsum dolor amet kevin bacon pork cupim. Bresaola beef sirloin pork. Sausage ribeye tongue burgdoggen frankfurter meatball. Brisket chuck capicola, beef ribs meatball tenderloin short ribs pancetta pork loin filet mignon jowl bresaola shoulder biltong. Cupim burgdoggen ribeye, prosciutto kielbasa ball tip swine chuck pork biltong jerky leberkas alcatra. Hamburger pancetta prosciutto kielbasa, alcatra pork chop ground round porchetta frankfurter beef ribs cupim picanha shank. Tail buffalo pork loin, t-bone brisket landjaeger shoulder."
+        }
+      ]
+    },
+    {
+      "type": "mediaSingle",
+      "attrs": {
+        "width": 33.33,
+        "layout": "wrap-right"
+      },
+      "content": [
+        {
+          "type": "media",
+          "attrs": {
+            "id": "media-type-image",
+            "type": "file",
+            "collection": "MediaServicesSample",
+            "width": 491,
+            "height": 489
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Wrap-right:"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Rump tongue tenderloin, pork chop meatball filet mignon pork ham hock pastrami cow. Beef porchetta bresaola shank rump, tenderloin kielbasa pork loin brisket pancetta. Frankfurter tail pig salami pork beef ribs pastrami doner flank kielbasa meatloaf strip steak spare ribs pork chop. Strip steak drumstick filet mignon jerky cupim ribeye meatloaf doner turkey ground round shank tongue salami. Alcatra shankle tri-tip pork chop meatball brisket filet mignon prosciutto shoulder biltong hamburger beef ribs ball tip. Ham landjaeger tri-tip beef andouille, short ribs pancetta meatloaf bacon flank venison. Prosciutto shankle leberkas turkey frankfurter tail flank bresaola."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Align right:"
+        }
+      ]
+    },
+    {
+      "type": "mediaSingle",
+      "attrs": {
+        "width": 33.33,
+        "layout": "align-end"
+      },
+      "content": [
+        {
+          "type": "media",
+          "attrs": {
+            "id": "media-type-image",
+            "type": "file",
+            "collection": "MediaServicesSample",
+            "width": 491,
+            "height": 489
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Align left:"
+        }
+      ]
+    },
+    {
+      "type": "mediaSingle",
+      "attrs": {
+        "width": 33.33,
+        "layout": "align-start"
+      },
+      "content": [
+        {
+          "type": "media",
+          "attrs": {
+            "id": "media-type-image",
+            "type": "file",
+            "collection": "MediaServicesSample",
+            "width": 491,
+            "height": 489
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Center align:"
+        }
+      ]
+    },
+    {
+      "type": "mediaSingle",
+      "attrs": {
+        "width": 33.33333333333333,
+        "layout": "center"
+      },
+      "content": [
+        {
+          "type": "media",
+          "attrs": {
+            "id": "media-type-image",
+            "type": "file",
+            "collection": "MediaServicesSample",
+            "width": 491,
+            "height": 489
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Bacon ipsum dolor amet kevin bacon pork cupim. Bresaola beef sirloin pork. Sausage ribeye tongue burgdoggen frankfurter meatball. Brisket chuck capicola, beef ribs meatball tenderloin short ribs pancetta pork loin filet mignon jowl bresaola shoulder biltong. Cupim burgdoggen ribeye, prosciutto kielbasa ball tip swine chuck pork biltong jerky leberkas alcatra. Hamburger pancetta prosciutto kielbasa, alcatra pork chop ground round porchetta frankfurter beef ribs cupim picanha shank. Tail buffalo pork loin, t-bone brisket landjaeger shoulder."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Wide:"
+        }
+      ]
+    },
+    {
+      "type": "mediaSingle",
+      "attrs": {
+        "width": 33.33,
+        "layout": "wide"
+      },
+      "content": [
+        {
+          "type": "media",
+          "attrs": {
+            "id": "media-type-image",
+            "type": "file",
+            "collection": "MediaServicesSample",
+            "width": 491,
+            "height": 489
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Full-width:"
+        }
+      ]
+    },
+    {
+      "type": "mediaSingle",
+      "attrs": {
+        "width": 33.33,
+        "layout": "full-width"
+      },
+      "content": [
+        {
+          "type": "media",
+          "attrs": {
+            "id": "media-type-image",
+            "type": "file",
+            "collection": "MediaServicesSample",
+            "width": 491,
+            "height": 489
+          }
+        }
+      ]
+    }
+  ]
+}

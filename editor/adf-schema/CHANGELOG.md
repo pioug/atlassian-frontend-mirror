@@ -1,0 +1,1039 @@
+# @atlaskit/adf-schema
+
+## 8.0.0
+
+### Major Changes
+
+- [major][715572f9e5](https://bitbucket.org/atlassian/atlassian-frontend/commits/715572f9e5):
+
+  Remove indentation from table cell and layout paragraphs
+
+### Minor Changes
+
+- [minor][bc29fbc030](https://bitbucket.org/atlassian/atlassian-frontend/commits/bc29fbc030):
+
+  ED-8748 ED-8211: Update media linking UI experience in renderer, fixes other rendering issues and workarounds.
+
+### Patch Changes
+
+- [patch][1386afaecc](https://bitbucket.org/atlassian/atlassian-frontend/commits/1386afaecc):
+
+  ED-8751 Remove 'export \*' from adf-schema- [patch][584279e2ae](https://bitbucket.org/atlassian/atlassian-frontend/commits/584279e2ae):
+
+  ED-8751 Remove circular dependencies, add eslint rule and recreate json schema caused by different import order- [patch][f83b67a761](https://bitbucket.org/atlassian/atlassian-frontend/commits/f83b67a761):
+
+  EDM-407: Smart cards copy pasted from Renderer to Editor create mediaSingles- [patch][6b4fe5d0e0](https://bitbucket.org/atlassian/atlassian-frontend/commits/6b4fe5d0e0):
+
+  preserve image alt-text when pasting rich text content- Updated dependencies [4bec09aa74](https://bitbucket.org/atlassian/atlassian-frontend/commits/4bec09aa74):
+
+- Updated dependencies [d63888b5e5](https://bitbucket.org/atlassian/atlassian-frontend/commits/d63888b5e5):
+- Updated dependencies [bdf25b1c4c](https://bitbucket.org/atlassian/atlassian-frontend/commits/bdf25b1c4c):
+- Updated dependencies [645918eda6](https://bitbucket.org/atlassian/atlassian-frontend/commits/645918eda6):
+- Updated dependencies [fad8a16962](https://bitbucket.org/atlassian/atlassian-frontend/commits/fad8a16962):
+  - @atlaskit/editor-test-helpers@11.0.0
+  - @atlaskit/editor-json-transformer@7.0.9
+
+## 7.0.1
+
+### Patch Changes
+
+- [patch][b3cf2b8a05](https://bitbucket.org/atlassian/atlassian-frontend/commits/b3cf2b8a05):
+
+  Fix expand not allowing marks issue
+
+## 7.0.0
+
+### Major Changes
+
+- [major][7baff84f38](https://bitbucket.org/atlassian/atlassian-frontend/commits/7baff84f38):
+
+  [ED-8521] Fix ADFSchema to invalidate any Expand Node with marks inside of Block nodes other than the Doc Node
+
+### Minor Changes
+
+- [minor][c171660346](https://bitbucket.org/atlassian/atlassian-frontend/commits/c171660346):
+
+  Expose MediaADFAttrs- [minor][a5d0019a5e](https://bitbucket.org/atlassian/atlassian-frontend/commits/a5d0019a5e):
+
+  EDM-336: Add inlineCard to BB schema and support roundtripping
+
+### Patch Changes
+
+- [patch][7602615cd4](https://bitbucket.org/atlassian/atlassian-frontend/commits/7602615cd4):
+
+  ED-8785 Improve stage-0 & type reference support in JSON Schema Generator- [patch][27fde59914](https://bitbucket.org/atlassian/atlassian-frontend/commits/27fde59914):
+
+  ED-8626 Can click on "open link in a new tab" with `javascript:` links in editor.- [patch][b18fc8a1b6](https://bitbucket.org/atlassian/atlassian-frontend/commits/b18fc8a1b6):
+
+  ED-8700 Alt text property on external images is added, this is required to make external images saved and validated correctly when they contain alt text.- Updated dependencies [7602615cd4](https://bitbucket.org/atlassian/atlassian-frontend/commits/7602615cd4):
+
+- Updated dependencies [5e3aab8e77](https://bitbucket.org/atlassian/atlassian-frontend/commits/5e3aab8e77):
+  - @atlaskit/json-schema-generator@2.3.0
+  - @atlaskit/editor-test-helpers@10.6.1
+  - @atlaskit/editor-json-transformer@7.0.8
+
+## 6.2.0
+
+### Minor Changes
+
+- [minor][e8a31c2714](https://bitbucket.org/atlassian/atlassian-frontend/commits/e8a31c2714):
+
+  ED-8687 Export default schema configuration
+
+### Patch Changes
+
+- [patch][8183f7c8da](https://bitbucket.org/atlassian/atlassian-frontend/commits/8183f7c8da):
+
+  Remove Karma tests - based on AFP-960- Updated dependencies [9d6b02c04f](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d6b02c04f):
+
+- Updated dependencies [8183f7c8da](https://bitbucket.org/atlassian/atlassian-frontend/commits/8183f7c8da):
+  - @atlaskit/editor-test-helpers@10.6.0
+  - @atlaskit/editor-json-transformer@7.0.7
+
+## 6.1.1
+
+### Patch Changes
+
+- [patch][6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
+
+  Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
+
+  - @atlaskit/editor-json-transformer@7.0.6
+  - @atlaskit/editor-test-helpers@10.5.1
+  - @atlaskit/json-schema-generator@2.2.1
+
+## 6.1.0
+
+### Minor Changes
+
+- [minor][b01fc0ceef](https://bitbucket.org/atlassian/atlassian-frontend/commits/b01fc0ceef):
+
+  ED-8151 Alt text is promoted to full schema. Feature flag and MediaOptions property UNSAFE_allowAltTextOnImages was renamed to allowAltTextOnImages.
+
+### Patch Changes
+
+- [patch][d085ab4419](https://bitbucket.org/atlassian/atlassian-frontend/commits/d085ab4419):
+
+  [ED-8109] Enable media link inside of block contents like layoutColumn and expand- Updated dependencies [3b19e30129](https://bitbucket.org/atlassian/atlassian-frontend/commits/3b19e30129):
+
+- Updated dependencies [fe4eaf06fc](https://bitbucket.org/atlassian/atlassian-frontend/commits/fe4eaf06fc):
+  - @atlaskit/editor-test-helpers@10.5.0
+  - @atlaskit/editor-json-transformer@7.0.5
+
+## 6.0.0
+
+### Major Changes
+
+- [major][26dbe7be6d](https://bitbucket.org/atlassian/atlassian-frontend/commits/26dbe7be6d):
+
+  ED-8470: removed unecessary borderColorPalette, made Palette.Color border a required prop
+
+### Patch Changes
+
+- [patch][3e87f5596a](https://bitbucket.org/atlassian/atlassian-frontend/commits/3e87f5596a):
+
+  ED-8388 Strip annotation marks when pasting content into Editor- Updated dependencies [cfcd27b2e4](https://bitbucket.org/atlassian/atlassian-frontend/commits/cfcd27b2e4):
+
+- Updated dependencies [ec929ab10e](https://bitbucket.org/atlassian/atlassian-frontend/commits/ec929ab10e):
+  - @atlaskit/editor-test-helpers@10.4.3
+  - @atlaskit/editor-json-transformer@7.0.4
+
+## 5.0.0
+
+### Major Changes
+
+- [major][761dcd6d19](https://bitbucket.org/atlassian/atlassian-frontend/commits/761dcd6d19):
+
+  ED-7675: promote nested taskLists from stage-0 schema to full
+
+### Minor Changes
+
+- [minor][faccb537d0](https://bitbucket.org/atlassian/atlassian-frontend/commits/faccb537d0):
+
+  ED-8167: Re-worked GapCursor implementation; alignment should be more consistent
+
+### Patch Changes
+
+- Updated dependencies [edc4a4a7ae](https://bitbucket.org/atlassian/atlassian-frontend/commits/edc4a4a7ae):
+  - @atlaskit/editor-test-helpers@10.4.1
+  - @atlaskit/editor-json-transformer@7.0.3
+
+## 4.4.0
+
+### Minor Changes
+
+- [minor][e5dd37f7a4](https://bitbucket.org/atlassian/atlassian-frontend/commits/e5dd37f7a4):
+
+  ED-7966: Promote expand to full schema, update flag and add appropriate tests
+
+### Patch Changes
+
+- [patch][4eefd368a8](https://bitbucket.org/atlassian/atlassian-frontend/commits/4eefd368a8):
+
+  default media collection to empty string instead of null- Updated dependencies [46e6693eb3](https://bitbucket.org/atlassian/atlassian-frontend/commits/46e6693eb3):
+
+- Updated dependencies [83300f0b6d](https://bitbucket.org/atlassian/atlassian-frontend/commits/83300f0b6d):
+- Updated dependencies [e5dd37f7a4](https://bitbucket.org/atlassian/atlassian-frontend/commits/e5dd37f7a4):
+  - @atlaskit/editor-test-helpers@10.4.0
+  - @atlaskit/editor-json-transformer@7.0.2
+
+## 4.3.3
+
+### Patch Changes
+
+- [patch][ee262a5a37](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ee262a5a37):
+
+  default media collection to empty string instead of null
+
+## 4.3.2
+
+### Patch Changes
+
+- [patch][24865cfaff](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/24865cfaff):
+
+  Relax text color mark validation to allow upper case characters
+
+- Updated dependencies [24865cfaff](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/24865cfaff):
+  - @atlaskit/json-schema-generator@2.2.0
+
+## 4.3.1
+
+### Patch Changes
+
+- [patch][161a30be16](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/161a30be16):
+
+  ED-7974: fix copying expand with tables that contain nestedExpand
+
+- [patch][ef2ba36d5c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ef2ba36d5c):
+
+  Add alt text support for renderer
+
+- [patch][6e4b678428](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/6e4b678428):
+
+  ED-8077: Fixes pasting expands into a table that is inside an expand
+
+- [patch][b3fd0964f2](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b3fd0964f2):
+
+  Fix an issue in the media node spec with alt text
+
+- [patch][9a261337b5](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9a261337b5):
+
+  Add a fixture of a document with different cases of unsupported content- [patch][cc1b89d310](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/cc1b89d310):
+
+  ED-8162: Prevent the editor from locking up when navigating from gap-cursor to an expand title- [patch][938f1c2902](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/938f1c2902):
+
+  ED-8186: Fix incorrect mark filtering when toggling lists- Updated dependencies [10425b84b4](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/10425b84b4):
+
+- Updated dependencies [926798632e](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/926798632e):
+  - @atlaskit/editor-test-helpers@10.3.0
+  - @atlaskit/editor-json-transformer@7.0.1
+
+## 4.3.0
+
+### Minor Changes
+
+- [minor][a484cc35c8](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/a484cc35c8):
+
+  ED-7911: external media will now be uploaded to media service
+
+- [minor][f1a06fc2fd](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/f1a06fc2fd):
+
+  ED-7876 Add expand and nestedExpand to stage-0 schema
+
+  Adds two new nodes `expand` and `nestedExpand` to the stage-0 schema.
+
+- [minor][ae42b1ba1e](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ae42b1ba1e):
+
+  Adf schema changes (for stage-0) to support alt text on media nodes.
+  `editor-core` changes are wrapped under the editor prop `UNSAFE_allowAltTextOnImages`. There is no alt text implementation yet, so the user won't be able to add alt text to images just yet.
+
+### Patch Changes
+
+- [patch][5b2c89203e](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/5b2c89203e):
+
+  Fix linting errors from prettier upgrade
+
+- Updated dependencies [6d9c8a9073](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/6d9c8a9073):
+  - @atlaskit/editor-json-transformer@7.0.0
+
+## 4.2.0
+
+### Minor Changes
+
+- [minor][1a0fe670f9](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1a0fe670f9):
+
+  ED-7674: support nested actions in stage-0 schema; change DOM representation of actions
+
+  ### Nested actions
+
+  This changeset adds support for nesting actions _at the schema level_, currently only within the stage-0 ADF schema.
+
+  The editor and renderer currently do nothing special to represent these nested actions. As of this release, they appear as as flat list.
+
+  To enable this feature, use the new `allowNestedTasks` prop.
+
+  ### DOM representation of actions in renderer + editor
+
+  This release also changes the DOM representation of actions away from a `ol > li` structure, to a `div > div` one. That is, both the `taskList` and `taskItem` are wrapped in `div` elements.
+
+  Because taskLists can now be allowed to nest themselves, this would otherwise have created an `ol > ol` structure, which is invalid.- [minor][ae4f336a3a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ae4f336a3a):
+
+**FABDODGEM-13 Editor Damask Release** - [Internal post](http://go.atlassian.com/damask-release)
+
+**BREAKING CHANGES**
+
+- **Media:** Removed deprecated "context" property from media components in favor of "mediaClientConfig". This affects all public media UI components.
+  - https://product-fabric.atlassian.net/browse/MS-2038
+- **Tasks & Decisions:** Removed containerAri for task-decisions components.
+  - https://product-fabric.atlassian.net/browse/ED-7631
+- **Renderer:** Adapts to task-decision changes.
+- **Editor Mobile Bridge:** Adapts to task-decision changes.
+- **Util Data Test:** Adapts to task-decision changes.
+
+---
+
+**Affected Editor Components:**
+
+tables, media, mobile, emoji, tasks & decisions, analytics
+
+**Editor**
+
+- Support nested actions in stage-0 schema; Change DOM representation of actions
+  - https://product-fabric.atlassian.net/browse/ED-7674
+- Updated i18n translations
+  - https://product-fabric.atlassian.net/browse/ED-7750
+- Improved analytics & crash reporting (via a new error boundary)
+  - https://product-fabric.atlassian.net/browse/ED-7766
+  - https://product-fabric.atlassian.net/browse/ED-7806
+- Improvements to heading anchor links.
+  - https://product-fabric.atlassian.net/browse/ED-7849
+  - https://product-fabric.atlassian.net/browse/ED-7860
+- Copy/Paste improvements
+  - https://product-fabric.atlassian.net/browse/ED-7840
+  - https://product-fabric.atlassian.net/browse/ED-7849
+- Fixes for the selection state of Smart links.
+  - https://product-fabric.atlassian.net/browse/ED-7602?src=confmacro
+- Improvements for table resizing & column creation.
+  - https://product-fabric.atlassian.net/browse/ED-7698
+  - https://product-fabric.atlassian.net/browse/ED-7319
+  - https://product-fabric.atlassian.net/browse/ED-7799
+
+**Mobile**
+
+- GASv3 Analytics Events are now relayed from the web to the native context, ready for dispatching.
+  - https://product-fabric.atlassian.net/browse/FM-2502
+- Hybrid Renderer Recycler view now handles invalid ADF nodes gracefully.
+  - https://product-fabric.atlassian.net/browse/FM-2370
+
+**Media**
+
+- Improved analytics
+  - https://product-fabric.atlassian.net/browse/MS-2036
+  - https://product-fabric.atlassian.net/browse/MS-2145
+  - https://product-fabric.atlassian.net/browse/MS-2416
+  - https://product-fabric.atlassian.net/browse/MS-2487
+- Added shouldOpenMediaViewer property to renderer
+  - https://product-fabric.atlassian.net/browse/MS-2393
+- Implemented analytics for file copy
+  - https://product-fabric.atlassian.net/browse/MS-2036
+- New `media-viewed` event dispatched when media is interacted with via the media card or viewer.
+  - https://product-fabric.atlassian.net/browse/MS-2284
+- Support for `alt` text attribute on media image elements.
+  - https://product-fabric.atlassian.net/browse/ED-7776
+
+**i18n-tools**
+
+Bumped dependencies.
+
+### Patch Changes
+
+- [patch][cc28419139](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/cc28419139):
+
+  Adding missing license to packages and update to Copyright 2019 Atlassian Pty Ltd.
+
+## 4.1.1
+
+### Patch Changes
+
+- [patch][a2d0043716](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/a2d0043716):
+
+  Updated version of analytics-next to fix potential incompatibilities with TS 3.6
+
+## 4.1.0
+
+### Minor Changes
+
+- [minor][65ada7f318](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/65ada7f318):
+
+  **FABDODGEM-12 Editor Cashmere Release**
+
+  - [Internal post](http://go.atlassian.com/cashmere-release)
+
+  **Affected editor components:**
+
+  tables, media, mobile, text color, emoji, copy/paste, analytics
+
+  **Performance**
+
+  - Async import for code blocks and task items on renderer
+    - https://product-fabric.atlassian.net/browse/ED-7155
+
+  **Table**
+
+  - Add support to sort tables that contains smart links
+    - https://product-fabric.atlassian.net/browse/ED-7449
+  - Scale table when changing to full width mode
+    - https://product-fabric.atlassian.net/browse/ED-7724
+
+  **Text color**
+
+  - Update text color toolbar with right color when text is inside a list, panel, etc.
+    - https://product-fabric.atlassian.net/browse/FM-1752
+
+**Mobile** - Implement undo/redo interface on Hybrid Editor - https://product-fabric.atlassian.net/browse/FM-2393
+
+**Copy and Paste**
+
+    - Support copy & paste when missing context-id attr
+      - https://product-fabric.atlassian.net/browse/MS-2344
+    - Right click + copy image fails the second time that is pasted
+      - https://product-fabric.atlassian.net/browse/MS-2324
+    - Copying a never touched image for the first time from editor fails to paste
+      - https://product-fabric.atlassian.net/browse/MS-2338
+    - Implement analytics when a file is copied
+      - https://product-fabric.atlassian.net/browse/MS-2036
+
+**Media**
+
+- Add analytics events and error reporting [NEW BIG FEATURE]
+  - https://product-fabric.atlassian.net/browse/MS-2275
+  - https://product-fabric.atlassian.net/browse/MS-2329
+  - https://product-fabric.atlassian.net/browse/MS-2330
+  - https://product-fabric.atlassian.net/browse/MS-2331
+  - https://product-fabric.atlassian.net/browse/MS-2332
+  - https://product-fabric.atlassian.net/browse/MS-2390
+- Fixed issue where we can’t insert same file from MediaPicker twice
+  - https://product-fabric.atlassian.net/browse/MS-2080
+- Disable upload of external files to media
+  - https://product-fabric.atlassian.net/browse/MS-2372
+
+**Notable Bug Fixes**
+
+    - Implement consistent behaviour for rule and mediaSingle on insertion
+      - Feature Flag:
+        - allowNewInsertionBehaviour - [default: true]
+      - https://product-fabric.atlassian.net/browse/ED-7503
+    - Fixed bug where we were showing table controls on mobile.
+      - https://product-fabric.atlassian.net/browse/ED-7690
+    - Fixed bug where editor crashes after unmounting react component.
+      - https://product-fabric.atlassian.net/browse/ED-7318
+    - Fixed bug where custom emojis are not been showed on the editor
+      - https://product-fabric.atlassian.net/browse/ED-7726
+
+- [minor][79c69ed5cd](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/79c69ed5cd):
+
+  ED-7449 Implement sorting inline cards inside tables base on resolved title
+
+### Patch Changes
+
+- [patch][1715ad2bd5](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1715ad2bd5):
+
+  ED-7731: add support for GraphQL syntax highlighting
+
+## 4.0.0
+
+### Major Changes
+
+- [major][1194ad5eb3](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1194ad5eb3):
+
+  Remove unnecessary `tableBackgroundBorderColors` in favour of unique `tableBackgroundBorderColor` for all table cell background border- [major][80adfefba2](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/80adfefba2):
+
+  Remove applicationCard node and action mark
+
+### Minor Changes
+
+- [minor][5276c19a41](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/5276c19a41):
+
+  ED-5996: support viewing inline comments within editor
+
+  You can do this with the `annotationProvider` prop. Passing a truthy value to this (e.g. the empty object `{}`) will:
+
+  - enable support for working with the `annotation` ADF mark
+  - will render highlights around any annotations, and
+  - allow copying and pasting of annotations within the same document, or between documents
+
+  You can also optionally pass a React component to the `component`, so you can render custom components on top of or around the editor when the user's text cursor is inside an annotation.
+
+  Please see [the package documentation](https://atlaskit.atlassian.com/packages/editor/editor-core/docs/annotations) for more information.
+
+  There is an example component called `ExampleInlineCommentComponent` within the `@atlaskit/editor-test-helpers` package. It is currently featured in the full page examples on the Atlaskit website.
+
+  Annotations are styled within the editor using the `fabric-editor-annotation` CSS class.
+
+  Other changes:
+
+  - `Popup` now supports an optional `rect` parameter to direct placement, rather than calculating the bounding client rect around a DOM node.- [minor][45ae9e1cc2](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/45ae9e1cc2):
+
+  ED-7201 Add new background cell colors and improve text color
+
+### Patch Changes
+
+- [patch][bbb4f9463d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/bbb4f9463d):
+
+  CEMS-234 Prioritize media single over media group
+
+  This solves issue where pasting images with text from third party applications into a table ends adding an error image.- [patch][922ec81fe7](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/922ec81fe7):
+
+  ED-7710: Only show annotation highlight if we have a provider
+
+## 3.1.3
+
+### Patch Changes
+
+- [patch][48fcfce0a1](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/48fcfce0a1):
+
+  Export missing definitions from schema to fix types in utils
+
+## 3.1.2
+
+### Patch Changes
+
+- [patch][097b696613](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/097b696613):
+
+  Components now depend on TS 3.6 internally, in order to fix an issue with TS resolving non-relative imports as relative imports
+
+## 3.1.1
+
+### Patch Changes
+
+- [patch][0d7d459f1a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/0d7d459f1a):
+
+  Fixes type errors which were incompatible with TS 3.6
+
+## 3.1.0
+
+### Minor Changes
+
+- [minor][66c5c88f4a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/66c5c88f4a):
+
+  Refactor emoji to use typeahead plugin- [minor][bdee736f14](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/bdee736f14):
+
+  ED-7175: unify smart link and hyperlink toolbars
+
+  Also updates the toDOM and parseDOM on ADF nodes, making `url` optional.
+
+  Smart cards can now optionally be passed an onResolve callback, of the shape:
+
+      onResolve?: (data: { url?: string; title?: string }) => void;
+
+  This gets fired when the view resolves a smart card from JSON-LD, either via the client or the `data` prop.
+
+### Patch Changes
+
+- [patch][6e3a0038fc](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/6e3a0038fc):
+
+  ED-7288: reduces the number of DOM nodes in table cells, changes the way resize handles are positioned- [patch][a0a3fa7aac](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/a0a3fa7aac):
+
+  Ensure mediagroup nodes are copied to destination collection when pasted in different documents
+
+## 3.0.0
+
+### Major Changes
+
+- [major][6164bc2629](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/6164bc2629):
+
+  ED-6806 Move 'calcTableColumnWidths' from adf-schema into editor-common
+
+  BREAKING CHANGE
+
+  We move 'calcTableColumnWidths' helper from adf-schema into our helper library editor-common, you can use it from editor-common in the same way:
+
+  Before:
+
+  ```javascript
+  import { calcTableColumnWidths } from '@atlaskit/adf-schema';
+  ```
+
+  Now:
+
+  ```javascript
+  import { calcTableColumnWidths } from '@atlaskit/editor-common';
+  ```
+
+## 2.13.1
+
+### Patch Changes
+
+- [patch][a892339c19](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/a892339c19):
+
+  Give all editor decorations a key to prevent ProseMirror from re-rendering decorations constantly.
+
+  Enables YAML language for codeblocks
+
+## 2.13.0
+
+### Minor Changes
+
+- [minor][ec66d3c646](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ec66d3c646):
+
+  Improve performance of pages with smart cards
+
+## 2.12.4
+
+### Patch Changes
+
+- [patch][0bb88234e6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/0bb88234e6):
+
+  Upgrade prosemirror-view to 1.9.12
+
+## 2.12.3
+
+### Patch Changes
+
+- [patch][ec8066a555](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ec8066a555):
+
+  Upgrade `@types/prosemirror-view` Typescript definitions to latest 1.9.x API
+
+## 2.12.2
+
+### Patch Changes
+
+- [patch][bbff8a7d87](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/bbff8a7d87):
+
+  Fixes bug, missing version.json file
+
+## 2.12.1
+
+### Patch Changes
+
+- [patch][18dfac7332](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/18dfac7332):
+
+  In this PR, we are:
+
+  - Re-introducing dist build folders
+  - Adding back cjs
+  - Replacing es5 by cjs and es2015 by esm
+  - Creating folders at the root for entry-points
+  - Removing the generation of the entry-points at the root
+    Please see this [ticket](https://product-fabric.atlassian.net/browse/BUILDTOOLS-118) or this [page](https://hello.atlassian.net/wiki/spaces/FED/pages/452325500/Finishing+Atlaskit+multiple+entry+points) for further details
+
+## 2.12.0
+
+### Minor Changes
+
+- [minor][13ca42c394](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/13ca42c394):
+
+  # use getAuthFromContext from media when a file if pasted from a different collection
+
+  Now products can provide auth using **getAuthFromContext** on MediaClientConfig:
+
+  ```
+  import {MediaClientConfig} from '@atlaskit/media-core'
+  import Editor from '@atlaskit/editor-core'
+
+  const viewMediaClientConfig: MediaClientConfig = {
+    authProvider // already exists
+    getAuthFromContext(contextId: string) {
+      // here products can return auth for external pages.
+      // in case of copy & paste on Confluence, they can provide read token for
+      // files on the source collection
+    }
+  }
+  const mediaProvider: = {
+    viewMediaClientConfig
+  }
+
+  <Editor {...otherNonRelatedProps} media={{provider: mediaProvider}} />
+  ```
+
+## 2.11.4
+
+### Patch Changes
+
+- [patch][f60618b0f0](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/f60618b0f0):
+
+  ED-5844 Adding media link UI to editor
+
+## 2.11.3
+
+### Patch Changes
+
+- [patch][4aed452b1b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/4aed452b1b):
+
+  ED-7041, SL-231: fix copying smart link from renderer to editor
+
+## 2.11.2
+
+### Patch Changes
+
+- [patch][1b12e59bfd](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1b12e59bfd):
+
+  ED-6917, SL-260: support drag and drop of smart links
+
+## 2.11.1
+
+### Patch Changes
+
+- [patch][4c0fcec857](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/4c0fcec857):
+
+  ED-7059: fix trailing slashes for hyperlinks being removed, and smart links resolving
+
+## 2.11.0
+
+### Minor Changes
+
+- [minor][ef787dba60](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ef787dba60):
+
+  ED-7178: Promoting alignment and indentation to full schema
+
+## 2.10.0
+
+### Minor Changes
+
+- [minor][3d9136e483](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/3d9136e483):
+
+  ED-7182: Promoting annotation to full schema
+
+## 2.9.0
+
+### Minor Changes
+
+- [minor][d6c31deacf](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d6c31deacf):
+
+  ED-6701 Upgrade prosemirror-view to 1.9.10 and prosemirror-inputrules to 1.0.4 for composition input improvements
+
+## 2.8.1
+
+### Patch Changes
+
+- [patch][34c6df4fb8](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/34c6df4fb8):
+
+  adf-schema has been extended with one missing color, email-renderer now bundles up styles into .css file
+
+## 2.8.0
+
+### Minor Changes
+
+- [minor][86bf524679](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/86bf524679):
+
+  ED-7117, ED-7087: Fix copy pasting smart links out of editor. Fallback to HTML anchor tag if errors occur during rendering (e.g. no provider found).
+
+## 2.7.1
+
+### Patch Changes
+
+- [patch][4931459ac1](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/4931459ac1):
+
+  Revert removed by accident breakout mark
+
+## 2.7.0
+
+### Minor Changes
+
+- [minor][0a7ce4f0e6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/0a7ce4f0e6):
+
+  ED-7046: promote layoutSection and layoutColumn from stage-0 to full schema
+
+## 2.6.1
+
+### Patch Changes
+
+- [patch][aff59f9a99](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/aff59f9a99):
+
+  ED-7045: promote mediaSingle width attribute from stage-0 to full schema
+
+## 2.6.0
+
+### Minor Changes
+
+- [minor][a6a241d230](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/a6a241d230):
+
+  Breakout mark stage-0 -> full schema
+
+## 2.5.10
+
+### Patch Changes
+
+- [patch][9886f4afa1](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9886f4afa1):
+
+  - [ED-7017] Improve table performance removing cellView from table
+
+## 2.5.9
+
+- [patch][f823890888](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/f823890888):
+
+  - ED-6970: Fix backspacing inside a layout removing all content.
+
+## 2.5.8
+
+- [patch][5ad66b6d1a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/5ad66b6d1a):
+
+  - [ED-6860] Revert prosemirror-view 1.8.9 bumps, this version was making the cursor typing slowly. this version is recreating all plugins when we use `EditorView.setProps`
+
+## 2.5.7
+
+- [patch][1ec6367e00](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1ec6367e00):
+
+  - ED-6551 - Lists should correctly wrap adjacent floated content without overlapping
+
+## 2.5.6
+
+- [patch][80cf1c1e82](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/80cf1c1e82):
+
+  - [ED-6654] Update prosemirror-view to 1.8.9 that fixes a few issues with mouse selections on prosemirror like click on table and the controls doesn't show up
+
+## 2.5.5
+
+- Updated dependencies [7c17b35107](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7c17b35107):
+  - @atlaskit/editor-json-transformer@6.0.0
+  - @atlaskit/editor-test-helpers@9.0.0
+
+## 2.5.4
+
+- [patch][0a4ccaafae](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/0a4ccaafae):
+
+  - Bump tslib
+
+- [patch][0ac39bd2dd](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/0ac39bd2dd):
+
+  - Bump tslib to 1.9
+
+## 2.5.3
+
+- [patch][583f5db46d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/583f5db46d):
+
+  - Use tslib as dependency
+
+## 2.5.2
+
+- [patch][6695367885](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/6695367885):
+
+  - Revert emoji refactor
+
+## 2.5.1
+
+- [patch][c01f9e1cc7](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/c01f9e1cc7):
+
+  - Standardise code-block class between editor/renderer. Fix bg color when code-block is nested within a table heading.
+
+## 2.5.0
+
+- [minor][64dd2ab46f](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/64dd2ab46f):
+
+  - ED-6558 Fix clicking to set the cursor placement after an inline node that's at the end of a line. Set the default style attribute of Status nodes to be empty instead of 'null'.
+
+## 2.4.1
+
+- [patch][97e555c168](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/97e555c168):
+
+  - Revert "[ED-5259 - ED-6200] adds defaultMarks on tableNode (pull request #5259)"
+
+## 2.4.0
+
+- [minor][09a90e4af1](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/09a90e4af1):
+
+  - ED-6319 Supporting select media using gap cursor, fix behaviour of backspace key and gap cursor in media single with layout wrap-right.
+
+## 2.3.2
+
+- [patch][b425ea772b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b425ea772b):
+
+  - Revert "ED-5505 add strong as default mark to table header (pull request #5291)"
+
+## 2.3.1
+
+- [patch][d13fad66df](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d13fad66df):
+
+  - Enable esModuleInterop for typescript, this allows correct use of default exports
+
+## 2.3.0
+
+- [minor][02dd1f7287](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/02dd1f7287):
+
+  - [ED-5505] Persists formatting to table cells and headers when toggling header row, column or applying any text formatting to empty cells.
+
+## 2.2.1
+
+- [patch][3f8a08fc88](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/3f8a08fc88):
+
+  Release a new version of adf-schema
+
+## 2.2.0
+
+- [minor][63133d8704](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/63133d8704):
+
+  - [ED-6200] Add defaultMarks attribute on tableCell schema
+
+## 2.1.0
+
+- [minor][0fea11af41](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/0fea11af41):
+
+  - Email renderer supports numbered columns, adf-schema extended with colors
+
+## 2.0.1
+
+- [patch][205b101e2b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/205b101e2b):
+
+  - ED-6230: bump prosemirror-view to 1.8.3; workaround Chrome bug with copy paste multiple images
+
+## 2.0.0
+
+- [major][9d5cc39394](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9d5cc39394):
+
+  - Dropped ES5 distributables from the typescript packages
+
+## 1.7.1
+
+- [patch][0825fbe634](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/0825fbe634):
+
+  - ED-6410: remove opacity from cells background color
+
+## 1.7.0
+
+- [minor][6380484429](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/6380484429):
+
+  - ED-6485 Support breakout mark on layout-section. Retain breakout mark when toggling list nested within columns.
+
+## 1.6.2
+
+- [patch][d18b085e2a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d18b085e2a):
+
+  - Integrating truly upfront ID
+
+## 1.6.1
+
+- [patch][4d0c196597](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/4d0c196597):
+
+  - ED-6232 Fix copy-pasting a table with numbered column drops one column
+
+## 1.6.0
+
+- [minor][3672ec23ef](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/3672ec23ef):
+
+  - [ED-5788] Add new layout Breakout button for CodeBlock and Layout
+
+## 1.5.5
+
+- [patch][356de07a87](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/356de07a87):
+
+  - Revert back to number for external media
+
+## 1.5.4
+
+- Updated dependencies [4af5bd2a58](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/4af5bd2a58):
+  - @atlaskit/editor-json-transformer@4.1.11
+  - @atlaskit/editor-test-helpers@7.0.0
+
+## 1.5.3
+
+- [patch][775da616c6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/775da616c6):
+
+  - [ED-5910] Keep width & height on media node as number
+
+## 1.5.2
+
+- [patch][e83a441140](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/e83a441140):
+
+  - Revert type change to width/height attributes for media node
+
+## 1.5.1
+
+- [patch][09696170ec](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/09696170ec):
+
+  - Bumps prosemirror-utils to 0.7.6
+
+## 1.5.0
+
+- [minor][14fe1381ba](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/14fe1381ba):
+
+  - ED-6118: ensure media dimensions are always integers, preventing invalid ADF
+
+## 1.4.6
+
+- [patch][557a2b5734](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/557a2b5734):
+
+  - ED-5788: bump prosemirror-view and prosemirror-model
+
+## 1.4.5
+
+- [patch][4552e804d3](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/4552e804d3):
+
+  - dismiss StatusPicker if status node is not selected
+
+## 1.4.4
+
+- [patch][adff2caed7](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/adff2caed7):
+
+  - Improve typings
+
+## 1.4.3
+
+- [patch][d10cf50721](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d10cf50721):
+
+  - added fabric status to ADF full schema
+
+## 1.4.2
+
+- [patch][478a86ae8a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/478a86ae8a):
+
+  - avoid using the same localId when pasting status
+
+## 1.4.1
+
+- [patch][2d6d5b6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/2d6d5b6):
+
+  - ED-5379: rework selecting media under the hood; maintain size and layout when copy-pasting
+
+## 1.4.0
+
+- [minor][c5ee0c8](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/c5ee0c8):
+
+  - Added Annotation mark to ADF, editor & renderer
+
+## 1.3.3
+
+- [patch][060f2da](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/060f2da):
+
+  - ED-5991: bumped prosemirror-view to 1.6.8
+
+## 1.3.2
+
+- [patch][a50c114](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/a50c114):
+
+  - ED-6026: unify attributes for blockCard and inlineCard; allow parseDOM using just 'data' attribute
+
+## 1.3.1
+
+- [patch][7d9ccd7](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7d9ccd7):
+
+  - fixed copy/paste status from renderer to editor
+
+## 1.3.0
+
+- [minor][cbcac2e](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/cbcac2e):
+
+  - Promote smartcard nodes to full schema
+
+## 1.2.0
+
+- [minor][5b11b69](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/5b11b69):
+
+  - Allow mixed of cell types in a table row
+
+## 1.1.0
+
+- [minor][b9f8a8f](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b9f8a8f):
+
+  - Adding alignment options to media
+
+## 1.0.1
+
+- [patch][d7bfd60](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d7bfd60):
+
+  - Rengenerate JSON schema after moving packages
+
+## 1.0.0
+
+- [major][1205725](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1205725):
+
+  - Move schema to its own package

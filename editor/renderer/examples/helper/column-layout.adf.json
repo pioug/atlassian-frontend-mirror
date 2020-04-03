@@ -1,0 +1,386 @@
+{
+  "type": "doc",
+  "version": 1,
+  "content": [{
+      "type": "paragraph",
+      "content": [{
+          "type": "text",
+          "text": "Two columns:"
+      }]
+  }, {
+      "type": "layoutSection",
+      "content": [{
+          "type": "layoutColumn",
+          "attrs": {
+            "width": 50
+          },
+          "content": [{
+              "type": "paragraph",
+              "content": [{
+                  "type": "text",
+                  "text": "left column"
+              }]
+          }, {
+              "type": "panel",
+              "attrs": {
+                  "panelType": "info"
+              },
+              "content": [{
+                  "type": "paragraph",
+                  "content": [{
+                      "type": "text",
+                      "text": "text"
+                  }]
+              }]
+          }]
+      }, {
+          "type": "layoutColumn",
+          "attrs": {
+            "width": 50
+          },
+          "content": [{
+              "type": "paragraph",
+              "content": [{
+                  "type": "text",
+                  "text": "right column"
+              }]
+          }, {
+              "type": "codeBlock",
+              "attrs": {
+                  "language": null,
+                  "uniqueId": null
+              },
+              "content": [{
+                  "type": "text",
+                  "text": "code"
+              }]
+          }]
+      }]
+  }, {
+      "type": "rule"
+  }, {
+      "type": "paragraph",
+      "content": [{
+          "type": "text",
+          "text": "Three columns:"
+      }]
+  }, {
+      "type": "layoutSection",
+      "content": [{
+          "type": "layoutColumn",
+          "attrs": {
+            "width": 33
+          },
+          "content": [{
+              "type": "paragraph",
+              "content": [{
+                  "type": "text",
+                  "text": "left column"
+              }]
+          }, {
+              "type": "codeBlock",
+              "attrs": {
+                  "language": null,
+                  "uniqueId": null
+              },
+              "content": [{
+                  "type": "text",
+                  "text": "code"
+              }]
+          }]
+      }, {
+          "type": "layoutColumn",
+          "attrs": {
+            "width": 33
+          },
+          "content": [{
+              "type": "paragraph",
+              "content": [{
+                  "type": "text",
+                  "text": "middle column"
+              }]
+          }, {
+              "type": "panel",
+              "attrs": {
+                  "panelType": "note"
+              },
+              "content": [{
+                  "type": "paragraph",
+                  "content": [{
+                      "type": "text",
+                      "text": "text"
+                  }]
+              }]
+          }]
+      }, {
+          "type": "layoutColumn",
+          "attrs": {
+            "width": 33
+          },
+          "content": [{
+              "type": "paragraph",
+              "content": [{
+                  "type": "text",
+                  "text": "right column"
+              }]
+          }, {
+              "type": "table",
+              "attrs": {
+                  "isNumberColumnEnabled": false,
+                  "layout": "default",
+                  "__autoSize": false
+              },
+              "content": [{
+                  "type": "tableRow",
+                  "content": [{
+                      "type": "tableCell",
+                      "attrs": {
+                          "colspan": 1,
+                          "rowspan": 1,
+                          "colwidth": null,
+                          "background": null
+                      },
+                      "content": [{
+                          "type": "paragraph",
+                          "content": [{
+                              "type": "text",
+                              "text": "cell 1"
+                          }]
+                      }]
+                  }]
+              }, {
+                  "type": "tableRow",
+                  "content": [{
+                      "type": "tableCell",
+                      "attrs": {
+                          "colspan": 1,
+                          "rowspan": 1,
+                          "colwidth": null,
+                          "background": null
+                      },
+                      "content": [{
+                          "type": "paragraph",
+                          "content": [{
+                              "type": "text",
+                              "text": "cell 2"
+                          }]
+                      }]
+                  }]
+              }]
+          }]
+      }]
+  }, {
+      "type": "rule"
+  }, {
+      "type": "paragraph",
+      "content": [{
+          "type": "text",
+          "text": "Two columns with left sidebar:"
+      }]
+  }, {
+      "type": "layoutSection",
+      "content": [{
+          "type": "layoutColumn",
+          "attrs": {
+            "width": 30
+          },
+          "content": [{
+              "type": "paragraph",
+              "content": [{
+                  "type": "text",
+                  "text": "left sidebar"
+              }]
+          }, {
+              "type": "panel",
+              "attrs": {
+                  "panelType": "success"
+              },
+              "content": [{
+                  "type": "paragraph",
+                  "content": [{
+                      "type": "text",
+                      "text": "text"
+                  }]
+              }]
+          }]
+      }, {
+          "type": "layoutColumn",
+          "attrs": {
+            "width": 70
+          },
+          "content": [{
+              "type": "paragraph",
+              "content": [{
+                  "type": "text",
+                  "text": "column"
+              }]
+          }, {
+              "type": "taskList",
+              "attrs": {
+                  "localId": "716ab813-fa51-4f23-94ce-fa5cd0a49613"
+              },
+              "content": [{
+                  "type": "taskItem",
+                  "attrs": {
+                      "localId": "8c88e171-f39a-4354-82bf-696e1facc6d5",
+                      "state": "TODO"
+                  },
+                  "content": [{
+                      "type": "text",
+                      "text": "action"
+                  }]
+              }]
+          }]
+      }]
+  }, {
+      "type": "rule"
+  }, {
+      "type": "paragraph",
+      "content": [{
+          "type": "text",
+          "text": "Two columns with right sidebar:"
+      }]
+  }, {
+      "type": "layoutSection",
+      "content": [{
+        "attrs": {
+          "width": 70
+        },
+          "type": "layoutColumn",
+          "content": [{
+              "type": "paragraph",
+              "content": [{
+                  "type": "text",
+                  "text": "column"
+              }]
+          }, {
+              "type": "blockquote",
+              "content": [{
+                  "type": "paragraph",
+                  "content": [{
+                      "type": "text",
+                      "text": "blockquote"
+                  }]
+              }]
+          }]
+      }, {
+          "type": "layoutColumn",
+          "attrs": {
+            "width": 30
+          },
+          "content": [{
+              "type": "paragraph",
+              "content": [{
+                  "type": "text",
+                  "text": "right sidebar"
+              }]
+          }, {
+              "type": "decisionList",
+              "attrs": {
+                  "localId": "bbcab7fc-05f7-4c73-9c37-ed06cd96ec0c"
+              },
+              "content": [{
+                  "type": "decisionItem",
+                  "attrs": {
+                      "localId": "f08ab6f6-7ea3-4513-bba8-02013d74ea5f",
+                      "state": "DECIDED"
+                  },
+                  "content": [{
+                      "type": "text",
+                      "text": "decision"
+                  }]
+              }]
+          }]
+      }]
+  }, {
+      "type": "rule"
+  }, {
+      "type": "paragraph",
+      "content": [{
+          "type": "text",
+          "text": "Three columns with sidebars:"
+      }]
+  }, {
+      "type": "layoutSection",
+      "content": [{
+          "type": "layoutColumn",
+          "attrs": {
+            "width": 40
+          },
+          "content": [{
+              "type": "paragraph",
+              "content": [{
+                  "type": "text",
+                  "text": "left sidebar"
+              }]
+          }, {
+              "type": "bulletList",
+              "content": [{
+                  "type": "listItem",
+                  "content": [{
+                      "type": "paragraph",
+                      "content": [{
+                          "type": "text",
+                          "text": "item 1"
+                      }]
+                  }]
+              }, {
+                  "type": "listItem",
+                  "content": [{
+                      "type": "paragraph",
+                      "content": [{
+                          "type": "text",
+                          "text": "item 2"
+                      }]
+                  }]
+              }]
+          }]
+      }, {
+          "type": "layoutColumn",
+          "attrs": {
+            "width": 40
+          },
+          "content": [{
+              "type": "paragraph",
+              "content": [{
+                  "type": "text",
+                  "text": "middle column"
+              }]
+          }, {
+              "type": "codeBlock",
+              "attrs": {
+                  "language": null,
+                  "uniqueId": null
+              },
+              "content": [{
+                  "type": "text",
+                  "text": "code"
+              }]
+          }]
+      }, {
+          "type": "layoutColumn",
+          "attrs": {
+            "width": 20
+          },
+          "content": [{
+              "type": "paragraph",
+              "content": [{
+                  "type": "text",
+                  "text": "right sidebar"
+              }]
+          }, {
+              "type": "panel",
+              "attrs": {
+                  "panelType": "error"
+              },
+              "content": [{
+                  "type": "paragraph",
+                  "content": [{
+                      "type": "text",
+                      "text": "text"
+                  }]
+              }]
+          }]
+      }]
+  }]
+}

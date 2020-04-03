@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "heading",
+      "content": [
+        {
+          "type": "text",
+          "text": "foo()",
+          "marks": [
+            {
+              "type": "strike"
+            }
+          ]
+        }
+      ],
+      "attrs": {
+        "level": 1
+      }
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "bulletList",
+      "content": [
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "status",
+                  "attrs": {
+                    "text": "hello",
+                    "color": "yellow",
+                    "localId": "f1b165c7-ec45-4e81-84c2-6f78ab9abb06",
+                    "style": ""
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "  "
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

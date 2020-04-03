@@ -1,0 +1,69 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "layoutSection",
+      "content": [
+        {
+          "type": "layoutColumn",
+          "attrs": {
+            "width": 66.66
+          },
+          "content": [
+            {
+              "type": "paragraph",
+              "content": []
+            }
+          ]
+        },
+        {
+          "type": "layoutColumn",
+          "attrs": {
+            "width": 33.33
+          },
+          "content": [
+            {
+              "type": "taskList",
+              "attrs": {
+                "localId": "d458eac1-55ab-42f3-ae49-1e8c55bbc432"
+              },
+              "content": [
+                {
+                  "type": "taskItem",
+                  "attrs": {
+                    "localId": "207a758a-f338-4fa3-8b26-bda3fa3c52bc",
+                    "state": "TODO"
+                  },
+                  "content": [
+                    {
+                      "type": "mention",
+                      "attrs": {
+                        "id": "1",
+                        "text": "@Kaitlyn Prouty",
+                        "accessLevel": ""
+                      }
+                    },
+                    {
+                      "type": "text",
+                      "text": " "
+                    },
+                    {
+                      "type": "status",
+                      "attrs": {
+                        "text": "done",
+                        "color": "green",
+                        "localId": "b569cc97-b329-4fda-b0b1-88047fe9b64f",
+                        "style": ""
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

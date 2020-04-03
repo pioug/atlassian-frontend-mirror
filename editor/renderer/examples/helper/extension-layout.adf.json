@@ -1,0 +1,161 @@
+{
+  "type": "doc",
+  "version": 1,
+  "content": [
+    {
+      "type": "bodiedExtension",
+      "attrs": {
+        "extensionType": "com.atlassian.confluence.macro.core",
+        "extensionKey": "bodied-eh",
+        "parameters": {
+          "macroParams": {},
+          "macroMetadata": {
+            "macroId": {
+              "value": 1532948101320
+            },
+            "placeholder": {
+              "0": {
+                "data": {
+                  "url": ""
+                },
+                "type": "icon"
+              }
+            }
+          }
+        },
+        "layout": "default"
+      },
+      "content": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "This is the default mode of the extension. This is the default mode of the extension. This is the default mode of the extension"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "bodiedExtension",
+      "attrs": {
+        "extensionType": "com.atlassian.confluence.macro.core",
+        "extensionKey": "bodied-eh",
+        "parameters": {
+          "macroParams": {},
+          "macroMetadata": {
+            "macroId": {
+              "value": 1532948101320
+            },
+            "placeholder": {
+              "0": {
+                "data": {
+                  "url": ""
+                },
+                "type": "icon"
+              }
+            }
+          }
+        },
+        "layout": "wide"
+      },
+      "content": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "This is the wide mode of the extension. This is the wide mode of the extension. This is the wide mode of the extension.This is the wide mode of the extension. This is the wide mode of the extension. This is the wide mode of the extension"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "bodiedExtension",
+      "attrs": {
+        "extensionType": "com.atlassian.confluence.macro.core",
+        "extensionKey": "bodied-eh",
+        "parameters": {
+          "macroParams": {},
+          "macroMetadata": {
+            "macroId": {
+              "value": 1532948101320
+            },
+            "placeholder": {
+              "0": {
+                "data": {
+                  "url": ""
+                },
+                "type": "icon"
+              }
+            }
+          }
+        },
+        "layout": "full-width"
+      },
+      "content": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "This is the full-width mode of the extension. This is the full-width mode of the extension. This is the full-width mode of the extension. This is the full-width mode of the extension. This is the full-width mode of the extension. This is the full-width mode of the extension"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "bodiedExtension",
+      "attrs": {
+        "extensionType": "com.atlassian.confluence.macro.core",
+        "extensionKey": "bodied-eh",
+        "parameters": {
+          "macroParams": {},
+          "macroMetadata": {
+            "macroId": {
+              "value": 1532948101320
+            },
+            "placeholder": {
+              "0": {
+                "data": {
+                  "url": ""
+                },
+                "type": "icon"
+              }
+            }
+          }
+        },
+        "layout": "wide"
+      },
+      "content": [
+        {
+          "type": "extension",
+          "attrs": {
+            "extensionType": "com.atlassian.confluence.macro.core",
+            "extensionKey": "ext",
+            "parameters": {
+              "macroParams": {},
+              "macroMetadata": {
+                "macroId": {
+                  "value": 1532948101320
+                },
+                "placeholder": {
+                  "0": {
+                    "data": {
+                      "url": ""
+                    },
+                    "type": "icon"
+                  }
+                }
+              }
+            },
+            "layout": "full-width"
+          }
+        }
+      ]
+    }
+  ]
+}

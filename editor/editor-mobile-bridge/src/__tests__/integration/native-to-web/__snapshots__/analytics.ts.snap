@@ -1,0 +1,921 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`editor: indenting list fires analytics events via the bridge 1`] = `
+Array [
+  Object {
+    "action": "formatted",
+    "actionSubject": "text",
+    "actionSubjectId": "indentation",
+    "attributes": Object {
+      "appearance": "mobile",
+      "componentName": "editorCore",
+      "direction": "indent",
+      "indentType": "list",
+      "inputMethod": "toolbar",
+      "newIndentLevel": 2,
+      "packageName": "@atlaskit/editor-core",
+      "packageVersion": "999.9.9",
+      "previousIndentationLevel": 1,
+    },
+    "eventType": "track",
+    "source": "unknown",
+    "tags": Array [
+      "fabricEditor",
+    ],
+  },
+]
+`;
+
+exports[`editor: indenting list fires analytics events via the bridge 2`] = `
+Array [
+  Object {
+    "action": "formatted",
+    "actionSubject": "text",
+    "actionSubjectId": "indentation",
+    "attributes": Object {
+      "appearance": "mobile",
+      "componentName": "editorCore",
+      "direction": "indent",
+      "indentType": "list",
+      "inputMethod": "toolbar",
+      "newIndentLevel": 2,
+      "packageName": "@atlaskit/editor-core",
+      "packageVersion": "999.9.9",
+      "previousIndentationLevel": 1,
+    },
+    "eventType": "track",
+    "source": "unknown",
+    "tags": Array [
+      "fabricEditor",
+    ],
+  },
+]
+`;
+
+exports[`editor: inserting action fires an analytics event via the bridge 1`] = `
+Array [
+  Object {
+    "action": "inserted",
+    "actionSubject": "document",
+    "actionSubjectId": "action",
+    "attributes": Object {
+      "appearance": "mobile",
+      "componentName": "editorCore",
+      "inputMethod": "insertMenu",
+      "insertLocation": "doc",
+      "listLocalId": "test-action-list-id",
+      "listSize": 1,
+      "localId": "test-action-item-id",
+      "packageName": "@atlaskit/editor-core",
+      "packageVersion": "999.9.9",
+      "position": 0,
+      "selectionPosition": "start",
+      "selectionType": "cursor",
+      "userContext": "new",
+    },
+    "eventType": "track",
+    "source": "unknown",
+    "tags": Array [
+      "fabricEditor",
+    ],
+  },
+]
+`;
+
+exports[`editor: inserting action fires an analytics event via the bridge 2`] = `
+Array [
+  Object {
+    "action": "inserted",
+    "actionSubject": "document",
+    "actionSubjectId": "action",
+    "attributes": Object {
+      "appearance": "mobile",
+      "componentName": "editorCore",
+      "inputMethod": "insertMenu",
+      "insertLocation": "doc",
+      "listLocalId": "test-action-list-id",
+      "listSize": 1,
+      "localId": "test-action-item-id",
+      "packageName": "@atlaskit/editor-core",
+      "packageVersion": "999.9.9",
+      "position": 0,
+      "selectionPosition": "start",
+      "selectionType": "cursor",
+      "userContext": "new",
+    },
+    "eventType": "track",
+    "source": "unknown",
+    "tags": Array [
+      "fabricEditor",
+    ],
+  },
+]
+`;
+
+exports[`editor: inserting block quote fires an analytics event via the bridge 1`] = `
+Array [
+  Object {
+    "action": "formatted",
+    "actionSubject": "text",
+    "actionSubjectId": "blockQuote",
+    "attributes": Object {
+      "appearance": "mobile",
+      "componentName": "editorCore",
+      "inputMethod": "insertMenu",
+      "packageName": "@atlaskit/editor-core",
+      "packageVersion": "999.9.9",
+    },
+    "eventType": "track",
+    "source": "unknown",
+    "tags": Array [
+      "fabricEditor",
+    ],
+  },
+]
+`;
+
+exports[`editor: inserting block quote fires an analytics event via the bridge 2`] = `
+Array [
+  Object {
+    "action": "formatted",
+    "actionSubject": "text",
+    "actionSubjectId": "blockQuote",
+    "attributes": Object {
+      "appearance": "mobile",
+      "componentName": "editorCore",
+      "inputMethod": "insertMenu",
+      "packageName": "@atlaskit/editor-core",
+      "packageVersion": "999.9.9",
+    },
+    "eventType": "track",
+    "source": "unknown",
+    "tags": Array [
+      "fabricEditor",
+    ],
+  },
+]
+`;
+
+exports[`editor: inserting bullet list fires an analytics event via the bridge 1`] = `
+Array [
+  Object {
+    "action": "formatted",
+    "actionSubject": "text",
+    "actionSubjectId": "bulletedList",
+    "attributes": Object {
+      "appearance": "mobile",
+      "componentName": "editorCore",
+      "inputMethod": "toolbar",
+      "packageName": "@atlaskit/editor-core",
+      "packageVersion": "999.9.9",
+    },
+    "eventType": "track",
+    "source": "unknown",
+    "tags": Array [
+      "fabricEditor",
+    ],
+  },
+]
+`;
+
+exports[`editor: inserting bullet list fires an analytics event via the bridge 2`] = `
+Array [
+  Object {
+    "action": "formatted",
+    "actionSubject": "text",
+    "actionSubjectId": "bulletedList",
+    "attributes": Object {
+      "appearance": "mobile",
+      "componentName": "editorCore",
+      "inputMethod": "toolbar",
+      "packageName": "@atlaskit/editor-core",
+      "packageVersion": "999.9.9",
+    },
+    "eventType": "track",
+    "source": "unknown",
+    "tags": Array [
+      "fabricEditor",
+    ],
+  },
+]
+`;
+
+exports[`editor: inserting code block fires an analytics event via the bridge 1`] = `
+Array [
+  Object {
+    "action": "inserted",
+    "actionSubject": "document",
+    "actionSubjectId": "codeBlock",
+    "attributes": Object {
+      "appearance": "mobile",
+      "componentName": "editorCore",
+      "inputMethod": "insertMenu",
+      "insertLocation": "doc",
+      "packageName": "@atlaskit/editor-core",
+      "packageVersion": "999.9.9",
+      "selectionPosition": "start",
+      "selectionType": "cursor",
+    },
+    "eventType": "track",
+    "source": "unknown",
+    "tags": Array [
+      "fabricEditor",
+    ],
+  },
+]
+`;
+
+exports[`editor: inserting code block fires an analytics event via the bridge 2`] = `
+Array [
+  Object {
+    "action": "inserted",
+    "actionSubject": "document",
+    "actionSubjectId": "codeBlock",
+    "attributes": Object {
+      "appearance": "mobile",
+      "componentName": "editorCore",
+      "inputMethod": "insertMenu",
+      "insertLocation": "doc",
+      "packageName": "@atlaskit/editor-core",
+      "packageVersion": "999.9.9",
+      "selectionPosition": "start",
+      "selectionType": "cursor",
+    },
+    "eventType": "track",
+    "source": "unknown",
+    "tags": Array [
+      "fabricEditor",
+    ],
+  },
+]
+`;
+
+exports[`editor: inserting decision fires an analytics event via the bridge 1`] = `
+Array [
+  Object {
+    "action": "inserted",
+    "actionSubject": "document",
+    "actionSubjectId": "decision",
+    "attributes": Object {
+      "appearance": "mobile",
+      "componentName": "editorCore",
+      "inputMethod": "insertMenu",
+      "insertLocation": "doc",
+      "listLocalId": "test-decision-list-id",
+      "listSize": 1,
+      "localId": "test-decision-item-id",
+      "packageName": "@atlaskit/editor-core",
+      "packageVersion": "999.9.9",
+      "position": 0,
+      "selectionPosition": "start",
+      "selectionType": "cursor",
+      "userContext": "new",
+    },
+    "eventType": "track",
+    "source": "unknown",
+    "tags": Array [
+      "fabricEditor",
+    ],
+  },
+]
+`;
+
+exports[`editor: inserting decision fires an analytics event via the bridge 2`] = `
+Array [
+  Object {
+    "action": "inserted",
+    "actionSubject": "document",
+    "actionSubjectId": "decision",
+    "attributes": Object {
+      "appearance": "mobile",
+      "componentName": "editorCore",
+      "inputMethod": "insertMenu",
+      "insertLocation": "doc",
+      "listLocalId": "test-decision-list-id",
+      "listSize": 1,
+      "localId": "test-decision-item-id",
+      "packageName": "@atlaskit/editor-core",
+      "packageVersion": "999.9.9",
+      "position": 0,
+      "selectionPosition": "start",
+      "selectionType": "cursor",
+      "userContext": "new",
+    },
+    "eventType": "track",
+    "source": "unknown",
+    "tags": Array [
+      "fabricEditor",
+    ],
+  },
+]
+`;
+
+exports[`editor: inserting link fires analytics events via the bridge 1`] = `
+Array [
+  Object {
+    "action": "inserted",
+    "actionSubject": "document",
+    "actionSubjectId": "link",
+    "attributes": Object {
+      "appearance": "mobile",
+      "componentName": "editorCore",
+      "inputMethod": "toolbar",
+      "insertLocation": "doc",
+      "packageName": "@atlaskit/editor-core",
+      "packageVersion": "999.9.9",
+      "selectionPosition": "start",
+      "selectionType": "cursor",
+    },
+    "eventType": "track",
+    "nonPrivacySafeAttributes": Object {
+      "linkDomain": "test.link.url",
+    },
+    "source": "unknown",
+    "tags": Array [
+      "fabricEditor",
+    ],
+  },
+]
+`;
+
+exports[`editor: inserting link fires analytics events via the bridge 2`] = `
+Array [
+  Object {
+    "action": "inserted",
+    "actionSubject": "document",
+    "actionSubjectId": "link",
+    "attributes": Object {
+      "appearance": "mobile",
+      "componentName": "editorCore",
+      "inputMethod": "toolbar",
+      "insertLocation": "doc",
+      "packageName": "@atlaskit/editor-core",
+      "packageVersion": "999.9.9",
+      "selectionPosition": "start",
+      "selectionType": "cursor",
+    },
+    "eventType": "track",
+    "nonPrivacySafeAttributes": Object {
+      "linkDomain": "test.link.url",
+    },
+    "source": "unknown",
+    "tags": Array [
+      "fabricEditor",
+    ],
+  },
+]
+`;
+
+exports[`editor: inserting ordered list fires an analytics event via the bridge 1`] = `
+Array [
+  Object {
+    "action": "formatted",
+    "actionSubject": "text",
+    "actionSubjectId": "numberedList",
+    "attributes": Object {
+      "appearance": "mobile",
+      "componentName": "editorCore",
+      "inputMethod": "toolbar",
+      "packageName": "@atlaskit/editor-core",
+      "packageVersion": "999.9.9",
+    },
+    "eventType": "track",
+    "source": "unknown",
+    "tags": Array [
+      "fabricEditor",
+    ],
+  },
+]
+`;
+
+exports[`editor: inserting ordered list fires an analytics event via the bridge 2`] = `
+Array [
+  Object {
+    "action": "formatted",
+    "actionSubject": "text",
+    "actionSubjectId": "numberedList",
+    "attributes": Object {
+      "appearance": "mobile",
+      "componentName": "editorCore",
+      "inputMethod": "toolbar",
+      "packageName": "@atlaskit/editor-core",
+      "packageVersion": "999.9.9",
+    },
+    "eventType": "track",
+    "source": "unknown",
+    "tags": Array [
+      "fabricEditor",
+    ],
+  },
+]
+`;
+
+exports[`editor: inserting panel fires an analytics event via the bridge 1`] = `
+Array [
+  Object {
+    "action": "inserted",
+    "actionSubject": "document",
+    "actionSubjectId": "panel",
+    "attributes": Object {
+      "appearance": "mobile",
+      "componentName": "editorCore",
+      "inputMethod": "insertMenu",
+      "insertLocation": "doc",
+      "packageName": "@atlaskit/editor-core",
+      "packageVersion": "999.9.9",
+      "panelType": "info",
+      "selectionPosition": "start",
+      "selectionType": "cursor",
+    },
+    "eventType": "track",
+    "source": "unknown",
+    "tags": Array [
+      "fabricEditor",
+    ],
+  },
+]
+`;
+
+exports[`editor: inserting panel fires an analytics event via the bridge 2`] = `
+Array [
+  Object {
+    "action": "inserted",
+    "actionSubject": "document",
+    "actionSubjectId": "panel",
+    "attributes": Object {
+      "appearance": "mobile",
+      "componentName": "editorCore",
+      "inputMethod": "insertMenu",
+      "insertLocation": "doc",
+      "packageName": "@atlaskit/editor-core",
+      "packageVersion": "999.9.9",
+      "panelType": "info",
+      "selectionPosition": "start",
+      "selectionType": "cursor",
+    },
+    "eventType": "track",
+    "source": "unknown",
+    "tags": Array [
+      "fabricEditor",
+    ],
+  },
+]
+`;
+
+exports[`editor: outdenting list fires analytics events via the bridge 1`] = `
+Array [
+  Object {
+    "action": "formatted",
+    "actionSubject": "text",
+    "actionSubjectId": "indentation",
+    "attributes": Object {
+      "appearance": "mobile",
+      "componentName": "editorCore",
+      "direction": "outdent",
+      "indentType": "list",
+      "inputMethod": "toolbar",
+      "newIndentLevel": 0,
+      "packageName": "@atlaskit/editor-core",
+      "packageVersion": "999.9.9",
+      "previousIndentationLevel": 1,
+    },
+    "eventType": "track",
+    "source": "unknown",
+    "tags": Array [
+      "fabricEditor",
+    ],
+  },
+]
+`;
+
+exports[`editor: outdenting list fires analytics events via the bridge 2`] = `
+Array [
+  Object {
+    "action": "formatted",
+    "actionSubject": "text",
+    "actionSubjectId": "indentation",
+    "attributes": Object {
+      "appearance": "mobile",
+      "componentName": "editorCore",
+      "direction": "outdent",
+      "indentType": "list",
+      "inputMethod": "toolbar",
+      "newIndentLevel": 0,
+      "packageName": "@atlaskit/editor-core",
+      "packageVersion": "999.9.9",
+      "previousIndentationLevel": 1,
+    },
+    "eventType": "track",
+    "source": "unknown",
+    "tags": Array [
+      "fabricEditor",
+    ],
+  },
+]
+`;
+
+exports[`editor: setting block type to heading fires an analytics event via the bridge 1`] = `
+Array [
+  Object {
+    "action": "formatted",
+    "actionSubject": "text",
+    "actionSubjectId": "heading",
+    "attributes": Object {
+      "appearance": "mobile",
+      "componentName": "editorCore",
+      "inputMethod": "toolbar",
+      "newHeadingLevel": 1,
+      "packageName": "@atlaskit/editor-core",
+      "packageVersion": "999.9.9",
+      "previousHeadingLevel": 0,
+    },
+    "eventType": "track",
+    "source": "unknown",
+    "tags": Array [
+      "fabricEditor",
+    ],
+  },
+]
+`;
+
+exports[`editor: setting block type to heading fires an analytics event via the bridge 2`] = `
+Array [
+  Object {
+    "action": "formatted",
+    "actionSubject": "text",
+    "actionSubjectId": "heading",
+    "attributes": Object {
+      "appearance": "mobile",
+      "componentName": "editorCore",
+      "inputMethod": "toolbar",
+      "newHeadingLevel": 1,
+      "packageName": "@atlaskit/editor-core",
+      "packageVersion": "999.9.9",
+      "previousHeadingLevel": 0,
+    },
+    "eventType": "track",
+    "source": "unknown",
+    "tags": Array [
+      "fabricEditor",
+    ],
+  },
+]
+`;
+
+exports[`editor: toggling bold style fires an analytics event via the bridge 1`] = `
+Array [
+  Object {
+    "action": "formatted",
+    "actionSubject": "text",
+    "actionSubjectId": "strong",
+    "attributes": Object {
+      "appearance": "mobile",
+      "componentName": "editorCore",
+      "inputMethod": "toolbar",
+      "packageName": "@atlaskit/editor-core",
+      "packageVersion": "999.9.9",
+    },
+    "eventType": "track",
+    "source": "unknown",
+    "tags": Array [
+      "fabricEditor",
+    ],
+  },
+]
+`;
+
+exports[`editor: toggling bold style fires an analytics event via the bridge 2`] = `
+Array [
+  Object {
+    "action": "formatted",
+    "actionSubject": "text",
+    "actionSubjectId": "strong",
+    "attributes": Object {
+      "appearance": "mobile",
+      "componentName": "editorCore",
+      "inputMethod": "toolbar",
+      "packageName": "@atlaskit/editor-core",
+      "packageVersion": "999.9.9",
+    },
+    "eventType": "track",
+    "source": "unknown",
+    "tags": Array [
+      "fabricEditor",
+    ],
+  },
+]
+`;
+
+exports[`editor: toggling code style fires an analytics event via the bridge 1`] = `
+Array [
+  Object {
+    "action": "formatted",
+    "actionSubject": "text",
+    "actionSubjectId": "code",
+    "attributes": Object {
+      "appearance": "mobile",
+      "componentName": "editorCore",
+      "inputMethod": "toolbar",
+      "packageName": "@atlaskit/editor-core",
+      "packageVersion": "999.9.9",
+    },
+    "eventType": "track",
+    "source": "unknown",
+    "tags": Array [
+      "fabricEditor",
+    ],
+  },
+]
+`;
+
+exports[`editor: toggling code style fires an analytics event via the bridge 2`] = `
+Array [
+  Object {
+    "action": "formatted",
+    "actionSubject": "text",
+    "actionSubjectId": "code",
+    "attributes": Object {
+      "appearance": "mobile",
+      "componentName": "editorCore",
+      "inputMethod": "toolbar",
+      "packageName": "@atlaskit/editor-core",
+      "packageVersion": "999.9.9",
+    },
+    "eventType": "track",
+    "source": "unknown",
+    "tags": Array [
+      "fabricEditor",
+    ],
+  },
+]
+`;
+
+exports[`editor: toggling italic style fires an analytics event via the bridge 1`] = `
+Array [
+  Object {
+    "action": "formatted",
+    "actionSubject": "text",
+    "actionSubjectId": "italic",
+    "attributes": Object {
+      "appearance": "mobile",
+      "componentName": "editorCore",
+      "inputMethod": "toolbar",
+      "packageName": "@atlaskit/editor-core",
+      "packageVersion": "999.9.9",
+    },
+    "eventType": "track",
+    "source": "unknown",
+    "tags": Array [
+      "fabricEditor",
+    ],
+  },
+]
+`;
+
+exports[`editor: toggling italic style fires an analytics event via the bridge 2`] = `
+Array [
+  Object {
+    "action": "formatted",
+    "actionSubject": "text",
+    "actionSubjectId": "italic",
+    "attributes": Object {
+      "appearance": "mobile",
+      "componentName": "editorCore",
+      "inputMethod": "toolbar",
+      "packageName": "@atlaskit/editor-core",
+      "packageVersion": "999.9.9",
+    },
+    "eventType": "track",
+    "source": "unknown",
+    "tags": Array [
+      "fabricEditor",
+    ],
+  },
+]
+`;
+
+exports[`editor: toggling strike style fires an analytics event via the bridge 1`] = `
+Array [
+  Object {
+    "action": "formatted",
+    "actionSubject": "text",
+    "actionSubjectId": "strike",
+    "attributes": Object {
+      "appearance": "mobile",
+      "componentName": "editorCore",
+      "inputMethod": "toolbar",
+      "packageName": "@atlaskit/editor-core",
+      "packageVersion": "999.9.9",
+    },
+    "eventType": "track",
+    "source": "unknown",
+    "tags": Array [
+      "fabricEditor",
+    ],
+  },
+]
+`;
+
+exports[`editor: toggling strike style fires an analytics event via the bridge 2`] = `
+Array [
+  Object {
+    "action": "formatted",
+    "actionSubject": "text",
+    "actionSubjectId": "strike",
+    "attributes": Object {
+      "appearance": "mobile",
+      "componentName": "editorCore",
+      "inputMethod": "toolbar",
+      "packageName": "@atlaskit/editor-core",
+      "packageVersion": "999.9.9",
+    },
+    "eventType": "track",
+    "source": "unknown",
+    "tags": Array [
+      "fabricEditor",
+    ],
+  },
+]
+`;
+
+exports[`editor: toggling subscript style fires an analytics event via the bridge 1`] = `
+Array [
+  Object {
+    "action": "formatted",
+    "actionSubject": "text",
+    "actionSubjectId": "subscript",
+    "attributes": Object {
+      "appearance": "mobile",
+      "componentName": "editorCore",
+      "inputMethod": "toolbar",
+      "packageName": "@atlaskit/editor-core",
+      "packageVersion": "999.9.9",
+    },
+    "eventType": "track",
+    "source": "unknown",
+    "tags": Array [
+      "fabricEditor",
+    ],
+  },
+]
+`;
+
+exports[`editor: toggling subscript style fires an analytics event via the bridge 2`] = `
+Array [
+  Object {
+    "action": "formatted",
+    "actionSubject": "text",
+    "actionSubjectId": "subscript",
+    "attributes": Object {
+      "appearance": "mobile",
+      "componentName": "editorCore",
+      "inputMethod": "toolbar",
+      "packageName": "@atlaskit/editor-core",
+      "packageVersion": "999.9.9",
+    },
+    "eventType": "track",
+    "source": "unknown",
+    "tags": Array [
+      "fabricEditor",
+    ],
+  },
+]
+`;
+
+exports[`editor: toggling superscript style fires an analytics event via the bridge 1`] = `
+Array [
+  Object {
+    "action": "formatted",
+    "actionSubject": "text",
+    "actionSubjectId": "superscript",
+    "attributes": Object {
+      "appearance": "mobile",
+      "componentName": "editorCore",
+      "inputMethod": "toolbar",
+      "packageName": "@atlaskit/editor-core",
+      "packageVersion": "999.9.9",
+    },
+    "eventType": "track",
+    "source": "unknown",
+    "tags": Array [
+      "fabricEditor",
+    ],
+  },
+]
+`;
+
+exports[`editor: toggling superscript style fires an analytics event via the bridge 2`] = `
+Array [
+  Object {
+    "action": "formatted",
+    "actionSubject": "text",
+    "actionSubjectId": "superscript",
+    "attributes": Object {
+      "appearance": "mobile",
+      "componentName": "editorCore",
+      "inputMethod": "toolbar",
+      "packageName": "@atlaskit/editor-core",
+      "packageVersion": "999.9.9",
+    },
+    "eventType": "track",
+    "source": "unknown",
+    "tags": Array [
+      "fabricEditor",
+    ],
+  },
+]
+`;
+
+exports[`editor: toggling underline style fires an analytics event via the bridge 1`] = `
+Array [
+  Object {
+    "action": "formatted",
+    "actionSubject": "text",
+    "actionSubjectId": "underline",
+    "attributes": Object {
+      "appearance": "mobile",
+      "componentName": "editorCore",
+      "inputMethod": "toolbar",
+      "packageName": "@atlaskit/editor-core",
+      "packageVersion": "999.9.9",
+    },
+    "eventType": "track",
+    "source": "unknown",
+    "tags": Array [
+      "fabricEditor",
+    ],
+  },
+]
+`;
+
+exports[`editor: toggling underline style fires an analytics event via the bridge 2`] = `
+Array [
+  Object {
+    "action": "formatted",
+    "actionSubject": "text",
+    "actionSubjectId": "underline",
+    "attributes": Object {
+      "appearance": "mobile",
+      "componentName": "editorCore",
+      "inputMethod": "toolbar",
+      "packageName": "@atlaskit/editor-core",
+      "packageVersion": "999.9.9",
+    },
+    "eventType": "track",
+    "source": "unknown",
+    "tags": Array [
+      "fabricEditor",
+    ],
+  },
+]
+`;
+
+exports[`editor: updating status fires an analytics event via the bridge 1`] = `
+Array [
+  Object {
+    "action": "inserted",
+    "actionSubject": "document",
+    "actionSubjectId": "status",
+    "attributes": Object {
+      "appearance": "mobile",
+      "componentName": "editorCore",
+      "inputMethod": "toolbar",
+      "insertLocation": "doc",
+      "packageName": "@atlaskit/editor-core",
+      "packageVersion": "999.9.9",
+      "selectionPosition": "start",
+      "selectionType": "cursor",
+    },
+    "eventType": "track",
+    "source": "unknown",
+    "tags": Array [
+      "fabricEditor",
+    ],
+  },
+]
+`;
+
+exports[`editor: updating status fires an analytics event via the bridge 2`] = `
+Array [
+  Object {
+    "action": "inserted",
+    "actionSubject": "document",
+    "actionSubjectId": "status",
+    "attributes": Object {
+      "appearance": "mobile",
+      "componentName": "editorCore",
+      "inputMethod": "toolbar",
+      "insertLocation": "doc",
+      "packageName": "@atlaskit/editor-core",
+      "packageVersion": "999.9.9",
+      "selectionPosition": "start",
+      "selectionType": "cursor",
+    },
+    "eventType": "track",
+    "source": "unknown",
+    "tags": Array [
+      "fabricEditor",
+    ],
+  },
+]
+`;

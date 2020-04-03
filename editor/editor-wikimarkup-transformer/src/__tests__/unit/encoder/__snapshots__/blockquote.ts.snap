@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ADF => WikiMarkup - BlockQuote should convert blockquote node 1`] = `
+"{quote}This is a blockquote
+
+and it can only contain paragraphs
+
+a lot paragraphs{quote}"
+`;
+
+exports[`ADF => WikiMarkup - BlockQuote should convert blockquote node with a single paragraph with hardbreak 1`] = `
+"{quote}This is a blockquote
+with a single paragraph
+and hardbreaks{quote}"
+`;

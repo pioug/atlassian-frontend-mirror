@@ -1,0 +1,49 @@
+{
+  "type": "doc",
+  "version": 1,
+  "content": [
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Plain Paragraph"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "marks": [
+        {
+          "type": "alignment",
+          "attrs": {
+            "align": "center"
+          }
+        }
+      ],
+      "content": [
+        {
+          "type": "text",
+          "text": "Paragraph with center alignment"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "marks": [
+        {
+          "type": "alignment",
+          "attrs": {
+            "align": "end"
+          }
+        }
+      ],
+      "content": [
+        {
+          "type": "text",
+          "text": "Paragraph with end alignment"
+        }
+      ]
+    }
+  ]
+}

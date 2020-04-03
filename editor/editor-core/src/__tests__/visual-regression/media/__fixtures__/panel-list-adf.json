@@ -1,0 +1,47 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "panel",
+      "attrs": {
+        "panelType": "info"
+      },
+      "content": [
+        {
+          "type": "bulletList",
+          "content": [
+            {
+              "type": "listItem",
+              "content": [
+                {
+                  "type": "mediaSingle",
+                  "attrs": {
+                    "width": 30,
+                    "layout": "center"
+                  },
+                  "content": [
+                    {
+                      "type": "media",
+                      "attrs": {
+                        "id": "190e647d-c68a-4ae8-b2e6-12c85691e371",
+                        "type": "file",
+                        "collection": "MediaServicesSample",
+                        "width": 2048,
+                        "height": 1536
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "content": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

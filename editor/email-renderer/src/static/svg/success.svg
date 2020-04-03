@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="18px" height="18px" viewBox="0 0 18 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 55.1 (78136) - https://sketchapp.com -->
+    <title>🌐 Icon-check@1.5x</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M12,21 C7.02943725,21 3,16.9705627 3,12 C3,7.02943725 7.02943725,3 12,3 C16.9705627,3 21,7.02943725 21,12 C21,16.9705627 16.9705627,21 12,21 Z M9.70710678,11.2928932 C9.31658249,10.9023689 8.68341751,10.9023689 8.29289322,11.2928932 C7.90236893,11.6834175 7.90236893,12.3165825 8.29289322,12.7071068 L10.2928932,14.7071068 C10.6834175,15.0976311 11.3165825,15.0976311 11.7071068,14.7071068 L15.7071068,10.7071068 C16.0976311,10.3165825 16.0976311,9.68341751 15.7071068,9.29289322 C15.3165825,8.90236893 14.6834175,8.90236893 14.2928932,9.29289322 L11,12.5857864 L9.70710678,11.2928932 Z" id="path-1"></path>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Section-message-/-Info---no-title" transform="translate(-19.000000, -19.000000)">
+            <g id="DO-NOT-CHANGE-THIS">
+                <g id="global/check-circle" transform="translate(16.000000, 16.000000)">
+                    <mask id="mask-2" fill="white">
+                        <use xlink:href="#path-1"></use>
+                    </mask>
+                    <use id="Combined-Shape" fill="#42526E" fill-rule="evenodd" xlink:href="#path-1"></use>
+                    <g id="Green-/-G500" mask="url(#mask-2)" fill="#006644" fill-rule="evenodd">
+                        <rect id="G500" x="0" y="0" width="24" height="24"></rect>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

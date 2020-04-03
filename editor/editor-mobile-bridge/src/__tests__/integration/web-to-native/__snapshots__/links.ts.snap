@@ -1,0 +1,247 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`currentSelection when cursor is on link 1`] = `
+Array [
+  Object {
+    "bottom": 53,
+    "left": 16,
+    "right": 16,
+    "text": "Atlassian",
+    "top": 34,
+    "url": "https://www.google.com",
+  },
+]
+`;
+
+exports[`currentSelection when cursor is selecting a link 1`] = `
+Array [
+  Object {
+    "bottom": 53,
+    "left": 16,
+    "right": 16,
+    "text": "Atlassian",
+    "top": 34,
+    "url": "https://www.google.com",
+  },
+  Object {
+    "bottom": -1,
+    "left": -1,
+    "right": -1,
+    "text": "",
+    "top": -1,
+    "url": "",
+  },
+  Object {
+    "bottom": -1,
+    "left": -1,
+    "right": -1,
+    "text": "",
+    "top": -1,
+    "url": "",
+  },
+  Object {
+    "bottom": -1,
+    "left": -1,
+    "right": -1,
+    "text": "",
+    "top": -1,
+    "url": "",
+  },
+  Object {
+    "bottom": -1,
+    "left": -1,
+    "right": -1,
+    "text": "",
+    "top": -1,
+    "url": "",
+  },
+  Object {
+    "bottom": -1,
+    "left": -1,
+    "right": -1,
+    "text": "",
+    "top": -1,
+    "url": "",
+  },
+  Object {
+    "bottom": -1,
+    "left": -1,
+    "right": -1,
+    "text": "",
+    "top": -1,
+    "url": "",
+  },
+  Object {
+    "bottom": -1,
+    "left": -1,
+    "right": -1,
+    "text": "",
+    "top": -1,
+    "url": "",
+  },
+  Object {
+    "bottom": -1,
+    "left": -1,
+    "right": -1,
+    "text": "",
+    "top": -1,
+    "url": "",
+  },
+  Object {
+    "bottom": -1,
+    "left": -1,
+    "right": -1,
+    "text": "",
+    "top": -1,
+    "url": "",
+  },
+  Object {
+    "bottom": 53,
+    "left": 16,
+    "right": 16,
+    "text": "Atlassian",
+    "top": 34,
+    "url": "https://www.google.com",
+  },
+]
+`;
+
+exports[`currentSelection when cursor is selecting text and link 1`] = `
+Array [
+  Object {
+    "bottom": 53,
+    "left": 67.84375,
+    "right": 67.84375,
+    "text": "link",
+    "top": 34,
+    "url": "https://www.google.com",
+  },
+  Object {
+    "bottom": -1,
+    "left": -1,
+    "right": -1,
+    "text": "",
+    "top": -1,
+    "url": "",
+  },
+  Object {
+    "bottom": -1,
+    "left": -1,
+    "right": -1,
+    "text": " ",
+    "top": -1,
+    "url": "",
+  },
+  Object {
+    "bottom": -1,
+    "left": -1,
+    "right": -1,
+    "text": " i",
+    "top": -1,
+    "url": "",
+  },
+  Object {
+    "bottom": -1,
+    "left": -1,
+    "right": -1,
+    "text": " is",
+    "top": -1,
+    "url": "",
+  },
+  Object {
+    "bottom": -1,
+    "left": -1,
+    "right": -1,
+    "text": " is ",
+    "top": -1,
+    "url": "",
+  },
+  Object {
+    "bottom": -1,
+    "left": -1,
+    "right": -1,
+    "text": " is a",
+    "top": -1,
+    "url": "",
+  },
+  Object {
+    "bottom": -1,
+    "left": -1,
+    "right": -1,
+    "text": " is a ",
+    "top": -1,
+    "url": "",
+  },
+  Object {
+    "bottom": -1,
+    "left": -1,
+    "right": -1,
+    "text": "",
+    "top": -1,
+    "url": "",
+  },
+  Object {
+    "bottom": -1,
+    "left": -1,
+    "right": -1,
+    "text": "",
+    "top": -1,
+    "url": "",
+  },
+  Object {
+    "bottom": -1,
+    "left": -1,
+    "right": -1,
+    "text": "",
+    "top": -1,
+    "url": "",
+  },
+  Object {
+    "bottom": -1,
+    "left": -1,
+    "right": -1,
+    "text": "",
+    "top": -1,
+    "url": "",
+  },
+]
+`;
+
+exports[`currentSelection when no selection 1`] = `Array []`;
+
+exports[`currentSelection when selection 1`] = `
+Array [
+  Object {
+    "bottom": -1,
+    "left": -1,
+    "right": -1,
+    "text": "T",
+    "top": -1,
+    "url": "",
+  },
+  Object {
+    "bottom": -1,
+    "left": -1,
+    "right": -1,
+    "text": "Te",
+    "top": -1,
+    "url": "",
+  },
+  Object {
+    "bottom": -1,
+    "left": -1,
+    "right": -1,
+    "text": "Tex",
+    "top": -1,
+    "url": "",
+  },
+  Object {
+    "bottom": -1,
+    "left": -1,
+    "right": -1,
+    "text": "Text",
+    "top": -1,
+    "url": "",
+  },
+]
+`;

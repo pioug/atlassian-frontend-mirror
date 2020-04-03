@@ -1,0 +1,90 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FileCardImageView should render correct background based on mediaType" 1`] = `
+.c0 {
+  box-shadow: 0 1px 1px rgba(9,30,66,0.2),0 0 1px 0 rgba(9,30,66,0.24);
+  border-radius: 3px;
+  background: transparent;
+  line-height: normal;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.c0::after {
+  content: '';
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  box-sizing: border-box;
+  pointer-events: none;
+  border-radius: 3px;
+  border: 2px solid transparent;
+}
+
+.c0 .wrapper {
+  border-radius: 3px;
+  display: block;
+  height: inherit;
+  position: relative;
+}
+
+.c0 .wrapper .img-wrapper {
+  position: relative;
+  width: inherit;
+  height: inherit;
+  display: block;
+  overflow: hidden;
+  border-radius: 3px;
+}
+
+<styled.div
+  className="c0"
+  mediaType="image"
+/>
+`;
+
+exports[`FileCardImageView should render correct background based on mediaType" 2`] = `
+.c0 {
+  box-shadow: 0 1px 1px rgba(9,30,66,0.2),0 0 1px 0 rgba(9,30,66,0.24);
+  border-radius: 3px;
+  background: #F4F5F7;
+  line-height: normal;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.c0::after {
+  content: '';
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  box-sizing: border-box;
+  pointer-events: none;
+  border-radius: 3px;
+  border: 2px solid transparent;
+}
+
+.c0 .wrapper {
+  border-radius: 3px;
+  display: block;
+  height: inherit;
+  position: relative;
+}
+
+.c0 .wrapper .img-wrapper {
+  position: relative;
+  width: inherit;
+  height: inherit;
+  display: block;
+  overflow: hidden;
+  border-radius: 3px;
+}
+
+<styled.div
+  className="c0"
+/>
+`;

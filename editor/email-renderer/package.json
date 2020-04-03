@@ -1,0 +1,42 @@
+{
+  "name": "@atlaskit/email-renderer",
+  "version": "4.2.0",
+  "description": "Email renderer",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "author": "Atlassian Pty Ltd",
+  "license": "Apache-2.0",
+  "module": "dist/esm/index.js",
+  "main": "dist/cjs/index.js",
+  "types": "dist/cjs/index.d.ts",
+  "sideEffects": false,
+  "atlaskit:src": "src/index.ts",
+  "atlassian": {
+    "team": "Content Services",
+    "releaseModel": "scheduled"
+  },
+  "scripts": {
+    "ak-postbuild": "ts-node --project ./tsconfig.ts-node.json ./build/ts-to-css.ts",
+    "build:images": "ts-node --files --project ./tsconfig.ts-node.json ./src/static/generator/generate.ts"
+  },
+  "dependencies": {
+    "@atlaskit/adf-schema": "^8.0.0",
+    "date-fns": "^1.30.1",
+    "juice": "^5.2.0",
+    "lodash.flow": "^3.5.0",
+    "lodash.property": "^4.4.2",
+    "prosemirror-model": "^1.7.0"
+  },
+  "devDependencies": {
+    "@atlaskit/docs": "^8.5.0",
+    "@atlaskit/util-data-test": "^13.1.2",
+    "mkdirp": "^0.5.1",
+    "react": "^16.8.0",
+    "rimraf": "^2.6.3",
+    "svgexport": "^0.4.0",
+    "ts-node": "^6.1.1"
+  },
+  "type": "module"
+}

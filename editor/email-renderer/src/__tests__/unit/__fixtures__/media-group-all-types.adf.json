@@ -1,0 +1,59 @@
+{
+  "type": "doc",
+  "version": 1,
+  "content": [
+    {
+      "type": "mediaGroup",
+      "content": [
+        {
+          "type": "media",
+          "attrs": {
+            "type": "file",
+            "id": "media-type-image",
+            "collection": "MediaServicesSample"
+          }
+        },
+        {
+          "type": "media",
+          "attrs": {
+            "type": "file",
+            "id": "media-type-doc",
+            "collection": "MediaServicesSample"
+          }
+        },
+        {
+          "type": "media",
+          "attrs": {
+            "type": "file",
+            "id": "media-type-video",
+            "collection": "MediaServicesSample"
+          }
+        },
+        {
+          "type": "media",
+          "attrs": {
+            "type": "file",
+            "id": "media-type-audio",
+            "collection": "MediaServicesSample"
+          }
+        },
+        {
+          "type": "media",
+          "attrs": {
+            "type": "file",
+            "id": "media-type-archive",
+            "collection": "MediaServicesSample"
+          }
+        },
+        {
+          "type": "media",
+          "attrs": {
+            "type": "file",
+            "id": "media-type-unknown",
+            "collection": "MediaServicesSample"
+          }
+        }
+      ]
+    }
+  ]
+}

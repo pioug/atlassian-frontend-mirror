@@ -1,0 +1,116 @@
+import { Plugin, TextSelection } from 'prosemirror-state';
+import { EditorView } from 'prosemirror-view';
+import { sortByOrder } from './create-editor/sort-by-order';
+import {
+  LightEditorPlugin,
+  LightPMPlugin,
+  LightPMPluginFactoryParams,
+} from './create-editor/get-plugins';
+import { Preset } from './labs/next/presets/preset';
+import { Schema } from 'prosemirror-model';
+import { createSchema } from './create-editor/create-schema';
+import { MarkConfig, NodeConfig } from './types/pm-config';
+import basePlugin from './plugins/base';
+
+export { Preset } from './labs/next/presets/preset';
+export { LightEditorPlugin } from './create-editor/get-plugins';
+
+export interface LightEditorConfig {
+  nodes: NodeConfig[];
+  marks: MarkConfig[];
+  plugins: Array<LightPMPlugin>;
+}
+
+function lightProcessPluginsList(
+  editorPlugins: LightEditorPlugin[],
+): LightEditorConfig {
+  /**
+   * First pass to collect pluginsOptions
+   */
+  const pluginsOptions = editorPlugins.reduce((acc, plugin) => {
+    if (plugin.pluginsOptions) {
+      Object.keys(plugin.pluginsOptions).forEach(pluginName => {
+        if (!acc[pluginName]) {
+          acc[pluginName] = [];
+        }
+        acc[pluginName].push(plugin.pluginsOptions![pluginName]);
+      });
+    }
+
+    return acc;
+  }, {} as Record<string, any>);
+
+  /**
+   * Process plugins
+   */
+  return editorPlugins.reduce<LightEditorConfig>(
+    (acc, editorPlugin) => {
+      if (editorPlugin.pmPlugins) {
+        acc.plugins.push(
+          ...editorPlugin.pmPlugins(
+            editorPlugin.name ? pluginsOptions[editorPlugin.name] : undefined,
+          ),
+        );
+      }
+      if (editorPlugin.marks) {
+        acc.marks.push(...editorPlugin.marks());
+      }
+      if (editorPlugin.nodes) {
+        acc.nodes.push(...editorPlugin.nodes());
+      }
+      return acc;
+    },
+    {
+      nodes: [],
+      marks: [],
+      plugins: [],
+    } as LightEditorConfig,
+  );
+}
+
+export const createPMSchemaAndPlugins = (
+  preset: Preset<LightEditorPlugin> = new Preset<LightEditorPlugin>(),
+) => (
+  pluginFactoryParams: Omit<LightPMPluginFactoryParams, 'schema'>,
+): { plugins: Plugin[]; schema: Schema } => {
+  let editorPlugins: LightEditorPlugin[] = [];
+  if (!preset.has(basePlugin)) {
+    preset.add(basePlugin);
+  }
+  editorPlugins = preset.getEditorPlugins();
+
+  const editorConfig: LightEditorConfig = lightProcessPluginsList(
+    editorPlugins,
+  );
+
+  const schema = createSchema(editorConfig);
+
+  const plugins = editorConfig.plugins
+    .sort(sortByOrder('plugins'))
+    .map(({ plugin }) => plugin({ ...pluginFactoryParams, schema }))
+    .filter(plugin => !!plugin) as Plugin[];
+
+  return {
+    plugins,
+    schema,
+  };
+};
+
+export { PortalProviderAPI } from './ui/PortalProvider';
+export { EventDispatcher, Dispatch } from './event-dispatcher';
+export {
+  GapCursorSelection,
+  Side as GapCursorSide,
+} from './plugins/gap-cursor/selection';
+
+export function setTextSelection(
+  view: EditorView,
+  anchor: number,
+  head?: number,
+) {
+  const { state } = view;
+  const tr = state.tr.setSelection(
+    TextSelection.create(state.doc, anchor, head),
+  );
+  view.dispatch(tr);
+}

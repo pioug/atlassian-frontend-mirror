@@ -1,0 +1,80 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Initialises correctly with a single media group on comment 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "attrs": Object {
+            "__contextId": "DUMMY-OBJECT-ID",
+            "__displayType": null,
+            "__external": false,
+            "__fileMimeType": null,
+            "__fileName": "example.png",
+            "__fileSize": null,
+            "alt": null,
+            "collection": "jira-13085-field-description",
+            "height": null,
+            "id": "1234-5678-abcd-efgh",
+            "occurrenceKey": "12345678-9abc-def0-1234-56789abcdef0",
+            "type": "file",
+            "url": null,
+            "width": null,
+          },
+          "type": "media",
+        },
+      ],
+      "type": "mediaGroup",
+    },
+    Object {
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`insert-mediaGroup.ts: Inserts a media group on comment 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "some text",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "attrs": Object {
+            "__contextId": "DUMMY-OBJECT-ID",
+            "__displayType": null,
+            "__external": false,
+            "__fileMimeType": "image/svg+xml",
+            "__fileName": "example.png",
+            "__fileSize": 235,
+            "alt": null,
+            "collection": "MediaServicesSample",
+            "height": null,
+            "id": "1234-5678-abcd-efgh",
+            "occurrenceKey": null,
+            "type": "file",
+            "url": null,
+            "width": null,
+          },
+          "type": "media",
+        },
+      ],
+      "type": "mediaGroup",
+    },
+    Object {
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;

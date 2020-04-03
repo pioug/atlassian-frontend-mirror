@@ -1,0 +1,45 @@
+{
+  "name": "@atlaskit/logo",
+  "version": "12.3.3",
+  "description": "A logo is a visual representation of a brand or product. It can be a word or an image, or both.",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "author": "Atlassian Pty Ltd",
+  "license": "Apache-2.0",
+  "module": "dist/esm/index.js",
+  "main": "dist/cjs/index.js",
+  "types": "dist/cjs/index.d.ts",
+  "sideEffects": false,
+  "atlaskit:src": "src/index.ts",
+  "atlaskit:designLink": "https://atlassian.design/guidelines/product/components/logos-in-product",
+  "atlassian": {
+    "team": "Design System Team",
+    "releaseModel": "scheduled",
+    "website": {
+      "name": "Logo"
+    }
+  },
+  "dependencies": {
+    "react-uid": "^2.2.0",
+    "tslib": "^1.9.3"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0",
+    "styled-components": "^3.2.6"
+  },
+  "devDependencies": {
+    "@atlaskit/build-utils": "^2.2.5",
+    "@atlaskit/button": "^13.3.9",
+    "@atlaskit/code": "^11.1.3",
+    "@atlaskit/docs": "^8.4.0",
+    "@atlaskit/field-radio-group": "^7.0.2",
+    "@atlaskit/select": "^11.0.9",
+    "@atlaskit/ssr": "^0.1.1",
+    "@atlaskit/theme": "^9.5.1",
+    "@atlaskit/visual-regression": "^0.1.9",
+    "enzyme": "^3.10.0",
+    "react-dom": "^16.8.0"
+  }
+}

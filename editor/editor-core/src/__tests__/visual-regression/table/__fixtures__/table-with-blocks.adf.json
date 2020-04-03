@@ -1,0 +1,420 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "table",
+      "attrs": {
+        "isNumberColumnEnabled": false,
+        "layout": "default"
+      },
+      "content": [
+        {
+          "type": "tableRow",
+          "content": [
+            {
+              "type": "tableHeader",
+              "attrs": {},
+              "content": [
+                {
+                  "type": "taskList",
+                  "attrs": {
+                    "localId": "ec0b4914-4d1f-4fa9-997c-8821329618be"
+                  },
+                  "content": [
+                    {
+                      "type": "taskItem",
+                      "attrs": {
+                        "localId": "a7f0a555-84f3-46df-a4b7-dfd617fe983b",
+                        "state": "TODO"
+                      },
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "action"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "tableHeader",
+              "attrs": {},
+              "content": [
+                {
+                  "type": "decisionList",
+                  "attrs": {
+                    "localId": "f59593aa-b821-47e2-969a-b4b7c79429d4"
+                  },
+                  "content": [
+                    {
+                      "type": "decisionItem",
+                      "attrs": {
+                        "localId": "f594d3d8-3ddb-4833-a907-9f35b5bab409",
+                        "state": "DECIDED"
+                      },
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "decision"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "tableHeader",
+              "attrs": {},
+              "content": [
+                {
+                  "type": "codeBlock",
+                  "attrs": {},
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "code"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "tableHeader",
+              "attrs": {},
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "tableRow",
+          "content": [
+            {
+              "type": "tableCell",
+              "attrs": {},
+              "content": [
+                {
+                  "type": "taskList",
+                  "attrs": {
+                    "localId": "36a0ba9d-3ff7-419e-ba1b-efef05ef8244"
+                  },
+                  "content": [
+                    {
+                      "type": "taskItem",
+                      "attrs": {
+                        "localId": "a79f5dd4-593e-49f3-8e5f-b2f47841335e",
+                        "state": "TODO"
+                      },
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "action"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "tableCell",
+              "attrs": {},
+              "content": [
+                {
+                  "type": "decisionList",
+                  "attrs": {
+                    "localId": "7d08b855-124a-4de5-92fb-e8b5fd812ed5"
+                  },
+                  "content": [
+                    {
+                      "type": "decisionItem",
+                      "attrs": {
+                        "localId": "4090dc55-ef49-41c4-9626-14509d43a025",
+                        "state": "DECIDED"
+                      },
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "decision"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "tableCell",
+              "attrs": {},
+              "content": [
+                {
+                  "type": "codeBlock",
+                  "attrs": {},
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "code"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "tableCell",
+              "attrs": {},
+              "content": [
+                {
+                  "type": "panel",
+                  "attrs": {
+                    "panelType": "info"
+                  },
+                  "content": [
+                    {
+                      "type": "paragraph",
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "info"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "tableRow",
+          "content": [
+            {
+              "type": "tableCell",
+              "attrs": {},
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "This is some text"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "content": []
+                },
+                {
+                  "type": "codeBlock",
+                  "attrs": {}
+                },
+                {
+                  "type": "paragraph",
+                  "content": []
+                },
+                {
+                  "type": "paragraph",
+                  "content": []
+                },
+                {
+                  "type": "paragraph",
+                  "content": []
+                }
+              ]
+            },
+            {
+              "type": "tableCell",
+              "attrs": {},
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": []
+                }
+              ]
+            },
+            {
+              "type": "tableCell",
+              "attrs": {},
+              "content": [
+                {
+                  "type": "decisionList",
+                  "attrs": {
+                    "localId": "39c5bd30-a3c4-4155-850c-b4f5a71dd0b1"
+                  },
+                  "content": [
+                    {
+                      "type": "decisionItem",
+                      "attrs": {
+                        "localId": "e805a048-77af-494c-8c8b-830a4687a72b",
+                        "state": "DECIDED"
+                      },
+                      "content": [
+                        {
+                          "type": "mention",
+                          "attrs": {
+                            "id": "0",
+                            "text": "@Carolyn",
+                            "accessLevel": ""
+                          }
+                        },
+                        {
+                          "type": "text",
+                          "text": " "
+                        },
+                        {
+                          "type": "mention",
+                          "attrs": {
+                            "id": "1",
+                            "text": "@Kaitlyn Prouty",
+                            "accessLevel": ""
+                          }
+                        },
+                        {
+                          "type": "text",
+                          "text": " "
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "tableCell",
+              "attrs": {},
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": [
+                    {
+                      "type": "status",
+                      "attrs": {
+                        "text": "WIP",
+                        "color": "red",
+                        "localId": "95a15319-12c7-4174-9ccc-3945970a14e6",
+                        "style": ""
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "tableRow",
+          "content": [
+            {
+              "type": "tableCell",
+              "attrs": {},
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": []
+                }
+              ]
+            },
+            {
+              "type": "tableCell",
+              "attrs": {},
+              "content": [
+                {
+                  "type": "taskList",
+                  "attrs": {
+                    "localId": "ef8c99a5-be13-418c-899c-b1540af79fd3"
+                  },
+                  "content": [
+                    {
+                      "type": "taskItem",
+                      "attrs": {
+                        "localId": "1e69d43c-d491-4025-8489-e417e285db30",
+                        "state": "TODO"
+                      },
+                      "content": [
+                        {
+                          "type": "emoji",
+                          "attrs": {
+                            "shortName": ":slight_smile:",
+                            "id": "1f642",
+                            "text": "🙂"
+                          }
+                        },
+                        {
+                          "type": "text",
+                          "text": " "
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "tableCell",
+              "attrs": {},
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": [
+                    {
+                      "type": "emoji",
+                      "attrs": {
+                        "shortName": ":slight_smile:",
+                        "id": "1f642",
+                        "text": "🙂"
+                      }
+                    },
+                    {
+                      "type": "text",
+                      "text": " "
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "tableCell",
+              "attrs": {},
+              "content": [
+                {
+                  "type": "panel",
+                  "attrs": {
+                    "panelType": "note"
+                  },
+                  "content": [
+                    {
+                      "type": "paragraph",
+                      "content": [
+                        {
+                          "type": "status",
+                          "attrs": {
+                            "text": "there",
+                            "color": "yellow",
+                            "localId": "e324a6c2-381b-4629-b55c-2d1d0ab2cbcc",
+                            "style": ""
+                          }
+                        },
+                        {
+                          "type": "text",
+                          "text": " "
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

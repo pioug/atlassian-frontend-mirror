@@ -1,0 +1,338 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`WikiMarkup => ADF Formatters - image media should detect image media at beginning of the line 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "layout": "center",
+        "width": null,
+      },
+      "content": Array [
+        Object {
+          "attrs": Object {
+            "__contextId": null,
+            "__displayType": null,
+            "__external": false,
+            "__fileMimeType": null,
+            "__fileName": null,
+            "__fileSize": null,
+            "alt": null,
+            "collection": "",
+            "height": 183,
+            "id": "abc-123",
+            "occurrenceKey": null,
+            "type": "file",
+            "url": null,
+            "width": 200,
+          },
+          "type": "media",
+        },
+      ],
+      "type": "mediaSingle",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "text": " text",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`WikiMarkup => ADF Formatters - image media should detect image media at end of the input 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "This is a ",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "attrs": Object {
+        "layout": "center",
+        "width": null,
+      },
+      "content": Array [
+        Object {
+          "attrs": Object {
+            "__contextId": null,
+            "__displayType": null,
+            "__external": false,
+            "__fileMimeType": null,
+            "__fileName": null,
+            "__fileSize": null,
+            "alt": null,
+            "collection": "",
+            "height": 183,
+            "id": "abc-123",
+            "occurrenceKey": null,
+            "type": "file",
+            "url": null,
+            "width": 200,
+          },
+          "type": "media",
+        },
+      ],
+      "type": "mediaSingle",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`WikiMarkup => ADF Formatters - image media should detect image media at end of the line 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "This is a ",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "attrs": Object {
+        "layout": "center",
+        "width": null,
+      },
+      "content": Array [
+        Object {
+          "attrs": Object {
+            "__contextId": null,
+            "__displayType": null,
+            "__external": false,
+            "__fileMimeType": null,
+            "__fileName": null,
+            "__fileSize": null,
+            "alt": null,
+            "collection": "",
+            "height": 183,
+            "id": "abc-123",
+            "occurrenceKey": null,
+            "type": "file",
+            "url": null,
+            "width": 200,
+          },
+          "type": "media",
+        },
+      ],
+      "type": "mediaSingle",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "text": "another line",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`WikiMarkup => ADF Formatters - image media should detect image media at in between of the line 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "This is a ",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "attrs": Object {
+        "layout": "center",
+        "width": null,
+      },
+      "content": Array [
+        Object {
+          "attrs": Object {
+            "__contextId": null,
+            "__displayType": null,
+            "__external": false,
+            "__fileMimeType": null,
+            "__fileName": null,
+            "__fileSize": null,
+            "alt": null,
+            "collection": "",
+            "height": 183,
+            "id": "abc-123",
+            "occurrenceKey": null,
+            "type": "file",
+            "url": null,
+            "width": 200,
+          },
+          "type": "media",
+        },
+      ],
+      "type": "mediaSingle",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "text": " text",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`WikiMarkup => ADF Formatters - image media should detect image media surrounded by non alphanumeric characters 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "This is a (",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "attrs": Object {
+        "layout": "center",
+        "width": null,
+      },
+      "content": Array [
+        Object {
+          "attrs": Object {
+            "__contextId": null,
+            "__displayType": null,
+            "__external": false,
+            "__fileMimeType": null,
+            "__fileName": null,
+            "__fileSize": null,
+            "alt": null,
+            "collection": "",
+            "height": 183,
+            "id": "abc-123",
+            "occurrenceKey": null,
+            "type": "file",
+            "url": null,
+            "width": 200,
+          },
+          "type": "media",
+        },
+      ],
+      "type": "mediaSingle",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "text": ") text",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`WikiMarkup => ADF Formatters - image media should not be a image media if surrounded by non-latin characters 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "This is not a 牛!image.jpg!牛 text",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`WikiMarkup => ADF Formatters - image media should not be a image media if there is a space after opening ! 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "This is not a ! image.jpg! text",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`WikiMarkup => ADF Formatters - image media should not be a image media if there is a space before closing ! 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "This is not a !image.jpg ! text",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`WikiMarkup => ADF Formatters - image media should not be a image media if there is no space before ! 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "This is not a!image.jpg! text",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`WikiMarkup => ADF Formatters - image media should not be a image media if there is not a space after closing ! 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "This is not a !image.jpg!text",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;

@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`hyperlink-1.ts: Link:create link using toolbar,unlinkify comment editor 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "marks": Array [
+            Object {
+              "attrs": Object {
+                "__confluenceMetadata": null,
+                "href": "https://product-fabric.atlassian.net/browse/FAB-983",
+              },
+              "type": "link",
+            },
+          ],
+          "text": "FAB-983 P2 Integration plugin: do not cache Cloud ID in Vertigo world",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "text": "http://hello.com ",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`hyperlink-1.ts: Link:create link using toolbar,unlinkify fullpage editor 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "marks": Array [
+            Object {
+              "attrs": Object {
+                "__confluenceMetadata": null,
+                "href": "https://product-fabric.atlassian.net/browse/FAB-983",
+              },
+              "type": "link",
+            },
+          ],
+          "text": "FAB-983 P2 Integration plugin: do not cache Cloud ID in Vertigo world",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "text": "http://hello.com ",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;

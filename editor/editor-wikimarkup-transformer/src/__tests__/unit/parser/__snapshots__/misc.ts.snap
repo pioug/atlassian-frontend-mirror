@@ -1,0 +1,249 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`JIRA wiki markup - Misc [CS-480] this is not a list 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "-",
+          "type": "text",
+        },
+        Object {
+          "type": "hardBreak",
+        },
+        Object {
+          "text": "this is not a list",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Misc It should be possible to have a ruler as the final line of text 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "Hi",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "type": "rule",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Misc It should be possible to have a ruler as the only thing 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "type": "rule",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Misc should escape macros 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "this is a {panel} text, not a macro",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "attrs": Object {
+        "panelType": "info",
+      },
+      "content": Array [
+        Object {
+          "type": "paragraph",
+        },
+      ],
+      "type": "panel",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Misc should escape monospace text 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "this is a {{normal text}}, not a monospaced",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Misc should find emojis and mentions in text 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "this is a string with ",
+          "type": "text",
+        },
+        Object {
+          "attrs": Object {
+            "id": "1f642",
+            "shortName": ":slight_smile:",
+            "text": "🙂",
+          },
+          "type": "emoji",
+        },
+        Object {
+          "text": " emojis and ",
+          "type": "text",
+        },
+        Object {
+          "attrs": Object {
+            "accessLevel": "",
+            "id": "username",
+            "text": "",
+            "userType": null,
+          },
+          "type": "mention",
+        },
+        Object {
+          "text": " mentions",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Misc should find emojis in text 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "this is a string with ",
+          "type": "text",
+        },
+        Object {
+          "attrs": Object {
+            "id": "1f642",
+            "shortName": ":slight_smile:",
+            "text": "🙂",
+          },
+          "type": "emoji",
+        },
+        Object {
+          "text": " emojis in it ",
+          "type": "text",
+        },
+        Object {
+          "attrs": Object {
+            "id": "atlassian-yellow_star",
+            "shortName": ":yellow_star:",
+            "text": ":yellow_star:",
+          },
+          "type": "emoji",
+        },
+        Object {
+          "text": " tada",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Misc should find emojis in text with marks 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "this is a string ",
+          "type": "text",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "attrs": Object {
+                "type": "sub",
+              },
+              "type": "subsup",
+            },
+          ],
+          "text": "with ",
+          "type": "text",
+        },
+        Object {
+          "attrs": Object {
+            "id": "1f642",
+            "shortName": ":slight_smile:",
+            "text": "🙂",
+          },
+          "type": "emoji",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "attrs": Object {
+                "type": "sub",
+              },
+              "type": "subsup",
+            },
+          ],
+          "text": " emojis",
+          "type": "text",
+        },
+        Object {
+          "text": " in it ",
+          "type": "text",
+        },
+        Object {
+          "attrs": Object {
+            "id": "atlassian-yellow_star",
+            "shortName": ":yellow_star:",
+            "text": ":yellow_star:",
+          },
+          "type": "emoji",
+        },
+        Object {
+          "text": " tada",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;

@@ -1,0 +1,19 @@
+{
+  "extends": "../../../tsconfig.json",
+  "compilerOptions": {
+    "noImplicitAny": true,
+    "baseUrl": "./"
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "./docs/**/*.ts",
+    "./docs/**/*.tsx",
+    "test-helpers/**/*.ts",
+    "test-helpers/**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules",
+    "src/json-schema"
+  ]
+}

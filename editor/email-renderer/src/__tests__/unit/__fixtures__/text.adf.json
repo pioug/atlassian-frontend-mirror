@@ -1,0 +1,43 @@
+{
+  "type": "doc",
+  "version": 1,
+  "content": [
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Hello renderer, can you please escape the HTML,  <script>alert('xss')</script> <img src=\"\" /> <h1> <dododododododo /> </h1> ",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "https://www.atlassian.com"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": "Atlassian Website",
+          "marks": [
+            {
+              "type": "strong"
+            },
+            {
+              "type": "link",
+              "attrs": {
+                "href": "https://www.atlassian.com"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Look I can't do <script> tag and stuff"
+        }
+      ]
+    }
+  ]
+}
+

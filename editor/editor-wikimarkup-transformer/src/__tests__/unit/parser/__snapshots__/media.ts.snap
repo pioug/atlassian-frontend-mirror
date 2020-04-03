@@ -1,0 +1,1045 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`JIRA wiki markup - Images and attachments [CS-216] should parse media filename with "(" and ")" 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "layout": "center",
+        "width": null,
+      },
+      "content": Array [
+        Object {
+          "attrs": Object {
+            "__contextId": null,
+            "__displayType": null,
+            "__external": false,
+            "__fileMimeType": null,
+            "__fileName": null,
+            "__fileSize": null,
+            "alt": null,
+            "collection": "",
+            "height": 183,
+            "id": "uuid-ScreenShot",
+            "occurrenceKey": null,
+            "type": "file",
+            "url": null,
+            "width": 200,
+          },
+          "type": "media",
+        },
+      ],
+      "type": "mediaSingle",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Images and attachments [CS-1404] should parse attachments as one media group 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "attrs": Object {
+            "__contextId": null,
+            "__displayType": null,
+            "__external": false,
+            "__fileMimeType": null,
+            "__fileName": null,
+            "__fileSize": null,
+            "alt": null,
+            "collection": "",
+            "height": null,
+            "id": "uuid-a-doc (jadsjdasjadsjkdasjk)",
+            "occurrenceKey": null,
+            "type": "file",
+            "url": null,
+            "width": null,
+          },
+          "type": "media",
+        },
+        Object {
+          "attrs": Object {
+            "__contextId": null,
+            "__displayType": null,
+            "__external": false,
+            "__fileMimeType": null,
+            "__fileName": null,
+            "__fileSize": null,
+            "alt": null,
+            "collection": "",
+            "height": null,
+            "id": "uuid-not-empty (askjsajnkjknads)",
+            "occurrenceKey": null,
+            "type": "file",
+            "url": null,
+            "width": null,
+          },
+          "type": "media",
+        },
+      ],
+      "type": "mediaGroup",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Images and attachments [CS-1404] should parse attachments inside tables as single media group 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "__autoSize": false,
+        "isNumberColumnEnabled": false,
+        "layout": "default",
+      },
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "text": "colum 1 ",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+                Object {
+                  "content": Array [
+                    Object {
+                      "attrs": Object {
+                        "__contextId": null,
+                        "__displayType": null,
+                        "__external": false,
+                        "__fileMimeType": null,
+                        "__fileName": null,
+                        "__fileSize": null,
+                        "alt": null,
+                        "collection": "",
+                        "height": null,
+                        "id": "uuid-a-doc (jadsjdasjadsjkdasjk)",
+                        "occurrenceKey": null,
+                        "type": "file",
+                        "url": null,
+                        "width": null,
+                      },
+                      "type": "media",
+                    },
+                    Object {
+                      "attrs": Object {
+                        "__contextId": null,
+                        "__displayType": null,
+                        "__external": false,
+                        "__fileMimeType": null,
+                        "__fileName": null,
+                        "__fileSize": null,
+                        "alt": null,
+                        "collection": "",
+                        "height": null,
+                        "id": "uuid-not-empty (askjsajnkjknads)",
+                        "occurrenceKey": null,
+                        "type": "file",
+                        "url": null,
+                        "width": null,
+                      },
+                      "type": "media",
+                    },
+                  ],
+                  "type": "mediaGroup",
+                },
+              ],
+              "type": "tableCell",
+            },
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "text": "column 2",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+          ],
+          "type": "tableRow",
+        },
+      ],
+      "type": "table",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Images and attachments [CS-1404] should parse attachments separated by a single new line as one media group 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "attrs": Object {
+            "__contextId": null,
+            "__displayType": null,
+            "__external": false,
+            "__fileMimeType": null,
+            "__fileName": null,
+            "__fileSize": null,
+            "alt": null,
+            "collection": "",
+            "height": null,
+            "id": "uuid-a-doc (jadsjdasjadsjkdasjk)",
+            "occurrenceKey": null,
+            "type": "file",
+            "url": null,
+            "width": null,
+          },
+          "type": "media",
+        },
+        Object {
+          "attrs": Object {
+            "__contextId": null,
+            "__displayType": null,
+            "__external": false,
+            "__fileMimeType": null,
+            "__fileName": null,
+            "__fileSize": null,
+            "alt": null,
+            "collection": "",
+            "height": null,
+            "id": "uuid-not-empty (askjsajnkjknads)",
+            "occurrenceKey": null,
+            "type": "file",
+            "url": null,
+            "width": null,
+          },
+          "type": "media",
+        },
+      ],
+      "type": "mediaGroup",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Images and attachments [CS-1404] should parse attachments separated by any number of spaces as one media group 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "attrs": Object {
+            "__contextId": null,
+            "__displayType": null,
+            "__external": false,
+            "__fileMimeType": null,
+            "__fileName": null,
+            "__fileSize": null,
+            "alt": null,
+            "collection": "",
+            "height": null,
+            "id": "uuid-a-doc (jadsjdasjadsjkdasjk)",
+            "occurrenceKey": null,
+            "type": "file",
+            "url": null,
+            "width": null,
+          },
+          "type": "media",
+        },
+        Object {
+          "attrs": Object {
+            "__contextId": null,
+            "__displayType": null,
+            "__external": false,
+            "__fileMimeType": null,
+            "__fileName": null,
+            "__fileSize": null,
+            "alt": null,
+            "collection": "",
+            "height": null,
+            "id": "uuid-not-empty (askjsajnkjknads)",
+            "occurrenceKey": null,
+            "type": "file",
+            "url": null,
+            "width": null,
+          },
+          "type": "media",
+        },
+      ],
+      "type": "mediaGroup",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Images and attachments [CS-1404] should parse attachments separated by multiple new lines as separate media groups 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "attrs": Object {
+            "__contextId": null,
+            "__displayType": null,
+            "__external": false,
+            "__fileMimeType": null,
+            "__fileName": null,
+            "__fileSize": null,
+            "alt": null,
+            "collection": "",
+            "height": null,
+            "id": "uuid-a-doc (jadsjdasjadsjkdasjk)",
+            "occurrenceKey": null,
+            "type": "file",
+            "url": null,
+            "width": null,
+          },
+          "type": "media",
+        },
+      ],
+      "type": "mediaGroup",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "attrs": Object {
+            "__contextId": null,
+            "__displayType": null,
+            "__external": false,
+            "__fileMimeType": null,
+            "__fileName": null,
+            "__fileSize": null,
+            "alt": null,
+            "collection": "",
+            "height": null,
+            "id": "uuid-not-empty (askjsajnkjknads)",
+            "occurrenceKey": null,
+            "type": "file",
+            "url": null,
+            "width": null,
+          },
+          "type": "media",
+        },
+      ],
+      "type": "mediaGroup",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Images and attachments [CS-1404] should parse attachments separated by non-space character as separate media groups 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "attrs": Object {
+            "__contextId": null,
+            "__displayType": null,
+            "__external": false,
+            "__fileMimeType": null,
+            "__fileName": null,
+            "__fileSize": null,
+            "alt": null,
+            "collection": "",
+            "height": null,
+            "id": "uuid-a-doc (jadsjdasjadsjkdasjk)",
+            "occurrenceKey": null,
+            "type": "file",
+            "url": null,
+            "width": null,
+          },
+          "type": "media",
+        },
+      ],
+      "type": "mediaGroup",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "text": "a",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "attrs": Object {
+            "__contextId": null,
+            "__displayType": null,
+            "__external": false,
+            "__fileMimeType": null,
+            "__fileName": null,
+            "__fileSize": null,
+            "alt": null,
+            "collection": "",
+            "height": null,
+            "id": "uuid-not-empty (askjsajnkjknads)",
+            "occurrenceKey": null,
+            "type": "file",
+            "url": null,
+            "width": null,
+          },
+          "type": "media",
+        },
+      ],
+      "type": "mediaGroup",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Images and attachments [CS-1404] should parse consecutive attachments separated by one new line as one media group 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "attrs": Object {
+            "__contextId": null,
+            "__displayType": null,
+            "__external": false,
+            "__fileMimeType": null,
+            "__fileName": null,
+            "__fileSize": null,
+            "alt": null,
+            "collection": "",
+            "height": null,
+            "id": "uuid-file1",
+            "occurrenceKey": null,
+            "type": "file",
+            "url": null,
+            "width": null,
+          },
+          "type": "media",
+        },
+        Object {
+          "attrs": Object {
+            "__contextId": null,
+            "__displayType": null,
+            "__external": false,
+            "__fileMimeType": null,
+            "__fileName": null,
+            "__fileSize": null,
+            "alt": null,
+            "collection": "",
+            "height": null,
+            "id": "uuid-file2",
+            "occurrenceKey": null,
+            "type": "file",
+            "url": null,
+            "width": null,
+          },
+          "type": "media",
+        },
+        Object {
+          "attrs": Object {
+            "__contextId": null,
+            "__displayType": null,
+            "__external": false,
+            "__fileMimeType": null,
+            "__fileName": null,
+            "__fileSize": null,
+            "alt": null,
+            "collection": "",
+            "height": null,
+            "id": "uuid-file3",
+            "occurrenceKey": null,
+            "type": "file",
+            "url": null,
+            "width": null,
+          },
+          "type": "media",
+        },
+      ],
+      "type": "mediaGroup",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Images and attachments [CS-1404] should parse list of multiple attachments separated by multiple new lines as separate media groups with multiple child media elements 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "attrs": Object {
+            "__contextId": null,
+            "__displayType": null,
+            "__external": false,
+            "__fileMimeType": null,
+            "__fileName": null,
+            "__fileSize": null,
+            "alt": null,
+            "collection": "",
+            "height": null,
+            "id": "uuid-a-doc (jadsjdasjadsjkdasjk)",
+            "occurrenceKey": null,
+            "type": "file",
+            "url": null,
+            "width": null,
+          },
+          "type": "media",
+        },
+        Object {
+          "attrs": Object {
+            "__contextId": null,
+            "__displayType": null,
+            "__external": false,
+            "__fileMimeType": null,
+            "__fileName": null,
+            "__fileSize": null,
+            "alt": null,
+            "collection": "",
+            "height": null,
+            "id": "uuid-not-empty (askjsajnkjknads)",
+            "occurrenceKey": null,
+            "type": "file",
+            "url": null,
+            "width": null,
+          },
+          "type": "media",
+        },
+      ],
+      "type": "mediaGroup",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "attrs": Object {
+            "__contextId": null,
+            "__displayType": null,
+            "__external": false,
+            "__fileMimeType": null,
+            "__fileName": null,
+            "__fileSize": null,
+            "alt": null,
+            "collection": "",
+            "height": null,
+            "id": "uuid-a-doc (jadsjdasjadsjkdasjk)",
+            "occurrenceKey": null,
+            "type": "file",
+            "url": null,
+            "width": null,
+          },
+          "type": "media",
+        },
+        Object {
+          "attrs": Object {
+            "__contextId": null,
+            "__displayType": null,
+            "__external": false,
+            "__fileMimeType": null,
+            "__fileName": null,
+            "__fileSize": null,
+            "alt": null,
+            "collection": "",
+            "height": null,
+            "id": "uuid-not-empty (askjsajnkjknads)",
+            "occurrenceKey": null,
+            "type": "file",
+            "url": null,
+            "width": null,
+          },
+          "type": "media",
+        },
+      ],
+      "type": "mediaGroup",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Images and attachments [CS-1879] should parse media with alt text in quotes 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "layout": "center",
+        "width": null,
+      },
+      "content": Array [
+        Object {
+          "attrs": Object {
+            "__contextId": null,
+            "__displayType": null,
+            "__external": false,
+            "__fileMimeType": null,
+            "__fileName": null,
+            "__fileSize": null,
+            "alt": "hello world",
+            "collection": "",
+            "height": 183,
+            "id": "foo.png",
+            "occurrenceKey": null,
+            "type": "file",
+            "url": null,
+            "width": 200,
+          },
+          "type": "media",
+        },
+      ],
+      "type": "mediaSingle",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Images and attachments [CS-1879] should parse media with alt text with sensitive characters 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "layout": "center",
+        "width": null,
+      },
+      "content": Array [
+        Object {
+          "attrs": Object {
+            "__contextId": null,
+            "__displayType": null,
+            "__external": false,
+            "__fileMimeType": null,
+            "__fileName": null,
+            "__fileSize": null,
+            "alt": "hello world",
+            "collection": "",
+            "height": 183,
+            "id": "foo.png",
+            "occurrenceKey": null,
+            "type": "file",
+            "url": null,
+            "width": 200,
+          },
+          "type": "media",
+        },
+      ],
+      "type": "mediaSingle",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Images and attachments [CS-1879] should parse media with alt text without quotes 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "layout": "center",
+        "width": null,
+      },
+      "content": Array [
+        Object {
+          "attrs": Object {
+            "__contextId": null,
+            "__displayType": null,
+            "__external": false,
+            "__fileMimeType": null,
+            "__fileName": null,
+            "__fileSize": null,
+            "alt": "hello world",
+            "collection": "",
+            "height": 183,
+            "id": "foo.png",
+            "occurrenceKey": null,
+            "type": "file",
+            "url": null,
+            "width": 200,
+          },
+          "type": "media",
+        },
+      ],
+      "type": "mediaSingle",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Images and attachments should add collection from context 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "Hello! ",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "attrs": Object {
+        "layout": "center",
+        "width": null,
+      },
+      "content": Array [
+        Object {
+          "attrs": Object {
+            "__contextId": null,
+            "__displayType": null,
+            "__external": false,
+            "__fileMimeType": null,
+            "__fileName": null,
+            "__fileSize": null,
+            "alt": null,
+            "collection": "my-test-collection",
+            "height": 183,
+            "id": "9db1eca8-8257-4763-92fb-e6417f9e34c9",
+            "occurrenceKey": null,
+            "type": "file",
+            "url": null,
+            "width": 200,
+          },
+          "type": "media",
+        },
+      ],
+      "type": "mediaSingle",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Images and attachments should find absolute URL images and convert it to external media item 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "layout": "center",
+        "width": null,
+      },
+      "content": Array [
+        Object {
+          "attrs": Object {
+            "__contextId": null,
+            "__displayType": null,
+            "__external": false,
+            "__fileMimeType": null,
+            "__fileName": null,
+            "__fileSize": null,
+            "alt": null,
+            "collection": "",
+            "height": 183,
+            "id": "",
+            "occurrenceKey": null,
+            "type": "external",
+            "url": "http://www.host.com/image.gif",
+            "width": 200,
+          },
+          "type": "media",
+        },
+      ],
+      "type": "mediaSingle",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Images and attachments should find attachments in multiline string 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "this is a line of text",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "attrs": Object {
+        "layout": "center",
+        "width": null,
+      },
+      "content": Array [
+        Object {
+          "attrs": Object {
+            "__contextId": null,
+            "__displayType": null,
+            "__external": false,
+            "__fileMimeType": null,
+            "__fileName": null,
+            "__fileSize": null,
+            "alt": null,
+            "collection": "",
+            "height": 183,
+            "id": "uuid-image",
+            "occurrenceKey": null,
+            "type": "file",
+            "url": null,
+            "width": 200,
+          },
+          "type": "media",
+        },
+      ],
+      "type": "mediaSingle",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "text": "yep",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Images and attachments should find attachments with attributes 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "layout": "center",
+        "width": null,
+      },
+      "content": Array [
+        Object {
+          "attrs": Object {
+            "__contextId": null,
+            "__displayType": null,
+            "__external": false,
+            "__fileMimeType": null,
+            "__fileName": null,
+            "__fileSize": null,
+            "alt": null,
+            "collection": "",
+            "height": 400,
+            "id": "uuid-quicktime",
+            "occurrenceKey": null,
+            "type": "file",
+            "url": null,
+            "width": 300,
+          },
+          "type": "media",
+        },
+      ],
+      "type": "mediaSingle",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Images and attachments should find attachments with percentage width attribute 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "layout": "center",
+        "width": 50,
+      },
+      "content": Array [
+        Object {
+          "attrs": Object {
+            "__contextId": null,
+            "__displayType": null,
+            "__external": false,
+            "__fileMimeType": null,
+            "__fileName": null,
+            "__fileSize": null,
+            "alt": null,
+            "collection": "",
+            "height": null,
+            "id": "fizzbuzz.txt",
+            "occurrenceKey": null,
+            "type": "file",
+            "url": null,
+            "width": null,
+          },
+          "type": "media",
+        },
+      ],
+      "type": "mediaSingle",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Images and attachments should find images in a multiline string with return symbols 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "layout": "center",
+        "width": null,
+      },
+      "content": Array [
+        Object {
+          "attrs": Object {
+            "__contextId": null,
+            "__displayType": null,
+            "__external": false,
+            "__fileMimeType": null,
+            "__fileName": null,
+            "__fileSize": null,
+            "alt": null,
+            "collection": "",
+            "height": 183,
+            "id": "uuid-Kapture",
+            "occurrenceKey": null,
+            "type": "file",
+            "url": null,
+            "width": 200,
+          },
+          "type": "media",
+        },
+      ],
+      "type": "mediaSingle",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "text": "Foo",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Images and attachments should find images in the text 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "layout": "center",
+        "width": null,
+      },
+      "content": Array [
+        Object {
+          "attrs": Object {
+            "__contextId": null,
+            "__displayType": null,
+            "__external": false,
+            "__fileMimeType": null,
+            "__fileName": null,
+            "__fileSize": null,
+            "alt": null,
+            "collection": "",
+            "height": 183,
+            "id": "uuid-image",
+            "occurrenceKey": null,
+            "type": "file",
+            "url": null,
+            "width": 200,
+          },
+          "type": "media",
+        },
+      ],
+      "type": "mediaSingle",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Images and attachments should transform filename to id for attachment links if NOT present in context 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "attrs": Object {
+            "__contextId": null,
+            "__displayType": null,
+            "__external": false,
+            "__fileMimeType": null,
+            "__fileName": null,
+            "__fileSize": null,
+            "alt": null,
+            "collection": "",
+            "height": null,
+            "id": "document.pdf",
+            "occurrenceKey": null,
+            "type": "file",
+            "url": null,
+            "width": null,
+          },
+          "type": "media",
+        },
+      ],
+      "type": "mediaGroup",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Images and attachments should transform filename to id for embeddable attachments if NOT present in context 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "layout": "center",
+        "width": null,
+      },
+      "content": Array [
+        Object {
+          "attrs": Object {
+            "__contextId": null,
+            "__displayType": null,
+            "__external": false,
+            "__fileMimeType": null,
+            "__fileName": null,
+            "__fileSize": null,
+            "alt": null,
+            "collection": "",
+            "height": 183,
+            "id": "Screen Shot.jpeg",
+            "occurrenceKey": null,
+            "type": "file",
+            "url": null,
+            "width": 200,
+          },
+          "type": "media",
+        },
+      ],
+      "type": "mediaSingle",
+    },
+  ],
+  "type": "doc",
+}
+`;

@@ -1,0 +1,63 @@
+{
+  "name": "@atlaskit/media-client",
+  "version": "6.0.0",
+  "description": "Media API Web Client Library",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "author": "Atlassian Pty Ltd",
+  "license": "Apache-2.0",
+  "module": "dist/esm/index.js",
+  "main": "dist/cjs/index.js",
+  "types": "dist/cjs/index.d.ts",
+  "sideEffects": false,
+  "atlaskit:src": "src/index.ts",
+  "atlassian": {
+    "team": "Media Platform",
+    "releaseModel": "scheduled",
+    "website": {
+      "name": "Media Client"
+    }
+  },
+  "dependencies": {
+    "@atlaskit/type-helpers": "^4.2.3",
+    "chunkinator": "^2.0.4",
+    "dataloader": "^1.4.0",
+    "deep-equal": "^1.0.1",
+    "eventemitter2": "^4.1.0",
+    "lru-fast": "^0.2.2",
+    "query-string": "^4.3.2",
+    "rusha": "^0.8.13",
+    "url-search-params": "^0.10.0",
+    "uuid": "^3.1.0",
+    "uuid-validate": "^0.0.3"
+  },
+  "peerDependencies": {
+    "@atlaskit/media-core": "^31.1.0",
+    "react": "^16.8.0",
+    "rxjs": "^5.5.0"
+  },
+  "devDependencies": {
+    "@atlaskit/build-utils": "^2.6.4",
+    "@atlaskit/button": "^13.3.9",
+    "@atlaskit/docs": "^8.5.0",
+    "@atlaskit/media-card": "^67.1.1",
+    "@atlaskit/media-core": "^31.1.0",
+    "@atlaskit/media-test-helpers": "^27.1.0",
+    "@atlaskit/ssr": "^0.1.1",
+    "@types/deep-equal": "^1.0.1",
+    "@types/fetch-mock": "^7.3.1",
+    "@types/query-string": "^4.3.1",
+    "@types/uuid-validate": "^0.0.0",
+    "enzyme": "^3.10.0",
+    "fetch-mock": "^7.3.3",
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0",
+    "rxjs": "^5.5.0",
+    "styled-components": "^3.2.6"
+  },
+  "resolutions": {
+    "lru-fast": "0.2.2"
+  }
+}

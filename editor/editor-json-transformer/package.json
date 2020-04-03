@@ -1,0 +1,46 @@
+{
+  "name": "@atlaskit/editor-json-transformer",
+  "version": "7.0.9",
+  "description": "JSON transformer",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "author": "Atlassian Pty Ltd",
+  "license": "Apache-2.0",
+  "module": "dist/esm/index.js",
+  "main": "dist/cjs/index.js",
+  "types": "dist/cjs/index.d.ts",
+  "sideEffects": false,
+  "atlaskit:src": "src/index.ts",
+  "atlassian": {
+    "team": "Editor",
+    "releaseModel": "scheduled",
+    "website": {
+      "name": "Editor Json Transformer"
+    }
+  },
+  "dependencies": {
+    "@atlaskit/adf-schema": "^8.0.0",
+    "lodash.isequal": "^4.5.0",
+    "prosemirror-model": "^1.7.0"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0"
+  },
+  "devDependencies": {
+    "@atlaskit/docs": "^8.5.0",
+    "@atlaskit/editor-bitbucket-transformer": "^6.3.1",
+    "@atlaskit/editor-common": "^44.1.0",
+    "@atlaskit/editor-confluence-transformer": "^7.3.16",
+    "@atlaskit/editor-core": "^120.0.0",
+    "@atlaskit/editor-jira-transformer": "^7.2.22",
+    "@atlaskit/editor-markdown-transformer": "^3.1.20",
+    "@atlaskit/editor-test-helpers": "^11.0.0",
+    "@atlaskit/editor-wikimarkup-transformer": "^5.3.0",
+    "@atlaskit/util-data-test": "^13.1.2",
+    "@types/prosemirror-model": "^1.7.2",
+    "prosemirror-view": "^1.9.12",
+    "styled-components": "^3.2.6"
+  }
+}

@@ -1,0 +1,6 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ADF => WikiMarkup - Decision should convert decision list into bullet list 1`] = `
+"* <> this is an decision
+* <> this is an another decision"
+`;

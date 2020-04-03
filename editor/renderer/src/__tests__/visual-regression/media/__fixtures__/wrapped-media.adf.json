@@ -1,0 +1,124 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "mediaSingle",
+      "attrs": {
+        "width": 50,
+        "layout": "wrap-left"
+      },
+      "content": [
+        {
+          "type": "media",
+          "attrs": {
+            "id": "a571d6b8-ac1d-497d-8b29-7741c1e89854",
+            "type": "file",
+            "collection": "MediaServicesSample",
+            "width": 3496,
+            "height": 5277
+          }
+        }
+      ]
+    },
+    {
+      "type": "mediaSingle",
+      "attrs": {
+        "width": 50,
+        "layout": "wrap-right"
+      },
+      "content": [
+        {
+          "type": "media",
+          "attrs": {
+            "id": "2a581e44-2b78-4bc3-8bdc-3a69cfcf62fb",
+            "type": "file",
+            "collection": "MediaServicesSample",
+            "width": 3648,
+            "height": 5472
+          }
+        }
+      ]
+    },
+    {
+      "type": "mediaSingle",
+      "attrs": {
+        "width": 50,
+        "layout": "wrap-left"
+      },
+      "content": [
+        {
+          "type": "media",
+          "attrs": {
+            "id": "c6c28c4c-e824-4e2e-b155-fb45fa5b3341",
+            "type": "file",
+            "collection": "MediaServicesSample",
+            "width": 4128,
+            "height": 6192
+          }
+        }
+      ]
+    },
+    {
+      "type": "mediaSingle",
+      "attrs": {
+        "width": 50,
+        "layout": "wrap-right"
+      },
+      "content": [
+        {
+          "type": "media",
+          "attrs": {
+            "id": "df2cc024-1b4a-4141-8465-188861aa7660",
+            "type": "file",
+            "collection": "MediaServicesSample",
+            "width": 3648,
+            "height": 5472
+          }
+        }
+      ]
+    },
+    {
+      "type": "mediaSingle",
+      "attrs": {
+        "width": 50,
+        "layout": "wrap-left"
+      },
+      "content": [
+        {
+          "type": "media",
+          "attrs": {
+            "id": "43a6ff18-648b-4403-bafd-355dfaa73985",
+            "type": "file",
+            "collection": "MediaServicesSample",
+            "width": 4000,
+            "height": 6000
+          }
+        }
+      ]
+    },
+    {
+      "type": "mediaSingle",
+      "attrs": {
+        "width": 50,
+        "layout": "wrap-right"
+      },
+      "content": [
+        {
+          "type": "media",
+          "attrs": {
+            "id": "fb8166b5-897c-4bf2-8622-a715794d56b4",
+            "type": "file",
+            "collection": "MediaServicesSample",
+            "width": 3479,
+            "height": 5219
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": []
+    }
+  ]
+}

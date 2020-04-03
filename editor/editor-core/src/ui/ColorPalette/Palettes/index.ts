@@ -1,0 +1,1 @@
+export { PaletteColor } from './type';

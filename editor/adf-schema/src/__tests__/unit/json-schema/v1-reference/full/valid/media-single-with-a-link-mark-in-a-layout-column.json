@@ -1,0 +1,57 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "layoutSection",
+      "content": [
+        {
+          "type": "layoutColumn",
+          "attrs": {
+            "width": 50
+          },
+          "content": [
+            {
+              "type": "mediaSingle",
+              "attrs": {
+                "layout": "center"
+              },
+              "marks": [
+                {
+                  "type": "link",
+                  "attrs": {
+                    "href": "https://gnu.org"
+                  }
+                }
+              ],
+              "content": [
+                {
+                  "type": "media",
+                  "attrs": {
+                    "id": "f3522853-855b-471b-869c-6d9a8c424eea",
+                    "type": "file",
+                    "collection": "MediaServicesSample",
+                    "width": 1024,
+                    "height": 683
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "layoutColumn",
+          "attrs": {
+            "width": 50
+          },
+          "content": [
+            {
+              "type": "paragraph",
+              "content": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

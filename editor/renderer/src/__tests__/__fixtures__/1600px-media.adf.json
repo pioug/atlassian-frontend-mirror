@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "mediaSingle",
+      "attrs": {
+        "layout": "center"
+      },
+      "content": [
+        {
+          "type": "media",
+          "attrs": {
+            "id": "80072278-5f52-4e70-94ea-9d5e894cc278",
+            "type": "file",
+            "collection": "MediaServicesSample",
+            "width": 1600,
+            "height": 1064
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": []
+    }
+  ]
+}

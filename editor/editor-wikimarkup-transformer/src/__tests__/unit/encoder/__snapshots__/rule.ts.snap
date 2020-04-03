@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ADF => WikiMarkup - Panel should convert rule node 1`] = `
+"This is a ruler
+
+----
+
+I am in between a ruler
+
+----
+
+I am under a ruler"
+`;

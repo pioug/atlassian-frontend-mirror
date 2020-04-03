@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "bodiedExtension",
+      "attrs": {
+        "extensionType": "com.atlassian.confluence.macro.core",
+        "extensionKey": "expand",
+        "parameters": {
+          "macroparams": {
+            "someParam": "ok"
+          },
+          "metadata": {
+            "placeholder": {
+              "url": "/wiki/plugins/servlet/confluence/placeholder/macro?definition=e2NvZGU6bGFuZ3VhZ2U9Y3BwfQ&locale=en_GB&version=2",
+              "type": "static"
+            }
+          }
+        }
+      },
+      "content": [
+        {
+          "type": "paragraph",
+          "content": []
+        }
+      ]
+    }
+  ]
+}

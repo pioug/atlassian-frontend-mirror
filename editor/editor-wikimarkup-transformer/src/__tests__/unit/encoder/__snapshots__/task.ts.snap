@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ADF => WikiMarkup - Task should convert basic task list 1`] = `
+"* -first-
+** second
+*** third
+* -task 2 completed-"
+`;
+
+exports[`ADF => WikiMarkup - Task should convert complex nested task list 1`] = `
+"* -completed-
+** incompleted
+** -task 2 completed-
+*** incompleted
+*** -task 2 completed-
+* -task 2 completed-"
+`;

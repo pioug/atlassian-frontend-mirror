@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "expand",
+      "attrs": {
+        "title": "Expand title"
+      },
+      "marks":[
+        {
+          "type":"breakout",
+          "attrs":{
+            "mode":"wide"
+          }
+        }
+      ],
+      "content": [
+        {
+          "type": "paragraph",
+          "content": []
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,242 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "paragraph",
+      "content": []
+    },
+    {
+      "type": "table",
+      "attrs": {
+        "isNumberColumnEnabled": false,
+        "layout": "default"
+      },
+      "content": [
+        {
+          "type": "tableRow",
+          "content": [
+            {
+              "type": "tableHeader",
+              "attrs": {},
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": []
+                }
+              ]
+            },
+            {
+              "type": "tableHeader",
+              "attrs": {},
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": []
+                }
+              ]
+            },
+            {
+              "type": "tableHeader",
+              "attrs": {},
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "tableRow",
+          "content": [
+            {
+              "type": "tableCell",
+              "attrs": {},
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": []
+                }
+              ]
+            },
+            {
+              "type": "tableCell",
+              "attrs": {},
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": [
+                    {
+                      "type": "inlineExtension",
+                      "attrs": {
+                        "extensionType": "com.atlassian.confluence.macro.core",
+                        "extensionKey": "inline-eh",
+                        "parameters": {
+                          "macroParams": {},
+                          "macroMetadata": {
+                            "placeholder": [
+                              {
+                                "data": {
+                                  "url": ""
+                                },
+                                "type": "icon"
+                              }
+                            ]
+                          }
+                        },
+                        "text": "Inline extension demo"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "tableCell",
+              "attrs": {},
+              "content": [
+                {
+                  "type": "extension",
+                  "attrs": {
+                    "extensionType": "com.atlassian.confluence.macro.core",
+                    "extensionKey": "block-eh",
+                    "parameters": {
+                      "macroParams": {},
+                      "macroMetadata": {
+                        "placeholder": [
+                          {
+                            "data": {
+                              "url": ""
+                            },
+                            "type": "icon"
+                          }
+                        ]
+                      }
+                    },
+                    "text": "Block extension demo",
+                    "layout": "default"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "tableRow",
+          "content": [
+            {
+              "type": "tableCell",
+              "attrs": {},
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": []
+                }
+              ]
+            },
+            {
+              "type": "tableCell",
+              "attrs": {},
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": []
+                }
+              ]
+            },
+            {
+              "type": "tableCell",
+              "attrs": {},
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": [
+                    {
+                      "type": "inlineExtension",
+                      "attrs": {
+                        "extensionType": "com.atlassian.confluence.macro.core",
+                        "extensionKey": "info",
+                        "parameters": {
+                          "macroParams": {},
+                          "macroMetadata": {
+                            "macroId": {
+                              "value": 1550572609564
+                            },
+                            "placeholder": [
+                              {
+                                "data": {
+                                  "url": ""
+                                },
+                                "type": "icon"
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "bodiedExtension",
+      "attrs": {
+        "extensionType": "com.atlassian.confluence.macro.core",
+        "extensionKey": "expand",
+        "parameters": {
+          "macroMetadata": {
+            "macroId": {
+              "value": 1550572519147
+            },
+            "schemaVersion": {
+              "value": "2"
+            },
+            "placeholder": [
+              {
+                "data": {
+                  "url": ""
+                },
+                "type": "icon"
+              }
+            ]
+          }
+        },
+        "layout": "full-width"
+      },
+      "content": [
+        {
+          "type": "heading",
+          "attrs": {
+            "level": 5
+          },
+          "content": [
+            {
+              "type": "text",
+              "text": "Heading"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "Foo",
+              "marks": [
+                {
+                  "type": "underline"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

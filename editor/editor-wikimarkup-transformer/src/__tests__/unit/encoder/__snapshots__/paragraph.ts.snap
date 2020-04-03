@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ADF => WikiMarkup - Paragraph [CS-206] should convert mixed text format 1`] = `"*Some* {color:#6554c0}*text with* {color}{color:#6554c0}+*bold and*+{color}{color:#6554c0} *underline and*{color} +*_color_*+"`;
+
+exports[`ADF => WikiMarkup - Paragraph [CS-293] escape link/mention/file link formatter characters 1`] = `"this is not a \\\\[~mention]"`;
+
+exports[`ADF => WikiMarkup - Paragraph [CS-293] escape macro formatter characters 1`] = `"this is not a \\\\{macro}"`;
+
+exports[`ADF => WikiMarkup - Paragraph [CS-293] escape media formatter characters 1`] = `"this is not a \\\\!file.txt\\\\!"`;
+
+exports[`ADF => WikiMarkup - Paragraph should convert citation with strong mark 1`] = `"This is an *??strong citation??* text"`;
+
+exports[`ADF => WikiMarkup - Paragraph should convert code mark to monospace 1`] = `"This is an {{monospace}}"`;
+
+exports[`ADF => WikiMarkup - Paragraph should convert color mark to color macro 1`] = `"This is an {color:#FFFFFF}colorful{color} text"`;
+
+exports[`ADF => WikiMarkup - Paragraph should convert color with strong mark 1`] = `"This is an {color:#FFFFFF}*strong colored*{color} text"`;
+
+exports[`ADF => WikiMarkup - Paragraph should convert em to _emphasis_ 1`] = `"This is an _emphasised_ word."`;
+
+exports[`ADF => WikiMarkup - Paragraph should convert em to -- citation 1`] = `"This is a ??citation??"`;
+
+exports[`ADF => WikiMarkup - Paragraph should convert link mark to link 1`] = `"This is an [link|https://www.atlassian.com]"`;
+
+exports[`ADF => WikiMarkup - Paragraph should convert link with strong mark 1`] = `"This is an [*strong Atlassian link*|https://www.atlassian.com] text"`;
+
+exports[`ADF => WikiMarkup - Paragraph should convert plain-text paragraph 1`] = `"some plain text"`;
+
+exports[`ADF => WikiMarkup - Paragraph should convert plain-text with hardBreak in paragraph 1`] = `
+"the first line of text
+a new line of text"
+`;
+
+exports[`ADF => WikiMarkup - Paragraph should convert strike mark to deleted 1`] = `"This is an -strike-"`;
+
+exports[`ADF => WikiMarkup - Paragraph should convert strong mark to bold 1`] = `"This is an *strong*"`;
+
+exports[`ADF => WikiMarkup - Paragraph should convert sub mark to subscript 1`] = `"This is an ~subscript~"`;
+
+exports[`ADF => WikiMarkup - Paragraph should convert sup mark to superscript 1`] = `"This is an ^superscript^"`;
+
+exports[`ADF => WikiMarkup - Paragraph should convert two paragraph to different lines 1`] = `
+"This is the first paragraph
+
+This is the second paragraph"
+`;
+
+exports[`ADF => WikiMarkup - Paragraph should convert underline mark to inserted 1`] = `"This is an +underline+"`;

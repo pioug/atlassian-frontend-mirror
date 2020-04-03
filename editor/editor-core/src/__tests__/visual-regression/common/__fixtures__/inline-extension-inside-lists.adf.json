@@ -1,0 +1,46 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "bulletList",
+      "content": [
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "inlineExtension",
+                  "attrs": {
+                    "extensionType": "com.atlassian.confluence.macro.core",
+                    "extensionKey": "inline-eh",
+                    "parameters": {
+                      "macroParams": {},
+                      "macroMetadata": {
+                        "placeholder": [
+                          {
+                            "data": {
+                              "url": ""
+                            },
+                            "type": "icon"
+                          }
+                        ]
+                      }
+                    },
+                    "text": "Inline extension demo"
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": " "
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

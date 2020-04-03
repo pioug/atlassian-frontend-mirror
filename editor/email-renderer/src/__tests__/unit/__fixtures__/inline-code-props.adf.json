@@ -1,0 +1,15 @@
+{
+  "type": "doc",
+  "version": 1,
+  "content": [
+    {
+      "type": "text",
+      "text": "const foo = bar();",
+      "marks": [
+        {
+          "type": "code"
+        }
+      ]
+    }
+  ]
+}

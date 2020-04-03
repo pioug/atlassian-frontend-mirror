@@ -1,0 +1,41 @@
+{
+  "name": "@atlaskit/media-image",
+  "version": "15.0.7",
+  "description": "Atlassian Editor component for JIRA",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "author": "Atlassian Pty Ltd",
+  "license": "Apache-2.0",
+  "module": "dist/esm/index.js",
+  "main": "dist/cjs/index.js",
+  "types": "dist/cjs/index.d.ts",
+  "sideEffects": false,
+  "atlaskit:src": "src/index.ts",
+  "atlassian": {
+    "team": "Media Platform",
+    "releaseModel": "scheduled",
+    "website": {
+      "name": "Media Image"
+    }
+  },
+  "dependencies": {
+    "@atlaskit/media-client": "^6.0.0",
+    "tslib": "^1.9.3"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0",
+    "rxjs": "^5.5.0"
+  },
+  "devDependencies": {
+    "@atlaskit/docs": "^8.5.0",
+    "@atlaskit/field-text": "^10.0.2",
+    "@atlaskit/media-test-helpers": "^27.1.0",
+    "@atlaskit/select": "^11.0.9",
+    "@atlaskit/spinner": "^12.1.6",
+    "@atlaskit/theme": "^9.5.1",
+    "enzyme": "^3.10.0",
+    "styled-components": "^3.2.6"
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "emoji",
+          "attrs": {
+            "shortName": ":grinning:",
+            "id": "1f600",
+            "text": "😀"
+          }
+        },
+        {
+          "type": "text",
+          "text": " "
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "emoji",
+          "attrs": {
+            "shortName": ":man_facepalming:",
+            "id": "1f926-200d-2642-fe0f",
+            "text": "🤦‍♂️"
+          }
+        },
+        {
+          "type": "text",
+          "text": " "
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "emoji",
+          "attrs": {
+            "shortName": ":flag_ru:",
+            "id": "1f1f7-1f1fa",
+            "text": "🇷🇺"
+          }
+        },
+        {
+          "type": "text",
+          "text": " "
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "emoji",
+          "attrs": {
+            "shortName": ":wtf:",
+            "id": "wtf",
+            "text": ":wtf:"
+          }
+        },
+        {
+          "type": "text",
+          "text": " "
+        }
+      ]
+    }
+  ]
+}

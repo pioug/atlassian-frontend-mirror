@@ -1,0 +1,23 @@
+{
+    "version": 1,
+    "type": "doc",
+    "content": [
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "status",
+            "attrs": {
+              "text": "The truth is out there",
+              "color": "purple",
+              "localId": "ca45b656-2046-4d1a-b007-0fa70b1452b0"
+            }
+          },
+          {
+            "type": "text",
+            "text": " "
+          }
+        ]
+      }
+    ]
+  }

@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ADF => WikiMarkup - Emoji should convert custom emoji node 1`] = `"Hello :partying_face:"`;
+
+exports[`ADF => WikiMarkup - Emoji should convert emoji node 1`] = `"Hello 😃"`;

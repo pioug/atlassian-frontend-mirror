@@ -1,0 +1,78 @@
+{
+  "type": "doc",
+  "version": 1,
+  "content": [
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Hello, ",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "https://www.atlassian.com"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": "World!",
+          "marks": [
+            {
+              "type": "strong"
+            },
+            {
+              "type": "link",
+              "attrs": {
+                "href": "https://www.atlassian.com"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Look I can do "
+        },
+        {
+          "type": "text",
+          "text": "italic ",
+          "marks": [
+            {
+              "type": "em"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": ", strong ",
+          "marks": [
+            {
+              "type": "em"
+            },
+            {
+              "type": "strong"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": "and underlined text!",
+          "marks": [
+            {
+              "type": "em"
+            },
+            {
+              "type": "strong"
+            },
+            {
+              "type": "underline"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,81 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 1
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Media single"
+        }
+      ]
+    },
+    {
+      "type": "mediaSingle",
+      "attrs": {
+        "width": 50,
+        "layout": "center"
+      },
+      "content": [
+        {
+          "type": "media",
+          "attrs": {
+            "id": "5556346b-b081-482b-bc4a-4faca8ecd2de",
+            "type": "file",
+            "collection": "MediaServicesSample",
+            "width": 2287,
+            "height": 1829
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 1
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Media single with link"
+        }
+      ]
+    },
+    {
+      "type": "mediaSingle",
+      "attrs": {
+        "width": 50,
+        "layout": "center"
+      },
+      "content": [
+        {
+          "type": "media",
+          "attrs": {
+            "id": "5556346b-b081-482b-bc4a-4faca8ecd2de",
+            "type": "file",
+            "collection": "MediaServicesSample",
+            "width": 2287,
+            "height": 1829
+          }
+        }
+      ],
+      "marks": [
+        {
+          "type": "link",
+          "attrs": {
+            "href": "https://atlassian.com/"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": []
+    }
+  ]
+}
+

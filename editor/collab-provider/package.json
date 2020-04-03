@@ -1,0 +1,37 @@
+{
+  "name": "@atlaskit/collab-provider",
+  "version": "0.1.1",
+  "description": "A provider for collaborative editing.",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "author": "Atlassian Pty Ltd",
+  "license": "Apache-2.0",
+  "module": "dist/esm/index.js",
+  "main": "dist/cjs/index.js",
+  "types": "dist/cjs/index.d.ts",
+  "sideEffects": false,
+  "atlaskit:src": "src/index.ts",
+  "atlassian": {
+    "team": "Content Services",
+    "releaseModel": "scheduled"
+  },
+  "dependencies": {
+    "@atlaskit/editor-common": "^44.1.0",
+    "@types/prosemirror-collab": "^1.0.2",
+    "@types/prosemirror-state": "^1.2.0",
+    "@types/socket.io-client": "^1.4.32",
+    "eventemitter2": "^4.1.0",
+    "lodash.throttle": "^4.1.1",
+    "prosemirror-collab": "^1.2.2",
+    "prosemirror-state": "^1.2.2",
+    "socket.io-client": "^2.3.0",
+    "tslib": "^1.9.3"
+  },
+  "techstack": {
+    "@atlassian/frontend": {
+      "tree-shaking": []
+    }
+  }
+}

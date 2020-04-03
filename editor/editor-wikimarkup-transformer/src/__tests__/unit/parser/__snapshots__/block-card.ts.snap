@@ -1,0 +1,337 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`JIRA wiki markup - Block Card should create Block Card between lines of text 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "line 1 ",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "attrs": Object {
+        "data": null,
+        "url": "http://...",
+      },
+      "type": "blockCard",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "text": "line 2 ",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Block Card should create Block Card for old representation between lines of text 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "line 1 ",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "attrs": Object {
+        "data": null,
+        "url": "http://...",
+      },
+      "type": "blockCard",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "text": "line 2 ",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Block Card should create Block Card if preceded and followed by text 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "abc ",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "attrs": Object {
+        "data": null,
+        "url": "http://...",
+      },
+      "type": "blockCard",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "text": " def",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Block Card should create Block Card with nothing else in the document 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "data": null,
+        "url": "http://...",
+      },
+      "type": "blockCard",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Block Card should create Block Card with whitespace on the same line 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "data": null,
+        "url": "http://...",
+      },
+      "type": "blockCard",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "text": " ",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "attrs": Object {
+        "data": null,
+        "url": "http://...",
+      },
+      "type": "blockCard",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Block Card should create Block Cards in panel 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "__autoSize": false,
+        "isNumberColumnEnabled": false,
+        "layout": "default",
+      },
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "attrs": Object {
+                    "panelType": "info",
+                  },
+                  "content": Array [
+                    Object {
+                      "content": Array [
+                        Object {
+                          "text": "test ",
+                          "type": "text",
+                        },
+                      ],
+                      "type": "paragraph",
+                    },
+                  ],
+                  "type": "panel",
+                },
+                Object {
+                  "attrs": Object {
+                    "data": null,
+                    "url": "http://...",
+                  },
+                  "type": "blockCard",
+                },
+                Object {
+                  "attrs": Object {
+                    "panelType": "info",
+                  },
+                  "content": Array [
+                    Object {
+                      "content": Array [
+                        Object {
+                          "text": " test",
+                          "type": "text",
+                        },
+                      ],
+                      "type": "paragraph",
+                    },
+                  ],
+                  "type": "panel",
+                },
+              ],
+              "type": "tableCell",
+            },
+          ],
+          "type": "tableRow",
+        },
+      ],
+      "type": "table",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Block Card should create Block Cards in table 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "__autoSize": false,
+        "isNumberColumnEnabled": false,
+        "layout": "default",
+      },
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "attrs": Object {
+                    "data": null,
+                    "url": "http://...",
+                  },
+                  "type": "blockCard",
+                },
+              ],
+              "type": "tableCell",
+            },
+          ],
+          "type": "tableRow",
+        },
+      ],
+      "type": "table",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Block Card should recover existing Block Cards 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "__autoSize": false,
+        "isNumberColumnEnabled": false,
+        "layout": "default",
+      },
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "attrs": Object {
+                    "data": null,
+                    "url": "https://aolrich-automation.atlassian.net/browse/SOF-1",
+                  },
+                  "type": "blockCard",
+                },
+              ],
+              "type": "tableCell",
+            },
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "attrs": Object {
+                    "data": null,
+                    "url": "https://aolrich-automation.atlassian.net/browse/SOF-1",
+                  },
+                  "type": "blockCard",
+                },
+              ],
+              "type": "tableCell",
+            },
+          ],
+          "type": "tableRow",
+        },
+      ],
+      "type": "table",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "text": "      ",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "attrs": Object {
+        "data": null,
+        "url": "https://aolrich-automation.atlassian.net/browse/SOF-1",
+      },
+      "type": "blockCard",
+    },
+  ],
+  "type": "doc",
+}
+`;

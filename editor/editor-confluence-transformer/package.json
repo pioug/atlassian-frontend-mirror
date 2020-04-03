@@ -1,0 +1,46 @@
+{
+  "name": "@atlaskit/editor-confluence-transformer",
+  "version": "7.3.16",
+  "description": "Editor Confluence Transformer",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "author": "Atlassian Pty Ltd",
+  "license": "Apache-2.0",
+  "module": "dist/esm/index.js",
+  "main": "dist/cjs/index.js",
+  "types": "dist/cjs/index.d.ts",
+  "sideEffects": false,
+  "atlaskit:src": "src/index.ts",
+  "atlassian": {
+    "team": "Editor",
+    "releaseModel": "scheduled",
+    "website": {
+      "name": "Editor Confluence Transformer"
+    }
+  },
+  "dependencies": {
+    "@atlaskit/adf-schema": "^8.0.0",
+    "@atlaskit/editor-common": "^44.1.0",
+    "collapse-whitespace": "^1.1.6",
+    "prosemirror-model": "^1.7.0"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0"
+  },
+  "devDependencies": {
+    "@atlaskit/activity": "^1.0.1",
+    "@atlaskit/button": "^13.3.9",
+    "@atlaskit/docs": "^8.5.0",
+    "@atlaskit/editor-core": "^120.0.0",
+    "@atlaskit/editor-test-helpers": "^11.0.0",
+    "@atlaskit/spinner": "^12.1.6",
+    "@atlaskit/theme": "^9.5.1",
+    "@atlaskit/util-data-test": "^13.1.2",
+    "@types/prosemirror-model": "^1.7.2",
+    "chai": "^4.1.2",
+    "pretty-data": "^0.40.0",
+    "styled-components": "^3.2.6"
+  }
+}

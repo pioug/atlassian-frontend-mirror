@@ -1,0 +1,84 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ADF => WikiMarkup - Table should convert Table node 1`] = `
+"||Header 1||Header 2||
+|Cell 1|Cell 2|
+|Cell 3|Cell 4|"
+`;
+
+exports[`ADF => WikiMarkup - Table should convert Table node with codeBlock in the cell 1`] = `
+"|{code:javascript}const i = 0;{code}|{code:javascript}const i = 0;{code}|
+|{code:javascript}const i = 0;{code}|{code:javascript}const i = 0;{code}|"
+`;
+
+exports[`ADF => WikiMarkup - Table should convert Table node with list and paragraph in the cell 1`] = `
+"|* item 1
+* item 2
+below the list|# item 1
+# item 2
+below the list|
+|# item 1
+# item 2
+below the list|* item 1
+* item 2
+below the list|"
+`;
+
+exports[`ADF => WikiMarkup - Table should convert Table node with list in the cell 1`] = `
+"|* item 1
+* item 2|# item 1
+# item 2|
+|# item 1
+# item 2|* item 1
+* item 2|"
+`;
+
+exports[`ADF => WikiMarkup - Table should convert Table node with panel in the cell 1`] = `
+"|{panel:bgColor=#eae6ff}
+This is a note panel
+{panel}|{panel:bgColor=#deebff}
+This is a info panel
+{panel}|
+|{panel:bgColor=#e3fcef}
+This is a success panel
+{panel}|{panel:bgColor=#fffae6}
+This is a warning panel
+{panel}|{panel:bgColor=#ffebe6}
+This is a error panel
+{panel}|"
+`;
+
+exports[`ADF => WikiMarkup - Table should convert Table node with ruler and heading in the cell 1`] = `
+"|h1. Heading 1
+----
+h1. Heading 1|h2. Heading 2
+----
+h2. Heading 2|
+|h3. Heading 3
+----
+h3. Heading 3|h4. Heading 4
+----
+h4. Heading 4|"
+`;
+
+exports[`ADF => WikiMarkup - Table should convert Table node without a header row 1`] = `
+"|Cell 1|Cell 2|
+|Cell 3|Cell 4|"
+`;
+
+exports[`ADF => WikiMarkup - Table should convert advanced Table node by dropping column widths and background colors 1`] = `
+"|{code:javascript}const i = 0;{code}|
+|{code:javascript}const i = 0;{code}|"
+`;
+
+exports[`ADF => WikiMarkup - Table should convert advanced Table node with merged cells into {adf} macro 1`] = `
+"{adf:display=block}
+{\\"type\\":\\"table\\",\\"attrs\\":{\\"isNumberColumnEnabled\\":false,\\"layout\\":\\"default\\"},\\"content\\":[{\\"type\\":\\"tableRow\\",\\"content\\":[{\\"type\\":\\"tableCell\\",\\"attrs\\":{\\"colspan\\":2},\\"content\\":[{\\"type\\":\\"codeBlock\\",\\"attrs\\":{\\"language\\":\\"javascript\\"},\\"content\\":[{\\"type\\":\\"text\\",\\"text\\":\\"const i = 0;\\"}]}]}]},{\\"type\\":\\"tableRow\\",\\"content\\":[{\\"type\\":\\"tableCell\\",\\"attrs\\":{},\\"content\\":[{\\"type\\":\\"codeBlock\\",\\"attrs\\":{\\"language\\":\\"javascript\\"},\\"content\\":[{\\"type\\":\\"text\\",\\"text\\":\\"const i = 0;\\"}]}]},{\\"type\\":\\"tableCell\\",\\"attrs\\":{},\\"content\\":[{\\"type\\":\\"codeBlock\\",\\"attrs\\":{\\"language\\":\\"javascript\\"},\\"content\\":[{\\"type\\":\\"text\\",\\"text\\":\\"const i = 0;\\"}]}]}]}]}
+{adf}"
+`;
+
+exports[`ADF => WikiMarkup - Table should convert empty table cells 1`] = `
+"|| ||
+| |
+| |"
+`;

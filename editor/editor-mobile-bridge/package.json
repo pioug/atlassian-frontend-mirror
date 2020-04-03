@@ -1,0 +1,102 @@
+{
+  "name": "@atlaskit/editor-mobile-bridge",
+  "version": "12.0.1",
+  "description": "Mobile distribution of the Editor",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "author": "Atlassian Pty Ltd",
+  "license": "Apache-2.0",
+  "module": "dist/esm/index.js",
+  "main": "dist/cjs/index.js",
+  "types": "dist/cjs/index.d.ts",
+  "atlaskit:src": "src/index.ts",
+  "atlassian": {
+    "team": "Editor",
+    "releaseModel": "scheduled",
+    "website": {
+      "name": "Editor Mobile Bridge"
+    }
+  },
+  "scripts": {
+    "start": "webpack-dev-server -d --watch --progress",
+    "debug": "webpack -d --watch",
+    "build:dev": "webpack -d",
+    "prebuild": "rm -rf dist && copy-pkg package.json tmp/package.json --only name,version,sideEffects && mv tmp/package.json src/version.json",
+    "build": "webpack -p"
+  },
+  "dependencies": {
+    "@atlaskit/analytics-gas-types": "4.0.13",
+    "@atlaskit/analytics-listeners": "6.2.4",
+    "@atlaskit/editor-common": "44.1.0",
+    "@atlaskit/editor-core": "120.1.0",
+    "@atlaskit/editor-json-transformer": "7.0.9",
+    "@atlaskit/emoji": "62.7.1",
+    "@atlaskit/mention": "18.18.0",
+    "@atlaskit/renderer": "56.0.0",
+    "@atlaskit/smart-card": "13.0.0",
+    "@atlaskit/status": "0.9.23",
+    "@atlaskit/task-decision": "16.0.9",
+    "@atlaskit/theme": "9.5.2",
+    "@babel/polyfill": "^7.0.0",
+    "@types/prosemirror-view": "^1.9.0",
+    "lodash.debounce": "^4.0.8",
+    "prosemirror-history": "^1.0.2",
+    "prosemirror-state": "^1.2.2",
+    "prosemirror-view": "^1.9.12"
+  },
+  "peerDependencies": {
+    "@atlaskit/media-core": "31.1.0",
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0"
+  },
+  "devDependencies": {
+    "@atlaskit/adf-utils": "^9.0.0",
+    "@atlaskit/button": "^13.3.9",
+    "@atlaskit/docs": "^8.5.0",
+    "@atlaskit/editor-test-helpers": "^11.0.0",
+    "@atlaskit/form": "^7.2.0",
+    "@atlaskit/icon": "^20.1.0",
+    "@atlaskit/media-client": "^6.0.0",
+    "@atlaskit/media-core": "^31.1.0",
+    "@atlaskit/media-test-helpers": "^27.1.0",
+    "@atlaskit/multi-entry-tools": "^0.0.3",
+    "@atlaskit/select": "^11.0.9",
+    "@atlaskit/textarea": "^2.2.6",
+    "@atlaskit/textfield": "^3.1.9",
+    "@atlaskit/util-data-test": "^13.1.2",
+    "@atlaskit/webdriver-runner": "^0.3.0",
+    "@types/html-webpack-plugin": "^3.2.1",
+    "babel-loader": "^8.0.2",
+    "chai": "^4.1.2",
+    "copy-pkg": "^1.0.0",
+    "enzyme": "^3.10.0",
+    "html-webpack-plugin": "^3.2.0",
+    "lodash.constant": "^3.0.0",
+    "lodash.times": "^4.3.2",
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0",
+    "rxjs": "^5.5.0",
+    "sinon": "^2.2.0",
+    "styled-components": "^3.2.6",
+    "ts-loader": "^4.4.2",
+    "url": "^0.11.0",
+    "uuid": "^3.1.0",
+    "webpack": "^4.41.3",
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.10.1"
+  },
+  "keywords": [
+    "editor",
+    "mobile"
+  ],
+  "techstack": {
+    "@atlassian/frontend": {
+      "circular-dependencies": [
+        "file-level"
+      ]
+    }
+  },
+  "homepage": "https://bitbucket.org/atlaskit/atlaskit-mk-2#readme"
+}

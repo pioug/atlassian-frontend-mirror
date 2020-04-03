@@ -1,0 +1,350 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should load the adf with media single inside a layout column 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "originalValue": Object {
+          "content": Array [
+            Object {
+              "attrs": Object {
+                "width": 50,
+              },
+              "content": Array [
+                Object {
+                  "attrs": Object {
+                    "layout": "center",
+                  },
+                  "content": Array [
+                    Object {
+                      "attrs": Object {
+                        "collection": "MediaServicesSample",
+                        "height": 683,
+                        "id": "f3522853-855b-471b-869c-6d9a8c424eea",
+                        "type": "file",
+                        "width": 1024,
+                      },
+                      "type": "media",
+                    },
+                  ],
+                  "marks": Array [
+                    Object {
+                      "attrs": Object {
+                        "href": "https://gnu.org",
+                      },
+                      "type": "link",
+                    },
+                  ],
+                  "type": "mediaSingle",
+                },
+              ],
+              "type": "layoutColumn",
+            },
+            Object {
+              "attrs": Object {
+                "width": 50,
+              },
+              "content": Array [
+                Object {
+                  "content": Array [],
+                  "type": "paragraph",
+                },
+              ],
+              "type": "layoutColumn",
+            },
+          ],
+          "type": "layoutSection",
+        },
+      },
+      "type": "unsupportedBlock",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`should load the adf with media single inside a list item 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "content": Array [
+                Object {
+                  "text": "Um",
+                  "type": "text",
+                },
+              ],
+              "type": "paragraph",
+            },
+          ],
+          "type": "listItem",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "content": Array [
+                Object {
+                  "text": "Dois",
+                  "type": "text",
+                },
+              ],
+              "type": "paragraph",
+            },
+          ],
+          "type": "listItem",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "attrs": Object {
+                "layout": "center",
+                "width": null,
+              },
+              "content": Array [
+                Object {
+                  "attrs": Object {
+                    "__contextId": "DUMMY-OBJECT-ID",
+                    "__displayType": null,
+                    "__external": false,
+                    "__fileMimeType": null,
+                    "__fileName": "example.png",
+                    "__fileSize": null,
+                    "alt": null,
+                    "collection": "MediaServicesSample",
+                    "height": 381,
+                    "id": "1234-5678-abcd-efgh",
+                    "occurrenceKey": null,
+                    "type": "file",
+                    "url": null,
+                    "width": 500,
+                  },
+                  "type": "media",
+                },
+              ],
+              "marks": Array [
+                Object {
+                  "attrs": Object {
+                    "__confluenceMetadata": null,
+                    "href": "https://gnu.org",
+                  },
+                  "type": "link",
+                },
+              ],
+              "type": "mediaSingle",
+            },
+            Object {
+              "type": "paragraph",
+            },
+          ],
+          "type": "listItem",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "content": Array [
+                Object {
+                  "text": "Tres",
+                  "type": "text",
+                },
+              ],
+              "type": "paragraph",
+            },
+          ],
+          "type": "listItem",
+        },
+      ],
+      "type": "bulletList",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`should load the adf with media single inside a nested expand 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "originalValue": Object {
+          "attrs": Object {
+            "isNumberColumnEnabled": false,
+            "layout": "default",
+          },
+          "content": Array [
+            Object {
+              "content": Array [
+                Object {
+                  "attrs": Object {},
+                  "content": Array [
+                    Object {
+                      "attrs": Object {
+                        "title": "",
+                      },
+                      "content": Array [
+                        Object {
+                          "attrs": Object {
+                            "layout": "center",
+                          },
+                          "content": Array [
+                            Object {
+                              "attrs": Object {
+                                "collection": "MediaServicesSample",
+                                "height": 381,
+                                "id": "4b4bbf71-4ff5-4827-8b48-ac9e4e15cb68",
+                                "type": "file",
+                                "width": 500,
+                              },
+                              "type": "media",
+                            },
+                          ],
+                          "marks": Array [
+                            Object {
+                              "attrs": Object {
+                                "href": "https://gnu.org",
+                              },
+                              "type": "link",
+                            },
+                          ],
+                          "type": "mediaSingle",
+                        },
+                        Object {
+                          "content": Array [],
+                          "type": "paragraph",
+                        },
+                      ],
+                      "type": "nestedExpand",
+                    },
+                  ],
+                  "type": "tableCell",
+                },
+              ],
+              "type": "tableRow",
+            },
+          ],
+          "type": "table",
+        },
+      },
+      "type": "unsupportedBlock",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`should load the adf with media single inside a table cell 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "originalValue": Object {
+          "attrs": Object {
+            "isNumberColumnEnabled": false,
+            "layout": "default",
+          },
+          "content": Array [
+            Object {
+              "content": Array [
+                Object {
+                  "attrs": Object {},
+                  "content": Array [
+                    Object {
+                      "attrs": Object {
+                        "layout": "center",
+                      },
+                      "content": Array [
+                        Object {
+                          "attrs": Object {
+                            "collection": "MediaServicesSample",
+                            "height": 381,
+                            "id": "6dca16ef-0e85-4e85-89be-f780ac7929ff",
+                            "type": "file",
+                            "width": 500,
+                          },
+                          "type": "media",
+                        },
+                      ],
+                      "marks": Array [
+                        Object {
+                          "attrs": Object {
+                            "href": "https://gnu.org",
+                          },
+                          "type": "link",
+                        },
+                      ],
+                      "type": "mediaSingle",
+                    },
+                    Object {
+                      "content": Array [],
+                      "type": "paragraph",
+                    },
+                  ],
+                  "type": "tableCell",
+                },
+              ],
+              "type": "tableRow",
+            },
+          ],
+          "type": "table",
+        },
+      },
+      "type": "unsupportedBlock",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`should load the adf with media single inside an expand 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "originalValue": Object {
+          "attrs": Object {
+            "title": "",
+          },
+          "content": Array [
+            Object {
+              "attrs": Object {
+                "layout": "center",
+              },
+              "content": Array [
+                Object {
+                  "attrs": Object {
+                    "collection": "MediaServicesSample",
+                    "height": 381,
+                    "id": "d70b7150-f3a5-4018-abee-cfb669f6867d",
+                    "type": "file",
+                    "width": 500,
+                  },
+                  "type": "media",
+                },
+              ],
+              "marks": Array [
+                Object {
+                  "attrs": Object {
+                    "href": "https://gnu.org",
+                  },
+                  "type": "link",
+                },
+              ],
+              "type": "mediaSingle",
+            },
+            Object {
+              "content": Array [],
+              "type": "paragraph",
+            },
+          ],
+          "type": "expand",
+        },
+      },
+      "type": "unsupportedBlock",
+    },
+  ],
+  "type": "doc",
+}
+`;

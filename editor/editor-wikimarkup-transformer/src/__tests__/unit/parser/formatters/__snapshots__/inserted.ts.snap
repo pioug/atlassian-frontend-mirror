@@ -1,0 +1,300 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`WikiMarkup => ADF Formatters - inserted should be an inserted mark and not a table if the character is a pipe 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "marks": Array [
+            Object {
+              "type": "underline",
+            },
+          ],
+          "text": "|",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`WikiMarkup => ADF Formatters - inserted should detect inserted mark and ignoring the invalid closing symbol 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "This is a ",
+          "type": "text",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "type": "underline",
+            },
+          ],
+          "text": "inserted+inserted",
+          "type": "text",
+        },
+        Object {
+          "text": " text",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`WikiMarkup => ADF Formatters - inserted should detect inserted mark at beginning of the line 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "marks": Array [
+            Object {
+              "type": "underline",
+            },
+          ],
+          "text": "inserted",
+          "type": "text",
+        },
+        Object {
+          "text": " text",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`WikiMarkup => ADF Formatters - inserted should detect inserted mark at end of the input 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "This is a ",
+          "type": "text",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "type": "underline",
+            },
+          ],
+          "text": "inserted",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`WikiMarkup => ADF Formatters - inserted should detect inserted mark at end of the line 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "This is a ",
+          "type": "text",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "type": "underline",
+            },
+          ],
+          "text": "inserted",
+          "type": "text",
+        },
+        Object {
+          "type": "hardBreak",
+        },
+        Object {
+          "text": "another line",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`WikiMarkup => ADF Formatters - inserted should detect inserted mark at in between of the line 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "This is a ",
+          "type": "text",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "type": "underline",
+            },
+          ],
+          "text": "inserted",
+          "type": "text",
+        },
+        Object {
+          "text": " text",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`WikiMarkup => ADF Formatters - inserted should detect inserted surrounded by non alphanumeric characters 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "This is a (",
+          "type": "text",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "type": "underline",
+            },
+          ],
+          "text": "inserted",
+          "type": "text",
+        },
+        Object {
+          "text": ") text",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`WikiMarkup => ADF Formatters - inserted should not be a inserted mark if it is escaped 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "This is not a +inserted+ text",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`WikiMarkup => ADF Formatters - inserted should not be a inserted mark if surrounded by non-latin characters 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "This is not a 牛+inserted+牛 text",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`WikiMarkup => ADF Formatters - inserted should not be a inserted mark if there is a space after opening + 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "This is not a + inserted+ text",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`WikiMarkup => ADF Formatters - inserted should not be a inserted mark if there is a space before closing + 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "This is not a +inserted + text",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`WikiMarkup => ADF Formatters - inserted should not be a inserted mark if there is no space before + 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "This is not a+inserted+ text",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`WikiMarkup => ADF Formatters - inserted should not be a inserted mark if there is not a space after closing + 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "This is not a +inserted+text",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;

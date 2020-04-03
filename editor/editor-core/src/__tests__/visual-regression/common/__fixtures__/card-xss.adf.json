@@ -1,0 +1,36 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "inlineCard",
+          "attrs": {
+            "url": "javascript:alert(document.domain)"
+          }
+        },
+        {
+          "type": "text",
+          "text": " "
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "inlineCard",
+          "attrs": {
+            "url": "https://product-fabric.atlassian.net/browse/ED-7216"
+          }
+        },
+        {
+          "type": "text",
+          "text": " "
+        }
+      ]
+    }
+  ]
+}

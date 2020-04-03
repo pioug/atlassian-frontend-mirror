@@ -1,0 +1,105 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "layoutSection",
+      "content": [
+        {
+          "type": "layoutColumn",
+          "attrs": {
+            "width": 50
+          },
+          "content": [
+            {
+              "type": "extension",
+              "attrs": {
+                "extensionType": "com.atlassian.confluence.macro.core",
+                "extensionKey": "block-iframe-eh",
+                "parameters": {
+                  "macroParams": {},
+                  "macroMetadata": {
+                    "placeholder": [
+                      {
+                        "data": {
+                          "url": ""
+                        },
+                        "type": "icon"
+                      }
+                    ]
+                  }
+                },
+                "text": "Full width block extension demo",
+                "layout": "default"
+              }
+            }
+          ]
+        },
+        {
+          "type": "layoutColumn",
+          "attrs": {
+            "width": 50
+          },
+          "content": [
+            {
+              "type": "table",
+              "attrs": {
+                "isNumberColumnEnabled": false,
+                "layout": "default"
+              },
+              "content": [
+                {
+                  "type": "tableRow",
+                  "content": [
+                    {
+                      "type": "tableCell",
+                      "attrs": {},
+                      "content": [
+                        {
+                          "type": "extension",
+                          "attrs": {
+                            "extensionType": "com.atlassian.confluence.macro.core",
+                            "extensionKey": "block-iframe-eh",
+                            "parameters": {
+                              "macroParams": {},
+                              "macroMetadata": {
+                                "placeholder": [
+                                  {
+                                    "data": {
+                                      "url": ""
+                                    },
+                                    "type": "icon"
+                                  }
+                                ]
+                              }
+                            },
+                            "text": "Full width block extension demo",
+                            "layout": "default"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "type": "tableCell",
+                      "attrs": {},
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": []
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": []
+    }
+  ]
+}

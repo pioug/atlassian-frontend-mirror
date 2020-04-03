@@ -1,0 +1,1245 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`expand.ts: expand content pasted inside a panel inside a table should paste text inside 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "__autoSize": false,
+        "isNumberColumnEnabled": false,
+        "layout": "default",
+      },
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "attrs": Object {
+                    "panelType": "info",
+                  },
+                  "content": Array [
+                    Object {
+                      "content": Array [
+                        Object {
+                          "text": "sda",
+                          "type": "text",
+                        },
+                      ],
+                      "type": "paragraph",
+                    },
+                  ],
+                  "type": "panel",
+                },
+              ],
+              "type": "tableCell",
+            },
+          ],
+          "type": "tableRow",
+        },
+      ],
+      "type": "table",
+    },
+    Object {
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`expand.ts: expand copied from renderer and pasted on full-page 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "__expanded": true,
+        "title": "Expand title",
+      },
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "text": "hello there",
+              "type": "text",
+            },
+          ],
+          "type": "paragraph",
+        },
+      ],
+      "type": "expand",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`expand.ts: expand pasted inside a panel inside a table should paste below 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "__autoSize": false,
+        "isNumberColumnEnabled": false,
+        "layout": "default",
+      },
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "attrs": Object {
+                    "panelType": "info",
+                  },
+                  "content": Array [
+                    Object {
+                      "type": "paragraph",
+                    },
+                  ],
+                  "type": "panel",
+                },
+                Object {
+                  "attrs": Object {
+                    "__expanded": true,
+                    "title": "Copy me nested",
+                  },
+                  "content": Array [
+                    Object {
+                      "content": Array [
+                        Object {
+                          "text": "Hello ",
+                          "type": "text",
+                        },
+                        Object {
+                          "attrs": Object {
+                            "accessLevel": "",
+                            "id": "6",
+                            "text": "@April",
+                            "userType": null,
+                          },
+                          "type": "mention",
+                        },
+                        Object {
+                          "text": " ",
+                          "type": "text",
+                        },
+                      ],
+                      "type": "paragraph",
+                    },
+                  ],
+                  "type": "nestedExpand",
+                },
+              ],
+              "type": "tableCell",
+            },
+          ],
+          "type": "tableRow",
+        },
+      ],
+      "type": "table",
+    },
+    Object {
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`expand.ts: expand pasted inside a table inside an expand 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "type": "paragraph",
+    },
+    Object {
+      "attrs": Object {
+        "__expanded": true,
+        "title": "Top level expand!",
+      },
+      "content": Array [
+        Object {
+          "attrs": Object {
+            "__autoSize": false,
+            "isNumberColumnEnabled": false,
+            "layout": "default",
+          },
+          "content": Array [
+            Object {
+              "content": Array [
+                Object {
+                  "attrs": Object {
+                    "background": null,
+                    "colspan": 1,
+                    "colwidth": null,
+                    "rowspan": 1,
+                  },
+                  "content": Array [
+                    Object {
+                      "attrs": Object {
+                        "__expanded": true,
+                        "title": "Copy me nested",
+                      },
+                      "content": Array [
+                        Object {
+                          "content": Array [
+                            Object {
+                              "text": "Hello ",
+                              "type": "text",
+                            },
+                            Object {
+                              "attrs": Object {
+                                "accessLevel": "",
+                                "id": "6",
+                                "text": "@April",
+                                "userType": null,
+                              },
+                              "type": "mention",
+                            },
+                            Object {
+                              "text": " ",
+                              "type": "text",
+                            },
+                          ],
+                          "type": "paragraph",
+                        },
+                      ],
+                      "type": "nestedExpand",
+                    },
+                  ],
+                  "type": "tableHeader",
+                },
+                Object {
+                  "attrs": Object {
+                    "background": null,
+                    "colspan": 1,
+                    "colwidth": null,
+                    "rowspan": 1,
+                  },
+                  "content": Array [
+                    Object {
+                      "type": "paragraph",
+                    },
+                  ],
+                  "type": "tableHeader",
+                },
+                Object {
+                  "attrs": Object {
+                    "background": null,
+                    "colspan": 1,
+                    "colwidth": null,
+                    "rowspan": 1,
+                  },
+                  "content": Array [
+                    Object {
+                      "type": "paragraph",
+                    },
+                  ],
+                  "type": "tableHeader",
+                },
+              ],
+              "type": "tableRow",
+            },
+            Object {
+              "content": Array [
+                Object {
+                  "attrs": Object {
+                    "background": null,
+                    "colspan": 1,
+                    "colwidth": null,
+                    "rowspan": 1,
+                  },
+                  "content": Array [
+                    Object {
+                      "type": "paragraph",
+                    },
+                  ],
+                  "type": "tableCell",
+                },
+                Object {
+                  "attrs": Object {
+                    "background": null,
+                    "colspan": 1,
+                    "colwidth": null,
+                    "rowspan": 1,
+                  },
+                  "content": Array [
+                    Object {
+                      "type": "paragraph",
+                    },
+                  ],
+                  "type": "tableCell",
+                },
+                Object {
+                  "attrs": Object {
+                    "background": null,
+                    "colspan": 1,
+                    "colwidth": null,
+                    "rowspan": 1,
+                  },
+                  "content": Array [
+                    Object {
+                      "type": "paragraph",
+                    },
+                  ],
+                  "type": "tableCell",
+                },
+              ],
+              "type": "tableRow",
+            },
+            Object {
+              "content": Array [
+                Object {
+                  "attrs": Object {
+                    "background": null,
+                    "colspan": 1,
+                    "colwidth": null,
+                    "rowspan": 1,
+                  },
+                  "content": Array [
+                    Object {
+                      "type": "paragraph",
+                    },
+                  ],
+                  "type": "tableCell",
+                },
+                Object {
+                  "attrs": Object {
+                    "background": null,
+                    "colspan": 1,
+                    "colwidth": null,
+                    "rowspan": 1,
+                  },
+                  "content": Array [
+                    Object {
+                      "type": "paragraph",
+                    },
+                  ],
+                  "type": "tableCell",
+                },
+                Object {
+                  "attrs": Object {
+                    "background": null,
+                    "colspan": 1,
+                    "colwidth": null,
+                    "rowspan": 1,
+                  },
+                  "content": Array [
+                    Object {
+                      "type": "paragraph",
+                    },
+                  ],
+                  "type": "tableCell",
+                },
+              ],
+              "type": "tableRow",
+            },
+          ],
+          "type": "table",
+        },
+      ],
+      "type": "expand",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`expand.ts: expand with illegal content pasted in table 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "__autoSize": false,
+        "isNumberColumnEnabled": false,
+        "layout": "default",
+      },
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableHeader",
+            },
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableHeader",
+            },
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableHeader",
+            },
+          ],
+          "type": "tableRow",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+          ],
+          "type": "tableRow",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+          ],
+          "type": "tableRow",
+        },
+      ],
+      "type": "table",
+    },
+    Object {
+      "attrs": Object {
+        "__expanded": true,
+        "title": "title",
+      },
+      "content": Array [
+        Object {
+          "attrs": Object {
+            "panelType": "info",
+          },
+          "content": Array [
+            Object {
+              "content": Array [
+                Object {
+                  "text": "content",
+                  "type": "text",
+                },
+              ],
+              "type": "paragraph",
+            },
+          ],
+          "type": "panel",
+        },
+      ],
+      "type": "expand",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`expand.ts: expand with legal content pasted in table 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "__autoSize": false,
+        "isNumberColumnEnabled": false,
+        "layout": "default",
+      },
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "attrs": Object {
+                    "__expanded": true,
+                    "title": "title",
+                  },
+                  "content": Array [
+                    Object {
+                      "content": Array [
+                        Object {
+                          "attrs": Object {
+                            "accessLevel": "CONTAINER",
+                            "id": "here",
+                            "text": "@here",
+                            "userType": "SPECIAL",
+                          },
+                          "type": "mention",
+                        },
+                        Object {
+                          "text": " hello",
+                          "type": "text",
+                        },
+                      ],
+                      "type": "paragraph",
+                    },
+                  ],
+                  "type": "nestedExpand",
+                },
+              ],
+              "type": "tableHeader",
+            },
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableHeader",
+            },
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableHeader",
+            },
+          ],
+          "type": "tableRow",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+          ],
+          "type": "tableRow",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+          ],
+          "type": "tableRow",
+        },
+      ],
+      "type": "table",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`expand.ts: expand with table with nestedExpand pasted on top level 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "__expanded": true,
+        "title": "title 1",
+      },
+      "content": Array [
+        Object {
+          "attrs": Object {
+            "__autoSize": false,
+            "isNumberColumnEnabled": false,
+            "layout": "default",
+          },
+          "content": Array [
+            Object {
+              "content": Array [
+                Object {
+                  "attrs": Object {
+                    "background": null,
+                    "colspan": 1,
+                    "colwidth": null,
+                    "rowspan": 1,
+                  },
+                  "content": Array [
+                    Object {
+                      "attrs": Object {
+                        "__expanded": true,
+                        "title": "title 2",
+                      },
+                      "content": Array [
+                        Object {
+                          "content": Array [
+                            Object {
+                              "text": "content",
+                              "type": "text",
+                            },
+                          ],
+                          "type": "paragraph",
+                        },
+                      ],
+                      "type": "nestedExpand",
+                    },
+                  ],
+                  "type": "tableCell",
+                },
+              ],
+              "type": "tableRow",
+            },
+          ],
+          "type": "table",
+        },
+      ],
+      "type": "expand",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`expand.ts: nestedExpand pasted in table 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "__autoSize": false,
+        "isNumberColumnEnabled": false,
+        "layout": "default",
+      },
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "attrs": Object {
+                    "__expanded": true,
+                    "title": "title",
+                  },
+                  "content": Array [
+                    Object {
+                      "content": Array [
+                        Object {
+                          "text": "hello there",
+                          "type": "text",
+                        },
+                      ],
+                      "type": "paragraph",
+                    },
+                  ],
+                  "type": "nestedExpand",
+                },
+              ],
+              "type": "tableHeader",
+            },
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableHeader",
+            },
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableHeader",
+            },
+          ],
+          "type": "tableRow",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+          ],
+          "type": "tableRow",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+          ],
+          "type": "tableRow",
+        },
+      ],
+      "type": "table",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`expand.ts: nestedExpand pasted on top level 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "__expanded": true,
+        "title": "title",
+      },
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "text": "hello there",
+              "type": "text",
+            },
+          ],
+          "type": "paragraph",
+        },
+      ],
+      "type": "expand",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`expand.ts: table with nestedExpand pasted inside an expand 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "type": "paragraph",
+    },
+    Object {
+      "attrs": Object {
+        "__expanded": true,
+        "title": "title",
+      },
+      "content": Array [
+        Object {
+          "attrs": Object {
+            "__autoSize": false,
+            "isNumberColumnEnabled": false,
+            "layout": "default",
+          },
+          "content": Array [
+            Object {
+              "content": Array [
+                Object {
+                  "attrs": Object {
+                    "background": null,
+                    "colspan": 1,
+                    "colwidth": null,
+                    "rowspan": 1,
+                  },
+                  "content": Array [
+                    Object {
+                      "type": "paragraph",
+                    },
+                  ],
+                  "type": "tableHeader",
+                },
+                Object {
+                  "attrs": Object {
+                    "background": null,
+                    "colspan": 1,
+                    "colwidth": null,
+                    "rowspan": 1,
+                  },
+                  "content": Array [
+                    Object {
+                      "type": "paragraph",
+                    },
+                  ],
+                  "type": "tableHeader",
+                },
+                Object {
+                  "attrs": Object {
+                    "background": null,
+                    "colspan": 1,
+                    "colwidth": null,
+                    "rowspan": 1,
+                  },
+                  "content": Array [
+                    Object {
+                      "type": "paragraph",
+                    },
+                  ],
+                  "type": "tableHeader",
+                },
+              ],
+              "type": "tableRow",
+            },
+            Object {
+              "content": Array [
+                Object {
+                  "attrs": Object {
+                    "background": null,
+                    "colspan": 1,
+                    "colwidth": null,
+                    "rowspan": 1,
+                  },
+                  "content": Array [
+                    Object {
+                      "attrs": Object {
+                        "__expanded": true,
+                        "title": "111",
+                      },
+                      "content": Array [
+                        Object {
+                          "content": Array [
+                            Object {
+                              "text": "content",
+                              "type": "text",
+                            },
+                          ],
+                          "type": "paragraph",
+                        },
+                      ],
+                      "type": "nestedExpand",
+                    },
+                  ],
+                  "type": "tableCell",
+                },
+                Object {
+                  "attrs": Object {
+                    "background": null,
+                    "colspan": 1,
+                    "colwidth": null,
+                    "rowspan": 1,
+                  },
+                  "content": Array [
+                    Object {
+                      "type": "paragraph",
+                    },
+                  ],
+                  "type": "tableCell",
+                },
+                Object {
+                  "attrs": Object {
+                    "background": null,
+                    "colspan": 1,
+                    "colwidth": null,
+                    "rowspan": 1,
+                  },
+                  "content": Array [
+                    Object {
+                      "type": "paragraph",
+                    },
+                  ],
+                  "type": "tableCell",
+                },
+              ],
+              "type": "tableRow",
+            },
+            Object {
+              "content": Array [
+                Object {
+                  "attrs": Object {
+                    "background": null,
+                    "colspan": 1,
+                    "colwidth": null,
+                    "rowspan": 1,
+                  },
+                  "content": Array [
+                    Object {
+                      "type": "paragraph",
+                    },
+                  ],
+                  "type": "tableCell",
+                },
+                Object {
+                  "attrs": Object {
+                    "background": null,
+                    "colspan": 1,
+                    "colwidth": null,
+                    "rowspan": 1,
+                  },
+                  "content": Array [
+                    Object {
+                      "type": "paragraph",
+                    },
+                  ],
+                  "type": "tableCell",
+                },
+                Object {
+                  "attrs": Object {
+                    "background": null,
+                    "colspan": 1,
+                    "colwidth": null,
+                    "rowspan": 1,
+                  },
+                  "content": Array [
+                    Object {
+                      "type": "paragraph",
+                    },
+                  ],
+                  "type": "tableCell",
+                },
+              ],
+              "type": "tableRow",
+            },
+          ],
+          "type": "table",
+        },
+      ],
+      "type": "expand",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`expand.ts: table with nestedExpand pasted on top level 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "__autoSize": false,
+        "isNumberColumnEnabled": false,
+        "layout": "default",
+      },
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableHeader",
+            },
+          ],
+          "type": "tableRow",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "attrs": Object {
+                    "__expanded": true,
+                    "title": "title",
+                  },
+                  "content": Array [
+                    Object {
+                      "content": Array [
+                        Object {
+                          "text": "content",
+                          "type": "text",
+                        },
+                      ],
+                      "type": "paragraph",
+                    },
+                  ],
+                  "type": "nestedExpand",
+                },
+              ],
+              "type": "tableCell",
+            },
+          ],
+          "type": "tableRow",
+        },
+      ],
+      "type": "table",
+    },
+  ],
+  "type": "doc",
+}
+`;

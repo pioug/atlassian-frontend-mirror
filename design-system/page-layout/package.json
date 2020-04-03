@@ -1,0 +1,55 @@
+{
+  "name": "@atlaskit/page-layout",
+  "version": "0.1.1",
+  "description": "A collection of components which let you compose an application's page layout",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "author": "Atlassian Pty Ltd",
+  "license": "Apache-2.0",
+  "module": "dist/esm/index.js",
+  "main": "dist/cjs/index.js",
+  "types": "dist/cjs/index.d.ts",
+  "sideEffects": false,
+  "atlaskit:src": "src/index.ts",
+  "atlassian": {
+    "team": "Design System Team",
+    "releaseModel": "continuous",
+    "website": {
+      "name": "Page Layout"
+    }
+  },
+  "dependencies": {
+    "@atlaskit/icon": "^20.0.2",
+    "@atlaskit/motion": "^0.2.2",
+    "@atlaskit/theme": "^9.5.1",
+    "@atlaskit/tooltip": "^15.2.3",
+    "@emotion/core": "^10.0.9",
+    "css-vars-ponyfill": "^2.2.0",
+    "raf-schd": "^2.1.0",
+    "tslib": "^1.9.3"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0"
+  },
+  "devDependencies": {
+    "@atlaskit/avatar": "*",
+    "@atlaskit/button": "*",
+    "@atlaskit/docs": "*",
+    "@atlaskit/icon": "*",
+    "@atlaskit/icon-file-type": "*",
+    "@atlaskit/icon-object": "*",
+    "@atlaskit/visual-regression": "*",
+    "@testing-library/react": "^8.0.1",
+    "jest-emotion": "^10.0.10",
+    "raf-stub": "^2.0.1",
+    "react-router-dom": "^4.2.2"
+  },
+  "keywords": [
+    "atlaskit",
+    "react",
+    "ui"
+  ]
+}

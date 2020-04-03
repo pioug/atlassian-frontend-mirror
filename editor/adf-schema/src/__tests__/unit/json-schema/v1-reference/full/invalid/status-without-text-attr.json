@@ -1,0 +1,22 @@
+{
+    "version": 1,
+    "type": "doc",
+    "content": [
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "status",
+            "attrs": {
+              "color": "neutral",
+              "localId": "b4276059-1c76-4738-bfde-b5fa076ff9a6"
+            }
+          },
+          {
+            "type": "text",
+            "text": " "
+          }
+        ]
+      }
+    ]
+  }

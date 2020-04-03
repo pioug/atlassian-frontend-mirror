@@ -1,0 +1,73 @@
+{
+  "name": "@atlaskit/smart-card",
+  "version": "13.0.0",
+  "description": "Smart card component",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "author": "Atlassian Pty Ltd",
+  "license": "Apache-2.0",
+  "module": "dist/esm/index.js",
+  "main": "dist/cjs/index.js",
+  "types": "dist/cjs/index.d.ts",
+  "atlaskit:src": "src/index.ts",
+  "atlassian": {
+    "team": "Editor Media",
+    "releaseModel": "scheduled",
+    "website": {
+      "name": "Smart Card"
+    }
+  },
+  "dependencies": {
+    "@atlaskit/analytics-gas-types": "^4.0.13",
+    "@atlaskit/analytics-next": "^6.3.5",
+    "@atlaskit/button": "^13.3.9",
+    "@atlaskit/icon": "^20.1.0",
+    "@atlaskit/icon-file-type": "^5.0.3",
+    "@atlaskit/icon-object": "^5.0.3",
+    "@atlaskit/media-ui": "^12.0.0",
+    "@atlaskit/outbound-auth-flow-client": "^2.0.9",
+    "@atlaskit/theme": "^9.5.1",
+    "dataloader": "^1.4.0",
+    "lodash.clonedeep": "^4.5.0",
+    "react-lazily-render": "^1.2.0",
+    "react-loadable": "^5.1.0",
+    "redux": "^3.7.2"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0",
+    "react-intl": "^2.6.0",
+    "styled-components": "^3.2.6"
+  },
+  "devDependencies": {
+    "@atlaskit/button": "^13.3.9",
+    "@atlaskit/checkbox": "^10.1.10",
+    "@atlaskit/docs": "^8.4.0",
+    "@atlaskit/form": "^7.1.5",
+    "@atlaskit/inline-message": "^10.1.5",
+    "@atlaskit/page": "^11.0.12",
+    "@atlaskit/radio": "^3.1.11",
+    "@atlaskit/table-tree": "^8.0.2",
+    "@atlaskit/textarea": "^2.2.6",
+    "@atlaskit/textfield": "^3.1.9",
+    "@testing-library/react": "^8.0.1",
+    "@types/enzyme": "^3.1.15",
+    "@types/fetch-mock": "^7.3.1",
+    "@types/lodash.clonedeep": "^4.5.6",
+    "@types/lorem-ipsum": "^1.0.2",
+    "@types/react": "^16.8.0",
+    "@types/react-loadable": "^5.4.1",
+    "@types/redux": "^3.6.0",
+    "abortcontroller-polyfill": "^1.1.9",
+    "brace": "^0.11.1",
+    "enzyme": "^3.10.0",
+    "fetch-mock": "^7.3.3",
+    "lorem-ipsum": "^1.0.6",
+    "react": "^16.8.0",
+    "react-ace": "^6.1.0",
+    "react-intl": "^2.6.0",
+    "react-test-renderer": "^16.8.0",
+    "xhr-mock": "^2.4.0"
+  }
+}

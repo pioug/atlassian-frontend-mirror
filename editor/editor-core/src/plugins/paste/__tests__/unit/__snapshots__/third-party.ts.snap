@@ -1,0 +1,2164 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`plugin: third-party \`Microsoft Word\`:  should handle pasting content 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "Heading 1",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "text": "Heading 2",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "text": "· Unordered list item",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "text": "o Nested unordered list item",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "text": "· Unordered list item",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "content": Array [
+                Object {
+                  "text": "Ordered list item",
+                  "type": "text",
+                },
+              ],
+              "type": "paragraph",
+            },
+          ],
+          "type": "listItem",
+        },
+      ],
+      "type": "orderedList",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "content": Array [
+                Object {
+                  "text": "Ordered list item",
+                  "type": "text",
+                },
+              ],
+              "type": "paragraph",
+            },
+          ],
+          "type": "listItem",
+        },
+      ],
+      "type": "orderedList",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "text": "a. Nested ordered list item",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "marks": Array [
+            Object {
+              "type": "strong",
+            },
+          ],
+          "text": "Bold",
+          "type": "text",
+        },
+        Object {
+          "text": " ",
+          "type": "text",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "type": "strong",
+            },
+            Object {
+              "type": "underline",
+            },
+          ],
+          "text": "BoldUnderline",
+          "type": "text",
+        },
+        Object {
+          "text": " ",
+          "type": "text",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "type": "underline",
+            },
+          ],
+          "text": "Underline",
+          "type": "text",
+        },
+        Object {
+          "text": " ",
+          "type": "text",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "type": "em",
+            },
+          ],
+          "text": "Emphasis",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "text": "RED TEXT",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "text": "Link to: ",
+          "type": "text",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "attrs": Object {
+                "href": "https://google.com/",
+              },
+              "type": "link",
+            },
+          ],
+          "text": "GoogleLink",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "attrs": Object {
+        "isNumberColumnEnabled": false,
+        "layout": "default",
+      },
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "attrs": Object {
+                "background": "#4472c4",
+              },
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "text": "Left Heading",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+            Object {
+              "attrs": Object {
+                "background": "#4472c4",
+              },
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "text": "Middle Heading",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+            Object {
+              "attrs": Object {
+                "background": "#4472c4",
+              },
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "text": "Right Heading",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+          ],
+          "type": "tableRow",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "attrs": Object {},
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "text": "Left Middle",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+            Object {
+              "attrs": Object {},
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "text": "Middle Middle",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+            Object {
+              "attrs": Object {},
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "text": "Right Middle",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+          ],
+          "type": "tableRow",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "attrs": Object {},
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "text": "Bottom Left",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+            Object {
+              "attrs": Object {},
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "text": "Bottom Middle",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+            Object {
+              "attrs": Object {},
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "text": "Bottom Right",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+          ],
+          "type": "tableRow",
+        },
+      ],
+      "type": "table",
+    },
+    Object {
+      "type": "paragraph",
+    },
+    Object {
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+  "version": 1,
+}
+`;
+
+exports[`plugin: third-party should convert multiple lines to a code-block when pasting content from Visual Studio Code 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {},
+      "content": Array [
+        Object {
+          "text": "import { EditorPlugin } from '../../types';
+import { createPlugin } from './pm-plugins/main';
+",
+          "type": "text",
+        },
+      ],
+      "type": "codeBlock",
+    },
+    Object {
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+  "version": 1,
+}
+`;
+
+exports[`plugin: third-party should convert single line to a code mark when pasting content from Visual Studio Code 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "marks": Array [
+            Object {
+              "type": "code",
+            },
+          ],
+          "text": "dispatchPasteEvent",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+  "version": 1,
+}
+`;
+
+exports[`plugin: third-party should handle pasting content from Apple Pages 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "marks": Array [
+            Object {
+              "type": "strong",
+            },
+          ],
+          "text": "Heading 1",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "marks": Array [
+            Object {
+              "type": "strong",
+            },
+          ],
+          "text": "Heading 2",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "content": Array [
+                Object {
+                  "text": "Unordered list item",
+                  "type": "text",
+                },
+              ],
+              "type": "paragraph",
+            },
+            Object {
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "content": Array [
+                        Object {
+                          "text": "Nested unordered list item",
+                          "type": "text",
+                        },
+                      ],
+                      "type": "paragraph",
+                    },
+                  ],
+                  "type": "listItem",
+                },
+              ],
+              "type": "bulletList",
+            },
+          ],
+          "type": "listItem",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "content": Array [
+                Object {
+                  "text": "Unordered list item",
+                  "type": "text",
+                },
+              ],
+              "type": "paragraph",
+            },
+          ],
+          "type": "listItem",
+        },
+      ],
+      "type": "bulletList",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "type": "hardBreak",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "content": Array [
+                Object {
+                  "text": "Ordered list item",
+                  "type": "text",
+                },
+              ],
+              "type": "paragraph",
+            },
+          ],
+          "type": "listItem",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "content": Array [
+                Object {
+                  "text": "Ordered list item",
+                  "type": "text",
+                },
+              ],
+              "type": "paragraph",
+            },
+            Object {
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "content": Array [
+                        Object {
+                          "text": "Nested ordered list item",
+                          "type": "text",
+                        },
+                      ],
+                      "type": "paragraph",
+                    },
+                  ],
+                  "type": "listItem",
+                },
+              ],
+              "type": "orderedList",
+            },
+          ],
+          "type": "listItem",
+        },
+      ],
+      "type": "bulletList",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "type": "hardBreak",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "marks": Array [
+            Object {
+              "type": "strong",
+            },
+          ],
+          "text": "Bold",
+          "type": "text",
+        },
+        Object {
+          "text": " ",
+          "type": "text",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "type": "strong",
+            },
+          ],
+          "text": "BoldUnderline",
+          "type": "text",
+        },
+        Object {
+          "text": " Underline ",
+          "type": "text",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "type": "em",
+            },
+          ],
+          "text": "Emphasis",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "type": "hardBreak",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "text": "RED TEXT",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "type": "hardBreak",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "text": "Link to: ",
+          "type": "text",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "attrs": Object {
+                "href": "https://google.com",
+              },
+              "type": "link",
+            },
+          ],
+          "text": "GoogleLink",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "type": "hardBreak",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "attrs": Object {
+        "isNumberColumnEnabled": false,
+        "layout": "default",
+      },
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "attrs": Object {},
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "marks": Array [
+                        Object {
+                          "type": "strong",
+                        },
+                      ],
+                      "text": "Left Heading",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+            Object {
+              "attrs": Object {},
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "marks": Array [
+                        Object {
+                          "type": "strong",
+                        },
+                      ],
+                      "text": "Middle heading",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+            Object {
+              "attrs": Object {},
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "marks": Array [
+                        Object {
+                          "type": "strong",
+                        },
+                      ],
+                      "text": "Right Heading",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+          ],
+          "type": "tableRow",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "attrs": Object {},
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "text": "Left Middle",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+            Object {
+              "attrs": Object {},
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "text": "Middle Middle",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+            Object {
+              "attrs": Object {},
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "text": "Right Middle",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+          ],
+          "type": "tableRow",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "attrs": Object {},
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "text": "Bottom Left",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+            Object {
+              "attrs": Object {},
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "text": "Bottom Middle",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+            Object {
+              "attrs": Object {},
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "text": "Bottom Right",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+          ],
+          "type": "tableRow",
+        },
+      ],
+      "type": "table",
+    },
+    Object {
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+  "version": 1,
+}
+`;
+
+exports[`plugin: third-party should handle pasting content from Confluence 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "level": 1,
+      },
+      "content": Array [
+        Object {
+          "text": "Heading 1",
+          "type": "text",
+        },
+      ],
+      "type": "heading",
+    },
+    Object {
+      "attrs": Object {
+        "level": 2,
+      },
+      "content": Array [
+        Object {
+          "text": "Heading 2",
+          "type": "text",
+        },
+      ],
+      "type": "heading",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "content": Array [
+                Object {
+                  "text": "Unordered list item",
+                  "type": "text",
+                },
+              ],
+              "type": "paragraph",
+            },
+            Object {
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "content": Array [
+                        Object {
+                          "text": "Nested unordered list item",
+                          "type": "text",
+                        },
+                      ],
+                      "type": "paragraph",
+                    },
+                  ],
+                  "type": "listItem",
+                },
+              ],
+              "type": "bulletList",
+            },
+          ],
+          "type": "listItem",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "content": Array [
+                Object {
+                  "text": "Unordered list item",
+                  "type": "text",
+                },
+              ],
+              "type": "paragraph",
+            },
+          ],
+          "type": "listItem",
+        },
+      ],
+      "type": "bulletList",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "content": Array [
+                Object {
+                  "text": "Ordered list item",
+                  "type": "text",
+                },
+              ],
+              "type": "paragraph",
+            },
+          ],
+          "type": "listItem",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "content": Array [
+                Object {
+                  "text": "Ordered list item",
+                  "type": "text",
+                },
+              ],
+              "type": "paragraph",
+            },
+            Object {
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "content": Array [
+                        Object {
+                          "text": "Nested ordered list item",
+                          "type": "text",
+                        },
+                      ],
+                      "type": "paragraph",
+                    },
+                  ],
+                  "type": "listItem",
+                },
+              ],
+              "type": "orderedList",
+            },
+          ],
+          "type": "listItem",
+        },
+      ],
+      "type": "orderedList",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "type": "hardBreak",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "marks": Array [
+            Object {
+              "type": "strong",
+            },
+          ],
+          "text": "Bold",
+          "type": "text",
+        },
+        Object {
+          "text": " ",
+          "type": "text",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "type": "strong",
+            },
+          ],
+          "text": "BoldUnderline",
+          "type": "text",
+        },
+        Object {
+          "text": " ",
+          "type": "text",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "type": "underline",
+            },
+          ],
+          "text": "Underline",
+          "type": "text",
+        },
+        Object {
+          "text": " ",
+          "type": "text",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "type": "em",
+            },
+          ],
+          "text": "Emphasis",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "text": "RED TEXT",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "text": "Link to: ",
+          "type": "text",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "attrs": Object {
+                "href": "https://google.co",
+              },
+              "type": "link",
+            },
+          ],
+          "text": "GoogleLink",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "attrs": Object {
+        "isNumberColumnEnabled": false,
+        "layout": "default",
+      },
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "attrs": Object {},
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "text": "Left Heading",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableHeader",
+            },
+            Object {
+              "attrs": Object {},
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "text": "Middle heading",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableHeader",
+            },
+            Object {
+              "attrs": Object {},
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "text": "Right Heading",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableHeader",
+            },
+          ],
+          "type": "tableRow",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "attrs": Object {},
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "text": "Left Middle",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+            Object {
+              "attrs": Object {},
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "text": "Middle Middle",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+            Object {
+              "attrs": Object {},
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "text": "Right Middle",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+          ],
+          "type": "tableRow",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "attrs": Object {},
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "text": "Bottom Left",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+            Object {
+              "attrs": Object {},
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "text": "Bottom Middle",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+            Object {
+              "attrs": Object {},
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "text": "Bottom Right",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+          ],
+          "type": "tableRow",
+        },
+      ],
+      "type": "table",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "type": "hardBreak",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+  "version": 1,
+}
+`;
+
+exports[`plugin: third-party should handle pasting content from Dropbox Paper 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "level": 1,
+      },
+      "content": Array [
+        Object {
+          "text": "Heading 1",
+          "type": "text",
+        },
+      ],
+      "type": "heading",
+    },
+    Object {
+      "attrs": Object {
+        "level": 2,
+      },
+      "content": Array [
+        Object {
+          "text": "Heading 2",
+          "type": "text",
+        },
+      ],
+      "type": "heading",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "content": Array [
+                Object {
+                  "text": "Unordered list item",
+                  "type": "text",
+                },
+              ],
+              "type": "paragraph",
+            },
+            Object {
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "content": Array [
+                        Object {
+                          "text": "Nested unordered list item",
+                          "type": "text",
+                        },
+                      ],
+                      "type": "paragraph",
+                    },
+                  ],
+                  "type": "listItem",
+                },
+              ],
+              "type": "bulletList",
+            },
+          ],
+          "type": "listItem",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "content": Array [
+                Object {
+                  "text": "Unordered list item",
+                  "type": "text",
+                },
+              ],
+              "type": "paragraph",
+            },
+          ],
+          "type": "listItem",
+        },
+      ],
+      "type": "bulletList",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "content": Array [
+                Object {
+                  "text": "Ordered list item",
+                  "type": "text",
+                },
+              ],
+              "type": "paragraph",
+            },
+          ],
+          "type": "listItem",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "content": Array [
+                Object {
+                  "text": "Ordered list item",
+                  "type": "text",
+                },
+              ],
+              "type": "paragraph",
+            },
+            Object {
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "content": Array [
+                        Object {
+                          "text": "Nested ordered list item",
+                          "type": "text",
+                        },
+                      ],
+                      "type": "paragraph",
+                    },
+                  ],
+                  "type": "listItem",
+                },
+              ],
+              "type": "orderedList",
+            },
+          ],
+          "type": "listItem",
+        },
+      ],
+      "type": "orderedList",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "marks": Array [
+            Object {
+              "type": "strong",
+            },
+          ],
+          "text": "Bold",
+          "type": "text",
+        },
+        Object {
+          "text": " ",
+          "type": "text",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "type": "strong",
+            },
+            Object {
+              "type": "underline",
+            },
+          ],
+          "text": "BoldUnderline",
+          "type": "text",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "type": "strong",
+            },
+          ],
+          "text": " ",
+          "type": "text",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "type": "underline",
+            },
+          ],
+          "text": "Underline",
+          "type": "text",
+        },
+        Object {
+          "text": " ",
+          "type": "text",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "type": "em",
+            },
+          ],
+          "text": "Emphasis",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "text": "RED TEXT",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "text": "Link to: ",
+          "type": "text",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "attrs": Object {
+                "href": "https://google.com",
+              },
+              "type": "link",
+            },
+            Object {
+              "type": "underline",
+            },
+          ],
+          "text": "GoogleLink",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "attrs": Object {
+        "isNumberColumnEnabled": false,
+        "layout": "default",
+      },
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "attrs": Object {},
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "marks": Array [
+                        Object {
+                          "type": "strong",
+                        },
+                      ],
+                      "text": "Left Heading",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+            Object {
+              "attrs": Object {},
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "marks": Array [
+                        Object {
+                          "type": "strong",
+                        },
+                      ],
+                      "text": "Middle heading",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+            Object {
+              "attrs": Object {},
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "marks": Array [
+                        Object {
+                          "type": "strong",
+                        },
+                      ],
+                      "text": "Right Heading",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+          ],
+          "type": "tableRow",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "attrs": Object {},
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "text": "Left Middle",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+            Object {
+              "attrs": Object {},
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "text": "Middle Middle",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+            Object {
+              "attrs": Object {},
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "text": "Right Middle",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+          ],
+          "type": "tableRow",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "attrs": Object {},
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "text": "Bottom Left",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+            Object {
+              "attrs": Object {},
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "text": "Bottom Middle",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+            Object {
+              "attrs": Object {},
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "text": "Bottom Right",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+          ],
+          "type": "tableRow",
+        },
+      ],
+      "type": "table",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "type": "hardBreak",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "type": "hardBreak",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+  "version": 1,
+}
+`;
+
+exports[`plugin: third-party should handle pasting content from Google Docs 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "level": 1,
+      },
+      "content": Array [
+        Object {
+          "text": "Heading 1",
+          "type": "text",
+        },
+      ],
+      "type": "heading",
+    },
+    Object {
+      "attrs": Object {
+        "level": 2,
+      },
+      "content": Array [
+        Object {
+          "text": "Heading 2",
+          "type": "text",
+        },
+      ],
+      "type": "heading",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "content": Array [
+                Object {
+                  "text": "Unordered list item",
+                  "type": "text",
+                },
+              ],
+              "type": "paragraph",
+            },
+            Object {
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "content": Array [
+                        Object {
+                          "text": "Nested unordered list item",
+                          "type": "text",
+                        },
+                      ],
+                      "type": "paragraph",
+                    },
+                  ],
+                  "type": "listItem",
+                },
+              ],
+              "type": "bulletList",
+            },
+          ],
+          "type": "listItem",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "content": Array [
+                Object {
+                  "text": "Unordered list item",
+                  "type": "text",
+                },
+              ],
+              "type": "paragraph",
+            },
+          ],
+          "type": "listItem",
+        },
+      ],
+      "type": "bulletList",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "type": "hardBreak",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "content": Array [
+                Object {
+                  "text": "Ordered list item",
+                  "type": "text",
+                },
+              ],
+              "type": "paragraph",
+            },
+          ],
+          "type": "listItem",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "content": Array [
+                Object {
+                  "text": "Ordered list item",
+                  "type": "text",
+                },
+              ],
+              "type": "paragraph",
+            },
+            Object {
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "content": Array [
+                        Object {
+                          "text": "Nested ordered list item",
+                          "type": "text",
+                        },
+                      ],
+                      "type": "paragraph",
+                    },
+                  ],
+                  "type": "listItem",
+                },
+              ],
+              "type": "orderedList",
+            },
+          ],
+          "type": "listItem",
+        },
+      ],
+      "type": "orderedList",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "type": "hardBreak",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "marks": Array [
+            Object {
+              "type": "strong",
+            },
+          ],
+          "text": "Bold",
+          "type": "text",
+        },
+        Object {
+          "text": " ",
+          "type": "text",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "type": "strong",
+            },
+            Object {
+              "type": "underline",
+            },
+          ],
+          "text": "BoldUnderline",
+          "type": "text",
+        },
+        Object {
+          "text": " ",
+          "type": "text",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "type": "underline",
+            },
+          ],
+          "text": "Underline",
+          "type": "text",
+        },
+        Object {
+          "text": " ",
+          "type": "text",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "type": "em",
+            },
+          ],
+          "text": "Emphasis",
+          "type": "text",
+        },
+        Object {
+          "text": " ",
+          "type": "text",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "attrs": Object {
+                "type": "sup",
+              },
+              "type": "subsup",
+            },
+          ],
+          "text": "Superscript",
+          "type": "text",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "attrs": Object {
+                "type": "sub",
+              },
+              "type": "subsup",
+            },
+          ],
+          "text": "Subscript",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "text": "RED TEXT",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "type": "hardBreak",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "text": "Link to: ",
+          "type": "text",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "attrs": Object {
+                "href": "https://google.com",
+              },
+              "type": "link",
+            },
+            Object {
+              "type": "underline",
+            },
+          ],
+          "text": "GoogleLink",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "type": "hardBreak",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "attrs": Object {
+        "isNumberColumnEnabled": false,
+        "layout": "default",
+      },
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "attrs": Object {
+                "background": "#efefef",
+              },
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "marks": Array [
+                        Object {
+                          "type": "strong",
+                        },
+                      ],
+                      "text": "Left Heading",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+            Object {
+              "attrs": Object {
+                "background": "#efefef",
+              },
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "marks": Array [
+                        Object {
+                          "type": "strong",
+                        },
+                      ],
+                      "text": "Middle heading",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+            Object {
+              "attrs": Object {
+                "background": "#efefef",
+              },
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "marks": Array [
+                        Object {
+                          "type": "strong",
+                        },
+                      ],
+                      "text": "Right Heading",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+          ],
+          "type": "tableRow",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "attrs": Object {},
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "text": "Left Middle",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+            Object {
+              "attrs": Object {},
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "text": "Middle Middle",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+            Object {
+              "attrs": Object {},
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "text": "Right Middle",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+          ],
+          "type": "tableRow",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "attrs": Object {},
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "text": "Bottom Left",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+            Object {
+              "attrs": Object {},
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "text": "Bottom Middle",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+            Object {
+              "attrs": Object {},
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "text": "Bottom Right",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+          ],
+          "type": "tableRow",
+        },
+      ],
+      "type": "table",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "type": "hardBreak",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+  "version": 1,
+}
+`;
+
+exports[`plugin: third-party should handle pasting content using react-syntax-highlighter 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "Intro to JavaScript:",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "attrs": Object {},
+      "content": Array [
+        Object {
+          "text": "const x = 10;
+const add = x => y => x + y;
+const addTwo = add(2);
+console.log(addTow(x));",
+          "type": "text",
+        },
+      ],
+      "type": "codeBlock",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "text": "🤷🏽‍♂️",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+  "version": 1,
+}
+`;

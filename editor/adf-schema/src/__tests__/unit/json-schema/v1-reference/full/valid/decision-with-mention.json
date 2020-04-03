@@ -1,0 +1,34 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "decisionList",
+      "attrs": {
+        "localId": "test-list-id"
+      },
+      "content": [
+        {
+          "type": "decisionItem",
+          "attrs": {
+            "localId": "test-id",
+            "state": "DECIDED"
+          },
+          "content": [
+            {
+              "type": "text",
+              "text": "have you seen that? "
+            },
+            {
+              "type": "mention",
+              "attrs": {
+                "id": "test-id",
+                "text": "Test User"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+import { CellSelection } from 'prosemirror-tables';
+import { Node } from 'prosemirror-model';
+
+export const cellSelectionNodesBetween = (
+  selection: CellSelection,
+  doc: Node,
+  f: (
+    node: Node,
+    pos: number,
+    parent: Node,
+    index: number,
+  ) => boolean | null | undefined | void,
+  startPos?: number,
+) => {
+  selection.forEachCell((cell, cellPos) => {
+    doc.nodesBetween(cellPos, cellPos + cell.nodeSize, f, startPos);
+  });
+};

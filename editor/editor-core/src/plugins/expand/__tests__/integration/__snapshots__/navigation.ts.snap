@@ -1,0 +1,430 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`navigation.ts: pressing ArrowDown from the left GapCursor position should focus the title when an expand is collapsed 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "__expanded": false,
+        "title": "title",
+      },
+      "content": Array [
+        Object {
+          "type": "paragraph",
+        },
+      ],
+      "type": "expand",
+    },
+    Object {
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`navigation.ts: pressing ArrowDown should set cursor after collapsed expand when it is in a title 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "__expanded": false,
+        "title": "",
+      },
+      "content": Array [
+        Object {
+          "type": "paragraph",
+        },
+      ],
+      "type": "expand",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "text": "abc",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`navigation.ts: pressing ArrowDown should set cursor from expand title to the content 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "__expanded": true,
+        "title": "",
+      },
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "text": "abc",
+              "type": "text",
+            },
+          ],
+          "type": "paragraph",
+        },
+      ],
+      "type": "expand",
+    },
+    Object {
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`navigation.ts: pressing ArrowLeft from an expand title should set the left GapCursor 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "before",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "attrs": Object {
+        "__expanded": true,
+        "title": "",
+      },
+      "content": Array [
+        Object {
+          "type": "paragraph",
+        },
+      ],
+      "type": "expand",
+    },
+    Object {
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`navigation.ts: pressing ArrowRight from an expand title should set the right GapCursor 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "__expanded": true,
+        "title": "",
+      },
+      "content": Array [
+        Object {
+          "type": "paragraph",
+        },
+      ],
+      "type": "expand",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "text": "after",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`navigation.ts: pressing ArrowUp from a second line of an expand content should not focus the title 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "__expanded": true,
+        "title": "",
+      },
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "text": "onetest",
+              "type": "text",
+            },
+          ],
+          "type": "paragraph",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "text": "two",
+              "type": "text",
+            },
+          ],
+          "type": "paragraph",
+        },
+      ],
+      "type": "expand",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`navigation.ts: pressing ArrowUp from an expand content should focus the title 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "__expanded": true,
+        "title": "title",
+      },
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "text": "content",
+              "type": "text",
+            },
+          ],
+          "type": "paragraph",
+        },
+      ],
+      "type": "expand",
+    },
+    Object {
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`navigation.ts: pressing ArrowUp from an expand title should set the left GapCursor 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "before",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "attrs": Object {
+        "__expanded": true,
+        "title": "",
+      },
+      "content": Array [
+        Object {
+          "type": "paragraph",
+        },
+      ],
+      "type": "expand",
+    },
+    Object {
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`navigation.ts: pressing ArrowUp from the right GapCursor position should focus the title when an expand is collapsed 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "__expanded": false,
+        "title": "title",
+      },
+      "content": Array [
+        Object {
+          "type": "paragraph",
+        },
+      ],
+      "type": "expand",
+    },
+    Object {
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`navigation.ts: pressing Backspace should delete an expand when cursor is inside content 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`navigation.ts: pressing Backspace should delete an expand when cursor is inside title 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`navigation.ts: pressing Enter should collapse an expand when cursor is inside title 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "__expanded": false,
+        "title": "",
+      },
+      "content": Array [
+        Object {
+          "type": "paragraph",
+        },
+      ],
+      "type": "expand",
+    },
+    Object {
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`navigation.ts: when cursor is after a collapsed expand, pressing Backspace should focus the title 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "__expanded": false,
+        "title": "title",
+      },
+      "content": Array [
+        Object {
+          "type": "paragraph",
+        },
+      ],
+      "type": "expand",
+    },
+    Object {
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`navigation.ts: when cursor is after two collapsed expands, pressing Backspace should focus the title of the first one 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean mi nisl, venenatis eget auctor vitae, venenatis quis lorem. Suspendisse maximus tortor vel dui tincidunt cursus. Vestibulum magna nibh, auctor non auctor id, finibus vitae orci. Nulla viverra ipsum et nunc fringilla ultricies. Pellentesque vitae felis molestie justo finibus accumsan. Suspendisse potenti. Nulla facilisi. Integer dignissim quis velit quis elementum. Sed sit amet varius ante. Duis vestibulum porta augue eu laoreet. Morbi id risus et augue sollicitudin aliquam. In et ligula dolor. Nam ac aliquet diam.",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "attrs": Object {
+        "__expanded": false,
+        "title": "First title",
+      },
+      "content": Array [
+        Object {
+          "type": "paragraph",
+        },
+      ],
+      "type": "expand",
+    },
+    Object {
+      "attrs": Object {
+        "__expanded": false,
+        "title": "Second titlehello",
+      },
+      "content": Array [
+        Object {
+          "type": "paragraph",
+        },
+      ],
+      "type": "expand",
+    },
+    Object {
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`pressing ArrowDown should create a gap cursor on the left 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean mi nisl, venenatis eget auctor vitae, venenatis quis lorem. Suspendisse maximus tortor vel dui tincidunt cursus. Vestibulum magna nibh, auctor non auctor id, finibus vitae orci. Nulla viverra ipsum et nunc fringilla ultricies. Pellentesque vitae felis molestie justo finibus accumsan. Suspendisse potenti. Nulla facilisi. Integer dignissim quis velit quis elementum. Sed sit amet varius ante. Duis vestibulum porta augue eu laoreet. Morbi id risus et augue sollicitudin aliquam. In et ligula dolor. Nam ac aliquet diam.",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "attrs": Object {
+        "__expanded": false,
+        "title": "First title",
+      },
+      "content": Array [
+        Object {
+          "type": "paragraph",
+        },
+      ],
+      "type": "expand",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "text": "I am here",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "attrs": Object {
+        "__expanded": false,
+        "title": "Second title",
+      },
+      "content": Array [
+        Object {
+          "type": "paragraph",
+        },
+      ],
+      "type": "expand",
+    },
+    Object {
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;

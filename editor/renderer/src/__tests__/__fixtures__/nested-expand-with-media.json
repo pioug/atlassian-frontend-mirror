@@ -1,0 +1,56 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "table",
+      "attrs": {
+        "isNumberColumnEnabled": false,
+        "layout": "default"
+      },
+      "content": [
+        {
+          "type": "tableRow",
+          "content": [
+            {
+              "type": "tableCell",
+              "attrs": {},
+              "content": [
+                {
+                  "type": "nestedExpand",
+                  "attrs": {
+                    "title": ""
+                  },
+                  "content": [
+                    {
+                      "type": "mediaSingle",
+                      "attrs": {
+                        "layout": "center"
+                      },
+                      "content": [
+                        {
+                          "type": "media",
+                          "attrs": {
+                            "id": "e17d729d-e5bb-44f4-a9a6-a76e3eb6f6a7",
+                            "type": "file",
+                            "collection": "MediaServicesSample",
+                            "width": 1024,
+                            "height": 683
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "type": "paragraph",
+                      "content": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

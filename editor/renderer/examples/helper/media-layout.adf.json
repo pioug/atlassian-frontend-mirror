@@ -1,0 +1,716 @@
+{
+  "type": "doc",
+  "version": 1,
+  "content": [
+    {
+      "type": "mediaSingle",
+      "attrs": {
+        "layout": "center"
+      },
+      "content": [
+        {
+          "type": "media",
+          "attrs": {
+            "type": "external",
+            "url": "https://wac-cdn.atlassian.com/assets/img/favicons/atlassian/apple-touch-icon-152x152.png",
+            "width": 152,
+            "height": 152
+          }
+        }
+      ]
+    },
+    {
+      "type": "mediaSingle",
+      "attrs": {
+        "layout": "full-width"
+      },
+      "content": [
+        {
+          "type": "media",
+          "attrs": {
+            "id": "2aa22582-ca0e-4bd4-b1bc-9369d10a0719",
+            "type": "file",
+            "collection": "MediaServicesSample",
+            "width": 5845,
+            "height": 1243
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "What is Lorem Ipsum?"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Lorem Ipsum",
+          "marks": [
+            {
+              "type": "strong"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text":
+            " is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+        }
+      ]
+    },
+    {
+      "type": "mediaSingle",
+      "attrs": {
+        "layout": "wrap-left"
+      },
+      "content": [
+        {
+          "type": "media",
+          "attrs": {
+            "type": "external",
+            "url": "https://images.unsplash.com/photo-1553526665-dbfe3e8a6fcc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2850&q=80"
+          }
+        }
+      ]
+    },
+    {
+      "type": "mediaSingle",
+      "attrs": {
+        "layout": "wrap-right"
+      },
+      "content": [
+        {
+          "type": "media",
+          "attrs": {
+            "type": "external",
+            "url": "https://images.unsplash.com/photo-1551385117-d99d12d4e6f0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2850&q=80"
+          }
+        }
+      ]
+    },
+    {
+      "type": "mediaSingle",
+      "attrs": {
+        "layout": "wrap-left"
+      },
+      "content": [
+        {
+          "type": "media",
+          "attrs": {
+            "id": "19850beb-9260-4520-9d24-30bd782de4a9",
+            "type": "file",
+            "collection": "MediaServicesSample",
+            "width": 6000,
+            "height": 4000
+          }
+        }
+      ]
+    },
+    {
+      "type": "mediaSingle",
+      "attrs": {
+        "layout": "wrap-right"
+      },
+      "content": [
+        {
+          "type": "media",
+          "attrs": {
+            "id": "fd06604e-33c9-41b2-aae2-7082c2af5edf",
+            "type": "file",
+            "collection": "MediaServicesSample",
+            "width": 5760,
+            "height": 3840
+          }
+        }
+      ]
+    },
+    {
+      "type": "mediaSingle",
+      "attrs": {
+        "layout": "wrap-left"
+      },
+      "content": [
+        {
+          "type": "media",
+          "attrs": {
+            "id": "2771dc94-cd4d-4830-a588-06e1359cb916",
+            "type": "file",
+            "collection": "MediaServicesSample",
+            "width": 6000,
+            "height": 4000
+          }
+        }
+      ]
+    },
+    {
+      "type": "mediaSingle",
+      "attrs": {
+        "layout": "wrap-right"
+      },
+      "content": [
+        {
+          "type": "media",
+          "attrs": {
+            "id": "6bec6993-bd38-44b2-bada-f27bbba9faa2",
+            "type": "file",
+            "collection": "MediaServicesSample",
+            "width": 4592,
+            "height": 3056
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text":
+            "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32."
+        }
+      ]
+    },
+    {
+      "type": "blockquote",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text":
+                "The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from \"de Finibus Bonorum et Malorum\" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "mediaSingle",
+      "attrs": {
+        "layout": "wide"
+      },
+      "content": [
+        {
+          "type": "media",
+          "attrs": {
+            "id": "139fc74e-2e8b-4a95-95cd-bc5764b023ae",
+            "type": "file",
+            "collection": "MediaServicesSample",
+            "width": 4124,
+            "height": 2590
+          }
+        }
+      ]
+    },
+    {
+      "type": "mediaSingle",
+      "attrs": {
+        "layout": "wide"
+      },
+      "content": [
+        {
+          "type": "media",
+          "attrs": {
+            "type": "external",
+            "url": "https://images.unsplash.com/photo-1551801841-ecad875a5142?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2768&q=80"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text":
+            "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like)."
+        }
+      ]
+    },
+    {
+      "type": "mediaSingle",
+      "attrs": {
+        "layout": "wrap-right"
+      },
+      "content": [
+        {
+          "type": "media",
+          "attrs": {
+            "id": "e1dfb211-a1df-4d61-be45-53bfd2b2674c",
+            "type": "file",
+            "collection": "MediaServicesSample",
+            "width": 5472,
+            "height": 3078
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text":
+            "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc."
+        }
+      ]
+    },
+    {
+      "type": "mediaSingle",
+      "attrs": {
+        "layout": "wrap-left"
+      },
+      "content": [
+        {
+          "type": "media",
+          "attrs": {
+            "id": "6d2c5ace-4ce2-4628-a5b0-9a0db10230ab",
+            "type": "file",
+            "collection": "MediaServicesSample",
+            "width": 5184,
+            "height": 3456
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Duis egestas quam odio!"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text":
+            "Duis egestas quam odio, ac ullamcorper diam lacinia ut. Ut pellentesque enim elit, et pulvinar leo fermentum at. Suspendisse vel enim eget dui vulputate tincidunt sit amet at odio. Etiam lobortis interdum orci vitae luctus. Curabitur ultrices vulputate nulla vitae tempus. Suspendisse potenti. Aliquam arcu ex, accumsan et dapibus nec, finibus sit amet nunc. Integer gravida vehicula molestie. Maecenas cursus augue ut arcu aliquam, vel semper sapien tincidunt. Nulla quis lectus rhoncus odio pharetra faucibus. Nullam nec finibus nibh. Cras sit amet congue sapien. Integer congue malesuada leo consectetur auctor. Nullam tortor massa, dictum id metus vitae, consequat finibus nibh. Nunc vel dolor quis felis ullamcorper tincidunt. Maecenas eget mauris lacinia, efficitur elit a, suscipit purus."
+        }
+      ]
+    },
+    {
+      "type": "mediaSingle",
+      "content": [
+        {
+          "type": "media",
+          "attrs": {
+            "id": "231d3874-0995-4df4-a71e-bb0b7b1a3a43",
+            "type": "file",
+            "collection": "MediaServicesSample",
+            "width": 5414,
+            "height": 3609
+          }
+        }
+      ]
+    },
+    {
+      "type": "mediaSingle",
+      "attrs": {
+        "layout": "wrap-left"
+      },
+      "content": [
+        {
+          "type": "media",
+          "attrs": {
+            "id": "b9a38d9b-195c-4011-95d1-cf1aa38620e5",
+            "type": "file",
+            "collection": "MediaServicesSample",
+            "width": 3120,
+            "height": 4928
+          }
+        }
+      ]
+    },
+    {
+      "type": "mediaSingle",
+      "attrs": {
+        "layout": "wrap-right"
+      },
+      "content": [
+        {
+          "type": "media",
+          "attrs": {
+            "id": "abde06cf-851b-4e41-b0eb-2eff341e20f6",
+            "type": "file",
+            "collection": "MediaServicesSample",
+            "width": 4896,
+            "height": 3264
+          }
+        }
+      ]
+    },
+    {
+      "type": "mediaSingle",
+      "attrs": {
+        "layout": "wrap-left"
+      },
+      "content": [
+        {
+          "type": "media",
+          "attrs": {
+            "id": "1d4f1892-6f80-4d4a-9450-de2125547664",
+            "type": "file",
+            "collection": "MediaServicesSample",
+            "width": 3008,
+            "height": 2000
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text":
+            "Pellentesque finibus a purus eget interdum. Ut ac facilisis est. Aliquam nulla orci, rutrum quis lorem sed, dapibus congue est. Fusce finibus ex vel nisi porttitor venenatis. Aliquam rhoncus magna orci, ac pretium lorem efficitur at. Mauris pulvinar nisl egestas, auctor ipsum et, accumsan ex. Cras ultricies enim eu eros varius blandit. Maecenas non diam vel ex gravida consequat et at justo."
+        },
+        {
+          "type": "emoji",
+          "attrs": {
+            "id": "1f642",
+            "shortName": ":slight_smile:",
+            "text": "🙂"
+          }
+        }
+      ]
+    },
+    {
+      "type": "mediaSingle",
+      "attrs": {
+        "layout": "wrap-left"
+      },
+      "content": [
+        {
+          "type": "media",
+          "attrs": {
+            "id": "fe6a8aac-d89c-4249-90a7-bfd4f2bdd680",
+            "type": "file",
+            "collection": "MediaServicesSample",
+            "width": 4570,
+            "height": 2964
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text":
+            "Duis egestas quam odio, ac ullamcorper diam lacinia ut. Ut pellentesque enim elit, et pulvinar leo fermentum at. Suspendisse vel enim eget dui vulputate tincidunt sit amet at odio."
+        }
+      ]
+    },
+    {
+      "type": "codeBlock",
+      "content": [
+        {
+          "type": "text",
+          "text": "var x = 10;"
+        }
+      ]
+    },
+    {
+      "type": "mediaSingle",
+      "attrs": {
+        "layout": "wrap-left"
+      },
+      "content": [
+        {
+          "type": "media",
+          "attrs": {
+            "id": "61df3bc4-5f68-457d-a10b-58e32f1c5885",
+            "type": "file",
+            "collection": "MediaServicesSample",
+            "width": 3305,
+            "height": 4277
+          }
+        }
+      ]
+    },
+    {
+      "type": "bulletList",
+      "content": [
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Nikola Tesla "
+                },
+                {
+                  "type": "text",
+                  "text": "(1856-1943)",
+                  "marks": [
+                    {
+                      "type": "em"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Marie Curie"
+                },
+                {
+                  "type": "text",
+                  "text": "(1867-1934)",
+                  "marks": [
+                    {
+                      "type": "em"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Albert Einstein"
+                },
+                {
+                  "type": "text",
+                  "text": "(1879-1955)",
+                  "marks": [
+                    {
+                      "type": "em"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "blockquote",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text":
+                "I do not think you can name many great inventions that have been made by married men."
+            },
+            {
+              "type": "text",
+              "text": "\n- Nikola Tesla",
+              "marks": [
+                {
+                  "type": "em"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "mediaSingle",
+      "attrs": {
+        "layout": "wrap-right"
+      },
+      "content": [
+        {
+          "type": "media",
+          "attrs": {
+            "id": "18bd8195-c510-4e48-be48-f19b87d33604",
+            "type": "file",
+            "collection": "MediaServicesSample",
+            "width": 2798,
+            "height": 4197
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text":
+            "Pellentesque finibus a purus eget interdum. Ut ac facilisis est. Aliquam nulla orci, rutrum quis lorem sed, dapibus congue est. Fusce finibus ex vel nisi porttitor venenatis."
+        }
+      ]
+    },
+    {
+      "type": "panel",
+      "attrs": {
+        "panelType": "info"
+      },
+      "content": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text":
+                "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "mediaSingle",
+      "attrs": {
+        "layout": "wrap-right"
+      },
+      "content": [
+        {
+          "type": "media",
+          "attrs": {
+            "id": "cf2e890f-fc00-4ac0-aac5-37ca0294c27d",
+            "type": "file",
+            "collection": "MediaServicesSample",
+            "width": 5979,
+            "height": 3986
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text":
+            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+        }
+      ]
+    },
+    {
+      "type": "rule"
+    },
+    {
+      "type": "mediaSingle",
+      "attrs": {
+        "layout": "wrap-left"
+      },
+      "content": [
+        {
+          "type": "media",
+          "attrs": {
+            "id": "eff24b3b-fe78-4787-805e-492b28991232",
+            "type": "file",
+            "collection": "MediaServicesSample",
+            "width": 2448,
+            "height": 1633
+          }
+        }
+      ]
+    },
+    {
+      "type": "table",
+      "content": [
+        {
+          "type": "tableRow",
+          "content": [
+            {
+              "type": "tableHeader",
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "Header content 1"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "tableHeader",
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "Header content 2"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "tableRow",
+          "content": [
+            {
+              "type": "tableCell",
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "Body content 1"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "tableCell",
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "Body content 2"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

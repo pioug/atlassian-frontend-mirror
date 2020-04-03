@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ADF => WikiMarkup - Heading It should convert level 2 heading 1`] = `"h2. some plain text"`;
+
+exports[`ADF => WikiMarkup - Heading should convert level 1 heading 1`] = `"h1. some plain text"`;
+
+exports[`ADF => WikiMarkup - Heading should convert level 3 heading 1`] = `"h3. some plain text"`;
+
+exports[`ADF => WikiMarkup - Heading should convert level 4 heading 1`] = `"h4. some plain text"`;
+
+exports[`ADF => WikiMarkup - Heading should convert level 5 heading 1`] = `"h5. some plain text"`;
+
+exports[`ADF => WikiMarkup - Heading should convert level 6 heading 1`] = `"h6. some plain text"`;

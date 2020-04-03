@@ -1,0 +1,69 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`status.ts: Insert status into panel, move cursor to right before panel, move right, and add text 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "panelType": "info",
+      },
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "text": "Some text",
+              "type": "text",
+            },
+            Object {
+              "attrs": Object {
+                "color": "neutral",
+                "localId": "abc-123",
+                "style": "",
+                "text": "DONE",
+              },
+              "type": "status",
+            },
+          ],
+          "type": "paragraph",
+        },
+      ],
+      "type": "panel",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`status.ts: Insert status into panel, move cursor to right before status, and add text 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "panelType": "info",
+      },
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "text": "Some text",
+              "type": "text",
+            },
+            Object {
+              "attrs": Object {
+                "color": "neutral",
+                "localId": "abc-123",
+                "style": "",
+                "text": "DONE",
+              },
+              "type": "status",
+            },
+          ],
+          "type": "paragraph",
+        },
+      ],
+      "type": "panel",
+    },
+  ],
+  "type": "doc",
+}
+`;

@@ -1,0 +1,85 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Hi, my name is... My name is... My name is... My name is "
+        },
+        {
+          "type": "mention",
+          "attrs": {
+            "id": "1",
+            "text": "@Oscar Wallhult",
+            "accessLevel": ""
+          }
+        },
+        {
+          "type": "text",
+          "text": " :D"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "This is a "
+        },
+        {
+          "type": "mention",
+          "attrs": {
+            "id": "2",
+            "text": "@mention",
+            "accessLevel": ""
+          }
+        },
+        {
+          "type": "text",
+          "text": ". And this is a broken "
+        },
+        {
+          "type": "mention",
+          "attrs": {
+            "id": "mention",
+            "text": "@unknown",
+            "accessLevel": ""
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Mentions with generic ids "
+        },
+        {
+          "type": "mention",
+          "attrs": {
+            "id": "here",
+            "text": "@here",
+            "accessLevel": "CONTAINER"
+          }
+        },
+        {
+          "type": "text",
+          "text": " "
+        },
+        {
+          "type": "mention",
+          "attrs": {
+            "id": "all",
+            "text": "@all",
+            "accessLevel": "CONTAINER"
+          }
+        }
+      ]
+    }
+  ]
+}

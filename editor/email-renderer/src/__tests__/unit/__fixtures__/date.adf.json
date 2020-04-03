@@ -1,0 +1,90 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "taskList",
+      "attrs": {
+        "localId": "7f265b7d-3354-4cae-9f08-4183f30c7144"
+      },
+      "content": [
+        {
+          "type": "taskItem",
+          "attrs": {
+            "localId": "8147a36c-76b5-4b3e-a506-1f0a66fa1c61",
+            "state": "TODO"
+          },
+          "content": [
+            {
+              "type": "date",
+              "attrs": {
+                "timestamp": "1551398400000"
+              }
+            },
+            {
+              "type": "text",
+              "text": " "
+            }
+          ]
+        },
+        {
+          "type": "taskItem",
+          "attrs": {
+            "localId": "0cc71266-1cdb-4540-9ca9-5d9a0bb4f063",
+            "state": "DONE"
+          },
+          "content": [
+            {
+              "type": "date",
+              "attrs": {
+                "timestamp": "1551398400000"
+              }
+            },
+            {
+              "type": "text",
+              "text": " "
+            }
+          ]
+        },
+        {
+          "type": "taskItem",
+          "attrs": {
+            "localId": "4048aac9-87d4-47a7-bfbd-b14b7270a28a",
+            "state": "TODO"
+          },
+          "content": [
+            {
+              "type": "date",
+              "attrs": {
+                "timestamp": "1556409600000"
+              }
+            },
+            {
+              "type": "text",
+              "text": " "
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "date",
+          "attrs": {
+            "timestamp": "1554163200000"
+          }
+        },
+        {
+          "type": "text",
+          "text": " "
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": []
+    }
+  ]
+}

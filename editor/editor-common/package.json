@@ -1,0 +1,77 @@
+{
+  "name": "@atlaskit/editor-common",
+  "version": "44.1.0",
+  "description": "A package that contains common classes and components for editor and renderer",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "author": "Atlassian Pty Ltd",
+  "license": "Apache-2.0",
+  "module": "dist/esm/index.js",
+  "main": "dist/cjs/index.js",
+  "types": "dist/cjs/index.d.ts",
+  "sideEffects": false,
+  "atlaskit:src": "src/index.ts",
+  "atlassian": {
+    "team": "Editor",
+    "releaseModel": "scheduled"
+  },
+  "dependencies": {
+    "@atlaskit/adf-schema": "^8.0.0",
+    "@atlaskit/adf-utils": "^9.0.0",
+    "@atlaskit/analytics-namespaced-context": "^4.1.11",
+    "@atlaskit/analytics-next": "^6.3.5",
+    "@atlaskit/emoji": "^62.7.1",
+    "@atlaskit/icon": "^20.1.0",
+    "@atlaskit/media-card": "^67.1.1",
+    "@atlaskit/media-client": "^6.0.0",
+    "@atlaskit/media-picker": "^54.0.0",
+    "@atlaskit/mention": "^18.18.0",
+    "@atlaskit/profilecard": "^12.4.0",
+    "@atlaskit/task-decision": "^16.0.9",
+    "@atlaskit/theme": "^9.5.1",
+    "@atlaskit/width-detector": "^2.0.10",
+    "@types/prosemirror-model": "^1.7.2",
+    "@types/prosemirror-state": "^1.2.0",
+    "@types/prosemirror-transform": "^1.1.0",
+    "@types/prosemirror-view": "^1.9.0",
+    "classnames": "^2.2.5",
+    "css-color-names": "0.0.4",
+    "date-fns": "^1.30.1",
+    "prosemirror-model": "^1.7.0",
+    "prosemirror-state": "^1.2.2",
+    "prosemirror-transform": "^1.1.6",
+    "prosemirror-view": "^1.9.12",
+    "raf-schd": "^2.1.0",
+    "react-loadable": "^5.1.0"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0",
+    "react-intl": "^2.6.0",
+    "styled-components": "^3.2.6"
+  },
+  "devDependencies": {
+    "@atlaskit/editor-json-transformer": "^7.0.9",
+    "@atlaskit/editor-test-helpers": "^11.0.0",
+    "@atlaskit/media-core": "^31.1.0",
+    "@atlaskit/util-data-test": "^13.1.2",
+    "@atlaskit/visual-regression": "^0.1.9",
+    "@atlaskit/webdriver-runner": "^0.3.0",
+    "@types/chai": "^4.0.4",
+    "chai": "^4.1.2",
+    "enzyme": "^3.10.0",
+    "raf-stub": "^2.0.1",
+    "react": "^16.8.0",
+    "react-test-renderer": "^16.8.0",
+    "sinon": "^2.2.0"
+  },
+  "techstack": {
+    "@atlassian/frontend": {
+      "circular-dependencies": [
+        "file-level"
+      ]
+    }
+  }
+}

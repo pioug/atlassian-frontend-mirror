@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`inline-1.ts: pasting an link converts to inline card 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "here is a link ",
+          "type": "text",
+        },
+        Object {
+          "attrs": Object {
+            "data": Object {
+              "@context": "https://www.w3.org/ns/activitystreams",
+              "@type": "Document",
+              "name": "Welcome to Atlassian!",
+              "url": "http://www.atlassian.com",
+            },
+            "url": null,
+          },
+          "type": "inlineCard",
+        },
+        Object {
+          "text": "  hello ",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;

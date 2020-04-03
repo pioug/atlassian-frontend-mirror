@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`type-ahead.ts: Sends correct typing events 1`] = `
+Array [
+  Object {
+    "query": "",
+    "trigger": "@",
+  },
+  Object {
+    "query": "i",
+    "trigger": "@",
+  },
+  Object {
+    "query": "id",
+    "trigger": "@",
+  },
+  Object {
+    "query": "ido",
+    "trigger": "@",
+  },
+  Object {
+    "query": "idon",
+    "trigger": "@",
+  },
+  Object {
+    "query": "idont",
+    "trigger": "@",
+  },
+  Object {
+    "query": "idonte",
+    "trigger": "@",
+  },
+  Object {
+    "query": "idontex",
+    "trigger": "@",
+  },
+  Object {
+    "query": "idontexi",
+    "trigger": "@",
+  },
+  Object {
+    "query": "idontexis",
+    "trigger": "@",
+  },
+  Object {
+    "query": "idontexist",
+    "trigger": "@",
+  },
+]
+`;

@@ -1,0 +1,141 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`JIRA wiki markup - headings [CS-310] should ignore heading text when fails to create a heading 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "panelType": "info",
+      },
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "text": "nothing",
+              "type": "text",
+            },
+          ],
+          "type": "paragraph",
+        },
+      ],
+      "type": "panel",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - headings [CS-572] should not need a whitespace 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "level": 1,
+      },
+      "content": Array [
+        Object {
+          "text": "this is a heading node",
+          "type": "text",
+        },
+      ],
+      "type": "heading",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - headings should allow heading inside panel 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "panelType": "info",
+      },
+      "content": Array [
+        Object {
+          "attrs": Object {
+            "level": 1,
+          },
+          "content": Array [
+            Object {
+              "text": "heading",
+              "type": "text",
+            },
+          ],
+          "type": "heading",
+        },
+      ],
+      "type": "panel",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - headings should convert string with heading in it 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "This is a string.",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "attrs": Object {
+        "level": 1,
+      },
+      "content": Array [
+        Object {
+          "text": "Boom! this is a heading with ",
+          "type": "text",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "type": "strong",
+            },
+          ],
+          "text": "bold",
+          "type": "text",
+        },
+        Object {
+          "text": " text in it",
+          "type": "text",
+        },
+      ],
+      "type": "heading",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - headings should treat h7 as usual text inside macro 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "panelType": "info",
+      },
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "text": "h7. heading",
+              "type": "text",
+            },
+          ],
+          "type": "paragraph",
+        },
+      ],
+      "type": "panel",
+    },
+  ],
+  "type": "doc",
+}
+`;

@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ADF => WikiMarkup - Status should convert status node with neutral color 1`] = `"This document is already {color:grey}*[ GREY ]*{color}"`;
+
+exports[`ADF => WikiMarkup - Status should convert status node with same color 1`] = `"This document is already {color:red}*[ FINISHED ]*{color}"`;

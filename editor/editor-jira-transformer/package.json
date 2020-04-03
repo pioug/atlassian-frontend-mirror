@@ -1,0 +1,43 @@
+{
+  "name": "@atlaskit/editor-jira-transformer",
+  "version": "7.2.22",
+  "description": "Editor JIRA transformer's",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "author": "Atlassian Pty Ltd",
+  "license": "Apache-2.0",
+  "module": "dist/esm/index.js",
+  "main": "dist/cjs/index.js",
+  "types": "dist/cjs/index.d.ts",
+  "sideEffects": false,
+  "atlaskit:src": "src/index.ts",
+  "atlassian": {
+    "team": "Editor",
+    "releaseModel": "scheduled",
+    "website": {
+      "name": "Editor Jira Transformer"
+    }
+  },
+  "dependencies": {
+    "@atlaskit/adf-schema": "^8.0.0",
+    "@atlaskit/editor-common": "^44.1.0",
+    "collapse-whitespace": "^1.1.6",
+    "prosemirror-model": "^1.7.0"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0"
+  },
+  "devDependencies": {
+    "@atlaskit/activity": "^1.0.1",
+    "@atlaskit/docs": "^8.5.0",
+    "@atlaskit/editor-core": "^120.0.0",
+    "@atlaskit/editor-json-transformer": "^7.0.9",
+    "@atlaskit/editor-test-helpers": "^11.0.0",
+    "@atlaskit/theme": "^9.5.1",
+    "@atlaskit/util-data-test": "^13.1.2",
+    "@types/prosemirror-model": "^1.7.2",
+    "styled-components": "^3.2.6"
+  }
+}

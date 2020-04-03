@@ -1,0 +1,342 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`JSONTransformer: encode should serialize common nodes/marks as ProseMirror does 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "marks": Array [
+            Object {
+              "type": "strong",
+            },
+          ],
+          "text": ">",
+          "type": "text",
+        },
+        Object {
+          "text": " Atlassian: ",
+          "type": "text",
+        },
+        Object {
+          "type": "hardBreak",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "attrs": Object {
+                "href": "https://atlassian.com",
+              },
+              "type": "link",
+            },
+          ],
+          "text": "Atlassian",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "marks": Array [
+            Object {
+              "type": "em",
+            },
+          ],
+          "text": "hello",
+          "type": "text",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "type": "underline",
+            },
+          ],
+          "text": "world",
+          "type": "text",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "type": "code",
+            },
+          ],
+          "text": "!",
+          "type": "text",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "attrs": Object {
+                "type": "sub",
+              },
+              "type": "subsup",
+            },
+          ],
+          "text": "sub",
+          "type": "text",
+        },
+        Object {
+          "text": "plain text",
+          "type": "text",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "type": "strike",
+            },
+          ],
+          "text": "hey",
+          "type": "text",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "attrs": Object {
+                "color": "red",
+              },
+              "type": "textColor",
+            },
+          ],
+          "text": "Red :D",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "content": Array [
+                Object {
+                  "text": "ichi",
+                  "type": "text",
+                },
+              ],
+              "type": "paragraph",
+            },
+          ],
+          "type": "listItem",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "content": Array [
+                Object {
+                  "text": "ni",
+                  "type": "text",
+                },
+              ],
+              "type": "paragraph",
+            },
+          ],
+          "type": "listItem",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "content": Array [
+                Object {
+                  "text": "san",
+                  "type": "text",
+                },
+              ],
+              "type": "paragraph",
+            },
+          ],
+          "type": "listItem",
+        },
+      ],
+      "type": "bulletList",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "content": Array [
+                Object {
+                  "text": "ek",
+                  "type": "text",
+                },
+              ],
+              "type": "paragraph",
+            },
+          ],
+          "type": "listItem",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "content": Array [
+                Object {
+                  "text": "dui",
+                  "type": "text",
+                },
+              ],
+              "type": "paragraph",
+            },
+          ],
+          "type": "listItem",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "content": Array [
+                Object {
+                  "text": "tin",
+                  "type": "text",
+                },
+              ],
+              "type": "paragraph",
+            },
+          ],
+          "type": "listItem",
+        },
+      ],
+      "type": "orderedList",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "text": "1",
+              "type": "text",
+            },
+          ],
+          "type": "paragraph",
+        },
+      ],
+      "type": "blockquote",
+    },
+    Object {
+      "attrs": Object {
+        "level": 1,
+      },
+      "content": Array [
+        Object {
+          "text": "H1",
+          "type": "text",
+        },
+      ],
+      "type": "heading",
+    },
+    Object {
+      "attrs": Object {
+        "level": 2,
+      },
+      "content": Array [
+        Object {
+          "text": "H2",
+          "type": "text",
+        },
+      ],
+      "type": "heading",
+    },
+    Object {
+      "attrs": Object {
+        "level": 3,
+      },
+      "content": Array [
+        Object {
+          "text": "H3",
+          "type": "text",
+        },
+      ],
+      "type": "heading",
+    },
+    Object {
+      "attrs": Object {
+        "level": 4,
+      },
+      "content": Array [
+        Object {
+          "text": "H4",
+          "type": "text",
+        },
+      ],
+      "type": "heading",
+    },
+    Object {
+      "attrs": Object {
+        "level": 5,
+      },
+      "content": Array [
+        Object {
+          "text": "H5",
+          "type": "text",
+        },
+      ],
+      "type": "heading",
+    },
+    Object {
+      "attrs": Object {
+        "level": 6,
+      },
+      "content": Array [
+        Object {
+          "text": "H6",
+          "type": "text",
+        },
+      ],
+      "type": "heading",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "attrs": Object {
+            "id": "",
+            "shortName": ":joy:",
+            "text": "",
+          },
+          "type": "emoji",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "attrs": Object {
+        "panelType": "info",
+      },
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "text": "hello from panel",
+              "type": "text",
+            },
+          ],
+          "type": "paragraph",
+        },
+      ],
+      "type": "panel",
+    },
+    Object {
+      "attrs": Object {
+        "panelType": "note",
+      },
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "text": "hello from note panel",
+              "type": "text",
+            },
+          ],
+          "type": "paragraph",
+        },
+      ],
+      "type": "panel",
+    },
+    Object {
+      "type": "rule",
+    },
+  ],
+  "type": "doc",
+  "version": 1,
+}
+`;

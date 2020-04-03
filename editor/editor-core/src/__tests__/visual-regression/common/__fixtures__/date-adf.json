@@ -1,0 +1,291 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "date",
+          "attrs": {
+            "timestamp": "1559779200000"
+          }
+        }
+      ]
+    },
+    {
+      "type": "panel",
+      "attrs": {
+        "panelType": "info"
+      },
+      "content": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "date",
+              "attrs": {
+                "timestamp": "1559779200000"
+              }
+            },
+            {
+              "type": "date",
+              "attrs": {
+                "timestamp": "1559779200000"
+              }
+            },
+            {
+              "type": "date",
+              "attrs": {
+                "timestamp": "1559779200000"
+              }
+            },
+            {
+              "type": "date",
+              "attrs": {
+                "timestamp": "1559779200000"
+              }
+            },
+            {
+              "type": "date",
+              "attrs": {
+                "timestamp": "1559779200000"
+              }
+            },
+            {
+              "type": "date",
+              "attrs": {
+                "timestamp": "1559779200000"
+              }
+            },
+            {
+              "type": "date",
+              "attrs": {
+                "timestamp": "1559779200000"
+              }
+            },
+            {
+              "type": "date",
+              "attrs": {
+                "timestamp": "1559779200000"
+              }
+            },
+            {
+              "type": "date",
+              "attrs": {
+                "timestamp": "1559779200000"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "layoutSection",
+      "content": [
+        {
+          "type": "layoutColumn",
+          "attrs": {
+            "width": 50
+          },
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "date",
+                  "attrs": {
+                    "timestamp": "1559779200000"
+                  }
+                },
+                {
+                  "type": "date",
+                  "attrs": {
+                    "timestamp": "1559779200000"
+                  }
+                },
+                {
+                  "type": "date",
+                  "attrs": {
+                    "timestamp": "1559779200000"
+                  }
+                },
+                {
+                  "type": "date",
+                  "attrs": {
+                    "timestamp": "1559779200000"
+                  }
+                },
+                {
+                  "type": "date",
+                  "attrs": {
+                    "timestamp": "1559779200000"
+                  }
+                },
+                {
+                  "type": "date",
+                  "attrs": {
+                    "timestamp": "1559779200000"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "layoutColumn",
+          "attrs": {
+            "width": 50
+          },
+          "content": [
+            {
+              "type": "bulletList",
+              "content": [
+                {
+                  "type": "listItem",
+                  "content": [
+                    {
+                      "type": "paragraph",
+                      "content": [
+                        {
+                          "type": "date",
+                          "attrs": {
+                            "timestamp": "1559779200000"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "decisionList",
+              "attrs": {
+                "localId": "5d23a099-26f7-4802-bae6-239aff307d00"
+              },
+              "content": [
+                {
+                  "type": "decisionItem",
+                  "attrs": {
+                    "localId": "2ad245b2-868f-4058-a1a6-2a52173f3e9c",
+                    "state": "DECIDED"
+                  },
+                  "content": [
+                    {
+                      "type": "date",
+                      "attrs": {
+                        "timestamp": "1559779200000"
+                      }
+                    },
+                    {
+                      "type": "text",
+                      "text": "   "
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "table",
+      "attrs": {
+        "isNumberColumnEnabled": false,
+        "layout": "default"
+      },
+      "content": [
+        {
+          "type": "tableRow",
+          "content": [
+            {
+              "type": "tableCell",
+              "attrs": {},
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": []
+                }
+              ]
+            },
+            {
+              "type": "tableCell",
+              "attrs": {},
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": []
+                }
+              ]
+            },
+            {
+              "type": "tableCell",
+              "attrs": {},
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": [
+                    {
+                      "type": "date",
+                      "attrs": {
+                        "timestamp": "1559779200000"
+                      }
+                    },
+                    {
+                      "type": "date",
+                      "attrs": {
+                        "timestamp": "1559779200000"
+                      }
+                    },
+                    {
+                      "type": "date",
+                      "attrs": {
+                        "timestamp": "1559779200000"
+                      }
+                    },
+                    {
+                      "type": "date",
+                      "attrs": {
+                        "timestamp": "1559779200000"
+                      }
+                    },
+                    {
+                      "type": "date",
+                      "attrs": {
+                        "timestamp": "1559779200000"
+                      }
+                    },
+                    {
+                      "type": "date",
+                      "attrs": {
+                        "timestamp": "1559779200000"
+                      }
+                    },
+                    {
+                      "type": "date",
+                      "attrs": {
+                        "timestamp": "1559779200000"
+                      }
+                    },
+                    {
+                      "type": "date",
+                      "attrs": {
+                        "timestamp": "1559779200000"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": []
+    }
+  ]
+}

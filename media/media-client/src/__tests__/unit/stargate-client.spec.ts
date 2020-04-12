@@ -1,4 +1,4 @@
-import fetchMock from 'fetch-mock';
+import fetchMock from 'fetch-mock/cjs/client';
 import { StargateClient } from '../../client/stargate-client';
 
 describe('StargateClient', () => {

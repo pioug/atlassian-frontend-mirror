@@ -38,6 +38,10 @@ export const mediaStyles = css`
       }
     }
 
+    .mediaSingleView-content-wrap[layout^='wrap-'] {
+      max-width: 100%;
+    }
+
     .mediaSingleView-content-wrap[layout='wrap-left'] {
       float: left;
     }

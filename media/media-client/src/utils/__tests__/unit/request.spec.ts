@@ -1,4 +1,4 @@
-import fetchMock from 'fetch-mock';
+import fetchMock from 'fetch-mock/cjs/client';
 
 import { request } from '../../request';
 

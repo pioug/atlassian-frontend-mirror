@@ -54,7 +54,7 @@
     "@atlaskit/toggle": "^8.1.6",
     "@atlaskit/visual-regression": "^0.1.9",
     "enzyme": "^3.10.0",
-    "fetch-mock": "^7.3.3",
+    "fetch-mock": "^8.0.0",
     "jest-in-case": "^1.0.2",
     "react-dom": "^16.8.0",
     "react-intl": "^2.6.0",

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import fetchMock from 'fetch-mock';
+import fetchMock from 'fetch-mock/cjs/client';
 import EmojiAtlassianIcon from '@atlaskit/icon/glyph/emoji/atlassian';
 import Button from '@atlaskit/button';
 import Tag from '@atlaskit/tag';

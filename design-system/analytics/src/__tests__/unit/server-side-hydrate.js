@@ -11,7 +11,7 @@ afterEach(() => {
 });
 
 test('should ssr then hydrate analytics correctly', async () => {
-  const [example] = await getExamplesFor('analytics');
+  const [example] = await getExamplesFor('@atlaskit/analytics');
 
   const Example = require(example.filePath).default; // eslint-disable-line import/no-dynamic-require
 

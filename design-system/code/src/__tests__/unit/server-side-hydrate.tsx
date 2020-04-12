@@ -13,7 +13,7 @@ afterEach(() => {
 });
 
 test('should ssr then hydrate code correctly', async () => {
-  const [example] = await getExamplesFor('code');
+  const [example] = await getExamplesFor('@atlaskit/code');
 
   const Example = require(example.filePath).default; // eslint-disable-line import/no-dynamic-require
 

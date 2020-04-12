@@ -1,4 +1,4 @@
-import fetchMock from 'fetch-mock/src/client';
+import fetchMock from 'fetch-mock/cjs/client';
 import ServiceProvider from '../../provider/service-provider';
 import {
   docId,

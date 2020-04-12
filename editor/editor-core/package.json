@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-core",
-  "version": "120.1.0",
+  "version": "120.1.2",
   "description": "A package contains Atlassian editor core functionality",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -55,7 +55,6 @@
     "@atlaskit/media-filmstrip": "^38.0.0",
     "@atlaskit/media-picker": "^54.0.0",
     "@atlaskit/mention": "^18.18.0",
-    "@atlaskit/menu": "^0.3.1",
     "@atlaskit/modal-dialog": "^10.5.5",
     "@atlaskit/radio": "^3.2.0",
     "@atlaskit/select": "^11.0.9",
@@ -128,6 +127,7 @@
     "@atlaskit/media-core": "^31.1.0",
     "@atlaskit/media-integration-test-helpers": "^1.1.1",
     "@atlaskit/media-test-helpers": "^27.1.0",
+    "@atlaskit/menu": "^0.3.1",
     "@atlaskit/profilecard": "^12.4.0",
     "@atlaskit/pubsub": "^5.0.11",
     "@atlaskit/renderer": "^56.0.0",
@@ -147,7 +147,7 @@
     "clipboard-polyfill": "2.4.3",
     "diff": "^4.0.1",
     "enzyme": "^3.10.0",
-    "fetch-mock": "^7.3.3",
+    "fetch-mock": "^8.0.0",
     "jest-sandbox": "^1.1.1",
     "prettier": "^1.19.1",
     "prosemirror-dev-tools": "^2.1.0",

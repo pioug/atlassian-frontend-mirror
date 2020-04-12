@@ -1,5 +1,19 @@
 # @atlaskit/editor-mobile-bridge
 
+## 12.0.3
+
+### Patch Changes
+
+- Updated dependencies [a93083ffe9](https://bitbucket.org/atlassian/atlassian-frontend/commits/a93083ffe9):
+  - @atlaskit/editor-core@120.1.2
+
+## 12.0.2
+
+### Patch Changes
+
+- Updated dependencies [78ef636956](https://bitbucket.org/atlassian/atlassian-frontend/commits/78ef636956):
+  - @atlaskit/editor-core@120.1.1
+
 ## 12.0.1
 
 ### Patch Changes

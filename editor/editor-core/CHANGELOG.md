@@ -1,5 +1,21 @@
 # @atlaskit/editor-core
 
+## 120.1.2
+
+### Patch Changes
+
+- [patch][a93083ffe9](https://bitbucket.org/atlassian/atlassian-frontend/commits/a93083ffe9):
+
+  Remove @atlaskit/menu as a dependency and list as a devDependency instead.
+
+## 120.1.1
+
+### Patch Changes
+
+- [patch][78ef636956](https://bitbucket.org/atlassian/atlassian-frontend/commits/78ef636956):
+
+  EDM-541: Fix media wrapping inside block nodes
+
 ## 120.1.0
 
 ### Minor Changes

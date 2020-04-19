@@ -1,5 +1,13 @@
 # @atlaskit/page-layout
 
+## 0.1.2
+
+### Patch Changes
+
+- [patch][ca947bd6da](https://bitbucket.org/atlassian/atlassian-frontend/commits/ca947bd6da):
+
+  Prevent left sidebar from jumping when moving the mouse
+
 ## 0.1.1
 
 ### Patch Changes

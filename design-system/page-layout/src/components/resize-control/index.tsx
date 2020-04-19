@@ -24,7 +24,10 @@ const Shadow = ({ testId }: { testId?: string }) => (
 
 const ResizeControl = ({ testId }: { testId?: string }) => {
   const x = useRef(0);
+  // Distance of mouse from left sidebar onMouseDown
+  let offset = useRef(0);
   const [isDragFinished, setIsDragFinished] = useState(true);
+
   const {
     isLeftSidebarCollapsed,
     expandLeftSidebar,
@@ -52,17 +55,16 @@ const ResizeControl = ({ testId }: { testId?: string }) => {
     if (invalidDrag) {
       cancelDrag(true);
     }
-
     const delta = Math.max(
       Math.min(
-        event.pageX - leftSidebarWidth - leftPanelWidth,
+        event.clientX - leftSidebarWidth - leftPanelWidth,
         maxWidth - leftSidebarWidth - leftPanelWidth,
       ),
       COLLAPSED_LEFT_SIDEBAR_WIDTH - leftSidebarWidth - leftPanelWidth,
     );
 
     x.current = Math.max(
-      leftSidebarWidth + delta,
+      leftSidebarWidth + delta - offset.current,
       COLLAPSED_LEFT_SIDEBAR_WIDTH,
     );
 
@@ -76,6 +78,7 @@ const ResizeControl = ({ testId }: { testId?: string }) => {
 
     onMouseMove.cancel();
     x.current = 0;
+    offset.current = 0;
     document.removeEventListener('mousemove', onMouseMove);
     document.removeEventListener('mouseup', onMouseUp);
 
@@ -97,6 +100,10 @@ const ResizeControl = ({ testId }: { testId?: string }) => {
   const onMouseDown = (event: ReactMouseEvent<HTMLDivElement>) => {
     if (isLeftSidebarCollapsed) return;
 
+    const leftSidebarWidth = getLeftSidebarWidth();
+    const leftPanelWidth = getLeftPanelWidth();
+    offset.current = event.clientX - leftSidebarWidth - leftPanelWidth;
+
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
     document.documentElement.setAttribute(IS_SIDEBAR_DRAGGING, 'true');
@@ -108,6 +115,7 @@ const ResizeControl = ({ testId }: { testId?: string }) => {
     document.removeEventListener('mouseup', onMouseUp);
     document.documentElement.removeAttribute(IS_SIDEBAR_DRAGGING);
     requestAnimationFrame(() => setIsDragFinished(true));
+    offset.current = 0;
 
     shouldCollapse ? collapseLeftSidebar() : expandLeftSidebar();
   };

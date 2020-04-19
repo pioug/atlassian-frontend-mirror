@@ -97,6 +97,69 @@ describe('<ResizeControl />', () => {
       expect(getDimension('leftSidebarWidth')).toEqual('20px');
     });
 
+    it('should move the LeftSidebar when GrabArea is clicked and moved in expanded state', () => {
+      const { getByTestId } = render(
+        <PageLayout testId="grid">
+          <Content>
+            <LeftSidebar testId="left-sidebar" width={200}>
+              LeftSidebar
+              <ResizeControl testId="left-sidebar" />
+            </LeftSidebar>
+            <Main testId="content">Main</Main>
+          </Content>
+        </PageLayout>,
+      );
+      const handle: HTMLElement = getByTestId('left-sidebar-grab-area');
+
+      fireEvent.mouseDown(handle, { clientX: 200 });
+      fireEvent.mouseMove(document, {
+        clientX: 250,
+        clientY: 0,
+      });
+      completeAnimations();
+
+      expect(getDimension('leftSidebarWidth')).toEqual('250px');
+
+      fireEvent.mouseUp(handle);
+      completeAnimations();
+    });
+
+    it('should move the LeftSidebar when GrabArea is clicked to the right and moved in expanded state', () => {
+      const { getByTestId } = render(
+        <PageLayout testId="grid">
+          <Content>
+            <LeftSidebar testId="left-sidebar" width={200}>
+              LeftSidebar
+              <ResizeControl testId="left-sidebar" />
+            </LeftSidebar>
+            <Main testId="content">Main</Main>
+          </Content>
+        </PageLayout>,
+      );
+      const handle: HTMLElement = getByTestId('left-sidebar-grab-area');
+
+      // Click 10px to the right of the the left sidebar
+      fireEvent.mouseDown(handle, { clientX: 210 });
+      fireEvent.mouseMove(document, {
+        clientX: 210,
+        clientY: 0,
+      });
+      completeAnimations();
+
+      expect(getDimension('leftSidebarWidth')).toEqual('200px');
+
+      fireEvent.mouseMove(document, {
+        clientX: 250,
+        clientY: 0,
+      });
+      completeAnimations();
+
+      expect(getDimension('leftSidebarWidth')).toEqual('240px');
+
+      fireEvent.mouseUp(handle);
+      completeAnimations();
+    });
+
     it('should update leftSidebarWidth in localStorage on collapse', () => {
       const { getByTestId } = render(
         <PageLayout testId="grid">

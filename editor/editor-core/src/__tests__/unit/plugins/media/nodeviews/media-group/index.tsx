@@ -1,27 +1,27 @@
 // NOTE: for the purposes of this test we are mocking MediaNodeUpdater using __mocks__ version
-import { MediaPluginState } from '../../../../../../plugins/media/pm-plugins/types';
-
-jest.mock('../../../../../../plugins/media/nodeviews/mediaNodeUpdater');
-// NOTE: Mocking the setNodeSelection function
-import * as Utils from '../../../../../../utils/';
-(Utils as any).setNodeSelection = jest.fn();
-import React from 'react';
-import { mount } from 'enzyme';
-import { EditorView } from 'prosemirror-view';
+import { defaultSchema } from '@atlaskit/adf-schema';
 import { fakeMediaProvider } from '@atlaskit/editor-test-helpers/media-provider';
 import {
-  mediaGroup,
   media,
+  mediaGroup,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { nextTick } from '@atlaskit/media-test-helpers';
-import { defaultSchema } from '@atlaskit/adf-schema';
-import {
-  stateKey as mediaStateKey,
-  MediaProvider,
-} from '../../../../../../plugins/media/pm-plugins/main';
+import { mount } from 'enzyme';
+import { EditorView } from 'prosemirror-view';
+import React from 'react';
 import MediaGroup from '../../../../../../plugins/media/nodeviews/mediaGroup';
-import { EditorAppearance } from '../../../../../../types';
 import { MediaNodeUpdater } from '../../../../../../plugins/media/nodeviews/mediaNodeUpdater';
+import {
+  MediaProvider,
+  stateKey as mediaStateKey,
+} from '../../../../../../plugins/media/pm-plugins/main';
+import { MediaPluginState } from '../../../../../../plugins/media/pm-plugins/types';
+import { EditorAppearance } from '../../../../../../types';
+// NOTE: Mocking the setNodeSelection function
+import * as Utils from '../../../../../../utils/';
+
+jest.mock('../../../../../../plugins/media/nodeviews/mediaNodeUpdater');
+(Utils as any).setNodeSelection = jest.fn();
 
 const MockMediaNodeUpdater = MediaNodeUpdater as jest.Mock<MediaNodeUpdater>;
 
@@ -31,6 +31,12 @@ describe('nodeviews/mediaGroup', () => {
 
   const mediaNode = media({
     id: 'foo',
+    type: 'file',
+    collection: 'collection',
+  })();
+
+  const mediaNode2 = media({
+    id: 'foo2',
     type: 'file',
     collection: 'collection',
   })();
@@ -53,10 +59,16 @@ describe('nodeviews/mediaGroup', () => {
     MockMediaNodeUpdater.mockReset(); // part of mocked class API, not original
   });
 
-  const setup = async (node: any) => {
+  const setup = async ({
+    nodes = [mediaNode],
+    propOverrides = {},
+  }: {
+    nodes?: any[];
+    propOverrides?: any;
+  }) => {
     pluginState.getMediaOptions = () => ({ customMediaPicker: {} } as any);
 
-    const mediaGroupNode = mediaGroup(node);
+    const mediaGroupNode = mediaGroup(...nodes);
     const getPos = jest.fn().mockReturnValue(1);
     const props = {
       view: view,
@@ -65,6 +77,9 @@ describe('nodeviews/mediaGroup', () => {
       selected: null,
       editorAppearance: 'full-page' as EditorAppearance,
       mediaProvider,
+      headPos: 1,
+      anchorPos: 1,
+      ...propOverrides,
     };
 
     const wrapper = mount(<MediaGroup {...props} />);
@@ -89,6 +104,8 @@ describe('nodeviews/mediaGroup', () => {
       selected: null,
       editorAppearance: 'full-page' as EditorAppearance,
       mediaProvider,
+      headPos: 1,
+      anchorPos: 1,
     };
 
     const wrapper = mount(<MediaGroup {...props} />);
@@ -97,24 +114,64 @@ describe('nodeviews/mediaGroup', () => {
   });
 
   it('should get the position on component click', async () => {
-    const { wrapper, getPos } = await setup(mediaNode);
+    const { wrapper, getPos } = await setup({});
     const calledTimes = getPos.mock.calls.length;
     wrapper.find('AsyncCard').prop('onClick')!({} as any);
     expect(getPos).toHaveBeenCalledTimes(calledTimes + 1);
+  });
+
+  describe('Selection range with multiple cards', () => {
+    let wrapper: any;
+
+    beforeEach(async () => {
+      const { wrapper: nodeWrapper } = await setup({
+        nodes: [mediaNode, mediaNode2],
+      });
+      wrapper = nodeWrapper;
+    });
+
+    const getCards = (wrapper: any) => [
+      wrapper.find('AsyncCard').at(0),
+      wrapper.find('AsyncCard').at(1),
+    ];
+
+    it('clicking first card will select first card', () => {
+      wrapper.setProps({ anchorPos: 2, headPos: 3 });
+
+      const [card1, card2] = getCards(wrapper);
+      expect(card1.props().selected).toBeTruthy();
+      expect(card2.props().selected).toBeFalsy();
+    });
+
+    it('clicking second card will select second card', () => {
+      wrapper.setProps({ anchorPos: 3, headPos: 4 });
+
+      const [card1, card2] = getCards(wrapper);
+      expect(card1.props().selected).toBeFalsy();
+      expect(card2.props().selected).toBeTruthy();
+    });
+
+    it('selecting range around cards will select both cards', () => {
+      wrapper.setProps({ anchorPos: 0, headPos: 6 });
+
+      const [card1, card2] = getCards(wrapper);
+      expect(card1.props().selected).toBeTruthy();
+      expect(card2.props().selected).toBeTruthy();
+    });
   });
 
   describe('MediaNodeUpdater', () => {
     const instances: MediaNodeUpdater[] = (MediaNodeUpdater as any).instances;
 
     it('should create a MediaNodeUpdater for each child node', async () => {
-      await setup(mediaNode);
+      await setup({});
 
       expect(instances).toHaveLength(1);
       expect(instances[0].copyNode).toHaveBeenCalled();
     });
 
     it('should not create a MediaNodeUpdater when node is external', async () => {
-      await setup(externalMediaNode);
+      await setup({ nodes: [externalMediaNode] });
 
       expect(instances).toHaveLength(0);
     });
@@ -124,7 +181,7 @@ describe('nodeviews/mediaGroup', () => {
         'getNodeContextId',
         jest.fn().mockReturnValue(undefined),
       );
-      await setup(mediaNode);
+      await setup({});
 
       expect(instances[0].updateContextId).toHaveBeenCalled();
     });
@@ -134,14 +191,14 @@ describe('nodeviews/mediaGroup', () => {
         'hasDifferentContextId',
         jest.fn().mockResolvedValue(false),
       );
-      await setup(mediaNode);
+      await setup({});
 
       expect(instances).toHaveLength(1);
       expect(instances[0].copyNode).not.toHaveBeenCalled();
     });
 
     it('should update node attrs when props change', async () => {
-      const { wrapper } = await setup(mediaNode);
+      const { wrapper } = await setup({});
 
       wrapper.setProps({
         selected: 1,

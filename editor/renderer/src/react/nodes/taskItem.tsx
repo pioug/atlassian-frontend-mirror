@@ -11,6 +11,7 @@ export interface Props {
   state?: string;
   providers?: ProviderFactory;
   children?: ReactNode;
+  disabled?: boolean;
 }
 
 export default class TaskItem extends PureComponent<Props, {}> {
@@ -31,7 +32,7 @@ export default class TaskItem extends PureComponent<Props, {}> {
 
   private renderWithProvider = (providers: any) => {
     const { taskDecisionProvider, contextIdentifierProvider } = providers;
-    const { children, localId, state, rendererContext } = this.props;
+    const { children, localId, state, rendererContext, disabled } = this.props;
     let objectAri = '';
     if (rendererContext) {
       objectAri = rendererContext.objectAri || '';
@@ -47,6 +48,7 @@ export default class TaskItem extends PureComponent<Props, {}> {
           objectAri={objectAri}
           taskId={localId}
           isDone={state === 'DONE'}
+          disabled={disabled}
           taskDecisionProvider={taskDecisionProvider}
           contextIdentifierProvider={contextIdentifierProvider}
         >

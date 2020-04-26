@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { RatingGroup, Star } from '../src';
 
 export default () => {

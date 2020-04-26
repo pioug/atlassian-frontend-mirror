@@ -1,10 +1,10 @@
 import {
+  ComponentType,
   CSSProperties,
   Dispatch,
   ReactNode,
   Ref,
   SetStateAction,
-  ComponentType,
 } from 'react';
 
 import { Placement } from '@atlaskit/popper';

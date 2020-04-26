@@ -1,17 +1,20 @@
 /* eslint-disable react/prop-types */
-import React, { Fragment, Component } from 'react';
+import React, { Component, Fragment } from 'react';
+
 import {
-  withAnalyticsEvents,
-  withAnalyticsContext,
   createAndFireEvent,
+  withAnalyticsContext,
+  withAnalyticsEvents,
 } from '@atlaskit/analytics-next';
+
+import { TreeRowContainer } from '../styled';
+import toItemId from '../utils/toItemId';
 import {
   name as packageName,
   version as packageVersion,
 } from '../version.json';
-import { TreeRowContainer } from '../styled';
+
 import Chevron from './Chevron';
-import toItemId from '../utils/toItemId';
 
 class Row extends Component {
   state = { isExpanded: this.props.isDefaultExpanded || false };

@@ -1,5 +1,6 @@
 import React from 'react';
-import { md, Example } from '@atlaskit/docs';
+
+import { Example, md } from '@atlaskit/docs';
 
 import SimpleFacadeExample from '../examples/single-component';
 

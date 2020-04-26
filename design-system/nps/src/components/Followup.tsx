@@ -1,10 +1,12 @@
 import React, { ReactNode } from 'react';
+
 import Button from '@atlaskit/button';
-import DropdownMenu, { DropdownItem } from '@atlaskit/dropdown-menu';
 import { Checkbox } from '@atlaskit/checkbox';
-import { Role, AllowContact } from './NPS';
-import { Header, Description } from './common';
-import { Wrapper, ButtonWrapper } from './styled/common';
+import DropdownMenu, { DropdownItem } from '@atlaskit/dropdown-menu';
+
+import { Description, Header } from './common';
+import { AllowContact, Role } from './NPS';
+import { ButtonWrapper, Wrapper } from './styled/common';
 import { Contact, RoleQuestion } from './styled/followup';
 
 export const RoleDropdown = ({

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+
 import { colors } from '@atlaskit/theme';
 
-import { SortableItem, SortableGroup, SortableContext } from '../src';
+import { SortableContext, SortableGroup, SortableItem } from '../src';
 import { CONTENT_NAV_WIDTH } from '../src/common/constants';
 
 const SectionWrapper = props => (

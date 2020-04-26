@@ -1,43 +1,47 @@
-import Select, {
-  CreatableSelect,
-  components,
-  mergeStyles,
-  StylesConfig,
-  MenuProps,
-  OptionType,
-  SelectProps,
-} from '@atlaskit/select';
+import React, { CSSProperties } from 'react';
+
+// eslint-disable-next-line no-restricted-imports
+import { format, isValid } from 'date-fns';
+import pick from 'lodash.pick';
+
+import {
+  createAndFireEvent,
+  withAnalyticsContext,
+  withAnalyticsEvents,
+  WithAnalyticsEventsProps,
+} from '@atlaskit/analytics-next';
 import {
   createLocalizationProvider,
   LocalizationProvider,
 } from '@atlaskit/locale';
-import pick from 'lodash.pick';
-// eslint-disable-next-line no-restricted-imports
-import { format, isValid } from 'date-fns';
-import React, { CSSProperties } from 'react';
-import {
-  withAnalyticsEvents,
-  withAnalyticsContext,
-  WithAnalyticsEventsProps,
-  createAndFireEvent,
-} from '@atlaskit/analytics-next';
+import Select, {
+  ActionMeta,
+  components,
+  CreatableSelect,
+  MenuProps,
+  mergeStyles,
+  OptionType,
+  SelectComponentsConfig,
+  SelectProps,
+  StylesConfig,
+} from '@atlaskit/select';
 import { B100 } from '@atlaskit/theme/colors';
 import { gridSize } from '@atlaskit/theme/constants';
 
+import {
+  defaultTimeFormat,
+  defaultTimes,
+  DropdownIndicator,
+  EmptyClearIndicator,
+  placeholderDatetime,
+} from '../internal';
+import FixedLayer from '../internal/FixedLayer';
+import parseTime from '../internal/parseTime';
 import { Appearance, Spacing } from '../types';
 import {
   name as packageName,
   version as packageVersion,
 } from '../version.json';
-import {
-  ClearIndicator,
-  defaultTimes,
-  DropdownIndicator,
-  defaultTimeFormat,
-  placeholderDatetime,
-} from '../internal';
-import parseTime from '../internal/parseTime';
-import FixedLayer from '../internal/FixedLayer';
 
 interface Option {
   label: string;
@@ -46,7 +50,7 @@ interface Option {
 
 /* eslint-disable react/no-unused-prop-types */
 export interface Props extends WithAnalyticsEventsProps {
-  /** Defines the appearance which can be default or subtle - no borders, background or icon.
+  /** Defines the appearance which can be default or subtle - no borders or background.
    *  Appearance values will be ignored if styles are parsed via the selectProps.
    */
   appearance?: Appearance;
@@ -58,8 +62,6 @@ export interface Props extends WithAnalyticsEventsProps {
   defaultValue: string;
   /** DEPRECATED - Use locale instead. Function for formatting the displayed time value in the input. By default parses with an internal time parser, and formats using the [date-fns format function]((https://date-fns.org/v1.29.0/docs/format)) */
   formatDisplayLabel?: (time: string, timeFormat: string) => string;
-  /** The icon to show in the field. */
-  icon?: React.ReactNode;
   /** The id of the field. Currently, react-select transforms this to have a "react-select-" prefix, and an "--input" suffix when applied to the input. For example, the id "my-input" would be transformed to "react-select-my-input--input". Keep this in mind when needing to refer to the ID. This will be fixed in an upcoming release. */
   id: string;
   /** Props to apply to the container. **/
@@ -105,6 +107,12 @@ export interface Props extends WithAnalyticsEventsProps {
 
 interface State {
   isOpen: boolean;
+  /**
+   * When being cleared from the icon the TimePicker is blurred.
+   * This variable defines whether the default onMenuOpen or onMenuClose
+   * events should behave as normal
+   */
+  clearingFromIcon: boolean;
   value: string;
   isFocused: boolean;
   l10n: LocalizationProvider;
@@ -127,6 +135,7 @@ const FixedLayerMenu = ({ selectProps, ...rest }: { selectProps: any }) => (
         menuShouldScrollIntoView={false}
       />
     }
+    testId={selectProps.testId}
   />
 );
 
@@ -161,6 +170,7 @@ class TimePicker extends React.Component<Props, State> {
 
   state = {
     isOpen: this.props.defaultIsOpen,
+    clearingFromIcon: false,
     value: this.props.defaultValue,
     isFocused: false,
     l10n: createLocalizationProvider(this.props.locale),
@@ -192,9 +202,18 @@ class TimePicker extends React.Component<Props, State> {
     );
   }
 
-  onChange = (v: { value: string } | null): void => {
+  onChange = (v: { value: string } | null, action?: ActionMeta): void => {
     const value = v ? v.value : '';
-    this.setState({ value });
+    let changedState: {} = { value };
+
+    if (action && action.action === 'clear') {
+      changedState = {
+        ...changedState,
+        clearingFromIcon: true,
+      };
+    }
+
+    this.setState(changedState);
     this.props.onChange(value);
   };
 
@@ -216,11 +235,21 @@ class TimePicker extends React.Component<Props, State> {
   };
 
   onMenuOpen = () => {
-    this.setState({ isOpen: true });
+    // Don't open menu after the user has clicked clear
+    if (this.getSafeState().clearingFromIcon) {
+      this.setState({ clearingFromIcon: false });
+    } else {
+      this.setState({ isOpen: true });
+    }
   };
 
   onMenuClose = () => {
-    this.setState({ isOpen: false });
+    // Don't close menu after the user has clicked clear
+    if (this.getSafeState().clearingFromIcon) {
+      this.setState({ clearingFromIcon: false });
+    } else {
+      this.setState({ isOpen: false });
+    }
   };
 
   setContainerRef = (ref: HTMLElement | null) => {
@@ -241,6 +270,18 @@ class TimePicker extends React.Component<Props, State> {
   onFocus = (event: React.FocusEvent<HTMLElement>) => {
     this.setState({ isFocused: true });
     this.props.onFocus(event);
+  };
+
+  onSelectKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    const { key } = event;
+    const keyPressed = key.toLowerCase();
+    if (
+      this.getSafeState().clearingFromIcon &&
+      (keyPressed === 'backspace' || keyPressed === 'delete')
+    ) {
+      // If being cleared from keyboard, don't change behaviour
+      this.setState({ clearingFromIcon: false });
+    }
   };
 
   getSubtleControlStyles = (selectStyles: StylesConfig) =>
@@ -298,6 +339,7 @@ class TimePicker extends React.Component<Props, State> {
   render() {
     const {
       autoFocus,
+      hideIcon,
       id,
       innerProps,
       isDisabled,
@@ -311,10 +353,6 @@ class TimePicker extends React.Component<Props, State> {
 
     const { value = '', isOpen } = this.getSafeState();
     const validationState = this.props.isInvalid ? 'error' : 'default';
-    const icon =
-      this.props.appearance === 'subtle' || this.props.hideIcon
-        ? null
-        : this.props.icon;
 
     const { styles: selectStyles = {}, ...otherSelectProps } = selectProps;
     const controlStyles =
@@ -330,20 +368,27 @@ class TimePicker extends React.Component<Props, State> {
       value,
     };
 
+    const selectComponents: SelectComponentsConfig<OptionType> = {
+      DropdownIndicator,
+      Menu: FixedLayerMenu,
+    };
+    if (hideIcon) {
+      selectComponents.ClearIndicator = EmptyClearIndicator;
+    }
+
+    const renderIconContainer = Boolean(hideIcon && value);
+
     return (
       <div
         {...innerProps}
         ref={this.setContainerRef}
         data-testid={testId && `${testId}--container`}
+        onKeyDown={this.onSelectKeyDown}
       >
         <input name={name} type="hidden" value={value} />
         <SelectComponent
           autoFocus={autoFocus}
-          components={{
-            ClearIndicator,
-            DropdownIndicator,
-            Menu: FixedLayerMenu,
-          }}
+          components={selectComponents}
           instanceId={id}
           isClearable
           isDisabled={isDisabled}
@@ -376,13 +421,12 @@ class TimePicker extends React.Component<Props, State> {
             }),
             indicatorsContainer: base => ({
               ...base,
-              paddingLeft: icon ? ICON_PADDING : 0,
-              paddingRight: icon ? gridSize() - BORDER_WIDTH : 0,
+              paddingLeft: renderIconContainer ? ICON_PADDING : 0,
+              paddingRight: renderIconContainer ? gridSize() - BORDER_WIDTH : 0,
             }),
           })}
           value={labelAndValue}
           spacing={spacing}
-          dropdownIndicatorIcon={icon}
           fixedLayerRef={this.containerRef}
           validationState={validationState}
           testId={testId}

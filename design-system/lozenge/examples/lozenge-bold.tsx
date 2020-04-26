@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
+
 import Lozenge, { ThemeAppearance } from '../src';
 
 const APPEARANCES: { label: string; value: ThemeAppearance }[] = [

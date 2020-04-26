@@ -1,16 +1,4 @@
-const mockEvents = {
-  resolvedEvent: jest.fn(),
-  unresolvedEvent: jest.fn(),
-  connectSucceededEvent: jest.fn(),
-  connectFailedEvent: jest.fn(),
-  trackAppAccountConnected: jest.fn(),
-  uiAuthEvent: jest.fn(),
-  uiAuthAlternateAccountEvent: jest.fn(),
-  uiCardClickedEvent: jest.fn(),
-  uiClosedAuthEvent: jest.fn(),
-  screenAuthPopupEvent: jest.fn(),
-  fireSmartLinkEvent: jest.fn(),
-};
+import { mockEvents } from './_mocks';
 const mockAuthFlow = jest.fn();
 
 jest.mock('react-lazily-render', () => (data: any) => data.content);
@@ -91,6 +79,15 @@ describe('smart-card: forbidden analytics', () => {
       expect(mockEvents.screenAuthPopupEvent).toHaveBeenCalledTimes(1);
       expect(mockEvents.trackAppAccountConnected).toHaveBeenCalledTimes(1);
       expect(mockEvents.connectSucceededEvent).toHaveBeenCalledTimes(1);
+      expect(mockEvents.fireSmartLinkEvent).toBeCalledWith(
+        {
+          attributes: {
+            componentName: 'smart-cards',
+            display: 'inline',
+          },
+        },
+        expect.any(Function),
+      );
     });
 
     it('should fire analytics events when attempting to connect with an alternate account fails', async () => {

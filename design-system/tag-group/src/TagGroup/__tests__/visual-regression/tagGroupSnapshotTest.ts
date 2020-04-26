@@ -5,7 +5,12 @@ import {
 
 describe('Snapshot Test', () => {
   it('Tag group basic should match production example', async () => {
-    const url = getExampleUrl('core', 'tag-group', 'basic', global.__BASEURL__);
+    const url = getExampleUrl(
+      'design-system',
+      'tag-group',
+      'basic',
+      global.__BASEURL__,
+    );
     const image = await takeScreenShot(global.page, url);
     expect(image).toMatchProdImageSnapshot();
   });

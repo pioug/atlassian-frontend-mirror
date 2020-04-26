@@ -1,30 +1,28 @@
 import React from 'react';
 import rafSchedule from 'raf-schd';
 import styled from 'styled-components';
-import { WidthObserver } from '../WidthObserver';
+import { WidthObserver } from '@atlaskit/width-detector';
 
-export enum Breakpoints {
-  S = 'S',
-  M = 'M',
-  L = 'L',
-}
+export type Breakpoints = 'S' | 'M' | 'L';
 
 export type WidthConsumerContext = {
   width: number;
   breakpoint: Breakpoints;
 };
 
-const MAX_S = 1266;
-const MAX_M = 2146;
 const SCROLLBAR_WIDTH = 30;
 
 export function getBreakpoint(width: number = 0): Breakpoints {
+  const MAX_S = 1266;
+  const MAX_M = 2146;
+
   if (width >= MAX_S && width < MAX_M) {
-    return Breakpoints.M;
+    return 'M';
   } else if (width >= MAX_M) {
-    return Breakpoints.L;
+    return 'L';
   }
-  return Breakpoints.S;
+
+  return 'S';
 }
 
 export function createWidthContext(width: number = 0): WidthConsumerContext {

@@ -1,9 +1,10 @@
-import { shallow, mount } from 'enzyme';
 import React from 'react';
 
-import ProgressTrackerLink from '../..';
-import { Link } from '../../styled';
+import { mount, shallow } from 'enzyme';
+
 import { Stage } from '../../../types';
+import ProgressTrackerLink from '../../index';
+import { Link } from '../../styled';
 
 const item: Stage = {
   id: 'visited-1',

@@ -1,6 +1,9 @@
 import React, { ReactNode } from 'react';
+
 import styled from 'styled-components';
+
 import { gridSize } from '@atlaskit/theme/constants';
+
 import { Label } from './styled/Field';
 
 const FieldsetLabel = styled(Label)`

@@ -8,8 +8,8 @@ import Auth from './auth/auth';
 import { Wrapper } from './styled';
 import NetworkErrorWarning from '../warnings/networkError';
 
-import { Container } from '../warnings/styles';
 import { changeService } from '../../../../popup/actions';
+import { WarningContainer } from '../warnings/styles';
 
 export interface BrowserStateProps {
   readonly service: ServiceAccountLink;
@@ -38,9 +38,9 @@ export class Browser extends Component<BrowserProps> {
 
   private renderError = () => {
     return (
-      <Container id="browser-container">
+      <WarningContainer id="browser-container">
         <NetworkErrorWarning action={this.reloadService} />
-      </Container>
+      </WarningContainer>
     );
   };
 

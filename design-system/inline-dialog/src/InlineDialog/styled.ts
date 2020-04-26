@@ -1,9 +1,10 @@
 import styled from 'styled-components';
+
+import { DN50, DN600, N0, N900 } from '@atlaskit/theme/colors';
 import { themed } from '@atlaskit/theme/components';
 import { borderRadius, gridSize, layers } from '@atlaskit/theme/constants';
-import { N0, DN50, N900, DN600 } from '@atlaskit/theme/colors';
-import { multiply } from '@atlaskit/theme/math';
 import { e200 } from '@atlaskit/theme/elevation';
+import { multiply } from '@atlaskit/theme/math';
 
 const backgroundColor = themed({ light: N0, dark: DN50 });
 const textColor = themed({ light: N900, dark: DN600 });

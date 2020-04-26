@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
+
 import { Provider } from 'unstated';
 
 import { CONTENT_NAV_WIDTH } from '../common/constants';
 import { UIController } from '../ui-controller';
-
 import { ViewController } from '../view-controller';
 
 const LS_KEY = 'ATLASKIT_NAVIGATION_UI_STATE';

@@ -1,5 +1,7 @@
 import { useEffect } from 'react';
+
 import createFocusTrap from 'focus-trap';
+
 import { FocusManagerHook } from './types';
 
 const noop = () => {};

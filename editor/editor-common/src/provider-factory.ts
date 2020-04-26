@@ -25,6 +25,7 @@ export { CardProvider, CardAppearance } from './provider-factory/card-provider';
 
 export {
   QuickInsertItem,
+  QuickInsertItemId,
   QuickInsertActionInsert,
   QuickInsertProvider,
 } from './provider-factory/quick-insert-provider';

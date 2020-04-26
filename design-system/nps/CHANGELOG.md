@@ -1,5 +1,22 @@
 # @atlaskit/nps
 
+## 7.0.1
+
+### Patch Changes
+
+- [patch][882ab74d3d](https://bitbucket.org/atlassian/atlassian-frontend/commits/882ab74d3d):
+
+  Change imports to comply with Atlassian conventions- Updated dependencies [6b8e60827e](https://bitbucket.org/atlassian/atlassian-frontend/commits/6b8e60827e):
+
+- Updated dependencies [449ef134b3](https://bitbucket.org/atlassian/atlassian-frontend/commits/449ef134b3):
+- Updated dependencies [57c0487a02](https://bitbucket.org/atlassian/atlassian-frontend/commits/57c0487a02):
+- Updated dependencies [68ff159118](https://bitbucket.org/atlassian/atlassian-frontend/commits/68ff159118):
+- Updated dependencies [7a2540821c](https://bitbucket.org/atlassian/atlassian-frontend/commits/7a2540821c):
+  - @atlaskit/button@13.3.11
+  - @atlaskit/icon@20.1.1
+  - @atlaskit/checkbox@10.1.11
+  - @atlaskit/dropdown-menu@9.0.3
+
 ## 7.0.0
 
 ### Major Changes

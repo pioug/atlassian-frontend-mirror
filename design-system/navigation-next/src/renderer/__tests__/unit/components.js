@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
+
 import { mount, shallow } from 'enzyme';
+
 import { JiraWordmark } from '@atlaskit/logo';
 
-// eslint-disable-next-line no-unused-vars
-import { GroupHeading } from '../../..';
 import BackItemComponent from '../../../components/connected/BackItem';
 import ConnectedItemComponent from '../../../components/connected/ConnectedItem';
 import GoToItemComponent from '../../../components/connected/GoToItem';
+import SortableContextComponent from '../../../components/connected/SortableContext';
 import HeaderSectionComponent from '../../../components/presentational/HeaderSection';
 import MenuSectionComponent from '../../../components/presentational/MenuSection';
-import SortableContextComponent from '../../../components/connected/SortableContext';
+// eslint-disable-next-line no-unused-vars
+import { GroupHeading } from '../../../index';
 import ItemsRenderer, { components, LazySortableItem } from '../../components';
 
 const {

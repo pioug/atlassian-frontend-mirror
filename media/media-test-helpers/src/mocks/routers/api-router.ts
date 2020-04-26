@@ -51,13 +51,12 @@ class RouterWithLogging<M> extends Router<M> {
       }
 
       // eslint-disable-next-line no-console
-      console.log({
+      console.log('MOCK', path, {
         method,
-        path,
         request: requestWithBodyObject,
-        database,
         response: response!,
         error,
+        database,
       });
 
       if (error) {
@@ -74,7 +73,7 @@ export function createApiRouter(
   isSlowServer?: boolean,
   urlsReturnErrorsTo?: string[],
 ): Router<MediaDatabaseSchema> {
-  const requestDelay = isSlowServer ? 500 : 10;
+  const requestDelay = isSlowServer ? 200 : 10;
 
   const router = new RouterWithLogging<MediaDatabaseSchema>(
     {
@@ -324,15 +323,17 @@ export function createApiRouter(
       new Blob([], { type: mimeType }),
     );
 
+    const mediaType = getMediaTypeFromMimeType(mimeType);
     const newDetails: MediaCollectionItemFullDetails = {
       ...(fileRecord.data.details || {}),
       name,
       mimeType,
       size: totalBlob.size,
       artifacts: {},
-      mediaType: getMediaTypeFromMimeType(mimeType),
+      mediaType,
       representations: { image: {} },
-      processingStatus: 'succeeded',
+      // This is to make MediaViewer work with newly uploaded video files
+      processingStatus: mediaType === 'video' ? 'pending' : 'succeeded',
     };
 
     database.update('collectionItem', fileRecord.id, {
@@ -402,16 +403,37 @@ export function createApiRouter(
   router.post('/file/copy/withToken', (request, database) => {
     const { body, query } = request;
     const { sourceFile } = JSON.parse(body);
-    const {
+    let {
       collection: destinationCollection,
-      replaceFileId = uuid(),
-      occurrenceKey = uuid(),
+      replaceFileId,
+      occurrenceKey,
     } = query;
+
+    if (
+      (replaceFileId && !occurrenceKey) ||
+      (!replaceFileId && occurrenceKey)
+    ) {
+      return new KakapoResponse(404, undefined, {});
+    }
 
     const sourceRecord = database.findOne('collectionItem', {
       id: sourceFile.id,
       collectionName: sourceFile.collection,
     });
+
+    if (!replaceFileId && !occurrenceKey) {
+      replaceFileId = uuid();
+      occurrenceKey = uuid();
+
+      database.push(
+        'collectionItem',
+        createEmptyCollectionItem({
+          id: replaceFileId,
+          collectionName: destinationCollection,
+          occurrenceKey,
+        }),
+      );
+    }
 
     const existingRecord = database.findOne('collectionItem', {
       id: replaceFileId,

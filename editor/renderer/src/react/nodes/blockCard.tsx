@@ -4,14 +4,16 @@ import { EventHandlers, UnsupportedBlock } from '@atlaskit/editor-common';
 
 import { getEventHandler } from '../../utils';
 import { CardErrorBoundary } from './fallback';
+import { RendererAppearance } from '../../ui/Renderer/types';
 
 export default function BlockCard(props: {
   url?: string;
   data?: object;
   eventHandlers?: EventHandlers;
   portal?: HTMLElement;
+  rendererAppearance?: RendererAppearance;
 }) {
-  const { url, data, eventHandlers, portal } = props;
+  const { url, data, eventHandlers, portal, rendererAppearance } = props;
   const handler = getEventHandler(eventHandlers, 'smartCard');
   const onClick =
     url && handler
@@ -26,7 +28,11 @@ export default function BlockCard(props: {
       data-card-url={url}
     >
       <CardErrorBoundary unsupportedComponent={UnsupportedBlock} {...cardProps}>
-        <Card appearance="block" {...cardProps} />
+        <Card
+          appearance="block"
+          showActions={rendererAppearance !== 'mobile'}
+          {...cardProps}
+        />
       </CardErrorBoundary>
     </div>
   );

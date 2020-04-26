@@ -1,5 +1,17 @@
 # @atlaskit/analytics-next
 
+## 6.3.6
+
+### Patch Changes
+
+- [patch][109004a98e](https://bitbucket.org/atlassian/atlassian-frontend/commits/109004a98e):
+
+  Deletes internal package @atlaskit/type-helpers and removes all usages. @atlaskit/type-helpers has been superseded by native typescript helper utilities.- Updated dependencies [168b5f90e5](https://bitbucket.org/atlassian/atlassian-frontend/commits/168b5f90e5):
+
+- Updated dependencies [109004a98e](https://bitbucket.org/atlassian/atlassian-frontend/commits/109004a98e):
+  - @atlaskit/docs@8.5.1
+  - @atlaskit/button@13.3.10
+
 ## 6.3.5
 
 ### Patch Changes

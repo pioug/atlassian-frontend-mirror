@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { OnOpenChangeArgs } from '../src/types';
+
 import {
-  DropdownMenuStateless,
   DropdownItemGroupRadio,
   DropdownItemRadio,
+  DropdownMenuStateless,
 } from '../src';
+import { OnOpenChangeArgs } from '../src/types';
 
 interface State {
   isDropdownOpen: boolean;

@@ -1,17 +1,19 @@
-import Banner from '@atlaskit/banner';
-import WarningIcon from '@atlaskit/icon/glyph/warning';
 import React, { Fragment } from 'react';
+
 import { Route, Switch } from 'react-router';
 import { MemoryRouter } from 'react-router-dom';
+
 import AppNavigation from '@atlaskit/atlassian-navigation/examples/10-authenticated-example';
+import Banner from '@atlaskit/banner';
+import WarningIcon from '@atlaskit/icon/glyph/warning';
 
 import { LayoutManagerWithViewController, NavigationProvider } from '../src';
 
-import { DummySkeletonContent } from './shared/components/DummySkeletonContent';
 import { LinkItem, ProjectSwitcher } from './shared/components';
+import { DummySkeletonContent } from './shared/components/DummySkeletonContent';
 import { routes } from './shared/routes';
-import RootViews from './shared/views/root';
 import ContainerViews from './shared/views/container';
+import RootViews from './shared/views/root';
 
 const BANNER_HEIGHT = 52;
 

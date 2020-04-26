@@ -1,4 +1,4 @@
-import { N0, B500, DN500, DN10, N800 } from '@atlaskit/theme/colors';
+import { B500, DN10, DN500, N0, N800 } from '@atlaskit/theme/colors';
 
 import modeGenerator from './modeGenerator';
 

@@ -1,11 +1,13 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
 import { Component, CSSProperties } from 'react';
+
+import { jsx } from '@emotion/core';
+
 import AddIcon from '@atlaskit/icon/glyph/editor/add';
 import Select, { OptionType, ValueType } from '@atlaskit/select';
 import * as colors from '@atlaskit/theme/colors';
 
-import Button, { ButtonGroup, Theme as ButtonTheme, ButtonProps } from '../src';
+import Button, { ButtonGroup, ButtonProps, Theme as ButtonTheme } from '../src';
 
 interface ThemeProps {
   mode?: any;

@@ -8,7 +8,7 @@ declare var global: any;
 describe('<PageLayout />', () => {
   it('should match the basic page-layout', async () => {
     const url = getExampleUrl(
-      'core',
+      'design-system',
       'page-layout',
       'basic-page-layout',
       global.__BASEURL__,

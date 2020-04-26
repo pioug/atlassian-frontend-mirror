@@ -1,11 +1,11 @@
-import { JsonLd } from '../../client/types';
+import { JsonLdCustom } from '../../client/types';
 import { CardBaseActionCreator, ServerErrors } from './types';
 import { CardStore } from '../types';
 import { CardType } from '../store/types';
 import { Store } from 'redux';
 import { ServerError, isServerError } from '../../client/types';
 
-export const cardAction: CardBaseActionCreator<JsonLd> = (
+export const cardAction: CardBaseActionCreator<JsonLdCustom> = (
   type,
   { url },
   payload,
@@ -35,22 +35,22 @@ export const getUrl = (store: Store<CardStore>, url: string) => {
   );
 };
 
-export const getDefinitionId = (details?: JsonLd) =>
+export const getDefinitionId = (details?: JsonLdCustom) =>
   details && details.meta && details.meta.definitionId;
 
-export const getServices = (details?: JsonLd) =>
+export const getServices = (details?: JsonLdCustom) =>
   (details && details.meta.auth) || [];
 
-export const hasResolved = (details?: JsonLd) =>
+export const hasResolved = (details?: JsonLdCustom) =>
   details && isAccessible(details) && isVisible(details);
 
-export const isAccessible = ({ meta: { access } }: JsonLd) =>
+export const isAccessible = ({ meta: { access } }: JsonLdCustom) =>
   access === 'granted';
 
-export const isVisible = ({ meta: { visibility } }: JsonLd) =>
+export const isVisible = ({ meta: { visibility } }: JsonLdCustom) =>
   visibility === 'restricted' || visibility === 'public';
 
-export const getStatus = ({ meta }: JsonLd): CardType => {
+export const getStatus = ({ meta }: JsonLdCustom): CardType => {
   const { access, visibility } = meta;
   switch (access) {
     case 'forbidden':
@@ -67,13 +67,22 @@ export const getStatus = ({ meta }: JsonLd): CardType => {
 };
 
 export const getError = (
-  obj: JsonLd | ServerError,
+  obj: JsonLdCustom | ServerError,
 ): ServerErrors | undefined => {
   if (isServerError(obj)) {
     return (obj as ServerError).name as ServerErrors;
   } else {
-    const data: { [name: string]: any } | undefined = (obj as JsonLd).data;
+    const data: { [name: string]: any } | undefined = (obj as JsonLdCustom)
+      .data;
     const { error = {} } = data || {};
     return error.type;
   }
+};
+
+export const isFinalState = (status: CardType): boolean => {
+  return (
+    ['unauthorized', 'forbidden', 'errored', 'resolved', 'not_found'].indexOf(
+      status,
+    ) > -1
+  );
 };

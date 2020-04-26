@@ -4,6 +4,7 @@ import {
   MediaStoreCopyFileWithTokenBody,
   MediaStoreCopyFileWithTokenParams,
   MediaFile as MediaClientFile,
+  globalMediaEventEmitter,
   getFileStreamsCache,
   ErrorFileState,
   createFileStateSubject,
@@ -133,11 +134,17 @@ async function copyFile({
 
   try {
     const destinationFile = await mediaStore.copyFileWithToken(body, params);
+
     emitProcessedState(destinationFile.data, store);
     const tenantSubject = tenantMediaClient.file.getFileState(
       destinationFile.data.id,
     );
+
     const fileState = await observableToPromise(tenantSubject);
+
+    tenantMediaClient.emit('file-added', fileState);
+    globalMediaEventEmitter.emit('file-added', fileState);
+
     if (fileState.status === 'processing' || fileState.status === 'processed') {
       store.dispatch(
         sendUploadEvent({

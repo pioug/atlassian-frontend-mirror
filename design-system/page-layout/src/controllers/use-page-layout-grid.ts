@@ -1,7 +1,9 @@
 import { useState } from 'react';
+
 import cssVars from 'css-vars-ponyfill';
-import { mergeGridStateIntoStorage, emptyGridState } from '../common/utils';
+
 import { Dimensions } from '../common/types';
+import { emptyGridState, mergeGridStateIntoStorage } from '../common/utils';
 
 var canUseDOM = !!(
   typeof window !== 'undefined' &&

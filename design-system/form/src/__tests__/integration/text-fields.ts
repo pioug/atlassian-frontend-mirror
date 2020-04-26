@@ -1,10 +1,9 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import { getExampleUrl } from '@atlaskit/webdriver-runner/utils/example';
-
 import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 
 /* Url to test the example */
-const urlTextfields = getExampleUrl('core', 'form', 'text-fields');
+const urlTextfields = getExampleUrl('design-system', 'form', 'text-fields');
 
 /** Css selectors used for the text fields test */
 const textfieldsForm = 'form[name="text-fields"]';

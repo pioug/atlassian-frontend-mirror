@@ -1,7 +1,11 @@
 import React from 'react';
+
 import styled from 'styled-components';
+
 import Button, { ButtonGroup } from '@atlaskit/button';
+
 import { DynamicTableStateless } from '../src';
+
 import { caption, head, rows } from './content/sample-data';
 
 const Wrapper = styled.div`

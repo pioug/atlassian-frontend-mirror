@@ -1,6 +1,8 @@
 import React, { Fragment } from 'react';
+
 import GlobalNavigation from '@atlaskit/global-navigation';
 import { AtlassianIcon, AtlassianWordmark } from '@atlaskit/logo';
+
 import {
   GroupHeading,
   HeaderSection,

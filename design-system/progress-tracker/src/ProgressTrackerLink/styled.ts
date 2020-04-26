@@ -1,5 +1,6 @@
-import { N800 } from '@atlaskit/theme/colors';
 import styled from 'styled-components';
+
+import { N800 } from '@atlaskit/theme/colors';
 
 export const Link = styled.a`
   cursor: pointer;

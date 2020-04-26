@@ -1,7 +1,8 @@
 import React, { Component, ReactNode } from 'react';
+
 import FormSectionWrapper, {
-  FormSectionTitle,
   FormSectionDescription,
+  FormSectionTitle,
 } from './styled/FormSection';
 
 interface Props {

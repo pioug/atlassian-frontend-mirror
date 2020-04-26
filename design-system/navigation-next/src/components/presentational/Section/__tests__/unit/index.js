@@ -1,14 +1,15 @@
 import React from 'react';
+
 import { mount } from 'enzyme';
 
+import SectionWithTheme from '../../index';
 import {
-  StaticTransitionGroup,
+  ScrollableInner,
   ScrollableTransitionGroup,
   ScrollableWrapper,
-  ScrollableInner,
+  StaticTransitionGroup,
   StaticWrapper,
 } from '../../Section';
-import SectionWithTheme from '../../index';
 
 describe('Section with Content Theming', () => {
   it('should wrap its children with an internally scrollable div when shouldGrow is true', () => {

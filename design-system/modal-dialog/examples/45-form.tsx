@@ -1,10 +1,10 @@
 import React from 'react';
-import Button from '@atlaskit/button';
 
-import Form, { Field, CheckboxField } from '@atlaskit/form';
+import Button from '@atlaskit/button';
 import { Checkbox } from '@atlaskit/checkbox';
-import Textfield from '@atlaskit/textfield';
 import RadioGroup, { AkRadio } from '@atlaskit/field-radio-group';
+import Form, { CheckboxField, Field } from '@atlaskit/form';
+import Textfield from '@atlaskit/textfield';
 
 import ModalDialog, { ModalFooter, ModalTransition } from '../src';
 import { FooterProps } from '../src/components/Footer';

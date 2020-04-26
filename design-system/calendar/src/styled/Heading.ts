@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+
 import { N800 } from '@atlaskit/theme/colors';
 
 export const Heading = styled.div`

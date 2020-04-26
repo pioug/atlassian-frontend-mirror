@@ -1,8 +1,11 @@
 import React from 'react';
+
 import { mount, shallow } from 'enzyme';
+
 import { Popper as PopperComponent } from '@atlaskit/popper';
-import InlineDialogWithAnalytics from '../../..';
-import { InlineDialogWithoutAnalytics as InlineDialog } from '../..';
+
+import InlineDialogWithAnalytics from '../../../index';
+import { InlineDialogWithoutAnalytics as InlineDialog } from '../../index';
 import { Container } from '../../styled';
 
 declare var global: any;

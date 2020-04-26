@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { LinkItem } from '../src';
+
 import koala from './icons/koala.png';
 
 const ImgIcon = ({ src, alt }: { src: string; alt: string }) => (
@@ -7,13 +9,24 @@ const ImgIcon = ({ src, alt }: { src: string; alt: string }) => (
 );
 
 export default () => (
-  <LinkItem
-    href="link-item"
-    elemBefore={<ImgIcon src={koala} alt={'A koala'} />}
-    // Stops the browser from visiting the link.
-    onClick={e => e.preventDefault()}
-    description="Classic service desk"
-  >
-    Customer Feedback
-  </LinkItem>
+  <div onClick={e => e.preventDefault()}>
+    <LinkItem href="link-item">Customer Feedback</LinkItem>
+    <LinkItem isSelected href="link-item">
+      Customer Feedback
+    </LinkItem>
+    <LinkItem isDisabled href="link-item">
+      Customer Feedback
+    </LinkItem>
+
+    <LinkItem href="link-item" description="Classic service desk">
+      Customer Feedback
+    </LinkItem>
+    <LinkItem
+      href="link-item"
+      iconBefore={<ImgIcon src={koala} alt={'A koala'} />}
+      description="Classic service desk"
+    >
+      Customer Feedback
+    </LinkItem>
+  </div>
 );

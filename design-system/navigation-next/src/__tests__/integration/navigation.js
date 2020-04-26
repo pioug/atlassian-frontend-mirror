@@ -5,7 +5,7 @@ import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 
 /* Url to test the example */
 const exampleURL = getExampleUrl(
-  'core',
+  'design-system',
   'navigation-next',
   'composed-navigation',
 );

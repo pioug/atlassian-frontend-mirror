@@ -1,5 +1,6 @@
 import React from 'react';
-import { md, Example, code } from '@atlaskit/docs';
+
+import { code, Example, md } from '@atlaskit/docs';
 
 export default md`
 The overrides prop is an escape hatch for more granular customisation of the checkbox component. 

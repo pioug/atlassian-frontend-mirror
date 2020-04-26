@@ -6,7 +6,7 @@ import {
 describe('Snapshot Test', () => {
   it('ButtonAppearances should match snapshot', async () => {
     const url = getExampleUrl(
-      'core',
+      'design-system',
       'button',
       'Appearances',
       global.__BASEURL__,

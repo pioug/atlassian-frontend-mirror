@@ -1,5 +1,6 @@
 import React, { MouseEvent } from 'react';
-import { TargetOverlay, TargetInner } from '../styled/Target';
+
+import { TargetInner, TargetOverlay } from '../styled/Target';
 
 export interface CloneProps {
   /** Whether or not to display a pulse animation around the spotlighted element */

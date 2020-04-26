@@ -7,6 +7,8 @@ import { fontSize } from '@atlaskit/theme/constants';
 
 import { Frame } from '../components/Frame';
 import { gs } from '../utils';
+import { FormattedMessage } from 'react-intl';
+import { messages } from '../../messages';
 
 export interface ResolvingProps {
   isSelected?: boolean;
@@ -22,7 +24,7 @@ export const ResolvingView = ({
     <span
       css={{ fontSize: `${fontSize()}px`, color: N90, marginLeft: gs(0.5) }}
     >
-      Loading...
+      <FormattedMessage {...messages.loading} />
     </span>
   </Frame>
 );

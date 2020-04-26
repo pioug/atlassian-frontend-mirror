@@ -9,6 +9,7 @@ import HDIcon from '@atlaskit/icon/glyph/vid-hd-circle';
 import DownloadIcon from '@atlaskit/icon/glyph/download';
 import MediaButton from '../MediaButton';
 import Spinner from '@atlaskit/spinner';
+import { WidthObserver } from '@atlaskit/width-detector';
 import MediaPlayer, {
   SetVolumeFunction,
   NavigateFunction,
@@ -60,6 +61,7 @@ export interface CustomMediaPlayerProps extends WithShowControlMethodProp {
 }
 
 export interface CustomMediaPlayerState {
+  isLargePlayer: boolean;
   isFullScreenEnabled: boolean;
 }
 
@@ -71,6 +73,7 @@ export type CustomMediaPlayerActions = {
 };
 
 const toolbar: any = 'toolbar';
+const SMALL_VIDEO_MAX_WIDTH = 400;
 
 export class CustomMediaPlayer extends Component<
   CustomMediaPlayerProps & InjectedIntlProps,
@@ -82,6 +85,7 @@ export class CustomMediaPlayer extends Component<
 
   state: CustomMediaPlayerState = {
     isFullScreenEnabled: false,
+    isLargePlayer: true,
   };
 
   componentDidMount() {
@@ -141,6 +145,14 @@ export class CustomMediaPlayer extends Component<
     }
   };
 
+  renderCurrentTime = ({ currentTime, duration }: VideoState) => {
+    return (
+      <CurrentTime draggable={false}>
+        {formatDuration(currentTime)} / {formatDuration(duration)}
+      </CurrentTime>
+    );
+  };
+
   renderHDButton = () => {
     const { type, isHDAvailable, isHDActive, onHDToggleClick } = this.props;
 
@@ -165,9 +177,13 @@ export class CustomMediaPlayer extends Component<
     );
   };
 
-  renderVolume = ({ isMuted, volume }: VideoState, actions: VideoActions) => {
+  renderVolume = (
+    { isMuted, volume }: VideoState,
+    actions: VideoActions,
+    showSlider: boolean,
+  ) => {
     return (
-      <VolumeWrapper>
+      <VolumeWrapper showSlider={showSlider}>
         <VolumeToggleWrapper isMuted={isMuted}>
           <MutedIndicator isMuted={isMuted} />
           <MediaButton
@@ -176,21 +192,26 @@ export class CustomMediaPlayer extends Component<
             iconBefore={<SoundIcon label="volume" />}
           />
         </VolumeToggleWrapper>
-        <VolumeTimeRangeWrapper>
-          <TimeRange
-            onChange={this.onVolumeChange(actions.setVolume)}
-            duration={1}
-            currentTime={volume}
-            bufferedTime={volume}
-            disableThumbTooltip={true}
-            isAlwaysActive={true}
-          />
-        </VolumeTimeRangeWrapper>
+        {showSlider && (
+          <VolumeTimeRangeWrapper>
+            <TimeRange
+              onChange={this.onVolumeChange(actions.setVolume)}
+              duration={1}
+              currentTime={volume}
+              bufferedTime={volume}
+              disableThumbTooltip={true}
+              isAlwaysActive={true}
+            />
+          </VolumeTimeRangeWrapper>
+        )}
       </VolumeWrapper>
     );
   };
 
   onFullScreenClick = () => toggleFullscreen(this.videoWrapperRef);
+
+  onResize = (width: number) =>
+    this.setState({ isLargePlayer: width > SMALL_VIDEO_MAX_WIDTH });
 
   saveVideoWrapperRef = (el?: HTMLElement) => (this.videoWrapperRef = el);
 
@@ -283,7 +304,10 @@ export class CustomMediaPlayer extends Component<
     const { isFullScreenEnabled } = this.state;
 
     return (
-      <CustomVideoWrapper innerRef={this.saveVideoWrapperRef}>
+      <CustomVideoWrapper
+        innerRef={this.saveVideoWrapperRef}
+        data-testid="custom-media-player"
+      >
         <MediaPlayer
           sourceType={type}
           src={src}
@@ -310,7 +334,7 @@ export class CustomMediaPlayer extends Component<
             const toggleButtonAction = isPlaying ? this.pause : this.play;
             const button = (
               <MediaButton
-                data-testid="custom-media-player-play-toggle-button"
+                testId="custom-media-player-play-toggle-button"
                 data-test-is-playing={isPlaying}
                 appearance={toolbar}
                 iconBefore={toggleButtonIcon}
@@ -335,6 +359,7 @@ export class CustomMediaPlayer extends Component<
                 {video}
                 {isLoading && this.renderSpinner()}
                 {shortcuts}
+                <WidthObserver setWidth={this.onResize} />
                 <ControlsWrapper className={hideControlsClassName}>
                   <TimeWrapper>
                     <TimeRange
@@ -347,13 +372,15 @@ export class CustomMediaPlayer extends Component<
                   <TimebarWrapper>
                     <LeftControls>
                       {button}
-                      {this.renderVolume(videoState, actions)}
+                      {this.renderVolume(
+                        videoState,
+                        actions,
+                        this.state.isLargePlayer,
+                      )}
                     </LeftControls>
                     <RightControls>
-                      <CurrentTime draggable={false}>
-                        {formatDuration(currentTime)} /{' '}
-                        {formatDuration(duration)}
-                      </CurrentTime>
+                      {this.state.isLargePlayer &&
+                        this.renderCurrentTime(videoState)}
                       {this.renderHDButton()}
                       {this.renderFullScreenButton()}
                       {this.renderDownloadButton()}

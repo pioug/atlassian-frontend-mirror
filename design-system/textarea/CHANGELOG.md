@@ -1,5 +1,21 @@
 # @atlaskit/textarea
 
+## 2.2.7
+
+### Patch Changes
+
+- [patch][109004a98e](https://bitbucket.org/atlassian/atlassian-frontend/commits/109004a98e):
+
+  Deletes internal package @atlaskit/type-helpers and removes all usages. @atlaskit/type-helpers has been superseded by native typescript helper utilities.- Updated dependencies [168b5f90e5](https://bitbucket.org/atlassian/atlassian-frontend/commits/168b5f90e5):
+
+- Updated dependencies [0c270847cb](https://bitbucket.org/atlassian/atlassian-frontend/commits/0c270847cb):
+- Updated dependencies [109004a98e](https://bitbucket.org/atlassian/atlassian-frontend/commits/109004a98e):
+- Updated dependencies [b9903e773a](https://bitbucket.org/atlassian/atlassian-frontend/commits/b9903e773a):
+  - @atlaskit/docs@8.5.1
+  - @atlaskit/theme@9.5.3
+  - @atlaskit/analytics-next@6.3.6
+  - @atlaskit/button@13.3.10
+
 ## 2.2.6
 
 ### Patch Changes

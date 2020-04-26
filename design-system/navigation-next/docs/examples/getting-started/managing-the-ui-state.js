@@ -1,10 +1,12 @@
 import React, { Fragment } from 'react';
-import GlobalNavigation from '@atlaskit/global-navigation';
-import ShortcutIcon from '@atlaskit/icon/glyph/shortcut';
-import { AtlassianIcon, AtlassianWordmark } from '@atlaskit/logo';
+
 import Button from '@atlaskit/button';
+import GlobalNavigation from '@atlaskit/global-navigation';
 import ChevronLeft from '@atlaskit/icon/glyph/chevron-left';
 import ChevronRight from '@atlaskit/icon/glyph/chevron-right';
+import ShortcutIcon from '@atlaskit/icon/glyph/shortcut';
+import { AtlassianIcon, AtlassianWordmark } from '@atlaskit/logo';
+
 import {
   ContainerHeader,
   GroupHeading,

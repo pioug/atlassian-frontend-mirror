@@ -1,10 +1,13 @@
 import React from 'react';
+
 import styled from 'styled-components';
+
 import Button from '@atlaskit/button';
-import { BigTarget } from './styled';
-import { Color } from './styled';
+
 import Tooltip from '../src';
 import { PositionTypeBase } from '../src/types';
+
+import { BigTarget, Color } from './styled';
 
 const VALID_POSITIONS: PositionTypeBase[] = ['top', 'right', 'bottom', 'left'];
 

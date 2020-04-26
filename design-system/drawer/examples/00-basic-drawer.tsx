@@ -1,8 +1,11 @@
 /** @jsx jsx */
 
-import { jsx } from '@emotion/core';
 import { Component, SyntheticEvent } from 'react';
+
+import { jsx } from '@emotion/core';
+
 import Button from '@atlaskit/button';
+
 import Drawer from '../src';
 
 interface State {

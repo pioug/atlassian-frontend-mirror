@@ -1,11 +1,12 @@
 import React, { PureComponent } from 'react';
+
+import Button, { ButtonGroup } from '@atlaskit/button';
+import { Checkbox } from '@atlaskit/checkbox';
+import { RadioGroup } from '@atlaskit/radio';
 import Select, { OptionType, ValueType } from '@atlaskit/select';
 import Textfield from '@atlaskit/textfield';
-import Button, { ButtonGroup } from '@atlaskit/button';
-import { RadioGroup } from '@atlaskit/radio';
-import { Checkbox } from '@atlaskit/checkbox';
 
-import Form, { Field, FormHeader, FormSection, FormFooter } from '../src';
+import Form, { Field, FormFooter, FormHeader, FormSection } from '../src';
 
 interface State {
   eventResult: string;

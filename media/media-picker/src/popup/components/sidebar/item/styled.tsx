@@ -1,18 +1,17 @@
 import styled from 'styled-components';
-
-import { HTMLAttributes, ComponentClass, LiHTMLAttributes } from 'react';
 import { B400, N500 } from '@atlaskit/theme/colors';
 
 export interface WrapperProps {
   isActive: boolean;
 }
 
-export const Wrapper: ComponentClass<LiHTMLAttributes<{}> &
-  WrapperProps> = styled.li`
+export const Wrapper = styled.li`
   color: ${({ isActive }: WrapperProps) => (isActive ? B400 : N500)};
   padding: 6px 25px;
   list-style-type: none;
   opacity: 1;
+  display: flex;
+  align-items: center;
 
   ${({ isActive }: WrapperProps) => (isActive ? '' : 'cursor: pointer')};
   &:hover {
@@ -21,16 +20,20 @@ export const Wrapper: ComponentClass<LiHTMLAttributes<{}> &
   }
 `;
 
-export const ServiceIcon: ComponentClass<HTMLAttributes<{}>> = styled.div`
-  display: inline-block;
-  vertical-align: middle;
+export const ServiceIcon = styled.div`
+  display: flex;
+  align-items: center;
 `;
 
-export const ServiceName: ComponentClass<HTMLAttributes<{}>> = styled.div`
+export const ServiceName = styled.div`
   font-size: 14px;
   position: relative;
   margin-left: 10px;
   top: -1px;
   display: inline-block;
   text-transform: capitalize;
+  width: 160px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;

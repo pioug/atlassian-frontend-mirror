@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+
 import { N500 } from '@atlaskit/theme/colors';
 
 const ThemeColor = {

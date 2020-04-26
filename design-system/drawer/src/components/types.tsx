@@ -1,6 +1,8 @@
-import { ComponentType, SyntheticEvent, ReactNode } from 'react';
-import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
+import { ComponentType, ReactNode, SyntheticEvent } from 'react';
+
 import { CSSObject } from '@emotion/core';
+
+import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 
 export type Widths = {
   extended: string;

@@ -1,4 +1,5 @@
 import React, { ReactChild } from 'react';
+
 import Button from '@atlaskit/button';
 
 interface Props {

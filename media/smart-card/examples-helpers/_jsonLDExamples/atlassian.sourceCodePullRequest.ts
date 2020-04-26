@@ -5,7 +5,7 @@ export const BitbucketPullRequest = {
     schema: 'http://schema.org/',
   },
   '@id': 'https://bitbucket.org/tuser/test-repo/pull-requests/7',
-  '@type': ['', 'atlassian:SourceCodePullRequest'],
+  '@type': ['Object', 'atlassian:SourceCodePullRequest'],
   url: 'https://bitbucket.org/tuser/test-repo/pull-requests/7',
   'atlassian:isMerged': true,
   'atlassian:mergeCommit': {

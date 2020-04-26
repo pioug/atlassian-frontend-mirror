@@ -1,5 +1,16 @@
 # @atlaskit/popper
 
+## 3.1.12
+
+### Patch Changes
+
+- [patch][cf8577f5d6](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf8577f5d6):
+
+  Change imports to comply with Atlassian conventions- Updated dependencies [6b8e60827e](https://bitbucket.org/atlassian/atlassian-frontend/commits/6b8e60827e):
+
+- Updated dependencies [57c0487a02](https://bitbucket.org/atlassian/atlassian-frontend/commits/57c0487a02):
+  - @atlaskit/button@13.3.11
+
 ## 3.1.11
 
 ### Patch Changes

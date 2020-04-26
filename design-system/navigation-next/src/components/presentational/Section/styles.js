@@ -1,6 +1,5 @@
+import { N20, N30A } from '@atlaskit/theme/colors';
 import { gridSize as gridSizeFn } from '@atlaskit/theme/constants';
-
-import { N30A, N20 } from '@atlaskit/theme/colors';
 
 const gridSize = gridSizeFn();
 

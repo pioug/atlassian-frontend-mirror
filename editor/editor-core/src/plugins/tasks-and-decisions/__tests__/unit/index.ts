@@ -38,7 +38,11 @@ describe('tasks and decisions', () => {
     createAnalyticsEvent = jest.fn(() => ({ fire() {} } as UIAnalyticsEvent));
     return createEditor({
       doc,
-      editorProps: { allowAnalyticsGASV3: true, allowTasksAndDecisions: true },
+      editorProps: {
+        allowAnalyticsGASV3: true,
+        allowTasksAndDecisions: true,
+        quickInsert: true,
+      },
       createAnalyticsEvent,
     });
   };

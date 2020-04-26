@@ -1,7 +1,9 @@
 import React, { Fragment } from 'react';
-import Select, { ValueType } from '@atlaskit/select';
+
 import Button from '@atlaskit/button';
-import Form, { Field, FormFooter, ErrorMessage } from '../src';
+import Select, { ValueType } from '@atlaskit/select';
+
+import Form, { ErrorMessage, Field, FormFooter } from '../src';
 
 interface OptionType {
   label: string;

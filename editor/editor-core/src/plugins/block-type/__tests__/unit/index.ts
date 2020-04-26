@@ -65,7 +65,7 @@ describe('block-type', () => {
         .add(blockTypePlugin)
         .add(panelPlugin)
         .add(codeBlockPlugin)
-        .add([analyticsPlugin, createAnalyticsEvent]),
+        .add([analyticsPlugin, { createAnalyticsEvent }]),
       pluginKey: blockTypePluginKey,
     });
   };

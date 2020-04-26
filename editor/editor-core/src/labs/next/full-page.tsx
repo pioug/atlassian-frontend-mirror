@@ -200,7 +200,7 @@ function FullPage(props: FullPageProps) {
         <BaseTheme dynamicTextSizing={allowDynamicTextSizing}>
           <FullPageEditorWrapper className="akEditor">
             <MainToolbar showKeyline={showKeyline}>
-              <Toolbar />
+              <Toolbar containerElement={scrollContainerRef.current} />
               <MainToolbarCustomComponentsSlot>
                 {!config ? null : (
                   <Avatars

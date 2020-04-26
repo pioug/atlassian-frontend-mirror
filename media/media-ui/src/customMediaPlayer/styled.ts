@@ -28,21 +28,29 @@ export const TimebarWrapper = styled.div`
   bottom: 10px;
 `;
 
-export const VolumeWrapper = styled.div`
+type VolumeWrapperProps = {
+  showSlider: boolean;
+};
+
+export const VolumeWrapper = styled.div<VolumeWrapperProps>`
   display: flex;
   width: 35px;
   overflow: hidden;
   transition: width 0.3s;
   align-items: center;
-  position: absolute;
   bottom: 0px;
   left: 43px;
 
-  &:hover,
-  &:active {
-    width: 155px;
-    transition: width 0.3s ease-out;
-  }
+  ${props =>
+    props.showSlider
+      ? `
+    &:hover,
+    &:active {
+      width: 155px;
+      transition: width 0.3s ease-out;
+    }
+  `
+      : ''}
 `;
 
 export const TimeWrapper = styled.div`

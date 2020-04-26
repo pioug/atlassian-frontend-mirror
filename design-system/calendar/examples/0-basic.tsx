@@ -1,4 +1,5 @@
 import React from 'react';
+
 import Calendar from '../src';
 
 const log = (msg: string) => (e: any) => console.log(msg, e);

@@ -24,7 +24,11 @@ export type MessageKey =
   | 'connect_to'
   | 'connect_account_description'
   | 'connect_link_account'
+  | 'connect_link_account_card'
+  | 'connect_link_account_card_name'
+  | 'connect_link_account_card_description'
   | 'invalid_permissions'
+  | 'invalid_permissions_description'
   | 'upload_an_avatar'
   | 'loading'
   | 'save'
@@ -41,6 +45,8 @@ export type MessageKey =
   | 'couldnt_generate_preview'
   | 'cant_preview_file_type'
   | 'item_not_found_in_list'
+  | 'not_found_title'
+  | 'not_found_description'
   | 'no_pdf_artifacts'
   | 'give_feedback'
   | 'try_downloading_file'
@@ -54,6 +60,7 @@ export type MessageKey =
   | 'close'
   | 'could_not_load_editor'
   | 'could_not_save_image'
+  | 'could_not_load_link'
   | 'annotate'
   | 'annotate_tool_arrow'
   | 'annotate_tool_text'
@@ -82,7 +89,10 @@ export type MessageKey =
   | 'document'
   | 'audio'
   | 'video'
-  | 'image';
+  | 'image'
+  | 'search'
+  | 'viewIn'
+  | 'viewOriginal';
 
 type Messages = { [K in MessageKey]: FormattedMessage.MessageDescriptor };
 
@@ -214,11 +224,37 @@ export const messages = defineMessages<Messages>({
     description:
       'Shown when a user does not have access to a link, but can connect their external account to view the link.',
   },
+  connect_link_account_card: {
+    id: 'fabric.media.connect_link_account_card_view',
+    defaultMessage: 'Connect',
+    description:
+      'Shown when a user does not have access to a link, but can connect their external account to view the link on card view.',
+  },
+  connect_link_account_card_name: {
+    id: 'fabric.media.connect_link_account_card_view_name',
+    defaultMessage: 'Connect your {context} account',
+    description:
+      'Shown when a user does not have access to a link, but can connect their external account to view the link on card view. Displayed in title.',
+  },
+  connect_link_account_card_description: {
+    id: 'fabric.media.connect_link_account_card_view_description',
+    defaultMessage:
+      'Enrich your link previews by connecting {context} to your Atlassian products.',
+    description:
+      'Shown when a user does not have access to a link, but can connect their external account to view the link on card view. Displayed in byline.',
+  },
   invalid_permissions: {
     id: 'fabric.media.invalid_permissions',
-    defaultMessage: "You don't have permissions to view",
+    defaultMessage: 'You don’t have access to this link',
     description:
       'Message shown when a user does not have permissions to view an item',
+  },
+  invalid_permissions_description: {
+    id: 'fabric.media.invalid_permissions_description',
+    defaultMessage:
+      "You'll need to request access or try a different account to view this preview.",
+    description:
+      'Message shown when a user does not have permissions to view an item. Displayed as description.',
   },
   upload_an_avatar: {
     id: 'fabric.media.upload_an_avatar',
@@ -307,6 +343,17 @@ export const messages = defineMessages<Messages>({
     description:
       'Error case for when a provided item is not found within the list of items',
   },
+  not_found_title: {
+    id: 'fabric.media.not_found_title',
+    defaultMessage: "Uh oh. We can't find this link!",
+    description: 'Error case for when a provided link is not found',
+  },
+  not_found_description: {
+    id: 'fabric.media.not_found_description',
+    defaultMessage: 'Check the url and try editing or paste again.',
+    description:
+      'Error case for when a provided item is not found within the list of items',
+  },
   no_pdf_artifacts: {
     id: 'fabric.media.no_pdf_artifacts',
     defaultMessage: 'No PDF artifacts found for this file.',
@@ -376,6 +423,11 @@ export const messages = defineMessages<Messages>({
     id: 'fabric.media.could_not_save_image',
     defaultMessage: 'Ouch! We could not save the image',
     description: 'Error message to communicate that we cant save an image',
+  },
+  could_not_load_link: {
+    id: 'fabric.media.couldnt_load_link',
+    defaultMessage: "We couldn't load this link for some reason.",
+    description: 'Error case for card view - link could not be loaded.',
   },
   annotate: {
     id: 'fabric.media.annotate',
@@ -527,5 +579,22 @@ export const messages = defineMessages<Messages>({
     id: 'fabric.media.image',
     defaultMessage: 'image',
     description: '',
+  },
+  search: {
+    id: 'fabric.media.image',
+    defaultMessage: 'search',
+    description: '',
+  },
+  viewIn: {
+    id: 'fabric.media.srclink',
+    defaultMessage: 'View in',
+    description:
+      'We have a link in our preview modals to the original document. This text goes before the provider name',
+  },
+  viewOriginal: {
+    id: 'fabric.media.srclinkunknown',
+    defaultMessage: 'View Original',
+    description:
+      "We have a link in our preview modals to the original document. This is for when we don't know the provider name",
   },
 });

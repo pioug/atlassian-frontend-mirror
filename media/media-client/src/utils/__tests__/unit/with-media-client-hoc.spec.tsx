@@ -48,7 +48,7 @@ describe('withMediaClient', () => {
     expect(mediaClient1).toBe(mediaClient2);
   });
 
-  it('should use empty mediaClient for external identifiers', async () => {
+  it('should use empty mediaClient when mediaClientConfig is not provided', async () => {
     const Wrapper = withMediaClient(DummyComponent);
     // Intentionally pass undefined mediaClientConfig to simulate external identifier usage
     const component = mount(

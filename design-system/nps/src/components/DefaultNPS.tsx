@@ -1,7 +1,8 @@
 import React from 'react';
-import NPS, { Rating, Comment, Role, AllowContact, NPSResult } from './NPS';
+
 import Feedback from './Feedback';
 import Followup from './Followup';
+import NPS, { AllowContact, Comment, NPSResult, Rating, Role } from './NPS';
 import Thankyou from './Thankyou';
 
 export function getDefaultMessages(product: string) {

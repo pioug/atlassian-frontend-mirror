@@ -3,7 +3,11 @@ import { getExampleUrl } from '@atlaskit/webdriver-runner/utils/example';
 import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 
 /* Url to test the example */
-const urlDynamicTable = getExampleUrl('core', 'dynamic-table', 'testing');
+const urlDynamicTable = getExampleUrl(
+  'design-system',
+  'dynamic-table',
+  'testing',
+);
 
 /* Css selectors used for the test */
 const table = "[data-testid='the-table--table']";

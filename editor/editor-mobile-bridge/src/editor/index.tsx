@@ -2,7 +2,7 @@ import '@babel/polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import MobileEditor from './mobile-editor-element';
-import { IS_DEV, determineMode } from '../utils';
+import { IS_DEV } from '../utils';
 import {
   createMentionProvider,
   createMediaProvider,
@@ -10,19 +10,17 @@ import {
   createCardClient,
   createCardProvider,
 } from '../providers';
+import { getModeValue, getQueryParams } from '../query-param-reader';
 
 function main() {
-  const params = new URLSearchParams(window.location.search);
-  const mode = determineMode(params.get('mode'));
-
   // Read default value from defaultValue query parameter when in development
-  const rawDefaultValue = IS_DEV ? params.get('defaultValue') : null;
+  const rawDefaultValue = IS_DEV ? getQueryParams().get('defaultValue') : null;
   const defaultValue =
     IS_DEV && rawDefaultValue ? atob(rawDefaultValue) : undefined;
 
   ReactDOM.render(
     <MobileEditor
-      mode={mode}
+      mode={getModeValue()}
       cardClient={createCardClient()}
       cardProvider={createCardProvider()}
       defaultValue={defaultValue}

@@ -1,4 +1,5 @@
 import React, { Component, ComponentType } from 'react';
+
 import { getDisplayName } from '../utils';
 
 interface Mapping<Props> {

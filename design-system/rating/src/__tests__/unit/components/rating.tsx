@@ -1,5 +1,7 @@
 import React, { createRef, RefObject } from 'react';
-import { render, fireEvent } from '@testing-library/react';
+
+import { fireEvent, render } from '@testing-library/react';
+
 import Rating, { RatingRender } from '../../../components/rating';
 
 const renderIcon: RatingRender = props => {

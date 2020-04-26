@@ -6,10 +6,7 @@ import {
   akEditorFullPageMaxWidth,
   akEditorFullWidthLayoutWidth,
 } from '../../styles';
-import {
-  calcWideWidth,
-  calcBreakoutWidth,
-} from '../../utils/calc-breakout-width';
+import { calcWideWidth, calcBreakoutWidth } from '../../utils/breakout';
 
 function float(layout: MediaSingleLayout): string {
   switch (layout) {

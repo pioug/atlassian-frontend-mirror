@@ -1,17 +1,18 @@
 import React, { Component, Fragment } from 'react';
-import { Spotlight, SpotlightManager } from '@atlaskit/onboarding';
+
 import Button from '@atlaskit/button';
 import ChevronLeft from '@atlaskit/icon/glyph/chevron-left';
 import ChevronRight from '@atlaskit/icon/glyph/chevron-right';
+import { Spotlight, SpotlightManager } from '@atlaskit/onboarding';
 
 import {
   GlobalNav,
   LayoutManagerWithViewController,
   NavigationProvider,
-  UIControllerSubscriber,
   // UIController was coming as type.
   // eslint-disable-next-line no-unused-vars
   UIController,
+  UIControllerSubscriber,
   withNavigationUIController,
 } from '../src';
 

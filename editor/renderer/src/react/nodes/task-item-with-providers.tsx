@@ -17,6 +17,7 @@ export interface Props {
   children?: ReactNode;
   taskDecisionProvider?: Promise<TaskDecisionProvider>;
   contextIdentifierProvider?: Promise<ContextIdentifierProvider>;
+  disabled?: boolean;
 }
 
 export interface State {

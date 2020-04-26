@@ -1,20 +1,22 @@
 /* eslint-disable react/no-multi-comp */
 
 import React, { Fragment, PureComponent } from 'react';
-import { withRouter, Link, Route } from 'react-router-dom';
+
+import { Link, Route, withRouter } from 'react-router-dom';
+
 import Avatar from '@atlaskit/avatar';
 import Drawer from '@atlaskit/drawer';
+import AddIcon from '@atlaskit/icon/glyph/add';
 import ChevronDown from '@atlaskit/icon/glyph/chevron-down';
 import LinkIcon from '@atlaskit/icon/glyph/link';
-import AddIcon from '@atlaskit/icon/glyph/add';
 import QuestionCircleIcon from '@atlaskit/icon/glyph/question-circle';
 import SearchIcon from '@atlaskit/icon/glyph/search';
 import { JiraIcon } from '@atlaskit/logo';
 
 import {
   ConnectedItem,
-  GlobalNav,
   ContainerHeader,
+  GlobalNav,
   ItemAvatar,
   Switcher,
 } from '../../src';

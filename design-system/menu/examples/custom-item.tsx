@@ -1,29 +1,32 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import { CustomItem, CustomItemComponentProps } from '../src';
-import Slack from './icons/slack';
+
 import Icon from '@atlaskit/icon';
 import { colors } from '@atlaskit/theme';
 
-const CustomComponent: React.FC<CustomItemComponentProps> = props => {
+import { CSSFn, CustomItem, CustomItemComponentProps } from '../src';
+
+import Slack from './icons/slack';
+
+const CustomComponent: React.FC<CustomItemComponentProps & {
+  href: string;
+}> = ({ children, href, ...props }) => {
   return (
-    // Make sure to use an interactive element instead of a div!
-    <div className={props.wrapperClass}>{props.children}</div>
+    <a href={href} {...props}>
+      {children}
+    </a>
   );
 };
 
-export default () => (
-  <CustomItem
-    component={CustomComponent}
-    elemBefore={<Icon glyph={Slack} label="" />}
-    description="Next-gen software project"
-    cssFn={currentStyles => {
-      return {
-        ...currentStyles,
-        position: 'relative',
-        overflow: 'hidden',
-        userSelect: 'none',
-        ':before': {
+const cssFn: CSSFn = (currentStyles, state) => {
+  return {
+    ...currentStyles,
+    position: 'relative',
+    overflow: 'hidden',
+    userSelect: 'none',
+    ':before': state.isDisabled
+      ? {}
+      : {
           content: '""',
           position: 'absolute',
           left: 0,
@@ -35,12 +38,55 @@ export default () => (
           backgroundColor: colors.B100,
         },
 
-        ':hover:before': {
+    ':hover:before': state.isDisabled
+      ? {}
+      : {
           transform: 'translateX(0)',
         },
-      };
-    }}
-  >
-    Navigation System
-  </CustomItem>
+  };
+};
+
+export default () => (
+  <div onClick={e => e.preventDefault()}>
+    <CustomItem
+      href="/navigation-system"
+      component={CustomComponent}
+      cssFn={cssFn}
+    >
+      Navigation System
+    </CustomItem>
+    <CustomItem
+      href="/navigation-system-1"
+      isSelected
+      component={CustomComponent}
+      cssFn={cssFn}
+    >
+      Navigation System
+    </CustomItem>
+    <CustomItem
+      href="/navigation-system-2"
+      isDisabled
+      component={CustomComponent}
+      cssFn={cssFn}
+    >
+      Navigation System
+    </CustomItem>
+    <CustomItem
+      href="/navigation-system-3"
+      component={CustomComponent}
+      iconBefore={<Icon glyph={Slack} label="" />}
+      cssFn={cssFn}
+    >
+      Navigation System
+    </CustomItem>
+    <CustomItem
+      href="/navigation-system-4"
+      component={CustomComponent}
+      iconBefore={<Icon glyph={Slack} label="" />}
+      description="Next-gen software project"
+      cssFn={cssFn}
+    >
+      Navigation System
+    </CustomItem>
+  </div>
 );

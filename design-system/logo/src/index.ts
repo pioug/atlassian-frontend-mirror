@@ -1,40 +1,40 @@
 import {
-  AtlassianLogo,
   AtlassianIcon,
+  AtlassianLogo,
   AtlassianWordmark,
 } from './AtlassianLogo';
 import {
-  BitbucketLogo,
   BitbucketIcon,
+  BitbucketLogo,
   BitbucketWordmark,
 } from './BitbucketLogo';
 import {
-  ConfluenceLogo,
   ConfluenceIcon,
+  ConfluenceLogo,
   ConfluenceWordmark,
 } from './ConfluenceLogo';
-import { HipchatLogo, HipchatIcon, HipchatWordmark } from './HipchatLogo';
-import { JiraCoreLogo, JiraCoreIcon, JiraCoreWordmark } from './JiraCoreLogo';
-import { JiraLogo, JiraIcon, JiraWordmark } from './JiraLogo';
+import { Props as LogoProps } from './constants';
+import { HipchatIcon, HipchatLogo, HipchatWordmark } from './HipchatLogo';
+import { JiraCoreIcon, JiraCoreLogo, JiraCoreWordmark } from './JiraCoreLogo';
+import { JiraIcon, JiraLogo, JiraWordmark } from './JiraLogo';
 import {
-  JiraServiceDeskLogo,
   JiraServiceDeskIcon,
+  JiraServiceDeskLogo,
   JiraServiceDeskWordmark,
 } from './JiraServiceDeskLogo';
 import {
-  JiraSoftwareLogo,
   JiraSoftwareIcon,
+  JiraSoftwareLogo,
   JiraSoftwareWordmark,
 } from './JiraSoftwareLogo';
-import { OpsGenieLogo, OpsGenieIcon, OpsGenieWordmark } from './OpsGenieLogo';
+import { OpsGenieIcon, OpsGenieLogo, OpsGenieWordmark } from './OpsGenieLogo';
 import {
-  StatuspageLogo,
   StatuspageIcon,
+  StatuspageLogo,
   StatuspageWordmark,
 } from './StatuspageLogo';
-import { StrideLogo, StrideIcon, StrideWordmark } from './StrideLogo';
-import { TrelloLogo, TrelloIcon, TrelloWordmark } from './TrelloLogo';
-import { Props as LogoProps } from './constants';
+import { StrideIcon, StrideLogo, StrideWordmark } from './StrideLogo';
+import { TrelloIcon, TrelloLogo, TrelloWordmark } from './TrelloLogo';
 
 export {
   AtlassianLogo,

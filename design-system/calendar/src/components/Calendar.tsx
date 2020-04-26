@@ -1,24 +1,20 @@
+import React, { Component, KeyboardEvent } from 'react';
+
+import { Calendar as CalendarBase } from 'calendar-base';
+import pick from 'lodash.pick';
+import { uid } from 'react-uid';
+
+import {
+  createAndFireEvent,
+  withAnalyticsContext,
+  withAnalyticsEvents,
+  WithAnalyticsEventsProps,
+} from '@atlaskit/analytics-next';
 import {
   createLocalizationProvider,
   LocalizationProvider,
 } from '@atlaskit/locale';
-import { Calendar as CalendarBase } from 'calendar-base';
-import pick from 'lodash.pick';
-import React, { Component, KeyboardEvent } from 'react';
-import { uid } from 'react-uid';
-import {
-  withAnalyticsEvents,
-  withAnalyticsContext,
-  createAndFireEvent,
-  WithAnalyticsEventsProps,
-} from '@atlaskit/analytics-next';
-import {
-  name as packageName,
-  version as packageVersion,
-} from '../version.json';
-import { dateToString } from '../util';
-import DateComponent from './Date';
-import Heading from './Heading';
+
 import {
   Announcer,
   CalendarTable,
@@ -27,8 +23,15 @@ import {
   CalendarThead,
   Wrapper,
 } from '../styled/Calendar';
+import { ArrowKeys, ChangeEvent, DateObj, SelectEvent } from '../types';
+import { dateToString } from '../util';
+import {
+  name as packageName,
+  version as packageVersion,
+} from '../version.json';
 
-import { ChangeEvent, SelectEvent, DateObj, ArrowKeys } from '../types';
+import DateComponent from './Date';
+import Heading from './Heading';
 
 const arrowKeys: Record<string, ArrowKeys> = {
   ArrowDown: 'down',

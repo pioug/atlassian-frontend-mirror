@@ -1,5 +1,6 @@
 import React from 'react';
-import { md, code, Example, Props } from '@atlaskit/docs';
+
+import { code, Example, md, Props } from '@atlaskit/docs';
 
 export default md`
   Renders a skeleton element that has the same sizing as \`HeadingItem\`.

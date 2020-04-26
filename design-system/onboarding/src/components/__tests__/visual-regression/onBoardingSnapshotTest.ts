@@ -9,7 +9,12 @@ const modalDialog = "[role='dialog']";
 describe('Snapshot Test', () => {
   it('Modal Basic example should match production example', async () => {
     const { __BASEURL__, page } = global as any;
-    const url = getExampleUrl('core', 'onboarding', 'modal-basic', __BASEURL__);
+    const url = getExampleUrl(
+      'design-system',
+      'onboarding',
+      'modal-basic',
+      __BASEURL__,
+    );
 
     await page.goto(url);
     await page.waitForSelector(openModalBtn);
@@ -24,7 +29,12 @@ describe('Snapshot Test', () => {
 
   it('Modal Basic example with primary button on right should match production example', async () => {
     const { __BASEURL__, page } = global as any;
-    const url = getExampleUrl('core', 'onboarding', 'modal-basic', __BASEURL__);
+    const url = getExampleUrl(
+      'design-system',
+      'onboarding',
+      'modal-basic',
+      __BASEURL__,
+    );
     const toggle = '#togglePrimaryButtonPosition';
 
     await page.goto(url);
@@ -42,7 +52,7 @@ describe('Snapshot Test', () => {
   it('Modal Wide Button Text example should match production example', async () => {
     const { __BASEURL__, page } = global as any;
     const url = getExampleUrl(
-      'core',
+      'design-system',
       'onboarding',
       'modal-wide-button-text',
       __BASEURL__,

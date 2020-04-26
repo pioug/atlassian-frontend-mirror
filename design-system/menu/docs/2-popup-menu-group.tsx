@@ -1,5 +1,6 @@
 import React from 'react';
-import { code, md, Props, Example } from '@atlaskit/docs';
+
+import { code, Example, md, Props } from '@atlaskit/docs';
 
 export default md`
   Useful when composing your menu with a popup.

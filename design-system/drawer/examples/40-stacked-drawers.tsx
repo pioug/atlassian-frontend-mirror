@@ -1,5 +1,7 @@
 import React, { Component, SyntheticEvent } from 'react';
+
 import Button from '@atlaskit/button';
+
 import Drawer from '../src';
 
 interface State {

@@ -1,7 +1,10 @@
 import React, { ReactNode } from 'react';
+
 import styled from 'styled-components';
+
+import { background, DN100, N50 } from '@atlaskit/theme/colors';
 import { themed, withTheme } from '@atlaskit/theme/components';
-import { N50, DN100, background } from '@atlaskit/theme/colors';
+
 import { Theme } from '../theme';
 import { AppearanceType, SizeType } from '../types';
 

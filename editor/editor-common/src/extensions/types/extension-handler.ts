@@ -1,4 +1,5 @@
 import { ADNode } from '../../utils';
+import { Parameters } from './extension-parameters';
 
 export interface ExtensionParams<T> {
   extensionKey: string;
@@ -13,8 +14,21 @@ export type ExtensionHandler<T> = (
   doc: Object,
 ) => JSX.Element | ADNode[] | null;
 
+export type OnSaveCallback = (params: Parameters) => void;
+export type ParametersGetter = (data: Parameters) => Parameters;
+export type AsyncParametersGetter = (data: Parameters) => Promise<Parameters>;
+
+export type UpdateContextActions = {
+  editInContextPanel: (
+    processParametersBefore: ParametersGetter,
+    processParametersAfter: AsyncParametersGetter,
+  ) => void;
+  editInLegacyMacroBrowser: () => void;
+};
+
 export type UpdateExtension<T> = (
   extensionParameters: T,
+  actions?: UpdateContextActions,
 ) => Promise<T | undefined>;
 
 export interface Extension<T> {

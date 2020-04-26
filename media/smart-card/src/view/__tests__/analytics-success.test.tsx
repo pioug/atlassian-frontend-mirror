@@ -1,16 +1,4 @@
-const mockEvents = {
-  resolvedEvent: jest.fn(),
-  unresolvedEvent: jest.fn(),
-  connectSucceededEvent: jest.fn(),
-  connectFailedEvent: jest.fn(),
-  trackAppAccountConnected: jest.fn(),
-  uiAuthEvent: jest.fn(),
-  uiAuthAlternateAccountEvent: jest.fn(),
-  uiCardClickedEvent: jest.fn(),
-  uiClosedAuthEvent: jest.fn(),
-  screenAuthPopupEvent: jest.fn(),
-  fireSmartLinkEvent: jest.fn(),
-};
+import { mockEvents } from './_mocks';
 const mockAuthFlow = jest.fn();
 
 jest.mock('react-lazily-render', () => (data: any) => data.content);
@@ -35,16 +23,19 @@ import {
   waitForElement,
   fireEvent,
   cleanup,
+  wait,
 } from '@testing-library/react';
 
 describe('smart-card: success analytics', () => {
   let mockClient: CardClient;
   let mockFetch: jest.Mock;
+  let mockPostData: jest.Mock;
   let mockWindowOpen: jest.Mock;
 
   beforeEach(() => {
     mockFetch = jest.fn(async () => mocks.success);
-    mockClient = new (fakeFactory(mockFetch))();
+    mockPostData = jest.fn(async () => mocks.actionSuccess);
+    mockClient = new (fakeFactory(mockFetch, mockPostData))();
     mockWindowOpen = jest.fn();
     /// @ts-ignore
     global.open = mockWindowOpen;
@@ -74,6 +65,16 @@ describe('smart-card: success analytics', () => {
       expect(resolvedCard).toBeTruthy();
       expect(mockEvents.resolvedEvent).toHaveBeenCalledTimes(1);
       expect(mockEvents.resolvedEvent).toHaveBeenCalledWith('d1');
+      expect(mockEvents.fireSmartLinkEvent).toBeCalledWith(
+        {
+          attributes: {
+            componentName: 'smart-cards',
+            display: 'inline',
+          },
+        },
+        expect.any(Function),
+      );
+      expect(mockEvents.uiRenderSuccessEvent).toBeCalledWith('inline', 'd1');
     });
 
     it('should fire clicked analytics event when a resolved URL is clicked', async () => {
@@ -99,5 +100,122 @@ describe('smart-card: success analytics', () => {
       expect(mockWindowOpen).toHaveBeenCalledTimes(1);
       expect(mockEvents.uiCardClickedEvent).toHaveBeenCalledTimes(1);
     });
+
+    it('should fire render failure when an unexpected error happens', async () => {
+      const mockUrl = 'this.is.the.sixth.url';
+      // Notice we are not wrapping Card within a Provider intentionally, to make it throw an error
+      render(<Card testId="resolvedCard1" appearance="inline" url={mockUrl} />);
+
+      expect(mockEvents.fireSmartLinkEvent).toBeCalledTimes(1);
+      expect(mockEvents.uiRenderFailedEvent).toBeCalledTimes(1);
+    });
+  });
+
+  it('block: should fire invokeSucceeded event when an action is clicked & processed', async () => {
+    const mockUrl = 'this.is.the.eigth.url';
+    const { getByTestId } = render(
+      <Provider client={mockClient}>
+        <Card
+          testId="resolvedCardWithActions"
+          appearance="block"
+          url={mockUrl}
+        />
+      </Provider>,
+    );
+    const downloadActionButton = await waitForElement(
+      () => getByTestId('button-comment'),
+      {
+        timeout: 5000,
+      },
+    );
+    const resolvedView = getByTestId('resolvedCardWithActions');
+    expect(resolvedView).toBeTruthy();
+    expect(downloadActionButton).toBeTruthy();
+    expect(mockEvents.resolvedEvent).toHaveBeenCalledTimes(1);
+    expect(mockEvents.resolvedEvent).toHaveBeenCalledWith('d1');
+
+    fireEvent.click(downloadActionButton);
+    await wait(() => {
+      expect(mockEvents.uiActionClickedEvent).toHaveBeenCalledTimes(1);
+      expect(mockEvents.invokeSucceededEvent).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  it('block: should fire invokeFailed event when an action is clicked & fails', async () => {
+    mockPostData.mockImplementationOnce(async () =>
+      Promise.reject(new Error('something happened')),
+    );
+    const mockUrl = 'this.is.the.eigth.url';
+    const { getByTestId } = render(
+      <Provider client={mockClient}>
+        <Card
+          testId="resolvedCardWithActions"
+          appearance="block"
+          url={mockUrl}
+        />
+      </Provider>,
+    );
+    const downloadActionButton = await waitForElement(
+      () => getByTestId('button-comment'),
+      {
+        timeout: 5000,
+      },
+    );
+    const resolvedView = getByTestId('resolvedCardWithActions');
+    expect(resolvedView).toBeTruthy();
+    expect(downloadActionButton).toBeTruthy();
+    expect(mockEvents.resolvedEvent).toHaveBeenCalledTimes(1);
+    expect(mockEvents.resolvedEvent).toHaveBeenCalledWith('d1');
+
+    fireEvent.click(downloadActionButton);
+    await wait(() => {
+      expect(mockEvents.uiActionClickedEvent).toHaveBeenCalledTimes(1);
+      expect(mockEvents.invokeFailedEvent).toHaveBeenCalledTimes(1);
+      expect(mockEvents.invokeFailedEvent).toHaveBeenCalledWith(
+        'object-provider',
+        'CommentAction',
+        'block',
+        'something happened',
+      );
+    });
+  });
+
+  it('preview: should fire analytics on invocation, and render preview', async () => {
+    const mockUrl = 'this.is.the.eigth.url';
+    const { getByTestId } = render(
+      <Provider client={mockClient}>
+        <Card
+          testId="resolvedCardWithActions"
+          appearance="block"
+          url={mockUrl}
+        />
+      </Provider>,
+    );
+    const previewActionButton = await waitForElement(
+      () => getByTestId('button-preview-content'),
+      {
+        timeout: 5000,
+      },
+    );
+    const resolvedView = getByTestId('resolvedCardWithActions');
+    expect(resolvedView).toBeTruthy();
+    expect(previewActionButton).toBeTruthy();
+    expect(mockEvents.resolvedEvent).toHaveBeenCalledTimes(1);
+    expect(mockEvents.resolvedEvent).toHaveBeenCalledWith('d1');
+
+    fireEvent.click(previewActionButton);
+    // Analytics tied to block card should be fired.
+    await wait(() => {
+      expect(mockEvents.uiActionClickedEvent).toHaveBeenCalledTimes(1);
+      expect(mockEvents.invokeSucceededEvent).toHaveBeenCalledTimes(1);
+      expect(mockEvents.invokeSucceededEvent).toHaveBeenCalledWith(
+        'd1',
+        'PreviewAction',
+        'block',
+      );
+    });
+    // Next, check the preview modal has rendered.
+    const previewModal = getByTestId('preview-modal');
+    expect(previewModal).toBeTruthy();
   });
 });

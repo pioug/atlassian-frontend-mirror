@@ -1,4 +1,5 @@
 import io from 'socket.io-client';
+import { utils } from '@atlaskit/util-service-support';
 
 import { Emitter } from './emitter';
 import {
@@ -105,24 +106,27 @@ export class Channel extends Emitter<ChannelEvent> {
     }
   };
 
-  async getSteps(fromVersion: number) {
-    const { documentAri, url } = this.config;
-
+  async fetchCatchup(fromVersion: number) {
     try {
-      const response = await fetch(
-        `${url}/document/${encodeURIComponent(
-          documentAri,
-        )}/steps?version=${fromVersion}`,
+      const { doc, version, stepMaps } = await utils.requestService<any>(
+        this.config,
+        {
+          path: `document/${encodeURIComponent(
+            this.config.documentAri,
+          )}/catchup`,
+          queryParams: {
+            version: fromVersion,
+          },
+        },
       );
-      if (response.ok) {
-        const { version, steps } = await response.json();
-        this.emit('steps:added', {
-          steps,
-          version,
-        });
-      }
+      return {
+        doc,
+        version,
+        stepMaps,
+      };
     } catch (err) {
-      logger(`Something went wrong while fetching steps`, err);
+      logger("Can't fetch the catchup", err.message);
+      return {};
     }
   }
 

@@ -1,6 +1,8 @@
 /** @jsx jsx */
 import { ReactNode } from 'react';
+
 import { jsx } from '@emotion/core';
+
 import Lozenge, { ThemeAppearance } from '../src';
 
 const Row: React.FunctionComponent<ReactNode> = ({ children }) => (

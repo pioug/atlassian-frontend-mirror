@@ -58,6 +58,34 @@ describe('MediaPickerPopup', () => {
     });
   });
 
+  describe('show', () => {
+    it('should fetch Forge plugins when useForgePlugins=true', () => {
+      const mediaPickerWithoutForge = new PopupImpl(mediaClient, popupConfig);
+      const dispatchSpy = jest.spyOn(
+        (mediaPickerWithoutForge as any).store,
+        'dispatch',
+      );
+
+      mediaPickerWithoutForge.show();
+      expect(dispatchSpy).toHaveBeenCalledTimes(2);
+
+      const mediaPickerWihtForge = new PopupImpl(mediaClient, {
+        ...popupConfig,
+        useForgePlugins: true,
+      });
+      const dispatchSpyForge = jest.spyOn(
+        (mediaPickerWihtForge as any).store,
+        'dispatch',
+      );
+
+      mediaPickerWihtForge.show();
+      expect(dispatchSpyForge).toHaveBeenCalledTimes(3);
+      expect(dispatchSpyForge).toBeCalledWith({
+        type: 'GET_FORGE_PLUGINS',
+      });
+    });
+  });
+
   describe('setUploadParams', () => {
     it('updates collection uploadParam when it is supplied', () => {
       const collection = 'some-collection-name';

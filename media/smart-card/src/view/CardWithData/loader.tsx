@@ -29,6 +29,7 @@ export class CardWithDataRenderer extends React.PureComponent<CardProps> {
       onClick,
       onResolve,
       testId,
+      showActions,
     } = this.props;
     if (!data) {
       throw new Error(
@@ -44,6 +45,7 @@ export class CardWithDataRenderer extends React.PureComponent<CardProps> {
           onClick={onClick}
           onResolve={onResolve}
           testId={testId}
+          showActions={showActions}
         />
       );
     }

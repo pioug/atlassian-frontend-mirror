@@ -1,7 +1,10 @@
 import React from 'react';
+
 import { mount } from 'enzyme';
+
 import Item from '@atlaskit/item';
-import { DropdownItem } from '../../..';
+
+import { DropdownItem } from '../../../index';
 
 describe('dropdown menu - DropdownItem', () => {
   test('should render the children', () => {

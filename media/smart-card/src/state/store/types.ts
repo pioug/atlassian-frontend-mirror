@@ -1,4 +1,4 @@
-import { JsonLd, CardClient } from '../../client/types';
+import { JsonLdCustom, CardClient } from '../../client/types';
 import { CardActionType } from '../actions/types';
 
 export type CardType =
@@ -13,7 +13,7 @@ export interface CardStore {
 }
 export interface CardState {
   status: CardType;
-  details?: JsonLd;
+  details?: JsonLdCustom;
   lastUpdatedAt: number;
 }
 export interface CardConnections {

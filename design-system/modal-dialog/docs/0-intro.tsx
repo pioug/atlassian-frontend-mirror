@@ -1,5 +1,6 @@
 import React from 'react';
-import { code, md, Example, Props } from '@atlaskit/docs';
+
+import { code, Example, md, Props } from '@atlaskit/docs';
 
 export default md`
   This component displays content in a layer that sits above the rest of the page content. Users won't be able to interact with the page until the dialog is closed.

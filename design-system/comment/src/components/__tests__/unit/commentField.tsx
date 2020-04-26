@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { shallow, mount } from 'enzyme';
 
-import CommentField from '../../Field';
+import { mount, shallow } from 'enzyme';
+
 import { Anchor, Span } from '../../../styled/FieldStyles';
+import CommentField from '../../Field';
 
 describe('@atlaskit comments', () => {
   describe('CommentField', () => {

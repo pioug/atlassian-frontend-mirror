@@ -4,6 +4,8 @@ import {
   getFileStreamsCache,
   ProcessedFileState,
   createFileStateSubject,
+  globalMediaEventEmitter,
+  FileState,
 } from '@atlaskit/media-client';
 import {
   mockStore,
@@ -49,6 +51,7 @@ describe('finalizeUploadMiddleware', () => {
   const setup = (state: Partial<State> = {}) => {
     const store = mockStore(state);
     const { userMediaClient, tenantMediaClient } = store.getState();
+    const globalEmitSpy = jest.spyOn(globalMediaEventEmitter, 'emit');
     (userMediaClient.config.authProvider as jest.Mock<any>).mockReturnValue(
       Promise.resolve(auth),
     );
@@ -69,6 +72,7 @@ describe('finalizeUploadMiddleware', () => {
         source,
       } as FinalizeUploadAction,
       tenantMediaClient,
+      globalEmitSpy,
     };
   };
 
@@ -225,6 +229,35 @@ describe('finalizeUploadMiddleware', () => {
     await finalizeUpload(store, action);
 
     expect(store.dispatch).toHaveBeenCalledWith(resetView());
+  });
+
+  it('should emit file-added in tenant mediaClient and globalMediaEventEmitter', async () => {
+    const { store, action, tenantMediaClient, globalEmitSpy } = setup();
+    const fileState: FileState = {
+      id: copiedFile.id,
+      artifacts: {},
+      mediaType: 'image',
+      mimeType: 'image/png',
+      status: 'processed',
+      name: file.name,
+      size: 12345,
+    };
+    const subject = createFileStateSubject(fileState);
+    getFileStreamsCache().set(copiedFile.id, subject);
+
+    await finalizeUpload(store, action);
+
+    expect(globalEmitSpy).toBeCalledTimes(1);
+    expect(globalEmitSpy).toHaveBeenCalledWith(
+      'file-added',
+      expect.objectContaining(fileState),
+    );
+
+    expect(tenantMediaClient.emit).toBeCalledTimes(1);
+    expect(asMock(tenantMediaClient.emit)).toHaveBeenCalledWith(
+      'file-added',
+      expect.objectContaining(fileState),
+    );
   });
 
   it('should produce an error to cached file subject when copy file with token request fails', async () => {

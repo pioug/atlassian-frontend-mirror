@@ -1,4 +1,5 @@
-import { Ref, ComponentType, ReactNode } from 'react';
+import { ComponentType, ReactNode, Ref } from 'react';
+
 import { CSSObject } from '@emotion/core';
 
 export interface RenderFunction<TProps = {}> {
@@ -77,7 +78,7 @@ export interface SectionBaseProps {
   /**
    * Children of the section,
    * should generally be `Item` or `Heading` components,
-   * but can also be [`EmptyState`](https://atlaskit.atlassian.com/packages/core/empty-state)s when wanting to render errors.
+   * but can also be [`EmptyState`](https://atlaskit.atlassian.com/packages/design-system/empty-state)s when wanting to render errors.
    */
   children: React.ReactNode;
 
@@ -90,12 +91,15 @@ export interface SectionBaseProps {
 }
 
 export interface SectionProps extends SectionBaseProps {
-  /**
-   * A function that can be used to override the styles of
-   * the internal HeadingItem. It receives the current styles and returns
-   * a customised styles object.
-   */
-  cssFn?: StatelessCssFn;
+  overrides?: {
+    HeadingItem?: {
+      /**
+       * A function that can be used to override the styles of the component.
+       * It receives the current styles and state and expects a styles object.
+       */
+      cssFn?: StatelessCSSFn;
+    };
+  };
 
   /**
    * The text passed into the internal HeadingItem. If a title is not provided,
@@ -106,23 +110,22 @@ export interface SectionProps extends SectionBaseProps {
 
 export interface BaseItemProps {
   /**
-   * A function that can be used to override the styles of
-   * the LinkItem. It receives the current styles and state
-   * and expects a styles object.
+   * A function that can be used to override the styles of the component.
+   * It receives the current styles and state and expects a styles object.
    */
   cssFn?: CSSFn;
 
   /**
    * Element to render before the item text.
-   * Generally should be an [`Icon`](https://atlaskit.atlassian.com/packages/core/icon) component.
+   * Generally should be an [icon](https://atlaskit.atlassian.com/packages/design-system/icon) component.
    */
-  elemBefore?: React.ReactNode;
+  iconBefore?: React.ReactNode;
 
   /**
    * Element to render after the item text.
-   * Generally should be an [`Icon`](https://atlaskit.atlassian.com/packages/core/icon) component.
+   * Generally should be an [icon](https://atlaskit.atlassian.com/packages/design-system/icon) component.
    */
-  elemAfter?: React.ReactNode;
+  iconAfter?: React.ReactNode;
 
   /**
    * Event that is triggered when the element is clicked.
@@ -194,7 +197,7 @@ export interface CustomItemComponentProps {
    * Class to apply to the root container of the custom component,
    * ensure this has been applied so the consistent item styling is applied.
    */
-  wrapperClass: string;
+  className: string;
 
   /**
    * Test id that is passed through to the custom component.
@@ -222,28 +225,41 @@ export interface CustomItemComponentProps {
    * make sure to place this on the outer most DOM element.
    */
   ref?: Ref<any>;
+
+  /**
+   * Makes the element appear disabled as well as removing interactivity.
+   */
+  tabIndex: number | undefined;
+
+  /**
+   * Disabled attribute.
+   */
+  disabled?: boolean;
 }
 
-export interface CustomItemProps extends BaseItemProps {
+export interface CustomItemProps<
+  TCustomComponentProps = CustomItemComponentProps
+> extends BaseItemProps {
   /**
    * Custom component to render as an item.
    * This can be both a functional component or a class component.
    * **Will return `null` if no component is defined.**
+   * If using TypeScript and this has typed props it will make its props available to the root custom item component for type safety.
 
    * **NOTE:** Make sure the reference for this component does not change between renders else undefined behavior may happen.
    */
-  component?: React.ComponentType<CustomItemComponentProps>;
+  component?: React.ComponentType<TCustomComponentProps>;
 }
 
 export interface SkeletonItemProps {
   /**
-   * Renders a skeleton circle in the `elemBefore` location.
+   * Renders a skeleton circle in the `iconBefore` location.
    * Takes priority over `hasIcon.
    */
   hasAvatar?: boolean;
 
   /**
-   * Renders a skeleton square in the `elemBefore` location.
+   * Renders a skeleton square in the `iconBefore` location.
    */
   hasIcon?: boolean;
 
@@ -270,18 +286,17 @@ export interface SkeletonItemProps {
    * A function that can be used to override the styles of this component.
    * It receives the current styles and returns a customized styles object.
    */
-  cssFn?: StatelessCssFn;
+  cssFn?: StatelessCSSFn;
 }
 
 export type Width = string | number;
 
 export interface HeadingItemProps {
   /**
-   * A function that can be used to override the styles of
-   * the HeadingItem. It receives the current styles and returns
-   * a customised styles object.
+   * A function that can be used to override the styles.
+   * It receives the current styles and returns a customised styles object.
    */
-  cssFn?: StatelessCssFn;
+  cssFn?: StatelessCSSFn;
 
   /**
    * The text of the heading.
@@ -289,8 +304,8 @@ export interface HeadingItemProps {
   children: React.ReactNode;
 
   /**
-   * The ID for a HeadingItem can be referenced in the `labelledby` prop of a
-   * Section to allow screen readers to announce the name of groups.
+   * A unique identifier that can be referenced in the `labelledby` prop of a
+   * section to allow screen readers to announce the name of groups.
    */
   id?: string;
 
@@ -326,7 +341,7 @@ export interface SkeletonHeadingItemProps {
    * A function that can be used to override the styles of this component.
    * It receives the current styles and returns a customized styles object.
    */
-  cssFn?: StatelessCssFn;
+  cssFn?: StatelessCSSFn;
 }
 
 export type ItemState = { isSelected: boolean; isDisabled: boolean };
@@ -336,9 +351,8 @@ export type ItemState = { isSelected: boolean; isDisabled: boolean };
  * menu components. It receives the current styles and state
  * and expects a styles object.
  */
-export type CSSFn = (
-  currentStyles: CSSObject,
-  currentState: ItemState,
-) => CSSObject;
+export interface CSSFn<TState = ItemState> {
+  (currentStyles: CSSObject, currentState: TState): CSSObject;
+}
 
-export type StatelessCssFn = (currentStyles: CSSObject) => CSSObject;
+export type StatelessCSSFn = CSSFn<undefined>;

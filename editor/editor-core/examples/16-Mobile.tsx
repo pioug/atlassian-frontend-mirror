@@ -6,6 +6,15 @@ import {
   MentionDescription,
   MentionProvider,
 } from '@atlaskit/mention/resource';
+import { Provider as SmartCardProvider } from '@atlaskit/smart-card';
+
+import {
+  ConfluenceCardProvider,
+  ConfluenceCardClient,
+} from './5-full-page-with-confluence-smart-cards';
+
+const cardClient = new ConfluenceCardClient('staging');
+const cardProvider = new ConfluenceCardProvider('staging');
 
 class MentionProviderImpl implements MentionProvider {
   filter(_query?: string): void {}
@@ -22,16 +31,22 @@ class MentionProviderImpl implements MentionProvider {
 
 export function mobileEditor() {
   return (
-    <EditorContext>
-      <div>
-        <WithEditorActions render={() => <div />} />
-        <Editor
-          appearance="mobile"
-          mentionProvider={Promise.resolve(new MentionProviderImpl())}
-          quickInsert={true}
-        />
-      </div>
-    </EditorContext>
+    <SmartCardProvider client={cardClient}>
+      <EditorContext>
+        <div>
+          <WithEditorActions render={() => <div />} />
+          <Editor
+            appearance="mobile"
+            mentionProvider={Promise.resolve(new MentionProviderImpl())}
+            quickInsert={true}
+            UNSAFE_cards={{
+              provider: Promise.resolve(cardProvider),
+              allowBlockCards: true,
+            }}
+          />
+        </div>
+      </EditorContext>
+    </SmartCardProvider>
   );
 }
 

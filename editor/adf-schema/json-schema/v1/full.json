@@ -505,6 +505,9 @@
         "attrs": {
           "type": "object",
           "properties": {
+            "text": {
+              "type": "string"
+            },
             "extensionKey": {
               "type": "string",
               "minLength": 1
@@ -513,16 +516,13 @@
               "type": "string",
               "minLength": 1
             },
-            "parameters": {},
-            "text": {
-              "type": "string"
-            }
+            "parameters": {}
           },
+          "additionalProperties": false,
           "required": [
             "extensionKey",
             "extensionType"
-          ],
-          "additionalProperties": false
+          ]
         }
       },
       "required": [
@@ -1270,6 +1270,9 @@
           "items": {
             "anyOf": [
               {
+                "$ref": "#/definitions/blockCard_node"
+              },
+              {
                 "$ref": "#/definitions/paragraph_with_no_marks_node"
               },
               {
@@ -1510,6 +1513,50 @@
       ],
       "additionalProperties": false
     },
+    "extension_node": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "extension"
+          ]
+        },
+        "attrs": {
+          "type": "object",
+          "properties": {
+            "extensionKey": {
+              "type": "string",
+              "minLength": 1
+            },
+            "extensionType": {
+              "type": "string",
+              "minLength": 1
+            },
+            "parameters": {},
+            "text": {
+              "type": "string"
+            },
+            "layout": {
+              "enum": [
+                "wide",
+                "full-width",
+                "default"
+              ]
+            }
+          },
+          "required": [
+            "extensionKey",
+            "extensionType"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "type",
+        "attrs"
+      ],
+      "additionalProperties": false
+    },
     "nestedExpand_content": {
       "type": "array",
       "items": {
@@ -1694,51 +1741,10 @@
             "$ref": "#/definitions/taskList_node"
           },
           {
-            "$ref": "#/definitions/nestedExpand_with_no_marks_node"
+            "$ref": "#/definitions/extension_node"
           },
           {
-            "type": "object",
-            "properties": {
-              "type": {
-                "enum": [
-                  "extension"
-                ]
-              },
-              "attrs": {
-                "type": "object",
-                "properties": {
-                  "extensionKey": {
-                    "type": "string",
-                    "minLength": 1
-                  },
-                  "extensionType": {
-                    "type": "string",
-                    "minLength": 1
-                  },
-                  "parameters": {},
-                  "text": {
-                    "type": "string"
-                  },
-                  "layout": {
-                    "enum": [
-                      "wide",
-                      "full-width",
-                      "default"
-                    ]
-                  }
-                },
-                "required": [
-                  "extensionKey",
-                  "extensionType"
-                ],
-                "additionalProperties": false
-              }
-            },
-            "required": [
-              "type",
-              "attrs"
-            ],
-            "additionalProperties": false
+            "$ref": "#/definitions/nestedExpand_with_no_marks_node"
           }
         ]
       },
@@ -1822,102 +1828,54 @@
       ],
       "additionalProperties": false
     },
-    "extension_node": {
-      "type": "object",
-      "properties": {
-        "type": {
-          "enum": [
-            "extension"
-          ]
+    "non_nestable_block_content": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/codeBlock_with_no_marks_node"
         },
-        "attrs": {
-          "type": "object",
-          "properties": {
-            "extensionKey": {
-              "type": "string",
-              "minLength": 1
-            },
-            "extensionType": {
-              "type": "string",
-              "minLength": 1
-            },
-            "parameters": {},
-            "text": {
-              "type": "string"
-            },
-            "layout": {
-              "enum": [
-                "wide",
-                "full-width",
-                "default"
-              ]
-            }
-          },
-          "required": [
-            "extensionKey",
-            "extensionType"
-          ],
-          "additionalProperties": false
+        {
+          "$ref": "#/definitions/blockCard_node"
+        },
+        {
+          "$ref": "#/definitions/paragraph_with_no_marks_node"
+        },
+        {
+          "$ref": "#/definitions/bulletList_node"
+        },
+        {
+          "$ref": "#/definitions/mediaSingle_node"
+        },
+        {
+          "$ref": "#/definitions/orderedList_node"
+        },
+        {
+          "$ref": "#/definitions/heading_with_no_marks_node"
+        },
+        {
+          "$ref": "#/definitions/panel_node"
+        },
+        {
+          "$ref": "#/definitions/blockquote_node"
+        },
+        {
+          "$ref": "#/definitions/rule_node"
+        },
+        {
+          "$ref": "#/definitions/mediaGroup_node"
+        },
+        {
+          "$ref": "#/definitions/decisionList_node"
+        },
+        {
+          "$ref": "#/definitions/taskList_node"
+        },
+        {
+          "$ref": "#/definitions/extension_node"
+        },
+        {
+          "$ref": "#/definitions/table_node"
         }
-      },
-      "required": [
-        "type",
-        "attrs"
-      ],
-      "additionalProperties": false
-    },
-    "extension_content": {
-      "type": "array",
-      "items": {
-        "anyOf": [
-          {
-            "$ref": "#/definitions/codeBlock_with_no_marks_node"
-          },
-          {
-            "$ref": "#/definitions/blockCard_node"
-          },
-          {
-            "$ref": "#/definitions/paragraph_with_no_marks_node"
-          },
-          {
-            "$ref": "#/definitions/bulletList_node"
-          },
-          {
-            "$ref": "#/definitions/mediaSingle_node"
-          },
-          {
-            "$ref": "#/definitions/orderedList_node"
-          },
-          {
-            "$ref": "#/definitions/heading_with_no_marks_node"
-          },
-          {
-            "$ref": "#/definitions/panel_node"
-          },
-          {
-            "$ref": "#/definitions/blockquote_node"
-          },
-          {
-            "$ref": "#/definitions/rule_node"
-          },
-          {
-            "$ref": "#/definitions/mediaGroup_node"
-          },
-          {
-            "$ref": "#/definitions/decisionList_node"
-          },
-          {
-            "$ref": "#/definitions/taskList_node"
-          },
-          {
-            "$ref": "#/definitions/table_node"
-          },
-          {
-            "$ref": "#/definitions/extension_node"
-          }
-        ]
-      },
-      "minItems": 1
+      ]
     },
     "expand_node": {
       "type": "object",
@@ -1937,7 +1895,11 @@
           "additionalProperties": false
         },
         "content": {
-          "$ref": "#/definitions/extension_content"
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/non_nestable_block_content"
+          },
+          "minItems": 1
         },
         "marks": {
           "type": "array"
@@ -1967,7 +1929,7 @@
         }
       ]
     },
-    "expand_with_breakout_definition": {
+    "expand_with_breakout_mark_node": {
       "allOf": [
         {
           "$ref": "#/definitions/expand_node"
@@ -2024,7 +1986,11 @@
           "additionalProperties": false
         },
         "content": {
-          "$ref": "#/definitions/extension_content"
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/non_nestable_block_content"
+          },
+          "minItems": 1
         }
       },
       "required": [
@@ -2085,10 +2051,10 @@
           "$ref": "#/definitions/taskList_node"
         },
         {
-          "$ref": "#/definitions/table_node"
+          "$ref": "#/definitions/extension_node"
         },
         {
-          "$ref": "#/definitions/extension_node"
+          "$ref": "#/definitions/table_node"
         },
         {
           "$ref": "#/definitions/expand_with_no_mark_node"
@@ -2236,16 +2202,16 @@
                 "$ref": "#/definitions/taskList_node"
               },
               {
-                "$ref": "#/definitions/table_node"
+                "$ref": "#/definitions/extension_node"
               },
               {
-                "$ref": "#/definitions/extension_node"
+                "$ref": "#/definitions/table_node"
               },
               {
                 "$ref": "#/definitions/expand_with_no_mark_node"
               },
               {
-                "$ref": "#/definitions/expand_with_breakout_definition"
+                "$ref": "#/definitions/expand_with_breakout_mark_node"
               },
               {
                 "$ref": "#/definitions/bodiedExtension_node"

@@ -1,10 +1,11 @@
 import React from 'react';
+
 import { mount } from 'enzyme';
 
+import { Icon, Input } from '../../styled';
 import ToggleStatelessWithAnalytics, {
   ToggleStatelessWithoutAnalytics as Toggle,
 } from '../../ToggleStateless';
-import { Input, Icon } from '../../styled';
 
 declare var global: any;
 

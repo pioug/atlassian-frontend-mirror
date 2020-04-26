@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { withTheme as WithEmotionTheme } from 'emotion-theming';
 
 import { light } from './modes';

@@ -3,7 +3,11 @@ import { getExampleUrl } from '@atlaskit/webdriver-runner/utils/example';
 import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 
 /* Url to test the example */
-const urlDrawer = getExampleUrl('core', 'drawer', 'drawer-with-fixed-contents');
+const urlDrawer = getExampleUrl(
+  'design-system',
+  'drawer',
+  'drawer-with-fixed-contents',
+);
 
 /* Css selectors used for the test */
 const dropdownTrigger = '#drawer-contents button';

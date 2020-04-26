@@ -1,8 +1,10 @@
 /** @jsx jsx */
-import { useState, forwardRef } from 'react';
+import { forwardRef, useState } from 'react';
+
+import { jsx } from '@emotion/core';
+
 import Button from '@atlaskit/button';
 import MoreIcon from '@atlaskit/icon/glyph/more';
-import { jsx } from '@emotion/core';
 import { N700 } from '@atlaskit/theme/colors';
 import { borderRadius } from '@atlaskit/theme/constants';
 

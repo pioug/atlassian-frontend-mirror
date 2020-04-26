@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import { withNavigationUIController } from '../../../ui-controller';
+
 import LayoutManager from './LayoutManager';
 
 function defaultTooltipContent(isCollapsed) {

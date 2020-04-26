@@ -1,12 +1,12 @@
 import React, { Component, ReactElement, ReactNode } from 'react';
 
 import {
-  Outer,
-  TitleWrapper,
-  StyledTitle,
   ActionsWrapper,
   BottomBarWrapper,
+  Outer,
+  StyledTitle,
   TitleContainer,
+  TitleWrapper,
 } from './styled';
 
 type Props = {

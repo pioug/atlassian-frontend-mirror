@@ -1,11 +1,14 @@
 import React from 'react';
+
 import styled from 'styled-components';
+
 import Button, { ButtonGroup } from '@atlaskit/button';
 import { borderRadius } from '@atlaskit/theme';
+
 import {
   Spotlight,
-  SpotlightPulse,
   SpotlightManager,
+  SpotlightPulse,
   SpotlightTarget,
   SpotlightTransition,
 } from '../src';

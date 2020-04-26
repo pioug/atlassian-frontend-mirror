@@ -1,7 +1,8 @@
-import { render } from '@testing-library/react';
 import React from 'react';
 
-import Lozenge from '../../..';
+import { render } from '@testing-library/react';
+
+import Lozenge from '../../../index';
 
 describe('Lozenge should be found by data-testid', () => {
   test('Using getByTestId()', async () => {

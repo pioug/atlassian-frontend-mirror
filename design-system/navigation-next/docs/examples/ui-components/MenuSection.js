@@ -1,11 +1,11 @@
 import React from 'react';
-import { colors } from '@atlaskit/theme';
+
 import DashboardIcon from '@atlaskit/icon/glyph/dashboard';
 import FolderIcon from '@atlaskit/icon/glyph/folder';
 import IssuesIcon from '@atlaskit/icon/glyph/issues';
+import { colors } from '@atlaskit/theme';
 
 import { Item, MenuSection, Section } from '../../../src';
-
 import { CONTENT_NAV_WIDTH } from '../../../src/common/constants';
 
 const SectionExample = ({ component: SectionComponent }) => (

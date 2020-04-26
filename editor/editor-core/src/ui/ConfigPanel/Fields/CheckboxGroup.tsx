@@ -3,9 +3,16 @@ import { Checkbox } from '@atlaskit/checkbox';
 import { CheckboxField, Fieldset } from '@atlaskit/form';
 import { EnumField } from '@atlaskit/editor-common/extensions';
 
+import { OnBlur } from '../types';
 import FieldMessages from '../FieldMessages';
 
-export default function({ field }: { field: EnumField }) {
+export default function({
+  field,
+  onBlur,
+}: {
+  field: EnumField;
+  onBlur: OnBlur;
+}) {
   return (
     <Fieldset legend={field.label}>
       {field.items.map(option => (
@@ -20,9 +27,20 @@ export default function({ field }: { field: EnumField }) {
           }
         >
           {({ fieldProps, error }) => {
+            const onChange = (
+              value?: string | React.FormEvent<HTMLInputElement>,
+            ) => {
+              fieldProps.onChange(value);
+              onBlur(field.name);
+            };
+
             return (
               <Fragment>
-                <Checkbox {...fieldProps} label={option.label} />
+                <Checkbox
+                  {...fieldProps}
+                  onChange={onChange}
+                  label={option.label}
+                />
                 <FieldMessages error={error} />
               </Fragment>
             );

@@ -46,8 +46,8 @@ describe('promise-helpers', () => {
   describe('waitForFirstFulfilledPromise', () => {
     test('should return on the first fulfilled promise, disregarding rejected ones', async () => {
       const a = rejectsIn(10, 'a');
-      const b = resolvesIn(15, 'b');
-      const c = resolvesIn(12, 'c');
+      const b = resolvesIn(30, 'b');
+      const c = resolvesIn(20, 'c');
 
       expect(await waitForFirstFulfilledPromise([a, b, c])).toEqual('c');
     });

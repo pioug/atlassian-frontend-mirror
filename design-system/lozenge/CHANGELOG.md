@@ -1,5 +1,15 @@
 # @atlaskit/lozenge
 
+## 9.1.7
+
+### Patch Changes
+
+- [patch][a4d063330a](https://bitbucket.org/atlassian/atlassian-frontend/commits/a4d063330a):
+
+  Change imports to comply with Atlassian conventions- Updated dependencies [fd41d77c29](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd41d77c29):
+
+  - @atlaskit/webdriver-runner@0.3.4
+
 ## 9.1.6
 
 ### Patch Changes

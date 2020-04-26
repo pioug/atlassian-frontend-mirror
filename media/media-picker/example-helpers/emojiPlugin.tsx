@@ -9,7 +9,7 @@ import {
   PluginActions,
   PluginFile,
 } from '../src/domain/plugin';
-import { BricksView, BrickItem } from '../src/plugins/bricksPluginView';
+import { BricksView, BrickItem } from '../src/plugins/views/bricks';
 
 export type EmojiResult = { [key: string]: string };
 export interface EmojiViewState {
@@ -94,7 +94,7 @@ class EmojiView extends Component<EmojiViewProps, EmojiViewState> {
     this.setState({ query }, this.search);
   };
 
-  onFileClick = (item: BrickItem) => this.onCardClick(item.id)();
+  onFileClick = (id: string) => this.onCardClick(id)();
 
   renderBricks = () => {
     const { selectedItems } = this.props;

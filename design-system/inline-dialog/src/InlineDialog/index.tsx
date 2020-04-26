@@ -1,16 +1,20 @@
 import React, { Component } from 'react';
-import {
-  withAnalyticsEvents,
-  withAnalyticsContext,
-  createAndFireEvent,
-} from '@atlaskit/analytics-next';
+
 import NodeResolver from 'react-node-resolver';
-import { Manager, Reference, Popper } from '@atlaskit/popper';
-import { Props, Placement } from '../types';
+
+import {
+  createAndFireEvent,
+  withAnalyticsContext,
+  withAnalyticsEvents,
+} from '@atlaskit/analytics-next';
+import { Manager, Popper, Reference } from '@atlaskit/popper';
+
+import { Placement, Props } from '../types';
 import {
   name as packageName,
   version as packageVersion,
 } from '../version.json';
+
 import { Container } from './styled';
 
 class InlineDialog extends Component<Props, {}> {

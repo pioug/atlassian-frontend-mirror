@@ -11,6 +11,7 @@ import {
   Option,
 } from '@atlaskit/editor-common/extensions';
 
+import { OnBlur } from '../types';
 import UnhandledType from './UnhandledType';
 import FieldMessages from '../FieldMessages';
 import { validate } from '../utils';
@@ -18,6 +19,7 @@ import { validate } from '../utils';
 type Props = {
   field: CustomField;
   extensionManifest: ExtensionManifest;
+  onBlur: OnBlur;
 };
 
 type State = {
@@ -109,7 +111,7 @@ export default class CustomSelect extends React.Component<Props, State> {
   }
 
   render() {
-    const { field } = this.props;
+    const { field, onBlur } = this.props;
     const { defaultValue, fieldResolver, isMissingResolver } = this.state;
 
     return (
@@ -128,6 +130,10 @@ export default class CustomSelect extends React.Component<Props, State> {
               <Fragment>
                 <AsyncSelect
                   {...fieldProps}
+                  onChange={value => {
+                    fieldProps.onChange(value);
+                    onBlur(field.name);
+                  }}
                   isMulti={field.isMultiple || false}
                   isClearable={false}
                   validationState={error ? 'error' : 'default'}

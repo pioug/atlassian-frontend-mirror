@@ -5,8 +5,9 @@ import { ProviderFactory, ExtensionHandlers } from '@atlaskit/editor-common';
 import { ReactNodeView } from '../../../nodeviews';
 import Extension from '../ui/Extension';
 import { PortalProviderAPI } from '../../../ui/PortalProvider';
-import { ForwardRef, getPosHandler } from '../../../nodeviews/ReactNodeView';
+import { ForwardRef, getPosHandler } from '../../../nodeviews/';
 import { ZeroWidthSpace } from '../../../utils';
+import { EventDispatcher } from '../../../event-dispatcher';
 
 export interface Props {
   node: PmNode;
@@ -63,13 +64,21 @@ class ExtensionNode extends ReactNodeView {
 
 export default function ExtensionNodeView(
   portalProviderAPI: PortalProviderAPI,
+  eventDispatcher: EventDispatcher,
   providerFactory: ProviderFactory,
   extensionHandlers: ExtensionHandlers,
 ) {
   return (node: PmNode, view: EditorView, getPos: getPosHandler): NodeView => {
-    return new ExtensionNode(node, view, getPos, portalProviderAPI, {
-      providerFactory,
-      extensionHandlers,
-    }).init();
+    return new ExtensionNode(
+      node,
+      view,
+      getPos,
+      portalProviderAPI,
+      eventDispatcher,
+      {
+        providerFactory,
+        extensionHandlers,
+      },
+    ).init();
   };
 }

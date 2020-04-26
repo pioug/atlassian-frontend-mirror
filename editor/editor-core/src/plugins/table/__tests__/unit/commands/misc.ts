@@ -10,6 +10,7 @@ import { selectColumn } from '../../../commands';
 import { EditorProps } from '../../../../../types';
 import { TablePluginState, TableDecorations } from '../../../types';
 import { getPluginState, pluginKey } from '../../../pm-plugins/plugin-factory';
+import { getDecorations } from '../../../pm-plugins/decorations/plugin';
 
 describe('table plugin: commands', () => {
   const createEditor = createEditorFactory<TablePluginState>();
@@ -40,8 +41,7 @@ describe('table plugin: commands', () => {
       const { editorView } = editor(doc(table()(tr(tdEmpty, tdEmpty))));
       const { state, dispatch } = editorView;
       selectColumn(1)(state, dispatch);
-      const pluginState = getPluginState(editorView.state);
-      const { decorationSet } = pluginState;
+      const decorationSet = getDecorations(editorView.state);
       const columnSelectedDecorations = decorationSet.find(
         undefined,
         undefined,

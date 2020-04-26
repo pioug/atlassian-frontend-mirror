@@ -1,18 +1,19 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
-import { shallow, mount, ReactWrapper } from 'enzyme';
-import Droplist from '@atlaskit/droplist';
+
+import { mount, ReactWrapper, shallow } from 'enzyme';
+
 import Button, { ButtonAppearances, ButtonProps } from '@atlaskit/button';
-import MoreIcon from '@atlaskit/icon/glyph/more';
+import Droplist from '@atlaskit/droplist';
 import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
+import MoreIcon from '@atlaskit/icon/glyph/more';
 
 import Menu, {
   DropdownItem,
   DropdownItemGroup,
   DropdownMenuStatefulProps,
-} from '../../..';
-
-import { KEY_SPACE, KEY_ENTER, KEY_DOWN, KEY_ESC } from '../../../util/keys';
+} from '../../../index';
+import { KEY_DOWN, KEY_ENTER, KEY_ESC, KEY_SPACE } from '../../../util/keys';
 
 const itemsList = (
   <DropdownItemGroup title="test1" elemAfter="AK-1234">

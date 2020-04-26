@@ -1,7 +1,6 @@
 import {
   DefaultExtensionProvider,
   ExtensionManifest,
-  ExtensionModuleNodes,
   ExtensionModule,
 } from '@atlaskit/editor-common';
 
@@ -10,6 +9,7 @@ import {
   EnumField,
   CustomField,
   Fieldset,
+  ExtensionModuleNode,
 } from '@atlaskit/editor-common/extensions';
 
 import {
@@ -21,25 +21,16 @@ import {
 
 import { cqlSerializer, cqlDeserializer } from '../config-panel/cql-helpers';
 
-import { isNativeFieldType } from '../../src/ui/ConfigPanel/index';
-
 import mainResponse from './browse-macros.json';
+import { getIconComponent } from './IconImage';
 
-type KeyedMacros = { [key: string]: LegacyMacroManifest[] };
+const isNativeFieldType = (fieldType: string) => {
+  return /^(enum|string|number|boolean|date)$/.test(fieldType);
+};
 
 const getMacrosManifestList = () => {
-  const byKeyMacros = mainResponse.macros.reduce(
-    (curr: KeyedMacros, macro: LegacyMacroManifest) => {
-      const extensionKey = macro.pluginKey;
-      curr[extensionKey] = curr[extensionKey] || [];
-      curr[extensionKey].push(macro);
-      return curr;
-    },
-    {},
-  );
-
-  return Object.keys(byKeyMacros).map((extensionKey: string) =>
-    transformLegacyMacrosToExtensionManifest(byKeyMacros[extensionKey]),
+  return mainResponse.macros.map((macro: LegacyMacroManifest) =>
+    transformLegacyMacrosToExtensionManifest(macro),
   );
 };
 
@@ -106,50 +97,102 @@ type LegacyParameter = {
 const safeGetMacroName = (macro: LegacyMacroManifest) =>
   macro.alternateId || macro.macroName;
 
+const getIcon = (macro: LegacyMacroManifest) => {
+  if (macro.icon && macro.icon.location) {
+    return Promise.resolve(() => getIconComponent(macro.icon.location));
+  }
+
+  return import('@atlaskit/icon/glyph/editor/code');
+};
+
+const buildIconObject = (macro: LegacyMacroManifest) => {
+  return {
+    '48': () => getIcon(macro),
+  };
+};
+
 const transformLegacyMacrosToExtensionManifest = (
-  macros: LegacyMacroManifest[],
+  macro: LegacyMacroManifest,
 ): ExtensionManifest => {
-  const macro = macros[0];
-  const extensionKey = macro.pluginKey;
+  const extensionKey = safeGetMacroName(macro);
 
-  const quickInsert: ExtensionModule[] = macros.map(macro => ({
-    key: safeGetMacroName(macro),
-    title: macro.title,
-    description: macro.description,
-    icon: () => import('@atlaskit/icon/glyph/editor/code'),
-    action: {
-      type: 'node',
-      key: safeGetMacroName(macro),
-      parameters: {},
-    },
-  }));
+  // hidden macros can still exist so they can be rendered but shouldn't appear in any menu
+  const quickInsert: ExtensionModule[] = macro.hidden
+    ? []
+    : [
+        {
+          key: 'default',
+          title: macro.title,
+          description: macro.description,
+          icon: () => getIcon(macro),
+          action: {
+            type: 'node',
+            key: 'default',
+            parameters: {},
+          },
+        },
+      ];
 
-  const nodes = macros.reduce<ExtensionModuleNodes>((curr, macro) => {
-    curr[macro.alternateId || macro.macroName] = {
+  const nodes = {
+    default: {
       type: 'extension',
-      render: () => Promise.resolve(() => null),
-      getFieldsDefinition: () =>
-        Promise.resolve(
-          macro.formDetails.parameters.map(params =>
-            transformFormDetailsIntoFields(params, {
-              pluginKey: macro.pluginKey,
-              macroName: safeGetMacroName(macro),
-            }),
-          ),
+      render: () =>
+        import(
+          /* webpackChunkName:"@atlaskit-internal-editor-example-macro-component" */
+          './MacroComponent'
         ),
+    } as ExtensionModuleNode,
+  };
+
+  const getVisibleParameters = (macro: LegacyMacroManifest) =>
+    (macro.formDetails &&
+      (macro.formDetails.parameters || []).filter(
+        (parameter: LegacyParameter) => !parameter.hidden,
+      )) ||
+    [];
+
+  // The existence of the update method defines the visibility of the edit button.
+  // We only create the update method if the node has at least 1 visible parameter
+  if (getVisibleParameters(macro).length > 0) {
+    nodes.default.update = (data, actions) => {
+      // The adf parameters for macros look like:
+      // {
+      //    macroParams: {
+      //        q: 1,
+      //        search: 'my keyword'
+      //    },
+      //    macroMetadata: {
+      //      title: 'my extension',
+      //      icon: 'path/to/the/icon.png'
+      //    }
+      // }
+      // The only editable bit is what is inside the `macroParams`. This method unwraps the params and pass it to
+      // the context panel for editing, and then wraps it back after saving.
+      return new Promise(() => {
+        actions!.editInContextPanel(
+          parameters => parameters.macroParams,
+          parameters => Promise.resolve({ macroParams: parameters }),
+        );
+      });
     };
 
-    return curr;
-  }, {});
+    nodes.default.getFieldsDefinition = () =>
+      Promise.resolve(
+        macro.formDetails.parameters.map(params =>
+          transformFormDetailsIntoFields(params, {
+            pluginKey: macro.pluginKey,
+            macroName: safeGetMacroName(macro),
+          }),
+        ),
+      );
+  }
 
   return {
     type: 'com.atlassian.confluence.macro.core',
     key: extensionKey,
     title: macro.title,
     description: macro.description,
-    icons: {
-      '48': () => import('@atlaskit/icon/glyph/editor/code'),
-    },
+    icons: buildIconObject(macro),
     modules: {
       quickInsert,
       nodes,

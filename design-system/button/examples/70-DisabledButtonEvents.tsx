@@ -1,6 +1,8 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
 import React from 'react';
+
+import { jsx } from '@emotion/core';
+
 import Button from '../src';
 
 type State = {

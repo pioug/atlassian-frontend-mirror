@@ -1,5 +1,7 @@
 import React, { createRef, RefObject } from 'react';
+
 import { render } from '@testing-library/react';
+
 import Star from '../../../components/star';
 
 describe('<Star />', () => {

@@ -1,4 +1,5 @@
 import React from 'react';
+
 import Breadcrumbs, { BreadcrumbsItem } from '../src';
 
 export default () => (
@@ -9,7 +10,7 @@ export default () => (
       <Breadcrumbs maxItems={5} testId="MyBreadcrumbsTestId">
         <BreadcrumbsItem href="/item" text="Item" />
         <BreadcrumbsItem
-          href="/packages/core/breadcrumbs"
+          href="/packages/design-system/breadcrumbs"
           text="The item with testId"
           testId="myBreadcrumbsItemTestId"
         />

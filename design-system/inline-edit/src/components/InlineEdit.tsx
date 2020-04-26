@@ -1,7 +1,10 @@
 import React from 'react';
+
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import InlineEditUncontrolled from './InlineEditUncontrolled';
+
 import { InlineEditProps } from '../types';
+
+import InlineEditUncontrolled from './InlineEditUncontrolled';
 
 interface State {
   isEditing: boolean;

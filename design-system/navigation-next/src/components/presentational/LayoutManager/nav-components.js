@@ -1,16 +1,18 @@
 import React, { Component, Fragment } from 'react';
+
 import deepEqual from 'react-fast-compare';
+
 import { N30, N40A } from '@atlaskit/theme/colors';
 
-import { ContentNavigationWrapper } from '../ContentNavigation/primitives';
-import ContentNavigation from '../ContentNavigation';
-import { isTransitioning } from '../ResizeTransition';
-import { Shadow } from '../../../common/primitives';
-import { light, ThemeProvider } from '../../../theme';
 import {
   CONTENT_NAV_WIDTH_COLLAPSED,
   GLOBAL_NAV_WIDTH,
 } from '../../../common/constants';
+import { Shadow } from '../../../common/primitives';
+import { light, ThemeProvider } from '../../../theme';
+import ContentNavigation from '../ContentNavigation';
+import { ContentNavigationWrapper } from '../ContentNavigation/primitives';
+import { isTransitioning } from '../ResizeTransition';
 
 export class ComposedContainerNavigation extends Component {
   shouldComponentUpdate(nextProps) {

@@ -1,12 +1,13 @@
 import { EventHandler, MouseEvent, KeyboardEvent } from 'react';
 import { CardAppearance } from '../Card/types';
-import { CardState } from '../../state/types';
+import { JsonLd } from 'json-ld-types';
 
 export interface CardWithDataContentProps {
   appearance: CardAppearance;
-  data: CardState['details'];
+  data: JsonLd.Data.BaseData;
   onClick?: EventHandler<MouseEvent | KeyboardEvent>;
   isSelected?: boolean;
   testId?: string;
   onResolve?: (data: { url?: string; title?: string }) => void;
+  showActions?: boolean;
 }

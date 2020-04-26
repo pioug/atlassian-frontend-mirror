@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { shallow } from 'enzyme';
+
 import { Content } from '../../Droplist';
 
 describe('Dropbox content', () => {

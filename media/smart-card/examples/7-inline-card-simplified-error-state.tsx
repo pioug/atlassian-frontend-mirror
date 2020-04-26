@@ -15,6 +15,25 @@ class UnAuthCustomClient extends Client {
   }
 }
 
+class UnAuthCustomClientWithAction extends Client {
+  fetchData(): Promise<ResolveResponse> {
+    return Promise.resolve({
+      meta: {
+        access: 'unauthorized',
+        visibility: 'restricted',
+        definitionId: 'd1',
+        auth: [
+          {
+            key: 'mock-key',
+            displayName: 'mock-name',
+            url: 'http://mock-url',
+          },
+        ],
+      },
+    } as ResolveResponse);
+  }
+}
+
 class ErroringCustomClient extends Client {
   fetchData(url: string): Promise<ResolveResponse> {
     return Promise.reject(`Can't resolve from ${url}`);
@@ -38,6 +57,7 @@ class NotFoundClient extends Client {
 }
 
 const unAuthClient = new UnAuthCustomClient();
+const unAuthClientWithAction = new UnAuthCustomClientWithAction();
 const erroringClient = new ErroringCustomClient();
 const notFoundClient = new NotFoundClient();
 
@@ -50,6 +70,16 @@ class Example extends React.Component {
             <h4>Unauthorized response</h4>
             <Provider
               client={unAuthClient}
+              cacheOptions={{ maxLoadingDelay: 1000, maxAge: 15000 }}
+            >
+              <Card url="http://some.unauth.url" appearance="inline" />
+            </Provider>
+
+            <hr />
+
+            <h4>Unauthorized response with action</h4>
+            <Provider
+              client={unAuthClientWithAction}
               cacheOptions={{ maxLoadingDelay: 1000, maxAge: 15000 }}
             >
               <Card url="http://some.unauth.url" appearance="inline" />

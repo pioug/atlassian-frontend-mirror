@@ -39,7 +39,8 @@ export {
   absoluteBreakoutWidth,
   calcBreakoutWidth,
   calcWideWidth,
-} from './calc-breakout-width';
+  breakoutConsts,
+} from './breakout';
 export { default as ADFTraversor } from './traversor';
 export { getAnalyticsAppearance } from './analytics';
 export { measureRender } from './performance/measure-render';

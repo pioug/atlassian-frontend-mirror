@@ -11,7 +11,7 @@ BrowserTestCase(
   { skip: [] },
   async (client: any) => {
     const selectTest = new Page(client);
-    const urlSelect = getExampleUrl('core', 'select', 'single-select');
+    const urlSelect = getExampleUrl('design-system', 'select', 'single-select');
     await selectTest.goto(urlSelect);
     await selectTest.waitForSelector(selectDefault);
     await selectTest.click(selectDefault);
@@ -26,7 +26,7 @@ BrowserTestCase(
   { skip: [] },
   async (client: any) => {
     const selectTest = new Page(client);
-    const urlSelect = getExampleUrl('core', 'select', 'multi-select');
+    const urlSelect = getExampleUrl('design-system', 'select', 'multi-select');
     await selectTest.goto(urlSelect);
     await selectTest.waitForSelector(selectDefault);
     await selectTest.click(selectDefault);
@@ -41,7 +41,7 @@ BrowserTestCase(
   { skip: [] },
   async (client: any) => {
     const selectTest = new Page(client);
-    const urlSelect = getExampleUrl('core', 'select', 'radio-select');
+    const urlSelect = getExampleUrl('design-system', 'select', 'radio-select');
     await selectTest.goto(urlSelect);
     await selectTest.waitForSelector(selectDefault);
     await selectTest.click(selectDefault);
@@ -57,7 +57,7 @@ BrowserTestCase(
   async (client: any) => {
     const selectTest = new Page(client);
     const urlSelect = getExampleUrl(
-      'core',
+      'design-system',
       'select',
       'async-select-with-callback',
     );

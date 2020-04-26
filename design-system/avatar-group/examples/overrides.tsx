@@ -1,9 +1,12 @@
 import React, { Fragment } from 'react';
+
 import styled from 'styled-components';
+
 import { AppearanceType, SizeType } from '@atlaskit/avatar';
 import Button from '@atlaskit/button';
-import AvatarGroup from '../src';
+
 import { RANDOM_USERS } from '../examples-util/data';
+import AvatarGroup from '../src';
 
 const ButtonGroup = styled.div`
   margin: 8px;

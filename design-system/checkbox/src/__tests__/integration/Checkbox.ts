@@ -3,7 +3,7 @@ import { getExampleUrl } from '@atlaskit/webdriver-runner/utils/example';
 import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 
 /* Url to test the example */
-const exampleUrl = getExampleUrl('core', 'checkbox', 'testing');
+const exampleUrl = getExampleUrl('design-system', 'checkbox', 'testing');
 
 /* Css selectors used for the test */
 const checkboxLabelQuery = "[data-testid='the-checkbox--checkbox-label']";

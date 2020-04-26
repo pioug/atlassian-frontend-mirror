@@ -1,18 +1,27 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { MouseEvent, KeyboardEvent } from 'react';
 import LazilyRender from 'react-lazily-render';
 import { CardLinkView } from '@atlaskit/media-ui';
 
 import { CardWithUrlContentProps } from './types';
-import { uiCardClickedEvent } from '../../utils/analytics';
+import {
+  uiCardClickedEvent,
+  uiRenderSuccessEvent,
+} from '../../utils/analytics';
 import { isSpecialEvent } from '../../utils';
-import { getDefinitionId, getServices } from '../../state/actions/helpers';
+import {
+  getDefinitionId,
+  getServices,
+  isFinalState,
+} from '../../state/actions/helpers';
 import { BlockCard } from '../BlockCard';
 import { InlineCard } from '../InlineCard';
 import { useSmartLink } from '../../state';
+import { InvokeClientOpts, InvokeServerOpts } from '../../client/types';
+import { EmbedCard } from '../EmbedCard';
 
 export function LazyCardWithUrlContent(props: CardWithUrlContentProps) {
-  const { appearance, isSelected, container, url, testId } = props;
+  const { appearance, isSelected, container, url, testId, showActions } = props;
   const offset = Math.ceil(window.innerHeight / 4);
   return (
     <LazilyRender
@@ -27,7 +36,7 @@ export function LazyCardWithUrlContent(props: CardWithUrlContentProps) {
         />
       }
       scrollContainer={container}
-      content={<CardWithUrlContent {...props} />}
+      content={<CardWithUrlContent {...props} showActions={showActions} />}
     />
   );
 }
@@ -40,9 +49,10 @@ export function CardWithUrlContent({
   dispatchAnalytics,
   onResolve,
   testId,
+  showActions,
 }: CardWithUrlContentProps) {
   // Get state, actions for this card.
-  const { state, actions } = useSmartLink(url, dispatchAnalytics);
+  const { state, actions, config } = useSmartLink(url, dispatchAnalytics);
   const services = getServices(state.details);
   // Setup UI handlers.
   const handleClick = (event: MouseEvent | KeyboardEvent) => {
@@ -64,27 +74,58 @@ export function CardWithUrlContent({
   const handleRetry = () => {
     actions.reload();
   };
-  // Lazily render into the viewport.
-  return appearance === 'inline' ? (
-    <InlineCard
-      url={url}
-      cardState={state}
-      handleAuthorize={(services.length && handleAuthorize) || undefined}
-      handleFrameClick={handleClickWrapper}
-      isSelected={isSelected}
-      onResolve={onResolve}
-      testId={testId}
-    />
-  ) : (
-    <BlockCard
-      url={url}
-      cardState={state}
-      handleAuthorize={(services.length && handleAuthorize) || undefined}
-      handleErrorRetry={handleRetry}
-      handleFrameClick={handleClickWrapper}
-      isSelected={isSelected}
-      onResolve={onResolve}
-      testId={testId}
-    />
-  );
+  const handleInvoke = (opts: InvokeClientOpts | InvokeServerOpts) =>
+    actions.invoke(opts, appearance);
+
+  useEffect(() => {
+    if (isFinalState(state.status)) {
+      const definitionId = getDefinitionId(state.details);
+      dispatchAnalytics(uiRenderSuccessEvent(appearance, definitionId));
+    }
+  }, [appearance, dispatchAnalytics, state.details, state.status, url]);
+
+  switch (appearance) {
+    case 'inline':
+      return (
+        <InlineCard
+          url={url}
+          cardState={state}
+          handleAuthorize={(services.length && handleAuthorize) || undefined}
+          handleFrameClick={handleClickWrapper}
+          isSelected={isSelected}
+          onResolve={onResolve}
+          testId={testId}
+        />
+      );
+    case 'block':
+      return (
+        <BlockCard
+          url={url}
+          authFlow={config && config.authFlow}
+          cardState={state}
+          handleAuthorize={(services.length && handleAuthorize) || undefined}
+          handleErrorRetry={handleRetry}
+          handleInvoke={handleInvoke}
+          handleFrameClick={handleClickWrapper}
+          handlePreviewAnalytics={dispatchAnalytics}
+          isSelected={isSelected}
+          onResolve={onResolve}
+          testId={testId}
+          showActions={showActions}
+        />
+      );
+    case 'embed':
+      return (
+        <EmbedCard
+          url={url}
+          cardState={state}
+          handleAuthorize={(services.length && handleAuthorize) || undefined}
+          handleErrorRetry={handleRetry}
+          handleFrameClick={handleClickWrapper}
+          isSelected={isSelected}
+          onResolve={onResolve}
+          testId={testId}
+        />
+      );
+  }
 }

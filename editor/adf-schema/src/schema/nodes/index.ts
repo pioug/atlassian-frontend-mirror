@@ -1,3 +1,4 @@
+export { expand, ExpandDefinition, toJSON as expandToJSON } from './expand';
 export { confluenceJiraIssue } from './confluence-jira-issue';
 export { confluenceUnsupportedBlock } from './confluence-unsupported-block';
 export { confluenceUnsupportedInline } from './confluence-unsupported-inline';
@@ -110,12 +111,20 @@ export {
   TaskListContent,
 } from './task-list';
 export { taskItem, TaskItemDefinition } from './task-item';
-export { extension, ExtensionDefinition } from './extension';
-export { inlineExtension, InlineExtensionDefinition } from './inline-extension';
+export {
+  extension,
+  extensionWithLocalId,
+  ExtensionDefinition,
+} from './extension';
+export {
+  inlineExtension,
+  inlineExtensionWithLocalId,
+  InlineExtensionDefinition,
+} from './inline-extension';
 export {
   bodiedExtension,
+  bodiedExtensionWithLocalId,
   BodiedExtensionDefinition,
-  ExtensionLayout,
 } from './bodied-extension';
 export { date, DateDefinition } from './date';
 export { placeholder, PlaceholderDefinition } from './placeholder';
@@ -132,15 +141,15 @@ export {
 export { unsupportedBlock } from './unsupported-block';
 export { unsupportedInline } from './unsupported-inline';
 export { status, StatusDefinition } from './status';
-export { expand, ExpandDefinition, toJSON as expandToJSON } from './expand';
 export { nestedExpand, NestedExpandDefinition } from './nested-expand';
 export { NoMark } from './types/mark';
 export { MarksObject } from './types/mark';
 export { BlockContent } from './types/block-content';
+export { NonNestableBlockContent } from './types/non-nestable-block-content';
 export { InlineAtomic } from './types/inline-content';
 export { InlineCode } from './types/inline-content';
 export { InlineLinkText } from './types/inline-content';
 export { InlineFormattedText } from './types/inline-content';
 export { Inline } from './types/inline-content';
-export { ExtensionContent } from './extension';
 export { NestedExpandContent } from './nested-expand';
+export { Layout as ExtensionLayout } from './types/extensions';

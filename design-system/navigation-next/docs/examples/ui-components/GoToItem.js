@@ -1,23 +1,23 @@
 import React, { Component } from 'react';
 
-import { colors } from '@atlaskit/theme';
 import IssuesIcon from '@atlaskit/icon/glyph/issues';
 import { JiraWordmark } from '@atlaskit/logo';
+import { colors } from '@atlaskit/theme';
+
 import {
   BackItem,
   GoToItem,
   HeaderSection,
   Item,
-  NavigationProvider,
   MenuSection,
+  NavigationProvider,
   SectionHeading,
-  withNavigationViewController,
   // ViewController was coming as type.
   // eslint-disable-next-line no-unused-vars
   ViewController,
+  withNavigationViewController,
   Wordmark,
 } from '../../../src';
-
 import { CONTENT_NAV_WIDTH } from '../../../src/common/constants';
 
 const SectionWrapper = props => (

@@ -1,9 +1,11 @@
 import React from 'react';
+
+import { InterpolationWithTheme } from '@emotion/core';
+
 import {
   UIAnalyticsEvent,
   WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
-import { InterpolationWithTheme } from '@emotion/core';
 
 export type ButtonAppearances =
   | 'default'

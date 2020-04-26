@@ -1,5 +1,7 @@
-import { Component, ReactNode, MouseEvent, KeyboardEvent } from 'react';
+import { Component, KeyboardEvent, MouseEvent, ReactNode } from 'react';
+
 import PropTypes from 'prop-types';
+
 import { clickManagerContext } from '../../util/contextNamespace';
 
 interface Props {

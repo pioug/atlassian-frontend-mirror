@@ -3,7 +3,7 @@ import { getExampleUrl } from '@atlaskit/webdriver-runner/utils/example';
 
 import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 
-const urlPopupSelect = getExampleUrl('core', 'select', 'popup-select');
+const urlPopupSelect = getExampleUrl('design-system', 'select', 'popup-select');
 // css-selectors:
 const popupButton = '#examples button';
 const popupSelect = '#react-select-2-input';

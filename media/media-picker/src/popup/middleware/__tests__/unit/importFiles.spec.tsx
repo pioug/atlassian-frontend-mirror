@@ -4,7 +4,6 @@ jest.mock('uuid/v4', () => ({
 }));
 
 import {
-  globalMediaEventEmitter,
   isErrorFileState,
   observableToPromise,
   getFileStreamsCache,
@@ -17,8 +16,8 @@ import {
 } from '@atlaskit/media-client';
 import { Store } from 'redux';
 import { RECENTS_COLLECTION } from '@atlaskit/media-client/constants';
+
 import { ReplaySubject } from 'rxjs/ReplaySubject';
-const globalEmitSpy = jest.spyOn(globalMediaEventEmitter, 'emit');
 import uuidV4 from 'uuid/v4';
 import {
   mockStore,
@@ -43,6 +42,7 @@ import {
 import { LocalUpload, LocalUploads, State } from '../../../domain';
 import { UploadEventName } from '../../../../domain/uploadEvent';
 import {
+  FINALIZE_UPLOAD,
   finalizeUpload,
   isFinalizeUploadAction,
 } from '../../../actions/finalizeUpload';
@@ -53,6 +53,7 @@ import { getPreview, isGetPreviewAction } from '../../../actions/getPreview';
 import { MediaFile } from '../../../../types';
 import {
   isSendUploadEventAction,
+  SEND_UPLOAD_EVENT,
   SendUploadEventActionPayload,
 } from '../../../actions/sendUploadEvent';
 
@@ -114,9 +115,9 @@ describe('importFiles middleware', () => {
         | Omit<ProcessingFileState, OmittedKeys>
         | Omit<ErrorFileState, 'id'>,
       options: {
-        shouldExist: boolean;
+        shouldExistInCache: boolean;
       } = {
-        shouldExist: true,
+        shouldExistInCache: true,
       },
     ) => {
       // Go through all local uploads
@@ -124,7 +125,7 @@ describe('importFiles middleware', () => {
         const { id, mimeType, name, size } = localUploads[key].file.metadata;
         // Find corresponding FileState in the stream cache.
         let userFileStateSubject = getFileStreamsCache().get(id);
-        if (!options.shouldExist) {
+        if (!options.shouldExistInCache) {
           userFileStateSubject = new ReplaySubject<FileState>(1);
           getFileStreamsCache().set(id, userFileStateSubject);
         } else if (!userFileStateSubject) {
@@ -156,20 +157,18 @@ describe('importFiles middleware', () => {
         occurrenceKey: 'some-occurrence-key',
       },
       {
-        shouldExist: false,
+        shouldExistInCache: false,
       },
     );
 
     const finishUploading = (
-      previewValue: FilePreview['value'] = 'some-preview-value',
+      preview: UploadingFileState['preview'] = { value: 'some-preview-value' },
     ) => {
       pushFileStateForLocalUploads({
         status: 'processing',
         mediaType: 'doc',
         occurrenceKey: 'some-occurrence-key',
-        preview: {
-          value: previewValue,
-        },
+        preview,
       });
     };
 
@@ -614,6 +613,93 @@ describe('importFiles middleware', () => {
         assertFinalizeUploadAction();
       });
 
+      it('should dispatch FINALIZE_UPLOAD only after "upload-preview-update" when preview is a string', async () => {
+        const { finishUploading, finishProcessing, store } = setupResult;
+        let resolver: (arg: { value: string }) => void = () => {};
+        const previewPromise = new Promise<{ value: string }>(resolve => {
+          resolver = resolve;
+        });
+        finishUploading(previewPromise);
+        await nextTick();
+        await nextTick();
+        await nextTick();
+        await nextTick();
+
+        finishProcessing();
+        await nextTick();
+        await nextTick();
+        await nextTick();
+        await nextTick();
+
+        // Not FINALIZE_UPLOAD should have happened until preview
+        expect(
+          getDispatchCallsByType(store, isFinalizeUploadAction).slice(1),
+        ).toHaveLength(0);
+
+        // Not 'upload-preview-update' yet, because preview hasn't resolve yet.
+        expect(
+          getSendUploadEventPayloads(store, 'upload-preview-update'),
+        ).toHaveLength(0);
+
+        resolver({ value: 'some-preview-value' });
+        await nextTick();
+        await nextTick();
+
+        const lastTwoActionTypes = asMockFunction(store.dispatch)
+          .mock.calls.map(([action]) => action.type)
+          .slice(-2);
+        expect(lastTwoActionTypes).toEqual([FINALIZE_UPLOAD, FINALIZE_UPLOAD]);
+      });
+
+      it('should dispatch FINALIZE_UPLOAD only after "upload-preview-update" when preview is a blob', async () => {
+        const { finishUploading, finishProcessing, store } = setupResult;
+        let resolver: (arg: { value: Blob }) => void = () => {};
+        const previewPromise = new Promise<{ value: Blob }>(resolve => {
+          resolver = resolve;
+        });
+        finishUploading(previewPromise);
+        await nextTick();
+        await nextTick();
+
+        finishProcessing();
+        await nextTick();
+        await nextTick();
+
+        // Not FINALIZE_UPLOAD should have happened until preview
+        expect(
+          getDispatchCallsByType(store, isFinalizeUploadAction).slice(1),
+        ).toHaveLength(0);
+
+        // Not 'upload-preview-update' yet, because preview hasn't resolve yet.
+        expect(
+          getSendUploadEventPayloads(store, 'upload-preview-update'),
+        ).toHaveLength(0);
+
+        resolver({ value: new Blob() });
+        await nextTick();
+        await nextTick();
+
+        let lastTwoActionTypes = asMockFunction(store.dispatch)
+          .mock.calls.map(([action]) => action.type)
+          .slice(-2);
+        expect(lastTwoActionTypes).toEqual([
+          SEND_UPLOAD_EVENT,
+          SEND_UPLOAD_EVENT,
+        ]);
+
+        await nextTick();
+
+        lastTwoActionTypes = asMockFunction(store.dispatch)
+          .mock.calls.map(([action]) => action.type)
+          .slice(-4);
+        expect(lastTwoActionTypes).toEqual([
+          SEND_UPLOAD_EVENT,
+          SEND_UPLOAD_EVENT,
+          FINALIZE_UPLOAD,
+          FINALIZE_UPLOAD,
+        ]);
+      });
+
       it('should dispatch SEND_UPLOAD_EVENT with "upload-preview-update" once', async () => {
         const { finishProcessing, store } = setupResult;
 
@@ -800,39 +886,6 @@ describe('importFiles middleware', () => {
           'tenant-collection',
         );
       });
-    });
-
-    it('should emit file-added in tenant mediaClient and globalMediaEventEmitter', async () => {
-      const setupResult = setup();
-      await importFilesMiddlewareAndAwait(setupResult);
-      const { store } = setupResult;
-
-      const { tenantMediaClient } = store.getState();
-      const fileState = {
-        id: expectUUID,
-        mediaType: 'image',
-        mimeType: 'image/jpg',
-        name: 'picture5.jpg',
-        preview: undefined,
-        representations: {},
-        size: 47,
-        status: 'processing',
-      };
-
-      expect(globalEmitSpy).toBeCalledTimes(4);
-      expect(tenantMediaClient.emit).toBeCalledTimes(4);
-
-      const globalEmitSpyCall = globalEmitSpy.mock.calls.find(
-        // @ts-ignore This violated type definition upgrade of @types/jest to v24.0.18 & ts-jest v24.1.0.
-        //See BUILDTOOLS-210-clean: https://bitbucket.org/atlassian/atlaskit-mk-2/pull-requests/7178/buildtools-210-clean/diff
-        call => call[1].name === fileState.name,
-      );
-      expect(globalEmitSpyCall).toEqual(['file-added', fileState]);
-
-      const tenantMediaClientEmitCall = asMock(
-        tenantMediaClient.emit,
-      ).mock.calls.find(call => call[1].name === fileState.name);
-      expect(tenantMediaClientEmitCall).toEqual(['file-added', fileState]);
     });
 
     it('should not modify client file state', async () => {

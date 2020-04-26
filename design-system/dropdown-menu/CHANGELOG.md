@@ -1,5 +1,28 @@
 # @atlaskit/dropdown-menu
 
+## 9.0.3
+
+### Patch Changes
+
+- [patch][7a2540821c](https://bitbucket.org/atlassian/atlassian-frontend/commits/7a2540821c):
+
+  Change imports to comply with Atlassian conventions- Updated dependencies [3940bd71f1](https://bitbucket.org/atlassian/atlassian-frontend/commits/3940bd71f1):
+
+- Updated dependencies [6b8e60827e](https://bitbucket.org/atlassian/atlassian-frontend/commits/6b8e60827e):
+- Updated dependencies [449ef134b3](https://bitbucket.org/atlassian/atlassian-frontend/commits/449ef134b3):
+- Updated dependencies [167a55fd7a](https://bitbucket.org/atlassian/atlassian-frontend/commits/167a55fd7a):
+- Updated dependencies [57c0487a02](https://bitbucket.org/atlassian/atlassian-frontend/commits/57c0487a02):
+- Updated dependencies [a4acc95793](https://bitbucket.org/atlassian/atlassian-frontend/commits/a4acc95793):
+- Updated dependencies [a4d063330a](https://bitbucket.org/atlassian/atlassian-frontend/commits/a4d063330a):
+- Updated dependencies [fd41d77c29](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd41d77c29):
+  - @atlaskit/tooltip@15.2.6
+  - @atlaskit/button@13.3.11
+  - @atlaskit/icon@20.1.1
+  - @atlaskit/avatar@17.1.10
+  - @atlaskit/droplist@10.0.4
+  - @atlaskit/lozenge@9.1.7
+  - @atlaskit/webdriver-runner@0.3.4
+
 ## 9.0.2
 
 ### Patch Changes

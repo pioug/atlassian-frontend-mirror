@@ -1,6 +1,7 @@
 import styled from 'styled-components';
-import { gridSize, fontSize } from '@atlaskit/theme/constants';
+
 import { text } from '@atlaskit/theme/colors';
+import { fontSize, gridSize } from '@atlaskit/theme/constants';
 
 export const Contact = styled.div`
   margin-top: ${gridSize() * 2}px;

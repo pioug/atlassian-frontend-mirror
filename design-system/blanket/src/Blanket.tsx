@@ -1,12 +1,14 @@
 import React from 'react';
+
 import {
+  createAndFireEvent,
+  withAnalyticsContext,
   withAnalyticsEvents,
   WithAnalyticsEventsProps,
-  withAnalyticsContext,
-  createAndFireEvent,
 } from '@atlaskit/analytics-next';
-import { name as packageName, version as packageVersion } from './version.json';
+
 import Div from './styled';
+import { name as packageName, version as packageVersion } from './version.json';
 
 interface Props extends WithAnalyticsEventsProps {
   /** Whether mouse events can pierce the blanket. If true, onBlanketClicked will not be fired */

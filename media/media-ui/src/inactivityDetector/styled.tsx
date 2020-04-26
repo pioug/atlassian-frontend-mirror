@@ -17,7 +17,7 @@ export const InactivityDetectorWrapper = styled.div`
   height: 100%;
   display: flex;
   flex: 1;
-  overflow: auto;
+  overflow: visible;
   align-items: center;
   justify-content: center;
   position: relative;

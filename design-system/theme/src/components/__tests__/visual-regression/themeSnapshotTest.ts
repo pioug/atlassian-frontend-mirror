@@ -6,7 +6,7 @@ import {
 describe('Snapshot Test', () => {
   it('Theme colors should match production example', async () => {
     const { page, __BASEURL__ } = global;
-    const url = getExampleUrl('core', 'theme', 'colors', __BASEURL__);
+    const url = getExampleUrl('design-system', 'theme', 'colors', __BASEURL__);
 
     const image = await takeScreenShot(page, url, { fullPage: true });
 

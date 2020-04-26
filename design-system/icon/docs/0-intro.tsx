@@ -15,8 +15,10 @@ export default md`
       </p>
       <p>
         Please see our{' '}
-        <a href="/packages/core/icon/docs/upgrade-guide">upgrade guide</a> for
-        these version bump for more information.
+        <a href="/packages/design-system/icon/docs/upgrade-guide">
+          upgrade guide
+        </a>{' '}
+        for these version bump for more information.
       </p>
     </SectionMessage>
   )}

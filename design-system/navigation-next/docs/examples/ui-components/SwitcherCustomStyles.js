@@ -1,15 +1,16 @@
 import React from 'react';
-import { colors } from '@atlaskit/theme';
+
 import ChevD from '@atlaskit/icon/glyph/chevron-down';
+import { colors } from '@atlaskit/theme';
+
 import {
   ContainerHeader,
   Item,
   ItemAvatar,
+  NavigationProvider,
   SectionHeading,
   Switcher,
-  NavigationProvider,
 } from '../../../src';
-
 import { CONTENT_NAV_WIDTH } from '../../../src/common/constants';
 
 const Wrapper = props => (

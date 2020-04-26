@@ -1,16 +1,19 @@
 import React from 'react';
+
 import {
-  withAnalyticsEvents,
-  withAnalyticsContext,
   createAndFireEvent,
+  withAnalyticsContext,
+  withAnalyticsEvents,
   WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
+
+import Container from '../styled/BreadcrumbsContainer';
 import {
   name as packageName,
   version as packageVersion,
 } from '../version.json';
+
 import EllipsisItem from './EllipsisItem';
-import Container from '../styled/BreadcrumbsContainer';
 
 const defaultMaxItems = 8;
 

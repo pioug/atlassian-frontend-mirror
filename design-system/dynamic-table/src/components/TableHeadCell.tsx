@@ -1,4 +1,5 @@
 import React, { KeyboardEvent } from 'react';
+
 import { HeadCell } from '../styled/TableHead';
 import { SortOrderType } from '../types';
 

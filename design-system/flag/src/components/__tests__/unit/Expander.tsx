@@ -1,9 +1,11 @@
 import React from 'react';
+
 import { mount, ReactWrapper } from 'enzyme';
-import { Description, DismissButton, Title } from '../../Flag/styledFlag';
-import { FlagWithoutAnalytics as Flag } from '../../Flag';
-import ExpanderInternal from '../../Expander/styledExpander';
+
 import { FlagProps } from '../../../types';
+import ExpanderInternal from '../../Expander/styledExpander';
+import { FlagWithoutAnalytics as Flag } from '../../Flag';
+import { Description, DismissButton, Title } from '../../Flag/styledFlag';
 
 describe('Flag Expander', () => {
   const generateFlag = (extraProps: Partial<FlagProps>) => (

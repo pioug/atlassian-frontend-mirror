@@ -15,6 +15,7 @@ import {
   akEditorFullWidthLayoutWidth,
   akEditorBreakoutPadding,
 } from '../consts';
+import browser from '../../utils/browser';
 
 export const tableMarginTop = 24;
 export const tableMarginBottom = 16;
@@ -91,7 +92,7 @@ const tableSharedStyle = css`
         border-bottom-width: 0;
         padding: ${tableCellPadding}px;
         /* https://stackoverflow.com/questions/7517127/borders-not-shown-in-firefox-with-border-collapse-on-table-position-relative-o */
-        background-clip: padding-box;
+        ${browser.gecko || browser.ie ? 'background-clip: padding-box;' : ''}
 
         > *:first-child {
           margin-top: 0;

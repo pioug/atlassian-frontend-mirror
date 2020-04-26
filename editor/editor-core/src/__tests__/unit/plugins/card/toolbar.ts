@@ -6,6 +6,7 @@ import {
   p,
   inlineCard,
   blockCard,
+  blockquote,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import {
   floatingToolbar,
@@ -390,6 +391,38 @@ describe('card', () => {
           })(),
         ),
       );
+    });
+
+    it('dropdown is disabled when inside parent nodes which dont support block cards', () => {
+      const { editorView } = editor(
+        doc(
+          p('paragraph'),
+          blockquote(
+            p(
+              '{<node>}',
+              inlineCard({
+                url:
+                  'https://docs.google.com/spreadsheets/d/168c/edit?usp=sharing',
+              })(),
+            ),
+          ),
+        ),
+      );
+
+      const toolbar = floatingToolbar({ allowBlockCards: true })(
+        editorView.state,
+        intl,
+        providerFactory,
+      );
+      const dropdownTitle = intl.formatMessage(floatingToolbarMessages.inline);
+      const dropdown = getToolbarItems(toolbar!, editorView).find(
+        item =>
+          item.type === 'dropdown' &&
+          item.title === dropdownTitle &&
+          item.disabled === true,
+      ) as FloatingToolbarDropdown<Command> | undefined;
+
+      expect(dropdown).toBeDefined();
     });
   });
 });

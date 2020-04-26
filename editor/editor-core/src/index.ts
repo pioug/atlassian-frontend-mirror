@@ -30,15 +30,18 @@ export {
 export { TeamMentionResource } from '@atlaskit/mention/team-resource';
 export {
   AnnotationProvider,
-  AnnotationComponentProps,
+  AnnotationCreateComponentProps,
+  AnnotationViewComponentProps,
   AnnotationInfo,
   AnnotationState,
   AnnotationTypeProvider,
   InlineCommentState,
+  AnnotationTypes,
 } from './plugins/annotation';
 export {
   QuickInsertProvider,
   QuickInsertItem,
+  QuickInsertItemId,
 } from '@atlaskit/editor-common/provider-factory';
 
 // Used in mobile bridge
@@ -108,8 +111,14 @@ export {
   updateStatusWithAnalytics,
 } from './plugins/status/actions';
 export { typeAheadPluginKey, TypeAheadPluginState } from './plugins/type-ahead';
+export {
+  pluginKey as quickInsertPluginKey,
+  QuickInsertPluginState,
+  processItems as processQuickInsertItems,
+} from './plugins/quick-insert';
 export { TypeAheadItem } from './plugins/type-ahead/types';
 export { selectItem } from './plugins/type-ahead/commands/select-item';
+export { insertTypeAheadQuery } from './plugins/type-ahead/commands/insert-query';
 export {
   insertLink,
   insertLinkWithAnalytics,
@@ -128,7 +137,10 @@ export {
   EVENT_TYPE,
   AnalyticsEventPayload,
 } from './plugins/analytics';
-export { setKeyboardHeight } from './plugins/mobile-scroll/commands';
+export {
+  setKeyboardHeight,
+  setMobilePaddingTop,
+} from './plugins/mobile-scroll/commands';
 
 // Used in editor-test-helpers
 export { setTextSelection } from './utils';
@@ -155,3 +167,5 @@ export {
 export { HistoryPluginState } from './plugins/history/types';
 export { MentionPluginState } from './plugins/mentions/types';
 export { TOOLBAR_MENU_TYPE as InsertBlockInputMethodToolbar } from './plugins/insert-block/ui/ToolbarInsertBlock/types';
+export { insertMentionQuery } from './plugins/mentions/commands/insert-mention-query';
+export { insertEmojiQuery } from './plugins/emoji/commands/insert-emoji-query';

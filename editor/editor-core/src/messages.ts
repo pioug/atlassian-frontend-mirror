@@ -112,4 +112,34 @@ export default defineMessages({
     defaultMessage: 'Cancel',
     description: 'Discard the current comment or document',
   },
+  taskList: {
+    id: 'fabric.editor.tooltip.taskList',
+    defaultMessage: 'an action item',
+    description: 'an action item in the Editor',
+  },
+  nestedExpand: {
+    id: 'fabric.editor.tooltip.nestedExpand',
+    defaultMessage: 'a nested expand',
+    description: 'expand node which is nested',
+  },
+  decisionList: {
+    id: 'fabric.editor.tooltip.decisionList',
+    defaultMessage: 'a decision list',
+    description: 'a list of decisions',
+  },
+  defaultBlockNode: {
+    id: 'fabric.editor.tooltip.defaultBlockNode',
+    defaultMessage: 'a block node',
+    description: 'a block node element',
+  },
+  panel: {
+    id: 'fabric.editor.tooltip.blockPanel',
+    defaultMessage: 'a panel',
+    description: 'Panel node in the Editor',
+  },
+  blockquote: {
+    id: 'fabric.editor.blockquote',
+    defaultMessage: 'a quote',
+    description: 'a quote node',
+  },
 });

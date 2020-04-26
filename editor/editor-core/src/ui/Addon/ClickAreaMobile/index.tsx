@@ -8,14 +8,17 @@ import { createParagraphAtEnd } from '../../../commands';
  * clicks/taps within or below the content (e.g. if the content
  * doesn't exceed the viewport, or whether it overflows it).
  */
-const ClickWrapper = styled.div`
+const ClickWrapper = styled.div<{
+  minHeight: number;
+}>`
   height: 100%;
-  min-height: 100vh;
+  min-height: ${props => props.minHeight}vh;
 `;
 ClickWrapper.displayName = 'ClickWrapper';
 
 export interface Props {
   editorView?: EditorView;
+  minHeight: number;
   children?: any;
 }
 
@@ -68,6 +71,7 @@ export default class ClickAreaMobile extends React.Component<Props> {
     return (
       <ClickWrapper
         className="editor-click-wrapper"
+        minHeight={this.props.minHeight}
         onClick={this.handleClick}
         innerRef={this.clickElementRef}
       >

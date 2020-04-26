@@ -1,4 +1,5 @@
-import React, { Fragment, Component } from 'react';
+import React, { Component, Fragment } from 'react';
+
 import GlobalNavigation from '@atlaskit/global-navigation';
 import FeedbackIcon from '@atlaskit/icon/glyph/feedback';
 import { AtlassianIcon, AtlassianWordmark } from '@atlaskit/logo';

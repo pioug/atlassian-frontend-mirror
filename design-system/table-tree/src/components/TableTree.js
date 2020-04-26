@@ -1,12 +1,15 @@
 /* eslint-disable react/prop-types */
 import React, { Component } from 'react';
+
 import PropTypes from 'prop-types';
+
 import { TableTreeContainer } from '../styled';
-import Rows from './Rows';
-import Row from './Row';
-import Headers from './Headers';
-import Header from './Header';
+
 import Cell from './Cell';
+import Header from './Header';
+import Headers from './Headers';
+import Row from './Row';
+import Rows from './Rows';
 
 export default class TableTree extends Component {
   static childContextTypes = {

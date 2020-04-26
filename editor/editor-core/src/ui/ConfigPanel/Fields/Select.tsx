@@ -6,8 +6,15 @@ import { EnumField, Option } from '@atlaskit/editor-common/extensions';
 
 import FieldMessages from '../FieldMessages';
 import { validate, getOptionFromValue } from '../utils';
+import { OnBlur } from '../types';
 
-export default function({ field }: { field: EnumField }) {
+export default function({
+  field,
+  onBlur,
+}: {
+  field: EnumField;
+  onBlur: OnBlur;
+}) {
   return (
     <Field<ValueType<Option>>
       name={field.name}
@@ -22,6 +29,10 @@ export default function({ field }: { field: EnumField }) {
         <Fragment>
           <Select
             {...fieldProps}
+            onChange={value => {
+              fieldProps.onChange(value);
+              onBlur(field.name);
+            }}
             isMulti={field.isMultiple || false}
             options={field.items || []}
             isClearable={false}

@@ -1,12 +1,12 @@
 import React from 'react';
+
 import { mount, ReactWrapper } from 'enzyme';
 
-import { DropdownItemCheckbox, DropdownItemRadio } from '../../..';
-
+import { DropdownItemCheckbox, DropdownItemRadio } from '../../../index';
+import { Behaviors } from '../../../types';
+import { selectionCacheContext } from '../../../util/contextNamespace';
 import DropdownItemFocusManager from '../../context/DropdownItemFocusManager';
 import DropdownItemSelectionManager from '../../context/DropdownItemSelectionManager';
-import { selectionCacheContext } from '../../../util/contextNamespace';
-import { Behaviors } from '../../../types';
 
 describe('dropdown menu - DropdownItemSelectionManager', () => {
   jest.useFakeTimers();

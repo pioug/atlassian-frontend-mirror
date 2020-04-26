@@ -1,4 +1,5 @@
 import React, { ReactNode } from 'react';
+
 import Avatar from '../src';
 
 function CustomComponent({ children }: { children: ReactNode }) {

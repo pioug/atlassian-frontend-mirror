@@ -6,7 +6,7 @@ import {
 describe('Snapshot Test', () => {
   it('Announcement banner example should match production example', async () => {
     const url = getExampleUrl(
-      'core',
+      'design-system',
       'banner',
       'AnnouncementBanner',
       global.__BASEURL__,
@@ -16,7 +16,7 @@ describe('Snapshot Test', () => {
   });
   it('basic-usage example should match production example', async () => {
     const url = getExampleUrl(
-      'core',
+      'design-system',
       'banner',
       'basic-usage',
       global.__BASEURL__,

@@ -13,11 +13,12 @@ import {
 
 // eslint-disable-next-line import/no-cycle
 import FormContent from '../FormContent';
+import { OnBlur } from '../types';
 
 const ActionsWrapper = styled.div`
   border-top: 1px solid ${N40A};
   margin-top: ${multiply(gridSize, 2)}px;
-  padding-top: ${gridSize}px;
+  padding-top: ${multiply(gridSize, 2)}px;
 `;
 
 const NestedFormWrapper = styled.div`
@@ -25,6 +26,10 @@ const NestedFormWrapper = styled.div`
   padding: ${multiply(gridSize, 2)}px;
   border: 1px solid ${N40A};
   border-radius: 4px;
+
+  &:first-child {
+    margin-top: 0;
+  }
 `;
 
 type Props = {
@@ -35,6 +40,7 @@ type Props = {
   canRemoveFields?: boolean;
   onClickRemove?: (fieldName: string) => void;
   children?: React.ReactNode;
+  onFieldBlur: OnBlur;
 };
 
 const FormWrapper = ({
@@ -45,6 +51,7 @@ const FormWrapper = ({
   canRemoveFields,
   onClickRemove,
   children,
+  onFieldBlur,
 }: Props) => {
   return (
     <NestedFormWrapper>
@@ -56,6 +63,7 @@ const FormWrapper = ({
         parameters={parameters}
         canRemoveFields={canRemoveFields}
         onClickRemove={onClickRemove}
+        onFieldBlur={onFieldBlur}
       />
 
       {children && (

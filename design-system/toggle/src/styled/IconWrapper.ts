@@ -1,8 +1,11 @@
 import styled from 'styled-components';
-import { themed } from '@atlaskit/theme/components';
+
 import { DN30, DN600 } from '@atlaskit/theme/colors';
-import { getWidth, paddingUnitless } from './constants';
+import { themed } from '@atlaskit/theme/components';
+
 import { StyledProps } from '../types';
+
+import { getWidth, paddingUnitless } from './constants';
 
 const iconPadding = `${paddingUnitless / 2}px`;
 

@@ -1,6 +1,8 @@
-import { mount, shallow } from 'enzyme';
 import React from 'react';
-import { Popper as PopperCompo } from '../..';
+
+import { mount, shallow } from 'enzyme';
+
+import { Popper as PopperCompo } from '../../index';
 
 jest.mock('popper.js', () => {
   const PopperJS = require.requireActual('popper.js');

@@ -5,9 +5,9 @@ import { trackAndInvoke } from '../../../analytics';
 import {
   indentList,
   outdentList,
-  backspaceKeyCommand,
   enterKeyCommand,
   toggleListCommandWithAnalytics,
+  backspaceKeyCommand,
   deleteKeyCommand,
 } from '../commands';
 import { INPUT_METHOD } from '../../analytics';

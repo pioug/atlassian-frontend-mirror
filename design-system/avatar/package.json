@@ -1,7 +1,7 @@
 {
   "name": "@atlaskit/avatar",
-  "version": "17.1.9",
-  "description": "A component that represents a user.",
+  "version": "17.1.10",
+  "description": "An avatar is a visual representation of a user or entity.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
@@ -24,7 +24,7 @@
   "dependencies": {
     "@atlaskit/analytics-next": "^6.3.5",
     "@atlaskit/theme": "^9.5.1",
-    "@atlaskit/tooltip": "^15.2.5",
+    "@atlaskit/tooltip": "^15.2.6",
     "tslib": "^1.9.3"
   },
   "peerDependencies": {
@@ -33,15 +33,15 @@
   },
   "devDependencies": {
     "@atlaskit/build-utils": "^2.2.7",
-    "@atlaskit/button": "^13.3.9",
+    "@atlaskit/button": "^13.3.11",
     "@atlaskit/docs": "^8.4.0",
     "@atlaskit/field-base": "^14.0.2",
-    "@atlaskit/icon": "^20.1.0",
+    "@atlaskit/icon": "^20.1.1",
     "@atlaskit/section-message": "^4.1.7",
     "@atlaskit/ssr": "^0.1.1",
-    "@atlaskit/toggle": "^8.1.6",
+    "@atlaskit/toggle": "^8.1.7",
     "@atlaskit/visual-regression": "^0.1.9",
-    "@atlaskit/webdriver-runner": "^0.3.0",
+    "@atlaskit/webdriver-runner": "^0.3.4",
     "@testing-library/react": "^8.0.1",
     "enzyme": "^3.10.0",
     "react-dom": "^16.8.0",
@@ -51,5 +51,10 @@
     "atlaskit",
     "react",
     "ui"
-  ]
+  ],
+  "techstack": {
+    "@atlassian/frontend": {
+      "import-structure": "atlassian-conventions"
+    }
+  }
 }

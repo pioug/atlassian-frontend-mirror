@@ -31,8 +31,13 @@ const baseStatusPlugin = (options?: StatusPluginOptions): EditorPlugin => ({
     return [
       {
         name: 'status',
-        plugin: ({ dispatch, portalProviderAPI }) =>
-          createStatusPlugin(dispatch, portalProviderAPI, options),
+        plugin: ({ dispatch, portalProviderAPI, eventDispatcher }) =>
+          createStatusPlugin(
+            dispatch,
+            portalProviderAPI,
+            eventDispatcher,
+            options,
+          ),
       },
       { name: 'statusKeymap', plugin: keymapPlugin },
     ];
@@ -103,6 +108,7 @@ const decorateWithPluginOptions = (
   plugin.pluginsOptions = {
     quickInsert: ({ formatMessage }) => [
       {
+        id: 'status',
         title: formatMessage(messages.status),
         description: formatMessage(messages.statusDescription),
         priority: 700,

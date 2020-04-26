@@ -3,6 +3,7 @@ import {
   CollabEventTelepointerData,
   CollabSendableSelection,
 } from '@atlaskit/editor-common';
+import { Step } from 'prosemirror-transform';
 
 export type ConnectedPayload = {
   sid: string;
@@ -63,6 +64,7 @@ export type CollabEvent = {
     version: number;
     userIds: string[];
   };
+  'local-steps': { steps: Step[] };
   'title:changed': { title: string };
 };
 

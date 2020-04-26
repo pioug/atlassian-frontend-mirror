@@ -1,7 +1,9 @@
-import { mount } from 'enzyme';
 import React from 'react';
-import Badge from '../..';
+
+import { mount } from 'enzyme';
+
 import Format from '../../Format';
+import Badge from '../../index';
 
 function getFormatProps(badge: React.ReactElement<any>) {
   return mount(badge)

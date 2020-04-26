@@ -1,12 +1,14 @@
 import React from 'react';
-import { mount, shallow, ReactWrapper, ShallowWrapper } from 'enzyme';
+
+import { mount, ReactWrapper, shallow, ShallowWrapper } from 'enzyme';
 import styled from 'styled-components';
+
 import Spinner from '@atlaskit/spinner';
+
 import {
   Container,
   SpinnerBackdrop,
 } from '../../../styled/LoadingContainerAdvanced';
-
 import LoadingContainerAdvanced, {
   Props as LoadingContainerAdvancedProps,
 } from '../../LoadingContainerAdvanced';

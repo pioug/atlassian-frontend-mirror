@@ -31,6 +31,7 @@ export interface FullPageToolbarProps {
   disabled: boolean;
   collabEdit?: CollabEditOptions;
   showKeyline: boolean;
+  containerElement: HTMLElement | null;
 }
 
 export const FullPageToolbar: React.FunctionComponent<FullPageToolbarProps> = React.memo(
@@ -49,6 +50,7 @@ export const FullPageToolbar: React.FunctionComponent<FullPageToolbarProps> = Re
           popupsScrollableElement={props.popupsScrollableElement}
           disabled={props.disabled}
           dispatchAnalyticsEvent={props.dispatchAnalyticsEvent}
+          containerElement={props.containerElement}
         />
         <MainToolbarCustomComponentsSlot>
           <Avatars

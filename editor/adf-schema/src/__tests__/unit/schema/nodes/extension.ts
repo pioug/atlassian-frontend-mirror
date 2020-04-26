@@ -5,7 +5,10 @@ import { extension } from '../../../../../src';
 describe(`${name}/schema extension node`, () => {
   describe('parse html', () => {
     it('converts to extension PM node', () => {
-      const doc = fromHTML('<div data-node-type="extension" />', schema);
+      const doc = fromHTML(
+        '<div data-node-type="extension" data-extension-type="com.example.ext" data-extension-key="gallery" />',
+        schema,
+      );
       const node = doc.firstChild!;
       expect(node.type.spec).toEqual(extension);
     });

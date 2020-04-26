@@ -8,9 +8,9 @@ export {
   findControlsHoverDecoration,
   createControlsHoverDecoration,
   createColumnControlsDecoration,
-  createColumnSelectedDecorations,
+  createColumnSelectedDecoration,
   createCellHoverDecoration,
-  updateNodeDecorations,
+  updateDecorations,
   createResizeHandleDecoration,
   createColumnLineResize,
 } from './decoration';

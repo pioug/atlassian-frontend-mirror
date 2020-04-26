@@ -1,5 +1,6 @@
 import React from 'react';
-import { md, Example, Props, code } from '@atlaskit/docs';
+
+import { code, Example, md, Props } from '@atlaskit/docs';
 
 export default md`
   The progress tracker is used to display the steps and progress through a journey.
@@ -15,8 +16,8 @@ export default md`
   ${(
     <Example
       packageName="@atlaskit/progress-tracker"
-      Component={require('../examples/basic').default}
-      source={require('!!raw-loader!../examples/basic')}
+      Component={require('../examples/progressTrackerDefault').default}
+      source={require('!!raw-loader!../examples/progressTrackerDefault')}
       title="With Default Link"
     />
   )}

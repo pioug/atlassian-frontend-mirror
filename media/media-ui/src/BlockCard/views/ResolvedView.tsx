@@ -13,17 +13,19 @@ import { CollaboratorList, Collaborator } from '../components/CollaboratorList';
 import { Icon, IconProps } from '../components/Icon';
 import { Content } from '../components/Content';
 import { ActionProps } from '../components/Action';
-import { containerCentredStyles } from '../utils/constants';
 import { MetadataProps } from '../components/Metadata';
 import { MetadataList } from '../components/MetadataList';
 import { LozengeProps } from '../../common';
-import { LozengeWrapper } from '../../InlineCard/IconAndTitleLayout/styled';
+import { LozengeBlockWrapper } from '../../InlineCard/IconAndTitleLayout/styled';
+import { ContentFooter } from '../components/ContentFooter';
+import { ContextViewModel } from '../../types';
+import { gs } from '../utils';
 
 export interface ResolvedViewProps {
   /* Details about the provider for the link */
-  context?: { icon?: string; text: string };
+  context?: ContextViewModel;
   /* URL to the link */
-  link: string;
+  link?: string;
   /* Icon for the header of the link */
   icon: IconProps;
   /* Metadata items for the link */
@@ -35,9 +37,7 @@ export interface ResolvedViewProps {
   /* Image for the link */
   thumbnail?: string;
   /* Name or title */
-  title: string;
-  /* Summary - either this or the byline will be rendered, we prefer the byline */
-  description?: string;
+  title?: string;
   /* Collaborators of the link */
   users?: Collaborator[];
   /* Actions which can be taken on the URL */
@@ -51,6 +51,7 @@ export interface ResolvedViewProps {
   /* If selected, would be true in edit mode */
   isSelected?: boolean;
   testId?: string;
+  showActions?: boolean;
 }
 
 export const ResolvedView = ({
@@ -60,46 +61,62 @@ export const ResolvedView = ({
   context = { text: '' },
   title = '',
   isSelected = false,
-  description = '',
   users = [],
   handleAvatarClick = () => {},
   handleMoreAvatarsClick = () => {},
   onClick = () => {},
-  link,
-  byline,
+  link = '',
+  byline = '',
   lozenge,
   details = [],
   testId,
+  showActions = true,
 }: ResolvedViewProps) => {
-  const resolvedMetadata = details.length && (
-    <MetadataList
-      testId={testId ? `${testId}-meta` : undefined}
-      items={details}
-    />
-  );
-  const resolvedByline = byline ? (
+  const resolvedMetadata =
+    details.length > 0 ? (
+      <MetadataList
+        testId={testId ? `${testId}-meta` : undefined}
+        items={details}
+      />
+    ) : (
+      undefined
+    );
+  const resolvedByline = (
     <Byline testId={testId ? `${testId}-by` : undefined}>{byline}</Byline>
-  ) : (
-    <Byline testId={testId ? `${testId}-by` : undefined} text={description} />
   );
+
+  const hasActions = showActions && actions.length > 0;
 
   return (
     <Frame isSelected={isSelected} testId={testId}>
       <Content>
         <div>
-          <div css={containerCentredStyles}>
+          <div
+            css={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'flex-start',
+            }}
+          >
             <a
               onClick={onClick}
               href={link}
               target="_blank"
-              css={{ display: 'flex', alignItems: 'center' }}
+              css={{ display: 'flex', alignItems: 'flex-start' }}
             >
               <Icon {...icon} />
               <Name name={title} />
               {lozenge && (
-                <LozengeWrapper>
+                <LozengeBlockWrapper
+                  css={{
+                    height: gs(2.5),
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
                   <Lozenge {...lozenge}>{lozenge.text}</Lozenge>
-                </LozengeWrapper>
+                </LozengeBlockWrapper>
               )}
             </a>
             <CollaboratorList
@@ -108,12 +125,13 @@ export const ResolvedView = ({
               handleMoreAvatarsClick={handleMoreAvatarsClick}
             />
           </div>
-          {resolvedMetadata || resolvedByline}
+          {resolvedByline}
+          {resolvedMetadata}
         </div>
-        <div css={containerCentredStyles}>
-          <Provider name={context.text} iconUrl={context.icon} />
-          <ActionList items={actions} />
-        </div>
+        <ContentFooter hasSpaceBetween={hasActions}>
+          <Provider name={context.text} icon={context.icon} />
+          {hasActions && <ActionList items={actions} />}
+        </ContentFooter>
       </Content>
       {thumbnail ? (
         <Thumbnail

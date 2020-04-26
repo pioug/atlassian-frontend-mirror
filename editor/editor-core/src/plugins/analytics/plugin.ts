@@ -9,9 +9,23 @@ import { ACTION, AnalyticsEventPayload, EVENT_TYPE } from './types';
 import { getAnalyticsEventsFromTransaction } from './utils';
 import { analyticsPluginKey } from './plugin-key';
 import { fireAnalyticsEvent } from './fire-analytics-event';
+import {
+  UITracking,
+  TransactionTracking,
+  NodeViewTracking,
+} from '../../types/performance-tracking';
 
-function createPlugin(createAnalyticsEvent?: CreateUIAnalyticsEvent) {
-  if (!createAnalyticsEvent) {
+interface AnalyticsPluginOptions {
+  createAnalyticsEvent?: CreateUIAnalyticsEvent;
+  performanceTracking?: {
+    transactionTracking?: TransactionTracking;
+    uiTracking?: UITracking;
+    nodeViewTracking?: NodeViewTracking;
+  };
+}
+
+function createPlugin(options: AnalyticsPluginOptions) {
+  if (!options || !options.createAnalyticsEvent) {
     return;
   }
 
@@ -20,8 +34,8 @@ function createPlugin(createAnalyticsEvent?: CreateUIAnalyticsEvent) {
   return new Plugin({
     key: analyticsPluginKey,
     state: {
-      init: () => createAnalyticsEvent,
-      apply: tr => {
+      init: () => options,
+      apply: (tr, pluginState) => {
         const analyticsEventWithChannel = getAnalyticsEventsFromTransaction(tr);
         if (analyticsEventWithChannel.length > 0) {
           for (const { payload, channel } of analyticsEventWithChannel) {
@@ -35,7 +49,7 @@ function createPlugin(createAnalyticsEvent?: CreateUIAnalyticsEvent) {
             ) {
               const measureName = `${payload.actionSubject}:${payload.action}:${payload.actionSubjectId}`;
               measureRender(measureName, duration => {
-                fireAnalyticsEvent(createAnalyticsEvent)({
+                fireAnalyticsEvent(pluginState.createAnalyticsEvent)({
                   payload: extendPayload(payload, duration),
                   channel,
                 });
@@ -43,22 +57,20 @@ function createPlugin(createAnalyticsEvent?: CreateUIAnalyticsEvent) {
             }
           }
         }
-        return createAnalyticsEvent;
+        return pluginState;
       },
     },
   });
 }
 
-const analyticsPlugin = (
-  createAnalyticsEvent?: CreateUIAnalyticsEvent,
-): EditorPlugin => ({
+const analyticsPlugin = (options: AnalyticsPluginOptions): EditorPlugin => ({
   name: 'analytics',
 
   pmPlugins() {
     return [
       {
         name: 'analyticsPlugin',
-        plugin: () => createPlugin(createAnalyticsEvent),
+        plugin: () => createPlugin(options),
       },
     ];
   },

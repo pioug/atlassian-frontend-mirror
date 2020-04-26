@@ -1,17 +1,18 @@
 /** @jsx jsx */
+import React from 'react';
+
 import { jsx } from '@emotion/core';
 
-import React from 'react';
 import ErrorIcon from '@atlaskit/icon/glyph/error';
 import WarningIcon from '@atlaskit/icon/glyph/warning';
 
-import { AppearanceType, KeyboardOrMouseEvent } from '../types';
 import {
   Header,
   Title,
-  TitleText,
   titleIconWrapperStyles,
+  TitleText,
 } from '../styled/Content';
+import { AppearanceType, KeyboardOrMouseEvent } from '../types';
 
 const TitleIcon = ({ appearance }: { appearance?: 'danger' | 'warning' }) => {
   if (!appearance) return null;

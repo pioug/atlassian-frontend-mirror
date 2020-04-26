@@ -1,8 +1,10 @@
 import React from 'react';
-import { mount, shallow, ReactWrapper } from 'enzyme';
-import Select from '@atlaskit/select';
+
+import { mount, ReactWrapper, shallow } from 'enzyme';
+
 import { Checkbox } from '@atlaskit/checkbox';
 import { Field } from '@atlaskit/form';
+import Select from '@atlaskit/select';
 
 import FeedbackCollector from '../../components/FeedbackCollector';
 import FeedbackForm, { fieldLabel } from '../../components/FeedbackForm';

@@ -1,10 +1,12 @@
 import React from 'react';
+
 import { shallow } from 'enzyme';
-import { HeaderButtons, Header, Description } from '../../common';
+
+import { Description, Header, HeaderButtons } from '../../common';
 import {
+  Description as StyledDescription,
   Title,
   Wrapper,
-  Description as StyledDescription,
 } from '../../styled/common';
 
 describe('Common Components', () => {

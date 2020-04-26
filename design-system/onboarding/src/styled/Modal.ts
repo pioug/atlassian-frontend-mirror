@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+
 import { borderRadius, gridSize } from '@atlaskit/theme/constants';
 import { divide } from '@atlaskit/theme/math';
 

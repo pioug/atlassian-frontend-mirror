@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/droplist",
-  "version": "10.0.3",
+  "version": "10.0.4",
   "description": "Droplist component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -22,12 +22,12 @@
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^6.3.5",
-    "@atlaskit/icon": "^20.1.0",
+    "@atlaskit/icon": "^20.1.1",
     "@atlaskit/item": "^11.0.2",
     "@atlaskit/layer": "^8.0.1",
     "@atlaskit/spinner": "^12.1.6",
     "@atlaskit/theme": "^9.5.1",
-    "@atlaskit/tooltip": "^15.2.5",
+    "@atlaskit/tooltip": "^15.2.6",
     "@babel/runtime": "^7.0.0",
     "prop-types": "^15.5.10"
   },
@@ -38,12 +38,12 @@
   },
   "devDependencies": {
     "@atlaskit/build-utils": "^2.2.7",
-    "@atlaskit/button": "^13.3.9",
+    "@atlaskit/button": "^13.3.11",
     "@atlaskit/docs": "^8.4.0",
     "@atlaskit/field-base": "^14.0.2",
     "@atlaskit/section-message": "^4.1.7",
     "@atlaskit/ssr": "^0.1.1",
-    "@atlaskit/webdriver-runner": "^0.3.0",
+    "@atlaskit/webdriver-runner": "^0.3.4",
     "@testing-library/react": "^8.0.1",
     "enzyme": "^3.10.0",
     "react-dom": "^16.8.0"
@@ -52,5 +52,10 @@
     "atlaskit",
     "react",
     "ui"
-  ]
+  ],
+  "techstack": {
+    "@atlassian/frontend": {
+      "import-structure": "atlassian-conventions"
+    }
+  }
 }

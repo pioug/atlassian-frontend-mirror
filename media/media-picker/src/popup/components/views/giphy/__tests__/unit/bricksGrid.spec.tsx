@@ -3,7 +3,7 @@ jest.mock('bricks.js');
 import { shallow } from 'enzyme';
 import React from 'react';
 import BricksStub from 'bricks.js';
-import { BricksLayout } from '../../bricksGrid';
+import { BricksLayout } from '../../../../../../plugins/views/bricks/grid';
 
 const bricksInstanceStub = {
   resize: jest.fn(),

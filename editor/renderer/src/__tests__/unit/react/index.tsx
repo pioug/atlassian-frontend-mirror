@@ -48,7 +48,7 @@ describe('Renderer - ReactSerializer', () => {
   });
   describe('serializeFragment', () => {
     it('should render document', () => {
-      const reactSerializer = ReactSerializer.fromSchema(schema, {});
+      const reactSerializer = new ReactSerializer({});
       const reactDoc = mountWithIntl(
         reactSerializer.serializeFragment(docFromSchema.content) as any,
       );
@@ -184,7 +184,7 @@ describe('Renderer - ReactSerializer', () => {
     describe('when inside of', () => {
       describe('expand', () => {
         it('media node has isInsideOfBlockNode as true', async () => {
-          const reactSerializer = ReactSerializer.fromSchema(schema, {});
+          const reactSerializer = new ReactSerializer({});
 
           const reactDoc = mountWithIntl(
             reactSerializer.serializeFragment(
@@ -215,10 +215,7 @@ describe('Renderer - ReactSerializer', () => {
                 ].indexOf(node) === -1,
             ),
           });
-          const reactSerializer = ReactSerializer.fromSchema(
-            schemaWithUnsupportedNodes,
-            {},
-          );
+          const reactSerializer = new ReactSerializer({});
           const reactDoc = mountWithIntl(
             reactSerializer.serializeFragment(
               schemaWithUnsupportedNodes.nodeFromJSON(tableWithMedia).content,
@@ -239,7 +236,7 @@ describe('Renderer - ReactSerializer', () => {
 
       describe('tables -> nestedExpand', () => {
         it('media node has isInsideOfBlockNode as true', async () => {
-          const reactSerializer = ReactSerializer.fromSchema(schema, {});
+          const reactSerializer = new ReactSerializer({});
 
           const reactDoc = mountWithIntl(
             reactSerializer.serializeFragment(
@@ -258,7 +255,7 @@ describe('Renderer - ReactSerializer', () => {
 
       describe('layoutSection -> layoutColumn', () => {
         it('media node has isInsideOfBlockNode as true', async () => {
-          const reactSerializer = ReactSerializer.fromSchema(schema, {});
+          const reactSerializer = new ReactSerializer({});
 
           const reactDoc = mountWithIntl(
             reactSerializer.serializeFragment(
@@ -278,7 +275,7 @@ describe('Renderer - ReactSerializer', () => {
 
     describe('when default shouldOpenMediaViewer is false', () => {
       it('media node has shouldOpenMediaViewer set to default value when parent is not mediaSingle', async () => {
-        const reactSerializer = ReactSerializer.fromSchema(schema, {
+        const reactSerializer = new ReactSerializer({
           shouldOpenMediaViewer: false,
         });
 
@@ -296,7 +293,7 @@ describe('Renderer - ReactSerializer', () => {
       });
 
       it('media node without parent has shouldOpenMediaViewer set to false', () => {
-        const reactSerializer = ReactSerializer.fromSchema(schema, {
+        const reactSerializer = new ReactSerializer({
           shouldOpenMediaViewer: false,
         });
 
@@ -312,7 +309,7 @@ describe('Renderer - ReactSerializer', () => {
 
     describe('when default shouldOpenMediaViewer is true', () => {
       it('media node has shouldOpenMediaViewer set to default value when parent is not mediaSingle', async () => {
-        const reactSerializer = ReactSerializer.fromSchema(schema, {
+        const reactSerializer = new ReactSerializer({
           shouldOpenMediaViewer: true,
         });
 
@@ -330,7 +327,7 @@ describe('Renderer - ReactSerializer', () => {
       });
 
       it('media without parent has shouldOpenMediaViewer set to true', () => {
-        const reactSerializer = ReactSerializer.fromSchema(schema, {
+        const reactSerializer = new ReactSerializer({
           shouldOpenMediaViewer: true,
         });
 
@@ -346,7 +343,7 @@ describe('Renderer - ReactSerializer', () => {
 
     describe('when default shouldOpenMediaViewer is undefined', () => {
       it('media node has shouldOpenMediaViewer set to undefined when parent is not mediaSingle', async () => {
-        const reactSerializer = ReactSerializer.fromSchema(schema, {});
+        const reactSerializer = new ReactSerializer({});
 
         const reactDoc = mountWithIntl(
           reactSerializer.serializeFragment(
@@ -363,7 +360,7 @@ describe('Renderer - ReactSerializer', () => {
       });
 
       it('media mode without parent has shouldOpenMediaViewer set to undefined', () => {
-        const reactSerializer = ReactSerializer.fromSchema(schema, {});
+        const reactSerializer = new ReactSerializer({});
 
         const reactDoc = mountWithIntl(
           reactSerializer.serializeFragment(
@@ -380,7 +377,7 @@ describe('Renderer - ReactSerializer', () => {
 
   describe('link mark', () => {
     it('has correct isMediaLink value when link mark is applied on media', () => {
-      const reactSerializer = ReactSerializer.fromSchema(schema, {});
+      const reactSerializer = new ReactSerializer({ allowMediaLinking: true });
       const reactDoc = mountWithIntl(
         reactSerializer.serializeFragment(linksDocFromSchema.content) as any,
       );
@@ -393,9 +390,9 @@ describe('Renderer - ReactSerializer', () => {
     });
 
     it('has correct isMediaLink value when link mark is not applied on media', () => {
-      const reactSerializer = ReactSerializer.fromSchema(schema, {});
+      const reactSerializer = new ReactSerializer({ allowMediaLinking: true });
       const reactDoc = mountWithIntl(
-        reactSerializer.serializeFragment(linksDocFromSchema.content) as any,
+        reactSerializer.serializeFragment(linksDocFromSchema.content)!,
       );
       expect(
         reactDoc
@@ -404,11 +401,35 @@ describe('Renderer - ReactSerializer', () => {
           .prop('isMediaLink'),
       ).toBeFalsy();
     });
+
+    it('does not render when allowMediaLinking is undefined', () => {
+      const reactSerializer = new ReactSerializer({});
+      const reactDoc = mountWithIntl(
+        reactSerializer.serializeFragment(linksDocFromSchema.content)!,
+      );
+      expect(reactDoc.find('Link')).toHaveLength(1);
+    });
+
+    it('does not render when allowMediaLinking is false', () => {
+      const reactSerializer = new ReactSerializer({ allowMediaLinking: false });
+      const reactDoc = mountWithIntl(
+        reactSerializer.serializeFragment(linksDocFromSchema.content)!,
+      );
+      expect(reactDoc.find('Link')).toHaveLength(1);
+    });
+
+    it('does render when allowMediaLinking is true', () => {
+      const reactSerializer = new ReactSerializer({ allowMediaLinking: true });
+      const reactDoc = mountWithIntl(
+        reactSerializer.serializeFragment(linksDocFromSchema.content)!,
+      );
+      expect(reactDoc.find('Link')).toHaveLength(2);
+    });
   });
 
   describe('Heading IDs', () => {
     it('should render headings with unique ids based on node content', () => {
-      const reactSerializer = ReactSerializer.fromSchema(schema, {});
+      const reactSerializer = new ReactSerializer({});
       const reactDoc = shallow(
         reactSerializer.serializeFragment(headingDocFromSchema.content) as any,
       );
@@ -429,7 +450,7 @@ describe('Renderer - ReactSerializer', () => {
     });
 
     it('should not render heading ids if "disableHeadingIDs" is true', () => {
-      const reactSerializer = ReactSerializer.fromSchema(schema, {
+      const reactSerializer = new ReactSerializer({
         disableHeadingIDs: true,
       });
       const reactDoc = shallow(
@@ -527,7 +548,7 @@ describe('Renderer - ReactSerializer', () => {
     };
 
     it('should add an extra column for numbered rows', () => {
-      const reactSerializer = ReactSerializer.fromSchema(schema, {});
+      const reactSerializer = new ReactSerializer({});
       const tableFromSchema = schema.nodeFromJSON(tableDoc);
       const reactDoc = mount(
         reactSerializer.serializeFragment(tableFromSchema.content) as any,

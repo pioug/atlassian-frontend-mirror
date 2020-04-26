@@ -4,7 +4,8 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 
 import { FabricChannel } from '@atlaskit/analytics-listeners';
-import { AnalyticsContext, AnalyticsListener } from '@atlaskit/analytics-next';
+import { AnalyticsListener, AnalyticsContext } from '@atlaskit/analytics-next';
+import { MediaAnalyticsContext } from '@atlaskit/analytics-namespaced-context';
 
 import {
   MediaClient,
@@ -26,10 +27,12 @@ import {
   asMockReturnValue,
   asMock,
   expectFunctionToHaveBeenCalledWith,
+  asMockFunction,
+  expectToEqual,
 } from '@atlaskit/media-test-helpers';
 
 import { CardAction, CardProps, CardDimensions, CardState } from '../..';
-import { Card, CardBase } from '../../root/card';
+import { Card, CardBase, CardWithAnalyticsEventsProps } from '../../root/card';
 import { CardView } from '../../root/cardView';
 import { InlinePlayer } from '../../root/inlinePlayer';
 import { LazyContent } from '../../utils/lazyContent';
@@ -38,8 +41,8 @@ import {
   FilePreview,
 } from '../../utils/getDataURIFromFileState';
 import {
-  getUIAnalyticsContext,
   getBaseAnalyticsContext,
+  getMediaCardAnalyticsContext,
 } from '../../utils/analytics';
 
 describe('Card', () => {
@@ -56,14 +59,25 @@ describe('Card', () => {
     actionSubject: 'mediaCardRender',
   };
 
+  const defaultFilePreview: FilePreview = {
+    src: 'some-data-uri',
+    orientation: 6,
+  };
+
   const setup = (
     mediaClient: MediaClient = createMediaClientWithGetFile(),
     props?: Partial<CardProps>,
-    filePreview: FilePreview = { src: 'some-data-uri', orientation: 6 },
+    filePreview: FilePreview = defaultFilePreview,
   ) => {
-    (getDataURIFromFileState as any).mockReset();
-    (getDataURIFromFileState as any).mockReturnValue(filePreview);
-    const component = shallow<CardProps>(
+    asMockFunction(getDataURIFromFileState).mockReset();
+    asMockFunction(getDataURIFromFileState).mockReturnValue(
+      Promise.resolve(filePreview),
+    );
+    const component = shallow<
+      CardBase,
+      CardWithAnalyticsEventsProps,
+      CardState
+    >(
       <CardBase
         mediaClient={mediaClient}
         identifier={identifier}
@@ -71,10 +85,13 @@ describe('Card', () => {
         {...props}
       />,
     );
+    const releaseStateDataURI = jest.fn();
+    component.instance().releaseStateDataURI = releaseStateDataURI;
 
     return {
       component,
       mediaClient,
+      releaseStateDataURI,
     };
   };
 
@@ -94,6 +111,9 @@ describe('Card', () => {
   ) => {
     const mockMediaClient = fakeMediaClient();
 
+    asMockFunction(mockMediaClient.getImage).mockReturnValue(
+      Promise.resolve(new Blob()),
+    );
     asMockReturnValue(
       mockMediaClient.file.getFileState,
       createFileStateSubject(fileState),
@@ -153,6 +173,7 @@ describe('Card', () => {
     component.setProps({ mediaClient, dimensions: newDimensions });
 
     await nextTick();
+    await nextTick();
     expect(mediaClient.getImage).toHaveBeenCalledTimes(2);
     expect(mediaClient.getImage).toHaveBeenLastCalledWith('some-random-id', {
       allowAnimated: true,
@@ -182,6 +203,7 @@ describe('Card', () => {
     );
     component.setProps({ mediaClient, dimensions: newDimensions });
 
+    await nextTick();
     await nextTick();
     expect(mediaClient.getImage).toHaveBeenCalledTimes(2);
     expect(mediaClient.getImage).toHaveBeenLastCalledWith('some-random-id', {
@@ -217,6 +239,7 @@ describe('Card', () => {
     component.setProps({ mediaClient, dimensions: newDimensions });
 
     await nextTick();
+    await nextTick();
     expect(mediaClient.getImage).toHaveBeenCalledTimes(1);
   });
 
@@ -239,6 +262,7 @@ describe('Card', () => {
     );
     component.setProps({ mediaClient, dimensions: newDimensions });
 
+    await nextTick();
     await nextTick();
     expect(mediaClient.getImage).toHaveBeenCalledTimes(1);
   });
@@ -405,6 +429,7 @@ describe('Card', () => {
     };
     const { mediaClient } = setup(undefined, { identifier });
     await nextTick();
+    await nextTick();
     expect(mediaClient.file.getFileState).toHaveBeenCalledTimes(1);
     expect(mediaClient.file.getFileState).toBeCalledWith('file-id', {
       collectionName: 'collection',
@@ -415,12 +440,14 @@ describe('Card', () => {
   it('should set dataURI only if its not present', async () => {
     const { component } = setup();
     await nextTick();
+    await nextTick();
     expect(getDataURIFromFileState).toHaveBeenCalledTimes(1);
     expect(component.state('dataURI')).toEqual('some-data-uri');
   });
 
   it('should set preview orientation and pass it down do view', async () => {
     const { component } = setup();
+    await nextTick();
     await nextTick();
 
     expect(component.state('previewOrientation')).toEqual(6);
@@ -434,24 +461,31 @@ describe('Card', () => {
       status: 'uploading',
       progress: 0.2,
     });
-    const { component } = setup(mediaClient);
+    const { component, releaseStateDataURI } = setup(mediaClient);
 
-    await nextTick();
-    expect(component.state()).toEqual({
-      status: 'uploading',
-      dataURI: 'some-data-uri',
-      isCardVisible: true,
-      progress: 0.2,
-      previewOrientation: 6,
-      isPlayingFile: false,
-      metadata: {
-        id: '123',
-        mediaType: 'image',
-        mimeType: 'image/png',
-        name: 'file-name',
-        size: 10,
-      },
+    await nextTick(); // Will cause next() call
+    expectToEqual(component.state().metadata, {
+      id: '123',
+      mediaType: 'image',
+      mimeType: 'image/png',
+      name: 'file-name',
+      size: 10,
     });
+
+    await nextTick(); // Will cause getDataURIFromFileState to resolve
+
+    expect(releaseStateDataURI).toBeCalled();
+    expectToEqual(
+      component.state(),
+      expect.objectContaining({
+        status: 'uploading',
+        dataURI: 'some-data-uri',
+        isCardVisible: true,
+        progress: 0.2,
+        previewOrientation: 6,
+        isPlayingFile: false,
+      } as Partial<CardState>),
+    );
   });
 
   it('should set progress as number 0', async () => {
@@ -461,23 +495,9 @@ describe('Card', () => {
       progress: 0,
     });
     const { component } = setup(mediaClient);
-
-    await nextTick();
-    expect(component.state()).toEqual({
-      status: 'uploading',
-      dataURI: 'some-data-uri',
-      isCardVisible: true,
-      progress: 0,
-      previewOrientation: 6,
-      isPlayingFile: false,
-      metadata: {
-        id: '123',
-        mediaType: 'image',
-        mimeType: 'image/png',
-        name: 'file-name',
-        size: 10,
-      },
-    });
+    await nextTick(); // Will cause next() call
+    await nextTick(); // Will cause getDataURIFromFileState to resolve
+    expectToEqual(component.state().progress, 0);
   });
 
   it('should set right state when file is processing', async () => {
@@ -487,49 +507,126 @@ describe('Card', () => {
     });
     const { component } = setup(mediaClient);
 
-    await nextTick();
-    expect(component.state()).toEqual({
-      status: 'complete',
-      dataURI: 'some-data-uri',
-      progress: 1,
-      isCardVisible: true,
-      isPlayingFile: false,
-      previewOrientation: 6,
-      metadata: {
-        id: '123',
-        mediaType: 'image',
-        mimeType: 'image/png',
-        name: 'file-name',
-        size: 10,
-      },
-    });
+    await nextTick(); // Will cause next() call
+    await nextTick(); // Will cause getDataURIFromFileState to resolve
+
+    const { status, progress } = component.state();
+
+    expectToEqual(status, 'complete');
+    expectToEqual(progress, 1);
   });
 
   it('should set right state when file is processed', async () => {
-    const { component } = setup(undefined, undefined, {
-      src: undefined,
+    const expectedDataURIFromFileState = undefined;
+    const { component, releaseStateDataURI } = setup(undefined, undefined, {
+      src: expectedDataURIFromFileState,
       orientation: 6,
     });
 
-    // we need to wait for 2 promises: fetch metadata + fetch preview
-    await nextTick();
+    await nextTick(); // Will cause next() call
+    await nextTick(); // Will cause getDataURIFromFileState to resolve
+
+    const {
+      previewOrientation,
+      dataURI: dataURIFromFileState,
+    } = component.state();
+    expectToEqual(dataURIFromFileState, expectedDataURIFromFileState);
+    expectToEqual(previewOrientation, 1);
+
+    await nextTick(); // Will cause getImage to resolve
+
+    expect(releaseStateDataURI).toBeCalledTimes(1);
+    const {
+      status,
+      progress,
+      dataURI: dataURIFromObjectURL,
+    } = component.state();
+
+    expectToEqual(status, 'complete');
+    expectToEqual(progress, undefined);
+    expectToEqual(dataURIFromObjectURL, 'mock result of URL.createObjectURL()');
+  });
+
+  it('should not render older cardStatus after a newer one', async () => {
+    const mockMediaClient = fakeMediaClient();
+
+    let resolve: (preview: FilePreview) => void = () => {};
+    asMockFunction(getDataURIFromFileState).mockReset();
+    asMockFunction(getDataURIFromFileState).mockReturnValueOnce(
+      // This will be returned during first ('uploading') next() call
+      new Promise<FilePreview>(_resolve => (resolve = _resolve)),
+    );
+    asMockFunction(getDataURIFromFileState).mockReturnValueOnce(
+      // This will be returned during second ('processing') next() call
+      Promise.resolve(defaultFilePreview),
+    );
+
+    const replySubject = createFileStateSubject({
+      ...defaultFileState,
+      status: 'uploading',
+      progress: 0.9,
+    });
+
+    asMockReturnValue(mockMediaClient.file.getFileState, replySubject);
+
+    const component = shallow<
+      CardBase,
+      CardWithAnalyticsEventsProps,
+      CardState
+    >(
+      <CardBase
+        mediaClient={mockMediaClient}
+        identifier={identifier}
+        isLazy={false}
+      />,
+    );
+
+    await nextTick(); // Will cause first next() call
+
+    // It will be paused by first unresolved getDataURIFromFileState result
+
+    // Fire second fileState
+    replySubject.next({
+      ...defaultFileState,
+      status: 'processing',
+    });
+
+    await nextTick(); // Will cause second's next() getDataURIFromFileState call resolved
+
+    const {
+      status: statusAfterSecondFileState,
+      progress: progressAfterSecondFileState,
+      previewOrientation,
+      dataURI: dataUriFromSecondFileState,
+    } = component.state();
+    expectToEqual(previewOrientation, 6);
+    expectToEqual(dataUriFromSecondFileState, 'some-data-uri');
+    expectToEqual(statusAfterSecondFileState, 'complete');
+    expectToEqual(progressAfterSecondFileState, 1);
+
+    // This will resolve first getDataURIFromFileState call
+    resolve({
+      orientation: 5,
+      src: 'some-other-data-uri',
+    });
+
+    // Will cause first's next() getDataURIFromFileState call resolved
+    // and let rest of first next() call go through
     await nextTick();
 
-    expect(component.state()).toEqual({
-      status: 'complete',
-      dataURI: 'mock result of URL.createObjectURL()',
-      progress: undefined,
-      isCardVisible: true,
-      isPlayingFile: false,
-      previewOrientation: 6,
-      metadata: {
-        id: '123',
-        mediaType: 'image',
-        name: 'file-name',
-        mimeType: 'image/png',
-        size: 10,
-      },
-    });
+    const {
+      status: statusAfterFirstFileState,
+      progress: progressAfterFirstFileState,
+      previewOrientation: secondPreviewOrientation,
+      dataURI: dataUriFromFirstFileState,
+    } = component.state();
+    // dataURI is updated with result of first getDataURIFromFileState call
+    expectToEqual(dataUriFromFirstFileState, 'some-other-data-uri');
+    expectToEqual(secondPreviewOrientation, 5);
+
+    // overall CardStatus shouldn't change back to `uploading`
+    expectToEqual(statusAfterFirstFileState, 'complete');
+    expectToEqual(progressAfterFirstFileState, 1);
   });
 
   it('should render error card when getFileState resolves with status=error', async () => {
@@ -539,6 +636,7 @@ describe('Card', () => {
     });
     const { component } = setup(mediaClient);
 
+    await nextTick();
     await nextTick();
     component.update();
     expect(component.find(CardView).prop('status')).toEqual('error');
@@ -551,6 +649,7 @@ describe('Card', () => {
     });
     const { component } = setup(mediaClient);
 
+    await nextTick();
     await nextTick();
     component.update();
     const { status, metadata } = component.find(CardView).props();
@@ -701,9 +800,9 @@ describe('Card', () => {
       emptyPreview,
     );
 
-    // we need to wait for 2 promises: fetch metadata + fetch preview
-    await nextTick();
-    await nextTick();
+    await nextTick(); // Will cause next() call
+    await nextTick(); // Will cause getDataURIFromFileState to resolve
+    await nextTick(); // Will cause getImage to resolve
     component.update();
 
     expect(component.find(CardView).props()).toEqual(
@@ -736,7 +835,7 @@ describe('Card', () => {
     const instance = component.instance() as CardBase;
 
     instance.unsubscribe = unsubscribe;
-    instance.releaseDataURI = releaseDataURI;
+    instance.releaseStateDataURI = releaseDataURI;
 
     component.unmount();
     expect(unsubscribe).toHaveBeenCalledTimes(1);
@@ -775,6 +874,7 @@ describe('Card', () => {
       dimensions: { width: 50, height: 50 },
     });
 
+    await nextTick();
     await nextTick();
     component.setProps({ dimensions: { width: 100, height: 100 } });
     const previewOrientation = component.state('previewOrientation');
@@ -1045,13 +1145,11 @@ describe('Card', () => {
       await nextTick();
 
       const contextData = card
-        .find(AnalyticsContext)
+        .find(MediaAnalyticsContext)
         .at(0)
         .props().data;
 
-      expect(contextData).toMatchObject(
-        getUIAnalyticsContext(metadata.id, metadata),
-      );
+      expect(contextData).toMatchObject(getMediaCardAnalyticsContext(metadata));
     });
 
     it('should attach Base Analytics Context', () => {
@@ -1059,6 +1157,7 @@ describe('Card', () => {
       const card = shallow<CardProps>(
         <Card mediaClient={mediaClient} identifier={identifier} />,
       );
+
       const contextData = card
         .find(AnalyticsContext)
         .at(0)
@@ -1115,13 +1214,11 @@ describe('Card', () => {
             actionSubject: 'file',
             actionSubjectId: 'some-random-id',
             eventType: 'ui',
-            attributes: {
-              packageName: '@atlaskit/media-card',
-            },
           },
           context: [
             {
               componentName: 'mediaCard',
+              component: 'mediaCard',
               packageName: '@atlaskit/media-card',
               packageVersion: '999.9.9',
             },
@@ -1338,9 +1435,6 @@ describe('Card', () => {
             ...analyticsBasePayload,
             actionSubjectId,
             action: 'commenced',
-            attributes: {
-              packageName: '@atlaskit/media-card',
-            },
           }),
         }),
         FabricChannel.media,
@@ -1356,7 +1450,8 @@ describe('Card', () => {
             action: 'failed',
             attributes: expect.objectContaining({
               failReason: 'file-status-error',
-              error: 'unknown error',
+              error:
+                'Does not have minimal metadata (filename and filesize) OR metadata/media-type is undefined',
             }),
           }),
           context: [
@@ -1364,6 +1459,7 @@ describe('Card', () => {
               packageVersion: '999.9.9',
               packageName: '@atlaskit/media-card',
               componentName: 'mediaCard',
+              component: 'mediaCard',
             },
           ],
         }),
@@ -1428,9 +1524,6 @@ describe('Card', () => {
             ...analyticsBasePayload,
             actionSubjectId,
             action: 'commenced',
-            attributes: {
-              packageName: '@atlaskit/media-card',
-            },
           }),
         }),
         FabricChannel.media,
@@ -1444,7 +1537,8 @@ describe('Card', () => {
             action: 'failed',
             attributes: expect.objectContaining({
               failReason: 'file-status-error',
-              error: 'unknown error',
+              error:
+                'Does not have minimal metadata (filename and filesize) OR metadata/media-type is undefined',
             }),
           }),
           context: [
@@ -1452,6 +1546,7 @@ describe('Card', () => {
               packageVersion: '999.9.9',
               packageName: '@atlaskit/media-card',
               componentName: 'mediaCard',
+              component: 'mediaCard',
             },
           ],
         }),
@@ -1506,9 +1601,6 @@ describe('Card', () => {
             ...analyticsBasePayload,
             actionSubjectId,
             action: 'commenced',
-            attributes: {
-              packageName: '@atlaskit/media-card',
-            },
           }),
         }),
         FabricChannel.media,
@@ -1518,36 +1610,210 @@ describe('Card', () => {
         2,
         expect.objectContaining({
           payload: expect.objectContaining({
-            eventType: 'operational',
             action: 'succeeded',
             actionSubject: 'mediaCardRender',
-            attributes: {
-              packageName: '@atlaskit/media-card',
-            },
+            // TODO: If we use fileId as actionSubjectId, then look into moving this value to the AnalyticsContext and use everywhere
+            // actionSubjectId: 'some-random-id',
+            eventType: 'operational',
           }),
           context: [
             {
-              packageVersion: '999.9.9',
-              packageName: '@atlaskit/media-card',
+              component: 'mediaCard',
               componentName: 'mediaCard',
+              packageName: '@atlaskit/media-card',
+              packageVersion: '999.9.9',
             },
             {
-              actionSubjectId: 'some-random-id',
-              attributes: {
-                packageName: '@atlaskit/media-card',
-                packageVersion: '999.9.9',
-                componentName: 'mediaCard',
+              mediaCtx: {
                 fileAttributes: {
-                  fileSource: 'mediaCard',
-                  fileMediatype: 'doc',
                   fileId: 'some-random-id',
-                  fileSize: 1,
-                  fileStatus: 'processed',
+                  fileMediatype: 'doc',
                   fileMimetype: 'application/pdf',
+                  fileSize: 1,
+                  fileSource: 'mediaCard',
+                  fileStatus: 'processed',
                 },
               },
             },
           ],
+        }),
+        FabricChannel.media,
+      );
+    });
+
+    it('should fire a succeeded event for unpreviewable files with minimal metadata', async () => {
+      const unpreviewableFileState: FileState = {
+        status: 'failed-processing',
+        id: '123',
+        name: 'file-name',
+        size: 10,
+        artifacts: {},
+        mediaType: 'doc',
+        mimeType: 'application/pdf',
+      };
+
+      const subject = new ReplaySubject<FileState>(1);
+      const mediaClient = fakeMediaClient();
+      asMockReturnValue(mediaClient.file.getFileState, subject);
+      const analyticsHandler = jest.fn();
+
+      mount(
+        <AnalyticsListener
+          channel={FabricChannel.media}
+          onEvent={analyticsHandler}
+        >
+          <Card
+            mediaClient={mediaClient}
+            identifier={identifier}
+            isLazy={false}
+          />
+          ,
+        </AnalyticsListener>,
+      );
+
+      subject.next(unpreviewableFileState);
+
+      await nextTick();
+
+      expect(analyticsHandler).toHaveBeenCalledTimes(2);
+
+      expect(analyticsHandler).toHaveBeenNthCalledWith(
+        1,
+        expect.objectContaining({
+          payload: expect.objectContaining({
+            ...analyticsBasePayload,
+            actionSubjectId,
+            action: 'commenced',
+          }),
+        }),
+        FabricChannel.media,
+      );
+
+      expect(analyticsHandler).toHaveBeenNthCalledWith(
+        2,
+        expect.objectContaining({
+          payload: expect.objectContaining({
+            action: 'succeeded',
+            actionSubject: 'mediaCardRender',
+            eventType: 'operational',
+          }),
+          context: [
+            {
+              component: 'mediaCard',
+              componentName: 'mediaCard',
+              packageName: '@atlaskit/media-card',
+              packageVersion: '999.9.9',
+            },
+            {
+              mediaCtx: {
+                fileAttributes: {
+                  fileId: '123',
+                  fileMediatype: 'doc',
+                  fileMimetype: 'application/pdf',
+                  fileSize: 10,
+                  fileSource: 'mediaCard',
+                  fileStatus: 'failed-processing',
+                },
+              },
+            },
+          ],
+        }),
+        FabricChannel.media,
+      );
+    });
+
+    it('should fire a failed event for unpreviewable files without minimal metadata', async () => {
+      const docFileState: FileState = {
+        status: 'failed-processing',
+        id: '123',
+        name: undefined,
+        size: undefined,
+        artifacts: {},
+        mediaType: 'doc',
+        mimeType: 'application/pdf',
+      } as any;
+
+      const subject = new ReplaySubject<FileState>(1);
+      const mediaClient = fakeMediaClient();
+      asMockReturnValue(mediaClient.file.getFileState, subject);
+      const analyticsHandler = jest.fn();
+
+      mount(
+        <AnalyticsListener
+          channel={FabricChannel.media}
+          onEvent={analyticsHandler}
+        >
+          <Card
+            mediaClient={mediaClient}
+            identifier={identifier}
+            isLazy={false}
+          />
+          ,
+        </AnalyticsListener>,
+      );
+
+      subject.next(docFileState);
+
+      await nextTick();
+      //commenced, succeeded (cardImageView), then failed(Mediacard)
+      expect(analyticsHandler).toHaveBeenCalledTimes(3);
+
+      expect(analyticsHandler).toHaveBeenNthCalledWith(
+        1,
+        expect.objectContaining({
+          payload: expect.objectContaining({
+            ...analyticsBasePayload,
+            actionSubjectId,
+            action: 'commenced',
+          }),
+        }),
+        FabricChannel.media,
+      );
+
+      expect(analyticsHandler).toHaveBeenNthCalledWith(
+        2,
+        expect.objectContaining({
+          payload: expect.objectContaining({
+            action: 'succeeded',
+            actionSubject: 'mediaCardRender',
+            eventType: 'operational',
+          }),
+          context: [
+            {
+              component: 'mediaCard',
+              componentName: 'mediaCard',
+              packageName: '@atlaskit/media-card',
+              packageVersion: '999.9.9',
+            },
+            {
+              mediaCtx: {
+                fileAttributes: {
+                  fileId: '123',
+                  fileMediatype: 'doc',
+                  fileMimetype: 'application/pdf',
+                  fileSource: 'mediaCard',
+                  fileStatus: 'failed-processing',
+                },
+              },
+            },
+          ],
+        }),
+        FabricChannel.media,
+      );
+
+      expect(analyticsHandler).toHaveBeenNthCalledWith(
+        3,
+        expect.objectContaining({
+          payload: expect.objectContaining({
+            ...analyticsBasePayload,
+            actionSubjectId,
+            action: 'failed',
+            attributes: expect.objectContaining({
+              failReason: 'file-status-error',
+              error:
+                'Does not have minimal metadata (filename and filesize) OR metadata/media-type is undefined',
+            }),
+          }),
         }),
         FabricChannel.media,
       );

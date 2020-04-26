@@ -1,10 +1,9 @@
+import * as colors from '@atlaskit/theme/colors';
 import {
-  fontSize,
   fontFamily,
+  fontSize,
   gridSize as gridSizeFn,
 } from '@atlaskit/theme/constants';
-
-import * as colors from '@atlaskit/theme/colors';
 
 const targetEdgeAndIE11 = styles => {
   // From https://browserstrangeness.github.io/css_hacks.html

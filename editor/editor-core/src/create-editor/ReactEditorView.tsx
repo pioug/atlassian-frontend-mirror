@@ -133,7 +133,7 @@ export default class ReactEditorView<T = {}> extends React.Component<
   )
     .withPlugins(() => this.getPluginNames())
     .withNodeCounts(() => this.countNodes())
-    .withOptions(() => this.getTransactionTrackingOptions());
+    .withOptions(() => this.transactionTrackingOptions);
 
   private onPluginObservation = (report: PluginPerformanceReportData) => {
     this.dispatchAnalyticsEvent({
@@ -144,9 +144,17 @@ export default class ReactEditorView<T = {}> extends React.Component<
     });
   };
 
-  private getTransactionTrackingOptions() {
-    const { transactionTracking = { enabled: false } } = this.props.editorProps;
-    const { enabled, ...tracking } = transactionTracking;
+  // TODO: https://product-fabric.atlassian.net/browse/ED-8985
+  get transactionTrackingProp() {
+    const { editorProps } = this.props;
+    const { transactionTracking } = editorProps.performanceTracking
+      ? editorProps.performanceTracking
+      : editorProps;
+    return transactionTracking || { enabled: false };
+  }
+
+  get transactionTrackingOptions() {
+    const { enabled, ...tracking } = this.transactionTrackingProp;
     return enabled ? tracking : {};
   }
 
@@ -254,11 +262,7 @@ export default class ReactEditorView<T = {}> extends React.Component<
       }
     }
 
-    const {
-      editorProps: { transactionTracking = { enabled: false } },
-    } = nextProps;
-
-    if (!transactionTracking.enabled) {
+    if (!this.transactionTrackingProp.enabled) {
       this.pluginPerformanceObserver.disconnect();
     }
   }
@@ -344,8 +348,7 @@ export default class ReactEditorView<T = {}> extends React.Component<
     // ProseMirror transactions when a dismount is imminent.
     this.canDispatchTransactions = true;
 
-    const { transactionTracking = { enabled: false } } = this.props.editorProps;
-    if (transactionTracking.enabled) {
+    if (this.transactionTrackingProp.enabled) {
       this.pluginPerformanceObserver.observe();
     }
   }

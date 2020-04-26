@@ -3,7 +3,7 @@ import { getExampleUrl } from '@atlaskit/webdriver-runner/utils/example';
 import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 
 /* Url to test the example */
-const urlToggle = getExampleUrl('core', 'toggle', 'testing');
+const urlToggle = getExampleUrl('design-system', 'toggle', 'testing');
 
 /* Css selectors used for the test */
 const toggleStateless = "[data-testid='my-toggle-stateless']";

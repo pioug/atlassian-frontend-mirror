@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { LayoutManager, NavigationProvider } from '../../../src';
 
 export default () => (

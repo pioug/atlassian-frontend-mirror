@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import { JiraWordmark as JiraWordmarkLogo } from '@atlaskit/logo';
 
 import {
@@ -8,7 +9,6 @@ import {
   ViewController,
   ViewControllerSubscriber,
 } from '../../../../src';
-
 import { LinkItem } from '../../components';
 import SortableItemState from '../../providers/sortable-item-state';
 import defaultGetAnalyticsAttributes from '../common/get-analytics-attributes';

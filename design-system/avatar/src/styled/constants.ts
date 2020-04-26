@@ -1,5 +1,6 @@
-import { SizeType, IndicatorSizeType } from '../types';
 import { gridSize } from '@atlaskit/theme/constants';
+
+import { IndicatorSizeType, SizeType } from '../types';
 
 type AvatarSizeMap = Record<SizeType, number>;
 type IconSizeMap = Record<IndicatorSizeType, number>;

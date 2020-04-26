@@ -7,11 +7,13 @@ import { DateField } from '@atlaskit/editor-common/extensions';
 
 import FieldMessages from '../FieldMessages';
 import { validate } from '../utils';
+import { OnBlur } from '../types';
 
 const Date = function({
   field,
+  onBlur,
   intl,
-}: { field: DateField } & InjectedIntlProps) {
+}: { field: DateField; onBlur: OnBlur } & InjectedIntlProps) {
   const element = (
     <Field
       name={field.name}
@@ -22,7 +24,14 @@ const Date = function({
     >
       {({ fieldProps, error, valid }) => (
         <Fragment>
-          <DatePicker {...fieldProps} locale={intl.locale} />
+          <DatePicker
+            {...fieldProps}
+            onBlur={() => {
+              fieldProps.onBlur();
+              onBlur(field.name);
+            }}
+            locale={intl.locale}
+          />
           <FieldMessages error={error} description={field.description} />
         </Fragment>
       )}

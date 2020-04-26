@@ -1,21 +1,24 @@
 import React from 'react';
+
 import {
   DragDropContext,
+  DragStart,
   Droppable,
   DropResult,
-  DragStart,
 } from 'react-beautiful-dnd';
-import TableRow from './TableRow';
-import {
-  HeadType,
-  RowType,
-  RankStart,
-  RankEnd,
-  RankEndLocation,
-} from '../../types';
+
 import withSortedPageRows, {
   WithSortedPageRowsProps,
 } from '../../hoc/withSortedPageRows';
+import {
+  HeadType,
+  RankEnd,
+  RankEndLocation,
+  RankStart,
+  RowType,
+} from '../../types';
+
+import TableRow from './TableRow';
 
 export interface Props extends WithSortedPageRowsProps {
   highlightedRowIndex?: number;

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import { TabPane } from '../styled';
 import { TabContentComponentProvided } from '../types';
 

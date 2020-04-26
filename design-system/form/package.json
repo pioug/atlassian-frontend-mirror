@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/form",
-  "version": "7.2.0",
+  "version": "7.2.1",
   "description": "Form package provides layout & validation for form fields",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -22,7 +22,7 @@
     }
   },
   "dependencies": {
-    "@atlaskit/icon": "^20.1.0",
+    "@atlaskit/icon": "^20.1.1",
     "@atlaskit/theme": "^9.5.1",
     "final-form": "^4.14.1",
     "final-form-focus": "^1.1.0",
@@ -37,28 +37,28 @@
   },
   "devDependencies": {
     "@atlaskit/build-utils": "^2.6.4",
-    "@atlaskit/button": "^13.3.9",
-    "@atlaskit/calendar": "^9.2.6",
-    "@atlaskit/checkbox": "^10.1.10",
-    "@atlaskit/datetime-picker": "^9.2.9",
+    "@atlaskit/button": "^13.3.11",
+    "@atlaskit/calendar": "^9.2.7",
+    "@atlaskit/checkbox": "^10.1.11",
+    "@atlaskit/datetime-picker": "^9.4.0",
     "@atlaskit/docs": "^8.5.0",
-    "@atlaskit/dropdown-menu": "^9.0.2",
-    "@atlaskit/droplist": "^10.0.3",
+    "@atlaskit/dropdown-menu": "^9.0.3",
+    "@atlaskit/droplist": "^10.0.4",
     "@atlaskit/field-radio-group": "^7.0.2",
     "@atlaskit/field-range": "^8.0.2",
-    "@atlaskit/modal-dialog": "^10.5.5",
+    "@atlaskit/modal-dialog": "^10.5.7",
     "@atlaskit/multi-select": "^14.0.1",
     "@atlaskit/radio": "^3.2.0",
     "@atlaskit/section-message": "^4.1.7",
-    "@atlaskit/select": "^11.0.9",
+    "@atlaskit/select": "^11.0.10",
     "@atlaskit/single-select": "^9.0.1",
     "@atlaskit/ssr": "^0.1.1",
     "@atlaskit/textarea": "^2.2.6",
     "@atlaskit/textfield": "^3.1.9",
-    "@atlaskit/toggle": "^8.1.6",
-    "@atlaskit/tooltip": "^15.2.5",
+    "@atlaskit/toggle": "^8.1.7",
+    "@atlaskit/tooltip": "^15.2.6",
     "@atlaskit/visual-regression": "^0.1.9",
-    "@atlaskit/webdriver-runner": "^0.3.0",
+    "@atlaskit/webdriver-runner": "^0.3.4",
     "@testing-library/react": "^8.0.1",
     "enzyme": "^3.10.0",
     "react-dom": "^16.8.0",
@@ -72,5 +72,10 @@
     "atlaskit",
     "react",
     "ui"
-  ]
+  ],
+  "techstack": {
+    "@atlassian/frontend": {
+      "import-structure": "atlassian-conventions"
+    }
+  }
 }

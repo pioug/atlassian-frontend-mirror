@@ -1,7 +1,7 @@
 import {
+  disableAllTransitions,
   getExampleUrl,
   takeElementScreenShot,
-  disableAllTransitions,
 } from '@atlaskit/visual-regression/helper';
 
 declare var global: any;
@@ -9,7 +9,7 @@ declare var global: any;
 describe.skip('<ResizeControl />', () => {
   it('should match the resize control snapshot when left sidebar is collapsed', async () => {
     const url = getExampleUrl(
-      'core',
+      'design-system',
       'page-layout',
       'resize-sidebar',
       global.__BASEURL__,
@@ -30,7 +30,7 @@ describe.skip('<ResizeControl />', () => {
 
   it('should match the resize control snapshot when left sidebar is collapsed and resize button is hovered', async () => {
     const url = getExampleUrl(
-      'core',
+      'design-system',
       'page-layout',
       'resize-sidebar',
       global.__BASEURL__,
@@ -54,7 +54,7 @@ describe.skip('<ResizeControl />', () => {
 
   it('should match the resize control snapshot when left sidebar is expanded and grab area is hovered', async () => {
     const url = getExampleUrl(
-      'core',
+      'design-system',
       'page-layout',
       'resize-sidebar',
       global.__BASEURL__,
@@ -74,7 +74,7 @@ describe.skip('<ResizeControl />', () => {
 
   it('should match the resize control snapshot when left sidebar is collapsed and flyout is shown by hovering the sidebar', async () => {
     const url = getExampleUrl(
-      'core',
+      'design-system',
       'page-layout',
       'resize-sidebar',
       global.__BASEURL__,
@@ -99,7 +99,7 @@ describe.skip('<ResizeControl />', () => {
 
   it('should match the resize control snapshot when left sidebar is collapsed and flyout is shown by hovering the grab area', async () => {
     const url = getExampleUrl(
-      'core',
+      'design-system',
       'page-layout',
       'resize-sidebar',
       global.__BASEURL__,
@@ -124,7 +124,7 @@ describe.skip('<ResizeControl />', () => {
 
   it('should match the resize control snapshot when left sidebar is expanded and left sidebar is hovered', async () => {
     const url = getExampleUrl(
-      'core',
+      'design-system',
       'page-layout',
       'resize-sidebar',
       global.__BASEURL__,
@@ -143,7 +143,7 @@ describe.skip('<ResizeControl />', () => {
 
   it('should match the resize control inner shadow snapshot when drag on grab area begins', async () => {
     const url = getExampleUrl(
-      'core',
+      'design-system',
       'page-layout',
       'resize-sidebar',
       global.__BASEURL__,
@@ -172,7 +172,7 @@ describe.skip('<ResizeControl />', () => {
 
   it('should match the resize control snapshot when left sidebar is expanded and resized', async () => {
     const url = getExampleUrl(
-      'core',
+      'design-system',
       'page-layout',
       'resize-sidebar',
       global.__BASEURL__,

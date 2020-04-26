@@ -6,7 +6,7 @@ export const ConfluenceSpace = {
     name: 'Confluence',
   },
   icon: {
-    type: 'Image',
+    '@type': 'Image',
     url:
       'https://cdn2.iconfinder.com/data/icons/flaturici-set-4/512/rocket2-512.png',
   },

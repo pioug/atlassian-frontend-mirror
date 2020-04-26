@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components';
-import { N800, N30, N300 } from '@atlaskit/theme/colors';
+
+import { N30, N300, N800 } from '@atlaskit/theme/colors';
 
 // Future-proofing: Styled Component 2.x no longer tolerate unitless values for CSS length.
 // See:

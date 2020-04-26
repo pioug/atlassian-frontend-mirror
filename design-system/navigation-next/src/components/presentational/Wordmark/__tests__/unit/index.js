@@ -1,7 +1,9 @@
 import React from 'react';
+
 import { shallow } from 'enzyme';
 
 import { JiraWordmark } from '@atlaskit/logo';
+
 import Wordmark from '../../index';
 
 describe('Wordmark', () => {

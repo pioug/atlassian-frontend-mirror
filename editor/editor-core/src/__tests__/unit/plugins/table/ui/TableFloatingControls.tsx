@@ -1,6 +1,5 @@
 import { shallow, mount } from 'enzyme';
 import React from 'react';
-import { DecorationSet } from 'prosemirror-view';
 
 import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
 import {
@@ -17,10 +16,8 @@ import { hoverTable } from '../../../../../plugins/table/commands';
 import TableFloatingControls from '../../../../../plugins/table/ui/TableFloatingControls';
 import CornerControls from '../../../../../plugins/table/ui/TableFloatingControls/CornerControls';
 import RowControls from '../../../../../plugins/table/ui/TableFloatingControls/RowControls';
-import {
-  getPluginState,
-  pluginKey,
-} from '../../../../../plugins/table/pm-plugins/plugin-factory';
+import { pluginKey } from '../../../../../plugins/table/pm-plugins/plugin-factory';
+import { getDecorations } from '../../../../../plugins/table/pm-plugins/decorations/plugin';
 
 describe('TableFloatingControls', () => {
   const createEditor = createEditorFactory<TablePluginState>();
@@ -78,9 +75,7 @@ describe('TableFloatingControls', () => {
         ),
       );
       hoverTable(true)(editorView.state, editorView.dispatch);
-      const {
-        decorationSet,
-      }: { decorationSet: DecorationSet } = getPluginState(editorView.state);
+      const decorationSet = getDecorations(editorView.state);
       const decoration = decorationSet.find()[0] as any;
       expect(decoration.type.attrs.class.indexOf('danger')).toBeGreaterThan(-1);
     });

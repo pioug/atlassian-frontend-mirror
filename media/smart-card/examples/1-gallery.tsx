@@ -7,7 +7,7 @@ import TableTree, {
   Row,
   Cell,
 } from '@atlaskit/table-tree';
-import { Provider, Card, CardAppearance } from '../src';
+import { Provider, Card, CardAppearance, CardContext } from '../src';
 import urlsJSON from '../examples-helpers/example-urls.json';
 import styled from 'styled-components';
 import { IntlProvider } from 'react-intl';
@@ -59,6 +59,7 @@ type ExampleState = {
   groupingMode: GroupingMode;
   appearanceMode: CardAppearance;
   environment: EnvironmentsKeys;
+  authFlow: CardContext['config']['authFlow'];
 };
 
 const DivWithMargin = styled.div`
@@ -73,6 +74,7 @@ class Example extends React.Component<{}, ExampleState> {
     groupingMode: 'none',
     appearanceMode: 'block',
     environment: 'stg',
+    authFlow: 'oauth2',
   };
 
   handleGroupClick = (groupingMode: GroupingMode) => {
@@ -85,6 +87,10 @@ class Example extends React.Component<{}, ExampleState> {
 
   handleEnvClick = (environment: EnvironmentsKeys) => {
     this.setState({ environment });
+  };
+
+  handleAuthFlowClick = (authFlow: ExampleState['authFlow']) => {
+    this.setState({ authFlow });
   };
 
   getGroupedUrls(mode: GroupingMode): GroupedExampleUrls {
@@ -199,6 +205,7 @@ class Example extends React.Component<{}, ExampleState> {
     currentGroupingMode: GroupingMode,
     currentAppearanceMode: CardAppearance,
     currentEnv: EnvironmentsKeys,
+    authFlow: ExampleState['authFlow'],
   ) {
     return (
       <ButtonGroup>
@@ -231,6 +238,13 @@ class Example extends React.Component<{}, ExampleState> {
         >
           block card
         </Button>
+        <Button
+          key={'render-mode-block'}
+          isSelected={currentAppearanceMode === 'embed'}
+          onClick={() => this.handleAppearanceClick('embed')}
+        >
+          embed card
+        </Button>
         <Button isDisabled appearance="link">
           Environment:
         </Button>
@@ -243,18 +257,38 @@ class Example extends React.Component<{}, ExampleState> {
             {env}
           </Button>
         ))}
+        <Button isDisabled appearance="link">
+          OAuth Flow:
+        </Button>
+        <Button
+          isSelected={authFlow === 'oauth2'}
+          onClick={() => this.handleAuthFlowClick('oauth2')}
+        >
+          Enabled
+        </Button>
+        <Button
+          isSelected={authFlow === 'disabled'}
+          onClick={() => this.handleAuthFlowClick('disabled')}
+        >
+          Disabled
+        </Button>
       </ButtonGroup>
     );
   }
 
   render() {
-    const { groupingMode, appearanceMode, environment } = this.state;
+    const { groupingMode, appearanceMode, environment, authFlow } = this.state;
 
     return (
       <IntlProvider locale="en">
-        <Provider client={new SmartCardClient(environment)}>
+        <Provider client={new SmartCardClient(environment)} authFlow={authFlow}>
           <DivWithMargin>
-            {this.renderButtons(groupingMode, appearanceMode, environment)}
+            {this.renderButtons(
+              groupingMode,
+              appearanceMode,
+              environment,
+              authFlow,
+            )}
             {this.renderGroups(groupingMode, appearanceMode)}
           </DivWithMargin>
         </Provider>

@@ -16,7 +16,7 @@ describe.skip('Snapshot Test for Progress Tracker', () => {
     //@ts-ignore
     const { __BASEURL__, page } = global;
     const url = getExampleUrl(
-      'core',
+      'design-system',
       'progress-tracker',
       'dynamic-stages',
       __BASEURL__,
@@ -44,7 +44,7 @@ describe.skip('Snapshot Test for Progress Tracker', () => {
     const { __BASEURL__, page } = global;
 
     const url = getExampleUrl(
-      'core',
+      'design-system',
       'progress-tracker',
       'dynamic-stages',
       __BASEURL__,

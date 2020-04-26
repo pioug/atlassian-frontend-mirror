@@ -6,21 +6,27 @@ import {
 } from 'prosemirror-state';
 import { Fragment } from 'prosemirror-model';
 import { todayTimestampInUTC } from '@atlaskit/editor-common';
-import { Command } from '../../types';
+import { Command, CommandDispatch } from '../../types';
+import { DateType } from './types';
+import { TOOLBAR_MENU_TYPE } from '../insert-block/ui/ToolbarInsertBlock/types';
+import { pluginKey } from './pm-plugins/plugin-key';
+
 import {
+  withAnalytics,
   addAnalytics,
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
   EVENT_TYPE,
+  INPUT_METHOD,
 } from '../analytics';
-import { DateType } from './types';
-import { TOOLBAR_MENU_TYPE } from '../insert-block/ui/ToolbarInsertBlock/types';
-import { pluginKey } from './pm-plugins/plugin-key';
+import { isToday } from './utils/internal';
 
 export const insertDate = (
   date?: DateType,
   inputMethod?: TOOLBAR_MENU_TYPE,
+  commitMethod?: INPUT_METHOD.PICKER | INPUT_METHOD.KEYBOARD,
+  enterPressed: boolean = true,
 ) => (state: EditorState, dispatch: (tr: Transaction) => void): boolean => {
   const { schema } = state;
   let timestamp: string;
@@ -30,7 +36,7 @@ export const insertDate = (
     timestamp = todayTimestampInUTC();
   }
 
-  const tr = state.tr;
+  let tr = state.tr;
   if (inputMethod) {
     addAnalytics(state, tr, {
       action: ACTION.INSERTED,
@@ -40,6 +46,20 @@ export const insertDate = (
       attributes: { inputMethod },
     });
   }
+
+  if (commitMethod) {
+    addAnalytics(state, tr, {
+      eventType: EVENT_TYPE.TRACK,
+      action: ACTION.COMMITTED,
+      actionSubject: ACTION_SUBJECT.DATE,
+      attributes: {
+        commitMethod,
+        isValid: date !== undefined,
+        isToday: isToday(date),
+      },
+    });
+  }
+
   const { showDatePickerAt } = pluginKey.getState(state);
 
   if (!showDatePickerAt) {
@@ -57,15 +77,24 @@ export const insertDate = (
   }
 
   if (state.doc.nodeAt(showDatePickerAt)) {
-    dispatch(
-      tr
-        .setNodeMarkup(showDatePickerAt, schema.nodes.date, {
-          timestamp,
-        })
-        .setSelection(Selection.near(tr.doc.resolve(showDatePickerAt + 2)))
-        .setMeta(pluginKey, { showDatePickerAt: null })
-        .scrollIntoView(),
-    );
+    if (enterPressed) {
+      // Setting selection to outside the date node causes showDatePickerAt
+      // to be set to null by the PM plugin (onSelectionChanged), which will
+      // immediately close the datepicker once a valid date is typed in.
+      // Adding this check forces it to stay open until the user presses Enter.
+      tr = tr.setSelection(
+        Selection.near(tr.doc.resolve(showDatePickerAt + 2)),
+      );
+    }
+    tr = tr
+      .setNodeMarkup(showDatePickerAt, schema.nodes.date, {
+        timestamp,
+      })
+      .setMeta(pluginKey, {
+        showDatePickerAt,
+      })
+      .scrollIntoView();
+    dispatch(tr);
     return true;
   }
 
@@ -80,14 +109,13 @@ export const setDatePickerAt = (showDatePickerAt: number | null) => (
   return true;
 };
 
-export const closeDatePicker = (): Command => (state, dispatch) => {
+export const closeDatePicker = (): Command => (
+  state: EditorState,
+  dispatch: CommandDispatch | undefined,
+) => {
   const { showDatePickerAt } = pluginKey.getState(state);
 
-  if (!showDatePickerAt) {
-    return false;
-  }
-
-  if (dispatch) {
+  if (showDatePickerAt && dispatch) {
     dispatch(
       state.tr
         .setMeta(pluginKey, { showDatePickerAt: null })
@@ -96,12 +124,30 @@ export const closeDatePicker = (): Command => (state, dispatch) => {
         ),
     );
   }
+
   return false;
 };
+
+export const closeDatePickerWithAnalytics = ({
+  date,
+}: {
+  date?: DateType;
+}): Command =>
+  withAnalytics({
+    eventType: EVENT_TYPE.TRACK,
+    action: ACTION.COMMITTED,
+    actionSubject: ACTION_SUBJECT.DATE,
+    attributes: {
+      commitMethod: INPUT_METHOD.BLUR,
+      isValid: date !== undefined,
+      isToday: isToday(date),
+    },
+  })(closeDatePicker());
 
 export const openDatePicker = (): Command => (state, dispatch) => {
   const { $from } = state.selection;
   const node = state.doc.nodeAt($from.pos);
+
   if (node && node.type.name === state.schema.nodes.date.name) {
     const showDatePickerAt = $from.pos;
     if (dispatch) {

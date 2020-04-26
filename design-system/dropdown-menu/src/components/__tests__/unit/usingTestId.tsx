@@ -1,6 +1,8 @@
 import React from 'react';
+
 import { render } from '@testing-library/react';
-import DropdownMenu from '../../..';
+
+import DropdownMenu from '../../../index';
 
 const testIdTrigger = 'testing--trigger';
 

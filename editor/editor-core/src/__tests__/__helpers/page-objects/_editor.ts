@@ -1,5 +1,5 @@
 import { Page } from './_types';
-import { ElementHandle } from 'puppeteer';
+import { ElementHandle, BoundingBox } from 'puppeteer';
 
 export const selectors = {
   editor: '.ProseMirror',
@@ -23,6 +23,11 @@ export async function clickEditableContent(page: Page) {
   await page.click(selectors.editor);
 }
 
+export enum timeouts {
+  SHORT = 1000,
+  DEFAULT = 5000,
+}
+
 const replaceInputStr = (str: string) => {
   return `concat('${str.replace(/'/g, `', "'", '`)}', '')`;
 };
@@ -34,9 +39,9 @@ export const waitForElementWithText = async (
   page: Page,
   text: string,
   htmlTag = 'span',
-) => {
+): Promise<ElementHandle> => {
   const elementPath = getElementPathWithText(text, htmlTag);
-  await page.waitForXPath(elementPath, { timeout: 5000 });
+  return await page.waitForXPath(elementPath, { timeout: timeouts.DEFAULT });
 };
 
 export const clickElementWithText = async ({
@@ -50,9 +55,45 @@ export const clickElementWithText = async ({
 }) => {
   const elementPath = getElementPathWithText(text, tag);
   const target: ElementHandle = await page.waitForXPath(elementPath, {
-    timeout: 5000,
+    timeout: timeouts.DEFAULT,
   });
   await target.click();
+};
+
+export const selectElementWithText = async ({
+  page,
+  tag,
+  text,
+}: {
+  page: Page;
+  tag: string;
+  text: string;
+}) => {
+  const elementPath = getElementPathWithText(text, tag);
+  const target: ElementHandle = await page.waitForXPath(elementPath, {
+    timeout: timeouts.DEFAULT,
+  });
+
+  const { x, y, width, height } = (await target.boundingBox()) as BoundingBox;
+  await setSelection(
+    page,
+    { x: x, y: y + height / 2 },
+    { x: x + width, y: y + height / 2 },
+  );
+};
+
+export const setSelection = async (
+  page: Page,
+  from: { x: number; y: number },
+  to: { x: number; y: number },
+) => {
+  await page.mouse.move(from.x, from.y);
+  await page.mouse.down();
+  await animationFrame(page);
+  await page.mouse.move(to.x, to.y);
+  await animationFrame(page);
+  await page.mouse.up();
+  await animationFrame(page);
 };
 
 export const hoverElementWithText = async ({
@@ -65,7 +106,7 @@ export const hoverElementWithText = async ({
   text: string;
 }) => {
   const elementPath = getElementPathWithText(text, tag);
-  await page.waitForXPath(elementPath, { timeout: 5000 });
+  await page.waitForXPath(elementPath, { timeout: timeouts.DEFAULT });
   const target = await page.$x(elementPath);
   expect(target.length).toBeGreaterThan(0);
   await target[0].hover();

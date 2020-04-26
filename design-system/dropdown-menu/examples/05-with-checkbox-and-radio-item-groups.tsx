@@ -1,9 +1,10 @@
 import React from 'react';
+
 import Dropdown, {
   DropdownItemCheckbox,
   DropdownItemGroupCheckbox,
-  DropdownItemRadio,
   DropdownItemGroupRadio,
+  DropdownItemRadio,
 } from '../src';
 
 export default () => (

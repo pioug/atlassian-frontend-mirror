@@ -1,20 +1,41 @@
 /** @jsx jsx */
-import { useRef, useState, MouseEvent as ReactMouseEvent } from 'react';
+import {
+  ElementType,
+  ReactElement,
+  MouseEvent as ReactMouseEvent,
+  useRef,
+  useState,
+} from 'react';
+
 import { jsx } from '@emotion/core';
 import rafSchd from 'raf-schd';
 
-import { usePageLayoutResize } from '../../controllers';
-import GrabArea from './grab-area';
-import ResizeButton from './resize-button';
-import { resizeControlCSS, resizeIconButtonCSS, shadowCSS } from './styles';
 import {
   COLLAPSED_LEFT_SIDEBAR_WIDTH,
+  IS_FLYOUT_OPEN,
+  IS_SIDEBAR_DRAGGING,
   LEFT_SIDEBAR_FLYOUT_WIDTH,
   MIN_LEFT_SIDEBAR_DRAG_THRESHOLD,
-  IS_SIDEBAR_DRAGGING,
-  IS_FLYOUT_OPEN,
   RESIZE_CONTROL_SELECTOR,
 } from '../../common/constants';
+import { usePageLayoutResize } from '../../controllers';
+
+import GrabArea from './grab-area';
+import ResizeButton, { ResizeButtonProps } from './resize-button';
+import { resizeControlCSS, resizeIconButtonCSS, shadowCSS } from './styles';
+
+export type ResizeControlProps = {
+  testId?: string;
+  overrides?: {
+    ResizeButton?: {
+      render?: (
+        Component: ElementType<ResizeButtonProps>,
+        props: ResizeButtonProps,
+      ) => ReactElement;
+    };
+  };
+  resizeButtonLabel: string;
+};
 
 const cssSelector = { [RESIZE_CONTROL_SELECTOR]: true };
 const noop = () => {};
@@ -22,7 +43,11 @@ const Shadow = ({ testId }: { testId?: string }) => (
   <div data-testid={testId} css={shadowCSS} />
 );
 
-const ResizeControl = ({ testId }: { testId?: string }) => {
+const ResizeControl = ({
+  testId,
+  overrides,
+  resizeButtonLabel,
+}: ResizeControlProps) => {
   const x = useRef(0);
   // Distance of mouse from left sidebar onMouseDown
   let offset = useRef(0);
@@ -120,6 +145,14 @@ const ResizeControl = ({ testId }: { testId?: string }) => {
     shouldCollapse ? collapseLeftSidebar() : expandLeftSidebar();
   };
 
+  const resizeButton = {
+    render: (
+      Component: ElementType<ResizeButtonProps>,
+      props: ResizeButtonProps,
+    ) => <Component {...props} />,
+    ...(overrides && overrides.ResizeButton),
+  };
+
   return (
     <div {...cssSelector} css={resizeControlCSS}>
       <Shadow testId={testId && `${testId}-shadow`} />
@@ -129,13 +162,13 @@ const ResizeControl = ({ testId }: { testId?: string }) => {
         onClick={!isLeftSidebarCollapsed ? toggleSideBar : noop}
         testId={testId && `${testId}-grab-area`}
       />
-      <ResizeButton
-        css={resizeIconButtonCSS(isLeftSidebarCollapsed)}
-        isLeftSidebarCollapsed={isLeftSidebarCollapsed}
-        label="Toggle navigation"
-        onClick={toggleSideBar}
-        testId={testId && `${testId}-resize-button`}
-      />
+      {resizeButton.render(ResizeButton, {
+        css: resizeIconButtonCSS(isLeftSidebarCollapsed),
+        isLeftSidebarCollapsed,
+        label: resizeButtonLabel,
+        onClick: toggleSideBar,
+        testId: testId && `${testId}-resize-button`,
+      })}
     </div>
   );
 };

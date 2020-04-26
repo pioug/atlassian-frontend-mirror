@@ -1,7 +1,9 @@
-import { mount, shallow } from 'enzyme';
 import React from 'react';
-import ThemedCode from '../../ThemedCode';
+
+import { mount, shallow } from 'enzyme';
+
 import Code from '../../components/Code';
+import ThemedCode from '../../ThemedCode';
 
 const jsCode = `const map = new Map({ key: 'value' })`;
 

@@ -1,14 +1,15 @@
 import React, { Fragment } from 'react';
+
 import { css, keyframes } from '@emotion/core';
+
 import { N70A } from '@atlaskit/theme/colors';
 
 import {
   transitionDuration,
   transitionTimingFunction,
 } from '../../../common/constants';
-import { light, withContentTheme, ThemeProvider } from '../../../theme';
-
 import { applyDisabledProperties } from '../../../common/helpers';
+import { light, ThemeProvider, withContentTheme } from '../../../theme';
 
 /**
  * Component tree structure

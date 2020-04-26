@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import StatelessMenu from './DropdownMenuStateless';
+
 import {
-  DropdownMenuStatefulProps,
   DeprecatedItemGroup,
+  DropdownMenuStatefulProps,
   OnItemActivatedArgs,
   OnOpenChangeArgs,
 } from '../types';
+
+import StatelessMenu from './DropdownMenuStateless';
 
 interface State {
   isOpen: boolean;

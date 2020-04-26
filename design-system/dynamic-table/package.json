@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/dynamic-table",
-  "version": "13.7.2",
+  "version": "13.7.4",
   "description": "Table component with pagination and sorting functionality",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -22,11 +22,10 @@
     }
   },
   "dependencies": {
-    "@atlaskit/analytics-next": "^6.3.5",
+    "@atlaskit/analytics-next": "^6.3.6",
     "@atlaskit/pagination": "^12.0.19",
     "@atlaskit/spinner": "^12.1.6",
-    "@atlaskit/theme": "^9.5.1",
-    "@atlaskit/type-helpers": "^4.2.3",
+    "@atlaskit/theme": "^9.5.3",
     "prop-types": "^15.5.10",
     "react-beautiful-dnd": "^12.1.1",
     "tslib": "^1.9.3"
@@ -37,17 +36,22 @@
     "styled-components": "^3.2.6"
   },
   "devDependencies": {
-    "@atlaskit/avatar": "^17.1.9",
+    "@atlaskit/avatar": "^17.1.10",
     "@atlaskit/build-utils": "^2.2.7",
-    "@atlaskit/button": "^13.3.9",
-    "@atlaskit/docs": "^8.4.0",
-    "@atlaskit/dropdown-menu": "^9.0.2",
+    "@atlaskit/button": "^13.3.11",
+    "@atlaskit/docs": "^8.5.1",
+    "@atlaskit/dropdown-menu": "^9.0.3",
     "@atlaskit/ssr": "^0.1.1",
-    "@atlaskit/toggle": "^8.1.6",
+    "@atlaskit/toggle": "^8.1.7",
     "@atlaskit/visual-regression": "^0.1.9",
-    "@atlaskit/webdriver-runner": "^0.3.0",
+    "@atlaskit/webdriver-runner": "^0.3.4",
     "@testing-library/react": "^8.0.1",
     "enzyme": "^3.10.0",
     "react-dom": "^16.8.0"
+  },
+  "techstack": {
+    "@atlassian/frontend": {
+      "import-structure": "atlassian-conventions"
+    }
   }
 }

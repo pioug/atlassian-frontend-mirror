@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { Link, MemoryRouter } from 'react-router-dom';
+
 import Button from '../src';
 
 const ButtonWithRouter = () => (

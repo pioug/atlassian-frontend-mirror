@@ -1,5 +1,8 @@
 import React from 'react';
+import styled from 'styled-components';
 
+import { gridSize } from '@atlaskit/theme/constants';
+import { multiply } from '@atlaskit/theme/math';
 import { ExtensionManifest } from '@atlaskit/editor-common';
 
 import {
@@ -26,6 +29,11 @@ import Text from './Fields/Text';
 import UnhandledType from './Fields/UnhandledType';
 
 import RemovableField from './NestedForms/RemovableField';
+import { OnBlur } from './types';
+
+const FieldWrapper = styled.div`
+  margin-bottom: ${multiply(gridSize, 2)}px;
+`;
 
 const pickUsedParameters = (
   parameters: Parameters = {},
@@ -46,20 +54,39 @@ type Props = {
   parameters?: Parameters;
   canRemoveFields?: boolean;
   onClickRemove?: (fieldName: string) => void;
+  onFieldBlur: OnBlur;
 };
 
 class FormContent extends React.Component<Props> {
   renderEnumField(field: EnumField) {
     switch (field.style) {
       case 'checkbox':
-        return <CheckboxGroup key={field.name} field={field} />;
+        return (
+          <CheckboxGroup
+            key={field.name}
+            onBlur={this.props.onFieldBlur}
+            field={field}
+          />
+        );
 
       case 'radio':
-        return <RadioGroup key={field.name} field={field} />;
+        return (
+          <RadioGroup
+            key={field.name}
+            onBlur={this.props.onFieldBlur}
+            field={field}
+          />
+        );
 
       case 'select':
       default:
-        return <Select key={field.name} field={field} />;
+        return (
+          <Select
+            key={field.name}
+            onBlur={this.props.onFieldBlur}
+            field={field}
+          />
+        );
     }
   }
 
@@ -73,7 +100,7 @@ class FormContent extends React.Component<Props> {
     );
   }
 
-  renderField(field: FieldDefinition) {
+  renderField(field: FieldDefinition, index: number) {
     const { parameters, extensionManifest } = this.props;
 
     if (!isFieldset(field)) {
@@ -84,19 +111,41 @@ class FormContent extends React.Component<Props> {
     switch (field.type) {
       case 'string':
         return (
-          <Text key={field.name} field={field as StringField} type="text" />
+          <Text
+            key={field.name}
+            onBlur={this.props.onFieldBlur}
+            field={field as StringField}
+            type="text"
+          />
         );
 
       case 'number':
         return (
-          <Text key={field.name} field={field as NumberField} type="number" />
+          <Text
+            key={field.name}
+            onBlur={this.props.onFieldBlur}
+            field={field as NumberField}
+            type="number"
+          />
         );
 
       case 'boolean':
-        return <Boolean key={field.name} field={field as BooleanField} />;
+        return (
+          <Boolean
+            key={field.name}
+            onBlur={this.props.onFieldBlur}
+            field={field as BooleanField}
+          />
+        );
 
       case 'date':
-        return <Date key={field.name} field={field as DateField} />;
+        return (
+          <Date
+            key={field.name}
+            onBlur={this.props.onFieldBlur}
+            field={field as DateField}
+          />
+        );
 
       case 'enum':
         return this.renderEnumField(field as EnumField);
@@ -105,6 +154,7 @@ class FormContent extends React.Component<Props> {
         return (
           <CustomSelect
             key={field.name}
+            onBlur={this.props.onFieldBlur}
             field={field}
             extensionManifest={extensionManifest}
           />
@@ -114,6 +164,7 @@ class FormContent extends React.Component<Props> {
         return (
           <Fieldset
             key={field.name}
+            onFieldBlur={this.props.onFieldBlur}
             field={field as FieldsetType}
             extensionManifest={extensionManifest}
             parameters={pickUsedParameters(parameters, field.fields)}
@@ -125,11 +176,11 @@ class FormContent extends React.Component<Props> {
     }
   }
 
-  renderRemovableField(field: FieldDefinition) {
+  renderRemovableField(field: FieldDefinition, index: number) {
     const { onClickRemove } = this.props;
 
     if (!onClickRemove) {
-      return this.renderField(field);
+      return this.renderField(field, index);
     }
 
     return (
@@ -138,7 +189,7 @@ class FormContent extends React.Component<Props> {
         name={field.name}
         onClickRemove={() => onClickRemove!(field.name)}
       >
-        {this.renderField(field)}
+        {this.renderField(field, index)}
       </RemovableField>
     );
   }
@@ -146,10 +197,14 @@ class FormContent extends React.Component<Props> {
   render() {
     const { fields, canRemoveFields } = this.props;
 
-    return fields.map(field =>
-      canRemoveFields
-        ? this.renderRemovableField(field)
-        : this.renderField(field),
+    return fields.map((field, index) =>
+      canRemoveFields ? (
+        this.renderRemovableField(field, index)
+      ) : (
+        <FieldWrapper key={field.name}>
+          {this.renderField(field, index)}
+        </FieldWrapper>
+      ),
     );
   }
 }

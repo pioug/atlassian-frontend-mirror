@@ -1,12 +1,15 @@
 import React from 'react';
+
 import { mount } from 'enzyme';
+import { Transition } from 'react-transition-group';
+
 import Portal from '@atlaskit/portal';
 import { layers } from '@atlaskit/theme/constants';
-import { Transition } from 'react-transition-group';
-import Flag from '../../..';
+
+import Flag from '../../../index';
+import { FlagProps } from '../../../types';
 import Container, { DismissButton } from '../../Flag/styledFlag';
 import FlagGroup from '../../FlagGroup';
-import { FlagProps } from '../../../types';
 
 describe('FlagGroup', () => {
   const generateFlag = (extraProps?: Partial<FlagProps>) => (

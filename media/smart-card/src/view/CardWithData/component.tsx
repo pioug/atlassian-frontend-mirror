@@ -3,9 +3,11 @@ import {
   BlockCardResolvedView,
   InlineCardResolvedView,
 } from '@atlaskit/media-ui';
+
 import { CardWithDataContentProps as Props } from './types';
-import { extractInlinePropsFromJSONLD } from '../../extractors/inline';
-import { extractBlockPropsFromJSONLD } from '../../extractors/block';
+import { getEmptyJsonLd } from '../../utils';
+import { extractInlineProps } from '../../extractors/inline';
+import { extractBlockProps } from '../../extractors/block';
 
 export class CardWithDataContent extends React.Component<Props> {
   render() {
@@ -16,10 +18,11 @@ export class CardWithDataContent extends React.Component<Props> {
       onClick,
       onResolve,
       testId,
+      showActions,
     } = this.props;
 
     if (appearance === 'inline') {
-      const props = extractInlinePropsFromJSONLD(details || {});
+      const props = extractInlineProps(details || getEmptyJsonLd());
       if (onResolve) {
         onResolve({ title: props.title });
       }
@@ -33,7 +36,7 @@ export class CardWithDataContent extends React.Component<Props> {
         />
       );
     } else {
-      const props = extractBlockPropsFromJSONLD(details || {});
+      const props = extractBlockProps(details || getEmptyJsonLd());
       if (onResolve) {
         onResolve({ title: props.title });
       }
@@ -43,6 +46,7 @@ export class CardWithDataContent extends React.Component<Props> {
           {...props}
           isSelected={isSelected}
           onClick={onClick}
+          showActions={showActions}
         />
       );
     }

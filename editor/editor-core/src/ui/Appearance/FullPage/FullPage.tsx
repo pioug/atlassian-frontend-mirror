@@ -132,6 +132,7 @@ export class FullPageEditor extends React.Component<
             primaryToolbarComponents={props.primaryToolbarComponents}
             providerFactory={props.providerFactory}
             showKeyline={showKeyline || contextPanelVisible}
+            containerElement={this.scrollContainer}
           />
           <FullPageContentArea
             allowAnnotation={props.allowAnnotation}
@@ -147,6 +148,7 @@ export class FullPageEditor extends React.Component<
             editorDOMElement={props.editorDOMElement}
             editorView={props.editorView!}
             eventDispatcher={props.eventDispatcher}
+            onVisibilityChange={this.setContextPanelVisibility}
             popupsBoundariesElement={props.popupsBoundariesElement}
             popupsMountPoint={props.popupsMountPoint}
             popupsScrollableElement={props.popupsScrollableElement}

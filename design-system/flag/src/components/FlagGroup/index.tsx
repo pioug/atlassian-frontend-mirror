@@ -1,11 +1,14 @@
 import React, { Children, cloneElement, Component } from 'react';
+
 import { Transition } from 'react-transition-group';
+
 import Portal from '@atlaskit/portal';
 import { layers } from '@atlaskit/theme/constants';
 
 import Wrapper, { flagAnimationTime } from '../../styled/Wrapper';
-import Group, { SROnly, Inner } from './styledFlagGroup';
 import { ChildrenType, FunctionType } from '../../types';
+
+import Group, { Inner, SROnly } from './styledFlagGroup';
 
 type Props = {
   /** Flag elements to be displayed. */

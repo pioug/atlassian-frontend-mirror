@@ -1,5 +1,7 @@
 import React from 'react';
-import { withGlobalTheme, light, ThemeProvider } from '../../../theme';
+
+import { light, ThemeProvider, withGlobalTheme } from '../../../theme';
+
 import BaseGlobalNavigationSkeleton from './GlobalNavigationSkeleton';
 
 const GlobalNavigationSkeletonWithGlobalTheme = withGlobalTheme(

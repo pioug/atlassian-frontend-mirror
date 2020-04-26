@@ -1,6 +1,6 @@
 import FeedbackCollector from './components/FeedbackCollector';
-import FeedbackForm from './components/FeedbackForm';
 import FeedbackFlag from './components/FeedbackFlag';
+import FeedbackForm from './components/FeedbackForm';
 export { FormFields } from './types';
 
 export default FeedbackCollector;

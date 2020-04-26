@@ -1,5 +1,5 @@
 import { getError } from '../helpers';
-import { JsonLd, ServerError } from '../../../client/types';
+import { JsonLdCustom, ServerError } from '../../../client/types';
 
 describe('Helpers', () => {
   it('should detect error type when passed ServerError', () => {
@@ -21,7 +21,7 @@ describe('Helpers', () => {
             type: 'some-error',
           },
         },
-      } as unknown) as JsonLd),
+      } as unknown) as JsonLdCustom),
     ).toBe('some-error');
   });
 });

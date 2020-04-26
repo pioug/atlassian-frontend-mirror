@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import { Transition } from 'react-transition-group';
+
 import Lorem from 'react-lorem-component';
+import { Transition } from 'react-transition-group';
 
 import { Spotlight, SpotlightManager, SpotlightTransition } from '../src';
+
 import { Highlight } from './styled';
 
 interface State {

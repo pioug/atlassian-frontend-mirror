@@ -5,13 +5,12 @@ import { MemoryRouter } from 'react-router-dom';
 
 import { LayoutManagerWithViewController, NavigationProvider } from '../src';
 
-import { DummySkeletonContent } from './shared/components/DummySkeletonContent';
 import { LinkItem, ProjectSwitcher } from './shared/components';
-import RootViews from './shared/views/root';
-import ContainerViews from './shared/views/container';
 import AtlassianNavigation from './shared/components/AtlassianNavigation';
-
+import { DummySkeletonContent } from './shared/components/DummySkeletonContent';
 import { routes } from './shared/routes';
+import ContainerViews from './shared/views/container';
+import RootViews from './shared/views/root';
 
 const containerStyle = {
   padding: 40,

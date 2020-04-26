@@ -1,7 +1,10 @@
 import React, { Component, ComponentType } from 'react';
+
+import styled from 'styled-components';
+
 import { AkCodeBlock } from '@atlaskit/code';
 import Select, { ValueType } from '@atlaskit/select';
-import styled from 'styled-components';
+
 import * as Logos from '../src';
 import { Props as ConstantProps } from '../src/constants';
 

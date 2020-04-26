@@ -1,5 +1,119 @@
 # @atlaskit/editor-common
 
+## 45.1.0
+
+### Minor Changes
+
+- [minor][22704db5a3](https://bitbucket.org/atlassian/atlassian-frontend/commits/22704db5a3):
+
+  extend CardAppearance interface- [minor][cf41823165](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf41823165):
+
+  ED-9049: Make post processing function async to allow for backend operations if need- [minor][aec7fbadcc](https://bitbucket.org/atlassian/atlassian-frontend/commits/aec7fbadcc):
+
+  ED-8833 ED-8834 Make status and date selected styling consistent
+
+### Patch Changes
+
+- [patch][999fbf849e](https://bitbucket.org/atlassian/atlassian-frontend/commits/999fbf849e):
+
+  Refactor editor emoji to use HOC composition instead of duplication.- Updated dependencies [9b295386e7](https://bitbucket.org/atlassian/atlassian-frontend/commits/9b295386e7):
+
+- Updated dependencies [4d8d550d69](https://bitbucket.org/atlassian/atlassian-frontend/commits/4d8d550d69):
+- Updated dependencies [92d04b5c28](https://bitbucket.org/atlassian/atlassian-frontend/commits/92d04b5c28):
+- Updated dependencies [449ef134b3](https://bitbucket.org/atlassian/atlassian-frontend/commits/449ef134b3):
+- Updated dependencies [1156536403](https://bitbucket.org/atlassian/atlassian-frontend/commits/1156536403):
+- Updated dependencies [fd41d77c29](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd41d77c29):
+  - @atlaskit/media-picker@54.1.1
+  - @atlaskit/media-card@67.2.1
+  - @atlaskit/adf-schema@9.0.1
+  - @atlaskit/icon@20.1.1
+  - @atlaskit/adf-utils@9.2.0
+  - @atlaskit/webdriver-runner@0.3.4
+  - @atlaskit/task-decision@16.0.11
+  - @atlaskit/editor-json-transformer@7.0.11
+  - @atlaskit/editor-test-helpers@11.1.1
+
+## 45.0.0
+
+### Major Changes
+
+- [major][67bc25bc3f](https://bitbucket.org/atlassian/atlassian-frontend/commits/67bc25bc3f):
+
+  Move WidthObserver from editor-common to width-detector
+
+  WidthObserver is a more performant version of WidthDetector and should be used going forward.
+
+  ```js
+  import { WidthObserver } from '@atlaskit/width-detector';
+
+  <WidthObserver
+    setWidth={width => console.log(`width has changed to ${width}`)}
+  />;
+  ```
+
+### Minor Changes
+
+- [minor][c74cc954d8](https://bitbucket.org/atlassian/atlassian-frontend/commits/c74cc954d8):
+
+  ED-8941: Add inline script to properly resize breakout nodes after ssr- [minor][05539b052e](https://bitbucket.org/atlassian/atlassian-frontend/commits/05539b052e):
+
+  Introducing `id` for each quick insert item- [minor][205b05851a](https://bitbucket.org/atlassian/atlassian-frontend/commits/205b05851a):
+
+  ED-8693: Integrate Config Panel to editor- [minor][0b22d3b9ea](https://bitbucket.org/atlassian/atlassian-frontend/commits/0b22d3b9ea):
+
+  CEMS-889: add support for sticky headers in renderer- [minor][6eb8c0799f](https://bitbucket.org/atlassian/atlassian-frontend/commits/6eb8c0799f):
+
+  UX enhancements for Config Panel
+
+### Patch Changes
+
+- [patch][b4326a7eba](https://bitbucket.org/atlassian/atlassian-frontend/commits/b4326a7eba):
+
+  ED-8893 Fixed layout of media inside expand- [patch][e4076915c8](https://bitbucket.org/atlassian/atlassian-frontend/commits/e4076915c8):
+
+  CEMS-948: fix sticky cell borders in Chrome; only apply padding-box workaround in FF- [patch][b4ef7fe214](https://bitbucket.org/atlassian/atlassian-frontend/commits/b4ef7fe214):
+
+  ED-9103: fix regression where table borders disappear on Edge 18- Updated dependencies [04e54bf405](https://bitbucket.org/atlassian/atlassian-frontend/commits/04e54bf405):
+
+- Updated dependencies [9f43b9f0ca](https://bitbucket.org/atlassian/atlassian-frontend/commits/9f43b9f0ca):
+- Updated dependencies [f5dcc0bc6a](https://bitbucket.org/atlassian/atlassian-frontend/commits/f5dcc0bc6a):
+- Updated dependencies [5d430f7d37](https://bitbucket.org/atlassian/atlassian-frontend/commits/5d430f7d37):
+- Updated dependencies [7e26fba915](https://bitbucket.org/atlassian/atlassian-frontend/commits/7e26fba915):
+- Updated dependencies [0c270847cb](https://bitbucket.org/atlassian/atlassian-frontend/commits/0c270847cb):
+- Updated dependencies [5f8e3caf72](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f8e3caf72):
+- Updated dependencies [11ff95c0f0](https://bitbucket.org/atlassian/atlassian-frontend/commits/11ff95c0f0):
+- Updated dependencies [fb2b3c8a3b](https://bitbucket.org/atlassian/atlassian-frontend/commits/fb2b3c8a3b):
+- Updated dependencies [692692ba24](https://bitbucket.org/atlassian/atlassian-frontend/commits/692692ba24):
+- Updated dependencies [109004a98e](https://bitbucket.org/atlassian/atlassian-frontend/commits/109004a98e):
+- Updated dependencies [205b05851a](https://bitbucket.org/atlassian/atlassian-frontend/commits/205b05851a):
+- Updated dependencies [b9903e773a](https://bitbucket.org/atlassian/atlassian-frontend/commits/b9903e773a):
+- Updated dependencies [823d80f31c](https://bitbucket.org/atlassian/atlassian-frontend/commits/823d80f31c):
+- Updated dependencies [e5c869ee31](https://bitbucket.org/atlassian/atlassian-frontend/commits/e5c869ee31):
+- Updated dependencies [69b678b38c](https://bitbucket.org/atlassian/atlassian-frontend/commits/69b678b38c):
+- Updated dependencies [fd782b0705](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd782b0705):
+- Updated dependencies [d80b8e8fdb](https://bitbucket.org/atlassian/atlassian-frontend/commits/d80b8e8fdb):
+- Updated dependencies [3644fc1afe](https://bitbucket.org/atlassian/atlassian-frontend/commits/3644fc1afe):
+- Updated dependencies [d38212e1be](https://bitbucket.org/atlassian/atlassian-frontend/commits/d38212e1be):
+- Updated dependencies [62f1f218d9](https://bitbucket.org/atlassian/atlassian-frontend/commits/62f1f218d9):
+- Updated dependencies [67bc25bc3f](https://bitbucket.org/atlassian/atlassian-frontend/commits/67bc25bc3f):
+- Updated dependencies [4aca202534](https://bitbucket.org/atlassian/atlassian-frontend/commits/4aca202534):
+- Updated dependencies [6eb8c0799f](https://bitbucket.org/atlassian/atlassian-frontend/commits/6eb8c0799f):
+- Updated dependencies [48fb5a1b6b](https://bitbucket.org/atlassian/atlassian-frontend/commits/48fb5a1b6b):
+- Updated dependencies [c28ff17fbd](https://bitbucket.org/atlassian/atlassian-frontend/commits/c28ff17fbd):
+  - @atlaskit/adf-schema@9.0.0
+  - @atlaskit/adf-utils@9.1.0
+  - @atlaskit/emoji@62.7.2
+  - @atlaskit/editor-test-helpers@11.1.0
+  - @atlaskit/theme@9.5.3
+  - @atlaskit/media-client@6.1.0
+  - @atlaskit/media-picker@54.1.0
+  - @atlaskit/analytics-next@6.3.6
+  - @atlaskit/width-detector@2.1.0
+  - @atlaskit/media-card@67.2.0
+  - @atlaskit/analytics-namespaced-context@4.2.0
+  - @atlaskit/editor-json-transformer@7.0.10
+  - @atlaskit/task-decision@16.0.10
+
 ## 44.1.0
 
 ### Minor Changes

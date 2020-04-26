@@ -3,7 +3,7 @@ import React from 'react';
 import RecentSearch from '../../../../ui/HyperlinkAddToolbar/HyperlinkAddToolbar';
 import RecentItem from '../../../../../../ui/RecentSearch/RecentItem';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
-import { activityProviderMock } from '../../../../../../__tests__/unit/plugins/hyperlink/utils';
+import { activityProviderMock } from '../../utils';
 
 const timeout = () => new Promise(resolve => window.setTimeout(resolve, 1));
 

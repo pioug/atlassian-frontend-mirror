@@ -1,8 +1,10 @@
 import React from 'react';
+
 import { mount } from 'enzyme';
+
 import { ItemGroup } from '@atlaskit/item';
 
-import { DropdownItemGroup } from '../../..';
+import { DropdownItemGroup } from '../../../index';
 
 describe('dropdown menu - DropdownItemGroup', () => {
   test('should pass title prop to generic ItemGroup component', () => {

@@ -5,6 +5,7 @@ export interface EmojiPluginOptions {
   createAnalyticsEvent?: CreateUIAnalyticsEvent;
   allowZeroWidthSpaceAfter?: boolean;
   useInlineWrapper?: boolean;
+  headless?: boolean;
 }
 
 export type EmojiPluginState = {

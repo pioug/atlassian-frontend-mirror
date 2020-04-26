@@ -14,8 +14,10 @@ export { default as AsyncCreatableSelect } from './AsyncCreatableSelect';
 export { default as PopupSelect, PopupSelectProps } from './PopupSelect';
 
 export {
+  ActionMeta,
   ControlProps,
   FormatOptionLabelMeta,
+  IndicatorComponentType,
   IndicatorProps,
   InputProps,
   MenuProps,
@@ -23,6 +25,7 @@ export {
   OptionProps,
   OptionsType,
   OptionType,
+  SelectComponentsConfig,
   SelectProps,
   StylesConfig,
   ValueContainerProps,

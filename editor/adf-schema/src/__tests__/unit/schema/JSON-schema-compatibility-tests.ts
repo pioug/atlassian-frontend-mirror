@@ -2,7 +2,7 @@ import {
   pmNodeFactory as factory,
   pmNodeBuilder as builder,
   pmMarkBuilder as markBuilder,
-} from '@atlaskit/editor-test-helpers';
+} from '@atlaskit/editor-test-helpers/schema-element-builder';
 import { defaultSchema } from '../../../schema';
 import * as v1schema from '../../../../json-schema/v1/full.json';
 import Ajv from 'ajv';

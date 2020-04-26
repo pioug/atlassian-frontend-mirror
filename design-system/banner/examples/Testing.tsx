@@ -1,5 +1,7 @@
 import React from 'react';
+
 import WarningIcon from '@atlaskit/icon/glyph/warning';
+
 import Banner from '../src';
 
 export default () => (

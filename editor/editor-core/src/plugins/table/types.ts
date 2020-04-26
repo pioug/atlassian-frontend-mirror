@@ -55,7 +55,6 @@ export interface ColumnResizingPluginState {
   lastClick: { x: number; y: number; time: number } | null;
   lastColumnResizable?: boolean;
   dynamicTextSizing?: boolean;
-  decorationSet?: DecorationSet;
 }
 
 /*
@@ -90,7 +89,6 @@ export interface TableColumnOrdering {
 }
 
 export interface TablePluginState {
-  decorationSet: DecorationSet;
   editorHasFocus?: boolean;
   hoveredColumns: number[];
   hoveredRows: number[];

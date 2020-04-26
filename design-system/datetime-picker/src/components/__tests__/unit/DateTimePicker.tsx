@@ -1,8 +1,10 @@
 import React from 'react';
+
+import { render } from '@testing-library/react';
 import { shallow } from 'enzyme';
 
-import { DateTimePickerWithoutAnalytics as DateTimePicker } from '../../../components/DateTimePicker';
 import DatePicker from '../../../components/DatePicker';
+import { DateTimePickerWithoutAnalytics as DateTimePicker } from '../../../components/DateTimePicker';
 import TimePicker from '../../../components/TimePicker';
 
 test('custom parseValue is used when accessing state', () => {
@@ -151,4 +153,25 @@ test('fires onBlur prop when timepicker is blurred', () => {
   dateTimePickerWrapper.find(TimePicker).simulate('blur');
 
   expect(onBlur).toHaveBeenCalled();
+});
+
+test('fires onClear event when cleared', () => {
+  const onChange = jest.fn();
+  const dateTimeValue = '2018-05-02T08:00:00.000+0800';
+  const testId = 'clear--test';
+  const dateTimePickerWrapper = render(
+    <DateTimePicker
+      value={dateTimeValue}
+      onChange={onChange}
+      testId={testId}
+    />,
+  );
+
+  const clearButton = dateTimePickerWrapper.getByTestId(
+    `${testId}--icon--container`,
+  );
+  clearButton.click();
+
+  expect(onChange).toHaveBeenCalledWith('');
+  expect(onChange).toHaveBeenCalledTimes(1);
 });

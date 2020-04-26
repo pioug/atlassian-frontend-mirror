@@ -1,6 +1,7 @@
 import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 
-export type CardAppearance = 'inline' | 'block';
+export type CardAppearance = 'inline' | 'block' | 'embed';
+export type CardInnerAppearance = CardAppearance | 'preview';
 
 export interface CardProps extends WithAnalyticsEventsProps {
   appearance: CardAppearance;
@@ -11,5 +12,6 @@ export interface CardProps extends WithAnalyticsEventsProps {
   data?: any;
   url?: string;
   testId?: string;
+  showActions?: boolean;
   onResolve?: (data: { url?: string; title?: string }) => void;
 }

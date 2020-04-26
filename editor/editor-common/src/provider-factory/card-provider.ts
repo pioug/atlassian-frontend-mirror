@@ -1,4 +1,4 @@
-export type CardAppearance = 'inline' | 'block';
+export type CardAppearance = 'inline' | 'block' | 'embed';
 
 export interface CardProvider {
   resolve(url: string, appearance: CardAppearance): Promise<any>;

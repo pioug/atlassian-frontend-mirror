@@ -1,5 +1,6 @@
-import { createTheme, colors } from '@atlaskit/theme';
-import { ComponentTokens, ThemeTokens, ThemeProps } from './types';
+import { colors, createTheme } from '@atlaskit/theme';
+
+import { ComponentTokens, ThemeProps, ThemeTokens } from './types';
 
 export const componentTokens: ComponentTokens = {
   label: {

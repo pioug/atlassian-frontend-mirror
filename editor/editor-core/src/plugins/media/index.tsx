@@ -82,6 +82,7 @@ const mediaPlugin = (options?: MediaOptions): EditorPlugin => ({
               nodeViews: {
                 mediaGroup: ReactMediaGroupNode(
                   portalProviderAPI,
+                  eventDispatcher,
                   providerFactory,
                   options && options.allowLazyLoading,
                   options && options.isCopyPasteEnabled,
@@ -203,10 +204,11 @@ const mediaPlugin = (options?: MediaOptions): EditorPlugin => ({
   pluginsOptions: {
     quickInsert: ({ formatMessage }) => [
       {
+        id: 'media',
         title: formatMessage(messages.filesAndImages),
         description: formatMessage(messages.filesAndImagesDescription),
         priority: 400,
-        keywords: ['media', 'attachment'],
+        keywords: ['attachment', 'gif', 'media', 'picture'],
         icon: () => (
           <IconImages label={formatMessage(messages.filesAndImages)} />
         ),

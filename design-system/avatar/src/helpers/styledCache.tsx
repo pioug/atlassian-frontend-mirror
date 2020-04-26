@@ -1,6 +1,9 @@
 import { ComponentType } from 'react';
-import { withTheme } from '@atlaskit/theme/components';
+
 import styled from 'styled-components';
+
+import { withTheme } from '@atlaskit/theme/components';
+
 import CustomComponentProxy from '../components/CustomComponentProxy';
 
 // This is necessary because we don't know what DOM element the custom component will render.

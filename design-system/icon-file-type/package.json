@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/icon-file-type",
-  "version": "5.0.3",
+  "version": "5.0.4",
   "description": "A React package that contains file-type icons",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -25,7 +25,7 @@
     "build:typescript:cjs": "NODE_ENV=production tsc --project build/cjs/tsconfig.json"
   },
   "dependencies": {
-    "@atlaskit/theme": "^9.5.1",
+    "@atlaskit/theme": "^9.5.3",
     "tslib": "^1.9.3"
   },
   "peerDependencies": {
@@ -34,10 +34,10 @@
   },
   "devDependencies": {
     "@atlaskit/build-utils": "^2.6.0",
-    "@atlaskit/button": "^13.3.9",
-    "@atlaskit/docs": "^8.4.0",
+    "@atlaskit/button": "^13.3.10",
+    "@atlaskit/docs": "^8.5.1",
     "@atlaskit/icon-build-process": "^0.1.2",
-    "@atlaskit/modal-dialog": "^10.5.4",
+    "@atlaskit/modal-dialog": "^10.5.6",
     "@atlaskit/ssr": "^0.1.1",
     "@atlaskit/textfield": "^3.1.9",
     "@atlaskit/tooltip": "^15.2.5",

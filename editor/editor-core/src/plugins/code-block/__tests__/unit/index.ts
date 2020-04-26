@@ -48,7 +48,7 @@ describe('code-block', () => {
         .add(basePlugin)
         .add(typeAheadPlugin)
         .add(quickInsertPlugin)
-        .add([analyticsPlugin, createAnalyticsEvent]),
+        .add([analyticsPlugin, { createAnalyticsEvent }]),
       pluginKey: codeBlockPluginKey,
     });
   };

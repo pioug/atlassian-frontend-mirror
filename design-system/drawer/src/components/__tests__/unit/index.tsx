@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { mount } from 'enzyme';
+
 import Blanket from '@atlaskit/blanket';
 import EmojiIcon from '@atlaskit/icon/glyph/emoji';
 

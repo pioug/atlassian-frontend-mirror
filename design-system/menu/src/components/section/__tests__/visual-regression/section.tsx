@@ -10,7 +10,12 @@ const mockStarredMenu = "[data-testid='mock-starred-menu']";
 
 describe('<PopupMenuGroup />', () => {
   const openExamplesAndWaitFor = async (selector: string) => {
-    const url = getExampleUrl('core', 'menu', 'menu-group', global.__BASEURL__);
+    const url = getExampleUrl(
+      'design-system',
+      'menu',
+      'menu-group',
+      global.__BASEURL__,
+    );
     const { page } = global;
 
     await page.goto(url);

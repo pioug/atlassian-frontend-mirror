@@ -19,7 +19,7 @@ const buttonLinkDescription = "[data-testid='item-button-description']";
 describe('<ButtonItem />', () => {
   const openExamplesAndWaitFor = async (selector: string) => {
     const url = getExampleUrl(
-      'core',
+      'design-system',
       'menu',
       'item-variations',
       global.__BASEURL__,

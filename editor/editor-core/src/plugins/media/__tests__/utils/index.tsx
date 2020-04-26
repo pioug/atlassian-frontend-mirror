@@ -117,6 +117,7 @@ describe('Media plugin', () => {
         allowTables: true,
         allowAnalyticsGASV3: true,
         contextIdentifierProvider,
+        quickInsert: true,
       },
       providerFactory,
       pluginKey: mediaPluginKey,

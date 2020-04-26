@@ -1,11 +1,14 @@
+import React from 'react';
+
+import styled from 'styled-components';
+
 import ArrowleftIcon from '@atlaskit/icon/glyph/chevron-left-large';
 import ArrowrightIcon from '@atlaskit/icon/glyph/chevron-right-large';
 import { N70 } from '@atlaskit/theme/colors';
-import React from 'react';
-import styled from 'styled-components';
-import Btn from './Btn';
 
 import { Heading, MonthAndYear } from '../styled/Heading';
+
+import Btn from './Btn';
 
 type Props = {
   monthLongTitle: string;

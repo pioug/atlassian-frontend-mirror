@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { shallow } from 'enzyme';
+
 import InteractionStateManager from '../../../InteractionStateManager';
 import Item, { ItemBase } from '../../index';
 import ItemPrimitive from '../../primitives';

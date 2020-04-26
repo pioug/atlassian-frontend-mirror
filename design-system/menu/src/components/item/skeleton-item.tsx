@@ -1,8 +1,9 @@
 /** @jsx jsx */
-import { jsx, CSSObject } from '@emotion/core';
+import { CSSObject, jsx } from '@emotion/core';
+
+import { SkeletonItemProps } from '../types';
 
 import { itemSkeletonCSS } from './styles';
-import { SkeletonItemProps } from '../types';
 
 const SkeletonItem = ({
   hasAvatar,
@@ -13,7 +14,10 @@ const SkeletonItem = ({
   cssFn = (currentStyles: CSSObject) => currentStyles,
 }: SkeletonItemProps) => (
   <div
-    css={cssFn(itemSkeletonCSS(hasAvatar, hasIcon, width, isShimmering))}
+    css={cssFn(
+      itemSkeletonCSS(hasAvatar, hasIcon, width, isShimmering),
+      undefined,
+    )}
     data-testid={testId}
   />
 );

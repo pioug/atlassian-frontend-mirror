@@ -19,7 +19,8 @@ integration/e2e tests available in media-viewer:
   - \`[data-testid="media-viewer-image"]\`: \`<img />\` with image itself. Can be found inside 'media-viewer-image-content'
 - \`[data-testid="media-viewer-audio-content"]\`: Content element for audio document
 - \`[data-testid="media-viewer-video-content"]\`: Content element for video document
-- These controls can be found as part of media players:
+- \`[data-testid="custom-media-player"]\`: Wrapper around custom media player
+  - These controls can be found as part of Card's inline media player:
   - \`[data-testid="custom-media-player-fullscreen-button"]\`: Fullscreen button
   - \`[data-testid="custom-media-player-download-button"]\`: Download button
   - \`[data-testid="custom-media-player-play-toggle-button"]\`: Pause/Pause button

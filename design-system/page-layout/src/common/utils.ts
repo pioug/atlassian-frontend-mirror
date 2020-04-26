@@ -1,6 +1,7 @@
+import { DimensionNames, Dimensions } from '../common/types';
+
 import { DIMENSIONS, PAGE_LAYOUT_LS_KEY } from './constants';
 import safeLocalStorage from './safe-local-storage';
-import { Dimensions } from '../common/types';
 
 const emptyGridState: Dimensions = DIMENSIONS.reduce(
   (acc, currentValue) => ({ ...acc, [currentValue]: 0 }),
@@ -43,9 +44,28 @@ const removeFromGridStateInStorage = (key: string, secondKey?: string) => {
   safeLocalStorage().setItem(PAGE_LAYOUT_LS_KEY, JSON.stringify(storageValue));
 };
 
+const resolveDimension = (
+  key: DimensionNames,
+  dimension: number = 0,
+  shouldPersist: boolean = false,
+) => {
+  if (shouldPersist) {
+    const cachedGridState = getGridStateFromStorage('gridState');
+
+    return cachedGridState &&
+      Object.keys(cachedGridState).length > 0 &&
+      cachedGridState[key]
+      ? cachedGridState[key]
+      : dimension;
+  }
+
+  return dimension;
+};
+
 export {
   emptyGridState,
   mergeGridStateIntoStorage,
   getGridStateFromStorage,
   removeFromGridStateInStorage,
+  resolveDimension,
 };

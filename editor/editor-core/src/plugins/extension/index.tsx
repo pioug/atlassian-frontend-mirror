@@ -1,17 +1,22 @@
-import React from 'react';
 import {
-  inlineExtension,
   extension,
+  extensionWithLocalId,
   bodiedExtension,
+  bodiedExtensionWithLocalId,
+  inlineExtension,
+  inlineExtensionWithLocalId,
 } from '@atlaskit/adf-schema';
-import { ExtensionHandlers } from '@atlaskit/editor-common';
+import { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
 import { EditorPlugin } from '../../types';
-import { createPlugin, getPluginState } from './plugin';
+import { createPlugin } from './pm-plugins/main';
+import keymapPlugin from './pm-plugins/keymap';
+import { createPlugin as createUniqueIdPlugin } from './pm-plugins/unique-id';
 import { getToolbarConfig } from './toolbar';
-import { getSelectedExtension } from './utils';
+import { getContextPanel } from './context-panel';
 
 interface ExtensionPluginOptions {
-  allowNewConfigPanel?: boolean;
+  allowAutoSave?: boolean;
+  allowLocalIdGeneration?: boolean;
   breakoutEnabled?: boolean;
   extensionHandlers?: ExtensionHandlers;
   // TODO: Remove this @see ED-8585
@@ -25,9 +30,22 @@ const extensionPlugin = (
 
   nodes() {
     return [
-      { name: 'extension', node: extension },
-      { name: 'bodiedExtension', node: bodiedExtension },
-      { name: 'inlineExtension', node: inlineExtension },
+      {
+        name: 'extension',
+        node: options.allowLocalIdGeneration ? extensionWithLocalId : extension,
+      },
+      {
+        name: 'bodiedExtension',
+        node: options.allowLocalIdGeneration
+          ? bodiedExtensionWithLocalId
+          : bodiedExtension,
+      },
+      {
+        name: 'inlineExtension',
+        node: options.allowLocalIdGeneration
+          ? inlineExtensionWithLocalId
+          : inlineExtension,
+      },
     ];
   },
 
@@ -35,7 +53,12 @@ const extensionPlugin = (
     return [
       {
         name: 'extension',
-        plugin: ({ dispatch, providerFactory, portalProviderAPI }) => {
+        plugin: ({
+          dispatch,
+          providerFactory,
+          portalProviderAPI,
+          eventDispatcher,
+        }) => {
           const extensionHandlers = options.extensionHandlers || {};
 
           return createPlugin(
@@ -43,34 +66,25 @@ const extensionPlugin = (
             providerFactory,
             extensionHandlers,
             portalProviderAPI,
+            eventDispatcher,
           );
         },
+      },
+      {
+        name: 'extensionKeymap',
+        plugin: keymapPlugin,
+      },
+      {
+        name: 'extensionUniqueId',
+        plugin: () =>
+          options.allowLocalIdGeneration ? createUniqueIdPlugin() : undefined,
       },
     ];
   },
 
   pluginsOptions: {
-    floatingToolbar: getToolbarConfig(
-      options.breakoutEnabled,
-      !!options.allowNewConfigPanel,
-    ),
-    contextPanel: options.allowNewConfigPanel
-      ? state => {
-          // Adding checks to bail out early
-          if (!state.selection.empty && getSelectedExtension(state)) {
-            const extensionState = getPluginState(state);
-
-            if (extensionState && extensionState.showContextPanel) {
-              // New config panel
-              return (
-                <div>
-                  <pre>{JSON.stringify(state.selection.toJSON(), null, 2)}</pre>
-                </div>
-              );
-            }
-          }
-        }
-      : undefined,
+    floatingToolbar: getToolbarConfig(options.breakoutEnabled),
+    contextPanel: getContextPanel(options.allowAutoSave),
   },
 });
 

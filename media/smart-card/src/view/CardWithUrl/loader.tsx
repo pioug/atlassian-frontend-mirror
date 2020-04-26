@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { ErrorInfo } from 'react';
 import { CardLinkView } from '@atlaskit/media-ui';
 
 import { CardProps } from '../Card/types';
 import { LazyCardWithUrlContent as CardWithUrlContentType } from './component';
-import { fireSmartLinkEvent } from '../../utils/analytics';
-import { AnalyticsHandler } from '../../utils/types';
+import { fireSmartLinkEvent, uiRenderFailedEvent } from '../../utils/analytics';
+import { AnalyticsPayload } from '../../utils/types';
 
 export class CardWithURLRenderer extends React.PureComponent<CardProps> {
   static CardContent: typeof CardWithUrlContentType | null = null;
@@ -24,21 +24,35 @@ export class CardWithURLRenderer extends React.PureComponent<CardProps> {
     }
   }
 
+  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+    const { appearance } = this.props;
+    this.dispatchAnalytics(uiRenderFailedEvent(appearance, error, errorInfo));
+  }
+
+  // Wrapper around analytics.
+  dispatchAnalytics = (analyticsPayload: AnalyticsPayload) => {
+    const { appearance, createAnalyticsEvent } = this.props;
+    if (analyticsPayload && analyticsPayload.attributes) {
+      // Update if we haven't already set the display - possible
+      // in the case of `preview` which is rendered differently.
+      if (!analyticsPayload.attributes.display) {
+        analyticsPayload.attributes.display = appearance;
+      }
+    }
+    fireSmartLinkEvent(analyticsPayload, createAnalyticsEvent);
+  };
+
   render() {
     const {
       url,
       appearance,
       isSelected,
       onClick,
-      createAnalyticsEvent,
       container,
       onResolve,
       testId,
+      showActions,
     } = this.props;
-
-    // Wrapper around analytics.
-    const dispatchAnalytics: AnalyticsHandler = evt =>
-      fireSmartLinkEvent(evt, createAnalyticsEvent);
 
     if (!url) {
       throw new Error('@atlaskit/smart-card: url property is missing.');
@@ -50,10 +64,11 @@ export class CardWithURLRenderer extends React.PureComponent<CardProps> {
         appearance={appearance}
         onClick={onClick}
         isSelected={isSelected}
-        dispatchAnalytics={dispatchAnalytics}
+        dispatchAnalytics={this.dispatchAnalytics}
         container={container}
         onResolve={onResolve}
         testId={testId}
+        showActions={showActions}
       />
     ) : (
       <CardLinkView key={'chunk-placeholder'} link={url} />

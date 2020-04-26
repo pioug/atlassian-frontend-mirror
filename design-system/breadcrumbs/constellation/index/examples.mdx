@@ -2,34 +2,66 @@
 order: 0
 ---
 
-import Breadcrumbs from '../../examples/0-basic';
-import BreadcrumbsLong from '../../examples/1-long';
-import BreadcrumbsExpand from '../../examples/8-expand';
-import BreadcrumbsTruncation from '../../examples/11-truncation';
-import BreadcrumbsIcons from '../../examples/4-icons';
+import BreadcrumbsDefault from '../../examples/constellation/BreadcrumbsDefault';
+import BreadcrumbsLong from '../../examples/constellation/BreadcrumbsLong';
+import BreadcrumbsBeforeAfterCollapse from '../../examples/constellation/BreadcrumbsBeforeAfterCollapse';
+import BreadcrumbsMaxItems from '../../examples/constellation/BreadcrumbsMaxItems';
+import BreadcrumbsExpanded from '../../examples/constellation/BreadcrumbsExpanded';
+import BreadcrumbsTruncation from '../../examples/constellation/BreadcrumbsTruncation';
+import BreadcrumbsIcons from '../../examples/constellation/BreadcrumbsIcons';
 
+## Default
 
-## Basic breadcrumbs
-The standard form of breadcrumbs.
+The default form of breadcrumbs.
 
-<Example Component={Breadcrumbs} componentName="@atlaskit/breadcrumbs" />
+<Example Component={BreadcrumbsDefault} componentName="@atlaskit/breadcrumbs" />
 
 ## Long breadcrumbs
-When a path contains more than five levels of items, the breadcrumb auto-collapses and uses ellipses to indicate more information. Only showing the first and last items are shown by default, however, the number of items shown before or after auto-collapse can be customized. This is useful when the user needs more information on the breadcrumb hierarchy to be aware of their location within the product. To reduce screen clutter, it's best practice to only use the first and last entity when collapsing. Users expand the breadcrumb by clicking on the ellipsis.
+
+When a breadcrumb contains more than eight items, the breadcrumb auto-collapses and uses ellipses to indicate more information. The first and last items are shown by default. Users expand the breadcrumb by clicking on the ellipsis.
 
 <Example Component={BreadcrumbsLong} componentName="@atlaskit/breadcrumbs" />
 
-## Expanded breadcrumbs
+## Items before or after collapse
+
+The number of items shown before or after auto-collapse can be customized. This is useful when the user needs more information on the breadcrumb hierarchy to be aware of their location within the product.
+
+To reduce screen clutter, it's best practice to only display the first and last items when collapsing.
+
+<Example
+  Component={BreadcrumbsBeforeAfterCollapse}
+  componentName="@atlaskit/breadcrumbs"
+/>
+
+## Max items
+
+The maximum number of items in a breadcrumb can be customized. When there are more than the maximum number, the breadcrumb auto-collapses.
+
+<Example
+  Component={BreadcrumbsMaxItems}
+  componentName="@atlaskit/breadcrumbs"
+/>
+
+## Expanded overflow
+
 When expanded, breadcrumbs that exceed the page width will overflow to the next line.
 
-<Example Component={BreadcrumbsExpand} componentName="@atlaskit/breadcrumbs" />
+<Example
+  Component={BreadcrumbsExpanded}
+  componentName="@atlaskit/breadcrumbs"
+/>
 
 ## Truncation
-Long item names will truncate and a [tooltip](/components/tooltip) containing the full item name will appear on hover. The length before truncation can be customized by pixel width.
 
-<Example Component={BreadcrumbsTruncation} componentName="@atlaskit/breadcrumbs" />
+When a `truncationWidth` is specified, long item names will truncate and a [tooltip](/components/tooltip) containing the full item name will appear on hover. If unspecified, truncation will only occur when an item cannot fit alone on a line.
+
+<Example
+  Component={BreadcrumbsTruncation}
+  componentName="@atlaskit/breadcrumbs"
+/>
 
 ## Icons
+
 Icons can be displayed before and after a breadcrumb item.
 
 <Example Component={BreadcrumbsIcons} componentName="@atlaskit/breadcrumbs" />

@@ -1,9 +1,11 @@
+import { css } from '@emotion/core';
 import styled from '@emotion/styled';
+
+import { DN50, N0, N30A, N60A, text } from '@atlaskit/theme/colors';
 import { themed } from '@atlaskit/theme/components';
 import { borderRadius, layers } from '@atlaskit/theme/constants';
-import { N30A, N60A, N0, DN50, text } from '@atlaskit/theme/colors';
-import { WIDTH_ENUM, gutter, WidthNames } from '../shared-variables';
 
+import { gutter, WIDTH_ENUM, WidthNames } from '../shared-variables';
 import {
   flexMaxHeightIEFix,
   IEMaxHeightCalcPx,
@@ -72,30 +74,39 @@ interface PositionerProps {
   widthValue?: string | number;
 }
 
-export const PositionerAbsolute = styled.div<PositionerProps>`
+const positionBaseStyles = (props: PositionerProps) => css`
   display: flex;
   flex-direction: column;
   height: ${maxHeightDimensions};
   left: 0;
+  right: 0;
   margin-left: auto;
   margin-right: auto;
   max-width: ${maxDimensions};
-  position: absolute;
-  right: 0;
   top: ${gutter}px;
-  width: ${dialogWidth};
-  z-index: ${layers.modal};
+  width: ${dialogWidth(props)};
+  z-index: ${layers.modal()};
   pointer-events: none;
+`;
+
+const positionBaseResponsiveStyles = css`
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 0;
+  max-width: 100%;
+  width: 100%;
+`;
+
+export const PositionerAbsolute = styled.div<PositionerProps>`
+  ${positionBaseStyles};
+  position: absolute;
 
   @media (min-width: 320px) and (max-width: 480px) {
-    height: 100%;
-    left: 0;
-    position: fixed;
-    top: 0;
-    max-width: 100%;
-    width: 100%;
+    ${positionBaseResponsiveStyles};
   }
 `;
+
 export const PositionerRelative = styled.div<PositionerProps>`
   margin: ${gutter}px auto;
   position: relative;
@@ -104,13 +115,17 @@ export const PositionerRelative = styled.div<PositionerProps>`
   pointer-events: none;
 
   @media (min-width: 320px) and (max-width: 480px) {
-    height: 100%;
-    left: 0;
-    position: fixed;
-    top: 0;
+    ${positionBaseResponsiveStyles};
     margin: 0;
-    max-width: 100%;
-    width: 100%;
+  }
+`;
+
+export const PositionerFixed = styled.div<PositionerProps>`
+  ${positionBaseStyles};
+  position: fixed;
+
+  @media (min-width: 320px) and (max-width: 480px) {
+    ${positionBaseResponsiveStyles};
   }
 `;
 
@@ -147,3 +162,4 @@ PositionerAbsolute.displayName = 'PositionerAbsolute';
 Dialog.displayName = 'Dialog';
 FillScreen.displayName = 'FillScreen';
 PositionerRelative.displayName = 'PositionerRelative';
+PositionerFixed.displayName = 'PositionerFixed';

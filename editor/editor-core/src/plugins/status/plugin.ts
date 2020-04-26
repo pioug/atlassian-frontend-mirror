@@ -13,6 +13,7 @@ import { Dispatch } from '../../event-dispatcher';
 import { PortalProviderAPI } from '../../ui/PortalProvider';
 import { StatusState, StatusPluginOptions } from './types';
 import { pluginKey } from './plugin-key';
+import { EventDispatcher } from '../../event-dispatcher';
 
 export { pluginKey, pluginKeyName } from './plugin-key';
 export { StatusState, StatusType } from './types';
@@ -20,6 +21,7 @@ export { StatusState, StatusType } from './types';
 const createPlugin = (
   dispatch: Dispatch,
   portalProviderAPI: PortalProviderAPI,
+  eventDispatcher: EventDispatcher,
   options?: StatusPluginOptions,
 ) =>
   new Plugin({
@@ -110,7 +112,7 @@ const createPlugin = (
     key: pluginKey,
     props: {
       nodeViews: {
-        status: statusNodeView(portalProviderAPI, options),
+        status: statusNodeView(portalProviderAPI, eventDispatcher, options),
       },
       decorations(state: EditorState) {
         const { tr } = state;

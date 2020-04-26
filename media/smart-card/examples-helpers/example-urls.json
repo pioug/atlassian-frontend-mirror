@@ -1,5 +1,17 @@
 [
   {
+    "provider": "Confluence",
+    "visibility" : "private",
+    "type": "Document",
+    "url": "https://pug.jira-dev.com/wiki/spaces/CFE/pages/4522249092/Jira%2C+PR+and+commit+description+best+practices"
+  },
+  {
+    "provider": "Jira",
+    "visibility" : "private",
+    "type": "Issue",
+    "url": "https://jdog.jira-dev.com/browse/BENTO-4222"
+  },
+  {
     "provider": "Box.com",
     "visibility" : "public",
     "type": "Document (PNG)",

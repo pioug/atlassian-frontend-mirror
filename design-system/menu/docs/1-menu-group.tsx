@@ -1,5 +1,6 @@
 import React from 'react';
-import { code, md, Props, Example } from '@atlaskit/docs';
+
+import { code, Example, md, Props } from '@atlaskit/docs';
 
 export default md`
   This is one of the two available group components that you will want to use.

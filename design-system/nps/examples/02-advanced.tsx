@@ -1,11 +1,13 @@
 import React from 'react';
+
 import {
-  NPS,
   FeedbackPage,
   FollowupPage,
-  ThankyouPage,
   getDefaultMessages,
+  NPS,
+  ThankyouPage,
 } from '../src';
+
 import { WithDataDisplay } from './helpers/helpers';
 
 export default function Advanced() {

@@ -1,7 +1,8 @@
 import styled from 'styled-components';
+
+import { DN0, DN600, N0, N800 } from '@atlaskit/theme/colors';
 import { themed } from '@atlaskit/theme/components';
 import { borderRadius, layers } from '@atlaskit/theme/constants';
-import { N800, DN0, N0, DN600 } from '@atlaskit/theme/colors';
 
 const backgroundColor = themed({
   light: N800,

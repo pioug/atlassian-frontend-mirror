@@ -1,6 +1,8 @@
 import { ElementType } from 'react';
+
+import { AvatarClickType, AvatarPropTypes, SizeType } from '@atlaskit/avatar';
+
 import { AvatarGroupItemProps } from './AvatarGroupItem';
-import { AvatarPropTypes, SizeType, AvatarClickType } from '@atlaskit/avatar';
 
 export type DeepRequired<T> = {
   [P in keyof T]-?: Required<T[P]>;

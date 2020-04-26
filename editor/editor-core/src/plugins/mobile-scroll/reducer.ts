@@ -23,6 +23,11 @@ export default function(
         ...state,
         windowHeight: action.windowHeight,
       };
+    case MobileScrollActionTypes.SET_MOBILE_PADDING_TOP:
+      return {
+        ...state,
+        mobilePaddingTop: action.paddingTop,
+      };
   }
   return state;
 }

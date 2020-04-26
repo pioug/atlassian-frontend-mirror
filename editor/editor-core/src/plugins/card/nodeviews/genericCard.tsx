@@ -16,6 +16,7 @@ export interface CardProps {
   selected: boolean;
   view: EditorView;
   getPos: getPosHandler;
+  isMobile?: boolean;
 }
 
 export interface SmartCardProps extends CardProps {

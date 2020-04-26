@@ -2,64 +2,91 @@
 order: 0
 ---
 
-import DefaultButton from '../../examples/C11N-DefaultButton';
-import PrimaryButton from '../../examples/C11N-PrimaryButton';
-import SubtleButton from '../../examples/C11N-SubtleButton';
-import LinkButton from '../../examples/C11N-LinkButton';
-import SubtleLinkButton from '../../examples/C11N-SubtleLinkButton';
-import WarningButton from '../../examples/C11N-WarningButton';
-import DangerButton from '../../examples/C11N-DangerButton';
-import DisabledButton from '../../examples/C11N-DisabledButton';
+import ButtonDefault from '../../examples/constellation/ButtonDefault';
+import ButtonPrimary from '../../examples/constellation/ButtonPrimary';
+import ButtonSubtle from '../../examples/constellation/ButtonSubtle';
+import ButtonLink from '../../examples/constellation/ButtonLink';
+import ButtonSubtleLink from '../../examples/constellation/ButtonSubtleLink';
+import ButtonWarning from '../../examples/constellation/ButtonWarning';
+import ButtonDanger from '../../examples/constellation/ButtonDanger';
+import ButtonDisabled from '../../examples/constellation/ButtonDisabled';
+import ButtonSelected from '../../examples/constellation/ButtonSelected';
+import ButtonLoading from '../../examples/constellation/ButtonLoading';
+import ButtonPadding from '../../examples/constellation/ButtonPadding';
+import ButtonFullWidth from '../../examples/constellation/ButtonFullWidth';
 
 ## Default
 
-The default form of a button for most use cases. Use these for most use cases. They’re not impactful enough to represent the primary action in a container.
+The default form of a button, used for most cases. They are not impactful enough to represent the primary action in a container.
 
-<Example Component={DefaultButton} componentName="@atlaskit/button" />
+<Example Component={ButtonDefault} componentName="@atlaskit/button" />
 
 ## Appearance
 
 ### Primary
 
-Use to call attention to an action on a [form](patterns/forms), or to highlight the strongest call to action on a page. Primary buttons should only appear once per container (not including the application header or in a [modal dialog](components/modal-dialog)). Not every screen requires a primary button.
+Use a `primary` button to call attention to an action on a [form](patterns/forms) or to highlight the strongest call to action on a page. Primary buttons should only appear once per container (not including the application header or in a [modal dialog](components/modal-dialog)). Not every screen requires a primary button.
 
-<Example Component={PrimaryButton} componentName="@atlaskit/button" />
+<Example Component={ButtonPrimary} componentName="@atlaskit/button" />
 
 ### Subtle
 
-Use with a primary button for secondary actions, e.g. “Cancel".
+Use a `subtle` button with a `primary` button for secondary actions, such as “Cancel".
 
-<Example Component={SubtleButton} componentName="@atlaskit/button" />
+<Example Component={ButtonSubtle} componentName="@atlaskit/button" />
 
-### Button link
+### Link
 
-Use button links to navigate to another page. These should open in the same window unless:
+Use a `link` button to navigate to another page. These should open in the same window unless information may be lost (for example, when someone is filling out a form), or when the destination is an external site (for example, a knowledge base article).
 
-- information may be lost, e.g. when someone is filling out a form
-- the destination is an external site, e.g. for a knowledge base article
-
-<Example Component={LinkButton} componentName="@atlaskit/button" />
+<Example Component={ButtonLink} componentName="@atlaskit/button" />
 
 ### Subtle link
 
-Similar to a subtle button, but behaves like a link button. We use these to avoid overwhelming the page with blue links.
+Similar to a `subtle` button, but behaves like a `link` button. Use a `subtle link` button to avoid overwhelming the page with blue links.
 
-<Example Component={SubtleLinkButton} componentName="@atlaskit/button" />
+<Example Component={ButtonSubtleLink} componentName="@atlaskit/button" />
 
 ### Warning
 
-A warning button appears before we request the user to take action, usually in anticipation of a significant change. These are found mostly in confirmation modals.
+A `warning` button appears before we request the user to take action, usually in anticipation of a significant change. These are found mostly in confirmation modals.
 
-<Example Component={WarningButton} componentName="@atlaskit/button" />
+<Example Component={ButtonWarning} componentName="@atlaskit/button" />
 
 ### Danger
 
-The danger button appears as a final confirmation for a destructive action such as deleting. These are found mostly in confirmation modals.
+The `danger` button appears as a final confirmation for a destructive action such as deleting. These are found mostly in confirmation modals.
 
-<Example Component={DangerButton} componentName="@atlaskit/button" />
+<Example Component={ButtonDanger} componentName="@atlaskit/button" />
+
+## States
 
 ### Disabled
 
-Use a disabled button when another action has to be completed before the button is usable, such as changing a field value or waiting for a system response.
+Set `isDisabled` to disable a button when another action has to be completed before the button is usable, such as changing a text field value or waiting for a system response.
 
-<Example Component={DisabledButton} componentName="@atlaskit/button" />
+<Example Component={ButtonDisabled} componentName="@atlaskit/button" />
+
+### Selected
+
+Set `isSelected` to indicate the button is selected.
+
+<Example Component={ButtonSelected} componentName="@atlaskit/button" />
+
+### Loading
+
+Set `isLoading` to indicate the button is loading. The button text is hidden and a spinner is shown in its place, while maintaining the width that it would have if the text were visible.
+
+<Example Component={ButtonLoading} componentName="@atlaskit/button" />
+
+## Spacing
+
+Buttons can have various spacing. Default spacing is used for most use cases, compact for tables and none for breadcrumbs.
+
+<Example Component={ButtonPadding} componentName="@atlaskit/button" />
+
+## Full width
+
+Buttons can be expanded to full width to fill its parent container.
+
+<Example Component={ButtonFullWidth} componentName="@atlaskit/button" />

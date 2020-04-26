@@ -1,7 +1,9 @@
 import { css } from 'styled-components';
-import { gridSize } from '@atlaskit/theme/constants';
+
 import { N30A } from '@atlaskit/theme/colors';
+import { gridSize } from '@atlaskit/theme/constants';
 import { divide } from '@atlaskit/theme/math';
+
 import { ASC, DESC } from '../internal/constants';
 import { arrow } from '../theme';
 import { SortOrderType } from '../types';

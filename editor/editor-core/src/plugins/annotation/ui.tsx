@@ -4,7 +4,7 @@ import WithPluginState from '../../ui/WithPluginState';
 import { stateKey as reactPluginKey } from '../../plugins/base/pm-plugins/react-nodeview';
 
 import { InlineCommentPluginState } from './types';
-import { pluginKey as annotationPluginKey } from './pm-plugins/plugin-factory';
+import { inlineCommentPluginKey } from './pm-plugins/plugin-factory';
 
 export class AnnotationNodeView extends ReactNodeView {
   createDomRef() {
@@ -21,21 +21,21 @@ export class AnnotationNodeView extends ReactNodeView {
     return (
       <WithPluginState
         plugins={{
-          annotationState: annotationPluginKey,
+          inlineCommentState: inlineCommentPluginKey,
           selectionState: reactPluginKey,
         }}
         editorView={this.view}
         render={({
-          annotationState,
+          inlineCommentState,
         }: {
-          annotationState: InlineCommentPluginState;
+          inlineCommentState: InlineCommentPluginState;
         }) => {
           const id = this.node.attrs.id;
           return (
             <span
               style={{
                 backgroundColor:
-                  annotationState[id] === false
+                  inlineCommentState.annotations[id] === false
                     ? 'rgba(255, 196, 0, 0.4)'
                     : 'transparent',
               }}

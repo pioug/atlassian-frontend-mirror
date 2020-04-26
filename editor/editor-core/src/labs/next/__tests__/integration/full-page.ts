@@ -5,15 +5,19 @@ import {
 } from '../../../../__tests__/__helpers/testing-example-helpers';
 import { EditorPresetCXHTMLProps } from '../../presets/cxhtml';
 
-BrowserTestCase('Should render full page editor', {}, async (client: any) => {
-  const page = await goToEditorLabsTestingExample(client, 'full-page');
-  await mountEditor(page, {});
-  expect(await page.$('.ProseMirror')).toBeDefined();
-});
+BrowserTestCase(
+  'Should render full page editor',
+  { skip: ['edge'] },
+  async (client: any) => {
+    const page = await goToEditorLabsTestingExample(client, 'full-page');
+    await mountEditor(page, {});
+    expect(await page.$('.ProseMirror')).toBeDefined();
+  },
+);
 
 BrowserTestCase(
   'Should render full page editor with providers and props',
-  {},
+  { skip: ['edge'] },
   async (client: any) => {
     const page = await goToEditorLabsTestingExample(client, 'full-page');
     await mountEditor<{ preset?: EditorPresetCXHTMLProps }>(

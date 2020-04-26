@@ -22,9 +22,20 @@ export async function mountEditor<T = EditorProps>(
   options?: MountEditorOptions,
 ) {
   await page.waitForSelector('#editor-container');
-  await page.execute(
-    (props?: T, options?: MountEditorOptions) => {
-      (window as any).__mountEditor(props, options || {});
+  await page.executeAsync(
+    (props: T, options: MountEditorOptions | undefined, done: () => void) => {
+      function waitAndCall() {
+        if ((window as any).__mountEditor) {
+          (window as any).__mountEditor(props, options || {});
+          done();
+        } else {
+          // There is no need to implement own timeout, if done() is not called on time,
+          // webdriver will throw with own timeout.
+          setTimeout(waitAndCall, 20);
+        }
+      }
+
+      waitAndCall();
     },
     props,
     options || {},

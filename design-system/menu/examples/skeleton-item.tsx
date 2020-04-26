@@ -1,4 +1,11 @@
 import React from 'react';
+
 import { SkeletonItem } from '../src';
 
-export default () => <SkeletonItem hasAvatar isShimmering />;
+export default () => (
+  <>
+    <SkeletonItem />
+    <SkeletonItem hasAvatar isShimmering />
+    <SkeletonItem hasIcon isShimmering />
+  </>
+);

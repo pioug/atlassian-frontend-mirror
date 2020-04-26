@@ -1,6 +1,7 @@
-import { themed } from '@atlaskit/theme/components';
-import * as colors from '@atlaskit/theme/colors';
 import memoizeOne from 'memoize-one';
+
+import * as colors from '@atlaskit/theme/colors';
+import { themed } from '@atlaskit/theme/components';
 
 import { Theme } from './themeBuilder';
 

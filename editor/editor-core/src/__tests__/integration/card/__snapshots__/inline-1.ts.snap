@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`inline-1.ts: pasting an link converts to inline card 1`] = `
+exports[`card: pasting an link converts to inline card 1`] = `
 Object {
   "content": Array [
     Object {

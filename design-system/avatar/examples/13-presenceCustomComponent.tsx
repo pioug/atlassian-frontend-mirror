@@ -1,5 +1,7 @@
 import React from 'react';
+
 import styled from 'styled-components';
+
 // @ts-ignore
 import tickInlineSvg from '../examples-util/tick.svg';
 import WithAllAvatarSizes from '../examples-util/withAllAvatarSizes';

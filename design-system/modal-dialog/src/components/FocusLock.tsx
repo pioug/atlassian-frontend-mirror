@@ -1,6 +1,7 @@
 import React from 'react';
-import invariant from 'tiny-invariant';
+
 import ReactFocusLock from 'react-focus-lock';
+import invariant from 'tiny-invariant';
 
 interface Props {
   /**

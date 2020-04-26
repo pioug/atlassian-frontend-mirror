@@ -3,7 +3,11 @@ import { getExampleUrl } from '@atlaskit/webdriver-runner/utils/example';
 import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 
 /* Url to test the example */
-const urlInlineMessage = getExampleUrl('core', 'inline-message', 'testing');
+const urlInlineMessage = getExampleUrl(
+  'design-system',
+  'inline-message',
+  'testing',
+);
 
 /* Css selectors used for the test */
 const inlineMessageBtn = "[data-testid='the-inline-message--button']";

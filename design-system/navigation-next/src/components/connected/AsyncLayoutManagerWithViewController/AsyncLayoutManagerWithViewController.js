@@ -1,10 +1,11 @@
 import React, { Component, Fragment } from 'react';
+
 import { NavigationAnalyticsContext } from '@atlaskit/analytics-namespaced-context';
 
 import { withNavigationUIController } from '../../../ui-controller';
 import { ViewControllerSubscriber } from '../../../view-controller';
-import LayoutManager from '../../presentational/LayoutManager';
 import LayerInitialised from '../../presentational/LayerInitialised';
+import LayoutManager from '../../presentational/LayoutManager';
 /* NOTE: experimental props use an underscore */
 /* eslint-disable camelcase */
 

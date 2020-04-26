@@ -1,6 +1,8 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
 import React from 'react';
+
+import { jsx } from '@emotion/core';
+
 import Button, { ButtonGroup } from '../src';
 
 const Row = (props: React.HTMLProps<HTMLDivElement>) => (

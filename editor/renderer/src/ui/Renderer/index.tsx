@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import { PureComponent } from 'react';
 import { IntlProvider } from 'react-intl';
-import { Schema } from 'prosemirror-model';
+import { Schema, Node as PMNode } from 'prosemirror-model';
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema';
 import { reduce } from '@atlaskit/adf-utils';
 import {
@@ -17,9 +17,11 @@ import {
   getResponseEndTime,
   startMeasure,
   stopMeasure,
+} from '@atlaskit/editor-common';
+import {
   IframeWidthObserverFallbackWrapper,
   IframeWrapperConsumer,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/width-detector';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { FabricChannel } from '@atlaskit/analytics-listeners';
 import { FabricEditorAnalyticsContext } from '@atlaskit/analytics-namespaced-context';
@@ -27,13 +29,17 @@ import { ReactSerializer, renderDocument, RendererContext } from '../../';
 import { RenderOutputStat } from '../../render-document';
 import { Wrapper } from './style';
 import { TruncatedWrapper } from './truncated-wrapper';
-import { RendererAppearance } from './types';
+import { RendererAppearance, StickyHeaderConfig } from './types';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../../analytics/enums';
 import { AnalyticsEventPayload, PLATFORM, MODE } from '../../analytics/events';
 import AnalyticsContext from '../../analytics/analyticsContext';
 import { CopyTextProvider } from '../../react/nodes/copy-text-provider';
 import { Provider as SmartCardStorageProvider } from '../SmartCardStorage';
 import { name, version } from '../../version.json';
+import { ReactSerializerInit } from '../../react';
+import { BreakoutSSRInlineScript } from './breakout-ssr';
+
+import { RendererContext as ActionsContext } from '../RendererActionsContext';
 
 export interface Extension<T> {
   extensionKey: string;
@@ -46,6 +52,9 @@ export interface Props {
   dataProviders?: ProviderFactory;
   eventHandlers?: EventHandlers;
   extensionHandlers?: ExtensionHandlers;
+  // Enables inline scripts to add support for breakout nodes,
+  // before main JavaScript bundle is available.
+  enableSsrInlineScripts?: boolean;
   onComplete?: (stat: RenderOutputStat) => void;
   onError?: (error: any) => void;
   portal?: HTMLElement;
@@ -54,6 +63,7 @@ export interface Props {
   appearance?: RendererAppearance;
   adfStage?: ADFStage;
   disableHeadingIDs?: boolean;
+  disableActions?: boolean;
   allowDynamicTextSizing?: boolean;
   allowHeadingAnchorLinks?: boolean;
   maxHeight?: number;
@@ -63,18 +73,22 @@ export interface Props {
   allowColumnSorting?: boolean;
   shouldOpenMediaViewer?: boolean;
   allowAltTextOnImages?: boolean;
+  stickyHeaders?: StickyHeaderConfig;
+  media?: {
+    allowLinking?: boolean;
+  };
 }
 
-export class Renderer extends PureComponent<Props, {}> {
+export class Renderer extends PureComponent<Props> {
   private providerFactory: ProviderFactory;
-  private serializer?: ReactSerializer;
+  private serializer: ReactSerializer;
   private rafID?: number;
   private editorRef?: React.RefObject<HTMLElement>;
 
   constructor(props: Props) {
     super(props);
     this.providerFactory = props.dataProviders || new ProviderFactory();
-    this.updateSerializer(props);
+    this.serializer = new ReactSerializer(this.deriveSerializerProps(props));
     startMeasure('Renderer Render Time');
   }
 
@@ -136,50 +150,44 @@ export class Renderer extends PureComponent<Props, {}> {
   }
 
   UNSAFE_componentWillReceiveProps(nextProps: Props) {
+    const nextMedia = nextProps.media || {};
+    const media = this.props.media || {};
+
     if (
       nextProps.portal !== this.props.portal ||
-      nextProps.appearance !== this.props.appearance
+      nextProps.appearance !== this.props.appearance ||
+      nextProps.stickyHeaders !== this.props.stickyHeaders ||
+      nextMedia.allowLinking !== media.allowLinking
     ) {
-      this.updateSerializer(nextProps);
+      this.serializer = new ReactSerializer(
+        this.deriveSerializerProps(nextProps),
+      );
     }
   }
 
-  private updateSerializer(props: Props) {
-    const {
-      eventHandlers,
-      portal,
-      rendererContext,
-      document,
-      extensionHandlers,
-      schema,
-      appearance,
-      disableHeadingIDs,
-      allowDynamicTextSizing,
-      allowHeadingAnchorLinks,
-      allowColumnSorting,
-      shouldOpenMediaViewer,
-      allowAltTextOnImages,
-    } = props;
-
-    this.serializer = new ReactSerializer({
+  private deriveSerializerProps(props: Props): ReactSerializerInit {
+    return {
       providers: this.providerFactory,
-      eventHandlers,
-      extensionHandlers,
-      portal,
+      eventHandlers: props.eventHandlers,
+      extensionHandlers: props.extensionHandlers,
+      portal: props.portal,
       objectContext: {
-        adDoc: document,
-        schema,
-        ...rendererContext,
+        adDoc: props.document,
+        schema: props.schema,
+        ...props.rendererContext,
       } as RendererContext,
-      appearance,
-      disableHeadingIDs,
-      allowDynamicTextSizing,
-      allowHeadingAnchorLinks,
-      allowColumnSorting,
+      appearance: props.appearance,
+      disableHeadingIDs: props.disableHeadingIDs,
+      disableActions: props.disableActions,
+      allowDynamicTextSizing: props.allowDynamicTextSizing,
+      allowHeadingAnchorLinks: props.allowHeadingAnchorLinks,
+      allowColumnSorting: props.allowColumnSorting,
       fireAnalyticsEvent: this.fireAnalyticsEvent,
-      shouldOpenMediaViewer,
-      allowAltTextOnImages,
-    });
+      shouldOpenMediaViewer: props.shouldOpenMediaViewer,
+      allowAltTextOnImages: props.allowAltTextOnImages,
+      stickyHeaders: props.stickyHeaders,
+      allowMediaLinking: props.media && props.media.allowLinking,
+    };
   }
 
   private fireAnalyticsEvent = (event: AnalyticsEventPayload) => {
@@ -211,12 +219,13 @@ export class Renderer extends PureComponent<Props, {}> {
       truncated,
       maxHeight,
       fadeOutHeight,
+      enableSsrInlineScripts,
     } = this.props;
 
     try {
-      const { result, stat } = renderDocument(
+      const { result, stat, pmDoc } = renderDocument(
         document,
-        this.serializer!,
+        this.serializer,
         this.getSchema(),
         adfStage,
       );
@@ -224,6 +233,7 @@ export class Renderer extends PureComponent<Props, {}> {
       if (onComplete) {
         onComplete(stat);
       }
+
       const rendererOutput = (
         <CopyTextProvider>
           <IntlProvider>
@@ -241,7 +251,10 @@ export class Renderer extends PureComponent<Props, {}> {
                     this.editorRef = ref;
                   }}
                 >
-                  {result}
+                  {enableSsrInlineScripts ? <BreakoutSSRInlineScript /> : null}
+                  <RendererActionsInternalUpdater doc={pmDoc}>
+                    {result}
+                  </RendererActionsInternalUpdater>
                 </RendererWrapper>
               </SmartCardStorageProvider>
             </AnalyticsContext.Provider>
@@ -321,7 +334,7 @@ const RendererWithIframeFallbackWrapper = React.memo(
       subscribe,
     } = props;
     const renderer = (
-      <WidthProvider>
+      <WidthProvider className="ak-renderer-wrapper">
         <BaseTheme dynamicTextSizing={dynamicTextSizing}>
           <Wrapper innerRef={wrapperRef} appearance={appearance}>
             {children}
@@ -357,4 +370,26 @@ export function RendererWrapper(props: RendererWrapperProps) {
       )}
     </IframeWrapperConsumer>
   );
+}
+
+function RendererActionsInternalUpdater({
+  children,
+  doc,
+}: {
+  doc?: PMNode;
+  children: JSX.Element | null;
+}) {
+  const actions = useContext(ActionsContext);
+  const rendererRef = useRef(null);
+  useEffect(() => {
+    if (doc) {
+      actions._privateRegisterRenderer(rendererRef, doc);
+    } else {
+      actions._privateUnregisterRenderer();
+    }
+
+    return () => actions._privateUnregisterRenderer();
+  }, [actions, doc]);
+
+  return children;
 }

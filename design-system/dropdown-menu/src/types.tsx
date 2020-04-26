@@ -1,6 +1,7 @@
-import { ReactNode, KeyboardEvent, MouseEvent } from 'react';
-import { ButtonProps } from '@atlaskit/button';
+import { KeyboardEvent, MouseEvent, ReactNode } from 'react';
+
 import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
+import { ButtonProps } from '@atlaskit/button';
 
 export type ItemId = string;
 export type GroupId = string;

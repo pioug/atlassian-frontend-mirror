@@ -1,7 +1,8 @@
 /** @jsx jsx */
-import { jsx, CSSObject } from '@emotion/core';
+import { CSSObject, jsx } from '@emotion/core';
+
+import { LabelTextCSSProps, LabelTextProps } from '../types';
 import { defaultAttributesFn } from '../utils';
-import { LabelTextProps, LabelTextCSSProps } from '../types';
 
 export const labelTextCSS = ({ tokens }: LabelTextCSSProps): CSSObject => ({
   paddingTop: tokens.label.spacing.top,

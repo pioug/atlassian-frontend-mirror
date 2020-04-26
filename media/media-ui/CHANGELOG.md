@@ -1,5 +1,146 @@
 # @atlaskit/media-ui
 
+## 12.2.0
+
+### Minor Changes
+
+- [minor][dc3bade5f1](https://bitbucket.org/atlassian/atlassian-frontend/commits/dc3bade5f1):
+
+  expose Embed card views
+
+  ````
+  import {
+    EmbedCardResolvedView,
+    EmbedCardUnauthorisedView,
+    EmbedCardForbiddenView,
+    EmbedCardNotFoundView,
+  } from '@atlaskit/media-ui/embeds';
+  ```- [minor] [acc12dba75](https://bitbucket.org/atlassian/atlassian-frontend/commits/acc12dba75):
+
+  fix: refactor of extractor logic in smart-card- [minor] [1b3a41f3ea](https://bitbucket.org/atlassian/atlassian-frontend/commits/1b3a41f3ea):
+
+  Add isFrameVisible to EmbedCard and fix minor UI issues
+  ````
+
+### Patch Changes
+
+- [patch][3b776be426](https://bitbucket.org/atlassian/atlassian-frontend/commits/3b776be426):
+
+  Change appearance of unauthorised inline cards- Updated dependencies [443bb984ab](https://bitbucket.org/atlassian/atlassian-frontend/commits/443bb984ab):
+
+- Updated dependencies [3940bd71f1](https://bitbucket.org/atlassian/atlassian-frontend/commits/3940bd71f1):
+- Updated dependencies [6b8e60827e](https://bitbucket.org/atlassian/atlassian-frontend/commits/6b8e60827e):
+- Updated dependencies [e95a8726e2](https://bitbucket.org/atlassian/atlassian-frontend/commits/e95a8726e2):
+- Updated dependencies [449ef134b3](https://bitbucket.org/atlassian/atlassian-frontend/commits/449ef134b3):
+- Updated dependencies [9a534d6a74](https://bitbucket.org/atlassian/atlassian-frontend/commits/9a534d6a74):
+- Updated dependencies [167a55fd7a](https://bitbucket.org/atlassian/atlassian-frontend/commits/167a55fd7a):
+- Updated dependencies [57c0487a02](https://bitbucket.org/atlassian/atlassian-frontend/commits/57c0487a02):
+- Updated dependencies [a4acc95793](https://bitbucket.org/atlassian/atlassian-frontend/commits/a4acc95793):
+- Updated dependencies [68ff159118](https://bitbucket.org/atlassian/atlassian-frontend/commits/68ff159118):
+- Updated dependencies [a4d063330a](https://bitbucket.org/atlassian/atlassian-frontend/commits/a4d063330a):
+- Updated dependencies [093fdc91b1](https://bitbucket.org/atlassian/atlassian-frontend/commits/093fdc91b1):
+- Updated dependencies [7a2540821c](https://bitbucket.org/atlassian/atlassian-frontend/commits/7a2540821c):
+  - @atlaskit/page@11.0.13
+  - @atlaskit/tooltip@15.2.6
+  - @atlaskit/button@13.3.11
+  - @atlaskit/avatar-group@5.1.2
+  - @atlaskit/icon@20.1.1
+  - @atlaskit/modal-dialog@10.5.7
+  - @atlaskit/avatar@17.1.10
+  - @atlaskit/droplist@10.0.4
+  - @atlaskit/checkbox@10.1.11
+  - @atlaskit/lozenge@9.1.7
+  - @atlaskit/badge@13.1.8
+  - @atlaskit/dropdown-menu@9.0.3
+
+## 12.1.1
+
+### Patch Changes
+
+- [patch][66c5bd52fb](https://bitbucket.org/atlassian/atlassian-frontend/commits/66c5bd52fb):
+
+  EDM-597: fix block cards disappearing on mobile
+
+## 12.1.0
+
+### Minor Changes
+
+- [minor][f459d99f15](https://bitbucket.org/atlassian/atlassian-frontend/commits/f459d99f15):
+
+  Add search locale- [minor][17cc5dde5d](https://bitbucket.org/atlassian/atlassian-frontend/commits/17cc5dde5d):
+
+  EDM-200: instrument metrics for preview mode- [minor][f061ed6c98](https://bitbucket.org/atlassian/atlassian-frontend/commits/f061ed6c98):
+
+  EDM-199: add analytics for action invocations on Block links- [minor][49dbcfa64c](https://bitbucket.org/atlassian/atlassian-frontend/commits/49dbcfa64c):
+
+  Implement actions in SmartCard component- [minor][318a1a0f2f](https://bitbucket.org/atlassian/atlassian-frontend/commits/318a1a0f2f):
+
+  EDM-454: Actions in block cards are now behind the flag: showActions- [minor][b5f17f0751](https://bitbucket.org/atlassian/atlassian-frontend/commits/b5f17f0751):
+
+  fix: i18n strings of Block links- [minor][4635f8107b](https://bitbucket.org/atlassian/atlassian-frontend/commits/4635f8107b):
+
+  fix: responsiveness on mobile for block cards- [minor][d3547279dd](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3547279dd):
+
+  Update the previewAction to add more rich detail- [minor][8c8f0099d8](https://bitbucket.org/atlassian/atlassian-frontend/commits/8c8f0099d8):
+
+  fix: copy for block links, added not found view to match spec
+
+### Patch Changes
+
+- [patch][3aedaac8c7](https://bitbucket.org/atlassian/atlassian-frontend/commits/3aedaac8c7):
+
+  fix: intl on preview state- [patch][e9d555132d](https://bitbucket.org/atlassian/atlassian-frontend/commits/e9d555132d):
+
+  fix: ui for block links- [patch][d7b07a9ca4](https://bitbucket.org/atlassian/atlassian-frontend/commits/d7b07a9ca4):
+
+  Fix Media Viewer Scroll- [patch][fd4b237ffe](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd4b237ffe):
+
+  Change customMediaPlayer MediaButton testId to data-testid- [patch][9691bb8eb9](https://bitbucket.org/atlassian/atlassian-frontend/commits/9691bb8eb9):
+
+  Implement SmartLink actions- [patch][5550919b98](https://bitbucket.org/atlassian/atlassian-frontend/commits/5550919b98):
+
+  Changing background-color of blockCard to white- [patch][e9044fbfa6](https://bitbucket.org/atlassian/atlassian-frontend/commits/e9044fbfa6):
+
+  Hide some buttons when cusomVideoPlayer is small- [patch][050781f257](https://bitbucket.org/atlassian/atlassian-frontend/commits/050781f257):
+
+  fix: root extractor for object in block links- [patch][ba8c2c4129](https://bitbucket.org/atlassian/atlassian-frontend/commits/ba8c2c4129):
+
+  fix: icons for jira block links- [patch][67bc25bc3f](https://bitbucket.org/atlassian/atlassian-frontend/commits/67bc25bc3f):
+
+  Move WidthObserver from editor-common to width-detector
+
+  WidthObserver is a more performant version of WidthDetector and should be used going forward.
+
+  ````js
+  import { WidthObserver } from '@atlaskit/width-detector';
+
+  <WidthObserver
+    setWidth={width => console.log(`width has changed to ${width}`)}
+  />;
+  ```- [patch] [f3587bae11](https://bitbucket.org/atlassian/atlassian-frontend/commits/f3587bae11):
+
+  chore: fix UI nits for block cards- Updated dependencies [6a6a991904](https://bitbucket.org/atlassian/atlassian-frontend/commits/6a6a991904):
+  ````
+
+- Updated dependencies [84f82f7015](https://bitbucket.org/atlassian/atlassian-frontend/commits/84f82f7015):
+- Updated dependencies [168b5f90e5](https://bitbucket.org/atlassian/atlassian-frontend/commits/168b5f90e5):
+- Updated dependencies [f5b654c328](https://bitbucket.org/atlassian/atlassian-frontend/commits/f5b654c328):
+- Updated dependencies [0c270847cb](https://bitbucket.org/atlassian/atlassian-frontend/commits/0c270847cb):
+- Updated dependencies [109004a98e](https://bitbucket.org/atlassian/atlassian-frontend/commits/109004a98e):
+- Updated dependencies [b9903e773a](https://bitbucket.org/atlassian/atlassian-frontend/commits/b9903e773a):
+- Updated dependencies [b2402fc3a2](https://bitbucket.org/atlassian/atlassian-frontend/commits/b2402fc3a2):
+- Updated dependencies [67bc25bc3f](https://bitbucket.org/atlassian/atlassian-frontend/commits/67bc25bc3f):
+- Updated dependencies [bb2fe95478](https://bitbucket.org/atlassian/atlassian-frontend/commits/bb2fe95478):
+- Updated dependencies [89bf723567](https://bitbucket.org/atlassian/atlassian-frontend/commits/89bf723567):
+- Updated dependencies [7e363d5aba](https://bitbucket.org/atlassian/atlassian-frontend/commits/7e363d5aba):
+  - @atlaskit/media-test-helpers@27.2.0
+  - @atlaskit/docs@8.5.1
+  - @atlaskit/modal-dialog@10.5.6
+  - @atlaskit/theme@9.5.3
+  - @atlaskit/button@13.3.10
+  - @atlaskit/width-detector@2.1.0
+  - @atlaskit/media-common@1.0.1
+
 ## 12.0.1
 
 ### Patch Changes

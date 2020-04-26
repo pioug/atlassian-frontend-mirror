@@ -1,5 +1,19 @@
 # @atlaskit/theme
 
+## 9.5.3
+
+### Patch Changes
+
+- [patch][0c270847cb](https://bitbucket.org/atlassian/atlassian-frontend/commits/0c270847cb):
+
+  Fixes skeleton color to N20A.- [patch][b9903e773a](https://bitbucket.org/atlassian/atlassian-frontend/commits/b9903e773a):
+
+  Updates skeleton shimmer to be a pulse. Will introduce shimmer effect for small viewports later.- Updated dependencies [168b5f90e5](https://bitbucket.org/atlassian/atlassian-frontend/commits/168b5f90e5):
+
+- Updated dependencies [109004a98e](https://bitbucket.org/atlassian/atlassian-frontend/commits/109004a98e):
+  - @atlaskit/docs@8.5.1
+  - @atlaskit/button@13.3.10
+
 ## 9.5.2
 
 ### Patch Changes

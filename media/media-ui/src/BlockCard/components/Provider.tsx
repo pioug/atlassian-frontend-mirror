@@ -5,17 +5,14 @@ import { gs } from '../utils';
 
 export interface ProviderProps {
   name: string;
-  iconUrl?: string;
   icon?: React.ReactNode;
 }
 
-export const Provider = ({ name, iconUrl, icon }: ProviderProps) => {
+export const Provider = ({ name, icon }: ProviderProps) => {
   let iconToRender = icon || null;
 
-  if (!iconToRender && iconUrl) {
-    iconToRender = (
-      <img css={{ height: gs(1.5), width: gs(1.5) }} src={iconUrl} />
-    );
+  if (typeof icon === 'string') {
+    iconToRender = <img css={{ height: gs(1.5), width: gs(1.5) }} src={icon} />;
   }
 
   return (

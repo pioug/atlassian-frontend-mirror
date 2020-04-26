@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
+
 import { ThemeProvider } from 'styled-components';
-import DropdownMenu, { DropdownItemGroup } from '@atlaskit/dropdown-menu';
+
 import Avatar, { AvatarPropTypes } from '@atlaskit/avatar';
+import DropdownMenu, { DropdownItemGroup } from '@atlaskit/dropdown-menu';
+
 import { Grid, Stack } from '../styled/AvatarGroup';
-import MoreIndicator, { MoreIndicatorProps } from './MoreIndicator';
 import itemTheme from '../theme/itemTheme';
+
 import AvatarGroupItem from './AvatarGroupItem';
-import { DeepRequired, AvatarGroupProps, AvatarGroupOverrides } from './types';
+import MoreIndicator, { MoreIndicatorProps } from './MoreIndicator';
+import { AvatarGroupOverrides, AvatarGroupProps, DeepRequired } from './types';
 
 const GROUP_COMPONENT = {
   grid: Grid,

@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { PureComponent } from 'react';
+
 import { Anchor, Span } from '../styled/Item';
 
 export const supportsVoiceOver = () => /Mac OS X/.test(navigator.userAgent);

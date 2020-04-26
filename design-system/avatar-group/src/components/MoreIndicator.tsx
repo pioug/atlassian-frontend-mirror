@@ -1,11 +1,13 @@
 import React, { Component, MouseEvent } from 'react';
+
 import {
-  withPseudoState,
+  AppearanceType,
   getProps,
   SizeType,
-  AppearanceType,
+  withPseudoState,
 } from '@atlaskit/avatar';
-import { Outer, Inner } from '../styled/MoreIndicator';
+
+import { Inner, Outer } from '../styled/MoreIndicator';
 
 export interface MoreIndicatorProps {
   /** Used to override the default border color of the presence indicator.

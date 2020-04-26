@@ -1,6 +1,6 @@
 import {
-  mergeGridStateIntoStorage,
   getGridStateFromStorage,
+  mergeGridStateIntoStorage,
   removeFromGridStateInStorage,
 } from '../../utils';
 

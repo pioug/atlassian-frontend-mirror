@@ -35,7 +35,7 @@ export function useAnalyticsEvents(): UseAnalyticsEventsHook {
 ---
 No compatible <AnalyticsListener /> was found to fire this analytics event.
 Use of the useAnalyticsEvents() hook requires a parent <AnalyticsListener /> from @atlaskit/analytics-next@^6.3.0 or above.
-See: https://atlaskit.atlassian.com/packages/core/analytics-next/docs/reference#AnalyticsListener
+See: https://atlaskit.atlassian.com/packages/design-system/analytics-next/docs/reference#AnalyticsListener
 `);
       }
 

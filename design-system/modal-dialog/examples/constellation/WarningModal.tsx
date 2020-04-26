@@ -1,6 +1,9 @@
 import React from 'react';
+
 import Lorem from 'react-lorem-component';
+
 import Button from '@atlaskit/button';
+
 import Modal, { ModalTransition } from '../../src';
 
 interface State {

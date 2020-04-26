@@ -34,7 +34,11 @@ describe('ScrollIntoView plugin', () => {
   };
 
   beforeEach(() => {
-    ({ editorView, plugin } = editor());
+    ({ editorView, plugin } = editor({
+      editorProps: {
+        quickInsert: true,
+      },
+    }));
     ({ state, dispatch } = editorView);
     appendTrSpy = jest.spyOn(plugin.spec, 'appendTransaction');
   });

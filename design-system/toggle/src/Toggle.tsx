@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import ToggleStateless from './ToggleStateless';
 import { StatefulProps } from './types';
 

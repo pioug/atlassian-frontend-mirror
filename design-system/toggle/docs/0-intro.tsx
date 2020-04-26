@@ -1,5 +1,6 @@
 import React from 'react';
-import { md, Props, Example, code } from '@atlaskit/docs';
+
+import { code, Example, md, Props } from '@atlaskit/docs';
 
 export default md`
   A Toggle component. It is a checkbox displayed in an alternative way.

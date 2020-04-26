@@ -11,7 +11,7 @@ describe.skip('onboarding spotlight visual regression', () => {
   it('should render a spotlight next to a target', async () => {
     const { __BASEURL__, page } = global as any;
     const url = getExampleUrl(
-      'core',
+      'design-system',
       'onboarding',
       'spotlight-dialog-placement',
       __BASEURL__,
@@ -32,7 +32,7 @@ describe.skip('onboarding spotlight visual regression', () => {
   it('should move a spotlight after resizing the viewport', async () => {
     const { __BASEURL__, page } = global as any;
     const url = getExampleUrl(
-      'core',
+      'design-system',
       'onboarding',
       'spotlight-dialog-placement',
       __BASEURL__,

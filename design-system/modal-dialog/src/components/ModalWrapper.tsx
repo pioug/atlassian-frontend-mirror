@@ -1,16 +1,22 @@
 import React from 'react';
-import { layers } from '@atlaskit/theme/constants';
-import Portal from '@atlaskit/portal';
-import { ModalTransitionConsumer } from './ModalTransition';
-import StackConsumer from './StackConsumer';
 
-import { AppearanceType, KeyboardOrMouseEvent, ActionProps } from '../types';
-
-import Modal from './Modal';
-import { WidthNames } from '../shared-variables';
 import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
+import Portal from '@atlaskit/portal';
+import { layers } from '@atlaskit/theme/constants';
+
+import { WidthNames } from '../shared-variables';
+import {
+  ActionProps,
+  AppearanceType,
+  KeyboardOrMouseEvent,
+  ScrollBehavior,
+} from '../types';
+
 import { FooterComponentProps } from './Footer';
 import { HeaderComponentProps } from './Header';
+import Modal from './Modal';
+import { ModalTransitionConsumer } from './ModalTransition';
+import StackConsumer from './StackConsumer';
 
 export interface WrapperProps extends WithAnalyticsEventsProps {
   /**
@@ -88,10 +94,12 @@ export interface WrapperProps extends WithAnalyticsEventsProps {
   */
   onStackChange?: (stackIndex: number) => void;
   /**
-    Where scroll behaviour should originate. When `inside` scroll only occurs
-    on the modal body. When `outside` the entire modal will scroll within the viewport.
+  Values that decide the positioning and scroll behaviour of the modal.
+  - `inside` locks the modal on the outside and allows scroll only on the modal body.
+  - `outside` lets the entire modal be scrolled in its container
+  - `inside-wide` is like `inside` but for body wider than the viewport
   */
-  scrollBehavior?: 'inside' | 'outside';
+  scrollBehavior: ScrollBehavior;
   /**
     Boolean indicating if clicking the overlay should close the modal.
   */

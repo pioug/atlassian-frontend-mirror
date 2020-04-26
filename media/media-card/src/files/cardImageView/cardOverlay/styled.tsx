@@ -43,6 +43,7 @@ export const TickBox: ComponentClass<HTMLAttributes<{}> &
 
   /* Enforce dimensions of "tick" icon */
   svg {
+    position: absolute;
     width: 14px;
   }
 `;

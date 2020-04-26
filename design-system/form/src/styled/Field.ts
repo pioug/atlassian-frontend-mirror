@@ -1,8 +1,9 @@
 import styled from 'styled-components';
-import { gridSize } from '@atlaskit/theme/constants';
-import { h200 } from '@atlaskit/theme/typography';
+
 import { R400 } from '@atlaskit/theme/colors';
+import { gridSize } from '@atlaskit/theme/constants';
 import { multiply } from '@atlaskit/theme/math';
+import { h200 } from '@atlaskit/theme/typography';
 
 /**
  * Provide a styled container for field components

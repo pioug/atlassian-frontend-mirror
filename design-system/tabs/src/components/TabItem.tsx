@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import { NavItem, NavLine } from '../styled';
 import { TabItemComponentProvided } from '../types';
 

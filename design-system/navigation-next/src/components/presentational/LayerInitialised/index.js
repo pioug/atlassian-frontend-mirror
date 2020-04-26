@@ -1,4 +1,5 @@
 import { Component } from 'react';
+
 import { withAnalyticsEvents } from '@atlaskit/analytics-next';
 
 import { navigationUILoaded } from '../../../common/analytics';

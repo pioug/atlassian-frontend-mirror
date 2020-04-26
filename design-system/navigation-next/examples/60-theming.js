@@ -1,17 +1,18 @@
 import React from 'react';
-import BoardIcon from '@atlaskit/icon/glyph/board';
+
 import ArrowRightIcon from '@atlaskit/icon/glyph/arrow-right';
+import BoardIcon from '@atlaskit/icon/glyph/board';
 
 import {
+  dark,
   GroupHeading,
   Item,
   light,
-  dark,
+  modeGenerator,
+  Separator,
   settings,
   SkeletonContainerHeader,
   SkeletonItem,
-  Separator,
-  modeGenerator,
   ThemeProvider,
 } from '../src';
 import { CONTENT_NAV_WIDTH } from '../src/common/constants';

@@ -1,6 +1,8 @@
 import React from 'react';
+
 import { shallow } from 'enzyme';
-import { Header, Description } from '../../common';
+
+import { Description, Header } from '../../common';
 import Thankyou from '../../Thankyou';
 
 describe('Thankyou page', () => {

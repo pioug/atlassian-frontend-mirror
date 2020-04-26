@@ -169,6 +169,7 @@ export class App extends Component<AppProps, AppState> {
       proxyReactContext,
       useForgePlugins = false,
     } = this.props;
+
     const { isDropzoneActive } = this.state;
 
     return (
@@ -203,7 +204,6 @@ export class App extends Component<AppProps, AppState> {
 
   private renderCurrentView(selectedServiceName: ServiceName): ReactNode {
     const { plugins = [], onFileClick, selectedItems } = this.props;
-
     if (selectedServiceName === 'upload') {
       // We need to create a new context since Cards in recents view need user auth
       const { userMediaClient } = this.props;

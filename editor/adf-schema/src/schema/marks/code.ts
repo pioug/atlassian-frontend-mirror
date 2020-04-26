@@ -39,6 +39,7 @@ export const code: MarkSpec = {
       {
         style: 'white-space: pre-wrap;',
         class: 'code',
+        spellcheck: 'false',
       },
     ];
   },

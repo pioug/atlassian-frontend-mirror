@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+
 import { CloseManagerHook } from './types';
 
 export const useCloseManager = ({

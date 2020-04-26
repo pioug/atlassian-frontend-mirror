@@ -1,5 +1,6 @@
 import React from 'react';
-import { md, Example, Props, code } from '@atlaskit/docs';
+
+import { code, Example, md, Props } from '@atlaskit/docs';
 
 export default md`
   Empty State is used for various scenarios, for example: empty search, 

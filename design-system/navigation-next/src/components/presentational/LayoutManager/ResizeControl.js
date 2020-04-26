@@ -1,18 +1,20 @@
-import React, { PureComponent, Fragment } from 'react';
-import raf from 'raf-schd';
+import React, { Fragment, PureComponent } from 'react';
+
 import { Global } from '@emotion/core';
+import raf from 'raf-schd';
+
 import { withAnalyticsEvents } from '@atlaskit/analytics-next';
-import * as colors from '@atlaskit/theme/colors';
 import ChevronLeft from '@atlaskit/icon/glyph/chevron-left';
 import ChevronRight from '@atlaskit/icon/glyph/chevron-right';
+import * as colors from '@atlaskit/theme/colors';
 import Tooltip from '@atlaskit/tooltip';
 
 import { navigationExpandedCollapsed } from '../../../common/analytics';
 import {
-  GLOBAL_NAV_WIDTH,
   CONTENT_NAV_WIDTH,
   CONTENT_NAV_WIDTH_COLLAPSED,
   GLOBAL_NAV_COLLAPSE_THRESHOLD,
+  GLOBAL_NAV_WIDTH,
 } from '../../../common/constants';
 import { Shadow } from '../../../common/primitives';
 

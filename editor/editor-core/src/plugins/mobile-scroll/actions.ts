@@ -2,8 +2,13 @@ export enum MobileScrollActionTypes {
   SET_KEYBOARD_HEIGHT = 'SET_KEYBOARD_HEIGHT',
   SET_HEIGHT_DIFF = 'SET_HEIGHT_DIFF',
   SET_WINDOW_HEIGHT = 'SET_WINDOW_HEIGHT',
+  SET_MOBILE_PADDING_TOP = 'SET_MOBILE_PADDING_TOP',
 }
 
+export interface SetMobilePaddingTop {
+  type: MobileScrollActionTypes.SET_MOBILE_PADDING_TOP;
+  paddingTop: number;
+}
 export interface SetKeyboardHeight {
   type: MobileScrollActionTypes.SET_KEYBOARD_HEIGHT;
   keyboardHeight: number;
@@ -22,4 +27,5 @@ export interface SetWindowHeight {
 export type MobileScrollAction =
   | SetKeyboardHeight
   | SetHeightDiff
-  | SetWindowHeight;
+  | SetWindowHeight
+  | SetMobilePaddingTop;

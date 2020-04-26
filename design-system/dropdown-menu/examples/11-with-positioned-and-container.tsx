@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+
 import styled from 'styled-components';
+
 import {
-  DropdownMenuStateless,
   DropdownItemGroupRadio,
   DropdownItemRadio,
+  DropdownMenuStateless,
 } from '../src';
 
 interface State {

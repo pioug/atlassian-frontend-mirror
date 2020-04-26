@@ -46,9 +46,10 @@ const hyperlinkPlugin = (): EditorPlugin => ({
   pluginsOptions: {
     quickInsert: ({ formatMessage }) => [
       {
+        id: 'hyperlink',
         title: formatMessage(messages.link),
         description: formatMessage(messages.linkDescription),
-        keywords: ['url', 'link', 'hyperlink'],
+        keywords: ['hyperlink', 'url'],
         priority: 1200,
         keyshortcut: tooltip(addLink),
         icon: () => <IconLink label={formatMessage(messages.link)} />,

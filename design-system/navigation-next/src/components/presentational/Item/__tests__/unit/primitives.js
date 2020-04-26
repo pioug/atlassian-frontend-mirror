@@ -1,5 +1,7 @@
 import React from 'react';
-import { render, shallow, mount } from 'enzyme';
+
+import { mount, render, shallow } from 'enzyme';
+
 import { ItemPrimitiveBase } from '../../primitives';
 
 const TestComponent = props => <div>Test Component {props.className}</div>;

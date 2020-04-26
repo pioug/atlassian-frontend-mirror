@@ -39,8 +39,10 @@ const codeBlockPlugin = (): EditorPlugin => ({
   pluginsOptions: {
     quickInsert: ({ formatMessage }) => [
       {
+        id: 'codeblock',
         title: formatMessage(messages.codeblock),
         description: formatMessage(messages.codeblockDescription),
+        keywords: ['code block'],
         priority: 700,
         keyshortcut: '```',
         icon: () => <IconCode label={formatMessage(messages.codeblock)} />,

@@ -48,6 +48,7 @@ import {
 import { upgradeTextToLists, splitParagraphs } from '../../lists/transforms';
 import { md } from '../md';
 import { getPluginState as getTablePluginState } from '../../table/pm-plugins/plugin-factory';
+import { transformUnsupportedBlockCardToInline } from '../../card/utils';
 
 export const stateKey = new PluginKey('pastePlugin');
 
@@ -176,6 +177,8 @@ export function createPlugin(
             return true;
           }
         }
+
+        slice = transformUnsupportedBlockCardToInline(slice, state);
 
         if (
           handlePasteIntoTaskAndDecisionWithAnalytics(

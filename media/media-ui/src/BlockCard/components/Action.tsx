@@ -9,7 +9,7 @@ export interface ActionProps {
   /* Id of the action for use by ??? */
   id: string;
   /* The text to be displayed in the action's button */
-  text: string;
+  text: React.ReactNode;
   /* The function to be called on clicking the action. This is a promise so the state can transition correctly after the action finishes */
   promise: () => Promise<any>;
   /* The atlaskit button style to use in showing the action. This is the only button prop you have access to. */

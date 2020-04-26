@@ -1,5 +1,32 @@
 # @atlaskit/email-renderer
 
+## 5.0.0
+
+### Major Changes
+
+- [major][c7d7467b10](https://bitbucket.org/atlassian/atlassian-frontend/commits/c7d7467b10):
+
+  Changed email-renderer to not be a module ("type":"module" removed from package.json)
+
+### Patch Changes
+
+- [patch][77c3e9887b](https://bitbucket.org/atlassian/atlassian-frontend/commits/77c3e9887b):
+
+  Fix non breaking space in email rendering- Updated dependencies [92d04b5c28](https://bitbucket.org/atlassian/atlassian-frontend/commits/92d04b5c28):
+
+  - @atlaskit/adf-schema@9.0.1
+
+## 4.2.1
+
+### Patch Changes
+
+- Updated dependencies [04e54bf405](https://bitbucket.org/atlassian/atlassian-frontend/commits/04e54bf405):
+- Updated dependencies [9f43b9f0ca](https://bitbucket.org/atlassian/atlassian-frontend/commits/9f43b9f0ca):
+- Updated dependencies [168b5f90e5](https://bitbucket.org/atlassian/atlassian-frontend/commits/168b5f90e5):
+- Updated dependencies [5d430f7d37](https://bitbucket.org/atlassian/atlassian-frontend/commits/5d430f7d37):
+  - @atlaskit/adf-schema@9.0.0
+  - @atlaskit/docs@8.5.1
+
 ## 4.2.0
 
 ### Minor Changes

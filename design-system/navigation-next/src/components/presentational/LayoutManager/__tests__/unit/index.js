@@ -1,8 +1,9 @@
 import React from 'react';
+
 import { mount } from 'enzyme';
 
-import LayoutManager from '../..';
 import { NavigationProvider } from '../../../../../index';
+import LayoutManager from '../../index';
 
 const GlobalNavigation = () => null;
 const ProductNavigation = () => null;

@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { ErrorInfo } from 'react';
 import ReactDOM from 'react-dom';
 
 import { ModalProps } from '../components/Modal';
 import { ActionProps } from '../components/Action';
+import { IconProps } from '../components/Icon';
+import { MetadataProps } from '../components/Metadata';
+import { IntlProvider } from 'react-intl';
 
 export interface PreviewFunctionArg extends ModalProps {
   /* The id of a HTML element that will be used OR created to mount the modal from */
@@ -33,26 +36,49 @@ export async function previewFunction({
   if (!popupMountPoint) {
     popupMountPoint = document.createElement('div');
     popupMountPoint.id = popupMountPointId;
+    popupMountPoint.setAttribute('data-testid', 'preview-modal');
     document.body.appendChild(popupMountPoint);
   }
 
   let Modal = await import('../components/Modal');
 
   ReactDOM.render(
-    <Modal.default
-      {...rest}
-      onClose={() => {
-        if (popupMountPoint) {
-          onClose();
-          ReactDOM.unmountComponentAtNode(popupMountPoint);
-        }
-      }}
-    />,
+    <IntlProvider locale="en">
+      <Modal.default
+        {...rest}
+        onClose={() => {
+          if (popupMountPoint) {
+            onClose();
+            ReactDOM.unmountComponentAtNode(popupMountPoint);
+          }
+        }}
+      />
+    </IntlProvider>,
     popupMountPoint,
   );
 }
 
-export default ({ src }: { src: string }): ActionProps => ({
+/*
+Most of these are optional as we are being fault-tolerant
+However src, details, icon, title, and providerName are STRONGLY encouraged
+*/
+type PreviewInfo = {
+  src?: string;
+  testId?: string;
+  details?: Array<MetadataProps>;
+  icon?: IconProps;
+  url?: string;
+  title?: string;
+  providerName?: string;
+  download?: string;
+  byline?: React.ReactNode;
+  onViewActionClick?: () => void;
+  onDownloadActionClick?: () => void;
+  onOpen?: () => void;
+  onOpenFailed?: (error: Error, errorInfo: ErrorInfo) => void;
+};
+
+export default ({ details, ...rest }: PreviewInfo): ActionProps => ({
   id: 'preview-content',
   text: 'Preview',
   promise: () =>
@@ -63,6 +89,7 @@ export default ({ src }: { src: string }): ActionProps => ({
       showModal: true,
       iframeName: 'twp-editor-preview-iframe',
       onClose: () => {},
-      src,
+      metadata: { items: details || [] },
+      ...rest,
     }),
 });

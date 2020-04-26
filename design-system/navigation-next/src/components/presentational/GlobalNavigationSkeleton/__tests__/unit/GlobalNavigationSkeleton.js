@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { render, shallow } from 'enzyme';
+
 import { light } from '../../../../../theme';
 import GlobalNavigationSkeleton from '../../GlobalNavigationSkeleton';
 import GlobalNavigationSkeletonItem from '../../GlobalNavigationSkeletonItem';

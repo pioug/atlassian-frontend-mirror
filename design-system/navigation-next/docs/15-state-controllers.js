@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { code, md, Props } from '@atlaskit/docs';
 
 import { Contents, ContentsProvider, H, Hr } from './shared';
@@ -326,7 +327,7 @@ ${(<Hr />)}
 
 ${(<H>UI controller</H>)}
 
-The UI controller manages the visual state of the navigation component. To see this feature in action, [check out this guide](/packages/core/navigation-next/docs/composing-your-navigation#managing-the-ui-state).
+The UI controller manages the visual state of the navigation component. To see this feature in action, [check out this guide](/packages/design-system/navigation-next/docs/composing-your-navigation#managing-the-ui-state).
 
 ### UIController
 
@@ -382,7 +383,7 @@ ${(<Hr />)}
 
 ${(<H>View controller</H>)}
 
-The view controller manages which set of items should be rendered in the navigation. For an in-depth walk-through of how to use this feature, [check out this guide](/packages/core/navigation-next/docs/controlling-navigation-views).
+The view controller manages which set of items should be rendered in the navigation. For an in-depth walk-through of how to use this feature, [check out this guide](/packages/design-system/navigation-next/docs/controlling-navigation-views).
 
 ### ViewController
 

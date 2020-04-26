@@ -33,6 +33,8 @@ export interface Props {
   mountPoint?: HTMLElement;
   boundariesElement?: HTMLElement;
   scrollableElement?: HTMLElement;
+  disabled?: boolean;
+  tooltip?: string;
 }
 
 export interface State {
@@ -53,6 +55,8 @@ export default class Dropdown extends Component<Props, State> {
       boundariesElement,
       scrollableElement,
       hideExpandIcon,
+      disabled,
+      tooltip,
     } = this.props;
 
     let trigger;
@@ -64,6 +68,8 @@ export default class Dropdown extends Component<Props, State> {
           icon={TriggerIcon}
           onClick={this.toggleOpen}
           selected={isOpen}
+          disabled={disabled}
+          tooltipContent={tooltip}
         />
       );
     } else {
@@ -76,6 +82,8 @@ export default class Dropdown extends Component<Props, State> {
           }
           onClick={this.toggleOpen}
           selected={isOpen}
+          disabled={disabled}
+          tooltipContent={tooltip}
         >
           {title}
         </Button>

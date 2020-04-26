@@ -190,6 +190,7 @@ export class MediaCardInternal extends Component<MediaCardProps, State> {
       url,
       imageStatus,
       disableOverlay,
+      alt,
     } = this.props;
 
     if (imageStatus === 'loading' || !url) {
@@ -204,8 +205,10 @@ export class MediaCardInternal extends Component<MediaCardProps, State> {
 
     return (
       <Card
+        // TODO MPT-315: clean up after we move mediaClientConfig into FileIdentifier
         // context is not really used when the type is external and we want to render the component asap
         mediaClientConfig={mediaClientConfig!}
+        alt={alt}
         identifier={identifier}
         dimensions={cardDimensions}
         appearance={appearance}

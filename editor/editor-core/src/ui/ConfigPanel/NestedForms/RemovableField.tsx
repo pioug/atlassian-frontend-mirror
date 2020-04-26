@@ -2,6 +2,9 @@ import React from 'react';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
 import styled from 'styled-components';
 
+import { gridSize } from '@atlaskit/theme/constants';
+import { multiply } from '@atlaskit/theme/math';
+
 import CrossCircleIcon from '@atlaskit/icon/glyph/cross-circle';
 import Tooltip from '@atlaskit/tooltip';
 import * as colors from '@atlaskit/theme/colors';
@@ -10,6 +13,7 @@ import { messages } from '../messages';
 
 const RemovableFieldWrapper = styled.div`
   position: relative;
+  margin-bottom: ${multiply(gridSize, 2)}px;
 `;
 
 const RemoveButtonWrapper = styled.div<{ testId: string }>`

@@ -1,7 +1,11 @@
 import React from 'react';
 import WithEditorActions from './../src/ui/WithEditorActions';
 import { exampleDocumentWithComments } from '../example-helpers/example-doc-with-comments';
-import { ExampleInlineCommentComponent } from '../../editor-test-helpers/src';
+import {
+  ExampleCreateInlineCommentComponent,
+  ExampleViewInlineCommentComponent,
+} from '../../editor-test-helpers/src';
+import { AnnotationTypes } from '../src';
 import {
   default as FullPageExample,
   SaveAndCancelButtons,
@@ -52,6 +56,15 @@ export default class ExampleAnnotationExperiment extends React.Component<
     ]),
   };
 
+  inlineCommentGetState = async (annotationsIds: string[]) => {
+    const { annotationStates } = this.state;
+    return annotationsIds.map(id => ({
+      id,
+      annotationType: AnnotationTypes.INLINE_COMMENT,
+      state: { resolved: annotationStates.get(id) || false },
+    }));
+  };
+
   handleAnnotationChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     const id = evt.target.id;
     this.setState((prevState: State) => {
@@ -80,18 +93,12 @@ export default class ExampleAnnotationExperiment extends React.Component<
             defaultValue={exampleDocumentWithComments}
             allowHelpDialog
             annotationProvider={{
-              component: ExampleInlineCommentComponent,
+              createComponent: ExampleCreateInlineCommentComponent,
+              viewComponent: ExampleViewInlineCommentComponent,
               providers: {
                 inlineComment: {
                   pollingInterval: 10000,
-                  getState: async () =>
-                    [...this.state.annotationStates.entries()].map(
-                      ([id, resolved]) => ({
-                        id,
-                        state: { resolved },
-                        annotationType: 'inlineComment',
-                      }),
-                    ),
+                  getState: this.inlineCommentGetState,
                 },
               },
             }}

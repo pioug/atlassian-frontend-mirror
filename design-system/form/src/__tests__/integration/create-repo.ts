@@ -5,11 +5,14 @@ Some actual functional tests need to be added:
 Those tests should be added before the release candidate*/
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import { getExampleUrl } from '@atlaskit/webdriver-runner/utils/example';
-
 import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 
 /* Url to test the example */
-const urlFormCreateRepo = getExampleUrl('core', 'form', 'create-repository');
+const urlFormCreateRepo = getExampleUrl(
+  'design-system',
+  'form',
+  'create-repository',
+);
 
 /* Css selectors used for the repository form test */
 const createForm = 'form[name="create-repo"]';

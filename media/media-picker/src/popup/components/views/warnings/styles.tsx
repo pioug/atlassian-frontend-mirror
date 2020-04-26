@@ -3,12 +3,6 @@ import styled from 'styled-components';
 import { HTMLAttributes, ComponentClass, ImgHTMLAttributes } from 'react';
 import { N300 } from '@atlaskit/theme/colors';
 
-export const Container: ComponentClass<HTMLAttributes<{}>> = styled.div`
-  height: 100%;
-  overflow-y: scroll;
-
-  padding: 0 28px;
-`;
 export interface GridCellProps {
   width: number;
 }

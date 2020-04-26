@@ -1,5 +1,16 @@
 # @atlaskit/blanket
 
+## 10.0.18
+
+### Patch Changes
+
+- [patch][6d744d3ff1](https://bitbucket.org/atlassian/atlassian-frontend/commits/6d744d3ff1):
+
+  Change imports to comply with Atlassian conventions- Updated dependencies [6b8e60827e](https://bitbucket.org/atlassian/atlassian-frontend/commits/6b8e60827e):
+
+- Updated dependencies [57c0487a02](https://bitbucket.org/atlassian/atlassian-frontend/commits/57c0487a02):
+  - @atlaskit/button@13.3.11
+
 ## 10.0.17
 
 ### Patch Changes

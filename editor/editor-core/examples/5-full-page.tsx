@@ -42,7 +42,6 @@ import {
   DEFAULT_MODE,
   LOCALSTORAGE_defaultMode,
 } from '../example-helpers/example-constants';
-import { ExampleInlineCommentComponent } from '@atlaskit/editor-test-helpers';
 import { ReactRenderer } from '@atlaskit/renderer';
 import { ProfileClient, modifyResponse } from '@atlaskit/profilecard';
 import {
@@ -261,10 +260,9 @@ export class ExampleEditorComponent extends React.Component<
                   allowInsertion: true,
                   allowInteractiveExpand: true,
                 }}
-                annotationProvider={{
-                  component: ExampleInlineCommentComponent,
-                }}
+                waitForMediaUpload={true}
                 allowStatus={true}
+                allowFindReplace={true}
                 allowNestedTasks
                 {...providers}
                 media={{
@@ -343,7 +341,11 @@ export class ExampleEditorComponent extends React.Component<
                 onSave={SAVE_ACTION}
                 insertMenuItems={customInsertMenuItems}
                 extensionHandlers={extensionHandlers}
-                transactionTracking={{ enabled: true }}
+                performanceTracking={{
+                  transactionTracking: { enabled: true },
+                  uiTracking: { enabled: true },
+                  nodeViewTracking: { enabled: true },
+                }}
                 {...this.props}
                 appearance={this.state.appearance}
                 onEditorReady={this.onEditorReady}
@@ -448,7 +450,7 @@ const providerFactory = ProviderFactory.create({
 const Renderer = (props: {
   document: any;
   setMode: (mode: boolean) => void;
-  extensionProviders?: ExtensionProvider[];
+  extensionProviders?: (ExtensionProvider | Promise<ExtensionProvider>)[];
 }) => {
   if (props.extensionProviders && props.extensionProviders.length > 0) {
     providerFactory.setProvider(

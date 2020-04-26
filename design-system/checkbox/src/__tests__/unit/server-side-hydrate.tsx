@@ -1,8 +1,10 @@
 import React from 'react';
+
 import ReactDOM from 'react-dom';
+import waitForExpect from 'wait-for-expect';
+
 import { getExamplesFor } from '@atlaskit/build-utils/getExamples';
 import { ssr } from '@atlaskit/ssr';
-import waitForExpect from 'wait-for-expect';
 
 declare var global: any;
 

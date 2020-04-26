@@ -1,5 +1,6 @@
 import React from 'react';
-import { Example, md, Props, Prop } from '@atlaskit/docs';
+
+import { Example, md, Prop, Props } from '@atlaskit/docs';
 
 import { Contents, ContentsProvider, H, Hr } from './shared';
 
@@ -7093,7 +7094,7 @@ ${(<Hr />)}
 
 ${(<H>GlobalNav</H>)}
 
-If you're building an Atlassian product you probably don't want to use this component directly. Please take a look at the [@atlaskit/global-navigation component](/packages/core/global-navigation) instead.
+If you're building an Atlassian product you probably don't want to use this component directly. Please take a look at the [@atlaskit/global-navigation component](/packages/design-system/global-navigation) instead.
 
 The GlobalNav component is a primitive layout component which renders GlobalItems into one of two slots.
 
@@ -17501,7 +17502,7 @@ ${(<Hr />)}
 
 ${(<H>LayoutManager</H>)}
 
-The LayoutManager is the entrypoint to navigation. It is in charge of laying out the global, product, and container layers of navigation, along with your page content. Read the [Getting Started guide](/packages/core/navigation-next/docs/composing-your-navigation) for for information.
+The LayoutManager is the entrypoint to navigation. It is in charge of laying out the global, product, and container layers of navigation, along with your page content. Read the [Getting Started guide](/packages/design-system/navigation-next/docs/composing-your-navigation) for for information.
 
 ${(
   <Props

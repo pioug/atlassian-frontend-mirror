@@ -7,6 +7,8 @@ import { MediaFile } from '@atlaskit/media-client';
 import { createApiRouter, createMediaPlaygroundRouter } from './routers';
 import { createDatabase, MediaDatabaseSchema } from './database';
 import { mapDataUriToBlob } from '../utils';
+import { dataURItoFile } from '@atlaskit/media-ui';
+import { smallImage } from '../dataURIs/smallImageURI';
 
 export type MockCollections = {
   [key: string]: Array<MediaFile & { blob?: Blob }>;
@@ -95,13 +97,32 @@ export const mediaMock = new MediaMock();
 export interface MediaMockControlsBackdoor {
   resetMediaMock: (config?: MediaMockConfig) => void;
   shouldWaitUpload?: boolean;
+  uploadImageFromDrag: () => void;
 }
 
 const mediaMockControlsBackdoor: MediaMockControlsBackdoor = {
   shouldWaitUpload: false,
+
   resetMediaMock: (config = {}) => {
     mediaMock.disable();
     mediaMock.enable(config);
+  },
+
+  /**
+   * Used to simulate the dragging of an image into the editor
+   * In the future we should consider using a general approach to uploading files as mentioned here:
+   * https://sqa.stackexchange.com/questions/22191/is-it-possible-to-automate-drag-and-drop-from-a-file-in-system-to-a-website-in-s
+   */
+  uploadImageFromDrag: () => {
+    const blob = dataURItoFile(smallImage);
+    const imageFile = new File([blob], 'image.png', { type: 'image/png' });
+    const dataTransfer: any = {
+      files: [imageFile],
+      types: ['Files'],
+    };
+    const event: any = new Event('drop', dataTransfer);
+    event.dataTransfer = dataTransfer;
+    document.body.dispatchEvent(event);
   },
 };
 

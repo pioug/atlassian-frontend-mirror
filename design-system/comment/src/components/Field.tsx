@@ -1,6 +1,8 @@
 import React, { Component, ReactNode } from 'react';
-import { Anchor, Span } from '../styled/FieldStyles';
+
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+
+import { Anchor, Span } from '../styled/FieldStyles';
 
 interface Props {
   hasAuthor?: boolean;

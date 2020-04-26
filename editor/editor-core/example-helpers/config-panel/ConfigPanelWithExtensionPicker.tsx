@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { IntlProvider } from 'react-intl';
 import styled from 'styled-components';
 
+import { gridSize } from '@atlaskit/theme/constants';
+import { multiply } from '@atlaskit/theme/math';
+import * as colors from '@atlaskit/theme/colors';
 import { AkCodeBlock } from '@atlaskit/code';
 
 import {
@@ -19,12 +22,23 @@ const Wrapper = styled.div`
   margin: 16px;
 `;
 
-const FormWrapper = styled.div`
-  width: 400px;
+const ExampleWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
+const Column = styled.div<{ width: number | string }>`
+  width: ${props => props.width}px;
+  margin: ${multiply(gridSize, 2)}px;
+
+  h3 {
+    border-bottom: 1px solid ${colors.N50};
+    margin-bottom: ${multiply(gridSize, 2)}px;
+  }
 `;
 
 const CodeWrapper = styled.div`
-  margin-top: 16px;
+  margin-top: ${multiply(gridSize, 2)}px;
 `;
 
 function ExtensionConfigPanel({
@@ -50,46 +64,40 @@ function ExtensionConfigPanel({
   }
 
   return (
-    <FormWrapper>
-      <h3>Property panel:</h3>
-      <h4>{item.title}</h4>
-      {item.description && (
-        <p>
-          <em>{item.description}</em>
-        </p>
-      )}
-      <p>
-        Extension key: <strong>{extension.key}</strong>
-      </p>
-
-      <ConfigPanelWithProviders
-        extensionType={extension.type}
-        extensionKey={extension.key}
-        nodeKey={nodeKey}
-        extensionProvider={extensionProvider}
-        parameters={parameters}
-      />
-
-      <h4>Macro fields definition:</h4>
-      <CodeWrapper>
-        <AkCodeBlock
-          language="json"
-          text={JSON.stringify(fields, null, 4)}
-          showLineNumbers={false}
+    <ExampleWrapper>
+      <Column width="400" key="config-panel">
+        <h3>Config panel:</h3>
+        <ConfigPanelWithProviders
+          extensionType={extension.type}
+          extensionKey={extension.key}
+          nodeKey={nodeKey}
+          extensionProvider={extensionProvider}
+          parameters={parameters}
         />
-      </CodeWrapper>
-
-      <h4>Macro parameters:</h4>
-      <CodeWrapper>
-        {parameters && (
+      </Column>
+      <Column width="500" key="fields-definition">
+        <h3>Fields definition:</h3>
+        <CodeWrapper>
           <AkCodeBlock
             language="json"
-            text={JSON.stringify(parameters, null, 4)}
+            text={JSON.stringify(fields, null, 4)}
             showLineNumbers={false}
           />
-        )}
-      </CodeWrapper>
-    </FormWrapper>
+        </CodeWrapper>
+      </Column>
+      <Column width="500" key="parameters">
+        <h3>Parameters:</h3>
+        <CodeWrapper>
+          {parameters && (
+            <AkCodeBlock
+              language="json"
+              text={JSON.stringify(parameters, null, 4)}
+              showLineNumbers={false}
+            />
+          )}
+        </CodeWrapper>
+      </Column>
+    </ExampleWrapper>
   );
 }
 
@@ -124,7 +132,7 @@ export default function ConfigPanelWithExtensionPicker({
   return (
     <IntlProvider locale="en-AU">
       <Wrapper>
-        <div style={{ float: 'left' }}>
+        <div style={{ float: 'left' }} key="panel">
           {extensionNode && extensionNode.node && item && (
             <ExtensionConfigPanel
               key={hash}
@@ -137,7 +145,7 @@ export default function ConfigPanelWithExtensionPicker({
             />
           )}
         </div>
-        <div style={{ float: 'right' }}>
+        <div style={{ float: 'right' }} key="picker">
           <ExtensionNodePicker
             selectedExtension={extensionKey}
             selectedNode={nodeKey}

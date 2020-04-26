@@ -780,7 +780,7 @@ class ToolbarInsertBlock extends React.PureComponent<
         );
         break;
       case 'date':
-        this.createDate();
+        this.createDate(inputMethod);
         break;
       case 'placeholder text':
         this.createPlaceholderText();

@@ -1,6 +1,8 @@
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react';
-import Calendar from '../../..';
+
+import { fireEvent, render } from '@testing-library/react';
+
+import Calendar from '../../../index';
 
 const testIdNextMonth = 'testing--next-month';
 const testIdPrevMonth = 'testing--previous-month';

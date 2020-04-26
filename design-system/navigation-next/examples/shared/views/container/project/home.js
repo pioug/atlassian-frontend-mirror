@@ -1,12 +1,12 @@
 import React from 'react';
+
 import BacklogIcon from '@atlaskit/icon/glyph/backlog';
 import BoardIcon from '@atlaskit/icon/glyph/board';
 import GraphLineIcon from '@atlaskit/icon/glyph/graph-line';
-import ShipIcon from '@atlaskit/icon/glyph/ship';
 import IssuesIcon from '@atlaskit/icon/glyph/issues';
+import ShipIcon from '@atlaskit/icon/glyph/ship';
 
 import ViewRegistrar from '../../common/view-registrar';
-
 import { ProjectSwitcherItem } from '../common/project-switcher-item';
 
 const getItems = () => [

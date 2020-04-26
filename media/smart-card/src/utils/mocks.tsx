@@ -1,5 +1,6 @@
-import { JsonLd } from '../client/types';
+import { JsonLdCustom } from '../client/types';
 import CardClient from '../client';
+import { JsonLd } from 'json-ld-types';
 
 export const mocks = {
   success: {
@@ -12,8 +13,17 @@ export const mocks = {
     data: {
       name: 'I love cheese',
       summary: 'Here is your serving of cheese: 🧀',
+      'schema:potentialAction': {
+        '@id': 'comment',
+        '@type': 'CommentAction',
+        identifier: 'object-provider',
+        name: 'Comment',
+      },
+      preview: {
+        href: 'https://www.ilovecheese.com',
+      },
     },
-  } as JsonLd,
+  } as JsonLdCustom,
   notFound: {
     meta: {
       visibility: 'not_found',
@@ -24,7 +34,7 @@ export const mocks = {
     data: {
       name: 'I love cheese',
     },
-  } as JsonLd,
+  } as JsonLdCustom,
   forbidden: {
     meta: {
       visibility: 'restricted',
@@ -41,7 +51,7 @@ export const mocks = {
     data: {
       name: 'I love cheese',
     },
-  } as JsonLd,
+  } as JsonLdCustom,
   unauthorized: {
     meta: {
       visibility: 'restricted',
@@ -58,14 +68,32 @@ export const mocks = {
     data: {
       name: 'I love cheese',
     },
-  } as JsonLd,
+  } as JsonLdCustom,
+  actionSuccess: {
+    meta: {
+      visibility: 'public',
+      access: 'granted',
+      auth: [],
+      definitionId: 'd1',
+    },
+    data: {
+      status: 'CompletedStatus',
+    },
+  },
 };
 export const fakeResponse = () => Promise.resolve(mocks.success);
 
-export const fakeFactory: any = (implementation: () => Promise<JsonLd>) =>
+export const fakeFactory: any = (
+  implementation: () => Promise<JsonLdCustom>,
+  implementationPost: () => Promise<JsonLd.Response>,
+) =>
   class CustomClient extends CardClient {
     async fetchData() {
       return await implementation();
+    }
+
+    async postData() {
+      return await implementationPost();
     }
   };
 

@@ -30,6 +30,7 @@ import { TypeAheadItem } from '../type-ahead/types';
 import { EmojiContextProvider } from './ui/EmojiContextProvider';
 import { messages } from '../insert-block/ui/ToolbarInsertBlock/messages';
 import { EmojiPluginOptions, EmojiPluginState } from './types';
+import { EventDispatcher } from '../../event-dispatcher';
 
 export const defaultListLimit = 50;
 const isFullShortName = (query?: string) =>
@@ -49,11 +50,17 @@ const emojiPlugin = (options?: EmojiPluginOptions): EditorPlugin => ({
     return [
       {
         name: 'emoji',
-        plugin: ({ providerFactory, dispatch, portalProviderAPI }) =>
+        plugin: ({
+          providerFactory,
+          dispatch,
+          portalProviderAPI,
+          eventDispatcher,
+        }) =>
           emojiPluginFactory(
             dispatch,
             providerFactory,
             portalProviderAPI,
+            eventDispatcher,
             options,
           ),
       },
@@ -68,6 +75,7 @@ const emojiPlugin = (options?: EmojiPluginOptions): EditorPlugin => ({
   pluginsOptions: {
     quickInsert: ({ formatMessage }) => [
       {
+        id: 'emoji',
         title: formatMessage(messages.emoji),
         description: formatMessage(messages.emojiDescription),
         priority: 500,
@@ -94,6 +102,7 @@ const emojiPlugin = (options?: EmojiPluginOptions): EditorPlugin => ({
       // Custom regex must have a capture group around trigger
       // so it's possible to use it without needing to scan through all triggers again
       customRegex: '\\(?(:)',
+      headless: options ? options.headless : undefined,
       getItems(query, state, _intl, { prevActive, queryChanged }) {
         if (!prevActive && queryChanged) {
           analyticsService.trackEvent(
@@ -259,6 +268,7 @@ export function emojiPluginFactory(
   dispatch: Dispatch,
   providerFactory: ProviderFactory,
   portalProviderAPI: PortalProviderAPI,
+  eventDispatcher: EventDispatcher,
   options?: EmojiPluginOptions,
 ) {
   let emojiProvider: EmojiProvider;
@@ -303,7 +313,12 @@ export function emojiPluginFactory(
     } as StateField<EmojiPluginState>,
     props: {
       nodeViews: {
-        emoji: emojiNodeView(portalProviderAPI, providerFactory, options),
+        emoji: emojiNodeView(
+          portalProviderAPI,
+          eventDispatcher,
+          providerFactory,
+          options,
+        ),
       },
     },
     view(editorView) {

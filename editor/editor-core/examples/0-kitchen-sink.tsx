@@ -36,7 +36,7 @@ import { getXProductExtensionProvider } from '../example-helpers/fake-x-product-
 
 addGlobalEventEmitterListeners();
 
-const smartCardClient = new Client('prod');
+const smartCardClient = new Client('stg');
 
 const extensionProviders = [getXProductExtensionProvider()];
 

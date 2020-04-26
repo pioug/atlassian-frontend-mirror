@@ -1,9 +1,10 @@
 import React, { Component, ReactNode } from 'react';
 
-import CommentLayout from './Layout';
-import HeaderItems from './Header';
-import FooterItems from './Footer';
 import { Content } from '../styled/CommentStyles';
+
+import FooterItems from './Footer';
+import HeaderItems from './Header';
+import CommentLayout from './Layout';
 
 interface Props {
   /** An list of CommentAction items rendered as a row of buttons below the comment content */

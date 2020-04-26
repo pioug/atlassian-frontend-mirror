@@ -4,6 +4,7 @@ import {
   colors,
   fontSize as defaultFontSize,
   gridSize,
+  borderRadius,
 } from '@atlaskit/theme';
 
 const {
@@ -51,7 +52,8 @@ export const akEditorSelectedIconColor = B400;
 export const akEditorSelectedBorderSize = 1;
 export const akEditorSelectedBorderBoldSize = 2;
 export const akEditorUnitZIndex = 1;
-export const akEditorSmallZIndex = 2;
+export const akEditorStickyHeaderZIndex = 11; // filmstrip uses 10 for its shadow
+export const akEditorSmallZIndex = akEditorStickyHeaderZIndex + 1;
 export const akEditorGridLineZIndex = 9999;
 // z-index for main menu bar -
 // this is highest as it should be above anything else in editor below.
@@ -95,6 +97,12 @@ export const gridMediumMaxWidth = 1024;
 export const breakoutWideScaleRatio = 1.33;
 export const akMediaSingleResizeZIndex = akEditorUnitZIndex * 99;
 export const akLayoutGutterOffset = gridSize() * 1.5;
+
+export const akEditorSelectedBorderStyles = `
+  // No offset, no blur
+  box-shadow: 0px 0px 0px ${akEditorSelectedBorderSize}px ${colors.B300};
+  border-radius: ${borderRadius()}px;
+`;
 
 export type EditorTheme = {
   baseFontSize?: number;

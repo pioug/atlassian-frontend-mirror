@@ -2,14 +2,17 @@ import * as api from './api';
 import { getResolverUrl } from '../utils/environments';
 import { getError } from '../state/actions/helpers';
 import {
-  JsonLd,
+  JsonLdCustom,
   CardClient as CardClientInterface,
   EnvironmentsKeys,
   JsonLdBatch,
   JsonLdResponse,
+  InvokePayload,
+  ServerActionOpts,
 } from './types';
 import DataLoader from 'dataloader';
 import { FetchError } from './errors';
+import { JsonLd } from 'json-ld-types';
 
 export default class CardClient implements CardClientInterface {
   private resolverUrl: string;
@@ -43,7 +46,7 @@ export default class CardClient implements CardClientInterface {
     return this.loadersByDomain[hostname];
   }
 
-  public async fetchData(url: string): Promise<JsonLd> {
+  public async fetchData(url: string): Promise<JsonLdCustom> {
     const loader = this.getLoader(new URL(url).hostname);
     const response = await loader.load(url);
     const { body, status } = response;
@@ -88,5 +91,20 @@ export default class CardClient implements CardClientInterface {
 
         return response.body;
     }
+  }
+
+  public async postData(
+    data: InvokePayload<ServerActionOpts>,
+  ): Promise<JsonLd.Response> {
+    const request = {
+      key: data.key,
+      action: data.action,
+      context: data.context,
+    };
+    return await api.request<JsonLd.Response>(
+      'post',
+      `${this.resolverUrl}/invoke`,
+      request,
+    );
   }
 }

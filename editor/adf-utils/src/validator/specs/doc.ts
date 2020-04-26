@@ -6,6 +6,7 @@ export default {
       type: 'array',
       items: [
         [
+          'blockCard',
           'paragraph_with_no_marks',
           'paragraph_with_alignment',
           'paragraph_with_indentation',
@@ -23,12 +24,11 @@ export default {
           'mediaGroup',
           'decisionList',
           'taskList',
-          'table',
           'extension',
-          'bodiedExtension',
+          'table',
           'expand_with_no_mark',
-          'expand_with_breakout_definition',
-          'blockCard',
+          'expand_with_breakout_mark',
+          'bodiedExtension',
           'layoutSection',
         ],
       ],

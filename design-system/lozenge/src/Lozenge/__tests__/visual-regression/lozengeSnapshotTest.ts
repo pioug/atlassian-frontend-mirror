@@ -5,7 +5,12 @@ import {
 
 describe('Snapshot Test', () => {
   it('Lozenge basic example should match production example', async () => {
-    const url = getExampleUrl('core', 'lozenge', 'basic', global.__BASEURL__);
+    const url = getExampleUrl(
+      'design-system',
+      'lozenge',
+      'basic',
+      global.__BASEURL__,
+    );
     const image = await takeScreenShot(global.page, url);
     expect(image).toMatchProdImageSnapshot();
   });

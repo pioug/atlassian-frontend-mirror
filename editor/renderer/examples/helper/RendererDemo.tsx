@@ -12,8 +12,8 @@ import {
   ProviderFactory,
   ExtensionHandlers,
   EventHandlers,
-  IframeWidthObserverFallbackWrapper,
 } from '@atlaskit/editor-common';
+import { IframeWidthObserverFallbackWrapper } from '@atlaskit/width-detector';
 import Button from '@atlaskit/button';
 import {
   storyMediaProviderFactory,

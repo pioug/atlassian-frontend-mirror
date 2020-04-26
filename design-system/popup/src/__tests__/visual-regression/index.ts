@@ -11,7 +11,12 @@ const popupPositionButton = '[data-testid="popup-position"]';
 
 describe('Snapshot Test', () => {
   it('it should match visual snapshot for popup', async () => {
-    const url = getExampleUrl('core', 'popup', 'popup', global.__BASEURL__);
+    const url = getExampleUrl(
+      'design-system',
+      'popup',
+      'popup',
+      global.__BASEURL__,
+    );
 
     const { page } = global;
 
@@ -25,7 +30,12 @@ describe('Snapshot Test', () => {
   });
 
   it('should reposition the popup', async () => {
-    const url = getExampleUrl('core', 'popup', 'popup', global.__BASEURL__);
+    const url = getExampleUrl(
+      'design-system',
+      'popup',
+      'popup',
+      global.__BASEURL__,
+    );
 
     const { page } = global;
 
@@ -42,7 +52,7 @@ describe('Snapshot Test', () => {
 
   it('it should match visual snapshot for async popup', async () => {
     const url = getExampleUrl(
-      'core',
+      'design-system',
       'popup',
       'asynchronous-popup',
       global.__BASEURL__,
@@ -66,7 +76,7 @@ describe('Snapshot Test', () => {
 
   it('it should match visual snapshot for setting focus', async () => {
     const url = getExampleUrl(
-      'core',
+      'design-system',
       'popup',
       'setting-focus',
       global.__BASEURL__,

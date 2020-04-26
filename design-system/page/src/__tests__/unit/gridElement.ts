@@ -1,5 +1,4 @@
 import { getMargin, getMaxWidth, getPadding } from '../../internal/GridElement';
-
 import { name } from '../../version.json';
 
 describe(name, () => {

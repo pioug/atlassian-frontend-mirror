@@ -3,6 +3,7 @@ import { ParagraphDefinition as Paragraph } from './paragraph';
 import { OrderedListDefinition as OrderedList } from './ordered-list';
 import { BulletListDefinition as BulletList } from './bullet-list';
 import { HeadingDefinition as Heading } from './heading';
+import { BlockCardDefinition as BlockCard } from './block-card';
 
 export type PanelType =
   | 'info'
@@ -25,7 +26,7 @@ export interface PanelDefinition {
   /**
    * @minItems 1
    */
-  content: Array<Paragraph | Heading | OrderedList | BulletList>;
+  content: Array<Paragraph | Heading | OrderedList | BulletList | BlockCard>;
 }
 
 export interface DOMAttributes {
@@ -34,7 +35,7 @@ export interface DOMAttributes {
 
 export const panel: NodeSpec = {
   group: 'block',
-  content: '(paragraph | heading | bulletList | orderedList)+',
+  content: '(paragraph | heading | bulletList | orderedList | blockCard)+',
   attrs: {
     panelType: { default: 'info' },
   },

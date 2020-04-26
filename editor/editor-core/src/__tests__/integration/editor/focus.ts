@@ -7,7 +7,7 @@ import {
 
 BrowserTestCase(
   'Should focus the editor when shouldFocus is true',
-  {},
+  { skip: ['edge'] },
   async (client: any) => {
     const page = await goToEditorTestingExample(client);
     await mountEditor(page, {
@@ -21,7 +21,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'Should focus the editor when shouldFocus is true and disabled changes to false',
-  {},
+  { skip: ['edge'] },
   async (client: any) => {
     const page = await goToEditorTestingExample(client);
     await mountEditor(page, {

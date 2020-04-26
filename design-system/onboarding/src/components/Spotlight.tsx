@@ -1,7 +1,9 @@
-import React, { ComponentType, ReactNode, MouseEvent } from 'react';
+import React, { ComponentType, MouseEvent, ReactNode } from 'react';
+
+import { Actions } from '../types';
+
 import SpotlightInner from './SpotlightInner';
 import { SpotlightConsumer } from './SpotlightManager';
-import { Actions } from '../types';
 
 export interface Props {
   /** Buttons to render in the footer */

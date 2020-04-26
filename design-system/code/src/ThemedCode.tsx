@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
-import { withTheme, ThemeProvider } from 'styled-components';
+
+import { ThemeProvider, withTheme } from 'styled-components';
 
 import Code, { CodeProps } from './components/Code';
 

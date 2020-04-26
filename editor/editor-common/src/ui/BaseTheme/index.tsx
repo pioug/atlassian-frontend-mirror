@@ -3,22 +3,22 @@ import { ThemeProvider } from 'styled-components';
 import { fontSize } from '@atlaskit/theme';
 import { WidthConsumer, Breakpoints } from '../WidthProvider';
 
-function mapBreakpointToFontSize(breakpoint: string) {
+function mapBreakpointToFontSize(breakpoint: Breakpoints) {
   switch (breakpoint) {
-    case Breakpoints.M:
+    case 'M':
       return fontSize() + 2;
-    case Breakpoints.L:
+    case 'L':
       return fontSize() + 4;
     default:
       return fontSize();
   }
 }
 
-export function mapBreakpointToLayoutMaxWidth(breakpoint: string) {
+export function mapBreakpointToLayoutMaxWidth(breakpoint: Breakpoints) {
   switch (breakpoint) {
-    case Breakpoints.M:
+    case 'M':
       return 760;
-    case Breakpoints.L:
+    case 'L':
       return 850;
     default:
       return 680;
@@ -26,7 +26,7 @@ export function mapBreakpointToLayoutMaxWidth(breakpoint: string) {
 }
 
 type BaseThemeWrapperProps = {
-  breakpoint: string;
+  breakpoint: Breakpoints;
   dynamicTextSizing?: boolean;
   children: React.ReactNode;
 };
@@ -39,10 +39,10 @@ export function BaseThemeWrapper({
     () => ({
       baseFontSize: dynamicTextSizing
         ? mapBreakpointToFontSize(breakpoint)
-        : mapBreakpointToFontSize(Breakpoints.S),
+        : mapBreakpointToFontSize('S'),
       layoutMaxWidth: dynamicTextSizing
         ? mapBreakpointToLayoutMaxWidth(breakpoint)
-        : mapBreakpointToLayoutMaxWidth(Breakpoints.S),
+        : mapBreakpointToLayoutMaxWidth('S'),
     }),
     [breakpoint, dynamicTextSizing],
   );

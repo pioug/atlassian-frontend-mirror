@@ -1,6 +1,8 @@
 import React from 'react';
-import TextField from '@atlaskit/textfield';
+
 import Button, { ButtonGroup } from '@atlaskit/button';
+import TextField from '@atlaskit/textfield';
+
 import Form, { Field, FormFooter } from '../src';
 
 const BASE_SLUG = 'slug';

@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
+
 import ArrowRightCircleIcon from '@atlaskit/icon/glyph/arrow-right-circle';
 import Spinner from '@atlaskit/spinner';
 
 import { withNavigationViewController } from '../../../view-controller';
-import ConnectedItem from '../ConnectedItem';
-
 import { ScrollProviderRef } from '../../presentational/ContentNavigation/primitives';
+import ConnectedItem from '../ConnectedItem';
 
 const After = ({
   afterGoTo,

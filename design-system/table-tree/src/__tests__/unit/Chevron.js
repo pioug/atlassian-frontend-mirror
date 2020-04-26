@@ -1,7 +1,10 @@
 import React from 'react';
+
 import { mount } from 'enzyme';
+
 import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
 import ChevronRightIcon from '@atlaskit/icon/glyph/chevron-right';
+
 import Chevron from '../../components/Chevron';
 
 const controlledId = 'controlled_element_id';

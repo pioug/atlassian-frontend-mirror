@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { StaggeredEntrance, ZoomIn } from '@atlaskit/motion';
+
 import Button from '@atlaskit/button';
+import { StaggeredEntrance, ZoomIn } from '@atlaskit/motion';
+
 import { RatingGroup, Star, StarProps } from '../src';
 
 const ZoomInStar = (props: StarProps) => (

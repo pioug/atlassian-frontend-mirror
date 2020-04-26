@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+
 import styled from '@emotion/styled';
 import Lorem from 'react-lorem-component';
 
@@ -9,8 +10,8 @@ import InlineDialog from '@atlaskit/inline-dialog';
 import { colors } from '@atlaskit/theme';
 
 import ModalDialog, { ModalFooter, ModalTransition } from '../src';
-import { HeaderComponentProps } from '../src/components/Header';
 import { FooterComponentProps } from '../src/components/Footer';
+import { HeaderComponentProps } from '../src/components/Header';
 
 const defaults = ['header', 'footer', 'both', 'neither'];
 const custom = ['custom header', 'custom body', 'custom footer'];

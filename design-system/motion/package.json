@@ -1,0 +1,60 @@
+{
+  "name": "@atlaskit/motion",
+  "version": "0.2.4",
+  "description": "Atlassian motion variables, components and more.",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "author": "Atlassian Pty Ltd",
+  "license": "Apache-2.0",
+  "module": "dist/esm/index.js",
+  "main": "dist/cjs/index.js",
+  "types": "dist/cjs/index.d.ts",
+  "sideEffects": false,
+  "atlaskit:src": "src/index.tsx",
+  "atlassian": {
+    "team": "Design System Team",
+    "releaseModel": "scheduled",
+    "website": {
+      "name": "Motion"
+    }
+  },
+  "dependencies": {
+    "@emotion/core": "^10.0.9",
+    "tslib": "^1.9.3"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0"
+  },
+  "devDependencies": {
+    "@atlaskit/build-utils": "^2.4.0",
+    "@atlaskit/button": "^13.3.11",
+    "@atlaskit/docs": "^8.5.1",
+    "@atlaskit/logo": "^12.3.4",
+    "@atlaskit/lozenge": "^9.1.7",
+    "@atlaskit/section-message": "^4.1.5",
+    "@atlaskit/ssr": "^0.1.1",
+    "@atlaskit/theme": "^9.5.3",
+    "@atlaskit/tooltip": "^15.2.6",
+    "@atlaskit/visual-regression": "^0.1.9",
+    "@testing-library/react": "^8.0.1",
+    "raf-stub": "^2.0.1",
+    "react-dom": "^16.8.0",
+    "react-router-dom": "^4.2.2"
+  },
+  "keywords": [
+    "atlaskit",
+    "css",
+    "animation",
+    "motion",
+    "react",
+    "ui"
+  ],
+  "techstack": {
+    "@atlassian/frontend": {
+      "import-structure": "atlassian-conventions",
+      "tree-shaking": "off"
+    }
+  }
+}

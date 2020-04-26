@@ -1,4 +1,5 @@
-import { ReactNode, MouseEventHandler, FocusEventHandler } from 'react';
+import { FocusEventHandler, MouseEventHandler, ReactNode } from 'react';
+
 import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 
 export type ChildrenType = any;
@@ -57,7 +58,7 @@ export type AutoDismissFlagProps = {
   title: ReactNode;
   /** A link component that is passed down to the `@atlaskit/button` used by actions,
   to allow custom routers to be used. See the
-  [button with router](https://atlaskit.atlassian.com/packages/core/button/example/ButtonWithRouter)
+  [button with router](https://atlaskit.atlassian.com/packages/design-system/button/example/ButtonWithRouter)
   example of what this component should look like. */
   linkComponent?: ElementType;
   /** A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests */

@@ -7,7 +7,7 @@ import {
   CustomSnapshotIdentifier,
 } from '@atlaskit/visual-regression/helper';
 import { EditorProps } from '../../types';
-import { Page } from '../__helpers/page-objects/_types';
+import { Page as PuppeteerPage, JSONObject } from 'puppeteer';
 import { animationFrame } from '../__helpers/page-objects/_editor';
 import { GUTTER_SELECTOR } from '../../plugins/base/pm-plugins/scroll-gutter';
 import { CreateCollabProviderOptions } from '@atlaskit/synchrony-test-helpers';
@@ -63,7 +63,7 @@ export const deviceViewPorts = {
  */
 const WHITESPACE_DEBUGGING_FILL_COLOR = '#0c0';
 
-async function visualiseInvisibleElements(page: any) {
+async function visualiseInvisibleElements(page: PuppeteerPage) {
   await page.addStyleTag({
     content: `
       /*
@@ -75,7 +75,7 @@ async function visualiseInvisibleElements(page: any) {
   });
 }
 
-async function attachCursorIndicator(page: Page) {
+async function attachCursorIndicator(page: PuppeteerPage) {
   await page.evaluate(() => {
     const cursorDiameter = 20;
     const cursorElementId = 'cursor-indicator';
@@ -218,18 +218,30 @@ export type MountOptions = {
 };
 
 export async function mountEditor(
-  page: any,
+  page: PuppeteerPage,
   props: any,
-  mountOptions?: MountOptions,
+  mountOptions: MountOptions = {},
 ) {
   await page.evaluate(
-    (props: EditorProps, mountOptions?: MountOptions) => {
-      (window as any).__mountEditor(props, mountOptions);
+    (props: EditorProps, mountOptions: MountOptions) => {
+      return new Promise<void>(resolve => {
+        function waitAndCall() {
+          if ((window as any).__mountEditor) {
+            (window as any).__mountEditor(props, mountOptions);
+            resolve();
+          } else {
+            // There is no need to implement own timeout, if done() is not called on time,
+            // webdriver will throw with own timeout.
+            setTimeout(waitAndCall, 20);
+          }
+        }
+        waitAndCall();
+      });
     },
     props,
-    mountOptions,
+    mountOptions as JSONObject,
   );
-  await page.waitForSelector(pmSelector, 500);
+  await page.waitForSelector(pmSelector);
 }
 
 export enum Appearance {
@@ -255,7 +267,7 @@ type InitEditorWithADFOptions = {
 };
 
 async function setupEditor(
-  page: Page,
+  page: PuppeteerPage,
   options: Omit<
     InitEditorWithADFOptions,
     'withSidebar' | 'withCollab' | 'mode'
@@ -313,7 +325,7 @@ async function setupEditor(
 }
 
 export const initEditorWithAdf = async (
-  page: any,
+  page: PuppeteerPage,
   options: InitEditorWithADFOptions,
 ) => {
   let mountOptions: MountOptions = {
@@ -321,7 +333,7 @@ export const initEditorWithAdf = async (
     withSidebar: options.withSidebar,
     invalidAltTextValues: options.invalidAltTextValues,
   };
-  const collabPage = global.collabPage as Page;
+  const collabPage = global.collabPage as PuppeteerPage;
   if (options.withCollab && collabPage) {
     mountOptions.collab = {
       docId: Math.random()
@@ -335,7 +347,7 @@ export const initEditorWithAdf = async (
 };
 
 export const initFullPageEditorWithAdf = async (
-  page: any,
+  page: PuppeteerPage,
   adf: Object,
   device?: Device,
   viewport?: { width: number; height: number },
@@ -355,7 +367,7 @@ export const initFullPageEditorWithAdf = async (
 };
 
 export const initCommentEditorWithAdf = async (
-  page: any,
+  page: PuppeteerPage,
   adf: Object,
   device?: Device,
 ) => {
@@ -371,7 +383,7 @@ export const initCommentEditorWithAdf = async (
  * Pass in only the new props you wish to apply on top of the current ones
  */
 export const updateEditorProps = async (
-  page: Page,
+  page: PuppeteerPage,
   newProps: Partial<EditorProps>,
 ) => {
   await page.evaluate((props: EditorProps) => {
@@ -379,7 +391,7 @@ export const updateEditorProps = async (
   }, newProps as any);
 };
 
-export const clearEditor = async (page: any) => {
+export const clearEditor = async (page: PuppeteerPage) => {
   await page.evaluate(() => {
     const dom = document.querySelector(pmSelector) as HTMLElement;
     dom.innerHTML = '<p><br /></p>';
@@ -392,7 +404,7 @@ interface Threshold {
 }
 
 async function takeSnapshot(
-  page: Page,
+  page: PuppeteerPage,
   threshold: Threshold = {},
   selector: string = editorFullPageContentSelector,
   customSnapshotIdentifier?: CustomSnapshotIdentifier,
@@ -419,13 +431,13 @@ async function takeSnapshot(
 }
 
 export const snapshot = async (
-  page: Page,
+  page: PuppeteerPage,
   threshold: Threshold = {},
   selector: string = editorFullPageContentSelector,
 ) => {
   const { collabPage, synchronyUrl } = global || {};
   if (synchronyUrl && collabPage) {
-    await (collabPage as Page).bringToFront();
+    await (collabPage as PuppeteerPage).bringToFront();
     await takeSnapshot(
       collabPage,
       threshold,
@@ -437,7 +449,10 @@ export const snapshot = async (
   await takeSnapshot(page, threshold, selector);
 };
 
-export const applyRemoteStep = async (page: Page, stepsAsString: string[]) => {
+export const applyRemoteStep = async (
+  page: PuppeteerPage,
+  stepsAsString: string[],
+) => {
   return await page.evaluate((_stepsAsString: string[]) => {
     (window as any).__applyRemoteSteps(_stepsAsString);
   }, stepsAsString);

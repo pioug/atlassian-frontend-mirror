@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import { gridSize as gridSizeFn } from '@atlaskit/theme/constants';
 
 const gridSize = gridSizeFn();

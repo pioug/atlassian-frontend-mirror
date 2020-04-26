@@ -1,10 +1,13 @@
 import React from 'react';
+
 import { Draggable } from 'react-beautiful-dnd';
+
+import withDimensions, { WithDimensionsProps } from '../../hoc/withDimensions';
+import { inlineStylesIfRanking } from '../../internal/helpers';
 import { RankableTableBodyRow } from '../../styled/rankable/TableRow';
 import { HeadType, RowType } from '../../types';
-import withDimensions, { WithDimensionsProps } from '../../hoc/withDimensions';
+
 import TableCell from './TableCell';
-import { inlineStylesIfRanking } from '../../internal/helpers';
 
 export interface Props extends WithDimensionsProps {
   head?: HeadType;

@@ -32,6 +32,11 @@ import { ExtensionConfig } from './extension-config';
 import { EditorAppearance } from './editor-appearance';
 import { MenuItem } from '../ui/DropdownMenu/types';
 import { EditorOnChangeHandler } from './editor-onchange';
+import {
+  TransactionTracking,
+  UITracking,
+  NodeViewTracking,
+} from './performance-tracking';
 
 export type ReactComponents = ReactElement<any> | ReactElement<any>[];
 
@@ -146,6 +151,9 @@ export interface EditorProps {
    */
   autoScrollIntoView?: boolean;
 
+  // Enable find/replace functionality within the editor
+  allowFindReplace?: boolean;
+
   // Set to enable the quick insert menu i.e. '/' key trigger.
   // You can also provide your own insert menu options that will be shown in addition to the enabled
   // editor features e.g. Confluence uses this to provide its macros.
@@ -223,6 +231,9 @@ export interface EditorProps {
   // Default placeholder text to be displayed when a bracket '{' is typed and the line is empty e.g. 'Did you mean to use '/' to insert content?'
   placeholderBracketHint?: string;
 
+  // Feature flag to enable date picker which has a textbox for internationalised keyboard date input
+  allowKeyboardAccessibleDatepicker?: boolean;
+
   // Set the default editor content.
   defaultValue?: Node | string | Object;
 
@@ -267,44 +278,25 @@ export interface EditorProps {
 
   // New extension API
   // This eventually is going to replace `quickInsert.provider`, `extensionHandlers`, `macroProvider`.
-  extensionProviders?: Array<ExtensionProvider>;
+  extensionProviders?: Array<ExtensionProvider | Promise<ExtensionProvider>>;
 
-  // Control transaction tracking
-  // default:
-  // {
-  //   enabled: false,
-  //   countNodes: true,
-  //   samplingRate: 100,
-  //   slowThreshold: 300,
-  //   slowOutlierThreshold: 3,
-  //   pluginMethodThreshold: 1,
-  //   outlierFactor: 3
-  // }
-  transactionTracking?: {
-    // Wether transactionTracking should be enabled
-    // default: false
-    enabled: boolean;
+  // ⚠️ This API will be deprecated in the future
+  transactionTracking?: TransactionTracking;
 
-    // The nth transaction after which a `dispatchTransaction` event is sent.
-    // default: 100
-    samplingRate?: number;
-
-    // Transactions that need longer to dispatch than this generate a `dispatchTransaction` event
-    // unit: ms
-    // default: 300
-    slowThreshold?: number;
-
-    // Transactions that need longer to dispatch than AND have outlier plugins
-    // generate a `dispatchTransaction` event
-    // unit: ms
-    // default: 30
-    outlierThreshold?: number;
-
-    // The factor by which statistically significant outliers in plugin execution times are computed
-    // where t = p75 + (p75 - p25) * outlierFactor
-    // minor outliers: 1.5
-    // majour outliers: 3.0
-    // default: 3
-    outlierFactor?: number;
+  performanceTracking?: {
+    // Control transaction tracking
+    // default:
+    // {
+    //   enabled: false,
+    //   countNodes: true,
+    //   samplingRate: 100,
+    //   slowThreshold: 300,
+    //   slowOutlierThreshold: 3,
+    //   pluginMethodThreshold: 1,
+    //   outlierFactor: 3
+    // }
+    transactionTracking?: TransactionTracking;
+    uiTracking?: UITracking;
+    nodeViewTracking?: NodeViewTracking;
   };
 }

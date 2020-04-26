@@ -40,6 +40,7 @@ describe('@atlaskit/editor-core ui/PanelPlugin', () => {
         allowAnalyticsGASV3: true,
         allowPanel: true,
         allowTables: true,
+        quickInsert: true,
       },
       pluginKey: panelPluginKey,
       createAnalyticsEvent,

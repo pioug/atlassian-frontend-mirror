@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import styled from 'styled-components';
 
 import {
@@ -7,6 +8,7 @@ import {
   SpotlightTarget,
   SpotlightTransition,
 } from '../src';
+
 import { Highlight } from './styled';
 
 const Wrapper = styled.div`

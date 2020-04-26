@@ -1,5 +1,22 @@
 # @atlaskit/tooltip
 
+## 15.2.6
+
+### Patch Changes
+
+- [patch][3940bd71f1](https://bitbucket.org/atlassian/atlassian-frontend/commits/3940bd71f1):
+
+  Change imports to comply with Atlassian conventions- Updated dependencies [cf8577f5d6](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf8577f5d6):
+
+- Updated dependencies [6b8e60827e](https://bitbucket.org/atlassian/atlassian-frontend/commits/6b8e60827e):
+- Updated dependencies [449ef134b3](https://bitbucket.org/atlassian/atlassian-frontend/commits/449ef134b3):
+- Updated dependencies [57c0487a02](https://bitbucket.org/atlassian/atlassian-frontend/commits/57c0487a02):
+- Updated dependencies [fd41d77c29](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd41d77c29):
+  - @atlaskit/popper@3.1.12
+  - @atlaskit/button@13.3.11
+  - @atlaskit/icon@20.1.1
+  - @atlaskit/webdriver-runner@0.3.4
+
 ## 15.2.5
 
 ### Patch Changes

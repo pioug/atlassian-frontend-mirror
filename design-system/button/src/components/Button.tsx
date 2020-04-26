@@ -1,24 +1,28 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
 import React from 'react';
+
+import { jsx } from '@emotion/core';
 import memoize from 'memoize-one';
+
 import {
-  withAnalyticsEvents,
-  withAnalyticsContext,
   createAndFireEvent,
+  withAnalyticsContext,
+  withAnalyticsEvents,
 } from '@atlaskit/analytics-next';
+import GlobalTheme from '@atlaskit/theme/components';
+
+import { Theme } from '../theme';
+import { ButtonProps, ThemeMode, ThemeProps, ThemeTokens } from '../types';
 import {
   name as packageName,
   version as packageVersion,
 } from '../version.json';
-import GlobalTheme from '@atlaskit/theme/components';
-import { Theme } from '../theme';
-import { mapAttributesToState, filterProps, composeRefs } from './utils';
+
 import Content from './Content';
-import InnerWrapper from './InnerWrapper';
 import IconWrapper from './IconWrapper';
+import InnerWrapper from './InnerWrapper';
 import LoadingSpinner from './LoadingSpinner';
-import { ButtonProps, ThemeMode, ThemeProps, ThemeTokens } from '../types';
+import { composeRefs, filterProps, mapAttributesToState } from './utils';
 
 export type ButtonState = {
   isHover: boolean;

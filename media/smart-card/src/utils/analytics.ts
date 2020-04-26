@@ -4,6 +4,8 @@ import {
 } from '../version.json';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { AnalyticsPayload } from './types';
+import { ErrorInfo } from 'react';
+import { CardInnerAppearance } from '../view/Card/types';
 
 export const ANALYTICS_CHANNEL = 'media';
 export const MESSAGE_WINDOW_CLOSED = 'The auth window was closed';
@@ -53,6 +55,40 @@ export const unresolvedEvent = (
   },
 });
 
+export const invokeSucceededEvent = (
+  providerKey: string,
+  actionType: string,
+  display: CardInnerAppearance,
+): AnalyticsPayload => ({
+  action: 'resolved',
+  actionSubject: 'smartLinkAction',
+  eventType: 'operational',
+  attributes: {
+    ...context,
+    display,
+    definitionId: providerKey,
+    actionType,
+  },
+});
+
+export const invokeFailedEvent = (
+  providerKey: string,
+  actionType: string,
+  display: CardInnerAppearance,
+  reason: string,
+): AnalyticsPayload => ({
+  action: 'unresolved',
+  actionSubject: 'smartLinkAction',
+  eventType: 'operational',
+  attributes: {
+    ...context,
+    display,
+    definitionId: providerKey,
+    actionType,
+    reason,
+  },
+});
+
 export const connectSucceededEvent = (
   definitionId?: string,
 ): AnalyticsPayload => ({
@@ -93,7 +129,7 @@ export const trackAppAccountConnected = (
 });
 
 export const uiAuthEvent = (
-  display: 'inline' | 'block',
+  display: CardInnerAppearance,
   definitionId?: string,
 ): AnalyticsPayload => ({
   action: 'clicked',
@@ -108,7 +144,7 @@ export const uiAuthEvent = (
 });
 
 export const uiAuthAlternateAccountEvent = (
-  display: 'inline' | 'block',
+  display: CardInnerAppearance,
   definitionId?: string,
 ): AnalyticsPayload => ({
   action: 'clicked',
@@ -123,7 +159,7 @@ export const uiAuthAlternateAccountEvent = (
 });
 
 export const uiCardClickedEvent = (
-  display: 'inline' | 'block',
+  display: CardInnerAppearance,
   definitionId?: string,
 ): AnalyticsPayload => ({
   action: 'clicked',
@@ -136,8 +172,24 @@ export const uiCardClickedEvent = (
   },
 });
 
+export const uiActionClickedEvent = (
+  providerKey: string,
+  actionType: string,
+  display?: CardInnerAppearance,
+): AnalyticsPayload => ({
+  action: 'clicked',
+  actionSubject: 'smartLinkAction',
+  eventType: 'ui',
+  attributes: {
+    ...context,
+    display,
+    definitionId: providerKey,
+    actionType: actionType,
+  },
+});
+
 export const uiClosedAuthEvent = (
-  display: 'inline' | 'block',
+  display: CardInnerAppearance,
   definitionId?: string,
 ): AnalyticsPayload => ({
   action: 'closed',
@@ -158,5 +210,34 @@ export const screenAuthPopupEvent = (
   attributes: {
     ...context,
     definitionId: definitionId || '',
+  },
+});
+
+export const uiRenderSuccessEvent = (
+  display: CardInnerAppearance,
+  definitionId?: string,
+): AnalyticsPayload => ({
+  action: 'renderSuccess',
+  actionSubject: 'smartLink',
+  eventType: 'ui',
+  attributes: {
+    ...context,
+    definitionId: definitionId || '',
+    display,
+  },
+});
+
+export const uiRenderFailedEvent = (
+  display: CardInnerAppearance,
+  error: Error,
+  errorInfo: ErrorInfo,
+): AnalyticsPayload => ({
+  actionSubject: 'smartLink',
+  action: 'renderFailed',
+  eventType: 'ui',
+  attributes: {
+    error,
+    errorInfo,
+    display,
   },
 });

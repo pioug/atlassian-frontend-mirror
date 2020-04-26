@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import Avatar from '@atlaskit/avatar';
 import Button from '@atlaskit/button';
 import AddIcon from '@atlaskit/icon/glyph/add';
@@ -23,9 +24,9 @@ import {
   ItemAvatar,
   LayoutManager,
   MenuSection,
+  modeGenerator,
   NavigationProvider,
   Separator,
-  modeGenerator,
   ThemeProvider,
   Wordmark,
 } from '../src';

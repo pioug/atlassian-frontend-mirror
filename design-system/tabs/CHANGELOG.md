@@ -1,5 +1,17 @@
 # @atlaskit/tabs
 
+## 11.2.8
+
+### Patch Changes
+
+- [patch][b41c0887cd](https://bitbucket.org/atlassian/atlassian-frontend/commits/b41c0887cd):
+
+  Change imports to comply with Atlassian conventions- Updated dependencies [3940bd71f1](https://bitbucket.org/atlassian/atlassian-frontend/commits/3940bd71f1):
+
+- Updated dependencies [fd41d77c29](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd41d77c29):
+  - @atlaskit/tooltip@15.2.6
+  - @atlaskit/webdriver-runner@0.3.4
+
 ## 11.2.7
 
 ### Patch Changes

@@ -359,7 +359,7 @@ const editorNodes = {
   },
   inlineCard(state: MarkdownSerializerState, node: PMNode) {
     state.write(
-      `<a data-inline-card="" href=${node.attrs.url} >${node.attrs.url}</a>`,
+      `[${node.attrs.url}](${node.attrs.url}){: data-inline-card='' }`,
     );
   },
 };

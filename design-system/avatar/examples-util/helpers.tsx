@@ -1,6 +1,8 @@
 import React, { ReactNode } from 'react';
+
 import styled from 'styled-components';
-import { colors, math, gridSize } from '@atlaskit/theme';
+
+import { colors, gridSize, math } from '@atlaskit/theme';
 
 const Wrapper = styled.div`
   margin-top: ${gridSize}px;

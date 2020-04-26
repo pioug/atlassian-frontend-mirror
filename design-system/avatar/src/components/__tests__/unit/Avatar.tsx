@@ -1,13 +1,16 @@
 import React, { ReactNode } from 'react';
-import { shallow, mount, render, ReactWrapper } from 'enzyme';
+
+import { mount, ReactWrapper, render, shallow } from 'enzyme';
+
 import Tooltip from '@atlaskit/tooltip';
+
+import { Slot } from '../../../styled/AvatarImage';
+import { AVATAR_SIZES } from '../../../styled/constants';
+import { getSize } from '../../../styled/utils';
+import { SizeType } from '../../../types';
 import Avatar from '../../Avatar';
 import AvatarImage from '../../AvatarImage';
 import Presence from '../../Presence';
-import { getSize } from '../../../styled/utils';
-import { Slot } from '../../../styled/AvatarImage';
-import { AVATAR_SIZES } from '../../../styled/constants';
-import { SizeType } from '../../../types';
 
 const busy = 'busy';
 const offline = 'offline';

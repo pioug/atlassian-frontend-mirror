@@ -9,7 +9,7 @@ import { PortalProviderAPI } from '../../../ui/PortalProvider';
 import { decisionItemNodeView } from '../nodeviews/decisionItem';
 import { taskItemNodeViewFactory } from '../nodeviews/taskItem';
 import { Command } from '../../../types';
-import { Dispatch } from '../../../event-dispatcher';
+import { Dispatch, EventDispatcher } from '../../../event-dispatcher';
 import { nodesBetweenChanged } from '../../../utils';
 import { stateKey } from './plugin-key';
 
@@ -40,14 +40,19 @@ const setContextIdentifierProvider = (
 
 export function createPlugin(
   portalProviderAPI: PortalProviderAPI,
+  eventDispatcher: EventDispatcher,
   providerFactory: ProviderFactory,
   dispatch: Dispatch,
 ) {
   return new Plugin({
     props: {
       nodeViews: {
-        taskItem: taskItemNodeViewFactory(portalProviderAPI, providerFactory),
-        decisionItem: decisionItemNodeView(portalProviderAPI),
+        taskItem: taskItemNodeViewFactory(
+          portalProviderAPI,
+          eventDispatcher,
+          providerFactory,
+        ),
+        decisionItem: decisionItemNodeView(portalProviderAPI, eventDispatcher),
       },
     },
     state: {

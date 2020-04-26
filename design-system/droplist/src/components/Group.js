@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { PureComponent } from 'react';
-import Group, { Heading, HeadingText, HeadingAfter } from '../styled/Group';
+
+import Group, { Heading, HeadingAfter, HeadingText } from '../styled/Group';
 
 class DroplistGroup extends PureComponent {
   state = { ariaLabel: this.props.heading };

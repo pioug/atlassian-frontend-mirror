@@ -1,8 +1,11 @@
 import React from 'react';
+
 import Tooltip from '@atlaskit/tooltip';
+
 import Tabs, { TabItem } from '../src';
-import { Content } from './shared';
 import { TabItemComponentProvided } from '../src/types';
+
+import { Content } from './shared';
 
 export const tabs = [
   {

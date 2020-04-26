@@ -1,5 +1,24 @@
 # @atlaskit/avatar
 
+## 17.1.10
+
+### Patch Changes
+
+- [patch][167a55fd7a](https://bitbucket.org/atlassian/atlassian-frontend/commits/167a55fd7a):
+
+  Change imports to comply with Atlassian conventions- Updated dependencies [3940bd71f1](https://bitbucket.org/atlassian/atlassian-frontend/commits/3940bd71f1):
+
+- Updated dependencies [9e4b195732](https://bitbucket.org/atlassian/atlassian-frontend/commits/9e4b195732):
+- Updated dependencies [6b8e60827e](https://bitbucket.org/atlassian/atlassian-frontend/commits/6b8e60827e):
+- Updated dependencies [449ef134b3](https://bitbucket.org/atlassian/atlassian-frontend/commits/449ef134b3):
+- Updated dependencies [57c0487a02](https://bitbucket.org/atlassian/atlassian-frontend/commits/57c0487a02):
+- Updated dependencies [fd41d77c29](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd41d77c29):
+  - @atlaskit/tooltip@15.2.6
+  - @atlaskit/toggle@8.1.7
+  - @atlaskit/button@13.3.11
+  - @atlaskit/icon@20.1.1
+  - @atlaskit/webdriver-runner@0.3.4
+
 ## 17.1.9
 
 ### Patch Changes

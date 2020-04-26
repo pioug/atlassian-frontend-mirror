@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+
+import Lorem from 'react-lorem-component';
+
 import Avatar from '@atlaskit/avatar';
 import AddIcon from '@atlaskit/icon/glyph/add';
 import BacklogIcon from '@atlaskit/icon/glyph/backlog';
@@ -7,21 +10,20 @@ import DashboardIcon from '@atlaskit/icon/glyph/dashboard';
 import FolderIcon from '@atlaskit/icon/glyph/folder';
 import GraphLineIcon from '@atlaskit/icon/glyph/graph-line';
 import IssuesIcon from '@atlaskit/icon/glyph/issues';
-import ShortcutIcon from '@atlaskit/icon/glyph/shortcut';
 import QuestionCircleIcon from '@atlaskit/icon/glyph/question-circle';
 import SearchIcon from '@atlaskit/icon/glyph/search';
+import ShortcutIcon from '@atlaskit/icon/glyph/shortcut';
 import { JiraIcon, JiraWordmark } from '@atlaskit/logo';
-import { ToggleStateless } from '@atlaskit/toggle';
 import { gridSize as gridSizeFn } from '@atlaskit/theme';
-import Lorem from 'react-lorem-component';
+import { ToggleStateless } from '@atlaskit/toggle';
 
 import {
   ContainerHeader,
   GlobalNav,
   GroupHeading,
   HeaderSection,
-  Item as ItemComponent,
   ItemAvatar,
+  Item as ItemComponent,
   LayoutManager,
   MenuSection,
   NavigationProvider,

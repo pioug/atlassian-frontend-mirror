@@ -7,6 +7,7 @@ import {
 } from '@atlaskit/media-test-helpers';
 import { Card } from '@atlaskit/media-card';
 import { MediaViewerDataSource } from '@atlaskit/media-viewer';
+import { Checkbox } from '@atlaskit/checkbox';
 import {
   FileIdentifier,
   ExternalImageIdentifier,
@@ -16,20 +17,15 @@ import Select, { ValueType } from '@atlaskit/select';
 import { SelectWrapper, OptionsWrapper } from '../example-helpers/styled';
 import { MediaPicker } from '../src';
 import { PluginItemPayload } from '../src/domain/plugin';
-import { emojiPlugin } from '../example-helpers/emojiPlugin';
 import {
   UploadPreviewUpdateEventPayload,
   MediaFile,
   Popup,
   UploadEndEventPayload,
+  PopupConfig,
 } from '../src/types';
-import { addGlobalEventEmitterListeners } from '@atlaskit/media-test-helpers';
 
-addGlobalEventEmitterListeners();
-
-const userMediaClientConfig = createUploadMediaClientConfig(
-  'https://api-private.dev.atlassian.com',
-);
+const userMediaClientConfig = createUploadMediaClientConfig();
 const tenantMediaClientConfig = createStorybookMediaClientConfig();
 
 interface DataSourceOption {
@@ -51,38 +47,37 @@ export type DataSourceType = 'collection' | 'list';
 export interface State {
   events: TenantFileRecord[];
   dataSourceType: DataSourceType;
+  isUseForgePluginsDefaultEnabled: boolean;
   popup?: Popup;
 }
 
 export default class Example extends React.Component<{}, State> {
-  state: State = { events: [], dataSourceType: 'list' };
+  state: State = {
+    events: [],
+    dataSourceType: 'list',
+    isUseForgePluginsDefaultEnabled:
+      window && window.localStorage.getItem('useForgePlugins') === 'true',
+  };
 
   static contextTypes = {
     // Required context in order to integrate analytics in media picker
     getAtlaskitAnalyticsEventHandlers: PropTypes.func,
   };
 
-  async componentDidMount() {
+  createPopup = async (config?: Partial<PopupConfig>) => {
     const popup = await MediaPicker(userMediaClientConfig, {
       uploadParams: {
         collection: defaultCollectionName,
       },
-      plugins: [emojiPlugin],
+      ...config,
     });
 
     popup.on('plugin-items-inserted', (items: PluginItemPayload[]) => {
       const { events } = this.state;
       const newEvents: TenantFileRecord[] = items.map(item => {
         const { pluginName } = item;
-        if (pluginName === 'emoji') {
-          const metadata = item.pluginFile.metadata;
-
-          return {
-            src: metadata.src,
-          };
-        }
-
-        return {};
+        console.log('Inserting from', pluginName);
+        return { src: item.pluginFile.metadata.src };
       });
 
       this.setState({
@@ -109,6 +104,16 @@ export default class Example extends React.Component<{}, State> {
 
     popup.on('upload-preview-update', this.onUploadPreviewUpdate);
     popup.on('upload-end', this.onUploadEnd);
+
+    return popup;
+  };
+
+  async componentDidMount() {
+    const { isUseForgePluginsDefaultEnabled } = this.state;
+    const popup = await this.createPopup({
+      useForgePlugins: isUseForgePluginsDefaultEnabled,
+    });
+
     this.setState({ popup });
 
     popup.show();
@@ -190,8 +195,23 @@ export default class Example extends React.Component<{}, State> {
     });
   };
 
-  render() {
+  private onUseForgePluginsChange = async (event: any) => {
     const { popup } = this.state;
+    const useForgePlugins = event.target.checked;
+
+    if (popup) {
+      popup.teardown();
+    }
+
+    const newPopup = await this.createPopup({ useForgePlugins });
+
+    window.localStorage.setItem('useForgePlugins', useForgePlugins);
+
+    this.setState({ popup: newPopup });
+  };
+
+  render() {
+    const { popup, isUseForgePluginsDefaultEnabled } = this.state;
 
     return (
       <React.Fragment>
@@ -210,6 +230,12 @@ export default class Example extends React.Component<{}, State> {
               onChange={this.onDataSourceChange}
             />
           </SelectWrapper>
+          <Checkbox
+            defaultChecked={isUseForgePluginsDefaultEnabled}
+            label="useForgePlugins 🔥"
+            onChange={this.onUseForgePluginsChange}
+            name="checkbox-basic"
+          />
         </OptionsWrapper>
         <div>{this.renderCards()}</div>
       </React.Fragment>

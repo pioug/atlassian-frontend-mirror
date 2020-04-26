@@ -1,8 +1,11 @@
 import React from 'react';
+
 import styled from 'styled-components';
+
 import Button from '@atlaskit/button';
 import { ProgressDots } from '@atlaskit/progress-indicator';
 import { gridSize } from '@atlaskit/theme';
+
 import { SpotlightCard } from '../src';
 
 const Wrapper = styled.div`

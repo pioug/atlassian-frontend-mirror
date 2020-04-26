@@ -1,8 +1,10 @@
 import React from 'react';
+
 import { AppearanceType, SizeType } from '@atlaskit/avatar';
-import AvatarGroup from '../src';
-import { ExampleGroup } from '../examples-util/helpers';
+
 import { RANDOM_USERS } from '../examples-util/data';
+import { ExampleGroup } from '../examples-util/helpers';
+import AvatarGroup from '../src';
 
 export default () => {
   const data = RANDOM_USERS.map(d => ({

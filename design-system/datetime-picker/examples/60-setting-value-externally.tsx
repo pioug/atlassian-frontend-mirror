@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+
 import { Label } from '@atlaskit/field-base';
 import TextField from '@atlaskit/textfield';
-import { DatePicker, TimePicker, DateTimePicker } from '../src';
+
+import { DatePicker, DateTimePicker, TimePicker } from '../src';
 
 interface State {
   datePickerValue: string;

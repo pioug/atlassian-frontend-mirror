@@ -1,6 +1,8 @@
 import React from 'react';
+
 import { gridSize } from '@atlaskit/theme';
-import { RatingGroup, Rating } from '../src';
+
+import { Rating, RatingGroup } from '../src';
 
 const Emoji = ({
   children,

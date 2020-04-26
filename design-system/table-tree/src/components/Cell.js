@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { Cell as StyledCell, OverflowContainer } from '../styled';
+
+import { OverflowContainer, Cell as StyledCell } from '../styled';
+
 import withColumnWidth from './withColumnWidth';
 
 class Cell extends Component {

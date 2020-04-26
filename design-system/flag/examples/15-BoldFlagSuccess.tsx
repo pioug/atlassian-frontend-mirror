@@ -1,6 +1,8 @@
 import React from 'react';
+
 import SuccessIcon from '@atlaskit/icon/glyph/check-circle';
 import { colors } from '@atlaskit/theme';
+
 import Flag from '../src';
 
 export default () => (

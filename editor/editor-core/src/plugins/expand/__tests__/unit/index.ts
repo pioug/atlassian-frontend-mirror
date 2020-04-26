@@ -37,7 +37,7 @@ describe('expand actions', () => {
       doc,
       preset: new Preset<LightEditorPlugin>()
         .add([expandPlugin, { allowInsertion: true }])
-        .add([analyticsPlugin, createAnalyticsEvent])
+        .add([analyticsPlugin, { createAnalyticsEvent }])
         .add(typeAheadPlugin)
         .add(quickInsertPlugin)
         .add(tablesPlugin),

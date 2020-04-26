@@ -74,8 +74,18 @@ const tasksAndDecisionsPlugin = (
     return [
       {
         name: 'tasksAndDecisions',
-        plugin: ({ portalProviderAPI, providerFactory, dispatch }) => {
-          return createPlugin(portalProviderAPI, providerFactory, dispatch);
+        plugin: ({
+          portalProviderAPI,
+          providerFactory,
+          eventDispatcher,
+          dispatch,
+        }) => {
+          return createPlugin(
+            portalProviderAPI,
+            eventDispatcher,
+            providerFactory,
+            dispatch,
+          );
         },
       },
       {
@@ -109,6 +119,7 @@ const tasksAndDecisionsPlugin = (
   pluginsOptions: {
     quickInsert: ({ formatMessage }) => [
       {
+        id: 'action',
         title: formatMessage(insertBlockMessages.action),
         description: formatMessage(insertBlockMessages.actionDescription),
         priority: 100,
@@ -122,6 +133,7 @@ const tasksAndDecisionsPlugin = (
         },
       },
       {
+        id: 'decision',
         title: formatMessage(insertBlockMessages.decision),
         description: formatMessage(insertBlockMessages.decisionDescription),
         priority: 900,

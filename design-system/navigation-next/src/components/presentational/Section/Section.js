@@ -1,10 +1,13 @@
 import React, { PureComponent } from 'react';
-import TransitionGroup from 'react-transition-group/TransitionGroup';
-import Transition from 'react-transition-group/Transition';
+
 import { ClassNames, css } from '@emotion/core';
+import Transition from 'react-transition-group/Transition';
+import TransitionGroup from 'react-transition-group/TransitionGroup';
+
 import { NavigationAnalyticsContext } from '@atlaskit/analytics-namespaced-context';
 
 import { transitionDurationMs } from '../../../common/constants';
+
 import getAnimationStyles from './getAnimationStyles';
 
 /** The below components are exported for testing purposes only. */

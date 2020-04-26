@@ -1,6 +1,11 @@
-import { ExtensionLayout } from '@atlaskit/adf-schema';
-import { UpdateExtension, ExtensionProvider } from '@atlaskit/editor-common';
 import { NodeWithPos } from 'prosemirror-utils';
+import { ExtensionLayout } from '@atlaskit/adf-schema';
+import {
+  UpdateExtension,
+  ExtensionProvider,
+  ParametersGetter,
+  AsyncParametersGetter,
+} from '@atlaskit/editor-common/extensions';
 
 export type ExtensionState = {
   layout: ExtensionLayout;
@@ -10,6 +15,8 @@ export type ExtensionState = {
   nodeWithPos?: NodeWithPos;
   element?: HTMLElement;
   extensionProvider?: ExtensionProvider;
+  processParametersBefore?: ParametersGetter;
+  processParametersAfter?: AsyncParametersGetter;
 };
 
 export type ExtensionAction = {

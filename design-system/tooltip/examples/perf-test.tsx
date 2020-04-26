@@ -1,5 +1,7 @@
 import React from 'react';
+
 import Button from '@atlaskit/button';
+
 import Tooltip from '../src';
 
 const PER_RUN = 100;

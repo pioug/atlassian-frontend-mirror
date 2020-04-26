@@ -55,12 +55,25 @@ import {
   isExpandInsertionEnabled,
   scrollIntoViewPlugin,
   mobileScrollPlugin,
+  findReplacePlugin,
   contextPanelPlugin,
 } from '../plugins';
 import { isFullPage as fullPageCheck } from '../utils/is-full-page';
 import { ScrollGutterPluginOptions } from '../plugins/base/pm-plugins/scroll-gutter';
 import { createFeatureFlagsFromProps } from '../plugins/feature-flags-context/feature-flags-from-props';
 import { PrivateCollabEditOptions } from '../plugins/collab-edit/types';
+import { BlockTypePluginOptions } from '../plugins/block-type/types';
+
+const isCodeBlockAllowed = (
+  options?: Pick<BlockTypePluginOptions, 'allowBlockType'>,
+) => {
+  const exclude =
+    options && options.allowBlockType && options.allowBlockType.exclude
+      ? options.allowBlockType.exclude
+      : [];
+
+  return exclude.indexOf('codeBlock') === -1;
+};
 
 /**
  * Returns list of plugins that are absolutely necessary for editor to work
@@ -74,6 +87,7 @@ export function getDefaultPluginsList(props: EditorProps): EditorPlugin[] {
     placeholderBracketHint,
   } = props;
   const isFullPage = fullPageCheck(appearance);
+  const isMobile = props.appearance === 'mobile';
 
   return [
     pastePlugin({
@@ -97,9 +111,22 @@ export function getDefaultPluginsList(props: EditorProps): EditorPlugin[] {
       placeholderBracketHint,
     }),
     clearMarksOnChangeToEmptyDocumentPlugin(),
+    // Workaround to place annotationPlugin above hyperlinkPlugin for loading floatingToolbarConfig
+    // Follow up to create floatingToolbarConfig rank: https://product-fabric.atlassian.net/browse/ED-8999
+    ...(props.annotationProvider
+      ? [annotationPlugin(props.annotationProvider)]
+      : []),
     hyperlinkPlugin(),
     textFormattingPlugin(textFormatting || {}),
     widthPlugin(),
+    ...(props.quickInsert
+      ? [
+          quickInsertPlugin({
+            headless: isMobile,
+            disableDefaultItems: isMobile,
+          }),
+        ]
+      : []),
     typeAheadPlugin(),
     unsupportedContentPlugin(),
     editorDisabledPlugin(),
@@ -109,7 +136,9 @@ export function getDefaultPluginsList(props: EditorProps): EditorPlugin[] {
     fakeTextCursorPlugin(),
     floatingToolbarPlugin(),
     featureFlagsContextPlugin(createFeatureFlagsFromProps(props)),
-    codeBlockPlugin(),
+    ...(isCodeBlockAllowed({ allowBlockType: props.allowBlockType })
+      ? [codeBlockPlugin()]
+      : []),
     contextPanelPlugin(),
   ];
 }
@@ -148,7 +177,22 @@ export default function createPluginsList(
   const plugins = getDefaultPluginsList(props);
 
   if (props.allowAnalyticsGASV3) {
-    plugins.push(analyticsPlugin(createAnalyticsEvent));
+    const { performanceTracking, transactionTracking } = props;
+
+    plugins.push(
+      analyticsPlugin({
+        createAnalyticsEvent,
+        // TODO: https://product-fabric.atlassian.net/browse/ED-8985
+        ...(performanceTracking || transactionTracking
+          ? {
+              performanceTracking: {
+                ...(performanceTracking || {}),
+                ...(transactionTracking ? { transactionTracking } : {}),
+              },
+            }
+          : {}),
+      }),
+    );
   }
 
   if (props.allowBreakout && isFullPage) {
@@ -302,7 +346,8 @@ export default function createPluginsList(
           props.appearance === 'full-page' &&
           extensionConfig.allowBreakout !== false,
         stickToolbarToBottom: extensionConfig.stickToolbarToBottom,
-        allowNewConfigPanel: extensionConfig.allowNewConfigPanel,
+        allowAutoSave: extensionConfig.allowAutoSave,
+        allowLocalIdGeneration: extensionConfig.allowLocalIdGeneration,
         extensionHandlers: props.extensionHandlers,
       }),
     );
@@ -312,8 +357,9 @@ export default function createPluginsList(
     plugins.push(macroPlugin());
   }
 
-  if (props.annotationProvider || props.allowConfluenceInlineComment) {
-    plugins.push(annotationPlugin(props.annotationProvider));
+  // See default list for when adding annotations with a provider
+  if (!props.annotationProvider && props.allowConfluenceInlineComment) {
+    plugins.push(annotationPlugin());
   }
 
   if (props.allowDate) {
@@ -339,7 +385,7 @@ export default function createPluginsList(
   }
 
   if (props.UNSAFE_cards) {
-    plugins.push(cardPlugin(props.UNSAFE_cards));
+    plugins.push(cardPlugin(props.UNSAFE_cards, isMobile));
   }
 
   if (props.autoformattingProvider) {
@@ -376,10 +422,6 @@ export default function createPluginsList(
     }),
   );
 
-  if (!isMobile) {
-    plugins.push(quickInsertPlugin());
-  }
-
   if (isMobile) {
     plugins.push(historyPlugin());
     plugins.push(mobileScrollPlugin());
@@ -387,6 +429,10 @@ export default function createPluginsList(
 
   if (props.autoScrollIntoView !== false) {
     plugins.push(scrollIntoViewPlugin());
+  }
+
+  if (props.allowFindReplace) {
+    plugins.push(findReplacePlugin());
   }
 
   return plugins;

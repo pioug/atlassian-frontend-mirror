@@ -85,7 +85,10 @@ describe('Media', () => {
     return card;
   };
 
-  const mountExternalCard = (indentifier: ExternalImageIdentifier) => {
+  const mountExternalCard = (
+    indentifier: ExternalImageIdentifier,
+    extraProps?: Object,
+  ) => {
     const card = mount(
       <MediaCard
         type="external"
@@ -106,6 +109,7 @@ describe('Media', () => {
             ],
           },
         }}
+        {...extraProps}
       />,
     );
     card.setState({ imageStatus: 'complete' });
@@ -113,7 +117,7 @@ describe('Media', () => {
     return card;
   };
 
-  it('should render a media component with the proper props', async () => {
+  it('should render a media component with the proper props', () => {
     const mediaComponent = mount(
       <Media
         type={mediaNode.attrs.type as MediaType}
@@ -126,7 +130,7 @@ describe('Media', () => {
     mediaComponent.unmount();
   });
 
-  it('should render a media component with alt text if FF is on', async () => {
+  it('should render a media component with alt text if FF is on', () => {
     const mediaComponent = mount(
       <Media
         type={mediaNode.attrs.type as MediaType}
@@ -143,24 +147,24 @@ describe('Media', () => {
     mediaComponent.unmount();
   });
 
-  it('should render a media component without alt text if FF is off', async () => {
+  it('should render a media component without alt text if FF is off', () => {
     const mediaComponent = mount(
       <Media
         type={mediaNode.attrs.type as MediaType}
         id={mediaNode.attrs.id}
         collection={mediaNode.attrs.collection}
         alt="test"
-        allowAltTextOnImages={true}
+        allowAltTextOnImages={false}
       />,
     );
 
     const mediaCard = mediaComponent.find(MediaCard);
     expect(mediaCard.length).toEqual(1);
-    expect(mediaCard.prop('alt')).toBe('test');
+    expect(mediaCard.prop('alt')).toBeFalsy();
     mediaComponent.unmount();
   });
 
-  it('should render a media component with external image', async () => {
+  it('should render a media component with external image', () => {
     const mediaComponent = mount(
       <Media type="external" url="http://image.jpg" />,
     );
@@ -170,6 +174,26 @@ describe('Media', () => {
   });
 
   describe('<MediaCard />', () => {
+    it.each([
+      [true, 'Alt text'],
+      [false, undefined],
+    ])(
+      `shows alt text on an external media based on allowAltTextOnImages, when flag is %s`,
+      async (allowAltTextOnImages, expectedAltText) => {
+        const externalIdentifier = createExternalIdentifier();
+        const mediaCard = mountExternalCard(externalIdentifier, {
+          alt: expectedAltText,
+          allowAltTextOnImages: allowAltTextOnImages,
+        });
+        await sleep(0);
+
+        const card = mediaCard.find(Card);
+        expect(card.length).toEqual(1);
+        expect(card.prop('alt')).toBe(expectedAltText);
+        mediaCard.unmount();
+      },
+    );
+
     it('should pass shouldOpenMediaViewer=true if there is no onClick callback', () => {
       const cardWithOnClick = mount(
         <MediaCard

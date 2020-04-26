@@ -42,9 +42,10 @@ const rulePlugin = (): EditorPlugin => ({
   pluginsOptions: {
     quickInsert: ({ formatMessage }) => [
       {
+        id: 'rule',
         title: formatMessage(messages.horizontalRule),
         description: formatMessage(messages.horizontalRuleDescription),
-        keywords: ['horizontal rule', 'rule', 'line'],
+        keywords: ['horizontal', 'rule', 'line', 'hr'],
         priority: 1200,
         keyshortcut: '---',
         icon: () => (

@@ -2,9 +2,11 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import Button from '@atlaskit/button';
 import { AtlaskitThemeProvider } from '@atlaskit/theme';
+
 import { DynamicTableStateless } from '../src';
-import { head, rows } from './content/sample-data';
 import { RowType } from '../src/types';
+
+import { head, rows } from './content/sample-data';
 
 enum ThemeMode {
   LIGHT = 'light',

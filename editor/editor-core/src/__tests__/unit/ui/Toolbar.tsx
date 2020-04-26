@@ -3,66 +3,74 @@ import { mount } from 'enzyme';
 import { Toolbar } from '../../../ui/Toolbar/Toolbar';
 import { ToolbarWithSizeDetector } from '../../../ui/Toolbar/ToolbarWithSizeDetector';
 import { act } from 'react-dom/test-utils';
+import {
+  ToolbarSize,
+  ToolbarUIComponentFactory,
+} from '../../../ui/Toolbar/types';
+import { WidthObserver } from '@atlaskit/width-detector';
+import { asMockFunction } from '@atlaskit/media-test-helpers';
 
-jest.mock('@atlaskit/editor-common', () => {
-  let innerSetWidth: Function | undefined;
+let innerSetWidth: Function | undefined;
 
+const setWidth = (width: number) =>
+  typeof innerSetWidth === 'function' ? innerSetWidth(width) : undefined;
+
+const getMockedToolbarItem = () =>
+  asMockFunction<ToolbarUIComponentFactory>(jest.fn());
+
+jest.mock('@atlaskit/width-detector', () => {
   return {
-    setWidth: (width: number) =>
-      typeof innerSetWidth === 'function' ? innerSetWidth(width) : undefined,
-    WidthObserver: (props: any) => {
+    WidthObserver: (props => {
       innerSetWidth = props.setWidth;
       return null;
-    },
+    }) as typeof WidthObserver,
   };
 });
-import { ToolbarSize } from '../../../ui/Toolbar/types';
 
 describe('Toolbar', () => {
   it('should render a Toolbar UI Component', () => {
-    const component = jest.fn(() => null) as any;
+    const toolbarItem = getMockedToolbarItem();
     const toolbar = mount(
       <Toolbar
-        items={[component]}
+        items={[toolbarItem]}
         editorView={{} as any}
         eventDispatcher={{} as any}
         providerFactory={{} as any}
         appearance="full-page"
         disabled={false}
         toolbarSize={ToolbarSize.L}
+        containerElement={null}
       />,
     );
 
-    expect(component).toBeCalled();
+    expect(toolbarItem).toBeCalled();
     toolbar.unmount();
   });
 
   it('should re-render with different toolbar size when toolbar width changes', async () => {
-    const { setWidth } = (await import('@atlaskit/editor-common')) as any;
-
-    const component = jest.fn(() => null) as any;
-
+    const toolbarItem = getMockedToolbarItem();
     const toolbar = mount(
       <ToolbarWithSizeDetector
-        items={[component]}
+        items={[toolbarItem]}
         editorView={{} as any}
         eventDispatcher={{} as any}
         providerFactory={{} as any}
         appearance="full-page"
         disabled={false}
+        containerElement={null}
       />,
     );
 
     act(() => setWidth(1000));
 
-    expect(component.mock.calls[0][0]).toMatchObject({
+    expect(toolbarItem.mock.calls[0][0]).toMatchObject({
       toolbarSize: ToolbarSize.XXL,
     });
 
     act(() => setWidth(100));
 
     // Second call
-    expect(component.mock.calls[1][0]).toMatchObject({
+    expect(toolbarItem.mock.calls[1][0]).toMatchObject({
       toolbarSize: ToolbarSize.XXXS,
     });
 
@@ -70,21 +78,22 @@ describe('Toolbar', () => {
   });
 
   it('should set reduced spacing for toolbar buttons if size is < ToolbarSize.XXL', () => {
-    const component = jest.fn(() => null) as any;
+    const toolbarItem = getMockedToolbarItem();
     const toolbar = mount(
       <Toolbar
-        items={[component]}
+        items={[toolbarItem]}
         editorView={{} as any}
         eventDispatcher={{} as any}
         providerFactory={{} as any}
         appearance="full-page"
         disabled={false}
         toolbarSize={ToolbarSize.XL}
+        containerElement={null}
       />,
     );
 
     // First call
-    expect(component.mock.calls[0][0]).toMatchObject({
+    expect(toolbarItem.mock.calls[0][0]).toMatchObject({
       isToolbarReducedSpacing: true,
     });
 
@@ -92,21 +101,22 @@ describe('Toolbar', () => {
   });
 
   it('should set normal spacing for toolbar buttons if size is >= ToolbarSize.XXL', () => {
-    const component = jest.fn(() => null) as any;
+    const toolbarItem = getMockedToolbarItem();
     const toolbar = mount(
       <Toolbar
-        items={[component]}
+        items={[toolbarItem]}
         editorView={{} as any}
         eventDispatcher={{} as any}
         providerFactory={{} as any}
         appearance="full-page"
         disabled={false}
         toolbarSize={ToolbarSize.XXL}
+        containerElement={null}
       />,
     );
 
     // First call
-    expect(component.mock.calls[0][0]).toMatchObject({
+    expect(toolbarItem.mock.calls[0][0]).toMatchObject({
       isToolbarReducedSpacing: false,
     });
 

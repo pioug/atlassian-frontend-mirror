@@ -1,7 +1,8 @@
 import React from 'react';
+
 import { mount, shallow } from 'enzyme';
 
-import { LayoutEventListener, LayoutEventEmitter } from '../../LayoutEvent';
+import { LayoutEventEmitter, LayoutEventListener } from '../../LayoutEvent';
 
 describe('LayoutEvent', () => {
   describe('LayoutEventListener', () => {

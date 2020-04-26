@@ -1,6 +1,8 @@
 import React from 'react';
+
 import { mount } from 'enzyme';
-import TableTree, { Rows, Row, Cell, Header, Headers } from '../..';
+
+import TableTree, { Cell, Header, Headers, Row, Rows } from '../../index';
 import { Cell as StyledCell, Header as StyledHeader } from '../../styled';
 
 test('flat tree', async () => {

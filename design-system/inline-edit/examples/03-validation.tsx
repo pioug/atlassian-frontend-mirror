@@ -1,6 +1,7 @@
 import React from 'react';
-import TextField from '@atlaskit/textfield';
+
 import ErrorIcon from '@atlaskit/icon/glyph/error';
+import TextField from '@atlaskit/textfield';
 import { colors, gridSize } from '@atlaskit/theme';
 
 import InlineEdit from '../src';

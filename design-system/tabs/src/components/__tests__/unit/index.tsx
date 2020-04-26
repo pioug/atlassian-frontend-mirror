@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
-import { mount, shallow, ReactWrapper } from 'enzyme';
 
-import TabsWithAnalytics, { TabContent, TabItem } from '../../..';
-import { TabsWithoutAnalytics as Tabs } from '../../Tabs';
+import { mount, ReactWrapper, shallow } from 'enzyme';
+
+import TabsWithAnalytics, { TabContent, TabItem } from '../../../index';
 import {
   IsSelectedTestFunction,
   TabContentComponentProvided,
   TabItemComponentProvided,
 } from '../../../types';
 import { name } from '../../../version.json';
+import { TabsWithoutAnalytics as Tabs } from '../../Tabs';
 
 declare var global: any;
 

@@ -1,9 +1,14 @@
 import React from 'react';
+
+import { css, Global } from '@emotion/core';
 import styled from '@emotion/styled';
 import Lorem from 'react-lorem-component';
+
 import Button from '@atlaskit/button';
 import FieldRadioGroup from '@atlaskit/field-radio-group';
+
 import Modal, { ModalTransition } from '../src';
+import { ScrollBehavior } from '../src/types';
 
 const TallContainer = styled.div`
   height: 100%;
@@ -17,12 +22,14 @@ const scrollBehaviors = [
     defaultSelected: true,
   },
   { name: 'scrollBehavior', value: 'outside', label: 'outside' },
+  { name: 'scrollBehavior', value: 'inside-wide', label: 'inside-wide' },
 ];
 
 interface State {
   isOpen: boolean;
-  scrollBehavior: 'inside' | 'outside';
+  scrollBehavior: ScrollBehavior;
 }
+
 export default class ExampleScroll extends React.PureComponent<{}, State> {
   bottomRef: any;
 
@@ -63,6 +70,25 @@ export default class ExampleScroll extends React.PureComponent<{}, State> {
           such as <code>scrollIntoView</code> scrolling the window instead of
           only the closest scroll parent will be prevented.
         </p>
+        <p>
+          <code>inside-wide</code> is used for cases where body width is wider
+          than viewport width (horizontally scrollable).
+        </p>
+        {scrollBehavior === 'inside-wide' && (
+          <React.Fragment>
+            <Global
+              styles={css`
+                body {
+                  width: 3000px !important;
+                }
+              `}
+            />
+            <p>
+              The width of body is now greater than viewport width (horizontally
+              scrollable).
+            </p>
+          </React.Fragment>
+        )}
         <FieldRadioGroup
           items={scrollBehaviors}
           label="Scroll behavior:"

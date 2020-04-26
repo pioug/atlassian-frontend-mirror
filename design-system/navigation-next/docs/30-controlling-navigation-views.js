@@ -1,8 +1,9 @@
 import React from 'react';
+
 import { code, md } from '@atlaskit/docs';
 import SectionMessage from '@atlaskit/section-message';
 
-import { Contents, ContentsProvider, IframeExample, H } from './shared';
+import { Contents, ContentsProvider, H, IframeExample } from './shared';
 
 export default (
   <ContentsProvider>{md`
@@ -98,7 +99,7 @@ A few things to note:
 
 * Some \`type\`s are built into the package (such as, 'Item' and 'HeaderSection') and these types can be provided as a string. If you need your own custom behaviour or presentation, you can provide your own component as the type instead.
 * A view is expected to be an array of Sections. Sections should not be nested. As well as the generic \`Section\` component, the renderer includes two pre-configured Section components - \`HeaderSection\` and \`MenuSection\` - which we recommend using to get the correct spacing and scrolling behaviour in your navigation.
-* You can find a complete [list of the in-built item types here](/packages/core/navigation-next/docs/state-controllers#built-in-view-item-types).
+* You can find a complete [list of the in-built item types here](/packages/design-system/navigation-next/docs/state-controllers#built-in-view-item-types).
 
 ${(<H>A smart LayoutManager</H>)}
 
@@ -413,7 +414,7 @@ const GrowthExperiment = withNavigationViewController(GrowthExperimentBase);`}
 
 This component doesn't render anything, but when it mounts it registers a reducer which runs against the \`'product/home'\` view. The reducer walks the items in that view, finds the one with the \`'portfolio'\` ID, and adds an \`after\` prop to that item.
 
-The \`findId\` function is provided by the library. You can find a full list of [reducer utility functions here](/packages/core/navigation-next/docs/state-controllers).
+The \`findId\` function is provided by the library. You can find a full list of [reducer utility functions here](/packages/design-system/navigation-next/docs/state-controllers).
 
 #### 2. Drop it in
 

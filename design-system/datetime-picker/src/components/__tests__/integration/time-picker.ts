@@ -2,7 +2,7 @@ import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import { getExampleUrl } from '@atlaskit/webdriver-runner/utils/example';
 import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 
-const url = getExampleUrl('core', 'datetime-picker', 'times');
+const url = getExampleUrl('design-system', 'datetime-picker', 'times');
 
 const timePicker = '[data-testid="timePicker--container"]';
 const menu = '.timepicker-select__menu-list';

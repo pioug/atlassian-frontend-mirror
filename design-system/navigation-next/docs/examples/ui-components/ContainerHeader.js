@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { ContainerHeader, ItemAvatar } from '../../../src';
 import { CONTENT_NAV_WIDTH } from '../../../src/common/constants';
 

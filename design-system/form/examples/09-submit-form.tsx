@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+
 import Button from '@atlaskit/button';
-import TextField from '@atlaskit/textfield';
 import TextArea from '@atlaskit/textarea';
+import TextField from '@atlaskit/textfield';
+
 import Form, { Field, FormFooter } from '../src';
 
 interface State {

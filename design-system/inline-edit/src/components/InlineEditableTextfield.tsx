@@ -1,12 +1,14 @@
 import React from 'react';
-import Textfield from '@atlaskit/textfield';
+
 import ErrorIcon from '@atlaskit/icon/glyph/error';
+import Textfield from '@atlaskit/textfield';
 import { R400 } from '@atlaskit/theme/colors';
 
-import InlineEdit from './InlineEdit';
-import ReadViewContainer from '../styled/ReadViewContainer';
 import ErrorIconContainer from '../styled/ErrorIconContainer';
+import ReadViewContainer from '../styled/ReadViewContainer';
 import { InlineEditableTextfieldProps } from '../types';
+
+import InlineEdit from './InlineEdit';
 
 class InlineEditableTextfield extends React.Component<
   InlineEditableTextfieldProps,

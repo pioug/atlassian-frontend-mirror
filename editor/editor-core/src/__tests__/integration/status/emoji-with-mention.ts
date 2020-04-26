@@ -35,12 +35,14 @@ BrowserTestCase(
       'ArrowLeft',
       'ArrowLeft',
       'ArrowLeft',
+      'ArrowLeft',
+      'ArrowLeft',
       'ArrowRight',
     ]);
     await browser.type(editable, 'Some text');
-    await browser.keys(['ArrowRight', 'ArrowRight']);
+    await browser.keys(['ArrowRight', 'ArrowRight', 'ArrowRight']);
     await browser.type(editable, 'Some text');
-    await browser.keys(['ArrowRight', 'ArrowRight']);
+    await browser.keys(['ArrowRight', 'ArrowRight', 'ArrowRight']);
     await browser.type(editable, 'Some text');
     await browser.click(editable);
     const doc = await browser.$eval(editable, getDocFromElement);

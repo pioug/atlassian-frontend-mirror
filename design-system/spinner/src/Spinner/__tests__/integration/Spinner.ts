@@ -3,7 +3,7 @@ import { getExampleUrl } from '@atlaskit/webdriver-runner/utils/example';
 import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 
 /* Url to test the example */
-const urlSpinner = getExampleUrl('core', 'spinner', 'testing');
+const urlSpinner = getExampleUrl('design-system', 'spinner', 'testing');
 
 /* Css selectors used for the test */
 const example = '#examples';

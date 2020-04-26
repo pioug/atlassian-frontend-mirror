@@ -1,4 +1,5 @@
 import { gridSize } from '@atlaskit/theme/constants';
+
 import { Sizes } from '../types';
 
 type Dimensions = 'width' | 'height';

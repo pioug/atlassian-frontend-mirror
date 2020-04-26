@@ -12,7 +12,11 @@ describe('Chromeless editor', () => {
   const editor = (doc: any) =>
     createEditor({
       doc,
-      editorProps: { allowPanel: true, appearance: 'chromeless' },
+      editorProps: {
+        allowPanel: true,
+        appearance: 'chromeless',
+        quickInsert: true,
+      },
     });
 
   it('should keep paragraph as the last node', () => {

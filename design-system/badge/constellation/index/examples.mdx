@@ -2,56 +2,54 @@
 order: 0
 ---
 
-import Default from '../../examples/constellation/default';
-import Primary from '../../examples/constellation/primary';
-import PrimaryInverted from '../../examples/constellation/primary-inverted';
-import Important from '../../examples/constellation/important';
-import Added from '../../examples/constellation/added';
-import Removed from '../../examples/constellation/removed';
-import Max from '../../examples/constellation/max';
+import BadgeDefault from '../../examples/constellation/BadgeDefault';
+import BadgePrimary from '../../examples/constellation/BadgePrimary';
+import BadgePrimaryInverted from '../../examples/constellation/BadgePrimaryInverted';
+import BadgeImportant from '../../examples/constellation/BadgeImportant';
+import BadgeAdded from '../../examples/constellation/BadgeAdded';
+import BadgeRemoved from '../../examples/constellation/BadgeRemoved';
+import BadgeMaxValue from '../../examples/constellation/BadgeMaxValue';
 
 ## Appearance
 
-Badges come in six visual styles.
-
 ### Default
 
-The standard form of a badge.
+The default form of a badge.
 
-<Example Component={Default} componentName="@atlaskit/badge" />
+<Example Component={BadgeDefault} componentName="@atlaskit/badge" />
 
 ### Primary
 
-To help draw attention to new or updated information.
+Use a `primary` badge to help draw attention to new or updated information.
 
-<Example Component={Primary} componentName="@atlaskit/badge" />
+<Example Component={BadgePrimary} componentName="@atlaskit/badge" />
 
 ### Primary inverted
 
-The inverse version of primary for use when high contrast against a darker background color is needed.
+Use a `primaryInverted` badge when high contrast against a darker background color is needed.
 
-<Example Component={PrimaryInverted} componentName="@atlaskit/badge" />
+<Example Component={BadgePrimaryInverted} componentName="@atlaskit/badge" />
 
 ### Important
 
-Calls attention to information that needs to stand out. For example, notifications in Confluence.
+Use an `important` badge to call attention to information that needs to stand out. For example, notifications in Confluence.
 
-<Example Component={Important} componentName="@atlaskit/badge" />
+<Example Component={BadgeImportant} componentName="@atlaskit/badge" />
 
 ### Added
 
-Use to show additions. For example, characters added to a line of code in Bitbucket.
+Use an `added` appearance to show additions. For example, when characters are added to a line of code in Bitbucket.
 
-<Example Component={Added} componentName="@atlaskit/badge" />
+<Example Component={BadgeAdded} componentName="@atlaskit/badge" />
 
 ### Removed
 
-Use to show removals. For example, characters removed from a line of code in Bitbucket.
+Use a `removed` appearance to show removals. For example, when characters are removed from a line of code in Bitbucket.
 
-<Example Component={Removed} componentName="@atlaskit/badge" />
+<Example Component={BadgeRemoved} componentName="@atlaskit/badge" />
 
-## Max
+## Max value
 
 The `max` prop can be used to cap the value of a badge. When the value to display is greater than the `max` prop, a `+` will automatically be appended. The default `max` value of a badge is `99`.
 
-<Example Component={Max} componentName="@atlaskit/badge" />
+<Example Component={BadgeMaxValue} componentName="@atlaskit/badge" />

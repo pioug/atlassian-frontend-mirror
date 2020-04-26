@@ -1,7 +1,10 @@
 import React from 'react';
-import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
+
 import { mount, shallow } from 'enzyme';
+import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
+
 import { RankableBody } from '../../rankable/Body';
+
 import { head, rowsWithKeys } from './_data';
 
 const createProps = () => ({

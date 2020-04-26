@@ -1,6 +1,7 @@
 import React from 'react';
+
+import { act, fireEvent, render } from '@testing-library/react';
 import { replaceRaf } from 'raf-stub';
-import { render, fireEvent, act } from '@testing-library/react';
 
 import { ElementBox } from '../../use-element-box';
 

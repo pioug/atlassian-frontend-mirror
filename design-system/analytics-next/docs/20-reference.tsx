@@ -68,7 +68,7 @@ update(
   ${code`import { withAnalyticsEvents } from '@atlaskit/analytics-next';`}
 
   A HOC which provides the wrapped component with a method for creating \`UIAnalyticsEvent\`s, via \`props.createAnalyticsEvent\`.
-  See the section on [creating your own events](/packages/core/analytics-next/docs/concepts#creating-your-own-events)
+  See the section on [creating your own events](/packages/design-system/analytics-next/docs/concepts#creating-your-own-events)
   in the Concepts page for a thorough explanation of how to use this component.
 
   Usage:
@@ -255,7 +255,7 @@ channel and return a clone of the event.
 <a name="useAnalyticsEvents"></a>
 ### useAnalyticsEvents
 
-This custom React hook provides a method \`createAnalyticsEvent\` for creating \`UIAnalyticsEvent\`s. This hook can be used as a replacement for the \`withAnalyticsEvents\` HOC. See the section on [creating your own events](/packages/core/analytics-next/docs/concepts#creating-your-own-events)
+This custom React hook provides a method \`createAnalyticsEvent\` for creating \`UIAnalyticsEvent\`s. This hook can be used as a replacement for the \`withAnalyticsEvents\` HOC. See the section on [creating your own events](/packages/design-system/analytics-next/docs/concepts#creating-your-own-events)
 in the Concepts page for a thorough explanation of how to use this hook.
 
 Usage:

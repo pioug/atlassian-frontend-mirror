@@ -122,13 +122,17 @@ export default function baseStyles(
       ...css,
       paddingRight: paddingExcludingBorder - ICON_PADDING,
     }),
-    option: (css, { isFocused, isSelected }) => {
-      const color = isSelected ? colors.N0 : undefined;
+    option: (css, { isFocused, isSelected, isDisabled }) => {
+      let color;
+      if (isDisabled) color = colors.N70;
+      else if (isSelected) color = colors.N0;
 
       let backgroundColor;
-
-      if (isSelected) backgroundColor = colors.N500;
+      if (isDisabled) backgroundColor = undefined;
+      else if (isSelected) backgroundColor = colors.N500;
       else if (isFocused) backgroundColor = colors.N30;
+
+      const cursor = isDisabled ? 'not-allowed' : undefined;
 
       return {
         ...css,
@@ -136,6 +140,7 @@ export default function baseStyles(
         paddingBottom: '6px',
         backgroundColor,
         color,
+        cursor,
       };
     },
     placeholder: css => ({ ...css, color: colors.N100 }),

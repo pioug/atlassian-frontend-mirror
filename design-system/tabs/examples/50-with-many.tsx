@@ -1,7 +1,9 @@
 import React from 'react';
+
 import Tabs from '../src';
-import { Content } from './shared';
 import { OnSelectCallback } from '../src/types';
+
+import { Content } from './shared';
 
 const handleTabSelect: OnSelectCallback = (_tab, index) => {
   console.info(`Switched to tab at index ${index}`);

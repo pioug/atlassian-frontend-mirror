@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+
 import { Header as StyledHeader } from '../styled';
+
 import withColumnWidth from './withColumnWidth';
 
 class Header extends Component {

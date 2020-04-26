@@ -1,22 +1,25 @@
-import GlobalTheme, { ThemeProp } from '@atlaskit/theme/components';
 import React, {
   cloneElement,
   Component,
   ComponentType,
   ReactNode,
 } from 'react';
-import { propsOmittedFromClickData } from './constants';
-import { omit } from '../utils';
+
+import GlobalTheme, { ThemeProp } from '@atlaskit/theme/components';
+
+import { getProps, getStyledAvatarItem } from '../helpers';
+import { withPseudoState } from '../hoc';
 import {
-  getBackgroundColor,
   Content,
+  getBackgroundColor,
   PrimaryText,
   SecondaryText,
 } from '../styled/AvatarItem';
-import { getProps, getStyledAvatarItem } from '../helpers';
-import { withPseudoState } from '../hoc';
 import { ThemeItem, ThemeItemTokens } from '../theme/item';
 import { AvatarClickType } from '../types';
+import { omit } from '../utils';
+
+import { propsOmittedFromClickData } from './constants';
 
 /* eslint-disable react/no-unused-prop-types */
 interface Props {

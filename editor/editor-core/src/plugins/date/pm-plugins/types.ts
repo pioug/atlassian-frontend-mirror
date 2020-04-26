@@ -1,7 +1,3 @@
-export type DateState = {
+export type DatePluginState = {
   showDatePickerAt: number | null;
 };
-
-export interface DateMeta {
-  showDatePickerAt: number;
-}

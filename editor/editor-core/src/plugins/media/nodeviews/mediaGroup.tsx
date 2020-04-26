@@ -1,49 +1,82 @@
-import React from 'react';
-import { Node as PMNode } from 'prosemirror-model';
-import { EditorView, NodeView } from 'prosemirror-view';
-import EditorCloseIcon from '@atlaskit/icon/glyph/editor/close';
-import { Filmstrip, FilmstripItem } from '@atlaskit/media-filmstrip';
-import { MediaClientConfig } from '@atlaskit/media-core';
 import {
-  WithProviders,
-  ProviderFactory,
   ContextIdentifierProvider,
   MediaProvider,
+  ProviderFactory,
+  WithProviders,
 } from '@atlaskit/editor-common';
-import ReactNodeView, {
+import EditorCloseIcon from '@atlaskit/icon/glyph/editor/close';
+import { Identifier } from '@atlaskit/media-client';
+import { MediaClientConfig } from '@atlaskit/media-core';
+import { Filmstrip, FilmstripItem } from '@atlaskit/media-filmstrip';
+import { Node as PMNode } from 'prosemirror-model';
+import { EditorView, NodeView } from 'prosemirror-view';
+import React from 'react';
+import { EventDispatcher } from '../../../event-dispatcher';
+import {
   ForwardRef,
   getPosHandler,
   getPosHandlerNode,
-} from '../../../nodeviews/ReactNodeView';
-import { PortalProviderAPI } from '../../../ui/PortalProvider';
-import { stateKey as mediaStateKey } from '../pm-plugins/plugin-key';
-import { setNodeSelection } from '../../../utils';
-import WithPluginState from '../../../ui/WithPluginState';
+} from '../../../nodeviews/';
+import ReactNodeView from '../../../nodeviews/ReactNodeView';
 import { stateKey as reactNodeViewStateKey } from '../../../plugins/base/pm-plugins/react-nodeview';
+import { PortalProviderAPI } from '../../../ui/PortalProvider';
+import WithPluginState from '../../../ui/WithPluginState';
+import { setNodeSelection } from '../../../utils';
+import { isNodeSelectedOrInRange, SelectedState } from '../../../utils/nodes';
 import {
-  pluginKey as editorDisabledPluginKey,
   EditorDisabledPluginState,
+  pluginKey as editorDisabledPluginKey,
 } from '../../editor-disabled';
-import { MediaNodeUpdater } from './mediaNodeUpdater';
-import { Identifier } from '@atlaskit/media-client';
+import { stateKey as mediaStateKey } from '../pm-plugins/plugin-key';
 import { MediaPluginState } from '../pm-plugins/types';
+import { MediaNodeUpdater } from './mediaNodeUpdater';
 
 export type MediaGroupProps = {
   forwardRef?: (ref: HTMLElement) => void;
   node: PMNode;
   view: EditorView;
   getPos: () => number;
-  selected: number | null;
   disabled?: boolean;
   allowLazyLoading?: boolean;
   mediaProvider: Promise<MediaProvider>;
   contextIdentifierProvider?: Promise<ContextIdentifierProvider>;
   isCopyPasteEnabled?: boolean;
+  // These two numbers have to be passed separately. They can technically be derived from the view, but
+  // because the view is *reference* then `shouldComponentUpdate` can't identify changes from incoming props
+  anchorPos: number; // This value is required so that shouldComponentUpdate can calculate correctly
+  headPos: number; // This value is required so that shouldComponentUpdate can calculate correctly
 };
 
 export interface MediaGroupState {
   viewMediaClientConfig?: MediaClientConfig;
 }
+
+const isMediaGroupSelectedFromProps = (props: MediaGroupProps) => {
+  return isNodeSelectedOrInRange(
+    props.anchorPos,
+    props.headPos,
+    props.getPos(),
+    props.node.nodeSize,
+  );
+};
+
+const hasSelectionChanged = (
+  oldProps: MediaGroupProps,
+  newProps: MediaGroupProps,
+): boolean => {
+  if (
+    isMediaGroupSelectedFromProps(oldProps) !==
+    isMediaGroupSelectedFromProps(newProps)
+  ) {
+    return true;
+  }
+  if (
+    isMediaGroupSelectedFromProps(newProps) === SelectedState.selectedInside
+  ) {
+    return oldProps.anchorPos !== newProps.anchorPos;
+  }
+  return false;
+};
 
 export default class MediaGroup extends React.Component<
   MediaGroupProps,
@@ -63,6 +96,9 @@ export default class MediaGroup extends React.Component<
     this.mediaNodes = [];
     this.mediaPluginState = mediaStateKey.getState(props.view.state);
     this.setMediaItems(props);
+    this.state = {
+      viewMediaClientConfig: undefined,
+    };
   }
 
   componentDidMount() {
@@ -122,7 +158,7 @@ export default class MediaGroup extends React.Component<
 
   shouldComponentUpdate(nextProps: MediaGroupProps) {
     if (
-      this.props.selected !== nextProps.selected ||
+      hasSelectionChanged(this.props, nextProps) ||
       this.props.node !== nextProps.node ||
       this.state.viewMediaClientConfig !==
         this.mediaPluginState.mediaClientConfig
@@ -169,9 +205,23 @@ export default class MediaGroup extends React.Component<
     };
   };
 
+  isNodeSelected = (nodePos: number): boolean => {
+    const selected = isMediaGroupSelectedFromProps(this.props);
+    if (selected === SelectedState.selectedInRange) {
+      return true;
+    }
+    if (
+      selected === SelectedState.selectedInside &&
+      this.props.anchorPos === nodePos
+    ) {
+      return true;
+    }
+    return false;
+  };
+
   renderChildNodes = () => {
     const { viewMediaClientConfig } = this.state;
-    const { getPos, allowLazyLoading, selected, disabled } = this.props;
+    const { getPos, allowLazyLoading, disabled } = this.props;
     const items: FilmstripItem[] = this.mediaNodes.map((item, idx) => {
       // We declared this to get a fresh position every time
       const getNodePos = () => {
@@ -181,7 +231,7 @@ export default class MediaGroup extends React.Component<
         identifier: this.getIdentifier(item),
         selectable: true,
         isLazy: allowLazyLoading,
-        selected: selected === getNodePos(),
+        selected: this.isNodeSelected(getNodePos()),
         onClick: () => {
           setNodeSelection(this.props.view, getNodePos());
         },
@@ -229,11 +279,6 @@ class MediaGroupNodeView extends ReactNodeView<MediaGroupNodeViewProps> {
           }: {
             editorDisabledPlugin: EditorDisabledPluginState;
           }) => {
-            const nodePos = getPos();
-            const { $anchor, $head } = this.view.state.selection;
-            const isSelected =
-              nodePos < $anchor.pos && $head.pos < nodePos + this.node.nodeSize;
-
             if (!mediaProvider) {
               return null;
             }
@@ -243,12 +288,13 @@ class MediaGroupNodeView extends ReactNodeView<MediaGroupNodeViewProps> {
                 getPos={getPos}
                 view={this.view}
                 forwardRef={forwardRef}
-                selected={isSelected ? $anchor.pos : null}
                 disabled={(editorDisabledPlugin || {}).editorDisabled}
                 allowLazyLoading={allowLazyLoading}
                 mediaProvider={mediaProvider}
                 contextIdentifierProvider={contextIdentifierProvider}
                 isCopyPasteEnabled={isCopyPasteEnabled}
+                anchorPos={this.view.state.selection.$anchor.pos}
+                headPos={this.view.state.selection.$head.pos}
               />
             );
           };
@@ -270,13 +316,21 @@ class MediaGroupNodeView extends ReactNodeView<MediaGroupNodeViewProps> {
 
 export const ReactMediaGroupNode = (
   portalProviderAPI: PortalProviderAPI,
+  eventDispatcher: EventDispatcher,
   providerFactory: ProviderFactory,
   allowLazyLoading?: boolean,
   isCopyPasteEnabled?: boolean,
 ) => (node: PMNode, view: EditorView, getPos: getPosHandler): NodeView => {
-  return new MediaGroupNodeView(node, view, getPos, portalProviderAPI, {
-    allowLazyLoading,
-    providerFactory,
-    isCopyPasteEnabled,
-  }).init();
+  return new MediaGroupNodeView(
+    node,
+    view,
+    getPos,
+    portalProviderAPI,
+    eventDispatcher,
+    {
+      allowLazyLoading,
+      providerFactory,
+      isCopyPasteEnabled,
+    },
+  ).init();
 };

@@ -1,18 +1,21 @@
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react';
-import { getDimension } from './__utils__/get-dimension';
+
+import { fireEvent, render } from '@testing-library/react';
+
 import {
-  PageLayout,
-  Main,
-  Content,
-  RightSidebar,
-  LeftSidebar,
-  RightPanel,
-  LeftPanel,
   Banner,
-  TopNavigation,
+  Content,
+  LeftPanel,
+  LeftSidebar,
+  Main,
+  PageLayout,
   ResizeControl,
-} from '../../';
+  RightPanel,
+  RightSidebar,
+  TopNavigation,
+} from '../../index';
+
+import { getDimension } from './__utils__/get-dimension';
 
 const emptyGridState = {};
 describe('<PageLayout />', () => {
@@ -38,7 +41,7 @@ describe('<PageLayout />', () => {
           <Main>Main content</Main>
           <LeftSidebar testId="component" width={200}>
             Contents
-            <ResizeControl />
+            <ResizeControl resizeButtonLabel="Toggle navigation" />
           </LeftSidebar>
         </Content>
         <RightPanel width={300}>Right Panel</RightPanel>
@@ -395,6 +398,8 @@ describe('<PageLayout />', () => {
         expect.stringContaining(':root{--leftPanelWidth:200px;}'),
       );
     });
+
+    // TODO add test for flyout behaviour DST-266
   });
 
   describe('<RightPanel />', () => {
@@ -569,7 +574,7 @@ describe('<PageLayout />', () => {
             <Main>
               <LeftSidebar testId="component" width={200}>
                 Contents
-                <ResizeControl />
+                <ResizeControl resizeButtonLabel="Toggle navigation" />
               </LeftSidebar>
             </Main>
           </PageLayout>,
@@ -587,7 +592,7 @@ describe('<PageLayout />', () => {
             <Main>
               <LeftSidebar testId="component" width={200}>
                 Contents
-                <ResizeControl />
+                <ResizeControl resizeButtonLabel="Toggle navigation" />
               </LeftSidebar>
             </Main>
           </PageLayout>,
@@ -607,7 +612,7 @@ describe('<PageLayout />', () => {
             <Main>
               <LeftSidebar testId="component" width={200}>
                 Contents
-                <ResizeControl />
+                <ResizeControl resizeButtonLabel="Toggle navigation" />
               </LeftSidebar>
             </Main>
           </PageLayout>,
@@ -635,7 +640,7 @@ describe('<PageLayout />', () => {
           <Main>
             <LeftSidebar testId="component" width={200}>
               Contents
-              <ResizeControl />
+              <ResizeControl resizeButtonLabel="Toggle navigation" />
             </LeftSidebar>
           </Main>
         </PageLayout>,
@@ -656,7 +661,7 @@ describe('<PageLayout />', () => {
           <Main>
             <LeftSidebar testId="component" width={200}>
               Contents
-              <ResizeControl />
+              <ResizeControl resizeButtonLabel="Toggle navigation" />
             </LeftSidebar>
           </Main>
         </PageLayout>,
@@ -677,7 +682,7 @@ describe('<PageLayout />', () => {
           <Main>
             <LeftSidebar testId="component" width={200} isFixed>
               Contents
-              <ResizeControl />
+              <ResizeControl resizeButtonLabel="Toggle navigation" />
             </LeftSidebar>
           </Main>
         </PageLayout>,
@@ -693,7 +698,7 @@ describe('<PageLayout />', () => {
         <PageLayout testId="grid">
           <LeftSidebar testId="component" isFixed width={50}>
             Contents
-            <ResizeControl />
+            <ResizeControl resizeButtonLabel="Toggle navigation" />
           </LeftSidebar>
         </PageLayout>,
       );
@@ -714,7 +719,7 @@ describe('<PageLayout />', () => {
         <PageLayout testId="grid">
           <LeftSidebar testId="component" isFixed width={50}>
             Contents
-            <ResizeControl />
+            <ResizeControl resizeButtonLabel="Toggle navigation" />
           </LeftSidebar>
         </PageLayout>,
       );
@@ -734,7 +739,7 @@ describe('<PageLayout />', () => {
         <PageLayout testId="grid">
           <LeftSidebar testId="component" isFixed width={200}>
             Contents
-            <ResizeControl />
+            <ResizeControl resizeButtonLabel="Toggle navigation" />
           </LeftSidebar>
         </PageLayout>,
       );
@@ -747,7 +752,7 @@ describe('<PageLayout />', () => {
         <PageLayout testId="grid">
           <LeftSidebar testId="component" isFixed width={50} shouldPersistWidth>
             Contents
-            <ResizeControl />
+            <ResizeControl resizeButtonLabel="Toggle navigation" />
           </LeftSidebar>
         </PageLayout>,
       );

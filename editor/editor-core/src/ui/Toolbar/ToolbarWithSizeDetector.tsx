@@ -1,5 +1,5 @@
 import React from 'react';
-import { WidthObserver } from '@atlaskit/editor-common';
+import { WidthObserver } from '@atlaskit/width-detector';
 import { ToolbarWithSizeDetectorProps } from './toolbar-types';
 import { widthToToolbarSize } from './toolbar-size';
 import { Toolbar } from './Toolbar';

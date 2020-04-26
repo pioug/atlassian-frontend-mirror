@@ -1,14 +1,17 @@
 import { css } from 'styled-components';
+
 import { ThemedValue } from '@atlaskit/theme';
+import { B200, background, DN80A, N200A, N70A } from '@atlaskit/theme/colors';
 import { themed } from '@atlaskit/theme/components';
-import { B200, N70A, N200A, DN80A, background } from '@atlaskit/theme/colors';
+
+import { AppearanceType, AvatarClickType, SizeType } from '../types';
+
 import {
   AVATAR_RADIUS,
   AVATAR_SIZES,
   BORDER_WIDTH,
   TRANSITION_DURATION,
 } from './constants';
-import { AvatarClickType, AppearanceType, SizeType } from '../types';
 
 const backgroundColorFocus = B200;
 const overlayColorDefault = 'transparent';

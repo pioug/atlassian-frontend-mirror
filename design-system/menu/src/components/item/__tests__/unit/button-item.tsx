@@ -1,6 +1,8 @@
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react';
+
+import { fireEvent, render } from '@testing-library/react';
 import serializer, { matchers } from 'jest-emotion';
+
 import { CSSFn } from '../../../types';
 import ButtonItem from '../../button-item';
 

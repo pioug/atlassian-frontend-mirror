@@ -1,5 +1,6 @@
 import React from 'react';
-import { code, md, Example, Props } from '@atlaskit/docs';
+
+import { code, Example, md, Props } from '@atlaskit/docs';
 
 export default md`
   If you need more control you can compose your own badge using \`Container\` and \`Format\` components.

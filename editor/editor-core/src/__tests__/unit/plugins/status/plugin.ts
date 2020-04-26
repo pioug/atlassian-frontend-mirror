@@ -65,6 +65,7 @@ describe('status plugin: plugin', () => {
       editorProps: {
         allowStatus: true,
         allowAnalyticsGASV3: true,
+        quickInsert: true,
       },
       doc,
       createAnalyticsEvent,

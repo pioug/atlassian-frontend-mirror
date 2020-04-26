@@ -8,6 +8,7 @@ export const createTypeAheadPlugin = ({
   selectItem?: TypeAheadSelectItem;
 } = {}) => {
   return {
+    name: 'quickInsert',
     pluginsOptions: {
       typeAhead: {
         trigger: '/',

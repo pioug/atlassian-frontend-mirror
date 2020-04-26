@@ -1,7 +1,8 @@
+import React, { Component } from 'react';
+
 import Navigation from '@atlaskit/atlassian-navigation/examples/10-authenticated-example';
 import { NavigationSkeleton } from '@atlaskit/atlassian-navigation/skeleton';
 import { ToggleStateless } from '@atlaskit/toggle';
-import React, { Component } from 'react';
 
 import { LayoutManagerWithViewController, NavigationProvider } from '../src';
 

@@ -3,7 +3,11 @@ import { getExampleUrl } from '@atlaskit/webdriver-runner/utils/example';
 import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 
 /* Url to test the example */
-const urlInlineDialog = getExampleUrl('core', 'inline-dialog', 'testing');
+const urlInlineDialog = getExampleUrl(
+  'design-system',
+  'inline-dialog',
+  'testing',
+);
 
 /* Css selectors used for the test */
 const inlineDialogBtn = "[data-testid='the-button-for-inline-dialog']";

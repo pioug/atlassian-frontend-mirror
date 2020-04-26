@@ -21,7 +21,7 @@ interface Props {
   /** Callback to receive a reference. */
   inputRef?: (input?: HTMLInputElement) => any;
   /** The theme object to be passed down. See
-  [@atlaskit/theme](https://atlaskit.atlassian.com/packages/core/theme) for more details on themeing.
+  [@atlaskit/theme](https://atlaskit.atlassian.com/packages/design-system/theme) for more details on themeing.
   */
   theme?: ThemeProp<any, any>;
 }

@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+
 import Page, { Grid, GridColumn } from '../src';
 
 export default class BasicExample extends PureComponent<void, void> {

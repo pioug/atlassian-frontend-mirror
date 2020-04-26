@@ -73,6 +73,7 @@ describe('Table analytic events', () => {
         allowTables: tableOptions,
         allowAnalyticsGASV3: true,
         appearance: 'full-page',
+        quickInsert: true,
       },
       pluginKey,
       createAnalyticsEvent,

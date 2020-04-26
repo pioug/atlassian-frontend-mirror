@@ -1,13 +1,17 @@
-import React, { PureComponent, cloneElement } from 'react';
+import React, { cloneElement, PureComponent } from 'react';
+
 import NodeResolver from 'react-node-resolver';
 import shallowEqualObjects from 'shallow-equal/objects';
-import { components, PopupSelect, mergeStyles } from '@atlaskit/select';
-import { gridSize as gridSizeFn } from '@atlaskit/theme/constants';
-import { N30, B50, N40A, N200, B300 } from '@atlaskit/theme/colors';
+
 import AddIcon from '@atlaskit/icon/glyph/add';
-import Option from './Option';
-import { UIControllerSubscriber } from '../../../ui-controller';
+import { components, mergeStyles, PopupSelect } from '@atlaskit/select';
+import { B300, B50, N200, N30, N40A } from '@atlaskit/theme/colors';
+import { gridSize as gridSizeFn } from '@atlaskit/theme/constants';
+
 import { CONTENT_NAV_WIDTH } from '../../../common/constants';
+import { UIControllerSubscriber } from '../../../ui-controller';
+
+import Option from './Option';
 
 const gridSize = gridSizeFn();
 

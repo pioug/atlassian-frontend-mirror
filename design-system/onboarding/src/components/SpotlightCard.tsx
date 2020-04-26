@@ -1,10 +1,13 @@
-import { P300, N0, N50A, N60A } from '@atlaskit/theme/colors';
-import { ThemeProp } from '@atlaskit/theme/components';
-import React, { ReactNode, ComponentType, Ref } from 'react';
+import React, { ComponentType, ReactNode, Ref } from 'react';
+
 import { Theme as ButtonTheme } from '@atlaskit/button';
+import { N0, N50A, N60A, P300 } from '@atlaskit/theme/colors';
+import { ThemeProp } from '@atlaskit/theme/components';
+
+import { Actions } from '../types';
+
 import Card, { CardTokens } from './Card';
 import { spotlightButtonTheme } from './theme';
-import { Actions } from '../types';
 
 interface Props {
   /** Buttons to render in the footer */

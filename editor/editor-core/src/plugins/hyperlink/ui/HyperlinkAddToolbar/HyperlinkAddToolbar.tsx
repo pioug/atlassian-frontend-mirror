@@ -211,6 +211,7 @@ class LinkAddToolbar extends PureComponent<Props & InjectedIntlProps, State> {
             <PanelTextInput
               ref={ele => (this.urlInputContainer = ele)}
               placeholder={placeholder}
+              testId={'link-url'}
               onSubmit={this.handleSubmit}
               onChange={this.updateInput}
               autoFocus={{ preventScroll: true }}
@@ -244,7 +245,7 @@ class LinkAddToolbar extends PureComponent<Props & InjectedIntlProps, State> {
               ref={ele => (this.displayTextInputContainer = ele)}
               placeholder={formatDisplayText}
               ariaLabel={'Link label'}
-              testId={'Link label'}
+              testId={'link-label'}
               onChange={this.handleTextKeyDown}
               onCancel={this.textBlur}
               onBlur={this.textBlur}

@@ -1,6 +1,7 @@
 import styled from 'styled-components';
-import { themed } from '@atlaskit/theme/components';
+
 import { N300 } from '@atlaskit/theme/colors';
+import { themed } from '@atlaskit/theme/components';
 
 const ThemeColor = themed({ light: N300, dark: N300 });
 

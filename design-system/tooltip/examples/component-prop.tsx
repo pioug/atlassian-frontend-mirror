@@ -1,6 +1,9 @@
 import React from 'react';
+
 import styled from 'styled-components';
+
 import Button from '@atlaskit/button';
+
 import Tooltip from '../src';
 import { TooltipPrimitive } from '../src/styled';
 

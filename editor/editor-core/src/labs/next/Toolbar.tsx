@@ -4,7 +4,11 @@ import WithPluginState from '../../ui/WithPluginState';
 import ToolBar from '../../ui/Toolbar';
 import { useEditorSharedConfig } from './Editor';
 
-export function Toolbar() {
+interface Props {
+  containerElement: HTMLElement | null;
+}
+
+export function Toolbar({ containerElement }: Props) {
   const config = useEditorSharedConfig();
 
   if (!config) {
@@ -24,6 +28,7 @@ export function Toolbar() {
           popupsBoundariesElement={config.popupsBoundariesElement}
           popupsScrollableElement={config.popupsScrollableElement}
           disabled={disabled.editorDisabled}
+          containerElement={containerElement}
         />
       )}
     />

@@ -1,13 +1,16 @@
 import React from 'react';
+
 import { findDOMNode } from 'react-dom';
+
 import Spinner from '@atlaskit/spinner';
-import { SpinnerSizeType } from '../types';
+
 import { LARGE, LOADING_CONTENTS_OPACITY } from '../internal/constants';
 import {
   Container,
   SpinnerBackdrop,
   SpinnerContainer,
 } from '../styled/LoadingContainerAdvanced';
+import { SpinnerSizeType } from '../types';
 
 export interface Props {
   children: React.ReactElement<any>;

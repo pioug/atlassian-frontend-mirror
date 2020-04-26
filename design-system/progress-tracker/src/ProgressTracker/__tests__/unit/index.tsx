@@ -1,9 +1,11 @@
-import { shallow, ShallowWrapper } from 'enzyme';
 import React from 'react';
-import { Grid } from '@atlaskit/page';
+
+import { shallow, ShallowWrapper } from 'enzyme';
 import { ThemeProvider } from 'styled-components';
 
-import { ProgressTracker, Stages } from '../../../';
+import { Grid } from '@atlaskit/page';
+
+import { ProgressTracker, Stages } from '../../../index';
 import ProgressTrackerStage, {
   ProgressTrackerStageProps,
 } from '../../../ProgressTrackerStage';

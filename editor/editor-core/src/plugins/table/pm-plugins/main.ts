@@ -9,11 +9,12 @@ import {
   findParentNodeOfType,
   findTable,
 } from 'prosemirror-utils';
-import { DecorationSet, EditorView } from 'prosemirror-view';
+import { EditorView } from 'prosemirror-view';
 
 import { browser } from '@atlaskit/editor-common';
 import { Dispatch } from '../../../event-dispatcher';
 import { PortalProviderAPI } from '../../../ui/PortalProvider';
+import { pluginKey as decorationsPluginKey } from '../pm-plugins/decorations/plugin';
 
 import { createTableView } from '../nodeviews/table';
 import {
@@ -40,6 +41,7 @@ import { fixTables } from '../transforms';
 import { getPluginState, pluginKey } from './plugin-factory';
 import { createPluginState } from './plugin-factory';
 import { defaultTableSelection } from './default-table-selection';
+import { EventDispatcher } from '../../../event-dispatcher';
 
 let isBreakoutEnabled: boolean | undefined;
 let isDynamicTextSizingEnabled: boolean | undefined;
@@ -49,6 +51,7 @@ let wasFullWidthModeEnabled: boolean | undefined;
 export const createPlugin = (
   dispatch: Dispatch,
   portalProviderAPI: PortalProviderAPI,
+  eventDispatcher: EventDispatcher,
   pluginConfig: PluginConfig,
   dynamicTextSizing?: boolean,
   breakoutEnabled?: boolean,
@@ -64,7 +67,6 @@ export const createPlugin = (
     pluginConfig,
     insertColumnButtonIndex: undefined,
     insertRowButtonIndex: undefined,
-    decorationSet: DecorationSet.empty,
     isFullWidthModeEnabled,
     isHeaderRowEnabled: !!pluginConfig.allowHeaderRow,
     isHeaderColumnEnabled: false,
@@ -135,10 +137,8 @@ export const createPlugin = (
       };
     },
     props: {
-      decorations: state => getPluginState(state).decorationSet,
-
       handleClick: ({ state, dispatch }, _pos, event: MouseEvent) => {
-        const { decorationSet } = getPluginState(state);
+        const decorationSet = decorationsPluginKey.getState(state);
         if (findControlsHoverDecoration(decorationSet).length) {
           clearHoverSelection()(state, dispatch);
         }
@@ -162,12 +162,19 @@ export const createPlugin = (
 
       nodeViews: {
         table: (node, view, getPos) =>
-          createTableView(node, view, getPos, portalProviderAPI, {
-            isBreakoutEnabled,
-            dynamicTextSizing: isDynamicTextSizingEnabled,
-            isFullWidthModeEnabled,
-            wasFullWidthModeEnabled,
-          }),
+          createTableView(
+            node,
+            view,
+            getPos,
+            portalProviderAPI,
+            eventDispatcher,
+            {
+              isBreakoutEnabled,
+              dynamicTextSizing: isDynamicTextSizingEnabled,
+              isFullWidthModeEnabled,
+              wasFullWidthModeEnabled,
+            },
+          ),
       },
 
       handleDOMEvents: {

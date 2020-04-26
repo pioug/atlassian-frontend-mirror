@@ -1,5 +1,6 @@
 import React from 'react';
-import DropdownMenu, { DropdownItemGroup, DropdownItem } from '../src';
+
+import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../src';
 
 export default () => (
   <DropdownMenu trigger="Cities in Australia" triggerType="button">

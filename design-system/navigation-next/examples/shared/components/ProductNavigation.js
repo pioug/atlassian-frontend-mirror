@@ -1,10 +1,11 @@
 import React from 'react';
+
 import DashboardIcon from '@atlaskit/icon/glyph/dashboard';
 import FolderIcon from '@atlaskit/icon/glyph/folder';
 import IssuesIcon from '@atlaskit/icon/glyph/issues';
 import { JiraWordmark } from '@atlaskit/logo';
 
-import { HeaderSection, Item, Wordmark, MenuSection } from '../../../src';
+import { HeaderSection, Item, MenuSection, Wordmark } from '../../../src';
 
 const ProductNavigation = () => (
   <div data-webdriver-test-key="product-navigation">

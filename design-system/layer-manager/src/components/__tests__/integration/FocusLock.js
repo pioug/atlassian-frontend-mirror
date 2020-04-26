@@ -3,7 +3,11 @@ import { getExampleUrl } from '@atlaskit/webdriver-runner/utils/example';
 
 import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 
-const urlFocusLock = getExampleUrl('core', 'layer-manager', 'focus-lock');
+const urlFocusLock = getExampleUrl(
+  'design-system',
+  'layer-manager',
+  'focus-lock',
+);
 const FocusLockButton = '#examples p:nth-child(1) > button';
 const LastButton = '#examples p:nth-child(2) > button:nth-child(3)';
 const FirstButton = '#examples p:nth-child(2) > button:nth-child(1)';

@@ -1,4 +1,4 @@
-export { default as Emoji } from './Emoji';
+export { default as Emoji, EmojiProps } from './Emoji';
 export {
   default as MediaSingle,
   Props as MediaSingleProps,
@@ -65,12 +65,6 @@ export {
   ExpandIconWrapper,
   ExpandLayoutWrapper,
 } from './Expand';
-
-export {
-  IframeWidthObserverFallbackWrapper,
-  IframeWrapperConsumer,
-  WidthObserver,
-} from './WidthObserver';
 
 export { ErrorMessage, HelperMessage, ValidMessage } from './Messages';
 export { ClearNextSiblingMarginTop } from './clear-next-sibling-margin-top';

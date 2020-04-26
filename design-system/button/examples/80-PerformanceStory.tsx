@@ -1,6 +1,8 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
 import React from 'react';
+
+import { jsx } from '@emotion/core';
+
 import Button from '../src';
 
 const PER_RUN = 100; // how many button groups to render

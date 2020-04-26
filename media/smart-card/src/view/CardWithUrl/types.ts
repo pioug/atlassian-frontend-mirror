@@ -11,4 +11,5 @@ export type CardWithUrlContentProps = {
   dispatchAnalytics: AnalyticsHandler;
   testId?: string;
   onResolve?: (data: { url?: string; title?: string }) => void;
+  showActions?: boolean;
 };

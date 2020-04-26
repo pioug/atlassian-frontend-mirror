@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+
 import { asyncComponent } from 'react-async-component';
+
 import Avatar from '@atlaskit/avatar';
 import AddIcon from '@atlaskit/icon/glyph/add';
 import QuestionCircleIcon from '@atlaskit/icon/glyph/question-circle';
@@ -10,10 +12,10 @@ import { colors } from '@atlaskit/theme';
 import {
   GlobalNav,
   LayoutManager,
-  NavigationProvider,
   modeGenerator,
-  ThemeProvider,
+  NavigationProvider,
   SkeletonContainerView,
+  ThemeProvider,
 } from '../src';
 
 /**

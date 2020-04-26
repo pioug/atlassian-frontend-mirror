@@ -54,6 +54,12 @@ const typeAheadPlugin = (): EditorPlugin => ({
         }: {
           typeAhead: TypeAheadPluginState;
         }) => {
+          if (
+            typeAhead.typeAheadHandler &&
+            typeAhead.typeAheadHandler.headless
+          ) {
+            return null;
+          }
           const { queryMarkPos } = typeAhead;
           const domRef =
             queryMarkPos !== null ? editorView.domAtPos(queryMarkPos) : null;

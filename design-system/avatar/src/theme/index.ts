@@ -1,6 +1,7 @@
+import { DN50, N40 } from '@atlaskit/theme/colors';
 import { createTheme } from '@atlaskit/theme/components';
 import { gridSize } from '@atlaskit/theme/constants';
-import { N40, DN50 } from '@atlaskit/theme/colors';
+
 import { AppearanceType, PresenceType, SizeType } from '../types';
 
 interface Dimensions {

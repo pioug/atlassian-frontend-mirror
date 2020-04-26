@@ -1,31 +1,33 @@
 /* eslint-disable react/no-array-index-key */
-import React, { Component, Fragment, MouseEvent, KeyboardEvent } from 'react';
+import React, { Component, Fragment, KeyboardEvent, MouseEvent } from 'react';
+
 import { findDOMNode } from 'react-dom';
 import { uid } from 'react-uid';
+
 import {
+  createAndFireEvent,
   withAnalyticsContext,
   withAnalyticsEvents,
-  createAndFireEvent,
 } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button';
-import Droplist, { Item, Group } from '@atlaskit/droplist';
+import Droplist, { Group, Item } from '@atlaskit/droplist';
 import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
 
-import {
-  name as packageName,
-  version as packageVersion,
-} from '../version.json';
-
-import DropdownItemFocusManager from './context/DropdownItemFocusManager';
-import DropdownItemClickManager from './context/DropdownItemClickManager';
-import DropdownItemSelectionCache from './context/DropdownItemSelectionCache';
 import WidthConstrainer from '../styled/WidthConstrainer';
-import { KEY_DOWN, KEY_SPACE, KEY_ENTER } from '../util/keys';
 import {
   DeprecatedItem,
   DeprecatedItemGroup,
   DropdownMenuStatelessProps,
 } from '../types';
+import { KEY_DOWN, KEY_ENTER, KEY_SPACE } from '../util/keys';
+import {
+  name as packageName,
+  version as packageVersion,
+} from '../version.json';
+
+import DropdownItemClickManager from './context/DropdownItemClickManager';
+import DropdownItemFocusManager from './context/DropdownItemFocusManager';
+import DropdownItemSelectionCache from './context/DropdownItemSelectionCache';
 
 interface OpenCloseArgs {
   event: MouseEvent | KeyboardEvent;

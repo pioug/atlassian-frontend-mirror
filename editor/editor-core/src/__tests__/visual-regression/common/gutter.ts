@@ -24,21 +24,23 @@ describe('Gutter:', () => {
   });
 
   it('should add gutter if a table is added at the end of the editor', async () => {
-    await typeInEditorAtEndOfDocument(page, '/table  ', { delay: 100 });
-
+    await typeInEditorAtEndOfDocument(page, '/table', { delay: 100 });
+    await pressKey(page, 'Enter');
     await page.waitForSelector(tableSelectors.tableTh);
 
     await pressKey(page, ['ArrowDown', 'ArrowDown']); // Go to last row
   });
 
   it('should add gutter if a panel is added at the end of the editor', async () => {
-    await typeInEditorAtEndOfDocument(page, '/info ', { delay: 100 });
+    await typeInEditorAtEndOfDocument(page, '/info', { delay: 100 });
+    await pressKey(page, 'Enter');
 
     await page.waitForSelector(panelSelectors.infoPanel);
   });
 
   it('should add gutter if a decision is added at the end of the editor', async () => {
-    await typeInEditorAtEndOfDocument(page, '/decision ', { delay: 100 });
+    await typeInEditorAtEndOfDocument(page, '/decision', { delay: 100 });
+    await pressKey(page, 'Enter');
 
     await page.waitForSelector(decisionSelectors.decision);
   });

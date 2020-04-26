@@ -1,48 +1,9 @@
 import assert from 'assert';
 import * as sinon from 'sinon';
-import { renderDocument, Serializer } from '../../index';
 import { defaultSchema as schema } from '@atlaskit/adf-schema';
 import * as common from '@atlaskit/editor-common/validator';
-
-const doc = {
-  version: 1,
-  type: 'doc',
-  content: [
-    {
-      type: 'paragraph',
-      content: [
-        {
-          type: 'text',
-          text: 'Hello, ',
-          marks: [
-            {
-              type: 'link',
-              attrs: {
-                href: 'https://www.atlassian.com',
-              },
-            },
-          ],
-        },
-        {
-          type: 'text',
-          text: 'World!',
-          marks: [
-            {
-              type: 'strong',
-            },
-            {
-              type: 'link',
-              attrs: {
-                href: 'https://www.atlassian.com',
-              },
-            },
-          ],
-        },
-      ],
-    },
-  ],
-};
-
+import { renderDocument, Serializer } from '../../index';
+import doc from '../__fixtures__/basic-document.adf.json';
 class MockSerializer implements Serializer<string> {
   serializeFragment(_fragment: any) {
     return 'dummy';

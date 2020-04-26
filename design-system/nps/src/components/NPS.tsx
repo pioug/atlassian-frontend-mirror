@@ -1,4 +1,5 @@
 import React, { ReactNode } from 'react';
+
 import { NPSWrapper, PageWrapper } from './styled/nps';
 
 export type Rating = number;

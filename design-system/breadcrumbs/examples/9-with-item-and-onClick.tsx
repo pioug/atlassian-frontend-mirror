@@ -1,4 +1,5 @@
 import React from 'react';
+
 import Breadcrumbs, { BreadcrumbsItem } from '../src';
 
 const clickPreventDefaultHandler = (e: React.MouseEvent) => {

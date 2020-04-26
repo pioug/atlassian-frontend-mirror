@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import { shallow, mount } from 'enzyme';
+
+import { mount, shallow } from 'enzyme';
+
 import Button from '@atlaskit/button';
 
 import CommentActionWithAnalytics, {
-  Props,
   CommentActionWithoutAnalytics as CommentAction,
+  Props,
 } from '../../ActionItem';
 
 describe('@atlaskit comments', () => {

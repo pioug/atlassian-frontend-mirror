@@ -6,6 +6,9 @@ import {
   MediaProvider as MediaProviderType,
   EditorProps,
   MentionProvider,
+  setMobilePaddingTop,
+  quickInsertPluginKey,
+  processQuickInsertItems,
 } from '@atlaskit/editor-core';
 import FabricAnalyticsListeners, {
   AnalyticsWebClient,
@@ -30,6 +33,9 @@ import {
 } from '@atlaskit/smart-card';
 import { EmojiResource } from '@atlaskit/emoji/resource';
 import { analyticsBridgeClient } from '../analytics-client';
+import { IntlProvider } from 'react-intl';
+import { createQuickInsertProvider } from '../providers';
+import { getEnableQuickInsertValue } from '../query-param-reader';
 
 export const bridge: WebBridgeImpl = ((window as any).bridge = new WebBridgeImpl());
 
@@ -50,6 +56,8 @@ class EditorWithState extends Editor {
     super.onEditorCreated(instance);
 
     const { eventDispatcher, view } = instance;
+    const mobilePaddingTop = bridge.getPadding().top;
+
     bridge.editorView = view;
     bridge.editorActions._privateRegisterEditor(view, eventDispatcher);
     if (this.props.media && this.props.media.customMediaPicker) {
@@ -57,6 +65,25 @@ class EditorWithState extends Editor {
     }
 
     initPluginListeners(eventDispatcher, bridge, view);
+
+    if (getEnableQuickInsertValue()) {
+      const quickInsertPluginState = quickInsertPluginKey.getState(view.state);
+      bridge.quickInsertItems.resolve(
+        processQuickInsertItems(
+          quickInsertPluginState.items,
+          this.context.intl,
+        ),
+      );
+    }
+
+    /**
+     * Because native side calls `setPadding` in bridge implementation before editorView is created,
+     * we need to dispatch the `setMobilePaddingTop` action again when the editor view is created,
+     * in order to set the padding on the editor side for height calculations
+     */
+    if (mobilePaddingTop > 0) {
+      setMobilePaddingTop(mobilePaddingTop)(view.state, view.dispatch);
+    }
   }
 
   onEditorDestroyed(instance: {
@@ -93,44 +120,55 @@ export default function MobileEditor(props: MobileEditorProps) {
     handleAnalyticsEvent,
   );
 
+  const quickInsert = getEnableQuickInsertValue()
+    ? {
+        provider: createQuickInsertProvider(bridge.quickInsertItems),
+      }
+    : false;
+
   return (
     <FabricAnalyticsListeners client={analyticsClient}>
       <SmartCardProvider client={props.cardClient} authFlow={authFlow}>
         <AtlaskitThemeProvider mode={mode}>
-          <EditorWithState
-            appearance="mobile"
-            mentionProvider={props.mentionProvider}
-            emojiProvider={props.emojiProvider}
-            media={{
-              customMediaPicker: new MobilePicker(),
-              provider: props.mediaProvider,
-              allowMediaSingle: true,
-              allowAltTextOnImages: true,
-            }}
-            allowConfluenceInlineComment={true}
-            onChange={() => {
-              toNativeBridge.updateText(bridge.getContent());
-            }}
-            allowPanel={true}
-            allowTables={{
-              allowControls: false,
-            }}
-            UNSAFE_cards={{
-              provider: props.cardProvider,
-            }}
-            allowExtension={true}
-            allowTextColor={true}
-            allowDate={true}
-            allowRule={true}
-            allowStatus={true}
-            allowLayouts={{
-              allowBreakout: true,
-            }}
-            allowAnalyticsGASV3={true}
-            allowExpand={true}
-            taskDecisionProvider={Promise.resolve(createTaskDecisionProvider())}
-            {...props}
-          />
+          <IntlProvider locale="en">
+            <EditorWithState
+              appearance="mobile"
+              mentionProvider={props.mentionProvider}
+              emojiProvider={props.emojiProvider}
+              media={{
+                customMediaPicker: new MobilePicker(),
+                provider: props.mediaProvider,
+                allowMediaSingle: true,
+                allowAltTextOnImages: true,
+              }}
+              allowConfluenceInlineComment={true}
+              onChange={() => {
+                toNativeBridge.updateText(bridge.getContent());
+              }}
+              allowPanel={true}
+              allowTables={{
+                allowControls: false,
+              }}
+              UNSAFE_cards={{
+                provider: props.cardProvider,
+              }}
+              allowExtension={true}
+              allowTextColor={true}
+              allowDate={true}
+              allowRule={true}
+              allowStatus={true}
+              allowLayouts={{
+                allowBreakout: true,
+              }}
+              allowAnalyticsGASV3={true}
+              allowExpand={true}
+              taskDecisionProvider={Promise.resolve(
+                createTaskDecisionProvider(),
+              )}
+              quickInsert={quickInsert}
+              {...props}
+            />
+          </IntlProvider>
         </AtlaskitThemeProvider>
       </SmartCardProvider>
     </FabricAnalyticsListeners>

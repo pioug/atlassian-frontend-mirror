@@ -1,16 +1,19 @@
 /* eslint-disable react/no-multi-comp */
 import React from 'react';
+
 import styled from '@emotion/styled';
-import Button from '@atlaskit/button';
-import { colors } from '@atlaskit/theme';
 import {
-  Draggable,
   DragDropContext,
+  Draggable,
   Droppable,
+  DroppableProvided,
   DropResult,
 } from 'react-beautiful-dnd';
+
+import Button from '@atlaskit/button';
+import { colors } from '@atlaskit/theme';
+
 import Modal, { ModalTransition } from '../src';
-import { DroppableProvided } from 'react-beautiful-dnd';
 
 const noop = () => {};
 

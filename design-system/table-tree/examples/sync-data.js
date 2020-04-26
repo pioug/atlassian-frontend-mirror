@@ -1,5 +1,7 @@
 import React from 'react';
-import TableTree, { Headers, Header, Rows, Row, Cell } from '../src';
+
+import TableTree, { Cell, Header, Headers, Row, Rows } from '../src';
+
 import staticData from './data-cleancode-toc.json';
 
 export default () => (

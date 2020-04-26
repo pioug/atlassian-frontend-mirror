@@ -1,4 +1,4 @@
-import chunkinator, { Chunk, ChunkinatorFile } from 'chunkinator';
+import { chunkinator, Chunk, ChunkinatorFile } from '@atlaskit/chunkinator';
 
 import { MediaStore } from '.';
 import { createHasher } from './utils/hashing/hasherCreator';

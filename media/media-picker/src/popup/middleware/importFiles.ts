@@ -9,13 +9,10 @@ import {
   FilePreview,
   isPreviewableType,
   MediaType,
-  globalMediaEventEmitter,
   observableToPromise,
   isErrorFileState,
   safeUnsubscribe,
   ErrorFileState,
-  ProcessingFileState,
-  ProcessedFileState,
 } from '@atlaskit/media-client';
 import { RECENTS_COLLECTION } from '@atlaskit/media-client/constants';
 
@@ -31,7 +28,7 @@ import { WsProvider } from '../tools/websocket/wsProvider';
 import { WsConnectionHolder } from '../tools/websocket/wsConnectionHolder';
 import { RemoteUploadActivity } from '../tools/websocket/upload/remoteUploadActivity';
 import { copyMediaFileForUpload } from '../../domain/file';
-import { MediaFile } from '../../types';
+import { MediaFile, Preview } from '../../types';
 import { PopupUploadEventEmitter } from '../../components/types';
 import { sendUploadEvent } from '../actions/sendUploadEvent';
 import { getPreviewFromMetadata } from '../../domain/preview';
@@ -61,6 +58,18 @@ export type SelectedUploadFile = {
   readonly touchFileDescriptor: TouchFileDescriptor;
   readonly accountId?: string;
 };
+
+interface PendingEvents {
+  'upload-end'?: () => void;
+}
+
+type EventState = 'unsent' | 'sending' | 'sent';
+
+interface PublicEventEmissionState {
+  'upload-preview-update': EventState;
+  'upload-end': EventState;
+  'upload-error': EventState;
+}
 
 const mapSelectedItemToSelectedUploadFile = (
   {
@@ -232,7 +241,6 @@ const distributeTenantFileState = async (
   tenantFileState: FileState,
   userSelectedFileId: string,
 ) => {
-  const { tenantMediaClient } = store.getState();
   const tenantFileSubject = new ReplaySubject<FileState>(1);
   const userFileObservable = getFileStreamsCache().get(userSelectedFileId);
 
@@ -252,9 +260,6 @@ const distributeTenantFileState = async (
       },
     });
   }
-
-  tenantMediaClient.emit('file-added', tenantFileState);
-  globalMediaEventEmitter.emit('file-added', tenantFileState);
 };
 
 /**
@@ -379,12 +384,14 @@ const emitPublicEvents = (
     touchFileDescriptor: { fileId },
   } = selectedUploadFile;
   const { tenantMediaClient } = store.getState();
-  const hasEventBeenEmittedOnce = {
-    'upload-preview-update': false,
-    'upload-error': false,
-    'upload-end': false,
+  const publicEventEmissionState: PublicEventEmissionState = {
+    'upload-preview-update': 'unsent',
+    'upload-error': 'unsent',
+    'upload-end': 'unsent',
   };
-
+  const pendingEvents: PendingEvents = {
+    'upload-end': undefined,
+  };
   const dispatchUploadError = (fileState: ErrorFileState) => {
     const { id, message = '' } = fileState;
     const event: UploadEvent = {
@@ -404,26 +411,24 @@ const emitPublicEvents = (
 
   const dispatchUploadPreviewUpdate = async (
     fileState: Exclude<FileState, ErrorFileState>,
-    value: Blob,
+    value: Blob | string,
   ) => {
     const { mediaType } = fileState;
     const file = fileStateToMediaFile(fileState);
-    const eventPreview = await getPreviewFromBlob(value, mediaType);
-
+    const preview: Preview =
+      value instanceof Blob ? await getPreviewFromBlob(value, mediaType) : {};
     const event: UploadEvent = {
       name: 'upload-preview-update',
       data: {
         file,
-        preview: eventPreview,
+        preview,
       },
     };
 
     store.dispatch(sendUploadEvent({ event, fileId }));
   };
 
-  const dispatchUploadEnd = (
-    fileState: ProcessingFileState | ProcessedFileState,
-  ) => {
+  const dispatchUploadEnd = (fileState: Exclude<FileState, ErrorFileState>) => {
     const file = fileStateToMediaFile(fileState);
     // File to copy from
     const source = {
@@ -434,43 +439,57 @@ const emitPublicEvents = (
     store.dispatch(finalizeUpload(file, fileId, source));
   };
 
+  const canDispatchUploadPreview = (): boolean =>
+    publicEventEmissionState['upload-preview-update'] === 'unsent';
+
+  const canDispatchUploadEnd = (fileState: FileState): boolean =>
+    (fileState.status === 'processing' || fileState.status === 'processed') &&
+    publicEventEmissionState['upload-end'] === 'unsent';
+
+  const canUnsubscribe = () =>
+    // we can unsubscribe when all events are fired
+    publicEventEmissionState['upload-preview-update'] !== 'unsent' &&
+    publicEventEmissionState['upload-end'] !== 'unsent';
+
+  const dispatchPendingEvents = () => {
+    if (
+      pendingEvents['upload-end'] &&
+      publicEventEmissionState['upload-preview-update'] === 'sent'
+    ) {
+      pendingEvents['upload-end']();
+      delete pendingEvents['upload-end'];
+    }
+  };
+
   tenantMediaClient.file.getFileState(fileId).subscribe({
     async next(this: Subscription, fileState: FileState) {
       if (isErrorFileState(fileState)) {
-        if (!hasEventBeenEmittedOnce['upload-error']) {
-          hasEventBeenEmittedOnce['upload-error'] = true;
+        if (publicEventEmissionState['upload-error'] !== 'sent') {
           dispatchUploadError(fileState);
+          publicEventEmissionState['upload-error'] = 'sent';
         }
         return;
       }
 
       const { preview } = fileState;
-      // TODO: explore if this is being emitted later than usual
       if (preview) {
         const { value } = await preview;
-        if (
-          value instanceof Blob &&
-          !hasEventBeenEmittedOnce['upload-preview-update']
-        ) {
-          hasEventBeenEmittedOnce['upload-preview-update'] = true;
-          dispatchUploadPreviewUpdate(fileState, value);
+        if (canDispatchUploadPreview()) {
+          publicEventEmissionState['upload-preview-update'] = 'sending';
+          await dispatchUploadPreviewUpdate(fileState, value);
+          publicEventEmissionState['upload-preview-update'] = 'sent';
         }
       }
 
-      if (
-        (fileState.status === 'processing' ||
-          fileState.status === 'processed') &&
-        !hasEventBeenEmittedOnce['upload-end']
-      ) {
-        hasEventBeenEmittedOnce['upload-end'] = true;
-        dispatchUploadEnd(fileState);
+      if (canDispatchUploadEnd(fileState)) {
+        pendingEvents['upload-end'] = () => {
+          dispatchUploadEnd(fileState);
+          publicEventEmissionState['upload-end'] = 'sent';
+        };
       }
 
-      // we can unsubscribe when all events are fired
-      if (
-        hasEventBeenEmittedOnce['upload-preview-update'] &&
-        hasEventBeenEmittedOnce['upload-end']
-      ) {
+      dispatchPendingEvents();
+      if (canUnsubscribe()) {
         this.unsubscribe();
       }
     },

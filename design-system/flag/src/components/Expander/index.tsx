@@ -1,4 +1,5 @@
 import React, { Component, ReactNode } from 'react';
+
 import ExpanderInternal from './styledExpander';
 
 type Props = {

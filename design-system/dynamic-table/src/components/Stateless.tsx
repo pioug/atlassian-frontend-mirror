@@ -1,38 +1,41 @@
 import React from 'react';
+
 import {
-  withAnalyticsEvents,
-  withAnalyticsContext,
   createAndFireEvent,
   UIAnalyticsEvent,
+  withAnalyticsContext,
+  withAnalyticsEvents,
 } from '@atlaskit/analytics-next';
-import ManagedPagination from './managedPagination';
+
+import { ASC, DESC, LARGE, SMALL } from '../internal/constants';
 import {
-  name as packageName,
-  version as packageVersion,
-} from '../version.json';
-import { ASC, DESC, SMALL, LARGE } from '../internal/constants';
-import {
+  assertIsSortable,
   getPageRows,
   validateSortKey,
-  assertIsSortable,
 } from '../internal/helpers';
-import TableHead from './TableHead';
-import Body from './Body';
-import RankableTableBody from './rankable/Body';
-import LoadingContainer from './LoadingContainer';
-import LoadingContainerAdvanced from './LoadingContainerAdvanced';
+import { Caption, PaginationWrapper, Table } from '../styled/DynamicTable';
 import {
   EmptyViewContainer,
   EmptyViewWithFixedHeight,
 } from '../styled/EmptyBody';
-import { Table, Caption, PaginationWrapper } from '../styled/DynamicTable';
 import {
   StatelessProps as Props,
-  RowCellType,
-  RankStart,
   RankEnd,
+  RankStart,
+  RowCellType,
   SortOrderType,
 } from '../types';
+import {
+  name as packageName,
+  version as packageVersion,
+} from '../version.json';
+
+import Body from './Body';
+import LoadingContainer from './LoadingContainer';
+import LoadingContainerAdvanced from './LoadingContainerAdvanced';
+import ManagedPagination from './managedPagination';
+import RankableTableBody from './rankable/Body';
+import TableHead from './TableHead';
 
 function toggleSortOrder(currentSortOrder?: SortOrderType) {
   switch (currentSortOrder) {

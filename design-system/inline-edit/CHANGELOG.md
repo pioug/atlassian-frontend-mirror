@@ -1,5 +1,26 @@
 # @atlaskit/inline-edit
 
+## 10.0.31
+
+### Patch Changes
+
+- [patch][ffe88383f4](https://bitbucket.org/atlassian/atlassian-frontend/commits/ffe88383f4):
+
+  Change imports to comply with Atlassian conventions- Updated dependencies [6b8e60827e](https://bitbucket.org/atlassian/atlassian-frontend/commits/6b8e60827e):
+
+- Updated dependencies [449ef134b3](https://bitbucket.org/atlassian/atlassian-frontend/commits/449ef134b3):
+- Updated dependencies [3a09573b4e](https://bitbucket.org/atlassian/atlassian-frontend/commits/3a09573b4e):
+- Updated dependencies [57c0487a02](https://bitbucket.org/atlassian/atlassian-frontend/commits/57c0487a02):
+- Updated dependencies [6efb12e06d](https://bitbucket.org/atlassian/atlassian-frontend/commits/6efb12e06d):
+- Updated dependencies [0059d26429](https://bitbucket.org/atlassian/atlassian-frontend/commits/0059d26429):
+- Updated dependencies [fd41d77c29](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd41d77c29):
+  - @atlaskit/button@13.3.11
+  - @atlaskit/icon@20.1.1
+  - @atlaskit/select@11.0.10
+  - @atlaskit/inline-dialog@12.1.12
+  - @atlaskit/form@7.2.1
+  - @atlaskit/webdriver-runner@0.3.4
+
 ## 10.0.30
 
 ### Patch Changes

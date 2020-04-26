@@ -71,6 +71,7 @@ export interface StatusBridge {
 export interface TypeAheadBridge {
   dismissTypeAhead(): void;
   typeAheadQuery(query: string, trigger: string): void;
+  typeAheadDisplayItems(query: string, trigger: string, items: string): void;
 }
 
 export interface LinkBridge {

@@ -1,6 +1,6 @@
 import {
-  withAnalyticsEvents,
   withAnalyticsContext,
+  withAnalyticsEvents,
 } from '@atlaskit/analytics-next';
 
 export const navigationChannel = 'navigation';

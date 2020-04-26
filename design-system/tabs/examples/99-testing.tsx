@@ -1,5 +1,7 @@
 import React from 'react';
+
 import Tabs from '../src';
+
 import { Content } from './shared';
 
 const tabs = [

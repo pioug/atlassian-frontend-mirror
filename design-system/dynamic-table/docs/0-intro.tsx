@@ -1,5 +1,6 @@
 import React from 'react';
-import { md, Example, Props, code } from '@atlaskit/docs';
+
+import { code, Example, md, Props } from '@atlaskit/docs';
 
 export default md`
   The Dynamic Table component is a table component with pagination and sorting functionality.
@@ -50,6 +51,6 @@ export default md`
   ### Sorting
 
   Make sure to define a unique \`key\` for every cell,
-  you can see this at work in [one of the table examples](https://bitbucket.org/atlassian/atlaskit-mk-2/src/master/packages/core/dynamic-table/examples/content/sample-data.tsx#lines-79).
+  you can see this at work in [one of the table examples](https://bitbucket.org/atlassian/atlassian-frontend/src/master/packages/design-system/dynamic-table/examples/content/sample-data.tsx#lines-79).
   The reason for this is they're used to uniquely identify the elements so sorting can occur (and React can do its bit too)!
 `;

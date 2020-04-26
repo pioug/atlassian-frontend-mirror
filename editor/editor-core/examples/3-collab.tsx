@@ -16,6 +16,7 @@ import { EmojiProvider } from '@atlaskit/emoji/resource';
 import { OptionData, User } from '@atlaskit/user-picker';
 import { cardProviderStaging } from '@atlaskit/editor-test-helpers/card-provider';
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
+import quickInsertProviderFactory from '../example-helpers/quick-insert-provider';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 import { customInsertMenuItems } from '@atlaskit/editor-test-helpers/mock-insert-menu';
@@ -35,6 +36,10 @@ import { TitleInput } from '../example-helpers/PageElements';
 import { EditorActions, MediaProvider, MentionProvider } from '../src';
 import { InviteToEditComponentProps } from '../src/plugins/collab-edit/types';
 import { ResolvingMentionProvider } from '@atlaskit/mention/resource';
+
+import { getXProductExtensionProvider } from '../example-helpers/fake-x-product-extensions';
+import { getConfluenceMacrosExtensionProvider } from '../example-helpers/confluence-macros';
+import { macroProvider } from '@atlaskit/editor-test-helpers/mock-macro-provider';
 
 export const Content = styled.div`
   padding: 0 20px;
@@ -61,6 +66,8 @@ export const Columns = styled.div`
 export const Column = styled.div`
   flex: 1 1 0;
 `;
+
+const quickInsertProvider = quickInsertProviderFactory();
 
 const analyticsHandler = (actionName: string, props?: {}) =>
   console.log(actionName, props);
@@ -227,6 +234,12 @@ const editorProps = ({
   allowTables: {
     advanced: true,
   },
+  extensionProviders: [
+    getXProductExtensionProvider(),
+    getConfluenceMacrosExtensionProvider(),
+  ],
+  allowExtension: { allowAutoSave: true, allowBreakout: true },
+  macroProvider: Promise.resolve(macroProvider),
   UNSAFE_cards: {
     provider: Promise.resolve(cardProviderStaging),
   },
@@ -255,14 +268,13 @@ const editorProps = ({
   sanitizePrivateContent: true,
   placeholder: 'Write something...',
   shouldFocus: false,
-  quickInsert: true,
+  quickInsert: { provider: Promise.resolve(quickInsertProvider) },
   contentComponents: <TitleInput innerRef={ref => ref && ref.focus()} />,
   primaryToolbarComponents: (
     <WithEditorActions
       render={actions => <SaveAndCancelButtons editorActions={actions} />}
     />
   ),
-  allowExtension: true,
   insertMenuItems: customInsertMenuItems,
   extensionHandlers: extensionHandlers,
 });

@@ -1,6 +1,7 @@
 import styled from 'styled-components';
-import { borderRadius } from '@atlaskit/theme/constants';
+
 import { N30 } from '@atlaskit/theme/colors';
+import { borderRadius } from '@atlaskit/theme/constants';
 
 interface Props {
   readViewFitContainerWidth?: boolean;

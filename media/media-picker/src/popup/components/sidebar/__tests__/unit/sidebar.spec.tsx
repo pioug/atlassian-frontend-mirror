@@ -5,10 +5,13 @@ import {
   mockState,
   mockStore,
 } from '@atlaskit/media-test-helpers';
+import DropboxIcon from '@atlaskit/icon/glyph/dropbox';
+import GoogleDriveIcon from '@atlaskit/icon/glyph/googledrive';
 import { StatelessSidebar, default as ConnectedSidebar } from '../../sidebar';
 import { ServiceList, Separator } from '../../styled';
 import SidebarItem from '../../item/sidebarItem';
 import { MediaPickerPlugin } from '../../../../../domain/plugin';
+import GiphySidebarItem from '../../item/giphySidebarItem';
 
 const ConnectedSidebarWithStore = getComponentClassWithStore(ConnectedSidebar);
 
@@ -29,6 +32,14 @@ describe('<Sidebar />', () => {
   });
 
   describe('#render()', () => {
+    it('should not render built-in plugins when useForgePlugins=true', () => {
+      const element = shallow(<StatelessSidebar useForgePlugins selected="" />);
+
+      expect(element.find(GiphySidebarItem)).toHaveLength(0);
+      expect(element.find(DropboxIcon)).toHaveLength(0);
+      expect(element.find(GoogleDriveIcon)).toHaveLength(0);
+    });
+
     it('should render ServiceList, 3 SidebarItems and Separator', () => {
       const element = shallow(<StatelessSidebar selected="" />);
 

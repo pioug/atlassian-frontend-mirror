@@ -1,5 +1,22 @@
 # @atlaskit/table-tree
 
+## 8.0.3
+
+### Patch Changes
+
+- [patch][91e6b95599](https://bitbucket.org/atlassian/atlassian-frontend/commits/91e6b95599):
+
+  Change imports to comply with Atlassian conventions- Updated dependencies [6b8e60827e](https://bitbucket.org/atlassian/atlassian-frontend/commits/6b8e60827e):
+
+- Updated dependencies [449ef134b3](https://bitbucket.org/atlassian/atlassian-frontend/commits/449ef134b3):
+- Updated dependencies [f4374a322a](https://bitbucket.org/atlassian/atlassian-frontend/commits/f4374a322a):
+- Updated dependencies [57c0487a02](https://bitbucket.org/atlassian/atlassian-frontend/commits/57c0487a02):
+- Updated dependencies [6efb12e06d](https://bitbucket.org/atlassian/atlassian-frontend/commits/6efb12e06d):
+  - @atlaskit/button@13.3.11
+  - @atlaskit/icon@20.1.1
+  - @atlaskit/select@11.0.10
+  - @atlaskit/empty-state@6.0.9
+
 ## 8.0.2
 
 ### Patch Changes

@@ -1,9 +1,11 @@
 import React from 'react';
+
 import { mount } from 'enzyme';
+
 import {
-  withAnalyticsEvents,
-  withAnalyticsContext,
   createAndFireEvent,
+  withAnalyticsContext,
+  withAnalyticsEvents,
 } from '@atlaskit/analytics-next';
 import Blanket from '@atlaskit/blanket';
 import ArrowLeft from '@atlaskit/icon/glyph/arrow-left';

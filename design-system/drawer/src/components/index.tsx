@@ -1,33 +1,36 @@
 import React, {
   Children,
   Component,
-  SyntheticEvent,
+  FC,
   Fragment,
   ReactNode,
-  FC,
+  SyntheticEvent,
 } from 'react';
+
 import { canUseDOM } from 'exenv';
-import Portal from '@atlaskit/portal';
+import { Transition, TransitionGroup } from 'react-transition-group';
 import { ThemeProvider } from 'styled-components';
-import { TransitionGroup, Transition } from 'react-transition-group';
+
 import {
   createAndFireEvent,
-  withAnalyticsEvents,
-  withAnalyticsContext,
   CreateUIAnalyticsEvent,
+  withAnalyticsContext,
+  withAnalyticsEvents,
 } from '@atlaskit/analytics-next';
 import Blanket from '@atlaskit/blanket';
+import Portal from '@atlaskit/portal';
+
+import { transitionDurationMs } from '../constants';
+import drawerItemTheme from '../theme/drawer-item-theme';
 import {
   name as packageName,
   version as packageVersion,
 } from '../version.json';
-import drawerItemTheme from '../theme/drawer-item-theme';
+
 import FocusLock from './focus-lock';
 import DrawerPrimitive from './primitives';
 import { Fade } from './transitions';
 import { CloseTrigger, DrawerProps, DrawerWidth } from './types';
-
-import { transitionDurationMs } from '../constants';
 
 const OnlyChild: FC<any> = ({ children }) =>
   Children.toArray(children)[0] || null;

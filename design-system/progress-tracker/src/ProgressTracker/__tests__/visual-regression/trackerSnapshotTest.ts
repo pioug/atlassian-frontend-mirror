@@ -6,9 +6,9 @@ import {
 describe('Snapshot Test', () => {
   it(`Progress-tracker example should match prod`, async () => {
     const url = getExampleUrl(
-      'core',
+      'design-system',
       'progress-tracker',
-      'basic',
+      'progressTrackerDefault',
       //@ts-ignore
       global.__BASEURL__,
     );

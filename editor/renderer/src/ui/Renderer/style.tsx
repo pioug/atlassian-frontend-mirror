@@ -25,7 +25,9 @@ import {
   mediaSingleSharedStyle,
   blockNodesVerticalMargin,
   akEditorTableToolbar,
+  akEditorTableToolbarDark,
   akEditorTableBorder,
+  akEditorTableBorderDark,
   akEditorTableNumberColumnWidth,
   TableSharedCssClassName,
   tableMarginTop,
@@ -37,6 +39,8 @@ import {
   akEditorFullWidthLayoutWidth,
   mediaSingleClassName,
   tasksAndDecisionsStyles,
+  akEditorStickyHeaderZIndex,
+  akEditorSmallZIndex,
 } from '@atlaskit/editor-common';
 import { RendererCssClassName } from '../../consts';
 import { RendererAppearance } from './types';
@@ -299,16 +303,16 @@ export const Wrapper = styled.div<RendererWrapperProps & HTMLAttributes<{}>>`
 
   /* Breakout for tables and extensions */
   .${RendererCssClassName.DOCUMENT} > {
-    .${TableSharedCssClassName.TABLE_CONTAINER}[data-layout='full-width'],
-    .${TableSharedCssClassName.TABLE_CONTAINER}[data-layout='wide'],
+    * .${TableSharedCssClassName.TABLE_CONTAINER},
+    * .${RendererCssClassName.EXTENSION} {
+      width: 100% !important;
+      left: 0 !important;
+    }
+
     .${RendererCssClassName.EXTENSION}[data-layout='wide'],
     .${RendererCssClassName.EXTENSION}[data-layout='full-width']   {
       margin-left: 50%;
       transform: translateX(-50%);
-    }
-    * .${TableSharedCssClassName.TABLE_CONTAINER},
-    * .${RendererCssClassName.EXTENSION} {
-      width: 100% !important;
     }
 
     * .${RendererCssClassName.EXTENSION_OVERFLOW_CONTAINER} {
@@ -325,11 +329,15 @@ export const Wrapper = styled.div<RendererWrapperProps & HTMLAttributes<{}>>`
   .${TableSharedCssClassName.TABLE_CONTAINER} {
     z-index: 0;
     transition: all 0.1s linear;
+    display: flex; /* needed to avoid position: fixed jumpiness in Chrome */
 
     /** Shadow overrides */
-    &.${shadowClassNames.RIGHT_SHADOW}::after, &.${shadowClassNames.LEFT_SHADOW}::before {
+    &.${shadowClassNames.RIGHT_SHADOW}::after, &.${
+         shadowClassNames.LEFT_SHADOW
+       }::before {
       top: ${tableMarginTop - 1}px;
       height: calc(100% - ${tableMarginTop}px);
+      z-index: ${akEditorSmallZIndex};
     }
 
     table {
@@ -353,7 +361,60 @@ export const Wrapper = styled.div<RendererWrapperProps & HTMLAttributes<{}>>`
         color: ${colors.N200};
         font-size: ${fontSize()}px;
       }
+
+      .fixed .${RendererCssClassName.NUMBER_COLUMN} {
+        border-right: 0px none;
+      }
     }
+  }
+
+  tr[data-header-row].fixed {
+    position: fixed !important;
+    display: flex;
+    overflow: hidden;
+    z-index: ${akEditorStickyHeaderZIndex};
+
+    border-right: 1px solid ${akEditorTableBorder};
+    border-bottom: 1px solid ${akEditorTableBorder};
+
+    /* this is to compensate for the table border */
+    transform: translateX(-1px);
+  }
+
+  .sticky > th {
+    z-index: ${akEditorStickyHeaderZIndex};
+    position: sticky !important;
+    top: 0;
+  }
+
+  /* Make the number column header sticky */
+  .sticky > td {
+    position: sticky !important;
+    top: 0;
+  }
+
+  /* add border for position: sticky
+     and work around background-clip: padding-box
+     bug for FF causing box-shadow bug in Chrome */
+  .sticky th, .sticky td {
+    box-shadow: 0px 1px ${themed({
+      light: akEditorTableBorder,
+      dark: akEditorTableBorderDark,
+    })}, 0px -0.5px ${themed({
+      light: akEditorTableBorder,
+      dark: akEditorTableBorderDark,
+    })}, inset -1px 0px ${themed({
+      light: akEditorTableToolbar,
+      dark: akEditorTableToolbarDark,
+    })}, 0px -1px ${themed({
+      light: akEditorTableToolbar,
+      dark: akEditorTableToolbarDark,
+    })};
+  }
+
+   /* this will remove jumpiness caused in Chrome for sticky headers */
+  .fixed + tr {
+    min-height: 0px;
   }
 
   /*

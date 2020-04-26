@@ -38,6 +38,7 @@ interface FullPageEditorContentAreaProps {
   editorDOMElement: ReactElement;
   editorView: EditorView;
   eventDispatcher: EventDispatcher | undefined;
+  onVisibilityChange: ({ visible }: { visible: boolean }) => void;
   popupsMountPoint: HTMLElement | undefined;
   popupsBoundariesElement: HTMLElement | undefined;
   popupsScrollableElement: HTMLElement | undefined;
@@ -101,7 +102,11 @@ export const FullPageContentArea: React.FunctionComponent<FullPageEditorContentA
             </WidthConsumer>
           </ClickAreaBlock>
         </ScrollContainer>
-        <SidebarArea>{props.contextPanel || <ContextPanel />}</SidebarArea>
+        <SidebarArea>
+          {props.contextPanel || (
+            <ContextPanel onVisibilityChange={props.onVisibilityChange} />
+          )}
+        </SidebarArea>
         <WidthEmitter editorView={props.editorView} />
       </ContentArea>
     );

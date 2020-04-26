@@ -64,7 +64,10 @@ describe('EmojiTypeAhead', () => {
             emojiPluginMonkeyPatched,
             { createAnalyticsEvent: dispatchAnalyticsEvent },
           ])
-          .add([analyticsPlugin, dispatchAnalyticsEvent])
+          .add([
+            analyticsPlugin,
+            { createAnalyticsEvent: dispatchAnalyticsEvent },
+          ])
           .add(typeAheadPlugin),
       });
     };

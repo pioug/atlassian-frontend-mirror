@@ -4,6 +4,7 @@ import { NodeView, Decoration } from 'prosemirror-view';
 import DecisionItem from '../ui/Decision';
 import { ReactNodeView, ForwardRef, getPosHandler } from '../../../nodeviews';
 import { PortalProviderAPI } from '../../../ui/PortalProvider';
+import { EventDispatcher } from '../../../event-dispatcher';
 
 class Decision extends ReactNodeView {
   private isContentEmpty(node: PMNode) {
@@ -52,10 +53,16 @@ class Decision extends ReactNodeView {
   }
 }
 
-export const decisionItemNodeView = (portalProviderAPI: PortalProviderAPI) => (
-  node: any,
-  view: any,
-  getPos: getPosHandler,
-): NodeView => {
-  return new Decision(node, view, getPos, portalProviderAPI, {}).init();
+export const decisionItemNodeView = (
+  portalProviderAPI: PortalProviderAPI,
+  eventDispatcher: EventDispatcher,
+) => (node: any, view: any, getPos: getPosHandler): NodeView => {
+  return new Decision(
+    node,
+    view,
+    getPos,
+    portalProviderAPI,
+    eventDispatcher,
+    {},
+  ).init();
 };

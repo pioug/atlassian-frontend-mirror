@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
+
 import Button, { ButtonGroup } from '@atlaskit/button';
 import EmojiCustomIcon from '@atlaskit/icon/glyph/emoji/custom';
 import UserAvatarCircleIcon from '@atlaskit/icon/glyph/user-avatar-circle';
 import { colors } from '@atlaskit/theme';
+
 import {
+  ButtonItem,
+  HeadingItem,
   MenuGroup,
   Section,
-  SkeletonItem,
   SkeletonHeadingItem,
-  HeadingItem,
-  ButtonItem,
+  SkeletonItem,
 } from '../src';
 
 const Item = ({ isLoading, ...props }: any) => {
@@ -41,7 +43,7 @@ const Item = ({ isLoading, ...props }: any) => {
     content = 'Action name';
   }
 
-  return <ButtonItem elemBefore={icon}>{content}</ButtonItem>;
+  return <ButtonItem iconBefore={icon}>{content}</ButtonItem>;
 };
 
 const Heading = ({ isLoading }: any) => {

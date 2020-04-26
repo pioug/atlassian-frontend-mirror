@@ -62,8 +62,10 @@ export const redo = makeKeymap('Redo', 'Ctrl-y', 'Cmd-Shift-z');
 export const redoBarred = makeKeymap('Redo Barred', 'Ctrl-Shift-z', 'Cmd-y');
 export const openHelp = makeKeyMapWithCommon('Open Help', 'Mod-/');
 export const addLink = makeKeyMapWithCommon('Link', 'Mod-k');
+export const addInlineComment = makeKeyMapWithCommon('Annotate', 'Mod-Alt-c');
 export const submit = makeKeyMapWithCommon('Submit Content', 'Mod-Enter');
 export const enter = makeKeyMapWithCommon('Enter', 'Enter');
+export const shiftEnter = makeKeyMapWithCommon('Shift Enter', 'Shift-Enter');
 export const tab = makeKeyMapWithCommon('Tab', 'Tab');
 export const indent = makeKeyMapWithCommon('Indent', 'Tab');
 export const outdent = makeKeyMapWithCommon('Outdent', 'Shift-Tab');
@@ -95,6 +97,8 @@ export const copy = makeKeyMapWithCommon('Copy', 'Mod-c');
 export const paste = makeKeyMapWithCommon('Paste', 'Mod-v');
 export const altPaste = makeKeyMapWithCommon('Paste', 'Mod-Shift-v');
 
+export const find = makeKeyMapWithCommon('Find', 'Mod-f');
+
 const arrowKeysMap: Record<string, string> = {
   // for reference: https://wincent.com/wiki/Unicode_representations_of_modifier_keys
   ARROWLEFT: '\u2190',
@@ -118,13 +122,18 @@ function formatShortcut(keymap: Keymap): string | undefined {
       .replace(/Shift/i, '\u21E7')
       .replace(/Ctrl/i, '\u2303')
       .replace(/Alt/i, '\u2325')
-      .replace(/Backspace/i, '\u232B');
+      .replace(/Backspace/i, '\u232B')
+      .replace(/Enter/i, '\u23CE');
   } else {
     shortcut = keymap.windows.replace(/Backspace/i, '\u232B');
   }
   const keys = shortcut.split('-');
-  const lastKey = keys[keys.length - 1].toUpperCase();
-  keys[keys.length - 1] = arrowKeysMap[lastKey] || lastKey;
+  let lastKey = keys[keys.length - 1];
+  if (lastKey.length === 1) {
+    // capitalise single letters
+    lastKey = lastKey.toUpperCase();
+  }
+  keys[keys.length - 1] = arrowKeysMap[lastKey.toUpperCase()] || lastKey;
   return keys.join(browser.mac ? '' : '+');
 }
 
@@ -203,6 +212,10 @@ const ALL = [
   splitListItem,
   redo,
   undo,
+  find,
+  escape,
+  enter,
+  shiftEnter,
 ];
 
 function makeKeymap(

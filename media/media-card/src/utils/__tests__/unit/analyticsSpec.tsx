@@ -10,18 +10,15 @@ import { FabricChannel } from '@atlaskit/analytics-listeners';
 import {
   createAndFireMediaEvent,
   MediaCardAnalyticsPayload,
-  MediaCardAnalyticsPayloadBase,
   createAndFireCustomMediaEvent,
-  getUIAnalyticsContext,
   getBaseAnalyticsContext,
 } from '../../analytics';
 import {
   version as packageVersion,
   name as packageName,
 } from '../../../version.json';
-import { FileDetails } from '@atlaskit/media-client';
 
-const somePayload: MediaCardAnalyticsPayloadBase = {
+const somePayload: MediaCardAnalyticsPayload = {
   eventType: 'ui',
   action: 'the-action',
   actionSubject: 'the-subject',
@@ -36,7 +33,6 @@ const somePayload: MediaCardAnalyticsPayloadBase = {
 const mediaPayload: MediaCardAnalyticsPayload = {
   ...somePayload,
   attributes: {
-    packageName,
     ...somePayload.attributes,
   },
 };
@@ -94,36 +90,6 @@ describe('Media Analytics', () => {
     const actualEvent: Partial<UIAnalyticsEvent> =
       analyticsEventHandler.mock.calls[0][0];
     expect(actualEvent.payload).toMatchObject(mediaPayload);
-  });
-
-  it('should generate Media Card UI Analytics Context data', () => {
-    const fileStatus = 'processed';
-    const metadata: FileDetails = {
-      id: 'some-id',
-      mediaType: 'video',
-      mimeType: 'video/mp4',
-      size: 12345,
-    };
-
-    const expectedContextData = {
-      actionSubjectId: 'some-id',
-      attributes: {
-        packageVersion,
-        packageName,
-        componentName: 'mediaCard',
-        fileAttributes: {
-          fileSource: 'mediaCard',
-          fileMediatype: 'video',
-          fileMimetype: 'video/mp4',
-          fileId: 'some-id',
-          fileSize: 12345,
-          fileStatus: 'processed',
-        },
-      },
-    };
-
-    const contextData = getUIAnalyticsContext('some-id', metadata, fileStatus);
-    expect(contextData).toMatchObject(expectedContextData);
   });
 
   it('should generate Base Analytics Context data', () => {

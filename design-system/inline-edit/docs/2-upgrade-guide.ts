@@ -82,7 +82,7 @@ ${code`
   away from the inline edit (default) or not.
 - **validate:** A function which takes a value and returns an error message, or undefined if
   valid. You can find more information about this validate function in the
-  [Form package](/packages/core/form/docs/validation).
+  [Form package](/packages/design-system/form/docs/validation).
 - **hideActionButtons:** Hides the confirm and cancel buttons from the edit view. Generally,
   depending on the type of input used in the edit view, users may press Enter or Ctrl + Enter
   to confirm, or focus away from the input (unless ***keepEditViewOpenOnBlur*** is true) to confirm,

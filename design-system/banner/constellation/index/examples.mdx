@@ -2,49 +2,33 @@
 order: 0
 ---
 
-import BasicUsage from '../../examples/constellation/basicUsage';
-import AnnouncementDemo from '../../examples/constellation/announcement';
-import WarningDemo from '../../examples/constellation/warning';
-import ErrorDemo from '../../examples/constellation/error';
-import OverflowDemo from '../../examples/constellation/overflow';
-import AnimationDemo from '../../examples/constellation/animation';
-
-## Default
-
-The default form of a banner.
-
-<Example Component={BasicUsage} componentName="@atlaskit/banner" />
+import BannerAnnouncement from '../../examples/constellation/BannerAnnouncement';
+import BannerWarning from '../../examples/constellation/BannerWarning';
+import BannerError from '../../examples/constellation/BannerError';
+import BannerOverflow from '../../examples/constellation/BannerOverflow';
 
 ## Appearance
 
-### Announcement
-
-- Announcement banners are currently only used by Admins who want to make general announcement about the product.
-- An important heads up but not critical.
-- Can include a link to more info.
-- These have a max height of 88 pixels and text can overflow to wrap.
-- Any height larger allows users to scroll to see the rest of the content.
-
-<Example Component={AnnouncementDemo} componentName="@atlaskit/banner" />
-
 ### Warning
 
-- Use warning banners when you want the user to take a specific action or to warn them that something is about to go wrong.
-- Provide clear information about how they can fix things to keep moving.
-- These are a fixed height and don’t include overflow text.
+The default form of a banner. Use `warning` banners when you want the user to take a specific action or to warn them that something is about to go wrong.
 
-<Example Component={WarningDemo} componentName="@atlaskit/banner" />
+<Example Component={BannerWarning} componentName="@atlaskit/banner" />
 
 ### Error
 
-- Use error banners to inform users something critical has happened and requires immediate attention.
-- Explain what they should do to fix things or what we’ll be doing to fix things and what they can do in the meantime.
-- These are a fixed height and don’t include overflow text.
+Use `error` banners to inform users something critical has happened and requires immediate attention.
 
-<Example Component={ErrorDemo} componentName="@atlaskit/banner" />
+<Example Component={BannerError} componentName="@atlaskit/banner" />
 
-## Overflow text
+### Announcement
 
-Banner size can change based on the size of the browser. When this happens, the banner text should stay on a single line with an ellipsis.
+Announcement banners are used by admins who want to make a general announcement about the product. These banners do not contain an icon. Lengthy text will overflow, allowing users to scroll to see the rest of the content.
 
-<Example Component={OverflowDemo} componentName="@atlaskit/banner" />
+<Example Component={BannerAnnouncement} componentName="@atlaskit/banner" />
+
+## Truncation
+
+Banner size can change based on the size of the browser. For `warning` and `error` banners, lengthy text will be truncated with an ellipses.
+
+<Example Component={BannerOverflow} componentName="@atlaskit/banner" />

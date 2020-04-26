@@ -5,6 +5,16 @@ import { Context } from '../../interfaces';
 const defaultWidth = 200;
 const defaultHeight = 183;
 
+const clamp = (input: number, lower: number, upper: number) => {
+  if (upper !== undefined) {
+    input = input <= upper ? input : upper;
+  }
+  if (lower !== undefined) {
+    input = input >= lower ? input : lower;
+  }
+  return input;
+};
+
 export default function getMediaSingleNodeView(
   schema: Schema,
   filename: string,
@@ -22,7 +32,7 @@ export default function getMediaSingleNodeView(
   if (attrs.width && attrs.width.endsWith('%')) {
     const parsed = parseInt(attrs.width, 10);
     if (!isNaN(parsed)) {
-      mediaSingleAttrs.width = parsed;
+      mediaSingleAttrs.width = clamp(parsed, 0, 100);
     }
     mediaNodeAttrs = {};
   } else {

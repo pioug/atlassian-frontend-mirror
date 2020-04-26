@@ -1,7 +1,9 @@
-import React, { Fragment, Component } from 'react';
-import Tooltip from '@atlaskit/tooltip';
+import React, { Component, Fragment } from 'react';
 
 import deepEqual from 'react-fast-compare';
+
+import Tooltip from '@atlaskit/tooltip';
+
 import { styleReducerNoOp, withGlobalTheme } from '../../../theme';
 
 class GlobalNavigationItemPrimitive extends Component {

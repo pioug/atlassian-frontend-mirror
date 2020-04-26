@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { render, shallow } from 'enzyme';
+
 import SkeletonContainerView from '../../index';
 
 describe('SkeletonContainerView', () => {

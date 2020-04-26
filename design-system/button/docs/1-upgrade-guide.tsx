@@ -7,7 +7,7 @@ export default md`
 ### ⚡️ Highlights
 - **New theming API** - Button now supports the new Atlaskit theming API, which allows for powerful custom theming of Buttons and
   its internal components.
-- **Speed improvements** - Button has been re-written from the ground up - on heavy-load benchmarks, Button is twice as fast 
+- **Speed improvements** - Button has been re-written from the ground up - on heavy-load benchmarks, Button is twice as fast
   (taking 48% of the time to load).
 - **Emotion support** - Button is now built using Emotion 10! This is part of a wider push
   for Emotion across all Atlaskit components.
@@ -16,7 +16,7 @@ export default md`
 - The old theming API is no longer supported.
 - Styling a Button using Styled Components is no longer supported.
 - Custom components will need refs forwarded via \`React.forwardRef()\`.
-- Camel-case ARIA props have been removed in favour for standard HTML aria-* attributes. 
+- Camel-case ARIA props have been removed in favour for standard HTML aria-* attributes.
 
 <br/>
 
@@ -57,7 +57,7 @@ const CustomButton = styled(Button)\`
 
 With the shift to Emotion in \`v12\`, Emotion’s own \‘styled\’ function is a functional drop-in replacement - however this is not explicitly supported and we recommend using the new theming API in its place.
 
-We recommend viewing the [Theming example](https://atlaskit.atlassian.com/packages/core/button/example/CustomTheme) for more information on how to use the new theming API with Button.
+We recommend viewing the [Theming example](https://atlaskit.atlassian.com/packages/design-system/button/example/CustomTheme) for more information on how to use the new theming API with Button.
 
 <br/>
 

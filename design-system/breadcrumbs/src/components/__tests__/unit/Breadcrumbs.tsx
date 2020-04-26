@@ -1,16 +1,17 @@
-import { mount, shallow, ReactWrapper } from 'enzyme';
 import React, { Component } from 'react';
-import Button from '@atlaskit/button';
+
+import { mount, ReactWrapper, shallow } from 'enzyme';
 import cases from 'jest-in-case';
+
+import Button from '@atlaskit/button';
 
 declare var global: any;
 
 import {
   BreadcrumbsStateless as BreadcrumbsStatelessWithAnalytics,
   BreadcrumbsItem as Item,
-} from '../../..';
+} from '../../../index';
 import { BreadcrumbsStatelessWithoutAnalytics as BreadcrumbsStateless } from '../../BreadcrumbsStateless';
-
 import EllipsisItem from '../../EllipsisItem';
 
 describe('BreadcrumbsStateless', () => {

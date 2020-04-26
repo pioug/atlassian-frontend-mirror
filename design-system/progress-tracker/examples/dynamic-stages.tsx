@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { Stages, ProgressTracker } from '../src';
+
 import Button from '@atlaskit/button';
 import ArrowLeftCircleIcon from '@atlaskit/icon/glyph/arrow-left';
 import ArrowRightCircleIcon from '@atlaskit/icon/glyph/arrow-right';
+
+import { ProgressTracker, Stages } from '../src';
 
 const css = `
   .steppers {

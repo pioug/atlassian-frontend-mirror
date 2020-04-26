@@ -1,8 +1,10 @@
-import { fireEvent, render } from '@testing-library/react';
 import React, { Dispatch, forwardRef, SetStateAction } from 'react';
+
+import { fireEvent, render } from '@testing-library/react';
+import { replaceRaf } from 'raf-stub';
+
 import { Popup } from '../../Popup';
 import { ContentProps, PopupComponentProps, TriggerProps } from '../../types';
-import { replaceRaf } from 'raf-stub';
 
 // override requestAnimationFrame letting us execute it when we need
 replaceRaf();

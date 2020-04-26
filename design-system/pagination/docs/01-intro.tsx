@@ -5,7 +5,7 @@ export default md`
 Pagination is helpful when you do not want to bloat your page by showing all the data at once. In this case we expect user to
 navigate through different pages of the component.
 
-This component is mostly used with tables, see [dynamic-table](https://atlaskit.atlassian.com/packages/core/dynamic-table) for example.
+This component is mostly used with tables, see [dynamic-table](https://atlaskit.atlassian.com/packages/design-system/dynamic-table) for example.
 
 ## Usage:
 

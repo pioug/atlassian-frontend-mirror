@@ -36,6 +36,11 @@ var metaData = {
         componentName: 'Executable16Icon',
         package: '@atlaskit/icon-file-type/glyph/executable/16',
     },
+    'figma/16': {
+        keywords: ['figma/16', 'figma16', 'file-type', 'icon-file-type'],
+        componentName: 'Figma16Icon',
+        package: '@atlaskit/icon-file-type/glyph/figma/16',
+    },
     'folder/16': {
         keywords: ['folder/16', 'folder16', 'file-type', 'icon-file-type'],
         componentName: 'Folder16Icon',
@@ -141,6 +146,11 @@ var metaData = {
         componentName: 'Executable24Icon',
         package: '@atlaskit/icon-file-type/glyph/executable/24',
     },
+    'figma/24': {
+        keywords: ['figma/24', 'figma24', 'file-type', 'icon-file-type'],
+        componentName: 'Figma24Icon',
+        package: '@atlaskit/icon-file-type/glyph/figma/24',
+    },
     'folder/24': {
         keywords: ['folder/24', 'folder24', 'file-type', 'icon-file-type'],
         componentName: 'Folder24Icon',
@@ -245,6 +255,11 @@ var metaData = {
         keywords: ['executable/48', 'executable48', 'file-type', 'icon-file-type'],
         componentName: 'Executable48Icon',
         package: '@atlaskit/icon-file-type/glyph/executable/48',
+    },
+    'figma/48': {
+        keywords: ['figma/48', 'figma48', 'file-type', 'icon-file-type'],
+        componentName: 'Figma48Icon',
+        package: '@atlaskit/icon-file-type/glyph/figma/48',
     },
     'folder/48': {
         keywords: ['folder/48', 'folder48', 'file-type', 'icon-file-type'],

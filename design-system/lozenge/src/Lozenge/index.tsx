@@ -1,8 +1,11 @@
-import { ThemeProp } from '@atlaskit/theme/components';
 import React, { PureComponent, ReactNode } from 'react';
+
+import { ThemeProp } from '@atlaskit/theme/components';
+
+import { Theme, ThemeAppearance, ThemeProps, ThemeTokens } from '../theme';
+
 import Container from './Container';
 import Content from './Content';
-import { Theme, ThemeAppearance, ThemeProps, ThemeTokens } from '../theme';
 
 interface Props {
   /** The appearance type. */

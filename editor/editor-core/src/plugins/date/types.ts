@@ -3,3 +3,5 @@ export type DateType = {
   month: number;
   day?: number;
 };
+
+export type DateSegment = 'day' | 'month' | 'year';

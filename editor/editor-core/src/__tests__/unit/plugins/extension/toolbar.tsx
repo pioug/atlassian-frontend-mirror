@@ -16,7 +16,7 @@ import EditIcon from '@atlaskit/icon/glyph/editor/edit';
 import {
   pluginKey,
   getPluginState,
-} from '../../../../plugins/extension/plugin';
+} from '../../../../plugins/extension/pm-plugins/main';
 import { getToolbarConfig } from '../../../../plugins/extension/toolbar';
 import commonMessages from '../../../../messages';
 import { EditorProps } from '../../../../types';
@@ -169,7 +169,7 @@ describe('extension toolbar', () => {
 
     describe('Extension Provider', () => {
       const ExtensionHandlerComponent = () => <div>Awesome Extension</div>;
-      const extensionUpdater = () => Promise.resolve();
+      const extensionUpdater = () => Promise.resolve({});
 
       it('should show the edit button when update method is provided', async () => {
         const extensionProvider = createFakeExtensionProvider(

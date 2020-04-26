@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+
 import StyledSkeleton from '../styled/Skeleton';
-import { SizeType, AppearanceType } from '../types';
+import { AppearanceType, SizeType } from '../types';
 
 interface SkeletonProps {
   /* Indicates the shape of the skeleton */

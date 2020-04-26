@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+
 import Tabs from '../src';
-import { TabData, OnSelectCallback } from '../src/types';
+import { OnSelectCallback, TabData } from '../src/types';
+
 import { Content } from './shared';
 
 export const tabs = [

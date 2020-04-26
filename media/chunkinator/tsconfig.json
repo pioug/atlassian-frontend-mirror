@@ -1,0 +1,12 @@
+{
+  "extends": "../../../tsconfig.json",
+  "include": [
+    "./src/**/*.ts",
+    "./examples/*.ts",
+    "./examples/*.tsx",
+    "./example-helpers/*.ts"
+  ],
+  "compilerOptions": {
+    "baseUrl": "./"
+  }
+}

@@ -1,21 +1,18 @@
 import React from 'react';
+import { Icon } from '../Icon';
 import {
-  IconTitleWrapper,
-  IconWrapper,
-  IconTitleHeadNoBreakWrapper,
   IconEmptyWrapper,
   IconPositionWrapper,
+  IconTitleWrapper,
+  IconWrapper,
 } from './styled';
-import { Icon } from '../Icon';
 
 export interface IconAndTitleLayoutProps {
-  icon?: string | React.ReactNode;
-  title: string;
+  icon?: React.ReactNode;
+  title: React.ReactNode;
   right?: React.ReactNode;
   titleColor?: string;
 }
-
-const CHAR_LENGTH_BREAK_AT = 7;
 
 export class IconAndTitleLayout extends React.Component<
   IconAndTitleLayoutProps
@@ -38,20 +35,15 @@ export class IconAndTitleLayout extends React.Component<
 
   render() {
     const { title, titleColor } = this.props;
-    const head = title.slice(0, CHAR_LENGTH_BREAK_AT);
-    const rest = title.slice(CHAR_LENGTH_BREAK_AT);
 
     return (
       <>
         <IconTitleWrapper style={{ color: titleColor }}>
-          <IconTitleHeadNoBreakWrapper>
-            <IconPositionWrapper>
-              <IconEmptyWrapper />
-              {this.renderIcon()}
-            </IconPositionWrapper>
-            {head}
-          </IconTitleHeadNoBreakWrapper>
-          {rest}
+          <IconPositionWrapper>
+            <IconEmptyWrapper />
+            {this.renderIcon()}
+          </IconPositionWrapper>
+          {title}
         </IconTitleWrapper>
       </>
     );

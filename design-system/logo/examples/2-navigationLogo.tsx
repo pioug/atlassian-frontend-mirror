@@ -1,6 +1,8 @@
 import React, { Fragment } from 'react';
-import { colors } from '@atlaskit/theme';
+
 import styled from 'styled-components';
+
+import { colors } from '@atlaskit/theme';
 
 import {
   BitbucketIcon,
@@ -10,8 +12,8 @@ import {
   JiraServiceDeskIcon,
   JiraSoftwareIcon,
   OpsGenieIcon,
-  StrideIcon,
   StatuspageIcon,
+  StrideIcon,
   TrelloIcon,
 } from '../src';
 

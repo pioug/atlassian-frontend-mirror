@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/conversation",
-  "version": "15.7.1",
+  "version": "15.7.3",
   "description": "Render conversation threads",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -23,13 +23,13 @@
     "access": "public"
   },
   "dependencies": {
-    "@atlaskit/analytics-next": "^6.3.5",
-    "@atlaskit/avatar": "^17.1.9",
-    "@atlaskit/comment": "^9.3.2",
-    "@atlaskit/editor-common": "^44.1.0",
-    "@atlaskit/editor-core": "^120.0.0",
-    "@atlaskit/reactions": "^17.3.1",
-    "@atlaskit/renderer": "^56.0.0",
+    "@atlaskit/analytics-next": "^6.3.6",
+    "@atlaskit/avatar": "^17.1.10",
+    "@atlaskit/comment": "^9.3.4",
+    "@atlaskit/editor-common": "^45.1.0",
+    "@atlaskit/editor-core": "^122.0.0",
+    "@atlaskit/reactions": "^17.3.2",
+    "@atlaskit/renderer": "^58.0.0",
     "date-fns": "^1.30.1",
     "lodash.debounce": "^4.0.8",
     "lodash.isequal": "^4.5.0",
@@ -45,8 +45,8 @@
     "styled-components": "^3.2.6"
   },
   "devDependencies": {
-    "@atlaskit/analytics-listeners": "^6.2.4",
-    "@atlaskit/docs": "^8.5.0",
+    "@atlaskit/analytics-listeners": "^6.3.0",
+    "@atlaskit/docs": "^8.5.1",
     "@atlaskit/single-select": "^9.0.1",
     "@atlaskit/util-data-test": "^13.1.2",
     "enzyme": "^3.10.0"

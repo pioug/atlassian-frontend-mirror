@@ -1,23 +1,6 @@
 import React, { Component, Fragment } from 'react';
+
 import { NavigationAnalyticsContext } from '@atlaskit/analytics-namespaced-context';
-
-import {
-  name as packageName,
-  version as packageVersion,
-} from '../../../version.json';
-import ResizeTransition, { isTransitioning } from '../ResizeTransition';
-import ResizeControl from './ResizeControl';
-import {
-  HorizontalNavigationContainer,
-  LayoutContainer,
-  NavigationContainer,
-} from './primitives';
-
-import { ContainerNavigationMask } from '../ContentNavigation/primitives';
-import {
-  ComposedGlobalNavigation,
-  ComposedContainerNavigation,
-} from './nav-components';
 
 import {
   ALTERNATE_FLYOUT_DELAY,
@@ -27,8 +10,25 @@ import {
   GLOBAL_NAV_WIDTH,
   HORIZONTAL_GLOBAL_NAV_HEIGHT,
 } from '../../../common/constants';
+import {
+  name as packageName,
+  version as packageVersion,
+} from '../../../version.json';
 import RenderBlocker from '../../common/RenderBlocker';
+import { ContainerNavigationMask } from '../ContentNavigation/primitives';
+import ResizeTransition, { isTransitioning } from '../ResizeTransition';
+
 import { LayoutEventListener } from './LayoutEvent';
+import {
+  ComposedContainerNavigation,
+  ComposedGlobalNavigation,
+} from './nav-components';
+import {
+  HorizontalNavigationContainer,
+  LayoutContainer,
+  NavigationContainer,
+} from './primitives';
+import ResizeControl from './ResizeControl';
 import { pageContainerCSS } from './styles';
 
 function defaultTooltipContent(isCollapsed) {

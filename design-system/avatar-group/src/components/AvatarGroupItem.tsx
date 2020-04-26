@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { DropdownItem } from '@atlaskit/dropdown-menu';
+
 import Avatar, {
-  withPseudoState,
-  getProps,
   AvatarClickType,
   AvatarPropTypes,
+  getProps,
+  withPseudoState,
 } from '@atlaskit/avatar';
+import { DropdownItem } from '@atlaskit/dropdown-menu';
 
 export interface AvatarGroupItemProps {
   avatar: AvatarPropTypes;

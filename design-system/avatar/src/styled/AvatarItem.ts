@@ -1,18 +1,20 @@
 import styled, { css } from 'styled-components';
+
 import { ThemedValue } from '@atlaskit/theme';
-import { themed, withTheme } from '@atlaskit/theme/components';
-import { borderRadius, gridSize } from '@atlaskit/theme/constants';
 import {
   B200,
   B75,
-  N900,
+  background,
+  backgroundActive,
+  backgroundHover,
+  DN300,
   DN600,
   N200,
-  DN300,
-  background,
-  backgroundHover,
-  backgroundActive,
+  N900,
 } from '@atlaskit/theme/colors';
+import { themed, withTheme } from '@atlaskit/theme/components';
+import { borderRadius, gridSize } from '@atlaskit/theme/constants';
+
 import { AvatarClickType } from '../types';
 const focusBorderColor = themed({ light: B200, dark: B75 });
 const textColors = themed({ light: N900, dark: DN600 });

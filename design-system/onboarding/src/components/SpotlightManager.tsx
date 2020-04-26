@@ -1,15 +1,18 @@
 import React, {
-  PureComponent,
   createContext,
   ElementType,
+  PureComponent,
   ReactNode,
 } from 'react';
+
 import memoizeOne from 'memoize-one';
+
 import Portal from '@atlaskit/portal';
 import { layers } from '@atlaskit/theme/constants';
 
-import { Fade } from './Animation';
 import Blanket from '../styled/Blanket';
+
+import { Fade } from './Animation';
 
 const noop = () => {};
 

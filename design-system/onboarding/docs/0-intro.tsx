@@ -1,5 +1,6 @@
 import React from 'react';
-import { md, Example, Props, code } from '@atlaskit/docs';
+
+import { code, Example, md, Props } from '@atlaskit/docs';
 
 export default md`
   This package contains a number of components to help highlight product changes to users.

@@ -34,14 +34,19 @@ import {
   setLinkText,
   clearEditorContent,
   setKeyboardHeight,
+  setMobilePaddingTop,
   INPUT_METHOD,
   BlockTypeInputMethod,
   InsertBlockInputMethodToolbar,
   LinkInputMethod,
   ListInputMethod,
   TextFormattingInputMethodBasic,
+  typeAheadPluginKey,
+  QuickInsertItem,
+  QuickInsertPluginState,
+  insertMentionQuery,
+  insertEmojiQuery,
 } from '@atlaskit/editor-core';
-import { EditorView } from 'prosemirror-view';
 import { EditorViewWithComposition } from '../../types';
 import { EditorState } from 'prosemirror-state';
 import {
@@ -53,8 +58,25 @@ import { Color as StatusColor } from '@atlaskit/status/element';
 
 import NativeToWebBridge from './bridge';
 import WebBridge from '../../web-bridge';
-import { hasValue } from '../../utils';
+import { hasValue, createDeferred, DeferredValue } from '../../utils';
 import { rejectPromise, resolvePromise } from '../../cross-platform-promise';
+import { getEnableQuickInsertValue } from '../../query-param-reader';
+
+type InsertQueryMethod = (
+  inputMethod: InsertBlockInputMethodToolbar,
+) => Command;
+
+const insertQueryFromToolbar = (
+  insertQueryMethod: InsertQueryMethod,
+  editorView: EditorViewWithComposition | null,
+) => {
+  if (!editorView) {
+    return;
+  }
+  const { state, dispatch } = editorView;
+
+  insertQueryMethod(INPUT_METHOD.TOOLBAR)(state, dispatch);
+};
 
 export default class WebBridgeImpl extends WebBridge
   implements NativeToWebBridge {
@@ -63,11 +85,30 @@ export default class WebBridgeImpl extends WebBridge
   blockFormatBridgeState: BlockTypeState | null = null;
   listBridgeState: ListsState | null = null;
   mentionsPluginState: MentionPluginState | null = null;
-  editorView: (EditorView & EditorViewWithComposition) | null = null;
+  editorView: EditorViewWithComposition | null = null;
   transformer: JSONTransformer = new JSONTransformer();
   editorActions: EditorActions = new EditorActions();
   mediaPicker: CustomMediaPicker | undefined;
   mediaMap: Map<string, Function> = new Map();
+  quickInsertItems: DeferredValue<QuickInsertItem[]> = createDeferred<
+    QuickInsertItem[]
+  >();
+
+  setPadding(
+    top: number = 0,
+    right: number = 0,
+    bottom: number = 0,
+    left: number = 0,
+  ) {
+    super.setPadding(top, right, bottom, left);
+    /**
+     * We need to dispatch an action to save this value on the mobileScroll plugin,
+     * so that it can be used in `ClickAreaMobile` to calculate css rules properly.
+     */
+    if (this.editorView) {
+      setMobilePaddingTop(top)(this.editorView.state, this.editorView.dispatch);
+    }
+  }
 
   sendHeight() {
     // not implemented yet
@@ -387,7 +428,18 @@ export default class WebBridgeImpl extends WebBridge
     }
   }
 
-  insertTypeAheadItem(type: 'mention' | 'emoji', payload: string) {
+  insertMentionQuery() {
+    insertQueryFromToolbar(insertMentionQuery, this.editorView);
+  }
+
+  insertEmojiQuery() {
+    insertQueryFromToolbar(insertEmojiQuery, this.editorView);
+  }
+
+  insertTypeAheadItem(
+    type: 'mention' | 'emoji' | 'quickinsert',
+    payload: string,
+  ) {
     if (!this.editorView) {
       return;
     }
@@ -395,41 +447,76 @@ export default class WebBridgeImpl extends WebBridge
     this.flushDOM();
 
     const { state, dispatch } = this.editorView;
-    const item: TypeAheadItem = JSON.parse(payload);
+    const enableQuickInsert = getEnableQuickInsertValue();
+
+    const parsedPayload: TypeAheadItem | { index: number } = JSON.parse(
+      payload,
+    );
+    const typeAheadPluginState: QuickInsertPluginState = typeAheadPluginKey.getState(
+      state,
+    );
+
+    const selectedItem =
+      enableQuickInsert && parsedPayload.index
+        ? typeAheadPluginState.items[parsedPayload.index]
+        : parsedPayload;
 
     selectTypeAheadItem(
       {
         // TODO export insert type from editor-core.
         selectItem: (state: EditorState, item: TypeAheadItem, insert: any) => {
-          if (type === 'mention') {
-            const { id, name, nickname, accessLevel, userType } = item;
-            const renderName = nickname ? nickname : name;
-            const mention = state.schema.nodes.mention.createChecked({
-              text: `@${renderName}`,
-              id,
-              accessLevel,
-              userType: userType === 'DEFAULT' ? null : userType,
-            });
-            return insert(mention);
-          }
-          if (type === 'emoji') {
-            const { id, shortName, fallback } = item;
-            const emoji = state.schema.nodes.emoji.createChecked({
-              shortName,
-              id,
-              fallback,
-              text: fallback || shortName,
-            });
-            return insert(emoji);
-          }
+          switch (type) {
+            case 'quickinsert': {
+              /**
+               * For quickinsert, we already know at this point that the items are processed with `intl`,
+               * so we cast this to be an array of `QuickInsertItem`.
+               **/
+              const items = (typeAheadPluginState.items as unknown) as QuickInsertItem[];
+              const quickInsertItem = items[parsedPayload.index] as
+                | QuickInsertItem
+                | undefined;
 
-          return false;
+              if (!quickInsertItem) {
+                // eslint-disable-next-line no-console
+                console.error(
+                  `Could not select item at position: ${parsedPayload.index} in the quick insert items list`,
+                  items,
+                );
+                return;
+              }
+
+              return enableQuickInsert && quickInsertItem.action(insert, state);
+            }
+            case 'mention': {
+              const { id, name, nickname, accessLevel, userType } = item;
+              const renderName = nickname ? nickname : name;
+              const mention = state.schema.nodes.mention.createChecked({
+                text: `@${renderName}`,
+                id,
+                accessLevel,
+                userType: userType === 'DEFAULT' ? null : userType,
+              });
+              return insert(mention);
+            }
+            case 'emoji': {
+              const { id, shortName, fallback } = item;
+              const emoji = state.schema.nodes.emoji.createChecked({
+                shortName,
+                id,
+                fallback,
+                text: fallback || shortName,
+              });
+              return insert(emoji);
+            }
+            default:
+              return false;
+          }
         },
         // Needed for interface.
         trigger: '',
         getItems: () => [],
       },
-      item,
+      selectedItem as TypeAheadItem,
     )(state, dispatch);
   }
 

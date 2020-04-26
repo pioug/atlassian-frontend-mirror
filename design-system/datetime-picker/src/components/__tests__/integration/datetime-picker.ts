@@ -2,7 +2,11 @@ import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import { getExampleUrl } from '@atlaskit/webdriver-runner/utils/example';
 import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 
-const urlDateTimePicker = getExampleUrl('core', 'datetime-picker', 'basic');
+const urlDateTimePicker = getExampleUrl(
+  'design-system',
+  'datetime-picker',
+  'basic',
+);
 
 const dateTimePickerDate =
   '[data-testid="dateTimePicker--datepicker--container"]';

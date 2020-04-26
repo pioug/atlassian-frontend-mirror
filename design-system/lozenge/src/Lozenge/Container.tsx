@@ -1,7 +1,10 @@
 /** @jsx jsx */
 import { ReactNode } from 'react';
+
 import { jsx } from '@emotion/core';
+
 import { borderRadius } from '@atlaskit/theme/constants';
+
 import { ThemeTokens } from '../theme';
 
 const BORDER_RADIUS = `${borderRadius()}px`;

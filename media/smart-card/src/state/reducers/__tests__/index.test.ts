@@ -6,7 +6,7 @@ import {
   ACTION_RESOLVED,
 } from '../../actions/constants';
 import { CardActionParams, CardAction } from '../../actions/types';
-import { JsonLd } from '../../../client/types';
+import { JsonLdCustom } from '../../../client/types';
 import { CardStore } from '../../types';
 import { cardReducer } from '..';
 import { Reducer } from 'react';
@@ -14,7 +14,7 @@ import { Reducer } from 'react';
 describe('Smart Card: Reducers', () => {
   let url: string;
   let store: CardStore;
-  let reducer: Reducer<CardStore, CardAction<JsonLd>>;
+  let reducer: Reducer<CardStore, CardAction<JsonLdCustom>>;
   let mockActionParams: CardActionParams;
   let mockDateNow: jest.Mock;
 
@@ -69,7 +69,7 @@ describe('Smart Card: Reducers', () => {
   describe('ACTION_RESOLVING', () => {
     it('successfully updates URL state to resolving (happy path)', () => {
       mockDateNow.mockImplementationOnce(() => 123);
-      const mockPayload: JsonLd = {
+      const mockPayload: JsonLdCustom = {
         meta: {
           visibility: 'public',
           access: 'granted',
@@ -95,7 +95,7 @@ describe('Smart Card: Reducers', () => {
   describe('ACTION_RESOLVED', () => {
     it('successfully updates URL state to resolved (happy path)', () => {
       mockDateNow.mockImplementationOnce(() => 123);
-      const mockPayload: JsonLd = {
+      const mockPayload: JsonLdCustom = {
         meta: {
           visibility: 'public',
           access: 'granted',

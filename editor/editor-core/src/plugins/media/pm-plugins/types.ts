@@ -8,7 +8,7 @@ import { MediaPluginOptions } from '../media-plugin-options';
 import { EditorView } from 'prosemirror-view';
 import PickerFacade, { MediaStateEventSubscriber } from '../picker-facade';
 import { Dispatch } from '../../../event-dispatcher';
-import { ProsemirrorGetPosHandler } from '../../../nodeviews';
+import { ProsemirrorGetPosHandler } from '../../../nodeviews/types';
 
 export interface MediaNodeWithPosHandler {
   node: PMNode;

@@ -1,6 +1,7 @@
 /* eslint-disable react/no-multi-comp */
 
 import React, { Component, createContext, Fragment } from 'react';
+
 import { Example } from '@atlaskit/docs';
 import { colors } from '@atlaskit/theme';
 

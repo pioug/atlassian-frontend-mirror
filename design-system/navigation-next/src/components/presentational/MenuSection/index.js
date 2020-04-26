@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
-import { gridSize as gridSizeFn } from '@atlaskit/theme/constants';
+
 import { ClassNames } from '@emotion/core';
+
+import { gridSize as gridSizeFn } from '@atlaskit/theme/constants';
+
 import Section from '../Section';
 
 const gridSize = gridSizeFn();

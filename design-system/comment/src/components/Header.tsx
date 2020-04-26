@@ -1,6 +1,8 @@
 import React, { ReactNode } from 'react';
-import Lozenge from '@atlaskit/lozenge';
+
 import LockFilledIcon from '@atlaskit/icon/glyph/lock-filled';
+import Lozenge from '@atlaskit/lozenge';
+
 import {
   BulletSpacer,
   Restricted,

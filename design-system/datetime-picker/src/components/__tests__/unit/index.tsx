@@ -1,21 +1,21 @@
 import React from 'react';
+
 import { shallow } from 'enzyme';
 import toJson from 'enzyme-to-json';
 
 import {
-  ClearIndicator,
   DropdownIndicator,
+  EmptyClearIndicator,
   formatDateTimeZoneIntoIso,
 } from '../../../internal';
-
 import {
+  convertTo24hrTime,
   isValid,
   removeSpacer,
-  convertTo24hrTime,
 } from '../../../internal/parseTime';
 
-test('ClearIndicator', () => {
-  expect(ClearIndicator).toBe(null);
+test('EmptyClearIndicator', () => {
+  expect(EmptyClearIndicator).toBe(null);
 });
 
 test('DropdownIndicator', () => {

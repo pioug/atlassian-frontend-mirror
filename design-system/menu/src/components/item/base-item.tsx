@@ -1,15 +1,16 @@
 /** @jsx jsx */
-import { jsx, ClassNames } from '@emotion/core';
+import { ClassNames, jsx } from '@emotion/core';
+
+import { BaseItemProps, RenderFunction } from '../types';
 
 import {
-  elemBeforeCSS,
-  elemAfterCSS,
-  descriptionCSS,
   contentCSS,
-  truncateCSS,
   contentCSSWrapper,
+  descriptionCSS,
+  elemAfterCSS,
+  elemBeforeCSS,
+  truncateCSS,
 } from './styles';
-import { BaseItemProps, RenderFunction } from '../types';
 
 const defaultRender: RenderFunction = (Component, props) => (
   <Component {...props} />
@@ -18,8 +19,8 @@ const defaultRender: RenderFunction = (Component, props) => (
 const BaseItem = ({
   children,
   description,
-  elemAfter,
-  elemBefore,
+  iconAfter,
+  iconBefore,
   overrides,
 }: BaseItemProps) => {
   const renderTitle =
@@ -27,9 +28,9 @@ const BaseItem = ({
 
   return (
     <div css={contentCSSWrapper}>
-      {elemBefore && (
+      {iconBefore && (
         <span data-item-elem-before css={elemBeforeCSS}>
-          {elemBefore}
+          {iconBefore}
         </span>
       )}
       {children && (
@@ -50,9 +51,9 @@ const BaseItem = ({
           )}
         </span>
       )}
-      {elemAfter && (
+      {iconAfter && (
         <span data-item-elem-after css={elemAfterCSS}>
-          {elemAfter}
+          {iconAfter}
         </span>
       )}
     </div>

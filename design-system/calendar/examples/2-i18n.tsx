@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+
 import LocaleSelect, { Locale } from '@atlaskit/locale/LocaleSelect';
+
 import Calendar from '../src';
 
 const log = (msg: string) => (e: any) => console.log(msg, e);

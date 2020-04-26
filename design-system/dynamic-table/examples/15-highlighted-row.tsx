@@ -1,8 +1,11 @@
 import React from 'react';
+
 import Button, { ButtonGroup } from '@atlaskit/button';
-import { DynamicTableStateless } from '../src';
-import { head, rows } from './content/sample-data';
 import { AtlaskitThemeProvider } from '@atlaskit/theme';
+
+import { DynamicTableStateless } from '../src';
+
+import { head, rows } from './content/sample-data';
 
 enum ThemeMode {
   LIGHT = 'light',

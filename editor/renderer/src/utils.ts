@@ -1,6 +1,13 @@
 import { Schema } from 'prosemirror-model';
 import { defaultSchema } from '@atlaskit/adf-schema';
-import { Transformer, ADNode, EventHandlers } from '@atlaskit/editor-common';
+import {
+  Transformer,
+  ADNode,
+  EventHandlers,
+  mapBreakpointToLayoutMaxWidth,
+  getBreakpoint,
+  akEditorDefaultLayoutWidth,
+} from '@atlaskit/editor-common';
 import { JSONTransformer } from '@atlaskit/editor-json-transformer';
 import { Node as PMNode } from 'prosemirror-model';
 
@@ -37,3 +44,33 @@ export const getEventHandler = (
     (eventHandlers as any)[type][eventName]
   );
 };
+
+export const calcLineLength = (
+  containerWidth?: number,
+  allowDynamicTextSizing?: boolean,
+) =>
+  allowDynamicTextSizing && containerWidth
+    ? mapBreakpointToLayoutMaxWidth(getBreakpoint(containerWidth))
+    : akEditorDefaultLayoutWidth;
+
+/**
+ * Traverse DOM Tree upwards looking for table parents with "overflow: scroll".
+ */
+export function findHorizontalOverflowScrollParent(
+  table: HTMLElement | null,
+): HTMLElement | false {
+  let parent: HTMLElement | null = table;
+  if (!parent) {
+    return false;
+  }
+
+  while ((parent = parent.parentElement)) {
+    // IE11 on Window 8 doesn't show styles from CSS when accessing through element.style property.
+    const style = window.getComputedStyle(parent);
+    if (style.overflow === 'scroll' || style.overflowY === 'scroll') {
+      return parent;
+    }
+  }
+
+  return false;
+}

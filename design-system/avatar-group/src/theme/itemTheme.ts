@@ -1,11 +1,11 @@
 import { itemThemeNamespace } from '@atlaskit/item';
-import { gridSize } from '@atlaskit/theme/constants';
-import { multiply } from '@atlaskit/theme/math';
 import {
+  backgroundActive,
   backgroundOnLayer,
   N900,
-  backgroundActive,
 } from '@atlaskit/theme/colors';
+import { gridSize } from '@atlaskit/theme/constants';
+import { multiply } from '@atlaskit/theme/math';
 
 const dropdownPadding = {
   bottom: 1,

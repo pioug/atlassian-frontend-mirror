@@ -1,8 +1,10 @@
 /** @jsx jsx */
 import { FC, useState } from 'react';
+
+import { jsx } from '@emotion/core';
+
 import Button from '@atlaskit/button';
 import { RadioGroup } from '@atlaskit/radio';
-import { jsx } from '@emotion/core';
 
 import Popup from '../src';
 

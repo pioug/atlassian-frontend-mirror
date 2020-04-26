@@ -1,6 +1,8 @@
 import React from 'react';
+
 import { Label } from '@atlaskit/field-base';
 import LocaleSelect, { Locale } from '@atlaskit/locale/LocaleSelect';
+
 import { DatePicker, DateTimePicker, TimePicker } from '../src';
 
 interface ControlledState {

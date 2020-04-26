@@ -12,9 +12,14 @@ export default {
           values: ['wide', 'full-width', 'default'],
           optional: true,
         },
+        localId: { type: 'string', minLength: 1, optional: true },
       },
     },
-    content: 'extension_content',
+    content: {
+      type: 'array',
+      items: ['non_nestable_block_content'],
+      minItems: 1,
+      allowUnsupportedBlock: true,
+    },
   },
-  required: ['content'],
 };

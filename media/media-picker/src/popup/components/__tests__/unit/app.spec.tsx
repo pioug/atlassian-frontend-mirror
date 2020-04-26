@@ -20,7 +20,7 @@ import { Clipboard as MediaPickerClipboard } from '../../../../components/clipbo
 import { MediaFile, UploadParams } from '../../../../types';
 import { AuthProvider } from '@atlaskit/media-core';
 import { MediaClient } from '@atlaskit/media-client';
-import { WarningContainer } from '../../views/warnings/styles';
+import NetworkErrorWarning from '../../views/warnings/networkError';
 
 const tenantUploadParams: UploadParams = {};
 const baseUrl = 'some-api-url';
@@ -42,10 +42,6 @@ const makeFile = (id: string): MediaFile => ({
   creationDate: 0,
 });
 
-/**
- * Skipped two tests, they look fine, so not sure whats wrong...
- * TODO: JEST-23 Fix these tests
- */
 describe('App', () => {
   const setup = () => {
     const mediaClient = fakeMediaClient({
@@ -175,10 +171,12 @@ describe('App', () => {
     );
 
     expect(appGoogle.find(Browser).length).toEqual(1);
-    expect(appGoogle.find(Browser).find(WarningContainer).length).toEqual(1);
+    expect(appGoogle.find(Browser).find(NetworkErrorWarning).length).toEqual(1);
 
     expect(appDropbox.find(Browser).length).toEqual(1);
-    expect(appDropbox.find(Browser).find(WarningContainer).length).toEqual(1);
+    expect(appDropbox.find(Browser).find(NetworkErrorWarning).length).toEqual(
+      1,
+    );
   });
 
   it('should call onStartApp', () => {

@@ -41,6 +41,7 @@ describe(name, () => {
         'document',
         'excel-spreadsheet',
         'executable',
+        'figma',
         'folder',
         'generic',
         'gif',

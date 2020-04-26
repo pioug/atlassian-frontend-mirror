@@ -1,13 +1,16 @@
 /* eslint-disable react/no-multi-comp */
 
 import React, { Component } from 'react';
+
 import { HashRouter, Link, Route, Switch } from 'react-router-dom';
+
 import GlobalNavigation from '@atlaskit/global-navigation';
 import DashboardIcon from '@atlaskit/icon/glyph/dashboard';
 import FolderIcon from '@atlaskit/icon/glyph/folder';
 import IssueIcon from '@atlaskit/icon/glyph/issue';
 import PortfolioIcon from '@atlaskit/icon/glyph/portfolio';
 import { JiraIcon, JiraWordmark } from '@atlaskit/logo';
+
 import {
   LayoutManagerWithViewController,
   NavigationProvider,

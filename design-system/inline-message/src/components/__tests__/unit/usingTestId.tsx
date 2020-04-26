@@ -1,7 +1,8 @@
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react';
 
-import InlineMessage from '../../..';
+import { fireEvent, render } from '@testing-library/react';
+
+import InlineMessage from '../../../index';
 
 const MessageContent = (
   <div>

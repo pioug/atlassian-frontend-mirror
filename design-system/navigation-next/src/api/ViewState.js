@@ -2,8 +2,8 @@
  * @deprecated This module is deprecated in favour of the 'view-state' module.
  */
 
-import { Container } from 'unstated';
 import { diff } from 'deep-object-diff';
+import { Container } from 'unstated';
 
 import Logger from '../services/logger';
 

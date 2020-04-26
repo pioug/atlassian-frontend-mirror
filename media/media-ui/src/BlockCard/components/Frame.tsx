@@ -3,7 +3,7 @@ import { jsx } from '@emotion/core';
 import React from 'react';
 import { N20A, N30A, B200, N50A, N60A } from '@atlaskit/theme/colors';
 
-import { gs, br } from '../utils';
+import { gs, br, mq } from '../utils';
 
 export interface FrameProps {
   children?: React.ReactNode;
@@ -28,6 +28,7 @@ const sharedFrameStyles = {
   maxWidth: gs(85),
   width: '100%',
   display: 'flex',
+  backgroundColor: 'white',
 } as const;
 
 export const ExpandedFrame = ({
@@ -38,7 +39,7 @@ export const ExpandedFrame = ({
 }: FrameProps) => {
   return (
     <div
-      css={{
+      css={mq({
         ...sharedFrameStyles,
         '&:hover': isHoverable
           ? {
@@ -46,13 +47,13 @@ export const ExpandedFrame = ({
               cursor: 'pointer',
             }
           : undefined,
-        minHeight: gs(15),
+        minHeight: [gs(21), gs(15)],
         borderRadius: isSelected ? br() : br(0.5),
         border: isSelected ? `2px solid ${B200}` : '',
         justifyContent: 'space-between',
         overflow: 'hidden',
         boxShadow: `0 1px 1px ${N50A}, 0 0 1px 0 ${N60A};`,
-      }}
+      })}
       data-testid={testId}
     >
       {children}
@@ -68,7 +69,7 @@ export const CompactFrame = ({
 }: FrameProps) => {
   return (
     <div
-      css={{
+      css={mq({
         ...sharedFrameStyles,
         '&:hover': isHoverable
           ? {
@@ -81,7 +82,9 @@ export const CompactFrame = ({
         alignItems: 'center',
         height: gs(5),
         backgroundColor: N20A,
-      }}
+        width: ['calc(100% - 16px)', '100%'],
+        padding: [`0px ${gs(1)}`, '0'],
+      })}
       data-testid={testId}
     >
       {children}

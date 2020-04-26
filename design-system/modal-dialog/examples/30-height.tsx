@@ -1,7 +1,10 @@
 import React from 'react';
+
 import styled from '@emotion/styled';
 import Lorem from 'react-lorem-component';
+
 import Button, { ButtonGroup } from '@atlaskit/button';
+
 import ModalDialog, { ModalTransition } from '../src';
 
 const units = [420, '42em', '100%'];

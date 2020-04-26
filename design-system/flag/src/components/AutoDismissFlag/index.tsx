@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import Flag from '../Flag';
+
 import { AutoDismissFlagProps } from '../../types';
+import Flag from '../Flag';
 
 export const AUTO_DISMISS_SECONDS = 8;
 

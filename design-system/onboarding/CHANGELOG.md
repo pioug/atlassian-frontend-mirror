@@ -1,5 +1,45 @@
 # @atlaskit/onboarding
 
+## 9.1.6
+
+### Patch Changes
+
+- [patch][d150e2d7f6](https://bitbucket.org/atlassian/atlassian-frontend/commits/d150e2d7f6):
+
+  Change imports to comply with Atlassian conventions- Updated dependencies [cf8577f5d6](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf8577f5d6):
+
+- Updated dependencies [6b8e60827e](https://bitbucket.org/atlassian/atlassian-frontend/commits/6b8e60827e):
+- Updated dependencies [449ef134b3](https://bitbucket.org/atlassian/atlassian-frontend/commits/449ef134b3):
+- Updated dependencies [9a534d6a74](https://bitbucket.org/atlassian/atlassian-frontend/commits/9a534d6a74):
+- Updated dependencies [57c0487a02](https://bitbucket.org/atlassian/atlassian-frontend/commits/57c0487a02):
+- Updated dependencies [fd41d77c29](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd41d77c29):
+  - @atlaskit/popper@3.1.12
+  - @atlaskit/button@13.3.11
+  - @atlaskit/icon@20.1.1
+  - @atlaskit/modal-dialog@10.5.7
+  - @atlaskit/webdriver-runner@0.3.4
+
+## 9.1.5
+
+### Patch Changes
+
+- [patch][0389a42cc5](https://bitbucket.org/atlassian/atlassian-frontend/commits/0389a42cc5):
+
+  Positioning fix for onboarding modals without css reset- Updated dependencies [603413f530](https://bitbucket.org/atlassian/atlassian-frontend/commits/603413f530):
+
+- Updated dependencies [168b5f90e5](https://bitbucket.org/atlassian/atlassian-frontend/commits/168b5f90e5):
+- Updated dependencies [f5b654c328](https://bitbucket.org/atlassian/atlassian-frontend/commits/f5b654c328):
+- Updated dependencies [0c270847cb](https://bitbucket.org/atlassian/atlassian-frontend/commits/0c270847cb):
+- Updated dependencies [109004a98e](https://bitbucket.org/atlassian/atlassian-frontend/commits/109004a98e):
+- Updated dependencies [b9903e773a](https://bitbucket.org/atlassian/atlassian-frontend/commits/b9903e773a):
+- Updated dependencies [89bf723567](https://bitbucket.org/atlassian/atlassian-frontend/commits/89bf723567):
+  - @atlaskit/portal@3.1.7
+  - @atlaskit/docs@8.5.1
+  - @atlaskit/modal-dialog@10.5.6
+  - @atlaskit/theme@9.5.3
+  - @atlaskit/analytics-next@6.3.6
+  - @atlaskit/button@13.3.10
+
 ## 9.1.4
 
 ### Patch Changes

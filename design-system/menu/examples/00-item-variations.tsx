@@ -1,24 +1,25 @@
 import React from 'react';
+
 import { HashRouter, Link } from 'react-router-dom';
+
 import EmojiCustomIcon from '@atlaskit/icon/glyph/emoji/custom';
 import StarIcon from '@atlaskit/icon/glyph/star';
 
 import {
   ButtonItem,
-  LinkItem,
   CustomItem,
+  CustomItemComponentProps,
   HeadingItem,
-  SkeletonItem,
+  LinkItem,
   SkeletonHeadingItem,
+  SkeletonItem,
 } from '../src';
 
-const RouterLink = ({ wrapperClass, ...rest }: { wrapperClass: string }) => (
-  <Link to="/my-route" className={wrapperClass} {...rest} />
+const RouterLink = (props: CustomItemComponentProps) => (
+  <Link to="/my-route" {...props} />
 );
 
-const Emphasis = ({ wrapperClass, ...props }: { wrapperClass: string }) => (
-  <em className={wrapperClass} {...props} />
-);
+const Emphasis = (props: CustomItemComponentProps) => <em {...props} />;
 const Star = <StarIcon label="" />;
 const ItemVariants = () => {
   return (
@@ -41,8 +42,8 @@ const ItemVariants = () => {
         or of Congress) or other legislative instrument.
       </ButtonItem>
       <ButtonItem
-        elemBefore={<StarIcon label="Icon before" />}
-        elemAfter={<StarIcon label="Icon after" />}
+        iconBefore={<StarIcon label="Icon before" />}
+        iconAfter={<StarIcon label="Icon after" />}
         testId="item-button-at-scale-before-after"
         description="The long title is intended to provide a summarised description of the purpose or scope of the instrument."
       >
@@ -52,22 +53,22 @@ const ItemVariants = () => {
       </ButtonItem>
       <ButtonItem
         testId="item-button-before"
-        elemBefore={<EmojiCustomIcon label="Icon before" />}
+        iconBefore={<EmojiCustomIcon label="Icon before" />}
       >
-        With elemBefore prop
+        With iconBefore prop
       </ButtonItem>
       <ButtonItem
         testId="item-button-after"
-        elemAfter={<StarIcon label="Icon before" />}
+        iconAfter={<StarIcon label="Icon before" />}
       >
-        With elemAfter prop
+        With iconAfter prop
       </ButtonItem>
       <ButtonItem
         testId="item-button-before-after"
-        elemBefore={<EmojiCustomIcon label="icon before" />}
-        elemAfter={<StarIcon label="icon after" />}
+        iconBefore={<EmojiCustomIcon label="icon before" />}
+        iconAfter={<StarIcon label="icon after" />}
       >
-        With both elemAfter and elemBefore prop
+        With both iconAfter and iconBefore prop
       </ButtonItem>
       <ButtonItem testId="item-button-disabled" isDisabled>
         Disabled Item
@@ -87,7 +88,7 @@ const ItemVariants = () => {
       <LinkItem
         testId="item-link-selected"
         href="//www.atlassian.com"
-        elemAfter={Star}
+        iconAfter={Star}
         cssFn={(a, b) => {
           return {
             ...a,
@@ -109,8 +110,8 @@ const ItemVariants = () => {
           testId="item-custom-router"
           description="some custom text"
           isSelected
-          elemAfter={<StarIcon label="icon after" />}
-          elemBefore={<EmojiCustomIcon label="icon before" />}
+          iconAfter={<StarIcon label="icon after" />}
+          iconBefore={<EmojiCustomIcon label="icon before" />}
         >
           I'm a react-router link rendered using CustomItem
         </CustomItem>

@@ -132,6 +132,77 @@ BrowserTestCase(
   },
 );
 
+//Will test cases for paragraphs and other list nodes when backspacing at the start of a list
+//Cases below refer to the cases found in this document: https://product-fabric.atlassian.net/wiki/spaces/E/pages/1146954996/List+Backspace+and+Delete+Behaviour
+BrowserTestCase(
+  'list: should handle backspace correctly when at the start of a list',
+  { skip: ['ie', 'edge', 'safari', 'firefox'] },
+  async (client: any, testName: string) => {
+    const page = await goToEditorTestingExample(client);
+
+    await mountEditor(page, {
+      appearance: fullpage.appearance,
+      defaultValue: listsAdf,
+      shouldFocus: true,
+    });
+
+    //Case 2 with indented child
+    await setProseMirrorTextSelection(page, { anchor: 14, head: 14 });
+    await page.keys('Backspace');
+
+    //Case 4 with outdented child
+    await setProseMirrorTextSelection(page, { anchor: 45, head: 45 });
+    await page.keys('Backspace');
+
+    //Case 4 with double nested previous listItem
+    await setProseMirrorTextSelection(page, { anchor: 54, head: 54 });
+    await page.keys('Backspace');
+
+    //Case 3 with indented child
+    await setProseMirrorTextSelection(page, { anchor: 21, head: 21 });
+    await page.keys('Backspace');
+
+    //Case 3 with no children
+    await setProseMirrorTextSelection(page, { anchor: 28, head: 28 });
+    await page.keys('Backspace');
+
+    //Case 1 with paragraphs with and without content
+    await setProseMirrorTextSelection(page, { anchor: 49, head: 49 });
+    await page.keys('Backspace');
+    await setProseMirrorTextSelection(page, { anchor: 49, head: 49 });
+    await page.keys('Backspace');
+
+    //Case 2 with indented child
+    await setProseMirrorTextSelection(page, { anchor: 69, head: 69 });
+    await page.keys('Backspace');
+
+    //Case 4 with outdented child
+    await setProseMirrorTextSelection(page, { anchor: 100, head: 100 });
+    await page.keys('Backspace');
+
+    //Case 4 with double nested previous listItem
+    await setProseMirrorTextSelection(page, { anchor: 109, head: 109 });
+    await page.keys('Backspace');
+
+    //Case 3 with indented child
+    await setProseMirrorTextSelection(page, { anchor: 76, head: 76 });
+    await page.keys('Backspace');
+
+    //Case 3 with no children
+    await setProseMirrorTextSelection(page, { anchor: 83, head: 83 });
+    await page.keys('Backspace');
+
+    //Case 1 with paragraphs with and without content
+    await setProseMirrorTextSelection(page, { anchor: 104, head: 104 });
+    await page.keys('Backspace');
+    await setProseMirrorTextSelection(page, { anchor: 104, head: 104 });
+    await page.keys('Backspace');
+
+    const doc = await page.$eval(editable, getDocFromElement);
+    expect(doc).toMatchCustomDocSnapshot(testName);
+  },
+);
+
 //Will test cases for paragraphs and other list nodes when deleting at the end of a list
 BrowserTestCase(
   'list: should handle delete correctly when at the end of a list',
@@ -145,27 +216,55 @@ BrowserTestCase(
       shouldFocus: true,
     });
 
-    //Delete before a list node on bullet list
+    //Case 2 with indented child
     await setProseMirrorTextSelection(page, { anchor: 10, head: 10 });
     await page.keys('Delete');
-    //Should append next list element to current selection
 
-    //Delete before empty paragraph and paragraph with text on bullet list
+    //Case 4 with outdented child
+    await setProseMirrorTextSelection(page, { anchor: 39, head: 39 });
+    await page.keys('Delete');
+
+    //Case 4 with double nested previous listItem
+    await setProseMirrorTextSelection(page, { anchor: 46, head: 46 });
+    await page.keys('Delete');
+
+    //Case 3 with indented child
+    await setProseMirrorTextSelection(page, { anchor: 17, head: 17 });
+    await page.keys('Delete');
+
+    //Case 3 with no children
+    await setProseMirrorTextSelection(page, { anchor: 24, head: 24 });
+    await page.keys('Delete');
+
+    //Case 1 with paragraphs with and without content
+    await setProseMirrorTextSelection(page, { anchor: 45, head: 45 });
+    await page.keys('Delete');
+    await page.keys('Delete');
+
+    //Case 2 with indented child
     await setProseMirrorTextSelection(page, { anchor: 65, head: 65 });
     await page.keys('Delete');
-    await page.keys('Delete');
-    //Should remove empty paragraph and append paragraph with content to current selection
 
-    //Delete before a list node on numbered list
-    await setProseMirrorTextSelection(page, { anchor: 85, head: 85 });
+    //Case 4 with outdented child
+    await setProseMirrorTextSelection(page, { anchor: 94, head: 94 });
     await page.keys('Delete');
-    //Should append next list element to current selection
 
-    //Delete before empty paragraph and paragraph with text on numbered list
-    await setProseMirrorTextSelection(page, { anchor: 140, head: 140 });
+    //Case 4 with double nested previous listItem
+    await setProseMirrorTextSelection(page, { anchor: 101, head: 101 });
+    await page.keys('Delete');
+
+    //Case 3 with indented child
+    await setProseMirrorTextSelection(page, { anchor: 72, head: 72 });
+    await page.keys('Delete');
+
+    //Case 3 with no children
+    await setProseMirrorTextSelection(page, { anchor: 79, head: 79 });
+    await page.keys('Delete');
+
+    //Case 1 with paragraphs with and without content
+    await setProseMirrorTextSelection(page, { anchor: 100, head: 100 });
     await page.keys('Delete');
     await page.keys('Delete');
-    //Should remove empty paragraph and append paragraph with content to current selection
 
     const doc = await page.$eval(editable, getDocFromElement);
     expect(doc).toMatchCustomDocSnapshot(testName);

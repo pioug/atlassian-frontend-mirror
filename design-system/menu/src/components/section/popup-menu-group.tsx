@@ -1,7 +1,9 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import MenuGroup from './menu-group';
+
 import { MenuGroupProps } from '../types';
+
+import MenuGroup from './menu-group';
 
 const PopupMenuGroup = ({
   maxWidth = 800,

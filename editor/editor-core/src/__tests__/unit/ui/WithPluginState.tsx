@@ -52,6 +52,12 @@ describe(name, () => {
   let dispatch: Dispatch;
 
   beforeEach(() => {
+    performance.measure = jest.fn();
+    performance.clearMeasures = jest.fn();
+    performance.clearMarks = jest.fn();
+    performance.getEntriesByName = jest.fn(() => []);
+    performance.getEntriesByType = jest.fn(() => []);
+
     eventDispatcher = new EventDispatcher();
     dispatch = createDispatch(eventDispatcher);
   });
@@ -225,5 +231,49 @@ describe(name, () => {
     );
     wrapper.unmount();
     editorView.destroy();
+  });
+
+  it('should call performance.mark twice with appropriate arguments', () => {
+    const plugin = createPlugin({}, pluginKey);
+    const key = (pluginKey as any).key;
+    const mark = performance.mark as jest.Mock;
+
+    const { editorView } = createEditor({
+      doc: doc(p()),
+      editorPlugins: [plugin],
+      editorProps: {
+        allowAnalyticsGASV3: true,
+        performanceTracking: {
+          uiTracking: {
+            enabled: true,
+            samplingRate: 1,
+          },
+        },
+      },
+    });
+
+    const renderMock = jest.fn().mockReturnValue(null);
+
+    const wrapper = mount(
+      <WithPluginState
+        editorView={editorView}
+        eventDispatcher={eventDispatcher}
+        plugins={{ pluginState: pluginKey }}
+        render={renderMock}
+      />,
+    );
+    dispatch(pluginKey, { cheese: '🧀' });
+
+    return setTimeoutPromise(() => {}, 0).then(() => {
+      expect(mark.mock.calls.map(item => item[0])).toEqual(
+        expect.arrayContaining([
+          `🦉${key}::WithPluginState::start`,
+          `🦉${key}::WithPluginState::end`,
+        ]),
+      );
+
+      wrapper.unmount();
+      editorView.destroy();
+    });
   });
 });

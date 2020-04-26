@@ -127,7 +127,10 @@ describe('paste plugins', () => {
       providerFactory,
       preset: new Preset<LightEditorPlugin>()
         .add([pastePlugin, pasteOptions])
-        .add([analyticsPlugin, createAnalyticsEvent as any])
+        .add([
+          analyticsPlugin,
+          { createAnalyticsEvent: createAnalyticsEvent as any },
+        ])
         .add(extensionPlugin)
         .add(blockTypePlugin)
         .add(hyperlinkPlugin)

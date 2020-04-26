@@ -1,5 +1,7 @@
 import { CSSObject } from '@emotion/core';
+
 import { N30A } from '@atlaskit/theme/colors';
+
 import { MenuGroupSizing } from '../types';
 
 export const menuGroupCSS = ({

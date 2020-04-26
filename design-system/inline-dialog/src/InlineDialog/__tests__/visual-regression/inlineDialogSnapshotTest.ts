@@ -8,7 +8,7 @@ declare var global: any;
 describe('Snapshot Test', () => {
   it('Basic should match production example', async () => {
     const url = getExampleUrl(
-      'core',
+      'design-system',
       'inline-dialog',
       'basic',
       global.__BASEURL__,

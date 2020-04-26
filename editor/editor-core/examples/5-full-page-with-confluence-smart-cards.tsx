@@ -285,14 +285,21 @@ const demoTable = {
           attrs: {},
           content: [
             {
-              type: 'paragraph',
+              type: 'nestedExpand',
+              attrs: {
+                title: '',
+              },
               content: [
                 {
-                  type: 'inlineCard',
-                  attrs: {
-                    url:
-                      'https://onedrive.live.com/redir?resid=5D04B397F4A8ABE!1004&authkey=!AN4C7co5280OG_Y',
-                  },
+                  type: 'paragraph',
+                  content: [
+                    {
+                      type: 'inlineCard',
+                      attrs: {
+                        url: 'https://1drv.ms/u/s!Ar6KSn85S9AFh2zeAu3KOdvNDhv2',
+                      },
+                    },
+                  ],
                 },
               ],
             },
@@ -346,6 +353,67 @@ const exampleDocument = {
       content: [
         {
           type: 'text',
+          text: "Here's an example of a block Smart Card (dropbox, action):",
+          marks: [
+            {
+              type: 'strong',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      type: 'blockCard',
+      attrs: {
+        url: 'https://www.dropbox.com/s/q3njsd094anqero/birdman.jpg?dl=0',
+      },
+    },
+    {
+      type: 'paragraph',
+      content: [
+        {
+          type: 'text',
+          text: "Here's an example of a block Smart Card (native):",
+          marks: [
+            {
+              type: 'strong',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      type: 'blockCard',
+      attrs: {
+        url:
+          'https://pug.jira-dev.com/wiki/spaces/~kihlberg/pages/4210950327/Klaus+on+Leave+28th+of+June+to+28th+of+July',
+      },
+    },
+    {
+      type: 'paragraph',
+      content: [
+        {
+          type: 'text',
+          text: "Here's an example of a block Smart Card (native, Jira):",
+          marks: [
+            {
+              type: 'strong',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      type: 'blockCard',
+      attrs: {
+        url: 'https://jdog.jira-dev.com/browse/BENTO-4222',
+      },
+    },
+    {
+      type: 'paragraph',
+      content: [
+        {
+          type: 'text',
           text: "Here's an example of a block Smart Card:",
           marks: [
             {
@@ -371,6 +439,30 @@ const exampleDocument = {
           marks: [
             {
               type: 'strong',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      type: 'taskList',
+      attrs: {
+        localId: 'c7c7c52a-7790-466d-92d4-ab862ff267b6',
+      },
+      content: [
+        {
+          type: 'taskItem',
+          attrs: {
+            localId: 'cf26b83c-085c-4dd0-b9c7-873bb32c75f1',
+            state: 'TODO',
+          },
+          content: [
+            {
+              type: 'inlineCard',
+              attrs: {
+                url:
+                  'https://docs.google.com/spreadsheets/d/168cPaeXw_2zbo6md4pGUdEmXzRsXRQmNP0712ID2TKA/edit?usp=sharing',
+              },
             },
           ],
         },

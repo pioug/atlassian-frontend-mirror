@@ -161,7 +161,10 @@ export function insertLink(
         Selection.near(tr.doc.resolve(from + textContent.length)),
       );
 
-      queueCardsFromChangedTr(state, tr, source!, false);
+      //Create a smart link when the user doesn't provide a title
+      if (source === INPUT_METHOD.TYPEAHEAD || !text || text === href) {
+        queueCardsFromChangedTr(state, tr, source!, false);
+      }
 
       tr.setMeta(stateKey, { type: LinkAction.HIDE_TOOLBAR });
       if (dispatch) {

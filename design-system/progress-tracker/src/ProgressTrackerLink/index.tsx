@@ -1,6 +1,8 @@
 import React, { PureComponent } from 'react';
-import { Link } from './styled';
+
 import { Stage } from '../types';
+
+import { Link } from './styled';
 
 interface Props {
   /** stage data passed to each `ProgressTrackerStage` component */

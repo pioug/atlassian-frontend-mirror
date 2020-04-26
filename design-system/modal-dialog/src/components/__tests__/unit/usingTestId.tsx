@@ -1,7 +1,8 @@
 import React from 'react';
-import { render, cleanup } from '@testing-library/react';
 
-import ModalDialog, { ModalTransition } from '../../..';
+import { cleanup, render } from '@testing-library/react';
+
+import ModalDialog, { ModalTransition } from '../../../index';
 
 // dialogs require an onClose function
 const noop = () => {};

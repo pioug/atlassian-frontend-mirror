@@ -17,6 +17,10 @@ describe('JIRA wiki markup - Images and attachments', () => {
       '!fizzbuzz.txt|width=50%!',
     ],
     [
+      'should clamp media with percentage width > 100%',
+      '!fizzbuzz.txt|width=500%!',
+    ],
+    [
       'should find attachments in multiline string',
       `this is a line of text
 !image.gif|align=right, vspace=4!

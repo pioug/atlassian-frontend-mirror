@@ -1,5 +1,23 @@
 # @atlaskit/icon-file-type
 
+## 5.0.4
+
+### Patch Changes
+
+- [patch][aff1210e19](https://bitbucket.org/atlassian/atlassian-frontend/commits/aff1210e19):
+
+  Figma file type icon added.- Updated dependencies [168b5f90e5](https://bitbucket.org/atlassian/atlassian-frontend/commits/168b5f90e5):
+
+- Updated dependencies [f5b654c328](https://bitbucket.org/atlassian/atlassian-frontend/commits/f5b654c328):
+- Updated dependencies [0c270847cb](https://bitbucket.org/atlassian/atlassian-frontend/commits/0c270847cb):
+- Updated dependencies [109004a98e](https://bitbucket.org/atlassian/atlassian-frontend/commits/109004a98e):
+- Updated dependencies [b9903e773a](https://bitbucket.org/atlassian/atlassian-frontend/commits/b9903e773a):
+- Updated dependencies [89bf723567](https://bitbucket.org/atlassian/atlassian-frontend/commits/89bf723567):
+  - @atlaskit/docs@8.5.1
+  - @atlaskit/modal-dialog@10.5.6
+  - @atlaskit/theme@9.5.3
+  - @atlaskit/button@13.3.10
+
 ## 5.0.3
 
 ### Patch Changes

@@ -1,6 +1,7 @@
 import React from 'react';
-import { TableBodyRow } from '../styled/TableRow';
+
 import { TableBodyCell } from '../styled/TableCell';
+import { TableBodyRow } from '../styled/TableRow';
 import { HeadType, RowType } from '../types';
 
 interface Props {

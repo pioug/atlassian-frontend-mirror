@@ -12,7 +12,8 @@ import TaskItem from '../ui/Task';
 import { PortalProviderAPI } from '../../../ui/PortalProvider';
 import WithPluginState from '../../../ui/WithPluginState';
 import { stateKey as taskPluginKey } from '../pm-plugins/plugin-key';
-import { getPosHandlerNode } from '../../../nodeviews/ReactNodeView';
+import { getPosHandlerNode } from '../../../nodeviews/';
+import { EventDispatcher } from '../../../event-dispatcher';
 
 export interface Props {
   providerFactory: ProviderFactory;
@@ -141,10 +142,11 @@ class Task extends ReactNodeView<Props> {
 
 export function taskItemNodeViewFactory(
   portalProviderAPI: PortalProviderAPI,
+  eventDispatcher: EventDispatcher,
   providerFactory: ProviderFactory,
 ) {
   return (node: any, view: any, getPos: getPosHandler): NodeView => {
-    return new Task(node, view, getPos, portalProviderAPI, {
+    return new Task(node, view, getPos, portalProviderAPI, eventDispatcher, {
       providerFactory,
     }).init();
   };

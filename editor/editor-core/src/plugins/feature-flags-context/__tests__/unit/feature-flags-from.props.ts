@@ -98,4 +98,19 @@ describe('Feature Flags from Props', () => {
       expect(flags.placeholderBracketHint).toBe(true);
     });
   });
+
+  describe('find/replace', () => {
+    it('should set findReplace to true if allowFindReplace prop is true', () => {
+      const flags = createFeatureFlagsFromProps({
+        allowFindReplace: true,
+      });
+      expect(flags.findReplace).toBe(true);
+    });
+    it('should set findReplace to false if allowFindReplace prop is false', () => {
+      const flags = createFeatureFlagsFromProps({
+        allowFindReplace: false,
+      });
+      expect(flags.findReplace).toBe(false);
+    });
+  });
 });

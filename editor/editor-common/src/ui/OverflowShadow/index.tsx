@@ -1,5 +1,4 @@
 import React from 'react';
-import rafSchedule from 'raf-schd';
 import browser from '../../utils/browser';
 
 export const shadowClassNames = {
@@ -43,18 +42,14 @@ export default function overflowShadow<P>(
 
     componentWillUnmount() {
       if (this.overflowContainer && !isIE11) {
-        this.overflowContainer.removeEventListener(
-          'scroll',
-          this.handleScrollDebounced,
-        );
+        this.overflowContainer.removeEventListener('scroll', this.handleScroll);
       }
 
-      this.handleUpdateRightShadow.cancel();
-      this.handleScrollDebounced.cancel();
+      this.updateShadows();
     }
 
     componentDidUpdate() {
-      this.handleUpdateRightShadow();
+      this.updateShadows();
     }
 
     handleScroll = (event: Event) => {
@@ -62,27 +57,50 @@ export default function overflowShadow<P>(
         return;
       }
 
-      this.setState(() => ({
-        showLeftShadow:
-          !!this.overflowContainer && this.overflowContainer.scrollLeft > 0,
-      }));
+      this.applyScrollToFixedHeaders(this.overflowContainer);
+      this.updateShadows();
     };
 
-    updateRightShadow = () => {
-      if (this.overflowContainer) {
+    updateShadows = () => {
+      this.setState(prevState => {
+        if (!this.overflowContainer) {
+          return;
+        }
+
         const diff = this.calcOverflowDiff();
         const showRightShadow =
           diff > 0 && diff > this.overflowContainer.scrollLeft;
-        if (showRightShadow !== this.state.showRightShadow) {
-          this.setState(() => ({
+
+        const showLeftShadow = this.showLeftShadow(this.overflowContainer);
+
+        if (
+          showLeftShadow !== prevState.showLeftShadow ||
+          showRightShadow !== this.state.showRightShadow
+        ) {
+          return {
+            showLeftShadow,
             showRightShadow,
-          }));
+          };
         }
-      }
+        return null;
+      });
     };
 
-    handleUpdateRightShadow = rafSchedule(this.updateRightShadow);
-    handleScrollDebounced = rafSchedule(this.handleScroll);
+    showLeftShadow = (
+      overflowContainer: HTMLElement | null | undefined,
+    ): boolean => {
+      return !!overflowContainer && overflowContainer.scrollLeft > 0;
+    };
+
+    applyScrollToFixedHeaders = (overflowContainer: HTMLElement): void => {
+      const headers = overflowContainer.querySelectorAll(
+        'tr[data-header-row].fixed',
+      );
+      headers.forEach(header => {
+        header.scrollLeft = overflowContainer.scrollLeft;
+      });
+      return;
+    };
 
     calcOverflowDiff = () => {
       if (!this.overflowContainer) {
@@ -130,12 +148,10 @@ export default function overflowShadow<P>(
         );
       }
 
-      this.handleUpdateRightShadow();
+      this.updateShadows();
+
       if (!isIE11) {
-        this.overflowContainer.addEventListener(
-          'scroll',
-          this.handleScrollDebounced,
-        );
+        this.overflowContainer.addEventListener('scroll', this.handleScroll);
       }
     };
 

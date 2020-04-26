@@ -8,6 +8,7 @@ import {
   doc,
   p,
   inlineCard,
+  blockquote,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 
 describe('card', () => {
@@ -111,6 +112,60 @@ describe('card', () => {
               'Convert this into Smart link: ',
               inlineCard({
                 url: 'https://docs.google.com/spreadsheets/d/168cPaeXw/edit',
+              })(),
+            ),
+          ),
+        );
+      });
+    });
+
+    describe('pasting a block card where is not supported ', () => {
+      it('converts it to inline card', () => {
+        const html = `<meta charset='utf-8'><a data-block-card="" href="https://docs.google.com/spreadsheets/d/168c/edit?usp=sharing" data-card-data="" data-pm-slice="0 0 []"></a>`;
+        const { editorView } = editor(
+          doc(p('Paragraph'), blockquote(p('{<>}'))),
+        );
+        const { state, dispatch } = editorView;
+
+        const provider = new EditorTestCardProvider();
+        dispatch(setProvider(provider)(state.tr));
+
+        dispatchPasteEvent(editorView, { html });
+        expect(editorView.state.doc).toEqualDocument(
+          doc(
+            p('Paragraph'),
+            blockquote(
+              p(
+                inlineCard({
+                  url:
+                    'https://docs.google.com/spreadsheets/d/168c/edit?usp=sharing',
+                })(),
+              ),
+            ),
+          ),
+        );
+      });
+    });
+
+    describe('pasting card from Editor to Editor', () => {
+      it('resolves a copied smart link back into a smart link', () => {
+        const html = `
+        <meta charset='utf-8'>
+        <a data-inline-card="" href="https://product-fabric.atlassian.net/wiki/spaces/ADF/pages/729155214/ADF+Change+23%3A+Image+Captions" data-card-data="" data-pm-slice="0 0 []">https://product-fabric.atlassian.net/wiki/spaces/ADF/pages/729155214/ADF+Change+23%3A+Image+Captions</a>`;
+        const { editorView } = editor(doc(p('{<>}')));
+        const { state, dispatch } = editorView;
+
+        const provider = new EditorTestCardProvider();
+        dispatch(setProvider(provider)(state.tr));
+
+        dispatchPasteEvent(editorView, { html });
+
+        expect(editorView.state.doc).toEqualDocument(
+          doc(
+            p(
+              inlineCard({
+                url:
+                  'https://product-fabric.atlassian.net/wiki/spaces/ADF/pages/729155214/ADF+Change+23%3A+Image+Captions',
               })(),
             ),
           ),

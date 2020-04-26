@@ -3,7 +3,7 @@ import { getExampleUrl } from '@atlaskit/webdriver-runner/utils/example';
 import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 
 /* Url to test the example */
-const urlDrawer = getExampleUrl('core', 'droplist', 'basic-example');
+const urlDrawer = getExampleUrl('design-system', 'droplist', 'basic-example');
 
 /* Css selectors used for the test */
 const droplistButton = 'button[type="button"]';

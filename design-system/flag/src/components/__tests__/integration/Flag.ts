@@ -3,7 +3,7 @@ import { getExampleUrl } from '@atlaskit/webdriver-runner/utils/example';
 import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 
 /* Url to test the example */
-const urlFlag = getExampleUrl('core', 'flag', 'testing');
+const urlFlag = getExampleUrl('design-system', 'flag', 'testing');
 
 /* Css selectors used for the test */
 const addFlagBtn = "[data-testid='AddFlag']";

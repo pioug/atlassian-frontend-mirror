@@ -12,5 +12,5 @@ export const waitForStatus = async (page: Page) => {
 };
 
 export const waitForStatusToolbar = async (page: Page) => {
-  await page.waitForSelector('[aria-label="Popup"] input[type="text"]');
+  await page.waitForSelector('[aria-label="Popup"] input');
 };

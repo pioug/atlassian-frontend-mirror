@@ -1,10 +1,12 @@
 import React, { Component, ReactElement, ReactNode } from 'react';
+
 import Button from '@atlaskit/button';
+import Tick from '@atlaskit/icon/glyph/check-circle';
 import Error from '@atlaskit/icon/glyph/error';
 import Info from '@atlaskit/icon/glyph/info';
-import Tick from '@atlaskit/icon/glyph/check-circle';
 import Warning from '@atlaskit/icon/glyph/warning';
 import { colors } from '@atlaskit/theme';
+
 import Flag, { FlagGroup } from '../src';
 
 type State = {

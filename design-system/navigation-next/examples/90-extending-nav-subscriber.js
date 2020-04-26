@@ -1,5 +1,7 @@
 import React from 'react';
+
 import Avatar from '@atlaskit/avatar';
+import { Label } from '@atlaskit/field-base';
 import AddIcon from '@atlaskit/icon/glyph/add';
 import BacklogIcon from '@atlaskit/icon/glyph/backlog';
 import BoardIcon from '@atlaskit/icon/glyph/board';
@@ -12,8 +14,6 @@ import SearchIcon from '@atlaskit/icon/glyph/search';
 import ShortcutIcon from '@atlaskit/icon/glyph/shortcut';
 import { JiraIcon, JiraWordmark } from '@atlaskit/logo';
 import { gridSize as gridSizeFn } from '@atlaskit/theme';
-
-import { Label } from '@atlaskit/field-base';
 import { ToggleStateless } from '@atlaskit/toggle';
 
 import {
@@ -24,8 +24,8 @@ import {
   Item,
   ItemAvatar,
   LayoutManager,
-  NavigationProvider,
   MenuSection,
+  NavigationProvider,
   Separator,
   UIControllerSubscriber,
   Wordmark,

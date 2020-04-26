@@ -1,7 +1,9 @@
-import { mount, ReactWrapper } from 'enzyme';
 import React from 'react';
-import ThemedCodeBlock from '../../ThemedCodeBlock';
+
+import { mount, ReactWrapper } from 'enzyme';
+
 import CodeBlock from '../../components/CodeBlock';
+import ThemedCodeBlock from '../../ThemedCodeBlock';
 
 const code = `
   const a = 'foo';

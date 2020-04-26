@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+
 import Button from '@atlaskit/button';
-import { colors, gridSize, math } from '@atlaskit/theme';
 import SuccessIcon from '@atlaskit/icon/glyph/check-circle';
+import { colors, gridSize, math } from '@atlaskit/theme';
+
 import { AutoDismissFlag, FlagGroup } from '../src';
 import { AppearanceTypes } from '../src/types';
 

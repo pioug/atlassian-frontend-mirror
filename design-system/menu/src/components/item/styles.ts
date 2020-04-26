@@ -1,28 +1,29 @@
+import { CSSObject, keyframes } from '@emotion/core';
+
 import {
-  gridSize as gridSizeFn,
-  fontSize,
-  borderRadius,
-  skeletonShimmer,
-} from '@atlaskit/theme/constants';
-import {
-  N800,
-  N0,
   B100,
-  N200,
   N20,
+  N200,
   N30,
+  N800,
+  skeleton as skeletonColor,
   subtleHeading,
   subtleText,
-  skeleton as skeletonColor,
 } from '@atlaskit/theme/colors';
+import {
+  borderRadius,
+  fontSize,
+  gridSize as gridSizeFn,
+  skeletonShimmer,
+} from '@atlaskit/theme/constants';
 import { headingSizes } from '@atlaskit/theme/typography';
-import { CSSObject, keyframes } from '@emotion/core';
+
 import { Width } from '../types';
 
 const gridSize = gridSizeFn();
 
 const itemElemSpacing = gridSize * 1.5;
-const itemElemSize = gridSize * 3;
+const itemExpectedElemSize = gridSize * 3;
 const itemTopBottomPadding = gridSize;
 const itemSidePadding = gridSize * 2.5;
 const itemDescriptionSpacing = gridSize * 0.375;
@@ -34,12 +35,23 @@ const itemHeadingBottomMargin = gridSize * 0.75;
 const itemHeadingContentHeight = headingSizes.h100.lineHeight;
 const itemHeadingFontSize = headingSizes.h100.size;
 
-const skeletonContentHeight = gridSize * 1.75;
+const skeletonItemElemSize = gridSize * 2.5;
+const itemElemSkeletonOffset =
+  (itemExpectedElemSize - skeletonItemElemSize) / 2;
+const skeletonTextBorderRadius = 100;
+const skeletonHeadingHeight = gridSize;
+const skeletonContentHeight = 9;
+const skeletonHeadingMarginOffset = 3;
 // Skeleton content is slightly shorter than the real content.
 // Because of that we slightly increase the top margin to offset this so the
 // containing size both real and skeleton always equal approx 30px.
 const skeletonHeadingTopMargin =
-  itemHeadingTopMargin + (itemHeadingContentHeight - skeletonContentHeight);
+  itemHeadingTopMargin +
+  (itemHeadingContentHeight - skeletonHeadingHeight) -
+  skeletonHeadingMarginOffset;
+// We want to move the entire body up by 3px without affecting the height of the skeleton container.
+const skeletonHeadingBottomMargin =
+  itemHeadingBottomMargin + skeletonHeadingMarginOffset;
 
 const buttonOverrides = {
   backgroundColor: 'transparent',
@@ -58,7 +70,7 @@ const customItemOverrides = {
 const disabledStyles = {
   cursor: 'not-allowed',
   '&, &:hover, &:focus, &:active': {
-    backgroundColor: N0,
+    backgroundColor: 'transparent',
     color: N200,
   },
 };
@@ -99,8 +111,8 @@ const baseItemCSS = (
     textDecoration: 'none',
   },
   '&:focus': {
-    boxShadow: `${B100} 0 0 0 2px inset`,
     outline: 'none',
+    boxShadow: isDisabled ? 'none' : `${B100} 0 0 0 2px inset`,
   },
   '&:active': {
     boxShadow: 'none',
@@ -201,6 +213,7 @@ export const skeletonHeadingItemCSS = (
 ): CSSObject => ({
   ...itemHeadingCSS,
   marginTop: skeletonHeadingTopMargin,
+  marginBottom: skeletonHeadingBottomMargin,
   '&::after': {
     // This renders the skeleton heading "text".
     backgroundColor: skeletonColor(),
@@ -208,9 +221,9 @@ export const skeletonHeadingItemCSS = (
       ...shimmer.css,
       animationName: `${shimmerKeyframes}`,
     }),
-    height: skeletonContentHeight,
+    height: skeletonHeadingHeight,
     width: width || '30%',
-    borderRadius: borderRadius(),
+    borderRadius: skeletonTextBorderRadius,
     display: 'block',
     content: '""',
   },
@@ -259,9 +272,10 @@ export const itemSkeletonCSS = (
         ...shimmer.css,
         animationName: `${shimmerKeyframes}`,
       }),
-      marginRight: itemElemSpacing,
-      width: itemElemSize,
-      height: itemElemSize,
+      marginRight: itemElemSpacing + itemElemSkeletonOffset,
+      width: skeletonItemElemSize,
+      height: skeletonItemElemSize,
+      marginLeft: itemElemSkeletonOffset,
       borderRadius: hasAvatar ? '100%' : borderRadius(),
       flexShrink: 0,
     },
@@ -275,8 +289,12 @@ export const itemSkeletonCSS = (
       ...shimmer.css,
       animationName: `${shimmerKeyframes}`,
     }),
+    // This is a little bespoke but we need to push everything down 1px
+    //  because the skeleton content should align to the bottom of the text.
+    // Confirm VR test failures before accepting a change.
+    marginTop: 1,
     height: skeletonContentHeight,
-    borderRadius: borderRadius(),
+    borderRadius: skeletonTextBorderRadius,
     flexBasis: width || '100%',
   },
 });

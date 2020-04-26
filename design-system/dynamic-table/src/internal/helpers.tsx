@@ -1,4 +1,4 @@
-import { HeadType, RowType, RankEnd } from '../types';
+import { HeadType, RankEnd, RowType } from '../types';
 
 export const getPageRows = (
   allRows: Array<RowType>,

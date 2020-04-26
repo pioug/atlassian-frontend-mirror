@@ -21,6 +21,9 @@ import {
 } from './constants';
 import { CardAppearance } from '../../view/Card';
 import {
+  invokeSucceededEvent,
+  invokeFailedEvent,
+  uiActionClickedEvent,
   resolvedEvent,
   unresolvedEvent,
   uiAuthEvent,
@@ -29,14 +32,19 @@ import {
   connectSucceededEvent,
   connectFailedEvent,
   uiClosedAuthEvent,
+  screenAuthPopupEvent,
   MESSAGE_WINDOW_CLOSED,
   KEY_WINDOW_CLOSED,
   KEY_SENSITIVE_DATA,
-  screenAuthPopupEvent,
 } from '../../utils/analytics';
 import { useSmartLinkContext } from '../context';
-import { JsonLd } from '../../client/types';
+import {
+  JsonLdCustom,
+  InvokeServerOpts,
+  InvokeClientOpts,
+} from '../../client/types';
 import { FetchError } from '../../client/errors';
+import { JsonLd } from 'json-ld-types';
 
 export function useSmartCardActions(
   url: string,
@@ -112,7 +120,10 @@ export function useSmartCardActions(
     }
   }
 
-  function handleResolvedLinkResponse(resourceUrl: string, response: JsonLd) {
+  function handleResolvedLinkResponse(
+    resourceUrl: string,
+    response: JsonLdCustom,
+  ) {
     const nextDefinitionId = response && getDefinitionId(response);
     const nextStatus = response ? getStatus(response) : 'fatal';
 
@@ -239,5 +250,29 @@ export function useSmartCardActions(
     }
   }
 
-  return { register, reload, authorize };
+  async function invoke(
+    opts: InvokeClientOpts | InvokeServerOpts,
+    appearance: CardAppearance,
+  ): Promise<JsonLd.Response | void> {
+    const { key, action } = opts;
+    const source = opts.source || appearance;
+    try {
+      dispatchAnalytics(uiActionClickedEvent(key, action.type, source));
+      let response: JsonLd.Response | void;
+      if (opts.type === 'client') {
+        response = await opts.action.promise();
+      } else {
+        response = await connections.client.postData(opts);
+      }
+      dispatchAnalytics(invokeSucceededEvent(key, action.type, source));
+      return response;
+    } catch (err) {
+      dispatchAnalytics(
+        invokeFailedEvent(key, action.type, source, err.message),
+      );
+      throw err;
+    }
+  }
+
+  return { register, reload, authorize, invoke };
 }

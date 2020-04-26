@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { shallow } from 'enzyme';
+
 import NPS, { FeedbackNPS, FollowUpProps } from '../../NPS';
 import { NPSWrapper } from '../../styled/nps';
 

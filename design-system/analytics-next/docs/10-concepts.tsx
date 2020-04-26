@@ -109,7 +109,7 @@ const App = () => (
     />
   )}
 
-  There is a [withAnalyticsContext](/packages/core/analytics-next#withAnalyticsContext)
+  There is a [withAnalyticsContext](/packages/design-system/analytics-next#withAnalyticsContext)
   Higher-Order-Component alternative if you find that more convenient.
 
   <a name="creating-your-own-events"></a>
@@ -120,8 +120,8 @@ const App = () => (
   HOC or the \`useAnalyticsEvents\` hook to create your own.
 
   The \`withAnalyticsEvents\` HOC injects a \`createAnalyticsEvent\` function onto the props
-  of the wrapped component, while the \`useAnalyticsEvents\` hook provides the same function 
-  directly within a funcitonal component. 
+  of the wrapped component, while the \`useAnalyticsEvents\` hook provides the same function
+  directly within a funcitonal component.
   This function accepts an payload object and returns a
   \`UIAnalyticsEvent\`.
 

@@ -16,6 +16,7 @@ import {
 import { messages } from '../messages';
 // eslint-disable-next-line import/no-cycle
 import FormWrapper from '../NestedForms/FormWrapper';
+import { OnBlur } from '../types';
 
 type OptionType = {
   label: string;
@@ -66,6 +67,7 @@ type Props = {
   extensionManifest: ExtensionManifest;
   field: Fieldset;
   parameters?: Parameters;
+  onFieldBlur: OnBlur;
 } & InjectedIntlProps;
 
 type State = {
@@ -125,10 +127,15 @@ class FieldsetField extends React.Component<Props, State> {
   };
 
   setCurrentParameters = (parameters: Parameters) => {
-    this.setState(state => ({
-      ...state,
-      currentParameters: parameters,
-    }));
+    this.setState(
+      state => ({
+        ...state,
+        currentParameters: parameters,
+      }),
+      // callback required so autosave can be triggered on
+      // the right moment if fields are being removed
+      () => this.props.onFieldBlur(this.props.field.name),
+    );
   };
 
   setVisibleFields = (fields: Set<string>) => {
@@ -172,6 +179,7 @@ class FieldsetField extends React.Component<Props, State> {
           <Select
             testId="field-picker"
             defaultMenuIsOpen
+            autoFocus
             placeholder={intl.formatMessage(messages.addField)}
             options={selectOptions}
             onChange={option => {
@@ -200,7 +208,7 @@ class FieldsetField extends React.Component<Props, State> {
   };
 
   render() {
-    const { field, extensionManifest } = this.props;
+    const { field, extensionManifest, onFieldBlur } = this.props;
 
     const { selectedFields, currentParameters } = this.state;
 
@@ -212,6 +220,7 @@ class FieldsetField extends React.Component<Props, State> {
         label={field.label}
         parameters={currentParameters}
         onClickRemove={this.onClickRemove}
+        onFieldBlur={onFieldBlur}
       >
         {this.renderActions()}
       </FormWrapper>

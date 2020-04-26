@@ -1,6 +1,8 @@
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import React from 'react';
+
 import { mount } from 'enzyme';
+
+import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 import Avatar from '../../Avatar';
 

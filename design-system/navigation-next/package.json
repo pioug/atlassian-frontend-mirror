@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/navigation-next",
-  "version": "8.0.3",
+  "version": "8.0.4",
   "description": "The Atlassian navigation component.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -22,12 +22,12 @@
   "dependencies": {
     "@atlaskit/analytics-namespaced-context": "^4.1.11",
     "@atlaskit/analytics-next": "^6.3.5",
-    "@atlaskit/avatar": "^17.1.9",
-    "@atlaskit/icon": "^20.1.0",
-    "@atlaskit/select": "^11.0.9",
+    "@atlaskit/avatar": "^17.1.10",
+    "@atlaskit/icon": "^20.1.1",
+    "@atlaskit/select": "^11.0.10",
     "@atlaskit/spinner": "^12.1.6",
     "@atlaskit/theme": "^9.5.1",
-    "@atlaskit/tooltip": "^15.2.5",
+    "@atlaskit/tooltip": "^15.2.6",
     "@babel/runtime": "^7.0.0",
     "@emotion/core": "^10.0.9",
     "chromatism": "^2.6.0",
@@ -49,26 +49,26 @@
   "devDependencies": {
     "@atlaskit/analytics-listeners": "^6.2.4",
     "@atlaskit/atlassian-navigation": "^0.10.0",
-    "@atlaskit/badge": "^13.1.7",
-    "@atlaskit/banner": "^10.1.7",
+    "@atlaskit/badge": "^13.1.8",
+    "@atlaskit/banner": "^10.1.8",
     "@atlaskit/build-utils": "^2.6.4",
-    "@atlaskit/button": "^13.3.9",
+    "@atlaskit/button": "^13.3.11",
     "@atlaskit/docs": "^8.5.0",
-    "@atlaskit/drawer": "^5.3.5",
-    "@atlaskit/dropdown-menu": "^9.0.2",
+    "@atlaskit/drawer": "^5.3.6",
+    "@atlaskit/dropdown-menu": "^9.0.3",
     "@atlaskit/field-base": "^14.0.2",
     "@atlaskit/global-navigation": "^9.0.1",
     "@atlaskit/icon-object": "^5.0.3",
-    "@atlaskit/inline-dialog": "^12.1.11",
-    "@atlaskit/logo": "^12.3.3",
-    "@atlaskit/lozenge": "^9.1.6",
-    "@atlaskit/modal-dialog": "^10.5.5",
-    "@atlaskit/onboarding": "^9.1.4",
+    "@atlaskit/inline-dialog": "^12.1.12",
+    "@atlaskit/logo": "^12.3.4",
+    "@atlaskit/lozenge": "^9.1.7",
+    "@atlaskit/modal-dialog": "^10.5.7",
+    "@atlaskit/onboarding": "^9.1.6",
     "@atlaskit/section-message": "^4.1.7",
     "@atlaskit/ssr": "^0.1.1",
-    "@atlaskit/toggle": "^8.1.6",
+    "@atlaskit/toggle": "^8.1.7",
     "@atlaskit/visual-regression": "^0.1.9",
-    "@atlaskit/webdriver-runner": "^0.3.0",
+    "@atlaskit/webdriver-runner": "^0.3.4",
     "enzyme": "^3.10.0",
     "fs-extra": "^4.0.2",
     "glob": "^7.1.2",
@@ -79,5 +79,10 @@
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "wait-for-expect": "^1.2.0"
+  },
+  "techstack": {
+    "@atlassian/frontend": {
+      "import-structure": "atlassian-conventions"
+    }
   }
 }

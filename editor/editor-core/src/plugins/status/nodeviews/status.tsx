@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import { Node as PMNode } from 'prosemirror-model';
 import { EditorView, NodeView } from 'prosemirror-view';
 import { Color, Status, StatusStyle } from '@atlaskit/status/element';
-import { borderRadius, colors } from '@atlaskit/theme';
 import { ReactNodeView, getPosHandler } from '../../../nodeviews';
 import InlineNodeWrapper, {
   createMobileInlineDomRef,
@@ -13,6 +12,7 @@ import { PortalProviderAPI } from '../../../ui/PortalProvider';
 import { ZeroWidthSpace } from '../../../utils';
 import { EventDispatcher } from '../../../event-dispatcher';
 import { StatusPluginOptions } from '../types';
+import { akEditorSelectedBorderStyles } from '@atlaskit/editor-common';
 
 export const messages = defineMessages({
   placeholder: {
@@ -43,21 +43,7 @@ export const StyledStatus = styled.span`
   }
 
   .ProseMirror-selectednode & {
-    position: relative;
-    &::before {
-      content: '';
-      border: 2px solid ${colors.B200};
-      background: transparent;
-      border-radius: ${borderRadius()}px;
-      box-sizing: border-box;
-      position: absolute;
-      /* Size selection larger (around) status node */
-      top: -1px;
-      left: -1px;
-      width: calc(100% + 2px);
-      height: calc(100% + 2px);
-      pointer-events: none;
-    }
+    ${akEditorSelectedBorderStyles};
   }
 `;
 
@@ -160,10 +146,11 @@ export class StatusNodeView extends ReactNodeView<Props> {
 
 export default function statusNodeView(
   portalProviderAPI: PortalProviderAPI,
+  eventDispatcher: EventDispatcher,
   options?: StatusPluginOptions,
 ) {
   return (node: PMNode, view: EditorView, getPos: getPosHandler): NodeView =>
-    new StatusNodeView(node, view, getPos, portalProviderAPI, {
+    new StatusNodeView(node, view, getPos, portalProviderAPI, eventDispatcher, {
       options,
     }).init();
 }

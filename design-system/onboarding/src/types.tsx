@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+
 import { ButtonProps } from '@atlaskit/button';
 
 interface Action extends Omit<ButtonProps, 'children'> {

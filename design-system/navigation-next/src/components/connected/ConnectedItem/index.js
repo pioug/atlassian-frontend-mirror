@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
-import GoToItem from '../GoToItem';
 import PresentationalItem from '../../presentational/Item';
+import GoToItem from '../GoToItem';
 
 export default class ConnectedItem extends Component {
   render() {

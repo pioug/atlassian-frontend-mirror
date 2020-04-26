@@ -1,7 +1,8 @@
 import {
-  withAnalyticsEvents,
   createAndFireEvent,
+  withAnalyticsEvents,
 } from '@atlaskit/analytics-next';
+
 import {
   name as packageName,
   version as packageVersion,

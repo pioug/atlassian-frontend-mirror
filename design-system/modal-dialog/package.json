@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/modal-dialog",
-  "version": "10.5.5",
+  "version": "10.5.7",
   "description": "A modal dialog displays content that requires user interaction, in a layer above the page.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -25,12 +25,12 @@
     "watch": "tsc --watch --noEmit --project './tsconfig.json'"
   },
   "dependencies": {
-    "@atlaskit/analytics-next": "^6.3.5",
-    "@atlaskit/blanket": "^10.0.17",
-    "@atlaskit/button": "^13.3.9",
-    "@atlaskit/icon": "^20.1.0",
-    "@atlaskit/portal": "^3.1.6",
-    "@atlaskit/theme": "^9.5.1",
+    "@atlaskit/analytics-next": "^6.3.6",
+    "@atlaskit/blanket": "^10.0.18",
+    "@atlaskit/button": "^13.3.11",
+    "@atlaskit/icon": "^20.1.1",
+    "@atlaskit/portal": "^3.1.7",
+    "@atlaskit/theme": "^9.5.3",
     "@emotion/core": "^10.0.9",
     "@emotion/styled": "^10.0.7",
     "exenv": "^1.2.2",
@@ -45,18 +45,18 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
-    "@atlaskit/avatar": "^17.1.9",
+    "@atlaskit/avatar": "^17.1.10",
     "@atlaskit/build-utils": "^2.6.4",
-    "@atlaskit/checkbox": "^10.1.10",
-    "@atlaskit/docs": "^8.5.0",
+    "@atlaskit/checkbox": "^10.1.11",
+    "@atlaskit/docs": "^8.5.1",
     "@atlaskit/field-radio-group": "^7.0.2",
-    "@atlaskit/form": "^7.2.0",
-    "@atlaskit/inline-dialog": "^12.1.11",
-    "@atlaskit/select": "^11.0.9",
+    "@atlaskit/form": "^7.2.1",
+    "@atlaskit/inline-dialog": "^12.1.12",
+    "@atlaskit/select": "^11.0.10",
     "@atlaskit/ssr": "^0.1.1",
     "@atlaskit/textfield": "^3.1.9",
     "@atlaskit/visual-regression": "^0.1.9",
-    "@atlaskit/webdriver-runner": "^0.3.0",
+    "@atlaskit/webdriver-runner": "^0.3.4",
     "@testing-library/react": "^8.0.1",
     "@types/react-beautiful-dnd": "^11.0.1",
     "enzyme": "^3.10.0",
@@ -69,5 +69,10 @@
     "atlaskit",
     "react",
     "ui"
-  ]
+  ],
+  "techstack": {
+    "@atlassian/frontend": {
+      "import-structure": "atlassian-conventions"
+    }
+  }
 }

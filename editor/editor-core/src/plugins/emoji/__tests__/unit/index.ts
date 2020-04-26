@@ -57,7 +57,7 @@ describe('emojis', () => {
       doc,
       preset: new Preset<LightEditorPlugin>()
         .add(emojiPlugin)
-        .add([analyticsPlugin, createAnalyticsEvent])
+        .add([analyticsPlugin, { createAnalyticsEvent }])
         .add(blockTypePlugin)
         .add(listPlugin)
         .add(typeAheadPlugin)

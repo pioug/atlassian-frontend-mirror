@@ -62,6 +62,7 @@ import {
   TeamInfoAttrAnalytics,
 } from './types';
 import { analyticsEventKey } from '../analytics/consts';
+import { EventDispatcher } from '../../event-dispatcher';
 
 const mentionsPlugin = (options?: MentionPluginOptions): EditorPlugin => {
   let sessionId = uuid();
@@ -85,11 +86,17 @@ const mentionsPlugin = (options?: MentionPluginOptions): EditorPlugin => {
       return [
         {
           name: 'mention',
-          plugin: ({ providerFactory, dispatch, portalProviderAPI }) =>
+          plugin: ({
+            providerFactory,
+            dispatch,
+            portalProviderAPI,
+            eventDispatcher,
+          }) =>
             mentionPluginFactory(
               dispatch,
               providerFactory,
               portalProviderAPI,
+              eventDispatcher,
               fireEvent,
               options,
             ),
@@ -126,8 +133,10 @@ const mentionsPlugin = (options?: MentionPluginOptions): EditorPlugin => {
     pluginsOptions: {
       quickInsert: ({ formatMessage }) => [
         {
+          id: 'mention',
           title: formatMessage(messages.mention),
           description: formatMessage(messages.mentionDescription),
+          keywords: ['team', 'user'],
           priority: 400,
           keyshortcut: '@',
           icon: () => <IconMention label={formatMessage(messages.mention)} />,
@@ -420,6 +429,7 @@ function mentionPluginFactory(
   dispatch: Dispatch,
   providerFactory: ProviderFactory,
   portalProviderAPI: PortalProviderAPI,
+  eventDispatcher: EventDispatcher,
   fireEvent: (payload: any) => void,
   options?: MentionPluginOptions,
 ) {
@@ -481,7 +491,12 @@ function mentionPluginFactory(
     } as StateField<MentionPluginState>,
     props: {
       nodeViews: {
-        mention: mentionNodeView(portalProviderAPI, providerFactory, options),
+        mention: mentionNodeView(
+          portalProviderAPI,
+          eventDispatcher,
+          providerFactory,
+          options,
+        ),
       },
     },
     view(editorView) {

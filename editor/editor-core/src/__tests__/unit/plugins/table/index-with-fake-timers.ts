@@ -15,6 +15,7 @@ import {
   PluginConfig,
 } from '../../../../plugins/table/types';
 import { pluginKey } from '../../../../plugins/table/pm-plugins/plugin-factory';
+import { EventDispatcher } from '../../../../event-dispatcher';
 
 describe('TableView', () => {
   const createEditor = createEditorFactory<TablePluginState>();
@@ -62,11 +63,13 @@ describe('TableView', () => {
     // create the NodeView
     const node = table()(tr(tdCursor, tdEmpty, tdEmpty))(defaultSchema);
     const { editorView, portalProviderAPI } = editor(doc(p()));
+    const eventDispatcher = {} as EventDispatcher;
     const tableView = new TableView({
       node,
       allowColumnResizing: false,
       view: editorView,
       portalProviderAPI,
+      eventDispatcher,
       getPos: () => 1,
     }).init();
 

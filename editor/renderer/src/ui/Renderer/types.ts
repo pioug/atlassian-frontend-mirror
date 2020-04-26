@@ -4,3 +4,8 @@ export type RendererAppearance =
   | 'full-width'
   | 'mobile'
   | undefined;
+
+export type StickyHeaderConfig = {
+  offsetTop?: number;
+  showStickyHeaders: boolean;
+};

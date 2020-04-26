@@ -1,14 +1,16 @@
 import React from 'react';
-import { Checkbox } from '../src';
-import {
-  ComponentTokens,
-  ThemeTokens,
-  LabelCSSProps,
-  IconWrapperCSSProps,
-} from '../src/types';
+
 import merge from 'lodash.merge';
 
 import Icon, { IconProps } from '@atlaskit/icon';
+
+import { Checkbox } from '../src';
+import {
+  ComponentTokens,
+  IconWrapperCSSProps,
+  LabelCSSProps,
+  ThemeTokens,
+} from '../src/types';
 
 const customGlyph = () => (
   <svg

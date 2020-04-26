@@ -1,10 +1,12 @@
-import { B100, B200, N0, N200, N30A } from '@atlaskit/theme/colors';
-import { easeOut, mediumDurationMs, smallDurationMs } from '@atlaskit/motion';
 import { CSSObject } from '@emotion/core';
+
+import { easeOut, mediumDurationMs, smallDurationMs } from '@atlaskit/motion';
+import { B100, B200, N0, N200, N30A } from '@atlaskit/theme/colors';
+
 import {
-  IS_SIDEBAR_DRAGGING,
-  IS_SIDEBAR_COLLAPSED,
   GRAB_AREA_LINE_SELECTOR,
+  IS_SIDEBAR_COLLAPSED,
+  IS_SIDEBAR_DRAGGING,
   RESIZE_BUTTON_SELECTOR,
 } from '../../common/constants';
 

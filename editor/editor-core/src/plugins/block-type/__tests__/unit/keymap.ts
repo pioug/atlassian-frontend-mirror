@@ -71,7 +71,7 @@ describe('codeBlock - keymaps', () => {
       doc,
       preset: new Preset<LightEditorPlugin>()
         .add(blockTypePlugin)
-        .add([analyticsPlugin, createAnalyticsEvent])
+        .add([analyticsPlugin, { createAnalyticsEvent }])
         .add(tablesPlugin)
         .add(rulePlugin)
         .add(mentionsPlugin)

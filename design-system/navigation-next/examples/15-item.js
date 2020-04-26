@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import Badge from '@atlaskit/badge';
 import {
   DropdownItem,
@@ -7,20 +8,20 @@ import {
 } from '@atlaskit/dropdown-menu';
 import ArrowLeftIcon from '@atlaskit/icon/glyph/arrow-left';
 import BacklogIcon from '@atlaskit/icon/glyph/backlog';
+import BoardIcon from '@atlaskit/icon/glyph/board';
 import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
 import ChevronUpIcon from '@atlaskit/icon/glyph/chevron-up';
-import BoardIcon from '@atlaskit/icon/glyph/board';
 import CrossIcon from '@atlaskit/icon/glyph/cross';
 import EditIcon from '@atlaskit/icon/glyph/edit';
 import Lozenge from '@atlaskit/lozenge';
 import Tooltip from '@atlaskit/tooltip';
 
 import {
-  Item,
-  ItemPrimitive,
-  ItemAvatar,
-  light,
   dark,
+  Item,
+  ItemAvatar,
+  ItemPrimitive,
+  light,
   settings,
   SkeletonContainerHeader,
   SkeletonItem,

@@ -1,5 +1,22 @@
 # @atlaskit/page
 
+## 11.0.13
+
+### Patch Changes
+
+- [patch][443bb984ab](https://bitbucket.org/atlassian/atlassian-frontend/commits/443bb984ab):
+
+  Change imports to comply with Atlassian conventions- Updated dependencies [9e4b195732](https://bitbucket.org/atlassian/atlassian-frontend/commits/9e4b195732):
+
+- Updated dependencies [6b8e60827e](https://bitbucket.org/atlassian/atlassian-frontend/commits/6b8e60827e):
+- Updated dependencies [f6667f2909](https://bitbucket.org/atlassian/atlassian-frontend/commits/f6667f2909):
+- Updated dependencies [57c0487a02](https://bitbucket.org/atlassian/atlassian-frontend/commits/57c0487a02):
+- Updated dependencies [c21a796623](https://bitbucket.org/atlassian/atlassian-frontend/commits/c21a796623):
+  - @atlaskit/toggle@8.1.7
+  - @atlaskit/button@13.3.11
+  - @atlaskit/logo@12.3.4
+  - @atlaskit/banner@10.1.8
+
 ## 11.0.12
 
 ### Patch Changes

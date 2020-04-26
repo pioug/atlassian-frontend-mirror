@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+
 import Button, { ButtonGroup } from '@atlaskit/button';
 import { colors } from '@atlaskit/theme';
+
 import { RatingGroup, Star } from '../src';
 
 const sizes = [

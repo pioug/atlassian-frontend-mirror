@@ -1,6 +1,8 @@
 import React from 'react';
-import { TableBodyRow } from '../../../styled/TableRow';
+
 import { shallow, ShallowWrapper } from 'enzyme';
+
+import { TableBodyRow } from '../../../styled/TableRow';
 
 describe('TableRow', () => {
   let shallowWrapper: ShallowWrapper;

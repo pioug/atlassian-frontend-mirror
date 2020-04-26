@@ -1,5 +1,26 @@
 # @atlaskit/drawer
 
+## 5.3.6
+
+### Patch Changes
+
+- [patch][2bfc59f090](https://bitbucket.org/atlassian/atlassian-frontend/commits/2bfc59f090):
+
+  Change imports to comply with Atlassian conventions- Updated dependencies [6b8e60827e](https://bitbucket.org/atlassian/atlassian-frontend/commits/6b8e60827e):
+
+- Updated dependencies [449ef134b3](https://bitbucket.org/atlassian/atlassian-frontend/commits/449ef134b3):
+- Updated dependencies [167a55fd7a](https://bitbucket.org/atlassian/atlassian-frontend/commits/167a55fd7a):
+- Updated dependencies [57c0487a02](https://bitbucket.org/atlassian/atlassian-frontend/commits/57c0487a02):
+- Updated dependencies [6d744d3ff1](https://bitbucket.org/atlassian/atlassian-frontend/commits/6d744d3ff1):
+- Updated dependencies [fd41d77c29](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd41d77c29):
+- Updated dependencies [7a2540821c](https://bitbucket.org/atlassian/atlassian-frontend/commits/7a2540821c):
+  - @atlaskit/button@13.3.11
+  - @atlaskit/icon@20.1.1
+  - @atlaskit/avatar@17.1.10
+  - @atlaskit/blanket@10.0.18
+  - @atlaskit/webdriver-runner@0.3.4
+  - @atlaskit/dropdown-menu@9.0.3
+
 ## 5.3.5
 
 ### Patch Changes

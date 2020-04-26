@@ -1,7 +1,8 @@
-import React, { Component, ReactNode, ComponentType } from 'react';
+import React, { Component, ComponentType, ReactNode } from 'react';
+
 // import getDisplayName from '../../util/getDisplayName';
-import DropdownItemSelectionManager from '../context/DropdownItemSelectionManager';
 import { Behaviors } from '../../types';
+import DropdownItemSelectionManager from '../context/DropdownItemSelectionManager';
 
 export interface WithDropdownItemSelectionManagerProps {
   children?: ReactNode;

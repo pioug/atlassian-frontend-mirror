@@ -1,8 +1,9 @@
 import { ResolvedPos, Mark } from 'prosemirror-model';
-import { AnnotationInfo } from './types';
+import { AnnotationInfo, DraftDecorationClassName } from './types';
 import { sum } from '../../utils';
 import { EditorState } from 'prosemirror-state';
-
+import { Decoration } from 'prosemirror-view';
+import { Y75, Y200 } from '@atlaskit/theme/colors';
 /**
  * Finds the marks in the nodes to the left and right.
  * @param $pos Position to center search around
@@ -67,4 +68,63 @@ export const getAllAnnotations = (doc: EditorState['doc']): string[] => {
   );
 
   return Array.from(allAnnotationIds);
+};
+
+// helper function: return the first selection range for the window
+const getSelectionRange = function(): Range | null {
+  const selection = window.getSelection();
+
+  // no selection made in browser
+  if (!selection || selection.isCollapsed) {
+    return null;
+  }
+
+  const selectionRange = selection.getRangeAt(0);
+
+  return selectionRange;
+};
+
+// helper function: find the bounds of first part within selected content
+export const getSelectionStartRect = (): ClientRect | null => {
+  const range = getSelectionRange();
+
+  if (!range) {
+    return null;
+  }
+
+  const rects = range.getClientRects();
+  if (!rects.length) {
+    return null;
+  }
+  // Find first selection area that width is not 0
+  // Sometimes there is a chance that user is selecting an empty DOM node.
+  const firstRect = Array.from(rects).find(
+    rect => rect.width !== 0 && rect.height !== 0,
+  );
+
+  return firstRect || null;
+};
+
+/*
+ * add decoration for the comment selection in draft state
+ * (when creating new comment)
+ */
+export const addDraftDecoration = (start: number, end: number) => {
+  return Decoration.inline(start, end, {
+    class: DraftDecorationClassName,
+    style: `background-color: ${Y75}; border-bottom: 2px solid ${Y200};`,
+  });
+};
+
+export const hasInlineNodes = (state: EditorState): boolean => {
+  const { selection, doc } = state;
+  const inlineNodes = [];
+  doc.nodesBetween(selection.from, selection.to, node => {
+    if (node.isInline && !node.isText) {
+      inlineNodes.push(node);
+    }
+    return true;
+  });
+
+  return inlineNodes.length > 0;
 };

@@ -1,4 +1,6 @@
 import React from 'react';
+
+import { fireEvent, render } from '@testing-library/react';
 import { mount } from 'enzyme';
 
 import { TimePickerWithoutAnalytics as TimePicker } from '../../../components/TimePicker';
@@ -68,5 +70,86 @@ describe('TimePicker', () => {
     timePickerWrapper.instance().onCreateOption('3:32pm');
 
     expect(onChangeSpy).toBeCalledWith(expectedResult);
+  });
+
+  test('TimePicker pressing the Backspace key to empty the input should clear the value', () => {
+    const timeValue = '15:32';
+    const onChangeSpy = jest.fn();
+    const expectedResult = '';
+    const timePickerWrapper = render(
+      <TimePicker value={timeValue} onChange={onChangeSpy} />,
+    );
+
+    const selectInput = timePickerWrapper.getByDisplayValue('');
+    fireEvent.keyDown(selectInput, { key: 'Backspace', keyCode: 8 });
+
+    expect(onChangeSpy).toBeCalledWith(expectedResult);
+  });
+
+  test('TimePicker pressing the Delete key to empty the input should clear the value', () => {
+    const timeValue = '15:32';
+    const onChangeSpy = jest.fn();
+    const expectedResult = '';
+    const timePickerWrapper = render(
+      <TimePicker value={timeValue} onChange={onChangeSpy} />,
+    );
+
+    const selectInput = timePickerWrapper.getByDisplayValue('');
+    fireEvent.keyDown(selectInput, { key: 'Delete', keyCode: 46 });
+
+    expect(onChangeSpy).toBeCalledWith(expectedResult);
+  });
+
+  test('TimePicker pressing the clear button while menu is closed should clear the value and not open the menu', () => {
+    const timeValue = '15:32';
+    const onChangeSpy = jest.fn();
+    const expectedResult = '';
+    const testId = 'clear-test';
+    const timePickerWrapper = render(
+      <TimePicker value={timeValue} onChange={onChangeSpy} testId={testId} />,
+    );
+
+    const clearButton = timePickerWrapper.getByLabelText('clear').parentElement;
+    if (!clearButton) {
+      throw new Error('Expected button to be non-null');
+    }
+
+    fireEvent.mouseOver(clearButton);
+    fireEvent.mouseMove(clearButton);
+    fireEvent.mouseDown(clearButton);
+
+    expect(onChangeSpy).toBeCalledWith(expectedResult);
+    expect(
+      timePickerWrapper.queryByTestId(`${testId}--popper--container`),
+    ).toBeNull();
+  });
+
+  test('TimePicker pressing the clear button while menu is open should clear the value and leave the menu open', () => {
+    const timeValue = '15:32';
+    const onChangeSpy = jest.fn();
+    const expectedResult = '';
+    const testId = 'clear--test';
+    const timePickerWrapper = render(
+      <TimePicker
+        value={timeValue}
+        onChange={onChangeSpy}
+        testId={testId}
+        defaultIsOpen
+      />,
+    );
+
+    const clearButton = timePickerWrapper.getByLabelText('clear').parentElement;
+    if (!clearButton) {
+      throw new Error('Expected button to be non-null');
+    }
+
+    fireEvent.mouseOver(clearButton);
+    fireEvent.mouseMove(clearButton);
+    fireEvent.mouseDown(clearButton);
+
+    expect(onChangeSpy).toBeCalledWith(expectedResult);
+    expect(
+      timePickerWrapper.queryByTestId(`${testId}--popper--container`),
+    ).not.toBeNull();
   });
 });

@@ -1,6 +1,7 @@
 /** @jsx jsx */
 
-import { jsx, CSSObject } from '@emotion/core';
+import { CSSObject, jsx } from '@emotion/core';
+
 import { gridSize } from '@atlaskit/theme/constants';
 
 import { ContentProps } from '../types';

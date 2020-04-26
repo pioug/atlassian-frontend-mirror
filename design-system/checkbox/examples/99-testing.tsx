@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+
 import { Checkbox } from '../src';
 
 const BasicUsageExample = class extends PureComponent {

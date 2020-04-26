@@ -2,9 +2,27 @@ import React from 'react';
 import { PluginKey } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import PropTypes from 'prop-types';
-import { EventDispatcher } from '../../event-dispatcher';
+import { startMeasure, stopMeasure } from '@atlaskit/editor-common';
+import { createDispatch, EventDispatcher } from '../../event-dispatcher';
 import EditorActions from '../../actions';
 import { EditorSharedConfig } from '../../labs/next/Editor';
+import {
+  ACTION,
+  ACTION_SUBJECT,
+  EVENT_TYPE,
+  AnalyticsDispatch,
+  AnalyticsEventPayload,
+} from '../../plugins/analytics';
+import { analyticsEventKey } from '../../plugins/analytics/consts';
+import { analyticsPluginKey } from '../../plugins/analytics/plugin-key';
+
+const DEFAULT_SAMPLING_RATE = 100;
+const DEFAULT_SLOW_THRESHOLD = 4;
+
+export type PerformanceOptions = {
+  samplingRate: number;
+  slowThreshold: number;
+};
 
 export interface State {
   [name: string]: any;
@@ -46,6 +64,7 @@ export default class WithPluginState extends React.Component<Props, State> {
   private debounce: number | null = null;
   private notAppliedState = {};
   private isSubscribed = false;
+  private callsCount = 0;
 
   static contextTypes = {
     editorActions: PropTypes.object,
@@ -95,29 +114,72 @@ export default class WithPluginState extends React.Component<Props, State> {
 
   private handlePluginStateChange = (
     propName: string,
+    pluginName: string,
+    performanceOptions: PerformanceOptions,
     skipEqualityCheck?: boolean,
   ) => (pluginState: any) => {
     // skipEqualityCheck is being used for old plugins since they are mutating plugin state instead of creating a new one
     if ((this.state as any)[propName] !== pluginState || skipEqualityCheck) {
-      this.updateState({ [propName]: pluginState });
+      this.updateState({
+        stateSubset: { [propName]: pluginState },
+        pluginName,
+        performanceOptions,
+      });
     }
   };
 
   /**
    * Debounces setState calls in order to reduce number of re-renders caused by several plugin state changes.
    */
-  private updateState = (stateSubset: State) => {
+  private updateState = ({
+    stateSubset,
+    pluginName,
+    performanceOptions,
+  }: {
+    stateSubset: State;
+    pluginName: string;
+    performanceOptions: PerformanceOptions;
+  }) => {
     this.notAppliedState = { ...this.notAppliedState, ...stateSubset };
-
     if (this.debounce) {
       window.clearTimeout(this.debounce);
     }
-
     this.debounce = window.setTimeout(() => {
-      this.setState(this.notAppliedState);
+      const measure = `🦉${pluginName}::WithPluginState`;
+      startMeasure(measure);
+
+      this.setState(this.notAppliedState, () => {
+        stopMeasure(measure, duration => {
+          // Each WithPluginState component will fire analytics event no more than once every `samplingLimit` times
+          if (
+            ++this.callsCount % performanceOptions.samplingRate === 0 &&
+            duration > performanceOptions.slowThreshold
+          ) {
+            this.dispatchAnalyticsEvent({
+              action: ACTION.WITH_PLUGIN_STATE_CALLED,
+              actionSubject: ACTION_SUBJECT.EDITOR,
+              eventType: EVENT_TYPE.OPERATIONAL,
+              attributes: {
+                plugin: pluginName,
+                duration,
+              },
+            });
+          }
+        });
+      });
       this.debounce = null;
       this.notAppliedState = {};
     }, 0);
+  };
+
+  private dispatchAnalyticsEvent = (payload: AnalyticsEventPayload) => {
+    const eventDispatcher = this.getEventDispatcher();
+    if (eventDispatcher) {
+      const dispatch: AnalyticsDispatch = createDispatch(eventDispatcher);
+      dispatch(analyticsEventKey, {
+        payload,
+      });
+    }
   };
 
   private getPluginsStates(
@@ -147,6 +209,14 @@ export default class WithPluginState extends React.Component<Props, State> {
       return;
     }
 
+    const analyticsPlugin = analyticsPluginKey.getState(editorView.state);
+    const uiTracking =
+      analyticsPlugin && analyticsPlugin.performanceTracking
+        ? analyticsPlugin.performanceTracking.uiTracking || {}
+        : {};
+    const samplingRate = uiTracking.samplingRate || DEFAULT_SAMPLING_RATE;
+    const slowThreshold = uiTracking.slowThreshold || DEFAULT_SLOW_THRESHOLD;
+
     this.isSubscribed = true;
 
     const pluginsStates = this.getPluginsStates(plugins, editorView);
@@ -158,10 +228,13 @@ export default class WithPluginState extends React.Component<Props, State> {
         return;
       }
 
+      const pluginName = (pluginKey as any).key;
       const pluginState = (pluginsStates as any)[propName];
       const isPluginWithSubscribe = pluginState && pluginState.subscribe;
       const handler = this.handlePluginStateChange(
         propName,
+        pluginName,
+        { samplingRate, slowThreshold },
         isPluginWithSubscribe,
       );
 

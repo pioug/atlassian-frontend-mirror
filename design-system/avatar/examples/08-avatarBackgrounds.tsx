@@ -1,11 +1,13 @@
 /* eslint-disable react/no-array-index-key */
 import React, { CSSProperties } from 'react';
+
 import { colors } from '@atlaskit/theme';
-import Avatar from '../src';
+
+import { avatarUrl } from '../examples-util/data';
 import { Code, Note } from '../examples-util/helpers';
 import nucleusImage from '../examples-util/nucleus.png';
-import { avatarUrl } from '../examples-util/data';
-import { PresenceType, StatusType, AppearanceType } from '../src/types';
+import Avatar from '../src';
+import { AppearanceType, PresenceType, StatusType } from '../src/types';
 
 const exampleColors: string[] = [
   colors.N800,

@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { mount, shallow } from 'enzyme';
+
 import MenuSection from '../../index';
 
 describe('MenuSection', () => {

@@ -79,15 +79,31 @@ export type FeatureFlags = {
    * [Default: disabled]
    */
   moreTextColors?: boolean;
+  /**
+   * Feature flag to enable find/replace functionality within the editor
+   *
+   * [Default: disabled]
+   * [https://product-fabric.atlassian.net/browse/ED-3504]
+   */
+  findReplace?: boolean;
 
   /**
-   * Feature flag to enable the new extension configuration inside context panel.
+   * Feature flag to enable `localId` generation for extensions.
    *
-   * https://product-fabric.atlassian.net/wiki/spaces/E/pages/1146816286/Experiment+Extension+configuration+inside+context+panel
+   * https://product-fabric.atlassian.net/wiki/spaces/ADF/pages/1061390901/ADF+Change+48+Add+localId+attribute+to+extension+bodiedExtension+and+inlineExtension+nodes
    *
    * [Default: disabled]
    */
-  extensionConfigPanel?: boolean;
+  extensionLocalIdGeneration?: boolean;
+  /**
+   * Feature flag to enable date picker which has a textbox for internationalised keyboard date
+   * input.
+   *
+   * https://product-fabric.atlassian.net/browse/ED-8928
+   *
+   * [Default: disabled]
+   */
+  keyboardAccessibleDatepicker?: boolean;
 };
 
 export type FeatureFlagKey = keyof FeatureFlags;

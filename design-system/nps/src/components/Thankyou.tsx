@@ -1,5 +1,6 @@
 import React, { ReactNode } from 'react';
-import { Header, Description } from './common';
+
+import { Description, Header } from './common';
 
 export interface ThankYouProps {
   messages: {

@@ -8,7 +8,7 @@ import {
 describe('Snapshot Test', () => {
   it('Breadcrumbs-basic should match production example', async () => {
     const url = getExampleUrl(
-      'core',
+      'design-system',
       'breadcrumbs',
       'basic',
       global.__BASEURL__,

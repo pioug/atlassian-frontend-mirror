@@ -1,8 +1,9 @@
 import React, { PureComponent } from 'react';
-import { fontSize, gridSize as gridSizeFn } from '@atlaskit/theme/constants';
-import { N200 } from '@atlaskit/theme/colors';
+
 import Avatar from '@atlaskit/avatar';
 import { components } from '@atlaskit/select';
+import { N200 } from '@atlaskit/theme/colors';
+import { fontSize, gridSize as gridSizeFn } from '@atlaskit/theme/constants';
 
 const gridSize = gridSizeFn();
 

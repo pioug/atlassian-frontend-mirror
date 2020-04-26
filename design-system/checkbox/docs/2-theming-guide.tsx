@@ -1,5 +1,6 @@
 import React from 'react';
-import { md, Example, code } from '@atlaskit/docs';
+
+import { code, Example, md } from '@atlaskit/docs';
 
 export default md`
 ## ✨ Component Tokens ✨
@@ -20,13 +21,13 @@ ${code`const componentTokens: ComponentTokens = {
   requiredIndicator: {...},
 };`}
 
-You can view the full set of component tokens [here](http://atlaskit.atlassian.com/packages/core/checkbox/docs/component-tokens).
+You can view the full set of component tokens [here](http://atlaskit.atlassian.com/packages/design-system/checkbox/docs/component-tokens).
 
 Internally, these tokens are used by Emotion to generate the component's CSS; they can be moddified using the \`theme\` prop. After this, further CSS can be applied on top using the \`styles\` prop.
 
 ## Theming a Checkbox with the \`theme\` prop
 
-The \`theme\` prop allows in-depth customisation of common properties inside of Checkbox. Internally, Checkbox uses **component tokens** to store and apply styles, and theming Checkbox involves modifying this token set and setting new values. 
+The \`theme\` prop allows in-depth customisation of common properties inside of Checkbox. Internally, Checkbox uses **component tokens** to store and apply styles, and theming Checkbox involves modifying this token set and setting new values.
 
 The example below demonstrates how label spacing and box size can be customised:
 
@@ -40,7 +41,7 @@ ${(
 )}
 
 ### Methods for applying the theme prop
-There are **two approaches** to defining a custom checkbox. 
+There are **two approaches** to defining a custom checkbox.
 The first is to wrap our component in a ThemeProvider provided by the package:
 
 ${code`
@@ -74,13 +75,13 @@ export default (props) => (
 
 ### Building the theme prop
 
-In both cases, Checkbox's \`theme\` prop and the \`value\` prop of the Checkbox ThemeProvider expects a theming function. 
+In both cases, Checkbox's \`theme\` prop and the \`value\` prop of the Checkbox ThemeProvider expects a theming function.
 This function should have the following signature:
 
 \`theme: (current, props) => ThemeTokens\`
 
 Where:
-- **current** is either the default theme function, or the theme function passed down from a Checkbox ThemeProvider in upper scope. 
+- **current** is either the default theme function, or the theme function passed down from a Checkbox ThemeProvider in upper scope.
 - **props** is the set of props passed into Checkbox
 
 How exactly the default props are modified is up to you; a common implementation is used in the example above, and follows 3 steps.

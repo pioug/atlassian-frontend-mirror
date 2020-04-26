@@ -1,5 +1,7 @@
-import { shallow } from 'enzyme';
 import React from 'react';
+
+import { shallow } from 'enzyme';
+
 import { DateDiv } from '../../Date';
 
 test('cursor should be "default"', () => {

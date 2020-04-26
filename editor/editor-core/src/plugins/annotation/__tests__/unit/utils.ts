@@ -7,7 +7,14 @@ import {
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 
-import { surroundingMarks, getAllAnnotations } from '../../utils';
+import {
+  surroundingMarks,
+  getAllAnnotations,
+  addDraftDecoration,
+} from '../../utils';
+import { Decoration } from 'prosemirror-view';
+import { DraftDecorationClassName } from '../../types';
+import { Y75, Y200 } from '@atlaskit/theme/colors';
 
 describe('annotation', () => {
   describe('surroundingMarks', () => {
@@ -126,6 +133,19 @@ describe('annotation', () => {
 
       const annotations = getAllAnnotations(testDoc);
       expect(annotations).toEqual(['alpaca']);
+    });
+  });
+
+  describe('addDraftDecoration', () => {
+    it('creates a prosemirror decoration with correct styles', () => {
+      const decoration = addDraftDecoration(0, 5);
+      expect(decoration).toBeInstanceOf(Decoration);
+      expect(decoration.from).toBe(0);
+      expect(decoration.to).toBe(5);
+      expect((decoration as any).type.attrs).toEqual({
+        class: DraftDecorationClassName,
+        style: `background-color: ${Y75}; border-bottom: 2px solid ${Y200};`,
+      });
     });
   });
 });

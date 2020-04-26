@@ -1,6 +1,7 @@
 import styled from 'styled-components';
-import { fontSize, gridSize } from '@atlaskit/theme/constants';
+
 import { N0 } from '@atlaskit/theme/colors';
+import { fontSize, gridSize } from '@atlaskit/theme/constants';
 import { e200 } from '@atlaskit/theme/elevation';
 
 const gridSizeUnitless = gridSize();

@@ -1,6 +1,8 @@
 import React from 'react';
+
 import { render } from '@testing-library/react';
-import { Spotlight, SpotlightManager, SpotlightTarget } from '../../..';
+
+import { Spotlight, SpotlightManager, SpotlightTarget } from '../../../index';
 
 interface ElementStubProps {
   testId: string;
@@ -88,7 +90,7 @@ describe('<Spotlight />', () => {
   it('should position the cloned target ontop of the original', () => {
     const { getByTestId } = render(buildOnboardingMarkup('target-one'));
 
-    expect(getByTestId('spotlight--target').style.position).toEqual('absolute');
+    expect(getByTestId('spotlight--target').style.position).toEqual('fixed');
     expect(getByTestId('spotlight--target').style.height).toEqual('50px');
     expect(getByTestId('spotlight--target').style.width).toEqual('100px');
     expect(getByTestId('spotlight--target').style.left).toEqual('50px');

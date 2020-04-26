@@ -1,6 +1,9 @@
 import React from 'react';
+
 import Button from '@atlaskit/button';
+
 import EmptyState from '../src';
+
 import exampleImage from './img/example-image.png';
 
 const primaryAction = (

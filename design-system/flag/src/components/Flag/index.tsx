@@ -1,29 +1,32 @@
 import React, { Component, MouseEventHandler } from 'react';
+
 import {
-  withAnalyticsEvents,
-  withAnalyticsContext,
   createAndFireEvent,
+  withAnalyticsContext,
+  withAnalyticsEvents,
 } from '@atlaskit/analytics-next';
-import CrossIcon from '@atlaskit/icon/glyph/cross';
-import ChevronUpIcon from '@atlaskit/icon/glyph/chevron-up';
 import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
+import ChevronUpIcon from '@atlaskit/icon/glyph/chevron-up';
+import CrossIcon from '@atlaskit/icon/glyph/cross';
+
+import { DEFAULT_APPEARANCE } from '../../constants';
+import { flagFocusRingColor } from '../../theme';
+import { FlagProps } from '../../types';
 import {
   name as packageName,
   version as packageVersion,
 } from '../../version.json';
-import Container, {
-  Description,
-  DismissButton,
-  Icon,
-  Content,
-  Title,
-  Header,
-} from './styledFlag';
 import Expander from '../Expander';
 import Actions from '../FlagActions';
-import { flagFocusRingColor } from '../../theme';
-import { FlagProps } from '../../types';
-import { DEFAULT_APPEARANCE } from '../../constants';
+
+import Container, {
+  Content,
+  Description,
+  DismissButton,
+  Header,
+  Icon,
+  Title,
+} from './styledFlag';
 
 interface State {
   isExpanded: boolean;

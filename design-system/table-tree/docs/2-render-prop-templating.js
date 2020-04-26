@@ -1,5 +1,6 @@
 import React from 'react';
-import { md, Example } from '@atlaskit/docs';
+
+import { Example, md } from '@atlaskit/docs';
 
 export default md`
   For use cases that need fine-grained control, the \`TableTree\` allows for templating based on the 

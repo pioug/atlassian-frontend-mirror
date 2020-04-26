@@ -2,6 +2,7 @@
 import { jsx } from '@emotion/core';
 
 import { MetadataProps, Metadata } from './Metadata';
+import { gs } from '../utils';
 
 export interface MetadataListProps {
   items: MetadataProps[];
@@ -13,6 +14,7 @@ export const MetadataList = ({ items, testId }: MetadataListProps) => {
     <div
       css={{
         display: 'flex',
+        marginTop: gs(0.5),
         alignItems: 'center',
         '&:last-child': {
           marginRight: '0px',

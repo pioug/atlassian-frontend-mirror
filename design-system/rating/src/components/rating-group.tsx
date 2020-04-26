@@ -1,7 +1,9 @@
 /** @jsx jsx */
+import { Children, cloneElement, Fragment, useState } from 'react';
+
 import { css, jsx } from '@emotion/core';
+
 import { visuallyHidden } from '@atlaskit/theme';
-import { Fragment, Children, cloneElement, useState } from 'react';
 
 export interface RatingGroupProps {
   /**

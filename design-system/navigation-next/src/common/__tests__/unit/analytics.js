@@ -1,7 +1,8 @@
 import { withAnalyticsEvents } from '@atlaskit/analytics-next';
+
 import {
-  navigationItemClicked,
   navigationExpandedCollapsed,
+  navigationItemClicked,
 } from '../../analytics';
 
 const mockWithAnalyticsEvents = withAnalyticsEvents;

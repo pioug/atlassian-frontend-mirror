@@ -19,6 +19,7 @@ export const Toolbar: React.FunctionComponent<ToolbarProps> = props => {
       dispatchAnalyticsEvent={props.dispatchAnalyticsEvent}
       toolbarSize={props.toolbarSize}
       isToolbarReducedSpacing={props.toolbarSize < ToolbarSize.XXL}
+      containerElement={props.containerElement}
     />
   );
 };

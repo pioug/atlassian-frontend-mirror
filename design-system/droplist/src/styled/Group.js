@@ -1,7 +1,8 @@
 import styled from 'styled-components';
+
+import { DN300, N300 } from '@atlaskit/theme/colors';
 import { themed } from '@atlaskit/theme/components';
 import { gridSize } from '@atlaskit/theme/constants';
-import { N300, DN300 } from '@atlaskit/theme/colors';
 import { multiply } from '@atlaskit/theme/math';
 
 export default styled.div`

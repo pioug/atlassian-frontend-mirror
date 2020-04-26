@@ -6,6 +6,7 @@ import * as exenv from 'exenv';
 import App, { AppProxyReactContext } from '../popup/components/app';
 import { showPopup } from '../popup/actions/showPopup';
 import { getFilesInRecents } from '../popup/actions/getFilesInRecents';
+import { getForgePlugins } from '../popup/actions';
 import { State } from '../popup/domain';
 import { hidePopup } from '../popup/actions/hidePopup';
 import { cancelUpload } from '../popup/actions/cancelUpload';
@@ -81,8 +82,10 @@ export class PopupImpl extends UploadComponent<PopupUploadEventPayloadMap>
 
   public async show(): Promise<void> {
     const { dispatch } = this.store;
-
     dispatch(getFilesInRecents());
+    if (this.useForgePlugins) {
+      dispatch(getForgePlugins());
+    }
     dispatch(showPopup());
   }
 

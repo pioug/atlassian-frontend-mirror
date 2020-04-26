@@ -1,18 +1,22 @@
 /** @jsx jsx */
 import { forwardRef, Ref } from 'react';
+
 import { jsx } from '@emotion/core';
 
-import { sectionCSS } from './styles';
-import { SectionBaseProps, SectionProps } from '../types';
 import HeadingItem from '../item/heading-item';
+import { SectionBaseProps, SectionProps } from '../types';
+
+import { sectionCSS } from './styles';
 
 const Section = forwardRef<HTMLElement, SectionProps>(
   // Type needed on props to extract types with extract react types.
-  ({ children, cssFn, title, testId, ...rest }: SectionProps, ref) => {
+  ({ children, overrides, title, testId, ...rest }: SectionProps, ref) => {
     return title !== undefined ? (
       <SectionBase {...rest} testId={testId} ref={ref} aria-label={title}>
         <HeadingItem
-          cssFn={cssFn}
+          cssFn={
+            overrides && overrides.HeadingItem && overrides.HeadingItem.cssFn
+          }
           testId={testId && `${testId}--heading`}
           aria-hidden
         >

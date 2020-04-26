@@ -12,26 +12,10 @@ import Renderer, {
 } from '../../../ui/Renderer';
 import { RendererAppearance } from '../../../ui/Renderer/types';
 import Loadable from 'react-loadable';
-
-const initialDoc = {
-  type: 'doc',
-  content: [
-    {
-      type: 'paragraph',
-      content: [
-        {
-          type: 'text',
-          text: 'Hello!',
-        },
-      ],
-    },
-  ],
-};
-
-const invalidDoc = {
-  type: 'doc',
-  content: 'foo',
-};
+import { initialDoc } from '../../__fixtures__/initial-doc';
+import { invalidDoc } from '../../__fixtures__/invalid-doc';
+import * as linkDoc from '../../__fixtures__/links.adf.json';
+import { MediaSingle } from '../../../react/nodes';
 
 const validDoc = doc(
   heading({ level: 1 })(text('test')),
@@ -152,7 +136,7 @@ describe('@atlaskit/renderer/ui/Renderer', () => {
           'should not add alt text on images if flag allowAltTextOnImages is off',
           false,
         ],
-      ])('%s', async (name: string, altTextFlag: boolean) => {
+      ])('%s', async (_, altTextFlag: boolean) => {
         renderer = initRenderer(docWithAltText, {
           allowAltTextOnImages: altTextFlag,
         });
@@ -164,6 +148,33 @@ describe('@atlaskit/renderer/ui/Renderer', () => {
           renderer.find('MediaCardInternal[alt="This is an alt text"]').length,
         ).toBe(altTextFlag ? 1 : 0);
       });
+    });
+
+    it('should not render link mark around mediaSingle if media.allowLinking is undefined', () => {
+      renderer = initRenderer(linkDoc, {});
+      const mediaSingle = renderer.find(MediaSingle).last();
+      const dataBlockLink = mediaSingle
+        .getDOMNode()
+        .attributes.getNamedItem('data-block-link');
+      expect(dataBlockLink).toBeNull();
+    });
+
+    it('should not render link mark around mediaSingle if media.allowLinking is false', () => {
+      renderer = initRenderer(linkDoc, {});
+      const mediaSingle = renderer.find(MediaSingle).last();
+      const dataBlockLink = mediaSingle
+        .getDOMNode()
+        .attributes.getNamedItem('data-block-link');
+      expect(dataBlockLink).toBeNull();
+    });
+
+    it('should render link mark around mediaSingle if media.allowLinking is true', () => {
+      renderer = initRenderer(linkDoc, { media: { allowLinking: true } });
+      const mediaSingle = renderer.find(MediaSingle).last();
+      const dataBlockLink = mediaSingle
+        .getDOMNode()
+        .attributes.getNamedItem('data-block-link');
+      expect(dataBlockLink).not.toBeNull();
     });
   });
 

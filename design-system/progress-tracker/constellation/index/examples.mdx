@@ -2,26 +2,38 @@
 order: 0
 ---
 
-import Basic from '../../examples/basic';
-import Spacing from '../../examples/spacing';
-import Completed from '../../examples/completed';
+import ProgressTrackerDefault from '../../examples/progressTrackerDefault';
+import ProgressTrackerSpacingComfortable from '../../examples/progressTrackerSpacingComfortable';
+import ProgressTrackerSpacingCosy from '../../examples/progressTrackerSpacingCosy';
+import ProgressTrackerSpacingCompact from '../../examples/progressTrackerSpacingCompact';
+import ProgressTrackerCompleted from '../../examples/completed';
 
-## Basic
+## Default
 
-The standard version of progress tracker that shows all the steps and states in the journey.
+The default version of progress tracker that shows all the steps and states in the journey.
 
 The progress tracker component, takes an items prop, which is an ordered list of all steps in the journey.
 
-<Example Component={Basic} componentName="@atlaskit/progress-tracker" />
+<Example Component={ProgressTrackerDefault} componentName="@atlaskit/progress-tracker" />
 
 ## Spacing
 
 Margin spacing type between steps.
 
-<Example Component={Spacing} componentName="@atlaskit/progress-tracker" />
+### Comfortable
+
+<Example Component={ProgressTrackerSpacingComfortable} componentName="@atlaskit/progress-tracker" />
+
+### Cosy
+
+<Example Component={ProgressTrackerSpacingCosy} componentName="@atlaskit/progress-tracker" />
+
+### Compact
+
+<Example Component={ProgressTrackerSpacingCompact} componentName="@atlaskit/progress-tracker" />
 
 ## Completed
 
 A progress tracker that shows all steps have been completed.
 
-<Example Component={Completed} componentName="@atlaskit/progress-tracker" />
+<Example Component={ProgressTrackerCompleted} componentName="@atlaskit/progress-tracker" />

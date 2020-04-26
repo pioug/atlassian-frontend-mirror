@@ -1,6 +1,8 @@
 import React from 'react';
+
 import { mount } from 'enzyme';
-import Button, { ButtonGroup } from '../../..';
+
+import Button, { ButtonGroup } from '../../../index';
 
 const Component = React.forwardRef<
   HTMLElement,

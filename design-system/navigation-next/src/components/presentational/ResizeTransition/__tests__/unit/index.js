@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { mount } from 'enzyme';
 
 import ResizeTransition from '../../index';

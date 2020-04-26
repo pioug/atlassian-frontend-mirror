@@ -1,6 +1,8 @@
-import { render } from '@testing-library/react';
 import React from 'react';
-import Badge from '../..';
+
+import { render } from '@testing-library/react';
+
+import Badge from '../../index';
 
 describe('Badge should be found by data-testid', () => {
   test('Using getByTestId()', async () => {

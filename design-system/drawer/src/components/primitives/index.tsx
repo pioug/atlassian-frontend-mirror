@@ -1,22 +1,25 @@
 /** @jsx jsx */
 
-import { Component, FC, ReactChildren, MouseEvent } from 'react';
-import { layers, gridSize } from '@atlaskit/theme/constants';
-import { N0, N30A, B50 } from '@atlaskit/theme/colors';
-import ArrowLeft from '@atlaskit/icon/glyph/arrow-left';
+import { Component, FC, MouseEvent, ReactChildren } from 'react';
+
 import { jsx } from '@emotion/core';
 
-import { createExtender } from '../utils';
-import SidebarOverrides from './sidebar';
-import ContentOverrides from './content';
+import ArrowLeft from '@atlaskit/icon/glyph/arrow-left';
+import { B50, N0, N30A } from '@atlaskit/theme/colors';
+import { gridSize, layers } from '@atlaskit/theme/constants';
+
 import { Slide } from '../transitions';
 import {
+  DrawerPrimitiveDefaults,
+  DrawerPrimitiveOverrides,
   DrawerPrimitiveProps,
   DrawerWidth,
   Widths,
-  DrawerPrimitiveDefaults,
-  DrawerPrimitiveOverrides,
 } from '../types';
+import { createExtender } from '../utils';
+
+import ContentOverrides from './content';
+import SidebarOverrides from './sidebar';
 
 // Misc.
 // ------------------------------

@@ -1,6 +1,7 @@
 import React from 'react';
-import AvatarGroup from '../../src';
+
 import { RANDOM_USERS } from '../../examples-util/data';
+import AvatarGroup from '../../src';
 
 export default () => {
   const data = RANDOM_USERS.map(d => ({

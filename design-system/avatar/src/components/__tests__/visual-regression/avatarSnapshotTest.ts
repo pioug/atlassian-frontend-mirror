@@ -6,7 +6,7 @@ import {
 describe('Snapshot Test', () => {
   it('basic avatar example should match production example', async () => {
     const url = getExampleUrl(
-      'core',
+      'design-system',
       'avatar',
       'basicAvatar',
       global.__BASEURL__,

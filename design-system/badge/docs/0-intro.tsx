@@ -1,19 +1,20 @@
 import React from 'react';
-import { code, md, Example, Props } from '@atlaskit/docs';
+
+import { code, Example, md, Props } from '@atlaskit/docs';
 
 export default md`
   Badges are visual indicators for **numeric values** such as tallies and scores.
   They're commonly used before and after the label of the thing they're quantifying.
 
-  For **non-numeric** status information please use a [lozenge](/packages/core/lozenge).
+  For **non-numeric** status information please use a [lozenge](/packages/design-system/lozenge).
 
-  Make sure to compose with a [tooltip](/packages/core/tooltip) when needing to provide extra context,
+  Make sure to compose with a [tooltip](/packages/design-system/tooltip) when needing to provide extra context,
   for example indicating units.
 
   ## Usage
 
   This component gives you the full badge functionality and automatically formats the number you provide in \`children\`.
-  For more fine-grained control have a look at the [composing](/packages/core/badge/docs/composing) docs.
+  For more fine-grained control have a look at the [composing](/packages/design-system/badge/docs/composing) docs.
 
 ${code`
 import Badge from '@atlaskit/badge';

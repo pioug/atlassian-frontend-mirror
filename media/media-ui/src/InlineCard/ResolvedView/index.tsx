@@ -7,9 +7,9 @@ import { LozengeWrapper } from '../IconAndTitleLayout/styled';
 
 export interface InlineCardResolvedViewProps {
   /** The optional con of the service (e.g. Dropbox/Asana/Google/etc) to display */
-  icon?: string | React.ReactNode;
+  icon?: React.ReactNode;
   /** The name of the resource */
-  title: string;
+  title?: string;
   /** The the optional lozenge that might represent the statux of the resource */
   lozenge?: LozengeProps;
   /** A flag that determines whether the card is selected in edit mode. */
@@ -43,7 +43,7 @@ export class InlineCardResolvedView extends React.Component<
   }
 
   render() {
-    const { title, isSelected, onClick, icon, link, testId } = this.props;
+    const { title = '', isSelected, onClick, icon, link, testId } = this.props;
     return (
       <Frame
         testId={testId}

@@ -46,6 +46,7 @@ describe('MediaStore', () => {
     let mediaStore: MediaStore;
 
     beforeEach(() => {
+      jest.clearAllMocks();
       authProvider = jest.fn();
       authProvider.mockReturnValue(
         (Promise.resolve(auth) as AuthContext) as AuthProvider,
@@ -55,6 +56,35 @@ describe('MediaStore', () => {
         //See BUILDTOOLS-210-clean: https://bitbucket.org/atlassian/atlaskit-mk-2/pull-requests/7178/buildtools-210-clean/diff
         authProvider,
       });
+    });
+
+    it('should store region from header in sessionStorage', async () => {
+      const collectionName = 'some-collection-name';
+      const data: MediaCollectionItems = {
+        nextInclusiveStartKey: '121',
+        contents: [],
+      };
+
+      fetchMock.mock(`begin:${baseUrl}/collection/${collectionName}`, {
+        body: {
+          data,
+        },
+        status: 201,
+        headers: {
+          'x-media-region': 'someRegion',
+        },
+      });
+
+      await mediaStore.getCollectionItems(collectionName, {
+        limit: 10,
+        details: 'full',
+        inclusiveStartKey: 'some-inclusive-start-key',
+        sortDirection: 'desc',
+      });
+
+      expect(window.sessionStorage.getItem('media-api-region')).toEqual(
+        'someRegion',
+      );
     });
 
     describe('createUpload', () => {

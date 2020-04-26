@@ -1,5 +1,6 @@
 import React from 'react';
-import { code, md, Example } from '@atlaskit/docs';
+
+import { code, Example, md } from '@atlaskit/docs';
 
 export default md`
   You can override the default styles for ButtonItem, LinkItem, and CustomItem using the \`cssFn\` prop.

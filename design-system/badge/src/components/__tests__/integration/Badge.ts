@@ -3,7 +3,7 @@ import { getExampleUrl } from '@atlaskit/webdriver-runner/utils/example';
 import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 
 /* Url to test the example */
-const urlBadge = getExampleUrl('core', 'badge', 'testing');
+const urlBadge = getExampleUrl('design-system', 'badge', 'testing');
 
 /* Css selectors used for the test */
 const myBadgeAdded = "[data-testid='myBadgeAdded']";

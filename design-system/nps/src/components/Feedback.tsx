@@ -1,14 +1,16 @@
 import React, { ReactNode } from 'react';
+
 import Button, { ButtonGroup } from '@atlaskit/button';
 import FieldTextArea from '@atlaskit/field-text-area';
-import { Rating, Comment } from './NPS';
-import { Header, Description } from './common';
+
+import { Description, Header } from './common';
+import { Comment, Rating } from './NPS';
+import { ButtonWrapper, Wrapper } from './styled/common';
 import {
-  ScoreContainer,
   Scale,
+  ScoreContainer,
   Comment as StyledComment,
 } from './styled/feedback';
-import { Wrapper, ButtonWrapper } from './styled/common';
 
 export const CommentBox = ({
   placeholder,

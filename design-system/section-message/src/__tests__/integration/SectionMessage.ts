@@ -3,7 +3,11 @@ import { getExampleUrl } from '@atlaskit/webdriver-runner/utils/example';
 import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 
 /* Url to test the example */
-const urlSectionMessage = getExampleUrl('core', 'section-message', 'testing');
+const urlSectionMessage = getExampleUrl(
+  'design-system',
+  'section-message',
+  'testing',
+);
 
 /* Css selectors used for the test */
 const sectionMessageInfo = "[data-testid='info-section-message']";

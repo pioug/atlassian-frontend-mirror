@@ -1,9 +1,12 @@
 import React from 'react';
+
 import { shallow } from 'enzyme';
-import WarningIcon from '@atlaskit/icon/glyph/warning';
+
 import CheckCircleIcon from '@atlaskit/icon/glyph/check-circle';
-import InfoIcon from '@atlaskit/icon/glyph/info';
 import ErrorIcon from '@atlaskit/icon/glyph/error';
+import InfoIcon from '@atlaskit/icon/glyph/info';
+import WarningIcon from '@atlaskit/icon/glyph/warning';
+
 import IconForType from '../../IconForType';
 import IconWrapper from '../../IconForType/styledIconForType';
 

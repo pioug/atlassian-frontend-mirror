@@ -6,9 +6,9 @@
 import React, { Component } from 'react';
 
 // eslint-disable-next-line import/no-named-as-default
+import { withGlobalTheme } from '../../../theme';
 import GlobalItem from '../GlobalItem';
 
-import { withGlobalTheme } from '../../../theme';
 import GlobalNavigation from './GlobalNavigation';
 
 const GlobalNavigationWithTheme = withGlobalTheme(GlobalNavigation);

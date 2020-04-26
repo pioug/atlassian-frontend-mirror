@@ -1,9 +1,9 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import Tooltip from '@atlaskit/tooltip';
-import { fontSize } from '@atlaskit/theme/constants';
 
 import { gs } from '../utils';
+import { N300 } from '@atlaskit/theme/colors';
 
 export interface MetadataProps {
   /* Text to be displayed at the bottom of a card - most often the provider name. */
@@ -26,7 +26,8 @@ export const Metadata = ({ text, icon, iconUrl, tooltip }: MetadataProps) => {
       {metadataIcon}
       <span
         css={{
-          fontSize: `${fontSize()}px`,
+          fontSize: gs(1.5),
+          color: `${N300}`,
           marginRight: gs(0.5),
           marginLeft: '2px',
         }}

@@ -1,11 +1,15 @@
 import React, { Component, ComponentType } from 'react';
+
 import uuid from 'uuid/v1';
+
 import Button, { ButtonAppearances } from '@atlaskit/button';
 import { ButtonProps } from '@atlaskit/button/types';
-import Container, { Action } from './styledFlagActions';
-import { ActionsType, AppearanceTypes } from '../../types';
-import { actionButtonStyles, getPseudos } from '../../theme';
+
 import { DEFAULT_APPEARANCE } from '../../constants';
+import { actionButtonStyles, getPseudos } from '../../theme';
+import { ActionsType, AppearanceTypes } from '../../types';
+
+import Container, { Action } from './styledFlagActions';
 
 type Props = {
   appearance: AppearanceTypes;

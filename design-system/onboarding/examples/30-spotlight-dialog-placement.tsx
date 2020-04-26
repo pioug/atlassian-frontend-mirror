@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
+
 import styled from 'styled-components';
+
 import Button from '@atlaskit/button';
+
 import {
   Spotlight,
   SpotlightManager,
   SpotlightTarget,
   SpotlightTransition,
 } from '../src';
+
 import { Code, Highlight } from './styled';
 
 type Placement =

@@ -29,6 +29,7 @@ import {
   endPositionOfParent,
   startPositionOfParent,
 } from '../../../utils/prosemirror/position';
+import { isSupportedInParent } from '../../../utils/nodes';
 
 export interface Range {
   start: number;
@@ -44,27 +45,6 @@ function isSelectionMediaGroup(state: EditorState): boolean {
   const selectionParent = state.selection.$anchor.node();
 
   return selectionParent && selectionParent.type === schema.nodes.mediaGroup;
-}
-
-/**
- * Check if grand parent accepts media group
- * @param state Editor state
- * @param mediaNodes Media nodes to be inserted
- */
-function grandParentAcceptMediaGroup(
-  state: EditorState,
-  mediaNodes: PMNode[],
-): boolean {
-  const grandParent = state.selection.$from.node(-1);
-
-  return (
-    grandParent &&
-    grandParent.type.validContent(
-      Fragment.from(
-        state.schema.nodes.mediaGroup.createChecked({}, mediaNodes),
-      ),
-    )
-  );
 }
 
 /**
@@ -124,7 +104,13 @@ export const insertMediaGroupNode = (
 
   const shouldSplit =
     !isSelectionMediaGroup(state) &&
-    grandParentAcceptMediaGroup(state, mediaNodes);
+    isSupportedInParent(
+      state,
+      Fragment.from(
+        state.schema.nodes.mediaGroup.createChecked({}, mediaNodes),
+      ),
+    );
+
   const withParagraph = shouldAppendParagraph(state, nodeAtInsertionPoint);
 
   let content: PMNode[] =

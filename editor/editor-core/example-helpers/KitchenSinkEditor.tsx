@@ -17,7 +17,6 @@ import {
 import Editor from './../src/editor';
 import { EditorAppearance } from '../src/types';
 import { EditorActions } from '../src';
-import { ExampleInlineCommentComponent } from '@atlaskit/editor-test-helpers';
 
 import {
   providers,
@@ -45,13 +44,13 @@ export type State = {
   editorView: EditorView;
 };
 
-const smartCardClient = new ConfluenceCardClient('prod');
+const smartCardClient = new ConfluenceCardClient('stg');
 const DEFAULT_VALIDATION_TIMEOUT = 500;
 
 export default class KitchenSinkEditor extends React.Component<Props, State> {
   private quickInsertProviderPromise = Promise.resolve(quickInsertProvider);
   private cardProviderPromise = Promise.resolve(
-    new ConfluenceCardProvider('prod'),
+    new ConfluenceCardProvider('stg'),
   );
 
   private validatorTimeout?: number;
@@ -100,9 +99,6 @@ export default class KitchenSinkEditor extends React.Component<Props, State> {
             allowBlockCards: true,
           }}
           allowExpand={{ allowInsertion: true }}
-          annotationProvider={{
-            component: ExampleInlineCommentComponent,
-          }}
           allowStatus={true}
           allowNestedTasks
           {...providers}

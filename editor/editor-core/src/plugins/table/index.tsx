@@ -31,6 +31,7 @@ import { isLayoutSupported } from './utils';
 import { messages } from '../insert-block/ui/ToolbarInsertBlock/messages';
 import { getPluginState, pluginKey } from './pm-plugins/plugin-factory';
 import { pluginConfig } from './create-plugin-config';
+import { createPlugin as createDecorationsPlugin } from './pm-plugins/decorations/plugin';
 
 interface TablePluginOptions {
   tableOptions: PluginConfig;
@@ -58,7 +59,7 @@ const tablesPlugin = (options?: TablePluginOptions): EditorPlugin => ({
     return [
       {
         name: 'table',
-        plugin: ({ dispatch, portalProviderAPI }) => {
+        plugin: ({ dispatch, portalProviderAPI, eventDispatcher }) => {
           const {
             dynamicSizingEnabled,
             fullWidthEnabled,
@@ -69,6 +70,7 @@ const tablesPlugin = (options?: TablePluginOptions): EditorPlugin => ({
           return createPlugin(
             dispatch,
             portalProviderAPI,
+            eventDispatcher,
             pluginConfig(tableOptions),
             breakoutEnabled && dynamicSizingEnabled,
             breakoutEnabled,
@@ -91,6 +93,7 @@ const tablesPlugin = (options?: TablePluginOptions): EditorPlugin => ({
             : undefined;
         },
       },
+      { name: 'tableEditing', plugin: () => createDecorationsPlugin() },
       // Needs to be lower priority than prosemirror-tables.tableEditing
       // plugin as it is currently swallowing backspace events inside tables
       { name: 'tableKeymap', plugin: () => keymapPlugin() },
@@ -207,8 +210,10 @@ const tablesPlugin = (options?: TablePluginOptions): EditorPlugin => ({
   pluginsOptions: {
     quickInsert: ({ formatMessage }) => [
       {
+        id: 'table',
         title: formatMessage(messages.table),
         description: formatMessage(messages.tableDescription),
+        keywords: ['cell'],
         priority: 600,
         keyshortcut: tooltip(toggleTable),
         icon: () => <IconTable label={formatMessage(messages.table)} />,

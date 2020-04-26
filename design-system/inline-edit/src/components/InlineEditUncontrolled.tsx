@@ -1,26 +1,26 @@
 import React from 'react';
+
 import Loadable from 'react-loadable';
 
 import {
-  withAnalyticsEvents,
-  withAnalyticsContext,
   createAndFireEvent,
+  withAnalyticsContext,
+  withAnalyticsEvents,
 } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button';
+import Form, { Field } from '@atlaskit/form';
 import ConfirmIcon from '@atlaskit/icon/glyph/check';
 import CancelIcon from '@atlaskit/icon/glyph/cross';
-import Form, { Field } from '@atlaskit/form';
 
-import { InlineEditUncontrolledProps } from '../types';
 import ButtonsWrapper from '../styled/ButtonsWrapper';
 import ButtonWrapper from '../styled/ButtonWrapper';
-import ReadViewContentWrapper from '../styled/ReadViewContentWrapper';
 import ContentWrapper from '../styled/ContentWrapper';
 import EditButton from '../styled/EditButton';
-import ReadViewWrapper from '../styled/ReadViewWrapper';
-import InlineDialogChild from '../styled/InlineDialogChild';
 import HiddenButton from '../styled/HiddenButton';
-
+import InlineDialogChild from '../styled/InlineDialogChild';
+import ReadViewContentWrapper from '../styled/ReadViewContentWrapper';
+import ReadViewWrapper from '../styled/ReadViewWrapper';
+import { InlineEditUncontrolledProps } from '../types';
 import {
   name as packageName,
   version as packageVersion,

@@ -1,15 +1,17 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+
+import { mount, shallow } from 'enzyme';
+
 import Droplist from '@atlaskit/droplist';
+
 import {
   name as packageName,
   version as packageVersion,
 } from '../../../version.json';
-
+import DropdownItemFocusManager from '../../context/DropdownItemFocusManager';
 import DropdownMenuStatelessWithAnalytics, {
   DropdownMenuStatelessWithoutAnalytics as DropdownMenuStateless,
 } from '../../DropdownMenuStateless';
-import DropdownItemFocusManager from '../../context/DropdownItemFocusManager';
 
 // TODO: create integration tests to replace these See https://ecosystem.atlassian.net/browse/AK-5183
 describe('dropdown menu - DropdownMenuStateless', () => {

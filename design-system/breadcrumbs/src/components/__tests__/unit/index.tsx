@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
+
 import { mount, ReactWrapper } from 'enzyme';
+
 import Button from '@atlaskit/button';
 
 import Breadcrumbs, {
   BreadcrumbsStateless,
   BreadcrumbsItem as Item,
-} from '../../..';
+} from '../../../index';
 import EllipsisItem from '../../EllipsisItem';
 
 describe('Breadcrumbs', () => {

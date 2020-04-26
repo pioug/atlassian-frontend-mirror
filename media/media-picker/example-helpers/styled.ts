@@ -142,7 +142,7 @@ export const OptionsWrapper = styled.div`
   align-items: center;
   padding: 10px;
   justify-content: space-around;
-  width: 250px;
+  width: 400px;
 `;
 export const ResultsWrapper = styled.div`
   > div {

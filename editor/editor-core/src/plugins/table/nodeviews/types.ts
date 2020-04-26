@@ -1,6 +1,7 @@
 import { Node as PmNode } from 'prosemirror-model';
 import { EditorView } from 'prosemirror-view';
 import { PortalProviderAPI } from '../../../ui/PortalProvider';
+import { EventDispatcher } from '../../../event-dispatcher';
 
 export type TableOptions = {
   dynamicTextSizing?: boolean;
@@ -15,6 +16,7 @@ export interface Props {
   allowColumnResizing?: boolean;
   cellMinWidth?: number;
   portalProviderAPI: PortalProviderAPI;
+  eventDispatcher: EventDispatcher;
   getPos: () => number;
   options?: TableOptions;
 }

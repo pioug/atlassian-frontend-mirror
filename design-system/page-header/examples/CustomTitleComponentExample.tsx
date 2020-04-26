@@ -1,11 +1,12 @@
 import React from 'react';
+
 import styled from 'styled-components';
 
-import { BreadcrumbsStateless, BreadcrumbsItem } from '@atlaskit/breadcrumbs';
+import { BreadcrumbsItem, BreadcrumbsStateless } from '@atlaskit/breadcrumbs';
 import Button, { ButtonGroup } from '@atlaskit/button';
-import TextField from '@atlaskit/textfield';
-import Select from '@atlaskit/select';
 import InlineEdit from '@atlaskit/inline-edit';
+import Select from '@atlaskit/select';
+import TextField from '@atlaskit/textfield';
 import { colors } from '@atlaskit/theme';
 
 import PageHeader from '../src';

@@ -1,8 +1,9 @@
 /* eslint-disable react/prop-types */
 import React, { Component } from 'react';
+
 import Spinner from '@atlaskit/spinner';
 
-import { Cell, TreeRowContainer, LoaderItemContainer } from '../styled';
+import { Cell, LoaderItemContainer, TreeRowContainer } from '../styled';
 
 export default class LoaderItem extends Component {
   static defaultProps = {

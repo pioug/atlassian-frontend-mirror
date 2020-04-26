@@ -2,7 +2,7 @@ import React from 'react';
 import { ComponentType } from 'react';
 import { Fragment, Mark, MarkType, Node, Schema } from 'prosemirror-model';
 import { Serializer } from '../';
-import { RendererAppearance } from '../ui/Renderer/types';
+import { RendererAppearance, StickyHeaderConfig } from '../ui/Renderer/types';
 import { AnalyticsEventPayload } from '../analytics/events';
 
 import {
@@ -31,7 +31,7 @@ export interface RendererContext {
   schema?: Schema;
 }
 
-export interface ConstructorParams {
+export interface ReactSerializerInit {
   providers?: ProviderFactory;
   eventHandlers?: EventHandlers;
   extensionHandlers?: ExtensionHandlers;
@@ -39,12 +39,25 @@ export interface ConstructorParams {
   objectContext?: RendererContext;
   appearance?: RendererAppearance;
   disableHeadingIDs?: boolean;
+  disableActions?: boolean;
   allowDynamicTextSizing?: boolean;
   allowHeadingAnchorLinks?: boolean;
   allowColumnSorting?: boolean;
   fireAnalyticsEvent?: (event: AnalyticsEventPayload) => void;
   shouldOpenMediaViewer?: boolean;
   allowAltTextOnImages?: boolean;
+  stickyHeaders?: StickyHeaderConfig;
+  allowMediaLinking?: boolean;
+}
+
+interface ParentInfo {
+  parentIsIncompleteTask: boolean;
+  path: Array<Node>;
+}
+
+interface FragmentChildContext {
+  parentInfo?: ParentInfo;
+  index: number;
 }
 
 type MarkWithContent = Partial<Mark<any>> & {
@@ -81,6 +94,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
   private rendererContext?: RendererContext;
   private appearance?: RendererAppearance;
   private disableHeadingIDs?: boolean;
+  private disableActions?: boolean;
   private headingIds: string[] = [];
   private allowDynamicTextSizing?: boolean;
   private allowHeadingAnchorLinks?: boolean;
@@ -88,39 +102,56 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
   private fireAnalyticsEvent?: (event: AnalyticsEventPayload) => void;
   private shouldOpenMediaViewer?: boolean;
   private allowAltTextOnImages?: boolean;
+  private stickyHeaders?: StickyHeaderConfig;
+  private allowMediaLinking?: boolean;
 
-  constructor({
-    providers,
-    eventHandlers,
-    extensionHandlers,
-    portal,
-    objectContext,
-    appearance,
-    disableHeadingIDs,
-    allowDynamicTextSizing,
-    allowHeadingAnchorLinks,
-    allowColumnSorting,
-    fireAnalyticsEvent,
-    shouldOpenMediaViewer,
-    allowAltTextOnImages,
-  }: ConstructorParams) {
-    this.providers = providers;
-    this.eventHandlers = eventHandlers;
-    this.extensionHandlers = extensionHandlers;
-    this.portal = portal;
-    this.rendererContext = objectContext;
-    this.appearance = appearance;
-    this.disableHeadingIDs = disableHeadingIDs;
-    this.allowDynamicTextSizing = allowDynamicTextSizing;
-    this.allowHeadingAnchorLinks = allowHeadingAnchorLinks;
-    this.allowColumnSorting = allowColumnSorting;
-    this.fireAnalyticsEvent = fireAnalyticsEvent;
-    this.shouldOpenMediaViewer = shouldOpenMediaViewer;
-    this.allowAltTextOnImages = allowAltTextOnImages;
+  constructor(init: ReactSerializerInit) {
+    this.providers = init.providers;
+    this.eventHandlers = init.eventHandlers;
+    this.extensionHandlers = init.extensionHandlers;
+    this.portal = init.portal;
+    this.rendererContext = init.objectContext;
+    this.appearance = init.appearance;
+    this.disableHeadingIDs = init.disableHeadingIDs;
+    this.disableActions = init.disableActions;
+    this.allowDynamicTextSizing = init.allowDynamicTextSizing;
+    this.allowHeadingAnchorLinks = init.allowHeadingAnchorLinks;
+    this.allowColumnSorting = init.allowColumnSorting;
+    this.fireAnalyticsEvent = init.fireAnalyticsEvent;
+    this.shouldOpenMediaViewer = init.shouldOpenMediaViewer;
+    this.allowAltTextOnImages = init.allowAltTextOnImages;
+    this.stickyHeaders = init.stickyHeaders;
+    this.allowMediaLinking = init.allowMediaLinking;
   }
 
   private resetState() {
     this.headingIds = [];
+  }
+
+  private getNodeProps(node: Node, parentInfo?: ParentInfo) {
+    const path = parentInfo ? parentInfo.path : undefined;
+
+    switch (node.type.name) {
+      case 'date':
+        return this.getDateProps(node, parentInfo);
+      case 'hardBreak':
+        return this.getHardBreakProps(node, path);
+      case 'heading':
+        return this.getHeadingProps(node, path);
+      case 'media':
+        return this.getMediaProps(node);
+      case 'mediaSingle':
+        return this.getMediaSingleProps(node, path);
+      case 'table':
+        return this.getTableProps(node);
+      case 'tableHeader':
+      case 'tableRow':
+        return this.getTableChildrenProps(node);
+      case 'taskItem':
+        return this.getTaskItemProps(node);
+      default:
+        return this.getProps(node);
+    }
   }
 
   serializeFragment(
@@ -128,79 +159,71 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
     props: any = {},
     target: any = Doc,
     key: string = 'root-0',
-    parentInfo?: { parentIsIncompleteTask: boolean; path: Array<Node> },
+    parentInfo?: ParentInfo,
   ): JSX.Element | null {
     // This makes sure that we reset internal state on re-render.
     if (key === 'root-0') {
       this.resetState();
     }
 
-    const content = ReactSerializer.getChildNodes(fragment).map(
-      (node, index) => {
+    return this.renderNode(
+      target,
+      props,
+      key,
+      ReactSerializer.getChildNodes(fragment).map((node, index) => {
         if (isTextWrapper(node)) {
           return this.serializeTextWrapper(node.content);
         }
+        return this.serializeFragmentChild(node, { index, parentInfo });
+      }),
+    );
+  }
 
-        let props;
+  private serializeFragmentChild = (
+    node: Node,
+    { index, parentInfo }: FragmentChildContext,
+  ) => {
+    const currentPath = (parentInfo && parentInfo.path) || [];
 
-        if (node.type.name === 'table') {
-          props = this.getTableProps(node);
-        } else if (node.type.name === 'date') {
-          props = this.getDateProps(node, parentInfo);
-        } else if (node.type.name === 'heading') {
-          props = this.getHeadingProps(node, parentInfo && parentInfo.path);
-        } else if (['tableHeader', 'tableRow'].indexOf(node.type.name) > -1) {
-          props = this.getTableChildrenProps(node);
-        } else if (node.type.name === 'media') {
-          props = this.getMediaProps(node, parentInfo && parentInfo.path);
-        } else if (node.type.name === 'mediaSingle') {
-          props = this.getMediaSingleProps(node, parentInfo && parentInfo.path);
-        } else if (node.type.name === 'hardBreak') {
-          props = this.getHardBreakProps(node, parentInfo && parentInfo.path);
-        } else {
-          props = this.getProps(node);
-        }
+    const parentIsIncompleteTask =
+      node.type.name === 'taskItem' && node.attrs.state !== 'DONE';
 
-        let currentPath = (parentInfo && parentInfo.path) || [];
-
-        const parentIsIncompleteTask =
-          node.type.name === 'taskItem' && node.attrs.state !== 'DONE';
-
-        let pInfo = {
-          parentIsIncompleteTask,
-          path: [...currentPath, node],
-        };
-
-        const serializedContent = this.serializeFragment(
-          node.content,
-          props,
-          toReact(node),
-          `${node.type.name}-${index}`,
-          pInfo,
-        );
-
-        if (node.marks && node.marks.length) {
-          return ([] as Array<Mark>)
-            .concat(node.marks)
-            .reverse()
-            .reduce((acc, mark) => {
-              return this.renderMark(
-                markToReact(mark),
-                node.type.name === 'mediaSingle'
-                  ? this.getMediaMarkProps(mark)
-                  : this.getMarkProps(mark),
-                `${mark.type.name}-${index}`,
-                acc,
-              );
-            }, serializedContent);
-        }
-
-        return serializedContent;
+    const serializedContent = this.serializeFragment(
+      node.content,
+      this.getNodeProps(node, parentInfo),
+      toReact(node),
+      `${node.type.name}-${index}`,
+      {
+        parentIsIncompleteTask,
+        path: [...currentPath, node],
       },
     );
 
-    return this.renderNode(target, props, key, content);
-  }
+    const marks = node.marks ? [...node.marks] : [];
+    const isMediaSingle = node.type.name === 'mediaSingle';
+
+    const getMarkProps = isMediaSingle
+      ? this.getMediaMarkProps
+      : this.getMarkProps;
+
+    const shouldSkipMark = (mark: Mark): boolean =>
+      this.allowMediaLinking !== true &&
+      isMediaSingle &&
+      mark.type.name === 'link';
+
+    return marks.reverse().reduce((content, mark) => {
+      if (shouldSkipMark(mark)) {
+        return content;
+      }
+
+      return this.renderMark(
+        markToReact(mark),
+        getMarkProps(mark),
+        `${mark.type.name}-${index}`,
+        content,
+      );
+    }, serializedContent);
+  };
 
   private getMediaMarkProps = (mark: Mark) =>
     mark.type.name === 'link'
@@ -271,6 +294,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
       allowColumnSorting: this.allowColumnSorting,
       columnWidths: calcTableColumnWidths(node),
       tableNode: node,
+      stickyHeaders: this.stickyHeaders,
     };
   }
 
@@ -300,16 +324,26 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 
     return {
       ...this.getProps(node),
+      marks: node.marks.filter(
+        m => !isLinkMark(m) || this.allowMediaLinking === true,
+      ),
       isLinkMark,
       isInsideOfBlockNode,
     };
   }
 
-  private getMediaProps(node: Node, path: Array<Node> = []) {
+  private getMediaProps(node: Node) {
     return {
       ...this.getProps(node),
       shouldOpenMediaViewer: this.shouldOpenMediaViewer,
       allowAltTextOnImages: this.allowAltTextOnImages,
+    };
+  }
+
+  private getTaskItemProps(node: Node) {
+    return {
+      ...this.getProps(node),
+      disabled: this.disableActions,
     };
   }
 
@@ -406,7 +440,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
     return this.getUniqueHeadingId(baseId, ++counter);
   }
 
-  private getMarkProps(mark: Mark): any {
+  private getMarkProps = (mark: Mark): any => {
     const { key, ...otherAttrs } = mark.attrs;
     return {
       eventHandlers: this.eventHandlers,
@@ -414,7 +448,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
       markKey: key,
       ...otherAttrs,
     };
-  }
+  };
 
   static getChildNodes(fragment: Fragment): (Node | TextWrapper)[] {
     const children: Node[] = [];
@@ -453,31 +487,15 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
     ) as Mark[];
   }
 
-  static fromSchema(
-    _schema: Schema,
-    {
-      providers,
-      eventHandlers,
-      extensionHandlers,
-      appearance,
-      disableHeadingIDs,
-      allowDynamicTextSizing,
-      allowHeadingAnchorLinks,
-      allowColumnSorting,
-      shouldOpenMediaViewer,
-    }: ConstructorParams,
-  ): ReactSerializer {
-    // TODO: Do we actually need the schema here?
-    return new ReactSerializer({
-      providers,
-      eventHandlers,
-      extensionHandlers,
-      appearance,
-      disableHeadingIDs,
-      allowDynamicTextSizing,
-      allowHeadingAnchorLinks,
-      allowColumnSorting,
-      shouldOpenMediaViewer,
-    });
+  // TODO: ED-9004 Remove unused ReactSerializer.fromSchema in renderer
+  // https://sourcegraph-frontend.internal.shared-prod.us-west-2.kitt-inf.net/search?q=ReactSerializer.fromSchema&patternType=literal
+  static fromSchema(_: unknown, init: ReactSerializerInit) {
+    if (process.env.NODE_ENV !== 'production') {
+      // eslint-disable-next-line no-console
+      console.warn(
+        'ReactSerializer.fromSchema is deprecated. Please use the constructor instead via new ReactSerializer()',
+      );
+    }
+    return new ReactSerializer(init);
   }
 }

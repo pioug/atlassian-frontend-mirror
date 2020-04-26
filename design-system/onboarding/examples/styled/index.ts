@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+
 import { colors } from '@atlaskit/theme';
 
 const highlights: Record<string, any> = {

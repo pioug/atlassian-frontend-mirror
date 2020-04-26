@@ -1,6 +1,7 @@
 import styled from 'styled-components';
-import { gridSize } from '@atlaskit/theme/constants';
+
 import { N100A } from '@atlaskit/theme/colors';
+import { gridSize } from '@atlaskit/theme/constants';
 
 const ThemeColor = {
   Restricted: {

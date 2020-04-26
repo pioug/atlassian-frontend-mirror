@@ -1,7 +1,6 @@
 import React from 'react';
 
 import ViewRegistrar from '../../common/view-registrar';
-
 import { ProjectSwitcherItem } from '../common/project-switcher-item';
 
 const getItems = () => [

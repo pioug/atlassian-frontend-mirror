@@ -1,11 +1,13 @@
 /** @jsx jsx */
 import { Fragment } from 'react';
+
 import { jsx } from '@emotion/core';
-import { B75 } from '@atlaskit/theme/colors';
+
 import Button, { ButtonGroup } from '@atlaskit/button';
-import AddCommentIcon from '@atlaskit/icon/glyph/media-services/add-comment';
 import AddItemIcon from '@atlaskit/icon/glyph/add-item';
 import JiraCaptureIcon from '@atlaskit/icon/glyph/jira/capture';
+import AddCommentIcon from '@atlaskit/icon/glyph/media-services/add-comment';
+import { B75 } from '@atlaskit/theme/colors';
 
 import Popup from '../src';
 

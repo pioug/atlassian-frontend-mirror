@@ -11,6 +11,8 @@ type CellProps = CellAttributes & {
   children?: React.ReactNode;
   onClick?: () => void;
   className?: string;
+  colGroupWidth?: string;
+  offsetTop?: number;
 };
 
 export type CellWithSortingProps = CellProps & {
@@ -44,10 +46,23 @@ const getDataAttributes = (colwidth?: number[]): any => {
   return attrs;
 };
 
-const getStyle = (background?: string): CSSProperties => {
+const getStyle = (
+  background?: string,
+  colGroupWidth?: string,
+  offsetTop?: number,
+): CSSProperties => {
   const style: CSSProperties = {};
   if (background) {
     style.backgroundColor = background;
+  }
+
+  if (colGroupWidth) {
+    style.width = colGroupWidth;
+    style.minWidth = colGroupWidth;
+  }
+
+  if (offsetTop !== undefined) {
+    style.top = offsetTop;
   }
 
   return style;
@@ -61,16 +76,18 @@ const withCellProps = (WrapperComponent: React.ElementType) => {
         className,
         onClick,
         colwidth,
+        colGroupWidth,
         rowspan,
         colspan,
         background,
+        offsetTop,
       } = this.props;
 
       return (
         <WrapperComponent
           rowSpan={rowspan}
           colSpan={colspan}
-          style={getStyle(background)}
+          style={getStyle(background, colGroupWidth, offsetTop)}
           onClick={onClick}
           className={className}
           {...getDataAttributes(colwidth)}

@@ -1,14 +1,15 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+
+import { mount, shallow } from 'enzyme';
+
+import Item, { ItemGroup } from '@atlaskit/item';
 import Layer from '@atlaskit/layer';
 import Spinner from '@atlaskit/spinner';
-import Item, { ItemGroup } from '@atlaskit/item';
 
-import { name } from '../../version.json';
-
-import DroplistWithAnalytics from '../..';
 import { DroplistWithoutAnalytics as Droplist } from '../../components/Droplist';
-import { Trigger, Content } from '../../styled/Droplist';
+import DroplistWithAnalytics from '../../index';
+import { Content, Trigger } from '../../styled/Droplist';
+import { name } from '../../version.json';
 
 jest.mock('popper.js', () => {
   const PopperJS = jest.requireActual('popper.js');

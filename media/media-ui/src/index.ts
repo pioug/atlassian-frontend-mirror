@@ -2,9 +2,13 @@ import * as untypedLocales from './i18n/index';
 
 const locales: { [key: string]: any } = untypedLocales;
 
+export { ActionProps } from './BlockCard/components/Action';
+export { DownloadAction } from './BlockCard/actions/DownloadAction';
+export { ViewAction } from './BlockCard/actions/ViewAction';
 export {
   AuthorizeAction,
   BlockCardErroredView,
+  BlockCardNotFoundView,
   BlockCardForbiddenView,
   BlockCardResolvedView,
   BlockCardResolvedViewProps,

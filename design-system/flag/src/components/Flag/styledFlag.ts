@@ -7,11 +7,10 @@ import { multiply } from '@atlaskit/theme/math';
 import {
   flagBackgroundColor,
   flagBorderColor,
-  flagTextColor,
-  flagShadowColor,
   flagFocusRingColor,
+  flagShadowColor,
+  flagTextColor,
 } from '../../theme';
-
 import { AppearanceTypes } from '../../types';
 
 interface FlagColorProps extends AtlaskitThemeProps {

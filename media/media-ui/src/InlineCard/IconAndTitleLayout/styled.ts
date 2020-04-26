@@ -51,14 +51,10 @@ export const IconWrapper: ComponentClass<HTMLAttributes<{}>> = styled.span`
 // NB: `white-space` adds little whitespace before wrapping.
 // NB: `hyphens` enables hyphenation on word break.
 export const IconTitleWrapper: ComponentClass<HTMLAttributes<{}>> = styled.span`
+  hyphens: auto;
+  white-space: pre-wrap;
   overflow-wrap: break-word;
   word-break: break-word;
-  white-space: pre-wrap;
-  hyphens: auto;
-`;
-
-export const IconTitleHeadNoBreakWrapper: ComponentClass<HTMLAttributes<{}>> = styled.span`
-  overflow-wrap: break-word;
 `;
 
 // TODO: Replace overrides with proper AtlasKit solution.
@@ -68,6 +64,13 @@ export const LozengeWrapper: ComponentClass<HTMLAttributes<{}>> = styled.span`
   & > span {
     margin-left: 4px;
     padding: 2px 0 1px 0;
+  }
+`;
+// TODO: Replace overrides with proper AtlasKit solution.
+export const LozengeBlockWrapper: ComponentClass<HTMLAttributes<{}>> = styled.span`
+  & > span {
+    margin-left: 4px;
+    padding: 2px 0 2px 0;
   }
 `;
 

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+
 import styled from 'styled-components';
+
 import { Checkbox } from '../src';
 
 const GroupDiv = styled.div`

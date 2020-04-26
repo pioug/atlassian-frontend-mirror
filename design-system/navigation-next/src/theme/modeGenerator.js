@@ -2,13 +2,13 @@
 // We should update to chromatism@3.0.0 once @atlassian/navigation package is deprecated.
 import chromatism from 'chromatism';
 
+import contentNavStyles from '../components/presentational/ContentNavigation/styles';
 import globalItemStyles from '../components/presentational/GlobalItem/styles';
 import globalNavStyles from '../components/presentational/GlobalNav/styles';
-import contentNavStyles from '../components/presentational/ContentNavigation/styles';
-import itemStyles from '../components/presentational/Item/styles';
 import headingStyles from '../components/presentational/GroupHeading/styles';
-import separatorStyles from '../components/presentational/Separator/styles';
+import itemStyles from '../components/presentational/Item/styles';
 import sectionStyles from '../components/presentational/Section/styles';
+import separatorStyles from '../components/presentational/Separator/styles';
 import skeletonItemStyles from '../components/presentational/SkeletonItem/styles';
 
 const colorMatrix = [

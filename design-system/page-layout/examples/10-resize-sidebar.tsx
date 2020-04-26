@@ -1,17 +1,19 @@
 /** @jsx jsx */
-import { jsx, CSSObject } from '@emotion/core';
 import { Fragment, useState } from 'react';
+
+import { CSSObject, jsx } from '@emotion/core';
+
 import {
-  PageLayout,
-  Main,
-  Content,
-  RightSidebar,
-  LeftSidebar,
-  RightPanel,
-  LeftPanel,
   Banner,
-  TopNavigation,
+  Content,
+  LeftPanel,
+  LeftSidebar,
+  Main,
+  PageLayout,
   ResizeControl,
+  RightPanel,
+  RightSidebar,
+  TopNavigation,
 } from '../src';
 
 type SlotName =
@@ -248,7 +250,7 @@ const BasicGrid = () => {
                 />
               </div>
             </Wrapper>
-            <ResizeControl />
+            <ResizeControl resizeButtonLabel="Toggle navigation" />
           </LeftSidebar>
         )}
         {gridState.isMainShown && (

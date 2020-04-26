@@ -14,10 +14,11 @@ import { EditorView } from 'prosemirror-view';
 export type Props = {
   visible?: boolean;
   width?: number;
+  onVisibilityChange?: ({ visible }: { visible: boolean }) => void;
 };
 
 const ANIM_SPEED = '0.2s';
-export const DEFAULT_CONTEXT_PANEL_WIDTH = 300;
+export const DEFAULT_CONTEXT_PANEL_WIDTH = 360;
 
 type StyleProps = {
   panelWidth: number;
@@ -80,6 +81,13 @@ export class SwappableContentArea extends React.Component<
     if (this.props.visible !== prevProps.visible) {
       this.setContextPanelVisibility();
     }
+
+    if (
+      this.props.pluginContent !== prevProps.pluginContent &&
+      this.props.onVisibilityChange
+    ) {
+      this.props.onVisibilityChange({ visible: !!this.props.pluginContent });
+    }
   }
 
   render() {
@@ -90,6 +98,7 @@ export class SwappableContentArea extends React.Component<
       visible ||
       (typeof visible === 'undefined' && children)
     );
+
     const isVisible = !!(pluginContent || userVisible);
 
     return (
@@ -141,6 +150,7 @@ export default class ContextPanel extends React.Component<Props> {
               }) => {
                 const firstContent =
                   contextPanel && contextPanel.contents.find(Boolean);
+
                 return (
                   <SwappableContentArea
                     {...this.props}

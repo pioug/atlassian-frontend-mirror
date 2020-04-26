@@ -3,6 +3,7 @@ import uuid from 'uuid/v4';
 import Dataloader from 'dataloader';
 import { ProcessingFileState } from '../models/file-state';
 import { AuthProvider, authToOwner } from '@atlaskit/media-core';
+import { downloadUrl } from '@atlaskit/media-common/downloadUrl';
 import {
   MediaStore,
   UploadableFile,
@@ -41,18 +42,25 @@ const POLLING_INTERVAL = 1000;
 const maxNumberOfItemsPerCall = 100;
 const makeCacheKey = (id: string, collection?: string) =>
   collection ? `${id}-${collection}` : id;
+const isDataloaderErrorResult = (
+  result: any,
+): result is DataloaderErrorResult => {
+  return result.error instanceof Error;
+};
 
 export type DataloaderMap = { [id: string]: DataloaderResult };
 export const getItemsFromKeys = (
   dataloaderKeys: DataloaderKey[],
-  fileItems: ResponseFileItem[],
+  fileItems: Array<ResponseFileItem | DataloaderErrorResult>,
 ): DataloaderResult[] => {
   const itemsByKey: DataloaderMap = fileItems.reduce(
     (prev: DataloaderMap, nextFileItem) => {
       const { id, collection } = nextFileItem;
       const key = makeCacheKey(id, collection);
 
-      prev[key] = nextFileItem.details;
+      prev[key] = isDataloaderErrorResult(nextFileItem)
+        ? nextFileItem
+        : nextFileItem.details;
 
       return prev;
     },
@@ -82,7 +90,16 @@ export interface CopyDestination extends MediaStoreCopyFileWithTokenParams {
   authProvider: AuthProvider;
 }
 
-type DataloaderResult = MediaCollectionItemFullDetails | undefined;
+interface DataloaderErrorResult {
+  id: string;
+  error: Error;
+  collection?: string;
+}
+
+type DataloaderResult =
+  | MediaCollectionItemFullDetails
+  | DataloaderErrorResult
+  | undefined;
 
 export type ExternalUploadPayload = {
   uploadableFileUpfrontIds: UploadableFileUpfrontIds;
@@ -146,7 +163,7 @@ export class FileFetcherImpl implements FileFetcher {
 
       return prev;
     }, {} as { [collectionName: string]: string[] });
-    const items: ResponseFileItem[] = [];
+    const items: Array<ResponseFileItem | DataloaderErrorResult> = [];
 
     await Promise.all(
       Object.keys(fileIdsByCollection).map(async collectionNameKey => {
@@ -155,12 +172,22 @@ export class FileFetcherImpl implements FileFetcher {
           collectionNameKey === nonCollectionName
             ? undefined
             : collectionNameKey;
-        const response = await this.mediaStore.getItems(
-          fileIds,
-          collectionName,
-        );
+        try {
+          const response = await this.mediaStore.getItems(
+            fileIds,
+            collectionName,
+          );
 
-        items.push(...response.data.items);
+          items.push(...response.data.items);
+        } catch (error) {
+          fileIds.forEach(fileId => {
+            items.push({
+              id: fileId,
+              error: error || new Error('Failed to fetch'),
+              collection: collectionName,
+            });
+          });
+        }
       }),
     );
 
@@ -216,6 +243,11 @@ export class FileFetcherImpl implements FileFetcher {
         const response = await this.dataloader.load({ id, collection });
 
         if (!response) {
+          return;
+        }
+
+        if (isDataloaderErrorResult(response)) {
+          subject.error(response);
           return;
         }
 
@@ -454,29 +486,8 @@ export class FileFetcherImpl implements FileFetcher {
     name: string = 'download',
     collectionName?: string,
   ) {
-    const isIE11 =
-      !!(window as any).MSInputMethodContext &&
-      !!(document as any).documentMode;
-    const isSafari = /^((?!chrome|android).)*safari/i.test(
-      (navigator as Navigator).userAgent,
-    );
-
-    const iframeName = 'media-download-iframe';
-    const link = document.createElement('a');
-    let iframe = document.getElementById(iframeName) as HTMLIFrameElement;
-    if (!iframe) {
-      iframe = document.createElement('iframe');
-      iframe.style.display = 'none';
-      iframe.id = iframeName;
-      iframe.name = iframeName;
-      document.body.appendChild(iframe);
-    }
-    link.href = await this.mediaStore.getFileBinaryURL(id, collectionName);
-    link.download = name;
-    link.target = isIE11 || isSafari ? '_blank' : iframeName;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    const url = await this.mediaStore.getFileBinaryURL(id, collectionName);
+    downloadUrl(url, { name });
 
     globalMediaEventEmitter.emit('media-viewed', {
       fileId: id,

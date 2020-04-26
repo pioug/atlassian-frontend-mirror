@@ -5,11 +5,12 @@ import {
   Node as PmNode,
 } from 'prosemirror-model';
 import { EditorView, NodeView } from 'prosemirror-view';
-import ReactNodeView, {
+import {
   ForwardRef,
   getPosHandler,
   getPosHandlerNode,
-} from '../../../nodeviews/ReactNodeView';
+} from '../../../nodeviews/';
+import ReactNodeView from '../../../nodeviews/ReactNodeView';
 import { PortalProviderAPI } from '../../../ui/PortalProvider';
 import { generateColgroup } from '../pm-plugins/table-resizing/utils';
 import TableComponent from './TableComponent';
@@ -20,6 +21,7 @@ import { pluginKey as tableResizingPluginKey } from '../pm-plugins/table-resizin
 import { getPluginState, pluginKey } from '../pm-plugins/plugin-factory';
 import { pluginConfig as getPluginConfig } from '../create-plugin-config';
 import { Props, TableOptions } from './types';
+import { EventDispatcher } from '../../../event-dispatcher';
 
 const tableAttributes = (node: PmNode) => {
   return {
@@ -50,7 +52,14 @@ export default class TableView extends ReactNodeView<Props> {
   getPos: getPosHandlerNode;
 
   constructor(props: Props) {
-    super(props.node, props.view, props.getPos, props.portalProviderAPI, props);
+    super(
+      props.node,
+      props.view,
+      props.getPos,
+      props.portalProviderAPI,
+      props.eventDispatcher,
+      props,
+    );
     this.getPos = props.getPos;
   }
 
@@ -110,6 +119,7 @@ export const createTableView = (
   view: EditorView,
   getPos: getPosHandler,
   portalProviderAPI: PortalProviderAPI,
+  eventDispatcher: EventDispatcher,
   options: TableOptions,
 ): NodeView => {
   const { pluginConfig } = getPluginState(view.state);
@@ -119,6 +129,7 @@ export const createTableView = (
     view,
     allowColumnResizing,
     portalProviderAPI,
+    eventDispatcher,
     getPos: getPos as getPosHandlerNode,
     options,
   }).init();

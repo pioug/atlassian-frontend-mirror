@@ -4,34 +4,35 @@
   This is the source file for the webdriver test. If you make changes here,
   please update the tests to reflect those changes:
 
-  `packages/core/navigation-next/src/__tests__/integration/navigation.js`
+  `packages/design-system/navigation-next/src/__tests__/integration/navigation.js`
 */
 
 import React from 'react';
+
 import Avatar from '@atlaskit/avatar';
 import AddIcon from '@atlaskit/icon/glyph/add';
 import BacklogIcon from '@atlaskit/icon/glyph/backlog';
 import BoardIcon from '@atlaskit/icon/glyph/board';
 import ChevD from '@atlaskit/icon/glyph/chevron-down';
 import GraphLineIcon from '@atlaskit/icon/glyph/graph-line';
-import ShortcutIcon from '@atlaskit/icon/glyph/shortcut';
 import QuestionCircleIcon from '@atlaskit/icon/glyph/question-circle';
 import SearchIcon from '@atlaskit/icon/glyph/search';
+import ShortcutIcon from '@atlaskit/icon/glyph/shortcut';
 import { JiraIcon } from '@atlaskit/logo';
 import { gridSize as gridSizeFn } from '@atlaskit/theme';
 
 import {
   ContainerHeader,
-  Switcher,
   GlobalNav,
   GroupHeading,
   HeaderSection,
-  Item as ItemComponent,
   ItemAvatar,
+  Item as ItemComponent,
   LayoutManager,
   MenuSection,
   NavigationProvider,
   Separator,
+  Switcher,
 } from '../src';
 
 const gridSize = gridSizeFn();

@@ -5,9 +5,16 @@ import { date } from '@atlaskit/adf-schema';
 import { todayTimestampInUTC } from '@atlaskit/editor-common';
 import { EditorPlugin } from '../../types';
 import WithPluginState from '../../ui/WithPluginState';
-import { insertDate, setDatePickerAt } from './actions';
+import {
+  insertDate,
+  closeDatePicker,
+  closeDatePickerWithAnalytics,
+} from './actions';
 import createDatePlugin from './pm-plugins/main';
 import keymap from './pm-plugins/keymap';
+
+import { getFeatureFlags } from '../feature-flags-context';
+
 import {
   EditorDisabledPluginState,
   pluginKey as editorDisabledPluginKey,
@@ -24,7 +31,7 @@ import {
 import { messages } from '../insert-block/ui/ToolbarInsertBlock/messages';
 import { DateType } from './types';
 import { pluginKey as datePluginKey } from './pm-plugins/plugin-key';
-import { DateState } from './pm-plugins/types';
+import { DatePluginState } from './pm-plugins/types';
 
 const DatePicker = Loadable({
   loader: () =>
@@ -60,8 +67,14 @@ const datePlugin = (): EditorPlugin => ({
     ];
   },
 
-  contentComponent({ editorView }) {
-    const { dispatch } = editorView;
+  contentComponent({
+    editorView,
+    dispatchAnalyticsEvent,
+    popupsMountPoint,
+    popupsBoundariesElement,
+    popupsScrollableElement,
+  }) {
+    const { state, dispatch } = editorView;
     const domAtPos = editorView.domAtPos.bind(editorView);
     return (
       <WithPluginState
@@ -74,9 +87,9 @@ const datePlugin = (): EditorPlugin => ({
           datePlugin,
         }: {
           editorDisabledPlugin: EditorDisabledPluginState;
-          datePlugin: DateState;
+          datePlugin: DatePluginState;
         }) => {
-          const showDatePickerAt = datePlugin && datePlugin.showDatePickerAt;
+          const { showDatePickerAt } = datePlugin;
           if (
             !showDatePickerAt ||
             (editorDisabledPlugin || {}).editorDisabled
@@ -89,16 +102,48 @@ const datePlugin = (): EditorPlugin => ({
             domAtPos,
           ) as HTMLElement;
 
+          const allFlags = getFeatureFlags(state);
+          const { keyboardAccessibleDatepicker } = allFlags;
+
           return (
             <DatePicker
+              mountTo={popupsMountPoint}
+              boundariesElement={popupsBoundariesElement}
+              scrollableElement={popupsScrollableElement}
               key={showDatePickerAt}
+              showTextField={keyboardAccessibleDatepicker}
               element={element}
-              onSelect={(date?: DateType) =>
-                insertDate(date)(editorView.state, dispatch)
-              }
-              closeDatePicker={() =>
-                setDatePickerAt(null)(editorView.state, dispatch)
-              }
+              onSelect={(
+                date?: DateType,
+                commitMethod?: INPUT_METHOD.PICKER | INPUT_METHOD.KEYBOARD,
+              ) => {
+                insertDate(
+                  date,
+                  undefined,
+                  commitMethod,
+                )(editorView.state, dispatch);
+                editorView.focus();
+              }}
+              onTextChanged={(date?: DateType) => {
+                insertDate(
+                  date,
+                  undefined,
+                  undefined,
+                  false,
+                )(editorView.state, dispatch);
+              }}
+              closeDatePicker={() => {
+                closeDatePicker()(editorView.state, dispatch);
+                editorView.focus();
+              }}
+              closeDatePickerWithAnalytics={({ date }: { date?: DateType }) => {
+                closeDatePickerWithAnalytics({ date })(
+                  editorView.state,
+                  dispatch,
+                );
+                editorView.focus();
+              }}
+              dispatchAnalyticsEvent={dispatchAnalyticsEvent}
             />
           );
         }}
@@ -109,10 +154,11 @@ const datePlugin = (): EditorPlugin => ({
   pluginsOptions: {
     quickInsert: ({ formatMessage }) => [
       {
+        id: 'date',
         title: formatMessage(messages.date),
         description: formatMessage(messages.dateDescription),
         priority: 800,
-        keywords: ['time', 'today', '/'],
+        keywords: ['calendar', 'day', 'time', 'today', '/'],
         keyshortcut: '//',
         icon: () => <IconDate label={formatMessage(messages.date)} />,
         action(insert, state) {

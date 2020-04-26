@@ -1,5 +1,38 @@
 # @atlaskit/form
 
+## 7.2.1
+
+### Patch Changes
+
+- [patch][0059d26429](https://bitbucket.org/atlassian/atlassian-frontend/commits/0059d26429):
+
+  Change imports to comply with Atlassian conventions- Updated dependencies [62390c4755](https://bitbucket.org/atlassian/atlassian-frontend/commits/62390c4755):
+
+- Updated dependencies [3940bd71f1](https://bitbucket.org/atlassian/atlassian-frontend/commits/3940bd71f1):
+- Updated dependencies [9e4b195732](https://bitbucket.org/atlassian/atlassian-frontend/commits/9e4b195732):
+- Updated dependencies [6b8e60827e](https://bitbucket.org/atlassian/atlassian-frontend/commits/6b8e60827e):
+- Updated dependencies [449ef134b3](https://bitbucket.org/atlassian/atlassian-frontend/commits/449ef134b3):
+- Updated dependencies [9a534d6a74](https://bitbucket.org/atlassian/atlassian-frontend/commits/9a534d6a74):
+- Updated dependencies [57c0487a02](https://bitbucket.org/atlassian/atlassian-frontend/commits/57c0487a02):
+- Updated dependencies [a4acc95793](https://bitbucket.org/atlassian/atlassian-frontend/commits/a4acc95793):
+- Updated dependencies [68ff159118](https://bitbucket.org/atlassian/atlassian-frontend/commits/68ff159118):
+- Updated dependencies [6efb12e06d](https://bitbucket.org/atlassian/atlassian-frontend/commits/6efb12e06d):
+- Updated dependencies [fd41d77c29](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd41d77c29):
+- Updated dependencies [ca494abcd5](https://bitbucket.org/atlassian/atlassian-frontend/commits/ca494abcd5):
+- Updated dependencies [7a2540821c](https://bitbucket.org/atlassian/atlassian-frontend/commits/7a2540821c):
+  - @atlaskit/calendar@9.2.7
+  - @atlaskit/tooltip@15.2.6
+  - @atlaskit/toggle@8.1.7
+  - @atlaskit/button@13.3.11
+  - @atlaskit/datetime-picker@9.4.0
+  - @atlaskit/icon@20.1.1
+  - @atlaskit/select@11.0.10
+  - @atlaskit/modal-dialog@10.5.7
+  - @atlaskit/droplist@10.0.4
+  - @atlaskit/checkbox@10.1.11
+  - @atlaskit/webdriver-runner@0.3.4
+  - @atlaskit/dropdown-menu@9.0.3
+
 ## 7.2.0
 
 ### Minor Changes

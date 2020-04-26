@@ -1,56 +1,54 @@
 import { NodeSpec, Node as PMNode } from 'prosemirror-model';
+import { uuid } from '../../utils/uuid';
+import { getExtensionAttrs } from '../../utils/extensions';
+import { ExtensionAttributes } from './types/extensions';
 
 /**
  * @name inlineExtension_node
  */
 export interface InlineExtensionDefinition {
   type: 'inlineExtension';
-  attrs: {
-    /**
-     * @minLength 1
-     */
-    extensionKey: string;
-    /**
-     * @minLength 1
-     */
-    extensionType: string;
-    parameters?: object;
-    text?: string;
-  };
+  attrs: Omit<ExtensionAttributes, 'layout'>;
 }
 
-export const inlineExtension: NodeSpec = {
-  inline: true,
-  group: 'inline',
-  selectable: true,
-  attrs: {
-    extensionType: { default: '' },
-    extensionKey: { default: '' },
-    parameters: { default: null },
-    text: { default: null },
-  },
-  parseDOM: [
-    {
-      tag: 'span[data-extension-type]',
-      getAttrs: domNode => {
-        const dom = domNode as HTMLElement;
-        return {
-          extensionType: dom.getAttribute('data-extension-type'),
-          extensionKey: dom.getAttribute('data-extension-key'),
-          text: dom.getAttribute('data-text'),
-          parameters: JSON.parse(dom.getAttribute('data-parameters') || '{}'),
-        };
-      },
+const createInlineExtensionNodeSpec = (
+  allowLocalId: boolean = false,
+): NodeSpec => {
+  const nodeSpec: NodeSpec = {
+    inline: true,
+    group: 'inline',
+    selectable: true,
+    attrs: {
+      extensionType: { default: '' },
+      extensionKey: { default: '' },
+      parameters: { default: null },
+      text: { default: null },
     },
-  ],
-  toDOM(node: PMNode) {
-    const attrs = {
-      'data-extension-type': node.attrs.extensionType,
-      'data-extension-key': node.attrs.extensionKey,
-      'data-text': node.attrs.text,
-      'data-parameters': JSON.stringify(node.attrs.parameters),
-      contenteditable: 'false',
-    };
-    return ['span', attrs];
-  },
+    parseDOM: [
+      {
+        tag: 'span[data-extension-type]',
+        getAttrs: domNode =>
+          getExtensionAttrs(domNode as HTMLElement, allowLocalId, true),
+      },
+    ],
+    toDOM(node: PMNode) {
+      const attrs = {
+        'data-extension-type': node.attrs.extensionType,
+        'data-extension-key': node.attrs.extensionKey,
+        'data-text': node.attrs.text,
+        'data-parameters': JSON.stringify(node.attrs.parameters),
+        contenteditable: 'false',
+      };
+      return ['span', attrs];
+    },
+  };
+
+  if (allowLocalId && nodeSpec.attrs) {
+    nodeSpec.attrs.localId = { default: uuid.generate() };
+  }
+
+  return nodeSpec;
 };
+
+export const inlineExtension = createInlineExtensionNodeSpec();
+export const inlineExtensionWithLocalId = createInlineExtensionNodeSpec(true);

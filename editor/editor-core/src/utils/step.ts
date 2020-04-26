@@ -57,3 +57,8 @@ export class SetAttrsStep extends Step {
 }
 
 Step.jsonID('setAttrs', SetAttrsStep);
+
+export const stepHasSlice = (
+  step: Step,
+): step is Step & { from: number; to: number; slice: Slice } =>
+  step && step.hasOwnProperty('slice');

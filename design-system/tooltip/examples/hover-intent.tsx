@@ -1,7 +1,9 @@
 import React from 'react';
-import { Target } from './styled';
+
 import Tooltip from '../src';
 import { PositionType } from '../src/types';
+
+import { Target } from './styled';
 
 const colors = ['teal', 'blue', 'purple'];
 

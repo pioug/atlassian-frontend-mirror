@@ -1,6 +1,8 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import { math, gridSize } from '@atlaskit/theme';
+
+import { gridSize, math } from '@atlaskit/theme';
+
 import { RequiredIndicatorProps } from '../types';
 
 export default ({ tokens, ...props }: RequiredIndicatorProps) => (

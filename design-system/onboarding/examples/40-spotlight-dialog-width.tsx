@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+
 import Lorem from 'react-lorem-component';
 import styled from 'styled-components';
-import ArrowUpIcon from '@atlaskit/icon/glyph/arrow-up';
+
 import ArrowDownIcon from '@atlaskit/icon/glyph/arrow-down';
+import ArrowUpIcon from '@atlaskit/icon/glyph/arrow-up';
 
 import {
   Spotlight,
@@ -10,6 +12,7 @@ import {
   SpotlightTarget,
   SpotlightTransition,
 } from '../src';
+
 import { Code, Highlight } from './styled';
 
 const Wrapper = styled.div`

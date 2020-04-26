@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+
 import { NavigationAnalyticsContext } from '@atlaskit/analytics-namespaced-context';
 
 import GroupHeading from '../GroupHeading';

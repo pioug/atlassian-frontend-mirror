@@ -1,8 +1,9 @@
-import { mount } from 'enzyme';
-import renderer from 'react-test-renderer';
 import React from 'react';
 
-import Lozenge from '../../..';
+import { mount } from 'enzyme';
+import renderer from 'react-test-renderer';
+
+import Lozenge from '../../../index';
 
 describe('Lozenge', () => {
   describe('isBold property', () => {

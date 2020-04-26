@@ -1,6 +1,8 @@
 import styled from 'styled-components';
+
 import { gridSize } from '@atlaskit/theme/constants';
-import { Sizes } from '../';
+
+import { Sizes } from '../index';
 
 const verticalMarginSize = gridSize() * 6;
 

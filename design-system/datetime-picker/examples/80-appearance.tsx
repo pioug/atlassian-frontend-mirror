@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { Label } from '@atlaskit/field-base';
+
 import { DatePicker, DateTimePicker, TimePicker } from '../src';
 
 export default () => {
@@ -24,8 +26,6 @@ export default () => {
 
       <Label label="DateTimePicker - default" />
       <DateTimePicker onChange={console.log} />
-      <Label label="DateTimePicker - hideIcon" />
-      <DateTimePicker onChange={console.log} hideIcon />
       <Label label="DateTimePicker - subtle appearance" />
       <DateTimePicker onChange={console.log} appearance="subtle" />
       <Label label="DateTimePicker - compact spacing" />

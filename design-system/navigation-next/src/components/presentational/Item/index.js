@@ -1,9 +1,9 @@
 import React, { PureComponent } from 'react';
 
 import { navigationItemClicked } from '../../../common/analytics';
+import { styleReducerNoOp } from '../../../theme';
 import InteractionStateManager from '../InteractionStateManager';
 
-import { styleReducerNoOp } from '../../../theme';
 import ItemPrimitive from './primitives';
 
 class Item extends PureComponent {

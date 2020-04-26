@@ -1,20 +1,24 @@
-import { useState, useEffect } from 'react';
-import { UsePageLayoutResize } from './types';
+import { useEffect, useState } from 'react';
+
+import { mediumDurationMs } from '@atlaskit/motion';
+
+import {
+  COLLAPSED_LEFT_SIDEBAR_WIDTH,
+  DEFAULT_SIDEBAR_WIDTH,
+  IS_SIDEBAR_COLLAPSED,
+  LEFT_PANEL_WIDTH,
+  LEFT_SIDEBAR_EXPANDED_WIDTH,
+  LEFT_SIDEBAR_FLYOUT_WIDTH,
+  LEFT_SIDEBAR_WIDTH,
+} from '../common/constants';
 import {
   getGridStateFromStorage,
   mergeGridStateIntoStorage,
 } from '../common/utils';
-import {
-  LEFT_SIDEBAR_WIDTH,
-  LEFT_PANEL_WIDTH,
-  COLLAPSED_LEFT_SIDEBAR_WIDTH,
-  IS_SIDEBAR_COLLAPSED,
-  DEFAULT_SIDEBAR_WIDTH,
-  LEFT_SIDEBAR_FLYOUT_WIDTH,
-  LEFT_SIDEBAR_EXPANDED_WIDTH,
-} from '../common/constants';
-import { mediumDurationMs } from '@atlaskit/motion';
-import { usePageLayoutGrid } from './';
+
+import { UsePageLayoutResize } from './types';
+
+import { usePageLayoutGrid } from './index';
 
 const usePageLayoutResize = (): UsePageLayoutResize => {
   const cachedCollapsedState =

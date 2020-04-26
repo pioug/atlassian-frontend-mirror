@@ -10,7 +10,12 @@ describe('TextArea', () => {
 
   beforeAll(async () => {
     page = global.page;
-    url = getExampleUrl('core', 'textarea', 'basic', global.__BASEURL__);
+    url = getExampleUrl(
+      'design-system',
+      'textarea',
+      'basic',
+      global.__BASEURL__,
+    );
   });
 
   it('basic example should match production', async () => {

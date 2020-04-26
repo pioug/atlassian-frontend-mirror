@@ -1,5 +1,6 @@
 import React from 'react';
-import { md, Example, Props, code } from '@atlaskit/docs';
+
+import { code, Example, md, Props } from '@atlaskit/docs';
 
 export default md`
 The dropdown menu has two exports, a default stateful component, and a stateless component when you want to have more direct control over all actions.

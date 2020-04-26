@@ -1,8 +1,9 @@
 import React from 'react';
+
 import { render } from '@testing-library/react';
 
-import Section from '../../section';
 import LinkItem from '../../../item/link-item';
+import Section from '../../section';
 
 describe('<Section />', () => {
   it('should render heading when `title` is passed in', () => {

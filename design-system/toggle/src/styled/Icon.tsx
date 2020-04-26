@@ -1,7 +1,10 @@
 import React from 'react';
+
 import styled from 'styled-components';
-import { getHeight } from './constants';
+
 import { Sizes } from '../types';
+
+import { getHeight } from './constants';
 
 const CrossIconSvg = () => (
   <svg

@@ -1,8 +1,9 @@
 import React from 'react';
+
 import { mount } from 'enzyme';
 
-import Section from '../../Section';
 import { transitionDurationMs } from '../../../../../common/constants';
+import Section from '../../Section';
 
 const styles = jest.fn(a => a);
 const section = jest.fn(() => ({ exited: {} }));

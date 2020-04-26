@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import invariant from 'tiny-invariant';
+
 import ReactFocusLock from 'react-focus-lock';
+import invariant from 'tiny-invariant';
+
 import { FocusLockProps } from './types';
 
 // Thin wrapper over react-focus-lock. This wrapper only exists to ensure API compatibility.

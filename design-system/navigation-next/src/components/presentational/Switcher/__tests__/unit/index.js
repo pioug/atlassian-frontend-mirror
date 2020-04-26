@@ -1,15 +1,18 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+
+import { mount, shallow } from 'enzyme';
+
 import { PopupSelect } from '@atlaskit/select';
 import { gridSize } from '@atlaskit/theme/constants';
+
 import {
   BaseSwitcher,
-  Footer,
   Control,
   createStyles,
   filterOption,
-  isOptionSelected,
+  Footer,
   getOptionValue,
+  isOptionSelected,
 } from '../../index';
 import Option from '../../Option';
 

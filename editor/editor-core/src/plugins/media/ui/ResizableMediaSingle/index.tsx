@@ -20,6 +20,7 @@ import Resizer from './Resizer';
 import { snapTo, handleSides, imageAlignmentMap } from './utils';
 import { calcMediaPxWidth, wrappedLayouts } from '../../utils/media-single';
 import { getPluginState } from '../../../table/pm-plugins/table-resizing/plugin-factory';
+import { ColumnResizingPluginState } from '../../../table/types';
 
 type State = {
   offsetLeft: number;
@@ -74,7 +75,7 @@ export default class ResizableMediaSingle extends React.Component<
       return;
     }
 
-    const mediaNode = this.props.state.doc.nodeAt($pos.pos + 1);
+    const mediaNode = this.props.view.state.doc.nodeAt($pos.pos + 1);
     if (!mediaNode || !mediaNode.attrs.id) {
       return;
     }
@@ -110,7 +111,10 @@ export default class ResizableMediaSingle extends React.Component<
   }
 
   calcNewSize = (newWidth: number, stop: boolean) => {
-    const { layout, state } = this.props;
+    const {
+      layout,
+      view: { state },
+    } = this.props;
 
     const newPct = calcPctFromPx(newWidth, this.props.lineLength) * 100;
     this.setState({ resizedPctWidth: newPct });
@@ -245,7 +249,7 @@ export default class ResizableMediaSingle extends React.Component<
       containerWidth,
       fullWidthMode,
       getPos,
-      state,
+      view: { state },
     } = this.props;
     const { resizedPctWidth } = this.state;
 
@@ -325,7 +329,7 @@ export default class ResizableMediaSingle extends React.Component<
       containerWidth,
       fullWidthMode,
       selected,
-      state,
+      view: { state },
       children,
     } = this.props;
 
@@ -371,14 +375,12 @@ export default class ResizableMediaSingle extends React.Component<
           scaleFactor={!this.wrappedLayout && !this.insideInlineLike ? 2 : 1}
           highlights={this.highlights}
           handleResizeStart={() => {
-            // Checks if a table drag is currently happening, if so, abort
-            if (state.doc.type.schema.nodes.table) {
-              const { dragging } = getPluginState(state);
-              if (dragging) {
-                return false;
-              }
-            }
-            return true;
+            const columResizingPluginState:
+              | ColumnResizingPluginState
+              | undefined = getPluginState(state);
+            return columResizingPluginState
+              ? !columResizingPluginState.dragging
+              : true;
           }}
         >
           {children}

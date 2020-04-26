@@ -20,7 +20,18 @@ import {
 } from '../analytics';
 import { analyticsEventKey } from '../analytics/consts';
 
-const quickInsertPlugin = (): EditorPlugin => ({
+export type QuickInsertPluginState = {
+  items: Array<QuickInsertHandler>;
+};
+
+export interface QuickInsertPluginOptions {
+  headless?: boolean;
+  disableDefaultItems?: boolean;
+}
+
+const quickInsertPlugin = (
+  options?: QuickInsertPluginOptions,
+): EditorPlugin => ({
   name: 'quickInsert',
 
   pmPlugins(quickInsert: Array<QuickInsertHandler>) {
@@ -36,6 +47,7 @@ const quickInsertPlugin = (): EditorPlugin => ({
   pluginsOptions: {
     typeAhead: {
       trigger: '/',
+      headless: options ? options.headless : undefined,
       getItems: (
         query,
         state,
@@ -57,7 +69,11 @@ const quickInsertPlugin = (): EditorPlugin => ({
           });
         }
         const quickInsertState = pluginKey.getState(state);
-        const defaultItems = processItems(quickInsertState.items, intl);
+
+        const defaultItems =
+          options && options.disableDefaultItems
+            ? []
+            : processItems(quickInsertState.items, intl);
         const defaultSearch = () => find(query, defaultItems);
 
         if (quickInsertState.provider) {
@@ -90,7 +106,10 @@ const quickInsertPlugin = (): EditorPlugin => ({
 export default quickInsertPlugin;
 
 const itemsCache: Record<string, Array<QuickInsertItem>> = {};
-const processItems = (items: Array<QuickInsertHandler>, intl: InjectedIntl) => {
+export const processItems = (
+  items: Array<QuickInsertHandler>,
+  intl: InjectedIntl,
+) => {
   if (!itemsCache[intl.locale]) {
     itemsCache[intl.locale] = items.reduce(
       (acc: Array<QuickInsertItem>, item) => {
@@ -129,7 +148,7 @@ function quickInsertPluginFactory(
   return new Plugin({
     key: pluginKey,
     state: {
-      init() {
+      init(): QuickInsertPluginState {
         return {
           items: quickInsertItems || [],
         };

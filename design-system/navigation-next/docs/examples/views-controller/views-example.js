@@ -1,4 +1,5 @@
 import React from 'react';
+
 import ArrowLeftIcon from '@atlaskit/icon/glyph/arrow-left-circle';
 import BacklogIcon from '@atlaskit/icon/glyph/backlog';
 import BoardIcon from '@atlaskit/icon/glyph/board';

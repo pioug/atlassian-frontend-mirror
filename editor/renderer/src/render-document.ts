@@ -11,6 +11,7 @@ import { Node as PMNode, Schema, Fragment } from 'prosemirror-model';
 export interface RenderOutput<T> {
   result: T;
   stat: RenderOutputStat;
+  pmDoc?: PMNode;
 }
 
 export interface RenderOutputStat {
@@ -70,7 +71,7 @@ export const renderDocument = <T>(
   // save serialize tree time to stats
   stat.serializeTime = serializeTime;
 
-  return { result, stat };
+  return { result, stat, pmDoc: node };
 };
 
 export const renderNodes = <T>(

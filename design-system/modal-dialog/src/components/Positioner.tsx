@@ -1,10 +1,15 @@
 import React from 'react';
 
 import { WidthNames } from '../shared-variables';
-import { PositionerAbsolute, PositionerRelative } from '../styled/Modal';
+import {
+  PositionerAbsolute,
+  PositionerFixed,
+  PositionerRelative,
+} from '../styled/Modal';
+import { ScrollBehavior } from '../types';
 
 export interface PositionerProps {
-  scrollBehavior: void | 'inside' | 'outside';
+  scrollBehavior: ScrollBehavior;
   style: Object;
   widthName?: WidthNames;
   widthValue?: string | number;
@@ -14,8 +19,13 @@ const Positioner: React.ComponentType<PositionerProps> = function Positioner({
   scrollBehavior,
   ...props
 }: PositionerProps) {
-  const PositionComponent =
-    scrollBehavior === 'inside' ? PositionerAbsolute : PositionerRelative;
+  // default 'inside'
+  let PositionComponent = PositionerAbsolute;
+  if (scrollBehavior === 'outside') {
+    PositionComponent = PositionerRelative;
+  } else if (scrollBehavior === 'inside-wide') {
+    PositionComponent = PositionerFixed;
+  }
 
   return <PositionComponent {...props} />;
 };

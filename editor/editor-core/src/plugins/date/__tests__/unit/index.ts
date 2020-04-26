@@ -16,12 +16,12 @@ import {
   CreateUIAnalyticsEvent,
   UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
-
 import {
   setDatePickerAt,
   insertDate,
   openDatePicker,
   closeDatePicker,
+  closeDatePickerWithAnalytics,
 } from '../../actions';
 
 // Editor plugins
@@ -30,6 +30,8 @@ import datePlugin from '../../index';
 import quickInsertPlugin from '../../../quick-insert';
 import typeAheadPlugin from '../../../type-ahead';
 import { pluginKey } from '../../pm-plugins/plugin-key';
+import featureFlagsContextPlugin from '../../../feature-flags-context';
+import { parseDateType } from '../../utils/formatParse';
 
 describe('date plugin', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -42,9 +44,13 @@ describe('date plugin', () => {
       doc,
       preset: new Preset<LightEditorPlugin>()
         .add(datePlugin)
-        .add([analyticsPlugin, createAnalyticsEvent])
+        .add([analyticsPlugin, { createAnalyticsEvent }])
         .add(typeAheadPlugin)
-        .add(quickInsertPlugin),
+        .add(quickInsertPlugin)
+        .add([
+          featureFlagsContextPlugin,
+          { keyboardAccessibleDatepicker: true },
+        ]),
     });
   };
 
@@ -102,7 +108,7 @@ describe('date plugin', () => {
         expect(pluginState.showDatePickerAt).toEqual(12);
       });
 
-      it('should fire analytics event', () => {
+      it('should fire analytics event when inserting date node', () => {
         const { editorView: view } = editor(doc(paragraph('{<>}')));
         insertDate(undefined, INPUT_METHOD.TOOLBAR)(view.state, view.dispatch);
         expect(createAnalyticsEvent).toBeCalledWith({
@@ -111,6 +117,86 @@ describe('date plugin', () => {
           actionSubjectId: 'date',
           eventType: 'track',
           attributes: expect.objectContaining({ inputMethod: 'toolbar' }),
+        });
+      });
+
+      it('should fire analytics event when committing a date via datepicker', () => {
+        const { editorView: view } = editor(
+          doc(paragraph('{<>}', date(attrs))),
+        );
+
+        const validDate = parseDateType('3/25/2020', 'en-US');
+        insertDate(
+          validDate,
+          undefined,
+          INPUT_METHOD.PICKER,
+        )(view.state, view.dispatch);
+        expect(createAnalyticsEvent).toBeCalledWith({
+          eventType: 'track',
+          action: 'committed',
+          actionSubject: 'date',
+          attributes: expect.objectContaining({
+            commitMethod: 'picker',
+            isValid: true,
+            isToday: false,
+          }),
+        });
+
+        const invalidDate = parseDateType('invalid-date', 'en-US');
+        insertDate(
+          invalidDate,
+          undefined,
+          INPUT_METHOD.PICKER,
+        )(view.state, view.dispatch);
+        expect(createAnalyticsEvent).toBeCalledWith({
+          eventType: 'track',
+          action: 'committed',
+          actionSubject: 'date',
+          attributes: expect.objectContaining({
+            commitMethod: 'picker',
+            isValid: false,
+            isToday: false,
+          }),
+        });
+      });
+
+      it('should fire analytics event when committing a date via keyboard', () => {
+        const { editorView: view } = editor(
+          doc(paragraph('{<>}', date(attrs))),
+        );
+
+        const validDate = parseDateType('3/25/2020', 'en-US');
+        insertDate(
+          validDate,
+          undefined,
+          INPUT_METHOD.KEYBOARD,
+        )(view.state, view.dispatch);
+        expect(createAnalyticsEvent).toBeCalledWith({
+          eventType: 'track',
+          action: 'committed',
+          actionSubject: 'date',
+          attributes: expect.objectContaining({
+            commitMethod: 'keyboard',
+            isValid: true,
+            isToday: false,
+          }),
+        });
+
+        const invalidDate = parseDateType('invalid-date', 'en-US');
+        insertDate(
+          invalidDate,
+          undefined,
+          INPUT_METHOD.KEYBOARD,
+        )(view.state, view.dispatch);
+        expect(createAnalyticsEvent).toBeCalledWith({
+          eventType: 'track',
+          action: 'committed',
+          actionSubject: 'date',
+          attributes: expect.objectContaining({
+            commitMethod: 'keyboard',
+            isValid: false,
+            isToday: false,
+          }),
         });
       });
     });
@@ -152,6 +238,30 @@ describe('date plugin', () => {
         expect(view.state.selection instanceof NodeSelection).toEqual(false);
         expect(view.state.selection.from).toEqual(7);
       });
+
+      it('should fire analytics event when closing datepicker', () => {
+        const { editorView: view } = editor(
+          doc(paragraph('hello{<>}', date(attrs))),
+        );
+        const validDate = parseDateType('3/25/2020', 'en-US');
+        // need to have the datepicker open first, otherwise withAnalytics
+        // never gets called because closeDatePicker returns false
+        openDatePicker()(view.state, view.dispatch);
+        closeDatePickerWithAnalytics({ date: validDate })(
+          view.state,
+          view.dispatch,
+        );
+        expect(createAnalyticsEvent).toBeCalledWith({
+          eventType: 'track',
+          action: 'committed',
+          actionSubject: 'date',
+          attributes: expect.objectContaining({
+            commitMethod: 'blur',
+            isValid: true,
+            isToday: false,
+          }),
+        });
+      });
     });
   });
 
@@ -170,13 +280,13 @@ describe('date plugin', () => {
       Date.UTC = _UTC;
     });
 
-    it('inserts date', () => {
+    it('should insert date', () => {
       expect(editorView.state.doc).toEqualDocument(
         doc(paragraph(date(attrs), ' ')),
       );
     });
 
-    it('fires analytics event', () => {
+    it('should fire analytics event when inserting date node via quickInsert', () => {
       expect(createAnalyticsEvent).toBeCalledWith({
         action: 'inserted',
         actionSubject: 'document',

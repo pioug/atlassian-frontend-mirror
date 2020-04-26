@@ -1,11 +1,14 @@
 import React from 'react';
-import { shallow, mount, ShallowWrapper } from 'enzyme';
+
+import { mount, shallow, ShallowWrapper } from 'enzyme';
+
+import { StatelessProps } from '../../../types';
 import DynamicTableWithAnalytics, {
   DynamicTableWithoutAnalytics as StatelessDynamicTable,
 } from '../../Stateless';
 import TableHead from '../../TableHead';
-import { StatelessProps } from '../../../types';
-import { head, rowsWithKeys, sortKey, secondSortKey } from './_data';
+
+import { head, rowsWithKeys, secondSortKey, sortKey } from './_data';
 
 const simulateOnSort = (wrapper: ShallowWrapper<StatelessProps>) => {
   const tableHead = wrapper.find(TableHead);

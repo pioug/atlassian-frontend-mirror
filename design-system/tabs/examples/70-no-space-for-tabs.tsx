@@ -1,6 +1,9 @@
 import React from 'react';
+
 import { colors } from '@atlaskit/theme';
+
 import Tabs from '../src';
+
 import { Content } from './shared';
 
 export default () => (

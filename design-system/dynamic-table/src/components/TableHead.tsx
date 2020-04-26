@@ -1,9 +1,11 @@
 import React, { KeyboardEvent } from 'react';
-import { Head } from '../styled/TableHead';
+
 import { validateSortKey } from '../internal/helpers';
-import { HeadType, SortOrderType, RowCellType } from '../types';
-import HeadCell from './TableHeadCell';
+import { Head } from '../styled/TableHead';
+import { HeadType, RowCellType, SortOrderType } from '../types';
+
 import RankableHeadCell from './rankable/TableHeadCell';
+import HeadCell from './TableHeadCell';
 
 interface Props {
   head: HeadType;

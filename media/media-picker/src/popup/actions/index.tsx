@@ -67,6 +67,13 @@ export {
   GetFilesInRecentsFullfilledAction,
 } from './getFilesInRecents';
 export {
+  GET_FORGE_PLUGINS_FULLFILLED,
+  getForgePlugins,
+  getForgePluginsFullfilled,
+  getForgePluginsFailed,
+  GetForgePluginsFullfilledAction,
+} from './getForgePlugins';
+export {
   UPDATE_SERVICE_LIST,
   updateServiceList,
   UpdateServiceListAction,

@@ -16,6 +16,7 @@ import { changeCloudAccountFolderMiddleware } from '../popup/middleware/changeCl
 import startAppMiddleware from '../popup/middleware/startApp';
 import { getConnectedRemoteAccounts } from '../popup/middleware/getConnectedRemoteAccounts';
 import { getFilesInRecents } from '../popup/middleware/getFilesInRecents';
+import { getForgePlugins } from '../popup/middleware/getForgePlugins';
 import { importFilesMiddleware } from '../popup/middleware/importFiles';
 import { startCloudAccountOAuthFlow } from '../popup/middleware/startAuth';
 import unlinkCloudAccount from '../popup/middleware/unlinkCloudAccount';
@@ -59,6 +60,7 @@ export default (
         analyticsProcessing as Middleware,
         startAppMiddleware() as Middleware,
         getFilesInRecents() as Middleware,
+        getForgePlugins() as Middleware,
         changeService as Middleware,
         changeAccount as Middleware,
         changeCloudAccountFolderMiddleware(fetcher) as Middleware,

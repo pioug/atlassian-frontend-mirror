@@ -1,9 +1,12 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import React, { Component, ComponentType } from 'react';
+
+import styled from 'styled-components';
+
 import Button, { ButtonGroup } from '@atlaskit/button';
 import RadioGroup from '@atlaskit/field-radio-group';
 import { colors } from '@atlaskit/theme';
-import styled from 'styled-components';
+
 import * as logos from '../src';
 import { Props as ConstantProps } from '../src/constants';
 

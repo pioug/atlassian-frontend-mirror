@@ -1,6 +1,8 @@
 import styled, { css } from 'styled-components';
-import { themed } from '@atlaskit/theme/components';
+
 import * as colors from '@atlaskit/theme/colors';
+import { themed } from '@atlaskit/theme/components';
+
 import { itemSpacing } from '../../constants';
 
 const getFocusColor = themed('appearance', {

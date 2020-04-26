@@ -1,7 +1,10 @@
 import React from 'react';
+
 import Avatar, { SizeType } from '@atlaskit/avatar';
-import avatarImg from './utils/sample-avatar.png';
+
 import Comment, { CommentAction, CommentAuthor, CommentTime } from '../src';
+
+import avatarImg from './utils/sample-avatar.png';
 
 const getSampleText = () =>
   `Cookie macaroon liquorice. Marshmallow donut lemon drops candy canes marshmallow topping chocolate cake. Croissant pastry soufflé waffle cake fruitcake. Brownie oat cake sugar plum.`;

@@ -1,12 +1,14 @@
 import React, { MouseEvent } from 'react';
+
 import { mount, shallow } from 'enzyme';
+
 import ArrowLeft from '@atlaskit/icon/glyph/arrow-left';
 
 import DrawerPrimitive from '../../primitives';
-import SidebarOverrides from '../../primitives/sidebar';
 import ContentOverrides from '../../primitives/content';
-import { DrawerWidth } from '../../types';
+import SidebarOverrides from '../../primitives/sidebar';
 import { Slide } from '../../transitions';
+import { DrawerWidth } from '../../types';
 
 const DrawerContent = () => <code>Drawer contents</code>;
 

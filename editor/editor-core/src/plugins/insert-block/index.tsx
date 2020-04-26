@@ -30,7 +30,7 @@ import { stateKey as imageUploadStateKey } from '../image-upload/pm-plugins/plug
 import { MentionPluginState } from '../..';
 import { EmojiPluginState } from '../emoji/types';
 import { pluginKey as dateStateKey } from '../date/pm-plugins/plugin-key';
-import { DateState } from '../date/pm-plugins/types';
+import { DatePluginState } from '../date/pm-plugins/types';
 import { pluginKey as placeholderTextStateKey } from '../placeholder-text/plugin-key';
 import { pluginKey as macroStateKey } from '../macro/plugin-key';
 import { ToolbarSize } from '../../ui/Toolbar/types';
@@ -120,7 +120,7 @@ const insertBlockPlugin = (options: InsertBlockOptions = {}): EditorPlugin => ({
             macroState: MacroState | undefined;
             hyperlinkState: HyperlinkState | undefined;
             emojiState: EmojiPluginState | undefined;
-            dateState: DateState | undefined;
+            dateState: DatePluginState | undefined;
             imageUpload: ImageUploadPluginState | undefined;
             placeholderTextState: PlaceholderPluginState | undefined;
             layoutState: LayoutState | undefined;

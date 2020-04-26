@@ -8,7 +8,7 @@ declare var global: any;
 describe('Snapshot Test', () => {
   it('Create repository should match production example', async () => {
     const url = getExampleUrl(
-      'core',
+      'design-system',
       'form',
       'create-repository',
       global.__BASEURL__,

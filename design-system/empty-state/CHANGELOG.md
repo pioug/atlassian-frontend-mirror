@@ -1,5 +1,16 @@
 # @atlaskit/empty-state
 
+## 6.0.9
+
+### Patch Changes
+
+- [patch][f4374a322a](https://bitbucket.org/atlassian/atlassian-frontend/commits/f4374a322a):
+
+  Change imports to comply with Atlassian conventions- Updated dependencies [6b8e60827e](https://bitbucket.org/atlassian/atlassian-frontend/commits/6b8e60827e):
+
+- Updated dependencies [57c0487a02](https://bitbucket.org/atlassian/atlassian-frontend/commits/57c0487a02):
+  - @atlaskit/button@13.3.11
+
 ## 6.0.8
 
 ### Patch Changes

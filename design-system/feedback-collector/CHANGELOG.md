@@ -1,5 +1,32 @@
 # @atlaskit/feedback-collector
 
+## 5.0.1
+
+### Patch Changes
+
+- [patch][4a06a49210](https://bitbucket.org/atlassian/atlassian-frontend/commits/4a06a49210):
+
+  Change imports to comply with Atlassian conventions- Updated dependencies [bf7a09790f](https://bitbucket.org/atlassian/atlassian-frontend/commits/bf7a09790f):
+
+- Updated dependencies [6b8e60827e](https://bitbucket.org/atlassian/atlassian-frontend/commits/6b8e60827e):
+- Updated dependencies [449ef134b3](https://bitbucket.org/atlassian/atlassian-frontend/commits/449ef134b3):
+- Updated dependencies [f6667f2909](https://bitbucket.org/atlassian/atlassian-frontend/commits/f6667f2909):
+- Updated dependencies [9a534d6a74](https://bitbucket.org/atlassian/atlassian-frontend/commits/9a534d6a74):
+- Updated dependencies [2e52d035cd](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e52d035cd):
+- Updated dependencies [57c0487a02](https://bitbucket.org/atlassian/atlassian-frontend/commits/57c0487a02):
+- Updated dependencies [68ff159118](https://bitbucket.org/atlassian/atlassian-frontend/commits/68ff159118):
+- Updated dependencies [6efb12e06d](https://bitbucket.org/atlassian/atlassian-frontend/commits/6efb12e06d):
+- Updated dependencies [0059d26429](https://bitbucket.org/atlassian/atlassian-frontend/commits/0059d26429):
+  - @atlaskit/flag@12.3.11
+  - @atlaskit/button@13.3.11
+  - @atlaskit/icon@20.1.1
+  - @atlaskit/select@11.0.10
+  - @atlaskit/logo@12.3.4
+  - @atlaskit/modal-dialog@10.5.7
+  - @atlaskit/navigation-next@8.0.4
+  - @atlaskit/checkbox@10.1.11
+  - @atlaskit/form@7.2.1
+
 ## 5.0.0
 
 ### Major Changes

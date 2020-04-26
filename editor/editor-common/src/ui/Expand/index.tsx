@@ -108,34 +108,44 @@ const ContainerStyles = css<StyleProps>`
 
 const ContentStyles = css<StyleProps>`
   ${({ expanded }) => {
-    return `
-    padding-top: ${expanded ? gridSize() : 0}px;
-    padding-right: ${gridSize()}px;
-    padding-left: ${gridSize() * 4 - gridSize() / 2}px;
-    display: table;
-    display: flow-root;
+    return css`
+      padding-top: ${expanded ? gridSize() : 0}px;
+      padding-right: ${gridSize()}px;
+      padding-left: ${gridSize() * 4 - gridSize() / 2}px;
+      display: table;
+      display: flow-root;
 
-    ${
-      !expanded
-        ? `
-      .expand-content-wrapper, .nestedExpand-content-wrapper {
-        /* We visually hide the content here to preserve the content during copy+paste */
+      // The follow rules inside @supports block are added as a part of ED-8893
+      // The fix is targeting mobile bridge on iOS 12 or below,
+      // We should consider remove this fix when we no longer support iOS 12
+      @supports not (display: flow-root) {
         width: 100%;
-        display: block;
-        height: 0;
-        overflow: hidden;
-        clip: rect(1px, 1px, 1px, 1px);
-        white-space: nowrap;
-        user-select: none;
+        box-sizing: border-box;
       }
-    `
-        : ''
-    }
+
+      ${!expanded
+        ? `
+        .expand-content-wrapper, .nestedExpand-content-wrapper {
+          /* We visually hide the content here to preserve the content during copy+paste */
+          width: 100%;
+          display: block;
+          height: 0;
+          overflow: hidden;
+          clip: rect(1px, 1px, 1px, 1px);
+          white-space: nowrap;
+          user-select: none;
+        }
+
+        .sticky, .fixed {
+          visibility: hidden;
+        }
+      `
+        : ''}
     `;
   }};
 `;
 
-const TitleInputStyles = `
+const TitleInputStyles = css`
   outline: none;
   border: none;
   font-size: ${fontSize()}px;
@@ -154,7 +164,7 @@ const TitleInputStyles = `
   }
 `;
 
-const TitleContainerStyles = `
+const TitleContainerStyles = css`
   padding: 0;
   display: flex;
   align-items: flex-start;

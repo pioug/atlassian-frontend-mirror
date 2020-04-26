@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { ProgressTracker, Stages } from '../src';
 
 const items: Stages = [

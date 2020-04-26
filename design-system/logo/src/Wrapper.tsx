@@ -1,5 +1,7 @@
 import React from 'react';
+
 import styled, { css } from 'styled-components';
+
 import { sizes, WrapperProps } from './constants';
 
 type SpanProps = Partial<WrapperProps>;

@@ -20,7 +20,7 @@ import {
   SelectionBasedNodeView,
   getPosHandler,
   getPosHandlerNode,
-} from '../../../nodeviews/ReactNodeView';
+} from '../../../nodeviews/';
 import MediaItem from './media';
 import WithPluginState from '../../../ui/WithPluginState';
 import { pluginKey as widthPluginKey } from '../../width';
@@ -318,7 +318,6 @@ export default class MediaSingleNode extends Component<
         displayGrid={createDisplayGrid(this.props.eventDispatcher)}
         gridSize={12}
         viewMediaClientConfig={this.state.viewMediaClientConfig}
-        state={this.props.view.state}
         allowBreakoutSnapPoints={
           mediaOptions && mediaOptions.allowBreakoutSnapPoints
         }
@@ -499,12 +498,19 @@ export const ReactMediaSingleNode = (
   dispatchAnalyticsEvent?: DispatchAnalyticsEvent,
   isCopyPasteEnabled?: boolean,
 ) => (node: PMNode, view: EditorView, getPos: getPosHandler) => {
-  return new MediaSingleNodeView(node, view, getPos, portalProviderAPI, {
+  return new MediaSingleNodeView(
+    node,
+    view,
+    getPos,
+    portalProviderAPI,
     eventDispatcher,
-    fullWidthMode,
-    providerFactory,
-    mediaOptions,
-    dispatchAnalyticsEvent,
-    isCopyPasteEnabled,
-  }).init();
+    {
+      eventDispatcher,
+      fullWidthMode,
+      providerFactory,
+      mediaOptions,
+      dispatchAnalyticsEvent,
+      isCopyPasteEnabled,
+    },
+  ).init();
 };

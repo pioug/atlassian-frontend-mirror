@@ -1,10 +1,19 @@
 import React from 'react';
 import { customInsertMenuItems } from '@atlaskit/editor-test-helpers/mock-insert-menu';
 import {
+  ExampleCreateInlineCommentComponent,
+  ExampleViewInlineCommentComponent,
+} from '@atlaskit/editor-test-helpers';
+import {
   createEditorExampleForTests,
   mapProvidersToProps,
 } from '../example-helpers/create-editor-example-for-tests';
-import { Editor, ContextPanel } from '../src';
+import {
+  Editor,
+  ContextPanel,
+  AnnotationProvider,
+  AnnotationTypes,
+} from '../src';
 import { SaveAndCancelButtons } from './5-full-page';
 import { TitleInput } from '../example-helpers/PageElements';
 
@@ -41,6 +50,25 @@ export default function EditorExampleForIntegrationTests({ clipboard = true }) {
           allowLinking: true,
           ...props.media,
         };
+      }
+
+      // Annotations (inline comments)
+      if (props && props.annotationProvider) {
+        const annotationProvider: AnnotationProvider = {
+          createComponent: ExampleCreateInlineCommentComponent,
+          viewComponent: ExampleViewInlineCommentComponent,
+          providers: {
+            inlineComment: {
+              getState: async (ids: string[]) =>
+                ids.map(id => ({
+                  annotationType: AnnotationTypes.INLINE_COMMENT,
+                  id,
+                  state: { resolved: false },
+                })),
+            },
+          },
+        };
+        props.annotationProvider = annotationProvider;
       }
 
       return (

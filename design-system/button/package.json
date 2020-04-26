@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/button",
-  "version": "13.3.9",
+  "version": "13.3.11",
   "description": "A button triggers an event or action. They let users know what will happen next.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -22,10 +22,9 @@
     }
   },
   "dependencies": {
-    "@atlaskit/analytics-next": "^6.3.5",
+    "@atlaskit/analytics-next": "^6.3.6",
     "@atlaskit/spinner": "^12.1.6",
-    "@atlaskit/theme": "^9.5.1",
-    "@atlaskit/type-helpers": "^4.2.3",
+    "@atlaskit/theme": "^9.5.3",
     "@emotion/core": "^10.0.9",
     "memoize-one": "^5.1.0",
     "tslib": "^1.9.3"
@@ -35,15 +34,14 @@
   },
   "devDependencies": {
     "@atlaskit/build-utils": "^2.2.7",
-    "@atlaskit/checkbox": "^10.1.10",
-    "@atlaskit/docs": "^8.4.0",
-    "@atlaskit/icon": "^20.1.0",
-    "@atlaskit/logo": "^12.3.3",
-    "@atlaskit/select": "^11.0.9",
+    "@atlaskit/checkbox": "^10.1.11",
+    "@atlaskit/docs": "^8.5.1",
+    "@atlaskit/icon": "^20.1.1",
+    "@atlaskit/logo": "^12.3.4",
+    "@atlaskit/select": "^11.0.10",
     "@atlaskit/ssr": "^0.1.1",
-    "@atlaskit/type-helpers": "^4.2.3",
     "@atlaskit/visual-regression": "^0.1.9",
-    "@atlaskit/webdriver-runner": "^0.3.0",
+    "@atlaskit/webdriver-runner": "^0.3.4",
     "@testing-library/react": "^8.0.1",
     "@types/react-router-dom": "^4.3.1",
     "enzyme": "^3.10.0",
@@ -53,5 +51,10 @@
     "react-router-dom": "^4.2.2",
     "react-test-renderer": "^16.8.0",
     "wait-for-expect": "^1.2.0"
+  },
+  "techstack": {
+    "@atlassian/frontend": {
+      "import-structure": "atlassian-conventions"
+    }
   }
 }

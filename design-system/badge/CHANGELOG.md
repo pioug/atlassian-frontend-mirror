@@ -1,5 +1,15 @@
 # @atlaskit/badge
 
+## 13.1.8
+
+### Patch Changes
+
+- [patch][093fdc91b1](https://bitbucket.org/atlassian/atlassian-frontend/commits/093fdc91b1):
+
+  Change imports to comply with Atlassian conventions- Updated dependencies [fd41d77c29](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd41d77c29):
+
+  - @atlaskit/webdriver-runner@0.3.4
+
 ## 13.1.7
 
 ### Patch Changes

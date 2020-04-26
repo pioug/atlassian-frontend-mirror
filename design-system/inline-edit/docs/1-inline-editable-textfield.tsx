@@ -1,12 +1,13 @@
 import React from 'react';
-import { md, Example, Props, code } from '@atlaskit/docs';
+
+import { code, Example, md, Props } from '@atlaskit/docs';
 
 export default md`
   The inline editable textfield component switches between displaying text, and displaying
   an editable textfield. The component is designed for ease of use in common situations.
 
   If you are looking for an inline editable component which allows custom definition of the reading and
-  editing view, please see the [InlineEdit component](/packages/core/inline-edit).
+  editing view, please see the [InlineEdit component](/packages/design-system/inline-edit).
 
   ## Usage
 

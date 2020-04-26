@@ -1,7 +1,9 @@
 import React from 'react';
-import { IconType } from '../../types';
-import IconWrapper from './styledIconForType';
+
 import { typesMapping } from '../../constants';
+import { IconType } from '../../types';
+
+import IconWrapper from './styledIconForType';
 
 interface Props {
   isHovered: boolean;

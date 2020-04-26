@@ -48,7 +48,7 @@ export default md`
   ## Validation
 
   We no longer support the \`invalidMessage\`, \`isInvalid\` and \`required\` props.
-  Validation messages are now a concern of the [@atlaskit/form](/packages/core/form) package.
+  Validation messages are now a concern of the [@atlaskit/form](/packages/design-system/form) package.
   We do however, provide a \`validationState\` prop, which takes a string value of either \`success\` or \`error\` which augments the border of the trigger.
   See the example below:
 
@@ -77,7 +77,7 @@ export default md`
   The only attribute @atlaskit/select really forces any opinions on, is whether or not your option object has an option property of its own.
   This is used to identify whether or not a group hierarchy has been used, so that @atlaskit/select can augment our internal options map and render groups accordingly.
   Otherwise, by default @atlaskit/select will filter based on the \`value\` property and render the specified \`label\` value.
-  However @atlaskit/select provides you with a series of props to augment this behaviour at multiple levels of use, please see the **custom data structures** section of our [api docs](/packages/core/select/docs/api).
+  However @atlaskit/select provides you with a series of props to augment this behaviour at multiple levels of use, please see the **custom data structures** section of our [api docs](/packages/design-system/select/docs/api).
   for more details.
 
   While the shape of each item is much less explicit, due to how @atlaskit/select exposes component customisation, the same functionality that the previous item shape enabled
@@ -102,7 +102,7 @@ export default md`
     />
   )}
 
-  For more information on how to customise filtering and displaying options / values please see the custom data structures section of our [api docs](/packages/core/select/docs/api)
+  For more information on how to customise filtering and displaying options / values please see the custom data structures section of our [api docs](/packages/design-system/select/docs/api)
 
   <a name="tooltipdescription---tooltipposition"></a>
   ### tooltipDescription & tooltipPosition
@@ -110,7 +110,7 @@ export default md`
   Previously @atlaskit/single-select & @atlaskit/multi-select optionally rendered @atlaskit/tooltip, depending on whether or not a tooltipDescription was passed in.
   This is no longer the case in @atlaskit/select in the interest of not depending on more @atlaskit packages than needed.
 
-  However, with the **component customisation api** section of our (api docs)(/packages/core/select/docs/api#components-api) wrapping your options in an @atlaskit/tooltip instance
+  However, with the **component customisation api** section of our (api docs)(/packages/design-system/select/docs/api#components-api) wrapping your options in an @atlaskit/tooltip instance
   and feeding it an associated description, is a relatively simple task. The example below illustrates how you might go about doing this:
 
   ${(
@@ -136,7 +136,7 @@ export default md`
   options get filtered, that mean that this prop is no longer necessary.
 
   For a more detailed explanation of these configurations,
-  please see the 'Custom Filter' section of the [api page](/packages/core/select/docs/api)
+  please see the 'Custom Filter' section of the [api page](/packages/design-system/select/docs/api)
 
   If you do however want to use this pattern, below is how you could enable that in @atlaskit/select.
 
@@ -151,7 +151,7 @@ export default md`
 
   <a name="description"></a>
   ### description
-  
+
   Similar to elemBefore, you can recreate the functionality provided by the **description** property in items,
   by using the \`formatOptionLabel\` prop @atlaskit/select provides you. See below for an example of how to do this:
 

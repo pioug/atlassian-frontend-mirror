@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { DynamicTableStateless } from '../src';
 
 export default class extends React.Component<{}, {}> {

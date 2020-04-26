@@ -1,10 +1,12 @@
 /** @jsx jsx */
 import { useState } from 'react';
-import Button from '@atlaskit/button';
+
 import { jsx } from '@emotion/core';
+
+import Button from '@atlaskit/button';
 import ArrowRight from '@atlaskit/icon/glyph/arrow-right';
 import MenuIcon from '@atlaskit/icon/glyph/menu';
-import { Section, ButtonItem, PopupMenuGroup } from '@atlaskit/menu';
+import { ButtonItem, PopupMenuGroup, Section } from '@atlaskit/menu';
 
 import Popup from '../src';
 
@@ -28,7 +30,7 @@ const NestedPopup = () => {
               {...triggerProps}
               isSelected={isOpen}
               onClick={() => setIsOpen(true)}
-              elemAfter={<ArrowRight label="" />}
+              iconAfter={<ArrowRight label="" />}
             >
               More actions
             </ButtonItem>

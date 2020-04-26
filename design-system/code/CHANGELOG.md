@@ -1,5 +1,13 @@
 # @atlaskit/code
 
+## 11.1.5
+
+### Patch Changes
+
+- [patch][f7f2068a76](https://bitbucket.org/atlassian/atlassian-frontend/commits/f7f2068a76):
+
+  Change imports to comply with Atlassian conventions
+
 ## 11.1.4
 
 ### Patch Changes

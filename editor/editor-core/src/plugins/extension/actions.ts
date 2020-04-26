@@ -2,24 +2,51 @@ import { Slice, Schema, Node as PmNode } from 'prosemirror-model';
 import { EditorState, NodeSelection } from 'prosemirror-state';
 import { replaceSelectedNode } from 'prosemirror-utils';
 
-import { UpdateExtension } from '@atlaskit/editor-common';
+import {
+  UpdateExtension,
+  UpdateContextActions,
+  ParametersGetter,
+  AsyncParametersGetter,
+} from '@atlaskit/editor-common/extensions';
 import { MacroProvider } from '@atlaskit/editor-common/provider-factory';
 
 import { mapFragment } from '../../utils/slice';
 import { Command, CommandDispatch } from '../../types';
 import { insertMacroFromMacroBrowser } from '../macro';
 import { getSelectedExtension } from './utils';
-import { showContextPanel } from './commands';
+import { setEditingContextToContextPanel } from './commands';
+
+export const performNodeUpdate = (
+  newAttrs: object,
+  shouldScrollIntoView: boolean,
+) => (state: EditorState, dispatch?: CommandDispatch) => {
+  const newNode = state.schema.nodes.extension.createChecked(newAttrs);
+  if (!newNode) {
+    return;
+  }
+
+  let transaction = replaceSelectedNode(newNode)(state.tr);
+  // Replacing selected node doesn't update the selection. `selection.node` still returns the old node
+  transaction = transaction.setSelection(
+    NodeSelection.create(transaction.doc, state.selection.anchor),
+  );
+
+  if (dispatch) {
+    dispatch(shouldScrollIntoView ? transaction.scrollIntoView() : transaction);
+  }
+};
 
 export const updateExtensionParams = (
   updateExtension: UpdateExtension<object>,
   node: { node: PmNode; pos: number },
+  actions: UpdateContextActions,
 ) => async (state: EditorState, dispatch?: CommandDispatch): Promise<void> => {
   if (!state.schema.nodes.extension) {
     return;
   }
+
   const { parameters } = node.node.attrs;
-  const newParameters = await updateExtension(parameters);
+  const newParameters = await updateExtension(parameters, actions);
 
   if (newParameters) {
     const newAttrs = {
@@ -30,26 +57,34 @@ export const updateExtensionParams = (
       },
     };
 
-    const newNode = state.schema.nodes.extension.createChecked(newAttrs);
-    if (!newNode) {
-      return;
-    }
-
-    let transaction = replaceSelectedNode(newNode)(state.tr);
-    // Replacing selected node doesn't update the selection. `selection.node` still returns the old node
-    transaction = transaction.setSelection(
-      NodeSelection.create(transaction.doc, state.selection.anchor),
-    );
-
-    if (dispatch) {
-      dispatch(transaction.scrollIntoView());
-    }
+    return performNodeUpdate(newAttrs, true)(state, dispatch);
   }
+};
+
+const createUpdateContextActions = ({
+  editInLegacyMacroBrowser,
+}: {
+  editInLegacyMacroBrowser: () => void;
+}) => (
+  state: EditorState,
+  dispatch?: CommandDispatch,
+): UpdateContextActions => {
+  return {
+    editInContextPanel: (
+      processParametersBefore: ParametersGetter,
+      processParametersAfter: AsyncParametersGetter,
+    ) => {
+      setEditingContextToContextPanel(
+        processParametersBefore,
+        processParametersAfter,
+      )(state, dispatch);
+    },
+    editInLegacyMacroBrowser,
+  };
 };
 
 export const editExtension = (
   macroProvider: MacroProvider | null,
-  allowNewConfigPanel: boolean = false,
   updateExtension?: UpdateExtension<object>,
 ): Command => (state, dispatch): boolean => {
   const nodeWithPos = getSelectedExtension(state, true);
@@ -58,24 +93,41 @@ export const editExtension = (
     return false;
   }
 
-  if (updateExtension) {
-    if (allowNewConfigPanel) {
-      return showContextPanel(state, dispatch);
-    } else {
-      updateExtensionParams(updateExtension, nodeWithPos)(state, dispatch);
-      return true;
+  const editInLegacyMacroBrowser = () => {
+    if (!macroProvider) {
+      throw new Error(
+        `Missing macroProvider. Can't use the macro browser for updates`,
+      );
     }
+
+    insertMacroFromMacroBrowser(
+      macroProvider,
+      nodeWithPos.node,
+      true,
+    )(state, dispatch);
+  };
+
+  if (updateExtension && dispatch) {
+    const actions = createUpdateContextActions({ editInLegacyMacroBrowser })(
+      state,
+      dispatch,
+    );
+
+    updateExtensionParams(
+      updateExtension,
+      nodeWithPos,
+      actions,
+    )(state, dispatch);
+
+    return true;
   }
 
   if (!macroProvider) {
     return false;
   }
 
-  insertMacroFromMacroBrowser(
-    macroProvider,
-    nodeWithPos.node,
-    true,
-  )(state, dispatch);
+  editInLegacyMacroBrowser();
+
   return true;
 };
 

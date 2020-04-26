@@ -1,10 +1,13 @@
 import React from 'react';
+
 import { mount, ReactWrapper } from 'enzyme';
+
 import Button from '@atlaskit/button';
+
+import { FlagProps } from '../../../types';
 import { FlagWithoutAnalytics as Flag } from '../../Flag';
 import Actions from '../../FlagActions';
 import { Action } from '../../FlagActions/styledFlagActions';
-import { FlagProps } from '../../../types';
 
 describe('actions prop', () => {
   const generateFlag = (extraProps: Partial<FlagProps>) => (

@@ -31,7 +31,8 @@ export default function ConfigPanelWithProviders({
         nodeKey={nodeKey}
         extensionProvider={extensionProvider}
         parameters={parameters}
-        onSave={data => console.log(data, JSON.stringify(data))}
+        showHeader
+        onChange={data => console.log(data, JSON.stringify(data))}
         onCancel={() => console.log('onCancel')}
       />
     </IntlProvider>

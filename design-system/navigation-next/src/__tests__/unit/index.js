@@ -1,4 +1,4 @@
-import { Group } from '../..';
+import { Group } from '../../index';
 
 jest.mock('../..', () => {
   const mod = jest.requireActual('../..');

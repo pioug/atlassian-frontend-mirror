@@ -1,6 +1,9 @@
 import React from 'react';
+
 import Lorem from 'react-lorem-component';
+
 import Button, { ButtonGroup } from '@atlaskit/button';
+
 import Modal, { ModalTransition } from '../src';
 import { AppearanceType } from '../src/types';
 

@@ -1,6 +1,9 @@
 import React from 'react';
-import Button, { ButtonGroup } from '@atlaskit/button';
+
 import Lorem from 'react-lorem-component';
+
+import Button, { ButtonGroup } from '@atlaskit/button';
+
 import Modal, { ModalTransition } from '../src';
 
 const sizes = ['large', 'medium', 'small'];

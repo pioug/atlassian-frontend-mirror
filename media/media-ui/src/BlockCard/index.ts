@@ -6,6 +6,7 @@ export {
   ResolvedView as BlockCardResolvedView,
   ResolvedViewProps as BlockCardResolvedViewProps,
 } from './views/ResolvedView';
+export { NotFoundView as BlockCardNotFoundView } from './views/NotFoundView';
 export { ResolvingView as BlockCardResolvingView } from './views/ResolvingView';
 export { UnauthorizedView as BlockCardUnauthorisedView } from './views/UnauthorizedView';
 export { ForbiddenView as BlockCardForbiddenView } from './views/ForbiddenView';

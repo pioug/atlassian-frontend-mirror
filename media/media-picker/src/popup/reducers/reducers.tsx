@@ -31,6 +31,11 @@ import hidePopup from './hidePopup';
 import startApp from './startApp';
 import saveCollectionItemsSubscription from './saveCollectionItemsSubscription';
 import removeFileFromRecents from './removeFileFromRecents';
+import {
+  getForgePluginsStarted,
+  getForgePluginsFullfilled,
+  getForgePluginsFailed,
+} from './getForgePlugins';
 import { connectedRemoteAccountsFailed } from './connectedRemoteAccountsFailed';
 
 const reducers = combineReducers([
@@ -45,6 +50,9 @@ const reducers = combineReducers([
   getRecentFilesStarted,
   getRecentFilesFullfilled,
   getRecentFilesFailed,
+  getForgePluginsStarted,
+  getForgePluginsFullfilled,
+  getForgePluginsFailed,
   updatePopupUrls,
   fileUploadsAdd,
   removeFileFromRecents,

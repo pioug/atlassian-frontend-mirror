@@ -13,7 +13,11 @@ import { traverseNode } from './utils';
 
 export const pluginKey = new PluginKey('unsupportedContentPlugin');
 
-const createPlugin: PMPluginFactory = ({ schema, portalProviderAPI }) => {
+const createPlugin: PMPluginFactory = ({
+  schema,
+  portalProviderAPI,
+  eventDispatcher,
+}) => {
   return new Plugin({
     state: {
       init(_config, state: EditorState) {
@@ -29,18 +33,22 @@ const createPlugin: PMPluginFactory = ({ schema, portalProviderAPI }) => {
         confluenceUnsupportedBlock: ReactNodeView.fromComponent(
           ReactUnsupportedBlockNode,
           portalProviderAPI,
+          eventDispatcher,
         ),
         confluenceUnsupportedInline: ReactNodeView.fromComponent(
           ReactUnsupportedInlineNode,
           portalProviderAPI,
+          eventDispatcher,
         ),
         unsupportedBlock: ReactNodeView.fromComponent(
           ReactUnsupportedBlockNode,
           portalProviderAPI,
+          eventDispatcher,
         ),
         unsupportedInline: ReactNodeView.fromComponent(
           ReactUnsupportedInlineNode,
           portalProviderAPI,
+          eventDispatcher,
         ),
       },
     },

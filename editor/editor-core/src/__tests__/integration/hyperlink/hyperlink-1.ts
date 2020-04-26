@@ -6,8 +6,13 @@ import {
   fullpage,
   editable,
   linkToolbar,
+  setProseMirrorTextSelection,
 } from '../_helpers';
 import { messages } from '../../../plugins/insert-block/ui/ToolbarInsertBlock/messages';
+import {
+  goToEditorTestingExample,
+  mountEditor,
+} from '../../__helpers/testing-example-helpers';
 
 const linkText1 = 'http://hello.com ';
 const linkText2 = 'FAB-983';
@@ -47,3 +52,22 @@ const linkText2 = 'FAB-983';
     },
   );
 });
+
+BrowserTestCase(
+  `can open hyperlink toolbar`,
+  { skip: ['ie', 'edge'] },
+  async (client: any) => {
+    const page = await goToEditorTestingExample(client);
+
+    await mountEditor(page, {
+      appearance: fullpage.appearance,
+      annotationProvider: true,
+    });
+
+    await page.type(editable, 'Over 9000');
+    await setProseMirrorTextSelection(page, { anchor: 1, head: 5 });
+    await page.click(`[aria-label="${messages.link.defaultMessage}"]`);
+    await page.waitForSelector(linkToolbar);
+    expect(await page.isExisting(linkToolbar)).toBe(true);
+  },
+);

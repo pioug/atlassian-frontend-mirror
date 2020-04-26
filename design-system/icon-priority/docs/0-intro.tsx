@@ -5,7 +5,7 @@ const PitchSentence = () => (
   <p>
     Below is an icon explorer just for priority icons. You can view an icon
     explorer that includes all icons at the{' '}
-    <a href="/packages/core/icon">main icons package documentation</a>
+    <a href="/packages/design-system/icon">main icons package documentation</a>
   </p>
 );
 

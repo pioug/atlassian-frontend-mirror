@@ -6,7 +6,7 @@ describe(`${name}/schema inlineExtension node`, () => {
   describe('parse html', () => {
     it('converts to inlineExtension PM node', () => {
       const doc = fromHTML(
-        '<span data-extension-type="com.atlassian.confluence.macro" />',
+        '<span data-extension-type="com.atlassian.confluence.macro" data-extension-key="status" />',
         schema,
       );
       const node = doc.firstChild!.firstChild!;

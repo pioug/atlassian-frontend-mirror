@@ -48,12 +48,19 @@ function contextPanelPluginFactory(
         }
 
         if (tr.docChanged || tr.selectionSet || (meta && meta.changed)) {
-          newPluginState = {
-            ...newPluginState,
-            contents: pluginState.handlers.map(panelContent =>
-              panelContent(newState),
-            ),
-          };
+          const newContents = pluginState.handlers.map(panelContent =>
+            panelContent(newState),
+          );
+
+          if (
+            newContents.length !== newPluginState.contents.length ||
+            newContents.some(node => newPluginState.contents.indexOf(node) < 0)
+          ) {
+            newPluginState = {
+              ...newPluginState,
+              contents: newContents,
+            };
+          }
         }
 
         if (newPluginState !== pluginState) {

@@ -6,10 +6,10 @@ export const generateUuid = () =>
   });
 /* eslint-enable no-bitwise */
 
-let staticValue: string | boolean = false;
+let staticValue: string | false = false;
 
 export const uuid = {
-  setStatic(value: string | boolean) {
+  setStatic(value: string | false) {
     staticValue = value;
   },
 

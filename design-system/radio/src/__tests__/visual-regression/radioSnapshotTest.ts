@@ -6,7 +6,7 @@ import {
 describe('Snapshot Test', () => {
   it(`Basic usage example should match prod`, async () => {
     const url = getExampleUrl(
-      'core',
+      'design-system',
       'radio',
       'radioDefault',
       //@ts-ignore - global usage

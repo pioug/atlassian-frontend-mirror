@@ -5,10 +5,16 @@ import { RadioGroup } from '@atlaskit/radio';
 import { EnumField } from '@atlaskit/editor-common/extensions';
 
 import FieldMessages from '../FieldMessages';
-import { FieldTypeError } from '../types';
+import { FieldTypeError, OnBlur } from '../types';
 import { validate } from '../utils';
 
-export default function({ field }: { field: EnumField }) {
+export default function({
+  field,
+  onBlur,
+}: {
+  field: EnumField;
+  onBlur: OnBlur;
+}) {
   if (field.isMultiple) {
     return <FieldMessages error={FieldTypeError.isMultipleAndRadio} />;
   }
@@ -24,6 +30,10 @@ export default function({ field }: { field: EnumField }) {
       {({ fieldProps, error }) => (
         <Fragment>
           <RadioGroup
+            onChange={value => {
+              fieldProps.onChange(value);
+              onBlur(field.name);
+            }}
             options={(field.items || []).map(option => ({
               ...option,
               name: field.name,

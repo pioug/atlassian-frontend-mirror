@@ -2,24 +2,27 @@ import React from 'react';
 import { InjectedIntlProps, injectIntl } from 'react-intl';
 
 import { ExtensionManifest } from '@atlaskit/editor-common';
-import Button, { ButtonGroup } from '@atlaskit/button';
-import Form, { FormFooter } from '@atlaskit/form';
+import Form from '@atlaskit/form';
 import Spinner from '@atlaskit/spinner';
 
 import {
   FieldDefinition,
   Parameters,
+  OnSaveCallback,
 } from '@atlaskit/editor-common/extensions';
 
-import FormContent from './FormContent';
-import { messages } from './messages';
+import Header from './Header';
+import ConfigForm from './Form';
 import { serialize, deserialize } from './transformers';
 
 type Props = {
   extensionManifest: ExtensionManifest;
   fields: FieldDefinition[];
   parameters?: Parameters;
-  onSave: (data: Parameters) => void | string;
+  autoSave?: boolean;
+  showHeader?: boolean;
+  closeOnEsc?: boolean;
+  onChange: OnSaveCallback;
   onCancel: () => void;
 } & InjectedIntlProps;
 
@@ -53,12 +56,27 @@ class ConfigPanel extends React.Component<Props, State> {
     }
   }
 
-  onSubmit = (formData: FormData) => {
+  handleKeyDown = (e: React.KeyboardEvent<HTMLFormElement>) => {
+    if ((e.key === 'Esc' || e.key === 'Escape') && this.props.closeOnEsc) {
+      this.props.onCancel();
+    }
+  };
+
+  handleSubmit = async (formData: FormData) => {
     const { fields, extensionManifest } = this.props;
 
-    return serialize(extensionManifest, formData, fields).then(serializedData =>
-      this.props.onSave(serializedData),
-    );
+    try {
+      const serializedData = await serialize(
+        extensionManifest,
+        formData,
+        fields,
+      );
+
+      this.props.onChange(serializedData);
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error(`Error serializing parameters`, error);
+    }
   };
 
   parseParameters = async (
@@ -77,17 +95,29 @@ class ConfigPanel extends React.Component<Props, State> {
       return;
     }
 
-    const currentParameters = await deserialize(
-      extensionManifest,
-      parameters,
-      fields,
-    );
+    try {
+      const currentParameters = await deserialize(
+        extensionManifest,
+        parameters,
+        fields,
+      );
+      this.setState({ currentParameters, hasParsedParameters: true });
+    } catch (error) {
+      this.setState({ currentParameters: {}, hasParsedParameters: true });
 
-    this.setState({ currentParameters, hasParsedParameters: true });
+      // eslint-disable-next-line no-console
+      console.error(`Error deserializing parameters`, error);
+    }
   };
 
   render() {
-    const { intl, fields, onCancel, extensionManifest } = this.props;
+    const {
+      fields,
+      onCancel,
+      extensionManifest,
+      autoSave,
+      showHeader,
+    } = this.props;
 
     const { currentParameters, hasParsedParameters } = this.state;
 
@@ -96,28 +126,25 @@ class ConfigPanel extends React.Component<Props, State> {
     }
 
     return (
-      <Form onSubmit={this.onSubmit}>
+      <Form onSubmit={this.handleSubmit}>
         {({ formProps, submitting }) => (
-          <form {...formProps} noValidate>
-            <FormContent
+          <form {...formProps} noValidate onKeyDown={this.handleKeyDown}>
+            {showHeader && (
+              <Header
+                icon={extensionManifest.icons['48']}
+                title={extensionManifest.title}
+                description={extensionManifest.description}
+                onClose={onCancel}
+              />
+            )}
+            <ConfigForm
               extensionManifest={extensionManifest}
               fields={fields}
               parameters={currentParameters}
+              onCancel={onCancel}
+              autoSave={autoSave}
+              submitting={submitting}
             />
-            <FormFooter align="start">
-              <ButtonGroup>
-                <Button type="submit" appearance="primary">
-                  {intl.formatMessage(messages.submit)}
-                </Button>
-                <Button
-                  appearance="default"
-                  isDisabled={submitting}
-                  onClick={onCancel}
-                >
-                  {intl.formatMessage(messages.cancel)}
-                </Button>
-              </ButtonGroup>
-            </FormFooter>
           </form>
         )}
       </Form>

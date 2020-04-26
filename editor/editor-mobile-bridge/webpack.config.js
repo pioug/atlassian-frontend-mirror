@@ -35,7 +35,6 @@ module.exports = async function createWebpackConfig(_, args) {
         ...(await moduleResolveMapBuilder()),
         '@atlaskit/media-editor': emptyExportPath, // ~145kb gzip
         '@atlaskit/media-viewer': emptyExportPath, // ~335kb gzip
-        '@atlaskit/logo': emptyExportPath, // ~3kb gzip
         '@atlaskit/avatar': emptyExportPath, // ~7.5kb gzip
         '@atlaskit/avatar-group': emptyExportPath, // ~2kb gzip
         '@atlaskit/profilecard': emptyExportPath, // ~7kb gzip

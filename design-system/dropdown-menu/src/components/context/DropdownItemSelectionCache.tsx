@@ -1,8 +1,10 @@
 import React, { Component, ReactNode } from 'react';
-import PropTypes from 'prop-types';
+
 import find from 'array-find';
-import { selectionCacheContext } from '../../util/contextNamespace';
+import PropTypes from 'prop-types';
+
 import { CachedItem, GroupId, ItemId } from '../../types';
+import { selectionCacheContext } from '../../util/contextNamespace';
 
 interface Props {
   children?: ReactNode;

@@ -2,6 +2,7 @@ export default {
   type: 'array',
   items: [
     [
+      'blockCard',
       'paragraph_with_no_marks',
       'paragraph_with_alignment',
       'bulletList',
@@ -19,7 +20,6 @@ export default {
       'taskList',
       'extension',
       'nestedExpand_with_no_marks',
-      'blockCard',
     ],
   ],
   minItems: 1,

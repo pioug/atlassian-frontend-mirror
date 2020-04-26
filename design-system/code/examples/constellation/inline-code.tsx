@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { AkCode } from '../../src';
 
 const jsCode = `const map = new Map({ key: 'value' })`;

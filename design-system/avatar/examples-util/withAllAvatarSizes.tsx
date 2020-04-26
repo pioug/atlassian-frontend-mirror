@@ -1,8 +1,10 @@
 import React from 'react';
+
 import Avatar from '../src';
-import { Block } from './helpers';
-import { omit } from '../src/utils';
 import { AppearanceType } from '../src/types';
+import { omit } from '../src/utils';
+
+import { Block } from './helpers';
 
 interface WithAllAvatarSizesProps {
   presence?: React.ReactNode;

@@ -1,5 +1,4 @@
 import { viewReducerUtils } from '../../../../src';
-
 import { LinkItem } from '../../components';
 
 export default items => {

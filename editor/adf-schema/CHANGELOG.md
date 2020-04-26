@@ -1,5 +1,48 @@
 # @atlaskit/adf-schema
 
+## 9.0.1
+
+### Patch Changes
+
+- [patch][92d04b5c28](https://bitbucket.org/atlassian/atlassian-frontend/commits/92d04b5c28):
+
+  ED-9079 Disable spell check for text marked as inline code.
+
+  This prevents the red squiggly line appearing underneath inline code, and aligns the UX with codeblock which already disables spell check. - @atlaskit/editor-json-transformer@7.0.11
+
+  - @atlaskit/editor-test-helpers@11.1.1
+
+## 9.0.0
+
+### Major Changes
+
+- [major][5d430f7d37](https://bitbucket.org/atlassian/atlassian-frontend/commits/5d430f7d37):
+
+  ED-8517 Add localId support to Extension node
+
+  **BREAKING CHANGE**
+  `ExtensionContent` has been removed.
+
+### Minor Changes
+
+- [minor][04e54bf405](https://bitbucket.org/atlassian/atlassian-frontend/commits/04e54bf405):
+
+  EDM-500: Allow blockCard inside Panel
+
+### Patch Changes
+
+- [patch][9f43b9f0ca](https://bitbucket.org/atlassian/atlassian-frontend/commits/9f43b9f0ca):
+
+  ED-9037 / ED-9039: ProseMirror node selection for mentions and emojis- Updated dependencies [7e26fba915](https://bitbucket.org/atlassian/atlassian-frontend/commits/7e26fba915):
+
+- Updated dependencies [205b05851a](https://bitbucket.org/atlassian/atlassian-frontend/commits/205b05851a):
+- Updated dependencies [823d80f31c](https://bitbucket.org/atlassian/atlassian-frontend/commits/823d80f31c):
+- Updated dependencies [3644fc1afe](https://bitbucket.org/atlassian/atlassian-frontend/commits/3644fc1afe):
+- Updated dependencies [62f1f218d9](https://bitbucket.org/atlassian/atlassian-frontend/commits/62f1f218d9):
+- Updated dependencies [6eb8c0799f](https://bitbucket.org/atlassian/atlassian-frontend/commits/6eb8c0799f):
+  - @atlaskit/editor-test-helpers@11.1.0
+  - @atlaskit/editor-json-transformer@7.0.10
+
 ## 8.0.0
 
 ### Major Changes

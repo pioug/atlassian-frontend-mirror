@@ -1,4 +1,5 @@
 import React, { Component, ReactNode } from 'react';
+
 import NodeResolver from 'react-node-resolver';
 
 import { TargetConsumer } from './SpotlightManager';

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/inline-message",
-  "version": "10.1.5",
+  "version": "10.1.6",
   "description": "An inline message lets users know when important information is available or when an action is required to complete the current task",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -22,9 +22,9 @@
     }
   },
   "dependencies": {
-    "@atlaskit/button": "^13.3.9",
-    "@atlaskit/icon": "^20.1.0",
-    "@atlaskit/inline-dialog": "^12.1.11",
+    "@atlaskit/button": "^13.3.11",
+    "@atlaskit/icon": "^20.1.1",
+    "@atlaskit/inline-dialog": "^12.1.12",
     "@atlaskit/theme": "^9.5.1",
     "tslib": "^1.9.3"
   },
@@ -37,7 +37,7 @@
     "@atlaskit/docs": "^8.4.0",
     "@atlaskit/ssr": "^0.1.1",
     "@atlaskit/visual-regression": "^0.1.9",
-    "@atlaskit/webdriver-runner": "^0.3.0",
+    "@atlaskit/webdriver-runner": "^0.3.4",
     "@testing-library/react": "^8.0.1",
     "enzyme": "^3.10.0",
     "react-dom": "^16.8.0"
@@ -46,5 +46,10 @@
     "atlaskit",
     "react",
     "ui"
-  ]
+  ],
+  "techstack": {
+    "@atlassian/frontend": {
+      "import-structure": "atlassian-conventions"
+    }
+  }
 }

@@ -1,5 +1,372 @@
 # @atlaskit/editor-core
 
+## 122.0.0
+
+### Minor Changes
+
+- [minor][c8d0ce5b94](https://bitbucket.org/atlassian/atlassian-frontend/commits/c8d0ce5b94):
+
+  FM-3537: Whitelist quick insert items on bridge- [minor][cf41823165](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf41823165):
+
+  ED-9049: Make post processing function async to allow for backend operations if need- [minor][aec7fbadcc](https://bitbucket.org/atlassian/atlassian-frontend/commits/aec7fbadcc):
+
+  ED-8833 ED-8834 Make status and date selected styling consistent- [minor][e477132440](https://bitbucket.org/atlassian/atlassian-frontend/commits/e477132440):
+
+  ED-8231 Implement keyboard accessible date picker
+
+### Patch Changes
+
+- [patch][7e4d4a7ed4](https://bitbucket.org/atlassian/atlassian-frontend/commits/7e4d4a7ed4):
+
+  Adding `insertMentionQuery` and `insertEmojiQuery` for mobile to dispatch typeahead menus from native toolbar- [patch][999fbf849e](https://bitbucket.org/atlassian/atlassian-frontend/commits/999fbf849e):
+
+  Refactor editor emoji to use HOC composition instead of duplication.- [patch][b202858f6c](https://bitbucket.org/atlassian/atlassian-frontend/commits/b202858f6c):
+
+  ED-8389 fix: do not try to access columResizing plugin state if it is undefined- [patch][9cee2b03e8](https://bitbucket.org/atlassian/atlassian-frontend/commits/9cee2b03e8):
+
+  ED-9065: stop tables from updating plugin state on each keystroke- [patch][26de083801](https://bitbucket.org/atlassian/atlassian-frontend/commits/26de083801):
+
+  ED-9083 Fire analytics events on open close draft inline comments- [patch][d3cc97a424](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3cc97a424):
+
+  Adding link-url testId to HyperlinkAddToolbar- [patch][00f64f4eb8](https://bitbucket.org/atlassian/atlassian-frontend/commits/00f64f4eb8):
+
+  ED-9086 analytics for add inline comments- [patch][4f70380793](https://bitbucket.org/atlassian/atlassian-frontend/commits/4f70380793):
+
+  ED-8915: add global shortcut ctrl+alt+C for creating inline comments- [patch][5b301bcdf6](https://bitbucket.org/atlassian/atlassian-frontend/commits/5b301bcdf6):
+
+  ED-8970 Fix extensionProvider doesn't add items to slash menu when quickInsert provider is unavailable- [patch][729a4e4960](https://bitbucket.org/atlassian/atlassian-frontend/commits/729a4e4960):
+
+  ED-8912 Added temporary highlight for inline comments- [patch][384791fb2b](https://bitbucket.org/atlassian/atlassian-frontend/commits/384791fb2b):
+
+  ED-9089 analytics for inline comment resolve- [patch][c6b145978b](https://bitbucket.org/atlassian/atlassian-frontend/commits/c6b145978b):
+
+  ED-9066 Fix ContextPanel plugin updates on every keystroke- [patch][736507f8e0](https://bitbucket.org/atlassian/atlassian-frontend/commits/736507f8e0):
+
+  ED-8909: inline-comments: fixed positioning of floating toolbar- [patch][9e3646b59e](https://bitbucket.org/atlassian/atlassian-frontend/commits/9e3646b59e):
+
+  Fix mediaGroup cards so that they show selected state when hilighting text around them- Updated dependencies [9b295386e7](https://bitbucket.org/atlassian/atlassian-frontend/commits/9b295386e7):
+
+- Updated dependencies [3b776be426](https://bitbucket.org/atlassian/atlassian-frontend/commits/3b776be426):
+- Updated dependencies [999fbf849e](https://bitbucket.org/atlassian/atlassian-frontend/commits/999fbf849e):
+- Updated dependencies [62390c4755](https://bitbucket.org/atlassian/atlassian-frontend/commits/62390c4755):
+- Updated dependencies [4d8d550d69](https://bitbucket.org/atlassian/atlassian-frontend/commits/4d8d550d69):
+- Updated dependencies [3940bd71f1](https://bitbucket.org/atlassian/atlassian-frontend/commits/3940bd71f1):
+- Updated dependencies [9e4b195732](https://bitbucket.org/atlassian/atlassian-frontend/commits/9e4b195732):
+- Updated dependencies [6b8e60827e](https://bitbucket.org/atlassian/atlassian-frontend/commits/6b8e60827e):
+- Updated dependencies [e95a8726e2](https://bitbucket.org/atlassian/atlassian-frontend/commits/e95a8726e2):
+- Updated dependencies [92d04b5c28](https://bitbucket.org/atlassian/atlassian-frontend/commits/92d04b5c28):
+- Updated dependencies [d6eb7bb49f](https://bitbucket.org/atlassian/atlassian-frontend/commits/d6eb7bb49f):
+- Updated dependencies [449ef134b3](https://bitbucket.org/atlassian/atlassian-frontend/commits/449ef134b3):
+- Updated dependencies [22704db5a3](https://bitbucket.org/atlassian/atlassian-frontend/commits/22704db5a3):
+- Updated dependencies [f6667f2909](https://bitbucket.org/atlassian/atlassian-frontend/commits/f6667f2909):
+- Updated dependencies [f7f2068a76](https://bitbucket.org/atlassian/atlassian-frontend/commits/f7f2068a76):
+- Updated dependencies [acc12dba75](https://bitbucket.org/atlassian/atlassian-frontend/commits/acc12dba75):
+- Updated dependencies [9a534d6a74](https://bitbucket.org/atlassian/atlassian-frontend/commits/9a534d6a74):
+- Updated dependencies [167a55fd7a](https://bitbucket.org/atlassian/atlassian-frontend/commits/167a55fd7a):
+- Updated dependencies [1156536403](https://bitbucket.org/atlassian/atlassian-frontend/commits/1156536403):
+- Updated dependencies [5f075c4fd2](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f075c4fd2):
+- Updated dependencies [57c0487a02](https://bitbucket.org/atlassian/atlassian-frontend/commits/57c0487a02):
+- Updated dependencies [a4acc95793](https://bitbucket.org/atlassian/atlassian-frontend/commits/a4acc95793):
+- Updated dependencies [68ff159118](https://bitbucket.org/atlassian/atlassian-frontend/commits/68ff159118):
+- Updated dependencies [1e7e54c20e](https://bitbucket.org/atlassian/atlassian-frontend/commits/1e7e54c20e):
+- Updated dependencies [6efb12e06d](https://bitbucket.org/atlassian/atlassian-frontend/commits/6efb12e06d):
+- Updated dependencies [0059d26429](https://bitbucket.org/atlassian/atlassian-frontend/commits/0059d26429):
+- Updated dependencies [a4d063330a](https://bitbucket.org/atlassian/atlassian-frontend/commits/a4d063330a):
+- Updated dependencies [fd41d77c29](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd41d77c29):
+- Updated dependencies [ca494abcd5](https://bitbucket.org/atlassian/atlassian-frontend/commits/ca494abcd5):
+- Updated dependencies [cf41823165](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf41823165):
+- Updated dependencies [7a2540821c](https://bitbucket.org/atlassian/atlassian-frontend/commits/7a2540821c):
+- Updated dependencies [aec7fbadcc](https://bitbucket.org/atlassian/atlassian-frontend/commits/aec7fbadcc):
+  - @atlaskit/media-picker@54.1.1
+  - @atlaskit/smart-card@13.2.0
+  - @atlaskit/editor-common@45.1.0
+  - @atlaskit/calendar@9.2.7
+  - @atlaskit/media-card@67.2.1
+  - @atlaskit/tooltip@15.2.6
+  - @atlaskit/toggle@8.1.7
+  - @atlaskit/button@13.3.11
+  - @atlaskit/avatar-group@5.1.2
+  - @atlaskit/adf-schema@9.0.1
+  - @atlaskit/datetime-picker@9.4.0
+  - @atlaskit/icon@20.1.1
+  - @atlaskit/select@11.0.10
+  - @atlaskit/logo@12.3.4
+  - @atlaskit/code@11.1.5
+  - @atlaskit/modal-dialog@10.5.7
+  - @atlaskit/avatar@17.1.10
+  - @atlaskit/adf-utils@9.2.0
+  - @atlaskit/renderer@58.0.0
+  - @atlaskit/droplist@10.0.4
+  - @atlaskit/checkbox@10.1.11
+  - @atlaskit/menu@0.4.1
+  - @atlaskit/form@7.2.1
+  - @atlaskit/lozenge@9.1.7
+  - @atlaskit/webdriver-runner@0.3.4
+  - @atlaskit/dropdown-menu@9.0.3
+  - @atlaskit/task-decision@16.0.11
+  - @atlaskit/editor-bitbucket-transformer@6.3.3
+  - @atlaskit/editor-json-transformer@7.0.11
+  - @atlaskit/editor-markdown-transformer@3.1.22
+  - @atlaskit/editor-test-helpers@11.1.1
+
+## 121.0.0
+
+### Major Changes
+
+- [major][823d80f31c](https://bitbucket.org/atlassian/atlassian-frontend/commits/823d80f31c):
+
+  ED-8982 Split annotation UI component into two pieces
+
+  Changed the Editor's `annotationProvider` interface to split the annotation component into two parts. A `createComponent` and `viewComponent`.
+
+  ### Before
+
+  ```
+  <Editor
+    annotationProvider={
+      component: InlineCommentComponent,
+      ...
+    }
+  />
+  ```
+
+  ### After
+
+  See example use case at `packages/editor-core/examples/26-annotation-experiment.tsx`
+
+  ```
+  <Editor
+    annotationProvider={
+      createComponent: CreateInlineCommentComponent,
+      viewComponent: ViewInlineCommentComponent,
+      ...
+    }
+  />
+  ```
+
+  Where `CreateInlineCommentComponent` methods are
+
+  ```
+  /**
+    * Creates an annotation mark in the document with the given id.
+    */
+  onCreate: (id: string) => void;
+
+  /**
+    * Indicates that a draft comment was discarded/cancelled
+    */
+  onClose?: () => void;
+  ```
+
+  Where `ViewInlineCommentComponent` methods are
+
+  ```
+  /**
+    * Resolves an annotation with the given ID around the selection.
+    */
+  onResolve: (id: string) => void;
+
+  /**
+    * Removes the annotation from the document
+    */
+  onDelete?: (id: string) => void;
+  ```
+
+### Minor Changes
+
+- [minor][5d430f7d37](https://bitbucket.org/atlassian/atlassian-frontend/commits/5d430f7d37):
+
+  ED-8517 Add localId support to Extension node
+
+  **BREAKING CHANGE**
+  `ExtensionContent` has been removed.- [minor][7e26fba915](https://bitbucket.org/atlassian/atlassian-frontend/commits/7e26fba915):
+
+  ED-8911 Add ability to create annotation on document from annotation component- [minor][5167f09a83](https://bitbucket.org/atlassian/atlassian-frontend/commits/5167f09a83):
+
+  ED-3504 Add find/replace functionality into the editor
+
+  To enable this set the editor prop `allowFindReplace={true}` and a new search button will appear in the right-hand side of the toolbar
+
+  Click this to open a popup which can be used to find, find next, find previous, replace and replace all. While selection is inside the editor, you can also use the Cmd+f shortcut to open the popup.- [minor][05539b052e](https://bitbucket.org/atlassian/atlassian-frontend/commits/05539b052e):
+
+  Introducing `id` for each quick insert item- [minor][a1ee397cbc](https://bitbucket.org/atlassian/atlassian-frontend/commits/a1ee397cbc):
+
+  Improve quick insert search results with Fuse.js- [minor][dc84dfa3bc](https://bitbucket.org/atlassian/atlassian-frontend/commits/dc84dfa3bc):
+
+  ED-8908 Add floating toolbar for creating inline comments in Editor- [minor][318a1a0f2f](https://bitbucket.org/atlassian/atlassian-frontend/commits/318a1a0f2f):
+
+  EDM-454: Actions in block cards are now behind the flag: showActions- [minor][205b05851a](https://bitbucket.org/atlassian/atlassian-frontend/commits/205b05851a):
+
+  ED-8693: Integrate Config Panel to editor- [minor][3644fc1afe](https://bitbucket.org/atlassian/atlassian-frontend/commits/3644fc1afe):
+
+  Enable slash command on editor-mobile-bridge:
+
+  - All changes under `enableQuickInsert` flag consumed from query parameters.
+  - This PR introduces basic changes in order to test, _THIS IS NOT PRODUCTION READY!_
+  - All quick insert items present under `/` command on web, will be sent to native. Following up with this PR we will implement an opt in approach to define which items will be enabled on mobile only.- [minor][62f1f218d9](https://bitbucket.org/atlassian/atlassian-frontend/commits/62f1f218d9):
+
+  ED-8910 Add transition to open create comment dialogue from floating toolbar- [minor][6eb8c0799f](https://bitbucket.org/atlassian/atlassian-frontend/commits/6eb8c0799f):
+
+  UX enhancements for Config Panel
+
+### Patch Changes
+
+- [patch][2a87a3bbc5](https://bitbucket.org/atlassian/atlassian-frontend/commits/2a87a3bbc5):
+
+  Fix scrolling issue on ios when user clicks in a blank area bellow a paragraph- [patch][cf7a2d7506](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf7a2d7506):
+
+  ED-9010 updated fixture for failing visual test- [patch][759f0a5ca7](https://bitbucket.org/atlassian/atlassian-frontend/commits/759f0a5ca7):
+
+  Remove excluded nodes from quick insert and pass popupmountpoint to datepicker- [patch][bdb4da1fc0](https://bitbucket.org/atlassian/atlassian-frontend/commits/bdb4da1fc0):
+
+  CEMS-974: Fix quick insert not working when depending on editorActions after publlishing and returning to the editor- [patch][c51f0b4c70](https://bitbucket.org/atlassian/atlassian-frontend/commits/c51f0b4c70):
+
+  ED-8775 ED-8777 added simple and complex changes to deleting within lists- [patch][7ec160c0e2](https://bitbucket.org/atlassian/atlassian-frontend/commits/7ec160c0e2):
+
+  ED-8718 reverted unnecessary fixes for ED-8718 we have added previously.- [patch][91ff8d36f0](https://bitbucket.org/atlassian/atlassian-frontend/commits/91ff8d36f0):
+
+  ED-8933: added performance analytics to WithPluginState- [patch][550c4b5018](https://bitbucket.org/atlassian/atlassian-frontend/commits/550c4b5018):
+
+  EDM-501: View Switcher now disabled in parents which cannot support block cards- [patch][03a83cb954](https://bitbucket.org/atlassian/atlassian-frontend/commits/03a83cb954):
+
+  Fix smart link replacing text on insert for toolbar- [patch][e21800fd1c](https://bitbucket.org/atlassian/atlassian-frontend/commits/e21800fd1c):
+
+  ED-8977 Update find/replace colours- [patch][109004a98e](https://bitbucket.org/atlassian/atlassian-frontend/commits/109004a98e):
+
+  Deletes internal package @atlaskit/type-helpers and removes all usages. @atlaskit/type-helpers has been superseded by native typescript helper utilities.- [patch][41917f4c16](https://bitbucket.org/atlassian/atlassian-frontend/commits/41917f4c16):
+
+  ED-8774 ED-8776 added simple and complex cases to backspacing within lists- [patch][91304da441](https://bitbucket.org/atlassian/atlassian-frontend/commits/91304da441):
+
+  allow typeahead sources to always resolve to inline card when adding links from hyperlinktoolbar- [patch][971df84f45](https://bitbucket.org/atlassian/atlassian-frontend/commits/971df84f45):
+
+  ED-8958 Fix hyperlink floating toolbar from being overridden by annotation by changing plugin loading order.- [patch][0ab75c545b](https://bitbucket.org/atlassian/atlassian-frontend/commits/0ab75c545b):
+
+  EDM-229 Fixed image disappearing on resize when cursor is placed above- [patch][67bc25bc3f](https://bitbucket.org/atlassian/atlassian-frontend/commits/67bc25bc3f):
+
+  Move WidthObserver from editor-common to width-detector
+
+  WidthObserver is a more performant version of WidthDetector and should be used going forward.
+
+  ````js
+  import { WidthObserver } from '@atlaskit/width-detector';
+
+  <WidthObserver
+    setWidth={width => console.log(`width has changed to ${width}`)}
+  />;
+  ```- [patch] [5f75dd27c9](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f75dd27c9):
+
+  ED-8943: added performance tracking for ReactNodeView- [patch] [f3587bae11](https://bitbucket.org/atlassian/atlassian-frontend/commits/f3587bae11):
+
+  chore: fix UI nits for block cards- [patch] [287be84065](https://bitbucket.org/atlassian/atlassian-frontend/commits/287be84065):
+
+  EDM-501: Disable view switched when in an unsupported node- [patch] [fb8725beac](https://bitbucket.org/atlassian/atlassian-frontend/commits/fb8725beac):
+
+  Fix checking if the annotation plugin is enabled before accessing its state- Updated dependencies [17cc5dde5d](https://bitbucket.org/atlassian/atlassian-frontend/commits/17cc5dde5d):
+  ````
+
+- Updated dependencies [7e408e4037](https://bitbucket.org/atlassian/atlassian-frontend/commits/7e408e4037):
+- Updated dependencies [6a6a991904](https://bitbucket.org/atlassian/atlassian-frontend/commits/6a6a991904):
+- Updated dependencies [9b2570e7f1](https://bitbucket.org/atlassian/atlassian-frontend/commits/9b2570e7f1):
+- Updated dependencies [04e54bf405](https://bitbucket.org/atlassian/atlassian-frontend/commits/04e54bf405):
+- Updated dependencies [af10890541](https://bitbucket.org/atlassian/atlassian-frontend/commits/af10890541):
+- Updated dependencies [84f82f7015](https://bitbucket.org/atlassian/atlassian-frontend/commits/84f82f7015):
+- Updated dependencies [9f43b9f0ca](https://bitbucket.org/atlassian/atlassian-frontend/commits/9f43b9f0ca):
+- Updated dependencies [c74cc954d8](https://bitbucket.org/atlassian/atlassian-frontend/commits/c74cc954d8):
+- Updated dependencies [b4326a7eba](https://bitbucket.org/atlassian/atlassian-frontend/commits/b4326a7eba):
+- Updated dependencies [6641c9c5b5](https://bitbucket.org/atlassian/atlassian-frontend/commits/6641c9c5b5):
+- Updated dependencies [a81ce649c8](https://bitbucket.org/atlassian/atlassian-frontend/commits/a81ce649c8):
+- Updated dependencies [e4076915c8](https://bitbucket.org/atlassian/atlassian-frontend/commits/e4076915c8):
+- Updated dependencies [6453c8de48](https://bitbucket.org/atlassian/atlassian-frontend/commits/6453c8de48):
+- Updated dependencies [168b5f90e5](https://bitbucket.org/atlassian/atlassian-frontend/commits/168b5f90e5):
+- Updated dependencies [e4dde0ad13](https://bitbucket.org/atlassian/atlassian-frontend/commits/e4dde0ad13):
+- Updated dependencies [16c193eb3e](https://bitbucket.org/atlassian/atlassian-frontend/commits/16c193eb3e):
+- Updated dependencies [f061ed6c98](https://bitbucket.org/atlassian/atlassian-frontend/commits/f061ed6c98):
+- Updated dependencies [4070d17415](https://bitbucket.org/atlassian/atlassian-frontend/commits/4070d17415):
+- Updated dependencies [f5dcc0bc6a](https://bitbucket.org/atlassian/atlassian-frontend/commits/f5dcc0bc6a):
+- Updated dependencies [f5b654c328](https://bitbucket.org/atlassian/atlassian-frontend/commits/f5b654c328):
+- Updated dependencies [5d430f7d37](https://bitbucket.org/atlassian/atlassian-frontend/commits/5d430f7d37):
+- Updated dependencies [7e26fba915](https://bitbucket.org/atlassian/atlassian-frontend/commits/7e26fba915):
+- Updated dependencies [41760ea4a6](https://bitbucket.org/atlassian/atlassian-frontend/commits/41760ea4a6):
+- Updated dependencies [49dbcfa64c](https://bitbucket.org/atlassian/atlassian-frontend/commits/49dbcfa64c):
+- Updated dependencies [e9d555132d](https://bitbucket.org/atlassian/atlassian-frontend/commits/e9d555132d):
+- Updated dependencies [5d8fc8d0ec](https://bitbucket.org/atlassian/atlassian-frontend/commits/5d8fc8d0ec):
+- Updated dependencies [0c270847cb](https://bitbucket.org/atlassian/atlassian-frontend/commits/0c270847cb):
+- Updated dependencies [05539b052e](https://bitbucket.org/atlassian/atlassian-frontend/commits/05539b052e):
+- Updated dependencies [5f8e3caf72](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f8e3caf72):
+- Updated dependencies [318a1a0f2f](https://bitbucket.org/atlassian/atlassian-frontend/commits/318a1a0f2f):
+- Updated dependencies [9691bb8eb9](https://bitbucket.org/atlassian/atlassian-frontend/commits/9691bb8eb9):
+- Updated dependencies [11ff95c0f0](https://bitbucket.org/atlassian/atlassian-frontend/commits/11ff95c0f0):
+- Updated dependencies [c0b8c92b2e](https://bitbucket.org/atlassian/atlassian-frontend/commits/c0b8c92b2e):
+- Updated dependencies [971e294b1e](https://bitbucket.org/atlassian/atlassian-frontend/commits/971e294b1e):
+- Updated dependencies [fb2b3c8a3b](https://bitbucket.org/atlassian/atlassian-frontend/commits/fb2b3c8a3b):
+- Updated dependencies [684ee794d6](https://bitbucket.org/atlassian/atlassian-frontend/commits/684ee794d6):
+- Updated dependencies [ae426d5e97](https://bitbucket.org/atlassian/atlassian-frontend/commits/ae426d5e97):
+- Updated dependencies [692692ba24](https://bitbucket.org/atlassian/atlassian-frontend/commits/692692ba24):
+- Updated dependencies [258a36b51f](https://bitbucket.org/atlassian/atlassian-frontend/commits/258a36b51f):
+- Updated dependencies [109004a98e](https://bitbucket.org/atlassian/atlassian-frontend/commits/109004a98e):
+- Updated dependencies [205b05851a](https://bitbucket.org/atlassian/atlassian-frontend/commits/205b05851a):
+- Updated dependencies [1a48183584](https://bitbucket.org/atlassian/atlassian-frontend/commits/1a48183584):
+- Updated dependencies [845feddce2](https://bitbucket.org/atlassian/atlassian-frontend/commits/845feddce2):
+- Updated dependencies [b9903e773a](https://bitbucket.org/atlassian/atlassian-frontend/commits/b9903e773a):
+- Updated dependencies [823d80f31c](https://bitbucket.org/atlassian/atlassian-frontend/commits/823d80f31c):
+- Updated dependencies [e5c869ee31](https://bitbucket.org/atlassian/atlassian-frontend/commits/e5c869ee31):
+- Updated dependencies [69b678b38c](https://bitbucket.org/atlassian/atlassian-frontend/commits/69b678b38c):
+- Updated dependencies [de6548dae5](https://bitbucket.org/atlassian/atlassian-frontend/commits/de6548dae5):
+- Updated dependencies [286770886d](https://bitbucket.org/atlassian/atlassian-frontend/commits/286770886d):
+- Updated dependencies [9dd4b9088b](https://bitbucket.org/atlassian/atlassian-frontend/commits/9dd4b9088b):
+- Updated dependencies [0b22d3b9ea](https://bitbucket.org/atlassian/atlassian-frontend/commits/0b22d3b9ea):
+- Updated dependencies [fd782b0705](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd782b0705):
+- Updated dependencies [b4ef7fe214](https://bitbucket.org/atlassian/atlassian-frontend/commits/b4ef7fe214):
+- Updated dependencies [2c1b78027c](https://bitbucket.org/atlassian/atlassian-frontend/commits/2c1b78027c):
+- Updated dependencies [d80b8e8fdb](https://bitbucket.org/atlassian/atlassian-frontend/commits/d80b8e8fdb):
+- Updated dependencies [3644fc1afe](https://bitbucket.org/atlassian/atlassian-frontend/commits/3644fc1afe):
+- Updated dependencies [b2402fc3a2](https://bitbucket.org/atlassian/atlassian-frontend/commits/b2402fc3a2):
+- Updated dependencies [d38212e1be](https://bitbucket.org/atlassian/atlassian-frontend/commits/d38212e1be):
+- Updated dependencies [ba8c2c4129](https://bitbucket.org/atlassian/atlassian-frontend/commits/ba8c2c4129):
+- Updated dependencies [17a46dd016](https://bitbucket.org/atlassian/atlassian-frontend/commits/17a46dd016):
+- Updated dependencies [62f1f218d9](https://bitbucket.org/atlassian/atlassian-frontend/commits/62f1f218d9):
+- Updated dependencies [67bc25bc3f](https://bitbucket.org/atlassian/atlassian-frontend/commits/67bc25bc3f):
+- Updated dependencies [89bf723567](https://bitbucket.org/atlassian/atlassian-frontend/commits/89bf723567):
+- Updated dependencies [4aca202534](https://bitbucket.org/atlassian/atlassian-frontend/commits/4aca202534):
+- Updated dependencies [0376c2f4fe](https://bitbucket.org/atlassian/atlassian-frontend/commits/0376c2f4fe):
+- Updated dependencies [6eb8c0799f](https://bitbucket.org/atlassian/atlassian-frontend/commits/6eb8c0799f):
+- Updated dependencies [48fb5a1b6b](https://bitbucket.org/atlassian/atlassian-frontend/commits/48fb5a1b6b):
+- Updated dependencies [8c8f0099d8](https://bitbucket.org/atlassian/atlassian-frontend/commits/8c8f0099d8):
+- Updated dependencies [c28ff17fbd](https://bitbucket.org/atlassian/atlassian-frontend/commits/c28ff17fbd):
+- Updated dependencies [fb3ca3a3b2](https://bitbucket.org/atlassian/atlassian-frontend/commits/fb3ca3a3b2):
+- Updated dependencies [7e363d5aba](https://bitbucket.org/atlassian/atlassian-frontend/commits/7e363d5aba):
+  - @atlaskit/smart-card@13.1.0
+  - @atlaskit/menu@0.4.0
+  - @atlaskit/media-test-helpers@27.2.0
+  - @atlaskit/adf-schema@9.0.0
+  - @atlaskit/adf-utils@9.1.0
+  - @atlaskit/editor-common@45.0.0
+  - @atlaskit/renderer@57.0.0
+  - @atlaskit/docs@8.5.1
+  - @atlaskit/emoji@62.7.2
+  - @atlaskit/modal-dialog@10.5.6
+  - @atlaskit/editor-test-helpers@11.1.0
+  - @atlaskit/datetime-picker@9.3.0
+  - @atlaskit/theme@9.5.3
+  - @atlaskit/media-client@6.1.0
+  - @atlaskit/analytics-listeners@6.3.0
+  - @atlaskit/collab-provider@1.0.0
+  - @atlaskit/media-picker@54.1.0
+  - @atlaskit/analytics-next@6.3.6
+  - @atlaskit/button@13.3.10
+  - @atlaskit/textarea@2.2.7
+  - @atlaskit/width-detector@2.1.0
+  - @atlaskit/media-card@67.2.0
+  - @atlaskit/media-filmstrip@38.0.1
+  - @atlaskit/user-picker@4.2.3
+  - @atlaskit/analytics-namespaced-context@4.2.0
+  - @atlaskit/editor-bitbucket-transformer@6.3.2
+  - @atlaskit/editor-json-transformer@7.0.10
+  - @atlaskit/editor-markdown-transformer@3.1.21
+  - @atlaskit/editor-extension-dropbox@0.1.5
+  - @atlaskit/synchrony-test-helpers@1.0.6
+  - @atlaskit/task-decision@16.0.10
+
 ## 120.1.2
 
 ### Patch Changes

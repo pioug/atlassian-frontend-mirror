@@ -1,7 +1,10 @@
 import React from 'react';
+
 import styled from 'styled-components';
+
 import Button from '@atlaskit/button';
 import WarningIcon from '@atlaskit/icon/glyph/warning';
+
 import Banner from '../src';
 
 interface ItemProps {

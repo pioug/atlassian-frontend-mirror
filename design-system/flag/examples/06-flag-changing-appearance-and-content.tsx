@@ -1,11 +1,14 @@
 import React, { ChangeEvent, Component } from 'react';
+
 import styled from 'styled-components';
-import Spinner from '@atlaskit/spinner';
-import { colors, gridSize } from '@atlaskit/theme';
-import ErrorIcon from '@atlaskit/icon/glyph/error';
-import WarningIcon from '@atlaskit/icon/glyph/warning';
+
 import FieldRadioGroup from '@atlaskit/field-radio-group';
 import SuccessIcon from '@atlaskit/icon/glyph/check-circle';
+import ErrorIcon from '@atlaskit/icon/glyph/error';
+import WarningIcon from '@atlaskit/icon/glyph/warning';
+import Spinner from '@atlaskit/spinner';
+import { colors, gridSize } from '@atlaskit/theme';
+
 import Flag, { FlagGroup } from '../src';
 import { AppearanceArray, AppearanceTypes } from '../src/types';
 

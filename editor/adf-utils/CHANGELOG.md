@@ -1,5 +1,41 @@
 # @atlaskit/adf-utils
 
+## 9.2.0
+
+### Minor Changes
+
+- [minor][1156536403](https://bitbucket.org/atlassian/atlassian-frontend/commits/1156536403):
+
+  Expose missing status node in exports
+
+### Patch Changes
+
+- Updated dependencies [92d04b5c28](https://bitbucket.org/atlassian/atlassian-frontend/commits/92d04b5c28):
+  - @atlaskit/adf-schema@9.0.1
+
+## 9.1.0
+
+### Minor Changes
+
+- [minor][5d430f7d37](https://bitbucket.org/atlassian/atlassian-frontend/commits/5d430f7d37):
+
+  ED-8517 Add localId support to Extension node
+
+  **BREAKING CHANGE**
+  `ExtensionContent` has been removed.
+
+### Patch Changes
+
+- [patch][04e54bf405](https://bitbucket.org/atlassian/atlassian-frontend/commits/04e54bf405):
+
+  EDM-500: Allow blockCard inside Panel- Updated dependencies [04e54bf405](https://bitbucket.org/atlassian/atlassian-frontend/commits/04e54bf405):
+
+- Updated dependencies [9f43b9f0ca](https://bitbucket.org/atlassian/atlassian-frontend/commits/9f43b9f0ca):
+- Updated dependencies [168b5f90e5](https://bitbucket.org/atlassian/atlassian-frontend/commits/168b5f90e5):
+- Updated dependencies [5d430f7d37](https://bitbucket.org/atlassian/atlassian-frontend/commits/5d430f7d37):
+  - @atlaskit/adf-schema@9.0.0
+  - @atlaskit/docs@8.5.1
+
 ## 9.0.0
 
 ### Major Changes

@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
-import Select, { ValueType, OptionType, StylesConfig } from '@atlaskit/select';
+
+import Select, { OptionType, StylesConfig, ValueType } from '@atlaskit/select';
 
 const styles: StylesConfig = {
   container: base => ({

@@ -1,15 +1,19 @@
 import React, { PureComponent } from 'react';
-import { Grid } from '@atlaskit/page';
+
 import { ThemeProvider } from 'styled-components';
-import ProgressTrackerStage from '../ProgressTrackerStage';
-import { ProgressTrackerContainer } from './styled';
+
+import { Grid } from '@atlaskit/page';
+
 import ProgressTrackerLink from '../ProgressTrackerLink';
+import ProgressTrackerStage from '../ProgressTrackerStage';
 import {
-  Stages,
-  Spacing,
   LinkComponentProps,
   ProgressTrackerStageRenderProp,
+  Spacing,
+  Stages,
 } from '../types';
+
+import { ProgressTrackerContainer } from './styled';
 
 export interface ProgressTrackerProps {
   /** Ordered list of stage data */

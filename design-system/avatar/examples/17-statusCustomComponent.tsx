@@ -1,7 +1,9 @@
 import React from 'react';
+
 import styled from 'styled-components';
-import Avatar from '../src';
+
 import { Block } from '../examples-util/helpers';
+import Avatar from '../src';
 
 const DivPresence = styled.div`
   align-items: center;

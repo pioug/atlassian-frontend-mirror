@@ -1,11 +1,12 @@
 import React, { ReactNode } from 'react';
+
 import {
-  Rating,
-  Comment,
-  Role,
   AllowContact,
+  Comment,
   NPSResult,
-} from './../../src/components/NPS';
+  Rating,
+  Role,
+} from '../../src/components/NPS';
 
 interface Props {
   children: (args: {

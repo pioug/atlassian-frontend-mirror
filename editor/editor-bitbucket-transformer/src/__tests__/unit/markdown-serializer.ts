@@ -882,7 +882,7 @@ describe('BitbucketTransformer: serializer', () => {
         expect(
           markdownSerializer.serialize(doc(p(inlineCardDoc))(defaultSchema)),
         ).toEqual(
-          `<a data-inline-card="" href=https://hello.atlassian.net/wiki/spaces/WPT/pages/442895750/Forge >https://hello.atlassian.net/wiki/spaces/WPT/pages/442895750/Forge</a>`,
+          `[https://hello.atlassian.net/wiki/spaces/WPT/pages/442895750/Forge](https://hello.atlassian.net/wiki/spaces/WPT/pages/442895750/Forge){: data-inline-card='' }`,
         );
       });
     });

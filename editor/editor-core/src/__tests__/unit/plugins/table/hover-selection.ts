@@ -1,4 +1,4 @@
-import { DecorationSet, EditorView } from 'prosemirror-view';
+import { EditorView } from 'prosemirror-view';
 import {
   getCellsInColumn,
   getCellsInRow,
@@ -26,10 +26,8 @@ import {
   TableDecorations,
   TableCssClassName as ClassName,
 } from '../../../../plugins/table/types';
-import {
-  getPluginState,
-  pluginKey,
-} from '../../../../plugins/table/pm-plugins/plugin-factory';
+import { pluginKey } from '../../../../plugins/table/pm-plugins/plugin-factory';
+import { getDecorations } from '../../../../plugins/table/pm-plugins/decorations/plugin';
 
 describe('table hover selection plugin', () => {
   const createEditor = createEditorFactory<TablePluginState>();
@@ -46,9 +44,7 @@ describe('table hover selection plugin', () => {
     cells: Array<{ pos: number }>,
     key?: TableDecorations,
   ) => {
-    const { decorationSet }: { decorationSet: DecorationSet } = getPluginState(
-      editorView.state,
-    );
+    const decorationSet = getDecorations(editorView.state);
 
     if (key) {
       return decorationSet.find(

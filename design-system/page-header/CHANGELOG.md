@@ -1,5 +1,25 @@
 # @atlaskit/page-header
 
+## 9.0.19
+
+### Patch Changes
+
+- [patch][45dcd1ca21](https://bitbucket.org/atlassian/atlassian-frontend/commits/45dcd1ca21):
+
+  Change imports to comply with Atlassian conventions- Updated dependencies [443bb984ab](https://bitbucket.org/atlassian/atlassian-frontend/commits/443bb984ab):
+
+- Updated dependencies [6b8e60827e](https://bitbucket.org/atlassian/atlassian-frontend/commits/6b8e60827e):
+- Updated dependencies [449ef134b3](https://bitbucket.org/atlassian/atlassian-frontend/commits/449ef134b3):
+- Updated dependencies [57c0487a02](https://bitbucket.org/atlassian/atlassian-frontend/commits/57c0487a02):
+- Updated dependencies [71c1de8ee1](https://bitbucket.org/atlassian/atlassian-frontend/commits/71c1de8ee1):
+- Updated dependencies [ffe88383f4](https://bitbucket.org/atlassian/atlassian-frontend/commits/ffe88383f4):
+- Updated dependencies [6efb12e06d](https://bitbucket.org/atlassian/atlassian-frontend/commits/6efb12e06d):
+  - @atlaskit/page@11.0.13
+  - @atlaskit/button@13.3.11
+  - @atlaskit/select@11.0.10
+  - @atlaskit/breadcrumbs@9.2.9
+  - @atlaskit/inline-edit@10.0.31
+
 ## 9.0.18
 
 ### Patch Changes

@@ -1,11 +1,14 @@
 import React, { FC } from 'react';
-import GlobalTheme from '@atlaskit/theme/components';
-import { ThemeProp } from '@atlaskit/theme/components';
-import { GlobalThemeTokens } from '@atlaskit/theme/components';
+
+import GlobalTheme, {
+  GlobalThemeTokens,
+  ThemeProp,
+} from '@atlaskit/theme/components';
+
+import { Theme, ThemeAppearance, ThemeProps, ThemeTokens } from '../theme';
 
 import Container from './Container';
 import Format from './Format';
-import { Theme, ThemeAppearance, ThemeProps, ThemeTokens } from '../theme';
 
 export interface BadgeProps {
   /** Affects the visual style of the badge. */
@@ -15,7 +18,7 @@ export interface BadgeProps {
    * Supersedes the `value` props. The value displayed within the badge. A string can be provided for
    * custom-formatted numbers, however badge should only be used in cases where you want to represent
    * a number.
-   * Use a [lozenge](/packages/core/lozenge) for non-numeric information.
+   * Use a [lozenge](/packages/design-system/lozenge) for non-numeric information.
    */
   children?: number | string;
 

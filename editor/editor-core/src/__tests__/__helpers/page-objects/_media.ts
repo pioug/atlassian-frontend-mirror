@@ -14,6 +14,7 @@ import { mediaSingleClassName } from '@atlaskit/editor-common';
 import { MediaPickerPageObject } from '@atlaskit/media-integration-test-helpers';
 import Page, { BrowserObject } from '@atlaskit/webdriver-runner/wd-wrapper';
 import { messages as insertBlockMessages } from '../../../plugins/insert-block/ui/ToolbarInsertBlock/messages';
+import { KEY } from './_keyboard';
 
 export enum MediaLayout {
   center,
@@ -260,13 +261,9 @@ export class FullPageEditor extends Page {
   }
 
   async openMediaPicker() {
-    const openMediaPopup = `[aria-label="${insertBlockMessages.filesAndImages.defaultMessage}"]`;
+    const openMediaPopup = `button:enabled [aria-label="${insertBlockMessages.filesAndImages.defaultMessage}"]`;
     // wait for media button in toolbar
     await this.waitForSelector(openMediaPopup);
-    await this.waitUntil(
-      async () =>
-        (await this.getAttribute(openMediaPopup, 'disabled')) === null,
-    );
     await this.pause(300);
     await this.click(openMediaPopup);
     // wait for media picker popup
@@ -276,5 +273,20 @@ export class FullPageEditor extends Page {
   async publish() {
     await this.click('[data-testid="publish-button"]');
     await this.isVisible('[data-testid="edit-button"]');
+    await this.pause(300);
+  }
+
+  async edit() {
+    await this.click('[data-testid="edit-button"]');
+    await this.isVisible('[data-testid="publish-button"]');
+    await this.waitForSelector('.ProseMirror', { timeout: 10000 });
+  }
+
+  async clearEditor() {
+    await this.click('.ProseMirror');
+    const modifierKey = this.isWindowsPlatform() ? KEY.CONTROL : KEY.META;
+    await this.keys([modifierKey, 'a'], true);
+    await this.keys([modifierKey], true); //WebdriverIo requires the explict unpressing of modifier keys
+    await this.keys(['Backspace'], true);
   }
 }

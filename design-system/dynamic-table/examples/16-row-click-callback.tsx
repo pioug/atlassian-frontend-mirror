@@ -1,7 +1,9 @@
 import React from 'react';
+
 import { DynamicTableStateless } from '../src';
-import { head, rows as allRows } from './content/sample-data';
 import { RankEnd, RowType } from '../src/types';
+
+import { rows as allRows, head } from './content/sample-data';
 
 const rows = allRows.slice(0, 10);
 

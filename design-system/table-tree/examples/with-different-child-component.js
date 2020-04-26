@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
+
 import EmptyState from '@atlaskit/empty-state';
-import exampleImage from './img/example-image.png';
+
 import TableTree, {
-  Headers,
-  Header,
-  Rows,
-  Row,
   Cell,
+  Header,
+  Headers,
+  Row,
+  Rows,
   TableTreeDataHelper,
 } from '../src';
+
+import exampleImage from './img/example-image.png';
 
 let uuid = 0;
 

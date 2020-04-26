@@ -1,4 +1,5 @@
 export default [
+  'blockCard',
   'paragraph_with_no_marks',
   'paragraph_with_alignment',
   'bulletList',
@@ -14,9 +15,8 @@ export default [
   'mediaGroup',
   'decisionList',
   'taskList',
-  'table',
   'extension',
-  'bodiedExtension',
+  'table',
   'expand_with_no_mark',
-  'blockCard',
+  'bodiedExtension',
 ];

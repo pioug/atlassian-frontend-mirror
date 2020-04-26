@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import { B50 } from '@atlaskit/theme/colors';
+import { FormattedMessage } from 'react-intl';
 
 import { Frame } from '../components/Frame';
 import { Thumbnail } from '../components/Thumbnail';
@@ -10,13 +11,23 @@ import { Byline } from '../components/Byline';
 import { ActionList } from '../components/ActionList';
 import { Content } from '../components/Content';
 import { ActionProps } from '../components/Action';
-import { containerCentredStyles, CelebrationImage } from '../utils/constants';
+import { messages } from '../../messages';
+import { CelebrationImage } from '../utils/constants';
+import { ContentFooter } from '../components/ContentFooter';
+import { IconProps, Icon } from '../components/Icon';
+
+const textNameProps = { ...messages.connect_link_account_card_name };
+const textBylineProps = { ...messages.connect_link_account_card_description };
 
 export interface UnauthorizedViewProps {
   actions: ActionProps[];
-  context?: { icon?: string; text: string };
+  context?: { icon?: React.ReactNode; text: string };
   isSelected?: boolean;
   testId?: string;
+  showActions?: boolean;
+  icon: IconProps;
+  link?: string;
+  onClick?: React.EventHandler<React.MouseEvent | React.KeyboardEvent>;
 }
 
 export const UnauthorizedView = ({
@@ -24,25 +35,46 @@ export const UnauthorizedView = ({
   isSelected = false,
   actions = [],
   testId,
+  showActions = true,
+  icon = {},
+  link = '',
+  onClick = () => {},
 }: UnauthorizedViewProps) => {
   return (
     <Frame isSelected={isSelected} testId={testId}>
       <Content>
         <div>
-          <Name
-            testId={testId ? `${testId}-name` : undefined}
-            name="Get more out of your links"
-            isLeftPadded={false}
-          />
+          <a
+            onClick={onClick}
+            href={link}
+            target="_blank"
+            css={{ display: 'flex', alignItems: 'flex-start' }}
+          >
+            <Icon {...icon} />
+            <Name
+              testId={testId ? `${testId}-name` : undefined}
+              name={
+                <FormattedMessage
+                  {...textNameProps}
+                  values={{ context: context.text }}
+                />
+              }
+            />
+          </a>
           <Byline
             testId={testId ? `${testId}-byline` : undefined}
-            text={`Make these link previews more breathtaking by connecting ${context.text} to your Atlassian products.`}
+            text={
+              <FormattedMessage
+                {...textBylineProps}
+                values={{ context: context.text }}
+              />
+            }
           />
         </div>
-        <div css={containerCentredStyles}>
-          <Provider name={context.text} iconUrl={context.icon} />
-          <ActionList items={actions} />
-        </div>
+        <ContentFooter>
+          <Provider name={context.text} icon={context.icon} />
+          {showActions && <ActionList items={actions} />}
+        </ContentFooter>
       </Content>
       <Thumbnail
         src={CelebrationImage}

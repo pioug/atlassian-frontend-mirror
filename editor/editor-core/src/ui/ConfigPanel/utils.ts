@@ -58,7 +58,3 @@ export const getOptionFromValue = (
 
   return options.find(option => value === option.value);
 };
-
-export const isNativeFieldType = (fieldType: string) => {
-  return /^(enum|string|number|boolean|date)$/.test(fieldType);
-};

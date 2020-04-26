@@ -1,6 +1,9 @@
 import React from 'react';
+
 import styled from 'styled-components';
+
 import { borderRadius, colors } from '@atlaskit/theme';
+
 import Badge from '../src';
 
 interface ItemProps {

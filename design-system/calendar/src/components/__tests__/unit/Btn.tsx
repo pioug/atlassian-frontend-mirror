@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { mount } from 'enzyme';
+
 import Button from '@atlaskit/button';
 import ArrowleftIcon from '@atlaskit/icon/glyph/chevron-left-large';
 

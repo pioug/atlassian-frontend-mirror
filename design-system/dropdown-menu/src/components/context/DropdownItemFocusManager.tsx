@@ -1,8 +1,10 @@
-import React, { Component, ReactNode, MouseEvent, KeyboardEvent } from 'react';
+import React, { Component, KeyboardEvent, MouseEvent, ReactNode } from 'react';
+
 import PropTypes from 'prop-types';
+
+import { FocusItem, ItemId } from '../../types';
 import { focusManagerContext } from '../../util/contextNamespace';
-import { ItemId, FocusItem } from '../../types';
-import { KEY_DOWN, KEY_UP, KEY_TAB } from '../../util/keys';
+import { KEY_DOWN, KEY_TAB, KEY_UP } from '../../util/keys';
 
 interface Props {
   /** Causes first registered item to receive focus */

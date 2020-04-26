@@ -6,7 +6,7 @@ import {
 describe('Snapshot Test', () => {
   it('Appearance variations should match production example', async () => {
     const url = getExampleUrl(
-      'core',
+      'design-system',
       'section-message',
       'appearance-variations',
 

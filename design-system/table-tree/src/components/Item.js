@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import Items from './Items';
+
 import toItemId from '../utils/toItemId';
+
+import Items from './Items';
 
 export default class Item extends Component {
   static defaultProps = {

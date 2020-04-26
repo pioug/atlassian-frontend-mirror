@@ -11,7 +11,12 @@ const overflowMenuContentSelector =
 describe('avatar group override snapshots', () => {
   it('should match the snapshot of the customized overflow menu', async () => {
     const { __BASEURL__, page } = global as any;
-    const url = getExampleUrl('core', 'avatar-group', 'overrides', __BASEURL__);
+    const url = getExampleUrl(
+      'design-system',
+      'avatar-group',
+      'overrides',
+      __BASEURL__,
+    );
 
     await page.goto(url);
     await page.waitForSelector(overflowMenuTriggerSelector);

@@ -1,37 +1,52 @@
-import { name } from '../../../version.json';
 import Ajv from 'ajv';
+
 import { readFilesSync } from '../../../../test-helpers';
+import { name } from '../../../version.json';
+import v1SchemaFull from '../../../../json-schema/v1/full.json';
+import v1SchemaStage0 from '../../../../json-schema/v1/stage-0.json';
 
-import v1schemaFull from '../../../../json-schema/v1/full.json';
-import v1schemaStage0 from '../../../../json-schema/v1/stage-0.json';
-
-const ajv = new Ajv();
-
-const schemas = {
-  full: v1schemaFull,
-  'stage-0': v1schemaStage0,
-};
+const ajv = new Ajv({ jsonPointers: true });
 
 describe(`${name} json-schema v1`, () => {
-  Object.keys(schemas).map(schemaName => {
-    let invalid: { name: string; data: any }[] = [];
-    let valid: { name: string; data: any }[] = [];
-    const schema = schemas[schemaName as keyof typeof schemas];
-    const validate = ajv.compile(schema);
-    valid = readFilesSync(`${__dirname}/v1-reference/${schemaName}/valid`);
-    invalid = readFilesSync(`${__dirname}/v1-reference/${schemaName}/invalid`);
-    describe(schemaName, () => {
-      for (let file of valid) {
-        it(`validates '${file.name}'`, () => {
-          validate(file.data);
-          expect(validate.errors).toEqual(null);
-        });
-      }
-      for (let file of invalid) {
-        it(`does not validate '${file.name}'`, () => {
-          expect(validate(file.data)).toEqual(false);
-        });
-      }
-    });
+  const validateFull = ajv.compile(v1SchemaFull);
+  const validateStage0 = ajv.compile(v1SchemaStage0);
+
+  const valid = readFilesSync(`${__dirname}/v1-reference/full/valid`);
+  describe('full', () => {
+    for (const file of valid) {
+      it(`validates '${file.name}'`, () => {
+        validateFull(file.data);
+        expect(validateFull.errors).toEqual(null);
+        // Valid `full` use cases should be valid against `stage-0` schema
+        validateStage0(file.data);
+        expect(validateStage0.errors).toEqual(null);
+      });
+    }
+
+    const invalid = readFilesSync(`${__dirname}/v1-reference/full/invalid`);
+    for (const file of invalid) {
+      it(`does not validate '${file.name}'`, () => {
+        expect(validateFull(file.data)).toEqual(false);
+      });
+    }
+  });
+
+  describe('stage-0', () => {
+    const valid = readFilesSync(`${__dirname}/v1-reference/stage-0/valid`);
+    for (const file of valid) {
+      it(`validates '${file.name}'`, () => {
+        validateStage0(file.data);
+        expect(validateStage0.errors).toEqual(null);
+        // Valid `stage-0` use cases should be invalid against `full` schema
+        expect(validateFull(file.data)).toEqual(false);
+      });
+    }
+
+    const invalid = readFilesSync(`${__dirname}/v1-reference/stage-0/invalid`);
+    for (const file of invalid) {
+      it(`does not validate '${file.name}'`, () => {
+        expect(validateStage0(file.data)).toEqual(false);
+      });
+    }
   });
 });

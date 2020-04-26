@@ -1,6 +1,9 @@
-import moment from 'moment';
 import React from 'react';
+
+import moment from 'moment';
+
 import { Label } from '@atlaskit/field-base';
+
 import { DatePicker } from '../src';
 
 const parseInputValue = (date: string, dateFormat: string) => {

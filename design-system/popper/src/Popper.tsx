@@ -1,10 +1,12 @@
 import React from 'react';
+
 import memoizeOne from 'memoize-one';
 import {
-  Popper as ReactPopper,
   PopperChildrenProps,
   PopperProps,
+  Popper as ReactPopper,
 } from 'react-popper';
+
 import { Placement } from './types';
 
 export { Manager, Reference } from 'react-popper';

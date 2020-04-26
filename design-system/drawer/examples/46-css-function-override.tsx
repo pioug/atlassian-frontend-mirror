@@ -1,10 +1,12 @@
 /** @jsx jsx */
 
 import { Component, SyntheticEvent } from 'react';
-import { jsx } from '@emotion/core';
-import { CSSObject } from '@emotion/core';
+
+import { CSSObject, jsx } from '@emotion/core';
+
 import Button from '@atlaskit/button';
-import { N0, R400, Y400, G400, B400, P400, T400 } from '@atlaskit/theme/colors';
+import { B400, G400, N0, P400, R400, T400, Y400 } from '@atlaskit/theme/colors';
+
 import Drawer from '../src';
 
 interface State {

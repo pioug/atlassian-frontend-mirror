@@ -1,7 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+
 import Button from '@atlaskit/button';
-import { ButtonItem, PopupMenuGroup, Section } from '../src';
 import { colors } from '@atlaskit/theme';
+
+import { ButtonItem, PopupMenuGroup, Section } from '../src';
+
 import Yeti from './icons/yeti.png';
 
 const ImgIcon = ({ src, alt }: { src: string; alt: string }) => (
@@ -55,7 +58,7 @@ export default () => {
         <PopupMenuGroup>
           <Section>
             <ButtonItem
-              elemBefore={<ImgIcon src={Yeti} alt={'Yeti'} />}
+              iconBefore={<ImgIcon src={Yeti} alt={'Yeti'} />}
               description={fullText.slice(0, textIndex + 12)}
             >
               Spacecraft

@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
+
 import { mount, render, shallow } from 'enzyme';
+
 import { NavigationAnalyticsContext } from '@atlaskit/analytics-namespaced-context';
 
 import {
   GLOBAL_NAV_WIDTH,
   HORIZONTAL_GLOBAL_NAV_HEIGHT,
 } from '../../../../../common/constants';
-
 import ContentNavigation from '../../../ContentNavigation';
 import { ContainerNavigationMask } from '../../../ContentNavigation/primitives';
-import LayoutManager from '../../LayoutManager';
 import ResizeTransition from '../../../ResizeTransition';
-
 import { LayoutEventListener } from '../../LayoutEvent';
+import LayoutManager from '../../LayoutManager';
 import { ComposedGlobalNavigation } from '../../nav-components';
 import {
   HorizontalNavigationContainer,

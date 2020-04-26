@@ -9,8 +9,9 @@ import {
   InlineCardUnauthorizedView,
 } from '@atlaskit/media-ui';
 import { InlineCardProps } from './types';
-import { extractInlinePropsFromJSONLD } from '../../extractors/inline';
-import { getCollapsedIcon } from '../../utils';
+import { getCollapsedIcon, getEmptyJsonLd } from '../../utils';
+import { extractInlineProps } from '../../extractors/inline';
+import { JsonLd } from 'json-ld-types';
 
 export const InlineCard: FC<InlineCardProps> = ({
   url,
@@ -42,8 +43,8 @@ export const InlineCard: FC<InlineCardProps> = ({
         />
       );
     case 'resolved':
-      const props = extractInlinePropsFromJSONLD(
-        (details && details.data) || {},
+      const props = extractInlineProps(
+        (details && (details.data as JsonLd.Data.BaseData)) || getEmptyJsonLd(),
       );
 
       if (onResolve) {

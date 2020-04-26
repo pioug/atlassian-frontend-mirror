@@ -1,12 +1,14 @@
 import React, { Component, Fragment } from 'react';
+
 import Button from '@atlaskit/button';
 import TextField from '@atlaskit/textfield';
+
 import Form, {
-  Field,
   ErrorMessage,
+  Field,
+  FormFooter,
   HelperMessage,
   ValidMessage,
-  FormFooter,
 } from '../src';
 
 interface FormData {

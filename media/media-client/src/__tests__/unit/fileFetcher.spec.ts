@@ -67,10 +67,11 @@ describe('FileFetcher', () => {
       },
     });
     const mediaClient = fakeMediaClient();
+    const getItems = jest.fn().mockReturnValue(itemsResponse);
     const mediaStore = {
       ...mediaClient.mediaStore,
       getFileBinaryURL: jest.fn(),
-      getItems: jest.fn().mockReturnValue(itemsResponse),
+      getItems,
     } as any;
     const fileFetcher = new FileFetcherImpl(mediaStore);
 
@@ -244,6 +245,102 @@ describe('FileFetcher', () => {
           [items[0].id, items[1].id, items[2].id],
           undefined,
         ]);
+        done();
+      });
+    });
+
+    it('should handle failures when fetching items', async done => {
+      const { fileFetcher, mediaStore, items } = setup();
+      const next = jest.fn();
+      const error = jest.fn();
+
+      mediaStore.getItems.mockImplementation((_: any, collection: string) => {
+        // We want to make one of the /items call to fail
+        if (collection === 'collection-1') {
+          return Promise.reject();
+        }
+
+        return Promise.resolve({
+          data: {
+            items: [items[2]],
+          },
+        });
+      });
+
+      fileFetcher
+        .getFileState(items[0].id, { collectionName: items[0].collection })
+        .subscribe({
+          error,
+        });
+
+      fileFetcher
+        .getFileState(items[2].id, { collectionName: items[2].collection })
+        .subscribe({
+          next,
+        });
+
+      setImmediate(() => {
+        expect(error).toBeCalledTimes(1);
+        expect(next).toBeCalledTimes(1);
+        expect(mediaStore.getItems).toHaveBeenCalledTimes(2);
+        expect(error).toBeCalledWith({
+          id: items[0].id,
+          collection: items[0].collection,
+          error: expect.any(Error),
+        });
+        expect(next).toBeCalledWith({
+          artifacts: undefined,
+          id: items[2].id,
+          mediaType: undefined,
+          mimeType: undefined,
+          name: 'file-3',
+          representations: undefined,
+          size: undefined,
+          status: 'processing',
+        });
+
+        done();
+      });
+    });
+
+    it('should return processing file state for empty files', async done => {
+      const { fileFetcher, mediaStore, items } = setup();
+      const next = jest.fn();
+      const error = jest.fn();
+
+      mediaStore.getItems.mockReturnValue({
+        data: {
+          items: [
+            {
+              id: items[0].id,
+              collection: items[0].collection,
+              details: {},
+            },
+          ],
+        },
+      });
+
+      fileFetcher
+        .getFileState(items[0].id, { collectionName: items[0].collection })
+        .subscribe({
+          next,
+          error,
+        });
+
+      setImmediate(() => {
+        expect(next).toBeCalledTimes(1);
+        expect(error).toBeCalledTimes(0);
+        expect(next).toBeCalledWith({
+          artifacts: undefined,
+          id: items[0].id,
+          mediaType: undefined,
+          mimeType: undefined,
+          name: undefined,
+          representations: undefined,
+          size: undefined,
+          status: 'processing',
+        });
+
         done();
       });
     });

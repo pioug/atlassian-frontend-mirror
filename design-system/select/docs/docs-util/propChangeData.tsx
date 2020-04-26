@@ -86,7 +86,7 @@ export const propChanges = [
       the items prop has been deprecated, instead @atlaskit/select exposes an options prop
       that is much less prescriptive in regards to its expected shape.
       For more details on usage, and how to implement behaviour previously afforded by the items prop
-      please see the [Options](/packages/core/select/docs/upgrade-guide#options) section of this upgrade guide.
+      please see the [Options](/packages/design-system/select/docs/upgrade-guide#options) section of this upgrade guide.
     `,
     packages: ['single', 'multi'],
   },
@@ -269,7 +269,7 @@ and ActionMeta is of the type object with the following shape
     label: '',
     content: md`
       onNewItemCreated is no longer a supported prop, as we now export a CreatableSelect component.
-      Please see the following [example](/examples/core/select/creatable-select) for usage, and the react-select [docs](https://deploy-preview-2289--react-select.netlify.com/props#creatable-props) for more detailed prop information.
+      Please see the following [example](/examples/design-system/select/creatable-select) for usage, and the react-select [docs](https://deploy-preview-2289--react-select.netlify.com/props#creatable-props) for more detailed prop information.
     `,
     packages: ['multi'],
   },
@@ -279,7 +279,7 @@ and ActionMeta is of the type object with the following shape
     label: '',
     content: md`
       shouldAllowCreateItem is no longer a supported prop, as we now export a CreatableSelect component.
-      Please see the following [example](/examples/core/select/creatable-select) for usage, and the react-select [docs](https://deploy-preview-2289--react-select.netlify.com/props#creatable-props) for more detailed prop information.
+      Please see the following [example](/examples/design-system/select/creatable-select) for usage, and the react-select [docs](https://deploy-preview-2289--react-select.netlify.com/props#creatable-props) for more detailed prop information.
     `,
     packages: ['multi'],
   },

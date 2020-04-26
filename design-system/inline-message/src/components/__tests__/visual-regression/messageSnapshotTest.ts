@@ -6,7 +6,7 @@ import {
 describe('Snapshot Test', () => {
   it('Inline message basic should match production example', async () => {
     const url = getExampleUrl(
-      'core',
+      'design-system',
       'inline-message',
       'basic',
 
@@ -18,7 +18,7 @@ describe('Snapshot Test', () => {
   });
   it('Inline message different-types should match production example', async () => {
     const url = getExampleUrl(
-      'core',
+      'design-system',
       'inline-message',
       'different-types',
 

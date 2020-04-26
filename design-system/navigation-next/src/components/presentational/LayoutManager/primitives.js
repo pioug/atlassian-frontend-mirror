@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { layers } from '@atlaskit/theme/constants';
 
 export const LayoutContainer = ({ topOffset = 0, ...props }) => {

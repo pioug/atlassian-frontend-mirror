@@ -7,10 +7,7 @@ import rafSchedule from 'raf-schd';
 
 import { SmartCardProps, Card } from './genericCard';
 import UnsupportedBlockNode from '../../unsupported-content/nodeviews/unsupported-block';
-import {
-  SelectionBasedNodeView,
-  getPosHandler,
-} from '../../../nodeviews/ReactNodeView';
+import { SelectionBasedNodeView, getPosHandler } from '../../../nodeviews/';
 import { registerCard } from '../pm-plugins/actions';
 
 export interface Props {
@@ -49,7 +46,7 @@ export class BlockCardComponent extends React.PureComponent<SmartCardProps> {
   };
 
   render() {
-    const { node, selected, cardContext } = this.props;
+    const { node, selected, cardContext, isMobile } = this.props;
     const { url, data } = node.attrs;
 
     // render an empty span afterwards to get around Webkit bug
@@ -63,6 +60,7 @@ export class BlockCardComponent extends React.PureComponent<SmartCardProps> {
           isSelected={selected}
           onClick={this.onClick}
           onResolve={this.onResolve}
+          showActions={!isMobile}
         />
         <span contentEditable={true} />
       </>
@@ -92,6 +90,7 @@ export class BlockCard extends SelectionBasedNodeView {
         selected={this.insideSelection()}
         view={this.view}
         getPos={this.getPos}
+        isMobile={!!this.reactComponentProps.isMobile}
       />
     );
   }

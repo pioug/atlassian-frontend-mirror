@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/theme",
-  "version": "9.5.2",
+  "version": "9.5.3",
   "description": "The Atlaskit theme framework",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -31,8 +31,8 @@
   },
   "devDependencies": {
     "@atlaskit/build-utils": "^2.2.5",
-    "@atlaskit/button": "^13.3.7",
-    "@atlaskit/docs": "^8.3.2",
+    "@atlaskit/button": "^13.3.10",
+    "@atlaskit/docs": "^8.5.1",
     "@atlaskit/lozenge": "^9.1.4",
     "@atlaskit/section-message": "^4.1.5",
     "@atlaskit/ssr": "^0.1.1",

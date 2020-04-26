@@ -1,10 +1,12 @@
 /** @jsx jsx */
-import { jsx, CSSObject } from '@emotion/core';
-import { forwardRef, Ref, DragEventHandler } from 'react';
+import { DragEventHandler, forwardRef, Ref } from 'react';
 
-import { linkItemCSS } from './styles';
+import { CSSObject, jsx } from '@emotion/core';
+
 import { LinkItemProps } from '../types';
+
 import BaseItem from './base-item';
+import { linkItemCSS } from './styles';
 
 const preventEvent: DragEventHandler = e => {
   e.preventDefault();
@@ -17,8 +19,8 @@ const LinkItem = forwardRef<HTMLElement, LinkItemProps>(
       children,
       cssFn = (currentStyles: CSSObject) => currentStyles,
       description,
-      elemAfter,
-      elemBefore,
+      iconAfter,
+      iconBefore,
       isDisabled = false,
       isSelected = false,
       onClick,
@@ -49,8 +51,8 @@ const LinkItem = forwardRef<HTMLElement, LinkItemProps>(
       >
         <BaseItem
           overrides={overrides}
-          elemBefore={elemBefore}
-          elemAfter={elemAfter}
+          iconBefore={iconBefore}
+          iconAfter={iconAfter}
           description={description}
         >
           {children}

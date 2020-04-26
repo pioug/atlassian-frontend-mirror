@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import Avatar from '@atlaskit/avatar';
 
 import { withContentTheme } from '../../../theme';

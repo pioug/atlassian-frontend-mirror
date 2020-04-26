@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { PopupSelect } from '@atlaskit/select';
+
 import ModalDialog from '../src';
 
 const options = [

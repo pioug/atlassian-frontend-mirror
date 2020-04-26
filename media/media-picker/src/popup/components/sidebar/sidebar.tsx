@@ -1,14 +1,14 @@
 import React from 'react';
 import { Component } from 'react';
 import { connect } from 'react-redux';
-import UploadIcon from '@atlaskit/icon/glyph/upload';
 import DropboxIcon from '@atlaskit/icon/glyph/dropbox';
 import GoogleDriveIcon from '@atlaskit/icon/glyph/googledrive';
+import GiphySidebarItem from './item/giphySidebarItem';
+import UploadIcon from '@atlaskit/icon/glyph/upload';
 import { FormattedMessage } from 'react-intl';
 import { messages } from '@atlaskit/media-ui';
 import { State } from '../../domain';
 import SidebarItem from './item/sidebarItem';
-import GiphySidebarItem from './item/giphySidebarItem';
 import { Wrapper, ServiceList, Separator, SeparatorLine } from './styled';
 import { MediaPickerPlugin } from '../../../domain/plugin';
 
@@ -43,25 +43,13 @@ export class StatelessSidebar extends Component<SidebarProps> {
     );
   }
 
-  private getCloudPickingSidebarItems = () => {
-    const { selected, plugins = [] } = this.props;
-    const pluginItems = plugins.map(({ name, icon }) => {
-      return (
-        <SidebarItem
-          key={name}
-          serviceName={name}
-          serviceFullName={name}
-          isActive={selected === name}
-        >
-          {icon}
-        </SidebarItem>
-      );
-    });
+  private renderBuiltInPlugins = () => {
+    const { selected, useForgePlugins } = this.props;
+    if (useForgePlugins) {
+      return [];
+    }
 
     return [
-      <Separator key="seperator">
-        <SeparatorLine />
-      </Separator>,
       <GiphySidebarItem key="giphy" isActive={selected === 'giphy'} />,
       <SidebarItem
         key="dropbox"
@@ -79,7 +67,33 @@ export class StatelessSidebar extends Component<SidebarProps> {
       >
         <GoogleDriveIcon label="google" />
       </SidebarItem>,
-      ...pluginItems,
+    ];
+  };
+
+  private renderCustomPluginItems = () => {
+    const { selected, plugins = [] } = this.props;
+
+    return plugins.map(({ name, icon }) => {
+      return (
+        <SidebarItem
+          key={name}
+          serviceName={name}
+          serviceFullName={name}
+          isActive={selected === name}
+        >
+          {icon}
+        </SidebarItem>
+      );
+    });
+  };
+
+  private getCloudPickingSidebarItems = () => {
+    return [
+      <Separator key="seperator">
+        <SeparatorLine />
+      </Separator>,
+      ...this.renderBuiltInPlugins(),
+      ...this.renderCustomPluginItems(),
     ];
   };
 }

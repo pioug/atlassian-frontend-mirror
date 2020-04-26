@@ -1,8 +1,13 @@
 import React from 'react';
+
 import { mount } from 'enzyme';
 
-import GlobalNav from '../..';
-import { GlobalItem, LayoutManager, NavigationProvider } from '../../../../..';
+import {
+  GlobalItem,
+  LayoutManager,
+  NavigationProvider,
+} from '../../../../../index';
+import GlobalNav from '../../index';
 
 const primaryItems = [{ id: 'primary-item-1', icon: () => null }];
 const secondaryItems = [{ id: 'secondary-item-1', icon: () => null }];

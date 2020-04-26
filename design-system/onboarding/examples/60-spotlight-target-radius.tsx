@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+
 import Lorem from 'react-lorem-component';
 
 import { Spotlight, SpotlightManager, SpotlightTarget } from '../src';
-import { Code, HighlightGroup, Highlight } from './styled';
+
+import { Code, Highlight, HighlightGroup } from './styled';
 
 interface State {
   active: number | null;

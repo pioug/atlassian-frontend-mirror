@@ -1,6 +1,7 @@
 import { CollabEditProvider, CollabParticipant } from '@atlaskit/editor-common';
 import { getVersion, sendableSteps } from 'prosemirror-collab';
 import { EditorState, Transaction } from 'prosemirror-state';
+import { Step, StepMap, Mapping } from 'prosemirror-transform';
 import throttle from 'lodash.throttle';
 
 import { Emitter } from './emitter';
@@ -18,9 +19,27 @@ import { createLogger, getParticipant } from './utils';
 
 const logger = createLogger('Provider', 'yellow');
 
-const PARTICIPANT_UPDATE_INTERVAL = 300;
-const SEND_PRESENCE_INTERVAL = 150;
-const SEND_STEPS_THROTTLE = 100;
+const PARTICIPANT_UPDATE_INTERVAL = 300; // seconds
+const SEND_PRESENCE_INTERVAL = 150; // seconds
+const SEND_STEPS_THROTTLE = 0.1; // seconds
+const CATCHUP_THROTTLE = 1; // seconds
+
+/**
+ * Rebase the steps based on the mapping pipeline.
+ * Some steps could be lost, if they are no longer
+ * invalid after rebased.
+ */
+function rebaseSteps(steps: Step[], mapping: Mapping): Step[] {
+  const newSteps: Step[] = [];
+  for (const step of steps) {
+    const newStep = step.map(mapping);
+    // newStep could be null(means invalid after rebase) when can't rebase.
+    if (newStep) {
+      newSteps.push(newStep);
+    }
+  }
+  return newSteps;
+}
 
 export class Provider extends Emitter<CollabEvent>
   implements Omit<CollabEditProvider, 'on' | 'off' | 'unsubscribeAll'> {
@@ -67,6 +86,9 @@ export class Provider extends Emitter<CollabEvent>
       .on('connected', ({ sid }) => {
         this.sessionId = sid;
         this.emit('connected', { sid });
+        setTimeout(() => {
+          this.throttledCatchup();
+        }, 500);
       })
       .on('init', ({ doc, version }) => {
         this.emit('init', { doc, version }); // Initial document and version
@@ -102,7 +124,13 @@ export class Provider extends Emitter<CollabEvent>
 
   private throttledSend = throttle(
     () => this.sendSteps(this.getState!()),
-    SEND_STEPS_THROTTLE,
+    SEND_STEPS_THROTTLE * 1000,
+    { leading: false, trailing: true },
+  );
+
+  private throttledCatchup = throttle(
+    () => this.catchup(),
+    CATCHUP_THROTTLE * 1000,
     { leading: false, trailing: true },
   );
 
@@ -149,6 +177,7 @@ export class Provider extends Emitter<CollabEvent>
         `Version too high. Expected "${expectedVersion}" but got "${data.version}. Current local version is ${currentVersion}.`,
       );
       this.queueSteps(data);
+      this.throttledCatchup();
     }
 
     this.updateParticipants(
@@ -157,9 +186,80 @@ export class Provider extends Emitter<CollabEvent>
     );
   };
 
-  private queueTimeout: number | undefined;
+  /**
+   * Called when:
+   *   * session established(offline -> online)
+   *   * try to accept steps but version is behind.
+   */
+  private catchup = async () => {
+    // if the queue is already paused, we are busy with something else, so don't proceed.
+    if (this.pauseQueue) {
+      logger(`Queue is paused. Aborting.`);
+      return;
+    }
+    this.pauseQueue = true;
+    try {
+      const currentVersion = getVersion(this.getState!());
+      const {
+        doc,
+        stepMaps: serverStepMaps,
+        version: serverVersion,
+      } = await this.channel.fetchCatchup(currentVersion);
+      if (doc) {
+        if (typeof serverVersion === 'undefined') {
+          logger(`Could not determine server version`);
+          return;
+        }
+        if (serverVersion === currentVersion) {
+          logger(`Catcup steps we already have. Ignoring.`);
+          return;
+        }
+        const { steps: unconfirmedSteps } = sendableSteps(this.getState!()) || {
+          steps: [],
+        };
+        logger(
+          `Too far behind[current: v${currentVersion}, server: v${serverVersion}. ${serverStepMaps.length} steps need to catchup]`,
+        );
+        /**
+         * Remove steps from queue where the version is older than
+         * the version we received from service. Keep steps that might be
+         * newer.
+         */
+        this.queue = this.queue.filter(data => data.version > serverVersion);
+        // We are too far behind - replace the entire document
+        logger(`Replacing document: ${doc}`);
+        // Replace local document and version number
+        this.emit('init', { doc: JSON.parse(doc), version: serverVersion });
+        // After replacing the whole document in the editor, we need to reapply the unconfirmed
+        // steps back into the editor, so we don't lose any data. But before that, we need to rebase
+        // those steps since their position could be changed after replacing.
+        // https://prosemirror.net/docs/guide/#transform.rebasing
+        if (unconfirmedSteps.length) {
+          // Create StepMap from StepMap JSON
+          const stepMaps = serverStepMaps.map((map: any) => new StepMap(map));
+          // create Mappng used for Step.map
+          const mapping: Mapping = new Mapping(stepMaps);
+          logger(`${unconfirmedSteps.length} unconfirmed steps before rebased`);
+          const newUnconfirmedSteps: Step[] = rebaseSteps(
+            unconfirmedSteps,
+            mapping,
+          );
+          logger(`Re-aply ${newUnconfirmedSteps.length} unconfirmed steps`);
+          // Re-aply local steps
+          this.emit('local-steps', { steps: newUnconfirmedSteps });
+        }
+      }
+    } catch (err) {
+      logger(`Catch-Up Failed:`, err.message);
+    }
+    this.pauseQueue = false;
+    this.processQueue();
+    this.throttledSend();
+  };
+
   private pauseQueue?: boolean;
   private queue: StepsPayload[] = [];
+
   private queueSteps(data: StepsPayload) {
     logger(`Queueing data for version "${data.version}".`);
 
@@ -168,19 +268,6 @@ export class Provider extends Emitter<CollabEvent>
     );
 
     this.queue = orderedQueue;
-
-    if (!this.queueTimeout && !this.pauseQueue) {
-      this.queueTimeout = window.setTimeout(() => {
-        this.requestCatchup();
-      }, 10000);
-    }
-  }
-
-  private async requestCatchup() {
-    this.pauseQueue = true;
-    logger(`Too far behind - fetching data from service.`);
-    this.pauseQueue = false;
-    await this.channel.getSteps(getVersion(this.getState!()));
   }
 
   private processQueue() {
@@ -191,27 +278,20 @@ export class Provider extends Emitter<CollabEvent>
 
     logger(`Looking for processable data.`);
 
-    if (this.queue.length === 0) {
-      return;
-    }
-
-    const [firstItem] = this.queue;
-    const currentVersion = getVersion(this.getState!());
-    const expectedVersion = currentVersion + firstItem.steps.length;
-
-    if (firstItem.version === expectedVersion) {
-      logger(`Applying data from queue!`);
-      this.queue.splice(0, 1);
-      this.processSteps(firstItem);
+    if (this.queue.length > 0) {
+      const firstItem = this.queue.shift();
+      const currentVersion = getVersion(this.getState!());
+      const expectedVersion = currentVersion + firstItem!.steps.length;
+      if (firstItem!.version === expectedVersion) {
+        logger(`Applying data from queue!`);
+        this.processSteps(firstItem!);
+        // recur
+        this.processQueue();
+      }
     }
   }
 
   private processSteps(data: StepsPayload, forceApply?: boolean) {
-    if (this.pauseQueue && !forceApply) {
-      logger(`Queue is paused. Aborting.`);
-      return;
-    }
-
     const { version, steps } = data;
     logger(`Processing data. Version "${version}".`);
 
@@ -219,9 +299,12 @@ export class Provider extends Emitter<CollabEvent>
       const clientIds = steps.map(({ clientId }) => clientId);
       this.emit('data', { json: steps, version, userIds: clientIds });
       this.emitTelepointersFromSteps(steps);
-    }
 
-    this.processQueue();
+      // Resend local steps if none of the received steps originated with us!
+      if (clientIds.indexOf(this.clientId!) === -1) {
+        setTimeout(() => this.throttledSend(), 100);
+      }
+    }
   }
 
   /**

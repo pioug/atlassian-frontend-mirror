@@ -3,7 +3,7 @@ import { getExampleUrl } from '@atlaskit/webdriver-runner/utils/example';
 import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 
 /* Url to test the example */
-const urlLozenge = getExampleUrl('core', 'lozenge', 'testing');
+const urlLozenge = getExampleUrl('design-system', 'lozenge', 'testing');
 
 /* Css selectors used for the test */
 const defaultLozenge = "[data-testid='default-lozenge']";

@@ -1,5 +1,7 @@
 import React from 'react';
+
 import Avatar from '@atlaskit/avatar';
+
 import Dropdown, { DropdownItem, DropdownItemGroup } from '../src';
 
 export default () => (

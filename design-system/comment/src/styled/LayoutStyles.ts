@@ -1,6 +1,8 @@
 import styled from 'styled-components';
-import { gridSize } from '@atlaskit/theme/constants';
+
 import { N20A } from '@atlaskit/theme/colors';
+import { gridSize } from '@atlaskit/theme/constants';
+
 import { verticalPadding } from './constants';
 
 const ThemeColor = {

@@ -1,8 +1,9 @@
 import React from 'react';
-import { RankableTableBodyCell } from '../../styled/rankable/TableCell';
-import { HeadCellType, RowCellType } from '../../types';
+
 import withDimensions, { WithDimensionsProps } from '../../hoc/withDimensions';
 import { inlineStylesIfRanking } from '../../internal/helpers';
+import { RankableTableBodyCell } from '../../styled/rankable/TableCell';
+import { HeadCellType, RowCellType } from '../../types';
 
 export interface Props extends WithDimensionsProps {
   head?: HeadCellType;

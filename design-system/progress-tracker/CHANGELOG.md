@@ -1,5 +1,20 @@
 # @atlaskit/progress-tracker
 
+## 6.1.6
+
+### Patch Changes
+
+- [patch][8ca2bfc206](https://bitbucket.org/atlassian/atlassian-frontend/commits/8ca2bfc206):
+
+  Change imports to comply with Atlassian conventions- Updated dependencies [443bb984ab](https://bitbucket.org/atlassian/atlassian-frontend/commits/443bb984ab):
+
+- Updated dependencies [6b8e60827e](https://bitbucket.org/atlassian/atlassian-frontend/commits/6b8e60827e):
+- Updated dependencies [449ef134b3](https://bitbucket.org/atlassian/atlassian-frontend/commits/449ef134b3):
+- Updated dependencies [57c0487a02](https://bitbucket.org/atlassian/atlassian-frontend/commits/57c0487a02):
+  - @atlaskit/page@11.0.13
+  - @atlaskit/button@13.3.11
+  - @atlaskit/icon@20.1.1
+
 ## 6.1.5
 
 ### Patch Changes

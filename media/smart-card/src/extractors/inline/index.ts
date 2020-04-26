@@ -1,55 +1,30 @@
+import { JsonLd } from 'json-ld-types';
 import { InlineCardResolvedViewProps } from '@atlaskit/media-ui';
-import { genericExtractPropsFromJSONLD } from '..';
-import { extractInlineViewPropsFromObject } from './extractPropsFromObject';
-import { extractInlineViewPropsFromTask } from './extractPropsFromTask';
-import { extractInlineViewPropsFromTextDocument } from './extractPropsFromTextDocument';
-import { extractInlineViewPropsFromBlogPost } from './extractPropsFromBlogPost';
-import { extractInlineViewPropsFromDocument } from './extractPropsFromDocument';
-import { extractInlineViewPropsFromProject } from './extractPropsFromProject';
-import { extractInlineViewPropsFromTemplate } from './extractPropsFromTemplate';
-import { extractInlineViewPropsFromSourceCodeRepository } from './extractPropsFromSourceCodeRepository';
-import { extractInlineViewPropsFromSourceCodePullRequest } from './extractPropsFromSourceCodePullRequest';
-import { extractInlineViewPropsFromSourceCodeReference } from './extractPropsFromSourceCodeReference';
-import { extractInlineViewPropsFromDigitalDocument } from './extractPropsFromDigitalDocument';
-import { extractInlineViewPropsFromSourceCodeCommit } from './extractPropsFromSourceCodeCommit';
 
-const extractorPrioritiesByType = {
-  Object: 0,
-  Document: 5,
-  'schema:TextDigitalDocument': 10,
-  'schema:DigitalDocument': 10,
-  'schema:BlogPosting': 10,
-  'atlassian:Task': 10,
-  'atlassian:Project': 10,
-  'atlassian:Template': 10,
-  'atlassian:SourceCodeCommit': 10,
-  'atlassian:SourceCodeRepository': 10,
-  'atlassian:SourceCodePullRequest': 10,
-  'atlassian:SourceCodeReference': 10,
+import { extractLink, extractTitle } from '../common/primitives';
+import { extractLozenge } from '../common/lozenge';
+import { extractIcon } from '../common/icon';
+import { extractProvider } from '../common/context';
+import { CONFLUENCE_GENERATOR_ID, JIRA_GENERATOR_ID } from '../constants';
+
+export const extractInlineIcon = (jsonLd: JsonLd.Data.BaseData) => {
+  const provider = extractProvider(jsonLd);
+  if (provider && provider.id) {
+    if (
+      provider.id === CONFLUENCE_GENERATOR_ID ||
+      provider.id === JIRA_GENERATOR_ID
+    ) {
+      return extractIcon(jsonLd);
+    }
+  }
+  return extractIcon(jsonLd, 'provider');
 };
 
-const extractorFunctionsByType = {
-  Object: extractInlineViewPropsFromObject,
-  Document: extractInlineViewPropsFromDocument,
-  'schema:TextDigitalDocument': extractInlineViewPropsFromTextDocument,
-  'schema:DigitalDocument': extractInlineViewPropsFromDigitalDocument,
-  'schema:BlogPosting': extractInlineViewPropsFromBlogPost,
-  'atlassian:Task': extractInlineViewPropsFromTask,
-  'atlassian:Project': extractInlineViewPropsFromProject,
-  'atlassian:Template': extractInlineViewPropsFromTemplate,
-  'atlassian:SourceCodeCommit': extractInlineViewPropsFromSourceCodeCommit,
-  'atlassian:SourceCodeRepository': extractInlineViewPropsFromSourceCodeRepository,
-  'atlassian:SourceCodePullRequest': extractInlineViewPropsFromSourceCodePullRequest,
-  'atlassian:SourceCodeReference': extractInlineViewPropsFromSourceCodeReference,
-};
-
-export function extractInlinePropsFromJSONLD(
-  json: any,
-): InlineCardResolvedViewProps {
-  return genericExtractPropsFromJSONLD({
-    extractorPrioritiesByType: extractorPrioritiesByType,
-    extractorFunctionsByType: extractorFunctionsByType,
-    defaultExtractorFunction: extractInlineViewPropsFromObject,
-    json,
-  });
-}
+export const extractInlineProps = (
+  jsonLd: JsonLd.Data.BaseData,
+): InlineCardResolvedViewProps => ({
+  link: extractLink(jsonLd),
+  title: extractTitle(jsonLd),
+  lozenge: extractLozenge(jsonLd),
+  icon: extractInlineIcon(jsonLd),
+});

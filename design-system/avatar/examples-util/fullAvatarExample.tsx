@@ -1,8 +1,11 @@
 import React from 'react';
+
 import { gridSize } from '@atlaskit/theme';
+
 import Avatar from '../src';
-import { Block, Code, Note } from './helpers';
 import { AppearanceType } from '../src/types';
+
+import { Block, Code, Note } from './helpers';
 
 export default ({
   appearance,

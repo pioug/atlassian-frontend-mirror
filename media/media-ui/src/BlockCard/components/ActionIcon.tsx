@@ -23,13 +23,13 @@ export const ActionIcon = ({ state }: { state: ActionState }) => {
       return null;
     case 'success':
       return (
-        <div data-testId="check-icon" style={spinnerStyles}>
+        <div data-testid="check-icon" style={spinnerStyles}>
           <CheckIcon size="small" label="check" />
         </div>
       );
     case 'failure':
       return (
-        <div data-testId="cross-icon" style={spinnerStyles}>
+        <div data-testid="cross-icon" style={spinnerStyles}>
           <CrossIcon size="small" label="check" />
         </div>
       );

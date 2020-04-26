@@ -1,6 +1,7 @@
 import styled from 'styled-components';
-import { fontSize } from '@atlaskit/theme/constants';
+
 import { heading, text } from '@atlaskit/theme/colors';
+import { fontSize } from '@atlaskit/theme/constants';
 
 export const Wrapper = styled.div`
   margin-top: 16px;

@@ -12,7 +12,7 @@ export {
 export {
   ButtonItemProps,
   CSSFn,
-  StatelessCssFn,
+  StatelessCSSFn,
   CustomItemComponentProps,
   CustomItemProps,
   HeadingItemProps,
@@ -23,4 +23,10 @@ export {
   SkeletonHeadingItemProps,
   SkeletonItemProps,
   Width,
+  BaseItemProps,
+  Overrides,
+  MenuGroupSizing,
+  RenderFunction,
+  SectionBaseProps,
+  TitleOverrides,
 } from './components/types';

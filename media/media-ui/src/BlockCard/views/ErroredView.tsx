@@ -8,6 +8,8 @@ import { R300 } from '@atlaskit/theme/colors';
 
 import { Frame } from '../components/Frame';
 import { gs } from '../utils';
+import { FormattedMessage } from 'react-intl';
+import { messages } from '../../messages';
 
 export interface ErroredViewProps {
   onRetry?: (val: any) => void;
@@ -27,9 +29,16 @@ export const ErroredView = ({
         fontSize: `${fontSize()}px`,
         marginLeft: gs(0.5),
         marginRight: gs(0.5),
+        display: '-webkit-box',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+        WebkitLineClamp: 1,
+        WebkitBoxOrient: 'vertical',
+        // Fallback options.
+        maxHeight: gs(3),
       }}
     >
-      We couldn't load this link for some reason.
+      <FormattedMessage {...messages.could_not_load_link} />
     </span>
     <Button
       testId="err-view-retry"
@@ -37,7 +46,7 @@ export const ErroredView = ({
       spacing="none"
       onClick={onRetry}
     >
-      Try Again
+      <FormattedMessage {...messages.try_again} />
     </Button>
   </Frame>
 );

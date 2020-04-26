@@ -6,7 +6,7 @@ import Item from '@atlaskit/item';
 import DropList from '@atlaskit/droplist';
 import Button, { ButtonGroup } from '@atlaskit/button';
 import { ActionProps, Action } from './Action';
-import { gs } from '../utils';
+import { gs, mq } from '../utils';
 
 export interface ActionListProps {
   /* An array of action props, which will generate action buttons with the first passed appearing on the left (in LTR reading) */
@@ -20,7 +20,7 @@ export const ActionList = ({ items }: ActionListProps) => {
   const actionsToList = items.slice(2, items.length);
 
   return (
-    <div css={{ display: 'flex' }}>
+    <div css={mq({ display: 'flex', marginTop: [gs(2), 0] })}>
       <ButtonGroup>
         {actionsToShow.map(action => (
           <Action key={action.id} {...action} />

@@ -1,11 +1,14 @@
 import React, { ReactNode } from 'react';
+
 import styled from 'styled-components';
-import { gridSize } from '@atlaskit/theme/constants';
-import { h200 } from '@atlaskit/theme/typography';
-import { multiply } from '@atlaskit/theme/math';
-import { R400, G400, N200 } from '@atlaskit/theme/colors';
-import ErrorIcon from '@atlaskit/icon/glyph/error';
+
 import SuccessIcon from '@atlaskit/icon/glyph/editor/success';
+import ErrorIcon from '@atlaskit/icon/glyph/error';
+import { G400, N200, R400 } from '@atlaskit/theme/colors';
+import { gridSize } from '@atlaskit/theme/constants';
+import { multiply } from '@atlaskit/theme/math';
+import { h200 } from '@atlaskit/theme/typography';
+
 import { FieldId } from './Field';
 
 const Message = styled.div<{ error?: boolean; valid?: boolean }>`

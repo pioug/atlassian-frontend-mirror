@@ -1,8 +1,10 @@
 /** @jsx jsx */
 import { useState } from 'react';
+
+import { jsx } from '@emotion/core';
+
 import Button from '@atlaskit/button';
 import MediaServicesAddCommentIcon from '@atlaskit/icon/glyph/media-services/add-comment';
-import { jsx } from '@emotion/core';
 
 import Popup from '../src';
 

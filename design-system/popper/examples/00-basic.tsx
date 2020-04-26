@@ -1,10 +1,12 @@
 import React from 'react';
-import Button from '@atlaskit/button';
+
 import Lorem from 'react-lorem-component';
 import styled from 'styled-components';
-import { elevation, borderRadius } from '@atlaskit/theme';
 
-import { Manager, Reference, Popper } from '../src';
+import Button from '@atlaskit/button';
+import { borderRadius, elevation } from '@atlaskit/theme';
+
+import { Manager, Popper, Reference } from '../src';
 
 interface PopupProps {
   outOfBoundaries: boolean | null;

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+
 import { DragDropContext } from 'react-beautiful-dnd';
+
 import { LayoutEventEmitter } from '../../presentational/LayoutManager/LayoutEvent';
 
 export default class SortableContext extends Component {

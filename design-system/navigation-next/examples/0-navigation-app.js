@@ -22,15 +22,14 @@ import {
   LinkItem,
   ProjectSwitcher,
 } from './shared/components';
-import RootViews from './shared/views/root';
-import ContainerViews from './shared/views/container';
-
 import {
   BacklogView,
-  ProjectsView,
   DashboardsView,
+  ProjectsView,
   SearchIssuesView,
 } from './shared/routes';
+import ContainerViews from './shared/views/container';
+import RootViews from './shared/views/root';
 
 export default class App extends Component {
   state = {

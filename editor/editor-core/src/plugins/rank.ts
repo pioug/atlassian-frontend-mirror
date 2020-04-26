@@ -52,6 +52,7 @@ export default {
     'hyperLink',
     'tasksAndDecisionsKeyMap',
     'table',
+    'tableDecorations',
     'tableKeymap',
     'hyperlinkInputRule',
     'tablePMColResizing',
@@ -95,6 +96,7 @@ export default {
     'scrollGutterPlugin',
     'analytics',
     'history',
+    'findReplace',
   ],
   nodes: [
     'doc',

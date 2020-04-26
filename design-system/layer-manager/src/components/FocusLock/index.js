@@ -28,7 +28,7 @@ export default class FocusLock extends Component {
     if (typeof autoFocus === 'function') {
       // eslint-disable-next-line no-console
       console.warn(
-        '@atlaskit/layer-manager: Passing a function as autoFocus in FocusLock is deprecated. Please see "Auto focusing an element" in https://atlaskit.atlassian.com/packages/core/layer-manager',
+        '@atlaskit/layer-manager: Passing a function as autoFocus in FocusLock is deprecated. Please see "Auto focusing an element" in https://atlaskit.atlassian.com/packages/design-system/layer-manager',
       );
     }
 

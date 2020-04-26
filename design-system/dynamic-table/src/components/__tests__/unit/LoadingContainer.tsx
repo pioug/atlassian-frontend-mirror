@@ -1,12 +1,14 @@
 import React from 'react';
+
 import { mount, shallow } from 'enzyme';
+
 import Spinner from '@atlaskit/spinner';
+
 import {
   Container,
   ContentsContainer,
   SpinnerContainer,
 } from '../../../styled/LoadingContainer';
-
 import LoadingContainer from '../../LoadingContainer';
 
 describe('LoadingContainer', () => {

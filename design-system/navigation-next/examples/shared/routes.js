@@ -1,6 +1,7 @@
 /* eslint-disable react/no-multi-comp */
 
 import React, { Component, Fragment } from 'react';
+
 import { Link } from 'react-router-dom';
 
 import { withNavigationViewController } from '../../src';

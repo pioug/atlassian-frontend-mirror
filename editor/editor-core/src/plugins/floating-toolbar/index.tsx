@@ -11,6 +11,7 @@ import {
 import { findDomRefAtPos, findSelectedNodeOfType } from 'prosemirror-utils';
 import { Popup, ProviderFactory } from '@atlaskit/editor-common';
 import { Node } from 'prosemirror-model';
+import { Position } from '@atlaskit/editor-common/src/ui/Popup/utils';
 
 import WithPluginState from '../../ui/WithPluginState';
 import { EditorPlugin } from '../../types';
@@ -147,6 +148,7 @@ const floatingToolbarPlugin = (): EditorPlugin => ({
             width,
             offset = [0, 12],
             forcePlacement,
+            onPositionCalculated,
           } = floatingToolbarState.config;
           const targetRef = getDomRef(editorView);
 
@@ -156,9 +158,18 @@ const floatingToolbarPlugin = (): EditorPlugin => ({
           ) {
             return null;
           }
+
+          let customPositionCalculation;
           const toolbarItems = Array.isArray(items)
             ? items
             : items(floatingToolbarState.node);
+
+          if (onPositionCalculated) {
+            customPositionCalculation = (nextPos: Position): Position => {
+              return onPositionCalculated(editorView, nextPos);
+            };
+          }
+
           return (
             <Popup
               ariaLabel={title}
@@ -173,6 +184,7 @@ const floatingToolbarPlugin = (): EditorPlugin => ({
               mountTo={popupsMountPoint}
               boundariesElement={popupsBoundariesElement}
               scrollableElement={popupsScrollableElement}
+              onPositionCalculated={customPositionCalculation}
             >
               <ToolbarLoader
                 target={targetRef}

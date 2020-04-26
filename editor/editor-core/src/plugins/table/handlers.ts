@@ -8,14 +8,8 @@ import {
 import { pluginKey as tableResizingPluginKey } from './pm-plugins/table-resizing';
 import { TablePluginState, TableColumnOrdering } from './types';
 import { TableSortStep } from './utils/sort-step';
-import {
-  buildTableDecorationSet,
-  hasColumnSelectedDecorations,
-  removeColumnControlsSelected as removeColumnControlsSelectedDecorations,
-} from './decorations';
 import { defaultTableSelection } from './pm-plugins/default-table-selection';
-import { DecorationSet } from 'prosemirror-view';
-import { CellSelection } from 'prosemirror-tables';
+import { isTextInput } from '../../utils/is-text-input';
 // #endregion
 
 const nextTableSorting = (
@@ -42,13 +36,10 @@ const nextResizeHandleColumnIndex = (
   return resizeHandleColumnIndex;
 };
 
-type BuilderTablePluginStateProps = {
+type BuilderTablePluginState = (props: {
   tr: Transaction;
   table?: ContentNodeWithPos;
-};
-type BuilderTablePluginState = (
-  props: BuilderTablePluginStateProps,
-) => (pluginState: TablePluginState) => TablePluginState;
+}) => (pluginState: TablePluginState) => TablePluginState;
 
 const updateTargetCellPosition: BuilderTablePluginState = ({ tr, table }) => (
   pluginState: TablePluginState,
@@ -81,7 +72,7 @@ const updateTableNodePluginState: BuilderTablePluginState = ({
 }) => pluginState => {
   const tableNode = table && table.node;
 
-  if (!tableNode) {
+  if (!tableNode || isTextInput(tr)) {
     return pluginState;
   }
 
@@ -97,59 +88,25 @@ const updateTableNodePluginState: BuilderTablePluginState = ({
   };
 };
 
-const updateDecorationSet: BuilderTablePluginState = ({
-  tr,
-  table,
-}) => pluginState => {
-  if (!(tr.docChanged || tr.selection instanceof CellSelection)) {
-    return pluginState;
-  }
-
-  return {
-    ...pluginState,
-    decorationSet: buildTableDecorationSet(true)({
-      decorationSet: DecorationSet.empty,
-      tr,
-    }),
-  };
-};
-
-const updateColumnControlsSelectedDecorations: BuilderTablePluginState = ({
-  tr,
-}) => pluginState => {
-  const isTransactionFromMouseClick =
-    !tr.docChanged && tr.selectionSet && tr.getMeta('pointer');
-
-  if (
-    !isTransactionFromMouseClick ||
-    !hasColumnSelectedDecorations(pluginState.decorationSet)
-  ) {
-    return pluginState;
-  }
-
-  return {
-    ...pluginState,
-    decorationSet: removeColumnControlsSelectedDecorations(
-      pluginState.decorationSet,
-    ),
-  };
-};
-
 const buildPluginState = (
   builders: Array<BuilderTablePluginState>,
-): BuilderTablePluginState => props => pluginState =>
-  builders.reduce(
+): BuilderTablePluginState => props => pluginState => {
+  if (!props.table) {
+    return pluginState.targetCellPosition
+      ? { ...pluginState, targetCellPosition: undefined }
+      : pluginState;
+  }
+  return builders.reduce(
     (_pluginState, transform) => transform(props)(_pluginState),
     pluginState,
   );
+};
 
 export const handleDocOrSelectionChanged = (
   tr: Transaction,
   pluginState: TablePluginState,
 ): TablePluginState =>
-  buildPluginState([
-    updateTargetCellPosition,
-    updateTableNodePluginState,
-    updateColumnControlsSelectedDecorations,
-    updateDecorationSet,
-  ])({ tr, table: findTable(tr.selection) })(pluginState);
+  buildPluginState([updateTargetCellPosition, updateTableNodePluginState])({
+    tr,
+    table: findTable(tr.selection),
+  })(pluginState);

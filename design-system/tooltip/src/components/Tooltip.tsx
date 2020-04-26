@@ -1,31 +1,32 @@
 /* eslint-disable react/require-default-props */
 
 import React from 'react';
-import NodeResolver from 'react-node-resolver';
+
 import flushable from 'flushable';
+import NodeResolver from 'react-node-resolver';
+
+import {
+  createAndFireEvent,
+  withAnalyticsContext,
+  withAnalyticsEvents,
+} from '@atlaskit/analytics-next';
 import { Popper } from '@atlaskit/popper';
 import Portal from '@atlaskit/portal';
 import { layers } from '@atlaskit/theme/constants';
 
-import {
-  withAnalyticsEvents,
-  withAnalyticsContext,
-  createAndFireEvent,
-} from '@atlaskit/analytics-next';
+import { Tooltip as StyledTooltip } from '../styled';
 import {
   name as packageName,
   version as packageVersion,
 } from '../version.json';
 
+import Animation from './Animation';
 import {
   FakeMouseCoordinates,
+  FakeMouseElement,
   TooltipProps,
   TooltipState,
-  FakeMouseElement,
 } from './types';
-import { Tooltip as StyledTooltip } from '../styled';
-import Animation from './Animation';
-
 import { hoveredPayload, unhoveredPayload } from './utils/analytics-payloads';
 
 const SCROLL_OPTIONS = { capture: true, passive: true };

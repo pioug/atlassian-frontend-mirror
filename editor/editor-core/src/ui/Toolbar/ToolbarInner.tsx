@@ -36,6 +36,7 @@ export class ToolbarInner extends React.Component<ToolbarInnerProps> {
       disabled,
       isToolbarReducedSpacing,
       dispatchAnalyticsEvent,
+      containerElement,
     } = this.props;
 
     if (!items || !items.length) {
@@ -58,7 +59,7 @@ export class ToolbarInner extends React.Component<ToolbarInnerProps> {
             disabled,
             toolbarSize,
             isToolbarReducedSpacing,
-            containerElement: null,
+            containerElement,
             dispatchAnalyticsEvent,
           });
           return element && React.cloneElement(element, props);

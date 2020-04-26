@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 import React, { Component } from 'react';
 
-import { Props, DefaultProps } from '../constants';
+import { DefaultProps, Props } from '../constants';
 import Wrapper from '../Wrapper';
 
 const svg = `<canvas height="32" width="129" aria-hidden="true"></canvas>

@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Container, Content, Icon, Text, Visibility } from '../styled';
 
 interface Props {
@@ -6,7 +7,7 @@ interface Props {
   /** Visual style to be used for the banner */
   /** Content to be shown next to the icon. Typically text content but can contain links. */
   children?: React.ReactNode;
-  /** Icon to be shown left of the main content. Typically an Atlaskit [@atlaskit/icon](packages/core/icon) */
+  /** Icon to be shown left of the main content. Typically an Atlaskit [@atlaskit/icon](packages/design-system/icon) */
   icon?: React.ReactChild;
   /** Defines whether the banner is shown. An animation is used when the value is changed. */
   isOpen?: boolean;

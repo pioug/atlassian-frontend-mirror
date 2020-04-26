@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/page-header",
-  "version": "9.0.18",
+  "version": "9.0.19",
   "description": "A React component that represents Header of an application page",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -31,13 +31,13 @@
     "styled-components": "^3.2.6"
   },
   "devDependencies": {
-    "@atlaskit/breadcrumbs": "^9.2.6",
+    "@atlaskit/breadcrumbs": "^9.2.9",
     "@atlaskit/build-utils": "^2.2.5",
-    "@atlaskit/button": "^13.3.7",
+    "@atlaskit/button": "^13.3.11",
     "@atlaskit/docs": "^8.3.2",
-    "@atlaskit/inline-edit": "^10.0.27",
-    "@atlaskit/page": "^11.0.12",
-    "@atlaskit/select": "^11.0.7",
+    "@atlaskit/inline-edit": "^10.0.31",
+    "@atlaskit/page": "^11.0.13",
+    "@atlaskit/select": "^11.0.10",
     "@atlaskit/ssr": "^0.1.1",
     "@atlaskit/textfield": "^3.1.6",
     "@atlaskit/visual-regression": "^0.1.9",
@@ -49,5 +49,10 @@
     "atlaskit",
     "react",
     "ui"
-  ]
+  ],
+  "techstack": {
+    "@atlassian/frontend": {
+      "import-structure": "atlassian-conventions"
+    }
+  }
 }

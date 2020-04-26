@@ -3,7 +3,10 @@ export const createLogger = (prefix: string, color: string = 'blue') => (
   data: any = null,
 ) => {
   // eslint-disable-next-line no-console
-  console.log(`%c${prefix}: ${msg}`, `color: ${color}; font-weight: bold`);
+  console.log(
+    `%cCollab-${prefix}: ${msg}`,
+    `color: ${color}; font-weight: bold`,
+  );
   if (data) {
     // eslint-disable-next-line no-console
     console.log(data);

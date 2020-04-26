@@ -1,7 +1,7 @@
 import { NodeSpec, Node as PMNode } from 'prosemirror-model';
 import { BreakoutMarkDefinition } from '../marks';
 import { MarksObject, NoMark } from './types/mark';
-import { ExtensionContent } from './extension';
+import { NonNestableBlockContent } from './types/non-nestable-block-content';
 
 /**
  * @name expand_node
@@ -11,7 +11,11 @@ export interface ExpandBaseDefinition {
   attrs: {
     title?: string;
   };
-  content: ExtensionContent;
+  /**
+   * @minItems 1
+   * @allowUnsupportedBlock true
+   */
+  content: Array<NonNestableBlockContent>;
   marks?: Array<any>;
 }
 
@@ -21,7 +25,7 @@ export interface ExpandBaseDefinition {
 export type ExpandDefinition = ExpandBaseDefinition & NoMark;
 
 /**
- * @name expand_with_breakout_definition
+ * @name expand_with_breakout_mark_node
  */
 export type ExpandWithBreakoutDefinition = ExpandBaseDefinition &
   MarksObject<BreakoutMarkDefinition>;

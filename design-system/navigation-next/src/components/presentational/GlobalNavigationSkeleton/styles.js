@@ -1,4 +1,5 @@
 import { gridSize as gridSizeFn } from '@atlaskit/theme/constants';
+
 import { GLOBAL_NAV_WIDTH } from '../../../common/constants';
 
 const gridSize = gridSizeFn();

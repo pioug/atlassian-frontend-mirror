@@ -1,7 +1,10 @@
 import React from 'react';
-import { layers } from '@atlaskit/theme/constants';
+
 import ScrollLock from 'react-scrolllock';
-import { Popper, Manager, Reference } from '@atlaskit/popper';
+
+import { sizes } from '@atlaskit/icon';
+import { Manager, Popper, Reference } from '@atlaskit/popper';
+import { gridSize, layers } from '@atlaskit/theme/constants';
 
 interface Props {
   /** A ref to the container that the content should be layered around for height calculation
@@ -16,6 +19,11 @@ interface Props {
    * input value from the menu.
    */
   inputValue: string;
+  /**
+   * A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests
+   *  - `{testId}--popper-container` wrapping element of time-picker
+   **/
+  testId?: string;
 }
 
 /* eslint-disable react/no-unused-prop-types */
@@ -41,7 +49,7 @@ export default class FixedLayer extends React.Component<Props> {
   }
 
   render() {
-    const { containerRef, content } = this.props;
+    const { containerRef, content, testId } = this.props;
 
     // Wait for containerRef callback to cause a re-render
     if (!containerRef) return <div />;
@@ -62,7 +70,11 @@ export default class FixedLayer extends React.Component<Props> {
                 position: 'absolute',
                 top: 0,
                 height: containerRect.height,
-                width: containerRect.width,
+                // Don't block the clear button
+                width:
+                  containerRect.width -
+                  parseInt(sizes.small.slice(0, -2)) -
+                  gridSize(),
                 background: 'transparent',
               }}
             />
@@ -78,6 +90,7 @@ export default class FixedLayer extends React.Component<Props> {
                 ref={ref as React.Ref<HTMLDivElement>}
                 placement={placement}
                 style={{ ...style, zIndex: layers.dialog() }}
+                data-testid={testId && `${testId}--popper--container`}
               >
                 {content}
               </div>

@@ -2,7 +2,7 @@ import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import { getExampleUrl } from '@atlaskit/webdriver-runner/utils/example';
 import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 
-const urlCalendar = getExampleUrl('core', 'calendar', 'testing');
+const urlCalendar = getExampleUrl('design-system', 'calendar', 'testing');
 
 const monthContainer = '[data-testid="the-calendar--month"]';
 const selectedDayQuery = '[data-testid="the-calendar--selected-day"]';

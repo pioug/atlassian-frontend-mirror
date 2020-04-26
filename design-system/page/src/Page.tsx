@@ -1,4 +1,5 @@
 import React, { Component, ReactNode } from 'react';
+
 import styled, { ThemeProvider } from 'styled-components';
 
 const Wrapper = styled.div`
@@ -50,7 +51,7 @@ interface Props {
   /*
     If you provide the banner or banners you are to use, page will help you
     coordinate the showing and hiding of them in conjunction with `isBannerOpen`.
-    This is designed to take [our banner](/packages/core/banner) component, and
+    This is designed to take [our banner](/packages/design-system/banner) component, and
     matches the animation timing of our banner.
 
     The only time that two banners should be rendered are when an announcement
@@ -58,7 +59,7 @@ interface Props {
   */
   banner?: ReactNode;
   /*
-    Takes our [navigation component](/packages/core/navigation) and helps
+    Takes our [navigation component](/packages/design-system/navigation) and helps
     position it with consideration to rendered banners.
   */
   navigation?: ReactNode;

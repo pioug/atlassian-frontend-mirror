@@ -12,4 +12,6 @@ export type MobileScrollPluginState = {
   heightDiff: number;
   /** Current value of window.innerHeight, on Android this changes when keyboards shows/hides */
   windowHeight: number;
+  /** Current value of padding top set from native (see WebBridge abstract class implementation) */
+  mobilePaddingTop: number;
 };

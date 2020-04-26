@@ -1,15 +1,18 @@
 import React from 'react';
+
 import { shallow } from 'enzyme';
-import FieldTextArea from '@atlaskit/field-text-area';
+
 import Button, { ButtonGroup } from '@atlaskit/button';
+import FieldTextArea from '@atlaskit/field-text-area';
+
+import { Description, Header } from '../../common';
 import Feedback, {
   CommentBox,
-  SendButton,
   RatingsButtons,
+  SendButton,
 } from '../../Feedback';
-import { Header, Description } from '../../common';
-import { Comment } from '../../styled/feedback';
 import { ButtonWrapper } from '../../styled/common';
+import { Comment } from '../../styled/feedback';
 
 describe('Feedback page', () => {
   describe('Component', () => {

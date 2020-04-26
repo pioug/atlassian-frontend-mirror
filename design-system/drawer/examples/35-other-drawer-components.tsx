@@ -1,17 +1,19 @@
 /** @jsx jsx */
 
+import { Component, Fragment, SyntheticEvent } from 'react';
+
 import { jsx } from '@emotion/core';
-import { Component, SyntheticEvent, Fragment } from 'react';
-import Button from '@atlaskit/button';
-import StarLargeIcon from '@atlaskit/icon/glyph/star-large';
-import BoardIcon from '@atlaskit/icon/glyph/board';
 import throttle from 'lodash.throttle';
 
+import Button from '@atlaskit/button';
+import BoardIcon from '@atlaskit/icon/glyph/board';
+import StarLargeIcon from '@atlaskit/icon/glyph/star-large';
+
 import Drawer, {
+  DrawerItem,
+  DrawerItemGroup,
   DrawerSkeletonHeader,
   DrawerSkeletonItem,
-  DrawerItemGroup,
-  DrawerItem,
 } from '../src';
 
 interface State {

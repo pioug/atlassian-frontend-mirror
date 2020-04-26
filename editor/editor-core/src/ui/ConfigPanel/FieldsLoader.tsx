@@ -3,26 +3,14 @@ import React from 'react';
 import Spinner from '@atlaskit/spinner';
 
 import {
-  ExtensionProvider,
   ExtensionManifest,
-  ExtensionType,
-  ExtensionKey,
-  Parameters,
   FieldDefinition,
 } from '@atlaskit/editor-common/extensions';
 
+import { PublicProps } from './types';
+
 import { useStateFromPromise } from '../../utils/react-hooks/use-state-from-promise';
 import ConfigPanel from './ConfigPanel';
-
-type Props = {
-  extensionProvider: ExtensionProvider;
-  extensionType: ExtensionType;
-  extensionKey: ExtensionKey;
-  nodeKey: string;
-  parameters?: Parameters;
-  onSave: (data: Parameters) => void | string;
-  onCancel: () => void;
-};
 
 const getFieldsDefinitionFn = (
   extensionManifest: ExtensionManifest,
@@ -44,9 +32,12 @@ export default function FieldsLoader({
   nodeKey,
   extensionProvider,
   parameters = {},
-  onSave,
+  autoSave,
+  closeOnEsc,
+  showHeader,
+  onChange,
   onCancel,
-}: Props) {
+}: PublicProps) {
   const [extensionManifest] = useStateFromPromise<
     ExtensionManifest | undefined
   >(() => extensionProvider.getExtension(extensionType, extensionKey), [
@@ -78,7 +69,10 @@ export default function FieldsLoader({
       extensionManifest={extensionManifest}
       fields={fields}
       parameters={parameters}
-      onSave={onSave}
+      autoSave={autoSave}
+      closeOnEsc={closeOnEsc}
+      showHeader={showHeader}
+      onChange={onChange}
       onCancel={onCancel}
     />
   );

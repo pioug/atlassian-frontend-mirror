@@ -1,5 +1,3 @@
-import FieldsLoader from './FieldsLoader';
+import ConfigPanelLoader from './ConfigPanelLoader';
 
-export { isNativeFieldType } from './utils';
-
-export default FieldsLoader;
+export default ConfigPanelLoader;

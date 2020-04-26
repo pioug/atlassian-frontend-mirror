@@ -15,6 +15,8 @@ export interface EmojiProps extends EmojiId {
 }
 
 export default class EmojiNode extends PureComponent<EmojiProps, {}> {
+  static displayName = 'EmojiNode';
+
   private providerFactory: ProviderFactory;
 
   constructor(props: EmojiProps) {

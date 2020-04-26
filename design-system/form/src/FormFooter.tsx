@@ -1,4 +1,5 @@
 import React, { Component, ReactNode } from 'react';
+
 import { FormFooterWrapper } from './styled/FormFooter';
 import { Align } from './types';
 

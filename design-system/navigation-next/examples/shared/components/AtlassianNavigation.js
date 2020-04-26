@@ -1,6 +1,10 @@
+import React, { forwardRef } from 'react';
+
+import { Link, NavLink } from 'react-router-dom';
+
 import {
-  AtlassianNavigation,
   AppSwitcher,
+  AtlassianNavigation,
   Create,
   Help,
   Notifications,
@@ -12,8 +16,6 @@ import {
 import Avatar from '@atlaskit/avatar';
 import Badge from '@atlaskit/badge';
 import { JiraIcon, JiraLogo } from '@atlaskit/logo';
-import React, { forwardRef } from 'react';
-import { Link, NavLink } from 'react-router-dom';
 
 import { getAvatarUrl } from './helpers/avatar-data-url';
 

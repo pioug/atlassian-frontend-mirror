@@ -1,6 +1,6 @@
+import * as colors from '@atlaskit/theme/colors';
 import { themed } from '@atlaskit/theme/components';
 import { gridSize } from '@atlaskit/theme/constants';
-import * as colors from '@atlaskit/theme/colors';
 
 export const flagBackgroundColor = themed('appearance', {
   error: { light: colors.R400, dark: colors.R300 },

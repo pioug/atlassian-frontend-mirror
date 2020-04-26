@@ -162,4 +162,4 @@ export const purple = themed({ light: P300, dark: P100 });
 export const red = themed({ light: R300, dark: R300 });
 export const yellow = themed({ light: Y300, dark: Y300 });
 export const green = themed({ light: G300, dark: G300 });
-export const skeleton = () => N20;
+export const skeleton = () => N20A;

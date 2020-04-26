@@ -1,8 +1,11 @@
 import React from 'react';
+
 import styled from 'styled-components';
-import Lozenge from '@atlaskit/lozenge';
+
 import Arrow from '@atlaskit/icon/glyph/arrow-right';
-import DropdownMenu, { DropdownItemGroup, DropdownItem } from '../src';
+import Lozenge from '@atlaskit/lozenge';
+
+import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../src';
 
 const JiraItem = styled.div`
   align-items: center;

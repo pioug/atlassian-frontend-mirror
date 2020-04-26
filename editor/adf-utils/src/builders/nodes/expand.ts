@@ -1,7 +1,10 @@
-import { ExpandDefinition, ExtensionContent } from '@atlaskit/adf-schema';
+import {
+  ExpandDefinition,
+  NonNestableBlockContent,
+} from '@atlaskit/adf-schema';
 
 export const expand = (attrs: ExpandDefinition['attrs']) => (
-  ...content: ExtensionContent
+  ...content: Array<NonNestableBlockContent>
 ): ExpandDefinition => ({
   type: 'expand',
   attrs,

@@ -1,5 +1,57 @@
 # @atlaskit/menu
 
+## 0.4.1
+
+### Patch Changes
+
+- [patch][1e7e54c20e](https://bitbucket.org/atlassian/atlassian-frontend/commits/1e7e54c20e):
+
+  Change imports to comply with Atlassian conventions- Updated dependencies [6b8e60827e](https://bitbucket.org/atlassian/atlassian-frontend/commits/6b8e60827e):
+
+- Updated dependencies [449ef134b3](https://bitbucket.org/atlassian/atlassian-frontend/commits/449ef134b3):
+- Updated dependencies [167a55fd7a](https://bitbucket.org/atlassian/atlassian-frontend/commits/167a55fd7a):
+- Updated dependencies [57c0487a02](https://bitbucket.org/atlassian/atlassian-frontend/commits/57c0487a02):
+  - @atlaskit/button@13.3.11
+  - @atlaskit/icon@20.1.1
+  - @atlaskit/avatar@17.1.10
+
+## 0.4.0
+
+### Minor Changes
+
+- [minor][7e408e4037](https://bitbucket.org/atlassian/atlassian-frontend/commits/7e408e4037):
+
+  **BREAKING** - renames `elemBefore` and `elemAfter` props to `iconBefore` and `iconAfter` on all item components.- [minor][41760ea4a6](https://bitbucket.org/atlassian/atlassian-frontend/commits/41760ea4a6):
+
+  **BREAKING**: modifies custom item component to take only valid HTML attributes. This means `wrapperClass` is now known as `className`.- [minor][fb3ca3a3b2](https://bitbucket.org/atlassian/atlassian-frontend/commits/fb3ca3a3b2):
+
+  **BREAKING** - removes `cssFn` from section component, introduces overrides on section component to override heading css.
+
+### Patch Changes
+
+- [patch][6453c8de48](https://bitbucket.org/atlassian/atlassian-frontend/commits/6453c8de48):
+
+  Exposes typescript types alongside components.- [patch][e4dde0ad13](https://bitbucket.org/atlassian/atlassian-frontend/commits/e4dde0ad13):
+
+  Fixes custom item not passing selected and disabled props to the customized component.- [patch][971e294b1e](https://bitbucket.org/atlassian/atlassian-frontend/commits/971e294b1e):
+
+  Corrects background color for disabled item to transparent.- [patch][684ee794d6](https://bitbucket.org/atlassian/atlassian-frontend/commits/684ee794d6):
+
+  Improves type safety with custom item by using TypeScript generics to pass on the custom component types to the parent.- [patch][286770886d](https://bitbucket.org/atlassian/atlassian-frontend/commits/286770886d):
+
+  Fixes item skeleton icon size to be slightly smaller than the real icon.- [patch][2c1b78027c](https://bitbucket.org/atlassian/atlassian-frontend/commits/2c1b78027c):
+
+  Fixes skeleton heading and item ui.- Updated dependencies [168b5f90e5](https://bitbucket.org/atlassian/atlassian-frontend/commits/168b5f90e5):
+
+- Updated dependencies [0c270847cb](https://bitbucket.org/atlassian/atlassian-frontend/commits/0c270847cb):
+- Updated dependencies [109004a98e](https://bitbucket.org/atlassian/atlassian-frontend/commits/109004a98e):
+- Updated dependencies [b9903e773a](https://bitbucket.org/atlassian/atlassian-frontend/commits/b9903e773a):
+- Updated dependencies [aff1210e19](https://bitbucket.org/atlassian/atlassian-frontend/commits/aff1210e19):
+  - @atlaskit/docs@8.5.1
+  - @atlaskit/theme@9.5.3
+  - @atlaskit/button@13.3.10
+  - @atlaskit/icon-file-type@5.0.4
+
 ## 0.3.1
 
 ### Patch Changes

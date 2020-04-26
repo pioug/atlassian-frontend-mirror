@@ -4,6 +4,7 @@ export {
   ACTION_SUBJECT_ID,
   EVENT_TYPE,
   INPUT_METHOD,
+  TRIGGER_METHOD,
 } from './enums';
 export {
   AnalyticsDispatch,
@@ -46,3 +47,4 @@ export {
 } from './paste-events';
 export { HistoryEventPayload } from './history-events';
 export { MediaAltTextActionType, MediaEventPayload } from './media-events';
+export { DispatchAnalyticsEvent } from './dispatch-analytics-event';

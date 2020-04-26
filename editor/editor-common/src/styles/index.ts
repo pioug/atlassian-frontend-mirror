@@ -27,6 +27,7 @@ export {
   akEditorMediaResizeHandlerPaddingWide,
   akEditorMentionSelected,
   akEditorMenuZIndex,
+  akEditorStickyHeaderZIndex,
   akEditorMobileBreakoutPoint,
   akEditorPopupBackground,
   akEditorPopupText,
@@ -64,6 +65,7 @@ export {
   editorFontSize,
   gridMediumMaxWidth,
   relativeSize,
+  akEditorSelectedBorderStyles,
 } from './consts';
 
 export {

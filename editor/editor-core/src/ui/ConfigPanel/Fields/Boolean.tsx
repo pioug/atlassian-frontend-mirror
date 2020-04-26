@@ -4,6 +4,8 @@ import { Checkbox } from '@atlaskit/checkbox';
 import { CheckboxField } from '@atlaskit/form';
 import { BooleanField } from '@atlaskit/editor-common/extensions';
 
+import { OnBlur } from '../types';
+
 import FieldMessages from '../FieldMessages';
 
 const isChecked = (value?: string | boolean) => {
@@ -18,7 +20,13 @@ const isChecked = (value?: string | boolean) => {
   return false;
 };
 
-export default function({ field }: { field: BooleanField }) {
+export default function({
+  field,
+  onBlur,
+}: {
+  field: BooleanField;
+  onBlur: OnBlur;
+}) {
   return (
     <CheckboxField
       key={field.name}
@@ -27,9 +35,16 @@ export default function({ field }: { field: BooleanField }) {
       defaultIsChecked={isChecked(field.defaultValue)}
     >
       {({ fieldProps, error }) => {
+        const onChange = (
+          value?: string | React.FormEvent<HTMLInputElement>,
+        ) => {
+          fieldProps.onChange(value);
+          onBlur(field.name);
+        };
+
         return (
           <Fragment>
-            <Checkbox {...fieldProps} label={field.label} />
+            <Checkbox {...fieldProps} onChange={onChange} label={field.label} />
             <FieldMessages error={error} description={field.description} />
           </Fragment>
         );

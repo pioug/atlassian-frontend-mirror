@@ -65,9 +65,10 @@ const helpDialog = (
   pluginsOptions: {
     quickInsert: ({ formatMessage }) => [
       {
+        id: 'helpdialog',
         title: formatMessage(messages.help),
         description: formatMessage(messages.helpDescription),
-        keywords: ['help', '?'],
+        keywords: ['?'],
         priority: 4000,
         keyshortcut: tooltip(openHelp),
         icon: () => <QuestionCircleIcon label={formatMessage(messages.help)} />,

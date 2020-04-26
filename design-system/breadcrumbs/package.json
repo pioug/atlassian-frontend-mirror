@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/breadcrumbs",
-  "version": "9.2.8",
+  "version": "9.2.9",
   "description": "Breadcrumbs are a navigation system used to show a user's location in a site or app.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -23,9 +23,9 @@
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^6.3.5",
-    "@atlaskit/button": "^13.3.9",
+    "@atlaskit/button": "^13.3.11",
     "@atlaskit/theme": "^9.5.1",
-    "@atlaskit/tooltip": "^15.2.5",
+    "@atlaskit/tooltip": "^15.2.6",
     "tslib": "^1.9.3"
   },
   "peerDependencies": {
@@ -36,11 +36,11 @@
   "devDependencies": {
     "@atlaskit/build-utils": "^2.2.7",
     "@atlaskit/docs": "^8.4.0",
-    "@atlaskit/logo": "^12.3.3",
-    "@atlaskit/select": "^11.0.9",
+    "@atlaskit/logo": "^12.3.4",
+    "@atlaskit/select": "^11.0.10",
     "@atlaskit/ssr": "^0.1.1",
     "@atlaskit/visual-regression": "^0.1.9",
-    "@atlaskit/webdriver-runner": "^0.3.0",
+    "@atlaskit/webdriver-runner": "^0.3.4",
     "@testing-library/react": "^8.0.1",
     "enzyme": "^3.10.0",
     "jest-in-case": "^1.0.2",
@@ -48,5 +48,10 @@
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "wait-for-expect": "^1.2.0"
+  },
+  "techstack": {
+    "@atlassian/frontend": {
+      "import-structure": "atlassian-conventions"
+    }
   }
 }

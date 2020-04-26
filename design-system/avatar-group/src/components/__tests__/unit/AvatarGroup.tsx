@@ -1,6 +1,8 @@
 import React, { Fragment } from 'react';
-import { render, fireEvent } from '@testing-library/react';
-import { SizeType, AppearanceType } from '@atlaskit/avatar';
+
+import { fireEvent, render } from '@testing-library/react';
+
+import { AppearanceType, SizeType } from '@atlaskit/avatar';
 
 import AvatarGroup from '../../AvatarGroup';
 

@@ -1,15 +1,16 @@
 import React from 'react';
-import { mount, shallow } from 'enzyme';
+
 // eslint-disable-next-line no-restricted-imports
 import { parse } from 'date-fns';
+import { mount, shallow } from 'enzyme';
 import cases from 'jest-in-case';
 
+import { DateTd } from '../../../styled/Date';
 import Btn from '../../Btn';
 import CalendarWithAnalytics, {
   CalendarWithoutAnalytics as Calendar,
 } from '../../Calendar';
 import Date from '../../Date';
-import { DateTd } from '../../../styled/Date';
 
 function createEvent(
   opts: { key?: string } = {},

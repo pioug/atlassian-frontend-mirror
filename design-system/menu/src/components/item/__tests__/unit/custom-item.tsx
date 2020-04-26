@@ -1,16 +1,16 @@
 import React from 'react';
-import { render, fireEvent, getByTestId } from '@testing-library/react';
+
+import { fireEvent, render } from '@testing-library/react';
 import serializer, { matchers } from 'jest-emotion';
+
+import { CSSFn, CustomItemComponentProps } from '../../../types';
 import CustomItem from '../../custom-item';
-import { CustomItemComponentProps, CSSFn } from '../../../types';
 
 expect.addSnapshotSerializer(serializer);
 expect.extend(matchers);
 
 describe('<CustomItem />', () => {
-  const Component = ({ wrapperClass, ...props }: CustomItemComponentProps) => (
-    <div className={wrapperClass} {...props}></div>
-  );
+  const Component = (props: CustomItemComponentProps) => <div {...props} />;
 
   it('should callback on click', () => {
     const callback = jest.fn();
@@ -52,7 +52,7 @@ describe('<CustomItem />', () => {
       opacity: 0.75,
       borderRadius: '5px',
     });
-    const { container } = render(
+    const { getByTestId } = render(
       <CustomItem
         component={Component}
         testId="component"
@@ -63,7 +63,7 @@ describe('<CustomItem />', () => {
         Helloo
       </CustomItem>,
     );
-    const component = getByTestId(container, 'component');
+    const component = getByTestId('component');
 
     expect(component).toHaveStyleRule('padding', '10px');
     expect(component).toHaveStyleRule('opacity', '0.75');
@@ -79,7 +79,6 @@ describe('<CustomItem />', () => {
         <CustomItem component={Component} testId="target">
           Hello world
         </CustomItem>
-        ,
       </div>,
     );
 
@@ -88,5 +87,22 @@ describe('<CustomItem />', () => {
     expect(getByTestId('target').getAttribute('draggable')).toEqual('false');
     //  Default was prevented?
     expect(dragStartEvent.mock.results[0].value).toEqual(true);
+  });
+
+  it('should pass through extra props to the component', () => {
+    const Link = ({
+      children,
+      ...props
+    }: CustomItemComponentProps & { href: string }) => (
+      <a {...props}>{children}</a>
+    );
+
+    const { getByTestId } = render(
+      <CustomItem href="/my-details" component={Link} testId="target">
+        Hello world
+      </CustomItem>,
+    );
+
+    expect(getByTestId('target').getAttribute('href')).toEqual('/my-details');
   });
 });

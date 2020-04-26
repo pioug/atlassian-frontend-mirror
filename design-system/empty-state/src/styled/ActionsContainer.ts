@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+
 import { gridSize } from '@atlaskit/theme/constants';
 
 const ActionsContainer = styled.div`

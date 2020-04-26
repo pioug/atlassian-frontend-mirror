@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import { Node as PMNode } from 'prosemirror-model';
 import { EditorView } from 'prosemirror-view';
-import { borderRadius, colors } from '@atlaskit/theme';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
 import {
   timestampToString,
@@ -12,24 +11,13 @@ import {
 } from '@atlaskit/editor-common';
 import { Date } from '@atlaskit/date';
 import { setDatePickerAt } from '../actions';
+import { akEditorSelectedBorderStyles } from '@atlaskit/editor-common';
 
 const SelectableDate = styled(Date)`
   .dateView-content-wrap.ProseMirror-selectednode & {
-    position: relative;
-    &::before {
-      content: '';
-      border: 2px solid ${colors.B200};
-      background: transparent;
-      border-radius: ${borderRadius()}px;
-      box-sizing: border-box;
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-    }
+    ${akEditorSelectedBorderStyles};
   }
+  cursor: pointer;
 `;
 
 const Span = styled.span`

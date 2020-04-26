@@ -1,11 +1,12 @@
 import styled from 'styled-components';
-import { gridSize } from '@atlaskit/theme/constants';
-import {
-  backgroundOnLayer,
-  backgroundHover,
-  backgroundActive,
-} from '@atlaskit/theme/colors';
+
 import { BORDER_WIDTH, SizeType } from '@atlaskit/avatar';
+import {
+  backgroundActive,
+  backgroundHover,
+  backgroundOnLayer,
+} from '@atlaskit/theme/colors';
+import { gridSize } from '@atlaskit/theme/constants';
 
 const gutterUnitless = gridSize() / 2;
 const gutter = `${gutterUnitless}px`;

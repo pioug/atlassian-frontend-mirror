@@ -1,12 +1,15 @@
 import React, { PureComponent } from 'react';
+
 import styled from 'styled-components';
+
 import Select from '@atlaskit/select';
+
 import TableTree, {
-  Headers,
-  Header,
-  Rows,
-  Row,
   Cell,
+  Header,
+  Headers,
+  Row,
+  Rows,
   TableTreeDataHelper,
 } from '../src';
 

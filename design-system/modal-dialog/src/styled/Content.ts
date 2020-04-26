@@ -1,12 +1,13 @@
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 
+import { DN30, N30, R400, Y400 } from '@atlaskit/theme/colors';
 import { themed } from '@atlaskit/theme/components';
 import { gridSize } from '@atlaskit/theme/constants';
-import { N30, DN30, R400, Y400 } from '@atlaskit/theme/colors';
 import { divide } from '@atlaskit/theme/math';
-import { flexMaxHeightIEFix } from '../utils/flex-max-height-ie-fix';
+
 import { AppearanceType } from '../types';
+import { flexMaxHeightIEFix } from '../utils/flex-max-height-ie-fix';
 
 // Constants
 // ==============================
@@ -104,6 +105,7 @@ export const bodyStyles = (shouldScroll?: boolean) => css`
     : `
         padding: 0 ${modalPadding}px;
       `}
+  z-index: 1;
 
   @media (min-width: 320px) and (max-width: 480px) {
     overflow-y: auto;

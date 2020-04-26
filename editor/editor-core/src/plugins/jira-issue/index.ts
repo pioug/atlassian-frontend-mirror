@@ -6,7 +6,10 @@ import ReactJIRAIssueNode from './nodeviews/jira-issue';
 
 export const pluginKey = new PluginKey('jiraIssuePlugin');
 
-const createPlugin: PMPluginFactory = ({ portalProviderAPI }) => {
+const createPlugin: PMPluginFactory = ({
+  portalProviderAPI,
+  eventDispatcher,
+}) => {
   return new Plugin({
     key: pluginKey,
     props: {
@@ -14,6 +17,7 @@ const createPlugin: PMPluginFactory = ({ portalProviderAPI }) => {
         confluenceJiraIssue: ReactNodeView.fromComponent(
           ReactJIRAIssueNode,
           portalProviderAPI,
+          eventDispatcher,
         ),
       },
     },

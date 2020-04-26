@@ -26,6 +26,10 @@ import { EmojiResource } from '@atlaskit/emoji/resource';
 import { ObjectKey, TaskState } from '@atlaskit/task-decision';
 import { analyticsBridgeClient } from '../analytics-client';
 import { createTaskDecisionProvider } from '../providers';
+import {
+  getDisableActionsValue,
+  getDisableMediaLinkingValue,
+} from '../query-param-reader';
 
 export interface MobileRendererProps extends RendererProps {
   cardClient: CardClient;
@@ -143,6 +147,8 @@ export default class MobileRenderer extends React.Component<
       // See https://product-fabric.atlassian.net/browse/FM-2149 for details.
       const authFlow = 'disabled';
       const smartCardClient = this.props.cardClient;
+      const disableActions = getDisableActionsValue();
+      const disableMediaLinking = getDisableMediaLinkingValue();
       return (
         <FabricAnalyticsListeners client={this.analyticsClient}>
           <WithCreateAnalyticsEvent
@@ -153,9 +159,11 @@ export default class MobileRenderer extends React.Component<
                   onError={this.handleRendererContentLoaded}
                   dataProviders={this.providerFactory}
                   appearance="mobile"
+                  disableActions={disableActions}
                   document={this.state.document}
                   createAnalyticsEvent={createAnalyticsEvent}
                   allowAltTextOnImages
+                  media={{ allowLinking: !disableMediaLinking }}
                   rendererContext={{
                     // These will need to come from the native side.
                     objectAri: this.objectAri,

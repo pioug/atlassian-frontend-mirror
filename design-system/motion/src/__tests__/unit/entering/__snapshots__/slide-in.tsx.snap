@@ -1,0 +1,89 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SlideIn /> should animate entering from bottom 1`] = `
+Object {
+  "0%": Object {
+    "transform": "translate3d(0, 100%, 0)",
+  },
+  "100%": Object {
+    "transform": "none",
+  },
+}
+`;
+
+exports[`<SlideIn /> should animate entering from left 1`] = `
+Object {
+  "0%": Object {
+    "transform": "translate3d(-100%, 0, 0)",
+  },
+  "100%": Object {
+    "transform": "none",
+  },
+}
+`;
+
+exports[`<SlideIn /> should animate entering from right 1`] = `
+Object {
+  "0%": Object {
+    "transform": "translate3d(100%, 0, 0)",
+  },
+  "100%": Object {
+    "transform": "none",
+  },
+}
+`;
+
+exports[`<SlideIn /> should animate entering from top 1`] = `
+Object {
+  "0%": Object {
+    "transform": "translate3d(0, -100%, 0)",
+  },
+  "100%": Object {
+    "transform": "none",
+  },
+}
+`;
+
+exports[`<SlideIn /> should animate exiting from bottom 1`] = `
+Object {
+  "0%": Object {
+    "transform": "none",
+  },
+  "100%": Object {
+    "transform": "translate3d(0, 100%, 0)",
+  },
+}
+`;
+
+exports[`<SlideIn /> should animate exiting from left 1`] = `
+Object {
+  "0%": Object {
+    "transform": "none",
+  },
+  "100%": Object {
+    "transform": "translate3d(-100%, 0, 0)",
+  },
+}
+`;
+
+exports[`<SlideIn /> should animate exiting from right 1`] = `
+Object {
+  "0%": Object {
+    "transform": "none",
+  },
+  "100%": Object {
+    "transform": "translate3d(100%, 0, 0)",
+  },
+}
+`;
+
+exports[`<SlideIn /> should animate exiting from top 1`] = `
+Object {
+  "0%": Object {
+    "transform": "none",
+  },
+  "100%": Object {
+    "transform": "translate3d(0, -100%, 0)",
+  },
+}
+`;

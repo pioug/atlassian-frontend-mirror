@@ -710,16 +710,32 @@ export function filterChildrenBetween(
 
 export function dedupe<T>(
   list: T[] = [],
-  iteratee?: (p: T) => T[keyof T] | T,
+  iteratee: (p: T) => T[keyof T] | T = p => p,
 ): T[] {
-  const transformed = iteratee ? list.map(iteratee) : list;
+  /**
+              .,
+    .      _,'f----.._
+    |\ ,-'"/  |     ,'
+    |,_  ,--.      /
+    /,-. ,'`.     (_
+    f  o|  o|__     "`-.
+    ,-._.,--'_ `.   _.,-`
+    `"' ___.,'` j,-'
+      `-.__.,--' 
+    Gotta go fast!
+ */
 
-  return transformed
-    .map((item, index, list) => (list.indexOf(item) === index ? item : null))
-    .reduce<T[]>(
-      (acc, item, index) => (!!item ? acc.concat(list[index]) : acc),
-      [],
-    );
+  const seen = new Set();
+  list.forEach(l => seen.add(iteratee(l)));
+
+  return list.filter(l => {
+    const it = iteratee(l);
+    if (seen.has(it)) {
+      seen.delete(it);
+      return true;
+    }
+    return false;
+  });
 }
 
 export const isTextSelection = (

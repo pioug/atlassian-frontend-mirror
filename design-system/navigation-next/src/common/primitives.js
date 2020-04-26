@@ -1,5 +1,6 @@
 import React from 'react';
-import { transitionTimingFunction, transitionDuration } from './constants';
+
+import { transitionDuration, transitionTimingFunction } from './constants';
 
 export const Shadow = ({ direction, isBold, isOverDarkBg, ...props }) => {
   let width = isOverDarkBg ? 6 : 3;

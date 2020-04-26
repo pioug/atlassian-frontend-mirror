@@ -1,7 +1,10 @@
 import React, { PureComponent } from 'react';
+
 import { ThemeProps } from '@atlaskit/theme/types';
+
 import { normalizeLanguage, SupportedLanguages } from '../supportedLanguages';
-import { Theme, applyTheme } from '../themes/themeBuilder';
+import { applyTheme, Theme } from '../themes/themeBuilder';
+
 import Code from './Code';
 
 export interface CodeBlockProps {

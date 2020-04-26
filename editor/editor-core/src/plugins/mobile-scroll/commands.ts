@@ -18,3 +18,9 @@ export const setWindowHeight = (windowHeight: number) =>
     type: MobileScrollActionTypes.SET_WINDOW_HEIGHT,
     windowHeight,
   });
+
+export const setMobilePaddingTop = (paddingTop: number) =>
+  createCommand({
+    type: MobileScrollActionTypes.SET_MOBILE_PADDING_TOP,
+    paddingTop,
+  });

@@ -1,16 +1,20 @@
 import React from 'react';
-import { layers } from '@atlaskit/theme/constants';
-import Portal from '@atlaskit/portal';
-import ScrollLock from 'react-scrolllock';
-import NodeResovler from 'react-node-resolver';
-import scrollIntoView from 'scroll-into-view-if-needed';
+
 import { canUseDOM } from 'exenv';
+import NodeResovler from 'react-node-resolver';
+import ScrollLock from 'react-scrolllock';
+import scrollIntoView from 'scroll-into-view-if-needed';
+
+import Portal from '@atlaskit/portal';
+import { layers } from '@atlaskit/theme/constants';
+
+import { ElementBoundingBox, ElementBox } from '../utils/use-element-box';
+
 import { Fade } from './Animation';
 import Clone from './Clone';
+import { Props as SpotlightProps } from './Spotlight';
 import SpotlightDialog from './SpotlightDialog';
 import { SpotlightTransitionConsumer } from './SpotlightTransition';
-import { Props as SpotlightProps } from './Spotlight';
-import { ElementBox, ElementBoundingBox } from '../utils/use-element-box';
 
 export interface Props extends SpotlightProps {
   /** the spotlight tagert dom element */
@@ -59,53 +63,14 @@ class SpotlightInner extends React.Component<Props, State> {
     this.props.onClosed();
   }
 
-  isPositionFixed = (element: Element) =>
-    window.getComputedStyle(element).position === 'fixed';
-
-  hasPositionFixedParent = (
-    element: HTMLElement,
-    // We cap this method to be called to 1000 times to prevent flooding the stack.
-    // In reality this only seems to be a problem in CI.
-    _maxTries: number = 1000,
-  ): boolean => {
-    const { offsetParent } = element;
-    if (!offsetParent || _maxTries === 0) {
-      return false;
-    }
-
-    if (this.isPositionFixed(offsetParent)) {
-      return true;
-    }
-
-    return this.hasPositionFixedParent(
-      offsetParent as HTMLElement,
-      _maxTries - 1,
-    );
-  };
-
   getTargetNodeStyle = (box: ElementBoundingBox) => {
     if (!canUseDOM) {
       return {};
     }
-    const { targetNode } = this.props;
-
-    if (
-      this.isPositionFixed(targetNode) ||
-      this.hasPositionFixedParent(targetNode)
-    ) {
-      return {
-        ...box,
-        // fixed position holds the target in place if overflow/scroll is necessary
-        position: 'fixed',
-      };
-    }
 
     return {
-      height: box.height,
-      left: box.left + window.pageXOffset,
-      top: box.top + window.pageYOffset,
-      width: box.width,
-      position: 'absolute',
+      ...box,
+      position: 'fixed',
     };
   };
 

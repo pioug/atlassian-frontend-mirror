@@ -1,4 +1,5 @@
-// NOTE: BlockContent is only being used by layoutColumn now.
+import { ExpandDefinition as Expand } from '../expand';
+import { BodiedExtensionDefinition as BodiedExtension } from '../bodied-extension';
 import { PanelDefinition as Panel } from '../panel';
 import {
   ParagraphDefinition as Paragraph,
@@ -20,8 +21,8 @@ import { TaskListDefinition as TaskList } from '../task-list';
 import { TableDefinition as Table } from '../tableNodes';
 import { ExtensionDefinition as Extension } from '../extension';
 import { BlockCardDefinition as BlockCard } from '../block-card';
-import { ExpandDefinition as Expand } from '../expand';
-import { BodiedExtensionDefinition as BodiedExtension } from '../bodied-extension';
+
+// NOTE: BlockContent is only being used by layoutColumn now.
 
 /**
  * @name block_content

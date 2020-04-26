@@ -1,5 +1,26 @@
 # @atlaskit/avatar-group
 
+## 5.1.2
+
+### Patch Changes
+
+- [patch][e95a8726e2](https://bitbucket.org/atlassian/atlassian-frontend/commits/e95a8726e2):
+
+  Change imports to comply with Atlassian conventions- Updated dependencies [9e4b195732](https://bitbucket.org/atlassian/atlassian-frontend/commits/9e4b195732):
+
+- Updated dependencies [6b8e60827e](https://bitbucket.org/atlassian/atlassian-frontend/commits/6b8e60827e):
+- Updated dependencies [449ef134b3](https://bitbucket.org/atlassian/atlassian-frontend/commits/449ef134b3):
+- Updated dependencies [f7f2068a76](https://bitbucket.org/atlassian/atlassian-frontend/commits/f7f2068a76):
+- Updated dependencies [167a55fd7a](https://bitbucket.org/atlassian/atlassian-frontend/commits/167a55fd7a):
+- Updated dependencies [57c0487a02](https://bitbucket.org/atlassian/atlassian-frontend/commits/57c0487a02):
+- Updated dependencies [7a2540821c](https://bitbucket.org/atlassian/atlassian-frontend/commits/7a2540821c):
+  - @atlaskit/toggle@8.1.7
+  - @atlaskit/button@13.3.11
+  - @atlaskit/icon@20.1.1
+  - @atlaskit/code@11.1.5
+  - @atlaskit/avatar@17.1.10
+  - @atlaskit/dropdown-menu@9.0.3
+
 ## 5.1.1
 
 ### Patch Changes

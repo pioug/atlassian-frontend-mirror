@@ -10,7 +10,7 @@ const moreIndicator = `[data-testid="grid--overflow-menu--trigger"]`;
 describe('Snapshot Test', () => {
   const openExamplesAndWaitFor = async () => {
     const url = getExampleUrl(
-      'core',
+      'design-system',
       'avatar-group',
       'avatarGroupPlayground',
       global.__BASEURL__,

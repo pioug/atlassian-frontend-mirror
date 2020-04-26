@@ -233,6 +233,8 @@ export default class Toolbar extends Component<Props> {
                       icon={DropdownIcon && <DropdownIcon label={item.title} />}
                       dispatchCommand={dispatchCommand}
                       options={item.options}
+                      disabled={item.disabled}
+                      tooltip={item.tooltip}
                       hideExpandIcon={item.hideExpandIcon}
                       mountPoint={popupsMountPoint}
                       boundariesElement={popupsBoundariesElement}

@@ -4,11 +4,15 @@ import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 
 /* URLs to test the examples */
 const inlineEditExampleUrl = getExampleUrl(
-  'core',
+  'design-system',
   'inline-edit',
   'basic-usage',
 );
-const validationExampleUrl = getExampleUrl('core', 'inline-edit', 'validation');
+const validationExampleUrl = getExampleUrl(
+  'design-system',
+  'inline-edit',
+  'validation',
+);
 
 /* Css selectors used for the inline edit tests */
 const readViewContentWrapper = 'button[aria-label="Edit"] + div';

@@ -1,4 +1,5 @@
 import React, { Component, KeyboardEvent } from 'react';
+
 import { Nav, NavLine, NavWrapper } from '../styled';
 import { TabData, TabsNavigationProps } from '../types';
 

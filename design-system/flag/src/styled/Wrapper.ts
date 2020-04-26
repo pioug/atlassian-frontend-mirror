@@ -1,4 +1,5 @@
 import styled, { keyframes } from 'styled-components';
+
 import { gridSize } from '@atlaskit/theme/constants';
 
 export const flagWidth = gridSize() * 50;

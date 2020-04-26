@@ -1,9 +1,11 @@
 import React from 'react';
+
+import styled from 'styled-components';
+
 import TextArea from '@atlaskit/textarea';
-import { gridSize, fontSize } from '@atlaskit/theme';
+import { fontSize, gridSize } from '@atlaskit/theme';
 
 import InlineEdit from '../src';
-import styled from 'styled-components';
 
 const minRows = 2;
 const textAreaLineHeightFactor = 2.5;

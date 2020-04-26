@@ -43,6 +43,10 @@ import {
   FireAnalyticsCallback,
 } from './plugins/analytics';
 import ErrorBoundary from './create-editor/ErrorBoundary';
+import {
+  QuickInsertProvider,
+  QuickInsertOptions,
+} from './plugins/quick-insert/types';
 
 export {
   AllowedBlockTypes,
@@ -87,13 +91,18 @@ const WidthProviderFullHeight = styled(WidthProvider)`
   height: 100%;
 `;
 
-export default class Editor extends React.Component<EditorProps, {}> {
+type State = {
+  extensionProvider?: ExtensionProvider;
+  quickInsertProvider?: Promise<QuickInsertProvider>;
+};
+export default class Editor extends React.Component<EditorProps, State> {
   static defaultProps: EditorProps = {
     appearance: 'comment',
     disabled: false,
     extensionHandlers: {},
     allowHelpDialog: true,
     allowNewInsertionBehaviour: true,
+    quickInsert: true,
   };
 
   static contextTypes = {
@@ -113,6 +122,20 @@ export default class Editor extends React.Component<EditorProps, {}> {
     this.onEditorDestroyed = this.onEditorDestroyed.bind(this);
     this.editorActions = (context || {}).editorActions || new EditorActions();
     startMeasure(measurements.EDITOR_MOUNTED);
+
+    const extensionProvider = this.prepareExtensionProvider(
+      props.extensionProviders,
+    );
+
+    const quickInsertProvider = this.prepareQuickInsertProvider(
+      extensionProvider,
+      props.quickInsert,
+    );
+
+    this.state = {
+      extensionProvider,
+      quickInsertProvider,
+    };
   }
 
   componentDidMount() {
@@ -131,8 +154,30 @@ export default class Editor extends React.Component<EditorProps, {}> {
     this.handleProviders(this.props);
   }
 
-  UNSAFE_componentWillReceiveProps(nextProps: EditorProps) {
-    this.handleProviders(nextProps);
+  componentDidUpdate(prevProps: EditorProps) {
+    const { extensionProviders, quickInsert } = this.props;
+    if (
+      extensionProviders &&
+      extensionProviders !== prevProps.extensionProviders
+    ) {
+      const extensionProvider = this.prepareExtensionProvider(
+        extensionProviders,
+      );
+      const quickInsertProvider = this.prepareQuickInsertProvider(
+        extensionProvider,
+        quickInsert,
+      );
+
+      this.setState(
+        {
+          extensionProvider,
+          quickInsertProvider,
+        },
+        () => this.handleProviders(this.props),
+      );
+      return;
+    }
+    this.handleProviders(this.props);
   }
 
   componentWillUnmount() {
@@ -140,6 +185,38 @@ export default class Editor extends React.Component<EditorProps, {}> {
     this.providerFactory.destroy();
     clearMeasure(measurements.EDITOR_MOUNTED);
   }
+
+  prepareExtensionProvider = (
+    extensionProviders?: (ExtensionProvider | Promise<ExtensionProvider>)[],
+  ) => {
+    if (!extensionProviders) {
+      return;
+    }
+    return combineExtensionProviders(extensionProviders);
+  };
+
+  prepareQuickInsertProvider = (
+    extensionProvider?: ExtensionProvider,
+    quickInsert?: QuickInsertOptions,
+  ) => {
+    const quickInsertProvider =
+      quickInsert && typeof quickInsert !== 'boolean' && quickInsert.provider;
+
+    const extensionQuickInsertProvider =
+      extensionProvider &&
+      extensionProviderToQuickInsertProvider(
+        extensionProvider,
+        this.editorActions,
+        this.createAnalyticsEvent,
+      );
+
+    return quickInsertProvider && extensionQuickInsertProvider
+      ? combineQuickInsertProviders([
+          quickInsertProvider,
+          extensionQuickInsertProvider,
+        ])
+      : quickInsertProvider || extensionQuickInsertProvider;
+  };
 
   onEditorCreated(instance: {
     view: EditorView;
@@ -176,6 +253,12 @@ export default class Editor extends React.Component<EditorProps, {}> {
         message: 'Deprecated. Defaults to true.',
         type: 'removed',
       },
+
+      transactionTracking: {
+        message:
+          'Deprecated. To enable transaction tracking use performanceTracking prop instead: performanceTracking={{ transactionTracking: { enabled: true } }}',
+        type: 'removed',
+      },
     };
 
     (Object.keys(deprecatedProperties) as Array<
@@ -193,16 +276,6 @@ export default class Editor extends React.Component<EditorProps, {}> {
         );
       }
     });
-
-    if (
-      props.hasOwnProperty('quickInsert') &&
-      typeof props.quickInsert === 'boolean'
-    ) {
-      // eslint-disable-next-line no-console
-      console.warn(
-        `quickInsert property is deprecated. [Will be enabled by default in editor-core@${nextVersion}]`,
-      );
-    }
 
     if (
       props.hasOwnProperty('allowTables') &&
@@ -258,11 +331,11 @@ export default class Editor extends React.Component<EditorProps, {}> {
       legacyImageUploadProvider,
       media,
       collabEdit,
-      quickInsert,
       autoformattingProvider,
-      extensionProviders,
       UNSAFE_cards,
     } = props;
+
+    const { extensionProvider, quickInsertProvider } = this.state;
 
     this.providerFactory.setProvider('emojiProvider', emojiProvider);
     this.providerFactory.setProvider('mentionProvider', mentionProvider);
@@ -298,28 +371,14 @@ export default class Editor extends React.Component<EditorProps, {}> {
       autoformattingProvider,
     );
 
-    let extensionProvider: ExtensionProvider | undefined;
-
-    if (extensionProviders) {
-      extensionProvider = combineExtensionProviders(extensionProviders);
+    if (extensionProvider) {
       this.providerFactory.setProvider(
         'extensionProvider',
         Promise.resolve(extensionProvider),
       );
     }
 
-    if (quickInsert && typeof quickInsert !== 'boolean') {
-      const quickInsertProvider = extensionProvider
-        ? combineQuickInsertProviders([
-            quickInsert.provider,
-            extensionProviderToQuickInsertProvider(
-              extensionProvider,
-              this.editorActions,
-              this.createAnalyticsEvent,
-            ),
-          ])
-        : quickInsert.provider;
-
+    if (quickInsertProvider) {
       this.providerFactory.setProvider(
         'quickInsertProvider',
         quickInsertProvider,

@@ -73,19 +73,20 @@ const panelPlugin = (): EditorPlugin => ({
   pluginsOptions: {
     quickInsert: ({ formatMessage }) => [
       {
+        id: 'infopanel',
         title: formatMessage(messages.infoPanel),
+        keywords: ['panel'],
         description: formatMessage(messages.infoPanelDescription),
-        keywords: ['info', 'panel'],
-        priority: 900,
+        priority: 800,
         icon: () => <IconPanel label={formatMessage(messages.infoPanel)} />,
         action(insert, state) {
           return insertPanelTypeWithAnalytics(PANEL_TYPE.INFO, state, insert);
         },
       },
       {
+        id: 'notepanel',
         title: formatMessage(messages.notePanel),
         description: formatMessage(messages.notePanelDescription),
-        keywords: ['note'],
         priority: 1000,
         icon: () => <IconPanelNote label={formatMessage(messages.notePanel)} />,
         action(insert, state) {
@@ -93,9 +94,10 @@ const panelPlugin = (): EditorPlugin => ({
         },
       },
       {
+        id: 'successpanel',
         title: formatMessage(messages.successPanel),
         description: formatMessage(messages.successPanelDescription),
-        keywords: ['success', 'tip'],
+        keywords: ['tip'],
         priority: 1000,
         icon: () => (
           <IconPanelSuccess label={formatMessage(messages.successPanel)} />
@@ -109,9 +111,9 @@ const panelPlugin = (): EditorPlugin => ({
         },
       },
       {
+        id: 'warningpanel',
         title: formatMessage(messages.warningPanel),
         description: formatMessage(messages.warningPanelDescription),
-        keywords: ['warning'],
         priority: 1000,
         icon: () => (
           <IconPanelWarning label={formatMessage(messages.warningPanel)} />
@@ -125,9 +127,9 @@ const panelPlugin = (): EditorPlugin => ({
         },
       },
       {
+        id: 'errorpanel',
         title: formatMessage(messages.errorPanel),
         description: formatMessage(messages.errorPanelDescription),
-        keywords: ['error'],
         priority: 1000,
         icon: () => (
           <IconPanelError label={formatMessage(messages.errorPanel)} />

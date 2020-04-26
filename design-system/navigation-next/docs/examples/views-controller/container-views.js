@@ -1,7 +1,9 @@
 /* eslint-disable react/no-multi-comp */
 
 import React, { Component } from 'react';
+
 import { HashRouter, Link, Route, Switch } from 'react-router-dom';
+
 import GlobalNavigation from '@atlaskit/global-navigation';
 import BacklogIcon from '@atlaskit/icon/glyph/backlog';
 import BoardIcon from '@atlaskit/icon/glyph/board';
@@ -14,6 +16,7 @@ import PageIcon from '@atlaskit/icon/glyph/page';
 import PortfolioIcon from '@atlaskit/icon/glyph/portfolio';
 import ShipIcon from '@atlaskit/icon/glyph/ship';
 import { JiraIcon, JiraWordmark } from '@atlaskit/logo';
+
 import {
   ItemAvatar,
   LayoutManagerWithViewController,

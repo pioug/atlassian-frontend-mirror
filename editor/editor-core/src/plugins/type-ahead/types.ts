@@ -34,6 +34,7 @@ export type TypeAheadSelectItem = (
 export type TypeAheadHandler = {
   trigger: string;
   customRegex?: string;
+  headless?: boolean;
   forceSelect?: (query: string, items: Array<TypeAheadItem>) => boolean;
   getItems: (
     query: string,

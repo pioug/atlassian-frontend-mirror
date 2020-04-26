@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/page-layout",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "A collection of components which let you compose an application's page layout",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -21,10 +21,9 @@
     }
   },
   "dependencies": {
-    "@atlaskit/icon": "^20.0.2",
-    "@atlaskit/motion": "^0.2.2",
+    "@atlaskit/icon": "^20.1.1",
+    "@atlaskit/motion": "^0.2.4",
     "@atlaskit/theme": "^9.5.1",
-    "@atlaskit/tooltip": "^15.2.3",
     "@emotion/core": "^10.0.9",
     "css-vars-ponyfill": "^2.2.0",
     "raf-schd": "^2.1.0",
@@ -35,21 +34,22 @@
     "react-dom": "^16.8.0"
   },
   "devDependencies": {
-    "@atlaskit/avatar": "*",
-    "@atlaskit/button": "*",
     "@atlaskit/docs": "*",
     "@atlaskit/icon": "*",
-    "@atlaskit/icon-file-type": "*",
-    "@atlaskit/icon-object": "*",
+    "@atlaskit/tooltip": "*",
     "@atlaskit/visual-regression": "*",
     "@testing-library/react": "^8.0.1",
     "jest-emotion": "^10.0.10",
-    "raf-stub": "^2.0.1",
-    "react-router-dom": "^4.2.2"
+    "raf-stub": "^2.0.1"
   },
   "keywords": [
     "atlaskit",
     "react",
     "ui"
-  ]
+  ],
+  "techstack": {
+    "@atlassian/frontend": {
+      "import-structure": "atlassian-conventions"
+    }
+  }
 }

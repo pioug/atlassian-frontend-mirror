@@ -5,7 +5,15 @@ import { inlineNodes } from '../../../../schema/inline-nodes';
 describe(`${name}/schema unknownBlock node`, () => {
   describe('should be able to parse inline node', () => {
     inlineNodes.forEach(node => {
-      if (node === 'image') {
+      /**
+       * It's not going to work for extension since we made extension attrs parsing more strict.
+       * Having an empty `data-extension-type` or `data-extension-key` won't be parsed as valid extension anymore.
+       */
+      if (
+        node === 'image' ||
+        node === 'inlineExtension' ||
+        node === 'inlineExtensionWithLocalId'
+      ) {
         return;
       }
       it(node, () => {

@@ -1,7 +1,9 @@
 import React from 'react';
+
+import { CSSObject } from '@emotion/core';
+
 import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import { IconProps } from '@atlaskit/icon';
-import { CSSObject } from '@emotion/core';
 
 export type ChildrenType = React.ReactChild;
 export type ComponentType = React.Component<{}, {}>;

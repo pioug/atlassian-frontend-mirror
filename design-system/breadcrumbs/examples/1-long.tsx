@@ -1,5 +1,6 @@
 import React from 'react';
-import { BreadcrumbsStateless, BreadcrumbsItem } from '../src';
+
+import { BreadcrumbsItem, BreadcrumbsStateless } from '../src';
 
 export default class BreadcrumbsExpand extends React.Component<
   {},

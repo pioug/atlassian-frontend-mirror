@@ -1,6 +1,9 @@
 import React from 'react';
+
 import styled from 'styled-components';
+
 import { gridSize } from '@atlaskit/theme';
+
 import { Presence } from '../src';
 
 const Container = styled.div`

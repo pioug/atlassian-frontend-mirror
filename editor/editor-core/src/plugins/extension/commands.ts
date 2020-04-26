@@ -5,12 +5,44 @@ import { applyChange } from '../context-panel/transforms';
 import { createCommand } from './plugin-factory';
 import { ExtensionState } from './types';
 import { getSelectedExtension } from './utils';
+import {
+  ParametersGetter,
+  AsyncParametersGetter,
+} from '@atlaskit/editor-common/src/extensions';
 
 export const updateState = (state: Partial<ExtensionState>) =>
   createCommand({
     type: 'UPDATE_STATE',
     data: state,
   });
+
+export const setEditingContextToContextPanel = (
+  processParametersBefore: ParametersGetter,
+  processParametersAfter: AsyncParametersGetter,
+) =>
+  createCommand(
+    {
+      type: 'UPDATE_STATE',
+      data: {
+        showContextPanel: true,
+        processParametersBefore,
+        processParametersAfter,
+      },
+    },
+    applyChange,
+  );
+
+export const clearEditingContext = createCommand(
+  {
+    type: 'UPDATE_STATE',
+    data: {
+      showContextPanel: false,
+      processParametersBefore: undefined,
+      processParametersAfter: undefined,
+    },
+  },
+  applyChange,
+);
 
 export const showContextPanel = createCommand(
   {

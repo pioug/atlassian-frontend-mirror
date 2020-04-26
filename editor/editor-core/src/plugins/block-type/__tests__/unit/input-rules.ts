@@ -53,7 +53,7 @@ describe('inputrules', () => {
       preset: new Preset<LightEditorPlugin>()
         // TODO: Maybe it's worth to split this file to test each input rule for each different plugins
         .add(blockTypePlugin)
-        .add([analyticsPlugin, createAnalyticsEvent])
+        .add([analyticsPlugin, { createAnalyticsEvent }])
         .add(indentationPlugin)
         .add(quickInsertPlugin)
         .add(codeBlockPlugin)

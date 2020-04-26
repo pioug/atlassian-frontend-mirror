@@ -1,5 +1,22 @@
 # @atlaskit/inline-message
 
+## 10.1.6
+
+### Patch Changes
+
+- [patch][68e206c857](https://bitbucket.org/atlassian/atlassian-frontend/commits/68e206c857):
+
+  Change imports to comply with Atlassian conventions- Updated dependencies [6b8e60827e](https://bitbucket.org/atlassian/atlassian-frontend/commits/6b8e60827e):
+
+- Updated dependencies [449ef134b3](https://bitbucket.org/atlassian/atlassian-frontend/commits/449ef134b3):
+- Updated dependencies [3a09573b4e](https://bitbucket.org/atlassian/atlassian-frontend/commits/3a09573b4e):
+- Updated dependencies [57c0487a02](https://bitbucket.org/atlassian/atlassian-frontend/commits/57c0487a02):
+- Updated dependencies [fd41d77c29](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd41d77c29):
+  - @atlaskit/button@13.3.11
+  - @atlaskit/icon@20.1.1
+  - @atlaskit/inline-dialog@12.1.12
+  - @atlaskit/webdriver-runner@0.3.4
+
 ## 10.1.5
 
 ### Patch Changes

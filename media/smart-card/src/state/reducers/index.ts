@@ -2,11 +2,11 @@ import clone from 'lodash.clonedeep';
 
 import * as actions from '../actions/constants';
 import { CardReducerMap, CardReducer } from './types';
-import { JsonLd } from '../../client/types';
+import { JsonLdCustom } from '../../client/types';
 import { CardStore, CardState } from '../types';
 import { getStatus } from '../actions/helpers';
 
-const cardReducerMap: CardReducerMap<CardState, JsonLd> = {
+const cardReducerMap: CardReducerMap<CardState, JsonLdCustom> = {
   [actions.ACTION_PENDING]: (_state, { type }) => {
     return { status: type, lastUpdatedAt: Date.now() };
   },
@@ -31,7 +31,10 @@ const cardReducerMap: CardReducerMap<CardState, JsonLd> = {
     return { ...state, status: type };
   },
 };
-export const cardReducer: CardReducer<CardStore, JsonLd> = (state, action) => {
+export const cardReducer: CardReducer<CardStore, JsonLdCustom> = (
+  state,
+  action,
+) => {
   if (cardReducerMap[action.type]) {
     const cardState = state[action.url];
     const nextState = cardReducerMap[action.type](cardState, action);

@@ -1,8 +1,9 @@
 import React from 'react';
+
 import { mount } from 'enzyme';
 
-import { Fade, Slide } from '../../transitions';
 import { transitionDurationMs } from '../../../constants';
+import { Fade, Slide } from '../../transitions';
 
 describe('Drawer Transitions', () => {
   describe('Slide', () => {

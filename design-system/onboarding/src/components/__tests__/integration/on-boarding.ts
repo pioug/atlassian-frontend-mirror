@@ -3,12 +3,12 @@ import { getExampleUrl } from '@atlaskit/webdriver-runner/utils/example';
 import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 
 const urlSpotlightScroll = getExampleUrl(
-  'core',
+  'design-system',
   'onboarding',
   'spotlight-autoscroll',
 );
 const urlSpotlightBasic = getExampleUrl(
-  'core',
+  'design-system',
   'onboarding',
   'spotlight-basic',
 );

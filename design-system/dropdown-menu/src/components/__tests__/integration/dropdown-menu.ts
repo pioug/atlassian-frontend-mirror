@@ -1,10 +1,9 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import { getExampleUrl } from '@atlaskit/webdriver-runner/utils/example';
-
 import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 
 /* Url to test the example */
-const urlDrawer = getExampleUrl('core', 'dropdown-menu', 'testing');
+const urlDrawer = getExampleUrl('design-system', 'dropdown-menu', 'testing');
 
 /* Css selectors used for the test */
 const dropdownMenuTrigger = '[data-testid="dropdown-menu--trigger"]';

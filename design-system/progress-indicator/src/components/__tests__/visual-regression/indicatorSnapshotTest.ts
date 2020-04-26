@@ -6,7 +6,7 @@ import {
 describe('Snapshot Test', () => {
   it(`Progress-indicator example should match prod`, async () => {
     const url = getExampleUrl(
-      'core',
+      'design-system',
       'progress-indicator',
       'progressIndicatorDefault',
       global.__BASEURL__,

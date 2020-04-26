@@ -1,21 +1,26 @@
 import { EditorState, Plugin } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
-import { AnnotationNodeView } from '../ui';
-import { AnnotationTypeProviders, InlineCommentPluginState } from '../types';
-import { getAllAnnotations } from '../utils';
 import { CommandDispatch } from '../../../types';
-import { setInlineCommentState } from '../commands';
-import { createPluginState, pluginKey } from './plugin-factory';
+import { AnnotationNodeView } from '../ui';
+import {
+  AnnotationTypeProviders,
+  InlineCommentPluginState,
+  InlineCommentMap,
+  AnnotationTypes,
+} from '../types';
+import { getAllAnnotations } from '../utils';
+import { setInlineCommentState, updateMouseState } from '../commands';
+import { createPluginState, inlineCommentPluginKey } from './plugin-factory';
 import { InlineCommentPluginOptions } from './types';
 
 const fetchProviderAnnotationStates = async (
   provider: AnnotationTypeProviders['inlineComment'],
   annotationIds: string[],
-): Promise<InlineCommentPluginState> => {
+): Promise<InlineCommentMap> => {
   const data = await provider.getState(annotationIds);
-  let result: InlineCommentPluginState = {};
+  let result: { [key: string]: boolean } = {};
   data.forEach(annotation => {
-    if (annotation.annotationType === 'inlineComment') {
+    if (annotation.annotationType === AnnotationTypes.INLINE_COMMENT) {
       result[annotation.id] = annotation.state.resolved;
     }
   });
@@ -25,13 +30,13 @@ const fetchProviderAnnotationStates = async (
 const fetchInlineCommentStates = (
   provider: AnnotationTypeProviders['inlineComment'],
   annotationIds: string[],
-): Promise<InlineCommentPluginState> =>
+): Promise<InlineCommentMap> =>
   fetchProviderAnnotationStates(provider, annotationIds);
 
 export const getPluginState = (
   state: EditorState,
 ): InlineCommentPluginState => {
-  return pluginKey.getState(state);
+  return inlineCommentPluginKey.getState(state);
 };
 
 function fetchState(
@@ -57,12 +62,20 @@ export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
     inlineCommentProvider,
     dispatch,
     portalProviderAPI,
+    eventDispatcher,
     pollingInterval,
   } = options;
 
   return new Plugin({
-    key: pluginKey,
-    state: createPluginState(dispatch, {}),
+    key: inlineCommentPluginKey,
+    state: createPluginState(dispatch, {
+      annotations: {},
+      mouseData: {
+        x: 0,
+        y: 0,
+        isSelecting: false,
+      },
+    }),
 
     view(editorView: EditorView) {
       // Get initial state
@@ -82,9 +95,40 @@ export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
         )();
       }, pollingInterval || 10000);
 
+      const hideToolbar = () => {
+        updateMouseState({ isSelecting: true })(
+          editorView.state,
+          editorView.dispatch,
+        );
+      };
+
+      const onMouseUp = (e: Event) => {
+        updateMouseState({ isSelecting: false })(
+          editorView.state,
+          editorView.dispatch,
+        );
+
+        const selection = document.getSelection();
+
+        if (!selection || selection.type === 'Caret') {
+          return;
+        }
+
+        const mouseEvent = e as MouseEvent;
+        updateMouseState({ x: mouseEvent.clientX, y: mouseEvent.clientY })(
+          editorView.state,
+          editorView.dispatch,
+        );
+      };
+
+      editorView.dom.addEventListener('mousedown', hideToolbar);
+      editorView.dom.addEventListener('mouseup', onMouseUp);
+
       return {
         destroy() {
           clearInterval(timerId);
+          editorView.dom.removeEventListener('mousedown', hideToolbar);
+          editorView.dom.removeEventListener('mouseup', onMouseUp);
         },
       };
     },
@@ -92,7 +136,17 @@ export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
     props: {
       nodeViews: {
         annotation: (node, view, getPos) =>
-          new AnnotationNodeView(node, view, getPos, portalProviderAPI).init(),
+          new AnnotationNodeView(
+            node,
+            view,
+            getPos,
+            portalProviderAPI,
+            eventDispatcher,
+          ).init(),
+      },
+      decorations(state) {
+        const { draftDecorationSet } = getPluginState(state);
+        return draftDecorationSet;
       },
     },
   });

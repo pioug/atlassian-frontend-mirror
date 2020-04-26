@@ -1,30 +1,34 @@
-import CalendarIcon from '@atlaskit/icon/glyph/calendar';
-import { mergeStyles, StylesConfig, SelectProps } from '@atlaskit/select';
-import { borderRadius } from '@atlaskit/theme/constants';
-import * as colors from '@atlaskit/theme/colors';
+import React from 'react';
+
 import styled from '@emotion/styled';
+// eslint-disable-next-line no-restricted-imports
+import { format, isValid, parse } from 'date-fns';
 import pick from 'lodash.pick';
+
 import {
+  createAndFireEvent,
+  withAnalyticsContext,
   withAnalyticsEvents,
   WithAnalyticsEventsProps,
-  withAnalyticsContext,
-  createAndFireEvent,
 } from '@atlaskit/analytics-next';
-import React from 'react';
-// eslint-disable-next-line no-restricted-imports
-import { parse, format, isValid } from 'date-fns';
+import SelectClearIcon from '@atlaskit/icon/glyph/select-clear';
+import { mergeStyles, SelectProps, StylesConfig } from '@atlaskit/select';
+import * as colors from '@atlaskit/theme/colors';
+import { borderRadius, gridSize } from '@atlaskit/theme/constants';
+
+import { defaultTimes, formatDateTimeZoneIntoIso } from '../internal';
 import { Appearance, Spacing } from '../types';
 import {
   name as packageName,
   version as packageVersion,
 } from '../version.json';
+
 import DatePicker, { Props as DatePickerProps } from './DatePicker';
 import TimePicker, { Props as TimePickerProps } from './TimePicker';
-import { defaultTimes, formatDateTimeZoneIntoIso } from '../internal';
 
 /* eslint-disable react/no-unused-prop-types */
 export interface Props extends WithAnalyticsEventsProps {
-  /** Defines the appearance which can be default or subtle - no borders, background or icon. */
+  /** Defines the appearance which can be default or subtle - no borders or background. */
   appearance?: Appearance;
   /** Whether or not to auto-focus the field. */
   autoFocus: boolean;
@@ -50,8 +54,6 @@ export interface Props extends WithAnalyticsEventsProps {
   timeIsEditable?: boolean;
   /** Indicates current value is invalid & changes border color. */
   isInvalid?: boolean;
-  /** Hides icon for dropdown indicator. */
-  hideIcon?: boolean;
   /** DEPRECATED - Use locale instead. Format the date with a string that is accepted by [date-fns's format function](https://date-fns.org/v1.29.0/docs/format). */
   dateFormat?: string;
   datePickerProps: DatePickerProps;
@@ -63,9 +65,9 @@ export interface Props extends WithAnalyticsEventsProps {
     time: string,
     timezone: string,
   ) => { dateValue: string; timeValue: string; zoneValue: string };
-  /** [Select props](/packages/core/select) to pass onto the DatePicker component. This can be used to set options such as placeholder text. */
+  /** [Select props](/packages/design-system/select) to pass onto the DatePicker component. This can be used to set options such as placeholder text. */
   datePickerSelectProps: SelectProps<any>;
-  /** [Select props](/packages/core/select) to pass onto the TimePicker component. This can be used to set options such as placeholder text. */
+  /** [Select props](/packages/design-system/select) to pass onto the TimePicker component. This can be used to set options such as placeholder text. */
   timePickerSelectProps: SelectProps<any>;
   /** The times to show in the times dropdown. */
   times?: Array<string>;
@@ -149,9 +151,34 @@ const Flex = styled.div<StyleProps>`
   }
 `;
 
-const FlexItem = styled.div`
-  flex-basis: 0;
+// Make DatePicker 50% the width of DateTimePicker
+// If rendering an icon container, shrink the TimePicker
+const DatePickerContainer = styled.div`
+  flex-basis: 50%;
   flex-grow: 1;
+  flex-shrink: 0;
+`;
+
+const TimePickerContainer = styled.div`
+  flex-basis: 50%;
+  flex-grow: 1;
+`;
+
+const ICON_PADDING = 2;
+
+const IconContainer = styled.div`
+  flex-basis: inherit;
+  padding-left: ${ICON_PADDING * 2}px;
+  padding-right: ${gridSize()}px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  display: flex;
+  align-items: center;
+  color: ${colors.N70};
+  transition: color 150ms;
+  &:hover {
+    color: ${colors.N500};
+  }
 `;
 
 // react-select overrides (via @atlaskit/select).
@@ -185,7 +212,6 @@ class DateTimePicker extends React.Component<Props, State> {
     defaultValue: '',
     timeIsEditable: false,
     isInvalid: false,
-    hideIcon: false,
     datePickerProps: {},
     timePickerProps: {},
     datePickerSelectProps: {},
@@ -269,6 +295,14 @@ class DateTimePicker extends React.Component<Props, State> {
     this.onValueChange({ ...this.getSafeState(), timeValue });
   };
 
+  onClear = () => {
+    this.onValueChange({
+      ...this.getSafeState(),
+      timeValue: '',
+      dateValue: '',
+    });
+  };
+
   onValueChange({
     dateValue,
     timeValue,
@@ -311,10 +345,6 @@ class DateTimePicker extends React.Component<Props, State> {
       testId,
     } = this.props;
     const { isFocused, value, dateValue, timeValue } = this.getSafeState();
-    const icon: React.ReactNode =
-      this.props.appearance === 'subtle' || this.props.hideIcon
-        ? null
-        : CalendarIcon;
     const bothProps = {
       isDisabled,
       onBlur: this.onBlur,
@@ -337,6 +367,10 @@ class DateTimePicker extends React.Component<Props, State> {
       styles: mergeStyles(styles, timePickerStyles),
     };
 
+    // Render DateTimePicker's IconContainer when a value has been filled
+    // Don't use Date or TimePicker's because they can't be customised
+    const isClearable = Boolean(dateValue || timeValue);
+
     return (
       <Flex
         {...innerProps}
@@ -346,12 +380,12 @@ class DateTimePicker extends React.Component<Props, State> {
         appearance={this.props.appearance!}
       >
         <input name={name} type="hidden" value={value} />
-        <FlexItem>
+        <DatePickerContainer>
           <DatePicker
             {...bothProps}
             autoFocus={autoFocus}
             dateFormat={dateFormat}
-            icon={null}
+            hideIcon
             id={id}
             onChange={this.onDateChange}
             selectProps={mergedDatePickerSelectProps}
@@ -360,11 +394,11 @@ class DateTimePicker extends React.Component<Props, State> {
             testId={testId && `${testId}--datepicker`}
             {...datePickerProps}
           />
-        </FlexItem>
-        <FlexItem>
+        </DatePickerContainer>
+        <TimePickerContainer>
           <TimePicker
             {...bothProps}
-            icon={icon}
+            hideIcon
             onChange={this.onTimeChange}
             selectProps={mergedTimePickerSelectProps}
             value={timeValue}
@@ -375,7 +409,19 @@ class DateTimePicker extends React.Component<Props, State> {
             testId={testId && `${testId}--timepicker`}
             {...timePickerProps}
           />
-        </FlexItem>
+        </TimePickerContainer>
+        {isClearable ? (
+          <IconContainer
+            onClick={this.onClear}
+            data-testid={testId && `${testId}--icon--container`}
+          >
+            <SelectClearIcon
+              size="small"
+              primaryColor="inherit"
+              label="clear"
+            />
+          </IconContainer>
+        ) : null}
       </Flex>
     );
   }

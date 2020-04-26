@@ -1,6 +1,9 @@
 import React from 'react';
+
 import styled from 'styled-components';
+
 import DynamicTable from '../src';
+
 import { caption, head, rows } from './content/sample-data';
 
 const Wrapper = styled.div`

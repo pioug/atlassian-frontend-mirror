@@ -1,4 +1,5 @@
 import { StyledComponentClass } from 'styled-components';
+
 import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 
 export type PositionTypeBase = 'bottom' | 'left' | 'right' | 'top';

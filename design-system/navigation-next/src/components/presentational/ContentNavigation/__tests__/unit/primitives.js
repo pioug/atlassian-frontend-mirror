@@ -1,12 +1,13 @@
 import React from 'react';
+
 import { mount } from 'enzyme';
 
+import { light } from '../../../../../theme';
 import {
   ContainerNavigation,
-  ProductNavigation,
   ContainerNavigationMask,
+  ProductNavigation,
 } from '../../primitives';
-import { light } from '../../../../../theme';
 
 describe('ContentNavigation primitives', () => {
   describe('ContainerNavigationMask', () => {

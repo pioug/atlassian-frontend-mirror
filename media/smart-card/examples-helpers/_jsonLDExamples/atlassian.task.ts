@@ -9,7 +9,7 @@ import {
   JIRA_CHANGE,
   JIRA_PROBLEM,
   JIRA_CUSTOM_TASK_TYPE,
-} from '../../src/extractors/utils/constants';
+} from '../../src/extractors/constants';
 
 export const AsanaTask = {
   '@context': {

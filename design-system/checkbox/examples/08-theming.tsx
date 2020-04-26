@@ -1,7 +1,9 @@
 import React from 'react';
+
+import merge from 'lodash.merge';
+
 import { Checkbox } from '../src';
 import { ComponentTokens, ThemeFn } from '../src/types';
-import merge from 'lodash.merge';
 
 const newThemeTokens: ComponentTokens = {
   label: {

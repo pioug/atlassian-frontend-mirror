@@ -1,16 +1,4 @@
-const mockEvents = {
-  resolvedEvent: jest.fn(),
-  unresolvedEvent: jest.fn(),
-  connectSucceededEvent: jest.fn(),
-  connectFailedEvent: jest.fn(),
-  trackAppAccountConnected: jest.fn(),
-  uiAuthEvent: jest.fn(),
-  uiAuthAlternateAccountEvent: jest.fn(),
-  uiCardClickedEvent: jest.fn(),
-  uiClosedAuthEvent: jest.fn(),
-  screenAuthPopupEvent: jest.fn(),
-  fireSmartLinkEvent: jest.fn(),
-};
+import { mockEvents } from './_mocks';
 const mockAuthFlow = jest.fn();
 
 jest.mock('react-lazily-render', () => (data: any) => data.content);
@@ -73,7 +61,7 @@ describe('smart-card: unauthorized analytics', () => {
         () => getByTestId('unauthorizedCard1-unauthorized'),
         { timeout: 10000 },
       );
-      const unauthorizedLinkButton = container.querySelector('button');
+      const unauthorizedLinkButton = container.querySelector('[type="button"]');
       expect(unauthorizedLink).toBeTruthy();
       expect(unauthorizedLinkButton).toBeTruthy();
       expect(unauthorizedLinkButton!.innerHTML).toContain('Connect');
@@ -91,6 +79,15 @@ describe('smart-card: unauthorized analytics', () => {
       expect(mockEvents.screenAuthPopupEvent).toHaveBeenCalledTimes(1);
       expect(mockEvents.trackAppAccountConnected).toHaveBeenCalledTimes(1);
       expect(mockEvents.connectSucceededEvent).toHaveBeenCalledTimes(1);
+      expect(mockEvents.fireSmartLinkEvent).toBeCalledWith(
+        {
+          attributes: {
+            componentName: 'smart-cards',
+            display: 'inline',
+          },
+        },
+        expect.any(Function),
+      );
     });
 
     it('should fire connectFailed event when auth fails', async () => {
@@ -105,7 +102,7 @@ describe('smart-card: unauthorized analytics', () => {
         () => getByTestId('unauthorizedCard2-unauthorized'),
         { timeout: 10000 },
       );
-      const unauthorizedLinkButton = container.querySelector('button');
+      const unauthorizedLinkButton = container.querySelector('[type="button"]');
       expect(unauthorizedLink).toBeTruthy();
       expect(unauthorizedLinkButton).toBeTruthy();
       expect(unauthorizedLinkButton!.innerHTML).toContain('Connect');
@@ -142,7 +139,7 @@ describe('smart-card: unauthorized analytics', () => {
         () => getByTestId('unauthorizedCard3-unauthorized'),
         { timeout: 10000 },
       );
-      const unauthorizedLinkButton = container.querySelector('button');
+      const unauthorizedLinkButton = container.querySelector('[type="button"]');
       expect(unauthorizedLink).toBeTruthy();
       expect(unauthorizedLinkButton).toBeTruthy();
       expect(unauthorizedLinkButton!.innerHTML).toContain('Connect');

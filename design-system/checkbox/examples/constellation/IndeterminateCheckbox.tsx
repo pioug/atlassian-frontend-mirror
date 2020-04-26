@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+
 import { Checkbox } from '../../src';
 
 interface CheckedItems {

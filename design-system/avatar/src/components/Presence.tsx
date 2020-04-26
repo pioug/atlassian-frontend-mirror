@@ -1,6 +1,7 @@
 import React, { Component, ReactNode } from 'react';
-import { Inner, Outer } from '../styled/Icon';
+
 import getPresenceSVG from '../helpers/getPresenceSVG';
+import { Inner, Outer } from '../styled/Icon';
 import { PresenceType, SizeType } from '../types';
 
 interface PresenceProps {

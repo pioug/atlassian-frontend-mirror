@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`card: changing the link URL of an inline link should convert it to a "dumb" link 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "marks": Array [
+            Object {
+              "attrs": Object {
+                "__confluenceMetadata": null,
+                "href": "https://onedrive.live.com/redir?resid=5D04B397F4A8ABE!1004&authkey=!AN4C7co5280OG_Y",
+              },
+              "type": "link",
+            },
+          ],
+          "text": "Welcome to Atlassian!",
+          "type": "text",
+        },
+        Object {
+          "text": " ",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;

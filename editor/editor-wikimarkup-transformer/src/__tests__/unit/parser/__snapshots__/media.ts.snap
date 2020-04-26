@@ -733,6 +733,42 @@ Object {
 }
 `;
 
+exports[`JIRA wiki markup - Images and attachments should clamp media with percentage width > 100% 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "layout": "center",
+        "width": 100,
+      },
+      "content": Array [
+        Object {
+          "attrs": Object {
+            "__contextId": null,
+            "__displayType": null,
+            "__external": false,
+            "__fileMimeType": null,
+            "__fileName": null,
+            "__fileSize": null,
+            "alt": null,
+            "collection": "",
+            "height": null,
+            "id": "fizzbuzz.txt",
+            "occurrenceKey": null,
+            "type": "file",
+            "url": null,
+            "width": null,
+          },
+          "type": "media",
+        },
+      ],
+      "type": "mediaSingle",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
 exports[`JIRA wiki markup - Images and attachments should find absolute URL images and convert it to external media item 1`] = `
 Object {
   "content": Array [

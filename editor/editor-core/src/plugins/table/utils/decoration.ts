@@ -94,7 +94,7 @@ export const createControlsHoverDecoration = (
     );
   });
 
-export const createColumnSelectedDecorations = (
+export const createColumnSelectedDecoration = (
   tr: Transaction,
 ): Decoration[] => {
   const { selection, doc } = tr;
@@ -152,7 +152,7 @@ export const createColumnControlsDecoration = (
   });
 };
 
-export const updateNodeDecorations = (
+export const updateDecorations = (
   node: PmNode,
   decorationSet: DecorationSet,
   decorations: Decoration[],

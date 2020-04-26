@@ -2,7 +2,15 @@ import React from 'react';
 import { NodeSelection } from 'prosemirror-state';
 import { findParentNodeOfType } from 'prosemirror-utils';
 
-import { ExtensionHandlers, ProviderFactory } from '@atlaskit/editor-common';
+import {
+  ExtensionHandlers,
+  ExtensionProvider,
+  UpdateExtension,
+  ParametersGetter,
+  combineExtensionProviders,
+  AsyncParametersGetter,
+} from '@atlaskit/editor-common/extensions';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
 import {
   inlineExtensionData,
@@ -29,16 +37,16 @@ import {
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import sleep from '@atlaskit/editor-test-helpers/sleep';
 import { createFakeExtensionProvider } from '@atlaskit/editor-test-helpers/extensions';
-import { combineExtensionProviders } from '@atlaskit/editor-common';
 
 import { editExtension } from '../../../../plugins/extension/actions';
 import {
   removeExtension,
   updateExtensionLayout,
 } from '../../../../plugins/extension/commands';
-import { getPluginState } from '../../../../plugins/extension/plugin';
+import { getPluginState } from '../../../../plugins/extension/pm-plugins/main';
 import { setNodeSelection } from '../../../../utils';
 import { waitForProvider, flushPromises } from '../../../__helpers/utils';
+import { EditorView } from 'prosemirror-view';
 
 const macroProviderPromise = Promise.resolve(macroProvider);
 
@@ -55,21 +63,12 @@ describe('extension', () => {
   const editor = (
     doc: any,
     extensionHandlers?: ExtensionHandlers,
-    useExtensionProvider: boolean = false,
+    extensionProviders?: ExtensionProvider[],
   ) => {
-    const extensionUpdater = () => Promise.resolve();
-
-    const extensionProvider = createFakeExtensionProvider(
-      'fake.confluence',
-      'extension',
-      ExtensionHandlerComponent,
-      extensionUpdater,
-    );
-
-    if (useExtensionProvider) {
+    if (extensionProviders) {
       providerFactory.setProvider(
         'extensionProvider',
-        Promise.resolve(combineExtensionProviders([extensionProvider])),
+        Promise.resolve(combineExtensionProviders(extensionProviders)),
       );
     }
 
@@ -90,6 +89,15 @@ describe('extension', () => {
 
   describe('initial load', () => {
     it('should set the updateExtension properly when used with extensionProvider', async () => {
+      const extensionUpdater = () => Promise.resolve({});
+
+      const extensionProvider = createFakeExtensionProvider(
+        'fake.confluence',
+        'extension',
+        ExtensionHandlerComponent,
+        extensionUpdater,
+      );
+
       const updateFn = jest.fn();
       const { editorView } = editor(
         doc(extension({ extensionKey: 'key-1', extensionType: 'type-1' })()),
@@ -99,7 +107,7 @@ describe('extension', () => {
             update: updateFn,
           },
         },
-        true,
+        [extensionProvider],
       );
 
       await waitForProvider(providerFactory)('extensionProvider');
@@ -298,24 +306,26 @@ describe('extension', () => {
       });
 
       describe('extensionHandler', () => {
-        it('should return true if valid extensionHandler is provided and cursor is inside extension node', async () => {
-          const initialValue = { content: 'hello 123' };
-          const newContent = 'goodbye 456';
-          const extensionKey = 'test-key-123';
-          const extensionType = 'test-ext';
-          const updateFn = jest.fn();
-          const updateHandler = async (params: object) => {
-            updateFn(params);
-            return { content: newContent };
-          };
-          const extensionHandlers: ExtensionHandlers = {
-            [extensionType]: {
-              render: ({ parameters: { content } }) => <div>{content}</div>,
-              update: updateHandler,
-            },
-          };
+        const initialValue = { content: 'hello 123' };
+        const newContent = 'goodbye 456';
+        const extensionKey = 'test-key-123';
+        const extensionType = 'test-ext';
+        const updateFn = jest.fn();
+        const updateHandler = async (params: object) => {
+          updateFn(params);
+          return { content: newContent };
+        };
+        const extensionHandlers: ExtensionHandlers = {
+          [extensionType]: {
+            render: ({ parameters: { content } }) => <div>{content}</div>,
+            update: updateHandler,
+          },
+        };
 
-          const { editorView } = editor(
+        let editorView: EditorView;
+
+        beforeEach(() => {
+          const mountedEditor = editor(
             doc(
               extension({
                 extensionKey,
@@ -327,53 +337,49 @@ describe('extension', () => {
             extensionHandlers,
           );
 
+          editorView = mountedEditor.editorView;
+
+          // select the current node to enable editing logic
           const tr = editorView.state.tr.setSelection(
             NodeSelection.create(editorView.state.doc, 0),
           );
-          editorView.dispatch(tr);
 
+          editorView.dispatch(tr);
+        });
+
+        it('should return true if valid extensionHandler is provided and cursor is inside extension node', async () => {
           expect(
-            editExtension(
-              null,
-              false,
-              updateHandler,
-            )(editorView.state, editorView.dispatch),
+            editExtension(null, updateHandler)(
+              editorView.state,
+              editorView.dispatch,
+            ),
           ).toBe(true);
 
           expect(updateFn).toBeCalledWith(initialValue);
           await sleep(0);
+
           expect(
             editorView.state.doc.firstChild!.attrs.parameters.content,
           ).toBe(newContent);
         });
-      });
 
-      describe('allowNewConfigPanel', () => {
-        it('should set showContextPanel to true when allowNewConfigPanel is true', () => {
-          const updateFn = jest.fn();
-          const { editorView } = editor(
-            doc(
-              extension({ extensionKey: 'key-1', extensionType: 'type-1' })(),
-            ),
-            {
-              'type-1': {
-                render: ExtensionHandlerComponent,
-                update: updateFn,
-              },
-            },
-          );
+        it('should scroll into view', async () => {
+          // using a mock to be able to capture the passed TR at the end
+          const dispatchMock = jest.fn(editorView.dispatch);
 
           expect(
-            editExtension(
-              null,
-              true,
-              updateFn,
-            )(editorView.state, editorView.dispatch),
+            editExtension(null, updateHandler)(editorView.state, dispatchMock),
           ).toBe(true);
 
-          const extensionState = getPluginState(editorView.state);
+          expect(updateFn).toBeCalledWith(initialValue);
+          await sleep(0);
 
-          expect(extensionState.showContextPanel).toBe(true);
+          expect(
+            editorView.state.doc.firstChild!.attrs.parameters.content,
+          ).toBe(newContent);
+
+          const dispatchedTR = dispatchMock.mock.calls[0][0];
+          expect((dispatchedTR as any).scrolledIntoView).toBeTruthy();
         });
       });
     });
@@ -545,6 +551,50 @@ describe('extension', () => {
       expect(getSecondExtensionElement.getAttribute('data-layout')).toBe(
         'full-width',
       );
+    });
+  });
+
+  describe('Config Panel', () => {
+    const transformBefore: ParametersGetter = parameters =>
+      parameters.macroParams;
+    const transformAfter: AsyncParametersGetter = parameters =>
+      Promise.resolve({
+        macroParams: parameters,
+      });
+
+    const extensionUpdater: UpdateExtension<object> = (data, actions) =>
+      new Promise(() => {
+        actions!.editInContextPanel(transformBefore, transformAfter);
+      });
+
+    it('when editing extensions on config panel, state should contain showContextPanel=true and the pre and post transformers', async () => {
+      const { editorView } = createEditor({
+        doc: doc(
+          bodiedExtension({
+            extensionType: 'fake.confluence',
+            extensionKey: 'extension',
+            layout: 'full-width',
+          })(paragraph('te{<>}xt')),
+        ),
+        editorProps: {
+          allowExtension: {
+            allowBreakout: true,
+          },
+        },
+        providerFactory,
+      });
+
+      editExtension(null, extensionUpdater)(
+        editorView.state,
+        editorView.dispatch,
+      );
+
+      await flushPromises();
+
+      const pluginState = getPluginState(editorView.state);
+      expect(pluginState.showContextPanel).toEqual(true);
+      expect(pluginState.processParametersBefore).toEqual(transformBefore);
+      expect(pluginState.processParametersAfter).toEqual(transformAfter);
     });
   });
 });

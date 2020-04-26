@@ -1,7 +1,7 @@
 import {
   getExampleUrl,
-  takeScreenShot,
   takeElementScreenShot,
+  takeScreenShot,
 } from '@atlaskit/visual-regression/helper';
 
 const checkbox = "[data-testid='cb-basic--checkbox-label']";
@@ -10,7 +10,7 @@ const invalidCheckbox = "[data-testid='cb-invalid--checkbox-label']";
 describe('Snapshot Test', () => {
   it('Basic usage example should match production example', async () => {
     const url = getExampleUrl(
-      'core',
+      'design-system',
       'checkbox',
       'basic-usage',
       global.__BASEURL__,
@@ -21,7 +21,12 @@ describe('Snapshot Test', () => {
 
   it('Default checkbox should render correctly under all interactions', async () => {
     const { __BASEURL__, page } = global;
-    const url = getExampleUrl('core', 'checkbox', 'basic-usage', __BASEURL__);
+    const url = getExampleUrl(
+      'design-system',
+      'checkbox',
+      'basic-usage',
+      __BASEURL__,
+    );
     await page.goto(url);
 
     await page.waitForSelector(checkbox);
@@ -47,7 +52,12 @@ describe('Snapshot Test', () => {
 
   it('Invalid checkbox should render correctly under all interactions', async () => {
     const { __BASEURL__, page } = global;
-    const url = getExampleUrl('core', 'checkbox', 'basic-usage', __BASEURL__);
+    const url = getExampleUrl(
+      'design-system',
+      'checkbox',
+      'basic-usage',
+      __BASEURL__,
+    );
     await page.goto(url);
 
     await page.waitForSelector(checkbox);

@@ -1,16 +1,17 @@
 import React, {
-  ReactNode,
   FormEvent,
+  MutableRefObject,
+  ReactNode,
   useContext,
   useEffect,
   useMemo,
   useRef,
   useState,
-  MutableRefObject,
 } from 'react';
+
+import { FieldState } from 'final-form';
 import { uid } from 'react-uid';
 import invariant from 'tiny-invariant';
-import { FieldState } from 'final-form';
 
 import { FormContext, IsDisabledContext } from './Form';
 import FieldWrapper, { Label, RequiredIndicator } from './styled/Field';

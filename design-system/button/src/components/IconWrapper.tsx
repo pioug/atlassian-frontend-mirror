@@ -1,7 +1,9 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import { getLoadingStyle } from './utils';
+
 import { gridSize } from '@atlaskit/theme/constants';
+
+import { getLoadingStyle } from './utils';
 
 interface Props {
   icon: React.ReactChild;

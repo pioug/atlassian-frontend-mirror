@@ -1,10 +1,26 @@
 import React from 'react';
 import Textfield from '../src';
+import { subtleHeading } from '@atlaskit/theme/colors';
+import { fontSize, gridSize } from '@atlaskit/theme/constants';
+import { headingSizes } from '@atlaskit/theme/typography';
 
 export default function() {
   return (
     <div>
-      <label htmlFor="max">Max length of 5</label>
+      <label
+        htmlFor="max"
+        style={{
+          fontSize: `${headingSizes.h200.size / fontSize()}em`,
+          fontStyle: 'inherit',
+          lineHeight: `${headingSizes.h200.lineHeight /
+            headingSizes.h200.size}`,
+          color: `${subtleHeading()}`,
+          fontWeight: 600,
+          marginTop: `${gridSize() * 2}px`,
+        }}
+      >
+        Max length of 5
+      </label>
       <Textfield name="max" maxLength={5} />
     </div>
   );

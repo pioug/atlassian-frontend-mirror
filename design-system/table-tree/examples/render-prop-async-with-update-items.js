@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
+
 import SectionMessage from '@atlaskit/section-message';
+
 import TableTree, {
-  Headers,
-  Header,
-  Rows,
-  Row,
   Cell,
+  Header,
+  Headers,
+  Row,
+  Rows,
   TableTreeDataHelper,
 } from '../src';
 

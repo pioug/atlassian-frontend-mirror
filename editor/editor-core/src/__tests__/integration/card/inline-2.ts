@@ -2,36 +2,32 @@ import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 import {
   getDocFromElement,
-  fullpage,
   editable,
   copyToClipboard,
+  gotoEditor,
 } from '../_helpers';
 
 BrowserTestCase(
-  `inline-2.ts: pasting an link then typing still converts to inline card`,
+  `card: pasting an link then typing still converts to inline card`,
   { skip: ['ie', 'safari', 'edge'] },
-  async (client: any, testName: string) => {
-    let browser = new Page(client);
+  async (client: ConstructorParameters<typeof Page>[0], testName: string) => {
+    const page = new Page(client);
 
-    // copy stuff to clipboard
-    await copyToClipboard(browser, 'https://www.atlassian.com');
+    // Copy stuff to clipboard
+    await copyToClipboard(page, 'https://www.atlassian.com');
 
-    // open up editor
-    await browser.goto(fullpage.path);
-    await browser.waitForSelector(fullpage.placeholder);
-    await browser.click(fullpage.placeholder);
-    await browser.waitForSelector(editable);
+    await gotoEditor(page);
 
-    // type some text into the paragraph first
-    await browser.type(editable, 'hello have a link ');
+    // Type some text into the paragraph first
+    await page.type(editable, 'hello have a link ');
 
-    // paste the link
-    await browser.paste();
+    // Paste the link
+    await page.paste();
 
-    // type some text after it
-    await browser.type(editable, 'more typing');
+    // Type some text after it
+    await page.type(editable, 'more typing');
 
-    const doc = await browser.$eval(editable, getDocFromElement);
+    const doc = await page.$eval(editable, getDocFromElement);
     expect(doc).toMatchCustomDocSnapshot(testName);
   },
 );

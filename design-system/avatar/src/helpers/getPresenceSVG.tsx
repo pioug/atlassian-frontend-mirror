@@ -1,5 +1,7 @@
 import React, { FC } from 'react';
+
 import styled from 'styled-components';
+
 import * as colors from '@atlaskit/theme/colors';
 import { themed, withTheme } from '@atlaskit/theme/components';
 

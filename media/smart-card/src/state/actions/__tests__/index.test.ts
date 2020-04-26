@@ -23,6 +23,7 @@ const getMockContext = (): CardContext => ({
   connections: {
     client: {
       fetchData: jest.fn(),
+      postData: jest.fn(),
     },
   },
   store: {
@@ -42,13 +43,13 @@ import { useSmartCardActions } from '..';
 import { mocks } from '../../../utils/mocks';
 import { FetchError } from '../../../client/errors';
 import { CardContext } from '../../context';
-import { JsonLd } from '../../../client/types';
+import { JsonLdCustom } from '../../../client/types';
 import { CardState } from '../../types';
 
 describe('Smart Card: Actions', () => {
   let url: string;
   let dispatchAnalytics: jest.Mock;
-  const mockFetchData = (response: Promise<JsonLd | undefined>) => {
+  const mockFetchData = (response: Promise<JsonLdCustom | undefined>) => {
     (mockContext.connections.client
       .fetchData as jest.Mock).mockImplementationOnce(() => response);
   };

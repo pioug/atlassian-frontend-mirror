@@ -1,4 +1,5 @@
 import Page from '@atlaskit/webdriver-runner/wd-wrapper';
+import { sleep } from '@atlaskit/editor-test-helpers';
 import { Page as PuppeteerPage } from 'puppeteer';
 import { getExampleUrl } from '@atlaskit/webdriver-runner/utils/example';
 import { ToolbarFeatures } from '../../../example-helpers/ToolsDrawer';
@@ -195,7 +196,7 @@ export const insertMediaFromMediaPicker = async (
   const existingMediaCards = await page.$$(mediaCardSelector);
   // wait for media item, and select it
   await page.waitForSelector(
-    '[data-testid="media-picker-popup"] [data-testid="media-file-card-view"] [aria-label="one.svg"]',
+    '[data-testid="media-picker-popup"] [data-testid="media-file-card-view"][data-test-media-name="one.svg"]',
   );
   if (filenames) {
     for (const filename of filenames) {
@@ -250,10 +251,14 @@ export const insertMedia = async (
   filenames = ['one.svg'],
   fileSelector = 'div=%s',
 ) => {
-  const openMediaPopup = `[aria-label="${insertBlockMessages.filesAndImages.defaultMessage}"]`;
+  const openMediaPopup = `button:enabled  [aria-label="${insertBlockMessages.filesAndImages.defaultMessage}"]`;
   // wait for media button in toolbar and click it
   await page.waitForSelector(openMediaPopup);
+  // Potential fix for EDM-486. The theory is media picker is not opening with following click
+  // is because click handler hasn't been assigned yet for some reason.
+  await sleep(300);
   await page.click(openMediaPopup);
+  await page.waitForSelector('[data-testid="media-picker-popup"]');
   await insertMediaFromMediaPicker(page, filenames, fileSelector);
 };
 
@@ -544,4 +549,10 @@ export const selectColumns = async (page: any, indexes: number[]) => {
     await page.click(controlSelector);
     await page.waitForSelector(tableSelectors.selectedCell);
   }
+};
+
+export const selectInlineLink = async (page: Page) => {
+  await page.waitForSelector('.inlineCardView-content-wrap');
+  await page.click('.inlineCardView-content-wrap');
+  await page.waitForSelector('div[aria-label="Floating Toolbar"]');
 };

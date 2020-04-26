@@ -1,5 +1,46 @@
 # @atlaskit/navigation-next
 
+## 8.0.4
+
+### Patch Changes
+
+- [patch][2e52d035cd](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e52d035cd):
+
+  Change imports to comply with Atlassian conventions- Updated dependencies [3940bd71f1](https://bitbucket.org/atlassian/atlassian-frontend/commits/3940bd71f1):
+
+- Updated dependencies [2bfc59f090](https://bitbucket.org/atlassian/atlassian-frontend/commits/2bfc59f090):
+- Updated dependencies [9e4b195732](https://bitbucket.org/atlassian/atlassian-frontend/commits/9e4b195732):
+- Updated dependencies [6b8e60827e](https://bitbucket.org/atlassian/atlassian-frontend/commits/6b8e60827e):
+- Updated dependencies [449ef134b3](https://bitbucket.org/atlassian/atlassian-frontend/commits/449ef134b3):
+- Updated dependencies [f6667f2909](https://bitbucket.org/atlassian/atlassian-frontend/commits/f6667f2909):
+- Updated dependencies [9a534d6a74](https://bitbucket.org/atlassian/atlassian-frontend/commits/9a534d6a74):
+- Updated dependencies [167a55fd7a](https://bitbucket.org/atlassian/atlassian-frontend/commits/167a55fd7a):
+- Updated dependencies [d150e2d7f6](https://bitbucket.org/atlassian/atlassian-frontend/commits/d150e2d7f6):
+- Updated dependencies [3a09573b4e](https://bitbucket.org/atlassian/atlassian-frontend/commits/3a09573b4e):
+- Updated dependencies [57c0487a02](https://bitbucket.org/atlassian/atlassian-frontend/commits/57c0487a02):
+- Updated dependencies [c21a796623](https://bitbucket.org/atlassian/atlassian-frontend/commits/c21a796623):
+- Updated dependencies [6efb12e06d](https://bitbucket.org/atlassian/atlassian-frontend/commits/6efb12e06d):
+- Updated dependencies [a4d063330a](https://bitbucket.org/atlassian/atlassian-frontend/commits/a4d063330a):
+- Updated dependencies [093fdc91b1](https://bitbucket.org/atlassian/atlassian-frontend/commits/093fdc91b1):
+- Updated dependencies [fd41d77c29](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd41d77c29):
+- Updated dependencies [7a2540821c](https://bitbucket.org/atlassian/atlassian-frontend/commits/7a2540821c):
+  - @atlaskit/tooltip@15.2.6
+  - @atlaskit/drawer@5.3.6
+  - @atlaskit/toggle@8.1.7
+  - @atlaskit/button@13.3.11
+  - @atlaskit/icon@20.1.1
+  - @atlaskit/select@11.0.10
+  - @atlaskit/logo@12.3.4
+  - @atlaskit/modal-dialog@10.5.7
+  - @atlaskit/avatar@17.1.10
+  - @atlaskit/onboarding@9.1.6
+  - @atlaskit/inline-dialog@12.1.12
+  - @atlaskit/banner@10.1.8
+  - @atlaskit/lozenge@9.1.7
+  - @atlaskit/badge@13.1.8
+  - @atlaskit/webdriver-runner@0.3.4
+  - @atlaskit/dropdown-menu@9.0.3
+
 ## 8.0.3
 
 ### Patch Changes

@@ -1,7 +1,10 @@
 /* eslint-disable react/prop-types */
 import React, { Component, Fragment } from 'react';
+
 import Button from '@atlaskit/button';
+
 import TableTree from '../src';
+
 import staticData from './data-structured-nodes.json';
 
 const Title = props => <span>{props.title}</span>;

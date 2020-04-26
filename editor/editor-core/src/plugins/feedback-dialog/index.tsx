@@ -63,10 +63,11 @@ const feedbackDialog = (feedbackInfo: FeedbackInfo): EditorPlugin => {
     pluginsOptions: {
       quickInsert: ({ formatMessage }) => [
         {
+          id: 'feedbackdialog',
           title: formatMessage(messages.feedbackDialog),
           description: formatMessage(messages.feedbackDialogDescription),
           priority: 400,
-          keywords: ['feedback', 'bug'],
+          keywords: ['bug'],
           icon: () => (
             <IconFeedback label={formatMessage(messages.feedbackDialog)} />
           ),

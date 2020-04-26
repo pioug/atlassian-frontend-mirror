@@ -1,7 +1,9 @@
 import React, { Component, Fragment } from 'react';
+
 import Button from '@atlaskit/button';
 import TextField from '@atlaskit/textfield';
-import Form, { Field, ErrorMessage, FormFooter, HelperMessage } from '../src';
+
+import Form, { ErrorMessage, Field, FormFooter, HelperMessage } from '../src';
 
 const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 

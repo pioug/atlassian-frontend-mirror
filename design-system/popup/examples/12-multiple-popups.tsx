@@ -1,7 +1,10 @@
 /** @jsx jsx */
 import { FC, useCallback, useState } from 'react';
-import Button from '@atlaskit/button';
+
 import { jsx } from '@emotion/core';
+
+import Button from '@atlaskit/button';
+
 import Popup from '../src';
 
 const contentCSS = {

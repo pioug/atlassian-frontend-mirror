@@ -1,5 +1,7 @@
 import React from 'react';
-import { mount, shallow, ReactWrapper } from 'enzyme';
+
+import { mount, ReactWrapper, shallow } from 'enzyme';
+
 import AvatarImage, { DefaultImage } from '../../AvatarImage';
 
 const src =

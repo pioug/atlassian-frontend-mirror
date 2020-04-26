@@ -1,12 +1,12 @@
 export default [
-  'inlineExtension',
   'hardBreak',
   'mention',
   'emoji',
+  'inlineExtension',
   'date',
-  'status',
   'placeholder',
   'inlineCard',
+  'status',
   'formatted_text_inline',
   'code_inline',
 ];

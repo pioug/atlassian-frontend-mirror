@@ -3,7 +3,6 @@ import { MediaSingleProps } from '@atlaskit/editor-common';
 import { MediaClientConfig } from '@atlaskit/media-core';
 import { GridType } from '../../../grid/types';
 import { EditorView } from 'prosemirror-view';
-import { EditorState } from 'prosemirror-state';
 
 export type EnabledHandles = { left?: boolean; right?: boolean };
 
@@ -16,7 +15,6 @@ export type Props = MediaSingleProps & {
   ) => void;
   getPos: () => number | undefined;
   view: EditorView;
-  state: EditorState;
   lineLength: number;
   gridSize: number;
   containerWidth: number;

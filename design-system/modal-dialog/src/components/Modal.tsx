@@ -1,20 +1,22 @@
 import React from 'react';
+
 import { canUseDOM } from 'exenv';
+
 import {
-  withAnalyticsEvents,
-  withAnalyticsContext,
   createAndFireEvent,
+  withAnalyticsContext,
+  withAnalyticsEvents,
 } from '@atlaskit/analytics-next';
 import Blanket from '@atlaskit/blanket';
 
+import { WIDTH_ENUM, WidthNames } from '../shared-variables';
+import { Dialog, FillScreen as StyledFillScreen } from '../styled/Modal';
+import { ScrollBehavior } from '../types';
 import {
   name as packageName,
   version as packageVersion,
 } from '../version.json';
 
-import { WIDTH_ENUM, WidthNames } from '../shared-variables';
-
-import { Dialog, FillScreen as StyledFillScreen } from '../styled/Modal';
 import { Animation } from './Animation';
 import Content from './Content';
 import FocusLock from './FocusLock';
@@ -47,7 +49,7 @@ interface State {
 class Modal extends React.Component<Props, State> {
   static defaultProps = {
     autoFocus: true,
-    scrollBehavior: 'inside' as 'inside' | 'outside',
+    scrollBehavior: 'inside' as ScrollBehavior,
     shouldCloseOnEscapePress: true,
     shouldCloseOnOverlayClick: true,
     isChromeless: false,
@@ -171,7 +173,10 @@ class Modal extends React.Component<Props, State> {
                     isHeadingMultiline={isHeadingMultiline}
                     header={header}
                     onClose={onClose}
-                    shouldScroll={scrollBehavior === 'inside'}
+                    shouldScroll={
+                      scrollBehavior === 'inside' ||
+                      scrollBehavior === 'inside-wide'
+                    }
                     shouldCloseOnEscapePress={shouldCloseOnEscapePress}
                     onStackChange={onStackChange}
                     isChromeless={isChromeless}

@@ -1,4 +1,5 @@
-import { ComponentType, ReactNode, KeyboardEvent, MouseEvent } from 'react';
+import { ComponentType, KeyboardEvent, MouseEvent, ReactNode } from 'react';
+
 import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 
 export interface TabData {

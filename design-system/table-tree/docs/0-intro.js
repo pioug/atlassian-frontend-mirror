@@ -1,5 +1,6 @@
 import React from 'react';
-import { code, md, Example, Props } from '@atlaskit/docs';
+
+import { code, Example, md, Props } from '@atlaskit/docs';
 
 export default md`
 The component displays a table of expandable, nested rows that form a tree-like hierarchy.

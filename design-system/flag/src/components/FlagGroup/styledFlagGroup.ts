@@ -1,5 +1,5 @@
-import styled from 'styled-components';
 import TransitionGroup from 'react-transition-group/TransitionGroup';
+import styled from 'styled-components';
 
 import { gridSize, layers } from '@atlaskit/theme/constants';
 import { multiply } from '@atlaskit/theme/math';

@@ -1,6 +1,7 @@
 import styled from 'styled-components';
+
 import { gridSize } from '@atlaskit/theme/constants';
-import { multiply, divide } from '@atlaskit/theme/math';
+import { divide, multiply } from '@atlaskit/theme/math';
 
 export const FillScreen = styled.div<{ scrollDistance: number }>`
   height: 100%;

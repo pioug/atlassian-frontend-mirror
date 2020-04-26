@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+
 import { B100, N0 } from '@atlaskit/theme/colors';
 
 const EditButton = styled.button`

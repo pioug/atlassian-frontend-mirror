@@ -1,8 +1,9 @@
 /** @jsx jsx */
 
-import { jsx, CSSObject } from '@emotion/core';
-import { gridSize } from '@atlaskit/theme/constants';
+import { CSSObject, jsx } from '@emotion/core';
+
 import { N500 } from '@atlaskit/theme/colors';
+import { gridSize } from '@atlaskit/theme/constants';
 
 import { SidebarProps } from '../types';
 

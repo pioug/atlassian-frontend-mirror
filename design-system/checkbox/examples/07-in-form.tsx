@@ -1,6 +1,8 @@
 import React from 'react';
+
 import Button from '@atlaskit/button';
 import Form, { CheckboxField, FormFooter } from '@atlaskit/form';
+
 import { Checkbox } from '../src';
 
 export default () => (

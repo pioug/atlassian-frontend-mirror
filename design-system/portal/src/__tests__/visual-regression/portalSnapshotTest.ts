@@ -6,7 +6,7 @@ import {
 describe('Snapshot Test', () => {
   it(`Portal stacking context should match prod`, async () => {
     const url = getExampleUrl(
-      'core',
+      'design-system',
       'portal',
       'stacking-context',
       global.__BASEURL__,

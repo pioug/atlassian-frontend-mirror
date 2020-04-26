@@ -1,8 +1,12 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+
+import { fireEvent, render } from '@testing-library/react';
 // eslint-disable-next-line no-restricted-imports
-import { parse, format } from 'date-fns';
+import { format, parse } from 'date-fns';
+import { mount, shallow } from 'enzyme';
+
 import Select from '@atlaskit/select';
+
 import { DatePickerWithoutAnalytics as DatePicker } from '../../../components/DatePicker';
 
 test('DatePicker, custom formatDisplayLabel', () => {
@@ -109,16 +113,13 @@ test('DatePicker pressing the Backspace key to empty the input should clear the 
   const dateValue = new Date('06/08/2018').toUTCString();
   const onChangeSpy = jest.fn();
   const expectedResult = '';
-  const datePickerWrapper = mount<DatePicker>(
-    <DatePicker value={dateValue} onChange={onChangeSpy} />,
+  const testId = 'clear--test';
+  const datePickerWrapper = render(
+    <DatePicker value={dateValue} onChange={onChangeSpy} testId={testId} />,
   );
 
-  const target = document.createElement('input');
-  target.value = '';
-  datePickerWrapper
-    .find('input')
-    .first()
-    .simulate('keyDown', { key: 'Backspace', target });
+  const selectInput = datePickerWrapper.getByDisplayValue('');
+  fireEvent.keyDown(selectInput, { key: 'Backspace', keyCode: 8 });
 
   expect(onChangeSpy).toBeCalledWith(expectedResult);
 });
@@ -127,16 +128,64 @@ test('DatePicker pressing the Delete key to empty the input should clear the val
   const dateValue = new Date('06/08/2018').toUTCString();
   const onChangeSpy = jest.fn();
   const expectedResult = '';
-  const datePickerWrapper = mount<DatePicker>(
+  const datePickerWrapper = render(
     <DatePicker value={dateValue} onChange={onChangeSpy} />,
   );
 
-  const target = document.createElement('input');
-  target.value = '';
-  datePickerWrapper
-    .find('input')
-    .first()
-    .simulate('keyDown', { key: 'Delete', target });
+  const selectInput = datePickerWrapper.getByDisplayValue('');
+  fireEvent.keyDown(selectInput, { key: 'Delete', keyCode: 46 });
 
   expect(onChangeSpy).toBeCalledWith(expectedResult);
+});
+
+test('DatePicker pressing the clear button while menu is closed should clear the value and not open the menu', () => {
+  const dateValue = new Date('06/08/2018').toUTCString();
+  const onChangeSpy = jest.fn();
+  const expectedResult = '';
+  const testId = 'clear--test';
+  const datePickerWrapper = render(
+    <DatePicker value={dateValue} onChange={onChangeSpy} testId={testId} />,
+  );
+  const clearButton = datePickerWrapper.getByLabelText('clear').parentElement;
+  if (!clearButton) {
+    throw new Error('Expected button to be non-null');
+  }
+
+  fireEvent.mouseOver(clearButton);
+  fireEvent.mouseMove(clearButton);
+  fireEvent.mouseDown(clearButton);
+
+  expect(onChangeSpy).toBeCalledWith(expectedResult);
+  expect(
+    datePickerWrapper.queryByTestId(`${testId}--popper--container`),
+  ).toBeNull();
+});
+
+test('DatePicker pressing the clear button while menu is open should clear the value and leave the menu open', () => {
+  const dateValue = new Date('06/08/2018').toUTCString();
+  const onChangeSpy = jest.fn();
+  const expectedResult = '';
+  const testId = 'clear--test';
+  const datePickerWrapper = render(
+    <DatePicker
+      value={dateValue}
+      onChange={onChangeSpy}
+      testId={testId}
+      defaultIsOpen
+    />,
+  );
+
+  const clearButton = datePickerWrapper.getByLabelText('clear').parentElement;
+  if (!clearButton) {
+    throw new Error('Expected button to be non-null');
+  }
+
+  fireEvent.mouseOver(clearButton);
+  fireEvent.mouseMove(clearButton);
+  fireEvent.mouseDown(clearButton);
+
+  expect(onChangeSpy).toBeCalledWith(expectedResult);
+  expect(
+    datePickerWrapper.queryByTestId(`${testId}--popper--container`),
+  ).not.toBeNull();
 });

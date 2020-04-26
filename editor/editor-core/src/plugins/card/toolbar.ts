@@ -24,7 +24,7 @@ import {
 import { linkToolbarMessages, linkMessages } from '../../messages';
 import commonMessages from '../../messages';
 
-import { Node } from 'prosemirror-model';
+import { Node, Fragment } from 'prosemirror-model';
 import { hoverDecoration } from '../base/pm-plugins/decoration';
 import {
   changeSelectedCardToText,
@@ -45,6 +45,8 @@ import {
   appearanceForNodeType,
 } from './utils';
 import { isSafeUrl } from '@atlaskit/adf-schema';
+import nodeNames from '../../messages';
+import { isSupportedInParent } from '../../utils/nodes';
 
 export const messages = defineMessages({
   block: {
@@ -72,6 +74,13 @@ export const messages = defineMessages({
     id: 'fabric.editor.cardFloatingControls',
     defaultMessage: 'Card options',
     description: 'Options to change card type',
+  },
+  blockCardUnavailable: {
+    id: 'fabric.editor.blockCardUnavailable',
+    defaultMessage:
+      'The inline link is inside {node} and cannot have its view changed',
+    description:
+      'Warning message to show the user that this node cannot change its view',
   },
 });
 
@@ -169,6 +178,23 @@ const generateDeleteButton = (
   };
 };
 
+const parentNodeName = (state: EditorState, intl: InjectedIntl): string => {
+  try {
+    const parentNode = state.selection.$from.node(-1);
+    const parentName = intl.formatMessage(
+      nodeNames[parentNode.type.name as keyof typeof nodeNames],
+    );
+    const tooltip = intl.formatMessage(messages.blockCardUnavailable, {
+      node: parentName,
+    });
+    return tooltip;
+  } catch (e) {
+    return intl.formatMessage(messages.blockCardUnavailable, {
+      node: intl.formatMessage(nodeNames.defaultBlockNode),
+    });
+  }
+};
+
 const generateToolbarItems = (
   state: EditorState,
   intl: InjectedIntl,
@@ -228,9 +254,18 @@ const generateToolbarItems = (
         },
       ];
 
+      const isDropdownDisabled =
+        currentAppearance === 'inline' &&
+        !isSupportedInParent(
+          state,
+          Fragment.from(state.schema.nodes.blockCard.createChecked({})),
+        );
+
       toolbarItems.unshift({
         type: 'dropdown',
         options,
+        tooltip: isDropdownDisabled ? parentNodeName(state, intl) : undefined,
+        disabled: isDropdownDisabled,
         hidden: false,
         title: intl.formatMessage(messages[currentAppearance]),
       });

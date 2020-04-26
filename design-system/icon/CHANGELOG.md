@@ -1,5 +1,24 @@
 # @atlaskit/icon
 
+## 20.1.1
+
+### Patch Changes
+
+- [patch][449ef134b3](https://bitbucket.org/atlassian/atlassian-frontend/commits/449ef134b3):
+
+  Add a clear icon for datepicker, timepicker and datetimepicker- Updated dependencies [dfc4dba1b3](https://bitbucket.org/atlassian/atlassian-frontend/commits/dfc4dba1b3):
+
+- Updated dependencies [3940bd71f1](https://bitbucket.org/atlassian/atlassian-frontend/commits/3940bd71f1):
+- Updated dependencies [6b8e60827e](https://bitbucket.org/atlassian/atlassian-frontend/commits/6b8e60827e):
+- Updated dependencies [f6667f2909](https://bitbucket.org/atlassian/atlassian-frontend/commits/f6667f2909):
+- Updated dependencies [9a534d6a74](https://bitbucket.org/atlassian/atlassian-frontend/commits/9a534d6a74):
+- Updated dependencies [57c0487a02](https://bitbucket.org/atlassian/atlassian-frontend/commits/57c0487a02):
+  - @atlaskit/dynamic-table@13.7.4
+  - @atlaskit/tooltip@15.2.6
+  - @atlaskit/button@13.3.11
+  - @atlaskit/logo@12.3.4
+  - @atlaskit/modal-dialog@10.5.7
+
 ## 20.1.0
 
 ### Minor Changes

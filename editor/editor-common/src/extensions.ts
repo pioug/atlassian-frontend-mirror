@@ -16,6 +16,7 @@ export {
   ExtensionParams,
   ExtensionProvider,
   ExtensionType,
+  Icon,
   MaybeADFEntity,
   MenuItem,
   MenuItemMap,
@@ -43,4 +44,8 @@ export {
   isFieldset,
   FieldHandlerLink,
   FieldResolver,
+  OnSaveCallback,
+  ParametersGetter,
+  AsyncParametersGetter,
+  UpdateContextActions,
 } from './extensions/index';

@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-import { gridSize, fontSize } from '@atlaskit/theme/constants';
+
+import { fontSize, gridSize } from '@atlaskit/theme/constants';
 
 const height = (gridSize() * 3) / fontSize();
 

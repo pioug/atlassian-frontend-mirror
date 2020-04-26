@@ -47,7 +47,7 @@ describe('feedbackDialogPlugin', () => {
             labels: ['atlaskit-comment-bitbucket'],
           },
         ])
-        .add([analyticsPlugin, createAnalyticsEvent])
+        .add([analyticsPlugin, { createAnalyticsEvent }])
         .add(typeAheadPlugin)
         .add(quickInsertPlugin),
     });

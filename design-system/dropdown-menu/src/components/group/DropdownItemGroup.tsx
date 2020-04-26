@@ -1,4 +1,5 @@
 import React, { Component, ReactNode } from 'react';
+
 import { ItemGroup } from '@atlaskit/item';
 
 export interface Props {

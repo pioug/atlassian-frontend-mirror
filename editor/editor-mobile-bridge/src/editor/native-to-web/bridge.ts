@@ -43,6 +43,8 @@ export default interface NativeToWebBridge {
     listLocalId?: string,
     itemLocalId?: string,
   ): void;
+  insertMentionQuery(): void;
+  insertEmojiQuery(): void;
   scrollToSelection(): void;
   undo(): void;
   redo(): void;

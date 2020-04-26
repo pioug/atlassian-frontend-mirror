@@ -3,7 +3,7 @@ import { getExampleUrl } from '@atlaskit/webdriver-runner/utils/example';
 import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 
 /* Url to test the example */
-const urlTooltip = getExampleUrl('core', 'tooltip', 'testing');
+const urlTooltip = getExampleUrl('design-system', 'tooltip', 'testing');
 
 /* Css selectors used for the test */
 const tooltipBtn = "[data-testid='my-button']";

@@ -3,7 +3,7 @@ import { getExampleUrl } from '@atlaskit/webdriver-runner/utils/example';
 import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 
 /* Url to test the example */
-const urlTextArea = getExampleUrl('core', 'textarea', 'testing');
+const urlTextArea = getExampleUrl('design-system', 'textarea', 'testing');
 
 /* Css selectors used for the test */
 const textAreaTestId = "[data-testid='MyTextAreaTestId']";

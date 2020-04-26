@@ -82,10 +82,13 @@ describe('mentionTypeahead', () => {
       cacheName: jest.fn(),
       lookupName: jest.fn(),
     };
-    let editorProps: EditorProps = {};
+    let editorProps: EditorProps = {
+      quickInsert: true,
+    };
     let mentionProviderConfig: MockMentionConfig = {};
     if (options && options.sanitizePrivateContent) {
       editorProps = {
+        ...editorProps,
         collabEdit: {},
         sanitizePrivateContent: true,
         mentionInsertDisplayName: options.mentionInsertDisplayName,
@@ -154,6 +157,7 @@ describe('mentionTypeahead', () => {
         mentionProvider,
         contextIdentifierProvider,
         allowAnalyticsGASV3: true,
+        quickInsert: true,
         ...editorProps,
       },
       providerFactory: ProviderFactory.create({

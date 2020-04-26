@@ -329,7 +329,7 @@ export class MediaStore {
     const { method, authContext, params, headers, body } = options;
     const auth = await authProvider(authContext);
 
-    return request(
+    const response = await request(
       `${auth.baseUrl}${path}`,
       {
         method,
@@ -340,6 +340,22 @@ export class MediaStore {
       },
       controller,
     );
+
+    updateMediaRegion(response.headers.get('x-media-region'));
+
+    return response;
+  }
+}
+
+function updateMediaRegion(region: string | null) {
+  if (!region || !(window && window.sessionStorage)) {
+    return;
+  }
+
+  const currentRegion = window.sessionStorage.getItem('media-api-region');
+
+  if (currentRegion !== region) {
+    window.sessionStorage.setItem('media-api-region', region);
   }
 }
 

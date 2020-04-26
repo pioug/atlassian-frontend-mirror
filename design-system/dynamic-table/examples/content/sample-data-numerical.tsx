@@ -1,7 +1,10 @@
 /* sample-data.js */
 import React from 'react';
-import Avatar from '@atlaskit/avatar';
+
 import styled from 'styled-components';
+
+import Avatar from '@atlaskit/avatar';
+
 import { presidents } from './numerical';
 
 interface President {

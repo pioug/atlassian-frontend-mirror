@@ -13,6 +13,7 @@ export default {
       type: 'array',
       items: [
         [
+          'blockCard',
           'paragraph_with_no_marks',
           'bulletList',
           'orderedList',

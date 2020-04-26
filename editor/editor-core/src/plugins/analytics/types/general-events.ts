@@ -6,6 +6,7 @@ import {
   INPUT_METHOD,
 } from './enums';
 import { FeatureFlagKey } from '../../feature-flags-context/types';
+import { AnnotationAEP } from './inline-comment-events';
 
 export enum PLATFORMS {
   NATIVE = 'mobileNative',
@@ -134,6 +135,28 @@ type DispatchedTransactionAEP = OperationalAEP<
   undefined
 >;
 
+type WithPluginStateCalledAEP = OperationalAEP<
+  ACTION.WITH_PLUGIN_STATE_CALLED,
+  ACTION_SUBJECT.EDITOR,
+  undefined,
+  {
+    plugin: string;
+    duration: number;
+  },
+  undefined
+>;
+
+type ReactNodeViewRenderedAEP = OperationalAEP<
+  ACTION.REACT_NODEVIEW_RENDERED,
+  ACTION_SUBJECT.EDITOR,
+  undefined,
+  {
+    node: string;
+    duration: number;
+  },
+  undefined
+>;
+
 type UploadExternalFailedAEP = OperationalAEP<
   ACTION.UPLOAD_EXTERNAL_FAIL,
   ACTION_SUBJECT.EDITOR,
@@ -213,7 +236,13 @@ type HelpQuickInsertAEP = UIAEP<
 
 type TypeAheadEmojiAEP = TypeAheadAEP<
   ACTION_SUBJECT_ID.TYPEAHEAD_EMOJI,
-  { inputMethod: INPUT_METHOD.QUICK_INSERT | INPUT_METHOD.KEYBOARD }
+  {
+    inputMethod:
+      | INPUT_METHOD.TOOLBAR
+      | INPUT_METHOD.INSERT_MENU
+      | INPUT_METHOD.QUICK_INSERT
+      | INPUT_METHOD.KEYBOARD;
+  }
 >;
 
 type TypeAheadLinkAEP = TypeAheadAEP<
@@ -266,6 +295,7 @@ export type GeneralEventPayload =
   | EditorStartAEP
   | EditorStopAEP
   | AnnotateButtonAEP
+  | AnnotationAEP
   | ButtonHelpAEP
   | ButtonFeedbackAEP
   | PickerEmojiAEP
@@ -283,4 +313,6 @@ export type GeneralEventPayload =
   | InputPerfSamlingAEP
   | HelpQuickInsertAEP
   | ExpandToggleAEP
-  | DispatchedTransactionAEP;
+  | DispatchedTransactionAEP
+  | WithPluginStateCalledAEP
+  | ReactNodeViewRenderedAEP;

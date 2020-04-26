@@ -1,15 +1,27 @@
-import React, { forwardRef, DragEventHandler } from 'react';
-import { CSSObject, ClassNames } from '@emotion/core';
+import React, { DragEventHandler, forwardRef } from 'react';
 
-import { customItemCSS } from './styles';
-import { CustomItemProps } from '../types';
+import { ClassNames, CSSObject } from '@emotion/core';
+
+import { CustomItemComponentProps, CustomItemProps } from '../types';
+
 import BaseItem from './base-item';
+import { customItemCSS } from './styles';
 
 const preventEvent: DragEventHandler = e => {
   e.preventDefault();
 };
 
-const CustomItem = forwardRef<HTMLElement, CustomItemProps>(
+// Dirty hack to get generics working with forward ref [1/2]
+interface CustomItemType {
+  <TComponentProps extends CustomItemComponentProps>(
+    props: CustomItemProps<TComponentProps> & { ref?: any } & Omit<
+        TComponentProps,
+        keyof CustomItemComponentProps
+      >,
+  ): JSX.Element | null;
+}
+
+const CustomItem: CustomItemType = forwardRef<HTMLElement, CustomItemProps>(
   (
     {
       component: Component,
@@ -20,8 +32,8 @@ const CustomItem = forwardRef<HTMLElement, CustomItemProps>(
       testId,
       children,
       description,
-      elemAfter,
-      elemBefore,
+      iconAfter,
+      iconBefore,
       overrides,
       ...rest
     }: // Type needed on props to extract types with extract react types.
@@ -40,27 +52,30 @@ const CustomItem = forwardRef<HTMLElement, CustomItemProps>(
             data-testid={testId}
             onDragStart={preventEvent}
             draggable={false}
-            wrapperClass={css(
+            className={css(
               cssFn(customItemCSS(isDisabled, isSelected), {
                 isDisabled,
                 isSelected,
               }),
             )}
             onClick={isDisabled ? undefined : onClick}
+            tabIndex={isDisabled ? -1 : undefined}
+            disabled={isDisabled}
             {...rest}
           >
             <BaseItem
               overrides={overrides}
               children={children}
               description={description}
-              elemAfter={elemAfter}
-              elemBefore={elemBefore}
+              iconAfter={iconAfter}
+              iconBefore={iconBefore}
             />
           </Component>
         )}
       </ClassNames>
     );
   },
-);
+  // Dirty hack to get generics working with forward ref [2/2]
+) as any;
 
 export default CustomItem;

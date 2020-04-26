@@ -1,8 +1,8 @@
 import {
-  codeFontFamily,
   borderRadius,
-  gridSize,
+  codeFontFamily,
   fontSize,
+  gridSize,
 } from '@atlaskit/theme/constants';
 import { ThemeProps } from '@atlaskit/theme/types';
 

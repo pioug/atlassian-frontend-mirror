@@ -1,8 +1,9 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 
-import { menuGroupCSS } from './styles';
 import { MenuGroupProps } from '../types';
+
+import { menuGroupCSS } from './styles';
 
 const MenuGroup = ({
   maxWidth,

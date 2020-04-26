@@ -6,7 +6,7 @@ import {
 describe('Snapshot Test', () => {
   it('Flag-without-flagGroup should match production example', async () => {
     const url = getExampleUrl(
-      'core',
+      'design-system',
       'flag',
       'flag-without-flagGroup',
       //@ts-ignore - global usage
@@ -21,7 +21,7 @@ describe('Snapshot Test', () => {
 
   it('should match flags snapshot', async () => {
     const url = getExampleUrl(
-      'core',
+      'design-system',
       'flag',
       'bold-flag-component',
       //@ts-ignore - global usage

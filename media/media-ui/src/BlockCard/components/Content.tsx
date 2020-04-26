@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import { gs } from '../utils';
+import { gs, mq } from '../utils';
 
 export interface ContentProps {
   children: React.ReactNode;
@@ -8,13 +8,13 @@ export interface ContentProps {
 
 export const Content = ({ children }: ContentProps) => (
   <div
-    css={{
+    css={mq({
       padding: gs(2),
       display: 'flex',
       flexDirection: 'column',
-      justifyContent: 'space-between',
+      justifyContent: ['unset', 'space-between'],
       flexGrow: 1,
-    }}
+    })}
   >
     {children}
   </div>

@@ -1,11 +1,13 @@
 import React from 'react';
-import { render, cleanup } from '@testing-library/react';
+
+import { cleanup, render } from '@testing-library/react';
 import { axe, toHaveNoViolations } from 'jest-axe';
+
 import ButtonItem from '../../../../examples/button-item';
-import LinkItem from '../../../../examples/link-item';
 import HeadingItem from '../../../../examples/heading-item';
-import ScrollableSectionMenu from '../../../../examples/scrollable-sections';
+import LinkItem from '../../../../examples/link-item';
 import LoadingSkeletonMenu from '../../../../examples/loading-skeleton';
+import ScrollableSectionMenu from '../../../../examples/scrollable-sections';
 
 expect.extend(toHaveNoViolations);
 

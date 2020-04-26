@@ -24,6 +24,7 @@ export interface ToolbarProps {
   disabled: boolean;
   dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
   toolbarSize: ToolbarSize;
+  containerElement: HTMLElement | null;
 }
 
 export type ToolbarWithSizeDetectorProps = Omit<ToolbarProps, 'toolbarSize'>;

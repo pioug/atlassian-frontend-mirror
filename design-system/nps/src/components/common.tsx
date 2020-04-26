@@ -1,11 +1,13 @@
 import React, { ReactNode } from 'react';
+
 import Button, { ButtonGroup } from '@atlaskit/button';
 import CloseIcon from '@atlaskit/icon/glyph/cross';
+
 import {
-  Wrapper,
+  Description as StyledDescription,
   Header as StyledHeader,
   Title,
-  Description as StyledDescription,
+  Wrapper,
 } from './styled/common';
 
 export function HeaderButtons({

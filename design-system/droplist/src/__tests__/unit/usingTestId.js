@@ -1,8 +1,10 @@
 import React from 'react';
+
 import { render } from '@testing-library/react';
+
 import Item, { ItemGroup } from '@atlaskit/item';
 
-import DropList from '../..';
+import DropList from '../../index';
 
 const testIdMenu = 'testing--content';
 

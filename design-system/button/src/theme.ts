@@ -1,8 +1,9 @@
-import { createTheme } from '@atlaskit/theme/components';
 import * as colors from '@atlaskit/theme/colors';
-import { hex2rgba } from './components/utils';
-import { ThemeProps, ThemeTokens, ThemeMode, ThemeFallbacks } from './types';
+import { createTheme } from '@atlaskit/theme/components';
+
 import { getButtonStyles, getSpinnerStyles } from './components/getStyles';
+import { hex2rgba } from './components/utils';
+import { ThemeFallbacks, ThemeMode, ThemeProps, ThemeTokens } from './types';
 
 export const fallbacks: ThemeFallbacks = {
   background: { light: colors.N20A, dark: colors.DN70 },
@@ -67,16 +68,16 @@ export const baseTheme = {
 
   boxShadowColor: {
     default: {
-      focus: { light: hex2rgba(colors.B200, 0.6), dark: colors.B75 },
+      focus: { light: colors.B100, dark: colors.B75 },
       focusSelected: {
-        light: hex2rgba(colors.B200, 0.6),
+        light: colors.B100,
         dark: colors.B75,
       },
     },
     primary: {
-      focus: { light: hex2rgba(colors.B200, 0.6), dark: colors.B75 },
+      focus: { light: colors.B100, dark: colors.B75 },
       focusSelected: {
-        light: hex2rgba(colors.B200, 0.6),
+        light: colors.B100,
         dark: colors.B75,
       },
     },
@@ -89,23 +90,23 @@ export const baseTheme = {
       focusSelected: { light: colors.R100, dark: colors.R100 },
     },
     link: {
-      focus: { light: hex2rgba(colors.B200, 0.6), dark: colors.B75 },
+      focus: { light: colors.B100, dark: colors.B75 },
       focusSelected: {
-        light: hex2rgba(colors.B200, 0.6),
+        light: colors.B100,
         dark: colors.B75,
       },
     },
     subtle: {
-      focus: { light: hex2rgba(colors.B200, 0.6), dark: colors.B75 },
+      focus: { light: colors.B100, dark: colors.B75 },
       focusSelected: {
-        light: hex2rgba(colors.B200, 0.6),
+        light: colors.B100,
         dark: colors.B75,
       },
     },
     'subtle-link': {
-      focus: { light: hex2rgba(colors.B200, 0.6), dark: colors.B75 },
+      focus: { light: colors.B100, dark: colors.B75 },
       focusSelected: {
-        light: hex2rgba(colors.B200, 0.6),
+        light: colors.B100,
         dark: colors.B75,
       },
     },

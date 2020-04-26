@@ -10,7 +10,6 @@ import { MediaLinkingActions } from './actions';
 import { MediaLinkingState, InitialState } from './types';
 import reducer from './reducer';
 import { LinkAttributes } from '@atlaskit/adf-schema';
-import { closestElement } from '../../../../utils/dom';
 
 const mediaLinkingPluginKey = new PluginKey('mediaLinking');
 
@@ -81,17 +80,4 @@ export default (dispatch: Dispatch) =>
   new Plugin({
     key: mediaLinkingPluginKey,
     state: mediaLinkingPluginFactory.createPluginState(dispatch, initialState),
-    props: {
-      // ED-8718
-      handleClick: (_, _pos, event: MouseEvent) => {
-        if (event.target) {
-          const target = event.target as HTMLElement;
-          if (closestElement(target, '.blockLink')) {
-            event.preventDefault();
-            return true;
-          }
-        }
-        return false;
-      },
-    },
   });

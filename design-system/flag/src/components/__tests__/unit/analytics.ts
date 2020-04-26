@@ -1,13 +1,14 @@
 import {
-  withAnalyticsEvents,
-  withAnalyticsContext,
   createAndFireEvent,
+  withAnalyticsContext,
+  withAnalyticsEvents,
 } from '@atlaskit/analytics-next';
+
 import {
   name as packageName,
   version as packageVersion,
 } from '../../../version.json';
-import '../../Flag/index';
+import '../../Flag';
 
 // This is a global mock for this file that will mock all components wrapped with analytics
 // and replace them with an empty SFC that returns null. This includes components imported

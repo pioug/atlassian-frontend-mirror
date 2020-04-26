@@ -1,5 +1,7 @@
 import React from 'react';
+
 import moment from 'moment';
+
 import { DatePicker } from '../src';
 
 const logValue = (value: string) => console.log(value);

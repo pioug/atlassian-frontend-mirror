@@ -43,7 +43,6 @@ export {
   EmojiAttributes,
   EmojiDefinition,
   ExpandDefinition,
-  ExtensionContent,
   ExtensionDefinition,
   ExtensionLayout,
   ExternalMediaAttributes,

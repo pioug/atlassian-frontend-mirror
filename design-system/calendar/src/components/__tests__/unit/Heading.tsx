@@ -1,9 +1,10 @@
 import React from 'react';
+
 import { mount } from 'enzyme';
 
+import { MonthAndYear } from '../../../styled/Heading';
 import Btn from '../../Btn';
 import Heading from '../../Heading';
-import { MonthAndYear } from '../../../styled/Heading';
 
 interface PredefinedHeadingProps {
   handleClickNext?: () => void;

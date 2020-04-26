@@ -1,5 +1,6 @@
 import React from 'react';
-import { code, md, Example, DevPreviewWarning } from '@atlaskit/docs';
+
+import { code, DevPreviewWarning, Example, md } from '@atlaskit/docs';
 
 export default md`
   ${(<DevPreviewWarning />)}

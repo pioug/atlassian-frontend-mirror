@@ -26,13 +26,15 @@ Only one of these three can be found as a top DOM element:
     - \`failed-processing\`
   - \`data-test-progress\` will have a number (from 0 to 1) indication uploading progress
   - \`data-test-selected\` will be present if card is selected
+  - \`data-test-media-name\` will contain the name of the file
 - \`[data-testid="media-card-retry-button"]\`: Retry button
 - \`[data-testid="media-card-primary-action"]\`: Primary action button (there could be two of them max)
 - \`[data-testid="media-card-actions-menu"]\`: Actions menu button (three dots icon) that open dropdown
 - \`[data-testid="media-card-actions-menu-item"]\`: Action dropdown item
 - \`[data-testid="media-image"]\`: Actual image (\`<img />\`) of a card
 - \`[data-testid="media-card-file-name"]\`: Element that contains filename
-- These controls can be found as part of Card's inline media player:
+- \`[data-testid="custom-media-player"]\`: Wrapper around custom media player
+  - These controls can be found as part of Card's inline media player:
   - \`[data-testid="custom-media-player-fullscreen-button"]\`: Fullscreen button
   - \`[data-testid="custom-media-player-download-button"]\`: Download button
   - \`[data-testid="custom-media-player-play-toggle-button"]\`: Pause/Pause button

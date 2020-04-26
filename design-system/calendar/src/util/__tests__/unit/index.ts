@@ -1,7 +1,7 @@
 import cases from 'jest-in-case';
 
-import { dateToString } from '../..';
 import { DateObj } from '../../../types';
+import { dateToString } from '../../index';
 
 interface Case {
   src: DateObj;

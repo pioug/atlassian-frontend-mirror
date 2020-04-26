@@ -1,10 +1,8 @@
 import { NodeSpec } from 'prosemirror-model';
-// Nodes
 import { CodeBlockWithMarksDefinition as CodeBlockWithMarks } from './code-block';
 import { ExpandWithBreakoutDefinition as ExpandWithBreakout } from './expand';
 import { LayoutSectionDefinition as LayoutSection } from './layout-section';
 import { ParagraphWithIndentationDefinition } from './paragraph';
-// Marks
 import { BlockContent } from './types/block-content';
 
 /**

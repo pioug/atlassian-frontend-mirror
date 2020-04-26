@@ -1,4 +1,5 @@
 import { HeadType, RowType } from '../../../types';
+
 import testData from './_data-json.json';
 
 export const sortKey = 'first_name';

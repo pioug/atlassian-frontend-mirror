@@ -1,7 +1,10 @@
 import styled from 'styled-components';
-import { withTheme } from '@atlaskit/theme/components';
+
 import { background } from '@atlaskit/theme/colors';
+import { withTheme } from '@atlaskit/theme/components';
+
 import { SizeType } from '../types';
+
 import { BORDER_WIDTH } from './constants';
 
 interface OuterProps {

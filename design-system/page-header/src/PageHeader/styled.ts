@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+
 import { gridSize } from '@atlaskit/theme/constants';
 import { h700 } from '@atlaskit/theme/typography';
 

@@ -1,4 +1,5 @@
 import React from 'react';
+
 import ViewControllerSubscriber from './ViewControllerSubscriber';
 
 export default WrappedComponent => {

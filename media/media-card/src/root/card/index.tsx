@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import { Component } from 'react';
 
 import {
-  AnalyticsContext,
   UIAnalyticsEvent,
   withAnalyticsEvents,
   withAnalyticsContext,
@@ -46,19 +45,25 @@ import { isBigger } from '../../utils/dimensionComparer';
 import {
   getCardStatus,
   getCardStatusFromFileState,
-  getAnalyticsStatusFromCardStatus,
   getCardProgressFromFileState,
-  getAnalyticsErrorStateAttributes,
-  AnalyticsErrorStateAttributes,
-  AnalyticsLoadingAction,
 } from './getCardStatus';
 import { InlinePlayer, InlinePlayerBase } from '../inlinePlayer';
 import {
-  getUIAnalyticsContext,
   getBaseAnalyticsContext,
   createAndFireCustomMediaEvent,
   getFileAttributes,
+  getMediaCardAnalyticsContext,
+  getCopiedFileAnalyticsPayload,
+  getMediaCardCommencedAnalyticsPayload,
+  AnalyticsLoadingAction,
+  AnalyticsErrorStateAttributes,
+  getAnalyticsErrorStateAttributes,
+  getAnalyticsStatus,
+  hasFilenameAndFilesize,
+  fileIsPreviewable,
+  getLoadingStatusAnalyticsPayload,
 } from '../../utils/analytics';
+import { MediaAnalyticsContext } from '@atlaskit/analytics-namespaced-context';
 
 export type CardWithAnalyticsEventsProps = CardProps & WithAnalyticsEventsProps;
 export class CardBase extends Component<
@@ -70,6 +75,7 @@ export class CardBase extends Component<
   private lastErrorState?: AnalyticsErrorStateAttributes = {};
   // Stores last retrieved file state for logging purposes
   private lastFileState?: FileState;
+  private lastCardStatusUpdateTimestamp?: number;
   private resolvedId: string = '';
   cardRef: React.RefObject<CardViewBase | InlinePlayerBase> = React.createRef();
 
@@ -103,24 +109,16 @@ export class CardBase extends Component<
         selection.containsNode &&
         selection.containsNode(this.cardRef.current.divRef.current, true)
       ) {
-        this.fireAnalytics();
+        this.fireFileCopiedAnalytics();
       }
     }
   };
 
-  fireAnalytics = async () => {
+  fireFileCopiedAnalytics = async () => {
     const { createAnalyticsEvent, identifier } = this.props;
 
     createAndFireCustomMediaEvent(
-      {
-        eventType: 'ui',
-        action: 'copied',
-        actionSubject: 'file',
-        actionSubjectId:
-          identifier.mediaItemType === 'file'
-            ? await identifier.id
-            : identifier.mediaItemType,
-      },
+      await getCopiedFileAnalyticsPayload(identifier),
       createAnalyticsEvent,
     );
   };
@@ -167,11 +165,11 @@ export class CardBase extends Component<
   componentWillUnmount() {
     this.hasBeenMounted = false;
     this.unsubscribe();
-    this.releaseDataURI();
+    this.releaseStateDataURI();
     document.removeEventListener('copy', this.onCopyListener);
   }
 
-  releaseDataURI = () => {
+  releaseStateDataURI = () => {
     const { identifier } = this.props;
     const { dataURI } = this.state;
     // we don't want to release external previews, since it might be reused later on
@@ -200,12 +198,7 @@ export class CardBase extends Component<
     this.resolvedId = mediaItemType;
 
     createAndFireCustomMediaEvent(
-      {
-        eventType: 'operational',
-        action: 'commenced',
-        actionSubject: 'mediaCardRender',
-        actionSubjectId: mediaItemType,
-      },
+      getMediaCardCommencedAnalyticsPayload(mediaItemType),
       createAnalyticsEvent,
     );
 
@@ -229,24 +222,24 @@ export class CardBase extends Component<
     this.resolvedId = await id;
 
     createAndFireCustomMediaEvent(
-      {
-        eventType: 'operational',
-        action: 'commenced',
-        actionSubject: 'mediaCardRender',
-        actionSubjectId: this.resolvedId,
-      },
+      getMediaCardCommencedAnalyticsPayload(this.resolvedId),
       createAnalyticsEvent,
     );
 
     this.unsubscribe();
+
     this.subscription = mediaClient.file
       .getFileState(this.resolvedId, { collectionName, occurrenceKey })
       .subscribe({
         next: async fileState => {
           let { dataURI, previewOrientation = 1 } = this.state;
           this.lastFileState = fileState;
+
+          const thisCardStatusUpdateTimestamp = (performance || Date).now();
+
           const { contextId, alt, originalDimensions } = this.props;
           const metadata = extendMetadata(fileState, this.state.metadata);
+          this.safeSetState({ metadata });
 
           if (!dataURI) {
             const { src, orientation } = await getDataURIFromFileState(
@@ -265,6 +258,13 @@ export class CardBase extends Component<
                 width: originalDimensions && originalDimensions.width,
                 height: originalDimensions && originalDimensions.height,
                 alt,
+              });
+            }
+            if (dataURI) {
+              this.releaseStateDataURI();
+              this.safeSetState({
+                previewOrientation,
+                dataURI,
               });
             }
           }
@@ -309,7 +309,12 @@ export class CardBase extends Component<
                   alt,
                 });
               }
-              this.releaseDataURI();
+              if (dataURI) {
+                this.releaseStateDataURI();
+                this.safeSetState({
+                  dataURI,
+                });
+              }
             } catch (e) {
               // We don't want to set status=error if the preview fails, we still want to display the metadata
             }
@@ -324,13 +329,30 @@ export class CardBase extends Component<
             metadata,
           });
 
-          this.safeSetState({
-            metadata,
-            status,
-            progress,
-            dataURI,
-            previewOrientation,
-          });
+          if (
+            !this.lastCardStatusUpdateTimestamp ||
+            this.lastCardStatusUpdateTimestamp <= thisCardStatusUpdateTimestamp
+          ) {
+            // These status and progress must not override values representing more recent FileState
+            /* next() start        some await() delay in next()        status & progress update
+             * -------                    ------------------           ------------------------
+             *   |----[1]FileState:uploading------>|                                 |
+             *   |                                 |                                 |
+             *   |----[2]FileState:uploading------>|                                 |
+             *   |                                 |                                 |
+             *   |                                 |----[2]FileState:uploading------>| Update status to `uploading`
+             *   |----[3]FileState:processing----->|                                 |
+             *   |                                 |----[3]FileState:processing----->| Update status to `complete`
+             *   |                                 |                                 |
+             *   |                                 |----[1]FileState:uploading------>| We do not want to update status to `uploading` again!
+             *
+             */
+            this.safeSetState({
+              status,
+              progress,
+            });
+            this.lastCardStatusUpdateTimestamp = thisCardStatusUpdateTimestamp;
+          }
         },
         error: error => {
           this.fireLoadingStatusAnalyticsEvent({
@@ -343,7 +365,7 @@ export class CardBase extends Component<
       });
   }
 
-  shouldFireAnalyticsEvent = (
+  shouldFireLoadingStatusAnalyticsEvent = (
     action: AnalyticsLoadingAction,
     errorState: AnalyticsErrorStateAttributes,
   ) => {
@@ -373,29 +395,35 @@ export class CardBase extends Component<
     error?: Error;
   }) => {
     const { createAnalyticsEvent } = this.props;
-    const action = getAnalyticsStatusFromCardStatus(status);
+
+    const previewable = fileIsPreviewable(metadata);
+    const hasMinimalData = hasFilenameAndFilesize(metadata);
+    const action = getAnalyticsStatus(previewable, hasMinimalData, status);
     const errorState = getAnalyticsErrorStateAttributes(
+      previewable,
+      hasMinimalData,
       this.lastFileState,
       error,
     );
 
-    if (action && this.shouldFireAnalyticsEvent(action, errorState)) {
+    if (
+      action &&
+      this.shouldFireLoadingStatusAnalyticsEvent(action, errorState)
+    ) {
       this.lastAction = action;
       this.lastErrorState = errorState;
+      const fileAttributes = getFileAttributes(
+        metadata,
+        this.lastFileState && this.lastFileState.status,
+      );
+
       createAndFireCustomMediaEvent(
-        {
-          eventType: 'operational',
+        getLoadingStatusAnalyticsPayload(
           action,
-          actionSubject: 'mediaCardRender',
-          actionSubjectId: resolvedId,
-          attributes: {
-            fileAttributes: getFileAttributes(
-              metadata,
-              this.lastFileState && this.lastFileState.status,
-            ),
-            ...errorState,
-          },
-        },
+          resolvedId,
+          fileAttributes,
+          errorState,
+        ),
         createAnalyticsEvent,
       );
     }
@@ -655,20 +683,13 @@ export class CardBase extends Component<
 
   render() {
     const { metadata } = this.state;
+
     return (
-      /*
-          Second context provides data to be merged with any other context down in the tree and the event's payload.
-          This data is usually not available at the time of firing the event, though it is needed to be sent to the backend.
-       */
-      <AnalyticsContext
-        data={getUIAnalyticsContext(
-          this.resolvedId,
-          metadata,
-          this.lastFileState && this.lastFileState.status,
-        )}
+      <MediaAnalyticsContext
+        data={getMediaCardAnalyticsContext(metadata, this.lastFileState)}
       >
         {this.renderContent()}
-      </AnalyticsContext>
+      </MediaAnalyticsContext>
     );
   }
 
@@ -707,10 +728,6 @@ export class CardBase extends Component<
   };
 }
 
-/*
-  This Context provides data needed to build packageHierarchy in Atlaskit Analytics Listener and Media Analytics Listener.
-  This data is not added to the final GASv3 payload
-*/
 export const Card: React.ComponentType<CardWithAnalyticsEventsProps> = withAnalyticsContext(
   getBaseAnalyticsContext(),
 )(withAnalyticsEvents()(CardBase));

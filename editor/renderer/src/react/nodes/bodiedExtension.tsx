@@ -26,6 +26,10 @@ export interface Props {
 const BodiedExtension: React.StatelessComponent<Props> = props => {
   const { serializer, rendererContext, children, layout = 'default' } = props;
 
+  const removeOverflow = React.Children.toArray<any>(children)
+    .map(child => child!.props.nodeType === 'table')
+    .every(Boolean);
+
   return (
     <ExtensionRenderer {...props} type="bodiedExtension">
       {({ result }) => {
@@ -33,7 +37,7 @@ const BodiedExtension: React.StatelessComponent<Props> = props => {
           switch (true) {
             case result && React.isValidElement(result):
               // Return the content directly if it's a valid JSX.Element
-              return renderExtension(result, layout);
+              return renderExtension(result, layout, undefined, removeOverflow);
             case !!result:
               // We expect it to be Atlassian Document here
               const nodes = Array.isArray(result) ? result : [result];
@@ -50,7 +54,7 @@ const BodiedExtension: React.StatelessComponent<Props> = props => {
         }
 
         // Always return default content if anything goes wrong
-        return renderExtension(children, layout);
+        return renderExtension(children, layout, undefined, removeOverflow);
       }}
     </ExtensionRenderer>
   );

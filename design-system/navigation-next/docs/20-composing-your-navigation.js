@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { code, md } from '@atlaskit/docs';
 
 import { Contents, ContentsProvider, H, IframeExample } from './shared';
@@ -105,7 +106,7 @@ const MyProductNavigation = () => (
 
 **Note:** We don't automatically apply padding or add wrapping elements around your product navigation or within \`Section\`s because we don't want to break your layout. Instead, we provide the \`Section\`'s children with styles through a render function.
 
-Read the [component props docs](/packages/core/navigation-next/docs/ui-components) for more information about \`HeaderSection\`, \`MenuSection\` and \`Section\`, along with every other UI primitive exported by this package.
+Read the [component props docs](/packages/design-system/navigation-next/docs/ui-components) for more information about \`HeaderSection\`, \`MenuSection\` and \`Section\`, along with every other UI primitive exported by this package.
 
 Putting it all together we can now render a somewhat complete navigation!
 
@@ -149,7 +150,7 @@ const ExpandToggleButton = () => (
 );
 `}
 
-This component provides its children with access to the state of the navigation, along with methods which can be called to modify the state. It will re-render whenever the state changes. This container manages behaviours such as collapsing, expanding, and resizing. Read [the component's documentation](/packages/core/navigation-next/docs/state-controllers#ui-controller) for a complete list of methods and properties.
+This component provides its children with access to the state of the navigation, along with methods which can be called to modify the state. It will re-render whenever the state changes. This container manages behaviours such as collapsing, expanding, and resizing. Read [the component's documentation](/packages/design-system/navigation-next/docs/state-controllers#ui-controller) for a complete list of methods and properties.
 
 ${(
   <IframeExample

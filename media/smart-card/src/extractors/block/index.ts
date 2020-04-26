@@ -1,63 +1,55 @@
+import { JsonLd } from 'json-ld-types';
 import { BlockCardResolvedViewProps } from '@atlaskit/media-ui';
-import { genericExtractPropsFromJSONLD } from '..';
-import { extractPropsFromObject } from './extractPropsFromObject';
-import { extractPropsFromDocument } from './extractPropsFromDocument';
-import { extractPropsFromSpreadsheet } from './extractPropsFromSpreadsheet';
-import { extractPropsFromTask } from './extractPropsFromTask';
-import { extractPropsFromPresentation } from './extractPropsFromPresentation';
-import { extractPropsFromTextDocument } from './extractPropsFromTextDocument';
-import { extractPropsFromProject } from './extractPropsFromProject';
-import { extractPropsFromSourceCodeCommit } from './extractPropsFromSourceCodeCommit';
-import { extractPropsFromSourceCodeRepository } from './extractPropsFromSourceCodeRepository';
-import { extractPropsFromSourceCodeReference } from './extractPropsFromSourceCodeReference';
-import { extractPropsFromDigitalDocument } from './extractPropsFromDigitalDocument';
-import { extractPropsFromBlogPost } from './extractPropsFromBlogPost';
-import { extractPropsFromTemplate } from './extractPropsFromTemplate';
-import { extractPropsFromSourceCodePullRequest } from './extractPropsFromSourceCodePullRequest';
+import {
+  extractLink,
+  extractTitle,
+  extractSummary,
+} from '../common/primitives';
+import { extractLozenge } from '../common/lozenge';
+import { extractIcon } from '../common/icon';
+import { extractProvider } from '../common/context/extractProvider';
+import {
+  extractCommentCount,
+  LinkCommentType,
+  extractProgrammingLanguage,
+  LinkProgrammingLanguageType,
+  extractSubscriberCount,
+  LinkSubscriberType,
+} from '../common/detail';
+import { LinkDetail } from '../common/detail/types';
+import { extractByline } from '../common/byline/extractByline';
+import { extractImage } from '../common/preview/extractImage';
 
-const extractorPrioritiesByType = {
-  Object: 0,
-  Document: 5,
-  'schema:TextDigitalDocument': 10,
-  'schema:DigitalDocument': 10,
-  'schema:BlogPosting': 10,
-  'schema:SpreadsheetDigitalDocument': 10,
-  'schema:PresentationDigitalDocument': 10,
-  Spreadsheet: 10,
-  'atlassian:Task': 10,
-  'atlassian:Project': 10,
-  'atlassian:Template': 10,
-  'atlassian:SourceCodeCommit': 10,
-  'atlassian:SourceCodeRepository': 10,
-  'atlassian:SourceCodePullRequest': 10,
-  'atlassian:SourceCodeReference': 10,
+const extractBlockIcon = (
+  jsonLd: JsonLd.Data.BaseData,
+): BlockCardResolvedViewProps['icon'] => {
+  const icon = extractIcon(jsonLd);
+  if (typeof icon === 'string') {
+    return { url: icon };
+  } else {
+    return { icon };
+  }
 };
 
-const extractorFunctionsByType = {
-  Object: extractPropsFromObject,
-  Document: extractPropsFromDocument,
-  'schema:TextDigitalDocument': extractPropsFromDigitalDocument,
-  'schema:DigitalDocument': extractPropsFromTextDocument,
-  'schema:BlogPosting': extractPropsFromBlogPost,
-  'schema:SpreadsheetDigitalDocument': extractPropsFromSpreadsheet,
-  'schema:PresentationDigitalDocument': extractPropsFromPresentation,
-  Spreadsheet: extractPropsFromSpreadsheet,
-  'atlassian:Task': extractPropsFromTask,
-  'atlassian:Project': extractPropsFromProject,
-  'atlassian:Template': extractPropsFromTemplate,
-  'atlassian:SourceCodeCommit': extractPropsFromSourceCodeCommit,
-  'atlassian:SourceCodeRepository': extractPropsFromSourceCodeRepository,
-  'atlassian:SourceCodePullRequest': extractPropsFromSourceCodePullRequest,
-  'atlassian:SourceCodeReference': extractPropsFromSourceCodeReference,
-};
+const extractBlockDetails = (jsonLd: JsonLd.Data.BaseData): LinkDetail[] =>
+  [
+    extractCommentCount(jsonLd as LinkCommentType),
+    extractProgrammingLanguage(jsonLd as LinkProgrammingLanguageType),
+    extractSubscriberCount(jsonLd as LinkSubscriberType),
+  ].filter(detail => !!detail) as LinkDetail[];
 
-export function extractBlockPropsFromJSONLD(
-  json: any,
-): BlockCardResolvedViewProps {
-  return genericExtractPropsFromJSONLD({
-    extractorPrioritiesByType: extractorPrioritiesByType,
-    extractorFunctionsByType: extractorFunctionsByType,
-    defaultExtractorFunction: extractPropsFromObject,
-    json,
-  });
-}
+export const extractBlockProps = (
+  jsonLd: JsonLd.Data.BaseData,
+): BlockCardResolvedViewProps => ({
+  link: extractLink(jsonLd),
+  title: extractTitle(jsonLd),
+  lozenge: extractLozenge(jsonLd),
+  icon: extractBlockIcon(jsonLd),
+  context: extractProvider(jsonLd),
+  details: extractBlockDetails(jsonLd),
+  byline: extractSummary(jsonLd) || extractByline(jsonLd),
+  thumbnail: extractImage(jsonLd),
+  // TODO, EDM-564: re-enable after sparring with Magda, currently
+  // renders nothing - no good data sources for
+  users: [], // extractBlockUsers(jsonLd);
+});

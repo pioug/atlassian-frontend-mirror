@@ -1,5 +1,5 @@
 import { css } from 'styled-components';
-import { B100, N30, skeleton as skeletonColor } from './colors';
+import { B100, N30A, skeleton as skeletonColor } from './colors';
 
 export const FLATTENED = '__FLATTENED__';
 export const CHANNEL = '__ATLASKIT_THEME__';
@@ -73,24 +73,21 @@ export const assistive = () => css`
   white-space: nowrap !important;
 `;
 
-export const skeletonShimmer = () => ({
-  css: {
-    backgroundColor: skeletonColor(),
-    backgroundImage: `linear-gradient(to right, ${skeletonColor()} 0%, ${N30} 20%, ${skeletonColor()} 40%, ${skeletonColor()} 100%)`,
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: '800px 104px',
-    animationDuration: '1.5s',
-    animationFillMode: 'forwards',
-    animationIterationCount: 'infinite',
-    animationTimingFunction: 'linear',
-  },
-  keyframes: {
-    '0%': {
-      backgroundPosition: '-468px 0',
+export const skeletonShimmer = () =>
+  ({
+    css: {
+      backgroundColor: skeletonColor(),
+      animationDuration: '1.5s',
+      animationIterationCount: 'infinite',
+      animationTimingFunction: 'linear',
+      animationDirection: 'alternate',
     },
-
-    '100%': {
-      backgroundPosition: '468px 0',
+    keyframes: {
+      from: {
+        backgroundColor: skeletonColor(),
+      },
+      to: {
+        backgroundColor: N30A,
+      },
     },
-  },
-});
+  } as const);

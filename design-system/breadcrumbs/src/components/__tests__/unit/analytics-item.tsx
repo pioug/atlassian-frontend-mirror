@@ -1,10 +1,13 @@
 import React from 'react';
+
 import { mount } from 'enzyme';
+
 import {
-  withAnalyticsEvents,
   createAndFireEvent,
+  withAnalyticsEvents,
 } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button';
+
 import {
   name as packageName,
   version as packageVersion,

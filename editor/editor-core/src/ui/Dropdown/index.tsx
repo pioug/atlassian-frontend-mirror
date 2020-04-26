@@ -70,6 +70,7 @@ export class Dropdown extends PureComponent<Props, State> {
       >
         <div style={{ height: 0, minWidth: fitWidth || 0 }}>
           <DropdownList
+            disabled={true}
             isOpen={true}
             onOpenChange={onOpenChange}
             appearance="tall"

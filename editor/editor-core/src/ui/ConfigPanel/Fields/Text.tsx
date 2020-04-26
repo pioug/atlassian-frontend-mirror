@@ -6,13 +6,16 @@ import { StringField, NumberField } from '@atlaskit/editor-common/extensions';
 
 import FieldMessages from '../FieldMessages';
 import { validate } from '../utils';
+import { OnBlur } from '../types';
 
 export default function({
   field,
   type,
+  onBlur,
 }: {
   field: StringField | NumberField;
   type: 'number' | 'text';
+  onBlur: OnBlur;
 }) {
   const element = (
     <Field
@@ -24,7 +27,14 @@ export default function({
     >
       {({ fieldProps, error, valid }) => (
         <Fragment>
-          <TextField {...fieldProps} type={type} />
+          <TextField
+            {...fieldProps}
+            onBlur={() => {
+              fieldProps.onBlur();
+              onBlur(field.name);
+            }}
+            type={type}
+          />
           <FieldMessages error={error} description={field.description} />
         </Fragment>
       )}

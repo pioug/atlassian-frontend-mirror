@@ -15,7 +15,7 @@ import {
   getComponentClassWithStore,
 } from '@atlaskit/media-test-helpers';
 import ConnectedGiphyView, { GiphyView } from '../../giphyView';
-import { BricksLayout } from '../../bricksGrid';
+import { BricksLayout } from '../../../../../../plugins/views/bricks/grid';
 import {
   Title,
   ButtonContainer,

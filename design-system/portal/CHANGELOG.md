@@ -1,5 +1,25 @@
 # @atlaskit/portal
 
+## 3.1.7
+
+### Patch Changes
+
+- [patch][603413f530](https://bitbucket.org/atlassian/atlassian-frontend/commits/603413f530):
+
+  Remove 'export \*' for improved tree shaking- Updated dependencies [168b5f90e5](https://bitbucket.org/atlassian/atlassian-frontend/commits/168b5f90e5):
+
+- Updated dependencies [f5b654c328](https://bitbucket.org/atlassian/atlassian-frontend/commits/f5b654c328):
+- Updated dependencies [0c270847cb](https://bitbucket.org/atlassian/atlassian-frontend/commits/0c270847cb):
+- Updated dependencies [109004a98e](https://bitbucket.org/atlassian/atlassian-frontend/commits/109004a98e):
+- Updated dependencies [b9903e773a](https://bitbucket.org/atlassian/atlassian-frontend/commits/b9903e773a):
+- Updated dependencies [0389a42cc5](https://bitbucket.org/atlassian/atlassian-frontend/commits/0389a42cc5):
+- Updated dependencies [89bf723567](https://bitbucket.org/atlassian/atlassian-frontend/commits/89bf723567):
+  - @atlaskit/docs@8.5.1
+  - @atlaskit/modal-dialog@10.5.6
+  - @atlaskit/theme@9.5.3
+  - @atlaskit/button@13.3.10
+  - @atlaskit/onboarding@9.1.5
+
 ## 3.1.6
 
 ### Patch Changes

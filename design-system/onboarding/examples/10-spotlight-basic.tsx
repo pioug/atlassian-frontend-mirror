@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import Lorem from 'react-lorem-component';
 
 import {
@@ -7,7 +8,8 @@ import {
   SpotlightTarget,
   SpotlightTransition,
 } from '../src';
-import { HighlightGroup, Highlight } from './styled';
+
+import { Highlight, HighlightGroup } from './styled';
 
 interface State {
   active: number | null;

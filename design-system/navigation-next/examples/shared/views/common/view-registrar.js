@@ -1,4 +1,5 @@
 import { Component } from 'react';
+
 import { withNavigationViewController } from '../../../../src';
 
 import getAnalyticsAttributes from './get-analytics-attributes';

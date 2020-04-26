@@ -1,8 +1,11 @@
 /** @jsx jsx */
 import { HTMLAttributes } from 'react';
+
 import { jsx } from '@emotion/core';
-import { grabAreaCSS, lineCSS } from './styles';
+
 import { GRAB_AREA_LINE_SELECTOR } from '../../common/constants';
+
+import { grabAreaCSS, lineCSS } from './styles';
 
 export type GrabAreaProps = { testId?: string } & HTMLAttributes<
   HTMLDivElement

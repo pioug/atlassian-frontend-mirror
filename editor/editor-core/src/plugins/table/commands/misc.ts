@@ -32,10 +32,11 @@ import { TableCssClassName as ClassName, TableDecorations } from '../types';
 import { CellAttributes } from '@atlaskit/adf-schema';
 import {
   createColumnControlsDecoration,
-  createColumnSelectedDecorations,
+  createColumnSelectedDecoration,
 } from '../utils/decoration';
-import { buildColumnResizingDecorationSet } from '../decorations';
+import { buildColumnResizingDecorations } from '../pm-plugins/decorations/utils';
 import { createCommand, getPluginState } from '../pm-plugins/plugin-factory';
+import { getDecorations } from '../pm-plugins/decorations/plugin';
 import { closestElement } from '../../../utils/dom';
 // #endregion
 
@@ -342,7 +343,7 @@ export const selectColumn = (column: number, expand?: boolean) =>
         return false;
       }
 
-      const decorations = createColumnSelectedDecorations(
+      const decorations = createColumnSelectedDecoration(
         selectColumnTransform(column, expand)(state.tr),
       );
       const decorationSet = updatePluginStateDecorations(
@@ -422,9 +423,9 @@ export const addResizeHandleDecorations = (columnIndex: number) =>
       return {
         type: 'ADD_RESIZE_HANDLE_DECORATIONS',
         data: {
-          decorationSet: buildColumnResizingDecorationSet(columnIndex)({
+          decorationSet: buildColumnResizingDecorations(columnIndex)({
             tr: state.tr,
-            decorationSet: getPluginState(state).decorationSet,
+            decorationSet: getDecorations(state),
           }),
           resizeHandleColumnIndex: columnIndex,
         },

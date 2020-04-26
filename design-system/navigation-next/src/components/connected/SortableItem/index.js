@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { N60A } from '@atlaskit/theme/colors';
+
 import { Draggable } from 'react-beautiful-dnd';
+
+import { N60A } from '@atlaskit/theme/colors';
 
 import Item from '../../presentational/Item';
 

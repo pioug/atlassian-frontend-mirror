@@ -1,8 +1,10 @@
 import { EditorState, NodeSelection } from 'prosemirror-state';
-import { NodeType, Node } from 'prosemirror-model';
+import { NodeType, Node, Slice, Fragment } from 'prosemirror-model';
 import { CardAppearance, CardInfo } from './types';
 import { CardPluginState } from './types';
 import { pluginKey } from './pm-plugins/plugin-key';
+import { mapChildren } from '../../utils/slice';
+import { isSupportedInParent } from '../..//utils/nodes';
 
 export const appearanceForNodeType = (
   spec: NodeType,
@@ -52,5 +54,29 @@ export const findCardInfo = (state: EditorState) => {
   const pluginState: CardPluginState = pluginKey.getState(state);
   return pluginState.cards.find(
     cardInfo => cardInfo.pos === state.selection.from,
+  );
+};
+
+export const transformUnsupportedBlockCardToInline = (
+  slice: Slice,
+  state: EditorState,
+): Slice => {
+  const { blockCard, inlineCard } = state.schema.nodes;
+  const children = [] as Node[];
+
+  mapChildren(slice.content, (node: Node, i: number, frag: Fragment) => {
+    if (node.type === blockCard && !isSupportedInParent(state, frag)) {
+      children.push(
+        inlineCard.createChecked(node.attrs, node.content, node.marks),
+      );
+    } else {
+      children.push(node);
+    }
+  });
+
+  return new Slice(
+    Fragment.fromArray(children),
+    slice.openStart,
+    slice.openEnd,
   );
 };

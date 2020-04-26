@@ -1,7 +1,8 @@
 import styled from 'styled-components';
+
+import { DN90A, N100A } from '@atlaskit/theme/colors';
 import { themed } from '@atlaskit/theme/components';
 import { layers } from '@atlaskit/theme/constants';
-import { N100A, DN90A } from '@atlaskit/theme/colors';
 
 // NOTE:
 // we can't use @atlaskit/blanket

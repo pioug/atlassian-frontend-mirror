@@ -5,7 +5,7 @@ import { messages } from '../../../plugins/insert-block/ui/ToolbarInsertBlock/me
 
 const linkText = 'https://google.com/';
 const editLinkSelector = 'button[aria-label="Edit link"]';
-const textDisplaySelector = 'input[data-testid="Link label"]';
+const textDisplaySelector = 'input[data-testid="link-label"]';
 
 [comment, fullpage].forEach(editor => {
   BrowserTestCase(

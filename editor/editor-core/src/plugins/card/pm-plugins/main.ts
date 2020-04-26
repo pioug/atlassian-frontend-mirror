@@ -44,8 +44,9 @@ export const resolveWithProvider = (
     .then(handleResolved(view, request), handleRejected(view, request));
 };
 
-export const createPlugin = ({
+export const createPlugin = (isMobile: boolean) => ({
   portalProviderAPI,
+  eventDispatcher,
   providerFactory,
 }: PMPluginFactoryParams) =>
   new Plugin({
@@ -145,6 +146,7 @@ export const createPlugin = ({
             view,
             getPos,
             portalProviderAPI,
+            eventDispatcher,
             {
               providerFactory,
             },
@@ -158,8 +160,10 @@ export const createPlugin = ({
             view,
             getPos,
             portalProviderAPI,
+            eventDispatcher,
             {
               providerFactory,
+              isMobile,
             },
             undefined,
             true,

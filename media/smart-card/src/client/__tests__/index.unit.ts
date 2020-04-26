@@ -68,4 +68,34 @@ describe('Smart Card: Client', () => {
     expect(responseSecond).toBe(mocks.unauthorized);
     expect(responseThird).toBe(mocks.notFound);
   });
+
+  it('postData()', async () => {
+    const client = new SmartCardClient('stg');
+
+    client.postData({
+      action: {
+        type: '',
+        payload: {
+          id: '',
+        },
+      },
+      key: '',
+      context: '',
+    });
+    expect(mockRequest).toBeCalled();
+    expect(mockRequest).toBeCalledWith(
+      'post',
+      expect.stringMatching(/.*?stg.*?\/invoke/),
+      {
+        action: {
+          type: '',
+          payload: {
+            id: '',
+          },
+        },
+        key: '',
+        context: '',
+      },
+    );
+  });
 });

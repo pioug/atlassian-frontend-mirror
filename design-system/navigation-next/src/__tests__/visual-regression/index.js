@@ -17,12 +17,12 @@ describe('Snapshot Test', () => {
 
   it('Basic navigation next should match prod', async () => {
     const url = getExampleUrl(
-      'core',
+      'design-system',
       'navigation-next',
       'navigation-app',
       global.__BASEURL__,
     );
-    const index = getExampleUrl('core', global.__BASEURL__);
+    const index = getExampleUrl('design-system', global.__BASEURL__);
     const { page } = global;
     await page.goto(index);
     await page.evaluate(() => {
@@ -34,13 +34,12 @@ describe('Snapshot Test', () => {
 
     await page.goto(url);
     const image = await takeScreenShot(global.page, url);
-    //$FlowFixMe
     expect(image).toMatchProdImageSnapshot();
   });
 
   it('Should match product nav', async () => {
     const url = getExampleUrl(
-      'core',
+      'design-system',
       'navigation-next',
       'navigation-with-switcher',
       global.__BASEURL__,
@@ -48,13 +47,12 @@ describe('Snapshot Test', () => {
     const { page } = global;
     await page.goto(url);
     const image = await takeScreenShot(page, url);
-    //$FlowFixMe
     expect(image).toMatchProdImageSnapshot(); // Snapshot of product nav
   });
 
   it('Should match With Banner', async () => {
     const url = getExampleUrl(
-      'core',
+      'design-system',
       'navigation-next',
       'with-banner',
       global.__BASEURL__,
@@ -67,13 +65,12 @@ describe('Snapshot Test', () => {
       pageContent,
     );
     const image = await takeScreenShot(page, url);
-    //$FlowFixMe
     expect(image).toMatchProdImageSnapshot();
   });
 
   xit('Should match switcher', async () => {
     const url = getExampleUrl(
-      'core',
+      'design-system',
       'navigation-next',
       'navigation-with-switcher',
       global.__BASEURL__,
@@ -88,13 +85,12 @@ describe('Snapshot Test', () => {
     await page.waitFor(300);
 
     const imageWithProjectSwitcher = await page.screenshot();
-    //$FlowFixMe
     expect(imageWithProjectSwitcher).toMatchProdImageSnapshot();
   });
 
   it('Should match Global nav', async () => {
     const url = getExampleUrl(
-      'core',
+      'design-system',
       'navigation-next',
       'global-nav',
       global.__BASEURL__,
@@ -104,13 +100,12 @@ describe('Snapshot Test', () => {
     await page.setViewport({ width: 1500, height: 700 });
 
     const image = await takeScreenShot(page, url);
-    //$FlowFixMe
     expect(image).toMatchProdImageSnapshot();
   });
 
   it('Should match Theming', async () => {
     const url = getExampleUrl(
-      'core',
+      'design-system',
       'navigation-next',
       'theming',
       global.__BASEURL__,
@@ -119,13 +114,12 @@ describe('Snapshot Test', () => {
     await page.goto(url);
     await page.setViewport({ width: 1500, height: 1700 });
     const image = await takeScreenShot(page, url);
-    //$FlowFixMe
     expect(image).toMatchProdImageSnapshot();
   });
 
   it('Should match dynamic theme styles', async () => {
     const url = getExampleUrl(
-      'core',
+      'design-system',
       'navigation-next',
       'navigation-with-dynamic-theme-styles',
       global.__BASEURL__,
@@ -139,14 +133,13 @@ describe('Snapshot Test', () => {
     await page.click(button);
 
     const image = await takeScreenShot(page, url);
-    //$FlowFixMe
     expect(image).toMatchProdImageSnapshot();
     await page.click(button);
   });
 
   it('Should match item', async () => {
     const url = getExampleUrl(
-      'core',
+      'design-system',
       'navigation-next',
       'item',
       global.__BASEURL__,
@@ -156,13 +149,12 @@ describe('Snapshot Test', () => {
     await page.goto(url);
     await page.setViewport({ width: 900, height: 1350 });
     const image = await takeScreenShot(page, url);
-    //$FlowFixMe
     expect(image).toMatchProdImageSnapshot();
   });
 
   it('Should match collapsed nav screenshot', async () => {
     const url = getExampleUrl(
-      'core',
+      'design-system',
       'navigation-next',
       'navigation-app',
       global.__BASEURL__,
@@ -178,7 +170,6 @@ describe('Snapshot Test', () => {
     await page.waitFor(300);
 
     const image = await takeScreenShot(page, url);
-    //$FlowFixMe
     expect(image).toMatchProdImageSnapshot();
     await page.click(button);
   });

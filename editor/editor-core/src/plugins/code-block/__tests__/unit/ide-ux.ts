@@ -52,7 +52,7 @@ describe('IDE UX plugin', () => {
       preset: new Preset<LightEditorPlugin>()
         .add(basePlugin)
         .add(codeBlockPlugin)
-        .add([analyticsPlugin, createAnalyticsEvent]),
+        .add([analyticsPlugin, { createAnalyticsEvent }]),
     });
   };
 

@@ -1,7 +1,7 @@
 import {
   getExampleUrl,
-  takeScreenShot,
   takeElementScreenShot,
+  takeScreenShot,
 } from '@atlaskit/visual-regression/helper';
 
 const table = "[data-testid='the-table--table']";
@@ -12,7 +12,7 @@ describe('Snapshot Test', () => {
   // You can't use other example as they create dynamic content and will fail the test
   it('Empty view example should match production example', async () => {
     const url = getExampleUrl(
-      'core',
+      'design-system',
       'dynamic-table',
       'empty-view-with-body',
       global.__BASEURL__,
@@ -25,7 +25,7 @@ describe('Snapshot Test', () => {
   });
   it('Testing example should match production example before and after sorting', async () => {
     const url = getExampleUrl(
-      'core',
+      'design-system',
       'dynamic-table',
       'testing',
       global.__BASEURL__,

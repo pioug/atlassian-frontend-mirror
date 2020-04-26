@@ -1,6 +1,8 @@
 import { ReactNode } from 'react';
 import { ADFEntity } from '@atlaskit/adf-utils';
 import { FieldDefinition } from './field-definitions';
+import { UpdateExtension } from './extension-handler';
+import { Parameters } from './extension-parameters';
 
 export type ExtensionType = string;
 
@@ -81,10 +83,6 @@ export type Option = {
   description?: string;
 };
 
-export type Parameters = {
-  [key: string]: any;
-};
-
 export type FieldResolver = (searchTerm?: string) => Promise<Option[]>;
 export type Serializer = (data: Parameters) => string;
 export type Deserializer = (value: string) => Parameters;
@@ -96,7 +94,7 @@ export type ExtensionModuleNodes = {
 export type ExtensionModuleNode<T = any> = {
   type: ExtensionNodeType;
   render: () => AsyncESModule<ReactNode>;
-  update?: (parameters: T) => Promise<T>;
+  update?: UpdateExtension<T>;
   getFieldsDefinition?: () => Promise<FieldDefinition[]>;
 };
 

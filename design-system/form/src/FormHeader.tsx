@@ -1,8 +1,9 @@
 import React, { Component, ReactNode } from 'react';
+
 import FormHeaderWrapper, {
-  FormHeaderTitle,
-  FormHeaderDescription,
   FormHeaderContent,
+  FormHeaderDescription,
+  FormHeaderTitle,
 } from './styled/FormHeader';
 
 interface Props {

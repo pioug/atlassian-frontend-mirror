@@ -1,7 +1,7 @@
 import React from 'react';
-import Avatar from '../src';
-import { Presence } from '../src';
+
 import { Block, Gap, ShrinkWrap } from '../examples-util/helpers';
+import Avatar, { Presence } from '../src';
 
 export default () => (
   <div>

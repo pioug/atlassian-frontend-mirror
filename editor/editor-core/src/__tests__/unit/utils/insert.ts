@@ -45,6 +45,7 @@ describe('@atlaskit/editor-core/utils insert', () => {
         allowRule: true,
         allowLayouts: true,
         allowNewInsertionBehaviour: true,
+        quickInsert: true,
         media: {
           allowMediaSingle: true,
         },

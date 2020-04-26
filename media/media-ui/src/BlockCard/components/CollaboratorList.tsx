@@ -1,7 +1,9 @@
-import React from 'react';
+/** @jsx jsx */
+import { jsx } from '@emotion/core';
 
 import AvatarGroup from '@atlaskit/avatar-group';
 import { AvatarClickType } from '@atlaskit/avatar';
+import { mq } from '../utils';
 
 export interface Collaborator {
   /* The image to be used in an `@atlaskit/avatar - this should be a url to the image src */
@@ -29,21 +31,23 @@ export const CollaboratorList = ({
   }
 
   return (
-    <AvatarGroup
-      maxCount={4}
-      appearance="stack"
-      size="small"
-      data={items}
-      onAvatarClick={avatarClick => {
-        avatarClick.event.stopPropagation();
-        avatarClick.event.preventDefault();
-        handleAvatarClick(avatarClick);
-      }}
-      onMoreClick={event => {
-        event.stopPropagation();
-        event.preventDefault();
-        handleMoreAvatarsClick(event);
-      }}
-    />
+    <span css={mq({ display: ['none', 'inherit'] })}>
+      <AvatarGroup
+        maxCount={4}
+        appearance="stack"
+        size="small"
+        data={items}
+        onAvatarClick={avatarClick => {
+          avatarClick.event.stopPropagation();
+          avatarClick.event.preventDefault();
+          handleAvatarClick(avatarClick);
+        }}
+        onMoreClick={event => {
+          event.stopPropagation();
+          event.preventDefault();
+          handleMoreAvatarsClick(event);
+        }}
+      />
+    </span>
   );
 };

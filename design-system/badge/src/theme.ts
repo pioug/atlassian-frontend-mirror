@@ -1,5 +1,5 @@
-import { createTheme } from '@atlaskit/theme/components';
 import * as colors from '@atlaskit/theme/colors';
+import { createTheme } from '@atlaskit/theme/components';
 
 export type ThemeAppearance =
   | 'added'
@@ -20,13 +20,13 @@ export interface ThemeProps {
 export interface ThemeTokens {
   /**
    * The background color for the badge.
-   * Please use a color from [@atlaskit/theme](/packages/core/theme).
+   * Please use a color from [@atlaskit/theme](/packages/design-system/theme).
    */
   backgroundColor: string;
 
   /**
    * The text color for the badge.
-   * Please use a color from [@atlaskit/theme](/packages/core/theme).
+   * Please use a color from [@atlaskit/theme](/packages/design-system/theme).
    */
   textColor: string;
 }

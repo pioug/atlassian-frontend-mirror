@@ -1,5 +1,6 @@
 /**  @jsx jsx */
 import { forwardRef } from 'react';
+
 import { jsx } from '@emotion/core';
 
 export interface HiddenCheckboxProps extends React.HTMLProps<HTMLInputElement> {

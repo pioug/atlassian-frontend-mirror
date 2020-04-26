@@ -10,12 +10,15 @@ import {
   doc,
   bodiedExtension as bodiedExt,
   p,
-} from '@atlaskit/editor-test-helpers';
+} from '@atlaskit/editor-test-helpers/schema-builder';
 
 describe(`${name}/schema bodiedExtension node`, () => {
   describe('parse html', () => {
     it('converts to extension PM node', () => {
-      const doc = fromHTML('<div data-node-type="bodied-extension" />', schema);
+      const doc = fromHTML(
+        '<div data-node-type="bodied-extension" data-extension-type="com.example.ext" data-extension-key="ext-007" />',
+        schema,
+      );
       const node = doc.firstChild!;
       expect(node.type.spec).toEqual(bodiedExtension);
     });

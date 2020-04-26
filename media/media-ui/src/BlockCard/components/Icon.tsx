@@ -10,10 +10,18 @@ export interface IconProps {
   icon?: React.ReactNode;
 }
 
-// TODO type this more strictly so it's either got an icon, or it has a url and a tooltip
-export const Icon = ({ url, icon }: IconProps) =>
-  icon ? (
-    <React.Fragment>{icon}</React.Fragment>
-  ) : (
-    <img css={{ height: gs(2), width: gs(2) }} src={url} />
+export const Icon = ({ url, icon }: IconProps) => {
+  return (
+    <span
+      css={{
+        height: gs(2.5),
+        width: gs(2),
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+    >
+      {icon || <img css={{ height: gs(2), width: gs(2) }} src={url} />}
+    </span>
   );
+};

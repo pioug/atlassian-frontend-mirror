@@ -5,6 +5,7 @@ var Icon_1 = tslib_1.__importDefault(require("./components/Icon"));
 exports.default = Icon_1.default;
 var constants_1 = require("./constants");
 exports.size = constants_1.sizeMap;
+exports.sizes = constants_1.sizes;
 var Skeleton_1 = require("./components/Skeleton");
 exports.Skeleton = Skeleton_1.default;
 var metadata_1 = require("./metadata");

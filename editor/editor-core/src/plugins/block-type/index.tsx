@@ -22,15 +22,21 @@ import { IconHeading, IconQuote } from '../quick-insert/assets';
 import {
   QuickInsertActionInsert,
   QuickInsertItem,
+  QuickInsertItemId,
 } from '@atlaskit/editor-common/provider-factory';
 import { EditorState } from 'prosemirror-state';
 import { messages } from './messages';
 import { ToolbarSize } from '../../ui/Toolbar/types';
 
-const headingPluginOptions = ({
-  formatMessage,
-}: InjectedIntl): Array<QuickInsertItem> =>
-  Array.from({ length: 6 }, (_v, idx) => {
+const headingPluginOptions = (
+  { formatMessage }: InjectedIntl,
+  isAllowed: boolean,
+): Array<QuickInsertItem> => {
+  if (!isAllowed) {
+    return [];
+  }
+
+  return Array.from({ length: 6 }, (_v, idx) => {
     const level = (idx + 1) as HeadingLevels;
     const descriptionDescriptor = (messages as any)[
       `heading${level}Description`
@@ -39,8 +45,11 @@ const headingPluginOptions = ({
       (keymaps as any)[`toggleHeading${level}`],
     );
 
+    const id = `heading${level}` as QuickInsertItemId;
+
     return {
-      title: formatMessage((messages as any)[`heading${level}`]),
+      id,
+      title: formatMessage((messages as any)[id]),
       description: formatMessage(descriptionDescriptor),
       priority: 1300,
       keywords: [`h${level}`],
@@ -66,6 +75,45 @@ const headingPluginOptions = ({
       },
     };
   });
+};
+
+const blockquotePluginOptions = (
+  { formatMessage }: InjectedIntl,
+  isAllowed: boolean,
+): Array<QuickInsertItem> => {
+  if (!isAllowed) {
+    return [];
+  }
+
+  return [
+    {
+      id: 'blockquote',
+      title: formatMessage(messages.blockquote),
+      description: formatMessage(messages.blockquoteDescription),
+      priority: 1300,
+      keyshortcut: keymaps.tooltip(keymaps.toggleBlockQuote),
+      icon: () => <IconQuote label={formatMessage(messages.blockquote)} />,
+      action(insert, state) {
+        const tr = insert(
+          state.schema.nodes.blockquote.createChecked(
+            {},
+            state.schema.nodes.paragraph.createChecked(),
+          ),
+        );
+
+        return addAnalytics(state, tr, {
+          action: ACTION.FORMATTED,
+          actionSubject: ACTION_SUBJECT.TEXT,
+          eventType: EVENT_TYPE.TRACK,
+          actionSubjectId: ACTION_SUBJECT_ID.FORMAT_BLOCK_QUOTE,
+          attributes: {
+            inputMethod: INPUT_METHOD.QUICK_INSERT,
+          },
+        });
+      },
+    },
+  ];
+};
 
 const blockTypePlugin = (options?: BlockTypePluginOptions): EditorPlugin => ({
   name: 'blockType',
@@ -151,34 +199,14 @@ const blockTypePlugin = (options?: BlockTypePluginOptions): EditorPlugin => ({
 
   pluginsOptions: {
     quickInsert: intl => {
-      const { formatMessage } = intl;
-      return [
-        {
-          title: formatMessage(messages.blockquote),
-          description: formatMessage(messages.blockquoteDescription),
-          priority: 1300,
-          keyshortcut: keymaps.tooltip(keymaps.toggleBlockQuote),
-          icon: () => <IconQuote label={formatMessage(messages.blockquote)} />,
-          action(insert, state) {
-            const tr = insert(
-              state.schema.nodes.blockquote.createChecked(
-                {},
-                state.schema.nodes.paragraph.createChecked(),
-              ),
-            );
+      const exclude =
+        options && options.allowBlockType && options.allowBlockType.exclude
+          ? options.allowBlockType.exclude
+          : [];
 
-            return addAnalytics(state, tr, {
-              action: ACTION.FORMATTED,
-              actionSubject: ACTION_SUBJECT.TEXT,
-              eventType: EVENT_TYPE.TRACK,
-              actionSubjectId: ACTION_SUBJECT_ID.FORMAT_BLOCK_QUOTE,
-              attributes: {
-                inputMethod: INPUT_METHOD.QUICK_INSERT,
-              },
-            });
-          },
-        },
-        ...headingPluginOptions(intl),
+      return [
+        ...blockquotePluginOptions(intl, exclude.indexOf('blockquote') === -1),
+        ...headingPluginOptions(intl, exclude.indexOf('heading') === -1),
       ];
     },
   },

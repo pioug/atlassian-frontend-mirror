@@ -1,5 +1,6 @@
 import React from 'react';
-import { md, Example } from '@atlaskit/docs';
+
+import { Example, md } from '@atlaskit/docs';
 
 export default md`
   Sometimes you'll need to do something that isn't supported by the component,

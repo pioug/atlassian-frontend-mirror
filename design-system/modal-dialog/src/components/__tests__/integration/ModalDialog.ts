@@ -3,7 +3,7 @@ import { getExampleUrl } from '@atlaskit/webdriver-runner/utils/example';
 import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 
 /* Url to test the example */
-const urlModal = getExampleUrl('core', 'modal-dialog', 'testing');
+const urlModal = getExampleUrl('design-system', 'modal-dialog', 'testing');
 
 /* Css selectors used for the test */
 const openModal = "[data-testid='open-modal']";

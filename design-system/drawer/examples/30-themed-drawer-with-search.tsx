@@ -1,6 +1,8 @@
 import React from 'react';
+
 import Button from '@atlaskit/button';
-import { ResultItemGroup, ObjectResult } from '@atlaskit/quick-search';
+import { ObjectResult, ResultItemGroup } from '@atlaskit/quick-search';
+
 import Drawer, { DrawerItemTheme } from '../src';
 
 // this example is best illustrated with atlaskit items for children, e.g. search results.

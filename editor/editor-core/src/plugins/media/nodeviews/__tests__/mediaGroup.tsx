@@ -1,16 +1,19 @@
-import React from 'react';
 import { mount } from 'enzyme';
-import { EditorView } from 'prosemirror-view';
 import { Node as PMNode } from 'prosemirror-model';
-import MediaGroup from '../mediaGroup';
+import { EditorView } from 'prosemirror-view';
+import React from 'react';
 import { MediaProvider } from '../../pm-plugins/main';
+import MediaGroup from '../mediaGroup';
 
 export const createMediaProvider = async (): Promise<MediaProvider> =>
   ({} as MediaProvider);
 
 export const getMediaGroupProps = () => ({
-  view: { state: {} } as EditorView<any>,
+  view: {
+    state: { selection: { $anchor: { pos: 1 }, $head: { pos: 5 } } },
+  } as EditorView<any>,
   node: ({
+    nodeSize: 3,
     attrs: {},
     firstChild: { attrs: {} },
     forEach() {},
@@ -18,6 +21,8 @@ export const getMediaGroupProps = () => ({
   mediaProvider: createMediaProvider(),
   selected: null,
   getPos: jest.fn(),
+  anchorPos: 1,
+  headPos: 1,
 });
 
 jest.mock('../media', () => () => null);

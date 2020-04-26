@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/calendar",
-  "version": "9.2.6",
+  "version": "9.2.7",
   "description": "A React component for displaying a calendar.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -23,8 +23,8 @@
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^6.3.5",
-    "@atlaskit/button": "^13.3.9",
-    "@atlaskit/icon": "^20.1.0",
+    "@atlaskit/button": "^13.3.11",
+    "@atlaskit/icon": "^20.1.1",
     "@atlaskit/locale": "^1.0.5",
     "@atlaskit/theme": "^9.5.1",
     "calendar-base": "^0.3.0",
@@ -39,9 +39,9 @@
   "devDependencies": {
     "@atlaskit/build-utils": "^2.2.7",
     "@atlaskit/docs": "^8.4.0",
-    "@atlaskit/select": "^11.0.9",
+    "@atlaskit/select": "^11.0.10",
     "@atlaskit/ssr": "^0.1.1",
-    "@atlaskit/webdriver-runner": "^0.3.0",
+    "@atlaskit/webdriver-runner": "^0.3.4",
     "@testing-library/react": "^8.0.1",
     "date-fns": "^1.30.1",
     "enzyme": "^3.10.0",
@@ -49,5 +49,10 @@
     "react-dom": "^16.8.0",
     "react-test-renderer": "^16.8.0",
     "wait-for-expect": "^1.2.0"
+  },
+  "techstack": {
+    "@atlassian/frontend": {
+      "import-structure": "atlassian-conventions"
+    }
   }
 }

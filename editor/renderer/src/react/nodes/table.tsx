@@ -7,15 +7,12 @@ import {
   TableSharedCssClassName,
   akEditorTableNumberColumnWidth,
   akEditorWideLayoutWidth,
-  akEditorDefaultLayoutWidth,
   akEditorFullWidthLayoutWidth,
   akEditorTableLegacyCellMinWidth,
   tableCellBorderWidth,
   tableCellMinWidth,
   overflowShadow,
   OverflowShadowProps,
-  getBreakpoint,
-  mapBreakpointToLayoutMaxWidth,
   createCompareNodes,
   SortOrder,
   convertProsemirrorTableNodeToArrayOfRows,
@@ -23,7 +20,10 @@ import {
   compose,
 } from '@atlaskit/editor-common';
 
-import { RendererAppearance } from '../../ui/Renderer/types';
+import {
+  RendererAppearance,
+  StickyHeaderConfig,
+} from '../../ui/Renderer/types';
 import { FullPagePadding } from '../../ui/Renderer/style';
 import { TableHeader } from './tableCell';
 import {
@@ -31,6 +31,7 @@ import {
   WithSmartCardStorageProps,
 } from '../../ui/SmartCardStorage';
 import { UrlType } from '@atlaskit/adf-schema';
+import { calcLineLength } from '../../utils';
 
 type TableArrayMapped = {
   rowNodes: Array<PMNode | null>;
@@ -113,6 +114,7 @@ export interface TableProps {
   rendererAppearance?: RendererAppearance;
   allowDynamicTextSizing?: boolean;
   allowColumnSorting?: boolean;
+  stickyHeaders?: StickyHeaderConfig;
 }
 
 export interface ScaleOptions {
@@ -164,12 +166,8 @@ const getTableLayoutWidth = (layout: TableLayout, opts?: TableWidthOptions) => {
     case 'wide':
       return akEditorWideLayoutWidth;
     default:
-      if (opts && opts.isDynamicTextSizingEnabled && opts.containerWidth) {
-        return mapBreakpointToLayoutMaxWidth(
-          getBreakpoint(opts.containerWidth),
-        );
-      }
-      return akEditorDefaultLayoutWidth;
+      const { containerWidth, isDynamicTextSizingEnabled } = opts || {};
+      return calcLineLength(containerWidth, isDynamicTextSizingEnabled);
   }
 };
 
@@ -220,19 +218,42 @@ export class TableContainer extends React.Component<
   };
 
   render() {
-    const { isNumberColumnEnabled, layout, renderWidth, children } = this.props;
+    const {
+      isNumberColumnEnabled,
+      layout,
+      renderWidth,
+      children,
+      allowDynamicTextSizing,
+    } = this.props;
     if (!children) {
       return null;
     }
 
     let childrenArray = React.Children.toArray<React.ReactElement>(children);
+    let tableWidth = calcTableWidth(layout, renderWidth, false);
+    const lineLength = calcLineLength(renderWidth, allowDynamicTextSizing);
+
+    let left;
+    if (
+      this.props.rendererAppearance === 'full-page' &&
+      tableWidth !== 'inherit'
+    ) {
+      const tableWidthPx = Number(
+        tableWidth.substring(0, tableWidth.length - 2),
+      );
+
+      left = lineLength / 2 - tableWidthPx / 2;
+    }
 
     return (
       <div
         className={`${TableSharedCssClassName.TABLE_CONTAINER} ${this.props.shadowClassNames}`}
         data-layout={layout}
         ref={this.props.handleRef}
-        style={{ width: calcTableWidth(layout, renderWidth, false) }}
+        style={{
+          width: tableWidth,
+          left: left && left < 0 ? left : undefined,
+        }}
       >
         <div className={TableSharedCssClassName.TABLE_NODE_WRAPPER}>
           <table data-number-column={isNumberColumnEnabled}>
@@ -241,6 +262,7 @@ export class TableContainer extends React.Component<
               {compose(
                 this.addNumberColumnIndexes,
                 this.addSortableColumn,
+                this.addStickyHeader,
               )(childrenArray)}
             </tbody>
           </table>
@@ -248,6 +270,25 @@ export class TableContainer extends React.Component<
       </div>
     );
   }
+
+  private addStickyHeader = (rows: React.ReactElement[]) => {
+    const { tableNode, stickyHeaders } = this.props;
+    const tableHasMergedCell = tableNode && hasMergedCell(tableNode);
+    if (
+      !stickyHeaders ||
+      !stickyHeaders.showStickyHeaders ||
+      tableHasMergedCell
+    ) {
+      // sticky headers not enabled; do nothing
+      return rows;
+    }
+
+    return React.Children.map(rows, row => {
+      return React.cloneElement(React.Children.only(row), {
+        stickyHeaders,
+      });
+    });
+  };
 
   private addNumberColumnIndexes = (rows: React.ReactElement<any>[]) => {
     const { isNumberColumnEnabled } = this.props;

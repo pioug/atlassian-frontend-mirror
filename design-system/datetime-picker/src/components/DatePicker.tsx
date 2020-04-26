@@ -1,36 +1,46 @@
-import Calendar, { CalendarClassType, ArrowKeys } from '@atlaskit/calendar';
-import pick from 'lodash.pick';
-import CalendarIcon from '@atlaskit/icon/glyph/calendar';
-import Select, { mergeStyles } from '@atlaskit/select';
+import React, { CSSProperties } from 'react';
+
 import styled from '@emotion/styled';
+// eslint-disable-next-line no-restricted-imports
+import { format, isValid, lastDayOfMonth, parse } from 'date-fns';
+import pick from 'lodash.pick';
+
+import {
+  createAndFireEvent,
+  withAnalyticsContext,
+  withAnalyticsEvents,
+  WithAnalyticsEventsProps,
+} from '@atlaskit/analytics-next';
+import Calendar, { ArrowKeys, CalendarClassType } from '@atlaskit/calendar';
+import CalendarIcon from '@atlaskit/icon/glyph/calendar';
 import {
   createLocalizationProvider,
   LocalizationProvider,
 } from '@atlaskit/locale';
-import { borderRadius, layers, gridSize } from '@atlaskit/theme/constants';
-import { N20, B100 } from '@atlaskit/theme/colors';
+import Select, {
+  ActionMeta,
+  IndicatorComponentType,
+  mergeStyles,
+  OptionType,
+  SelectComponentsConfig,
+  ValueType,
+} from '@atlaskit/select';
+import { B100, N20 } from '@atlaskit/theme/colors';
+import { borderRadius, gridSize, layers } from '@atlaskit/theme/constants';
 import { e200 } from '@atlaskit/theme/elevation';
+
 import {
-  withAnalyticsEvents,
-  WithAnalyticsEventsProps,
-  withAnalyticsContext,
-  createAndFireEvent,
-} from '@atlaskit/analytics-next';
-// eslint-disable-next-line no-restricted-imports
-import { format, isValid, parse, lastDayOfMonth } from 'date-fns';
-import React, { CSSProperties } from 'react';
-import {
-  name as packageName,
-  version as packageVersion,
-} from '../version.json';
-import {
-  ClearIndicator,
   defaultDateFormat,
+  EmptyClearIndicator,
   padToTwo,
   placeholderDatetime,
 } from '../internal';
 import FixedLayer from '../internal/FixedLayer';
-import { SelectProps, Appearance, Spacing } from '../types';
+import { Appearance, SelectProps, Spacing } from '../types';
+import {
+  name as packageName,
+  version as packageVersion,
+} from '../version.json';
 
 /* eslint-disable react/no-unused-prop-types */
 export interface Props extends WithAnalyticsEventsProps {
@@ -47,7 +57,7 @@ export interface Props extends WithAnalyticsEventsProps {
   /** An array of ISO dates that should be disabled on the calendar. */
   disabled: string[];
   /** The icon to show in the field. */
-  icon: React.ReactNode;
+  icon: IndicatorComponentType<OptionType>;
   /** The id of the field. Currently, react-select transforms this to have a "react-select-" prefix, and an "--input" suffix when applied to the input. For example, the id "my-input" would be transformed to "react-select-my-input--input". Keep this in mind when needing to refer to the ID. This will be fixed in an upcoming release. */
   id: string;
   /** Props to apply to the container. **/
@@ -69,7 +79,7 @@ export interface Props extends WithAnalyticsEventsProps {
   /** DEPRECATED - Use locale instead. A function for formatting the date displayed in the input. By default composes together [date-fn's parse method](https://date-fns.org/v1.29.0/docs/parse) and [date-fn's format method](https://date-fns.org/v1.29.0/docs/format) to return a correctly formatted date string*/
   formatDisplayLabel?: (value: string, dateFormat: string) => string;
   /** Props to apply to the select. This can be used to set options such as placeholder text.
-   *  See [here](/packages/core/select) for documentation on select props. */
+   *  See [here](/packages/design-system/select) for documentation on select props. */
   selectProps: SelectProps;
   /* This prop affects the height of the select control. Compact is gridSize() * 4, default is gridSize * 5  */
   spacing?: Spacing;
@@ -95,6 +105,12 @@ export interface Props extends WithAnalyticsEventsProps {
 
 interface State {
   isOpen: boolean;
+  /**
+   * When being cleared from the icon the DatePicker is blurred.
+   * This variable defines whether the default onSelectBlur or onSelectFocus
+   * events should behave as normal
+   */
+  clearingFromIcon: boolean;
   value: string;
   /** Value to be shown in the calendar as selected.  */
   selectedValue: string;
@@ -156,6 +172,7 @@ const Menu = ({
         />
       </StyledMenu>
     }
+    testId={selectProps.testId}
   />
 );
 
@@ -195,6 +212,7 @@ class DatePicker extends React.Component<Props, State> {
 
     this.state = {
       isOpen: this.props.defaultIsOpen,
+      clearingFromIcon: false,
       inputValue: this.props.selectProps.inputValue,
       selectedValue: this.props.value || this.props.defaultValue,
       value: this.props.defaultValue,
@@ -269,17 +287,27 @@ class DatePicker extends React.Component<Props, State> {
   };
 
   onSelectBlur = (event: React.FocusEvent<HTMLInputElement>) => {
-    this.setState({ isOpen: false });
+    if (this.getSafeState().clearingFromIcon) {
+      // Don't close menu if blurring after the user has clicked clear
+      this.setState({ clearingFromIcon: false });
+    } else {
+      this.setState({ isOpen: false });
+    }
     this.props.onBlur(event);
   };
 
   onSelectFocus = (event: React.FocusEvent<HTMLInputElement>) => {
-    const { value } = this.getSafeState();
+    const { clearingFromIcon, value } = this.getSafeState();
 
-    this.setState({
-      isOpen: true,
-      view: value,
-    });
+    if (clearingFromIcon) {
+      // Don't open menu if focussing after the user has clicked clear
+      this.setState({ clearingFromIcon: false });
+    } else {
+      this.setState({
+        isOpen: true,
+        view: value,
+      });
+    }
 
     this.props.onFocus(event);
   };
@@ -334,12 +362,8 @@ class DatePicker extends React.Component<Props, State> {
           target instanceof HTMLInputElement &&
           target.value.length < 1
         ) {
-          this.setState({
-            selectedValue: '',
-            value: '',
-            view: this.props.defaultValue || format(new Date(), 'YYYY-MM-DD'),
-          });
-          this.props.onChange('');
+          // If being cleared from keyboard, don't change behaviour
+          this.setState({ clearingFromIcon: false });
         }
         break;
       case 'enter':
@@ -356,6 +380,31 @@ class DatePicker extends React.Component<Props, State> {
         break;
       default:
         break;
+    }
+  };
+
+  onClear = () => {
+    let changedState: {} = {
+      selectedValue: '',
+      value: '',
+      view: this.props.defaultValue || format(new Date(), 'YYYY-MM-DD'),
+    };
+
+    if (!this.props.hideIcon) {
+      changedState = {
+        ...changedState,
+        clearingFromIcon: true,
+      };
+    }
+    this.setState(changedState);
+    this.props.onChange('');
+  };
+
+  onSelectChange = (value: ValueType<OptionType>, action: ActionMeta) => {
+    // Used for native clear event in React Select
+    // Triggered when clicking ClearIndicator or backspace with no value
+    if (action.action === 'clear') {
+      this.onClear();
     }
   };
 
@@ -457,7 +506,22 @@ class DatePicker extends React.Component<Props, State> {
     const ICON_PADDING = 2;
 
     const { value, view, isOpen, inputValue } = this.getSafeState();
-    const dropDownIcon = appearance === 'subtle' || hideIcon ? null : icon;
+
+    const menuIsOpen = isOpen && !isDisabled;
+
+    const showClearIndicator = Boolean((value || inputValue) && !hideIcon);
+
+    const dropDownIcon: IndicatorComponentType<OptionType> | null =
+      appearance === 'subtle' || hideIcon || showClearIndicator ? null : icon;
+
+    const selectComponents: SelectComponentsConfig<OptionType> = {
+      DropdownIndicator: dropDownIcon,
+      Menu,
+    };
+    if (!showClearIndicator) {
+      selectComponents.ClearIndicator = EmptyClearIndicator;
+    }
+
     const { styles: selectStyles = {} } = selectProps;
     const controlStyles =
       appearance === 'subtle' ? this.getSubtleControlStyles(isOpen) : {};
@@ -486,10 +550,15 @@ class DatePicker extends React.Component<Props, State> {
         ref={this.getContainerRef}
         data-testid={testId && `${testId}--container`}
       >
-        <input name={name} type="hidden" value={value} />
+        <input
+          name={name}
+          type="hidden"
+          value={value}
+          data-testid={testId && `${testId}--input`}
+        />
         <Select
-          menuIsOpen={isOpen && !isDisabled}
-          openMenuOnFocus
+          enableAnimation={false}
+          menuIsOpen={menuIsOpen}
           closeMenuOnSelect
           autoFocus={autoFocus}
           instanceId={id}
@@ -498,11 +567,8 @@ class DatePicker extends React.Component<Props, State> {
           onFocus={this.onSelectFocus}
           inputValue={inputValue}
           onInputChange={this.handleInputChange}
-          components={{
-            ClearIndicator,
-            DropdownIndicator: dropDownIcon,
-            Menu,
-          }}
+          components={selectComponents}
+          onChange={this.onSelectChange}
           styles={mergeStyles(selectStyles, {
             control: base => ({
               ...base,
@@ -524,6 +590,7 @@ class DatePicker extends React.Component<Props, State> {
           }
           {...selectProps}
           {...calendarProps}
+          isClearable
           spacing={spacing}
           validationState={isInvalid ? 'error' : 'default'}
           testId={testId}

@@ -1,7 +1,8 @@
 import React, { Component, ReactNode } from 'react';
-import { Inner, Outer } from '../styled/Icon';
+
 import getStatusSVG from '../helpers/getStatusSVG';
-import { StatusType, SizeType } from '../types';
+import { Inner, Outer } from '../styled/Icon';
+import { SizeType, StatusType } from '../types';
 
 interface StatusProps {
   /** Used to override the default border color of the status indicator.

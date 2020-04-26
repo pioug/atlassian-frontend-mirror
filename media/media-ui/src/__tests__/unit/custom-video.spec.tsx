@@ -1,28 +1,46 @@
 jest.mock('../../customMediaPlayer/fullscreen');
-import React from 'react';
-import { mount } from 'enzyme';
-import FullScreenIcon from '@atlaskit/icon/glyph/vid-full-screen-on';
-import VidPlayIcon from '@atlaskit/icon/glyph/vid-play';
-import VidHdCircleIcon from '@atlaskit/icon/glyph/vid-hd-circle';
-import DownloadIcon from '@atlaskit/icon/glyph/download';
 import Button from '@atlaskit/button';
+import DownloadIcon from '@atlaskit/icon/glyph/download';
+import FullScreenIcon from '@atlaskit/icon/glyph/vid-full-screen-on';
+import VidHdCircleIcon from '@atlaskit/icon/glyph/vid-hd-circle';
+import VidPlayIcon from '@atlaskit/icon/glyph/vid-play';
+import { asMock, fakeIntl } from '@atlaskit/media-test-helpers';
 import Spinner from '@atlaskit/spinner';
-import { fakeIntl, asMock } from '@atlaskit/media-test-helpers';
+import { WidthObserver } from '@atlaskit/width-detector';
+import { mount } from 'enzyme';
+import React from 'react';
+import { Shortcut } from '../../';
 import {
   CustomMediaPlayer,
   CustomMediaPlayerProps,
 } from '../../customMediaPlayer';
 import { toggleFullscreen } from '../../customMediaPlayer/fullscreen';
-import { TimeRange, TimeRangeProps } from '../../customMediaPlayer/timeRange';
-import { CurrentTime } from '../../customMediaPlayer/styled';
-import { Shortcut } from '../../';
-jest.mock('../../customMediaPlayer/simultaneousPlayManager');
 import simultaneousPlayManager from '../../customMediaPlayer/simultaneousPlayManager';
+import {
+  CurrentTime,
+  VolumeTimeRangeWrapper,
+} from '../../customMediaPlayer/styled';
+import { TimeRange, TimeRangeProps } from '../../customMediaPlayer/timeRange';
+jest.mock('../../customMediaPlayer/simultaneousPlayManager');
 
 // Removes errors from JSDOM virtual console on CustomMediaPlayer tests
 // Trick taken from https://github.com/jsdom/jsdom/issues/2155
 const HTMLMediaElement_play = HTMLMediaElement.prototype.play;
 const HTMLMediaElement_pause = HTMLMediaElement.prototype.pause;
+
+let innerSetWidth: Function | undefined;
+
+const setWidth = (width: number) =>
+  typeof innerSetWidth === 'function' ? innerSetWidth(width) : undefined;
+
+jest.mock('@atlaskit/width-detector', () => {
+  return {
+    WidthObserver: (props => {
+      innerSetWidth = props.setWidth;
+      return null;
+    }) as typeof WidthObserver,
+  };
+});
 
 beforeAll(() => {
   HTMLMediaElement.prototype.play = () => Promise.resolve();
@@ -334,6 +352,36 @@ describe('<CustomMediaPlayer />', () => {
 
       (component.instance() as any).play();
       expect(onFirstPlay).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('on resize', () => {
+    it('Should show/hide current time when video is bigger/smaller than 400px', async () => {
+      const { component } = setup();
+
+      setWidth(399);
+      component.update();
+
+      expect(component.find(CurrentTime)).toHaveLength(0);
+
+      setWidth(401);
+      component.update();
+
+      expect(component.find(CurrentTime)).toHaveLength(1);
+    });
+
+    it('Should show/hide volume controls when video is bigger/smaller than 400px', async () => {
+      const { component } = setup();
+
+      setWidth(399);
+      component.update();
+
+      expect(component.find(VolumeTimeRangeWrapper)).toHaveLength(0);
+
+      setWidth(401);
+      component.update();
+
+      expect(component.find(VolumeTimeRangeWrapper)).toHaveLength(1);
     });
   });
 });

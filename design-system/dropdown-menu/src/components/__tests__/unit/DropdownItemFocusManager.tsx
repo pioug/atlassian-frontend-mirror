@@ -1,9 +1,10 @@
 import React from 'react';
+
 import { mount, ReactWrapper } from 'enzyme';
 
-import { DropdownItem, DropdownItemGroup } from '../../..';
+import { DropdownItem, DropdownItemGroup } from '../../../index';
+import { KEY_DOWN, KEY_TAB, KEY_UP } from '../../../util/keys';
 import DropdownItemFocusManager from '../../context/DropdownItemFocusManager';
-import { KEY_UP, KEY_DOWN, KEY_TAB } from '../../../util/keys';
 
 const closeSpy = jest.fn();
 

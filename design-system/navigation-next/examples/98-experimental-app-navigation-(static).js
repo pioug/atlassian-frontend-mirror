@@ -7,8 +7,8 @@ import AuthenticatedAppNavigationExample from '@atlaskit/atlassian-navigation/ex
 
 import { LayoutManagerWithViewController, NavigationProvider } from '../src';
 
-import { DummySkeletonContent } from './shared/components/DummySkeletonContent';
 import { LinkItem, ProjectSwitcher } from './shared/components';
+import { DummySkeletonContent } from './shared/components/DummySkeletonContent';
 import { routes } from './shared/routes';
 import ContainerViews from './shared/views/container';
 import RootViews from './shared/views/root';

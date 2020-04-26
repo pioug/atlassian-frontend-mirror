@@ -1,8 +1,10 @@
 /** @jsx jsx */
-import { FC, useState, Fragment } from 'react';
+import { FC, Fragment, useState } from 'react';
+
+import { jsx } from '@emotion/core';
+
 import Button from '@atlaskit/button';
 import { Placement } from '@atlaskit/popper';
-import { jsx } from '@emotion/core';
 
 import Popup from '../src';
 

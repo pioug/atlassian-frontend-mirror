@@ -1,7 +1,8 @@
-import { mount } from 'enzyme';
 import React from 'react';
 
-import { AtlassianLogo } from '../..';
+import { mount } from 'enzyme';
+
+import { AtlassianLogo } from '../../index';
 
 describe('Logo component', () => {
   it('should render an svg', () => {

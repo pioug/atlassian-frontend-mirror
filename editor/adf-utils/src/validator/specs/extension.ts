@@ -12,6 +12,7 @@ export default {
           values: ['wide', 'full-width', 'default'],
           optional: true,
         },
+        localId: { type: 'string', minLength: 1, optional: true },
       },
     },
   },

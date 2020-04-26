@@ -1,5 +1,40 @@
 # @atlaskit/button
 
+## 13.3.11
+
+### Patch Changes
+
+- [patch][6b8e60827e](https://bitbucket.org/atlassian/atlassian-frontend/commits/6b8e60827e):
+
+  Change imports to comply with Atlassian conventions- [patch][57c0487a02](https://bitbucket.org/atlassian/atlassian-frontend/commits/57c0487a02):
+
+  FIX: Button focus ring color changed to B100- Updated dependencies [449ef134b3](https://bitbucket.org/atlassian/atlassian-frontend/commits/449ef134b3):
+
+- Updated dependencies [f6667f2909](https://bitbucket.org/atlassian/atlassian-frontend/commits/f6667f2909):
+- Updated dependencies [68ff159118](https://bitbucket.org/atlassian/atlassian-frontend/commits/68ff159118):
+- Updated dependencies [6efb12e06d](https://bitbucket.org/atlassian/atlassian-frontend/commits/6efb12e06d):
+- Updated dependencies [fd41d77c29](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd41d77c29):
+  - @atlaskit/icon@20.1.1
+  - @atlaskit/select@11.0.10
+  - @atlaskit/logo@12.3.4
+  - @atlaskit/checkbox@10.1.11
+  - @atlaskit/webdriver-runner@0.3.4
+
+## 13.3.10
+
+### Patch Changes
+
+- [patch][109004a98e](https://bitbucket.org/atlassian/atlassian-frontend/commits/109004a98e):
+
+  Deletes internal package @atlaskit/type-helpers and removes all usages. @atlaskit/type-helpers has been superseded by native typescript helper utilities.- Updated dependencies [168b5f90e5](https://bitbucket.org/atlassian/atlassian-frontend/commits/168b5f90e5):
+
+- Updated dependencies [0c270847cb](https://bitbucket.org/atlassian/atlassian-frontend/commits/0c270847cb):
+- Updated dependencies [109004a98e](https://bitbucket.org/atlassian/atlassian-frontend/commits/109004a98e):
+- Updated dependencies [b9903e773a](https://bitbucket.org/atlassian/atlassian-frontend/commits/b9903e773a):
+  - @atlaskit/docs@8.5.1
+  - @atlaskit/theme@9.5.3
+  - @atlaskit/analytics-next@6.3.6
+
 ## 13.3.9
 
 ### Patch Changes

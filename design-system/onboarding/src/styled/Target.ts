@@ -1,6 +1,7 @@
 import styled, { css, keyframes } from 'styled-components';
-import { layers } from '@atlaskit/theme/constants';
+
 import { P300 } from '@atlaskit/theme/colors';
+import { layers } from '@atlaskit/theme/constants';
 
 interface TargetProps {
   pulse?: boolean;

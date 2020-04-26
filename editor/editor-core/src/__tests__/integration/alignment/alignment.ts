@@ -21,7 +21,7 @@ const alignRight = async (page: any) => {
 
 BrowserTestCase(
   'alignment: should be able to add alignment to paragraphs',
-  {},
+  { skip: ['edge'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
 
@@ -40,7 +40,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'alignment: should be able to add alignment to headings',
-  {},
+  { skip: ['edge'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
 
@@ -99,7 +99,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'alignment: should maintain alignment when hit return',
-  {},
+  { skip: ['edge'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
     await mountEditor(page, {

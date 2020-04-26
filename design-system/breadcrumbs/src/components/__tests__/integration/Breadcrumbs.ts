@@ -3,7 +3,7 @@ import { getExampleUrl } from '@atlaskit/webdriver-runner/utils/example';
 import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 
 /* Url to test the example */
-const urlBreadcrumbs = getExampleUrl('core', 'breadcrumbs', 'testing');
+const urlBreadcrumbs = getExampleUrl('design-system', 'breadcrumbs', 'testing');
 
 /* Css selectors used for the test */
 const breadcrumbsTestId = "[data-testid='MyBreadcrumbsTestId']";
@@ -30,6 +30,8 @@ BrowserTestCase(
     );
     // Once the `breadcrumbsItemTestId` is displayed, we can click on it and checks the url redirection.
     await breadcrumbsTest.click(breadcrumbsItemTestId);
-    expect(await breadcrumbsTest.url()).toContain('packages/core/breadcrumbs');
+    expect(await breadcrumbsTest.url()).toContain(
+      'packages/design-system/breadcrumbs',
+    );
   },
 );

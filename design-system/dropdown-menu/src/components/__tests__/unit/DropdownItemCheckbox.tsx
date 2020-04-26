@@ -1,17 +1,19 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
+
 import { mount, ReactWrapper } from 'enzyme';
 import PropTypes from 'prop-types';
+
 import CheckboxIcon from '@atlaskit/icon/glyph/checkbox';
-import { B400, N40 } from '@atlaskit/theme/colors';
 import Item from '@atlaskit/item';
-import { KEY_ENTER, KEY_SPACE } from '../../../util/keys';
+import { B400, N40 } from '@atlaskit/theme/colors';
 
 import DropdownMenu, {
-  DropdownMenuStateless,
   DropdownItemCheckbox,
   DropdownItemGroupCheckbox,
-} from '../../..';
+  DropdownMenuStateless,
+} from '../../../index';
+import { KEY_ENTER, KEY_SPACE } from '../../../util/keys';
 
 /**
  * TODO: replace these tests - AK-5183

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/analytics-next",
-  "version": "6.3.5",
+  "version": "6.3.6",
   "description": "The 🆕 Atlaskit component analytics framework",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -15,13 +15,12 @@
   "atlaskit:src": "src/index.ts",
   "atlassian": {
     "team": "Atlassian Frontend Platform",
-    "releaseModel": "continuous",
+    "releaseModel": "scheduled",
     "website": {
       "name": "Analytics next"
     }
   },
   "dependencies": {
-    "@atlaskit/type-helpers": "^4.2.3",
     "prop-types": "^15.5.10",
     "tslib": "^1.9.3",
     "use-memo-one": "^1.1.1"
@@ -31,11 +30,10 @@
   },
   "devDependencies": {
     "@atlaskit/build-utils": "^2.2.5",
-    "@atlaskit/button": "^13.3.7",
-    "@atlaskit/docs": "^8.3.2",
+    "@atlaskit/button": "^13.3.10",
+    "@atlaskit/docs": "^8.5.1",
     "@atlaskit/ssr": "^0.1.1",
     "@atlaskit/textfield": "^3.1.6",
-    "@atlaskit/type-helpers": "^4.2.3",
     "@testing-library/react": "^8.0.1",
     "enzyme": "^3.10.0",
     "react-dom": "^16.8.0",

@@ -1,9 +1,11 @@
 /** @jsx jsx */
 
-import { jsx } from '@emotion/core';
 import { Component } from 'react';
-import Button from '@atlaskit/button';
+
+import { jsx } from '@emotion/core';
 import Lorem from 'react-lorem-component';
+
+import Button from '@atlaskit/button';
 
 import Drawer from '../src';
 

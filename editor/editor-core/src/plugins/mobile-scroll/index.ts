@@ -16,6 +16,7 @@ export const MIN_TAP_SIZE_PX = 44;
 const getInitialState = (): MobileScrollPluginState => ({
   keyboardHeight: -1,
   heightDiff: -1,
+  mobilePaddingTop: 0,
   windowHeight: window.innerHeight,
 });
 

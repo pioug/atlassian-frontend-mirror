@@ -1,7 +1,10 @@
 import React, { FC } from 'react';
+
 import styled from 'styled-components';
-import { themed, withTheme } from '@atlaskit/theme/components';
+
 import * as colors from '@atlaskit/theme/colors';
+import { themed, withTheme } from '@atlaskit/theme/components';
+
 import { StatusType } from '../types';
 
 const Svg: FC = props => (

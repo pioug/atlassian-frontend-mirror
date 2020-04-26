@@ -1,6 +1,5 @@
-import { gridSize } from '@atlaskit/theme/constants';
-
 import { B100 } from '@atlaskit/theme/colors';
+import { gridSize } from '@atlaskit/theme/constants';
 
 const baseStyles = {
   itemBase: {

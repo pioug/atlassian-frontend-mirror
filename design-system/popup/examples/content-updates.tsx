@@ -1,7 +1,9 @@
 /** @jsx jsx */
-import { useState, useEffect } from 'react';
-import Button, { ButtonGroup } from '@atlaskit/button';
+import { useEffect, useState } from 'react';
+
 import { jsx } from '@emotion/core';
+
+import Button, { ButtonGroup } from '@atlaskit/button';
 
 import Popup from '../src';
 

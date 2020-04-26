@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+
+import { AppearanceType, SizeType } from '@atlaskit/avatar';
 import { AtlaskitThemeProvider } from '@atlaskit/theme';
 import Toggle from '@atlaskit/toggle';
-import { AppearanceType, SizeType } from '@atlaskit/avatar';
-import AvatarGroup from '../src';
+
 import { RANDOM_USERS } from '../examples-util/data';
+import AvatarGroup from '../src';
 
 function getStatus() {
   const chance = Math.random();

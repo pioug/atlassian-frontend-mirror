@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+
 import { ThemeProvider, withTheme } from 'styled-components';
 
-import { defaultGridColumns } from './internal/vars';
 import GridColumn from './internal/GridColumnElement';
+import { defaultGridColumns } from './internal/vars';
 import { GridColumnProps } from './types';
 
 const defaultSpacing = 'cosy';

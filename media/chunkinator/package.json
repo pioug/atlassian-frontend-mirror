@@ -1,0 +1,39 @@
+{
+  "name": "@atlaskit/chunkinator",
+  "version": "1.1.0",
+  "description": "Upload large files from the browser with ease",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "author": "Atlassian Pty Ltd",
+  "license": "Apache-2.0",
+  "module": "dist/esm/index.js",
+  "main": "dist/cjs/index.js",
+  "types": "dist/cjs/index.d.ts",
+  "sideEffects": false,
+  "atlaskit:src": "src/index.ts",
+  "atlassian": {
+    "team": "Media Platform",
+    "releaseModel": "scheduled",
+    "website": {
+      "name": "Media Client"
+    }
+  },
+  "dependencies": {
+    "rxjs-async-map": "^0.1.2",
+    "tslib": "^1.9.3"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0",
+    "rxjs": "^5.5.0"
+  },
+  "devDependencies": {
+    "@atlaskit/docs": "^8.5.1",
+    "@atlaskit/media-test-helpers": "^27.2.0",
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0",
+    "rxjs": "^5.5.0",
+    "styled-components": "^3.2.6"
+  }
+}

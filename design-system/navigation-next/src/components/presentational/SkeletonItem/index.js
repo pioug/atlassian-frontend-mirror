@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 
-import { withContentTheme, styleReducerNoOp } from '../../../theme';
+import { styleReducerNoOp, withContentTheme } from '../../../theme';
 
 class SkeletonItem extends PureComponent {
   static defaultProps = {

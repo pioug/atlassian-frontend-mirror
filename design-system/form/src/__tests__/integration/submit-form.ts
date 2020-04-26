@@ -1,10 +1,9 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import { getExampleUrl } from '@atlaskit/webdriver-runner/utils/example';
-
 import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 
 /* Url to test the example */
-const urlSubmitForm = getExampleUrl('core', 'form', 'submit-form');
+const urlSubmitForm = getExampleUrl('design-system', 'form', 'submit-form');
 
 /** Css selectors used for the submit form test */
 const submitForm = 'form[name="submit-form"]';

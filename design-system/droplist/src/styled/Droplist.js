@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
-import { borderRadius, gridSize } from '@atlaskit/theme/constants';
+
 import { backgroundOnLayer, N50A, N60A } from '@atlaskit/theme/colors';
+import { borderRadius, gridSize } from '@atlaskit/theme/constants';
 import { divide, multiply } from '@atlaskit/theme/math';
 
 /* When dropdown contains more than 9 elements (droplist items, droplist groups),

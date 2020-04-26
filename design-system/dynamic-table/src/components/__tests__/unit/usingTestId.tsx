@@ -1,7 +1,9 @@
 import React from 'react';
+
 import { render } from '@testing-library/react';
-import { DynamicTableStateless } from '../../../';
+
 import { head, rows } from '../../../../examples/content/sample-data';
+import { DynamicTableStateless } from '../../../index';
 
 describe('Using testId', () => {
   test('Particular elements are accessible via data-testid', () => {

@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 
-import { spacing } from './vars';
 import { GridColumnProps, ThemeProps } from '../types';
+
+import { spacing } from './vars';
 
 interface Props {
   medium?: number;

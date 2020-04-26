@@ -10,7 +10,7 @@ import {
 } from 'prosemirror-model';
 import { transformSmartCharsMentionsAndEmojis } from '../plugins/text-formatting/commands/transform-to-code';
 import { GapCursorSelection } from '../plugins/gap-cursor';
-import { Command } from '../types';
+import { Command, HigherOrderCommand } from '../types/command';
 
 type Predicate = (state: EditorState, view?: EditorView) => boolean;
 
@@ -212,6 +212,22 @@ const toggleMark = (
   return toggleMarkInRange(mark)(state, dispatch);
 };
 
+const withScrollIntoView: HigherOrderCommand = (command: Command): Command => (
+  state,
+  dispatch,
+  view,
+) =>
+  command(
+    state,
+    tr => {
+      tr.scrollIntoView();
+      if (dispatch) {
+        dispatch(tr);
+      }
+    },
+    view,
+  );
+
 export type WalkNode = {
   $pos: ResolvedPos;
   foundNode: boolean;
@@ -308,6 +324,7 @@ export {
   findCutBefore,
   toggleMark,
   applyMarkOnRange,
+  withScrollIntoView,
   walkNextNode,
   walkPrevNode,
   insertContentDeleteRange,

@@ -37,6 +37,7 @@ import { extensionStyles } from '../../plugins/extension/ui/styles';
 import { expandStyles } from '../../plugins/expand/ui/styles';
 import { ClassNames } from '../../plugins/media/pm-plugins/alt-text/style';
 import { breakoutStyles } from '../../plugins/breakout/';
+import { findReplaceStyles } from '../../plugins/find-replace/styles';
 
 const ContentStyles: ComponentClass<HTMLAttributes<{}> & {
   theme: any;
@@ -95,7 +96,7 @@ const ContentStyles: ComponentClass<HTMLAttributes<{}> & {
   }
 
   .blockCardView-content-wrap {
-    display: inline-block;
+    display: block;
   }
 
   /* fix cursor alignment */
@@ -132,6 +133,7 @@ const ContentStyles: ComponentClass<HTMLAttributes<{}> & {
   ${extensionStyles}
   ${expandStyles}
   ${breakoutStyles}
+  ${findReplaceStyles}
 
   /** Global selector for extensions, as .danger tag is assigned to root level node which is unaccessible from triggered child node **/
   /* Danger when nested node */

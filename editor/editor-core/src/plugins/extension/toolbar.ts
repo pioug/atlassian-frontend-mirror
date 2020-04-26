@@ -18,7 +18,7 @@ import {
 } from '../floating-toolbar/types';
 import { hoverDecoration } from '../base/pm-plugins/decoration';
 import { editExtension } from './actions';
-import { getPluginState } from './plugin';
+import { getPluginState } from './pm-plugins/main';
 import { ExtensionState } from './types';
 import { updateExtensionLayout, removeExtension } from './commands';
 import { pluginKey as macroPluginKey } from '../macro/plugin-key';
@@ -93,7 +93,6 @@ const breakoutOptions = (
 const editButton = (
   formatMessage: InjectedIntl['formatMessage'],
   extensionState: ExtensionState,
-  allowNewConfigPanel: boolean,
 ): Array<FloatingToolbarItem<Command>> => {
   if (!extensionState.showEditButton) {
     return [];
@@ -108,7 +107,6 @@ const editButton = (
         const macroState: MacroState = macroPluginKey.getState(state);
         return editExtension(
           macroState && macroState.macroProvider,
-          allowNewConfigPanel,
           getPluginState(state).updateExtension,
         )(state, dispatch);
       },
@@ -119,7 +117,6 @@ const editButton = (
 
 export const getToolbarConfig = (
   breakoutEnabled: boolean = true,
-  allowNewConfigPanel: boolean = false,
 ): FloatingToolbarHandler => (state, { formatMessage }) => {
   const extensionState = getPluginState(state);
 
@@ -134,11 +131,7 @@ export const getToolbarConfig = (
       state.schema.nodes.bodiedExtension,
     ];
 
-    const editButtonArray = editButton(
-      formatMessage,
-      extensionState,
-      allowNewConfigPanel,
-    );
+    const editButtonArray = editButton(formatMessage, extensionState);
     const breakoutButtonArray = breakoutOptions(
       state,
       formatMessage,

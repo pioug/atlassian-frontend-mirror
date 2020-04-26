@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
-import { themed } from '@atlaskit/theme/components';
+
 import * as colors from '@atlaskit/theme/colors';
+import { themed } from '@atlaskit/theme/components';
 
 const getTransparent = themed({ light: 'transparent', dark: 'transparent' });
 const selectedBackground = themed({ light: colors.N500, dark: colors.N0 });

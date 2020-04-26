@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/flag",
-  "version": "12.3.10",
+  "version": "12.3.11",
   "description": "A flag message is used for confirmations, alerts, and acknowledgments that require minimal user interaction.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -23,8 +23,8 @@
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^6.3.5",
-    "@atlaskit/button": "^13.3.9",
-    "@atlaskit/icon": "^20.1.0",
+    "@atlaskit/button": "^13.3.11",
+    "@atlaskit/icon": "^20.1.1",
     "@atlaskit/portal": "^3.1.6",
     "@atlaskit/theme": "^9.5.1",
     "react-transition-group": "^2.2.1",
@@ -43,7 +43,7 @@
     "@atlaskit/ssr": "^0.1.1",
     "@atlaskit/theme": "^9.5.1",
     "@atlaskit/visual-regression": "^0.1.9",
-    "@atlaskit/webdriver-runner": "^0.3.0",
+    "@atlaskit/webdriver-runner": "^0.3.4",
     "@testing-library/react": "^8.0.1",
     "enzyme": "^3.10.0",
     "react-dom": "^16.8.0"
@@ -52,5 +52,10 @@
     "atlaskit",
     "react",
     "ui"
-  ]
+  ],
+  "techstack": {
+    "@atlassian/frontend": {
+      "import-structure": "atlassian-conventions"
+    }
+  }
 }

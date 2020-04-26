@@ -1,19 +1,34 @@
 import React from 'react';
 import { NodeView, EditorView, Decoration } from 'prosemirror-view';
 import { Node as PMNode } from 'prosemirror-model';
-import { PortalProviderAPI } from '../ui/PortalProvider';
 import { Selection, NodeSelection } from 'prosemirror-state';
+import { startMeasure, stopMeasure } from '@atlaskit/editor-common';
 
+import { PortalProviderAPI } from '../ui/PortalProvider';
 import {
   stateKey as SelectionChangePluginKey,
   ReactNodeViewState,
 } from '../plugins/base/pm-plugins/react-nodeview';
+import { analyticsPluginKey } from '../plugins/analytics/plugin-key';
+import { EventDispatcher, createDispatch } from '../event-dispatcher';
+import {
+  ACTION,
+  ACTION_SUBJECT,
+  EVENT_TYPE,
+  AnalyticsDispatch,
+  AnalyticsEventPayload,
+} from '../plugins/analytics';
+import { analyticsEventKey } from '../plugins/analytics/consts';
+import {
+  ReactComponentProps,
+  shouldUpdate,
+  getPosHandler,
+  ForwardRef,
+} from './types';
 
-export type getPosHandler = getPosHandlerNode | boolean;
-export type getPosHandlerNode = () => number;
-export type ReactComponentProps = { [key: string]: unknown };
-export type ForwardRef = (node: HTMLElement | null) => void;
-export type shouldUpdate = (nextNode: PMNode) => boolean;
+const DEFAULT_SAMPLING_RATE = 100;
+const DEFAULT_SLOW_THRESHOLD = 7;
+let nodeViewEventsCounter = 0;
 
 export default class ReactNodeView<P = ReactComponentProps>
   implements NodeView {
@@ -23,6 +38,7 @@ export default class ReactNodeView<P = ReactComponentProps>
   private portalProviderAPI: PortalProviderAPI;
   private hasContext: boolean;
   private _viewShouldUpdate?: shouldUpdate;
+  private eventDispatcher?: EventDispatcher;
 
   reactComponentProps: P;
 
@@ -36,6 +52,7 @@ export default class ReactNodeView<P = ReactComponentProps>
     view: EditorView,
     getPos: getPosHandler,
     portalProviderAPI: PortalProviderAPI,
+    eventDispatcher: EventDispatcher,
     reactComponentProps?: P,
     reactComponent?: React.ComponentType<any>,
     hasContext: boolean = false,
@@ -49,6 +66,7 @@ export default class ReactNodeView<P = ReactComponentProps>
     this.reactComponent = reactComponent;
     this.hasContext = hasContext;
     this._viewShouldUpdate = viewShouldUpdate;
+    this.eventDispatcher = eventDispatcher;
   }
 
   /**
@@ -81,9 +99,28 @@ export default class ReactNodeView<P = ReactComponentProps>
     // difference between them and it kills the nodeView
     this.domRef.classList.add(`${this.node.type.name}View-content-wrap`);
 
+    const { samplingRate, slowThreshold } = this.performanceOptions;
+
+    startMeasure(`🦉${this.node.type.name}::ReactNodeView`);
     this.renderReactComponent(() =>
       this.render(this.reactComponentProps, this.handleRef),
     );
+    stopMeasure(`🦉${this.node.type.name}::ReactNodeView`, duration => {
+      if (
+        ++nodeViewEventsCounter % samplingRate === 0 &&
+        duration > slowThreshold
+      ) {
+        this.dispatchAnalyticsEvent({
+          action: ACTION.REACT_NODEVIEW_RENDERED,
+          actionSubject: ACTION_SUBJECT.EDITOR,
+          eventType: EVENT_TYPE.OPERATIONAL,
+          attributes: {
+            node: this.node.type.name,
+            duration,
+          },
+        });
+      }
+    });
 
     return this;
   }
@@ -197,9 +234,41 @@ export default class ReactNodeView<P = ReactComponentProps>
     this.contentDOM = undefined;
   }
 
+  get performanceOptions(): {
+    enabled: boolean;
+    samplingRate: number;
+    slowThreshold: number;
+  } {
+    const pluginState = analyticsPluginKey.getState(this.view.state);
+    const nodeViewTracking =
+      pluginState && pluginState.performanceTracking
+        ? pluginState.performanceTracking.nodeViewTracking || {}
+        : {};
+
+    const samplingRate = nodeViewTracking.samplingRate || DEFAULT_SAMPLING_RATE;
+    const slowThreshold =
+      nodeViewTracking.slowThreshold || DEFAULT_SLOW_THRESHOLD;
+
+    return {
+      enabled: !!nodeViewTracking.enabled,
+      samplingRate,
+      slowThreshold,
+    };
+  }
+
+  private dispatchAnalyticsEvent = (payload: AnalyticsEventPayload) => {
+    if (this.eventDispatcher && this.performanceOptions.enabled) {
+      const dispatch: AnalyticsDispatch = createDispatch(this.eventDispatcher);
+      dispatch(analyticsEventKey, {
+        payload,
+      });
+    }
+  };
+
   static fromComponent(
     component: React.ComponentType<any>,
     portalProviderAPI: PortalProviderAPI,
+    eventDispatcher: EventDispatcher,
     props?: ReactComponentProps,
     viewShouldUpdate?: (nextNode: PMNode) => boolean,
   ) {
@@ -209,6 +278,7 @@ export default class ReactNodeView<P = ReactComponentProps>
         view,
         getPos,
         portalProviderAPI,
+        eventDispatcher,
         props,
         component,
         false,
@@ -254,6 +324,7 @@ export class SelectionBasedNodeView<
     view: EditorView,
     getPos: getPosHandler,
     portalProviderAPI: PortalProviderAPI,
+    eventDispatcher: EventDispatcher,
     reactComponentProps: P,
     reactComponent?: React.ComponentType<any>,
     hasContext: boolean = false,
@@ -264,6 +335,7 @@ export class SelectionBasedNodeView<
       view,
       getPos,
       portalProviderAPI,
+      eventDispatcher,
       reactComponentProps,
       reactComponent,
       hasContext,

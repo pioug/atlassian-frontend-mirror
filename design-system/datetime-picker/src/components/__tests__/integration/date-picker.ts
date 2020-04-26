@@ -3,7 +3,7 @@ import { getExampleUrl } from '@atlaskit/webdriver-runner/utils/example';
 import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 
 const urlDateTimePicker = getExampleUrl(
-  'core',
+  'design-system',
   'datetime-picker',
   'date-picker-states',
 );

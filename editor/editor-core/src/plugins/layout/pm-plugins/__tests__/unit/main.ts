@@ -35,7 +35,11 @@ describe('layout', () => {
     createAnalyticsEvent = jest.fn(() => ({ fire() {} } as UIAnalyticsEvent));
     return createEditor({
       doc,
-      editorProps: { allowLayouts: true, allowAnalyticsGASV3: true },
+      editorProps: {
+        allowLayouts: true,
+        allowAnalyticsGASV3: true,
+        quickInsert: true,
+      },
       createAnalyticsEvent,
     });
   };

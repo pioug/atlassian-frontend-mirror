@@ -41,6 +41,7 @@ export {
   paragraph,
   placeholder,
   rule,
+  status,
   strike,
   strong,
   subsup,

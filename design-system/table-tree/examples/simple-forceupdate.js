@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import TableTree, { Headers, Header, Rows, Row, Cell } from '../src';
+
+import TableTree, { Cell, Header, Headers, Row, Rows } from '../src';
 
 const ROOTS = [
   {

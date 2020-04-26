@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/code",
-  "version": "11.1.4",
+  "version": "11.1.5",
   "description": "Code renders inline code snippets and code blocks.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -45,5 +45,10 @@
     "atlaskit",
     "react",
     "ui"
-  ]
+  ],
+  "techstack": {
+    "@atlassian/frontend": {
+      "import-structure": "atlassian-conventions"
+    }
+  }
 }

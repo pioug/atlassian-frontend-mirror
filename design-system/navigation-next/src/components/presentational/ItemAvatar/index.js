@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import { styleReducerNoOp, withContentTheme } from '../../../theme';
+
 import ItemAvatar from './ItemAvatar';
 
 const ItemAvatarWithTheme = withContentTheme(ItemAvatar);

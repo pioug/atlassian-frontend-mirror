@@ -8,7 +8,7 @@ const tooltipBtn = 'button';
 describe('Snapshot Test', () => {
   it('Tooltip should match production example', async () => {
     const url = getExampleUrl(
-      'core',
+      'design-system',
       'tooltip',
       'defaultTooltip',
       global.__BASEURL__,

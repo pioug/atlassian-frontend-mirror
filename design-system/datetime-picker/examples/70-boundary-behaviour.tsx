@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
+
+import Lorem from 'react-lorem-component';
+
 import Button from '@atlaskit/button';
 import { Label } from '@atlaskit/field-base';
 import FieldRange from '@atlaskit/field-range';
 import Modal, { ModalTransition } from '@atlaskit/modal-dialog';
-import Lorem from 'react-lorem-component';
+
 import { DateTimePicker } from '../src';
 
 interface State {

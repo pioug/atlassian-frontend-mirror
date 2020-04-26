@@ -6,7 +6,7 @@ import {
 describe('Snapshot Test', () => {
   it('Icon size example should match production example', async () => {
     const url = getExampleUrl(
-      'core',
+      'design-system',
       'icon',
       'size-example',
       global.__BASEURL__,

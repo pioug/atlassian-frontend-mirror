@@ -12,10 +12,7 @@ import {
 } from 'prosemirror-model';
 import { expandMessages } from '@atlaskit/editor-common';
 
-import {
-  getPosHandlerNode,
-  getPosHandler,
-} from '../../../nodeviews/ReactNodeView';
+import { getPosHandlerNode, getPosHandler } from '../../../nodeviews/';
 import { isEmptyNode } from '../../../utils';
 import {
   updateExpandTitle,

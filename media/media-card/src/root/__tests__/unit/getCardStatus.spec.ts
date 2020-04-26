@@ -1,12 +1,14 @@
 import { FileState } from '@atlaskit/media-client';
 import {
   getCardStatus,
-  getAnalyticsErrorStateAttributes,
   getCardProgressFromFileState,
-  getAnalyticsStatusFromCardStatus,
   getCardStatusFromFileState,
 } from '../../card/getCardStatus';
 import { CardState, CardProps } from '../../..';
+import {
+  getAnalyticsErrorStateAttributes,
+  getAnalyticsStatusFromCardStatus,
+} from '../../../utils/analytics';
 
 describe('getCardStatus()', () => {
   describe('image files', () => {
@@ -101,13 +103,15 @@ describe('getCardStatus()', () => {
   });
 });
 
-describe('getAnalyticsErrorStateAttributes()', () => {
+describe('getAnalyticsErrorStateAttributes() for previewable files', () => {
   it('should return an empty object if did NOT receive fileState and error', () => {
-    expect(getAnalyticsErrorStateAttributes()).toEqual({});
+    expect(getAnalyticsErrorStateAttributes(true, true)).toEqual({});
   });
 
   it('should return a `media-client-error` object with error if did NOT receive fileState and receives error as string', () => {
-    expect(getAnalyticsErrorStateAttributes(undefined, 'canceled')).toEqual({
+    expect(
+      getAnalyticsErrorStateAttributes(true, true, undefined, 'canceled'),
+    ).toEqual({
       error: 'canceled',
       failReason: 'media-client-error',
     });
@@ -115,7 +119,9 @@ describe('getAnalyticsErrorStateAttributes()', () => {
 
   it('should return a `media-client-error` object with error if did NOT receive fileState and receives error as an instance of Error', () => {
     const error = new Error('oops');
-    expect(getAnalyticsErrorStateAttributes(undefined, error)).toEqual({
+    expect(
+      getAnalyticsErrorStateAttributes(true, true, undefined, error),
+    ).toEqual({
       error: 'oops',
       failReason: 'media-client-error',
     });
@@ -126,7 +132,7 @@ describe('getAnalyticsErrorStateAttributes()', () => {
       status: 'error',
       id: '123',
     };
-    expect(getAnalyticsErrorStateAttributes(fileStatus)).toEqual({
+    expect(getAnalyticsErrorStateAttributes(true, true, fileStatus)).toEqual({
       error: 'unknown error',
       failReason: 'file-status-error',
     });
@@ -138,7 +144,7 @@ describe('getAnalyticsErrorStateAttributes()', () => {
       id: '123',
       message: 'some error occurred!',
     };
-    expect(getAnalyticsErrorStateAttributes(fileStatus)).toEqual({
+    expect(getAnalyticsErrorStateAttributes(true, true, fileStatus)).toEqual({
       error: 'some error occurred!',
       failReason: 'file-status-error',
     });
@@ -154,7 +160,9 @@ describe('getAnalyticsErrorStateAttributes()', () => {
       mediaType: 'image',
       mimeType: 'image/jpeg',
     };
-    expect(getAnalyticsErrorStateAttributes(fileStatus)).toEqual({});
+    expect(getAnalyticsErrorStateAttributes(true, true, fileStatus)).toEqual(
+      {},
+    );
   });
 });
 

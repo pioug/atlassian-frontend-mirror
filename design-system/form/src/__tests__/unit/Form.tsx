@@ -1,9 +1,12 @@
 import React from 'react';
-import { render, fireEvent, act } from '@testing-library/react';
+
+import { act, fireEvent, render } from '@testing-library/react';
+
 import Button from '@atlaskit/button';
 import TextField from '@atlaskit/textfield';
-import Form from '../../Form';
+
 import Field from '../../Field';
+import Form from '../../Form';
 
 describe('Form', () => {
   it('should update the onSubmit prop when it was updated', () => {

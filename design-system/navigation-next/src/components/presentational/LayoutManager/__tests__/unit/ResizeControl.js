@@ -1,12 +1,15 @@
 import React from 'react';
+
 import { mount, shallow } from 'enzyme';
+
 import ChevronLeft from '@atlaskit/icon/glyph/chevron-left';
-import {
-  ResizeControlBase,
-  GrabArea,
-  BodyDragCursor,
-} from '../../ResizeControl';
+
 import { navigationExpandedCollapsed } from '../../../../../common/analytics';
+import {
+  BodyDragCursor,
+  GrabArea,
+  ResizeControlBase,
+} from '../../ResizeControl';
 
 jest.mock('../../../../../common/analytics', () => ({
   navigationExpandedCollapsed: jest.fn(),

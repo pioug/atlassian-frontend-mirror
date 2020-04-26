@@ -1,11 +1,18 @@
 import React, { ReactNode } from 'react';
+
+import { act, fireEvent, render } from '@testing-library/react';
 import { mount, ReactWrapper } from 'enzyme';
-import { render, fireEvent, act } from '@testing-library/react';
+
 import Button from '@atlaskit/button';
 import Select, { ValueType } from '@atlaskit/select';
 import TextField from '@atlaskit/textfield';
 
-import Form, { Field, HelperMessage, ErrorMessage, ValidMessage } from '../..';
+import Form, {
+  ErrorMessage,
+  Field,
+  HelperMessage,
+  ValidMessage,
+} from '../../index';
 import { Label } from '../../styled/Field';
 
 type Props<T> = {

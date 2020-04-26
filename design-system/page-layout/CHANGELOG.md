@@ -1,5 +1,32 @@
 # @atlaskit/page-layout
 
+## 0.2.0
+
+### Minor Changes
+
+- [minor][278f466be0](https://bitbucket.org/atlassian/atlassian-frontend/commits/278f466be0):
+
+  Split page layout to allow tree shaking, allow resize button to have an override and add the required resizeButtonLabel prop to ResizeControl
+
+## 0.1.3
+
+### Patch Changes
+
+- [patch][214c76d2b8](https://bitbucket.org/atlassian/atlassian-frontend/commits/214c76d2b8):
+
+  Change imports to comply with Atlassian conventions- Updated dependencies [3940bd71f1](https://bitbucket.org/atlassian/atlassian-frontend/commits/3940bd71f1):
+
+- Updated dependencies [6b8e60827e](https://bitbucket.org/atlassian/atlassian-frontend/commits/6b8e60827e):
+- Updated dependencies [449ef134b3](https://bitbucket.org/atlassian/atlassian-frontend/commits/449ef134b3):
+- Updated dependencies [167a55fd7a](https://bitbucket.org/atlassian/atlassian-frontend/commits/167a55fd7a):
+- Updated dependencies [57c0487a02](https://bitbucket.org/atlassian/atlassian-frontend/commits/57c0487a02):
+- Updated dependencies [e5eb921e97](https://bitbucket.org/atlassian/atlassian-frontend/commits/e5eb921e97):
+  - @atlaskit/tooltip@15.2.6
+  - @atlaskit/button@13.3.11
+  - @atlaskit/icon@20.1.1
+  - @atlaskit/avatar@17.1.10
+  - @atlaskit/motion@0.2.4
+
 ## 0.1.2
 
 ### Patch Changes

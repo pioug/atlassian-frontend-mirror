@@ -1,9 +1,10 @@
 import React from 'react';
-import { md, Example, code } from '@atlaskit/docs';
+
+import { code, Example, md } from '@atlaskit/docs';
 import SectionMessage from '@atlaskit/section-message';
 
 export default md`
-  ## 9.x -> 10.x 
+  ## 9.x -> 10.x
 
   ${(
     <SectionMessage
@@ -19,23 +20,23 @@ export default md`
     </SectionMessage>
   )}
 
-  @atlaskit/checkbox 10.x includes the following changes: 
-  * Replaced previous theme implementation with new @atlaskit/theme v2 implementation 
-    * Please read more about this implementation in the [theming guide](https://atlaskit.atlassian.com/packages/core/checkbox/docs/theming-guide)
-  * Added overrides prop which enables targeted customisations of key components in the @atlaskit/checkbox package. 
-    * Please read more about this implementation in the [overrides guide](https://atlaskit.atlassian.com/packages/core/checkbox/docs/overrides-guide)
+  @atlaskit/checkbox 10.x includes the following changes:
+  * Replaced previous theme implementation with new @atlaskit/theme v2 implementation
+    * Please read more about this implementation in the [theming guide](https://atlaskit.atlassian.com/packages/design-system/checkbox/docs/theming-guide)
+  * Added overrides prop which enables targeted customisations of key components in the @atlaskit/checkbox package.
+    * Please read more about this implementation in the [overrides guide](https://atlaskit.atlassian.com/packages/design-system/checkbox/docs/overrides-guide)
 
   ### Breaking Changes
   *HiddenCheckbox and spread props*
 
-  Passing props to the Checkbox component for them to be spread onto the underlying HiddenCheckbox component is now no longer possible. 
+  Passing props to the Checkbox component for them to be spread onto the underlying HiddenCheckbox component is now no longer possible.
   @atlaskit/checkbox still supports passing props down to the HiddenCheckbox component, however we've opted to make this behaviour more explicit.
-  
-  Whereas previously you would do this: 
+
+  Whereas previously you would do this:
   ${code`
-  <Checkbox 
+  <Checkbox
     ...supportedCheckboxProps
-    'data-testid'='test-checkbox' 
+    'data-testid'='test-checkbox'
   />
   `}
 
@@ -52,12 +53,12 @@ export default md`
   `}
 
   While this may be more code, with the introduction of the overrides prop, users have more granular control over how custom props
-  are passed down to components, for more detail on this, please see the [overrides guide](https://atlaskit.atlassian.com/packages/core/checkbox/docs/overrides-guide).
+  are passed down to components, for more detail on this, please see the [overrides guide](https://atlaskit.atlassian.com/packages/design-system/checkbox/docs/overrides-guide).
 
   *Theme*
   @atlaskit/checkbox 10.x implements a new version of the @atlaskit/theme api, if you were leveraging the previous theme mechanism, note that this will be a breaking change for you.
-  For detail on how to use the new theme implementation in @atlaskit/checkbox, please see the [theming guide](https://atlaskit.atlassian.com/packages/core/checkbox/docs/theming-guide).
-  
+  For detail on how to use the new theme implementation in @atlaskit/checkbox, please see the [theming guide](https://atlaskit.atlassian.com/packages/design-system/checkbox/docs/theming-guide).
+
 
   ## 4.x -> 5.x
   @atlaskit/checkbox 5.x is part of an ongoing body of work to normalise atlaskit form components.

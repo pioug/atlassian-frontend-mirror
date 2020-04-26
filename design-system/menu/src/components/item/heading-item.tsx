@@ -1,19 +1,27 @@
 /** @jsx jsx */
-import { jsx, CSSObject } from '@emotion/core';
+import { CSSObject, jsx } from '@emotion/core';
+
+import { HeadingItemProps } from '../types';
 
 import { itemHeadingCSS } from './styles';
-import { HeadingItemProps } from '../types';
 
 const HeadingItem = ({
   children,
   testId,
   id,
-  cssFn = (currentStyles: CSSObject) => currentStyles,
+  cssFn = (css: CSSObject) => css,
   ...rest
-}: HeadingItemProps) => (
-  <div css={cssFn(itemHeadingCSS)} data-testid={testId} id={id} {...rest}>
-    {children}
-  </div>
-);
+}: HeadingItemProps) => {
+  return (
+    <div
+      css={cssFn(itemHeadingCSS, undefined)}
+      data-testid={testId}
+      id={id}
+      {...rest}
+    >
+      {children}
+    </div>
+  );
+};
 
 export default HeadingItem;

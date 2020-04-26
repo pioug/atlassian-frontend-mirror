@@ -29,11 +29,19 @@ export function createFeatureFlagsFromProps(props: EditorProps): FeatureFlags {
             props.allowTextColor &&
               props.allowTextColor.EXPERIMENTAL_allowMoreTextColors === true,
           ),
+    findReplace: props.allowFindReplace,
 
-    extensionConfigPanel:
+    extensionLocalIdGeneration:
       typeof props.allowExtension === 'boolean'
         ? false
-        : !!(props.allowExtension && props.allowExtension.allowNewConfigPanel),
+        : !!(
+            props.allowExtension && props.allowExtension.allowLocalIdGeneration
+          ),
+
+    keyboardAccessibleDatepicker:
+      typeof props.allowKeyboardAccessibleDatepicker === 'boolean'
+        ? props.allowKeyboardAccessibleDatepicker
+        : false,
   };
 }
 

@@ -1,9 +1,10 @@
 import React, { Fragment } from 'react';
+
 import Button from '@atlaskit/button';
 import ChevronLeft from '@atlaskit/icon/glyph/chevron-left';
 import ChevronRight from '@atlaskit/icon/glyph/chevron-right';
-import { ToggleStateless } from '@atlaskit/toggle';
 import { gridSize as gridSizeFn } from '@atlaskit/theme';
+import { ToggleStateless } from '@atlaskit/toggle';
 
 import {
   GlobalNav,

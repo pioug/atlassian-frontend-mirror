@@ -11,11 +11,11 @@ export default md`
 
   ### Quick links
 
-  - [Theming](/packages/core/theme/docs/theming)
-  - [Colors](/packages/core/theme/docs/colors)
-  - [Mixins](/packages/core/theme/docs/mixins)
-  - [Constants](/packages/core/theme/docs/constants)
-  - [Upgrade guide](/packages/core/theme/docs/upgrade-guide)
-  - [Migration guide](/packages/core/theme/docs/migration-guide)
-  - [Deprecations](/packages/core/theme/docs/deprecations)
+  - [Theming](/packages/design-system/theme/docs/theming)
+  - [Colors](/packages/design-system/theme/docs/colors)
+  - [Mixins](/packages/design-system/theme/docs/mixins)
+  - [Constants](/packages/design-system/theme/docs/constants)
+  - [Upgrade guide](/packages/design-system/theme/docs/upgrade-guide)
+  - [Migration guide](/packages/design-system/theme/docs/migration-guide)
+  - [Deprecations](/packages/design-system/theme/docs/deprecations)
 `;

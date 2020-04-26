@@ -1,7 +1,10 @@
 import React from 'react';
-import { ButtonItem } from '../src';
-import koala from './icons/koala.png';
+
 import RightArrow from '@atlaskit/icon/glyph/arrow-right';
+
+import { ButtonItem } from '../src';
+
+import koala from './icons/koala.png';
 
 const ImgIcon = ({ src }: { src: string; alt: string }) => (
   <img src={src} height={24} width={24} style={{ borderRadius: 3 }} />
@@ -10,9 +13,9 @@ const ImgIcon = ({ src }: { src: string; alt: string }) => (
 export default () => (
   <ButtonItem
     onClick={console.log}
-    elemBefore={<ImgIcon src={koala} alt={'Koala'} />}
+    iconBefore={<ImgIcon src={koala} alt={'Koala'} />}
     description="Hover over me"
-    elemAfter={<RightArrow label="" />}
+    iconAfter={<RightArrow label="" />}
     isSelected
     cssFn={(currentStyles, { isSelected }) => {
       return {

@@ -1,5 +1,6 @@
 import React from 'react';
-import { md, Example } from '@atlaskit/docs';
+
+import { Example, md } from '@atlaskit/docs';
 
 export default md`
   Sometimes we will want to change the content inside the popup -

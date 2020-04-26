@@ -1,8 +1,9 @@
 /* eslint-disable max-len */
 import React, { Component } from 'react';
+
 import { uid } from 'react-uid';
 
-import { Props, DefaultProps } from '../constants';
+import { DefaultProps, Props } from '../constants';
 import Wrapper from '../Wrapper';
 
 const svg = (iconGradientStart: string, iconGradientStop: string) => {

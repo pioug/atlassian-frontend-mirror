@@ -3,23 +3,30 @@ import { findParentNode } from 'prosemirror-utils';
 import { CellSelection } from 'prosemirror-tables';
 import { EditorState, NodeSelection, Transaction } from 'prosemirror-state';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { HigherOrderCommand } from '../../types/command';
 import { InputRuleWithHandler } from '../../utils/input-rules';
 import { GapCursorSelection, Side } from '../gap-cursor/selection';
 import { AnalyticsStep } from './analytics-step';
-import { AnalyticsEventPayloadWithChannel } from './types/events';
-import { ACTION, ACTION_SUBJECT, AnalyticsEventPayload } from './types';
-import { SELECTION_POSITION, SELECTION_TYPE } from './types/utils';
-import { analyticsPluginKey } from './plugin-key';
 import { editorAnalyticsChannel } from './consts';
+import {
+  AnalyticsEventPayloadWithChannel,
+  AnalyticsEventPayload,
+  ACTION,
+  ACTION_SUBJECT,
+} from './types';
+import { SELECTION_TYPE, SELECTION_POSITION } from './types/utils';
+import { analyticsPluginKey } from './plugin-key';
+import { HigherOrderCommand } from '../../types/command';
 
 function getAnalyticsState(
   editorState: EditorState,
 ): CreateUIAnalyticsEvent | null | undefined {
-  return analyticsPluginKey.getState(editorState) as
-    | CreateUIAnalyticsEvent
-    | null
-    | undefined;
+  const pluginState = analyticsPluginKey.getState(editorState);
+  return pluginState
+    ? (pluginState.createAnalyticsEvent as
+        | CreateUIAnalyticsEvent
+        | null
+        | undefined)
+    : undefined;
 }
 
 export function getStateContext(

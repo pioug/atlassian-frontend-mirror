@@ -31,7 +31,7 @@ export default md`
   - custom icons should have \`focusable="false"\` and \`role="presentation"\`.
 
   See the example below of us using a custom icon. If you want to remix it to
-  test out your own icon, view the example [here](/packages/core/icon/example/IconCustomExample)
+  test out your own icon, view the example [here](/packages/design-system/icon/example/IconCustomExample)
   and click on the \`sandbox\` link.
 
   ${(

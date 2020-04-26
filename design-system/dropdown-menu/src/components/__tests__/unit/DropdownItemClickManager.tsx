@@ -1,7 +1,8 @@
 import React from 'react';
+
 import { mount } from 'enzyme';
 
-import { DropdownItem } from '../../..';
+import { DropdownItem } from '../../../index';
 import DropdownItemClickManager from '../../context/DropdownItemClickManager';
 
 describe('dropdown menu - DropdownItemClickManager', () => {

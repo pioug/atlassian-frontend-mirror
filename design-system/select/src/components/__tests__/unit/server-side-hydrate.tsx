@@ -15,7 +15,6 @@ test('should ssr then hydrate select correctly', async () => {
   const Example = require(example.filePath).default; // eslint-disable-line import/no-dynamic-require
 
   const elem = document.createElement('div');
-  // $FlowFixMe - Cannot call await with `ssr(...)` bound to `p.
   elem.innerHTML = await ssr(example.filePath);
 
   ReactDOM.hydrate(<Example />, elem);

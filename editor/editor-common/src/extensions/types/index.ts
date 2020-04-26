@@ -4,6 +4,10 @@ export {
   UpdateExtension,
   Extension,
   ExtensionHandlers,
+  UpdateContextActions,
+  OnSaveCallback,
+  ParametersGetter,
+  AsyncParametersGetter,
 } from './extension-handler';
 
 export { ExtensionProvider } from './extension-provider';
@@ -24,8 +28,10 @@ export {
   FieldResolver,
   Serializer,
   Deserializer,
-  Parameters,
+  Icon,
 } from './extension-manifest';
+
+export { Parameters } from './extension-parameters';
 
 export { MenuItem, MenuItemMap } from './utils';
 

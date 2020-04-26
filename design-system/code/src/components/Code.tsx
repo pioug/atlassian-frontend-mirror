@@ -1,9 +1,11 @@
 import React, { PureComponent, ReactNode } from 'react';
+
 import { PrismAsyncLight as SyntaxHighlighter } from 'react-syntax-highlighter';
+
 import { ThemeProps } from '@atlaskit/theme/types';
 
 import { normalizeLanguage, SupportedLanguages } from '../supportedLanguages';
-import { Theme, applyTheme } from '../themes/themeBuilder';
+import { applyTheme, Theme } from '../themes/themeBuilder';
 
 export interface CodeProps {
   /** The style object to apply to code */

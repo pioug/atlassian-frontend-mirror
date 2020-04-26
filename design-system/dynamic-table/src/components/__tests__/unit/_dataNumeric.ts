@@ -1,5 +1,6 @@
-import testDataNumeric from './_dataNumeric-json.json';
 import { RowType } from '../../../types';
+
+import testDataNumeric from './_dataNumeric-json.json';
 
 export const sortKey = 'first_name';
 export const numericSortKey = 'numeric';

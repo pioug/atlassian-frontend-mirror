@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+
 import { fontSize, gridSize } from '@atlaskit/theme/constants';
 
 interface Props {

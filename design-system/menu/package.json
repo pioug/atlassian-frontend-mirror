@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/menu",
-  "version": "0.3.1",
+  "version": "0.4.1",
   "description": "A collection of composable menu components that can be used anywhere.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -21,7 +21,7 @@
     }
   },
   "dependencies": {
-    "@atlaskit/theme": "^9.5.1",
+    "@atlaskit/theme": "^9.5.3",
     "@emotion/core": "^10.0.9",
     "tslib": "^1.9.3"
   },
@@ -30,11 +30,11 @@
     "react-dom": "^16.8.0"
   },
   "devDependencies": {
-    "@atlaskit/avatar": "^17.1.9",
-    "@atlaskit/button": "^13.3.9",
-    "@atlaskit/docs": "^8.5.0",
-    "@atlaskit/icon": "^20.1.0",
-    "@atlaskit/icon-file-type": "^5.0.3",
+    "@atlaskit/avatar": "^17.1.10",
+    "@atlaskit/button": "^13.3.11",
+    "@atlaskit/docs": "^8.5.1",
+    "@atlaskit/icon": "^20.1.1",
+    "@atlaskit/icon-file-type": "^5.0.4",
     "@atlaskit/icon-object": "^5.0.3",
     "@atlaskit/visual-regression": "^0.1.9",
     "@testing-library/react": "^8.0.1",
@@ -46,5 +46,10 @@
     "atlaskit",
     "react",
     "ui"
-  ]
+  ],
+  "techstack": {
+    "@atlassian/frontend": {
+      "import-structure": "atlassian-conventions"
+    }
+  }
 }

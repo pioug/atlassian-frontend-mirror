@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/page",
-  "version": "11.0.12",
+  "version": "11.0.13",
   "description": "A component for building page layouts. Also includes the Grid and GridColumn components.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -29,14 +29,14 @@
     "styled-components": "^3.2.6"
   },
   "devDependencies": {
-    "@atlaskit/banner": "^10.1.5",
+    "@atlaskit/banner": "^10.1.8",
     "@atlaskit/build-utils": "^2.2.5",
-    "@atlaskit/button": "^13.3.7",
+    "@atlaskit/button": "^13.3.11",
     "@atlaskit/docs": "^8.3.2",
-    "@atlaskit/logo": "^12.3.2",
+    "@atlaskit/logo": "^12.3.4",
     "@atlaskit/navigation": "^36.0.1",
     "@atlaskit/ssr": "^0.1.1",
-    "@atlaskit/toggle": "^8.1.4",
+    "@atlaskit/toggle": "^8.1.7",
     "@atlaskit/visual-regression": "^0.1.9",
     "enzyme": "^3.10.0",
     "react-dom": "^16.8.0",
@@ -48,5 +48,10 @@
     "atlaskit",
     "react",
     "ui"
-  ]
+  ],
+  "techstack": {
+    "@atlassian/frontend": {
+      "import-structure": "atlassian-conventions"
+    }
+  }
 }

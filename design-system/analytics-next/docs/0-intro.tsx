@@ -71,7 +71,7 @@ const SaveButton = ({ onClick }) => (
 );
 `}
 
-  Button provides you a [UIAnalyticsEvent](/packages/core/analytics-next/docs/reference#UIAnalyticsEvent) as the last arg
+  Button provides you a [UIAnalyticsEvent](/packages/design-system/analytics-next/docs/reference#UIAnalyticsEvent) as the last arg
   to the onClick hander. This is the pattern used for all callback props that
   support analytics.
 
@@ -118,10 +118,10 @@ const App = () => (
 
   That's it! Below are some links to handy resources.
 
-  * [More information on UIAnalyticsEvent](/packages/core/analytics-next/docs/reference#UIAnalyticsEvent)
+  * [More information on UIAnalyticsEvent](/packages/design-system/analytics-next/docs/reference#UIAnalyticsEvent)
   * [The list of instrumented components](#InstrumentedComponents)
-  * [Adding extra information to an analytics event](/packages/core/analytics-next/docs/concepts#adding-more-information-to-an-event)
-  * [Analytics component reference](/packages/core/analytics-next/docs/reference)
+  * [Adding extra information to an analytics event](/packages/design-system/analytics-next/docs/concepts#adding-more-information-to-an-event)
+  * [Analytics component reference](/packages/design-system/analytics-next/docs/reference)
 
   <a name="InstrumentedComponents"></a>
   ## Instrumented Components

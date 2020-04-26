@@ -3,7 +3,7 @@ import { getExampleUrl } from '@atlaskit/webdriver-runner/utils/example';
 import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 
 /* Url to test the example */
-const exampleUrl = getExampleUrl('core', 'radio', 'testing');
+const exampleUrl = getExampleUrl('design-system', 'radio', 'testing');
 
 /* Css selectors used for the test */
 const labelQuery = "[data-testid='red--radio-label']";

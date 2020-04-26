@@ -1,4 +1,4 @@
-import { useState, useLayoutEffect, useEffect } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 
 export interface ElementBoundingBox {
   height: number;

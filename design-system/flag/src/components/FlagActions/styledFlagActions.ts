@@ -1,10 +1,11 @@
 import styled, { css } from 'styled-components';
+
 import { gridSize } from '@atlaskit/theme/constants';
 import { multiply } from '@atlaskit/theme/math';
 
+import { DEFAULT_APPEARANCE } from '../../constants';
 import { flagTextColor } from '../../theme';
 import { AppearanceTypes } from '../../types';
-import { DEFAULT_APPEARANCE } from '../../constants';
 
 interface GetDividerProps {
   hasDivider: boolean;

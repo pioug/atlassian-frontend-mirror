@@ -1,12 +1,11 @@
 import React from 'react';
 
 import GlobalNavigationSkeletonItem from './GlobalNavigationSkeletonItem';
-
 import {
   Container,
+  FirstPrimaryItemWrapper,
   PrimaryItemsList,
   SecondaryItemsList,
-  FirstPrimaryItemWrapper,
 } from './primitives';
 
 const GlobalNavigationSkeleton = props => {

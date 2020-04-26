@@ -27,8 +27,11 @@ import {
   withAnalyticsEvents,
   WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
-import { createAndFireCustomMediaEvent } from '../../utils/analytics';
-import { AnalyticsLoadingAction } from '../../root/card/getCardStatus';
+import {
+  createAndFireCustomMediaEvent,
+  AnalyticsLoadingAction,
+  getLoadingStatusAnalyticsPayload,
+} from '../../utils/analytics';
 
 export interface FileCardImageViewProps {
   readonly mediaName?: string;
@@ -74,10 +77,12 @@ export class FileCardImageViewBase extends Component<
       mediaType,
       progress,
       status,
+      mediaName,
     } = this.props;
     return (
       <Wrapper
         data-testid="media-file-card-view"
+        data-test-media-name={mediaName}
         data-test-status={status}
         data-test-progress={progress}
         data-test-selected={selected ? true : undefined}
@@ -248,22 +253,20 @@ export class FileCardImageViewBase extends Component<
     if (this.shouldFireLoadingStatusAnalyticsEvent(action)) {
       this.lastAnalyticsAction = action;
 
-      createAndFireCustomMediaEvent(
-        {
-          eventType: 'operational',
-          action,
-          actionSubject: 'mediaCardRender',
-          ...(action === 'failed'
-            ? {
-                attributes: {
-                  failReason: 'file-uri-error',
-                  error: 'unknown error',
-                },
-              }
-            : {}),
-        },
-        createAnalyticsEvent,
-      );
+      if (action === 'failed') {
+        createAndFireCustomMediaEvent(
+          getLoadingStatusAnalyticsPayload(action, undefined, undefined, {
+            error: 'unknown error',
+            failReason: 'file-uri-error',
+          }),
+          createAnalyticsEvent,
+        );
+      } else {
+        createAndFireCustomMediaEvent(
+          getLoadingStatusAnalyticsPayload(action),
+          createAnalyticsEvent,
+        );
+      }
     }
   };
 

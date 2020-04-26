@@ -1,7 +1,11 @@
 import React from 'react';
+
 import styled, { css } from 'styled-components';
+
 import { colors } from '@atlaskit/theme';
+
 import Tooltip from '../src';
+
 import { Target } from './styled';
 
 const direction: { [key: string]: string } = {

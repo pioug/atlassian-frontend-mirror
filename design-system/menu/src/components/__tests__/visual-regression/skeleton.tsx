@@ -16,7 +16,7 @@ const leftMenu = "[data-testid='left-menu']";
 describe('<SkeletonMenu />', () => {
   const openExamplesAndWaitFor = async (selector: string) => {
     const url = getExampleUrl(
-      'core',
+      'design-system',
       'menu',
       'skeleton-items',
       global.__BASEURL__,

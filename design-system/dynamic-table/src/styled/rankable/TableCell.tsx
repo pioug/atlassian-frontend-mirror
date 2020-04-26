@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+
 import { TableBodyCell } from '../TableCell';
 
 const rankingStyles = css`

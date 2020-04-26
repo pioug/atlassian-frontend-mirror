@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 
+import {
+  ContainerNavigationTheme,
+  ProductNavigationTheme,
+} from '../ContentNavigation/primitives';
 import Section from '../Section';
 import SkeletonContainerHeader from '../SkeletonContainerHeader';
 import SkeletonItem from '../SkeletonItem';
-
-import {
-  ProductNavigationTheme,
-  ContainerNavigationTheme,
-} from '../ContentNavigation/primitives';
 
 import { Container, HeaderContainer } from './primitives';
 

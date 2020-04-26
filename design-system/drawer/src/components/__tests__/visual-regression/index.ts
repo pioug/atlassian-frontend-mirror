@@ -1,11 +1,12 @@
 import { getExampleUrl } from '@atlaskit/visual-regression/helper';
+
 import { widths } from '../../../constants';
 
 describe('Snapshot Test', () => {
   for (const width of widths) {
     it(`should match ${width} drawer screenshot`, async () => {
       const url = getExampleUrl(
-        'core',
+        'design-system',
         'drawer',
         'drawer-widths',
 
@@ -27,7 +28,7 @@ describe('Snapshot Test', () => {
 
   it('should match themed drawer screenshot', async () => {
     const url = getExampleUrl(
-      'core',
+      'design-system',
       'drawer',
       'themed-drawer-with-search',
       global.__BASEURL__,

@@ -1,25 +1,32 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+
 import Button from '@atlaskit/button';
-import {
-  ButtonItem,
-  MenuGroup,
-  Section,
-  SkeletonItem,
-  SkeletonHeadingItem,
-  HeadingItem,
-} from '../src';
+import Icon from '@atlaskit/icon';
 import StarIcon from '@atlaskit/icon/glyph/star';
 import StarFilledIcon from '@atlaskit/icon/glyph/star-filled';
 import { colors } from '@atlaskit/theme';
-import Icon from '@atlaskit/icon';
-import Portfolio from './icons/portfolio';
-import Tempo from './icons/tempo';
-import Invision from './icons/invision';
-import Slack from './icons/slack';
 
-const Item = ({ isLoading, ...props }: any) => {
+import {
+  ButtonItem,
+  ButtonItemProps,
+  HeadingItem,
+  MenuGroup,
+  Section,
+  SkeletonHeadingItem,
+  SkeletonItem,
+} from '../src';
+
+import Invision from './icons/invision';
+import Portfolio from './icons/portfolio';
+import Slack from './icons/slack';
+import Tempo from './icons/tempo';
+
+const Item = ({
+  isLoading,
+  ...props
+}: ButtonItemProps & { isLoading?: boolean }) => {
   if (isLoading) {
-    return <SkeletonItem isShimmering {...props} />;
+    return <SkeletonItem hasIcon isShimmering />;
   }
 
   return <ButtonItem {...props} />;
@@ -70,7 +77,7 @@ export default () => {
             </Heading>
             <Item
               isLoading={isLoading}
-              elemBefore={
+              iconBefore={
                 <div
                   style={{
                     height: 24,
@@ -83,27 +90,27 @@ export default () => {
                   <Icon glyph={Portfolio} primaryColor={colors.B300} label="" />
                 </div>
               }
-              elemAfter={<StarFilledIcon primaryColor={colors.Y300} label="" />}
+              iconAfter={<StarFilledIcon primaryColor={colors.Y300} label="" />}
             >
               Portfolio
             </Item>
             <Item
               isLoading={isLoading}
-              elemBefore={<Icon glyph={Tempo} label="" />}
-              elemAfter={<StarFilledIcon primaryColor={colors.Y300} label="" />}
+              iconBefore={<Icon glyph={Tempo} label="" />}
+              iconAfter={<StarFilledIcon primaryColor={colors.Y300} label="" />}
             >
               Tempo timesheets
             </Item>
             <Item
               isLoading={isLoading}
-              elemBefore={<Icon glyph={Invision} label="" />}
-              elemAfter={<StarIcon label="" />}
+              iconBefore={<Icon glyph={Invision} label="" />}
+              iconAfter={<StarIcon label="" />}
             >
               Invision
             </Item>
             <Item
               isLoading={isLoading}
-              elemBefore={<Icon glyph={Slack} label="" />}
+              iconBefore={<Icon glyph={Slack} label="" />}
             >
               Slack
             </Item>

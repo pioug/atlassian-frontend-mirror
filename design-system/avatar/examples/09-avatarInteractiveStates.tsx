@@ -1,8 +1,8 @@
-import React from 'react';
-import { ReactNode } from 'react';
-import Avatar from '../src';
-import { Code, Note } from '../examples-util/helpers';
+import React, { ReactNode } from 'react';
+
 import { avatarUrl } from '../examples-util/data';
+import { Code, Note } from '../examples-util/helpers';
+import Avatar from '../src';
 
 const stackSourceURLs = [];
 const avatarSize = 'large';

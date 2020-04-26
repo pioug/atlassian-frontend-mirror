@@ -1,6 +1,8 @@
 import styled from 'styled-components';
-import { gridSize } from '@atlaskit/theme/constants';
+
 import { N500, Y500 } from '@atlaskit/theme/colors';
+import { gridSize } from '@atlaskit/theme/constants';
+
 import { actionsPadding } from './constants';
 
 const ThemeColor = {

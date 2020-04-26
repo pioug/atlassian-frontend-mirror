@@ -1,8 +1,9 @@
 import React, { PureComponent } from 'react';
 
 import { navigationItemClicked } from '../../../common/analytics';
-import InteractionStateManager from '../InteractionStateManager';
 import { styleReducerNoOp, withGlobalTheme } from '../../../theme';
+import InteractionStateManager from '../InteractionStateManager';
+
 import GlobalItemPrimitive from './primitives';
 
 export class GlobalItemBase extends PureComponent {

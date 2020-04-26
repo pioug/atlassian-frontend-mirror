@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
+
 import Lorem from 'react-lorem-component';
+import styled from 'styled-components';
 
 import { Spotlight, SpotlightManager, SpotlightTarget } from '../src';
+
 import { Code, Highlight, HighlightGroup } from './styled';
 
 const Wrapper = styled.div`

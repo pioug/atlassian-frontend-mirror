@@ -1,6 +1,9 @@
-import { render, mount } from 'enzyme';
 import React from 'react';
+
+import { mount, render } from 'enzyme';
+
 import Tooltip from '@atlaskit/tooltip';
+
 import GlobalNavigationItemPrimitive from '../../primitives';
 
 const styles = () => ({

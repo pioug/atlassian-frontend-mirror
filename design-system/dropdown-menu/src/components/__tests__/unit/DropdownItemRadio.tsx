@@ -1,16 +1,18 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
-import { mount, ReactWrapper } from 'enzyme';
-import RadioIcon from '@atlaskit/icon/glyph/radio';
-import { B400, N40 } from '@atlaskit/theme/colors';
-import Item from '@atlaskit/item';
 
-import { KEY_ENTER, KEY_SPACE } from '../../../util/keys';
+import { mount, ReactWrapper } from 'enzyme';
+
+import RadioIcon from '@atlaskit/icon/glyph/radio';
+import Item from '@atlaskit/item';
+import { B400, N40 } from '@atlaskit/theme/colors';
+
 import DropdownMenu, {
   DropdownItemGroupRadio,
   DropdownItemRadio,
   DropdownMenuStateless,
-} from '../../..';
+} from '../../../index';
+import { KEY_ENTER, KEY_SPACE } from '../../../util/keys';
 
 /* TODO: create integration tests to replace these See https://ecosystem.atlassian.net/browse/AK-5183 */
 describe.skip('dropdown menu - DropdownItemRadio', () => {

@@ -3,6 +3,7 @@ import Loadable from 'react-loadable';
 
 import { CardProps } from '../view/Card';
 import { CardState } from '../state/types';
+import { JsonLd } from 'json-ld-types';
 
 export const isCardWithData = (props: CardProps) => !!props.data;
 
@@ -16,6 +17,15 @@ export const isSpecialKey = (event: React.MouseEvent | React.KeyboardEvent) =>
   event.metaKey || event.ctrlKey;
 
 export const isSpecialClick = (event: React.MouseEvent) => event.button === 1;
+
+export const getEmptyJsonLd = (): JsonLd.Data.BaseData => ({
+  '@context': {
+    '@vocab': 'https://www.w3.org/ns/activitystreams#',
+    atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
+    schema: 'http://schema.org/',
+  },
+  '@type': 'Object',
+});
 
 export const getCollapsedIcon = (
   details: CardState['details'],

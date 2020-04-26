@@ -1,13 +1,16 @@
 import React from 'react';
-import { ButtonItem, MenuGroup, Section } from '../src';
+
+import Icon from '@atlaskit/icon';
 import StarIcon from '@atlaskit/icon/glyph/star';
 import StarFilledIcon from '@atlaskit/icon/glyph/star-filled';
 import { colors } from '@atlaskit/theme';
-import Icon from '@atlaskit/icon';
-import Portfolio from './icons/portfolio';
-import Tempo from './icons/tempo';
+
+import { ButtonItem, MenuGroup, Section } from '../src';
+
 import Invision from './icons/invision';
+import Portfolio from './icons/portfolio';
 import Slack from './icons/slack';
+import Tempo from './icons/tempo';
 
 export default () => {
   return (
@@ -25,7 +28,7 @@ export default () => {
       <MenuGroup>
         <Section>
           <ButtonItem
-            elemBefore={
+            iconBefore={
               <div
                 style={{
                   height: 24,
@@ -38,23 +41,23 @@ export default () => {
                 <Icon glyph={Portfolio} primaryColor={colors.B300} label="" />
               </div>
             }
-            elemAfter={<StarFilledIcon primaryColor={colors.Y300} label="" />}
+            iconAfter={<StarFilledIcon primaryColor={colors.Y300} label="" />}
           >
             Portfolio
           </ButtonItem>
           <ButtonItem
-            elemBefore={<Icon glyph={Tempo} label="" />}
-            elemAfter={<StarFilledIcon primaryColor={colors.Y300} label="" />}
+            iconBefore={<Icon glyph={Tempo} label="" />}
+            iconAfter={<StarFilledIcon primaryColor={colors.Y300} label="" />}
           >
             Tempo timesheets
           </ButtonItem>
           <ButtonItem
-            elemBefore={<Icon glyph={Invision} label="" />}
-            elemAfter={<StarIcon label="" />}
+            iconBefore={<Icon glyph={Invision} label="" />}
+            iconAfter={<StarIcon label="" />}
           >
             Invision
           </ButtonItem>
-          <ButtonItem elemBefore={<Icon glyph={Slack} label="" />}>
+          <ButtonItem iconBefore={<Icon glyph={Slack} label="" />}>
             Slack
           </ButtonItem>
         </Section>

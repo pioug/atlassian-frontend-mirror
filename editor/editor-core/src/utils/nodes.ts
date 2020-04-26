@@ -1,5 +1,5 @@
-import { Transaction } from 'prosemirror-state';
-import { Node as PMNode, Slice } from 'prosemirror-model';
+import { Transaction, EditorState } from 'prosemirror-state';
+import { Node as PMNode, Slice, Fragment } from 'prosemirror-model';
 import { Step } from 'prosemirror-transform';
 
 /**
@@ -46,3 +46,46 @@ export const validateNodes = (nodes: PMNode[]): boolean =>
 
 export const isNodeTypeParagraph = (node: PMNode | undefined | null): boolean =>
   Boolean(node && node.type && node.type.name === 'paragraph');
+
+export enum SelectedState {
+  selectedInRange,
+  selectedInside,
+}
+
+/**
+ * Returns if the current selection from achor-head is selecting the node.
+ * If the node is not selected then null is returned.
+ * If the node is selected then an enum is returned that describes weather the node
+ * is fully selected by a range or if the "inside" of the node has been selected or clicked.
+ */
+export const isNodeSelectedOrInRange = (
+  anchorPosition: number,
+  headPosition: number,
+  nodePosition: number,
+  nodeSize: number,
+): SelectedState | null => {
+  const rangeStart = Math.min(anchorPosition, headPosition);
+  const rangeEnd = Math.max(anchorPosition, headPosition);
+  const nodeStart = nodePosition;
+  const nodeEnd = nodePosition + nodeSize;
+  if (rangeStart < nodeStart && nodeEnd < rangeEnd) {
+    return SelectedState.selectedInRange;
+  }
+  if (nodeStart < anchorPosition && headPosition < nodeEnd) {
+    return SelectedState.selectedInside;
+  }
+  return null;
+};
+
+/**
+ * Checks if a particular node fragment is supported in the parent
+ * @param state EditorState
+ * @param fragment The fragment to be checked for
+ */
+export const isSupportedInParent = (
+  state: EditorState,
+  fragment: Fragment,
+): boolean => {
+  const parent = state.selection.$from.node(-1);
+  return parent && parent.type.validContent(fragment);
+};

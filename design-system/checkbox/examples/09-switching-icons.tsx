@@ -1,9 +1,10 @@
 import React from 'react';
-import { N40 } from '@atlaskit/theme/colors';
+
 import merge from 'lodash.merge';
 
 import IconIndeterminate from '@atlaskit/icon/glyph/add-circle';
 import Icon from '@atlaskit/icon/glyph/check-circle';
+import { N40 } from '@atlaskit/theme/colors';
 
 import { Checkbox } from '../src';
 import { ComponentTokens, ThemeTokens } from '../src/types';

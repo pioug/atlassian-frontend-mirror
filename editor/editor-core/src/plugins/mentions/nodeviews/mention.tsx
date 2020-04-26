@@ -10,6 +10,7 @@ import InlineNodeWrapper, {
 import { PortalProviderAPI } from '../../../ui/PortalProvider';
 import { ZeroWidthSpace } from '../../../utils';
 import { MentionPluginOptions } from '../types';
+import { EventDispatcher } from '../../../event-dispatcher';
 
 export interface Props {
   providerFactory: ProviderFactory;
@@ -48,12 +49,20 @@ export class MentionNodeView extends ReactNodeView<Props> {
 
 export default function mentionNodeView(
   portalProviderAPI: PortalProviderAPI,
+  eventDispatcher: EventDispatcher,
   providerFactory: ProviderFactory,
   options?: MentionPluginOptions,
 ) {
   return (node: PMNode, view: EditorView, getPos: getPosHandler): NodeView =>
-    new MentionNodeView(node, view, getPos, portalProviderAPI, {
-      providerFactory,
-      options,
-    }).init();
+    new MentionNodeView(
+      node,
+      view,
+      getPos,
+      portalProviderAPI,
+      eventDispatcher,
+      {
+        providerFactory,
+        options,
+      },
+    ).init();
 }

@@ -44,7 +44,7 @@ describe('ascii emojis - input rules', () => {
     return createEditor({
       doc,
       preset: new Preset<LightEditorPlugin>()
-        .add([analyticsPlugin, createAnalyticsEvent])
+        .add([analyticsPlugin, { createAnalyticsEvent }])
         .add([
           emojiPlugin,
           { useInlineWrapper: false, allowZeroWidthSpaceAfter: true },

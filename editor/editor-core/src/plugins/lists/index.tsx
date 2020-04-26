@@ -44,9 +44,10 @@ const listPlugin = (): EditorPlugin => ({
   pluginsOptions: {
     quickInsert: ({ formatMessage }) => [
       {
+        id: 'unorderedList',
         title: formatMessage(messages.unorderedList),
         description: formatMessage(messages.unorderedListDescription),
-        keywords: ['ul', 'unordered list'],
+        keywords: ['ul', 'unordered'],
         priority: 1100,
         keyshortcut: tooltip(toggleBulletList),
         icon: () => <IconList label={formatMessage(messages.unorderedList)} />,
@@ -73,9 +74,10 @@ const listPlugin = (): EditorPlugin => ({
         },
       },
       {
+        id: 'orderedList',
         title: formatMessage(messages.orderedList),
         description: formatMessage(messages.orderedListDescription),
-        keywords: ['ol', 'ordered list', 'numbered list'],
+        keywords: ['ol', 'ordered'],
         priority: 1200,
         keyshortcut: tooltip(toggleOrderedList),
         icon: () => (

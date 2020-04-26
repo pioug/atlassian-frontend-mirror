@@ -3,6 +3,7 @@ import { EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import { NodeType, Node } from 'prosemirror-model';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import { Position } from '@atlaskit/editor-common/src/ui/Popup/utils';
 
 import { Command } from '../../types/command';
 import { ButtonAppearance } from './ui/Button';
@@ -77,6 +78,8 @@ export type FloatingToolbarDropdown<T> = {
   options: DropdownOptions<T>;
   hidden?: boolean;
   hideExpandIcon?: boolean;
+  disabled?: boolean;
+  tooltip?: string;
 };
 
 export type FloatingToolbarItem<T> =
@@ -109,6 +112,10 @@ export interface FloatingToolbarConfig {
   width?: number;
   offset?: [number, number];
   forcePlacement?: boolean;
+  onPositionCalculated?: (
+    editorView: EditorView,
+    nextPos: Position,
+  ) => Position;
 }
 
 export type FloatingToolbarHandler = (

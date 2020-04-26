@@ -1,11 +1,14 @@
 import React from 'react';
+
 import Avatar from '@atlaskit/avatar';
+
 import Comment, {
-  CommentAuthor,
-  CommentTime,
   CommentAction,
+  CommentAuthor,
   CommentEdited,
+  CommentTime,
 } from '../src';
+
 import avatarImg from './utils/sample-avatar.png';
 
 export default () => (

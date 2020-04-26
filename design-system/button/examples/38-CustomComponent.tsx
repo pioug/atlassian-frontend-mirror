@@ -1,7 +1,10 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
 import React from 'react';
+
+import { jsx } from '@emotion/core';
+
 import Switcher from '@atlaskit/icon/glyph/app-switcher';
+
 import Button from '../src';
 
 export default () => (

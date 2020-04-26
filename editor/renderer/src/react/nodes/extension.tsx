@@ -31,7 +31,11 @@ export const renderExtension = (
   content: any,
   layout: string,
   options?: OverflowShadowProps,
+  removeOverflow?: boolean,
 ) => {
+  const overflowContainerClass = !removeOverflow
+    ? RendererCssClassName.EXTENSION_OVERFLOW_CONTAINER
+    : '';
   return (
     <WidthConsumer>
       {({ width }) => (
@@ -44,9 +48,7 @@ export const renderExtension = (
           }}
           data-layout={layout}
         >
-          <div className={RendererCssClassName.EXTENSION_OVERFLOW_CONTAINER}>
-            {content}
-          </div>
+          <div className={overflowContainerClass}>{content}</div>
         </div>
       )}
     </WidthConsumer>

@@ -53,9 +53,10 @@ const layoutPlugin = (layoutsConfig?: {
     },
     quickInsert: ({ formatMessage }) => [
       {
+        id: 'layout',
         title: formatMessage(messages.columns),
         description: formatMessage(messages.columnsDescription),
-        keywords: ['layout', 'section', 'column'],
+        keywords: ['column', 'section'],
         priority: 1100,
         icon: () => <IconLayout label={formatMessage(messages.columns)} />,
         action(insert, state) {

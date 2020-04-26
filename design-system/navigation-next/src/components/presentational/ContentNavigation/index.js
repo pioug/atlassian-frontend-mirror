@@ -1,9 +1,12 @@
 import React, { Component, Fragment } from 'react';
+
 import deepEqual from 'react-fast-compare';
 import Transition from 'react-transition-group/Transition';
+
 import { NavigationAnalyticsContext } from '@atlaskit/analytics-namespaced-context';
 
 import { transitionDurationMs } from '../../../common/constants';
+
 import { ContainerNavigation, ProductNavigation } from './primitives';
 
 const ToggleContent = ({

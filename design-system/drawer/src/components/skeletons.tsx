@@ -1,6 +1,7 @@
 /** @jsx jsx */
 
 import { jsx } from '@emotion/core';
+
 import { Skeleton as SkeletonAvatar } from '@atlaskit/avatar';
 import { gridSize as gridSizeFn } from '@atlaskit/theme/constants';
 

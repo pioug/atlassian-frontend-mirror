@@ -59,6 +59,7 @@ describe('lists', () => {
         allowLayouts: { allowBreakout: true },
         allowTables: true,
         media: { allowMediaSingle: true },
+        quickInsert: true,
       },
       createAnalyticsEvent,
       pluginKey,
@@ -141,31 +142,31 @@ describe('lists', () => {
         }
       };
 
-      it('should outdent a first level list item to paragraph', () => {
+      it('should remove empty paragraph', () => {
         backspaceCheck(
           doc(ol(li(p('text')), li(p('{<>}')))),
-          doc(ol(li(p('text'))), p('{<>}')),
+          doc(ol(li(p('text{<>}')))),
         );
       });
 
-      it('should outdent a first level list item to paragraph, with content', () => {
+      it('should move paragraph content back to previous list item', () => {
         backspaceCheck(
           doc(ol(li(p('text')), li(p('{<>}second text')))),
-          doc(ol(li(p('text'))), p('{<>}second text')),
+          doc(ol(li(p('text{<>}second text')))),
         );
       });
 
-      it('should outdent a second level list item to first level', () => {
+      it('should remove nested empty paragraph', () => {
         backspaceCheck(
           doc(ol(li(p('text'), ol(li(p('{<>}')))))),
-          doc(ol(li(p('text')), li(p('{<>}')))),
+          doc(ol(li(p('text{<>}')))),
         );
       });
 
-      it('should outdent a second level list item to first level, with content', () => {
+      it('should move paragraph content back to previous outdented list item', () => {
         backspaceCheck(
           doc(ol(li(p('text'), ol(li(p('{<>}subtext')))))),
-          doc(ol(li(p('text')), li(p('{<>}subtext')))),
+          doc(ol(li(p('text{<>}subtext')))),
         );
       });
 
@@ -549,7 +550,7 @@ describe('lists', () => {
       beforeEach(() => {
         ({ editorView, sel } = editor(doc(p('{<>}'))));
 
-        insertText(editorView, '/Unordered List', sel);
+        insertText(editorView, '/bullet', sel);
         sendKeyToPm(editorView, 'Enter');
       });
 

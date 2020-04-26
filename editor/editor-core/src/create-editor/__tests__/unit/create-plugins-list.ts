@@ -32,6 +32,7 @@ const mockPlugins: { [name: string]: jest.Mock } = {
   listsPlugin: jest.fn(),
   isExpandInsertionEnabled: jest.fn(),
   scrollIntoViewPlugin: jest.fn(),
+  findReplacePlugin: jest.fn(),
   contextPanelPlugin: jest.fn(),
 };
 jest.mock('../../../plugins', () => mockPlugins);
@@ -51,6 +52,7 @@ import {
   historyPlugin,
   scrollIntoViewPlugin,
   mobileScrollPlugin,
+  findReplacePlugin,
   contextPanelPlugin,
 } from '../../../plugins';
 
@@ -173,7 +175,10 @@ describe('createPluginsList', () => {
       createAnalyticsEvent,
     );
     expect(analyticsPlugin).toHaveBeenCalledTimes(1);
-    expect(analyticsPlugin).toHaveBeenCalledWith(createAnalyticsEvent);
+    expect(analyticsPlugin).toHaveBeenCalledWith({
+      createAnalyticsEvent,
+      performanceTracking: undefined,
+    });
   });
 
   it('should no add analyticsPlugin if allowAnalyticsGASV3 prop is false', () => {
@@ -285,6 +290,18 @@ describe('createPluginsList', () => {
       expect(mockPlugins.placeholderPlugin).toHaveBeenCalledWith({
         placeholderHints,
       });
+    });
+  });
+
+  describe('findReplacePlugin', () => {
+    it('should not add plugin by default', () => {
+      createPluginsList({ appearance: 'full-page' });
+      expect(findReplacePlugin).not.toHaveBeenCalled();
+    });
+
+    it('should add plugin if props.allowFindReplace === true', () => {
+      createPluginsList({ appearance: 'full-page', allowFindReplace: true });
+      expect(findReplacePlugin).toHaveBeenCalled();
     });
   });
 });

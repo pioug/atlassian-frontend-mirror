@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import { HeadersContainer } from '../styled';
 
 export default class Headers extends Component {

@@ -54,8 +54,10 @@ const expandPlugin = (options?: ExpandPluginOptions): EditorPlugin => ({
       }
       return [
         {
+          id: 'expand',
           title: formatMessage(messages.expand),
           description: formatMessage(messages.expandDescription),
+          keywords: ['accordion', 'collapse'],
           priority: 600,
           icon: () => <IconExpand label={formatMessage(messages.expand)} />,
           action(insert, state) {

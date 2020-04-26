@@ -1,9 +1,10 @@
 import React from 'react';
+
 import {
-  CommentAuthor,
-  CommentTime,
   CommentAction,
+  CommentAuthor,
   CommentEdited,
+  CommentTime,
 } from '../src';
 
 export default () => (

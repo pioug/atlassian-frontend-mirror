@@ -1,6 +1,5 @@
-import { gridSize } from '@atlaskit/theme/constants';
-
 import { N30A } from '@atlaskit/theme/colors';
+import { gridSize } from '@atlaskit/theme/constants';
 
 const dividerLineHeight = 2;
 const dividerTotalHeight = gridSize() * 5;

@@ -1,10 +1,13 @@
 /** @jsx jsx */
 
-import { Component, SyntheticEvent, FC } from 'react';
+import { Component, FC, SyntheticEvent } from 'react';
+
 import { jsx } from '@emotion/core';
+
 import Button from '@atlaskit/button';
-import { N30A, N500, B50 } from '@atlaskit/theme/colors';
 import AppSwitcherIcon from '@atlaskit/icon/glyph/app-switcher';
+import { B50, N30A, N500 } from '@atlaskit/theme/colors';
+
 import Drawer from '../src';
 
 interface State {

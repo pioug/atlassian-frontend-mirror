@@ -1,10 +1,11 @@
 import React, { Component, ReactNode } from 'react';
+
 import {
-  withAnalyticsEvents,
-  withAnalyticsContext,
   createAndFireEvent,
-  WithAnalyticsEventsProps,
   UIAnalyticsEvent,
+  withAnalyticsContext,
+  withAnalyticsEvents,
+  WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button';
 

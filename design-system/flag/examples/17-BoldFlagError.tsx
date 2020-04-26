@@ -1,6 +1,8 @@
 import React from 'react';
-import { colors } from '@atlaskit/theme';
+
 import ErrorIcon from '@atlaskit/icon/glyph/error';
+import { colors } from '@atlaskit/theme';
+
 import Flag from '../src';
 
 export default () => (

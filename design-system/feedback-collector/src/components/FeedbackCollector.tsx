@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import truncate from 'lodash.truncate';
 
 import { FormFields, SelectValue } from '../types';

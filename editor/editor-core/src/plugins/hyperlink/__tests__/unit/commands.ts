@@ -6,7 +6,11 @@ import {
   code,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { EditorTestCardProvider } from '@atlaskit/editor-test-helpers/card-provider';
-import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
+import {
+  createProsemirrorEditorFactory,
+  Preset,
+  LightEditorPlugin,
+} from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   setLinkHref,
   setLinkText,
@@ -23,17 +27,21 @@ import {
   canLinkBeCreatedInRange,
 } from '../../pm-plugins/main';
 import { pluginKey as cardPluginKey } from '../../../card/pm-plugins/main';
-import { INPUT_METHOD } from '../../../analytics';
+import analyticsPlugin, { INPUT_METHOD } from '../../../analytics';
 import {
   CreateUIAnalyticsEvent,
   UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
+import cardPlugin from '../../../card';
+import hyperlinkPlugin from '../../index';
+import textFormattingPlugin from '../../../text-formatting';
+import codeBlockPlugin from '../../../code-block';
 
 const googleUrl = 'https://google.com';
 const yahooUrl = 'https://yahoo.com';
 
 describe('hyperlink commands', () => {
-  const createEditor = createEditorFactory();
+  const createEditor = createProsemirrorEditorFactory();
   const cardProvider = new EditorTestCardProvider();
   let createAnalyticsEvent: CreateUIAnalyticsEvent;
   const editor = (doc: any) => {
@@ -42,13 +50,12 @@ describe('hyperlink commands', () => {
     );
     return createEditor({
       doc,
-      editorProps: {
-        allowAnalyticsGASV3: true,
-        UNSAFE_cards: {
-          provider: Promise.resolve(cardProvider),
-        },
-      },
-      createAnalyticsEvent,
+      preset: new Preset<LightEditorPlugin>()
+        .add([analyticsPlugin, { createAnalyticsEvent }])
+        .add(hyperlinkPlugin)
+        .add(textFormattingPlugin)
+        .add(codeBlockPlugin)
+        .add([cardPlugin, { provider: Promise.resolve(cardProvider) }]),
     });
   };
 
@@ -221,15 +228,93 @@ describe('hyperlink commands', () => {
         doc(p(a({ href: 'mailto:scott@google.com' })('scott@google.com'))),
       );
     });
-    it('should attempt to queue the url with the card plugin', () => {
+    it('should attempt to queue the url with the card plugin if source is MANUAL and text is empty', () => {
       const { editorView: view, sel } = editor(doc(p('{<>}')));
-
       expect(
         insertLink(
           sel,
           sel,
           'http://www.atlassian.com/',
           undefined,
+          INPUT_METHOD.MANUAL,
+        )(view.state, view.dispatch),
+      ).toBe(true);
+      expect(cardPluginKey.getState(view.state)).toEqual({
+        cards: [],
+        requests: [
+          {
+            url: 'http://www.atlassian.com/',
+            pos: 1,
+            appearance: 'inline',
+            compareLinkText: false,
+            source: 'manual',
+          },
+        ],
+        provider: null, // cardProvider would have been set yet
+        showLinkingToolbar: false,
+      });
+    });
+    it('should attempt to queue the url with the card plugin if source is MANUAL and text is non-empty but equal to href', () => {
+      const { editorView: view, sel } = editor(doc(p('{<>}')));
+      expect(
+        insertLink(
+          sel,
+          sel,
+          'http://www.atlassian.com/',
+          'http://www.atlassian.com/',
+          INPUT_METHOD.MANUAL,
+        )(view.state, view.dispatch),
+      ).toBe(true);
+      expect(cardPluginKey.getState(view.state)).toEqual({
+        cards: [],
+        requests: [
+          {
+            url: 'http://www.atlassian.com/',
+            pos: 1,
+            appearance: 'inline',
+            compareLinkText: false,
+            source: 'manual',
+          },
+        ],
+        provider: null, // cardProvider would have been set yet
+        showLinkingToolbar: false,
+      });
+      expect(view.state.doc).toEqualDocument(
+        doc(
+          p(
+            a({ href: 'http://www.atlassian.com/' })(
+              'http://www.atlassian.com/',
+            ),
+          ),
+        ),
+      );
+    });
+    it('should not attempt to queue the url with the card plugin if source is MANUAL and text is non-empty and not equal to href', () => {
+      const { editorView: view, sel } = editor(doc(p('{<>}')));
+      expect(
+        insertLink(
+          sel,
+          sel,
+          'http://www.atlassian.com/',
+          'atlassian',
+          INPUT_METHOD.MANUAL,
+        )(view.state, view.dispatch),
+      ).toBe(true);
+      expect(cardPluginKey.getState(view.state)).toEqual({
+        cards: [],
+        requests: [],
+        provider: null, // cardProvider would have been set yet
+        showLinkingToolbar: false,
+      });
+    });
+    it('should attempt to queue the url with the card plugin if source is TYPEAHEAD, despite text being non-empty and url not equal to href', () => {
+      const { editorView: view, sel } = editor(doc(p('{<>}')));
+      expect(
+        insertLink(
+          sel,
+          sel,
+          'http://www.atlassian.com/',
+          'atlassian',
           INPUT_METHOD.TYPEAHEAD,
         )(view.state, view.dispatch),
       ).toBe(true);

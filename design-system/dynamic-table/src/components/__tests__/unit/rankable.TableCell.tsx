@@ -1,8 +1,10 @@
 import React from 'react';
-import { shallow } from 'enzyme';
-import { RankableTableCell, Props } from '../../rankable/TableCell';
 
-import { head, cellWithKey as cell } from './_data';
+import { shallow } from 'enzyme';
+
+import { Props, RankableTableCell } from '../../rankable/TableCell';
+
+import { cellWithKey as cell, head } from './_data';
 
 const createProps = () => ({
   cell,

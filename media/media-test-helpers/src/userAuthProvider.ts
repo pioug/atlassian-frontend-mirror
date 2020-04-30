@@ -2,7 +2,7 @@ import * as exenv from 'exenv';
 import { ClientBasedAuth } from '@atlaskit/media-core';
 import { MediaClient } from '@atlaskit/media-client';
 
-export const userAuthProviderBaseURL = 'https://media.dev.atl-paas.net';
+export const userAuthProviderBaseURL = 'https://dt-api.dev.atl-paas.net';
 
 let userAuthProviderPromiseCache: Promise<ClientBasedAuth>;
 

@@ -17,7 +17,7 @@
     "releaseModel": "scheduled",
     "website": {
       "name": "Navigation",
-      "deprecated": "Please use @atlaskit/atlassian-navigation instead."
+      "deprecated": "Please use @atlaskit/side-navigation and @atlaskit/atlassian-navigation instead."
     }
   },
   "dependencies": {

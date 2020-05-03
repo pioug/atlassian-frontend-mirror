@@ -1,5 +1,11 @@
 # @atlaskit/datetime-picker
 
+## 9.4.1
+
+### Patch Changes
+
+- [`d2876ee14f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d2876ee14f) - FIX: Add `hideIcon` prop back for backwards compatibility in MINOR
+
 ## 9.4.0
 
 ### Minor Changes

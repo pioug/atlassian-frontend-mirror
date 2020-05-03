@@ -23,7 +23,7 @@ describe('Date:', () => {
     await snapshot(page);
   });
 
-  it('should display as selected', async () => {
+  it.skip('should display as selected', async () => {
     await initEditorWithAdf(page, {
       adf: {
         version: 1,

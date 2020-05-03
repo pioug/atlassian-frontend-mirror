@@ -54,6 +54,8 @@ export interface Props extends WithAnalyticsEventsProps {
   timeIsEditable?: boolean;
   /** Indicates current value is invalid & changes border color. */
   isInvalid?: boolean;
+  /** DEPRECATED - This is here only for backwards compatibility and doesn't do anything. It will be removed in the next MAJOR. */
+  hideIcon?: boolean;
   /** DEPRECATED - Use locale instead. Format the date with a string that is accepted by [date-fns's format function](https://date-fns.org/v1.29.0/docs/format). */
   dateFormat?: string;
   datePickerProps: DatePickerProps;

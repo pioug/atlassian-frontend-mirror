@@ -3,6 +3,8 @@ import { Fragment, useState } from 'react';
 
 import { CSSObject, jsx } from '@emotion/core';
 
+import Tooltip from '@atlaskit/tooltip';
+
 import {
   Banner,
   Content,
@@ -10,7 +12,6 @@ import {
   LeftSidebar,
   Main,
   PageLayout,
-  ResizeControl,
   RightPanel,
   RightSidebar,
   TopNavigation,
@@ -236,6 +237,26 @@ const BasicGrid = () => {
             testId="left-sidebar"
             isFixed={gridState.isLeftSidebarFixed}
             width={450}
+            onExpand={() => console.log('onExpand')}
+            onCollapse={() => console.log('onCollapse')}
+            onResizeStart={() => console.log('onResizeStart')}
+            onResizeEnd={() => console.log('onResizeEnd')}
+            overrides={{
+              ResizeButton: {
+                render: (Component, props) => (
+                  <Tooltip
+                    content={
+                      props.isLeftSidebarCollapsed ? 'Expand' : 'Collapse'
+                    }
+                    hideTooltipOnClick
+                    position="right"
+                    testId="tooltip"
+                  >
+                    <Component {...props} />
+                  </Tooltip>
+                ),
+              },
+            }}
           >
             <Wrapper noOutline noHorizontalScrollbar borderColor="darkgreen">
               <div css={{ minWidth: 50, padding: '0 20px' }}>
@@ -250,7 +271,6 @@ const BasicGrid = () => {
                 />
               </div>
             </Wrapper>
-            <ResizeControl resizeButtonLabel="Toggle navigation" />
           </LeftSidebar>
         )}
         {gridState.isMainShown && (

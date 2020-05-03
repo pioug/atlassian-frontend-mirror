@@ -16,16 +16,6 @@ import {
 } from '../../../version.json';
 import { DrawerBase } from '../../index';
 
-const noop = () => {};
-// @ts-ignore
-const _global = global;
-const global: any = {
-  window: {
-    addEventListener: noop,
-    removeEventListener: noop,
-    dispatchEvent: _global.window.dispatchEvent,
-  },
-};
 // This is a global mock for this file that will mock all components wrapped with analytics
 // and replace them with an empty SFC that returns null. This includes components imported
 // directly in this file and others imported as dependencies of those imports.
@@ -43,18 +33,20 @@ const escKeyDown = () => {
 
   // @ts-ignore
   event.key = 'Escape';
-  global.window.dispatchEvent(event);
+  window.dispatchEvent(event);
 };
 
 describe('Drawer', () => {
+  let aelSpy: jest.SpyInstance;
+  let relSpy: jest.SpyInstance;
   beforeEach(() => {
-    jest.spyOn(global.window, 'addEventListener');
-    jest.spyOn(global.window, 'removeEventListener');
+    aelSpy = jest.spyOn(window, 'addEventListener');
+    relSpy = jest.spyOn(window, 'removeEventListener');
   });
 
   afterEach(() => {
-    global.window.addEventListener.mockRestore();
-    global.window.removeEventListener.mockRestore();
+    aelSpy.mockRestore();
+    relSpy.mockRestore();
   });
 
   it('should be wrapped with analytics context', () => {

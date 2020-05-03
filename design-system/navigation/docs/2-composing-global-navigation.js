@@ -8,7 +8,16 @@ export default md`
       <p>
         <strong>Note: @atlaskit/navigation is now deprecated.</strong>
       </p>
-      <p>We recommend upgrading to @atlaskit/navigation-next</p>
+      <p>
+        We recommend upgrading to{' '}
+        <a href="../../../navigation/side-navigation">
+          @atlaskit/side-navigation
+        </a>
+        {' and '}
+        <a href="../../../navigation/atlassian-navigation">
+          @atlaskit/atlassian-navigation
+        </a>{' '}
+      </p>
     </SectionMessage>
   )}
 

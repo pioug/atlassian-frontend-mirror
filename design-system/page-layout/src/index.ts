@@ -4,11 +4,11 @@ export {
   Content,
   RightSidebar,
   LeftSidebar,
+  LeftSidebarWithoutResize,
   RightPanel,
   LeftPanel,
   Banner,
   TopNavigation,
-  ResizeControl,
 } from './components';
 
 export {

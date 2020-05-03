@@ -20,6 +20,7 @@ import {
   RIGHT_SIDEBAR_WIDTH,
   TOP_NAVIGATION,
   TOP_NAVIGATION_HEIGHT,
+  TRANSITION_DURATION,
 } from '../../common/constants';
 
 const gridTemplateAreas = `
@@ -108,7 +109,7 @@ export const fixedLeftSidebarInnerStyles = (isFixed?: boolean): CSSObject => ({
         left: `calc(var(--${LEFT_PANEL_WIDTH}))`,
         bottom: 0,
         width: `var(--${LEFT_SIDEBAR_WIDTH})`,
-        transition: `width 300ms ${easeOut} 0s`,
+        transition: `width ${TRANSITION_DURATION}ms ${easeOut} 0s`,
 
         [`[${IS_SIDEBAR_DRAGGING}] &`]: {
           // Make sure drag to resize does not animate as the user drags
@@ -119,18 +120,17 @@ export const fixedLeftSidebarInnerStyles = (isFixed?: boolean): CSSObject => ({
         [`[${IS_FLYOUT_OPEN}] &`]: {
           width: `var(--${LEFT_SIDEBAR_FLYOUT})`,
         },
-
-        ...prefersReducedMotion(),
       }
     : {
         height: '100%',
       }),
+  ...prefersReducedMotion(),
 });
 
 export const leftSidebarStyles = (isFixed?: boolean): CSSObject => ({
   position: 'relative',
   width: `var(--${LEFT_SIDEBAR_WIDTH})`,
-  transition: `width 300ms ${easeOut} 0s`,
+  transition: `width ${TRANSITION_DURATION}ms ${easeOut} 0s`,
   zIndex: 1, // Make resize affordance appear on top of content
   marginLeft: 0,
 
@@ -155,8 +155,6 @@ export const leftSidebarStyles = (isFixed?: boolean): CSSObject => ({
       // on top of the main content, while main remains in place
       marginLeft: `calc(-1 * var(--${LEFT_SIDEBAR_FLYOUT}) + ${COLLAPSED_LEFT_SIDEBAR_WIDTH}px)`,
     },
-
-    ...prefersReducedMotion(),
   },
 
   ...(isFixed && {
@@ -177,6 +175,8 @@ export const leftSidebarStyles = (isFixed?: boolean): CSSObject => ({
       width: COLLAPSED_LEFT_SIDEBAR_WIDTH,
     },
   }),
+
+  ...prefersReducedMotion(),
 });
 
 export const mainStyles: CSSObject = {
@@ -187,7 +187,7 @@ export const mainStyles: CSSObject = {
   // Transition negative margin on main
   // in sync with the increase in width of
   // leftSidebar
-  transition: `margin-left 300ms ${easeOut} 0s`,
+  transition: `margin-left ${TRANSITION_DURATION}ms ${easeOut} 0s`,
   marginLeft: 0,
 
   [`[${IS_SIDEBAR_DRAGGING}] &`]: {

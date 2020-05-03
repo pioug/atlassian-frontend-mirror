@@ -1,6 +1,42 @@
+import React from 'react';
+
 import { md } from '@atlaskit/docs';
+import SectionMessage from '@atlaskit/section-message';
 
 export default md`
+
+${(
+  <SectionMessage
+    appearance="warning"
+    title="Moving to a new navigation experience."
+  >
+    <p>
+      Atlassian is moving to a new navigation experience, which includes
+      horizontal global navigation, and re-built navigation components to
+      replace navigation-next.
+    </p>
+    <p>
+      If you are building a new navigation experience, please use{' '}
+      <a href="../navigation/atlassian-navigation">
+        @atlaskit/atlassian-navigation
+      </a>{' '}
+      {', '}
+      <a href="../navigation/side-navigation">@atlaskit/side-navigation</a>
+      {' and '}
+      <a href="./page-layout">@atlaskit/page-layout</a>.
+    </p>
+    <p>
+      {' '}
+      For a guide on how to upgrade from `navigation-next` to the new navigation
+      components, follow{' '}
+      <a href="../navigation/atlassian-navigation/docs/migrating-from-navigation-next">
+        this guide in the atlassian-navigation docs
+      </a>
+      .
+    </p>
+  </SectionMessage>
+)}
+
 ## Documentation
 
 #### 📦 [UI components](/packages/design-system/navigation-next/docs/ui-components)

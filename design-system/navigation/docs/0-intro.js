@@ -8,25 +8,31 @@ ${(
     appearance="warning"
     title="Note: @atlaskit/navigation is deprecated."
   >
-    Please use @atlaskit/atlassian-navigation instead. <br />
+    Please use{' '}
+    <a href="../navigation/side-navigation">@atlaskit/side-navigation</a>
+    {' and '}
+    <a href="../navigation/atlassian-navigation">
+      @atlaskit/atlassian-navigation
+    </a>{' '}
+    instead. <br />
     Additional documentation pages are listed below:
     <br />
     <ul>
       <li>
-        <a href="docs/navigation-props">Navigation Props</a>
+        <a href="navigation/docs/navigation-props">Navigation Props</a>
       </li>
       <li>
-        <a href="docs/composing-global-navigation">
+        <a href="navigation/docs/composing-global-navigation">
           Composing Global Navigation
         </a>
       </li>
       <li>
-        <a href="docs/composing-container-navigation">
+        <a href="navigation/docs/composing-container-navigation">
           Composing Container Navigation
         </a>
       </li>
       <li>
-        <a href="docs/navigation-drawers">Navigation Drawers</a>
+        <a href="navigation/docs/navigation-drawers">Navigation Drawers</a>
       </li>
     </ul>
   </SectionMessage>

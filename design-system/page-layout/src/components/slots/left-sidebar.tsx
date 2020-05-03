@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { Children, isValidElement, MouseEvent, useEffect } from 'react';
+import { MouseEvent, useEffect } from 'react';
 
 import { jsx } from '@emotion/core';
 
@@ -10,7 +10,7 @@ import {
   LEFT_SIDEBAR_SELECTOR,
   LEFT_SIDEBAR_WIDTH,
 } from '../../common/constants';
-import { SlotWidthProps } from '../../common/types';
+import { LeftSidebarProps } from '../../common/types';
 import {
   getGridStateFromStorage,
   removeFromGridStateInStorage,
@@ -32,40 +32,33 @@ const setFlyoutIsOpen = (event: MouseEvent) => {
   }, 500);
 };
 const removeFlyoutIsOpen = () => {
-  document.documentElement.removeAttribute(IS_FLYOUT_OPEN);
-  clearTimeout(timeout);
+  if (document.documentElement.hasAttribute(IS_SIDEBAR_COLLAPSED)) {
+    document.documentElement.removeAttribute(IS_FLYOUT_OPEN);
+    clearTimeout(timeout);
+  }
 };
 const leftSidebarSelector = {
   [LEFT_SIDEBAR_SELECTOR]: true,
 };
 
-export default (props: SlotWidthProps) => {
+const LeftSidebar = (props: LeftSidebarProps) => {
   const {
     children,
     width,
     isFixed = true,
     shouldPersistWidth = true,
+    resizeButtonLabel,
+    overrides,
+    onExpand,
+    onCollapse,
+    onResizeStart,
+    onResizeEnd,
     testId,
   } = props;
 
-  let isResizeable = false;
-  Children.forEach(children, component => {
-    if (isResizeable || !isValidElement(component)) {
-      return;
-    }
-
-    isResizeable = component.type === ResizeControl;
-  });
-  const resizeableProps = isResizeable
-    ? {
-        onMouseEnter: setFlyoutIsOpen,
-        onMouseLeave: removeFlyoutIsOpen,
-      }
-    : null;
-
-  const cachedCollapsedState = isResizeable
-    ? !!getGridStateFromStorage('isLeftSidebarCollapsed')
-    : false;
+  const cachedCollapsedState = !!getGridStateFromStorage(
+    'isLeftSidebarCollapsed',
+  );
 
   const leftSidebarWidth = cachedCollapsedState
     ? COLLAPSED_LEFT_SIDEBAR_WIDTH
@@ -73,27 +66,42 @@ export default (props: SlotWidthProps) => {
 
   usePageLayoutGrid({ [LEFT_SIDEBAR_WIDTH]: leftSidebarWidth });
   useEffect(() => {
-    if (isResizeable && cachedCollapsedState) {
+    if (cachedCollapsedState) {
       document.documentElement.setAttribute(IS_SIDEBAR_COLLAPSED, 'true');
     }
+
     return () => {
       removeFromGridStateInStorage('gridState', LEFT_SIDEBAR_WIDTH);
       document.documentElement.style.removeProperty(`--${LEFT_SIDEBAR_WIDTH}`);
     };
-  }, [cachedCollapsedState, isResizeable]);
+  }, [cachedCollapsedState]);
 
   return (
     <div
       css={leftSidebarStyles(isFixed)}
-      {...leftSidebarSelector}
       data-testid={testId}
-      {...resizeableProps}
+      onMouseEnter={setFlyoutIsOpen}
+      onMouseLeave={removeFlyoutIsOpen}
+      {...leftSidebarSelector}
     >
       <SlotDimensions
         variableName={LEFT_SIDEBAR_WIDTH}
         value={leftSidebarWidth}
       />
-      <div css={fixedLeftSidebarInnerStyles(isFixed)}>{children}</div>
+      <div css={fixedLeftSidebarInnerStyles(isFixed)}>
+        {children}
+        <ResizeControl
+          testId={testId}
+          resizeButtonLabel={resizeButtonLabel}
+          overrides={overrides}
+          onExpand={onExpand}
+          onCollapse={onCollapse}
+          onResizeStart={onResizeStart}
+          onResizeEnd={onResizeEnd}
+        />
+      </div>
     </div>
   );
 };
+
+export default LeftSidebar;

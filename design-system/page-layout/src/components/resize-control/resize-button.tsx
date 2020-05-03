@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { ButtonHTMLAttributes, MouseEvent } from 'react';
+import { MouseEvent } from 'react';
 
 import { jsx } from '@emotion/core';
 
@@ -11,14 +11,9 @@ import {
   LEFT_SIDEBAR_WIDTH,
   RESIZE_BUTTON_SELECTOR,
 } from '../../common/constants';
+import { ResizeButtonProps } from '../../common/types';
 
 import { increaseHitArea, resizeIconButtonCSS } from './styles';
-
-export type ResizeButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
-  isLeftSidebarCollapsed: boolean;
-  label: string;
-  testId?: string;
-};
 
 const updateFlyoutWidth = (event: MouseEvent) => {
   if (document.documentElement.hasAttribute(IS_FLYOUT_OPEN)) {

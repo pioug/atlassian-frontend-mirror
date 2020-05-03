@@ -7,7 +7,7 @@ import {
   Banner,
   Content,
   LeftPanel,
-  LeftSidebar,
+  LeftSidebarWithoutResize,
   Main,
   PageLayout,
   RightPanel,
@@ -244,7 +244,7 @@ const BasicGrid = () => {
       )}
       <Content testId="content">
         {gridState.isLeftSidebarShown && (
-          <LeftSidebar
+          <LeftSidebarWithoutResize
             testId="leftSidebar"
             isFixed={gridState.isLeftSidebarFixed}
             width={250}
@@ -262,7 +262,7 @@ const BasicGrid = () => {
                 />
               </div>
             </Wrapper>
-          </LeftSidebar>
+          </LeftSidebarWithoutResize>
         )}
         {gridState.isMainShown && (
           <Main testId="main">

@@ -18,7 +18,7 @@
             {
               "type": "media",
               "attrs": {
-                "id": "dcdee608-2499-4991-bfa4-60dc15a11842",
+                "id": "a559980d-cd47-43e2-8377-27359fcb905f",
                 "type": "file",
                 "collection": "MediaServicesSample",
                 "width": 500,
@@ -57,7 +57,7 @@
             {
               "type": "media",
               "attrs": {
-                "id": "7339a1ac-04e1-490d-9cd2-cc7047403dc4",
+                "id": "a559980d-cd47-43e2-8377-27359fcb905f",
                 "type": "file",
                 "collection": "MediaServicesSample",
                 "width": 500,
@@ -89,7 +89,7 @@
         {
           "type": "media",
           "attrs": {
-            "id": "a8a5cde0-1478-4ba2-bfa1-f63dfcd9d802",
+            "id": "a559980d-cd47-43e2-8377-27359fcb905f",
             "type": "file",
             "collection": "MediaServicesSample",
             "width": 1024,
@@ -158,7 +158,7 @@
                     {
                       "type": "media",
                       "attrs": {
-                        "id": "cf27e632-ca5d-47cd-99d9-49b7edc86191",
+                        "id": "a559980d-cd47-43e2-8377-27359fcb905f",
                         "type": "file",
                         "collection": "MediaServicesSample",
                         "width": 1024,
@@ -197,7 +197,7 @@
                         {
                           "type": "media",
                           "attrs": {
-                            "id": "1e14f99f-98e5-48a6-85d6-8c28dc4e238e",
+                            "id": "a559980d-cd47-43e2-8377-27359fcb905f",
                             "type": "file",
                             "collection": "MediaServicesSample",
                             "width": 1024,
@@ -270,7 +270,7 @@
                 {
                   "type": "media",
                   "attrs": {
-                    "id": "badf2625-8a4b-41d6-be31-e34a245a22d4",
+                    "id": "a559980d-cd47-43e2-8377-27359fcb905f",
                     "type": "file",
                     "collection": "MediaServicesSample",
                     "width": 1024,
@@ -307,7 +307,7 @@
                     {
                       "type": "media",
                       "attrs": {
-                        "id": "7ea0055c-0ed4-435d-a5ed-ac40493e57e3",
+                        "id": "a559980d-cd47-43e2-8377-27359fcb905f",
                         "type": "file",
                         "collection": "MediaServicesSample",
                         "width": 1024,
@@ -350,7 +350,7 @@
                 {
                   "type": "media",
                   "attrs": {
-                    "id": "d83e94e9-b3cd-43a3-9ca9-f9936a6ba079",
+                    "id": "a559980d-cd47-43e2-8377-27359fcb905f",
                     "type": "file",
                     "collection": "MediaServicesSample",
                     "width": 1024,

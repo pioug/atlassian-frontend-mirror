@@ -1,5 +1,17 @@
 # @atlaskit/page-layout
 
+## 0.3.0
+
+### Minor Changes
+
+- [`7fb3059a20`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7fb3059a20) - - _Breaking_ Makes LeftSidebar resizeable by default, does not export ResizeControl anymore.
+  - Exports LeftSidebarWithoutResize.
+  - Adds the following callback functions to LeftSidebar:
+    - onExpand
+    - onCollapse
+    - onResizeStart
+    - onResizeEnd
+
 ## 0.2.0
 
 ### Minor Changes

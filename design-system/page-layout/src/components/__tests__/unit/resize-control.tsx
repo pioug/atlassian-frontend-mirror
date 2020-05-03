@@ -5,13 +5,7 @@ import { act, fireEvent, render } from '@testing-library/react';
 import Tooltip from '@atlaskit/tooltip';
 
 import { PAGE_LAYOUT_LS_KEY } from '../../../common/constants';
-import {
-  Content,
-  LeftSidebar,
-  Main,
-  PageLayout,
-  ResizeControl,
-} from '../../../index';
+import { Content, LeftSidebar, Main, PageLayout } from '../../../index';
 
 import { getDimension } from './__utils__/get-dimension';
 import * as raf from './__utils__/raf';
@@ -38,10 +32,6 @@ describe('<ResizeControl />', () => {
           <Content>
             <LeftSidebar testId="left-sidebar" width={200}>
               LeftSidebar
-              <ResizeControl
-                testId="left-sidebar"
-                resizeButtonLabel="Toggle navigation"
-              />
             </LeftSidebar>
             <Main testId="content">Main</Main>
           </Content>
@@ -57,16 +47,31 @@ describe('<ResizeControl />', () => {
       );
     });
 
+    it('should call onCollapse callback when ResizeButton is clicked', () => {
+      const fn = jest.fn();
+      const { getByTestId } = render(
+        <PageLayout testId="grid">
+          <Content>
+            <LeftSidebar testId="left-sidebar" width={200} onCollapse={fn}>
+              LeftSidebar
+            </LeftSidebar>
+            <Main testId="content">Main</Main>
+          </Content>
+        </PageLayout>,
+      );
+
+      fireEvent.click(getByTestId('left-sidebar-resize-button'));
+      completeAnimations();
+
+      expect(fn).toHaveBeenCalledTimes(1);
+    });
+
     it('should expand the LeftSidebar when ResizeButton is clicked in collapsed state', () => {
       const { getByTestId } = render(
         <PageLayout testId="grid">
           <Content>
             <LeftSidebar testId="left-sidebar" width={200}>
               LeftSidebar
-              <ResizeControl
-                testId="left-sidebar"
-                resizeButtonLabel="Toggle navigation"
-              />
             </LeftSidebar>
             <Main testId="content">Main</Main>
           </Content>
@@ -88,30 +93,54 @@ describe('<ResizeControl />', () => {
       );
     });
 
+    it('should call onExpand callback when ResizeButton is clicked in collapsed state', () => {
+      const fn = jest.fn();
+      const { getByTestId } = render(
+        <PageLayout testId="grid">
+          <Content>
+            <LeftSidebar testId="left-sidebar" width={200} onExpand={fn}>
+              LeftSidebar
+            </LeftSidebar>
+            <Main testId="content">Main</Main>
+          </Content>
+        </PageLayout>,
+      );
+
+      expect(JSON.parse(localStorage.getItem(PAGE_LAYOUT_LS_KEY)!)).toEqual(
+        expect.objectContaining({ isLeftSidebarCollapsed: false }),
+      );
+      fireEvent.click(getByTestId('left-sidebar-resize-button'));
+      completeAnimations();
+
+      fireEvent.click(getByTestId('left-sidebar-resize-button'));
+      completeAnimations();
+
+      expect(fn).toHaveBeenCalledTimes(1);
+    });
+
     it('should render the button within an override if given', () => {
       const { getByTestId, queryByTestId } = render(
         <PageLayout testId="grid">
           <Content>
-            <LeftSidebar testId="left-sidebar" width={200}>
+            <LeftSidebar
+              testId="left-sidebar"
+              overrides={{
+                ResizeButton: {
+                  render: (Component, props) => (
+                    <Tooltip
+                      content="Expand"
+                      hideTooltipOnClick
+                      position="right"
+                      testId="tooltip"
+                    >
+                      <Component {...props} />
+                    </Tooltip>
+                  ),
+                },
+              }}
+              width={200}
+            >
               LeftSidebar
-              <ResizeControl
-                testId="left-sidebar"
-                overrides={{
-                  ResizeButton: {
-                    render: (Component, props) => (
-                      <Tooltip
-                        content="Expand"
-                        hideTooltipOnClick
-                        position="right"
-                        testId="tooltip"
-                      >
-                        <Component {...props} />
-                      </Tooltip>
-                    ),
-                  },
-                }}
-                resizeButtonLabel="Toggle navigation"
-              />
             </LeftSidebar>
             <Main testId="content">Main</Main>
           </Content>
@@ -130,10 +159,6 @@ describe('<ResizeControl />', () => {
           <Content>
             <LeftSidebar testId="left-sidebar" width={200}>
               LeftSidebar
-              <ResizeControl
-                testId="left-sidebar"
-                resizeButtonLabel="Toggle navigation"
-              />
             </LeftSidebar>
             <Main testId="content">Main</Main>
           </Content>
@@ -153,10 +178,6 @@ describe('<ResizeControl />', () => {
           <Content>
             <LeftSidebar testId="left-sidebar" width={200}>
               LeftSidebar
-              <ResizeControl
-                testId="left-sidebar"
-                resizeButtonLabel="Toggle navigation"
-              />
             </LeftSidebar>
             <Main testId="content">Main</Main>
           </Content>
@@ -177,16 +198,71 @@ describe('<ResizeControl />', () => {
       completeAnimations();
     });
 
+    it('should move the LeftSidebar when GrabArea is clicked and moved in expanded state', () => {
+      const { getByTestId } = render(
+        <PageLayout testId="grid">
+          <Content>
+            <LeftSidebar testId="left-sidebar" width={200}>
+              LeftSidebar
+            </LeftSidebar>
+            <Main testId="content">Main</Main>
+          </Content>
+        </PageLayout>,
+      );
+      const handle: HTMLElement = getByTestId('left-sidebar-grab-area');
+
+      fireEvent.mouseDown(handle, { clientX: 200 });
+      fireEvent.mouseMove(document, {
+        clientX: 250,
+        clientY: 0,
+      });
+      completeAnimations();
+
+      expect(getDimension('leftSidebarWidth')).toEqual('250px');
+
+      fireEvent.mouseUp(handle);
+      completeAnimations();
+    });
+
+    it('it should call resizeStart and resizeEnd events when GrabArea is clicked and moved', () => {
+      const resizeStart = jest.fn();
+      const resizeEnd = jest.fn();
+      const { getByTestId } = render(
+        <PageLayout testId="grid">
+          <Content>
+            <LeftSidebar
+              testId="left-sidebar"
+              width={200}
+              onResizeStart={resizeStart}
+              onResizeEnd={resizeEnd}
+            >
+              LeftSidebar
+            </LeftSidebar>
+            <Main testId="content">Main</Main>
+          </Content>
+        </PageLayout>,
+      );
+      const handle: HTMLElement = getByTestId('left-sidebar-grab-area');
+
+      fireEvent.mouseDown(handle, { clientX: 200 });
+      fireEvent.mouseMove(document, {
+        clientX: 250,
+        clientY: 0,
+      });
+      completeAnimations();
+      expect(resizeStart).toHaveBeenCalledTimes(1);
+
+      fireEvent.mouseUp(handle);
+      completeAnimations();
+      expect(resizeEnd).toHaveBeenCalledTimes(1);
+    });
+
     it('should not move the LeftSidebar when GrabArea is clicked to the right', () => {
       const { getByTestId } = render(
         <PageLayout testId="grid">
           <Content>
             <LeftSidebar testId="left-sidebar" width={200}>
               LeftSidebar
-              <ResizeControl
-                testId="left-sidebar"
-                resizeButtonLabel="Toggle navigation"
-              />
             </LeftSidebar>
             <Main testId="content">Main</Main>
           </Content>
@@ -214,10 +290,6 @@ describe('<ResizeControl />', () => {
           <Content>
             <LeftSidebar testId="left-sidebar" width={200}>
               LeftSidebar
-              <ResizeControl
-                testId="left-sidebar"
-                resizeButtonLabel="Toggle navigation"
-              />
             </LeftSidebar>
             <Main testId="content">Main</Main>
           </Content>
@@ -249,10 +321,6 @@ describe('<ResizeControl />', () => {
           <Content>
             <LeftSidebar testId="left-sidebar" width={240}>
               LeftSidebar
-              <ResizeControl
-                testId="left-sidebar"
-                resizeButtonLabel="Toggle navigation"
-              />
             </LeftSidebar>
             <Main testId="content">Main</Main>
           </Content>
@@ -281,10 +349,6 @@ describe('<ResizeControl />', () => {
           <Content>
             <LeftSidebar testId="left-sidebar" width={240}>
               LeftSidebar
-              <ResizeControl
-                testId="left-sidebar"
-                resizeButtonLabel="Toggle navigation"
-              />
             </LeftSidebar>
             <Main testId="content">Main</Main>
           </Content>
@@ -313,10 +377,6 @@ describe('<ResizeControl />', () => {
           <Content>
             <LeftSidebar testId="left-sidebar" width={200}>
               LeftSidebar
-              <ResizeControl
-                testId="left-sidebar"
-                resizeButtonLabel="Toggle navigation"
-              />
             </LeftSidebar>
             <Main testId="content">Main</Main>
           </Content>
@@ -343,10 +403,6 @@ describe('<ResizeControl />', () => {
           <Content>
             <LeftSidebar testId="left-sidebar" width={200}>
               LeftSidebar
-              <ResizeControl
-                testId="left-sidebar"
-                resizeButtonLabel="Toggle navigation"
-              />
             </LeftSidebar>
             <Main testId="content">Main</Main>
           </Content>
@@ -372,10 +428,6 @@ describe('<ResizeControl />', () => {
           <Content>
             <LeftSidebar testId="left-sidebar" width={200} shouldPersistWidth>
               LeftSidebar
-              <ResizeControl
-                testId="left-sidebar"
-                resizeButtonLabel="Toggle navigation"
-              />
             </LeftSidebar>
             <Main testId="content">Main</Main>
           </Content>
@@ -397,10 +449,6 @@ describe('<ResizeControl />', () => {
           <Content>
             <LeftSidebar testId="left-sidebar" width={200} shouldPersistWidth>
               LeftSidebar
-              <ResizeControl
-                testId="left-sidebar"
-                resizeButtonLabel="Toggle navigation"
-              />
             </LeftSidebar>
             <Main testId="content">Main</Main>
           </Content>
@@ -431,10 +479,6 @@ describe('<ResizeControl />', () => {
           <Content>
             <LeftSidebar testId="left-sidebar" width={200}>
               LeftSidebar
-              <ResizeControl
-                testId="left-sidebar"
-                resizeButtonLabel="Toggle navigation"
-              />
             </LeftSidebar>
             <Main testId="content">Main</Main>
           </Content>
@@ -461,10 +505,6 @@ describe('<ResizeControl />', () => {
           <Content>
             <LeftSidebar testId="left-sidebar" width={200}>
               LeftSidebar
-              <ResizeControl
-                testId="left-sidebar"
-                resizeButtonLabel="Toggle navigation"
-              />
             </LeftSidebar>
             <Main testId="content">Main</Main>
           </Content>
@@ -494,10 +534,6 @@ describe('<ResizeControl />', () => {
           <Content>
             <LeftSidebar testId="left-sidebar" width={200}>
               LeftSidebar
-              <ResizeControl
-                testId="left-sidebar"
-                resizeButtonLabel="Toggle navigation"
-              />
             </LeftSidebar>
             <Main testId="content">Main</Main>
           </Content>
@@ -523,10 +559,6 @@ describe('<ResizeControl />', () => {
           <Content>
             <LeftSidebar testId="left-sidebar" width={200}>
               LeftSidebar
-              <ResizeControl
-                testId="left-sidebar"
-                resizeButtonLabel="Toggle navigation"
-              />
             </LeftSidebar>
             <Main testId="content">Main</Main>
           </Content>
@@ -549,10 +581,6 @@ describe('<ResizeControl />', () => {
           <Content>
             <LeftSidebar testId="left-sidebar" shouldPersistWidth width={200}>
               LeftSidebar
-              <ResizeControl
-                testId="left-sidebar"
-                resizeButtonLabel="Toggle navigation"
-              />
             </LeftSidebar>
             <Main testId="content">Main</Main>
           </Content>
@@ -575,10 +603,6 @@ describe('<ResizeControl />', () => {
           <Content>
             <LeftSidebar testId="left-sidebar" shouldPersistWidth width={200}>
               LeftSidebar
-              <ResizeControl
-                testId="left-sidebar"
-                resizeButtonLabel="Toggle navigation"
-              />
             </LeftSidebar>
             <Main testId="content">Main</Main>
           </Content>

@@ -1,7 +1,6 @@
 /** @jsx jsx */
 import {
   ElementType,
-  ReactElement,
   MouseEvent as ReactMouseEvent,
   useRef,
   useState,
@@ -10,6 +9,8 @@ import {
 import { jsx } from '@emotion/core';
 import rafSchd from 'raf-schd';
 
+import { isReducedMotion } from '@atlaskit/motion';
+
 import {
   COLLAPSED_LEFT_SIDEBAR_WIDTH,
   IS_FLYOUT_OPEN,
@@ -17,25 +18,14 @@ import {
   LEFT_SIDEBAR_FLYOUT_WIDTH,
   MIN_LEFT_SIDEBAR_DRAG_THRESHOLD,
   RESIZE_CONTROL_SELECTOR,
+  TRANSITION_DURATION,
 } from '../../common/constants';
+import { ResizeButtonProps, ResizeControlProps } from '../../common/types';
 import { usePageLayoutResize } from '../../controllers';
 
 import GrabArea from './grab-area';
-import ResizeButton, { ResizeButtonProps } from './resize-button';
+import ResizeButton from './resize-button';
 import { resizeControlCSS, resizeIconButtonCSS, shadowCSS } from './styles';
-
-export type ResizeControlProps = {
-  testId?: string;
-  overrides?: {
-    ResizeButton?: {
-      render?: (
-        Component: ElementType<ResizeButtonProps>,
-        props: ResizeButtonProps,
-      ) => ReactElement;
-    };
-  };
-  resizeButtonLabel: string;
-};
 
 const cssSelector = { [RESIZE_CONTROL_SELECTOR]: true };
 const noop = () => {};
@@ -46,7 +36,11 @@ const Shadow = ({ testId }: { testId?: string }) => (
 const ResizeControl = ({
   testId,
   overrides,
-  resizeButtonLabel,
+  resizeButtonLabel = '',
+  onExpand,
+  onCollapse,
+  onResizeStart,
+  onResizeEnd,
 }: ResizeControlProps) => {
   const x = useRef(0);
   // Distance of mouse from left sidebar onMouseDown
@@ -55,12 +49,24 @@ const ResizeControl = ({
 
   const {
     isLeftSidebarCollapsed,
-    expandLeftSidebar,
-    collapseLeftSidebar,
+    expandLeftSidebar: expand,
+    collapseLeftSidebar: collapse,
     setLeftSidebarWidth,
     getLeftSidebarWidth,
     getLeftPanelWidth,
   } = usePageLayoutResize();
+
+  const expandLeftSidebar = () => {
+    expand();
+    onExpand &&
+      setTimeout(onExpand, isReducedMotion() ? 0 : TRANSITION_DURATION);
+  };
+
+  const collapseLeftSidebar = () => {
+    collapse();
+    onCollapse &&
+      setTimeout(onCollapse, isReducedMotion() ? 0 : TRANSITION_DURATION);
+  };
 
   const toggleSideBar = (e: ReactMouseEvent) => {
     if (!isDragFinished) {
@@ -109,6 +115,7 @@ const ResizeControl = ({
 
     requestAnimationFrame(() => {
       setIsDragFinished(true);
+      onResizeEnd && onResizeEnd();
     });
 
     if (getLeftSidebarWidth() < MIN_LEFT_SIDEBAR_DRAG_THRESHOLD) {
@@ -132,6 +139,8 @@ const ResizeControl = ({
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
     document.documentElement.setAttribute(IS_SIDEBAR_DRAGGING, 'true');
+
+    onResizeStart && onResizeStart();
   };
 
   const cancelDrag = (shouldCollapse?: boolean) => {
@@ -158,7 +167,6 @@ const ResizeControl = ({
       <Shadow testId={testId && `${testId}-shadow`} />
       <GrabArea
         onMouseDown={onMouseDown}
-        onMouseUp={onMouseUp}
         onClick={!isLeftSidebarCollapsed ? toggleSideBar : noop}
         testId={testId && `${testId}-grab-area`}
       />

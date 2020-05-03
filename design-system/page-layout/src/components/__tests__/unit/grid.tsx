@@ -7,9 +7,9 @@ import {
   Content,
   LeftPanel,
   LeftSidebar,
+  LeftSidebarWithoutResize,
   Main,
   PageLayout,
-  ResizeControl,
   RightPanel,
   RightSidebar,
   TopNavigation,
@@ -41,7 +41,6 @@ describe('<PageLayout />', () => {
           <Main>Main content</Main>
           <LeftSidebar testId="component" width={200}>
             Contents
-            <ResizeControl resizeButtonLabel="Toggle navigation" />
           </LeftSidebar>
         </Content>
         <RightPanel width={300}>Right Panel</RightPanel>
@@ -525,13 +524,13 @@ describe('<PageLayout />', () => {
         );
       });
 
-      it('should NOT mount the LeftSidebar in collapsed mode if already collapsed previously and ResizeControl is not passsed as a child', () => {
+      it('should NOT mount the LeftSidebarWithoutResize in collapsed mode if already collapsed previously', () => {
         render(
           <PageLayout testId="grid">
             <Main>
-              <LeftSidebar testId="component" width={200}>
+              <LeftSidebarWithoutResize testId="component" width={200}>
                 Contents
-              </LeftSidebar>
+              </LeftSidebarWithoutResize>
             </Main>
           </PageLayout>,
         );
@@ -542,13 +541,13 @@ describe('<PageLayout />', () => {
         expect(getDimension('leftSidebarWidth')).toBe('200px');
       });
 
-      it('should NOT bind any mouse events to LeftSidebar is ResizeControl is not passed as a child', () => {
+      it('should NOT bind any mouse events to LeftSidebarWithoutResize', () => {
         const { getByTestId } = render(
           <PageLayout testId="grid">
             <Main>
-              <LeftSidebar testId="component" width={200}>
+              <LeftSidebarWithoutResize testId="component" width={200}>
                 Contents
-              </LeftSidebar>
+              </LeftSidebarWithoutResize>
             </Main>
           </PageLayout>,
         );
@@ -574,7 +573,6 @@ describe('<PageLayout />', () => {
             <Main>
               <LeftSidebar testId="component" width={200}>
                 Contents
-                <ResizeControl resizeButtonLabel="Toggle navigation" />
               </LeftSidebar>
             </Main>
           </PageLayout>,
@@ -592,7 +590,6 @@ describe('<PageLayout />', () => {
             <Main>
               <LeftSidebar testId="component" width={200}>
                 Contents
-                <ResizeControl resizeButtonLabel="Toggle navigation" />
               </LeftSidebar>
             </Main>
           </PageLayout>,
@@ -612,7 +609,6 @@ describe('<PageLayout />', () => {
             <Main>
               <LeftSidebar testId="component" width={200}>
                 Contents
-                <ResizeControl resizeButtonLabel="Toggle navigation" />
               </LeftSidebar>
             </Main>
           </PageLayout>,
@@ -634,13 +630,40 @@ describe('<PageLayout />', () => {
       });
     });
 
+    // Will be added as part of https://product-fabric.atlassian.net/browse/DST-368
+    /* it('should call onFlyoutExpand and onFlyoutCollapse callbacks', () => { */
+    /*   const onFlyoutExpand = jest.fn(); */
+    /*   const onFlyoutCollapse = jest.fn(); */
+    /*   const { getByTestId } = render( */
+    /*     <PageLayout testId="grid"> */
+    /*       <Main> */
+    /*         <LeftSidebar */
+    /*           testId="component" */
+    /*           width={200} */
+    /*           onFlyoutExpand={onFlyoutExpand} */
+    /*           onFlyoutCollapse={onFlyoutCollapse} */
+    /*         > */
+    /*           Contents */
+    /*         </LeftSidebar> */
+    /*       </Main> */
+    /*     </PageLayout>, */
+    /*   ); */
+
+    /*   fireEvent.mouseEnter(getByTestId('component')); */
+    /*   jest.runAllTimers(); */
+    /*   expect(onFlyoutExpand).toHaveBeenCalledTimes(1); */
+
+    /*   fireEvent.mouseLeave(getByTestId('component')); */
+    /*   jest.runAllTimers(); */
+    /*   expect(onFlyoutCollapse).toHaveBeenCalledTimes(1); */
+    /* }); */
+
     it('should render with the width that was passed to it', () => {
       const { getByTestId } = render(
         <PageLayout testId="grid">
           <Main>
             <LeftSidebar testId="component" width={200}>
               Contents
-              <ResizeControl resizeButtonLabel="Toggle navigation" />
             </LeftSidebar>
           </Main>
         </PageLayout>,
@@ -661,7 +684,6 @@ describe('<PageLayout />', () => {
           <Main>
             <LeftSidebar testId="component" width={200}>
               Contents
-              <ResizeControl resizeButtonLabel="Toggle navigation" />
             </LeftSidebar>
           </Main>
         </PageLayout>,
@@ -682,7 +704,6 @@ describe('<PageLayout />', () => {
           <Main>
             <LeftSidebar testId="component" width={200} isFixed>
               Contents
-              <ResizeControl resizeButtonLabel="Toggle navigation" />
             </LeftSidebar>
           </Main>
         </PageLayout>,
@@ -698,7 +719,6 @@ describe('<PageLayout />', () => {
         <PageLayout testId="grid">
           <LeftSidebar testId="component" isFixed width={50}>
             Contents
-            <ResizeControl resizeButtonLabel="Toggle navigation" />
           </LeftSidebar>
         </PageLayout>,
       );
@@ -719,7 +739,6 @@ describe('<PageLayout />', () => {
         <PageLayout testId="grid">
           <LeftSidebar testId="component" isFixed width={50}>
             Contents
-            <ResizeControl resizeButtonLabel="Toggle navigation" />
           </LeftSidebar>
         </PageLayout>,
       );
@@ -739,7 +758,6 @@ describe('<PageLayout />', () => {
         <PageLayout testId="grid">
           <LeftSidebar testId="component" isFixed width={200}>
             Contents
-            <ResizeControl resizeButtonLabel="Toggle navigation" />
           </LeftSidebar>
         </PageLayout>,
       );
@@ -752,7 +770,6 @@ describe('<PageLayout />', () => {
         <PageLayout testId="grid">
           <LeftSidebar testId="component" isFixed width={50} shouldPersistWidth>
             Contents
-            <ResizeControl resizeButtonLabel="Toggle navigation" />
           </LeftSidebar>
         </PageLayout>,
       );

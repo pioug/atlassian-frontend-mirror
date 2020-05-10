@@ -1,5 +1,5 @@
 import React from 'react';
-import { B400, N500 } from '@atlaskit/theme/colors';
+import { R400, N500 } from '@atlaskit/theme/colors';
 import LockIcon from '@atlaskit/icon/glyph/lock-filled';
 import Button from '@atlaskit/button';
 import { Frame } from '../Frame';
@@ -7,7 +7,7 @@ import { IconAndTitleLayout } from '../IconAndTitleLayout';
 import { AKIconWrapper } from '../Icon';
 import { messages } from '../../messages';
 import { FormattedMessage } from 'react-intl';
-import { ForbiddenWrapper } from './styled';
+import { IconStyledButton, NoLinkAppearance } from '../styled';
 
 export interface InlineCardForbiddenViewProps {
   /** The url to display */
@@ -32,8 +32,29 @@ export class InlineCardForbiddenView extends React.Component<
     onAuthorise!();
   };
 
+  renderMessage = () => {
+    const { onAuthorise } = this.props;
+    return !onAuthorise ? (
+      <FormattedMessage {...messages.invalid_permissions} />
+    ) : (
+      <Button
+        spacing="none"
+        appearance="link"
+        onClick={this.handleRetry}
+        component={IconStyledButton}
+      >
+        <FormattedMessage {...messages.invalid_permissions}>
+          {formattedMessage => {
+            return <NoLinkAppearance>{formattedMessage}. </NoLinkAppearance>;
+          }}
+        </FormattedMessage>
+        <FormattedMessage {...messages.try_another_account} />
+      </Button>
+    );
+  };
+
   render() {
-    const { url, onClick, isSelected, onAuthorise, testId } = this.props;
+    const { url, onClick, isSelected, testId } = this.props;
     return (
       <Frame
         testId={testId}
@@ -44,26 +65,12 @@ export class InlineCardForbiddenView extends React.Component<
         <IconAndTitleLayout
           icon={
             <AKIconWrapper>
-              <LockIcon label="error" size="small" primaryColor={B400} />
+              <LockIcon label="error" size="small" primaryColor={R400} />
             </AKIconWrapper>
           }
-          title={url}
+          title={this.renderMessage()}
           titleColor={N500}
         />
-        {!onAuthorise ? (
-          ''
-        ) : (
-          <>
-            <ForbiddenWrapper>
-              {` - `}
-              <FormattedMessage {...messages.invalid_permissions} />
-              {` `}
-            </ForbiddenWrapper>
-            <Button spacing="none" appearance="link" onClick={this.handleRetry}>
-              <FormattedMessage {...messages.try_another_account} />
-            </Button>
-          </>
-        )}
       </Frame>
     );
   }

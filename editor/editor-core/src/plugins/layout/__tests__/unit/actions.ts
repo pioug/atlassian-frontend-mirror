@@ -1,4 +1,8 @@
-import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
+import {
+  createProsemirrorEditorFactory,
+  Preset,
+  LightEditorPlugin,
+} from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   layoutSection,
   layoutColumn,
@@ -17,19 +21,25 @@ import {
   insertLayoutColumnsWithAnalytics,
 } from '../../actions';
 import { layouts, buildLayoutForWidths } from './_utils';
-import { INPUT_METHOD } from '../../../analytics';
+import analyticsPlugin, { INPUT_METHOD } from '../../../analytics';
 import { PresetLayout } from '../../types';
+import layoutPlugin from '../..';
+import { TextSelection, NodeSelection } from 'prosemirror-state';
 
 describe('layout actions', () => {
-  const createEditor = createEditorFactory();
+  const createEditor = createProsemirrorEditorFactory();
+
   let createAnalyticsEvent: CreateUIAnalyticsEvent;
   let editorView: EditorView;
   const editor = (doc: any) => {
     createAnalyticsEvent = jest.fn(() => ({ fire() {} } as UIAnalyticsEvent));
+    const preset = new Preset<LightEditorPlugin>()
+      .add(layoutPlugin)
+      .add([analyticsPlugin, { createAnalyticsEvent }]);
+
     return createEditor({
       doc,
-      editorProps: { allowLayouts: true, allowAnalyticsGASV3: true },
-      createAnalyticsEvent,
+      preset,
     });
   };
 
@@ -76,6 +86,24 @@ describe('layout actions', () => {
       expect(
         setPresetLayout('three_equal')(editorView.state, editorView.dispatch),
       ).toBe(false);
+    });
+
+    it('keeps TextSelection if previously had TextSelection', () => {
+      ({ editorView } = editor(doc(buildLayoutForWidths([50, 50], true))));
+      setPresetLayout('three_equal')(editorView.state, editorView.dispatch);
+
+      expect(editorView.state.selection).toBeInstanceOf(TextSelection);
+    });
+
+    it('keeps NodeSelection if previously had NodeSelection', () => {
+      ({ editorView } = editor(doc(buildLayoutForWidths([50, 50]))));
+      editorView.dispatch(
+        editorView.state.tr.setSelection(
+          NodeSelection.create(editorView.state.doc, 1),
+        ),
+      );
+      setPresetLayout('three_equal')(editorView.state, editorView.dispatch);
+      expect(editorView.state.selection).toBeInstanceOf(NodeSelection);
     });
   });
 

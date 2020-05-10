@@ -183,8 +183,8 @@ describe('Renderer - React/Nodes/InlineExtension', () => {
   });
 
   describe('extension providers', () => {
-    const ExtensionHandlerFromProvider = ({ extensionParams }: any) => (
-      <div>Extension provider: {extensionParams.parameters.words}</div>
+    const ExtensionHandlerFromProvider = ({ node }: any) => (
+      <div>Extension provider: {node.parameters.words}</div>
     );
 
     const confluenceMacrosExtensionProvider = createFakeExtensionProvider(
@@ -225,8 +225,8 @@ describe('Renderer - React/Nodes/InlineExtension', () => {
 
     it('should prioritize extension handlers (sync) over extension provider', async () => {
       const extensionHandlers: ExtensionHandlers = {
-        'fake.confluence': (extensionParams: any) => (
-          <div>Extension handler: {extensionParams.parameters.words}</div>
+        'fake.confluence': (node: any) => (
+          <div>Extension handler: {node.parameters.words}</div>
         ),
       };
 
@@ -251,7 +251,7 @@ describe('Renderer - React/Nodes/InlineExtension', () => {
 
     it('should fallback to extension provider if not handled by extension handlers', async () => {
       const extensionHandlers: ExtensionHandlers = {
-        'fake.confluence': (extensionParams: any) => null,
+        'fake.confluence': (node: any) => null,
       };
 
       const extension = mount(

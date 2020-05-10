@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`change-selected-type.ts: Select panel and then change type 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "panelType": "error",
+      },
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "text": "this text should be in the panel",
+              "type": "text",
+            },
+          ],
+          "type": "paragraph",
+        },
+      ],
+      "type": "panel",
+    },
+  ],
+  "type": "doc",
+  "version": 1,
+}
+`;

@@ -1,18 +1,20 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+
+import { mount, shallow } from 'enzyme';
+import toJson from 'enzyme-to-json';
 import cases from 'jest-in-case';
-import WarningIcon from '@atlaskit/icon/glyph/warning';
-import ErrorIcon from '@atlaskit/icon/glyph/error';
+import styled from 'styled-components';
+
+import Button from '@atlaskit/button';
 import CheckCircleIcon from '@atlaskit/icon/glyph/check-circle';
+import ErrorIcon from '@atlaskit/icon/glyph/error';
 import InfoIcon from '@atlaskit/icon/glyph/info';
 import QuestionCircleIcon from '@atlaskit/icon/glyph/question-circle';
-import Button from '@atlaskit/button';
-import styled from 'styled-components';
-import toJson from 'enzyme-to-json';
+import WarningIcon from '@atlaskit/icon/glyph/warning';
 
-import SectionMessage from '../..';
+import { Action, Title } from '../../components/styled';
+import SectionMessage from '../../index';
 import { Appearance } from '../../types';
-import { Title, Action } from '../../components/styled';
 
 // We added a property `type` because `name` was clashing with `name` from jest-in-case
 const appearancesCase = [

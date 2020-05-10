@@ -11,7 +11,7 @@ export type ExtensionState = {
   layout: ExtensionLayout;
   showEditButton: boolean;
   showContextPanel: boolean;
-  updateExtension?: UpdateExtension<object>;
+  updateExtension?: Promise<UpdateExtension<object> | void>;
   nodeWithPos?: NodeWithPos;
   element?: HTMLElement;
   extensionProvider?: ExtensionProvider;

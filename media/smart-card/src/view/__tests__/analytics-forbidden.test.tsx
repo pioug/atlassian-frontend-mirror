@@ -58,7 +58,7 @@ describe('smart-card: forbidden analytics', () => {
           timeout: 10000,
         },
       );
-      const forbiddenLinkButton = container.querySelector('button');
+      const forbiddenLinkButton = container.querySelector('[type="button"]');
       expect(forbiddenLink).toBeTruthy();
       expect(forbiddenLinkButton).toBeTruthy();
       expect(forbiddenLinkButton!.innerHTML).toContain('Try another');
@@ -103,7 +103,7 @@ describe('smart-card: forbidden analytics', () => {
           timeout: 10000,
         },
       );
-      const forbiddenLinkButton = container.querySelector('button');
+      const forbiddenLinkButton = container.querySelector('[type="button"]');
       expect(forbiddenLink).toBeTruthy();
       expect(forbiddenLinkButton).toBeTruthy();
       expect(forbiddenLinkButton!.innerHTML).toContain('Try another');

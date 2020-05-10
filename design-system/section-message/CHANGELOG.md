@@ -1,5 +1,11 @@
 # @atlaskit/section-message
 
+## 4.1.8
+
+### Patch Changes
+
+- [`229d05754b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/229d05754b) - Change imports to comply with Atlassian conventions- Updated dependencies
+
 ## 4.1.7
 
 ### Patch Changes

@@ -2,14 +2,13 @@ import {
   DefaultExtensionProvider,
   ExtensionManifest,
   ExtensionModule,
-} from '@atlaskit/editor-common';
-
-import {
   FieldDefinition,
   EnumField,
   CustomField,
   Fieldset,
   ExtensionModuleNode,
+  ExtensionModuleAction,
+  Parameters,
 } from '@atlaskit/editor-common/extensions';
 
 import {
@@ -23,14 +22,16 @@ import { cqlSerializer, cqlDeserializer } from '../config-panel/cql-helpers';
 
 import mainResponse from './browse-macros.json';
 import { getIconComponent } from './IconImage';
+import EditorActions from '../../src/actions';
+import { editSelectedExtension } from '../../src/extensions';
 
 const isNativeFieldType = (fieldType: string) => {
   return /^(enum|string|number|boolean|date)$/.test(fieldType);
 };
 
-const getMacrosManifestList = () => {
+const getMacrosManifestList = (editorActions?: EditorActions) => {
   return mainResponse.macros.map((macro: LegacyMacroManifest) =>
-    transformLegacyMacrosToExtensionManifest(macro),
+    transformLegacyMacrosToExtensionManifest(macro, editorActions),
   );
 };
 
@@ -111,10 +112,99 @@ const buildIconObject = (macro: LegacyMacroManifest) => {
   };
 };
 
+const extensionType = 'com.atlassian.confluence.macro.core';
+
+const getExtensionBodyType = (macro: LegacyMacroManifest) => {
+  const { bodyType, outputType } = macro.formDetails.body;
+
+  if (bodyType !== 'NONE') {
+    return 'bodiedExtension';
+  }
+
+  if (outputType === 'INLINE') {
+    return 'inlineExtension';
+  }
+
+  return 'extension';
+};
+
 const transformLegacyMacrosToExtensionManifest = (
   macro: LegacyMacroManifest,
+  editorActions?: EditorActions,
 ): ExtensionManifest => {
   const extensionKey = safeGetMacroName(macro);
+
+  const hasAnyMissingParameterRequired = macro.formDetails.parameters.some(
+    param => param.required && param.defaultValue === null,
+  );
+
+  const defaultParameters = macro.formDetails.parameters
+    .filter(param => param.defaultValue)
+    .reduce<Parameters>((curr, next) => {
+      if (next.defaultValue !== null) {
+        curr[next.name] = next.defaultValue;
+      }
+
+      return curr;
+    }, {});
+
+  const actionForMacrosWithRequiredParams = async () => {
+    const node = await Promise.resolve({
+      type: getExtensionBodyType(macro),
+      attrs: {
+        extensionType,
+        extensionKey,
+        parameters: {
+          macroParams: defaultParameters,
+        },
+        text: `Fallback text for ${extensionKey}...`,
+      },
+    });
+
+    if (!editorActions) {
+      throw new Error(
+        `editorActions not found, this quick insert action won't work. Tip: the 'extensionProviders' prop can also take a function where 'editorActions' is the first argument`,
+      );
+    }
+
+    editorActions.replaceSelection(node);
+    editSelectedExtension(editorActions);
+  };
+
+  const asyncAction = () =>
+    Promise.resolve({
+      type: getExtensionBodyType(macro),
+      attrs: {
+        extensionType,
+        extensionKey,
+        text: 'Hello inlineExtension!',
+        parameters: {
+          macroParams: defaultParameters,
+        },
+      },
+    });
+
+  const genericAction = {
+    type: 'node' as const,
+    key: 'default',
+    parameters: {
+      macroParams: defaultParameters,
+    },
+  };
+
+  let action: ExtensionModuleAction = genericAction;
+
+  if (
+    hasAnyMissingParameterRequired ||
+    macro.anyParameterRequired ||
+    macro.alwaysShowConfig
+  ) {
+    action = actionForMacrosWithRequiredParams;
+  }
+
+  if (macro.alternateId === 'gadget-c49820865b7a9ce52c5d4fd43cf5709a') {
+    action = asyncAction;
+  }
 
   // hidden macros can still exist so they can be rendered but shouldn't appear in any menu
   const quickInsert: ExtensionModule[] = macro.hidden
@@ -125,11 +215,7 @@ const transformLegacyMacrosToExtensionManifest = (
           title: macro.title,
           description: macro.description,
           icon: () => getIcon(macro),
-          action: {
-            type: 'node',
-            key: 'default',
-            parameters: {},
-          },
+          action,
         },
       ];
 
@@ -188,7 +274,7 @@ const transformLegacyMacrosToExtensionManifest = (
   }
 
   return {
-    type: 'com.atlassian.confluence.macro.core',
+    type: extensionType,
     key: extensionKey,
     title: macro.title,
     description: macro.description,
@@ -472,7 +558,9 @@ const transformFieldType = (
   return 'custom';
 };
 
-export const getConfluenceMacrosExtensionProvider = () => {
-  const manifests = getMacrosManifestList();
+export const getConfluenceMacrosExtensionProvider = (
+  editorActions?: EditorActions,
+) => {
+  const manifests = getMacrosManifestList(editorActions);
   return new DefaultExtensionProvider(manifests);
 };

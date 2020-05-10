@@ -1,10 +1,14 @@
+import React, { ReactElement } from 'react';
 import { ProviderFactory } from '@atlaskit/editor-common';
 import { EditorView } from 'prosemirror-view';
-import React from 'react';
 
 import Avatars from '../../../plugins/collab-edit/ui/avatars';
 import Toolbar from '../../Toolbar';
-import { MainToolbar, MainToolbarCustomComponentsSlot } from './MainToolbar';
+import {
+  MainToolbar,
+  MainToolbarIconBefore,
+  MainToolbarCustomComponentsSlot,
+} from './MainToolbar';
 import {
   EditorAppearance,
   ReactComponents,
@@ -32,12 +36,16 @@ export interface FullPageToolbarProps {
   collabEdit?: CollabEditOptions;
   showKeyline: boolean;
   containerElement: HTMLElement | null;
+  beforeIcon?: ReactElement;
 }
 
 export const FullPageToolbar: React.FunctionComponent<FullPageToolbarProps> = React.memo(
   props => {
     return (
       <MainToolbar showKeyline={props.showKeyline}>
+        {props.beforeIcon && (
+          <MainToolbarIconBefore>{props.beforeIcon}</MainToolbarIconBefore>
+        )}
         <Toolbar
           editorView={props.editorView}
           editorActions={props.editorActions}

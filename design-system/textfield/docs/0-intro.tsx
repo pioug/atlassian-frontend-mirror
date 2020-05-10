@@ -1,5 +1,6 @@
 import React from 'react';
-import { md, Example, code, Props } from '@atlaskit/docs';
+
+import { code, Example, md, Props } from '@atlaskit/docs';
 
 export default md`
 \`TextField\` is a wrapped \`<input>\` component that supports elements at the start and end of the \`<input>\`

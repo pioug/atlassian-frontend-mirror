@@ -1,5 +1,11 @@
 # @atlaskit/progress-bar
 
+## 0.2.8
+
+### Patch Changes
+
+- [`974d594a23`](https://bitbucket.org/atlassian/atlassian-frontend/commits/974d594a23) - Change imports to comply with Atlassian conventions
+
 ## 0.2.7
 
 ### Patch Changes

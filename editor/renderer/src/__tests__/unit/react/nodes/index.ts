@@ -53,12 +53,14 @@ describe('Renderer - React/Nodes', () => {
             name: 'text',
           },
           text: 'hello ',
+          nodeSize: 6,
         },
         {
           type: {
             name: 'text',
           },
           text: 'world! ',
+          nodeSize: 7,
         },
         {
           type: {
@@ -68,12 +70,14 @@ describe('Renderer - React/Nodes', () => {
             id: 'abcd-abcd-abcd',
             text: '@Oscar Wallhult',
           },
+          nodeSize: 1,
         },
         {
           type: {
             name: 'text',
           },
           text: ' is my name!',
+          nodeSize: 12,
         },
       ];
 
@@ -82,18 +86,21 @@ describe('Renderer - React/Nodes', () => {
           type: {
             name: 'textWrapper',
           },
+          nodeSize: 13,
           content: [
             {
               type: {
                 name: 'text',
               },
               text: 'hello ',
+              nodeSize: 6,
             },
             {
               type: {
                 name: 'text',
               },
               text: 'world! ',
+              nodeSize: 7,
             },
           ],
         },
@@ -105,8 +112,10 @@ describe('Renderer - React/Nodes', () => {
             id: 'abcd-abcd-abcd',
             text: '@Oscar Wallhult',
           },
+          nodeSize: 1,
         },
         {
+          nodeSize: 12,
           type: {
             name: 'textWrapper',
           },
@@ -116,6 +125,7 @@ describe('Renderer - React/Nodes', () => {
                 name: 'text',
               },
               text: ' is my name!',
+              nodeSize: 12,
             },
           ],
         },

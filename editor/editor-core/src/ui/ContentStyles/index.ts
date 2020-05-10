@@ -29,6 +29,7 @@ import { layoutStyles } from '../../plugins/layout/styles';
 import { panelStyles } from '../../plugins/panel/styles';
 import { fakeCursorStyles } from '../../plugins/fake-text-cursor/styles';
 import { mentionsStyles } from '../../plugins/mentions/styles';
+import { emojiStyles } from '../../plugins/emoji/styles';
 import { textFormattingStyles } from '../../plugins/text-formatting/styles';
 import { placeholderTextStyles } from '../../plugins/placeholder-text/styles';
 import { gridStyles } from '../../plugins/grid/styles';
@@ -99,17 +100,6 @@ const ContentStyles: ComponentClass<HTMLAttributes<{}> & {
     display: block;
   }
 
-  /* fix cursor alignment */
-  .ProseMirror .emoji-common-node {
-    display: inline;
-    vertical-align: baseline;
-
-    img {
-      display: inline-block;
-      vertical-align: middle;
-    }
-  }
-
   ${blocktypeStyles}
   ${textFormattingStyles}
   ${placeholderTextStyles}
@@ -125,6 +115,7 @@ const ContentStyles: ComponentClass<HTMLAttributes<{}> & {
   ${panelStyles}
   ${fakeCursorStyles}
   ${mentionsStyles}
+  ${emojiStyles}
   ${tasksAndDecisionsStyles}
   ${gridStyles}
   ${linkStyles}

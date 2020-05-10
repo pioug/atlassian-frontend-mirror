@@ -10,6 +10,7 @@ import Flag from '../../../index';
 import { FlagProps } from '../../../types';
 import Container, { DismissButton } from '../../Flag/styledFlag';
 import FlagGroup from '../../FlagGroup';
+import { SROnly } from '../../FlagGroup/styledFlagGroup';
 
 describe('FlagGroup', () => {
   const generateFlag = (extraProps?: Partial<FlagProps>) => (
@@ -123,5 +124,37 @@ describe('FlagGroup', () => {
       'animationend',
       expect.anything(),
     );
+  });
+
+  it('should render screen reader text only when FlagGroup has children', () => {
+    const wrapper = mount(<FlagGroup>{generateFlag()}</FlagGroup>);
+    expect(wrapper.find(SROnly).length).toBe(1);
+  });
+
+  it("should not render screen reader text when FlagGroup doesn't have children", () => {
+    const wrapper = mount(<FlagGroup></FlagGroup>);
+    expect(wrapper.find(SROnly).length).toBe(0);
+  });
+
+  it('should render default screen reader text and tag from props', () => {
+    const wrapper = mount(<FlagGroup>{generateFlag()}</FlagGroup>);
+    expect(wrapper.find(SROnly).find('h2')).toHaveLength(1);
+    expect(
+      wrapper
+        .find(SROnly)
+        .find('h2')
+        .text(),
+    ).toEqual('Flag notifications');
+  });
+
+  it('should render custom screen reader text and tag from props', () => {
+    const wrapper = mount(
+      <FlagGroup label="notifs" labelTag="h3">
+        {generateFlag()}
+      </FlagGroup>,
+    );
+    const h3 = wrapper.find(SROnly).find('h3');
+    expect(h3).toHaveLength(1);
+    expect(h3.text()).toEqual('notifs');
   });
 });

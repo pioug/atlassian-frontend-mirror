@@ -2,49 +2,49 @@
 order: 0
 ---
 
-import Logomark from '../../examples/constellation/logomark';
-import Wordmark from '../../examples/constellation/wordmark';
-import Lockup from '../../examples/constellation/lockup';
-import SizesSmall from '../../examples/constellation/sizesSmall';
-import SizesMedium from '../../examples/constellation/sizesMedium';
-import SizesLarge from '../../examples/constellation/sizesLarge';
+import LogoLogomark from '../../examples/constellation/LogoLogomark';
+import LogoWordmark from '../../examples/constellation/LogoWordmark';
+import LogoLockup from '../../examples/constellation/LogoLockup';
+import LogoSmall from '../../examples/constellation/LogoSmall';
+import LogoMedium from '../../examples/constellation/LogoMedium';
+import LogoLarge from '../../examples/constellation/LogoLarge';
 
-## Logomark
+## Types
 
-The logo only.
+### Logomark
 
-<Example Component={Logomark} componentName="@atlaskit/logo" />
+A logomark is an image or symbol that represents a brand or product, which generally does not contain the name of the brand or product.
 
-## Wordmark
+<Example Component={LogoLogomark} componentName="@atlaskit/logo" />
 
-The product name only.
+### Wordmark
 
-<Example Component={Wordmark} componentName="@atlaskit/logo" />
+The brand or product name only. A wordmark is a brand or product name styled as a logo.
 
-## Lockup
+<Example Component={LogoWordmark} componentName="@atlaskit/logo" />
 
-The combination of product name and logo.
+### Lockup
 
-<Example Component={Lockup} componentName="@atlaskit/logo" />
+A lockup is the combination of wordmark (the brand or product name) and its logomark, generally referred altogether as a logo.
+
+<Example Component={LogoLockup} componentName="@atlaskit/logo" />
 
 ## Size
 
-There are 3 logo sizes.
-
 ### Small
 
-The logomark is the only logo that is used in the small size (24px). Use the small logo in areas with minimal space or that contain many logos in close proximity. For example, the icon component, the marketing footer, or the emoji picker.
+The logomark is the only logo that is used in the `small` size (24px). Use the `small` logo in areas with minimal space or that contain many logos in close proximity. For example, the icon component, the marketing footer, or the emoji picker.
 
-<Example Component={SizesSmall} componentName="@atlaskit/logo" />
+<Example Component={LogoSmall} componentName="@atlaskit/logo" />
 
 ### Medium
 
-The medium size (32px) is the default size and used primarily within product navigation. Both the logomark and wordmark can be used in the medium size.
+The `medium` size (32px) is the default size and used primarily within product navigation.
 
-<Example Component={SizesMedium} componentName="@atlaskit/logo" />
+<Example Component={LogoMedium} componentName="@atlaskit/logo" />
 
 ### Large
 
-The large size (56px) is rarely used. It may be used for a hero piece. For example, Statuspage's login. Both the logomark and wordmark can be used in the large size.
+The `large` size (56px) is rarely used. It may be used for a hero piece. For example, Statuspage's login.
 
-<Example Component={SizesLarge} componentName="@atlaskit/logo" />
+<Example Component={LogoLarge} componentName="@atlaskit/logo" />

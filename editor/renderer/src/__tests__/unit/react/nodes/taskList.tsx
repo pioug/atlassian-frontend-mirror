@@ -35,7 +35,10 @@ describe('Renderer - React/Nodes/TaskList', () => {
       const component = mount(
         <FabricAnalyticsListener client={analyticsWebClientMock}>
           <TaskList localId="list-1">
-            <TaskItem localId="task-1">
+            <TaskItem
+              dataAttributes={{ 'data-renderer-start-pos': 0 }}
+              localId="task-1"
+            >
               Hello <b>world</b>
             </TaskItem>
           </TaskList>
@@ -63,10 +66,17 @@ describe('Renderer - React/Nodes/TaskList', () => {
       const component = mount(
         <FabricAnalyticsListener client={analyticsWebClientMock}>
           <TaskList localId="list-1">
-            <TaskItem localId="task-1">
+            <TaskItem
+              dataAttributes={{ 'data-renderer-start-pos': 0 }}
+              localId="task-1"
+            >
               Hello <b>world</b>
             </TaskItem>
-            <TaskItem localId="task-2" state="DONE">
+            <TaskItem
+              dataAttributes={{ 'data-renderer-start-pos': 0 }}
+              localId="task-2"
+              state="DONE"
+            >
               Goodbye <b>world</b>
             </TaskItem>
           </TaskList>

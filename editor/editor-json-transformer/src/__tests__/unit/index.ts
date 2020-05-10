@@ -1,58 +1,57 @@
+import { Node as PMNode } from 'prosemirror-model';
+
 import {
   bitbucketSchema,
   confluenceSchema,
   createJIRASchema,
 } from '@atlaskit/adf-schema';
+import { BitbucketTransformer } from '@atlaskit/editor-bitbucket-transformer';
+import { ProviderFactory } from '@atlaskit/editor-common';
+import { ConfluenceTransformer } from '@atlaskit/editor-confluence-transformer';
+import { JIRATransformer } from '@atlaskit/editor-jira-transformer';
+import { MarkdownTransformer } from '@atlaskit/editor-markdown-transformer';
 import {
+  a,
+  blockquote,
+  br,
+  code,
+  code_block,
   createEditorFactory,
   doc,
-  // Node
-  blockquote,
-  ul,
-  ol,
-  li,
-  code_block,
+  em,
   emoji,
   expand,
-  nestedExpand,
-  br,
   h1,
   h2,
   h3,
   h4,
   h5,
   h6,
-  mediaGroup,
+  hr,
+  li,
   media,
+  mediaGroup,
   mention,
+  nestedExpand,
+  ol,
+  p,
   panel,
   panelNote,
-  p,
-  hr,
-  table,
-  th,
-  tr,
-  td,
-  // Marks
-  code,
-  em,
-  a,
   strike,
   strong,
   subsup,
+  table,
+  td,
   textColor,
+  th,
+  tr,
+  ul,
   underline,
 } from '@atlaskit/editor-test-helpers';
-import { ProviderFactory } from '@atlaskit/editor-common';
-import { BitbucketTransformer } from '@atlaskit/editor-bitbucket-transformer';
-import { ConfluenceTransformer } from '@atlaskit/editor-confluence-transformer';
-import { JIRATransformer } from '@atlaskit/editor-jira-transformer';
-import { MarkdownTransformer } from '@atlaskit/editor-markdown-transformer';
 import { WikiMarkupTransformer } from '@atlaskit/editor-wikimarkup-transformer';
 import { emoji as emojiData } from '@atlaskit/util-data-test';
-import { Node as PMNode } from 'prosemirror-model';
 
-import { JSONTransformer, JSONDocNode } from '../../index';
+import { JSONDocNode, JSONTransformer } from '../../index';
 
 const transformer = new JSONTransformer();
 const toJSON = (node: PMNode) => transformer.encode(node);

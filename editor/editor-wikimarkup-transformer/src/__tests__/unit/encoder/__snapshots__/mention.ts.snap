@@ -6,4 +6,6 @@ exports[`ADF => WikiMarkup - Mention should convert mention node 1`] = `"Hey [~a
 
 exports[`ADF => WikiMarkup - Mention should convert mention node with context 1`] = `"Hey [~randomPrefix:abc-123], please take a look at this."`;
 
+exports[`ADF => WikiMarkup - Mention should convert mention node with context case-insensitively 1`] = `"Hey [~accountId:bbbbbb], please take a look at this."`;
+
 exports[`ADF => WikiMarkup - Mention should convert unknown mention 1`] = `"Hey [~UNKNOWN_USER], please take a look at this."`;

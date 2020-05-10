@@ -1,4 +1,10 @@
-import { setParentNodeMarkup, removeParentNodeOfType } from 'prosemirror-utils';
+import {
+  removeParentNodeOfType,
+  findSelectedNodeOfType,
+  removeSelectedNode,
+  findParentNodeOfType,
+} from 'prosemirror-utils';
+import { NodeSelection } from 'prosemirror-state';
 import { PanelType } from '@atlaskit/adf-schema';
 import { analyticsService } from '../../analytics';
 import { Command } from '../../types';
@@ -10,10 +16,18 @@ import {
   EVENT_TYPE,
   addAnalytics,
 } from '../analytics';
-import { pluginKey } from './pm-plugins/main';
+import { pluginKey } from './types';
 import { PANEL_TYPE } from '../analytics/types/node-events';
+import { findPanel } from './utils';
 
 export type DomAtPos = (pos: number) => { node: HTMLElement; offset: number };
+
+export const selectPanel = (pos: number): Command => (state, dispatch) => {
+  if (dispatch) {
+    dispatch(state.tr.setSelection(new NodeSelection(state.doc.resolve(pos))));
+  }
+  return true;
+};
 
 export const removePanel = (): Command => (state, dispatch) => {
   const {
@@ -28,10 +42,19 @@ export const removePanel = (): Command => (state, dispatch) => {
   };
   analyticsService.trackEvent(`atlassian.editor.format.panel.delete.button`);
 
+  let deleteTr = tr;
+  if (findSelectedNodeOfType(nodes.panel)(tr.selection)) {
+    deleteTr = removeSelectedNode(tr);
+  } else if (findParentNodeOfType(nodes.panel)(tr.selection)) {
+    deleteTr = removeParentNodeOfType(nodes.panel)(tr);
+  }
+
+  if (!deleteTr) {
+    return false;
+  }
+
   if (dispatch) {
-    dispatch(
-      addAnalytics(state, removeParentNodeOfType(nodes.panel)(tr), payload),
-    );
+    dispatch(addAnalytics(state, deleteTr, payload));
   }
   return true;
 };
@@ -60,14 +83,23 @@ export const changePanelType = (panelType: PanelType): Command => (
     `atlassian.editor.format.panel.${panelType}.button`,
   );
 
-  const changePanelTypeTr = addAnalytics(
-    state,
-    setParentNodeMarkup(nodes.panel, null, { panelType })(tr).setMeta(
-      pluginKey,
-      { activePanelType: panelType },
-    ),
-    payload,
-  );
+  const panelNode = findPanel(state);
+  if (panelNode === undefined) {
+    return false;
+  }
+
+  const newTr = tr
+    .setNodeMarkup(panelNode.pos, nodes.panel, { panelType })
+    .setMeta(pluginKey, { activePanelType: panelType });
+
+  // Make the panel node selected when changing the type of a panel (if the panel was selected)
+  const newTrWithSelection =
+    state.selection instanceof NodeSelection
+      ? newTr.setSelection(new NodeSelection(state.doc.resolve(panelNode.pos)))
+      : newTr;
+
+  const changePanelTypeTr = addAnalytics(state, newTrWithSelection, payload);
+
   changePanelTypeTr.setMeta('scrollIntoView', false);
 
   if (dispatch) {

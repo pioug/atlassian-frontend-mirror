@@ -1,7 +1,10 @@
 import React from 'react';
+
 import { colors } from '@atlaskit/theme';
-import ProgressBar from './ProgressBar';
+
 import { CustomProgressBarProps } from '../types';
+
+import ProgressBar from './ProgressBar';
 
 export default class extends React.PureComponent<CustomProgressBarProps> {
   static defaultProps = {

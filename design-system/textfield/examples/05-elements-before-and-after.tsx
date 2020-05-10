@@ -1,6 +1,8 @@
 import React, { Fragment } from 'react';
-import ErrorIcon from '@atlaskit/icon/glyph/error';
+
 import Avatar from '@atlaskit/avatar';
+import ErrorIcon from '@atlaskit/icon/glyph/error';
+
 import Textfield from '../src';
 
 export default function() {

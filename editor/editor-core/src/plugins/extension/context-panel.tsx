@@ -1,5 +1,5 @@
 import React from 'react';
-import { NodeSelection, EditorState } from 'prosemirror-state';
+import { EditorState } from 'prosemirror-state';
 import { getExtensionKeyAndNodeKey } from '@atlaskit/editor-common/extensions';
 import { getPluginState } from './pm-plugins/main';
 import { getSelectedExtension } from './utils';
@@ -12,23 +12,21 @@ export const getContextPanel = (allowAutoSave?: boolean) => (
   state: EditorState,
 ) => {
   // Adding checks to bail out early
-  if (
-    !(state.selection instanceof NodeSelection) ||
-    state.selection.empty ||
-    !getSelectedExtension(state)
-  ) {
+  if (!getSelectedExtension(state, true)) {
     return;
   }
+
   const extensionState = getPluginState(state);
 
   if (
     extensionState &&
+    extensionState.nodeWithPos &&
     extensionState.showContextPanel &&
     extensionState.extensionProvider &&
     extensionState.processParametersAfter
   ) {
-    const node = state.selection.node.toJSON();
-    const { extensionType, extensionKey, parameters } = node.attrs;
+    const node = extensionState.nodeWithPos.node.toJSON();
+    const { extensionType, extensionKey, parameters, content } = node.attrs;
 
     const [extKey, nodeKey] = getExtensionKeyAndNodeKey(extensionKey);
 
@@ -40,6 +38,10 @@ export const getContextPanel = (allowAutoSave?: boolean) => (
       <WithEditorActions
         render={actions => {
           const editorView = actions._privateGetEditorView();
+
+          if (!editorView) {
+            return null;
+          }
 
           return (
             <ConfigPanelLoader
@@ -64,13 +66,15 @@ export const getContextPanel = (allowAutoSave?: boolean) => (
                   },
                 };
 
-                performNodeUpdate(newAttrs, false)(
-                  editorView!.state,
-                  editorView!.dispatch,
-                );
+                performNodeUpdate(
+                  node.type,
+                  newAttrs,
+                  content,
+                  false,
+                )(editorView.state, editorView.dispatch);
               }}
               onCancel={() => {
-                clearEditingContext(editorView!.state, editorView!.dispatch);
+                clearEditingContext(editorView.state, editorView.dispatch);
               }}
             />
           );

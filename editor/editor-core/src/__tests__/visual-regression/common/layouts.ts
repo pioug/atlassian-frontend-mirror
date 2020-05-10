@@ -1,18 +1,12 @@
 import { snapshot, initEditorWithAdf, Appearance } from '../_utils';
 import { Page } from '../../__helpers/page-objects/_types';
+import { layoutSelectors } from '../../__helpers/page-objects/_layouts';
 import * as col2 from './__fixtures__/column2-adf.json';
 import * as col3 from './__fixtures__/column3-adf.json';
 import * as layoutWithAction from './__fixtures__/layout-with-action-adf.json';
 import * as colLeftSidebar from './__fixtures__/columnLeftSidebar-adf.json';
 import * as colRightSidebar from './__fixtures__/columnRightSidebar-adf.json';
 import * as col3WithSidebars from './__fixtures__/column3WithSidebars-adf.json';
-import { pressKey } from '../../__helpers/page-objects/_keyboard';
-import {
-  selectors,
-  typeInEditorAtEndOfDocument,
-} from '../../__helpers/page-objects/_editor';
-
-const layoutColSelector = '[data-layout-column]';
 
 describe('Layouts:', () => {
   let page: Page;
@@ -53,27 +47,37 @@ describe('Layouts:', () => {
     describe(layout.name, () => {
       it('should correctly render layout on laptop', async () => {
         await initEditor(layout.adf, largeViewport);
-        await page.click(layoutColSelector);
+        await page.click(layoutSelectors.column);
       });
 
       it('should stack layout on smaller screen', async () => {
         await initEditor(layout.adf, smallViewport);
-        await page.click(layoutColSelector);
+        await page.click(layoutSelectors.column);
       });
     });
   });
 
   it('should actions placeholder not overflow the layout', async () => {
     await initEditor(layoutWithAction, largeViewport);
-    await page.click(layoutColSelector);
+    await page.click(layoutSelectors.column);
   });
 
-  // todo: https://product-fabric.atlassian.net/browse/ED-6676
-  // this test is flaky
-  it.skip('should render prosemirror selected node state', async () => {
+  it('should display as selected when clicked on', async () => {
     await initEditor(col2, largeViewport);
-    await typeInEditorAtEndOfDocument(page, '#');
-    await pressKey(page, ['ArrowLeft', 'Backspace']);
-    await page.waitForSelector(selectors.selectedNode);
+    // page.click clicks in centre of element, so we need to get the bounding rect
+    // so we can click the top left corner
+    const contentBoundingRect = await page.evaluate(selector => {
+      const layoutSection = document.querySelector(selector);
+      if (layoutSection) {
+        const rect = layoutSection.getBoundingClientRect();
+        return { top: rect.top, left: rect.left };
+      }
+    }, layoutSelectors.section);
+
+    if (!contentBoundingRect) {
+      throw Error(`Unable to find element ${layoutSelectors.section} on page`);
+    }
+
+    await page.mouse.click(contentBoundingRect.left, contentBoundingRect.top);
   });
 });

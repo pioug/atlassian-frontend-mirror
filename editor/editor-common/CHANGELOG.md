@@ -1,5 +1,20 @@
 # @atlaskit/editor-common
 
+## 45.2.0
+
+### Minor Changes
+
+- [`dd84377963`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dd84377963) - ED-9038 ED-9040 Export class names to use for targetting mention and emoji nodes- [`e97f14eade`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e97f14eade) - ED-9155: Rename prop `extensionParams` to `node` in the extensions api v2- [`d16adc8554`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d16adc8554) - ED-8988 Export more selection style variables- [`c8e601e6fc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c8e601e6fc) - ED-8814 Add selection to panel- [`8bc9f3e9af`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8bc9f3e9af) - ED-8942: Changed default font size for full width editor and renderer
+
+  - Previously default font size for full page editor was 14px. Now, when `allowDynamicTextSizing` is disabled it equals to 16px.
+  - Font size in table was 14px, ignoring dynamic text sizing font size, after this change it follows the same rules as the rest of the editor, namely it will get updated font size.- [`403377ca1a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/403377ca1a) - ED-8997: Implements creating marks on basic text selections
+
+### Patch Changes
+
+- [`0b596fcb22`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0b596fcb22) - ED-9248 Fix bug where deleting from floating toolbar menu did not work for selected panel nodes- [`9b1a0d0033`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9b1a0d0033) - ED-8358 Revert making decisions background grey- [`331a030a54`](https://bitbucket.org/atlassian/atlassian-frontend/commits/331a030a54) - ED-9177: Block creation when selection contains nodes which cannot be annotated- [`56a7357c81`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56a7357c81) - ED-9197: upgrade prosemirror-transform to prevent cut and paste type errors
+
+  It's important to make sure that there isn't any `prosemirror-transform` packages with version less than 1.2.5 in `yarn.lock`.- [`d895d21c49`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d895d21c49) - ED-9176: add annotations to task and decisions- [`12cd8f8c1b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/12cd8f8c1b) - ED-9048: Allow consumers to open the config after inserting an extension- Updated dependencies
+
 ## 45.1.0
 
 ### Minor Changes

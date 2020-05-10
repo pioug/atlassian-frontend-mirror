@@ -1,7 +1,8 @@
 import React, { useMemo } from 'react';
 import { ThemeProvider } from 'styled-components';
-import { fontSize } from '@atlaskit/theme';
+import { fontSize } from '@atlaskit/theme/constants';
 import { WidthConsumer, Breakpoints } from '../WidthProvider';
+import { akEditorDefaultLayoutWidth } from '../../styles';
 
 function mapBreakpointToFontSize(breakpoint: Breakpoints) {
   switch (breakpoint) {
@@ -29,22 +30,25 @@ type BaseThemeWrapperProps = {
   breakpoint: Breakpoints;
   dynamicTextSizing?: boolean;
   children: React.ReactNode;
+  baseFontSize?: number;
 };
+
 export function BaseThemeWrapper({
   breakpoint,
   dynamicTextSizing,
+  baseFontSize,
   children,
 }: BaseThemeWrapperProps) {
   const memoizedTheme = useMemo(
     () => ({
       baseFontSize: dynamicTextSizing
         ? mapBreakpointToFontSize(breakpoint)
-        : mapBreakpointToFontSize('S'),
+        : baseFontSize || mapBreakpointToFontSize('S'),
       layoutMaxWidth: dynamicTextSizing
         ? mapBreakpointToLayoutMaxWidth(breakpoint)
-        : mapBreakpointToLayoutMaxWidth('S'),
+        : akEditorDefaultLayoutWidth,
     }),
-    [breakpoint, dynamicTextSizing],
+    [breakpoint, dynamicTextSizing, baseFontSize],
   );
 
   return <ThemeProvider theme={memoizedTheme}>{children}</ThemeProvider>;
@@ -53,15 +57,21 @@ export function BaseThemeWrapper({
 type BaseThemeProps = {
   children: React.ReactNode;
   dynamicTextSizing?: boolean;
+  baseFontSize?: number;
 };
 
-export function BaseTheme({ children, dynamicTextSizing }: BaseThemeProps) {
+export function BaseTheme({
+  children,
+  dynamicTextSizing,
+  baseFontSize,
+}: BaseThemeProps) {
   return (
     <WidthConsumer>
       {({ breakpoint }) => (
         <BaseThemeWrapper
           dynamicTextSizing={dynamicTextSizing}
           breakpoint={breakpoint}
+          baseFontSize={baseFontSize}
         >
           <>{children}</>
         </BaseThemeWrapper>

@@ -2,25 +2,25 @@
 order: 0
 ---
 
-import DefaultPagination from '../../examples/constellation/DefaultPagination';
-import TruncationPagination from '../../examples/constellation/TruncationPagination';
-import DefaultSelectedIndexPagination from '../../examples/constellation/DefaultSelectedIndexPagination';
+import PaginationDefault from '../../examples/constellation/PaginationDefault';
+import PaginationTruncation from '../../examples/constellation/PaginationTruncation';
+import PaginationDefaultSelectedIndex from '../../examples/constellation/PaginationDefaultSelectedIndex';
 
 ## Default
 
 The default form of pagination.
 
-<Example Component={DefaultPagination} componentName="@atlaskit/pagination" />
+<Example Component={PaginationDefault} componentName="@atlaskit/pagination" />
 
 ## Truncation
 
 When the number of pages exceeds the maximum display limit, an ellipsis is used to truncate the remaining pages.
 
-Double truncation is used when the current page is separated by more than 5 pages from both the first and last page.
+Double truncation is used when the current page is separated by more than five pages from both the first and last page.
 
 <Example
-	Component={TruncationPagination}
-	componentName="@atlaskit/pagination"
+  Component={PaginationTruncation}
+  componentName="@atlaskit/pagination"
 />
 
 ## Default selected index
@@ -28,6 +28,6 @@ Double truncation is used when the current page is separated by more than 5 page
 The index of the page to be selected by default can be specified.
 
 <Example
-	Component={DefaultSelectedIndexPagination}
-	componentName="@atlaskit/pagination"
+  Component={PaginationDefaultSelectedIndex}
+  componentName="@atlaskit/pagination"
 />

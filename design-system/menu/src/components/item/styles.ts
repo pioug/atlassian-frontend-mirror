@@ -105,6 +105,9 @@ const baseItemCSS = (
     marginBottom: gridSize * 0.75,
   },
 
+  '&:visited': {
+    color: N800,
+  },
   '&:hover': {
     color: N800,
     backgroundColor: N20,

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/pagination",
-  "version": "12.0.19",
+  "version": "12.0.20",
   "description": "Pagination allows you to divide large amounts of content into smaller, more digestible chunks across multiple pages.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -24,7 +24,7 @@
   "dependencies": {
     "@atlaskit/analytics-next": "^6.3.5",
     "@atlaskit/button": "^13.3.7",
-    "@atlaskit/icon": "^20.0.1",
+    "@atlaskit/icon": "^20.1.2",
     "@atlaskit/theme": "^9.5.1",
     "tslib": "^1.9.3"
   },
@@ -36,12 +36,17 @@
     "@atlaskit/build-utils": "^2.2.7",
     "@atlaskit/docs": "^8.3.2",
     "@atlaskit/dynamic-table": "^13.6.2",
-    "@atlaskit/section-message": "^4.1.5",
+    "@atlaskit/section-message": "^4.1.8",
     "@atlaskit/ssr": "^0.1.1",
     "@atlaskit/visual-regression": "^0.1.9",
     "enzyme": "^3.10.0",
     "exenv": "^1.2.2",
     "react-dom": "^16.8.0",
     "react-router-dom": "^4.2.2"
+  },
+  "techstack": {
+    "@atlassian/frontend": {
+      "import-structure": "atlassian-conventions"
+    }
   }
 }

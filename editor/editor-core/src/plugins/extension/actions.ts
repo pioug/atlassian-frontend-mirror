@@ -12,15 +12,39 @@ import { MacroProvider } from '@atlaskit/editor-common/provider-factory';
 
 import { mapFragment } from '../../utils/slice';
 import { Command, CommandDispatch } from '../../types';
+import EditorActions from '../../actions';
 import { insertMacroFromMacroBrowser } from '../macro';
 import { getSelectedExtension } from './utils';
 import { setEditingContextToContextPanel } from './commands';
 
+import { getPluginState } from './pm-plugins/main';
+
+const resolveExtension = (
+  type: 'inlineExtension' | 'extension' | 'bodiedExtension',
+  attrs: object,
+  state: EditorState,
+  content?: object,
+) => {
+  const { schema } = state;
+
+  switch (type) {
+    case 'extension':
+      return schema.nodes.extension.createChecked(attrs);
+    case 'inlineExtension':
+      return schema.nodes.inlineExtension.createChecked(attrs);
+    case 'bodiedExtension':
+      return schema.nodes.bodiedExtension.create(attrs, content);
+  }
+};
+
 export const performNodeUpdate = (
+  type: 'inlineExtension' | 'extension' | 'bodiedExtension',
   newAttrs: object,
+  content: object,
   shouldScrollIntoView: boolean,
 ) => (state: EditorState, dispatch?: CommandDispatch) => {
-  const newNode = state.schema.nodes.extension.createChecked(newAttrs);
+  const newNode = resolveExtension(type, newAttrs, state, content);
+
   if (!newNode) {
     return;
   }
@@ -41,24 +65,34 @@ export const updateExtensionParams = (
   node: { node: PmNode; pos: number },
   actions: UpdateContextActions,
 ) => async (state: EditorState, dispatch?: CommandDispatch): Promise<void> => {
-  if (!state.schema.nodes.extension) {
+  const { attrs, type } = node.node;
+
+  if (!state.schema.nodes[type.name]) {
     return;
   }
 
-  const { parameters } = node.node.attrs;
-  const newParameters = await updateExtension(parameters, actions);
+  const { parameters, content } = attrs;
 
-  if (newParameters) {
-    const newAttrs = {
-      ...node.node.attrs,
-      parameters: {
-        ...parameters,
-        ...newParameters,
-      },
-    };
+  try {
+    const newParameters = await updateExtension(parameters, actions);
 
-    return performNodeUpdate(newAttrs, true)(state, dispatch);
-  }
+    if (newParameters) {
+      const newAttrs = {
+        ...attrs,
+        parameters: {
+          ...parameters,
+          ...newParameters,
+        },
+      };
+
+      return performNodeUpdate(
+        type.name as 'inlineExtension' | 'extension' | 'bodiedExtension',
+        newAttrs,
+        content,
+        true,
+      )(state, dispatch);
+    }
+  } catch {}
 };
 
 const createUpdateContextActions = ({
@@ -83,9 +117,18 @@ const createUpdateContextActions = ({
   };
 };
 
+export const editSelectedExtension = (editorActions: EditorActions) => {
+  const editorView = editorActions._privateGetEditorView()!;
+  const { updateExtension } = getPluginState(editorView.state);
+  return editExtension(null, updateExtension)(
+    editorView.state,
+    editorView.dispatch,
+  );
+};
+
 export const editExtension = (
   macroProvider: MacroProvider | null,
-  updateExtension?: UpdateExtension<object>,
+  updateExtension?: Promise<UpdateExtension<object> | void>,
 ): Command => (state, dispatch): boolean => {
   const nodeWithPos = getSelectedExtension(state, true);
 
@@ -107,26 +150,34 @@ export const editExtension = (
     )(state, dispatch);
   };
 
-  if (updateExtension && dispatch) {
-    const actions = createUpdateContextActions({ editInLegacyMacroBrowser })(
-      state,
-      dispatch,
-    );
+  if (updateExtension) {
+    updateExtension.then(updateMethod => {
+      if (updateMethod && dispatch) {
+        const actions = createUpdateContextActions({
+          editInLegacyMacroBrowser,
+        })(state, dispatch);
 
-    updateExtensionParams(
-      updateExtension,
-      nodeWithPos,
-      actions,
-    )(state, dispatch);
+        updateExtensionParams(
+          updateMethod,
+          nodeWithPos,
+          actions,
+        )(state, dispatch);
 
-    return true;
+        return;
+      }
+
+      if (!updateMethod && macroProvider) {
+        editInLegacyMacroBrowser();
+        return;
+      }
+    });
+  } else {
+    if (!macroProvider) {
+      return false;
+    }
+
+    editInLegacyMacroBrowser();
   }
-
-  if (!macroProvider) {
-    return false;
-  }
-
-  editInLegacyMacroBrowser();
 
   return true;
 };

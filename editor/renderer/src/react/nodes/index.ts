@@ -1,5 +1,5 @@
 import React from 'react';
-import { Fragment, Node } from 'prosemirror-model';
+import { Fragment, Node, Mark } from 'prosemirror-model';
 
 import Blockquote from './blockquote';
 import BodiedExtension, {
@@ -187,6 +187,7 @@ export interface TextWrapper {
     name: 'textWrapper';
   };
   content: Node[];
+  nodeSize: number;
 }
 
 export interface NodeSimple {
@@ -195,6 +196,7 @@ export interface NodeSimple {
   };
   attrs?: any;
   text?: string;
+  nodeSize: number;
 }
 
 /*
@@ -248,13 +250,16 @@ export const mergeTextNodes = (nodes: (Node | NodeSimple)[]) => {
 
     // Append node to previous node, if it was a text wrapper
     if (acc.length > 0 && isTextWrapper(acc[acc.length - 1])) {
-      (acc[acc.length - 1] as TextWrapper).content!.push(current as Node);
+      const textWrapper = acc[acc.length - 1] as TextWrapper;
+      textWrapper.content!.push(current as Node);
+      textWrapper.nodeSize += current.nodeSize;
     } else {
       acc.push({
         type: {
           name: 'textWrapper',
         },
         content: [current],
+        nodeSize: current.nodeSize,
       } as TextWrapper);
     }
 
@@ -271,6 +276,10 @@ export const isTextWrapper = (
 ): node is TextWrapper => {
   return node.type.name === 'textWrapper';
 };
+
+export function isTextNode(node: Node | Mark): node is Node {
+  return node.type.name === 'text';
+}
 
 const whitespaceRegex = /^\s*$/;
 

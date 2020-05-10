@@ -2,20 +2,20 @@
 order: 0
 ---
 
-import InlineCode from '../../examples/constellation/inline-code';
-import CodeBlock from '../../examples/constellation/code-block';
-import CodeBlockLineNumbers from '../../examples/constellation/code-block-line-numbers';
-import CodeBlockLineHighlighting from '../../examples/constellation/code-block-line-highlighting';
+import CodeInline from '../../examples/constellation/CodeInline';
+import CodeBlock from '../../examples/constellation/CodeBlock';
+import CodeBlockLineNumbers from '../../examples/constellation/CodeBlockLineNumbers';
+import CodeBlockLineHighlight from '../../examples/constellation/CodeBlockLineHighlight';
 
 ## Inline code
 
-Inline code adds a background and highlights the code snippet.
+Code highlights short strings of code snippets inline with body text.
 
-<Example Component={InlineCode} componentName="@atlaskit/code" />
+<Example Component={CodeInline} componentName="@atlaskit/code" />
 
 ## Code block
 
-A code block adds a background, highlights the code text and keeps the formatting.
+A code block highlights an entire block of code and keeps the formatting.
 
 <Example Component={CodeBlock} componentName="@atlaskit/code" />
 
@@ -27,6 +27,10 @@ A code block can be displayed with or without line numbers. Line numbers are sho
 
 ## Line highlighting
 
-Lines in a block of code can be highlighted.
+Lines in a code block can be highlighted.
 
-<Example Component={CodeBlockLineHighlighting} componentName="@atlaskit/code" />
+- To highlight one line: `highlight="3"`
+- To highlight a group of lines: `highlight="1-5"`
+- To highlight multiple groups: `highlight="1-5,7,10,15-20"`
+
+<Example Component={CodeBlockLineHighlight} componentName="@atlaskit/code" />

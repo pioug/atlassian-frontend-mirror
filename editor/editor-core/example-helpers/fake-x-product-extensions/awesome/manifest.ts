@@ -1,4 +1,4 @@
-import { ExtensionManifest } from '@atlaskit/editor-common';
+import { ExtensionManifest } from '@atlaskit/editor-common/extensions';
 
 const manifest: ExtensionManifest = {
   title: 'My awesome extension',

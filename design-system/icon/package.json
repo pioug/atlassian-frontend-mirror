@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/icon",
-  "version": "20.1.1",
+  "version": "20.1.2",
   "description": "A React package that contains icons",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -44,9 +44,9 @@
     "@atlaskit/icon-priority": "^5.0.3",
     "@atlaskit/logo": "^12.3.4",
     "@atlaskit/modal-dialog": "^10.5.7",
-    "@atlaskit/section-message": "^4.1.7",
+    "@atlaskit/section-message": "^4.1.8",
     "@atlaskit/ssr": "^0.1.1",
-    "@atlaskit/textfield": "^3.1.9",
+    "@atlaskit/textfield": "^3.1.10",
     "@atlaskit/tooltip": "^15.2.6",
     "@atlaskit/visual-regression": "^0.1.9",
     "@babel/core": "^7.1.0",

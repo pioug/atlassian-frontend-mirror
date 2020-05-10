@@ -1,5 +1,11 @@
 # @atlaskit/textfield
 
+## 3.1.10
+
+### Patch Changes
+
+- [`83f4f94df3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/83f4f94df3) - Change imports to comply with Atlassian conventions- Updated dependencies
+
 ## 3.1.9
 
 ### Patch Changes

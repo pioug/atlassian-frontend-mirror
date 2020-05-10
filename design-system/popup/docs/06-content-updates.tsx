@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Example, md } from '@atlaskit/docs';
+import { code, Example, md } from '@atlaskit/docs';
 
 export default md`
   Sometimes we will want to change the content inside the popup -
@@ -9,6 +9,17 @@ export default md`
 
   When called it will re-position the popup to its correct location.
   Make sure to **call this in the same callback or update step** to ensure everything happens in the same animation frame.
+
+  ${code`
+import Popup from '@atlaskit/popup';
+
+<Popup
+  content={props => (
+    // Call schedule update when things change
+    <Quotes onUpdate={props.scheduleUpdate} />
+  )}
+/>
+  `}
 
   ${(
     <Example

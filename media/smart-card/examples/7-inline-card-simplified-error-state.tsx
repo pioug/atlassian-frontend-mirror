@@ -2,6 +2,38 @@ import React from 'react';
 import Page, { Grid, GridColumn } from '@atlaskit/page';
 import { Card, Client, Provider, ResolveResponse } from '../src';
 
+class ForbiddenClient extends Client {
+  fetchData(): Promise<ResolveResponse> {
+    return Promise.resolve({
+      meta: {
+        access: 'forbidden',
+        visibility: 'restricted',
+        definitionId: 'd1',
+        auth: [],
+      },
+    } as ResolveResponse);
+  }
+}
+
+class ForbiddenClientWithAuth extends Client {
+  fetchData(): Promise<ResolveResponse> {
+    return Promise.resolve({
+      meta: {
+        access: 'forbidden',
+        visibility: 'restricted',
+        definitionId: 'd1',
+        auth: [
+          {
+            key: 'mock-key',
+            displayName: 'mock-name',
+            url: 'http://mock-url',
+          },
+        ],
+      },
+    } as ResolveResponse);
+  }
+}
+
 class UnAuthCustomClient extends Client {
   fetchData(): Promise<ResolveResponse> {
     return Promise.resolve({
@@ -60,6 +92,7 @@ const unAuthClient = new UnAuthCustomClient();
 const unAuthClientWithAction = new UnAuthCustomClientWithAction();
 const erroringClient = new ErroringCustomClient();
 const notFoundClient = new NotFoundClient();
+const forbiddenClient = new ForbiddenClient();
 
 class Example extends React.Component {
   render() {
@@ -77,7 +110,7 @@ class Example extends React.Component {
 
             <hr />
 
-            <h4>Unauthorized response with action</h4>
+            <h4>Unauthorized response with auth</h4>
             <Provider
               client={unAuthClientWithAction}
               cacheOptions={{ maxLoadingDelay: 1000, maxAge: 15000 }}
@@ -87,6 +120,25 @@ class Example extends React.Component {
 
             <hr />
 
+            <h4>Forbidden response</h4>
+            <Provider
+              client={forbiddenClient}
+              cacheOptions={{ maxLoadingDelay: 1000, maxAge: 15000 }}
+            >
+              <Card url="http://some.unauth.url" appearance="inline" />
+            </Provider>
+
+            <hr />
+
+            <h4>Forbidden response with auth</h4>
+            <Provider
+              client={new ForbiddenClientWithAuth()}
+              cacheOptions={{ maxLoadingDelay: 1000, maxAge: 15000 }}
+            >
+              <Card url="http://some.unauth.url" appearance="inline" />
+            </Provider>
+
+            <hr />
             <h4>Error response</h4>
             <Provider
               client={erroringClient}

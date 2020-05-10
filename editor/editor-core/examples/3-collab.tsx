@@ -234,9 +234,9 @@ const editorProps = ({
   allowTables: {
     advanced: true,
   },
-  extensionProviders: [
+  extensionProviders: editorActions => [
     getXProductExtensionProvider(),
-    getConfluenceMacrosExtensionProvider(),
+    getConfluenceMacrosExtensionProvider(editorActions),
   ],
   allowExtension: { allowAutoSave: true, allowBreakout: true },
   macroProvider: Promise.resolve(macroProvider),

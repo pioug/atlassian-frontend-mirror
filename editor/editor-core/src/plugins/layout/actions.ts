@@ -1,7 +1,12 @@
 import { safeInsert } from 'prosemirror-utils';
 import { Fragment, Node, Schema, Slice } from 'prosemirror-model';
 import { Command } from '../../types/command';
-import { EditorState, TextSelection, Transaction } from 'prosemirror-state';
+import {
+  EditorState,
+  TextSelection,
+  Transaction,
+  NodeSelection,
+} from 'prosemirror-state';
 import { flatmap, mapChildren } from '../../utils/slice';
 import { getStepRange, isEmptyDocument } from '../../utils';
 import {
@@ -202,8 +207,12 @@ export function forceSectionToPresetLayout(
 
   tr = forceColumnWidths(state, tr, pos, presetLayout);
 
+  const selectionPos$ = tr.doc.resolve(selection.$from.pos);
+
   return tr.setSelection(
-    new TextSelection(tr.doc.resolve(selection.$from.pos)),
+    state.selection instanceof NodeSelection
+      ? new NodeSelection(selectionPos$)
+      : new TextSelection(selectionPos$),
   );
 }
 
@@ -351,4 +360,11 @@ const formatLayoutName = (layout: PresetLayout): LAYOUT_TYPE => {
     case 'three_with_sidebars':
       return LAYOUT_TYPE.THREE_WITH_SIDEBARS;
   }
+};
+
+export const selectLayout = (pos: number): Command => (state, dispatch) => {
+  if (dispatch) {
+    dispatch(state.tr.setSelection(new NodeSelection(state.doc.resolve(pos))));
+  }
+  return true;
 };

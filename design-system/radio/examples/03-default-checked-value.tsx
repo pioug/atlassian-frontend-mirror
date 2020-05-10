@@ -1,4 +1,5 @@
 import React, { Component, SyntheticEvent } from 'react';
+
 import { RadioGroup } from '../src';
 
 const radioValues = [

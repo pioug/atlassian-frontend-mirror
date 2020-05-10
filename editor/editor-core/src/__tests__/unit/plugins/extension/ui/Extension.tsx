@@ -228,8 +228,8 @@ describe('@atlaskit/editor-core/ui/Extension', () => {
   });
 
   describe('extension provider', () => {
-    const ExtensionHandlerComponent = ({ extensionParams }: any) => {
-      return <div>Extension provider: {extensionParams.content}</div>;
+    const ExtensionHandlerComponent = ({ node }: any) => {
+      return <div>Extension provider: {node.content}</div>;
     };
 
     const confluenceMacrosExtensionProvider = createFakeExtensionProvider(
@@ -326,7 +326,7 @@ describe('@atlaskit/editor-core/ui/Extension', () => {
 
     it('should fallback to extension provider in case extension handlers do not handle it', async () => {
       const extensionHandlers: ExtensionHandlers = {
-        'fake.confluence': (extensionParams: any) => null,
+        'fake.confluence': (node: any) => null,
       };
 
       const extension = mount(

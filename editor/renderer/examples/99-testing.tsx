@@ -13,6 +13,10 @@ import { document as defaultDoc } from './helper/story-data';
 import Sidebar from './helper/NavigationNext';
 import { MentionProvider } from '@atlaskit/mention/types';
 
+import { RendererActionsContext as RendererContext } from '../src/ui/RendererActionsContext';
+import { WithRendererActions } from '../src/ui/RendererActionsContext/WithRendererActions';
+import RendererActions from '../src/actions/index';
+
 const mediaProvider = storyMediaProviderFactory();
 const emojiProvider = emoji.storyData.getEmojiResource();
 const contextIdentifierProvider = storyContextIdentifierProviderFactory();
@@ -24,6 +28,16 @@ const taskDecisionProvider = Promise.resolve(
   taskDecision.getMockTaskDecisionResource(),
 );
 
+interface MountProps {
+  showSidebar?: boolean;
+  withRendererActions?: boolean;
+}
+
+interface WindowBindings {
+  __mountRenderer?: () => void;
+  __rendererActions?: RendererActions;
+}
+
 const providerFactory = ProviderFactory.create({
   mediaProvider,
   mentionProvider,
@@ -32,13 +46,32 @@ const providerFactory = ProviderFactory.create({
   taskDecisionProvider,
 });
 
-function createRendererWindowBindings(win: Window) {
-  if ((win as Window & { __mountRenderer?: () => void }).__mountRenderer) {
+function renderRenderer({ adf, props }: { props: MountProps; adf: any }) {
+  const { showSidebar, ...reactProps } = props;
+  return (
+    <Provider>
+      <Sidebar showSidebar={!!showSidebar}>
+        {(additionalRendererProps: any) => (
+          <Renderer
+            dataProviders={providerFactory}
+            document={adf}
+            extensionHandlers={extensionHandlers}
+            {...reactProps}
+            {...additionalRendererProps}
+          />
+        )}
+      </Sidebar>
+    </Provider>
+  );
+}
+
+function createRendererWindowBindings(win: Window & WindowBindings) {
+  if (win.__mountRenderer) {
     return;
   }
 
   (window as any)['__mountRenderer'] = (
-    props: { showSidebar?: boolean },
+    props: MountProps,
     adf: any = defaultDoc,
   ) => {
     const target = document.getElementById('renderer-container');
@@ -47,25 +80,23 @@ function createRendererWindowBindings(win: Window) {
       return;
     }
 
-    const { showSidebar, ...reactProps } = props;
+    let render = renderRenderer({ adf, props });
+    let content;
+    if (props.withRendererActions) {
+      content = (
+        <RendererContext>
+          <WithRendererActions
+            render={actions => {
+              win.__rendererActions = actions;
+              return render;
+            }}
+          />
+        </RendererContext>
+      );
+    }
 
     ReactDOM.unmountComponentAtNode(target);
-    ReactDOM.render(
-      <Provider>
-        <Sidebar showSidebar={!!showSidebar}>
-          {(additionalRendererProps: any) => (
-            <Renderer
-              dataProviders={providerFactory}
-              document={adf}
-              extensionHandlers={extensionHandlers}
-              {...reactProps}
-              {...additionalRendererProps}
-            />
-          )}
-        </Sidebar>
-      </Provider>,
-      target,
-    );
+    ReactDOM.render(content || render, target);
   };
 }
 

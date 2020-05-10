@@ -26,6 +26,7 @@ import tasksAndDecisionsPlugin from '../../../plugins/tasks-and-decisions';
 import textColorPlugin from '../../../plugins/text-color';
 import maxContentSizePlugin from '../../../plugins/max-content-size';
 import expandPlugin from '../../../plugins/expand';
+import selectionPlugin from '../../../plugins/selection';
 import { PresetProvider } from '../Editor';
 import { EditorPresetProps } from './types';
 import { useDefaultPreset } from './default';
@@ -78,6 +79,7 @@ export function useMobilePreset({
   preset.add(annotationPlugin);
   preset.add(mobileScrollPlugin);
   preset.add(expandPlugin);
+  preset.add([selectionPlugin, { useLongPressSelection: true }]);
   // Begin -> This would be exclude if the provider doesnt exist in the factory
   preset.add(tasksAndDecisionsPlugin);
   preset.add([cardPlugin, { allowBlockCards: true }]);

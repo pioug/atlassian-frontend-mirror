@@ -97,6 +97,7 @@ export default {
     'analytics',
     'history',
     'findReplace',
+    'selection',
   ],
   nodes: [
     'doc',

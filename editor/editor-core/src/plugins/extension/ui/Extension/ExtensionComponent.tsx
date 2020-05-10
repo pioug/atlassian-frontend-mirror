@@ -3,16 +3,11 @@ import { Component } from 'react';
 import { EditorView } from 'prosemirror-view';
 import { Node as PMNode } from 'prosemirror-model';
 import {
-  selectParentNodeOfType,
-  findSelectedNodeOfType,
-} from 'prosemirror-utils';
-import {
   ExtensionHandlers,
   getExtensionRenderer,
   getNodeRenderer,
   ExtensionProvider,
 } from '@atlaskit/editor-common';
-import { setNodeSelection } from '../../../../utils';
 import Extension from './Extension';
 import InlineExtension from './InlineExtension';
 
@@ -71,7 +66,6 @@ export default class ExtensionComponent extends Component<Props, State> {
             node={node}
             extensionProvider={this.state.extensionProvider}
             handleContentDOMRef={handleContentDOMRef}
-            onSelectExtension={this.handleSelectExtension}
             view={editorView}
           >
             {extensionHandlerResult}
@@ -104,28 +98,6 @@ export default class ExtensionComponent extends Component<Props, State> {
       });
   };
 
-  private handleSelectExtension = (hasBody: boolean) => {
-    const {
-      state,
-      state: { selection, schema },
-      dispatch,
-    } = this.props.editorView;
-    let { tr } = state;
-
-    if (hasBody) {
-      tr = selectParentNodeOfType([schema.nodes.bodiedExtension])(state.tr);
-      dispatch(tr);
-    } else if (
-      !findSelectedNodeOfType([
-        schema.nodes.inlineExtension,
-        schema.nodes.extension,
-        schema.nodes.bodiedExtension,
-      ])(selection)
-    ) {
-      setNodeSelection(this.props.editorView, selection.$from.pos - 1);
-    }
-  };
-
   private tryExtensionHandler() {
     const { node } = this.props;
     try {
@@ -142,17 +114,17 @@ export default class ExtensionComponent extends Component<Props, State> {
     return null;
   }
 
-  private handleExtension = (node: PMNode) => {
+  private handleExtension = (pmNode: PMNode) => {
     const { extensionHandlers, editorView } = this.props;
-    const { extensionType, extensionKey, parameters, text } = node.attrs;
-    const isBodiedExtension = node.type.name === 'bodiedExtension';
+    const { extensionType, extensionKey, parameters, text } = pmNode.attrs;
+    const isBodiedExtension = pmNode.type.name === 'bodiedExtension';
 
     if (isBodiedExtension) {
       return;
     }
 
-    const extensionParams = {
-      type: node.type.name as
+    const node = {
+      type: pmNode.type.name as
         | 'extension'
         | 'inlineExtension'
         | 'bodiedExtension',
@@ -166,7 +138,7 @@ export default class ExtensionComponent extends Component<Props, State> {
 
     if (extensionHandlers && extensionHandlers[extensionType]) {
       const render = getExtensionRenderer(extensionHandlers[extensionType]);
-      result = render(extensionParams, editorView.state.doc);
+      result = render(node, editorView.state.doc);
     }
 
     if (!result) {
@@ -180,7 +152,7 @@ export default class ExtensionComponent extends Component<Props, State> {
 
       if (extensionHandlerFromProvider) {
         const NodeRenderer = extensionHandlerFromProvider;
-        return <NodeRenderer extensionParams={extensionParams} />;
+        return <NodeRenderer node={node} />;
       }
     }
 

@@ -1,6 +1,7 @@
 import styled from 'styled-components';
-import { borderRadius, gridSize } from '@atlaskit/theme/constants';
+
 import { N500 } from '@atlaskit/theme/colors';
+import { borderRadius, gridSize } from '@atlaskit/theme/constants';
 import { h500 } from '@atlaskit/theme/typography';
 
 export const Container = styled.section<{ backgroundColor: string }>`

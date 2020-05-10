@@ -23,7 +23,7 @@ paths when published.
 You will manually need to run `yarn update:icons` from the root repository, or
 `yarn build` from inside the icon folder whenever you make changes to icon.
 
-New Icons should be added to `/packages/core/icon/svgs_raw/`.
+New Icons should be added to `/icon/svgs_raw/` and metadata about the icon added to `/icon/src/metadata.ts`, followed by the build step. The name of the icon will also need to be added to the `expected` array in `/icon/src/components/__tests__/unit/indexSpec.tsx`.
 
 **NOTE:** The `reduced-ui-pack` package should contain all the icons we include
 in this package. Make sure to rebuild the `reduced-ui-pack` sprite as outlined in

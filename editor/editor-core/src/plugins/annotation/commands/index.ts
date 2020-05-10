@@ -1,6 +1,6 @@
 import { EditorState } from 'prosemirror-state';
+import { Mark } from 'prosemirror-model';
 import {
-  AnnotationActionType,
   AnnotationAEPAttributes,
   RESOLVE_METHOD,
 } from './../../analytics/types/inline-comment-events';
@@ -16,24 +16,10 @@ import {
   ACTION,
   INPUT_METHOD,
 } from '../../analytics';
+import { AnalyticsEventPayloadCallback } from '../../analytics/utils';
+import { AnalyticsEventPayload } from '../../analytics/types';
 import { InlineCommentAction } from '../types';
 import { hasInlineNodes } from '../utils';
-
-const createCommandWithAnalytics = (
-  actionType: AnnotationActionType,
-  attributes: AnnotationAEPAttributes,
-  action:
-    | InlineCommentAction
-    | ((state: Readonly<EditorState<any>>) => InlineCommentAction | false),
-) => {
-  return withAnalytics({
-    action: actionType,
-    actionSubject: ACTION_SUBJECT.ANNOTATION,
-    actionSubjectId: ACTION_SUBJECT_ID.INLINE_COMMENT,
-    eventType: EVENT_TYPE.TRACK,
-    attributes,
-  })(createCommand(action));
-};
 
 export const setInlineCommentState = (newState: any): Command =>
   createCommand({
@@ -84,23 +70,51 @@ export const resolveInlineComment = (
     type: ACTIONS.INLINE_COMMENT_RESOLVE,
     data: { id },
   };
-  return createCommandWithAnalytics(
-    ACTION.RESOLVED,
-    {
+
+  return withAnalytics({
+    action: ACTION.RESOLVED,
+    actionSubject: ACTION_SUBJECT.ANNOTATION,
+    actionSubjectId: ACTION_SUBJECT_ID.INLINE_COMMENT,
+    eventType: EVENT_TYPE.TRACK,
+    attributes: {
       method: resolveMethod,
     },
-    command,
-  );
+  })(createCommand(command));
 };
 
-export const setInlineCommentDraftState = (drafting: boolean): Command => {
+const getOverlapCount = (state: EditorState): number => {
+  const { annotation } = state.schema.marks;
+  const { from, to } = state.selection;
+  const overlaps = new Set<string>();
+
+  state.doc.nodesBetween(from, to, node => {
+    node.marks.forEach((mark: Mark<any>) => {
+      if (mark.type === annotation) {
+        overlaps.add(mark.attrs.id);
+      }
+    });
+    return true; // be thorough, go through all children
+  });
+
+  return overlaps.size;
+};
+
+export const setInlineCommentDraftState = (
+  drafting: boolean,
+  inputMethod:
+    | INPUT_METHOD.TOOLBAR
+    | INPUT_METHOD.SHORTCUT = INPUT_METHOD.TOOLBAR,
+): Command => {
   const commandAction: (
     state: Readonly<EditorState<any>>,
   ) => InlineCommentAction | false = (editorState: EditorState) => {
-    const selectionInvalid = hasInlineNodes(editorState);
+    // validate selection only when entering draft mode
+    if (drafting) {
+      const selectionHasInlineNodes = hasInlineNodes(editorState);
 
-    if (selectionInvalid || editorState.selection.empty) {
-      return false;
+      if (selectionHasInlineNodes || editorState.selection.empty) {
+        return false;
+      }
     }
 
     return {
@@ -112,17 +126,28 @@ export const setInlineCommentDraftState = (drafting: boolean): Command => {
     };
   };
 
-  return createCommandWithAnalytics(
-    drafting ? ACTION.OPENED : ACTION.CLOSED,
-    // TODO: passing actual attributes to be implemented in ED-9116
-    drafting
-      ? {
-          inputMethod: INPUT_METHOD.TOOLBAR,
-          overlap: 0,
-        }
-      : {},
-    commandAction,
-  );
+  const payload: AnalyticsEventPayloadCallback = (
+    state: EditorState,
+  ): AnalyticsEventPayload | undefined => {
+    let attributes: AnnotationAEPAttributes = {};
+
+    if (drafting) {
+      attributes = {
+        inputMethod,
+        overlap: getOverlapCount(state),
+      };
+    }
+
+    return {
+      action: drafting ? ACTION.OPENED : ACTION.CLOSED,
+      actionSubject: ACTION_SUBJECT.ANNOTATION,
+      actionSubjectId: ACTION_SUBJECT_ID.INLINE_COMMENT,
+      eventType: EVENT_TYPE.TRACK,
+      attributes,
+    };
+  };
+
+  return withAnalytics(payload)(createCommand(commandAction));
 };
 
 export const updateMouseState = (mouseData: {

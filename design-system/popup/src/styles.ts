@@ -16,7 +16,3 @@ export const popupCSS = {
     outline: 'none',
   },
 } as const;
-
-export const containerCSS = {
-  position: 'relative',
-} as const;

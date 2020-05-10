@@ -1,4 +1,5 @@
 import React from 'react';
+
 import ProgressBar from '../src';
 
 export const progress = 0.4;

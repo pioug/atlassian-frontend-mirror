@@ -54,7 +54,6 @@ export default () => {
         content={props => (
           <Quotes onUpdate={isScheduleUpdateOn ? props.scheduleUpdate : noop} />
         )}
-        tag="span"
         trigger={triggerProps => (
           <Button
             {...triggerProps}

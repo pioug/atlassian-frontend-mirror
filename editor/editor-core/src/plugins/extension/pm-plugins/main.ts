@@ -1,12 +1,15 @@
 import { EditorView } from 'prosemirror-view';
 import { Plugin } from 'prosemirror-state';
 import {
-  ProviderFactory,
   ExtensionHandlers,
   ExtensionProvider,
   getExtensionModuleNode,
   UpdateExtension,
-} from '@atlaskit/editor-common';
+  Extension,
+  ExtensionHandler,
+} from '@atlaskit/editor-common/extensions';
+
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 
 import { Dispatch, EventDispatcher } from '../../../event-dispatcher';
 import { PortalProviderAPI } from '../../../ui/PortalProvider';
@@ -24,35 +27,106 @@ import {
 } from '../plugin-factory';
 import { pluginKey } from '../plugin-key';
 
-const updateEditButton = (
+const maybeGetUpdateMethodFromExtensionProvider = async (
   view: EditorView,
   extensionProvider: ExtensionProvider,
 ) => {
   const nodeWithPos = getSelectedExtension(view.state, true);
-  if (nodeWithPos) {
-    const { extensionType, extensionKey } = nodeWithPos.node.attrs;
-    getExtensionModuleNode(extensionProvider, extensionType, extensionKey)
-      .then(extensionModuleNode => {
-        const newNodeWithPos = getSelectedExtension(view.state, true);
-        if (
-          newNodeWithPos &&
-          newNodeWithPos.node.attrs.extensionType === extensionType &&
-          newNodeWithPos.node.attrs.extensionKey === extensionKey &&
-          newNodeWithPos.pos === nodeWithPos.pos &&
-          extensionModuleNode.update
-        ) {
-          updateState({
-            showEditButton: true,
-            updateExtension: extensionModuleNode.update,
-          })(view.state, view.dispatch);
-        }
-      })
-      .catch(() => {
-        updateState({
-          showEditButton: true,
-        })(view.state, view.dispatch);
-      });
+  if (!nodeWithPos) {
+    throw new Error('There is no selection');
   }
+
+  const { extensionType, extensionKey } = nodeWithPos.node.attrs;
+
+  try {
+    const extensionModuleNode = await getExtensionModuleNode(
+      extensionProvider,
+      extensionType,
+      extensionKey,
+    );
+
+    const newNodeWithPos = getSelectedExtension(view.state, true);
+    if (
+      newNodeWithPos &&
+      newNodeWithPos.node.attrs.extensionType === extensionType &&
+      newNodeWithPos.node.attrs.extensionKey === extensionKey &&
+      newNodeWithPos.pos === nodeWithPos.pos &&
+      extensionModuleNode.update
+    ) {
+      return extensionModuleNode.update;
+    }
+
+    throw new Error(
+      `Can't find the right handler for ${extensionType}:${extensionKey} on the extension provider!`,
+    );
+  } catch (err) {
+    updateState({
+      showEditButton: true,
+    })(view.state, view.dispatch);
+
+    throw err;
+  }
+};
+
+const updateEditButton = async (
+  view: EditorView,
+  extensionProvider: ExtensionProvider,
+) => {
+  try {
+    const updateMethod = await maybeGetUpdateMethodFromExtensionProvider(
+      view,
+      extensionProvider,
+    );
+
+    updateState({
+      showEditButton: true,
+      updateExtension: Promise.resolve(updateMethod),
+    })(view.state, view.dispatch);
+
+    return updateMethod;
+  } catch {
+    updateState({
+      showEditButton: true,
+    })(view.state, view.dispatch);
+  }
+};
+
+const shouldShowEditButton = (
+  extensionHandler?: Extension<any> | ExtensionHandler<any>,
+  extensionProvider?: ExtensionProvider,
+) => {
+  const usesLegacyMacroBrowser =
+    (!extensionHandler && !extensionProvider) ||
+    typeof extensionHandler === 'function';
+
+  const usesModernUpdateMethod =
+    typeof extensionHandler === 'object' &&
+    typeof extensionHandler.update === 'function';
+
+  if (usesLegacyMacroBrowser || usesModernUpdateMethod) {
+    return true;
+  }
+
+  return false;
+};
+
+const getUpdateExtensionPromise = async (
+  view: EditorView,
+  extensionHandler?: Extension<any> | ExtensionHandler<any>,
+  extensionProvider?: ExtensionProvider,
+): Promise<UpdateExtension<object> | void> => {
+  if (extensionHandler && typeof extensionHandler === 'object') {
+    // Old API with the `update` function
+    return extensionHandler.update;
+  } else if (extensionProvider) {
+    // New API with or without the `update` function, we don't know at this point
+    const updateMethod = await updateEditButton(view, extensionProvider);
+    if (updateMethod) {
+      return updateMethod;
+    }
+  }
+
+  throw new Error('No update method available');
 };
 
 const createPlugin = (
@@ -127,23 +201,25 @@ const createPlugin = (
           );
 
           if (element !== newElement) {
-            let showEditButton = false;
-            let updateExtension: UpdateExtension<object> | undefined;
+            if (showContextPanel) {
+              clearEditingContext(state, dispatch);
+            }
 
             const { extensionType } = selectedExtension.node.attrs;
-
             const extensionHandler = extensionHandlers[extensionType];
-            if (extensionHandler && typeof extensionHandler === 'object') {
-              // Old API with the `update` function
-              showEditButton = !!extensionHandler.update;
-              updateExtension = extensionHandler.update;
-            } else if (extensionProvider) {
-              // New API with or without the `update` function, we don't know at this point
-              updateEditButton(view, extensionProvider);
-            } else {
-              // Old API without the `update` function
-              showEditButton = true;
-            }
+
+            const showEditButton = shouldShowEditButton(
+              extensionHandler,
+              extensionProvider,
+            );
+
+            const updateExtension = getUpdateExtensionPromise(
+              view,
+              extensionHandler,
+              extensionProvider,
+            ).catch(() => {
+              // do nothing;
+            });
 
             const layout = selectedExtension
               ? selectedExtension.node.attrs.layout

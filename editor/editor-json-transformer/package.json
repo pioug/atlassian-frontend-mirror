@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-json-transformer",
-  "version": "7.0.11",
+  "version": "7.0.12",
   "description": "JSON transformer",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -21,7 +21,7 @@
     }
   },
   "dependencies": {
-    "@atlaskit/adf-schema": "^9.0.1",
+    "@atlaskit/adf-schema": "^9.0.2",
     "lodash.isequal": "^4.5.0",
     "prosemirror-model": "^1.7.0"
   },
@@ -30,17 +30,22 @@
   },
   "devDependencies": {
     "@atlaskit/docs": "^8.5.1",
-    "@atlaskit/editor-bitbucket-transformer": "^6.3.3",
-    "@atlaskit/editor-common": "^45.1.0",
-    "@atlaskit/editor-confluence-transformer": "^7.3.18",
-    "@atlaskit/editor-core": "^122.0.0",
-    "@atlaskit/editor-jira-transformer": "^7.2.24",
-    "@atlaskit/editor-markdown-transformer": "^3.1.22",
-    "@atlaskit/editor-test-helpers": "^11.1.1",
-    "@atlaskit/editor-wikimarkup-transformer": "^5.3.2",
+    "@atlaskit/editor-bitbucket-transformer": "^6.3.5",
+    "@atlaskit/editor-common": "^45.2.0",
+    "@atlaskit/editor-confluence-transformer": "^7.3.19",
+    "@atlaskit/editor-core": "^123.0.0",
+    "@atlaskit/editor-jira-transformer": "^7.2.25",
+    "@atlaskit/editor-markdown-transformer": "^3.1.23",
+    "@atlaskit/editor-test-helpers": "^11.1.2",
+    "@atlaskit/editor-wikimarkup-transformer": "^5.4.0",
     "@atlaskit/util-data-test": "^13.1.2",
     "@types/prosemirror-model": "^1.7.2",
     "prosemirror-view": "^1.9.12",
     "styled-components": "^3.2.6"
+  },
+  "techstack": {
+    "@atlassian/frontend": {
+      "import-structure": "atlassian-conventions"
+    }
   }
 }

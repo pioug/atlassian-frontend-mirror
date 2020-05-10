@@ -1,4 +1,5 @@
 import React, { FC, SyntheticEvent } from 'react';
+
 import Button, { ButtonProps } from '@atlaskit/button';
 import { gridSize } from '@atlaskit/theme/constants';
 

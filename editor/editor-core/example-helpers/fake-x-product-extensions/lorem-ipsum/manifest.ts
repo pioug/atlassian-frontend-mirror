@@ -1,4 +1,16 @@
-import { ExtensionManifest } from '@atlaskit/editor-common';
+import {
+  ExtensionManifest,
+  UpdateContextActions,
+} from '@atlaskit/editor-common/extensions';
+
+const defaultUpdate = (data?: object, actions?: UpdateContextActions) => {
+  return new Promise(() => {
+    actions!.editInContextPanel(
+      (parameters: object) => parameters,
+      (parameters: object) => Promise.resolve(parameters),
+    );
+  });
+};
 
 const manifest: ExtensionManifest = {
   title: 'Lorem ipsum',
@@ -63,6 +75,7 @@ const manifest: ExtensionManifest = {
       'lorem-ipsum-1': {
         type: 'extension',
         render: () => import('./extension-handler'),
+        update: defaultUpdate,
         getFieldsDefinition: () =>
           Promise.resolve([
             {
@@ -76,6 +89,7 @@ const manifest: ExtensionManifest = {
       'lorem-ipsum-2': {
         type: 'extension',
         render: () => import('./extension-handler'),
+        update: defaultUpdate,
         getFieldsDefinition: () =>
           Promise.resolve([
             {
@@ -94,11 +108,22 @@ const manifest: ExtensionManifest = {
       },
       'lorem-ipsum-3-with-body': {
         type: 'bodiedExtension',
+        update: defaultUpdate,
         render: () => import('./extension-handler'),
+        getFieldsDefinition: () =>
+          Promise.resolve([
+            {
+              name: 'sentence',
+              label: 'Sentence',
+              isRequired: true,
+              type: 'string',
+            },
+          ]),
       },
       'lorem-ipsum-4-inline': {
         type: 'inlineExtension',
         render: () => import('./extension-handler'),
+        update: defaultUpdate,
         getFieldsDefinition: () =>
           Promise.resolve([
             {

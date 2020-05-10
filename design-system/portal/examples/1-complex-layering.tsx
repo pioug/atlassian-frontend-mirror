@@ -1,8 +1,9 @@
 /* eslint-disable react/no-multi-comp */
 import React, { ReactNode } from 'react';
+
 import Button from '@atlaskit/button';
-import EmojiIcon from '@atlaskit/icon/glyph/emoji';
 import Flag, { FlagGroup } from '@atlaskit/flag';
+import EmojiIcon from '@atlaskit/icon/glyph/emoji';
 import InlineDialog from '@atlaskit/inline-dialog';
 import ModalDialog, { ModalTransition } from '@atlaskit/modal-dialog';
 import {

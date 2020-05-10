@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { code, md } from '@atlaskit/docs';
 import DynamicTable from '@atlaskit/dynamic-table';
 

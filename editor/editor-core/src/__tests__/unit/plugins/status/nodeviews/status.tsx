@@ -156,6 +156,25 @@ describe('Status - NodeView', () => {
       });
     });
 
+    it('prevents automatic transaction that changes node selection to text selection when status is inserted', () => {
+      const showStatusPickerAt = 9;
+      expect(getPluginState()).toMatchObject({
+        showStatusPickerAt,
+        isNew: true,
+      });
+
+      // this transaction is dispatched by prosemirror-view on dom change when status is inserted
+      // since we're using jsdom and selection is mocked need to trigger this manually
+      setTextSelection(showStatusPickerAt);
+
+      jest.runOnlyPendingTimers(); // WithPluginState debounces updates
+      wrapper.update();
+
+      const { editorView } = editorInstance;
+      const { state } = editorView;
+      expect(state.selection instanceof NodeSelection).toBe(true);
+    });
+
     it('selection of status', () => {
       // Set at selection start of paragraph
       setTextSelection(2);

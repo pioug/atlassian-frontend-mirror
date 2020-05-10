@@ -1,6 +1,16 @@
-import { codeFontFamily, colors } from '@atlaskit/theme';
-
-const { B100, B400, B50, N0, N20, N30, N40, N100, N500, N700, N900 } = colors;
+import { codeFontFamily } from '@atlaskit/theme/constants';
+import {
+  B100,
+  B400,
+  B50,
+  N0,
+  N20,
+  N30,
+  N40,
+  N500,
+  N700,
+  N900,
+} from '@atlaskit/theme/colors';
 
 export const akEditorCodeFontFamily = codeFontFamily();
 export const akEditorInactiveForeground = N500;
@@ -16,7 +26,8 @@ export const akEditorPrimaryButton = B400;
 export const akEditorCodeBackground = N20;
 export const akEditorCodeBlockPadding = '12px';
 export const akEditorCodeInlinePadding = '2px 4px';
-export const akEditorMentionSelected = N100;
 export const akEditorRuleBackground = N30;
 export const akEditorRuleBorderRadius = '1px';
 export const akEditorToolbarKeylineHeight = 2;
+
+export const akEditorSelectedNodeClassName = 'ak-editor-selected-node';

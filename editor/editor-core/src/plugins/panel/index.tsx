@@ -1,12 +1,11 @@
 import React from 'react';
 import { panel, PanelType } from '@atlaskit/adf-schema';
-
+import { QuickInsertActionInsert } from '@atlaskit/editor-common/provider-factory';
+import { EditorState } from 'prosemirror-state';
 import { EditorPlugin } from '../../types';
 import { createPlugin } from './pm-plugins/main';
 import { getToolbarConfig } from './toolbar';
-
 import keymap from './pm-plugins/keymaps';
-import { EditorState } from 'prosemirror-state';
 import {
   addAnalytics,
   ACTION,
@@ -23,8 +22,8 @@ import {
   IconPanelWarning,
   IconPanelError,
 } from '../quick-insert/assets';
-import { QuickInsertActionInsert } from '@atlaskit/editor-common/provider-factory';
 import { messages } from '../block-type/messages';
+import { PanelPluginOptions } from './types';
 
 const insertPanelTypeWithAnalytics = (
   panelType: PANEL_TYPE,
@@ -53,7 +52,7 @@ const insertPanelType = (panelType: PanelType, state: EditorState) =>
     state.schema.nodes.paragraph.createChecked(),
   );
 
-const panelPlugin = (): EditorPlugin => ({
+const panelPlugin = (options?: PanelPluginOptions): EditorPlugin => ({
   name: 'panel',
 
   nodes() {
@@ -62,7 +61,10 @@ const panelPlugin = (): EditorPlugin => ({
 
   pmPlugins() {
     return [
-      { name: 'panel', plugin: createPlugin },
+      {
+        name: 'panel',
+        plugin: ({ dispatch }) => createPlugin(dispatch, options),
+      },
       {
         name: 'panelKeyMap',
         plugin: () => keymap(),

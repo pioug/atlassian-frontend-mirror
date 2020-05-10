@@ -121,21 +121,11 @@ export const getAnalyticsErrorStateAttributes = (
 ): AnalyticsErrorStateAttributes => {
   const unknownError = 'unknown error';
   const errorMessage = error instanceof Error ? error.message : error;
+  const errorMessageInFileState =
+    fileState && 'message' in fileState && fileState.message;
 
   if (!fileState && !errorMessage) {
     return {};
-  }
-
-  if (!previewable) {
-    if (hasMinimalData) {
-      return {};
-    }
-
-    return {
-      failReason: 'file-status-error',
-      error:
-        'Does not have minimal metadata (filename and filesize) OR metadata/media-type is undefined',
-    };
   }
 
   if (!fileState) {
@@ -145,10 +135,24 @@ export const getAnalyticsErrorStateAttributes = (
     };
   }
 
+  if (!previewable) {
+    if (hasMinimalData) {
+      return {};
+    }
+
+    if (!errorMessageInFileState) {
+      return {
+        failReason: 'file-status-error',
+        error:
+          'Does not have minimal metadata (filename and filesize) OR metadata/media-type is undefined',
+      };
+    }
+  }
+
   if (fileState && ['error', 'failed-processing'].includes(fileState.status)) {
     return {
       failReason: 'file-status-error',
-      error: ('message' in fileState && fileState.message) || unknownError,
+      error: errorMessageInFileState || unknownError,
     };
   }
 

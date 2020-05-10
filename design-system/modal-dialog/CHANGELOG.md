@@ -1,5 +1,11 @@
 # @atlaskit/modal-dialog
 
+## 10.5.8
+
+### Patch Changes
+
+- [`53d09bdb5d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/53d09bdb5d) - Reverts scrolling fix which introduced a layering regression.
+
 ## 10.5.7
 
 ### Patch Changes

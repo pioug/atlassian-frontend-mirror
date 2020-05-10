@@ -1,10 +1,10 @@
 import React from 'react';
-import { StatelessComponent } from 'react';
 
 import { DecisionItem as AkDecisionItem } from '@atlaskit/task-decision';
+import { NodeProps } from '../types';
 
-const DecisionItem: StatelessComponent = ({ children }) => {
-  return <AkDecisionItem>{children}</AkDecisionItem>;
-};
-
-export default DecisionItem;
+export default function DecisionItem({ children, dataAttributes }: NodeProps) {
+  return (
+    <AkDecisionItem dataAttributes={dataAttributes}>{children}</AkDecisionItem>
+  );
+}

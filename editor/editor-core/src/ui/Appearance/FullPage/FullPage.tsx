@@ -133,6 +133,7 @@ export class FullPageEditor extends React.Component<
             providerFactory={props.providerFactory}
             showKeyline={showKeyline || contextPanelVisible}
             containerElement={this.scrollContainer}
+            beforeIcon={props.primaryToolbarIconBefore}
           />
           <FullPageContentArea
             allowAnnotation={props.allowAnnotation}

@@ -7,6 +7,36 @@ describe('extractors.lozenge.lozenge', () => {
     expect(extractLozenge(TEST_BASE_DATA)).toBe(undefined);
   });
 
+  it('returns undefined if type supported but status in omit list - document (current)', () => {
+    expect(
+      extractLozenge({
+        ...TEST_BASE_DATA,
+        '@type': 'schema:TextDigitalDocument',
+        'atlassian:state': 'current',
+      } as JsonLd.Data.Document),
+    ).toBe(undefined);
+  });
+
+  it('returns lozenge if type supported - document (archived)', () => {
+    expect(
+      extractLozenge({
+        ...TEST_BASE_DATA,
+        '@type': 'schema:TextDigitalDocument',
+        'atlassian:state': 'archived',
+      } as JsonLd.Data.Document),
+    ).toEqual({ text: 'archived', appearance: 'default' });
+  });
+
+  it('returns lozenge if type supported - document (draft)', () => {
+    expect(
+      extractLozenge({
+        ...TEST_BASE_DATA,
+        '@type': 'schema:TextDigitalDocument',
+        'atlassian:state': 'draft',
+      } as JsonLd.Data.Document),
+    ).toEqual({ text: 'draft', appearance: 'inprogress' });
+  });
+
   it('returns lozenge if type supported - pull request', () => {
     expect(
       extractLozenge({

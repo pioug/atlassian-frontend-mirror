@@ -1,6 +1,9 @@
 import React, { Component, SyntheticEvent } from 'react';
+
 import styled from 'styled-components';
+
 import { colors } from '@atlaskit/theme';
+
 import { Radio } from '../src';
 
 const Tr = styled.tr<{ isChecked?: boolean }>`

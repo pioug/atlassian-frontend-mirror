@@ -1,7 +1,9 @@
 import styled, { css } from 'styled-components';
-import { themed } from '@atlaskit/theme/components';
+
 import * as colors from '@atlaskit/theme/colors';
-import { DotsAppearance, Spacing, Size } from '../components/Dots';
+import { themed } from '@atlaskit/theme/components';
+
+import { DotsAppearance, Size, Spacing } from '../components/Dots';
 
 const colorMap = {
   default: themed({ light: colors.N50, dark: colors.DN70 }),

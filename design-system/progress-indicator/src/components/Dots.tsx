@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
+
 import {
-  withAnalyticsEvents,
-  withAnalyticsContext,
   createAndFireEvent,
+  withAnalyticsContext,
+  withAnalyticsEvents,
   WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
+
+import { Container, IndicatorButton, IndicatorDiv } from '../styled/Dots';
 import {
   name as packageName,
   version as packageVersion,
 } from '../version.json';
-import { Container, IndicatorButton, IndicatorDiv } from '../styled/Dots';
 
 export type DotsAppearance = 'default' | 'help' | 'inverted' | 'primary';
 export type Spacing = 'comfortable' | 'cozy' | 'compact';

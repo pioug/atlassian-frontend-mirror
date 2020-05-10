@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { TransparentProgressBar } from '../src';
+
 import { progress } from './00-basic';
 
 const containerStyle = {

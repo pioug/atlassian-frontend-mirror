@@ -9,6 +9,7 @@ import { CollabEditOptions } from '../plugins/collab-edit/types';
 import { DispatchAnalyticsEvent } from '../plugins/analytics';
 import { EditorAppearance } from './editor-appearance';
 import { MenuItem } from '../ui/DropdownMenu/types';
+import { ReactElement } from 'react';
 
 export interface EditorAppearanceComponentProps {
   appearance?: EditorAppearance;
@@ -27,6 +28,7 @@ export interface EditorAppearanceComponentProps {
 
   contentComponents?: UIComponentFactory[];
   primaryToolbarComponents?: ToolbarUIComponentFactory[];
+  primaryToolbarIconBefore?: ReactElement;
   secondaryToolbarComponents?: UIComponentFactory[];
 
   customContentComponents?: ReactComponents;

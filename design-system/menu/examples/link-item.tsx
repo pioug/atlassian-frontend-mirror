@@ -28,5 +28,8 @@ export default () => (
     >
       Customer Feedback
     </LinkItem>
+    <LinkItem href="https://atlassian.design" testId="link-item">
+      Atlassian Design
+    </LinkItem>
   </div>
 );

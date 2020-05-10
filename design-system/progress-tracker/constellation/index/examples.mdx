@@ -2,38 +2,57 @@
 order: 0
 ---
 
-import ProgressTrackerDefault from '../../examples/progressTrackerDefault';
-import ProgressTrackerSpacingComfortable from '../../examples/progressTrackerSpacingComfortable';
-import ProgressTrackerSpacingCosy from '../../examples/progressTrackerSpacingCosy';
-import ProgressTrackerSpacingCompact from '../../examples/progressTrackerSpacingCompact';
-import ProgressTrackerCompleted from '../../examples/completed';
+import ProgressTrackerDefault from '../../examples/constellation/ProgressTrackerDefault';
+import ProgressTrackerComfortable from '../../examples/constellation/ProgressTrackerComfortable';
+import ProgressTrackerCosy from '../../examples/constellation/ProgressTrackerCosy';
+import ProgressTrackerCompact from '../../examples/constellation/ProgressTrackerCompact';
+import ProgressTrackerCompleted from '../../examples/constellation/ProgressTrackerCompleted';
 
 ## Default
 
-The default version of progress tracker that shows all the steps and states in the journey.
+The default version of a progress tracker that shows all the steps and states in a journey.
 
-The progress tracker component, takes an items prop, which is an ordered list of all steps in the journey.
-
-<Example Component={ProgressTrackerDefault} componentName="@atlaskit/progress-tracker" />
+<Example
+  Component={ProgressTrackerDefault}
+  componentName="@atlaskit/progress-tracker"
+/>
 
 ## Spacing
 
-Margin spacing type between steps.
+The margin spacing in between the steps of a progress tracker.
 
 ### Comfortable
 
-<Example Component={ProgressTrackerSpacingComfortable} componentName="@atlaskit/progress-tracker" />
+Progress tracker with `comfortable` spacing.
 
-### Cosy
+<Example
+  Component={ProgressTrackerComfortable}
+  componentName="@atlaskit/progress-tracker"
+/>
 
-<Example Component={ProgressTrackerSpacingCosy} componentName="@atlaskit/progress-tracker" />
+### Cosy (default)
+
+Progress tracker with default `cosy` spacing.
+
+<Example
+  Component={ProgressTrackerCosy}
+  componentName="@atlaskit/progress-tracker"
+/>
 
 ### Compact
 
-<Example Component={ProgressTrackerSpacingCompact} componentName="@atlaskit/progress-tracker" />
+Progress tracker with `compact` spacing.
+
+<Example
+  Component={ProgressTrackerCompact}
+  componentName="@atlaskit/progress-tracker"
+/>
 
 ## Completed
 
 A progress tracker that shows all steps have been completed.
 
-<Example Component={ProgressTrackerCompleted} componentName="@atlaskit/progress-tracker" />
+<Example
+  Component={ProgressTrackerCompleted}
+  componentName="@atlaskit/progress-tracker"
+/>

@@ -1,7 +1,7 @@
 import {
   getExampleUrl,
-  takeScreenShot,
   takeElementScreenShot,
+  takeScreenShot,
 } from '@atlaskit/visual-regression/helper';
 
 describe('TextArea', () => {

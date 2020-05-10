@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/radio",
-  "version": "3.2.0",
+  "version": "3.2.1",
   "description": "A radio input is used to present a single option from a list. Use radio group for multiple options.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^6.3.5",
-    "@atlaskit/icon": "^20.1.0",
+    "@atlaskit/icon": "^20.1.2",
     "@atlaskit/theme": "^9.5.1",
     "tslib": "^1.9.3"
   },
@@ -39,7 +39,7 @@
     "@atlaskit/form": "^7.2.0",
     "@atlaskit/ssr": "^0.1.1",
     "@atlaskit/visual-regression": "^0.1.9",
-    "@atlaskit/webdriver-runner": "^0.3.0",
+    "@atlaskit/webdriver-runner": "^0.3.8",
     "@testing-library/react": "^8.0.1",
     "enzyme": "^3.10.0",
     "react-dom": "^16.8.0"
@@ -48,5 +48,10 @@
     "atlaskit",
     "react",
     "ui"
-  ]
+  ],
+  "techstack": {
+    "@atlassian/frontend": {
+      "import-structure": "atlassian-conventions"
+    }
+  }
 }

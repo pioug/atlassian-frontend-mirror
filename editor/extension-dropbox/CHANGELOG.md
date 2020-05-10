@@ -1,5 +1,17 @@
 # @atlaskit/editor-extension-dropbox
 
+## 0.1.7
+
+### Patch Changes
+
+- [`d7c0ccbb4e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d7c0ccbb4e) - ED-9173 Update Dropbox extension description- Updated dependencies
+
+## 0.1.6
+
+### Patch Changes
+
+- [`37aaff5d09`](https://bitbucket.org/atlassian/atlassian-frontend/commits/37aaff5d09) - Change version of theme from direct to caret dependency
+
 ## 0.1.5
 
 ### Patch Changes

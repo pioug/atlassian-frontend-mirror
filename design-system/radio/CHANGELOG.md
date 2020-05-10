@@ -1,5 +1,11 @@
 # @atlaskit/radio
 
+## 3.2.1
+
+### Patch Changes
+
+- [`966efe3f95`](https://bitbucket.org/atlassian/atlassian-frontend/commits/966efe3f95) - Change imports to comply with Atlassian conventions- Updated dependencies
+
 ## 3.2.0
 
 ### Minor Changes

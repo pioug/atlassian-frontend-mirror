@@ -1,7 +1,8 @@
+import { ReactChild } from 'react';
+
 import renderEllipsis from '../../../components/renderEllipsis';
 import collapseRange from '../../../util/collapseRange';
 import { name } from '../../../version.json';
-import { ReactChild } from 'react';
 
 describe(`${name} - collapse range`, () => {
   it('should not throw', () => {

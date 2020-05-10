@@ -1,4 +1,5 @@
 import { Schema } from 'prosemirror-model';
+
 import { createSchema } from '@atlaskit/adf-schema';
 export const schema: Schema = createSchema({
   nodes: [

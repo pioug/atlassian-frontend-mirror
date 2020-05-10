@@ -4,6 +4,7 @@ import { ProviderFactory, WithProviders } from '@atlaskit/editor-common';
 import TaskItemWithProviders from './task-item-with-providers';
 import { RendererContext } from '../';
 import { FabricElementsAnalyticsContext } from '@atlaskit/analytics-namespaced-context';
+import { NodeProps } from '../types';
 
 export interface Props {
   localId: string;
@@ -14,10 +15,10 @@ export interface Props {
   disabled?: boolean;
 }
 
-export default class TaskItem extends PureComponent<Props, {}> {
+export default class TaskItem extends PureComponent<NodeProps<Props>, {}> {
   private providerFactory: ProviderFactory;
 
-  constructor(props: Props) {
+  constructor(props: NodeProps<Props>) {
     super(props);
     this.providerFactory = props.providers || new ProviderFactory();
   }
@@ -32,7 +33,14 @@ export default class TaskItem extends PureComponent<Props, {}> {
 
   private renderWithProvider = (providers: any) => {
     const { taskDecisionProvider, contextIdentifierProvider } = providers;
-    const { children, localId, state, rendererContext, disabled } = this.props;
+    const {
+      children,
+      localId,
+      state,
+      rendererContext,
+      disabled,
+      dataAttributes,
+    } = this.props;
     let objectAri = '';
     if (rendererContext) {
       objectAri = rendererContext.objectAri || '';
@@ -51,6 +59,7 @@ export default class TaskItem extends PureComponent<Props, {}> {
           disabled={disabled}
           taskDecisionProvider={taskDecisionProvider}
           contextIdentifierProvider={contextIdentifierProvider}
+          dataAttributes={dataAttributes}
         >
           {children}
         </TaskItemWithProviders>

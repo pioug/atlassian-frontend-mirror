@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-import { colors } from '@atlaskit/theme';
+import { N30 } from '@atlaskit/theme/colors';
+import { gridSize } from '@atlaskit/theme';
 import {
   akEditorMenuZIndex,
   akEditorSwoopCubicBezier,
@@ -15,7 +16,7 @@ export const MainToolbar = styled.div<MainToolbarProps>`
   align-items: center;
   box-shadow: ${(props: MainToolbarProps) =>
     props.showKeyline
-      ? `0 ${akEditorToolbarKeylineHeight}px 0 0 ${colors.N30}`
+      ? `0 ${akEditorToolbarKeylineHeight}px 0 0 ${N30}`
       : 'none'};
   transition: box-shadow 200ms ${akEditorSwoopCubicBezier};
   z-index: ${akEditorMenuZIndex};
@@ -28,6 +29,13 @@ export const MainToolbar = styled.div<MainToolbarProps>`
   }
 `;
 MainToolbar.displayName = 'MainToolbar';
+
+export const MainToolbarIconBefore = styled.div`
+  margin: ${gridSize() * 2}px;
+  height: ${gridSize() * 4}px;
+  width: ${gridSize() * 4}px;
+`;
+MainToolbarIconBefore.displayName = 'MainToolbarIconBefore';
 
 export const MainToolbarCustomComponentsSlot = styled.div`
   display: flex;

@@ -10,7 +10,7 @@ import {
   setTableLayout,
   getSelectorForTableCell,
 } from '../../__helpers/page-objects/_table';
-import { emojiReadySelector } from '../../__helpers/page-objects/_emoji';
+import { emojiSelectors } from '../../__helpers/page-objects/_emoji';
 import { waitForLoadedBackgroundImages } from '@atlaskit/visual-regression/helper';
 import { Page } from '../../__helpers/page-objects/_types';
 
@@ -22,7 +22,7 @@ describe('Table with block looks correct for fullpage:', () => {
   });
 
   afterEach(async () => {
-    await waitForLoadedBackgroundImages(page, emojiReadySelector, 10000);
+    await waitForLoadedBackgroundImages(page, emojiSelectors.standard, 10000);
     await snapshot(page);
   });
 

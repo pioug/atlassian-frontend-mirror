@@ -1,4 +1,5 @@
 import { ReactElement, SyntheticEvent } from 'react';
+
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 export interface PaginationPropTypes {

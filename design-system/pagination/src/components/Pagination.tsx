@@ -1,18 +1,21 @@
 import React, { Component, Fragment, SyntheticEvent } from 'react';
+
 import {
-  withAnalyticsEvents,
-  withAnalyticsContext,
   createAndFireEvent,
+  withAnalyticsContext,
+  withAnalyticsEvents,
 } from '@atlaskit/analytics-next';
-import PageComponent from './Page';
-import { LeftNavigator, RightNavigator } from './Navigators';
-import renderDefaultEllipsis from './renderEllipsis';
+
+import { PaginationPropTypes } from '../types';
 import collapseRangeHelper from '../util/collapseRange';
 import {
   name as packageName,
   version as packageVersion,
 } from '../version.json';
-import { PaginationPropTypes } from '../types';
+
+import { LeftNavigator, RightNavigator } from './Navigators';
+import PageComponent from './Page';
+import renderDefaultEllipsis from './renderEllipsis';
 
 interface State {
   selectedIndex: number;

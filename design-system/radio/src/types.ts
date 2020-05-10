@@ -1,4 +1,5 @@
 import { ReactNode, SyntheticEvent } from 'react';
+
 import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 
 // Used by RadioGroupStateless

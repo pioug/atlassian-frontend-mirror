@@ -1,5 +1,7 @@
 import React, { Component, SyntheticEvent } from 'react';
+
 import { AtlaskitThemeProvider } from '@atlaskit/theme';
+
 import { RadioGroup } from '../src';
 
 const options = [

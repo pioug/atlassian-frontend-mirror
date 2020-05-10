@@ -1,9 +1,10 @@
 import React from 'react';
+
 import { mount } from 'enzyme';
+
 import TextAreaWithAnalytics, {
   TextAreaWithoutAnalytics as TextArea,
 } from '../../components/TextArea';
-
 import { TextAreaWrapper } from '../../styled';
 
 describe('TextArea', () => {

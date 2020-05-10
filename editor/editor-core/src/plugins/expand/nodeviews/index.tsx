@@ -109,7 +109,6 @@ export class ExpandNodeView implements NodeView {
     this.pos = getPos();
     this.view = view;
     this.node = node;
-    this.view = view;
     this.dom = dom as HTMLElement;
     this.contentDOM = contentDOM as HTMLElement;
     this.icon = this.dom.querySelector<HTMLElement>(
@@ -211,7 +210,6 @@ export class ExpandNodeView implements NodeView {
       event.stopPropagation();
       const { state, dispatch } = this.view;
       selectExpand(this.getPos())(state, dispatch);
-      return;
     }
   };
 

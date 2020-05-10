@@ -1,5 +1,17 @@
 # @atlaskit/flag
 
+## 12.4.0
+
+### Minor Changes
+
+- [`958b2bf6f8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/958b2bf6f8) - FIX: Screen reader text won't be rendered when there is no flag
+  FIX: FlagGroup screen reader text defaults to `h2` tag now. Was previously h1.
+  NEW: Customize screen reader text and the tag that renders the text
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.3.11
 
 ### Patch Changes

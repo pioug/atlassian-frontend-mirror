@@ -24,7 +24,7 @@ import {
   AnalyticsEventPayload,
 } from '../../../plugins/analytics';
 import { SmartLinkNodeContext } from '../../analytics/types/smart-links';
-import { isSafeUrl } from '@atlaskit/adf-schema';
+import { isSafeUrl, normalizeUrl } from '@atlaskit/adf-schema';
 
 export function shouldReplace(
   node: Node,
@@ -39,15 +39,21 @@ export function shouldReplace(
 
   // ED-6041: compare normalised link text after linkfy from Markdown transformer
   // instead, since it always decodes URL ('%20' -> ' ') on the link text
-  const normalisedHref = md.normalizeLinkText(linkMark.attrs.href);
-  const normalizedLinkText = md.normalizeLinkText(node.text || '');
+
+  const normalisedHref = normalizeUrl(
+    md.normalizeLinkText(linkMark.attrs.href),
+  );
+
+  const normalizedLinkText = normalizeUrl(
+    md.normalizeLinkText(node.text || ''),
+  );
 
   if (compareLinkText && normalisedHref !== normalizedLinkText) {
     return false;
   }
 
   if (compareToUrl) {
-    const normalizedUrl = md.normalizeLinkText(compareToUrl);
+    const normalizedUrl = normalizeUrl(md.normalizeLinkText(compareToUrl));
     if (normalizedUrl !== normalisedHref) {
       return false;
     }

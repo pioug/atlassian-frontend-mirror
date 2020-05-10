@@ -1,5 +1,15 @@
 # @atlaskit/editor-wikimarkup-transformer
 
+## 5.4.0
+
+### Minor Changes
+
+- [`d0051d49a6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d0051d49a6) - Conversion mapping has been made case insensitive
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.3.2
 
 ### Patch Changes

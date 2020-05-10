@@ -11,6 +11,10 @@ import { ChildrenType, FunctionType } from '../../types';
 import Group, { Inner, SROnly } from './styledFlagGroup';
 
 type Props = {
+  /** Describes the specific role of this FlagGroup for users viewing the page with a screen reader (defaults to `Flag notifications`). */
+  label: string;
+  /** Describes the specific tag on which the screen reader text will be rendered (defaults to `h2`). */
+  labelTag: string;
   /** Flag elements to be displayed. */
   children?: ChildrenType;
   /** Handler which will be called when a Flag's dismiss button is clicked.
@@ -20,6 +24,11 @@ type Props = {
 };
 
 export default class FlagGroup extends Component<Props, {}> {
+  static defaultProps = {
+    label: 'Flag notifications',
+    labelTag: 'h2',
+  };
+
   private animationTimeoutId: number | undefined;
 
   componentWillUnmount() {
@@ -62,10 +71,18 @@ export default class FlagGroup extends Component<Props, {}> {
   };
 
   render() {
+    const { children, label, labelTag } = this.props;
+    const shouldRenderScreenReaderText = !(
+      !children ||
+      (children && children.length === 0)
+    );
+
     return (
       <Portal zIndex={layers.flag()}>
         <Group>
-          <SROnly>Flag notifications</SROnly>
+          {shouldRenderScreenReaderText ? (
+            <SROnly tag={labelTag}>{label}</SROnly>
+          ) : null}
           <Inner component="div">{this.renderChildren()}</Inner>
         </Group>
       </Portal>

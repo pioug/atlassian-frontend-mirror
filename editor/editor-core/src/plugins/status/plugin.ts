@@ -4,6 +4,7 @@ import {
   Plugin,
   Transaction,
   NodeSelection,
+  TextSelection,
 } from 'prosemirror-state';
 
 import statusNodeView from './nodeviews/status';
@@ -83,6 +84,30 @@ const createPlugin = (
         }
         return state;
       },
+    },
+    filterTransaction: (tr, state) => {
+      // if it is a selection change transaction, and selection changes from node to text
+      if (
+        tr.selectionSet &&
+        !tr.steps.length &&
+        tr.isGeneric &&
+        tr.selection instanceof TextSelection &&
+        state.selection instanceof NodeSelection
+      ) {
+        const { isNew, showStatusPickerAt } = pluginKey.getState(state);
+        const nodeAtSelection = tr.doc.nodeAt(tr.selection.from);
+        // prevent changing node selection to text selection on dom change right after inserting status
+        // if newly selected status is selected with status picker opened
+        if (
+          isNew &&
+          showStatusPickerAt &&
+          nodeAtSelection &&
+          nodeAtSelection.type === state.schema.nodes.status
+        ) {
+          return false;
+        }
+      }
+      return true;
     },
     appendTransaction: (
       transactions: Transaction[],

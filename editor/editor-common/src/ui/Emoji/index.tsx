@@ -42,7 +42,15 @@ export default class EmojiNode extends PureComponent<EmojiProps, {}> {
     } = this.props;
 
     if (allowTextFallback && !providers.emojiProvider) {
-      return <span>{fallback || shortName}</span>;
+      return (
+        <span
+          data-emoji-id={id}
+          data-emoji-short-name={shortName}
+          data-emoji-text={fallback || shortName}
+        >
+          {fallback || shortName}
+        </span>
+      );
     }
 
     if (!providers.emojiProvider) {

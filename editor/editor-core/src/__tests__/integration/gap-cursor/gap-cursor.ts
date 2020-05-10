@@ -46,7 +46,6 @@ const gapCursorSelector = '.ProseMirror-gapcursor span';
         });
 
         await page.waitForSelector(panelSelector);
-        await page.click(panelSelector);
         await page.keys([`Arrow${direction}`]);
 
         const gapCursorVisible = await page.isVisible(gapCursorSelector);

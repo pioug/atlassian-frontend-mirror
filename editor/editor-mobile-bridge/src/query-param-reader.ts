@@ -22,5 +22,13 @@ export const getEnableQuickInsertValue = (): boolean =>
 export const getDisableActionsValue = (): boolean =>
   getQueryParams().get('disableActions') === 'true';
 
+export const getLocaleValue = (): string => {
+  const locale = getQueryParams().get('locale');
+  if (!locale) {
+    return 'en';
+  }
+  return locale.replace('-', '_');
+};
+
 export const getDisableMediaLinkingValue = (): boolean =>
   getQueryParams().get('disableMediaLinking') === 'true';

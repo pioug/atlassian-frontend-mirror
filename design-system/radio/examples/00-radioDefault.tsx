@@ -1,5 +1,7 @@
 import React, { PureComponent, SyntheticEvent } from 'react';
+
 import { Checkbox } from '@atlaskit/checkbox';
+
 import { RadioGroup } from '../src';
 import { OptionsPropType } from '../src/types';
 

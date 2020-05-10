@@ -1,18 +1,39 @@
 import React from 'react';
-import { Parameters } from '@atlaskit/editor-common/extensions';
+import {
+  Parameters,
+  ExtensionParams,
+} from '@atlaskit/editor-common/extensions';
 
 type Props = {
-  extensionKey: string;
-  extensionType: string;
-  type?: 'extension' | 'inlineExtension' | 'bodiedExtension';
-  parameters?: Parameters;
-  content?: Object | string; // This would be the original Atlassian Document Format
+  node: ExtensionParams<Parameters>;
 };
 
-export default (props: Props) => {
+export default ({ node }: Props) => {
   return (
     <div>
-      <code>{JSON.stringify(props, null, 3)}</code>
+      <p>THIS IS A FAKE VIEW FOR EXTENSIONS</p>
+      <table>
+        <thead style={{ fontWeight: 'bold' }}>
+          <tr>
+            {Object.keys(node).map(key => (
+              <td key={key}>{key}</td>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            {Object.entries(node).map(([key, value]) => {
+              return (
+                <td key={key}>
+                  {typeof value === 'object'
+                    ? JSON.stringify(value, null, 3)
+                    : value}
+                </td>
+              );
+            })}
+          </tr>
+        </tbody>
+      </table>
     </div>
   );
 };

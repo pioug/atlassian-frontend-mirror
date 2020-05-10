@@ -43,6 +43,14 @@ export const TEST_DOCUMENT: JsonLd.Data.Document = {
   'schema:commentCount': 214,
   'schema:potentialAction': [],
 };
+export const TEST_CURRENT_DOCUMENT: JsonLd.Data.Document = {
+  ...TEST_OBJECT,
+  ...TEST_BASE_DATA,
+  '@type': 'Document',
+  'schema:commentCount': 214,
+  'schema:potentialAction': [],
+  'atlassian:state': 'current',
+};
 export const TEST_DOWNLOAD_ACTION: JsonLd.Data.BaseData['schema:potentialAction'] = {
   '@type': 'DownloadAction',
   '@id': 'download',

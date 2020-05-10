@@ -19,6 +19,7 @@ export {
   akEditorFloatingPanelZIndex,
   akEditorFocus,
   akEditorFullPageMaxWidth,
+  akEditorFullPageDefaultFontSize,
   akEditorFullWidthLayoutWidth,
   akEditorGridLineZIndex,
   akEditorGutterPadding,
@@ -36,6 +37,9 @@ export {
   akEditorSelectedBorderBoldSize,
   akEditorSelectedBorderSize,
   akEditorSelectedIconColor,
+  akEditorSelectedBlanketColor,
+  akEditorSelectedBgColor,
+  akEditorSelectedBlanketOpacity,
   akEditorSmallZIndex,
   akEditorSubtleAccent,
   akEditorSwoopCubicBezier,
@@ -89,7 +93,11 @@ export {
 } from './shared/media-single';
 export { blockquoteSharedStyles } from './shared/blockquote';
 export { headingsSharedStyles } from './shared/headings';
-export { panelSharedStyles } from './shared/panel';
+export {
+  panelSharedStyles,
+  PanelSharedCssClassName,
+  PanelSharedSelectors,
+} from './shared/panel';
 export { ruleSharedStyles } from './shared/rule';
 export { whitespaceSharedStyles } from './shared/whitespace';
 export { paragraphSharedStyles } from './shared/paragraph';
@@ -102,3 +110,5 @@ export { codeMarkSharedStyles } from './shared/code-mark';
 export { shadowSharedStyle } from './shared/shadow';
 export { dateSharedStyle, DateSharedCssClassName } from './shared/date';
 export { tasksAndDecisionsStyles } from './shared/task-decision';
+export { MentionSharedCssClassName } from './shared/mention';
+export { EmojiSharedCssClassName } from './shared/emoji';

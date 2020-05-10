@@ -1,13 +1,18 @@
 import React from 'react';
 import { EditorView, NodeView } from 'prosemirror-view';
 import { Node as PmNode } from 'prosemirror-model';
+import {
+  selectParentNodeOfType,
+  findSelectedNodeOfType,
+} from 'prosemirror-utils';
 import { ProviderFactory, ExtensionHandlers } from '@atlaskit/editor-common';
 import { ReactNodeView } from '../../../nodeviews';
 import Extension from '../ui/Extension';
 import { PortalProviderAPI } from '../../../ui/PortalProvider';
 import { ForwardRef, getPosHandler } from '../../../nodeviews/';
-import { ZeroWidthSpace } from '../../../utils';
+import { ZeroWidthSpace, setNodeSelection } from '../../../utils';
 import { EventDispatcher } from '../../../event-dispatcher';
+import { closestElement } from '../../../utils/dom';
 
 export interface Props {
   node: PmNode;
@@ -16,6 +21,42 @@ export interface Props {
 }
 
 class ExtensionNode extends ReactNodeView {
+  init() {
+    super.init();
+    if (this.dom) {
+      this.dom.addEventListener('click', this.handleClick);
+    }
+    return this;
+  }
+
+  handleClick = (event: Event) => {
+    // ignore if we are inside bodied extension's content
+    const target = event.target as HTMLElement;
+    if (closestElement(target, '.extension-content')) {
+      return;
+    }
+
+    event.stopPropagation();
+
+    const {
+      state: { selection, schema, tr },
+      dispatch,
+    } = this.view;
+
+    const hasBody = this.node.type.name === 'bodiedExtension';
+    if (hasBody) {
+      dispatch(selectParentNodeOfType([schema.nodes.bodiedExtension])(tr));
+    } else if (
+      !findSelectedNodeOfType([
+        schema.nodes.inlineExtension,
+        schema.nodes.extension,
+        schema.nodes.bodiedExtension,
+      ])(selection)
+    ) {
+      setNodeSelection(this.view, selection.$from.pos - 1);
+    }
+  };
+
   ignoreMutation(
     mutation: MutationRecord | { type: 'selection'; target: Element },
   ) {

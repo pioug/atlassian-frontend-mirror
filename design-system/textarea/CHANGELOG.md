@@ -1,5 +1,11 @@
 # @atlaskit/textarea
 
+## 2.2.8
+
+### Patch Changes
+
+- [`7aa4756beb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7aa4756beb) - Change imports to comply with Atlassian conventions- Updated dependencies
+
 ## 2.2.7
 
 ### Patch Changes

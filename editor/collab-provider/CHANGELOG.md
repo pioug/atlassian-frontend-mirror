@@ -1,5 +1,13 @@
 # @atlaskit/collab-provider
 
+## 1.0.1
+
+### Patch Changes
+
+- [`56a7357c81`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56a7357c81) - ED-9197: upgrade prosemirror-transform to prevent cut and paste type errors
+
+  It's important to make sure that there isn't any `prosemirror-transform` packages with version less than 1.2.5 in `yarn.lock`.- Updated dependencies
+
 ## 1.0.0
 
 ### Major Changes

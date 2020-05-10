@@ -47,10 +47,12 @@ export const getToolbarConfig: FloatingToolbarHandler = (
     const language =
       parent && parent.node.attrs ? parent.node.attrs.language : undefined;
 
-    const options = languageList.map(lang => ({
-      label: lang.name,
-      value: getLanguageIdentifier(lang),
-    }));
+    const options = [{ label: '(None)', value: '' }].concat(
+      languageList.map(lang => ({
+        label: lang.name,
+        value: getLanguageIdentifier(lang),
+      })),
+    );
 
     const languageSelect: FloatingToolbarSelect<Command> = {
       type: 'select',

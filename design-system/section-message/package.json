@@ -1,7 +1,7 @@
 {
   "name": "@atlaskit/section-message",
-  "version": "4.1.7",
-  "description": "A section message is used to alert users that a particular section of the screen requires attention.",
+  "version": "4.1.8",
+  "description": "A section message is used to alert users to a particular section of the screen.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "@atlaskit/button": "^13.3.9",
-    "@atlaskit/icon": "^20.1.0",
+    "@atlaskit/icon": "^20.1.2",
     "@atlaskit/theme": "^9.5.1",
     "tslib": "^1.9.3"
   },
@@ -37,7 +37,7 @@
     "@atlaskit/field-range": "^8.0.2",
     "@atlaskit/ssr": "^0.1.1",
     "@atlaskit/visual-regression": "^0.1.9",
-    "@atlaskit/webdriver-runner": "^0.3.0",
+    "@atlaskit/webdriver-runner": "^0.3.8",
     "@testing-library/react": "^8.0.1",
     "enzyme": "^3.10.0",
     "enzyme-to-json": "^3.3.0",
@@ -45,5 +45,10 @@
     "jest-in-case": "^1.0.2",
     "react-dom": "^16.8.0",
     "react-test-renderer": "^16.8.0"
+  },
+  "techstack": {
+    "@atlassian/frontend": {
+      "import-structure": "atlassian-conventions"
+    }
   }
 }

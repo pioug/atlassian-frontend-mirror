@@ -34,6 +34,7 @@ const mockPlugins: { [name: string]: jest.Mock } = {
   scrollIntoViewPlugin: jest.fn(),
   findReplacePlugin: jest.fn(),
   contextPanelPlugin: jest.fn(),
+  selectionPlugin: jest.fn(),
 };
 jest.mock('../../../plugins', () => mockPlugins);
 

@@ -1,5 +1,11 @@
 # @atlaskit/media-card
 
+## 67.2.2
+
+### Patch Changes
+
+- [`128b80c4ba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/128b80c4ba) - Changing the way error analytics are fired for unpreviewable files, as an undefined mediatype is classified as 'unpreviewable'- Updated dependencies
+
 ## 67.2.1
 
 ### Patch Changes

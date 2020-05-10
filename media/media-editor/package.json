@@ -21,8 +21,8 @@
     }
   },
   "scripts": {
-    "check-dist": "cd dist/esm/engine/core/binaries && cd - && cd dist/cjs/engine/core/binaries",
-    "copy-binaries": "mkdir -p dist/esm/engine/core dist/cjs/engine/core && cp -r src/engine/core/binaries dist/esm/engine/core && cp -r src/engine/core/binaries dist/cjs/engine/core",
+    "check-dist": "ls -d dist/* | xargs -I{} test -d {}/engine/core/binaries",
+    "copy-binaries": "ls -d dist/* | xargs -n 1 -I{} cp -r src/engine/core/binaries {}/engine/core",
     "ak-postbuild": "yarn copy-binaries && yarn check-dist"
   },
   "dependencies": {

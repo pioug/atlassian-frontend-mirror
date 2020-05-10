@@ -49,7 +49,7 @@ describe('extension-handlers', () => {
         'expand',
       );
 
-      const extensionParams = {
+      const node = {
         extensionKey: 'expand',
         extensionType: 'confluence.macro',
         parameters: {
@@ -57,9 +57,7 @@ describe('extension-handlers', () => {
         },
       };
 
-      const wrapper = shallow(
-        <NodeRenderer extensionParams={extensionParams} />,
-      );
+      const wrapper = shallow(<NodeRenderer node={node} />);
 
       expect(NodeRenderer.name).toBe('LoadableComponent');
       // LoadableComponent renders a component with isLoading = true
@@ -71,7 +69,7 @@ describe('extension-handlers', () => {
 
       // After the update, LoadableComponent is removed and our extension is rendered
       expect(wrapper.props().isLoading).not.toBeDefined();
-      expect(wrapper.props().extensionParams).toEqual(extensionParams);
+      expect(wrapper.props().node).toEqual(node);
     });
 
     describe('once the node resolves to a component', () => {
@@ -82,7 +80,7 @@ describe('extension-handlers', () => {
           'unknown',
         );
 
-        const extensionParams = {
+        const node = {
           extensionKey: 'unknown',
           extensionType: 'confluence.macro',
           parameters: {
@@ -90,9 +88,7 @@ describe('extension-handlers', () => {
           },
         };
 
-        const wrapper = shallow(
-          <NodeRenderer extensionParams={extensionParams} />,
-        );
+        const wrapper = shallow(<NodeRenderer node={node} />);
 
         await expect(Loadable.preloadAll()).rejects.toEqual(
           new Error(

@@ -8,7 +8,7 @@ import { messages } from '../../messages';
 import { Frame } from '../Frame';
 import { AKIconWrapper } from '../Icon';
 import { IconAndTitleLayout } from '../IconAndTitleLayout';
-import { IconStyledButton } from './styled';
+import { IconStyledButton, NoLinkAppearance } from '../styled';
 
 export interface InlineCardUnauthorizedViewProps {
   /** The url to display */
@@ -52,6 +52,11 @@ export class InlineCardUnauthorizedView extends React.Component<
         component={IconStyledButton}
         onClick={this.handleConnectAccount}
       >
+        <FormattedMessage {...messages.invalid_permissions}>
+          {formattedMessage => {
+            return <NoLinkAppearance>{formattedMessage}. </NoLinkAppearance>;
+          }}
+        </FormattedMessage>
         <FormattedMessage {...messages.connect_link_account} />
       </Button>
     );

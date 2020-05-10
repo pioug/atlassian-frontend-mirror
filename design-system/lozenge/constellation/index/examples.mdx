@@ -2,77 +2,58 @@
 order: 0
 ---
 
-import BasicLozenge from '../../examples/lozenge-basic';
-import BoldLozenge from '../../examples/lozenge-bold';
-import DefaultLozenge from '../../examples/lozenge-appearDefault';
-import SuccessLozenge from '../../examples/lozenge-appearSuccess';
-import RemovedLozenge from '../../examples/lozenge-appearRemoved';
-import InProgressLozenge from '../../examples/lozenge-appearInProgress';
-import NewLozenge from '../../examples/lozenge-appearNew';
-import MovedLozenge from '../../examples/lozenge-appearMoved';
-import MaxWidthLozenge from '../../examples/4-maxWidth';
-
-
-## Default
-
-### Subtle
-
-Use subtle lozenges by default and in cases where you need to:
-- use a number of lozenges on a page, such as in tables
-- draw attention to the status of an item, entity or project
-- use these by default to draw attention to an item or project as they’re less obvious they can be used with other subtle lozenges on a page
-
-<Example Component={BasicLozenge} componentName="@atlaskit/lozenge"/>
-
-### Bold
-
-For single-use items only.  
-
-<Example Component={BoldLozenge} componentName="@atlaskit/lozenge"/>
+import LozengeSubtle from '../../examples/constellation/LozengeSubtle';
+import LozengeBold from '../../examples/constellation/LozengeBold';
+import LozengeDefault from '../../examples/constellation/LozengeDefault';
+import LozengeSuccess from '../../examples/constellation/LozengeSuccess';
+import LozengeRemoved from '../../examples/constellation/LozengeRemoved';
+import LozengeInProgress from '../../examples/constellation/LozengeInProgress';
+import LozengeNew from '../../examples/constellation/LozengeNew';
+import LozengeMoved from '../../examples/constellation/LozengeMoved';
+import LozengeMaxWidth from '../../examples/constellation/LozengeMaxWidth';
 
 ## Appearance
 
-The most common variations used for lozenges.
+Lozenges are either subtle or bold and use color to indicate meanings that users can learn and recognize across products. Change the lozenge's appearance to bold by setting `isBold`.
 
 ### Default
 
-A default status. Use for neutral, to-do or not started, unavailable and minor states.
+Use default lozenges for a general status or state, such as: to do, unavailable, minor, not started.
 
-<Example Component={DefaultLozenge} componentName="@atlaskit/lozenge"/>
+<Example Component={LozengeDefault} componentName="@atlaskit/lozenge" />
 
 ### Success
 
-Use success as a constructive status, such as available, completed, approved, resolved or added states.
+Use `success` lozenges to represent a constructive status or state, such as: available, completed, approved, resolved, added.
 
-<Example Component={SuccessLozenge} componentName="@atlaskit/lozenge"/>
+<Example Component={LozengeSuccess} componentName="@atlaskit/lozenge" />
 
 ### Removed
 
-Use removed as a critical or problematic status such as errors, declined, deleted or failed states.
+Use `removed` lozenges to represent a critical or problematic status or state, such as: errors, declined, deleted, failed.
 
-<Example Component={RemovedLozenge} componentName="@atlaskit/lozenge"/>
+<Example Component={LozengeRemoved} componentName="@atlaskit/lozenge" />
 
 ### In progress
 
-Commonly used as an in-flight, in progress or accepted status.
+Use `inprogress` lozenges to represent an in progress or current status or state, such as: in progress, open, modified.
 
-<Example Component={InProgressLozenge} componentName="@atlaskit/lozenge"/>
+<Example Component={LozengeInProgress} componentName="@atlaskit/lozenge" />
 
 ### New
 
-Use as a status for new features, newly created or help states.
+Use `new` lozenges to represent a new status or state, such as: new, created, help.
 
-<Example Component={NewLozenge} componentName="@atlaskit/lozenge"/>
+<Example Component={LozengeNew} componentName="@atlaskit/lozenge" />
 
 ### Moved
 
-Use for items that have been changed and require attention, such as updated, modified or moved.
+Use `moved` lozenges to represent a status or state for items that have been changed and require attention, such as: busy, blocked, missing, warning.
 
-<Example Component={MovedLozenge} componentName="@atlaskit/lozenge"/>
-
+<Example Component={LozengeMoved} componentName="@atlaskit/lozenge" />
 
 ## Max width
 
-The default width length for the lozenge is 200 px. Anything longer than that will be truncated and replaced with ellipsis.
+By default, the maximum width of a lozenge is 200px. When the text in the lozenge exceeds the max width, it will be truncated with an ellipsis. This `maxWidth` can be customized.
 
-<Example Component={MaxWidthLozenge} componentName="@atlaskit/lozenge"/>
+<Example Component={LozengeMaxWidth} componentName="@atlaskit/lozenge" />

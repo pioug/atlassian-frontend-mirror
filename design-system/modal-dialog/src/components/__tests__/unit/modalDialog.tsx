@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { render } from '@testing-library/react';
 import { mount } from 'enzyme';
 
 import Blanket from '@atlaskit/blanket';
@@ -240,15 +239,6 @@ describe('modal-dialog', () => {
         expect(errorSpy).toHaveBeenCalled();
         expect(warnSpy).toHaveBeenCalledWith(
           expect.stringMatching(/forwardRef/),
-        );
-      });
-
-      it('should explicitly set z-index so outside scrolling works in Firefox', () => {
-        const wrapper = render(<Content onClose={noop}>Hello World</Content>);
-
-        expect(wrapper.getByText('Hello World')).toHaveStyleDeclaration(
-          'z-index',
-          '1',
         );
       });
     });

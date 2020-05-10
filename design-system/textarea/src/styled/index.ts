@@ -1,7 +1,9 @@
 import styled, { css } from 'styled-components';
+
 import { codeFontFamily, fontSize, gridSize } from '@atlaskit/theme/constants';
-import { ThemeTokens } from '../theme';
+
 import { Props } from '../components/TextArea';
+import { ThemeTokens } from '../theme';
 
 type StyleProps = Props & ThemeTokens & { isFocused: boolean; none?: any };
 

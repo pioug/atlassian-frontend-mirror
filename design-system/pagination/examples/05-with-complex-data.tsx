@@ -1,4 +1,5 @@
 import React, { Component, Fragment, SyntheticEvent } from 'react';
+
 import Pagination from '../src';
 
 const PAGES = [...Array(10)].map((_, i) => ({

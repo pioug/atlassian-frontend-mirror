@@ -105,10 +105,14 @@ const editButton = (
       // Taking the latest `updateExtension` from plugin state to avoid race condition @see ED-8501
       onClick: (state, dispatch) => {
         const macroState: MacroState = macroPluginKey.getState(state);
-        return editExtension(
-          macroState && macroState.macroProvider,
-          getPluginState(state).updateExtension,
-        )(state, dispatch);
+        const { updateExtension } = getPluginState(state);
+
+        editExtension(macroState && macroState.macroProvider, updateExtension)(
+          state,
+          dispatch,
+        );
+
+        return true;
       },
       title: formatMessage(messages.edit),
     },

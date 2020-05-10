@@ -1,5 +1,11 @@
 # @atlaskit/editor-markdown-transformer
 
+## 3.1.23
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.1.22
 
 ### Patch Changes

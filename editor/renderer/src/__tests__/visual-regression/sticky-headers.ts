@@ -36,81 +36,81 @@ describe('Snapshot Test: sticky-headers', () => {
 
   it(`should have the header stick for an unresized-table`, async () => {
     await initRenderer(page, stickyHeaderADF);
-    await scrollToPos(page, 160);
+    await scrollToPos(page, 130);
   });
 
   it(`should have the header stick for an unresized-table with numbered column`, async () => {
     await initRenderer(page, stickyHeaderADF);
-    await scrollToPos(page, 312);
+    await scrollToPos(page, 345);
   });
 
   it(`should have the header not stick for an unresized-table with no header row`, async () => {
     await initRenderer(page, stickyHeaderADF);
-    await scrollToPos(page, 555);
+    await scrollToPos(page, 610);
   });
 
   it(`should have the header not stick for an table with only header row`, async () => {
     await initRenderer(page, stickyHeaderADF);
-    await scrollToPos(page, 650);
+    await scrollToPos(page, 705);
   });
 
   it(`should have the header not stick for an table with only regular row`, async () => {
     await initRenderer(page, stickyHeaderADF);
-    await scrollToPos(page, 750);
+    await scrollToPos(page, 807);
   });
 
   it(`should have the header not stick for an table with resized columns`, async () => {
     await initRenderer(page, stickyHeaderADF);
-    await scrollToPos(page, 840);
+    await scrollToPos(page, 908);
   });
 
   it(`should have the header stick for a broken out table with no resized columns`, async () => {
     await initRenderer(page, stickyHeaderADF);
-    await scrollToPos(page, 933);
+    await scrollToPos(page, 1000);
   });
 
   it(`should have the header stick for a broken out table no resized columns`, async () => {
     await initRenderer(page, stickyHeaderADF);
-    await scrollToPos(page, 1125);
+    await scrollToPos(page, 1208);
   });
 
   it(`should have the header stick for a broken out table overflow`, async () => {
     await initRenderer(page, stickyHeaderADF);
-    await scrollToPos(page, 1155);
+    await scrollToPos(page, 1243);
   });
 
   it(`should have the header stick for an table with overflow`, async () => {
     await initRenderer(page, stickyHeaderADF);
-    await scrollToPos(page, 2395);
+    await scrollToPos(page, 2685);
   });
 
   it(`should have the header stick for an table with overflow and numbered column`, async () => {
     await initRenderer(page, stickyHeaderADF);
-    await scrollToPos(page, 3457);
+    await scrollToPos(page, 3757);
   });
 
   it(`should have the header stick for an table within a layout`, async () => {
     await initRenderer(page, stickyHeaderADF);
-    await scrollToPos(page, 4353);
+    await scrollToPos(page, 4803);
   });
 
   it(`should have the header stick for an table within layout and brokenout`, async () => {
     await initRenderer(page, stickyHeaderADF);
-    await scrollToPos(page, 4690);
+    await scrollToPos(page, 5160);
   });
 
   it(`should have both headers stick for an table with multiple headers`, async () => {
     await initRenderer(page, stickyHeaderADF);
-    await scrollToPos(page, 5170);
+    await scrollToPos(page, 5689);
   });
 
   it(`should have both headers stick for an table with multiple headers`, async () => {
     await initRenderer(page, stickyHeaderADF);
-    await scrollToPos(page, 5263);
+    await scrollToPos(page, 5783);
   });
 
   it(`should have the headers not stick for an table with merged cells`, async () => {
     await initRenderer(page, stickyHeaderADF);
-    await scrollToPos(page, 5563);
+    await scrollToPos(page, 6033);
   });
 });

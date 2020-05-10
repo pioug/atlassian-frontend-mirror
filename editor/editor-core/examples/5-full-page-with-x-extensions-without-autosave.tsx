@@ -5,9 +5,9 @@ import { getConfluenceMacrosExtensionProvider } from '../example-helpers/conflue
 
 export default () => (
   <FullPageExample
-    extensionProviders={[
+    extensionProviders={editorActions => [
       getXProductExtensionProvider(),
-      getConfluenceMacrosExtensionProvider(),
+      getConfluenceMacrosExtensionProvider(editorActions),
     ]}
     allowExtension={{ allowAutoSave: false }}
   />

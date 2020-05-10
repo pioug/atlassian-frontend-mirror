@@ -1,5 +1,20 @@
 # @atlaskit/editor-mobile-bridge
 
+## 13.0.0
+
+### Major Changes
+
+- [`f64040d049`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f64040d049) - FM-3657 Disable zooming in Hybrid Renderer
+
+### Minor Changes
+
+- [`e7f20b8b8f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e7f20b8b8f) - Adding support for `locale` provided through query params and loading proper translations in hybrid editor- [`02a2790b28`](https://bitbucket.org/atlassian/atlassian-frontend/commits/02a2790b28) - Introduce new `getElementScrollOffset` method that supports heading and returns x/y offset coordinates as a string.
+  Old method `getElementScrollOffsetY` is now deprecated.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.2.0
 
 ### Minor Changes

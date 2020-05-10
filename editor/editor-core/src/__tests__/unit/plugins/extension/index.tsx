@@ -1,6 +1,7 @@
 import React from 'react';
 import { NodeSelection } from 'prosemirror-state';
 import { findParentNodeOfType } from 'prosemirror-utils';
+import { EditorView } from 'prosemirror-view';
 
 import {
   ExtensionHandlers,
@@ -46,7 +47,6 @@ import {
 import { getPluginState } from '../../../../plugins/extension/pm-plugins/main';
 import { setNodeSelection } from '../../../../utils';
 import { waitForProvider, flushPromises } from '../../../__helpers/utils';
-import { EditorView } from 'prosemirror-view';
 
 const macroProviderPromise = Promise.resolve(macroProvider);
 
@@ -116,7 +116,7 @@ describe('extension', () => {
 
       const extensionState = getPluginState(editorView.state);
 
-      expect(extensionState.updateExtension).toBe(updateFn);
+      expect(extensionState.updateExtension).resolves.toBe(updateFn);
     });
   });
 
@@ -315,6 +315,8 @@ describe('extension', () => {
           updateFn(params);
           return { content: newContent };
         };
+        const updateHandlerPromise = Promise.resolve(updateHandler);
+
         const extensionHandlers: ExtensionHandlers = {
           [extensionType]: {
             render: ({ parameters: { content } }) => <div>{content}</div>,
@@ -349,14 +351,15 @@ describe('extension', () => {
 
         it('should return true if valid extensionHandler is provided and cursor is inside extension node', async () => {
           expect(
-            editExtension(null, updateHandler)(
+            editExtension(null, updateHandlerPromise)(
               editorView.state,
               editorView.dispatch,
             ),
           ).toBe(true);
+          await flushPromises();
 
           expect(updateFn).toBeCalledWith(initialValue);
-          await sleep(0);
+          await flushPromises();
 
           expect(
             editorView.state.doc.firstChild!.attrs.parameters.content,
@@ -368,11 +371,14 @@ describe('extension', () => {
           const dispatchMock = jest.fn(editorView.dispatch);
 
           expect(
-            editExtension(null, updateHandler)(editorView.state, dispatchMock),
+            editExtension(null, updateHandlerPromise)(
+              editorView.state,
+              dispatchMock,
+            ),
           ).toBe(true);
 
           expect(updateFn).toBeCalledWith(initialValue);
-          await sleep(0);
+          await flushPromises();
 
           expect(
             editorView.state.doc.firstChild!.attrs.parameters.content,
@@ -380,6 +386,106 @@ describe('extension', () => {
 
           const dispatchedTR = dispatchMock.mock.calls[0][0];
           expect((dispatchedTR as any).scrolledIntoView).toBeTruthy();
+        });
+      });
+
+      describe('defining how to update an extension', () => {
+        const dummyExtension = {
+          extensionType: 'com.atlassian.confluence.macro.core',
+          extensionKey: 'dummy',
+          parameters: {
+            macroParams: {
+              a: 2,
+            },
+          },
+        };
+
+        const newMacroParams = { macroParams: { a: 1 } };
+
+        const updatedExtension = {
+          ...dummyExtension,
+          parameters: newMacroParams,
+        };
+
+        const setup = () => {
+          const extensionProvider = createFakeExtensionProvider(
+            'com.atlassian.confluence.macro.core',
+            'dummy',
+            ExtensionHandlerComponent,
+          );
+
+          const { editorView } = editor(
+            doc(extension(dummyExtension)()),
+            undefined,
+            [extensionProvider],
+          );
+          setNodeSelection(editorView, 0);
+
+          return editorView;
+        };
+
+        it('should first try to use the update method provided by the extension provider/extension handler', async () => {
+          const editorView = setup();
+
+          const provider = await macroProviderPromise;
+          const updateMethodResolvingMacroParams = Promise.resolve(() =>
+            Promise.resolve(newMacroParams),
+          );
+
+          editExtension(provider, updateMethodResolvingMacroParams)(
+            editorView.state,
+            editorView.dispatch,
+          );
+
+          await flushPromises();
+
+          expect(editorView.state.doc).toEqualDocument(
+            doc(extension(updatedExtension)()),
+          );
+        });
+
+        it('should resolve from the macro provider if the update method does not return anything', async () => {
+          const editorView = setup();
+
+          const provider = new MockMacroProvider({
+            type: 'extension',
+            attrs: updatedExtension,
+          });
+
+          const updateMethodResolvingUndefined = Promise.resolve(undefined);
+
+          editExtension(provider, updateMethodResolvingUndefined)(
+            editorView.state,
+            editorView.dispatch,
+          );
+
+          await flushPromises();
+
+          expect(editorView.state.doc).toEqualDocument(
+            doc(extension(updatedExtension)()),
+          );
+        });
+
+        it('should resolve from the macro provider if there is no update method provided', async () => {
+          const editorView = setup();
+
+          const provider = new MockMacroProvider({
+            type: 'extension',
+            attrs: updatedExtension,
+          });
+
+          const updateMethodMissing = undefined;
+
+          editExtension(provider, updateMethodMissing)(
+            editorView.state,
+            editorView.dispatch,
+          );
+
+          await flushPromises();
+
+          expect(editorView.state.doc).toEqualDocument(
+            doc(extension(updatedExtension)()),
+          );
         });
       });
     });
@@ -567,34 +673,54 @@ describe('extension', () => {
         actions!.editInContextPanel(transformBefore, transformAfter);
       });
 
-    it('when editing extensions on config panel, state should contain showContextPanel=true and the pre and post transformers', async () => {
-      const { editorView } = createEditor({
-        doc: doc(
-          bodiedExtension({
-            extensionType: 'fake.confluence',
-            extensionKey: 'extension',
-            layout: 'full-width',
-          })(paragraph('te{<>}xt')),
+    const setup = async () => {
+      const { editorView } = editor(
+        doc(
+          bodiedExtension(extensionAttrs)(paragraph('{<>}text')),
+          paragraph('hello'),
+          bodiedExtension(extensionAttrs)(paragraph('text')),
         ),
-        editorProps: {
-          allowExtension: {
-            allowBreakout: true,
-          },
-        },
-        providerFactory,
-      });
+      );
 
-      editExtension(null, extensionUpdater)(
+      editExtension(null, Promise.resolve(extensionUpdater))(
         editorView.state,
         editorView.dispatch,
       );
 
       await flushPromises();
 
+      return editorView;
+    };
+
+    it('when editing extensions on config panel, state should contain showContextPanel=true and the pre and post transformers', async () => {
+      const editorView = await setup();
+
       const pluginState = getPluginState(editorView.state);
       expect(pluginState.showContextPanel).toEqual(true);
       expect(pluginState.processParametersBefore).toEqual(transformBefore);
       expect(pluginState.processParametersAfter).toEqual(transformAfter);
+    });
+
+    it('when changing selection inside the same bodied extension, should keep context panel open', async () => {
+      const editorView = await setup();
+
+      setNodeSelection(editorView, 3);
+
+      const pluginState = getPluginState(editorView.state);
+      expect(pluginState.showContextPanel).toEqual(true);
+      expect(pluginState.processParametersBefore).toEqual(transformBefore);
+      expect(pluginState.processParametersAfter).toEqual(transformAfter);
+    });
+
+    it('when selecting another extension, should close the context panel', async () => {
+      const editorView = await setup();
+
+      setNodeSelection(editorView, 13);
+
+      const pluginState = getPluginState(editorView.state);
+      expect(pluginState.showContextPanel).toEqual(false);
+      expect(pluginState.processParametersBefore).toEqual(undefined);
+      expect(pluginState.processParametersAfter).toEqual(undefined);
     });
   });
 });

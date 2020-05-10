@@ -1,5 +1,11 @@
 # @atlaskit/onboarding
 
+## 9.1.7
+
+### Patch Changes
+
+- [`6faa22760b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6faa22760b) - Add modalButtonTheme, spotlightButtonTheme,- Updated dependencies
+
 ## 9.1.6
 
 ### Patch Changes

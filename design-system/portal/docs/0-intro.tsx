@@ -1,5 +1,6 @@
 import React from 'react';
-import { md, Props, code } from '@atlaskit/docs';
+
+import { code, md, Props } from '@atlaskit/docs';
 
 export default md`
   A best practice, server-side-render friendly wrapper on [React Portals](https://reactjs.org/docs/portals.html).

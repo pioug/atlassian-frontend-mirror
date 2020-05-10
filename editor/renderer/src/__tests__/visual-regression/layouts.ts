@@ -7,7 +7,7 @@ import * as layout3Col from '../__fixtures__/layout-3-columns.adf.json';
 import * as layoutLeftSidebar from '../__fixtures__/layout-left-sidebar.adf.json';
 import * as layoutRightSidebar from '../__fixtures__/layout-right-sidebar.adf.json';
 import * as layout3ColWithSidebars from '../__fixtures__/layout-3-columns-with-sidebars.adf.json';
-import { emojiReadySelector } from '../__helpers/page-objects/_emoji';
+import { emojiSelectors } from '../__helpers/page-objects/_emoji';
 
 const initRenderer = async (page: Page, adf: any) => {
   await initRendererWithADF(page, {
@@ -48,7 +48,7 @@ describe.skip('Snapshot Test: Layouts', () => {
   describe('Breakout Mark', () => {
     it(`should correctly render three column layout with a default breakout mark`, async () => {
       await initRenderer(page, layoutWithDefaultBreakoutMark);
-      await waitForLoadedBackgroundImages(page, emojiReadySelector, 10000);
+      await waitForLoadedBackgroundImages(page, emojiSelectors.standard, 10000);
     });
   });
 });

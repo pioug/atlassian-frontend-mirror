@@ -14,7 +14,10 @@ describe('Unauth view', () => {
         <InlineCardForbiddenView url={URL} onAuthorise={onRetrySpy} />
       </IntlProvider>,
     );
-    element.find('button').simulate('click');
+    element
+      .find('[type="button"]')
+      .at(0)
+      .simulate('click');
     expect(onRetrySpy).toHaveBeenCalledTimes(1);
   });
 
@@ -30,8 +33,31 @@ describe('Unauth view', () => {
         />
       </IntlProvider>,
     );
-    element.find('button').simulate('click');
+    element
+      .find('[type="button"]')
+      .at(0)
+      .simulate('click');
     expect(onRetrySpy).toHaveBeenCalledTimes(1);
     expect(onClickSpy).not.toHaveBeenCalled();
+  });
+
+  it('should show correct text', () => {
+    const element = mount(
+      <IntlProvider locale={'en'}>
+        <InlineCardForbiddenView url={URL} />
+      </IntlProvider>,
+    );
+    expect(element.text()).toEqual(`You don’t have access to this link`);
+  });
+
+  it('should show correct text if actionable', () => {
+    const element = mount(
+      <IntlProvider locale={'en'}>
+        <InlineCardForbiddenView url={URL} onAuthorise={jest.fn()} />
+      </IntlProvider>,
+    );
+    expect(element.text()).toEqual(
+      `You don’t have access to this link. Try another account`,
+    );
   });
 });

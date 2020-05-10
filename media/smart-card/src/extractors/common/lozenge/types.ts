@@ -11,4 +11,7 @@ export interface LinkLozenge {
   appearance?: LinkLozengeColor;
 }
 
+export type LinkDocumentState = 'archived' | 'draft' | 'current';
 export type LinkPullRequestState = 'open' | 'merged' | 'declined' | 'closed';
+
+export type LinkState = LinkDocumentState & LinkPullRequestState;

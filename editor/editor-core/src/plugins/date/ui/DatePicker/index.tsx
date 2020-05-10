@@ -331,7 +331,7 @@ class DatePicker extends React.Component<Props & InjectedIntlProps, State> {
           )}
           <Calendar
             onChange={this.handleOnChange}
-            onSelect={date => onSelect(date, INPUT_METHOD.PICKER)}
+            onSelect={(date: DateType) => onSelect(date, INPUT_METHOD.PICKER)}
             day={day}
             month={month}
             year={year}

@@ -25,6 +25,7 @@ import {
   basePlugin,
   placeholderPlugin,
 } from '../../../plugins';
+import selectionPlugin from '../../../plugins/selection';
 import { MediaProvider } from '../../../plugins/media';
 import { PresetProvider } from '../Editor';
 import { EditorPresetProps } from './types';
@@ -59,7 +60,7 @@ export function useCXHTMLPreset({
   preset.add(quickInsertPlugin);
   preset.add([tablesPlugin, { tableOptions: { advanced: true } }]);
   preset.add(codeBlockPlugin);
-  preset.add(panelPlugin);
+  preset.add([panelPlugin, { allowSelection: true }]);
   preset.add(listsPlugin);
   preset.add(textColorPlugin);
   preset.add(breakoutPlugin);
@@ -74,6 +75,7 @@ export function useCXHTMLPreset({
   preset.add(tasksAndDecisionsPlugin);
   preset.add(insertBlockPlugin);
   preset.add([placeholderPlugin, { placeholder }]);
+  preset.add(selectionPlugin);
 
   if (mentionProvider) {
     preset.add(mentionsPlugin);

@@ -154,16 +154,6 @@ export interface PopupProps {
    * Defaults to `layers.layer()` from `@atlaskit/theme`.
    */
   zIndex?: number;
-
-  /**
-   * Tag used for the wrapping element around the trigger.
-   * Defaults to "div".
-   * Set this to `React.Fragment` when wanting to avoid having a wrapping element.
-
-   * If you're reading this and finding you never actually need this wrapping element let us know via our [Service Desk](http://go/dst-sd).
-   * We'll probably remove it in the next breaking version.
-   */
-  tag?: string | React.ComponentType | React.ExoticComponent;
 }
 
 export type CloseManagerHook = Pick<PopupProps, 'isOpen' | 'onClose'> & {

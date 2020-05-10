@@ -1,6 +1,8 @@
 import React from 'react';
-import ProgressBar from './ProgressBar';
+
 import { CustomProgressBarProps } from '../types';
+
+import ProgressBar from './ProgressBar';
 
 export default class extends React.PureComponent<CustomProgressBarProps> {
   static defaultProps = {

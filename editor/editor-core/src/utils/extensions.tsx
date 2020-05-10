@@ -73,8 +73,12 @@ export async function extensionProviderToQuickInsertProvider(
               if (typeof item.node === 'function') {
                 resolveImport(item.node()).then(node => {
                   sendExtensionQuickInsertAnalytics(item, createAnalyticsEvent);
-                  editorActions.replaceSelection(node);
+
+                  if (node) {
+                    editorActions.replaceSelection(node);
+                  }
                 });
+
                 return insert('');
               } else {
                 sendExtensionQuickInsertAnalytics(item, createAnalyticsEvent);

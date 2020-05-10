@@ -2,8 +2,11 @@ import { Page } from './_types';
 import { selectors } from './_editor';
 import messages from '../../../messages';
 
-const columnsSelector = 'div[data-layout-column]';
-const columnSelectedSelector = 'div[data-layout-section].selected';
+export const layoutSelectors = {
+  section: '[data-layout-section]',
+  column: '[data-layout-column]',
+  active: '[data-layout-section].selected',
+};
 
 function getColumnElementXPath(column: number, paragraph: number) {
   return `(//div[@data-layout-column])[${column}]//p[${paragraph}]`;
@@ -20,7 +23,7 @@ export const clickOnLayoutColumn = async (
   expect(target.length).toBeGreaterThan(0);
   await target[0].click();
 
-  await page.waitForSelector(columnSelectedSelector);
+  await page.waitForSelector(layoutSelectors.active);
 };
 
 export const scrollToLayoutColumn = async (
@@ -54,7 +57,7 @@ export const scrollToLayoutColumn = async (
         behavior: 'auto',
       });
     },
-    columnsSelector,
+    layoutSelectors.column,
     column,
     selectors.scrollContainer,
     offset,
@@ -83,7 +86,7 @@ export const scrollToLayoutColumn = async (
       return $scrollContainerSelector.scrollTop === top;
     },
     undefined,
-    columnsSelector,
+    layoutSelectors.column,
     column,
     selectors.scrollContainer,
     offset,

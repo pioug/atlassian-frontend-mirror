@@ -6,8 +6,8 @@ import {
   SideEffectOptions,
 } from '@atlaskit/visual-regression/helper';
 import { Page } from 'puppeteer';
-import { Props } from '../../ui/Renderer';
 import { RendererAppearance } from '../../ui/Renderer/types';
+import { RendererPropsOverrides } from '../__helpers/testing-example-helpers';
 
 const DEFAULT_WIDTH = 800;
 const DEFAULT_HEIGHT = 600;
@@ -44,10 +44,6 @@ export async function goToRendererTestingExample(page: Page) {
 
   await navigateToUrl(page, url);
 }
-
-export type RendererPropsOverrides = { [T in keyof Props]?: Props[T] } & {
-  showSidebar?: boolean;
-};
 
 export async function mountRenderer(
   page: Page,

@@ -178,6 +178,7 @@ export interface DemoRendererProps {
   allowColumnSorting?: boolean;
   copies?: number;
   schema?: Schema;
+  actionButtons?: any;
 }
 
 export interface DemoRendererState {
@@ -222,6 +223,14 @@ export default class RendererDemo extends React.Component<
     };
   }
 
+  componentDidUpdate(prevProps: DemoRendererProps) {
+    if (this.props.document && prevProps.document !== this.props.document) {
+      this.setState({
+        input: JSON.stringify(this.props.document, null, 2),
+      });
+    }
+  }
+
   private handlePortalRef = (portal: HTMLElement | null) => {
     this.setState({ portal: portal || undefined });
   };
@@ -264,6 +273,7 @@ export default class RendererDemo extends React.Component<
                   value={this.state.copies}
                 />
               )}
+              {this.props.actionButtons ? this.props.actionButtons : null}
             </fieldset>
             <IframeWidthObserverFallbackWrapper>
               {this.renderRenderer(additionalRendererProps)}

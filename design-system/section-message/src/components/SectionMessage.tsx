@@ -1,16 +1,18 @@
 import React from 'react';
+
 import Button from '@atlaskit/button';
+
 import { baseAppearanceObj } from '../theme';
 import { Appearance } from '../types';
 
 import {
+  Action,
+  Actions,
   Container,
   ContentContainer,
-  Title,
   Description,
-  Actions,
-  Action,
   IconWrapper,
+  Title,
 } from './styled';
 
 interface ActionType {

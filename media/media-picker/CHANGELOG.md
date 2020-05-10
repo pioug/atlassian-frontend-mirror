@@ -1,5 +1,11 @@
 # @atlaskit/media-picker
 
+## 54.1.2
+
+### Patch Changes
+
+- [`9848dca5c7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9848dca5c7) - Updated json-ld-types to 2.1.0- Updated dependencies
+
 ## 54.1.1
 
 ### Patch Changes

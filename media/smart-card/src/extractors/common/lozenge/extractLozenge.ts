@@ -6,6 +6,14 @@ import { extractTaskStatus } from './extractTaskStatus';
 import { extractType } from '../primitives/extractType';
 import { extractTaskType } from './extractTaskType';
 
+const DOC_TYPES = [
+  'schema:BlogPosting',
+  'schema:TextDigitalDocument',
+  'schema:DigitalDocument',
+  'schema:PresentationDigitalDocument',
+  'schema:SpreadsheetDigitalDocument',
+];
+
 export const extractLozenge = (
   jsonLd: JsonLd.Data.BaseData,
 ): LinkLozenge | undefined => {
@@ -19,6 +27,14 @@ export const extractLozenge = (
       const lozengeFromStatus = extractTaskStatus(jsonLdTask);
       const lozengeFromTaskType = extractLozengeFromTaskType(jsonLdTask);
       return lozengeFromTag || lozengeFromStatus || lozengeFromTaskType;
+    } else if (type.some(types => DOC_TYPES.includes(types))) {
+      const jsonLdDocument = jsonLd as JsonLd.Data.Document;
+      const lozengeFromState = extractState(jsonLdDocument);
+      return lozengeFromState;
+    } else if (type.includes('atlassian:Project')) {
+      const jsonLdProject = jsonLd as JsonLd.Data.Project;
+      const lozengeFromState = extractState(jsonLdProject);
+      return lozengeFromState;
     }
   }
 };

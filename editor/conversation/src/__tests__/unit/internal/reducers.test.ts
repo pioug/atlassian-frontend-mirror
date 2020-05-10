@@ -90,6 +90,9 @@ describe('Reducers', () => {
         payload: mockConversation,
       });
 
+      if (!mockConversation.comments) {
+        throw Error('mockConversation.comments should not be empty');
+      }
       const [comment] = mockConversation.comments;
 
       expect(store.getState()).toEqual({

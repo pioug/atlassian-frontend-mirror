@@ -1,12 +1,12 @@
 import React from 'react';
-import { ExtensionParams } from '@atlaskit/editor-common';
+import { ExtensionParams } from '@atlaskit/editor-common/extensions';
 
 type Props = {
-  extensionParams: ExtensionParams<{ item?: string; items?: string[] }>;
+  node: ExtensionParams<{ item?: string; items?: string[] }>;
 };
 
-export default ({ extensionParams }: Props) => {
-  const { parameters, extensionKey } = extensionParams;
+export default ({ node }: Props) => {
+  const { parameters, extensionKey } = node;
 
   const [, nodeKey = 'default'] = extensionKey.split(':');
 

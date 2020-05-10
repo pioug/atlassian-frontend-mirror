@@ -136,10 +136,12 @@ export function addAnalytics(
   return tr;
 }
 
+export type AnalyticsEventPayloadCallback = (
+  state: EditorState,
+) => AnalyticsEventPayload | undefined;
+
 export function withAnalytics(
-  payload:
-    | AnalyticsEventPayload
-    | ((state: EditorState) => AnalyticsEventPayload | undefined),
+  payload: AnalyticsEventPayload | AnalyticsEventPayloadCallback,
   channel?: string,
 ): HigherOrderCommand {
   return command => (state, dispatch, view) =>

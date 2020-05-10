@@ -82,32 +82,33 @@ export const sanitiseSelectionMarksForWrapping = (
   let tr: Transaction | undefined;
   const { from, to } = state.tr.selection;
 
-  state.doc.nodesBetween(
-    from,
-    to,
-    (node, pos, parent) => {
-      // If iterate over a node thats out of our defined range
-      // We skip here but continue to iterate over its children.
-      if (node.isText || pos < from || pos > to) {
-        return true;
+  state.doc.nodesBetween(from, to, (node, pos, parent) => {
+    if (node.isText) {
+      return false;
+    }
+    // Skip expands and layouts if they are outside selection
+    // but continue to iterate over their children.
+    if (
+      ['expand', 'layoutSection'].includes(node.type.name) &&
+      (pos < from || pos > to)
+    ) {
+      return true;
+    }
+    node.marks.forEach(mark => {
+      if (
+        !parent.type.allowsMarkType(mark.type) ||
+        (newParentType && !newParentType.allowsMarkType(mark.type))
+      ) {
+        const filteredMarks = node.marks.filter(m => m.type !== mark.type);
+        const position = pos > 0 ? pos : 0;
+        tr = (tr || state.tr).setNodeMarkup(
+          position,
+          undefined,
+          node.attrs,
+          filteredMarks,
+        );
       }
-      node.marks.forEach(mark => {
-        if (
-          !parent.type.allowsMarkType(mark.type) ||
-          (newParentType && !newParentType.allowsMarkType(mark.type))
-        ) {
-          const filteredMarks = node.marks.filter(m => m.type !== mark.type);
-          const position = pos > 0 ? pos - 1 : 0;
-          tr = (tr || state.tr).setNodeMarkup(
-            position,
-            undefined,
-            node.attrs,
-            filteredMarks,
-          );
-        }
-      });
-    },
-    from,
-  );
+    });
+  });
   return tr;
 };

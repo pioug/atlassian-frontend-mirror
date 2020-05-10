@@ -3,7 +3,9 @@ export default {
   attrs: {
     extensionType: 'com.atlassian.connect',
     extensionKey: 'fake.lorem.ipsum:lorem-ipsum-3-with-body',
-    parameters: {},
+    parameters: {
+      sentence: 'This extension came from an external file',
+    },
   },
   content: [
     {

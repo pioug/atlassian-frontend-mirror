@@ -262,6 +262,7 @@ describe(name, () => {
         'mention',
         'menu',
         'menu-expand',
+        'mobile',
         'more-vertical',
         'more',
         'notification-all',

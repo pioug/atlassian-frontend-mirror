@@ -1,9 +1,10 @@
 import React from 'react';
+
+import exenv from 'exenv';
 import ReactDOM from 'react-dom';
 import ReactDOMServer from 'react-dom/server';
-import exenv from 'exenv';
 
-import SectionMessage from '../..';
+import SectionMessage from '../../index';
 
 jest.mock('exenv', () => ({
   get canUseDOM() {

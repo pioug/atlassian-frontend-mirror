@@ -366,7 +366,7 @@ const enter: Command = filter(
     (state, dispatch) => {
       const { selection, schema } = state;
       const { taskItem } = schema.nodes;
-      const { $from } = selection;
+      const { $from, $to } = selection;
       const node = $from.node($from.depth);
       const nodeType = node && node.type;
       const listType: TaskDecisionListType =
@@ -379,6 +379,15 @@ const enter: Command = filter(
         tr: Transaction;
         itemLocalId?: string;
       }) => {
+        // ED-8932: When cursor is at the beginning of a task item, instead of split, we insert above.
+        if ($from.pos === $to.pos && $from.parentOffset === 0) {
+          const newTask = nodeType.createAndFill({ localId: itemLocalId });
+          if (newTask) {
+            // Current position will point to text node, but we want to insert above the taskItem node
+            return tr.insert($from.pos - 1, newTask);
+          }
+        }
+
         return tr.split($from.pos, 1, [
           { type: nodeType, attrs: { localId: itemLocalId } },
         ]);

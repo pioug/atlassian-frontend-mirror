@@ -1,7 +1,9 @@
 import React, { ReactNode } from 'react';
+
 import { mount } from 'enzyme';
-import Portal from '../..';
+
 import { PORTAL_MOUNT_EVENT, PORTAL_UNMOUNT_EVENT } from '../../constants';
+import Portal from '../../index';
 
 const App = ({ children }: { children: ReactNode }) => <div>{children}</div>;
 

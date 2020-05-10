@@ -106,7 +106,7 @@ const manifestFunction = ({
   title: 'Dropbox',
   type: 'com.dropbox.fabric',
   key: 'dropbox',
-  description: 'Dropbox extension for Atlassian Editor',
+  description: 'Embed Dropbox file to collaborate with your team',
   icons: {
     '16': () => import('./icons/DropboxIcon'),
     '24': () => import('./icons/DropboxIcon'),

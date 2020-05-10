@@ -833,6 +833,24 @@ describe('card', () => {
         );
       });
 
+      it('returns true for link which ends with a full stop', () => {
+        const link = cleanOne(
+          a({
+            href:
+              'https://pug.jira-dev.com/wiki/spaces/~896045072/pages/4554883643/title.',
+          })(
+            'https://pug.jira-dev.com/wiki/spaces/~896045072/pages/4554883643/title.',
+          ),
+        )(defaultSchema);
+        expect(
+          shouldReplace(
+            link,
+            true,
+            'https://pug.jira-dev.com/wiki/spaces/~896045072/pages/4554883643/title.',
+          ),
+        ).toBe(true);
+      });
+
       it('returns false for text node', () => {
         const textRefNode = text('https://invis.io/P8OKINLRQEH', defaultSchema);
         const textNode = Node.fromJSON(

@@ -1,8 +1,10 @@
 import React from 'react';
-import Textfield from '../src';
+
 import { subtleHeading } from '@atlaskit/theme/colors';
-import { gridSize, fontSize } from '@atlaskit/theme/constants';
+import { fontSize, gridSize } from '@atlaskit/theme/constants';
 import { headingSizes } from '@atlaskit/theme/typography';
+
+import Textfield from '../src';
 
 export default function() {
   return (

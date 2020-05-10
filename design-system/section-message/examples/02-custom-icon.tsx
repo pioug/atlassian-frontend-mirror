@@ -1,5 +1,7 @@
 import React from 'react';
+
 import JiraLabsIcon from '@atlaskit/icon/glyph/jira/labs';
+
 import SectionMessage from '../src';
 
 const Example = () => (

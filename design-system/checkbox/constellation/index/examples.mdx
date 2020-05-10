@@ -2,31 +2,52 @@
 order: 0
 ---
 
-import DefaultCheckbox from '../../examples/constellation/DefaultCheckbox';
-import DisabledCheckbox from '../../examples/constellation/DisabledCheckbox';
-import InvalidCheckbox from '../../examples/constellation/InvalidCheckbox';
-import IndeterminateCheckbox from '../../examples/constellation/IndeterminateCheckbox';
+import CheckboxDefault from '../../examples/constellation/CheckboxDefault';
+import CheckboxControlled from '../../examples/constellation/CheckboxControlled';
+import CheckboxUncontrolled from '../../examples/constellation/CheckboxUncontrolled';
+import CheckboxDisabled from '../../examples/constellation/CheckboxDisabled';
+import CheckboxInvalid from '../../examples/constellation/CheckboxInvalid';
+import CheckboxIndeterminate from '../../examples/constellation/CheckboxIndeterminate';
+import CheckboxRequired from '../../examples/constellation/CheckboxRequired';
 
 ## Default
 
-The default checkbox input that covers both selected and unselected states.
+By default, a checkbox input includes a selected and unselected state.
 
-<Example Component={DefaultCheckbox} componentName="@atlaskit/checkbox" />
+<Example Component={CheckboxDefault} componentName="@atlaskit/checkbox" />
+
+## Controlled
+
+In a controlled checkbox, the checked state is managed by the React component. Set `isChecked` to select the checkbox and use the `onChange` handler to change the value.
+
+<Example Component={CheckboxControlled} componentName="@atlaskit/checkbox" />
+
+## Uncontrolled
+
+In an uncontrolled checkbox, the checked state is managed by the DOM. Use `defaultChecked` to set the initial selected state.
+
+<Example Component={CheckboxUncontrolled} componentName="@atlaskit/checkbox" />
 
 ## Disabled
 
-Shows the appearance of the checkbox when it’s not able to be used.
+Set `isDisabled` to disable a checkbox when another action has to be completed before the checkbox is usable.
 
-<Example Component={DisabledCheckbox} componentName="@atlaskit/checkbox" />
+<Example Component={CheckboxDisabled} componentName="@atlaskit/checkbox" />
 
 ## Invalid
 
-This appears when a user chooses an incorrect value.
+Set `isInvalid` when a user chooses an incorrect value.
 
-<Example Component={InvalidCheckbox} componentName="@atlaskit/checkbox" />
+<Example Component={CheckboxInvalid} componentName="@atlaskit/checkbox" />
 
 ## Indeterminate
 
-A state applicable to parent and child checkboxes to show partially checked states. The parent checkbox will be indeterminate until all its child sub-options are checked.
+Set `isIndeterminate` to show partially checked states. The parent checkbox will be indeterminate until all its child sub-options are checked.
 
-<Example Component={IndeterminateCheckbox} componentName="@atlaskit/checkbox" />
+<Example Component={CheckboxIndeterminate} componentName="@atlaskit/checkbox" />
+
+## Required
+
+Set `isRequired` to make the checkbox required and change the label style.
+
+<Example Component={CheckboxRequired} componentName="@atlaskit/checkbox" />

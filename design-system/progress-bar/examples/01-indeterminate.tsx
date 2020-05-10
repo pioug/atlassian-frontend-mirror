@@ -1,5 +1,7 @@
 import React from 'react';
+
 import ProgressBar from '../src';
+
 import { containerStyle } from './00-basic';
 
 export default () => (

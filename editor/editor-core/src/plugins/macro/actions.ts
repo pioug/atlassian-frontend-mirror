@@ -29,6 +29,7 @@ export const insertMacroFromMacroBrowser = (
   if (!macroProvider) {
     return false;
   }
+
   // opens MacroBrowser for editing "macroNode" if passed in
   const newMacro: MacroAttributes = await macroProvider.openMacroBrowser(
     macroNode,

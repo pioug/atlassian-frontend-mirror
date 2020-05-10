@@ -16,6 +16,8 @@ import {
   layoutSection,
   strong,
   code_block,
+  indentation,
+  BuilderContent,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import {
   enterKeyCommand,
@@ -106,6 +108,60 @@ describe('lists plugin -> commands', () => {
   });
 
   describe('toggleList', () => {
+    describe('strips off the indent marks', () => {
+      it.each<
+        [
+          string,
+          {
+            listType: 'bulletList' | 'orderedList';
+            content: BuilderContent;
+            expected: BuilderContent;
+          },
+        ]
+      >([
+        [
+          'when bullet list toggled on an indented text with cursor in the end',
+          {
+            listType: 'bulletList',
+            content: indentation({ level: 1 })(p('text{<>}')),
+            expected: ul(li(p('text{<>}'))),
+          },
+        ],
+        [
+          'when ordered list toggled on an indented text with cursor in the beginning',
+          {
+            listType: 'orderedList',
+            content: indentation({ level: 1 })(p('{<>}text')),
+            expected: ol(li(p('text{<>}'))),
+          },
+        ],
+        [
+          'when bullet list toggled on an indented text with selected text',
+          {
+            listType: 'bulletList',
+            content: indentation({ level: 1 })(p('{<text>}')),
+            expected: ul(li(p('{<text>}'))),
+          },
+        ],
+      ])('%s', (name, { listType, content, expected }) => {
+        const { editorView } = createEditor({
+          doc: doc(content),
+          editorProps: {
+            allowIndentation: true,
+          },
+        });
+
+        toggleList(
+          editorView.state,
+          editorView.dispatch,
+          editorView,
+          listType,
+          INPUT_METHOD.TOOLBAR,
+        );
+        expect(editorView.state.doc).toEqualDocument(doc(expected));
+      });
+    });
+
     it('should be able to toggle ol to ul inside a panel', () => {
       const { editorView } = createEditor({
         doc: doc(panel()(ol(li(p('text{<>}'))))),

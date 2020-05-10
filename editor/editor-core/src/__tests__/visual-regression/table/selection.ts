@@ -136,20 +136,20 @@ describe('Snapshot Test: Table selection', () => {
     });
 
     it(`should select the clicked row`, async () => {
-      await page.waitForSelector(selectors.lastEditorParagraph);
-      await page.click(selectors.lastEditorParagraph);
+      await page.waitForSelector(selectors.lastEditorChildParagraph);
+      await page.click(selectors.lastEditorChildParagraph);
       await selectNumberedColumnRow(1);
     });
 
     it(`should select from the clicked row to last row`, async () => {
-      await page.waitForSelector(selectors.lastEditorParagraph);
-      await page.click(selectors.lastEditorParagraph);
+      await page.waitForSelector(selectors.lastEditorChildParagraph);
+      await page.click(selectors.lastEditorChildParagraph);
       await selectNumberedColumnRow(1, true);
     });
 
     it(`should select from the clicked row to last first`, async () => {
-      await page.waitForSelector(selectors.firstEditorParagraph);
-      await page.click(selectors.firstEditorParagraph);
+      await page.waitForSelector(selectors.firstEditorChildParagraph);
+      await page.click(selectors.firstEditorChildParagraph);
       await selectNumberedColumnRow(1, true);
     });
   });

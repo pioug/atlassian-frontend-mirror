@@ -1,10 +1,12 @@
-import { EditorState, Plugin, PluginKey } from 'prosemirror-state';
-import {
-  findParentDomRefOfType,
-  findParentNodeOfType,
-} from 'prosemirror-utils';
+import { EditorState, Plugin } from 'prosemirror-state';
+import { findDomRefAtPos } from 'prosemirror-utils';
 import { panelNodeView } from '../nodeviews/panel';
-import { Command, PMPluginFactoryParams } from '../../../types';
+import { Command } from '../../../types';
+import { pluginKey } from '../types';
+import { findPanel } from '../utils';
+import { EditorView } from 'prosemirror-view';
+import { Dispatch } from '../../../event-dispatcher';
+import { PanelPluginOptions } from '../types';
 
 export type PanelState = {
   element?: HTMLElement;
@@ -34,9 +36,10 @@ export const setPluginState = (stateProps: Object): Command => (
 
 export type PanelStateSubscriber = (state: PanelState) => any;
 
-export const pluginKey = new PluginKey('panelPlugin');
-
-export const createPlugin = ({ dispatch }: PMPluginFactoryParams) =>
+export const createPlugin = (
+  dispatch: Dispatch,
+  options: PanelPluginOptions = {},
+) =>
   new Plugin({
     state: {
       init() {
@@ -57,29 +60,27 @@ export const createPlugin = ({ dispatch }: PMPluginFactoryParams) =>
       },
     },
     key: pluginKey,
-    view: () => {
+    view: (editorView: EditorView) => {
+      const domAtPos = editorView.domAtPos.bind(editorView);
       return {
         update: view => {
-          const {
-            state: {
-              selection,
-              schema: {
-                nodes: { panel },
-              },
-            },
-          } = view;
           const pluginState = getPluginState(view.state);
-          const parent = findParentNodeOfType(panel)(selection);
-          const parentDOM = findParentDomRefOfType(
-            panel,
-            view.domAtPos.bind(view),
-          )(selection);
-          if (parentDOM !== pluginState.element) {
-            setPluginState({
-              element: parentDOM,
-              activePanelType: parent && parent!.node.attrs['panelType'],
-              toolbarVisible: !!parent,
-            })(view.state, view.dispatch);
+          const panelNode = findPanel(view.state);
+          if (!panelNode) {
+            return;
+          }
+          const panelRef = findDomRefAtPos(
+            panelNode.pos,
+            domAtPos,
+          ) as HTMLDivElement;
+
+          if (panelRef !== pluginState.element) {
+            const newState: PanelState = {
+              element: panelRef,
+              activePanelType: panelRef && panelNode.node.attrs['panelType'],
+              toolbarVisible: !!panelRef,
+            };
+            setPluginState(newState)(view.state, view.dispatch);
             return true;
           }
 
@@ -93,7 +94,7 @@ export const createPlugin = ({ dispatch }: PMPluginFactoryParams) =>
     },
     props: {
       nodeViews: {
-        panel: panelNodeView(),
+        panel: panelNodeView(options.allowSelection),
       },
       handleDOMEvents: {
         blur(view) {

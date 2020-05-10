@@ -1,35 +1,41 @@
 ---
 order: 0
 ---
-import StandardFlagExample from '../../examples/14-FlagWithoutFlagGroup';
-import WarningFlagExample from '../../examples/16-BoldFlagWarning';
-import ErrorFlagExample from '../../examples/17-BoldFlagError';
-import SuccessFlagExample from '../../examples/15-BoldFlagSuccess';
-import InfoFlagExample from '../../examples/18-BoldFlagInfo';
 
+import FlagDefault from '../../examples/constellation/FlagDefault';
+import FlagWarning from '../../examples/constellation/FlagWarning';
+import FlagError from '../../examples/constellation/FlagError';
+import FlagSuccess from '../../examples/constellation/FlagSuccess';
+import FlagInfo from '../../examples/constellation/FlagInfo';
 
+## Default
 
-## Standard flag
-These are the default flag message type. Standard flags can be dismissed by selecting the “x” or automatically disappear after 8 seconds. The user can pause the auto-dismiss by hovering over the flag.
-<Example Component={StandardFlagExample} componentName="@atlaskit/flag" />
+The default flag type. All flags require a `title` and an `icon`.
 
-## Bold flag
-These flags use [color](/foundations/color) to reinforce the severity or importance of a message. They are reserved for messages about success, loading, warnings, and errors. These flags can't be dismissed until the issue is resolved or the message has expired (in the case of a success message). A collapsed and expand state exist for warning and error states, so that additional information can be shared.
+<Example Component={FlagDefault} componentName="@atlaskit/flag" />
 
-### Warning
-Warning messages appear before we request the user to take action. This is usually in anticipation of a significant change. Have empathy for the user. Inform, but don't alarm. If the warning comes before an action, clearly communicate what will happen if the they proceed, and provide an alternative where possible.
-<Example Component={WarningFlagExample} componentName="@atlaskit/flag" />
-
-### Error
-Error messages let the user know that something has gone wrong after they've tried to do something or if there are connectivity issues. Explain the problem and provide the user with a next step or an alternative. Keep the message simple and direct, and avoid confusing the user with technical details. If it's our fault, own up to it.
-<Example Component={ErrorFlagExample} componentName="@atlaskit/flag" />
-
-
-### Success
-Success messages let the user know that they have completed an action. For these messages, it's best to reaffirm the outcome and get out of the user's way. If they have just created something, give them an option to view it.
-<Example Component={SuccessFlagExample} componentName="@atlaskit/flag" />
-
+## Appearance
 
 ### Information
+
 Information messages alert the user to additional information without requiring an action. Inform the user about something that might help or impact them. Then, let them get back to work. Info messages are also used for loading states.
-<Example Component={InfoFlagExample} componentName="@atlaskit/flag" />
+
+<Example Component={FlagInfo} componentName="@atlaskit/flag" />
+
+### Warning
+
+Warning messages appear before we request the user to take action. This is usually in anticipation of a significant change. Have empathy for the user. Inform, but don't alarm. If the warning comes before an action, clearly communicate what will happen if they proceed, and provide an alternative where possible.
+
+<Example Component={FlagWarning} componentName="@atlaskit/flag" />
+
+### Error
+
+Error messages let the user know that something has gone wrong after they've tried to do something or if there are connectivity issues. Explain the problem and provide the user with a next step or an alternative. Keep the message simple and direct, and avoid confusing the user with technical details. If it's our fault, own up to it.
+
+<Example Component={FlagError} componentName="@atlaskit/flag" />
+
+### Success
+
+Success messages let the user know that they have completed an action. For these messages, it's best to reaffirm the outcome and get out of the user's way. If they have just created something, give them an option to view it.
+
+<Example Component={FlagSuccess} componentName="@atlaskit/flag" />

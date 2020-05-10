@@ -1,5 +1,11 @@
 # @atlaskit/pagination
 
+## 12.0.20
+
+### Patch Changes
+
+- [`83dad3770b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/83dad3770b) - Change imports to comply with Atlassian conventions- Updated dependencies
+
 ## 12.0.19
 
 ### Patch Changes

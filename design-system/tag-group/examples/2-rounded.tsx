@@ -1,6 +1,8 @@
 import React from 'react';
+
 import Avatar from '@atlaskit/avatar';
 import Tag from '@atlaskit/tag';
+
 import TagGroup from '../src';
 
 const tagNames = [

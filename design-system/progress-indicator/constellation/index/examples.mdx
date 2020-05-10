@@ -2,62 +2,123 @@
 order: 0
 ---
 
-import ProgressIndicatorDefault from '../../examples/progressIndicatorDefault';
-import ProgressIndicatorAppearanceDefault from '../../examples/progressIndicatorAppearanceDefault';
-import ProgressIndicatorAppearanceHelp from '../../examples/progressIndicatorAppearanceHelp';
-import ProgressIndicatorAppearanceInverted from '../../examples/progressIndicatorAppearanceInverted';
-import ProgressIndicatorAppearancePrimary from '../../examples/progressIndicatorAppearancePrimary';
-import ProgressIndicatorSizeSmall from '../../examples/progressIndicatorSizeSmall';
-import ProgressIndicatorSizeDefault from '../../examples/progressIndicatorSizeDefault';
-import ProgressIndicatorSizeLarge from '../../examples/progressIndicatorSizeLarge';
-import ProgressIndicatorInteraction from '../../examples/progressIndicatorInteraction';
-
-## Default
-
-The default form of progress indicator. 
-
-<Example Component={ProgressIndicatorDefault} componentName="@atlaskit/progress-indicator" />
+import ProgressIndicatorDefault from '../../examples/constellation/ProgressIndicatorDefault';
+import ProgressIndicatorHelp from '../../examples/constellation/ProgressIndicatorHelp';
+import ProgressIndicatorInverted from '../../examples/constellation/ProgressIndicatorInverted';
+import ProgressIndicatorPrimary from '../../examples/constellation/ProgressIndicatorPrimary';
+import ProgressIndicatorSmall from '../../examples/constellation/ProgressIndicatorSmall';
+import ProgressIndicatorMedium from '../../examples/constellation/ProgressIndicatorMedium';
+import ProgressIndicatorLarge from '../../examples/constellation/ProgressIndicatorLarge';
+import ProgressIndicatorComfortable from '../../examples/constellation/ProgressIndicatorComfortable';
+import ProgressIndicatorCozy from '../../examples/constellation/ProgressIndicatorCozy';
+import ProgressIndicatorCompact from '../../examples/constellation/ProgressIndicatorCompact';
+import ProgressIndicatorInteraction from '../../examples/constellation/ProgressIndicatorInteraction';
 
 ## Appearance
 
-The most common variations used for progress indicators are:
-
 ### Default
 
-<Example Component={ProgressIndicatorAppearanceDefault} componentName="@atlaskit/progress-indicator" />
+Progress indicators in the default (N900) color.
+
+<Example
+  Component={ProgressIndicatorDefault}
+  componentName="@atlaskit/progress-indicator"
+/>
 
 ### Primary
 
-<Example Component={ProgressIndicatorAppearancePrimary} componentName="@atlaskit/progress-indicator" />
+Progress indicators in the primary (B400) color.
+
+<Example
+  Component={ProgressIndicatorPrimary}
+  componentName="@atlaskit/progress-indicator"
+/>
 
 ### Help
 
-To indicate help, for use in [user value modals](/patterns/user-value-modals).
+Progress indicators in the purple (P400) color are used indicate help, for use in [user benefit modals](/patterns/benefits-modals).
 
-<Example Component={ProgressIndicatorAppearanceHelp} componentName="@atlaskit/progress-indicator" />
+<Example
+  Component={ProgressIndicatorHelp}
+  componentName="@atlaskit/progress-indicator"
+/>
 
 ### Inverted
 
-<Example Component={ProgressIndicatorAppearanceInverted} componentName="@atlaskit/progress-indicator" />
+Use an `inverted` progress indicator when high contrast against a darker background color is needed.
+
+<Example
+  Component={ProgressIndicatorInverted}
+  componentName="@atlaskit/progress-indicator"
+/>
 
 ## Size
 
-The size of dots indicators can be small, default, or large depending on how subtle or prominent the indicator should be. Spacing of the dots can be either comfortable, cozy, or compact depending on the availability of space on the page.
-
-### Default
-
-<Example Component={ProgressIndicatorSizeDefault} componentName="@atlaskit/progress-indicator" />
+The size of progress indicators can be small, default (medium), or large depending on how subtle or prominent the indicator should be.
 
 ### Small
 
-<Example Component={ProgressIndicatorSizeSmall} componentName="@atlaskit/progress-indicator" />
+Small sized progress indicators.
+
+<Example
+  Component={ProgressIndicatorSmall}
+  componentName="@atlaskit/progress-indicator"
+/>
+
+### Default (medium)
+
+Default sized progress indicators.
+
+<Example
+  Component={ProgressIndicatorMedium}
+  componentName="@atlaskit/progress-indicator"
+/>
 
 ### Large
 
-<Example Component={ProgressIndicatorSizeLarge} componentName="@atlaskit/progress-indicator" />
+Large sized progress indicators.
+
+<Example
+  Component={ProgressIndicatorLarge}
+  componentName="@atlaskit/progress-indicator"
+/>
+
+## Spacing
+
+Spacing of the dots can be either comfortable, cozy, or compact depending on the availability of space on the page.
+
+### Comfortable
+
+Progress indicators with the default `comfortable` spacing.
+
+<Example
+  Component={ProgressIndicatorComfortable}
+  componentName="@atlaskit/progress-indicator"
+/>
+
+### Cozy
+
+Progress indicators with `cozy` spacing.
+
+<Example
+  Component={ProgressIndicatorCozy}
+  componentName="@atlaskit/progress-indicator"
+/>
+
+### Compact
+
+Progress indicators with `compact` spacing.
+
+<Example
+  Component={ProgressIndicatorCompact}
+  componentName="@atlaskit/progress-indicator"
+/>
 
 ## Interaction
 
 If interaction is enabled, the user is able to navigate to the selected step by selecting the corresponding dot indicator. Once the dots are in focus, navigation can be accomplished using the keyboard arrow keys.
 
-<Example Component={ProgressIndicatorInteraction} componentName="@atlaskit/progress-indicator" />
+<Example
+  Component={ProgressIndicatorInteraction}
+  componentName="@atlaskit/progress-indicator"
+/>

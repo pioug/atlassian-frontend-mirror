@@ -1,4 +1,4 @@
-import { LinkLozengeColor, LinkPullRequestState } from './types';
+import { LinkLozengeColor, LinkState } from './types';
 
 const VALID_APPEARANCES: LinkLozengeColor[] = [
   'default',
@@ -14,9 +14,13 @@ export const isValidAppearance = (
   return VALID_APPEARANCES.indexOf(appearance) !== -1;
 };
 
-export const VALID_STATES: Record<LinkPullRequestState, LinkLozengeColor> = {
+export const VALID_STATES: Record<LinkState, LinkLozengeColor> = {
   open: 'inprogress',
   merged: 'success',
   declined: 'removed',
   closed: 'success',
+  draft: 'inprogress',
+  archived: 'default',
 };
+
+export const OMIT_STATES = ['current'];

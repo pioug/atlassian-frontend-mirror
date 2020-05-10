@@ -9,11 +9,11 @@ jest.mock('video-snapshot', () => {
 });
 jest.mock('@atlaskit/media-ui');
 import { getOrientation } from '@atlaskit/media-ui';
-import { getDataURIFromFileState } from '../../getDataURIFromFileState';
+import { getFilePreviewFromFileState } from '../../getFilePreviewFromFileState';
 
 describe('getDataURIFromFileState()', () => {
   it('should not work for error state', async () => {
-    const { src } = await getDataURIFromFileState({
+    const { src } = await getFilePreviewFromFileState({
       status: 'error',
       id: '1',
     });
@@ -22,7 +22,7 @@ describe('getDataURIFromFileState()', () => {
   });
 
   it('should not work for non previewable types', async () => {
-    const { src } = await getDataURIFromFileState({
+    const { src } = await getFilePreviewFromFileState({
       status: 'processing',
       id: '1',
       name: '',
@@ -39,7 +39,7 @@ describe('getDataURIFromFileState()', () => {
   });
 
   it('should return data uri for images', async () => {
-    const { src } = await getDataURIFromFileState({
+    const { src } = await getFilePreviewFromFileState({
       status: 'uploading',
       id: '1',
       name: '',
@@ -56,7 +56,7 @@ describe('getDataURIFromFileState()', () => {
   });
 
   it('should return data uri for videos', async () => {
-    const { src } = await getDataURIFromFileState({
+    const { src } = await getFilePreviewFromFileState({
       status: 'processed',
       id: '1',
       name: '',
@@ -78,7 +78,7 @@ describe('getDataURIFromFileState()', () => {
     (getOrientation as jest.Mock<any>).mockReturnValue(10);
 
     const blob = new File([], 'filename', { type: 'image/png' });
-    const { orientation } = await getDataURIFromFileState({
+    const { orientation } = await getFilePreviewFromFileState({
       status: 'uploading',
       id: '1',
       name: '',

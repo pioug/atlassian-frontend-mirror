@@ -9,6 +9,7 @@ import {
   Doc,
   mergeTextNodes,
   isTextWrapper,
+  isTextNode,
   TextWrapper,
   toReact,
 } from './nodes';
@@ -53,6 +54,7 @@ export interface ReactSerializerInit {
 interface ParentInfo {
   parentIsIncompleteTask: boolean;
   path: Array<Node>;
+  pos: number;
 }
 
 interface FragmentChildContext {
@@ -104,6 +106,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
   private allowAltTextOnImages?: boolean;
   private stickyHeaders?: StickyHeaderConfig;
   private allowMediaLinking?: boolean;
+  private startPos: number = 0;
 
   constructor(init: ReactSerializerInit) {
     this.providers = init.providers;
@@ -126,6 +129,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 
   private resetState() {
     this.headingIds = [];
+    this.startPos = 0;
   }
 
   private getNodeProps(node: Node, parentInfo?: ParentInfo) {
@@ -183,6 +187,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
     node: Node,
     { index, parentInfo }: FragmentChildContext,
   ) => {
+    const pos = this.startPos;
     const currentPath = (parentInfo && parentInfo.path) || [];
 
     const parentIsIncompleteTask =
@@ -196,8 +201,11 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
       {
         parentIsIncompleteTask,
         path: [...currentPath, node],
+        pos: this.startPos,
       },
     );
+
+    this.startPos = pos + node.nodeSize;
 
     const marks = node.marks ? [...node.marks] : [];
     const isMediaSingle = node.type.name === 'mediaSingle';
@@ -240,8 +248,9 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
   }
 
   private serializeMark(mark: Mark, index: number = 0) {
-    if (mark.type.name === 'text') {
-      return (mark as any).text;
+    if (isTextNode(mark)) {
+      this.startPos += mark.nodeSize;
+      return mark.text;
     }
 
     const content = (
@@ -379,6 +388,9 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
       fireAnalyticsEvent: this.fireAnalyticsEvent,
       nodeType: node.type.name,
       marks: node.marks,
+      dataAttributes: {
+        'data-renderer-start-pos': this.startPos,
+      },
       ...node.attrs,
     };
   }

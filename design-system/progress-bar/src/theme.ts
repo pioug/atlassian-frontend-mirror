@@ -1,5 +1,7 @@
-import { createTheme, colors } from '@atlaskit/theme';
 import { keyframes } from '@emotion/core';
+
+import { colors, createTheme } from '@atlaskit/theme';
+
 import { ThemeProps, ThemeTokens } from './types';
 
 const increasingBarAnimation = keyframes`

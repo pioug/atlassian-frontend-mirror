@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+
 import Icon from '@atlaskit/icon/glyph/radio';
+
 import { IconWrapper } from './styled/Radio';
 import { RadioIconProps } from './types';
 

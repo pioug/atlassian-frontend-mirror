@@ -4,8 +4,9 @@ import { ElementHandle, BoundingBox } from 'puppeteer';
 export const selectors = {
   editor: '.ProseMirror',
   lastEditorElement: '.ProseMirror > *:last-child',
-  firstEditorParagraph: '.ProseMirror > p:first-child',
-  lastEditorParagraph: '.ProseMirror > p:last-child',
+  firstEditorParagraph: '.ProseMirror > p:first-of-type',
+  firstEditorChildParagraph: '.ProseMirror > p:first-child',
+  lastEditorChildParagraph: '.ProseMirror > p:last-child',
   selectedNode: '.ProseMirror-selectednode',
   scrollContainer: '.fabric-editor-popup-scroll-parent',
   dropList: 'div[data-role="droplistContent"]',
@@ -18,14 +19,19 @@ export const selectors = {
   actionList: '[data-node-type="actionList"]',
 };
 
+export enum timeouts {
+  SHORT = 1000,
+  DEFAULT = 5000,
+}
+
 export async function clickEditableContent(page: Page) {
   await page.waitForSelector(selectors.editor);
   await page.click(selectors.editor);
 }
 
-export enum timeouts {
-  SHORT = 1000,
-  DEFAULT = 5000,
+export async function clickFirstParagraph(page: Page) {
+  await page.waitForSelector(selectors.firstEditorParagraph);
+  await page.click(selectors.firstEditorParagraph);
 }
 
 const replaceInputStr = (str: string) => {
@@ -173,9 +179,9 @@ export async function typeInEditorAtEndOfDocument(
   options?: any,
 ) {
   await setCaretInNewParagraphAtTheEnd(page);
-  await scrollToElement(page, selectors.lastEditorParagraph);
+  await scrollToElement(page, selectors.lastEditorChildParagraph);
 
-  await page.type(selectors.lastEditorParagraph, text, options);
+  await page.type(selectors.lastEditorChildParagraph, text, options);
 }
 
 export async function getEditorWidth(page: Page) {

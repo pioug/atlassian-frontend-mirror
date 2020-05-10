@@ -8,7 +8,10 @@ export function mentionLinkResolver(
   context: Context,
 ): PMNode[] | undefined {
   // [CS-1896] Empty mention nodes should fallback to plaintext
-  if (link.notLinkBody === '~accountid:' || link.notLinkBody === '~') {
+  if (
+    link.notLinkBody.toLowerCase() === '~accountid:' ||
+    link.notLinkBody === '~'
+  ) {
     return [
       schema.nodes.paragraph.createChecked({}, [schema.nodes.text.create({})]),
     ];
@@ -16,11 +19,12 @@ export function mentionLinkResolver(
 
   if (link.notLinkBody.startsWith('~')) {
     const mentionText = link.notLinkBody.substring(1);
+    const mentionKey = mentionText.toLowerCase();
     const id =
       context.conversion &&
       context.conversion.mentionConversion &&
-      context.conversion.mentionConversion[mentionText]
-        ? context.conversion.mentionConversion[mentionText]
+      context.conversion.mentionConversion[mentionKey]
+        ? context.conversion.mentionConversion[mentionKey]
         : mentionText;
 
     return [

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import Textfield from '../src';
 
 const eventResultStyle = {

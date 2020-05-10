@@ -32,6 +32,20 @@ describe('ADF => WikiMarkup - Mention', () => {
     expect(transformer.encode(node, context)).toMatchSnapshot();
   });
 
+  test('should convert mention node with context case-insensitively', () => {
+    const context: Context = {
+      conversion: {
+        mentionConversion: {
+          AAAaaa: 'accountId:bbbbbb',
+        },
+      },
+    };
+    const node = doc(
+      p('Hey ', mention({ id: 'aaaAAA' })(), ', please take a look at this.'),
+    )(defaultSchema);
+    expect(transformer.encode(node, context)).toMatchSnapshot();
+  });
+
   test('should convert unknown mention', () => {
     const context: Context = {};
     const node = doc(

@@ -17,6 +17,20 @@ describe('WikiMarkup => ADF Formatters - citation', () => {
     expect(transformer.parse(wiki, context)).toMatchSnapshot();
   });
 
+  test('should convert mention with context case-insensitively', () => {
+    const wiki = 'Hi [~aCCouNtid:AAAAAA],';
+
+    const context: Context = {
+      conversion: {
+        mentionConversion: {
+          'accOunTid:aaaaaa': 'aAaAaA',
+        },
+      },
+    };
+    const transformer = new WikiMarkupTransformer();
+    expect(transformer.parse(wiki, context)).toMatchSnapshot();
+  });
+
   test('Should convert mention without context', () => {
     const wiki = 'Hi [~accountid:78032763-2feb-4f5b-88c0-99b50613d53a],';
 

@@ -1,5 +1,40 @@
 # @atlaskit/editor-core
 
+## 123.0.0
+
+### Major Changes
+
+- [`e97f14eade`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e97f14eade) - ED-9155: Rename prop `extensionParams` to `node` in the extensions api v2
+
+### Minor Changes
+
+- [`d16adc8554`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d16adc8554) - ED-8988 Add new selection plugin which will be responsible for managing selection styles- [`ee0333aa64`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ee0333aa64) - ED-6318 Add (None) option to top of code block language list- [`fc3c659e87`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fc3c659e87) - ED-9038 ED-9040 Add selection styles for mention & emoji nodes- [`c8e601e6fc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c8e601e6fc) - ED-8814 Add selection to panel- [`8bc9f3e9af`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8bc9f3e9af) - ED-8942: Changed default font size for full width editor and renderer
+
+  - Previously default font size for full page editor was 14px. Now, when `allowDynamicTextSizing` is disabled it equals to 16px.
+  - Font size in table was 14px, ignoring dynamic text sizing font size, after this change it follows the same rules as the rest of the editor, namely it will get updated font size.- [`5a7088d3c5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5a7088d3c5) - ED-8782: Make layouts selectable
+
+  - ED-9044: Add ProseMirror node selection for layouts
+  - ED-9045: Add selection styles for layouts
+
+### Patch Changes
+
+- [`58b681e7f7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/58b681e7f7) - ED-8648 fix converting indented paragraph to a list- [`bc0c95a066`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bc0c95a066) - ED-9250: fix font size for chromeless editor- [`9dea617f4a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9dea617f4a) - Ed-9205: Prevent setting of localIds on task and decisions from being added to history. Also avoids unneccesary scrolling- [`63c5d6a1ac`](https://bitbucket.org/atlassian/atlassian-frontend/commits/63c5d6a1ac) - ED-8279 Fixed adding status to action item from the main toolbar- [`0b596fcb22`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0b596fcb22) - ED-9248 Fix bug where deleting from floating toolbar menu did not work for selected panel nodes- [`d1a056f303`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d1a056f303) - ED-9254 Specify dark text colour for personal mentions selected state- [`ffa12f43b7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ffa12f43b7) - ED-8932: add logic to insert new task above when cursor is a the start of a task node- [`cd68434a24`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cd68434a24) - Enable shouldOpenMediaViewer property for ReactRenderer in Kitchen Sink example- [`4b4a969816`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4b4a969816) - ED-9140 validate inline comment selection only when entering draft mode- [`9b1a0d0033`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9b1a0d0033) - ED-8358 Revert making decisions background grey- [`7cef5eb5dc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7cef5eb5dc) - ED-9253 Fix bug where panel was still selected if clicked and dragged from inside panel, releasing mouse on padding
+
+  In this case it should select the text that was selected rather than the panel- [`4cac8c6496`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4cac8c6496) - ED-9093 Fix date picker not closing when selecting other nodes- [`3b84d87886`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3b84d87886) - ED-9170 Provide an editor prop that allows the consumer to specify their own custom logo in the top right of the toolbar
+
+  ````
+  <Editor
+    ...
+    primaryToolbarIconBefore?: ReactElement;
+  />
+  ```- [`b07de6e3eb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b07de6e3eb) - ED-9250: Fix font size for chromeless appearance- [`02217f5945`](https://bitbucket.org/atlassian/atlassian-frontend/commits/02217f5945) - Perform normalizeUrl before md.normalizeLinkText in pm-plugins to resolve links with fullstops at end- [`37b447ff05`](https://bitbucket.org/atlassian/atlassian-frontend/commits/37b447ff05) - ED-9255 Fix various issues with node selection on mobile
+
+  - When mention/emoji nodes were selected, there were issues backspacing, for now we will not show the keyboard during selection
+  - When panel nodes were selected, there were also issues backspacing, now we disable panel selection completely on mobile- [`56a7357c81`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56a7357c81) - ED-9197: upgrade prosemirror-transform to prevent cut and paste type errors
+
+  It's important to make sure that there isn't any `prosemirror-transform` packages with version less than 1.2.5 in `yarn.lock`.- [`abc9b1df18`](https://bitbucket.org/atlassian/atlassian-frontend/commits/abc9b1df18) - ED-9116 inline-comments: draft comment analytics - fill in overlaps and inputMethod data- [`db7f76a26c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/db7f76a26c) - ED-9144: Keep context panel open when cursor is inside a bodied extension- [`12cd8f8c1b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/12cd8f8c1b) - ED-9048: Allow consumers to open the config after inserting an extension- Updated dependencies
+  ````
+
 ## 122.0.0
 
 ### Minor Changes

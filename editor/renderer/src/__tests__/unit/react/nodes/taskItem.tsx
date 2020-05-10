@@ -20,13 +20,25 @@ describe('Renderer - React/Nodes/TaskItem', () => {
 
   it('should wrap content with <AkTaskItem>-tag', () => {
     const text = 'This is a task item';
-    const taskItem = mount(<TaskItem localId="task-1">{text}</TaskItem>);
+    const taskItem = mount(
+      <TaskItem
+        dataAttributes={{ 'data-renderer-start-pos': 0 }}
+        localId="task-1"
+      >
+        {text}
+      </TaskItem>,
+    );
     expect(taskItem.find(AkTaskItem).length).toEqual(1);
     taskItem.unmount();
   });
 
   it('should render if no children', () => {
-    const taskItem = shallow(<TaskItem localId="task-2" />);
+    const taskItem = shallow(
+      <TaskItem
+        dataAttributes={{ 'data-renderer-start-pos': 0 }}
+        localId="task-2"
+      />,
+    );
     expect(taskItem.isEmptyRender()).toEqual(false);
   });
 
@@ -34,7 +46,10 @@ describe('Renderer - React/Nodes/TaskItem', () => {
     it('check action fires an event', () => {
       const component = mount(
         <FabricAnalyticsListener client={analyticsWebClientMock}>
-          <TaskItem localId="task-1">
+          <TaskItem
+            dataAttributes={{ 'data-renderer-start-pos': 0 }}
+            localId="task-1"
+          >
             Hello <b>world</b>
           </TaskItem>
         </FabricAnalyticsListener>,
@@ -57,7 +72,11 @@ describe('Renderer - React/Nodes/TaskItem', () => {
     it('uncheck action fires an event', () => {
       const component = mount(
         <FabricAnalyticsListener client={analyticsWebClientMock}>
-          <TaskItem localId="task-1" state="DONE">
+          <TaskItem
+            dataAttributes={{ 'data-renderer-start-pos': 0 }}
+            localId="task-1"
+            state="DONE"
+          >
             Hello <b>world</b>
           </TaskItem>
         </FabricAnalyticsListener>,

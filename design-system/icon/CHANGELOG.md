@@ -1,5 +1,11 @@
 # @atlaskit/icon
 
+## 20.1.2
+
+### Patch Changes
+
+- [`eae51ceead`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eae51ceead) - Add mobile icon- Updated dependencies
+
 ## 20.1.1
 
 ### Patch Changes

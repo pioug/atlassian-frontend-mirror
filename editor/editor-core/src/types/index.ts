@@ -1,7 +1,12 @@
 export { EditorInstance } from './editor-instance';
 export { EditorConfig } from './editor-config';
 export { EditorPlugin, PluginsOptions } from './editor-plugin';
-export { EditorProps, FeedbackInfo, ReactComponents } from './editor-props';
+export {
+  EditorProps,
+  FeedbackInfo,
+  ReactComponents,
+  ExtensionProvidersProp,
+} from './editor-props';
 export { EditorAppearanceComponentProps } from './editor-appearance-component';
 export { Command, CommandDispatch } from './command';
 export { MessageDescriptor } from './i18n';

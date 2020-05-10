@@ -31,4 +31,17 @@ describe('Unauthorised View', () => {
     expect(link).not.toBeNull;
     expect(link!.href).toBe(testUrl);
   });
+
+  it('should show correct text if action is available', () => {
+    const testUrl = 'http://unauthorised-test/';
+    const { container } = render(
+      <IntlProvider locale="en">
+        <InlineCardUnauthorizedView url={testUrl} onAuthorise={jest.fn()} />
+      </IntlProvider>,
+    );
+
+    expect(container.textContent).toEqual(
+      `You don’t have access to this link. Connect your account to preview links`,
+    );
+  });
 });

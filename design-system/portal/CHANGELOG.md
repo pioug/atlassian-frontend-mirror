@@ -1,5 +1,11 @@
 # @atlaskit/portal
 
+## 3.1.8
+
+### Patch Changes
+
+- [`4069606178`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4069606178) - Change imports to comply with Atlassian conventions- Updated dependencies
+
 ## 3.1.7
 
 ### Patch Changes

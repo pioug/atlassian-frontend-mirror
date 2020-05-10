@@ -1,11 +1,13 @@
 import React, { Component, Fragment } from 'react';
+
 import Button from '@atlaskit/button';
 import Form, {
+  ErrorMessage,
   Field,
   FormFooter,
-  ErrorMessage,
   ValidMessage,
 } from '@atlaskit/form';
+
 import Textfield from '../src';
 
 function validate(value: unknown) {

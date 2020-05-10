@@ -784,18 +784,18 @@ export const getValidMark = (
           type,
         };
       }
+      case 'annotation': {
+        return {
+          type,
+          attrs,
+        };
+      }
     }
   }
 
   if (adfStage === 'stage0') {
     switch (type) {
       case 'confluenceInlineComment': {
-        return {
-          type,
-          attrs,
-        };
-      }
-      case 'annotation': {
         return {
           type,
           attrs,

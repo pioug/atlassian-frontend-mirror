@@ -2,10 +2,25 @@
 order: 0
 ---
 
-import Positioning from '../../examples/06-positioningNoNote';
+import InlineDialogDefault from '../../examples/constellation/InlineDialogDefault';
+import InlineDialogPositioning from '../../examples/constellation/InlineDialogPositioning';
+
+## Default
+
+Inline dialogs are displayed when triggered by a user action, usually by clicking a button.
+
+<Example
+  Component={InlineDialogDefault}
+  componentName="@atlaskit/inline-dialog"
+/>
 
 ## Positioning
-Inline dialogs can appear at the top, bottom, left or right of the trigger with an additional 3 positions available for each location. This means that the location of the dialog can be placed in context with the content on the page.
-Note that `auto` placements put the dialog on the side with the most available space.
 
-<Example Component={Positioning} componentName="@atlaskit/inline-dialog" />
+Inline dialogs can appear at the top, bottom, left or right of the trigger with an additional three positions available for each location. The location of the dialog can be placed in context with the content on the page.
+
+Note that `auto` placements places the inline dialog on the side with the most available space.
+
+<Example
+  Component={InlineDialogPositioning}
+  componentName="@atlaskit/inline-dialog"
+/>

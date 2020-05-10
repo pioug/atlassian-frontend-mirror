@@ -1,10 +1,12 @@
 import React from 'react';
+
 import { mount } from 'enzyme';
+
 import Button from '@atlaskit/button';
 import ChevronLeftLargeIcon from '@atlaskit/icon/glyph/chevron-left-large';
 
-import { name } from '../../../../version.json';
 import LeftNavigator from '../../../../components/Navigators/LeftNavigator';
+import { name } from '../../../../version.json';
 
 describe(`${name} - LeftNavigator`, () => {
   it('default props', () => {

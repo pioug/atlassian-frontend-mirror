@@ -1,4 +1,4 @@
-import { Transaction, NodeSelection } from 'prosemirror-state';
+import { Transaction, Selection, NodeSelection } from 'prosemirror-state';
 import { DatePluginState } from './types';
 
 export function reducer(
@@ -32,10 +32,7 @@ export function onSelectionChanged(
   tr: Transaction,
   pluginState: DatePluginState,
 ): DatePluginState {
-  if (
-    pluginState.showDatePickerAt &&
-    !(tr.selection instanceof NodeSelection)
-  ) {
+  if (pluginState.showDatePickerAt && !isDateNodeSelection(tr.selection)) {
     return {
       showDatePickerAt: null,
     };
@@ -43,3 +40,11 @@ export function onSelectionChanged(
 
   return pluginState;
 }
+
+const isDateNodeSelection = (selection: Selection) => {
+  if (selection instanceof NodeSelection) {
+    const nodeTypeName = selection.node.type.name;
+    return nodeTypeName === 'date';
+  }
+  return false;
+};

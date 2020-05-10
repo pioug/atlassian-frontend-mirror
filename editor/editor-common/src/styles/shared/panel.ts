@@ -63,8 +63,16 @@ const darkTextColor = {
   error: colors.R75,
 };
 
+const prefix = 'ak-editor-panel';
 export const PanelSharedCssClassName = {
-  PANEL_CONTAINER: 'ak-editor-panel',
+  prefix,
+  content: `${prefix}__content`,
+  icon: `${prefix}__icon`,
+};
+
+export const PanelSharedSelectors = {
+  infoPanel: `.${prefix}[data-panel-type=info]`,
+  noteButton: `button[aria-label="Note"]`,
 };
 
 const iconDynamicStyles = (panelType: PanelType) => (props: any) => {
@@ -92,7 +100,7 @@ const mainDynamicStyles = (panelType: PanelType) => (props: any) => {
 };
 
 export const panelSharedStyles = css`
-  .${PanelSharedCssClassName.PANEL_CONTAINER} {
+  .${PanelSharedCssClassName.prefix} {
     border-radius: ${borderRadius()}px;
     margin: ${blockNodesVerticalMargin} 0 0;
     padding: ${gridSize()}px;
@@ -103,7 +111,7 @@ export const panelSharedStyles = css`
 
     ${mainDynamicStyles('info')}
 
-    .ak-editor-panel__icon {
+    .${PanelSharedCssClassName.icon} {
       display: block;
       flex-shrink: 0;
       height: ${gridSize() * 3}px;
@@ -126,7 +134,7 @@ export const panelSharedStyles = css`
     &[data-panel-type='note'] {
       ${mainDynamicStyles('note')}
 
-      .ak-editor-panel__icon {
+      .${PanelSharedCssClassName.icon} {
         ${iconDynamicStyles('note')}
       }
     }
@@ -134,7 +142,7 @@ export const panelSharedStyles = css`
     &[data-panel-type='tip'] {
       ${mainDynamicStyles('tip')}
 
-      .ak-editor-panel__icon {
+      .${PanelSharedCssClassName.icon} {
         ${iconDynamicStyles('tip')}
       }
     }
@@ -142,7 +150,7 @@ export const panelSharedStyles = css`
     &[data-panel-type='warning'] {
       ${mainDynamicStyles('warning')}
 
-      .ak-editor-panel__icon {
+      .${PanelSharedCssClassName.icon} {
         ${iconDynamicStyles('warning')}
       }
     }
@@ -150,7 +158,7 @@ export const panelSharedStyles = css`
     &[data-panel-type='error'] {
       ${mainDynamicStyles('error')}
 
-      .ak-editor-panel__icon {
+      .${PanelSharedCssClassName.icon} {
         ${iconDynamicStyles('error')}
       }
     }
@@ -158,28 +166,28 @@ export const panelSharedStyles = css`
     &[data-panel-type='success'] {
       ${mainDynamicStyles('success')}
 
-      .ak-editor-panel__icon {
+      .${PanelSharedCssClassName.icon} {
         ${iconDynamicStyles('success')}
       }
     }
 
     /* Danger when top level node */
     &.danger {
-      box-shadow: inset 0px 0px 0px ${akEditorSelectedBorderSize}px
+      box-shadow: 0 0 0 ${akEditorSelectedBorderSize}px
         ${akEditorDeleteBorder};
       background: ${akEditorDeleteBackground} !important;
 
-      .ak-editor-panel__icon {
+      .${PanelSharedCssClassName.icon} {
         color: ${akEditorDeleteIconColor} !important;
       }
     }
   }
 
   /* Danger when nested node */
-  & .danger .${PanelSharedCssClassName.PANEL_CONTAINER} {
+  & .danger .${PanelSharedCssClassName.prefix} {
     background: rgb(255, 189, 173, 0.5) !important; /* R75 with 50% opactiy */
 
-    .ak-editor-panel__icon {
+    .${PanelSharedCssClassName.icon} {
       color: ${akEditorDeleteIconColor} !important;
     }
   }

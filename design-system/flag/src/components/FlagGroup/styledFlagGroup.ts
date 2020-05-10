@@ -1,3 +1,5 @@
+import React from 'react';
+
 import TransitionGroup from 'react-transition-group/TransitionGroup';
 import styled from 'styled-components';
 
@@ -16,7 +18,11 @@ export default styled.div`
   }
 `;
 
-export const SROnly = styled.h1`
+export const SROnly: React.ComponentType<{
+  tag: string;
+}> = styled(({ tag, children, ...props }) =>
+  React.createElement(tag, props, children),
+)`
   border: 0;
   clip: rect(1px, 1px, 1px, 1px);
   height: 1px;

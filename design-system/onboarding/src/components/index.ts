@@ -4,6 +4,7 @@ import SpotlightCard from './SpotlightCard';
 import SpotlightManager from './SpotlightManager';
 import SpotlightTarget from './SpotlightTarget';
 import SpotlightTransition from './SpotlightTransition';
+export { spotlightButtonTheme, modalButtonTheme } from './theme';
 
 export {
   Modal,

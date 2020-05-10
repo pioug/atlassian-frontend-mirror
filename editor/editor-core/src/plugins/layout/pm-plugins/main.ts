@@ -2,7 +2,10 @@ import { Node } from 'prosemirror-model';
 import { EditorState, Plugin, TextSelection } from 'prosemirror-state';
 import { Decoration, DecorationSet } from 'prosemirror-view';
 import { keydownHandler } from 'prosemirror-keymap';
-import { findParentNodeOfType } from 'prosemirror-utils';
+import {
+  findParentNodeOfType,
+  findSelectedNodeOfType,
+} from 'prosemirror-utils';
 import { filter } from '../../../utils/commands';
 import { Command } from '../../../types/command';
 import {
@@ -12,6 +15,7 @@ import {
 } from '../actions';
 import { pluginKey } from './plugin-key';
 import { Change, LayoutState } from './types';
+import layoutSectionNodeView from './../nodeviews';
 
 export const DEFAULT_LAYOUT = 'two_equal';
 
@@ -92,9 +96,15 @@ export default (
 
       apply: (tr, pluginState, _oldState, newState) => {
         if (tr.docChanged || tr.selectionSet) {
-          const maybeLayoutSection = findParentNodeOfType(
-            newState.schema.nodes.layoutSection,
-          )(newState.selection);
+          const {
+            schema: {
+              nodes: { layoutSection },
+            },
+            selection,
+          } = newState;
+          const maybeLayoutSection =
+            findParentNodeOfType(layoutSection)(selection) ||
+            findSelectedNodeOfType([layoutSection])(selection);
 
           const newPluginState = {
             ...pluginState,
@@ -110,6 +120,9 @@ export default (
       },
     },
     props: {
+      nodeViews: {
+        layoutSection: layoutSectionNodeView(),
+      },
       decorations(state) {
         const layoutState = pluginKey.getState(state) as LayoutState;
         if (layoutState.pos !== null) {

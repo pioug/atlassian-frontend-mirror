@@ -1,5 +1,11 @@
 # @atlaskit/progress-indicator
 
+## 7.0.14
+
+### Patch Changes
+
+- [`daca23ef29`](https://bitbucket.org/atlassian/atlassian-frontend/commits/daca23ef29) - Change imports to comply with Atlassian conventions
+
 ## 7.0.13
 
 ### Patch Changes

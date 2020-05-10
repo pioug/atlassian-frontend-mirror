@@ -151,7 +151,7 @@ export function createPlugin(
       });
 
       if (modified) {
-        return tr;
+        return tr.setMeta('addToHistory', false);
       }
       return;
     },

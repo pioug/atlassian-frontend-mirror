@@ -29,6 +29,7 @@ const {
   DN70,
 } = colors;
 
+export const akEditorFullPageDefaultFontSize = 16;
 export const akEditorCodeFontFamily = codeFontFamily();
 export const akEditorInactiveForeground = N500;
 export const akEditorFocus = B100;
@@ -48,9 +49,12 @@ export const akEditorDeleteBackgroundShaded = R50;
 export const akEditorDeleteBorder = R300;
 export const akEditorDeleteIconColor = R400;
 export const akEditorSelectedBorder = B300;
+export const akEditorSelectedBgColor = B50;
+export const akEditorSelectedBlanketColor = B75;
 export const akEditorSelectedIconColor = B400;
 export const akEditorSelectedBorderSize = 1;
 export const akEditorSelectedBorderBoldSize = 2;
+export const akEditorSelectedBlanketOpacity = 0.3;
 export const akEditorUnitZIndex = 1;
 export const akEditorStickyHeaderZIndex = 11; // filmstrip uses 10 for its shadow
 export const akEditorSmallZIndex = akEditorStickyHeaderZIndex + 1;
@@ -81,7 +85,7 @@ export const akEditorTableToolbarDelete = R75;
 export const akEditorTableBorderRadius = '3px';
 export const akEditorTableCellBackgroundOpacity = 0.5;
 export const akEditorFullPageMaxWidth = 680;
-export const akEditorDefaultLayoutWidth = 680;
+export const akEditorDefaultLayoutWidth = 760;
 export const akEditorWideLayoutWidth = 960;
 export const akEditorFullWidthLayoutWidth = 1800;
 export const akEditorTableNumberColumnWidth = 42;

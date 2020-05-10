@@ -1,9 +1,6 @@
-import {
-  PanelState,
-  pluginKey as panelPluginKey,
-} from '../../../../plugins/panel/pm-plugins/main';
+import { PanelState } from '../../../../plugins/panel/pm-plugins/main';
+import { pluginKey } from '../../../../plugins/panel/types';
 import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
-import createEvent from '@atlaskit/editor-test-helpers/create-event';
 import {
   doc,
   panel,
@@ -29,7 +26,6 @@ import {
 describe('@atlaskit/editor-core ui/PanelPlugin', () => {
   const createEditor = createEditorFactory<PanelState>();
 
-  const event = createEvent('event');
   let createAnalyticsEvent: CreateUIAnalyticsEvent;
 
   const editor = (doc: any) => {
@@ -42,7 +38,7 @@ describe('@atlaskit/editor-core ui/PanelPlugin', () => {
         allowTables: true,
         quickInsert: true,
       },
-      pluginKey: panelPluginKey,
+      pluginKey,
       createAnalyticsEvent,
     });
   };
@@ -64,7 +60,7 @@ describe('@atlaskit/editor-core ui/PanelPlugin', () => {
       expect(pluginState.element).not.toBe(undefined);
       expect(pluginState.activePanelType).not.toBe(undefined);
       changePanelType('note')(editorView.state, editorView.dispatch);
-      const newPluginState = panelPluginKey.getState(editorView!.state);
+      const newPluginState = pluginKey.getState(editorView!.state);
       expect(newPluginState.activePanelType).toEqual('note');
     });
 
@@ -155,22 +151,12 @@ describe('@atlaskit/editor-core ui/PanelPlugin', () => {
       );
       expect(pluginState.activePanelType).toEqual('info');
       changePanelType('note')(editorView.state, editorView.dispatch);
-      const newPluginState = panelPluginKey.getState(editorView!.state);
+      const newPluginState = pluginKey.getState(editorView!.state);
       expect(newPluginState.activePanelType).toEqual('note');
     });
   });
 
   describe('toolbarVisible', () => {
-    describe('when editor is blur', () => {
-      it('it is false', () => {
-        const { editorView, plugin, pluginState } = editor(
-          doc(p('te{<>}xt'), panel()(p('text'))),
-        );
-        plugin.props.handleDOMEvents!.blur(editorView, event);
-        expect(pluginState.toolbarVisible).toBe(false);
-      });
-    });
-
     describe('when focus is inside a list in panel', () => {
       it('it is true', () => {
         const { pluginState } = editor(

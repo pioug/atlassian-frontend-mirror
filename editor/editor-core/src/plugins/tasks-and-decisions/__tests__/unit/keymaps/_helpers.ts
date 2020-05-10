@@ -10,7 +10,8 @@ export type TestCase = [
   typeof taskList | typeof decisionList,
   typeof taskItem | typeof decisionItem,
   object,
-  object,
+  { localId?: string; state?: string },
+  { localId?: string; state?: string }?,
 ];
 
 export const ListTypes: TestCase[] = [
@@ -20,11 +21,21 @@ export const ListTypes: TestCase[] = [
     taskItem,
     { localId: 'local-uuid' },
     { localId: 'local-uuid', state: 'TODO' },
+    { localId: 'local-uuid', state: 'TODO' },
+  ],
+  [
+    'action',
+    taskList,
+    taskItem,
+    { localId: 'local-uuid' },
+    { localId: 'local-uuid', state: 'DONE' },
+    { localId: 'local-uuid', state: 'TODO' },
   ],
   [
     'decision',
     decisionList,
     decisionItem,
+    { localId: 'local-uuid' },
     { localId: 'local-uuid' },
     { localId: 'local-uuid' },
   ],

@@ -1,17 +1,18 @@
+import isEqual from 'lodash.isequal';
+import { Mark as PMMark, Node as PMNode } from 'prosemirror-model';
+
 import {
   codeBlockToJSON,
   defaultSchema,
+  expandToJSON,
   linkToJSON,
-  mediaToJSON,
   mediaSingleToJSON,
+  mediaToJSON,
   mentionToJSON,
   tableToJSON,
   toJSONTableCell,
   toJSONTableHeader,
-  expandToJSON,
 } from '@atlaskit/adf-schema';
-import isEqual from 'lodash.isequal';
-import { Node as PMNode, Mark as PMMark } from 'prosemirror-model';
 
 interface Transformer<T> {
   encode(node: PMNode): T;

@@ -1,5 +1,11 @@
 # @atlaskit/media-ui
 
+## 12.2.1
+
+### Patch Changes
+
+- [`08ae8cdf2f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/08ae8cdf2f) - Update styling for unauthorised inline cards- Updated dependencies
+
 ## 12.2.0
 
 ### Minor Changes

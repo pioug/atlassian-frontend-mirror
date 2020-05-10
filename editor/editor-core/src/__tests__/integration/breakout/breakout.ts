@@ -134,8 +134,9 @@ BrowserTestCase(
 
     await page.waitForSelector(wideBreakoutColumn);
     await page.click(wideBreakoutColumn);
-    // this is to deselect extension in Safari
-    await page.keys('ArrowUp');
+    // this is to deselect layout node in Safari
+    await page.keys('ArrowLeft');
+    await page.keys('ArrowRight');
 
     await page.type(editable, 'a');
     await page.keys('Backspace');

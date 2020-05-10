@@ -56,7 +56,7 @@ export function getNodeRenderer<T>(
   extensionType: ExtensionType,
   extensionKey: ExtensionKey,
 ) {
-  return Loadable<{ extensionParams: ExtensionParams<T> }, any>({
+  return Loadable<{ node: ExtensionParams<T> }, any>({
     loader: () => {
       return getExtensionModuleNode(
         extensionProvider,

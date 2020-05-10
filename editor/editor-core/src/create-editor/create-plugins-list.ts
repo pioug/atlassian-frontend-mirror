@@ -57,6 +57,7 @@ import {
   mobileScrollPlugin,
   findReplacePlugin,
   contextPanelPlugin,
+  selectionPlugin,
 } from '../plugins';
 import { isFullPage as fullPageCheck } from '../utils/is-full-page';
 import { ScrollGutterPluginOptions } from '../plugins/base/pm-plugins/scroll-gutter';
@@ -140,6 +141,7 @@ export function getDefaultPluginsList(props: EditorProps): EditorPlugin[] {
       ? [codeBlockPlugin()]
       : []),
     contextPanelPlugin(),
+    selectionPlugin({ useLongPressSelection: isMobile }),
   ];
 }
 
@@ -334,7 +336,7 @@ export default function createPluginsList(
   }
 
   if (props.allowPanel) {
-    plugins.push(panelPlugin());
+    plugins.push(panelPlugin({ allowSelection: !isMobile }));
   }
 
   if (props.allowExtension) {

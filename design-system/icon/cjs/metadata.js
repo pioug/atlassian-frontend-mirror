@@ -1291,6 +1291,11 @@ var metaData = {
         componentName: 'MenuIcon',
         package: '@atlaskit/icon/glyph/menu',
     },
+    mobile: {
+        keywords: ['mobile', 'icon', 'core'],
+        componentName: 'MobileIcon',
+        package: '@atlaskit/icon/glyph/mobile',
+    },
     'more-vertical': {
         keywords: ['more-vertical', 'morevertical', 'dots', 'icon', 'core'],
         componentName: 'MoreVerticalIcon',

@@ -16,6 +16,7 @@ import {
   ExtensionProvider,
   combineExtensionProviders,
   WidthProvider,
+  akEditorFullPageDefaultFontSize,
 } from '@atlaskit/editor-common';
 import { Context as CardContext } from '@atlaskit/smart-card';
 import { FabricEditorAnalyticsContext } from '@atlaskit/analytics-namespaced-context';
@@ -23,7 +24,7 @@ import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 import { getUiComponent } from './create-editor';
 import EditorActions from './actions';
-import { EditorProps } from './types/editor-props';
+import { EditorProps, ExtensionProvidersProp } from './types/editor-props';
 import { ReactEditorView } from './create-editor';
 import { EventDispatcher } from './event-dispatcher';
 import EditorContext from './ui/EditorContext';
@@ -59,6 +60,7 @@ export {
   EditorInstance,
   EditorPlugin,
   EditorProps,
+  ExtensionProvidersProp,
   ExtensionConfig,
   FeedbackInfo,
   MarkConfig,
@@ -186,12 +188,15 @@ export default class Editor extends React.Component<EditorProps, State> {
     clearMeasure(measurements.EDITOR_MOUNTED);
   }
 
-  prepareExtensionProvider = (
-    extensionProviders?: (ExtensionProvider | Promise<ExtensionProvider>)[],
-  ) => {
+  prepareExtensionProvider = (extensionProviders?: ExtensionProvidersProp) => {
     if (!extensionProviders) {
       return;
     }
+
+    if (typeof extensionProviders === 'function') {
+      return combineExtensionProviders(extensionProviders(this.editorActions));
+    }
+
     return combineExtensionProviders(extensionProviders);
   };
 
@@ -386,6 +391,13 @@ export default class Editor extends React.Component<EditorProps, State> {
     }
   }
 
+  private getBaseFontSize() {
+    return !this.props.allowDynamicTextSizing &&
+      !['comment', 'chromeless', 'mobile'].includes(this.props.appearance!)
+      ? akEditorFullPageDefaultFontSize
+      : undefined;
+  }
+
   handleSave = (view: EditorView): void => {
     if (!this.props.onSave) {
       return;
@@ -464,6 +476,7 @@ export default class Editor extends React.Component<EditorProps, State> {
                                     this.props.allowDynamicTextSizing &&
                                     this.props.appearance !== 'full-width'
                                   }
+                                  baseFontSize={this.getBaseFontSize()}
                                 >
                                   <Component
                                     appearance={this.props.appearance!}
@@ -495,6 +508,9 @@ export default class Editor extends React.Component<EditorProps, State> {
                                     contentComponents={config.contentComponents}
                                     primaryToolbarComponents={
                                       config.primaryToolbarComponents
+                                    }
+                                    primaryToolbarIconBefore={
+                                      this.props.primaryToolbarIconBefore
                                     }
                                     secondaryToolbarComponents={
                                       config.secondaryToolbarComponents

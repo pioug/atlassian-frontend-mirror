@@ -10,7 +10,7 @@ import {
 } from './__fixtures__/expand-adf';
 import { selectors } from '../../__helpers/page-objects/_expand';
 import { Page } from '../../__helpers/page-objects/_types';
-import { emojiReadySelector } from '../../__helpers/page-objects/_emoji';
+import { emojiSelectors } from '../../__helpers/page-objects/_emoji';
 import {
   clickFirstCell,
   tableSelectors,
@@ -42,7 +42,7 @@ describe('Expand: full-page', () => {
     it(`should render a ${mode} collapsed top level expand`, async () => {
       await initFullPageEditorWithAdf(page, expandADF(mode), Device.LaptopMDPI);
       await page.waitForSelector(selectors.expand);
-      await waitForLoadedBackgroundImages(page, emojiReadySelector, 10000);
+      await waitForLoadedBackgroundImages(page, emojiSelectors.standard, 10000);
     });
   });
 
@@ -83,7 +83,7 @@ describe('Expand: full-page', () => {
       Device.LaptopMDPI,
     );
     await page.waitForSelector(selectors.nestedExpand);
-    await waitForLoadedBackgroundImages(page, emojiReadySelector, 10000);
+    await waitForLoadedBackgroundImages(page, emojiSelectors.standard, 10000);
   });
 });
 

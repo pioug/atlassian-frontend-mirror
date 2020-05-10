@@ -47,7 +47,7 @@ export type ExtensionModuleActionObject = {
   parameters: any;
 };
 
-export type ExtensionModuleActionHandler = () => AsyncESModule<ADFEntity>;
+export type ExtensionModuleActionHandler = () => AsyncESModule<ADFEntity | void>;
 
 export type ExtensionModule = {
   key: string;

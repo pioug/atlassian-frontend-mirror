@@ -5,7 +5,7 @@ import { activityProviderFactory } from '@atlaskit/editor-test-helpers/activity-
 import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
 import { doc, extension } from '@atlaskit/editor-test-helpers/schema-builder';
 import { createFakeExtensionProvider } from '@atlaskit/editor-test-helpers/extensions';
-import { combineExtensionProviders } from '@atlaskit/editor-common';
+import { combineExtensionProviders } from '@atlaskit/editor-common/extensions';
 import {
   ProviderFactory,
   MacroProvider,
@@ -207,7 +207,6 @@ describe('extension toolbar', () => {
 
         expect(pluginState.extensionProvider).toBeDefined();
         expect(pluginState.showEditButton).toBeTruthy();
-        expect(pluginState.updateExtension).toBeDefined();
       });
 
       it('should not show the edit button when update method is not provided', async () => {
@@ -245,7 +244,6 @@ describe('extension toolbar', () => {
 
         expect(pluginState.extensionProvider).toBeDefined();
         expect(pluginState.showEditButton).toBeTruthy();
-        expect(pluginState.updateExtension).not.toBeDefined();
       });
 
       it('should call the correct update function when switching between different type of extensions', async () => {
@@ -322,6 +320,8 @@ describe('extension toolbar', () => {
         editButton &&
           editButton.type === 'button' &&
           editButton.onClick(editorView.state, editorView.dispatch);
+
+        await flushPromises();
 
         expect(openMacroBrowserFn).not.toHaveBeenCalled();
         expect(extensionProviderUpdate).toHaveBeenCalledTimes(1);

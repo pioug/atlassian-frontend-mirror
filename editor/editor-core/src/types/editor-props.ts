@@ -40,6 +40,15 @@ import {
 
 export type ReactComponents = ReactElement<any> | ReactElement<any>[];
 
+type ExtensionProviders = (ExtensionProvider | Promise<ExtensionProvider>)[];
+type ExtensionProvidersWithEditorAction = (
+  editorActions?: EditorActions,
+) => ExtensionProviders;
+
+export type ExtensionProvidersProp =
+  | ExtensionProviders
+  | ExtensionProvidersWithEditorAction;
+
 export type FeedbackInfo = {
   product?: string;
   packageVersion?: string;
@@ -63,6 +72,9 @@ export interface EditorProps {
 
   contentComponents?: ReactComponents;
   primaryToolbarComponents?: ReactComponents;
+
+  // Optionally adds an element (eg: an icon) at the start of the editor's primary toolbar. If not specified, the primary toolbar spans the entire width.
+  primaryToolbarIconBefore?: ReactElement;
   secondaryToolbarComponents?: ReactComponents;
   allowAnalyticsGASV3?: boolean;
   // Configure allowed blocks in the editor, currently only supports `heading`, `blockquote`, `hardBreak` and `codeBlock`.
@@ -278,7 +290,7 @@ export interface EditorProps {
 
   // New extension API
   // This eventually is going to replace `quickInsert.provider`, `extensionHandlers`, `macroProvider`.
-  extensionProviders?: Array<ExtensionProvider | Promise<ExtensionProvider>>;
+  extensionProviders?: ExtensionProvidersProp;
 
   // ⚠️ This API will be deprecated in the future
   transactionTracking?: TransactionTracking;

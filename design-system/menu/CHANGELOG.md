@@ -1,5 +1,11 @@
 # @atlaskit/menu
 
+## 0.4.2
+
+### Patch Changes
+
+- [`0b64c87548`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0b64c87548) - FIX: Global `a:visited` styles should not override LinkItem `:visited` styles
+
 ## 0.4.1
 
 ### Patch Changes

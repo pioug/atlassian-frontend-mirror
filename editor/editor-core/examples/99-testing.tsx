@@ -4,6 +4,8 @@ import {
   ExampleCreateInlineCommentComponent,
   ExampleViewInlineCommentComponent,
 } from '@atlaskit/editor-test-helpers';
+import Button from '@atlaskit/button';
+import { AtlassianIcon } from '@atlaskit/logo';
 import {
   createEditorExampleForTests,
   mapProvidersToProps,
@@ -24,6 +26,17 @@ export default function EditorExampleForIntegrationTests({ clipboard = true }) {
 
       if (props && props.primaryToolbarComponents) {
         props.primaryToolbarComponents = <SaveAndCancelButtons />;
+      }
+
+      if (props && props.primaryToolbarIconBefore) {
+        props.primaryToolbarIconBefore = (
+          <Button
+            iconBefore={<AtlassianIcon />}
+            appearance="subtle"
+            href="https://atlaskit.atlassian.com/"
+            shouldFitContainer
+          ></Button>
+        );
       }
 
       if (props && props.contentComponents) {

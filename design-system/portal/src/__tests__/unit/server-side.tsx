@@ -1,6 +1,8 @@
 import React from 'react';
+
 import ReactDOMServer from 'react-dom/server';
-import Portal from '../..';
+
+import Portal from '../../index';
 
 test(`Portal renders without exception in node environment`, () => {
   expect(() =>

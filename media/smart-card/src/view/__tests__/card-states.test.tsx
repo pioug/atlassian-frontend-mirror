@@ -275,7 +275,9 @@ describe('smart-card: card states', () => {
           const forbiddenLink = await waitForElement(() =>
             getByText(/You don’t have access to this link/),
           );
-          const forbiddenLinkButton = container.querySelector('button');
+          const forbiddenLinkButton = container.querySelector(
+            '[type="button"]',
+          );
           expect(forbiddenLink).toBeTruthy();
           expect(forbiddenLinkButton).toBeTruthy();
           expect(forbiddenLinkButton!.innerHTML).toContain(

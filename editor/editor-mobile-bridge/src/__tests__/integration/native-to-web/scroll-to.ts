@@ -1,7 +1,7 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 import { renderer, skipBrowsers as skip, callRendererBridge } from '../_utils';
-import adf from './__fixtures__/scroll-to-mention-adf.json';
+import adf from './__fixtures__/scroll-to-adf.json';
 
 type ScrollTestResult = {
   selectorMatched: boolean;
@@ -122,6 +122,121 @@ BrowserTestCase(
     });
     expect(selectorMatched).toEqual(true);
     expect(finalScrollY).toBeGreaterThan(initialScrollY);
+  },
+);
+
+BrowserTestCase(
+  `scroll-to.ts: call scrollToContentNode() for a Heading on renderer bridge.`,
+  { skip },
+  async function(client: any, testName: string) {
+    const browser = await loadExampleDocument(client);
+    const {
+      initialScrollY,
+      finalScrollY,
+      selectorMatched,
+    } = await checkScrollTo(browser, async () => {
+      const headingId = 'foo-heading';
+      return await callRendererBridge(
+        browser,
+        'scrollToContentNode',
+        'heading',
+        headingId,
+      );
+    });
+    expect(selectorMatched).toEqual(true);
+    expect(finalScrollY).toBeGreaterThan(initialScrollY);
+  },
+);
+
+// Tests for `getContentNodeScrollOffset`:
+
+BrowserTestCase(
+  `scroll-to.ts: call getContentNodeScrollOffset() for a Mention on renderer bridge.`,
+  { skip },
+  async function(client: any, testName: string) {
+    const browser = await loadExampleDocument(client);
+    const mentionId = '0'; // matches @Carolyn
+    const scrollOffset = await callRendererBridge(
+      browser,
+      'getContentNodeScrollOffset',
+      'mention',
+      mentionId,
+    );
+    const scrollOffsetObject = JSON.parse(scrollOffset);
+    expect(scrollOffsetObject.x).toBeGreaterThan(-1);
+    expect(scrollOffsetObject.y).toBeGreaterThan(-1);
+  },
+);
+
+BrowserTestCase(
+  `scroll-to.ts: call getContentNodeScrollOffset() for an Action on renderer bridge.`,
+  { skip },
+  async function(client: any, testName: string) {
+    const browser = await loadExampleDocument(client);
+    const localId = 'b9ce6302-8e8c-45c2-a2e1-3b1d6c68e059';
+    const scrollOffset = await callRendererBridge(
+      browser,
+      'getContentNodeScrollOffset',
+      'action',
+      localId,
+    );
+    const scrollOffsetObject = JSON.parse(scrollOffset);
+    expect(scrollOffsetObject.x).toBeGreaterThan(-1);
+    expect(scrollOffsetObject.y).toBeGreaterThan(-1);
+  },
+);
+
+BrowserTestCase(
+  `scroll-to.ts: call getContentNodeScrollOffset() for a Decision on renderer bridge.`,
+  { skip },
+  async function(client: any, testName: string) {
+    const browser = await loadExampleDocument(client);
+    const localId = '695d2be8-528a-4ec0-9eb7-351763af6f94';
+    const scrollOffset = await callRendererBridge(
+      browser,
+      'getContentNodeScrollOffset',
+      'decision',
+      localId,
+    );
+    const scrollOffsetObject = JSON.parse(scrollOffset);
+    expect(scrollOffsetObject.x).toBeGreaterThan(-1);
+    expect(scrollOffsetObject.y).toBeGreaterThan(-1);
+  },
+);
+
+BrowserTestCase(
+  `scroll-to.ts: call getContentNodeScrollOffset() for a Heading on renderer bridge.`,
+  { skip },
+  async function(client: any, testName: string) {
+    const browser = await loadExampleDocument(client);
+    const headingId = 'This-is-a-heading';
+    const scrollOffset = await callRendererBridge(
+      browser,
+      'getContentNodeScrollOffset',
+      'heading',
+      headingId,
+    );
+    const scrollOffsetObject = JSON.parse(scrollOffset);
+    expect(scrollOffsetObject.x).toBeGreaterThan(-1);
+    expect(scrollOffsetObject.y).toBeGreaterThan(-1);
+  },
+);
+
+BrowserTestCase(
+  `scroll-to.ts: call getContentNodeScrollOffset() for a heading with special chars on renderer bridge.`,
+  { skip },
+  async function(client: any, testName: string) {
+    const browser = await loadExampleDocument(client);
+    const headingId = 'some-heading.2';
+    const scrollOffset = await callRendererBridge(
+      browser,
+      'getContentNodeScrollOffset',
+      'heading',
+      headingId,
+    );
+    const scrollOffsetObject = JSON.parse(scrollOffset);
+    expect(scrollOffsetObject.x).toBeGreaterThan(-1);
+    expect(scrollOffsetObject.y).toBeGreaterThan(-1);
   },
 );
 

@@ -1,5 +1,11 @@
 # @atlaskit/popup
 
+## 0.4.0
+
+### Minor Changes
+
+- [`ead13374cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ead13374cf) - **BREAKING:** Removes `tag` prop and unneeded wrapping element around the trigger.
+
 ## 0.3.5
 
 ### Patch Changes

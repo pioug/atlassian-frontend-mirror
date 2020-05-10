@@ -1,5 +1,11 @@
 # @atlaskit/tag-group
 
+## 9.0.7
+
+### Patch Changes
+
+- [`e1f57427e0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e1f57427e0) - Change imports to comply with Atlassian conventions
+
 ## 9.0.6
 
 ### Patch Changes

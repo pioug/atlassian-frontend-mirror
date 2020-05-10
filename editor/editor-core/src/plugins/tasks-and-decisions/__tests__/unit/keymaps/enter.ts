@@ -51,202 +51,209 @@ describe('tasks and decisions - keymaps', () => {
     });
   };
 
-  describe.each(ListTypes)('%s', (name, list, item, listProps, itemProps) => {
-    describe('Enter', () => {
-      describe(`when ${name}List is empty`, () => {
-        it('should remove decisionList and replace with paragraph', () => {
-          const { editorView } = editorFactory(
-            doc(list(listProps)(item(itemProps)('{<>}'))),
-          );
+  describe.each(ListTypes)(
+    '%s',
+    (name, list, item, listProps, itemProps, expetedNewItemProps) => {
+      describe(`Enter ${
+        itemProps.state ? `(with ${itemProps.state} state)` : ''
+      }`, () => {
+        describe(`when ${name}List is empty`, () => {
+          it('should remove decisionList and replace with paragraph', () => {
+            const { editorView } = editorFactory(
+              doc(list(listProps)(item(itemProps)('{<>}'))),
+            );
 
-          sendKeyToPm(editorView, 'Enter');
-          const expectedDoc = doc(p('{<>}'));
-          expect(editorView.state.doc).toEqualDocument(expectedDoc);
-          compareSelection(editorFactory, expectedDoc, editorView);
+            sendKeyToPm(editorView, 'Enter');
+            const expectedDoc = doc(p('{<>}'));
+            expect(editorView.state.doc).toEqualDocument(expectedDoc);
+            compareSelection(editorFactory, expectedDoc, editorView);
+          });
         });
-      });
 
-      describe(`when cursor is at the end of empty ${name}Item`, () => {
-        it(`should remove ${name}Item and insert a paragraph after`, () => {
-          const { editorView } = editorFactory(
-            doc(
-              p('before'),
-              list(listProps)(
-                item(itemProps)('Hello World'),
-                item(itemProps)('{<>}'),
+        describe(`when cursor is at the end of empty ${name}Item`, () => {
+          it(`should remove ${name}Item and insert a paragraph after`, () => {
+            const { editorView } = editorFactory(
+              doc(
+                p('before'),
+                list(listProps)(
+                  item(itemProps)('Hello World'),
+                  item(expetedNewItemProps)('{<>}'),
+                ),
+                p('after'),
               ),
-              p('after'),
-            ),
-          );
+            );
 
-          sendKeyToPm(editorView, 'Enter');
+            sendKeyToPm(editorView, 'Enter');
 
-          const expectedDoc = doc(
-            p('before'),
-            list(listProps)(item(itemProps)('Hello World')),
-            p('{<>}'),
-            p('after'),
-          );
-
-          expect(editorView.state.doc).toEqualDocument(expectedDoc);
-          compareSelection(editorFactory, expectedDoc, editorView);
-        });
-
-        it(`should remove ${name}Item and insert a paragraph before`, () => {
-          const { editorView } = editorFactory(
-            doc(
+            const expectedDoc = doc(
               p('before'),
-              list(listProps)(
-                item(itemProps)('{<>}'),
-                item(itemProps)('Hello World'),
+              list(listProps)(item(itemProps)('Hello World')),
+              p('{<>}'),
+              p('after'),
+            );
+
+            expect(editorView.state.doc).toEqualDocument(expectedDoc);
+            compareSelection(editorFactory, expectedDoc, editorView);
+          });
+
+          it(`should remove ${name}Item and insert a paragraph before`, () => {
+            const { editorView } = editorFactory(
+              doc(
+                p('before'),
+                list(listProps)(
+                  item(expetedNewItemProps)('{<>}'),
+                  item(itemProps)('Hello World'),
+                ),
+                p('after'),
               ),
+            );
+
+            sendKeyToPm(editorView, 'Enter');
+
+            const expectedDoc = doc(
+              p('before'),
+              p('{<>}'),
+              list(listProps)(item(itemProps)('Hello World')),
               p('after'),
-            ),
-          );
+            );
+            expect(editorView.state.doc).toEqualDocument(expectedDoc);
+            compareSelection(editorFactory, expectedDoc, editorView);
+          });
 
-          sendKeyToPm(editorView, 'Enter');
+          it(`should split ${name}List and insert a paragraph when in middle`, () => {
+            const { editorView } = editorFactory(
+              doc(
+                p('before'),
+                list(listProps)(
+                  item(itemProps)('Hello World'),
+                  item(itemProps)('{<>}'),
+                  item(itemProps)('Goodbye World'),
+                ),
+                p('after'),
+              ),
+            );
 
-          const expectedDoc = doc(
-            p('before'),
-            p('{<>}'),
-            list(listProps)(item(itemProps)('Hello World')),
-            p('after'),
-          );
-          expect(editorView.state.doc).toEqualDocument(expectedDoc);
-          compareSelection(editorFactory, expectedDoc, editorView);
+            sendKeyToPm(editorView, 'Enter');
+
+            const expectedDoc = doc(
+              p('before'),
+              list(listProps)(item(itemProps)('Hello World')),
+              p('{<>}'),
+              list(listProps)(item(itemProps)('Goodbye World')),
+              p('after'),
+            );
+            expect(editorView.state.doc).toEqualDocument(expectedDoc);
+            compareSelection(editorFactory, expectedDoc, editorView);
+          });
         });
 
-        it(`should split ${name}List and insert a paragraph when in middle`, () => {
-          const { editorView } = editorFactory(
-            doc(
-              p('before'),
+        describe(`when cursor is at the end of non-empty ${name}Item`, () => {
+          it(`should insert another ${name}Item`, () => {
+            const { editorView } = editorFactory(
+              doc(list(listProps)(item(itemProps)('Hello World{<>}'))),
+            );
+
+            sendKeyToPm(editorView, 'Enter');
+
+            const expectedDoc = doc(
               list(listProps)(
                 item(itemProps)('Hello World'),
-                item(itemProps)('{<>}'),
+                item(expetedNewItemProps)('{<>}'),
+              ),
+            );
+
+            expect(editorView.state.doc).toEqualDocument(expectedDoc);
+            compareSelection(editorFactory, expectedDoc, editorView);
+          });
+
+          it(`should not be an empty item when item contains non-text content only`, () => {
+            const { testData } = emojiData;
+            const grinEmoji = testData.grinEmoji;
+            const grinEmojiId = {
+              shortName: grinEmoji.shortName,
+              id: grinEmoji.id,
+              fallback: grinEmoji.fallback,
+            };
+
+            const { editorView } = editorFactory(
+              doc(
+                list(listProps)(item(itemProps)(emoji(grinEmojiId)(), '{<>}')),
+              ),
+            );
+
+            expect(isEmptyTaskDecision(editorView.state)).toBeFalsy();
+          });
+
+          it(`should insert another ${name}Item when in middle of list`, () => {
+            const { editorView } = editorFactory(
+              doc(
+                list(listProps)(
+                  item(itemProps)('Hello World{<>}'),
+                  item(itemProps)('Goodbye World'),
+                ),
+              ),
+            );
+
+            sendKeyToPm(editorView, 'Enter');
+
+            const expectedDoc = doc(
+              list(listProps)(
+                item(itemProps)('Hello World'),
+                item(expetedNewItemProps)('{<>}'),
                 item(itemProps)('Goodbye World'),
               ),
-              p('after'),
-            ),
-          );
+            );
 
-          sendKeyToPm(editorView, 'Enter');
-
-          const expectedDoc = doc(
-            p('before'),
-            list(listProps)(item(itemProps)('Hello World')),
-            p('{<>}'),
-            list(listProps)(item(itemProps)('Goodbye World')),
-            p('after'),
-          );
-          expect(editorView.state.doc).toEqualDocument(expectedDoc);
-          compareSelection(editorFactory, expectedDoc, editorView);
+            expect(editorView.state.doc).toEqualDocument(expectedDoc);
+            compareSelection(editorFactory, expectedDoc, editorView);
+          });
         });
-      });
 
-      describe(`when cursor is at the end of non-empty ${name}Item`, () => {
-        it(`should insert another ${name}Item`, () => {
+        describe(`when cursor is at the start of a non-empty ${name}Item`, () => {
+          it(`should insert another ${name}Item above`, () => {
+            const initialDoc = doc(
+              list(listProps)(item(itemProps)('{<>}Hello World')),
+            );
+            const { editorView } = editorFactory(initialDoc);
+
+            sendKeyToPm(editorView, 'Enter');
+
+            expect(editorView.state).toEqualDocumentAndSelection(
+              doc(
+                list(listProps)(
+                  item(expetedNewItemProps)(''),
+                  item(itemProps)('{<>}Hello World'),
+                ),
+              ),
+            );
+          });
+        });
+
+        it(`should fire v3 analytics event when insert ${name}`, () => {
           const { editorView } = editorFactory(
             doc(list(listProps)(item(itemProps)('Hello World{<>}'))),
           );
 
           sendKeyToPm(editorView, 'Enter');
 
-          const expectedDoc = doc(
-            list(listProps)(
-              item(itemProps)('Hello World'),
-              item(itemProps)('{<>}'),
-            ),
-          );
-
-          expect(editorView.state.doc).toEqualDocument(expectedDoc);
-          compareSelection(editorFactory, expectedDoc, editorView);
-        });
-
-        it(`should not be an empty item when item contains non-text content only`, () => {
-          const { testData } = emojiData;
-          const grinEmoji = testData.grinEmoji;
-          const grinEmojiId = {
-            shortName: grinEmoji.shortName,
-            id: grinEmoji.id,
-            fallback: grinEmoji.fallback,
-          };
-
-          const { editorView } = editorFactory(
-            doc(list(listProps)(item(itemProps)(emoji(grinEmojiId)(), '{<>}'))),
-          );
-
-          expect(isEmptyTaskDecision(editorView.state)).toBeFalsy();
-        });
-
-        it(`should insert another ${name}Item when in middle of list`, () => {
-          const { editorView } = editorFactory(
-            doc(
-              list(listProps)(
-                item(itemProps)('Hello World{<>}'),
-                item(itemProps)('Goodbye World'),
-              ),
-            ),
-          );
-
-          sendKeyToPm(editorView, 'Enter');
-
-          const expectedDoc = doc(
-            list(listProps)(
-              item(itemProps)('Hello World'),
-              item(itemProps)('{<>}'),
-              item(itemProps)('Goodbye World'),
-            ),
-          );
-
-          expect(editorView.state.doc).toEqualDocument(expectedDoc);
-          compareSelection(editorFactory, expectedDoc, editorView);
+          expect(createAnalyticsEvent).toBeCalledWith({
+            action: 'inserted',
+            actionSubject: 'document',
+            actionSubjectId: name,
+            attributes: expect.objectContaining({ inputMethod: 'keyboard' }),
+            eventType: 'track',
+          });
         });
       });
-
-      describe(`when cursor is at the start of a non-empty ${name}Item`, () => {
-        it(`should insert another ${name}Item above`, () => {
-          const initialDoc = doc(
-            list(listProps)(item(itemProps)('{<>}Hello World')),
-          );
-          const { editorView } = editorFactory(initialDoc);
-
-          sendKeyToPm(editorView, 'Enter');
-
-          expect(editorView.state).toEqualDocumentAndSelection(
-            doc(
-              list(listProps)(
-                item(itemProps)(''),
-                item(itemProps)('{<>}Hello World'),
-              ),
-            ),
-          );
-        });
-      });
-
-      it(`should fire v3 analytics event when insert ${name}`, () => {
-        const { editorView } = editorFactory(
-          doc(list(listProps)(item(itemProps)('Hello World{<>}'))),
-        );
-
-        sendKeyToPm(editorView, 'Enter');
-
-        expect(createAnalyticsEvent).toBeCalledWith({
-          action: 'inserted',
-          actionSubject: 'document',
-          actionSubjectId: name,
-          attributes: expect.objectContaining({ inputMethod: 'keyboard' }),
-          eventType: 'track',
-        });
-      });
-    });
-  });
+    },
+  );
 
   // indentation-specific tests
   describe('action', () => {
     const listProps = { localId: 'local-uuid' };
     const itemProps = { localId: 'local-uuid', state: 'TODO' };
 
-    describe('Enter', () => {
+    describe('Enter (within indentation)', () => {
       it('creates another taskItem at the currently nested level', () => {
         testKeymap(
           editorFactory,

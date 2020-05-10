@@ -1,5 +1,11 @@
 # @atlaskit/adf-schema
 
+## 9.0.2
+
+### Patch Changes
+
+- [`ee0333aa64`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ee0333aa64) - ED-6318 Add (None) option to top of code block language list- Updated dependencies
+
 ## 9.0.1
 
 ### Patch Changes

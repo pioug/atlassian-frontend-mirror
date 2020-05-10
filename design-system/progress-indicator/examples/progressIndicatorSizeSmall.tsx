@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
-import Button from '@atlaskit/button';
+
 import styled from 'styled-components';
+
+import Button from '@atlaskit/button';
+
 import { ProgressDots } from '../src';
 
 const Footer = styled.div`

@@ -1,19 +1,20 @@
-import GlobalTheme from '@atlaskit/theme/components';
-import { GlobalThemeTokens } from '@atlaskit/theme/components';
 import React from 'react';
+
 import {
-  withAnalyticsEvents,
-  withAnalyticsContext,
   createAndFireEvent,
+  withAnalyticsContext,
+  withAnalyticsEvents,
 } from '@atlaskit/analytics-next';
+import GlobalTheme, { GlobalThemeTokens } from '@atlaskit/theme/components';
+
+import { Theme } from '../theme';
+import { InternalProps, PublicProps } from '../types';
 import {
   name as packageName,
   version as packageVersion,
 } from '../version.json';
 
 import Input from './Input';
-import { Theme } from '../theme';
-import { PublicProps, InternalProps } from '../types';
 
 interface State {
   isFocused: boolean;

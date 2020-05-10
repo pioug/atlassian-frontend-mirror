@@ -4,8 +4,9 @@ import React, {
   ReactComponentElement,
   SyntheticEvent,
 } from 'react';
+
 import Radio from './Radio';
-import { OptionsPropType, OptionPropType, RadioValue } from './types';
+import { OptionPropType, OptionsPropType, RadioValue } from './types';
 
 /* eslint-disable react/no-array-index-key */
 

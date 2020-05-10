@@ -4,6 +4,8 @@ import { MockActivityResource } from '@atlaskit/activity/dist/es5/support';
 import Button, { ButtonGroup } from '@atlaskit/button';
 import ExamplesErrorBoundary from '../example-helpers/ExamplesErrorBoundary';
 
+import { AtlassianIcon } from '@atlaskit/logo';
+
 import { autoformattingProvider } from '@atlaskit/editor-test-helpers/autoformatting-provider';
 import { cardProviderStaging } from '@atlaskit/editor-test-helpers/card-provider';
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
@@ -338,6 +340,14 @@ export class ExampleEditorComponent extends React.Component<
                     )}
                   />,
                 ]}
+                primaryToolbarIconBefore={
+                  <Button
+                    iconBefore={<AtlassianIcon />}
+                    appearance="subtle"
+                    href="https://atlaskit.atlassian.com/"
+                    shouldFitContainer
+                  ></Button>
+                }
                 onSave={SAVE_ACTION}
                 insertMenuItems={customInsertMenuItems}
                 extensionHandlers={extensionHandlers}
@@ -508,7 +518,11 @@ export default function Example(props: EditorProps & ExampleProps) {
           <Renderer
             document={document}
             setMode={setMode}
-            extensionProviders={props.extensionProviders}
+            extensionProviders={
+              typeof props.extensionProviders === 'function'
+                ? props.extensionProviders()
+                : props.extensionProviders
+            }
           />
         )}
       </div>

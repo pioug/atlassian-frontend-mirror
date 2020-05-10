@@ -31,11 +31,13 @@ describe('promise-helpers', () => {
     });
 
     test('should wait for all promises to resolve/reject before resolving itself', async () => {
-      const a = resolvesIn(10, 'a');
-      const b = resolvesIn(15, 'b');
-      const c = rejectsIn(20, 'c');
-
-      expect(await waitForAllPromises([a, b, c])).toEqual([
+      expect(
+        await waitForAllPromises([
+          Promise.resolve('a'),
+          resolvesIn(30, 'b'),
+          Promise.reject(new Error('c')),
+        ]),
+      ).toEqual([
         { status: ResultStatus.FULFILLED, value: 'a' },
         { status: ResultStatus.FULFILLED, value: 'b' },
         { status: ResultStatus.FAILED, reason: new Error('c') },
@@ -45,21 +47,23 @@ describe('promise-helpers', () => {
 
   describe('waitForFirstFulfilledPromise', () => {
     test('should return on the first fulfilled promise, disregarding rejected ones', async () => {
-      const a = rejectsIn(10, 'a');
-      const b = resolvesIn(30, 'b');
-      const c = resolvesIn(20, 'c');
-
-      expect(await waitForFirstFulfilledPromise([a, b, c])).toEqual('c');
+      expect(
+        await waitForFirstFulfilledPromise([
+          Promise.reject(new Error('a')),
+          resolvesIn(30, 'b'),
+          Promise.resolve('c'),
+        ]),
+      ).toEqual('c');
     });
 
     test('should reject with the last error if all promises have rejected', async () => {
-      const a = rejectsIn(10, 'a');
-      const b = rejectsIn(30, 'b');
-      const c = rejectsIn(11, 'c');
-
-      return expect(waitForFirstFulfilledPromise([a, b, c])).rejects.toEqual(
-        new Error('b'),
-      );
+      return expect(
+        waitForFirstFulfilledPromise([
+          Promise.reject(new Error('a')),
+          rejectsIn(30, 'b'),
+          Promise.reject(new Error('c')),
+        ]),
+      ).rejects.toEqual(new Error('b'));
     });
 
     test('should reject if resolved with null or undefined values', async () => {

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/tag-group",
-  "version": "9.0.6",
+  "version": "9.0.7",
   "description": "A React component used for grouping and controlling @atlskit/tag components",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -39,5 +39,10 @@
     "exenv": "^1.2.2",
     "react-dom": "^16.8.0",
     "wait-for-expect": "^1.2.0"
+  },
+  "techstack": {
+    "@atlassian/frontend": {
+      "import-structure": "atlassian-conventions"
+    }
   }
 }

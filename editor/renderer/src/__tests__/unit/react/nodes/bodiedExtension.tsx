@@ -233,8 +233,8 @@ describe('Renderer - React/Nodes/BodiedExtension', () => {
   });
 
   describe('extension providers', () => {
-    const ExtensionHandlerFromProvider = ({ extensionParams }: any) => (
-      <div>Extension provider: {extensionParams.content}</div>
+    const ExtensionHandlerFromProvider = ({ node }: any) => (
+      <div>Extension provider: {node.content}</div>
     );
 
     const confluenceMacrosExtensionProvider = createFakeExtensionProvider(
@@ -273,8 +273,8 @@ describe('Renderer - React/Nodes/BodiedExtension', () => {
 
     it('should prioritize extension handlers (sync) over extension provider', async () => {
       const extensionHandlers: ExtensionHandlers = {
-        'fake.confluence': (extensionParams: any) => (
-          <div>Extension handler: {extensionParams.content}</div>
+        'fake.confluence': (node: any) => (
+          <div>Extension handler: {node.content}</div>
         ),
       };
 
@@ -297,7 +297,7 @@ describe('Renderer - React/Nodes/BodiedExtension', () => {
 
     it('should fallback to extension provider if not handled by the extension handler', async () => {
       const extensionHandlers: ExtensionHandlers = {
-        'fake.confluence': (extensionParams: any) => null,
+        'fake.confluence': (node: any) => null,
       };
 
       const extension = mount(

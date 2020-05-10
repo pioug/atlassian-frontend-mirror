@@ -1,15 +1,15 @@
 import React from 'react';
-import { ExtensionParams } from '@atlaskit/editor-common';
+import { ExtensionParams } from '@atlaskit/editor-common/extensions';
 import { ReactRenderer } from '@atlaskit/renderer';
 
 type Props = {
-  extensionParams: ExtensionParams<{ sentence?: string; words?: string }>;
+  node: ExtensionParams<{ sentence?: string; words?: string }>;
 };
 
-export default ({ extensionParams }: Props) => {
-  const { parameters } = extensionParams;
+export default ({ node }: Props) => {
+  const { parameters, type } = node;
 
-  switch (extensionParams.type) {
+  switch (type) {
     case 'inlineExtension':
       return (
         <span style={{ border: '1px solid blue' }} title="inlineExtension">
@@ -41,10 +41,11 @@ export default ({ extensionParams }: Props) => {
             document={{
               type: 'doc',
               version: '1',
-              content: extensionParams.content,
+              content: node.content,
             }}
             appearance="full-page"
           />
+          <p>{parameters && parameters.sentence}</p>
         </div>
       );
   }

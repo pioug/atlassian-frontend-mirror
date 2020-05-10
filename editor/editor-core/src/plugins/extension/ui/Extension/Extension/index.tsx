@@ -1,5 +1,4 @@
 import React from 'react';
-import { Component } from 'react';
 import { Node as PmNode } from 'prosemirror-model';
 import { EditorView } from 'prosemirror-view';
 import {
@@ -22,81 +21,72 @@ export interface Props {
   view: EditorView;
   extensionProvider?: ExtensionProvider;
   handleContentDOMRef: (node: HTMLElement | null) => void;
-  onSelectExtension: (hasBody: boolean) => void;
   children?: React.ReactNode;
 }
 
-class Extension extends Component<Props & OverflowShadowProps, any> {
-  private onSelectExtension = () => {
-    const { onSelectExtension, node } = this.props;
-    onSelectExtension(node.type.name === 'bodiedExtension');
-  };
+const Extension = (props: Props & OverflowShadowProps) => {
+  const {
+    node,
+    handleContentDOMRef,
+    children,
+    view,
+    handleRef,
+    shadowClassNames,
+  } = props;
 
-  render() {
-    const {
-      node,
-      handleContentDOMRef,
-      children,
-      view,
-      handleRef,
-      shadowClassNames,
-    } = this.props;
+  const hasBody = node.type.name === 'bodiedExtension';
+  const hasChildren = !!children;
 
-    const hasBody = node.type.name === 'bodiedExtension';
-    const hasChildren = !!children;
-
-    return (
-      <WithPluginState
-        editorView={view}
-        plugins={{
-          widthState: widthPluginKey,
-        }}
-        render={({
-          widthState = { width: 0 },
-        }: {
-          widthState?: WidthPluginState;
-        }) => {
-          return (
-            <Wrapper
-              innerRef={handleRef}
-              data-layout={node.attrs.layout}
-              className={`extension-container ${shadowClassNames} ${
-                hasBody ? '' : 'with-overlay'
+  return (
+    <WithPluginState
+      editorView={view}
+      plugins={{
+        widthState: widthPluginKey,
+      }}
+      render={({
+        widthState = { width: 0 },
+      }: {
+        widthState?: WidthPluginState;
+      }) => {
+        return (
+          <Wrapper
+            innerRef={handleRef}
+            data-layout={node.attrs.layout}
+            className={`extension-container ${shadowClassNames} ${
+              hasBody ? '' : 'with-overlay'
+            }`}
+            style={{
+              width: calcBreakoutWidth(node.attrs.layout, widthState.width),
+            }}
+          >
+            <div
+              className={`extension-overflow-wrapper ${
+                hasBody ? 'with-body' : ''
               }`}
-              style={{
-                width: calcBreakoutWidth(node.attrs.layout, widthState.width),
-              }}
             >
-              <div
-                className={`extension-overflow-wrapper ${
-                  hasBody ? 'with-body' : ''
-                }`}
+              <Overlay className="extension-overlay" />
+              <Header
+                contentEditable={false}
+                className={hasChildren ? 'with-children' : ''}
               >
-                <Overlay className="extension-overlay" />
-                <Header
-                  contentEditable={false}
-                  onClick={this.onSelectExtension}
-                  className={hasChildren ? 'with-children' : ''}
-                >
-                  <ExtensionLozenge node={node} />
-                  {children}
-                </Header>
-                {hasBody && (
-                  <ContentWrapper>
-                    <Content
-                      innerRef={handleContentDOMRef}
-                      className="extension-content"
-                    />
-                  </ContentWrapper>
-                )}
-              </div>
-            </Wrapper>
-          );
-        }}
-      />
-    );
-  }
-}
+                <ExtensionLozenge node={node} />
+                {children}
+              </Header>
+              {hasBody && (
+                <ContentWrapper>
+                  <Content
+                    innerRef={handleContentDOMRef}
+                    className="extension-content"
+                  />
+                </ContentWrapper>
+              )}
+            </div>
+          </Wrapper>
+        );
+      }}
+    />
+  );
+};
 
 export default overflowShadow(Extension, {
   overflowSelector: '.extension-overflow-wrapper',

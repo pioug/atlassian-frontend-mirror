@@ -18,6 +18,7 @@ export interface Props {
   taskDecisionProvider?: Promise<TaskDecisionProvider>;
   contextIdentifierProvider?: Promise<ContextIdentifierProvider>;
   disabled?: boolean;
+  dataAttributes?: { [key: string]: string | number };
 }
 
 export interface State {

@@ -4,7 +4,7 @@ import {
   tableCellContentDomSelector,
   tablePrefixSelector,
 } from '@atlaskit/adf-schema';
-import { fontSize, themed, colors } from '@atlaskit/theme';
+import { themed, colors } from '@atlaskit/theme';
 import {
   akEditorTableBorder,
   akEditorTableBorderDark,
@@ -61,7 +61,7 @@ const tableSharedStyle = css`
   dark: akEditorTableBorderDark,
 })};
     table-layout: fixed;
-    font-size: ${fontSize()}px;
+    font-size: 1em;
     width: 100%;
 
     &[data-autosize='true'] {

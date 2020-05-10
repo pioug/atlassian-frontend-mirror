@@ -189,7 +189,7 @@ describe('Renderer - React/Nodes/Table', () => {
     });
     it('should add an extra <col> node for number column', () => {
       const columnWidths = [300, 380];
-      const resultingColumnWidths = [282, 357];
+      const resultingColumnWidths = [299, 379];
       const table = mount(
         <Table
           layout="default"
@@ -256,7 +256,7 @@ describe('Renderer - React/Nodes/Table', () => {
   describe('When multiple columns do not have width', () => {
     describe('when renderWidth is smaller than table minimum allowed width', () => {
       it('should add minWidth to zero width columns', () => {
-        const columnWidths = [220, 220, 0, 0];
+        const columnWidths = [260, 260, 0, 0];
 
         const table = mount(
           <Table

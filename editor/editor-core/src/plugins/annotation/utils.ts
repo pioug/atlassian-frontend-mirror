@@ -118,13 +118,14 @@ export const addDraftDecoration = (start: number, end: number) => {
 
 export const hasInlineNodes = (state: EditorState): boolean => {
   const { selection, doc } = state;
-  const inlineNodes = [];
+  let inlineNodesCount = 0;
+
   doc.nodesBetween(selection.from, selection.to, node => {
     if (node.isInline && !node.isText) {
-      inlineNodes.push(node);
+      ++inlineNodesCount;
     }
     return true;
   });
 
-  return inlineNodes.length > 0;
+  return inlineNodesCount > 0;
 };

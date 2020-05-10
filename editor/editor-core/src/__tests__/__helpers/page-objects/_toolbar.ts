@@ -24,6 +24,7 @@ export enum ToolbarMenuItem {
   toolbarDropList,
   insertMenu,
   expand,
+  status,
 }
 
 export const toolbarMenuItemsSelectors = {
@@ -50,6 +51,7 @@ export const toolbarMenuItemsSelectors = {
   [ToolbarMenuItem.toolbarDropList]: '[data-role="droplistContent"]',
   [ToolbarMenuItem.insertMenu]: '[aria-label="Insert"]',
   [ToolbarMenuItem.expand]: '[aria-label="Expand"]',
+  [ToolbarMenuItem.status]: '[aria-label="Status"]',
 };
 
 export async function clickToolbarMenu(page: Page, menu: ToolbarMenuItem) {

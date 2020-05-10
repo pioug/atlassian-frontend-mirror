@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+
 import ChevronLeftLargeIcon from '@atlaskit/icon/glyph/chevron-left-large';
+
 import Navigator, { NavigatorPropsType } from './Navigator';
 
 export default class LeftNavigator extends Component<NavigatorPropsType> {

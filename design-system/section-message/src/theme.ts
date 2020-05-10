@@ -1,10 +1,11 @@
 import { ComponentType } from 'react';
-import * as colors from '@atlaskit/theme/colors';
-import WarningIcon from '@atlaskit/icon/glyph/warning';
-import ErrorIcon from '@atlaskit/icon/glyph/error';
+
 import CheckCircleIcon from '@atlaskit/icon/glyph/check-circle';
+import ErrorIcon from '@atlaskit/icon/glyph/error';
 import InfoIcon from '@atlaskit/icon/glyph/info';
 import QuestionCircleIcon from '@atlaskit/icon/glyph/question-circle';
+import WarningIcon from '@atlaskit/icon/glyph/warning';
+import * as colors from '@atlaskit/theme/colors';
 
 interface Appearance {
   backgroundColor: string;

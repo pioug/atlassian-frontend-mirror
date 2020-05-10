@@ -469,6 +469,7 @@ class FullPageRendererExample extends React.Component<Props, State> {
                             dataProviders={this.dataProviders}
                             eventHandlers={this.legacyMediaEventHandlers()}
                             allowColumnSorting={true}
+                            shouldOpenMediaViewer={true}
                             appearance={
                               this.state.appearance as Exclude<
                                 EditorAppearance,

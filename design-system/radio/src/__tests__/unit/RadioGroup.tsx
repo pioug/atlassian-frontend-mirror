@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+
 import { mount, shallow, ShallowWrapper } from 'enzyme';
 
 import { RadioWithoutAnalytics as Radio } from '../../Radio';
 import RadioGroup from '../../RadioGroup';
-import { name } from '../../version.json';
 import { OptionPropType } from '../../types';
+import { name } from '../../version.json';
 
 describe(name, () => {
   describe('RadioGroup', () => {

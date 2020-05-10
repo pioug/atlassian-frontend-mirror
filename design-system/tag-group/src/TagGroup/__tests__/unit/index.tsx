@@ -1,8 +1,10 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+
+import { mount, shallow } from 'enzyme';
+
 import Tag from '@atlaskit/tag';
 
-import TagGroup from '../..';
+import TagGroup from '../../index';
 import { Container } from '../../styled';
 
 describe('TagGroup', () => {

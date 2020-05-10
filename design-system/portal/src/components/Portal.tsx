@@ -1,7 +1,9 @@
 import React, { ReactNode } from 'react';
+
+import { canUseDOM } from 'exenv';
 import ReactDOM from 'react-dom';
 import invariant from 'tiny-invariant';
-import { canUseDOM } from 'exenv';
+
 import { layers } from '@atlaskit/theme';
 
 import { PORTAL_MOUNT_EVENT, PORTAL_UNMOUNT_EVENT } from '../constants';

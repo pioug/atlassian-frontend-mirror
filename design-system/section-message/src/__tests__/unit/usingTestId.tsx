@@ -1,7 +1,8 @@
-import { render } from '@testing-library/react';
 import React from 'react';
 
-import SectionMessage from '../..';
+import { render } from '@testing-library/react';
+
+import SectionMessage from '../../index';
 
 const sectionMessageInfoId = 'info-section-message';
 const sectionMessageInfoBBId = 'jira';

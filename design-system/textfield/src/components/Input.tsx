@@ -1,6 +1,8 @@
 /** @jsx jsx */
 import React from 'react';
-import { jsx, CSSObject } from '@emotion/core';
+
+import { CSSObject, jsx } from '@emotion/core';
+
 import { ThemeTokens } from '../theme';
 
 function warnIfClash(

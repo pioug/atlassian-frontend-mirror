@@ -1,6 +1,4 @@
 /** @jsx jsx */
-import { Fragment } from 'react';
-
 import { jsx } from '@emotion/core';
 
 import Button, { ButtonGroup } from '@atlaskit/button';
@@ -15,7 +13,6 @@ const HighlightPopup = (props: { children: React.ReactNode }) => (
   <Popup
     isOpen
     placement="bottom"
-    tag={Fragment}
     content={() => (
       <div css={{ padding: 4 }}>
         <ButtonGroup>

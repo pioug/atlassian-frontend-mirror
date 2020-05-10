@@ -66,7 +66,7 @@ export interface Context {
   readonly conversion?: {
     readonly inlineCardConversion?: ConversionMap;
     readonly mediaConversion?: ConversionMap;
-    readonly mentionConversion?: ConversionMap;
+    mentionConversion?: ConversionMap;
   };
   readonly hydration?: {
     readonly media?: {

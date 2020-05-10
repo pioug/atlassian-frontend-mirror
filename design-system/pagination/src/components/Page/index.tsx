@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import Button, { ButtonProps, ButtonAppearances } from '@atlaskit/button';
+
+import Button, { ButtonAppearances, ButtonProps } from '@atlaskit/button';
 
 type Diff<T, U> = T extends U ? never : T;
 

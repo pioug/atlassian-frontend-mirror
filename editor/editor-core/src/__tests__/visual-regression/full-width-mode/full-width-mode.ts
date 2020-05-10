@@ -6,7 +6,7 @@ import adfWithHScrollContent from './__fixtures__/horizontal-scroll-content.adf.
 import { Page } from '../../__helpers/page-objects/_types';
 import {
   scrollToTop,
-  clickEditableContent,
+  clickFirstParagraph,
 } from '../../__helpers/page-objects/_editor';
 
 describe('Full-width mode', () => {
@@ -40,7 +40,8 @@ describe('Full-width mode', () => {
       it('should not add horizontal scroll bars to page', async () => {
         // adf contains content that has caused editor to get too wide in the past
         await initEditor(adfWithHScrollContent, width, 1000);
-        await clickEditableContent(page);
+        // click is needed to trigger scroll bars
+        await clickFirstParagraph(page);
         await snapshot(page);
       });
 

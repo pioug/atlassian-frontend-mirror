@@ -6,6 +6,30 @@
     "url": "https://pug.jira-dev.com/wiki/spaces/CFE/pages/4522249092/Jira%2C+PR+and+commit+description+best+practices"
   },
   {
+    "provider": "Confluence",
+    "visibility" : "private",
+    "type": "Document (Draft)",
+    "url": "https://pug.jira-dev.com/wiki/spaces/~986526081/pages/edit-v2/4576740175?draftShareId=9f4980ce-c741-4033-8360-34170da9c84f"
+  },
+  {
+    "provider": "Confluence",
+    "visibility" : "private",
+    "type": "Document (Archived)",
+    "url": "https://pug.jira-dev.com/wiki/spaces/~986526081/pages/4576740195/This%2Bis%2Ban%2Barchived%2Btest%2Bpage"
+  },
+  {
+    "provider": "Confluence",
+    "visibility" : "private",
+    "type": "Space",
+    "url": "https://pug.jira-dev.com/wiki/spaces/~986526081"
+  },
+  {
+    "provider": "Confluence",
+    "visibility" : "private",
+    "type": "Space (Archived)",
+    "url": "https://pug.jira-dev.com/wiki/spaces/1DS/overview"
+  },
+  {
     "provider": "Jira",
     "visibility" : "private",
     "type": "Issue",

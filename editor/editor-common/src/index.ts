@@ -130,6 +130,7 @@ export {
   akEditorFloatingPanelZIndex,
   akEditorFocus,
   akEditorFullPageMaxWidth,
+  akEditorFullPageDefaultFontSize,
   akEditorFullWidthLayoutWidth,
   akEditorGridLineZIndex,
   akEditorGutterPadding,
@@ -145,6 +146,9 @@ export {
   akEditorSelectedBorder,
   akEditorSelectedBorderBoldSize,
   akEditorSelectedBorderSize,
+  akEditorSelectedBlanketColor,
+  akEditorSelectedBgColor,
+  akEditorSelectedBlanketOpacity,
   akEditorSelectedIconColor,
   akEditorSmallZIndex,
   akEditorSubtleAccent,
@@ -189,6 +193,8 @@ export {
   mediaSingleClassName,
   mediaSingleSharedStyle,
   panelSharedStyles,
+  PanelSharedCssClassName,
+  PanelSharedSelectors,
   paragraphSharedStyles,
   relativeSize,
   ruleSharedStyles,
@@ -205,6 +211,8 @@ export {
   tasksAndDecisionsStyles,
   whitespaceSharedStyles,
   akEditorSelectedBorderStyles,
+  MentionSharedCssClassName,
+  EmojiSharedCssClassName,
 } from './styles';
 
 export {

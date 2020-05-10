@@ -17,6 +17,7 @@ import {
   getResponseEndTime,
   startMeasure,
   stopMeasure,
+  akEditorFullPageDefaultFontSize,
 } from '@atlaskit/editor-common';
 import {
   IframeWidthObserverFallbackWrapper,
@@ -223,10 +224,11 @@ export class Renderer extends PureComponent<Props> {
     } = this.props;
 
     try {
+      const schema = this.getSchema();
       const { result, stat, pmDoc } = renderDocument(
         document,
         this.serializer,
-        this.getSchema(),
+        schema,
         adfStage,
       );
 
@@ -252,7 +254,7 @@ export class Renderer extends PureComponent<Props> {
                   }}
                 >
                   {enableSsrInlineScripts ? <BreakoutSSRInlineScript /> : null}
-                  <RendererActionsInternalUpdater doc={pmDoc}>
+                  <RendererActionsInternalUpdater doc={pmDoc} schema={schema}>
                     {result}
                   </RendererActionsInternalUpdater>
                 </RendererWrapper>
@@ -335,7 +337,14 @@ const RendererWithIframeFallbackWrapper = React.memo(
     } = props;
     const renderer = (
       <WidthProvider className="ak-renderer-wrapper">
-        <BaseTheme dynamicTextSizing={dynamicTextSizing}>
+        <BaseTheme
+          dynamicTextSizing={dynamicTextSizing}
+          baseFontSize={
+            !dynamicTextSizing && appearance && appearance !== 'comment'
+              ? akEditorFullPageDefaultFontSize
+              : undefined
+          }
+        >
           <Wrapper innerRef={wrapperRef} appearance={appearance}>
             {children}
           </Wrapper>
@@ -375,21 +384,23 @@ export function RendererWrapper(props: RendererWrapperProps) {
 function RendererActionsInternalUpdater({
   children,
   doc,
+  schema,
 }: {
   doc?: PMNode;
+  schema: Schema;
   children: JSX.Element | null;
 }) {
   const actions = useContext(ActionsContext);
   const rendererRef = useRef(null);
   useEffect(() => {
     if (doc) {
-      actions._privateRegisterRenderer(rendererRef, doc);
+      actions._privateRegisterRenderer(rendererRef, doc, schema);
     } else {
       actions._privateUnregisterRenderer();
     }
 
     return () => actions._privateUnregisterRenderer();
-  }, [actions, doc]);
+  }, [actions, schema, doc]);
 
   return children;
 }

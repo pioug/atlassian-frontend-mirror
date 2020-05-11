@@ -1,62 +1,53 @@
 import React from 'react';
 
-import { code, Example, md, Props } from '@atlaskit/docs';
+import { code, Example, md } from '@atlaskit/docs';
 
 export default md`
-The dropdown menu has two exports, a default stateful component, and a stateless component when you want to have more direct control over all actions.
+  ## Documentation
 
-## Usage
+  All the documentation can be found in the sidebar nav links 👈
 
-${code`import DropdownMenu, { DropdownItemGroup, DropdownItem, DropdownMenuStateless } from @atlaskit/dropdown-menu;`}
+  - [Dropdown menu](dropdown-menu/docs/dropdown-menu)
+  - [Dropdown item](dropdown-menu/docs/dropdown-item)
+  - [Dropdown item radio](dropdown-menu/docs/dropdown-item-radio)
+  - [Dropdown item checkbox](dropdown-menu/docs/dropdown-item-checkbox)
+  - [Dropdown item group](dropdown-menu/docs/dropdown-item-group)
+  - [Positioning](dropdown-menu/docs/positioning)
 
-The stateful component handles selection for you, while still providing several functions that allow you to retrieve information from a form, most notably onItemActivated, which returns an item when it is clicked on.
+  ## Usage
 
-${(
-  <Example
-    packageName="@atlaskit/dropdown-menu"
-    Component={require('../examples/01-default-dropdown-menu').default}
-    title="Default Dropdown"
-    source={require('!!raw-loader!../examples/01-default-dropdown-menu')}
-  />
-)}
+${code`
+import DropdownMenu, {
+  DropdownItem,
+  DropdownItemGroup,
+} from @atlaskit/dropdown-menu;
 
-${(
-  <Example
-    packageName="@atlaskit/dropdown-menu"
-    Component={require('../examples/02-complex-dropdown-menu').default}
-    title="Complex Dropdown"
-    source={require('!!raw-loader!../examples/02-complex-dropdown-menu')}
-  />
-)}
+<DropdownMenu
+  trigger="Australian Cities"
+  triggerType="button"
+>
+  <DropdownItemGroup>
+    <DropdownItem>Sydney</DropdownItem>
+    <DropdownItem>Melbourne</DropdownItem>
+  </DropdownItemGroup>
+</DropdownMenu>
+`}
 
-${(
-  <Example
-    packageName="@atlaskit/dropdown-menu"
-    Component={require('../examples/03-stateless-dropdown-menu').default}
-    title="Stateless Dropdown"
-    source={require('!!raw-loader!../examples/03-stateless-dropdown-menu')}
-  />
-)}
+  ${(
+    <Example
+      packageName="@atlaskit/dropdown-menu"
+      Component={require('../examples/01-default-dropdown-menu').default}
+      title=""
+      source={require('!!raw-loader!../examples/01-default-dropdown-menu')}
+    />
+  )}
 
-${(
-  <Props
-    heading="DropdownItemGroup Props"
-    props={require('!!extract-react-types-loader!../src/components/group/DropdownItemGroup')}
-  />
-)}
-
-${(
-  <Props
-    heading="DropdownMenu Props"
-    props={require('!!extract-react-types-loader!../src/components/DropdownMenu')}
-  />
-)}
-
-${(
-  <Props
-    heading="DropdownMenuStateless Props"
-    props={require('!!extract-react-types-loader!../src/components/DropdownMenuStateless')}
-  />
-)}
-
+  ${(
+    <Example
+      packageName="@atlaskit/dropdown-menu"
+      Component={require('../examples/02-complex-dropdown-menu').default}
+      title=""
+      source={require('!!raw-loader!../examples/02-complex-dropdown-menu')}
+    />
+  )}
 `;

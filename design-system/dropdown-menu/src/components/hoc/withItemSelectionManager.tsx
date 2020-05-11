@@ -1,11 +1,13 @@
-import React, { Component, ComponentType, ReactNode } from 'react';
+import React, { Component, ComponentType } from 'react';
 
-// import getDisplayName from '../../util/getDisplayName';
 import { Behaviors } from '../../types';
 import DropdownItemSelectionManager from '../context/DropdownItemSelectionManager';
 
 export interface WithDropdownItemSelectionManagerProps {
-  children?: ReactNode;
+  /**
+   * Unique id used to enable selections.
+   * When using multiple groups make sure they each have a unique id.
+   */
   id: string;
 }
 
@@ -17,10 +19,6 @@ const withDropdownItemSelectionManager = <BaseProps extends {}>(
   class WithDropdownItemSelectionManager extends Component<
     BaseProps & WithDropdownItemSelectionManagerProps
   > {
-    // static displayName = `WithDropdownItemSelectionManager(${getDisplayName(
-    //   WrappedComponent,
-    // )})`;
-
     render() {
       const { children, id, ...otherProps } = this.props;
 

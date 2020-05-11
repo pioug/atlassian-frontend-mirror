@@ -90,9 +90,10 @@ interface DropdownMenuBaseProps {
   /** Callback to know when the menu is correctly positioned after it is opened */
   onPositioned?: Function;
   /**
-   * A `testId` prop is provided for specified elements, which is a unique
-   * string that appears as a data attribute `data-testid` in the rendered code,
-   * serving as a hook for automated tests.
+   A `testId` prop is provided for specified elements, which is a unique
+   string that appears as a data attribute `data-testid` in the rendered code,
+   serving as a hook for automated tests.
+
    As dropdown-menu is composed of different components, we passed down the testId to the sub component you want to test:
    - testId--trigger to get the menu trigger.
    - testId--content to get the dropdown content trigger.

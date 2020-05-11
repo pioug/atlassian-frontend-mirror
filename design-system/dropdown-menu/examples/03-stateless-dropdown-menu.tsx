@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 
 import {
   DropdownItemGroupRadio,
@@ -7,31 +7,24 @@ import {
 } from '../src';
 import { OnOpenChangeArgs } from '../src/types';
 
-interface State {
-  isDropdownOpen: boolean;
-}
+export default function StatelessMenuExample() {
+  const [isOpen, setIsOpen] = useState(false);
 
-export default class StatelessMenuExample extends Component<{}, State> {
-  state = { isDropdownOpen: false };
-
-  render() {
-    return (
-      <div>
-        <DropdownMenuStateless
-          isOpen={this.state.isDropdownOpen}
-          onOpenChange={(attrs: OnOpenChangeArgs) => {
-            this.setState({ isDropdownOpen: attrs.isOpen });
-          }}
-          trigger="Choose"
-          triggerType="button"
-          isMenuFixed
-        >
-          <DropdownItemGroupRadio id="cities">
-            <DropdownItemRadio id="sydney">Sydney</DropdownItemRadio>
-            <DropdownItemRadio id="melbourne">Melbourne</DropdownItemRadio>
-          </DropdownItemGroupRadio>
-        </DropdownMenuStateless>
-      </div>
-    );
-  }
+  return (
+    <div>
+      <DropdownMenuStateless
+        isOpen={isOpen}
+        onOpenChange={(attrs: OnOpenChangeArgs) => {
+          setIsOpen(attrs.isOpen);
+        }}
+        trigger="Filter City"
+        triggerType="button"
+      >
+        <DropdownItemGroupRadio id="cities">
+          <DropdownItemRadio id="sydney">Sydney</DropdownItemRadio>
+          <DropdownItemRadio id="melbourne">Melbourne</DropdownItemRadio>
+        </DropdownItemGroupRadio>
+      </DropdownMenuStateless>
+    </div>
+  );
 }

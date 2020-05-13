@@ -13,7 +13,7 @@ const menuItemSydney = `${dropdownMenuContent} [role="menuitem"]:first-child`;
 BrowserTestCase(
   'Dropdown Menu should be able to select an item',
   { skip: ['ie'] },
-  async (client: WebdriverIOAsync.BrowserObject) => {
+  async (client: WebdriverIO.BrowserObject) => {
     const dropdownMenuTest = new Page(client);
     await dropdownMenuTest.goto(urlDrawer);
     await dropdownMenuTest.waitForSelector(dropdownMenuTrigger);

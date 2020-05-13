@@ -10,7 +10,7 @@ import { Content, LeftSidebar, Main, PageLayout } from '../../../index';
 import { getDimension } from './__utils__/get-dimension';
 import * as raf from './__utils__/raf';
 
-describe('<ResizeControl />', () => {
+describe('Left sidebar', () => {
   beforeEach(() => {
     jest.useFakeTimers();
   });
@@ -617,6 +617,226 @@ describe('<ResizeControl />', () => {
         JSON.parse(localStorage.getItem(PAGE_LAYOUT_LS_KEY)!).gridState
           .leftSidebarWidth,
       ).toBe(200);
+    });
+  });
+
+  describe('Flyout', () => {
+    beforeEach(() => {
+      document.documentElement.setAttribute(
+        'data-is-sidebar-collapsed',
+        'true',
+      );
+      localStorage.setItem(
+        'PAGE_LAYOUT_UI_STATE',
+        JSON.stringify({
+          isLeftSidebarCollapsed: true,
+        }),
+      );
+    });
+
+    it('should call onFlyoutExpand and onFlyoutCollapse callbacks', () => {
+      const onFlyoutExpand = jest.fn();
+      const onFlyoutCollapse = jest.fn();
+      const { getByTestId } = render(
+        <PageLayout testId="grid">
+          <Main>
+            <LeftSidebar
+              testId="component"
+              width={200}
+              onFlyoutExpand={onFlyoutExpand}
+              onFlyoutCollapse={onFlyoutCollapse}
+            >
+              Contents
+            </LeftSidebar>
+          </Main>
+        </PageLayout>,
+      );
+
+      act(() => {
+        fireEvent.mouseOver(getByTestId('component'));
+        jest.runAllTimers();
+      });
+      expect(onFlyoutExpand).toHaveBeenCalledTimes(1);
+
+      act(() => {
+        fireEvent.mouseLeave(getByTestId('component'));
+        jest.runAllTimers();
+      });
+      expect(onFlyoutCollapse).toHaveBeenCalledTimes(1);
+    });
+
+    it('should expand flyout when mouse enters the LeftSidebar', () => {
+      const { getByTestId } = render(
+        <PageLayout testId="grid">
+          <Main>
+            <LeftSidebar testId="component" width={200}>
+              Contents
+            </LeftSidebar>
+          </Main>
+        </PageLayout>,
+      );
+
+      act(() => {
+        fireEvent.mouseOver(getByTestId('component'));
+        jest.runAllTimers();
+      });
+      expect(document.documentElement.dataset.isSidebarCollapsed).toBe('true');
+      expect(getByTestId('component')).toHaveStyleDeclaration('width', '20px');
+      expect(getByTestId('component').firstElementChild).toHaveStyleDeclaration(
+        'width',
+        'var(--leftSidebarFlyoutWidth)',
+      );
+      expect(document.head.innerHTML).toEqual(
+        expect.stringContaining('--leftSidebarFlyoutWidth:240px;'),
+      );
+    });
+
+    it('should collapse flyout when mouse leaves the LeftSidebar', () => {
+      const { getByTestId } = render(
+        <PageLayout testId="grid">
+          <Main>
+            <LeftSidebar testId="component" width={200}>
+              Contents
+            </LeftSidebar>
+          </Main>
+        </PageLayout>,
+      );
+
+      act(() => {
+        fireEvent.mouseOver(getByTestId('component'));
+        jest.runAllTimers();
+      });
+      expect(document.documentElement.dataset.isSidebarCollapsed).toBe('true');
+      expect(getByTestId('component')).toHaveStyleDeclaration('width', '20px');
+      expect(getByTestId('component').firstElementChild).toHaveStyleDeclaration(
+        'width',
+        'var(--leftSidebarFlyoutWidth)',
+      );
+      expect(document.head.innerHTML).toEqual(
+        expect.stringContaining('--leftSidebarFlyoutWidth:240px;'),
+      );
+
+      act(() => {
+        fireEvent.mouseLeave(getByTestId('component'));
+        jest.runAllTimers();
+      });
+
+      expect(getByTestId('component')).toHaveStyleDeclaration(
+        'width',
+        'var(--leftSidebarWidth)',
+      );
+      expect(getByTestId('component').firstElementChild).toHaveStyleDeclaration(
+        'width',
+        'var(--leftSidebarWidth)',
+      );
+      expect(getDimension('leftSidebarWidth')).toBe('20px');
+    });
+
+    it('should expand flyout when mouse enters the LeftSidebar when isFixed is false', () => {
+      const { getByTestId } = render(
+        <PageLayout testId="grid">
+          <Main>
+            <LeftSidebar isFixed={false} testId="component" width={200}>
+              Contents
+            </LeftSidebar>
+          </Main>
+        </PageLayout>,
+      );
+
+      act(() => {
+        fireEvent.mouseOver(getByTestId('component'));
+        jest.runAllTimers();
+      });
+      expect(document.documentElement.dataset.isSidebarCollapsed).toBe('true');
+      expect(getByTestId('component')).toHaveStyleDeclaration(
+        'width',
+        'var(--leftSidebarFlyoutWidth)',
+      );
+      expect(document.head.innerHTML).toEqual(
+        expect.stringContaining('--leftSidebarFlyoutWidth:240px;'),
+      );
+    });
+
+    it('should collapse flyout when mouse leaves the LeftSidebar when isFixed is false', () => {
+      const { getByTestId } = render(
+        <PageLayout testId="grid">
+          <Main>
+            <LeftSidebar isFixed={false} testId="component" width={200}>
+              Contents
+            </LeftSidebar>
+          </Main>
+        </PageLayout>,
+      );
+
+      act(() => {
+        fireEvent.mouseOver(getByTestId('component'));
+        jest.runAllTimers();
+      });
+      expect(document.documentElement.dataset.isSidebarCollapsed).toBe('true');
+      expect(getByTestId('component')).toHaveStyleDeclaration(
+        'width',
+        'var(--leftSidebarFlyoutWidth)',
+      );
+      expect(document.head.innerHTML).toEqual(
+        expect.stringContaining('--leftSidebarFlyoutWidth:240px;'),
+      );
+
+      act(() => {
+        fireEvent.mouseLeave(getByTestId('component'));
+        jest.runAllTimers();
+      });
+
+      expect(getByTestId('component')).toHaveStyleDeclaration(
+        'width',
+        'var(--leftSidebarWidth)',
+      );
+      expect(getDimension('leftSidebarWidth')).toBe('20px');
+    });
+
+    it('should show the contents of left sidebar when flyout is open', async () => {
+      const { getByTestId } = render(
+        <PageLayout testId="grid">
+          <Main>
+            <LeftSidebar testId="component" width={200}>
+              <div>Contents</div>
+            </LeftSidebar>
+          </Main>
+        </PageLayout>,
+      );
+
+      act(() => {
+        fireEvent.mouseOver(getByTestId('component'));
+        jest.runAllTimers();
+      });
+
+      expect(
+        getComputedStyle(
+          getByTestId('component').firstElementChild!.firstElementChild!,
+        ).opacity,
+      ).toBe('1');
+    });
+
+    it('should show the contents of left sidebar when flyout is open and isFixed is false', async () => {
+      const { getByTestId } = render(
+        <PageLayout testId="grid">
+          <Main>
+            <LeftSidebar isFixed={false} testId="component" width={200}>
+              <div>Contents</div>
+            </LeftSidebar>
+          </Main>
+        </PageLayout>,
+      );
+
+      act(() => {
+        fireEvent.mouseOver(getByTestId('component'));
+        jest.runAllTimers();
+      });
+
+      expect(
+        getComputedStyle(
+          getByTestId('component').firstElementChild!.firstElementChild!,
+        ).opacity,
+      ).toBe('1');
     });
   });
 });

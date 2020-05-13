@@ -1,5 +1,11 @@
 # @atlaskit/textfield
 
+## 3.1.11
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.1.10
 
 ### Patch Changes

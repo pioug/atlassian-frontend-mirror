@@ -40,7 +40,6 @@
     "@types/puppeteer": "^1.12.1",
     "cookie": "^0.3.1",
     "debug": "^2.2.0",
-    "got": "^8.3.1",
     "puppeteer": "1.17.0",
     "react": "^16.8.0",
     "rxjs": "^5.5.0",

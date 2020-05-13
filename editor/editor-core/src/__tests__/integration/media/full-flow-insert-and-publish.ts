@@ -16,7 +16,7 @@ const uploadFile = async (page: FullPageEditor, fileName: string) => {
   await page.mediaPicker.uploadFile(localPath);
 };
 
-async function openAndGetMediaViewer(client: WebdriverIOAsync.BrowserObject) {
+async function openAndGetMediaViewer(client: WebdriverIO.BrowserObject) {
   const mediaViewer = new MediaViewerPageObject(client);
   await mediaViewer.init();
   return mediaViewer;

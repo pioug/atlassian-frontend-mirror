@@ -32,6 +32,7 @@ export const LEFT_SIDEBAR_FLYOUT_WIDTH = 240;
 export const MIN_LEFT_SIDEBAR_DRAG_THRESHOLD = 200;
 export const DEFAULT_SIDEBAR_WIDTH = 300;
 export const TRANSITION_DURATION = 300;
+export const FLYOUT_DELAY = 200;
 export const LEFT_SIDEBAR_EXPANDED_WIDTH = 'expandedLeftSidebarWidth';
 export const PAGE_LAYOUT_LS_KEY = 'PAGE_LAYOUT_UI_STATE';
 

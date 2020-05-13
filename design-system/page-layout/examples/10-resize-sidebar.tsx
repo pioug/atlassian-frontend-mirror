@@ -89,7 +89,12 @@ const ToggleShown = ({ onChange, value, name }: ToggleElProps) => (
 const ToggleScrollableContent = ({ onChange, value }: ToggleElProps) => (
   <Fragment>
     <label css={{ display: 'block', whiteSpace: 'nowrap' }}>
-      <input type="checkbox" onChange={onChange} value={value.toString()} />
+      <input
+        data-toggle-scrollable
+        type="checkbox"
+        onChange={onChange}
+        value={value.toString()}
+      />
       Toggle scrollable content
     </label>
     {value && <ScrollableContent />}
@@ -241,6 +246,8 @@ const BasicGrid = () => {
             onCollapse={() => console.log('onCollapse')}
             onResizeStart={() => console.log('onResizeStart')}
             onResizeEnd={() => console.log('onResizeEnd')}
+            onFlyoutExpand={() => console.log('onFlyoutExpand')}
+            onFlyoutCollapse={() => console.log('onFlyoutCollapse')}
             overrides={{
               ResizeButton: {
                 render: (Component, props) => (

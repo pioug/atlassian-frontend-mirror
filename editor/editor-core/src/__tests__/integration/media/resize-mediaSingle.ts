@@ -52,7 +52,7 @@ export interface ResizeHandle {
 
 async function resizeMediaSingle(
   page: Page,
-  mediaSingle: WebdriverIOAsync.Element,
+  mediaSingle: WebdriverIO.Element,
 ): Promise<ResizeHandle> {
   const handleElement = await mediaSingle.$('.mediaSingle-resize-handle-right');
 

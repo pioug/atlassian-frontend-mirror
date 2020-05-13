@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/spinner",
-  "version": "12.1.6",
+  "version": "12.1.7",
   "description": "A React component that displays a spinning icon to show a loading stateA spinner is an animated spinning icon that lets users know content is being loaded.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -32,10 +32,10 @@
   },
   "devDependencies": {
     "@atlaskit/build-utils": "^2.2.5",
-    "@atlaskit/button": "^13.3.9",
+    "@atlaskit/button": "^13.3.12",
     "@atlaskit/docs": "^8.4.0",
     "@atlaskit/ssr": "^0.1.1",
-    "@atlaskit/webdriver-runner": "^0.3.0",
+    "@atlaskit/webdriver-runner": "^0.4.0",
     "@testing-library/react": "^8.0.1",
     "enzyme": "^3.10.0",
     "react-dom": "^16.8.0",

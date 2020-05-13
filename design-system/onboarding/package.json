@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/onboarding",
-  "version": "9.1.7",
+  "version": "9.1.8",
   "description": "Highlight elements of the UI to the user and display a complementary dialog.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -22,8 +22,8 @@
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^6.3.6",
-    "@atlaskit/button": "^13.3.11",
-    "@atlaskit/modal-dialog": "^10.5.7",
+    "@atlaskit/button": "^13.3.12",
+    "@atlaskit/modal-dialog": "^10.5.9",
     "@atlaskit/popper": "^3.1.12",
     "@atlaskit/portal": "^3.1.8",
     "@atlaskit/theme": "^9.5.3",
@@ -48,7 +48,7 @@
     "@atlaskit/progress-indicator": "^7.0.14",
     "@atlaskit/ssr": "^0.1.1",
     "@atlaskit/visual-regression": "^0.1.9",
-    "@atlaskit/webdriver-runner": "^0.3.8",
+    "@atlaskit/webdriver-runner": "^0.4.0",
     "@testing-library/react": "^8.0.1",
     "enzyme": "^3.10.0",
     "raf-stub": "^2.0.1",

@@ -1,14 +1,15 @@
 /** @jsx jsx */
-import { MouseEvent, useEffect } from 'react';
+import { MouseEvent, useEffect, useState } from 'react';
 
 import { jsx } from '@emotion/core';
 
 import {
   COLLAPSED_LEFT_SIDEBAR_WIDTH,
-  IS_FLYOUT_OPEN,
+  FLYOUT_DELAY,
   IS_SIDEBAR_COLLAPSED,
   LEFT_SIDEBAR_SELECTOR,
   LEFT_SIDEBAR_WIDTH,
+  RESIZE_BUTTON_SELECTOR,
 } from '../../common/constants';
 import { LeftSidebarProps } from '../../common/types';
 import {
@@ -19,24 +20,12 @@ import {
 import { usePageLayoutGrid } from '../../controllers';
 import ResizeControl from '../resize-control';
 
+import {
+  fixedLeftSidebarInnerStyles,
+  leftSidebarStyles,
+} from './left-sidebar-styles';
 import SlotDimensions from './slot-dimensions';
-import { fixedLeftSidebarInnerStyles, leftSidebarStyles } from './styles';
 
-let timeout: number;
-const setFlyoutIsOpen = (event: MouseEvent) => {
-  clearTimeout(timeout);
-  timeout = window.setTimeout(() => {
-    if (document.documentElement.hasAttribute(IS_SIDEBAR_COLLAPSED)) {
-      document.documentElement.setAttribute(IS_FLYOUT_OPEN, 'true');
-    }
-  }, 500);
-};
-const removeFlyoutIsOpen = () => {
-  if (document.documentElement.hasAttribute(IS_SIDEBAR_COLLAPSED)) {
-    document.documentElement.removeAttribute(IS_FLYOUT_OPEN);
-    clearTimeout(timeout);
-  }
-};
 const leftSidebarSelector = {
   [LEFT_SIDEBAR_SELECTOR]: true,
 };
@@ -53,9 +42,13 @@ const LeftSidebar = (props: LeftSidebarProps) => {
     onCollapse,
     onResizeStart,
     onResizeEnd,
+    onFlyoutExpand,
+    onFlyoutCollapse,
     testId,
   } = props;
 
+  let timeout: undefined | number;
+  const [isFlyoutOpen, setIsFlyoutOpen] = useState(false);
   const cachedCollapsedState = !!getGridStateFromStorage(
     'isLeftSidebarCollapsed',
   );
@@ -76,26 +69,64 @@ const LeftSidebar = (props: LeftSidebarProps) => {
     };
   }, [cachedCollapsedState]);
 
+  const onMouseEnter = (event: MouseEvent) => {
+    const isMouseOnResizeButton =
+      (event.target as Element).matches(`[${RESIZE_BUTTON_SELECTOR}]`) ||
+      (event.target as Element).matches(`[${RESIZE_BUTTON_SELECTOR}] *`);
+
+    if (isFlyoutOpen || isMouseOnResizeButton) {
+      return;
+    }
+
+    event.persist();
+    clearTimeout(timeout);
+
+    const isLeftSidebarCollapsed = document.documentElement.hasAttribute(
+      IS_SIDEBAR_COLLAPSED,
+    );
+
+    if (isLeftSidebarCollapsed) {
+      timeout = window.setTimeout(() => {
+        onFlyoutExpand && onFlyoutExpand();
+        setIsFlyoutOpen(true);
+      }, FLYOUT_DELAY);
+    }
+  };
+
+  const onMouseLeave = () => {
+    clearTimeout(timeout);
+
+    const isLeftSidebarCollapsed = document.documentElement.hasAttribute(
+      IS_SIDEBAR_COLLAPSED,
+    );
+
+    if (isLeftSidebarCollapsed && isFlyoutOpen) {
+      onFlyoutCollapse && onFlyoutCollapse();
+      setIsFlyoutOpen(false);
+    }
+  };
+
   return (
     <div
-      css={leftSidebarStyles(isFixed)}
+      css={leftSidebarStyles(isFixed, isFlyoutOpen)}
       data-testid={testId}
-      onMouseEnter={setFlyoutIsOpen}
-      onMouseLeave={removeFlyoutIsOpen}
+      onMouseOver={onMouseEnter}
+      onMouseLeave={onMouseLeave}
       {...leftSidebarSelector}
     >
       <SlotDimensions
         variableName={LEFT_SIDEBAR_WIDTH}
         value={leftSidebarWidth}
       />
-      <div css={fixedLeftSidebarInnerStyles(isFixed)}>
+      <div css={fixedLeftSidebarInnerStyles(isFixed, isFlyoutOpen)}>
         {children}
         <ResizeControl
           testId={testId}
           resizeButtonLabel={resizeButtonLabel}
           overrides={overrides}
-          onExpand={onExpand}
+          resetFlyout={() => setIsFlyoutOpen(false)}
           onCollapse={onCollapse}
+          onExpand={onExpand}
           onResizeStart={onResizeStart}
           onResizeEnd={onResizeEnd}
         />

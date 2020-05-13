@@ -397,8 +397,6 @@ describe('<PageLayout />', () => {
         expect.stringContaining(':root{--leftPanelWidth:200px;}'),
       );
     });
-
-    // TODO add test for flyout behaviour DST-266
   });
 
   describe('<RightPanel />', () => {
@@ -510,11 +508,10 @@ describe('<PageLayout />', () => {
     });
   });
 
-  describe('<LeftSidebar />', () => {
-    describe('flyout behaviour', () => {
+  describe('<LeftSidebarWithoutResize />', () => {
+    describe('', () => {
       beforeEach(() => {
         jest.useFakeTimers();
-        document.documentElement.removeAttribute('data-is-flyout-open');
         document.documentElement.removeAttribute('data-is-sidebar-collapsed');
         localStorage.setItem(
           'PAGE_LAYOUT_UI_STATE',
@@ -583,80 +580,7 @@ describe('<PageLayout />', () => {
         );
         expect(getDimension('leftSidebarWidth')).toBe('20px');
       });
-
-      it('should expand flyout when mouse enters the LeftSidebar', () => {
-        const { getByTestId } = render(
-          <PageLayout testId="grid">
-            <Main>
-              <LeftSidebar testId="component" width={200}>
-                Contents
-              </LeftSidebar>
-            </Main>
-          </PageLayout>,
-        );
-
-        fireEvent.mouseEnter(getByTestId('component'));
-        jest.runAllTimers();
-        expect(document.documentElement.dataset.isSidebarCollapsed).toBe(
-          'true',
-        );
-        expect(document.documentElement.dataset.isFlyoutOpen).toBe('true');
-      });
-
-      it('should collapse flyout when mouse leaves the LeftSidebar', () => {
-        const { getByTestId } = render(
-          <PageLayout testId="grid">
-            <Main>
-              <LeftSidebar testId="component" width={200}>
-                Contents
-              </LeftSidebar>
-            </Main>
-          </PageLayout>,
-        );
-
-        fireEvent.mouseEnter(getByTestId('component'));
-        jest.runAllTimers();
-        expect(document.documentElement.dataset.isSidebarCollapsed).toBe(
-          'true',
-        );
-        expect(document.documentElement.dataset.isFlyoutOpen).toBe('true');
-
-        fireEvent.mouseLeave(getByTestId('component'));
-        jest.runAllTimers();
-        expect(document.documentElement.dataset.isSidebarCollapsed).toBe(
-          'true',
-        );
-        expect(document.documentElement.dataset.isFlyoutOpen).toBeUndefined();
-      });
     });
-
-    // Will be added as part of https://product-fabric.atlassian.net/browse/DST-368
-    /* it('should call onFlyoutExpand and onFlyoutCollapse callbacks', () => { */
-    /*   const onFlyoutExpand = jest.fn(); */
-    /*   const onFlyoutCollapse = jest.fn(); */
-    /*   const { getByTestId } = render( */
-    /*     <PageLayout testId="grid"> */
-    /*       <Main> */
-    /*         <LeftSidebar */
-    /*           testId="component" */
-    /*           width={200} */
-    /*           onFlyoutExpand={onFlyoutExpand} */
-    /*           onFlyoutCollapse={onFlyoutCollapse} */
-    /*         > */
-    /*           Contents */
-    /*         </LeftSidebar> */
-    /*       </Main> */
-    /*     </PageLayout>, */
-    /*   ); */
-
-    /*   fireEvent.mouseEnter(getByTestId('component')); */
-    /*   jest.runAllTimers(); */
-    /*   expect(onFlyoutExpand).toHaveBeenCalledTimes(1); */
-
-    /*   fireEvent.mouseLeave(getByTestId('component')); */
-    /*   jest.runAllTimers(); */
-    /*   expect(onFlyoutCollapse).toHaveBeenCalledTimes(1); */
-    /* }); */
 
     it('should render with the width that was passed to it', () => {
       const { getByTestId } = render(

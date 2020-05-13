@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/layer-manager",
-  "version": "8.0.4",
+  "version": "8.0.5",
   "description": "A React Component for managing layers",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -35,16 +35,16 @@
   "devDependencies": {
     "@atlaskit/analytics-next": "^6.3.5",
     "@atlaskit/build-utils": "^2.6.4",
-    "@atlaskit/button": "^13.3.9",
+    "@atlaskit/button": "^13.3.12",
     "@atlaskit/docs": "^8.5.0",
     "@atlaskit/icon": "^20.1.0",
-    "@atlaskit/modal-dialog": "^10.5.5",
-    "@atlaskit/onboarding": "^9.1.4",
-    "@atlaskit/section-message": "^4.1.7",
+    "@atlaskit/modal-dialog": "^10.5.9",
+    "@atlaskit/onboarding": "^9.1.8",
+    "@atlaskit/section-message": "^4.1.9",
     "@atlaskit/ssr": "^0.1.1",
     "@atlaskit/theme": "^9.5.1",
-    "@atlaskit/tooltip": "^15.2.5",
-    "@atlaskit/webdriver-runner": "^0.3.0",
+    "@atlaskit/tooltip": "^15.2.7",
+    "@atlaskit/webdriver-runner": "^0.4.0",
     "enzyme": "^3.10.0",
     "react-dom": "^16.8.0",
     "wait-for-expect": "^1.2.0"

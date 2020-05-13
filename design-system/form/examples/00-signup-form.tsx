@@ -33,7 +33,12 @@ export default () => (
     >
       {({ formProps, submitting }) => (
         <form {...formProps}>
-          <Field name="username" label="User name" isRequired defaultValue="">
+          <Field
+            name="username"
+            label="User name"
+            isRequired
+            defaultValue="hello"
+          >
             {({ fieldProps, error }) => (
               <Fragment>
                 <TextField autoComplete="off" {...fieldProps} />

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/flag",
-  "version": "12.4.0",
+  "version": "12.4.1",
   "description": "A flag is used for confirmations, alerts, and acknowledgments that require minimal user interaction.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^6.3.5",
-    "@atlaskit/button": "^13.3.11",
+    "@atlaskit/button": "^13.3.12",
     "@atlaskit/icon": "^20.1.2",
     "@atlaskit/portal": "^3.1.8",
     "@atlaskit/theme": "^9.5.1",
@@ -39,11 +39,11 @@
     "@atlaskit/build-utils": "^2.2.7",
     "@atlaskit/docs": "^8.4.0",
     "@atlaskit/field-radio-group": "^7.0.2",
-    "@atlaskit/spinner": "^12.1.6",
+    "@atlaskit/spinner": "^12.1.7",
     "@atlaskit/ssr": "^0.1.1",
     "@atlaskit/theme": "^9.5.1",
     "@atlaskit/visual-regression": "^0.1.9",
-    "@atlaskit/webdriver-runner": "^0.3.8",
+    "@atlaskit/webdriver-runner": "^0.4.0",
     "@testing-library/react": "^8.0.1",
     "enzyme": "^3.10.0",
     "react-dom": "^16.8.0"

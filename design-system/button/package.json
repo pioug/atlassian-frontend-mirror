@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/button",
-  "version": "13.3.11",
+  "version": "13.3.12",
   "description": "A button triggers an event or action. They let users know what will happen next.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^6.3.6",
-    "@atlaskit/spinner": "^12.1.6",
+    "@atlaskit/spinner": "^12.1.7",
     "@atlaskit/theme": "^9.5.3",
     "@emotion/core": "^10.0.9",
     "memoize-one": "^5.1.0",
@@ -34,14 +34,14 @@
   },
   "devDependencies": {
     "@atlaskit/build-utils": "^2.2.7",
-    "@atlaskit/checkbox": "^10.1.11",
+    "@atlaskit/checkbox": "^10.1.12",
     "@atlaskit/docs": "^8.5.1",
     "@atlaskit/icon": "^20.1.1",
     "@atlaskit/logo": "^12.3.4",
-    "@atlaskit/select": "^11.0.10",
+    "@atlaskit/select": "^11.0.11",
     "@atlaskit/ssr": "^0.1.1",
     "@atlaskit/visual-regression": "^0.1.9",
-    "@atlaskit/webdriver-runner": "^0.3.4",
+    "@atlaskit/webdriver-runner": "^0.4.0",
     "@testing-library/react": "^8.0.1",
     "@types/react-router-dom": "^4.3.1",
     "enzyme": "^3.10.0",

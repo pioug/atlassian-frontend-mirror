@@ -5,16 +5,11 @@ import { easeOut, prefersReducedMotion } from '@atlaskit/motion';
 import {
   BANNER,
   BANNER_HEIGHT,
-  COLLAPSED_LEFT_SIDEBAR_WIDTH,
   CONTENT,
-  IS_FLYOUT_OPEN,
   IS_SIDEBAR_DRAGGING,
   LEFT_PANEL,
   LEFT_PANEL_WIDTH,
-  LEFT_SIDEBAR_FLYOUT,
   LEFT_SIDEBAR_WIDTH,
-  MAIN_SELECTOR,
-  RESIZE_BUTTON_SELECTOR,
   RIGHT_PANEL,
   RIGHT_PANEL_WIDTH,
   RIGHT_SIDEBAR_WIDTH,
@@ -95,88 +90,6 @@ export const topNavigationStyles = (isFixed?: boolean): CSSObject => ({
   msGridColumnSpan: '3',
   msGridRow: '2',
   // /* IE11 */
-});
-
-// This inner wrapper is required to allow the
-// sidebar to be position: fixed. If we were to apply position: fixed
-// to the outer wrapper, it will be popped out of it's flex container
-// and Main would stretch to occupy all the space.
-export const fixedLeftSidebarInnerStyles = (isFixed?: boolean): CSSObject => ({
-  ...(isFixed
-    ? {
-        position: 'fixed',
-        top: `calc(var(--${BANNER_HEIGHT}) + var(--${TOP_NAVIGATION_HEIGHT}))`,
-        left: `calc(var(--${LEFT_PANEL_WIDTH}))`,
-        bottom: 0,
-        width: `var(--${LEFT_SIDEBAR_WIDTH})`,
-        transition: `width ${TRANSITION_DURATION}ms ${easeOut} 0s`,
-
-        [`[${IS_SIDEBAR_DRAGGING}] &`]: {
-          // Make sure drag to resize does not animate as the user drags
-          transition: 'none',
-          cursor: 'ew-resize',
-        },
-
-        [`[${IS_FLYOUT_OPEN}] &`]: {
-          width: `var(--${LEFT_SIDEBAR_FLYOUT})`,
-        },
-      }
-    : {
-        height: '100%',
-      }),
-  ...prefersReducedMotion(),
-});
-
-export const leftSidebarStyles = (isFixed?: boolean): CSSObject => ({
-  position: 'relative',
-  width: `var(--${LEFT_SIDEBAR_WIDTH})`,
-  transition: `width ${TRANSITION_DURATION}ms ${easeOut} 0s`,
-  zIndex: 1, // Make resize affordance appear on top of content
-  marginLeft: 0,
-
-  [`[${IS_SIDEBAR_DRAGGING}] &`]: {
-    // Make sure drag to resize does not animate as the user drags
-    transition: 'none',
-    cursor: 'ew-resize',
-  },
-
-  [`&:hover [${RESIZE_BUTTON_SELECTOR}]`]: {
-    opacity: 1,
-  },
-
-  [`[${IS_FLYOUT_OPEN}] &`]: {
-    width: `var(--${LEFT_SIDEBAR_FLYOUT})`,
-
-    [`& + [${MAIN_SELECTOR}]`]: {
-      // adds a negative left margin to main
-      // which transitions at the same speed
-      // with which left sidebars width increases
-      // This give an illusion that the flyout is appearing
-      // on top of the main content, while main remains in place
-      marginLeft: `calc(-1 * var(--${LEFT_SIDEBAR_FLYOUT}) + ${COLLAPSED_LEFT_SIDEBAR_WIDTH}px)`,
-    },
-  },
-
-  ...(isFixed && {
-    // in fixed mode this element's child is taken out of the document flow
-    // It doesn't take up the width as expected
-    // psuedo element forces it to take up the necessary width
-    '&::after': {
-      content: "''",
-      display: 'inline-block',
-      width: `var(--${LEFT_SIDEBAR_WIDTH})`,
-    },
-
-    [`[${IS_FLYOUT_OPEN}] &`]: {
-      // Keep the flex child collapsed so Main
-      // stays in position. Flyout behaviour for
-      // left sidebar in fixed mode is handled
-      // by the fixed child of this element.
-      width: COLLAPSED_LEFT_SIDEBAR_WIDTH,
-    },
-  }),
-
-  ...prefersReducedMotion(),
 });
 
 export const mainStyles: CSSObject = {

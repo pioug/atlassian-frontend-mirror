@@ -13,19 +13,18 @@ import { isReducedMotion } from '@atlaskit/motion';
 
 import {
   COLLAPSED_LEFT_SIDEBAR_WIDTH,
-  IS_FLYOUT_OPEN,
   IS_SIDEBAR_DRAGGING,
   LEFT_SIDEBAR_FLYOUT_WIDTH,
   MIN_LEFT_SIDEBAR_DRAG_THRESHOLD,
   RESIZE_CONTROL_SELECTOR,
   TRANSITION_DURATION,
 } from '../../common/constants';
-import { ResizeButtonProps, ResizeControlProps } from '../../common/types';
 import { usePageLayoutResize } from '../../controllers';
 
 import GrabArea from './grab-area';
 import ResizeButton from './resize-button';
 import { resizeControlCSS, resizeIconButtonCSS, shadowCSS } from './styles';
+import { ResizeButtonProps, ResizeControlProps } from './types';
 
 const cssSelector = { [RESIZE_CONTROL_SELECTOR]: true };
 const noop = () => {};
@@ -39,6 +38,7 @@ const ResizeControl = ({
   resizeButtonLabel = '',
   onExpand,
   onCollapse,
+  resetFlyout,
   onResizeStart,
   onResizeEnd,
 }: ResizeControlProps) => {
@@ -72,8 +72,13 @@ const ResizeControl = ({
     if (!isDragFinished) {
       return;
     }
-    document.documentElement.removeAttribute(IS_FLYOUT_OPEN);
-    isLeftSidebarCollapsed ? expandLeftSidebar() : collapseLeftSidebar();
+
+    if (isLeftSidebarCollapsed) {
+      expandLeftSidebar();
+      resetFlyout();
+    } else {
+      collapseLeftSidebar();
+    }
   };
 
   const onMouseMove = rafSchd((event: MouseEvent) => {

@@ -11,8 +11,11 @@ import {
 } from '../../common/utils';
 import { usePageLayoutGrid } from '../../controllers';
 
+import {
+  fixedLeftSidebarInnerStyles,
+  leftSidebarStyles,
+} from './left-sidebar-styles';
 import SlotDimensions from './slot-dimensions';
-import { fixedLeftSidebarInnerStyles, leftSidebarStyles } from './styles';
 
 export default (props: SlotWidthProps) => {
   const { children, width, isFixed, shouldPersistWidth, testId } = props;

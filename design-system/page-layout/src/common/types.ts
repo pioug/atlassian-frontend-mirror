@@ -1,9 +1,6 @@
-import {
-  ButtonHTMLAttributes,
-  ElementType,
-  ReactElement,
-  ReactNode,
-} from 'react';
+import { ElementType, ReactElement, ReactNode } from 'react';
+
+import { ResizeButtonProps } from '../components/resize-control/types';
 
 interface SlotProps {
   isFixed?: boolean;
@@ -16,18 +13,12 @@ export interface SlotHeightProps extends SlotProps {
   height?: number;
 }
 
-export type ResizeButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
-  isLeftSidebarCollapsed: boolean;
-  label: string;
-  testId?: string;
-};
-
 export interface SlotWidthProps extends SlotProps {
   shouldPersistWidth?: boolean;
   width?: number;
 }
 
-export type ResizeControlProps = {
+export interface LeftSidebarProps extends SlotWidthProps {
   testId?: string;
   overrides?: {
     ResizeButton?: {
@@ -42,9 +33,9 @@ export type ResizeControlProps = {
   onExpand?: () => void;
   onResizeStart?: () => void;
   onResizeEnd?: () => void;
-};
-
-export interface LeftSidebarProps extends SlotWidthProps, ResizeControlProps {}
+  onFlyoutCollapse?: () => void;
+  onFlyoutExpand?: () => void;
+}
 
 export type DimensionNames =
   | 'leftPanelWidth'

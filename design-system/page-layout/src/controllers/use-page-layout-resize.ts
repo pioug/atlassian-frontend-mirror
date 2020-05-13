@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 
-import { mediumDurationMs } from '@atlaskit/motion';
+import { isReducedMotion, mediumDurationMs } from '@atlaskit/motion';
 
 import {
   COLLAPSED_LEFT_SIDEBAR_WIDTH,
   DEFAULT_SIDEBAR_WIDTH,
   IS_SIDEBAR_COLLAPSED,
+  IS_SIDEBAR_COLLAPSING,
   LEFT_PANEL_WIDTH,
   LEFT_SIDEBAR_EXPANDED_WIDTH,
   LEFT_SIDEBAR_FLYOUT_WIDTH,
@@ -71,11 +72,14 @@ const usePageLayoutResize = (): UsePageLayoutResize => {
         [LEFT_SIDEBAR_WIDTH]: COLLAPSED_LEFT_SIDEBAR_WIDTH,
       });
       setIsLeftSidebarCollapsed(true);
-      setTimeout(
-        () =>
-          document.documentElement.setAttribute(IS_SIDEBAR_COLLAPSED, 'true'),
-        mediumDurationMs,
-      );
+      document.documentElement.setAttribute(IS_SIDEBAR_COLLAPSING, 'true'),
+        setTimeout(
+          () => {
+            document.documentElement.setAttribute(IS_SIDEBAR_COLLAPSED, 'true');
+            document.documentElement.removeAttribute(IS_SIDEBAR_COLLAPSING);
+          },
+          isReducedMotion() ? 0 : mediumDurationMs,
+        );
     },
     setLeftSidebarWidth: width => {
       setGridState({

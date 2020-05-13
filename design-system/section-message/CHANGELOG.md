@@ -1,5 +1,11 @@
 # @atlaskit/section-message
 
+## 4.1.9
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.1.8
 
 ### Patch Changes

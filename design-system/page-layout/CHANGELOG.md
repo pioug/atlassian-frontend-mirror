@@ -1,5 +1,11 @@
 # @atlaskit/page-layout
 
+## 0.3.1
+
+### Patch Changes
+
+- [`f5226d360b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f5226d360b) - Add onFlyoutExpand and onFlyoutCollapse events. Internal refactor of flyout behaviour.- [`42e3b34fae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/42e3b34fae) - _Breaking change_ Hides contents of LeftSidebar when collapsed
+
 ## 0.3.0
 
 ### Minor Changes

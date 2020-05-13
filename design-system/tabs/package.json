@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/tabs",
-  "version": "11.2.8",
+  "version": "11.2.9",
   "description": "Tabs are an easy way to organize content by grouping similar information on the same page. This allows content to be viewed without having to navigate away from that page.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -36,11 +36,11 @@
   "devDependencies": {
     "@atlaskit/build-utils": "^2.2.7",
     "@atlaskit/docs": "^8.4.0",
-    "@atlaskit/spinner": "^12.1.6",
+    "@atlaskit/spinner": "^12.1.7",
     "@atlaskit/ssr": "^0.1.1",
-    "@atlaskit/tooltip": "^15.2.6",
+    "@atlaskit/tooltip": "^15.2.7",
     "@atlaskit/visual-regression": "^0.1.9",
-    "@atlaskit/webdriver-runner": "^0.3.4",
+    "@atlaskit/webdriver-runner": "^0.4.0",
     "@testing-library/react": "^8.0.1",
     "enzyme": "^3.10.0",
     "react-dom": "^16.8.0",

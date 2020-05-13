@@ -1,5 +1,11 @@
 # @atlaskit/breadcrumbs
 
+## 9.2.10
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.2.9
 
 ### Patch Changes

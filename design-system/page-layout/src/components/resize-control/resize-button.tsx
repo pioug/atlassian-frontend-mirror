@@ -5,30 +5,11 @@ import { jsx } from '@emotion/core';
 
 import ChevronRight from '@atlaskit/icon/glyph/chevron-right';
 
-import {
-  IS_FLYOUT_OPEN,
-  LEFT_SIDEBAR_FLYOUT,
-  LEFT_SIDEBAR_WIDTH,
-  RESIZE_BUTTON_SELECTOR,
-} from '../../common/constants';
-import { ResizeButtonProps } from '../../common/types';
+import { RESIZE_BUTTON_SELECTOR } from '../../common/constants';
 
 import { increaseHitArea, resizeIconButtonCSS } from './styles';
+import { ResizeButtonProps } from './types';
 
-const updateFlyoutWidth = (event: MouseEvent) => {
-  if (document.documentElement.hasAttribute(IS_FLYOUT_OPEN)) {
-    return;
-  }
-  document.documentElement.style.setProperty(
-    `--${LEFT_SIDEBAR_FLYOUT}`,
-    `var(--${LEFT_SIDEBAR_WIDTH})`,
-  );
-};
-const resetFlyoutWidth = () => {
-  document.documentElement.style.removeProperty(`--${LEFT_SIDEBAR_FLYOUT}`);
-};
-// Prevents focus staying attached to the button
-// when pressed
 const preventDefault = (event: MouseEvent) => event.preventDefault();
 const cssSelector = { [RESIZE_BUTTON_SELECTOR]: true };
 const ResizeButton = ({
@@ -44,15 +25,13 @@ const ResizeButton = ({
     type="button"
     css={resizeIconButtonCSS(isLeftSidebarCollapsed)}
     data-testid={testId}
+    // Prevents focus staying attached to the button
+    // when pressed
     onMouseDown={preventDefault}
     {...props}
   >
     <ChevronRight label="" />
-    <div
-      css={increaseHitArea}
-      onMouseOver={updateFlyoutWidth}
-      onMouseOut={resetFlyoutWidth}
-    />
+    <div css={increaseHitArea} />
   </button>
 );
 

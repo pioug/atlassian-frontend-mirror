@@ -101,11 +101,12 @@ export default class Comment extends React.Component<Props, State> {
       renderEditor,
     } = this.props;
 
+    let editorChanged = false;
     if (
       nextProps.maxCommentNesting !== maxCommentNesting ||
       nextProps.renderEditor !== renderEditor
     ) {
-      return true;
+      editorChanged = true;
     }
 
     let additionalCommentActions: JSX.Element[] = [];
@@ -128,6 +129,7 @@ export default class Comment extends React.Component<Props, State> {
       nextState.isReplying !== isReplying ||
       nextProps.isHighlighted !== isHighlighted ||
       nextProps.portal !== portal ||
+      editorChanged ||
       additionalCommentsChanged
     ) {
       return true;

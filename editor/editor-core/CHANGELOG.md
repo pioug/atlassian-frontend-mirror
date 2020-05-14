@@ -1,5 +1,11 @@
 # @atlaskit/editor-core
 
+## 123.0.2
+
+### Patch Changes
+
+- [`176ac096a8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/176ac096a8) - ED-9372 Fix issue where extensions would re-render when going from gap cursor selection to node selection
+
 ## 123.0.1
 
 ### Patch Changes

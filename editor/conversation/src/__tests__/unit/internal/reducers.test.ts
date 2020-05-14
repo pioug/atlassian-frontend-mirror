@@ -164,7 +164,7 @@ describe('Reducers', () => {
         payload: mockComment2,
       });
 
-      const { comments } = mockConversation;
+      const comments = mockConversation.comments || [];
 
       expect(store.getState()).toEqual({
         conversations: [
@@ -190,7 +190,7 @@ describe('Reducers', () => {
         payload: mockReplyComment,
       });
 
-      const { comments } = mockConversation;
+      const comments = mockConversation.comments || [];
 
       expect(store.getState()).toEqual({
         conversations: [
@@ -220,7 +220,7 @@ describe('Reducers', () => {
         },
       });
 
-      const { comments } = mockConversation;
+      const comments = mockConversation.comments || [];
 
       expect(store.getState()).toEqual({
         conversations: [
@@ -253,7 +253,7 @@ describe('Reducers', () => {
         payload: mockComment2,
       });
 
-      const { comments } = mockConversation;
+      const comments = mockConversation.comments || [];
 
       expect(store.getState()).toEqual({
         conversations: [
@@ -302,7 +302,7 @@ describe('Reducers', () => {
         payload: mockComment,
       });
 
-      const [firstComment, ...otherComments] = mockConversation.comments;
+      const [firstComment, ...otherComments] = mockConversation.comments || [];
 
       expect(store.getState()).toEqual({
         conversations: [
@@ -338,7 +338,7 @@ describe('Reducers', () => {
         payload: mockComment,
       });
 
-      const [firstComment, ...otherComments] = mockConversation.comments;
+      const [firstComment, ...otherComments] = mockConversation.comments || [];
 
       expect(store.getState()).toEqual({
         conversations: [
@@ -365,7 +365,7 @@ describe('Reducers', () => {
         payload: mockComment,
       });
 
-      const [firstComment, ...otherComments] = mockConversation.comments;
+      const [firstComment, ...otherComments] = mockConversation.comments || [];
 
       expect(store.getState()).toEqual({
         conversations: [
@@ -390,7 +390,7 @@ describe('Reducers', () => {
         payload: mockComment,
       });
 
-      const [firstComment, ...otherComments] = mockConversation.comments;
+      const [firstComment, ...otherComments] = mockConversation.comments || [];
 
       expect(store.getState()).toEqual({
         conversations: [
@@ -416,7 +416,7 @@ describe('Reducers', () => {
         payload: mockComment,
       });
 
-      const [firstComment, ...otherComments] = mockConversation.comments;
+      const [firstComment, ...otherComments] = mockConversation.comments || [];
 
       expect(store.getState()).toEqual({
         conversations: [

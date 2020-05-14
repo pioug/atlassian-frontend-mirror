@@ -8,8 +8,9 @@
   "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
-  "module": "dist/esm/index.js",
   "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "module:es2019": "dist/es2019/index.js",
   "types": "dist/cjs/index.d.ts",
   "sideEffects": false,
   "atlaskit:src": "src/index.tsx",
@@ -21,8 +22,8 @@
     }
   },
   "scripts": {
-    "check-dist": "ls -d dist/* | xargs -I{} test -d {}/engine/core/binaries",
-    "copy-binaries": "ls -d dist/* | xargs -n 1 -I{} cp -r src/engine/core/binaries {}/engine/core",
+    "check-dist": "ls -d dist/*/engine | xargs -I{} test -d {}/core/binaries",
+    "copy-binaries": "ls -d dist/*/engine | xargs -n 1 -I{} cp -r src/engine/core/binaries {}/core",
     "ak-postbuild": "yarn copy-binaries && yarn check-dist"
   },
   "dependencies": {

@@ -1,5 +1,11 @@
 # @atlaskit/conversation
 
+## 15.7.5
+
+### Patch Changes
+
+- [`aadafaa92f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aadafaa92f) - CS-2155 Additional actions re-render bugfix
+
 ## 15.7.4
 
 ### Patch Changes

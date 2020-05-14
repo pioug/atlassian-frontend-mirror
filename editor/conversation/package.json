@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/conversation",
-  "version": "15.7.4",
+  "version": "15.7.5",
   "description": "Render conversation threads",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -8,13 +8,14 @@
   "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
-  "module": "dist/esm/index.js",
   "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "module:es2019": "dist/es2019/index.js",
   "types": "dist/cjs/index.d.ts",
   "atlaskit:src": "src/index.ts",
   "atlassian": {
     "team": "Content Services",
-    "releaseModel": "scheduled",
+    "releaseModel": "continuous",
     "website": {
       "name": "Conversation"
     }
@@ -33,7 +34,6 @@
     "date-fns": "^1.30.1",
     "lodash.debounce": "^4.0.8",
     "lodash.isequal": "^4.5.0",
-    "prop-types": "^15.5.10",
     "react": "^16.8.0",
     "react-redux": "^5.0.0",
     "redux": "^3.7.2",

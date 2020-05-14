@@ -1,5 +1,11 @@
 # @atlaskit/popup
 
+## 0.4.1
+
+### Patch Changes
+
+- [`f4d4de67e4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f4d4de67e4) - Prevent closing of popup when clicked element (which is inside content) is removed from the DOM
+
 ## 0.4.0
 
 ### Minor Changes

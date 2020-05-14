@@ -10,13 +10,14 @@ const provider = new ConversationResource({
   url: 'http://mockservice/',
   user: MOCK_USERS[3],
 });
-
+type State = { conversationId?: string; likes: { [key: string]: boolean } };
 export default class AdditionalCommentActions extends React.Component<
   {},
-  { conversationId?: string }
+  State
 > {
-  state = {
+  state: State = {
     conversationId: undefined,
+    likes: {},
   };
 
   async componentDidMount() {
@@ -39,14 +40,21 @@ export default class AdditionalCommentActions extends React.Component<
         objectId="ari:cloud:platform::conversation/demo"
         provider={provider}
         dataProviders={getDataProviderFactory()}
+        renderEditor={(Editor: any, props: any) => (
+          <Editor {...props} saveOnEnter={true} />
+        )}
         renderAdditionalCommentActions={(CommentAction, comment) => [
           <CommentAction
-            key="create-task"
-            onClick={() =>
-              alert(`Task created for comment ${comment.commentId}!`)
-            }
+            key="like-action"
+            onClick={() => {
+              const likes = { ...this.state.likes };
+              likes[comment.commentId] = !likes[comment.commentId];
+              this.setState({
+                likes,
+              });
+            }}
           >
-            Create Task
+            {this.state.likes[comment.commentId] ? 'Unlike' : 'Like'}
           </CommentAction>,
         ]}
       />

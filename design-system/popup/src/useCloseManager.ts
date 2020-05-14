@@ -16,6 +16,12 @@ export const useCloseManager = ({
     };
 
     const onClick = ({ target }: MouseEvent) => {
+      const doesDomNodeExist = document.body.contains(target as Node);
+
+      if (!doesDomNodeExist) {
+        return;
+      }
+
       const isClickOnPopup = popupRef && popupRef.contains(target as Node);
       const isClickOnTrigger =
         triggerRef && triggerRef.contains(target as Node);

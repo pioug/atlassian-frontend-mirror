@@ -525,5 +525,43 @@ describe('Comment', () => {
       comment.setProps(comment.props());
       expect(findAction(comment, 'create-task').length).toEqual(1);
     });
+
+    it('CS-2155 updates component with additional comment actions when renderEditor prop is passed', () => {
+      const renderCommentAction1 = (CommentAction: any) => [
+        <CommentAction key="like">Like</CommentAction>,
+      ];
+      const renderEditor1 = (Editor: any, props: any) => (
+        <Editor {...props} saveOnEnter={true} />
+      );
+
+      comment = mount(
+        <Comment
+          {...defaultProps}
+          conversationId={mockComment.conversationId}
+          comment={mockComment}
+          user={user}
+          renderEditor={renderEditor1}
+          renderAdditionalCommentActions={renderCommentAction1}
+        />,
+      );
+      expect(findAction(comment, 'like').length).toEqual(1);
+      expect(findAction(comment, 'unlike').length).toEqual(0);
+
+      const renderCommentAction2 = (CommentAction: any) => [
+        <CommentAction key="unlike">Unike</CommentAction>,
+      ];
+      const renderEditor2 = (Editor: any, props: any) => (
+        <Editor {...props} saveOnEnter={true} />
+      );
+
+      // set new props and observe re-render
+      comment.setProps({
+        ...comment.props(),
+        renderEditor: renderEditor2,
+        renderAdditionalCommentActions: renderCommentAction2,
+      });
+      expect(findAction(comment, 'like').length).toEqual(0);
+      expect(findAction(comment, 'unlike').length).toEqual(1);
+    });
   });
 });

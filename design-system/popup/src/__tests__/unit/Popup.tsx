@@ -1,4 +1,4 @@
-import React, { Dispatch, forwardRef, SetStateAction } from 'react';
+import React, { Dispatch, forwardRef, SetStateAction, useRef } from 'react';
 
 import { fireEvent, render } from '@testing-library/react';
 import { replaceRaf } from 'raf-stub';
@@ -363,5 +363,31 @@ describe('Popup', () => {
     fireEvent.click((await findAllByText('Popup content'))[0]);
 
     expect((await findAllByText('Popup content'))[1]).toBeDefined();
+  });
+
+  it('popup stays open when clicked element (which is inside content) is removed from the DOM', () => {
+    const onClose = jest.fn();
+    const Component = () => {
+      const ref = useRef<HTMLButtonElement | null>(null);
+
+      return (
+        <button ref={ref} onClick={() => ref.current && ref.current.remove()}>
+          Button content
+        </button>
+      );
+    };
+
+    const { getByText } = render(
+      <Popup
+        {...defaultProps}
+        onClose={onClose}
+        content={() => <Component />}
+        isOpen
+      />,
+    );
+
+    fireEvent.click(getByText('Button content'));
+
+    expect(onClose).toHaveBeenCalledTimes(0);
   });
 });

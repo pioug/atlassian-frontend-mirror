@@ -12,11 +12,14 @@ import { akEditorSelectedNodeClassName } from '../../styles';
 
 export const getDecorations = (tr: Transaction): DecorationSet => {
   if (tr.selection instanceof NodeSelection) {
-    return DecorationSet.create(tr.doc, [
-      Decoration.node(tr.selection.from, tr.selection.to, {
-        class: akEditorSelectedNodeClassName,
-      }),
-    ]);
+    const selectedNode = tr.selection.node.type.name;
+    if (['extension', 'bodiedExtension'].indexOf(selectedNode) === -1) {
+      return DecorationSet.create(tr.doc, [
+        Decoration.node(tr.selection.from, tr.selection.to, {
+          class: akEditorSelectedNodeClassName,
+        }),
+      ]);
+    }
   }
   return DecorationSet.empty;
 };

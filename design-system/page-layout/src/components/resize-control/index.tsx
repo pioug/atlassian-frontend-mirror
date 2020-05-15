@@ -9,17 +9,14 @@ import {
 import { jsx } from '@emotion/core';
 import rafSchd from 'raf-schd';
 
-import { isReducedMotion } from '@atlaskit/motion';
-
 import {
   COLLAPSED_LEFT_SIDEBAR_WIDTH,
   IS_SIDEBAR_DRAGGING,
   LEFT_SIDEBAR_FLYOUT_WIDTH,
   MIN_LEFT_SIDEBAR_DRAG_THRESHOLD,
   RESIZE_CONTROL_SELECTOR,
-  TRANSITION_DURATION,
 } from '../../common/constants';
-import { usePageLayoutResize } from '../../controllers';
+import { usePageLayoutResize } from '../../controllers/sidebar-resize-context';
 
 import GrabArea from './grab-area';
 import ResizeButton from './resize-button';
@@ -36,9 +33,6 @@ const ResizeControl = ({
   testId,
   overrides,
   resizeButtonLabel = '',
-  onExpand,
-  onCollapse,
-  resetFlyout,
   onResizeStart,
   onResizeEnd,
 }: ResizeControlProps) => {
@@ -49,24 +43,12 @@ const ResizeControl = ({
 
   const {
     isLeftSidebarCollapsed,
-    expandLeftSidebar: expand,
-    collapseLeftSidebar: collapse,
+    expandLeftSidebar,
+    collapseLeftSidebar,
     setLeftSidebarWidth,
     getLeftSidebarWidth,
     getLeftPanelWidth,
   } = usePageLayoutResize();
-
-  const expandLeftSidebar = () => {
-    expand();
-    onExpand &&
-      setTimeout(onExpand, isReducedMotion() ? 0 : TRANSITION_DURATION);
-  };
-
-  const collapseLeftSidebar = () => {
-    collapse();
-    onCollapse &&
-      setTimeout(onCollapse, isReducedMotion() ? 0 : TRANSITION_DURATION);
-  };
 
   const toggleSideBar = (e: ReactMouseEvent) => {
     if (!isDragFinished) {
@@ -75,7 +57,6 @@ const ResizeControl = ({
 
     if (isLeftSidebarCollapsed) {
       expandLeftSidebar();
-      resetFlyout();
     } else {
       collapseLeftSidebar();
     }

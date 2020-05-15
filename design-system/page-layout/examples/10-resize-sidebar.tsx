@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { Fragment, useState } from 'react';
+import { FC, Fragment, useCallback, useEffect, useState } from 'react';
 
 import { CSSObject, jsx } from '@emotion/core';
 
@@ -15,6 +15,7 @@ import {
   RightPanel,
   RightSidebar,
   TopNavigation,
+  usePageLayoutResize,
 } from '../src';
 
 type SlotName =
@@ -148,6 +149,38 @@ const Wrapper = ({
   </div>
 );
 
+const ExpandKeyboardShortcut: FC = () => {
+  const {
+    isLeftSidebarCollapsed,
+    expandLeftSidebar,
+    collapseLeftSidebar,
+  } = usePageLayoutResize();
+
+  const toggleSidebarCollapse = useCallback(() => {
+    if (isLeftSidebarCollapsed) {
+      expandLeftSidebar();
+    } else {
+      collapseLeftSidebar();
+    }
+  }, [isLeftSidebarCollapsed, expandLeftSidebar, collapseLeftSidebar]);
+
+  useEffect(() => {
+    const toggle = (event: KeyboardEvent) => {
+      if (event.which === 219) {
+        toggleSidebarCollapse();
+      }
+    };
+
+    document.addEventListener('keydown', toggle);
+
+    return () => {
+      document.removeEventListener('keydown', toggle);
+    };
+  }, [toggleSidebarCollapse]);
+
+  return null;
+};
+
 const initialState = {
   isBannerShown: true,
   isTopNavigationShown: true,
@@ -278,6 +311,7 @@ const BasicGrid = () => {
                 />
               </div>
             </Wrapper>
+            <ExpandKeyboardShortcut />
           </LeftSidebar>
         )}
         {gridState.isMainShown && (

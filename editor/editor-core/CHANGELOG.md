@@ -1,5 +1,11 @@
 # @atlaskit/editor-core
 
+## 123.0.3
+
+### Patch Changes
+
+- [`05aafbffcb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/05aafbffcb) - ED-9234 Fix date picker remaining open when date node moved or deleted
+
 ## 123.0.2
 
 ### Patch Changes

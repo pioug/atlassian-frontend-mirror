@@ -1,2 +1,6 @@
 export { default as usePageLayoutGrid } from './use-page-layout-grid';
-export { default as usePageLayoutResize } from './use-page-layout-resize';
+export {
+  SidebarResizeContext,
+  usePageLayoutResize,
+} from './sidebar-resize-context';
+export { SidebarResizeController } from './sidebar-resize-controller';

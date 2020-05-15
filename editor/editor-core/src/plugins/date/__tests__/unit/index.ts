@@ -1,4 +1,4 @@
-import { NodeSelection } from 'prosemirror-state';
+import { NodeSelection, TextSelection } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import {
   doc,
@@ -261,6 +261,23 @@ describe('date plugin', () => {
             isToday: false,
           }),
         });
+      });
+    });
+  });
+
+  describe('utils', () => {
+    describe('onSelectionChanged', () => {
+      it('should not show date picker when selection is not on a date node', () => {
+        const { editorView: view, refs } = editor(
+          doc(paragraph('{textStart}hello', '{<node>}', date(attrs))),
+        );
+        view.dispatch(
+          view.state.tr.setSelection(
+            TextSelection.create(view.state.doc, refs.textStart),
+          ),
+        );
+        const pluginState = pluginKey.getState(view.state);
+        expect(pluginState.showDatePickerAt).toBeNull();
       });
     });
   });

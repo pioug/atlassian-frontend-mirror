@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 
 import { isReducedMotion, mediumDurationMs } from '@atlaskit/motion';
 
@@ -11,17 +11,27 @@ import {
   LEFT_SIDEBAR_EXPANDED_WIDTH,
   LEFT_SIDEBAR_FLYOUT_WIDTH,
   LEFT_SIDEBAR_WIDTH,
+  TRANSITION_DURATION,
 } from '../common/constants';
+import { SidebarResizeControllerProps } from '../common/types';
 import {
   getGridStateFromStorage,
   mergeGridStateIntoStorage,
 } from '../common/utils';
 
-import { UsePageLayoutResize } from './types';
+import {
+  SidebarResizeContext,
+  SidebarResizeContextValue,
+} from './sidebar-resize-context';
 
 import { usePageLayoutGrid } from './index';
 
-const usePageLayoutResize = (): UsePageLayoutResize => {
+export const SidebarResizeController: FC<SidebarResizeControllerProps> = ({
+  children,
+  onExpand,
+  onCollapse,
+  resetFlyout,
+}) => {
   const cachedCollapsedState =
     getGridStateFromStorage('isLeftSidebarCollapsed') || false;
 
@@ -53,9 +63,11 @@ const usePageLayoutResize = (): UsePageLayoutResize => {
     gridState,
   ]);
 
-  return {
+  const context: SidebarResizeContextValue = {
     isLeftSidebarCollapsed,
     expandLeftSidebar: () => {
+      onExpand &&
+        setTimeout(onExpand, isReducedMotion() ? 0 : TRANSITION_DURATION);
       setGridState({
         ...gridState,
         [LEFT_SIDEBAR_WIDTH]: Math.max(
@@ -63,10 +75,13 @@ const usePageLayoutResize = (): UsePageLayoutResize => {
           LEFT_SIDEBAR_FLYOUT_WIDTH,
         ),
       });
+      resetFlyout();
       setIsLeftSidebarCollapsed(false);
       document.documentElement.removeAttribute(IS_SIDEBAR_COLLAPSED);
     },
     collapseLeftSidebar: () => {
+      onCollapse &&
+        setTimeout(onCollapse, isReducedMotion() ? 0 : TRANSITION_DURATION);
       setGridState({
         ...gridState,
         [LEFT_SIDEBAR_WIDTH]: COLLAPSED_LEFT_SIDEBAR_WIDTH,
@@ -95,6 +110,10 @@ const usePageLayoutResize = (): UsePageLayoutResize => {
       return getGridStateFromStorage('gridState')[LEFT_PANEL_WIDTH] || 0;
     },
   };
-};
 
-export default usePageLayoutResize;
+  return (
+    <SidebarResizeContext.Provider value={context}>
+      {children}
+    </SidebarResizeContext.Provider>
+  );
+};

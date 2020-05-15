@@ -1,5 +1,11 @@
 # @atlaskit/page-layout
 
+## 0.3.2
+
+### Patch Changes
+
+- [`89a5c1ded9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/89a5c1ded9) - Fix issue with usePageLayoutResize hook not affecting sidebar
+
 ## 0.3.1
 
 ### Patch Changes

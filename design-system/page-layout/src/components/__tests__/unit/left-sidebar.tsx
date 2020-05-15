@@ -1,11 +1,18 @@
-import React from 'react';
+import React, { MouseEvent } from 'react';
 
 import { act, fireEvent, render } from '@testing-library/react';
 
 import Tooltip from '@atlaskit/tooltip';
 
 import { PAGE_LAYOUT_LS_KEY } from '../../../common/constants';
-import { Content, LeftSidebar, Main, PageLayout } from '../../../index';
+import {
+  Content,
+  LeftPanel,
+  LeftSidebar,
+  Main,
+  PageLayout,
+  usePageLayoutResize,
+} from '../../../index';
 
 import { getDimension } from './__utils__/get-dimension';
 import * as raf from './__utils__/raf';
@@ -24,6 +31,215 @@ describe('Left sidebar', () => {
     act(() => raf.step());
     act(() => jest.runAllTimers());
   };
+
+  describe('SidebarResizeController', () => {
+    const ResizeControlledConsumer = () => {
+      const {
+        isLeftSidebarCollapsed,
+        expandLeftSidebar,
+        collapseLeftSidebar,
+        getLeftPanelWidth,
+        getLeftSidebarWidth,
+        setLeftSidebarWidth,
+      } = usePageLayoutResize();
+
+      const setWidth = (event: MouseEvent) => {
+        setLeftSidebarWidth(Number((event.target as HTMLInputElement).value));
+      };
+
+      return (
+        <>
+          <button data-testid="collapse" onClick={collapseLeftSidebar} />
+          <button data-testid="expand" onClick={expandLeftSidebar} />
+          <p data-testid="isLeftSidebarCollapsed">
+            {String(isLeftSidebarCollapsed)}
+          </p>
+          <p data-testid="leftSidebar">{getLeftSidebarWidth()}</p>
+          <p data-testid="leftPanel">{getLeftPanelWidth()}</p>
+          <input data-testid="setLeftSidebarWidth" onClick={setWidth} />
+        </>
+      );
+    };
+
+    it('should return the correct "isLeftSidebarCollapsed" state', () => {
+      const { getByTestId } = render(
+        <PageLayout testId="grid">
+          <Content>
+            <LeftSidebar testId="left-sidebar" width={200}>
+              LeftSidebar
+              <ResizeControlledConsumer />
+            </LeftSidebar>
+            <Main testId="content">Main</Main>
+          </Content>
+        </PageLayout>,
+      );
+
+      act(() => {
+        fireEvent.click(getByTestId('collapse'));
+        jest.runAllTimers();
+        completeAnimations();
+      });
+      expect(getByTestId('isLeftSidebarCollapsed').innerText).toBe('true');
+
+      act(() => {
+        fireEvent.click(getByTestId('expand'));
+        jest.runAllTimers();
+        completeAnimations();
+      });
+      expect(getByTestId('isLeftSidebarCollapsed').innerText).toBe('false');
+    });
+
+    it('should expand LeftSidebar when "collapseLeftSidebar" is called', () => {
+      const { getByTestId } = render(
+        <PageLayout testId="grid">
+          <Content>
+            <LeftSidebar testId="left-sidebar" width={200}>
+              LeftSidebar
+              <ResizeControlledConsumer />
+            </LeftSidebar>
+            <Main testId="content">Main</Main>
+          </Content>
+        </PageLayout>,
+      );
+
+      act(() => {
+        fireEvent.click(getByTestId('collapse'));
+        jest.runAllTimers();
+        completeAnimations();
+      });
+      expect(getDimension('leftSidebarWidth')).toEqual('20px');
+      expect(JSON.parse(localStorage.getItem(PAGE_LAYOUT_LS_KEY)!)).toEqual(
+        expect.objectContaining({ isLeftSidebarCollapsed: true }),
+      );
+    });
+
+    it('should collapse LeftSidebar when "expandLeftSidebar" is called', () => {
+      const { getByTestId } = render(
+        <PageLayout testId="grid">
+          <Content>
+            <LeftSidebar testId="left-sidebar" width={200}>
+              LeftSidebar
+              <ResizeControlledConsumer />
+            </LeftSidebar>
+            <Main testId="content">Main</Main>
+          </Content>
+        </PageLayout>,
+      );
+
+      act(() => {
+        fireEvent.click(getByTestId('expand'));
+        jest.runAllTimers();
+        completeAnimations();
+      });
+      expect(getDimension('leftSidebarWidth')).toEqual('240px');
+      expect(JSON.parse(localStorage.getItem(PAGE_LAYOUT_LS_KEY)!)).toEqual(
+        expect.objectContaining({ isLeftSidebarCollapsed: false }),
+      );
+    });
+
+    it('should return LeftSidebar width', () => {
+      const { getByTestId } = render(
+        <PageLayout testId="grid">
+          <Content>
+            <LeftSidebar testId="left-sidebar" width={200}>
+              LeftSidebar
+              <ResizeControlledConsumer />
+            </LeftSidebar>
+            <Main testId="content">Main</Main>
+          </Content>
+        </PageLayout>,
+      );
+
+      expect(getByTestId('leftSidebar').innerText).toBe('200');
+      expect(getDimension('leftSidebarWidth')).toEqual('200px');
+    });
+
+    it('should return LeftPanel width', () => {
+      const { getByTestId } = render(
+        <PageLayout testId="grid">
+          <LeftPanel width={500}>panel</LeftPanel>
+          <Content>
+            <LeftSidebar testId="left-sidebar" width={200}>
+              LeftSidebar
+              <ResizeControlledConsumer />
+            </LeftSidebar>
+            <Main testId="content">Main</Main>
+          </Content>
+        </PageLayout>,
+      );
+
+      expect(getByTestId('leftPanel').innerText).toBe('500');
+      expect(getDimension('leftPanelWidth')).toEqual('500px');
+    });
+
+    it('should set LeftSidebar width', () => {
+      const { getByTestId } = render(
+        <PageLayout testId="grid">
+          <Content>
+            <LeftSidebar testId="left-sidebar" width={200}>
+              LeftSidebar
+              <ResizeControlledConsumer />
+            </LeftSidebar>
+            <Main testId="content">Main</Main>
+          </Content>
+        </PageLayout>,
+      );
+
+      act(() => {
+        (getByTestId('setLeftSidebarWidth') as HTMLInputElement).value = '349';
+        fireEvent.click(getByTestId('setLeftSidebarWidth'));
+      });
+
+      expect(getByTestId('leftSidebar').innerText).toBe('349');
+      expect(getDimension('leftSidebarWidth')).toEqual('349px');
+    });
+
+    it('should reset flyout when expandLeftSidebar is called', () => {
+      const { getByTestId } = render(
+        <PageLayout testId="grid">
+          <Main>
+            <LeftSidebar testId="component" width={240}>
+              Contents
+              <ResizeControlledConsumer />
+            </LeftSidebar>
+          </Main>
+        </PageLayout>,
+      );
+
+      act(() => {
+        fireEvent.click(getByTestId('collapse'));
+        jest.runAllTimers();
+        completeAnimations();
+
+        fireEvent.mouseOver(getByTestId('component'));
+        jest.runAllTimers();
+        completeAnimations();
+      });
+      expect(getByTestId('component')).toHaveStyleDeclaration('width', '20px');
+      expect(getByTestId('component').firstElementChild).toHaveStyleDeclaration(
+        'width',
+        'var(--leftSidebarFlyoutWidth)',
+      );
+      expect(document.head.innerHTML).toEqual(
+        expect.stringContaining('--leftSidebarFlyoutWidth:240px;'),
+      );
+
+      act(() => {
+        fireEvent.click(getByTestId('expand'));
+        jest.runAllTimers();
+        completeAnimations();
+      });
+
+      expect(getByTestId('component')).toHaveStyleDeclaration(
+        'width',
+        'var(--leftSidebarWidth)',
+      );
+      expect(getByTestId('component').firstElementChild).toHaveStyleDeclaration(
+        'width',
+        'var(--leftSidebarWidth)',
+      );
+    });
+  });
 
   describe('Resize button', () => {
     it('should collapse the LeftSidebar when ResizeButton is clicked in expanded state', () => {

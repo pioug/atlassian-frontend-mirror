@@ -5,9 +5,7 @@ export function reducer(
   pluginState: DatePluginState,
   meta: DatePluginState,
 ): DatePluginState {
-  // ED-5033, calendar control open for element in plugin state, when node-view is clicked.
-  // Following chanek ensures that if same node-view is clicked twice calendar should close,
-  // but if a different node-view is clicked, calendar should open next the that node-view.
+  // If the same nodeview is clicked twice, calendar should close
   if (meta.showDatePickerAt === pluginState.showDatePickerAt) {
     return { ...pluginState, showDatePickerAt: null };
   } else {
@@ -32,13 +30,15 @@ export function onSelectionChanged(
   tr: Transaction,
   pluginState: DatePluginState,
 ): DatePluginState {
-  if (pluginState.showDatePickerAt && !isDateNodeSelection(tr.selection)) {
+  if (!isDateNodeSelection(tr.selection)) {
     return {
       showDatePickerAt: null,
     };
   }
-
-  return pluginState;
+  // create new object to force a re-render
+  return {
+    ...pluginState,
+  };
 }
 
 const isDateNodeSelection = (selection: Selection) => {

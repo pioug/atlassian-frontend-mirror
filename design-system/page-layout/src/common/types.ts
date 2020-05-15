@@ -37,6 +37,12 @@ export interface LeftSidebarProps extends SlotWidthProps {
   onFlyoutExpand?: () => void;
 }
 
+export type SidebarResizeControllerProps = {
+  onCollapse?: () => void;
+  onExpand?: () => void;
+  resetFlyout: () => void;
+};
+
 export type DimensionNames =
   | 'leftPanelWidth'
   | 'bannerHeight'

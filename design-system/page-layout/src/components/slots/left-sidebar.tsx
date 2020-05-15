@@ -18,6 +18,7 @@ import {
   resolveDimension,
 } from '../../common/utils';
 import { usePageLayoutGrid } from '../../controllers';
+import { SidebarResizeController } from '../../controllers/sidebar-resize-controller';
 import ResizeControl from '../resize-control';
 
 import {
@@ -93,6 +94,8 @@ const LeftSidebar = (props: LeftSidebarProps) => {
     }
   };
 
+  const resetFlyout = () => isFlyoutOpen && setIsFlyoutOpen(false);
+
   const onMouseLeave = () => {
     clearTimeout(timeout);
 
@@ -100,38 +103,43 @@ const LeftSidebar = (props: LeftSidebarProps) => {
       IS_SIDEBAR_COLLAPSED,
     );
 
-    if (isLeftSidebarCollapsed && isFlyoutOpen) {
+    if (isLeftSidebarCollapsed) {
       onFlyoutCollapse && onFlyoutCollapse();
-      setIsFlyoutOpen(false);
+      resetFlyout();
     }
   };
 
   return (
-    <div
-      css={leftSidebarStyles(isFixed, isFlyoutOpen)}
-      data-testid={testId}
-      onMouseOver={onMouseEnter}
-      onMouseLeave={onMouseLeave}
-      {...leftSidebarSelector}
+    <SidebarResizeController
+      onExpand={onExpand}
+      onCollapse={onCollapse}
+      resetFlyout={resetFlyout}
     >
-      <SlotDimensions
-        variableName={LEFT_SIDEBAR_WIDTH}
-        value={leftSidebarWidth}
-      />
-      <div css={fixedLeftSidebarInnerStyles(isFixed, isFlyoutOpen)}>
-        {children}
-        <ResizeControl
-          testId={testId}
-          resizeButtonLabel={resizeButtonLabel}
-          overrides={overrides}
-          resetFlyout={() => setIsFlyoutOpen(false)}
-          onCollapse={onCollapse}
-          onExpand={onExpand}
-          onResizeStart={onResizeStart}
-          onResizeEnd={onResizeEnd}
+      <div
+        css={leftSidebarStyles(isFixed, isFlyoutOpen)}
+        data-testid={testId}
+        onMouseOver={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+        {...leftSidebarSelector}
+      >
+        <SlotDimensions
+          variableName={LEFT_SIDEBAR_WIDTH}
+          value={leftSidebarWidth}
         />
+        <div css={fixedLeftSidebarInnerStyles(isFixed, isFlyoutOpen)}>
+          {children}
+          <ResizeControl
+            testId={testId}
+            resizeButtonLabel={resizeButtonLabel}
+            overrides={overrides}
+            onCollapse={onCollapse}
+            onExpand={onExpand}
+            onResizeStart={onResizeStart}
+            onResizeEnd={onResizeEnd}
+          />
+        </div>
       </div>
-    </div>
+    </SidebarResizeController>
   );
 };
 

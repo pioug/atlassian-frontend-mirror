@@ -17,7 +17,6 @@ export type ResizeControlProps = {
     };
   };
   resizeButtonLabel?: string;
-  resetFlyout: () => void;
   onCollapse?: () => void;
   onExpand?: () => void;
   onResizeStart?: () => void;

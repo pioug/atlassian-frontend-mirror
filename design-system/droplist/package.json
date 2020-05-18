@@ -38,13 +38,13 @@
     "styled-components": "^3.2.6"
   },
   "devDependencies": {
-    "@atlaskit/build-utils": "^2.2.7",
+    "@atlaskit/build-utils": "*",
     "@atlaskit/button": "^13.3.12",
-    "@atlaskit/docs": "^8.4.0",
+    "@atlaskit/docs": "*",
     "@atlaskit/field-base": "^14.0.2",
     "@atlaskit/section-message": "^4.1.9",
-    "@atlaskit/ssr": "^0.1.1",
-    "@atlaskit/webdriver-runner": "^0.4.0",
+    "@atlaskit/ssr": "*",
+    "@atlaskit/webdriver-runner": "*",
     "@testing-library/react": "^8.0.1",
     "enzyme": "^3.10.0",
     "react-dom": "^16.8.0"

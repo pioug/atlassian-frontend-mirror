@@ -35,15 +35,15 @@
     "styled-components": "^3.2.6"
   },
   "devDependencies": {
-    "@atlaskit/build-utils": "^2.6.4",
+    "@atlaskit/build-utils": "*",
     "@atlaskit/button": "^13.3.10",
     "@atlaskit/checkbox": "^10.1.10",
-    "@atlaskit/docs": "^8.5.1",
+    "@atlaskit/docs": "*",
     "@atlaskit/field-radio-group": "^7.0.2",
     "@atlaskit/field-range": "^8.0.2",
     "@atlaskit/media-core": "^31.1.0",
     "@atlaskit/media-test-helpers": "^27.2.0",
-    "@atlaskit/ssr": "^0.1.1",
+    "@atlaskit/ssr": "*",
     "@types/debounce": "^1.2.0",
     "enzyme": "^3.10.0",
     "react": "^16.8.0",

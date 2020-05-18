@@ -31,7 +31,7 @@
     "react-dom": "^16.8.0"
   },
   "devDependencies": {
-    "@atlaskit/docs": "^8.5.1",
+    "@atlaskit/docs": "*",
     "react": "^16.8.0",
     "react-dom": "^16.8.0"
   }

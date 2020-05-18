@@ -33,12 +33,12 @@
     "styled-components": "^3.2.6"
   },
   "devDependencies": {
-    "@atlaskit/build-utils": "^2.2.5",
+    "@atlaskit/build-utils": "*",
     "@atlaskit/button": "^13.3.11",
-    "@atlaskit/docs": "^8.3.2",
+    "@atlaskit/docs": "*",
     "@atlaskit/icon": "^20.1.1",
-    "@atlaskit/ssr": "^0.1.1",
-    "@atlaskit/visual-regression": "^0.1.9",
+    "@atlaskit/ssr": "*",
+    "@atlaskit/visual-regression": "*",
     "enzyme": "^3.10.0",
     "react-dom": "^16.8.0",
     "react-router-dom": "^4.2.2",

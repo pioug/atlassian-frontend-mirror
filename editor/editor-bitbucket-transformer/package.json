@@ -32,7 +32,7 @@
   "devDependencies": {
     "@atlaskit/activity": "^1.0.1",
     "@atlaskit/adf-schema": "^9.0.2",
-    "@atlaskit/docs": "^8.5.1",
+    "@atlaskit/docs": "*",
     "@atlaskit/editor-core": "^123.0.0",
     "@atlaskit/editor-test-helpers": "^11.1.2",
     "@atlaskit/emoji": "^62.8.0",

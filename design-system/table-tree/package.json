@@ -36,13 +36,13 @@
     "styled-components": "^3.2.6"
   },
   "devDependencies": {
-    "@atlaskit/build-utils": "^2.2.7",
-    "@atlaskit/docs": "^8.4.0",
+    "@atlaskit/build-utils": "*",
+    "@atlaskit/docs": "*",
     "@atlaskit/empty-state": "^6.0.9",
     "@atlaskit/section-message": "^4.1.7",
     "@atlaskit/select": "^11.0.10",
-    "@atlaskit/ssr": "^0.1.1",
-    "@atlaskit/visual-regression": "^0.1.9",
+    "@atlaskit/ssr": "*",
+    "@atlaskit/visual-regression": "*",
     "enzyme": "^3.10.0",
     "exenv": "^1.2.2",
     "react-dom": "^16.8.0",

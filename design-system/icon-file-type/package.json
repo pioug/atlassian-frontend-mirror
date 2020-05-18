@@ -34,12 +34,12 @@
     "styled-components": "^3.2.6"
   },
   "devDependencies": {
-    "@atlaskit/build-utils": "^2.6.0",
+     "@atlaskit/build-utils": "*",
     "@atlaskit/button": "^13.3.10",
-    "@atlaskit/docs": "^8.5.1",
+    "@atlaskit/docs": "*",
     "@atlaskit/icon-build-process": "^0.1.2",
     "@atlaskit/modal-dialog": "^10.5.6",
-    "@atlaskit/ssr": "^0.1.1",
+    "@atlaskit/ssr": "*",
     "@atlaskit/textfield": "^3.1.9",
     "@atlaskit/tooltip": "^15.2.5",
     "enzyme": "^3.10.0",

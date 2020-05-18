@@ -31,12 +31,12 @@
     "rxjs": "^5.5.0"
   },
   "devDependencies": {
-    "@atlaskit/build-utils": "^2.6.4",
+    "@atlaskit/build-utils": "*",
     "@atlaskit/button": "^13.3.9",
     "@atlaskit/docs": "^8.5.0",
     "@atlaskit/media-card": "^67.1.1",
     "@atlaskit/media-test-helpers": "^27.1.0",
-    "@atlaskit/ssr": "^0.1.1",
+    "@atlaskit/ssr": "*",
     "react-dom": "^16.8.0",
     "rxjs": "^5.5.0",
     "styled-components": "^3.2.6",

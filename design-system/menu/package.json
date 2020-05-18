@@ -33,11 +33,11 @@
   "devDependencies": {
     "@atlaskit/avatar": "^17.1.10",
     "@atlaskit/button": "^13.3.11",
-    "@atlaskit/docs": "^8.5.1",
+    "@atlaskit/docs": "*",
     "@atlaskit/icon": "^20.1.1",
     "@atlaskit/icon-file-type": "^5.0.4",
     "@atlaskit/icon-object": "^5.0.3",
-    "@atlaskit/visual-regression": "^0.1.9",
+    "@atlaskit/visual-regression": "*",
     "@testing-library/react": "^8.0.1",
     "jest-axe": "^3.4.0",
     "jest-emotion": "^10.0.32",

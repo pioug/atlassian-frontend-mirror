@@ -38,8 +38,8 @@
     "styled-components": "^3.2.6"
   },
   "devDependencies": {
-    "@atlaskit/build-utils": "^2.2.5",
-    "@atlaskit/docs": "^8.4.0",
+    "@atlaskit/build-utils": "*",
+    "@atlaskit/docs": "*",
     "@atlaskit/media-core": "^31.0.5",
     "@atlaskit/media-test-helpers": "^27.0.0",
     "@atlaskit/page": "^11.0.12",

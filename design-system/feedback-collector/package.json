@@ -43,12 +43,12 @@
     "styled-components": "^3.2.6"
   },
   "devDependencies": {
-    "@atlaskit/build-utils": "^2.2.5",
-    "@atlaskit/docs": "^8.3.2",
+    "@atlaskit/build-utils": "*",
+    "@atlaskit/docs": "*",
     "@atlaskit/global-navigation": "^9.0.0",
     "@atlaskit/logo": "^12.3.4",
     "@atlaskit/navigation-next": "^8.0.4",
-    "@atlaskit/ssr": "^0.1.1",
+    "@atlaskit/ssr": "*",
     "axios": "^0.19.2",
     "enzyme": "^3.10.0",
     "react-dom": "^16.8.0"

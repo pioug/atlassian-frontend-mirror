@@ -33,7 +33,7 @@
     "styled-components": "^3.2.6"
   },
   "devDependencies": {
-    "@atlaskit/docs": "^8.5.1",
+    "@atlaskit/docs": "*",
     "@atlaskit/editor-core": "^123.0.0",
     "@atlaskit/editor-test-helpers": "^11.1.2",
     "@atlaskit/util-data-test": "^13.1.2",

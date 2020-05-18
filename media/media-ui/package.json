@@ -64,13 +64,13 @@
     "styled-components": "^3.2.6"
   },
   "devDependencies": {
-    "@atlaskit/build-utils": "^2.6.4",
+    "@atlaskit/build-utils": "*",
     "@atlaskit/button": "^13.3.11",
     "@atlaskit/checkbox": "^10.1.11",
-    "@atlaskit/docs": "^8.5.1",
+    "@atlaskit/docs": "*",
     "@atlaskit/i18n-tools": "^0.6.0",
     "@atlaskit/media-test-helpers": "^27.2.0",
-    "@atlaskit/ssr": "^0.1.1",
+    "@atlaskit/ssr": "*",
     "@testing-library/jest-dom": "^4.1.0",
     "@testing-library/react": "^8.0.1",
     "@types/bytes": "^2.4.33",

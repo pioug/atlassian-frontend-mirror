@@ -30,9 +30,9 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
-    "@atlaskit/build-utils": "^2.2.5",
+    "@atlaskit/build-utils": "*",
     "@atlaskit/button": "^13.3.7",
-    "@atlaskit/docs": "^8.3.2",
+    "@atlaskit/docs": "*",
     "enzyme": "^3.10.0",
     "react-dom": "^16.8.0"
   },

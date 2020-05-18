@@ -40,13 +40,13 @@
     "rxjs": "^5.5.0"
   },
   "devDependencies": {
-    "@atlaskit/build-utils": "^2.6.4",
+    "@atlaskit/build-utils": "*",
     "@atlaskit/button": "^13.3.10",
-    "@atlaskit/docs": "^8.5.1",
+    "@atlaskit/docs": "*",
     "@atlaskit/media-card": "^67.2.0",
     "@atlaskit/media-core": "^31.1.0",
     "@atlaskit/media-test-helpers": "^27.2.0",
-    "@atlaskit/ssr": "^0.1.1",
+    "@atlaskit/ssr": "*",
     "@types/deep-equal": "^1.0.1",
     "@types/query-string": "^4.3.1",
     "@types/uuid-validate": "^0.0.0",

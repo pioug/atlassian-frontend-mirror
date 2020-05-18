@@ -26,7 +26,7 @@
     "tslib": "^1.9.3"
   },
   "devDependencies": {
-    "@atlaskit/docs": "^8.5.1",
+    "@atlaskit/docs": "*",
     "@atlaskit/json-schema-generator": "^2.3.0",
     "react": "^16.8.0",
     "wait-for-expect": "^1.2.0"

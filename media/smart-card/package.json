@@ -46,7 +46,7 @@
   "devDependencies": {
     "@atlaskit/button": "^13.3.11",
     "@atlaskit/checkbox": "^10.1.11",
-    "@atlaskit/docs": "^8.5.1",
+    "@atlaskit/docs": "*",
     "@atlaskit/form": "^7.2.1",
     "@atlaskit/inline-message": "^10.1.6",
     "@atlaskit/page": "^11.0.13",

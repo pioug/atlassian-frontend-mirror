@@ -31,7 +31,7 @@
     "prosemirror-model": "^1.7.0"
   },
   "devDependencies": {
-    "@atlaskit/docs": "^8.5.1",
+    "@atlaskit/docs": "*",
     "@atlaskit/util-data-test": "^13.1.2",
     "mkdirp": "^0.5.1",
     "react": "^16.8.0",

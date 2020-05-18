@@ -35,9 +35,9 @@
   },
   "devDependencies": {
     "@atlaskit/button": "^13.3.11",
-    "@atlaskit/docs": "^8.3.2",
-    "@atlaskit/ssr": "^0.1.1",
-    "@atlaskit/visual-regression": "^0.1.9",
+    "@atlaskit/docs": "*",
+    "@atlaskit/ssr": "*",
+    "@atlaskit/visual-regression": "*",
     "@testing-library/react": "^8.0.1"
   },
   "techstack": {

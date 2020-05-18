@@ -42,12 +42,12 @@
   },
   "devDependencies": {
     "@atlaskit/avatar": "^17.1.11",
-    "@atlaskit/build-utils": "^2.2.7",
-    "@atlaskit/docs": "^8.4.0",
+    "@atlaskit/build-utils": "*",
+    "@atlaskit/docs": "*",
     "@atlaskit/lozenge": "9.1.8",
-    "@atlaskit/ssr": "^0.1.1",
+    "@atlaskit/ssr": "*",
     "@atlaskit/tooltip": "^15.2.7",
-    "@atlaskit/webdriver-runner": "^0.4.0",
+    "@atlaskit/webdriver-runner": "*",
     "@testing-library/react": "^8.0.1",
     "enzyme": "^3.10.0",
     "react-dom": "^16.8.0"

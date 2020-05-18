@@ -34,11 +34,11 @@
     "styled-components": "^3.2.6"
   },
   "devDependencies": {
-    "@atlaskit/build-utils": "^2.2.7",
+    "@atlaskit/build-utils": "*",
     "@atlaskit/button": "^13.3.9",
-    "@atlaskit/docs": "^8.4.0",
+    "@atlaskit/docs": "*",
     "@atlaskit/section-message": "^4.1.7",
-    "@atlaskit/ssr": "^0.1.1",
+    "@atlaskit/ssr": "*",
     "enzyme": "^3.10.0",
     "react-dom": "^16.8.0",
     "wait-for-expect": "^1.2.0"

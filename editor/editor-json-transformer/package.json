@@ -30,7 +30,7 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
-    "@atlaskit/docs": "^8.5.1",
+    "@atlaskit/docs": "*",
     "@atlaskit/editor-bitbucket-transformer": "^6.3.5",
     "@atlaskit/editor-common": "^45.2.0",
     "@atlaskit/editor-confluence-transformer": "^7.3.19",

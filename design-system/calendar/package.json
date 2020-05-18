@@ -38,11 +38,11 @@
     "styled-components": "^3.2.6"
   },
   "devDependencies": {
-    "@atlaskit/build-utils": "^2.2.7",
-    "@atlaskit/docs": "^8.4.0",
+    "@atlaskit/build-utils": "*",
+    "@atlaskit/docs": "*",
     "@atlaskit/select": "^11.0.11",
-    "@atlaskit/ssr": "^0.1.1",
-    "@atlaskit/webdriver-runner": "^0.4.0",
+    "@atlaskit/ssr": "*",
+    "@atlaskit/webdriver-runner": "*",
     "@testing-library/react": "^8.0.1",
     "date-fns": "^1.30.1",
     "enzyme": "^3.10.0",

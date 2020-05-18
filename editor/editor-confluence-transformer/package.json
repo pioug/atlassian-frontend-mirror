@@ -33,7 +33,7 @@
   "devDependencies": {
     "@atlaskit/activity": "^1.0.1",
     "@atlaskit/button": "^13.3.11",
-    "@atlaskit/docs": "^8.5.1",
+    "@atlaskit/docs": "*",
     "@atlaskit/editor-core": "^123.0.0",
     "@atlaskit/editor-test-helpers": "^11.1.2",
     "@atlaskit/spinner": "^12.1.6",

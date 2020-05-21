@@ -33,10 +33,8 @@ import {
 } from '@atlaskit/smart-card';
 import { EmojiResource } from '@atlaskit/emoji/resource';
 import { analyticsBridgeClient } from '../analytics-client';
-import { IntlProvider } from 'react-intl';
 import { createQuickInsertProvider } from '../providers';
 import { getEnableQuickInsertValue } from '../query-param-reader';
-import useTranslations from './useTranslations';
 
 export const bridge: WebBridgeImpl = ((window as any).bridge = new WebBridgeImpl());
 
@@ -112,12 +110,7 @@ export interface MobileEditorProps extends EditorProps {
 }
 
 export default function MobileEditor(props: MobileEditorProps) {
-  const [locale, messages] = useTranslations();
   const mode = props.mode || 'light';
-
-  if (!messages) {
-    return null;
-  }
 
   // Temporarily opting out of the default oauth2 flow for phase 1 of Smart Links
   // See https://product-fabric.atlassian.net/browse/FM-2149 for details.
@@ -136,45 +129,41 @@ export default function MobileEditor(props: MobileEditorProps) {
     <FabricAnalyticsListeners client={analyticsClient}>
       <SmartCardProvider client={props.cardClient} authFlow={authFlow}>
         <AtlaskitThemeProvider mode={mode}>
-          <IntlProvider locale={locale.replace('_', '-')} messages={messages}>
-            <EditorWithState
-              appearance="mobile"
-              mentionProvider={props.mentionProvider}
-              emojiProvider={props.emojiProvider}
-              media={{
-                customMediaPicker: new MobilePicker(),
-                provider: props.mediaProvider,
-                allowMediaSingle: true,
-                allowAltTextOnImages: true,
-              }}
-              allowConfluenceInlineComment={true}
-              onChange={() => {
-                toNativeBridge.updateText(bridge.getContent());
-              }}
-              allowPanel={true}
-              allowTables={{
-                allowControls: false,
-              }}
-              UNSAFE_cards={{
-                provider: props.cardProvider,
-              }}
-              allowExtension={true}
-              allowTextColor={true}
-              allowDate={true}
-              allowRule={true}
-              allowStatus={true}
-              allowLayouts={{
-                allowBreakout: true,
-              }}
-              allowAnalyticsGASV3={true}
-              allowExpand={true}
-              taskDecisionProvider={Promise.resolve(
-                createTaskDecisionProvider(),
-              )}
-              quickInsert={quickInsert}
-              {...props}
-            />
-          </IntlProvider>
+          <EditorWithState
+            appearance="mobile"
+            mentionProvider={props.mentionProvider}
+            emojiProvider={props.emojiProvider}
+            media={{
+              customMediaPicker: new MobilePicker(),
+              provider: props.mediaProvider,
+              allowMediaSingle: true,
+              allowAltTextOnImages: true,
+            }}
+            allowConfluenceInlineComment={true}
+            onChange={() => {
+              toNativeBridge.updateText(bridge.getContent());
+            }}
+            allowPanel={true}
+            allowTables={{
+              allowControls: false,
+            }}
+            UNSAFE_cards={{
+              provider: props.cardProvider,
+            }}
+            allowExtension={true}
+            allowTextColor={true}
+            allowDate={true}
+            allowRule={true}
+            allowStatus={true}
+            allowLayouts={{
+              allowBreakout: true,
+            }}
+            allowAnalyticsGASV3={true}
+            allowExpand={true}
+            taskDecisionProvider={Promise.resolve(createTaskDecisionProvider())}
+            quickInsert={quickInsert}
+            {...props}
+          />
         </AtlaskitThemeProvider>
       </SmartCardProvider>
     </FabricAnalyticsListeners>

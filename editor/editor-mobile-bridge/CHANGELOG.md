@@ -1,5 +1,11 @@
 # @atlaskit/editor-mobile-bridge
 
+## 13.0.4
+
+### Patch Changes
+
+- [`0ea959ff19`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0ea959ff19) - Disable mobile bridge translations (not currently in use) to fix editor focus problem
+
 ## 13.0.3
 
 ### Patch Changes

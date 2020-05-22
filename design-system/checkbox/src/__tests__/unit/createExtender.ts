@@ -15,7 +15,7 @@ const defaultConfig = {
 
 const overridesComponent = 'span';
 const overridesCssFn = () => ({ display: 'inline-block' });
-const overridesAttributesFn = () => ({ 'data-testId': 'test' });
+const overridesAttributesFn = () => ({ 'data-testid': 'test' });
 
 const CustomTestComponent = {
   component: overridesComponent,

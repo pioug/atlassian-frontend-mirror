@@ -18,62 +18,72 @@ import {
   export default {
     AtlassianIcon: {
       componentName: 'AtlassianIcon',
+      namedImport: true,
       component: AtlassianIcon,
       keywords: ['product', 'logo', 'atlassian'],
-      package: '@atlaskit/logo/AtlassianLogo/Icon'
+      package: '@atlaskit/logo'
     },
     BitbucketIcon: {
       componentName: 'BitbucketIcon',
+      namedImport: true,
       component: BitbucketIcon,
       keywords: ['product', 'logo', 'bitbucket'],
-      package: '@atlaskit/logo/BitbucketLogo/Icon'
+      package: '@atlaskit/logo'
     },
     ConfluenceIcon: {
       componentName: 'ConfluenceIcon',
+      namedImport: true,
       component: ConfluenceIcon,
       keywords: ['product', 'logo', 'confluence'],
-      package: '@atlaskit/logo/ConfluenceLogo/Icon'
+      package: '@atlaskit/logo'
     },
     HipchatIcon: {
       componentName: 'HipchatIcon',
+      namedImport: true,
       component: HipchatIcon,
       keywords: ['product', 'logo', 'hipchat'],
-      package: '@atlaskit/logo/HipchatLogo/Icon'
+      package: '@atlaskit/logo'
     },
     JiraCoreIcon: {
       componentName: 'JiraCoreIcon',
+      namedImport: true,
       component: JiraCoreIcon,
       keywords: ['product', 'logo', 'jira', 'core'],
-      package: '@atlaskit/logo/JiraCoreLogo/Icon'
+      package: '@atlaskit/logo'
     },
     JiraServiceDeskIcon: {
       componentName: 'JiraServiceDeskIcon',
+      namedImport: true,
       component: JiraServiceDeskIcon,
       keywords: ['product', 'logo', 'jira', 'servicedesk'],
-      package: '@atlaskit/logo/JiraServiceDeskLogo/Icon'
+      package: '@atlaskit/logo'
     },
     JiraSoftwareIcon: {
       componentName: 'JiraSoftwareIcon',
+      namedImport: true,
       component: JiraSoftwareIcon,
       keywords: ['product', 'logo', 'jira', 'software'],
-      package: '@atlaskit/logo/JiraSoftwareLogo/Icon'
+      package: '@atlaskit/logo'
     },
     JiraIcon: {
       componentName: 'JiraIcon',
+      namedImport: true,
       component: JiraIcon,
       keywords: ['product', 'logo', 'jira'],
-      package: '@atlaskit/logo/JiraLogo/Icon'
+      package: '@atlaskit/logo'
     },
     StatuspageIcon: {
       componentName: 'StatuspageIcon',
+      namedImport: true,
       component: StatuspageIcon,
       keywords: ['product', 'logo', 'statuspage'],
-      package: '@atlaskit/logo/StatuspageLogo/Icon'
+      package: '@atlaskit/logo'
     },
     StrideIcon: {
       componentName: 'StrideIcon',
+      namedImport: true,
       component: StrideIcon,
       keywords: ['product', 'logo', 'stride'],
-      package: '@atlaskit/logo/StrideLogo/Icon'
+      package: '@atlaskit/logo'
     },
   };

@@ -3,7 +3,7 @@ import React from 'react';
 import { code, Example, md } from '@atlaskit/docs';
 
 export default md`
-The overrides prop is an escape hatch for more granular customisation of the checkbox component. 
+The overrides prop is an escape hatch for more granular customisation of the checkbox component.
 The prop is an object comprised of properties corresponding to specific customisable components in @atlaskit/checkbox.
 Each of these properties are an object of one or more of the following properties:
 
@@ -17,13 +17,13 @@ ${code`{
 
 For a more detailed look at the shape of this prop for \`<Checkbox/>\` and \`<CheckboxIcon/>\` please see the [prop documentation](/0-intro);
 The goal of this prop is to provide a way for users to unlock targeted customisations of key components in the @atlaskit/checkbox package,
-without having to shoulder unecessary complexity. 
+without having to shoulder unecessary complexity.
 
 ## Customising components using the \`overrides\` prop
-There may be scenarios where neither \`style\` customisation, nor \`theme\` customisations will be enough 
+There may be scenarios where neither \`style\` customisation, nor \`theme\` customisations will be enough
 to satisfy your usecase. For example you may want to add additional state logic to a component, or a more complex / alternative dom tree.
-In these scenarios please leverage the \`component\` property of the overrides prop to switch out the default component provided by @atlaskit/checkbox 
-for your own custom component. 
+In these scenarios please leverage the \`component\` property of the overrides prop to switch out the default component provided by @atlaskit/checkbox
+for your own custom component.
 
 Below is an example of leveraging this property to switch out the default icons used within @atlaskit/checkbox for an alternative set.
 
@@ -38,11 +38,11 @@ ${(
 
 ## Passing custom props using the \`overrides\` prop
 
-At other times, passing a property down to a specific dom element may be the only customisation you need, 
-in these scenarios having to provide a custom component whole sale is unnecessary and time consuming; this is why @atlaskit/checkbox also provides an 
+At other times, passing a property down to a specific dom element may be the only customisation you need,
+in these scenarios having to provide a custom component whole sale is unnecessary and time consuming; this is why @atlaskit/checkbox also provides an
 \`attributesFn\` for providing custom attributes to the underlying dom elements of customisable components.
 
-Below is an example of us passing form and data-testId attributes to the rendered label element. 
+Below is an example of us passing form and data-testid attributes to the rendered label element.
 
 ${(
   <Example
@@ -54,9 +54,9 @@ ${(
 )}
 
 ## Applying CSS customisations using the \`overrides\` prop
-There will be scenarios where theme isn't adequate for the type of style customisations your usecase requires. 
+There will be scenarios where theme isn't adequate for the type of style customisations your usecase requires.
 In these cases, @atlaskit/checkbox exposes more granular control of the application of CSS through a \`cssFn\` property be specified in the passed in overrides object.
-This is useful for scenarios where you want to augment how a particular theme token is being applied to your styles or if you have customisations 
+This is useful for scenarios where you want to augment how a particular theme token is being applied to your styles or if you have customisations
 that the theme tokens do not support.
 
 ### Using the cssFn

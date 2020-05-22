@@ -42,6 +42,7 @@ interface Props {
   componentName: string;
   package?: string;
   divider?: boolean;
+  namedImport?: boolean;
 }
 
 interface State {
@@ -53,6 +54,7 @@ const IconExplorerCell: FC<Props> = ({
   componentName,
   package: packageName,
   divider,
+  namedImport: isNamedImport,
 }) => {
   const inputEl = useRef<HTMLInputElement>(null);
   const [state, setState] = useState<State>({
@@ -86,6 +88,10 @@ const IconExplorerCell: FC<Props> = ({
     );
   }
 
+  const importStatement = isNamedImport
+    ? `import { ${componentName} } from '${packageName}';`
+    : `import ${componentName} from '${packageName}';`;
+
   const modal = (
     <Modal
       onClose={closeModal}
@@ -112,11 +118,7 @@ const IconExplorerCell: FC<Props> = ({
         onClick={() => inputEl && inputEl.current!.select()}
         role="presentation"
       >
-        <Textfield
-          isReadOnly
-          value={`import ${componentName} from '${packageName}';`}
-          ref={inputEl}
-        />
+        <Textfield isReadOnly value={importStatement} ref={inputEl} />
       </div>
     </Modal>
   );

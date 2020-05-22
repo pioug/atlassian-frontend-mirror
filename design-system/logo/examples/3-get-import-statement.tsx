@@ -79,7 +79,7 @@ export default class GetPath extends Component<any, any> {
         <p>This import statement will render the image below:</p>
         <AkCodeBlock
           language="javascript"
-          text={`import ${name} from '@atlaskit/logo/${selectedProduct.value}Logo/${selectedFile.value}'`}
+          text={`import { ${name} } from '@atlaskit/logo'`}
         />
         <OurComponent />
       </div>

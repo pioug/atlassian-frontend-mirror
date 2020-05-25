@@ -1,5 +1,11 @@
 # @atlaskit/editor-core
 
+## 123.0.4
+
+### Patch Changes
+
+- [`649f69b6d7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/649f69b6d7) - Patch all packages that are used by confluence that have a broken es2019 dist
+
 ## 123.0.3
 
 ### Patch Changes

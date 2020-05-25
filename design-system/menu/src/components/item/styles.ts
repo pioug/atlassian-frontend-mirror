@@ -146,7 +146,8 @@ export const contentCSS = {
   outline: 'none',
   display: 'flex',
   flexDirection: 'column',
-  lineHeight: `${(gridSize * 2) / fontSize()}`,
+  // Fix - avoid clipped text descenders when using standard 16px line-height
+  lineHeight: 1.2,
 } as CSSObject;
 
 export const truncateCSS = {

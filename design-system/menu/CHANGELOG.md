@@ -1,5 +1,17 @@
 # @atlaskit/menu
 
+## 0.4.4
+
+### Patch Changes
+
+- [`649f69b6d7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/649f69b6d7) - Patch all packages that are used by confluence that have a broken es2019 dist
+
+## 0.4.3
+
+### Patch Changes
+
+- [`eb2ed36f5a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eb2ed36f5a) - Fix characters with descenders (eg. 'g', 'j', 'p') in Menu Items from being clipped by increasing the line-height.
+
 ## 0.4.2
 
 ### Patch Changes

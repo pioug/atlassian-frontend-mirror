@@ -8,7 +8,7 @@ const DisabledSelects = () => (
       <Select
         isDisabled
         className="single-select"
-        classNamePrefix="react-select"
+        classNamePrefix="react-select-single-disabled"
         options={[
           { label: 'Brisbane', value: 'brisbane' },
           { label: 'Canberra', value: 'canberra' },
@@ -23,7 +23,7 @@ const DisabledSelects = () => (
       <Select
         isDisabled
         className="multi-select"
-        classNamePrefix="react-select"
+        classNamePrefix="react-select-multi-disabled"
         options={[
           { label: 'Brisbane', value: 'brisbane' },
           { label: 'Canberra', value: 'canberra' },
@@ -35,11 +35,11 @@ const DisabledSelects = () => (
         placeholder="Choose a City"
       />
     </p>
-    <p data-test-id="vr-007">
+    <p>
       Single Select with disabled options
       <Select
         className="single-select"
-        classNamePrefix="react-select"
+        classNamePrefix="react-select-single-disabled-options"
         options={[
           { label: 'Brisbane', value: 'brisbane', isDisabled: true },
           { label: 'Canberra', value: 'canberra' },
@@ -49,11 +49,11 @@ const DisabledSelects = () => (
         placeholder="Choose a City"
       />
     </p>
-    <p data-test-id="vr-007">
+    <p>
       Multi Select with disabled options
       <Select
         className="multi-select"
-        classNamePrefix="react-select"
+        classNamePrefix="react-select-multi-disabled-options"
         options={[
           { label: 'Brisbane', value: 'brisbane' },
           { label: 'Canberra', value: 'canberra', isDisabled: true },

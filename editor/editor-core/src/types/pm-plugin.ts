@@ -8,6 +8,7 @@ import { EditorConfig } from './editor-config';
 import { Dispatch, EventDispatcher } from '../event-dispatcher';
 import { PortalProviderAPI } from '../ui/PortalProvider';
 import { DispatchAnalyticsEvent } from '../plugins/analytics/types/dispatch-analytics-event';
+import { EditorProps } from './editor-props';
 
 export type PMPluginFactoryParams = {
   schema: Schema;
@@ -21,6 +22,7 @@ export type PMPluginFactoryParams = {
 };
 export type PMPluginCreateConfig = PMPluginFactoryParams & {
   editorConfig: EditorConfig;
+  performanceTracking: EditorProps['performanceTracking'];
 };
 export type PMPluginFactory = (
   params: PMPluginFactoryParams,

@@ -66,6 +66,7 @@ export function createEditor({
 
     // TODO: ED-8133 Need to make types more generic otherwise it's not extensible.
     dispatchAnalyticsEvent: onAnalyticsEvent as any,
+    performanceTracking: {},
   });
   const state = EditorState.create({
     schema,

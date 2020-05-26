@@ -86,6 +86,7 @@ describe(name, () => {
             portalProviderAPI: { render() {}, remove() {} } as any,
             reactContext: () => ({}),
             dispatchAnalyticsEvent: () => {},
+            performanceTracking: {},
           }).length,
         ).toEqual(1);
       });

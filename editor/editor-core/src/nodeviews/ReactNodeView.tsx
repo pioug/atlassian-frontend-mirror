@@ -99,28 +99,34 @@ export default class ReactNodeView<P = ReactComponentProps>
     // difference between them and it kills the nodeView
     this.domRef.classList.add(`${this.node.type.name}View-content-wrap`);
 
-    const { samplingRate, slowThreshold } = this.performanceOptions;
+    const {
+      samplingRate,
+      slowThreshold,
+      enabled: trackingEnabled,
+    } = this.performanceOptions;
 
-    startMeasure(`🦉${this.node.type.name}::ReactNodeView`);
+    trackingEnabled && startMeasure(`🦉${this.node.type.name}::ReactNodeView`);
+
     this.renderReactComponent(() =>
       this.render(this.reactComponentProps, this.handleRef),
     );
-    stopMeasure(`🦉${this.node.type.name}::ReactNodeView`, duration => {
-      if (
-        ++nodeViewEventsCounter % samplingRate === 0 &&
-        duration > slowThreshold
-      ) {
-        this.dispatchAnalyticsEvent({
-          action: ACTION.REACT_NODEVIEW_RENDERED,
-          actionSubject: ACTION_SUBJECT.EDITOR,
-          eventType: EVENT_TYPE.OPERATIONAL,
-          attributes: {
-            node: this.node.type.name,
-            duration,
-          },
-        });
-      }
-    });
+    trackingEnabled &&
+      stopMeasure(`🦉${this.node.type.name}::ReactNodeView`, duration => {
+        if (
+          ++nodeViewEventsCounter % samplingRate === 0 &&
+          duration > slowThreshold
+        ) {
+          this.dispatchAnalyticsEvent({
+            action: ACTION.REACT_NODEVIEW_RENDERED,
+            actionSubject: ACTION_SUBJECT.EDITOR,
+            eventType: EVENT_TYPE.OPERATIONAL,
+            attributes: {
+              node: this.node.type.name,
+              duration,
+            },
+          });
+        }
+      });
 
     return this;
   }
@@ -240,6 +246,7 @@ export default class ReactNodeView<P = ReactComponentProps>
     slowThreshold: number;
   } {
     const pluginState = analyticsPluginKey.getState(this.view.state);
+
     const nodeViewTracking =
       pluginState && pluginState.performanceTracking
         ? pluginState.performanceTracking.nodeViewTracking || {}

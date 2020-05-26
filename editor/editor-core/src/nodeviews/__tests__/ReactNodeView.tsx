@@ -3,6 +3,20 @@ import { doc, p } from '@atlaskit/editor-test-helpers/schema-builder';
 import ReactNodeView from '../ReactNodeView';
 import { EventDispatcher } from '../../event-dispatcher';
 
+jest.mock('../../plugins/analytics/plugin-key', () => ({
+  analyticsPluginKey: {
+    getState() {
+      return {
+        performanceTracking: {
+          nodeViewTracking: {
+            enabled: true,
+          },
+        },
+      };
+    },
+  },
+}));
+
 describe('ReactNodeView', () => {
   const createEditor = createEditorFactory();
   const portalProviderAPI: any = {
@@ -24,6 +38,7 @@ describe('ReactNodeView', () => {
     it('should call performance.mark twice with appropriate arguments', () => {
       const { editorView } = createEditor({
         doc: doc(p()),
+        editorPlugins: [],
       });
       const node = editorView.state.doc;
 

@@ -105,13 +105,29 @@ export function processPluginsList(plugins: EditorPlugin[]): EditorConfig {
   );
 }
 
+const TRACKING_DEFAULT = { enabled: false };
+
 export function createPMPlugins(config: PMPluginCreateConfig): Plugin[] {
-  const { editorConfig, ...rest } = config;
+  const { editorConfig, performanceTracking = {}, ...rest } = config;
+  const {
+    uiTracking = TRACKING_DEFAULT,
+    transactionTracking = TRACKING_DEFAULT,
+  } = performanceTracking;
+
+  const instrumentPlugin =
+    uiTracking.enabled || transactionTracking.enabled
+      ? (plugin: Plugin): Plugin =>
+          InstrumentedPlugin.fromPlugin(plugin, {
+            uiTracking,
+            transactionTracking,
+          })
+      : (plugin: Plugin): Plugin => plugin;
+
   return editorConfig.pmPlugins
     .sort(sortByOrder('plugins'))
     .map(({ plugin }) => plugin(rest))
     .filter((plugin): plugin is Plugin => typeof plugin !== 'undefined')
-    .map(plugin => InstrumentedPlugin.fromPlugin(plugin));
+    .map(instrumentPlugin);
 }
 
 export function createErrorReporter(

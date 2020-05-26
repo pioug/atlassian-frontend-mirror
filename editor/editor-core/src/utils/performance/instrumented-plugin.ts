@@ -7,13 +7,22 @@ import {
 import { Schema } from 'prosemirror-model';
 import { startMeasure, stopMeasure } from '@atlaskit/editor-common';
 import { EditorView } from 'prosemirror-view';
+import { EditorProps } from '../../types/editor-props';
 
 export class InstrumentedPlugin<
   PluginState,
   NodeSchema extends Schema<any, any>
 > extends Plugin<PluginState, NodeSchema> {
-  constructor(spec: PluginSpec) {
-    if (spec.state) {
+  constructor(
+    spec: PluginSpec,
+    options: EditorProps['performanceTracking'] = {},
+  ) {
+    const {
+      transactionTracking = { enabled: false },
+      uiTracking = { enabled: false },
+    } = options;
+
+    if (transactionTracking.enabled && spec.state) {
       const originalApply = spec.state.apply.bind(spec.state);
 
       spec.state.apply = (
@@ -31,7 +40,7 @@ export class InstrumentedPlugin<
       };
     }
 
-    if (spec.view) {
+    if (uiTracking.enabled && spec.view) {
       const originalView = spec.view.bind(spec);
 
       spec.view = (editorView: EditorView) => {
@@ -58,7 +67,8 @@ export class InstrumentedPlugin<
 
   public static fromPlugin<T, V extends Schema<any, any>>(
     plugin: Plugin<T, V>,
+    options: EditorProps['performanceTracking'],
   ): InstrumentedPlugin<T, V> {
-    return new InstrumentedPlugin(plugin.spec);
+    return new InstrumentedPlugin(plugin.spec, options);
   }
 }

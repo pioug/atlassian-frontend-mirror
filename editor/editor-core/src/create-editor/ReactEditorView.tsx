@@ -307,6 +307,9 @@ export default class ReactEditorView<T = {}> extends React.Component<
       portalProviderAPI: props.portalProviderAPI,
       reactContext: () => this.context,
       dispatchAnalyticsEvent: this.dispatchAnalyticsEvent,
+      performanceTracking: props.editorProps.performanceTracking || {
+        transactionTracking: this.transactionTrackingProp,
+      },
     });
 
     const newState = state.reconfigure({ plugins });
@@ -433,6 +436,9 @@ export default class ReactEditorView<T = {}> extends React.Component<
       portalProviderAPI: this.props.portalProviderAPI,
       reactContext: () => this.context,
       dispatchAnalyticsEvent: this.dispatchAnalyticsEvent,
+      performanceTracking: this.props.editorProps.performanceTracking || {
+        transactionTracking: this.transactionTrackingProp,
+      },
     });
 
     this.contentTransformer = contentTransformerProvider
@@ -479,10 +485,14 @@ export default class ReactEditorView<T = {}> extends React.Component<
     oldEditorState: EditorState;
     newEditorState: EditorState;
   }) => {
+    const { enabled: trackinEnabled } = this.transactionTrackingProp;
+
     this.config.onEditorViewStateUpdatedCallbacks.forEach(entry => {
-      startMeasure(`🦉 ${entry.pluginName}::onEditorViewStateUpdated`);
+      trackinEnabled &&
+        startMeasure(`🦉 ${entry.pluginName}::onEditorViewStateUpdated`);
       entry.callback({ transaction, oldEditorState, newEditorState });
-      stopMeasure(`🦉 ${entry.pluginName}::onEditorViewStateUpdated`);
+      trackinEnabled &&
+        stopMeasure(`🦉 ${entry.pluginName}::onEditorViewStateUpdated`);
     });
   };
 
@@ -491,7 +501,8 @@ export default class ReactEditorView<T = {}> extends React.Component<
       return;
     }
 
-    startMeasure(`🦉 ReactEditorView::dispatchTransaction`);
+    const { enabled: trackinEnabled } = this.transactionTrackingProp;
+    trackinEnabled && startMeasure(`🦉 ReactEditorView::dispatchTransaction`);
 
     const nodes: PMNode[] = findChangedNodesFromTransaction(transaction);
     const changedNodesValid = validateNodes(nodes);
@@ -500,28 +511,28 @@ export default class ReactEditorView<T = {}> extends React.Component<
       const oldEditorState = this.view.state;
 
       // go ahead and update the state now we know the transaction is good
-      startMeasure(`🦉 EditorView::state::apply`);
+      trackinEnabled && startMeasure(`🦉 EditorView::state::apply`);
       const editorState = this.view.state.apply(transaction);
-      stopMeasure(`🦉 EditorView::state::apply`);
+      trackinEnabled && stopMeasure(`🦉 EditorView::state::apply`);
 
-      startMeasure(`🦉 EditorView::updateState`);
+      trackinEnabled && startMeasure(`🦉 EditorView::updateState`);
       this.view.updateState(editorState);
-      stopMeasure(`🦉 EditorView::updateState`);
+      trackinEnabled && stopMeasure(`🦉 EditorView::updateState`);
 
-      startMeasure(`🦉 EditorView::onEditorViewStateUpdated`);
+      trackinEnabled && startMeasure(`🦉 EditorView::onEditorViewStateUpdated`);
       this.onEditorViewStateUpdated({
         transaction,
         oldEditorState,
         newEditorState: editorState,
       });
-      stopMeasure(`🦉 EditorView::onEditorViewStateUpdated`);
+      trackinEnabled && stopMeasure(`🦉 EditorView::onEditorViewStateUpdated`);
 
       if (this.props.editorProps.onChange && transaction.docChanged) {
         const source = transaction.getMeta('isRemote') ? 'remote' : 'local';
 
-        startMeasure(`🦉 ReactEditorView::onChange`);
+        trackinEnabled && startMeasure(`🦉 ReactEditorView::onChange`);
         this.props.editorProps.onChange(this.view, { source });
-        stopMeasure(`🦉 ReactEditorView::onChange`);
+        trackinEnabled && stopMeasure(`🦉 ReactEditorView::onChange`);
       }
       this.editorState = editorState;
     } else {
@@ -547,7 +558,8 @@ export default class ReactEditorView<T = {}> extends React.Component<
       });
     }
 
-    stopMeasure(`🦉 ReactEditorView::dispatchTransaction`, () => {});
+    trackinEnabled &&
+      stopMeasure(`🦉 ReactEditorView::dispatchTransaction`, () => {});
   };
 
   getDirectEditorProps = (state?: EditorState): DirectEditorProps => {

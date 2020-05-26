@@ -1,5 +1,11 @@
 # @atlaskit/editor-core
 
+## 123.0.5
+
+### Patch Changes
+
+- [`e1fae67451`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e1fae67451) - ED-9365 fix: fully feature-flag performance tracking
+
 ## 123.0.4
 
 ### Patch Changes

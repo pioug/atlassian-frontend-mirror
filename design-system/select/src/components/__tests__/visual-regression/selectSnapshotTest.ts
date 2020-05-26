@@ -36,8 +36,8 @@ describe('Snapshot Test', () => {
     const { page } = global;
 
     const selectSelector =
-      '[data-test-id="vr-007"] .single-select .react-select__value-container';
-    const selectMenuSelector = '.react-select__menu';
+      '.react-select-single-disabled-options__value-container';
+    const selectMenuSelector = '.react-select-single-disabled-options__menu';
     await page.goto(url);
     await page.waitForSelector(selectSelector);
     await page.click(selectSelector);
@@ -56,8 +56,8 @@ describe('Snapshot Test', () => {
     const { page } = global;
 
     const selectSelector =
-      '[data-test-id="vr-007"] .multi-select .react-select__value-container';
-    const selectMenuSelector = '.react-select__menu';
+      '.react-select-multi-disabled-options__value-container';
+    const selectMenuSelector = '.react-select-multi-disabled-options__menu';
     await page.goto(url);
     await page.waitForSelector(selectSelector);
     await page.click(selectSelector);

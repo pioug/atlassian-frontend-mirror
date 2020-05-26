@@ -50,10 +50,15 @@ describe('InstrumentedPlugin.prototype.apply', () => {
     const thing = {} as any;
     const mark = performance.mark as jest.Mock;
 
-    const plugin = new InstrumentedPlugin({
-      key: new PluginKey('test-key'),
-      state: { init: jest.fn(), apply },
-    });
+    const plugin = new InstrumentedPlugin(
+      {
+        key: new PluginKey('test-key'),
+        state: { init: jest.fn(), apply },
+      },
+      {
+        transactionTracking: { enabled: true },
+      },
+    );
 
     const key = (plugin as any).key;
 

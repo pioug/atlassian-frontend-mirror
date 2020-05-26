@@ -44,20 +44,22 @@ export function instrumentedInputRule(
 ) {
   const plugin = inputRules({ rules });
 
-  const handleTextInput = plugin.props.handleTextInput;
-  const timerId = `input-rule:${pluginName}`;
+  if (process.env.NODE_ENV !== 'production') {
+    const handleTextInput = plugin.props.handleTextInput;
+    const timerId = `input-rule:${pluginName}`;
 
-  plugin.props.handleTextInput = (
-    view: EditorView<any>,
-    from: number,
-    to: number,
-    text: string,
-  ) => {
-    startMeasure(timerId);
-    const result = handleTextInput!(view, from, to, text);
-    stopMeasure(timerId, () => {});
-    return result;
-  };
+    plugin.props.handleTextInput = (
+      view: EditorView<any>,
+      from: number,
+      to: number,
+      text: string,
+    ) => {
+      startMeasure(timerId);
+      const result = handleTextInput!(view, from, to, text);
+      stopMeasure(timerId, () => {});
+      return result;
+    };
+  }
 
   return plugin;
 }

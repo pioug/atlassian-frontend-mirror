@@ -22,6 +22,7 @@ const DEFAULT_SLOW_THRESHOLD = 4;
 export type PerformanceOptions = {
   samplingRate: number;
   slowThreshold: number;
+  trackingEnabled: boolean;
 };
 
 export interface State {
@@ -146,26 +147,27 @@ export default class WithPluginState extends React.Component<Props, State> {
     }
     this.debounce = window.setTimeout(() => {
       const measure = `🦉${pluginName}::WithPluginState`;
-      startMeasure(measure);
+      performanceOptions.trackingEnabled && startMeasure(measure);
 
       this.setState(this.notAppliedState, () => {
-        stopMeasure(measure, duration => {
-          // Each WithPluginState component will fire analytics event no more than once every `samplingLimit` times
-          if (
-            ++this.callsCount % performanceOptions.samplingRate === 0 &&
-            duration > performanceOptions.slowThreshold
-          ) {
-            this.dispatchAnalyticsEvent({
-              action: ACTION.WITH_PLUGIN_STATE_CALLED,
-              actionSubject: ACTION_SUBJECT.EDITOR,
-              eventType: EVENT_TYPE.OPERATIONAL,
-              attributes: {
-                plugin: pluginName,
-                duration,
-              },
-            });
-          }
-        });
+        performanceOptions.trackingEnabled &&
+          stopMeasure(measure, duration => {
+            // Each WithPluginState component will fire analytics event no more than once every `samplingLimit` times
+            if (
+              ++this.callsCount % performanceOptions.samplingRate === 0 &&
+              duration > performanceOptions.slowThreshold
+            ) {
+              this.dispatchAnalyticsEvent({
+                action: ACTION.WITH_PLUGIN_STATE_CALLED,
+                actionSubject: ACTION_SUBJECT.EDITOR,
+                eventType: EVENT_TYPE.OPERATIONAL,
+                attributes: {
+                  plugin: pluginName,
+                  duration,
+                },
+              });
+            }
+          });
       });
       this.debounce = null;
       this.notAppliedState = {};
@@ -214,6 +216,7 @@ export default class WithPluginState extends React.Component<Props, State> {
       analyticsPlugin && analyticsPlugin.performanceTracking
         ? analyticsPlugin.performanceTracking.uiTracking || {}
         : {};
+    const trackingEnabled = uiTracking.enabled === true;
     const samplingRate = uiTracking.samplingRate || DEFAULT_SAMPLING_RATE;
     const slowThreshold = uiTracking.slowThreshold || DEFAULT_SLOW_THRESHOLD;
 
@@ -234,7 +237,7 @@ export default class WithPluginState extends React.Component<Props, State> {
       const handler = this.handlePluginStateChange(
         propName,
         pluginName,
-        { samplingRate, slowThreshold },
+        { samplingRate, slowThreshold, trackingEnabled },
         isPluginWithSubscribe,
       );
 

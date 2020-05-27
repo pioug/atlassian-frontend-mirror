@@ -143,7 +143,7 @@ const StyledMenu = styled.div`
   background-color: ${N20};
   border-radius: ${borderRadius()}px;
   z-index: ${layers.dialog};
-  ${e200};
+  ${e200()};
 `;
 
 const Menu = ({

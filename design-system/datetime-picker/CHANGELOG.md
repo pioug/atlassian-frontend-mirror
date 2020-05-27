@@ -1,5 +1,11 @@
 # @atlaskit/datetime-picker
 
+## 9.4.3
+
+### Patch Changes
+
+- [`ccd9c51bd3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ccd9c51bd3) - Fixes date picker being affected by an invalid emotion theme provider.
+
 ## 9.4.2
 
 ### Patch Changes

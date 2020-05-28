@@ -11,11 +11,14 @@ export default () => {
   return (
     <>
       <Theme.Provider value={() => ({ mode: 'dark' })}>
-        <DatePicker testId="date-picker-real-dark-mode" />
+        <DatePicker
+          defaultValue="2020-02-02"
+          testId="date-picker-real-dark-mode"
+        />
         <Button>Real dark mode</Button>
       </Theme.Provider>
       <ThemeContext.Provider value={{ mode: {} }}>
-        <DatePicker testId="date-picker-theme-jank" />
+        <DatePicker defaultValue="2020-02-02" testId="date-picker-theme-jank" />
         <Button>Fake dark mode</Button>
       </ThemeContext.Provider>
     </>

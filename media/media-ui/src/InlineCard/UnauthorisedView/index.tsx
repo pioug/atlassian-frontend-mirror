@@ -1,14 +1,13 @@
 import Button from '@atlaskit/button';
 import LockIcon from '@atlaskit/icon/glyph/lock-filled';
 import { N500, R400 } from '@atlaskit/theme/colors';
-import Tooltip from '@atlaskit/tooltip';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { messages } from '../../messages';
 import { Frame } from '../Frame';
 import { AKIconWrapper } from '../Icon';
 import { IconAndTitleLayout } from '../IconAndTitleLayout';
-import { IconStyledButton, NoLinkAppearance } from '../styled';
+import { IconStyledButton, LinkAppearance } from '../styled';
 
 export interface InlineCardUnauthorizedViewProps {
   /** The url to display */
@@ -42,23 +41,23 @@ export class InlineCardUnauthorizedView extends React.Component<
   };
 
   renderMessage = () => {
-    const { onAuthorise } = this.props;
+    const { onAuthorise, url } = this.props;
+    const link = <LinkAppearance>{url}</LinkAppearance>;
     return !onAuthorise ? (
-      <FormattedMessage {...messages.invalid_permissions} />
+      link
     ) : (
-      <Button
-        spacing="none"
-        appearance="link"
-        component={IconStyledButton}
-        onClick={this.handleConnectAccount}
-      >
-        <FormattedMessage {...messages.invalid_permissions}>
-          {formattedMessage => {
-            return <NoLinkAppearance>{formattedMessage}. </NoLinkAppearance>;
-          }}
-        </FormattedMessage>
-        <FormattedMessage {...messages.connect_link_account} />
-      </Button>
+      <>
+        {link}
+        {' - '}
+        <Button
+          spacing="none"
+          appearance="subtle-link"
+          component={IconStyledButton}
+          onClick={this.handleConnectAccount}
+        >
+          <FormattedMessage {...messages.connect_link_account} />
+        </Button>
+      </>
     );
   };
 
@@ -71,13 +70,11 @@ export class InlineCardUnauthorizedView extends React.Component<
         onClick={onClick}
         isSelected={isSelected}
       >
-        <Tooltip content={url} tag="span" delay={0}>
-          <IconAndTitleLayout
-            icon={icon ? icon : FallbackUnauthorizedIcon}
-            title={this.renderMessage()}
-            titleColor={N500}
-          />
-        </Tooltip>
+        <IconAndTitleLayout
+          icon={icon ? icon : FallbackUnauthorizedIcon}
+          title={this.renderMessage()}
+          titleColor={N500}
+        />
       </Frame>
     );
   }

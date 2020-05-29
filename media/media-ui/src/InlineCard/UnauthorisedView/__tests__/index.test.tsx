@@ -16,7 +16,7 @@ describe('Unauthorised View', () => {
       </IntlProvider>,
     );
 
-    expect(container.textContent).toEqual(`You don’t have access to this link`);
+    expect(container.textContent).toEqual(testUrl);
   });
 
   it('should have a link to the url', () => {
@@ -26,7 +26,7 @@ describe('Unauthorised View', () => {
         <InlineCardUnauthorizedView url={testUrl} />
       </IntlProvider>,
     );
-    const link = getByText('link', { exact: false }).closest('a');
+    const link = getByText(testUrl, { exact: false }).closest('a');
 
     expect(link).not.toBeNull;
     expect(link!.href).toBe(testUrl);
@@ -40,8 +40,6 @@ describe('Unauthorised View', () => {
       </IntlProvider>,
     );
 
-    expect(container.textContent).toEqual(
-      `You don’t have access to this link. Connect your account to preview links`,
-    );
+    expect(container.textContent).toEqual(`${testUrl} - Connect to preview`);
   });
 });

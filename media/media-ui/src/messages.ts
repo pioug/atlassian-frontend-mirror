@@ -220,7 +220,7 @@ export const messages = defineMessages<Messages>({
   },
   connect_link_account: {
     id: 'fabric.media.connect_link_account',
-    defaultMessage: 'Connect your account to preview links',
+    defaultMessage: 'Connect to preview',
     description:
       'Shown when a user does not have access to a link, but can connect their external account to view the link.',
   },

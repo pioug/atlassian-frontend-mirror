@@ -1,5 +1,11 @@
 # @atlaskit/media-ui
 
+## 12.2.2
+
+### Patch Changes
+
+- [`91626bbac9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/91626bbac9) - hotfix: smart links auth state
+
 ## 12.2.1
 
 ### Patch Changes

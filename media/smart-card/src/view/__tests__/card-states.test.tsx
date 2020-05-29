@@ -399,7 +399,7 @@ describe('smart-card: card states', () => {
             </Provider>,
           );
           const unauthorizedLink = await waitForElement(() =>
-            getByText(/Connect your account to preview links/),
+            getByText(/Connect to preview/),
           );
           const unauthorizedLinkButton = container.querySelector(
             '[type="button"]',

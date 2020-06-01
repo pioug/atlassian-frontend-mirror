@@ -63,6 +63,7 @@ import {
   status,
   expand,
   nestedExpand,
+  embedCard,
 } from './nodes';
 
 function addItems(
@@ -171,6 +172,7 @@ const nodesInOrder: SchemaBuiltInItem[] = [
   { name: 'bodiedExtension', spec: bodiedExtension },
   { name: 'inlineCard', spec: inlineCard },
   { name: 'blockCard', spec: blockCard },
+  { name: 'embedCard', spec: embedCard },
   { name: 'unknownBlock', spec: unknownBlock },
   { name: 'unsupportedBlock', spec: unsupportedBlock },
   { name: 'unsupportedInline', spec: unsupportedInline },

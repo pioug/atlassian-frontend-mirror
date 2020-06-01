@@ -7,7 +7,7 @@ import {
   fullpage,
   setProseMirrorTextSelection,
 } from '../../../../__tests__/integration/_helpers';
-import * as paragraphWithEmoji from '../__fixtures__/paragraphWithEmoji.adf.json';
+import * as paragraphWithEmoji from '../__fixtures__/paragraph-with-emoji.adf.json';
 import { annotationSelectors } from '../_utils';
 
 BrowserTestCase(
@@ -19,7 +19,7 @@ BrowserTestCase(
     await mountEditor(page, {
       defaultValue: paragraphWithEmoji,
       appearance: fullpage.appearance,
-      annotationProvider: true,
+      annotationProviders: true,
     });
 
     await setProseMirrorTextSelection(page, { anchor: 1, head: 50 });

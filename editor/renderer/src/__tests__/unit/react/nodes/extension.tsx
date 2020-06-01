@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import Extension from '../../../../react/nodes/extension';
-import { RendererContext } from '../../../../react';
+import { RendererContext } from '../../../../react/types';
 import ReactSerializer from '../../../../react';
 import { defaultSchema } from '@atlaskit/adf-schema';
 import {

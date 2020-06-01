@@ -23,6 +23,7 @@ exports[`LinkWrapper should have hover styles when isInteractive=true 1`] = `
   -webkit-transition: background 0.3s;
   transition: background 0.3s;
   position: relative;
+  height: 432px;
 }
 
 .c0:hover {
@@ -49,7 +50,6 @@ exports[`LinkWrapper should have hover styles when isInteractive=true 1`] = `
   position: absolute;
   width: calc(100% + 16px);
   height: calc(100% + 8px);
-  z-index: -1;
   left: -8px;
   border-radius: 3px;
 }
@@ -86,6 +86,7 @@ exports[`LinkWrapper should not have hover styles when isInteractive=false 1`] =
   -webkit-transition: background 0.3s;
   transition: background 0.3s;
   position: relative;
+  height: 432px;
 }
 
 .c0:after {
@@ -96,7 +97,6 @@ exports[`LinkWrapper should not have hover styles when isInteractive=false 1`] =
   position: absolute;
   width: calc(100% + 16px);
   height: calc(100% + 8px);
-  z-index: -1;
   left: -8px;
   border-radius: 3px;
 }
@@ -134,6 +134,7 @@ exports[`Wrapper should have hover styles when isInteractive=true 1`] = `
   -webkit-transition: background 0.3s;
   transition: background 0.3s;
   position: relative;
+  height: 432px;
   margin-top: 10px;
 }
 
@@ -161,7 +162,6 @@ exports[`Wrapper should have hover styles when isInteractive=true 1`] = `
   position: absolute;
   width: calc(100% + 16px);
   height: calc(100% + 8px);
-  z-index: -1;
   left: -8px;
   border-radius: 3px;
 }
@@ -193,6 +193,7 @@ exports[`Wrapper should not have hover styles when isInteractive=false 1`] = `
   -webkit-transition: background 0.3s;
   transition: background 0.3s;
   position: relative;
+  height: 432px;
   margin-top: 10px;
 }
 
@@ -204,7 +205,6 @@ exports[`Wrapper should not have hover styles when isInteractive=false 1`] = `
   position: absolute;
   width: calc(100% + 16px);
   height: calc(100% + 8px);
-  z-index: -1;
   left: -8px;
   border-radius: 3px;
 }

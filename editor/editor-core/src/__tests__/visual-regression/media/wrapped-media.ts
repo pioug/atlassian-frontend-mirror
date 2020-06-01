@@ -1,6 +1,7 @@
 import { snapshot, Device, initFullPageEditorWithAdf } from '../_utils';
 import * as wrappedMediaAdf from './__fixtures__/wrapped-media.adf.json';
 import * as wrappedInBlockMedia from './__fixtures__/wrapped-in-block-media.adf.json';
+import { waitForLoadedImageElements } from '@atlaskit/visual-regression/helper';
 
 describe('Snapshot Test: Wrapped media', () => {
   it('should have 2 media items in 1 line when wrapped', async () => {
@@ -8,6 +9,7 @@ describe('Snapshot Test: Wrapped media', () => {
 
     await initFullPageEditorWithAdf(page, wrappedMediaAdf, Device.LaptopHiDPI);
 
+    await waitForLoadedImageElements(page, 3000);
     await snapshot(page);
   });
 

@@ -1,4 +1,5 @@
 import { CardAppearance } from '@atlaskit/smart-card';
+import { AnnotationId, AnnotationTypes } from '@atlaskit/adf-schema';
 import { toNativeBridge } from './editor/web-to-native';
 import {
   PromiseName,
@@ -8,6 +9,8 @@ import {
   GetAccountIdPayload,
   GetResolvedLinkPayload,
   GetLinkResolvePayload,
+  SelectionPayload,
+  GetAnnotationStatesPayload,
 } from './types';
 
 const pendingPromises: Map<string, Holder<any>> = new Map<
@@ -26,6 +29,10 @@ export interface SubmitPromiseToNative<T> {
   submit(): Promise<T>;
 }
 
+export function createPromise(
+  name: 'onSelection',
+  args: SelectionPayload,
+): SubmitPromiseToNative<void>;
 export function createPromise(
   name: 'getAuth',
   args: string,
@@ -48,6 +55,13 @@ export function createPromise(
   name: 'getLinkResolve',
   args: { url: string; appearance: CardAppearance },
 ): SubmitPromiseToNative<GetLinkResolvePayload>;
+export function createPromise(
+  name: 'getAnnotationStates',
+  args: {
+    annotationIds: AnnotationId[];
+    annotationType: AnnotationTypes;
+  },
+): SubmitPromiseToNative<GetAnnotationStatesPayload>;
 export function createPromise<T>(
   name: PromiseName,
   rawArgs?: unknown,

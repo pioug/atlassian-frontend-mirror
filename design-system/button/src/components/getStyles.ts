@@ -83,7 +83,7 @@ const staticStyles = {
   display: 'inline-flex',
   fontSize: 'inherit',
   fontStyle: 'normal',
-  fontWeight: 'normal',
+  fontWeight: '500',
   maxWidth: '100%',
   outline: 'none !important',
   textAlign: 'center',

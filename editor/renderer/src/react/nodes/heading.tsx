@@ -10,6 +10,7 @@ import {
 } from '../../analytics/enums';
 import AnalyticsContext from '../../analytics/analyticsContext';
 import { CopyTextConsumer } from './copy-text-provider';
+import { NodeProps } from '../types';
 
 export type HeadingLevels = 1 | 2 | 3 | 4 | 5 | 6;
 
@@ -20,17 +21,17 @@ const getCurrentUrlWithHash = (hash: string = ''): string => {
 };
 
 function Heading(
-  props: {
+  props: NodeProps<{
     level: HeadingLevels;
     headingId?: string;
     showAnchorLink?: boolean;
-  } & React.Props<any>,
+  }>,
 ) {
-  const { headingId } = props;
+  const { headingId, dataAttributes } = props;
   const HX = `h${props.level}` as 'h1';
 
   return (
-    <HX id={headingId}>
+    <HX id={headingId} {...dataAttributes}>
       {!!props.showAnchorLink && (
         <CopyTextConsumer>
           {({ copyTextToClipboard }) => {

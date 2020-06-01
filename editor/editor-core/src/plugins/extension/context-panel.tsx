@@ -28,7 +28,10 @@ export const getContextPanel = (allowAutoSave?: boolean) => (
     const node = extensionState.nodeWithPos.node.toJSON();
     const { extensionType, extensionKey, parameters, content } = node.attrs;
 
-    const [extKey, nodeKey] = getExtensionKeyAndNodeKey(extensionKey);
+    const [extKey, nodeKey] = getExtensionKeyAndNodeKey(
+      extensionKey,
+      extensionType,
+    );
 
     const configParams = extensionState.processParametersBefore
       ? extensionState.processParametersBefore(parameters)

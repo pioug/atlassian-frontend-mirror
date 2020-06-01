@@ -36,6 +36,7 @@ import { getParentNodeWidth } from '../../../utils/node-width';
 import { getPluginState } from '../pm-plugins/plugin-factory';
 import { Props, TableOptions } from './types';
 import { updateOverflowShadows } from './update-overflow-shadows';
+import { parsePx } from '../../../utils/dom';
 
 const isIE11 = browser.ie_version === 11;
 
@@ -216,6 +217,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
       <div
         style={{
           width: tableContainerWidth,
+          marginLeft: this.getMarginLeft(tableContainerWidth),
         }}
         className={classnames(ClassName.TABLE_CONTAINER, {
           [ClassName.WITH_CONTROLS]: allowControls && tableActive,
@@ -252,6 +254,20 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
       </div>
     );
   }
+
+  private getMarginLeft = (tableContainerCssWidth: string) => {
+    const { containerWidth } = this.props;
+    const { lineLength } = containerWidth;
+    let marginLeft;
+    if (tableContainerCssWidth !== 'inherit' && lineLength) {
+      const containerWidth = parsePx(tableContainerCssWidth);
+
+      if (containerWidth) {
+        marginLeft = (lineLength - containerWidth) / 2;
+      }
+    }
+    return marginLeft;
+  };
 
   private handleScroll = (event: Event) => {
     if (!this.wrapper || event.target !== this.wrapper) {

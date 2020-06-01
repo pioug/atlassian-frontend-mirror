@@ -242,29 +242,14 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
           value: { name: 'A' },
         },
       ];
-      const sortedItems = [
-        {
-          content: 'A',
-          value: { name: 'A' },
-        },
-        {
-          content: 'B',
-          value: { name: 'B' },
-        },
-        {
-          content: 'C',
-          value: { name: 'C' },
-        },
-        {
-          content: 'D',
-          value: { name: 'D' },
-        },
-      ];
+
+      const expected = ['A', 'B', 'C', 'D'];
+
       buildToolbar({
         insertMenuItems: customItems,
       });
       const items = toolbarOption.find(DropdownMenu).prop('items')[0];
-      expect(items.items).toEqual(sortedItems);
+      expect(items.items.map(item => item.content)).toEqual(expected);
     });
     it('should sort alphabetically with non-macro items at end', () => {
       const customItemsWithMacros = [
@@ -285,29 +270,12 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
           value: { name: 'A' },
         },
       ];
-      const sortedItems = [
-        {
-          content: 'A',
-          value: { name: 'A' },
-        },
-        {
-          content: 'B',
-          value: { name: 'B' },
-        },
-        {
-          content: 'A macro',
-          value: { name: 'A Macro' },
-        },
-        {
-          content: 'B macro',
-          value: { name: 'B Macro' },
-        },
-      ];
+      const sortedItems = ['A', 'B', 'A macro', 'B macro'];
       buildToolbar({
         insertMenuItems: customItemsWithMacros,
       });
       const items = toolbarOption.find(DropdownMenu).prop('items')[0];
-      expect(items.items).toEqual(sortedItems);
+      expect(items.items.map(item => item.content)).toEqual(sortedItems);
     });
     it('macro browser should always be last item if there is no slash-onboarding', () => {
       const customItems = [
@@ -328,29 +296,12 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
           value: { name: 'macro-zz' },
         },
       ];
-      const sortedItems = [
-        {
-          content: 'Action',
-          value: { name: 'action' },
-        },
-        {
-          content: 'Date',
-          value: { name: 'date' },
-        },
-        {
-          content: 'ZZ',
-          value: { name: 'macro-zz' },
-        },
-        {
-          content: 'View more',
-          value: { name: 'macro-browser' },
-        },
-      ];
+      const sortedItems = ['Action', 'Date', 'ZZ', 'View more'];
       buildToolbar({
         insertMenuItems: customItems,
       });
       const items = toolbarOption.find(DropdownMenu).prop('items')[0];
-      expect(items.items).toEqual(sortedItems);
+      expect(items.items.map(item => item.content)).toEqual(sortedItems);
     });
     it('slash onboarding should always be last item', () => {
       const customItems = [
@@ -371,29 +322,12 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
           value: { name: 'macro' },
         },
       ];
-      const sortedItems = [
-        {
-          content: 'Macro',
-          value: { name: 'macro' },
-        },
-        {
-          content: 'ZZ',
-          value: { name: 'ZZ' },
-        },
-        {
-          content: 'View more',
-          value: { name: 'macro-browser' },
-        },
-        {
-          content: 'Some help text',
-          value: { name: 'slash-onboarding' },
-        },
-      ];
+      const sortedItems = ['Macro', 'ZZ', 'View more', 'Some help text'];
       buildToolbar({
         insertMenuItems: customItems,
       });
       const items = toolbarOption.find(DropdownMenu).prop('items')[0];
-      expect(items.items).toEqual(sortedItems);
+      expect(items.items.map(item => item.content)).toEqual(sortedItems);
     });
   });
 

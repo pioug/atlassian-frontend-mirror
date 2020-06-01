@@ -11,6 +11,7 @@ import { Page as PuppeteerPage, JSONObject } from 'puppeteer';
 import { animationFrame } from '../__helpers/page-objects/_editor';
 import { GUTTER_SELECTOR } from '../../plugins/base/pm-plugins/scroll-gutter';
 import { CreateCollabProviderOptions } from '@atlaskit/synchrony-test-helpers';
+import { Page } from '../__helpers/page-objects/_types';
 
 export {
   setupMediaMocksProviders,
@@ -354,6 +355,7 @@ export const initFullPageEditorWithAdf = async (
   editorProps?: EditorProps,
   mode?: 'light' | 'dark',
   allowSideEffects?: SideEffectOptions,
+  forceReload?: boolean,
 ) => {
   await initEditorWithAdf(page, {
     adf,
@@ -363,6 +365,7 @@ export const initFullPageEditorWithAdf = async (
     editorProps,
     mode,
     allowSideEffects,
+    forceReload,
   });
 };
 
@@ -456,4 +459,25 @@ export const applyRemoteStep = async (
   return await page.evaluate((_stepsAsString: string[]) => {
     (window as any).__applyRemoteSteps(_stepsAsString);
   }, stepsAsString);
+};
+
+export const getContentBoundingRectTopLeftCoords = async (
+  page: Page,
+  elementSelector: string,
+) => {
+  // page.click clicks in centre of element, so we need to get the bounding rect
+  // so we can click the top left corner
+  const boundingRectCoords = await page.evaluate(selector => {
+    const element = document.querySelector(selector);
+    if (element) {
+      const rect = element.getBoundingClientRect();
+      return { top: rect.top, left: rect.left };
+    }
+  }, elementSelector);
+
+  if (!boundingRectCoords) {
+    throw Error(`Unable to find element ${elementSelector} on page`);
+  }
+
+  return boundingRectCoords;
 };

@@ -1,5 +1,14 @@
 # @atlaskit/media-test-helpers
 
+## 27.2.1
+
+### Patch Changes
+
+- [`a2ffde361d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a2ffde361d) - MPT-131: fetch remote preview for files not supported by the browser
+- [`054e719497`](https://bitbucket.org/atlassian/atlassian-frontend/commits/054e719497) - Replace deprecated Media URLs with latest
+- [`54d82b49f0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54d82b49f0) - Remove unused dependencies
+- Updated dependencies
+
 ## 27.2.0
 
 ### Minor Changes

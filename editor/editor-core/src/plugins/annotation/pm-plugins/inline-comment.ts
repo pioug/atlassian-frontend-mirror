@@ -1,20 +1,30 @@
 import { EditorState, Plugin } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
-import { CommandDispatch } from '../../../types';
+import { AnnotationTypes } from '@atlaskit/adf-schema';
 import { AnnotationNodeView } from '../ui';
 import {
-  AnnotationTypeProviders,
+  updateInlineCommentResolvedState,
+  updateMouseState,
+  clearDirtyMark,
+} from '../commands';
+import { InlineCommentAnnotationProvider } from '../types';
+import {
   InlineCommentPluginState,
   InlineCommentMap,
-  AnnotationTypes,
-} from '../types';
+  InlineCommentPluginOptions,
+} from './types';
+import { CommandDispatch } from '../../../types';
 import { getAllAnnotations } from '../utils';
-import { setInlineCommentState, updateMouseState } from '../commands';
-import { createPluginState, inlineCommentPluginKey } from './plugin-factory';
-import { InlineCommentPluginOptions } from './types';
+import { inlineCommentPluginKey, createPluginState } from './plugin-factory';
 
-const fetchProviderAnnotationStates = async (
-  provider: AnnotationTypeProviders['inlineComment'],
+export const getPluginState = (
+  state: EditorState,
+): InlineCommentPluginState => {
+  return inlineCommentPluginKey.getState(state);
+};
+
+const fetchProviderStates = async (
+  provider: InlineCommentAnnotationProvider,
   annotationIds: string[],
 ): Promise<InlineCommentMap> => {
   const data = await provider.getState(annotationIds);
@@ -27,108 +37,113 @@ const fetchProviderAnnotationStates = async (
   return result;
 };
 
-const fetchInlineCommentStates = (
-  provider: AnnotationTypeProviders['inlineComment'],
+// fetchState is unable to return a command as it's runs async and may dispatch at a later time
+// Requires `editorView` instead of the decomposition as the async means state may end up stale
+const fetchState = async (
+  provider: InlineCommentAnnotationProvider,
   annotationIds: string[],
-): Promise<InlineCommentMap> =>
-  fetchProviderAnnotationStates(provider, annotationIds);
+  editorView: EditorView,
+) => {
+  const inlineCommentStates = await fetchProviderStates(
+    provider,
+    annotationIds,
+  );
 
-export const getPluginState = (
-  state: EditorState,
-): InlineCommentPluginState => {
-  return inlineCommentPluginKey.getState(state);
+  if (editorView.dispatch) {
+    updateInlineCommentResolvedState(inlineCommentStates)(
+      editorView.state,
+      editorView.dispatch,
+    );
+  }
 };
 
-function fetchState(
-  provider: AnnotationTypeProviders['inlineComment'],
-  annotationIds: string[],
-  state: EditorState,
-  dispatch?: CommandDispatch,
-) {
-  return async function() {
-    const inlineCommentStates = await fetchInlineCommentStates(
-      provider,
-      annotationIds,
-    );
-
-    if (dispatch) {
-      setInlineCommentState(inlineCommentStates)(state, dispatch);
-    }
+const initialState = (): InlineCommentPluginState => {
+  return {
+    annotations: {},
+    annotationsInSelection: [],
+    mouseData: {
+      x: 0,
+      y: 0,
+      isSelecting: false,
+    },
   };
-}
+};
+
+const hideToolbar = (state: EditorState, dispatch: CommandDispatch) => () => {
+  updateMouseState({ isSelecting: true })(state, dispatch);
+};
+
+// Subscribe to updates from consumer
+const onResolve = (state: EditorState, dispatch: CommandDispatch) => (
+  annotationId: string,
+) => {
+  updateInlineCommentResolvedState({ [annotationId]: true })(state, dispatch);
+};
+
+const onUnResolve = (state: EditorState, dispatch: CommandDispatch) => (
+  annotationId: string,
+) => {
+  updateInlineCommentResolvedState({ [annotationId]: false })(state, dispatch);
+};
+
+const onMouseUp = (state: EditorState, dispatch: CommandDispatch) => (
+  e: Event,
+) => {
+  const { clientX, clientY } = e as MouseEvent;
+  updateMouseState({ isSelecting: false, x: clientX, y: clientY })(
+    state,
+    dispatch,
+  );
+};
 
 export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
-  const {
-    inlineCommentProvider,
-    dispatch,
-    portalProviderAPI,
-    eventDispatcher,
-    pollingInterval,
-  } = options;
+  const { provider, portalProviderAPI, eventDispatcher } = options;
 
   return new Plugin({
     key: inlineCommentPluginKey,
-    state: createPluginState(dispatch, {
-      annotations: {},
-      mouseData: {
-        x: 0,
-        y: 0,
-        isSelecting: false,
-      },
-    }),
+    state: createPluginState(options.dispatch, initialState()),
 
     view(editorView: EditorView) {
       // Get initial state
-      fetchState(
-        inlineCommentProvider,
-        getAllAnnotations(editorView.state.doc),
-        editorView.state,
-        editorView.dispatch,
-      )();
+      // Need to pass `editorView` to mitigate editor state going stale
+      fetchState(provider, getAllAnnotations(editorView.state.doc), editorView);
 
-      const timerId = setInterval(() => {
-        fetchState(
-          inlineCommentProvider,
-          getAllAnnotations(editorView.state.doc),
-          editorView.state,
-          editorView.dispatch,
-        )();
-      }, pollingInterval || 10000);
+      const toolbar = () =>
+        hideToolbar(editorView.state, editorView.dispatch)();
+      const resolve = (annotationId: string) =>
+        onResolve(editorView.state, editorView.dispatch)(annotationId);
+      const unResolve = (annotationId: string) =>
+        onUnResolve(editorView.state, editorView.dispatch)(annotationId);
+      const mouseUp = (event: Event) =>
+        onMouseUp(editorView.state, editorView.dispatch)(event);
 
-      const hideToolbar = () => {
-        updateMouseState({ isSelecting: true })(
-          editorView.state,
-          editorView.dispatch,
-        );
-      };
+      const { updateSubscriber } = provider;
+      if (updateSubscriber) {
+        updateSubscriber.on('resolve', resolve).on('unresolve', unResolve);
+      }
 
-      const onMouseUp = (e: Event) => {
-        updateMouseState({ isSelecting: false })(
-          editorView.state,
-          editorView.dispatch,
-        );
-
-        const selection = document.getSelection();
-
-        if (!selection || selection.type === 'Caret') {
-          return;
-        }
-
-        const mouseEvent = e as MouseEvent;
-        updateMouseState({ x: mouseEvent.clientX, y: mouseEvent.clientY })(
-          editorView.state,
-          editorView.dispatch,
-        );
-      };
-
-      editorView.dom.addEventListener('mousedown', hideToolbar);
-      editorView.dom.addEventListener('mouseup', onMouseUp);
+      editorView.dom.addEventListener('mousedown', toolbar);
+      editorView.dom.addEventListener('mouseup', mouseUp);
 
       return {
+        update(view: EditorView, _prevState: EditorState) {
+          const { dirtyAnnotations } = getPluginState(view.state);
+          if (!dirtyAnnotations) {
+            return;
+          }
+
+          clearDirtyMark()(view.state, view.dispatch);
+          fetchState(provider, getAllAnnotations(view.state.doc), view);
+        },
+
         destroy() {
-          clearInterval(timerId);
-          editorView.dom.removeEventListener('mousedown', hideToolbar);
-          editorView.dom.removeEventListener('mouseup', onMouseUp);
+          editorView.dom.removeEventListener('mousedown', toolbar);
+          editorView.dom.removeEventListener('mouseup', mouseUp);
+          if (updateSubscriber) {
+            updateSubscriber
+              .off('resolve', resolve)
+              .off('unresolve', unResolve);
+          }
         },
       };
     },

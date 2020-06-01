@@ -159,27 +159,6 @@
     "description": "Shared Invision screen in a project from a personal account"
   },
   {
-    "provider": "Trello (Public)",
-    "visibility": "public",
-    "type": "Collection",
-    "url": "https://trello.com/b/8B5zyiSn/test-smart-card-board",
-    "description": "Trello public board (Collection)"
-  },
-  {
-    "provider": "Trello (Public)",
-    "visibility": "public",
-    "type": "Task",
-    "url": "https://trello.com/c/gfrst89H/4-much-muffins",
-    "description": "Trello public card (Task)"
-  },
-  {
-    "provider": "Trello (Public)",
-    "visibility": "public",
-    "type": "Task",
-    "url": "https://trello.com/c/gfrst89H/4-much-muffins",
-    "description": "Trello public card (Task)"
-  },
-  {
     "provider": "Bitbucket",
     "visibility": "public",
     "type": "Source Code Pull Request",

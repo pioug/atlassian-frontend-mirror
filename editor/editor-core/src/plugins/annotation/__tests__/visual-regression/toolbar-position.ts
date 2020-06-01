@@ -14,14 +14,14 @@ import {
   initFullPageEditorWithAdf,
 } from '../../../../__tests__/visual-regression/_utils';
 import adfExperiment from '../__fixtures__/toolbar-position.adf.json';
-import { annotationSelectors } from '../_utils';
+import { annotationSelectors, getState } from '../_utils';
 
 const evaluateCoordinates = async (page: Page, pos: number) => {
   return await page.evaluate(p => {
     const editor = (window as any).__editorView as EditorView;
     const coords = editor.coordsAtPos(p);
 
-    // returning coords immedaitely causes it to fail
+    // returning coords immediately causes it to fail
     return {
       top: coords.top,
       left: coords.left,
@@ -52,16 +52,11 @@ describe('Annotation toolbar positioning', () => {
       undefined,
       { width: 1366, height: 768 },
       {
-        annotationProvider: {
-          createComponent: ExampleCreateInlineCommentComponent,
-          viewComponent: ExampleViewInlineCommentComponent,
-          providers: {
-            inlineComment: {
-              pollingInterval: 10000,
-              getState: async (annotationsIds: string[]) => {
-                return [];
-              },
-            },
+        annotationProviders: {
+          inlineComment: {
+            createComponent: ExampleCreateInlineCommentComponent,
+            viewComponent: ExampleViewInlineCommentComponent,
+            getState,
           },
         },
       },

@@ -131,6 +131,7 @@ export default () => {
       <Label htmlFor="react-select-timepicker-1--input" label="default" />
       <TimePicker
         id="timepicker-1"
+        testId="timepicker-1"
         onChange={onChange}
         selectProps={{ classNamePrefix: 'timepicker-select' }}
       />

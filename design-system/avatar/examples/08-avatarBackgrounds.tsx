@@ -6,8 +6,7 @@ import { colors } from '@atlaskit/theme';
 import { avatarUrl } from '../examples-util/data';
 import { Code, Note } from '../examples-util/helpers';
 import nucleusImage from '../examples-util/nucleus.png';
-import Avatar from '../src';
-import { AppearanceType, PresenceType, StatusType } from '../src/types';
+import Avatar, { AppearanceType, PresenceType, StatusType } from '../src';
 
 const exampleColors: string[] = [
   colors.N800,

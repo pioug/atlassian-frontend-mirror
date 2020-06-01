@@ -1,5 +1,25 @@
 # @atlaskit/media-card
 
+## 68.0.0
+
+### Major Changes
+
+- [`4ffbda40ca`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ffbda40ca) - Rename OriginalCardDimensions TS interface to NumericalCardDimensions
+
+### Minor Changes
+
+- [`65ee549c4c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/65ee549c4c) - ED-8836 Make media single selected styling consistent
+- [`c3b799c7eb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c3b799c7eb) - add optional createdAt field
+
+### Patch Changes
+
+- [`a2ffde361d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a2ffde361d) - MPT-131: fetch remote preview for files not supported by the browser
+- [`58de72f246`](https://bitbucket.org/atlassian/atlassian-frontend/commits/58de72f246) - Updates properties documentation
+- [`2b8e73b021`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2b8e73b021) - Cache dataURIs so that there is no flickering in image when table is resized
+- [`b6003252e5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b6003252e5) - Remove unneeded FileCard Component
+- [`54d82b49f0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54d82b49f0) - Remove unused dependencies
+- Updated dependencies
+
 ## 67.2.3
 
 ### Patch Changes

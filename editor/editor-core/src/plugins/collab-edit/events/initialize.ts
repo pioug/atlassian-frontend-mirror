@@ -13,6 +13,7 @@ import { pluginKey } from '../plugin-key';
 import { CollabEditProvider } from '../provider';
 import { unsubscribeAllEvents } from './unsubscribe';
 import { PrivateCollabEditOptions } from '../types';
+import { addSynchronyErrorAnalytics } from '../analytics';
 
 const initCollab = (
   collabEditProvider: CollabEditProvider,
@@ -56,9 +57,7 @@ export const initialize = ({ options, providerFactory, view }: Props) => (
       view.dispatch(tr);
     })
     .on('error', error => {
-      // TODO: Handle errors property (ED-2580)
-      // eslint-disable-next-line no-console
-      console.log('error: ', error);
+      addSynchronyErrorAnalytics(view.state, view.state.tr)(error);
     });
   // Initialize provider
   /**

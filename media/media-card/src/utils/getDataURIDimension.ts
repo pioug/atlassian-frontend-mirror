@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import { isRetina } from './isRetina';
-import { CardDimensions, CardAppearance } from '..';
+import { CardDimensions } from '..';
 import { ElementDimension, getElementDimension } from './getElementDimension';
 import { defaultImageCardDimensions } from './cardDimensions';
 import { isValidPercentageUnit } from './isValidPercentageUnit';
@@ -9,7 +9,6 @@ import { containsPixelUnit } from './containsPixelUnit';
 export type getDataURIDimensionOptions = {
   component: Component;
   dimensions?: CardDimensions;
-  appearance?: CardAppearance;
 };
 
 export const getDataURIDimension = (

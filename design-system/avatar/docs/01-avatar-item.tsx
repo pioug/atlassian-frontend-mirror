@@ -22,7 +22,7 @@ ${(
 ${(
   <Props
     heading="Avatar Item Props"
-    props={require('!!extract-react-types-loader!../src/components/AvatarItem')}
+    props={require('!!extract-react-types-loader!../src/AvatarItem')}
   />
 )}
 `;

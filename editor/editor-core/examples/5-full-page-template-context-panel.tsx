@@ -4,6 +4,10 @@ import { colors } from '@atlaskit/theme';
 
 import EditorContext from './../src/ui/EditorContext';
 import WithEditorActions from './../src/ui/WithEditorActions';
+
+import { getXProductExtensionProvider } from '../example-helpers/fake-x-product-extensions';
+import { getConfluenceMacrosExtensionProvider } from '../example-helpers/confluence-macros';
+
 import { ExampleEditor, LOCALSTORAGE_defaultDocKey } from './5-full-page';
 
 import decisionAdf from '../example-helpers/templates/decision.adf.json';
@@ -161,6 +165,11 @@ class EditorWithSidebar extends React.Component {
       <ExampleEditor
         onChange={this.onChange}
         defaultValue={defaultValue}
+        extensionProviders={editorActions => [
+          getXProductExtensionProvider(),
+          getConfluenceMacrosExtensionProvider(editorActions),
+        ]}
+        allowExtension={{ allowAutoSave: true, allowLocalIdGeneration: true }}
         contextPanel={
           <WithEditorActions
             render={actions => (

@@ -153,3 +153,9 @@ export { InlineFormattedText } from './types/inline-content';
 export { Inline } from './types/inline-content';
 export { NestedExpandContent } from './nested-expand';
 export { Layout as ExtensionLayout } from './types/extensions';
+export {
+  embedCard,
+  EmbedCardDefinition,
+  EmbedLayout,
+  EmbedCardAttributes,
+} from './embed-card';

@@ -1,6 +1,12 @@
 import { TaskState } from '@atlaskit/task-decision';
 
-export type ScrollToContentNode = 'mention' | 'action' | 'decision' | 'heading';
+export enum ScrollToContentNode {
+  MENTION = 'mention',
+  ACTION = 'action',
+  DECISION = 'decision',
+  HEADING = 'heading',
+  INLINE_COMMENT = 'inlineComment',
+}
 
 export interface TaskDecisionBridge {
   onTaskUpdated(localId: string, state: TaskState): void;

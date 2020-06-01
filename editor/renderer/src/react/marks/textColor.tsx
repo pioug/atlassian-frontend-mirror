@@ -1,4 +1,11 @@
 import React from 'react';
-export default function TextColor(props: { color: string } & React.Props<any>) {
-  return <span style={{ color: props.color }}>{props.children}</span>;
+import { TextColorAttributes } from '@atlaskit/adf-schema';
+import { MarkProps } from '../types';
+
+export default function TextColor(props: MarkProps<TextColorAttributes>) {
+  return (
+    <span {...props.dataAttributes} style={{ color: props.color }}>
+      {props.children}
+    </span>
+  );
 }

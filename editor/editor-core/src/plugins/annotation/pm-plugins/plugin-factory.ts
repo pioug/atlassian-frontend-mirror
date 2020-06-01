@@ -1,9 +1,12 @@
-import { PluginKey } from 'prosemirror-state';
-import { pluginFactory } from '../../../utils/plugin-state-factory';
-import { InlineCommentAction, InlineCommentPluginState } from '../types';
-import { ACTIONS } from './actions';
+import { PluginKey, Transaction } from 'prosemirror-state';
 import { DecorationSet } from 'prosemirror-view';
-import { addDraftDecoration } from '../utils';
+import { pluginFactory } from '../../../utils/plugin-state-factory';
+import { addDraftDecoration, findAnnotationsInSelection } from '../utils';
+import {
+  ACTIONS,
+  InlineCommentAction,
+  InlineCommentPluginState,
+} from './types';
 
 export const inlineCommentPluginKey = new PluginKey('inlineCommentPluginKey');
 
@@ -12,13 +15,11 @@ function reducer(
   action: InlineCommentAction,
 ): InlineCommentPluginState {
   switch (action.type) {
-    case ACTIONS.INLINE_COMMENT_RESOLVE:
+    case ACTIONS.UPDATE_INLINE_COMMENT_STATE:
       return {
         ...pluginState,
-        annotations: { ...pluginState.annotations, [action.data.id]: true },
+        annotations: { ...pluginState.annotations, ...action.data },
       };
-    case ACTIONS.SET_INLINE_COMMENT_STATE:
-      return { ...pluginState, annotations: action.data };
     case ACTIONS.INLINE_COMMENT_UPDATE_MOUSE_STATE:
       const mouseData = Object.assign(
         {},
@@ -54,15 +55,47 @@ function reducer(
       }
 
       return newState;
+    case ACTIONS.INLINE_COMMENT_CLEAR_DIRTY_MARK:
+      return {
+        ...pluginState,
+        dirtyAnnotations: false,
+        annotations: {},
+      };
     default:
       return pluginState;
   }
 }
 
+const handleDocChanged = (
+  tr: Transaction,
+  prevPluginState: InlineCommentPluginState,
+): InlineCommentPluginState => {
+  if (!tr.getMeta('replaceDocument')) {
+    return prevPluginState;
+  }
+
+  return { ...prevPluginState, dirtyAnnotations: true };
+};
+
+const handleSelectionChanged = (
+  tr: Transaction,
+  pluginState: InlineCommentPluginState,
+): InlineCommentPluginState => {
+  pluginState.annotationsInSelection = findAnnotationsInSelection(
+    tr.selection,
+    tr.doc,
+  ).map(annotation => annotation.id);
+
+  return pluginState;
+};
+
 export const { createPluginState, createCommand } = pluginFactory(
   inlineCommentPluginKey,
   reducer,
   {
+    onSelectionChanged: handleSelectionChanged,
+    onDocChanged: handleDocChanged,
+
     mapping: (tr, pluginState) => {
       let { draftDecorationSet, bookmark } = pluginState;
       let mappedDecorationSet, mappedBookmark;

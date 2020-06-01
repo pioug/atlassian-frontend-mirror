@@ -2,12 +2,11 @@ import React from 'react';
 import { EventHandler, MouseEvent, KeyboardEvent } from 'react';
 import PropTypes from 'prop-types';
 import { Card as SmartCard } from '@atlaskit/smart-card';
+import { UnsupportedInline, ZERO_WIDTH_SPACE } from '@atlaskit/editor-common';
 import { findOverflowScrollParent } from '@atlaskit/editor-common';
 import rafSchedule from 'raf-schd';
 
-import { ZeroWidthSpace } from '../../../utils';
 import { SmartCardProps, Card } from './genericCard';
-import UnsupportedInlineNode from '../../unsupported-content/nodeviews/unsupported-inline';
 import { SelectionBasedNodeView } from '../../../nodeviews/ReactNodeView';
 import { registerCard } from '../pm-plugins/actions';
 
@@ -52,9 +51,10 @@ export class InlineCardComponent extends React.PureComponent<SmartCardProps> {
 
     const card = (
       <span>
-        <span>{ZeroWidthSpace}</span>
+        <span>{ZERO_WIDTH_SPACE}</span>
         <span className="card">
           <SmartCard
+            key={url}
             url={url}
             data={data}
             appearance="inline"
@@ -77,7 +77,7 @@ export class InlineCardComponent extends React.PureComponent<SmartCardProps> {
   }
 }
 
-const WrappedInlineCard = Card(InlineCardComponent, UnsupportedInlineNode);
+const WrappedInlineCard = Card(InlineCardComponent, UnsupportedInline);
 
 export class InlineCard extends SelectionBasedNodeView {
   render() {

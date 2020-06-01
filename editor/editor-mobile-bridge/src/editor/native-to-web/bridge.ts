@@ -49,4 +49,5 @@ export default interface NativeToWebBridge {
   undo(): void;
   redo(): void;
   setKeyboardControlsHeight(height: string): void;
+  setSelection(payload: string): void;
 }

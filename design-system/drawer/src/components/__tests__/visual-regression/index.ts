@@ -40,7 +40,7 @@ describe('Snapshot Test', () => {
     await page.waitForSelector(button);
 
     await page.click(button);
-    await page.waitFor(300);
+    await page.waitFor(350);
 
     const image = await page.screenshot();
     expect(image).toMatchProdImageSnapshot();

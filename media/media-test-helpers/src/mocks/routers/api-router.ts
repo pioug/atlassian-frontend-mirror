@@ -12,6 +12,8 @@ import {
   getMediaTypeFromMimeType,
   MediaCollectionItemFullDetails,
   TouchFileDescriptor,
+  ItemsPayload,
+  ResponseFileItem,
 } from '@atlaskit/media-client';
 
 import {
@@ -372,32 +374,32 @@ export function createApiRouter(
   });
 
   router.post('/items', ({ body }, database) => {
-    const { descriptors } = JSON.parse(body);
-    const records = descriptors.map((descriptor: any) => {
-      const record = database.findOne('collectionItem', {
-        id: descriptor.id,
-        // TODO [MS-2249]: add collectionName: descriptor.collection check
-      });
-      if (record) {
-        return {
-          type: 'file',
+    const { descriptors } = JSON.parse(body) as {
+      descriptors: TouchFileDescriptor[];
+    };
+    const fileItems = descriptors
+      .map((descriptor: any) => {
+        const record = database.findOne('collectionItem', {
           id: descriptor.id,
-          collection: descriptor.collection,
-          details: record.data.details,
-        };
-      }
-      return null;
-    });
+          // TODO [MS-2249]: add collectionName: descriptor.collection check
+        });
+        if (record) {
+          return {
+            type: 'file',
+            id: descriptor.id,
+            collection: descriptor.collection,
+            details: record.data.details,
+          } as ResponseFileItem;
+        }
+        return null;
+      })
+      .filter((fileItem): fileItem is ResponseFileItem => fileItem !== null);
 
-    if (records.length) {
-      return {
-        data: {
-          items: records,
-        },
-      };
-    } else {
-      return new KakapoResponse(404, undefined, {});
-    }
+    return {
+      data: {
+        items: fileItems,
+      } as ItemsPayload,
+    };
   });
 
   router.post('/file/copy/withToken', (request, database) => {

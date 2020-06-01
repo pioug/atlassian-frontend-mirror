@@ -1,5 +1,15 @@
 # @atlaskit/media-viewer
 
+## 44.4.2
+
+### Patch Changes
+
+- [`a2ffde361d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a2ffde361d) - MPT-131: fetch remote preview for files not supported by the browser
+- [`cc5935bf4f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cc5935bf4f) - Use MediaTypeIcon from media-ui
+- [`54d82b49f0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54d82b49f0) - Remove unused dependencies
+- [`98f462e2aa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/98f462e2aa) - Bumping use the latest version of @atlaskit/spinner
+- Updated dependencies
+
 ## 44.4.1
 
 ### Patch Changes

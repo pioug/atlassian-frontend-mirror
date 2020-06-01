@@ -1,13 +1,13 @@
 import { auth } from '@atlaskit/outbound-auth-flow-client';
+import { JsonLd } from 'json-ld-types';
 
-import { AnalyticsHandler } from '../../utils/types';
+import { cardAction } from './helpers';
 import {
-  cardAction,
   getDefinitionId,
   getByDefinitionId,
   getServices,
   getStatus,
-} from './helpers';
+} from '../helpers';
 import {
   ACTION_PENDING,
   ACTION_RESOLVING,
@@ -15,41 +15,27 @@ import {
   ACTION_ERROR,
   ERROR_MESSAGE_OAUTH,
   ERROR_MESSAGE_FATAL,
-  ANALYTICS_RESOLVING,
-  ANALYTICS_ERROR,
-  ANALYTICS_FALLBACK,
+  ACTION_ERROR_FALLBACK,
 } from './constants';
 import { CardAppearance } from '../../view/Card';
 import {
-  invokeSucceededEvent,
-  invokeFailedEvent,
-  uiActionClickedEvent,
-  resolvedEvent,
-  unresolvedEvent,
-  uiAuthEvent,
-  uiAuthAlternateAccountEvent,
-  trackAppAccountConnected,
-  connectSucceededEvent,
-  connectFailedEvent,
-  uiClosedAuthEvent,
-  screenAuthPopupEvent,
   MESSAGE_WINDOW_CLOSED,
   KEY_WINDOW_CLOSED,
   KEY_SENSITIVE_DATA,
 } from '../../utils/analytics';
-import { useSmartLinkContext } from '../context';
-import {
-  JsonLdCustom,
-  InvokeServerOpts,
-  InvokeClientOpts,
-} from '../../client/types';
-import { FetchError } from '../../client/errors';
-import { JsonLd } from 'json-ld-types';
 
-export function useSmartCardActions(
+import { useSmartLinkContext } from '../context';
+import { InvokeServerOpts, InvokeClientOpts } from '../../model/invoke-opts';
+import * as measure from '../../utils/performance';
+import { AnalyticsFacade } from '../analytics';
+import { APIError } from '../../client/errors';
+import { getUnauthorizedJsonLd } from '../../utils/jsonld';
+
+export const useSmartCardActions = (
+  id: string,
   url: string,
-  dispatchAnalytics: AnalyticsHandler,
-) {
+  analytics: AnalyticsFacade,
+) => {
   const { store, connections, config } = useSmartLinkContext();
   const { getState, dispatch } = store;
   const { details, lastUpdatedAt, status } = getState()[url] || {
@@ -57,6 +43,11 @@ export function useSmartCardActions(
     lastUpdatedAt: Date.now(),
     details: undefined,
   };
+
+  const hasAuthFlowSupported = config.authFlow !== 'disabled';
+  const hasAuthorized = status !== 'unauthorized';
+  const hasData = !!(details && details.data);
+  const hasExpired = Date.now() - lastUpdatedAt >= config.maxAge;
 
   async function register() {
     if (!details) {
@@ -72,10 +63,7 @@ export function useSmartCardActions(
   ) {
     // Trigger asynchronous call to ORS API, race between this and
     // setting the card to a loading state.
-    const definitionId = getDefinitionId(details);
-    const hasAuthorized = status !== 'unauthorized';
-    const hasData = !!(details && details.data);
-    const hasExpired = Date.now() - lastUpdatedAt >= config.maxAge;
+    // --------------------------------------------
     // 1. Wait 1.2 seconds - if the card still has not been resolved,
     // emit the loading action to provide UI feedback. Note: only show
     // UI feedback if the URL does not already have data.
@@ -84,7 +72,6 @@ export function useSmartCardActions(
       setTimeout(() => {
         if (!isCompleted) {
           dispatch(cardAction(ACTION_RESOLVING, { url: resourceUrl }));
-          dispatchAnalytics(unresolvedEvent(ANALYTICS_RESOLVING, definitionId));
         }
       }, config.maxLoadingDelay);
     }
@@ -92,114 +79,74 @@ export function useSmartCardActions(
     // its cache lifespan OR there is no data for it currently. Once the data
     // has come back asynchronously, dispatch the resolved action for the card.
     if (isReloading || hasExpired || !hasData) {
-      try {
-        /**
-         * There was a bizarre error in Android where the Webview would crash when
-         * we were using the syntax:
-         *    const response = await connections.client.fetchData(resourceUrl)
-         * Please DO NOT change this from a promise
-         * https://product-fabric.atlassian.net/browse/FM-2240
-         */
-        return connections.client.fetchData(resourceUrl).then(
-          response => {
-            isCompleted = true;
-            handleResolvedLinkResponse(resourceUrl, response);
-          },
-          error => {
-            isCompleted = true;
-            handleResolvedLinkError(resourceUrl, error);
-          },
-        );
-      } catch (error) {
-        isCompleted = true;
-        handleResolvedLinkError(resourceUrl, error);
-      }
+      return connections.client
+        .fetchData(resourceUrl)
+        .then(response => {
+          isCompleted = true;
+          handleResolvedLinkResponse(resourceUrl, response);
+        })
+        .catch(error => {
+          isCompleted = true;
+          handleResolvedLinkError(resourceUrl, error);
+        });
     } else {
-      dispatchAnalytics(resolvedEvent(definitionId, true));
       isCompleted = true;
     }
   }
 
   function handleResolvedLinkResponse(
     resourceUrl: string,
-    response: JsonLdCustom,
+    response: JsonLd.Response,
   ) {
-    const nextDefinitionId = response && getDefinitionId(response);
+    const hostname = new URL(resourceUrl).hostname;
     const nextStatus = response ? getStatus(response) : 'fatal';
 
     // If we require authorization & do not have an authFlow available,
     // throw an error and render as a normal blue link.
-    if (nextStatus === 'unauthorized' && config.authFlow !== 'oauth2') {
+    if (nextStatus === 'unauthorized' && !hasAuthFlowSupported) {
       handleResolvedLinkError(
         resourceUrl,
-        new FetchError('fallback', ERROR_MESSAGE_OAUTH),
+        new APIError('fallback', hostname, ERROR_MESSAGE_OAUTH),
       );
       return;
     }
+
     // Handle any other errors
     if (nextStatus === 'fatal') {
       handleResolvedLinkError(
         resourceUrl,
-        new FetchError('fallback', ERROR_MESSAGE_FATAL),
+        new APIError('fatal', hostname, ERROR_MESSAGE_FATAL),
       );
       return;
     }
 
     // Dispatch Analytics and resolved card action - including unauthorized states.
     dispatch(cardAction(ACTION_RESOLVED, { url: resourceUrl }, response));
-    if (nextStatus === 'resolved') {
-      dispatchAnalytics(resolvedEvent(nextDefinitionId));
-    } else {
-      dispatchAnalytics(unresolvedEvent(nextStatus, nextDefinitionId));
-    }
   }
 
-  function handleResolvedLinkError(resourceUrl: string, error: any) {
-    const errorKind: string = error && error.kind;
-    const nextDefinitionId = details && getDefinitionId(details);
-    // Handle FatalErrors (completely failed to resolve data).
-    if (errorKind === 'fatal') {
+  function handleResolvedLinkError(url: string, error: APIError) {
+    if (error.kind === 'fatal') {
       // If there's no previous data in the store for this URL, then bail
       // out and let the editor handle fallbacks (returns to a blue link).
-      if (!details || status !== 'resolved') {
+      if (!hasData && status !== 'resolved') {
         throw error;
       }
-
       // If we already have resolved data for this URL in the store, then
       // simply fallback to the previous data.
-      if (status === 'resolved') {
-        dispatch(cardAction(ACTION_RESOLVED, { url: resourceUrl }, details));
-        dispatchAnalytics(resolvedEvent(nextDefinitionId, true));
+      if (hasData) {
+        dispatch(cardAction(ACTION_RESOLVED, { url }, details));
       }
       // Handle AuthErrors (user did not have access to resource) -
       // Missing AAID in ASAP claims, or missing UserContext, or 403 from downstream
-    } else if (errorKind === 'auth') {
-      dispatch(
-        cardAction(
-          ACTION_RESOLVED,
-          { url: resourceUrl },
-          {
-            meta: {
-              visibility: 'restricted',
-              access: 'unauthorized',
-              auth: [],
-              definitionId: 'provider-not-found',
-            },
-            data: {},
-          },
-        ),
-      );
-      dispatchAnalytics(unresolvedEvent(ANALYTICS_ERROR, nextDefinitionId));
+    } else if (error.kind === 'auth') {
+      dispatch(cardAction(ACTION_RESOLVED, { url }, getUnauthorizedJsonLd()));
     } else {
-      // Fallback to blue link with smart link formatting for any other errors
-      const errMessage = error && error.message;
-      dispatch(cardAction(ACTION_ERROR, { url: resourceUrl }, errMessage));
-      if (errorKind === 'fallback') {
-        dispatchAnalytics(
-          unresolvedEvent(ANALYTICS_FALLBACK, nextDefinitionId),
-        );
+      if (error.kind === 'fallback') {
+        // Fallback to blue link with smart link formatting. Not part of reliability.
+        dispatch(cardAction(ACTION_ERROR_FALLBACK, { url }, undefined, error));
       } else {
-        dispatchAnalytics(unresolvedEvent(ANALYTICS_ERROR, nextDefinitionId));
+        // Fallback to blue link with smart link formatting. Part of reliability.
+        dispatch(cardAction(ACTION_ERROR, { url }, undefined, error));
       }
     }
   }
@@ -220,28 +167,30 @@ export function useSmartCardActions(
     const services = getServices(details);
     // When authentication is triggered, let GAS know!
     if (status === 'unauthorized') {
-      dispatchAnalytics(uiAuthEvent(appearance, definitionId));
+      analytics.ui.authEvent(appearance, definitionId);
     }
     if (status === 'forbidden') {
-      dispatchAnalytics(uiAuthAlternateAccountEvent(appearance, definitionId));
+      analytics.ui.authAlternateAccountEvent(appearance, definitionId);
     }
     if (services.length > 0) {
-      dispatchAnalytics(screenAuthPopupEvent(definitionId));
+      analytics.screen.authPopupEvent(definitionId);
       auth(services[0].url).then(
         () => {
-          dispatchAnalytics(trackAppAccountConnected(definitionId));
-          dispatchAnalytics(connectSucceededEvent(definitionId));
+          analytics.track.appAccountConnected(definitionId);
+          analytics.operational.connectSucceededEvent(definitionId);
           reload();
         },
         (err: Error) => {
           if (err.message === MESSAGE_WINDOW_CLOSED) {
-            dispatchAnalytics(
-              connectFailedEvent(definitionId, KEY_WINDOW_CLOSED),
+            analytics.ui.closedAuthEvent(appearance, definitionId);
+            analytics.operational.connectFailedEvent(
+              definitionId,
+              KEY_WINDOW_CLOSED,
             );
-            dispatchAnalytics(uiClosedAuthEvent(appearance, definitionId));
           } else {
-            dispatchAnalytics(
-              connectFailedEvent(definitionId, KEY_SENSITIVE_DATA),
+            analytics.operational.connectFailedEvent(
+              definitionId,
+              KEY_SENSITIVE_DATA,
             );
           }
           reload();
@@ -256,23 +205,34 @@ export function useSmartCardActions(
   ): Promise<JsonLd.Response | void> {
     const { key, action } = opts;
     const source = opts.source || appearance;
+    const markName = `${id}-${action.type}`;
+    // Begin performance instrumentation.
+    measure.mark(markName, 'pending');
     try {
-      dispatchAnalytics(uiActionClickedEvent(key, action.type, source));
+      // Begin analytics instrumentation.
+      analytics.ui.actionClickedEvent(key, action.type, source);
+      // Invoke action - either client-side or server-side.
       let response: JsonLd.Response | void;
       if (opts.type === 'client') {
         response = await opts.action.promise();
       } else {
         response = await connections.client.postData(opts);
       }
-      dispatchAnalytics(invokeSucceededEvent(key, action.type, source));
+      measure.mark(markName, 'resolved');
+      analytics.operational.invokeSucceededEvent(id, key, action.type, source);
       return response;
     } catch (err) {
-      dispatchAnalytics(
-        invokeFailedEvent(key, action.type, source, err.message),
+      measure.mark(markName, 'errored');
+      analytics.operational.invokeFailedEvent(
+        id,
+        key,
+        action.type,
+        source,
+        err.message,
       );
       throw err;
     }
   }
 
   return { register, reload, authorize, invoke };
-}
+};

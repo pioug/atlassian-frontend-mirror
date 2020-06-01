@@ -1,5 +1,12 @@
 # @atlaskit/comment
 
+## 9.3.6
+
+### Patch Changes
+
+- [`baaad91b65`](https://bitbucket.org/atlassian/atlassian-frontend/commits/baaad91b65) - Updated to use the latest and more performant version of `@atlaskit/avatar`
+- Updated dependencies
+
 ## 9.3.5
 
 ### Patch Changes

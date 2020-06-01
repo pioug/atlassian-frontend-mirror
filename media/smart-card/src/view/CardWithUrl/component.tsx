@@ -4,20 +4,17 @@ import LazilyRender from 'react-lazily-render';
 import { CardLinkView } from '@atlaskit/media-ui';
 
 import { CardWithUrlContentProps } from './types';
-import {
-  uiCardClickedEvent,
-  uiRenderSuccessEvent,
-} from '../../utils/analytics';
 import { isSpecialEvent } from '../../utils';
+import * as measure from '../../utils/performance';
 import {
   getDefinitionId,
   getServices,
   isFinalState,
-} from '../../state/actions/helpers';
+} from '../../state/helpers';
+import { useSmartLink } from '../../state';
 import { BlockCard } from '../BlockCard';
 import { InlineCard } from '../InlineCard';
-import { useSmartLink } from '../../state';
-import { InvokeClientOpts, InvokeServerOpts } from '../../client/types';
+import { InvokeClientOpts, InvokeServerOpts } from '../../model/invoke-opts';
 import { EmbedCard } from '../EmbedCard';
 
 export function LazyCardWithUrlContent(props: CardWithUrlContentProps) {
@@ -42,8 +39,10 @@ export function LazyCardWithUrlContent(props: CardWithUrlContentProps) {
 }
 
 export function CardWithUrlContent({
+  id,
   url,
   isSelected,
+  isFrameVisible,
   onClick,
   appearance,
   dispatchAnalytics,
@@ -52,7 +51,12 @@ export function CardWithUrlContent({
   showActions,
 }: CardWithUrlContentProps) {
   // Get state, actions for this card.
-  const { state, actions, config } = useSmartLink(url, dispatchAnalytics);
+  const { state, actions, config, analytics } = useSmartLink(
+    id,
+    url,
+    dispatchAnalytics,
+  );
+  const definitionId = getDefinitionId(state.details);
   const services = getServices(state.details);
   // Setup UI handlers.
   const handleClick = (event: MouseEvent | KeyboardEvent) => {
@@ -60,14 +64,10 @@ export function CardWithUrlContent({
       ? window.open(url, '_blank')
       : window.open(url, '_self');
   };
-  const handleAnalytics = () => {
-    const definitionId = getDefinitionId(state.details);
-    if (state.status === 'resolved') {
-      dispatchAnalytics(uiCardClickedEvent(appearance, definitionId));
-    }
-  };
   const handleClickWrapper = (event: MouseEvent | KeyboardEvent) => {
-    handleAnalytics();
+    if (state.status === 'resolved') {
+      analytics.ui.cardClickedEvent(appearance, definitionId);
+    }
     onClick ? onClick(event) : handleClick(event);
   };
   const handleAuthorize = () => actions.authorize(appearance);
@@ -77,12 +77,44 @@ export function CardWithUrlContent({
   const handleInvoke = (opts: InvokeClientOpts | InvokeServerOpts) =>
     actions.invoke(opts, appearance);
 
+  // NB: for each status change in a Smart Link, a performance mark is created.
+  // Measures are sent relative to the first mark, matching what a user sees.
+  useEffect(() => {
+    measure.mark(id, state.status);
+    if (state.status !== 'pending') {
+      measure.create(id, state.status);
+      analytics.operational.instrument(
+        id,
+        state.status,
+        definitionId,
+        state.error,
+      );
+    }
+  }, [
+    id,
+    appearance,
+    state.status,
+    state.error,
+    definitionId,
+    analytics.operational,
+  ]);
+
+  // NB: once the smart-card has rendered into an end state, we capture
+  // this as a successful render. These can be one of:
+  // - the resolved state: when metadata is shown;
+  // - the unresolved states: viz. forbidden, not_found, unauthorized, errored.
   useEffect(() => {
     if (isFinalState(state.status)) {
-      const definitionId = getDefinitionId(state.details);
-      dispatchAnalytics(uiRenderSuccessEvent(appearance, definitionId));
+      analytics.ui.renderSuccessEvent(appearance, definitionId);
     }
-  }, [appearance, dispatchAnalytics, state.details, state.status, url]);
+  }, [
+    appearance,
+    state.details,
+    state.status,
+    url,
+    definitionId,
+    analytics.ui,
+  ]);
 
   switch (appearance) {
     case 'inline':
@@ -123,6 +155,7 @@ export function CardWithUrlContent({
           handleErrorRetry={handleRetry}
           handleFrameClick={handleClickWrapper}
           isSelected={isSelected}
+          isFrameVisible={isFrameVisible}
           onResolve={onResolve}
           testId={testId}
         />

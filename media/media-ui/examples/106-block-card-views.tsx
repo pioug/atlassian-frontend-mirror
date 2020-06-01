@@ -82,7 +82,7 @@ const resolvedCollabProps: CollaboratorListProps = {
       name: 'Cheese',
     },
   ],
-  handleAvatarClick: ({ event }: any) => {
+  handleAvatarClick: event => {
     event.stopPropagation();
     event.preventDefault();
   },

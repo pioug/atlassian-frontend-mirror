@@ -13,7 +13,7 @@ import {
 } from '../../../../__tests__/integration/_helpers';
 import { annotationSelectors } from '../_utils';
 import * as paragraphADF from '../__fixtures__/paragraph.adf.json';
-import * as paragraphEmojiADF from '../__fixtures__/paragraphWithEmoji.adf.json';
+import * as paragraphEmojiADF from '../__fixtures__/paragraph-with-emoji.adf.json';
 
 const shortcutWindows = [KEY.CONTROL, KEY.ALT, 'c', KEY.CONTROL, KEY.ALT];
 const shortcutMac = [KEY.META, KEY.ALT, 'c', KEY.META, KEY.ALT];
@@ -27,7 +27,7 @@ BrowserTestCase(
     await mountEditor(page, {
       defaultValue: paragraphADF,
       appearance: fullpage.appearance,
-      annotationProvider: true,
+      annotationProviders: true,
     });
 
     await setProseMirrorTextSelection(page, { anchor: 5, head: 30 });
@@ -47,7 +47,7 @@ BrowserTestCase(
     await mountEditor(page, {
       defaultValue: paragraphADF,
       appearance: fullpage.appearance,
-      annotationProvider: true,
+      annotationProviders: true,
     });
 
     await setProseMirrorTextSelection(page, { anchor: 5, head: 30 });
@@ -72,7 +72,7 @@ BrowserTestCase(
     await mountEditor(page, {
       defaultValue: paragraphADF,
       appearance: fullpage.appearance,
-      annotationProvider: true,
+      annotationProviders: true,
     });
 
     const keys = page.isWindowsPlatform() ? shortcutWindows : shortcutMac;
@@ -92,7 +92,7 @@ BrowserTestCase(
     await mountEditor(page, {
       defaultValue: paragraphEmojiADF,
       appearance: fullpage.appearance,
-      annotationProvider: true,
+      annotationProviders: true,
     });
 
     const keys = page.isWindowsPlatform() ? shortcutWindows : shortcutMac;

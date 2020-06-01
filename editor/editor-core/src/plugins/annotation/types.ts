@@ -1,17 +1,11 @@
 import React from 'react';
-import { AnnotationType } from '@atlaskit/adf-schema';
-import { ACTIONS } from './pm-plugins/actions';
-import { DecorationSet } from 'prosemirror-view';
-import { EditorState, SelectionBookmark } from 'prosemirror-state';
+import { AnnotationTypes } from '@atlaskit/adf-schema';
+import { AnnotationUpdateEmitter } from './update-provider';
 
 export type AnnotationInfo = {
   id: string;
-  type: AnnotationType;
+  type: AnnotationTypes.INLINE_COMMENT;
 };
-
-export enum AnnotationTypes {
-  INLINE_COMMENT = 'inlineComment',
-}
 
 type AnnotationComponentProps = {
   /**
@@ -25,7 +19,7 @@ type AnnotationComponentProps = {
   dom?: HTMLElement;
 };
 
-export type AnnotationCreateComponentProps = AnnotationComponentProps & {
+export type InlineCommentCreateComponentProps = AnnotationComponentProps & {
   /**
    * Creates an annotation mark in the document with the given id.
    */
@@ -37,7 +31,7 @@ export type AnnotationCreateComponentProps = AnnotationComponentProps & {
   onClose?: () => void;
 };
 
-export type AnnotationViewComponentProps = AnnotationComponentProps & {
+export type InlineCommentViewComponentProps = AnnotationComponentProps & {
   /**
    * Existing annotations where the cursor is placed.
    * These are provided in order, inner-most first.
@@ -65,67 +59,27 @@ export interface AnnotationTypeProvider<Type, State> {
   getState: (
     annotationIds: string[],
   ) => Promise<AnnotationState<Type, State>[]>;
-  pollingInterval?: number;
+  updateSubscriber?: AnnotationUpdateEmitter;
 }
 
 export type InlineCommentState = { resolved: boolean };
-export type AnnotationTypeProviders = {
-  inlineComment: AnnotationTypeProvider<
-    AnnotationTypes.INLINE_COMMENT,
-    InlineCommentState
-  >;
+
+export type InlineCommentAnnotationProvider = AnnotationTypeProvider<
+  AnnotationTypes.INLINE_COMMENT,
+  InlineCommentState
+> & {
+  createComponent?: React.ComponentType<InlineCommentCreateComponentProps>;
+  viewComponent?: React.ComponentType<InlineCommentViewComponentProps>;
 };
 
-export interface AnnotationProvider {
-  providers?: AnnotationTypeProviders;
-  createComponent?: React.ComponentType<AnnotationCreateComponentProps>;
-  viewComponent?: React.ComponentType<AnnotationViewComponentProps>;
+export interface AnnotationProviders {
+  inlineComment: InlineCommentAnnotationProvider;
 }
-
-export type InlineCommentMap = { [key: string]: boolean };
-export type InlineCommentAction =
-  | {
-      type: ACTIONS.INLINE_COMMENT_RESOLVE;
-      data: { id: string };
-    }
-  | {
-      type: ACTIONS.SET_INLINE_COMMENT_STATE;
-      data: InlineCommentMap;
-    }
-  | {
-      type: ACTIONS.SET_INLINE_COMMENT_DRAFT_STATE;
-      data: {
-        drafting: boolean;
-        editorState: EditorState;
-      };
-    }
-  | {
-      type: ACTIONS.INLINE_COMMENT_UPDATE_MOUSE_STATE;
-      data: {
-        mouseData: {
-          x?: number;
-          y?: number;
-          isSelecting?: boolean;
-        };
-      };
-    };
-
-export type InlineCommentPluginState = {
-  annotations: InlineCommentMap;
-  mouseData: {
-    x: number;
-    y: number;
-    isSelecting: boolean;
-  };
-  draftDecorationSet?: DecorationSet;
-  bookmark?: SelectionBookmark<any>;
-};
 
 const prefix = 'ak-editor-annotation';
 export const AnnotationTestIds = {
   prefix,
   floatingComponent: `${prefix}-floating-component`,
   floatingToolbarCreateButton: `${prefix}-toolbar-create-button`,
+  componentSave: `${prefix}-dummy-save-button`,
 };
-
-export const DraftDecorationClassName = `${prefix}-draft-selection`;

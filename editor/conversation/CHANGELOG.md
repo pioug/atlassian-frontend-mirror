@@ -1,5 +1,13 @@
 # @atlaskit/conversation
 
+## 15.7.6
+
+### Patch Changes
+
+- [`54d82b49f0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54d82b49f0) - Remove unused dependencies
+- [`baaad91b65`](https://bitbucket.org/atlassian/atlassian-frontend/commits/baaad91b65) - Updated to use the latest and more performant version of `@atlaskit/avatar`
+- Updated dependencies
+
 ## 15.7.5
 
 ### Patch Changes

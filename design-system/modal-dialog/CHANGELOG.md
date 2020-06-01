@@ -1,5 +1,16 @@
 # @atlaskit/modal-dialog
 
+## 10.6.0
+
+### Minor Changes
+
+- [`98e93d93ec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/98e93d93ec) - ActionProps.text now accepts React.ReactNode instead of just string
+
+### Patch Changes
+
+- [`16ccd817d8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/16ccd817d8) - Export types
+- Updated dependencies
+
 ## 10.5.9
 
 ### Patch Changes

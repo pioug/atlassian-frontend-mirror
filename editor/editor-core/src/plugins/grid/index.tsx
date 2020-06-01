@@ -178,13 +178,10 @@ class Grid extends React.Component<Props> {
     return (
       <div className="gridParent">
         <div
-          className={classnames(
-            'gridContainer',
-            gridType,
-            !visible ? 'hidden' : '',
-          )}
+          className={classnames('gridContainer', gridType)}
           style={{
             height: `${containerElement.scrollHeight}px`,
+            display: visible ? 'block' : 'none',
           }}
         >
           {gridLines}

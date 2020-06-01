@@ -5,8 +5,35 @@ import DecisionItem from '../ui/Decision';
 import { ReactNodeView, ForwardRef, getPosHandler } from '../../../nodeviews';
 import { PortalProviderAPI } from '../../../ui/PortalProvider';
 import { EventDispatcher } from '../../../event-dispatcher';
+import { selectTaskDecision } from '../commands';
 
 class Decision extends ReactNodeView {
+  init() {
+    super.init();
+    if (this.dom) {
+      this.dom.addEventListener('click', this.handleClick);
+    }
+    return this;
+  }
+
+  private handleClick = (event: Event) => {
+    const target = event.target as HTMLElement;
+    // only set node selection if click was on item boundary or on
+    // decision icon (the icon is included as it extends into the
+    // node's leniency margin)
+    if (
+      target.hasAttribute('data-decision-wrapper') ||
+      target.getAttribute('aria-label') === 'Decision'
+    ) {
+      event.preventDefault();
+      const { state, dispatch } = this.view;
+      // getPos can also be a boolean
+      if (typeof this.getPos === 'function') {
+        selectTaskDecision(this.getPos())(state, dispatch);
+      }
+    }
+  };
+
   private isContentEmpty(node: PMNode) {
     return node.content.childCount === 0;
   }
@@ -50,6 +77,13 @@ class Decision extends ReactNodeView {
       // Toggle the placeholder based on whether user input exists.
       (_currentNode, _newNode) => !this.isContentEmpty(_newNode),
     );
+  }
+
+  destroy() {
+    if (this.dom) {
+      this.dom.removeEventListener('click', this.handleClick);
+    }
+    super.destroy();
   }
 }
 

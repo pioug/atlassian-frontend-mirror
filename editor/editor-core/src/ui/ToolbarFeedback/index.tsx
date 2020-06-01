@@ -122,8 +122,6 @@ export default class ToolbarFeedback extends PureComponent<Props, State> {
 
   showJiraCollectorDialogCallback?: () => void;
 
-  private handleSpinnerComplete() {}
-
   // Create a FeedbackInfo instance from props.
   private getFeedbackInfo = (): FeedbackInfo => {
     const isFeedbackInfoAttr = (attr: string) =>
@@ -143,7 +141,7 @@ export default class ToolbarFeedback extends PureComponent<Props, State> {
       popupsScrollableElement,
     } = this.props;
     const iconBefore = this.state.jiraIssueCollectorScriptLoading ? (
-      <Spinner isCompleting={false} onComplete={this.handleSpinnerComplete} />
+      <Spinner />
     ) : (
       undefined
     );

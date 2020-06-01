@@ -35,6 +35,7 @@ const mockPlugins: { [name: string]: jest.Mock } = {
   findReplacePlugin: jest.fn(),
   contextPanelPlugin: jest.fn(),
   selectionPlugin: jest.fn(),
+  mobileSelectionPlugin: jest.fn(),
 };
 jest.mock('../../../plugins', () => mockPlugins);
 

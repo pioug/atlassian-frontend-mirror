@@ -169,7 +169,7 @@ export const mediaProvider = storyMediaProviderFactory({
 
 export const quickInsertProvider = quickInsertProviderFactory();
 
-export const getAppearance = (): EditorAppearance => {
+export const getAppearance = (): 'full-page' | 'full-width' => {
   return (localStorage.getItem(LOCALSTORAGE_defaultMode) || DEFAULT_MODE) ===
     DEFAULT_MODE
     ? 'full-page'
@@ -181,7 +181,7 @@ export interface ExampleProps {
   setMode?: (isEditing: boolean) => void;
 }
 
-const smartCardClient = new SmartCardClient('prod');
+const smartCardClient = new SmartCardClient('staging');
 
 export class ExampleEditorComponent extends React.Component<
   EditorProps & ExampleProps,
@@ -496,7 +496,7 @@ const Renderer = (props: {
         dataProviders={providerFactory}
         extensionHandlers={extensionHandlers}
         document={props.document && JSON.parse(props.document)}
-        appearance="full-page"
+        appearance={getAppearance()}
       />
     </div>
   );

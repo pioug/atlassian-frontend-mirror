@@ -4,23 +4,7 @@ import { TableCssClassName as ClassName } from '../../../types';
 import { containsClassName, closestElement } from '../../../../../utils/dom';
 import { getPluginState as getMainPluginState } from '../../plugin-factory';
 import { updateOverflowShadows } from '../../../nodeviews/update-overflow-shadows';
-
-function getHeights(
-  children: NodeListOf<HTMLElement>,
-): Array<number | undefined> {
-  const heights: Array<number | undefined> = [];
-  for (let i = 0, count = children.length; i < count; i++) {
-    const child: HTMLElement = children[i] as HTMLElement;
-    if (child) {
-      const rect = child.getBoundingClientRect();
-      const height = rect ? rect.height : child.offsetHeight;
-      heights[i] = height;
-    } else {
-      heights[i] = undefined;
-    }
-  }
-  return heights;
-}
+import { getRowHeights } from '../../../utils';
 
 export const updateControls = (state: EditorState) => {
   const { tableRef } = getMainPluginState(state);
@@ -36,7 +20,6 @@ export const updateControls = (state: EditorState) => {
     return;
   }
 
-  const rows = tableRef.querySelectorAll('tr');
   const rowControls = wrapper.parentElement.querySelectorAll<HTMLElement>(
     `.${ClassName.ROW_CONTROLS_BUTTON_WRAP}`,
   );
@@ -44,16 +27,16 @@ export const updateControls = (state: EditorState) => {
     ClassName.NUMBERED_COLUMN_BUTTON,
   );
 
-  const rowHeights = getHeights(rows);
+  const rowHeights = getRowHeights(tableRef);
 
   // update rows controls height on resize
   for (let i = 0, count = rowControls.length; i < count; i++) {
     const height = rowHeights[i];
     if (height) {
-      rowControls[i].style.height = `${height + 1}px`;
+      rowControls[i].style.height = `${height}px`;
 
       if (numberedRows.length) {
-        numberedRows[i].style.height = `${height + 1}px`;
+        numberedRows[i].style.height = `${height}px`;
       }
     }
   }

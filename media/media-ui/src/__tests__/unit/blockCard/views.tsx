@@ -20,6 +20,7 @@ import {
 } from '../../../BlockCard/utils/constants';
 import { ResolvedViewProps } from '../../../BlockCard/views/ResolvedView';
 
+let mockOnClick: React.MouseEventHandler = jest.fn();
 const getResolvedProps = (overrides = {}): ResolvedViewProps => ({
   link: 'https://github.com/changesets/changesets',
   icon: { icon: 'https://github.com/atlassian/changesets' },
@@ -27,11 +28,17 @@ const getResolvedProps = (overrides = {}): ResolvedViewProps => ({
   users: [],
   actions: [],
   handleAvatarClick: () => {},
+  onClick: mockOnClick,
   ...overrides,
 });
 
 describe('BlockCard Views', () => {
-  beforeEach(() => {});
+  beforeEach(() => {
+    mockOnClick = jest.fn().mockImplementation((event: React.MouseEvent) => {
+      expect(event.isPropagationStopped()).toBe(true);
+      expect(event.isDefaultPrevented()).toBe(true);
+    });
+  });
 
   afterEach(() => {
     jest.clearAllMocks();
@@ -129,6 +136,21 @@ describe('BlockCard Views', () => {
         'background-image',
         `url(Our riffs were on fire)`,
       );
+    });
+
+    it('clicking on link should have no side-effects', () => {
+      const { getByTestId } = render(
+        <BlockCardResolvedView
+          testId="resolved-view"
+          {...getResolvedProps({ thumbnail: 'Our riffs were on fire' })}
+        />,
+      );
+      const view = getByTestId('resolved-view');
+      const link = view.querySelector('a');
+
+      expect(link).toBeTruthy();
+      fireEvent.click(link!);
+      expect(mockOnClick).toHaveBeenCalledTimes(1);
     });
   });
 
@@ -231,6 +253,22 @@ describe('BlockCard Views', () => {
       // Check button is not there
       expect(queryByTestId('button-test-button')).toBeNull();
     });
+
+    it('clicking on link should have no side-effects', () => {
+      const { getByTestId } = render(
+        <BlockCardUnauthorisedView
+          {...getResolvedProps()}
+          testId="unauthorised-view"
+          actions={[]}
+        />,
+      );
+      const view = getByTestId('unauthorised-view');
+      const link = view.querySelector('a');
+
+      expect(link).toBeTruthy();
+      fireEvent.click(link!);
+      expect(mockOnClick).toHaveBeenCalledTimes(1);
+    });
   });
 
   describe('view: not found', () => {
@@ -251,6 +289,21 @@ describe('BlockCard Views', () => {
       // @ts-ignore
       expect(thumb.firstChild.src).toEqual(NotFoundImage);
     });
+
+    it('clicking on link should have no side-effects', () => {
+      const { getByTestId } = render(
+        <BlockCardNotFoundView
+          {...getResolvedProps()}
+          testId="not-found-view"
+        />,
+      );
+      const view = getByTestId('not-found-view');
+      const link = view.querySelector('a');
+
+      expect(link).toBeTruthy();
+      fireEvent.click(link!);
+      expect(mockOnClick).toHaveBeenCalledTimes(1);
+    });
   });
 
   describe('view: forbidden', () => {
@@ -270,6 +323,21 @@ describe('BlockCard Views', () => {
 
       // @ts-ignore
       expect(thumb.firstChild.src).toEqual(LockImage);
+    });
+
+    it('clicking on link should have no side-effects', () => {
+      const { getByTestId } = render(
+        <BlockCardForbiddenView
+          {...getResolvedProps()}
+          testId="forbidden-view"
+        />,
+      );
+      const view = getByTestId('forbidden-view');
+      const link = view.querySelector('a');
+
+      expect(link).toBeTruthy();
+      fireEvent.click(link!);
+      expect(mockOnClick).toHaveBeenCalledTimes(1);
     });
   });
 

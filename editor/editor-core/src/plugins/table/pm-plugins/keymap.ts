@@ -1,13 +1,14 @@
 import { keymap } from 'prosemirror-keymap';
 import { Plugin } from 'prosemirror-state';
-import { addColumnBefore, addColumnAfter } from 'prosemirror-tables';
-
 import {
   createTable,
   goToNextCell,
   moveCursorBackward,
   triggerUnlessTableHeader,
 } from '../commands';
+
+import { addColumnAfter, addColumnBefore } from '../commands/insert';
+
 import * as keymaps from '../../../keymaps';
 import {
   withAnalytics,

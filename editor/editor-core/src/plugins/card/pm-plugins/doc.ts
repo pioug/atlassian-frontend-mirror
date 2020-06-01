@@ -286,7 +286,7 @@ export const setSelectedCardAppearance: (
     return false;
   }
 
-  const { inlineCard, blockCard } = state.schema.nodes;
+  const { inlineCard, blockCard, embedCard } = state.schema.nodes;
   const pos = state.selection.from;
 
   let { tr } = state;
@@ -297,6 +297,19 @@ export const setSelectedCardAppearance: (
       pos + selectedNode.nodeSize + 1,
       blockCard.createChecked(
         selectedNode.attrs,
+        undefined,
+        selectedNode.marks,
+      ),
+    );
+  } else if (appearance === 'embed') {
+    tr = tr.replaceRangeWith(
+      Math.max(pos - 1, 0),
+      pos + selectedNode.nodeSize + 1,
+      embedCard.createChecked(
+        {
+          ...selectedNode.attrs,
+          layout: 'center',
+        },
         undefined,
         selectedNode.marks,
       ),

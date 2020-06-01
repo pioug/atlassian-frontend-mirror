@@ -9,7 +9,7 @@ import {
   CardLoading,
   CardError,
   CardOnClickCallback,
-  OriginalCardDimensions,
+  NumericalCardDimensions,
 } from '@atlaskit/media-card';
 import { MediaClientConfig } from '@atlaskit/media-core';
 import {
@@ -27,7 +27,7 @@ import {
   ContextIdentifierProvider,
 } from '@atlaskit/editor-common';
 import { RendererAppearance } from './Renderer/types';
-import { RendererContext } from '../react';
+import { RendererContext } from '../react/types';
 import styled from 'styled-components';
 
 export type MediaProvider = {
@@ -48,7 +48,7 @@ export interface MediaCardProps {
   collection?: string;
   url?: string;
   cardDimensions?: CardDimensions;
-  originalDimensions?: OriginalCardDimensions;
+  originalDimensions?: NumericalCardDimensions;
   resizeMode?: ImageResizeMode;
   appearance?: CardAppearance;
   rendererAppearance?: RendererAppearance;
@@ -355,7 +355,7 @@ export const getClipboardAttrs = ({
   alt?: string;
   collection?: string;
   contextIdentifierProvider?: ContextIdentifierProvider;
-  originalDimensions?: OriginalCardDimensions;
+  originalDimensions?: NumericalCardDimensions;
   fileState?: FileState;
 }): { [key: string]: string | number | undefined } => {
   const contextId =

@@ -7,6 +7,22 @@ const openModalBtn = "[type='button']";
 const modalDialog = "[role='dialog']";
 
 describe('Snapshot Test', () => {
+  it('Default select example should match production example', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'select',
+      'single-select',
+      global.__BASEURL__,
+    );
+    const { page } = global;
+
+    const selectSelector = '.single-select';
+    await page.goto(url);
+    await page.waitForSelector(selectSelector);
+
+    const image = await takeElementScreenShot(page, selectSelector);
+    expect(image).toMatchProdImageSnapshot();
+  });
   it('Select in a modal dialog example should match production example', async () => {
     const url = getExampleUrl(
       'design-system',

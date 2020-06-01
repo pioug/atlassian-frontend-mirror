@@ -4,7 +4,9 @@ import TextColor from '../../../../react/marks/textColor';
 
 describe('Renderer - React/Marks/TextColor', () => {
   const mark = shallow(
-    <TextColor color="#ff0000">This is a red text</TextColor>,
+    <TextColor dataAttributes={{ 'data-renderer-mark': true }} color="#ff0000">
+      This is a red text
+    </TextColor>,
   );
 
   it('should wrap content with <span>-tag', () => {
@@ -13,7 +15,7 @@ describe('Renderer - React/Marks/TextColor', () => {
 
   it('should output correct html', () => {
     expect(mark.html()).toEqual(
-      '<span style="color:#ff0000">This is a red text</span>',
+      '<span data-renderer-mark="true" style="color:#ff0000">This is a red text</span>',
     );
   });
 });

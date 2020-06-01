@@ -1,4 +1,3 @@
-import { JsonLdCustom } from '../client/types';
 import CardClient from '../client';
 import { JsonLd } from 'json-ld-types';
 
@@ -11,6 +10,12 @@ export const mocks = {
       definitionId: 'd1',
     },
     data: {
+      '@context': {
+        '@vocab': 'https://www.w3.org/ns/activitystreams#',
+        atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
+        schema: 'http://schema.org/',
+      },
+      '@type': 'Object',
       name: 'I love cheese',
       summary: 'Here is your serving of cheese: 🧀',
       'schema:potentialAction': {
@@ -23,7 +28,7 @@ export const mocks = {
         href: 'https://www.ilovecheese.com',
       },
     },
-  } as JsonLdCustom,
+  } as JsonLd.Response,
   notFound: {
     meta: {
       visibility: 'not_found',
@@ -32,9 +37,15 @@ export const mocks = {
       definitionId: 'd1',
     },
     data: {
+      '@context': {
+        '@vocab': 'https://www.w3.org/ns/activitystreams#',
+        atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
+        schema: 'http://schema.org/',
+      },
+      '@type': 'Object',
       name: 'I love cheese',
     },
-  } as JsonLdCustom,
+  } as JsonLd.Response,
   forbidden: {
     meta: {
       visibility: 'restricted',
@@ -49,9 +60,15 @@ export const mocks = {
       definitionId: 'd1',
     },
     data: {
+      '@context': {
+        '@vocab': 'https://www.w3.org/ns/activitystreams#',
+        atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
+        schema: 'http://schema.org/',
+      },
+      '@type': 'Object',
       name: 'I love cheese',
     },
-  } as JsonLdCustom,
+  } as JsonLd.Response,
   unauthorized: {
     meta: {
       visibility: 'restricted',
@@ -66,9 +83,15 @@ export const mocks = {
       definitionId: 'd1',
     },
     data: {
+      '@context': {
+        '@vocab': 'https://www.w3.org/ns/activitystreams#',
+        atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
+        schema: 'http://schema.org/',
+      },
+      '@type': 'Object',
       name: 'I love cheese',
     },
-  } as JsonLdCustom,
+  } as JsonLd.Response,
   actionSuccess: {
     meta: {
       visibility: 'public',
@@ -84,7 +107,7 @@ export const mocks = {
 export const fakeResponse = () => Promise.resolve(mocks.success);
 
 export const fakeFactory: any = (
-  implementation: () => Promise<JsonLdCustom>,
+  implementation: () => Promise<JsonLd.Response>,
   implementationPost: () => Promise<JsonLd.Response>,
 ) =>
   class CustomClient extends CardClient {

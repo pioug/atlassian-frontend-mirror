@@ -175,14 +175,7 @@ const globalNavSecondaryItems = [
   },
   {
     id: '10-composed-navigation-2',
-    icon: () => (
-      <Avatar
-        borderColor="transparent"
-        isActive={false}
-        isHover={false}
-        size="small"
-      />
-    ),
+    icon: () => <Avatar borderColor="transparent" size="small" />,
     label: 'Profile',
     size: 'small',
   },

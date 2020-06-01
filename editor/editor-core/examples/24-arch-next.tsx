@@ -127,7 +127,7 @@ export default function Example() {
                   allowDynamicTextSizing={true}
                   contextPanel={
                     <ContextPanel visible={panel}>
-                      Good morning sunshine!
+                      <div>Good morning sunshine!</div>
                     </ContextPanel>
                   }
                 />

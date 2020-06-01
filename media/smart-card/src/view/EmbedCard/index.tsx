@@ -14,7 +14,7 @@ import { JsonLd } from 'json-ld-types';
 
 import { EmbedCardProps } from './types';
 import { extractEmbedProps } from '../../extractors/embed';
-import { getEmptyJsonLd } from '../../utils';
+import { getEmptyJsonLd } from '../../utils/jsonld';
 
 export const EmbedCard: FC<EmbedCardProps> = ({
   url,
@@ -23,6 +23,7 @@ export const EmbedCard: FC<EmbedCardProps> = ({
   handleErrorRetry,
   handleFrameClick,
   isSelected,
+  isFrameVisible,
   onResolve,
   testId,
 }) => {
@@ -39,18 +40,28 @@ export const EmbedCard: FC<EmbedCardProps> = ({
         />
       );
     case 'resolving':
-      return <BlockCardResolvingView />;
+      return <BlockCardResolvingView isSelected={isSelected} />;
     case 'resolved':
       const resolvedViewProps = extractEmbedProps(data);
       if (onResolve) {
-        onResolve({ title: resolvedViewProps.title, url });
+        onResolve({
+          title: resolvedViewProps.title,
+          url,
+        });
       }
-      return <EmbedCardResolvedView {...resolvedViewProps} />;
+      return (
+        <EmbedCardResolvedView
+          {...resolvedViewProps}
+          isSelected={isSelected}
+          isFrameVisible={isFrameVisible}
+        />
+      );
     case 'unauthorized':
       const unauthorisedViewProps = extractEmbedProps(data);
       return (
         <EmbedCardUnauthorisedView
           {...unauthorisedViewProps}
+          isSelected={isSelected}
           onAuthorise={handleAuthorize}
         />
       );
@@ -59,13 +70,22 @@ export const EmbedCard: FC<EmbedCardProps> = ({
       return (
         <EmbedCardForbiddenView
           {...forbiddenViewProps}
+          isSelected={isSelected}
           onAuthorise={handleAuthorize}
         />
       );
     case 'not_found':
       const notFoundViewProps = extractEmbedProps(data);
-      return <EmbedCardNotFoundView {...notFoundViewProps} />;
+      return (
+        <EmbedCardNotFoundView {...notFoundViewProps} isSelected={isSelected} />
+      );
+    case 'fallback':
     case 'errored':
-      return <BlockCardErroredView onRetry={handleErrorRetry} />;
+      return (
+        <BlockCardErroredView
+          onRetry={handleErrorRetry}
+          isSelected={isSelected}
+        />
+      );
   }
 };

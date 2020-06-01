@@ -8,6 +8,11 @@ export const asMockReturnValue = <T extends (...args: any[]) => any>(
   returnValue: ReturnType<T>,
 ) => asMock(fn).mockReturnValue(returnValue);
 
+export const asMockFunctionReturnValue = <T extends (...args: any[]) => any>(
+  fn: T,
+  returnValue: ReturnType<T>,
+) => asMockFunction(fn).mockReturnValue(returnValue);
+
 export const expectToEqual = <T>(actual: T, expected: T) =>
   expect(actual).toEqual(expected);
 

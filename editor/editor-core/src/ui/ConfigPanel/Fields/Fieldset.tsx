@@ -68,6 +68,7 @@ type Props = {
   field: Fieldset;
   parameters?: Parameters;
   onFieldBlur: OnBlur;
+  firstVisibleFieldName?: string;
 } & InjectedIntlProps;
 
 type State = {
@@ -208,7 +209,12 @@ class FieldsetField extends React.Component<Props, State> {
   };
 
   render() {
-    const { field, extensionManifest, onFieldBlur } = this.props;
+    const {
+      field,
+      extensionManifest,
+      onFieldBlur,
+      firstVisibleFieldName,
+    } = this.props;
 
     const { selectedFields, currentParameters } = this.state;
 
@@ -221,6 +227,7 @@ class FieldsetField extends React.Component<Props, State> {
         parameters={currentParameters}
         onClickRemove={this.onClickRemove}
         onFieldBlur={onFieldBlur}
+        firstVisibleFieldName={firstVisibleFieldName}
       >
         {this.renderActions()}
       </FormWrapper>

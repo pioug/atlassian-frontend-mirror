@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/range",
-  "version": "3.0.12",
+  "version": "4.0.0",
   "description": "A styled version of the native input[range] element.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -23,11 +23,11 @@
   },
   "dependencies": {
     "@atlaskit/theme": "^9.5.1",
+    "@emotion/core": "^10.0.9",
     "tslib": "^1.9.3"
   },
   "peerDependencies": {
-    "react": "^16.8.0",
-    "styled-components": "^3.2.6"
+    "react": "^16.8.0"
   },
   "devDependencies": {
     "@atlaskit/build-utils": "*",
@@ -36,12 +36,38 @@
     "@atlaskit/ssr": "*",
     "@atlaskit/tooltip": "^15.2.3",
     "@atlaskit/visual-regression": "*",
+    "@emotion/styled": "^10.0.7",
+    "@testing-library/react": "^8.0.1",
+    "@types/jscodeshift": "^0.6.3",
     "enzyme": "^3.10.0",
-    "react-dom": "^16.8.0"
+    "jscodeshift": "^0.7.0",
+    "lodash.debounce": "^4.0.8",
+    "lodash.throttle": "^4.1.1",
+    "react-dom": "^16.8.0",
+    "storybook-addon-performance": "0.11.0"
   },
   "keywords": [
     "atlaskit",
     "react",
     "ui"
-  ]
+  ],
+  "techstack": {
+    "@atlassian/frontend": {
+      "import-structure": "atlassian-conventions"
+    },
+    "@repo/internal": {
+      "ui-components": [
+        "lite-mode"
+      ],
+      "analytics": [
+        "analytics-next"
+      ],
+      "theming": [
+        "new-theming-api"
+      ],
+      "deprecation": [
+        "no-deprecated-imports"
+      ]
+    }
+  }
 }

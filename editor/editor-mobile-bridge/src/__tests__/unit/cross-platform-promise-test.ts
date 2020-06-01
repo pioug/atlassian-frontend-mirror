@@ -5,6 +5,8 @@ import {
   setCounter,
   SubmitPromiseToNative,
 } from '../../cross-platform-promise';
+import { AnnotationTypes } from '@atlaskit/adf-schema';
+import { GetAnnotationStatesPayload } from '../../types';
 import { toNativeBridge } from '../../editor/web-to-native';
 
 jest.mock('../../editor/web-to-native');
@@ -100,5 +102,36 @@ describe('reject promise', () => {
     }
     await promise;
     expect(callback.mock.calls.length).toBe(1);
+  });
+});
+
+describe('#getAnnotationStates', () => {
+  it('should define the promise', () => {
+    const submittable = createPromise('getAnnotationStates', {
+      annotationIds: ['random-string'],
+      annotationType: AnnotationTypes.INLINE_COMMENT,
+    });
+    expect(submittable).toBeDefined();
+  });
+
+  describe('when created promise resolved', () => {
+    it('should call the callback', async () => {
+      const promise = createPromise('getAnnotationStates', {
+        annotationIds: ['random-string', 'random-2-string'],
+        annotationType: AnnotationTypes.INLINE_COMMENT,
+      }).submit();
+      const callback = jest.fn();
+      promise.then(callback);
+
+      const data = {
+        annotationIdToState: {
+          'random-string': 'resolved',
+          'random-2-string': 'active',
+        },
+      } as GetAnnotationStatesPayload;
+      resolvePromise<GetAnnotationStatesPayload>('0', data);
+      await promise;
+      expect(callback).toHaveBeenCalledWith(data);
+    });
   });
 });

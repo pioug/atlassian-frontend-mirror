@@ -12,7 +12,7 @@ const FormHeaderWrapper = styled.div``;
 /**
  * Provide a styled container for form header title.
  */
-const FormHeaderTitle = styled.h1`
+const FormHeaderTitle = styled.h2`
   ${h700};
   line-height: ${multiply(gridSize, 4)}px;
   margin-right: ${multiply(gridSize, 4)}px;

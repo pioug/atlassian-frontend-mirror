@@ -36,14 +36,7 @@ const Nav = () => (
     secondaryItems={[
       { id: 'help', icon: QuestionCircleIcon, label: 'Help', size: 'small' },
       {
-        icon: () => (
-          <Avatar
-            borderColor="transparent"
-            isActive={false}
-            isHover={false}
-            size="small"
-          />
-        ),
+        icon: () => <Avatar borderColor="transparent" size="small" />,
         label: 'Profile',
         size: 'small',
         id: 'profile',

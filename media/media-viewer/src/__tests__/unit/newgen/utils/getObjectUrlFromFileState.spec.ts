@@ -40,4 +40,20 @@ describe('getObjectUrlFromFileState()', () => {
     expect(await getObjectUrlFromFileState(errorState)).toBeUndefined();
     expect(await getObjectUrlFromFileState(processedState)).toBeUndefined();
   });
+
+  it('should return undefined if preview is a rejected promise', async () => {
+    const processedState: FileState = {
+      status: 'processed',
+      name: '',
+      id: '',
+      artifacts: {},
+      mediaType: 'image',
+      mimeType: '',
+      size: 1,
+      preview: Promise.reject(new Error('file has no image representation')),
+      representations: {},
+    };
+
+    expect(await getObjectUrlFromFileState(processedState)).toBeUndefined();
+  });
 });

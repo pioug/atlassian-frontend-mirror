@@ -10,7 +10,7 @@ import {
   toggleBulletList as toggleBulletListKeymap,
   toggleOrderedList as toggleOrderedListKeymap,
   tooltip,
-  renderTooltipContent,
+  ToolTipContent,
 } from '../../../../keymaps';
 import ToolbarButton from '../../../../ui/ToolbarButton';
 import DropdownMenu from '../../../../ui/DropdownMenu';
@@ -116,10 +116,12 @@ class ToolbarLists extends PureComponent<Props & InjectedIntlProps, State> {
             onClick={this.handleBulletListClick}
             selected={bulletListActive}
             disabled={bulletListDisabled || disabled}
-            title={renderTooltipContent(
-              labelUnorderedList,
-              toggleBulletListKeymap,
-            )}
+            title={
+              <ToolTipContent
+                description={labelUnorderedList}
+                keymap={toggleBulletListKeymap}
+              />
+            }
             iconBefore={<BulletListIcon label={labelUnorderedList} />}
           />
           <ToolbarButton
@@ -127,10 +129,12 @@ class ToolbarLists extends PureComponent<Props & InjectedIntlProps, State> {
             onClick={this.handleOrderedListClick}
             selected={orderedListActive}
             disabled={orderedListDisabled || disabled}
-            title={renderTooltipContent(
-              labelOrderedList,
-              toggleOrderedListKeymap,
-            )}
+            title={
+              <ToolTipContent
+                description={labelOrderedList}
+                keymap={toggleOrderedListKeymap}
+              />
+            }
             iconBefore={<NumberListIcon label={labelOrderedList} />}
           />
           {isSeparator && <Separator />}

@@ -638,7 +638,7 @@
 
 ## 13.2.3
 
-- [patch] Added pointer-events: none targeting the <svg> element within the Icon component to prevent type errors in JS [b755d8a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b755d8a)
+- [patch] Added pointer-events: none targeting the `<svg>` element within the Icon component to prevent type errors in JS [b755d8a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b755d8a)
 - [none] Updated dependencies [b755d8a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b755d8a)
 
 ## 13.2.2

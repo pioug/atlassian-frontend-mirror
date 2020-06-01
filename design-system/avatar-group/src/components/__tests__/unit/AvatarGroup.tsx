@@ -15,7 +15,6 @@ const generateData = (avatarCount: number) => {
       src: `#${i}`,
       size: 'medium' as SizeType,
       appearance: 'circle' as AppearanceType,
-      enableTooltip: true,
       href: '#',
     });
   }

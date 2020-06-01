@@ -12,12 +12,12 @@ import {
   ForbiddenAction,
 } from '@atlaskit/media-ui';
 import { BlockCardProps } from './types';
-import { extractBlockActionPropsFromJSONLD } from '../../extractors/common/actions/extractActions';
 import { JsonLd } from 'json-ld-types';
 import { extractPreviewFromProps } from '../../extractors/common/actions/extractPreviewAction';
-import { getDefinitionId } from '../../state/actions/helpers';
+import { getDefinitionId } from '../../state/helpers';
+import { extractBlockActionPropsFromJSONLD } from '../../extractors/common/actions/extractActions';
 import { extractBlockProps } from '../../extractors/block';
-import { getEmptyJsonLd } from '../../utils';
+import { getEmptyJsonLd } from '../../utils/jsonld';
 
 export const BlockCard: FC<BlockCardProps> = ({
   url,
@@ -74,7 +74,10 @@ export const BlockCard: FC<BlockCardProps> = ({
       resolvedViewProps.actions = actions;
 
       if (onResolve) {
-        onResolve({ title: resolvedViewProps.title, url });
+        onResolve({
+          title: resolvedViewProps.title,
+          url,
+        });
       }
 
       return (
@@ -119,6 +122,7 @@ export const BlockCard: FC<BlockCardProps> = ({
           onClick={handleFrameClick}
         />
       );
+    case 'fallback':
     case 'errored':
       if (authFlow && authFlow === 'disabled') {
         return (

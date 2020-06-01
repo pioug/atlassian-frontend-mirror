@@ -12,8 +12,13 @@ import { OnBlur } from '../types';
 const Date = function({
   field,
   onBlur,
+  autoFocus,
   intl,
-}: { field: DateField; onBlur: OnBlur } & InjectedIntlProps) {
+}: {
+  field: DateField;
+  onBlur: OnBlur;
+  autoFocus?: boolean;
+} & InjectedIntlProps) {
   const element = (
     <Field
       name={field.name}
@@ -26,6 +31,7 @@ const Date = function({
         <Fragment>
           <DatePicker
             {...fieldProps}
+            autoFocus={autoFocus}
             onBlur={() => {
               fieldProps.onBlur();
               onBlur(field.name);

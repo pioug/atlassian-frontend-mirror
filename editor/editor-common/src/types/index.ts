@@ -23,5 +23,7 @@ export {
   CollabEventTelepointerData,
 } from './collab';
 
+export { AnnotationState, AnnotationProviders } from './annotation';
+
 export { TypeAheadItem, TypeAheadItemRenderProps } from './typeAhead';
 export { CollabEditProvider } from '../provider-factory/collab-edit-provider';

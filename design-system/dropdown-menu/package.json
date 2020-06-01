@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^6.3.5",
-    "@atlaskit/button": "^13.3.12",
+    "@atlaskit/button": "^13.4.0",
     "@atlaskit/droplist": "^10.0.5",
     "@atlaskit/icon": "^20.1.1",
     "@atlaskit/item": "^11.0.2",
@@ -41,7 +41,7 @@
     "styled-components": "^3.2.6"
   },
   "devDependencies": {
-    "@atlaskit/avatar": "^17.1.11",
+    "@atlaskit/avatar": "^18.0.0",
     "@atlaskit/build-utils": "*",
     "@atlaskit/docs": "*",
     "@atlaskit/lozenge": "9.1.8",

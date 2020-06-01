@@ -66,6 +66,7 @@ export default class Dropdown extends Component<Props> {
                   hide();
                   dispatchCommand(item.onClick);
                 }}
+                data-testid={item.testId}
                 isDisabled={item.disabled}
               >
                 {item.title}

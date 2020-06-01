@@ -1,5 +1,6 @@
 import React from 'react';
 import { InjectedIntlProps, injectIntl } from 'react-intl';
+import memoizeOne from 'memoize-one';
 
 import { ExtensionManifest } from '@atlaskit/editor-common';
 import Form from '@atlaskit/form';
@@ -29,6 +30,7 @@ type Props = {
 type State = {
   hasParsedParameters: boolean;
   currentParameters: Parameters;
+  firstVisibleFieldName?: string;
 };
 
 class ConfigPanel extends React.Component<Props, State> {
@@ -37,6 +39,7 @@ class ConfigPanel extends React.Component<Props, State> {
     this.state = {
       hasParsedParameters: false,
       currentParameters: {},
+      firstVisibleFieldName: this.getFirstVisibleFieldName(props.fields),
     };
   }
 
@@ -53,6 +56,10 @@ class ConfigPanel extends React.Component<Props, State> {
       (fields && fields.length !== prevProps.fields.length)
     ) {
       this.parseParameters(fields, parameters);
+    }
+
+    if (fields && fields.length !== prevProps.fields.length) {
+      this.setFirstVisibleFieldName(fields);
     }
   }
 
@@ -110,16 +117,71 @@ class ConfigPanel extends React.Component<Props, State> {
     }
   };
 
-  render() {
-    const {
-      fields,
-      onCancel,
-      extensionManifest,
-      autoSave,
-      showHeader,
-    } = this.props;
+  // memoized to prevent rerender on new parameters
+  renderHeader = memoizeOne(() => {
+    const { onCancel, extensionManifest, showHeader } = this.props;
 
-    const { currentParameters, hasParsedParameters } = this.state;
+    if (!showHeader) {
+      return null;
+    }
+
+    return (
+      <Header
+        icon={extensionManifest.icons['48']}
+        title={extensionManifest.title}
+        description={extensionManifest.description}
+        onClose={onCancel}
+      />
+    );
+  });
+
+  getFirstVisibleFieldName = memoizeOne((fields: FieldDefinition[]) => {
+    // finds the first visible field. Returns true for fieldsets too.
+    const firstVisibleField = fields.find(field => {
+      if (field.type === 'fieldset') {
+        return true;
+      }
+      return !field.isHidden;
+    });
+
+    let newFirstVisibleFieldName;
+
+    if (firstVisibleField) {
+      // if it was a fieldset, go deeper trying to locate the field
+      if (firstVisibleField.type === 'fieldset') {
+        const firstVisibleFieldWithinFieldset = firstVisibleField.fields.find(
+          fieldsetField => !fieldsetField.isHidden,
+        );
+
+        newFirstVisibleFieldName =
+          firstVisibleFieldWithinFieldset &&
+          firstVisibleFieldWithinFieldset.name;
+      } else {
+        newFirstVisibleFieldName = firstVisibleField.name;
+      }
+    }
+
+    return newFirstVisibleFieldName;
+  });
+
+  setFirstVisibleFieldName = (fields: FieldDefinition[]) => {
+    const newFirstVisibleFieldName = this.getFirstVisibleFieldName(fields);
+
+    if (newFirstVisibleFieldName !== this.state.firstVisibleFieldName) {
+      this.setState({
+        firstVisibleFieldName: newFirstVisibleFieldName,
+      });
+    }
+  };
+
+  render() {
+    const { fields, onCancel, extensionManifest, autoSave } = this.props;
+
+    const {
+      currentParameters,
+      hasParsedParameters,
+      firstVisibleFieldName,
+    } = this.state;
 
     if (!hasParsedParameters) {
       return <Spinner size="small" />;
@@ -127,26 +189,22 @@ class ConfigPanel extends React.Component<Props, State> {
 
     return (
       <Form onSubmit={this.handleSubmit}>
-        {({ formProps, submitting }) => (
-          <form {...formProps} noValidate onKeyDown={this.handleKeyDown}>
-            {showHeader && (
-              <Header
-                icon={extensionManifest.icons['48']}
-                title={extensionManifest.title}
-                description={extensionManifest.description}
-                onClose={onCancel}
+        {({ formProps, submitting }) => {
+          return (
+            <form {...formProps} noValidate onKeyDown={this.handleKeyDown}>
+              {this.renderHeader()}
+              <ConfigForm
+                extensionManifest={extensionManifest}
+                fields={fields}
+                parameters={currentParameters}
+                onCancel={onCancel}
+                autoSave={autoSave}
+                submitting={submitting}
+                firstVisibleFieldName={firstVisibleFieldName}
               />
-            )}
-            <ConfigForm
-              extensionManifest={extensionManifest}
-              fields={fields}
-              parameters={currentParameters}
-              onCancel={onCancel}
-              autoSave={autoSave}
-              submitting={submitting}
-            />
-          </form>
-        )}
+            </form>
+          );
+        }}
       </Form>
     );
   }

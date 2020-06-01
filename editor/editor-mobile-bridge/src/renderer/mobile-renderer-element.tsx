@@ -3,9 +3,15 @@ import React from 'react';
 import {
   ProviderFactory,
   WithCreateAnalyticsEvent,
+  AnnotationState,
 } from '@atlaskit/editor-common';
 import { MentionProvider } from '@atlaskit/mention/types';
 import { MediaProvider as MediaProviderType } from '@atlaskit/editor-common/provider-factory';
+import {
+  AnnotationMarkStates,
+  AnnotationTypes,
+  AnnotationId,
+} from '@atlaskit/adf-schema';
 import { ReactRenderer, RendererProps } from '@atlaskit/renderer';
 import FabricAnalyticsListeners, {
   AnalyticsWebClient,
@@ -30,6 +36,7 @@ import {
   getDisableActionsValue,
   getDisableMediaLinkingValue,
 } from '../query-param-reader';
+import { createPromise } from '../cross-platform-promise';
 
 export interface MobileRendererProps extends RendererProps {
   cardClient: CardClient;
@@ -54,6 +61,32 @@ const handleAnalyticsEvent = (
   });
 };
 
+const annotationInlineCommentProvider = {
+  getState: async (
+    annotationIds: AnnotationId[],
+  ): Promise<
+    AnnotationState<AnnotationTypes.INLINE_COMMENT, AnnotationMarkStates>[]
+  > => {
+    const response = await createPromise('getAnnotationStates', {
+      annotationIds,
+      annotationType: AnnotationTypes.INLINE_COMMENT,
+    }).submit();
+
+    if (!response || !response.annotationIdToState) {
+      return [];
+    }
+
+    const { annotationIdToState } = response;
+    return annotationIds.map(id => {
+      return {
+        id,
+        annotationType: AnnotationTypes.INLINE_COMMENT,
+        state: annotationIdToState[id],
+      };
+    });
+  },
+};
+
 export default class MobileRenderer extends React.Component<
   MobileRendererProps,
   MobileRendererState
@@ -62,6 +95,7 @@ export default class MobileRenderer extends React.Component<
   // TODO get these from native;
   private objectAri: string;
   private containerAri: string;
+  private allowAnnotations?: boolean;
 
   private analyticsClient: AnalyticsWebClient = analyticsBridgeClient(
     handleAnalyticsEvent,
@@ -95,9 +129,11 @@ export default class MobileRenderer extends React.Component<
     rendererBridge.containerAri = this.containerAri;
     rendererBridge.objectAri = this.objectAri;
     rendererBridge.taskDecisionProvider = taskDecisionProvider;
+
+    this.allowAnnotations = props.allowAnnotations;
   }
 
-  private handleRendererContentLoaded() {
+  private handleRendererContentLoaded = () => {
     if (
       window &&
       !window.webkit && // don't fire on iOS
@@ -107,7 +143,7 @@ export default class MobileRenderer extends React.Component<
         toNativeBridge.call('renderBridge', 'onContentRendered'),
       );
     }
-  }
+  };
 
   private handleToggleTask = (key: ObjectKey, state: TaskState) => {
     toNativeBridge.call('taskDecisionBridge', 'updateTask', {
@@ -134,6 +170,16 @@ export default class MobileRenderer extends React.Component<
       });
     });
   }
+
+  getAnnotationProviders = () => {
+    if (!this.allowAnnotations) {
+      return null;
+    }
+
+    return {
+      inlineComment: annotationInlineCommentProvider,
+    };
+  };
 
   render() {
     try {
@@ -163,6 +209,8 @@ export default class MobileRenderer extends React.Component<
                   document={this.state.document}
                   createAnalyticsEvent={createAnalyticsEvent}
                   allowAltTextOnImages
+                  allowAnnotations={this.allowAnnotations}
+                  annotationProvider={this.getAnnotationProviders()}
                   media={{ allowLinking: !disableMediaLinking }}
                   rendererContext={{
                     // These will need to come from the native side.

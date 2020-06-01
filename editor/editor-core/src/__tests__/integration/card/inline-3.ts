@@ -31,7 +31,7 @@ BrowserTestCase(
 
     await selectInlineLink(page);
     await page.click('span[aria-label="Expand dropdown menu"]');
-    await page.click('div[data-role="droplistContent"] [role="button"]');
+    await page.click('[data-testid="block-appearance"]');
 
     expect(
       await page.$eval(editable, getDocFromElement),

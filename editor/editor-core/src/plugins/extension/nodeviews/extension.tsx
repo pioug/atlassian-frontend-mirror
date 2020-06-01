@@ -5,12 +5,16 @@ import {
   selectParentNodeOfType,
   findSelectedNodeOfType,
 } from 'prosemirror-utils';
-import { ProviderFactory, ExtensionHandlers } from '@atlaskit/editor-common';
+import {
+  ProviderFactory,
+  ExtensionHandlers,
+  ZERO_WIDTH_SPACE,
+} from '@atlaskit/editor-common';
 import { ReactNodeView } from '../../../nodeviews';
 import Extension from '../ui/Extension';
 import { PortalProviderAPI } from '../../../ui/PortalProvider';
 import { ForwardRef, getPosHandler } from '../../../nodeviews/';
-import { ZeroWidthSpace, setNodeSelection } from '../../../utils';
+import { setNodeSelection } from '../../../utils';
 import { EventDispatcher } from '../../../event-dispatcher';
 import { closestElement } from '../../../utils/dom';
 
@@ -97,7 +101,7 @@ class ExtensionNode extends ReactNodeView {
           handleContentDOMRef={forwardRef}
           extensionHandlers={props.extensionHandlers}
         />
-        {this.node.type.name === 'inlineExtension' && ZeroWidthSpace}
+        {this.node.type.name === 'inlineExtension' && ZERO_WIDTH_SPACE}
       </span>
     );
   }

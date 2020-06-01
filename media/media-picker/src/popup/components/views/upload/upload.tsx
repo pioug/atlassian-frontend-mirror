@@ -386,7 +386,6 @@ export class StatelessUploadView extends Component<
     const selectedRecentFiles = selectedItems
       .filter(item => item.serviceName === 'recent_files')
       .map(item => item.id);
-
     const onClick = ({ mediaItemDetails }: CardEvent) => {
       const fileDetails = mediaItemDetails as FileDetails;
       if (fileDetails) {
@@ -399,6 +398,7 @@ export class StatelessUploadView extends Component<
             name: fileDetails.name || '',
             mimeType: fileDetails.mimeType || '',
             size: fileDetails.size || 0,
+            createdAt: fileDetails.createdAt || 0,
           },
           'recent_files',
         );
@@ -438,17 +438,18 @@ export class StatelessUploadView extends Component<
           createEditCardAction(editHandler, formatMessage(messages.annotate)),
         );
       }
+      const identifier: FileIdentifier = {
+        id,
+        mediaItemType: 'file',
+        collectionName: recentsCollection,
+      };
 
       return {
         key: `${occurrenceKey}-${id}`,
         card: (
           <Card
             mediaClientConfig={mediaClient.config}
-            identifier={{
-              id,
-              mediaItemType: 'file',
-              collectionName: recentsCollection,
-            }}
+            identifier={identifier}
             dimensions={cardDimension}
             selectable={true}
             selected={selected}

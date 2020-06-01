@@ -8,7 +8,7 @@ import {
 } from '@atlaskit/analytics-next';
 
 import { SharedCardProps, CardStatus, CardDimensionValue } from '../index';
-import { FileCard } from '../files';
+import { FileCardImageView } from '../files';
 import { breakpointSize } from '../utils/breakpoint';
 import {
   defaultImageCardDimensions,
@@ -19,6 +19,9 @@ import { getCSSUnitValue } from '../utils/getCSSUnitValue';
 import { getElementDimension } from '../utils/getElementDimension';
 import { Wrapper } from './styled';
 import { createAndFireMediaEvent } from '../utils/analytics';
+import { attachDetailsToActions } from '../actions';
+import { getErrorMessage } from '../utils/getErrorMessage';
+import { toHumanReadableMediaSize } from '@atlaskit/media-ui';
 
 export interface CardViewOwnProps extends SharedCardProps {
   readonly status: CardStatus;
@@ -36,7 +39,6 @@ export interface CardViewOwnProps extends SharedCardProps {
   // FileCardProps
   readonly dataURI?: string;
   readonly progress?: number;
-  readonly disableOverlay?: boolean;
   readonly previewOrientation?: number;
 }
 
@@ -116,7 +118,6 @@ export class CardViewBase extends React.Component<
         data-testid={testId || 'media-card-view'}
         shouldUsePointerCursor={true}
         breakpointSize={breakpointSize(this.width)}
-        appearance={appearance}
         dimensions={wrapperDimensions}
         onClick={onClick}
         onMouseEnter={onMouseEnter}
@@ -135,34 +136,41 @@ export class CardViewBase extends React.Component<
       progress,
       onRetry,
       resizeMode,
-      appearance,
       dimensions,
-      actions,
       selectable,
       selected,
       disableOverlay,
       previewOrientation,
       alt,
       onDisplayImage,
+      actions,
     } = this.props;
 
+    const { name, mediaType, size } = metadata || {};
+    const actionsWithDetails =
+      metadata && actions ? attachDetailsToActions(actions, metadata) : [];
+    const errorMessage = getErrorMessage(status);
+    const fileSize = !size ? '' : toHumanReadableMediaSize(size);
+
     return (
-      <FileCard
-        status={status}
-        details={metadata}
-        dataURI={dataURI}
-        alt={alt}
-        progress={progress}
-        onRetry={onRetry}
-        resizeMode={resizeMode}
-        appearance={appearance}
+      <FileCardImageView
+        error={errorMessage}
         dimensions={dimensions}
-        actions={actions}
         selectable={selectable}
         selected={selected}
+        dataURI={dataURI}
+        mediaName={name}
+        mediaType={mediaType}
+        fileSize={fileSize}
+        status={status}
+        progress={progress}
+        resizeMode={resizeMode}
+        onRetry={onRetry}
+        onDisplayImage={onDisplayImage}
+        actions={actionsWithDetails}
         disableOverlay={disableOverlay}
         previewOrientation={previewOrientation}
-        onDisplayImage={onDisplayImage}
+        alt={alt}
       />
     );
   };

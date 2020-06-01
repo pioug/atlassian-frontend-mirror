@@ -13,7 +13,7 @@ const avatarWithSize = (size: SizeType) => (
   <Comment
     key={size}
     author={<CommentAuthor>John Smith</CommentAuthor>}
-    avatar={<Avatar src={avatarImg} label="User avatar" size={size} />}
+    avatar={<Avatar src={avatarImg} size={size} />}
     type="Author"
     time={<CommentTime>30, August 2016</CommentTime>}
     content={

@@ -5,6 +5,7 @@ import {
   ACTION_SUBJECT_ID,
   INPUT_METHOD,
 } from './enums';
+import { PluginPerformanceReportData } from '../../../utils/performance/plugin-performance-report';
 import { FeatureFlagKey } from '../../feature-flags-context/types';
 import { AnnotationAEP } from './inline-comment-events';
 
@@ -87,6 +88,7 @@ type BrowserFreezePayload = OperationalAEP<
   {
     freezeTime: number;
     nodeSize: number;
+    participants: number;
   },
   undefined
 >;
@@ -98,6 +100,7 @@ type SlowInputAEP = OperationalAEP<
   {
     time: number;
     nodeSize: number;
+    participants: number;
   },
   undefined
 >;
@@ -109,6 +112,7 @@ type InputPerfSamlingAEP = OperationalAEP<
   {
     time: number;
     nodeSize: number;
+    participants: number;
   },
   undefined
 >;
@@ -118,19 +122,8 @@ type DispatchedTransactionAEP = OperationalAEP<
   ACTION_SUBJECT.EDITOR,
   undefined,
   {
-    report: {
-      trigger: string;
-      duration: number;
-      nodes: { [name: string]: number };
-      plugins: { [name: string]: { stateApply: number } };
-      slowPlugins: { [name: string]: { stateApply: number } };
-      stepDurations: {
-        stateApply: number;
-        viewUpdate: number;
-        onChange: number;
-        countNodes: number;
-      };
-    };
+    report: PluginPerformanceReportData;
+    participants: number;
   },
   undefined
 >;
@@ -142,6 +135,7 @@ type WithPluginStateCalledAEP = OperationalAEP<
   {
     plugin: string;
     duration: number;
+    participants: number;
   },
   undefined
 >;
@@ -153,6 +147,7 @@ type ReactNodeViewRenderedAEP = OperationalAEP<
   {
     node: string;
     duration: number;
+    participants: number;
   },
   undefined
 >;

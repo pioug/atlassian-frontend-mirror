@@ -1,31 +1,35 @@
-import * as api from './api';
-import { getResolverUrl } from '../utils/environments';
-import { getError } from '../state/actions/helpers';
-import {
-  JsonLdCustom,
-  CardClient as CardClientInterface,
-  EnvironmentsKeys,
-  JsonLdBatch,
-  JsonLdResponse,
-  InvokePayload,
-  ServerActionOpts,
-} from './types';
 import DataLoader from 'dataloader';
-import { FetchError } from './errors';
 import { JsonLd } from 'json-ld-types';
+
+import * as api from './api';
+import { APIError } from './errors';
+import { CardClient as CardClientInterface, EnvironmentsKeys } from './types';
+
+import { getResolverUrl } from './utils/environments';
+
+import { InvokePayload } from '../model/invoke-opts';
+import {
+  BatchResponse,
+  SuccessResponse,
+  ErrorResponse,
+} from './types/responses';
+import { InvokeRequest } from './types/requests';
 
 export default class CardClient implements CardClientInterface {
   private resolverUrl: string;
-  private loadersByDomain: Record<string, DataLoader<string, JsonLdResponse>>;
+  private loadersByDomain: Record<
+    string,
+    DataLoader<string, SuccessResponse | ErrorResponse>
+  >;
 
   constructor(envKey?: EnvironmentsKeys) {
     this.resolverUrl = getResolverUrl(envKey);
     this.loadersByDomain = {};
   }
 
-  private async batchResolve(resourceUrls: string[]): Promise<JsonLdBatch> {
+  private async batchResolve(resourceUrls: string[]): Promise<BatchResponse> {
     const urls = resourceUrls.map(resourceUrl => ({ resourceUrl }));
-    return await api.request<JsonLdBatch>(
+    return await api.request<BatchResponse>(
       'post',
       `${this.resolverUrl}/resolve/batch`,
       urls,
@@ -46,65 +50,65 @@ export default class CardClient implements CardClientInterface {
     return this.loadersByDomain[hostname];
   }
 
-  public async fetchData(url: string): Promise<JsonLdCustom> {
-    const loader = this.getLoader(new URL(url).hostname);
+  public async fetchData(url: string): Promise<JsonLd.Response> {
+    const hostname = new URL(url).hostname;
+    const loader = this.getLoader(hostname);
     const response = await loader.load(url);
-    const { body, status } = response;
+    const responseSuccess = response as SuccessResponse;
 
-    // Catch non-200 server responses to fallback or return useful information.
-    const errorType = getError(body);
-    switch (errorType) {
-      case 'ResolveAuthError':
-        throw new FetchError(
-          'auth',
-          `authentication required for URL ${url}, error: ${errorType}`,
-        );
-      case 'ResolveBadRequestError':
-        throw new FetchError(
-          'fatal',
-          `Bad Request for ${url}, error: ${errorType}`,
-        );
-      case 'InternalServerError': // Timeouts and ORS failures
-        throw new FetchError(
-          'fatal',
-          `Internal Server Error for ${url}, error: ${errorType}`,
-        );
-      case 'ResolveUnsupportedError': // URL isn't supported
-        throw new FetchError(
-          'fatal',
-          `the URL ${url} is unsupported, received server error: ${errorType}`,
-        );
-      default:
-        if (status === 404) {
-          return {
-            meta: {
-              visibility: 'not_found',
-              access: 'forbidden',
-              auth: [],
-              definitionId: 'provider-not-found',
-            },
-            data: {
-              url,
-            },
-          };
+    if (!responseSuccess.body) {
+      const responseErr = response as ErrorResponse;
+      // Catch non-200 server responses to fallback or return useful information.
+      if (responseErr.error) {
+        const errorType = responseErr.error.type;
+        const errorMessage = responseErr.error.message;
+        switch (errorType) {
+          // BadRequestError - indicative of an API error, render
+          // a blue link to mitigate customer impact.
+          case 'ResolveBadRequestError':
+            throw new APIError('fallback', hostname, errorMessage, errorType);
+          // AuthError - if the user logs in, we may be able
+          // to recover. Render an unauthorized card.
+          case 'ResolveAuthError':
+            throw new APIError('auth', hostname, errorMessage, errorType);
+          // UnsupportedError - we do not know how to render this URL.
+          // Bail out and ask the Editor to render as a blue link.
+          case 'ResolveUnsupportedError': // URL isn't supported
+            throw new APIError('fatal', hostname, errorMessage, errorType);
+          // ResolveFailedError - link resolver may have failed.
+          // We could recover on re-resolve; render with fallback state.
+          case 'ResolveFailedError': // Timeouts
+            throw new APIError('error', hostname, errorMessage, errorType);
+          // TimeoutError - link resolver may be taking a long time.
+          // We could recover on re-resolve; render with fallback state.
+          case 'ResolveTimeoutError': // Timeouts
+            throw new APIError('error', hostname, errorMessage, errorType);
+          // InternalServerError - API call failed.
+          // We may recover later; render with fallback state.
+          case 'InternalServerError': // ORS failures
+            throw new APIError('error', hostname, errorMessage, errorType);
         }
-
-        return response.body;
+      }
+      // Catch all: we don't know this error, bail out.
+      throw new APIError(
+        'fatal',
+        hostname,
+        responseErr.toString(),
+        'UnexpectedError',
+      );
+    } else {
+      return responseSuccess.body;
     }
   }
 
   public async postData(
-    data: InvokePayload<ServerActionOpts>,
+    data: InvokePayload<InvokeRequest>,
   ): Promise<JsonLd.Response> {
     const request = {
       key: data.key,
       action: data.action,
       context: data.context,
     };
-    return await api.request<JsonLd.Response>(
-      'post',
-      `${this.resolverUrl}/invoke`,
-      request,
-    );
+    return await api.request('post', `${this.resolverUrl}/invoke`, request);
   }
 }

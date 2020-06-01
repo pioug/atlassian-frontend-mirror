@@ -109,7 +109,7 @@ export class FullPageEditor extends React.Component<
 
   public render() {
     const { props } = this;
-    const { showKeyline, contextPanelVisible } = this.state;
+    const { showKeyline } = this.state;
 
     return (
       <ContextPanelWidthProvider>
@@ -131,7 +131,7 @@ export class FullPageEditor extends React.Component<
             popupsScrollableElement={props.popupsScrollableElement}
             primaryToolbarComponents={props.primaryToolbarComponents}
             providerFactory={props.providerFactory}
-            showKeyline={showKeyline || contextPanelVisible}
+            showKeyline={showKeyline}
             containerElement={this.scrollContainer}
             beforeIcon={props.primaryToolbarIconBefore}
           />

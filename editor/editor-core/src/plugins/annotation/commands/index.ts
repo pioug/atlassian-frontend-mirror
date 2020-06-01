@@ -5,9 +5,8 @@ import {
   RESOLVE_METHOD,
 } from './../../analytics/types/inline-comment-events';
 import { Command } from '../../../types';
-import { INLINE_COMMENT } from '@atlaskit/adf-schema';
+import { AnnotationTypes } from '@atlaskit/adf-schema';
 import { createCommand } from '../pm-plugins/plugin-factory';
-import { ACTIONS } from '../pm-plugins/actions';
 import {
   withAnalytics,
   ACTION_SUBJECT,
@@ -18,13 +17,42 @@ import {
 } from '../../analytics';
 import { AnalyticsEventPayloadCallback } from '../../analytics/utils';
 import { AnalyticsEventPayload } from '../../analytics/types';
-import { InlineCommentAction } from '../types';
 import { hasInlineNodes } from '../utils';
+import {
+  InlineCommentAction,
+  ACTIONS,
+  InlineCommentMap,
+} from '../pm-plugins/types';
 
-export const setInlineCommentState = (newState: any): Command =>
+export const updateInlineCommentResolvedState = (
+  partialNewState: InlineCommentMap,
+  resolveMethod?: RESOLVE_METHOD,
+): Command => {
+  const command: InlineCommentAction = {
+    type: ACTIONS.UPDATE_INLINE_COMMENT_STATE,
+    data: partialNewState,
+  };
+
+  const allResolved = Object.values(partialNewState).every(state => state);
+
+  if (resolveMethod && allResolved) {
+    return withAnalytics({
+      action: ACTION.RESOLVED,
+      actionSubject: ACTION_SUBJECT.ANNOTATION,
+      actionSubjectId: ACTION_SUBJECT_ID.INLINE_COMMENT,
+      eventType: EVENT_TYPE.TRACK,
+      attributes: {
+        method: resolveMethod,
+      },
+    })(createCommand(command));
+  }
+
+  return createCommand(command);
+};
+
+export const clearDirtyMark = (): Command =>
   createCommand({
-    type: ACTIONS.SET_INLINE_COMMENT_STATE,
-    data: newState,
+    type: ACTIONS.INLINE_COMMENT_CLEAR_DIRTY_MARK,
   });
 
 export const removeInlineCommentNearSelection = (id: string): Command => (
@@ -51,7 +79,7 @@ export const removeInlineCommentNearSelection = (id: string): Command => (
     $from.end(),
     annotationMarkType.create({
       id,
-      type: INLINE_COMMENT,
+      type: AnnotationTypes.INLINE_COMMENT,
     }),
   );
 
@@ -60,26 +88,6 @@ export const removeInlineCommentNearSelection = (id: string): Command => (
   }
 
   return true;
-};
-
-export const resolveInlineComment = (
-  id: string,
-  resolveMethod: RESOLVE_METHOD,
-): Command => {
-  const command: InlineCommentAction = {
-    type: ACTIONS.INLINE_COMMENT_RESOLVE,
-    data: { id },
-  };
-
-  return withAnalytics({
-    action: ACTION.RESOLVED,
-    actionSubject: ACTION_SUBJECT.ANNOTATION,
-    actionSubjectId: ACTION_SUBJECT_ID.INLINE_COMMENT,
-    eventType: EVENT_TYPE.TRACK,
-    attributes: {
-      method: resolveMethod,
-    },
-  })(createCommand(command));
 };
 
 const getOverlapCount = (state: EditorState): number => {

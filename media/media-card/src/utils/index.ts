@@ -38,4 +38,3 @@ export {
 export { isValidPercentageUnit } from './isValidPercentageUnit';
 export { ElementDimension, getElementDimension } from './getElementDimension';
 export { containsPixelUnit } from './containsPixelUnit';
-export { toHumanReadableMediaSize } from '@atlaskit/media-ui';

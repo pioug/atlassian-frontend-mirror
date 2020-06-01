@@ -9,6 +9,7 @@ import {
   p,
   inlineCard,
   blockquote,
+  embedCard,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 
 describe('card', () => {
@@ -18,7 +19,9 @@ describe('card', () => {
     return createEditor({
       doc,
       editorProps: {
-        UNSAFE_cards: {},
+        UNSAFE_cards: {
+          allowEmbeds: true,
+        },
       },
       pluginKey,
     });
@@ -114,6 +117,68 @@ describe('card', () => {
                 url: 'https://docs.google.com/spreadsheets/d/168cPaeXw/edit',
               })(),
             ),
+          ),
+        );
+      });
+    });
+
+    describe('pasting Embed Card from Renderer to Editor', () => {
+      it('does not parse Smart Icons to be MediaSingles', () => {
+        const html = `
+        <meta charset="utf-8" />
+        <div
+          data-embed-card="true"
+          data-layout="center"
+          data-card-url="https://drive.google.com/file/d/1Y5S4AYkoLjseAiSCdsjgYd6LjWOS1qtA/view?usp=sharing"
+        >
+          <div>
+            <div class="media-card-frame sc-jQMNup dcXBMK" data-testid="resolved-view">
+              <div
+                class="embed-header sc-TuwoP kxyEBi"      >
+                <div
+                  class="sc-fQkuQJ gtHBSu"
+                >
+                  <img
+                    class="sc-fCPvlr hnrZq"
+                    src="https://developers.google.com/drive/images/drive_icon.png"
+                    alt=""
+                    size="16"
+                  />
+                </div>
+                <div class="sc-epGmkI jHFjbJ">
+                  Google Drive
+                </div>
+              </div>
+              <div class="sc-dphlzf djeAul">
+                <iframe
+                  src="https://drive.google.com/file/d/1Y5S4AYkoLjseAiSCdsjgYd6LjWOS1qtA/view?usp=sharing"
+                  data-testid="resolved-view-frame"
+                  allowfullscreen=""
+                  scrolling="yes"
+                  allow="autoplay; encrypted-media"
+                  class="css-v4oqcm-Frame"
+                ></iframe>
+              </div>
+            </div>
+          </div>
+        </div>
+        `;
+
+        const { editorView } = editor(doc(p('{<>}')));
+        const { state, dispatch } = editorView;
+
+        const provider = new EditorTestCardProvider();
+        dispatch(setProvider(provider)(state.tr));
+
+        dispatchPasteEvent(editorView, { html });
+
+        expect(editorView.state.doc).toEqualDocument(
+          doc(
+            embedCard({
+              url:
+                'https://drive.google.com/file/d/1Y5S4AYkoLjseAiSCdsjgYd6LjWOS1qtA/view?usp=sharing',
+              layout: 'center',
+            })(),
           ),
         );
       });

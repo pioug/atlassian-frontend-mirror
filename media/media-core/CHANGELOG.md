@@ -1,5 +1,11 @@
 # @atlaskit/media-core
 
+## 31.1.1
+
+### Patch Changes
+
+- [`54d82b49f0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54d82b49f0) - Remove unused dependencies
+
 ## 31.1.0
 
 ### Minor Changes

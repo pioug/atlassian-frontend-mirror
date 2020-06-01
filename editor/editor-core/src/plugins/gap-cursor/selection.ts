@@ -101,9 +101,9 @@ export class GapCursorSelection extends Selection {
 
   static fromJSON(
     doc: PMNode,
-    json: { pos: number; type: string },
+    json: { pos: number; type: string; side: Side },
   ): GapCursorSelection {
-    return new GapCursorSelection(doc.resolve(json.pos));
+    return new GapCursorSelection(doc.resolve(json.pos), json.side);
   }
 
   map(doc: PMNode, mapping: Mapping): Selection {
@@ -126,7 +126,7 @@ export class GapCursorSelection extends Selection {
   }
 
   toJSON() {
-    return { pos: this.head, type: JSON_ID };
+    return { pos: this.head, type: JSON_ID, side: this.side };
   }
 }
 

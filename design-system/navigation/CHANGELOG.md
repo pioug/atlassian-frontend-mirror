@@ -1,5 +1,12 @@
 # @atlaskit/navigation
 
+## 36.0.5
+
+### Patch Changes
+
+- [`54d82b49f0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54d82b49f0) - Remove unused dependencies
+- Updated dependencies
+
 ## 36.0.4
 
 ### Patch Changes

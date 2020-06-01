@@ -1,5 +1,32 @@
 # @atlaskit/editor-common
 
+## 45.3.0
+
+### Minor Changes
+
+- [`50c333ab3a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/50c333ab3a) - EDM-216: Adds EmbedCards in the Editor under the flag - allowEmbeds in the UNSAFE_cards prop
+
+### Patch Changes
+
+- [`f82edca013`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f82edca013) - ED-9298: Fix media sizing when default conatiner width is 760
+- [`7682a09312`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7682a09312) - [ED-9142, ED-9342] Add consistent styling for annotations with hover cursor
+- [`f82edca013`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f82edca013) - ED-9298: Fix media size after changing default container width to 760px in renderer
+- [`e30894b112`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e30894b112) - [FM-3716] First Inline Comments implementation for Renderer
+- [`ef36de69ad`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ef36de69ad) - ED-8358 Change decision to use a grey background
+- [`a1e343b428`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a1e343b428) - CEMS-720: try to avoid using CSS transforms on nodes with breakout mark
+
+  Sticky headers depend on `position: fixed`, which does not work when inside an Element that has a parent with the CSS `transform` property.
+
+  We now calculate an appropriate `margin-left` value and use that instead, falling back to the `margin` + `transform` approach if the element has no width.
+
+- [`1faf6937fd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1faf6937fd) - Add hardcoded case for Forge extension type in getExtensionKeyAndNodeKey
+- [`ef36de69ad`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ef36de69ad) - ED-8358 Fix spacing of decisions in tables to not be touching
+- [`8c5c924a13`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8c5c924a13) - CEMS-720: use margin-left rather than CSS transforms on breakout tables
+- [`54d82b49f0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54d82b49f0) - Remove unused dependencies
+- [`93daf076e4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/93daf076e4) - fix: bugs with Block Links - floating menu placement, spacing, editing of link title or source, lazy loading.
+- [`69d56a78b9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/69d56a78b9) - Standardise unsupported content node components between editor-core and editor-common. They now live in editor-common as a single source of truth.
+- Updated dependencies
+
 ## 45.2.1
 
 ### Patch Changes

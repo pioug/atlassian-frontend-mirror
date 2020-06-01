@@ -1,4 +1,6 @@
 import React from 'react';
-export default function Em(props: React.Props<any>) {
-  return <em>{props.children}</em>;
+import { MarkProps } from '../types';
+
+export default function Em(props: MarkProps) {
+  return <em {...props.dataAttributes}>{props.children}</em>;
 }

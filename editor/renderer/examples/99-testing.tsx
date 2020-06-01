@@ -17,7 +17,9 @@ import { RendererActionsContext as RendererContext } from '../src/ui/RendererAct
 import { WithRendererActions } from '../src/ui/RendererActionsContext/WithRendererActions';
 import RendererActions from '../src/actions/index';
 
-const mediaProvider = storyMediaProviderFactory();
+const mediaProvider = storyMediaProviderFactory({
+  useMediaPickerAuthProvider: false,
+});
 const emojiProvider = emoji.storyData.getEmojiResource();
 const contextIdentifierProvider = storyContextIdentifierProviderFactory();
 const mentionProvider = Promise.resolve({

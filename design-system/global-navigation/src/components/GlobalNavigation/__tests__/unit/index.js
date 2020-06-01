@@ -1024,7 +1024,7 @@ describe('GlobalNavigation', () => {
     it('should show default avatar when profileIconUrl is missing', () => {
       const ProfileItems = () => <div />;
       const wrapper = mount(<GlobalNavigation profileItems={ProfileItems} />);
-      expect(wrapper.find('DefaultImage').exists()).toBeTruthy();
+      expect(wrapper.find(Avatar).exists()).toBeTruthy();
     });
 
     it('should show profile photo when profileIconUrl is present', () => {
@@ -1036,7 +1036,6 @@ describe('GlobalNavigation', () => {
         />,
       );
 
-      expect(wrapper.find('DefaultImage').exists()).toBeFalsy();
       expect(wrapper.find(Avatar).prop('src')).toEqual('//url.to.image/fancy');
     });
   });

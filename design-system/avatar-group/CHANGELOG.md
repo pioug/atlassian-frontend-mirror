@@ -1,5 +1,17 @@
 # @atlaskit/avatar-group
 
+## 6.0.0
+
+### Major Changes
+
+- [`a7ca7039c7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a7ca7039c7) - AvatarGroup previously depended heavily on Avatar internals such as styles, `getProps` and `withPseudoState`. These have been moved directly into AvatarGroup to finally decouple the two components. We will revisit this when we convert AvatarGroup to lite-mode and most likely remove them entirely.
+
+  Previously, it was possible to pass arbritray props to the underlying Avatar via the `data` prop. This is no longer supported. Please pass props directly to the custom avatar / presence / status components.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.1.2
 
 ### Patch Changes

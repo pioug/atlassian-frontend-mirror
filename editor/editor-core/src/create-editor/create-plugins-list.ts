@@ -58,6 +58,7 @@ import {
   findReplacePlugin,
   contextPanelPlugin,
   selectionPlugin,
+  mobileSelectionPlugin,
 } from '../plugins';
 import { isFullPage as fullPageCheck } from '../utils/is-full-page';
 import { ScrollGutterPluginOptions } from '../plugins/base/pm-plugins/scroll-gutter';
@@ -114,8 +115,8 @@ export function getDefaultPluginsList(props: EditorProps): EditorPlugin[] {
     clearMarksOnChangeToEmptyDocumentPlugin(),
     // Workaround to place annotationPlugin above hyperlinkPlugin for loading floatingToolbarConfig
     // Follow up to create floatingToolbarConfig rank: https://product-fabric.atlassian.net/browse/ED-8999
-    ...(props.annotationProvider
-      ? [annotationPlugin(props.annotationProvider)]
+    ...(props.annotationProviders
+      ? [annotationPlugin(props.annotationProviders)]
       : []),
     hyperlinkPlugin(),
     textFormattingPlugin(textFormatting || {}),
@@ -360,7 +361,7 @@ export default function createPluginsList(
   }
 
   // See default list for when adding annotations with a provider
-  if (!props.annotationProvider && props.allowConfluenceInlineComment) {
+  if (!props.annotationProviders && props.allowConfluenceInlineComment) {
     plugins.push(annotationPlugin());
   }
 
@@ -425,8 +426,11 @@ export default function createPluginsList(
   );
 
   if (isMobile) {
-    plugins.push(historyPlugin());
-    plugins.push(mobileScrollPlugin());
+    plugins.push(
+      historyPlugin(),
+      mobileScrollPlugin(),
+      mobileSelectionPlugin(),
+    );
   }
 
   if (props.autoScrollIntoView !== false) {

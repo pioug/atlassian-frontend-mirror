@@ -173,6 +173,7 @@ describe('collab-edit: actions', () => {
     describe("when selection is same as the firstStep's", () => {
       it('should set selection, mapping to the new document', () => {
         const { editorView } = editor(doc(p('{<}This is all my text{>}')));
+
         const replaceWithAStep = [
           {
             stepType: 'replace',

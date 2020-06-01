@@ -22,7 +22,7 @@ import blockTypePlugin from '../../../block-type';
 import tasksAndDecisionsPlugin from '../../../tasks-and-decisions';
 import { buildToolbar } from '../../toolbar';
 import { hasInlineNodes } from '../../utils';
-import { inlineCommentProvider, nullComponent } from '../_utils';
+import { inlineCommentProvider } from '../_utils';
 import {
   FloatingToolbarConfig,
   FloatingToolbarButton,
@@ -30,19 +30,10 @@ import {
 import { Command } from '../../../../types';
 import { SelectionBookmark } from 'prosemirror-state';
 import { DecorationSet } from 'prosemirror-view';
-import { DraftDecorationClassName } from '../../types';
-
-jest.useFakeTimers();
+import { AnnotationSharedClassNames } from '@atlaskit/editor-common';
 
 const annotationPreset = new Preset<LightEditorPlugin>()
-  .add([
-    annotationPlugin,
-    {
-      createComponent: nullComponent,
-      viewComponent: nullComponent,
-      providers: { inlineComment: inlineCommentProvider },
-    },
-  ])
+  .add([annotationPlugin, { inlineComment: inlineCommentProvider }])
   .add(emojiPlugin)
   .add(blockTypePlugin)
   .add(tasksAndDecisionsPlugin);
@@ -68,12 +59,6 @@ describe('annotation', () => {
       const { editorView } = editor(
         doc(p('Trysail Sail ho {<}Corsair smartly{>} boom gangway.')),
       );
-
-      // Let the getState promise resolve
-      jest.runOnlyPendingTimers();
-      await new Promise(resolve => {
-        process.nextTick(resolve);
-      });
 
       const toolbar = buildToolbar(editorView.state, intl);
       expect(toolbar).toBeDefined();
@@ -111,41 +96,29 @@ describe('annotation', () => {
       );
       expect(decorations.length).toBe(1);
       expect((decorations[0] as any).type.attrs.class).toEqual(
-        DraftDecorationClassName,
+        AnnotationSharedClassNames.draft,
       );
     });
 
-    it('hides when caret selection', async () => {
+    it('hides when caret selection', () => {
       const { editorView } = editor(
         doc(p('Trysail Sail ho {<>}Corsair smartly boom gangway.')),
       );
-
-      // Let the getState promise resolve
-      jest.runOnlyPendingTimers();
-      await new Promise(resolve => {
-        process.nextTick(resolve);
-      });
 
       const toolbar = buildToolbar(editorView.state, intl);
       expect(toolbar).toBeUndefined();
     });
 
-    it('shows on headings', async () => {
+    it('shows on headings', () => {
       const { editorView } = editor(
         doc(h1('Trysail Sail ho {<}Corsair smartly{>} boom gangway.')),
       );
-
-      // Let the getState promise resolve
-      jest.runOnlyPendingTimers();
-      await new Promise(resolve => {
-        process.nextTick(resolve);
-      });
 
       const toolbar = buildToolbar(editorView.state, intl);
       expect(toolbar).toBeDefined();
     });
 
-    it('shows on tasks', async () => {
+    it('shows on tasks', () => {
       const { editorView } = editor(
         doc(
           taskList({ localId: 'local-task' })(
@@ -155,12 +128,6 @@ describe('annotation', () => {
           ),
         ),
       );
-
-      // Let the getState promise resolve
-      jest.runOnlyPendingTimers();
-      await new Promise(resolve => {
-        process.nextTick(resolve);
-      });
 
       const toolbar = buildToolbar(editorView.state, intl);
       expect(toolbar).toBeDefined();
@@ -184,14 +151,8 @@ describe('annotation', () => {
         doc(p('Corsair{<}', emoji({ shortName: ':smiley:' })(), '{>}')),
         true,
       ],
-    ])('%s', async (_, inputDoc, expected) => {
+    ])('%s', (_, inputDoc, expected) => {
       const { editorView } = editor(inputDoc);
-
-      // Let the getState promise resolve
-      jest.runOnlyPendingTimers();
-      await new Promise(resolve => {
-        process.nextTick(resolve);
-      });
 
       expect(hasInlineNodes(editorView.state)).toBe(expected);
     });

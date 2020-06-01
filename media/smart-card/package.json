@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/smart-card",
-  "version": "13.3.0",
+  "version": "13.4.0",
   "description": "Smart card component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -23,12 +23,12 @@
   "dependencies": {
     "@atlaskit/analytics-gas-types": "^4.0.13",
     "@atlaskit/analytics-next": "^6.3.6",
-    "@atlaskit/button": "^13.3.11",
+    "@atlaskit/button": "^13.4.0",
     "@atlaskit/icon": "^20.1.2",
     "@atlaskit/icon-file-type": "^5.0.4",
     "@atlaskit/icon-object": "^5.0.3",
     "@atlaskit/logo": "^12.3.4",
-    "@atlaskit/media-ui": "^12.2.1",
+    "@atlaskit/media-ui": "^12.3.0",
     "@atlaskit/outbound-auth-flow-client": "^2.0.9",
     "@atlaskit/theme": "^9.5.3",
     "dataloader": "^1.4.0",
@@ -36,7 +36,8 @@
     "lodash.clonedeep": "^4.5.0",
     "react-lazily-render": "^1.2.0",
     "react-loadable": "^5.1.0",
-    "redux": "^3.7.2"
+    "redux": "^3.7.2",
+    "uuid": "^3.1.0"
   },
   "peerDependencies": {
     "react": "^16.8.0",
@@ -44,10 +45,10 @@
     "styled-components": "^3.2.6"
   },
   "devDependencies": {
-    "@atlaskit/button": "^13.3.11",
+    "@atlaskit/button": "^13.4.0",
     "@atlaskit/checkbox": "^10.1.11",
     "@atlaskit/docs": "*",
-    "@atlaskit/form": "^7.2.1",
+    "@atlaskit/form": "^7.3.0",
     "@atlaskit/inline-message": "^10.1.6",
     "@atlaskit/page": "^11.0.13",
     "@atlaskit/radio": "^3.2.1",

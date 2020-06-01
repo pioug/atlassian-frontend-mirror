@@ -2,7 +2,7 @@ import React from 'react';
 import { PureComponent, ReactNode } from 'react';
 import { ProviderFactory, WithProviders } from '@atlaskit/editor-common';
 import TaskItemWithProviders from './task-item-with-providers';
-import { RendererContext } from '../';
+import { RendererContext } from '../types';
 import { FabricElementsAnalyticsContext } from '@atlaskit/analytics-namespaced-context';
 import { NodeProps } from '../types';
 

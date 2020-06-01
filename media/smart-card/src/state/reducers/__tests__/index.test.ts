@@ -6,15 +6,15 @@ import {
   ACTION_RESOLVED,
 } from '../../actions/constants';
 import { CardActionParams, CardAction } from '../../actions/types';
-import { JsonLdCustom } from '../../../client/types';
 import { CardStore } from '../../types';
 import { cardReducer } from '..';
 import { Reducer } from 'react';
+import { JsonLd } from 'json-ld-types';
 
 describe('Smart Card: Reducers', () => {
   let url: string;
   let store: CardStore;
-  let reducer: Reducer<CardStore, CardAction<JsonLdCustom>>;
+  let reducer: Reducer<CardStore, CardAction<JsonLd.Response>>;
   let mockActionParams: CardActionParams;
   let mockDateNow: jest.Mock;
 
@@ -69,7 +69,7 @@ describe('Smart Card: Reducers', () => {
   describe('ACTION_RESOLVING', () => {
     it('successfully updates URL state to resolving (happy path)', () => {
       mockDateNow.mockImplementationOnce(() => 123);
-      const mockPayload: JsonLdCustom = {
+      const mockPayload: JsonLd.Response = {
         meta: {
           visibility: 'public',
           access: 'granted',
@@ -77,6 +77,12 @@ describe('Smart Card: Reducers', () => {
           auth: [],
         },
         data: {
+          '@context': {
+            '@vocab': 'https://www.w3.org/ns/activitystreams#',
+            atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
+            schema: 'http://schema.org/',
+          },
+          '@type': 'Object',
           name: '/some/url',
         },
       };
@@ -95,7 +101,7 @@ describe('Smart Card: Reducers', () => {
   describe('ACTION_RESOLVED', () => {
     it('successfully updates URL state to resolved (happy path)', () => {
       mockDateNow.mockImplementationOnce(() => 123);
-      const mockPayload: JsonLdCustom = {
+      const mockPayload: JsonLd.Response = {
         meta: {
           visibility: 'public',
           access: 'granted',
@@ -103,6 +109,12 @@ describe('Smart Card: Reducers', () => {
           auth: [],
         },
         data: {
+          '@context': {
+            '@vocab': 'https://www.w3.org/ns/activitystreams#',
+            atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
+            schema: 'http://schema.org/',
+          },
+          '@type': 'Object',
           name: '/some/url',
         },
       };

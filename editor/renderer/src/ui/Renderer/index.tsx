@@ -2,7 +2,12 @@ import React, { useContext, useEffect, useRef } from 'react';
 import { PureComponent } from 'react';
 import { IntlProvider } from 'react-intl';
 import { Schema, Node as PMNode } from 'prosemirror-model';
-import { getSchemaBasedOnStage } from '@atlaskit/adf-schema';
+import {
+  getSchemaBasedOnStage,
+  AnnotationMarkStates,
+  AnnotationTypes,
+  AnnotationId,
+} from '@atlaskit/adf-schema';
 import { reduce } from '@atlaskit/adf-utils';
 import {
   ADFStage,
@@ -18,6 +23,7 @@ import {
   startMeasure,
   stopMeasure,
   akEditorFullPageDefaultFontSize,
+  AnnotationProviders,
 } from '@atlaskit/editor-common';
 import {
   IframeWidthObserverFallbackWrapper,
@@ -41,6 +47,11 @@ import { ReactSerializerInit } from '../../react';
 import { BreakoutSSRInlineScript } from './breakout-ssr';
 
 import { RendererContext as ActionsContext } from '../RendererActionsContext';
+import {
+  getAnnotationDeferred,
+  resolveAnnotationPromises,
+  getAllAnnotationMarks,
+} from './utils/annotations';
 
 export interface Extension<T> {
   extensionKey: string;
@@ -57,6 +68,7 @@ export interface Props {
   // before main JavaScript bundle is available.
   enableSsrInlineScripts?: boolean;
   onComplete?: (stat: RenderOutputStat) => void;
+  annotationProvider?: AnnotationProviders<AnnotationMarkStates> | null;
   onError?: (error: any) => void;
   portal?: HTMLElement;
   rendererContext?: RendererContext;
@@ -74,22 +86,24 @@ export interface Props {
   allowColumnSorting?: boolean;
   shouldOpenMediaViewer?: boolean;
   allowAltTextOnImages?: boolean;
+  allowAnnotations?: boolean;
   stickyHeaders?: StickyHeaderConfig;
   media?: {
     allowLinking?: boolean;
   };
 }
-
 export class Renderer extends PureComponent<Props> {
   private providerFactory: ProviderFactory;
   private serializer: ReactSerializer;
   private rafID?: number;
   private editorRef?: React.RefObject<HTMLElement>;
+  private annotationProvider?: AnnotationProviders<AnnotationMarkStates> | null;
 
   constructor(props: Props) {
     super(props);
     this.providerFactory = props.dataProviders || new ProviderFactory();
     this.serializer = new ReactSerializer(this.deriveSerializerProps(props));
+    this.annotationProvider = props.annotationProvider;
     startMeasure('Renderer Render Time');
   }
 
@@ -188,6 +202,9 @@ export class Renderer extends PureComponent<Props> {
       allowAltTextOnImages: props.allowAltTextOnImages,
       stickyHeaders: props.stickyHeaders,
       allowMediaLinking: props.media && props.media.allowLinking,
+      allowAnnotations: props.allowAnnotations,
+      getAnnotationPromise: (id: AnnotationId) =>
+        getAnnotationDeferred(id).promise,
     };
   }
 
@@ -209,6 +226,23 @@ export class Renderer extends PureComponent<Props> {
     return getSchemaBasedOnStage(adfStage);
   };
 
+  private loadAnnotations = (schema: Schema, pmDocument: PMNode) => {
+    if (
+      !this.annotationProvider ||
+      !this.annotationProvider[AnnotationTypes.INLINE_COMMENT]
+    ) {
+      return;
+    }
+
+    const annotationIdsByType = getAllAnnotationMarks(schema, pmDocument);
+    const inlineCommentProvider = this.annotationProvider[
+      AnnotationTypes.INLINE_COMMENT
+    ];
+    inlineCommentProvider
+      .getState(annotationIdsByType[AnnotationTypes.INLINE_COMMENT])
+      .then(resolveAnnotationPromises);
+  };
+
   render() {
     const {
       document,
@@ -221,6 +255,7 @@ export class Renderer extends PureComponent<Props> {
       maxHeight,
       fadeOutHeight,
       enableSsrInlineScripts,
+      allowAnnotations,
     } = this.props;
 
     try {
@@ -234,6 +269,10 @@ export class Renderer extends PureComponent<Props> {
 
       if (onComplete) {
         onComplete(stat);
+      }
+
+      if (allowAnnotations && pmDoc && schema) {
+        this.loadAnnotations(schema, pmDoc);
       }
 
       const rendererOutput = (
@@ -253,7 +292,11 @@ export class Renderer extends PureComponent<Props> {
                     this.editorRef = ref;
                   }}
                 >
-                  {enableSsrInlineScripts ? <BreakoutSSRInlineScript /> : null}
+                  {enableSsrInlineScripts ? (
+                    <BreakoutSSRInlineScript
+                      allowDynamicTextSizing={!!allowDynamicTextSizing}
+                    />
+                  ) : null}
                   <RendererActionsInternalUpdater doc={pmDoc} schema={schema}>
                     {result}
                   </RendererActionsInternalUpdater>

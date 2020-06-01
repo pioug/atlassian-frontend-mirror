@@ -1,5 +1,4 @@
 import React from 'react';
-import { css } from 'styled-components';
 import { Plugin } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import { findParentNode } from 'prosemirror-utils';
@@ -8,20 +7,13 @@ import { breakout } from '@atlaskit/adf-schema';
 import { calcBreakoutWidth } from '@atlaskit/editor-common';
 import { EditorPlugin, PMPluginFactoryParams } from '../../types';
 import WithPluginState from '../../ui/WithPluginState';
-import { pluginKey as widthPluginKey } from '../width';
+import { pluginKey as widthPluginKey, WidthPluginState } from '../width';
 import LayoutButton from './ui/LayoutButton';
 import { isSupportedNodeForBreakout } from './utils/is-supported-node';
 import { BreakoutCssClassName } from './constants';
 import { EventDispatcher } from '../../';
 import { pluginKey } from './plugin-key';
-
-export const breakoutStyles = css`
-  .ProseMirror > .${BreakoutCssClassName.BREAKOUT_MARK}[data-layout='full-width'],
-  .ProseMirror > .${BreakoutCssClassName.BREAKOUT_MARK}[data-layout='wide'] {
-    margin-left: 50%;
-    transform: translateX(-50%);
-  }
-`;
+import { parsePx } from '../../utils/dom';
 
 let debounce: number | null = null;
 
@@ -52,14 +44,31 @@ class BreakoutView {
     this.eventDispatcher = eventDispatcher;
 
     eventDispatcher.on((widthPluginKey as any).key, this.updateWidth);
-    this.updateWidth();
+    this.updateWidth(widthPluginKey.getState(this.view.state));
     this.updateState();
   }
 
-  private updateWidth = () => {
-    const widthState = widthPluginKey.getState(this.view.state);
+  private updateWidth = (widthState: WidthPluginState) => {
     const width = calcBreakoutWidth(this.node.attrs.mode, widthState.width);
     this.dom.style.width = width;
+
+    const lineLength = widthState.lineLength;
+    const widthPx = parsePx(width);
+
+    if (lineLength && widthPx) {
+      this.dom.style.transform = '';
+
+      const marginLeftPx = -(widthPx - lineLength) / 2;
+      this.dom.style.marginLeft = `${marginLeftPx}px`;
+    } else {
+      // fallback method
+      // (lineLength is not normally undefined, but might be in e.g. SSR or initial render)
+      //
+      // this approach doesn't work well with position: fixed, so
+      // it breaks things like sticky headers
+      this.dom.style.marginLeft = '50%';
+      this.dom.style.transform = 'translateX(-50%)';
+    }
   };
 
   // update pluginState on each nodeView update in order to reposition layout button relatively the updated node
@@ -131,7 +140,12 @@ const breakoutPlugin = (options?: BreakoutPluginOptions): EditorPlugin => ({
   name: 'breakout',
 
   pmPlugins() {
-    return [{ name: 'breakout', plugin: createPlugin }];
+    return [
+      {
+        name: 'breakout',
+        plugin: createPlugin,
+      },
+    ];
   },
   marks() {
     return [{ name: 'breakout', mark: breakout }];

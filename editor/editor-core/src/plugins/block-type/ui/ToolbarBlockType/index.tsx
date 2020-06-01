@@ -1,30 +1,16 @@
 import React from 'react';
-import { createElement } from 'react';
-import {
-  defineMessages,
-  injectIntl,
-  FormattedMessage,
-  InjectedIntlProps,
-} from 'react-intl';
-import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
-import TextStyleIcon from '@atlaskit/icon/glyph/editor/text-style';
+import { defineMessages, injectIntl, InjectedIntlProps } from 'react-intl';
 import { akEditorMenuZIndex } from '@atlaskit/editor-common';
 
 import { analyticsService as analytics } from '../../../../analytics';
-import ToolbarButton from '../../../../ui/ToolbarButton';
 import DropdownMenu from '../../../../ui/DropdownMenu';
-import {
-  ButtonContent,
-  Separator,
-  Wrapper,
-  MenuWrapper,
-  ExpandIconWrapper,
-} from '../../../../ui/styles';
+import { Separator, Wrapper, MenuWrapper } from '../../../../ui/styles';
 import { BlockTypeState } from '../../pm-plugins/main';
 import { BlockType, NORMAL_TEXT } from '../../types';
 import { BlockTypeMenuItem, KeyboardShortcut } from './styled';
 import { tooltip, findKeymapByDescription } from '../../../../keymaps';
 import { MenuItem } from '../../../../ui/DropdownMenu/types';
+import { BlockTypeButton } from './blocktype-button';
 
 export const messages = defineMessages({
   textStyles: {
@@ -102,40 +88,6 @@ class ToolbarBlockType extends React.PureComponent<
       return itemTitle.length >= longest.length ? itemTitle : longest;
     }, '');
 
-    const toolbarButtonFactory = (disabled: boolean) => {
-      const labelTextStyles = formatMessage(messages.textStyles);
-      return (
-        <ToolbarButton
-          spacing={isReducedSpacing ? 'none' : 'default'}
-          selected={active}
-          className="block-type-btn"
-          disabled={disabled}
-          onClick={this.handleTriggerClick}
-          title={labelTextStyles}
-          aria-label="Font style"
-          iconAfter={
-            <Wrapper isSmall={isSmall}>
-              {isSmall && <TextStyleIcon label={labelTextStyles} />}
-              <ExpandIconWrapper>
-                <ExpandIcon label={labelTextStyles} />
-              </ExpandIconWrapper>
-            </Wrapper>
-          }
-        >
-          {!isSmall && (
-            <ButtonContent>
-              <FormattedMessage
-                {...(blockTypeTitles[0] || NORMAL_TEXT.title)}
-              />
-              <div style={{ overflow: 'hidden', height: 0 }}>
-                {longestDropdownMenuItem}
-              </div>
-            </ButtonContent>
-          )}
-        </ToolbarButton>
-      );
-    };
-
     if (!this.props.isDisabled && !blockTypesDisabled) {
       const items = this.createItems();
       return (
@@ -152,7 +104,17 @@ class ToolbarBlockType extends React.PureComponent<
             fitHeight={360}
             fitWidth={106}
           >
-            {toolbarButtonFactory(false)}
+            <BlockTypeButton
+              isSmall={isSmall}
+              isReducedSpacing={isReducedSpacing}
+              selected={active}
+              disabled={false}
+              title={blockTypeTitles[0]}
+              onClick={this.handleTriggerClick}
+              formatMessage={formatMessage}
+            >
+              {longestDropdownMenuItem}
+            </BlockTypeButton>
           </DropdownMenu>
           <Separator />
         </MenuWrapper>
@@ -161,7 +123,17 @@ class ToolbarBlockType extends React.PureComponent<
 
     return (
       <Wrapper>
-        {toolbarButtonFactory(true)}
+        <BlockTypeButton
+          isSmall={isSmall}
+          isReducedSpacing={isReducedSpacing}
+          selected={active}
+          disabled={true}
+          title={blockTypeTitles[0]}
+          onClick={this.handleTriggerClick}
+          formatMessage={formatMessage}
+        >
+          {longestDropdownMenuItem}
+        </BlockTypeButton>
         <Separator />
       </Wrapper>
     );
@@ -176,27 +148,33 @@ class ToolbarBlockType extends React.PureComponent<
       intl: { formatMessage },
     } = this.props;
     const { currentBlockType, availableBlockTypes } = this.props.pluginState;
-    const items = availableBlockTypes.reduce((acc, blockType, blockTypeNo) => {
-      const isActive = currentBlockType === blockType;
-      const tagName = blockType.tagName || 'p';
-      acc.push({
-        content: (
-          <BlockTypeMenuItem tagName={tagName} selected={isActive}>
-            {createElement(tagName, {}, formatMessage(blockType.title))}
-          </BlockTypeMenuItem>
-        ),
-        value: blockType,
-        key: `${blockType.name}-${blockTypeNo}`,
-        elemAfter: (
-          <KeyboardShortcut selected={isActive}>
-            {tooltip(findKeymapByDescription(blockType.title.defaultMessage))}
-          </KeyboardShortcut>
-        ),
-        isActive,
-      });
-      return acc;
-    }, [] as Array<DropdownItem>);
-    return [{ items }];
+
+    return [
+      {
+        items: availableBlockTypes.map((blockType, index) => {
+          const isActive = currentBlockType === blockType;
+          const Tag = (blockType.tagName || 'p') as keyof React.ReactHTML;
+
+          return {
+            content: (
+              <BlockTypeMenuItem tagName={Tag} selected={isActive}>
+                <Tag>{formatMessage(blockType.title)}</Tag>
+              </BlockTypeMenuItem>
+            ),
+            value: blockType,
+            key: `${blockType.name}-${index}`,
+            elemAfter: (
+              <KeyboardShortcut selected={isActive}>
+                {tooltip(
+                  findKeymapByDescription(blockType.title.defaultMessage),
+                )}
+              </KeyboardShortcut>
+            ),
+            isActive,
+          };
+        }),
+      },
+    ];
   };
 
   private handleSelectBlockType = ({ item }: { item: DropdownItem }) => {

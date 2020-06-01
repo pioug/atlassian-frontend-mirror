@@ -5,7 +5,10 @@ import ConfluenceInlineComment from '../../../../react/marks/confluence-inline-c
 describe('Renderer - React/Marks/ConfluenceInlineComment', () => {
   const create = () =>
     mount(
-      <ConfluenceInlineComment reference="this-is-reference-hash">
+      <ConfluenceInlineComment
+        dataAttributes={{ 'data-renderer-mark': true }}
+        reference="this-is-reference-hash"
+      >
         wrapped text
       </ConfluenceInlineComment>,
     );

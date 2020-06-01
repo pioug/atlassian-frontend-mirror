@@ -41,7 +41,11 @@ export default ({ blankedColor, invertSpinnerColor }: Props) => (
     <SpinnerWrapper>
       <Spinner
         size="large"
-        invertColor={invertSpinnerColor || defaultProps.invertSpinnerColor}
+        appearance={
+          invertSpinnerColor || defaultProps.invertSpinnerColor
+            ? 'invert'
+            : 'inherit'
+        }
       />
     </SpinnerWrapper>
   </Blanket>

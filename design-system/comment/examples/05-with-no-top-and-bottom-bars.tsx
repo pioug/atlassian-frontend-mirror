@@ -11,7 +11,7 @@ const getSampleText = () =>
 
 export default () => (
   <Comment
-    avatar={<Avatar src={avatarImg} label="Atlaskit avatar" />}
+    avatar={<Avatar src={avatarImg} />}
     content={<p>{getSampleText()}</p>}
   />
 );

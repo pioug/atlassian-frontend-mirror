@@ -7,6 +7,9 @@ import { CardProviderProps } from './types';
 import { MAX_RELOAD_DELAY, MAX_LOADING_DELAY } from '../actions/constants';
 import { CardStore } from '../types';
 import CardClient from '../../client';
+import { extractPreview, LinkPreview } from '../../extractors/common/preview';
+import { JsonLd } from 'json-ld-types';
+import { getUrl } from '../helpers';
 
 export function SmartCardProvider({
   storeOptions,
@@ -25,6 +28,12 @@ export function SmartCardProvider({
       maxAge: MAX_RELOAD_DELAY,
       maxLoadingDelay: MAX_LOADING_DELAY,
     };
+    const getPreview = (url: string): LinkPreview | undefined => {
+      const cardState = getUrl(store, url);
+      return cardState.details
+        ? extractPreview(cardState.details.data as JsonLd.Data.BaseData)
+        : undefined;
+    };
 
     return {
       store,
@@ -32,6 +41,9 @@ export function SmartCardProvider({
         client,
       },
       config: { ...cacheOptions, authFlow },
+      extractors: {
+        getPreview,
+      },
     };
   }, [customClient, customCacheOptions, customAuthFlow, storeOptions]);
 

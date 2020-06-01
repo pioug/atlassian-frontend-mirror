@@ -183,10 +183,6 @@ describe('MediaClient', () => {
                   mediaType: 'unknown',
                   mimeType: '',
                   size: 0,
-                  preview: {
-                    value: content,
-                    origin: 'local',
-                  },
                   occurrenceKey,
                 };
                 expect(state).toEqual(expectedState);

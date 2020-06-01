@@ -1,1 +1,2 @@
-export { MediaImage, MediaImageProps } from './mediaImage';
+export { MediaImageLoader as MediaImage } from './MediaImageLoader';
+export { MediaImageProps } from './mediaImage';

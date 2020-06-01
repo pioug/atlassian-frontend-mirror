@@ -1,5 +1,18 @@
 # @atlaskit/media-client
 
+## 6.2.0
+
+### Minor Changes
+
+- [`a2ffde361d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a2ffde361d) - MPT-131: fetch remote preview for files not supported by the browser
+- [`928dd60d5d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/928dd60d5d) - Add optional createdAt property to FileState interface
+- [`c3b799c7eb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c3b799c7eb) - add optional createdAt field
+
+### Patch Changes
+
+- [`0eb38a0ebd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0eb38a0ebd) - minor code styling changes in media-client
+- Updated dependencies
+
 ## 6.1.0
 
 ### Minor Changes

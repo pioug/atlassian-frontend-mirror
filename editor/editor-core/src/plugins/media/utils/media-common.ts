@@ -29,6 +29,7 @@ import {
   endPositionOfParent,
   startPositionOfParent,
 } from '../../../utils/prosemirror/position';
+import { GapCursorSelection } from '../../gap-cursor/selection';
 
 export const posOfMediaGroupNearby = (
   state: EditorState,
@@ -36,7 +37,8 @@ export const posOfMediaGroupNearby = (
   return (
     posOfParentMediaGroup(state) ||
     posOfFollowingMediaGroup(state) ||
-    posOfPrecedingMediaGroup(state)
+    posOfPrecedingMediaGroup(state) ||
+    posOfMediaGroupNextToGapCursor(state)
   );
 };
 
@@ -60,6 +62,39 @@ export const posOfPrecedingMediaGroup = (
   }
 
   return posOfMediaGroupAbove(state, state.selection.$from);
+};
+
+const posOfMediaGroupNextToGapCursor = (
+  state: EditorState,
+): number | undefined => {
+  const { selection } = state;
+
+  if (selection instanceof GapCursorSelection) {
+    const $pos = state.selection.$from;
+    const mediaGroupType = state.schema.nodes.mediaGroup;
+    return (
+      posOfImmediatePrecedingMediaGroup($pos, mediaGroupType) ||
+      posOfImmediateFollowingMediaGroup($pos, mediaGroupType)
+    );
+  }
+};
+
+const posOfImmediatePrecedingMediaGroup = (
+  $pos: ResolvedPos,
+  mediaGroupType: any,
+): number | undefined => {
+  if ($pos.nodeBefore && $pos.nodeBefore.type === mediaGroupType) {
+    return $pos.pos - $pos.nodeBefore.nodeSize + 1;
+  }
+};
+
+const posOfImmediateFollowingMediaGroup = (
+  $pos: ResolvedPos,
+  mediaGroupType: any,
+): number | undefined => {
+  if ($pos.nodeAfter && $pos.nodeAfter.type === mediaGroupType) {
+    return $pos.pos + 1;
+  }
 };
 
 const posOfFollowingMediaGroup = (state: EditorState): number | undefined => {

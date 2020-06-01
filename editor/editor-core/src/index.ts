@@ -29,14 +29,16 @@ export {
 } from '@atlaskit/mention/resource';
 export { TeamMentionResource } from '@atlaskit/mention/team-resource';
 export {
-  AnnotationProvider,
-  AnnotationCreateComponentProps,
-  AnnotationViewComponentProps,
+  AnnotationProviders,
+  InlineCommentAnnotationProvider,
+  InlineCommentCreateComponentProps,
+  InlineCommentViewComponentProps,
   AnnotationInfo,
   AnnotationState,
   AnnotationTypeProvider,
   InlineCommentState,
-  AnnotationTypes,
+  UpdateEvent,
+  AnnotationUpdateEmitter,
 } from './plugins/annotation';
 export {
   QuickInsertProvider,
@@ -169,3 +171,8 @@ export { MentionPluginState } from './plugins/mentions/types';
 export { TOOLBAR_MENU_TYPE as InsertBlockInputMethodToolbar } from './plugins/insert-block/ui/ToolbarInsertBlock/types';
 export { insertMentionQuery } from './plugins/mentions/commands/insert-mention-query';
 export { insertEmojiQuery } from './plugins/emoji/commands/insert-emoji-query';
+export {
+  SelectionData,
+  SelectionDataState,
+  selectionPluginKey,
+} from './plugins/mobile-selection';

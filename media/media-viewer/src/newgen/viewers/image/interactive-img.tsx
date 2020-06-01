@@ -120,7 +120,7 @@ export class InteractiveImgComponent extends React.Component<Props, State> {
       : 'hd-inactive';
     return (
       <HDIconGroupWrapper className={hideControlsClassName}>
-        {isHDActivating ? <Spinner invertColor /> : undefined}
+        {isHDActivating ? <Spinner appearance="invert" /> : undefined}
         <HDIconWrapper>
           <HDIcon
             primaryColor={hdPrimaryColor}

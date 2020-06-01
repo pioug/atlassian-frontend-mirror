@@ -28,14 +28,7 @@ export function createPlugin(
       },
       apply(_tr, state: AlignmentPluginState, _prevState, nextState) {
         const nextPluginState = getActiveAlignment(nextState);
-        const isEnabled = isAlignable(nextPluginState)(
-          nextState,
-          /**
-           * NOTE: Stan is already making dispatch optional in another PR.
-           * We can remove this once it's merged.
-           */
-          undefined as any,
-        );
+        const isEnabled = isAlignable(nextPluginState)(nextState);
         const newState = {
           ...state,
           align: nextPluginState,

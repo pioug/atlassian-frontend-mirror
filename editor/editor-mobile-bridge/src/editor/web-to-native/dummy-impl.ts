@@ -3,8 +3,25 @@ import { Color as StatusColor } from '@atlaskit/status/element';
 import NativeBridge, { EditorBridges, EditorBridgeNames } from './bridge';
 import { sendToBridge } from '../../bridge-utils';
 
+const callsFromDummyBridge = new Map<string, any[][]>();
+
+const saveToDummyBridge = (name: string, args: any[]) => {
+  const findExitingItem = callsFromDummyBridge.get(name);
+
+  if (findExitingItem) {
+    callsFromDummyBridge.set(name, findExitingItem.concat([args]));
+  } else {
+    callsFromDummyBridge.set(name, [[args]]);
+  }
+};
+
 export default class DummyBridge implements NativeBridge {
   private log = console.debug.bind(console);
+
+  constructor() {
+    (window as any).callsFromDummyBridge = callsFromDummyBridge;
+    callsFromDummyBridge.clear();
+  }
 
   showMentions(query: string) {
     this.log(`showMentions(query=${query})`);
@@ -20,6 +37,7 @@ export default class DummyBridge implements NativeBridge {
   }
   submitPromise(name: string, uuid: string, args: string) {
     this.log(`submitPromise(name=${name}, uuid=${uuid}, args=${args})`);
+    saveToDummyBridge('submitPromise', [...arguments]);
   }
   updateBlockState(currentBlockType: string) {
     this.log(`updateBlockState(currentBlockType=${currentBlockType})`);

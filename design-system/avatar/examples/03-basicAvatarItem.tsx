@@ -18,7 +18,7 @@ function getPresence() {
 }
 
 export default () => {
-  const data = RANDOM_USERS.slice(0, 10).map(user => ({
+  const data = RANDOM_USERS.map(user => ({
     ...user,
     src: getAdorableAvatar(user.email),
   }));

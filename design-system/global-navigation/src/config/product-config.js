@@ -17,11 +17,8 @@ const generateAvatar = profileIconUrl => {
     <span className={className}>
       <Avatar
         name={label}
-        enableTooltip={false}
         borderColor="transparent"
         src={profileIconUrl}
-        isActive={false}
-        isHover={false}
         size="small"
         onClick={onClick}
       />

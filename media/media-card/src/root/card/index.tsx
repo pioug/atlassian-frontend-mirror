@@ -32,12 +32,15 @@ import {
   CardProps,
   CardState,
   CardStatus,
-  OriginalCardDimensions,
+  NumericalCardDimensions,
 } from '../..';
 import { CardView, CardViewBase } from '../cardView';
 import { LazyContent } from '../../utils/lazyContent';
 import { getDataURIDimension } from '../../utils/getDataURIDimension';
-import { getFilePreviewFromFileState } from '../../utils/getFilePreviewFromFileState';
+import {
+  FilePreview,
+  getFilePreviewFromFileState,
+} from '../../utils/getFilePreviewFromFileState';
 import { extendMetadata } from '../../utils/metadata';
 import { isBigger } from '../../utils/dimensionComparer';
 import {
@@ -62,6 +65,7 @@ import {
   hasFilenameAndFilesize,
 } from '../../utils/analytics';
 import { MediaAnalyticsContext } from '@atlaskit/analytics-namespaced-context';
+import { objectURLCache } from './objectURLCache';
 
 export type CardWithAnalyticsEventsProps = CardProps & WithAnalyticsEventsProps;
 
@@ -170,18 +174,8 @@ export class CardBase extends Component<
   componentWillUnmount() {
     this.hasBeenMounted = false;
     this.unsubscribe();
-    this.releaseStateDataURI();
     document.removeEventListener('copy', this.onCopyListener);
   }
-
-  releaseStateDataURI = () => {
-    const { identifier } = this.props;
-    const { dataURI } = this.state;
-    // we don't want to release external previews, since it might be reused later on
-    if (dataURI && identifier.mediaItemType !== 'external-image') {
-      URL.revokeObjectURL(dataURI);
-    }
-  };
 
   async getResolvedId(): Promise<string> {
     const { identifier } = this.props;
@@ -206,10 +200,9 @@ export class CardBase extends Component<
     }
   }
 
-  private getDataURIOriginalDimensions(): OriginalCardDimensions {
-    const { appearance, dimensions } = this.props;
+  private getRequestedDimensions(): NumericalCardDimensions {
+    const { dimensions } = this.props;
     const options = {
-      appearance,
       dimensions,
       component: this,
     };
@@ -225,16 +218,14 @@ export class CardBase extends Component<
     dataURI: string,
     fileId: string,
     metadata: FileDetails,
-    dimensions?: OriginalCardDimensions,
+    { width, height }: NumericalCardDimensions,
     collectionName?: string,
-  ): string | undefined {
+  ): string {
     const { contextId, alt } = this.props;
 
     if (!contextId) {
       return dataURI;
     }
-
-    const { width, height } = dimensions || this.getDataURIOriginalDimensions();
 
     return addFileAttrsToUrl(dataURI, {
       id: fileId,
@@ -252,7 +243,7 @@ export class CardBase extends Component<
   private async getObjectUrlFromBackendImageBlob(
     mediaClient: MediaClient,
     resolvedId: string,
-    { width, height }: OriginalCardDimensions,
+    { width, height }: NumericalCardDimensions,
     collectionName: string | undefined,
   ): Promise<string | undefined> {
     const { resizeMode } = this.props;
@@ -284,6 +275,7 @@ export class CardBase extends Component<
       .subscribe({
         next: async fileState => {
           let { dataURI } = this.state;
+          const { dimensions = {} } = this.props;
           this.lastFileState = fileState;
 
           const thisCardStatusUpdateTimestamp = (performance || Date).now();
@@ -295,29 +287,47 @@ export class CardBase extends Component<
             metadata.mediaType &&
             isPreviewableType(metadata.mediaType);
 
-          if (!dataURI) {
+          // Dimensions are used to create a key. We want to be able to
+          // request new image from backend when different dimensions are provided.
+          const cacheKey = [
+            resolvedId,
+            dimensions.height,
+            dimensions.width,
+          ].join('-');
+
+          if (!dataURI && objectURLCache.has(cacheKey)) {
             // No dataURI in state. Let's try and get one.
-            // First, we try to get one from Preview possibly stored in FileState
-            const { src, orientation = 1 } = await getFilePreviewFromFileState(
-              fileState,
-            );
+            // First, we try to get one from the cache
+            dataURI = objectURLCache.get(cacheKey);
+          }
+
+          if (!dataURI) {
+            // Second, we try to get one from Preview possibly stored in FileState
+            let filePreview: FilePreview;
+
+            try {
+              filePreview = await getFilePreviewFromFileState(fileState);
+            } catch (err) {
+              // no preview could be fetched from FileState
+              filePreview = { orientation: 1 };
+            }
 
             let { originalDimensions } = this.props;
+            let requestedDimensions: NumericalCardDimensions | undefined;
 
-            if (src) {
-              dataURI = src;
+            if (filePreview.src) {
+              dataURI = filePreview.src;
               this.safeSetState({
-                previewOrientation: orientation,
+                previewOrientation: filePreview.orientation,
               });
 
-              // Second, if there is no Preview in FileState we fetch one from /image backend
+              // Third, if there is no Preview in FileState we fetch one from /image backend
             } else if (shouldFetchRemotePreview) {
-              originalDimensions =
-                originalDimensions || this.getDataURIOriginalDimensions();
+              requestedDimensions = this.getRequestedDimensions();
               dataURI = await this.getObjectUrlFromBackendImageBlob(
                 mediaClient,
                 resolvedId,
-                originalDimensions,
+                requestedDimensions,
                 collectionName,
               );
             }
@@ -325,20 +335,28 @@ export class CardBase extends Component<
             if (dataURI) {
               // In case we've retrieved dataURI using one of the two methods above,
               // we want to embed some meta context into this URL for Copy/Paste to work.
+              const contextDimensions =
+                originalDimensions ||
+                requestedDimensions ||
+                this.getRequestedDimensions();
               dataURI = this.addContextToDataURI(
                 dataURI,
                 resolvedId,
                 metadata,
-                originalDimensions,
+                contextDimensions,
                 collectionName,
               );
 
-              // Finally we store new dataURI into state
-              this.releaseStateDataURI();
-              this.safeSetState({
-                dataURI,
-              });
+              // We store new dataURI into cache
+              objectURLCache.set(cacheKey, dataURI);
             }
+          }
+
+          if (dataURI) {
+            // Finally we store retrieved dataURI into state
+            this.safeSetState({
+              dataURI,
+            });
           }
 
           const status = getCardStatusFromFileState(fileState, dataURI);

@@ -1,5 +1,152 @@
 # @atlaskit/editor-core
 
+## 124.0.0
+
+### Major Changes
+
+- [`1543651ede`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1543651ede) - ED-9174: Take control of context panel when plugins need and add smooth enter/leave transition
+
+  Products were trying to solve transition issues on their side and it was causing issues when plugins tried to open the context panel.
+  This change will override any limitation we had before, taking control of the panel independent of existing panels.
+
+  The breaking change here is that <ContextPanel> now needs a single child so having text nodes or a collection of nodes directly inside won't work. The simplest solution is to wrap the content on a <div> if required. There is nothing to change if you were passing a single node already.
+
+- [`68baa7f1a5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/68baa7f1a5) - ED-9246 Remove `pollingInterval` from annotation provider. Add meta for `replaceDocument` actions.
+
+  This change removes the `pollingInterval` property from the `annotationProvider` editor prop. This changes as the annotation provider no longer uses an internal timer, but rather subscribes and listens to a provided `AnnotationEventEmitter`.
+
+  ### Before
+
+  ```
+  <Editor
+    annotationProviders={{
+      inlineComment: {
+        pollingInterval: 1000, // <==== This property is being removed
+        createComponent: ExampleCreateInlineCommentComponent,
+        viewComponent: ExampleViewInlineCommentComponent,
+        getState: this.inlineCommentGetState,
+      },
+    }}
+  />
+  ```
+
+  ### After
+
+  ```
+  <Editor
+    annotationProviders={{
+      inlineComment: {
+        createComponent: ExampleCreateInlineCommentComponent,
+        viewComponent: ExampleViewInlineCommentComponent,
+        getState: this.inlineCommentGetState,
+      },
+    }}
+  />
+  ```
+
+- [`d31f2fd85b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d31f2fd85b) - ED-8917 Update annotation provider to sync updates with an EventEmitter
+
+  As part of the inflight work of building annotations within the editor, the annotation provider API is being updated to be event based. This is part of the work to make the annotation provider no longer rely on a timer, rather make it rely on pushed updates from the consumer.
+
+  This change also includes
+
+  - Renaming of the Editor Prop `AnnotationProvider` to `AnnotationProviders` (plural).
+  - Coupling the UI component with the relevant annotation provider
+  - Adding the `updateSubscriber` attribute
+
+  ### Before
+
+  ```
+  <Editor
+    annotationProvider: {
+      createComponent: ExampleCreateInlineCommentComponent,
+      viewComponent: ExampleViewInlineCommentComponent,
+      providers: {
+        inlineComment: {
+        getState: getCommentState,
+      },
+    }
+  >
+  ```
+
+  ### After
+
+  ```
+  <Editor
+    annotationProviders: {
+      inlineComment: {
+        createComponent: ExampleCreateInlineCommentComponent,
+        viewComponent: ExampleViewInlineCommentComponent,
+        getState: getCommentState,
+        updateSubscriber: updateEmitter
+      },
+    }
+  >
+  ```
+
+  Where `updateEmitter` is an instance of `AnnotationUpdateEmitter` imported from `@atlaskit/editor-core`. It's a strongly typed `EventEmitter` that should only fire with `resolve` and `unresolve`, passing a single `annotationId`.
+
+  ```
+  import {AnnotationUpdateEmitter} from '@atlaskit/editor-core';
+
+  const updateEmitter = new AnnotationUpdateEmitter();
+  updateEmitter.emit('resolve', myAnnotationId);
+  ```
+
+### Minor Changes
+
+- [`76160b5c71`](https://bitbucket.org/atlassian/atlassian-frontend/commits/76160b5c71) - [FM-2506] added cursor selection location plugin
+- [`fd90289419`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd90289419) - ED-8981 Make decision items selectable
+- [`6706fd9eaa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6706fd9eaa) - ED-9076: Add participants count to performance related analytics events
+- [`50c333ab3a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/50c333ab3a) - EDM-216: Adds EmbedCards in the Editor under the flag - allowEmbeds in the UNSAFE_cards prop
+
+### Patch Changes
+
+- [`ce2f9b86fd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ce2f9b86fd) - Remove images from mixed content coming from Microsoft clipboard
+- [`567df106ff`](https://bitbucket.org/atlassian/atlassian-frontend/commits/567df106ff) - fix: generate id internal to smart-card
+- [`c9b68d377a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c9b68d377a) - refactor: restructure insert block for performance and clarity
+- [`84a9ee0334`](https://bitbucket.org/atlassian/atlassian-frontend/commits/84a9ee0334) - ED-9296: Optimistic creation of inline comment on plugin state
+- [`8731f7cde5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8731f7cde5) - remove dangerouslySetInnerHtml usage from quickinsert icons
+- [`1d9826a065`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1d9826a065) - CEMS-720: unify how we calculate table row heights in editor
+
+  This should cause less jank when interacting with table controls and resizing columns.
+
+- [`1ba6ac892d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1ba6ac892d) - feat: pass IDs to Smart Link components for performance instrumentation
+- [`8e63ad7ec7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8e63ad7ec7) - ED-9206: Auto focus on initial field and adjust spacing
+- [`7682a09312`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7682a09312) - [ED-9142, ED-9342] Add consistent styling for annotations with hover cursor
+- [`5d40d34b1b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5d40d34b1b) - ED-9147 textSelection value is provided for annotation create and view components
+- [`ae043f4cf2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ae043f4cf2) - ED-9345 Migrate filter-steps analytics to GASv3
+- [`9961ccddcf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9961ccddcf) - EDM-665: fix error handling of Smart Links
+- [`9265feff5a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9265feff5a) - ED-9087: inline comments - added analytics when viewing comments
+- [`e30894b112`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e30894b112) - [FM-3716] First Inline Comments implementation for Renderer
+- [`e1ce3614e3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e1ce3614e3) - perf: avoid rerendering ReactEditorView children via editor dom element
+- [`ef36de69ad`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ef36de69ad) - ED-8358 Change decision to use a grey background
+- [`a1e343b428`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a1e343b428) - CEMS-720: try to avoid using CSS transforms on nodes with breakout mark
+
+  Sticky headers depend on `position: fixed`, which does not work when inside an Element that has a parent with the CSS `transform` property.
+
+  We now calculate an appropriate `margin-left` value and use that instead, falling back to the `margin` + `transform` approach if the element has no width.
+
+- [`f0b0035b51`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f0b0035b51) - ED-9002 fix: send analytics about synchrony errors
+- [`e513ce3d8b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e513ce3d8b) - ED-9179: Enable missing providers for archv3 mobile bridge
+- [`d65881c88f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d65881c88f) - Fix bug add file to existing MediaGroup when Gap cursor is next to a MediaGroup
+- [`7add7519a0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7add7519a0) - Various fixes around image re-sizing in different contexts (table cell, expand, layout column)
+- [`ade794da52`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ade794da52) - redirected collab edit page to use adev
+- [`ef36de69ad`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ef36de69ad) - ED-8358 Fix spacing of decisions in tables to not be touching
+- [`8c5c924a13`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8c5c924a13) - CEMS-720: use margin-left rather than CSS transforms on breakout tables
+- [`1fd1022e87`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1fd1022e87) - perf: avoid rendering content area children
+- [`32186203f5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/32186203f5) - ED-9146 fix issues of paste items copied from inside expand
+- [`54d82b49f0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54d82b49f0) - Remove unused dependencies
+- [`e2a04f74d7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e2a04f74d7) - Fixes issue with presence badge positioning
+- [`93daf076e4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/93daf076e4) - fix: bugs with Block Links - floating menu placement, spacing, editing of link title or source, lazy loading.
+- [`baaad91b65`](https://bitbucket.org/atlassian/atlassian-frontend/commits/baaad91b65) - Updated to use the latest and more performant version of `@atlaskit/avatar`
+- [`f7ee96b6c3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f7ee96b6c3) - Move sanitizeNode from editor-core to adf-utils so that it can be shared easier
+- [`69d56a78b9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/69d56a78b9) - Standardise unsupported content node components between editor-core and editor-common. They now live in editor-common as a single source of truth.
+- [`98f462e2aa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/98f462e2aa) - Bumping use the latest version of @atlaskit/spinner
+- [`3e2005299e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3e2005299e) - ED-9302 Fix newline being inserted above pasted decision
+- [`0ae0040df0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0ae0040df0) - only render Embed appearance when FF is enabled
+- Updated dependencies
+
 ## 123.0.5
 
 ### Patch Changes

@@ -1,4 +1,8 @@
-import { initFullPageEditorWithAdf, snapshot } from '../_utils';
+import {
+  initFullPageEditorWithAdf,
+  snapshot,
+  getContentBoundingRectTopLeftCoords,
+} from '../_utils';
 import * as panel from './__fixtures__/panel-adf.json';
 import { Page } from '../../__helpers/page-objects/_types';
 import {
@@ -32,22 +36,10 @@ describe('Panel:', () => {
   });
 
   it('displays as selected when click on padding', async () => {
-    // page.click clicks in centre of element, so we need to get the bounding rect
-    // so we can click the top left corner
-    const contentBoundingRect = await page.evaluate(selector => {
-      const panelContent = document.querySelector(selector);
-      if (panelContent) {
-        const rect = panelContent.getBoundingClientRect();
-        return { top: rect.top, left: rect.left };
-      }
-    }, `.${PanelSharedCssClassName.prefix}`);
-
-    if (!contentBoundingRect) {
-      throw Error(
-        `Unable to find element .${PanelSharedCssClassName.prefix} on page`,
-      );
-    }
-
+    const contentBoundingRect = await getContentBoundingRectTopLeftCoords(
+      page,
+      `.${PanelSharedCssClassName.prefix}`,
+    );
     await page.mouse.click(contentBoundingRect.left, contentBoundingRect.top);
   });
 

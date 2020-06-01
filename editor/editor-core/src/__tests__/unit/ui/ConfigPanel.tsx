@@ -12,6 +12,7 @@ import {
   Option,
   EnumField,
   FieldDefinition,
+  Fieldset,
 } from '@atlaskit/editor-common/extensions';
 
 import { flushPromises } from '../../__helpers/utils';
@@ -1291,6 +1292,160 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
               });
             });
           });
+        });
+      });
+
+      describe('should focus on the first visible field', () => {
+        it('should work on text field', async () => {
+          const { wrapper } = await mountWithProviders({
+            ...defaultProps,
+            extensionProvider: createProvider([
+              {
+                label: 'Text',
+                type: 'string',
+                name: 't',
+                isHidden: true,
+              },
+              {
+                label: 'Text',
+                type: 'string',
+                name: 't2',
+              },
+            ]),
+            parameters: {},
+          });
+
+          const focusedField = wrapper.find('input[autoFocus=true]');
+
+          expect(focusedField.prop('name')).toBe('t2');
+        });
+
+        it('should work on number field', async () => {
+          const { wrapper } = await mountWithProviders({
+            ...defaultProps,
+            extensionProvider: createProvider([
+              {
+                label: 'Text',
+                type: 'string',
+                name: 't',
+                isHidden: true,
+              },
+              {
+                label: 'Text',
+                type: 'number',
+                name: 'n2',
+              },
+            ]),
+            parameters: {},
+          });
+
+          const focusedField = wrapper.find('input[autoFocus=true]');
+
+          expect(focusedField.prop('name')).toBe('n2');
+        });
+
+        it('should work on select field', async () => {
+          const { wrapper } = await mountWithProviders({
+            ...defaultProps,
+            extensionProvider: createProvider([
+              {
+                label: 'Text',
+                type: 'string',
+                name: 't',
+                isHidden: true,
+              },
+              {
+                label: 'Text',
+                type: 'number',
+                name: 'n2',
+                isHidden: true,
+              },
+              {
+                type: 'enum',
+                label: 'My enum field',
+                style: 'select',
+                name: 'list',
+                items: [],
+              },
+            ]),
+            parameters: {},
+          });
+
+          const focusedField = wrapper.find('Select[autoFocus=true]');
+
+          expect(focusedField.prop('name')).toBe('list');
+        });
+
+        it('should work on custom field', async () => {
+          const { wrapper } = await mountWithProviders({
+            ...defaultProps,
+            extensionProvider: createProvider([
+              {
+                label: 'Text',
+                type: 'string',
+                name: 't',
+                isHidden: true,
+              },
+              {
+                label: 'Text',
+                type: 'number',
+                name: 'n2',
+                isHidden: true,
+              },
+              {
+                label: 'My text field',
+                type: 'custom',
+                options: {
+                  resolver: {
+                    type: 'userpicker',
+                  },
+                },
+                name: 'user',
+              },
+            ]),
+            parameters: {},
+          });
+
+          const focusedField = wrapper.find('Select[autoFocus=true]');
+
+          expect(focusedField.prop('name')).toBe('user');
+        });
+
+        it('should work on fieldsets', async () => {
+          const { wrapper } = await mountWithProviders({
+            ...defaultProps,
+            extensionProvider: createProvider([
+              {
+                label: 'Text',
+                type: 'string' as const,
+                name: 't',
+                isHidden: true,
+              },
+              {
+                label: 'CQL',
+                name: 'cql',
+                type: 'fieldset',
+                options: {
+                  isDynamic: true,
+                  transformer: {
+                    type: 'cql',
+                  },
+                },
+                fields: [
+                  {
+                    name: 'label',
+                    label: 'Label',
+                    type: 'string',
+                  },
+                ],
+              } as Fieldset,
+            ]),
+            parameters: {},
+          });
+
+          const focusedField = wrapper.find('input[autoFocus=true]');
+
+          expect(focusedField.prop('name')).toBe('label');
         });
       });
     });

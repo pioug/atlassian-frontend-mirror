@@ -176,7 +176,7 @@ export class MediaEditor extends React.Component<
 
   private renderSpinner = () => (
     <SpinnerWrapper>
-      <Spinner size="large" invertColor={true} />
+      <Spinner size="large" appearance="invert" />
     </SpinnerWrapper>
   );
 

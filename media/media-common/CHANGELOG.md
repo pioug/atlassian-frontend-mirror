@@ -1,5 +1,11 @@
 # @atlaskit/media-common
 
+## 1.1.0
+
+### Minor Changes
+
+- [`3ae1f77dd4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3ae1f77dd4) - Expose MediaType from media-common
+
 ## 1.0.1
 
 ### Patch Changes

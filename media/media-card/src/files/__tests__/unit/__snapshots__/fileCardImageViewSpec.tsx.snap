@@ -20,7 +20,7 @@ exports[`FileCardImageView should render correct background based on mediaType" 
   box-sizing: border-box;
   pointer-events: none;
   border-radius: 3px;
-  border: 2px solid transparent;
+  border: 1px solid transparent;
 }
 
 .c0 .wrapper {
@@ -65,7 +65,7 @@ exports[`FileCardImageView should render correct background based on mediaType" 
   box-sizing: border-box;
   pointer-events: none;
   border-radius: 3px;
-  border: 2px solid transparent;
+  border: 1px solid transparent;
 }
 
 .c0 .wrapper {

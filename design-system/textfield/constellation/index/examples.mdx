@@ -2,34 +2,34 @@
 order: 0
 ---
 
-import BasicTextfieldExample from '../../examples/06-standard';
-import FormExample from '../../examples/02-formexample';
-import FormValidation from '../../examples/03-formValidation';
-import MaxValueExample from '../../examples/07-maxvalue';
+import TextFieldDefault from '../../examples/constellation/TextFieldDefault';
+import TextFieldForm from '../../examples/constellation/TextFieldForm';
+import TextFieldFormValidation from '../../examples/constellation/TextFieldFormValidation';
+import TextFieldMaxValue from '../../examples/constellation/TextFieldMaxValue';
 
 ## Default
 
-The default form of text field.
+The default form of a text field.
 
-<Example
-	Component={BasicTextfieldExample}
-	componentName="@atlaskit/textfield"
-/>
+<Example Component={TextFieldDefault} componentName="@atlaskit/textfield" />
 
 ## Form
 
 Text field used in forms.
 
-<Example Component={FormExample} componentName="@atlaskit/textfield" />
+<Example Component={TextFieldForm} componentName="@atlaskit/textfield" />
 
 ## Validation
 
-Validation can display an error message related to the restrictions of the field. Keep this text as short as possible and see the [writing guidelines](/content/writing-style). For complicated info, provide a link to more information in a new browser tab.
+Validation can display an error message related to the restrictions of the field. Keep this text as short as possible. Use the [writing guidelines](/content/writing-style) for more help. For complicated infomation, provide a link to more information in a new browser tab.
 
-<Example Component={FormValidation} componentName="@atlaskit/textfield" />
+<Example
+  Component={TextFieldFormValidation}
+  componentName="@atlaskit/textfield"
+/>
 
 ## Max characters
 
 Text fields can be set with a maximum character limit for constraining the amount of content that can be entered. Inline validation can also be set to alert the user and and clarify the request.
 
-<Example Component={MaxValueExample} componentName="@atlaskit/textfield" />
+<Example Component={TextFieldMaxValue} componentName="@atlaskit/textfield" />

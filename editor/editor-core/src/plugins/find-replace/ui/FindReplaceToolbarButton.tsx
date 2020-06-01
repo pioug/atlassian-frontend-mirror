@@ -6,10 +6,7 @@ import ToolbarButton from '../../../ui/ToolbarButton';
 import Dropdown from '../../../ui/Dropdown';
 import FindReplace, { FindReplaceProps } from './FindReplace';
 import { TRIGGER_METHOD, DispatchAnalyticsEvent } from '../../analytics/types';
-import {
-  renderTooltipContent,
-  findKeymapByDescription,
-} from '../../../keymaps';
+import { ToolTipContent, findKeymapByDescription } from '../../../keymaps';
 
 const ToolbarButtonWrapper = styled.div`
   display: flex;
@@ -107,11 +104,12 @@ class FindReplaceToolbarButton extends React.PureComponent<
             <ToolbarButton
               spacing={isReducedSpacing ? 'none' : 'default'}
               selected={isActive}
-              title={renderTooltipContent(
-                title,
-                findKeymapByDescription('Find'),
-                undefined,
-              )}
+              title={
+                <ToolTipContent
+                  description={title}
+                  keymap={findKeymapByDescription('Find')}
+                />
+              }
               iconBefore={<EditorSearchIcon label={title} />}
               onClick={this.toggleOpen}
             />

@@ -1,8 +1,8 @@
 import { PreviewAction, BlockCardResolvedViewProps } from '@atlaskit/media-ui';
 import { JsonLd } from 'json-ld-types';
 
-import { InvokeHandler, InvokeClientOpts } from '../../../client/types';
-import { AnalyticsPayload } from '../../../utils/types';
+import { InvokeHandler } from '../../../model/invoke-handler';
+import { InvokeClientOpts } from '../../../model/invoke-opts';
 import {
   uiRenderSuccessEvent,
   uiRenderFailedEvent,
@@ -12,6 +12,7 @@ import { CardInnerAppearance } from '../../../view/Card/types';
 import { extractDownloadUrl } from '../detail';
 import { extractProvider } from '../context';
 import { extractPreview } from '../preview';
+import { AnalyticsHandler } from '../../../utils/types';
 
 const getMetadataFromJsonLd = (jsonLd: JsonLd.Data.BaseData) => {
   const download = extractDownloadUrl(jsonLd as JsonLd.Data.Document);
@@ -57,7 +58,7 @@ export const extractPreviewFromProps = (
   viewProps: BlockCardResolvedViewProps,
   jsonLd: JsonLd.Data.BaseData,
   handleInvoke: InvokeHandler,
-  handlePreviewAnalytics: (payload: AnalyticsPayload) => void,
+  handleAnalytics: AnalyticsHandler,
   testId?: string,
 ) => {
   // Extract metadata from view props & raw JSON-LD.
@@ -75,12 +76,10 @@ export const extractPreviewFromProps = (
       ...metadata,
       testId,
       onOpen: () => {
-        handlePreviewAnalytics(uiRenderSuccessEvent('preview', key));
+        handleAnalytics(uiRenderSuccessEvent('preview', key));
       },
       onOpenFailed: (error, errorInfo) => {
-        handlePreviewAnalytics(
-          uiRenderFailedEvent('preview', error, errorInfo),
-        );
+        handleAnalytics(uiRenderFailedEvent('preview', error, errorInfo));
       },
       onDownloadActionClick: () => {
         handleInvoke(getInvokeOpts(key, 'DownloadAction'));

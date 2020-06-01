@@ -1,11 +1,16 @@
+import { mockEvents } from './_mocks';
+
 jest.mock('react-lazily-render', () => (data: any) => data.content);
 jest.mock('react-transition-group/Transition', () => (data: any) =>
   data.children,
 );
-const mockFetchError = jest.fn();
+jest.doMock('../../utils/analytics', () => mockEvents);
+
+const mockAPIError = jest.fn();
 jest.doMock('../../client/errors', () => ({
-  FetchError: mockFetchError,
+  APIError: mockAPIError,
 }));
+
 import React from 'react';
 import { useEffect, useState, ReactNode, FC } from 'react';
 import CardClient from '../../client';
@@ -21,7 +26,7 @@ describe('smart-card: card states', () => {
   beforeEach(() => {
     mockFetch = jest.fn(() => Promise.resolve(mocks.success));
     mockClient = new (fakeFactory(mockFetch))();
-    mockUrl = 'some.url';
+    mockUrl = 'https://some.url';
   });
 
   afterEach(() => {

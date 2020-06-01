@@ -14,6 +14,7 @@ import basePlugin from './plugins/base';
 
 export { Preset } from './labs/next/presets/preset';
 export { LightEditorPlugin } from './create-editor/get-plugins';
+export { DispatchAnalyticsEvent } from './plugins/analytics/types';
 
 export interface LightEditorConfig {
   nodes: NodeConfig[];

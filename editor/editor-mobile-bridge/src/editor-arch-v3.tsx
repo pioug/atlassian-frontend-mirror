@@ -3,6 +3,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import MobileEditor from './labs/mobile-editor-element';
 import { IS_DEV } from './utils';
+import {
+  createMentionProvider,
+  createMediaProvider,
+  createEmojiProvider,
+  createCardClient,
+  createCardProvider,
+} from './providers';
 import { getModeValue, getQueryParams } from './query-param-reader';
 
 function main() {
@@ -12,7 +19,15 @@ function main() {
     IS_DEV && rawDefaultValue ? atob(rawDefaultValue) : undefined;
 
   ReactDOM.render(
-    <MobileEditor mode={getModeValue()} defaultValue={defaultValue} />,
+    <MobileEditor
+      mode={getModeValue()}
+      cardClient={createCardClient()}
+      cardProvider={createCardProvider()}
+      defaultValue={defaultValue}
+      emojiProvider={createEmojiProvider()}
+      mediaProvider={createMediaProvider()}
+      mentionProvider={createMentionProvider()}
+    />,
     document.getElementById('editor'),
   );
 }

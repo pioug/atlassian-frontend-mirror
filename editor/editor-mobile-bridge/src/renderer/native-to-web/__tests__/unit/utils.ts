@@ -3,6 +3,7 @@ import {
   getElementScrollOffsetByNodeType,
   scrollToElement,
   getElementScrollOffset,
+  isValidNodeTypeForScroll,
 } from '../../utils';
 
 describe('utils', () => {
@@ -20,13 +21,13 @@ describe('utils', () => {
 
     describe('when the element do not exist', () => {
       it('should return false', () => {
-        const result = scrollToElement('mention', 'non-id');
+        const result = scrollToElement(ScrollToContentNode.MENTION, 'non-id');
 
         expect(result).toBe(false);
       });
 
       it('should not call the scrollIntoView function', () => {
-        scrollToElement('mention', 'non-id');
+        scrollToElement(ScrollToContentNode.MENTION, 'non-id');
 
         expect(scrollIntoViewMock).not.toHaveBeenCalled();
       });
@@ -42,13 +43,13 @@ describe('utils', () => {
       });
 
       it('should return true', () => {
-        const result = scrollToElement('mention', 'id');
+        const result = scrollToElement(ScrollToContentNode.MENTION, 'id');
 
         expect(result).toBe(true);
       });
 
       it('should call the scrollIntoView function', () => {
-        scrollToElement('mention', 'id');
+        scrollToElement(ScrollToContentNode.MENTION, 'id');
 
         expect(scrollIntoViewMock).toHaveBeenCalledTimes(1);
       });
@@ -136,6 +137,7 @@ describe('utils', () => {
     const taskId = 'taskId';
     const decisionId = 'decisionId';
     const headingId = 'headingId';
+    const inlineCommentId = 'inlineCommentId';
 
     beforeEach(() => {
       getBoundingClientRectMock = jest.spyOn(
@@ -152,6 +154,7 @@ describe('utils', () => {
           <div data-task-local-id="${taskId}"></div>
           <li data-decision-local-id="${decisionId}">/div>
           <h1 id="${headingId}"></h1>
+          <span data-mark-type="annotation" data-mark-annotation-type="inlineComment" data-id="${inlineCommentId}">LOL</span>
         </body>
       `;
 
@@ -172,10 +175,11 @@ describe('utils', () => {
     });
 
     describe.each<[ScrollToContentNode, string]>([
-      ['mention', mentionId],
-      ['action', taskId],
-      ['decision', decisionId],
-      ['heading', headingId],
+      [ScrollToContentNode.MENTION, mentionId],
+      [ScrollToContentNode.ACTION, taskId],
+      [ScrollToContentNode.DECISION, decisionId],
+      [ScrollToContentNode.HEADING, headingId],
+      [ScrollToContentNode.INLINE_COMMENT, inlineCommentId],
     ])('when the node type is %s', (nodeType, id) => {
       it('should return the offset', () => {
         const result = getElementScrollOffsetByNodeType(nodeType, id);
@@ -186,5 +190,14 @@ describe('utils', () => {
         });
       });
     });
+  });
+
+  describe('#isValidNodeTypeForScroll', () => {
+    it.each(Object.values(ScrollToContentNode))(
+      'should validate %s ScrollToContentNode value',
+      nodeType => {
+        expect(isValidNodeTypeForScroll(nodeType)).toBe(true);
+      },
+    );
   });
 });

@@ -1,12 +1,12 @@
+import { MediaType } from '@atlaskit/media-common';
+
 import { MediaFileArtifacts } from './artifacts';
 
 // Warning! You can't add new media file processing status!
 // See packages/media/media-core/src/__tests__/cache-backward-compatibility.spec.ts
 export type MediaFileProcessingStatus = 'pending' | 'succeeded' | 'failed';
 
-// Warning! You can't add new media types!
-// See packages/media/media-core/src/__tests__/cache-backward-compatibility.spec.ts
-export type MediaType = 'doc' | 'audio' | 'video' | 'image' | 'unknown';
+export { MediaType } from '@atlaskit/media-common';
 
 export const isPreviewableType = (type: MediaType): boolean => {
   return ['audio', 'video', 'image'].indexOf(type) > -1;
@@ -20,6 +20,7 @@ export type MediaFile = {
   readonly size: number;
   readonly artifacts: MediaFileArtifacts;
   readonly representations: MediaRepresentations;
+  readonly createdAt?: number;
 };
 
 export type MediaCollection = {
@@ -52,6 +53,7 @@ export type MediaCollectionItemFullDetails = {
   readonly size: number;
   readonly artifacts: MediaFileArtifacts;
   readonly representations: MediaRepresentations;
+  readonly createdAt?: number;
 };
 
 export type MediaRepresentations = {

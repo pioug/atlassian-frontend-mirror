@@ -2,6 +2,7 @@ export const ACTION_PENDING = 'pending';
 export const ACTION_RESOLVING = 'resolving';
 export const ACTION_RESOLVED = 'resolved';
 export const ACTION_ERROR = 'errored';
+export const ACTION_ERROR_FALLBACK = 'fallback';
 
 export const ANALYTICS_RESOLVING = 'resolving';
 export const ANALYTICS_ERROR = 'errored';

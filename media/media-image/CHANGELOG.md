@@ -1,5 +1,16 @@
 # @atlaskit/media-image
 
+## 16.0.0
+
+### Major Changes
+
+- [`db7a864f43`](https://bitbucket.org/atlassian/atlassian-frontend/commits/db7a864f43) - Using Lazy Load in MediaImage component
+
+### Patch Changes
+
+- [`a2ffde361d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a2ffde361d) - MPT-131: fetch remote preview for files not supported by the browser
+- Updated dependencies
+
 ## 15.0.7
 
 ### Patch Changes

@@ -22,7 +22,7 @@ export async function annotate(
         );
 
         if (!result) {
-          return;
+          return result;
         }
 
         return {
@@ -34,4 +34,19 @@ export async function annotate(
     annotationId,
     annotationType,
   );
+}
+
+export async function validateRange(page: Page) {
+  return page.execute(() => {
+    // @ts-ignore
+    const actions = window.__rendererActions;
+    if (actions) {
+      const selection = window.getSelection();
+      if (!selection || selection.isCollapsed) {
+        return;
+      }
+
+      return actions.isValidAnnotationRange(selection.getRangeAt(0));
+    }
+  });
 }

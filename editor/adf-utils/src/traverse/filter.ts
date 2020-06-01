@@ -1,5 +1,5 @@
 import { ADFEntity } from '../types';
-import { traverse } from './traverse';
+import { traverse } from '../traverse/traverse';
 
 export function filter(
   adf: ADFEntity,

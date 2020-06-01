@@ -61,7 +61,7 @@ export default class ConnectionDemo extends Component<any, State> {
       case 'info':
         return (
           <SpinnerContainer>
-            <Spinner size="small" invertColor />
+            <Spinner size="small" appearance="invert" />
           </SpinnerContainer>
         );
       case 'success':

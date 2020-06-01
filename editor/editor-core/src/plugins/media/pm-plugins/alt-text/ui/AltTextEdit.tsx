@@ -10,6 +10,7 @@ import { injectIntl, InjectedIntlProps } from 'react-intl';
 import Button from '../../../../floating-toolbar/ui/Button';
 import PanelTextInput from '../../../../../ui/PanelTextInput';
 import * as keymaps from '../../../../../keymaps';
+import { ToolTipContent } from '../../../../../keymaps';
 import { closeMediaAltTextMenu, updateAltText } from '../commands';
 import {
   withAnalyticsEvents,
@@ -142,10 +143,12 @@ export class AltTextEditComponent extends React.Component<
     const { showClearTextButton } = this.state;
 
     const backButtonMessage = formatMessage(messages.back);
-    const backButtonMessageComponent = keymaps.renderTooltipContent(
-      backButtonMessage,
-      keymaps.escape,
-      'Esc',
+    const backButtonMessageComponent = (
+      <ToolTipContent
+        description={backButtonMessage}
+        keymap={keymaps.escape}
+        shortcutOverride="Esc"
+      />
     );
 
     const errorsList = (this.state.validationErrors || []).map(function(

@@ -1,8 +1,8 @@
 import React, { ReactNode } from 'react';
 
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 
-import { colors, gridSize, math } from '@atlaskit/theme';
+import { colors, gridSize } from '@atlaskit/theme';
 
 const Wrapper = styled.div`
   margin-top: ${gridSize}px;
@@ -22,8 +22,8 @@ const ChildrenWrapper = styled.div`
 export const Note = styled.p<{ size?: string }>`
   color: ${colors.N100};
   font-size: ${props => (props.size === 'large' ? '1.15em' : '0.9rem')};
-  margin-top: ${math.divide(gridSize, 2)}px;
-  margin-bottom: ${math.multiply(gridSize, 2)}px;
+  margin-top: ${gridSize() / 2}px;
+  margin-bottom: ${gridSize() * 2}px;
 `;
 
 export const Code = styled.code`
@@ -40,8 +40,8 @@ export const Gap = styled.span`
 `;
 
 export const ShrinkWrap = styled(Gap)`
-  height: ${math.multiply(gridSize, 3)}px;
-  width: ${math.multiply(gridSize, 3)}px;
+  height: ${gridSize() * 3}px;
+  width: ${gridSize() * 3}px;
 `;
 export const Heading = styled.div`
   color: ${colors.subtleHeading};

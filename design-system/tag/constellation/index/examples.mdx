@@ -2,36 +2,60 @@
 order: 0
 ---
 
-import BasicTag from '../../examples/0-basicTag';
-import Appearance from '../../examples/1-appearance';
-import Text from '../../examples/2-textSimple';
-import Colors from '../../examples/1-colors';
-import MaxLength from '../../examples/3-textMaxLength';
+import TagDefault from '../../examples/constellation/TagDefault';
+import TagLink from '../../examples/constellation/TagLink';
+import TagRemovable from '../../examples/constellation/TagRemovable';
+import TagRemovableLink from '../../examples/constellation/TagRemovableLink';
+import TagRounded from '../../examples/constellation/TagRounded';
+import TagRoundedLink from '../../examples/constellation/TagRoundedLink';
+
+import TagColors from '../../examples/constellation/TagColors';
+import TagMaxLength from '../../examples/constellation/TagMaxLength';
 
 ## Default
 
-The default form of tag.
+The default form of a tag, where `text` is required. Tags with static text can be used as a flag or as a reference to an object or attribute.
 
-<Example Component={BasicTag} componentName="@atlaskit/tag" />
+<Example Component={TagDefault} componentName="@atlaskit/tag" />
 
-## Appearance
-Sets whether tags should be rounded. 
+## Tag link
 
-<Example Component={Appearance} componentName="@atlaskit/tag" />
+A tag with an `href` can link to more information on the tagged item.
 
-## Text
-Text displayed in a tag. 
+<Example Component={TagLink} componentName="@atlaskit/tag" />
 
-<Example Component={Text} componentName="@atlaskit/tag" />
+## Removable
+
+Once a tag has been removed, it cannot be re-rendered. Removable tags are visible in "edit" mode or in multi-select controls.
+
+<Example Component={TagRemovable} componentName="@atlaskit/tag" />
+
+## Removable link
+
+A removable tag with an `href` can link to more information.
+
+<Example Component={TagRemovableLink} componentName="@atlaskit/tag" />
+
+## Rounded
+
+Rounded tags with an avatar are used to add or remove people in multi-select controls.
+
+<Example Component={TagRounded} componentName="@atlaskit/tag" />
+
+## Rounded link
+
+A rounded tag with an avatar can link to more information.
+
+<Example Component={TagRoundedLink} componentName="@atlaskit/tag" />
 
 ## Color
 
 The color theme for background and text.
 
-<Example Component={Colors} componentName="@atlaskit/tag" />
+<Example Component={TagColors} componentName="@atlaskit/tag" />
 
 ## Text max length
 
-Once the text reaches 200 px, it truncates then shows an ellipsis.
+Once the text reaches 200px, it is truncated with an ellipsis.
 
-<Example Component={MaxLength} componentName="@atlaskit/tag" />
+<Example Component={TagMaxLength} componentName="@atlaskit/tag" />

@@ -16,7 +16,7 @@ type State = {
   gridWidth: number;
   mode: 'stack' | 'grid';
   sizeIndex: number;
-  tooltipsEnabled: boolean;
+  tooltipsDisabled: boolean;
 };
 
 export default class AvatarGroupExample extends Component<{}, State> {
@@ -26,10 +26,10 @@ export default class AvatarGroupExample extends Component<{}, State> {
     gridWidth: 220,
     mode: 'stack',
     sizeIndex: 3,
-    tooltipsEnabled: true,
+    tooltipsDisabled: false,
   };
 
-  decrement = (key: keyof Omit<State, 'mode' | 'tooltipsEnabled'>) => {
+  decrement = (key: keyof Omit<State, 'mode' | 'tooltipsDisabled'>) => {
     const nextState = this.state;
 
     nextState[key] = this.state[key] - 1;
@@ -37,7 +37,7 @@ export default class AvatarGroupExample extends Component<{}, State> {
     this.setState(nextState);
   };
 
-  increment = (key: keyof Omit<State, 'mode' | 'tooltipsEnabled'>) => {
+  increment = (key: keyof Omit<State, 'mode' | 'tooltipsDisabled'>) => {
     const nextState = this.state;
 
     nextState[key] = this.state[key] + 1;
@@ -47,7 +47,7 @@ export default class AvatarGroupExample extends Component<{}, State> {
 
   toggleTooltips = () => {
     this.setState({
-      tooltipsEnabled: !this.state.tooltipsEnabled,
+      tooltipsDisabled: !this.state.tooltipsDisabled,
     });
   };
 
@@ -156,7 +156,6 @@ export default class AvatarGroupExample extends Component<{}, State> {
             data={stackSourceURLs.map(i => ({
               key: i,
               appearance: 'circle',
-              enableTooltip: true,
               href: '#',
               name: `Grid Avatar ${i + 1}`,
               size: avatarSize,
@@ -190,7 +189,6 @@ export default class AvatarGroupExample extends Component<{}, State> {
             name: `Stack Avatar ${i + 1}`,
             size: avatarSize,
             appearance: 'circle',
-            enableTooltip: true,
           }))}
           size={avatarSize}
         />
@@ -212,7 +210,6 @@ export default class AvatarGroupExample extends Component<{}, State> {
               name: `Stack Avatar ${i + 1}`,
               size: avatarSize,
               appearance: 'circle',
-              enableTooltip: true,
             }))}
             size={avatarSize}
           />
@@ -235,7 +232,6 @@ export default class AvatarGroupExample extends Component<{}, State> {
             maxCount={5}
             data={stackSourceURLs.map(i => ({
               appearance: 'circle',
-              enableTooltip: true,
               href: '#',
               key: i,
               name: `Stack Avatar ${i + 1}`,
@@ -270,7 +266,6 @@ export default class AvatarGroupExample extends Component<{}, State> {
                   name: `Stack Avatar ${i + 1}`,
                   size: avatarSize,
                   appearance: 'circle',
-                  enableTooltip: true,
                 }))}
               />
             </div>
@@ -281,17 +276,16 @@ export default class AvatarGroupExample extends Component<{}, State> {
         <div>
           <Label label="Enable tooltips" />
           <ToggleStateless
-            isChecked={this.state.tooltipsEnabled}
+            isChecked={!this.state.tooltipsDisabled}
             onChange={this.toggleTooltips}
           />
           <AvatarGroup
             data={stackSourceURLs.map(i => ({
-              href: '#',
               key: i,
               name: `Stack Avatar ${i + 1}`,
               size: avatarSize,
               appearance: 'circle',
-              enableTooltip: this.state.tooltipsEnabled,
+              enableTooltip: !this.state.tooltipsDisabled,
             }))}
             size={avatarSize}
           />

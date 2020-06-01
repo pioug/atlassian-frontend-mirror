@@ -1,0 +1,11 @@
+{
+  "stepType": "ak-add-column",
+  "tablePos": 0,
+  "cells": [
+    {
+      "from": 10,
+      "to": 14
+    }
+  ],
+  "isDelete": true
+}

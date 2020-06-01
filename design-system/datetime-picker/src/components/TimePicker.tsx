@@ -123,6 +123,8 @@ const menuStyles: CSSProperties = {
   position: 'static',
   /* Need to add overflow to the element with max-height, otherwise causes overflow issues in IE11 */
   overflowY: 'auto',
+  /* React-Popper has already offset the menu so we need to reset the margin, otherwise the offset value is doubled */
+  margin: 0,
 };
 
 const FixedLayerMenu = ({ selectProps, ...rest }: { selectProps: any }) => (
@@ -378,6 +380,29 @@ class TimePicker extends React.Component<Props, State> {
 
     const renderIconContainer = Boolean(hideIcon && value);
 
+    const mergedStyles = mergeStyles(selectStyles, {
+      control: base => ({
+        ...base,
+        ...controlStyles,
+      }),
+      menu: base => ({
+        ...base,
+        ...menuStyles,
+        ...{
+          // Fixed positioned elements no longer inherit width from their parent, so we must explicitly set the
+          // menu width to the width of our container
+          width: this.containerRef
+            ? this.containerRef.getBoundingClientRect().width
+            : 'auto',
+        },
+      }),
+      indicatorsContainer: base => ({
+        ...base,
+        paddingLeft: renderIconContainer ? ICON_PADDING : 0,
+        paddingRight: renderIconContainer ? gridSize() - BORDER_WIDTH : 0,
+      }),
+    });
+
     return (
       <div
         {...innerProps}
@@ -403,28 +428,7 @@ class TimePicker extends React.Component<Props, State> {
           onMenuOpen={this.onMenuOpen}
           onMenuClose={this.onMenuClose}
           placeholder={this.getPlaceholder()}
-          styles={mergeStyles(selectStyles, {
-            control: base => ({
-              ...base,
-              ...controlStyles,
-            }),
-            menu: base => ({
-              ...base,
-              ...menuStyles,
-              ...{
-                // Fixed positioned elements no longer inherit width from their parent, so we must explicitly set the
-                // menu width to the width of our container
-                width: this.containerRef
-                  ? this.containerRef.getBoundingClientRect().width
-                  : 'auto',
-              },
-            }),
-            indicatorsContainer: base => ({
-              ...base,
-              paddingLeft: renderIconContainer ? ICON_PADDING : 0,
-              paddingRight: renderIconContainer ? gridSize() - BORDER_WIDTH : 0,
-            }),
-          })}
+          styles={mergedStyles}
           value={labelAndValue}
           spacing={spacing}
           fixedLayerRef={this.containerRef}

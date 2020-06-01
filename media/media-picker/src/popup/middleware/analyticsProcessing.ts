@@ -10,12 +10,22 @@ import { version, name } from '../../version.json';
 import analyticsActionHandlers, { Payload } from './analyticsHandlers';
 import { ANALYTICS_MEDIA_CHANNEL } from '../../components/media-picker-analytics-error-boundary';
 
+const getMediaRegion = () => {
+  return (
+    window &&
+    window.sessionStorage &&
+    window.sessionStorage.getItem('media-api-region')
+  );
+};
+
 // TODO https://product-fabric.atlassian.net/browse/MS-598
 
 const createAndFire = (
   payload: Payload,
   handlers: UIAnalyticsEventHandler[],
 ) => {
+  const mediaRegion = getMediaRegion();
+
   new UIAnalyticsEvent({
     context: [{}],
     handlers,
@@ -26,6 +36,7 @@ const createAndFire = (
         componentName: 'mediaPicker',
         packageName: name,
         componentVersion: version,
+        ...(mediaRegion ? { mediaRegion } : undefined),
       },
     },
   }).fire(ANALYTICS_MEDIA_CHANNEL);

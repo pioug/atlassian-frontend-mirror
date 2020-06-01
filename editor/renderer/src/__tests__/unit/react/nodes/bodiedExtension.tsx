@@ -2,7 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import BodiedExtension from '../../../../react/nodes/bodiedExtension';
 
-import { RendererContext } from '../../../../react';
+import { RendererContext } from '../../../../react/types';
 import ReactSerializer from '../../../../react';
 import { defaultSchema } from '@atlaskit/adf-schema';
 import {

@@ -42,6 +42,11 @@ export function createFeatureFlagsFromProps(props: EditorProps): FeatureFlags {
       typeof props.allowKeyboardAccessibleDatepicker === 'boolean'
         ? props.allowKeyboardAccessibleDatepicker
         : false,
+
+    addColumnWithCustomStep:
+      !props.allowTables || typeof props.allowTables === 'boolean'
+        ? false
+        : Boolean(props.allowTables.allowAddColumnWithCustomStep),
   };
 }
 

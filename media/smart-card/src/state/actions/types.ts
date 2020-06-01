@@ -1,15 +1,16 @@
-import { JsonLdCustom } from '../../client/types';
 import { AnyAction } from 'redux';
+import { JsonLd } from 'json-ld-types';
 
-export type CardActionType = 'pending' | 'resolving' | 'resolved' | 'errored';
-export type ServerErrors =
-  | 'InternalServerError'
-  | 'ResolveBadRequestError'
-  | 'ResolveUnsupportedError'
-  | 'ResolveAuthError'
-  | 'ResolveTimeoutError';
+import { APIError } from '../../client/errors';
 
-export interface CardAction<T = JsonLdCustom> extends AnyAction {
+export type CardActionType =
+  | 'pending'
+  | 'resolving'
+  | 'resolved'
+  | 'errored'
+  | 'fallback';
+
+export interface CardAction<T = JsonLd.Response> extends AnyAction {
   type: CardActionType;
   url: string;
   payload?: T;
@@ -19,8 +20,9 @@ export type CardActionParams = {
   url: string;
 };
 
-export type CardBaseActionCreator<T = JsonLdCustom> = (
+export type CardBaseActionCreator<T = JsonLd.Response> = (
   type: CardActionType,
   params: CardActionParams,
   payload?: T,
+  error?: APIError,
 ) => CardAction<T>;

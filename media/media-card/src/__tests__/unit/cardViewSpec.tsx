@@ -1,8 +1,8 @@
-jest.mock('../../../src/utils/breakpoint', () => ({
+jest.mock('../../utils/breakpoint', () => ({
   breakpointSize: jest.fn(),
   breakpointStyles: jest.fn(),
 }));
-jest.mock('../../../src/utils/shouldDisplayImageThumbnail', () => ({
+jest.mock('../../utils/shouldDisplayImageThumbnail', () => ({
   shouldDisplayImageThumbnail: jest.fn(() => true),
 }));
 
@@ -12,21 +12,16 @@ import { shallow, mount } from 'enzyme';
 import { FileDetails } from '@atlaskit/media-client';
 
 import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import {
-  CardView,
-  CardViewBase,
-  CardViewOwnProps,
-} from '../../../src/root/cardView';
-import { FileCard } from '../../../src/files';
-import { Wrapper } from '../../../src/root/styled';
-import {
-  breakpointSize,
-  BreakpointSizeValue,
-} from '../../../src/utils/breakpoint';
+import { CardView, CardViewBase, CardViewOwnProps } from '../../root/cardView';
+import { FileCardImageView } from '../../files';
+import { Wrapper } from '../../root/styled';
+import { breakpointSize, BreakpointSizeValue } from '../../utils/breakpoint';
 
-import { shouldDisplayImageThumbnail } from '../../../src/utils/shouldDisplayImageThumbnail';
+import { shouldDisplayImageThumbnail } from '../../utils/shouldDisplayImageThumbnail';
 import { FabricChannel } from '@atlaskit/analytics-listeners';
 import { CardDimensionValue } from '../../index';
+import { FormattedMessage } from 'react-intl';
+const mediaUi = require.requireActual('@atlaskit/media-ui');
 
 describe('CardView', () => {
   const file: FileDetails = {
@@ -57,29 +52,118 @@ describe('CardView', () => {
       renderOptions,
     );
 
-  it('should render FileCard when no metadata is passed', () => {
-    const element = mount(<CardView status="loading" />);
-    const fileCard = element.find(FileCard);
-    expect(fileCard).toHaveLength(1);
-  });
-
-  it('should render FileCard with details', () => {
-    const element = shallowCardViewBaseElement({ metadata: file });
-
-    const card = element.find(FileCard);
-    expect(card).toHaveLength(1);
-    expect(card.props().details).toBe(file);
-  });
-
-  it('should render FileCard with other props', () => {
-    const element = shallowCardViewBaseElement({
-      metadata: file,
-      appearance: 'image',
+  describe('render FileCardImageView', () => {
+    it('should render FileCardImageView when no metadata is passed', () => {
+      const element = mount(<CardView status="loading" />);
+      const fileCard = element.find(FileCardImageView);
+      expect(fileCard).toHaveLength(1);
     });
 
-    const fileCard = element.find(FileCard);
-    expect(fileCard).toHaveLength(1);
-    expect(fileCard.prop('appearance')).toEqual('image');
+    it('should render FileCardImageView with details passed through to props', function() {
+      const toHumanReadableMediaSize = mediaUi.toHumanReadableMediaSize;
+      const humanReadableMediaSize = 'some KB';
+      mediaUi.toHumanReadableMediaSize = jest
+        .fn()
+        .mockReturnValue(humanReadableMediaSize);
+
+      const filesize = 123456;
+
+      const details: FileDetails = {
+        id: 'id',
+        mediaType: 'image',
+        mimeType: 'image/jpeg',
+        name: 'some-image.jpg',
+        processingStatus: 'succeeded',
+        size: filesize,
+        artifacts: {},
+      };
+
+      const expectedProps = {
+        status: 'complete',
+        dimensions: undefined,
+
+        mediaName: details.name,
+        mediaType: details.mediaType,
+        fileSize: humanReadableMediaSize,
+      };
+      const card = shallowCardViewBaseElement({
+        metadata: details,
+        status: 'complete',
+      });
+
+      const fileCardView = card.find(FileCardImageView);
+      expect(fileCardView.length).toEqual(1);
+      expect(fileCardView.props()).toMatchObject(expectedProps);
+      expect(mediaUi.toHumanReadableMediaSize).toBeCalledWith(filesize);
+
+      mediaUi.toHumanReadableMediaSize = toHumanReadableMediaSize;
+    });
+
+    it('should render FileCardImageView with dataUri when passed', () => {
+      const fakeDataUri: string = 'l33tdatauri';
+
+      const details: FileDetails = {
+        id: 'id',
+        mediaType: 'image',
+        mimeType: 'image/jpeg',
+        name: 'some-image.jpg',
+        processingStatus: 'succeeded',
+        size: 123456,
+        artifacts: {},
+      };
+
+      const card = shallowCardViewBaseElement({
+        metadata: details,
+        status: 'complete',
+        dataURI: fakeDataUri,
+      });
+
+      expect(card.find(FileCardImageView).length).toEqual(1);
+      expect(card.find(FileCardImageView).props().dataURI).toContain(
+        fakeDataUri,
+      );
+    });
+
+    it('should render FileCardImageView with alt prop when passed', () => {
+      const details: FileDetails = {
+        id: 'id',
+        mediaType: 'image',
+        mimeType: 'image/jpeg',
+        name: 'some-image.jpg',
+        processingStatus: 'succeeded',
+        size: 123456,
+        artifacts: {},
+      };
+
+      const alt = 'this is a test';
+
+      const card = shallowCardViewBaseElement({
+        metadata: details,
+        status: 'complete',
+        alt,
+      });
+
+      expect(card.find(FileCardImageView).length).toEqual(1);
+      expect(card.find(FileCardImageView).props().alt).toBe(alt);
+    });
+
+    it('should pass "Failed to load" copy to "image" card view', () => {
+      const card = shallowCardViewBaseElement({ status: 'error' });
+
+      expect(
+        (card.find(FileCardImageView).prop('error')! as FormattedMessage).props
+          .defaultMessage,
+      ).toEqual('Failed to load');
+    });
+
+    it('should pass "disableOverlay" prop to <FileCardImageView /> when appearance is "image"', () => {
+      const card = shallowCardViewBaseElement({
+        status: 'complete',
+        disableOverlay: true,
+      });
+
+      expect(card.find(FileCardImageView).props().disableOverlay).toEqual(true);
+    });
   });
 
   it('should render a cropped image by default', () => {
@@ -206,7 +290,9 @@ describe('CardView', () => {
         { disableLifecycleMethods: true },
       );
 
-      expect(element.find(FileCard).props().disableOverlay).toEqual(true);
+      expect(element.find(FileCardImageView).props().disableOverlay).toEqual(
+        true,
+      );
     });
   });
 

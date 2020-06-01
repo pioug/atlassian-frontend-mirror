@@ -173,14 +173,7 @@ const nestedExample = {
 const inlineCommentEditor = (
   adf: Object,
   onChange?: (editorView: EditorView) => void,
-) => (
-  <Editor
-    appearance="chromeless"
-    annotationProvider={{}}
-    defaultValue={adf}
-    onChange={onChange}
-  />
-);
+) => <Editor appearance="chromeless" defaultValue={adf} onChange={onChange} />;
 
 class SplitExample extends React.Component<{ initialAdf: object }> {
   state = {

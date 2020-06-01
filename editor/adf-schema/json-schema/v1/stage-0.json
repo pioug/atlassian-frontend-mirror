@@ -1582,6 +1582,56 @@
       ],
       "additionalProperties": false
     },
+    "embedCard_node": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "embedCard"
+          ]
+        },
+        "attrs": {
+          "type": "object",
+          "properties": {
+            "width": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "originalWidth": {
+              "type": "number"
+            },
+            "originalHeight": {
+              "type": "number"
+            },
+            "layout": {
+              "enum": [
+                "wide",
+                "full-width",
+                "center",
+                "wrap-right",
+                "wrap-left",
+                "align-end",
+                "align-start"
+              ]
+            },
+            "url": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "layout",
+            "url"
+          ]
+        }
+      },
+      "required": [
+        "type",
+        "attrs"
+      ],
+      "additionalProperties": false
+    },
     "nestedExpand_content": {
       "type": "array",
       "items": {
@@ -1767,6 +1817,9 @@
           },
           {
             "$ref": "#/definitions/extension_node"
+          },
+          {
+            "$ref": "#/definitions/embedCard_node"
           },
           {
             "$ref": "#/definitions/nestedExpand_with_no_marks_node"
@@ -2083,6 +2136,9 @@
           "$ref": "#/definitions/extension_node"
         },
         {
+          "$ref": "#/definitions/embedCard_node"
+        },
+        {
           "$ref": "#/definitions/table_node"
         },
         {
@@ -2232,6 +2288,9 @@
               },
               {
                 "$ref": "#/definitions/extension_node"
+              },
+              {
+                "$ref": "#/definitions/embedCard_node"
               },
               {
                 "$ref": "#/definitions/table_node"

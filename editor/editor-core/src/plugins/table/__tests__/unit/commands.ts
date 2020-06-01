@@ -322,7 +322,7 @@ describe('table plugin: actions', () => {
       const { state, dispatch } = editorView;
       const tableRef = document.querySelector(
         '.ProseMirror table',
-      ) as HTMLElement;
+      ) as HTMLTableElement;
       setEditorFocus(true)(state, dispatch);
       setTableRef(tableRef)(editorView.state, dispatch);
       const pluginState = getPluginState(editorView.state);

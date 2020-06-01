@@ -8,7 +8,7 @@ import {
 } from 'prosemirror-state';
 
 import statusNodeView from './nodeviews/status';
-import { ZeroWidthSpace } from '../../utils';
+import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common';
 import { mayGetStatusAtSelection, isEmptyStatus } from './utils';
 import { Dispatch } from '../../event-dispatcher';
 import { PortalProviderAPI } from '../../ui/PortalProvider';
@@ -150,7 +150,7 @@ const createPlugin = (
           nodeAtSelection.type === state.schema.nodes.status
         ) {
           const delayedNodeRendering = () => {
-            return document.createTextNode(ZeroWidthSpace);
+            return document.createTextNode(ZERO_WIDTH_SPACE);
           };
 
           const decoration = Decoration.widget(

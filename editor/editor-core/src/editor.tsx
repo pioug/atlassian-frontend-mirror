@@ -250,7 +250,7 @@ export default class Editor extends React.Component<EditorProps, State> {
 
       allowConfluenceInlineComment: {
         message:
-          'To integrate inline comments use experimental annotationProvider – <Editor annotationProvider={{ provider }} />',
+          'To integrate inline comments use experimental annotationProvider – <Editor annotationProviders={{ provider }} />',
         type: 'removed',
       },
 
@@ -528,7 +528,7 @@ export default class Editor extends React.Component<EditorProps, State> {
                                     contextPanel={this.props.contextPanel}
                                     collabEdit={this.props.collabEdit}
                                     allowAnnotation={
-                                      !!this.props.annotationProvider
+                                      !!this.props.annotationProviders
                                     }
                                   />
                                 </BaseTheme>

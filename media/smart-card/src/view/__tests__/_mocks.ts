@@ -1,8 +1,12 @@
-export const mockEvents = {
-  resolvedEvent: jest
-    .fn()
-    .mockReturnValue({ attributes: { componentName: 'smart-cards' } }),
-  unresolvedEvent: jest.fn(),
+const mockBaseEvents = {
+  resolvedEvent: jest.fn().mockReturnValue({
+    action: 'resolved',
+    attributes: { componentName: 'smart-cards' },
+  }),
+  unresolvedEvent: jest.fn().mockReturnValue({
+    action: 'unresolved',
+    attributes: { componentName: 'smart-cards' },
+  }),
   connectSucceededEvent: jest.fn(),
   connectFailedEvent: jest.fn(),
   invokeSucceededEvent: jest.fn(),
@@ -18,3 +22,20 @@ export const mockEvents = {
   uiRenderSuccessEvent: jest.fn(),
   uiRenderFailedEvent: jest.fn(),
 };
+
+const instrumentEvent = jest
+  .fn()
+  .mockImplementation((_id: string, status: string) => {
+    if (status === 'resolved') {
+      return mockBaseEvents.resolvedEvent();
+    } else {
+      return mockBaseEvents.unresolvedEvent();
+    }
+  });
+
+const mockEvents = {
+  ...mockBaseEvents,
+  instrumentEvent,
+};
+
+export { mockEvents };

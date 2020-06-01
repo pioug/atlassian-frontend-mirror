@@ -2,6 +2,7 @@
 import { jsx } from '@emotion/core';
 import { FormattedMessage } from 'react-intl';
 import { R50 } from '@atlaskit/theme/colors';
+import { MouseEvent } from 'react';
 
 import { Frame } from '../components/Frame';
 import { Thumbnail } from '../components/Thumbnail';
@@ -15,6 +16,7 @@ import { LockImage } from '../utils/constants';
 import { messages } from '../../messages';
 import { ContentFooter } from '../components/ContentFooter';
 import { IconProps, Icon } from '../components/Icon';
+import { handleClickCommon } from '../utils/handlers';
 
 const textTitleProps = { ...messages.invalid_permissions };
 const textDescriptionProps = { ...messages.invalid_permissions_description };
@@ -46,12 +48,15 @@ export const ForbiddenView = ({
   onClick = () => {},
   icon,
 }: PermissionDeniedProps) => {
+  const handleClick = (event: MouseEvent<HTMLElement>) =>
+    handleClickCommon(event, onClick);
+
   return (
     <Frame isSelected={isSelected} testId={testId}>
       <Content>
         <div>
           <a
-            onClick={onClick}
+            onClick={handleClick}
             href={link}
             target="_blank"
             css={{ display: 'flex', alignItems: 'flex-start' }}

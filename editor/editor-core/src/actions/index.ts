@@ -5,7 +5,7 @@ import { Transformer } from '@atlaskit/editor-common';
 import { compose, toJSON } from '../utils';
 import { processRawValue, isEmptyDocument } from '../utils/document';
 import { getEditorValueWithMedia } from '../utils/action';
-import { sanitizeNode } from '../utils/filter/node-filter';
+import { sanitizeNode } from '@atlaskit/adf-utils';
 import { EventDispatcher } from '../event-dispatcher';
 import { safeInsert } from 'prosemirror-utils';
 

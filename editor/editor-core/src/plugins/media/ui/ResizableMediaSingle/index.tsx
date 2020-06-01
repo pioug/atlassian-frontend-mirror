@@ -247,7 +247,6 @@ export default class ResizableMediaSingle extends React.Component<
       pctWidth,
       lineLength,
       containerWidth,
-      fullWidthMode,
       getPos,
       view: { state },
     } = this.props;
@@ -259,7 +258,6 @@ export default class ResizableMediaSingle extends React.Component<
       pctWidth,
       state,
       containerWidth: { width: containerWidth, lineLength },
-      isFullWidthModeEnabled: fullWidthMode,
       layout: useLayout || layout,
       pos: getPos(),
       resizedPctWidth,

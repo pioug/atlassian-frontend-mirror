@@ -1,11 +1,10 @@
 import React from 'react';
 import { IndentationMarkAttributes } from '@atlaskit/adf-schema';
+import { MarkProps } from '../types';
 
-interface Props extends IndentationMarkAttributes {
-  children: React.Props<any>;
-}
-
-export default function Indentation(props: Props) {
+export default function Indentation(
+  props: MarkProps<IndentationMarkAttributes>,
+) {
   return (
     <div
       className="fabric-editor-block-mark fabric-editor-indentation-mark"

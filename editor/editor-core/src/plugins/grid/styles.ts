@@ -31,10 +31,6 @@ export const gridStyles = css`
     z-index: 0;
   }
 
-  .gridContainer.hidden .gridLine {
-    border-left: 1px solid transparent;
-  }
-
   .highlight {
     border-left: 1px solid ${colors.B200};
   }

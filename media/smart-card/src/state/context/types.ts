@@ -1,6 +1,7 @@
 import { CardStore, CardConnections } from '../store/types';
 import CardClient from '../../client';
 import { Store } from 'redux';
+import { LinkPreview } from '../../extractors/common/preview/extractPreview';
 
 // TODO: Remove once mobile team move to using authentication
 // flow https://product-fabric.atlassian.net/browse/SL-347.
@@ -12,6 +13,9 @@ export interface CardContext {
   store: Store<CardStore>;
   connections: CardConnections;
   config: CardProviderCacheOpts & CardAuthFlowOpts;
+  extractors: {
+    getPreview: (url: string) => LinkPreview | undefined;
+  };
 }
 
 export interface CardProviderCacheOpts {

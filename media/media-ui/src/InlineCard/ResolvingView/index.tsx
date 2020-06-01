@@ -22,14 +22,11 @@ export class InlineCardResolvingView extends React.Component<
     const { url, onClick, isSelected, testId } = this.props;
     return (
       <Frame testId={testId} onClick={onClick} isSelected={isSelected}>
-        <IconAndTitleLayout
-          icon={
-            <SpinnerWrapper>
-              <Spinner size={14} />
-            </SpinnerWrapper>
-          }
-          title={url}
-        />
+        <IconAndTitleLayout title={url}>
+          <SpinnerWrapper className="inline-resolving-spinner">
+            <Spinner size={14} />
+          </SpinnerWrapper>
+        </IconAndTitleLayout>
       </Frame>
     );
   }

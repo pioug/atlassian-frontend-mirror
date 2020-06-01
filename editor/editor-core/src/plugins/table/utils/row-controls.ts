@@ -22,9 +22,8 @@ export const getRowHeights = (tableRef: HTMLTableElement): number[] => {
   if (tableRef.lastChild) {
     const rows = tableRef.lastChild.childNodes;
     for (let i = 0, count = rows.length; i < count; i++) {
-      const cell = rows[i] as HTMLTableCellElement;
-      const rect = cell.getBoundingClientRect();
-      heights[i] = (rect ? rect.height : cell.offsetHeight) + 1;
+      const row = rows[i] as HTMLTableRowElement;
+      heights[i] = row.getBoundingClientRect().height + 1;
     }
   }
   return heights;

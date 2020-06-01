@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/datetime-picker",
-  "version": "9.4.3",
+  "version": "9.4.4",
   "description": "A React component for picking date/time values",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -44,10 +44,10 @@
   },
   "devDependencies": {
     "@atlaskit/build-utils": "*",
-    "@atlaskit/button": "^13.3.12",
+    "@atlaskit/button": "^13.4.0",
     "@atlaskit/docs": "*",
     "@atlaskit/field-range": "^8.0.2",
-    "@atlaskit/modal-dialog": "^10.5.9",
+    "@atlaskit/modal-dialog": "^10.6.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/textfield": "^3.1.11",
     "@atlaskit/visual-regression": "*",

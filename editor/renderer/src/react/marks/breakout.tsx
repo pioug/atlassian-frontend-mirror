@@ -1,10 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
+import { BreakoutMarkAttrs } from '@atlaskit/adf-schema';
 import {
   blockNodesVerticalMargin,
   calcBreakoutWidth,
   WidthConsumer,
 } from '@atlaskit/editor-common';
+import { MarkProps } from '../types';
 
 export const Wrapper = styled.div`
   margin: ${blockNodesVerticalMargin} 0;
@@ -12,17 +14,14 @@ export const Wrapper = styled.div`
   transform: translateX(-50%);
 `;
 
-export default function Breakout(props: {
-  children: React.ReactChild;
-  mode: string;
-}) {
+export default function Breakout(props: MarkProps<BreakoutMarkAttrs>) {
   return (
     <WidthConsumer>
       {({ width }) => (
         <Wrapper
           data-mode={props.mode}
           style={{ width: calcBreakoutWidth(props.mode, width) }}
-          className="fabric-editor-breakout-mark"
+          className="fabric-editor-breakout-mark fabric-editor-block-mark"
         >
           {props.children}
         </Wrapper>

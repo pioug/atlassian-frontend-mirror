@@ -30,7 +30,7 @@ class MockedMobileSmartCardClient extends MobileSmartCardClient {
     return Promise.resolve({
       meta: {
         visibility: 'restricted',
-        access: 'unauthorized',
+        access: 'granted',
         auth: [
           {
             displayName: 'github.com',

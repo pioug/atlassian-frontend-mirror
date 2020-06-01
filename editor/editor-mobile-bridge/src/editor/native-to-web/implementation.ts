@@ -48,7 +48,7 @@ import {
   insertEmojiQuery,
 } from '@atlaskit/editor-core';
 import { EditorViewWithComposition } from '../../types';
-import { EditorState } from 'prosemirror-state';
+import { EditorState, Selection } from 'prosemirror-state';
 import {
   undo as pmHistoryUndo,
   redo as pmHistoryRedo,
@@ -61,6 +61,7 @@ import WebBridge from '../../web-bridge';
 import { hasValue, createDeferred, DeferredValue } from '../../utils';
 import { rejectPromise, resolvePromise } from '../../cross-platform-promise';
 import { getEnableQuickInsertValue } from '../../query-param-reader';
+import { assertSelectionPayload } from '../../validation';
 
 type InsertQueryMethod = (
   inputMethod: InsertBlockInputMethodToolbar,
@@ -586,5 +587,42 @@ export default class WebBridgeImpl extends WebBridge
 
   getRootElement(): HTMLElement | null {
     return document.querySelector('#editor');
+  }
+
+  setSelection(rawPayload: string): void {
+    const rawData: unknown = JSON.parse(rawPayload);
+    const result = assertSelectionPayload(rawData);
+
+    if (result.error) {
+      throw result.error;
+    }
+
+    if (!this.editorView) {
+      return;
+    }
+
+    const previousFocus = document.activeElement as null | HTMLElement;
+    const rootElement = this.getRootElement();
+    const editableElement = rootElement
+      ? (rootElement.querySelector(
+          '[contenteditable="true"]',
+        ) as HTMLElement | null)
+      : null;
+    const needsFocus = previousFocus !== editableElement;
+
+    if (editableElement && needsFocus) {
+      editableElement.focus();
+    }
+
+    const {
+      state: { tr, doc },
+      dispatch,
+    } = this.editorView;
+
+    dispatch(
+      tr
+        .setSelection(Selection.fromJSON(doc, result.data.selection))
+        .scrollIntoView(),
+    );
   }
 }

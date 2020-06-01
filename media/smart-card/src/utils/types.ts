@@ -12,6 +12,7 @@ export type AnalyticsAction =
   | 'clicked'
   | 'closed'
   | 'renderFailed'
+  | 'renderWithStatus'
   | 'renderSuccess';
 
 export type AnalyticsActionSubject =

@@ -1,15 +1,16 @@
 import { Plugin } from 'prosemirror-state';
+import { EditorView } from 'prosemirror-view';
+import {
+  isPerformanceObserverAvailable,
+  isPerformanceAPIAvailable,
+} from '@atlaskit/editor-common';
 import {
   ACTION,
   ACTION_SUBJECT,
   EVENT_TYPE,
   DispatchAnalyticsEvent,
 } from '../../analytics';
-import { EditorView } from 'prosemirror-view';
-import {
-  isPerformanceObserverAvailable,
-  isPerformanceAPIAvailable,
-} from '@atlaskit/editor-common';
+import { getParticipantsCount } from '../../collab-edit/get-participants-count';
 
 const FREEZE_CHECK_TIME = 600;
 const SLOW_INPUT_TIME = 300;
@@ -27,6 +28,7 @@ const dispatchLongTaskEvent = (
     attributes: {
       freezeTime: time,
       nodeSize: state.doc.nodeSize,
+      participants: getParticipantsCount(view.state),
     },
     eventType: EVENT_TYPE.OPERATIONAL,
   });
@@ -58,6 +60,7 @@ export default (
                   attributes: {
                     time: diff,
                     nodeSize: state.doc.nodeSize,
+                    participants: getParticipantsCount(state),
                   },
                   eventType: EVENT_TYPE.OPERATIONAL,
                 });
@@ -70,6 +73,7 @@ export default (
                   attributes: {
                     time: diff,
                     nodeSize: state.doc.nodeSize,
+                    participants: getParticipantsCount(view.state),
                   },
                   eventType: EVENT_TYPE.OPERATIONAL,
                 });

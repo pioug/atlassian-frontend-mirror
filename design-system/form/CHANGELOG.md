@@ -1,5 +1,15 @@
 # @atlaskit/form
 
+## 7.3.0
+
+### Minor Changes
+
+- [`56d6259cf5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56d6259cf5) - Change FormHeader and FormSection to use h2 and h3 respectively for headings instead of h1 and h2.
+
+### Patch Changes
+
+- [`54d82b49f0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54d82b49f0) - Remove unused dependencies
+
 ## 7.2.2
 
 ### Patch Changes

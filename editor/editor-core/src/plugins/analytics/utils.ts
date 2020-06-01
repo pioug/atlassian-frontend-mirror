@@ -17,7 +17,7 @@ import { SELECTION_TYPE, SELECTION_POSITION } from './types/utils';
 import { analyticsPluginKey } from './plugin-key';
 import { HigherOrderCommand } from '../../types/command';
 
-function getAnalyticsState(
+function getCreateUIAnalyticsEvent(
   editorState: EditorState,
 ): CreateUIAnalyticsEvent | null | undefined {
   const pluginState = analyticsPluginKey.getState(editorState);
@@ -110,7 +110,7 @@ export function addAnalytics(
   payload: AnalyticsEventPayload,
   channel: string = editorAnalyticsChannel,
 ): Transaction {
-  const createAnalyticsEvent = getAnalyticsState(state);
+  const createAnalyticsEvent = getCreateUIAnalyticsEvent(state);
   payload = getStateContext(state, payload);
 
   if (createAnalyticsEvent) {

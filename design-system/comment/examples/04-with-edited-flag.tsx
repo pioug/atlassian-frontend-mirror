@@ -12,7 +12,7 @@ const getCommentEditTime = () => 'just now';
 export default () => (
   <div>
     <Comment
-      avatar={<Avatar src={avatarImg} label="Atlaskit avatar" size="medium" />}
+      avatar={<Avatar src={avatarImg} size="medium" />}
       author={<CommentAuthor>John Smith</CommentAuthor>}
       type="author"
       edited={<CommentEdited>Edited {getCommentEditTime()}</CommentEdited>}

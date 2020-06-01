@@ -1,5 +1,11 @@
 # @atlaskit/tag
 
+## 9.1.1
+
+### Patch Changes
+
+- [`54d82b49f0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54d82b49f0) - Remove unused dependencies
+
 ## 9.1.0
 
 ### Minor Changes

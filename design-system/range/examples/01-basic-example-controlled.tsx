@@ -1,25 +1,16 @@
-import React, { Component, Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
+
 import Range from '../src';
 
-interface State {
-  value: number;
+function ControlledRange() {
+  const [value, setValue] = useState(50);
+
+  return (
+    <Fragment>
+      <Range step={1} value={value} onChange={value => setValue(value)} />
+      <p>The current value is: {value}</p>
+    </Fragment>
+  );
 }
 
-export default class SimpleRange extends Component<{}, State> {
-  state = {
-    value: 50,
-  };
-
-  render() {
-    return (
-      <Fragment>
-        <Range
-          step={1}
-          value={this.state.value}
-          onChange={value => this.setState({ value })}
-        />
-        <p>The current value is: {this.state.value}</p>
-      </Fragment>
-    );
-  }
-}
+export default ControlledRange;

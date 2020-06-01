@@ -6,12 +6,8 @@ import {
   p,
   inlineCard,
   blockCard,
-  blockquote,
 } from '@atlaskit/editor-test-helpers/schema-builder';
-import {
-  floatingToolbar,
-  messages as floatingToolbarMessages,
-} from '../../../../plugins/card/toolbar';
+import { floatingToolbar } from '../../../../plugins/card/toolbar';
 import { pluginKey } from '../../../../plugins/card/pm-plugins/main';
 
 import commonMessages, {
@@ -23,13 +19,9 @@ import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 import OpenIcon from '@atlaskit/icon/glyph/shortcut';
 import UnlinkIcon from '@atlaskit/icon/glyph/editor/unlink';
 
-import {
-  FloatingToolbarButton,
-  FloatingToolbarDropdown,
-} from '../../../../plugins/floating-toolbar/types';
+import { FloatingToolbarButton } from '../../../../plugins/floating-toolbar/types';
 import { Command } from '../../../../types';
 import { getToolbarItems } from '../floating-toolbar/_helpers';
-import { DropdownOptionT } from '../../../../plugins/floating-toolbar/ui/types';
 
 describe('card', () => {
   const createEditor = createEditorFactory();
@@ -294,135 +286,6 @@ describe('card', () => {
         providerFactory,
       );
       expect(getToolbarItems(toolbar!, editorView).length).toEqual(0);
-    });
-
-    it('it has view switcher when block cards are enabled', () => {
-      const { editorView } = editor(
-        doc(
-          p(
-            '{<node>}',
-            inlineCard({
-              url: 'http://www.atlassian.com/',
-            })(),
-          ),
-        ),
-      );
-
-      const toolbar = floatingToolbar({ allowBlockCards: true })(
-        editorView.state,
-        intl,
-        providerFactory,
-      );
-      const dropdownTitle = intl.formatMessage(floatingToolbarMessages.inline);
-
-      const dropdown = getToolbarItems(toolbar!, editorView).find(
-        item => item.type === 'dropdown' && item.title === dropdownTitle,
-      );
-
-      expect(toolbar).toBeDefined();
-      expect(dropdown).toBeDefined();
-      expect(
-        (dropdown as FloatingToolbarDropdown<Command>).options,
-      ).toHaveLength(2);
-    });
-
-    it('it updates the dropdown title for different apperance', () => {
-      const { editorView } = editor(
-        doc(
-          p('ab'),
-          '{<node>}',
-          blockCard({
-            url: 'http://www.atlassian.com/',
-          })(),
-          p('cd'),
-        ),
-      );
-
-      const toolbar = floatingToolbar({ allowBlockCards: true })(
-        editorView.state,
-        intl,
-        providerFactory,
-      );
-      const dropdownBlockTitle = intl.formatMessage(
-        floatingToolbarMessages.block,
-      );
-
-      const dropdown = getToolbarItems(toolbar!, editorView).find(
-        item => item.type === 'dropdown' && item.title === dropdownBlockTitle,
-      );
-
-      expect(dropdown).toBeDefined();
-    });
-
-    it('it switches apperance on dropdown option click', () => {
-      const { editorView } = editor(
-        doc(
-          p(
-            '{<node>}',
-            inlineCard({
-              url: 'http://www.atlassian.com/',
-            })(),
-          ),
-        ),
-      );
-
-      const toolbar = floatingToolbar({ allowBlockCards: true })(
-        editorView.state,
-        intl,
-        providerFactory,
-      );
-      const dropdownTitle = intl.formatMessage(floatingToolbarMessages.inline);
-      const blockCardTitle = intl.formatMessage(floatingToolbarMessages.block);
-
-      const dropdown = getToolbarItems(toolbar!, editorView).find(
-        item => item.type === 'dropdown' && item.title === dropdownTitle,
-      ) as FloatingToolbarDropdown<Command> | undefined;
-
-      expect(dropdown).toBeDefined();
-      const blockCardOption = (dropdown!.options as Array<
-        DropdownOptionT<Command>
-      >).filter(option => option.title === blockCardTitle)[0];
-
-      blockCardOption.onClick(editorView.state, editorView.dispatch);
-      expect(editorView.state.doc).toEqualDocument(
-        doc(
-          blockCard({
-            url: 'http://www.atlassian.com/',
-          })(),
-        ),
-      );
-    });
-
-    it('dropdown is disabled when inside parent nodes which dont support block cards', () => {
-      const { editorView } = editor(
-        doc(
-          p('paragraph'),
-          blockquote(
-            p(
-              '{<node>}',
-              inlineCard({
-                url:
-                  'https://docs.google.com/spreadsheets/d/168c/edit?usp=sharing',
-              })(),
-            ),
-          ),
-        ),
-      );
-
-      const toolbar = floatingToolbar({ allowBlockCards: true })(
-        editorView.state,
-        intl,
-        providerFactory,
-      );
-      const dropdownTitle = intl.formatMessage(floatingToolbarMessages.inline);
-      const dropdown = getToolbarItems(toolbar!, editorView).find(
-        item =>
-          item.type === 'dropdown' &&
-          item.title === dropdownTitle &&
-          item.disabled === true,
-      ) as FloatingToolbarDropdown<Command> | undefined;
-
-      expect(dropdown).toBeDefined();
     });
   });
 });

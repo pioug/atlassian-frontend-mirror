@@ -9,4 +9,7 @@ export type AppearanceType = 'danger' | 'warning';
 
 export type ScrollBehavior = 'inside' | 'outside' | 'inside-wide';
 
-export type ActionProps = ButtonProps & { text: string };
+export type ActionProps = ButtonProps & {
+  // ReactNode provides support for i18n libraries
+  text: React.ReactNode;
+};

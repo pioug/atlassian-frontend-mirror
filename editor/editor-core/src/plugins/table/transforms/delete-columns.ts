@@ -1,11 +1,51 @@
-import { Transaction, Selection } from 'prosemirror-state';
-import { TableMap, Rect } from 'prosemirror-tables';
+import { Selection, Transaction } from 'prosemirror-state';
+import { Rect, TableMap } from 'prosemirror-tables';
 import { findTable } from 'prosemirror-utils';
 import { Node as PMNode } from 'prosemirror-model';
 import { CellAttributes } from '@atlaskit/adf-schema';
 import { setMeta } from './metadata';
+import { AddColumnStep } from '@atlaskit/adf-schema/steps';
+import { splitCellsInColumns } from './split';
 
-export const deleteColumns = (rect: Rect) => (tr: Transaction): Transaction => {
+const deleteColumnsCustomStep = (rect: Rect) => (
+  tr: Transaction,
+): Transaction => {
+  const table = findTable(tr.selection);
+  if (!table) {
+    return tr;
+  }
+
+  // Need to split all the merge in the ranges (this is the current behaviour)
+  // Maybe is better to split only the last column?
+  // TODO: After talking with Roto about this behaviour, he likes when we dont split the columns, I am keeping this for consistency of the current implementation.
+  splitCellsInColumns(tr, table.pos, rect.left, rect.right);
+
+  // Delete the columns
+  let mapStart = tr.mapping.maps.length;
+  const originalDoc = tr.doc;
+  const deletedColumns = [];
+  for (let i = rect.left; i < rect.right; i++) {
+    const step = AddColumnStep.create(originalDoc, table.pos, i, true);
+    deletedColumns.push(i);
+    tr.step(step.map(tr.mapping.slice(mapStart))!);
+  }
+
+  const tablePosResult = tr.mapping.mapResult(table.pos);
+  if (tablePosResult.deleted) {
+    const pos = Math.min(tablePosResult.pos, tr.doc.nodeSize - 1);
+    tr.setSelection(Selection.near(tr.doc.resolve(pos)));
+  } else {
+    const newTable = tr.doc.nodeAt(tablePosResult.pos);
+    if (newTable) {
+      const cursorPos = getNextCursorPos(newTable, deletedColumns);
+      tr.setSelection(Selection.near(tr.doc.resolve(table.pos + cursorPos)));
+    }
+  }
+
+  return tr;
+};
+
+const deleteColumnsLegacy = (rect: Rect) => (tr: Transaction): Transaction => {
   const table = findTable(tr.selection);
   if (!table) {
     return tr;
@@ -198,3 +238,12 @@ function fixRowSpans(table: PMNode): PMNode | null {
 
   return table.type.createChecked(table.attrs, rows, table.marks);
 }
+
+export const deleteColumns = (rect: Rect, allowAddColumnCustomStep = false) => (
+  tr: Transaction,
+): Transaction => {
+  if (allowAddColumnCustomStep) {
+    return deleteColumnsCustomStep(rect)(tr);
+  }
+  return deleteColumnsLegacy(rect)(tr);
+};

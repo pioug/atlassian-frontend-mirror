@@ -1,4 +1,5 @@
 import { collab } from 'prosemirror-collab';
+import { CollabEditProvider } from '@atlaskit/editor-common';
 import { EditorPlugin } from '../../types';
 import { createPlugin, pluginKey } from './plugin';
 import {
@@ -9,22 +10,25 @@ import {
 } from './types';
 export { CollabProvider, CollabEditProvider } from './provider';
 import { sendTransaction } from './events/send-transaction';
-import { CollabEditProvider } from '@atlaskit/editor-common';
+import { addSynchronyErrorAnalytics } from './analytics';
 
 export { CollabEditOptions, pluginKey };
 
 const providerBuilder: ProviderBuilder = (
   collabEditProviderPromise: Promise<CollabEditProvider>,
-) => async codeToExecute => {
+) => async (codeToExecute, onError?: (error: Error) => void) => {
   try {
     const provider = await collabEditProviderPromise;
     if (provider) {
       codeToExecute(provider);
     }
   } catch (err) {
-    // TODO: ED-9002 Send analytics about failure in collab-edit.send-transaction
-    // eslint-disable-next-line no-console
-    console.error(err);
+    if (onError) {
+      onError(err);
+    } else {
+      // eslint-disable-next-line no-console
+      console.error(err);
+    }
   }
 };
 
@@ -84,8 +88,13 @@ const collabEditPlugin = (options: PrivateCollabEditOptions): EditorPlugin => {
     },
 
     onEditorViewStateUpdated(props) {
+      const addErrorAnalytics = addSynchronyErrorAnalytics(
+        props.newEditorState,
+        props.newEditorState.tr,
+      );
+
       if (options.sendDataOnViewUpdated) {
-        executeProviderCode(sendTransaction(props));
+        executeProviderCode(sendTransaction(props), addErrorAnalytics);
       }
     },
   };

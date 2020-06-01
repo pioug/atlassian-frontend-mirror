@@ -30,7 +30,7 @@ import {
   RECENT_SEARCH_HEIGHT_IN_PX,
   RECENT_SEARCH_WIDTH_IN_PX,
 } from '../../../ui/RecentSearch/ToolbarComponents';
-import { renderTooltipContent, addLink } from '../../../keymaps';
+import { ToolTipContent, addLink } from '../../../keymaps';
 import { MediaToolbarBaseConfig } from '../types';
 
 export function shouldShowMediaLinkToolbar(editorState: EditorState): boolean {
@@ -71,7 +71,7 @@ export const buildLinkingButtons = (
         selected: false,
         title,
         showTitle: true,
-        tooltipContent: renderTooltipContent(title, addLink),
+        tooltipContent: <ToolTipContent description={title} keymap={addLink} />,
       },
       { type: 'separator' },
       {
@@ -113,7 +113,7 @@ export const buildLinkingButtons = (
       icon: LinkIcon,
       title,
       onClick: showLinkingToolbar,
-      tooltipContent: renderTooltipContent(title, addLink),
+      tooltipContent: <ToolTipContent description={title} keymap={addLink} />,
     },
   ];
 };

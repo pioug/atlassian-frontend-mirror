@@ -6,6 +6,7 @@ import {
   Selection,
   Transaction,
   TextSelection,
+  NodeSelection,
 } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import { autoJoin } from 'prosemirror-commands';
@@ -33,7 +34,7 @@ import {
   AddItemTransactionCreator,
   TaskDecisionInputMethod,
 } from './types';
-import { stateKey as taskDecisionStateKey } from './pm-plugins/main';
+import { stateKey as taskDecisionStateKey } from './pm-plugins/plugin-key';
 import { Command } from '../../types';
 import { TOOLBAR_MENU_TYPE } from '../insert-block/ui/ToolbarInsertBlock/types';
 
@@ -368,4 +369,14 @@ export const createListAtSelection = (
   }
 
   return safeInsert(emptyList)(tr);
+};
+
+export const selectTaskDecision = (pos: number): Command => (
+  state,
+  dispatch,
+) => {
+  if (dispatch) {
+    dispatch(state.tr.setSelection(new NodeSelection(state.doc.resolve(pos))));
+  }
+  return true;
 };

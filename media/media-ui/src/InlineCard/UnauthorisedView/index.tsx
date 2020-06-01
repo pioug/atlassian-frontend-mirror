@@ -13,7 +13,7 @@ export interface InlineCardUnauthorizedViewProps {
   /** The url to display */
   url: string;
   /** The icon of the service (e.g. Dropbox/Asana/Google/etc) to display */
-  icon?: string;
+  icon?: React.ReactNode;
   /** The optional click handler */
   onClick?: React.EventHandler<React.MouseEvent | React.KeyboardEvent>;
   /** What to do when a user hit "Try another account" button */

@@ -49,6 +49,7 @@ describe('Snapshot Test: Toggle between full-width and default mode', () => {
       editorProps,
       undefined,
       { transition: true },
+      true,
     );
   };
 
@@ -63,6 +64,7 @@ describe('Snapshot Test: Toggle between full-width and default mode', () => {
       device: Device.LaptopHiDPI,
       viewport,
       editorProps,
+      forceReload: true,
     });
   };
 

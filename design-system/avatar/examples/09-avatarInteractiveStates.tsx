@@ -72,7 +72,7 @@ export default () => (
         </span>
       }
     >
-      <Avatar src={avatarUrl} name="Bill Murray" size={avatarSize} />
+      <Avatar src={avatarUrl} name="Scott Farquhar" size={avatarSize} />
     </AvatarShowcase>
 
     <h5>Avatar States</h5>
@@ -80,37 +80,31 @@ export default () => (
       All states handled internal, thought can also be provided as props.
     </Note>
     <AvatarShowcase title="Default" description="No state applied">
-      <Avatar src={avatarUrl} size="large" onClick={() => {}} label="default" />
+      <Avatar src={avatarUrl} size="large" />
     </AvatarShowcase>
     <AvatarShowcase
       title="isHover"
       description="colors.N70A applied as an overlay"
     >
-      <Avatar src={avatarUrl} size="large" onClick={() => {}} isHover />
+      <Avatar src={avatarUrl} size="large" />
     </AvatarShowcase>
     <AvatarShowcase
       title="isActive"
       description="colors.N70A applied as an overlay, and scaled down to 90%"
     >
-      <Avatar src={avatarUrl} size="large" onClick={() => {}} isActive />
+      <Avatar src={avatarUrl} size="large" />
     </AvatarShowcase>
     <AvatarShowcase
       title="isFocus"
       description="colors.B200 focus ring applied, border-width relative to avatar size"
     >
-      <Avatar src={avatarUrl} size="large" onClick={() => {}} isFocus />
-    </AvatarShowcase>
-    <AvatarShowcase
-      title="isSelected"
-      description="colors.N200A applied as an overlay"
-    >
-      <Avatar src={avatarUrl} size="large" onClick={() => {}} isSelected />
+      <Avatar src={avatarUrl} size="large" />
     </AvatarShowcase>
     <AvatarShowcase
       title="isDisabled"
       description="70% white applied as an overlay"
     >
-      <Avatar src={avatarUrl} size="large" onClick={() => {}} isDisabled />
+      <Avatar src={avatarUrl} size="large" isDisabled />
     </AvatarShowcase>
   </div>
 );

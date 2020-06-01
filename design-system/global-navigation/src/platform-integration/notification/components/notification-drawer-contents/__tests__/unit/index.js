@@ -19,14 +19,14 @@ describe('NotificationDrawerContents', () => {
   it('should add spinner when iframe is loading', () => {
     const wrapper = mount(<NotificationDrawer locale="en" product="jira" />);
 
-    expect(wrapper.find('Spinner').exists()).toBeTruthy();
+    expect(wrapper.find('ForwardRef(Spinner)').exists()).toBeTruthy();
   });
 
   it('should remove spinner when iframe is finished loading', () => {
     const wrapper = mount(<NotificationDrawer locale="en" product="jira" />);
     wrapper.find('iframe').simulate('load');
 
-    expect(wrapper.find('Spinner').exists()).toBeFalsy();
+    expect(wrapper.find('ForwardRef(Spinner)').exists()).toBeFalsy();
   });
 
   it('should add an event listener to listen to "postMessage" messages when mounting', () => {

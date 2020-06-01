@@ -9,6 +9,15 @@ import {
   status,
   taskList,
   taskItem,
+  expand,
+  tdEmpty,
+  tr,
+  thEmpty,
+  table,
+  td,
+  nestedExpand,
+  p,
+  date,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { uuid } from '@atlaskit/adf-schema';
 import { EditorView } from 'prosemirror-view';
@@ -17,6 +26,9 @@ import tasksAndDecisionsPlugin from '../../../tasks-and-decisions';
 import statusPlugin from '../../../status';
 import blockTypePlugin from '../../../block-type';
 import hyperlinkPlugin from '../../../hyperlink';
+import tablesPlugin from '../../../table';
+import expandPlugin from '../../../expand';
+import datePlugin from '../../../date';
 
 const pasteAndCompare = (
   { editorView }: { editorView: EditorView },
@@ -40,13 +52,33 @@ describe('action paste handler', () => {
         .add([tasksAndDecisionsPlugin, true])
         .add(blockTypePlugin)
         .add(hyperlinkPlugin)
-        .add([statusPlugin, { menuDisabled: false }]),
+        .add([statusPlugin, { menuDisabled: false }])
+        .add(tablesPlugin)
+        .add(expandPlugin)
+        .add(datePlugin),
     });
 
   const listProps = { localId: 'local-uuid' };
   const itemProps = { localId: 'local-uuid', state: 'TODO' };
 
   const emptyActionDoc = doc(taskList(listProps)(taskItem(itemProps)('{<>}')));
+
+  const createNestedExpandDoc = (nodes: Array<any>) => {
+    return doc(
+      expand({ title: 'expand' })(
+        table()(
+          tr(thEmpty, thEmpty, thEmpty),
+          tr(
+            td()(nestedExpand({ title: 'nestedExpand' })(...nodes)),
+            tdEmpty,
+            tdEmpty,
+          ),
+          tr(tdEmpty, tdEmpty, tdEmpty),
+        ),
+      ),
+    );
+  };
+
   const actionDocMidSelection = doc(
     taskList(listProps)(taskItem(itemProps)('ZZZ{<>}ZZ')),
   );
@@ -100,6 +132,49 @@ describe('action paste handler', () => {
         taskList(listProps)(taskItem(itemProps)('ZZZZZAAAAA')),
       );
       pasteAndCompare(editor(actionDocEndSelection), clipboard, expected);
+    });
+  });
+
+  describe('pasting to table', () => {
+    it('should paste multiple nodes including date from an expand correctly', () => {
+      const clipboard = `<meta charset='utf-8'><p data-pm-slice="1 1 [&quot;expand&quot;,null,&quot;table&quot;,null,&quot;tableRow&quot;,null,&quot;tableCell&quot;,null]"><span data-node-type="date" data-timestamp="1586822400000"></span> some text</p>`;
+      const expected = createNestedExpandDoc([
+        p(date({ timestamp: '1586822400000' }), ' some text'),
+      ]);
+
+      pasteAndCompare(
+        editor(createNestedExpandDoc([p('{<>}')])),
+        clipboard,
+        expected,
+      );
+    });
+
+    it('should paste multiple nodes copied from a table cell correctly', () => {
+      const clipboard = `<meta charset='utf-8'><table data-pm-slice="2 2 [&quot;expand&quot;,null,&quot;table&quot;,null,&quot;tableRow&quot;,null]"><tbody><tr><td class="pm-table-cell-content-wrap"><p>first line</p><p><span data-node-type="date" data-timestamp="1586822400000"></span> some text</p><p>last line</p></td></tr></tbody></table>`;
+      const expected = createNestedExpandDoc([
+        p('first line'),
+        p(date({ timestamp: '1586822400000' }), ' some text'),
+        p('last line'),
+      ]);
+
+      pasteAndCompare(
+        editor(createNestedExpandDoc([p('{<>}')])),
+        clipboard,
+        expected,
+      );
+    });
+
+    it('should paste multiple nodes copied from a table inside an expand inside a layout', () => {
+      const clipboard = `<meta charset='utf-8'><p data-pm-slice="1 1 [&quot;layoutSection&quot;,null,&quot;layoutColumn&quot;,null,&quot;expand&quot;,null,&quot;table&quot;,null,&quot;tableRow&quot;,null,&quot;tableCell&quot;,null]"><span data-node-type="date" data-timestamp="1586822400000"></span> some text</p>`;
+      const expected = createNestedExpandDoc([
+        p(date({ timestamp: '1586822400000' }), ' some text'),
+      ]);
+
+      pasteAndCompare(
+        editor(createNestedExpandDoc([p('{<>}')])),
+        clipboard,
+        expected,
+      );
     });
   });
 

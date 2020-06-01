@@ -1,0 +1,437 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Can create an annotation on a basic text selection 1`] = `
+Object {
+  "doc": Object {
+    "content": Array [
+      Object {
+        "content": Array [
+          Object {
+            "text": "H",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "annotationType": "inlineComment",
+                  "id": "1234",
+                },
+                "type": "annotation",
+              },
+            ],
+            "text": "ello, World",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+    ],
+    "type": "doc",
+    "version": 1,
+  },
+  "step": Object {
+    "from": 2,
+    "mark": Object {
+      "attrs": Object {
+        "annotationType": "inlineComment",
+        "id": "1234",
+      },
+      "type": "annotation",
+    },
+    "stepType": "addMark",
+    "to": 13,
+  },
+}
+`;
+
+exports[`Can create an annotation on a text selection over a decision item 1`] = `
+Object {
+  "doc": Object {
+    "content": Array [
+      Object {
+        "content": Array [
+          Object {
+            "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean mi nisl, venenatis eget auctor vitae, venenatis quis lorem. Suspendisse maximus tortor vel dui tincidunt cursus. Vestibulum magna nibh, auctor non auctor id, finibus vitae orci. ",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+      Object {
+        "attrs": Object {
+          "localId": "4b895470-4b94-4c9c-84ac-dbebfec31b2a",
+        },
+        "content": Array [
+          Object {
+            "attrs": Object {
+              "localId": "39da70eb-1e13-4d75-857f-7112943f548d",
+              "state": "TODO",
+            },
+            "content": Array [
+              Object {
+                "text": "hello, mate",
+                "type": "text",
+              },
+            ],
+            "type": "taskItem",
+          },
+        ],
+        "type": "taskList",
+      },
+      Object {
+        "attrs": Object {
+          "localId": "b8510754-475d-4ee4-9887-d090024a21be",
+        },
+        "content": Array [
+          Object {
+            "attrs": Object {
+              "localId": "180d58fe-a7bf-48fb-8d34-3bb743a07a08",
+              "state": "DECIDED",
+            },
+            "content": Array [
+              Object {
+                "text": "h",
+                "type": "text",
+              },
+              Object {
+                "marks": Array [
+                  Object {
+                    "attrs": Object {
+                      "annotationType": "inlineComment",
+                      "id": "1234",
+                    },
+                    "type": "annotation",
+                  },
+                ],
+                "text": "ello, mate",
+                "type": "text",
+              },
+            ],
+            "type": "decisionItem",
+          },
+        ],
+        "type": "decisionList",
+      },
+      Object {
+        "attrs": Object {
+          "isNumberColumnEnabled": false,
+          "layout": "default",
+        },
+        "content": Array [
+          Object {
+            "content": Array [
+              Object {
+                "attrs": Object {},
+                "content": Array [
+                  Object {
+                    "attrs": Object {
+                      "localId": "1d944f46-ca2c-4d79-b0f9-0c50945c1d95",
+                    },
+                    "content": Array [
+                      Object {
+                        "attrs": Object {
+                          "localId": "ac50aece-412f-4214-b39d-c1f2945ab12a",
+                          "state": "TODO",
+                        },
+                        "content": Array [
+                          Object {
+                            "marks": Array [
+                              Object {
+                                "type": "em",
+                              },
+                              Object {
+                                "type": "strong",
+                              },
+                              Object {
+                                "type": "underline",
+                              },
+                            ],
+                            "text": "bold ",
+                            "type": "text",
+                          },
+                          Object {
+                            "marks": Array [
+                              Object {
+                                "attrs": Object {
+                                  "href": "https://product-fabric.atlassian.net/browse/FAB-1520",
+                                },
+                                "type": "link",
+                              },
+                              Object {
+                                "type": "em",
+                              },
+                              Object {
+                                "type": "strong",
+                              },
+                              Object {
+                                "type": "underline",
+                              },
+                            ],
+                            "text": "FAB-1520 UI: Poor man's search",
+                            "type": "text",
+                          },
+                        ],
+                        "type": "taskItem",
+                      },
+                    ],
+                    "type": "taskList",
+                  },
+                ],
+                "type": "tableCell",
+              },
+            ],
+            "type": "tableRow",
+          },
+        ],
+        "type": "table",
+      },
+      Object {
+        "content": Array [],
+        "type": "paragraph",
+      },
+    ],
+    "type": "doc",
+    "version": 1,
+  },
+  "step": Object {
+    "from": 262,
+    "mark": Object {
+      "attrs": Object {
+        "annotationType": "inlineComment",
+        "id": "1234",
+      },
+      "type": "annotation",
+    },
+    "stepType": "addMark",
+    "to": 272,
+  },
+}
+`;
+
+exports[`Can create an annotation on a text selection over a task item 1`] = `
+Object {
+  "doc": Object {
+    "content": Array [
+      Object {
+        "content": Array [
+          Object {
+            "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean mi nisl, venenatis eget auctor vitae, venenatis quis lorem. Suspendisse maximus tortor vel dui tincidunt cursus. Vestibulum magna nibh, auctor non auctor id, finibus vitae orci. ",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+      Object {
+        "attrs": Object {
+          "localId": "4b895470-4b94-4c9c-84ac-dbebfec31b2a",
+        },
+        "content": Array [
+          Object {
+            "attrs": Object {
+              "localId": "39da70eb-1e13-4d75-857f-7112943f548d",
+              "state": "TODO",
+            },
+            "content": Array [
+              Object {
+                "text": "h",
+                "type": "text",
+              },
+              Object {
+                "marks": Array [
+                  Object {
+                    "attrs": Object {
+                      "annotationType": "inlineComment",
+                      "id": "1234",
+                    },
+                    "type": "annotation",
+                  },
+                ],
+                "text": "ello, mate",
+                "type": "text",
+              },
+            ],
+            "type": "taskItem",
+          },
+        ],
+        "type": "taskList",
+      },
+      Object {
+        "attrs": Object {
+          "localId": "b8510754-475d-4ee4-9887-d090024a21be",
+        },
+        "content": Array [
+          Object {
+            "attrs": Object {
+              "localId": "180d58fe-a7bf-48fb-8d34-3bb743a07a08",
+              "state": "DECIDED",
+            },
+            "content": Array [
+              Object {
+                "text": "hello, mate",
+                "type": "text",
+              },
+            ],
+            "type": "decisionItem",
+          },
+        ],
+        "type": "decisionList",
+      },
+      Object {
+        "attrs": Object {
+          "isNumberColumnEnabled": false,
+          "layout": "default",
+        },
+        "content": Array [
+          Object {
+            "content": Array [
+              Object {
+                "attrs": Object {},
+                "content": Array [
+                  Object {
+                    "attrs": Object {
+                      "localId": "1d944f46-ca2c-4d79-b0f9-0c50945c1d95",
+                    },
+                    "content": Array [
+                      Object {
+                        "attrs": Object {
+                          "localId": "ac50aece-412f-4214-b39d-c1f2945ab12a",
+                          "state": "TODO",
+                        },
+                        "content": Array [
+                          Object {
+                            "marks": Array [
+                              Object {
+                                "type": "em",
+                              },
+                              Object {
+                                "type": "strong",
+                              },
+                              Object {
+                                "type": "underline",
+                              },
+                            ],
+                            "text": "bold ",
+                            "type": "text",
+                          },
+                          Object {
+                            "marks": Array [
+                              Object {
+                                "attrs": Object {
+                                  "href": "https://product-fabric.atlassian.net/browse/FAB-1520",
+                                },
+                                "type": "link",
+                              },
+                              Object {
+                                "type": "em",
+                              },
+                              Object {
+                                "type": "strong",
+                              },
+                              Object {
+                                "type": "underline",
+                              },
+                            ],
+                            "text": "FAB-1520 UI: Poor man's search",
+                            "type": "text",
+                          },
+                        ],
+                        "type": "taskItem",
+                      },
+                    ],
+                    "type": "taskList",
+                  },
+                ],
+                "type": "tableCell",
+              },
+            ],
+            "type": "tableRow",
+          },
+        ],
+        "type": "table",
+      },
+      Object {
+        "content": Array [],
+        "type": "paragraph",
+      },
+    ],
+    "type": "doc",
+    "version": 1,
+  },
+  "step": Object {
+    "from": 247,
+    "mark": Object {
+      "attrs": Object {
+        "annotationType": "inlineComment",
+        "id": "1234",
+      },
+      "type": "annotation",
+    },
+    "stepType": "addMark",
+    "to": 257,
+  },
+}
+`;
+
+exports[`Can create an annotation on a text selection over two paragraphs 1`] = `
+Object {
+  "doc": Object {
+    "content": Array [
+      Object {
+        "content": Array [
+          Object {
+            "text": "L",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "annotationType": "inlineComment",
+                  "id": "1234",
+                },
+                "type": "annotation",
+              },
+            ],
+            "text": "orem ipsum dolor sit amet, consectetur adipiscing elit. Aenean mi nisl, venenatis eget auctor vitae, venenatis quis lorem. Suspendisse maximus tortor vel dui tincidunt cursus. Vestibulum magna nibh, auctor non auctor id, finibus vitae orci. Nulla viverra ipsum et nunc fringilla ultricies. Pellentesque vitae felis molestie justo finibus accumsan. Suspendisse potenti. Nulla facilisi. Integer dignissim quis velit quis elementum. Sed sit amet varius ante. Duis vestibulum porta augue eu laoreet. Morbi id risus et augue sollicitudin aliquam. In et ligula dolor. Nam ac aliquet diam.",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "annotationType": "inlineComment",
+                  "id": "1234",
+                },
+                "type": "annotation",
+              },
+            ],
+            "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean mi nisl, venenatis eget auctor vitae, venenatis quis lorem. Suspendisse maximus tortor vel dui tincidunt cursus. Vestibulum magna nibh, auctor non auctor id, finibus vitae orci. Nulla viverra ipsum et nunc fringilla ultricies. Pellentesque vitae felis molestie justo finibus accumsan. Suspendisse potenti. Nulla facilisi. Integer dignissim quis velit quis elementum. Sed sit amet varius ante. Duis vestibulum porta augue eu laoreet. Morbi id risus et augue sollicitudin aliquam. In et ligula dolor. Nam ac aliquet diam.",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+    ],
+    "type": "doc",
+    "version": 1,
+  },
+  "step": Object {
+    "from": 2,
+    "mark": Object {
+      "attrs": Object {
+        "annotationType": "inlineComment",
+        "id": "1234",
+      },
+      "type": "annotation",
+    },
+    "stepType": "addMark",
+    "to": 1169,
+  },
+}
+`;

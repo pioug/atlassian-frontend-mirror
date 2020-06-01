@@ -59,6 +59,7 @@ import { deleteColumns, deleteRows } from './transforms';
 import { RESIZE_HANDLE_AREA_DECORATION_GAP } from './types';
 import { getPluginState } from './pm-plugins/plugin-factory';
 import { closestElement } from '../../utils/dom';
+import { getAllowAddColumnCustomStep } from './utils/get-allow-add-column-custom-step';
 
 export const handleBlur = (view: EditorView, event: Event): boolean => {
   const { state, dispatch } = view;
@@ -422,7 +423,7 @@ export const handleCut = (
             analyticsService.trackEvent(
               'atlassian.editor.format.table.delete_column.button',
             );
-            tr = deleteColumns(rect)(tr);
+            tr = deleteColumns(rect, getAllowAddColumnCustomStep(oldState))(tr);
           }
         }
       }

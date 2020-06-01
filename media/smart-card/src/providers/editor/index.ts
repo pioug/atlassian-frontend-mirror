@@ -1,5 +1,5 @@
 import { CardAppearance } from '../../view/Card';
-import { getResolverUrl, getBaseUrl } from '../../utils/environments';
+import { getResolverUrl, getBaseUrl } from '../../client/utils/environments';
 import { EnvironmentsKeys } from '../../client/types';
 import { CardProvider, ORSCheckResponse } from './types';
 

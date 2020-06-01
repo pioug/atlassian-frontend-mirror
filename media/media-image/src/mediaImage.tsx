@@ -2,11 +2,10 @@ import { Component, ReactNode } from 'react';
 import {
   MediaClient,
   FileState,
-  FileIdentifier,
-  isDifferentIdentifier,
-  withMediaClient,
   MediaStoreGetFileImageParams,
   WithMediaClientConfig,
+  isDifferentIdentifier,
+  FileIdentifier,
 } from '@atlaskit/media-client';
 import { Subscription } from 'rxjs/Subscription';
 
@@ -118,7 +117,13 @@ export class MediaImageInternal extends Component<
           const { preview } = fileState;
 
           if (preview) {
-            const value = (await preview).value;
+            let value: string | Blob;
+            try {
+              value = (await preview).value;
+            } catch (err) {
+              this.setState({ status: 'error' });
+              return;
+            }
 
             // NOTE: Preview is referring to the local image
             // after page reload it will get the image src
@@ -169,4 +174,3 @@ export class MediaImageInternal extends Component<
 }
 
 export type MediaImageProps = MediaImageInternalProps & WithMediaClientConfig;
-export const MediaImage = withMediaClient(MediaImageInternal);

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/comment",
-  "version": "9.3.5",
+  "version": "9.3.6",
   "description": "Comments enable discussions on an entity such as a page, blog post, issue or pull request",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^6.3.6",
-    "@atlaskit/button": "^13.3.11",
+    "@atlaskit/button": "^13.4.0",
     "@atlaskit/icon": "^20.1.2",
     "@atlaskit/lozenge": "^9.1.7",
     "@atlaskit/theme": "^9.5.3",
@@ -35,10 +35,10 @@
     "styled-components": "^3.2.6"
   },
   "devDependencies": {
-    "@atlaskit/avatar": "^17.1.10",
+    "@atlaskit/avatar": "^18.0.0",
     "@atlaskit/build-utils": "*",
     "@atlaskit/docs": "*",
-    "@atlaskit/editor-core": "^123.0.0",
+    "@atlaskit/editor-core": "^124.0.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
     "enzyme": "^3.10.0",

@@ -24,7 +24,7 @@ ${(
 ${(
   <Props
     heading="Presence Props"
-    props={require('!!extract-react-types-loader!../src/components/Presence')}
+    props={require('!!extract-react-types-loader!../src/Presence')}
   />
 )}
 `;

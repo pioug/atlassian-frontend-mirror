@@ -4,9 +4,11 @@ import { mountWithIntl } from '@atlaskit/editor-test-helpers/src/enzyme';
 import AnalyticsContext from '../../../../analytics/analyticsContext';
 import HeadingAnchor from '../../../../react/nodes/heading-anchor';
 import { CopyTextContext } from '../../../../react/nodes/copy-text-provider';
+import ReactSerializer from '../../../../react';
 
 describe('<Heading />', () => {
   let heading: any;
+  let serialiser = new ReactSerializer({});
   const copyTextToClipboard = jest.fn();
   const fireAnalyticsEvent = jest.fn();
 
@@ -18,6 +20,12 @@ describe('<Heading />', () => {
           level={headingLevel as HeadingLevels}
           headingId={`This-is-a-Heading-${headingLevel}`}
           showAnchorLink={true}
+          dataAttributes={{
+            'data-renderer-start-pos': 0,
+          }}
+          nodeType="heading"
+          marks={[]}
+          serializer={serialiser}
         >
           This is a Heading {headingLevel}
         </Heading>,
@@ -37,6 +45,12 @@ describe('<Heading />', () => {
           level={1}
           headingId={'This-is-a-Heading-1'}
           showAnchorLink={false}
+          dataAttributes={{
+            'data-renderer-start-pos': 0,
+          }}
+          nodeType="heading"
+          marks={[]}
+          serializer={serialiser}
         >
           This is a Heading 1
         </Heading>,
@@ -65,6 +79,12 @@ describe('<Heading />', () => {
               level={1}
               headingId="This-is-a-Heading-1"
               showAnchorLink={true}
+              dataAttributes={{
+                'data-renderer-start-pos': 0,
+              }}
+              nodeType="heading"
+              marks={[]}
+              serializer={serialiser}
             >
               This is a Heading 1
             </Heading>

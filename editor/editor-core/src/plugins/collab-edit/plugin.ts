@@ -9,6 +9,7 @@ import { PrivateCollabEditOptions, ProviderCallback } from './types';
 import { CollabEditProvider } from './provider';
 import { PluginState } from './plugin-state';
 import { pluginKey } from './plugin-key';
+import { addSynchronyErrorAnalytics } from './analytics';
 
 export { CollabEditProvider, PluginState, pluginKey };
 
@@ -73,13 +74,21 @@ export const createPlugin = (
       return true;
     },
     view(view) {
-      collabProviderCallback(initialize({ view, options, providerFactory }));
+      const addErrorAnalytics = addSynchronyErrorAnalytics(
+        view.state,
+        view.state.tr,
+      );
+
+      collabProviderCallback(
+        initialize({ view, options, providerFactory }),
+        addErrorAnalytics,
+      );
 
       return {
         destroy() {
           providerFactory.unsubscribeAll('collabEditProvider');
 
-          collabProviderCallback(unsubscribeAllEvents);
+          collabProviderCallback(unsubscribeAllEvents, addErrorAnalytics);
         },
       };
     },

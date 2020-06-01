@@ -1,6 +1,10 @@
 import React from 'react';
-export default function Strike(props: React.Props<any>) {
+import { MarkProps } from '../types';
+
+export default function Strike(props: MarkProps) {
   return (
-    <span style={{ textDecoration: 'line-through' }}>{props.children}</span>
+    <span {...props.dataAttributes} style={{ textDecoration: 'line-through' }}>
+      {props.children}
+    </span>
   );
 }

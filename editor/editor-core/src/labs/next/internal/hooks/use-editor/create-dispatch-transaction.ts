@@ -15,7 +15,7 @@ import {
   validNode,
 } from '../../../../../utils/nodes';
 import { compose, toJSON } from '../../../../../utils';
-import { sanitizeNode } from '../../../../../utils/filter/node-filter';
+import { sanitizeNode } from '@atlaskit/adf-utils';
 import { EditorSharedConfig } from '../../context/shared-config';
 import { getDocStructure } from '../../../../../utils/document-logger';
 import { Dispatch } from '../../../../../event-dispatcher';

@@ -11,6 +11,7 @@ export interface DropdownOptionT<T> {
   selected?: boolean;
   disabled?: boolean;
   hidden?: boolean;
+  testId?: string;
 }
 
 export type DropdownOptions<T> =

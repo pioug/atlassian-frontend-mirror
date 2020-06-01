@@ -108,3 +108,12 @@ export function closestElement(
 ): HTMLElement | null {
   return closest(node, s);
 }
+
+export function parsePx(pxStr: string) {
+  if (!pxStr.endsWith('px')) {
+    return undefined;
+  }
+
+  const maybeNumber = parseInt(pxStr, 10);
+  return !Number.isNaN(maybeNumber) ? maybeNumber : undefined;
+}

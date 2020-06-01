@@ -34,7 +34,12 @@ import sleep from '@atlaskit/editor-test-helpers/sleep';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 
 import { stateKey as mediaPluginKey } from '../../../../plugins/media/pm-plugins/plugin-key';
-import { setNodeSelection, setTextSelection } from '../../../../utils';
+import {
+  setGapCursorSelection,
+  setNodeSelection,
+  setTextSelection,
+} from '../../../../utils';
+import { Side } from '../../../gap-cursor';
 import { AnalyticsHandler, analyticsService } from '../../../../analytics';
 import {
   insertMediaAsMediaSingle,
@@ -1202,6 +1207,61 @@ describe('Media plugin', () => {
         setTextSelection(editorView, nextPos);
 
         expect(pluginState.element).toBeUndefined();
+      });
+    });
+  });
+
+  describe('when gap cursor immediately', () => {
+    const createFile = (name: string) => ({
+      id: name,
+      fileName: `${name}.pdf`,
+      fileSize: 200,
+      fileMimeType: 'pdf',
+      dimensions: { width: 200, height: 200 },
+    });
+
+    const createMedia = (name: string) =>
+      media({
+        id: name,
+        type: 'file',
+        __fileMimeType: 'pdf',
+        __fileSize: 200,
+        __fileName: `${name}.pdf`,
+        __contextId: 'DUMMY-OBJECT-ID',
+        collection: testCollectionName,
+      })();
+
+    describe('left of media group', () => {
+      it('should add new files to existing media group', async () => {
+        const { editorView, pluginState } = editor(
+          doc(mediaGroup(createMedia('file1')), p('')),
+        );
+        await mediaProvider;
+
+        const file2 = createFile('file2');
+        setGapCursorSelection(editorView, 0, Side.LEFT);
+        pluginState.insertFile(file2, () => {});
+
+        expect(editorView.state.doc).toEqualDocument(
+          doc(mediaGroup(createMedia('file2'), createMedia('file1')), p('')),
+        );
+      });
+    });
+
+    describe('right of media group', () => {
+      it('should add new files to existing media group', async () => {
+        const { editorView, pluginState } = editor(
+          doc(mediaGroup(createMedia('file1')), p('')),
+        );
+        await mediaProvider;
+
+        const file2 = createFile('file2');
+        setGapCursorSelection(editorView, 0, Side.RIGHT);
+        pluginState.insertFile(file2, () => {});
+
+        expect(editorView.state.doc).toEqualDocument(
+          doc(mediaGroup(createMedia('file2'), createMedia('file1')), p('')),
+        );
       });
     });
   });

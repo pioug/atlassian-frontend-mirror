@@ -84,6 +84,12 @@ export const akEditorTableBorderDelete = R300;
 export const akEditorTableToolbarDelete = R75;
 export const akEditorTableBorderRadius = '3px';
 export const akEditorTableCellBackgroundOpacity = 0.5;
+export const getAkEditorFullPageMaxWidth = (
+  allowDynamicTextSizing: boolean = false,
+) =>
+  allowDynamicTextSizing
+    ? akEditorFullPageMaxWidth
+    : akEditorDefaultLayoutWidth;
 export const akEditorFullPageMaxWidth = 680;
 export const akEditorDefaultLayoutWidth = 760;
 export const akEditorWideLayoutWidth = 960;

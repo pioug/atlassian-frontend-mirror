@@ -2,11 +2,18 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { DecisionItem as AkDecisionItem } from '@atlaskit/task-decision';
 import DecisionItem from '../../../../react/nodes/decisionItem';
+import ReactSerializer from '../../../../react';
 
 describe('Renderer - React/Nodes/DecisionItem', () => {
+  let serialiser = new ReactSerializer({});
   const text: any = 'This is a list item';
   const listItem = shallow(
-    <DecisionItem dataAttributes={{ 'data-renderer-start-pos': 0 }}>
+    <DecisionItem
+      marks={[]}
+      serializer={serialiser}
+      nodeType="decisionItem"
+      dataAttributes={{ 'data-renderer-start-pos': 0 }}
+    >
       {text}
     </DecisionItem>,
   );
@@ -17,7 +24,12 @@ describe('Renderer - React/Nodes/DecisionItem', () => {
 
   it('should render if no children', () => {
     const decisionItem = shallow(
-      <DecisionItem dataAttributes={{ 'data-renderer-start-pos': 0 }} />,
+      <DecisionItem
+        marks={[]}
+        serializer={serialiser}
+        nodeType="decisionItem"
+        dataAttributes={{ 'data-renderer-start-pos': 0 }}
+      />,
     );
     expect(decisionItem.isEmptyRender()).toEqual(false);
   });

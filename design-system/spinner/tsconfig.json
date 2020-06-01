@@ -6,7 +6,9 @@
     "./docs/**/*.ts",
     "./docs/**/*.tsx",
     "./examples/**/*.ts",
-    "./examples/**/*.tsx"
+    "./examples/**/*.tsx",
+    "./codemods/**/*.ts",
+    "./codemods/**/*.tsx",
   ],
   "compilerOptions": {
     "baseUrl": "./"

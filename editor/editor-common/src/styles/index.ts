@@ -68,6 +68,7 @@ export {
   breakoutWideScaleRatio,
   editorFontSize,
   gridMediumMaxWidth,
+  getAkEditorFullPageMaxWidth,
   relativeSize,
   akEditorSelectedBorderStyles,
 } from './consts';
@@ -86,6 +87,11 @@ export {
   tableCellPadding,
 } from './shared/table';
 
+export {
+  AnnotationSharedClassNames,
+  AnnotationSharedCSSByState,
+  annotationSharedStyles,
+} from './shared/annotation';
 export { columnLayoutSharedStyle } from './shared/column-layout';
 export {
   mediaSingleSharedStyle,
@@ -112,3 +118,4 @@ export { dateSharedStyle, DateSharedCssClassName } from './shared/date';
 export { tasksAndDecisionsStyles } from './shared/task-decision';
 export { MentionSharedCssClassName } from './shared/mention';
 export { EmojiSharedCssClassName } from './shared/emoji';
+export { smartCardSharedStyles } from './shared/block-card';

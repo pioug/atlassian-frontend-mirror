@@ -1,5 +1,57 @@
 # @atlaskit/range
 
+## 4.0.0
+
+### Major Changes
+
+- [`da1c8c16d4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/da1c8c16d4) - In this version we made range dramatically faster and lighter 🤩
+
+  ### Changes
+
+  In `4.0.0` we bring significant performance improvements all for just the cost of 1 breaking change 😮. That's not all folks because this update comes with a 🤑 FREE 🤑 codemod for you to upgrade with.
+
+  - Range no longer has a `peerDependency` on `styled-components@3`. Internally range is now using `@emotion/core` for styling
+  - A performance issue made the range noticeably laggy with large ranges. With this change we are no longer creating new classes on each step change and instead updating a css variable, making Range noticeably smoother.
+  - Changed the `inputRef` prop to be `ref` which returns the `ref` of the range input using `React.forwardRef`. This new `ref` prop will accept the type of the old `inputRef` prop, `(input?: HTMLInputElement) => any`, as well as if `ref` is created with `React.createRef`.
+  - A new example that shows off how to rate limit your `onChange` event
+
+  ### Automatic upgrading
+
+  ```
+  # You first need to have the latest range installed before you can run the codemod
+  yarn upgrade @atlaskit/range@^4.0.0
+
+  # Run the codemod cli
+  # Pass in a parser for your codebase
+  npx @atlaskit/codemod-cli /path/to/target/directory --parser [tsx | flow | babel]
+  ```
+
+  #### Notes
+
+  - You first need to upgrade to `4.0.0` **before** you run the codemod cli. This is because the cli will look in your local `node_modules` for the codemod which is published inside the `spinner` package.
+  - The codemod is pretty clever, and will respect aliasing as well as using custom naming for the default import
+
+  #### Ez pz lemon squeezy
+
+  The codemod will change the `inputRef` prop to `ref`
+
+  ```diff
+  - <Range inputRef={inputRef} />
+  + <Range ref={inputRef} />
+
+  - <Range
+  -   inputRef={ref => {
+  -     myRangeRef = ref;
+  -   }}
+  - />
+  + <Range
+  +   ref={ref => {
+  +     myRangeRef = ref;
+  +   }}
+  + />
+
+  ```
+
 ## 3.0.12
 
 ### Patch Changes

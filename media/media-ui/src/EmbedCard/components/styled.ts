@@ -83,6 +83,7 @@ const wrapperStyles = css`
   line-height: initial;
   transition: background 0.3s;
   position: relative;
+  height: ${gridSize(54)};
   ${selected}
 
   &:after {
@@ -92,7 +93,6 @@ const wrapperStyles = css`
     position: absolute;
     width: calc(100% + ${gridSize(2)});
     height: calc(100% + ${gridSize(1)});
-    z-index: -1;
     left: -${gridSize(1)};
     ${borderRadius}
   }
@@ -125,6 +125,9 @@ export const Wrapper = styled.div`
 
 export const Header = styled.div`
   height: 32px;
+  position: absolute;
+  z-index: 1;
+  width: 100%;
   display: flex;
   align-items: center;
   color: ${colors.N300};
@@ -178,6 +181,10 @@ export const Content = styled.div`
   ${borderRadius}
   ${cardShadow} 
   background-color: white;
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  top: ${gridSize(4)};
   height: ${gridSize(50)};
   transition: box-shadow 0.3s;
 

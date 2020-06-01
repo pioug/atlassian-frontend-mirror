@@ -1,5 +1,5 @@
 import { PluginKey } from 'prosemirror-state';
-import { inlineCard, blockCard } from '@atlaskit/adf-schema';
+import { inlineCard, blockCard, embedCard } from '@atlaskit/adf-schema';
 import { EditorPlugin } from '../../types';
 import { createPlugin } from './pm-plugins/main';
 import { floatingToolbar } from './toolbar';
@@ -16,10 +16,19 @@ const cardPlugin = (
   name: 'card',
 
   nodes() {
-    return [
+    const nodes = [
       { name: 'inlineCard', node: inlineCard },
       { name: 'blockCard', node: blockCard },
     ];
+
+    if (options.allowEmbeds) {
+      nodes.push({
+        name: 'embedCard',
+        node: embedCard,
+      });
+    }
+
+    return nodes;
   },
 
   pmPlugins() {

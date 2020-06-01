@@ -21,6 +21,8 @@ import {
   historyPluginKey,
   HistoryPluginState,
   QuickInsertItem,
+  SelectionDataState,
+  selectionPluginKey,
 } from '@atlaskit/editor-core';
 
 import { valueOf as valueOfListState } from '../web-to-native/listState';
@@ -29,6 +31,7 @@ import WebBridgeImpl from '../native-to-web';
 import { toNativeBridge, EditorPluginBridges } from '../web-to-native';
 import { hasValue } from '../../utils';
 import { getEnableQuickInsertValue } from '../../query-param-reader';
+import { createPromise } from '../../cross-platform-promise';
 
 interface BridgePluginListener<T> {
   bridge: EditorPluginBridges;
@@ -235,6 +238,14 @@ const configs: Array<BridgePluginListener<any>> = [
         canUndo: pluginState.canUndo,
         canRedo: pluginState.canRedo,
       });
+    },
+  }),
+
+  createListenerConfig<SelectionDataState>({
+    bridge: 'selectionBridge',
+    pluginKey: selectionPluginKey,
+    updater: (pluginState, view) => {
+      createPromise('onSelection', pluginState).submit();
     },
   }),
 ];

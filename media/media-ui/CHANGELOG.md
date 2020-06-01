@@ -1,5 +1,29 @@
 # @atlaskit/media-ui
 
+## 12.3.0
+
+### Minor Changes
+
+- [`360f7e03a0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/360f7e03a0) - expose MediaTypeIcon
+
+  ```
+  import { MediaTypeIcon } from '@atlaskit/media-ui/media-type-icon';
+  ```
+
+  <MediaTypeIcon type="image" />
+  ```
+- [`50c333ab3a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/50c333ab3a) - EDM-216: Adds EmbedCards in the Editor under the flag - allowEmbeds in the UNSAFE_cards prop
+
+### Patch Changes
+
+- [`9961ccddcf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9961ccddcf) - EDM-665: fix error handling of Smart Links
+- [`54d82b49f0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54d82b49f0) - Remove unused dependencies
+- [`93daf076e4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/93daf076e4) - fix: bugs with Block Links - floating menu placement, spacing, editing of link title or source, lazy loading.
+- [`baaad91b65`](https://bitbucket.org/atlassian/atlassian-frontend/commits/baaad91b65) - Updated to use the latest and more performant version of `@atlaskit/avatar`
+- [`891b7ba558`](https://bitbucket.org/atlassian/atlassian-frontend/commits/891b7ba558) - EDM-725: fix floating toolbar not displaying for unauthorized inline card
+- [`98f462e2aa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/98f462e2aa) - Bumping use the latest version of @atlaskit/spinner
+- Updated dependencies
+
 ## 12.2.2
 
 ### Patch Changes

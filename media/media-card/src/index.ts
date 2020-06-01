@@ -36,7 +36,8 @@ export interface CardDimensions {
   height?: CardDimensionValue;
 }
 
-export interface OriginalCardDimensions {
+// TODO EDM-689 Please, consolidate these two CardDimensions types
+export interface NumericalCardDimensions {
   width: number;
   height: number;
 }
@@ -47,9 +48,12 @@ export interface CardEvent {
 }
 
 export interface SharedCardProps {
+  // only relevant to file card with image appearance
+  readonly disableOverlay?: boolean;
+  readonly resizeMode?: ImageResizeMode;
   readonly appearance?: CardAppearance;
   readonly dimensions?: CardDimensions;
-  readonly originalDimensions?: OriginalCardDimensions;
+  readonly originalDimensions?: NumericalCardDimensions;
   readonly actions?: Array<CardAction>;
   readonly selectable?: boolean;
   readonly selected?: boolean;
@@ -70,10 +74,6 @@ export interface CardProps extends SharedCardProps, CardEventProps {
   readonly mediaClient: MediaClient;
   readonly identifier: Identifier;
   readonly isLazy?: boolean;
-  readonly resizeMode?: ImageResizeMode;
-
-  // only relevant to file card with image appearance
-  readonly disableOverlay?: boolean;
   readonly useInlinePlayer?: boolean;
   readonly shouldOpenMediaViewer?: boolean;
   readonly mediaViewerDataSource?: MediaViewerDataSource;

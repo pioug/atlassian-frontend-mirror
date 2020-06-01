@@ -139,7 +139,9 @@ describe('Media Single Utils', () => {
   describe('calcMediaPxWidth', () => {
     let editorView: EditorView;
     let sel: number;
-    const calcWidth = (opts = {}): number =>
+    const calcWidth = (
+      opts: Partial<Parameters<typeof calcMediaPxWidth>[0]> = {},
+    ): number =>
       calcMediaPxWidth({
         origWidth,
         origHeight,
@@ -206,8 +208,7 @@ describe('Media Single Utils', () => {
         for (const pct in fullWidthPctMap) {
           it(`calculates correct width for media resized to ${pct}%`, () => {
             const width = calcWidth({
-              pctWidth: pct,
-              isFullWidthModeEnabled: true,
+              pctWidth: +pct,
               containerWidth: { width: 1920, lineLength: 1800 },
             });
             expect(width).toBe(fullWidthPctMap[pct]);
@@ -218,7 +219,7 @@ describe('Media Single Utils', () => {
       describe('fixed-width mode', () => {
         for (const pct in fixedWidthPctMap) {
           it(`calculates correct width for media resized to ${pct}%`, () => {
-            const width = calcWidth({ pctWidth: pct });
+            const width = calcWidth({ pctWidth: +pct });
             expect(width).toBe(fixedWidthPctMap[pct]);
           });
         }
@@ -292,7 +293,6 @@ describe('Media Single Utils', () => {
         describe('full-width mode', () => {
           it('calculates correct width for media', () => {
             const width = calcWidth({
-              isFullWidthModeEnabled: true,
               containerWidth: { width: 1920, lineLength: 1800 },
             });
             expect(width).toBe(origWidth);
@@ -300,7 +300,6 @@ describe('Media Single Utils', () => {
 
           it('calculates correct width for resized media', () => {
             const width = calcWidth({
-              isFullWidthModeEnabled: true,
               containerWidth: { width: 1920, lineLength: 1800 },
               pctWidth: 20,
             });
@@ -310,55 +309,12 @@ describe('Media Single Utils', () => {
 
         describe('fixed-width mode', () => {
           it('calculates correct width for media', () => {
-            const width = calcWidth({
-              isFullWidthModeEnabled: true,
-            });
+            const width = calcWidth();
             expect(width).toBe(origWidth);
           });
 
           it('calculates correct width for resized media', () => {
             const width = calcWidth({
-              isFullWidthModeEnabled: true,
-              pctWidth: 20,
-            });
-            expect(width).toBe(fixedWidthPctMap[20]);
-          });
-        });
-      });
-
-      describe('media bigger than layout column', () => {
-        describe('full-width mode', () => {
-          it('calculates correct width for media', () => {
-            const width = calcWidth({
-              origWidth: 2000,
-              isFullWidthModeEnabled: true,
-              containerWidth: { width: 1920, lineLength: 1800 },
-            });
-            expect(width).toBe(881); // width of layout column
-          });
-
-          it('calculates correct width for resized media', () => {
-            const width = calcWidth({
-              origWidth: 2000,
-              isFullWidthModeEnabled: true,
-              containerWidth: { width: 1920, lineLength: 1800 },
-              pctWidth: 20,
-            });
-            expect(width).toBe(fullWidthPctMap[20]);
-          });
-        });
-
-        describe('fixed-width mode', () => {
-          it('calculates correct width for media', () => {
-            const width = calcWidth({
-              origWidth: 2000,
-            });
-            expect(width).toBe(361); // width of layout column
-          });
-
-          it('calculates correct width for resized media', () => {
-            const width = calcWidth({
-              origWidth: 2000,
               pctWidth: 20,
             });
             expect(width).toBe(fixedWidthPctMap[20]);

@@ -41,6 +41,7 @@ export type PrivateCollabEditOptions = CollabEditOptions & {
 
 export type ProviderCallback = (
   codeToExecute: (provider: CollabEditProvider) => void,
+  onError?: (err: Error) => void,
 ) => void;
 
 export type ProviderBuilder = (

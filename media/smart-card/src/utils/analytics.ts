@@ -3,9 +3,13 @@ import {
   version as packageVersion,
 } from '../version.json';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+
 import { AnalyticsPayload } from './types';
 import { ErrorInfo } from 'react';
 import { CardInnerAppearance } from '../view/Card/types';
+import { CardType } from '../state/store/types';
+import { getMeasure } from './performance';
+import { APIError } from '../client/errors';
 
 export const ANALYTICS_CHANNEL = 'media';
 export const MESSAGE_WINDOW_CLOSED = 'The auth window was closed';
@@ -28,66 +32,89 @@ export const fireSmartLinkEvent = (
 };
 
 export const resolvedEvent = (
+  id: string,
   definitionId?: string,
-  cached = false,
 ): AnalyticsPayload => ({
   action: 'resolved',
   actionSubject: 'smartLink',
   eventType: 'operational',
   attributes: {
+    id,
     ...context,
     ...(definitionId ? { definitionId: definitionId } : {}),
-    cached,
   },
 });
 
 export const unresolvedEvent = (
+  id: string,
   status: string,
   definitionId?: string,
+  error?: APIError,
 ): AnalyticsPayload => ({
   action: 'unresolved',
   actionSubject: 'smartLink',
   eventType: 'operational',
   attributes: {
+    id,
     ...context,
     ...(definitionId ? { definitionId: definitionId } : {}),
     reason: status,
+    error: error
+      ? {
+          message: error.message,
+          kind: error.kind,
+          type: error.type,
+          stack: error.stack,
+        }
+      : undefined,
   },
 });
 
 export const invokeSucceededEvent = (
+  id: string,
   providerKey: string,
   actionType: string,
   display: CardInnerAppearance,
-): AnalyticsPayload => ({
-  action: 'resolved',
-  actionSubject: 'smartLinkAction',
-  eventType: 'operational',
-  attributes: {
-    ...context,
-    display,
-    definitionId: providerKey,
-    actionType,
-  },
-});
+): AnalyticsPayload => {
+  const measure = getMeasure(id, 'resolved') || { duration: undefined };
+  return {
+    action: 'resolved',
+    actionSubject: 'smartLinkAction',
+    eventType: 'operational',
+    attributes: {
+      ...context,
+      id,
+      actionType,
+      display,
+      definitionId: providerKey,
+      duration: measure.duration,
+    },
+  };
+};
 
 export const invokeFailedEvent = (
+  id: string,
   providerKey: string,
   actionType: string,
   display: CardInnerAppearance,
   reason: string,
-): AnalyticsPayload => ({
-  action: 'unresolved',
-  actionSubject: 'smartLinkAction',
-  eventType: 'operational',
-  attributes: {
-    ...context,
-    display,
-    definitionId: providerKey,
-    actionType,
-    reason,
-  },
-});
+): AnalyticsPayload => {
+  const measure = getMeasure(id, 'errored') || { duration: undefined };
+  return {
+    action: 'unresolved',
+    actionSubject: 'smartLinkAction',
+    eventType: 'operational',
+    attributes: {
+      ...context,
+      id,
+      actionType,
+      display,
+      definitionId: providerKey,
+      duration: measure.duration,
+      reason,
+    },
+  };
+};
 
 export const connectSucceededEvent = (
   definitionId?: string,
@@ -241,3 +268,31 @@ export const uiRenderFailedEvent = (
     display,
   },
 });
+
+export const instrumentEvent = (
+  id: string,
+  status: CardType,
+  definitionId?: string,
+  error?: APIError,
+): AnalyticsPayload => {
+  const measure = getMeasure(id, status) || { duration: undefined };
+  if (status === 'resolved') {
+    const event = resolvedEvent(id, definitionId);
+    return {
+      ...event,
+      attributes: {
+        ...event.attributes,
+        duration: measure.duration,
+      },
+    };
+  } else {
+    const event = unresolvedEvent(id, status, definitionId, error);
+    return {
+      ...event,
+      attributes: {
+        ...event.attributes,
+        duration: measure.duration,
+      },
+    };
+  }
+};

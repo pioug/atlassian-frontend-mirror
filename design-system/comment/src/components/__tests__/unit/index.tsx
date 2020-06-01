@@ -65,7 +65,7 @@ describe('@atlaskit comments', () => {
 
       describe('avatar prop', () => {
         it('should be reflected to the CommentLayout', () => {
-          const avatar = <Avatar src="test/src" label="test label" />;
+          const avatar = <Avatar src="test/src" />;
           const wrapper = shallow(<Comment avatar={avatar} />);
           expect(wrapper.find(CommentLayout).prop('avatar')).toBe(avatar);
         });

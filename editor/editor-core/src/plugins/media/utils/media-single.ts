@@ -16,7 +16,6 @@ import { copyOptionalAttrsFromMediaState } from '../utils/media-common';
 import { MediaState } from '../types';
 import { Command } from '../../../types';
 import { mapSlice } from '../../../utils/slice';
-import { getParentNodeWidth } from '../../../utils/node-width';
 import { alignmentLayouts } from '../ui/ResizableMediaSingle/utils';
 import { WidthPluginState } from '../../width';
 import {
@@ -338,7 +337,6 @@ export const calcMediaPxWidth = (opts: {
   layout?: MediaSingleLayout;
   pctWidth?: number;
   pos?: number;
-  isFullWidthModeEnabled?: boolean;
   resizedPctWidth?: number;
 }): number => {
   const {
@@ -347,18 +345,9 @@ export const calcMediaPxWidth = (opts: {
     layout,
     pctWidth,
     containerWidth,
-    isFullWidthModeEnabled,
-    pos,
-    state,
     resizedPctWidth,
   } = opts;
   const { width, lineLength } = containerWidth;
-  const nestedWidth = getParentNodeWidth(
-    pos,
-    state,
-    containerWidth,
-    isFullWidthModeEnabled,
-  );
   const calculatedPctWidth = calcPctWidth(
     containerWidth,
     pctWidth,
@@ -372,9 +361,7 @@ export const calcMediaPxWidth = (opts: {
     origHeight,
   );
 
-  if (nestedWidth) {
-    return Math.min(calculatedPctWidth || origWidth, nestedWidth);
-  } else if (layout === 'wide') {
+  if (layout === 'wide') {
     if (lineLength) {
       const wideWidth = Math.ceil(lineLength * breakoutWideScaleRatio);
       return wideWidth > width ? lineLength : wideWidth;

@@ -1,10 +1,7 @@
 import { DownloadAction, ViewAction, ActionProps } from '@atlaskit/media-ui';
 import { JsonLd } from 'json-ld-types';
-import {
-  InvokeClientOpts,
-  InvokeServerOpts,
-  InvokeHandler,
-} from '../../../client/types';
+import { InvokeHandler } from '../../../model/invoke-handler';
+import { InvokeClientOpts, InvokeServerOpts } from '../../../model/invoke-opts';
 
 const isClientAction = (action: JsonLd.Primitives.Action) =>
   ['ViewAction', 'DownloadAction'].indexOf(action['@type']) > -1;

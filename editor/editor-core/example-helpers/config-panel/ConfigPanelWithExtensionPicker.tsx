@@ -120,7 +120,12 @@ export default function ConfigPanelWithExtensionPicker({
   const [extensionNode, setNodeAndParameters] = useState<CallbackParams>();
   const [item, setItem] = useState<ExtensionModule>();
 
-  const [extensionKey, nodeKey] = getExtensionKeyAndNodeKey(hash);
+  const [extensionKey, nodeKey] = getExtensionKeyAndNodeKey(
+    hash,
+    extensionNode && extensionNode.extension
+      ? extensionNode.extension.type
+      : '',
+  );
 
   const params =
     extensionNode &&

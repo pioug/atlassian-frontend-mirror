@@ -10,7 +10,7 @@ describe('Snapshot Test', () => {
     const url = getExampleUrl(
       'design-system',
       'range',
-      'basic-example',
+      'basic-example-uncontrolled',
       global.__BASEURL__,
     );
     const image = await takeScreenShot(global.page, url);

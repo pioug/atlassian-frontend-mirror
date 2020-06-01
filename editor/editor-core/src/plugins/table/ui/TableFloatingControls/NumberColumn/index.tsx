@@ -5,10 +5,11 @@ import { EditorView } from 'prosemirror-view';
 import { Selection } from 'prosemirror-state';
 import { clearHoverSelection } from '../../../commands';
 import { TableCssClassName as ClassName } from '../../../types';
+import { getRowHeights } from '../../../utils';
 
 export interface Props {
   editorView: EditorView;
-  tableRef: HTMLElement;
+  tableRef: HTMLTableElement;
   tableActive?: boolean;
   hoverRows: (rows: number[], danger?: boolean) => void;
   hoveredRows?: number[];
@@ -21,21 +22,17 @@ export interface Props {
 export default class NumberColumn extends Component<Props, any> {
   render() {
     const { tableRef, hasHeaderRow } = this.props;
-    const tbody = tableRef.querySelector('tbody');
-    if (!tbody) {
-      return null;
-    }
-    const rows = tbody.querySelectorAll('tr');
+    const rowHeights = getRowHeights(tableRef);
 
     return (
       <div className={ClassName.NUMBERED_COLUMN}>
-        {Array.from(Array(rows.length).keys()).map(index => (
+        {rowHeights.map((rowHeight, index) => (
           <div
             key={`wrapper-${index}`}
             className={this.getClassNames(index)}
             data-index={index}
             style={{
-              height: (rows[index] as HTMLElement).offsetHeight + 1,
+              height: rowHeight,
             }}
             onClick={event => this.selectRow(index, event)}
             onMouseOver={() => this.hoverRows(index)}

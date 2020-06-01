@@ -1,36 +1,45 @@
 import { Step } from 'prosemirror-transform';
 import { Plugin, Transaction } from 'prosemirror-state';
-import { sendLogs } from '../../../utils/sendLogs';
+import { analyticsService } from '../../../analytics';
+import {
+  DispatchAnalyticsEvent,
+  ACTION_SUBJECT,
+  ACTION,
+  EVENT_TYPE,
+  getAnalyticsEventsFromTransaction,
+} from '../../analytics';
 
 const hasInvalidSteps = (tr: Transaction) =>
   ((tr.steps || []) as (Step & { from: number; to: number })[]).some(
     step => step.from > step.to,
   );
 
-export default () => {
+export default (dispatchAnalyticsEvent: DispatchAnalyticsEvent) => {
   return new Plugin({
-    filterTransaction(tr) {
-      if (hasInvalidSteps(tr)) {
+    filterTransaction(transaction) {
+      if (hasInvalidSteps(transaction)) {
         // eslint-disable-next-line no-console
         console.warn(
           'The transaction was blocked because it contains invalid steps',
-          tr.steps,
+          transaction.steps,
         );
 
-        sendLogs({
-          events: [
-            {
-              name: 'atlaskit.fabric.editor.invalidstep',
-              product: 'atlaskit',
-              properties: {
-                message: 'Blocked transaction with invalid steps',
-              },
-              serverTime: new Date().getTime(),
-              server: 'local',
-              user: '-',
-            },
-          ],
+        dispatchAnalyticsEvent({
+          action: ACTION.DISCARDED_INVALID_STEPS_FROM_TRANSACTION,
+          actionSubject: ACTION_SUBJECT.EDITOR,
+          attributes: {
+            analyticsEventPayloads: getAnalyticsEventsFromTransaction(
+              transaction,
+            ),
+          },
+          eventType: EVENT_TYPE.OPERATIONAL,
         });
+
+        // Temporarily dispatch legacy GasV2 event in parallel
+        analyticsService.trackEvent('atlaskit.fabric.editor.invalidstep', {
+          message: 'Blocked transaction with invalid steps',
+        });
+
         return false;
       }
 

@@ -47,6 +47,7 @@ import { TaskListDefinition as TaskList } from './task-list';
 // eslint-disable-next-line import/no-cycle
 import { ExtensionDefinition as Extension } from './extension';
 import { BlockCardDefinition as BlockCard } from './block-card';
+import { EmbedCardDefinition as EmbedCard } from './embed-card';
 import { NestedExpandDefinition as NestedExpand } from './nested-expand';
 
 export const tablePrefixSelector = 'pm-table';
@@ -221,6 +222,7 @@ export type TableCellContent = Array<
   | Extension
   | BlockCard
   | NestedExpand
+  | EmbedCard
 >;
 
 /**
@@ -308,7 +310,7 @@ const cellAttrs = {
 
 export const tableCell = {
   content:
-    '(paragraph | panel | blockquote | orderedList | bulletList | rule | heading | codeBlock | mediaSingle |  mediaGroup | decisionList | taskList | blockCard | extension | nestedExpand | unsupportedBlock)+',
+    '(paragraph | panel | blockquote | orderedList | bulletList | rule | heading | codeBlock | mediaSingle |  mediaGroup | decisionList | taskList | blockCard | embedCard | extension | nestedExpand | unsupportedBlock)+',
   attrs: cellAttrs,
   tableRole: 'cell',
   marks: 'link alignment',
@@ -341,7 +343,7 @@ export const toJSONTableCell = (node: PmNode) => ({
 
 export const tableHeader = {
   content:
-    '(paragraph | panel | blockquote | orderedList | bulletList | rule | heading | codeBlock | mediaSingle |  mediaGroup | decisionList | taskList | blockCard | extension | nestedExpand)+',
+    '(paragraph | panel | blockquote | orderedList | bulletList | rule | heading | codeBlock | mediaSingle |  mediaGroup | decisionList | taskList | blockCard | embedCard | extension | nestedExpand)+',
   attrs: cellAttrs,
   tableRole: 'header_cell',
   isolating: true,

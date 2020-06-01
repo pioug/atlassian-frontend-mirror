@@ -12,7 +12,8 @@ export type AnnotationActionType =
   | ACTION.EDITED
   | ACTION.DELETED
   | ACTION.OPENED
-  | ACTION.RESOLVED;
+  | ACTION.RESOLVED
+  | ACTION.VIEWED;
 
 export type AnnotationAEP = TrackAEP<
   AnnotationActionType,

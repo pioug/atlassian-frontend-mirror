@@ -22,6 +22,7 @@ export enum ACTION {
   DECREMENTED = 'decremented',
   DELETED = 'deleted',
   DISPATCHED_INVALID_TRANSACTION = 'dispatchedInvalidTransaction',
+  DISCARDED_INVALID_STEPS_FROM_TRANSACTION = 'discardedInvalidStepsFromTransaction',
   EDITED = 'edited',
   EDITOR_CRASHED = 'unhandledErrorCaught',
   EDITOR_MOUNTED = 'mounted',
@@ -55,8 +56,10 @@ export enum ACTION {
   TRANSACTION_DISPATCHED = 'transactionDispatched',
   TYPING_STARTED = 'typingStarted',
   TYPING_FINISHED = 'typingFinished',
+  VIEWED = 'viewed',
   VISITED = 'visited',
   WITH_PLUGIN_STATE_CALLED = 'withPluginStateCalled',
+  SYNCHRONY_ERROR = 'synchronyError',
 }
 
 export enum INPUT_METHOD {

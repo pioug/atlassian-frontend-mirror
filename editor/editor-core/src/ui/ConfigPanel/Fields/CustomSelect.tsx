@@ -20,6 +20,7 @@ type Props = {
   field: CustomField;
   extensionManifest: ExtensionManifest;
   onBlur: OnBlur;
+  autoFocus?: boolean;
 };
 
 type State = {
@@ -111,7 +112,7 @@ export default class CustomSelect extends React.Component<Props, State> {
   }
 
   render() {
-    const { field, onBlur } = this.props;
+    const { field, onBlur, autoFocus } = this.props;
     const { defaultValue, fieldResolver, isMissingResolver } = this.state;
 
     return (
@@ -139,6 +140,7 @@ export default class CustomSelect extends React.Component<Props, State> {
                   validationState={error ? 'error' : 'default'}
                   defaultOptions={true}
                   loadOptions={fieldResolver}
+                  autoFocus={autoFocus}
                 />
                 <FieldMessages error={error} description={field.description} />
               </Fragment>

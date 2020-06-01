@@ -1,6 +1,6 @@
 import React from 'react';
 import { Node as PMNode } from 'prosemirror-model';
-import { TableLayout } from '@atlaskit/adf-schema';
+import { TableLayout, UrlType } from '@atlaskit/adf-schema';
 import {
   calcTableWidth,
   WidthConsumer,
@@ -30,8 +30,7 @@ import {
   withSmartCardStorage,
   WithSmartCardStorageProps,
 } from '../../ui/SmartCardStorage';
-import { UrlType } from '@atlaskit/adf-schema';
-import { calcLineLength } from '../../utils';
+import { calcLineLength } from '../../ui/Renderer/breakout-ssr';
 
 type TableArrayMapped = {
   rowNodes: Array<PMNode | null>;

@@ -1,7 +1,8 @@
-import { pluginKey } from './plugin-key';
-import { CardPluginAction, Request, CardInfo } from '../types';
 import { Transaction } from 'prosemirror-state';
 import { CardProvider } from '@atlaskit/editor-common/provider-factory';
+
+import { pluginKey } from './plugin-key';
+import { CardPluginAction, Request, CardInfo } from '../types';
 
 export const cardAction = (
   tr: Transaction,

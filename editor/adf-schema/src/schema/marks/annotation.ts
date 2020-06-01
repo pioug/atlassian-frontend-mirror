@@ -9,12 +9,41 @@ export interface AnnotationMarkDefinition {
 }
 
 export interface AnnotationMarkAttributes {
-  id: string;
-  annotationType: AnnotationType;
+  id: AnnotationId;
+  annotationType: AnnotationTypes;
 }
 
-export const INLINE_COMMENT = 'inlineComment';
-export type AnnotationType = 'inlineComment';
+export type AnnotationId = string;
+export enum AnnotationTypes {
+  INLINE_COMMENT = 'inlineComment',
+}
+export enum AnnotationMarkStates {
+  RESOLVED = 'resolved',
+  ACTIVE = 'active',
+}
+
+type AnnotationMarkState = { state?: AnnotationMarkStates | undefined | null };
+
+export function buildDataAtributes({
+  id,
+  annotationType,
+  state,
+}: AnnotationMarkAttributes & AnnotationMarkState): any {
+  const data = {
+    'data-mark-type': 'annotation',
+    'data-mark-annotation-type': annotationType,
+    'data-id': id,
+  };
+
+  if (state) {
+    return {
+      ...data,
+      'data-mark-annotation-state': state,
+    };
+  }
+
+  return data;
+}
 
 export const annotation: MarkSpec = {
   inclusive: false,
@@ -25,7 +54,7 @@ export const annotation: MarkSpec = {
       default: '',
     },
     annotationType: {
-      default: INLINE_COMMENT,
+      default: AnnotationTypes.INLINE_COMMENT,
     },
   },
   parseDOM: [
@@ -48,9 +77,10 @@ export const annotation: MarkSpec = {
         // to not add this attribute properly, as its a reserved word.
         // prettier-ignore
         'class': 'fabric-editor-annotation',
-        'data-mark-type': 'annotation',
-        'data-mark-annotation-type': node.attrs.annotationType,
-        'data-id': node.attrs.id,
+        ...buildDataAtributes({
+          id: node.attrs.id as AnnotationId,
+          annotationType: node.attrs.annotationType as AnnotationTypes,
+        }),
       },
       0,
     ];

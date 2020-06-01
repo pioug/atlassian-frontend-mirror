@@ -7,6 +7,7 @@ import { replaceQueuedUrlWithCard } from './doc';
 import { PMPluginFactoryParams } from '../../../types';
 import { InlineCard } from '../nodeviews/inlineCard';
 import { BlockCard } from '../nodeviews/blockCard';
+import { EmbedCard } from '../nodeviews/embedCard';
 import { CardProvider } from '@atlaskit/editor-common/provider-factory';
 import { pluginKey } from './plugin-key';
 
@@ -156,6 +157,21 @@ export const createPlugin = (isMobile: boolean) => ({
         },
         blockCard: (node, view, getPos) => {
           return new BlockCard(
+            node,
+            view,
+            getPos,
+            portalProviderAPI,
+            eventDispatcher,
+            {
+              providerFactory,
+              isMobile,
+            },
+            undefined,
+            true,
+          ).init();
+        },
+        embedCard: (node, view, getPos) => {
+          return new EmbedCard(
             node,
             view,
             getPos,

@@ -1,5 +1,28 @@
 # @atlaskit/renderer
 
+## 60.0.0
+
+### Minor Changes
+
+- [`c41b33f7af`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c41b33f7af) - ED-9251: Add support to RendererActions for validating a range to apply an annotation to
+- [`e30894b112`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e30894b112) - [FM-3716] First Inline Comments implementation for Renderer
+- [`177421dd67`](https://bitbucket.org/atlassian/atlassian-frontend/commits/177421dd67) - ED-9207: Add ability to remove annotations from the renderer
+- [`5f9c856055`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f9c856055) - ED-9221: Add support for adding annotations at deeper depths
+- [`50c333ab3a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/50c333ab3a) - EDM-216: Adds EmbedCards in the Editor under the flag - allowEmbeds in the UNSAFE_cards prop
+
+### Patch Changes
+
+- [`f82edca013`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f82edca013) - ED-9298: Fix media sizing when default conatiner width is 760
+- [`3ce990ebd4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3ce990ebd4) - ED-9226: Fixes bug where having a Range end in the middle of an inline would create an incorrect annotation
+- [`0964848b95`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0964848b95) - [FM-3505] Add support for inline comments in the renderer mobile bridge getElementScrollOffsetByNodeType function
+- [`f82edca013`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f82edca013) - ED-9298: Fix media size after changing default container width to 760px in renderer
+- [`8d91382fb1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d91382fb1) - ED-9214: When creating an annotation we can identify marks rather than guessing inline nodes.
+- [`d9ef0a849a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d9ef0a849a) - ED-9232: fix ssr rendering for tables after sticky headers change
+- [`54d82b49f0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54d82b49f0) - Remove unused dependencies
+- [`93daf076e4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/93daf076e4) - fix: bugs with Block Links - floating menu placement, spacing, editing of link title or source, lazy loading.
+- [`baaad91b65`](https://bitbucket.org/atlassian/atlassian-frontend/commits/baaad91b65) - Updated to use the latest and more performant version of `@atlaskit/avatar`
+- Updated dependencies
+
 ## 59.0.1
 
 ### Patch Changes

@@ -1,5 +1,5 @@
 import React from 'react';
-import { RendererContext } from '../react';
+import { RendererContext } from '../react/types';
 import { Serializer } from '../index';
 import { ExtensionLayout } from '@atlaskit/adf-schema';
 

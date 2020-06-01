@@ -2,12 +2,15 @@ import React from 'react';
 import { Component } from 'react';
 import { EditorView } from 'prosemirror-view';
 import { Node as PMNode } from 'prosemirror-model';
+import memoizeOne from 'memoize-one';
+
 import {
   ExtensionHandlers,
   getExtensionRenderer,
   getNodeRenderer,
   ExtensionProvider,
 } from '@atlaskit/editor-common';
+
 import Extension from './Extension';
 import InlineExtension from './InlineExtension';
 
@@ -53,6 +56,9 @@ export default class ExtensionComponent extends Component<Props, State> {
       this.setStateFromPromise('extensionProvider', extensionProvider);
     }
   }
+
+  // memoized to avoid rerender on extension state changes
+  getNodeRenderer = memoizeOne(getNodeRenderer);
 
   render() {
     const { node, handleContentDOMRef, editorView } = this.props;
@@ -144,7 +150,7 @@ export default class ExtensionComponent extends Component<Props, State> {
     if (!result) {
       const extensionHandlerFromProvider =
         this.state.extensionProvider &&
-        getNodeRenderer(
+        this.getNodeRenderer(
           this.state.extensionProvider,
           extensionType,
           extensionKey,

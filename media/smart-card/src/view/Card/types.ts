@@ -6,6 +6,7 @@ export type CardInnerAppearance = CardAppearance | 'preview';
 export interface CardProps extends WithAnalyticsEventsProps {
   appearance: CardAppearance;
   isSelected?: boolean;
+  isFrameVisible?: boolean;
   onClick?: React.EventHandler<React.MouseEvent | React.KeyboardEvent>;
   importer?: (target: any) => void;
   container?: HTMLElement;

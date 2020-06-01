@@ -11,10 +11,12 @@ import { OnBlur } from '../types';
 export default function({
   field,
   type,
+  autoFocus,
   onBlur,
 }: {
   field: StringField | NumberField;
   type: 'number' | 'text';
+  autoFocus?: boolean;
   onBlur: OnBlur;
 }) {
   const element = (
@@ -29,6 +31,7 @@ export default function({
         <Fragment>
           <TextField
             {...fieldProps}
+            autoFocus={autoFocus}
             onBlur={() => {
               fieldProps.onBlur();
               onBlur(field.name);

@@ -14,7 +14,7 @@ const FormSectionWrapper = styled.div`
 /**
  * Provide a styled container for form section title
  */
-const FormSectionTitle = styled.h2`
+const FormSectionTitle = styled.h3`
   ${h600};
   line-height: ${multiply(gridSize, 4)}px;
   margin-right: ${multiply(gridSize, 4)}px;

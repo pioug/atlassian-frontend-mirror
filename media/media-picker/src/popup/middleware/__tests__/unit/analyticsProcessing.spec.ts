@@ -9,7 +9,7 @@ import { mockStore } from '@atlaskit/media-test-helpers';
 
 import { Action, Dispatch } from 'redux';
 
-import { State } from '../../../domain';
+import { State, SelectedItem } from '../../../domain';
 import analyticsProcessing from '../../analyticsProcessing';
 import { showPopup } from '../../../actions/showPopup';
 import { editorShowImage } from '../../../actions/editorShowImage';
@@ -34,6 +34,7 @@ const GOOGLE: ServiceName = 'google';
 const DROPBOX: ServiceName = 'dropbox';
 const GIPHY: ServiceName = 'giphy';
 const UPLOAD: ServiceName = 'upload';
+const RECENT_FILES: ServiceName = 'recent_files';
 
 const testFile1: MediaFile = {
   id: 'id1',
@@ -142,6 +143,7 @@ describe('analyticsProcessing middleware', () => {
   beforeEach(() => {
     mockAnalyticsHandler = jest.fn();
     next = jest.fn();
+    window.sessionStorage.setItem('media-api-region', '');
   });
 
   it('should process action showPopup, fire 2 events', () => {
@@ -246,6 +248,85 @@ describe('analyticsProcessing middleware', () => {
         ...attributes,
       },
     });
+  });
+
+  it('should process action hidePopup for insert 1 file, fire 1 event with received `N/A` via createdAt if serviceName is `recent_files`', () => {
+    verifyAnalyticsCall(
+      hidePopup(),
+      {
+        ...buttonClickPayload,
+        actionSubjectId: 'insertFilesButton',
+        attributes: {
+          fileCount: 1,
+          ...attributes,
+          serviceNames: ['recent_files'],
+          files: [
+            {
+              accountId: undefined,
+              fileId: '789',
+              fileSize: 10,
+              fileMimetype: 'image/jpg',
+              serviceName: RECENT_FILES,
+              fileAge: 'N/A',
+            },
+          ],
+        },
+      },
+      {
+        selectedItems: [
+          {
+            mimeType: 'image/jpg',
+            id: '789',
+            name: '1.jpg',
+            size: 10,
+            date: 0,
+            serviceName: RECENT_FILES,
+          } as SelectedItem,
+        ],
+      },
+    );
+  });
+
+  it('should process action hidePopup for insert 1 file, fire 1 event with createdAt timestamp if serviceName is `recent_files`', () => {
+    const dateMoreThanOneMonthAndLessThanSixMonths = new Date();
+    dateMoreThanOneMonthAndLessThanSixMonths.setMonth(
+      dateMoreThanOneMonthAndLessThanSixMonths.getMonth() - 2,
+    );
+    verifyAnalyticsCall(
+      hidePopup(),
+      {
+        ...buttonClickPayload,
+        actionSubjectId: 'insertFilesButton',
+        attributes: {
+          fileCount: 1,
+          ...attributes,
+          serviceNames: ['recent_files'],
+          files: [
+            {
+              accountId: undefined,
+              fileId: '789',
+              fileSize: 10,
+              fileMimetype: 'image/jpg',
+              serviceName: RECENT_FILES,
+              fileAge: '1 month - 6 months',
+            },
+          ],
+        },
+      },
+      {
+        selectedItems: [
+          {
+            mimeType: 'image/jpg',
+            id: '789',
+            name: '1.jpg',
+            size: 10,
+            date: 0,
+            serviceName: RECENT_FILES,
+            createdAt: dateMoreThanOneMonthAndLessThanSixMonths.getTime(),
+          } as SelectedItem,
+        ],
+      },
+    );
   });
 
   it('should process action hidePopup for insert of 1 file, fire 1 event with fileCount=1', () => {
@@ -501,5 +582,19 @@ describe('analyticsProcessing middleware', () => {
     });
     analyticsProcessing(store)(next)({ type: GET_PREVIEW });
     expect(mockAnalyticsHandler.mock.calls.length).toBe(0);
+  });
+
+  it('should include media region in the attributes payload if available', () => {
+    window.sessionStorage.setItem('media-api-region', 'someMediaRegion');
+
+    verifyAnalyticsCall(hidePopup(), {
+      ...buttonClickPayload,
+      actionSubjectId: 'cancelButton',
+      attributes: {
+        fileCount: 0,
+        ...attributes,
+        mediaRegion: 'someMediaRegion',
+      },
+    });
   });
 });

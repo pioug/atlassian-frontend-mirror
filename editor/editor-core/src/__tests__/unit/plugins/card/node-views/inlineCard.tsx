@@ -1,4 +1,18 @@
+import React from 'react';
 let mockFindOverflowScrollParent = jest.fn();
+let mockRafSchedule = jest.fn().mockImplementation((cb: any) => cb());
+jest.mock('raf-schd', () => (cb: any) => () => mockRafSchedule(cb));
+jest.mock('@atlaskit/smart-card', () => ({
+  Card: class Card extends React.Component<any> {
+    render() {
+      this.props.onResolve({
+        title: 'my-title',
+        url: 'https://my.url.com',
+      });
+      return <div className="smart-card-mock">{this.props.url}</div>;
+    }
+  },
+}));
 jest.mock('@atlaskit/editor-common', () => ({
   browser: () => ({}),
   findOverflowScrollParent: () => mockFindOverflowScrollParent(),
@@ -8,7 +22,6 @@ jest.mock('@atlaskit/editor-common', () => ({
   WidthProvider: jest.fn(),
 }));
 
-import React from 'react';
 import { mount } from 'enzyme';
 import { inlineCard } from '@atlaskit/editor-test-helpers/schema-builder';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
@@ -22,14 +35,20 @@ describe('inlineCard', () => {
 
   beforeEach(() => {
     mockFindOverflowScrollParent = jest.fn();
-    mockEditorView = {
+    mockEditorView = ({
       state: {
         selection: {
           from: 0,
           to: 0,
         },
+        tr: {
+          setMeta: jest
+            .fn()
+            .mockImplementation((_pluginKey: any, action: any) => action),
+        },
       },
-    } as EditorView;
+      dispatch: jest.fn(),
+    } as unknown) as EditorView;
   });
 
   afterEach(() => {
@@ -74,6 +93,36 @@ describe('inlineCard', () => {
     expect(wrapper).toHaveLength(1);
     expect(wrapper.prop('url')).toBe('https://some/url');
     expect(wrapper.prop('container')).toBe(scrollContainer);
+    mockInlineCardNode.unmount();
+  });
+
+  it('should call registerCard when URL renders', () => {
+    const mockInlinePmNode = inlineCard({ url: 'https://some/url' })()(
+      defaultSchema,
+    );
+    const mockInlineCardNode = mount(
+      <InlineCardComponent
+        node={mockInlinePmNode}
+        view={mockEditorView}
+        selected={false}
+        getPos={() => 0}
+      />,
+    );
+
+    const wrapper = mockInlineCardNode.find(Card);
+    expect(wrapper).toHaveLength(1);
+    expect(wrapper.prop('url')).toBe('https://some/url');
+    expect(mockRafSchedule).toHaveBeenCalledTimes(1);
+    expect(mockEditorView.state.tr.setMeta).toHaveBeenCalledTimes(1);
+    expect(mockEditorView.dispatch).toHaveBeenCalledTimes(1);
+    expect(mockEditorView.dispatch).toHaveBeenCalledWith({
+      info: {
+        pos: 0,
+        title: 'my-title',
+        url: 'https://my.url.com',
+      },
+      type: 'REGISTER',
+    });
     mockInlineCardNode.unmount();
   });
 });

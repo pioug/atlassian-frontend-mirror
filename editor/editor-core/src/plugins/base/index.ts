@@ -28,7 +28,8 @@ const basePlugin = (options?: BasePluginOptions): EditorPlugin => ({
     const plugins: { name: string; plugin: PMPluginFactory }[] = [
       {
         name: 'filterStepsPlugin',
-        plugin: () => filterStepsPlugin(),
+        plugin: ({ dispatchAnalyticsEvent }) =>
+          filterStepsPlugin(dispatchAnalyticsEvent),
       },
       {
         name: 'inlineCursorTargetPlugin',

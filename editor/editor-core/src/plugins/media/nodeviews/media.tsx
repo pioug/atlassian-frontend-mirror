@@ -14,7 +14,7 @@ import {
   CardDimensions,
   CardLoading,
   CardOnClickCallback,
-  OriginalCardDimensions,
+  NumericalCardDimensions,
 } from '@atlaskit/media-card';
 import { Identifier } from '@atlaskit/media-client';
 import { MediaClientConfig } from '@atlaskit/media-core';
@@ -37,7 +37,7 @@ export interface MediaNodeProps extends ReactNodeProps, ImageLoaderProps {
   getPos: ProsemirrorGetPosHandler;
   contextIdentifierProvider?: ContextIdentifierProvider;
   cardDimensions: CardDimensions;
-  originalDimensions?: OriginalCardDimensions;
+  originalDimensions?: NumericalCardDimensions;
   isMediaSingle?: boolean;
   onClick?: CardOnClickCallback;
   onExternalImageLoaded?: (dimensions: {

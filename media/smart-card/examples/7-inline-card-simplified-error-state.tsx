@@ -11,6 +11,7 @@ class ForbiddenClient extends Client {
         definitionId: 'd1',
         auth: [],
       },
+      data: undefined,
     } as ResolveResponse);
   }
 }
@@ -30,6 +31,7 @@ class ForbiddenClientWithAuth extends Client {
           },
         ],
       },
+      data: undefined,
     } as ResolveResponse);
   }
 }
@@ -43,6 +45,7 @@ class UnAuthCustomClient extends Client {
         definitionId: 'd1',
         auth: [],
       },
+      data: undefined,
     } as ResolveResponse);
   }
 }
@@ -62,6 +65,7 @@ class UnAuthCustomClientWithAction extends Client {
           },
         ],
       },
+      data: undefined,
     } as ResolveResponse);
   }
 }

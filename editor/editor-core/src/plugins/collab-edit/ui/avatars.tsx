@@ -1,8 +1,8 @@
 import React from 'react';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 import { EditorView } from 'prosemirror-view';
-import Avatar, { SizeType } from '@atlaskit/avatar';
+import { SizeType } from '@atlaskit/avatar';
 import AvatarGroup from '@atlaskit/avatar-group';
 import { gridSize, colors } from '@atlaskit/theme';
 import InviteTeamIcon from '@atlaskit/icon/glyph/editor/add';
@@ -40,89 +40,25 @@ const InviteTeamWrapper = styled.div`
   margin-left: -${gridSize() / 2}px;
 `;
 
-const itemAppear = keyframes`
-0% {
-  transform: scale(0);
-}
-
-50% {
-  transform: scale(1.1);
-}
-
-100% {
-  transform: scale(1);
-}
+const Badge = styled.div<{ color: string }>`
+  display: block;
+  position: absolute;
+  right: 1px;
+  bottom: 1px;
+  width: 13px;
+  height: 13px;
+  z-index: ${akEditorSmallZIndex};
+  border-radius: 3px;
+  background: ${({ color }) => color};
+  color: #fff;
+  font-size: 9px;
+  line-height: 0;
+  padding-top: 7px;
+  text-align: center;
+  box-shadow: 0 0 1px #fff;
+  box-sizing: border-box;
 `;
 
-const animateAvatar = ({ shouldAnimate }: { shouldAnimate: boolean }) => {
-  if (!shouldAnimate) {
-    return;
-  }
-
-  return `
-    & > div {
-      animation: ${itemAppear} 500ms 1;
-      animation-fill-mode: both;
-    }
-  `;
-};
-
-const animateBadge = ({ shouldAnimate }: { shouldAnimate: boolean }) => {
-  if (!shouldAnimate) {
-    return;
-  }
-
-  return `
-    animation: ${itemAppear} 250ms 1;
-    animation-fill-mode: both;
-    animation-delay: 400ms;
-  `;
-};
-
-const AvatarItem: any = styled.div`
-  position: relative;
-  align-self: center;
-
-  ${animateAvatar}
-
-  &::before {
-    content: '${(props: any) => props.avatar}';
-    display: block;
-    position: absolute;
-    right: -1px;
-    bottom: -1px;
-    width: 13px;
-    height: 13px;
-    z-index: ${akEditorSmallZIndex};
-    border-radius: 3px;
-    background: ${(props: any) => props.badgeColor};
-    color: #fff;
-    font-size: 9px;
-    line-height: 0;
-    padding-top: 7px;
-    text-align: center;
-    box-shadow: 0 0 1px #fff;
-    box-sizing: border-box;
-
-    ${animateBadge}
-  }
-`;
-
-function Item(props: any) {
-  const color = getAvatarColor(props.sessionId).color.solid;
-  const avatar = props.name.substr(0, 1).toUpperCase();
-  const { children, theme, ...other } = props;
-
-  return (
-    <AvatarItem
-      badgeColor={color}
-      avatar={avatar}
-      shouldAnimate={props.isInteractive}
-    >
-      <Avatar {...other} />
-    </AvatarItem>
-  );
-}
 class Avatars extends React.Component<Props & InjectedIntlProps, any> {
   private onAvatarClick = () => {};
   private renderInviteToEditButton = () => {
@@ -160,6 +96,7 @@ class Avatars extends React.Component<Props & InjectedIntlProps, any> {
 
     return null;
   };
+
   private renderAvatars = (state: { data?: PluginState }) => {
     if (!state.data) {
       return null;
@@ -174,7 +111,11 @@ class Avatars extends React.Component<Props & InjectedIntlProps, any> {
         src: p.avatar,
         sessionId: p.sessionId,
         size: 'medium' as SizeType,
-        component: Item,
+        presence: (
+          <Badge color={getAvatarColor(p.sessionId).color.solid}>
+            {p.name.substr(0, 1).toUpperCase()}
+          </Badge>
+        ),
       }))
       .sort(p => (p.sessionId === sessionId ? -1 : 1));
 

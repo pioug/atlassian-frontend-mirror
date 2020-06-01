@@ -61,7 +61,7 @@ BrowserTestCase(
 
     await mountEditor(page, {
       appearance: fullpage.appearance,
-      annotationProvider: true,
+      annotationProviders: true,
     });
 
     await page.type(editable, 'Over 9000');

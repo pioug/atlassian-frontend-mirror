@@ -2,6 +2,7 @@ import React from 'react';
 import Tooltip, { PositionType } from '@atlaskit/tooltip';
 import { ButtonProps } from '@atlaskit/button';
 import Button from './styles';
+import { MenuItem } from '../DropdownMenu/types';
 
 export type Props = {
   className?: string;
@@ -11,11 +12,13 @@ export type Props = {
   iconAfter?: React.ReactElement<any>;
   iconBefore?: React.ReactElement<any>;
   onClick?: (event: React.MouseEvent<HTMLElement>) => void;
+  onItemClick?: (item: MenuItem) => void;
   selected?: boolean;
   spacing?: 'default' | 'compact' | 'none';
   target?: string;
   title?: React.ReactNode;
   titlePosition?: PositionType;
+  item?: MenuItem;
 } & Pick<ButtonProps, 'theme' | 'aria-label'>;
 
 export default class ToolbarButton extends React.PureComponent<Props, {}> {
@@ -25,10 +28,14 @@ export default class ToolbarButton extends React.PureComponent<Props, {}> {
   };
 
   private handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    const { disabled, onClick } = this.props;
+    const { disabled, onClick, onItemClick, item } = this.props;
 
     if (!disabled && onClick) {
       onClick(event);
+    }
+
+    if (!disabled && item && onItemClick) {
+      onItemClick(item);
     }
   };
 

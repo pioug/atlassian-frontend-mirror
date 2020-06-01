@@ -1,26 +1,28 @@
-import { AnnotationTypeProvider, InlineCommentState } from '../types';
-import { AnnotationTestIds, AnnotationTypes } from '../types';
+import { AnnotationTestIds, InlineCommentAnnotationProvider } from '../types';
+import { AnnotationTypes } from '@atlaskit/adf-schema';
 
 export const annotationSelectors = {
   floatingToolbarCreate: `[data-testid="${AnnotationTestIds.floatingToolbarCreateButton}"]`,
   component: `[data-testid="${AnnotationTestIds.floatingComponent}"]`,
-  componentSave: `[data-testid="ak-editor-annotation-dummy-save-button"]`,
+  componentSave: `[data-testid="${AnnotationTestIds.componentSave}"]`,
 };
 
 export const selectorById = (id: string) => `[data-testid="${id}"]`;
 
-export const inlineCommentProvider: AnnotationTypeProvider<
-  AnnotationTypes.INLINE_COMMENT,
-  InlineCommentState
-> = {
-  getState: async (ids: string[]) =>
-    ids.map(id => ({
-      annotationType: AnnotationTypes.INLINE_COMMENT,
-      id,
-      state: { resolved: false },
-    })),
+export const getState = async (ids: string[]) => {
+  return ids.map(id => ({
+    annotationType: AnnotationTypes.INLINE_COMMENT,
+    id,
+    state: { resolved: false },
+  }));
 };
 
 export const nullComponent = () => {
   return null;
+};
+
+export const inlineCommentProvider: InlineCommentAnnotationProvider = {
+  getState: getState,
+  createComponent: nullComponent,
+  viewComponent: nullComponent,
 };

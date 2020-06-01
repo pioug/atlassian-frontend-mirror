@@ -1,4 +1,4 @@
-import React, { ChangeEvent, Component, FormEvent } from 'react';
+import React, { ChangeEvent, FC, FormEvent, useState } from 'react';
 
 import Button, { ButtonProps } from '@atlaskit/button';
 import { gridSize } from '@atlaskit/theme';
@@ -24,49 +24,47 @@ const initialState = {
 };
 
 // eslint-disable-next-line react/no-multi-comp
-export default class ExternalSrcAvatar extends Component<any, State> {
-  state: State = initialState;
+const ExternalSrcAvatar: FC = props => {
+  const [{ inputValue, imageUrl }, setState] = useState<State>(initialState);
 
-  changeUrl = (event: ChangeEvent<HTMLInputElement>) =>
-    this.setState({ inputValue: event.target.value });
+  const changeUrl = (event: ChangeEvent<HTMLInputElement>) =>
+    setState({ imageUrl, inputValue: event.target.value });
 
-  loadImage = (event: FormEvent) => {
+  const loadImage = (event: FormEvent) => {
     event.preventDefault();
-    this.setState({ imageUrl: this.state.inputValue });
+    setState({ imageUrl: inputValue, inputValue });
   };
 
-  resetState = () => this.setState(initialState);
+  const resetState = () => setState(initialState);
 
-  render() {
-    const { inputValue, imageUrl } = this.state;
-    let avatarName = 'Default Avatar';
-    if (imageUrl === initialState.inputValue)
-      avatarName = 'Mike Cannon-Brookes';
-    else if (imageUrl.length) avatarName = 'Custom Avatar';
+  let avatarName = 'Default Avatar';
+  if (imageUrl === initialState.inputValue) avatarName = 'Mike Cannon-Brookes';
+  else if (imageUrl.length) avatarName = 'Custom Avatar';
 
-    return (
-      <form onSubmit={this.loadImage}>
-        <Note size="large">Try pasting a URL to see the loading behavior:</Note>
-        <div
-          style={{
-            display: 'flex',
-            marginBottom: gridSize(),
-            marginTop: gridSize(),
-          }}
-        >
-          <input
-            onChange={this.changeUrl}
-            style={{ flex: 1 }}
-            type="text"
-            value={inputValue}
-          />
-          <Btn type="submit" appearance="primary">
-            Load Image
-          </Btn>
-          <Btn onClick={this.resetState}>Reset</Btn>
-        </div>
-        <Avatar name={avatarName} size="xlarge" src={imageUrl} />
-      </form>
-    );
-  }
-}
+  return (
+    <form onSubmit={loadImage}>
+      <Note size="large">Try pasting a URL to see the loading behavior:</Note>
+      <div
+        style={{
+          display: 'flex',
+          marginBottom: gridSize(),
+          marginTop: gridSize(),
+        }}
+      >
+        <input
+          onChange={changeUrl}
+          style={{ flex: 1 }}
+          type="text"
+          value={inputValue}
+        />
+        <Btn type="submit" appearance="primary">
+          Load Image
+        </Btn>
+        <Btn onClick={resetState}>Reset</Btn>
+      </div>
+      <Avatar name={avatarName} size="xlarge" src={imageUrl} />
+    </form>
+  );
+};
+
+export default ExternalSrcAvatar;

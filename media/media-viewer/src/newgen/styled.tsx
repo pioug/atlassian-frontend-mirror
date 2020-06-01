@@ -1,27 +1,11 @@
 import styled from 'styled-components';
 import { MediaType } from '@atlaskit/media-client';
 import { layers, borderRadius } from '@atlaskit/theme/constants';
-import {
-  Y200,
-  P200,
-  B300,
-  DN30,
-  DN50,
-  DN400,
-  N0,
-} from '@atlaskit/theme/colors';
+import { DN30, DN50, DN400, N0 } from '@atlaskit/theme/colors';
 import { ellipsis, hideControlsClassName } from '@atlaskit/media-ui';
 
 const overlayZindex = layers.modal() + 10;
 const sidebarWidth = 416;
-
-export const mediaTypeIconColors = {
-  image: Y200,
-  audio: P200,
-  video: '#ff7143',
-  doc: B300,
-  unknown: '#3dc7dc',
-};
 
 export const blanketColor = DN30;
 
@@ -284,12 +268,6 @@ export const MetadataIconWrapper = styled.div`
 export interface IconWrapperProps {
   type: MediaType;
 }
-
-export const IconWrapper = styled.div`
-  display: inline-flex;
-  color: ${({ type }: IconWrapperProps) =>
-    mediaTypeIconColors[type] || mediaTypeIconColors.unknown};
-`;
 
 export const RightHeader = styled.div`
   text-align: right;

@@ -459,7 +459,7 @@ export class SmartMediaEditor extends React.Component<
   renderLoading = () => {
     return (
       <SpinnerWrapper>
-        <Spinner size="large" invertColor={true} />
+        <Spinner size="large" appearance="invert" />
       </SpinnerWrapper>
     );
   };

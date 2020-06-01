@@ -46,7 +46,7 @@ export default class RecentList extends PureComponent<Props, {}> {
       return (
         <Container>
           <SpinnerContainer>
-            <Spinner invertColor={true} size="medium" />
+            <Spinner appearance="invert" size="medium" />
           </SpinnerContainer>
         </Container>
       );

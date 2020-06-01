@@ -6,12 +6,13 @@ import {
   taskDecision,
 } from '@atlaskit/util-data-test';
 import { CardEvent } from '@atlaskit/media-card';
-import { defaultSchema } from '@atlaskit/adf-schema';
+import { defaultSchema, AnnotationMarkStates } from '@atlaskit/adf-schema';
 import {
   CardSurroundings,
   ProviderFactory,
   ExtensionHandlers,
   EventHandlers,
+  AnnotationProviders,
 } from '@atlaskit/editor-common';
 import { IframeWidthObserverFallbackWrapper } from '@atlaskit/width-detector';
 import Button from '@atlaskit/button';
@@ -176,9 +177,11 @@ export interface DemoRendererProps {
   allowDynamicTextSizing?: boolean;
   allowHeadingAnchorLinks?: boolean;
   allowColumnSorting?: boolean;
+  allowAnnotations?: boolean;
   copies?: number;
   schema?: Schema;
   actionButtons?: any;
+  annotationProvider?: AnnotationProviders<AnnotationMarkStates> | null;
 }
 
 export interface DemoRendererState {
@@ -327,6 +330,11 @@ export default class RendererDemo extends React.Component<
       props.truncated = this.props.truncationEnabled && this.state.truncated;
       props.allowDynamicTextSizing = this.props.allowDynamicTextSizing;
       props.allowColumnSorting = this.props.allowColumnSorting;
+      props.allowAnnotations = this.props.allowAnnotations;
+
+      if (props.allowAnnotations) {
+        props.annotationProvider = this.props.annotationProvider;
+      }
 
       if (additionalRendererProps) {
         props = {

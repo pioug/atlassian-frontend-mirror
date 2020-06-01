@@ -1,5 +1,6 @@
 import React from 'react';
-import { md, Example, Props, code } from '@atlaskit/docs';
+
+import { code, Example, md, Props } from '@atlaskit/docs';
 
 export default md`
   Component which renders a native input[range] element, with atlassian stylings.
@@ -13,9 +14,9 @@ export default md`
   ${(
     <Example
       packageName="@atlaskit/range"
-      Component={require('../examples/00-basic-example').default}
+      Component={require('../examples/00-basic-example-uncontrolled').default}
       title="Basic"
-      source={require('!!raw-loader!../examples/00-basic-example')}
+      source={require('!!raw-loader!../examples/00-basic-example-uncontrolled')}
     />
   )}
 
@@ -30,6 +31,25 @@ export default md`
     />
   )}
 
+  ## Rate limiting
+
+  It is recommended that if you have an expensive onChange function
+  that you rate limit as it will be called on each step when you move
+  the range. You can do this in whatever way is best for your use case but
+  below is an example with:
+
+  * debouncing - function is called once after it isn't called for a given period
+  * throttling - function is only called once in a given period
+
+  ${(
+    <Example
+      packageName="@atlaskit/range"
+      Component={require('../examples/08-rate-limited').default}
+      title="Rate limited example"
+      source={require('!!raw-loader!../examples/08-rate-limited')}
+    />
+  )}
+
   ## Props
 
   In addition to the props below, we spread all other props provided on to the input
@@ -38,7 +58,7 @@ export default md`
 
   ${(
     <Props
-      props={require('!!extract-react-types-loader!../src/Range')}
+      props={require('!!extract-react-types-loader!../src/range')}
       heading=""
     />
   )}

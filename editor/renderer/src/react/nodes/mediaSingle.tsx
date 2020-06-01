@@ -11,7 +11,7 @@ import {
   WidthConsumer,
   MediaLink,
   MediaLinkWrapper,
-  akEditorFullPageMaxWidth,
+  getAkEditorFullPageMaxWidth,
   mapBreakpointToLayoutMaxWidth,
   ImageLoaderProps,
   akEditorFullWidthLayoutWidth,
@@ -202,7 +202,8 @@ class MediaSingle extends Component<Props & InjectedIntlProps, State> {
           let nonFullWidthSize = containerWidth;
           if (!isInsideOfBlockNode && rendererAppearance !== 'comment') {
             const isContainerSizeGreaterThanMaxFullPageWidth =
-              containerWidth - padding >= akEditorFullPageMaxWidth;
+              containerWidth - padding >=
+              getAkEditorFullPageMaxWidth(allowDynamicTextSizing);
 
             if (
               isContainerSizeGreaterThanMaxFullPageWidth &&
@@ -210,7 +211,9 @@ class MediaSingle extends Component<Props & InjectedIntlProps, State> {
             ) {
               nonFullWidthSize = mapBreakpointToLayoutMaxWidth(breakpoint);
             } else if (isContainerSizeGreaterThanMaxFullPageWidth) {
-              nonFullWidthSize = akEditorFullPageMaxWidth;
+              nonFullWidthSize = getAkEditorFullPageMaxWidth(
+                allowDynamicTextSizing,
+              );
             } else {
               nonFullWidthSize = containerWidth - padding;
             }

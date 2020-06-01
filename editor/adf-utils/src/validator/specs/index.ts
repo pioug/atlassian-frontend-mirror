@@ -69,3 +69,4 @@ export { default as block_content } from './block_content';
 export { default as layoutColumn } from './layoutColumn';
 export { default as layoutSection } from './layoutSection';
 export { default as doc } from './doc';
+export { default as embedCard } from './embedCard';

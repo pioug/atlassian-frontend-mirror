@@ -23,6 +23,7 @@ export default function BlockCard(props: {
   const cardProps = { url, data, onClick, container: portal };
   return (
     <div
+      className="blockCardView-content-wrap"
       data-block-card
       data-card-data={data ? JSON.stringify(data) : undefined}
       data-card-url={url}

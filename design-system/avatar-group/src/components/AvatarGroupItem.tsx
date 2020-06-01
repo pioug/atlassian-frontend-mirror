@@ -1,11 +1,6 @@
 import React, { Component } from 'react';
 
-import Avatar, {
-  AvatarClickType,
-  AvatarPropTypes,
-  getProps,
-  withPseudoState,
-} from '@atlaskit/avatar';
+import Avatar, { AvatarClickType, AvatarPropTypes } from '@atlaskit/avatar';
 import { DropdownItem } from '@atlaskit/dropdown-menu';
 
 export interface AvatarGroupItemProps {
@@ -21,7 +16,7 @@ class AvatarGroupItem extends Component<AvatarGroupItemProps> {
   render() {
     const { avatar, onAvatarClick, testId } = this.props;
     const { href, ...rest } = avatar;
-    const enhancedProps = getProps(this);
+    const enhancedProps = this.props;
     return (
       <DropdownItem
         isInteractive
@@ -31,14 +26,13 @@ class AvatarGroupItem extends Component<AvatarGroupItemProps> {
             {...rest}
             testId={testId && `${testId}--avatar`}
             borderColor="transparent"
-            enableTooltip={false}
             size="small"
           />
         }
         href={href}
         onClick={(event: React.MouseEvent) => {
           if (typeof onAvatarClick === 'function') {
-            onAvatarClick({ event, item: avatar });
+            onAvatarClick(event);
           }
         }}
         rel={avatar.target ? 'noopener noreferrer' : null}
@@ -50,4 +44,4 @@ class AvatarGroupItem extends Component<AvatarGroupItemProps> {
   }
 }
 
-export default withPseudoState(AvatarGroupItem);
+export default AvatarGroupItem;

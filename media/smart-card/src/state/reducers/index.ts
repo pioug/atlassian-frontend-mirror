@@ -1,12 +1,12 @@
+import { JsonLd } from 'json-ld-types';
 import clone from 'lodash.clonedeep';
 
 import * as actions from '../actions/constants';
 import { CardReducerMap, CardReducer } from './types';
-import { JsonLdCustom } from '../../client/types';
 import { CardStore, CardState } from '../types';
-import { getStatus } from '../actions/helpers';
+import { getStatus } from '../helpers';
 
-const cardReducerMap: CardReducerMap<CardState, JsonLdCustom> = {
+const cardReducerMap: CardReducerMap<CardState, JsonLd.Response> = {
   [actions.ACTION_PENDING]: (_state, { type }) => {
     return { status: type, lastUpdatedAt: Date.now() };
   },
@@ -27,11 +27,15 @@ const cardReducerMap: CardReducerMap<CardState, JsonLdCustom> = {
     nextState.lastUpdatedAt = Date.now();
     return nextState;
   },
-  [actions.ACTION_ERROR]: (state, { type }) => {
-    return { ...state, status: type };
+  [actions.ACTION_ERROR]: (state, { type, error }) => {
+    return { ...state, status: type, error };
+  },
+  [actions.ACTION_ERROR_FALLBACK]: (state, { type, error }) => {
+    return { ...state, status: type, error };
   },
 };
-export const cardReducer: CardReducer<CardStore, JsonLdCustom> = (
+
+export const cardReducer: CardReducer<CardStore, JsonLd.Response> = (
   state,
   action,
 ) => {

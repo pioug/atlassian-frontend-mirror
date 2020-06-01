@@ -31,6 +31,7 @@ import { PresetProvider } from '../Editor';
 import { EditorPresetProps } from './types';
 import { useDefaultPreset } from './default';
 import { addExcludesFromProviderFactory } from './utils';
+import { quickInsertPlugin } from '../../../plugins';
 
 // #endregion
 
@@ -74,6 +75,10 @@ export function useMobilePreset({
   preset.add(rulePlugin);
   preset.add(datePlugin);
   preset.add(layoutPlugin);
+  preset.add([
+    quickInsertPlugin,
+    { headless: true, disableDefaultItems: true },
+  ]);
   preset.add([statusPlugin, { menuDisabled: false, useInlineWrapper: true }]);
   preset.add([placeholderPlugin, { placeholder }]);
   preset.add(annotationPlugin);
@@ -103,6 +108,8 @@ export function useMobilePreset({
         allowMediaSingleEditable: false,
         allowRemoteDimensionsFetch: false,
         allowMarkingUploadsAsIncomplete: true,
+        allowAltTextOnImages: true,
+        allowTemplatePlaceholders: { allowInserting: true },
       },
     ]);
   }

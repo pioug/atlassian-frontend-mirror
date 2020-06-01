@@ -2,6 +2,7 @@
 import { jsx } from '@emotion/core';
 import { FormattedMessage } from 'react-intl';
 import { R50 } from '@atlaskit/theme/colors';
+import { MouseEvent } from 'react';
 
 import { Frame } from '../components/Frame';
 import { Thumbnail } from '../components/Thumbnail';
@@ -13,6 +14,7 @@ import { NotFoundImage } from '../utils/constants';
 import { messages } from '../../messages';
 import { ContentFooter } from '../components/ContentFooter';
 import { IconProps, Icon } from '../components/Icon';
+import { handleClickCommon } from '../utils/handlers';
 
 const textTitleProps = { ...messages.not_found_title };
 const textDescriptionProps = { ...messages.not_found_description };
@@ -40,12 +42,13 @@ export const NotFoundView = ({
   link = '',
   onClick = () => {},
 }: NotFoundProps) => {
+  const handleClick = (event: MouseEvent) => handleClickCommon(event, onClick);
   return (
     <Frame isSelected={isSelected} testId={testId}>
       <Content>
         <div>
           <a
-            onClick={onClick}
+            onClick={handleClick}
             href={link}
             target="_blank"
             css={{ display: 'flex', alignItems: 'flex-start' }}

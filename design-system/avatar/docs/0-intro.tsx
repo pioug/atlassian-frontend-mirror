@@ -50,7 +50,7 @@ export default md`
   ${(
     <Props
       heading="Avatar Props"
-      props={require('!!extract-react-types-loader!../src/components/Avatar')}
+      props={require('!!extract-react-types-loader!../src/Avatar')}
     />
   )}
 `;

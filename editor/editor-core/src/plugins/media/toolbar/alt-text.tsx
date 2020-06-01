@@ -8,7 +8,7 @@ import {
 } from '../../floating-toolbar/types';
 import { Command } from '../../../types';
 import { openMediaAltTextMenu } from '../pm-plugins/alt-text/commands';
-import { renderTooltipContent, addAltText } from '../../../keymaps';
+import { ToolTipContent, addAltText } from '../../../keymaps';
 import { MediaToolbarBaseConfig } from '../types';
 import { messages } from '../pm-plugins/alt-text/messages';
 import AltTextEdit from '../pm-plugins/alt-text/ui/AltTextEdit';
@@ -31,7 +31,7 @@ export const altTextButton = (
     onClick: openMediaAltTextMenu,
     showTitle: true,
     testId: 'alt-text-edit-button',
-    tooltipContent: renderTooltipContent(title, addAltText),
+    tooltipContent: <ToolTipContent description={title} keymap={addAltText} />,
   };
 };
 

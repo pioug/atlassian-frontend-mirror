@@ -1,0 +1,63 @@
+{
+  "stepType": "ak-add-column",
+  "tablePos": 0,
+  "cells": [
+    {
+      "from": 10,
+      "to": 10,
+      "mergeWith": 6,
+      "newCell": {
+        "type": "tableCell",
+        "attrs": {
+          "colspan": 2,
+          "rowspan": 1,
+          "colwidth": null,
+          "background": "#BBBBBB"
+        },
+        "content": [
+          {
+            "type": "paragraph"
+          }
+        ]
+      }
+    },
+    {
+      "from": 16,
+      "to": 20,
+      "newCell": {
+        "type": "tableCell",
+        "attrs": {
+          "colspan": 1,
+          "rowspan": 1,
+          "colwidth": null,
+          "background": "#CCCCCC"
+        },
+        "content": [
+          {
+            "type": "paragraph"
+          }
+        ]
+      }
+    },
+    {
+      "from": 22,
+      "to": 22,
+      "mergeWith": 18,
+      "newCell": {
+        "type": "tableCell",
+        "attrs": {
+          "colspan": 3,
+          "rowspan": 1,
+          "colwidth": null,
+          "background": "#CCCCCC"
+        },
+        "content": [
+          {
+            "type": "paragraph"
+          }
+        ]
+      }
+    }
+  ],
+  "isDelete": false
+}

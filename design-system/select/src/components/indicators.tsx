@@ -5,7 +5,7 @@ import { components } from 'react-select';
 import { IndicatorProps } from '../types';
 import Spinner from '@atlaskit/spinner';
 import SelectClearIcon from '@atlaskit/icon/glyph/select-clear';
-import DownIcon from '@atlaskit/icon/glyph/hipchat/chevron-down';
+import DownIcon from '@atlaskit/icon/glyph/chevron-down';
 
 export const ClearIndicator: FC<IndicatorProps<any>> = props => (
   <components.ClearIndicator {...props}>

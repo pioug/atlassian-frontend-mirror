@@ -13,6 +13,7 @@ export type FileStatus =
   | 'processed'
   | 'error'
   | 'failed-processing';
+
 export interface FilePreview {
   value: Blob | string;
   origin?: 'local' | 'remote';
@@ -37,7 +38,13 @@ export interface UploadingFileState {
   mediaType: MediaType;
   mimeType: string;
   preview?: FilePreview | Promise<FilePreview>;
+  createdAt?: number;
 }
+
+export interface PreviewableFileState {
+  preview: FilePreview | Promise<FilePreview>;
+}
+
 export interface ProcessingFileState {
   status: 'processing';
   id: string;
@@ -49,6 +56,7 @@ export interface ProcessingFileState {
   mimeType: string;
   preview?: FilePreview | Promise<FilePreview>;
   representations?: MediaRepresentations;
+  createdAt?: number;
 }
 
 export interface ProcessedFileState {
@@ -62,6 +70,7 @@ export interface ProcessedFileState {
   mimeType: string;
   preview?: FilePreview | Promise<FilePreview>;
   representations?: MediaRepresentations;
+  createdAt?: number;
 }
 export interface ProcessingFailedState {
   status: 'failed-processing';
@@ -74,6 +83,7 @@ export interface ProcessingFailedState {
   mimeType: string;
   preview?: FilePreview | Promise<FilePreview>;
   representations?: MediaRepresentations;
+  createdAt?: number;
 }
 export interface ErrorFileState {
   status: 'error';
@@ -88,10 +98,23 @@ export type FileState =
   | ErrorFileState
   | ProcessingFailedState;
 
+export const isProcessedFileState = (
+  fileState: FileState,
+): fileState is ProcessedFileState => fileState.status === 'processed';
+
 export const isErrorFileState = (
   fileState: FileState,
-): fileState is ErrorFileState =>
-  (fileState as ErrorFileState).status === 'error';
+): fileState is ErrorFileState => fileState.status === 'error';
+
+export const isPreviewableFileState = (
+  fileState: FileState,
+): fileState is Exclude<FileState, ErrorFileState> & PreviewableFileState =>
+  !isErrorFileState(fileState) && !!fileState.preview;
+
+export const isFinalFileState = (
+  fileState: FileState,
+): fileState is ProcessedFileState | ErrorFileState | ProcessingFailedState =>
+  ['processed', 'failed-processing', 'error'].includes(fileState.status);
 
 export const isImageRepresentationReady = (fileState: FileState): boolean => {
   switch (fileState.status) {
@@ -116,6 +139,7 @@ export const mapMediaFileToFileState = (
     mediaType,
     mimeType,
     representations,
+    createdAt,
   } = mediaFile.data;
   const baseState = {
     id,
@@ -125,6 +149,7 @@ export const mapMediaFileToFileState = (
     mimeType,
     artifacts,
     representations,
+    createdAt,
   };
 
   switch (processingStatus) {

@@ -1,5 +1,12 @@
 # @atlaskit/datetime-picker
 
+## 9.4.4
+
+### Patch Changes
+
+- [`466aec241f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/466aec241f) - Fixing incorrect margin for time-picker
+- [`54d82b49f0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54d82b49f0) - Remove unused dependencies
+
 ## 9.4.3
 
 ### Patch Changes

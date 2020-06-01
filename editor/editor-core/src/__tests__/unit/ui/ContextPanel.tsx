@@ -1,15 +1,16 @@
-// jest.mock()
-
-import { mount, ReactWrapper } from 'enzyme';
 import React from 'react';
+import { mount, ReactWrapper } from 'enzyme';
+
+import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
+import { doc, p } from '@atlaskit/editor-test-helpers/schema-builder';
+
 import ContextPanel, {
   Content,
   Panel,
   SwappableContentArea,
 } from '../../../ui/ContextPanel';
 import EditorContext from '../../../ui/EditorContext';
-import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
-import { doc, p } from '@atlaskit/editor-test-helpers/schema-builder';
+
 import { EditorPlugin } from '../../../types';
 import { EventDispatcher } from '../../../event-dispatcher';
 import EditorActions from '../../../actions';
@@ -131,7 +132,7 @@ describe('ContextPanel', () => {
   it('renders SwappableContentArea', () => {
     wrapper = mountWithContext(
       <ContextPanel visible={true} width={420}>
-        yoshi bongo
+        <div>yoshi bongo</div>
       </ContextPanel>,
     );
     const contentArea = wrapper.find(SwappableContentArea);
@@ -141,7 +142,7 @@ describe('ContextPanel', () => {
   it('passes top-level props and children to SwappableContentArea', () => {
     wrapper = mountWithContext(
       <ContextPanel visible={true} width={420}>
-        yoshi bongo
+        <div>yoshi bongo</div>
       </ContextPanel>,
     );
     const contentArea = wrapper.find(SwappableContentArea);
@@ -153,7 +154,7 @@ describe('ContextPanel', () => {
   it('provides no pluginContent if no EventDispatcher', () => {
     wrapper = mountWithContext(
       <ContextPanel visible={true} width={420}>
-        yoshi bongo
+        <div>yoshi bongo</div>
       </ContextPanel>,
     );
     const contentArea = wrapper.find(SwappableContentArea);
@@ -168,7 +169,7 @@ describe('ContextPanel', () => {
     editorActions._privateRegisterEditor(editor.editorView, eventDispatcher);
     wrapper = mountWithContext(
       <ContextPanel visible={true} width={420}>
-        yoshi bongo
+        <div>yoshi bongo</div>
       </ContextPanel>,
       editorActions,
     );
@@ -188,7 +189,7 @@ describe('ContextPanel', () => {
     editorActions._privateRegisterEditor(editor.editorView, eventDispatcher);
     wrapper = mountWithContext(
       <ContextPanel visible={true} width={420}>
-        yoshi bongo
+        <div>yoshi bongo</div>
       </ContextPanel>,
       editorActions,
     );

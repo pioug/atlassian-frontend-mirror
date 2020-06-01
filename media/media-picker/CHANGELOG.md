@@ -1,5 +1,16 @@
 # @atlaskit/media-picker
 
+## 54.1.4
+
+### Patch Changes
+
+- [`a2ffde361d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a2ffde361d) - MPT-131: fetch remote preview for files not supported by the browser
+- [`54d82b49f0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54d82b49f0) - Remove unused dependencies
+- [`fce18ac290`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fce18ac290) - adding `createdAt` field for analytics upload event when user inserts a file'
+- [`2d2012a993`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2d2012a993) - Adding `mediaRegion` payload into analytics events payload
+- [`98f462e2aa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/98f462e2aa) - Bumping use the latest version of @atlaskit/spinner
+- Updated dependencies
+
 ## 54.1.3
 
 ### Patch Changes

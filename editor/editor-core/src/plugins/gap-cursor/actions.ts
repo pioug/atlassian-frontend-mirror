@@ -5,12 +5,12 @@ import {
   NodeSelection,
 } from 'prosemirror-state';
 import { removeNodeBefore, findDomRefAtPos } from 'prosemirror-utils';
+import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common';
 import { Direction, isBackward, isForward } from './direction';
 import { GapCursorSelection, Side } from './selection';
 import { isTextBlockNearPos, getMediaNearPos } from './utils';
 import { isValidTargetNode } from './utils/is-valid-target-node';
 import { Command } from '../../types';
-import { ZeroWidthSpace } from '../../utils';
 import {
   atTheBeginningOfDoc,
   atTheEndOfDoc,
@@ -158,7 +158,7 @@ export const arrow = (
     const domAtPos = view.domAtPos.bind(view);
     const target = findDomRefAtPos($pos.pos, domAtPos) as HTMLElement;
 
-    if (target && target.textContent === ZeroWidthSpace) {
+    if (target && target.textContent === ZERO_WIDTH_SPACE) {
       return false;
     }
   }

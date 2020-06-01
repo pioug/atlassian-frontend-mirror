@@ -30,6 +30,8 @@ const getValidPos = (tr: Transaction, pos: number) => {
 export class PluginState {
   private decorationSet: DecorationSet;
   private participants: Participants;
+  // eslint-disable-next-line no-console
+  private onError = (error: Error) => console.error(error);
   private sid?: string;
   public isReady: boolean;
 
@@ -50,11 +52,13 @@ export class PluginState {
     participants: Participants,
     sessionId?: string,
     collabInitalised: boolean = false,
+    onError?: (err: Error) => void,
   ) {
     this.decorationSet = decorations;
     this.participants = participants;
     this.sid = sessionId;
     this.isReady = collabInitalised;
+    this.onError = onError || this.onError;
   }
 
   getInitial(sessionId: string) {
@@ -128,9 +132,7 @@ export class PluginState {
           );
           to = isSelection ? getValidPos(tr, rawTo) : from;
         } catch (err) {
-          // TODO: ED-9002 Send analytics about failure in collab-edit.plugin-state
-          // eslint-disable-next-line no-console
-          console.error(err);
+          this.onError(err);
         }
 
         add = add.concat(
@@ -182,9 +184,7 @@ export class PluginState {
           },
         });
       } catch (err) {
-        // TODO: ED-9002 Send analytics about failure in collab-edit.plugin-state
-        // eslint-disable-next-line no-console
-        console.error(err);
+        this.onError(err);
       }
 
       // Remove any selection decoration within the change range,
@@ -226,7 +226,13 @@ export class PluginState {
   }
 
   static init(config: any) {
-    const { doc } = config;
-    return new PluginState(DecorationSet.create(doc, []), new Participants());
+    const { doc, onError } = config;
+    return new PluginState(
+      DecorationSet.create(doc, []),
+      new Participants(),
+      undefined,
+      undefined,
+      onError,
+    );
   }
 }

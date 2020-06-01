@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "embedCard",
+      "attrs": {
+        "url": "https://product-fabric.atlassian.net/wiki/spaces/EM/pages/1045562389/PP+Jira+Embeds",
+        "layout": "center"
+      }
+    },
+    {
+      "type": "paragraph",
+      "content": []
+    }
+  ]
+}

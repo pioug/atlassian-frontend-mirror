@@ -62,6 +62,7 @@ import { analyticsEventKey } from '../plugins/analytics/consts';
 import { createSchema } from './create-schema';
 import { PluginPerformanceObserver } from '../utils/performance/plugin-performance-observer';
 import { PluginPerformanceReportData } from '../utils/performance/plugin-performance-report';
+import { getParticipantsCount } from '../plugins/collab-edit/get-participants-count';
 
 export interface EditorViewProps {
   editorProps: EditorProps;
@@ -129,18 +130,24 @@ export default class ReactEditorView<T = {}> extends React.Component<
   private focusTimeoutId: number | undefined;
 
   private pluginPerformanceObserver = new PluginPerformanceObserver(report =>
-    this.onPluginObservation(report),
+    this.onPluginObservation(report, this.editorState),
   )
     .withPlugins(() => this.getPluginNames())
     .withNodeCounts(() => this.countNodes())
     .withOptions(() => this.transactionTrackingOptions);
 
-  private onPluginObservation = (report: PluginPerformanceReportData) => {
+  private onPluginObservation = (
+    report: PluginPerformanceReportData,
+    editorState: EditorState,
+  ) => {
     this.dispatchAnalyticsEvent({
       action: ACTION.TRANSACTION_DISPATCHED,
       actionSubject: ACTION_SUBJECT.EDITOR,
       eventType: EVENT_TYPE.OPERATIONAL,
-      attributes: { report },
+      attributes: {
+        report,
+        participants: getParticipantsCount(editorState),
+      },
     });
   };
 
@@ -646,24 +653,25 @@ export default class ReactEditorView<T = {}> extends React.Component<
     }
   };
 
+  private editor = (
+    <div
+      className={getUAPrefix()}
+      key="ProseMirror"
+      ref={this.handleEditorViewRef}
+    />
+  );
+
   render() {
-    const editor = (
-      <div
-        className={getUAPrefix()}
-        key="ProseMirror"
-        ref={this.handleEditorViewRef}
-      />
-    );
     return this.props.render
       ? this.props.render({
-          editor,
+          editor: this.editor,
           view: this.view,
           config: this.config,
           eventDispatcher: this.eventDispatcher,
           transformer: this.contentTransformer,
           dispatchAnalyticsEvent: this.dispatchAnalyticsEvent,
         })
-      : editor;
+      : this.editor;
   }
 }
 

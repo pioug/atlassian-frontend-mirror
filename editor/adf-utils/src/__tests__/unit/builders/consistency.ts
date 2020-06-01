@@ -24,6 +24,7 @@ const ignoredPaths = [
   'table',
   'image',
   'types',
+  '__tests__',
 ];
 
 const adfSchemaNodesPath = path.join(
@@ -53,6 +54,7 @@ const ignoredMarks = [
   'emoji-query',
   'mention-query',
   'type-ahead-query',
+  '__tests__',
 ];
 
 const adfSchemaMarksPath = path.join(

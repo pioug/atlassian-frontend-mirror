@@ -2,6 +2,7 @@
 import { jsx } from '@emotion/core';
 import { AvatarClickType } from '@atlaskit/avatar';
 import Lozenge from '@atlaskit/lozenge';
+import { MouseEvent } from 'react';
 
 import { Frame } from '../components/Frame';
 import { Thumbnail } from '../components/Thumbnail';
@@ -20,6 +21,7 @@ import { LozengeBlockWrapper } from '../../InlineCard/IconAndTitleLayout/styled'
 import { ContentFooter } from '../components/ContentFooter';
 import { ContextViewModel } from '../../types';
 import { gs } from '../utils';
+import { handleClickCommon } from '../utils/handlers';
 
 export interface ResolvedViewProps {
   /* Details about the provider for the link */
@@ -85,6 +87,8 @@ export const ResolvedView = ({
     <Byline testId={testId ? `${testId}-by` : undefined}>{byline}</Byline>
   );
 
+  const handleClick = (event: MouseEvent) => handleClickCommon(event, onClick);
+
   const hasActions = showActions && actions.length > 0;
 
   return (
@@ -99,7 +103,7 @@ export const ResolvedView = ({
             }}
           >
             <a
-              onClick={onClick}
+              onClick={handleClick}
               href={link}
               target="_blank"
               css={{ display: 'flex', alignItems: 'flex-start' }}

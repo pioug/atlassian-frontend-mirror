@@ -7,8 +7,8 @@ import {
   isErrorFileState,
   observableToPromise,
   getFileStreamsCache,
+  createFileStateSubject,
   FileState,
-  FilePreview,
   ProcessedFileState,
   ProcessingFileState,
   ErrorFileState,
@@ -66,10 +66,12 @@ describe('importFiles middleware', () => {
   const defaultOptions: SetupOptions = {
     withSelectedItems: true,
   };
-  const makeFileData = (index: number) => ({
+  const makeFileData = (index: number, supportedByBrowser = true) => ({
     id: `some-selected-item-id-${index}`,
-    name: `picture${index}.jpg`,
-    mimeType: 'image/jpg',
+    name: supportedByBrowser ? `document${index}.pdf` : `document${index}.xlsx`,
+    mimeType: supportedByBrowser
+      ? 'application/pdf'
+      : `application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`,
     size: 42 + index,
     occurrenceKey: `occurrence-key-${index}`,
   });
@@ -89,11 +91,14 @@ describe('importFiles middleware', () => {
       ...opts,
     } as SetupOptions;
 
-    const makeLocalUpload = (index: number): LocalUpload => {
+    const makeLocalUpload = (
+      index: number,
+      supportedByBrowser = true,
+    ): LocalUpload => {
       return {
         file: {
           metadata: {
-            ...makeFileData(index),
+            ...makeFileData(index, supportedByBrowser),
           },
         },
         index,
@@ -104,7 +109,7 @@ describe('importFiles middleware', () => {
     const localUploads: LocalUploads = {
       'some-selected-item-id-1': makeLocalUpload(1),
       'some-selected-item-id-2': makeLocalUpload(2),
-      'some-selected-item-id-3': makeLocalUpload(3),
+      'some-selected-item-id-3': makeLocalUpload(3, false), // not natively supported by browser
     };
 
     type OmittedKeys = 'id' | 'mimeType' | 'name' | 'size';
@@ -126,7 +131,7 @@ describe('importFiles middleware', () => {
         // Find corresponding FileState in the stream cache.
         let userFileStateSubject = getFileStreamsCache().get(id);
         if (!options.shouldExistInCache) {
-          userFileStateSubject = new ReplaySubject<FileState>(1);
+          userFileStateSubject = createFileStateSubject();
           getFileStreamsCache().set(id, userFileStateSubject);
         } else if (!userFileStateSubject) {
           return expect(userFileStateSubject).toBeDefined();
@@ -173,16 +178,14 @@ describe('importFiles middleware', () => {
     };
 
     const finishProcessing = (
-      previewValue: FilePreview['value'] = 'some-preview-value',
+      preview: ProcessingFileState['preview'] = { value: 'some-preview-value' },
     ) => {
       pushFileStateForLocalUploads({
         status: 'processed',
         mediaType: 'doc',
         occurrenceKey: 'some-occurrence-key',
         artifacts: {},
-        preview: {
-          value: previewValue,
-        },
+        preview,
       });
     };
 
@@ -213,7 +216,7 @@ describe('importFiles middleware', () => {
               // Not all uploaded files are being selected. number 2 was skipped
               {
                 serviceName: 'upload',
-                ...makeFileData(3),
+                ...makeFileData(3, false), // not natively supported by browser
                 accountId: '',
                 date: todayDate,
               },
@@ -330,32 +333,33 @@ describe('importFiles middleware', () => {
       expect(eventEmitter.emitUploadsStart).toBeCalledWith([
         {
           id: 'some-uuid-0',
-          name: 'picture1.jpg',
-          type: 'image/jpg',
+          name: 'document1.pdf',
+          type: 'application/pdf',
           size: 43,
           creationDate: todayDate,
           occurrenceKey: 'occurrence-key-1',
         },
         {
           id: 'some-uuid-1',
-          name: 'picture3.jpg',
-          type: 'image/jpg',
+          name: 'document3.xlsx',
+          type:
+            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
           size: 45,
           creationDate: todayDate,
           occurrenceKey: 'occurrence-key-3',
         },
         {
           id: 'some-uuid-2',
-          name: 'picture4.jpg',
-          type: 'image/jpg',
+          name: 'document4.pdf',
+          type: 'application/pdf',
           size: 46,
           creationDate: todayDate,
           occurrenceKey: 'occurrence-key-4',
         },
         {
           id: 'some-uuid-3',
-          name: 'picture5.jpg',
-          type: 'image/jpg',
+          name: 'document5.pdf',
+          type: 'application/pdf',
           size: 47,
           creationDate: expect.any(Number),
           occurrenceKey: 'occurrence-key-5',
@@ -367,8 +371,8 @@ describe('importFiles middleware', () => {
           serviceName: 'plugin-1',
           accountId: 'some-account-id',
           id: 'some-selected-item-id-5',
-          name: 'picture5.jpg',
-          mimeType: 'image/jpg',
+          name: 'document5.pdf',
+          mimeType: 'application/pdf',
           date: 0,
           size: 47,
           occurrenceKey: 'occurrence-key-5',
@@ -390,8 +394,8 @@ describe('importFiles middleware', () => {
       expectToEqual(tenantFileState1, {
         id: 'some-uuid-0',
         mediaType: 'doc',
-        mimeType: 'image/jpg',
-        name: 'picture1.jpg',
+        mimeType: 'application/pdf',
+        name: 'document1.pdf',
         progress: 0.5,
         size: 43,
         status: 'uploading',
@@ -493,8 +497,8 @@ describe('importFiles middleware', () => {
             `some-uuid-2`,
             {
               id: 'some-selected-item-id-4',
-              name: 'picture4.jpg',
-              type: 'image/jpg',
+              name: 'document4.pdf',
+              type: 'application/pdf',
               size: 46,
               creationDate: todayDate,
               occurrenceKey: 'occurrence-key-4',
@@ -517,8 +521,8 @@ describe('importFiles middleware', () => {
           finalizeUpload(
             {
               id: 'some-selected-item-id-4',
-              name: 'picture4.jpg',
-              type: 'image/jpg',
+              name: 'document4.pdf',
+              type: 'application/pdf',
               size: 46,
               creationDate: todayDate,
               occurrenceKey: 'occurrence-key-4',
@@ -549,30 +553,31 @@ describe('importFiles middleware', () => {
           finalizeUpload(
             {
               creationDate: -1,
-              id: 'some-uuid-0',
-              name: 'picture1.jpg',
-              size: 43,
-              type: 'image/jpg',
+              id: 'some-uuid-1',
+              name: 'document3.xlsx',
+              size: 45,
+              type:
+                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
               occurrenceKey: 'some-occurrence-key',
             },
-            'some-uuid-0',
+            'some-uuid-1',
             {
-              id: 'some-selected-item-id-1',
+              id: 'some-selected-item-id-3',
               collection: RECENTS_COLLECTION,
             },
           ),
           finalizeUpload(
             {
               creationDate: -1,
-              id: 'some-uuid-1',
-              name: 'picture3.jpg',
-              size: 45,
-              type: 'image/jpg',
+              id: 'some-uuid-0',
+              name: 'document1.pdf',
+              size: 43,
+              type: 'application/pdf',
               occurrenceKey: 'some-occurrence-key',
             },
-            'some-uuid-1',
+            'some-uuid-0',
             {
-              id: 'some-selected-item-id-3',
+              id: 'some-selected-item-id-1',
               collection: RECENTS_COLLECTION,
             },
           ),
@@ -585,13 +590,9 @@ describe('importFiles middleware', () => {
       });
 
       it('should dispatch FINALIZE_UPLOAD action once after "processing" status', async () => {
-        const { finishUploading, finishProcessing } = setupResult;
+        const { finishUploading } = setupResult;
 
         finishUploading();
-        await nextTick();
-        await nextTick();
-
-        finishProcessing();
         await nextTick();
         await nextTick();
 
@@ -599,7 +600,11 @@ describe('importFiles middleware', () => {
       });
 
       it('should dispatch FINALIZE_UPLOAD action once after "processed" status', async () => {
-        const { finishProcessing } = setupResult;
+        const { finishUploading, finishProcessing } = setupResult;
+
+        finishUploading();
+        await nextTick();
+        await nextTick();
 
         finishProcessing();
         await nextTick();
@@ -614,7 +619,7 @@ describe('importFiles middleware', () => {
       });
 
       it('should dispatch FINALIZE_UPLOAD only after "upload-preview-update" when preview is a string', async () => {
-        const { finishUploading, finishProcessing, store } = setupResult;
+        const { finishUploading, store } = setupResult;
         let resolver: (arg: { value: string }) => void = () => {};
         const previewPromise = new Promise<{ value: string }>(resolve => {
           resolver = resolve;
@@ -625,21 +630,37 @@ describe('importFiles middleware', () => {
         await nextTick();
         await nextTick();
 
-        finishProcessing();
-        await nextTick();
-        await nextTick();
-        await nextTick();
-        await nextTick();
-
         // Not FINALIZE_UPLOAD should have happened until preview
         expect(
           getDispatchCallsByType(store, isFinalizeUploadAction).slice(1),
         ).toHaveLength(0);
 
-        // Not 'upload-preview-update' yet, because preview hasn't resolve yet.
-        expect(
-          getSendUploadEventPayloads(store, 'upload-preview-update'),
-        ).toHaveLength(0);
+        // 'upload-preview-update' only sent for the file not natively supported by browser
+        const payloads = getSendUploadEventPayloads(
+          store,
+          'upload-preview-update',
+        );
+        expect(payloads).toHaveLength(1);
+        expectToEqual(payloads, [
+          {
+            fileId: 'some-uuid-1',
+            event: {
+              name: 'upload-preview-update',
+              data: {
+                file: {
+                  creationDate: -1,
+                  id: 'some-uuid-1',
+                  name: 'document3.xlsx',
+                  size: 45,
+                  type:
+                    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                  occurrenceKey: 'some-occurrence-key',
+                },
+                preview: {}, // no local preview
+              },
+            },
+          },
+        ]);
 
         resolver({ value: 'some-preview-value' });
         await nextTick();
@@ -652,7 +673,7 @@ describe('importFiles middleware', () => {
       });
 
       it('should dispatch FINALIZE_UPLOAD only after "upload-preview-update" when preview is a blob', async () => {
-        const { finishUploading, finishProcessing, store } = setupResult;
+        const { finishUploading, store } = setupResult;
         let resolver: (arg: { value: Blob }) => void = () => {};
         const previewPromise = new Promise<{ value: Blob }>(resolve => {
           resolver = resolve;
@@ -661,56 +682,65 @@ describe('importFiles middleware', () => {
         await nextTick();
         await nextTick();
 
-        finishProcessing();
-        await nextTick();
-        await nextTick();
-
         // Not FINALIZE_UPLOAD should have happened until preview
         expect(
           getDispatchCallsByType(store, isFinalizeUploadAction).slice(1),
         ).toHaveLength(0);
 
-        // Not 'upload-preview-update' yet, because preview hasn't resolve yet.
-        expect(
-          getSendUploadEventPayloads(store, 'upload-preview-update'),
-        ).toHaveLength(0);
+        // 'upload-preview-update' only sent for the file not natively supported by browser
+        const payloads = getSendUploadEventPayloads(
+          store,
+          'upload-preview-update',
+        );
+        expect(payloads).toHaveLength(1);
+        expectToEqual(payloads, [
+          {
+            fileId: 'some-uuid-1',
+            event: {
+              name: 'upload-preview-update',
+              data: {
+                file: {
+                  creationDate: -1,
+                  id: 'some-uuid-1',
+                  name: 'document3.xlsx',
+                  size: 45,
+                  type:
+                    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                  occurrenceKey: 'some-occurrence-key',
+                },
+                preview: {}, // no local preview
+              },
+            },
+          },
+        ]);
 
         resolver({ value: new Blob() });
         await nextTick();
         await nextTick();
-
-        let lastTwoActionTypes = asMockFunction(store.dispatch)
-          .mock.calls.map(([action]) => action.type)
-          .slice(-2);
-        expect(lastTwoActionTypes).toEqual([
-          SEND_UPLOAD_EVENT,
-          SEND_UPLOAD_EVENT,
-        ]);
-
         await nextTick();
 
-        lastTwoActionTypes = asMockFunction(store.dispatch)
+        const lastFourActionTypes = asMockFunction(store.dispatch)
           .mock.calls.map(([action]) => action.type)
           .slice(-4);
-        expect(lastTwoActionTypes).toEqual([
-          SEND_UPLOAD_EVENT,
-          SEND_UPLOAD_EVENT,
+        expect(lastFourActionTypes).toEqual([
           FINALIZE_UPLOAD,
+          FINALIZE_UPLOAD,
+          SEND_UPLOAD_EVENT, // 'upload-preview-update' sent for the file not natively supported by browser
           FINALIZE_UPLOAD,
         ]);
       });
 
       it('should dispatch SEND_UPLOAD_EVENT with "upload-preview-update" once', async () => {
-        const { finishProcessing, store } = setupResult;
+        const { finishUploading, store } = setupResult;
 
-        const blob = new Blob([], { type: 'text' });
+        const blob = new Blob([], { type: 'image/jpeg' });
 
-        finishProcessing(blob);
+        finishUploading({ value: blob });
         await nextTick();
         await nextTick();
 
         // Second time to prove it dispatches only once per file
-        finishProcessing(blob);
+        finishUploading();
         await nextTick();
         await nextTick();
 
@@ -721,25 +751,6 @@ describe('importFiles middleware', () => {
         expect(payloads).toHaveLength(2);
         expectToEqual(payloads, [
           {
-            fileId: 'some-uuid-0',
-            event: {
-              name: 'upload-preview-update',
-              data: {
-                file: {
-                  creationDate: -1,
-                  id: 'some-uuid-0',
-                  name: 'picture1.jpg',
-                  size: 43,
-                  type: 'image/jpg',
-                  occurrenceKey: 'some-occurrence-key',
-                },
-                preview: {
-                  file: blob,
-                },
-              },
-            },
-          },
-          {
             fileId: 'some-uuid-1',
             event: {
               name: 'upload-preview-update',
@@ -747,9 +758,27 @@ describe('importFiles middleware', () => {
                 file: {
                   creationDate: -1,
                   id: 'some-uuid-1',
-                  name: 'picture3.jpg',
+                  name: 'document3.xlsx',
                   size: 45,
-                  type: 'image/jpg',
+                  type:
+                    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                  occurrenceKey: 'some-occurrence-key',
+                },
+                preview: {}, // no local preview
+              },
+            },
+          },
+          {
+            fileId: 'some-uuid-0',
+            event: {
+              name: 'upload-preview-update',
+              data: {
+                file: {
+                  creationDate: -1,
+                  id: 'some-uuid-0',
+                  name: 'document1.pdf',
+                  size: 43,
+                  type: 'application/pdf',
                   occurrenceKey: 'some-occurrence-key',
                 },
                 preview: {
@@ -831,7 +860,7 @@ describe('importFiles middleware', () => {
             serviceName: 'dropbox',
             accountId: 'some-account-id',
             fileId: 'some-selected-item-id-5',
-            fileName: 'picture5.jpg',
+            fileName: 'document5.pdf',
             collection: RECENTS_COLLECTION,
             jobId: expectUUID,
           },
@@ -983,7 +1012,7 @@ describe('importFiles middleware', () => {
     });
 
     it('should add file preview for local uploads', async () => {
-      const subject = new ReplaySubject<FileState>(1);
+      const subject = createFileStateSubject();
       subject.next({
         id: 'user-id-1',
         status: 'processing',
@@ -1044,7 +1073,52 @@ describe('importFiles middleware', () => {
         undefined,
         true,
       );
-      return;
+    });
+
+    it('should fetch remote preview for non previewable local upload when processing is done', async () => {
+      const subject = createFileStateSubject();
+      subject.next({
+        id: 'user-id-1',
+        status: 'processed',
+        name: 'some-name',
+        size: 42,
+        mediaType: 'image',
+        mimeType: 'image/heic',
+        artifacts: {
+          // imagine there are artifacts here
+        },
+        representations: {
+          image: {},
+        },
+      });
+      getFileStreamsCache().set('user-id-1', subject);
+      const selectedFile: SelectedUploadFile = {
+        file,
+        serviceName: 'upload',
+        touchFileDescriptor: {
+          fileId: 'id-1',
+        },
+      };
+      const store = mockStore();
+
+      const fileState = await getTenantFileState(store, selectedFile);
+
+      if (isErrorFileState(fileState)) {
+        return expect(fileState.status).not.toBe('error');
+      }
+
+      await fileState.preview;
+      const { userMediaClient } = store.getState();
+      expect(userMediaClient.getImage).toBeCalledTimes(1);
+      expect(userMediaClient.getImage).toBeCalledWith(
+        'user-id-1',
+        {
+          collection: RECENTS_COLLECTION,
+          mode: 'fit',
+        },
+        undefined,
+        true,
+      );
     });
 
     it('should set value of public file id to be new file state', async () => {
@@ -1084,15 +1158,15 @@ describe('importFiles middleware', () => {
         },
       };
 
-      const subject = new ReplaySubject<FileState>(1);
+      const subject = createFileStateSubject();
       subject.next({
         id: 'user-id',
         status: 'uploading',
         name: 'some_file_name',
         progress: 0.5,
         size: 42,
-        mediaType: 'video',
-        mimeType: 'some-type',
+        mediaType: 'image',
+        mimeType: 'image/png',
         preview: {
           value: 'some-existing-preview',
         },
@@ -1111,12 +1185,10 @@ describe('importFiles middleware', () => {
 
       expect(fileState.name).toEqual('some_file_name');
       expect(fileState.progress).toEqual(0.5);
-      expect(fileState.mediaType).toEqual('video');
+      expect(fileState.mediaType).toEqual('image');
       expect(await fileState.preview).toEqual({
         value: 'some-existing-preview',
       });
-
-      return;
     });
   });
 

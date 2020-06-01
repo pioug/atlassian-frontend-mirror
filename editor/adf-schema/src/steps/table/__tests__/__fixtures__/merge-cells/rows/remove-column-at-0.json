@@ -1,0 +1,38 @@
+{
+  "stepType": "ak-add-column",
+  "tablePos": 0,
+  "cells": [
+    {
+      "from": 2,
+      "to": 6
+    }
+  ],
+  "isDelete": true,
+  "sideEffects": {
+    "rows": [
+      {
+        "from": 21,
+        "to": 27,
+        "rowNode": {
+          "type": "tableRow",
+          "content": [
+            {
+              "type": "tableCell",
+              "attrs": {
+                "colspan": 1,
+                "rowspan": 1,
+                "colwidth": null,
+                "background": "#AAAAAA"
+              },
+              "content": [
+                {
+                  "type": "paragraph"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

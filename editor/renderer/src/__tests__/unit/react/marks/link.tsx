@@ -5,7 +5,11 @@ import Link from '../../../../react/marks/link';
 describe('Renderer - React/Marks/Link', () => {
   const createLink = () =>
     mount(
-      <Link href="https://www.atlassian.com" target="_blank">
+      <Link
+        dataAttributes={{ 'data-renderer-mark': true }}
+        href="https://www.atlassian.com"
+        target="_blank"
+      >
         This is a link
       </Link>,
     );
@@ -33,7 +37,12 @@ describe('Renderer - React/Marks/Link', () => {
 
   it('should not set target by default', () => {
     const mark = mount(
-      <Link href="https://www.atlassian.com">This is a link</Link>,
+      <Link
+        dataAttributes={{ 'data-renderer-mark': true }}
+        href="https://www.atlassian.com"
+      >
+        This is a link
+      </Link>,
     );
     expect(mark.find('a').props()).toHaveProperty('target', undefined);
     mark.unmount();
@@ -41,7 +50,11 @@ describe('Renderer - React/Marks/Link', () => {
 
   it('should set target to whatever props.target was', () => {
     const mark = mount(
-      <Link href="https://www.atlassian.com" target="_top">
+      <Link
+        dataAttributes={{ 'data-renderer-mark': true }}
+        href="https://www.atlassian.com"
+        target="_top"
+      >
         This is a link
       </Link>,
     );
@@ -57,7 +70,11 @@ describe('Renderer - React/Marks/Link', () => {
 
   it('should not set safety rel on links with target _blank', () => {
     const mark = mount(
-      <Link href="https://www.atlassian.com" target="_top">
+      <Link
+        dataAttributes={{ 'data-renderer-mark': true }}
+        href="https://www.atlassian.com"
+        target="_top"
+      >
         This is a link
       </Link>,
     );
@@ -73,7 +90,12 @@ describe('Renderer - React/Marks/Link', () => {
 
   it('should only render children without wrapping <a> when isMediaLink is true', () => {
     const mark = mount(
-      <Link href="https://www.atlassian.com" target="_top" isMediaLink>
+      <Link
+        dataAttributes={{ 'data-renderer-mark': true }}
+        href="https://www.atlassian.com"
+        target="_top"
+        isMediaLink
+      >
         <div>test</div>
       </Link>,
     );
@@ -87,6 +109,7 @@ describe('Renderer - React/Marks/Link', () => {
       const fireAnalyticsEvent = jest.fn();
       const linkAroundText = mount(
         <Link
+          dataAttributes={{ 'data-renderer-mark': true }}
           href="https://www.atlassian.com"
           target="_top"
           fireAnalyticsEvent={fireAnalyticsEvent}

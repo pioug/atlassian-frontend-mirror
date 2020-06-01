@@ -24,7 +24,7 @@ ${(
 ${(
   <Props
     heading="Status Props"
-    props={require('!!extract-react-types-loader!../src/components/Status')}
+    props={require('!!extract-react-types-loader!../src/Status')}
   />
 )}
 `;

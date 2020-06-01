@@ -1,5 +1,19 @@
 # @atlaskit/smart-card
 
+## 13.4.0
+
+### Minor Changes
+
+- [`50c333ab3a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/50c333ab3a) - EDM-216: Adds EmbedCards in the Editor under the flag - allowEmbeds in the UNSAFE_cards prop
+
+### Patch Changes
+
+- [`567df106ff`](https://bitbucket.org/atlassian/atlassian-frontend/commits/567df106ff) - fix: generate id internal to smart-card
+- [`9961ccddcf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9961ccddcf) - EDM-665: fix error handling of Smart Links
+- [`6d83e76a4f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6d83e76a4f) - Add performance tracking to analytics events
+- [`2e751e2a5b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e751e2a5b) - EDM-688: add error messages to Smart Link unresolved events.
+- Updated dependencies
+
 ## 13.3.0
 
 ### Minor Changes

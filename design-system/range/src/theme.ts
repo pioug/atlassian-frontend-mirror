@@ -1,5 +1,5 @@
-import { createTheme } from '@atlaskit/theme/components';
 import * as colors from '@atlaskit/theme/colors';
+import { createTheme } from '@atlaskit/theme/components';
 
 export interface ThemeTokensThumb {
   background: string;

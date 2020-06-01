@@ -14,6 +14,8 @@ import {
   akEditorDeleteBorder,
   akEditorSelectedBorderBoldSize,
   tasksAndDecisionsStyles,
+  annotationSharedStyles,
+  smartCardSharedStyles,
 } from '@atlaskit/editor-common';
 
 import { telepointerStyle } from '../../plugins/collab-edit/styles';
@@ -37,8 +39,9 @@ import { linkStyles } from '../../plugins/hyperlink/styles';
 import { extensionStyles } from '../../plugins/extension/ui/styles';
 import { expandStyles } from '../../plugins/expand/ui/styles';
 import { ClassNames } from '../../plugins/media/pm-plugins/alt-text/style';
-import { breakoutStyles } from '../../plugins/breakout/';
 import { findReplaceStyles } from '../../plugins/find-replace/styles';
+import { taskDecisionStyles } from '../../plugins/tasks-and-decisions/styles';
+import { smartCardStyles } from '../../plugins/card/styles';
 
 const ContentStyles: ComponentClass<HTMLAttributes<{}> & {
   theme: any;
@@ -85,21 +88,6 @@ const ContentStyles: ComponentClass<HTMLAttributes<{}> & {
     outline: 2px solid #8cf;
   }
 
-  .inlineCardView-content-wrap {
-    max-width: calc(100% - 20px);
-    vertical-align: top;
-    word-break: break-all;
-  }
-
-  .inlineCardView-content-wrap .card {
-    padding-left: 2px;
-    padding-right: 2px;
-  }
-
-  .blockCardView-content-wrap {
-    display: block;
-  }
-
   ${blocktypeStyles}
   ${textFormattingStyles}
   ${placeholderTextStyles}
@@ -123,8 +111,11 @@ const ContentStyles: ComponentClass<HTMLAttributes<{}> & {
   ${dateSharedStyle}
   ${extensionStyles}
   ${expandStyles}
-  ${breakoutStyles}
   ${findReplaceStyles}
+  ${taskDecisionStyles}
+  ${annotationSharedStyles}
+  ${smartCardStyles}
+  ${smartCardSharedStyles}
 
   /** Global selector for extensions, as .danger tag is assigned to root level node which is unaccessible from triggered child node **/
   /* Danger when nested node */

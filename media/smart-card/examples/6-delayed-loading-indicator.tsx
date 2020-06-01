@@ -12,6 +12,12 @@ const customResponse = (url: string): ResolveResponse => ({
     auth: [],
   },
   data: {
+    '@type': 'Object',
+    '@context': {
+      '@vocab': 'https://www.w3.org/ns/activitystreams#',
+      atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
+      schema: 'http://schema.org/',
+    },
     name: `Doc from ${url}`,
   },
 });

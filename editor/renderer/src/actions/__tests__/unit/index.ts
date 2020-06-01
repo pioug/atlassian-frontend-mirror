@@ -1,7 +1,24 @@
+import { defaultSchema } from '@atlaskit/adf-schema';
 import RendererActions from '../../index';
+import {
+  simpleTextWithAnnotation,
+  textWithOverlappingAnnotations,
+  annotationSpanningMultiText,
+} from '../../../__tests__/__fixtures__/annotation';
 
 const mockArg = {} as any;
 const mockArg2 = {} as any;
+const annotationId = '<<<ANNOTATION-ID>>>';
+
+function initActions(doc: any) {
+  let actions = new RendererActions(true);
+  actions._privateRegisterRenderer(
+    mockArg,
+    defaultSchema.nodeFromJSON(doc),
+    defaultSchema,
+  );
+  return actions;
+}
 
 describe('RendererActions', () => {
   it(`can't register the same RendererActions instance on more than one ref`, () => {
@@ -22,5 +39,28 @@ describe('RendererActions', () => {
     }).not.toThrowError(
       "Renderer has already been registered! It's not allowed to re-register with another new Renderer instance.",
     );
+  });
+
+  describe('deleteAnnotation', () => {
+    it('should delete the annotaion with provided ID', () => {
+      let actions = initActions(simpleTextWithAnnotation(annotationId));
+      expect(
+        actions.deleteAnnotation(annotationId, 'inlineComment'),
+      ).toMatchSnapshot();
+    });
+
+    it('should delete the annotaion with provided ID without touching overlapping marks', () => {
+      let actions = initActions(textWithOverlappingAnnotations(annotationId));
+      expect(
+        actions.deleteAnnotation(annotationId, 'inlineComment'),
+      ).toMatchSnapshot();
+    });
+
+    it('should delete the annotation when spanning multiple nodes', () => {
+      let actions = initActions(annotationSpanningMultiText(annotationId));
+      expect(
+        actions.deleteAnnotation(annotationId, 'inlineComment'),
+      ).toMatchSnapshot();
+    });
   });
 });

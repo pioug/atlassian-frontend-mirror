@@ -20,6 +20,7 @@ type Props = {
   autoSave?: boolean;
   submitting?: boolean;
   onCancel: () => void;
+  firstVisibleFieldName?: string;
 } & InjectedIntlProps;
 
 class Form extends React.Component<Props> {
@@ -47,6 +48,7 @@ class Form extends React.Component<Props> {
       parameters,
       autoSave,
       submitting,
+      firstVisibleFieldName,
     } = this.props;
 
     return (
@@ -56,6 +58,7 @@ class Form extends React.Component<Props> {
           fields={fields}
           parameters={parameters}
           onFieldBlur={this.onFieldBlur}
+          firstVisibleFieldName={firstVisibleFieldName}
         />
         <div style={autoSave ? { display: 'none' } : {}}>
           <FormFooter align="start">

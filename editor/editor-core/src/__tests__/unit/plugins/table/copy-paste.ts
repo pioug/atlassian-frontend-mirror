@@ -15,6 +15,8 @@ import {
   th,
   code_block,
   br,
+  expand,
+  panel,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 import {
@@ -29,6 +31,7 @@ import {
   transformSliceToFixHardBreakProblemOnCopyFromCell,
 } from '../../../../plugins/table/utils/paste';
 import { pluginKey as tablePluginKey } from '../../../../plugins/table/pm-plugins/plugin-factory';
+import { transformSliceToRemoveOpenExpand } from '../../../../plugins/expand/utils';
 
 const array = (...args: any): Node[] => args.map((i: any) => i(defaultSchema));
 const fragment = (...args: any) =>
@@ -221,6 +224,43 @@ describe('table plugin', () => {
               tr(td()(p('7')), td()(p('8')), td()(p('9'))),
             ),
           ),
+        );
+      });
+    });
+  });
+
+  describe('copy-pasting content inside expand', () => {
+    describe('transformSliceToRemoveOpenExpand()', () => {
+      it('should unwrap expand if it is the only top level node and not a part of copied content', () => {
+        const slice = new Slice(fragment(expand()(p('text'))), 2, 2);
+        const expectedSlice = new Slice(fragment(p('text')), 1, 1);
+
+        expect(transformSliceToRemoveOpenExpand(slice, defaultSchema)).toEqual(
+          expectedSlice,
+        );
+      });
+
+      it('should ignore the process if top expand is a part of the copied content', () => {
+        const slice = new Slice(fragment(expand()(p('text'))), 1, 1);
+
+        expect(transformSliceToRemoveOpenExpand(slice, defaultSchema)).toEqual(
+          slice,
+        );
+      });
+
+      it('should ignore the process if have multiple top level nodes', () => {
+        const slice = new Slice(fragment(p('text'), expand()(p('text'))), 2, 2);
+
+        expect(transformSliceToRemoveOpenExpand(slice, defaultSchema)).toEqual(
+          slice,
+        );
+      });
+
+      it('should ignore the process if top level node is not an expand', () => {
+        const slice = new Slice(fragment(panel()(p('text'))), 2, 2);
+
+        expect(transformSliceToRemoveOpenExpand(slice, defaultSchema)).toEqual(
+          slice,
         );
       });
     });

@@ -1,6 +1,6 @@
 import { chunkinator, Chunk, ChunkinatorFile } from '@atlaskit/chunkinator';
 
-import { MediaStore } from '.';
+import { MediaStore } from './client/media-store';
 import { createHasher } from './utils/hashing/hasherCreator';
 
 // TODO: Allow to pass multiple files

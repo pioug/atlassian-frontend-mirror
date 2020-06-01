@@ -316,6 +316,20 @@ export const getValidNode = (
         }
         break;
       }
+      case 'embedCard': {
+        if (
+          attrs &&
+          ((attrs.url && isSafeUrl(attrs.url)) ||
+            (attrs.data && attrs.data.url && isSafeUrl(attrs.data.url))) &&
+          attrs.layout
+        ) {
+          return {
+            type,
+            attrs,
+          };
+        }
+        break;
+      }
       case 'bodiedExtension': {
         if (attrs && attrs.extensionType && attrs.extensionKey && content) {
           return {

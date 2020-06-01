@@ -25,7 +25,7 @@ export class SpinnerView extends Component<SpinnerViewProps> {
   render() {
     return (
       <CenterView>
-        <Spinner size="large" invertColor={true} />
+        <Spinner size="large" appearance="invert" />
       </CenterView>
     );
   }

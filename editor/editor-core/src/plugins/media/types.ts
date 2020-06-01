@@ -5,6 +5,7 @@ import { Providers } from '@atlaskit/editor-common/provider-factory';
 import { FileIdentifier } from '@atlaskit/media-client';
 import { MediaClientConfig } from '@atlaskit/media-core';
 import { UploadParams, MediaFile } from '@atlaskit/media-picker/types';
+import { PlaceholderTextOptions } from '../../plugins/placeholder-text/types';
 
 export type MediaStateStatus =
   | 'unknown'
@@ -41,6 +42,7 @@ export interface MediaOptions {
   altTextValidator?: (value: string) => string[];
   useForgePlugins?: boolean;
   useMediaPickerPopup?: boolean;
+  allowTemplatePlaceholders?: boolean | PlaceholderTextOptions;
 }
 
 export interface MediaSingleOptions {

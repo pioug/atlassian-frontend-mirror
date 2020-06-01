@@ -1,0 +1,271 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RendererActions deleteAnnotation should delete the annotaion with provided ID 1`] = `
+Object {
+  "doc": Object {
+    "content": Array [
+      Object {
+        "content": Array [
+          Object {
+            "text": "Hello!",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+    ],
+    "type": "doc",
+    "version": 1,
+  },
+  "step": Object {
+    "from": 1,
+    "mark": Object {
+      "attrs": Object {
+        "annotationType": "inlineComment",
+        "id": "<<<ANNOTATION-ID>>>",
+      },
+      "type": "annotation",
+    },
+    "stepType": "removeMark",
+    "to": 7,
+  },
+}
+`;
+
+exports[`RendererActions deleteAnnotation should delete the annotaion with provided ID without touching overlapping marks 1`] = `
+Object {
+  "doc": Object {
+    "content": Array [
+      Object {
+        "content": Array [
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "href": "https://www.atlassian.com",
+                },
+                "type": "link",
+              },
+              Object {
+                "attrs": Object {
+                  "annotationType": "inlineComment",
+                  "id": "0f8c5903-d571-4f55-97cb-a9bb986fcede",
+                },
+                "type": "annotation",
+              },
+            ],
+            "text": "Hello, ",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "href": "https://www.atlassian.com",
+                },
+                "type": "link",
+              },
+              Object {
+                "type": "strong",
+              },
+              Object {
+                "attrs": Object {
+                  "annotationType": "inlineComment",
+                  "id": "3bac13b6-b121-457e-adbc-a447ad21b7bd",
+                },
+                "type": "annotation",
+              },
+              Object {
+                "attrs": Object {
+                  "annotationType": "inlineComment",
+                  "id": "0f8c5903-d571-4f55-97cb-a9bb986fcede",
+                },
+                "type": "annotation",
+              },
+            ],
+            "text": "World!",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "annotationType": "inlineComment",
+                  "id": "3bac13b6-b121-457e-adbc-a447ad21b7bd",
+                },
+                "type": "annotation",
+              },
+              Object {
+                "attrs": Object {
+                  "annotationType": "inlineComment",
+                  "id": "0f8c5903-d571-4f55-97cb-a9bb986fcede",
+                },
+                "type": "annotation",
+              },
+            ],
+            "text": " Look I can do ",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "type": "em",
+              },
+              Object {
+                "attrs": Object {
+                  "annotationType": "inlineComment",
+                  "id": "3bac13b6-b121-457e-adbc-a447ad21b7bd",
+                },
+                "type": "annotation",
+              },
+              Object {
+                "attrs": Object {
+                  "annotationType": "inlineComment",
+                  "id": "0f8c5903-d571-4f55-97cb-a9bb986fcede",
+                },
+                "type": "annotation",
+              },
+            ],
+            "text": "italic",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "type": "em",
+              },
+              Object {
+                "attrs": Object {
+                  "annotationType": "inlineComment",
+                  "id": "0f8c5903-d571-4f55-97cb-a9bb986fcede",
+                },
+                "type": "annotation",
+              },
+            ],
+            "text": " ",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "type": "em",
+              },
+              Object {
+                "type": "strong",
+              },
+              Object {
+                "attrs": Object {
+                  "annotationType": "inlineComment",
+                  "id": "0f8c5903-d571-4f55-97cb-a9bb986fcede",
+                },
+                "type": "annotation",
+              },
+            ],
+            "text": ", strong ",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "type": "em",
+              },
+              Object {
+                "type": "strong",
+              },
+              Object {
+                "type": "underline",
+              },
+              Object {
+                "attrs": Object {
+                  "annotationType": "inlineComment",
+                  "id": "0f8c5903-d571-4f55-97cb-a9bb986fcede",
+                },
+                "type": "annotation",
+              },
+            ],
+            "text": "and underlined text!",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "annotationType": "inlineComment",
+                  "id": "0f8c5903-d571-4f55-97cb-a9bb986fcede",
+                },
+                "type": "annotation",
+              },
+            ],
+            "text": " and",
+            "type": "text",
+          },
+          Object {
+            "text": " action mark",
+            "type": "text",
+          },
+          Object {
+            "text": " and invalid action mark",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+    ],
+    "type": "doc",
+    "version": 1,
+  },
+  "step": Object {
+    "from": 15,
+    "mark": Object {
+      "attrs": Object {
+        "annotationType": "inlineComment",
+        "id": "<<<ANNOTATION-ID>>>",
+      },
+      "type": "annotation",
+    },
+    "stepType": "removeMark",
+    "to": 25,
+  },
+}
+`;
+
+exports[`RendererActions deleteAnnotation should delete the annotation when spanning multiple nodes 1`] = `
+Object {
+  "doc": Object {
+    "content": Array [
+      Object {
+        "content": Array [
+          Object {
+            "text": "Hello!",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "text": "Hello!",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+    ],
+    "type": "doc",
+    "version": 1,
+  },
+  "step": Object {
+    "from": 1,
+    "mark": Object {
+      "attrs": Object {
+        "annotationType": "inlineComment",
+        "id": "<<<ANNOTATION-ID>>>",
+      },
+      "type": "annotation",
+    },
+    "stepType": "removeMark",
+    "to": 15,
+  },
+}
+`;

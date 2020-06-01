@@ -51,7 +51,7 @@ export const setEditorFocus = (editorHasFocus: boolean) =>
     },
   });
 
-export const setTableRef = (ref?: HTMLElement | null) =>
+export const setTableRef = (ref?: HTMLTableElement | null) =>
   createCommand(
     state => {
       const tableRef = ref || undefined;
@@ -129,7 +129,6 @@ export const triggerUnlessTableHeader = (command: Command): Command => (
       nodes: { tableHeader },
     },
   } = state;
-
   if (selection instanceof TextSelection) {
     const cell = findCellClosestToPos(selection.$from);
     if (cell && cell.node.type !== tableHeader) {

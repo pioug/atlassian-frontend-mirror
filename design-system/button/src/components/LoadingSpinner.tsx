@@ -3,7 +3,7 @@ import React from 'react';
 
 import { jsx } from '@emotion/core';
 
-import Spinner, { SpinnerSizes } from '@atlaskit/spinner';
+import Spinner, { Size } from '@atlaskit/spinner';
 
 const appearances: string[] = ['primary', 'danger'];
 
@@ -34,11 +34,14 @@ export default class LoadingSpinner extends React.Component<Props> {
 
   render() {
     const { spacing, styles } = this.props;
-    let spinnerSize: SpinnerSizes = spacing !== 'default' ? 'small' : 'medium';
+    let spinnerSize: Size = spacing !== 'default' ? 'small' : 'medium';
 
     return (
       <div css={styles}>
-        <Spinner size={spinnerSize} invertColor={this.invertSpinner()} />
+        <Spinner
+          size={spinnerSize}
+          appearance={this.invertSpinner() ? 'invert' : 'inherit'}
+        />
       </div>
     );
   }

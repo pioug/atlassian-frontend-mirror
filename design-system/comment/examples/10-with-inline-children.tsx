@@ -16,7 +16,7 @@ const ExampleComment = ({
   shouldRenderNestedCommentsInline,
 }: Props) => (
   <Comment
-    avatar={<Avatar src={avatarImg} label="Atlaskit avatar" size="medium" />}
+    avatar={<Avatar src={avatarImg} size="medium" />}
     author={<CommentAuthor href="/author">John Smith</CommentAuthor>}
     content={<p>This comment is so generic it can be repeated</p>}
     shouldRenderNestedCommentsInline={shouldRenderNestedCommentsInline}

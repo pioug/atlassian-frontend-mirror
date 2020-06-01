@@ -1,7 +1,33 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ak-button/default-behaviour isLoading set the opacity of the text to 0 when isLoading is true 1`] = `
-.emotion-2 {
+@keyframes animation-0 {
+  from {
+    -webkit-transform: rotate(50deg);
+    -ms-transform: rotate(50deg);
+    transform: rotate(50deg);
+    opacity: 0;
+    stroke-dashoffset: 60;
+  }
+
+  to {
+    -webkit-transform: rotate(230deg);
+    -ms-transform: rotate(230deg);
+    transform: rotate(230deg);
+    opacity: 1;
+    stroke-dashoffset: 50;
+  }
+}
+
+@keyframes animation-1 {
+  to {
+    -webkit-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+.emotion-4 {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -16,7 +42,7 @@ exports[`ak-button/default-behaviour isLoading set the opacity of the text to 0 
   position: relative;
 }
 
-.emotion-3 {
+.emotion-5 {
   -webkit-align-items: baseline;
   -webkit-box-align: baseline;
   -ms-flex-align: baseline;
@@ -29,7 +55,7 @@ exports[`ak-button/default-behaviour isLoading set the opacity of the text to 0 
   display: inline-flex;
   font-size: inherit;
   font-style: normal;
-  font-weight: normal;
+  font-weight: 500;
   max-width: 100%;
   outline: none !important;
   text-align: center;
@@ -53,115 +79,18 @@ exports[`ak-button/default-behaviour isLoading set the opacity of the text to 0 
   pointer-events: none;
 }
 
-.emotion-3::-moz-focus-inner {
+.emotion-5::-moz-focus-inner {
   border: 0;
   margin: 0;
   padding: 0;
 }
 
-.emotion-3:hover {
+.emotion-5:hover {
   -webkit-text-decoration: inherit;
   text-decoration: inherit;
-}
-
-.emotion-0 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  -webkit-transform: translate(-50%,-50%);
-  -ms-transform: translate(-50%,-50%);
-  transform: translate(-50%,-50%);
-}
-
-.emotion-1 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-  -webkit-flex: 1 1 auto;
-  -ms-flex: 1 1 auto;
-  flex: 1 1 auto;
-  margin: 0 4px;
-  max-width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  -webkit-transition: opacity 0.3s;
-  transition: opacity 0.3s;
-  opacity: 0;
 }
 
 .emotion-2 {
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-flex-wrap: nowrap;
-  -ms-flex-wrap: nowrap;
-  flex-wrap: nowrap;
-  max-width: 100%;
-  position: relative;
-}
-
-.emotion-3 {
-  -webkit-align-items: baseline;
-  -webkit-box-align: baseline;
-  -ms-flex-align: baseline;
-  align-items: baseline;
-  border-width: 0;
-  box-sizing: border-box;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  font-size: inherit;
-  font-style: normal;
-  font-weight: normal;
-  max-width: 100%;
-  outline: none !important;
-  text-align: center;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  white-space: nowrap;
-  background: rgba(9,30,66,0.04);
-  border-radius: 3px;
-  box-shadow: 0 0 0 2px inherit;
-  color: #42526E !important;
-  cursor: default;
-  height: 2.2857142857142856em;
-  line-height: 2.2857142857142856em;
-  padding: 0 8px;
-  -webkit-transition: background 0.1s ease-out,box-shadow 0.15s cubic-bezier(0.47,0.03,0.49,1.38);
-  transition: background 0.1s ease-out,box-shadow 0.15s cubic-bezier(0.47,0.03,0.49,1.38);
-  -webkit-transition-duration: 0.1s,0.15s;
-  transition-duration: 0.1s,0.15s;
-  vertical-align: middle;
-  width: auto;
-  pointer-events: none;
-}
-
-.emotion-3::-moz-focus-inner {
-  border: 0;
-  margin: 0;
-  padding: 0;
-}
-
-.emotion-3:hover {
-  -webkit-text-decoration: inherit;
-  text-decoration: inherit;
-}
-
-.emotion-0 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -175,63 +104,210 @@ exports[`ak-button/default-behaviour isLoading set the opacity of the text to 0 
 }
 
 .emotion-1 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-  -webkit-flex: 1 1 auto;
-  -ms-flex: 1 1 auto;
-  flex: 1 1 auto;
-  margin: 0 4px;
-  max-width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  -webkit-transition: opacity 0.3s;
-  transition: opacity 0.3s;
+  vertical-align: middle;
   opacity: 0;
+  -webkit-animation: animation-0 1s ease-in-out;
+  animation: animation-0 1s ease-in-out;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+  -webkit-animation-delay: 0ms;
+  animation-delay: 0ms;
 }
 
-.c1 {
-  -webkit-animation: 1s ease-in-out forwards cZJnvt;
-  animation: 1s ease-in-out forwards cZJnvt;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  height: 24px;
-  width: 24px;
-}
-
-div + .c1 {
-  display: none;
-}
-
-.c2 {
-  -webkit-animation: 0.86s cubic-bezier(0.4,0.15,0.6,0.85) infinite ibwhYF;
-  animation: 0.86s cubic-bezier(0.4,0.15,0.6,0.85) infinite ibwhYF;
+.emotion-0 {
   fill: none;
   stroke: #42526E;
-  stroke-dasharray: 69.11503837897544px;
-  stroke-dashoffset: 55.29203070318036px;
+  stroke-width: 1.5;
   stroke-linecap: round;
-  stroke-width: 2px;
+  stroke-dasharray: 60;
+  stroke-dashoffset: inherit;
   -webkit-transform-origin: center;
   -ms-transform-origin: center;
   transform-origin: center;
+  -webkit-animation: animation-1 0.86s infinite;
+  animation: animation-1 0.86s infinite;
+  -webkit-animation-delay: 0ms;
+  animation-delay: 0ms;
+  -webkit-animation-timing-function: cubic-bezier(0.4,0.15,0.6,0.85);
+  animation-timing-function: cubic-bezier(0.4,0.15,0.6,0.85);
 }
 
-.c0 {
-  display: inline-block;
+.emotion-3 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  margin: 0 4px;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  -webkit-transition: opacity 0.3s;
+  transition: opacity 0.3s;
+  opacity: 0;
+}
+
+@keyframes animation-0 {
+  from {
+    -webkit-transform: rotate(50deg);
+    -ms-transform: rotate(50deg);
+    transform: rotate(50deg);
+    opacity: 0;
+    stroke-dashoffset: 60;
+  }
+
+  to {
+    -webkit-transform: rotate(230deg);
+    -ms-transform: rotate(230deg);
+    transform: rotate(230deg);
+    opacity: 1;
+    stroke-dashoffset: 50;
+  }
+}
+
+@keyframes animation-1 {
+  to {
+    -webkit-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+.emotion-4 {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-flex-wrap: nowrap;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  max-width: 100%;
+  position: relative;
+}
+
+.emotion-5 {
+  -webkit-align-items: baseline;
+  -webkit-box-align: baseline;
+  -ms-flex-align: baseline;
+  align-items: baseline;
+  border-width: 0;
+  box-sizing: border-box;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-size: inherit;
+  font-style: normal;
+  font-weight: 500;
+  max-width: 100%;
+  outline: none !important;
+  text-align: center;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  white-space: nowrap;
+  background: rgba(9,30,66,0.04);
+  border-radius: 3px;
+  box-shadow: 0 0 0 2px inherit;
+  color: #42526E !important;
+  cursor: default;
+  height: 2.2857142857142856em;
+  line-height: 2.2857142857142856em;
+  padding: 0 8px;
+  -webkit-transition: background 0.1s ease-out,box-shadow 0.15s cubic-bezier(0.47,0.03,0.49,1.38);
+  transition: background 0.1s ease-out,box-shadow 0.15s cubic-bezier(0.47,0.03,0.49,1.38);
+  -webkit-transition-duration: 0.1s,0.15s;
+  transition-duration: 0.1s,0.15s;
   vertical-align: middle;
+  width: auto;
+  pointer-events: none;
+}
+
+.emotion-5::-moz-focus-inner {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.emotion-5:hover {
+  -webkit-text-decoration: inherit;
+  text-decoration: inherit;
+}
+
+.emotion-2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+}
+
+.emotion-1 {
+  vertical-align: middle;
+  opacity: 0;
+  -webkit-animation: animation-0 1s ease-in-out;
+  animation: animation-0 1s ease-in-out;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+  -webkit-animation-delay: 0ms;
+  animation-delay: 0ms;
+}
+
+.emotion-0 {
+  fill: none;
+  stroke: #42526E;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-dasharray: 60;
+  stroke-dashoffset: inherit;
+  -webkit-transform-origin: center;
+  -ms-transform-origin: center;
+  transform-origin: center;
+  -webkit-animation: animation-1 0.86s infinite;
+  animation: animation-1 0.86s infinite;
+  -webkit-animation-delay: 0ms;
+  animation-delay: 0ms;
+  -webkit-animation-timing-function: cubic-bezier(0.4,0.15,0.6,0.85);
+  animation-timing-function: cubic-bezier(0.4,0.15,0.6,0.85);
+}
+
+.emotion-3 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  margin: 0 4px;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  -webkit-transition: opacity 0.3s;
+  transition: opacity 0.3s;
+  opacity: 0;
 }
 
 <button
   autoFocus={false}
-  className="emotion-3"
+  className="emotion-5"
   disabled={false}
   onBlur={[Function]}
   onClick={[Function]}
@@ -243,39 +319,30 @@ div + .c1 {
   type="button"
 >
   <span
-    className="emotion-2"
+    className="emotion-4"
     onClick={[Function]}
   >
     <div
-      className="emotion-0"
+      className="emotion-2"
     >
-      <span
-        className="c0"
+      <svg
+        className="emotion-1"
+        focusable="false"
+        height={24}
+        viewBox="0 0 16 16"
+        width={24}
+        xmlns="http://www.w3.org/2000/svg"
       >
-        <span
-          className="c1"
-          size={24}
-        >
-          <svg
-            className="c2"
-            focusable="false"
-            height={24}
-            size={24}
-            viewBox="0 0 24 24"
-            width={24}
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <circle
-              cx={12}
-              cy={12}
-              r={11}
-            />
-          </svg>
-        </span>
-      </span>
+        <circle
+          className="emotion-0"
+          cx="8"
+          cy="8"
+          r="7"
+        />
+      </svg>
     </div>
     <span
-      className="emotion-1"
+      className="emotion-3"
     >
       Some text
     </span>

@@ -2,24 +2,26 @@
 order: 0
 ---
 
-import BasicToggle from '../../examples/4-basicToggle';
-import Bold from '../../examples/5-bold';
-import Disabled from '../../examples/2-disabled';
+import ToggleDefault from '../../examples/constellation/ToggleDefault';
+import ToggleLarge from '../../examples/constellation/ToggleLarge';
+import ToggleDisabled from '../../examples/constellation/ToggleDisabled';
 
-## Default
+## Size
 
-For default toggles or pages with lots of toggles, use the subtle version.
+### Default
 
-<Example Component={BasicToggle} componentName="@atlaskit/toggle" />
+The default form of a toggle. For pages with lots of toggles, use the default size.
 
-## Bold
+<Example Component={ToggleDefault} componentName="@atlaskit/toggle" />
 
-To call attention to a specific action, use the bold version.
+### Large
 
-<Example Component={Bold} componentName="@atlaskit/toggle" />
+To call attention to a specific action, use a `large` toggle.
+
+<Example Component={ToggleLarge} componentName="@atlaskit/toggle" />
 
 ## Disabled
 
-A toggle is disabled when a selection has already been made outside of the current context that negates the need for the toggle. Hovering over the disabled toggle shows a tooltip with the current state.
+A toggle is disabled when a selection has already been made outside of the current context that negates the need for the toggle.
 
-<Example Component={Disabled} componentName="@atlaskit/toggle" />
+<Example Component={ToggleDisabled} componentName="@atlaskit/toggle" />

@@ -11,9 +11,11 @@ import { OnBlur } from '../types';
 export default function({
   field,
   onBlur,
+  autoFocus,
 }: {
   field: EnumField;
   onBlur: OnBlur;
+  autoFocus?: boolean;
 }) {
   return (
     <Field<ValueType<Option>>
@@ -37,6 +39,7 @@ export default function({
             options={field.items || []}
             isClearable={false}
             validationState={error ? 'error' : 'default'}
+            autoFocus={autoFocus}
           />
           <FieldMessages error={error} description={field.description} />
         </Fragment>

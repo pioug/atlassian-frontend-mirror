@@ -39,6 +39,8 @@ export {
   annotation,
   AnnotationMarkDefinition,
   AnnotationMarkAttributes,
-  INLINE_COMMENT,
-  AnnotationType,
+  AnnotationMarkStates,
+  buildDataAtributes as buildAnnotationMarkDataAttributes,
+  AnnotationTypes,
+  AnnotationId,
 } from './annotation';

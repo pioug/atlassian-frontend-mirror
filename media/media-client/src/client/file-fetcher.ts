@@ -1,7 +1,7 @@
+import { Subscription } from 'rxjs/Subscription';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 import uuid from 'uuid/v4';
 import Dataloader from 'dataloader';
-import { ProcessingFileState } from '../models/file-state';
 import { AuthProvider, authToOwner } from '@atlaskit/media-core';
 import { downloadUrl } from '@atlaskit/media-common/downloadUrl';
 import {
@@ -17,6 +17,7 @@ import {
   UploadableFileUpfrontIds,
   FilePreview,
   FileState,
+  ProcessingFileState,
   GetFileOptions,
   mapMediaItemToFileState,
   getFileStreamsCache,
@@ -29,6 +30,7 @@ import {
 } from '..';
 import isValidId from 'uuid-validate';
 import { getMediaTypeFromUploadableFile } from '../utils/getMediaTypeFromUploadableFile';
+import { overrideMediaTypeIfUnknown } from '../utils/overrideMediaTypeIfUnknown';
 import { convertBase64ToBlob } from '../utils/convertBase64ToBlob';
 import { observableToPromise } from '../utils/observableToPromise';
 import {
@@ -37,8 +39,9 @@ import {
 } from '../utils/getDimensionsFromBlob';
 import { getMediaTypeFromMimeType } from '../utils/getMediaTypeFromMimeType';
 import { createFileStateSubject } from '../utils/createFileStateSubject';
+import { isMimeTypeSupportedByBrowser } from '../utils/isMimeTypeSupportedByBrowser';
 
-const POLLING_INTERVAL = 1000;
+const POLLING_INTERVAL = 3000;
 const maxNumberOfItemsPerCall = 100;
 const makeCacheKey = (id: string, collection?: string) =>
   collection ? `${id}-${collection}` : id;
@@ -310,7 +313,7 @@ export class FileFetcherImpl implements FileFetcher {
       collection,
     );
     const { id, occurrenceKey } = uploadableFileUpfrontIds;
-    const subject = new ReplaySubject<FileState>(1);
+    const subject = createFileStateSubject();
 
     const deferredBlob = fetch(url)
       .then(response => response.blob())
@@ -404,24 +407,28 @@ export class FileFetcherImpl implements FileFetcher {
     let preview: FilePreview | undefined;
     // TODO [MSW-796]: get file size for base64
     const mediaType = getMediaTypeFromUploadableFile(file);
-    const subject = new ReplaySubject<FileState>(1);
+    const subject = createFileStateSubject();
+    let processingSubscription: Subscription | undefined;
 
     if (content instanceof Blob) {
       size = content.size;
       mimeType = content.type;
-      preview = {
-        value: content,
-        origin: 'local',
-      };
+
+      if (isMimeTypeSupportedByBrowser(content.type)) {
+        preview = {
+          value: content,
+          origin: 'local',
+        };
+      }
     }
 
     const stateBase = {
+      id,
+      occurrenceKey,
       name,
       size,
       mediaType,
       mimeType,
-      id,
-      occurrenceKey,
       preview,
     };
 
@@ -448,12 +455,29 @@ export class FileFetcherImpl implements FileFetcher {
         return subject.error(error);
       }
 
-      subject.next({
-        status: 'processing',
-        representations: {},
-        ...stateBase,
-      });
-      subject.complete();
+      if (!isMimeTypeSupportedByBrowser(mimeType)) {
+        processingSubscription = this.createDownloadFileStream(
+          id,
+          collection,
+        ).subscribe({
+          next: remoteFileState =>
+            subject.next({
+              // merges base state with remote state
+              ...stateBase,
+              ...remoteFileState,
+              ...overrideMediaTypeIfUnknown(remoteFileState, mediaType),
+            }),
+          error: err => subject.error(err),
+          complete: () => subject.complete(),
+        });
+      } else {
+        subject.next({
+          status: 'processing',
+          representations: {},
+          ...stateBase,
+        });
+        subject.complete();
+      }
     };
 
     const { cancel } = uploadFile(
@@ -475,7 +499,12 @@ export class FileFetcherImpl implements FileFetcher {
     }, 0);
 
     if (controller) {
-      controller.setAbort(cancel);
+      controller.setAbort(() => {
+        cancel();
+        if (processingSubscription) {
+          processingSubscription.unsubscribe();
+        }
+      });
     }
 
     return subject;

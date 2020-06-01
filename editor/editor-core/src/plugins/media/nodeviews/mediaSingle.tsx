@@ -304,14 +304,13 @@ export default class MediaSingleNode extends Component<
       }
     }
 
+    const lineLength =
+      this.getLineLength(view, getPos()) || this.props.lineLength;
+
     return canResize ? (
       <ResizableMediaSingle
         {...mediaSingleProps}
-        lineLength={
-          fullWidthMode
-            ? this.props.lineLength
-            : this.getLineLength(view, getPos()) || this.props.lineLength
-        }
+        lineLength={lineLength}
         view={this.props.view}
         getPos={getPos}
         updateSize={this.updateSize}

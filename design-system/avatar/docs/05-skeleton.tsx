@@ -4,7 +4,7 @@ import { code, Example, md, Props } from '@atlaskit/docs';
 
 export default md`
 
-The \`Skeleton\`component is used for loading states. 
+The \`Skeleton\`component is used for loading states.
 
 ## Usage
 
@@ -22,7 +22,7 @@ ${(
 ${(
   <Props
     heading="Skeleton Props"
-    props={require('!!extract-react-types-loader!../src/components/Skeleton')}
+    props={require('!!extract-react-types-loader!../src/Skeleton')}
   />
 )}
 `;

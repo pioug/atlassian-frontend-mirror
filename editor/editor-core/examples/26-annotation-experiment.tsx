@@ -1,22 +1,20 @@
 import React from 'react';
-import WithEditorActions from './../src/ui/WithEditorActions';
+import { AnnotationTypes } from '@atlaskit/adf-schema';
 import { exampleDocumentWithComments } from '../example-helpers/example-doc-with-comments';
 import {
   ExampleCreateInlineCommentComponent,
   ExampleViewInlineCommentComponent,
-} from '../../editor-test-helpers/src';
-import { AnnotationTypes } from '../src';
-import {
-  default as FullPageExample,
-  SaveAndCancelButtons,
-} from './5-full-page';
+} from '@atlaskit/editor-test-helpers';
+import { default as FullPageExample } from './5-full-page';
+import { AnnotationUpdateEmitter } from '../src';
 
-type AnnotationCheckboxProps = {
+const emitter = new AnnotationUpdateEmitter();
+
+function AnnotationCheckbox(props: {
   id: string;
   checked: boolean;
   onChange: (evt: React.ChangeEvent<HTMLInputElement>) => void;
-};
-function AnnotationCheckbox(props: AnnotationCheckboxProps) {
+}) {
   const { id, checked, onChange } = props;
   return (
     <label style={{ display: 'block', lineHeight: '2em' }} htmlFor={id}>
@@ -35,7 +33,6 @@ export default class ExampleAnnotationExperiment extends React.Component<
   State
 > {
   state = {
-    pollingInterval: 10000,
     annotationStates: new Map([
       ['12e213d7-badd-4c2a-881e-f5d6b9af3752', false],
       ['9714aedf-5300-43f4-ac10-a2e4326189d2', true],
@@ -66,19 +63,21 @@ export default class ExampleAnnotationExperiment extends React.Component<
   };
 
   handleAnnotationChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
-    const id = evt.target.id;
+    const { id } = evt.target;
+    const newState = !this.state.annotationStates.get(id);
     this.setState((prevState: State) => {
-      prevState.annotationStates.set(id, !prevState.annotationStates.get(id));
+      prevState.annotationStates.set(id, newState);
       return prevState;
     });
+    emitter.emit(newState ? 'resolve' : 'unresolve', id);
   };
 
   render() {
     return (
-      <div style={{ display: 'flex' }}>
+      <div style={{ display: 'flex', height: '100%' }}>
         <div style={{ flex: '20%', padding: '16px' }}>
-          <h3>Resolved Annotations</h3>
-          (Document refreshes every 10 seconds)
+          <h3>Annotations</h3>
+          Checked == resolved
           {[...this.state.annotationStates.entries()].map(([key, val]) => (
             <AnnotationCheckbox
               id={key}
@@ -92,25 +91,14 @@ export default class ExampleAnnotationExperiment extends React.Component<
           <FullPageExample
             defaultValue={exampleDocumentWithComments}
             allowHelpDialog
-            annotationProvider={{
-              createComponent: ExampleCreateInlineCommentComponent,
-              viewComponent: ExampleViewInlineCommentComponent,
-              providers: {
-                inlineComment: {
-                  pollingInterval: 10000,
-                  getState: this.inlineCommentGetState,
-                },
+            annotationProviders={{
+              inlineComment: {
+                createComponent: ExampleCreateInlineCommentComponent,
+                viewComponent: ExampleViewInlineCommentComponent,
+                updateSubscriber: emitter,
+                getState: this.inlineCommentGetState,
               },
             }}
-            primaryToolbarComponents={
-              <WithEditorActions
-                render={actions => (
-                  <React.Fragment>
-                    <SaveAndCancelButtons editorActions={actions} />
-                  </React.Fragment>
-                )}
-              />
-            }
           />
         </div>
       </div>

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-core",
-  "version": "31.1.0",
+  "version": "31.1.1",
   "description": "It holds shared code between MediaComponents like models, providers, interfaces and utilities",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -23,8 +23,7 @@
   "dependencies": {
     "eventemitter2": "^4.1.0",
     "lru-fast": "^0.2.2",
-    "tslib": "^1.9.3",
-    "uuid": "^3.1.0"
+    "tslib": "^1.9.3"
   },
   "peerDependencies": {
     "react": "^16.8.0",
@@ -32,9 +31,9 @@
   },
   "devDependencies": {
     "@atlaskit/build-utils": "*",
-    "@atlaskit/button": "^13.3.9",
+    "@atlaskit/button": "^13.4.0",
     "@atlaskit/docs": "^8.5.0",
-    "@atlaskit/media-card": "^67.1.1",
+    "@atlaskit/media-card": "^68.0.0",
     "@atlaskit/media-test-helpers": "^27.1.0",
     "@atlaskit/ssr": "*",
     "react-dom": "^16.8.0",

@@ -1,4 +1,5 @@
-import { Plugin } from 'prosemirror-state';
+import { EditorView } from 'prosemirror-view';
+import { Plugin, NodeSelection } from 'prosemirror-state';
 import { Node as PMNode } from 'prosemirror-model';
 import { uuid } from '@atlaskit/adf-schema';
 import {
@@ -12,8 +13,6 @@ import { Command } from '../../../types';
 import { Dispatch, EventDispatcher } from '../../../event-dispatcher';
 import { nodesBetweenChanged } from '../../../utils';
 import { stateKey } from './plugin-key';
-
-export { stateKey } from './plugin-key';
 
 enum ACTIONS {
   SET_CONTEXT_PROVIDER,
@@ -53,6 +52,32 @@ export function createPlugin(
           providerFactory,
         ),
         decisionItem: decisionItemNodeView(portalProviderAPI, eventDispatcher),
+      },
+      handleTextInput(
+        view: EditorView,
+        from: number,
+        to: number,
+        text: string,
+      ) {
+        // When a decision item is selected and the user starts typing, the entire node
+        // should be replaced with what was just typed. This custom text input handler
+        // is needed to implement that behaviour.
+
+        // TODO: ProseMirror should already do this by default
+        // Tech debt to investigate why we need a custom handler here:
+        // https://product-fabric.atlassian.net/browse/ED-9278
+
+        const { state, dispatch } = view;
+        const { tr } = state;
+        if (state.selection instanceof NodeSelection) {
+          state.selection.replace(tr);
+          tr.insertText(text);
+          if (dispatch) {
+            dispatch(tr);
+          }
+          return true;
+        }
+        return false;
       },
     },
     state: {

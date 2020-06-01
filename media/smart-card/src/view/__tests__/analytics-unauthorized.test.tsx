@@ -9,9 +9,9 @@ jest.doMock('../../utils/analytics', () => mockEvents);
 jest.doMock('@atlaskit/outbound-auth-flow-client', () => ({
   auth: mockAuthFlow,
 }));
-const mockFetchError = jest.fn();
+const mockAPIError = jest.fn();
 jest.doMock('../../client/errors', () => ({
-  FetchError: mockFetchError,
+  APIError: mockAPIError,
 }));
 import CardClient from '../../client';
 import React from 'react';
@@ -50,7 +50,7 @@ describe('smart-card: unauthorized analytics', () => {
 
   describe('unauthorized', () => {
     it('should fire connectSucceeded event when auth succeeds', async () => {
-      const mockUrl = 'this.is.a.url';
+      const mockUrl = 'https://https://this.is.a.url';
       mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
       const { getByTestId, container } = render(
         <Provider client={mockClient}>
@@ -81,6 +81,7 @@ describe('smart-card: unauthorized analytics', () => {
       expect(mockEvents.connectSucceededEvent).toHaveBeenCalledTimes(1);
       expect(mockEvents.fireSmartLinkEvent).toBeCalledWith(
         {
+          action: 'unresolved',
           attributes: {
             componentName: 'smart-cards',
             display: 'inline',
@@ -91,7 +92,7 @@ describe('smart-card: unauthorized analytics', () => {
     });
 
     it('should fire connectFailed event when auth fails', async () => {
-      const mockUrl = 'this.is.the.second.url';
+      const mockUrl = 'https://https://this.is.the.second.url';
       mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
       const { getByTestId, container } = render(
         <Provider client={mockClient}>
@@ -128,7 +129,7 @@ describe('smart-card: unauthorized analytics', () => {
     });
 
     it('should fire connectFailed when auth dialog was closed', async () => {
-      const mockUrl = 'this.is.the.third.url';
+      const mockUrl = 'https://https://this.is.the.third.url';
       mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
       const { getByTestId, container } = render(
         <Provider client={mockClient}>

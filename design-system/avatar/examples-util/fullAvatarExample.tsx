@@ -2,8 +2,7 @@ import React from 'react';
 
 import { gridSize } from '@atlaskit/theme';
 
-import Avatar from '../src';
-import { AppearanceType } from '../src/types';
+import Avatar, { AppearanceType } from '../src';
 
 import { Block, Code, Note } from './helpers';
 

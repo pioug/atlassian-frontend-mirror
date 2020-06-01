@@ -1,5 +1,13 @@
 # @atlaskit/navigation-next
 
+## 8.0.6
+
+### Patch Changes
+
+- [`baaad91b65`](https://bitbucket.org/atlassian/atlassian-frontend/commits/baaad91b65) - Updated to use the latest and more performant version of `@atlaskit/avatar`
+- [`98f462e2aa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/98f462e2aa) - Bumping use the latest version of @atlaskit/spinner
+- Updated dependencies
+
 ## 8.0.5
 
 ### Patch Changes

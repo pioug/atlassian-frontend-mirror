@@ -7,11 +7,19 @@ import { MarkdownTransformer } from '@atlaskit/editor-markdown-transformer';
 import * as clipboard from '../../../utils/clipboard';
 import { transformSliceForMedia } from '../../media/utils/media-single';
 
-import { escapeLinks, htmlContainsSingleFile } from '../util';
+import {
+  escapeLinks,
+  htmlContainsSingleFile,
+  isPastedFromWord,
+  isPastedFromExcel,
+} from '../util';
 import { linkifyContent } from '../../hyperlink/utils';
 import { transformSliceToRemoveOpenBodiedExtension } from '../../extension/actions';
 import { transformSliceToRemoveOpenLayoutNodes } from '../../layout/utils';
-import { transformSliceNestedExpandToExpand } from '../../expand/utils';
+import {
+  transformSliceNestedExpandToExpand,
+  transformSliceToRemoveOpenExpand,
+} from '../../expand/utils';
 import {
   transformSliceToRemoveOpenTable,
   transformSliceToCorrectEmptyTableCells,
@@ -49,6 +57,7 @@ import { upgradeTextToLists, splitParagraphs } from '../../lists/transforms';
 import { md } from '../md';
 import { getPluginState as getTablePluginState } from '../../table/pm-plugins/plugin-factory';
 import { transformUnsupportedBlockCardToInline } from '../../card/utils';
+import { transformSliceToDecisionList } from '../../tasks-and-decisions/utils';
 
 export const stateKey = new PluginKey('pastePlugin');
 
@@ -100,7 +109,6 @@ export function createPlugin(
         let text = event.clipboardData.getData('text/plain');
         const html = event.clipboardData.getData('text/html');
         const uriList = event.clipboardData.getData('text/uri-list');
-
         // Links copied from iOS Safari share button only have the text/uri-list data type
         // ProseMirror don't do anything with this type so we want to make our own open slice
         // with url as text content so link is pasted inline
@@ -320,11 +328,17 @@ export function createPlugin(
           slice,
           schema,
         );
-        /** If a partial paste of table, paste only table's content */
-        slice = transformSliceToRemoveOpenTable(slice, schema);
 
         // We do this separately so it also applies to drag/drop events
+        // This needs to go before `transformSliceToRemoveOpenExpand`
         slice = transformSliceToRemoveOpenLayoutNodes(slice, schema);
+
+        // If a partial paste of expand, paste only the content
+        // This needs to go before `transformSliceToRemoveOpenTable`
+        slice = transformSliceToRemoveOpenExpand(slice, schema);
+
+        /** If a partial paste of table, paste only table's content */
+        slice = transformSliceToRemoveOpenTable(slice, schema);
 
         /** If a partial paste of bodied extension, paste only text */
         slice = transformSliceToRemoveOpenBodiedExtension(slice, schema);
@@ -338,6 +352,8 @@ export function createPlugin(
         slice = transformSliceToCorrectMediaWrapper(slice, schema);
 
         slice = transformSliceToCorrectEmptyTableCells(slice, schema);
+
+        slice = transformSliceToDecisionList(slice, schema);
 
         // this must happen before upgrading text to lists
         slice = splitParagraphs(slice, schema);
@@ -366,7 +382,11 @@ export function createPlugin(
           html = html.replace(/white-space:pre-wrap/g, '');
         }
 
-        if (html.indexOf('<img ') >= 0) {
+        if (
+          !isPastedFromWord(html) &&
+          !isPastedFromExcel(html) &&
+          html.indexOf('<img ') >= 0
+        ) {
           html = unwrapNestedMediaElements(html);
         }
 

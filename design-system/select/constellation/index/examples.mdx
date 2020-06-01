@@ -2,53 +2,51 @@
 order: 0
 ---
 
-import AsyncSelectWithCallback from '../../examples/06AsyncSelectWithCallback';
-import CreatableSelect from '../../examples/09CreatableSelect';
-import SingleSelect from '../../examples/00SingleSelect';
-import MultiSelect from '../../examples/01MultiSelect';
-import RadioSelect from '../../examples/02RadioSelect';
-import CheckboxSelect from '../../examples/03CheckboxSelect';
-import PopupSelect from '../../examples/18PopupSelect';
-
-## Asynchronous select
-
-Used where items to select are fetched from another source, for example, a database.
-
-<Example Component={AsyncSelectWithCallback} componentName="@atlaskit/select" />
-
-## Creatable select
-
-Allows the user to insert an item into the list for selection.
-
-<Example Component={CreatableSelect} componentName="@atlaskit/select" />
+import SelectAsyncWithCallback from '../../examples/constellation/SelectAsyncWithCallback';
+import SelectCreatable from '../../examples/constellation/SelectCreatable';
+import SelectSingle from '../../examples/constellation/SelectSingle';
+import SelectMulti from '../../examples/constellation/SelectMulti';
+import SelectRadio from '../../examples/constellation/SelectRadio';
+import SelectCheckbox from '../../examples/constellation/SelectCheckbox';
+import SelectPopup from '../../examples/constellation/SelectPopup';
 
 ## Single select
 
 Allows the user to select a single item from a dropdown menu.
 
-<Example Component={SingleSelect} componentName="@atlaskit/select" />
+<Example Component={SelectSingle} componentName="@atlaskit/select" />
 
 ## Multi select
 
 Allows the user to select a multiple items from a dropdown menu.
 
-<Example Component={MultiSelect} componentName="@atlaskit/select" />
+<Example Component={SelectMulti} componentName="@atlaskit/select" />
 
-## Radio select
+## Named exports
+
+To consolidate patterns and improve developer experience Select provides some pre-configured components as named exports.
+
+### Radio select
 
 A select with inline radio elements in the options.
 
-<Example Component={RadioSelect} componentName="@atlaskit/select" />
+<Example Component={SelectRadio} componentName="@atlaskit/select" />
 
-## Checkbox select
+### Checkbox select
 
 A select with inline checkbox elements in the options displayed in the menu.
 Use this select when displaying selected multi select options is imperative, but there may not be enough real-estate in the control.
 
-<Example Component={CheckboxSelect} componentName="@atlaskit/select" />
+<Example Component={SelectCheckbox} componentName="@atlaskit/select" />
+
+### Creatable select
+
+Allows the user to insert an item into the list for selection.
+
+<Example Component={SelectCreatable} componentName="@atlaskit/select" />
 
 ## Popup select
 
 A searchable select where the input is detached from the trigger. Use this select in scenarios where the trigger needs a custom appearance, or must occupy very limited horizontal space.
 
-<Example Component={PopupSelect} componentName="@atlaskit/select" />
+<Example Component={SelectPopup} componentName="@atlaskit/select" />

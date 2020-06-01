@@ -2,6 +2,7 @@ import { EditorView } from 'prosemirror-view';
 import { Schema } from 'prosemirror-model';
 import { RefsNode } from '@atlaskit/editor-test-helpers';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { AnnotationTypes } from '@atlaskit/adf-schema';
 import {
   doc,
   p,
@@ -16,6 +17,10 @@ import {
 import { RESOLVE_METHOD } from './../../../analytics/types/inline-comment-events';
 import { inlineCommentPluginKey } from '../../pm-plugins/plugin-factory';
 import {
+  setInlineCommentDraftState,
+  updateInlineCommentResolvedState,
+} from '../../commands';
+import {
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
@@ -25,15 +30,9 @@ import {
 import analyticsPlugin from '../../../analytics/plugin';
 import textFormatting from '../../../text-formatting';
 import * as pluginFactory from '../../pm-plugins/plugin-factory';
-import {
-  setInlineCommentDraftState,
-  resolveInlineComment,
-} from '../../commands';
-import { ACTIONS } from '../../pm-plugins/actions';
-import { inlineCommentProvider, nullComponent } from '../_utils';
+import { inlineCommentProvider } from '../_utils';
 import annotationPlugin from '../..';
-
-jest.useFakeTimers();
+import { ACTIONS } from '../../pm-plugins/types';
 
 describe('commands', () => {
   let createAnalyticsEvent = jest.fn(() => ({ fire() {} } as UIAnalyticsEvent));
@@ -45,14 +44,7 @@ describe('commands', () => {
   const annotationPreset = new Preset<LightEditorPlugin>()
     .add([analyticsPlugin, { createAnalyticsEvent: createAnalyticsEvent }])
     .add(textFormatting)
-    .add([
-      annotationPlugin,
-      {
-        createComponent: nullComponent,
-        viewComponent: nullComponent,
-        providers: { inlineComment: inlineCommentProvider },
-      },
-    ]);
+    .add([annotationPlugin, { inlineComment: { ...inlineCommentProvider } }]);
 
   const editor = (doc: any) =>
     createEditor({
@@ -63,7 +55,6 @@ describe('commands', () => {
 
   const nextTick = async () => {
     // Let the getState promise resolve
-    jest.runOnlyPendingTimers();
     await new Promise(resolve => {
       process.nextTick(resolve);
     });
@@ -151,11 +142,10 @@ describe('commands', () => {
       it('with 1 overlap', () => {
         const commentedDoc = doc(
           p(
-            annotation({ id: 'comment-1', annotationType: 'inlineComment' })(
-              'This {<}line is an ',
-              strong('UNRESOLVED'),
-              ' comment{>}',
-            ),
+            annotation({
+              id: 'comment-1',
+              annotationType: AnnotationTypes.INLINE_COMMENT,
+            })('This {<}line is an ', strong('UNRESOLVED'), ' comment{>}'),
           ),
         );
         const editorView = editor(commentedDoc).editorView;
@@ -176,18 +166,16 @@ describe('commands', () => {
       it('with 2 overlaps', () => {
         const commentedADF = doc(
           p(
-            annotation({ id: 'comment-1', annotationType: 'inlineComment' })(
-              'This {<}line is an ',
-              strong('UNRESOLVED'),
-              ' comment',
-            ),
+            annotation({
+              id: 'comment-1',
+              annotationType: AnnotationTypes.INLINE_COMMENT,
+            })('This {<}line is an ', strong('UNRESOLVED'), ' comment'),
           ),
           p(
-            annotation({ id: 'comment-2', annotationType: 'inlineComment' })(
-              'This line is an ',
-              strong('RESOLVED'),
-              ' comment{>}',
-            ),
+            annotation({
+              id: 'comment-2',
+              annotationType: AnnotationTypes.INLINE_COMMENT,
+            })('This line is an ', strong('RESOLVED'), ' comment{>}'),
           ),
         );
         const editorView = editor(commentedADF).editorView;
@@ -207,7 +195,7 @@ describe('commands', () => {
     });
   });
 
-  describe('resolveInlineComment', () => {
+  describe('setInlineCommentDraftState to resolve', () => {
     function setInlineCommentDraftStateWithSetup(
       isDraft: boolean,
       doc: (schema: Schema<any, any>) => RefsNode,
@@ -285,8 +273,8 @@ describe('commands', () => {
         },
       ],
     ])('%s', async (name, { resolveMethod }) => {
-      let editorView: EditorView<any> = editor(helloWorldDoc).editorView;
-      resolveInlineComment('testId', resolveMethod)(
+      const editorView = editor(helloWorldDoc).editorView;
+      updateInlineCommentResolvedState({ testId: true }, resolveMethod)(
         editorView.state,
         editorView.dispatch,
       );

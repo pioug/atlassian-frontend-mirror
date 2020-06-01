@@ -1,14 +1,13 @@
 import React from 'react';
 import { Node as PMNode } from 'prosemirror-model';
 import { EditorView, NodeView } from 'prosemirror-view';
-import { ProviderFactory } from '@atlaskit/editor-common';
+import { ProviderFactory, ZERO_WIDTH_SPACE } from '@atlaskit/editor-common';
 import Mention from '../ui/Mention';
 import { ReactNodeView, getPosHandler } from '../../../nodeviews';
 import InlineNodeWrapper, {
   createMobileInlineDomRef,
 } from '../../../ui/InlineNodeWrapper';
 import { PortalProviderAPI } from '../../../ui/PortalProvider';
-import { ZeroWidthSpace } from '../../../utils';
 import { MentionPluginOptions } from '../types';
 import { EventDispatcher } from '../../../event-dispatcher';
 
@@ -41,7 +40,7 @@ export class MentionNodeView extends ReactNodeView<Props> {
           accessLevel={accessLevel}
           providers={providerFactory}
         />
-        {options && options.allowZeroWidthSpaceAfter && ZeroWidthSpace}
+        {options && options.allowZeroWidthSpaceAfter && ZERO_WIDTH_SPACE}
       </InlineNodeWrapper>
     );
   }

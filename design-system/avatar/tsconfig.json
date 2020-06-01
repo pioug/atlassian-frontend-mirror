@@ -5,6 +5,8 @@
     "./src/**/*.tsx",
     "./docs/**/*.ts",
     "./docs/**/*.tsx",
+    "./codemods/**/*.ts",
+    "./codemods/**/*.tsx",
     "./examples/**/*.ts",
     "./examples/**/*.tsx",
     "./example-helpers/**/*.ts",

@@ -1,14 +1,15 @@
 import React from 'react';
 import { Node as PMNode } from 'prosemirror-model';
 import { Card as SmartCard } from '@atlaskit/smart-card';
+import { UnsupportedBlock } from '@atlaskit/editor-common';
 import PropTypes from 'prop-types';
 import { EditorView } from 'prosemirror-view';
 import rafSchedule from 'raf-schd';
 
 import { SmartCardProps, Card } from './genericCard';
-import UnsupportedBlockNode from '../../unsupported-content/nodeviews/unsupported-block';
 import { SelectionBasedNodeView, getPosHandler } from '../../../nodeviews/';
 import { registerCard } from '../pm-plugins/actions';
+import { findOverflowScrollParent } from '@atlaskit/editor-common';
 
 export interface Props {
   children?: React.ReactNode;
@@ -18,11 +19,18 @@ export interface Props {
   getPos: getPosHandler;
 }
 export class BlockCardComponent extends React.PureComponent<SmartCardProps> {
+  private scrollContainer?: HTMLElement;
   onClick = () => {};
 
   static contextTypes = {
     contextAdapter: PropTypes.object,
   };
+
+  UNSAFE_componentWillMount() {
+    const { view } = this.props;
+    const scrollContainer = findOverflowScrollParent(view.dom as HTMLElement);
+    this.scrollContainer = scrollContainer || undefined;
+  }
 
   onResolve = (data: { url?: string; title?: string }) => {
     const { getPos, view } = this.props;
@@ -42,7 +50,7 @@ export class BlockCardComponent extends React.PureComponent<SmartCardProps> {
           pos: getPos(),
         })(view.state.tr),
       ),
-    );
+    )();
   };
 
   render() {
@@ -54,8 +62,10 @@ export class BlockCardComponent extends React.PureComponent<SmartCardProps> {
     const cardInner = (
       <>
         <SmartCard
+          key={url}
           url={url}
           data={data}
+          container={this.scrollContainer}
           appearance="block"
           isSelected={selected}
           onClick={this.onClick}
@@ -80,7 +90,7 @@ export class BlockCardComponent extends React.PureComponent<SmartCardProps> {
   }
 }
 
-const WrappedBlockCard = Card(BlockCardComponent, UnsupportedBlockNode);
+const WrappedBlockCard = Card(BlockCardComponent, UnsupportedBlock);
 
 export class BlockCard extends SelectionBasedNodeView {
   render() {

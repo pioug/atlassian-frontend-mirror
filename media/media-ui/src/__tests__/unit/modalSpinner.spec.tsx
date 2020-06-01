@@ -14,7 +14,7 @@ describe('Modal Spinner', () => {
     const component = shallow(
       <ModalSpinner blankedColor={'white'} invertSpinnerColor={true} />,
     );
-    expect(component.find(Spinner).prop('invertColor')).toEqual(true);
+    expect(component.find(Spinner).prop('appearance')).toEqual('invert');
   });
   it('should set blanked background color to specified one', () => {
     const component = shallow(
@@ -25,6 +25,6 @@ describe('Modal Spinner', () => {
   it('should handle default (no props provided) case', () => {
     const component = shallow(<ModalSpinner />);
     expect(component.props().style.backgroundColor).toEqual('none');
-    expect(component.find(Spinner).prop('invertColor')).toEqual(false);
+    expect(component.find(Spinner).prop('appearance')).toEqual('inherit');
   });
 });

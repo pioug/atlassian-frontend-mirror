@@ -1,12 +1,16 @@
 import React from 'react';
 
+import Tooltip from '@atlaskit/tooltip';
+
 import { Block, Gap } from '../examples-util/helpers';
 import Avatar from '../src';
 
 export default () => (
   <div>
     <Block heading="Circle">
-      <Avatar name="xxlarge" size="xxlarge" />
+      <Tooltip content="xxlarge">
+        <Avatar name="xxlarge" size="xxlarge" testId="avatar" />
+      </Tooltip>
       <Gap />
       <Avatar name="xlarge" size="xlarge" presence="online" />
       <Gap />

@@ -29,7 +29,7 @@ import {
   MetadataIconWrapper,
   MetadataFileName,
 } from './styled';
-import { MediaTypeIcon } from './media-type-icon';
+import { MediaTypeIcon } from '@atlaskit/media-ui/media-type-icon';
 import { MediaViewerError, createError } from './error';
 import {
   ToolbarDownloadButton,

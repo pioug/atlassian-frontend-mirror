@@ -2,6 +2,7 @@ import { snapshot, Device, initRendererWithADF } from '../_utils';
 import * as resizeAdf from './__fixtures__/renderer-media.adf.json';
 import * as commentRendererAdf from './__fixtures__/comment-renderer-media-adf.json';
 import * as wrappedMediaADf from './__fixtures__/wrapped-media.adf.json';
+import * as wrappedMediaSmallADF from './__fixtures__/wrapped-media-small.adf.json';
 
 import * as layoutAdf from '../../../../examples/helper/media-resize-layout.adf.json';
 import { selectors as mediaSelectors } from '../../__helpers/page-objects/_media';
@@ -23,16 +24,17 @@ const initRenderer = async (
   adf: any,
   device?: Device,
   appearance: RendererAppearance = 'full-page',
+  allowDynamicTextSizing: boolean = true,
 ) =>
   await initRendererWithADF(page, {
     appearance,
-    rendererProps: { allowDynamicTextSizing: true, disableHeadingIDs: true },
+    rendererProps: { allowDynamicTextSizing, disableHeadingIDs: true },
     adf,
     device,
   });
 // TODO: https://product-fabric.atlassian.net/browse/ED-8011
 // ED-8011 Implement proper mock for media client on Renderer VR Tests.
-describe.skip('Snapshot Test: Media', () => {
+describe('Snapshot Test: Media', () => {
   let page: Page;
 
   beforeEach(() => {
@@ -45,19 +47,19 @@ describe.skip('Snapshot Test: Media', () => {
     await snapshot(page, {}, rendererSelectors.document);
   });
 
-  describe('resize', () => {
+  describe.skip('resize', () => {
     devices.forEach(device => {
       // TODO: ED-7455
-      it.skip(`should correctly render for ${device}`, async () => {
+      it(`should correctly render for ${device}`, async () => {
         await initRenderer(page, resizeAdf, device);
       });
     });
   });
 
-  describe('layout', () => {
+  describe.skip('layout', () => {
     devices.forEach(device => {
       // TODO: ED-8011
-      it.skip(`should correctly render for ${device}`, async () => {
+      it(`should correctly render for ${device}`, async () => {
         await initRenderer(page, layoutAdf, device);
       });
     });
@@ -72,6 +74,16 @@ describe.skip('Snapshot Test: Media', () => {
   describe('wrapped media', () => {
     it('should render 2 media items in 1 line when wrapped', async () => {
       await initRenderer(page, wrappedMediaADf);
+    });
+
+    it('should render 2 media items in 1 line when wrapped without dynamic text sizing', async () => {
+      await initRenderer(
+        page,
+        wrappedMediaSmallADF,
+        Device.LaptopHiDPI,
+        'full-page',
+        false,
+      );
     });
   });
 });

@@ -31,7 +31,7 @@ describe('@atlaskit comments', () => {
     describe('props', () => {
       describe('avatar prop', () => {
         it('should render the avatar in the correct location', () => {
-          const avatar = <Avatar src="test/src" label="test label" />;
+          const avatar = <Avatar src="test/src" />;
           const wrapper = mount(<CommentLayout avatar={avatar} />);
           expect(wrapper.find(Avatar).length).toBe(1);
           expect(wrapper.find(AvatarSectionDiv).contains(avatar)).toBe(true);

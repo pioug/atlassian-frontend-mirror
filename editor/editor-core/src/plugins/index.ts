@@ -55,3 +55,4 @@ export { default as mobileScrollPlugin } from './mobile-scroll';
 export { default as findReplacePlugin } from './find-replace';
 export { default as contextPanelPlugin } from './context-panel';
 export { default as selectionPlugin } from './selection';
+export { default as mobileSelectionPlugin } from './mobile-selection';

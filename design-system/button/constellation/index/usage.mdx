@@ -2,6 +2,14 @@
 order: 2
 ---
 
+import DoDont from '@atlaskit/gatsby-theme-brisk/src/components/do-dont';
+import buttonConciseDo from './images/button-concise-do.png';
+import buttonConciseDont from './images/button-concise-dont.png';
+import buttonCapitalizationDo from './images/button-capitalization-do.png';
+import buttonCapitalizationDont from './images/button-capitalization-dont.png';
+import buttonActionDo from './images/button-action-do.png';
+import buttonActionDont from './images/button-action-dont.png';
+
 ## Usage
 
 Buttons are triggers for events or actions. They’re commonly used as part of larger components or patterns such as [forms](/patterns/forms) or [modal dialogs](/components/modal-dialog).
@@ -37,35 +45,65 @@ Buttons:
 
 Buttons labels should be concise and clear enough to indicate the next action to the user
 
-<table>
-  <tbody>
-    <tr>
-      <td> ✅ Learn more about Jira cloud</td>
-      <td> ❌ Learn more</td>
-    </tr>
-    <td colspan="2">
-      <ul>
-        <li>Use sentence case</li>
-        <li>Use consistent terminology </li>
-      </ul>
-    </td>
-    <tr>
-      <td> ✅ Copy a ticket, copy a page </td>
-      <td> ❌ Clone a ticket, copy a page </td>
-    </tr>
-    <tr>
-      <td colspan="2">
-        <ul>
-          <li> Use active verbs or phrases that clearly indicate action </li>
-        </ul>
-      </td>
-    </tr>
-    <tr>
-      <td> ✅ Create ticket </td>
-      <td> ❌ New ticket </td>
-    </tr>
-  </tbody>
-</table>
+<DoDont
+  type="do"
+  image={{
+    url: buttonConciseDo,
+    alt: 'Atlaskit button that says Reset Password'
+  }}
+>
+  Use concise, easy to scan, and clear button labels to indicate the next action to the user.
+</DoDont>
+
+<DoDont
+  type="dont"
+  image={{
+    url: buttonConciseDont,
+    alt: 'Atlaskit button that says Click here to choose a password'
+  }}
+>
+  Use long, redundant button labels. Drop unecessary articles, such as ‘a’ or ‘the’, for a more concise label.
+</DoDont>
+
+<DoDont
+  type="do"
+  image={{
+    url: buttonCapitalizationDo,
+    alt: 'Atlaskit button that says Copy ticket'
+  }}
+>
+  Use sentence-case capitalization.
+</DoDont>
+
+<DoDont
+  type="dont"
+  image={{
+    url: buttonCapitalizationDont,
+    alt: 'Atlaskit buttons that say copy text in sentence case and all caps'
+  }}
+>
+  Use title case captalization or all caps.
+</DoDont>
+
+<DoDont
+  type="do"
+  image={{
+    url: buttonActionDo,
+    alt: 'text that asks delete unpublished page? Followed by a delete CTA button and a cancel button'
+  }}
+>
+  Use active verbs or phrases that clearly indicate action.
+</DoDont>
+
+<DoDont
+  type="dont"
+  image={{
+    url: buttonActionDont,
+    alt: 'text that asks delete unpublished page? Followed by a Yes CTA button and a No button'
+  }}
+>
+  Use vague and generic labels that make the user read the dialog before taking action.
+</DoDont>
 
 ## Accessibility
 

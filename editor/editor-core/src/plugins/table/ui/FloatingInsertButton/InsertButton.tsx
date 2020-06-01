@@ -64,10 +64,12 @@ const InsertButton = ({
 }: ButtonProps & InjectedIntlProps) => {
   const content = (
     <Tooltip
-      content={keymaps.renderTooltipContent(
-        formatMessage(tooltipMessageByType(type)),
-        type === 'row' ? keymaps.addRowAfter : keymaps.addColumnAfter,
-      )}
+      content={
+        <keymaps.ToolTipContent
+          description={formatMessage(tooltipMessageByType(type))}
+          keymap={type === 'row' ? keymaps.addRowAfter : keymaps.addColumnAfter}
+        />
+      }
       position="top"
     >
       <>

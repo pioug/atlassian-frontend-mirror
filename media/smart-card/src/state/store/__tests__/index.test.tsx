@@ -39,6 +39,7 @@ describe.skip('useSmartCardState()', () => {
             access: 'granted',
             definitionId: 'd1',
           },
+          data: undefined,
         },
       },
     };

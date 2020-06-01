@@ -104,6 +104,14 @@ export type FeatureFlags = {
    * [Default: disabled]
    */
   keyboardAccessibleDatepicker?: boolean;
+  /**
+   * Feature flag to enable add column custom step
+   *
+   * https://product-fabric.atlassian.net/browse/ED-8856
+   *
+   * [Default: disabled]
+   */
+  addColumnWithCustomStep?: boolean;
 };
 
 export type FeatureFlagKey = keyof FeatureFlags;

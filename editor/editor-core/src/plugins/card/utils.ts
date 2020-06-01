@@ -13,6 +13,8 @@ export const appearanceForNodeType = (
     return 'inline';
   } else if (spec.name === 'blockCard') {
     return 'block';
+  } else if (spec.name === 'embedCard') {
+    return 'embed';
   }
   return;
 };

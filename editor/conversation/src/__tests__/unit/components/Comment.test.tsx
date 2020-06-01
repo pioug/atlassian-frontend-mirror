@@ -68,7 +68,6 @@ describe('Comment', () => {
         <AkAvatar
           src={mockComment.createdBy.avatarUrl}
           name={mockComment.createdBy.name}
-          enableTooltip={true}
         />,
       );
     });

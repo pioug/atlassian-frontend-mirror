@@ -6,6 +6,7 @@ import {
   FileState,
   isAbortedRequestError,
   isImageRepresentationReady,
+  isImageMimeTypeSupportedByBrowser,
   isErrorFileState,
   addFileAttrsToUrl,
 } from '@atlaskit/media-client';
@@ -16,7 +17,6 @@ import { createError, MediaViewerError } from '../../error';
 import { InteractiveImg } from './interactive-img';
 import { AnalyticViewerProps } from '../../analytics/item-viewer';
 import { BaseViewer } from '../base-viewer';
-import { isImageMimeTypeSupportedByBrowser } from '../../utils/isImageMimeTypeSupportedByBrowser';
 
 export type ObjectUrl = string;
 

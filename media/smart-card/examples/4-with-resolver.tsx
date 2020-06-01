@@ -13,7 +13,16 @@ class CustomClient extends Client {
           auth: [],
           definitionId: 'def1',
         },
-        data: { url, name: 'From resolver' },
+        data: {
+          '@type': 'Object',
+          '@context': {
+            '@vocab': 'https://www.w3.org/ns/activitystreams#',
+            atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
+            schema: 'http://schema.org/',
+          },
+          url,
+          name: 'From resolver',
+        },
       } as ResolveResponse);
     }
     return super.fetchData(url);

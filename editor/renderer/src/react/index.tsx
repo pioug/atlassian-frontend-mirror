@@ -1,6 +1,6 @@
 import React from 'react';
 import { ComponentType } from 'react';
-import { Fragment, Mark, MarkType, Node, Schema } from 'prosemirror-model';
+import { Fragment, Mark, MarkType, Node } from 'prosemirror-model';
 import { Serializer } from '../';
 import { RendererAppearance, StickyHeaderConfig } from '../ui/Renderer/types';
 import { AnalyticsEventPayload } from '../analytics/events';
@@ -24,13 +24,8 @@ import {
   calcTableColumnWidths,
 } from '@atlaskit/editor-common';
 import { getText } from '../utils';
-
-export interface RendererContext {
-  objectAri?: string;
-  containerAri?: string;
-  adDoc?: any;
-  schema?: Schema;
-}
+import { RendererContext, NodeMeta, MarkMeta } from './types';
+import { AnnotationId, AnnotationMarkStates } from '@atlaskit/adf-schema';
 
 export interface ReactSerializerInit {
   providers?: ProviderFactory;
@@ -49,6 +44,8 @@ export interface ReactSerializerInit {
   allowAltTextOnImages?: boolean;
   stickyHeaders?: StickyHeaderConfig;
   allowMediaLinking?: boolean;
+  allowAnnotations?: boolean;
+  getAnnotationPromise?: (id: AnnotationId) => Promise<AnnotationMarkStates>;
 }
 
 interface ParentInfo {
@@ -106,7 +103,11 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
   private allowAltTextOnImages?: boolean;
   private stickyHeaders?: StickyHeaderConfig;
   private allowMediaLinking?: boolean;
-  private startPos: number = 0;
+  private startPos: number = 1;
+  private allowAnnotations?: boolean = false;
+  private getAnnotationPromise?: (
+    id: AnnotationId,
+  ) => Promise<AnnotationMarkStates>;
 
   constructor(init: ReactSerializerInit) {
     this.providers = init.providers;
@@ -125,11 +126,13 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
     this.allowAltTextOnImages = init.allowAltTextOnImages;
     this.stickyHeaders = init.stickyHeaders;
     this.allowMediaLinking = init.allowMediaLinking;
+    this.allowAnnotations = init.allowAnnotations;
+    this.getAnnotationPromise = init.getAnnotationPromise;
   }
 
   private resetState() {
     this.headingIds = [];
-    this.startPos = 0;
+    this.startPos = 1;
   }
 
   private getNodeProps(node: Node, parentInfo?: ParentInfo) {
@@ -152,9 +155,9 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
       case 'tableRow':
         return this.getTableChildrenProps(node);
       case 'taskItem':
-        return this.getTaskItemProps(node);
+        return this.getTaskItemProps(node, path);
       default:
-        return this.getProps(node);
+        return this.getProps(node, path);
     }
   }
 
@@ -210,10 +213,6 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
     const marks = node.marks ? [...node.marks] : [];
     const isMediaSingle = node.type.name === 'mediaSingle';
 
-    const getMarkProps = isMediaSingle
-      ? this.getMediaMarkProps
-      : this.getMarkProps;
-
     const shouldSkipMark = (mark: Mark): boolean =>
       this.allowMediaLinking !== true &&
       isMediaSingle &&
@@ -226,20 +225,41 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 
       return this.renderMark(
         markToReact(mark),
-        getMarkProps(mark),
+        this.withMediaMarkProps(node, mark, this.getMarkProps(mark)),
         `${mark.type.name}-${index}`,
         content,
       );
     }, serializedContent);
   };
 
-  private getMediaMarkProps = (mark: Mark) =>
-    mark.type.name === 'link'
-      ? {
-          ...this.getMarkProps(mark),
-          isMediaLink: true,
-        }
-      : this.getMarkProps(mark);
+  private withMediaMarkProps = (
+    node: Node,
+    mark: Mark,
+    defaultProps: any,
+  ): any => {
+    if (mark.type.name === 'link' && node.type.name === 'mediaSingle') {
+      return {
+        ...defaultProps,
+        isMediaLink: true,
+      };
+    }
+
+    return defaultProps;
+  };
+
+  private withAnnotationMarkProps = (mark: Mark, defaultProps: any): any => {
+    const getAnnotationPromise = this.getAnnotationPromise;
+    if (!this.allowAnnotations || typeof getAnnotationPromise !== 'function') {
+      return defaultProps;
+    }
+
+    return {
+      ...defaultProps,
+      getAnnotationState: (id: AnnotationId) => {
+        return getAnnotationPromise(id);
+      },
+    };
+  };
 
   private serializeTextWrapper(content: Node[]) {
     return ReactSerializer.buildMarkStructure(content).map((mark, index) =>
@@ -349,9 +369,9 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
     };
   }
 
-  private getTaskItemProps(node: Node) {
+  private getTaskItemProps(node: Node, path: Array<Node> = []) {
     return {
-      ...this.getProps(node),
+      ...this.getProps(node, path),
       disabled: this.disableActions,
     };
   }
@@ -372,7 +392,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
     };
   }
 
-  private getProps(node: Node) {
+  private getProps(node: Node, path: Array<Node> = []): NodeMeta {
     return {
       text: node.text,
       providers: this.providers,
@@ -389,7 +409,9 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
       nodeType: node.type.name,
       marks: node.marks,
       dataAttributes: {
-        'data-renderer-start-pos': this.startPos,
+        // We need to account for depth (path.length gives up depth) here
+        // but depth doesnt increment the pos, only accounted for.
+        'data-renderer-start-pos': this.startPos + path.length,
       },
       ...node.attrs,
     };
@@ -403,7 +425,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 
   private getHeadingProps(node: Node, path: Array<Node> = []) {
     return {
-      ...node.attrs,
+      ...this.getProps(node, path),
       content: node.content ? node.content.toJSON() : undefined,
       headingId: this.getHeadingId(node),
       showAnchorLink:
@@ -452,14 +474,17 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
     return this.getUniqueHeadingId(baseId, ++counter);
   }
 
-  private getMarkProps = (mark: Mark): any => {
+  private getMarkProps = (mark: Mark): MarkMeta => {
     const { key, ...otherAttrs } = mark.attrs;
-    return {
+    return this.withAnnotationMarkProps(mark, {
       eventHandlers: this.eventHandlers,
       fireAnalyticsEvent: this.fireAnalyticsEvent,
       markKey: key,
       ...otherAttrs,
-    };
+      dataAttributes: {
+        'data-renderer-mark': true,
+      },
+    });
   };
 
   static getChildNodes(fragment: Fragment): (Node | TextWrapper)[] {

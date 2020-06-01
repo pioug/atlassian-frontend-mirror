@@ -14,7 +14,10 @@ export async function getExtensionModuleNode(
   extensionType: ExtensionType,
   extensionKey: ExtensionKey,
 ) {
-  const [extKey, nodeKey] = getExtensionKeyAndNodeKey(extensionKey);
+  const [extKey, nodeKey] = getExtensionKeyAndNodeKey(
+    extensionKey,
+    extensionType,
+  );
 
   const manifest = await extensionProvider.getExtension(extensionType, extKey);
 

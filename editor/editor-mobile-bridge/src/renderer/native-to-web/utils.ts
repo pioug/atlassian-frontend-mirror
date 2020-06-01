@@ -1,12 +1,18 @@
 import { ScrollToContentNode } from './bridge';
+import {
+  buildAnnotationMarkDataAttributes,
+  AnnotationTypes,
+} from '@atlaskit/adf-schema';
 
 // Heading ids might have include characters so we need to use CSS.escape in order to use those as a selector.
 export const getHeadingIdSelector = (id: string): string =>
   // eslint-disable-next-line compat/compat
   `#${CSS.escape(id)}`;
 
-function isValidNodeTypeForScroll(nodeType: ScrollToContentNode): boolean {
-  return ['mention', 'action', 'decision', 'heading'].indexOf(nodeType) >= 0;
+export function isValidNodeTypeForScroll(
+  nodeType: ScrollToContentNode,
+): boolean {
+  return Object.values(ScrollToContentNode).indexOf(nodeType) >= 0;
 }
 
 export function scrollToElement(
@@ -80,18 +86,31 @@ export function getElementScrollOffsetByNodeType(
   return getElementScrollOffset(getQuerySelectorForNodeType(nodeType, id));
 }
 
+function buildInlineCommentQuerySelector(inlineCommentId: string): string {
+  const dataAttributes = buildAnnotationMarkDataAttributes({
+    id: inlineCommentId,
+    annotationType: AnnotationTypes.INLINE_COMMENT,
+  });
+
+  return Object.entries(dataAttributes)
+    .map(attribute => `[${attribute[0]}="${attribute[1]}"]`)
+    .join('');
+}
+
 export function getQuerySelectorForNodeType(
   nodeType: ScrollToContentNode,
   id: string,
 ): string {
   switch (nodeType) {
-    case 'mention':
+    case ScrollToContentNode.MENTION:
       return `span[data-mention-id='${id}']`;
-    case 'action':
+    case ScrollToContentNode.ACTION:
       return `div[data-task-local-id="${id}"]`;
-    case 'decision':
+    case ScrollToContentNode.DECISION:
       return `li[data-decision-local-id="${id}"]`;
-    case 'heading':
+    case ScrollToContentNode.HEADING:
       return getHeadingIdSelector(id);
+    case ScrollToContentNode.INLINE_COMMENT:
+      return buildInlineCommentQuerySelector(id);
   }
 }

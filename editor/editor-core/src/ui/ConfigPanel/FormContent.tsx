@@ -32,7 +32,7 @@ import RemovableField from './NestedForms/RemovableField';
 import { OnBlur } from './types';
 
 const FieldWrapper = styled.div`
-  margin-bottom: ${multiply(gridSize, 2)}px;
+  margin-bottom: ${multiply(gridSize, 3)}px;
 `;
 
 const pickUsedParameters = (
@@ -55,10 +55,12 @@ type Props = {
   canRemoveFields?: boolean;
   onClickRemove?: (fieldName: string) => void;
   onFieldBlur: OnBlur;
+  firstVisibleFieldName?: string;
 };
 
 class FormContent extends React.Component<Props> {
   renderEnumField(field: EnumField) {
+    const { firstVisibleFieldName } = this.props;
     switch (field.style) {
       case 'checkbox':
         return (
@@ -85,6 +87,7 @@ class FormContent extends React.Component<Props> {
             key={field.name}
             onBlur={this.props.onFieldBlur}
             field={field}
+            autoFocus={field.name === firstVisibleFieldName}
           />
         );
     }
@@ -101,7 +104,7 @@ class FormContent extends React.Component<Props> {
   }
 
   renderField(field: FieldDefinition, index: number) {
-    const { parameters, extensionManifest } = this.props;
+    const { parameters, extensionManifest, firstVisibleFieldName } = this.props;
 
     if (!isFieldset(field)) {
       field.defaultValue =
@@ -112,6 +115,7 @@ class FormContent extends React.Component<Props> {
       case 'string':
         return (
           <Text
+            autoFocus={field.name === firstVisibleFieldName}
             key={field.name}
             onBlur={this.props.onFieldBlur}
             field={field as StringField}
@@ -122,6 +126,7 @@ class FormContent extends React.Component<Props> {
       case 'number':
         return (
           <Text
+            autoFocus={field.name === firstVisibleFieldName}
             key={field.name}
             onBlur={this.props.onFieldBlur}
             field={field as NumberField}
@@ -141,6 +146,7 @@ class FormContent extends React.Component<Props> {
       case 'date':
         return (
           <Date
+            autoFocus={field.name === firstVisibleFieldName}
             key={field.name}
             onBlur={this.props.onFieldBlur}
             field={field as DateField}
@@ -153,6 +159,7 @@ class FormContent extends React.Component<Props> {
       case 'custom':
         return (
           <CustomSelect
+            autoFocus={field.name === firstVisibleFieldName}
             key={field.name}
             onBlur={this.props.onFieldBlur}
             field={field}
@@ -163,6 +170,7 @@ class FormContent extends React.Component<Props> {
       case 'fieldset':
         return (
           <Fieldset
+            firstVisibleFieldName={firstVisibleFieldName}
             key={field.name}
             onFieldBlur={this.props.onFieldBlur}
             field={field as FieldsetType}

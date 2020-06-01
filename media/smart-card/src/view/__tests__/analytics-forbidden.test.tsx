@@ -9,9 +9,9 @@ jest.doMock('../../utils/analytics', () => mockEvents);
 jest.doMock('@atlaskit/outbound-auth-flow-client', () => ({
   auth: mockAuthFlow,
 }));
-const mockFetchError = jest.fn();
+const mockAPIError = jest.fn();
 jest.doMock('../../client/errors', () => ({
-  FetchError: mockFetchError,
+  APIError: mockAPIError,
 }));
 import CardClient from '../../client';
 import React from 'react';
@@ -46,7 +46,7 @@ describe('smart-card: forbidden analytics', () => {
 
   describe('forbidden', () => {
     it('should fire analytics events when attempting to connect with an alternate account succeeds', async () => {
-      const mockUrl = 'this.is.the.fourth.url';
+      const mockUrl = 'https://this.is.the.fourth.url';
       const { getByTestId, container } = render(
         <Provider client={mockClient}>
           <Card testId="forbiddenCard1" appearance="inline" url={mockUrl} />
@@ -81,6 +81,7 @@ describe('smart-card: forbidden analytics', () => {
       expect(mockEvents.connectSucceededEvent).toHaveBeenCalledTimes(1);
       expect(mockEvents.fireSmartLinkEvent).toBeCalledWith(
         {
+          action: 'unresolved',
           attributes: {
             componentName: 'smart-cards',
             display: 'inline',
@@ -91,7 +92,7 @@ describe('smart-card: forbidden analytics', () => {
     });
 
     it('should fire analytics events when attempting to connect with an alternate account fails', async () => {
-      const mockUrl = 'this.is.the.fifth.url';
+      const mockUrl = 'https://this.is.the.fifth.url';
       const { getByTestId, container } = render(
         <Provider client={mockClient}>
           <Card testId="forbiddenCard2" appearance="inline" url={mockUrl} />

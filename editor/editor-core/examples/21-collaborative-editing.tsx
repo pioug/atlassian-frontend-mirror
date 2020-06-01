@@ -22,7 +22,9 @@ export const getRandomUser = () => {
 };
 
 const userId = `ari:cloud:identity::user/${getRandomUser()}`;
-const defaultCollabUrl = 'https://pf-collab-service.stg.services.atlassian.com';
+
+const defaultCollabUrl =
+  'https://pf-collab-service--app.ap-southeast-2.dev.atl-paas.net/';
 
 export const Content: any = styled.div`
   padding: 0 20px;
@@ -166,6 +168,7 @@ export default class Example extends React.Component<Props, State> {
                 allowTables={{
                   advanced: true,
                   allowColumnSorting: true,
+                  allowAddColumnWithCustomStep: true,
                 }}
                 allowTemplatePlaceholders={{ allowInserting: true }}
                 media={{

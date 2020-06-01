@@ -160,6 +160,7 @@ export default function MobileEditor(props: MobileEditorProps) {
             }}
             allowAnalyticsGASV3={true}
             allowExpand={true}
+            allowTemplatePlaceholders={{ allowInserting: true }}
             taskDecisionProvider={Promise.resolve(createTaskDecisionProvider())}
             quickInsert={quickInsert}
             {...props}

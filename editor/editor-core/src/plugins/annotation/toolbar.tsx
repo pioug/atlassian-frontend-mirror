@@ -1,3 +1,4 @@
+import React from 'react';
 import { defineMessages, InjectedIntl } from 'react-intl';
 import { EditorView } from 'prosemirror-view';
 import { EditorState } from 'prosemirror-state';
@@ -14,7 +15,7 @@ import { AnnotationTestIds } from './types';
 import { hasInlineNodes } from './utils';
 import { NodeType } from 'prosemirror-model';
 import { getSelectionStartRect } from './utils';
-import { addInlineComment, renderTooltipContent } from '../../keymaps';
+import { addInlineComment, ToolTipContent } from '../../keymaps';
 
 export const annotationMessages = defineMessages({
   createComment: {
@@ -59,9 +60,14 @@ export const buildToolbar = (
     disabled: selectionInvalid,
     testId: AnnotationTestIds.floatingToolbarCreateButton,
     icon: CommentIcon,
-    tooltipContent: selectionInvalid
-      ? intl.formatMessage(annotationMessages.createCommentInvalid)
-      : renderTooltipContent(createCommentMessage, addInlineComment),
+    tooltipContent: selectionInvalid ? (
+      intl.formatMessage(annotationMessages.createCommentInvalid)
+    ) : (
+      <ToolTipContent
+        description={createCommentMessage}
+        keymap={addInlineComment}
+      />
+    ),
     title: createCommentMessage,
     onClick: (state, dispatch) => {
       return setInlineCommentDraftState(true)(state, dispatch);

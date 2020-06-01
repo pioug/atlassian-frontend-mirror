@@ -24,14 +24,7 @@ export default () => (
     <GlobalItem icon={SearchIcon} />
     <GlobalItem icon={HelpIcon} size="small" />
     <GlobalItem
-      icon={() => (
-        <Avatar
-          borderColor="transparent"
-          isActive={false}
-          isHover={false}
-          size="small"
-        />
-      )}
+      icon={() => <Avatar borderColor="transparent" size="small" />}
       size="small"
     />
   </div>

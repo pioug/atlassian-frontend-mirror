@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { IntlProvider, addLocaleData } from 'react-intl';
 import { EditorView } from 'prosemirror-view';
 import { Step } from 'prosemirror-transform';
+import { AnnotationTypes } from '@atlaskit/adf-schema';
 import { AtlaskitThemeProvider } from '@atlaskit/theme';
 import { EmojiProvider } from '@atlaskit/emoji/resource';
 import { MockActivityResource } from '@atlaskit/activity/dist/es5/support';
@@ -16,6 +17,8 @@ import {
   storyContextIdentifierProviderFactory,
   macroProvider,
   extensionHandlers as exampleExtensionHandlers,
+  ExampleCreateInlineCommentComponent,
+  ExampleViewInlineCommentComponent,
 } from '@atlaskit/editor-test-helpers';
 import {
   JSONTransformer,
@@ -281,6 +284,21 @@ export function mapProvidersToProps(
 
   if (providers.quickInsertProvider) {
     props.quickInsert = { provider: providers.quickInsertProvider };
+  }
+
+  if (props && props.annotationProviders) {
+    props.annotationProviders = {
+      inlineComment: {
+        createComponent: ExampleCreateInlineCommentComponent,
+        viewComponent: ExampleViewInlineCommentComponent,
+        getState: async (ids: string[]) =>
+          ids.map(id => ({
+            annotationType: AnnotationTypes.INLINE_COMMENT,
+            id,
+            state: { resolved: false },
+          })),
+      },
+    };
   }
 
   return props;

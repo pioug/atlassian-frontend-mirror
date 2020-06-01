@@ -1,7 +1,6 @@
 import React from 'react';
-import { Component } from 'react';
 import styled from 'styled-components';
-import { borderRadius, colors } from '@atlaskit/theme';
+import { borderRadius, colors, fontSize } from '@atlaskit/theme';
 
 const BlockNode = styled.div`
   align-items: center;
@@ -11,23 +10,21 @@ const BlockNode = styled.div`
   box-sizing: border-box;
   cursor: default;
   display: block;
-  font-size: 13px;
+  font-size: ${fontSize()}px;
   margin: 10px 0;
   min-height: 24px;
   padding: 10px;
   text-align: center;
   user-select: all;
   vertical-align: text-bottom;
-  white-space: nowrap;
+  min-width: 120px;
 
-  '&.ProseMirror-selectednode' {
+  &.ProseMirror-selectednode {
     background: ${colors.N50};
     outline: none;
   }
 `;
 
-export default class UnsupportedBlockNode extends Component<{}, {}> {
-  render() {
-    return <BlockNode>Unsupported content</BlockNode>;
-  }
+export default function UnsupportedBlockNode() {
+  return <BlockNode>Unsupported content</BlockNode>;
 }

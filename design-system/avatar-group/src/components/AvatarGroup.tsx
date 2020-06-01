@@ -4,6 +4,7 @@ import { ThemeProvider } from 'styled-components';
 
 import Avatar, { AvatarPropTypes } from '@atlaskit/avatar';
 import DropdownMenu, { DropdownItemGroup } from '@atlaskit/dropdown-menu';
+import Tooltip from '@atlaskit/tooltip';
 
 import { Grid, Stack } from '../styled/AvatarGroup';
 import itemTheme from '../theme/itemTheme';
@@ -137,21 +138,28 @@ export default class AvatarGroup extends Component<AvatarGroupProps> {
     // Render (max - 1) avatars to leave space for moreIndicator
     const maxAvatar = total > max ? max - 1 : max;
 
-    const items = data.slice(0, maxAvatar).map((avatar, idx) =>
-      this.getOverrides().Avatar.render(
+    const items = data.slice(0, maxAvatar).map((avatarData, idx) => {
+      const avatar = this.getOverrides().Avatar.render(
         Item,
         {
-          ...avatar,
+          ...avatarData,
           size,
           borderColor,
           testId: testId && `${testId}--avatar-${idx}`,
-          groupAppearance: appearance,
-          onClick: avatar.onClick || onAvatarClick,
+          onClick: avatarData.onClick || onAvatarClick,
           stackIndex: max - idx,
         },
         idx,
-      ),
-    );
+      );
+
+      return avatarData.name && avatarData.enableTooltip !== false ? (
+        <Tooltip key={idx} content={avatarData.name}>
+          {avatar}
+        </Tooltip>
+      ) : (
+        avatar
+      );
+    });
 
     return (
       <Group size={size} data-testid={testId && `${testId}--avatar-group`}>

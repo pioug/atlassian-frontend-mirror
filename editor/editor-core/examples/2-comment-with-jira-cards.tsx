@@ -78,6 +78,7 @@ export class JiraCardClient extends Client {
             '@type': ['atlassian:Task', 'Object'],
             name: 'PC-4820: Smart Card in Fabric Editor integration',
             tag: {
+              '@type': 'Object',
               name: 'Shipped',
             },
             url,

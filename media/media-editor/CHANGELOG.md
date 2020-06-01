@@ -1,5 +1,12 @@
 # @atlaskit/media-editor
 
+## 37.0.10
+
+### Patch Changes
+
+- [`98f462e2aa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/98f462e2aa) - Bumping use the latest version of @atlaskit/spinner
+- Updated dependencies
+
 ## 37.0.9
 
 ### Patch Changes

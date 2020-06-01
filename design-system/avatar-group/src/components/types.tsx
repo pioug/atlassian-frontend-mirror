@@ -76,7 +76,7 @@ export interface AvatarGroupProps {
    * Array of avatar data passed to each `avatar` component.
    * These props will be spread on to the component passed into avatar.
    */
-  data: AvatarPropTypes[];
+  data: Array<AvatarPropTypes & { enableTooltip?: boolean }>;
 
   /**
    * Handle the click event on the avatar item

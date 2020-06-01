@@ -51,7 +51,7 @@ exports[`Option should render correctly 1`] = `
     <ElementWrapper
       is="before"
     >
-      <WithAnalyticsContext(WithAnalyticsEvents(mapProps(withPseudoState(Avatar))))
+      <Avatar
         appearance="square"
         borderColor="transparent"
         src="/url-to-avatar"

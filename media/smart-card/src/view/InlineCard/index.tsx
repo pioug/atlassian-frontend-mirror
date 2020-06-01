@@ -9,9 +9,10 @@ import {
   InlineCardUnauthorizedView,
 } from '@atlaskit/media-ui';
 import { InlineCardProps } from './types';
-import { getCollapsedIcon, getEmptyJsonLd } from '../../utils';
+import { getEmptyJsonLd } from '../../utils/jsonld';
 import { extractInlineProps } from '../../extractors/inline';
 import { JsonLd } from 'json-ld-types';
+import { extractProvider } from '../../extractors/common/context';
 
 export const InlineCard: FC<InlineCardProps> = ({
   url,
@@ -23,6 +24,7 @@ export const InlineCard: FC<InlineCardProps> = ({
   testId,
 }) => {
   const { status, details } = cardState;
+  const cardDetails = (details && details.data) || getEmptyJsonLd();
   switch (status) {
     case 'pending':
       return (
@@ -43,20 +45,20 @@ export const InlineCard: FC<InlineCardProps> = ({
         />
       );
     case 'resolved':
-      const props = extractInlineProps(
-        (details && (details.data as JsonLd.Data.BaseData)) || getEmptyJsonLd(),
+      const resolvedProps = extractInlineProps(
+        cardDetails as JsonLd.Data.BaseData,
       );
 
       if (onResolve) {
         onResolve({
           url,
-          title: props.title,
+          title: resolvedProps.title,
         });
       }
 
       return (
         <InlineCardResolvedView
-          {...props}
+          {...resolvedProps}
           link={url}
           isSelected={isSelected}
           onClick={handleFrameClick}
@@ -64,9 +66,10 @@ export const InlineCard: FC<InlineCardProps> = ({
         />
       );
     case 'unauthorized':
+      const provider = extractProvider(cardDetails as JsonLd.Data.BaseData);
       return (
         <InlineCardUnauthorizedView
-          icon={getCollapsedIcon(details)}
+          icon={provider && provider.icon}
           url={url}
           isSelected={isSelected}
           onClick={handleFrameClick}
@@ -94,6 +97,7 @@ export const InlineCard: FC<InlineCardProps> = ({
           testId={`${testId}-${status}`}
         />
       );
+    case 'fallback':
     case 'errored':
       return (
         <CardLinkView

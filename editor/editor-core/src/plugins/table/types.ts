@@ -43,6 +43,7 @@ export interface PluginConfig {
   allowMergeCells?: boolean;
   allowNumberColumn?: boolean;
   allowColumnSorting?: boolean;
+  allowAddColumnWithCustomStep?: boolean;
   isHeaderRowRequired?: boolean;
   stickToolbarToBottom?: boolean;
   permittedLayouts?: PermittedLayoutsDescriptor;
@@ -100,7 +101,7 @@ export interface TablePluginState {
   // controls need to be re-rendered when table content changes
   // e.g. when pressing enter inside of a cell, it creates a new p and we need to update row controls
   tableNode?: PmNode;
-  tableRef?: HTMLElement;
+  tableRef?: HTMLTableElement;
   tableWrapperTarget?: HTMLElement;
   isContextualMenuOpen?: boolean;
   isInDanger?: boolean;
@@ -120,7 +121,7 @@ export type TablePluginAction =
   | {
       type: 'SET_TABLE_REF';
       data: {
-        tableRef?: HTMLElement;
+        tableRef?: HTMLTableElement;
         tableNode?: PmNode;
         tableWrapperTarget?: HTMLElement;
         layout: TableLayout;

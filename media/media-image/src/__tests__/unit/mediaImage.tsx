@@ -144,6 +144,22 @@ describe('<MediaImage />', () => {
     expect(wrapper.find('div').text()).toEqual('error');
   });
 
+  it('should render error placeholder if preview cannot be resolved', async () => {
+    const fileState: ProcessedFileState = {
+      ...defaultFileState,
+      mediaType: 'audio',
+      preview: Promise.reject('File has no image representation'),
+    };
+
+    const props = {
+      ...defaultProps,
+      mediaClient: setup(createFileStateSubject(fileState)),
+    };
+    const wrapper = await shallowRender(props);
+
+    expect(wrapper.find('div').text()).toEqual('error');
+  });
+
   it('should remove subscription if the component is unmounted', async () => {
     const wrapper = await shallowRender();
     const instance = wrapper.instance();

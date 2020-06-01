@@ -30,6 +30,7 @@ export default {
           'expand_with_breakout_mark',
           'bodiedExtension',
           'layoutSection',
+          'embedCard',
         ],
       ],
       allowUnsupportedBlock: true,

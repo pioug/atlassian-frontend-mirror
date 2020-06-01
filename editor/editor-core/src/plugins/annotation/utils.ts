@@ -1,9 +1,10 @@
-import { ResolvedPos, Mark } from 'prosemirror-model';
-import { AnnotationInfo, DraftDecorationClassName } from './types';
-import { sum } from '../../utils';
-import { EditorState } from 'prosemirror-state';
+import { ResolvedPos, Mark, Node } from 'prosemirror-model';
+import { EditorState, Selection } from 'prosemirror-state';
 import { Decoration } from 'prosemirror-view';
-import { Y75, Y200 } from '@atlaskit/theme/colors';
+import { AnnotationSharedClassNames } from '@atlaskit/editor-common';
+import { AnnotationInfo } from './types';
+import { sum } from '../../utils';
+
 /**
  * Finds the marks in the nodes to the left and right.
  * @param $pos Position to center search around
@@ -59,13 +60,15 @@ export const reorderAnnotations = (
   );
 };
 
-export const getAllAnnotations = (doc: EditorState['doc']): string[] => {
+export const getAllAnnotations = (doc: Node): string[] => {
   const allAnnotationIds: Set<string> = new Set();
-  doc.nodesBetween(0, doc.content.size, node =>
+
+  doc.descendants(node => {
     node.marks
       .filter(mark => mark.type.name === 'annotation')
-      .forEach(m => allAnnotationIds.add(m.attrs.id)),
-  );
+      .forEach(m => allAnnotationIds.add(m.attrs.id));
+    return true;
+  });
 
   return Array.from(allAnnotationIds);
 };
@@ -111,8 +114,7 @@ export const getSelectionStartRect = (): ClientRect | null => {
  */
 export const addDraftDecoration = (start: number, end: number) => {
   return Decoration.inline(start, end, {
-    class: DraftDecorationClassName,
-    style: `background-color: ${Y75}; border-bottom: 2px solid ${Y200};`,
+    class: `${AnnotationSharedClassNames.draft}`,
   });
 };
 
@@ -128,4 +130,35 @@ export const hasInlineNodes = (state: EditorState): boolean => {
   });
 
   return inlineNodesCount > 0;
+};
+
+export const getAnnotationViewKey = (annotations: AnnotationInfo[]): string => {
+  const keys = annotations.map(mark => mark.id).join('_');
+  return `view-annotation-wrapper_${keys}`;
+};
+
+export const findAnnotationsInSelection = (
+  selection: Selection,
+  doc: Node,
+): AnnotationInfo[] => {
+  const { empty, anchor, $anchor } = selection;
+  // Only detect annotations on caret selection
+  if (!empty || !doc) {
+    return [];
+  }
+
+  const node = doc.nodeAt(anchor);
+  if (!node || !node.marks.length) {
+    return [];
+  }
+
+  const annotations = node.marks
+    .filter(mark => mark.type.name === 'annotation')
+    .map(mark => ({
+      id: mark.attrs.id,
+      type: mark.attrs.annotationType,
+    }));
+
+  reorderAnnotations(annotations, $anchor);
+  return annotations;
 };

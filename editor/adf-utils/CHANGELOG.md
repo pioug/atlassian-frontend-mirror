@@ -1,5 +1,16 @@
 # @atlaskit/adf-utils
 
+## 9.3.0
+
+### Minor Changes
+
+- [`50c333ab3a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/50c333ab3a) - EDM-216: Adds EmbedCards in the Editor under the flag - allowEmbeds in the UNSAFE_cards prop
+
+### Patch Changes
+
+- [`f7ee96b6c3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f7ee96b6c3) - Move sanitizeNode from editor-core to adf-utils so that it can be shared easier
+- Updated dependencies
+
 ## 9.2.0
 
 ### Minor Changes

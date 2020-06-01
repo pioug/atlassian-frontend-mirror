@@ -13,6 +13,7 @@ import {
 } from '../../__helpers/page-objects/_editor';
 import { pressKey } from '../../__helpers/page-objects/_keyboard';
 import * as singleCellTable from './__fixtures__/single-cell-table-adf.json';
+import adf from './__fixtures__/3-column-layout-with-image.adf.json';
 import { Page } from '../../__helpers/page-objects/_types';
 
 describe('Snapshot Test: Media', () => {
@@ -79,6 +80,42 @@ describe('Snapshot Test: Media', () => {
 
         await snapshot(page);
       }
+    });
+  });
+
+  describe('layout columns', () => {
+    it('should hold big image in the middle layout column in fix-width mode', async () => {
+      page = global.page;
+      await initEditorWithAdf(page, {
+        appearance: Appearance.fullPage,
+        adf,
+        editorProps: {
+          media: {
+            allowMediaSingle: true,
+            allowMediaGroup: true,
+            allowResizing: false,
+          },
+        },
+        viewport: { width: 1280, height: 800 },
+      });
+      await snapshot(page);
+    });
+
+    it('should hold big image in the middle layout column in full-width mode', async () => {
+      page = global.page;
+      await initEditorWithAdf(page, {
+        appearance: Appearance.fullWidth,
+        adf,
+        editorProps: {
+          media: {
+            allowMediaSingle: true,
+            allowMediaGroup: true,
+            allowResizing: false,
+          },
+        },
+        viewport: { width: 1280, height: 800 },
+      });
+      await snapshot(page);
     });
   });
 

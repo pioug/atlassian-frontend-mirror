@@ -1,5 +1,12 @@
 # @atlaskit/embedded-document
 
+## 0.6.21
+
+### Patch Changes
+
+- [`54d82b49f0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54d82b49f0) - Remove unused dependencies
+- Updated dependencies
+
 ## 0.6.20
 
 ### Patch Changes

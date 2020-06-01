@@ -5,9 +5,11 @@ import FabricAnalyticsListener, {
   AnalyticsWebClient,
 } from '@atlaskit/analytics-listeners';
 import TaskItem from '../../../../react/nodes/taskItem';
+import ReactSerializer from '../../../../react';
 
 describe('Renderer - React/Nodes/TaskItem', () => {
   let analyticsWebClientMock: AnalyticsWebClient;
+  let serialiser = new ReactSerializer({});
 
   beforeEach(() => {
     analyticsWebClientMock = {
@@ -22,6 +24,9 @@ describe('Renderer - React/Nodes/TaskItem', () => {
     const text = 'This is a task item';
     const taskItem = mount(
       <TaskItem
+        marks={[]}
+        serializer={serialiser}
+        nodeType="taskItem"
         dataAttributes={{ 'data-renderer-start-pos': 0 }}
         localId="task-1"
       >
@@ -35,6 +40,9 @@ describe('Renderer - React/Nodes/TaskItem', () => {
   it('should render if no children', () => {
     const taskItem = shallow(
       <TaskItem
+        marks={[]}
+        serializer={serialiser}
+        nodeType="taskItem"
         dataAttributes={{ 'data-renderer-start-pos': 0 }}
         localId="task-2"
       />,
@@ -47,6 +55,9 @@ describe('Renderer - React/Nodes/TaskItem', () => {
       const component = mount(
         <FabricAnalyticsListener client={analyticsWebClientMock}>
           <TaskItem
+            marks={[]}
+            serializer={serialiser}
+            nodeType="taskItem"
             dataAttributes={{ 'data-renderer-start-pos': 0 }}
             localId="task-1"
           >
@@ -73,6 +84,9 @@ describe('Renderer - React/Nodes/TaskItem', () => {
       const component = mount(
         <FabricAnalyticsListener client={analyticsWebClientMock}>
           <TaskItem
+            marks={[]}
+            serializer={serialiser}
+            nodeType="taskItem"
             dataAttributes={{ 'data-renderer-start-pos': 0 }}
             localId="task-1"
             state="DONE"

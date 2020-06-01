@@ -41,6 +41,7 @@ type Props = {
   onClickRemove?: (fieldName: string) => void;
   children?: React.ReactNode;
   onFieldBlur: OnBlur;
+  firstVisibleFieldName?: string;
 };
 
 const FormWrapper = ({
@@ -52,6 +53,7 @@ const FormWrapper = ({
   onClickRemove,
   children,
   onFieldBlur,
+  firstVisibleFieldName,
 }: Props) => {
   return (
     <NestedFormWrapper>
@@ -64,6 +66,7 @@ const FormWrapper = ({
         canRemoveFields={canRemoveFields}
         onClickRemove={onClickRemove}
         onFieldBlur={onFieldBlur}
+        firstVisibleFieldName={firstVisibleFieldName}
       />
 
       {children && (

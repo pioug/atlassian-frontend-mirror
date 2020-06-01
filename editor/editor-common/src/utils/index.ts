@@ -59,5 +59,6 @@ export {
 } from './table';
 export { createCompareNodes } from './compareNodes';
 export { compose } from './compose';
+export { ZERO_WIDTH_SPACE } from './whitespace';
 
 export { Diff } from './types';

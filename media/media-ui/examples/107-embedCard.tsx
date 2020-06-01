@@ -13,7 +13,7 @@ const cardWrapperStyles = {
 
 export default () => {
   const [isSelected, setSelected] = useState<boolean>(false);
-  const [isFrameVisible, setIsFrameVisible] = useState<boolean>(false);
+  const [isFrameVisible, setIsFrameVisible] = useState<boolean>(true);
   const onIsSelectedChange = () => setSelected(!isSelected);
   const onIsFrameVisibleChange = () => setIsFrameVisible(!isFrameVisible);
 
@@ -29,7 +29,11 @@ export default () => {
       <div style={{ display: 'flex' }}>
         EmbedCardResolvedView
         <Checkbox label="isSelected" onChange={onIsSelectedChange} />
-        <Checkbox label="isFrameVisible" onChange={onIsFrameVisibleChange} />
+        <Checkbox
+          label="isFrameVisible"
+          isChecked={isFrameVisible}
+          onChange={onIsFrameVisibleChange}
+        />
       </div>
       <div style={cardWrapperStyles}>
         <EmbedCardResolvedView
@@ -46,6 +50,7 @@ export default () => {
         EmbedCardUnauthorisedView
         <EmbedCardUnauthorisedView
           link={preview}
+          isSelected={isSelected}
           context={{
             text: 'Dropbox',
             icon: 'https://www.dropbox.com/static/30168/images/favicon.ico',
@@ -56,6 +61,7 @@ export default () => {
       <div style={cardWrapperStyles}>
         EmbedCardForbiddenView
         <EmbedCardForbiddenView
+          isSelected={isSelected}
           link={preview}
           context={{
             text: 'Dropbox',
@@ -67,6 +73,7 @@ export default () => {
       <div style={cardWrapperStyles}>
         EmbedCardNotFoundView
         <EmbedCardNotFoundView
+          isSelected={isSelected}
           link={preview}
           context={{
             text: 'Dropbox',

@@ -13,6 +13,7 @@ export {
   ImageLoaderState,
   ImageStatus,
   Params,
+  ZERO_WIDTH_SPACE,
   absoluteBreakoutWidth,
   browser,
   calcBreakoutWidth,
@@ -64,6 +65,8 @@ export {
   CollabEventRemoteData,
   CollabSendableSelection,
   CollabEventTelepointerData, // End Collab Types
+  AnnotationState,
+  AnnotationProviders,
 } from './types';
 
 export {
@@ -175,6 +178,7 @@ export {
   akLayoutGutterOffset,
   akMediaSingleResizeZIndex,
   akEditorStickyHeaderZIndex,
+  getAkEditorFullPageMaxWidth,
   blockMarksSharedStyles,
   blockNodesVerticalMargin,
   blockquoteSharedStyles,
@@ -183,6 +187,9 @@ export {
   codeMarkSharedStyles,
   columnLayoutSharedStyle,
   dateSharedStyle,
+  annotationSharedStyles,
+  AnnotationSharedCSSByState,
+  AnnotationSharedClassNames,
   editorFontSize,
   gridMediumMaxWidth,
   headingsSharedStyles,
@@ -213,6 +220,7 @@ export {
   akEditorSelectedBorderStyles,
   MentionSharedCssClassName,
   EmojiSharedCssClassName,
+  smartCardSharedStyles,
 } from './styles';
 
 export {

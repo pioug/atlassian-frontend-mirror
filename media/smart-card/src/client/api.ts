@@ -1,6 +1,8 @@
+import { JsonLd } from 'json-ld-types';
+
 const ALLOWED_RESPONSE_STATUS_CODES = [200, 401, 404];
 
-export async function request<T>(
+export async function request<T = JsonLd.Response>(
   method: string,
   url: string,
   data?: any,

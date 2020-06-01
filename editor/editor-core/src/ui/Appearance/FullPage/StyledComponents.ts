@@ -107,6 +107,11 @@ export const EditorContentArea = styled.div`
       width: 100% !important;
     }
 
+    .fabric-editor-breakout-mark {
+      margin-left: unset !important;
+      transform: none !important;
+    }
+
     /* Prevent horizontal scroll on page in full width mode */
     ${({ containerWidth }) => {
       if (!containerWidth) {
@@ -140,3 +145,10 @@ export const EditorContentArea = styled.div`
   }
 `;
 EditorContentArea.displayName = 'EditorContentArea';
+
+export const EditorContentGutter = styled.div`
+  box-sizing: border-box;
+  padding: 0 ${akEditorGutterPadding}px;
+`;
+
+EditorContentGutter.displayName = 'EditorContentGutter';

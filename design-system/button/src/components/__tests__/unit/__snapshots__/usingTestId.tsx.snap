@@ -14,7 +14,7 @@ exports[`Button should be found by data-testid Using container snapshot 1`] = `
   display: inline-flex;
   font-size: inherit;
   font-style: normal;
-  font-weight: normal;
+  font-weight: 500;
   max-width: 100%;
   outline: none !important;
   text-align: center;

@@ -59,13 +59,12 @@ export const withMediaClient: WithMediaClientFunction = <
   return class extends React.Component<WithMediaClientConfigProps<P>> {
     render() {
       // TODO MPT-315: clean up after we move mediaClientConfig into FileIdentifier
-      const props = this.props;
-      const { mediaClientConfig } = props;
+      const { mediaClientConfig, ...otherProps } = this.props;
       const mediaClient: MediaClient = !mediaClientConfig
         ? createEmptyMediaClient()
         : getMediaClient(mediaClientConfig);
 
-      return <Component {...(props as any)} mediaClient={mediaClient} />;
+      return <Component {...(otherProps as any)} mediaClient={mediaClient} />;
     }
   };
 };

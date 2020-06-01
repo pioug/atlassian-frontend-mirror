@@ -1,10 +1,10 @@
 import React from 'react';
 import {
   calcBreakoutWidth as exportedBreakoutWidth,
-  breakoutConsts,
+  mapBreakpointToLayoutMaxWidth as exportedMapBreakpointToLayoutMaxWidth,
+  getBreakpoint as exportedGetBreakpoint,
+  breakoutConsts as exportedBreakoutConsts,
   calcWideWidth,
-  mapBreakpointToLayoutMaxWidth,
-  getBreakpoint,
 } from '@atlaskit/editor-common';
 
 /**
@@ -13,7 +13,11 @@ import {
  *
  * More info: https://product-fabric.atlassian.net/wiki/spaces/E/pages/1216218119/Renderer+SSR+for+Breakout+Nodes
  */
-export function BreakoutSSRInlineScript() {
+export function BreakoutSSRInlineScript({
+  allowDynamicTextSizing,
+}: {
+  allowDynamicTextSizing: boolean;
+}) {
   /**
    * Should only inline this script while SSR,
    * not needed on the client side.
@@ -26,7 +30,7 @@ export function BreakoutSSRInlineScript() {
   }
 
   const id = Math.floor(Math.random() * (9999999999 - 9999 + 1)) + 9999;
-  const context = createBreakoutInlineScript(id);
+  const context = createBreakoutInlineScript(id, allowDynamicTextSizing);
 
   return (
     <script
@@ -36,35 +40,51 @@ export function BreakoutSSRInlineScript() {
   );
 }
 
-export function createBreakoutInlineScript(id: number) {
+export function createBreakoutInlineScript(
+  id: number,
+  allowDynamicTextSizing: boolean,
+) {
   return `
   (function(window){
     ${breakoutInlineScriptContext};
-    (${applyBreakoutAfterSSR.toString()})("${id}");
+    (${applyBreakoutAfterSSR.toString()})("${id}", ${allowDynamicTextSizing});
   })(window);
 `;
 }
 
 /**
  * Need a reasignment to have a cleaner variable name:
- * calcBreakoutWidth instead of ModuleName.calcBreakoutWidth
+ * calcBreakoutWidth instead of ModuleName.calcBreakoutWidth,
+ * etc...
  */
 const calcBreakoutWidth = exportedBreakoutWidth;
+const mapBreakpointToLayoutMaxWidth = exportedMapBreakpointToLayoutMaxWidth;
+const getBreakpoint = exportedGetBreakpoint;
+const breakoutConsts = exportedBreakoutConsts;
 
 /**
  * Creates all variables that need to be available in scope for calcBreakoutWidth.
  */
+const calcLineLength = (
+  containerWidth?: number,
+  allowDynamicTextSizing?: boolean,
+) =>
+  allowDynamicTextSizing && containerWidth
+    ? mapBreakpointToLayoutMaxWidth(getBreakpoint(containerWidth))
+    : breakoutConsts.defaultLayoutWidth;
+
 export const breakoutInlineScriptContext = `
   var breakoutConsts = ${JSON.stringify(breakoutConsts)};
   var calcWideWidth = ${calcWideWidth.toString()};
   var calcBreakoutWidth = ${calcBreakoutWidth.toString()};
+  var calcLineLength = ${calcLineLength.toString()};
 
   // TODO: remove after dynamic text sizing is fully unshipped: https://product-fabric.atlassian.net/browse/ED-8942
   var mapBreakpointToLayoutMaxWidth = ${mapBreakpointToLayoutMaxWidth.toString()};
   var getBreakpoint = ${getBreakpoint.toString()};
 `;
 
-function applyBreakoutAfterSSR(id: string) {
+function applyBreakoutAfterSSR(id: string, allowDynamicTextSizing: boolean) {
   function findUp(element: HTMLElement | null, selector: string) {
     if (!element) {
       return;
@@ -109,6 +129,20 @@ function applyBreakoutAfterSSR(id: string) {
             return;
           }
           node.style.width = width;
+
+          // Tables require some special logic, as they are not using common css transform approach,
+          // because it breaks with sticky headers. This logic is copied from a table node:
+          // https://bitbucket.org/atlassian/atlassian-frontend/src/77938aee0c140d02ff99b98a03849be1236865b4/packages/editor/renderer/src/react/nodes/table.tsx#table.tsx-235:245
+          if (node.classList.contains('pm-table-container')) {
+            const lineLength = calcLineLength(
+              renderer!.offsetWidth,
+              allowDynamicTextSizing,
+            );
+            const left = lineLength / 2 - parseInt(width) / 2;
+            if (left < 0) {
+              node.style.left = left + 'px';
+            }
+          }
         });
       }
     });
@@ -135,3 +169,5 @@ function applyBreakoutAfterSSR(id: string) {
   };
   window.addEventListener('load', disconnect);
 }
+
+export { calcLineLength };

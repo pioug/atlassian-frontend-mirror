@@ -1,5 +1,16 @@
 # @atlaskit/button
 
+## 13.4.0
+
+### Minor Changes
+
+- [`afc842d132`](https://bitbucket.org/atlassian/atlassian-frontend/commits/afc842d132) - FIX: Buton text font-weight changed from normal to medium as per ADG spec
+
+### Patch Changes
+
+- [`98f462e2aa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/98f462e2aa) - Bumping use the latest version of @atlaskit/spinner
+- Updated dependencies
+
 ## 13.3.12
 
 ### Patch Changes

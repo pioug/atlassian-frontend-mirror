@@ -1,0 +1,34 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "decisionList",
+      "attrs": {
+        "localId": "a0f48d3f-e48e-4834-a7cf-26797437f306"
+      },
+      "content": [
+        {
+          "type": "decisionItem",
+          "attrs": {
+            "localId": "70da3813-c77c-4475-8946-a127bf9dac7e",
+            "state": "DECIDED"
+          },
+          "content": [
+            {
+              "type": "text",
+              "text": "decision with text"
+            }
+          ]
+        },
+        {
+          "type": "decisionItem",
+          "attrs": {
+            "localId": "54cd95de-0dbf-4483-9c16-207297ddd1e7",
+            "state": "DECIDED"
+          }
+        }
+      ]
+    }
+  ]
+}

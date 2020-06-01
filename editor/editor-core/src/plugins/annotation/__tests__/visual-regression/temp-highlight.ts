@@ -1,9 +1,4 @@
-import { Device } from './../../../../../../renderer/src/__tests__/visual-regression/_utils';
 import { Page, BoundingBox } from 'puppeteer';
-import {
-  ExampleCreateInlineCommentComponent,
-  ExampleViewInlineCommentComponent,
-} from '@atlaskit/editor-test-helpers';
 import {
   animationFrame,
   clickElementWithText,
@@ -11,12 +6,17 @@ import {
   setSelection,
 } from '../../../../__tests__/__helpers/page-objects/_editor';
 import {
+  ExampleCreateInlineCommentComponent,
+  ExampleViewInlineCommentComponent,
+} from '@atlaskit/editor-test-helpers';
+import {
+  Device,
   snapshot,
   initFullPageEditorWithAdf,
 } from '../../../../__tests__/visual-regression/_utils';
-import { AnnotationTestIds } from '../../types';
 import * as tempHighlightAdf from './../__fixtures__/temp-highlight.adf.json';
-import { selectorById } from '../_utils';
+import { AnnotationTestIds } from '../../types';
+import { selectorById, getState } from '../_utils';
 
 describe('Snapshot Tests', () => {
   let page: Page;
@@ -28,14 +28,11 @@ describe('Snapshot Tests', () => {
       Device.LaptopHiDPI,
       undefined,
       {
-        annotationProvider: {
-          createComponent: ExampleCreateInlineCommentComponent,
-          viewComponent: ExampleViewInlineCommentComponent,
-          providers: {
-            inlineComment: {
-              pollingInterval: 10000,
-              getState: async () => [],
-            },
+        annotationProviders: {
+          inlineComment: {
+            createComponent: ExampleCreateInlineCommentComponent,
+            viewComponent: ExampleViewInlineCommentComponent,
+            getState,
           },
         },
       },
@@ -64,6 +61,9 @@ describe('Snapshot Tests', () => {
       { visible: true },
     );
     await createButton.click();
+    await page.waitForSelector(
+      selectorById(AnnotationTestIds.floatingComponent),
+    );
 
     // click away to make sure highlight and comment box stays relative to previous text
     await clickElementWithText({

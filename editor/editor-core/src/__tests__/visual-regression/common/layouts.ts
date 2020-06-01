@@ -1,4 +1,9 @@
-import { snapshot, initEditorWithAdf, Appearance } from '../_utils';
+import {
+  snapshot,
+  initEditorWithAdf,
+  Appearance,
+  getContentBoundingRectTopLeftCoords,
+} from '../_utils';
 import { Page } from '../../__helpers/page-objects/_types';
 import { layoutSelectors } from '../../__helpers/page-objects/_layouts';
 import * as col2 from './__fixtures__/column2-adf.json';
@@ -64,20 +69,10 @@ describe('Layouts:', () => {
 
   it('should display as selected when clicked on', async () => {
     await initEditor(col2, largeViewport);
-    // page.click clicks in centre of element, so we need to get the bounding rect
-    // so we can click the top left corner
-    const contentBoundingRect = await page.evaluate(selector => {
-      const layoutSection = document.querySelector(selector);
-      if (layoutSection) {
-        const rect = layoutSection.getBoundingClientRect();
-        return { top: rect.top, left: rect.left };
-      }
-    }, layoutSelectors.section);
-
-    if (!contentBoundingRect) {
-      throw Error(`Unable to find element ${layoutSelectors.section} on page`);
-    }
-
+    const contentBoundingRect = await getContentBoundingRectTopLeftCoords(
+      page,
+      layoutSelectors.section,
+    );
     await page.mouse.click(contentBoundingRect.left, contentBoundingRect.top);
   });
 });

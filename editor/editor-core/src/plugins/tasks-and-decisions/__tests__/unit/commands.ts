@@ -1,3 +1,4 @@
+import { selectTaskDecision } from './../../commands';
 import { NodeSelection } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
@@ -386,6 +387,66 @@ describe('tasks and decisions - commands', () => {
                 generatePayload(2, 3),
               );
             });
+          });
+        });
+      },
+    );
+  });
+  describe('selectTaskDecision', () => {
+    const scenarios = [
+      {
+        name: 'decision',
+        listName: 'decisionList' as TaskDecisionListType,
+        list: decisionList,
+        item: decisionItem,
+        listProps: { localId: 'local-uuid' },
+        itemProps: { localId: 'local-uuid' },
+      },
+    ];
+    scenarios.forEach(
+      ({ name, listName, list, item, listProps, itemProps }) => {
+        describe(name, () => {
+          const testContent = `this is a ${name}`;
+          let refs: { [name: string]: number };
+          it(`should select node`, () => {
+            ({ editorView, refs } = editorFactory(
+              doc(
+                list(listProps)(
+                  '{nodeStart}',
+                  item(itemProps)(`${testContent}`),
+                ),
+              ),
+            ));
+            selectTaskDecision(refs['nodeStart'])(
+              editorView.state,
+              editorView.dispatch,
+            );
+
+            const expectedDoc = doc(
+              list(listProps)('{<node>}', item(itemProps)(`${testContent}`)),
+            );
+            expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
+          });
+          it(`should replace selected node when typing`, () => {
+            ({ editorView, sel, refs } = editorFactory(
+              doc(
+                list(listProps)(
+                  '{nodeStart}',
+                  item(itemProps)(`${testContent} 1`),
+                  item(itemProps)(`${testContent} 2`),
+                ),
+              ),
+            ));
+            selectTaskDecision(refs['nodeStart'])(
+              editorView.state,
+              editorView.dispatch,
+            );
+            insertText(editorView, 'aaa');
+
+            const expectedDoc = doc(
+              list(listProps)(item(itemProps)(`aaa{<>}${testContent} 2`)),
+            );
+            expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
           });
         });
       },

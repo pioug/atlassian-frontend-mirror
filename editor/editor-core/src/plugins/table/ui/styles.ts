@@ -524,11 +524,6 @@ export const tableStyles = css`
     }
 
     /* Breakout only works on top level */
-    > .${ClassName.NODEVIEW_WRAPPER} .${ClassName.TABLE_CONTAINER}[data-layout='full-width'],
-    > .${ClassName.NODEVIEW_WRAPPER} .${ClassName.TABLE_CONTAINER}[data-layout='wide'] {
-      margin-left: 50%;
-      transform: translateX(-50%);
-    }
     > * .${ClassName.NODEVIEW_WRAPPER} .${ClassName.TABLE_CONTAINER} {
       width: 100% !important;
     }

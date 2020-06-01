@@ -41,6 +41,7 @@ import { Command } from '../../types';
 import { getSelectionRect, findCellRectClosestToPos } from 'prosemirror-utils';
 import { getPluginState } from './pm-plugins/plugin-factory';
 import { splitCell } from './commands/split-cell';
+import { getAllowAddColumnCustomStep } from './utils/get-allow-add-column-custom-step';
 
 const TABLE_BREAKOUT_NAME_MAPPING = {
   default: TABLE_BREAKOUT.NORMAL,
@@ -314,7 +315,9 @@ export const deleteColumnsWithAnalytics = (
       analyticsV2.trackEvent(
         'atlassian.editor.format.table.delete_column.button',
       );
-      dispatch(deleteColumns(rect)(state.tr));
+      dispatch(
+        deleteColumns(rect, getAllowAddColumnCustomStep(state))(state.tr),
+      );
     }
     return true;
   });

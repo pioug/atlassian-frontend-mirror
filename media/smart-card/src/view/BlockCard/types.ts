@@ -1,7 +1,7 @@
 import { CardState } from '../../state/types';
-import { InvokeHandler } from '../../client/types';
-import { AnalyticsPayload } from '../../utils/types';
+import { InvokeHandler } from '../../model/invoke-handler';
 import { CardAuthFlowOpts } from '../../state/context/types';
+import { AnalyticsHandler } from '../../utils/types';
 
 export type BlockCardProps = {
   url: string;
@@ -9,7 +9,7 @@ export type BlockCardProps = {
   authFlow?: CardAuthFlowOpts['authFlow'];
   handleAuthorize: (() => void) | undefined;
   handleErrorRetry: () => void;
-  handlePreviewAnalytics: (payload: AnalyticsPayload) => void;
+  handlePreviewAnalytics: AnalyticsHandler;
   handleInvoke: InvokeHandler;
   handleFrameClick: React.EventHandler<React.MouseEvent | React.KeyboardEvent>;
   isSelected?: boolean;

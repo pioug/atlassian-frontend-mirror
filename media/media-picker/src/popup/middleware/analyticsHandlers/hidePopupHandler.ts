@@ -2,6 +2,7 @@ import { Action, MiddlewareAPI } from 'redux';
 import { State } from '../../domain';
 import { isHidePopupAction } from '../../actions/hidePopup';
 import { buttonClickPayload, HandlerResult } from '.';
+import { normalizeRecentFilesAge } from '../../tools/normalizeRecentFilesAge';
 
 export default (action: Action, store: MiddlewareAPI<State>): HandlerResult => {
   if (isHidePopupAction(action)) {
@@ -17,6 +18,9 @@ export default (action: Action, store: MiddlewareAPI<State>): HandlerResult => {
             fileSize: item.size,
             accountId: item.accountId,
             serviceName: item.serviceName,
+            ...(item.serviceName === 'recent_files'
+              ? { fileAge: normalizeRecentFilesAge(item.createdAt) }
+              : {}),
           }))
         : [];
 

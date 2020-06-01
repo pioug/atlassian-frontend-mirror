@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/form",
-  "version": "7.2.2",
+  "version": "7.3.0",
   "description": "Form package provides layout & validation for form fields",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -27,7 +27,6 @@
     "@atlaskit/theme": "^9.5.1",
     "final-form": "^4.14.1",
     "final-form-focus": "^1.1.0",
-    "memoize-one": "^5.1.0",
     "react-uid": "^2.2.0",
     "tiny-invariant": "^0.0.3",
     "tslib": "^1.9.3"
@@ -38,7 +37,7 @@
   },
   "devDependencies": {
     "@atlaskit/build-utils": "*",
-    "@atlaskit/button": "^13.3.12",
+    "@atlaskit/button": "^13.4.0",
     "@atlaskit/calendar": "^9.2.8",
     "@atlaskit/checkbox": "^10.1.12",
     "@atlaskit/datetime-picker": "^9.4.2",
@@ -47,7 +46,7 @@
     "@atlaskit/droplist": "^10.0.5",
     "@atlaskit/field-radio-group": "^7.0.2",
     "@atlaskit/field-range": "^8.0.2",
-    "@atlaskit/modal-dialog": "^10.5.9",
+    "@atlaskit/modal-dialog": "^10.6.0",
     "@atlaskit/multi-select": "^14.0.1",
     "@atlaskit/radio": "^3.2.2",
     "@atlaskit/section-message": "^4.1.9",

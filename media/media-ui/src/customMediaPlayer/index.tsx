@@ -260,7 +260,7 @@ export class CustomMediaPlayer extends Component<
 
   renderSpinner = () => (
     <SpinnerWrapper>
-      <Spinner invertColor size="large" />
+      <Spinner appearance="invert" size="large" />
     </SpinnerWrapper>
   );
 

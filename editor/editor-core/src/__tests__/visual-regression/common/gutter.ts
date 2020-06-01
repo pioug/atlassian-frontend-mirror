@@ -42,6 +42,6 @@ describe('Gutter:', () => {
     await typeInEditorAtEndOfDocument(page, '/decision', { delay: 100 });
     await pressKey(page, 'Enter');
 
-    await page.waitForSelector(decisionSelectors.decision);
+    await page.waitForSelector(decisionSelectors.decisionItem);
   });
 });

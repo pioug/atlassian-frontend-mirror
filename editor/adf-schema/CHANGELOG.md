@@ -1,5 +1,39 @@
 # @atlaskit/adf-schema
 
+## 10.0.0
+
+### Major Changes
+
+- [`e30894b112`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e30894b112) - [FM-3716] Breaking changing: AnnotationType is now AnnotationTypes
+
+  ```js
+  // Before
+
+  import { AnnotationType } from '@atlaskit/adf-schema';
+
+  annotation({
+    type: AnnotationType,
+  });
+
+  // After
+
+  import { AnnotationTypes } from '@atlaskit/adf-schema';
+
+  annotation({
+    type: AnnotationTypes.INLINE_COMMENT,
+  });
+  ```
+
+### Minor Changes
+
+- [`39b2e48c32`](https://bitbucket.org/atlassian/atlassian-frontend/commits/39b2e48c32) - Export new Add Column custom step in `@atlaskit/adf-schema/steps`
+- [`50c333ab3a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/50c333ab3a) - EDM-216: Adds EmbedCards in the Editor under the flag - allowEmbeds in the UNSAFE_cards prop
+
+### Patch Changes
+
+- [`0964848b95`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0964848b95) - [FM-3505] Add support for inline comments in the renderer mobile bridge getElementScrollOffsetByNodeType function
+- [`54d82b49f0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54d82b49f0) - Remove unused dependencies
+
 ## 9.0.2
 
 ### Patch Changes

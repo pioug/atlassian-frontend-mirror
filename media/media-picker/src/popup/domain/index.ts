@@ -143,6 +143,7 @@ export interface ServiceFile {
   readonly date: number;
   readonly occurrenceKey?: string;
   readonly metadata?: any;
+  readonly createdAt?: number;
 }
 
 export interface SelectedItem extends ServiceFile {

@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 import React from 'react';
 import { IntlProvider } from 'react-intl';
 import { InlineCardUnauthorizedView } from '..';
@@ -41,5 +41,25 @@ describe('Unauthorised View', () => {
     );
 
     expect(container.textContent).toEqual(`${testUrl} - Connect to preview`);
+  });
+
+  it('should not redirect user if they do not click on the authorize button', () => {
+    const onClick = jest.fn();
+    const onAuthorise = jest.fn();
+    const testUrl = 'http://unauthorised-test/';
+    const { getByText } = render(
+      <IntlProvider locale="en">
+        <InlineCardUnauthorizedView
+          url={testUrl}
+          onClick={onClick}
+          onAuthorise={onAuthorise}
+        />
+      </IntlProvider>,
+    );
+
+    const message = getByText(testUrl);
+    fireEvent.click(message!);
+    expect(onClick).toHaveBeenCalled();
+    expect(onAuthorise).not.toHaveBeenCalled();
   });
 });

@@ -51,6 +51,16 @@ type InvalidTransactionErrorAEP = OperationalAEP<
   undefined
 >;
 
+type InvalidTransactionStepErrorAEP = OperationalAEP<
+  ACTION.DISCARDED_INVALID_STEPS_FROM_TRANSACTION,
+  ACTION_SUBJECT.EDITOR,
+  undefined,
+  {
+    analyticsEventPayloads: AnalyticsEventPayloadWithChannel[];
+  },
+  undefined
+>;
+
 type FailedToUnmountErrorAEP = OperationalAEP<
   ACTION.FAILED_TO_UNMOUNT,
   ACTION_SUBJECT.EDITOR,
@@ -65,6 +75,18 @@ type FailedToUnmountErrorAEP = OperationalAEP<
   undefined
 >;
 
+type SynchronyErrorAEP = OperationalAEP<
+  ACTION.SYNCHRONY_ERROR,
+  ACTION_SUBJECT.EDITOR,
+  undefined,
+  {
+    error: Error;
+  },
+  undefined
+>;
+
 export type ErrorEventPayload =
   | InvalidTransactionErrorAEP
-  | FailedToUnmountErrorAEP;
+  | InvalidTransactionStepErrorAEP
+  | FailedToUnmountErrorAEP
+  | SynchronyErrorAEP;

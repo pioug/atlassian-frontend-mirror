@@ -25,7 +25,7 @@ export const Frame = (
   props.compact ? <CompactFrame {...props} /> : <ExpandedFrame {...props} />;
 
 const sharedFrameStyles = {
-  maxWidth: gs(85),
+  maxWidth: gs(95),
   width: '100%',
   display: 'flex',
   backgroundColor: 'white',
@@ -49,7 +49,7 @@ export const ExpandedFrame = ({
           : undefined,
         minHeight: [gs(21), gs(15)],
         borderRadius: isSelected ? br() : br(0.5),
-        border: isSelected ? `2px solid ${B200}` : '',
+        border: `2px solid ${isSelected ? B200 : 'transparent'}`,
         justifyContent: 'space-between',
         overflow: 'hidden',
         boxShadow: `0 1px 1px ${N50A}, 0 0 1px 0 ${N60A};`,

@@ -5,7 +5,6 @@ import {
   Wrapper,
   Header,
   IconWrapper,
-  // ResolvedViewIconWrapper,
   TextWrapper,
   Content,
 } from './styled';

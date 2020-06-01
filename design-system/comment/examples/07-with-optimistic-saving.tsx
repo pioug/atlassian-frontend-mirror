@@ -9,7 +9,7 @@ import avatarImg from './utils/sample-avatar.png';
 export default () => (
   <Comment
     author={<CommentAuthor>John Smith</CommentAuthor>}
-    avatar={<Avatar src={avatarImg} label="Atlaskit avatar" />}
+    avatar={<Avatar src={avatarImg} />}
     time={<CommentTime>30, August 2016</CommentTime>}
     type="Author"
     isSaving

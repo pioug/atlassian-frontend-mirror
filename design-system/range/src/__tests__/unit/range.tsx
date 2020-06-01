@@ -1,7 +1,9 @@
 /* eslint-disable no-undef, import/no-extraneous-dependencies */
 import React from 'react';
+
 import { mount } from 'enzyme';
-import Range from '../..';
+
+import Range from '../../index';
 
 describe('Range', () => {
   describe('with default props', () => {
@@ -90,7 +92,17 @@ describe('Range', () => {
       expect(input.props().disabled).toBe(false);
     });
 
-    it('hould pass all the extra props passed down to hidden input', () => {
+    it('should use the ref prop', () => {
+      const ref = React.createRef<HTMLInputElement>();
+      const range = mount(
+        <Range ref={ref} value={25} min={10} max={20} onChange={onChangeSpy} />,
+      );
+
+      const input = range.find('input');
+      expect(input.getDOMNode()).toBe(ref.current);
+    });
+
+    it('should pass all the extra props passed down to hidden input', () => {
       const range = mount(
         <Range value={25} min={10} max={20} onChange={onChangeSpy} />,
       );

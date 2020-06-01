@@ -27,6 +27,7 @@ export const Byline = ({ text, children, testId }: BylineProps) => (
       wordBreak: 'break-word',
       // Fallback options.
       maxHeight: gs(5),
+      whiteSpace: 'pre-line',
     })}
     data-testid={testId}
   >

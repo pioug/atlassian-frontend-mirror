@@ -4,15 +4,17 @@ import styled from 'styled-components';
 import { Node as PMNode } from 'prosemirror-model';
 import { EditorView, NodeView } from 'prosemirror-view';
 import { Color, Status, StatusStyle } from '@atlaskit/status/element';
+import {
+  akEditorSelectedBorderStyles,
+  ZERO_WIDTH_SPACE,
+} from '@atlaskit/editor-common';
 import { ReactNodeView, getPosHandler } from '../../../nodeviews';
 import InlineNodeWrapper, {
   createMobileInlineDomRef,
 } from '../../../ui/InlineNodeWrapper';
 import { PortalProviderAPI } from '../../../ui/PortalProvider';
-import { ZeroWidthSpace } from '../../../utils';
 import { EventDispatcher } from '../../../event-dispatcher';
 import { StatusPluginOptions } from '../types';
-import { akEditorSelectedBorderStyles } from '@atlaskit/editor-common';
 
 export const messages = defineMessages({
   placeholder: {
@@ -138,7 +140,7 @@ export class StatusNodeView extends ReactNodeView<Props> {
           style={style}
           localId={localId}
         />
-        {options && options.allowZeroWidthSpaceAfter && ZeroWidthSpace}
+        {options && options.allowZeroWidthSpaceAfter && ZERO_WIDTH_SPACE}
       </InlineNodeWrapper>
     );
   }

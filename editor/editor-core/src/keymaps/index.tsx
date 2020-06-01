@@ -148,20 +148,26 @@ export function tooltip(
   return;
 }
 
-export function renderTooltipContent(
-  description?: string | React.ReactNode,
-  keymap?: Keymap,
-  shortcutOverride?: string,
-): React.ReactNode | undefined {
-  const shortcut = shortcutOverride || (keymap && formatShortcut(keymap));
-  return shortcut || description ? (
-    <>
-      {description}
-      {shortcut && description && '\u00A0'}
-      {shortcut && <TooltipShortcut>{shortcut}</TooltipShortcut>}
-    </>
-  ) : null;
-}
+export const ToolTipContent = React.memo(
+  ({
+    description,
+    shortcutOverride,
+    keymap,
+  }: {
+    description?: string | React.ReactNode;
+    keymap?: Keymap;
+    shortcutOverride?: string;
+  }) => {
+    const shortcut = shortcutOverride || (keymap && formatShortcut(keymap));
+    return shortcut || description ? (
+      <>
+        {description}
+        {shortcut && description && '\u00A0'}
+        {shortcut && <TooltipShortcut>{shortcut}</TooltipShortcut>}
+      </>
+    ) : null;
+  },
+);
 
 export function findKeymapByDescription(
   description: string,

@@ -8,6 +8,7 @@ import {
   createCardClient,
 } from '../providers';
 import { createEmojiProvider } from '../providers/emojiProvider';
+import { getAllowAnnotations } from '../query-param-reader';
 
 function main() {
   const params = new URLSearchParams(window.location.search);
@@ -23,6 +24,7 @@ function main() {
       emojiProvider={createEmojiProvider()}
       mediaProvider={createMediaProvider()}
       mentionProvider={createMentionProvider()}
+      allowAnnotations={getAllowAnnotations()}
     />,
     document.getElementById('renderer'),
   );

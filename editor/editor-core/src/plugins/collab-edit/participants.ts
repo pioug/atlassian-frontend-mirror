@@ -58,6 +58,10 @@ export class Participants implements ReadOnlyParticipants {
     return this.participants.get(sessionId);
   }
 
+  size() {
+    return this.participants.size;
+  }
+
   eq(other: Participants) {
     const left = this.toArray()
       .map(p => p.sessionId)

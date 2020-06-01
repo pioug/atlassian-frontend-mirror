@@ -2,7 +2,7 @@ import React from 'react';
 import { findDomRefAtPos } from 'prosemirror-utils';
 import { EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
-import { annotation } from '@atlaskit/adf-schema';
+import { annotation, AnnotationTypes } from '@atlaskit/adf-schema';
 import { EditorPlugin } from '../../types';
 import { CommandDispatch } from '../../types/command';
 import WithPluginState from '../../ui/WithPluginState';
@@ -11,27 +11,28 @@ import { FloatingToolbarConfig } from '../floating-toolbar/types';
 import { keymapPlugin } from './pm-plugins/keymap';
 
 import {
-  AnnotationProvider,
-  AnnotationInfo,
-  AnnotationState,
-  InlineCommentState,
-  AnnotationCreateComponentProps,
-  AnnotationViewComponentProps,
-  AnnotationTypeProvider,
-  AnnotationTestIds,
-  AnnotationTypes,
-  InlineCommentPluginState,
-} from './types';
-import { reorderAnnotations } from './utils';
-import {
-  removeInlineCommentNearSelection,
-  resolveInlineComment,
-  setInlineCommentDraftState,
-} from './commands';
-import {
   inlineCommentPlugin,
   getPluginState,
 } from './pm-plugins/inline-comment';
+import { InlineCommentPluginState } from './pm-plugins/types';
+import {
+  AnnotationProviders,
+  InlineCommentAnnotationProvider,
+  AnnotationInfo,
+  AnnotationState,
+  InlineCommentState,
+  InlineCommentCreateComponentProps,
+  InlineCommentViewComponentProps,
+  AnnotationTypeProvider,
+  AnnotationTestIds,
+} from './types';
+import { UpdateEvent, AnnotationUpdateEmitter } from './update-provider';
+import { findAnnotationsInSelection, getAnnotationViewKey } from './utils';
+import {
+  removeInlineCommentNearSelection,
+  updateInlineCommentResolvedState,
+  setInlineCommentDraftState,
+} from './commands';
 import { buildToolbar } from './toolbar';
 import { inlineCommentPluginKey } from './pm-plugins/plugin-factory';
 import {
@@ -40,44 +41,13 @@ import {
   ACTION_SUBJECT,
   EVENT_TYPE,
   ACTION_SUBJECT_ID,
+  DispatchAnalyticsEvent,
 } from '../analytics';
-import { RESOLVE_METHOD } from '../analytics/types/inline-comment-events';
-
-function annotationEnabled(
-  provider?: AnnotationProvider,
-): provider is Required<AnnotationProvider> {
-  if (!provider) {
-    return false;
-  }
-
-  const { createComponent, viewComponent, providers } = provider;
-  return !!providers && !!createComponent && !!viewComponent;
-}
-
-const findAnnotationsInSelection = (state: EditorState): AnnotationInfo[] => {
-  // Only detect annotations on caret selection
-  if (!state.selection.empty) {
-    return [];
-  }
-
-  const { anchor } = state.selection;
-  const { annotation: annotationMarkType } = state.schema.marks;
-
-  const node = state.doc.nodeAt(anchor);
-  if (!node || !node.marks.length) {
-    return [];
-  }
-
-  const annotations = node.marks
-    .filter(mark => mark.type === annotationMarkType)
-    .map(mark => ({
-      id: mark.attrs.id,
-      type: mark.attrs.annotationType,
-    }));
-
-  reorderAnnotations(annotations, state.selection.$anchor);
-  return annotations;
-};
+import {
+  RESOLVE_METHOD,
+  AnnotationAEP,
+} from '../analytics/types/inline-comment-events';
+import { AnnotationViewWrapper } from './ui';
 
 export const createAnnotation = (
   state: EditorState,
@@ -99,6 +69,14 @@ export const createAnnotation = (
     id,
     type: annotationType,
   });
+
+  /**
+   * Optimistic creation: This will create the comment right away in the state,
+   * assuming no failure on consumer side. We will follow up on failure scenarios under
+   * https://product-fabric.atlassian.net/browse/ED-9338
+   **/
+  updateInlineCommentResolvedState({ [id]: false })(state, dispatch);
+
   setInlineCommentDraftState(false)(state, dispatch);
 
   const tr = addAnalytics(state, state.tr.addMark(from, to, annotationMark), {
@@ -110,18 +88,24 @@ export const createAnnotation = (
   dispatch(tr);
 };
 
-const renderComponent = (
-  provider: AnnotationProvider,
+const renderInlineCommentComponents = (
+  providers: AnnotationProviders,
   editorView: EditorView,
+  dispatchAnalyticsEvent?: DispatchAnalyticsEvent,
 ) => () => {
+  // As inlineComment is the only annotation present, this function is not generic
+  const { inlineComment: inlineCommentProvider } = providers;
   const { state, dispatch } = editorView;
+
   const {
     createComponent: CreateComponent,
     viewComponent: ViewComponent,
-  } = provider;
+  } = inlineCommentProvider;
   const inlineCommentState = getPluginState(state);
+
+  const selPositions = getSelectionPositions(state, inlineCommentState);
   const dom = findDomRefAtPos(
-    getSelectionPositions(state, inlineCommentState).from,
+    selPositions.from,
     editorView.domAtPos.bind(editorView),
   ) as HTMLElement;
 
@@ -130,10 +114,17 @@ const renderComponent = (
     if (!CreateComponent) {
       return null;
     }
+
+    //getting all text between bookmarked positions
+    const textselection = state.doc.textBetween(
+      selPositions.from,
+      selPositions.to,
+    );
     return (
       <div data-testid={AnnotationTestIds.floatingComponent}>
         <CreateComponent
           dom={dom}
+          textSelection={textselection}
           onCreate={createAnnotation(state, dispatch)}
           onClose={() => {
             setInlineCommentDraftState(false)(state, dispatch);
@@ -144,15 +135,38 @@ const renderComponent = (
   }
 
   // View Component
-  const annotations = findAnnotationsInSelection(state).filter(
-    mark => inlineCommentState.annotations[mark.id] === false,
-  );
+  const annotations = findAnnotationsInSelection(
+    state.selection,
+    state.doc,
+  ).filter(mark => inlineCommentState.annotations[mark.id] === false);
   if (!ViewComponent || annotations.length === 0) {
     return null;
   }
 
+  const onAnnotationViewed = () => {
+    if (!dispatchAnalyticsEvent) {
+      return;
+    }
+
+    // fire analytics
+    const payload: AnnotationAEP = {
+      action: ACTION.VIEWED,
+      actionSubject: ACTION_SUBJECT.ANNOTATION,
+      actionSubjectId: ACTION_SUBJECT_ID.INLINE_COMMENT,
+      eventType: EVENT_TYPE.TRACK,
+      attributes: {
+        overlap: annotations.length,
+      },
+    };
+    dispatchAnalyticsEvent(payload);
+  };
+
   return (
-    <div data-testid={AnnotationTestIds.floatingComponent}>
+    <AnnotationViewWrapper
+      data-testid={AnnotationTestIds.floatingComponent}
+      key={getAnnotationViewKey(annotations)}
+      onViewed={onAnnotationViewed}
+    >
       <ViewComponent
         annotations={annotations}
         dom={dom}
@@ -160,10 +174,13 @@ const renderComponent = (
           removeInlineCommentNearSelection(id)(state, dispatch)
         }
         onResolve={(id: string) =>
-          resolveInlineComment(id, RESOLVE_METHOD.COMPONENT)(state, dispatch)
+          updateInlineCommentResolvedState(
+            { [id]: true },
+            RESOLVE_METHOD.COMPONENT,
+          )(state, dispatch)
         }
       />
-    </div>
+    </AnnotationViewWrapper>
   );
 };
 
@@ -191,7 +208,7 @@ function getSelectionPositions(
 }
 
 const annotationPlugin = (
-  annotationProvider?: AnnotationProvider,
+  annotationProviders?: AnnotationProviders,
 ): EditorPlugin => {
   return {
     name: 'annotation',
@@ -209,35 +226,32 @@ const annotationPlugin = (
       {
         name: 'annotation',
         plugin: ({ dispatch, portalProviderAPI, eventDispatcher }) => {
-          return annotationProvider &&
-            annotationProvider.providers &&
-            annotationProvider.providers.inlineComment
-            ? inlineCommentPlugin({
-                dispatch,
-                portalProviderAPI,
-                eventDispatcher,
-                inlineCommentProvider:
-                  annotationProvider.providers.inlineComment,
-                pollingInterval:
-                  annotationProvider.providers.inlineComment.pollingInterval,
-              })
-            : undefined;
+          if (annotationProviders) {
+            return inlineCommentPlugin({
+              dispatch,
+              portalProviderAPI,
+              eventDispatcher,
+              provider: annotationProviders.inlineComment,
+            });
+          }
+
+          return;
         },
       },
       {
         name: 'annotationKeymap',
         plugin: () => {
-          return annotationEnabled(annotationProvider) &&
-            annotationProvider.providers.inlineComment
-            ? keymapPlugin()
-            : undefined;
+          if (annotationProviders) {
+            return keymapPlugin();
+          }
+          return;
         },
       },
     ],
 
     pluginsOptions: {
       floatingToolbar(state, intl): FloatingToolbarConfig | undefined {
-        if (!annotationEnabled(annotationProvider)) {
+        if (!annotationProviders) {
           return;
         }
 
@@ -248,8 +262,8 @@ const annotationPlugin = (
       },
     },
 
-    contentComponent({ editorView }) {
-      if (!annotationEnabled(annotationProvider)) {
+    contentComponent({ editorView, dispatchAnalyticsEvent }) {
+      if (!annotationProviders) {
         return null;
       }
 
@@ -259,7 +273,11 @@ const annotationPlugin = (
             selectionState: reactPluginKey,
             inlineCommentState: inlineCommentPluginKey,
           }}
-          render={renderComponent(annotationProvider, editorView)}
+          render={renderInlineCommentComponents(
+            annotationProviders,
+            editorView,
+            dispatchAnalyticsEvent,
+          )}
         />
       );
     },
@@ -268,12 +286,14 @@ const annotationPlugin = (
 
 export default annotationPlugin;
 export {
-  AnnotationProvider,
-  AnnotationCreateComponentProps,
-  AnnotationViewComponentProps,
+  AnnotationProviders,
+  InlineCommentAnnotationProvider,
+  InlineCommentCreateComponentProps,
+  InlineCommentViewComponentProps,
   AnnotationTypeProvider,
   AnnotationInfo,
   AnnotationState,
-  AnnotationTypes,
   InlineCommentState,
+  UpdateEvent,
+  AnnotationUpdateEmitter,
 };

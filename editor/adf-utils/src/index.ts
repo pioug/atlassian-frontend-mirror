@@ -15,6 +15,7 @@ export {
   decisionList,
   doc,
   em,
+  embedCard,
   emoji,
   expand,
   extension,
@@ -61,6 +62,7 @@ export {
   underline,
 } from './builders';
 export { filter, map, reduce, traverse } from './traverse';
+export { sanitizeNode, removeMarks } from './sanitize';
 export {
   Content,
   ErrorCallback,

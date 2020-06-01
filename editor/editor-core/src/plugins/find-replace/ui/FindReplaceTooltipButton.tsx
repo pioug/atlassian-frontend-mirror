@@ -1,10 +1,7 @@
 import React from 'react';
 import Button from '@atlaskit/button';
 import Tooltip from '@atlaskit/tooltip';
-import {
-  renderTooltipContent,
-  findKeymapByDescription,
-} from '../../../keymaps';
+import { ToolTipContent, findKeymapByDescription } from '../../../keymaps';
 
 interface Props {
   title: string;
@@ -25,11 +22,12 @@ export class FindReplaceTooltipButton extends React.PureComponent<Props> {
     const { title, icon, keymapDescription, disabled } = this.props;
     return (
       <Tooltip
-        content={renderTooltipContent(
-          title,
-          findKeymapByDescription(keymapDescription),
-          undefined,
-        )}
+        content={
+          <ToolTipContent
+            description={title}
+            keymap={findKeymapByDescription(keymapDescription)}
+          />
+        }
         hideTooltipOnClick={true}
         position={'top'}
       >

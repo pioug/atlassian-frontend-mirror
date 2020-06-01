@@ -9,9 +9,9 @@ jest.doMock('../../utils/analytics', () => mockEvents);
 jest.doMock('@atlaskit/outbound-auth-flow-client', () => ({
   auth: mockAuthFlow,
 }));
-const mockFetchError = jest.fn();
+const mockAPIError = jest.fn();
 jest.doMock('../../client/errors', () => ({
-  FetchError: mockFetchError,
+  APIError: mockAPIError,
 }));
 import CardClient from '../../client';
 import React from 'react';
@@ -48,7 +48,7 @@ describe('smart-card: success analytics', () => {
 
   describe('resolved', () => {
     it('should fire the resolved analytics event when the url was resolved', async () => {
-      const mockUrl = 'this.is.the.sixth.url';
+      const mockUrl = 'https://this.is.the.sixth.url';
       const { getByTestId, getByRole } = render(
         <Provider client={mockClient}>
           <Card testId="resolvedCard1" appearance="inline" url={mockUrl} />
@@ -64,9 +64,9 @@ describe('smart-card: success analytics', () => {
       expect(resolvedView).toBeTruthy();
       expect(resolvedCard).toBeTruthy();
       expect(mockEvents.resolvedEvent).toHaveBeenCalledTimes(1);
-      expect(mockEvents.resolvedEvent).toHaveBeenCalledWith('d1');
       expect(mockEvents.fireSmartLinkEvent).toBeCalledWith(
         {
+          action: 'resolved',
           attributes: {
             componentName: 'smart-cards',
             display: 'inline',
@@ -78,7 +78,7 @@ describe('smart-card: success analytics', () => {
     });
 
     it('should fire clicked analytics event when a resolved URL is clicked', async () => {
-      const mockUrl = 'this.is.the.seventh.url';
+      const mockUrl = 'https://this.is.the.seventh.url';
       const { getByTestId, getByRole } = render(
         <Provider client={mockClient}>
           <Card testId="resolvedCard2" appearance="inline" url={mockUrl} />
@@ -94,7 +94,6 @@ describe('smart-card: success analytics', () => {
       expect(resolvedView).toBeTruthy();
       expect(resolvedCard).toBeTruthy();
       expect(mockEvents.resolvedEvent).toHaveBeenCalledTimes(1);
-      expect(mockEvents.resolvedEvent).toHaveBeenCalledWith('d1');
 
       fireEvent.click(resolvedCard);
       expect(mockWindowOpen).toHaveBeenCalledTimes(1);
@@ -102,7 +101,7 @@ describe('smart-card: success analytics', () => {
     });
 
     it('should fire render failure when an unexpected error happens', async () => {
-      const mockUrl = 'this.is.the.sixth.url';
+      const mockUrl = 'https://this.is.the.sixth.url';
       // Notice we are not wrapping Card within a Provider intentionally, to make it throw an error
       render(<Card testId="resolvedCard1" appearance="inline" url={mockUrl} />);
 
@@ -112,7 +111,7 @@ describe('smart-card: success analytics', () => {
   });
 
   it('block: should fire invokeSucceeded event when an action is clicked & processed', async () => {
-    const mockUrl = 'this.is.the.eigth.url';
+    const mockUrl = 'https://this.is.the.eigth.url';
     const { getByTestId } = render(
       <Provider client={mockClient}>
         <Card
@@ -132,7 +131,6 @@ describe('smart-card: success analytics', () => {
     expect(resolvedView).toBeTruthy();
     expect(downloadActionButton).toBeTruthy();
     expect(mockEvents.resolvedEvent).toHaveBeenCalledTimes(1);
-    expect(mockEvents.resolvedEvent).toHaveBeenCalledWith('d1');
 
     fireEvent.click(downloadActionButton);
     await wait(() => {
@@ -145,7 +143,7 @@ describe('smart-card: success analytics', () => {
     mockPostData.mockImplementationOnce(async () =>
       Promise.reject(new Error('something happened')),
     );
-    const mockUrl = 'this.is.the.eigth.url';
+    const mockUrl = 'https://this.is.the.eigth.url';
     const { getByTestId } = render(
       <Provider client={mockClient}>
         <Card
@@ -165,13 +163,13 @@ describe('smart-card: success analytics', () => {
     expect(resolvedView).toBeTruthy();
     expect(downloadActionButton).toBeTruthy();
     expect(mockEvents.resolvedEvent).toHaveBeenCalledTimes(1);
-    expect(mockEvents.resolvedEvent).toHaveBeenCalledWith('d1');
 
     fireEvent.click(downloadActionButton);
     await wait(() => {
       expect(mockEvents.uiActionClickedEvent).toHaveBeenCalledTimes(1);
       expect(mockEvents.invokeFailedEvent).toHaveBeenCalledTimes(1);
       expect(mockEvents.invokeFailedEvent).toHaveBeenCalledWith(
+        expect.any(String),
         'object-provider',
         'CommentAction',
         'block',
@@ -181,7 +179,7 @@ describe('smart-card: success analytics', () => {
   });
 
   it('preview: should fire analytics on invocation, and render preview', async () => {
-    const mockUrl = 'this.is.the.eigth.url';
+    const mockUrl = 'https://this.is.the.eigth.url';
     const { getByTestId } = render(
       <Provider client={mockClient}>
         <Card
@@ -201,7 +199,6 @@ describe('smart-card: success analytics', () => {
     expect(resolvedView).toBeTruthy();
     expect(previewActionButton).toBeTruthy();
     expect(mockEvents.resolvedEvent).toHaveBeenCalledTimes(1);
-    expect(mockEvents.resolvedEvent).toHaveBeenCalledWith('d1');
 
     fireEvent.click(previewActionButton);
     // Analytics tied to block card should be fired.
@@ -209,6 +206,7 @@ describe('smart-card: success analytics', () => {
       expect(mockEvents.uiActionClickedEvent).toHaveBeenCalledTimes(1);
       expect(mockEvents.invokeSucceededEvent).toHaveBeenCalledTimes(1);
       expect(mockEvents.invokeSucceededEvent).toHaveBeenCalledWith(
+        expect.any(String),
         'd1',
         'PreviewAction',
         'block',

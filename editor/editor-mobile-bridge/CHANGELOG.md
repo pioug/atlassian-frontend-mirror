@@ -1,5 +1,25 @@
 # @atlaskit/editor-mobile-bridge
 
+## 14.0.0
+
+### Major Changes
+
+- [`76160b5c71`](https://bitbucket.org/atlassian/atlassian-frontend/commits/76160b5c71) - [FM-2506] added cursor selection location plugin
+- [`e30894b112`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e30894b112) - [FM-3716] First Inline Comments implementation for Renderer
+- [`3fdfbc0db1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3fdfbc0db1) - [FM-3678] Enable Renderer Inline Comments on mobile bridge
+- [`319fc073ae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/319fc073ae) - [FM-3670] placeholder text showing in editor
+- [`28df29aa39`](https://bitbucket.org/atlassian/atlassian-frontend/commits/28df29aa39) - [FM-3579] shadow on table in editor not aligned correctly
+
+### Minor Changes
+
+- [`0964848b95`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0964848b95) - [FM-3505] Add support for inline comments in the renderer mobile bridge getElementScrollOffsetByNodeType function
+
+### Patch Changes
+
+- [`e513ce3d8b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e513ce3d8b) - ED-9179: Enable missing providers for archv3 mobile bridge
+- [`54d82b49f0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54d82b49f0) - Remove unused dependencies
+- Updated dependencies
+
 ## 13.0.6
 
 ### Patch Changes

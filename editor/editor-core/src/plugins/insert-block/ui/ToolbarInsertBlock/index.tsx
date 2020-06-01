@@ -1,25 +1,6 @@
 import React, { ReactInstance } from 'react';
 import ReactDOM from 'react-dom';
-import { InjectedIntlProps, injectIntl } from 'react-intl';
-import AddIcon from '@atlaskit/icon/glyph/editor/add';
-import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
-import TableIcon from '@atlaskit/icon/glyph/editor/table';
-import EditorImageIcon from '@atlaskit/icon/glyph/editor/image';
-import CodeIcon from '@atlaskit/icon/glyph/editor/code';
-import InfoIcon from '@atlaskit/icon/glyph/editor/info';
-import MentionIcon from '@atlaskit/icon/glyph/editor/mention';
-import TaskIcon from '@atlaskit/icon/glyph/editor/task';
-import DecisionIcon from '@atlaskit/icon/glyph/editor/decision';
-import QuoteIcon from '@atlaskit/icon/glyph/quote';
-import EditorMoreIcon from '@atlaskit/icon/glyph/editor/more';
-import LinkIcon from '@atlaskit/icon/glyph/editor/link';
-import EmojiIcon from '@atlaskit/icon/glyph/editor/emoji';
-import DateIcon from '@atlaskit/icon/glyph/editor/date';
-import StatusIcon from '@atlaskit/icon/glyph/status';
-import ExpandNodeIcon from '@atlaskit/icon/glyph/chevron-right-circle';
-import PlaceholderTextIcon from '@atlaskit/icon/glyph/media-services/text';
-import LayoutTwoEqualIcon from '@atlaskit/icon/glyph/editor/layout-two-equal';
-import HorizontalRuleIcon from '@atlaskit/icon/glyph/editor/horizontal-rule';
+import { InjectedIntlProps, injectIntl, FormattedMessage } from 'react-intl';
 import { EmojiPicker as AkEmojiPicker } from '@atlaskit/emoji/picker';
 import { EmojiId } from '@atlaskit/emoji/types';
 import { akEditorMenuZIndex, Popup } from '@atlaskit/editor-common';
@@ -28,27 +9,18 @@ import {
   withAnalytics,
 } from '../../../../analytics';
 import {
-  addLink,
   findKeymapByDescription,
   findShortcutByDescription,
-  renderTooltipContent,
-  toggleTable,
   tooltip,
 } from '../../../../keymaps';
 import DropdownMenu from '../../../../ui/DropdownMenu';
 import ToolbarButton from '../../../../ui/ToolbarButton';
-import {
-  ButtonGroup,
-  ExpandIconWrapper,
-  Shortcut,
-  Wrapper,
-} from '../../../../ui/styles';
+import { ButtonGroup, Wrapper } from '../../../../ui/styles';
 import { BlockType } from '../../../block-type/types';
 import { createTable } from '../../../table/commands';
 import { insertDate, openDatePicker } from '../../../date/actions';
 import { showPlaceholderFloatingToolbar } from '../../../placeholder-text/actions';
 import { createHorizontalRule } from '../../../rule/pm-plugins/input-rule';
-import { TriggerWrapper } from './styles';
 import { insertLayoutColumnsWithAnalytics } from '../../../layout/actions';
 import { insertTaskDecision } from '../../../tasks-and-decisions/commands';
 import { insertExpand } from '../../../expand/commands';
@@ -66,14 +38,9 @@ import {
 import { insertEmoji } from '../../../emoji/commands/insert-emoji';
 import { DropdownItem } from '../../../block-type/ui/ToolbarBlockType';
 import { messages } from './messages';
-import { MenuItem } from '../../../../ui/DropdownMenu/types';
 import { Props, State, TOOLBAR_MENU_TYPE } from './types';
-
-const blockTypeIcons = {
-  codeblock: CodeIcon,
-  panel: InfoIcon,
-  blockquote: QuoteIcon,
-};
+import { createItems } from './create-items';
+import { DropDownButton } from './dropdown-button';
 
 /**
  * Checks if an element is detached (i.e. not in the current document)
@@ -81,7 +48,7 @@ const blockTypeIcons = {
 const isDetachedElement = (el: HTMLElement) => !document.body.contains(el);
 const noop = () => {};
 
-class ToolbarInsertBlock extends React.PureComponent<
+class ToolbarInsertBlock extends React.Component<
   Props & InjectedIntlProps,
   State
 > {
@@ -219,42 +186,12 @@ class ToolbarInsertBlock extends React.PureComponent<
     }
   };
 
-  private sanitizeProductMenuItems(dropdownItems: MenuItem[]) {
-    // Confluence specific sorting:
-    // These value names are hard coded and unlikely to change.
-    const viewMoreItem = dropdownItems.find(
-      item => item.value.name === 'macro-browser',
-    );
-    if (viewMoreItem) {
-      // Ensure the view more button for optional product macro browsers is put at the end,
-      // regardless of alphabetical ordering from internationalised labelling.
-      dropdownItems.splice(dropdownItems.indexOf(viewMoreItem), 1);
-      dropdownItems.push(viewMoreItem);
-    }
-    const slashOnboardingItem = dropdownItems.find(
-      item => item.value.name === 'slash-onboarding',
-    );
-    if (slashOnboardingItem) {
-      // Sometimes products augment an additional react component at the end of the list
-      // so we ensure its last.
-      dropdownItems.splice(dropdownItems.indexOf(slashOnboardingItem), 1);
-      dropdownItems.push(slashOnboardingItem);
-    }
-  }
-
-  private sortMenuItems(dropdownItems: MenuItem[]) {
-    // sort list, remove macros and then reattach (this ensures the macros are still sorted alphabetically)
-    dropdownItems.sort((a, b) => (a.content < b.content ? -1 : 1));
-    const macros = dropdownItems.filter(
-      item =>
-        typeof item.content === 'string' && item.content.includes('macro'),
-    );
-    dropdownItems = dropdownItems.filter(
-      item =>
-        typeof item.content === 'string' && !item.content.includes('macro'),
-    );
-    return dropdownItems.concat(macros);
-  }
+  private formatMessage = (
+    input: FormattedMessage.MessageDescriptor,
+    values?: any,
+  ): string => {
+    return this.props.intl.formatMessage(input, values);
+  };
 
   render() {
     const { isOpen } = this.state;
@@ -268,48 +205,58 @@ class ToolbarInsertBlock extends React.PureComponent<
       intl: { formatMessage },
     } = this.props;
 
-    const items = this.createItems();
-    if (items.length === 0) {
+    const [buttons, dropdownItems] = createItems({
+      isTypeAheadAllowed: this.props.isTypeAheadAllowed,
+      tableSupported: this.props.tableSupported,
+      mediaUploadsEnabled: this.props.mediaUploadsEnabled,
+      mediaSupported: this.props.mediaSupported,
+      imageUploadSupported: this.props.imageUploadSupported,
+      imageUploadEnabled: this.props.imageUploadEnabled,
+      mentionsSupported: this.props.mentionsSupported,
+      actionSupported: this.props.actionSupported,
+      decisionSupported: this.props.decisionSupported,
+      linkSupported: this.props.linkSupported,
+      linkDisabled: this.props.linkDisabled,
+      emojiDisabled: this.props.emojiDisabled,
+      nativeStatusSupported: this.props.nativeStatusSupported,
+      dateEnabled: this.props.dateEnabled,
+      placeholderTextEnabled: this.props.placeholderTextEnabled,
+      horizontalRuleEnabled: this.props.horizontalRuleEnabled,
+      layoutSectionEnabled: this.props.layoutSectionEnabled,
+      expandEnabled: this.props.expandEnabled,
+      macroProvider: this.props.macroProvider,
+      emojiProvider: this.props.emojiProvider,
+      availableWrapperBlockTypes: this.props.availableWrapperBlockTypes,
+      insertMenuItems: this.props.insertMenuItems,
+      schema: this.props.editorView.state.schema,
+      numberOfButtons,
+      handleButtonRef: this.handleButtonRef,
+      getShortcutBlock: this.getShortcutBlock,
+      formatMessage: this.formatMessage,
+    });
+
+    if (buttons.length === 0 && dropdownItems.length === 0) {
       return null;
     }
-    const buttons = items.slice(0, numberOfButtons);
-    const dropdownItems = this.sortMenuItems(items.slice(numberOfButtons));
-    this.sanitizeProductMenuItems(dropdownItems);
-    const labelInsertMenu = formatMessage(messages.insertMenu);
 
     findShortcutByDescription(messages.insertMenu.description);
 
-    const toolbarButtonFactory = (disabled: boolean, items: Array<any>) => (
-      <ToolbarButton
-        ref={el => this.handleDropDownButtonRef(el, items)}
-        selected={isOpen}
-        disabled={disabled}
-        onClick={this.handleTriggerClick}
-        spacing={isReducedSpacing ? 'none' : 'default'}
-        title={renderTooltipContent(labelInsertMenu, undefined, '/')}
-        iconBefore={
-          <TriggerWrapper>
-            <AddIcon label={labelInsertMenu} />
-            <ExpandIconWrapper>
-              <ExpandIcon label={labelInsertMenu} />
-            </ExpandIconWrapper>
-          </TriggerWrapper>
-        }
-      />
-    );
+    const dropDownLabel = formatMessage(messages.insertMenu);
+    const spacing = isReducedSpacing ? 'none' : 'default';
 
     return (
       <ButtonGroup width={isReducedSpacing ? 'small' : 'large'}>
         {buttons.map(btn => (
           <ToolbarButton
+            item={btn}
             ref={btn.handleRef || noop}
             key={btn.value.name}
             spacing={isReducedSpacing ? 'none' : 'default'}
             disabled={isDisabled || btn.isDisabled}
             iconBefore={btn.elemBefore}
             selected={btn.isActive}
-            title={renderTooltipContent(btn.content, undefined, btn.shortcut)}
-            onClick={() => this.insertToolbarMenuItem(btn)}
+            title={btn.title}
+            onItemClick={this.insertToolbarMenuItem}
           />
         ))}
         <Wrapper>
@@ -328,230 +275,33 @@ class ToolbarInsertBlock extends React.PureComponent<
                 fitWidth={175}
                 zIndex={akEditorMenuZIndex}
               >
-                {toolbarButtonFactory(false, dropdownItems)}
+                <DropDownButton
+                  handleRef={this.handleDropDownButtonRef}
+                  selected={isOpen}
+                  disabled={isDisabled}
+                  onClick={this.handleTriggerClick}
+                  spacing={spacing}
+                  label={dropDownLabel}
+                  items={dropdownItems}
+                />
               </DropdownMenu>
             ) : (
-              <div>{toolbarButtonFactory(true, dropdownItems)}</div>
+              <div>
+                <DropDownButton
+                  handleRef={this.handleDropDownButtonRef}
+                  selected={isOpen}
+                  disabled={isDisabled}
+                  onClick={this.handleTriggerClick}
+                  spacing={spacing}
+                  label={dropDownLabel}
+                  items={dropdownItems}
+                />
+              </div>
             ))}
         </Wrapper>
       </ButtonGroup>
     );
   }
-
-  private createItems = () => {
-    const {
-      isTypeAheadAllowed,
-      tableSupported,
-      mediaUploadsEnabled,
-      mediaSupported,
-      imageUploadSupported,
-      imageUploadEnabled,
-      mentionsSupported,
-      availableWrapperBlockTypes,
-      actionSupported,
-      decisionSupported,
-      macroProvider,
-      linkSupported,
-      linkDisabled,
-      emojiDisabled,
-      emojiProvider,
-      nativeStatusSupported,
-      insertMenuItems,
-      dateEnabled,
-      placeholderTextEnabled,
-      horizontalRuleEnabled,
-      layoutSectionEnabled,
-      expandEnabled,
-      intl: { formatMessage },
-    } = this.props;
-    let items: MenuItem[] = [];
-
-    if (actionSupported) {
-      const labelAction = formatMessage(messages.action);
-      items.push({
-        content: labelAction,
-        value: { name: 'action' },
-        elemBefore: <TaskIcon label={labelAction} />,
-        elemAfter: <Shortcut>{'[]'}</Shortcut>,
-        shortcut: '[]',
-      });
-    }
-
-    if (linkSupported) {
-      const labelLink = formatMessage(messages.link);
-      const shortcutLink = tooltip(addLink);
-      items.push({
-        content: labelLink,
-        value: { name: 'link' },
-        isDisabled: linkDisabled,
-        elemBefore: <LinkIcon label={labelLink} />,
-        elemAfter: shortcutLink ? (
-          <Shortcut>{shortcutLink}</Shortcut>
-        ) : (
-          undefined
-        ),
-        shortcut: shortcutLink,
-      });
-    }
-    if (mediaSupported && mediaUploadsEnabled) {
-      const labelFilesAndImages = formatMessage(messages.filesAndImages);
-      items.push({
-        content: labelFilesAndImages,
-        value: { name: 'media' },
-        elemBefore: <EditorImageIcon label={labelFilesAndImages} />,
-      });
-    }
-    if (imageUploadSupported) {
-      const labelImage = formatMessage(messages.image);
-      items.push({
-        content: labelImage,
-        value: { name: 'image upload' },
-        isDisabled: !imageUploadEnabled,
-        elemBefore: <EditorImageIcon label={labelImage} />,
-      });
-    }
-    if (mentionsSupported) {
-      const labelMention = formatMessage(messages.mention);
-      items.push({
-        content: labelMention,
-        value: { name: 'mention' },
-        isDisabled: !isTypeAheadAllowed,
-        elemBefore: <MentionIcon label={labelMention} />,
-        elemAfter: <Shortcut>@</Shortcut>,
-        shortcut: '@',
-      });
-    }
-    if (emojiProvider) {
-      const labelEmoji = formatMessage(messages.emoji);
-      items.push({
-        content: labelEmoji,
-        value: { name: 'emoji' },
-        isDisabled: emojiDisabled || !isTypeAheadAllowed,
-        elemBefore: <EmojiIcon label={labelEmoji} />,
-        handleRef: this.handleButtonRef,
-        elemAfter: <Shortcut>:</Shortcut>,
-        shortcut: ':',
-      });
-    }
-    if (tableSupported) {
-      const labelTable = formatMessage(messages.table);
-      const shortcutTable = tooltip(toggleTable);
-      items.push({
-        content: labelTable,
-        value: { name: 'table' },
-        elemBefore: <TableIcon label={labelTable} />,
-        elemAfter: shortcutTable ? (
-          <Shortcut>{shortcutTable}</Shortcut>
-        ) : (
-          undefined
-        ),
-        shortcut: shortcutTable,
-      });
-    }
-    if (layoutSectionEnabled) {
-      const labelColumns = formatMessage(messages.columns);
-      items.push({
-        content: labelColumns,
-        value: { name: 'layout' },
-        elemBefore: <LayoutTwoEqualIcon label={labelColumns} />,
-      });
-    }
-    if (availableWrapperBlockTypes) {
-      availableWrapperBlockTypes.forEach(blockType => {
-        const BlockTypeIcon =
-          blockTypeIcons[blockType.name as keyof typeof blockTypeIcons];
-        const labelBlock = formatMessage(blockType.title);
-        const shortcutBlock = this.getShortcutBlock(blockType);
-        items.push({
-          content: labelBlock,
-          value: blockType,
-          elemBefore: <BlockTypeIcon label={labelBlock} />,
-          elemAfter: shortcutBlock ? (
-            <Shortcut>{shortcutBlock}</Shortcut>
-          ) : (
-            undefined
-          ),
-          shortcut: shortcutBlock,
-        });
-      });
-    }
-    if (decisionSupported) {
-      const labelDecision = formatMessage(messages.decision);
-      items.push({
-        content: labelDecision,
-        value: { name: 'decision' },
-        elemBefore: <DecisionIcon label={labelDecision} />,
-        elemAfter: <Shortcut>{'<>'}</Shortcut>,
-        shortcut: '<>',
-      });
-    }
-    if (
-      horizontalRuleEnabled &&
-      this.props.editorView.state.schema.nodes.rule
-    ) {
-      const labelHorizontalRule = formatMessage(messages.horizontalRule);
-      items.push({
-        content: labelHorizontalRule,
-        value: { name: 'horizontalrule' },
-        elemBefore: <HorizontalRuleIcon label={labelHorizontalRule} />,
-        elemAfter: <Shortcut>---</Shortcut>,
-        shortcut: '---',
-      });
-    }
-
-    if (expandEnabled && this.props.editorView.state.schema.nodes.expand) {
-      const labelExpand = formatMessage(messages.expand);
-      items.push({
-        content: labelExpand,
-        value: { name: 'expand' },
-        elemBefore: <ExpandNodeIcon label={labelExpand} />,
-      });
-    }
-
-    if (dateEnabled) {
-      const labelDate = formatMessage(messages.date);
-      items.push({
-        content: labelDate,
-        value: { name: 'date' },
-        elemBefore: <DateIcon label={labelDate} />,
-        elemAfter: <Shortcut>//</Shortcut>,
-        shortcut: '//',
-      });
-    }
-
-    if (placeholderTextEnabled) {
-      const labelPlaceholderText = formatMessage(messages.placeholderText);
-      items.push({
-        content: labelPlaceholderText,
-        value: { name: 'placeholder text' },
-        elemBefore: <PlaceholderTextIcon label={labelPlaceholderText} />,
-      });
-    }
-
-    if (nativeStatusSupported) {
-      const labelStatus = formatMessage(messages.status);
-      items.push({
-        content: labelStatus,
-        value: { name: 'status' },
-        elemBefore: <StatusIcon label={labelStatus} />,
-      });
-    }
-
-    if (insertMenuItems) {
-      items = items.concat(insertMenuItems);
-      // keeping this here for backwards compatibility so confluence
-      // has time to implement this button before it disappears.
-      // Should be safe to delete soon. If in doubt ask Leandro Lemos (llemos)
-    } else if (typeof macroProvider !== 'undefined' && macroProvider) {
-      const labelViewMore = formatMessage(messages.viewMore);
-      items.push({
-        content: labelViewMore,
-        value: { name: 'macro' },
-        elemBefore: <EditorMoreIcon label={labelViewMore} />,
-      });
-    }
-    return items;
-  };
 
   private toggleLinkPanel = withAnalytics(
     'atlassian.editor.format.hyperlink.button',

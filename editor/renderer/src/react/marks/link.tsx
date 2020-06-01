@@ -1,11 +1,12 @@
 import React from 'react';
 import { colors } from '@atlaskit/theme';
-import { EventHandlers } from '@atlaskit/editor-common';
+import { LinkAttributes } from '@atlaskit/adf-schema';
 import styled from 'styled-components';
 
 import { getEventHandler } from '../../utils';
-import { AnalyticsEventPayload, PLATFORM, MODE } from '../../analytics/events';
+import { PLATFORM, MODE } from '../../analytics/events';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../../analytics/enums';
+import { MarkProps } from '../types';
 
 const StyledAnchor = styled.a`
   color: ${colors.B400};
@@ -16,22 +17,19 @@ const StyledAnchor = styled.a`
   }
 `;
 
-export default function Link(
-  props: {
-    children?: any;
-    href: string;
-    target?: string;
-    eventHandlers?: EventHandlers;
-    isMediaLink?: boolean;
-    fireAnalyticsEvent?: (event: AnalyticsEventPayload) => void;
-  } & React.Props<any>,
-) {
+interface LinkProps extends LinkAttributes {
+  target?: string;
+  isMediaLink?: boolean;
+}
+
+export default function Link(props: MarkProps<LinkProps>) {
   const {
     href,
     target,
     eventHandlers,
     fireAnalyticsEvent,
     isMediaLink,
+    dataAttributes,
   } = props;
 
   const anchorProps: React.AnchorHTMLAttributes<HTMLAnchorElement> = {
@@ -47,7 +45,7 @@ export default function Link(
   const handler = getEventHandler(eventHandlers, 'link');
 
   if (isMediaLink) {
-    return props.children;
+    return <>{props.children}</>;
   }
 
   return (
@@ -70,6 +68,7 @@ export default function Link(
         }
       }}
       {...anchorProps}
+      {...dataAttributes}
     >
       {props.children}
     </StyledAnchor>

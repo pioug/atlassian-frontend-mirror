@@ -1,5 +1,13 @@
 # @atlaskit/email-renderer
 
+## 5.0.1
+
+### Patch Changes
+
+- [`8a9e57a986`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8a9e57a986) - Add missing label so that email renderer demo appears in Drop-down menu
+- [`54d82b49f0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54d82b49f0) - Remove unused dependencies
+- Updated dependencies
+
 ## 5.0.0
 
 ### Major Changes

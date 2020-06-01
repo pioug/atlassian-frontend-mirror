@@ -4,11 +4,10 @@ import {
   unsupportedBlock,
   unsupportedInline,
 } from '@atlaskit/adf-schema';
+import { UnsupportedBlock, UnsupportedInline } from '@atlaskit/editor-common';
 import { EditorState, Plugin, PluginKey } from 'prosemirror-state';
 import { EditorPlugin, PMPluginFactory } from '../../types';
 import { ReactNodeView } from '../../nodeviews';
-import ReactUnsupportedBlockNode from './nodeviews/unsupported-block';
-import ReactUnsupportedInlineNode from './nodeviews/unsupported-inline';
 import { traverseNode } from './utils';
 
 export const pluginKey = new PluginKey('unsupportedContentPlugin');
@@ -31,22 +30,22 @@ const createPlugin: PMPluginFactory = ({
     props: {
       nodeViews: {
         confluenceUnsupportedBlock: ReactNodeView.fromComponent(
-          ReactUnsupportedBlockNode,
+          UnsupportedBlock,
           portalProviderAPI,
           eventDispatcher,
         ),
         confluenceUnsupportedInline: ReactNodeView.fromComponent(
-          ReactUnsupportedInlineNode,
+          UnsupportedInline,
           portalProviderAPI,
           eventDispatcher,
         ),
         unsupportedBlock: ReactNodeView.fromComponent(
-          ReactUnsupportedBlockNode,
+          UnsupportedBlock,
           portalProviderAPI,
           eventDispatcher,
         ),
         unsupportedInline: ReactNodeView.fromComponent(
-          ReactUnsupportedInlineNode,
+          UnsupportedInline,
           portalProviderAPI,
           eventDispatcher,
         ),

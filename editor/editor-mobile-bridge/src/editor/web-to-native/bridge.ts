@@ -6,7 +6,8 @@ export default interface NativeBridge
     StatusBridge,
     LinkBridge,
     UndoRedoBridge,
-    AnalyticsBridge {
+    AnalyticsBridge,
+    SelectionBridge {
   call<T extends EditorBridgeNames>(
     bridge: T,
     event: keyof Exclude<EditorBridges[T], undefined>,
@@ -29,6 +30,7 @@ export interface EditorBridges {
   linkBridge?: LinkBridge;
   undoRedoBridge?: UndoRedoBridge;
   analyticsBridge?: AnalyticsBridge;
+  selectionBridge?: SelectionBridge;
 }
 
 export type EditorBridgeNames = keyof EditorBridges;
@@ -92,3 +94,5 @@ export interface UndoRedoBridge {
 export interface AnalyticsBridge {
   trackEvent(event: string): void;
 }
+
+export interface SelectionBridge {}

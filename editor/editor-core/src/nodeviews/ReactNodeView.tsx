@@ -25,6 +25,7 @@ import {
   getPosHandler,
   ForwardRef,
 } from './types';
+import { getParticipantsCount } from '../plugins/collab-edit/get-participants-count';
 
 const DEFAULT_SAMPLING_RATE = 100;
 const DEFAULT_SLOW_THRESHOLD = 7;
@@ -123,6 +124,7 @@ export default class ReactNodeView<P = ReactComponentProps>
             attributes: {
               node: this.node.type.name,
               duration,
+              participants: getParticipantsCount(this.view.state),
             },
           });
         }

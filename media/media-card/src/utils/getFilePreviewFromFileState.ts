@@ -40,6 +40,7 @@ export const getFilePreviewFromFileState = async (
 
       return {
         src,
+        orientation: 1,
       };
     }
   } else {

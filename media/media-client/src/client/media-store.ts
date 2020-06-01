@@ -204,10 +204,7 @@ export class MediaStore {
     });
   };
 
-  getFileBinaryURL = async (
-    id: string,
-    collectionName?: string,
-  ): Promise<string> => {
+  async getFileBinaryURL(id: string, collectionName?: string): Promise<string> {
     const auth = await this.config.authProvider({ collectionName });
 
     return createUrl(`${auth.baseUrl}/file/${id}/binary`, {
@@ -218,7 +215,7 @@ export class MediaStore {
       },
       auth,
     });
-  };
+  }
 
   getArtifactURL = async (
     artifacts: MediaFileArtifacts,

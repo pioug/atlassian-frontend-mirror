@@ -2,6 +2,7 @@
 import { jsx } from '@emotion/core';
 import { B50 } from '@atlaskit/theme/colors';
 import { FormattedMessage } from 'react-intl';
+import { MouseEvent } from 'react';
 
 import { Frame } from '../components/Frame';
 import { Thumbnail } from '../components/Thumbnail';
@@ -15,6 +16,7 @@ import { messages } from '../../messages';
 import { CelebrationImage } from '../utils/constants';
 import { ContentFooter } from '../components/ContentFooter';
 import { IconProps, Icon } from '../components/Icon';
+import { handleClickCommon } from '../utils/handlers';
 
 const textNameProps = { ...messages.connect_link_account_card_name };
 const textBylineProps = { ...messages.connect_link_account_card_description };
@@ -40,12 +42,15 @@ export const UnauthorizedView = ({
   link = '',
   onClick = () => {},
 }: UnauthorizedViewProps) => {
+  const handleClick = (event: MouseEvent<HTMLElement>) =>
+    handleClickCommon(event, onClick);
+
   return (
     <Frame isSelected={isSelected} testId={testId}>
       <Content>
         <div>
           <a
-            onClick={onClick}
+            onClick={handleClick}
             href={link}
             target="_blank"
             css={{ display: 'flex', alignItems: 'flex-start' }}

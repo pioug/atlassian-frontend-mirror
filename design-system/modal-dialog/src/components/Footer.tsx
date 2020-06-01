@@ -46,10 +46,12 @@ export default class ModalFooter extends React.Component<FooterProps, {}> {
         <JustifyShim />
         <Actions>
           {actions
-            ? actions.map(({ text, ...rest }, idx) => {
-                const variant = idx !== 0 ? 'subtle' : appearance || 'primary';
+            ? actions.map(({ text, ...rest }, index) => {
+                const variant =
+                  index !== 0 ? 'subtle' : appearance || 'primary';
                 return (
-                  <ActionItem key={text || idx}>
+                  // Index used as text can be a ReactNode
+                  <ActionItem key={index}>
                     <Button appearance={variant} {...rest}>
                       {text}
                     </Button>

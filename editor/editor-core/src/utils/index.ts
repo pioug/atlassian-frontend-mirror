@@ -60,7 +60,6 @@ export { isNodeTypeParagraph } from './nodes';
 export { JSONDocNode, JSONNode };
 
 export { containsClassName } from './dom';
-export const ZeroWidthSpace = '\u200b';
 
 function validateNode(_node: Node): boolean {
   return false;

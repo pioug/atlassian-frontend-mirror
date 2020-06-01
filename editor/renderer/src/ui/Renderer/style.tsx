@@ -41,6 +41,7 @@ import {
   tasksAndDecisionsStyles,
   akEditorStickyHeaderZIndex,
   akEditorSmallZIndex,
+  smartCardSharedStyles,
 } from '@atlaskit/editor-common';
 import { RendererCssClassName } from '../../consts';
 import { RendererAppearance } from './types';
@@ -228,6 +229,7 @@ export const Wrapper = styled.div<RendererWrapperProps & HTMLAttributes<{}>>`
   ${shadowSharedStyle};
   ${dateSharedStyle};
   ${tasksAndDecisionsStyles};
+  ${smartCardSharedStyles}
 
   & .UnknownBlock {
     font-family: ${fontFamily()};

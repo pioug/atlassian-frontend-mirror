@@ -2,7 +2,6 @@ import React from 'react';
 
 import Avatar from '../src';
 import { AppearanceType } from '../src/types';
-import { omit } from '../src/utils';
 
 import { Block } from './helpers';
 
@@ -12,15 +11,16 @@ interface WithAllAvatarSizesProps {
 }
 
 export default (props: WithAllAvatarSizesProps) => {
-  const modifiedProps = omit(props, 'presence', 'status');
+  const { presence, ...rest } = props;
+
   return (
     <Block>
-      <Avatar size="xxlarge" {...modifiedProps} />
+      <Avatar size="xxlarge" {...rest} />
       <Avatar size="xlarge" {...props} />
       <Avatar size="large" {...props} />
       <Avatar size="medium" {...props} />
       <Avatar size="small" {...props} />
-      <Avatar size="xsmall" {...modifiedProps} />
+      <Avatar size="xsmall" {...rest} />
     </Block>
   );
 };

@@ -47,22 +47,12 @@ describe('getDataURIDimension()', () => {
     const noAppearanceWidth = getDataURIDimension('width', {
       component,
     });
-    const appearanceWidth = getDataURIDimension('width', {
-      component,
-      appearance: 'horizontal',
-    });
     const noAppearanceHeight = getDataURIDimension('height', {
       component,
     });
-    const appearanceHeight = getDataURIDimension('height', {
-      component,
-      appearance: 'square',
-    });
 
     expect(noAppearanceWidth).toEqual(156);
-    expect(appearanceWidth).toEqual(156);
     expect(noAppearanceHeight).toEqual(125);
-    expect(appearanceHeight).toEqual(125);
   });
 
   it('should use getElementDimension when dimension is percentage unit', () => {

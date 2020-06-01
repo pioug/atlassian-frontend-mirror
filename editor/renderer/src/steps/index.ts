@@ -1,17 +1,16 @@
 import { Schema } from 'prosemirror-model';
 import { AddMarkStep } from 'prosemirror-transform';
 
-function getStartPos(e: Element) {
-  return parseInt(e.getAttribute('data-renderer-start-pos') || '-1', 10);
+function getStartPos(element: HTMLElement) {
+  return parseInt(element.dataset.rendererStartPos || '-1', 10);
 }
 
-function isPositionPointer(e: Element) {
-  return getStartPos(e) > -1;
+function isPositionPointer(element: HTMLElement) {
+  return getStartPos(element) > -1;
 }
 
-function findParent(e: Element): Element | null {
-  const { parentElement } = e;
-
+function findParent(element: ChildNode | Node): HTMLElement | null {
+  const { parentElement } = element;
   if (isRoot(parentElement) || !parentElement) {
     return null;
   }
@@ -23,25 +22,45 @@ function findParent(e: Element): Element | null {
   return findParent(parentElement);
 }
 
-function isInlineNode(node: Node) {
-  const isMention = (node as HTMLElement).hasAttribute('data-mention-id');
-  const isEmoji = (node as HTMLElement).hasAttribute('data-emoji-id');
-  const isDate = (node as HTMLElement).hasAttribute('timestamp');
-  const isStatus =
-    (node as HTMLElement).getAttribute('data-node-type') === 'status';
+function findParentBeforePointer(element: HTMLElement): HTMLElement | null {
+  const { parentElement } = element;
+  if (isRoot(parentElement) || !parentElement) {
+    return null;
+  }
 
-  return isMention || isEmoji || isDate || isStatus;
+  if (isPositionPointer(parentElement)) {
+    return element;
+  }
+
+  return findParentBeforePointer(parentElement);
+}
+
+function isElementNode(node: ChildNode | Node): node is HTMLElement {
+  return node.nodeType === Node.ELEMENT_NODE;
+}
+
+function isTextNode(node: ChildNode | Node): node is Text {
+  return node.nodeType === Node.TEXT_NODE;
+}
+
+function isNodeInlineMark(node: ChildNode | Node) {
+  return isElementNode(node) && Boolean(node.dataset.rendererMark);
+}
+
+function isElementInlineMark(
+  element: HTMLElement | null,
+): element is HTMLElement {
+  return !!element && Boolean(element.dataset.rendererMark);
 }
 
 function resolveNodePos(node: Node) {
   let resolvedPos = 0;
   let prev = node.previousSibling;
   while (prev) {
-    if (prev && prev.nodeType === Node.TEXT_NODE) {
-      resolvedPos += prev.textContent!.length;
+    if (prev && isTextNode(prev)) {
+      resolvedPos += (prev.textContent || '').length;
     } else if (prev) {
-      // Quick and dirty hack to get proper size of marks
-      if (!isInlineNode(prev) && prev.textContent) {
+      if (isNodeInlineMark(prev) && prev.textContent) {
         resolvedPos += prev.textContent.length;
       } else {
         resolvedPos += 1;
@@ -54,18 +73,8 @@ function resolveNodePos(node: Node) {
   return resolvedPos;
 }
 
-function isRoot(e: Element | null) {
-  return !!e && Boolean(e.getAttribute('data-isroot'));
-}
-
-function getDepth(e: Element, depth: number = 0): number {
-  let parent = findParent(e);
-
-  if (!parent || isRoot(parent)) {
-    return depth;
-  }
-
-  return getDepth(parent, ++depth);
+function isRoot(element: HTMLElement | null) {
+  return !!element && element.classList.contains('ak-renderer-document');
 }
 
 export function resolvePos(node: Node | null, offset: number) {
@@ -74,7 +83,7 @@ export function resolvePos(node: Node | null, offset: number) {
     return false;
   }
 
-  const parent = findParent(node as Element);
+  const parent = findParent(node);
 
   // Similar to above, if we cant find a parent position pointer
   // we should not proceed.
@@ -82,20 +91,32 @@ export function resolvePos(node: Node | null, offset: number) {
     return false;
   }
 
-  const depth = getDepth(node as Element);
   let resolvedPos = getStartPos(parent);
-  let cur = node;
-  if (cur.parentElement !== parent) {
-    resolvedPos += resolveNodePos(cur);
-    while (cur.parentElement !== parent) {
-      cur = cur.parentNode!;
-      resolvedPos += resolveNodePos(cur);
+  let current: Node | null = node;
+  if (current.parentElement && current.parentElement !== parent) {
+    // Find the parent element that is a direct child of the position pointer
+    // the outter most element from our text position.
+    const preParentPointer = findParentBeforePointer(current.parentElement);
+    // If our range is inside an inline node
+    // We need to move our pointers to parent element
+    // since we dont want to count text inside inline nodes at all
+    if (!isElementInlineMark(preParentPointer)) {
+      current = current.parentElement;
+      offset = 0;
+    }
+
+    resolvedPos += resolveNodePos(current);
+    while (current && current.parentElement !== parent) {
+      current = current.parentNode;
+      if (current) {
+        resolvedPos += resolveNodePos(current);
+      }
     }
   } else {
-    resolvedPos += resolveNodePos(cur);
+    resolvedPos += resolveNodePos(current);
   }
 
-  return resolvedPos + offset + depth;
+  return resolvedPos + offset;
 }
 
 interface AnnotationStepOptions {
@@ -106,7 +127,7 @@ interface AnnotationStepOptions {
 
 export function getPosFromRange(
   range: Range,
-): { from: number; to: number } | boolean {
+): { from: number; to: number } | false {
   const { startContainer, startOffset, endContainer, endOffset } = range;
 
   const from = resolvePos(startContainer, startOffset);

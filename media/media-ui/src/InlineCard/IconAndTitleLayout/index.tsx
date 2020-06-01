@@ -12,6 +12,7 @@ export interface IconAndTitleLayoutProps {
   title: React.ReactNode;
   right?: React.ReactNode;
   titleColor?: string;
+  children?: React.ReactNode;
 }
 
 export class IconAndTitleLayout extends React.Component<
@@ -34,14 +35,17 @@ export class IconAndTitleLayout extends React.Component<
   }
 
   render() {
-    const { title, titleColor } = this.props;
-
+    const { title, titleColor, children } = this.props;
     return (
       <>
         <IconTitleWrapper style={{ color: titleColor }}>
           <IconPositionWrapper>
-            <IconEmptyWrapper />
-            {this.renderIcon()}
+            {children || (
+              <>
+                <IconEmptyWrapper />
+                {this.renderIcon()}
+              </>
+            )}
           </IconPositionWrapper>
           {title}
         </IconTitleWrapper>

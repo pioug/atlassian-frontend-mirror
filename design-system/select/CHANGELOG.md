@@ -1,5 +1,12 @@
 # @atlaskit/select
 
+## 11.0.12
+
+### Patch Changes
+
+- [`6aec273747`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6aec273747) - FIX: Dropdown chevron fixed to reflect ADG spec
+- Updated dependencies
+
 ## 11.0.11
 
 ### Patch Changes

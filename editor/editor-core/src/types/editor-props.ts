@@ -23,7 +23,7 @@ import { AnalyticsHandler } from '../analytics/handler';
 import { CollabEditOptions } from '../plugins/collab-edit/types';
 import { CardOptions } from '../plugins/card/types';
 import { QuickInsertOptions } from '../plugins/quick-insert/types';
-import { AnnotationProvider } from '../plugins/annotation/types';
+import { AnnotationProviders } from '../plugins/annotation/types';
 import { TextFormattingOptions } from '../plugins/text-formatting/types';
 import { PlaceholderTextOptions } from '../plugins/placeholder-text/types';
 import { BlockTypePluginOptions } from '../plugins/block-type/types';
@@ -195,7 +195,7 @@ export interface EditorProps {
 
   activityProvider?: Promise<ActivityProvider>;
 
-  annotationProvider?: AnnotationProvider;
+  annotationProviders?: AnnotationProviders;
 
   collabEditProvider?: Providers['collabEditProvider'];
   presenceProvider?: Promise<any>;

@@ -1,8 +1,4 @@
-import {
-  akEditorGutterPadding,
-  WidthConsumer,
-  ProviderFactory,
-} from '@atlaskit/editor-common';
+import { WidthConsumer, ProviderFactory } from '@atlaskit/editor-common';
 import { EditorView } from 'prosemirror-view';
 import React, { ReactElement } from 'react';
 
@@ -22,6 +18,7 @@ import {
   EditorContentArea,
   SidebarArea,
   ScrollContainer,
+  EditorContentGutter,
 } from './StyledComponents';
 import { DispatchAnalyticsEvent } from '../../../plugins/analytics';
 
@@ -65,11 +62,7 @@ export const FullPageContentArea: React.FunctionComponent<FullPageEditorContentA
                   innerRef={props.contentAreaRef}
                   containerWidth={width}
                 >
-                  <div
-                    style={{
-                      padding: `0 ${akEditorGutterPadding}px`,
-                      boxSizing: 'border-box',
-                    }}
+                  <EditorContentGutter
                     className={[
                       'ak-editor-content-area',
                       props.appearance === 'full-width'
@@ -78,35 +71,29 @@ export const FullPageContentArea: React.FunctionComponent<FullPageEditorContentA
                     ].join(' ')}
                   >
                     {props.customContentComponents}
-                    {
-                      <PluginSlot
-                        editorView={props.editorView}
-                        editorActions={props.editorActions}
-                        eventDispatcher={props.eventDispatcher}
-                        providerFactory={props.providerFactory}
-                        appearance={props.appearance}
-                        items={props.contentComponents}
-                        contentArea={props.contentArea}
-                        popupsMountPoint={props.popupsMountPoint}
-                        popupsBoundariesElement={props.popupsBoundariesElement}
-                        popupsScrollableElement={props.popupsScrollableElement}
-                        disabled={!!props.disabled}
-                        containerElement={props.scrollContainer}
-                        dispatchAnalyticsEvent={props.dispatchAnalyticsEvent}
-                      />
-                    }
+                    <PluginSlot
+                      editorView={props.editorView}
+                      editorActions={props.editorActions}
+                      eventDispatcher={props.eventDispatcher}
+                      providerFactory={props.providerFactory}
+                      appearance={props.appearance}
+                      items={props.contentComponents}
+                      contentArea={props.contentArea}
+                      popupsMountPoint={props.popupsMountPoint}
+                      popupsBoundariesElement={props.popupsBoundariesElement}
+                      popupsScrollableElement={props.popupsScrollableElement}
+                      disabled={!!props.disabled}
+                      containerElement={props.scrollContainer}
+                      dispatchAnalyticsEvent={props.dispatchAnalyticsEvent}
+                    />
                     {props.editorDOMElement}
-                  </div>
+                  </EditorContentGutter>
                 </EditorContentArea>
               )}
             </WidthConsumer>
           </ClickAreaBlock>
         </ScrollContainer>
-        <SidebarArea>
-          {props.contextPanel || (
-            <ContextPanel onVisibilityChange={props.onVisibilityChange} />
-          )}
-        </SidebarArea>
+        <SidebarArea>{props.contextPanel || <ContextPanel />}</SidebarArea>
         <WidthEmitter editorView={props.editorView} />
       </ContentArea>
     );

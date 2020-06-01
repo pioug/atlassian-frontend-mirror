@@ -8,108 +8,84 @@ exports[`GoToItemBase Default After prop should only show on hover or active or 
 `;
 
 exports[`GoToItemBase Default After prop should show a spinner if the incoming view equals the 'goTo' prop of GoToItem 1`] = `
-.c1 {
-  -webkit-animation: 0.2s bZGgwh;
-  animation: 0.2s bZGgwh;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  height: 16px;
-  width: 16px;
+@keyframes animation-0 {
+  from {
+    -webkit-transform: rotate(50deg);
+    -ms-transform: rotate(50deg);
+    transform: rotate(50deg);
+    opacity: 0;
+    stroke-dashoffset: 60;
+  }
+
+  to {
+    -webkit-transform: rotate(230deg);
+    -ms-transform: rotate(230deg);
+    transform: rotate(230deg);
+    opacity: 1;
+    stroke-dashoffset: 50;
+  }
 }
 
-div + .c1 {
-  display: none;
+@keyframes animation-1 {
+  to {
+    -webkit-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
 }
 
-.c2 {
-  -webkit-animation: 0.86s cubic-bezier(0.4,0.15,0.6,0.85) infinite ibwhYF;
-  animation: 0.86s cubic-bezier(0.4,0.15,0.6,0.85) infinite ibwhYF;
+.emotion-1 {
+  vertical-align: middle;
+  opacity: 0;
+  -webkit-animation: animation-0 1s ease-in-out;
+  animation: animation-0 1s ease-in-out;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+  -webkit-animation-delay: 200ms;
+  animation-delay: 200ms;
+}
+
+.emotion-0 {
   fill: none;
-  stroke: #FFFFFF;
-  stroke-dasharray: 43.982297150257104px;
-  stroke-dashoffset: 35.18583772020568px;
+  stroke: #42526E;
+  stroke-width: 1.5;
   stroke-linecap: round;
-  stroke-width: 2px;
+  stroke-dasharray: 60;
+  stroke-dashoffset: inherit;
   -webkit-transform-origin: center;
   -ms-transform-origin: center;
   transform-origin: center;
+  -webkit-animation: animation-1 0.86s infinite;
+  animation: animation-1 0.86s infinite;
+  -webkit-animation-delay: 200ms;
+  animation-delay: 200ms;
+  -webkit-animation-timing-function: cubic-bezier(0.4,0.15,0.6,0.85);
+  animation-timing-function: cubic-bezier(0.4,0.15,0.6,0.85);
 }
 
-.c0 {
-  display: inline-block;
-  vertical-align: middle;
-}
-
-<Spinner
+<ForwardRef(Spinner)
   delay={200}
   invertColor={true}
-  isCompleting={false}
-  onComplete={[Function]}
   size="small"
 >
-  <Outer>
-    <span
-      className="c0"
+  <Consumer>
+    <svg
+      className="emotion-1"
+      focusable="false"
+      height={16}
+      viewBox="0 0 16 16"
+      width={16}
+      xmlns="http://www.w3.org/2000/svg"
     >
-      <Transition
-        addEndListener={[Function]}
-        appear={true}
-        enter={true}
-        exit={true}
-        in={true}
-        mountOnEnter={true}
-        onEnter={[Function]}
-        onEntered={[Function]}
-        onEntering={[Function]}
-        onExit={[Function]}
-        onExited={[Function]}
-        onExiting={[Function]}
-        timeout={0}
-        unmountOnExit={true}
-      >
-        <SpinnerContainer
-          delay={0.2}
-          phase="DELAY"
-          size={16}
-        >
-          <span
-            className="c1"
-            size={16}
-          >
-            <SpinnerSvg
-              focusable="false"
-              height={16}
-              invertColor={true}
-              phase="DELAY"
-              size={16}
-              viewBox="0 0 16 16"
-              width={16}
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <svg
-                className="c2"
-                focusable="false"
-                height={16}
-                size={16}
-                viewBox="0 0 16 16"
-                width={16}
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <circle
-                  cx={8}
-                  cy={8}
-                  r={7}
-                />
-              </svg>
-            </SpinnerSvg>
-          </span>
-        </SpinnerContainer>
-      </Transition>
-    </span>
-  </Outer>
-</Spinner>
+      <circle
+        className="emotion-0"
+        cx="8"
+        cy="8"
+        r="7"
+      />
+    </svg>
+  </Consumer>
+</ForwardRef(Spinner)>
 `;
 
 exports[`GoToItemBase should render a ConnectedItem 1`] = `

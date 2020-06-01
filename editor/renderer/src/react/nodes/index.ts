@@ -29,6 +29,7 @@ import { TableCell, TableHeader } from './tableCell';
 import TableRow from './tableRow';
 import UnknownBlock from './unknownBlock';
 import Loadable from 'react-loadable';
+import EmbedCard from './embedCard';
 
 const CodeBlock = Loadable({
   loader: () =>
@@ -176,6 +177,7 @@ export const nodeToReact: { [key: string]: React.ComponentType<any> } = {
   unknownBlock: UnknownBlock,
   expand: Expand,
   nestedExpand: Expand,
+  embedCard: EmbedCard,
 };
 
 export const toReact = (node: Node): React.ComponentType<any> => {
@@ -364,4 +366,5 @@ export {
   TableCell,
   TableRow,
   UnknownBlock,
+  EmbedCard,
 };

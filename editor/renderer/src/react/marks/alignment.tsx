@@ -4,10 +4,7 @@ import {
   alignmentPositionMap,
   AlignmentAttributes,
 } from '@atlaskit/adf-schema';
-
-export interface Props extends AlignmentAttributes {
-  children: React.Props<any>;
-}
+import { MarkProps } from '../types';
 
 const MarkWrapper = styled.div`
   ${(props: { 'data-align': 'end' | 'right' | 'center' }) =>
@@ -17,7 +14,7 @@ const MarkWrapper = styled.div`
     `};
 `;
 
-export default function Alignment(props: Props) {
+export default function Alignment(props: MarkProps<AlignmentAttributes>) {
   return (
     <MarkWrapper className="fabric-editor-block-mark" data-align={props.align}>
       {props.children}

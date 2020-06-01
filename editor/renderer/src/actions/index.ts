@@ -3,20 +3,21 @@ import {
   JSONDocNode,
 } from '@atlaskit/editor-json-transformer';
 import { Node, Schema } from 'prosemirror-model';
-import { Step } from 'prosemirror-transform';
+import { Step, RemoveMarkStep } from 'prosemirror-transform';
 import { createAnnotationStep, getPosFromRange } from '../steps';
 
+type ActionResult = { step: Step; doc: JSONDocNode } | false;
 export interface RendererActionsOptions {
   annotate: (
     range: Range,
     annotationId: string,
     annotationType: 'inlineComment',
-  ) =>
-    | {
-        step: Step;
-        doc: JSONDocNode;
-      }
-    | false;
+  ) => ActionResult;
+  deleteAnnotation: (
+    annotationId: string,
+    annotationType: 'inlineComment',
+  ) => ActionResult;
+  isValidAnnotationRange: (range: Range) => boolean;
 }
 
 export default class RendererActions implements RendererActionsOptions {
@@ -59,7 +60,70 @@ export default class RendererActions implements RendererActionsOptions {
     this.ref = undefined;
     this.schema = undefined;
   }
+
+  /**
+   * Validate whether we can create an annotation between two positions
+   */
+  _privateValidatePositionsForAnnotation(from: number, to: number): boolean {
+    if (!this.doc) {
+      return false;
+    }
+
+    let isAllowed = true;
+    this.doc.nodesBetween(from, to, node => {
+      // we don't allow annotating inline nodes other than text
+      if (node && node.isInline && !node.isText) {
+        isAllowed = false;
+      }
+    });
+
+    return isAllowed;
+  }
   //#endregion
+
+  deleteAnnotation(annotationId: string, annotationType: 'inlineComment') {
+    if (!this.doc || !this.schema || !this.schema.marks.annotation) {
+      return false;
+    }
+
+    const mark = this.schema.marks.annotation.create({
+      id: annotationId,
+      annotationType,
+    });
+
+    let from: number | undefined;
+    let to: number | undefined;
+
+    this.doc.descendants((node, pos) => {
+      const found = mark.isInSet(node.marks);
+      if (found && !from) {
+        // Set both here incase it only spans one node.
+        from = pos;
+        to = pos + node.nodeSize;
+      } else if (found && from) {
+        // If the mark spans multiple nodes,
+        // we'll keep setting the end until no longer found.
+        to = pos + node.nodeSize;
+      }
+      return true;
+    });
+
+    if (from === undefined || to === undefined) {
+      return false;
+    }
+
+    const step = new RemoveMarkStep(from, to, mark);
+    const { doc, failed } = step.apply(this.doc);
+
+    if (!failed && doc) {
+      return {
+        step,
+        doc: this.transformer.encode(doc),
+      };
+    }
+
+    return false;
+  }
 
   annotate(
     range: Range,
@@ -75,16 +139,12 @@ export default class RendererActions implements RendererActionsOptions {
       return false;
     }
 
-    let isAllowed = true;
-    const { from, to } = pos as { from: number; to: number };
-    this.doc.nodesBetween(from, to, node => {
-      // we don't allow annotating inline nodes other than text
-      if (node && node.isInline && !node.isText) {
-        isAllowed = false;
-      }
-    });
-
-    if (!isAllowed) {
+    const { from, to } = pos;
+    const validPositions = this._privateValidatePositionsForAnnotation(
+      from,
+      to,
+    );
+    if (!validPositions) {
       return false;
     }
 
@@ -108,5 +168,14 @@ export default class RendererActions implements RendererActionsOptions {
     }
 
     return false;
+  }
+
+  isValidAnnotationRange(range: Range) {
+    const pos = getPosFromRange(range);
+    if (!pos || !this.doc) {
+      return false;
+    }
+
+    return this._privateValidatePositionsForAnnotation(pos.from, pos.to);
   }
 }

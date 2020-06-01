@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ErrorInfo } from 'react';
 import Button, { ButtonGroup } from '@atlaskit/button';
 import TableTree, {
   Headers,
@@ -76,6 +76,11 @@ class Example extends React.Component<{}, ExampleState> {
     environment: 'stg',
     authFlow: 'oauth2',
   };
+
+  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+    console.error(error);
+    console.error(errorInfo);
+  }
 
   handleGroupClick = (groupingMode: GroupingMode) => {
     this.setState({ groupingMode });

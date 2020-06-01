@@ -13,7 +13,6 @@ export {
 export type CardInfo = {
   title?: string;
   url?: string;
-
   pos: number;
 };
 
@@ -21,6 +20,7 @@ export interface CardOptions {
   provider?: Providers['cardProvider'];
   resolveBeforeMacros?: string[];
   allowBlockCards?: boolean;
+  allowEmbeds?: boolean;
 }
 
 export type Request = {

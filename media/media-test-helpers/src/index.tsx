@@ -97,6 +97,7 @@ export {
   asMock,
   asMockFunction,
   asMockReturnValue,
+  asMockFunctionReturnValue,
   expectConstructorToHaveBeenCalledWith,
   expectFunctionToHaveBeenCalledWith,
   expectToEqual,

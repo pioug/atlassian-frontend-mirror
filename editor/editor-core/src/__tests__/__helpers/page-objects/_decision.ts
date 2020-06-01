@@ -1,3 +1,5 @@
 export const decisionSelectors = {
-  decision: 'ol[data-node-type=decisionList]',
+  decisionList: 'ol[data-node-type=decisionList]',
+  decisionItem: 'div[data-decision-wrapper]',
+  decisionIcon: 'span[aria-label="Decision"]',
 };

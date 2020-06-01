@@ -666,7 +666,6 @@ export default class Comment extends React.Component<Props, State> {
             src={createdBy && createdBy.avatarUrl}
             href={createdBy && createdBy.profileUrl}
             name={createdBy && createdBy.name}
-            enableTooltip={true}
           />
         }
         type={createdBy && createdBy.type}

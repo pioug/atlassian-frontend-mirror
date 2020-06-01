@@ -138,6 +138,7 @@ class FullPageWithFF extends React.Component<
               provider: Promise.resolve(cardProvider),
               resolveBeforeMacros: this.state.resolveBeforeMacros,
               allowBlockCards: true,
+              allowEmbeds: true,
             }}
           />
         )}

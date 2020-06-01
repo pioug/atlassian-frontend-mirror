@@ -1,32 +1,22 @@
 import React from 'react';
 import { disableZooming } from './utils/viewport';
-
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import {
   cardProvider,
   storyMediaProviderFactory,
 } from '@atlaskit/editor-test-helpers';
-
+import {
+  createCardClient,
+  createEmojiProvider,
+  createMentionProvider,
+} from '../src/providers';
 import Editor from './../src/labs/mobile-editor-element';
 
 // @ts-ignore
 window.logBridge = window.logBridge || [];
 
 export default class Example extends React.Component {
-  providerFactory: ProviderFactory;
-
   constructor(props: any) {
     super(props);
-
-    this.providerFactory = new ProviderFactory();
-    this.providerFactory.setProvider('card', Promise.resolve(cardProvider));
-    this.providerFactory.setProvider(
-      'media',
-      storyMediaProviderFactory({
-        collectionName: 'InitialCollectionForTesting',
-        includeUserAuthProvider: true,
-      }),
-    );
   }
 
   componentDidMount() {
@@ -39,7 +29,14 @@ export default class Example extends React.Component {
     return (
       <div id="editor">
         <Editor
-          providerFactory={this.providerFactory}
+          cardProvider={Promise.resolve(cardProvider)}
+          cardClient={createCardClient()}
+          emojiProvider={createEmojiProvider()}
+          mentionProvider={createMentionProvider()}
+          mediaProvider={storyMediaProviderFactory({
+            collectionName: 'InitialCollectionForTesting',
+            includeUserAuthProvider: true,
+          })}
           placeholder="Type something here"
           shouldFocus={true}
         />

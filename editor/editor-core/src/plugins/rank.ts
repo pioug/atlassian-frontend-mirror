@@ -95,7 +95,6 @@ export default {
     'mobileScroll',
     'scrollGutterPlugin',
     'analytics',
-    'history',
     'findReplace',
     'selection',
   ],
@@ -141,6 +140,7 @@ export default {
     'layoutColumn',
     'inlineCard',
     'blockCard',
+    'embedCard',
   ],
   marks: [
     // Inline marks

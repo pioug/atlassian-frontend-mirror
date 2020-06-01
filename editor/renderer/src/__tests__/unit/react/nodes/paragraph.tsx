@@ -1,11 +1,19 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import Paragraph from '../../../../react/nodes/paragraph';
+import ReactSerializer from '../../../../react';
 
 describe('Renderer - React/Nodes/Paragraph', () => {
+  let serialiser = new ReactSerializer({});
+
   it('should wrap content with <p>-tag', () => {
     const paragraph = shallow(
-      <Paragraph dataAttributes={{ 'data-renderer-start-pos': 0 }}>
+      <Paragraph
+        marks={[]}
+        serializer={serialiser}
+        nodeType="paragraph"
+        dataAttributes={{ 'data-renderer-start-pos': 0 }}
+      >
         This is a paragraph
       </Paragraph>,
     );
@@ -15,11 +23,26 @@ describe('Renderer - React/Nodes/Paragraph', () => {
   it('should render <br> tags in empty paragraphs', () => {
     const render = mount(
       <>
-        <Paragraph dataAttributes={{ 'data-renderer-start-pos': 0 }} />
-        <Paragraph dataAttributes={{ 'data-renderer-start-pos': 1 }}>
+        <Paragraph
+          marks={[]}
+          serializer={serialiser}
+          nodeType="paragraph"
+          dataAttributes={{ 'data-renderer-start-pos': 0 }}
+        />
+        <Paragraph
+          marks={[]}
+          serializer={serialiser}
+          nodeType="paragraph"
+          dataAttributes={{ 'data-renderer-start-pos': 1 }}
+        >
           This is a paragraph
         </Paragraph>
-        <Paragraph dataAttributes={{ 'data-renderer-start-pos': 19 }} />
+        <Paragraph
+          marks={[]}
+          serializer={serialiser}
+          nodeType="paragraph"
+          dataAttributes={{ 'data-renderer-start-pos': 19 }}
+        />
       </>,
     );
 

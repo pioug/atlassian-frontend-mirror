@@ -1,3 +1,5 @@
+import { Decoration } from 'prosemirror-view';
+import { AnnotationSharedClassNames } from '@atlaskit/editor-common';
 import {
   annotation,
   doc,
@@ -6,15 +8,14 @@ import {
   strike,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
-
+import { AnnotationTypes } from '@atlaskit/adf-schema';
 import {
   surroundingMarks,
   getAllAnnotations,
   addDraftDecoration,
+  getAnnotationViewKey,
 } from '../../utils';
-import { Decoration } from 'prosemirror-view';
-import { DraftDecorationClassName } from '../../types';
-import { Y75, Y200 } from '@atlaskit/theme/colors';
+import { AnnotationInfo } from '../../types';
 
 describe('annotation', () => {
   describe('surroundingMarks', () => {
@@ -74,14 +75,14 @@ describe('annotation', () => {
         p(
           'text',
           annotation({
-            annotationType: 'inlineComment',
+            annotationType: AnnotationTypes.INLINE_COMMENT,
             id: 'alpaca',
           })('text-alpaca'),
         ),
         p(
           'text',
           annotation({
-            annotationType: 'inlineComment',
+            annotationType: AnnotationTypes.INLINE_COMMENT,
             id: 'baboon',
           })('text-baboon'),
         ),
@@ -96,13 +97,14 @@ describe('annotation', () => {
         p(
           'before',
           annotation({
-            annotationType: 'inlineComment',
+            annotationType: AnnotationTypes.INLINE_COMMENT,
             id: 'alpaca',
           })(
             'text-alpaca',
-            annotation({ annotationType: 'inlineComment', id: 'baboon' })(
-              'text-baboon',
-            ),
+            annotation({
+              annotationType: AnnotationTypes.INLINE_COMMENT,
+              id: 'baboon',
+            })('text-baboon'),
             'text-alpaca-after',
           ),
           'after',
@@ -118,14 +120,14 @@ describe('annotation', () => {
         p(
           'text',
           annotation({
-            annotationType: 'inlineComment',
+            annotationType: AnnotationTypes.INLINE_COMMENT,
             id: 'alpaca',
           })('text-alpaca'),
         ),
         p(
           'text',
           annotation({
-            annotationType: 'inlineComment',
+            annotationType: AnnotationTypes.INLINE_COMMENT,
             id: 'alpaca',
           })('text-alpaca'),
         ),
@@ -143,9 +145,20 @@ describe('annotation', () => {
       expect(decoration.from).toBe(0);
       expect(decoration.to).toBe(5);
       expect((decoration as any).type.attrs).toEqual({
-        class: DraftDecorationClassName,
-        style: `background-color: ${Y75}; border-bottom: 2px solid ${Y200};`,
+        class: AnnotationSharedClassNames.draft,
       });
+    });
+  });
+
+  describe('getAnnotationViewKey', () => {
+    it('generates key for annotation view wrapper', () => {
+      const annotations: AnnotationInfo[] = [
+        { id: 'id-1', type: AnnotationTypes.INLINE_COMMENT },
+        { id: 'id-2', type: AnnotationTypes.INLINE_COMMENT },
+      ];
+      expect(getAnnotationViewKey(annotations)).toBe(
+        'view-annotation-wrapper_id-1_id-2',
+      );
     });
   });
 });

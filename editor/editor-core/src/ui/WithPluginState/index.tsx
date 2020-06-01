@@ -15,6 +15,7 @@ import {
 } from '../../plugins/analytics';
 import { analyticsEventKey } from '../../plugins/analytics/consts';
 import { analyticsPluginKey } from '../../plugins/analytics/plugin-key';
+import { getParticipantsCount } from '../../plugins/collab-edit/get-participants-count';
 
 const DEFAULT_SAMPLING_RATE = 100;
 const DEFAULT_SLOW_THRESHOLD = 4;
@@ -157,6 +158,7 @@ export default class WithPluginState extends React.Component<Props, State> {
               ++this.callsCount % performanceOptions.samplingRate === 0 &&
               duration > performanceOptions.slowThreshold
             ) {
+              const editorView = this.getEditorView();
               this.dispatchAnalyticsEvent({
                 action: ACTION.WITH_PLUGIN_STATE_CALLED,
                 actionSubject: ACTION_SUBJECT.EDITOR,
@@ -164,6 +166,9 @@ export default class WithPluginState extends React.Component<Props, State> {
                 attributes: {
                   plugin: pluginName,
                   duration,
+                  participants: getParticipantsCount(
+                    editorView && editorView.state,
+                  ),
                 },
               });
             }

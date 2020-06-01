@@ -67,10 +67,14 @@ export {
   UploadingFileState,
   ProcessingFileState,
   ProcessedFileState,
+  isProcessedFileState,
   ProcessingFailedState,
   ErrorFileState,
-  FileState,
   isErrorFileState,
+  PreviewableFileState,
+  isPreviewableFileState,
+  FileState,
+  isFinalFileState,
   isImageRepresentationReady,
   mapMediaFileToFileState,
   mapMediaItemToFileState,
@@ -112,8 +116,16 @@ export { checkWebpSupport } from './utils/checkWebpSupport';
 export { observableToPromise } from './utils/observableToPromise';
 
 export { getMediaTypeFromMimeType } from './utils/getMediaTypeFromMimeType';
+
+export {
+  isImageMimeTypeSupportedByBrowser,
+  isDocumentMimeTypeSupportedByBrowser,
+  isMimeTypeSupportedByBrowser,
+} from './utils/isMimeTypeSupportedByBrowser';
+
 export { createFileStateSubject } from './utils/createFileStateSubject';
 export { safeUnsubscribe } from './utils/safeUnsubscribe';
+
 export {
   Identifier,
   FileIdentifier,
@@ -137,6 +149,7 @@ export {
 } from './utils/with-media-client-hoc';
 
 export { globalMediaEventEmitter } from './globalMediaEventEmitter';
+
 export {
   isMediaBlobUrl,
   getAttrsFromUrl,

@@ -1,5 +1,57 @@
 # @atlaskit/avatar
 
+## 18.0.0
+
+### Major Changes
+
+- [`b1fa2d6d1c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b1fa2d6d1c) - Avatar has been refactored to improve performance and be compliant with the lite-mode specification.
+  Since there are significant prop and API changes, we will be providing a codemod to help consumers upgrade their components.
+
+  To run the codemod:
+
+  **You first need to have the latest avatar installed before you can run the codemod**
+
+  `yarn upgrade @atlaskit/avatar@^18.0.0`
+
+  **Run the codemod cli**
+
+  `npx @atlaskit/codemod-cli /path/to/target/directory`
+
+  For more information on @atlaskit/codemod-cli please refer to [this doc](https://atlaskit.atlassian.com/docs/guides/atlassian-codemods)
+
+  ## Summary
+
+  - Fixes re-rendering issues
+  - Removes all deprecated theme API. This includes previous experimental dark-mode theme support
+  - Stop accepting and spreading arbitrary props
+  - Removes analytics-next HOCs in favor of hook variant (You may need to update snapshot tests)
+  - Removes all usage of HOCs
+  - Replaces `styled-components` v3 with `@emotion/core` to improve runtime and bundlesize
+
+  ### Avatar API / PROP CHANGES
+
+  - `enableTooltip` removed. Please use `@atlaskit/tooltip` instead
+  - `onClick` method signature has been simplified to `onChange(event, analyticsEvent)`
+  - `isHover` removed
+  - `isActive` removed
+  - `isFocus` removed
+  - `isSelected` removed
+  - `theme` removed
+  - Added prop types to the `component` prop
+  - `BORDER_WIDTH` is now a single value rather than an object
+  - `withPseudoState`, `getProps`, `getBorderRadius`, `getInnerStyles` have been removed and are therefor no longer available. These methods were for designed for internal use and use within the AvatarGroup component.
+
+  ## Avatar Item API / PROP CHANGES
+
+  - `enableTruncation` renamed to `isTruncationDisabled`
+  - `onClick` method signature has been simplified to `onChange(event, analyticsEvent)`
+  - `isHover` removed
+  - `isActive` removed
+  - `isFocus` removed
+  - `isSelected` removed
+  - `theme` removed
+  - Added prop types to the `component` prop
+
 ## 17.1.11
 
 ### Patch Changes

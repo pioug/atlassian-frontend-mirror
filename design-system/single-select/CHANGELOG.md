@@ -1,5 +1,12 @@
 # @atlaskit/single-select
 
+## 9.0.2
+
+### Patch Changes
+
+- [`54d82b49f0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54d82b49f0) - Remove unused dependencies
+- Updated dependencies
+
 ## 9.0.1
 
 ### Patch Changes

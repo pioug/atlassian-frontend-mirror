@@ -19,24 +19,10 @@ describe('Root Wrapper', () => {
       const defaultWithDimensions = shallow(
         <Wrapper dimensions={dimensions} />,
       );
-      const auto = shallow(
-        <Wrapper appearance="auto" dimensions={dimensions} />,
-      );
+      const auto = shallow(<Wrapper dimensions={dimensions} />);
 
       expect(defaultWithDimensions).toMatchSnapshot();
       expect(auto).toMatchSnapshot();
-    });
-
-    it('should render properly with different appeareances', () => {
-      const auto = shallow(<Wrapper appearance="auto" />);
-      const image = shallow(<Wrapper appearance="image" />);
-      const square = shallow(<Wrapper appearance="square" />);
-      const horizontal = shallow(<Wrapper appearance="horizontal" />);
-
-      expect(auto).toMatchSnapshot();
-      expect(image).toMatchSnapshot();
-      expect(square).toMatchSnapshot();
-      expect(horizontal).toMatchSnapshot();
     });
 
     it('should apply breakpoint rules bassed on breakpointSize', () => {

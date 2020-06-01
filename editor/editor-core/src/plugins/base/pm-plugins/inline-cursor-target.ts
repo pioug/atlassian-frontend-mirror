@@ -1,7 +1,7 @@
 import { DecorationSet, Decoration } from 'prosemirror-view';
 import { ResolvedPos, Node } from 'prosemirror-model';
 import { PluginKey, Plugin, EditorState, Transaction } from 'prosemirror-state';
-import { ZeroWidthSpace } from '../../../utils';
+import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common';
 
 export const inlineCursorTargetStateKey = new PluginKey(
   'inlineCursorTargetPlugin',
@@ -88,7 +88,7 @@ export default () => {
         if (positions && positions.length) {
           const decorations = positions.map((position: number) => {
             const node = document.createElement('span');
-            node.appendChild(document.createTextNode(ZeroWidthSpace));
+            node.appendChild(document.createTextNode(ZERO_WIDTH_SPACE));
             return Decoration.widget(position, node, {
               raw: true,
               side: -1,

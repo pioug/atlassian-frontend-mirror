@@ -6,9 +6,11 @@ import FabricAnalyticsListener, {
 } from '@atlaskit/analytics-listeners';
 import TaskList from '../../../../react/nodes/taskList';
 import TaskItem from '../../../../react/nodes/taskItem';
+import ReactSerializer from '../../../../react';
 
 describe('Renderer - React/Nodes/TaskList', () => {
   let analyticsWebClientMock: AnalyticsWebClient;
+  let serialiser = new ReactSerializer({});
 
   beforeEach(() => {
     analyticsWebClientMock = {
@@ -36,6 +38,9 @@ describe('Renderer - React/Nodes/TaskList', () => {
         <FabricAnalyticsListener client={analyticsWebClientMock}>
           <TaskList localId="list-1">
             <TaskItem
+              marks={[]}
+              serializer={serialiser}
+              nodeType="taskItem"
               dataAttributes={{ 'data-renderer-start-pos': 0 }}
               localId="task-1"
             >
@@ -67,12 +72,18 @@ describe('Renderer - React/Nodes/TaskList', () => {
         <FabricAnalyticsListener client={analyticsWebClientMock}>
           <TaskList localId="list-1">
             <TaskItem
+              marks={[]}
+              serializer={serialiser}
+              nodeType="taskItem"
               dataAttributes={{ 'data-renderer-start-pos': 0 }}
               localId="task-1"
             >
               Hello <b>world</b>
             </TaskItem>
             <TaskItem
+              marks={[]}
+              serializer={serialiser}
+              nodeType="taskItem"
               dataAttributes={{ 'data-renderer-start-pos': 0 }}
               localId="task-2"
               state="DONE"

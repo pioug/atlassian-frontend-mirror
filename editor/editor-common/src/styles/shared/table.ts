@@ -43,8 +43,7 @@ const tableSharedStyle = css`
     /**
      * Fix block top alignment inside table cells.
      */
-    .taskItemView-content-wrap > div,
-    .decisionItemView-content-wrap > div {
+    .decisionItemView-content-wrap:first-child > div {
       margin-top: 0;
     }
   }

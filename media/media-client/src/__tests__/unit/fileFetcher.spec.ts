@@ -1,21 +1,34 @@
 import { Auth, AuthProvider } from '@atlaskit/media-core';
+import fetchMock from 'fetch-mock/cjs/client';
 import {
   ResponseFileItem,
+  ItemsPayload,
   MediaFile,
+  MediaStore,
+  MediaStoreResponse,
   RECENTS_COLLECTION,
   globalMediaEventEmitter,
   MediaViewedEventPayload,
   getFileStreamsCache,
+  uploadFile,
+  UploadableFile,
+  UploadableFileUpfrontIds,
+  UploadController,
+  isErrorFileState,
 } from '../..';
 import * as MediaClientModule from '../..';
 import uuid from 'uuid';
+import { UploadFileCallbacks } from '../../uploader';
 import { FileFetcherImpl, getItemsFromKeys } from '../../client/file-fetcher';
 import {
   expectFunctionToHaveBeenCalledWith,
   asMock,
+  asMockFunction,
+  asMockFunctionReturnValue,
   fakeMediaClient,
 } from '@atlaskit/media-test-helpers';
 import { observableToPromise } from '../../utils/observableToPromise';
+
 jest.mock('../../utils/getDimensionsFromBlob', () => {
   return {
     getDimensionsFromBlob: () => {
@@ -23,11 +36,14 @@ jest.mock('../../utils/getDimensionsFromBlob', () => {
     },
   };
 });
+
 jest.mock('../../utils/getMediaTypeFromMimeType', () => {
   return {
     getMediaTypeFromMimeType: () => 'image',
   };
 });
+
+jest.mock('../../uploader');
 
 describe('FileFetcher', () => {
   const fileId = 'some-file-id';
@@ -38,41 +54,108 @@ describe('FileFetcher', () => {
   const setup = () => {
     getFileStreamsCache().removeAll();
 
-    const items = [
+    const items: ResponseFileItem[] = [
       {
         id: uuid(),
+        type: 'file',
         collection: 'collection-1',
         details: {
           name: 'file-1',
+          mimeType: 'image/jpeg',
+          mediaType: 'image',
+          processingStatus: 'pending',
+          size: 0,
+          artifacts: {},
+          representations: {},
         },
       },
       {
         id: uuid(),
+        type: 'file',
         collection: 'collection-1',
         details: {
           name: 'file-2',
+          mimeType: 'image/jpeg',
+          mediaType: 'image',
+          processingStatus: 'pending',
+          size: 0,
+          artifacts: {},
+          representations: {},
         },
       },
       {
         id: uuid(),
+        type: 'file',
         collection: 'collection-2',
         details: {
           name: 'file-3',
+          mimeType: 'image/jpeg',
+          mediaType: 'image',
+          processingStatus: 'pending',
+          size: 0,
+          artifacts: {},
+          representations: {},
         },
       },
     ];
-    const itemsResponse = Promise.resolve({
+    const itemsResponse: Promise<MediaStoreResponse<
+      ItemsPayload
+    >> = Promise.resolve({
       data: {
         items,
       },
     });
+
+    const createUploadableFile = (
+      name: string,
+      mimeType: string,
+      collection?: string,
+    ): UploadableFile => ({
+      content: new Blob([], { type: mimeType }),
+      name,
+      mimeType,
+      collection,
+    });
+
+    const uploadFileUpfrontIds: UploadableFileUpfrontIds = {
+      id: 'upfront-id',
+      deferredUploadId: Promise.resolve('deferred-upload-id'),
+      occurrenceKey: 'upfront-occurrence-key',
+    };
+
+    asMockFunction(uploadFile).mockImplementation(
+      (
+        _1: UploadableFile,
+        _2: MediaStore,
+        _3: UploadableFileUpfrontIds,
+        callbacks?: UploadFileCallbacks,
+      ) => {
+        if (callbacks) {
+          callbacks.onProgress(0);
+          callbacks.onProgress(0.5);
+          callbacks.onProgress(1);
+          callbacks.onUploadFinish();
+        }
+
+        return {
+          cancel: jest.fn(),
+        };
+      },
+    );
+
     const mediaClient = fakeMediaClient();
-    const getItems = jest.fn().mockReturnValue(itemsResponse);
     const mediaStore = {
       ...mediaClient.mediaStore,
-      getFileBinaryURL: jest.fn(),
-      getItems,
-    } as any;
+      getFileBinaryURL: asMockFunctionReturnValue(
+        mediaClient.mediaStore.getFileBinaryURL,
+        Promise.resolve(binaryUrl),
+      ),
+      getItems: asMockFunctionReturnValue(
+        mediaClient.mediaStore.getItems,
+        itemsResponse,
+      ),
+    } as jest.Mocked<MediaStore>;
+
     const fileFetcher = new FileFetcherImpl(mediaStore);
 
     (fileFetcher as any).generateUploadableFileUpfrontIds = jest
@@ -81,9 +164,15 @@ describe('FileFetcher', () => {
         id: 'upfront-id',
         occurrenceKey: 'upfront-occurrence-key',
       });
-    asMock(mediaStore.getFileBinaryURL).mockReturnValue(binaryUrl);
 
-    return { fileFetcher, mediaStore, items, itemsResponse };
+    return {
+      fileFetcher,
+      mediaStore,
+      items,
+      itemsResponse,
+      createUploadableFile,
+      uploadFileUpfrontIds,
+    };
   };
 
   beforeEach(() => {
@@ -93,6 +182,7 @@ describe('FileFetcher', () => {
   afterEach(() => {
     getFileStreamsCache().removeAll();
     jest.restoreAllMocks();
+    fetchMock.restore();
   });
 
   describe('downloadBinary()', () => {
@@ -176,8 +266,7 @@ describe('FileFetcher', () => {
 
     describe('with IE11', () => {
       beforeEach(() => {
-        const { mediaStore, fileFetcher } = setup();
-        asMock(mediaStore.getFileBinaryURL).mockReturnValue(binaryUrl);
+        const { fileFetcher } = setup();
         appendChild = jest.spyOn(document.body, 'appendChild');
         (window as any).MSInputMethodContext = true;
         (document as any).documentMode = true;
@@ -254,18 +343,20 @@ describe('FileFetcher', () => {
       const next = jest.fn();
       const error = jest.fn();
 
-      mediaStore.getItems.mockImplementation((_: any, collection: string) => {
-        // We want to make one of the /items call to fail
-        if (collection === 'collection-1') {
-          return Promise.reject();
-        }
+      mediaStore.getItems.mockImplementation(
+        (_: string[], collectionName?: string) => {
+          // We want to make one of the /items call to fail
+          if (collectionName === 'collection-1') {
+            return Promise.reject();
+          }
 
-        return Promise.resolve({
-          data: {
-            items: [items[2]],
-          },
-        });
-      });
+          return Promise.resolve({
+            data: {
+              items: [items[2]],
+            },
+          });
+        },
+      );
 
       fileFetcher
         .getFileState(items[0].id, { collectionName: items[0].collection })
@@ -289,14 +380,14 @@ describe('FileFetcher', () => {
           error: expect.any(Error),
         });
         expect(next).toBeCalledWith({
-          artifacts: undefined,
           id: items[2].id,
-          mediaType: undefined,
-          mimeType: undefined,
-          name: 'file-3',
-          representations: undefined,
-          size: undefined,
           status: 'processing',
+          name: 'file-3',
+          mimeType: 'image/jpeg',
+          mediaType: 'image',
+          size: 0,
+          artifacts: {},
+          representations: {},
         });
 
         done();
@@ -308,17 +399,28 @@ describe('FileFetcher', () => {
       const next = jest.fn();
       const error = jest.fn();
 
-      mediaStore.getItems.mockReturnValue({
-        data: {
-          items: [
-            {
-              id: items[0].id,
-              collection: items[0].collection,
-              details: {},
-            },
-          ],
-        },
-      });
+      asMockFunctionReturnValue(
+        mediaStore.getItems,
+        Promise.resolve({
+          data: {
+            items: [
+              {
+                id: items[0].id,
+                collection: items[0].collection,
+                details: {
+                  name: items[0].details.name,
+                  mimeType: items[0].details.mimeType,
+                  mediaType: items[0].details.mediaType,
+                  processingStatus: items[0].details.processingStatus,
+                  size: 0,
+                  artifacts: {},
+                  representations: {},
+                },
+              },
+            ],
+          },
+        } as MediaStoreResponse<ItemsPayload>),
+      );
 
       fileFetcher
         .getFileState(items[0].id, { collectionName: items[0].collection })
@@ -331,14 +433,14 @@ describe('FileFetcher', () => {
         expect(next).toBeCalledTimes(1);
         expect(error).toBeCalledTimes(0);
         expect(next).toBeCalledWith({
-          artifacts: undefined,
           id: items[0].id,
-          mediaType: undefined,
-          mimeType: undefined,
-          name: undefined,
-          representations: undefined,
-          size: undefined,
           status: 'processing',
+          name: 'file-1',
+          mimeType: 'image/jpeg',
+          mediaType: 'image',
+          size: 0,
+          artifacts: {},
+          representations: {},
         });
 
         done();
@@ -348,8 +450,6 @@ describe('FileFetcher', () => {
 
   describe('copyFile', () => {
     it('should call mediaStore.copyFileWithToken', async () => {
-      // @ts-ignore This violated type definition upgrade of @types/jest to v24.0.18 & ts-jest v24.1.0.
-      //See BUILDTOOLS-210-clean: https://bitbucket.org/atlassian/atlaskit-mk-2/pull-requests/7178/buildtools-210-clean/diff
       const MediaStoreSpy = jest.spyOn(MediaClientModule, 'MediaStore');
       const { items, fileFetcher } = setup();
       const copyFileWithTokenMock = jest.fn().mockResolvedValue({ data: {} });
@@ -396,8 +496,6 @@ describe('FileFetcher', () => {
     });
 
     it('should populate cache with the copied file', async () => {
-      // @ts-ignore This violated type definition upgrade of @types/jest to v24.0.18 & ts-jest v24.1.0.
-      //See BUILDTOOLS-210-clean: https://bitbucket.org/atlassian/atlaskit-mk-2/pull-requests/7178/buildtools-210-clean/diff
       const MediaStoreSpy = jest.spyOn(MediaClientModule, 'MediaStore');
       const copiedFile: MediaFile = {
         id: 'copied-file-id',
@@ -438,8 +536,11 @@ describe('FileFetcher', () => {
       };
       await fileFetcher.copyFile(source, destination);
       const copiedFileObservable = getFileStreamsCache().get('copied-file-id');
-      const copiedFileState = await observableToPromise(copiedFileObservable!);
+      if (!copiedFileObservable) {
+        return expect(copiedFileObservable).toBeDefined();
+      }
 
+      const copiedFileState = await observableToPromise(copiedFileObservable);
       expect(copiedFileState).toEqual({
         ...copiedFile,
         status: 'processing',
@@ -456,8 +557,11 @@ describe('FileFetcher', () => {
       fileFetcher.uploadExternal(url);
 
       const fileObservable = getFileStreamsCache().get('upfront-id');
-      const fileState = await observableToPromise(fileObservable!);
+      if (!fileObservable) {
+        return expect(fileObservable).toBeDefined();
+      }
 
+      const fileState = await observableToPromise(fileObservable);
       expect(fileState).toEqual(
         expect.objectContaining({
           status: 'processing',
@@ -474,16 +578,32 @@ describe('FileFetcher', () => {
     it('should set preview on cache for that file', async () => {
       const { fileFetcher } = setup();
 
+      fetchMock.mock(
+        url,
+        {
+          headers: { 'Content-Type': 'image/jpeg' },
+          body: new Blob([], { type: 'image/jpeg' }),
+        },
+        { sendAsJson: false },
+      );
+
       await fileFetcher.uploadExternal(url);
 
       const fileObservable = getFileStreamsCache().get('upfront-id');
-      const fileState = await observableToPromise(fileObservable!);
-
-      if (fileState.status === 'error') {
-        throw new Error();
+      if (!fileObservable) {
+        return expect(fileObservable).toBeDefined();
       }
 
-      expect((await fileState.preview!).value).toBeInstanceOf(Blob);
+      const fileState = await observableToPromise(fileObservable);
+      if (isErrorFileState(fileState)) {
+        return expect(fileState.status).not.toBe('error');
+      }
+
+      if (!fileState.preview) {
+        return expect(fileState.preview).toBeDefined();
+      }
+
+      expect((await fileState.preview).value).toBeInstanceOf(Blob);
     });
 
     it('should use collection name', async () => {
@@ -506,8 +626,11 @@ describe('FileFetcher', () => {
       fileFetcher.uploadExternal('domain.com/path/file_name.mov');
 
       const fileObservable = getFileStreamsCache().get('upfront-id');
-      const fileState = await observableToPromise(fileObservable!);
+      if (!fileObservable) {
+        return expect(fileObservable).toBeDefined();
+      }
 
+      const fileState = await observableToPromise(fileObservable);
       expect(fileState).toEqual(
         expect.objectContaining({
           name: 'file_name.mov',
@@ -521,13 +644,253 @@ describe('FileFetcher', () => {
       await fileFetcher.uploadExternal(url, collection);
 
       const fileObservable = getFileStreamsCache().get('upfront-id');
-      const fileState = await observableToPromise(fileObservable!);
+      if (!fileObservable) {
+        return expect(fileObservable).toBeDefined();
+      }
 
+      const fileState = await observableToPromise(fileObservable);
       expect(fileState).toEqual(
         expect.objectContaining({
           mediaType: 'image',
         }),
       );
+    });
+  });
+
+  describe('upload()', () => {
+    it('should populate cache before upload finishes', async () => {
+      const {
+        fileFetcher,
+        createUploadableFile,
+        uploadFileUpfrontIds,
+      } = setup();
+
+      fileFetcher.upload(
+        createUploadableFile('logo.png', 'image/png'),
+        undefined,
+        uploadFileUpfrontIds,
+      );
+
+      const fileObservable = getFileStreamsCache().get('upfront-id');
+      if (!fileObservable) {
+        return expect(fileObservable).toBeDefined();
+      }
+
+      const fileState = await observableToPromise(fileObservable);
+      expect(fileState).toEqual(
+        expect.objectContaining({
+          status: 'processing',
+          name: 'logo.png',
+          size: 0,
+          mediaType: 'image',
+          mimeType: 'image/png',
+          id: 'upfront-id',
+          occurrenceKey: 'upfront-occurrence-key',
+        }),
+      );
+    });
+
+    it('should be abortable', async () => {
+      const {
+        fileFetcher,
+        createUploadableFile,
+        uploadFileUpfrontIds,
+      } = setup();
+
+      const uploadController = new UploadController();
+
+      asMockFunction(uploadFile).mockImplementation(
+        (
+          _1: UploadableFile,
+          _2: MediaStore,
+          _3: UploadableFileUpfrontIds,
+          callbacks?: UploadFileCallbacks,
+        ) => {
+          if (callbacks) {
+            callbacks.onProgress(0);
+            setImmediate(() => {
+              callbacks.onProgress(0.5);
+              callbacks.onProgress(1);
+              callbacks.onUploadFinish();
+            });
+          }
+
+          return {
+            cancel: jest.fn(),
+          };
+        },
+      );
+
+      fileFetcher.upload(
+        createUploadableFile('logo.png', 'image/png'),
+        uploadController,
+        uploadFileUpfrontIds,
+      );
+
+      uploadController.abort();
+
+      const fileObservable = getFileStreamsCache().get('upfront-id');
+      if (!fileObservable) {
+        return expect(fileObservable).toBeDefined();
+      }
+
+      const fileState = await observableToPromise(fileObservable);
+      expect(fileState).toEqual(
+        expect.objectContaining({
+          status: 'uploading',
+          progress: 0,
+          name: 'logo.png',
+          size: 0,
+          mediaType: 'image',
+          mimeType: 'image/png',
+          id: 'upfront-id',
+          occurrenceKey: 'upfront-occurrence-key',
+        }),
+      );
+    });
+
+    it('should set preview on cache for that file', async () => {
+      const {
+        fileFetcher,
+        createUploadableFile,
+        uploadFileUpfrontIds,
+      } = setup();
+
+      fileFetcher.upload(
+        createUploadableFile('logo.png', 'image/png'),
+        undefined,
+        uploadFileUpfrontIds,
+      );
+
+      const fileObservable = getFileStreamsCache().get('upfront-id');
+      if (!fileObservable) {
+        return expect(fileObservable).toBeDefined();
+      }
+
+      const fileState = await observableToPromise(fileObservable);
+      if (isErrorFileState(fileState)) {
+        return expect(fileState.status).not.toBe('error');
+      }
+
+      const filePreview = fileState.preview;
+      if (!filePreview) {
+        return expect(filePreview).toBeDefined();
+      }
+
+      expect((await filePreview).value).toBeInstanceOf(Blob);
+    });
+
+    it('should set the right mediaType', async () => {
+      const {
+        fileFetcher,
+        createUploadableFile,
+        uploadFileUpfrontIds,
+      } = setup();
+
+      fileFetcher.upload(
+        createUploadableFile('logo.png', 'image/png'),
+        undefined,
+        uploadFileUpfrontIds,
+      );
+
+      const fileObservable = getFileStreamsCache().get('upfront-id');
+      if (!fileObservable) {
+        return expect(fileObservable).toBeDefined();
+      }
+
+      const fileState = await observableToPromise(fileObservable);
+      expect(fileState).toEqual(
+        expect.objectContaining({
+          mediaType: 'image',
+        }),
+      );
+    });
+
+    it('should transform chunkinator errors into ErrorFileState', async () => {
+      const {
+        fileFetcher,
+        createUploadableFile,
+        uploadFileUpfrontIds,
+      } = setup();
+
+      asMockFunction(uploadFile).mockImplementation(
+        (
+          _1: UploadableFile,
+          _2: MediaStore,
+          _3: UploadableFileUpfrontIds,
+          callbacks?: UploadFileCallbacks,
+        ) => {
+          if (callbacks) {
+            callbacks.onUploadFinish(
+              new Error('chunkinator any kind of error'),
+            );
+          }
+
+          return {
+            cancel: jest.fn(),
+          };
+        },
+      );
+
+      fileFetcher.upload(
+        createUploadableFile('logo.png', 'image/png'),
+        undefined,
+        uploadFileUpfrontIds,
+      );
+
+      const fileObservable = getFileStreamsCache().get('upfront-id');
+      if (!fileObservable) {
+        return expect(fileObservable).toBeDefined();
+      }
+
+      const fileState = await observableToPromise(fileObservable);
+      expect(fileState).toEqual(
+        expect.objectContaining({
+          id: 'upfront-id',
+          status: 'error',
+          message: 'chunkinator any kind of error',
+        }),
+      );
+    });
+
+    it('should fetch remote processing states for files requiring remote preview', done => {
+      const {
+        mediaStore,
+        fileFetcher,
+        createUploadableFile,
+        uploadFileUpfrontIds,
+      } = setup();
+
+      fileFetcher.upload(
+        createUploadableFile('image.heic', 'image/heic'), // requires remote preview
+        undefined,
+        uploadFileUpfrontIds,
+      );
+
+      setImmediate(() => {
+        expect(mediaStore.getItems).toHaveBeenCalledTimes(1);
+        done();
+      });
+    });
+
+    it('should not fetch remote processing states for files not requiring remote preview', done => {
+      const {
+        mediaStore,
+        fileFetcher,
+        createUploadableFile,
+        uploadFileUpfrontIds,
+      } = setup();
+
+      fileFetcher.upload(
+        createUploadableFile('image.jpg', 'image/jpeg'), // doesn't require remote preview
+        undefined,
+        uploadFileUpfrontIds,
+      );
+
+      setImmediate(() => {
+        expect(mediaStore.getItems).toHaveBeenCalledTimes(0);
+        done();
+      });
     });
   });
 });

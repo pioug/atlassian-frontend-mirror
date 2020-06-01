@@ -9,7 +9,7 @@ import avatarImg from './utils/sample-avatar.png';
 
 export default () => (
   <CommentLayout
-    avatar={<Avatar src={avatarImg} label="User avatar" size="medium" />}
+    avatar={<Avatar src={avatarImg} size="medium" />}
     content={<Editor appearance="comment" />}
   />
 );

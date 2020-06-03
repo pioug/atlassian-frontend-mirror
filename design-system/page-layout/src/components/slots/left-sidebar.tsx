@@ -7,6 +7,8 @@ import {
   COLLAPSED_LEFT_SIDEBAR_WIDTH,
   FLYOUT_DELAY,
   IS_SIDEBAR_COLLAPSED,
+  LEFT_SIDEBAR_EXPANDED_WIDTH,
+  LEFT_SIDEBAR_FLYOUT,
   LEFT_SIDEBAR_SELECTOR,
   LEFT_SIDEBAR_WIDTH,
   RESIZE_BUTTON_SELECTOR,
@@ -58,7 +60,11 @@ const LeftSidebar = (props: LeftSidebarProps) => {
     ? COLLAPSED_LEFT_SIDEBAR_WIDTH
     : resolveDimension(LEFT_SIDEBAR_WIDTH, width, shouldPersistWidth);
 
-  usePageLayoutGrid({ [LEFT_SIDEBAR_WIDTH]: leftSidebarWidth });
+  usePageLayoutGrid({
+    [LEFT_SIDEBAR_WIDTH]: leftSidebarWidth,
+    [LEFT_SIDEBAR_FLYOUT]:
+      getGridStateFromStorage(LEFT_SIDEBAR_EXPANDED_WIDTH) || width,
+  });
   useEffect(() => {
     if (cachedCollapsedState) {
       document.documentElement.setAttribute(IS_SIDEBAR_COLLAPSED, 'true');

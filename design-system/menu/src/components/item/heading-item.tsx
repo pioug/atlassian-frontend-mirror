@@ -16,6 +16,7 @@ const HeadingItem = ({
     <div
       css={cssFn(itemHeadingCSS, undefined)}
       data-testid={testId}
+      data-ds--menu--heading-item
       id={id}
       {...rest}
     >

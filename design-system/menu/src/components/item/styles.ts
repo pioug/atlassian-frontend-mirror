@@ -30,8 +30,6 @@ const itemDescriptionSpacing = gridSize * 0.375;
 const itemMinHeight = gridSize * 5;
 const itemContentMinHeight = itemMinHeight - itemTopBottomPadding * 2;
 
-const itemHeadingTopMargin = gridSize * 2.5;
-const itemHeadingBottomMargin = gridSize * 0.75;
 const itemHeadingContentHeight = headingSizes.h100.lineHeight;
 const itemHeadingFontSize = headingSizes.h100.size;
 
@@ -41,17 +39,6 @@ const itemElemSkeletonOffset =
 const skeletonTextBorderRadius = 100;
 const skeletonHeadingHeight = gridSize;
 const skeletonContentHeight = 9;
-const skeletonHeadingMarginOffset = 3;
-// Skeleton content is slightly shorter than the real content.
-// Because of that we slightly increase the top margin to offset this so the
-// containing size both real and skeleton always equal approx 30px.
-const skeletonHeadingTopMargin =
-  itemHeadingTopMargin +
-  (itemHeadingContentHeight - skeletonHeadingHeight) -
-  skeletonHeadingMarginOffset;
-// We want to move the entire body up by 3px without affecting the height of the skeleton container.
-const skeletonHeadingBottomMargin =
-  itemHeadingBottomMargin + skeletonHeadingMarginOffset;
 
 const buttonOverrides = {
   backgroundColor: 'transparent',
@@ -95,15 +82,6 @@ const baseItemCSS = (
   boxSizing: 'border-box',
   color: N800,
   userSelect: 'none',
-
-  // :not(style) is ensures that it works with streaming SSR because
-  // Emotion adds style tags in between elements.
-  '&:first-child:not(style)': {
-    marginTop: gridSize * 0.75,
-  },
-  '&:last-child:not(style)': {
-    marginBottom: gridSize * 0.75,
-  },
 
   '&:visited': {
     color: N800,
@@ -206,8 +184,6 @@ export const itemHeadingCSS = {
   lineHeight: itemHeadingContentHeight / itemHeadingFontSize,
   fontWeight: 700,
   color: subtleHeading(),
-  marginTop: itemHeadingTopMargin,
-  marginBottom: itemHeadingBottomMargin,
   padding: `0 ${itemSidePadding}px`,
 } as CSSObject;
 
@@ -216,8 +192,6 @@ export const skeletonHeadingItemCSS = (
   isShimmering?: boolean,
 ): CSSObject => ({
   ...itemHeadingCSS,
-  marginTop: skeletonHeadingTopMargin,
-  marginBottom: skeletonHeadingBottomMargin,
   '&::after': {
     // This renders the skeleton heading "text".
     backgroundColor: skeletonColor(),

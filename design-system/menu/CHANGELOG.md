@@ -1,5 +1,13 @@
 # @atlaskit/menu
 
+## 0.4.5
+
+### Patch Changes
+
+- [`d674e203b3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d674e203b3) - Previously Menu items controlled their own margin spacing which caused issues when trying to use them outside of Menu.
+  Now we have moved Menu item margin styles into the Section component so now the Section dictates the spacing around child items.
+  We had to update Side Navigation to control its child item margins as well.
+
 ## 0.4.4
 
 ### Patch Changes

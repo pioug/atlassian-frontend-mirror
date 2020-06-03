@@ -1,5 +1,15 @@
 # @atlaskit/page-layout
 
+## 0.4.0
+
+### Minor Changes
+
+- [`bd8f1ab8b6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bd8f1ab8b6) - Changes the behaviour of flyout. It now expands to the preferred width of the user
+
+### Patch Changes
+
+- [`25bf379774`](https://bitbucket.org/atlassian/atlassian-frontend/commits/25bf379774) - Removes overflow auto so that position sticky in Main can work
+
 ## 0.3.3
 
 ### Patch Changes

@@ -13,6 +13,7 @@ const SkeletonHeadingItem = ({
 }: SkeletonHeadingItemProps) => (
   <div
     css={cssFn(skeletonHeadingItemCSS(width, isShimmering), undefined)}
+    data-ds--menu--skeleton-heading-item
     data-testid={testId}
   />
 );

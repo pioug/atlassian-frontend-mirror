@@ -93,10 +93,10 @@ export const topNavigationStyles = (isFixed?: boolean): CSSObject => ({
 });
 
 export const mainStyles: CSSObject = {
-  flexGrow: 1,
   // Prevent flex container from blowing
   // up when there's super wide content
-  overflow: 'auto',
+  flexGrow: 1,
+  minWidth: 0,
   // Transition negative margin on main
   // in sync with the increase in width of
   // leftSidebar

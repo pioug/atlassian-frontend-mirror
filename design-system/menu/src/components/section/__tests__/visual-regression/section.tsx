@@ -40,4 +40,16 @@ describe('<PopupMenuGroup />', () => {
       await takeElementScreenShot(global.page, mockStarredMenu),
     ).toMatchProdImageSnapshot();
   });
+
+  it('should match the adjacent sections menu when Favourite articles scrolled down', async () => {
+    await openExamplesAndWaitFor(withAdjacentSections);
+
+    await global.page.focus(
+      '[aria-label="Favourite articles"] > button:last-child',
+    );
+
+    expect(
+      await takeElementScreenShot(global.page, withAdjacentSections),
+    ).toMatchProdImageSnapshot();
+  });
 });

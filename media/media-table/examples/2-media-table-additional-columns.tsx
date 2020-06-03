@@ -1,5 +1,5 @@
 import React from 'react';
-import { MediaTable, MediaTableItem } from '../src';
+import { MediaTableItem, MediaTable } from '../src';
 import {
   createUploadMediaClientConfig,
   audioNoCoverFileId,
@@ -11,13 +11,14 @@ import {
   gifFileId,
   videoProcessingFailedId,
 } from '@atlaskit/media-test-helpers';
+import { HeadType } from '@atlaskit/dynamic-table/types';
+import CheckCircleOutlineIcon from '@atlaskit/icon/glyph/check-circle-outline';
+import { toHumanReadableMediaSize } from '@atlaskit/media-ui';
+import dateformat from 'dateformat';
 import {
   createMockFileData,
   RenderMediaTableWithFieldRange,
 } from '../example-helpers/helpers';
-import { toHumanReadableMediaSize } from '@atlaskit/media-ui';
-import dateformat from 'dateformat';
-import { HeadType } from '@atlaskit/dynamic-table/types';
 
 const items: MediaTableItem[] = [
   {
@@ -25,6 +26,8 @@ const items: MediaTableItem[] = [
       file: createMockFileData('test1', 'image'),
       size: toHumanReadableMediaSize(123123),
       date: dateformat(123123232),
+      test: 1,
+      tick: <CheckCircleOutlineIcon label={'hello'} />,
     },
     id: imageFileId.id,
   },
@@ -33,6 +36,8 @@ const items: MediaTableItem[] = [
       file: createMockFileData('test2', 'image'),
       size: toHumanReadableMediaSize(123123),
       date: dateformat(123123232),
+      test: 1,
+      tick: <CheckCircleOutlineIcon label={'hello'} />,
     },
     id: imageFileId.id,
   },
@@ -41,14 +46,18 @@ const items: MediaTableItem[] = [
       file: createMockFileData('test3', 'audio'),
       size: toHumanReadableMediaSize(123123),
       date: dateformat(123123232),
+      test: 1,
+      tick: <CheckCircleOutlineIcon label={'hello'} />,
     },
     id: audioFileId.id,
   },
   {
     data: {
-      file: createMockFileData('test3', 'video'),
+      file: createMockFileData('test4', 'video'),
       size: toHumanReadableMediaSize(123123),
       date: dateformat(123123232),
+      test: 1,
+      tick: <CheckCircleOutlineIcon label={'hello'} />,
     },
     id: videoProcessingFailedId.id,
   },
@@ -57,6 +66,8 @@ const items: MediaTableItem[] = [
       file: createMockFileData('test5', 'doc'),
       size: toHumanReadableMediaSize(123123),
       date: dateformat(123123232),
+      test: 1,
+      tick: <CheckCircleOutlineIcon label={'hello'} />,
     },
     id: docFileId.id,
   },
@@ -65,6 +76,8 @@ const items: MediaTableItem[] = [
       file: createMockFileData('test6', 'video'),
       size: toHumanReadableMediaSize(123123),
       date: dateformat(123123232),
+      test: 1,
+      tick: <CheckCircleOutlineIcon label={'hello'} />,
     },
     id: gifFileId.id,
   },
@@ -73,6 +86,8 @@ const items: MediaTableItem[] = [
       file: createMockFileData('test7', 'audio'),
       size: toHumanReadableMediaSize(123123),
       date: dateformat(123123232),
+      test: 1,
+      tick: <CheckCircleOutlineIcon label={'hello'} />,
     },
     id: audioNoCoverFileId.id,
   },
@@ -81,6 +96,8 @@ const items: MediaTableItem[] = [
       file: createMockFileData('test8', 'image'),
       size: toHumanReadableMediaSize(123123),
       date: dateformat(123123232),
+      test: 1,
+      tick: <CheckCircleOutlineIcon label={'hello'} />,
     },
     id: largeImageFileId.id,
   },
@@ -89,6 +106,8 @@ const items: MediaTableItem[] = [
       file: createMockFileData('test9', 'image'),
       size: toHumanReadableMediaSize(123123),
       date: dateformat(123123232),
+      test: 1,
+      tick: <CheckCircleOutlineIcon label={'hello'} />,
     },
     id: smallImageFileId.id,
   },
@@ -98,26 +117,31 @@ const columns: HeadType = {
   cells: [
     {
       key: 'file',
-      width: 50,
       content: 'File name',
       isSortable: true,
     },
     {
       key: 'size',
-      width: 20,
       content: 'Size',
       isSortable: true,
     },
     {
       key: 'date',
-      width: 50,
       content: 'Upload time',
       isSortable: true,
     },
     {
+      key: 'test',
+      content: 'Value',
+      isSortable: true,
+    },
+    {
+      key: 'tick',
+      content: 'Done',
+    },
+    {
       key: 'download',
       content: '',
-      width: 10,
     },
   ],
 };

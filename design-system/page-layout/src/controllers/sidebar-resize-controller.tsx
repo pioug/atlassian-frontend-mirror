@@ -9,6 +9,7 @@ import {
   IS_SIDEBAR_COLLAPSING,
   LEFT_PANEL_WIDTH,
   LEFT_SIDEBAR_EXPANDED_WIDTH,
+  LEFT_SIDEBAR_FLYOUT,
   LEFT_SIDEBAR_FLYOUT_WIDTH,
   LEFT_SIDEBAR_WIDTH,
   TRANSITION_DURATION,
@@ -85,6 +86,7 @@ export const SidebarResizeController: FC<SidebarResizeControllerProps> = ({
       setGridState({
         ...gridState,
         [LEFT_SIDEBAR_WIDTH]: COLLAPSED_LEFT_SIDEBAR_WIDTH,
+        [LEFT_SIDEBAR_FLYOUT]: gridState[LEFT_SIDEBAR_WIDTH],
       });
       setIsLeftSidebarCollapsed(true);
       document.documentElement.setAttribute(IS_SIDEBAR_COLLAPSING, 'true'),
@@ -101,7 +103,7 @@ export const SidebarResizeController: FC<SidebarResizeControllerProps> = ({
         ...gridState,
         [LEFT_SIDEBAR_WIDTH]: width,
       });
-      mergeGridStateIntoStorage('expandedLeftSidebarWidth', width);
+      mergeGridStateIntoStorage(LEFT_SIDEBAR_EXPANDED_WIDTH, width);
     },
     getLeftSidebarWidth: () => {
       return getGridStateFromStorage('gridState')[LEFT_SIDEBAR_WIDTH] || 0;

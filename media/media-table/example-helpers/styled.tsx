@@ -1,5 +1,9 @@
 import styled from 'styled-components';
-import { N20 } from '@atlaskit/theme/colors';
+export const ExampleWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 
 export const NameCellWrapper = styled.div`
   display: flex;
@@ -23,16 +27,6 @@ export const NameCell = styled.div`
 
     &::first-letter {
       text-transform: uppercase;
-    }
-  }
-`;
-
-export const MediaTableWrapper = styled.div`
-  tr {
-    cursor: pointer;
-
-    &:hover {
-      background: ${N20};
     }
   }
 `;

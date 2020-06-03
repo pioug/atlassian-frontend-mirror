@@ -1,118 +1,56 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Component } from 'react';
-import DynamicTable from '@atlaskit/dynamic-table';
-import dateformat from 'dateformat';
+import { DynamicTableStateless } from '@atlaskit/dynamic-table';
 import {
   Identifier,
   isFileIdentifier,
-  FileState,
-  MediaClient,
-  FileIdentifier,
-  ErrorFileState,
-  isErrorFileState,
   withMediaClient,
+  isProcessedFileState,
 } from '@atlaskit/media-client';
-import { RowType, RowCellType, HeadType } from '@atlaskit/dynamic-table/types';
-import { MediaClientConfig } from '@atlaskit/media-core';
+import { N40 } from '@atlaskit/theme/colors';
+import { RowType, RowCellType } from '@atlaskit/dynamic-table/types';
 import DownloadIcon from '@atlaskit/icon/glyph/download';
 import Button from '@atlaskit/button';
 import { MediaViewer, MediaViewerDataSource } from '@atlaskit/media-viewer';
-import { MediaTypeIcon } from '@atlaskit/media-ui/media-type-icon';
-import { toHumanReadableMediaSize } from '@atlaskit/media-ui';
+import { MediaTableWrapper } from './styled';
 import { Subscription } from 'rxjs/Subscription';
-import { NameCell, NameCellWrapper, MediaTableWrapper } from './styled';
-
-export interface MediaTableItem {
-  identifier: Identifier;
-}
-
-export interface MediaTableProps {
-  items: MediaTableItem[];
-  mediaClientConfig: MediaClientConfig;
-  mediaClient: MediaClient;
-}
-
-export interface MediaTableState {
-  fileStates: Map<string, FileState>;
-  mediaViewerSelectedItem?: Identifier;
-}
-
-const head: HeadType = {
-  cells: [
-    {
-      key: 'file',
-      width: 50,
-      content: 'File', // TODO [BENTO-6295]: add i18n key
-      isSortable: true,
-    },
-    {
-      key: 'size',
-      width: 20,
-      content: 'Size', // TODO [BENTO-6295]: add i18n key
-      isSortable: true,
-    },
-    {
-      key: 'date',
-      width: 50,
-      content: 'Upload time', // TODO [BENTO-6295]: add i18n key
-      isSortable: true,
-    },
-    {
-      content: '',
-      width: 10,
-    },
-  ],
-};
+import {
+  RowData,
+  OnSortData,
+  MediaTableProps,
+  MediaTableState,
+} from '../types';
+import { generateRowValues, getValidTableProps } from '../util';
 
 export class MediaTable extends Component<MediaTableProps, MediaTableState> {
   state: MediaTableState = {
-    fileStates: new Map(),
+    fileInfoState: new Map(),
   };
 
-  private hasBeenMounted: boolean = false;
   private subscriptions: Subscription[] = [];
+  private hasBeenMounted: boolean = false;
 
   componentDidMount() {
-    const { items, mediaClient } = this.props;
     this.hasBeenMounted = true;
-    items.forEach(async item => {
-      const { identifier } = item;
-      // TODO [BENTO-6295]: support external identifiers
-      if (!isFileIdentifier(identifier)) {
-        return;
-      }
+    const { items, mediaClient } = this.props;
 
-      const id = await identifier.id;
+    items.forEach(async item => {
+      const { id, data } = item;
+      const collectionName = data.collectionName || '';
 
       const subscription = mediaClient.file
-        .getFileState(id, { collectionName: identifier.collectionName })
+        .getFileState(id, { collectionName })
         .subscribe({
           next: fileState => {
-            const { fileStates } = this.state;
-            const isEmptyFile =
-              fileState.status === 'processing' &&
-              !fileState.name &&
-              !fileState.size;
+            const { fileInfoState } = this.state;
 
-            if (isEmptyFile) {
-              fileStates.set(id, this.createErrorFileState(id, 'empty file'));
-            } else {
-              fileStates.set(id, fileState);
+            if (isProcessedFileState(fileState)) {
+              fileInfoState.set(id, { fileName: fileState.name, id });
+              if (this.hasBeenMounted) {
+                this.safeSetState({ fileInfoState });
+              }
             }
-
-            if (this.hasBeenMounted) {
-              this.safeSetState({
-                fileStates,
-              });
-            }
-          },
-          error: error => {
-            const { fileStates } = this.state;
-            fileStates.set(id, this.createErrorFileState(id, error));
-            this.safeSetState({
-              fileStates,
-            });
           },
         });
 
@@ -120,153 +58,162 @@ export class MediaTable extends Component<MediaTableProps, MediaTableState> {
     });
   }
 
-  componentWillUnmount() {
-    this.hasBeenMounted = false;
-    this.unsubscribe();
-  }
-
   private unsubscribe = () => {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
     this.subscriptions = [];
   };
 
-  private createErrorFileState = (
-    id: string,
-    message?: string,
-  ): ErrorFileState => ({
-    id,
-    status: 'error',
-    message,
-  });
+  componentWillUnmount() {
+    this.hasBeenMounted = false;
+    this.unsubscribe();
+  }
 
-  private renderCells = (
-    fileState: Exclude<FileState, ErrorFileState>,
-  ): RowCellType[] => {
-    const { name, mediaType, size, createdAt } = fileState;
-    const icon = <MediaTypeIcon type={mediaType} />;
-    const fileSize = toHumanReadableMediaSize(size);
+  private generateCellValues = (data: RowData, id: string): RowCellType[] => {
+    const cellValues: RowCellType[] = [];
+    const { columns } = this.props;
 
-    return [
-      {
-        key: name,
-        content: (
-          <NameCellWrapper>
-            {icon}{' '}
-            <NameCell>
-              <span>{name}</span>
-            </NameCell>
-          </NameCellWrapper>
-        ),
-      },
-      {
-        key: size,
-        content: fileSize,
-      },
-      {
-        key: createdAt,
-        content: dateformat(createdAt),
-      },
-      {
-        key: 'download',
-        content: this.renderDownloadButton(fileState),
-      },
-    ];
+    columns.cells.forEach(cell => {
+      const content = (cell.key && data[cell.key]) || '';
+      cellValues.push({
+        key: cell.key,
+        content:
+          cell.key === 'download' ? this.renderDownloadButton(id) : content,
+      });
+    });
+
+    return cellValues;
   };
 
-  private onDownloadClick = (fileState: FileState) => (
+  private onDownloadClick = (id: string) => (
     event: React.MouseEvent<HTMLElement>,
   ) => {
     event.stopPropagation();
     const { mediaClient } = this.props;
-    const name = isErrorFileState(fileState) ? '' : fileState.name;
-    const collectionName = this.getCollectionFromFileState(fileState);
-
-    mediaClient.file.downloadBinary(fileState.id, name, collectionName);
+    const { fileInfoState } = this.state;
+    const nameInfo = fileInfoState.get(id);
+    mediaClient.file.downloadBinary(
+      id,
+      nameInfo ? nameInfo.fileName : '',
+      this.getCollectionName(id),
+    );
   };
 
-  private renderDownloadButton = (fileState: FileState) => {
+  private onSort = (data: OnSortData) => {
+    const { onSort } = this.props;
+    const { key, sortOrder, item } = data;
+    item && item.isSortable && onSort && onSort(key, sortOrder);
+  };
+
+  private renderDownloadButton = (id: string) => {
     return (
       <Button
+        appearance="subtle"
         iconAfter={<DownloadIcon label="download" />} // TODO [BENTO-6295]: add i18n key
-        onClick={this.onDownloadClick(fileState)}
+        onClick={this.onDownloadClick(id)}
+        theme={(current, themeProps) => ({
+          buttonStyles: {
+            ...current(themeProps).buttonStyles,
+            minWidth: 'max-content',
+            marginRight: '4px',
+            '&:hover': {
+              background: N40,
+            },
+          },
+          spinnerStyles: current(themeProps).spinnerStyles,
+        })}
       />
     );
   };
 
-  private getCollectionFromFileState = (
-    fileState: FileState,
-  ): string | undefined => {
+  private renderRowValues = (
+    validItemsPerPage: number,
+    validPageNumber: number,
+    validTotalItems: number,
+  ) => {
     const { items } = this.props;
-    const item = items.find(
-      item =>
-        isFileIdentifier(item.identifier) &&
-        item.identifier.id === fileState.id,
-    );
 
-    return item && item.identifier && isFileIdentifier(item.identifier)
-      ? item.identifier.collectionName
-      : undefined;
-  };
+    const rowValues: RowType[] = [];
 
-  private isLoading = (): boolean => {
-    const { fileStates } = this.state;
-    const { items } = this.props;
-    const ids = items.map(
-      ({ identifier }) => (identifier as FileIdentifier).id,
-    );
-    const uniqueIds = ids.filter(
-      (id, currentIndex) => ids.indexOf(id) === currentIndex,
-    );
+    items.forEach(item => {
+      const { data, id } = item;
 
-    return uniqueIds.length > fileStates.size;
+      rowValues.push({
+        cells: this.generateCellValues(data, id),
+        key: id,
+        onClick: this.onRowClick(id),
+      });
+    });
+
+    return generateRowValues(
+      rowValues,
+      validItemsPerPage,
+      validPageNumber,
+      validTotalItems,
+    );
   };
 
   private renderTable = () => {
-    const { fileStates } = this.state;
-    const rows: RowType[] = [];
+    const {
+      columns,
+      itemsPerPage,
+      isLoading,
+      pageNumber,
+      onSetPage,
+      totalItems,
+      items,
+    } = this.props;
 
-    fileStates.forEach(fileState => {
-      if (isErrorFileState(fileState)) {
-        return;
-      }
+    const {
+      validItemsPerPage,
+      validPageNumber,
+      validTotalItems,
+    } = getValidTableProps(items.length, itemsPerPage, pageNumber, totalItems);
 
-      rows.push({
-        cells: this.renderCells(fileState),
-        key: fileState.id,
-        onClick: this.onRowClick(fileState),
-      });
-    });
+    const rowsPerPage =
+      validTotalItems <= validItemsPerPage ? undefined : validItemsPerPage;
 
     return (
-      <DynamicTable
-        head={head}
-        rows={rows}
-        rowsPerPage={10}
-        defaultPage={1}
+      <DynamicTableStateless
+        caption={''}
+        head={columns}
+        rows={this.renderRowValues(
+          validItemsPerPage,
+          validPageNumber,
+          validTotalItems,
+        )}
+        rowsPerPage={rowsPerPage}
+        page={validPageNumber}
         loadingSpinnerSize="large"
-        isLoading={this.isLoading()}
-        isFixedSize
-        defaultSortKey="file"
-        defaultSortOrder="ASC"
+        isLoading={isLoading}
+        sortKey="term"
+        sortOrder="ASC"
+        onSort={this.onSort}
+        onSetPage={onSetPage}
       />
     );
   };
 
-  private onRowClick = (fileState: FileState) => () => {
-    const { items } = this.props;
-    const selectedItem = items.find(item => {
-      if (isFileIdentifier(item.identifier)) {
-        return item.identifier.id === fileState.id;
-      }
+  private transformToFileIdentifier = (id: string): Identifier => {
+    return {
+      id,
+      mediaItemType: 'file',
+      collectionName: this.getCollectionName(id),
+    };
+  };
 
-      return false;
+  private getCollectionName = (id: string) => {
+    const { items } = this.props;
+    const item = items.find(itemData => {
+      return itemData.id === id;
     });
 
-    if (selectedItem) {
-      this.safeSetState({
-        mediaViewerSelectedItem: selectedItem.identifier,
-      });
-    }
+    return (item && item.data.collectionName) || '';
+  };
+
+  private onRowClick = (selectedId: string) => () => {
+    const fileIdentifer = this.transformToFileIdentifier(selectedId);
+
+    this.safeSetState({ mediaViewerSelectedItem: fileIdentifer });
   };
 
   private safeSetState = (state: Partial<MediaTableState>) => {
@@ -283,24 +230,26 @@ export class MediaTable extends Component<MediaTableProps, MediaTableState> {
 
   private renderMediaViewer = (): React.ReactPortal | null => {
     const { mediaViewerSelectedItem } = this.state;
-    const { mediaClientConfig, items } = this.props;
+    const { mediaClient, items } = this.props;
 
     if (!mediaViewerSelectedItem) {
       return null;
     }
 
-    const fileIdentifiers = items.map(item => item.identifier);
+    const fileIdentifiers = items.map(item =>
+      this.transformToFileIdentifier(item.id),
+    );
     const dataSource: MediaViewerDataSource = {
       list: fileIdentifiers,
     };
+
     const collectionName =
       (isFileIdentifier(mediaViewerSelectedItem) &&
         mediaViewerSelectedItem.collectionName) ||
       '';
-
     return ReactDOM.createPortal(
       <MediaViewer
-        mediaClientConfig={mediaClientConfig}
+        mediaClientConfig={mediaClient.config}
         dataSource={dataSource}
         selectedItem={mediaViewerSelectedItem}
         onClose={this.onMediaViewerClose}

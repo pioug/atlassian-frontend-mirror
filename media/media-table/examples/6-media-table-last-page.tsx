@@ -2,13 +2,8 @@ import React from 'react';
 import { MediaTable, MediaTableItem } from '../src';
 import {
   createUploadMediaClientConfig,
-  audioNoCoverFileId,
-  largeImageFileId,
-  smallImageFileId,
   imageFileId,
   audioFileId,
-  docFileId,
-  gifFileId,
   videoProcessingFailedId,
 } from '@atlaskit/media-test-helpers';
 import {
@@ -46,51 +41,11 @@ const items: MediaTableItem[] = [
   },
   {
     data: {
-      file: createMockFileData('test3', 'video'),
+      file: createMockFileData('test4', 'video'),
       size: toHumanReadableMediaSize(123123),
       date: dateformat(123123232),
     },
     id: videoProcessingFailedId.id,
-  },
-  {
-    data: {
-      file: createMockFileData('test5', 'doc'),
-      size: toHumanReadableMediaSize(123123),
-      date: dateformat(123123232),
-    },
-    id: docFileId.id,
-  },
-  {
-    data: {
-      file: createMockFileData('test6', 'video'),
-      size: toHumanReadableMediaSize(123123),
-      date: dateformat(123123232),
-    },
-    id: gifFileId.id,
-  },
-  {
-    data: {
-      file: createMockFileData('test7', 'audio'),
-      size: toHumanReadableMediaSize(123123),
-      date: dateformat(123123232),
-    },
-    id: audioNoCoverFileId.id,
-  },
-  {
-    data: {
-      file: createMockFileData('test8', 'image'),
-      size: toHumanReadableMediaSize(123123),
-      date: dateformat(123123232),
-    },
-    id: largeImageFileId.id,
-  },
-  {
-    data: {
-      file: createMockFileData('test9', 'image'),
-      size: toHumanReadableMediaSize(123123),
-      date: dateformat(123123232),
-    },
-    id: smallImageFileId.id,
   },
 ];
 
@@ -132,10 +87,7 @@ export default () => {
       columns={columns}
       itemsPerPage={6}
       totalItems={100}
-      isLoading={false}
-      pageNumber={1}
-      onSetPage={pageNumber => console.log('onSetPage', pageNumber)}
-      onSort={(key, sortOrder) => console.log('onSort', key, sortOrder)}
+      pageNumber={17}
     />,
   );
 };

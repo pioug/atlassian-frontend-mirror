@@ -48,6 +48,7 @@ export type DimensionNames =
   | 'bannerHeight'
   | 'topNavigationHeight'
   | 'leftSidebarWidth'
+  | 'leftSidebarFlyoutWidth'
   | 'rightSidebarWidth'
   | 'rightPanelWidth';
 

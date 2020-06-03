@@ -2,9 +2,6 @@ import React from 'react';
 import { MediaTable, MediaTableItem } from '../src';
 import {
   createUploadMediaClientConfig,
-  audioNoCoverFileId,
-  largeImageFileId,
-  smallImageFileId,
   imageFileId,
   audioFileId,
   docFileId,
@@ -68,30 +65,6 @@ const items: MediaTableItem[] = [
     },
     id: gifFileId.id,
   },
-  {
-    data: {
-      file: createMockFileData('test7', 'audio'),
-      size: toHumanReadableMediaSize(123123),
-      date: dateformat(123123232),
-    },
-    id: audioNoCoverFileId.id,
-  },
-  {
-    data: {
-      file: createMockFileData('test8', 'image'),
-      size: toHumanReadableMediaSize(123123),
-      date: dateformat(123123232),
-    },
-    id: largeImageFileId.id,
-  },
-  {
-    data: {
-      file: createMockFileData('test9', 'image'),
-      size: toHumanReadableMediaSize(123123),
-      date: dateformat(123123232),
-    },
-    id: smallImageFileId.id,
-  },
 ];
 
 const columns: HeadType = {
@@ -132,10 +105,7 @@ export default () => {
       columns={columns}
       itemsPerPage={6}
       totalItems={100}
-      isLoading={false}
-      pageNumber={1}
-      onSetPage={pageNumber => console.log('onSetPage', pageNumber)}
-      onSort={(key, sortOrder) => console.log('onSort', key, sortOrder)}
+      pageNumber={8}
     />,
   );
 };

@@ -509,77 +509,92 @@ describe('<PageLayout />', () => {
   });
 
   describe('<LeftSidebarWithoutResize />', () => {
-    describe('', () => {
-      beforeEach(() => {
-        jest.useFakeTimers();
-        document.documentElement.removeAttribute('data-is-sidebar-collapsed');
-        localStorage.setItem(
-          'PAGE_LAYOUT_UI_STATE',
-          JSON.stringify({
-            isLeftSidebarCollapsed: true,
-          }),
-        );
-      });
+    beforeEach(() => {
+      jest.useFakeTimers();
+      document.documentElement.removeAttribute('data-is-sidebar-collapsed');
+      localStorage.setItem(
+        'PAGE_LAYOUT_UI_STATE',
+        JSON.stringify({
+          isLeftSidebarCollapsed: true,
+        }),
+      );
+    });
 
-      it('should NOT mount the LeftSidebarWithoutResize in collapsed mode if already collapsed previously', () => {
-        render(
-          <PageLayout testId="grid">
-            <Main>
-              <LeftSidebarWithoutResize testId="component" width={200}>
-                Contents
-              </LeftSidebarWithoutResize>
-            </Main>
-          </PageLayout>,
-        );
+    afterEach(() => {
+      jest.useRealTimers();
+      localStorage.clear();
+    });
 
-        expect(
-          document.documentElement.dataset.isSidebarCollapsed,
-        ).toBeUndefined();
-        expect(getDimension('leftSidebarWidth')).toBe('200px');
-      });
+    it('should NOT mount the LeftSidebarWithoutResize in collapsed mode if already collapsed previously', () => {
+      render(
+        <PageLayout testId="grid">
+          <Main>
+            <LeftSidebarWithoutResize testId="component" width={200}>
+              Contents
+            </LeftSidebarWithoutResize>
+          </Main>
+        </PageLayout>,
+      );
 
-      it('should NOT bind any mouse events to LeftSidebarWithoutResize', () => {
-        const { getByTestId } = render(
-          <PageLayout testId="grid">
-            <Main>
-              <LeftSidebarWithoutResize testId="component" width={200}>
-                Contents
-              </LeftSidebarWithoutResize>
-            </Main>
-          </PageLayout>,
-        );
+      expect(
+        document.documentElement.dataset.isSidebarCollapsed,
+      ).toBeUndefined();
+      expect(getDimension('leftSidebarWidth')).toBe('200px');
+    });
 
-        fireEvent.mouseEnter(getByTestId('component'));
-        jest.runAllTimers();
-        expect(
-          document.documentElement.dataset.isSidebarCollapsed,
-        ).toBeUndefined();
-        expect(document.documentElement.dataset.isFlyoutOpen).toBeUndefined();
+    it('should NOT bind any mouse events to LeftSidebarWithoutResize', () => {
+      const { getByTestId } = render(
+        <PageLayout testId="grid">
+          <Main>
+            <LeftSidebarWithoutResize testId="component" width={200}>
+              Contents
+            </LeftSidebarWithoutResize>
+          </Main>
+        </PageLayout>,
+      );
 
-        fireEvent.mouseLeave(getByTestId('component'));
-        jest.runAllTimers();
-        expect(
-          document.documentElement.dataset.isSidebarCollapsed,
-        ).toBeUndefined();
-        expect(document.documentElement.dataset.isFlyoutOpen).toBeUndefined();
-      });
+      fireEvent.mouseEnter(getByTestId('component'));
+      jest.runAllTimers();
+      expect(
+        document.documentElement.dataset.isSidebarCollapsed,
+      ).toBeUndefined();
+      expect(document.documentElement.dataset.isFlyoutOpen).toBeUndefined();
 
-      it('should mount the LeftSidebar in collapsed mode if already collapsed previously', () => {
-        render(
-          <PageLayout testId="grid">
-            <Main>
-              <LeftSidebar testId="component" width={200}>
-                Contents
-              </LeftSidebar>
-            </Main>
-          </PageLayout>,
-        );
+      fireEvent.mouseLeave(getByTestId('component'));
+      jest.runAllTimers();
+      expect(
+        document.documentElement.dataset.isSidebarCollapsed,
+      ).toBeUndefined();
+      expect(document.documentElement.dataset.isFlyoutOpen).toBeUndefined();
+    });
+  });
 
-        expect(document.documentElement.dataset.isSidebarCollapsed).toBe(
-          'true',
-        );
-        expect(getDimension('leftSidebarWidth')).toBe('20px');
-      });
+  describe('<LeftSidebar/>', () => {
+    beforeEach(() => {
+      jest.useFakeTimers();
+    });
+
+    it('should mount the LeftSidebar in collapsed mode if already collapsed previously', () => {
+      document.documentElement.removeAttribute('data-is-sidebar-collapsed');
+      localStorage.setItem(
+        'PAGE_LAYOUT_UI_STATE',
+        JSON.stringify({
+          isLeftSidebarCollapsed: true,
+        }),
+      );
+
+      render(
+        <PageLayout testId="grid">
+          <Main>
+            <LeftSidebar testId="component" width={200}>
+              Contents
+            </LeftSidebar>
+          </Main>
+        </PageLayout>,
+      );
+
+      expect(document.documentElement.dataset.isSidebarCollapsed).toBe('true');
+      expect(getDimension('leftSidebarWidth')).toBe('20px');
     });
 
     it('should render with the width that was passed to it', () => {
@@ -598,7 +613,7 @@ describe('<PageLayout />', () => {
         'var(--leftSidebarWidth)',
       );
       expect(document.head.innerHTML).toEqual(
-        expect.stringContaining(':root{--leftSidebarWidth:200px;}'),
+        expect.stringContaining('{--leftSidebarWidth:200px;}'),
       );
     });
 
@@ -651,6 +666,7 @@ describe('<PageLayout />', () => {
         {
           gridState: {
             leftSidebarWidth: 50,
+            leftSidebarFlyoutWidth: 50,
           },
           isLeftSidebarCollapsed: false,
           expandedLeftSidebarWidth: 50,

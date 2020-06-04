@@ -1,5 +1,11 @@
 # @atlaskit/navigation
 
+## 36.0.6
+
+### Patch Changes
+
+- [`4560b65a4f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4560b65a4f) - upgrade react-transition-group to latest
+
 ## 36.0.5
 
 ### Patch Changes

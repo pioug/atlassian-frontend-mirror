@@ -6,6 +6,7 @@ import {
   createSchema,
   defaultSchemaConfig,
 } from '@atlaskit/adf-schema';
+import { nextTick } from '@atlaskit/media-test-helpers';
 import { Heading } from '../../../react/nodes';
 import { Emoji } from '../../../react/nodes';
 
@@ -18,7 +19,6 @@ import * as expandWithMedia from '../../__fixtures__/expand-with-media.adf.json'
 import * as nestedExpandWithMedia from '../../__fixtures__/nested-expand-with-media.json';
 import * as layoutWithMedia from '../../__fixtures__/layout-with-media.json';
 import * as tableWithMedia from '../../__fixtures__/table-with-media.json';
-import { nextTick } from '../../../../../../media/media-test-helpers/src';
 
 const docFromSchema = schema.nodeFromJSON(doc);
 const headingDocFromSchema = schema.nodeFromJSON(headingDoc);

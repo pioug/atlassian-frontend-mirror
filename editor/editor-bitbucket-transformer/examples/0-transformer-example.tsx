@@ -7,14 +7,15 @@ import {
   WithEditorActions,
 } from '@atlaskit/editor-core';
 import { mention, taskDecision } from '@atlaskit/util-data-test';
-import { BitbucketTransformer } from '../src';
-import exampleBitbucketHTML from '../example-helpers/exampleHTML';
-import imageUploadHandler from '../../editor-core/example-helpers/imageUpload';
 import { Provider as SmartCardProvider } from '@atlaskit/smart-card';
 import {
   ConfluenceCardClient,
   ConfluenceCardProvider,
-} from '../../editor-core/examples/5-full-page-with-confluence-smart-cards';
+} from '@atlaskit/editor-core/examples/5-full-page-with-confluence-smart-cards';
+import imageUploadHandler from '@atlaskit/editor-core/example-helpers/imageUpload';
+import { BitbucketTransformer } from '../src';
+import exampleBitbucketHTML from '../example-helpers/exampleHTML';
+
 const Container = styled.div`
   display: grid;
   grid-template-columns: 33% 33% 33%;

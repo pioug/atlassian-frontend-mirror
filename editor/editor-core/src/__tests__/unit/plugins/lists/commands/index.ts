@@ -19,6 +19,7 @@ import {
   indentation,
   BuilderContent,
 } from '@atlaskit/editor-test-helpers/schema-builder';
+import { sendKeyToPm } from '@atlaskit/editor-test-helpers';
 import {
   enterKeyCommand,
   backspaceKeyCommand,
@@ -26,7 +27,6 @@ import {
 } from '../../../../../plugins/lists/commands';
 import { GapCursorSelection } from '../../../../../plugins/gap-cursor';
 import { INPUT_METHOD } from '../../../../../plugins/analytics';
-import { sendKeyToPm } from '../../../../../../../editor-test-helpers/src';
 
 describe('lists plugin -> commands', () => {
   const createEditor = createEditorFactory();

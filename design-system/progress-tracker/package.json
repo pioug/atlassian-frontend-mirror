@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/progress-tracker",
-  "version": "6.1.6",
+  "version": "6.1.7",
   "description": "A progress tracker displays the steps and progress through a journey.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -25,7 +25,7 @@
   "dependencies": {
     "@atlaskit/page": "^11.0.13",
     "@atlaskit/theme": "^9.5.1",
-    "react-transition-group": "^2.2.1",
+    "react-transition-group": "^4.4.1",
     "tslib": "^1.9.3"
   },
   "peerDependencies": {

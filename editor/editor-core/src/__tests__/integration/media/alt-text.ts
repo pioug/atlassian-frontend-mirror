@@ -1,4 +1,4 @@
-import Page from './../../../../../../../build/webdriver-runner/wd-wrapper';
+import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import {
   editable,

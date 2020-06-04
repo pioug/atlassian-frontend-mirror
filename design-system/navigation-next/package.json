@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/navigation-next",
-  "version": "8.0.6",
+  "version": "8.0.7",
   "description": "The Atlassian navigation component.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -39,7 +39,7 @@
     "react-fast-compare": "^2.0.1",
     "react-loadable": "^5.1.0",
     "react-node-resolver": "^1.0.1",
-    "react-transition-group": "^2.2.1",
+    "react-transition-group": "^4.4.1",
     "shallow-equal": "^1.0.0",
     "unstated": "^1.2.0"
   },

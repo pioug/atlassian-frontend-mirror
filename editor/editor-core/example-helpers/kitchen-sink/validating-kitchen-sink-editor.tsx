@@ -10,6 +10,7 @@ import {
 import { validator, ErrorCallback, ADFEntity } from '@atlaskit/adf-utils';
 import { Provider as SmartCardProvider } from '@atlaskit/smart-card';
 import { mention } from '@atlaskit/util-data-test';
+import { ExtensionProvider } from '@atlaskit/editor-common';
 import {
   ConfluenceCardClient,
   ConfluenceCardProvider,
@@ -25,7 +26,6 @@ import {
   quickInsertProvider,
 } from '../../examples/5-full-page';
 import { Error } from '../ErrorReport';
-import { ExtensionProvider } from '../../../editor-common/src';
 
 export type ValidatingKitchenSinkEditorProps = {
   actions: EditorActions;

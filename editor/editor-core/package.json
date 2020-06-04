@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-core",
-  "version": "124.0.0",
+  "version": "124.0.1",
   "description": "A package contains Atlassian editor core functionality",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -105,7 +105,7 @@
     "raf-schd": "^2.1.0",
     "re-resizable": "^6.0.0",
     "react-loadable": "^5.1.0",
-    "react-transition-group": "^2.2.1",
+    "react-transition-group": "^4.4.1",
     "tslib": "^1.9.3",
     "uuid": "^3.1.0",
     "w3c-keyname": "^2.1.0"

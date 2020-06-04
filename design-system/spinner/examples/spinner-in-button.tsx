@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 
 import Button from '@atlaskit/button';
+import { gridSize } from '@atlaskit/theme';
 
-import { gridSize } from '../../theme/src';
 import Spinner from '../src';
 
 function SpinnerButton() {

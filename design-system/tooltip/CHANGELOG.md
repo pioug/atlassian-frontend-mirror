@@ -1,5 +1,11 @@
 # @atlaskit/tooltip
 
+## 15.2.8
+
+### Patch Changes
+
+- [`4560b65a4f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4560b65a4f) - upgrade react-transition-group to latest
+
 ## 15.2.7
 
 ### Patch Changes

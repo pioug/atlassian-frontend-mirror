@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import { exampleDocument } from '@atlaskit/editor-core/example-helpers/example-document';
 import Editor from './../src/editor/mobile-editor-element';
-import { exampleDocument } from '../../editor-core/example-helpers/example-document';
 import { createEditorProviders } from '../src/providers';
 
 export const Wrapper: any = styled.div`

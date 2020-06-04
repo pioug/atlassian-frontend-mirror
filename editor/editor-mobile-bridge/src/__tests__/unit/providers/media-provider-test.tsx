@@ -37,7 +37,7 @@ import {
   expectFunctionToHaveBeenCalledWith,
   fakeMediaClient,
 } from '@atlaskit/media-test-helpers';
-import { INPUT_METHOD } from '../../../../../editor-core/src/plugins/analytics';
+import { INPUT_METHOD } from '@atlaskit/editor-core';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 
 let testFileId: string;

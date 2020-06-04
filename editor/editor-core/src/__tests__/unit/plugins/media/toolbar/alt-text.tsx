@@ -6,6 +6,7 @@ import {
   media,
   mediaSingle,
 } from '@atlaskit/editor-test-helpers/schema-builder';
+import { MediaAttributes } from '@atlaskit/adf-schema';
 import { EditorView } from 'prosemirror-view';
 import { IntlProvider } from 'react-intl';
 import { messages as altTextMessages } from '../../../../../plugins/media/pm-plugins/alt-text/messages';
@@ -27,7 +28,6 @@ import {
   findToolbarBtn,
   getToolbarItems,
 } from '../../floating-toolbar/_helpers';
-import { MediaAttributes } from '../../../../../../../adf-schema/src';
 import { MediaPluginState } from '../../../../../plugins/media/pm-plugins/types';
 
 interface ToolbarWrapper {

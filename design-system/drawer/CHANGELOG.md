@@ -1,5 +1,11 @@
 # @atlaskit/drawer
 
+## 5.3.9
+
+### Patch Changes
+
+- [`4560b65a4f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4560b65a4f) - upgrade react-transition-group to latest
+
 ## 5.3.8
 
 ### Patch Changes

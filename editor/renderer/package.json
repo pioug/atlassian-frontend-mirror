@@ -58,6 +58,7 @@
     "@atlaskit/button": "^13.4.0",
     "@atlaskit/css-reset": "^5.0.10",
     "@atlaskit/docs": "*",
+    "@atlaskit/editor-core": "^124.0.0",
     "@atlaskit/editor-test-helpers": "^11.2.0",
     "@atlaskit/field-range": "^8.0.2",
     "@atlaskit/logo": "^12.3.4",

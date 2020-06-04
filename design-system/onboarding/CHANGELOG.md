@@ -1,5 +1,11 @@
 # @atlaskit/onboarding
 
+## 9.1.9
+
+### Patch Changes
+
+- [`4560b65a4f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4560b65a4f) - upgrade react-transition-group to latest
+
 ## 9.1.8
 
 ### Patch Changes

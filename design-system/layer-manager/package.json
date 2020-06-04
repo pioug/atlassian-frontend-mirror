@@ -26,7 +26,7 @@
     "prop-types": "^15.5.10",
     "react-focus-lock": "^1.19.1",
     "react-scrolllock": "^5.0.1",
-    "react-transition-group": "^2.2.1"
+    "react-transition-group": "^4.4.1"
   },
   "peerDependencies": {
     "react": "^16.8.0",

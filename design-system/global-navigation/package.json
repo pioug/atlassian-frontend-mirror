@@ -17,7 +17,8 @@
     "team": "Design System Team",
     "releaseModel": "scheduled",
     "website": {
-      "name": "Global Navigation"
+      "name": "Global Navigation",
+      "deprecated": "Please use @atlaskit/atlassian-navigation for the horizontal nav bar, @atlaskit/side-navigation for the side nav, and @atlaskit/page-layout to layout your application."
     }
   },
   "dependencies": {

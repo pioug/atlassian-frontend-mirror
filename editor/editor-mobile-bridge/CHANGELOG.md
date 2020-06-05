@@ -1,5 +1,11 @@
 # @atlaskit/editor-mobile-bridge
 
+## 14.0.2
+
+### Patch Changes
+
+- [`a5815adf37`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a5815adf37) - Fixed es2019 distributable missing a version.json file
+
 ## 14.0.1
 
 ### Patch Changes

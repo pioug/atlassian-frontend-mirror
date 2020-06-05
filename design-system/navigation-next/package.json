@@ -17,7 +17,8 @@
     "team": "Design System Team",
     "releaseModel": "scheduled",
     "website": {
-      "name": "Navigation Next"
+      "name": "Navigation Next",
+      "deprecated": "Please use @atlaskit/atlassian-navigation for the horizontal nav bar, @atlaskit/side-navigation for the side nav, and @atlaskit/page-layout to layout your application."
     }
   },
   "dependencies": {

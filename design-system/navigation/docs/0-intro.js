@@ -6,35 +6,23 @@ export default md`
 ${(
   <SectionMessage
     appearance="warning"
-    title="Note: @atlaskit/navigation is deprecated."
+    title="Moving to a new navigation experience."
   >
-    Please use{' '}
-    <a href="../navigation/side-navigation">@atlaskit/side-navigation</a>
-    {' and '}
-    <a href="../navigation/atlassian-navigation">
-      @atlaskit/atlassian-navigation
-    </a>{' '}
-    instead. <br />
-    Additional documentation pages are listed below:
-    <br />
-    <ul>
-      <li>
-        <a href="navigation/docs/navigation-props">Navigation Props</a>
-      </li>
-      <li>
-        <a href="navigation/docs/composing-global-navigation">
-          Composing Global Navigation
-        </a>
-      </li>
-      <li>
-        <a href="navigation/docs/composing-container-navigation">
-          Composing Container Navigation
-        </a>
-      </li>
-      <li>
-        <a href="navigation/docs/navigation-drawers">Navigation Drawers</a>
-      </li>
-    </ul>
+    <p>
+      Atlassian is moving to a new navigation experience, which includes
+      horizontal global navigation, and re-built navigation components to
+      replace navigation-next.
+    </p>
+    <p>
+      If you are building a new navigation experience, please use{' '}
+      <a href="../navigation/atlassian-navigation">
+        @atlaskit/atlassian-navigation
+      </a>{' '}
+      {', '}
+      <a href="../navigation/side-navigation">@atlaskit/side-navigation</a>
+      {' and '}
+      <a href="./page-layout">@atlaskit/page-layout</a>.
+    </p>
   </SectionMessage>
 )}
 

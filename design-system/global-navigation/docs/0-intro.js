@@ -1,9 +1,43 @@
 import React from 'react';
 import { code, md, Props } from '@atlaskit/docs';
+import SectionMessage from '@atlaskit/section-message';
 
 import { Hr, IframeExample } from './shared';
 
-export default md`This component is a wrapper around the \`GlobalNav\` primitive component from \`navigation-next\`. It provides a lot of features, configuration, and state management out of the box while exposing a more opinionated API. If you are building an Atlassian product you should use this component to ensure that our users get a consistent experience across our products. It will also make it easier for platform to ship updates to the experience without you needing to do any work!
+export default md`
+${(
+  <SectionMessage
+    appearance="warning"
+    title="Moving to a new navigation experience."
+  >
+    <p>
+      Atlassian is moving to a new navigation experience, which includes
+      horizontal global navigation, and re-built navigation components to
+      replace navigation-next.
+    </p>
+    <p>
+      If you are building a new navigation experience, please use{' '}
+      <a href="../navigation/atlassian-navigation">
+        @atlaskit/atlassian-navigation
+      </a>{' '}
+      {', '}
+      <a href="../navigation/side-navigation">@atlaskit/side-navigation</a>
+      {' and '}
+      <a href="./page-layout">@atlaskit/page-layout</a>.
+    </p>
+    <p>
+      {' '}
+      For a guide on how to upgrade from `navigation-next` to the new navigation
+      components, follow{' '}
+      <a href="../navigation/atlassian-navigation/docs/migrating-from-navigation-next">
+        this guide in the atlassian-navigation docs
+      </a>
+      .
+    </p>
+  </SectionMessage>
+)}
+
+This component is a wrapper around the \`GlobalNav\` primitive component from \`navigation-next\`. It provides a lot of features, configuration, and state management out of the box while exposing a more opinionated API. If you are building an Atlassian product you should use this component to ensure that our users get a consistent experience across our products. It will also make it easier for platform to ship updates to the experience without you needing to do any work!
 
 If you are building an application that isn't an Atlassian product and you want to configure the global navigation area in a unique way, use [the component exported by \`navigation-next\`](/packages/design-system/navigation-next/docs/ui-components#globalnav).
 

@@ -7,3 +7,7 @@ export const replace = () => {
 export const step = () => {
   (window.requestAnimationFrame as any).step();
 };
+
+export const flush = () => {
+  (window.requestAnimationFrame as any).flush();
+};

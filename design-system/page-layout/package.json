@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/page-layout",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "A collection of components which let you compose an application's page layout",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -27,6 +27,7 @@
     "@atlaskit/theme": "^9.5.1",
     "@emotion/core": "^10.0.9",
     "css-vars-ponyfill": "^2.2.0",
+    "lodash.debounce": "^4.0.8",
     "raf-schd": "^2.1.0",
     "tslib": "^1.9.3"
   },

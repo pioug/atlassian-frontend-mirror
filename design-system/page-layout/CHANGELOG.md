@@ -1,5 +1,13 @@
 # @atlaskit/page-layout
 
+## 0.4.1
+
+### Patch Changes
+
+- [`c38dd3c0dc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c38dd3c0dc) - Fixes a bug where LeftSidebar would go into an inconsistent state when toggled quickly.
+- [`6ab2c4b227`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6ab2c4b227) - Make flyout behaviour more predictable
+- [`7d0af990e1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7d0af990e1) - Removes overflow auto so that position sticky in Main can work
+
 ## 0.4.0
 
 ### Minor Changes

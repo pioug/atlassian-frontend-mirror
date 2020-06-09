@@ -1,6 +1,8 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
 
-import { isReducedMotion, mediumDurationMs } from '@atlaskit/motion';
+import debounce from 'lodash.debounce';
+
+import { isReducedMotion } from '@atlaskit/motion';
 
 import {
   COLLAPSED_LEFT_SIDEBAR_WIDTH,
@@ -11,8 +13,8 @@ import {
   LEFT_SIDEBAR_EXPANDED_WIDTH,
   LEFT_SIDEBAR_FLYOUT,
   LEFT_SIDEBAR_FLYOUT_WIDTH,
+  LEFT_SIDEBAR_SELECTOR,
   LEFT_SIDEBAR_WIDTH,
-  TRANSITION_DURATION,
 } from '../common/constants';
 import { SidebarResizeControllerProps } from '../common/types';
 import {
@@ -27,6 +29,17 @@ import {
 
 import { usePageLayoutGrid } from './index';
 
+type Callback = () => void;
+const noop = () => {};
+const handleDataAttributesAndCb = (
+  callback: Callback = noop,
+  isLeftSidebarCollapsed: boolean,
+) => {
+  isLeftSidebarCollapsed &&
+    document.documentElement.setAttribute(IS_SIDEBAR_COLLAPSED, 'true');
+  document.documentElement.removeAttribute(IS_SIDEBAR_COLLAPSING);
+  callback();
+};
 export const SidebarResizeController: FC<SidebarResizeControllerProps> = ({
   children,
   onExpand,
@@ -48,6 +61,39 @@ export const SidebarResizeController: FC<SidebarResizeControllerProps> = ({
   const [gridState, setGridState] = usePageLayoutGrid({
     [LEFT_SIDEBAR_WIDTH]: cachedGridState[LEFT_SIDEBAR_WIDTH],
   });
+  const firstRun = useRef(false);
+
+  useEffect(() => {
+    // Don't attach event listener on first run
+    if (firstRun.current && !isReducedMotion()) {
+      document
+        .querySelector(`[${LEFT_SIDEBAR_SELECTOR}]`)!
+        .addEventListener('transitionend', function transitionEventHandler(
+          event,
+        ) {
+          if (
+            (event as TransitionEvent).propertyName === 'width' &&
+            event.target &&
+            (event.target as HTMLDivElement).matches(
+              `[${LEFT_SIDEBAR_SELECTOR}]`,
+            )
+          ) {
+            handleDataAttributesAndCb(
+              isLeftSidebarCollapsed ? onCollapse : onExpand,
+              isLeftSidebarCollapsed,
+            );
+            // Make sure multiple event handlers do not get attached
+            document
+              .querySelector(`[${LEFT_SIDEBAR_SELECTOR}]`)!
+              .removeEventListener('transitionend', transitionEventHandler);
+          }
+        });
+    }
+
+    if (!firstRun.current) {
+      firstRun.current = true;
+    }
+  }, [isLeftSidebarCollapsed, onCollapse, onExpand]);
 
   useEffect(() => {
     mergeGridStateIntoStorage('isLeftSidebarCollapsed', isLeftSidebarCollapsed);
@@ -66,9 +112,8 @@ export const SidebarResizeController: FC<SidebarResizeControllerProps> = ({
 
   const context: SidebarResizeContextValue = {
     isLeftSidebarCollapsed,
-    expandLeftSidebar: () => {
-      onExpand &&
-        setTimeout(onExpand, isReducedMotion() ? 0 : TRANSITION_DURATION);
+
+    expandLeftSidebar: debounce(() => {
       setGridState({
         ...gridState,
         [LEFT_SIDEBAR_WIDTH]: Math.max(
@@ -79,25 +124,24 @@ export const SidebarResizeController: FC<SidebarResizeControllerProps> = ({
       resetFlyout();
       setIsLeftSidebarCollapsed(false);
       document.documentElement.removeAttribute(IS_SIDEBAR_COLLAPSED);
-    },
-    collapseLeftSidebar: () => {
-      onCollapse &&
-        setTimeout(onCollapse, isReducedMotion() ? 0 : TRANSITION_DURATION);
+
+      // onTransitionEnd isn't triggered when a user prefers reduced motion
+      isReducedMotion() && handleDataAttributesAndCb(onExpand, false);
+    }, 250),
+
+    collapseLeftSidebar: debounce(() => {
       setGridState({
         ...gridState,
         [LEFT_SIDEBAR_WIDTH]: COLLAPSED_LEFT_SIDEBAR_WIDTH,
         [LEFT_SIDEBAR_FLYOUT]: gridState[LEFT_SIDEBAR_WIDTH],
       });
       setIsLeftSidebarCollapsed(true);
-      document.documentElement.setAttribute(IS_SIDEBAR_COLLAPSING, 'true'),
-        setTimeout(
-          () => {
-            document.documentElement.setAttribute(IS_SIDEBAR_COLLAPSED, 'true');
-            document.documentElement.removeAttribute(IS_SIDEBAR_COLLAPSING);
-          },
-          isReducedMotion() ? 0 : mediumDurationMs,
-        );
-    },
+      document.documentElement.setAttribute(IS_SIDEBAR_COLLAPSING, 'true');
+
+      // onTransitionEnd isn't triggered when a user prefers reduced motion
+      isReducedMotion() && handleDataAttributesAndCb(onCollapse, true);
+    }, 250),
+
     setLeftSidebarWidth: width => {
       setGridState({
         ...gridState,
@@ -105,9 +149,11 @@ export const SidebarResizeController: FC<SidebarResizeControllerProps> = ({
       });
       mergeGridStateIntoStorage(LEFT_SIDEBAR_EXPANDED_WIDTH, width);
     },
+
     getLeftSidebarWidth: () => {
       return getGridStateFromStorage('gridState')[LEFT_SIDEBAR_WIDTH] || 0;
     },
+
     getLeftPanelWidth: () => {
       return getGridStateFromStorage('gridState')[LEFT_PANEL_WIDTH] || 0;
     },

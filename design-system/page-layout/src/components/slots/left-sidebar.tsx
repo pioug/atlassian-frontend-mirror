@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { MouseEvent, useEffect, useState } from 'react';
+import { MouseEvent, useEffect, useRef, useState } from 'react';
 
 import { jsx } from '@emotion/core';
 
@@ -50,7 +50,7 @@ const LeftSidebar = (props: LeftSidebarProps) => {
     testId,
   } = props;
 
-  let timeout: undefined | number;
+  const flyoutTimerRef = useRef<ReturnType<typeof setTimeout>>();
   const [isFlyoutOpen, setIsFlyoutOpen] = useState(false);
   const cachedCollapsedState = !!getGridStateFromStorage(
     'isLeftSidebarCollapsed',
@@ -86,16 +86,16 @@ const LeftSidebar = (props: LeftSidebarProps) => {
     }
 
     event.persist();
-    clearTimeout(timeout);
+    flyoutTimerRef.current && clearTimeout(flyoutTimerRef.current);
 
     const isLeftSidebarCollapsed = document.documentElement.hasAttribute(
       IS_SIDEBAR_COLLAPSED,
     );
 
     if (isLeftSidebarCollapsed) {
-      timeout = window.setTimeout(() => {
-        onFlyoutExpand && onFlyoutExpand();
+      flyoutTimerRef.current = setTimeout(() => {
         setIsFlyoutOpen(true);
+        onFlyoutExpand && onFlyoutExpand();
       }, FLYOUT_DELAY);
     }
   };
@@ -103,7 +103,11 @@ const LeftSidebar = (props: LeftSidebarProps) => {
   const resetFlyout = () => isFlyoutOpen && setIsFlyoutOpen(false);
 
   const onMouseLeave = () => {
-    clearTimeout(timeout);
+    flyoutTimerRef.current && clearTimeout(flyoutTimerRef.current);
+
+    if (!isFlyoutOpen) {
+      return;
+    }
 
     const isLeftSidebarCollapsed = document.documentElement.hasAttribute(
       IS_SIDEBAR_COLLAPSED,

@@ -4,7 +4,11 @@ import { act, fireEvent, render } from '@testing-library/react';
 
 import Tooltip from '@atlaskit/tooltip';
 
-import { PAGE_LAYOUT_LS_KEY } from '../../../common/constants';
+import {
+  IS_SIDEBAR_COLLAPSED,
+  IS_SIDEBAR_COLLAPSING,
+  PAGE_LAYOUT_LS_KEY,
+} from '../../../common/constants';
 import {
   Content,
   LeftPanel,
@@ -20,6 +24,7 @@ import * as raf from './__utils__/raf';
 describe('Left sidebar', () => {
   beforeEach(() => {
     jest.useFakeTimers();
+    raf.replace();
   });
 
   afterEach(() => {
@@ -28,8 +33,23 @@ describe('Left sidebar', () => {
   });
 
   const completeAnimations = () => {
-    act(() => raf.step());
+    act(() => raf.flush());
     act(() => jest.runAllTimers());
+  };
+
+  const triggerTransitionEnd = (component: any) => {
+    // JSDom doesn't trigger transitionend event
+    // https://github.com/jsdom/jsdom/issues/1781
+    act(() => {
+      const transitionEndEvent = new Event('transitionend', {
+        bubbles: true,
+        cancelable: false,
+      });
+      (transitionEndEvent as any).propertyName = 'width';
+
+      fireEvent(component, transitionEndEvent);
+      completeAnimations();
+    });
   };
 
   const ResizeControlledConsumer = () => {
@@ -59,6 +79,7 @@ describe('Left sidebar', () => {
       </>
     );
   };
+
   describe('SidebarResizeController', () => {
     it('should return the correct "isLeftSidebarCollapsed" state', () => {
       const { getByTestId } = render(
@@ -75,17 +96,80 @@ describe('Left sidebar', () => {
 
       act(() => {
         fireEvent.click(getByTestId('collapse'));
-        jest.runAllTimers();
         completeAnimations();
       });
       expect(getByTestId('isLeftSidebarCollapsed').innerText).toBe('true');
 
       act(() => {
         fireEvent.click(getByTestId('expand'));
-        jest.runAllTimers();
         completeAnimations();
       });
       expect(getByTestId('isLeftSidebarCollapsed').innerText).toBe('false');
+    });
+
+    it('should not go into inconsistent state when expanded and collapsed quickly', () => {
+      const { getByTestId } = render(
+        <PageLayout testId="grid">
+          <Content>
+            <LeftSidebar testId="left-sidebar" width={200}>
+              LeftSidebar
+              <ResizeControlledConsumer />
+            </LeftSidebar>
+            <Main testId="content">Main</Main>
+          </Content>
+        </PageLayout>,
+      );
+
+      act(() => {
+        fireEvent.click(getByTestId('collapse'));
+      });
+      act(() => {
+        fireEvent.click(getByTestId('expand'));
+      });
+      triggerTransitionEnd(getByTestId('left-sidebar'));
+
+      expect(
+        document.documentElement.getAttribute(IS_SIDEBAR_COLLAPSING),
+      ).toEqual(null);
+      expect(
+        document.documentElement.getAttribute(IS_SIDEBAR_COLLAPSED),
+      ).toEqual('true');
+    });
+
+    it('should add the correct data attributes while expanding and collapsing', () => {
+      const { getByTestId } = render(
+        <PageLayout testId="grid">
+          <Content>
+            <LeftSidebar testId="left-sidebar" width={200}>
+              LeftSidebar
+              <ResizeControlledConsumer />
+            </LeftSidebar>
+            <Main testId="content">Main</Main>
+          </Content>
+        </PageLayout>,
+      );
+
+      act(() => {
+        fireEvent.click(getByTestId('collapse'));
+      });
+      expect(
+        document.documentElement.getAttribute(IS_SIDEBAR_COLLAPSING),
+      ).toEqual('true');
+
+      triggerTransitionEnd(getByTestId('left-sidebar'));
+      expect(
+        document.documentElement.getAttribute(IS_SIDEBAR_COLLAPSED),
+      ).toEqual('true');
+
+      act(() => {
+        fireEvent.click(getByTestId('expand'));
+      });
+      expect(
+        document.documentElement.getAttribute(IS_SIDEBAR_COLLAPSING),
+      ).toEqual(null);
+      expect(
+        document.documentElement.getAttribute(IS_SIDEBAR_COLLAPSED),
+      ).toEqual(null);
     });
 
     it('should expand LeftSidebar when "collapseLeftSidebar" is called', () => {
@@ -103,7 +187,6 @@ describe('Left sidebar', () => {
 
       act(() => {
         fireEvent.click(getByTestId('collapse'));
-        jest.runAllTimers();
         completeAnimations();
       });
       expect(getDimension('leftSidebarWidth')).toEqual('20px');
@@ -127,7 +210,6 @@ describe('Left sidebar', () => {
 
       act(() => {
         fireEvent.click(getByTestId('expand'));
-        jest.runAllTimers();
         completeAnimations();
       });
       expect(getDimension('leftSidebarWidth')).toEqual('240px');
@@ -207,13 +289,16 @@ describe('Left sidebar', () => {
 
       act(() => {
         fireEvent.click(getByTestId('collapse'));
-        jest.runAllTimers();
-        completeAnimations();
-
-        fireEvent.mouseOver(getByTestId('component'));
-        jest.runAllTimers();
         completeAnimations();
       });
+
+      triggerTransitionEnd(getByTestId('component'));
+
+      act(() => {
+        fireEvent.mouseOver(getByTestId('component'));
+        completeAnimations();
+      });
+
       expect(getByTestId('component')).toHaveStyleDeclaration('width', '20px');
       expect(getByTestId('component').firstElementChild).toHaveStyleDeclaration(
         'width',
@@ -225,7 +310,6 @@ describe('Left sidebar', () => {
 
       act(() => {
         fireEvent.click(getByTestId('expand'));
-        jest.runAllTimers();
         completeAnimations();
       });
 
@@ -238,10 +322,135 @@ describe('Left sidebar', () => {
         'var(--leftSidebarWidth)',
       );
     });
+
+    describe('prefers-reduced-motion', () => {
+      beforeEach(() => {
+        Object.defineProperty(window, 'matchMedia', {
+          writable: true,
+          value: jest.fn().mockImplementation(query => ({
+            matches: true,
+            media: query,
+            onchange: null,
+            addListener: jest.fn(), // deprecated
+            removeListener: jest.fn(), // deprecated
+            addEventListener: jest.fn(),
+            removeEventListener: jest.fn(),
+            dispatchEvent: jest.fn(),
+          })),
+        });
+      });
+
+      afterEach(() => {
+        Object.defineProperty(window, 'matchMedia', {
+          writable: true,
+          value: jest.fn().mockImplementation(query => ({
+            matches: false,
+            media: query,
+            onchange: null,
+            addListener: jest.fn(), // deprecated
+            removeListener: jest.fn(), // deprecated
+            addEventListener: jest.fn(),
+            removeEventListener: jest.fn(),
+            dispatchEvent: jest.fn(),
+          })),
+        });
+      });
+
+      it('should expand LeftSidebar when "collapseLeftSidebar" is called', () => {
+        const { getByTestId } = render(
+          <PageLayout testId="grid">
+            <Content>
+              <LeftSidebar testId="left-sidebar" width={200}>
+                LeftSidebar
+                <ResizeControlledConsumer />
+              </LeftSidebar>
+              <Main testId="content">Main</Main>
+            </Content>
+          </PageLayout>,
+        );
+
+        act(() => {
+          fireEvent.click(getByTestId('collapse'));
+        });
+        expect(getDimension('leftSidebarWidth')).toEqual('20px');
+        expect(JSON.parse(localStorage.getItem(PAGE_LAYOUT_LS_KEY)!)).toEqual(
+          expect.objectContaining({ isLeftSidebarCollapsed: true }),
+        );
+      });
+
+      it('should collapse LeftSidebar when "expandLeftSidebar" is called', () => {
+        const { getByTestId } = render(
+          <PageLayout testId="grid">
+            <Content>
+              <LeftSidebar testId="left-sidebar" width={200}>
+                LeftSidebar
+                <ResizeControlledConsumer />
+              </LeftSidebar>
+              <Main testId="content">Main</Main>
+            </Content>
+          </PageLayout>,
+        );
+
+        act(() => {
+          fireEvent.click(getByTestId('expand'));
+        });
+        expect(getDimension('leftSidebarWidth')).toEqual('240px');
+        expect(JSON.parse(localStorage.getItem(PAGE_LAYOUT_LS_KEY)!)).toEqual(
+          expect.objectContaining({ isLeftSidebarCollapsed: false }),
+        );
+      });
+
+      it('should call onExpand callback LeftSidebar is expanded', () => {
+        const fn = jest.fn();
+        const { getByTestId } = render(
+          <PageLayout testId="grid">
+            <Content>
+              <LeftSidebar testId="left-sidebar" width={200} onExpand={fn}>
+                LeftSidebar
+                <ResizeControlledConsumer />
+              </LeftSidebar>
+              <Main testId="content">Main</Main>
+            </Content>
+          </PageLayout>,
+        );
+
+        act(() => {
+          fireEvent.click(getByTestId('collapse'));
+        });
+        completeAnimations();
+        act(() => {
+          fireEvent.click(getByTestId('expand'));
+        });
+        completeAnimations();
+
+        expect(fn).toHaveBeenCalledTimes(1);
+      });
+
+      it('should call onCollapse callback when LeftSidebar is collapsed', () => {
+        const fn = jest.fn();
+        const { getByTestId } = render(
+          <PageLayout testId="grid">
+            <Content>
+              <LeftSidebar testId="left-sidebar" width={200} onCollapse={fn}>
+                LeftSidebar
+                <ResizeControlledConsumer />
+              </LeftSidebar>
+              <Main testId="content">Main</Main>
+            </Content>
+          </PageLayout>,
+        );
+
+        act(() => {
+          fireEvent.click(getByTestId('collapse'));
+        });
+
+        expect(fn).toHaveBeenCalledTimes(1);
+      });
+    });
   });
 
   describe('Resize button', () => {
-    it('should collapse the LeftSidebar when ResizeButton is clicked in expanded state', () => {
+    it('should collapse the LeftSideUbar when ResizeButton is clicked in expanded state', () => {
       const { getByTestId } = render(
         <PageLayout testId="grid">
           <Content>
@@ -276,7 +485,7 @@ describe('Left sidebar', () => {
       );
 
       fireEvent.click(getByTestId('left-sidebar-resize-button'));
-      completeAnimations();
+      triggerTransitionEnd(getByTestId('left-sidebar'));
 
       expect(fn).toHaveBeenCalledTimes(1);
     });
@@ -328,7 +537,7 @@ describe('Left sidebar', () => {
       completeAnimations();
 
       fireEvent.click(getByTestId('left-sidebar-resize-button'));
-      completeAnimations();
+      triggerTransitionEnd(getByTestId('left-sidebar'));
 
       expect(fn).toHaveBeenCalledTimes(1);
     });
@@ -902,13 +1111,13 @@ describe('Left sidebar', () => {
 
       act(() => {
         fireEvent.click(getByTestId('collapse'));
-        jest.runAllTimers();
         completeAnimations();
       });
 
+      triggerTransitionEnd(getByTestId('component'));
+
       act(() => {
         fireEvent.mouseOver(getByTestId('component'));
-        jest.runAllTimers();
         completeAnimations();
       });
 

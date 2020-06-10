@@ -91,8 +91,9 @@ export default class AvatarGroup extends Component<AvatarGroupProps> {
           AvatarGroupItem,
           {
             avatar,
-            onAvatarClick: onAvatarClick,
+            onAvatarClick,
             testId: testId && `${testId}--avatar-group-item-${index}`,
+            index: index + max,
           },
           // This index holds the true index,
           // adding up the index of non-overflowed avatars and overflowed avatars.
@@ -146,7 +147,13 @@ export default class AvatarGroup extends Component<AvatarGroupProps> {
           size,
           borderColor,
           testId: testId && `${testId}--avatar-${idx}`,
-          onClick: avatarData.onClick || onAvatarClick,
+          onClick: (event, analyticsEvent) => {
+            const callback = avatarData.onClick || onAvatarClick;
+
+            if (callback) {
+              callback(event, analyticsEvent, idx);
+            }
+          },
           stackIndex: max - idx,
         },
         idx,

@@ -37,7 +37,7 @@ const tableCell: NodeEncoder = (node: PMNode): string => {
   node.forEach(n => {
     result.push(encode(n));
   });
-  const output = result.join('\n');
+  const output = result.join('\n').trim();
   // Return single whitespace if content of cell is empty
   // to preserve correct empty cell rendering in wiki
   return output === '' ? ' ' : output;

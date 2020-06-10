@@ -162,4 +162,11 @@ describe('ADF => WikiMarkup - Table', () => {
     );
     expect(transformer.encode(node)).toMatchSnapshot();
   });
+
+  test('should convert table with newline in cell', () => {
+    const node = doc(
+      table()(tr(td()(p('hello world'), p())), tr(td()(p('hello world')))),
+    )(defaultSchema);
+    expect(transformer.encode(node)).toMatchSnapshot();
+  });
 });

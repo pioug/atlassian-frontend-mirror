@@ -1,20 +1,22 @@
 import React, { Component } from 'react';
 
-import Avatar, { AvatarClickType, AvatarPropTypes } from '@atlaskit/avatar';
+import Avatar, { AvatarPropTypes } from '@atlaskit/avatar';
 import { DropdownItem } from '@atlaskit/dropdown-menu';
+
+import { onAvatarClickHandler } from './types';
 
 export interface AvatarGroupItemProps {
   avatar: AvatarPropTypes;
   isActive?: boolean;
   isHover?: boolean;
-  index?: number;
-  onAvatarClick?: AvatarClickType;
+  index: number;
+  onAvatarClick?: onAvatarClickHandler;
   testId?: string;
 }
 
 class AvatarGroupItem extends Component<AvatarGroupItemProps> {
   render() {
-    const { avatar, onAvatarClick, testId } = this.props;
+    const { avatar, onAvatarClick, testId, index } = this.props;
     const { href, ...rest } = avatar;
     const enhancedProps = this.props;
     return (
@@ -32,7 +34,7 @@ class AvatarGroupItem extends Component<AvatarGroupItemProps> {
         href={href}
         onClick={(event: React.MouseEvent) => {
           if (typeof onAvatarClick === 'function') {
-            onAvatarClick(event);
+            onAvatarClick(event, undefined, index);
           }
         }}
         rel={avatar.target ? 'noopener noreferrer' : null}

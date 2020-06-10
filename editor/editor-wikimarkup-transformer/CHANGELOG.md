@@ -1,5 +1,12 @@
 # @atlaskit/editor-wikimarkup-transformer
 
+## 5.5.0
+
+### Minor Changes
+
+- [`6aa26e54a5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6aa26e54a5) - CS-2800 mediaGroup and mediaSingle next to each other now works
+- [`a050c2ff0c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a050c2ff0c) - CS-2200 wiki transformer doesn't break table with empty new line
+
 ## 5.4.1
 
 ### Patch Changes

@@ -1,6 +1,7 @@
 import { ElementType } from 'react';
 
-import { AvatarClickType, AvatarPropTypes, SizeType } from '@atlaskit/avatar';
+import { AnalyticsEvent } from '@atlaskit/analytics-next';
+import { AvatarPropTypes, SizeType } from '@atlaskit/avatar';
 
 import { AvatarGroupItemProps } from './AvatarGroupItem';
 
@@ -37,6 +38,12 @@ export interface AvatarGroupOverrides {
     ) => React.ReactNode;
   };
 }
+
+export type onAvatarClickHandler = (
+  event: React.MouseEvent,
+  analyticsEvent: AnalyticsEvent | undefined,
+  index: number,
+) => void;
 
 export interface AvatarGroupProps {
   /**
@@ -81,7 +88,7 @@ export interface AvatarGroupProps {
   /**
    * Handle the click event on the avatar item
    */
-  onAvatarClick?: AvatarClickType;
+  onAvatarClick?: onAvatarClickHandler;
 
   /**
    * Take control of the click event on the more indicator.

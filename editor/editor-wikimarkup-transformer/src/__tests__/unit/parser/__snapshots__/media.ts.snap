@@ -1012,6 +1012,75 @@ Object {
 }
 `;
 
+exports[`JIRA wiki markup - Images and attachments should transform attachment next to image 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "attrs": Object {
+            "__contextId": null,
+            "__displayType": null,
+            "__external": false,
+            "__fileMimeType": null,
+            "__fileName": null,
+            "__fileSize": null,
+            "alt": null,
+            "collection": "",
+            "height": null,
+            "id": "document.pdf",
+            "occurrenceKey": null,
+            "type": "file",
+            "url": null,
+            "width": null,
+          },
+          "type": "media",
+        },
+      ],
+      "type": "mediaGroup",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "text": " ",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "attrs": Object {
+        "layout": "center",
+        "width": null,
+      },
+      "content": Array [
+        Object {
+          "attrs": Object {
+            "__contextId": null,
+            "__displayType": null,
+            "__external": false,
+            "__fileMimeType": null,
+            "__fileName": null,
+            "__fileSize": null,
+            "alt": null,
+            "collection": "",
+            "height": 183,
+            "id": "uuid-image",
+            "occurrenceKey": null,
+            "type": "file",
+            "url": null,
+            "width": 200,
+          },
+          "type": "media",
+        },
+      ],
+      "type": "mediaSingle",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
 exports[`JIRA wiki markup - Images and attachments should transform filename to id for attachment links if NOT present in context 1`] = `
 Object {
   "content": Array [

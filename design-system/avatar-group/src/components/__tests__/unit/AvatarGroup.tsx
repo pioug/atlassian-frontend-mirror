@@ -179,4 +179,69 @@ describe('<AvatarGroup />', () => {
 
     expect(getAllByTestId('avatar')[0].getAttribute('data-index')).toEqual('0');
   });
+
+  it('should pass the index of the avatar when onAvatarClicked is fired from the more menu', () => {
+    const onClick = jest.fn();
+    const { getByTestId } = render(
+      <AvatarGroup
+        testId="test"
+        data={generateData(4)}
+        maxCount={3}
+        onAvatarClick={onClick}
+      />,
+    );
+
+    fireEvent.click(getByTestId('test--overflow-menu--trigger'));
+    fireEvent.click(
+      getByTestId('test--overflow-menu--content').querySelectorAll('a')[1],
+    );
+
+    expect(onClick).toHaveBeenCalledWith(expect.anything(), undefined, 3);
+  });
+
+  it('should pass the index of the avatar when onAvatarClicked is fired', () => {
+    const onClick = jest.fn();
+    const { getByTestId } = render(
+      <AvatarGroup
+        testId="test"
+        data={generateData(1)}
+        maxCount={3}
+        onAvatarClick={onClick}
+      />,
+    );
+
+    fireEvent.click(getByTestId('test--avatar-0--inner'));
+
+    expect(onClick).toHaveBeenCalledWith(
+      expect.anything(),
+      expect.anything(),
+      0,
+    );
+  });
+
+  it('should pass the index of the avatar when is fired', () => {
+    const onClick = jest.fn();
+    const { getByTestId } = render(
+      <AvatarGroup
+        testId="test"
+        data={[
+          {
+            name: 'Name 0',
+            src: '#0',
+            size: 'medium',
+            appearance: 'circle',
+            onClick,
+          },
+        ]}
+      />,
+    );
+
+    fireEvent.click(getByTestId('test--avatar-0--inner'));
+
+    expect(onClick).toHaveBeenCalledWith(
+      expect.anything(),
+      expect.anything(),
+      0,
+    );
+  });
 });

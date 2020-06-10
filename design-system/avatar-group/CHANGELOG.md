@@ -1,5 +1,11 @@
 # @atlaskit/avatar-group
 
+## 6.0.1
+
+### Patch Changes
+
+- [`2daf5b6054`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2daf5b6054) - AvatarGroup will now send the index of the clicked item via the onAvatarClick event handler
+
 ## 6.0.0
 
 ### Major Changes

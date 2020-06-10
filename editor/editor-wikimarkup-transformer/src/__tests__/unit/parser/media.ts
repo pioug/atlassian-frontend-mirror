@@ -86,6 +86,10 @@ yep`,
       'should transform filename to id for attachment links if NOT present in context',
       '[^document.pdf]',
     ],
+    [
+      'should transform attachment next to image',
+      '[^document.pdf] !image.png!',
+    ],
   ];
 
   const context: Context = {

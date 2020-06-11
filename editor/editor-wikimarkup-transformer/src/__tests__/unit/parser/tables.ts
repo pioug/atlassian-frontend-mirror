@@ -23,17 +23,13 @@ yeah good luck closing this`,
               |cell 3|             cell 4 |`,
     ],
     [
-      'should covet to same cell type for cells on the same row',
-      '||Fixed? |No ||',
-    ],
-    [
       'should not include new line text in table',
-      `||foo | bar |
+      `||foo || bar ||
 this is a new line text, not in the table`,
     ],
     [
       'should parse properly links inside a cell',
-      '||hfoo||hbar|||[http://atlassian.com]|[link 1|https://atlassian.com], [link 2|https://atlassian.com]|',
+      '||hfoo||hbar|||[http://atlassian.com]||[link 1|https://atlassian.com], [link 2|https://atlassian.com]||',
     ],
     [
       'should parse properly medias inside a cell',
@@ -84,6 +80,14 @@ this is a new line text, not in the table`,
     [
       'should process \\r\\n correctly',
       '||Heading 1||Heading 2||\r\n|Col A1|Col A2|\r\n',
+    ],
+    [
+      'should convert table with header column',
+      `
+||Header 0||Header Row 1||Header Row 2||
+||Header Column 1|Cell 1|Cell 2|
+||Header Column 2|Cell 3|Cell 4|
+`,
     ],
   ];
 

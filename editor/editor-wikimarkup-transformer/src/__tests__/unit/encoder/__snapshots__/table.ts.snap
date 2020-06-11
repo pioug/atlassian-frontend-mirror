@@ -83,6 +83,12 @@ exports[`ADF => WikiMarkup - Table should convert empty table cells 1`] = `
 | |"
 `;
 
+exports[`ADF => WikiMarkup - Table should convert table with header column 1`] = `
+"||Header 0||Header Row 1||Header Row 2||
+||Header Column 1|Cell 1|Cell 2|
+||Header Column 2|Cell 3|Cell 4|"
+`;
+
 exports[`ADF => WikiMarkup - Table should convert table with newline in cell 1`] = `
 "|hello world|
 |hello world|"

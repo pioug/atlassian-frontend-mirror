@@ -184,4 +184,21 @@ describe('ADF => WikiMarkup - Table', () => {
     const adf = transformer.parse(wiki).toJSON();
     expect(adf).toEqual(node.toJSON());
   });
+
+  test('should convert table with header column', () => {
+    const node = doc(
+      table()(
+        tr(
+          th()(p('Header 0')),
+          th()(p('Header Row 1')),
+          th()(p('Header Row 2')),
+        ),
+        tr(th()(p('Header Column 1')), td()(p('Cell 1')), td()(p('Cell 2'))),
+        tr(th()(p('Header Column 2')), td()(p('Cell 3')), td()(p('Cell 4'))),
+      ),
+    )(defaultSchema);
+    const wiki = transformer.encode(node);
+    const adf = transformer.parse(wiki).toJSON();
+    expect(adf).toEqual(node.toJSON());
+  });
 });

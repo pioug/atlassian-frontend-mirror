@@ -16,16 +16,18 @@ export const table: NodeEncoder = (node: PMNode): string => {
 };
 
 const tableRow: NodeEncoder = (node: PMNode): string => {
-  const result: string[] = [];
+  let result: string = '';
   let separator: string = '|';
   node.forEach(n => {
     if (n.type.name === 'tableHeader') {
       separator = '||';
+    } else {
+      separator = '|';
     }
-    result.push(tableCell(n));
+    result = `${result}${separator}${tableCell(n)}`;
   });
 
-  return `${separator}${result.join(`${separator}`)}${separator}`;
+  return `${result}${separator}`;
 };
 
 const tableCell: NodeEncoder = (node: PMNode): string => {

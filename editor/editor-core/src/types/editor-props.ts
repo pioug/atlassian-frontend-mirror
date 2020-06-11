@@ -249,8 +249,11 @@ export interface EditorProps {
   // Set the default editor content.
   defaultValue?: Node | string | Object;
 
+  // Set the DOM element for attaching popup menus
   popupsMountPoint?: HTMLElement;
+  // DOM element used to help calculate correct positioning of popup menus to make sure they dont go offscreen.
   popupsBoundariesElement?: HTMLElement;
+  // Specify when mount point is different from scrollable element so popup menus can be positioned according the scrollable element.
   popupsScrollableElement?: HTMLElement;
 
   // Set to add custom menu items to the insert (plus) menu dropdown.

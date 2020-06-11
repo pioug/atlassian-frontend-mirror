@@ -45,10 +45,10 @@ export class TableBuilder implements Builder {
     }
     // Iterate the cells and create TH/TD based on the delimeter
     let index = 0;
-    const cellType = getType(cells[0].style);
 
     for (const cell of cells) {
-      const { content } = cell;
+      const { content, style } = cell;
+      const cellType = getType(style);
 
       // For the first item, determine if it's a new row or not
       if (index === 0) {

@@ -1,5 +1,11 @@
 # @atlaskit/editor-wikimarkup-transformer
 
+## 5.6.0
+
+### Minor Changes
+
+- [`41efaca0e1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41efaca0e1) - Allow setting of individual cellstyles in wikimarkup
+
 ## 5.5.0
 
 ### Minor Changes

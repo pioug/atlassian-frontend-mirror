@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/banner",
-  "version": "10.1.9",
+  "version": "10.1.10",
   "description": "A banner displays a prominent message at the top of the screen.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

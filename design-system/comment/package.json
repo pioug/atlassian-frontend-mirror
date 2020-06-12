@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/comment",
-  "version": "9.3.6",
+  "version": "9.3.7",
   "description": "Comments enable discussions on an entity such as a page, blog post, issue or pull request",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

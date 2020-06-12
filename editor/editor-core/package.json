@@ -141,7 +141,7 @@
     "@atlaskit/synchrony-test-helpers": "^1.2.0",
     "@atlaskit/textarea": "^2.2.9",
     "@atlaskit/toggle": "^8.1.8",
-    "@atlaskit/user-picker": "^4.2.3",
+    "@atlaskit/user-picker": "^5.0.0",
     "@atlaskit/util-data-test": "^13.1.2",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",

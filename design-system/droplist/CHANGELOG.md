@@ -1,5 +1,11 @@
 # @atlaskit/droplist
 
+## 10.0.7
+
+### Patch Changes
+
+- [`54a9514fcf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54a9514fcf) - Build and supporting files will no longer be published to npm
+
 ## 10.0.6
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/polyfills",
-  "version": "5.0.1",
+  "version": "5.0.2",
   "description": "A package containing polyfills for native methods.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

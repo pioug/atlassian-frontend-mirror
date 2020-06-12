@@ -1,4 +1,5 @@
-import { md, code } from '@atlaskit/docs';
+import React from 'react';
+import { md, code, Props } from '@atlaskit/docs';
 
 export default md`
   # Media Table
@@ -24,9 +25,16 @@ export default md`
       }
     }]
 
-    <MediaTable 
+    <MediaTable
       items={items}
-      mediaClientConfig={mediaClientConfig} 
+      mediaClientConfig={mediaClientConfig}
     />
   `}
+
+  ${(
+    <Props
+      heading="Media Table Props"
+      props={require('!!extract-react-types-loader!../src/component/mediaTable')}
+    />
+  )}
 `;

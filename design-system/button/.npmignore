@@ -1,4 +1,8 @@
 src/
+examples-utils/
 examples/
-example-helpers/
 index.ts
+constellation/
+docs/
+build/
+tsconfig.json

@@ -1,5 +1,11 @@
 # @atlaskit/inline-message
 
+## 10.1.8
+
+### Patch Changes
+
+- [`54a9514fcf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54a9514fcf) - Build and supporting files will no longer be published to npm
+
 ## 10.1.7
 
 ### Patch Changes

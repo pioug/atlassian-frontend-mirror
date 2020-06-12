@@ -29,7 +29,7 @@ const items: MediaTableItem[] = [
       test: 1,
       tick: <CheckCircleOutlineIcon label={'hello'} />,
     },
-    id: imageFileId.id,
+    identifier: imageFileId,
   },
   {
     data: {
@@ -39,7 +39,7 @@ const items: MediaTableItem[] = [
       test: 1,
       tick: <CheckCircleOutlineIcon label={'hello'} />,
     },
-    id: imageFileId.id,
+    identifier: imageFileId,
   },
   {
     data: {
@@ -49,7 +49,7 @@ const items: MediaTableItem[] = [
       test: 1,
       tick: <CheckCircleOutlineIcon label={'hello'} />,
     },
-    id: audioFileId.id,
+    identifier: audioFileId,
   },
   {
     data: {
@@ -59,7 +59,7 @@ const items: MediaTableItem[] = [
       test: 1,
       tick: <CheckCircleOutlineIcon label={'hello'} />,
     },
-    id: videoProcessingFailedId.id,
+    identifier: videoProcessingFailedId,
   },
   {
     data: {
@@ -69,7 +69,7 @@ const items: MediaTableItem[] = [
       test: 1,
       tick: <CheckCircleOutlineIcon label={'hello'} />,
     },
-    id: docFileId.id,
+    identifier: docFileId,
   },
   {
     data: {
@@ -79,7 +79,7 @@ const items: MediaTableItem[] = [
       test: 1,
       tick: <CheckCircleOutlineIcon label={'hello'} />,
     },
-    id: gifFileId.id,
+    identifier: gifFileId,
   },
   {
     data: {
@@ -89,7 +89,7 @@ const items: MediaTableItem[] = [
       test: 1,
       tick: <CheckCircleOutlineIcon label={'hello'} />,
     },
-    id: audioNoCoverFileId.id,
+    identifier: audioNoCoverFileId,
   },
   {
     data: {
@@ -99,7 +99,7 @@ const items: MediaTableItem[] = [
       test: 1,
       tick: <CheckCircleOutlineIcon label={'hello'} />,
     },
-    id: largeImageFileId.id,
+    identifier: largeImageFileId,
   },
   {
     data: {
@@ -109,7 +109,7 @@ const items: MediaTableItem[] = [
       test: 1,
       tick: <CheckCircleOutlineIcon label={'hello'} />,
     },
-    id: smallImageFileId.id,
+    identifier: smallImageFileId,
   },
 ];
 

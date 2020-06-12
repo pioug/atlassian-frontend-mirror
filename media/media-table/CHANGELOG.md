@@ -1,5 +1,15 @@
 # @atlaskit/media-table
 
+## 3.0.0
+
+### Major Changes
+
+- [`4af9cf854d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4af9cf854d) - Refactor items to take a FileIdentifier instead of string id
+  Add i18n support to media-table
+  Expose sortKey and sortOrder as props. Add props documentation
+  Add isFixedSize to DynamicTableStateless prop
+  Add temporary workaround for FileIdentifier type
+
 ## 2.0.0
 
 ### Major Changes

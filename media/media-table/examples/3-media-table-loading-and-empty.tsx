@@ -43,7 +43,7 @@ export default () => {
       mediaClientConfig={mediaClientConfig}
       columns={columns}
       itemsPerPage={6}
-      totalItems={100}
+      totalItems={0}
       isLoading={true}
       pageNumber={1}
       onSetPage={pageNumber => console.log('onSetPage', pageNumber)}

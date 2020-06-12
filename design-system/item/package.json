@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/item",
-  "version": "11.0.2",
+  "version": "11.0.3",
   "description": "A generic item component to be used within other components",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

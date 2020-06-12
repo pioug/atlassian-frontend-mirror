@@ -1,5 +1,11 @@
 # @atlaskit/tag
 
+## 9.1.2
+
+### Patch Changes
+
+- [`54a9514fcf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54a9514fcf) - Build and supporting files will no longer be published to npm
+
 ## 9.1.1
 
 ### Patch Changes

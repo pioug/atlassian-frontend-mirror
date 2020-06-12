@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/field-text-area",
-  "version": "7.0.1",
+  "version": "7.0.2",
   "description": "Field Text Component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

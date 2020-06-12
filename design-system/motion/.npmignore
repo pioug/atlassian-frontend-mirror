@@ -1,8 +1,8 @@
-examples/
-examples-utils/
-docs/
-node_modules/
 src/
+examples-utils/
+examples/
+index.ts
+constellation/
+docs/
+build/
 tsconfig.json
-tmp/
-temp/

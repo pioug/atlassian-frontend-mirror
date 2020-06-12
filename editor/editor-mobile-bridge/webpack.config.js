@@ -3,6 +3,7 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const moduleResolveMapBuilder = require('@atlaskit/multi-entry-tools/module-resolve-map-builder');
+const { PORT } = require('./build/utils');
 
 module.exports = async function createWebpackConfig(_, args) {
   const mode = typeof args.mode === 'undefined' ? 'development' : args.mode;
@@ -15,10 +16,10 @@ module.exports = async function createWebpackConfig(_, args) {
   return {
     mode,
     entry: {
-      editor: './src/editor/index.tsx',
-      editorarchv3: './src/editor-arch-v3.tsx',
-      renderer: './src/renderer/index.tsx',
-      'error-reporter': './src/error-reporter.ts',
+      editor: path.join(__dirname, '/src/editor/index.tsx'),
+      editorarchv3: path.join(__dirname, '/src/editor-arch-v3.tsx'),
+      renderer: path.join(__dirname, '/src/renderer/index.tsx'),
+      'error-reporter': path.join(__dirname, '/src/error-reporter.ts'),
     },
     stats: {
       warnings: false,
@@ -66,6 +67,7 @@ module.exports = async function createWebpackConfig(_, args) {
             transpileOnly: true,
             compilerOptions: {
               module: 'ESNext',
+              target: 'es5',
             },
           },
         },
@@ -100,7 +102,18 @@ module.exports = async function createWebpackConfig(_, args) {
     },
     devServer: {
       host: '0.0.0.0',
-      allowedHosts: ['localhost', '10.0.2.2', '.ngrok.io'],
+      allowedHosts: [
+        // Variations of Localhost
+        'localhost',
+        '127.0.0.0',
+        // Used on BrowserStack
+        'bs-local.com',
+        // Used for Android
+        '10.0.2.2',
+        '.ngrok.io',
+      ],
+      port: PORT,
+      contentBase: path.join(__dirname, 'dist/bundle'),
     },
   };
 };

@@ -1,5 +1,11 @@
 # @atlaskit/multi-select
 
+## 14.0.3
+
+### Patch Changes
+
+- [`54a9514fcf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54a9514fcf) - Build and supporting files will no longer be published to npm
+
 ## 14.0.2
 
 ### Patch Changes

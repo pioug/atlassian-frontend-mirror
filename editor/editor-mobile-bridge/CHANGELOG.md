@@ -1,5 +1,21 @@
 # @atlaskit/editor-mobile-bridge
 
+## 14.1.0
+
+### Minor Changes
+
+- [`d425f7f6c7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d425f7f6c7) - [TYPH-113] fix webpack config for tsx for older browser
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.0.2
 
 ### Patch Changes

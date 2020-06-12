@@ -1,5 +1,11 @@
 # @atlaskit/drawer
 
+## 5.3.10
+
+### Patch Changes
+
+- [`54a9514fcf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54a9514fcf) - Build and supporting files will no longer be published to npm
+
 ## 5.3.9
 
 ### Patch Changes

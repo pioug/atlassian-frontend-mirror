@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/layer-manager",
-  "version": "8.0.5",
+  "version": "8.0.6",
   "description": "A React Component for managing layers",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

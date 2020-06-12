@@ -1,8 +1,19 @@
 import React, { useState } from 'react';
-import { MediaTypeIcon } from '@atlaskit/media-ui/src/media-type-icon';
+import dateformat from 'dateformat';
+import { MediaTypeIcon } from '@atlaskit/media-ui/media-type-icon';
 import { MediaType } from '@atlaskit/media-client';
 import { NameCellWrapper, NameCell, ExampleWrapper } from './styled';
 import FieldRange from '@atlaskit/field-range';
+import { toHumanReadableMediaSize } from '@atlaskit/media-ui';
+import {
+  largeImageFileId,
+  smallImageFileId,
+  imageFileId,
+  audioFileId,
+  docFileId,
+  videoProcessingFailedId,
+} from '@atlaskit/media-test-helpers';
+import { MediaTableItem } from '../src';
 
 export const createMockFileData = (name: string, mediaType: MediaType) => {
   return (
@@ -36,3 +47,57 @@ export const RenderMediaTableWithFieldRange = (
     </ExampleWrapper>
   );
 };
+
+export const items: MediaTableItem[] = [
+  {
+    data: {
+      file: createMockFileData(
+        'test1-testing-long-column-width-test1-testing-long-column-width',
+        'image',
+      ),
+      size: toHumanReadableMediaSize(123123),
+      date: dateformat(123123232),
+    },
+    identifier: imageFileId,
+  },
+  {
+    data: {
+      file: createMockFileData('test2', 'audio'),
+      size: toHumanReadableMediaSize(123123),
+      date: dateformat(123123232),
+    },
+    identifier: audioFileId,
+  },
+  {
+    data: {
+      file: createMockFileData('test3', 'video'),
+      size: toHumanReadableMediaSize(123123),
+      date: dateformat(123123232),
+    },
+    identifier: videoProcessingFailedId,
+  },
+  {
+    data: {
+      file: createMockFileData('test4', 'doc'),
+      size: toHumanReadableMediaSize(123123),
+      date: dateformat(123123232),
+    },
+    identifier: docFileId,
+  },
+  {
+    data: {
+      file: createMockFileData('test5', 'image'),
+      size: toHumanReadableMediaSize(123123),
+      date: dateformat(123123232),
+    },
+    identifier: largeImageFileId,
+  },
+  {
+    data: {
+      file: createMockFileData('test6', 'image'),
+      size: toHumanReadableMediaSize(123123),
+      date: dateformat(123123232),
+    },
+    identifier: smallImageFileId,
+  },
+];

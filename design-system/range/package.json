@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/range",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "description": "A styled version of the native input[range] element.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

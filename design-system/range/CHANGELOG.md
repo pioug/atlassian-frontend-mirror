@@ -1,5 +1,11 @@
 # @atlaskit/range
 
+## 4.0.1
+
+### Patch Changes
+
+- [`54a9514fcf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54a9514fcf) - Build and supporting files will no longer be published to npm
+
 ## 4.0.0
 
 ### Major Changes

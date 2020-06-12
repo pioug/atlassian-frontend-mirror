@@ -1,5 +1,11 @@
 # @atlaskit/progress-bar
 
+## 0.2.9
+
+### Patch Changes
+
+- [`54a9514fcf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54a9514fcf) - Build and supporting files will no longer be published to npm
+
 ## 0.2.8
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/radio",
-  "version": "3.2.2",
+  "version": "3.2.3",
   "description": "A radio input is used to present a single option from a list. Use radio group for multiple options.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

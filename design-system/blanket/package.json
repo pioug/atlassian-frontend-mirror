@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/blanket",
-  "version": "10.0.18",
+  "version": "10.0.19",
   "description": "A React component that covers the underlying UI for a layered component.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

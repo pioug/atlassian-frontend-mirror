@@ -1,22 +1,19 @@
 import { MobileTestCase } from '@atlaskit/webdriver-runner/runner';
-import { SPECIAL_KEYS } from '@atlaskit/webdriver-runner/utils/mobile';
+import { SPECIAL_KEYS } from '@atlaskit/webdriver-runner/utils/mobile/wd-utils';
 import Page from '@atlaskit/webdriver-runner/wd-app-wrapper';
-import {
-  loadEditorBridgeInWebview,
-  getADFContent,
-} from './_utils/app-automate';
+import { loadEditor, getADFContent } from './_utils/afe-app-helpers';
 
 MobileTestCase(
   'Composition: Typing on native keyboard',
   {},
   async (client, testName) => {
     const page = new Page(client);
-    const [nativeContext, webViewContext] = await page.getContexts();
-    await loadEditorBridgeInWebview(page);
+    await loadEditor(page);
+
+    const [, webViewContext] = await page.getContexts();
 
     // type on native keyboard
     // each letter sends composition start/update event, space key sends composition end
-    await page.switchContext(nativeContext);
     if (page.isIOS()) {
       // iOS auto-capitalises start of the line, so turn that off
       // todo: make this not needed ED-8409

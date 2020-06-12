@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/page-header",
-  "version": "9.0.19",
+  "version": "9.0.20",
   "description": "A React component that represents Header of an application page",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

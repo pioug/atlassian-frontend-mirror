@@ -1,98 +1,11 @@
 import React from 'react';
-import { MediaTable, MediaTableItem } from '../src';
-import {
-  createUploadMediaClientConfig,
-  audioNoCoverFileId,
-  largeImageFileId,
-  smallImageFileId,
-  imageFileId,
-  audioFileId,
-  docFileId,
-  gifFileId,
-  videoProcessingFailedId,
-} from '@atlaskit/media-test-helpers';
-import {
-  createMockFileData,
-  RenderMediaTableWithFieldRange,
-} from '../example-helpers/helpers';
-import { toHumanReadableMediaSize } from '@atlaskit/media-ui';
-import dateformat from 'dateformat';
+import { MediaTable } from '../src';
+import { createUploadMediaClientConfig } from '@atlaskit/media-test-helpers';
 import { HeadType } from '@atlaskit/dynamic-table/types';
-
-const items: MediaTableItem[] = [
-  {
-    data: {
-      file: createMockFileData('test1', 'image'),
-      size: toHumanReadableMediaSize(123123),
-      date: dateformat(123123232),
-    },
-    id: imageFileId.id,
-  },
-  {
-    data: {
-      file: createMockFileData('test2', 'image'),
-      size: toHumanReadableMediaSize(123123),
-      date: dateformat(123123232),
-    },
-    id: imageFileId.id,
-  },
-  {
-    data: {
-      file: createMockFileData('test3', 'audio'),
-      size: toHumanReadableMediaSize(123123),
-      date: dateformat(123123232),
-    },
-    id: audioFileId.id,
-  },
-  {
-    data: {
-      file: createMockFileData('test3', 'video'),
-      size: toHumanReadableMediaSize(123123),
-      date: dateformat(123123232),
-    },
-    id: videoProcessingFailedId.id,
-  },
-  {
-    data: {
-      file: createMockFileData('test5', 'doc'),
-      size: toHumanReadableMediaSize(123123),
-      date: dateformat(123123232),
-    },
-    id: docFileId.id,
-  },
-  {
-    data: {
-      file: createMockFileData('test6', 'video'),
-      size: toHumanReadableMediaSize(123123),
-      date: dateformat(123123232),
-    },
-    id: gifFileId.id,
-  },
-  {
-    data: {
-      file: createMockFileData('test7', 'audio'),
-      size: toHumanReadableMediaSize(123123),
-      date: dateformat(123123232),
-    },
-    id: audioNoCoverFileId.id,
-  },
-  {
-    data: {
-      file: createMockFileData('test8', 'image'),
-      size: toHumanReadableMediaSize(123123),
-      date: dateformat(123123232),
-    },
-    id: largeImageFileId.id,
-  },
-  {
-    data: {
-      file: createMockFileData('test9', 'image'),
-      size: toHumanReadableMediaSize(123123),
-      date: dateformat(123123232),
-    },
-    id: smallImageFileId.id,
-  },
-];
+import {
+  RenderMediaTableWithFieldRange,
+  items,
+} from '../example-helpers/helpers';
 
 const columns: HeadType = {
   cells: [

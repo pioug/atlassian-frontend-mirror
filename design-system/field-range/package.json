@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/field-range",
-  "version": "8.0.2",
+  "version": "8.0.3",
   "description": "Component which renders a slider and is a substitute of the native input[range] element",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

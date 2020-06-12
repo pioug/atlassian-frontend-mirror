@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/code",
-  "version": "11.1.5",
+  "version": "11.1.6",
   "description": "Code renders inline code snippets and code blocks.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

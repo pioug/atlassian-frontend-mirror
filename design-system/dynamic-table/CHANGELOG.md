@@ -1,5 +1,11 @@
 # @atlaskit/dynamic-table
 
+## 13.7.7
+
+### Patch Changes
+
+- [`54a9514fcf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54a9514fcf) - Build and supporting files will no longer be published to npm
+
 ## 13.7.6
 
 ### Patch Changes

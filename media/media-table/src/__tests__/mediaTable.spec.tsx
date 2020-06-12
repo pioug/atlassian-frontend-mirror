@@ -5,6 +5,7 @@ jest.mock('dateformat', () => ({
 import { HeadType } from '@atlaskit/dynamic-table/types';
 
 import React from 'react';
+import { IntlProvider } from 'react-intl';
 import { mount } from 'enzyme';
 import * as MediaClientModule from '@atlaskit/media-client';
 import { FileState, MediaClient } from '@atlaskit/media-client';
@@ -17,6 +18,7 @@ import {
   nextTick,
   asMockFunction,
   expectFunctionToHaveBeenCalledWith,
+  defaultCollectionName,
 } from '@atlaskit/media-test-helpers';
 import DownloadIcon from '@atlaskit/icon/glyph/download';
 import ImageIcon from '@atlaskit/icon/glyph/media-services/image';
@@ -34,6 +36,7 @@ describe('MediaTable', () => {
   const onSortMock = jest.fn();
 
   beforeEach(() => {
+    jest.spyOn(console, 'warn').mockImplementation(() => {});
     jest.clearAllMocks();
   });
 
@@ -104,21 +107,19 @@ describe('MediaTable', () => {
 
   const defaultItems: MediaTableItem[] = [
     {
-      id: audioFileId.id,
+      identifier: audioFileId,
       data: {
         file: createMockFileData('file_name', 'audio'),
         size: toHumanReadableMediaSize(10),
         date: 'some date',
-        collectionName: 'test',
       },
     },
     {
-      id: imageFileId.id,
+      identifier: imageFileId,
       data: {
         file: createMockFileData('file_name', 'image'),
         size: toHumanReadableMediaSize(10),
         date: 'some date',
-        collectionName: 'test',
       },
     },
   ];
@@ -188,12 +189,12 @@ describe('MediaTable', () => {
             {
               id: audioFileId.id,
               mediaItemType: 'file',
-              collectionName: 'test',
+              collectionName: audioFileId.collectionName,
             },
             {
               id: imageFileId.id,
               mediaItemType: 'file',
-              collectionName: 'test',
+              collectionName: imageFileId.collectionName,
             },
           ],
         },
@@ -201,9 +202,9 @@ describe('MediaTable', () => {
         selectedItem: {
           id: imageFileId.id,
           mediaItemType: 'file',
-          collectionName: 'test',
+          collectionName: imageFileId.collectionName,
         },
-        collectionName: 'test',
+        collectionName: defaultCollectionName,
       }),
     );
   });
@@ -223,7 +224,7 @@ describe('MediaTable', () => {
     expectFunctionToHaveBeenCalledWith(mediaClient.file.downloadBinary, [
       audioFileId.id,
       'file_name',
-      'test',
+      audioFileId.collectionName,
     ]);
   });
 
@@ -317,11 +318,10 @@ describe('MediaTable', () => {
   it('should render empty column, if value not provided for that column', async () => {
     const customItems = [
       {
-        id: audioFileId.id,
+        identifier: audioFileId,
         data: {
           file: createMockFileData('file_name', 'audio'),
           size: toHumanReadableMediaSize(10),
-          collectionName: 'test',
         },
       },
     ];
@@ -445,6 +445,31 @@ describe('MediaTable', () => {
 
       expect(onSetPageMock).toHaveBeenCalledTimes(1);
       expect(onSetPageMock).toHaveBeenCalledWith(2);
+    });
+  });
+
+  describe('i18n', () => {
+    it('does not render the IntlProvider internally if intl is present in context', () => {
+      const wrapper = mount(
+        <IntlProvider locale="en">
+          <MediaTable
+            mediaClient={getDefaultMediaClient()}
+            items={defaultItems}
+            itemsPerPage={3}
+            totalItems={defaultItems.length}
+            isLoading={false}
+            columns={defaultHeaders}
+          />
+        </IntlProvider>,
+      );
+
+      const mediaTable = wrapper.find(MediaTable);
+      expect(mediaTable.find(IntlProvider).exists()).toEqual(false);
+    });
+
+    it('renders the IntlProvider internally if intl is not present in context', async () => {
+      const { mediaTable } = await setup();
+      expect(mediaTable.find(IntlProvider).exists()).toEqual(true);
     });
   });
 });

@@ -1,5 +1,11 @@
 # @atlaskit/table-tree
 
+## 8.0.5
+
+### Patch Changes
+
+- [`54a9514fcf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54a9514fcf) - Build and supporting files will no longer be published to npm
+
 ## 8.0.4
 
 ### Patch Changes

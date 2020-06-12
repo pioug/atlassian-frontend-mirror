@@ -1,5 +1,11 @@
 # @atlaskit/editor-wikimarkup-transformer
 
+## 5.7.0
+
+### Minor Changes
+
+- [`4feba15469`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4feba15469) - CS-2801 querystring replaced with querystring-es3 for browser compatibility
+
 ## 5.6.0
 
 ### Minor Changes

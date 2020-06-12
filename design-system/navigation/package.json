@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/navigation",
-  "version": "36.0.6",
+  "version": "36.0.7",
   "description": "A React component that renders a sidebar, for navigation purposes.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

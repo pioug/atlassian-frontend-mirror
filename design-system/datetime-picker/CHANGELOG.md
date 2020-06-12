@@ -1,5 +1,11 @@
 # @atlaskit/datetime-picker
 
+## 9.4.5
+
+### Patch Changes
+
+- [`54a9514fcf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54a9514fcf) - Build and supporting files will no longer be published to npm
+
 ## 9.4.4
 
 ### Patch Changes

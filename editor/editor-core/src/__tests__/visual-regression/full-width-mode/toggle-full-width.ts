@@ -19,6 +19,7 @@ import resizedTableInExt from '../table/__fixtures__/nested-table-inside-bodied-
 import resizedTableFWM from './__fixtures__/resized-table-fwm.adf.json';
 import { pressKey } from '../../__helpers/page-objects/_keyboard';
 import { clickFirstCell } from '../../../__tests__/__helpers/page-objects/_table';
+import { waitForMediaToBeLoaded } from '../../__helpers/page-objects/_media';
 
 type ToggleFullWidthOptions = {
   // Focus is lost after toggling full width mode so if your test
@@ -133,6 +134,7 @@ describe('Snapshot Test: Toggle between full-width and default mode', () => {
   describe('Media', () => {
     it('resizes image correctly', async () => {
       await initEditor(mediaAdf);
+      await waitForMediaToBeLoaded(page);
       await toggleFullWidthMode();
     });
   });

@@ -26,8 +26,7 @@ describe('Floating toolbars:', () => {
     await snapshot(page);
   });
 
-  // TODO: Fix flaky toolbar - https://product-fabric.atlassian.net/browse/ED-5631
-  it.skip('should render the table toolbar', async () => {
+  it('should render the table toolbar', async () => {
     const endCellSelector = getSelectorForTableCell({ row: 3, cell: 2 });
     await page.click(endCellSelector);
 

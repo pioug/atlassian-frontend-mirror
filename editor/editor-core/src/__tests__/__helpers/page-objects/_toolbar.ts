@@ -58,3 +58,24 @@ export async function clickToolbarMenu(page: Page, menu: ToolbarMenuItem) {
   await page.waitForSelector(toolbarMenuItemsSelectors[menu]);
   await page.click(toolbarMenuItemsSelectors[menu]);
 }
+
+// Use for floating toolbars other UI controls
+export const waitForFloatingControl = async (
+  page: Page,
+  ariaLabel: string,
+  options = { visible: true },
+  repositionalWait = true,
+) => {
+  // Note: there can be multiple popups visible at once...
+  // e.g. floating toolbar and breakout controls on a layout.
+  const popupSelector = '[data-editor-popup="true"]';
+  // Case insensitive fuzzy matching
+  const ariaLabelSelector = `[aria-label*="${ariaLabel}" i]`;
+  await page.waitForSelector(`${popupSelector}${ariaLabelSelector}`, options);
+  if (repositionalWait) {
+    // Additional time buffer to account for repositional shifts while
+    // centering underneath the anchoring element. This reduces the
+    // amount of flaky test failures due to non centered toolbars.
+    await page.waitFor(200);
+  }
+};

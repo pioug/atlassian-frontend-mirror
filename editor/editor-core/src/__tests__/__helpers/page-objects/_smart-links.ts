@@ -1,4 +1,5 @@
 import { Page } from './_types';
+import { waitForFloatingControl } from './_toolbar';
 
 const SELECTOR = `.inlineCardView-content-wrap`;
 
@@ -12,5 +13,5 @@ export const waitForCard = async (page: Page) => {
 };
 
 export const waitForCardToolbar = async (page: Page) => {
-  await page.waitForSelector('[aria-label="Card floating controls"]');
+  await waitForFloatingControl(page, 'Card floating controls');
 };

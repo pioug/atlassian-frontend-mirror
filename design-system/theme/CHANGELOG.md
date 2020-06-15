@@ -1,5 +1,11 @@
 # @atlaskit/theme
 
+## 9.5.5
+
+### Patch Changes
+
+- [`39faba6e98`](https://bitbucket.org/atlassian/atlassian-frontend/commits/39faba6e98) - Update all the theme imports to something tree-shakable
+
 ## 9.5.4
 
 ### Patch Changes

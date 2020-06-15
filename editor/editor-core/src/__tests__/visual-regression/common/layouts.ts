@@ -6,6 +6,7 @@ import {
 } from '../_utils';
 import { Page } from '../../__helpers/page-objects/_types';
 import { layoutSelectors } from '../../__helpers/page-objects/_layouts';
+import { waitForFloatingControl } from '../../__helpers/page-objects/_toolbar';
 import * as col2 from './__fixtures__/column2-adf.json';
 import * as col3 from './__fixtures__/column3-adf.json';
 import * as layoutWithAction from './__fixtures__/layout-with-action-adf.json';
@@ -45,7 +46,12 @@ describe('Layouts:', () => {
   });
 
   afterEach(async () => {
+    await waitForFloatingControl(page, 'Layout floating controls');
     await snapshot(page);
+    // Click away to remove floating control so it gets reset between
+    // viewport resizes.
+    // This avoids test flakiness from misaligned toolbar anchorage.
+    await page.mouse.move(0, 0);
   });
 
   layouts.forEach(layout => {

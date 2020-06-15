@@ -4,6 +4,7 @@ import {
   clickOnLayoutColumn,
   scrollToLayoutColumn,
 } from '../../__helpers/page-objects/_layouts';
+import { waitForFloatingControl } from '../../__helpers/page-objects/_toolbar';
 import { Page } from '../../__helpers/page-objects/_types';
 
 describe('Columns:', () => {
@@ -16,7 +17,8 @@ describe('Columns:', () => {
   it('should show breakout', async () => {
     const columnNumber = 1;
     await clickOnLayoutColumn(page, columnNumber);
-
+    await waitForFloatingControl(page, 'Layout floating controls');
+    await waitForFloatingControl(page, 'Go wide', undefined, false);
     await snapshot(page);
   });
 
@@ -25,7 +27,9 @@ describe('Columns:', () => {
     const offset = 100;
 
     await clickOnLayoutColumn(page, columnNumber);
+    await waitForFloatingControl(page, 'Layout floating controls');
     await scrollToLayoutColumn(page, columnNumber, offset);
+    await waitForFloatingControl(page, 'Go wide', undefined, false);
 
     await snapshot(page);
   });

@@ -83,5 +83,7 @@ describe('Panel:', () => {
     await page.mouse.down();
     await page.mouse.move(contentBoundingRect.left, contentBoundingRect.top);
     await page.mouse.up();
+
+    await waitForNoTooltip(page);
   });
 });

@@ -1,12 +1,58 @@
 import { Page } from './_types';
 import { selectors } from './_editor';
 import messages from '../../../messages';
+import { messages as toolbarMessages } from '../../../plugins/layout/toolbar';
 
 export const layoutSelectors = {
   section: '[data-layout-section]',
   column: '[data-layout-column]',
   active: '[data-layout-section].selected',
 };
+
+function getLayoutSelector(columWidthPercentages = [50, 50]) {
+  return columWidthPercentages
+    .map(
+      (p, i) =>
+        `div[data-layout-section="true"] > div:nth-child(${i +
+          1})[data-column-width="${p}"]`,
+    )
+    .join(', ');
+}
+
+const layoutElementSelectors = {
+  [toolbarMessages.twoColumns.defaultMessage]: {
+    selector: getLayoutSelector([50, 50]),
+    columns: 2,
+  },
+  [toolbarMessages.rightSidebar.defaultMessage]: {
+    selector: getLayoutSelector([66.66, 33.33]),
+    columns: 2,
+  },
+  [toolbarMessages.leftSidebar.defaultMessage]: {
+    selector: getLayoutSelector([33.33, 66.66]),
+    columns: 2,
+  },
+  [toolbarMessages.threeColumns.defaultMessage]: {
+    selector: getLayoutSelector([33.33, 33.33, 33.33]),
+    columns: 3,
+  },
+  [toolbarMessages.threeColumnsWithSidebars.defaultMessage]: {
+    selector: getLayoutSelector([25, 50, 25]),
+    columns: 3,
+  },
+};
+
+// Wait for layout to adjust to newly chosen type
+export async function waitForLayoutChange(
+  page: Page,
+  layoutButtonLabel: keyof typeof layoutElementSelectors,
+) {
+  await page.waitForFunction(
+    data => document.querySelectorAll(data.selector).length === data.columns,
+    { timeout: 5000 },
+    layoutElementSelectors[layoutButtonLabel],
+  );
+}
 
 function getColumnElementXPath(column: number, paragraph: number) {
   return `(//div[@data-layout-column])[${column}]//p[${paragraph}]`;
@@ -93,11 +139,11 @@ export const scrollToLayoutColumn = async (
   );
 };
 
-export const waitForLayoutToolbar = async (page: any) => {
+export const waitForLayoutToolbar = async (page: Page) => {
   await page.waitForSelector('[aria-label="Layout floating controls"]');
 };
 
-export const toggleBreakout = async (page: any, times: number) => {
+export const toggleBreakout = async (page: Page, times: number) => {
   const timesArray = Array.from({ length: times });
 
   const breakoutSelector = [
@@ -113,3 +159,15 @@ export const toggleBreakout = async (page: any, times: number) => {
     await page.click(breakoutSelector);
   }
 };
+
+// Wait for a layout to be nested within a particular breakout container
+export async function waitForBreakoutNestedLayout(
+  page: Page,
+  breakoutType: 'wide' | 'full-width',
+) {
+  const layoutSelector = 'div[data-layout-section="true"]';
+  const breakoutSelector = `.fabric-editor-breakout-mark[data-layout="${breakoutType}"]`;
+  await page.waitForSelector(`${breakoutSelector} ${layoutSelector}`, {
+    timeout: 5000,
+  });
+}

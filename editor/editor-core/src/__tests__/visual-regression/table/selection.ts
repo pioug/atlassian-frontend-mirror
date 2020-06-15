@@ -11,6 +11,7 @@ import {
 } from '../../__helpers/page-objects/_table';
 import { selectors } from '../../__helpers/page-objects/_editor';
 import { Page } from '../../__helpers/page-objects/_types';
+import { waitForFloatingControl } from '../../__helpers/page-objects/_toolbar';
 
 describe('Snapshot Test: Table selection', () => {
   let page: Page;
@@ -30,6 +31,7 @@ describe('Snapshot Test: Table selection', () => {
         Device.LaptopMDPI,
       );
       await clickFirstCell(page);
+      await waitForFloatingControl(page, 'Table floating controls');
     });
 
     // #region Rows

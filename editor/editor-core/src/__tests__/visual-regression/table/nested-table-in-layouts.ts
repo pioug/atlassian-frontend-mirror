@@ -8,10 +8,12 @@ import tableIn2ColAdf from './__fixtures__/table-in-2-col-layout.adf.json';
 import { Page } from '../../__helpers/page-objects/_types';
 import { messages } from '../../../plugins/layout/toolbar';
 import { clickFirstCell } from '../../__helpers/page-objects/_table';
-import { toggleBreakout } from '../../__helpers/page-objects/_layouts';
 import {
+  toggleBreakout,
+  waitForLayoutChange,
   clickOnLayoutColumn,
   waitForLayoutToolbar,
+  waitForBreakoutNestedLayout,
 } from '../../__helpers/page-objects/_layouts';
 
 describe('Snapshot Test: Nested table inside layouts', () => {
@@ -57,6 +59,7 @@ describe('Snapshot Test: Nested table inside layouts', () => {
             await clickOnLayoutColumn(page, 2);
             await waitForLayoutToolbar(page);
             await page.click(layoutBtnSelector);
+            await waitForLayoutChange(page, layout);
             await clickFirstCell(page);
           });
         });
@@ -72,6 +75,10 @@ describe('Snapshot Test: Nested table inside layouts', () => {
     ['wide', 'full-width'].forEach((breakout, idx) => {
       it(`should display correctly for layout in ${breakout} breakout mode`, async () => {
         await toggleBreakout(page, idx + 1);
+        await waitForBreakoutNestedLayout(
+          page,
+          breakout as 'wide' | 'full-width',
+        );
         await clickFirstCell(page);
       });
     });

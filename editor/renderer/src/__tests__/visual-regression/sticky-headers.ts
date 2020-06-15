@@ -1,5 +1,6 @@
 import { Page } from 'puppeteer';
 import { snapshot, initRendererWithADF } from './_utils';
+import { waitForLoadedBackgroundImages } from '@atlaskit/visual-regression/helper';
 import * as stickyHeaderADF from '../__fixtures__/sticky-header.adf.json';
 
 async function scrollToPos(page: Page, pos: number) {
@@ -22,6 +23,9 @@ const initRenderer = async (page: Page, adf: any) => {
       },
     },
   });
+  // Wait for loaded emoji image (contained within ADF)
+  const emojiSelector = '.emoji-common-emoji-sprite';
+  await waitForLoadedBackgroundImages(page, emojiSelector);
 };
 
 describe('Snapshot Test: sticky-headers', () => {

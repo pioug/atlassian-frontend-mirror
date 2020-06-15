@@ -39,6 +39,27 @@ const getMediaWithLink = (link: string) => ({
   ],
 });
 
+async function initEditor(page: Page, mediaLink: string) {
+  await initFullPageEditorWithAdf(
+    page,
+    getMediaWithLink(mediaLink),
+    Device.LaptopMDPI,
+    undefined,
+    {
+      media: {
+        allowMediaSingle: true,
+        allowLinking: true,
+      },
+    },
+  );
+
+  await page.click('.mediaSingleView-content-wrap');
+
+  await page.waitForSelector('[aria-label="Edit link"]', {
+    visible: true,
+  });
+}
+
 describe('Snapshot Test: Media with link', () => {
   let page: Page;
 
@@ -48,46 +69,23 @@ describe('Snapshot Test: Media with link', () => {
 
   describe('in the toolbar', () => {
     describe('when media-link feature flag is enable', () => {
-      let mediaLink = '';
-      beforeEach(async () => {
-        await initFullPageEditorWithAdf(
-          page,
-          getMediaWithLink(mediaLink),
-          Device.LaptopMDPI,
-          undefined,
-          {
-            media: {
-              allowMediaSingle: true,
-              allowLinking: true,
-            },
-          },
-        );
-
-        await page.click('.mediaSingleView-content-wrap');
-
-        await page.waitForSelector('[aria-label="Edit link"]', {
-          visible: true,
-        });
-      });
-
-      it('should enable open link button if the link is safe', async () => {
-        mediaLink = 'https://www.atlassian.com';
+      afterEach(async () => {
         await page.waitForSelector('.hyperlink-open-link', {
           visible: true,
         });
         await page.hover('.hyperlink-open-link');
         await waitForTooltip(page);
+        // Additional delay to prevent flaky results for when the toolbar
+        // hasn't finished centering underneath the media single.
+        await page.waitFor(100);
         await snapshot(page);
+      });
+      it('should enable open link button if the link is safe', async () => {
+        await initEditor(page, 'https://www.atlassian.com');
       });
 
       it('should disable open link button if the link is unsafe', async () => {
-        mediaLink = "javascript:alert('hacks')";
-        await page.waitForSelector('.hyperlink-open-link', {
-          visible: true,
-        });
-        await page.hover('.hyperlink-open-link');
-        await waitForTooltip(page);
-        await snapshot(page);
+        await initEditor(page, `javascript:alert('hacks')`);
       });
     });
   });

@@ -8,6 +8,7 @@ import {
   scrollToTop,
   clickFirstParagraph,
 } from '../../__helpers/page-objects/_editor';
+import { waitForMediaToBeLoaded } from '../../__helpers/page-objects/_media';
 
 describe('Full-width mode', () => {
   let page: Page;
@@ -40,6 +41,7 @@ describe('Full-width mode', () => {
       it('should not add horizontal scroll bars to page', async () => {
         // adf contains content that has caused editor to get too wide in the past
         await initEditor(adfWithHScrollContent, width, 1000);
+        await waitForMediaToBeLoaded(page);
         // click is needed to trigger scroll bars
         await clickFirstParagraph(page);
         await snapshot(page);
@@ -48,6 +50,7 @@ describe('Full-width mode', () => {
       describe(`with media`, () => {
         it('should display content in full-width mode', async () => {
           await initEditor(adfWithMedia, width);
+          await waitForMediaToBeLoaded(page);
           await snapshot(page);
         });
       });

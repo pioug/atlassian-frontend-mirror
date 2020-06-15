@@ -1,5 +1,11 @@
 # @atlaskit/flag
 
+## 12.4.5
+
+### Patch Changes
+
+- [`eec3c9944e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eec3c9944e) - Export FlagProps type
+
 ## 12.4.4
 
 ### Patch Changes

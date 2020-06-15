@@ -1,6 +1,10 @@
 import { ElementHandle } from 'puppeteer';
 import { Page } from './_types';
 
+export const waitForTypeAheadMenu = async (page: Page) => {
+  await page.waitForSelector('.fabric-editor-typeahead');
+};
+
 export const waitForMenuIconsToLoad = async (page: Page) => {
   const menuItemSelector = '.fabric-editor-typeahead [class^="Item-"]';
   const menuItems: ElementHandle[] = await page.$$(menuItemSelector);

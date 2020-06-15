@@ -1,5 +1,6 @@
 import { snapshot, Device, initFullPageEditorWithAdf } from '../_utils';
 import * as layoutsAndWidths from './__fixtures__/layouts-and-widths-adf.json';
+import { waitForMediaToBeLoaded } from '../../__helpers/page-objects/_media';
 
 describe('Snapshot Test: Media', () => {
   describe('full page editor', () => {
@@ -19,6 +20,7 @@ describe('Snapshot Test: Media', () => {
         { width: 1440, height: 9200 },
       );
 
+      await waitForMediaToBeLoaded(page);
       await snapshot(page);
     });
   });

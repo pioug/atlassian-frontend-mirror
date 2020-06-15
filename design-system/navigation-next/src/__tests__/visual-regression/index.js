@@ -1,4 +1,5 @@
 import {
+  compareScreenshot,
   getExampleUrl,
   takeScreenShot,
 } from '@atlaskit/visual-regression/helper';
@@ -170,7 +171,9 @@ describe('Snapshot Test', () => {
     await page.waitFor(300);
 
     const image = await takeScreenShot(page, url);
-    expect(image).toMatchProdImageSnapshot();
+    // Using percentage based tolerance instead of the default pixel based,
+    // because the rounded edges of the navigation bar icons cause flaky results.
+    await compareScreenshot(image);
     await page.click(button);
   });
 });

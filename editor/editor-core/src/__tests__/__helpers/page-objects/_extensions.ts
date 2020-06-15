@@ -1,4 +1,5 @@
 import { Page } from './_types';
+import { waitForFloatingControl } from './_toolbar';
 
 function getExtensionSelector(type: string, key: string) {
   return `[extensionType="${type}"][extensionKey="${key}"]`;
@@ -13,5 +14,5 @@ export const clickOnExtension = async (
 };
 
 export const waitForExtensionToolbar = async (page: Page) => {
-  await page.waitForSelector('[aria-label="Extension floating controls"]');
+  await waitForFloatingControl(page, 'Extension floating controls');
 };

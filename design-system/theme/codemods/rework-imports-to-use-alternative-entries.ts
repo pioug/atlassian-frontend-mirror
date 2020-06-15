@@ -12,6 +12,20 @@ const themeIndexImports = [
   'ThemeProp',
 ];
 
+const typesImports = [
+  'colorPaletteType',
+  'Elevation',
+  'ThemeModes',
+  'Theme',
+  'GlobalThemeTokens',
+  'ThemeProps',
+  'CustomThemeProps',
+  'AtlaskitThemeProps',
+  'NoThemeProps',
+  'DefaultValue',
+  'ThemedValue',
+];
+
 const constants = [
   'gridSize',
   'FLATTENED',
@@ -28,6 +42,7 @@ const constants = [
   'noFocusRing',
   'layers',
   'assistive',
+  'visuallyHidden',
 ];
 
 const akTheme = '@atlaskit/theme';
@@ -36,6 +51,11 @@ const constantsPredicate = (specifier: any) =>
   !specifier ||
   !specifier.imported ||
   constants.indexOf(specifier.imported.name) > -1;
+
+const typesPredicate = (specifier: any) =>
+  !specifier ||
+  !specifier.imported ||
+  typesImports.indexOf(specifier.imported.name) > -1;
 
 function getConstantsImport(j: any, path: any) {
   const constantsSpecifierspath = path.value.specifiers.filter(
@@ -75,11 +95,26 @@ function getUsesOfImport(j: any, fileSource: any, importVarname: any) {
     .filter((spec: any) => spec.value.object.name === importVarname);
 }
 
+function getTypesImport(j: any, path: any) {
+  const typesSpecifiersPath = path.value.specifiers.filter(typesPredicate);
+
+  if (typesSpecifiersPath.length === 0) {
+    return null;
+  }
+
+  return j.importDeclaration(
+    typesSpecifiersPath,
+    j.literal(`${akTheme}/types`),
+  );
+}
+
 function getOtherImports(j: any, path: any, fileSource: any) {
   return path.value.specifiers
     .filter(
       (specifier: any) =>
-        !indexPredicate(specifier) && !constantsPredicate(specifier),
+        !indexPredicate(specifier) &&
+        !constantsPredicate(specifier) &&
+        !typesPredicate(specifier),
     )
     .map((specifier: any) => {
       const usesOfImport = getUsesOfImport(j, fileSource, specifier.local.name);
@@ -128,6 +163,7 @@ export default function transformer(file: any, api: any) {
       const [firstImport, ...importsAfter] = [
         getIndexImport(j, path),
         getConstantsImport(j, path),
+        getTypesImport(j, path),
         ...otherImports,
       ].filter(importStat => importStat);
 

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-mobile-bridge",
-  "version": "14.1.0",
+  "version": "14.1.1",
   "description": "Mobile distribution of the Editor",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -40,7 +40,7 @@
     "@atlaskit/smart-card": "13.4.0",
     "@atlaskit/status": "0.9.24",
     "@atlaskit/task-decision": "16.1.0",
-    "@atlaskit/theme": "9.5.4",
+    "@atlaskit/theme": "9.5.5",
     "@babel/polyfill": "^7.0.0",
     "@types/prosemirror-view": "^1.9.0",
     "prosemirror-history": "^1.0.2",

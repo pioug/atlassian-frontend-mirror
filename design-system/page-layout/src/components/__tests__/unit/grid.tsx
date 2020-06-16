@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { fireEvent, render } from '@testing-library/react';
+import { act, fireEvent, render } from '@testing-library/react';
 
 import {
   Banner,
@@ -16,6 +16,7 @@ import {
 } from '../../index';
 
 import { getDimension } from './__utils__/get-dimension';
+import * as raf from './__utils__/raf';
 
 const emptyGridState = {};
 describe('<PageLayout />', () => {
@@ -49,10 +50,7 @@ describe('<PageLayout />', () => {
     unmount();
 
     expect(localStorage.getItem('PAGE_LAYOUT_UI_STATE')).toEqual(
-      JSON.stringify({
-        isLeftSidebarCollapsed: false,
-        expandedLeftSidebarWidth: 200,
-      }),
+      JSON.stringify({ isLeftSidebarCollapsed: false }),
     );
   });
 
@@ -573,6 +571,24 @@ describe('<PageLayout />', () => {
     beforeEach(() => {
       jest.useFakeTimers();
     });
+    const completeAnimations = () => {
+      act(() => raf.flush());
+      act(() => jest.runAllTimers());
+    };
+    const triggerTransitionEnd = (component: any) => {
+      // JSDom doesn't trigger transitionend event
+      // https://github.com/jsdom/jsdom/issues/1781
+      act(() => {
+        const transitionEndEvent = new Event('transitionend', {
+          bubbles: true,
+          cancelable: false,
+        });
+        (transitionEndEvent as any).propertyName = 'width';
+
+        fireEvent(component, transitionEndEvent);
+        completeAnimations();
+      });
+    };
 
     it('should mount the LeftSidebar in collapsed mode if already collapsed previously', () => {
       document.documentElement.removeAttribute('data-is-sidebar-collapsed');
@@ -583,7 +599,7 @@ describe('<PageLayout />', () => {
         }),
       );
 
-      render(
+      const { getByTestId } = render(
         <PageLayout testId="grid">
           <Main>
             <LeftSidebar testId="component" width={200}>
@@ -593,8 +609,8 @@ describe('<PageLayout />', () => {
         </PageLayout>,
       );
 
+      triggerTransitionEnd(getByTestId('grid'));
       expect(document.documentElement.dataset.isSidebarCollapsed).toBe('true');
-      expect(getDimension('leftSidebarWidth')).toBe('20px');
     });
 
     it('should render with the width that was passed to it', () => {
@@ -665,16 +681,14 @@ describe('<PageLayout />', () => {
       expect(JSON.parse(localStorage.getItem('PAGE_LAYOUT_UI_STATE')!)).toEqual(
         {
           gridState: {
-            leftSidebarWidth: 50,
-            leftSidebarFlyoutWidth: 50,
+            leftSidebarWidth: 240,
           },
           isLeftSidebarCollapsed: false,
-          expandedLeftSidebarWidth: 50,
         },
       );
     });
 
-    it('should remove the height in localStorage on unmount', () => {
+    it('should remove the width in localStorage on unmount', () => {
       const { unmount } = render(
         <PageLayout testId="grid">
           <LeftSidebar testId="component" isFixed width={50}>
@@ -684,38 +698,9 @@ describe('<PageLayout />', () => {
       );
 
       unmount();
-      expect(JSON.parse(localStorage.getItem('PAGE_LAYOUT_UI_STATE')!)).toEqual(
-        {
-          ...emptyGridState,
-          isLeftSidebarCollapsed: false,
-          expandedLeftSidebarWidth: 50,
-        },
-      );
-    });
-
-    it('should respect the shouldPersistWidth prop', () => {
-      const { rerender } = render(
-        <PageLayout testId="grid">
-          <LeftSidebar testId="component" isFixed width={200}>
-            Contents
-          </LeftSidebar>
-        </PageLayout>,
-      );
-
-      expect(document.head.innerHTML).toEqual(
-        expect.stringContaining(':root{--leftSidebarWidth:200px;}'),
-      );
-
-      rerender(
-        <PageLayout testId="grid">
-          <LeftSidebar testId="component" isFixed width={50} shouldPersistWidth>
-            Contents
-          </LeftSidebar>
-        </PageLayout>,
-      );
-      expect(document.head.innerHTML).toEqual(
-        expect.stringContaining(':root{--leftSidebarWidth:200px;}'),
-      );
+      expect(
+        JSON.parse(localStorage.getItem('PAGE_LAYOUT_UI_STATE')!),
+      ).toEqual({ isLeftSidebarCollapsed: false });
     });
   });
 

@@ -5,16 +5,13 @@ import { jsx } from '@emotion/core';
 
 import { BANNER_HEIGHT } from '../../common/constants';
 import { SlotHeightProps } from '../../common/types';
-import {
-  removeFromGridStateInStorage,
-  resolveDimension,
-} from '../../common/utils';
-import { usePageLayoutGrid } from '../../controllers';
+import { resolveDimension } from '../../common/utils';
+import { publishGridState } from '../../controllers';
 
 import SlotDimensions from './slot-dimensions';
 import { bannerStyles } from './styles';
 
-export default (props: SlotHeightProps) => {
+const Banner = (props: SlotHeightProps) => {
   const {
     children,
     height,
@@ -29,13 +26,12 @@ export default (props: SlotHeightProps) => {
     shouldPersistHeight,
   );
 
-  usePageLayoutGrid({ [BANNER_HEIGHT]: bannerHeight });
   useEffect(() => {
+    publishGridState({ [BANNER_HEIGHT]: bannerHeight });
     return () => {
-      removeFromGridStateInStorage('gridState', BANNER_HEIGHT);
-      document.documentElement.style.removeProperty(`--${BANNER_HEIGHT}`);
+      publishGridState({ [BANNER_HEIGHT]: 0 });
     };
-  }, []);
+  }, [bannerHeight]);
 
   return (
     <div css={bannerStyles(isFixed)} data-testid={testId}>
@@ -44,3 +40,5 @@ export default (props: SlotHeightProps) => {
     </div>
   );
 };
+
+export default Banner;

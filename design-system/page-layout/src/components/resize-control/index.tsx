@@ -11,12 +11,15 @@ import rafSchd from 'raf-schd';
 
 import {
   COLLAPSED_LEFT_SIDEBAR_WIDTH,
+  DEFAULT_SIDEBAR_WIDTH,
   IS_SIDEBAR_DRAGGING,
-  LEFT_SIDEBAR_FLYOUT_WIDTH,
+  LEFT_SIDEBAR_WIDTH,
   MIN_LEFT_SIDEBAR_DRAG_THRESHOLD,
   RESIZE_CONTROL_SELECTOR,
 } from '../../common/constants';
+import { getLeftPanelWidth } from '../../common/utils';
 import { usePageLayoutResize } from '../../controllers/sidebar-resize-context';
+/* import useUpdateCssVar from '../../controllers/use-update-css-vars'; */
 
 import GrabArea from './grab-area';
 import ResizeButton from './resize-button';
@@ -36,19 +39,17 @@ const ResizeControl = ({
   onResizeStart,
   onResizeEnd,
 }: ResizeControlProps) => {
-  const x = useRef(0);
+  const {
+    expandLeftSidebar,
+    collapseLeftSidebar,
+    leftSidebarState,
+    setLeftSidebarState,
+  } = usePageLayoutResize();
+  const { isLeftSidebarCollapsed } = leftSidebarState;
+  const x = useRef(leftSidebarState[LEFT_SIDEBAR_WIDTH]);
   // Distance of mouse from left sidebar onMouseDown
   let offset = useRef(0);
   const [isDragFinished, setIsDragFinished] = useState(true);
-
-  const {
-    isLeftSidebarCollapsed,
-    expandLeftSidebar,
-    collapseLeftSidebar,
-    setLeftSidebarWidth,
-    getLeftSidebarWidth,
-    getLeftPanelWidth,
-  } = usePageLayoutResize();
 
   const toggleSideBar = (e: ReactMouseEvent) => {
     if (!isDragFinished) {
@@ -62,11 +63,37 @@ const ResizeControl = ({
     }
   };
 
+  const onMouseDown = (event: ReactMouseEvent<HTMLDivElement>) => {
+    if (isLeftSidebarCollapsed) return;
+
+    offset.current =
+      event.clientX -
+      leftSidebarState[LEFT_SIDEBAR_WIDTH] -
+      getLeftPanelWidth();
+
+    document.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('mouseup', onMouseUp);
+    document.documentElement.setAttribute(IS_SIDEBAR_DRAGGING, 'true');
+
+    onResizeStart && onResizeStart();
+  };
+
+  const cancelDrag = (shouldCollapse?: boolean) => {
+    onMouseMove.cancel();
+    document.removeEventListener('mousemove', onMouseMove);
+    document.removeEventListener('mouseup', onMouseUp);
+    document.documentElement.removeAttribute(IS_SIDEBAR_DRAGGING);
+    requestAnimationFrame(() => setIsDragFinished(true));
+    offset.current = 0;
+
+    shouldCollapse ? collapseLeftSidebar() : expandLeftSidebar();
+  };
+
   const onMouseMove = rafSchd((event: MouseEvent) => {
     // Allow the sidebar to be 50% of the available page width
     const maxWidth = Math.round(window.innerWidth / 2);
-    const leftSidebarWidth = getLeftSidebarWidth();
     const leftPanelWidth = getLeftPanelWidth();
+    const { leftSidebarWidth } = leftSidebarState;
     const invalidDrag = event.clientX < 0;
 
     if (invalidDrag) {
@@ -85,59 +112,53 @@ const ResizeControl = ({
       COLLAPSED_LEFT_SIDEBAR_WIDTH,
     );
 
+    document.documentElement.style.setProperty(
+      `--${LEFT_SIDEBAR_WIDTH}`,
+      `${x.current}px`,
+    );
     setIsDragFinished(false);
-    setLeftSidebarWidth(x.current);
   });
 
-  const onMouseUp = () => {
-    if (isLeftSidebarCollapsed) return;
-    document.documentElement.removeAttribute(IS_SIDEBAR_DRAGGING);
-
-    onMouseMove.cancel();
+  const cleanupAfterResize = (width: number) => {
+    // Update grid state when resize finishes
+    setLeftSidebarState({
+      ...leftSidebarState,
+      [LEFT_SIDEBAR_WIDTH]: width,
+      lastLeftSidebarWidth: width,
+    });
     x.current = 0;
     offset.current = 0;
     document.removeEventListener('mousemove', onMouseMove);
     document.removeEventListener('mouseup', onMouseUp);
+  };
+
+  const onMouseUp = () => {
+    if (isLeftSidebarCollapsed) return;
+
+    document.documentElement.removeAttribute(IS_SIDEBAR_DRAGGING);
+    onMouseMove.cancel();
 
     requestAnimationFrame(() => {
       setIsDragFinished(true);
       onResizeEnd && onResizeEnd();
     });
 
-    if (getLeftSidebarWidth() < MIN_LEFT_SIDEBAR_DRAG_THRESHOLD) {
+    if (x.current < MIN_LEFT_SIDEBAR_DRAG_THRESHOLD) {
+      cleanupAfterResize(COLLAPSED_LEFT_SIDEBAR_WIDTH);
       collapseLeftSidebar();
+      return;
     }
+
     if (
-      getLeftSidebarWidth() > MIN_LEFT_SIDEBAR_DRAG_THRESHOLD &&
-      getLeftSidebarWidth() < LEFT_SIDEBAR_FLYOUT_WIDTH
+      x.current > MIN_LEFT_SIDEBAR_DRAG_THRESHOLD &&
+      x.current < DEFAULT_SIDEBAR_WIDTH
     ) {
+      cleanupAfterResize(DEFAULT_SIDEBAR_WIDTH);
       expandLeftSidebar();
+      return;
     }
-  };
 
-  const onMouseDown = (event: ReactMouseEvent<HTMLDivElement>) => {
-    if (isLeftSidebarCollapsed) return;
-
-    const leftSidebarWidth = getLeftSidebarWidth();
-    const leftPanelWidth = getLeftPanelWidth();
-    offset.current = event.clientX - leftSidebarWidth - leftPanelWidth;
-
-    document.addEventListener('mousemove', onMouseMove);
-    document.addEventListener('mouseup', onMouseUp);
-    document.documentElement.setAttribute(IS_SIDEBAR_DRAGGING, 'true');
-
-    onResizeStart && onResizeStart();
-  };
-
-  const cancelDrag = (shouldCollapse?: boolean) => {
-    onMouseMove.cancel();
-    document.removeEventListener('mousemove', onMouseMove);
-    document.removeEventListener('mouseup', onMouseUp);
-    document.documentElement.removeAttribute(IS_SIDEBAR_DRAGGING);
-    requestAnimationFrame(() => setIsDragFinished(true));
-    offset.current = 0;
-
-    shouldCollapse ? collapseLeftSidebar() : expandLeftSidebar();
+    cleanupAfterResize(x.current);
   };
 
   const resizeButton = {

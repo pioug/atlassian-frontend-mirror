@@ -5,11 +5,8 @@ import { jsx } from '@emotion/core';
 
 import { LEFT_SIDEBAR_WIDTH } from '../../common/constants';
 import { SlotWidthProps } from '../../common/types';
-import {
-  removeFromGridStateInStorage,
-  resolveDimension,
-} from '../../common/utils';
-import { usePageLayoutGrid } from '../../controllers';
+import { resolveDimension } from '../../common/utils';
+import { publishGridState } from '../../controllers';
 
 import {
   fixedLeftSidebarInnerStyles,
@@ -17,7 +14,7 @@ import {
 } from './left-sidebar-styles';
 import SlotDimensions from './slot-dimensions';
 
-export default (props: SlotWidthProps) => {
+const LeftSidebarWithoutResize = (props: SlotWidthProps) => {
   const { children, width, isFixed, shouldPersistWidth, testId } = props;
 
   const leftSidebarWidth = resolveDimension(
@@ -26,13 +23,12 @@ export default (props: SlotWidthProps) => {
     shouldPersistWidth,
   );
 
-  usePageLayoutGrid({ [LEFT_SIDEBAR_WIDTH]: leftSidebarWidth });
   useEffect(() => {
+    publishGridState({ [LEFT_SIDEBAR_WIDTH]: leftSidebarWidth });
     return () => {
-      removeFromGridStateInStorage('gridState', LEFT_SIDEBAR_WIDTH);
-      document.documentElement.style.removeProperty(`--${LEFT_SIDEBAR_WIDTH}`);
+      publishGridState({ [LEFT_SIDEBAR_WIDTH]: 0 });
     };
-  }, []);
+  }, [leftSidebarWidth]);
 
   return (
     <div data-testid={testId} css={leftSidebarStyles(isFixed)}>
@@ -44,3 +40,5 @@ export default (props: SlotWidthProps) => {
     </div>
   );
 };
+
+export default LeftSidebarWithoutResize;

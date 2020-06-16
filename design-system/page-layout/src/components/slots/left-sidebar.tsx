@@ -1,13 +1,13 @@
 /** @jsx jsx */
-import { MouseEvent, useEffect, useRef, useState } from 'react';
+import { MouseEvent, useEffect, useRef } from 'react';
 
 import { jsx } from '@emotion/core';
 
 import {
   COLLAPSED_LEFT_SIDEBAR_WIDTH,
+  DEFAULT_SIDEBAR_WIDTH,
   FLYOUT_DELAY,
   IS_SIDEBAR_COLLAPSED,
-  LEFT_SIDEBAR_EXPANDED_WIDTH,
   LEFT_SIDEBAR_FLYOUT,
   LEFT_SIDEBAR_SELECTOR,
   LEFT_SIDEBAR_WIDTH,
@@ -16,11 +16,10 @@ import {
 import { LeftSidebarProps } from '../../common/types';
 import {
   getGridStateFromStorage,
-  removeFromGridStateInStorage,
+  mergeGridStateIntoStorage,
   resolveDimension,
 } from '../../common/utils';
-import { usePageLayoutGrid } from '../../controllers';
-import { SidebarResizeController } from '../../controllers/sidebar-resize-controller';
+import { publishGridState, usePageLayoutResize } from '../../controllers';
 import ResizeControl from '../resize-control';
 
 import {
@@ -38,7 +37,6 @@ const LeftSidebar = (props: LeftSidebarProps) => {
     children,
     width,
     isFixed = true,
-    shouldPersistWidth = true,
     resizeButtonLabel,
     overrides,
     onExpand,
@@ -51,30 +49,62 @@ const LeftSidebar = (props: LeftSidebarProps) => {
   } = props;
 
   const flyoutTimerRef = useRef<ReturnType<typeof setTimeout>>();
-  const [isFlyoutOpen, setIsFlyoutOpen] = useState(false);
-  const cachedCollapsedState = !!getGridStateFromStorage(
-    'isLeftSidebarCollapsed',
-  );
 
-  const leftSidebarWidth = cachedCollapsedState
+  const { leftSidebarState, setLeftSidebarState } = usePageLayoutResize();
+  const {
+    isFlyoutOpen,
+    isLeftSidebarCollapsed,
+    leftSidebarWidth,
+    lastLeftSidebarWidth,
+  } = leftSidebarState;
+
+  const leftSidebarWidthOnMount = isLeftSidebarCollapsed
     ? COLLAPSED_LEFT_SIDEBAR_WIDTH
-    : resolveDimension(LEFT_SIDEBAR_WIDTH, width, shouldPersistWidth);
+    : resolveDimension(LEFT_SIDEBAR_WIDTH, width, true);
 
-  usePageLayoutGrid({
-    [LEFT_SIDEBAR_WIDTH]: leftSidebarWidth,
-    [LEFT_SIDEBAR_FLYOUT]:
-      getGridStateFromStorage(LEFT_SIDEBAR_EXPANDED_WIDTH) || width,
-  });
+  // Update state from cache on mount
   useEffect(() => {
+    const cachedCollapsedState =
+      getGridStateFromStorage('isLeftSidebarCollapsed') || false;
+    const cachedGridState = getGridStateFromStorage('gridState') || {};
+
+    setLeftSidebarState({
+      isFlyoutOpen: false,
+      isLeftSidebarCollapsed: cachedCollapsedState,
+      leftSidebarWidth:
+        cachedGridState[LEFT_SIDEBAR_WIDTH] || DEFAULT_SIDEBAR_WIDTH,
+      lastLeftSidebarWidth: Math.max(
+        cachedGridState[LEFT_SIDEBAR_FLYOUT],
+        DEFAULT_SIDEBAR_WIDTH,
+      ),
+    });
+
     if (cachedCollapsedState) {
       document.documentElement.setAttribute(IS_SIDEBAR_COLLAPSED, 'true');
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-    return () => {
-      removeFromGridStateInStorage('gridState', LEFT_SIDEBAR_WIDTH);
-      document.documentElement.style.removeProperty(`--${LEFT_SIDEBAR_WIDTH}`);
-    };
-  }, [cachedCollapsedState]);
+  // Every time other than mount,
+  // update the local storage and css variables.
+  const notFirstRun = useRef(false);
+  useEffect(() => {
+    if (notFirstRun.current) {
+      publishGridState({
+        [LEFT_SIDEBAR_WIDTH]: leftSidebarWidth || leftSidebarWidthOnMount,
+        [LEFT_SIDEBAR_FLYOUT]: lastLeftSidebarWidth,
+      });
+      mergeGridStateIntoStorage(
+        'isLeftSidebarCollapsed',
+        isLeftSidebarCollapsed,
+      );
+    }
+
+    if (!notFirstRun.current) {
+      notFirstRun.current = true;
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLeftSidebarCollapsed, leftSidebarWidth]);
 
   const onMouseEnter = (event: MouseEvent) => {
     const isMouseOnResizeButton =
@@ -88,19 +118,13 @@ const LeftSidebar = (props: LeftSidebarProps) => {
     event.persist();
     flyoutTimerRef.current && clearTimeout(flyoutTimerRef.current);
 
-    const isLeftSidebarCollapsed = document.documentElement.hasAttribute(
-      IS_SIDEBAR_COLLAPSED,
-    );
-
     if (isLeftSidebarCollapsed) {
       flyoutTimerRef.current = setTimeout(() => {
-        setIsFlyoutOpen(true);
+        setLeftSidebarState({ ...leftSidebarState, isFlyoutOpen: true });
         onFlyoutExpand && onFlyoutExpand();
       }, FLYOUT_DELAY);
     }
   };
-
-  const resetFlyout = () => isFlyoutOpen && setIsFlyoutOpen(false);
 
   const onMouseLeave = () => {
     flyoutTimerRef.current && clearTimeout(flyoutTimerRef.current);
@@ -109,47 +133,39 @@ const LeftSidebar = (props: LeftSidebarProps) => {
       return;
     }
 
-    const isLeftSidebarCollapsed = document.documentElement.hasAttribute(
-      IS_SIDEBAR_COLLAPSED,
-    );
-
     if (isLeftSidebarCollapsed) {
       onFlyoutCollapse && onFlyoutCollapse();
-      resetFlyout();
+      setLeftSidebarState({ ...leftSidebarState, isFlyoutOpen: false });
     }
   };
 
   return (
-    <SidebarResizeController
-      onExpand={onExpand}
-      onCollapse={onCollapse}
-      resetFlyout={resetFlyout}
+    <div
+      css={leftSidebarStyles(isFixed, isFlyoutOpen)}
+      data-testid={testId}
+      onMouseOver={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+      {...leftSidebarSelector}
     >
-      <div
-        css={leftSidebarStyles(isFixed, isFlyoutOpen)}
-        data-testid={testId}
-        onMouseOver={onMouseEnter}
-        onMouseLeave={onMouseLeave}
-        {...leftSidebarSelector}
-      >
-        <SlotDimensions
-          variableName={LEFT_SIDEBAR_WIDTH}
-          value={leftSidebarWidth}
+      <SlotDimensions
+        variableName={LEFT_SIDEBAR_WIDTH}
+        value={leftSidebarWidthOnMount}
+      />
+      <div css={fixedLeftSidebarInnerStyles(isFixed, isFlyoutOpen)}>
+        {children}
+        <ResizeControl
+          testId={testId}
+          resizeButtonLabel={resizeButtonLabel}
+          overrides={overrides}
+          onCollapse={onCollapse}
+          onExpand={onExpand}
+          onResizeStart={onResizeStart}
+          onResizeEnd={onResizeEnd}
+          leftSidebarState={leftSidebarState}
+          setLeftSidebarState={setLeftSidebarState}
         />
-        <div css={fixedLeftSidebarInnerStyles(isFixed, isFlyoutOpen)}>
-          {children}
-          <ResizeControl
-            testId={testId}
-            resizeButtonLabel={resizeButtonLabel}
-            overrides={overrides}
-            onCollapse={onCollapse}
-            onExpand={onExpand}
-            onResizeStart={onResizeStart}
-            onResizeEnd={onResizeEnd}
-          />
-        </div>
       </div>
-    </SidebarResizeController>
+    </div>
   );
 };
 

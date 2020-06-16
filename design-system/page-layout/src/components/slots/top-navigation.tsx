@@ -5,16 +5,13 @@ import { jsx } from '@emotion/core';
 
 import { TOP_NAVIGATION_HEIGHT } from '../../common/constants';
 import { SlotHeightProps } from '../../common/types';
-import {
-  removeFromGridStateInStorage,
-  resolveDimension,
-} from '../../common/utils';
-import { usePageLayoutGrid } from '../../controllers';
+import { resolveDimension } from '../../common/utils';
+import { publishGridState } from '../../controllers';
 
 import SlotDimensions from './slot-dimensions';
 import { topNavigationStyles } from './styles';
 
-export default (props: SlotHeightProps) => {
+const TopNavigation = (props: SlotHeightProps) => {
   const {
     children,
     height,
@@ -29,15 +26,12 @@ export default (props: SlotHeightProps) => {
     shouldPersistHeight,
   );
 
-  usePageLayoutGrid({ [TOP_NAVIGATION_HEIGHT]: topNavigationHeight });
   useEffect(() => {
+    publishGridState({ [TOP_NAVIGATION_HEIGHT]: topNavigationHeight });
     return () => {
-      removeFromGridStateInStorage('gridState', TOP_NAVIGATION_HEIGHT);
-      document.documentElement.style.removeProperty(
-        `--${TOP_NAVIGATION_HEIGHT}`,
-      );
+      publishGridState({ [TOP_NAVIGATION_HEIGHT]: 0 });
     };
-  }, []);
+  }, [topNavigationHeight]);
 
   return (
     <div css={topNavigationStyles(isFixed)} data-testid={testId}>
@@ -49,3 +43,5 @@ export default (props: SlotHeightProps) => {
     </div>
   );
 };
+
+export default TopNavigation;

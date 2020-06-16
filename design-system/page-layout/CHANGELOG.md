@@ -1,5 +1,12 @@
 # @atlaskit/page-layout
 
+## 0.5.0
+
+### Minor Changes
+
+- [`80fb46068b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/80fb46068b) - Move all grid state into the ResizeSidebarControl.
+  **BREAKING** onExpand and onCollapse callbacks have been removed. They are now called _onLeftSidebarExpand_ and _onLeftSidebarCollapse_ and are passed to the PageLayout component.
+
 ## 0.4.2
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 import { DimensionNames, Dimensions } from '../common/types';
 
-import { DIMENSIONS, PAGE_LAYOUT_LS_KEY } from './constants';
+import { DIMENSIONS, LEFT_PANEL_WIDTH, PAGE_LAYOUT_LS_KEY } from './constants';
 import safeLocalStorage from './safe-local-storage';
 
 const emptyGridState: Dimensions = DIMENSIONS.reduce(
@@ -62,10 +62,19 @@ const resolveDimension = (
   return dimension;
 };
 
+const getLeftPanelWidth = () =>
+  parseInt(
+    window
+      .getComputedStyle(document.documentElement)
+      .getPropertyValue(`--${LEFT_PANEL_WIDTH}`),
+    10,
+  ) || 0;
+
 export {
   emptyGridState,
   mergeGridStateIntoStorage,
   getGridStateFromStorage,
   removeFromGridStateInStorage,
   resolveDimension,
+  getLeftPanelWidth,
 };

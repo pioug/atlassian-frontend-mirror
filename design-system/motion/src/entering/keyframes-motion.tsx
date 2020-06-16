@@ -1,4 +1,4 @@
-import React, { Ref, useEffect } from 'react';
+import React, { Ref, useEffect, useState } from 'react';
 
 import { ClassNames, keyframes, ObjectInterpolation } from '@emotion/core';
 
@@ -76,38 +76,46 @@ const EnteringMotion: React.FC<InternalKeyframesMotionProps> = ({
   const paused = isPaused || !staggered.isReady;
   const delay = isExiting ? 0 : staggered.delay;
   const state = isExiting ? 'exiting' : 'entering';
-  const actualDuration = appear === false ? 0 : duration;
+  const [hasAnimationStyles, setHasAnimationStyles] = useState(appear);
 
   useEffect(() => {
+    // Tracking this to prevent changing state on an unmounted component
+    let isCancelled = false;
+
     if (paused) {
       return;
     }
+
+    // On initial mount if elements aren't set to animate on appear, we return early and callback
+    if (!appear) {
+      onFinishMotion && onFinishMotion(state);
+      return;
+    }
+
+    // Elements may need animation styles back after initial mount (they could animate out)
+    setHasAnimationStyles(true);
 
     setTimeout(
       () => {
         if (state === 'exiting') {
           onExitFinished && onExitFinished();
         }
-
+        if (!isCancelled) {
+          setHasAnimationStyles(false);
+        }
         onFinishMotion && onFinishMotion(state);
       },
-      isExiting
-        ? actualDuration * EXITING_MOTION_MULTIPLIER
-        : actualDuration + delay,
+      isExiting ? duration * EXITING_MOTION_MULTIPLIER : duration + delay,
     );
+
+    return () => {
+      isCancelled = true;
+    };
     // We ignore this for onFinishMotion as consumers could potentially inline the function
     // which would then trigger this effect every re-render.
     // We want to make it easier for consumers so we go down this path unfortunately.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    onExitFinished,
-    state,
-    isExiting,
-    actualDuration,
-    delay,
-    paused,
-    setTimeout,
-  ]);
+  }, [onExitFinished, state, isExiting, duration, delay, paused, setTimeout]);
 
   return (
     <ClassNames>
@@ -115,23 +123,23 @@ const EnteringMotion: React.FC<InternalKeyframesMotionProps> = ({
         children(
           {
             ref: staggered.ref,
-            className: css({
-              animationName: `${keyframes(
-                isExiting
-                  ? exitingAnimation || enteringAnimation
-                  : enteringAnimation,
-              )}`,
-              animationTimingFunction: animationTimingFunction(state),
-              animationDelay: `${delay}ms`,
-              animationFillMode: isExiting ? 'forwards' : 'backwards',
-              animationDuration: `${
-                isExiting
-                  ? actualDuration * EXITING_MOTION_MULTIPLIER
-                  : actualDuration
-              }ms`,
-              animationPlayState: paused ? 'paused' : 'running',
-              ...prefersReducedMotion(),
-            }),
+            className: hasAnimationStyles
+              ? css({
+                  animationName: `${keyframes(
+                    isExiting
+                      ? exitingAnimation || enteringAnimation
+                      : enteringAnimation,
+                  )}`,
+                  animationTimingFunction: animationTimingFunction(state),
+                  animationDelay: `${delay}ms`,
+                  animationFillMode: isExiting ? 'forwards' : 'backwards',
+                  animationDuration: `${
+                    isExiting ? duration * EXITING_MOTION_MULTIPLIER : duration
+                  }ms`,
+                  animationPlayState: paused ? 'paused' : 'running',
+                  ...prefersReducedMotion(),
+                })
+              : '',
           },
           state,
         )

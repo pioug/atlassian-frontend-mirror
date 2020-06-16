@@ -9,7 +9,7 @@ import { mainStyles } from './styles';
 const mainSelector = {
   [MAIN_SELECTOR]: 'true',
 };
-export default (props: SlotWidthProps) => {
+const Main = (props: SlotWidthProps) => {
   const { children, testId } = props;
 
   return (
@@ -18,3 +18,5 @@ export default (props: SlotWidthProps) => {
     </div>
   );
 };
+
+export default Main;

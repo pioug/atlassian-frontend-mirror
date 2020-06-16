@@ -543,9 +543,9 @@ describe('<ExitingPersistence />', () => {
       </ExitingPersistence>,
     );
 
-    expect(getByTestId('target')).toHaveStyleDeclaration(
-      'animation-duration',
-      '0ms',
+    expect(getByTestId('target')).not.toHaveStyleDeclaration(
+      'animation-play-state',
+      'running',
     );
   });
 

@@ -1,24 +1,20 @@
-import { useState } from 'react';
-
 import cssVars from 'css-vars-ponyfill';
 
 import { Dimensions } from '../common/types';
-import { emptyGridState, mergeGridStateIntoStorage } from '../common/utils';
+import {
+  mergeGridStateIntoStorage,
+  removeFromGridStateInStorage,
+} from '../common/utils';
 
-var canUseDOM = !!(
-  typeof window !== 'undefined' &&
-  window.document &&
-  window.document.createElement
-);
-
-const usePageLayoutGrid = (initialDimensions: Dimensions = emptyGridState) => {
-  const [gridState, setGridState] = useState(initialDimensions);
-
-  if (!canUseDOM) {
-    return [emptyGridState, setGridState] as const;
-  }
-
+const publishGridState = (gridState: Dimensions) => {
   Object.entries(gridState).forEach(([slotName, value]) => {
+    if (!value) {
+      document.documentElement.style.removeProperty(`--${slotName}`);
+      removeFromGridStateInStorage('gridState', slotName);
+
+      return;
+    }
+
     //Update the css variable
     document.documentElement.style.setProperty(`--${slotName}`, `${value}px`);
 
@@ -35,8 +31,6 @@ const usePageLayoutGrid = (initialDimensions: Dimensions = emptyGridState) => {
     });
     /*IE11*/
   });
-
-  return [gridState, setGridState] as const;
 };
 
-export default usePageLayoutGrid;
+export default publishGridState;

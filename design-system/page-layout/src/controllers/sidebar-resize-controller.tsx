@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useRef, useState } from 'react';
+import React, { FC, useEffect, useMemo, useRef, useState } from 'react';
 
 import debounce from 'lodash.debounce';
 
@@ -9,25 +9,14 @@ import {
   DEFAULT_SIDEBAR_WIDTH,
   IS_SIDEBAR_COLLAPSED,
   IS_SIDEBAR_COLLAPSING,
-  LEFT_PANEL_WIDTH,
-  LEFT_SIDEBAR_EXPANDED_WIDTH,
-  LEFT_SIDEBAR_FLYOUT,
-  LEFT_SIDEBAR_FLYOUT_WIDTH,
   LEFT_SIDEBAR_SELECTOR,
-  LEFT_SIDEBAR_WIDTH,
 } from '../common/constants';
 import { SidebarResizeControllerProps } from '../common/types';
-import {
-  getGridStateFromStorage,
-  mergeGridStateIntoStorage,
-} from '../common/utils';
 
 import {
   SidebarResizeContext,
   SidebarResizeContextValue,
 } from './sidebar-resize-context';
-
-import { usePageLayoutGrid } from './index';
 
 type Callback = () => void;
 const noop = () => {};
@@ -35,42 +24,36 @@ const handleDataAttributesAndCb = (
   callback: Callback = noop,
   isLeftSidebarCollapsed: boolean,
 ) => {
-  isLeftSidebarCollapsed &&
+  if (isLeftSidebarCollapsed) {
     document.documentElement.setAttribute(IS_SIDEBAR_COLLAPSED, 'true');
+  } else {
+    document.documentElement.removeAttribute(IS_SIDEBAR_COLLAPSED);
+  }
   document.documentElement.removeAttribute(IS_SIDEBAR_COLLAPSING);
   callback();
 };
 export const SidebarResizeController: FC<SidebarResizeControllerProps> = ({
   children,
-  onExpand,
-  onCollapse,
-  resetFlyout,
+  onLeftSidebarExpand: onExpand,
+  onLeftSidebarCollapse: onCollapse,
 }) => {
-  const cachedCollapsedState =
-    getGridStateFromStorage('isLeftSidebarCollapsed') || false;
-
-  const [isLeftSidebarCollapsed, setIsLeftSidebarCollapsed] = useState(
-    cachedCollapsedState,
-  );
-
-  const cachedGridState = getGridStateFromStorage('gridState') || {};
-  const cachedLeftSidebarWidth =
-    getGridStateFromStorage(LEFT_SIDEBAR_EXPANDED_WIDTH) ||
-    DEFAULT_SIDEBAR_WIDTH;
-
-  const [gridState, setGridState] = usePageLayoutGrid({
-    [LEFT_SIDEBAR_WIDTH]: cachedGridState[LEFT_SIDEBAR_WIDTH],
+  const [leftSidebarState, setLeftSidebarState] = useState({
+    isFlyoutOpen: false,
+    isLeftSidebarCollapsed: false,
+    leftSidebarWidth: 0,
+    lastLeftSidebarWidth: 0,
   });
-  const firstRun = useRef(false);
 
+  const { isLeftSidebarCollapsed } = leftSidebarState;
+
+  const firstRun = useRef(false);
   useEffect(() => {
+    const $leftSidebar = document.querySelector(`[${LEFT_SIDEBAR_SELECTOR}]`);
     // Don't attach event listener on first run
-    if (firstRun.current && !isReducedMotion()) {
-      document
-        .querySelector(`[${LEFT_SIDEBAR_SELECTOR}]`)!
-        .addEventListener('transitionend', function transitionEventHandler(
-          event,
-        ) {
+    if ($leftSidebar && firstRun.current && !isReducedMotion()) {
+      $leftSidebar.addEventListener(
+        'transitionend',
+        function transitionEventHandler(event) {
           if (
             (event as TransitionEvent).propertyName === 'width' &&
             event.target &&
@@ -87,7 +70,8 @@ export const SidebarResizeController: FC<SidebarResizeControllerProps> = ({
               .querySelector(`[${LEFT_SIDEBAR_SELECTOR}]`)!
               .removeEventListener('transitionend', transitionEventHandler);
           }
-        });
+        },
+      );
     }
 
     if (!firstRun.current) {
@@ -95,69 +79,47 @@ export const SidebarResizeController: FC<SidebarResizeControllerProps> = ({
     }
   }, [isLeftSidebarCollapsed, onCollapse, onExpand]);
 
-  useEffect(() => {
-    mergeGridStateIntoStorage('isLeftSidebarCollapsed', isLeftSidebarCollapsed);
-    mergeGridStateIntoStorage(
-      LEFT_SIDEBAR_EXPANDED_WIDTH,
-      getGridStateFromStorage(LEFT_SIDEBAR_EXPANDED_WIDTH) ||
-        gridState[LEFT_SIDEBAR_WIDTH] ||
-        DEFAULT_SIDEBAR_WIDTH,
-    );
-  }, [
-    cachedGridState,
-    isLeftSidebarCollapsed,
-    cachedLeftSidebarWidth,
-    gridState,
-  ]);
+  const context: SidebarResizeContextValue = useMemo(
+    () => ({
+      isLeftSidebarCollapsed,
 
-  const context: SidebarResizeContextValue = {
-    isLeftSidebarCollapsed,
+      expandLeftSidebar: debounce(() => {
+        const { lastLeftSidebarWidth } = leftSidebarState;
+        const width = Math.max(lastLeftSidebarWidth, DEFAULT_SIDEBAR_WIDTH);
+        document.documentElement.removeAttribute(IS_SIDEBAR_COLLAPSED);
 
-    expandLeftSidebar: debounce(() => {
-      setGridState({
-        ...gridState,
-        [LEFT_SIDEBAR_WIDTH]: Math.max(
-          getGridStateFromStorage(LEFT_SIDEBAR_EXPANDED_WIDTH),
-          LEFT_SIDEBAR_FLYOUT_WIDTH,
-        ),
-      });
-      resetFlyout();
-      setIsLeftSidebarCollapsed(false);
-      document.documentElement.removeAttribute(IS_SIDEBAR_COLLAPSED);
+        setLeftSidebarState({
+          isLeftSidebarCollapsed: false,
+          isFlyoutOpen: false,
+          leftSidebarWidth: width,
+          lastLeftSidebarWidth,
+        });
 
-      // onTransitionEnd isn't triggered when a user prefers reduced motion
-      isReducedMotion() && handleDataAttributesAndCb(onExpand, false);
-    }, 250),
+        // onTransitionEnd isn't triggered when a user prefers reduced motion
+        isReducedMotion() && handleDataAttributesAndCb(onExpand, false);
+      }, 200),
 
-    collapseLeftSidebar: debounce(() => {
-      setGridState({
-        ...gridState,
-        [LEFT_SIDEBAR_WIDTH]: COLLAPSED_LEFT_SIDEBAR_WIDTH,
-        [LEFT_SIDEBAR_FLYOUT]: gridState[LEFT_SIDEBAR_WIDTH],
-      });
-      setIsLeftSidebarCollapsed(true);
-      document.documentElement.setAttribute(IS_SIDEBAR_COLLAPSING, 'true');
+      collapseLeftSidebar: debounce(() => {
+        const { leftSidebarWidth } = leftSidebarState;
+        // data-attribute is used as a CSS selector to sync the hiding/showing
+        // of the nav contents with expand/collapse animation
+        document.documentElement.setAttribute(IS_SIDEBAR_COLLAPSING, 'true');
+        setLeftSidebarState({
+          isLeftSidebarCollapsed: true,
+          isFlyoutOpen: false,
+          leftSidebarWidth: COLLAPSED_LEFT_SIDEBAR_WIDTH,
+          lastLeftSidebarWidth: leftSidebarWidth,
+        });
 
-      // onTransitionEnd isn't triggered when a user prefers reduced motion
-      isReducedMotion() && handleDataAttributesAndCb(onCollapse, true);
-    }, 250),
+        // onTransitionEnd isn't triggered when a user prefers reduced motion
+        isReducedMotion() && handleDataAttributesAndCb(onCollapse, true);
+      }, 200),
 
-    setLeftSidebarWidth: width => {
-      setGridState({
-        ...gridState,
-        [LEFT_SIDEBAR_WIDTH]: width,
-      });
-      mergeGridStateIntoStorage(LEFT_SIDEBAR_EXPANDED_WIDTH, width);
-    },
-
-    getLeftSidebarWidth: () => {
-      return getGridStateFromStorage('gridState')[LEFT_SIDEBAR_WIDTH] || 0;
-    },
-
-    getLeftPanelWidth: () => {
-      return getGridStateFromStorage('gridState')[LEFT_PANEL_WIDTH] || 0;
-    },
-  };
+      leftSidebarState,
+      setLeftSidebarState,
+    }),
+    [isLeftSidebarCollapsed, leftSidebarState, onExpand, onCollapse],
+  );
 
   return (
     <SidebarResizeContext.Provider value={context}>

@@ -5,16 +5,13 @@ import { jsx } from '@emotion/core';
 
 import { RIGHT_SIDEBAR_WIDTH } from '../../common/constants';
 import { SlotWidthProps } from '../../common/types';
-import {
-  removeFromGridStateInStorage,
-  resolveDimension,
-} from '../../common/utils';
-import { usePageLayoutGrid } from '../../controllers';
+import { resolveDimension } from '../../common/utils';
+import { publishGridState } from '../../controllers';
 
 import SlotDimensions from './slot-dimensions';
 import { fixedRightSidebarInnerStyles, rightSidebarStyles } from './styles';
 
-export default (props: SlotWidthProps) => {
+const RightSidebar = (props: SlotWidthProps) => {
   const { children, width, isFixed, shouldPersistWidth, testId } = props;
 
   const rightSidebarWidth = resolveDimension(
@@ -23,13 +20,12 @@ export default (props: SlotWidthProps) => {
     shouldPersistWidth,
   );
 
-  usePageLayoutGrid({ [RIGHT_SIDEBAR_WIDTH]: rightSidebarWidth });
   useEffect(() => {
+    publishGridState({ [RIGHT_SIDEBAR_WIDTH]: rightSidebarWidth });
     return () => {
-      removeFromGridStateInStorage('gridState', RIGHT_SIDEBAR_WIDTH);
-      document.documentElement.style.removeProperty(`--${RIGHT_SIDEBAR_WIDTH}`);
+      publishGridState({ [RIGHT_SIDEBAR_WIDTH]: 0 });
     };
-  }, []);
+  }, [rightSidebarWidth]);
 
   return (
     <div data-testid={testId} css={rightSidebarStyles(isFixed)}>
@@ -41,3 +37,5 @@ export default (props: SlotWidthProps) => {
     </div>
   );
 };
+
+export default RightSidebar;

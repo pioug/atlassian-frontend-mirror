@@ -15,15 +15,20 @@ import {
   TOP_NAVIGATION_HEIGHT,
 } from '../../common/constants';
 import { removeFromGridStateInStorage } from '../../common/utils';
+import { SidebarResizeController } from '../../controllers/sidebar-resize-controller';
 
 import { gridStyles } from './styles';
 
-export default ({
+const PageLayout = ({
   children,
   testId,
+  onLeftSidebarExpand,
+  onLeftSidebarCollapse,
 }: {
   children: ReactNode;
   testId?: string;
+  onLeftSidebarExpand?: () => void;
+  onLeftSidebarCollapse?: () => void;
 }) => {
   useEffect(() => {
     return () => {
@@ -33,24 +38,31 @@ export default ({
 
   return (
     <div data-testid={testId} css={gridStyles}>
-      <Global
-        styles={css`
-          :root {
-            --${LEFT_PANEL_WIDTH}: 0px;
-            --${LEFT_SIDEBAR_WIDTH}: 0px;
-            --${RIGHT_SIDEBAR_WIDTH}: 0px;
-            --${RIGHT_PANEL_WIDTH}: 0px;
-            --${TOP_NAVIGATION_HEIGHT}: 0px;
-            --${BANNER_HEIGHT}: 0px;
-            --${LEFT_SIDEBAR_FLYOUT}: ${LEFT_SIDEBAR_FLYOUT_WIDTH}px;
-          }
+      <SidebarResizeController
+        onLeftSidebarCollapse={onLeftSidebarCollapse}
+        onLeftSidebarExpand={onLeftSidebarExpand}
+      >
+        <Global
+          styles={css`
+              :root {
+                --${LEFT_PANEL_WIDTH}: 0px;
+                --${LEFT_SIDEBAR_WIDTH}: 0px;
+                --${RIGHT_SIDEBAR_WIDTH}: 0px;
+                --${RIGHT_PANEL_WIDTH}: 0px;
+                --${TOP_NAVIGATION_HEIGHT}: 0px;
+                --${BANNER_HEIGHT}: 0px;
+                --${LEFT_SIDEBAR_FLYOUT}: ${LEFT_SIDEBAR_FLYOUT_WIDTH}px;
+              }
 
-          [${IS_SIDEBAR_DRAGGING}] {
-            user-select: none !important;
-          }
-      `}
-      />
-      {children}
+              [${IS_SIDEBAR_DRAGGING}] {
+                user-select: none !important;
+              }
+          `}
+        />
+        {children}
+      </SidebarResizeController>
     </div>
   );
 };
+
+export default PageLayout;

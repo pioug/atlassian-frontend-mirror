@@ -5,7 +5,7 @@ import { jsx } from '@emotion/core';
 
 import { contentStyles } from './styles';
 
-export default (props: { children: ReactNode; testId?: string }) => {
+const Content = (props: { children: ReactNode; testId?: string }) => {
   const { children, testId } = props;
 
   return (
@@ -14,3 +14,5 @@ export default (props: { children: ReactNode; testId?: string }) => {
     </div>
   );
 };
+
+export default Content;

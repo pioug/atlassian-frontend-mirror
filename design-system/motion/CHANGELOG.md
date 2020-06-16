@@ -1,5 +1,11 @@
 # @atlaskit/motion
 
+## 0.2.6
+
+### Patch Changes
+
+- [`1e4930567c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1e4930567c) - There should be no noticeable changes to consumers of `motion`, but we now remove the animation styles once an animation is complete, or if the elements are not meant to animate on initial mount. This prevents a class of bugs where we were seeing unintended animations.
+
 ## 0.2.5
 
 ### Patch Changes

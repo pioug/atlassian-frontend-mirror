@@ -1,5 +1,7 @@
 import { ButtonHTMLAttributes, ElementType, ReactElement } from 'react';
 
+import { LeftSidebarState } from '../../controllers/sidebar-resize-context';
+
 export type ResizeButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   isLeftSidebarCollapsed: boolean;
   label: string;
@@ -23,4 +25,6 @@ export type ResizeControlProps = {
   onResizeEnd?: () => void;
   onFlyoutCollapse?: () => void;
   onFlyoutExpand?: () => void;
+  leftSidebarState: LeftSidebarState;
+  setLeftSidebarState: (leftSidebarState: LeftSidebarState) => void;
 };

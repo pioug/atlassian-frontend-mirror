@@ -121,8 +121,7 @@ describe('<KeyframesMotion />', () => {
           {props => <div {...props} />}
         </KeyframesMotion>,
       );
-
-      jest.runTimersToTime(duration);
+      act(() => jest.runTimersToTime(duration));
 
       expect(callback).toHaveBeenCalledWith('entering');
     });
@@ -152,8 +151,7 @@ describe('<KeyframesMotion />', () => {
       );
 
       // Step is actually logarithmic so we add a little on to make sure it hits the timeout.
-      jest.runTimersToTime(duration + step + 2);
-
+      act(() => jest.runTimersToTime(duration + step + 2));
       expect(callback).toHaveBeenCalledWith('entering');
     });
 
@@ -173,12 +171,30 @@ describe('<KeyframesMotion />', () => {
           </KeyframesMotion>
         </ExitingPersistence>,
       );
-      jest.runAllTimers();
+      act(() => jest.runAllTimers());
 
       expect(callback).not.toHaveBeenCalled();
     });
 
-    it('should immediately appear', () => {
+    it('should callback immediately if appear is false', () => {
+      const callback = jest.fn();
+      render(
+        <ExitingPersistence>
+          <KeyframesMotion
+            animationTimingFunction={() => 'linear'}
+            duration={duration}
+            enteringAnimation={{}}
+            onFinish={callback}
+          >
+            {props => <div {...props} />}
+          </KeyframesMotion>
+        </ExitingPersistence>,
+      );
+
+      expect(callback).toHaveBeenCalledWith('entering');
+    });
+
+    it('should not animate if appear is false', () => {
       const { getByTestId } = render(
         <ExitingPersistence>
           <KeyframesMotion
@@ -191,17 +207,13 @@ describe('<KeyframesMotion />', () => {
         </ExitingPersistence>,
       );
 
-      expect(getByTestId('target')).toHaveStyleDeclaration(
+      expect(getByTestId('target')).not.toHaveStyleDeclaration(
         'animation-play-state',
         'running',
       );
-      expect(getByTestId('target')).toHaveStyleDeclaration(
-        'animation-duration',
-        '0ms',
-      );
     });
 
-    it('should appear', () => {
+    it('should animate on mount if appear is true', () => {
       const { getByTestId } = render(
         <ExitingPersistence appear>
           <KeyframesMotion
@@ -267,7 +279,7 @@ describe('<KeyframesMotion />', () => {
       callback.mockReset();
       rerender(<span />);
 
-      jest.runAllTimers();
+      act(() => jest.runAllTimers());
 
       expect(callback).not.toHaveBeenCalled();
     });

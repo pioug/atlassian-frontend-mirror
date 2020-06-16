@@ -38,9 +38,8 @@ export interface LeftSidebarProps extends SlotWidthProps {
 }
 
 export type SidebarResizeControllerProps = {
-  onCollapse?: () => void;
-  onExpand?: () => void;
-  resetFlyout: () => void;
+  onLeftSidebarCollapse?: () => void;
+  onLeftSidebarExpand?: () => void;
 };
 
 export type DimensionNames =

@@ -5,16 +5,13 @@ import { jsx } from '@emotion/core';
 
 import { LEFT_PANEL_WIDTH } from '../../common/constants';
 import { SlotWidthProps } from '../../common/types';
-import {
-  removeFromGridStateInStorage,
-  resolveDimension,
-} from '../../common/utils';
-import { usePageLayoutGrid } from '../../controllers';
+import { resolveDimension } from '../../common/utils';
+import { publishGridState } from '../../controllers';
 
 import SlotDimensions from './slot-dimensions';
 import { leftPanelStyles } from './styles';
 
-export default (props: SlotWidthProps) => {
+const LeftPanel = (props: SlotWidthProps) => {
   const { children, isFixed, width, shouldPersistWidth, testId } = props;
 
   const leftPanelWidth = resolveDimension(
@@ -23,13 +20,12 @@ export default (props: SlotWidthProps) => {
     shouldPersistWidth,
   );
 
-  usePageLayoutGrid({ [LEFT_PANEL_WIDTH]: leftPanelWidth });
   useEffect(() => {
+    publishGridState({ [LEFT_PANEL_WIDTH]: leftPanelWidth });
     return () => {
-      removeFromGridStateInStorage('gridState', LEFT_PANEL_WIDTH);
-      document.documentElement.style.removeProperty(`--${LEFT_PANEL_WIDTH}`);
+      publishGridState({ [LEFT_PANEL_WIDTH]: 0 });
     };
-  }, []);
+  }, [leftPanelWidth]);
 
   return (
     <div css={leftPanelStyles(isFixed)} data-testid={testId}>
@@ -38,3 +34,5 @@ export default (props: SlotWidthProps) => {
     </div>
   );
 };
+
+export default LeftPanel;

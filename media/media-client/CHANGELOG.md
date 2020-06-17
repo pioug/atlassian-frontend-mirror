@@ -1,5 +1,11 @@
 # @atlaskit/media-client
 
+## 6.2.1
+
+### Patch Changes
+
+- [`64e7f3f077`](https://bitbucket.org/atlassian/atlassian-frontend/commits/64e7f3f077) - Bump dependency query-string to ^5.1.0
+
 ## 6.2.0
 
 ### Minor Changes

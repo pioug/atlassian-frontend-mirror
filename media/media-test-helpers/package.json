@@ -15,6 +15,7 @@
   "atlaskit:src": "src/index.tsx",
   "atlassian": {
     "team": "Media Platform",
+    "inPublicMirror": true,
     "releaseModel": "scheduled"
   },
   "dependencies": {

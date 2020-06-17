@@ -16,6 +16,7 @@
   "atlaskit:designLink": "https://atlassian.design/guidelines/product/components/single-select",
   "atlassian": {
     "team": "Design System Team",
+    "inPublicMirror": true,
     "releaseModel": "scheduled",
     "website": {
       "deprecated": "Please use @atlaskit/select instead.",

@@ -1,5 +1,17 @@
 # @atlaskit/editor-core
 
+## 124.0.3
+
+### Patch Changes
+
+- [`455e383cda`](https://bitbucket.org/atlassian/atlassian-frontend/commits/455e383cda) - Use IntersectionObserver in smart-card to detect when a link enters the viewport
+
+## 124.0.2
+
+### Patch Changes
+
+- [`2cfef4d0fa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2cfef4d0fa) - HOTFIX ED-9621 Forge extensions are not appearing in quick insert menu
+
 ## 124.0.1
 
 ### Patch Changes

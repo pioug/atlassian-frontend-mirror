@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-client",
-  "version": "6.2.0",
+  "version": "6.2.1",
   "description": "Media API Web Client Library",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -16,6 +16,7 @@
   "atlaskit:src": "src/index.ts",
   "atlassian": {
     "team": "Media Platform",
+    "inPublicMirror": true,
     "releaseModel": "scheduled",
     "website": {
       "name": "Media Client"
@@ -28,7 +29,7 @@
     "deep-equal": "^1.0.1",
     "eventemitter2": "^4.1.0",
     "lru-fast": "^0.2.2",
-    "query-string": "^4.3.2",
+    "query-string": "^5.1.0",
     "rusha": "^0.8.13",
     "url-search-params": "^0.10.0",
     "uuid": "^3.1.0",

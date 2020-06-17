@@ -11,6 +11,7 @@
   "sideEffects": false,
   "atlassian": {
     "team": "Design System Team",
+    "inPublicMirror": true,
     "releaseModel": "scheduled",
     "website": {
       "deprecated": "Deprecated, will be removed in a future release",

@@ -1,5 +1,11 @@
 # @atlaskit/media-ui
 
+## 12.4.0
+
+### Minor Changes
+
+- [`fb5ddad3a4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fb5ddad3a4) - expose isIntersectionObserverSupported helper
+
 ## 12.3.0
 
 ### Minor Changes
@@ -12,6 +18,7 @@
 
   <MediaTypeIcon type="image" />
   ```
+
 - [`50c333ab3a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/50c333ab3a) - EDM-216: Adds EmbedCards in the Editor under the flag - allowEmbeds in the UNSAFE_cards prop
 
 ### Patch Changes

@@ -1,5 +1,12 @@
 # @atlaskit/smart-card
 
+## 13.4.1
+
+### Patch Changes
+
+- [`455e383cda`](https://bitbucket.org/atlassian/atlassian-frontend/commits/455e383cda) - Use IntersectionObserver in smart-card to detect when a link enters the viewport
+- Updated dependencies
+
 ## 13.4.0
 
 ### Minor Changes

@@ -17,6 +17,7 @@
   "atlaskit:designLink": "https://atlassian.design/guidelines/product/components/badges",
   "atlassian": {
     "team": "Design System Team",
+    "inPublicMirror": true,
     "releaseModel": "scheduled",
     "website": {
       "name": "Badge"

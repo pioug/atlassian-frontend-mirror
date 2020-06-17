@@ -15,6 +15,7 @@
   "atlaskit:src": "src/index.js",
   "atlassian": {
     "team": "Design System Team",
+    "inPublicMirror": true,
     "releaseModel": "scheduled",
     "website": {
       "name": "Global Navigation",

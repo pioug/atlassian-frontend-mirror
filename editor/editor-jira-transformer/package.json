@@ -16,6 +16,7 @@
   "atlaskit:src": "src/index.ts",
   "atlassian": {
     "team": "Editor",
+    "inPublicMirror": true,
     "releaseModel": "scheduled",
     "website": {
       "name": "Editor Jira Transformer"

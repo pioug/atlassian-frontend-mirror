@@ -11,6 +11,7 @@
   "sideEffects": false,
   "atlassian": {
     "team": "Editor",
+    "inPublicMirror": true,
     "releaseModel": "scheduled"
   },
   "bin": {

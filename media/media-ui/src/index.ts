@@ -92,3 +92,4 @@ export { default as ModalSpinner } from './modalSpinner';
 export { MediaImage, MediaImageProps, MediaImageState } from './mediaImage';
 export { InactivityDetector } from './inactivityDetector/inactivityDetector';
 export { WithShowControlMethodProp } from './types';
+export { isIntersectionObserverSupported } from './intersectionObserver';

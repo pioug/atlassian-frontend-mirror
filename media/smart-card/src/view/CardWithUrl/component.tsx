@@ -1,7 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback, useState, FC } from 'react';
 import { MouseEvent, KeyboardEvent } from 'react';
 import LazilyRender from 'react-lazily-render';
-import { CardLinkView } from '@atlaskit/media-ui';
+import {
+  CardLinkView,
+  isIntersectionObserverSupported,
+} from '@atlaskit/media-ui';
 
 import { CardWithUrlContentProps } from './types';
 import { isSpecialEvent } from '../../utils';
@@ -18,24 +21,72 @@ import { InvokeClientOpts, InvokeServerOpts } from '../../model/invoke-opts';
 import { EmbedCard } from '../EmbedCard';
 
 export function LazyCardWithUrlContent(props: CardWithUrlContentProps) {
-  const { appearance, isSelected, container, url, testId, showActions } = props;
+  const { appearance, container, showActions } = props;
   const offset = Math.ceil(window.innerHeight / 4);
-  return (
-    <LazilyRender
-      offset={offset}
-      component={appearance === 'inline' ? 'span' : 'div'}
-      placeholder={
-        <CardLinkView
-          isSelected={isSelected}
-          key={'lazy-render-placeholder'}
-          link={url}
-          testId={testId}
-        />
-      }
-      scrollContainer={container}
-      content={<CardWithUrlContent {...props} showActions={showActions} />}
-    />
-  );
+  if (isIntersectionObserverSupported()) {
+    return <LazyIntersectionObserverCard {...props} />;
+  } else {
+    return (
+      <LazilyRender
+        offset={offset}
+        component={appearance === 'inline' ? 'span' : 'div'}
+        className="loader-wrapper"
+        placeholder={<LoadingCardLink {...props} />}
+        scrollContainer={container}
+        content={<CardWithUrlContent {...props} showActions={showActions} />}
+      />
+    );
+  }
+}
+
+const LoadingCardLink: FC<CardWithUrlContentProps> = ({
+  isSelected,
+  url,
+  testId,
+}) => (
+  <CardLinkView
+    isSelected={isSelected}
+    key={'lazy-render-placeholder'}
+    link={url}
+    testId={testId}
+  />
+);
+
+export function LazyIntersectionObserverCard(props: CardWithUrlContentProps) {
+  const [isIntersecting, setIsIntersecting] = useState(false);
+  const { showActions, appearance } = props;
+  const Component = appearance === 'inline' ? 'span' : 'div';
+  const onRef = useCallback((element: HTMLElement | null) => {
+    if (!element) {
+      return;
+    }
+    const onIntersection: IntersectionObserverCallback = (
+      entries,
+      observer,
+    ) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          setIsIntersecting(true);
+          observer.disconnect();
+        }
+      });
+    };
+    const intersectionObserver = new IntersectionObserver(onIntersection);
+
+    intersectionObserver.observe(element);
+
+    return () => intersectionObserver.disconnect();
+  }, []);
+
+  if (isIntersecting) {
+    return <CardWithUrlContent {...props} showActions={showActions} />;
+  } else {
+    return (
+      <Component ref={onRef}>
+        <LoadingCardLink {...props} />
+      </Component>
+    );
+  }
 }
 
 export function CardWithUrlContent({

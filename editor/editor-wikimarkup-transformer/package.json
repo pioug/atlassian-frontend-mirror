@@ -16,6 +16,7 @@
   "atlaskit:src": "src/index.ts",
   "atlassian": {
     "team": "Content Services",
+    "inPublicMirror": true,
     "releaseModel": "continuous",
     "website": {
       "name": "Editor Wikimarkup Transformer"

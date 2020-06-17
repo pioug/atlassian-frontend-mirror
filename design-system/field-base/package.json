@@ -16,6 +16,7 @@
   "atlaskit:src": "src/index.js",
   "atlassian": {
     "team": "Design System Team",
+    "inPublicMirror": true,
     "releaseModel": "scheduled",
     "website": {
       "deprecated": "Please use the Form/Textfield/Textarea/etc packages instead.",

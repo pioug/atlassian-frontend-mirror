@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { EditorView } from 'prosemirror-view';
 import { intlShape, IntlShape, IntlProvider } from 'react-intl';
+import memoizeOne from 'memoize-one';
 import { name, version } from './version-wrapper';
 import {
   ProviderFactory,
@@ -159,8 +160,12 @@ export default class Editor extends React.Component<EditorProps, State> {
   componentDidUpdate(prevProps: EditorProps) {
     const { extensionProviders, quickInsert } = this.props;
     if (
-      extensionProviders &&
-      extensionProviders !== prevProps.extensionProviders
+      (extensionProviders &&
+        extensionProviders !== prevProps.extensionProviders) ||
+      // Though this will introduce some performance regression related to quick insert
+      // loading but we can remove it soon when Forge will move to new API.
+      // quickInsert={Promise.resolve(consumerQuickInsert)} is one of the main reason behind this performance issue.
+      (quickInsert && quickInsert !== prevProps.quickInsert)
     ) {
       const extensionProvider = this.prepareExtensionProvider(
         extensionProviders,
@@ -188,17 +193,21 @@ export default class Editor extends React.Component<EditorProps, State> {
     clearMeasure(measurements.EDITOR_MOUNTED);
   }
 
-  prepareExtensionProvider = (extensionProviders?: ExtensionProvidersProp) => {
-    if (!extensionProviders) {
-      return;
-    }
+  prepareExtensionProvider = memoizeOne(
+    (extensionProviders?: ExtensionProvidersProp) => {
+      if (!extensionProviders) {
+        return;
+      }
 
-    if (typeof extensionProviders === 'function') {
-      return combineExtensionProviders(extensionProviders(this.editorActions));
-    }
+      if (typeof extensionProviders === 'function') {
+        return combineExtensionProviders(
+          extensionProviders(this.editorActions),
+        );
+      }
 
-    return combineExtensionProviders(extensionProviders);
-  };
+      return combineExtensionProviders(extensionProviders);
+    },
+  );
 
   prepareQuickInsertProvider = (
     extensionProvider?: ExtensionProvider,

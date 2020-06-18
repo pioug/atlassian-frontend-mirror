@@ -1,5 +1,11 @@
 # @atlaskit/editor-core
 
+## 124.0.4
+
+### Patch Changes
+
+- [`859ad12010`](https://bitbucket.org/atlassian/atlassian-frontend/commits/859ad12010) - ED-9622: fix breakout tables that were appearing cut off when nested inside bodied elements (expand, layout, etc)
+
 ## 124.0.3
 
 ### Patch Changes

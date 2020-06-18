@@ -525,6 +525,7 @@ export const tableStyles = css`
 
     /* Breakout only works on top level */
     > * .${ClassName.NODEVIEW_WRAPPER} .${ClassName.TABLE_CONTAINER} {
+      margin-left: unset !important;
       width: 100% !important;
     }
 

@@ -1,8 +1,16 @@
 import React from 'react';
 
 import { code, Example, md, Props } from '@atlaskit/docs';
+import SectionMessage from '@atlaskit/section-message';
 
 export default md`
+  ${(
+    <SectionMessage title="Important usage instructions">
+      The <a href="section">section component</a> is required to be used to
+      ensure spacing around blocks of items exists! Make sure to use it.
+    </SectionMessage>
+  )}
+
   Will render an item wrapped in an anchor tag \`<a>\` -
   useful when wanting to transition to another page.
   If needing to use a specific routers component for route transitions you'll want to compose them together using \`CustomItem\`.

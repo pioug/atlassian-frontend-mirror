@@ -133,6 +133,11 @@ export interface BaseItemProps {
   onClick?: (event: React.MouseEvent | React.KeyboardEvent) => void;
 
   /**
+   * Event that is triggered when the element has been pressed.
+   */
+  onMouseDown?: React.MouseEventHandler;
+
+  /**
    * Description of the item.
    * This will render smaller text below the primary text of the item as well as slightly increasing the height of the item.
    */
@@ -207,7 +212,12 @@ export interface CustomItemComponentProps {
   /**
    * Event handler that is passed through to the custom component.
    */
-  onClick?: (event: React.MouseEvent | React.KeyboardEvent) => void;
+  onClick?: (event: React.MouseEvent<HTMLElement>) => void;
+
+  /**
+   * Event handler that is passed through to the custom component.
+   */
+  onMouseDown?: (event: React.MouseEvent<HTMLElement>) => void;
 
   /**
    * Event handler that is passed through to the custom component.

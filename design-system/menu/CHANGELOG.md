@@ -1,5 +1,11 @@
 # @atlaskit/menu
 
+## 0.4.7
+
+### Patch Changes
+
+- [`952087be5b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/952087be5b) - Item components now blur themselves during the mouse down event.
+
 ## 0.4.6
 
 ### Patch Changes

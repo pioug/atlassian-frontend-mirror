@@ -3,6 +3,7 @@ import React, { DragEventHandler, forwardRef } from 'react';
 import { ClassNames, CSSObject } from '@emotion/core';
 
 import { CustomItemComponentProps, CustomItemProps } from '../types';
+import { useBlurOnMouseDown } from '../utils/use-blur-on-mouse-down';
 
 import BaseItem from './base-item';
 import { customItemCSS } from './styles';
@@ -35,11 +36,14 @@ const CustomItem: CustomItemType = forwardRef<HTMLElement, CustomItemProps>(
       iconAfter,
       iconBefore,
       overrides,
+      onMouseDown,
       ...rest
     }: // Type needed on props to extract types with extract react types.
     CustomItemProps,
     ref,
   ) => {
+    const onMouseDownHandler = useBlurOnMouseDown(onMouseDown);
+
     if (!Component) {
       return null;
     }
@@ -58,6 +62,7 @@ const CustomItem: CustomItemType = forwardRef<HTMLElement, CustomItemProps>(
                 isSelected,
               }),
             )}
+            onMouseDown={onMouseDownHandler}
             onClick={isDisabled ? undefined : onClick}
             tabIndex={isDisabled ? -1 : undefined}
             disabled={isDisabled}

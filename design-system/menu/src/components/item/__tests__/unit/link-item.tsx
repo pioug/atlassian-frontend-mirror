@@ -9,6 +9,11 @@ import LinkItem from '../../link-item';
 expect.addSnapshotSerializer(serializer);
 expect.extend(matchers);
 
+window.requestAnimationFrame = cb => {
+  cb(-1);
+  return -1;
+};
+
 describe('<LinkItem />', () => {
   it('should callback on click', () => {
     const callback = jest.fn();
@@ -21,6 +26,50 @@ describe('<LinkItem />', () => {
     fireEvent.click(getByTestId('target'));
 
     expect(callback).toHaveBeenCalled();
+  });
+
+  it('should not gain focus on mouse down when it had no initial focus', () => {
+    // create a random button that will have focus
+    const el: HTMLElement = document.createElement('button');
+    document.body.appendChild(el);
+    el.focus();
+    expect(el).toBe(document.activeElement);
+    const { getByTestId } = render(
+      <LinkItem testId="target">Hello world</LinkItem>,
+    );
+
+    const allowed: boolean = fireEvent.mouseDown(getByTestId('target'));
+
+    // target didn't get focus
+    expect(getByTestId('target')).not.toBe(document.activeElement);
+    // mousedown event not prevented
+    expect(allowed).toBe(true);
+  });
+
+  it('should persist focus if it was focused during mouse down', () => {
+    const { getByTestId } = render(
+      <LinkItem href="#" testId="target">
+        Hello world
+      </LinkItem>,
+    );
+
+    getByTestId('target').focus();
+    fireEvent.mouseDown(getByTestId('target'));
+
+    expect(getByTestId('target') === document.activeElement).toBe(true);
+  });
+
+  it('should callback to user supplied mouse down prop', () => {
+    const onMouseDown = jest.fn();
+    const { getByTestId } = render(
+      <LinkItem onMouseDown={onMouseDown} testId="target">
+        Hello world
+      </LinkItem>,
+    );
+
+    fireEvent.mouseDown(getByTestId('target'));
+
+    expect(onMouseDown).toHaveBeenCalled();
   });
 
   it('should not callback on click when disabled', () => {

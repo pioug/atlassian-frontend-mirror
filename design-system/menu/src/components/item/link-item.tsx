@@ -4,6 +4,7 @@ import { DragEventHandler, forwardRef, Ref } from 'react';
 import { CSSObject, jsx } from '@emotion/core';
 
 import { LinkItemProps } from '../types';
+import { useBlurOnMouseDown } from '../utils/use-blur-on-mouse-down';
 
 import BaseItem from './base-item';
 import { linkItemCSS } from './styles';
@@ -26,8 +27,10 @@ const LinkItem = forwardRef<HTMLElement, LinkItemProps>(
       onClick,
       testId,
       overrides,
+      onMouseDown,
       ...others
     } = rest;
+    const onMouseDownHandler = useBlurOnMouseDown(onMouseDown);
 
     if (!children) {
       return null;
@@ -46,6 +49,7 @@ const LinkItem = forwardRef<HTMLElement, LinkItemProps>(
         draggable={false}
         href={isDisabled ? undefined : href}
         data-testid={testId}
+        onMouseDown={onMouseDownHandler}
         onClick={isDisabled ? undefined : onClick}
         {...others}
       >

@@ -4,6 +4,7 @@ import { forwardRef, Ref } from 'react';
 import { CSSObject, jsx } from '@emotion/core';
 
 import { ButtonItemProps } from '../types';
+import { useBlurOnMouseDown } from '../utils/use-blur-on-mouse-down';
 
 import BaseItem from './base-item';
 import { buttonItemCSS } from './styles';
@@ -22,8 +23,10 @@ const ButtonItem = forwardRef<HTMLElement, ButtonItemProps>(
       onClick,
       testId,
       overrides,
+      onMouseDown,
       ...others
     } = props;
+    const onMouseDownHandler = useBlurOnMouseDown(onMouseDown);
 
     if (!children) {
       return null;
@@ -40,6 +43,7 @@ const ButtonItem = forwardRef<HTMLElement, ButtonItemProps>(
         })}
         data-testid={testId}
         onClick={isDisabled ? undefined : onClick}
+        onMouseDown={onMouseDownHandler}
         ref={ref as Ref<HTMLButtonElement>}
         {...others}
       >

@@ -12,10 +12,10 @@ ${code`highlight=1,6
 import { SkeletonItem } from '@atlaskit/menu';
 
 <MenuGroup>
-<Section>
-  <SkeletonHeadingItem />
-  <SkeletonItem />
-</Section>
+  <Section>
+    <SkeletonHeadingItem />
+    <SkeletonItem />
+  </Section>
 </MenuGroup>
 `}
 

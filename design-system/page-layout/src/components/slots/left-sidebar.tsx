@@ -5,7 +5,7 @@ import { jsx } from '@emotion/core';
 
 import {
   COLLAPSED_LEFT_SIDEBAR_WIDTH,
-  DEFAULT_SIDEBAR_WIDTH,
+  DEFAULT_LEFT_SIDEBAR_WIDTH,
   FLYOUT_DELAY,
   IS_SIDEBAR_COLLAPSED,
   LEFT_SIDEBAR_FLYOUT,
@@ -35,7 +35,7 @@ const leftSidebarSelector = {
 const LeftSidebar = (props: LeftSidebarProps) => {
   const {
     children,
-    width,
+    width = DEFAULT_LEFT_SIDEBAR_WIDTH,
     isFixed = true,
     resizeButtonLabel,
     overrides,
@@ -72,10 +72,10 @@ const LeftSidebar = (props: LeftSidebarProps) => {
       isFlyoutOpen: false,
       isLeftSidebarCollapsed: cachedCollapsedState,
       leftSidebarWidth:
-        cachedGridState[LEFT_SIDEBAR_WIDTH] || DEFAULT_SIDEBAR_WIDTH,
+        cachedGridState[LEFT_SIDEBAR_WIDTH] || DEFAULT_LEFT_SIDEBAR_WIDTH,
       lastLeftSidebarWidth: Math.max(
         cachedGridState[LEFT_SIDEBAR_FLYOUT],
-        DEFAULT_SIDEBAR_WIDTH,
+        DEFAULT_LEFT_SIDEBAR_WIDTH,
       ),
     });
 

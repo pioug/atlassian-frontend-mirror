@@ -6,7 +6,7 @@ import { isReducedMotion } from '@atlaskit/motion';
 
 import {
   COLLAPSED_LEFT_SIDEBAR_WIDTH,
-  DEFAULT_SIDEBAR_WIDTH,
+  DEFAULT_LEFT_SIDEBAR_WIDTH,
   IS_SIDEBAR_COLLAPSED,
   IS_SIDEBAR_COLLAPSING,
   LEFT_SIDEBAR_SELECTOR,
@@ -85,7 +85,10 @@ export const SidebarResizeController: FC<SidebarResizeControllerProps> = ({
 
       expandLeftSidebar: debounce(() => {
         const { lastLeftSidebarWidth } = leftSidebarState;
-        const width = Math.max(lastLeftSidebarWidth, DEFAULT_SIDEBAR_WIDTH);
+        const width = Math.max(
+          lastLeftSidebarWidth,
+          DEFAULT_LEFT_SIDEBAR_WIDTH,
+        );
         document.documentElement.removeAttribute(IS_SIDEBAR_COLLAPSED);
 
         setLeftSidebarState({

@@ -3,7 +3,10 @@ import { useEffect } from 'react';
 
 import { jsx } from '@emotion/core';
 
-import { LEFT_PANEL_WIDTH } from '../../common/constants';
+import {
+  DEFAULT_LEFT_PANEL_WIDTH,
+  LEFT_PANEL_WIDTH,
+} from '../../common/constants';
 import { SlotWidthProps } from '../../common/types';
 import { resolveDimension } from '../../common/utils';
 import { publishGridState } from '../../controllers';
@@ -12,7 +15,13 @@ import SlotDimensions from './slot-dimensions';
 import { leftPanelStyles } from './styles';
 
 const LeftPanel = (props: SlotWidthProps) => {
-  const { children, isFixed, width, shouldPersistWidth, testId } = props;
+  const {
+    children,
+    isFixed,
+    width = DEFAULT_LEFT_PANEL_WIDTH,
+    shouldPersistWidth,
+    testId,
+  } = props;
 
   const leftPanelWidth = resolveDimension(
     LEFT_PANEL_WIDTH,

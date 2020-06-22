@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 
 import { jsx } from '@emotion/core';
 
-import { BANNER_HEIGHT } from '../../common/constants';
+import { BANNER_HEIGHT, DEFAULT_BANNER_HEIGHT } from '../../common/constants';
 import { SlotHeightProps } from '../../common/types';
 import { resolveDimension } from '../../common/utils';
 import { publishGridState } from '../../controllers';
@@ -14,7 +14,7 @@ import { bannerStyles } from './styles';
 const Banner = (props: SlotHeightProps) => {
   const {
     children,
-    height,
+    height = DEFAULT_BANNER_HEIGHT,
     isFixed = true,
     shouldPersistHeight,
     testId,

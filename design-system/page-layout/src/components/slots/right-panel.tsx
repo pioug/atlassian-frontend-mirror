@@ -3,7 +3,10 @@ import { useEffect } from 'react';
 
 import { jsx } from '@emotion/core';
 
-import { RIGHT_PANEL_WIDTH } from '../../common/constants';
+import {
+  DEFAULT_RIGHT_PANEL_WIDTH,
+  RIGHT_PANEL_WIDTH,
+} from '../../common/constants';
 import { SlotWidthProps } from '../../common/types';
 import { resolveDimension } from '../../common/utils';
 import { publishGridState } from '../../controllers';
@@ -12,7 +15,13 @@ import SlotDimensions from './slot-dimensions';
 import { rightPanelStyles } from './styles';
 
 const RightPanel = (props: SlotWidthProps) => {
-  const { children, isFixed, width, shouldPersistWidth, testId } = props;
+  const {
+    children,
+    isFixed,
+    width = DEFAULT_RIGHT_PANEL_WIDTH,
+    shouldPersistWidth,
+    testId,
+  } = props;
 
   const rightPanelWidth = resolveDimension(
     RIGHT_PANEL_WIDTH,

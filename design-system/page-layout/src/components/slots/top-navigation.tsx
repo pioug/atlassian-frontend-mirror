@@ -3,7 +3,10 @@ import { useEffect } from 'react';
 
 import { jsx } from '@emotion/core';
 
-import { TOP_NAVIGATION_HEIGHT } from '../../common/constants';
+import {
+  DEFAULT_TOP_NAVIGATION_HEIGHT,
+  TOP_NAVIGATION_HEIGHT,
+} from '../../common/constants';
 import { SlotHeightProps } from '../../common/types';
 import { resolveDimension } from '../../common/utils';
 import { publishGridState } from '../../controllers';
@@ -14,7 +17,7 @@ import { topNavigationStyles } from './styles';
 const TopNavigation = (props: SlotHeightProps) => {
   const {
     children,
-    height,
+    height = DEFAULT_TOP_NAVIGATION_HEIGHT,
     isFixed = true,
     shouldPersistHeight,
     testId,

@@ -1,5 +1,11 @@
 # @atlaskit/page-layout
 
+## 0.5.1
+
+### Patch Changes
+
+- [`9fed259adc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9fed259adc) - Adds a default value for dimension (height or width) props in Page Layout content slots.
+
 ## 0.5.0
 
 ### Minor Changes

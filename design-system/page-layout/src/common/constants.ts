@@ -25,12 +25,19 @@ export const MAIN = 'main';
 export const LEFT_SIDEBAR = 'left-sidebar';
 export const RIGHT_SIDEBAR = 'right-sidebar';
 
+// Default slot dimension values
+export const DEFAULT_BANNER_HEIGHT = 56;
+export const DEFAULT_TOP_NAVIGATION_HEIGHT = 56;
+export const DEFAULT_LEFT_SIDEBAR_WIDTH = 240;
+export const DEFAULT_RIGHT_SIDEBAR_WIDTH = 280;
+export const DEFAULT_RIGHT_PANEL_WIDTH = 368;
+export const DEFAULT_LEFT_PANEL_WIDTH = 368;
+
 // Other constants
 export const COLLAPSED_LEFT_SIDEBAR_WIDTH = 20;
 export const MIN_LEFT_SIDEBAR_WIDTH = 80;
 export const LEFT_SIDEBAR_FLYOUT_WIDTH = 240;
 export const MIN_LEFT_SIDEBAR_DRAG_THRESHOLD = 200;
-export const DEFAULT_SIDEBAR_WIDTH = 240;
 export const TRANSITION_DURATION = 300;
 export const FLYOUT_DELAY = 200;
 export const LEFT_SIDEBAR_EXPANDED_WIDTH = 'expandedLeftSidebarWidth';

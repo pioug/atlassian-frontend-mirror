@@ -11,7 +11,7 @@ import rafSchd from 'raf-schd';
 
 import {
   COLLAPSED_LEFT_SIDEBAR_WIDTH,
-  DEFAULT_SIDEBAR_WIDTH,
+  DEFAULT_LEFT_SIDEBAR_WIDTH,
   IS_SIDEBAR_DRAGGING,
   LEFT_SIDEBAR_WIDTH,
   MIN_LEFT_SIDEBAR_DRAG_THRESHOLD,
@@ -151,9 +151,9 @@ const ResizeControl = ({
 
     if (
       x.current > MIN_LEFT_SIDEBAR_DRAG_THRESHOLD &&
-      x.current < DEFAULT_SIDEBAR_WIDTH
+      x.current < DEFAULT_LEFT_SIDEBAR_WIDTH
     ) {
-      cleanupAfterResize(DEFAULT_SIDEBAR_WIDTH);
+      cleanupAfterResize(DEFAULT_LEFT_SIDEBAR_WIDTH);
       expandLeftSidebar();
       return;
     }

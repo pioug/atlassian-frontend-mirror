@@ -10,7 +10,7 @@ describe('<PageLayout />', () => {
     const url = getExampleUrl(
       'design-system',
       'page-layout',
-      'basic-page-layout',
+      'customizable-page-layout',
       global.__BASEURL__,
     );
     const { page } = global;

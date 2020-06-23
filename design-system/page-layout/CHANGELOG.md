@@ -1,5 +1,11 @@
 # @atlaskit/page-layout
 
+## 0.5.2
+
+### Patch Changes
+
+- [`2e8933a6a7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e8933a6a7) - Change the key for grid storage in localStorage
+
 ## 0.5.1
 
 ### Patch Changes

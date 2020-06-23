@@ -49,7 +49,7 @@ describe('<PageLayout />', () => {
     );
     unmount();
 
-    expect(localStorage.getItem('PAGE_LAYOUT_UI_STATE')).toEqual(
+    expect(localStorage.getItem('DS_PAGE_LAYOUT_UI_STATE')).toEqual(
       JSON.stringify({ isLeftSidebarCollapsed: false }),
     );
   });
@@ -116,7 +116,7 @@ describe('<PageLayout />', () => {
         </PageLayout>,
       );
 
-      expect(localStorage.getItem('PAGE_LAYOUT_UI_STATE')).toEqual(
+      expect(localStorage.getItem('DS_PAGE_LAYOUT_UI_STATE')).toEqual(
         JSON.stringify({
           gridState: {
             bannerHeight: 50,
@@ -135,7 +135,7 @@ describe('<PageLayout />', () => {
       );
 
       unmount();
-      expect(localStorage.getItem('PAGE_LAYOUT_UI_STATE')).toEqual(
+      expect(localStorage.getItem('DS_PAGE_LAYOUT_UI_STATE')).toEqual(
         JSON.stringify({ ...emptyGridState }),
       );
     });
@@ -228,7 +228,7 @@ describe('<PageLayout />', () => {
         </PageLayout>,
       );
 
-      expect(localStorage.getItem('PAGE_LAYOUT_UI_STATE')).toEqual(
+      expect(localStorage.getItem('DS_PAGE_LAYOUT_UI_STATE')).toEqual(
         JSON.stringify({
           gridState: {
             topNavigationHeight: 50,
@@ -247,7 +247,7 @@ describe('<PageLayout />', () => {
       );
 
       unmount();
-      expect(localStorage.getItem('PAGE_LAYOUT_UI_STATE')).toEqual(
+      expect(localStorage.getItem('DS_PAGE_LAYOUT_UI_STATE')).toEqual(
         JSON.stringify({ ...emptyGridState }),
       );
     });
@@ -347,7 +347,7 @@ describe('<PageLayout />', () => {
         </PageLayout>,
       );
 
-      expect(localStorage.getItem('PAGE_LAYOUT_UI_STATE')).toEqual(
+      expect(localStorage.getItem('DS_PAGE_LAYOUT_UI_STATE')).toEqual(
         JSON.stringify({
           gridState: {
             leftPanelWidth: 50,
@@ -366,7 +366,7 @@ describe('<PageLayout />', () => {
       );
 
       unmount();
-      expect(localStorage.getItem('PAGE_LAYOUT_UI_STATE')).toEqual(
+      expect(localStorage.getItem('DS_PAGE_LAYOUT_UI_STATE')).toEqual(
         JSON.stringify({ ...emptyGridState }),
       );
     });
@@ -456,7 +456,7 @@ describe('<PageLayout />', () => {
         </PageLayout>,
       );
 
-      expect(localStorage.getItem('PAGE_LAYOUT_UI_STATE')).toEqual(
+      expect(localStorage.getItem('DS_PAGE_LAYOUT_UI_STATE')).toEqual(
         JSON.stringify({
           gridState: {
             rightPanelWidth: 50,
@@ -475,7 +475,7 @@ describe('<PageLayout />', () => {
       );
 
       unmount();
-      expect(localStorage.getItem('PAGE_LAYOUT_UI_STATE')).toEqual(
+      expect(localStorage.getItem('DS_PAGE_LAYOUT_UI_STATE')).toEqual(
         JSON.stringify({ ...emptyGridState }),
       );
     });
@@ -511,7 +511,7 @@ describe('<PageLayout />', () => {
       jest.useFakeTimers();
       document.documentElement.removeAttribute('data-is-sidebar-collapsed');
       localStorage.setItem(
-        'PAGE_LAYOUT_UI_STATE',
+        'DS_PAGE_LAYOUT_UI_STATE',
         JSON.stringify({
           isLeftSidebarCollapsed: true,
         }),
@@ -593,7 +593,7 @@ describe('<PageLayout />', () => {
     it('should mount the LeftSidebar in collapsed mode if already collapsed previously', () => {
       document.documentElement.removeAttribute('data-is-sidebar-collapsed');
       localStorage.setItem(
-        'PAGE_LAYOUT_UI_STATE',
+        'DS_PAGE_LAYOUT_UI_STATE',
         JSON.stringify({
           isLeftSidebarCollapsed: true,
         }),
@@ -678,14 +678,14 @@ describe('<PageLayout />', () => {
         </PageLayout>,
       );
 
-      expect(JSON.parse(localStorage.getItem('PAGE_LAYOUT_UI_STATE')!)).toEqual(
-        {
-          gridState: {
-            leftSidebarWidth: 240,
-          },
-          isLeftSidebarCollapsed: false,
+      expect(
+        JSON.parse(localStorage.getItem('DS_PAGE_LAYOUT_UI_STATE')!),
+      ).toEqual({
+        gridState: {
+          leftSidebarWidth: 240,
         },
-      );
+        isLeftSidebarCollapsed: false,
+      });
     });
 
     it('should remove the width in localStorage on unmount', () => {
@@ -699,7 +699,7 @@ describe('<PageLayout />', () => {
 
       unmount();
       expect(
-        JSON.parse(localStorage.getItem('PAGE_LAYOUT_UI_STATE')!),
+        JSON.parse(localStorage.getItem('DS_PAGE_LAYOUT_UI_STATE')!),
       ).toEqual({ isLeftSidebarCollapsed: false });
     });
   });
@@ -798,7 +798,7 @@ describe('<PageLayout />', () => {
         </PageLayout>,
       );
 
-      expect(localStorage.getItem('PAGE_LAYOUT_UI_STATE')).toEqual(
+      expect(localStorage.getItem('DS_PAGE_LAYOUT_UI_STATE')).toEqual(
         JSON.stringify({
           gridState: {
             rightSidebarWidth: 50,
@@ -817,7 +817,7 @@ describe('<PageLayout />', () => {
       );
 
       unmount();
-      expect(localStorage.getItem('PAGE_LAYOUT_UI_STATE')).toEqual(
+      expect(localStorage.getItem('DS_PAGE_LAYOUT_UI_STATE')).toEqual(
         JSON.stringify({ ...emptyGridState }),
       );
     });

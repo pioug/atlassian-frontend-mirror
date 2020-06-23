@@ -1016,7 +1016,7 @@ describe('Left sidebar', () => {
         'true',
       );
       localStorage.setItem(
-        'PAGE_LAYOUT_UI_STATE',
+        'DS_PAGE_LAYOUT_UI_STATE',
         JSON.stringify({
           isLeftSidebarCollapsed: true,
         }),

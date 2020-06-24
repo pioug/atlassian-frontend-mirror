@@ -1,5 +1,11 @@
 # @atlaskit/media-ui
 
+## 12.4.1
+
+### Patch Changes
+
+- [`fc83c36503`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fc83c36503) - Update translation files via Traduki build
+
 ## 12.4.0
 
 ### Minor Changes

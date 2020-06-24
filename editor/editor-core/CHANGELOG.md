@@ -1,5 +1,11 @@
 # @atlaskit/editor-core
 
+## 124.0.5
+
+### Patch Changes
+
+- [`fc83c36503`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fc83c36503) - Update translation files via Traduki build
+
 ## 124.0.4
 
 ### Patch Changes

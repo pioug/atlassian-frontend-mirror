@@ -11,8 +11,6 @@ import {
 
 import FullPage from '../../../ui/Appearance/FullPage';
 import EditorContext from '../../../ui/EditorContext';
-import { EventDispatcher } from '../../../event-dispatcher';
-import { pluginKey as contextPanelPluginKey } from '../../../plugins/context-panel';
 
 const mountWithContext = (node: React.ReactNode) =>
   mountWithIntl(<EditorContext>{node}</EditorContext>);
@@ -167,39 +165,5 @@ describe('full page editor', () => {
     expect(editorView.state.doc).toEqualDocument(
       doc(p('Hello world'), p('Hello world'), p('')),
     );
-  });
-
-  it('does not update state if context panel visiblity does not change', () => {
-    const { editorView } = editor(doc(p('Hello world'), p('Hello world')));
-    const eventDispatcher = new EventDispatcher();
-    const setStateSpy = jest.spyOn(FullPage.prototype, 'setState');
-    const contextPanelKey = (contextPanelPluginKey as any).key;
-
-    fullPage = mountWithContext(
-      <FullPage
-        editorView={editorView}
-        providerFactory={{} as any}
-        editorDOMElement={<div />}
-        eventDispatcher={eventDispatcher}
-      />,
-    );
-
-    eventDispatcher.emit(contextPanelKey, { visible: true });
-
-    expect(setStateSpy).toBeCalledTimes(1);
-
-    // second time should not emit setState
-    eventDispatcher.emit(contextPanelKey, {
-      visible: true,
-    });
-
-    expect(setStateSpy).toBeCalledTimes(1);
-
-    // new value *should* cause state change
-    eventDispatcher.emit(contextPanelKey, {
-      visible: false,
-    });
-
-    expect(setStateSpy).toBeCalledTimes(2);
   });
 });

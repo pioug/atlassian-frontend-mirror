@@ -9,6 +9,7 @@ import {
   getRowsParams,
   getRowClassNames,
 } from '../../../utils';
+import { tableControlsSpacing, tableToolbarSize } from '../../styles';
 
 export interface Props {
   editorView: EditorView;
@@ -19,9 +20,10 @@ export interface Props {
   isInDanger?: boolean;
   isResizing?: boolean;
   insertRowButtonIndex?: number;
+  stickyTop?: number;
 }
 
-export default class RowControls extends Component<Props, any> {
+export default class RowControls extends Component<Props> {
   render() {
     const {
       editorView,
@@ -37,40 +39,73 @@ export default class RowControls extends Component<Props, any> {
     const rowHeights = getRowHeights(tableRef);
     const rowsParams = getRowsParams(rowHeights);
 
+    const firstRow = tableRef.querySelector('tr');
+    const hasHeaderRow = firstRow
+      ? firstRow.getAttribute('data-header-row')
+      : false;
+
     return (
       <div className={ClassName.ROW_CONTROLS}>
         <div className={ClassName.ROW_CONTROLS_INNER}>
-          {rowsParams.map(({ startIndex, endIndex, height }: RowParams) => (
-            <div
-              className={`${
-                ClassName.ROW_CONTROLS_BUTTON_WRAP
-              } ${getRowClassNames(
-                startIndex,
-                selection,
-                hoveredRows,
-                isInDanger,
-                isResizing,
-              )}`}
-              key={startIndex}
-              style={{ height }}
-            >
-              <button
-                type="button"
-                className={`${ClassName.ROW_CONTROLS_BUTTON}
+          {rowsParams.map(
+            ({ startIndex, endIndex, height }: RowParams, index) => {
+              // if previous row was header row, add its height to our margin
+              let marginTop = -1;
+              if (
+                index === 1 &&
+                hasHeaderRow &&
+                this.props.stickyTop !== undefined
+              ) {
+                marginTop += rowHeights[index - 1] + tableToolbarSize;
+              }
+
+              const thisRowSticky =
+                this.props.stickyTop !== undefined &&
+                index === 0 &&
+                hasHeaderRow;
+
+              return (
+                <div
+                  className={`${
+                    ClassName.ROW_CONTROLS_BUTTON_WRAP
+                  } ${getRowClassNames(
+                    startIndex,
+                    selection,
+                    hoveredRows,
+                    isInDanger,
+                    isResizing,
+                  )} ${thisRowSticky ? 'sticky' : ''}`}
+                  key={startIndex}
+                  style={{
+                    height: height,
+                    marginTop: `${marginTop}px`,
+                    top: thisRowSticky
+                      ? `${this.props.stickyTop! + 3}px`
+                      : undefined,
+                    paddingTop: thisRowSticky
+                      ? `${tableControlsSpacing}px`
+                      : undefined,
+                  }}
+                >
+                  <button
+                    type="button"
+                    className={`${ClassName.ROW_CONTROLS_BUTTON}
                   ${ClassName.CONTROLS_BUTTON}
                 `}
-                onClick={event =>
-                  this.props.selectRow(startIndex, event.shiftKey)
-                }
-                onMouseOver={() => this.props.hoverRows([startIndex])}
-                onMouseOut={this.clearHoverSelection}
-                data-start-index={startIndex}
-                data-end-index={endIndex}
-              />
+                    onClick={event =>
+                      this.props.selectRow(startIndex, event.shiftKey)
+                    }
+                    onMouseOver={() => this.props.hoverRows([startIndex])}
+                    onMouseOut={this.clearHoverSelection}
+                    data-start-index={startIndex}
+                    data-end-index={endIndex}
+                  />
 
-              <div className={ClassName.CONTROLS_INSERT_MARKER} />
-            </div>
-          ))}
+                  <div className={ClassName.CONTROLS_INSERT_MARKER} />
+                </div>
+              );
+            },
+          )}
         </div>
       </div>
     );

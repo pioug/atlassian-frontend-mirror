@@ -22,25 +22,36 @@ export const hoverDecoration = (
   add: boolean,
   className: string = 'danger',
 ): Command => (state, dispatch) => {
-  let parentNode: Node;
-  let from: number;
+  let from: number | undefined;
+  let parentNode: Node | undefined;
+
   if (state.selection instanceof NodeSelection) {
-    parentNode = state.selection.node;
+    const selectedNode = state.selection.node;
     const nodeTypes = Array.isArray(nodeType) ? nodeType : [nodeType];
-    if (nodeTypes.indexOf(parentNode.type) < 0) {
-      return false;
+    const isNodeTypeMatching = nodeTypes.indexOf(selectedNode.type) > -1;
+    // This adds danger styling if the selected node is the one that requires
+    // the decoration to be added, e.g. if a layout is selected and the user
+    // hovers over the layout's delete button.
+    if (isNodeTypeMatching) {
+      from = state.selection.from;
+      parentNode = selectedNode;
     }
-    from = state.selection.from;
-  } else {
-    const foundParentNode = findParentNodeOfType(nodeType)(state.selection);
-    if (!foundParentNode) {
-      return false;
-    }
+  }
+
+  // This adds danger styling if the selection is not a node selection, OR if
+  // the selected node is a child of the one that requires the decoration to
+  // be added, e.g. if a decision item is selected inside a layout and the
+  // user hovers over the layout's delete button. It should not overwrite the
+  // values set above as that node selection will not have a parent
+  // (foundParentNode should be undefined in that case).
+  const foundParentNode = findParentNodeOfType(nodeType)(state.selection);
+  if (foundParentNode) {
     from = foundParentNode.pos;
     parentNode = foundParentNode.node;
   }
 
-  if (!parentNode) {
+  // Note: can't use !from as from could be 0, which is falsy but valid
+  if (from === undefined || parentNode === undefined) {
     return false;
   }
 

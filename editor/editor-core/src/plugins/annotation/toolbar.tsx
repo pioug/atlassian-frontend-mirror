@@ -1,11 +1,12 @@
 import React from 'react';
 import { defineMessages, InjectedIntl } from 'react-intl';
 import { EditorView } from 'prosemirror-view';
-import { EditorState } from 'prosemirror-state';
+import { TextSelection, EditorState, AllSelection } from 'prosemirror-state';
+import { NodeType } from 'prosemirror-model';
 import CommentIcon from '@atlaskit/icon/glyph/comment';
 import { Position } from '@atlaskit/editor-common/src/ui/Popup/utils';
 import { Command } from '../../types';
-import { inlineCommentPluginKey } from './pm-plugins/plugin-factory';
+import { addInlineComment, ToolTipContent } from '../../keymaps';
 import {
   FloatingToolbarConfig,
   FloatingToolbarButton,
@@ -13,19 +14,16 @@ import {
 import { setInlineCommentDraftState } from './commands';
 import { AnnotationTestIds } from './types';
 import { hasInlineNodes } from './utils';
-import { NodeType } from 'prosemirror-model';
-import { getSelectionStartRect } from './utils';
-import { addInlineComment, ToolTipContent } from '../../keymaps';
 
 export const annotationMessages = defineMessages({
   createComment: {
     id: 'fabric.editor.createComment',
-    defaultMessage: 'Create comment',
+    defaultMessage: 'Comment',
     description: 'Create/add an inline comment based on the users selection',
   },
   createCommentInvalid: {
     id: 'fabric.editor.createCommentInvalid',
-    defaultMessage: 'Comments are only enabled for text and headings',
+    defaultMessage: 'You can only comment on text and headings',
     description:
       'Error message to communicate to the user they can only do the current action in certain contexts',
   },
@@ -42,14 +40,16 @@ export const buildToolbar = (
   intl: InjectedIntl,
 ): FloatingToolbarConfig | undefined => {
   const { selection, schema } = state;
-  const pluginState = inlineCommentPluginKey.getState(state);
 
-  // Toolbar can only be specified on ranged text selections
-  if (selection.empty || pluginState.mouseData.isSelecting) {
+  // Toolbar can only be specified on ranged text selections and all selections
+  if (
+    selection.empty ||
+    !(selection instanceof TextSelection || selection instanceof AllSelection)
+  ) {
     return undefined;
   }
 
-  const selectionInvalid = hasInlineNodes(state);
+  const selectionDisabled = hasInlineNodes(state);
   const createCommentMessage = intl.formatMessage(
     annotationMessages.createComment,
   );
@@ -57,10 +57,10 @@ export const buildToolbar = (
   const createComment: FloatingToolbarButton<Command> = {
     type: 'button',
     showTitle: true,
-    disabled: selectionInvalid,
+    disabled: selectionDisabled,
     testId: AnnotationTestIds.floatingToolbarCreateButton,
     icon: CommentIcon,
-    tooltipContent: selectionInvalid ? (
+    tooltipContent: selectionDisabled ? (
       intl.formatMessage(annotationMessages.createCommentInvalid)
     ) : (
       <ToolTipContent
@@ -92,12 +92,6 @@ export const buildToolbar = (
     editorView: EditorView,
     nextPos: Position,
   ): Position => {
-    const bounds = getSelectionStartRect();
-
-    if (!bounds) {
-      return nextPos;
-    }
-
     const toolbar = document.querySelector(
       `div[aria-label="${toolbarTitle}"]`,
     ) as HTMLElement;
@@ -112,15 +106,13 @@ export const buildToolbar = (
       editorView.dom.closest('.fabric-editor-popup-scroll-parent') ||
       document.body;
     const wrapperBounds = scrollWrapper.getBoundingClientRect();
-    const editorBounds = editorView.dom.getBoundingClientRect();
-    let mouseX = pluginState.mouseData.x;
 
-    // selection without mouse
-    if (mouseX === 0) {
-      const coordinates = editorView.coordsAtPos(
-        editorView.state.selection.$to.pos,
-      );
-      mouseX = coordinates.left;
+    const selection = window && window.getSelection();
+    const range =
+      selection && !selection.isCollapsed && selection.getRangeAt(0);
+
+    if (!range) {
+      return nextPos;
     }
 
     /*
@@ -133,20 +125,29 @@ export const buildToolbar = (
     - stick as close to the mouseX release coordinates as possible
     */
     const toolbarRect = toolbar.getBoundingClientRect();
-    const top = bounds.top - toolbarRect.height * 1.5;
-    // ensure mouseX is within bounds left and right
-    const positionX = Math.min(bounds.right, Math.max(bounds.left, mouseX));
-    const left = positionX - toolbarRect.width / 2;
+    const { head, anchor } = editorView.state.selection;
+    let topCoords = editorView.coordsAtPos(Math.min(head, anchor));
+    let bottomCoords = editorView.coordsAtPos(
+      Math.max(head, anchor) - Math.min(range.endOffset, 1),
+    );
+    let top;
+    // If not the same line, display toolbar below.
+    if (head > anchor && topCoords.top !== bottomCoords.top) {
+      // We are taking the previous pos to the maxium, so avoid end of line positions
+      // returning the next line's rect.
+      top = (bottomCoords.top || 0) + toolbarRect.height / 1.15;
+    } else {
+      top = (topCoords.top || 0) - toolbarRect.height * 1.5;
+    }
 
-    // clamp within bounds of wrapper to prevent clipping of toolbar
-    const clampLeft = editorBounds.left;
-    const clampRight = editorBounds.right - toolbarRect.width;
+    const left =
+      (head > anchor ? bottomCoords.right : topCoords.left) -
+      toolbarRect.width / 2;
 
     // remap positions from browser document to wrapperBounds
     return {
       top: top - wrapperBounds.top + scrollWrapper.scrollTop,
-      left:
-        Math.max(clampLeft, Math.min(clampRight, left)) - wrapperBounds.left,
+      left: Math.max(0, left - wrapperBounds.left),
     };
   };
 

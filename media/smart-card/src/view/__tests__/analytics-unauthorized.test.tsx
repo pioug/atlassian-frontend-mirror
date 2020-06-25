@@ -58,7 +58,7 @@ describe('smart-card: unauthorized analytics', () => {
         </Provider>,
       );
       const unauthorizedLink = await waitForElement(
-        () => getByTestId('unauthorizedCard1-unauthorized'),
+        () => getByTestId('unauthorizedCard1-unauthorized-view'),
         { timeout: 10000 },
       );
       const unauthorizedLinkButton = container.querySelector('[type="button"]');
@@ -71,7 +71,7 @@ describe('smart-card: unauthorized analytics', () => {
 
       mockFetch.mockImplementationOnce(async () => mocks.success);
       const resolvedView = await waitForElement(() =>
-        getByTestId('unauthorizedCard1-resolved'),
+        getByTestId('unauthorizedCard1-resolved-view'),
       );
       expect(resolvedView).toBeTruthy();
       expect(mockEvents.unresolvedEvent).toHaveBeenCalledTimes(1);
@@ -100,7 +100,7 @@ describe('smart-card: unauthorized analytics', () => {
         </Provider>,
       );
       const unauthorizedLink = await waitForElement(
-        () => getByTestId('unauthorizedCard2-unauthorized'),
+        () => getByTestId('unauthorizedCard2-unauthorized-view'),
         { timeout: 10000 },
       );
       const unauthorizedLinkButton = container.querySelector('[type="button"]');
@@ -112,7 +112,7 @@ describe('smart-card: unauthorized analytics', () => {
       fireEvent.click(unauthorizedLinkButton!);
 
       const unresolvedView = await waitForElement(
-        () => getByTestId('unauthorizedCard2-unauthorized'),
+        () => getByTestId('unauthorizedCard2-unauthorized-view'),
         {
           timeout: 10000,
         },
@@ -137,7 +137,7 @@ describe('smart-card: unauthorized analytics', () => {
         </Provider>,
       );
       const unauthorizedLink = await waitForElement(
-        () => getByTestId('unauthorizedCard3-unauthorized'),
+        () => getByTestId('unauthorizedCard3-unauthorized-view'),
         { timeout: 10000 },
       );
       const unauthorizedLinkButton = container.querySelector('[type="button"]');
@@ -151,7 +151,7 @@ describe('smart-card: unauthorized analytics', () => {
       fireEvent.click(unauthorizedLinkButton!);
 
       const resolvedView = await waitForElement(
-        () => getByTestId('unauthorizedCard3-resolved'),
+        () => getByTestId('unauthorizedCard3-resolved-view'),
         {
           timeout: 10000,
         },

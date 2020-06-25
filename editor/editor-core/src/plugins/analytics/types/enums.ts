@@ -52,6 +52,7 @@ export enum ACTION {
   TOGGLE_EXPAND = 'toggleExpand',
   UNDID = 'undid',
   UNLINK = 'unlinked',
+  UNSUPPORTED_CONTENT_ENCOUNTERED = 'unsupportedContentEncountered',
   UPLOAD_EXTERNAL_FAIL = 'uploadExternalFailed',
   TRANSACTION_DISPATCHED = 'transactionDispatched',
   TYPING_STARTED = 'typingStarted',
@@ -199,4 +200,6 @@ export enum ACTION_SUBJECT_ID {
   TYPEAHEAD_LINK = 'linkTypeAhead',
   TYPEAHEAD_MENTION = 'mentionTypeAhead',
   TYPEAHEAD_QUICK_INSERT = 'quickInsertTypeAhead',
+  UNSUPPORTED_BLOCK = 'unsupportedBlock',
+  UNSUPPORTED_INLINE = 'unsupportedInline',
 }

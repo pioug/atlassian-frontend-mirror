@@ -1,15 +1,7 @@
 import { NodeSpec, Node } from 'prosemirror-model';
 import { MediaDefinition as Media } from './media';
 import { LinkDefinition } from '../marks/link';
-
-export type Layout =
-  | 'wrap-right'
-  | 'center'
-  | 'wrap-left'
-  | 'wide'
-  | 'full-width'
-  | 'align-end'
-  | 'align-start';
+import { RichMediaAttributes } from './types/rich-media-common';
 
 /**
  * @name mediaSingle_node
@@ -21,16 +13,8 @@ export interface MediaSingleDefinition {
    * @maxItems 1
    */
   content: Array<Media>;
-  attrs?: MediaSingleAttributes;
+  attrs?: RichMediaAttributes;
   marks?: Array<LinkDefinition>;
-}
-export interface MediaSingleAttributes {
-  /**
-   * @minimum 0
-   * @maximum 100
-   */
-  width?: number;
-  layout: Layout;
 }
 
 export const defaultAttrs = {

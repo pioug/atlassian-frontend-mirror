@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-table",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Table UI component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -27,7 +27,7 @@
     "@atlaskit/dynamic-table": "^13.7.2",
     "@atlaskit/icon": "^20.1.0",
     "@atlaskit/media-client": "^6.2.0",
-    "@atlaskit/media-ui": "^12.3.0",
+    "@atlaskit/media-ui": "^12.5.0",
     "@atlaskit/media-viewer": "^44.3.0",
     "@atlaskit/theme": "^9.5.3",
     "dateformat": "^1.0.12"

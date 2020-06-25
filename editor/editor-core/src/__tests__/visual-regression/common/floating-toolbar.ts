@@ -30,7 +30,7 @@ describe('Floating toolbars:', () => {
     const endCellSelector = getSelectorForTableCell({ row: 3, cell: 2 });
     await page.click(endCellSelector);
 
-    waitForElementWithText(page, tableSelectors.tableOptionsText);
+    await waitForElementWithText(page, tableSelectors.tableOptionsText);
   });
 
   it('should render the block extension toolbar inside table', async () => {

@@ -52,7 +52,7 @@ describe('smart-card: error analytics', () => {
       </Provider>,
     );
     const erroredLink = await waitForElement(
-      () => getByTestId('erroredLink-fallback'),
+      () => getByTestId('erroredLink-fallback-view'),
       { timeout: 10000 },
     );
 
@@ -80,7 +80,7 @@ describe('smart-card: error analytics', () => {
       </Provider>,
     );
     const erroredLink = await waitForElement(
-      () => getByTestId('erroredLink-unauthorized'),
+      () => getByTestId('erroredLink-unauthorized-view'),
       { timeout: 10000 },
     );
 
@@ -148,7 +148,7 @@ describe('smart-card: error analytics', () => {
       </Provider>,
     );
     const erroredLink = await waitForElement(
-      () => getByTestId('erroredLink-errored'),
+      () => getByTestId('erroredLink-errored-view'),
       { timeout: 10000 },
     );
 
@@ -179,7 +179,7 @@ describe('smart-card: error analytics', () => {
       </Provider>,
     );
     const erroredLink = await waitForElement(
-      () => getByTestId('erroredLink-errored'),
+      () => getByTestId('erroredLink-errored-view'),
       { timeout: 10000 },
     );
 
@@ -210,7 +210,7 @@ describe('smart-card: error analytics', () => {
       </Provider>,
     );
     const erroredLink = await waitForElement(
-      () => getByTestId('erroredLink-errored'),
+      () => getByTestId('erroredLink-errored-view'),
       { timeout: 10000 },
     );
 
@@ -284,7 +284,7 @@ describe('smart-card: error analytics', () => {
       </Provider>,
     );
     const resolvedView = await waitForElement(
-      () => getByTestId('erroredLink-resolved'),
+      () => getByTestId('erroredLink-resolved-view'),
       { timeout: 10000 },
     );
 

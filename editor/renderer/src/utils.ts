@@ -3,6 +3,7 @@ import { defaultSchema } from '@atlaskit/adf-schema';
 import { Transformer, ADNode, EventHandlers } from '@atlaskit/editor-common';
 import { JSONTransformer } from '@atlaskit/editor-json-transformer';
 import { Node as PMNode } from 'prosemirror-model';
+import { RendererAppearance } from './ui/Renderer/types';
 
 function createEncoder<T>(parser: Transformer<T>, encoder: Transformer<any>) {
   return (value: T) => encoder.encode(parser.parse(value));
@@ -43,10 +44,10 @@ export const getEventHandler = (
  */
 export function findHorizontalOverflowScrollParent(
   table: HTMLElement | null,
-): HTMLElement | false {
+): HTMLElement | null {
   let parent: HTMLElement | null = table;
   if (!parent) {
-    return false;
+    return null;
   }
 
   while ((parent = parent.parentElement)) {
@@ -57,5 +58,12 @@ export function findHorizontalOverflowScrollParent(
     }
   }
 
-  return false;
+  return null;
 }
+
+export const getPlatform = (rendererAppearance: RendererAppearance) => {
+  if (rendererAppearance === 'mobile') {
+    return 'mobile' as const;
+  }
+  return 'web' as const;
+};

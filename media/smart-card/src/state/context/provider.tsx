@@ -10,6 +10,7 @@ import CardClient from '../../client';
 import { extractPreview, LinkPreview } from '../../extractors/common/preview';
 import { JsonLd } from 'json-ld-types';
 import { getUrl } from '../helpers';
+import { CardPlatform } from '../../view/Card';
 
 export function SmartCardProvider({
   storeOptions,
@@ -28,10 +29,16 @@ export function SmartCardProvider({
       maxAge: MAX_RELOAD_DELAY,
       maxLoadingDelay: MAX_LOADING_DELAY,
     };
-    const getPreview = (url: string): LinkPreview | undefined => {
+    const getPreview = (
+      url: string,
+      platform?: CardPlatform,
+    ): LinkPreview | undefined => {
       const cardState = getUrl(store, url);
       return cardState.details
-        ? extractPreview(cardState.details.data as JsonLd.Data.BaseData)
+        ? extractPreview(
+            cardState.details.data as JsonLd.Data.BaseData,
+            platform,
+          )
         : undefined;
     };
 

@@ -28,7 +28,7 @@ import {
   FloatingToolbarButton,
 } from '../../../floating-toolbar/types';
 import { Command } from '../../../../types';
-import { SelectionBookmark } from 'prosemirror-state';
+import { SelectionBookmark, AllSelection } from 'prosemirror-state';
 import { DecorationSet } from 'prosemirror-view';
 import { AnnotationSharedClassNames } from '@atlaskit/editor-common';
 
@@ -66,52 +66,24 @@ describe('annotation', () => {
       expect((toolbar as FloatingToolbarConfig).items.length).toBe(1);
     });
 
-    it('on click create button enters drafting mode', () => {
+    it('shows on headings', () => {
       const { editorView } = editor(
-        doc(p('Trysail Sail ho {<}Corsair smartly{>} boom gangway.')),
+        doc(h1('Trysail Sail ho {<}Corsair smartly{>} boom gangway.')),
       );
 
       const toolbar = buildToolbar(editorView.state, intl);
       expect(toolbar).toBeDefined();
-
-      expect((<FloatingToolbarConfig>toolbar).items.length).toBe(1);
-      const createButton = (<Array<any>>(
-        (<FloatingToolbarConfig>toolbar).items
-      ))[0] as FloatingToolbarButton<Command>;
-      createButton.onClick(editorView.state, editorView.dispatch);
-
-      const pluginState = getPluginState(editorView.state);
-
-      expect(pluginState.bookmark).toBeTruthy();
-      const resolvedBookmark = (<SelectionBookmark>(
-        pluginState.bookmark
-      )).resolve(editorView.state.doc);
-      expect(resolvedBookmark.from).toBe(17);
-      expect(resolvedBookmark.to).toBe(32);
-      expect(pluginState.bookmark).toBeTruthy();
-      expect(pluginState.draftDecorationSet).toBeTruthy();
-      const decorations = (<DecorationSet>pluginState.draftDecorationSet).find(
-        0,
-        editorView.state.doc.content.size,
-      );
-      expect(decorations.length).toBe(1);
-      expect((decorations[0] as any).type.attrs.class).toEqual(
-        AnnotationSharedClassNames.draft,
-      );
     });
 
-    it('hides when caret selection', () => {
+    it('shows on all selection', () => {
       const { editorView } = editor(
-        doc(p('Trysail Sail ho {<>}Corsair smartly boom gangway.')),
+        doc(p('Trysail Sail ho Corsair smartly boom gangway.')),
       );
 
-      const toolbar = buildToolbar(editorView.state, intl);
-      expect(toolbar).toBeUndefined();
-    });
-
-    it('shows on headings', () => {
-      const { editorView } = editor(
-        doc(h1('Trysail Sail ho {<}Corsair smartly{>} boom gangway.')),
+      editorView.dispatch(
+        editorView.state.tr.setSelection(
+          new AllSelection(editorView.state.doc),
+        ),
       );
 
       const toolbar = buildToolbar(editorView.state, intl);
@@ -132,6 +104,58 @@ describe('annotation', () => {
       const toolbar = buildToolbar(editorView.state, intl);
       expect(toolbar).toBeDefined();
     });
+
+    it('hides when caret selection', () => {
+      const { editorView } = editor(
+        doc(p('Trysail Sail ho {<>}Corsair smartly boom gangway.')),
+      );
+
+      const toolbar = buildToolbar(editorView.state, intl);
+      expect(toolbar).toBeUndefined();
+    });
+
+    it('hides on node selection', () => {
+      const { editorView } = editor(
+        doc(p('Corsair', '{<node>}', emoji({ shortName: ':smiley:' })())),
+      );
+
+      const toolbar = buildToolbar(editorView.state, intl);
+      expect(toolbar).toBeUndefined();
+    });
+  });
+
+  it('on click create button enters drafting mode', () => {
+    const { editorView } = editor(
+      doc(p('Trysail Sail ho {<}Corsair smartly{>} boom gangway.')),
+    );
+
+    const toolbar = buildToolbar(editorView.state, intl);
+    expect(toolbar).toBeDefined();
+
+    expect((<FloatingToolbarConfig>toolbar).items.length).toBe(1);
+    const createButton = (<Array<any>>(
+      (<FloatingToolbarConfig>toolbar).items
+    ))[0] as FloatingToolbarButton<Command>;
+    createButton.onClick(editorView.state, editorView.dispatch);
+
+    const pluginState = getPluginState(editorView.state);
+
+    expect(pluginState.bookmark).toBeTruthy();
+    const resolvedBookmark = (<SelectionBookmark>pluginState.bookmark).resolve(
+      editorView.state.doc,
+    );
+    expect(resolvedBookmark.from).toBe(17);
+    expect(resolvedBookmark.to).toBe(32);
+    expect(pluginState.bookmark).toBeTruthy();
+    expect(pluginState.draftDecorationSet).toBeTruthy();
+    const decorations = (<DecorationSet>pluginState.draftDecorationSet).find(
+      0,
+      editorView.state.doc.content.size,
+    );
+    expect(decorations.length).toBe(1);
+    expect((decorations[0] as any).type.attrs.class).toEqual(
+      AnnotationSharedClassNames.draft,
+    );
   });
 
   describe('hasInlineNodes', () => {

@@ -10,13 +10,17 @@ export interface EmbedCardNotFoundViewProps {
   link: string;
   isSelected?: boolean;
   testId?: string;
+  inheritDimensions?: boolean;
+  onClick?: (evt: React.MouseEvent) => void;
 }
 
 export const EmbedCardNotFoundView: FC<EmbedCardNotFoundViewProps> = ({
   link,
   context,
   isSelected,
-  testId = 'embed-not-found-view',
+  inheritDimensions,
+  testId = 'embed-card-not-found-view',
+  onClick,
 }) => {
   const icon = context && context.icon && (
     <ImageIcon
@@ -30,13 +34,16 @@ export const EmbedCardNotFoundView: FC<EmbedCardNotFoundViewProps> = ({
       text={context && context.text}
       isVisible={true}
       isSelected={isSelected}
+      inheritDimensions={inheritDimensions}
+      onClick={onClick}
+      testId={testId}
     >
       <EmbedCardUnresolvedView
-        testId={testId}
         image={NotFoundImage}
         title="not_found_title"
         description="not_found_description"
         context={context && context.text}
+        testId={testId}
       />
     </ExpandedFrame>
   );

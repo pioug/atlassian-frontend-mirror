@@ -3,6 +3,7 @@ import { shallow, mount } from 'enzyme';
 import Lozenge from '@atlaskit/lozenge';
 import { InlineCardResolvedView } from '../../index';
 import { Icon } from '../../../../InlineCard/Icon';
+import { IconAndTitleLayout } from '../../../IconAndTitleLayout';
 
 describe('ResolvedView', () => {
   it('should render the title', () => {
@@ -24,6 +25,22 @@ describe('ResolvedView', () => {
     expect(elementIconImage.props()).toEqual(
       expect.objectContaining({
         src: 'some-link-to-icon',
+      }),
+    );
+  });
+
+  it('should render text color when provided', () => {
+    const element = mount(
+      <InlineCardResolvedView
+        icon="some-link-to-icon"
+        title="some text content"
+        titleTextColor="#FFFFFF"
+      />,
+    );
+    const iconAndTitleLayout = element.find(IconAndTitleLayout);
+    expect(iconAndTitleLayout.props()).toEqual(
+      expect.objectContaining({
+        titleTextColor: '#FFFFFF',
       }),
     );
   });

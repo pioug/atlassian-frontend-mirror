@@ -14,7 +14,7 @@ import {
   toReact,
 } from './nodes';
 
-import { toReact as markToReact } from './marks';
+import { toReact as markToReact, AnnotationContext } from './marks';
 import {
   ProviderFactory,
   getMarksByOrder,
@@ -26,7 +26,9 @@ import {
 import { getText } from '../utils';
 import { RendererContext, NodeMeta, MarkMeta } from './types';
 import { AnnotationId, AnnotationMarkStates } from '@atlaskit/adf-schema';
+import { insideBreakoutLayout } from './renderer-node';
 
+export { AnnotationContext };
 export interface ReactSerializerInit {
   providers?: ProviderFactory;
   eventHandlers?: EventHandlers;
@@ -85,6 +87,13 @@ function mergeMarks(marksAndNodes: Array<MarkWithContent | Node>) {
   }, [] as Array<MarkWithContent | Node>);
 }
 
+type AnnotationConfig = {
+  allowAnnotations: boolean;
+  getAnnotationPromise:
+    | null
+    | ((id: AnnotationId) => Promise<AnnotationMarkStates>);
+};
+
 export default class ReactSerializer implements Serializer<JSX.Element> {
   private providers?: ProviderFactory;
   private eventHandlers?: EventHandlers;
@@ -104,10 +113,10 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
   private stickyHeaders?: StickyHeaderConfig;
   private allowMediaLinking?: boolean;
   private startPos: number = 1;
-  private allowAnnotations?: boolean = false;
-  private getAnnotationPromise?: (
-    id: AnnotationId,
-  ) => Promise<AnnotationMarkStates>;
+  private annotationsConfig: AnnotationConfig = {
+    allowAnnotations: false,
+    getAnnotationPromise: null,
+  };
 
   constructor(init: ReactSerializerInit) {
     this.providers = init.providers;
@@ -126,8 +135,10 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
     this.allowAltTextOnImages = init.allowAltTextOnImages;
     this.stickyHeaders = init.stickyHeaders;
     this.allowMediaLinking = init.allowMediaLinking;
-    this.allowAnnotations = init.allowAnnotations;
-    this.getAnnotationPromise = init.getAnnotationPromise;
+    this.annotationsConfig = {
+      allowAnnotations: Boolean(init.allowAnnotations),
+      getAnnotationPromise: init.getAnnotationPromise || null,
+    };
   }
 
   private resetState() {
@@ -150,12 +161,14 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
       case 'mediaSingle':
         return this.getMediaSingleProps(node, path);
       case 'table':
-        return this.getTableProps(node);
+        return this.getTableProps(node, path);
       case 'tableHeader':
       case 'tableRow':
         return this.getTableChildrenProps(node);
       case 'taskItem':
         return this.getTaskItemProps(node, path);
+      case 'embedCard':
+        return this.getEmbedCardProps(node, path);
       default:
         return this.getProps(node, path);
     }
@@ -248,16 +261,14 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
   };
 
   private withAnnotationMarkProps = (mark: Mark, defaultProps: any): any => {
-    const getAnnotationPromise = this.getAnnotationPromise;
-    if (!this.allowAnnotations || typeof getAnnotationPromise !== 'function') {
+    const { getAnnotationPromise, allowAnnotations } = this.annotationsConfig;
+    if (!allowAnnotations || typeof getAnnotationPromise !== 'function') {
       return defaultProps;
     }
 
     return {
       ...defaultProps,
-      getAnnotationState: (id: AnnotationId) => {
-        return getAnnotationPromise(id);
-      },
+      getAnnotationState: getAnnotationPromise,
     };
   };
 
@@ -317,13 +328,18 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
     };
   }
 
-  private getTableProps(node: Node) {
+  private getTableProps(node: Node, path: Array<Node> = []) {
+    // TODO: https://product-fabric.atlassian.net/browse/CEMS-1048
+    const stickyHeaders = !insideBreakoutLayout(path)
+      ? this.stickyHeaders
+      : undefined;
+
     return {
       ...this.getProps(node),
       allowColumnSorting: this.allowColumnSorting,
       columnWidths: calcTableColumnWidths(node),
       tableNode: node,
-      stickyHeaders: this.stickyHeaders,
+      stickyHeaders,
     };
   }
 
@@ -357,6 +373,22 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
         m => !isLinkMark(m) || this.allowMediaLinking === true,
       ),
       isLinkMark,
+      isInsideOfBlockNode,
+    };
+  }
+
+  private getEmbedCardProps(node: Node, path: Array<Node> = []) {
+    const {
+      nodes: { expand, nestedExpand, layoutColumn },
+    } = node.type.schema;
+    const blockNodeNames = [expand, nestedExpand, layoutColumn]
+      .filter(node => Boolean(node)) // Check if the node exist first
+      .map(node => node.name);
+    const isInsideOfBlockNode =
+      path &&
+      path.some(n => n.type && blockNodeNames.indexOf(n.type.name) > -1);
+    return {
+      ...this.getProps(node),
       isInsideOfBlockNode,
     };
   }

@@ -55,7 +55,7 @@ describe('smart-card: success analytics', () => {
         </Provider>,
       );
       const resolvedView = await waitForElement(
-        () => getByTestId('resolvedCard1-resolved'),
+        () => getByTestId('resolvedCard1-resolved-view'),
         {
           timeout: 10000,
         },
@@ -85,7 +85,7 @@ describe('smart-card: success analytics', () => {
         </Provider>,
       );
       const resolvedView = await waitForElement(
-        () => getByTestId('resolvedCard2-resolved'),
+        () => getByTestId('resolvedCard2-resolved-view'),
         {
           timeout: 5000,
         },

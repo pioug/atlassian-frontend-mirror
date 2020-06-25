@@ -25,6 +25,7 @@ import analyticsPlugin, { INPUT_METHOD } from '../../../analytics';
 import { PresetLayout } from '../../types';
 import layoutPlugin from '../..';
 import { TextSelection, NodeSelection } from 'prosemirror-state';
+import { selectNode } from '../../../../utils/commands';
 
 describe('layout actions', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -155,6 +156,29 @@ describe('layout actions', () => {
         eventType: 'track',
         attributes: expect.objectContaining({ inputMethod: 'insertMenu' }),
       });
+    });
+  });
+
+  describe('#selectLayout', () => {
+    it('should select node', () => {
+      const { editorView, refs } = editor(
+        doc(
+          '{nodeStart}',
+          layoutSection(
+            layoutColumn({ width: 50 })(p('text{<>}')),
+            layoutColumn({ width: 50 })(p('')),
+          ),
+        ),
+      );
+      selectNode(refs['nodeStart'])(editorView.state, editorView.dispatch);
+      const expectedDoc = doc(
+        '{<node>}',
+        layoutSection(
+          layoutColumn({ width: 50 })(p('text')),
+          layoutColumn({ width: 50 })(p('')),
+        ),
+      );
+      expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
     });
   });
 });

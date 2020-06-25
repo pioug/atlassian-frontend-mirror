@@ -14,6 +14,7 @@ import { Content } from '../components/Content';
 import { ActionProps } from '../components/Action';
 import { messages } from '../../messages';
 import { CelebrationImage } from '../utils/constants';
+import { ContentHeader } from '../components/ContentHeader';
 import { ContentFooter } from '../components/ContentFooter';
 import { IconProps, Icon } from '../components/Icon';
 import { handleClickCommon } from '../utils/handlers';
@@ -36,7 +37,7 @@ export const UnauthorizedView = ({
   context = { text: '' },
   isSelected = false,
   actions = [],
-  testId,
+  testId = 'block-card-unauthorized-view',
   showActions = true,
   icon = {},
   link = '',
@@ -49,12 +50,7 @@ export const UnauthorizedView = ({
     <Frame isSelected={isSelected} testId={testId}>
       <Content>
         <div>
-          <a
-            onClick={handleClick}
-            href={link}
-            target="_blank"
-            css={{ display: 'flex', alignItems: 'flex-start' }}
-          >
+          <ContentHeader onClick={handleClick} link={link}>
             <Icon {...icon} />
             <Name
               testId={testId ? `${testId}-name` : undefined}
@@ -65,7 +61,7 @@ export const UnauthorizedView = ({
                 />
               }
             />
-          </a>
+          </ContentHeader>
           <Byline
             testId={testId ? `${testId}-byline` : undefined}
             text={

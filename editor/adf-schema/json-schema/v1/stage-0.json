@@ -1593,16 +1593,19 @@
         "attrs": {
           "type": "object",
           "properties": {
-            "width": {
-              "type": "number",
-              "minimum": 0,
-              "maximum": 100
-            },
             "originalWidth": {
               "type": "number"
             },
             "originalHeight": {
               "type": "number"
+            },
+            "url": {
+              "type": "string"
+            },
+            "width": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100
             },
             "layout": {
               "enum": [
@@ -1614,15 +1617,12 @@
                 "align-end",
                 "align-start"
               ]
-            },
-            "url": {
-              "type": "string"
             }
           },
           "additionalProperties": false,
           "required": [
-            "layout",
-            "url"
+            "url",
+            "layout"
           ]
         }
       },

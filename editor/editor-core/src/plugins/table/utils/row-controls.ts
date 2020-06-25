@@ -10,6 +10,7 @@ import { Selection, Transaction } from 'prosemirror-state';
 import { CellSelection, TableMap } from 'prosemirror-tables';
 import { tableDeleteButtonSize } from '../ui/styles';
 import { TableCssClassName as ClassName } from '../types';
+import { parsePx } from '../../../utils/dom';
 
 export interface RowParams {
   startIndex: number;
@@ -24,8 +25,16 @@ export const getRowHeights = (tableRef: HTMLTableElement): number[] => {
     for (let i = 0, count = rows.length; i < count; i++) {
       const row = rows[i] as HTMLTableRowElement;
       heights[i] = row.getBoundingClientRect().height + 1;
+
+      // padding only gets applied when the container has sticky
+      if (row.classList.contains('sticky') && i === 0) {
+        const styles = window.getComputedStyle(row);
+        const paddingTop = parsePx(styles.paddingTop || '');
+        heights[i] -= paddingTop ? paddingTop + 1 : +1;
+      }
     }
   }
+
   return heights;
 };
 
@@ -44,13 +53,14 @@ export const isRowDeleteButtonVisible = (selection: Selection): boolean => {
 export const getRowDeleteButtonParams = (
   rowsHeights: Array<number | undefined>,
   selection: Selection,
+  offsetTop = 0,
 ): { top: number; indexes: number[] } | null => {
   const rect = getSelectionRect(selection);
   if (!rect) {
     return null;
   }
   let height = 0;
-  let offset = 0;
+  let offset = offsetTop;
   // find the rows before the selection
   for (let i = 0; i < rect.top; i++) {
     const rowHeight = rowsHeights[i];

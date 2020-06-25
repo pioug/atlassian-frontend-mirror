@@ -117,3 +117,27 @@ export function parsePx(pxStr: string) {
   const maybeNumber = parseInt(pxStr, 10);
   return !Number.isNaN(maybeNumber) ? maybeNumber : undefined;
 }
+
+export type MapCallback<T, S> = (elem: S, idx: number, parent: Element) => T;
+
+// does typescript have function templates yet?
+
+export function mapElem<T>(
+  elem: Element,
+  callback: MapCallback<T, Element>,
+): Array<T> {
+  const array: Array<T> = [];
+
+  for (let i = 0; i < elem.childElementCount; i++) {
+    array.push(callback(elem.children[i], i, elem));
+  }
+
+  return array;
+}
+
+export function maphElem<T, U extends HTMLElement>(
+  elem: U,
+  callback: MapCallback<T, U>,
+): Array<T> {
+  return mapElem(elem, callback as MapCallback<T, Element>) as Array<T>;
+}

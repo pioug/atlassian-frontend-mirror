@@ -1,5 +1,6 @@
 import {
   getExampleUrl,
+  loadPage,
   takeElementScreenShot,
 } from '@atlaskit/visual-regression/helper';
 
@@ -25,7 +26,7 @@ describe('Snapshot Test', () => {
 
       global.__BASEURL__,
     );
-    await page.goto(url);
+    await loadPage(page, url);
   });
 
   it('Motion example resizing height should match production example when adding 1 element', async () => {

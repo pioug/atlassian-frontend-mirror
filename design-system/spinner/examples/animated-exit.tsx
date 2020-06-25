@@ -110,7 +110,9 @@ function Animated() {
           </ExitingPersistence>
           <ExitingPersistence>
             {phase === 'loading' && (
-              <FadeIn>
+              <FadeIn
+                onFinish={value => console.log('fade in finished', value)}
+              >
                 {props => (
                   <span
                     {...props}

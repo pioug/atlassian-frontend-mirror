@@ -5,6 +5,8 @@ import { removeSelectedNode } from 'prosemirror-utils';
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 import UnlinkIcon from '@atlaskit/icon/glyph/editor/unlink';
 import OpenIcon from '@atlaskit/icon/glyph/shortcut';
+import { CardPlatform } from '@atlaskit/smart-card';
+
 import { analyticsService } from '../../analytics';
 import { Command } from '../../types';
 import {
@@ -43,6 +45,7 @@ import {
 import { isSafeUrl } from '@atlaskit/adf-schema';
 import { LinkToolbarAppearance } from './ui/LinkToolbarAppearance';
 import { messages } from './messages';
+import buildLayoutButtons from '../../ui/MediaAndEmbedsToolbar';
 
 export const removeCard: Command = (state, dispatch) => {
   if (!(state.selection instanceof NodeSelection)) {
@@ -112,6 +115,19 @@ const unlinkCard = (node: Node, state: EditorState): Command => {
   return () => false;
 };
 
+const buildAlignmentOptions = (
+  state: EditorState,
+  intl: InjectedIntl,
+): FloatingToolbarItem<Command>[] => {
+  return buildLayoutButtons(
+    state,
+    intl,
+    state.schema.nodes.embedCard,
+    true,
+    true,
+  );
+};
+
 const generateDeleteButton = (
   node: Node,
   state: EditorState,
@@ -143,6 +159,7 @@ const generateToolbarItems = (
   intl: InjectedIntl,
   providerFactory: ProviderFactory,
   cardOptions: CardOptions,
+  platform?: CardPlatform,
 ) => (node: Node): Array<FloatingToolbarItem<Command>> => {
   const { url } = titleUrlPairFromNode(node);
   if (url && !isSafeUrl(url)) {
@@ -187,14 +204,22 @@ const generateToolbarItems = (
         type: 'custom',
         render: editorView => (
           <LinkToolbarAppearance
+            key="link-appearance"
             url={url}
             intl={intl}
             currentAppearance={currentAppearance}
             editorView={editorView}
             editorState={state}
             allowEmbeds={allowEmbeds}
+            platform={platform}
           />
         ),
+      });
+    }
+
+    if (currentAppearance === 'embed') {
+      toolbarItems.unshift(...buildAlignmentOptions(state, intl), {
+        type: 'separator',
       });
     }
 
@@ -202,7 +227,10 @@ const generateToolbarItems = (
   }
 };
 
-export const floatingToolbar = (cardOptions: CardOptions) => {
+export const floatingToolbar = (
+  cardOptions: CardOptions,
+  platform?: CardPlatform,
+) => {
   return (
     state: EditorState,
     intl: InjectedIntl,
@@ -216,7 +244,13 @@ export const floatingToolbar = (cardOptions: CardOptions) => {
     return {
       title: intl.formatMessage(messages.card),
       nodeType,
-      items: generateToolbarItems(state, intl, providerFactory, cardOptions),
+      items: generateToolbarItems(
+        state,
+        intl,
+        providerFactory,
+        cardOptions,
+        platform,
+      ),
       ...(pluginState.showLinkingToolbar ? editLinkToolbarConfig : {}),
     };
   };

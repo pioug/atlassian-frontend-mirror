@@ -35,3 +35,6 @@ export const getDisableMediaLinkingValue = (): boolean =>
 
 export const getAllowAnnotations = (): boolean =>
   getQueryParams().get('allowAnnotations') === 'true';
+
+export const getSelectionObserverEnabled = (): boolean =>
+  getQueryParams().get('selectionObserverEnabled') === 'true';

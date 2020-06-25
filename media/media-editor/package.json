@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-editor",
-  "version": "37.0.10",
+  "version": "37.0.11",
   "description": "Media component for image annotations",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -35,9 +35,9 @@
     "@atlaskit/inline-dialog": "^12.1.11",
     "@atlaskit/media-card": "^68.0.0",
     "@atlaskit/media-client": "^6.2.0",
-    "@atlaskit/media-ui": "^12.3.0",
+    "@atlaskit/media-ui": "^12.5.0",
     "@atlaskit/modal-dialog": "^10.6.0",
-    "@atlaskit/spinner": "^13.0.0",
+    "@atlaskit/spinner": "^14.0.0",
     "@atlaskit/theme": "^9.5.1",
     "@atlaskit/tooltip": "^15.2.5",
     "@types/uuid": "^3.4.4",

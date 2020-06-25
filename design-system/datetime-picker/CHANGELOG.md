@@ -1,5 +1,11 @@
 # @atlaskit/datetime-picker
 
+## 9.4.6
+
+### Patch Changes
+
+- [`a39ef6582c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a39ef6582c) - Marks default pops as optional in interface (TimePicker & DatePicker)
+
 ## 9.4.5
 
 ### Patch Changes

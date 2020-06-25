@@ -1,5 +1,8 @@
 import { JsonLd } from 'json-ld-types';
+
+import { CardPlatform } from '../../../view/Card/types';
 import { extractUrlFromLinkJsonLd } from '../utils';
+import { extractPlatformIsSupported } from './extractPlatformIsSupported';
 
 export interface LinkPreview {
   src?: string;
@@ -8,9 +11,11 @@ export interface LinkPreview {
 
 export const extractPreview = (
   jsonLd: JsonLd.Data.BaseData,
+  platform?: CardPlatform,
 ): LinkPreview | undefined => {
   const preview = jsonLd.preview;
-  if (preview) {
+  const isSupported = extractPlatformIsSupported(preview, platform);
+  if (preview && isSupported) {
     if (typeof preview === 'string') {
       return { src: preview };
     } else if (preview['@type'] === 'Link') {

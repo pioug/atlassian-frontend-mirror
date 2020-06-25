@@ -130,7 +130,7 @@ export const createMediaSpec = (
       ignore: true,
     },
     {
-      tag: 'img:not(.inline-card-icon)',
+      tag: 'img:not(.smart-link-icon)',
       getAttrs: dom => {
         return {
           type: 'external',

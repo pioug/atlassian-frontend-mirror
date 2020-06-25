@@ -1,3 +1,4 @@
+import { RESOLVE_METHOD } from './../../../analytics/types/inline-comment-events';
 import { EditorView } from 'prosemirror-view';
 import {
   doc,
@@ -15,15 +16,25 @@ import { inlineCommentPluginKey } from '../../pm-plugins/plugin-factory';
 import { inlineCommentProvider } from '../_utils';
 import annotationPlugin, { AnnotationUpdateEmitter } from '../..';
 import { flushPromises } from '../../../../__tests__/__helpers/utils';
-
-const updateSubscriber = new AnnotationUpdateEmitter();
-
-const annotationPreset = new Preset<LightEditorPlugin>().add([
-  annotationPlugin,
-  { inlineComment: { ...inlineCommentProvider, updateSubscriber } },
-]);
+import analyticsPlugin from '../../../analytics/plugin';
+import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import {
+  ACTION,
+  ACTION_SUBJECT,
+  ACTION_SUBJECT_ID,
+  EVENT_TYPE,
+} from '../../../analytics/types/enums';
 
 describe('annotation emitter', () => {
+  let createAnalyticsEvent = jest.fn(() => ({ fire() {} } as UIAnalyticsEvent));
+  const updateSubscriber = new AnnotationUpdateEmitter();
+  const annotationPreset = new Preset<LightEditorPlugin>()
+    .add([
+      annotationPlugin,
+      { inlineComment: { ...inlineCommentProvider, updateSubscriber } },
+    ])
+    .add([analyticsPlugin, { createAnalyticsEvent: createAnalyticsEvent }]);
+
   const createEditor = createProsemirrorEditorFactory();
   let editorView: EditorView;
 
@@ -52,6 +63,21 @@ describe('annotation emitter', () => {
     ));
 
     await flushPromises();
+  });
+
+  describe('fires analytics', () => {
+    it('on resolve existing annotations', () => {
+      updateSubscriber.emit('resolve', 'id-0');
+      expect(createAnalyticsEvent).toHaveBeenCalledWith({
+        action: ACTION.RESOLVED,
+        actionSubject: ACTION_SUBJECT.ANNOTATION,
+        actionSubjectId: ACTION_SUBJECT_ID.INLINE_COMMENT,
+        eventType: EVENT_TYPE.TRACK,
+        attributes: {
+          method: RESOLVE_METHOD.CONSUMER,
+        },
+      });
+    });
   });
 
   describe('resolves', () => {

@@ -1,4 +1,3 @@
-import { selectTaskDecision } from './../../commands';
 import { NodeSelection } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
@@ -24,6 +23,7 @@ import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { ProviderFactory } from '@atlaskit/editor-common';
 import { insertTaskDecision } from '../../../../plugins/tasks-and-decisions/commands';
 import { TaskDecisionListType } from '../../../../plugins/tasks-and-decisions/types';
+import { selectNode } from '../../../../utils/commands';
 
 describe('tasks and decisions - commands', () => {
   const createEditor = createEditorFactory();
@@ -408,7 +408,7 @@ describe('tasks and decisions - commands', () => {
         describe(name, () => {
           const testContent = `this is a ${name}`;
           let refs: { [name: string]: number };
-          it(`should select node`, () => {
+          it('should select node', () => {
             ({ editorView, refs } = editorFactory(
               doc(
                 list(listProps)(
@@ -417,7 +417,7 @@ describe('tasks and decisions - commands', () => {
                 ),
               ),
             ));
-            selectTaskDecision(refs['nodeStart'])(
+            selectNode(refs['nodeStart'])(
               editorView.state,
               editorView.dispatch,
             );
@@ -437,7 +437,7 @@ describe('tasks and decisions - commands', () => {
                 ),
               ),
             ));
-            selectTaskDecision(refs['nodeStart'])(
+            selectNode(refs['nodeStart'])(
               editorView.state,
               editorView.dispatch,
             );

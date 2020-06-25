@@ -3,7 +3,7 @@ import {
   findParentNodeOfTypeClosestToPos,
   hasParentNodeOfType,
 } from 'prosemirror-utils';
-import { MediaSingleLayout } from '@atlaskit/adf-schema';
+import { RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema';
 import { MediaClientConfig } from '@atlaskit/media-core';
 import { getMediaClient } from '@atlaskit/media-client';
 import {
@@ -16,11 +16,16 @@ import {
 
 import { Wrapper } from './styled';
 import { Props, EnabledHandles } from './types';
-import Resizer from './Resizer';
-import { snapTo, handleSides, imageAlignmentMap } from './utils';
-import { calcMediaPxWidth, wrappedLayouts } from '../../utils/media-single';
+import Resizer from '../../../../ui/Resizer';
+import {
+  snapTo,
+  handleSides,
+  imageAlignmentMap,
+} from '../../../../ui/Resizer/utils';
+import { calcMediaPxWidth } from '../../utils/media-single';
 import { getPluginState } from '../../../table/pm-plugins/table-resizing/plugin-factory';
 import { ColumnResizingPluginState } from '../../../table/types';
+import { wrappedLayouts } from '../../../../utils/rich-media-utils';
 
 type State = {
   offsetLeft: number;
@@ -155,6 +160,9 @@ export default class ResizableMediaSingle extends React.Component<
   };
 
   get $pos() {
+    if (typeof this.props.getPos !== 'function') {
+      return null;
+    }
     const pos = this.props.getPos();
     if (Number.isNaN(pos as any) || typeof pos !== 'number') {
       return null;
@@ -247,10 +255,13 @@ export default class ResizableMediaSingle extends React.Component<
       pctWidth,
       lineLength,
       containerWidth,
+      fullWidthMode,
       getPos,
       view: { state },
     } = this.props;
     const { resizedPctWidth } = this.state;
+
+    const pos = typeof getPos === 'function' ? getPos() : undefined;
 
     return calcMediaPxWidth({
       origWidth,
@@ -258,8 +269,9 @@ export default class ResizableMediaSingle extends React.Component<
       pctWidth,
       state,
       containerWidth: { width: containerWidth, lineLength },
+      isFullWidthModeEnabled: fullWidthMode,
       layout: useLayout || layout,
-      pos: getPos(),
+      pos: pos,
       resizedPctWidth,
     });
   };
@@ -338,7 +350,7 @@ export default class ResizableMediaSingle extends React.Component<
     const width = pxWidth;
 
     const enable: EnabledHandles = {};
-    handleSides.forEach(side => {
+    handleSides.forEach((side: 'left' | 'right') => {
       const oppositeSide = side === 'left' ? 'right' : 'left';
       enable[side] =
         ['full-width', 'wide', 'center']
@@ -359,8 +371,9 @@ export default class ResizableMediaSingle extends React.Component<
         layout={layout}
         isResized={!!pctWidth}
         containerWidth={containerWidth || origWidth}
-        innerRef={elem => (this.wrapper = elem)}
+        innerRef={(elem: any) => (this.wrapper = elem)}
         fullWidthMode={fullWidthMode}
+        // data-node-type="mediaSingle"
       >
         <Resizer
           {...this.props}

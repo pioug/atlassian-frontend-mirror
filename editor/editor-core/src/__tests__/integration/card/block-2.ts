@@ -1,11 +1,12 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
-import { getDocFromElement, editable, selectBlockLink } from '../_helpers';
+import { getDocFromElement, editable } from '../_helpers';
 import {
   goToEditorTestingExample,
   mountEditor,
 } from '../../__helpers/testing-example-helpers';
 import { ConfluenceCardProvider } from '../../../../examples/5-full-page-with-confluence-smart-cards';
 import * as blockCardAdf from './_fixtures_/block-card.adf.json';
+import { waitForBlockCardSelection } from '../../__helpers/page-objects/_cards';
 
 type ClientType = Parameters<typeof goToEditorTestingExample>[0];
 
@@ -29,7 +30,7 @@ BrowserTestCase(
       },
     });
 
-    await selectBlockLink(page);
+    await waitForBlockCardSelection(page);
     await page.click('button[aria-label="Edit link"]');
     // Clear the Link Label field before typing
     await page.clear('[data-testid="link-url"]');

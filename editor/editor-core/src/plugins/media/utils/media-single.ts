@@ -5,7 +5,7 @@ import {
   hasParentNodeOfType,
 } from 'prosemirror-utils';
 import { EditorState, Selection, Transaction } from 'prosemirror-state';
-import { MediaSingleLayout, MediaSingleAttributes } from '@atlaskit/adf-schema';
+import { RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema';
 import {
   calcPxFromPct,
   breakoutWideScaleRatio,
@@ -16,7 +16,7 @@ import { copyOptionalAttrsFromMediaState } from '../utils/media-common';
 import { MediaState } from '../types';
 import { Command } from '../../../types';
 import { mapSlice } from '../../../utils/slice';
-import { alignmentLayouts } from '../ui/ResizableMediaSingle/utils';
+import { alignmentLayouts } from '../../../ui/Resizer/utils';
 import { WidthPluginState } from '../../width';
 import {
   addAnalytics,
@@ -31,21 +31,7 @@ import { safeInsert } from '../../../utils/insert';
 import { getFeatureFlags } from '../../feature-flags-context';
 import { isImage } from './is-image';
 import { atTheBeginningOfBlock } from '../../../utils/prosemirror/position';
-
-export const wrappedLayouts: MediaSingleLayout[] = [
-  'wrap-left',
-  'wrap-right',
-  'align-end',
-  'align-start',
-];
-
-export const floatingLayouts = ['wrap-left', 'wrap-right'];
-
-export const nonWrappedLayouts: MediaSingleLayout[] = [
-  'center',
-  'wide',
-  'full-width',
-];
+import { wrappedLayouts } from '../../../utils/rich-media-utils';
 
 export interface MediaSingleState extends MediaState {
   dimensions: { width: number; height: number };
@@ -268,67 +254,6 @@ export function transformSliceForMedia(slice: Slice, schema: Schema) {
   };
 }
 
-export const alignAttributes = (
-  layout: MediaSingleLayout,
-  oldAttrs: MediaSingleAttributes,
-  gridSize: number = 12,
-): MediaSingleAttributes => {
-  let width = oldAttrs.width;
-  const oldLayout: MediaSingleLayout = oldAttrs.layout;
-
-  if (
-    wrappedLayouts.indexOf(oldLayout) === -1 &&
-    wrappedLayouts.indexOf(layout) > -1
-  ) {
-    if (
-      !width ||
-      width >= 100 ||
-      ['full-width', 'wide'].indexOf(oldLayout) > -1
-    ) {
-      width = 50;
-    }
-  } else if (
-    layout !== oldLayout &&
-    ['full-width', 'wide'].indexOf(oldLayout) > -1
-  ) {
-    // unset width
-    width = undefined;
-  } else if (width) {
-    const cols = Math.round((width / 100) * gridSize);
-    let targetCols = cols;
-
-    if (
-      wrappedLayouts.indexOf(oldLayout) > -1 &&
-      nonWrappedLayouts.indexOf(layout) > -1
-    ) {
-      // wrap -> center needs to align to even grid
-      targetCols = Math.floor(targetCols / 2) * 2;
-      width = undefined;
-    } else if (
-      nonWrappedLayouts.indexOf(oldLayout) > -1 &&
-      wrappedLayouts.indexOf(layout) > -1
-    ) {
-      // cannot resize to full column width, and cannot resize to 1 column
-
-      if (cols <= 1) {
-        targetCols = 2;
-      } else if (cols >= gridSize) {
-        targetCols = 10;
-      }
-    }
-
-    if (targetCols !== cols) {
-      width = (targetCols / gridSize) * 100;
-    }
-  }
-
-  return {
-    ...oldAttrs,
-    layout,
-    width,
-  };
-};
-
 export const calcMediaPxWidth = (opts: {
   origWidth: number;
   origHeight: number;
@@ -338,6 +263,7 @@ export const calcMediaPxWidth = (opts: {
   pctWidth?: number;
   pos?: number;
   resizedPctWidth?: number;
+  isFullWidthModeEnabled?: boolean;
 }): number => {
   const {
     origWidth,

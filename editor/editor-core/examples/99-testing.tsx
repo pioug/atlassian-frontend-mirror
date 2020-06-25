@@ -2,6 +2,8 @@ import React from 'react';
 import { customInsertMenuItems } from '@atlaskit/editor-test-helpers/mock-insert-menu';
 import Button from '@atlaskit/button';
 import { AtlassianIcon } from '@atlaskit/logo';
+import { Provider as SmartCardProvider } from '@atlaskit/smart-card';
+
 import {
   createEditorExampleForTests,
   mapProvidersToProps,
@@ -9,6 +11,7 @@ import {
 import { Editor, ContextPanel } from '../src';
 import { SaveAndCancelButtons } from './5-full-page';
 import { TitleInput } from '../example-helpers/PageElements';
+import { cardClient } from '../example-helpers/smart-card';
 
 export default function EditorExampleForIntegrationTests({ clipboard = true }) {
   return createEditorExampleForTests<any>(
@@ -57,8 +60,7 @@ export default function EditorExampleForIntegrationTests({ clipboard = true }) {
           ...props.media,
         };
       }
-
-      return (
+      const editor = (
         <Editor
           {...mapProvidersToProps(nonSerializableProps.providers, props)}
           {...nonSerializableProps.providers}
@@ -69,6 +71,14 @@ export default function EditorExampleForIntegrationTests({ clipboard = true }) {
           onDestroy={onDestroy}
         />
       );
+
+      if (props && props.UNSAFE_cards) {
+        return (
+          <SmartCardProvider client={cardClient}>{editor}</SmartCardProvider>
+        );
+      } else {
+        return editor;
+      }
     },
     { clipboard },
   );

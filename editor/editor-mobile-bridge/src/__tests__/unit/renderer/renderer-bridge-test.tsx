@@ -8,6 +8,7 @@ import {
   createMediaProvider,
   createMentionProvider,
 } from '../../../providers';
+import { FetchProxy } from '../../../utils/fetch-proxy';
 
 const initialDocument = JSON.stringify({
   version: 1,
@@ -56,14 +57,14 @@ describe('general', () => {
 
 describe('renderer bridge', () => {
   let onContentRendered: jest.Mock;
-  let mobileRenderer: ReactWrapper<MobileRenderer>;
+  let mobileRenderer: ReactWrapper;
 
-  const initRenderer = (adf: string): ReactWrapper<MobileRenderer> =>
+  const initRenderer = (adf: string): ReactWrapper =>
     mount(
       <MobileRenderer
         document={adf}
         cardClient={createCardClient()}
-        emojiProvider={createEmojiProvider()}
+        emojiProvider={createEmojiProvider(new FetchProxy())}
         mediaProvider={createMediaProvider()}
         mentionProvider={createMentionProvider()}
       />,

@@ -13,7 +13,7 @@ import {
 
 import { PluginState, pluginKey } from '../../../plugin';
 
-import Avatars from '../../../ui/avatars';
+import AvatarsWithPluginState from '../../../ui';
 import ToolbarButton from '../../../../../ui/ToolbarButton';
 
 // Editor plugins
@@ -66,7 +66,7 @@ describe('collab-edit | Avatars', () => {
       setPresence(editorView);
 
       const node = mountWithIntl(
-        <Avatars
+        <AvatarsWithPluginState
           editorView={editorView}
           inviteToEditComponent={CustomButton}
         />,
@@ -81,7 +81,9 @@ describe('collab-edit | Avatars', () => {
     describe('when inviteToEditHandler is undefined', () => {
       it('should not render inviteToEdit button', async () => {
         const { editorView } = editor(doc(p('text')));
-        const node = mountWithIntl(<Avatars editorView={editorView} />);
+        const node = mountWithIntl(
+          <AvatarsWithPluginState editorView={editorView} />,
+        );
         expect(node.find(ToolbarButton).length).toEqual(0);
         node.unmount();
       });
@@ -93,7 +95,10 @@ describe('collab-edit | Avatars', () => {
         setPresence(editorView);
 
         const node = mountWithIntl(
-          <Avatars editorView={editorView} inviteToEditHandler={() => {}} />,
+          <AvatarsWithPluginState
+            editorView={editorView}
+            inviteToEditHandler={() => {}}
+          />,
         );
 
         expect(node.find(ToolbarButton).length).toEqual(1);
@@ -106,7 +111,7 @@ describe('collab-edit | Avatars', () => {
           setPresence(editorView);
           const inviteToEditHandler = jest.fn();
           const node = mountWithIntl(
-            <Avatars
+            <AvatarsWithPluginState
               editorView={editorView}
               inviteToEditHandler={inviteToEditHandler}
             />,
@@ -127,7 +132,7 @@ describe('collab-edit | Avatars', () => {
           setPresence(editorView);
           const inviteToEditHandler = () => {};
           const node = mountWithIntl(
-            <Avatars
+            <AvatarsWithPluginState
               editorView={editorView}
               inviteToEditHandler={inviteToEditHandler}
               isInviteToEditButtonSelected={true}

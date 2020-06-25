@@ -1,5 +1,10 @@
 import { Node, Slice, Fragment, Schema } from 'prosemirror-model';
+import { EditorState, Selection } from 'prosemirror-state';
 import { mapSlice } from '../../utils/slice';
+import {
+  findSelectedNodeOfType,
+  findParentNodeOfType,
+} from 'prosemirror-utils';
 
 function joinCodeBlocks(left: Node, right: Node) {
   const textContext = `${left.textContent!}\n${right.textContent!}`;
@@ -58,4 +63,15 @@ export const transformSingleLineCodeBlockToCodeMark = (
     }
   }
   return slice;
+};
+
+export const findCodeBlock = (
+  state: EditorState,
+  selection?: Selection<any> | null,
+) => {
+  const { codeBlock } = state.schema.nodes;
+  return (
+    findSelectedNodeOfType(codeBlock)(selection || state.selection) ||
+    findParentNodeOfType(codeBlock)(selection || state.selection)
+  );
 };

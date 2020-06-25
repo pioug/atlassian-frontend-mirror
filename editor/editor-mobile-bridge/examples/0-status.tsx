@@ -9,6 +9,7 @@ import MobileEditor from '../src/editor/mobile-editor-element';
 import WebToNativeReporter from '../example-helpers/WebToNativeReporter';
 import { bridge } from '../src/editor/mobile-editor-element';
 import { createEditorProviders } from '../src/providers';
+import { useFetchProxy } from '../src/utils/fetch-proxy';
 
 export interface Props {
   text: string;
@@ -33,6 +34,11 @@ const colorOptions = [
   { value: 'yellow', label: 'Yellow' },
   { value: 'green', label: 'Green' },
 ];
+
+function MobileEditorWithFetchProxy() {
+  const fetchProxy = useFetchProxy();
+  return <MobileEditor {...createEditorProviders(fetchProxy)} />;
+}
 
 export default class Example extends React.Component<Props, {}> {
   static defaultProps = {
@@ -99,7 +105,7 @@ export default class Example extends React.Component<Props, {}> {
         <div style={{ flex: '1 0 100%' }}>
           <Container height="250px">
             <h3>Mobile editor</h3>
-            <MobileEditor {...createEditorProviders()} />
+            <MobileEditorWithFetchProxy />
           </Container>
           <Container height="200px">
             <h3>Web to native</h3>

@@ -5,7 +5,7 @@ import { EditorState, NodeSelection, Plugin } from 'prosemirror-state';
 import { insertPoint } from 'prosemirror-transform';
 import { Decoration, DecorationSet, EditorView } from 'prosemirror-view';
 import { MediaClientConfig } from '@atlaskit/media-core';
-import { MediaSingleLayout } from '@atlaskit/adf-schema';
+import { RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema';
 import { PopupConfig, UploadParams } from '@atlaskit/media-picker/types';
 import {
   ContextIdentifierProvider,
@@ -805,7 +805,7 @@ export const createPlugin = (
               state.selection.from,
               state.selection.to,
               {
-                class: 'mediaSingle-selected',
+                class: 'richMedia-selected',
               },
             );
 

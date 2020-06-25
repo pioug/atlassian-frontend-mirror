@@ -1,6 +1,6 @@
 import { mount, ReactWrapper } from 'enzyme';
 import { EditorView } from 'prosemirror-view';
-import { TextSelection } from 'prosemirror-state';
+import { TextSelection, Selection } from 'prosemirror-state';
 import { ProviderFactory } from '@atlaskit/editor-common';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
 import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
@@ -32,6 +32,8 @@ import {
 import { getPluginState } from './../../pm-plugins/inline-comment';
 import { flushPromises } from '../../../../__tests__/__helpers/utils';
 import { AnnotationTestIds } from '../../types';
+import { RESOLVE_METHOD } from '../../../analytics/types/inline-comment-events';
+import * as commands from '../../commands/index';
 
 describe('annotation', () => {
   const createEditor = createEditorFactory();
@@ -80,8 +82,8 @@ describe('annotation', () => {
   function mockPluginStateWithBookmark(editorView: EditorView, refs: Refs) {
     const testInlineCommentState: InlineCommentPluginState = {
       annotations: {},
-      annotationsInSelection: [],
-      mouseData: { x: 0, y: 0, isSelecting: false },
+      selectedAnnotations: [],
+      mouseData: { isSelecting: false },
       bookmark: getBookmark(editorView, refs),
     };
     jest
@@ -222,6 +224,7 @@ describe('annotation', () => {
 
     describe('view annotation', () => {
       let editorView: EditorView<any>;
+      let annotationPos: number;
 
       beforeEach(async () => {
         const editorData = editor(
@@ -230,12 +233,13 @@ describe('annotation', () => {
               annotation({
                 annotationType: AnnotationTypes.INLINE_COMMENT,
                 id: 'first123',
-              })('hell{<>}o'),
+              })('{start}hell{<>}o'),
             ),
             p('world'),
           ),
         );
         editorView = editorData.editorView;
+        annotationPos = editorData.refs.start;
 
         // Let the getState promise resolve
         await flushPromises();
@@ -251,55 +255,82 @@ describe('annotation', () => {
         ]);
       });
 
-      it('sends view annotation analytics event', () => {
+      it('sends view analytics event', () => {
         expect(createAnalyticsEvent).toHaveBeenCalledWith({
           action: ACTION.VIEWED,
           actionSubject: ACTION_SUBJECT.ANNOTATION,
           actionSubjectId: ACTION_SUBJECT_ID.INLINE_COMMENT,
           eventType: EVENT_TYPE.TRACK,
           attributes: {
-            overlap: 1,
+            overlap: 0,
           },
+        });
+      });
+
+      describe('is closed as expected', () => {
+        it('via onClose callback', async () => {
+          const viewComponent = contentComponent.find(nullComponent);
+          expect(viewComponent.exists()).toBeTruthy();
+          viewComponent.prop('onClose')();
+          // force rerender
+          contentComponent.setProps(contentComponent.props());
+          expect(contentComponent.find(nullComponent).exists()).toBeFalsy();
+        });
+
+        it('when selection moved away from annotation', () => {
+          expect(contentComponent.find(nullComponent)).toBeTruthy();
+          const { state } = editorView;
+          editorView.dispatch(
+            state.tr.setSelection(Selection.atEnd(state.doc)),
+          );
+          contentComponent.setProps(contentComponent.props());
+          expect(contentComponent.find(nullComponent).exists()).toBeFalsy();
+        });
+
+        it('not closed when clicking same annotation', () => {
+          expect(contentComponent.find(nullComponent)).toBeTruthy();
+          const { state } = editorView;
+          editorView.dispatch(
+            state.tr.setSelection(
+              Selection.near(state.doc.resolve(annotationPos)),
+            ),
+          );
+          contentComponent.setProps(contentComponent.props());
+          expect(contentComponent.find(nullComponent).exists()).toBeTruthy();
+        });
+      });
+
+      describe('onResolve', () => {
+        beforeEach(() => {
+          const viewComponent = contentComponent.find(nullComponent);
+          viewComponent.prop('onResolve')('first123');
+        });
+
+        it('resolves annotation', () => {
+          const pluginState = getPluginState(editorView.state);
+          expect(pluginState.annotations).toStrictEqual({
+            first123: true,
+          });
+        });
+
+        it('sends resolve analytics event', () => {
+          expect(createAnalyticsEvent).toHaveBeenCalledWith({
+            action: ACTION.RESOLVED,
+            actionSubject: ACTION_SUBJECT.ANNOTATION,
+            actionSubjectId: ACTION_SUBJECT_ID.INLINE_COMMENT,
+            eventType: EVENT_TYPE.TRACK,
+            attributes: {
+              method: RESOLVE_METHOD.COMPONENT,
+            },
+          });
         });
       });
     });
 
     describe('view nested annotations', () => {
-      it('passes the visible annotations to the component', async () => {
-        const { editorView } = editor(
-          doc(
-            p(
-              'hello ',
-              annotation({
-                annotationType: AnnotationTypes.INLINE_COMMENT,
-                id: '123',
-              })(
-                annotation({
-                  annotationType: AnnotationTypes.INLINE_COMMENT,
-                  id: 'nested',
-                })('dou{<>}ble'),
-                'single',
-              ),
-              'world',
-            ),
-          ),
-        );
-
-        // Let the getState promise resolve
-        await flushPromises();
-
-        contentComponent = mountContentComponent(editorView);
-
-        expect(
-          contentComponent.find(nullComponent).prop('annotations'),
-        ).toEqual([
-          { type: 'inlineComment', id: 'nested' },
-          { type: 'inlineComment', id: '123' },
-        ]);
-      });
-
-      it('passes the annotations in nesting order', async () => {
-        const { editorView } = editor(
+      let editorView: EditorView, contentComponent: ReactWrapper;
+      beforeEach(async () => {
+        const editorData = editor(
           doc(
             p(
               'hello ',
@@ -322,9 +353,27 @@ describe('annotation', () => {
             ),
           ),
         );
+        editorView = editorData.editorView;
 
         // Let the getState promise resolve
         await flushPromises();
+
+        contentComponent = mountContentComponent(editorView);
+      });
+
+      it('sends view annotation analytics event with correct overlap value', async () => {
+        expect(createAnalyticsEvent).toHaveBeenCalledWith({
+          action: ACTION.VIEWED,
+          actionSubject: ACTION_SUBJECT.ANNOTATION,
+          actionSubjectId: ACTION_SUBJECT_ID.INLINE_COMMENT,
+          eventType: EVENT_TYPE.TRACK,
+          attributes: {
+            overlap: 1,
+          },
+        });
+      });
+
+      it('passes the annotations in nesting order', async () => {
         // ensure nested annotation has [first, second] mark ids
         const innerNode = editorView.state.doc.nodeAt(
           editorView.state.selection.$from.pos,
@@ -332,8 +381,6 @@ describe('annotation', () => {
 
         expect(innerNode.marks[0].attrs.id).toEqual('first');
         expect(innerNode.marks[1].attrs.id).toEqual('second');
-
-        contentComponent = mountContentComponent(editorView);
 
         // since outer text also has 'first' mark id, we expect 'second' to appear first
         expect(
@@ -367,10 +414,68 @@ describe('annotation', () => {
         ),
       );
       expect(createAnalyticsEvent).toHaveBeenCalledWith({
-        action: ACTION.ADDED,
+        action: ACTION.INSERTED,
         actionSubject: ACTION_SUBJECT.ANNOTATION,
         eventType: EVENT_TYPE.TRACK,
         actionSubjectId: ACTION_SUBJECT_ID.INLINE_COMMENT,
+      });
+    });
+
+    describe('selection and focus', () => {
+      let editorView: EditorView;
+      beforeEach(() => {
+        ({ editorView } = editor(
+          doc(p('Fluke {<}jib scourge of the{>} seven seas')),
+        ));
+        jest.spyOn(editorView, 'hasFocus').mockReturnValue(false);
+        jest.spyOn(editorView, 'focus');
+        // set the draft state first before creation annotation
+        setInlineCommentDraftState(true)(editorView.state, editorView.dispatch);
+      });
+
+      it('after create', () => {
+        const id = 'annotation-id-123';
+        const previousToPos = editorView.state.selection.$to.pos;
+
+        contentComponent = mountContentComponent(editorView);
+
+        const createComponent = contentComponent.find(nullComponent);
+        const onCreate = createComponent.prop('onCreate');
+        onCreate(id);
+
+        expect(editorView.state.doc).toEqualDocument(
+          doc(
+            p(
+              'Fluke ',
+              annotation({
+                annotationType: AnnotationTypes.INLINE_COMMENT,
+                id,
+              })('jib scourge of the'),
+              '{<>} seven seas',
+            ),
+          ),
+        );
+        expect(editorView.state.selection.$from.pos).toEqual(previousToPos);
+        expect(editorView.state.selection.$to.pos).toEqual(previousToPos);
+        expect(editorView.focus).toBeCalled();
+      });
+
+      it('after close', () => {
+        const previousFromPos = editorView.state.selection.$from.pos;
+        const previousToPos = editorView.state.selection.$to.pos;
+
+        contentComponent = mountContentComponent(editorView);
+
+        const createComponent = contentComponent.find(nullComponent);
+        const onClose = createComponent.prop('onClose');
+        onClose();
+
+        expect(editorView.state.doc).toEqualDocument(
+          doc(p('Fluke {<}jib scourge of the{>} seven seas')),
+        );
+        expect(editorView.state.selection.$from.pos).toEqual(previousFromPos);
+        expect(editorView.state.selection.$to.pos).toEqual(previousToPos);
+        expect(editorView.focus).toBeCalled();
       });
     });
 
@@ -470,5 +575,15 @@ describe('annotation', () => {
         ),
       );
     });
+  });
+
+  it('does not try to update isSelecting on onMouseUp if not in select mode', () => {
+    const updateMouseStateSpy = jest.spyOn(commands, 'updateMouseState');
+    const { editorView } = editor(
+      doc(p('Trysail Sail ho {<}Corsair smartly{>} boom gangway.')),
+    );
+    const mouseupEvent = new MouseEvent('mouseup', {});
+    editorView.root.dispatchEvent(mouseupEvent);
+    expect(updateMouseStateSpy).not.toHaveBeenCalled();
   });
 });

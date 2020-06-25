@@ -18,6 +18,7 @@ import { Card } from '../Card';
 import { Provider } from '../..';
 import { fakeFactory, mocks, waitFor } from '../../utils/mocks';
 import { render, cleanup, waitForElement } from '@testing-library/react';
+import { JsonLd } from 'json-ld-types';
 describe('smart-card: card states', () => {
   let mockClient: CardClient;
   let mockFetch: jest.Mock;
@@ -213,12 +214,70 @@ describe('smart-card: card states', () => {
           </Provider>,
         );
         const resolvedViewName = await waitForElement(() =>
-          getByTestId('resolved-view-frame'),
+          getByTestId('embed-card-resolved-view-frame'),
         );
         expect(resolvedViewName).toBeTruthy();
         expect(resolvedViewName.getAttribute('src')).toEqual(
           'https://www.ilovecheese.com',
         );
+        expect(mockFetch).toBeCalled();
+        expect(mockFetch).toBeCalledTimes(1);
+      });
+
+      it('embed: should render with metadata when resolved, as block card - no preview present', async () => {
+        const successWithoutPreview = {
+          ...mocks.success,
+          data: {
+            ...mocks.success.data,
+            preview: undefined,
+          },
+        } as JsonLd.Response;
+
+        mockFetch.mockImplementationOnce(async () => successWithoutPreview);
+        const { getByText } = render(
+          <Provider client={mockClient}>
+            <Card appearance="embed" url={mockUrl} />
+          </Provider>,
+        );
+        const resolvedViewName = await waitForElement(() =>
+          getByText('I love cheese'),
+        );
+        const resolvedViewDescription = await waitForElement(() =>
+          getByText('Here is your serving of cheese: 🧀'),
+        );
+        expect(resolvedViewName).toBeTruthy();
+        expect(resolvedViewDescription).toBeTruthy();
+        expect(mockFetch).toBeCalled();
+        expect(mockFetch).toBeCalledTimes(1);
+      });
+
+      it('embed: should render with metadata when resolved, as block card - preview present, platform set', async () => {
+        const successWithPreviewOnWeb = {
+          ...mocks.success,
+          data: {
+            ...mocks.success.data,
+            preview: {
+              '@type': 'Link',
+              href: 'https://some/preview',
+              'atlassian:supportedPlatforms': ['web'],
+            },
+          },
+        } as JsonLd.Response;
+
+        mockFetch.mockImplementationOnce(async () => successWithPreviewOnWeb);
+        const { getByText } = render(
+          <Provider client={mockClient}>
+            <Card appearance="embed" url={mockUrl} platform="mobile" />
+          </Provider>,
+        );
+        const resolvedViewName = await waitForElement(() =>
+          getByText('I love cheese'),
+        );
+        const resolvedViewDescription = await waitForElement(() =>
+          getByText('Here is your serving of cheese: 🧀'),
+        );
+        expect(resolvedViewName).toBeTruthy();
+        expect(resolvedViewDescription).toBeTruthy();
         expect(mockFetch).toBeCalled();
         expect(mockFetch).toBeCalledTimes(1);
       });
@@ -455,7 +514,7 @@ describe('smart-card: card states', () => {
 
           expect(unauthorizedLink).toBeTruthy();
           const unauthorizedLinkButton = getByTestId(
-            'embed-unauthorised-view-button',
+            'embed-card-unauthorized-view-button',
           );
           expect(unauthorizedLinkButton).toBeTruthy();
           expect(unauthorizedLinkButton!.innerHTML).toContain('Connect');

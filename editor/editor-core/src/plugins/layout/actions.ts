@@ -361,10 +361,3 @@ const formatLayoutName = (layout: PresetLayout): LAYOUT_TYPE => {
       return LAYOUT_TYPE.THREE_WITH_SIDEBARS;
   }
 };
-
-export const selectLayout = (pos: number): Command => (state, dispatch) => {
-  if (dispatch) {
-    dispatch(state.tr.setSelection(new NodeSelection(state.doc.resolve(pos))));
-  }
-  return true;
-};

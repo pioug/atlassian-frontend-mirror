@@ -1,52 +1,42 @@
-let mockFindOverflowScrollParent = jest.fn();
-jest.mock('@atlaskit/editor-common', () => ({
-  browser: () => ({}),
-  findOverflowScrollParent: () => mockFindOverflowScrollParent(),
-  withImageLoader: jest.fn(),
-  overflowShadow: jest.fn(),
-  sharedExpandStyles: jest.fn(),
-  WidthProvider: jest.fn(),
-}));
-
 import React from 'react';
 import { mount } from 'enzyme';
-import { embedCard } from '@atlaskit/editor-test-helpers/schema-builder';
-import defaultSchema from '@atlaskit/editor-test-helpers/schema';
+import { embedCard, doc } from '@atlaskit/editor-test-helpers/schema-builder';
 import { Card } from '@atlaskit/smart-card';
-
 import { EmbedCardComponent } from '../../../../../plugins/card/nodeviews/embedCard';
-import { EditorView } from 'prosemirror-view';
+import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
+import { CardOptions } from '../../../../../plugins/card';
+import ResizableEmbedCard from '../../../../../plugins/card/ui/ResizableEmbedCard';
 
 describe('EmbedCard', () => {
-  let mockEditorView: EditorView;
-
-  beforeEach(() => {
-    mockFindOverflowScrollParent = jest.fn();
-    mockEditorView = {
-      state: {
-        selection: {
-          from: 0,
-          to: 0,
+  const createEditor = createEditorFactory();
+  const editor = (doc: any, cardProps?: Partial<CardOptions>) => {
+    return createEditor({
+      doc,
+      editorProps: {
+        UNSAFE_cards: {
+          allowEmbeds: true,
+          ...cardProps,
         },
       },
-    } as EditorView;
-  });
+    });
+  };
 
   afterEach(() => {
     jest.clearAllMocks();
   });
 
   it('renders', () => {
-    mockFindOverflowScrollParent.mockImplementationOnce(() => false);
     const mockInlinePmNode = embedCard({
       url: 'https://some/url',
       layout: 'center',
-    })()(defaultSchema);
+    })();
+    const { editorView } = editor(doc(mockInlinePmNode));
+    const node = editorView.state.doc.firstChild;
 
     const mockInlineCardNode = mount(
       <EmbedCardComponent
-        node={mockInlinePmNode}
-        view={mockEditorView}
+        node={node!}
+        view={editorView}
         selected={false}
         getPos={() => 0}
       />,
@@ -54,6 +44,32 @@ describe('EmbedCard', () => {
     const wrapper = mockInlineCardNode.find(Card);
     expect(wrapper).toHaveLength(1);
     expect(wrapper.prop('url')).toBe('https://some/url');
+    mockInlineCardNode.unmount();
+  });
+
+  it('does not render resizer handles', () => {
+    const mockInlinePmNode = embedCard({
+      url: 'https://some/url',
+      layout: 'center',
+    })();
+    const { editorView } = editor(doc(mockInlinePmNode), {
+      allowResizing: true,
+    });
+    const node = editorView.state.doc.firstChild;
+
+    const mockInlineCardNode = mount(
+      <EmbedCardComponent
+        node={node!}
+        view={editorView}
+        selected={false}
+        getPos={() => 0}
+        allowResizing={false}
+      />,
+    );
+    const wrapper = mockInlineCardNode.find(ResizableEmbedCard);
+    expect(wrapper).toHaveLength(0);
+    const cardWrapper = mockInlineCardNode.find(Card);
+    expect(cardWrapper).toHaveLength(1);
     mockInlineCardNode.unmount();
   });
 });

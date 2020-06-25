@@ -191,7 +191,7 @@ async function promiseRetry<T>(
       ) {
         return Promise.reject(
           new Error(
-            `The call did not succeed after ${i} attempts. Last error is\n---\n${err.stack}\n---`,
+            `The call did not succeed after ${i} attempts. Last error is ${err.message}`,
           ),
         );
       } else {

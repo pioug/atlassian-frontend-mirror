@@ -33,6 +33,7 @@ import { messages as listMessages } from '../../lists/messages';
 import { messages as insertBlockMessages } from '../../insert-block/ui/ToolbarInsertBlock/messages';
 import { messages as blockTypeMessages } from '../../block-type/messages';
 import { closeHelpCommand } from '../commands';
+import { annotationMessages } from '../../annotation/toolbar';
 
 const messages = defineMessages({
   editorHelp: {
@@ -351,6 +352,11 @@ const otherFormatting: (intl: InjectedIntl) => Format[] = ({
     name: formatMessage(messages.pastePlainText),
     type: 'paste',
     keymap: () => keymaps.pastePlainText,
+  },
+  {
+    name: formatMessage(annotationMessages.createComment),
+    type: 'annotation',
+    keymap: () => keymaps.addInlineComment,
   },
 ];
 

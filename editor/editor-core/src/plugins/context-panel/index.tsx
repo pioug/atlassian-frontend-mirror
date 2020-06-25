@@ -7,7 +7,6 @@ import { Dispatch } from '../../event-dispatcher';
 export const pluginKey = new PluginKey('contextPanelPluginKey');
 
 export type ContextPanelPluginState = {
-  visible: boolean;
   handlers: ContextPanelHandler[];
   contents: React.ReactNode[];
 };
@@ -25,7 +24,6 @@ function contextPanelPluginFactory(
     state: {
       init(_config, state) {
         return {
-          visible: false,
           handlers: contextPanels,
           contents: contextPanels.map(panelContent => panelContent(state)),
         };
@@ -34,18 +32,6 @@ function contextPanelPluginFactory(
       apply(tr, pluginState, _oldState, newState) {
         let newPluginState = pluginState;
         const meta = tr.getMeta(pluginKey);
-
-        const visible =
-          meta && typeof meta.visible !== undefined
-            ? meta.visible
-            : pluginState.visible;
-
-        if (visible !== pluginState.visible) {
-          newPluginState = {
-            ...newPluginState,
-            visible,
-          };
-        }
 
         if (tr.docChanged || tr.selectionSet || (meta && meta.changed)) {
           const newContents = pluginState.handlers.map(panelContent =>

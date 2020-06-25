@@ -1,5 +1,11 @@
 # @atlaskit/calendar
 
+## 9.2.10
+
+### Patch Changes
+
+- [`69643331c3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/69643331c3) - Prevent day names table header from wrapping into two line
+
 ## 9.2.9
 
 ### Patch Changes

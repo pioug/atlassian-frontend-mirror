@@ -5,6 +5,7 @@ import {
 } from '../_utils';
 import * as panel from './__fixtures__/panel-adf.json';
 import { Page } from '../../__helpers/page-objects/_types';
+import { waitForFloatingControl } from '../../__helpers/page-objects/_toolbar';
 import {
   PanelSharedCssClassName,
   PanelSharedSelectors,
@@ -22,6 +23,7 @@ describe('Panel:', () => {
       width: 800,
       height: 660,
     });
+    await waitForFloatingControl(page, 'Panel floating controls');
   });
   afterEach(async () => {
     await snapshot(page);

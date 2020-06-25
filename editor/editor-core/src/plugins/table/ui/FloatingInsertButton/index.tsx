@@ -27,6 +27,7 @@ export interface Props {
   mountPoint?: HTMLElement;
   boundariesElement?: HTMLElement;
   scrollableElement?: HTMLElement;
+  hasStickyHeaders?: boolean;
 }
 
 class FloatingInsertButton extends React.Component<
@@ -145,6 +146,7 @@ class FloatingInsertButton extends React.Component<
           type={type}
           tableRef={tableRef}
           onMouseDown={type === 'column' ? this.insertColumn : this.insertRow}
+          hasStickyHeaders={this.props.hasStickyHeaders || false}
         />
       </Popup>
     );

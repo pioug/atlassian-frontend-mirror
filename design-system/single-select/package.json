@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/single-select",
-  "version": "9.0.3",
+  "version": "9.0.4",
   "description": "React component which allows selection of a single item from a dropdown list. Substitute for the native select element",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -27,7 +27,7 @@
     "@atlaskit/droplist": "^10.0.1",
     "@atlaskit/field-base": "^14.0.1",
     "@atlaskit/icon": "^20.0.1",
-    "@atlaskit/spinner": "^13.0.0",
+    "@atlaskit/spinner": "^14.0.0",
     "@atlaskit/theme": "^9.5.1",
     "@babel/runtime": "^7.0.0"
   },

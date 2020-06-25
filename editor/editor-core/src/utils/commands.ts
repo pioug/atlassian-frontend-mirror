@@ -1,4 +1,9 @@
-import { EditorState, TextSelection, Transaction } from 'prosemirror-state';
+import {
+  EditorState,
+  TextSelection,
+  NodeSelection,
+  Transaction,
+} from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import { CellSelection } from 'prosemirror-tables';
 import {
@@ -312,6 +317,13 @@ const insertContentDeleteRange = (
   tr.setSelection(new TextSelection(getSelectionResolvedPos(tr)));
 };
 
+const selectNode = (pos: number): Command => (state, dispatch) => {
+  if (dispatch) {
+    dispatch(state.tr.setSelection(new NodeSelection(state.doc.resolve(pos))));
+  }
+  return true;
+};
+
 export {
   // https://github.com/typescript-eslint/typescript-eslint/issues/131
   // eslint-disable-next-line no-undef
@@ -328,4 +340,5 @@ export {
   walkNextNode,
   walkPrevNode,
   insertContentDeleteRange,
+  selectNode,
 };

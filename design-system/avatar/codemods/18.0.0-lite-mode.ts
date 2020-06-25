@@ -189,14 +189,14 @@ function updateAvatarItemProps(
     getJSXAttributesByName(j, element, 'isFocus').remove();
     getJSXAttributesByName(j, element, 'isSelected').remove();
     getJSXAttributesByName(j, element, 'theme').remove();
-    getJSXAttributesByName(j, element, 'enableTruncation').forEach(
+    getJSXAttributesByName(j, element, 'enableTextTruncate').forEach(
       attribute => {
         // Change the prop name to isTruncationDisabled
         j(attribute)
           .find(j.JSXIdentifier)
           .replaceWith(j.jsxIdentifier('isTruncationDisabled'));
 
-        // Remove if enableTruncation was true or given no value (ie true)
+        // Remove if enableTextTruncate was true or given no value (ie true)
         j(attribute)
           .filter(attr => attr.node.value == null)
           .remove();
@@ -210,24 +210,22 @@ function updateAvatarItemProps(
           })
           .remove();
 
-        // if `enableTruncation` value is positive we can change it to 'true'
+        // if `enableTextTruncate` value is negative we can change it to 'true'
         j(attribute)
-          .filter(attr => {
-            const isTrue = j(attr)
-              .find(j.JSXExpressionContainer)
-              .filter(expression => {
-                return (
-                  j(expression)
-                    .find(j.BooleanLiteral)
-                    .filter(literal => !literal.node.value).length > 0
-                );
-              });
-
-            return Boolean(isTrue.length);
-          })
+          .filter(
+            attr =>
+              !!j(attr)
+                .find(j.JSXExpressionContainer)
+                .filter(
+                  expression =>
+                    j(expression)
+                      .find(j.BooleanLiteral)
+                      .filter(literal => !literal.node.value).length > 0,
+                ).length,
+          )
           .replaceWith(j.jsxAttribute(j.jsxIdentifier('isTruncationDisabled')));
 
-        // if `enableTruncation` was an expression, negate it
+        // if `enableTextTruncate` was an expression, negate it
         j(attribute)
           .find(j.JSXExpressionContainer)
           .filter(container => {
@@ -287,7 +285,9 @@ export default function transformer(
     updateBorderWidthUsage(j, source);
     updateAvatarProps(j, source);
     updateAvatarItemProps(j, source);
+
+    return source.toSource(options.printOptions || { quote: 'single' });
   }
 
-  return source.toSource(options.printOptions || { quote: 'single' });
+  return fileInfo.source;
 }

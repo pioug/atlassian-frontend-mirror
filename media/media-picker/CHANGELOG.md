@@ -1,5 +1,18 @@
 # @atlaskit/media-picker
 
+## 54.2.0
+
+### Minor Changes
+
+- [`62269a3e45`](https://bitbucket.org/atlassian/atlassian-frontend/commits/62269a3e45) - Added undefined links
+
+### Patch Changes
+
+- [`51aa5587ef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/51aa5587ef) - bump media-client: Remove stack traces from media analytic events
+- [`996e045cc4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/996e045cc4) - EDM-776: add platform prop to @atlaskit/smart-card for rendering fallback on mobile (embed -> block)
+- [`b6e45d27f0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b6e45d27f0) - EDM-679: fixed 403 occurring when uploading a TIFF/HEIC image into media-picker
+- Updated dependencies
+
 ## 54.1.4
 
 ### Patch Changes

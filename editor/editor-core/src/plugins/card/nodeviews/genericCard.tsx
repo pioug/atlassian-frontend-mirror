@@ -4,20 +4,35 @@ import { Node as PMNode } from 'prosemirror-model';
 import { EditorView } from 'prosemirror-view';
 
 import { isSafeUrl } from '@atlaskit/adf-schema';
-import { Context as SmartCardContext, APIError } from '@atlaskit/smart-card';
+import { ProviderFactory } from '@atlaskit/editor-common';
+import {
+  Context as SmartCardContext,
+  APIError,
+  CardPlatform,
+} from '@atlaskit/smart-card';
 
 import { getPosHandler } from '../../../nodeviews';
 import { titleUrlPairFromNode } from '../utils';
+import { EventDispatcher } from '../../../event-dispatcher';
 
 type EditorContext<T> = React.Context<T> & { value: T };
 
-export interface CardProps {
+export interface CardDerivedProps {
+  providerFactory?: ProviderFactory;
+  platform?: CardPlatform;
+  eventDispatcher?: EventDispatcher<any>;
+}
+
+export interface CardProps extends CardDerivedProps {
   children?: React.ReactNode;
   node: PMNode;
   selected: boolean;
   view: EditorView;
   getPos: getPosHandler;
   isMobile?: boolean;
+  eventDispatcher?: EventDispatcher<any>;
+  allowResizing?: boolean;
+  fullWidthMode?: boolean;
 }
 
 export interface SmartCardProps extends CardProps {

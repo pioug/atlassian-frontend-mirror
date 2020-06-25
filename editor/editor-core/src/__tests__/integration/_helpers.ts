@@ -550,15 +550,3 @@ export const selectColumns = async (page: any, indexes: number[]) => {
     await page.waitForSelector(tableSelectors.selectedCell);
   }
 };
-
-export const selectInlineLink = async (page: Page) => {
-  await page.waitForSelector('.inlineCardView-content-wrap');
-  await page.click('.inlineCardView-content-wrap');
-  await page.waitForSelector('div[aria-label="Floating Toolbar"]');
-};
-
-export const selectBlockLink = async (page: Page) => {
-  await page.waitForSelector('.blockCardView-content-wrap');
-  await page.click('.blockCardView-content-wrap');
-  await page.waitForSelector('div[aria-label="Floating Toolbar"]');
-};

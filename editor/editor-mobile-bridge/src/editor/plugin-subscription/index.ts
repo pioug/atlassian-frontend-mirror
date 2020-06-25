@@ -30,7 +30,10 @@ import { valueOf as valueOfMarkState } from '../web-to-native/markState';
 import WebBridgeImpl from '../native-to-web';
 import { toNativeBridge, EditorPluginBridges } from '../web-to-native';
 import { hasValue } from '../../utils';
-import { getEnableQuickInsertValue } from '../../query-param-reader';
+import {
+  getEnableQuickInsertValue,
+  getSelectionObserverEnabled,
+} from '../../query-param-reader';
 import { createPromise } from '../../cross-platform-promise';
 
 interface BridgePluginListener<T> {
@@ -240,15 +243,19 @@ const configs: Array<BridgePluginListener<any>> = [
       });
     },
   }),
-
-  createListenerConfig<SelectionDataState>({
-    bridge: 'selectionBridge',
-    pluginKey: selectionPluginKey,
-    updater: (pluginState, view) => {
-      createPromise('onSelection', pluginState).submit();
-    },
-  }),
 ];
+
+if (getSelectionObserverEnabled()) {
+  configs.push(
+    createListenerConfig<SelectionDataState>({
+      bridge: 'selectionBridge',
+      pluginKey: selectionPluginKey,
+      updater: (pluginState, view) => {
+        createPromise('onSelection', pluginState).submit();
+      },
+    }),
+  );
+}
 
 export function initPluginListeners(
   eventDispatcher: EventDispatcher,

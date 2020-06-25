@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { InjectedIntl } from 'react-intl';
 import { EditorState } from 'prosemirror-state';
-import { CardContext } from '@atlaskit/smart-card';
+import { CardContext, CardPlatform } from '@atlaskit/smart-card';
 import { EditorView } from 'prosemirror-view';
 import { Fragment } from 'prosemirror-model';
 import { setSelectedCardAppearance } from '../pm-plugins/doc';
@@ -20,6 +20,7 @@ export interface LinkToolbarAppearanceProps {
   editorView?: EditorView;
   url?: string;
   allowEmbeds?: boolean;
+  platform?: CardPlatform;
 }
 
 export class LinkToolbarAppearance extends React.Component<
@@ -37,12 +38,13 @@ export class LinkToolbarAppearance extends React.Component<
       currentAppearance,
       editorState,
       allowEmbeds,
+      platform,
     } = this.props;
     const preview =
       allowEmbeds &&
       cardContext &&
       url &&
-      cardContext.extractors.getPreview(url);
+      cardContext.extractors.getPreview(url, platform);
     const embedOption = allowEmbeds &&
       preview && {
         title: intl.formatMessage(messages.embed),

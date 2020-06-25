@@ -41,6 +41,7 @@ export const CalendarTh = styled.th`
   ${thSpacing};
   text-transform: uppercase;
   text-align: center;
+  white-space: nowrap;
 
   &:last-child,
   &:first-child {

@@ -1,36 +1,39 @@
 import {
   getExampleUrl,
+  loadPage,
   takeScreenShot,
+  waitForTooltip,
 } from '@atlaskit/visual-regression/helper';
 
 describe('Avatar', () => {
-  it('should match production example', async () => {
-    const url = getExampleUrl(
+  let page: any;
+  let url: string;
+
+  beforeAll(() => {
+    url = getExampleUrl(
       'design-system',
       'avatar',
       'basicAvatar',
       global.__BASEURL__,
     );
+  });
 
-    await global.page.setViewport({ width: 500, height: 400 });
+  beforeEach(async () => {
+    page = global.page;
+    await page.setViewport({ width: 500, height: 400 });
+  });
 
-    const image = await takeScreenShot(global.page, url);
+  it('should match production example', async () => {
+    const image = await takeScreenShot(page, url);
     expect(image).toMatchProdImageSnapshot();
   });
 
   it('should render a tooltip on hover', async () => {
-    const url = getExampleUrl(
-      'design-system',
-      'avatar',
-      'basicAvatar',
-      global.__BASEURL__,
-    );
+    await loadPage(page, url, true);
+    await page.hover('[data-testid="avatar"]');
+    await waitForTooltip(page);
 
-    await global.page.goto(url);
-    await global.page.hover('[data-testid="avatar"]');
-    await global.page.waitFor(800);
-
-    const image = await global.page.screenshot({
+    const image = await page.screenshot({
       clip: {
         width: 140,
         height: 200,

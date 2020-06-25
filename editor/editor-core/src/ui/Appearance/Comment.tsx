@@ -66,6 +66,7 @@ const MainToolbar = styled.div`
   padding: ${gridSize()}px ${gridSize()}px 0;
   display: flex;
   height: auto;
+  background-color: white;
 
   padding-left: ${TableControlsPadding}px;
 

@@ -10,6 +10,7 @@ import {
   createEmojiProvider,
   createMentionProvider,
 } from '../src/providers';
+import { useFetchProxy } from '../src/utils/fetch-proxy';
 
 export const Wrapper: any = styled.div`
   position: absolute;
@@ -48,11 +49,13 @@ const providerFactory = ProviderFactory.create({
 });
 
 export default function Example() {
+  const fetchProxy = useFetchProxy();
+
   return (
     <Wrapper>
       <Renderer
         cardClient={createCardClient()}
-        emojiProvider={createEmojiProvider()}
+        emojiProvider={createEmojiProvider(fetchProxy)}
         mentionProvider={createMentionProvider()}
         document={initialDocument}
         mediaProvider={storyMediaProviderFactory({

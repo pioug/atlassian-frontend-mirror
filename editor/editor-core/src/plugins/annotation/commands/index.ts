@@ -22,6 +22,7 @@ import {
   InlineCommentAction,
   ACTIONS,
   InlineCommentMap,
+  InlineCommentMouseData,
 } from '../pm-plugins/types';
 
 export const updateInlineCommentResolvedState = (
@@ -90,21 +91,22 @@ export const removeInlineCommentNearSelection = (id: string): Command => (
   return true;
 };
 
-const getOverlapCount = (state: EditorState): number => {
+// get number of unique annotations within current selection
+const getAnnotationsInSelectionCount = (state: EditorState): number => {
   const { annotation } = state.schema.marks;
   const { from, to } = state.selection;
-  const overlaps = new Set<string>();
+  const annotations = new Set<string>();
 
   state.doc.nodesBetween(from, to, node => {
     node.marks.forEach((mark: Mark<any>) => {
       if (mark.type === annotation) {
-        overlaps.add(mark.attrs.id);
+        annotations.add(mark.attrs.id);
       }
     });
     return true; // be thorough, go through all children
   });
 
-  return overlaps.size;
+  return annotations.size;
 };
 
 export const setInlineCommentDraftState = (
@@ -142,7 +144,7 @@ export const setInlineCommentDraftState = (
     if (drafting) {
       attributes = {
         inputMethod,
-        overlap: getOverlapCount(state),
+        overlap: getAnnotationsInSelectionCount(state),
       };
     }
 
@@ -158,11 +160,7 @@ export const setInlineCommentDraftState = (
   return withAnalytics(payload)(createCommand(commandAction));
 };
 
-export const updateMouseState = (mouseData: {
-  x?: number;
-  y?: number;
-  isSelecting?: boolean;
-}): Command =>
+export const updateMouseState = (mouseData: InlineCommentMouseData): Command =>
   createCommand({
     type: ACTIONS.INLINE_COMMENT_UPDATE_MOUSE_STATE,
     data: { mouseData },

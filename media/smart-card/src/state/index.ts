@@ -39,3 +39,4 @@ export {
   SmartCardProvider,
   useSmartLinkContext,
 } from './context';
+export { CardType } from './store/types';

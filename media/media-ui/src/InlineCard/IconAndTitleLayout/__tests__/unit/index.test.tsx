@@ -6,7 +6,8 @@ import { Icon } from '../../../Icon';
 describe('IconAndTitleLayout', () => {
   it('should render the text', () => {
     const element = mount(<IconAndTitleLayout title="some text content" />);
-    expect(element.text()).toContain('some text content');
+    // styled span's have an implicit span child.  The only span child of a span is the one surrounding the text
+    expect(element.find('span>span').text()).toContain('some text content');
   });
 
   it('should render an icon when it is provided', () => {

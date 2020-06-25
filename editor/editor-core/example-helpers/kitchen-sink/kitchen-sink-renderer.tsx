@@ -30,6 +30,7 @@ export const KitchenSinkRenderer: React.StatelessComponent<KitchenSinkRendererPr
             allowColumnSorting={true}
             shouldOpenMediaViewer={true}
             appearance={props.appearance as any}
+            allowAltTextOnImages={true}
           />
         </SmartCardProvider>
       </RendererPadding>

@@ -1,4 +1,4 @@
-import { NodeSelection, EditorState } from 'prosemirror-state';
+import { EditorState } from 'prosemirror-state';
 import { Node as PMNode, NodeType } from 'prosemirror-model';
 import { safeInsert, findTable } from 'prosemirror-utils';
 import { Command } from '../../types';
@@ -66,13 +66,6 @@ export const deleteExpand = (): Command => (state, dispatch) => {
   }
 
   return deleteExpandAtPos(expandNode.pos, expandNode.node)(state, dispatch);
-};
-
-export const selectExpand = (pos: number): Command => (state, dispatch) => {
-  if (dispatch) {
-    dispatch(state.tr.setSelection(new NodeSelection(state.doc.resolve(pos))));
-  }
-  return true;
 };
 
 export const updateExpandTitle = (

@@ -24,11 +24,19 @@ export enum AnnotationMarkStates {
 
 type AnnotationMarkState = { state?: AnnotationMarkStates | undefined | null };
 
+type SerializedDataAnnotationAttributes = {
+  'data-mark-type': string;
+  'data-mark-annotation-type': AnnotationTypes;
+  'data-id': AnnotationId;
+  'data-mark-annotation-state'?: AnnotationMarkStates;
+};
+
 export function buildDataAtributes({
   id,
   annotationType,
   state,
-}: AnnotationMarkAttributes & AnnotationMarkState): any {
+}: AnnotationMarkAttributes &
+  AnnotationMarkState): SerializedDataAnnotationAttributes {
   const data = {
     'data-mark-type': 'annotation',
     'data-mark-annotation-type': annotationType,
@@ -81,7 +89,7 @@ export const annotation: MarkSpec = {
           id: node.attrs.id as AnnotationId,
           annotationType: node.attrs.annotationType as AnnotationTypes,
         }),
-      },
+      } as any,
       0,
     ];
   },

@@ -149,6 +149,9 @@ export default function MobileEditor(props: MobileEditorProps) {
             }}
             UNSAFE_cards={{
               provider: props.cardProvider,
+              allowEmbeds: true,
+              allowBlockCards: true,
+              allowResizing: false,
             }}
             allowExtension={true}
             allowTextColor={true}

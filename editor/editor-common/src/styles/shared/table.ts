@@ -31,6 +31,8 @@ export const TableSharedCssClassName = {
   TABLE_NODE_WRAPPER: `${tablePrefixSelector}-wrapper`,
   TABLE_LEFT_SHADOW: `${tablePrefixSelector}-with-left-shadow`,
   TABLE_RIGHT_SHADOW: `${tablePrefixSelector}-with-right-shadow`,
+  TABLE_STICKY_SHADOW: `${tablePrefixSelector}-sticky-shadow`,
+  TABLE_STICKY_WRAPPER: `${tablePrefixSelector}-sticky-wrapper`,
   TABLE_CELL_NODEVIEW_CONTENT_DOM: tableCellContentDomSelector,
 };
 
@@ -52,7 +54,8 @@ const tableSharedStyle = css`
   }
   /* avoid applying styles to nested tables (possible via extensions) */
   .${TableSharedCssClassName.TABLE_CONTAINER} > table,
-  .${TableSharedCssClassName.TABLE_NODE_WRAPPER} > table {
+  .${TableSharedCssClassName.TABLE_NODE_WRAPPER} > table,
+  .${TableSharedCssClassName.TABLE_STICKY_WRAPPER} > table {
     border-collapse: collapse;
     margin: ${tableMarginTop}px ${tableMarginSides}px 0 0;
     border: ${tableCellBorderWidth}px solid ${themed({
@@ -70,6 +73,9 @@ const tableSharedStyle = css`
     & {
       * {
         box-sizing: border-box;
+      }
+      hr {
+        box-sizing: content-box;
       }
 
       tbody {

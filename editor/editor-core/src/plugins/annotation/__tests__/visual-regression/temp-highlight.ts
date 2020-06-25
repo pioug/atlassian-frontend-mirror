@@ -4,6 +4,7 @@ import {
   clickElementWithText,
   waitForElementWithText,
   setSelection,
+  scrollToTop,
 } from '../../../../__tests__/__helpers/page-objects/_editor';
 import {
   ExampleCreateInlineCommentComponent,
@@ -72,6 +73,7 @@ describe('Snapshot Tests', () => {
       text: '--Text end--',
     });
 
+    await scrollToTop(page);
     await snapshot(page);
   });
 });

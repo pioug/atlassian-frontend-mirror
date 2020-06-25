@@ -1,5 +1,13 @@
 # @atlaskit/collab-provider
 
+## 1.0.2
+
+### Patch Changes
+
+- [`473504379b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/473504379b) - ED-9367 Use collab entry point on editor-common
+- [`0d43df75cb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0d43df75cb) - Add unit tests for channel.ts
+- Updated dependencies
+
 ## 1.0.1
 
 ### Patch Changes

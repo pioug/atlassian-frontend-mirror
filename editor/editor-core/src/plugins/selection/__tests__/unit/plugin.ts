@@ -8,7 +8,7 @@ import {
 import { doc, p, hr } from '@atlaskit/editor-test-helpers/schema-builder';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import selectionPlugin from '../..';
-import { getPluginState } from '../../plugin';
+import { getPluginState } from '../../plugin-factory';
 import rulePlugin from '../../../rule';
 import { akEditorSelectedNodeClassName } from '../../../../styles';
 

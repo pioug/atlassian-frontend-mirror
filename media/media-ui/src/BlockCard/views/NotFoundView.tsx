@@ -14,6 +14,7 @@ import { NotFoundImage } from '../utils/constants';
 import { messages } from '../../messages';
 import { ContentFooter } from '../components/ContentFooter';
 import { IconProps, Icon } from '../components/Icon';
+import { ContentHeader } from '../components/ContentHeader';
 import { handleClickCommon } from '../utils/handlers';
 
 const textTitleProps = { ...messages.not_found_title };
@@ -47,18 +48,13 @@ export const NotFoundView = ({
     <Frame isSelected={isSelected} testId={testId}>
       <Content>
         <div>
-          <a
-            onClick={handleClick}
-            href={link}
-            target="_blank"
-            css={{ display: 'flex', alignItems: 'flex-start' }}
-          >
+          <ContentHeader onClick={handleClick} link={link}>
             <Icon {...icon} />
             <Name
               name={<FormattedMessage {...textTitleProps} />}
               testId={testId ? `${testId}-name` : undefined}
             />
-          </a>
+          </ContentHeader>
           <Byline text={<FormattedMessage {...textDescriptionProps} />} />
         </div>
         <ContentFooter>

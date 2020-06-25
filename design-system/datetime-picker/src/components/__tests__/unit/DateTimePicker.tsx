@@ -7,6 +7,14 @@ import DatePicker from '../../../components/DatePicker';
 import { DateTimePickerWithoutAnalytics as DateTimePicker } from '../../../components/DateTimePicker';
 import TimePicker from '../../../components/TimePicker';
 
+test('DateTimePicker do not require all types to be passed in for date and time picker props', () => {
+  const { container } = render(
+    <DateTimePicker datePickerProps={{}} timePickerProps={{}} />,
+  );
+
+  expect(container.firstChild).toBeInTheDocument();
+});
+
 test('custom parseValue is used when accessing state', () => {
   const onChange = jest.fn();
   const customParseValue = jest.fn().mockImplementation(() => ({

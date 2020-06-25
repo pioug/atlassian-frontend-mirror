@@ -1,45 +1,37 @@
 import React from 'react';
 import { InjectedIntlProps } from 'react-intl';
+import memoize from 'lodash.memoize';
 import memoizeOne from 'memoize-one';
 import { Schema } from 'prosemirror-model';
 
 import { EmojiProvider } from '@atlaskit/emoji/resource';
-import TableIcon from '@atlaskit/icon/glyph/editor/table';
-import EditorImageIcon from '@atlaskit/icon/glyph/editor/image';
-import MentionIcon from '@atlaskit/icon/glyph/editor/mention';
-import TaskIcon from '@atlaskit/icon/glyph/editor/task';
-import DecisionIcon from '@atlaskit/icon/glyph/editor/decision';
-import EditorMoreIcon from '@atlaskit/icon/glyph/editor/more';
-import LinkIcon from '@atlaskit/icon/glyph/editor/link';
-import EmojiIcon from '@atlaskit/icon/glyph/editor/emoji';
-import DateIcon from '@atlaskit/icon/glyph/editor/date';
-import StatusIcon from '@atlaskit/icon/glyph/status';
-import ExpandNodeIcon from '@atlaskit/icon/glyph/chevron-right-circle';
-import PlaceholderTextIcon from '@atlaskit/icon/glyph/media-services/text';
-import LayoutTwoEqualIcon from '@atlaskit/icon/glyph/editor/layout-two-equal';
-import HorizontalRuleIcon from '@atlaskit/icon/glyph/editor/horizontal-rule';
-import CodeIcon from '@atlaskit/icon/glyph/editor/code';
-import InfoIcon from '@atlaskit/icon/glyph/editor/info';
-import QuoteIcon from '@atlaskit/icon/glyph/quote';
 
 import { messages } from './messages';
 import { BlockType } from '../../../block-type/types';
-import { Shortcut } from '../../../../ui/styles';
-import {
-  addLink,
-  toggleTable,
-  tooltip,
-  ToolTipContent,
-} from '../../../../keymaps';
+import { ToolTipContent } from '../../../../keymaps';
 import { MenuItem } from '../../../../ui/DropdownMenu/types';
 import { MacroProvider } from '../../../macro';
 import { sortItems } from './sort-items';
-
-const blockTypeIcons = {
-  codeblock: CodeIcon,
-  panel: InfoIcon,
-  blockquote: QuoteIcon,
-};
+import {
+  action,
+  link,
+  media,
+  mention,
+  emoji,
+  table,
+  layout,
+  codeblock,
+  panel,
+  blockquote,
+  decision,
+  horizontalrule,
+  expand,
+  date,
+  placeholder,
+  status,
+  more,
+} from './item';
+import { shallowEquals } from './shallow-equals';
 
 export interface CreateItemsConfig {
   isTypeAheadAllowed?: boolean;
@@ -67,13 +59,34 @@ export interface CreateItemsConfig {
   schema: Schema;
   numberOfButtons: number;
   formatMessage: InjectedIntlProps['intl']['formatMessage'];
-  handleButtonRef(ref: HTMLElement): void;
-  getShortcutBlock(blockType: BlockType): string | undefined;
 }
 
 export interface BlockMenuItem extends MenuItem {
   title: JSX.Element | null;
 }
+
+const buttonToItem: (button: MenuItem) => BlockMenuItem = memoize(
+  (button: MenuItem): BlockMenuItem => ({
+    ...button,
+    title: (
+      <ToolTipContent
+        description={button.content}
+        shortcutOverride={button.shortcut}
+      />
+    ),
+  }),
+);
+
+const buttonToDropdownItem = memoizeOne((title: string): ((
+  button: MenuItem,
+) => BlockMenuItem) =>
+  memoize(
+    (button: MenuItem): BlockMenuItem => ({
+      ...button,
+      title: <ToolTipContent description={title} shortcutOverride="/" />,
+    }),
+  ),
+);
 
 const createInsertBlockItems = (
   config: CreateItemsConfig,
@@ -104,223 +117,195 @@ const createInsertBlockItems = (
     numberOfButtons,
     schema,
     formatMessage,
-    handleButtonRef,
-    getShortcutBlock,
   } = config;
-  let items: MenuItem[] = [];
+
+  const items: MenuItem[] = [];
 
   if (actionSupported) {
-    const labelAction = formatMessage(messages.action);
-    items.push({
-      content: labelAction,
-      value: { name: 'action' },
-      elemBefore: <TaskIcon label={labelAction} />,
-      elemAfter: <Shortcut>{'[]'}</Shortcut>,
-      shortcut: '[]',
-    });
+    items.push(
+      action({
+        content: formatMessage(messages.action),
+        disabled: false,
+      }),
+    );
   }
 
   if (linkSupported) {
-    const labelLink = formatMessage(messages.link);
-    const shortcutLink = tooltip(addLink);
-    items.push({
-      content: labelLink,
-      value: { name: 'link' },
-      isDisabled: linkDisabled,
-      elemBefore: <LinkIcon label={labelLink} />,
-      elemAfter: shortcutLink ? <Shortcut>{shortcutLink}</Shortcut> : undefined,
-      shortcut: shortcutLink,
-    });
+    items.push(
+      link({
+        content: formatMessage(messages.link),
+        disabled: !!linkDisabled,
+      }),
+    );
   }
+
   if (mediaSupported && mediaUploadsEnabled) {
-    const labelFilesAndImages = formatMessage(messages.filesAndImages);
-    items.push({
-      content: labelFilesAndImages,
-      value: { name: 'media' },
-      elemBefore: <EditorImageIcon label={labelFilesAndImages} />,
-    });
+    items.push(
+      media({
+        content: formatMessage(messages.filesAndImages),
+        disabled: false,
+      }),
+    );
   }
+
   if (imageUploadSupported) {
-    const labelImage = formatMessage(messages.image);
-    items.push({
-      content: labelImage,
-      value: { name: 'image upload' },
-      isDisabled: !imageUploadEnabled,
-      elemBefore: <EditorImageIcon label={labelImage} />,
-    });
+    items.push(
+      media({
+        content: formatMessage(messages.image),
+        disabled: !imageUploadEnabled,
+      }),
+    );
   }
+
   if (mentionsSupported) {
-    const labelMention = formatMessage(messages.mention);
-    items.push({
-      content: labelMention,
-      value: { name: 'mention' },
-      isDisabled: !isTypeAheadAllowed,
-      elemBefore: <MentionIcon label={labelMention} />,
-      elemAfter: <Shortcut>@</Shortcut>,
-      shortcut: '@',
-    });
+    items.push(
+      mention({
+        content: formatMessage(messages.mention),
+        disabled: !isTypeAheadAllowed,
+      }),
+    );
   }
+
   if (emojiProvider) {
-    const labelEmoji = formatMessage(messages.emoji);
-    items.push({
-      content: labelEmoji,
-      value: { name: 'emoji' },
-      isDisabled: emojiDisabled || !isTypeAheadAllowed,
-      elemBefore: <EmojiIcon label={labelEmoji} />,
-      handleRef: handleButtonRef,
-      elemAfter: <Shortcut>:</Shortcut>,
-      shortcut: ':',
-    });
+    items.push(
+      emoji({
+        content: formatMessage(messages.emoji),
+        disabled: emojiDisabled || !isTypeAheadAllowed,
+      }),
+    );
   }
+
   if (tableSupported) {
-    const labelTable = formatMessage(messages.table);
-    const shortcutTable = tooltip(toggleTable);
-    items.push({
-      content: labelTable,
-      value: { name: 'table' },
-      elemBefore: <TableIcon label={labelTable} />,
-      elemAfter: shortcutTable ? (
-        <Shortcut>{shortcutTable}</Shortcut>
-      ) : (
-        undefined
-      ),
-      shortcut: shortcutTable,
-    });
+    items.push(
+      table({
+        content: formatMessage(messages.table),
+        disabled: false,
+      }),
+    );
   }
+
   if (layoutSectionEnabled) {
     const labelColumns = formatMessage(messages.columns);
-    items.push({
-      content: labelColumns,
-      value: { name: 'layout' },
-      elemBefore: <LayoutTwoEqualIcon label={labelColumns} />,
-    });
+    items.push(
+      layout({
+        content: labelColumns,
+        disabled: false,
+      }),
+    );
   }
-  if (availableWrapperBlockTypes) {
-    availableWrapperBlockTypes.forEach(blockType => {
-      const BlockTypeIcon =
-        blockTypeIcons[blockType.name as keyof typeof blockTypeIcons];
-      const labelBlock = formatMessage(blockType.title);
-      const shortcutBlock = getShortcutBlock(blockType);
-      items.push({
-        content: labelBlock,
-        value: blockType,
-        elemBefore: <BlockTypeIcon label={labelBlock} />,
-        elemAfter: shortcutBlock ? (
-          <Shortcut>{shortcutBlock}</Shortcut>
-        ) : (
-          undefined
-        ),
-        shortcut: shortcutBlock,
-      });
-    });
+
+  const blockTypes = availableWrapperBlockTypes || [];
+  const codeblockData = blockTypes.find(type => type.name === 'codeblock');
+  const panelData = blockTypes.find(type => type.name === 'panel');
+  const blockquoteData = blockTypes.find(type => type.name === 'blockquote');
+
+  if (codeblockData) {
+    items.push(
+      codeblock({
+        content: formatMessage(codeblockData.title),
+        disabled: false,
+        shortcut: '```',
+      }),
+    );
   }
+
+  if (panelData) {
+    items.push(
+      panel({
+        content: formatMessage(panelData.title),
+        disabled: false,
+      }),
+    );
+  }
+
+  if (blockquoteData) {
+    items.push(
+      blockquote({
+        content: formatMessage(blockquoteData.title),
+        disabled: false,
+        shortcut: '>',
+      }),
+    );
+  }
+
   if (decisionSupported) {
-    const labelDecision = formatMessage(messages.decision);
-    items.push({
-      content: labelDecision,
-      value: { name: 'decision' },
-      elemBefore: <DecisionIcon label={labelDecision} />,
-      elemAfter: <Shortcut>{'<>'}</Shortcut>,
-      shortcut: '<>',
-    });
+    items.push(
+      decision({
+        content: formatMessage(messages.decision),
+        disabled: false,
+      }),
+    );
   }
+
   if (horizontalRuleEnabled && schema.nodes.rule) {
-    const labelHorizontalRule = formatMessage(messages.horizontalRule);
-    items.push({
-      content: labelHorizontalRule,
-      value: { name: 'horizontalrule' },
-      elemBefore: <HorizontalRuleIcon label={labelHorizontalRule} />,
-      elemAfter: <Shortcut>---</Shortcut>,
-      shortcut: '---',
-    });
+    items.push(
+      horizontalrule({
+        content: formatMessage(messages.horizontalRule),
+        disabled: false,
+      }),
+    );
   }
 
   if (expandEnabled && schema.nodes.expand) {
-    const labelExpand = formatMessage(messages.expand);
-    items.push({
-      content: labelExpand,
-      value: { name: 'expand' },
-      elemBefore: <ExpandNodeIcon label={labelExpand} />,
-    });
+    items.push(
+      expand({
+        content: formatMessage(messages.expand),
+        disabled: false,
+      }),
+    );
   }
 
   if (dateEnabled) {
     const labelDate = formatMessage(messages.date);
-    items.push({
-      content: labelDate,
-      value: { name: 'date' },
-      elemBefore: <DateIcon label={labelDate} />,
-      elemAfter: <Shortcut>//</Shortcut>,
-      shortcut: '//',
-    });
+    items.push(
+      date({
+        content: labelDate,
+        disabled: false,
+      }),
+    );
   }
 
   if (placeholderTextEnabled) {
-    const labelPlaceholderText = formatMessage(messages.placeholderText);
-    items.push({
-      content: labelPlaceholderText,
-      value: { name: 'placeholder text' },
-      elemBefore: <PlaceholderTextIcon label={labelPlaceholderText} />,
-    });
+    items.push(
+      placeholder({
+        content: formatMessage(messages.placeholderText),
+        disabled: false,
+      }),
+    );
   }
 
   if (nativeStatusSupported) {
     const labelStatus = formatMessage(messages.status);
-    items.push({
-      content: labelStatus,
-      value: { name: 'status' },
-      elemBefore: <StatusIcon label={labelStatus} />,
-    });
+    items.push(
+      status({
+        content: labelStatus,
+        disabled: false,
+      }),
+    );
   }
 
   if (insertMenuItems) {
-    items = items.concat(insertMenuItems);
+    items.push(...insertMenuItems);
     // keeping this here for backwards compatibility so confluence
     // has time to implement this button before it disappears.
     // Should be safe to delete soon. If in doubt ask Leandro Lemos (llemos)
   } else if (typeof macroProvider !== 'undefined' && macroProvider) {
     const labelViewMore = formatMessage(messages.viewMore);
-    items.push({
-      content: labelViewMore,
-      value: { name: 'macro' },
-      elemBefore: <EditorMoreIcon label={labelViewMore} />,
-    });
+    items.push(
+      more({
+        content: labelViewMore,
+        disabled: false,
+      }),
+    );
   }
 
-  const buttonItems = items.slice(0, numberOfButtons).map(button => ({
-    ...button,
-    title: (
-      <ToolTipContent
-        description={button.content}
-        shortcutOverride={button.shortcut}
-      />
-    ),
-  }));
+  const buttonItems = items.slice(0, numberOfButtons).map(buttonToItem);
 
-  const labelInsertMenu = formatMessage(messages.insertMenu);
-  const dropDownItemTitle = (
-    <ToolTipContent description={labelInsertMenu} shortcutOverride="/" />
+  const dropdownItems = sortItems(items.slice(numberOfButtons)).map(
+    buttonToDropdownItem(formatMessage(messages.insertMenu)),
   );
 
-  const dropdownItems = sortItems(items.slice(numberOfButtons)).map(item => ({
-    ...item,
-    title: dropDownItemTitle,
-  }));
-
   return [buttonItems, dropdownItems] as const;
-};
-
-const shallowEquals = (
-  [aRaw]: ReadonlyArray<unknown>,
-  [bRaw]: ReadonlyArray<unknown>,
-): boolean => {
-  const a = aRaw as CreateItemsConfig;
-  const b = bRaw as CreateItemsConfig;
-
-  return Object.keys(a).every(key => {
-    const k = (key as unknown) as keyof CreateItemsConfig;
-    return a[k] === b[k];
-  });
 };
 
 export const createItems = memoizeOne(createInsertBlockItems, shallowEquals);

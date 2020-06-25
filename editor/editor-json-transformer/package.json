@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-json-transformer",
-  "version": "7.0.13",
+  "version": "7.0.14",
   "description": "JSON transformer",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -23,7 +23,7 @@
     }
   },
   "dependencies": {
-    "@atlaskit/adf-schema": "^10.0.0",
+    "@atlaskit/adf-schema": "^11.0.0",
     "lodash.isequal": "^4.5.0",
     "prosemirror-model": "^1.7.0"
   },
@@ -33,12 +33,12 @@
   "devDependencies": {
     "@atlaskit/docs": "*",
     "@atlaskit/editor-bitbucket-transformer": "^6.3.5",
-    "@atlaskit/editor-common": "^45.3.0",
-    "@atlaskit/editor-confluence-transformer": "^7.3.19",
-    "@atlaskit/editor-core": "^124.0.0",
+    "@atlaskit/editor-common": "^46.0.0",
+    "@atlaskit/editor-confluence-transformer": "^7.4.0",
+    "@atlaskit/editor-core": "^125.0.0",
     "@atlaskit/editor-jira-transformer": "^7.2.25",
     "@atlaskit/editor-markdown-transformer": "^3.1.23",
-    "@atlaskit/editor-test-helpers": "^11.2.0",
+    "@atlaskit/editor-test-helpers": "^11.3.0",
     "@atlaskit/editor-wikimarkup-transformer": "^5.4.0",
     "@atlaskit/util-data-test": "^13.1.2",
     "@types/prosemirror-model": "^1.7.2",

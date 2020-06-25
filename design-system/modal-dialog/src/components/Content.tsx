@@ -87,6 +87,10 @@ interface Props {
   */
   heading?: React.ReactNode;
   /**
+   The modal id; used for aria-labelledby
+   */
+  headingId?: string;
+  /**
    * Makes heading multiline.
    * If false and heading is longer than one line overflow will be not displayed.
    */
@@ -247,6 +251,7 @@ export default class Content extends React.Component<Props, State> {
       onClose,
       shouldScroll,
       testId,
+      headingId,
     } = this.props;
 
     const { showFooterKeyline, showHeaderKeyline } = this.state;
@@ -261,12 +266,14 @@ export default class Content extends React.Component<Props, State> {
         ) : (
           <React.Fragment>
             <Header
+              id={headingId}
               appearance={appearance}
               component={components.Header ? components.Header : header}
               heading={heading}
               onClose={onClose}
               isHeadingMultiline={isHeadingMultiline}
               showKeyline={showHeaderKeyline}
+              testId={testId}
             />
             {/* Backwards compatibility for styled-components innerRefs */}
             <Body

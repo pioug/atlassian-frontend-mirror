@@ -1,5 +1,6 @@
 import {
   getExampleUrl,
+  loadPage,
   takeElementScreenShot,
 } from '@atlaskit/visual-regression/helper';
 
@@ -18,7 +19,7 @@ describe('avatar group override snapshots', () => {
       __BASEURL__,
     );
 
-    await page.goto(url);
+    await loadPage(page, url);
     await page.waitForSelector(overflowMenuTriggerSelector);
     await page.click(overflowMenuTriggerSelector);
 

@@ -16,7 +16,6 @@ export {
   DecisionListDefinition,
   DocNode,
   EmbedCardDefinition,
-  EmbedLayout,
   EmbedCardAttributes,
   EmojiAttributes,
   EmojiDefinition,
@@ -48,9 +47,7 @@ export {
   MediaDefinition,
   MediaDisplayType,
   MediaGroupDefinition,
-  MediaSingleAttributes,
   MediaSingleDefinition,
-  MediaSingleLayout,
   MediaType,
   MentionAttributes,
   MentionDefinition,
@@ -152,6 +149,8 @@ export {
   unknownBlock,
   unsupportedBlock,
   unsupportedInline,
+  RichMediaAttributes,
+  RichMediaLayout,
 } from './nodes';
 export {
   AlignmentAttributes,

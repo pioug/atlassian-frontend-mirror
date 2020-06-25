@@ -33,9 +33,9 @@ Page layout refers to the arrangement of text, images, and other objects on a pa
 ${(
   <Example
     packageName="@atlaskit/page-layout"
-    Component={require('../examples/00-basic-page-layout').default}
+    Component={require('../examples/01-basic-page-layout').default}
     title="Basic page-layout"
-    source={require('!!raw-loader!../examples/00-basic-page-layout')}
+    source={require('!!raw-loader!../examples/01-basic-page-layout')}
   />
 )}
 

@@ -163,6 +163,36 @@ describe('extension', () => {
     });
   });
 
+  describe('when going from gap cursor selection to extension node selection', () => {
+    const gapCursorTest = (document: any) => {
+      const { editorView } = editor(document);
+      const nodeViewSpy = jest.spyOn(
+        (editorView as any).nodeViews,
+        'bodiedExtension',
+      );
+
+      editorView.dispatch(
+        editorView.state.tr.setSelection(
+          NodeSelection.create(editorView.state.doc, 1),
+        ),
+      );
+
+      expect(nodeViewSpy).not.toHaveBeenCalled();
+    };
+
+    it("doesn't re-create extension nodeview when coming from left gap cursor", () => {
+      gapCursorTest(
+        doc('{<gap|>}', bodiedExtension(extensionAttrs)(paragraph('hello'))),
+      );
+    });
+
+    it("doesn't re-create extension nodeview when coming from right gap cursor", () => {
+      gapCursorTest(
+        doc(bodiedExtension(extensionAttrs)(paragraph('hello')), '{<|gap>}'),
+      );
+    });
+  });
+
   describe('actions', () => {
     describe('editExtension', () => {
       it('should return false if both extensionHandlers and macroProvider are not available', () => {
@@ -546,7 +576,7 @@ describe('extension', () => {
     });
   });
 
-  describe('show extention options', () => {
+  describe('show extension options', () => {
     it('should show options when the cursor is inside the extension', () => {
       const { editorView } = editor(
         doc(bodiedExtension(extensionAttrs)(paragraph('te{<>}xt'))),

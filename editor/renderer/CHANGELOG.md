@@ -1,5 +1,27 @@
 # @atlaskit/renderer
 
+## 61.0.0
+
+### Major Changes
+
+- [`cd6af0a113`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cd6af0a113) - CEMS-1040: rework sticky headers internally + match visual style to editor
+
+  There is a breaking change to the `stickyHeaders.showStickyHeaders` prop. It has been renamed to `stickyHeaders.show`. You can also show sticky headers by passing a truthy value to `stickyHeaders`.
+
+### Minor Changes
+
+- [`fb1a9c8009`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fb1a9c8009) - [FM-3726] Call onAnnotationClick when user taps in inline comment on Renderer
+- [`0ae829a4ea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0ae829a4ea) - EDM-648: Adds resizing and alignment to embed cards
+
+### Patch Changes
+
+- [`1508cc97c9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1508cc97c9) - fix: lazy-rendering, React key, isFrameVisible in @atlaskit/renderer and click handlers for EmbedCard components.
+- [`366dd3e743`](https://bitbucket.org/atlassian/atlassian-frontend/commits/366dd3e743) - CEMS-1103: fix sticky header row not aligning with content
+- [`7c75ddf54f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7c75ddf54f) - [EDM-704]: Fix EmbedCard UI issues
+- [`996e045cc4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/996e045cc4) - EDM-776: add platform prop to @atlaskit/smart-card for rendering fallback on mobile (embed -> block)
+- [`71a4de3370`](https://bitbucket.org/atlassian/atlassian-frontend/commits/71a4de3370) - ED-9524 Prevent right side shadow from overlapping product UI elements
+- Updated dependencies
+
 ## 60.0.0
 
 ### Minor Changes

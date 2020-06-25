@@ -1,7 +1,7 @@
 import { css } from 'styled-components';
 import {
   mediaSingleSharedStyle,
-  mediaSingleClassName,
+  richMediaClassName,
   akEditorDeleteBorder,
   akEditorDeleteBackground,
   akEditorSelectedBorderBoldSize,
@@ -12,8 +12,8 @@ import { colors } from '@atlaskit/theme';
 
 export const mediaStyles = css`
   .ProseMirror {
-    ${mediaSingleSharedStyle} & [layout='full-width'] .${mediaSingleClassName},
-    & [layout='wide'] .${mediaSingleClassName} {
+    ${mediaSingleSharedStyle} & [layout='full-width'] .${richMediaClassName},
+    & [layout='wide'] .${richMediaClassName} {
       margin-left: 50%;
       transform: translateX(-50%);
     }
@@ -32,7 +32,7 @@ export const mediaStyles = css`
       & + h6 {
         clear: both !important;
       }
-      & .${mediaSingleClassName} {
+      & .${richMediaClassName} {
         margin-left: 0;
         margin-right: 0;
       }
@@ -56,17 +56,17 @@ export const mediaStyles = css`
 
     /* Larger margins for resize handlers when at depth 0 of the document */
     & > .mediaSingleView-content-wrap {
-      .mediaSingle-resize-handle-right {
+      .richMedia-resize-handle-right {
         margin-right: -${akEditorMediaResizeHandlerPaddingWide}px;
       }
-      .mediaSingle-resize-handle-left {
+      .richMedia-resize-handle-left {
         margin-left: -${akEditorMediaResizeHandlerPaddingWide}px;
       }
     }
   }
 
-  .mediaSingle-resize-handle-right,
-  .mediaSingle-resize-handle-left {
+  .richMedia-resize-handle-right,
+  .richMedia-resize-handle-left {
     display: flex;
     flex-direction: column;
 
@@ -74,20 +74,20 @@ export const mediaStyles = css`
     justify-content: center;
   }
 
-  .mediaSingle-resize-handle-right {
+  .richMedia-resize-handle-right {
     align-items: flex-end;
     padding-right: 12px;
     margin-right: -${akEditorMediaResizeHandlerPadding}px;
   }
 
-  .mediaSingle-resize-handle-left {
+  .richMedia-resize-handle-left {
     align-items: flex-start;
     padding-left: 12px;
     margin-left: -${akEditorMediaResizeHandlerPadding}px;
   }
 
-  .mediaSingle-resize-handle-right::after,
-  .mediaSingle-resize-handle-left::after {
+  .richMedia-resize-handle-right::after,
+  .richMedia-resize-handle-left::after {
     content: ' ';
     display: flex;
     width: 3px;
@@ -96,17 +96,17 @@ export const mediaStyles = css`
     border-radius: 6px;
   }
 
-  .${mediaSingleClassName}:hover .mediaSingle-resize-handle-left::after,
-  .${mediaSingleClassName}:hover .mediaSingle-resize-handle-right::after {
+  .${richMediaClassName}:hover .richMedia-resize-handle-left::after,
+  .${richMediaClassName}:hover .richMedia-resize-handle-right::after {
     background: ${colors.N60};
   }
 
-  .mediaSingle-selected .mediaSingle-resize-handle-right::after,
-  .mediaSingle-selected .mediaSingle-resize-handle-left::after,
-  .${mediaSingleClassName} .mediaSingle-resize-handle-right:hover::after,
-  .${mediaSingleClassName} .mediaSingle-resize-handle-left:hover::after,
-  .${mediaSingleClassName}.is-resizing .mediaSingle-resize-handle-right::after,
-  .${mediaSingleClassName}.is-resizing .mediaSingle-resize-handle-left::after {
+  .richMedia-selected .richMedia-resize-handle-right::after,
+  .richMedia-selected .richMedia-resize-handle-left::after,
+  .${richMediaClassName} .richMedia-resize-handle-right:hover::after,
+  .${richMediaClassName} .richMedia-resize-handle-left:hover::after,
+  .${richMediaClassName}.is-resizing .richMedia-resize-handle-right::after,
+  .${richMediaClassName}.is-resizing .richMedia-resize-handle-left::after {
     background: ${colors.B200};
   }
 
@@ -129,12 +129,12 @@ export const mediaStyles = css`
   /* Danger when nested node or common */
   .danger {
     /* Media single */
-    .${mediaSingleClassName} div div div::after {
+    .${richMediaClassName} div div div::after {
       border: ${akEditorSelectedBorderBoldSize}px solid ${akEditorDeleteBorder};
     }
 
-    .mediaSingle-selected .mediaSingle-resize-handle-right::after,
-    .mediaSingle-selected .mediaSingle-resize-handle-left::after {
+    .richMedia-selected .richMedia-resize-handle-right::after,
+    .richMedia-selected .richMedia-resize-handle-left::after {
       background: ${akEditorDeleteBorder};
     }
 

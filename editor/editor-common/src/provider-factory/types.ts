@@ -6,7 +6,7 @@ import { ExtensionProvider } from '../extensions/types';
 import { AutoformattingProvider } from './autoformatting-provider';
 import { ContextIdentifierProvider } from './context-identifier-provider';
 import { ImageUploadProvider } from './image-upload-provider';
-import { CollabEditProvider } from './collab-edit-provider';
+import { CollabEditProvider } from '../collab/types';
 import { MacroProvider } from './macro-provider';
 import { CardProvider } from './card-provider';
 import { QuickInsertProvider } from './quick-insert-provider';

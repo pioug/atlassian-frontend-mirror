@@ -2,7 +2,10 @@ import React from 'react';
 import { Component } from 'react';
 import { Node as PMNode } from 'prosemirror-model';
 import { EditorView, Decoration } from 'prosemirror-view';
-import { MediaSingleLayout, MediaADFAttrs } from '@atlaskit/adf-schema';
+import {
+  RichMediaLayout as MediaSingleLayout,
+  MediaADFAttrs,
+} from '@atlaskit/adf-schema';
 import {
   MediaSingle,
   WithProviders,
@@ -37,7 +40,7 @@ import { MediaNodeUpdater } from './mediaNodeUpdater';
 import { DispatchAnalyticsEvent } from '../../analytics';
 import { findParentNodeOfTypeClosestToPos } from 'prosemirror-utils';
 import { CellSelection } from 'prosemirror-tables';
-import { floatingLayouts } from '../utils/media-single';
+import { floatingLayouts } from '../../../utils/rich-media-utils';
 
 export interface MediaSingleNodeState {
   width?: number;

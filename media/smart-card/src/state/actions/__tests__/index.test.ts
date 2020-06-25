@@ -3,6 +3,7 @@ jest.doMock('react', () => mockMemo);
 const mockAuthFlow = jest.fn();
 const mockMemo = {
   useMemo: jest.fn().mockImplementation(fn => fn()),
+  useCallback: jest.fn().mockImplementation(fn => fn),
 };
 import { mockEvents } from '../../../view/__tests__/_mocks';
 

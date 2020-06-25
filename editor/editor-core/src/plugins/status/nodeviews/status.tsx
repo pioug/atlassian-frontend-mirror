@@ -4,10 +4,7 @@ import styled from 'styled-components';
 import { Node as PMNode } from 'prosemirror-model';
 import { EditorView, NodeView } from 'prosemirror-view';
 import { Color, Status, StatusStyle } from '@atlaskit/status/element';
-import {
-  akEditorSelectedBorderStyles,
-  ZERO_WIDTH_SPACE,
-} from '@atlaskit/editor-common';
+import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common';
 import { ReactNodeView, getPosHandler } from '../../../nodeviews';
 import InlineNodeWrapper, {
   createMobileInlineDomRef,
@@ -30,23 +27,7 @@ export interface StyledStatusProps {
 }
 
 export const StyledStatus = styled.span`
-  cursor: pointer;
-
-  display: inline-block;
   opacity: ${(props: StyledStatusProps) => (props.placeholderStyle ? 0.5 : 1)};
-
-  max-width: 100%;
-
-  /* Prevent responsive layouts increasing height of container. */
-  line-height: 0;
-
-  * ::selection {
-    background-color: transparent;
-  }
-
-  .ProseMirror-selectednode & {
-    ${akEditorSelectedBorderStyles};
-  }
 `;
 
 export interface ContainerProps {

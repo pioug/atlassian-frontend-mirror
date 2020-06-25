@@ -1,15 +1,21 @@
 import { css } from 'styled-components';
 import { akEditorTableCellMinWidth } from '../consts';
 
-export const tasksAndDecisionsStyles = css`
-  .ProseMirror .taskItemView-content-wrap,
-  .ProseMirror .decisionItemView-content-wrap {
-    position: relative;
-    min-width: ${akEditorTableCellMinWidth}px;
-  }
+export const TaskDecisionSharedCssClassName = {
+  DECISION_CONTAINER: 'decisionItemView-content-wrap',
+};
 
-  .ProseMirror .decisionItemView-content-wrap {
-    margin-top: 0;
+export const tasksAndDecisionsStyles = css`
+  .ProseMirror {
+    .taskItemView-content-wrap,
+    .${TaskDecisionSharedCssClassName.DECISION_CONTAINER} {
+      position: relative;
+      min-width: ${akEditorTableCellMinWidth}px;
+    }
+
+    .${TaskDecisionSharedCssClassName.DECISION_CONTAINER} {
+      margin-top: 0;
+    }
   }
 
   div[data-task-list-local-id] {

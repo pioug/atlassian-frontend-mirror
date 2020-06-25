@@ -99,6 +99,20 @@ type DeletedExpandAEP = TrackAEP<
   undefined
 >;
 
+type UnsupportedContentAEP = TrackAEP<
+  ACTION.UNSUPPORTED_CONTENT_ENCOUNTERED,
+  ACTION_SUBJECT.DOCUMENT,
+  ACTION_SUBJECT_ID.UNSUPPORTED_BLOCK | ACTION_SUBJECT_ID.UNSUPPORTED_INLINE,
+  {
+    unsupportedNode: {
+      type: string;
+      parentType: string;
+      ancestry: string;
+    };
+  },
+  undefined
+>;
+
 export type NodeEventPayload =
   | ChangePanelAEP
   | DeletePanelAEP
@@ -107,4 +121,5 @@ export type NodeEventPayload =
   | ChangedLayoutAEP
   | DeletedLayoutAEP
   | DeletedExpandAEP
-  | ChangeSmartLinkAEP;
+  | ChangeSmartLinkAEP
+  | UnsupportedContentAEP;

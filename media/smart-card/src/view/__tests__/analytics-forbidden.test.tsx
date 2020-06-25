@@ -53,7 +53,7 @@ describe('smart-card: forbidden analytics', () => {
         </Provider>,
       );
       const forbiddenLink = await waitForElement(
-        () => getByTestId('forbiddenCard1-forbidden'),
+        () => getByTestId('forbiddenCard1-forbidden-view'),
         {
           timeout: 10000,
         },
@@ -68,7 +68,7 @@ describe('smart-card: forbidden analytics', () => {
 
       mockFetch.mockImplementationOnce(async () => mocks.success);
       const resolvedView = await waitForElement(
-        () => getByTestId('forbiddenCard1-resolved'),
+        () => getByTestId('forbiddenCard1-resolved-view'),
         {
           timeout: 10000,
         },
@@ -99,7 +99,7 @@ describe('smart-card: forbidden analytics', () => {
         </Provider>,
       );
       const forbiddenLink = await waitForElement(
-        () => getByTestId('forbiddenCard2-forbidden'),
+        () => getByTestId('forbiddenCard2-forbidden-view'),
         {
           timeout: 10000,
         },
@@ -114,7 +114,7 @@ describe('smart-card: forbidden analytics', () => {
 
       mockFetch.mockImplementationOnce(async () => mocks.success);
       const unresolvedView = await waitForElement(
-        () => getByTestId('forbiddenCard2-resolved'),
+        () => getByTestId('forbiddenCard2-resolved-view'),
         {
           timeout: 10000,
         },

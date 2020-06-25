@@ -7,6 +7,7 @@ import {
   Selection,
   EditorState,
   Transaction,
+  AllSelection,
 } from 'prosemirror-state';
 import { findDomRefAtPos, findSelectedNodeOfType } from 'prosemirror-utils';
 import { Popup, ProviderFactory } from '@atlaskit/editor-common';
@@ -23,6 +24,7 @@ import {
   pluginKey as editorDisabledPluginKey,
   EditorDisabledPluginState,
 } from '../editor-disabled';
+import { findNode } from './utils';
 
 type ConfigWithNodeInfo = {
   config: FloatingToolbarConfig | undefined;
@@ -73,6 +75,20 @@ export const getRelevantConfig = (
     const matchedConfig = configByNodeType[node.type.name];
     if (matchedConfig) {
       return { config: matchedConfig, node: node, pos: $from.pos };
+    }
+  }
+
+  // if it is AllSelection (can be result of Cmd+A) - use first node
+  if (selection instanceof AllSelection) {
+    const docNode = $from.node(0);
+
+    let matchedConfig: FloatingToolbarConfig | null = null;
+    const firstChild = findNode(docNode, node => {
+      matchedConfig = configByNodeType[node.type.name];
+      return !!matchedConfig;
+    });
+    if (firstChild && matchedConfig) {
+      return { config: matchedConfig, node: firstChild, pos: $from.pos };
     }
   }
 

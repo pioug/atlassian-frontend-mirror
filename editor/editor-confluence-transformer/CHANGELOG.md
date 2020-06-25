@@ -1,5 +1,15 @@
 # @atlaskit/editor-cq-transformer
 
+## 7.4.0
+
+### Minor Changes
+
+- [`0ae829a4ea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0ae829a4ea) - EDM-648: Adds resizing and alignment to embed cards
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.3.20
 
 ### Patch Changes

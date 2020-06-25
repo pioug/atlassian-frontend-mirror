@@ -9,6 +9,7 @@ import {
   createCardProvider,
 } from '../../../providers';
 import { IntlProvider } from 'react-intl';
+import { FetchProxy } from '../../../utils/fetch-proxy';
 
 const initialDocument = JSON.stringify({
   version: 1,
@@ -33,16 +34,18 @@ let consoleError = console.error;
 
 describe('mobile editor element', () => {
   let mobileEditor: ReactWrapper<typeof MobileEditor>;
+  let fetchProxy: FetchProxy;
 
   const initEditor = (): ReactWrapper<typeof MobileEditor> => {
     let wrapper: any;
+
     wrapper = mount(
       <MobileEditor
         mode="light"
         cardClient={createCardClient()}
         cardProvider={createCardProvider()}
         defaultValue={initialDocument}
-        emojiProvider={createEmojiProvider()}
+        emojiProvider={createEmojiProvider(fetchProxy)}
         mediaProvider={createMediaProvider()}
         mentionProvider={createMentionProvider()}
       />,
@@ -54,9 +57,13 @@ describe('mobile editor element', () => {
   beforeEach(() => {
     // eslint-disable-next-line no-console
     console.error = jest.fn();
+    fetchProxy = new FetchProxy();
+    fetchProxy.enable();
   });
 
   afterEach(() => {
+    mobileEditor && mobileEditor.unmount();
+    fetchProxy.disable();
     // eslint-disable-next-line no-console
     console.error = consoleError;
     jest.clearAllMocks();

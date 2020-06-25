@@ -2,7 +2,7 @@ import {
   CollabParticipant,
   CollabEventTelepointerData,
   CollabSendableSelection,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-common/collab';
 import { Step } from 'prosemirror-transform';
 
 export type ConnectedPayload = {

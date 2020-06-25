@@ -12,6 +12,7 @@ import itemTheme from '../theme/itemTheme';
 import AvatarGroupItem from './AvatarGroupItem';
 import MoreIndicator, { MoreIndicatorProps } from './MoreIndicator';
 import { AvatarGroupOverrides, AvatarGroupProps, DeepRequired } from './types';
+import { composeAUniqueKey } from './utils';
 
 const GROUP_COMPONENT = {
   grid: Grid,
@@ -35,13 +36,13 @@ export default class AvatarGroup extends Component<AvatarGroupProps> {
     return {
       AvatarGroupItem: {
         render: (Component, props, index) => (
-          <Component {...props} key={index} />
+          <Component {...props} key={composeAUniqueKey(props.avatar, index)} />
         ),
         ...(this.props.overrides && this.props.overrides.AvatarGroupItem),
       },
       Avatar: {
         render: (Component, props, index) => (
-          <Component {...props} key={index} />
+          <Component {...props} key={composeAUniqueKey(props, index)} />
         ),
         ...(this.props.overrides && this.props.overrides.Avatar),
       },
@@ -160,7 +161,7 @@ export default class AvatarGroup extends Component<AvatarGroupProps> {
       );
 
       return avatarData.name && avatarData.enableTooltip !== false ? (
-        <Tooltip key={idx} content={avatarData.name}>
+        <Tooltip key={avatarData.name} content={avatarData.name}>
           {avatar}
         </Tooltip>
       ) : (

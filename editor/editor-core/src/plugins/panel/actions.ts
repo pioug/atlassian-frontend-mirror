@@ -22,13 +22,6 @@ import { findPanel } from './utils';
 
 export type DomAtPos = (pos: number) => { node: HTMLElement; offset: number };
 
-export const selectPanel = (pos: number): Command => (state, dispatch) => {
-  if (dispatch) {
-    dispatch(state.tr.setSelection(new NodeSelection(state.doc.resolve(pos))));
-  }
-  return true;
-};
-
 export const removePanel = (): Command => (state, dispatch) => {
   const {
     schema: { nodes },

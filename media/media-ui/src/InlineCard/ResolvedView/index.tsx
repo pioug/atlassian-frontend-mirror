@@ -20,6 +20,8 @@ export interface InlineCardResolvedViewProps {
   onClick?: React.EventHandler<React.MouseEvent | React.KeyboardEvent>;
   /** A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests */
   testId?: string;
+  /** The color of the title text only (not including the icon) */
+  titleTextColor?: string;
 }
 
 export class InlineCardResolvedView extends React.Component<
@@ -43,7 +45,15 @@ export class InlineCardResolvedView extends React.Component<
   }
 
   render() {
-    const { title = '', isSelected, onClick, icon, link, testId } = this.props;
+    const {
+      title = '',
+      isSelected,
+      onClick,
+      icon,
+      link,
+      testId = 'inline-card-resolved-view',
+      titleTextColor,
+    } = this.props;
     return (
       <Frame
         testId={testId}
@@ -51,7 +61,11 @@ export class InlineCardResolvedView extends React.Component<
         isSelected={isSelected}
         onClick={onClick}
       >
-        <IconAndTitleLayout icon={icon} title={title} />
+        <IconAndTitleLayout
+          icon={icon}
+          title={title}
+          titleTextColor={titleTextColor}
+        />
         {this.renderLozenge()}
       </Frame>
     );

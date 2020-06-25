@@ -1,13 +1,9 @@
 import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
 import { doc, p } from '@atlaskit/editor-test-helpers/schema-builder';
 import { akEditorBreakoutPadding } from '@atlaskit/editor-common';
-import { MediaSingleLayout } from '@atlaskit/adf-schema';
 import { EditorView } from 'prosemirror-view';
 import { buildLayoutForWidths } from '../../../../../plugins/layout/__tests__/unit/_utils';
-import {
-  calcMediaPxWidth,
-  alignAttributes,
-} from '../../../../../plugins/media/utils/media-single';
+import { calcMediaPxWidth } from '../../../../../plugins/media/utils/media-single';
 
 describe('Media Single Utils', () => {
   const createEditor = createEditorFactory();
@@ -39,102 +35,6 @@ describe('Media Single Utils', () => {
       doc,
       editorProps: { allowLayouts: true },
     });
-
-  describe('alignAttributes', () => {
-    const align = (opts: {
-      oldLayout: MediaSingleLayout;
-      newLayout: MediaSingleLayout;
-      width?: number;
-    }) =>
-      alignAttributes(opts.newLayout, {
-        layout: opts.oldLayout,
-        width: opts.width,
-      });
-
-    describe('unwrapped -> wrapped layout', () => {
-      it('sets 50% width if no width defined', () => {
-        const { width } = align({
-          oldLayout: 'center',
-          newLayout: 'align-start',
-        });
-        expect(width).toBe(50);
-      });
-
-      it('sets 50% width if width is 100%', () => {
-        const { width } = align({
-          oldLayout: 'center',
-          newLayout: 'align-start',
-          width: 100,
-        });
-        expect(width).toBe(50);
-      });
-
-      it('keeps width if width is < 100%', () => {
-        const { width } = align({
-          oldLayout: 'center',
-          newLayout: 'align-start',
-          width: 70,
-        });
-        expect(width).toBe(70);
-      });
-
-      it('sets 50% width if layout is wide', () => {
-        const { width } = align({
-          oldLayout: 'wide',
-          newLayout: 'align-start',
-          width: 120,
-        });
-        expect(width).toBe(50);
-      });
-
-      it('sets 50% width if layout is full-width', () => {
-        const { width } = align({
-          oldLayout: 'full-width',
-          newLayout: 'align-start',
-          width: 150,
-        });
-        expect(width).toBe(50);
-      });
-    });
-
-    describe('unwrapped -> unwrapped layout', () => {
-      it('unsets width if wide layout', () => {
-        const { width } = align({
-          oldLayout: 'center',
-          newLayout: 'wide',
-        });
-        expect(width).toBe(undefined);
-      });
-
-      it('unsets width if full-width layout', () => {
-        const { width } = align({
-          oldLayout: 'center',
-          newLayout: 'full-width',
-        });
-        expect(width).toBe(undefined);
-      });
-    });
-
-    describe('wrapped -> unwrapped layout', () => {
-      it('updates width when previous width does not align to even grid', () => {
-        const { width } = align({
-          oldLayout: 'align-start',
-          newLayout: 'center',
-          width: 60,
-        });
-        expect(width).toBe(50);
-      });
-
-      it('leaves width when previous width aligns to even grid', () => {
-        const { width } = align({
-          oldLayout: 'align-start',
-          newLayout: 'center',
-          width: 50,
-        });
-        expect(width).toBe(undefined);
-      });
-    });
-  });
 
   describe('calcMediaPxWidth', () => {
     let editorView: EditorView;

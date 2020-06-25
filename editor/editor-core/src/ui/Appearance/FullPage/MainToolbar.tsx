@@ -23,6 +23,7 @@ export const MainToolbar = styled.div<MainToolbarProps>`
   display: flex;
   height: 80px;
   flex-shrink: 0;
+  background-color: white;
 
   & object {
     height: 0 !important;

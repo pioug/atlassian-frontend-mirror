@@ -11,14 +11,18 @@ export interface EmbedCardForbiddenViewProps {
   isSelected?: boolean;
   testId?: string;
   onAuthorise?: () => void;
+  inheritDimensions?: boolean;
+  onClick?: (evt: React.MouseEvent) => void;
 }
 
 export const EmbedCardForbiddenView: FC<EmbedCardForbiddenViewProps> = ({
   link,
   context,
   isSelected,
-  testId = 'embed-forbidden-view',
+  testId = 'embed-card-forbidden-view',
   onAuthorise,
+  inheritDimensions,
+  onClick,
 }) => {
   const icon = context && context.icon && (
     <ImageIcon
@@ -32,18 +36,21 @@ export const EmbedCardForbiddenView: FC<EmbedCardForbiddenViewProps> = ({
       text={context && context.text}
       isVisible={true}
       isSelected={isSelected}
+      inheritDimensions={inheritDimensions}
+      onClick={onClick}
+      testId={testId}
     >
       <EmbedCardUnresolvedView
         image={LockImage}
         title="invalid_permissions"
         description="invalid_permissions_description"
         context={context && context.text}
-        testId={testId}
         button={{
           appearance: 'default',
           text: 'try_another_account',
         }}
         onClick={onAuthorise}
+        testId={testId}
       />
     </ExpandedFrame>
   );

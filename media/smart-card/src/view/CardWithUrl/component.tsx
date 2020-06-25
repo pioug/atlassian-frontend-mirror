@@ -13,6 +13,7 @@ import {
   getDefinitionId,
   getServices,
   isFinalState,
+  getClickUrl,
 } from '../../state/helpers';
 import { useSmartLink } from '../../state';
 import { BlockCard } from '../BlockCard';
@@ -94,12 +95,14 @@ export function CardWithUrlContent({
   url,
   isSelected,
   isFrameVisible,
+  platform,
   onClick,
   appearance,
   dispatchAnalytics,
   onResolve,
   testId,
   showActions,
+  inheritDimensions,
 }: CardWithUrlContentProps) {
   // Get state, actions for this card.
   const { state, actions, config, analytics } = useSmartLink(
@@ -109,24 +112,45 @@ export function CardWithUrlContent({
   );
   const definitionId = getDefinitionId(state.details);
   const services = getServices(state.details);
+
   // Setup UI handlers.
-  const handleClick = (event: MouseEvent | KeyboardEvent) => {
-    isSpecialEvent(event)
-      ? window.open(url, '_blank')
-      : window.open(url, '_self');
-  };
-  const handleClickWrapper = (event: MouseEvent | KeyboardEvent) => {
-    if (state.status === 'resolved') {
-      analytics.ui.cardClickedEvent(appearance, definitionId);
-    }
-    onClick ? onClick(event) : handleClick(event);
-  };
-  const handleAuthorize = () => actions.authorize(appearance);
-  const handleRetry = () => {
+  const handleClick = useCallback(
+    (event: MouseEvent | KeyboardEvent) => {
+      const clickUrl = getClickUrl(url, state.details);
+      isSpecialEvent(event)
+        ? window.open(clickUrl, '_blank')
+        : window.open(clickUrl, '_self');
+    },
+    [state.details, url],
+  );
+  const handleClickWrapper = useCallback(
+    (event: MouseEvent | KeyboardEvent) => {
+      if (state.status === 'resolved') {
+        analytics.ui.cardClickedEvent(appearance, definitionId);
+      }
+      onClick ? onClick(event) : handleClick(event);
+    },
+    [
+      state.status,
+      analytics.ui,
+      appearance,
+      definitionId,
+      onClick,
+      handleClick,
+    ],
+  );
+  const handleAuthorize = useCallback(() => actions.authorize(appearance), [
+    actions,
+    appearance,
+  ]);
+  const handleRetry = useCallback(() => {
     actions.reload();
-  };
-  const handleInvoke = (opts: InvokeClientOpts | InvokeServerOpts) =>
-    actions.invoke(opts, appearance);
+  }, [actions]);
+  const handleInvoke = useCallback(
+    (opts: InvokeClientOpts | InvokeServerOpts) =>
+      actions.invoke(opts, appearance),
+    [actions, appearance],
+  );
 
   // NB: for each status change in a Smart Link, a performance mark is created.
   // Measures are sent relative to the first mark, matching what a user sees.
@@ -205,10 +229,15 @@ export function CardWithUrlContent({
           handleAuthorize={(services.length && handleAuthorize) || undefined}
           handleErrorRetry={handleRetry}
           handleFrameClick={handleClickWrapper}
+          handleInvoke={handleInvoke}
+          handleAnalytics={dispatchAnalytics}
           isSelected={isSelected}
           isFrameVisible={isFrameVisible}
+          platform={platform}
           onResolve={onResolve}
           testId={testId}
+          inheritDimensions={inheritDimensions}
+          showActions={showActions}
         />
       );
   }

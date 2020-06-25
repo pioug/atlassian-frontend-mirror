@@ -42,7 +42,7 @@ export const EmbedCardUnresolvedView: FC<EmbedCardUnresolvedViewProps> = ({
         paddingTop: gridSize(4.5),
         paddingBottom: gridSize(6),
       }}
-      data-testid={testId}
+      data-testid={`${testId}-unresolved-container`}
     >
       <img
         src={image}

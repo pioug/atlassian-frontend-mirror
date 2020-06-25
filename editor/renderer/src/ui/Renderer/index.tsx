@@ -36,7 +36,7 @@ import { ReactSerializer, renderDocument, RendererContext } from '../../';
 import { RenderOutputStat } from '../../render-document';
 import { Wrapper } from './style';
 import { TruncatedWrapper } from './truncated-wrapper';
-import { RendererAppearance, StickyHeaderConfig } from './types';
+import { RendererAppearance, StickyHeaderProps } from './types';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../../analytics/enums';
 import { AnalyticsEventPayload, PLATFORM, MODE } from '../../analytics/events';
 import AnalyticsContext from '../../analytics/analyticsContext';
@@ -68,7 +68,6 @@ export interface Props {
   // before main JavaScript bundle is available.
   enableSsrInlineScripts?: boolean;
   onComplete?: (stat: RenderOutputStat) => void;
-  annotationProvider?: AnnotationProviders<AnnotationMarkStates> | null;
   onError?: (error: any) => void;
   portal?: HTMLElement;
   rendererContext?: RendererContext;
@@ -86,11 +85,12 @@ export interface Props {
   allowColumnSorting?: boolean;
   shouldOpenMediaViewer?: boolean;
   allowAltTextOnImages?: boolean;
-  allowAnnotations?: boolean;
-  stickyHeaders?: StickyHeaderConfig;
+  stickyHeaders?: StickyHeaderProps;
   media?: {
     allowLinking?: boolean;
   };
+  allowAnnotations?: boolean;
+  annotationProvider?: AnnotationProviders<AnnotationMarkStates> | null;
 }
 export class Renderer extends PureComponent<Props> {
   private providerFactory: ProviderFactory;
@@ -181,6 +181,13 @@ export class Renderer extends PureComponent<Props> {
   }
 
   private deriveSerializerProps(props: Props): ReactSerializerInit {
+    // if just passed a boolean, change shape into object to simplify type
+    const stickyHeaders = props.stickyHeaders
+      ? props.stickyHeaders === true
+        ? {}
+        : props.stickyHeaders
+      : undefined;
+
     return {
       providers: this.providerFactory,
       eventHandlers: props.eventHandlers,
@@ -200,7 +207,7 @@ export class Renderer extends PureComponent<Props> {
       fireAnalyticsEvent: this.fireAnalyticsEvent,
       shouldOpenMediaViewer: props.shouldOpenMediaViewer,
       allowAltTextOnImages: props.allowAltTextOnImages,
-      stickyHeaders: props.stickyHeaders,
+      stickyHeaders,
       allowMediaLinking: props.media && props.media.allowLinking,
       allowAnnotations: props.allowAnnotations,
       getAnnotationPromise: (id: AnnotationId) =>

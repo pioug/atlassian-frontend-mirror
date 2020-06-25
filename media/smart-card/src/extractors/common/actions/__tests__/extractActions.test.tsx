@@ -2,7 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { FormattedMessage, IntlProvider } from 'react-intl';
 
-import { extractBlockActionPropsFromJSONLD } from '../extractActions';
+import { extractActions } from '../extractActions';
 import {
   TEST_DOCUMENT_WITH_ACTIONS,
   TEST_NO_ID_ACTION,
@@ -12,16 +12,11 @@ describe('extractBlockActionPropsFromJSONLD()', () => {
   const handler = jest.fn();
 
   it('should return empty array if there are no actions', () => {
-    expect(extractBlockActionPropsFromJSONLD(document as any, handler)).toEqual(
-      [],
-    );
+    expect(extractActions(document as any, handler)).toEqual([]);
   });
 
   it('should return client and server actions together', () => {
-    const props = extractBlockActionPropsFromJSONLD(
-      TEST_DOCUMENT_WITH_ACTIONS as any,
-      handler,
-    );
+    const props = extractActions(TEST_DOCUMENT_WITH_ACTIONS as any, handler);
     expect(props).toEqual([
       {
         id: 'download-content',
@@ -48,14 +43,12 @@ describe('extractBlockActionPropsFromJSONLD()', () => {
       ...TEST_DOCUMENT_WITH_ACTIONS,
       'schema:potentialAction': [TEST_NO_ID_ACTION],
     };
-    expect(extractBlockActionPropsFromJSONLD(document as any, handler)).toEqual(
-      [
-        {
-          id: 'DeleteAction',
-          text: 'delete',
-          promise: expect.any(Function),
-        },
-      ],
-    );
+    expect(extractActions(document as any, handler)).toEqual([
+      {
+        id: 'DeleteAction',
+        text: 'delete',
+        promise: expect.any(Function),
+      },
+    ]);
   });
 });

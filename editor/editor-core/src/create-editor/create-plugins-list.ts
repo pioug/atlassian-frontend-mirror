@@ -388,7 +388,8 @@ export default function createPluginsList(
   }
 
   if (props.UNSAFE_cards) {
-    plugins.push(cardPlugin(props.UNSAFE_cards, isMobile));
+    const fullWidthMode = props.appearance === 'full-width';
+    plugins.push(cardPlugin(props.UNSAFE_cards, isMobile, fullWidthMode));
   }
 
   if (props.autoformattingProvider) {

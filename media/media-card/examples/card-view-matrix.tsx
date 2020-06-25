@@ -25,6 +25,7 @@ interface State {
   withDataURI: boolean;
   hasActions: boolean;
   isExternalImage: boolean;
+  enableNewExperience: boolean;
 }
 
 class Example extends React.Component<{}, State> {
@@ -36,6 +37,7 @@ class Example extends React.Component<{}, State> {
     withDataURI: true,
     hasActions: true,
     isExternalImage: false,
+    enableNewExperience: false,
   };
 
   render() {
@@ -104,6 +106,13 @@ class Example extends React.Component<{}, State> {
             value="isExternalImage"
             label="Is external image?"
             isChecked={this.state.isExternalImage}
+            onChange={this.onCheckboxChange}
+            name="isExternalImage"
+          />
+          <Checkbox
+            value="enableNewExperience"
+            label="Display the new experience?"
+            isChecked={this.state.enableNewExperience}
             onChange={this.onCheckboxChange}
             name="isExternalImage"
           />
@@ -191,6 +200,9 @@ class Example extends React.Component<{}, State> {
     return (
       <CardWrapper>
         <CardView
+          featureFlags={{
+            enableNewExperience: this.state.enableNewExperience,
+          }}
           status={status}
           metadata={metadata}
           onClick={(e: React.MouseEvent) => console.log('mouse click!')}

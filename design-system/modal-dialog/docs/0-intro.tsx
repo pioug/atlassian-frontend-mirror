@@ -52,8 +52,8 @@ ${code`
   )}
 
   The example below demonstrates how to toggle and replace the internal components of \`ModalDialog\`
-  to achieve a more customised appearance. 
-  
+  to achieve a more customised appearance.
+
   Note that the ref of any custom Body components
   must resolve to a DOM node - this example uses \`React.forwardRef\` to support this behaviour.
 
@@ -66,7 +66,7 @@ ${code`
     />
   )}
 
-  The example below demonstrates how to wrap the internal components of \`ModalDialog\` to provide 
+  The example below demonstrates how to wrap the internal components of \`ModalDialog\` to provide
   support for forms.
 
   ${(

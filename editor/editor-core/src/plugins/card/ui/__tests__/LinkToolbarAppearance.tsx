@@ -54,6 +54,7 @@ describe('LinkToolbarAppearance', () => {
         editorState={editorState}
         url="some-url"
         allowEmbeds
+        platform="web"
       />,
     );
     const getPreview = jest.fn().mockReturnValue('some-url-preview');
@@ -73,7 +74,7 @@ describe('LinkToolbarAppearance', () => {
     toolbar.setProps({});
     toolbar.update();
 
-    expect(getPreview).toBeCalledWith('some-url');
+    expect(getPreview).toBeCalledWith('some-url', 'web');
     expect(toolbar.find(Dropdown)).toHaveLength(1);
     expect(toolbar.find(Dropdown).prop('options')).toHaveLength(3);
   });

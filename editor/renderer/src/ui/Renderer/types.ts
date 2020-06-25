@@ -7,5 +7,10 @@ export type RendererAppearance =
 
 export type StickyHeaderConfig = {
   offsetTop?: number;
-  showStickyHeaders: boolean;
 };
+
+export type StickyHeaderProps =
+  | boolean
+  | ({
+      show?: boolean;
+    } & StickyHeaderConfig);

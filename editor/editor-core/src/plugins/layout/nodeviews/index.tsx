@@ -6,7 +6,7 @@ import {
 } from 'prosemirror-model';
 
 import { getPosHandlerNode, getPosHandler } from '../../../nodeviews/';
-import { selectLayout } from '../actions';
+import { selectNode } from '../../../utils/commands';
 
 const toDOM = (): DOMOutputSpec => [
   'div',
@@ -48,7 +48,7 @@ export class LayoutSectionNodeView implements NodeView {
     ) {
       event.preventDefault();
       const { state, dispatch } = this.view;
-      selectLayout(this.getPos())(state, dispatch);
+      selectNode(this.getPos())(state, dispatch);
     }
   };
 

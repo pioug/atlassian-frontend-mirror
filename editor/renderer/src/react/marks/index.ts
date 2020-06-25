@@ -11,7 +11,10 @@ import Underline from './underline';
 import Breakout from './breakout';
 import Alignment from './alignment';
 import Indentation from './indentation';
-import Annotation, { Props as AnnotationProps } from './annotation';
+import Annotation, {
+  Props as AnnotationProps,
+  AnnotationContext,
+} from './annotation';
 
 // Stage0
 import ConfluenceInlineComment from './confluence-inline-comment';
@@ -50,4 +53,5 @@ export {
   Breakout,
   Annotation,
   AnnotationProps,
+  AnnotationContext,
 };

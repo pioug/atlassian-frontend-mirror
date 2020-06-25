@@ -1,5 +1,18 @@
 # @atlaskit/media-ui
 
+## 12.5.0
+
+### Minor Changes
+
+- [`0ae829a4ea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0ae829a4ea) - EDM-648: Adds resizing and alignment to embed cards
+- [`1508cc97c9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1508cc97c9) - fix: lazy-rendering, React key, isFrameVisible in @atlaskit/renderer and click handlers for EmbedCard components.
+
+### Patch Changes
+
+- [`7c75ddf54f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7c75ddf54f) - [EDM-704]: Fix EmbedCard UI issues
+- [`2589a3e4fc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2589a3e4fc) - EDM-713: fix copy-paste from Renderer to Editor on Firefox
+- Updated dependencies
+
 ## 12.4.1
 
 ### Patch Changes

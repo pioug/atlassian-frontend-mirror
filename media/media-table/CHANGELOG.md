@@ -1,5 +1,12 @@
 # @atlaskit/media-table
 
+## 3.0.1
+
+### Patch Changes
+
+- [`51aa5587ef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/51aa5587ef) - bump media-client: Remove stack traces from media analytic events
+- Updated dependencies
+
 ## 3.0.0
 
 ### Major Changes

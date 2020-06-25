@@ -13,14 +13,10 @@ import {
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
-import createEvent from '@atlaskit/editor-test-helpers/create-event';
 import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
-
-import {
-  CodeBlockState,
-  pluginKey as codeBlockPluginKey,
-} from '../../pm-plugins/main';
+import { CodeBlockState } from '../../pm-plugins/main';
+import { pluginKey as codeBlockPluginKey } from '../../plugin-key';
 import { removeCodeBlock, changeLanguage } from '../../actions';
 import { setTextSelection } from '../../../../utils';
 import { PluginKey } from 'prosemirror-state';
@@ -33,8 +29,6 @@ import analyticsPlugin from '../../../analytics';
 
 describe('code-block', () => {
   const createEditor = createProsemirrorEditorFactory();
-
-  const event = createEvent('event');
   let createAnalyticsEvent: jest.Mock<UIAnalyticsEvent>;
 
   const editor = (doc: any) => {
@@ -56,13 +50,15 @@ describe('code-block', () => {
   describe('plugin', () => {
     describe('API', () => {
       it('should be able to identify code block node', () => {
-        const { pluginState } = editor(doc(code_block()('te{<>}xt')));
-        expect(pluginState.element).not.toBe(undefined);
+        const { pluginState, refs } = editor(
+          doc('{codeBlockPos}', code_block()('te{<>}xt')),
+        );
+        expect(pluginState.pos).toEqual(refs.codeBlockPos);
       });
 
       it('should not identify code block if initial selection is outside a code-block', () => {
         const { pluginState } = editor(doc(p('paragraph{<>}')));
-        expect(pluginState.element).toBe(undefined);
+        expect(pluginState.pos).toBe(null);
       });
 
       it('should be able to remove code block type using function removeCodeBlock', () => {
@@ -72,10 +68,10 @@ describe('code-block', () => {
       });
 
       it('should be possible to remove code block with no text inside table', () => {
-        const { pluginState, editorView } = editor(
-          doc(table()(tr(td({})(code_block()('{<>}'))))),
+        const { pluginState, editorView, refs } = editor(
+          doc(table()(tr(td({})('{codeBlockPos}', code_block()('{<>}'))))),
         );
-        expect(pluginState.element).not.toBe(undefined);
+        expect(pluginState.pos).toEqual(refs.codeBlockPos);
         removeCodeBlock(editorView.state, editorView.dispatch);
         expect(editorView.state.doc).toEqualDocument(
           doc(table()(tr(td({})(p())))),
@@ -83,8 +79,10 @@ describe('code-block', () => {
       });
 
       it('should be able to remove codeBlock using function removeCodeBlock even if it has no text content', () => {
-        const { pluginState, editorView } = editor(doc(code_block()('{<>}')));
-        expect(pluginState.element).not.toBe(undefined);
+        const { pluginState, editorView, refs } = editor(
+          doc('{codeBlockPos}', code_block()('{<>}')),
+        );
+        expect(pluginState.pos).toEqual(refs.codeBlockPos);
         removeCodeBlock(editorView.state, editorView.dispatch);
         expect(editorView.state.doc).toEqualDocument(doc(p()));
       });
@@ -100,31 +98,18 @@ describe('code-block', () => {
       });
     });
 
-    describe('toolbarVisible', () => {
-      describe('when focus is inside the code block', () => {
-        it('it is true', () => {
-          const { pluginState } = editor(
-            doc(p('text'), code_block()('text te{<>}xt')),
-          );
-          expect(pluginState.toolbarVisible).toBe(true);
-        });
-      });
-
-      describe('when editor is blur', () => {
-        it('is false', () => {
-          const { editorView, plugin, pluginState } = editor(
-            doc(p('te{<>}xt'), code_block()('text')),
-          );
-          plugin.props.handleDOMEvents!.blur(editorView, event);
-          expect(pluginState.toolbarVisible).toBe(false);
-        });
-      });
-    });
-
     describe('language picker', () => {
       describe('when selecting new language', () => {
         it('language should update', () => {
           const { editorView } = editor(doc(code_block()('text{<>}')));
+          const language = 'someLanguage';
+          changeLanguage(language)(editorView.state, editorView.dispatch);
+          expect(editorView.state.doc).toEqualDocument(
+            doc(code_block({ language: 'someLanguage' })('text')),
+          );
+        });
+        it('language should update if changed while code block was selected', () => {
+          const { editorView } = editor(doc('{<node>}', code_block()('text')));
           const language = 'someLanguage';
           changeLanguage(language)(editorView.state, editorView.dispatch);
           expect(editorView.state.doc).toEqualDocument(
@@ -173,7 +158,7 @@ describe('code-block', () => {
       });
 
       describe('when leaving code block', () => {
-        it('should unset the activeCodeBlock', () => {
+        it('should unset the position', () => {
           const {
             refs: { pPos },
             editorView,
@@ -183,9 +168,7 @@ describe('code-block', () => {
           setTextSelection(editorView, pPos);
 
           expect(codeBlockPluginKey.getState(editorView.state)).toEqual({
-            element: undefined,
-            language: undefined,
-            toolbarVisible: false,
+            pos: null,
           });
         });
       });

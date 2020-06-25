@@ -12,32 +12,45 @@ export const stateKey = new PluginKey('cardPlugin');
 const cardPlugin = (
   options: CardOptions,
   isMobile?: boolean,
-): EditorPlugin => ({
-  name: 'card',
+  fullWidthMode?: boolean,
+): EditorPlugin => {
+  const platform = isMobile ? 'mobile' : 'web';
+  return {
+    name: 'card',
 
-  nodes() {
-    const nodes = [
-      { name: 'inlineCard', node: inlineCard },
-      { name: 'blockCard', node: blockCard },
-    ];
+    nodes() {
+      const nodes = [
+        { name: 'inlineCard', node: inlineCard },
+        { name: 'blockCard', node: blockCard },
+      ];
 
-    if (options.allowEmbeds) {
-      nodes.push({
-        name: 'embedCard',
-        node: embedCard,
-      });
-    }
+      if (options.allowEmbeds) {
+        nodes.push({
+          name: 'embedCard',
+          node: embedCard,
+        });
+      }
 
-    return nodes;
-  },
+      return nodes;
+    },
 
-  pmPlugins() {
-    return [{ name: 'card', plugin: createPlugin(!!isMobile) }];
-  },
+    pmPlugins() {
+      const allowResizing =
+        typeof options.allowResizing === 'boolean'
+          ? options.allowResizing
+          : true;
+      return [
+        {
+          name: 'card',
+          plugin: createPlugin(platform, allowResizing, fullWidthMode),
+        },
+      ];
+    },
 
-  pluginsOptions: {
-    floatingToolbar: floatingToolbar(options),
-  },
-});
+    pluginsOptions: {
+      floatingToolbar: floatingToolbar(options, platform),
+    },
+  };
+};
 
 export default cardPlugin;

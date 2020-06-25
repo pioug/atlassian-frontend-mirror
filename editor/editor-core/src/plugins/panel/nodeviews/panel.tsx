@@ -10,8 +10,8 @@ import ErrorIcon from '@atlaskit/icon/glyph/editor/error';
 import TipIcon from '@atlaskit/icon/glyph/editor/hint';
 import { PanelType } from '@atlaskit/adf-schema';
 import { getPosHandlerNode, getPosHandler } from '../../../nodeviews/';
-import { selectPanel } from '../actions';
 import { PanelSharedCssClassName } from '@atlaskit/editor-common';
+import { selectNode } from '../../../utils/commands';
 
 const panelIcons = {
   info: InfoIcon,
@@ -112,7 +112,7 @@ class PanelNodeView {
     if (targetIsBorder || targetIsGutter || targetIsContent) {
       event.stopPropagation();
       const { state, dispatch } = this.view;
-      selectPanel(this.getPos())(state, dispatch);
+      selectNode(this.getPos())(state, dispatch);
       return;
     }
   };

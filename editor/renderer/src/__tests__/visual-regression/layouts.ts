@@ -41,6 +41,8 @@ describe.skip('Snapshot Test: Layouts', () => {
     layouts.forEach(layout => {
       it(`should correctly render "${layout.name}" layout`, async () => {
         await initRenderer(page, layout.adf);
+        // Wait for action list (within ADF) to render
+        await page.waitForSelector('div[data-task-list-local-id] > div');
       });
     });
   });

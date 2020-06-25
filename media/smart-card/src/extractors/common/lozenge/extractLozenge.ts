@@ -35,6 +35,8 @@ export const extractLozenge = (
       const jsonLdProject = jsonLd as JsonLd.Data.Project;
       const lozengeFromState = extractState(jsonLdProject);
       return lozengeFromState;
+    } else if (type.includes('atlassian:UndefinedLink')) {
+      return { text: 'UNDEFINED', appearance: 'inprogress' };
     }
   }
 };

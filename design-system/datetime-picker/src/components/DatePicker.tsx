@@ -49,38 +49,38 @@ export interface Props extends WithAnalyticsEventsProps {
    */
   appearance?: Appearance;
   /** Whether or not to auto-focus the field. */
-  autoFocus: boolean;
+  autoFocus?: boolean;
   /** Default for `isOpen`. */
-  defaultIsOpen: boolean;
+  defaultIsOpen?: boolean;
   /** Default for `value`. */
-  defaultValue: string;
+  defaultValue?: string;
   /** An array of ISO dates that should be disabled on the calendar. */
-  disabled: string[];
+  disabled?: string[];
   /** The icon to show in the field. */
-  icon: IndicatorComponentType<OptionType>;
+  icon?: IndicatorComponentType<OptionType>;
   /** The id of the field. Currently, react-select transforms this to have a "react-select-" prefix, and an "--input" suffix when applied to the input. For example, the id "my-input" would be transformed to "react-select-my-input--input". Keep this in mind when needing to refer to the ID. This will be fixed in an upcoming release. */
-  id: string;
+  id?: string;
   /** Props to apply to the container. **/
-  innerProps: React.AllHTMLAttributes<HTMLElement>;
+  innerProps?: React.AllHTMLAttributes<HTMLElement>;
   /** Whether or not the field is disabled. */
   isDisabled?: boolean;
   /** Whether or not the dropdown is open. */
   isOpen?: boolean;
   /** The name of the field. */
-  name: string;
+  name?: string;
   /** Called when the field is blurred. */
-  onBlur: React.FocusEventHandler<HTMLInputElement>;
+  onBlur?: React.FocusEventHandler<HTMLInputElement>;
   /** Called when the value changes. The only argument is an ISO time or empty string. */
-  onChange: (value: string) => void;
+  onChange?: (value: string) => void;
   /** Called when the field is focused. */
-  onFocus: React.FocusEventHandler<HTMLInputElement>;
+  onFocus?: React.FocusEventHandler<HTMLInputElement>;
   /** A function for parsing input characters and transforming them into a Date object. By default parses the date string based off the locale */
   parseInputValue?: (date: string, dateFormat: string) => Date;
   /** DEPRECATED - Use locale instead. A function for formatting the date displayed in the input. By default composes together [date-fn's parse method](https://date-fns.org/v1.29.0/docs/parse) and [date-fn's format method](https://date-fns.org/v1.29.0/docs/format) to return a correctly formatted date string*/
   formatDisplayLabel?: (value: string, dateFormat: string) => string;
   /** Props to apply to the select. This can be used to set options such as placeholder text.
    *  See [here](/packages/design-system/select) for documentation on select props. */
-  selectProps: SelectProps;
+  selectProps?: SelectProps;
   /* This prop affects the height of the select control. Compact is gridSize() * 4, default is gridSize * 5  */
   spacing?: Spacing;
   /** The ISO time that should be used as the input value. */
@@ -94,7 +94,7 @@ export interface Props extends WithAnalyticsEventsProps {
   /** Placeholder text displayed in input */
   placeholder?: string;
   /** Locale used to format the the date and calendar. See [DateTimeFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DateTimeFormat) */
-  locale: string;
+  locale?: string;
 
   /**
    * A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests
@@ -102,6 +102,8 @@ export interface Props extends WithAnalyticsEventsProps {
    **/
   testId?: string;
 }
+
+export type DatePickerProps = typeof DatePicker.defaultProps & Props;
 
 interface State {
   isOpen: boolean;
@@ -176,8 +178,8 @@ const Menu = ({
   />
 );
 
-function noop() {}
-
+// TODO: Please replace Props with DatePickerProps
+// when https://github.com/atlassian/extract-react-types/issues/113 gets resolved
 class DatePicker extends React.Component<Props, State> {
   calendarRef: CalendarClassType | null = null;
   containerRef: HTMLElement | null = null;
@@ -187,7 +189,7 @@ class DatePicker extends React.Component<Props, State> {
     autoFocus: false,
     defaultIsOpen: false,
     defaultValue: '',
-    disabled: [],
+    disabled: [] as string[],
     hideIcon: false,
     icon: CalendarIcon,
     id: '',
@@ -195,9 +197,9 @@ class DatePicker extends React.Component<Props, State> {
     isDisabled: false,
     isInvalid: false,
     name: '',
-    onBlur: noop,
-    onChange: noop,
-    onFocus: noop,
+    onBlur: (_: React.FocusEvent<HTMLInputElement>) => {},
+    onChange: (_: string) => {},
+    onFocus: (_: React.FocusEvent<HTMLInputElement>) => {},
     selectProps: {},
     spacing: 'default' as Spacing,
     locale: 'en-US',
@@ -210,40 +212,59 @@ class DatePicker extends React.Component<Props, State> {
 
     const { day, month, year } = getDateObj(new Date());
 
+    const {
+      defaultIsOpen,
+      selectProps,
+      value,
+      defaultValue,
+      locale,
+    } = this.getTypeSafeProps();
+
     this.state = {
-      isOpen: this.props.defaultIsOpen,
+      isOpen: defaultIsOpen,
       clearingFromIcon: false,
-      inputValue: this.props.selectProps.inputValue,
-      selectedValue: this.props.value || this.props.defaultValue,
-      value: this.props.defaultValue,
+      inputValue: selectProps.inputValue,
+      selectedValue: value || defaultValue,
+      value: defaultValue,
       view:
-        this.props.value ||
-        this.props.defaultValue ||
-        `${year}-${padToTwo(month)}-${padToTwo(day)}`,
-      l10n: createLocalizationProvider(this.props.locale),
+        value || defaultValue || `${year}-${padToTwo(month)}-${padToTwo(day)}`,
+      l10n: createLocalizationProvider(locale),
     };
   }
 
-  componentWillReceiveProps(nextProps: Readonly<Props>): void {
-    if (this.props.locale !== nextProps.locale) {
+  componentWillReceiveProps(nextProps: Readonly<DatePickerProps>): void {
+    const { locale } = this.getTypeSafeProps();
+
+    if (locale !== nextProps.locale) {
       this.setState({
         l10n: createLocalizationProvider(nextProps.locale),
       });
     }
   }
 
+  // TODO: Please remove this method
+  // when https://github.com/atlassian/extract-react-types/issues/113 gets resolved
+  getTypeSafeProps() {
+    return this.props as DatePickerProps;
+  }
+
   // All state needs to be accessed via this function so that the state is mapped from props
   // correctly to allow controlled/uncontrolled usage.
   getSafeState = () => {
+    const typeSafeProps = this.getTypeSafeProps();
+    const { selectProps } = typeSafeProps;
+
     return {
       ...this.state,
-      ...pick(this.props, ['value', 'isOpen']),
-      ...pick(this.props.selectProps, ['inputValue']),
+      ...pick(typeSafeProps, ['value', 'isOpen']),
+      ...pick(selectProps, ['inputValue']),
     };
   };
 
   isDateDisabled = (date: string) => {
-    return this.props.disabled.indexOf(date) > -1;
+    const { disabled } = this.getTypeSafeProps();
+
+    return disabled.indexOf(date) > -1;
   };
 
   onCalendarChange = ({ iso }: { iso: string }) => {
@@ -279,7 +300,9 @@ class DatePicker extends React.Component<Props, State> {
       value: iso,
     });
 
-    this.props.onChange(iso);
+    const { onChange } = this.getTypeSafeProps();
+
+    onChange(iso);
   };
 
   onInputClick = () => {
@@ -293,7 +316,10 @@ class DatePicker extends React.Component<Props, State> {
     } else {
       this.setState({ isOpen: false });
     }
-    this.props.onBlur(event);
+
+    const { onBlur } = this.getTypeSafeProps();
+
+    onBlur(event);
   };
 
   onSelectFocus = (event: React.FocusEvent<HTMLInputElement>) => {
@@ -309,7 +335,9 @@ class DatePicker extends React.Component<Props, State> {
       });
     }
 
-    this.props.onFocus(event);
+    const { onFocus } = this.getTypeSafeProps();
+
+    onFocus(event);
   };
 
   onSelectInput = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -375,7 +403,10 @@ class DatePicker extends React.Component<Props, State> {
             value: view,
             view,
           });
-          this.props.onChange(view);
+
+          const { onChange } = this.getTypeSafeProps();
+
+          onChange(view);
         }
         break;
       default:
@@ -384,20 +415,22 @@ class DatePicker extends React.Component<Props, State> {
   };
 
   onClear = () => {
+    const { defaultValue, hideIcon, onChange } = this.getTypeSafeProps();
+
     let changedState: {} = {
       selectedValue: '',
       value: '',
-      view: this.props.defaultValue || format(new Date(), 'YYYY-MM-DD'),
+      view: defaultValue || format(new Date(), 'YYYY-MM-DD'),
     };
 
-    if (!this.props.hideIcon) {
+    if (!hideIcon) {
       changedState = {
         ...changedState,
         clearingFromIcon: true,
       };
     }
     this.setState(changedState);
-    this.props.onChange('');
+    onChange('');
   };
 
   onSelectChange = (value: ValueType<OptionType>, action: ActionMeta) => {
@@ -413,7 +446,9 @@ class DatePicker extends React.Component<Props, State> {
   };
 
   handleInputChange = (inputValue: string, actionMeta: {}) => {
-    const { onInputChange } = this.props.selectProps;
+    const { selectProps } = this.getTypeSafeProps();
+
+    const { onInputChange } = selectProps;
     if (onInputChange) onInputChange(inputValue, actionMeta);
     this.setState({ inputValue });
   };
@@ -441,7 +476,7 @@ class DatePicker extends React.Component<Props, State> {
    *   2. locale
    */
   parseDate = (date: string): Date | null => {
-    const { parseInputValue, dateFormat } = this.props;
+    const { parseInputValue, dateFormat } = this.getTypeSafeProps();
 
     if (parseInputValue) {
       return parseInputValue(date, dateFormat || defaultDateFormat);
@@ -460,7 +495,7 @@ class DatePicker extends React.Component<Props, State> {
    *   3. locale
    */
   formatDate = (value: string): string => {
-    const { formatDisplayLabel, dateFormat } = this.props;
+    const { formatDisplayLabel, dateFormat } = this.getTypeSafeProps();
     const { l10n } = this.getSafeState();
 
     if (formatDisplayLabel) {
@@ -476,7 +511,7 @@ class DatePicker extends React.Component<Props, State> {
   };
 
   getPlaceholder = () => {
-    const { placeholder } = this.props;
+    const { placeholder } = this.getTypeSafeProps();
     if (placeholder) {
       return placeholder;
     }
@@ -501,7 +536,7 @@ class DatePicker extends React.Component<Props, State> {
       spacing,
       locale,
       testId,
-    } = this.props;
+    } = this.getTypeSafeProps();
     const BORDER_WIDTH = 2;
     const ICON_PADDING = 2;
 

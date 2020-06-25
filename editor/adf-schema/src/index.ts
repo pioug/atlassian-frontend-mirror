@@ -24,7 +24,6 @@ export {
   DecisionListDefinition,
   DocNode,
   EmbedCardDefinition,
-  EmbedLayout,
   EmbedCardAttributes,
   EmDefinition,
   EmojiAttributes,
@@ -61,9 +60,7 @@ export {
   MediaDefinition,
   MediaDisplayType,
   MediaGroupDefinition,
-  MediaSingleAttributes,
   MediaSingleDefinition,
-  MediaSingleLayout,
   MediaType,
   MentionAttributes,
   MentionDefinition,
@@ -215,6 +212,8 @@ export {
   buildAnnotationMarkDataAttributes,
   AnnotationMarkStates,
   AnnotationId,
+  RichMediaAttributes,
+  RichMediaLayout,
 } from './schema';
 export {
   B100,

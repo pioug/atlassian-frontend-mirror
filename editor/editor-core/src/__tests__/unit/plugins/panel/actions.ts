@@ -12,6 +12,7 @@ import {
 } from '../../../../plugins/panel/actions';
 import panelPlugin from '../../../../plugins/panel';
 import analyticsPlugin from '../../../../plugins/analytics';
+import { selectNode } from '../../../../utils/commands';
 
 describe('panel actions', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -100,6 +101,20 @@ describe('panel actions', () => {
           eventType: 'track',
         });
       });
+    });
+  });
+
+  describe('select panel', () => {
+    it('should select node', () => {
+      const { editorView, refs } = editor(
+        doc('{nodeStart}', panel({ panelType: 'info' })(p('text{<>}'))),
+      );
+      selectNode(refs['nodeStart'])(editorView.state, editorView.dispatch);
+      const expectedDoc = doc(
+        '{<node>}',
+        panel({ panelType: 'info' })(p('text')),
+      );
+      expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
     });
   });
 });

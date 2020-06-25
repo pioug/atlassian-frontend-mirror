@@ -11,6 +11,27 @@ import {
   createCardProvider,
 } from '../providers';
 import { getModeValue, getQueryParams } from '../query-param-reader';
+import { useFetchProxy } from '../utils/fetch-proxy';
+
+interface AppProps {
+  defaultValue?: Node | string | Object;
+}
+
+const App: React.FC<AppProps> = props => {
+  const fetchProxy = useFetchProxy();
+
+  return (
+    <MobileEditor
+      mode={getModeValue()}
+      cardClient={createCardClient()}
+      cardProvider={createCardProvider()}
+      defaultValue={props.defaultValue}
+      emojiProvider={createEmojiProvider(fetchProxy)}
+      mediaProvider={createMediaProvider()}
+      mentionProvider={createMentionProvider()}
+    />
+  );
+};
 
 function main() {
   // Read default value from defaultValue query parameter when in development
@@ -19,15 +40,7 @@ function main() {
     IS_DEV && rawDefaultValue ? atob(rawDefaultValue) : undefined;
 
   ReactDOM.render(
-    <MobileEditor
-      mode={getModeValue()}
-      cardClient={createCardClient()}
-      cardProvider={createCardProvider()}
-      defaultValue={defaultValue}
-      emojiProvider={createEmojiProvider()}
-      mediaProvider={createMediaProvider()}
-      mentionProvider={createMentionProvider()}
-    />,
+    <App defaultValue={defaultValue} />,
     document.getElementById('editor'),
   );
 }

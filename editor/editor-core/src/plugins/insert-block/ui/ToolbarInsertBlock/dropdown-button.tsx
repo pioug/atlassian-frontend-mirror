@@ -5,7 +5,6 @@ import { ToolTipContent } from '../../../../keymaps';
 import ToolbarButton from '../../../../ui/ToolbarButton';
 import { ExpandIconWrapper } from '../../../../ui/styles';
 import { TriggerWrapper } from './styles';
-import { BlockMenuItem } from './create-items';
 
 export interface DropDownButtonProps {
   label: string;
@@ -13,8 +12,7 @@ export interface DropDownButtonProps {
   disabled?: boolean;
   onClick: React.MouseEventHandler;
   spacing: 'none' | 'default';
-  handleRef(el: ToolbarButton, items: BlockMenuItem[]): void;
-  items: BlockMenuItem[];
+  handleRef(el: ToolbarButton): void;
 }
 
 const DropDownButtonIcon: React.StatelessComponent<{
@@ -29,26 +27,15 @@ const DropDownButtonIcon: React.StatelessComponent<{
 ));
 
 export const DropDownButton: React.StatelessComponent<DropDownButtonProps> = React.memo(
-  props => {
-    const { handleRef, items } = props;
-
-    const handleRefCb = React.useCallback(
-      (ref: ToolbarButton) => handleRef(ref, items),
-      [handleRef, items],
-    );
-
-    return (
-      <ToolbarButton
-        ref={handleRefCb}
-        selected={props.selected}
-        disabled={props.disabled}
-        onClick={props.onClick}
-        spacing={props.spacing}
-        iconBefore={<DropDownButtonIcon label={props.label} />}
-        title={
-          <ToolTipContent description={props.label} shortcutOverride="/" />
-        }
-      />
-    );
-  },
+  props => (
+    <ToolbarButton
+      ref={props.handleRef}
+      selected={props.selected}
+      disabled={props.disabled}
+      onClick={props.onClick}
+      spacing={props.spacing}
+      iconBefore={<DropDownButtonIcon label={props.label} />}
+      title={<ToolTipContent description={props.label} shortcutOverride="/" />}
+    />
+  ),
 );

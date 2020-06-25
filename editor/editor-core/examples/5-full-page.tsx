@@ -237,6 +237,7 @@ export class ExampleEditorComponent extends React.Component<
                 allowTables={{
                   advanced: true,
                   allowColumnSorting: true,
+                  stickyHeaders: true,
                 }}
                 allowBreakout={true}
                 allowJiraIssue={true}
@@ -257,6 +258,8 @@ export class ExampleEditorComponent extends React.Component<
                 allowTemplatePlaceholders={{ allowInserting: true }}
                 UNSAFE_cards={{
                   provider: Promise.resolve(cardProviderStaging),
+                  allowBlockCards: true,
+                  allowEmbeds: true,
                 }}
                 allowExpand={{
                   allowInsertion: true,

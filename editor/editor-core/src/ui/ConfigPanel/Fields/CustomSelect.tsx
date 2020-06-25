@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 
 import { Field } from '@atlaskit/form';
 import { AsyncSelect, ValueType } from '@atlaskit/select';
+import { formatOptionLabel } from './SelectItem';
 
 import {
   getFieldResolver,
@@ -139,6 +140,7 @@ export default class CustomSelect extends React.Component<Props, State> {
                   isClearable={false}
                   validationState={error ? 'error' : 'default'}
                   defaultOptions={true}
+                  formatOptionLabel={formatOptionLabel}
                   loadOptions={fieldResolver}
                   autoFocus={autoFocus}
                 />

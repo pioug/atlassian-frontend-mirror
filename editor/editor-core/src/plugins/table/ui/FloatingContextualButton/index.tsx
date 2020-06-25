@@ -1,6 +1,10 @@
 import React from 'react';
 import { EditorView } from 'prosemirror-view';
-import { Popup } from '@atlaskit/editor-common';
+import {
+  Popup,
+  akEditorFloatingOverlapPanelZIndex,
+  akEditorSmallZIndex,
+} from '@atlaskit/editor-common';
 import { TableLayout } from '@atlaskit/adf-schema';
 import { findDomRefAtPos } from 'prosemirror-utils';
 import styled from 'styled-components';
@@ -12,6 +16,7 @@ import { TableCssClassName as ClassName } from '../../types';
 import messages from '../../ui/messages';
 import { toggleContextualMenu } from '../../commands';
 import { closestElement } from '../../../../utils/dom';
+import { RowStickyState } from '../../pm-plugins/sticky-headers';
 
 export interface Props {
   editorView: EditorView;
@@ -22,6 +27,7 @@ export interface Props {
   scrollableElement?: HTMLElement;
   layout?: TableLayout;
   isNumberColumnEnabled?: boolean;
+  stickyHeader?: RowStickyState;
 }
 
 const ButtonWrapper = styled.div`
@@ -43,9 +49,9 @@ class FloatingContextualButton extends React.Component<
       isContextualMenuOpen,
       intl: { formatMessage },
     } = this.props; //  : Props & InjectedIntlProps
-
     const domAtPos = editorView.domAtPos.bind(editorView);
     const targetCellRef = findDomRefAtPos(targetCellPosition, domAtPos);
+
     if (!targetCellRef || !(targetCellRef instanceof HTMLElement)) {
       return null;
     }
@@ -56,6 +62,43 @@ class FloatingContextualButton extends React.Component<
     );
 
     const labelCellOptions = formatMessage(messages.cellOptions);
+
+    const button = (
+      <ButtonWrapper>
+        <ToolbarButton
+          className={ClassName.CONTEXTUAL_MENU_BUTTON}
+          selected={isContextualMenuOpen}
+          title={labelCellOptions}
+          onClick={this.handleClick}
+          iconBefore={<ExpandIcon label={labelCellOptions} />}
+        />
+      </ButtonWrapper>
+    );
+
+    const parentSticky =
+      targetCellRef.parentElement &&
+      targetCellRef.parentElement.className.indexOf('sticky') > -1;
+    if (this.props.stickyHeader && parentSticky) {
+      const pos = targetCellRef.getBoundingClientRect();
+
+      return (
+        <div
+          style={{
+            position: 'fixed',
+            top:
+              this.props.stickyHeader.top +
+              this.props.stickyHeader.padding +
+              3 +
+              3,
+            zIndex: akEditorFloatingOverlapPanelZIndex,
+            left: pos.left + targetCellRef.clientWidth - 20 - 3,
+          }}
+        >
+          {button}
+        </div>
+      );
+    }
+
     return (
       <Popup
         alignX="right"
@@ -67,16 +110,9 @@ class FloatingContextualButton extends React.Component<
         offset={[3, -3]}
         forcePlacement
         allowOutOfBounds
+        zIndex={akEditorSmallZIndex}
       >
-        <ButtonWrapper>
-          <ToolbarButton
-            className={ClassName.CONTEXTUAL_MENU_BUTTON}
-            selected={isContextualMenuOpen}
-            title={labelCellOptions}
-            onClick={this.handleClick}
-            iconBefore={<ExpandIcon label={labelCellOptions} />}
-          />
-        </ButtonWrapper>
+        {button}
       </Popup>
     );
   }
@@ -86,13 +122,13 @@ class FloatingContextualButton extends React.Component<
       this.props.targetCellPosition !== nextProps.targetCellPosition ||
       this.props.layout !== nextProps.layout ||
       this.props.isContextualMenuOpen !== nextProps.isContextualMenuOpen ||
-      this.props.isNumberColumnEnabled !== nextProps.isNumberColumnEnabled
+      this.props.isNumberColumnEnabled !== nextProps.isNumberColumnEnabled ||
+      this.props.stickyHeader !== nextProps.stickyHeader
     );
   }
 
   private handleClick = () => {
     const { state, dispatch } = this.props.editorView;
-
     // Clicking outside the dropdown handles toggling the menu closed
     // (otherwise these two toggles combat each other).
     // In the event a user clicks the chevron button again

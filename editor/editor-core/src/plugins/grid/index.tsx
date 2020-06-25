@@ -4,7 +4,7 @@ import { withTheme } from 'styled-components';
 
 import { PluginKey } from 'prosemirror-state';
 import { EditorPlugin } from '../../types';
-import { MediaSingleLayout } from '@atlaskit/adf-schema';
+import { RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema';
 import {
   akEditorFullPageMaxWidth,
   akEditorBreakoutPadding,

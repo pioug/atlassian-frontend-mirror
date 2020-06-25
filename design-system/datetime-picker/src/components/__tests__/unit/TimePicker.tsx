@@ -6,6 +6,12 @@ import { mount } from 'enzyme';
 import { TimePickerWithoutAnalytics as TimePicker } from '../../../components/TimePicker';
 
 describe('TimePicker', () => {
+  test('TimePicker requires no props to be used', () => {
+    const { container } = render(<TimePicker />);
+
+    expect(container.firstChild).toBeInTheDocument();
+  });
+
   test('custom parseInputValue - AM', () => {
     const parseInputValue = () => new Date('1970-01-02 01:15:00');
     const onChangeSpy = jest.fn();

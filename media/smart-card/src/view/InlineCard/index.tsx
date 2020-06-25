@@ -21,7 +21,7 @@ export const InlineCard: FC<InlineCardProps> = ({
   handleFrameClick,
   isSelected,
   onResolve,
-  testId,
+  testId = 'inline-card',
 }) => {
   const { status, details } = cardState;
   const cardDetails = (details && details.data) || getEmptyJsonLd();
@@ -32,7 +32,7 @@ export const InlineCard: FC<InlineCardProps> = ({
           link={url}
           isSelected={isSelected}
           onClick={handleFrameClick}
-          testId={`${testId}-${status}`}
+          testId={`${testId}-${status}-view`}
         />
       );
     case 'resolving':
@@ -41,7 +41,7 @@ export const InlineCard: FC<InlineCardProps> = ({
           url={url}
           isSelected={isSelected}
           onClick={handleFrameClick}
-          testId={`${testId}-${status}`}
+          testId={`${testId}-${status}-view`}
         />
       );
     case 'resolved':
@@ -62,7 +62,7 @@ export const InlineCard: FC<InlineCardProps> = ({
           link={url}
           isSelected={isSelected}
           onClick={handleFrameClick}
-          testId={`${testId}-${status}`}
+          testId={`${testId}-${status}-view`}
         />
       );
     case 'unauthorized':
@@ -74,7 +74,7 @@ export const InlineCard: FC<InlineCardProps> = ({
           isSelected={isSelected}
           onClick={handleFrameClick}
           onAuthorise={handleAuthorize}
-          testId={`${testId}-${status}`}
+          testId={`${testId}-${status}-view`}
         />
       );
     case 'forbidden':
@@ -84,7 +84,7 @@ export const InlineCard: FC<InlineCardProps> = ({
           isSelected={isSelected}
           onClick={handleFrameClick}
           onAuthorise={handleAuthorize}
-          testId={`${testId}-${status}`}
+          testId={`${testId}-${status}-view`}
         />
       );
     case 'not_found':
@@ -94,7 +94,7 @@ export const InlineCard: FC<InlineCardProps> = ({
           isSelected={isSelected}
           message="We couldn't find this link"
           onClick={handleFrameClick}
-          testId={`${testId}-${status}`}
+          testId={`${testId}-${status}-view`}
         />
       );
     case 'fallback':
@@ -104,7 +104,7 @@ export const InlineCard: FC<InlineCardProps> = ({
           link={url}
           isSelected={isSelected}
           onClick={handleFrameClick}
-          testId={`${testId}-${status}`}
+          testId={`${testId}-${status}-view`}
         />
       );
   }

@@ -8,10 +8,12 @@ import {
   akEditorTableToolbarSize,
   akEditorUnitZIndex,
   akEditorSmallZIndex,
+  akEditorShadowZIndex,
   akEditorTableNumberColumnWidth,
   akEditorTableBorder,
-  akMediaSingleResizeZIndex,
+  akRichMediaResizeZIndex,
   tableCellBorderWidth,
+  akEditorStickyHeaderZIndex,
 } from '@atlaskit/editor-common';
 import { scrollbarStyles } from '../../../ui/styles';
 import { TableCssClassName as ClassName, RESIZE_HANDLE_AREA_DECORATION_GAP } from '../types';
@@ -53,6 +55,7 @@ export const tableInsertColumnButtonSize = 20;
 export const tableDeleteButtonSize = 16;
 export const tableDeleteButtonOffset = 6;
 export const tablePadding = 8;
+export const tableControlsSpacing = tableMarginTop + tablePadding - tableCellBorderWidth;
 export const contextualMenuTriggerSize = 16;
 export const contextualMenuDropdownWidth = 180;
 export const layoutButtonSize = 32;
@@ -67,7 +70,8 @@ export const columnControlsSelectedZIndex = columnControlsZIndex + 1;
 export const columnResizeHandleZIndex = columnControlsSelectedZIndex + 1;
 export const resizeHandlerAreaWidth = RESIZE_HANDLE_AREA_DECORATION_GAP / 3;
 export const resizeLineWidth = 2;
-export const resizeHandlerZIndex = columnControlsZIndex + akMediaSingleResizeZIndex;
+export const resizeHandlerZIndex = columnControlsZIndex + akRichMediaResizeZIndex;
+export const stickyRowZIndex = resizeHandlerZIndex + 2;
 
 const isIE11 = browser.ie_version === 11;
 
@@ -267,7 +271,7 @@ const OverflowShadow = `
   position: absolute;
   pointer-events: none;
   top: ${tableMarginTop + tableToolbarSize - 1}px;
-  z-index: ${akEditorSmallZIndex};
+  z-index: ${akEditorShadowZIndex};
   width: 8px;
 }
 .${ClassName.TABLE_LEFT_SHADOW} {
@@ -277,6 +281,9 @@ const OverflowShadow = `
     ${N40A} 100%
   );
   left: 0px;
+}
+.${ClassName.TABLE_CONTAINER}[data-number-column='true'] > :not(.${ClassName.TABLE_STICKY_SHADOW}).${ClassName.TABLE_LEFT_SHADOW} {
+  left: ${akEditorTableNumberColumnWidth - 1}px;
 }
 .${ClassName.TABLE_RIGHT_SHADOW} {
   background: linear-gradient(
@@ -294,6 +301,12 @@ const OverflowShadow = `
   }
   .${ClassName.TABLE_LEFT_SHADOW} {
     border-left: 1px solid ${tableBorderColor};
+  }
+}
+.${ClassName.WITH_CONTROLS}.${ClassName.TABLE_STICKY} {
+  .${ClassName.TABLE_RIGHT_SHADOW},
+  .${ClassName.TABLE_LEFT_SHADOW} {
+    top: ${tableControlsSpacing}px;
   }
 }
 `;
@@ -492,6 +505,147 @@ export const tableStyles = css`
     ${DeleteButton}
     /* Ends Delete button*/
 
+    /* sticky styles */
+    .${ClassName.TABLE_STICKY} .${ClassName.NUMBERED_COLUMN} .${ClassName.NUMBERED_COLUMN_BUTTON}:first-child {
+      margin-top: ${8 + 2}px;
+      width: ${akEditorTableNumberColumnWidth}px;
+
+      position: fixed !important;
+      z-index: ${akEditorStickyHeaderZIndex} !important;
+
+      box-shadow: 0px -8px white;
+      border-right: 0 none;
+      /* top set by NumberColumn component */
+    }
+
+    .${ClassName.TABLE_STICKY} .${ClassName.CORNER_CONTROLS}.sticky {
+      position: fixed !important;
+      /* needs to be above row controls */
+      z-index: ${akEditorSmallZIndex} !important;
+      background: white;
+
+      width: ${tableToolbarSize}px;
+      height: ${tableToolbarSize}px;
+    }
+
+    .${ClassName.CORNER_CONTROLS}.sticky .${ClassName.CONTROLS_CORNER_BUTTON} {
+      border-bottom: 0px none;
+      border-right: 0px none;
+
+      height: ${tableToolbarSize}px;
+      width: ${tableToolbarSize}px;
+    }
+
+    .${ClassName.TABLE_STICKY} .${ClassName.COLUMN_CONTROLS_DECORATIONS} {
+      z-index: 0;
+    }
+
+    .${ClassName.TABLE_STICKY} .${ClassName.ROW_CONTROLS} .${ClassName.ROW_CONTROLS_BUTTON_WRAP}.sticky {
+      position: fixed !important;
+      z-index: ${akEditorStickyHeaderZIndex} !important;
+      display: flex;
+      border-left: ${tableToolbarSize}px solid white;
+      margin-left: -${tableToolbarSize}px;
+    }
+
+    .${ClassName.TABLE_STICKY} col:first-of-type {
+      /* moving rows out of a table layout does weird things in Chrome */
+      border-right: 1px solid green;
+    }
+
+    tr.sticky {
+      padding-top: 8px;
+      position: fixed;
+      display: grid;
+
+      /* to keep it above cell selection */
+      z-index: ${stickyRowZIndex};
+
+      overflow-y: visible;
+      overflow-x: hidden;
+
+      grid-auto-flow: column;
+
+      /* background for where controls apply */
+      background: white;
+      box-sizing: content-box;
+
+      margin-top: 2px;
+
+      box-shadow: 0 6px 4px -4px ${N40A};
+      margin-left: -1px;
+    }
+
+    .${ClassName.TABLE_STICKY} .${ClassName.TABLE_STICKY_SHADOW} {
+      left: unset;
+      position: fixed;
+      z-index: ${stickyRowZIndex + 1};
+    }
+
+    .${ClassName.WITH_CONTROLS}.${ClassName.TABLE_STICKY} .${ClassName.TABLE_STICKY_SHADOW} {
+      padding-bottom: ${tableToolbarSize}px;
+    }
+
+    tr.sticky th {
+      border-bottom: 1px solid ${tableBorderColor};
+      margin-right: -1px;
+    }
+
+    .${ClassName.TABLE_STICKY} tr.sticky > th:last-child {
+      border-right-width: 1px;
+    }
+
+    /* add left edge for first cell */
+    .${ClassName.TABLE_STICKY} tr.sticky > th:first-child {
+      margin-left: 0px;
+    }
+
+    /* add a little bit so the scroll lines up with the table */
+    .${ClassName.TABLE_STICKY} tr.sticky::after {
+      content: ' ';
+      width: 1px;
+    }
+
+    /* To fix jumpiness caused in Chrome Browsers for sticky headers */
+    .${ClassName.TABLE_STICKY} .sticky + tr {
+      min-height: 0px;
+    }
+
+    /* move resize line a little in sticky bar */
+    .${ClassName.TABLE_CONTAINER}.${ClassName.TABLE_STICKY} {
+      tr.sticky td.${ClassName.WITH_RESIZE_LINE},
+      tr.sticky th.${ClassName.WITH_RESIZE_LINE} {
+        .${ClassName.RESIZE_HANDLE_DECORATION}::after {
+          right: ${((resizeHandlerAreaWidth - resizeLineWidth) / 2) + 1}px;
+        }
+      }
+
+      /* when selected put it back to normal -- :not selector would be nicer */
+      tr.sticky td.${ClassName.WITH_RESIZE_LINE}.selectedCell,
+      tr.sticky th.${ClassName.WITH_RESIZE_LINE}.selectedCell {
+        .${ClassName.RESIZE_HANDLE_DECORATION}::after {
+          right: ${((resizeHandlerAreaWidth - resizeLineWidth) / 2)}px;
+        }
+      }
+    }
+
+    tr.sticky .${ClassName.HOVERED_CELL},
+    tr.sticky .${ClassName.SELECTED_CELL} {
+      z-index: 1;
+    }
+
+    .${ClassName.WITH_CONTROLS} tr.sticky {
+      padding-top: ${tableControlsSpacing}px;
+    }
+
+    .${ClassName.WITH_CONTROLS}.${ClassName.TABLE_STICKY} .${ClassName.NUMBERED_COLUMN} .${ClassName.NUMBERED_COLUMN_BUTTON}:first-child {
+      margin-top: ${tableControlsSpacing + 2}px;
+    }
+
+    .${ClassName.CORNER_CONTROLS}.sticky {
+      border-top: ${tableControlsSpacing - tableToolbarSize + 2}px solid white;
+    }
+
     ${OverflowShadow}
     .less-padding {
       padding: 0 ${tablePadding}px;
@@ -553,6 +707,12 @@ export const tableStyles = css`
           right: -1px;
           top: -12px;
         `)};
+      }
+    }
+    .${ClassName.CORNER_CONTROLS}.sticky {
+      .${ClassName.CORNER_CONTROLS_INSERT_ROW_MARKER} {
+        /* sticky row insert dot overlaps other row insert and messes things up */
+        display: none !important;
       }
     }
     .${ClassName.CONTROLS_CORNER_BUTTON} {
@@ -654,13 +814,12 @@ export const tableStyles = css`
       top: ${akEditorTableToolbarSize}px;
       width: ${akEditorTableNumberColumnWidth + 1}px;
       box-sizing: border-box;
-      border-left: 1px solid ${akEditorTableBorder};
     }
     .${ClassName.NUMBERED_COLUMN_BUTTON} {
-      border-top: 1px solid ${akEditorTableBorder};
-      border-right: 1px solid ${akEditorTableBorder};
+      border: 1px solid ${akEditorTableBorder};
       box-sizing: border-box;
       margin-top: -1px;
+      padding-bottom: 2px;
       padding: 10px 2px;
       text-align: center;
       font-size: ${fontSize()}px;
@@ -681,9 +840,10 @@ export const tableStyles = css`
         display: block;
       }
       .${ClassName.NUMBERED_COLUMN} {
-        border-left: 0 none;
         padding-left: 1px;
-        margin-left: 0;
+         .${ClassName.NUMBERED_COLUMN_BUTTON} {
+          border-left: 0 none;
+        }
 
         .${ClassName.NUMBERED_COLUMN_BUTTON}.active {
           border-bottom: 1px solid ${tableBorderSelectedColor};
@@ -770,7 +930,6 @@ export const tableStyles = css`
       margin-top: -${tableInsertColumnButtonSize / 2}px;
       padding-bottom: ${tableScrollbarOffset}px;
       margin-bottom: -${tableScrollbarOffset}px;
-      z-index: ${akEditorUnitZIndex - 1};
       /* fixes gap cursor height */
       overflow: ${isIE11 ? 'none' : 'auto'};
       position: relative;

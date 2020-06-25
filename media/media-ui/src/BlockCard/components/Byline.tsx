@@ -28,6 +28,9 @@ export const Byline = ({ text, children, testId }: BylineProps) => (
       // Fallback options.
       maxHeight: gs(5),
       whiteSpace: 'pre-line',
+      // EDM-713: fixes copy-paste from renderer to editor for Firefox
+      // due to HTML its unwrapping behaviour on paste.
+      MozUserSelect: 'none',
     })}
     data-testid={testId}
   >

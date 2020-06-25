@@ -22,7 +22,7 @@ import {
   temporaryMediaWithDimensions,
   temporaryMedia,
 } from './_utils';
-import { ProviderFactory } from '@atlaskit/editor-common';
+import { ProviderFactory, richMediaClassName } from '@atlaskit/editor-common';
 import { INPUT_METHOD } from '../../../../plugins/analytics';
 
 const createMediaState = (
@@ -366,7 +366,9 @@ describe('media-single', () => {
       doc(p('text'), mediaSingle()(temporaryMedia), p()),
     );
 
-    const mediaSingleDom = editorView.dom.querySelector('.media-single');
+    const mediaSingleDom = editorView.dom.querySelector(
+      `.${richMediaClassName}`,
+    );
     expect(mediaSingleDom).toBeInstanceOf(HTMLElement);
     expect(mediaSingleDom!.getAttribute('width')).toBe('250');
   });

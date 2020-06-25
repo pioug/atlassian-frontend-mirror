@@ -1,5 +1,6 @@
 import { snapshot, initEditorWithAdf, Appearance } from '../_utils';
 import { selectors } from '../../__helpers/page-objects/_editor';
+import { waitForFloatingControl } from '../../__helpers/page-objects/_toolbar';
 import adf from './__fixtures__/hyperlink-adf.json';
 import { Page } from '../../__helpers/page-objects/_types';
 
@@ -16,6 +17,7 @@ describe('Hyperlink:', () => {
   });
 
   afterEach(async () => {
+    await waitForFloatingControl(page, 'Hyperlink floating controls');
     await snapshot(page);
   });
 

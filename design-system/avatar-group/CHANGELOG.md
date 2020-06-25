@@ -1,5 +1,11 @@
 # @atlaskit/avatar-group
 
+## 6.0.3
+
+### Patch Changes
+
+- [`e91d934e94`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e91d934e94) - Using avatar.name + index as key for AvatarGroup
+
 ## 6.0.2
 
 ### Patch Changes

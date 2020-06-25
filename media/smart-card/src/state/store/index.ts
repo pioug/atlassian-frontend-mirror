@@ -19,3 +19,5 @@ export function useSmartCardState(url: string): CardState {
   // State for use in view components.
   return state;
 }
+
+export { CardType } from './types';

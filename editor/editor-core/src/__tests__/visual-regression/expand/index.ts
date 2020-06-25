@@ -1,4 +1,9 @@
-import { Device, snapshot, initFullPageEditorWithAdf } from '../_utils';
+import {
+  Device,
+  snapshot,
+  initFullPageEditorWithAdf,
+  getContentBoundingRectTopLeftCoords,
+} from '../_utils';
 import { waitForLoadedBackgroundImages } from '@atlaskit/visual-regression/helper';
 import {
   expandADF,
@@ -8,6 +13,7 @@ import {
   mediaInExpandADF,
   mediaInNestedExpandADF,
 } from './__fixtures__/expand-adf';
+import * as simpleExpandAdf from './__fixtures__/simple-expand.adf.json';
 import { selectors } from '../../__helpers/page-objects/_expand';
 import { Page } from '../../__helpers/page-objects/_types';
 import { emojiSelectors } from '../../__helpers/page-objects/_emoji';
@@ -15,7 +21,10 @@ import {
   clickFirstCell,
   tableSelectors,
 } from '../../__helpers/page-objects/_table';
-import { resizeMediaInPositionWithSnapshot } from '../../__helpers/page-objects/_media';
+import {
+  resizeMediaInPositionWithSnapshot,
+  waitForMediaToBeLoaded,
+} from '../../__helpers/page-objects/_media';
 
 const hideTooltip = async (page: Page) => {
   // Hide the tooltip
@@ -85,6 +94,20 @@ describe('Expand: full-page', () => {
     await page.waitForSelector(selectors.nestedExpand);
     await waitForLoadedBackgroundImages(page, emojiSelectors.standard, 10000);
   });
+
+  it('should display expand as selected when click on padding', async () => {
+    await initFullPageEditorWithAdf(page, simpleExpandAdf, Device.LaptopMDPI);
+    await page.waitForSelector(selectors.expand);
+
+    const contentBoundingRect = await getContentBoundingRectTopLeftCoords(
+      page,
+      selectors.expand,
+    );
+    await page.mouse.click(
+      contentBoundingRect.left + 5,
+      contentBoundingRect.top + 5,
+    );
+  });
 });
 
 // This block is seperate as Puppeteer has some
@@ -99,6 +122,7 @@ describe('Expand: Media', () => {
   it('should allow wrapped media to flow correctly', async () => {
     await initFullPageEditorWithAdf(page, wrappingMediaADF, Device.LaptopMDPI);
     await page.waitForSelector(selectors.expand);
+    await waitForMediaToBeLoaded(page);
     await page.click(`${selectors.expand} p`);
     await snapshot(page);
   });
@@ -106,7 +130,8 @@ describe('Expand: Media', () => {
   it('should not show grid lines when re-sizing inside an expand', async () => {
     await initFullPageEditorWithAdf(page, mediaInExpandADF, Device.LaptopMDPI);
     await page.waitForSelector(selectors.expand);
-    await page.click('.media-single .img-wrapper');
+    await waitForMediaToBeLoaded(page);
+    await page.click('[data-testid="media-file-card-view"] .img-wrapper');
     await resizeMediaInPositionWithSnapshot(page, 0, 50);
   });
 
@@ -117,7 +142,8 @@ describe('Expand: Media', () => {
       Device.LaptopMDPI,
     );
     await page.waitForSelector(selectors.nestedExpand);
-    await page.click('.media-single .img-wrapper');
+    await waitForMediaToBeLoaded(page);
+    await page.click('[data-testid="media-file-card-view"] .img-wrapper');
     await resizeMediaInPositionWithSnapshot(page, 0, 50);
   });
 });

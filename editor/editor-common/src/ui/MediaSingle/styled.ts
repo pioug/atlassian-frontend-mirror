@@ -1,7 +1,7 @@
 import React from 'react';
 import { HTMLAttributes } from 'react';
 import styled, { css } from 'styled-components';
-import { MediaSingleLayout } from '@atlaskit/adf-schema';
+import { RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema';
 import {
   akEditorFullPageMaxWidth,
   akEditorFullWidthLayoutWidth,
@@ -97,9 +97,9 @@ function calcMaxWidth(layout: MediaSingleLayout, containerWidth: number) {
 function calcMargin(layout: MediaSingleLayout): string {
   switch (layout) {
     case 'wrap-right':
-      return '12px auto 12px 24px';
+      return '12px auto 12px 12px';
     case 'wrap-left':
-      return '12px 24px 12px auto';
+      return '12px 12px 12px auto';
     default:
       return '24px auto';
   }
@@ -125,6 +125,7 @@ export interface WrapperProps {
   innerRef?: (elem: HTMLElement) => void;
   fullWidthMode?: boolean;
   isResized?: boolean;
+  isResizable?: boolean;
 }
 
 /**
@@ -138,6 +139,7 @@ export const MediaSingleDimensionHelper = ({
   pctWidth,
   fullWidthMode,
   isResized,
+  isResizable = false,
 }: WrapperProps) => css`
   tr & {
     max-width: 100%;
@@ -151,7 +153,7 @@ export const MediaSingleDimensionHelper = ({
         fullWidthMode,
         isResized,
       )};
-  max-width: ${calcMaxWidth(layout, containerWidth)};
+  max-width: ${isResizable ? undefined : calcMaxWidth(layout, containerWidth)};
   float: ${float(layout)};
   margin: ${calcMargin(layout)};
   ${isImageAligned(layout)};
@@ -180,6 +182,10 @@ const Wrapper: React.ComponentClass<HTMLAttributes<{}> &
   & > div {
     position: absolute;
     height: 100%;
+  }
+
+  &[data-node-type='embedCard'] > div {
+    width: 100%;
   }
 
   /* Renderer */

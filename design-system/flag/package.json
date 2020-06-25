@@ -41,7 +41,7 @@
     "@atlaskit/build-utils": "*",
     "@atlaskit/docs": "*",
     "@atlaskit/field-radio-group": "^7.0.2",
-    "@atlaskit/spinner": "^13.0.0",
+    "@atlaskit/spinner": "^14.0.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/theme": "^9.5.1",
     "@atlaskit/visual-regression": "*",

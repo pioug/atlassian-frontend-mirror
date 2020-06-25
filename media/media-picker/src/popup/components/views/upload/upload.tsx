@@ -351,6 +351,7 @@ export class StatelessUploadView extends Component<
       const identifier: FileIdentifier = {
         id,
         mediaItemType: 'file',
+        collectionName: RECENTS_COLLECTION,
       };
 
       return {

@@ -1,5 +1,11 @@
 # @atlaskit/media-image
 
+## 16.0.1
+
+### Patch Changes
+
+- [`51aa5587ef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/51aa5587ef) - bump media-client: Remove stack traces from media analytic events
+
 ## 16.0.0
 
 ### Major Changes

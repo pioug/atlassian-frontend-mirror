@@ -1,5 +1,11 @@
 # @atlaskit/media-filmstrip
 
+## 38.0.3
+
+### Patch Changes
+
+- [`51aa5587ef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/51aa5587ef) - bump media-client: Remove stack traces from media analytic events
+
 ## 38.0.2
 
 ### Patch Changes

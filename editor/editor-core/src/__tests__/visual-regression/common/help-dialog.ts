@@ -8,7 +8,7 @@ describe('Help Dialog', () => {
     const page: Page = global.page;
     await initEditorWithAdf(page, {
       appearance: Appearance.fullPage,
-      viewport: { width: 800, height: 1400 },
+      viewport: { width: 1200, height: 1400 },
     });
     await page.click(pmSelector);
     await page.keyboard.down('Control');

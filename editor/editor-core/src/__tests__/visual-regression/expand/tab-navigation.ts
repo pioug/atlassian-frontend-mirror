@@ -7,6 +7,7 @@ import * as adfWithExpand from './__fixtures__/simple-expand.adf.json';
 import { Page } from '../../__helpers/page-objects/_types';
 import { clickEditableContent } from '../../__helpers/page-objects/_editor';
 import { pressKey } from '../../__helpers/page-objects/_keyboard';
+import { waitForFloatingControl } from '../../__helpers/page-objects/_toolbar';
 
 describe('Expand: tab navigation', () => {
   let page: Page;
@@ -42,6 +43,7 @@ describe('Expand: tab navigation', () => {
         describe('and enter is pressed', () => {
           it('should collapse the expand', async () => {
             await pressKey(page, ['Tab', 'Tab', 'Enter']);
+            await waitForFloatingControl(page, 'Expand toolbar');
             await waitForTooltip(page);
           });
         });

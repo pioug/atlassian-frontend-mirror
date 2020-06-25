@@ -14,6 +14,7 @@ export interface WrapperProps {
   isSelected?: boolean;
   isFrameVisible?: boolean;
   isVisible?: boolean;
+  inheritDimensions?: boolean;
 }
 
 function minWidth({ minWidth }: WrapperProps) {
@@ -36,7 +37,6 @@ function getinteractiveStyles({ isInteractive, isFrameVisible }: WrapperProps) {
   const visibleFrameStyles = isFrameVisible ? visibleStyles : '';
   const interactiveFrameStyles = isInteractive
     ? `
-  cursor: pointer;
   &:hover {
     ${visibleStyles}
   }
@@ -69,9 +69,9 @@ function selected({ isSelected }: WrapperProps) {
 }
 
 const wrapperStyles = css`
-  ${borderRadius} 
-  ${minWidth} 
-  ${maxWidth} 
+  ${borderRadius}
+  ${minWidth}
+  ${maxWidth}
   ${getinteractiveStyles}
   ${visible}
   display: inline-flex;
@@ -83,13 +83,22 @@ const wrapperStyles = css`
   line-height: initial;
   transition: background 0.3s;
   position: relative;
-  height: ${gridSize(54)};
+  height: 100%;
+  ${({ inheritDimensions }: WrapperProps) => {
+    if (inheritDimensions) {
+      return `
+      height: 100%;
+    `;
+    } else {
+      return `height: ${gridSize(54)}`;
+    }
+  }}
   ${selected}
 
   &:after {
     content: "";
     background: transparent;
-    transition: background 0.3s;
+    transition: background 0.3s, box-shadow 0.3s;
     position: absolute;
     width: calc(100% + ${gridSize(2)});
     height: calc(100% + ${gridSize(1)});
@@ -98,7 +107,7 @@ const wrapperStyles = css`
   }
 `;
 
-const visibleStyles = `        
+const visibleStyles = `
   background-color: ${colors.N30};
 
   &:after {
@@ -140,8 +149,8 @@ export interface PlaceholderProps {
 }
 
 export const IconWrapper = styled.div`
-  ${borderRadius} 
-  ${size(16)} 
+  ${borderRadius}
+  ${size(16)}
   ${({ isPlaceholder }: PlaceholderProps) => {
     if (isPlaceholder) {
       return `
@@ -179,13 +188,14 @@ export const Content = styled.div`
   position: relative;
 
   ${borderRadius}
-  ${cardShadow} 
+  ${cardShadow}
   background-color: white;
   position: absolute;
   z-index: 1;
   width: 100%;
   top: ${gridSize(4)};
-  height: ${gridSize(50)};
+  overflow: auto;
+  height: calc(100% - ${gridSize(4)});
   transition: box-shadow 0.3s;
 
   > .calc-height > div > div {
@@ -272,7 +282,7 @@ export interface ThumbnailProps {
 
 export const Thumbnail = styled.div`
   ${borderRadius}
-  ${size(48)} 
+  ${size(48)}
   float: right;
   margin: 4px 0 12px 12px;
   background-color: ${colors.N30};

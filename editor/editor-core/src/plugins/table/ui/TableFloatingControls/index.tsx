@@ -9,6 +9,7 @@ import NumberColumn from './NumberColumn';
 import { isSelectionUpdated } from '../../utils';
 import { hoverRows, selectRow } from '../../commands';
 import { TableColumnOrdering } from '../../types';
+import { RowStickyState } from '../../pm-plugins/sticky-headers';
 
 export interface Props {
   editorView: EditorView;
@@ -22,8 +23,10 @@ export interface Props {
   isNumberColumnEnabled?: boolean;
   hasHeaderRow?: boolean;
   tableHeight?: number;
+  headerRowHeight?: number;
   hoveredRows?: number[];
   ordering?: TableColumnOrdering;
+  stickyHeader?: RowStickyState;
 }
 
 export default class TableFloatingControls extends Component<Props> {
@@ -42,6 +45,8 @@ export default class TableFloatingControls extends Component<Props> {
       tableActive,
       isHeaderColumnEnabled,
       ordering,
+      headerRowHeight,
+      stickyHeader,
     } = this.props;
 
     return (
@@ -55,7 +60,9 @@ export default class TableFloatingControls extends Component<Props> {
       isHeaderRowEnabled !== nextProps.isHeaderRowEnabled ||
       isHeaderColumnEnabled !== nextProps.isHeaderColumnEnabled ||
       isNumberColumnEnabled !== nextProps.isNumberColumnEnabled ||
-      isSelectionUpdated(selection!, nextProps.selection)
+      isSelectionUpdated(selection!, nextProps.selection) ||
+      headerRowHeight !== nextProps.headerRowHeight ||
+      stickyHeader !== nextProps.stickyHeader
     );
   }
 
@@ -71,11 +78,15 @@ export default class TableFloatingControls extends Component<Props> {
       tableActive,
       hasHeaderRow,
       hoveredRows,
+      stickyHeader,
     } = this.props;
 
     if (!tableRef) {
       return null;
     }
+
+    const stickyTop =
+      stickyHeader && stickyHeader.sticky ? stickyHeader.top : undefined;
 
     return (
       <div onMouseDown={e => e.preventDefault()}>
@@ -90,6 +101,7 @@ export default class TableFloatingControls extends Component<Props> {
             isInDanger={isInDanger}
             isResizing={isResizing}
             selectRow={this.selectRow}
+            stickyTop={stickyTop}
           />
         ) : null}
         <CornerControls
@@ -100,6 +112,7 @@ export default class TableFloatingControls extends Component<Props> {
           isHeaderRowEnabled={isHeaderRowEnabled}
           isHeaderColumnEnabled={isHeaderColumnEnabled}
           hoveredRows={hoveredRows}
+          stickyTop={tableActive ? stickyTop : undefined}
         />
         <RowControls
           editorView={editorView}
@@ -109,6 +122,7 @@ export default class TableFloatingControls extends Component<Props> {
           isInDanger={isInDanger}
           isResizing={isResizing}
           selectRow={this.selectRow}
+          stickyTop={tableActive ? stickyTop : undefined}
         />
       </div>
     );

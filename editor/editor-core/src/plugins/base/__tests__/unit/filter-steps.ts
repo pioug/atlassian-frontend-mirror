@@ -34,10 +34,6 @@ describe('filter steps', () => {
     editorView.dispatch(tr);
   });
 
-  afterEach(() => {
-    editorView.destroy();
-  });
-
   it('should filter out invalid steps', () => {
     expect(editorView.state.doc).toEqualDocument(doc(paragraph('hello world')));
   });

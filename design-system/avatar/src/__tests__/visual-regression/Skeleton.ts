@@ -4,6 +4,12 @@ import {
 } from '@atlaskit/visual-regression/helper';
 
 describe('Skeleton', () => {
+  let page: any;
+  beforeEach(async () => {
+    page = global.page;
+    await page.setViewport({ width: 500, height: 850 });
+  });
+
   it('should match production example', async () => {
     const url = getExampleUrl(
       'design-system',
@@ -11,8 +17,7 @@ describe('Skeleton', () => {
       'skeleton',
       global.__BASEURL__,
     );
-    await global.page.setViewport({ width: 500, height: 850 });
-    const image = await takeScreenShot(global.page, url);
+    const image = await takeScreenShot(page, url);
     expect(image).toMatchProdImageSnapshot();
   });
 });

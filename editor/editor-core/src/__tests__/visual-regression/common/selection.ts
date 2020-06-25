@@ -7,6 +7,15 @@ import {
 } from '../../__helpers/page-objects/_table';
 import { animationFrame } from '../../__helpers/page-objects/_editor';
 import { EditorTestCardProvider } from '@atlaskit/editor-test-helpers/card-provider';
+
+import * as selectionAdf from './__fixtures__/selection-adf.json';
+import { Page } from '../../__helpers/page-objects/_types';
+import {
+  PanelSharedCssClassName,
+  PanelSharedSelectors,
+} from '@atlaskit/editor-common';
+import { mentionSelectors } from '../../__helpers/page-objects/_mention';
+
 // TODO: https://product-fabric.atlassian.net/browse/ED-7721
 describe.skip('Danger for nested elements', () => {
   let page: any;
@@ -40,5 +49,37 @@ describe.skip('Danger for nested elements', () => {
       await page.waitForSelector(tableSelectors.removeDanger);
       await waitForTooltip(page);
     });
+  });
+});
+
+describe('Selection:', () => {
+  let page: Page;
+
+  beforeAll(() => {
+    page = global.page;
+  });
+
+  beforeEach(async () => {
+    await initEditorWithAdf(page, {
+      appearance: Appearance.fullPage,
+      adf: selectionAdf,
+      viewport: { width: 400, height: 320 },
+    });
+  });
+
+  afterEach(async () => {
+    await page.waitForSelector(PanelSharedSelectors.removeButton);
+    await page.hover(PanelSharedSelectors.removeButton);
+    await page.waitForSelector(`.${PanelSharedCssClassName.prefix}.danger`);
+    await waitForTooltip(page);
+    await snapshot(page);
+  });
+
+  it('displays danger styling when node is selected', async () => {
+    await page.click(`.${PanelSharedCssClassName.icon}`);
+  });
+
+  it('displays danger styling when child node is selected', async () => {
+    await page.click(mentionSelectors.mention);
   });
 });

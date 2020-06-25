@@ -1,11 +1,12 @@
 import { EventHandler, MouseEvent, KeyboardEvent } from 'react';
-import { CardAppearance } from '../Card/types';
+import { CardAppearance, CardPlatform } from '../Card/types';
 import { AnalyticsHandler } from '../../utils/types';
 
 export type CardWithUrlContentProps = {
   id: string;
   url: string;
   appearance: CardAppearance;
+  platform?: CardPlatform;
   onClick?: EventHandler<MouseEvent | KeyboardEvent>;
   isSelected?: boolean;
   isFrameVisible?: boolean;
@@ -14,4 +15,5 @@ export type CardWithUrlContentProps = {
   testId?: string;
   onResolve?: (data: { url?: string; title?: string }) => void;
   showActions?: boolean;
+  inheritDimensions?: boolean;
 };

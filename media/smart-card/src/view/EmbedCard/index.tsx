@@ -3,6 +3,7 @@ import {
   BlockCardResolvingView,
   CardLinkView,
   BlockCardErroredView,
+  BlockCardResolvedView,
 } from '@atlaskit/media-ui';
 import {
   EmbedCardResolvedView,
@@ -15,6 +16,8 @@ import { JsonLd } from 'json-ld-types';
 import { EmbedCardProps } from './types';
 import { extractEmbedProps } from '../../extractors/embed';
 import { getEmptyJsonLd } from '../../utils/jsonld';
+import { extractBlockProps } from '../../extractors/block';
+import { getDefinitionId } from '../../state/helpers';
 
 export const EmbedCard: FC<EmbedCardProps> = ({
   url,
@@ -22,10 +25,15 @@ export const EmbedCard: FC<EmbedCardProps> = ({
   handleAuthorize,
   handleErrorRetry,
   handleFrameClick,
+  handleAnalytics,
+  handleInvoke,
+  showActions,
   isSelected,
   isFrameVisible,
+  platform,
   onResolve,
   testId,
+  inheritDimensions,
 }) => {
   const data =
     ((details && details.data) as JsonLd.Data.BaseData) || getEmptyJsonLd();
@@ -40,44 +48,78 @@ export const EmbedCard: FC<EmbedCardProps> = ({
         />
       );
     case 'resolving':
-      return <BlockCardResolvingView isSelected={isSelected} />;
+      return (
+        <BlockCardResolvingView
+          testId="embed-card-resolving-view"
+          inheritDimensions={inheritDimensions}
+          isSelected={isSelected}
+        />
+      );
     case 'resolved':
-      const resolvedViewProps = extractEmbedProps(data);
+      const resolvedViewProps = extractEmbedProps(data, platform);
       if (onResolve) {
         onResolve({
           title: resolvedViewProps.title,
           url,
         });
       }
-      return (
-        <EmbedCardResolvedView
-          {...resolvedViewProps}
-          isSelected={isSelected}
-          isFrameVisible={isFrameVisible}
-        />
-      );
+      if (resolvedViewProps.preview) {
+        return (
+          <EmbedCardResolvedView
+            {...resolvedViewProps}
+            isSelected={isSelected}
+            isFrameVisible={isFrameVisible}
+            inheritDimensions={inheritDimensions}
+            onClick={handleFrameClick}
+          />
+        );
+      } else {
+        const resolvedBlockViewProps = extractBlockProps(data, {
+          handleAnalytics,
+          handleInvoke,
+          definitionId: getDefinitionId(details),
+        });
+        return (
+          <BlockCardResolvedView
+            {...resolvedBlockViewProps}
+            isSelected={isSelected}
+            testId={testId}
+            showActions={showActions}
+            onClick={handleFrameClick}
+          />
+        );
+      }
     case 'unauthorized':
-      const unauthorisedViewProps = extractEmbedProps(data);
+      const unauthorisedViewProps = extractEmbedProps(data, platform);
       return (
         <EmbedCardUnauthorisedView
           {...unauthorisedViewProps}
           isSelected={isSelected}
           onAuthorise={handleAuthorize}
+          inheritDimensions={inheritDimensions}
+          onClick={handleFrameClick}
         />
       );
     case 'forbidden':
-      const forbiddenViewProps = extractEmbedProps(data);
+      const forbiddenViewProps = extractEmbedProps(data, platform);
       return (
         <EmbedCardForbiddenView
           {...forbiddenViewProps}
           isSelected={isSelected}
           onAuthorise={handleAuthorize}
+          inheritDimensions={inheritDimensions}
+          onClick={handleFrameClick}
         />
       );
     case 'not_found':
-      const notFoundViewProps = extractEmbedProps(data);
+      const notFoundViewProps = extractEmbedProps(data, platform);
       return (
-        <EmbedCardNotFoundView {...notFoundViewProps} isSelected={isSelected} />
+        <EmbedCardNotFoundView
+          {...notFoundViewProps}
+          isSelected={isSelected}
+          inheritDimensions={inheritDimensions}
+          onClick={handleFrameClick}
+        />
       );
     case 'fallback':
     case 'errored':

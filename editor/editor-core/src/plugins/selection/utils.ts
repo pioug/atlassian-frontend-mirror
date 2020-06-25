@@ -1,5 +1,10 @@
 import { DecorationSet, Decoration } from 'prosemirror-view';
-import { NodeSelection, Transaction } from 'prosemirror-state';
+import {
+  NodeSelection,
+  Transaction,
+  TextSelection,
+  EditorState,
+} from 'prosemirror-state';
 import {
   akEditorSelectedBorderSize,
   akEditorSelectedBorder,
@@ -7,19 +12,16 @@ import {
   akEditorSelectedBlanketColor,
   akEditorSelectedBlanketOpacity,
 } from '@atlaskit/editor-common';
-import { SelectionStyle } from './types';
+import { SelectionStyle, SelectionPluginState } from './types';
 import { akEditorSelectedNodeClassName } from '../../styles';
 
 export const getDecorations = (tr: Transaction): DecorationSet => {
   if (tr.selection instanceof NodeSelection) {
-    const selectedNode = tr.selection.node.type.name;
-    if (['extension', 'bodiedExtension'].indexOf(selectedNode) === -1) {
-      return DecorationSet.create(tr.doc, [
-        Decoration.node(tr.selection.from, tr.selection.to, {
-          class: akEditorSelectedNodeClassName,
-        }),
-      ]);
-    }
+    return DecorationSet.create(tr.doc, [
+      Decoration.node(tr.selection.from, tr.selection.to, {
+        class: akEditorSelectedNodeClassName,
+      }),
+    ]);
   }
   return DecorationSet.empty;
 };
@@ -74,3 +76,45 @@ const getSelectionStyle = (style: SelectionStyle): string => {
       return '';
   }
 };
+
+export function shouldRecalcDecorations(
+  pluginState: SelectionPluginState,
+  state: EditorState,
+): boolean {
+  const { selection: oldSelection, decorationSet } = pluginState;
+  const { selection: newSelection } = state;
+
+  // If selection is unchanged, no need to recalculate
+  if (oldSelection.eq(newSelection)) {
+    // We need this special case for NodeSelection, as Prosemirror still thinks the
+    // selections are equal when the node has changed
+    if (
+      oldSelection instanceof NodeSelection &&
+      newSelection instanceof NodeSelection
+    ) {
+      const oldDecorations = decorationSet.find();
+      const newDecorations = getDecorations(state.tr).find();
+      // There might not be old or new decorations if the node selection is for a text node
+      // This wouldn't have happened intentionally, but we need to handle this case regardless
+      if (oldDecorations.length > 0 && newDecorations.length > 0) {
+        return !(oldDecorations[0] as Decoration & {
+          eq: (other: Decoration) => boolean;
+        }).eq(newDecorations[0]);
+      }
+      return !(oldDecorations.length === 0 && newDecorations.length === 0);
+    }
+    return false;
+  }
+
+  // There's no point updating decorations if going from one standard TextSelection to another
+  if (
+    oldSelection instanceof TextSelection &&
+    newSelection instanceof TextSelection &&
+    oldSelection.from === oldSelection.to &&
+    newSelection.from === newSelection.to
+  ) {
+    return false;
+  }
+
+  return true;
+}

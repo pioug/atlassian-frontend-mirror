@@ -1,5 +1,16 @@
 # @atlaskit/adf-schema
 
+## 11.0.0
+
+### Major Changes
+
+- [`0ae829a4ea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0ae829a4ea) - EDM-648: Adds resizing and alignment to embed cards
+
+### Patch Changes
+
+- [`fb1a9c8009`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fb1a9c8009) - [FM-3726] Call onAnnotationClick when user taps in inline comment on Renderer
+- [`2589a3e4fc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2589a3e4fc) - EDM-713: fix copy-paste from Renderer to Editor on Firefox
+
 ## 10.0.0
 
 ### Major Changes

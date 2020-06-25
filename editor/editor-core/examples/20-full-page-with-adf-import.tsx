@@ -94,7 +94,9 @@ export default class Example extends React.Component<any, State> {
                   >
                     Convert ADF to Query String
                   </button>
-                  <FullPageEditor />
+                  <FullPageEditor
+                    UNSAFE_cards={{ allowEmbeds: true, allowBlockCards: true }}
+                  />
                 </React.Fragment>
               );
             }}

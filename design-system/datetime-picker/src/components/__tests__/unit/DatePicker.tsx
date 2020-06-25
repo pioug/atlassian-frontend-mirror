@@ -9,6 +9,12 @@ import Select from '@atlaskit/select';
 
 import { DatePickerWithoutAnalytics as DatePicker } from '../../../components/DatePicker';
 
+test('DatePicker requires no props to be used', () => {
+  const { container } = render(<DatePicker />);
+
+  expect(container.firstChild).toBeInTheDocument();
+});
+
 test('DatePicker, custom formatDisplayLabel', () => {
   const dateValue = new Date('06/08/2018').toUTCString();
   const formatDisplayLabel = (date: string, dateFormat: string) => {

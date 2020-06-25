@@ -1,6 +1,8 @@
-import { setParentNodeMarkup, removeParentNodeOfType } from 'prosemirror-utils';
+import { removeParentNodeOfType } from 'prosemirror-utils';
 import { Command } from '../../types';
 import { CodeBlockAttrs } from '@atlaskit/adf-schema';
+import { pluginKey } from './plugin-key';
+import { CodeBlockState } from './pm-plugins/main';
 
 export type DomAtPos = (pos: number) => { node: HTMLElement; offset: number };
 export const removeCodeBlock: Command = (state, dispatch) => {
@@ -19,18 +21,23 @@ export const changeLanguage = (language: string): Command => (
   dispatch,
 ) => {
   const {
-    schema: { nodes },
+    schema: {
+      nodes: { codeBlock },
+    },
     tr,
   } = state;
 
-  // setParentNodeMarkup doesn't typecheck the attributes
   const attrs: CodeBlockAttrs = { language };
+  const codeBlockState: CodeBlockState | undefined = pluginKey.getState(state);
+  if (codeBlockState === undefined) {
+    return false;
+  }
+  const { pos } = codeBlockState;
+  if (pos === null) {
+    return false;
+  }
 
-  const changeLanguageTr = setParentNodeMarkup(
-    nodes.codeBlock,
-    null,
-    attrs,
-  )(tr);
+  const changeLanguageTr = tr.setNodeMarkup(pos, codeBlock, attrs);
   changeLanguageTr.setMeta('scrollIntoView', false);
 
   if (dispatch) {

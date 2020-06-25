@@ -288,10 +288,10 @@ export const setSelectedCardAppearance: (
 
   const { inlineCard, blockCard, embedCard } = state.schema.nodes;
   const pos = state.selection.from;
-
+  const hasOneChild = state.selection.$from.parent.childCount === 1;
   let { tr } = state;
 
-  if (appearance === 'block' && state.selection.$from.parent.childCount === 1) {
+  if (appearance === 'block' && hasOneChild) {
     tr = tr.replaceRangeWith(
       pos - 1,
       pos + selectedNode.nodeSize + 1,
@@ -301,7 +301,7 @@ export const setSelectedCardAppearance: (
         selectedNode.marks,
       ),
     );
-  } else if (appearance === 'embed') {
+  } else if (appearance === 'embed' && hasOneChild) {
     tr = tr.replaceRangeWith(
       Math.max(pos - 1, 0),
       pos + selectedNode.nodeSize + 1,
@@ -315,9 +315,16 @@ export const setSelectedCardAppearance: (
       ),
     );
   } else {
+    const nodeType =
+      appearance === 'inline'
+        ? inlineCard
+        : appearance === 'block'
+        ? blockCard
+        : embedCard;
+
     tr = tr.setNodeMarkup(
       pos,
-      appearance === 'inline' ? inlineCard : blockCard,
+      nodeType,
       selectedNode.attrs,
       selectedNode.marks,
     );

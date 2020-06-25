@@ -16,7 +16,7 @@ import {
   buildLinkingButtons,
   shouldShowMediaLinkToolbar,
 } from './linking';
-import buildLayoutButtons from './buildMediaLayoutButtons';
+import buildLayoutButtons from '../../../ui/MediaAndEmbedsToolbar';
 import { MediaLinkingState, getMediaLinkingState } from '../pm-plugins/linking';
 import { getPluginState as getMediaAltTextPluginState } from '../pm-plugins/alt-text';
 import { altTextButton, getAltTextToolbar } from './alt-text';
@@ -81,6 +81,7 @@ export const floatingToolbar = (
     toolbarButtons = buildLayoutButtons(
       state,
       intl,
+      state.schema.nodes.mediaSingle,
       allowResizing,
       allowResizingInTables,
     );

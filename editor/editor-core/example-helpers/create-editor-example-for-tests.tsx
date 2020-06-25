@@ -7,7 +7,6 @@ import { AnnotationTypes } from '@atlaskit/adf-schema';
 import { AtlaskitThemeProvider } from '@atlaskit/theme';
 import { EmojiProvider } from '@atlaskit/emoji/resource';
 import { MockActivityResource } from '@atlaskit/activity/dist/es5/support';
-import { Provider as SmartCardProvider } from '@atlaskit/smart-card';
 import { mention, emoji, taskDecision } from '@atlaskit/util-data-test';
 import { createCollabEditProvider } from '@atlaskit/synchrony-test-helpers';
 import { ExtensionHandlers } from '@atlaskit/editor-common';
@@ -237,10 +236,7 @@ function createProviders(
     providers.mediaProvider = storyMediaProviderFactory({
       useMediaPickerAuthProvider: false,
     });
-  } else if (
-    opts.cards ||
-    (props && props.UNSAFE_cards && props.UNSAFE_cards.provider)
-  ) {
+  } else if (opts.cards || (props && props.UNSAFE_cards)) {
     providers.cardsProvider = Promise.resolve(cardProvider);
   } else if (opts.collab) {
     providers.collabEditProvider = createCollabEditProvider(opts.collab);
@@ -256,7 +252,7 @@ export function mapPropsToProviders(
   providers: Record<string, boolean> = {},
   props: EditorProps,
 ): Record<string, boolean> {
-  if (props && props.UNSAFE_cards && props.UNSAFE_cards.provider) {
+  if (props && props.UNSAFE_cards) {
     providers.cards = true;
   }
 
@@ -274,8 +270,11 @@ export function mapProvidersToProps(
   providers: Record<string, any> = {},
   props: EditorProps,
 ): EditorProps {
-  if (props && props.UNSAFE_cards && props.UNSAFE_cards.provider) {
-    props.UNSAFE_cards.provider = providers.cardsProvider;
+  if (props && props.UNSAFE_cards) {
+    props.UNSAFE_cards = {
+      ...props.UNSAFE_cards,
+      provider: providers.cardsProvider,
+    };
   }
 
   if (props && props.media) {
@@ -318,14 +317,6 @@ function createWrappers(options: MountEditorOptions, RenderCmp: any) {
 
   if (options.withSidebar) {
     Cmp = withSidebarContainer(Cmp);
-  }
-
-  if (options.providers && options.providers.card) {
-    Cmp = (props: any) => (
-      <SmartCardProvider>
-        <Cmp {...props} />
-      </SmartCardProvider>
-    );
   }
 
   return Cmp;

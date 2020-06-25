@@ -61,6 +61,51 @@ export const nativeFields: FieldDefinition[] = [
     ],
   },
   {
+    name: 'enum-with-icon',
+    label: 'Select with icons',
+    description: 'Pick one',
+    type: 'enum',
+    style: 'select',
+    isMultiple: false,
+    items: [
+      {
+        label: 'Option A',
+        value: 'a',
+        description: 'Recommended',
+        icon: 'https://i.picsum.photos/id/237/24/24.jpg',
+      },
+      {
+        label: 'Option B',
+        value: 'b',
+        description: 'One of the best options out there',
+        icon: 'https://i.picsum.photos/id/240/24/24.jpg',
+      },
+    ],
+  },
+  {
+    name: 'enum-with-icon-multiple',
+    label: 'Select with icons (multiple)',
+    description: 'Pick many',
+    type: 'enum',
+    defaultValue: ['a', 'b'],
+    style: 'select',
+    isMultiple: true,
+    items: [
+      {
+        label: 'Option A',
+        value: 'a',
+        description: 'Our most popular pick',
+        icon: 'https://i.picsum.photos/id/237/24/24.jpg',
+      },
+      {
+        label: 'Option B',
+        value: 'b',
+        description: 'Many people like this one',
+        icon: 'https://i.picsum.photos/id/240/24/24.jpg',
+      },
+    ],
+  },
+  {
     name: 'boolean-field',
     label: 'Will you confirm it?',
     description: 'True or False',

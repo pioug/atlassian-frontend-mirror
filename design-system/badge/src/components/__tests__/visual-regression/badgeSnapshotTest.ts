@@ -11,7 +11,13 @@ describe('Snapshot Test', () => {
       'basic',
       global.__BASEURL__,
     );
-    const image = await takeScreenShot(global.page, url);
+    const { page } = global;
+
+    // Move the mouse away from the first button to avoid
+    // the hover effect from triggering.
+    await page.mouse.move(400, 0);
+
+    const image = await takeScreenShot(page, url);
 
     expect(image).toMatchProdImageSnapshot();
   });

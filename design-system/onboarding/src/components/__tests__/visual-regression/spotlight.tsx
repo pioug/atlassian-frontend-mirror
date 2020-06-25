@@ -1,5 +1,6 @@
 import {
   getExampleUrl,
+  loadPage,
   takeElementScreenShot,
 } from '@atlaskit/visual-regression/helper';
 
@@ -16,7 +17,7 @@ describe.skip('onboarding spotlight visual regression', () => {
       'spotlight-dialog-placement',
       __BASEURL__,
     );
-    await page.goto(url);
+    await loadPage(page, url);
     await page.waitForSelector(openButtonSelector);
 
     await page.click(openButtonSelector);
@@ -37,7 +38,7 @@ describe.skip('onboarding spotlight visual regression', () => {
       'spotlight-dialog-placement',
       __BASEURL__,
     );
-    await page.goto(url);
+    await loadPage(page, url);
     await page.waitForSelector(openButtonSelector);
 
     await page.click(openButtonSelector);

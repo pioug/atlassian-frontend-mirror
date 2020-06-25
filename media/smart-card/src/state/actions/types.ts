@@ -13,11 +13,13 @@ export type CardActionType =
 export interface CardAction<T = JsonLd.Response> extends AnyAction {
   type: CardActionType;
   url: string;
+  hasExpired?: boolean;
   payload?: T;
 }
 
 export type CardActionParams = {
   url: string;
+  hasExpired?: boolean;
 };
 
 export type CardBaseActionCreator<T = JsonLd.Response> = (

@@ -1,5 +1,12 @@
 # @atlaskit/avatar
 
+## 18.0.2
+
+### Patch Changes
+
+- [`1c401b41d6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1c401b41d6) - Codemod updated to target the correct avatarItem prop name
+- [`e3cb6026bc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e3cb6026bc) - Updates the v18 codemod to ensure it doesnt format files that are not relevant
+
 ## 18.0.1
 
 ### Patch Changes

@@ -1,6 +1,7 @@
 import {
   compareScreenshot,
   getExampleUrl,
+  loadPage,
   takeScreenShot,
 } from '@atlaskit/visual-regression/helper';
 
@@ -25,7 +26,7 @@ describe('Snapshot Test', () => {
     );
     const index = getExampleUrl('design-system', global.__BASEURL__);
     const { page } = global;
-    await page.goto(index);
+    await loadPage(page, index);
     await page.evaluate(() => {
       localStorage.setItem(
         'ATLASKIT_NAVIGATION_UI_STATE',
@@ -33,7 +34,7 @@ describe('Snapshot Test', () => {
       );
     });
 
-    await page.goto(url);
+    await loadPage(page, url);
     const image = await takeScreenShot(global.page, url);
     expect(image).toMatchProdImageSnapshot();
   });
@@ -46,7 +47,7 @@ describe('Snapshot Test', () => {
       global.__BASEURL__,
     );
     const { page } = global;
-    await page.goto(url);
+    await loadPage(page, url);
     const image = await takeScreenShot(page, url);
     expect(image).toMatchProdImageSnapshot(); // Snapshot of product nav
   });
@@ -78,7 +79,7 @@ describe('Snapshot Test', () => {
     );
     const { page } = global;
     const button = `[data-webdriver-test-key="container-header"] > div > button`;
-    await page.goto(url);
+    await loadPage(page, url);
     await page.waitFor(300);
 
     await page.waitForSelector(button);
@@ -97,7 +98,7 @@ describe('Snapshot Test', () => {
       global.__BASEURL__,
     );
     const { page } = global;
-    await page.goto(url);
+    await loadPage(page, url);
     await page.setViewport({ width: 1500, height: 700 });
 
     const image = await takeScreenShot(page, url);
@@ -112,7 +113,7 @@ describe('Snapshot Test', () => {
       global.__BASEURL__,
     );
     const { page } = global;
-    await page.goto(url);
+    await loadPage(page, url);
     await page.setViewport({ width: 1500, height: 1700 });
     const image = await takeScreenShot(page, url);
     expect(image).toMatchProdImageSnapshot();
@@ -129,7 +130,7 @@ describe('Snapshot Test', () => {
     // TODO: Fix button selector
     const button = '#toggle-shadow';
 
-    await page.goto(url);
+    await loadPage(page, url);
     await page.waitForSelector(button);
     await page.click(button);
 
@@ -147,7 +148,7 @@ describe('Snapshot Test', () => {
     );
 
     const { page } = global;
-    await page.goto(url);
+    await loadPage(page, url);
     await page.setViewport({ width: 900, height: 1350 });
     const image = await takeScreenShot(page, url);
     expect(image).toMatchProdImageSnapshot();
@@ -164,7 +165,7 @@ describe('Snapshot Test', () => {
     // TODO: Fix button selector
     const button = "[data-testid='Navigation'] > div:last-of-type button";
 
-    await page.goto(url);
+    await loadPage(page, url);
     await page.setViewport({ width: 750, height: 700 });
     await page.waitForSelector(button);
     await page.click(button);

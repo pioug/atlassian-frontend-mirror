@@ -16,6 +16,7 @@ export interface Props {
   hoveredRows?: number[];
   isHeaderColumnEnabled?: boolean;
   isHeaderRowEnabled?: boolean;
+  stickyTop?: number;
 }
 
 export default class CornerControls extends Component<Props, any> {
@@ -35,7 +36,14 @@ export default class CornerControls extends Component<Props, any> {
       <div
         className={classnames(ClassName.CORNER_CONTROLS, {
           active: isActive,
+          sticky: this.props.stickyTop !== undefined,
         })}
+        style={{
+          top:
+            this.props.stickyTop !== undefined
+              ? `${this.props.stickyTop}px`
+              : undefined,
+        }}
       >
         <button
           type="button"

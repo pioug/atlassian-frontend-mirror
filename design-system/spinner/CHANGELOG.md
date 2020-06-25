@@ -1,5 +1,166 @@
 # @atlaskit/spinner
 
+## 14.0.0
+
+### Major Changes
+
+- [`206be3a0cb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/206be3a0cb) - In this version we made spinner dramatically faster and lighter 🤩
+
+  ### Fix: Mounting animation
+
+  The mounting animation for spinner has been fixed. There are three parts to the mounting spinner animation:
+
+  1. Accelerated spin
+  2. Fade in
+  3. Stretch (the spinner starts small and grows to a bigger size)
+
+  In `12.x` the fade in and stretch parts of the animation were broken 😢. These have been fixed in `13.0.0` 🤘
+
+  ### Changes
+
+  _See below for information about a codemod we created to automatically upgrade usages of spinner ❤️_
+
+  There have been a number of breaking changes in `13.0.0`.
+
+  - Spinner no longer has a `peerDependency` on `styled-components@3`. Internally spinner is now using `@emotion/core` for styling
+  - Added new `ref` prop which returns the `ref` of the spinner `svg` using `React.forwardRef`
+  - Improved dark mode support (not that dark mode is truly supported yet). `appearance="invert"` will now invert the colors of the spinner in dark mode. Previously `appearance="invert"` in dark mode did nothing.
+  - The default `delay` prop value has been reduced from `100ms` to `0ms`. The delay was previously designed to prevent the spinner from flickering if async content becomes quickly visible. Now that the fade in animation is working correctly, the spinner is only 2% visible at 100ms.
+  - The `delay` prop is no longer useful to prevent "quick flickering" so the default has been changed. We have created a guide to assist you with better understanding how to use delays, as well as provided new guidance on how to cross fade a spinner with other loading content.
+  - The `invertColor={boolean}` prop has been renamed to `appearance="inherit | invert"` to bring it into line with other components. This is useful when you are displaying a spinner on a background that is not the same background color scheme as the body.
+  - Changing name of the `SpinnerSizes` type to `Size`. Most people are not using this type directly
+  - `isCompleting` and `onComplete` props have been removed. Spinner no longer manages it's own unmount animations. If you want to have graceful unmounting we now have a recommended pattern which leverages our general purpose and performant `@atlaskit/motion` package. (Note: spinner will always animate itself in, you don't need to set anything up).
+
+  ### Automatic upgrading
+
+  ```
+  # You first need to have the latest spinner installed before you can run the codemod
+  yarn upgrade @atlaskit/spinner@^13.0.0
+
+  # Run the codemod cli
+  # Pass in a parser for your codebase
+  npx @atlaskit/codemod-cli /path/to/target/directory --parser [tsx | flow | babel]
+  ```
+
+  #### Notes
+
+  - You first need to upgrade to `13.0.0` **before** you run the codemod cli. This is because the cli will look in your local `node_modules` for the codemod which is published inside the `spinner` package.
+  - The codemod is pretty clever, and will respect aliasing as well as using custom naming for the default import 🤘
+
+  #### Feel the power
+
+  What the codemod will do:
+
+  - `delay`: replace literal number values equal to or less than 150ms as they are no longer needed to avoid flickering
+
+  ```diff
+  - <Spinner delay={0} />
+  + <Spinner />
+
+  - <Spinner delay={100} />
+  + <Spinner />
+
+  - <Spinner delay={150} />
+  + <Spinner />
+
+  // no change
+  <Spinner delay={151} />
+  <Spinner delay={myValue} />
+  ```
+
+  - `invertColor`: automatically changed over to `appearance="inherit | invert"`. All existing logic will be preserved in your code
+
+  ```diff
+  - <Spinner invertColor />
+  + <Spinner appearance="invert" />
+
+  - <Spinner invertColor={false} />
+  + <Spinner />
+
+  - <Spinner invertColor={true} />
+  + <Spinner appearance="invert" />
+
+  - <Spinner invertColor={expression} />
+  + <Spinner appearance={expression ? "invert" : "inherit"} />
+  ```
+
+  - `isCompleting` and `onComplete`: removing props. But _it will not remove the state or functions associated with those props_. We cannot automatically remove the values or control flow associated with these props. **If you were using `isCompleting` or `onComplete` props there will be manual intervention required**.
+
+  ```diff
+  function App() {
+    const [isCompleting] = useState(false);
+    const onComplete = () => {};
+  - return (
+  -   <Spinner
+  -     isCompleting={isCompleting}
+  -     onComplete={() => {
+  -       console.log('on complete!');
+  -       onComplete();
+  -     }}
+  -     delay={1000}
+  -   />
+  - );
+  + return <Spinner delay={1000} />;
+  }
+  ```
+
+  If you were using `onComplete` for control flow, we now recommend using the performant and standard `@atlaskit/motion` solution
+
+  ```js
+  import React, { useState } from 'react';
+  import Spinner from '@atlaskit/spinner';
+  import appLoaded from './control-flow';
+
+  function App() {
+    const [isLoading, setIsLoading] = useState(true);
+    // faking the end of a loading event
+    useEffect(() => {
+      const id = setTimeout(() => setIsLoading(false), 1000);
+      return () => clearTimeout(id);
+    }, []);
+    return <Spinner isCompleting={!isLoading} onComplete={appLoaded} />;
+  }
+  ```
+
+  ```js
+  import React, {useState} from 'react';
+  import Spinner from '@atlaskit/spinner';
+  import { ExitingPersistence, FadeIn } from '@atlaskit/motion';
+  import appLoaded from './control-flow';
+
+  function App() {
+     const [isLoading, setIsLoading] = useState(true);
+
+    // faking the end of a loading event
+    useEffect(() => {
+      const id = setTimeout(() => setIsLoading(false), 1000);
+      return () => clearTimeout(id);
+    }, []);
+
+    const onFinish = useCallback((state) => {
+      if(state === 'exiting') {
+        appLoaded();
+      }
+    }, []);
+
+    return (
+      <ExitingPersistence>
+        {isLoading && (
+          <FadeIn onFinish={onFinish}>
+            {props => (
+              <span {...props}>
+                <Spinner size="xlarge" />
+              </span>
+            )}
+          </FadeIn>
+        )}
+      <ExitingPersistence>
+    );
+  }
+  ```
+
+  - `SpinnerSizes` type: automatically shifted over to a new name: `Size`
+
 ## 13.0.1
 
 ### Patch Changes

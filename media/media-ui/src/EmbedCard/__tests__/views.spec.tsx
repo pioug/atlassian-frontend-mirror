@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, cleanup } from '@testing-library/react';
+import { render, cleanup, fireEvent } from '@testing-library/react';
 import {
   EmbedCardResolvedViewProps,
   EmbedCardResolvedView,
@@ -9,6 +9,7 @@ import { EmbedCardUnauthorisedView } from '../views/UnauthorisedView';
 import { EmbedCardForbiddenView } from '../views/ForbiddenView';
 import { EmbedCardNotFoundView } from '../views/NotFoundView';
 
+let mockOnClick: React.MouseEventHandler = jest.fn();
 const getResolvedProps = (overrides = {}): EmbedCardResolvedViewProps => ({
   link:
     'https://www.dropbox.com/sh/0isygvcskxbdwee/AADMfqcGx4XR15DeKnRo_YzHa?dl=0',
@@ -19,11 +20,17 @@ const getResolvedProps = (overrides = {}): EmbedCardResolvedViewProps => ({
     text: 'Dropbox',
     icon: 'https://www.dropbox.com/static/30168/images/favicon.ico',
   },
+  onClick: mockOnClick,
   ...overrides,
 });
 
 describe('EmbedCard Views', () => {
-  beforeEach(() => {});
+  beforeEach(() => {
+    mockOnClick = jest.fn().mockImplementation((event: React.MouseEvent) => {
+      expect(event.isPropagationStopped()).toBe(true);
+      expect(event.isDefaultPrevented()).toBe(true);
+    });
+  });
 
   afterEach(() => {
     jest.clearAllMocks();
@@ -34,13 +41,36 @@ describe('EmbedCard Views', () => {
     it('renders view', () => {
       const props = getResolvedProps();
       const { getByTestId } = render(
-        <EmbedCardResolvedView testId="resolved-view" {...props} />,
+        <EmbedCardResolvedView testId="embed-card-resolved-view" {...props} />,
       );
-      const outerFrame = getByTestId('resolved-view');
-      const innerFrame = getByTestId('resolved-view-frame');
-      expect(outerFrame.textContent).toBe('Dropbox');
+      const outerFrame = getByTestId('embed-card-resolved-view');
+      const innerFrame = getByTestId('embed-card-resolved-view-frame');
+      expect(outerFrame.textContent).toBe('Smart Link Assets');
       expect(innerFrame).toBeTruthy();
       expect(innerFrame.getAttribute('src')).toBe(props.preview);
+    });
+
+    it('should default to context text if title is missing', () => {
+      const props = getResolvedProps({ title: undefined });
+      const { getByTestId } = render(
+        <EmbedCardResolvedView testId="embed-card-resolved-view" {...props} />,
+      );
+      const outerFrame = getByTestId('embed-card-resolved-view');
+
+      expect(outerFrame.textContent).toBe('Dropbox');
+    });
+
+    it('clicking on link should have no side-effects', () => {
+      const props = getResolvedProps({ title: undefined });
+      const { getByTestId } = render(
+        <EmbedCardResolvedView testId="embed-card-resolved-view" {...props} />,
+      );
+      const view = getByTestId('embed-card-resolved-view');
+      const link = view.querySelector('a');
+
+      expect(link).toBeTruthy();
+      fireEvent.click(link!);
+      expect(mockOnClick).toHaveBeenCalledTimes(1);
     });
   });
 
@@ -48,9 +78,9 @@ describe('EmbedCard Views', () => {
   describe('view: resolving', () => {
     it('renders view', () => {
       const { getByTestId } = render(
-        <BlockCardResolvingView testId="resolving-view" />,
+        <BlockCardResolvingView testId="embed-card-resolving-view" />,
       );
-      const frame = getByTestId('resolving-view');
+      const frame = getByTestId('embed-card-resolving-view');
       expect(frame.textContent).toBe('Loading...');
     });
   });
@@ -60,11 +90,22 @@ describe('EmbedCard Views', () => {
       const { getByTestId, getByText } = render(
         <EmbedCardUnauthorisedView link="" />,
       );
-      const view = getByTestId('embed-unauthorised-view');
+      const view = getByTestId('embed-card-unauthorized-view');
       const message = getByText(/Connect your.*account/);
 
       expect(view).toBeTruthy();
       expect(message).toBeTruthy();
+    });
+
+    it('clicking on link should have no side-effects', () => {
+      const props = getResolvedProps({ title: undefined });
+      const { getByTestId } = render(<EmbedCardUnauthorisedView {...props} />);
+      const view = getByTestId('embed-card-unauthorized-view');
+      const link = view.querySelector('a');
+
+      expect(link).toBeTruthy();
+      fireEvent.click(link!);
+      expect(mockOnClick).toHaveBeenCalledTimes(1);
     });
   });
 
@@ -73,12 +114,23 @@ describe('EmbedCard Views', () => {
       const { getByTestId, getByText } = render(
         <EmbedCardForbiddenView link="" />,
       );
-      const button = getByTestId('embed-forbidden-view-button');
+      const button = getByTestId('embed-card-forbidden-view-button');
       const message = getByText('You don’t have access to this link');
 
       expect(button.textContent).toEqual('Try another account');
       expect(button).toBeTruthy();
       expect(message).toBeTruthy();
+    });
+
+    it('clicking on link should have no side-effects', () => {
+      const props = getResolvedProps({ title: undefined });
+      const { getByTestId } = render(<EmbedCardForbiddenView {...props} />);
+      const view = getByTestId('embed-card-forbidden-view');
+      const link = view.querySelector('a');
+
+      expect(link).toBeTruthy();
+      fireEvent.click(link!);
+      expect(mockOnClick).toHaveBeenCalledTimes(1);
     });
   });
 
@@ -88,6 +140,17 @@ describe('EmbedCard Views', () => {
       const message = getByText("Uh oh. We can't find this link!");
 
       expect(message).toBeTruthy();
+    });
+
+    it('clicking on link should have no side-effects', () => {
+      const props = getResolvedProps({ title: undefined });
+      const { getByTestId } = render(<EmbedCardNotFoundView {...props} />);
+      const view = getByTestId('embed-card-not-found-view');
+      const link = view.querySelector('a');
+
+      expect(link).toBeTruthy();
+      fireEvent.click(link!);
+      expect(mockOnClick).toHaveBeenCalledTimes(1);
     });
   });
 });

@@ -2,6 +2,13 @@ export type Option = {
   label: string;
   value: string;
   description?: string;
+  /**
+   * If a string is passed, we use a image tag to create an icon.
+   * If a react component is passed, we render as is.
+   * The recommendation is to pass a 16x16 icon if no description is provided, or 24x24 if provided.
+   * We can't enforce the size if a React component is passed so it's on the consumer to make the appropriate choice.
+   */
+  icon?: string | React.ReactNode;
 };
 
 interface BaseFieldDefinition {

@@ -1,8 +1,9 @@
-import { MediaSingleLayout } from '@atlaskit/adf-schema';
+import { RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema';
 import { MediaSingleProps } from '@atlaskit/editor-common';
 import { MediaClientConfig } from '@atlaskit/media-core';
 import { GridType } from '../../../grid/types';
 import { EditorView } from 'prosemirror-view';
+import { getPosHandler } from '../../../../nodeviews/types';
 
 export type EnabledHandles = { left?: boolean; right?: boolean };
 
@@ -13,7 +14,7 @@ export type Props = MediaSingleProps & {
     type: GridType,
     highlight?: number[] | string[],
   ) => void;
-  getPos: () => number | undefined;
+  getPos: getPosHandler;
   view: EditorView;
   lineLength: number;
   gridSize: number;

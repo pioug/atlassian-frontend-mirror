@@ -1,5 +1,6 @@
 import {
   getExampleUrl,
+  loadPage,
   takeElementScreenShot,
 } from '@atlaskit/visual-regression/helper';
 
@@ -44,7 +45,7 @@ describe.skip('<LeftSidebar />', () => {
     );
 
     const { page } = global;
-    await page.goto(url);
+    await loadPage(page, url);
     await global.page.evaluate(() => {
       localStorage.clear();
     });

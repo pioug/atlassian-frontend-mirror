@@ -7,6 +7,9 @@ import {
 
 import { expandClassNames } from './class-names';
 import { BreakoutCssClassName } from '../../breakout/constants';
+import { akEditorSelectedNodeClassName } from '../../../styles';
+import { getSelectionStyles } from '../../selection/utils';
+import { SelectionStyle } from '../../selection/types';
 
 const EXPAND_SELECTED_BACKGROUND = 'rgba(255, 255, 255, 0.6)';
 
@@ -27,6 +30,15 @@ export const expandStyles = css`
 
     .${expandClassNames.iconContainer} svg {
       transform: rotate(90deg);
+    }
+
+    &.${akEditorSelectedNodeClassName}:not(.danger) {
+      ${getSelectionStyles([SelectionStyle.Blanket, SelectionStyle.Border])}
+    }
+
+    &.danger {
+      background: ${colors.R50};
+      border-color: ${colors.R300};
     }
   }
 

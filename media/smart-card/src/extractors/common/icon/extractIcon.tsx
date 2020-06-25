@@ -61,6 +61,7 @@ const extractIconByType = (
     case 'schema:PresentationDigitalDocument':
     case 'schema:SpreadsheetDigitalDocument':
     case 'atlassian:Template':
+    case 'atlassian:UndefinedLink':
       return extractIconFromDocument(type, opts);
     case 'atlassian:Project':
       return (

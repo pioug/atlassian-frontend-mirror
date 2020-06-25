@@ -55,36 +55,36 @@ export interface Props extends WithAnalyticsEventsProps {
    */
   appearance?: Appearance;
   /** Whether or not to auto-focus the field. */
-  autoFocus: boolean;
+  autoFocus?: boolean;
   /** Default for `isOpen`. */
-  defaultIsOpen: boolean;
+  defaultIsOpen?: boolean;
   /** Default for `value`. */
-  defaultValue: string;
+  defaultValue?: string;
   /** DEPRECATED - Use locale instead. Function for formatting the displayed time value in the input. By default parses with an internal time parser, and formats using the [date-fns format function]((https://date-fns.org/v1.29.0/docs/format)) */
   formatDisplayLabel?: (time: string, timeFormat: string) => string;
   /** The id of the field. Currently, react-select transforms this to have a "react-select-" prefix, and an "--input" suffix when applied to the input. For example, the id "my-input" would be transformed to "react-select-my-input--input". Keep this in mind when needing to refer to the ID. This will be fixed in an upcoming release. */
-  id: string;
+  id?: string;
   /** Props to apply to the container. **/
-  innerProps: React.AllHTMLAttributes<HTMLElement>;
+  innerProps?: React.AllHTMLAttributes<HTMLElement>;
   /** Whether or not the field is disabled. */
-  isDisabled: boolean;
+  isDisabled?: boolean;
   /** Whether or not the dropdown is open. */
   isOpen?: boolean;
   /** The name of the field. */
-  name: string;
+  name?: string;
   /** Called when the field is blurred. */
-  onBlur: React.FocusEventHandler<HTMLElement>;
+  onBlur?: React.FocusEventHandler<HTMLElement>;
   /** Called when the value changes. The only argument is an ISO time or empty string. */
-  onChange: (value: string) => void;
+  onChange?: (value: string) => void;
   /** Called when the field is focused. */
-  onFocus: React.FocusEventHandler<HTMLElement>;
-  parseInputValue: (time: string, timeFormat: string) => string | Date;
+  onFocus?: React.FocusEventHandler<HTMLElement>;
+  parseInputValue?: (time: string, timeFormat: string) => string | Date;
   /** Props to apply to the select. */
-  selectProps: SelectProps<any>;
+  selectProps?: SelectProps<any>;
   /* This prop affects the height of the select control. Compact is gridSize() * 4, default is gridSize * 5  */
-  spacing: Spacing;
+  spacing?: Spacing;
   /** The times to show in the dropdown. */
-  times: string[];
+  times?: string[];
   /** Allow users to edit the input and add a time */
   timeIsEditable?: boolean;
   /** The ISO time that should be used as the input value. */
@@ -97,13 +97,15 @@ export interface Props extends WithAnalyticsEventsProps {
   timeFormat?: string;
   /** Placeholder text displayed in input */
   placeholder?: string;
-  locale: string;
+  locale?: string;
   /**
    * A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests
    *  - `{testId}--container` wrapping element of time-picker
    **/
   testId?: string;
 }
+
+export type TimePickerProps = typeof TimePicker.defaultProps & Props;
 
 interface State {
   isOpen: boolean;
@@ -141,8 +143,8 @@ const FixedLayerMenu = ({ selectProps, ...rest }: { selectProps: any }) => (
   />
 );
 
-function noop() {}
-
+// TODO: Please replace Props with TimePickerProps
+// when https://github.com/atlassian/extract-react-types/issues/113 gets resolved
 class TimePicker extends React.Component<Props, State> {
   containerRef: HTMLElement | null = null;
 
@@ -157,10 +159,10 @@ class TimePicker extends React.Component<Props, State> {
     isDisabled: false,
     isInvalid: false,
     name: '',
-    onBlur: noop,
-    onChange: noop,
-    onFocus: noop,
-    parseInputValue: (time: string) => parseTime(time),
+    onBlur: (_: React.FocusEvent<HTMLInputElement>) => {},
+    onChange: (_: string) => {},
+    onFocus: (_: React.FocusEvent<HTMLInputElement>) => {},
+    parseInputValue: (time: string, timeFormat: string) => parseTime(time),
     selectProps: {},
     spacing: 'default' as Spacing,
     times: defaultTimes,
@@ -171,30 +173,42 @@ class TimePicker extends React.Component<Props, State> {
   };
 
   state = {
-    isOpen: this.props.defaultIsOpen,
+    isOpen: this.getTypeSafeProps().defaultIsOpen,
     clearingFromIcon: false,
-    value: this.props.defaultValue,
+    value: this.getTypeSafeProps().defaultValue,
     isFocused: false,
-    l10n: createLocalizationProvider(this.props.locale),
+    l10n: createLocalizationProvider(this.getTypeSafeProps().locale),
   };
 
-  componentWillReceiveProps(nextProps: Props): void {
-    if (this.props.locale !== nextProps.locale) {
+  componentWillReceiveProps(nextProps: TimePickerProps): void {
+    const { locale } = this.getTypeSafeProps();
+
+    if (locale !== nextProps.locale) {
       this.setState({ l10n: createLocalizationProvider(nextProps.locale) });
     }
+  }
+
+  // TODO: Please remove this method
+  // when https://github.com/atlassian/extract-react-types/issues/113 gets resolved
+  getTypeSafeProps() {
+    return this.props as TimePickerProps;
   }
 
   // All state needs to be accessed via this function so that the state is mapped from props
   // correctly to allow controlled/uncontrolled usage.
   getSafeState = (): State => {
+    const typeSafeProps = this.getTypeSafeProps();
+
     return {
       ...this.state,
-      ...pick(this.props, ['value', 'isOpen']),
+      ...pick(typeSafeProps, ['value', 'isOpen']),
     };
   };
 
   getOptions(): Array<Option> {
-    return this.props.times.map(
+    const { times } = this.getTypeSafeProps();
+
+    return times.map(
       (time: string): Option => {
         return {
           label: this.formatTime(time),
@@ -216,13 +230,22 @@ class TimePicker extends React.Component<Props, State> {
     }
 
     this.setState(changedState);
-    this.props.onChange(value);
+
+    const { onChange } = this.getTypeSafeProps();
+
+    onChange(value);
   };
 
   /** Only allow custom times if timeIsEditable prop is true  */
   onCreateOption = (inputValue: any): void => {
-    if (this.props.timeIsEditable) {
-      const { parseInputValue, timeFormat } = this.props;
+    const {
+      timeIsEditable,
+      parseInputValue,
+      timeFormat,
+      onChange,
+    } = this.getTypeSafeProps();
+
+    if (timeIsEditable) {
       // TODO parseInputValue doesn't accept `timeFormat` as an function arg yet...
       const value =
         format(
@@ -230,7 +253,7 @@ class TimePicker extends React.Component<Props, State> {
           'HH:mm',
         ) || '';
       this.setState({ value });
-      this.props.onChange(value);
+      onChange(value);
     } else {
       this.onChange(inputValue);
     }
@@ -266,12 +289,18 @@ class TimePicker extends React.Component<Props, State> {
 
   onBlur = (event: React.FocusEvent<HTMLElement>) => {
     this.setState({ isFocused: false });
-    this.props.onBlur(event);
+
+    const { onBlur } = this.getTypeSafeProps();
+
+    onBlur(event);
   };
 
   onFocus = (event: React.FocusEvent<HTMLElement>) => {
     this.setState({ isFocused: true });
-    this.props.onFocus(event);
+
+    const { onFocus } = this.getTypeSafeProps();
+
+    onFocus(event);
   };
 
   onSelectKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -305,7 +334,7 @@ class TimePicker extends React.Component<Props, State> {
    *   3. locale
    */
   formatTime = (time: string): string => {
-    const { formatDisplayLabel, timeFormat } = this.props;
+    const { formatDisplayLabel, timeFormat } = this.getTypeSafeProps();
     const { l10n } = this.getSafeState();
 
     if (formatDisplayLabel) {
@@ -329,7 +358,7 @@ class TimePicker extends React.Component<Props, State> {
   };
 
   getPlaceholder = () => {
-    const { placeholder } = this.props;
+    const { placeholder } = this.getTypeSafeProps();
     if (placeholder) {
       return placeholder;
     }
@@ -349,21 +378,20 @@ class TimePicker extends React.Component<Props, State> {
       selectProps,
       spacing,
       testId,
-    } = this.props;
+      isInvalid,
+      appearance,
+      timeIsEditable,
+    } = this.getTypeSafeProps();
     const ICON_PADDING = 2;
     const BORDER_WIDTH = 2;
 
     const { value = '', isOpen } = this.getSafeState();
-    const validationState = this.props.isInvalid ? 'error' : 'default';
+    const validationState = isInvalid ? 'error' : 'default';
 
     const { styles: selectStyles = {}, ...otherSelectProps } = selectProps;
     const controlStyles =
-      this.props.appearance === 'subtle'
-        ? this.getSubtleControlStyles(selectStyles)
-        : {};
-    const SelectComponent = this.props.timeIsEditable
-      ? CreatableSelect
-      : Select;
+      appearance === 'subtle' ? this.getSubtleControlStyles(selectStyles) : {};
+    const SelectComponent = timeIsEditable ? CreatableSelect : Select;
 
     const labelAndValue = value && {
       label: this.formatTime(value),

@@ -17,7 +17,8 @@ export type DocumentType =
   | 'schema:TextDigitalDocument'
   | 'schema:PresentationDigitalDocument'
   | 'schema:SpreadsheetDigitalDocument'
-  | 'atlassian:Template';
+  | 'atlassian:Template'
+  | 'atlassian:UndefinedLink';
 
 export const extractIconFromDocument = (
   type: DocumentType,
@@ -58,5 +59,7 @@ const documentTypeToIcon = (
       return <SpreadsheetIcon label={opts.title || 'spreadsheet'} />;
     case 'atlassian:Template':
       return <DocumentFilledIcon label={opts.title || 'template'} />;
+    case 'atlassian:UndefinedLink':
+      return <DocumentIcon label={opts.title || 'undefinedLink'} />;
   }
 };

@@ -1,5 +1,12 @@
 # @atlaskit/media-card
 
+## 68.0.1
+
+### Patch Changes
+
+- [`eaade3e0e3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eaade3e0e3) - Added Feature Flag placeholder: Media Card New Experience
+- Updated dependencies
+
 ## 68.0.0
 
 ### Major Changes

@@ -1,5 +1,4 @@
 import { JsonLd } from 'json-ld-types';
-import clone from 'lodash.clonedeep';
 
 import * as actions from '../actions/constants';
 import { CardReducerMap, CardReducer } from './types';
@@ -15,7 +14,7 @@ const cardReducerMap: CardReducerMap<CardState, JsonLd.Response> = {
   },
   [actions.ACTION_RESOLVED]: (state, { type, payload }) => {
     const nextDetails = payload;
-    const nextState = clone(state);
+    const nextState = { ...state };
     if (nextDetails) {
       nextState.status = getStatus(nextDetails);
       nextState.details = nextDetails;
@@ -41,8 +40,18 @@ export const cardReducer: CardReducer<CardStore, JsonLd.Response> = (
 ) => {
   if (cardReducerMap[action.type]) {
     const cardState = state[action.url];
-    const nextState = cardReducerMap[action.type](cardState, action);
-    return { ...state, [action.url]: nextState };
+    // Card may have reached the same state on account of multiple of the same
+    // URL being present in an editor session. E.g. page with N links to one resource.
+    const hasSameStatus = cardState && cardState.status === action.type;
+    // Card needs to be refreshed. In this case, we ignore the same status pragma which
+    // is described above - this forces a rerender for all links of the same status.
+    const hasExpired = action.hasExpired;
+    if (!hasExpired && hasSameStatus) {
+      return state;
+    } else {
+      const nextState = cardReducerMap[action.type](cardState, action);
+      return { ...state, [action.url]: nextState };
+    }
   }
   return state;
 };

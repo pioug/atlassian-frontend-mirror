@@ -1,11 +1,12 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
-import { getDocFromElement, editable, selectInlineLink } from '../_helpers';
+import { getDocFromElement, editable } from '../_helpers';
 import {
   goToEditorTestingExample,
   mountEditor,
 } from '../../__helpers/testing-example-helpers';
 import { ConfluenceCardProvider } from '../../../../examples/5-full-page-with-confluence-smart-cards';
 import * as inlineCardAdf from './_fixtures_/inline-card.adf.json';
+import { waitForInlineCardSelection } from '../../__helpers/page-objects/_cards';
 
 type ClientType = Parameters<typeof goToEditorTestingExample>[0];
 
@@ -29,7 +30,7 @@ BrowserTestCase(
       },
     });
 
-    await selectInlineLink(page);
+    await waitForInlineCardSelection(page);
     await page.click('span[aria-label="Expand dropdown menu"]');
     await page.click('[data-testid="block-appearance"]');
 

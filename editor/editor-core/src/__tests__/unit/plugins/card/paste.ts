@@ -9,6 +9,7 @@ import {
   p,
   inlineCard,
   blockquote,
+  blockCard,
   embedCard,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 
@@ -59,7 +60,7 @@ describe('card', () => {
       });
     });
 
-    describe('pasting card from Renderer to Editor', () => {
+    describe('pasting inline link from Renderer to Editor', () => {
       it('does not parse Smart Icons to be MediaSingles', () => {
         const html = `
         <meta charset="utf-8" />
@@ -82,7 +83,7 @@ describe('card', () => {
                       class="sc-kjoXOD dIVSoJ"
                     ></span>
                     <img
-                      class="inline-card-icon sc-TOsTZ dDpehj"
+                      class="smart-link-icon sc-TOsTZ dDpehj"
                       src="https://avatar-management--avatars.us-west-2.staging.public.atl-paas.net/default-avatar.png"
                     /> </span
                   >https:/</span
@@ -122,7 +123,50 @@ describe('card', () => {
       });
     });
 
-    describe('pasting Embed Card from Renderer to Editor', () => {
+    describe('pasting block link from Renderer to Editor', () => {
+      it('does not parse Smart Icons to be MediaSingles', () => {
+        const html = `
+          <div
+            class="blockCardView-content-wrap"
+            data-block-card="true"
+            data-card-url="https://www.dropbox.com/s/maz65d0qxp87qli/Video%20MP4%20%28440x868%29.mp4?dl=0"
+          >
+            <div>
+              <div class="css-1vk34fx-ExpandedFrame">
+                <div class="css-11gdpsf-Content">
+                  <div><div class="css-1jpm07v-ResolvedView"></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="css-emgeve-Provider">
+            <img
+              class="smart-link-icon css-1kn7193-Provider"
+              src="https://www.dropbox.com/static/30168/images/favicon.ico"
+            />
+          </div>
+        `;
+
+        const { editorView } = editor(doc(p('{<>}')));
+        const { state, dispatch } = editorView;
+
+        const provider = new EditorTestCardProvider();
+        dispatch(setProvider(provider)(state.tr));
+
+        dispatchPasteEvent(editorView, { html });
+
+        expect(editorView.state.doc).toEqualDocument(
+          doc(
+            blockCard({
+              url:
+                'https://www.dropbox.com/s/maz65d0qxp87qli/Video%20MP4%20%28440x868%29.mp4?dl=0',
+            })(),
+          ),
+        );
+      });
+    });
+
+    describe('pasting embed link from Renderer to Editor', () => {
       it('does not parse Smart Icons to be MediaSingles', () => {
         const html = `
         <meta charset="utf-8" />
@@ -184,7 +228,7 @@ describe('card', () => {
       });
     });
 
-    describe('pasting a block card where is not supported ', () => {
+    describe('pasting a block link where is not supported ', () => {
       it('converts it to inline card', () => {
         const html = `<meta charset='utf-8'><a data-block-card="" href="https://docs.google.com/spreadsheets/d/168c/edit?usp=sharing" data-card-data="" data-pm-slice="0 0 []"></a>`;
         const { editorView } = editor(
@@ -212,7 +256,7 @@ describe('card', () => {
       });
     });
 
-    describe('pasting card from Editor to Editor', () => {
+    describe('pasting inline link from Editor to Editor', () => {
       it('resolves a copied smart link back into a smart link', () => {
         const html = `
         <meta charset='utf-8'>

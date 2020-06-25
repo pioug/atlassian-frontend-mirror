@@ -53,8 +53,8 @@ const getInvokeOpts = (
   },
 });
 
-export const extractPreviewFromProps = (
-  definitionId: string,
+export const extractPreviewAction = (
+  definitionId = 'empty-object-provider',
   viewProps: BlockCardResolvedViewProps,
   jsonLd: JsonLd.Data.BaseData,
   handleInvoke: InvokeHandler,

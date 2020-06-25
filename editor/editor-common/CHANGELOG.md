@@ -1,5 +1,37 @@
 # @atlaskit/editor-common
 
+## 46.0.0
+
+### Major Changes
+
+- [`0ae829a4ea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0ae829a4ea) - EDM-648: Adds resizing and alignment to embed cards
+
+### Minor Changes
+
+- [`fbb300c27a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fbb300c27a) - ED-9367 Create Entry point for collab types
+- [`ada210d9ad`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ada210d9ad) - Expose common EmbedCard styles
+
+### Patch Changes
+
+- [`fe46facd37`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fe46facd37) - ED-9124 Apply expand selection styles using the selection plugin, and update to use a blanket style rather than a background colour
+- [`e37e0fb768`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e37e0fb768) - ED-9008: Allow images on select lists for Config Panel
+- [`cdf049f462`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cdf049f462) - ED-9198: Pass keywords down from manifest to quick insert provider
+- [`b498fe941e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b498fe941e) - ED-9123 ED-9129 Use selection plugin to generate selection styling for selected date & status nodes
+- [`cd6af0a113`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cd6af0a113) - CEMS-1040: rework sticky headers internally + match visual style to editor
+
+  There is a breaking change to the `stickyHeaders.showStickyHeaders` prop. It has been renamed to `stickyHeaders.show`. You can also show sticky headers by passing a truthy value to `stickyHeaders`.
+
+- [`22130d8fce`](https://bitbucket.org/atlassian/atlassian-frontend/commits/22130d8fce) - ED-9301 Fix danger styling not appearing on parent when child nodes are selected
+- [`1315ce63a0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1315ce63a0) - CEMS-720: add sticky table header support to editor
+- [`71a4de3370`](https://bitbucket.org/atlassian/atlassian-frontend/commits/71a4de3370) - ED-9524 Prevent right side shadow from overlapping product UI elements
+- [`ea6dd76837`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ea6dd76837) - ED-9128 Make divider selection use selection plugin to add selected styles
+
+  Also increase click leniency to 4px above/below divider
+
+  Export new line height const from editor-common `akEditorLineHeight`
+
+- Updated dependencies
+
 ## 45.3.0
 
 ### Minor Changes

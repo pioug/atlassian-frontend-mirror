@@ -42,6 +42,13 @@ export const clipboardHelper = {
   placeholder: editable,
 };
 
+export const selectionPluginHelper = {
+  name: 'editor-with-selection-plugin',
+  path: getExampleUrl('editor', 'editor-mobile-bridge', 'editor', {
+    selectionObserverEnabled: true,
+  }),
+};
+
 export const clipboardInput = 'textarea[data-id=clipboardInput]';
 export const copyButton = 'button[aria-label="copy"]';
 

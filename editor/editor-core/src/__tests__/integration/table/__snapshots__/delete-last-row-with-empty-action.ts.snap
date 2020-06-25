@@ -219,9 +219,6 @@ Object {
       ],
       "type": "table",
     },
-    Object {
-      "type": "paragraph",
-    },
   ],
   "type": "doc",
 }

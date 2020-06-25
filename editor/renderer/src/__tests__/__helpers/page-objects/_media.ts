@@ -1,3 +1,3 @@
 export const selectors = {
-  errorLoading: '.media-single .wrapper',
+  errorLoading: '.rich-media-item .wrapper',
 };

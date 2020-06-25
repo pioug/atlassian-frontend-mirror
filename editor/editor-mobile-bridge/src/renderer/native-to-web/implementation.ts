@@ -1,6 +1,10 @@
 import { TaskState, ObjectKey } from '@atlaskit/task-decision';
 
-import RendererBridge, { ScrollToContentNode } from './bridge';
+import RendererBridge, {
+  ScrollToContentNode,
+  Serialized,
+  AnnotationFocusPayload,
+} from './bridge';
 import WebBridge from '../../web-bridge';
 import { eventDispatcher } from '../dispatcher';
 import { resolvePromise, rejectPromise } from '../../cross-platform-promise';
@@ -119,6 +123,10 @@ class RendererBridgeImplementation extends RendererMobileWebBridgeOverride
 
     taskDecisionProvider.notifyUpdated(key, state);
   }
+
+  setAnnotationFocus(
+    annotationFocusPayload?: Serialized<AnnotationFocusPayload>,
+  ) {}
 }
 
 export default RendererBridgeImplementation;

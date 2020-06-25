@@ -43,7 +43,7 @@
     "@atlaskit/menu": "^0.4.1",
     "@atlaskit/radio": "^3.1.11",
     "@atlaskit/select": "^11.0.10",
-    "@atlaskit/spinner": "^13.0.0",
+    "@atlaskit/spinner": "^14.0.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
     "@testing-library/react": "^8.0.1",

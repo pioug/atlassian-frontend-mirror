@@ -1,24 +1,12 @@
 import { NodeSpec, Node as PMNode } from 'prosemirror-model';
+import { RichMediaAttributes } from './types/rich-media-common';
 
-export type EmbedLayout =
-  | 'wrap-right'
-  | 'center'
-  | 'wrap-left'
-  | 'wide'
-  | 'full-width'
-  | 'align-end'
-  | 'align-start';
-
-export interface EmbedCardAttributes {
+export interface EmbedCardAttributes extends RichMediaAttributes {
   /**
    * @stage 0
-   * @minimum 0
-   * @maximum 100
    */
-  width?: number;
   originalWidth?: number;
   originalHeight?: number;
-  layout: EmbedLayout;
   url: string;
 }
 

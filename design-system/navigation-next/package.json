@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/navigation-next",
-  "version": "8.0.8",
+  "version": "8.0.9",
   "description": "The Atlassian navigation component.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -28,7 +28,7 @@
     "@atlaskit/avatar": "^18.0.0",
     "@atlaskit/icon": "^20.1.1",
     "@atlaskit/select": "^11.0.11",
-    "@atlaskit/spinner": "^13.0.0",
+    "@atlaskit/spinner": "^14.0.0",
     "@atlaskit/theme": "^9.5.1",
     "@atlaskit/tooltip": "^15.2.7",
     "@babel/runtime": "^7.0.0",

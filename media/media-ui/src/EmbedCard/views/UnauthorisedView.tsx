@@ -11,14 +11,18 @@ export interface EmbedCardUnauthorisedViewProps {
   isSelected?: boolean;
   testId?: string;
   onAuthorise?: () => void;
+  inheritDimensions?: boolean;
+  onClick?: (evt: React.MouseEvent) => void;
 }
 
 export const EmbedCardUnauthorisedView: FC<EmbedCardUnauthorisedViewProps> = ({
   link,
   context,
   isSelected,
-  testId = 'embed-unauthorised-view',
+  testId = 'embed-card-unauthorized-view',
   onAuthorise,
+  inheritDimensions,
+  onClick,
 }) => {
   const icon = context && context.icon && (
     <ImageIcon
@@ -33,18 +37,21 @@ export const EmbedCardUnauthorisedView: FC<EmbedCardUnauthorisedViewProps> = ({
       text={context && context.text}
       isVisible={true}
       isSelected={isSelected}
+      inheritDimensions={inheritDimensions}
+      onClick={onClick}
+      testId={testId}
     >
       <EmbedCardUnresolvedView
         image={CelebrationImage}
         title="connect_link_account_card_name"
         description="connect_link_account_card_description"
         context={context && context.text}
-        testId={testId}
         button={{
           appearance: 'primary',
           text: 'connect_link_account_card',
         }}
         onClick={onAuthorise}
+        testId={testId}
       />
     </ExpandedFrame>
   );

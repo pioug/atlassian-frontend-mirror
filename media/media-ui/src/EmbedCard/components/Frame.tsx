@@ -1,7 +1,5 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-
-import { gs } from '../../BlockCard/utils';
 import { FC } from 'react';
 
 export interface FrameProps {
@@ -23,7 +21,7 @@ export const Frame: FC<FrameProps> = ({ url, testId }) => {
         top: 0,
         left: 0,
         width: '100%',
-        height: gs(50),
+        height: '100%',
         position: 'relative',
         overflow: 'hidden',
         borderRadius: '3px',

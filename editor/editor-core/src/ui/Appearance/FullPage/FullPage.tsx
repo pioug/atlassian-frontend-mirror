@@ -1,8 +1,6 @@
 import React from 'react';
-import { PluginKey } from 'prosemirror-state';
 import rafSchedule from 'raf-schd';
 
-import { pluginKey as contextPanelPluginKey } from '../../../plugins/context-panel';
 import { akEditorToolbarKeylineHeight } from '../../../styles';
 import { EditorAppearanceComponentProps } from '../../../types';
 import { FullPageEditorWrapper } from './StyledComponents';
@@ -12,10 +10,7 @@ import { FullPageToolbar } from './FullPageToolbar';
 
 interface FullPageEditorState {
   showKeyline: boolean;
-  contextPanelVisible: boolean;
 }
-
-type PluginKeyWithKey = PluginKey & { key: string };
 
 export class FullPageEditor extends React.Component<
   EditorAppearanceComponentProps,
@@ -23,7 +18,6 @@ export class FullPageEditor extends React.Component<
 > {
   state: FullPageEditorState = {
     showKeyline: false,
-    contextPanelVisible: false,
   };
 
   static displayName = 'FullPageEditor';
@@ -76,20 +70,8 @@ export class FullPageEditor extends React.Component<
     this.scheduledKeylineUpdate = this.updateToolbarKeyline();
   };
 
-  private setContextPanelVisibility = ({ visible }: { visible: boolean }) => {
-    if (visible !== this.state.contextPanelVisible) {
-      this.setState({ contextPanelVisible: visible });
-    }
-  };
-
   public componentDidMount() {
     window.addEventListener('resize', this.handleResize, false);
-    if (this.props.eventDispatcher) {
-      this.props.eventDispatcher.on(
-        (contextPanelPluginKey as PluginKeyWithKey).key,
-        this.setContextPanelVisibility,
-      );
-    }
   }
 
   public componentWillUnmount() {
@@ -97,13 +79,6 @@ export class FullPageEditor extends React.Component<
 
     if (this.scheduledKeylineUpdate) {
       cancelAnimationFrame(this.scheduledKeylineUpdate);
-    }
-
-    if (this.props.eventDispatcher) {
-      this.props.eventDispatcher.off(
-        (contextPanelPluginKey as PluginKeyWithKey).key,
-        this.setContextPanelVisibility,
-      );
     }
   }
 
@@ -149,7 +124,6 @@ export class FullPageEditor extends React.Component<
             editorDOMElement={props.editorDOMElement}
             editorView={props.editorView!}
             eventDispatcher={props.eventDispatcher}
-            onVisibilityChange={this.setContextPanelVisibility}
             popupsBoundariesElement={props.popupsBoundariesElement}
             popupsMountPoint={props.popupsMountPoint}
             popupsScrollableElement={props.popupsScrollableElement}

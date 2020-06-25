@@ -1,5 +1,6 @@
 import {
   getExampleUrl,
+  loadPage,
   takeElementScreenShot,
 } from '@atlaskit/visual-regression/helper';
 
@@ -17,7 +18,7 @@ describe('Snapshot Test', () => {
     const { page } = global;
 
     const selectSelector = '.single-select';
-    await page.goto(url);
+    await loadPage(page, url);
     await page.waitForSelector(selectSelector);
 
     const image = await takeElementScreenShot(page, selectSelector);
@@ -32,12 +33,10 @@ describe('Snapshot Test', () => {
     );
     const { page } = global;
 
-    await page.goto(url);
+    await loadPage(page, url);
     await page.waitForSelector(openModalBtn);
     await page.click(openModalBtn);
     await page.waitForSelector(modalDialog);
-    // We need to wait for the animation to finish.
-    await page.waitFor(1000);
 
     const image = await takeElementScreenShot(page, modalDialog);
     expect(image).toMatchProdImageSnapshot();
@@ -54,7 +53,7 @@ describe('Snapshot Test', () => {
     const selectSelector =
       '.react-select-single-disabled-options__value-container';
     const selectMenuSelector = '.react-select-single-disabled-options__menu';
-    await page.goto(url);
+    await loadPage(page, url, true);
     await page.waitForSelector(selectSelector);
     await page.click(selectSelector);
     await page.waitForSelector(selectMenuSelector);
@@ -62,6 +61,7 @@ describe('Snapshot Test', () => {
     const image = await takeElementScreenShot(page, selectMenuSelector);
     expect(image).toMatchProdImageSnapshot();
   });
+
   it('Multi Select with disabled options example should match production example', async () => {
     const url = getExampleUrl(
       'design-system',
@@ -74,7 +74,7 @@ describe('Snapshot Test', () => {
     const selectSelector =
       '.react-select-multi-disabled-options__value-container';
     const selectMenuSelector = '.react-select-multi-disabled-options__menu';
-    await page.goto(url);
+    await loadPage(page, url, true);
     await page.waitForSelector(selectSelector);
     await page.click(selectSelector);
     await page.waitForSelector(selectMenuSelector);

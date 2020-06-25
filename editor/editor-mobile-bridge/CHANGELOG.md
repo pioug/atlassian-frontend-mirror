@@ -1,5 +1,61 @@
 # @atlaskit/editor-mobile-bridge
 
+## 15.0.0
+
+### Major Changes
+
+- [`c3d0c7ab9e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c3d0c7ab9e) - [FM-3823] Modify onAnnotationClick on AnnotationBridge to support multiple types
+
+  Breaking change:
+
+  Before
+
+  ```
+  const annotationClickPayload = {
+    annotationIds: ['AnnotationId'],
+    annotationType: AnnotationTypes.INLINE_COMENT,
+  }
+
+  sendToBridge('annotationBridge', 'onAnnotationClick', {
+    payload: JSON.stringify(annotationClickPayload),
+  });
+
+  ```
+
+  After
+
+  ```
+  const annotationPayloadsByType = [
+    {
+      annotationIds: ['AnnotationId'],
+      annotationType: AnnotationTypes.INLINE_COMENT,
+    },
+    {
+      annotationIds: ['AnnotationId'],
+      annotationType: AnnotationTypes.ANY_FUTURE_TYPE,
+    },
+  ]
+
+  sendToBridge('annotationBridge', 'onAnnotationClick', {
+    payload: JSON.stringify(annotationPayloadsByType),
+  });
+
+  ```
+
+- [`ab56d26400`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ab56d26400) - [FM-2506] added query param for cusor position plugin
+
+### Minor Changes
+
+- [`fb1a9c8009`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fb1a9c8009) - [FM-3726] Call onAnnotationClick when user taps in inline comment on Renderer
+
+### Patch Changes
+
+- [`50616efe51`](https://bitbucket.org/atlassian/atlassian-frontend/commits/50616efe51) - FM-3957 Prevent FetchProxy from mock android fetch requests
+- [`10d143b2df`](https://bitbucket.org/atlassian/atlassian-frontend/commits/10d143b2df) - ED-9367 Refactor fetch mock to use a generic FetchProxy
+- [`095d365eb2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/095d365eb2) - Allow Embeds and Blocks in the Mobile Editor
+- [`07d3b6667d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/07d3b6667d) - [FM-3865] Fix: Starts to listen the setContent event before the react component be mounted
+- Updated dependencies
+
 ## 14.1.5
 
 ### Patch Changes

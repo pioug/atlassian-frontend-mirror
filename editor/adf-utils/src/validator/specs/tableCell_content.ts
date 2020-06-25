@@ -19,6 +19,7 @@ export default {
       'decisionList',
       'taskList',
       'extension',
+      'embedCard',
       'nestedExpand_with_no_marks',
     ],
   ],

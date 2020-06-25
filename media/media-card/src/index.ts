@@ -47,10 +47,14 @@ export interface CardEvent {
   mediaItemDetails?: FileDetails;
 }
 
+export type FeatureFlags = {
+  enableNewExperience: boolean;
+};
 export interface SharedCardProps {
   // only relevant to file card with image appearance
   readonly disableOverlay?: boolean;
   readonly resizeMode?: ImageResizeMode;
+  readonly featureFlags?: FeatureFlags;
   readonly appearance?: CardAppearance;
   readonly dimensions?: CardDimensions;
   readonly originalDimensions?: NumericalCardDimensions;

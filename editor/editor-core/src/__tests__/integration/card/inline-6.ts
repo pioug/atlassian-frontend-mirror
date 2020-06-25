@@ -4,9 +4,9 @@ import {
   getDocFromElement,
   editable,
   copyToClipboard,
-  selectInlineLink,
   gotoEditor,
 } from '../_helpers';
+import { waitForInlineCardSelection } from '../../__helpers/page-objects/_cards';
 
 BrowserTestCase(
   `card: unlinking an Inline Link should replace it with text corresponding to the title of the previously linked page`,
@@ -24,7 +24,7 @@ BrowserTestCase(
     // Paste the link
     await page.paste();
 
-    await selectInlineLink(page);
+    await waitForInlineCardSelection(page);
     await page.click('button[aria-label="Unlink"]');
 
     const doc = await page.$eval(editable, getDocFromElement);

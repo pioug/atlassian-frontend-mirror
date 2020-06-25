@@ -11,6 +11,7 @@ import {
   createMediaProvider,
   createMentionProvider,
 } from '../../../providers';
+import { FetchProxy } from '../../../utils/fetch-proxy';
 
 type MockedEvent = { preventDefault: () => void; defaultPrevented: boolean };
 
@@ -132,7 +133,7 @@ describe('renderer bridge: links', () => {
     const mobileRenderer = mount(
       <MobileRenderer
         cardClient={createCardClient()}
-        emojiProvider={createEmojiProvider()}
+        emojiProvider={createEmojiProvider(new FetchProxy())}
         mediaProvider={createMediaProvider()}
         mentionProvider={createMentionProvider()}
         document={linkADF}
@@ -153,7 +154,7 @@ describe('renderer bridge: links', () => {
       <MobileRenderer
         document={smartLinkADF}
         cardClient={mockCardClient}
-        emojiProvider={createEmojiProvider()}
+        emojiProvider={createEmojiProvider(new FetchProxy())}
         mediaProvider={createMediaProvider()}
         mentionProvider={createMentionProvider()}
       />,

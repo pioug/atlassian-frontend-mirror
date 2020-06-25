@@ -1,5 +1,6 @@
 import { JsonLd } from 'json-ld-types';
 export const TEST_URL = 'https://my.url.com';
+export const TEST_VISIT_URL = 'https://visit.url.com';
 export const TEST_NAME = 'my name';
 export const TEST_STRING = 'foo';
 export const TEST_LINK: JsonLd.Primitives.Link = {
@@ -55,6 +56,12 @@ export const TEST_DOWNLOAD_ACTION: JsonLd.Data.BaseData['schema:potentialAction'
   '@type': 'DownloadAction',
   '@id': 'download',
   identifier: 'dropbox-object-provider',
+};
+
+export const TEST_UNDEFINED_LINK: JsonLd.Data.UndefinedLinkDocument = {
+  ...TEST_DOCUMENT,
+  '@type': ['Document', 'atlassian:UndefinedLink'],
+  'atlassian:visitUrl': TEST_VISIT_URL,
 };
 
 export const TEST_ASSIGN_ACTION: JsonLd.Data.BaseData['schema:potentialAction'] = {

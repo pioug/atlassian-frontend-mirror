@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/global-navigation",
-  "version": "9.0.3",
+  "version": "9.0.4",
   "description": "Global navigation component for Atlassian",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -33,7 +33,7 @@
     "@atlaskit/navigation-next": "^8.0.2",
     "@atlaskit/notification-indicator": "^7.0.11",
     "@atlaskit/notification-log-client": "^4.0.10",
-    "@atlaskit/spinner": "^13.0.0",
+    "@atlaskit/spinner": "^14.0.0",
     "@atlaskit/theme": "^9.5.1",
     "@babel/runtime": "^7.0.0",
     "url-parse": "^1.4.5"

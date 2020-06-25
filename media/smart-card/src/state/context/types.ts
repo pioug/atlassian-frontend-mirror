@@ -1,6 +1,7 @@
-import { CardStore, CardConnections } from '../store/types';
-import CardClient from '../../client';
 import { Store } from 'redux';
+import { CardStore, CardConnections } from '../store/types';
+import { CardPlatform } from '../../view/Card';
+import CardClient from '../../client';
 import { LinkPreview } from '../../extractors/common/preview/extractPreview';
 
 // TODO: Remove once mobile team move to using authentication
@@ -14,7 +15,10 @@ export interface CardContext {
   connections: CardConnections;
   config: CardProviderCacheOpts & CardAuthFlowOpts;
   extractors: {
-    getPreview: (url: string) => LinkPreview | undefined;
+    getPreview: (
+      url: string,
+      platform?: CardPlatform,
+    ) => LinkPreview | undefined;
   };
 }
 

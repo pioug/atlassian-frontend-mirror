@@ -1,4 +1,7 @@
-import { CollabEditProvider, CollabParticipant } from '@atlaskit/editor-common';
+import {
+  CollabEditProvider,
+  CollabParticipant,
+} from '@atlaskit/editor-common/collab';
 import { getVersion, sendableSteps } from 'prosemirror-collab';
 import { EditorState, Transaction } from 'prosemirror-state';
 import { Step, StepMap, Mapping } from 'prosemirror-transform';

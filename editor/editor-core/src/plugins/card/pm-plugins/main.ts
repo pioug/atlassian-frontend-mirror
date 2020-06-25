@@ -1,14 +1,16 @@
 import { Plugin, EditorState } from 'prosemirror-state';
+import { EditorView } from 'prosemirror-view';
+import { CardProvider } from '@atlaskit/editor-common/provider-factory';
+import { CardPlatform } from '@atlaskit/smart-card';
+
 import { CardPluginState, Request } from '../types';
 import reducer from './reducers';
-import { EditorView } from 'prosemirror-view';
 import { setProvider, resolveCard } from './actions';
 import { replaceQueuedUrlWithCard } from './doc';
 import { PMPluginFactoryParams } from '../../../types';
 import { InlineCard } from '../nodeviews/inlineCard';
 import { BlockCard } from '../nodeviews/blockCard';
 import { EmbedCard } from '../nodeviews/embedCard';
-import { CardProvider } from '@atlaskit/editor-common/provider-factory';
 import { pluginKey } from './plugin-key';
 
 export { pluginKey } from './plugin-key';
@@ -45,7 +47,11 @@ export const resolveWithProvider = (
     .then(handleResolved(view, request), handleRejected(view, request));
 };
 
-export const createPlugin = (isMobile: boolean) => ({
+export const createPlugin = (
+  platform: CardPlatform,
+  allowResizing?: boolean,
+  fullWidthMode?: boolean,
+) => ({
   portalProviderAPI,
   eventDispatcher,
   providerFactory,
@@ -164,7 +170,7 @@ export const createPlugin = (isMobile: boolean) => ({
             eventDispatcher,
             {
               providerFactory,
-              isMobile,
+              platform,
             },
             undefined,
             true,
@@ -178,8 +184,11 @@ export const createPlugin = (isMobile: boolean) => ({
             portalProviderAPI,
             eventDispatcher,
             {
+              eventDispatcher,
               providerFactory,
-              isMobile,
+              platform,
+              allowResizing,
+              fullWidthMode: fullWidthMode,
             },
             undefined,
             true,

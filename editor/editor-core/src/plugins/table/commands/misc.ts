@@ -55,7 +55,9 @@ export const setTableRef = (ref?: HTMLTableElement | null) =>
   createCommand(
     state => {
       const tableRef = ref || undefined;
-      const tableNode = ref ? findTable(state.selection)!.node : undefined;
+      const foundTable = findTable(state.selection);
+      const tableNode = ref && foundTable ? foundTable.node : undefined;
+      const tablePos = ref && foundTable ? foundTable.pos : undefined;
       const tableWrapperTarget =
         closestElement(tableRef, `.${ClassName.TABLE_NODE_WRAPPER}`) ||
         undefined;
@@ -71,6 +73,7 @@ export const setTableRef = (ref?: HTMLTableElement | null) =>
         data: {
           tableRef,
           tableNode,
+          tablePos,
           tableWrapperTarget,
           layout: layout || 'default',
           isHeaderRowEnabled: checkIfHeaderRowEnabled(state),
@@ -129,6 +132,7 @@ export const triggerUnlessTableHeader = (command: Command): Command => (
       nodes: { tableHeader },
     },
   } = state;
+
   if (selection instanceof TextSelection) {
     const cell = findCellClosestToPos(selection.$from);
     if (cell && cell.node.type !== tableHeader) {

@@ -4,10 +4,9 @@ import { defineMessages } from 'react-intl';
 import { colors, gridSize, fontSize } from '@atlaskit/theme';
 
 import {
-  akEditorSelectedBorder,
-  akEditorSelectedBorderSize,
   akEditorSwoopCubicBezier,
   akLayoutGutterOffset,
+  akEditorLineHeight,
 } from '../../styles/consts';
 
 export const messages = defineMessages({
@@ -89,18 +88,6 @@ const ContainerStyles = css<StyleProps>`
     background: ${EXPAND_SELECTED_BACKGROUND};
   }
 
-  &.ProseMirror-selectednode {
-    border-color: transparent;
-    background: ${colors.B50};
-    box-shadow: 0 0 0 ${akEditorSelectedBorderSize}px ${akEditorSelectedBorder};
-  }
-
-  &.danger {
-    border-color: transparent;
-    background: ${colors.R50};
-    box-shadow: 0 0 0 ${akEditorSelectedBorderSize}px ${colors.R300};
-  }
-
   td > &:first-child {
     margin-top: 0;
   }
@@ -149,7 +136,7 @@ const TitleInputStyles = css`
   outline: none;
   border: none;
   font-size: ${fontSize()}px;
-  line-height: 1.714;
+  line-height: ${akEditorLineHeight};
   font-weight: normal;
   color: ${colors.N200A};
   background: transparent;

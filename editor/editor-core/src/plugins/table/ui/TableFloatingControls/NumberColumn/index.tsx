@@ -17,6 +17,7 @@ export interface Props {
   hasHeaderRow?: boolean;
   isInDanger?: boolean;
   isResizing?: boolean;
+  stickyTop?: number;
 }
 
 export default class NumberColumn extends Component<Props, any> {
@@ -25,7 +26,15 @@ export default class NumberColumn extends Component<Props, any> {
     const rowHeights = getRowHeights(tableRef);
 
     return (
-      <div className={ClassName.NUMBERED_COLUMN}>
+      <div
+        className={ClassName.NUMBERED_COLUMN}
+        style={{
+          marginTop:
+            hasHeaderRow && this.props.stickyTop !== undefined
+              ? rowHeights[0]
+              : undefined,
+        }}
+      >
         {rowHeights.map((rowHeight, index) => (
           <div
             key={`wrapper-${index}`}
@@ -33,6 +42,12 @@ export default class NumberColumn extends Component<Props, any> {
             data-index={index}
             style={{
               height: rowHeight,
+              top:
+                this.props.stickyTop !== undefined &&
+                hasHeaderRow &&
+                index === 0
+                  ? `${this.props.stickyTop}px`
+                  : undefined,
             }}
             onClick={event => this.selectRow(index, event)}
             onMouseOver={() => this.hoverRows(index)}

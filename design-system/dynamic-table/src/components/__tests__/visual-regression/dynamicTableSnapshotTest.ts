@@ -1,5 +1,6 @@
 import {
   getExampleUrl,
+  loadPage,
   takeElementScreenShot,
   takeScreenShot,
 } from '@atlaskit/visual-regression/helper';
@@ -18,10 +19,11 @@ describe('Snapshot Test', () => {
       global.__BASEURL__,
     );
     const { page } = global;
-
+    // Move the mouse away from the top left corner to prevent the selected state
+    // of the first heading cell from triggering.
+    await page.mouse.move(0, 100);
     const image = await takeScreenShot(page, url);
-    // @ts-ignore - Expected 0 arguments, but got 1.
-    expect(image).toMatchProdImageSnapshot(0.02);
+    expect(image).toMatchProdImageSnapshot();
   });
   it('Testing example should match production example before and after sorting', async () => {
     const url = getExampleUrl(
@@ -32,18 +34,14 @@ describe('Snapshot Test', () => {
     );
     const { page } = global;
 
-    await page.goto(url);
+    await loadPage(page, url);
     await page.waitForSelector(table);
     // Take screenshot before sorting
-    // We need to wait for the animation to finish.
-    await page.waitFor(1000);
     const tableBefore = await takeElementScreenShot(page, table);
     expect(tableBefore).toMatchProdImageSnapshot();
     // Take screenshot after sorting
     await page.waitForSelector(tableHeadCell);
     await page.click(tableHeadParty);
-    // We need to wait for the animation to finish.
-    await page.waitFor(1000);
     const tableAfter = await takeElementScreenShot(page, table);
     expect(tableAfter).toMatchProdImageSnapshot();
   });

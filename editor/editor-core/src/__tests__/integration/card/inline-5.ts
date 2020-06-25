@@ -3,10 +3,10 @@ import {
   getDocFromElement,
   editable,
   copyToClipboard,
-  selectInlineLink,
   gotoEditor,
 } from '../_helpers';
 import Page from '@atlaskit/webdriver-runner/wd-wrapper';
+import { waitForInlineCardSelection } from '../../__helpers/page-objects/_cards';
 
 BrowserTestCase(
   'card: changing the link URL of an inline link should convert it to a "dumb" link',
@@ -22,7 +22,7 @@ BrowserTestCase(
     // Paste the link
     await page.paste();
 
-    await selectInlineLink(page);
+    await waitForInlineCardSelection(page);
 
     await page.click('button[aria-label="Edit link"]');
     // Clear the Link Label field before typing

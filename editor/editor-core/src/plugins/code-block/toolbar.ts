@@ -5,8 +5,7 @@ import {
   DEFAULT_LANGUAGES,
   getLanguageIdentifier,
 } from '@atlaskit/adf-schema';
-import { findParentNodeOfType } from 'prosemirror-utils';
-
+import { findDomRefAtPos } from 'prosemirror-utils';
 import {
   FloatingToolbarHandler,
   FloatingToolbarButton,
@@ -15,9 +14,11 @@ import {
 } from '../floating-toolbar/types';
 import { removeCodeBlock, changeLanguage } from './actions';
 import commonMessages from '../../messages';
-import { pluginKey, CodeBlockState } from './pm-plugins/main';
+import { CodeBlockState } from './pm-plugins/main';
 import { Command } from '../../types';
 import { hoverDecoration } from '../base/pm-plugins/decoration';
+import { pluginKey } from './plugin-key';
+import { findCodeBlock } from './utils';
 
 export const messages = defineMessages({
   selectLanguage: {
@@ -35,17 +36,18 @@ export const getToolbarConfig: FloatingToolbarHandler = (
   { formatMessage },
 ) => {
   const codeBlockState: CodeBlockState | undefined = pluginKey.getState(state);
-  if (
-    codeBlockState &&
-    codeBlockState.toolbarVisible &&
-    codeBlockState.element
-  ) {
-    const parent = findParentNodeOfType(state.schema.nodes.codeBlock)(
-      state.selection,
-    );
+  if (codeBlockState === undefined) {
+    return;
+  }
+  const { pos } = codeBlockState;
+  if (pos === null) {
+    return;
+  }
+  if (state.doc.nodeAt(pos)) {
+    const node = findCodeBlock(state);
 
     const language =
-      parent && parent.node.attrs ? parent.node.attrs.language : undefined;
+      node && node.node.attrs ? node.node.attrs.language : undefined;
 
     const options = [{ label: '(None)', value: '' }].concat(
       languageList.map(lang => ({
@@ -82,7 +84,8 @@ export const getToolbarConfig: FloatingToolbarHandler = (
 
     return {
       title: 'CodeBlock floating controls',
-      getDomRef: () => codeBlockState.element,
+      getDomRef: view =>
+        findDomRefAtPos(pos, view.domAtPos.bind(view)) as HTMLElement,
       nodeType,
       items: [languageSelect, separator, deleteButton],
     };

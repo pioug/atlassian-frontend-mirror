@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, MouseEvent } from 'react';
 import {
   className,
   LinkWrapper,
@@ -8,6 +8,7 @@ import {
   TextWrapper,
   Content,
 } from './styled';
+import { handleClickCommon } from '../../BlockCard/utils/handlers';
 
 export interface ExpandedFrameProps {
   isPlaceholder?: boolean;
@@ -24,9 +25,12 @@ export interface ExpandedFrameProps {
   /** A flag that determines whether the frame is visible. */
   isVisible?: boolean;
   /** The optional click handler */
-  onClick?: () => void;
+  onClick?: (evt: React.MouseEvent) => void;
   /** For testing purposes only */
   testId?: string;
+
+  /** If dimensions of the card are to be inherited from the parent */
+  inheritDimensions?: boolean;
 }
 
 export const ExpandedFrame: FC<ExpandedFrameProps> = ({
@@ -42,23 +46,23 @@ export const ExpandedFrame: FC<ExpandedFrameProps> = ({
   minWidth,
   maxWidth,
   testId,
+  inheritDimensions,
 }) => {
   const isInteractive = () =>
     !isPlaceholder && (Boolean(href) || Boolean(onClick));
-  const handleClick = (event: any) => {
-    if (onClick) {
-      event.preventDefault();
-      event.stopPropagation();
-      onClick();
-    }
-  };
+  const handleClick = (event: MouseEvent) => handleClickCommon(event, onClick);
+
   const renderHeader = () => (
     <Header className="embed-header">
       <IconWrapper isPlaceholder={isPlaceholder}>
         {!isPlaceholder && icon}
       </IconWrapper>
       <TextWrapper isPlaceholder={isPlaceholder}>
-        {!isPlaceholder && text}
+        {!isPlaceholder && (
+          <a href={href} onClick={handleClick}>
+            {text}
+          </a>
+        )}
       </TextWrapper>
     </Header>
   );
@@ -75,9 +79,9 @@ export const ExpandedFrame: FC<ExpandedFrameProps> = ({
         isFrameVisible={isFrameVisible}
         minWidth={minWidth}
         maxWidth={maxWidth}
-        onClick={handleClick}
         isVisible={isVisible}
         data-testid={testId}
+        inheritDimensions={inheritDimensions}
       >
         {renderHeader()}
         {renderContent()}
@@ -91,7 +95,6 @@ export const ExpandedFrame: FC<ExpandedFrameProps> = ({
         isSelected={isSelected}
         minWidth={minWidth}
         maxWidth={maxWidth}
-        onClick={handleClick}
         isVisible={isVisible}
         data-testid={testId}
       >

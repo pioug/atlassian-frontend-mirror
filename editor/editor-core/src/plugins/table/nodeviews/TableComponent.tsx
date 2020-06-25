@@ -7,6 +7,8 @@ import {
   akEditorMobileBreakoutPoint,
   browser,
   calcTableWidth,
+  akEditorTableToolbarSize as tableToolbarSize,
+  tableMarginSides,
 } from '@atlaskit/editor-common';
 
 import TableFloatingControls from '../ui/TableFloatingControls';
@@ -38,6 +40,13 @@ import { Props, TableOptions } from './types';
 import { updateOverflowShadows } from './update-overflow-shadows';
 import { parsePx } from '../../../utils/dom';
 
+import {
+  StickyPluginState,
+  pluginKey as stickyHeadersPluginKey,
+  findStickyHeaderForTable,
+  RowStickyState,
+} from '../pm-plugins/sticky-headers';
+
 const isIE11 = browser.ie_version === 11;
 
 export interface ComponentProps extends Props {
@@ -57,12 +66,33 @@ interface TableState {
   tableContainerWidth: string;
   parentWidth?: number;
   isLoading: boolean;
+  stickyHeader?: RowStickyState;
 }
+
+// in Chrome, if none of the parent elements
+// have content, then it will auto-scroll the container
+// which interferes with us applying padding to the
+// sticky header to make up for us taking it out of
+// the layout flow.
+//
+// this is only an issue when scrolling down the
+// page without row controls active, and doesn't
+// occur in other browsers afaik
+const FloatingPlaceholder = () => (
+  <div
+    style={{
+      position: 'absolute',
+      top: '30px',
+    }}
+  >
+    {' '}
+  </div>
+);
 
 class TableComponent extends React.Component<ComponentProps, TableState> {
   static displayName = 'TableComponent';
 
-  state = {
+  state: TableState = {
     scroll: 0,
     tableContainerWidth: 'inherit',
     parentWidth: undefined,
@@ -71,8 +101,6 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 
   private wrapper?: HTMLDivElement | null;
   private table?: HTMLTableElement | null;
-  private rightShadow?: HTMLDivElement | null;
-  private leftShadow?: HTMLDivElement | null;
   private frameId?: number;
   private node?: PmNode;
   private containerWidth?: WidthPluginState;
@@ -112,7 +140,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
   }
 
   componentDidMount() {
-    const { allowColumnResizing } = this.props;
+    const { allowColumnResizing, eventDispatcher } = this.props;
     if (allowColumnResizing && this.wrapper && !isIE11) {
       this.wrapper.addEventListener('scroll', this.handleScrollDebounced);
     }
@@ -126,6 +154,16 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
       this.updateTableContainerWidth();
       this.frameId = this.handleTableResizingDebounced(this.props);
     }
+
+    const currentStickyState = stickyHeadersPluginKey.getState(
+      this.props.view.state,
+    );
+
+    if (currentStickyState) {
+      this.onStickyState(currentStickyState);
+    }
+
+    eventDispatcher.on((stickyHeadersPluginKey as any).key, this.onStickyState);
   }
 
   componentWillUnmount() {
@@ -142,15 +180,30 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
     if (this.frameId && window) {
       window.cancelAnimationFrame(this.frameId);
     }
+
+    this.props.eventDispatcher.off(
+      (stickyHeadersPluginKey as any).key,
+      this.onStickyState,
+    );
   }
 
   componentDidUpdate(prevProps: ComponentProps) {
-    updateOverflowShadows(
-      this.wrapper,
-      this.table,
-      this.rightShadow,
-      this.leftShadow,
-    );
+    if (this.wrapper && this.wrapper.parentElement) {
+      const rightShadows = this.wrapper.parentElement.querySelectorAll<
+        HTMLElement
+      >(`.${ClassName.TABLE_RIGHT_SHADOW}`);
+
+      const leftShadows = this.wrapper.parentElement.querySelectorAll<
+        HTMLElement
+      >(`.${ClassName.TABLE_LEFT_SHADOW}`);
+
+      updateOverflowShadows(
+        this.wrapper,
+        this.table,
+        rightShadows,
+        leftShadows,
+      );
+    }
 
     if (this.props.node.attrs.__autoSize) {
       // Wait for next tick to handle auto sizing, gives the browser time to do layout calc etc.
@@ -170,6 +223,13 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
       this.frameId = this.handleTableResizingDebounced(prevProps);
     }
   }
+
+  onStickyState = (state: StickyPluginState) => {
+    const stickyHeader = findStickyHeaderForTable(state, this.props.getPos());
+    if (stickyHeader !== this.state.stickyHeader) {
+      this.setState({ stickyHeader });
+    }
+  };
 
   render() {
     const {
@@ -191,6 +251,9 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
     const tableActive = this.table === pluginState.tableRef;
     const isResizing =
       !!tableResizingPluginState && !!tableResizingPluginState.dragging;
+    const headerRow = tableRef
+      ? tableRef.querySelector<HTMLTableRowElement>('tr[data-header-row]')
+      : undefined;
 
     const rowControls = [
       <div key={0} className={ClassName.ROW_CONTROLS_WRAPPER}>
@@ -209,9 +272,16 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
           // pass `selection` and `tableHeight` to control re-render
           selection={view.state.selection}
           tableHeight={tableRef ? tableRef.offsetHeight : undefined}
+          headerRowHeight={headerRow ? headerRow.offsetHeight : undefined}
+          stickyHeader={this.state.stickyHeader}
         />
       </div>,
     ];
+
+    const shadowPadding =
+      allowControls && !isLoading && tableActive
+        ? -tableToolbarSize
+        : tableMarginSides;
 
     return (
       <div
@@ -221,6 +291,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
         }}
         className={classnames(ClassName.TABLE_CONTAINER, {
           [ClassName.WITH_CONTROLS]: allowControls && tableActive,
+          [ClassName.TABLE_STICKY]: this.state.stickyHeader,
           [ClassName.HOVERED_DELETE_BUTTON]: isInDanger,
           [ClassName.TABLE_SELECTED]: isTableSelected(view.state.selection),
           'less-padding': width < akEditorMobileBreakoutPoint,
@@ -228,13 +299,21 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
         data-number-column={node.attrs.isNumberColumnEnabled}
         data-layout={node.attrs.layout}
       >
+        <FloatingPlaceholder />
         {allowControls && !isLoading && rowControls}
-        <div
-          ref={elem => {
-            this.leftShadow = elem;
-          }}
-          className={ClassName.TABLE_LEFT_SHADOW}
-        />
+        <div className={ClassName.TABLE_LEFT_SHADOW} />
+        {this.state.stickyHeader && (
+          <div
+            className={`${ClassName.TABLE_LEFT_SHADOW} ${ClassName.TABLE_STICKY_SHADOW}`}
+            style={{
+              top: `${this.state.stickyHeader.top +
+                this.state.stickyHeader.padding +
+                shadowPadding +
+                2}px`,
+            }}
+          />
+        )}
+
         <div
           className={classnames(ClassName.TABLE_NODE_WRAPPER)}
           ref={elem => {
@@ -245,12 +324,26 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
             }
           }}
         />
-        <div
-          ref={elem => {
-            this.rightShadow = elem;
-          }}
-          className={ClassName.TABLE_RIGHT_SHADOW}
-        />
+
+        <div className={ClassName.TABLE_RIGHT_SHADOW} />
+        {this.state.stickyHeader && (
+          <div
+            style={{
+              position: 'absolute',
+              right: '-2px',
+            }}
+          >
+            <div
+              className={`${ClassName.TABLE_RIGHT_SHADOW} ${ClassName.TABLE_STICKY_SHADOW}`}
+              style={{
+                top: `${this.state.stickyHeader.top +
+                  this.state.stickyHeader.padding +
+                  shadowPadding +
+                  2}px`,
+              }}
+            />
+          </div>
+        )}
       </div>
     );
   }
@@ -272,6 +365,17 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
   private handleScroll = (event: Event) => {
     if (!this.wrapper || event.target !== this.wrapper) {
       return;
+    }
+
+    if (this.table) {
+      // sync sticky header row to table scroll
+      const headers = this.table.querySelectorAll('tr[data-header-row]');
+      for (let i = 0; i < headers.length; i++) {
+        const header = headers[i] as HTMLElement;
+
+        header.scrollLeft = this.wrapper.scrollLeft;
+        header.style.marginRight = '2px';
+      }
     }
 
     this.setState({ scroll: this.wrapper.scrollLeft });

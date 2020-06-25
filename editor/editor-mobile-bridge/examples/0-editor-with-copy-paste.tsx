@@ -16,6 +16,7 @@ import {
 } from '@atlaskit/editor-test-helpers';
 
 import Editor from './../src/editor/mobile-editor-element';
+import { useFetchProxy } from '../src/utils/fetch-proxy';
 
 export const Wrapper: any = styled.div`
   position: absolute;
@@ -49,6 +50,24 @@ Wrapper.displayName = 'Wrapper';
 
 // @ts-ignore
 window.logBridge = window.logBridge || [];
+
+function EditorWithFetchProxy() {
+  const fetchProxy = useFetchProxy();
+
+  return (
+    <Editor
+      cardProvider={Promise.resolve(cardProvider)}
+      cardClient={createCardClient()}
+      emojiProvider={createEmojiProvider(fetchProxy)}
+      mentionProvider={createMentionProvider()}
+      mediaProvider={storyMediaProviderFactory({
+        collectionName: 'InitialCollectionForTesting',
+        includeUserAuthProvider: true,
+      })}
+      placeholder="Type something here"
+    />
+  );
+}
 
 export default class Example extends React.Component {
   private textAreaRef?: HTMLTextAreaElement | null;
@@ -84,17 +103,7 @@ export default class Example extends React.Component {
             </CopyWrapper>
           </ClipboardZone>
         </Toolbar>
-        <Editor
-          cardProvider={Promise.resolve(cardProvider)}
-          cardClient={createCardClient()}
-          emojiProvider={createEmojiProvider()}
-          mentionProvider={createMentionProvider()}
-          mediaProvider={storyMediaProviderFactory({
-            collectionName: 'InitialCollectionForTesting',
-            includeUserAuthProvider: true,
-          })}
-          placeholder="Type something here"
-        />
+        <EditorWithFetchProxy />
       </Wrapper>
     );
   }

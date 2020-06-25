@@ -2,7 +2,8 @@ import { Page } from 'puppeteer';
 import { snapshot, initFullPageEditorWithAdf } from '../_utils';
 import * as wrappedMediaAdf from './__fixtures__/wrapped-media.adf.json';
 import * as wrappedInBlockMedia from './__fixtures__/wrapped-in-block-media.adf.json';
-import { waitForLoadedImageElements } from '@atlaskit/visual-regression/helper';
+import { waitForFloatingControl } from '../../__helpers/page-objects/_toolbar';
+import { waitForMediaToBeLoaded } from '../../__helpers/page-objects/_media';
 
 describe('Snapshot Test: Wrapped media', () => {
   let page: Page;
@@ -30,7 +31,8 @@ describe('Snapshot Test: Wrapped media', () => {
 
   it('should have 2 media items in 1 line when wrapped', async () => {
     await initFullPageEditorWithAdf(page, wrappedMediaAdf, undefined, viewport);
-    await waitForLoadedImageElements(page, 3000);
+    await waitForFloatingControl(page, 'Media floating controls');
+    await waitForMediaToBeLoaded(page);
     await snapshot(page);
   });
 
@@ -41,6 +43,7 @@ describe('Snapshot Test: Wrapped media', () => {
       undefined,
       viewport,
     );
+    await waitForMediaToBeLoaded(page);
     await snapshot(page);
   });
 });

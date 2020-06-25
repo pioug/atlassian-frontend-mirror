@@ -20,6 +20,7 @@ describe('Modal should be found by data-testid', () => {
   beforeEach(() => cleanup());
   test('Using getByTestId()', async () => {
     const { getByTestId } = render(wrapperWithTestId);
+
     expect(getByTestId('iamTheDataTestId')).toBeTruthy();
   });
 

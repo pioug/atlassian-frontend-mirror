@@ -1,16 +1,11 @@
-import { EditorState, Plugin, PluginKey } from 'prosemirror-state';
-import { EditorView } from 'prosemirror-view';
-import {
-  findParentDomRefOfType,
-  findParentNodeOfType,
-} from 'prosemirror-utils';
-
-import codeBlockNodeView from '../nodeviews/code-block';
+import { EditorState, Plugin } from 'prosemirror-state';
+import { codeBlockNodeView } from '../nodeviews/code-block';
 import { CommandDispatch, PMPluginFactoryParams } from '../../../types';
+import { pluginKey } from '../plugin-key';
+import { findCodeBlock } from '../utils';
 
 export type CodeBlockState = {
-  element?: HTMLElement;
-  toolbarVisible?: boolean | undefined;
+  pos: number | null;
 };
 
 export const getPluginState = (state: EditorState): CodeBlockState =>
@@ -32,76 +27,38 @@ export const setPluginState = (stateProps: Object) => (
 
 export type CodeBlockStateSubscriber = (state: CodeBlockState) => any;
 
-export const pluginKey = new PluginKey('codeBlockPlugin');
-
 export const createPlugin = ({ dispatch }: PMPluginFactoryParams) =>
   new Plugin({
     state: {
-      init(): CodeBlockState {
+      init(_, state): CodeBlockState {
+        const node = findCodeBlock(state, state.selection);
         return {
-          toolbarVisible: false,
+          pos: node ? node.pos : null,
         };
       },
-      apply(tr, pluginState: CodeBlockState) {
-        const nextPluginState = tr.getMeta(pluginKey);
-        if (nextPluginState) {
-          dispatch(pluginKey, nextPluginState);
-          return nextPluginState;
+      apply(
+        tr,
+        pluginState: CodeBlockState,
+        _oldState,
+        newState,
+      ): CodeBlockState {
+        if (tr.docChanged || tr.selectionSet) {
+          const { selection } = newState;
+
+          const node = findCodeBlock(newState, selection);
+          const newPluginState: CodeBlockState = {
+            ...pluginState,
+            pos: node ? node.pos : null,
+          };
+          return newPluginState;
         }
         return pluginState;
       },
     },
     key: pluginKey,
-    view: () => {
-      return {
-        update: (view: EditorView) => {
-          const {
-            state: {
-              selection,
-              schema: {
-                nodes: { codeBlock },
-              },
-            },
-          } = view;
-          const pluginState = getPluginState(view.state);
-          const parentDOM = findParentDomRefOfType(
-            codeBlock,
-            view.domAtPos.bind(view),
-          )(selection);
-          if (parentDOM !== pluginState.element) {
-            const parent = findParentNodeOfType(codeBlock)(selection);
-            const newState: CodeBlockState = {
-              element: parentDOM as HTMLElement,
-              toolbarVisible: !!parent,
-            };
-            setPluginState(newState)(view.state, view.dispatch);
-            return true;
-          }
-
-          /** Plugin dispatch needed to reposition the toolbar */
-          dispatch(pluginKey, {
-            ...pluginState,
-          });
-          return;
-        },
-      };
-    },
     props: {
       nodeViews: {
-        codeBlock: codeBlockNodeView,
-      },
-      handleDOMEvents: {
-        blur(view: EditorView) {
-          const pluginState = getPluginState(view.state);
-          if (pluginState.toolbarVisible) {
-            setPluginState({
-              toolbarVisible: false,
-              element: null,
-            })(view.state, view.dispatch);
-            return true;
-          }
-          return false;
-        },
+        codeBlock: codeBlockNodeView(),
       },
     },
   });

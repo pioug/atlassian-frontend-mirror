@@ -12,9 +12,29 @@ import {
   createEmojiProvider,
   createMentionProvider,
 } from '../src/providers';
+import { useFetchProxy } from '../src/utils/fetch-proxy';
 
 // @ts-ignore
 window.logBridge = window.logBridge || [];
+
+function EditorWithFetchProxy() {
+  const fetchProxy = useFetchProxy();
+
+  return (
+    <Editor
+      cardProvider={Promise.resolve(cardProvider)}
+      cardClient={createCardClient()}
+      emojiProvider={createEmojiProvider(fetchProxy)}
+      mentionProvider={createMentionProvider()}
+      mediaProvider={storyMediaProviderFactory({
+        collectionName: 'InitialCollectionForTesting',
+        includeUserAuthProvider: true,
+      })}
+      placeholder="Type something here"
+      shouldFocus={true}
+    />
+  );
+}
 
 export default class Example extends React.Component {
   componentDidMount() {
@@ -26,18 +46,7 @@ export default class Example extends React.Component {
   render() {
     return (
       <div id="editor">
-        <Editor
-          cardProvider={Promise.resolve(cardProvider)}
-          cardClient={createCardClient()}
-          emojiProvider={createEmojiProvider()}
-          mentionProvider={createMentionProvider()}
-          mediaProvider={storyMediaProviderFactory({
-            collectionName: 'InitialCollectionForTesting',
-            includeUserAuthProvider: true,
-          })}
-          placeholder="Type something here"
-          shouldFocus={true}
-        />
+        <EditorWithFetchProxy />
       </div>
     );
   }

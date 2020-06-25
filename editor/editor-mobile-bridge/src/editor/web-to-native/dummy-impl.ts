@@ -16,7 +16,7 @@ const saveToDummyBridge = (name: string, args: any[]) => {
 };
 
 export default class DummyBridge implements NativeBridge {
-  private log = console.debug.bind(console);
+  private log = (...args: any[]) => console.debug(...args);
 
   constructor() {
     (window as any).callsFromDummyBridge = callsFromDummyBridge;

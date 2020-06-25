@@ -1,7 +1,10 @@
 import React from 'react';
 import { SyntheticEvent } from 'react';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
-import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-common';
+import {
+  akEditorTableNumberColumnWidth,
+  tableMarginTop,
+} from '@atlaskit/editor-common';
 import Tooltip from '@atlaskit/tooltip';
 import { TableCssClassName as ClassName } from '../../types';
 import { tableToolbarSize } from '../styles';
@@ -13,14 +16,22 @@ export interface ButtonProps {
   type: 'row' | 'column';
   tableRef: HTMLElement;
   onMouseDown: (event: SyntheticEvent<HTMLButtonElement>) => void;
+  hasStickyHeaders: boolean;
 }
 
-const getInsertLineHeight = (tableRef: HTMLElement) => {
+const getInsertLineHeight = (
+  tableRef: HTMLElement,
+  hasStickyHeaders: boolean,
+) => {
   // The line gets height 100% from the table,
   // but since we have an overflow on the left,
   // we should add an offset to make up for it.
   const LINE_OFFSET = 3;
-  return tableRef.offsetHeight + tableToolbarSize + LINE_OFFSET;
+
+  const ADDITIONAL_HEIGHT = hasStickyHeaders
+    ? tableRef.getBoundingClientRect().top - tableMarginTop * 4 - LINE_OFFSET
+    : tableToolbarSize + LINE_OFFSET;
+  return tableRef.offsetHeight + ADDITIONAL_HEIGHT;
 };
 
 const getToolbarSize = (tableRef: HTMLElement): number => {
@@ -61,6 +72,7 @@ const InsertButton = ({
   tableRef,
   type,
   intl: { formatMessage },
+  hasStickyHeaders,
 }: ButtonProps & InjectedIntlProps) => {
   const content = (
     <Tooltip
@@ -93,7 +105,7 @@ const InsertButton = ({
           style={
             type === 'row'
               ? { width: getInsertLineWidth(tableRef) }
-              : { height: getInsertLineHeight(tableRef) }
+              : { height: getInsertLineHeight(tableRef, hasStickyHeaders) }
           }
         />
       </>

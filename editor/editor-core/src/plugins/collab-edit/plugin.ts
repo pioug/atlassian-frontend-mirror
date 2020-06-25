@@ -32,7 +32,6 @@ export const createPlugin = (
         newEditorState,
       ) {
         const pluginState = prevPluginState.apply(transaction);
-        const { activeParticipants, sessionId } = pluginState;
         const pmTablesMeta = transaction.getMeta(fixTablesKey);
 
         if (
@@ -48,7 +47,7 @@ export const createPlugin = (
           );
         }
 
-        dispatch(pluginKey, { activeParticipants, sessionId });
+        dispatch(pluginKey, pluginState);
         return pluginState;
       },
     },

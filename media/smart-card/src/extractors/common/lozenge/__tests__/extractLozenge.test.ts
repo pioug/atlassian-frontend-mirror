@@ -1,5 +1,10 @@
 import { extractLozenge } from '../extractLozenge';
-import { TEST_BASE_DATA, TEST_OBJECT, TEST_NAME } from '../../__mocks__/jsonld';
+import {
+  TEST_BASE_DATA,
+  TEST_OBJECT,
+  TEST_NAME,
+  TEST_UNDEFINED_LINK,
+} from '../../__mocks__/jsonld';
 import { JsonLd } from 'json-ld-types';
 
 describe('extractors.lozenge.lozenge', () => {
@@ -65,5 +70,13 @@ describe('extractors.lozenge.lozenge', () => {
         'atlassian:taskStatus': TEST_OBJECT,
       } as JsonLd.Data.Task),
     ).toEqual({ text: TEST_NAME, appearance: 'success' });
+  });
+
+  it('returns lozenge if type supported - undefined link', () => {
+    expect(
+      extractLozenge({
+        ...TEST_UNDEFINED_LINK,
+      }),
+    ).toEqual({ text: 'UNDEFINED', appearance: 'inprogress' });
   });
 });

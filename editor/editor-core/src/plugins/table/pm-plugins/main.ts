@@ -12,7 +12,7 @@ import {
 import { EditorView } from 'prosemirror-view';
 
 import { browser } from '@atlaskit/editor-common';
-import { Dispatch } from '../../../event-dispatcher';
+import { Dispatch, EventDispatcher } from '../../../event-dispatcher';
 import { PortalProviderAPI } from '../../../ui/PortalProvider';
 import { pluginKey as decorationsPluginKey } from '../pm-plugins/decorations/plugin';
 
@@ -41,7 +41,7 @@ import { fixTables } from '../transforms';
 import { getPluginState, pluginKey } from './plugin-factory';
 import { createPluginState } from './plugin-factory';
 import { defaultTableSelection } from './default-table-selection';
-import { EventDispatcher } from '../../../event-dispatcher';
+import { closestElement } from '../../../utils/dom';
 
 let isBreakoutEnabled: boolean | undefined;
 let isDynamicTextSizingEnabled: boolean | undefined;
@@ -158,6 +158,18 @@ export const createPlugin = (
         }
 
         return false;
+      },
+      handleScrollToSelection: (view: EditorView) => {
+        // when typing into a sticky header cell, we don't want to scroll
+        // back to the top of the table if the user has already scrolled down
+        const { tableHeader } = view.state.schema.nodes;
+        const domRef = findParentDomRefOfType(
+          tableHeader,
+          view.domAtPos.bind(view),
+        )(view.state.selection);
+
+        const maybeTr = closestElement(domRef as HTMLElement | undefined, 'tr');
+        return maybeTr ? maybeTr.classList.contains('sticky') : false;
       },
 
       nodeViews: {

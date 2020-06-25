@@ -1,5 +1,6 @@
 import {
   getExampleUrl,
+  loadPage,
   takeElementScreenShot,
 } from '@atlaskit/visual-regression/helper';
 
@@ -23,7 +24,7 @@ describe('<SkeletonMenu />', () => {
     );
     const { page } = global;
 
-    await page.goto(url);
+    await loadPage(page, url);
     await page.waitForSelector(selector);
   };
 

@@ -68,9 +68,7 @@ export {
 export { mediaGroup, MediaGroupDefinition } from './media-group';
 export {
   mediaSingle,
-  Layout as MediaSingleLayout,
   MediaSingleDefinition,
-  MediaSingleAttributes,
   toJSON as mediaSingleToJSON,
 } from './media-single';
 export {
@@ -156,6 +154,9 @@ export { Layout as ExtensionLayout } from './types/extensions';
 export {
   embedCard,
   EmbedCardDefinition,
-  EmbedLayout,
   EmbedCardAttributes,
 } from './embed-card';
+export {
+  RichMediaAttributes,
+  Layout as RichMediaLayout,
+} from './types/rich-media-common';

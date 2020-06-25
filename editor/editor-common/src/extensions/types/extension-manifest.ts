@@ -27,6 +27,7 @@ export type ExtensionManifest = {
   key: ExtensionKey;
   title: string;
   description: string;
+  keywords?: string[];
   icons: Icons;
   modules: ExtensionModules;
 };

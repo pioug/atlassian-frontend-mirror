@@ -1,5 +1,6 @@
 import {
   getExampleUrl,
+  loadPage,
   takeElementScreenShot,
 } from '@atlaskit/visual-regression/helper';
 
@@ -22,7 +23,7 @@ describe.skip('Snapshot Test for Progress Tracker', () => {
       __BASEURL__,
     );
 
-    await page.goto(url);
+    await loadPage(page, url);
     await page.waitForSelector(next);
     await page.waitForSelector(prev);
     await page.waitForSelector(add);
@@ -50,7 +51,7 @@ describe.skip('Snapshot Test for Progress Tracker', () => {
       __BASEURL__,
     );
 
-    await page.goto(url);
+    await loadPage(page, url);
     await page.waitForSelector(next);
     await page.waitForSelector(prev);
     await page.waitForSelector(add);

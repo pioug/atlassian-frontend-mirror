@@ -1,7 +1,7 @@
 import { EmojiResource, EmojiResourceConfig } from '@atlaskit/emoji/resource';
 import { createPromise } from '../cross-platform-promise';
 import { GetConfigPayload } from '../types';
-import { mockFetchFor } from './utils';
+import { FetchProxy } from '../utils/fetch-proxy';
 
 /**
  * To construct an EmojiResourceConfig we need to know the base url
@@ -12,7 +12,7 @@ import { mockFetchFor } from './utils';
  */
 const elementsConfigPromise = createPromise('getConfig');
 
-export function createEmojiProvider() {
+export function createEmojiProvider(fetchProxy: FetchProxy) {
   return elementsConfigPromise
     .submit()
     .then(elementsConfig => {
@@ -27,7 +27,7 @@ export function createEmojiProvider() {
        *       to be as consistent as possible.
        */
       if (window.webkit) {
-        mockFetchFor(emojiConfig.providers.map(p => p.url));
+        emojiConfig.providers.forEach(p => fetchProxy.add(p.url));
       }
 
       return new EmojiResource(emojiConfig);

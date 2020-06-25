@@ -18,6 +18,7 @@ import { MetadataProps } from '../components/Metadata';
 import { MetadataList } from '../components/MetadataList';
 import { LozengeProps } from '../../common';
 import { LozengeBlockWrapper } from '../../InlineCard/IconAndTitleLayout/styled';
+import { ContentHeader } from '../components/ContentHeader';
 import { ContentFooter } from '../components/ContentFooter';
 import { ContextViewModel } from '../../types';
 import { gs } from '../utils';
@@ -71,7 +72,7 @@ export const ResolvedView = ({
   byline = '',
   lozenge,
   details = [],
-  testId,
+  testId = 'block-card-resolved-view',
   showActions = true,
 }: ResolvedViewProps) => {
   const resolvedMetadata =
@@ -102,12 +103,7 @@ export const ResolvedView = ({
               alignItems: 'flex-start',
             }}
           >
-            <a
-              onClick={handleClick}
-              href={link}
-              target="_blank"
-              css={{ display: 'flex', alignItems: 'flex-start' }}
-            >
+            <ContentHeader onClick={handleClick} link={link}>
               <Icon {...icon} />
               <Name name={title} />
               {lozenge && (
@@ -122,7 +118,7 @@ export const ResolvedView = ({
                   <Lozenge {...lozenge}>{lozenge.text}</Lozenge>
                 </LozengeBlockWrapper>
               )}
-            </a>
+            </ContentHeader>
             <CollaboratorList
               items={users}
               handleAvatarClick={handleAvatarClick}

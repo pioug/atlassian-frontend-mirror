@@ -64,7 +64,6 @@ export const unresolvedEvent = (
           message: error.message,
           kind: error.kind,
           type: error.type,
-          stack: error.stack,
         }
       : undefined,
   },

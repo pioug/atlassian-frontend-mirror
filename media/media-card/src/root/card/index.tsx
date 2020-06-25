@@ -682,6 +682,7 @@ export class CardBase extends Component<
       disableOverlay,
       alt,
       testId,
+      featureFlags,
     } = this.props;
     const { progress, metadata, dataURI, previewOrientation } = this.state;
     const {
@@ -714,6 +715,7 @@ export class CardBase extends Component<
         previewOrientation={previewOrientation}
         ref={this.cardRef}
         testId={testId}
+        featureFlags={featureFlags}
       />
     );
 

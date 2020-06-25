@@ -7,7 +7,7 @@ import {
 } from './enums';
 
 export type AnnotationActionType =
-  | ACTION.ADDED
+  | ACTION.INSERTED
   | ACTION.CLOSED
   | ACTION.EDITED
   | ACTION.DELETED
@@ -39,5 +39,6 @@ export type AnnotationResolvedAEPAttributes = {
 
 export enum RESOLVE_METHOD {
   COMPONENT = 'component',
+  CONSUMER = 'consumer',
   ORPHANED = 'orphaned',
 }

@@ -9,7 +9,7 @@ import { GapCursorSelection, Side } from '../selection';
  */
 const nestedCases: Record<string, string> = {
   'tableView-content-wrap': 'table',
-  'mediaSingleView-content-wrap': '.media-single',
+  'mediaSingleView-content-wrap': '.rich-media-item',
 };
 const computeNestedStyle = (dom: HTMLElement) => {
   const foundKey = Object.keys(nestedCases).find(className =>

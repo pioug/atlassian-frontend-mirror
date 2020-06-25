@@ -1,5 +1,5 @@
 import React from 'react';
-import { MediaSingleLayout } from '@atlaskit/adf-schema';
+import { RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema';
 import Wrapper from './styled';
 import classnames from 'classnames';
 import { calcPxFromPct, layoutSupportsWidth } from './grid';
@@ -12,13 +12,15 @@ export interface Props {
   layout: MediaSingleLayout;
   width: number;
   height: number;
-  lineLength: number;
+  lineLength?: number;
   containerWidth?: number;
   isLoading?: boolean;
   className?: string;
   pctWidth?: number;
   fullWidthMode?: boolean;
   blockLink?: string;
+  nodeType?: string;
+  isResizable?: boolean;
 }
 
 export default function MediaSingle({
@@ -33,6 +35,8 @@ export default function MediaSingle({
   fullWidthMode,
   lineLength,
   blockLink,
+  nodeType = 'mediaSingle',
+  isResizable,
 }: Props) {
   const usePctWidth = pctWidth && layoutSupportsWidth(layout);
   if (pctWidth && usePctWidth) {
@@ -53,14 +57,15 @@ export default function MediaSingle({
       containerWidth={containerWidth}
       pctWidth={pctWidth}
       fullWidthMode={fullWidthMode}
-      data-node-type="mediaSingle"
+      data-node-type={nodeType}
       data-layout={layout}
       data-width={pctWidth}
       data-block-link={blockLink}
-      className={classnames('media-single', `image-${layout}`, className, {
+      className={classnames('rich-media-item', `image-${layout}`, className, {
         'is-loading': isLoading,
-        'media-wrapped': layout === 'wrap-left' || layout === 'wrap-right',
+        'rich-media-wrapped': layout === 'wrap-left' || layout === 'wrap-right',
       })}
+      isResizable={isResizable}
     >
       {React.Children.only(children)}
     </Wrapper>

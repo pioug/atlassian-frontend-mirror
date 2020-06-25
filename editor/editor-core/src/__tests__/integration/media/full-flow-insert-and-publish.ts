@@ -25,7 +25,7 @@ async function openAndGetMediaViewer(client: WebdriverIO.BrowserObject) {
 async function assertCardCompleteStatus(page: FullPageEditor) {
   expect(
     await page.isVisible(
-      '.media-single [data-testid="media-file-card-view"][data-test-status="complete"]',
+      '[data-testid="media-file-card-view"][data-test-status="complete"]',
     ),
   ).toBe(true);
 }
@@ -140,9 +140,11 @@ BrowserTestCase(
 
     await page.publish();
 
-    expect(await page.isVisible('.media-single')).toBe(true);
+    expect(await page.isVisible('[data-testid="media-file-card-view"]')).toBe(
+      true,
+    );
 
-    await page.click('.media-single');
+    await page.click('[data-testid="media-file-card-view"]');
 
     const mediaViewer = await openAndGetMediaViewer(client);
 
@@ -221,9 +223,11 @@ BrowserTestCase(
 
     await page.publish();
 
-    expect(await page.isVisible('.media-single')).toBe(true);
+    expect(await page.isVisible('[data-testid="media-file-card-view"]')).toBe(
+      true,
+    );
 
-    await page.click('.media-single');
+    await page.click('[data-testid="media-file-card-view"]');
 
     const mediaViewer = await openAndGetMediaViewer(client);
 
@@ -273,9 +277,11 @@ BrowserTestCase(
 
     await page.publish();
 
-    expect(await page.isVisible('.media-single')).toBe(true);
+    expect(await page.isVisible('[data-testid="media-file-card-view"]')).toBe(
+      true,
+    );
 
-    await page.click('.media-single');
+    await page.click('[data-testid="media-file-card-view"]');
 
     const mediaViewer = await openAndGetMediaViewer(client);
 
@@ -298,7 +304,7 @@ BrowserTestCase(
 
     expect(
       await page.isVisible(
-        '.media-single [data-testid="media-file-card-view"][data-test-status="complete"]',
+        '[data-testid="media-file-card-view"][data-test-status="complete"]',
       ),
     ).toBe(true);
 
@@ -323,7 +329,7 @@ BrowserTestCase(
 
     expect(
       await page.isVisible(
-        '.media-single [data-testid="media-file-card-view"][data-test-status="complete"]',
+        '[data-testid="media-file-card-view"][data-test-status="complete"]',
       ),
     ).toBe(true);
 
@@ -334,10 +340,12 @@ BrowserTestCase(
 
     await page.publish();
 
-    expect(await page.isVisible('.media-single')).toBe(true);
+    expect(await page.isVisible('[data-testid="media-file-card-view"]')).toBe(
+      true,
+    );
 
     await page.pause(300); // When running against chromedriver directly it may fail without this pause because event handlers haven't been assigned yet
-    await page.click('.media-single');
+    await page.click('[data-testid="media-file-card-view"]');
 
     const mediaViewer = new MediaViewerPageObject(client);
     await mediaViewer.init();

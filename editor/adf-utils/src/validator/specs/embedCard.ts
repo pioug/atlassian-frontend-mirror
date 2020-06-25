@@ -3,9 +3,10 @@ export default {
     type: { type: 'enum', values: ['embedCard'] },
     attrs: {
       props: {
-        width: { type: 'number', minimum: 0, maximum: 100, optional: true },
         originalWidth: { type: 'number', optional: true },
         originalHeight: { type: 'number', optional: true },
+        url: { type: 'string' },
+        width: { type: 'number', minimum: 0, maximum: 100, optional: true },
         layout: {
           type: 'enum',
           values: [
@@ -18,7 +19,6 @@ export default {
             'align-start',
           ],
         },
-        url: { type: 'string' },
       },
     },
   },

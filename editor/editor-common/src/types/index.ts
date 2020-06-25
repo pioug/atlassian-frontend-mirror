@@ -11,19 +11,6 @@ export enum SortOrder {
   NO_ORDER = 'no_order',
 }
 
-export {
-  CollabEvent,
-  CollabEventData,
-  CollabEventConnectionData,
-  CollabEventInitData,
-  CollabParticipant,
-  CollabeEventPresenceData,
-  CollabEventRemoteData,
-  CollabSendableSelection,
-  CollabEventTelepointerData,
-} from './collab';
-
 export { AnnotationState, AnnotationProviders } from './annotation';
 
 export { TypeAheadItem, TypeAheadItemRenderProps } from './typeAhead';
-export { CollabEditProvider } from '../provider-factory/collab-edit-provider';

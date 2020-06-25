@@ -220,6 +220,7 @@ describe('<StatelessUploadView />', () => {
     expect(component.find(Card).prop('identifier')).toEqual({
       id: 'id1',
       mediaItemType: 'file',
+      collectionName: 'recents',
     });
   });
 

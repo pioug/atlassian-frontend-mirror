@@ -214,6 +214,7 @@ const transformLegacyMacrosToExtensionManifest = (
           key: 'default',
           title: macro.title,
           description: macro.description,
+          keywords: [...macro.aliases, macro.macroName],
           icon: () => getIcon(macro),
           action,
         },

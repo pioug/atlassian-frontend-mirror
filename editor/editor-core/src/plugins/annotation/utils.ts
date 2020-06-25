@@ -73,6 +73,24 @@ export const getAllAnnotations = (doc: Node): string[] => {
   return Array.from(allAnnotationIds);
 };
 
+export const getAnnotationText = (root: Node, annotationIds: string[] = []) => {
+  let result = '';
+  root.descendants(node => {
+    if (
+      node.marks.length &&
+      node.marks.some(
+        mark =>
+          mark.type.name === 'annotation' &&
+          annotationIds.includes(mark.attrs.id),
+      )
+    ) {
+      result += node.textContent;
+    }
+    return true;
+  });
+  return result;
+};
+
 // helper function: return the first selection range for the window
 const getSelectionRange = function(): Range | null {
   const selection = window.getSelection();

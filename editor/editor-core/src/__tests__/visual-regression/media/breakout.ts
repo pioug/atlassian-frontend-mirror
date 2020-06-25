@@ -31,6 +31,7 @@ describe('Snapshot Test: Media inside of breakout nodes', () => {
       },
       viewport: { width: 1280, height: 4200 },
     });
+    await waitForMediaToBeLoaded(page);
     await snapshot(page);
   });
 

@@ -31,23 +31,23 @@ export interface Props extends WithAnalyticsEventsProps {
   /** Defines the appearance which can be default or subtle - no borders or background. */
   appearance?: Appearance;
   /** Whether or not to auto-focus the field. */
-  autoFocus: boolean;
+  autoFocus?: boolean;
   /** Default for `value`. */
-  defaultValue: string;
+  defaultValue?: string;
   /** The id of the field. Currently, react-select transforms this to have a "react-select-" prefix, and an "--input" suffix when applied to the input. For example, the id "my-input" would be transformed to "react-select-my-input--input". Keep this in mind when needing to refer to the ID. This will be fixed in an upcoming release. */
-  id: string;
+  id?: string;
   /** Props to apply to the container. **/
-  innerProps: React.AllHTMLAttributes<HTMLElement>;
+  innerProps?: React.AllHTMLAttributes<HTMLElement>;
   /** Whether or not the field is disabled. */
-  isDisabled: boolean;
+  isDisabled?: boolean;
   /** The name of the field. */
-  name: string;
+  name?: string;
   /** Called when the field is blurred. */
-  onBlur: React.FocusEventHandler<HTMLInputElement>;
+  onBlur?: React.FocusEventHandler<HTMLInputElement>;
   /** Called when the value changes and the date / time is a complete value, or empty. The only value is an ISO string or empty string. */
-  onChange: (value: string) => void;
+  onChange?: (value: string) => void;
   /** Called when the field is focused. */
-  onFocus: React.FocusEventHandler<HTMLInputElement>;
+  onFocus?: React.FocusEventHandler<HTMLInputElement>;
   /** The ISO time that should be used as the input value. */
   value?: string;
   /** Allow users to edit the input and add a time. */
@@ -58,8 +58,8 @@ export interface Props extends WithAnalyticsEventsProps {
   hideIcon?: boolean;
   /** DEPRECATED - Use locale instead. Format the date with a string that is accepted by [date-fns's format function](https://date-fns.org/v1.29.0/docs/format). */
   dateFormat?: string;
-  datePickerProps: DatePickerProps;
-  timePickerProps: TimePickerProps;
+  datePickerProps?: DatePickerProps;
+  timePickerProps?: TimePickerProps;
   /** Function to parse passed in dateTimePicker value into the requisite sub values date, time and zone. **/
   parseValue?: (
     dateTimeValue: string,
@@ -68,16 +68,16 @@ export interface Props extends WithAnalyticsEventsProps {
     timezone: string,
   ) => { dateValue: string; timeValue: string; zoneValue: string };
   /** [Select props](/packages/design-system/select) to pass onto the DatePicker component. This can be used to set options such as placeholder text. */
-  datePickerSelectProps: SelectProps<any>;
+  datePickerSelectProps?: SelectProps<any>;
   /** [Select props](/packages/design-system/select) to pass onto the TimePicker component. This can be used to set options such as placeholder text. */
-  timePickerSelectProps: SelectProps<any>;
+  timePickerSelectProps?: SelectProps<any>;
   /** The times to show in the times dropdown. */
   times?: Array<string>;
   /** DEPRECATED - Use locale instead. Time format that is accepted by [date-fns's format function](https://date-fns.org/v1.29.0/docs/format)*/
   timeFormat?: string;
   /* This prop affects the height of the select control. Compact is gridSize() * 4, default is gridSize * 5  */
   spacing?: Spacing;
-  locale: string;
+  locale?: string;
   /**
    * A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests
    *  - `{testId}--datepicker--container` wrapping element of date-picker
@@ -85,6 +85,8 @@ export interface Props extends WithAnalyticsEventsProps {
    **/
   testId?: string;
 }
+
+export type DateTimePickerProps = typeof DateTimePicker.defaultProps & Props;
 
 interface State {
   active: 0 | 1 | 2;
@@ -198,17 +200,17 @@ const styles: StylesConfig = {
   }),
 };
 
-function noop() {}
-
+// TODO: Please replace Props with DateTimePickerProps
+// when https://github.com/atlassian/extract-react-types/issues/113 gets resolved
 class DateTimePicker extends React.Component<Props, State> {
   static defaultProps = {
     appearance: 'default',
     autoFocus: false,
     isDisabled: false,
     name: '',
-    onBlur: noop,
-    onChange: noop,
-    onFocus: noop,
+    onBlur: (_: React.FocusEvent<HTMLInputElement>) => {},
+    onChange: (_: string) => {},
+    onFocus: (_: React.FocusEvent<HTMLInputElement>) => {},
     innerProps: {},
     id: '',
     defaultValue: '',
@@ -230,16 +232,22 @@ class DateTimePicker extends React.Component<Props, State> {
     dateValue: '',
     isFocused: false,
     timeValue: '',
-    value: this.props.defaultValue,
+    value: this.getTypeSafeProps().defaultValue,
     zoneValue: '',
   };
+
+  // TODO: Please remove this method
+  // when https://github.com/atlassian/extract-react-types/issues/113 gets resolved
+  getTypeSafeProps() {
+    return this.props as DateTimePickerProps;
+  }
 
   // All state needs to be accessed via this function so that the state is mapped from props
   // correctly to allow controlled/uncontrolled usage.
   getSafeState = () => {
     const mappedState = {
       ...this.state,
-      ...pick(this.props, ['value']),
+      ...pick(this.getTypeSafeProps(), ['value']),
     };
 
     return {
@@ -259,8 +267,10 @@ class DateTimePicker extends React.Component<Props, State> {
     timeValue: string,
     zoneValue: string,
   ) {
-    if (this.props.parseValue) {
-      return this.props.parseValue(value, dateValue, timeValue, zoneValue);
+    const { parseValue } = this.getTypeSafeProps();
+
+    if (parseValue) {
+      return parseValue(value, dateValue, timeValue, zoneValue);
     }
 
     const parsed = parse(value);
@@ -281,12 +291,18 @@ class DateTimePicker extends React.Component<Props, State> {
 
   onBlur = (event: React.FocusEvent<HTMLInputElement>) => {
     this.setState({ isFocused: false });
-    this.props.onBlur(event);
+
+    const { onBlur } = this.getTypeSafeProps();
+
+    onBlur(event);
   };
 
   onFocus = (event: React.FocusEvent<HTMLInputElement>) => {
     this.setState({ isFocused: true });
-    this.props.onFocus(event);
+
+    const { onFocus } = this.getTypeSafeProps();
+
+    onFocus(event);
   };
 
   onDateChange = (dateValue: string) => {
@@ -314,17 +330,19 @@ class DateTimePicker extends React.Component<Props, State> {
     timeValue: string;
     zoneValue: string;
   }) {
+    const { onChange } = this.getTypeSafeProps();
+
     this.setState({ dateValue, timeValue, zoneValue });
 
     if (dateValue && timeValue) {
       const value = formatDateTimeZoneIntoIso(dateValue, timeValue, zoneValue);
 
       this.setState({ value });
-      this.props.onChange(value);
+      onChange(value);
       // If the date or time value was cleared when there is an existing datetime value, then clear the value.
     } else if (this.getSafeState().value) {
       this.setState({ value: '' });
-      this.props.onChange('');
+      onChange('');
     }
   }
 
@@ -345,15 +363,18 @@ class DateTimePicker extends React.Component<Props, State> {
       timeFormat,
       locale,
       testId,
-    } = this.props;
+      isInvalid,
+      appearance,
+      spacing,
+    } = this.getTypeSafeProps();
     const { isFocused, value, dateValue, timeValue } = this.getSafeState();
     const bothProps = {
       isDisabled,
       onBlur: this.onBlur,
       onFocus: this.onFocus,
-      isInvalid: this.props.isInvalid,
-      appearance: this.props.appearance,
-      spacing: this.props.spacing,
+      isInvalid,
+      appearance,
+      spacing,
     };
 
     const { styles: datePickerStyles = {} } = datePickerSelectProps;
@@ -378,8 +399,8 @@ class DateTimePicker extends React.Component<Props, State> {
         {...innerProps}
         isFocused={isFocused}
         isDisabled={isDisabled}
-        isInvalid={this.props.isInvalid!}
-        appearance={this.props.appearance!}
+        isInvalid={isInvalid!}
+        appearance={appearance!}
       >
         <input name={name} type="hidden" value={value} />
         <DatePickerContainer>

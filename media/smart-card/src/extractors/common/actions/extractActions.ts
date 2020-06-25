@@ -72,7 +72,7 @@ const getActionsFromJsonLd = (
   return actions;
 };
 
-export function extractBlockActionPropsFromJSONLD(
+export function extractActions(
   jsonLd: JsonLd.Data.BaseData,
   handler: InvokeHandler,
 ): ActionProps[] {

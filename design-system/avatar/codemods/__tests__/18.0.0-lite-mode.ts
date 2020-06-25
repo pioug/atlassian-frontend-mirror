@@ -296,7 +296,7 @@ describe('Update AvatarItem props', () => {
     const App = () => {
       return (
         <AvatarItem
-          enableTruncation
+          enableTextTruncate
         />
       );
     }
@@ -308,7 +308,7 @@ describe('Update AvatarItem props', () => {
       return <AvatarItem />;
     }
   `,
-    'should remove enableTruncation when defaulted to true',
+    'should remove enableTextTruncate when defaulted to true',
   );
 
   defineInlineTest(
@@ -320,7 +320,7 @@ describe('Update AvatarItem props', () => {
       const App = () => {
         return (
           <AvatarItem
-            enableTruncation={false}
+            enableTextTruncate={false}
           />
         )
       }
@@ -350,7 +350,7 @@ describe('Update AvatarItem props', () => {
       const App = () => {
         return (
           <AvatarItem
-            enableTruncation={value}
+            enableTextTruncate={value}
           />
         );
       }
@@ -383,7 +383,7 @@ describe('Update AvatarItem props', () => {
       const App = () => {
         return (
           <AvatarItem
-            enableTruncation={foo && bar}
+            enableTextTruncate={foo && bar}
           />
         );
       }
@@ -414,7 +414,7 @@ describe('Update AvatarItem props', () => {
       const App = () => {
         return (
           <AvatarItem
-            enableTruncation={true}
+            enableTextTruncate={true}
           />
         )
       }
@@ -440,7 +440,7 @@ describe('Update AvatarItem props', () => {
             isActive={true}
             isFocus={true}
             isSelected={true}
-            enableTruncation={true}
+            enableTextTruncate={true}
           />
         )
       }
@@ -453,7 +453,7 @@ describe('Update AvatarItem props', () => {
             isActive={true}
             isFocus={true}
             isSelected={true}
-            enableTruncation={true}
+            enableTextTruncate={true}
           />
         )
       }

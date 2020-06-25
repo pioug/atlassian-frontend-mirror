@@ -26,6 +26,11 @@ export class Channel extends Emitter<ChannelEvent> {
     this.config = config;
   }
 
+  // read-only getters used for tests
+  getInitialized = () => this.initialized;
+  getConnected = () => this.connected;
+  getSocket = () => this.socket;
+
   /**
    * Connect to collab service using websockets
    */
@@ -72,6 +77,7 @@ export class Channel extends Emitter<ChannelEvent> {
       this.emit('title:changed', payload.data);
     });
     this.socket.on('disconnect', (reason: string) => {
+      this.connected = false;
       this.emit('disconnect', { reason });
       if (reason === 'io server disconnect' && this.socket) {
         // the disconnection was initiated by the server, we need to reconnect manually
@@ -95,11 +101,11 @@ export class Channel extends Emitter<ChannelEvent> {
     if (data.type === 'initial') {
       if (!this.initialized) {
         const { doc, version } = data;
+        this.initialized = true;
         this.emit('init', {
           doc,
           version,
         });
-        this.initialized = true;
       }
     } else {
       this.emit('steps:added', data);

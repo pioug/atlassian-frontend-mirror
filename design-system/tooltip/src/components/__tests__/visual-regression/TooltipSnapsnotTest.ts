@@ -1,4 +1,4 @@
-import { getExampleUrl } from '@atlaskit/visual-regression/helper';
+import { getExampleUrl, loadPage } from '@atlaskit/visual-regression/helper';
 
 declare var global: any;
 
@@ -16,7 +16,7 @@ describe('Snapshot Test', () => {
     const { page } = global;
     // Reduce viewport to estimated size of element to increase `failureThreshold` accuracry.
     await page.setViewport({ width: 130, height: 65 });
-    await page.goto(url);
+    await loadPage(page, url);
     await page.waitForSelector(examples);
     await page.waitForSelector(tooltipBtn);
     await page.click(tooltipBtn);

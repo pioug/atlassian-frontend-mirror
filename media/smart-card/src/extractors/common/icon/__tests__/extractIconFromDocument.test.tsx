@@ -19,6 +19,11 @@ describe('extractors.icon.document', () => {
     expect(mount(render(icon)).find('Document16Icon')).toHaveLength(1);
   });
 
+  it('returns document icon for UndefinedLink', () => {
+    const icon = extractIconFromDocument('atlassian:UndefinedLink', {});
+    expect(mount(render(icon)).find('Document16Icon')).toHaveLength(1);
+  });
+
   it('returns presentation icon for PresentationDigitalDocument', () => {
     const icon = extractIconFromDocument(
       'schema:PresentationDigitalDocument',

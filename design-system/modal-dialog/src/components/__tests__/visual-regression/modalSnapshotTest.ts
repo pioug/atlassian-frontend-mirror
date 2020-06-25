@@ -1,5 +1,6 @@
 import {
   getExampleUrl,
+  loadPage,
   takeElementScreenShot,
 } from '@atlaskit/visual-regression/helper';
 
@@ -19,12 +20,10 @@ describe('Snapshot Test', () => {
     );
     const { page } = global;
 
-    await page.goto(url);
+    await loadPage(page, url, true);
     await page.waitForSelector(openModalBtn);
     await page.click(openModalBtn);
     await page.waitForSelector(modalDialog);
-    // We need to wait for the animation to finish.
-    await page.waitFor(1000);
     const image = await takeElementScreenShot(page, modalDialog);
     expect(image).toMatchProdImageSnapshot();
   });
@@ -38,12 +37,10 @@ describe('Snapshot Test', () => {
     );
     const { page } = global;
 
-    await page.goto(url);
+    await loadPage(page, url, true);
     await page.waitForSelector(openModalBtn);
     await page.click(openModalBtn);
     await page.waitForSelector(modalDialog);
-    // We need to wait for the animation to finish.
-    await page.waitFor(1000);
     const image = await takeElementScreenShot(page, modalDialog);
     expect(image).toMatchProdImageSnapshot();
   });
@@ -57,12 +54,10 @@ describe('Snapshot Test', () => {
     );
     const { page } = global;
 
-    await page.goto(url);
+    await loadPage(page, url, true);
     await page.waitForSelector(openModalBtn);
     await page.click(openModalBtn);
     await page.waitForSelector(modalDialog);
-    // We need to wait for the animation to finish.
-    await page.waitFor(1000);
     const image = await takeElementScreenShot(page, 'body');
     expect(image).toMatchProdImageSnapshot();
   });
@@ -76,16 +71,14 @@ describe('Snapshot Test', () => {
     );
     const { page } = global;
 
-    await page.goto(url);
+    await loadPage(page, url, true);
     await page.waitForSelector(openModalBtn);
     const radioSelector = scrollBehaviorGroup + ' input[value="outside"]';
     await page.waitForSelector(radioSelector);
     await page.click(radioSelector);
-    await page.waitFor(1000);
     await page.click(openModalBtn);
     await page.waitForSelector(modalDialog);
-    // We need to wait for the animation to finish.
-    await page.waitFor(1000);
+
     const image = await takeElementScreenShot(page, 'body');
     expect(image).toMatchProdImageSnapshot();
   });
@@ -99,16 +92,19 @@ describe('Snapshot Test', () => {
     );
     const { page } = global;
 
-    await page.goto(url);
+    await loadPage(page, url, true);
     await page.waitForSelector(openModalBtn);
     const radioSelector = scrollBehaviorGroup + ' input[value="inside-wide"]';
     await page.waitForSelector(radioSelector);
+    // Clicking the inside-wide radio button sets the body to 3000px
+    // which causes a page reflow. Rather than using an arbitrary wait
+    // time to let the content shifting settle, we resize the viewport
+    // to the same size before clicking it to lessen the effect.
+    await page.setViewport({ width: 3000, height: 600 });
     await page.click(radioSelector);
-    await page.waitFor(1000);
     await page.click(openModalBtn);
     await page.waitForSelector(modalDialog);
-    // We need to wait for the animation to finish.
-    await page.waitFor(1000);
+
     const image = await takeElementScreenShot(page, 'body');
     expect(image).toMatchProdImageSnapshot();
   });

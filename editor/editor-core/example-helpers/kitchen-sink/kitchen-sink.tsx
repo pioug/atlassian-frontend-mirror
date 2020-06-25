@@ -309,7 +309,7 @@ export class KitchenSink extends React.Component<
             </Column>
             {this.state.showADF ? (
               <Rail>
-                <ContextPanel>
+                <ContextPanel visible={this.state.showADF}>
                   <div>
                     <Container>
                       {this.state.errors.length > 0 && (

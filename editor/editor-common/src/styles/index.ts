@@ -11,6 +11,7 @@ export {
   akEditorDefaultLayoutWidth,
   akEditorDeleteBackground,
   akEditorDeleteBackgroundShaded,
+  akEditorDeleteBackgroundWithOpacity,
   akEditorDeleteBorder,
   akEditorDeleteIconColor,
   akEditorDropdownActiveBackground,
@@ -41,6 +42,7 @@ export {
   akEditorSelectedBgColor,
   akEditorSelectedBlanketOpacity,
   akEditorSmallZIndex,
+  akEditorShadowZIndex,
   akEditorSubtleAccent,
   akEditorSwoopCubicBezier,
   akEditorTableBorder,
@@ -63,7 +65,7 @@ export {
   akEditorUnitZIndex,
   akEditorWideLayoutWidth,
   akLayoutGutterOffset,
-  akMediaSingleResizeZIndex,
+  akRichMediaResizeZIndex,
   blockNodesVerticalMargin,
   breakoutWideScaleRatio,
   editorFontSize,
@@ -71,6 +73,9 @@ export {
   getAkEditorFullPageMaxWidth,
   relativeSize,
   akEditorSelectedBorderStyles,
+  DEFAULT_EMBED_CARD_HEIGHT,
+  DEFAULT_EMBED_CARD_WIDTH,
+  akEditorLineHeight,
 } from './consts';
 
 export {
@@ -95,7 +100,7 @@ export {
 export { columnLayoutSharedStyle } from './shared/column-layout';
 export {
   mediaSingleSharedStyle,
-  mediaSingleClassName,
+  richMediaClassName,
 } from './shared/media-single';
 export { blockquoteSharedStyles } from './shared/blockquote';
 export { headingsSharedStyles } from './shared/headings';
@@ -115,7 +120,11 @@ export { blockMarksSharedStyles } from './shared/block-marks';
 export { codeMarkSharedStyles } from './shared/code-mark';
 export { shadowSharedStyle } from './shared/shadow';
 export { dateSharedStyle, DateSharedCssClassName } from './shared/date';
-export { tasksAndDecisionsStyles } from './shared/task-decision';
+export {
+  tasksAndDecisionsStyles,
+  TaskDecisionSharedCssClassName,
+} from './shared/task-decision';
 export { MentionSharedCssClassName } from './shared/mention';
 export { EmojiSharedCssClassName } from './shared/emoji';
+export { StatusSharedCssClassName } from './shared/status';
 export { smartCardSharedStyles } from './shared/block-card';

@@ -2,7 +2,10 @@ import { snapshot, initEditorWithAdf, Appearance } from '../_utils';
 import { Page } from '../../__helpers/page-objects/_types';
 import emojiAdf from './__fixtures__/emoji-adf.json';
 import { emojiSelectors } from '../../__helpers/page-objects/_emoji';
-import { waitForNoTooltip } from '@atlaskit/visual-regression/helper';
+import {
+  waitForNoTooltip,
+  waitForLoadedBackgroundImages,
+} from '@atlaskit/visual-regression/helper';
 
 describe('Emoji', () => {
   let page: Page;
@@ -18,6 +21,9 @@ describe('Emoji', () => {
         adf: emojiAdf,
         viewport: { width: 300, height: 150 },
       });
+      // Wait for loaded emoji image (contained within ADF)
+      const emojiSelector = '.emoji-common-emoji-sprite';
+      await waitForLoadedBackgroundImages(page, emojiSelector);
     });
 
     afterEach(async () => {

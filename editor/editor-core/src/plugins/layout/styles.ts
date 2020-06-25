@@ -48,20 +48,20 @@ export const layoutStyles = css`
             margin-top: 0;
           }
 
-          > .mediaSingleView-content-wrap:first-child .media-single {
+          > .mediaSingleView-content-wrap:first-child .rich-media-item {
             margin-top: 0;
           }
 
           > .ProseMirror-gapcursor.-right:first-child
             + .mediaSingleView-content-wrap
-            .media-single {
+            .rich-media-item {
             margin-top: 0;
           }
 
           > .ProseMirror-gapcursor:first-child
             + span
             + .mediaSingleView-content-wrap
-            .media-single {
+            .rich-media-item {
             margin-top: 0;
           }
         }

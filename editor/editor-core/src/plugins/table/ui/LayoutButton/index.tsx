@@ -3,7 +3,7 @@ import { injectIntl, InjectedIntlProps } from 'react-intl';
 import classnames from 'classnames';
 import { EditorView } from 'prosemirror-view';
 import { TableLayout } from '@atlaskit/adf-schema';
-import { Popup } from '@atlaskit/editor-common';
+import { Popup, PopupPosition } from '@atlaskit/editor-common';
 import ExpandIcon from '@atlaskit/icon/glyph/editor/expand';
 import CollapseIcon from '@atlaskit/icon/glyph/editor/collapse';
 
@@ -22,12 +22,13 @@ export interface Props {
   layout?: TableLayout;
 }
 
-const POPUP_OFFSET = [
-  0,
-  // -22 pixels to align y position with
-  // the columns controls
-  -22,
-];
+const addPopupOffset = (pos: PopupPosition) => ({
+  ...pos,
+
+  // add 22 pixels to align y position with
+  //the columns controls
+  top: pos.top ? pos.top + 22 : undefined,
+});
 
 const getTitle = (layout: TableLayout) => {
   switch (layout) {
@@ -61,10 +62,10 @@ class LayoutButton extends React.Component<Props & InjectedIntlProps, any> {
     return (
       <Popup
         ariaLabel={title}
-        offset={POPUP_OFFSET}
         target={targetRef}
         alignY="start"
         alignX="end"
+        onPositionCalculated={addPopupOffset}
         stick={true}
         mountTo={mountPoint}
         boundariesElement={boundariesElement}

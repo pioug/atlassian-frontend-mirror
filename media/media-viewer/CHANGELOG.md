@@ -1,5 +1,12 @@
 # @atlaskit/media-viewer
 
+## 44.4.3
+
+### Patch Changes
+
+- [`51aa5587ef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/51aa5587ef) - bump media-client: Remove stack traces from media analytic events
+- Updated dependencies
+
 ## 44.4.2
 
 ### Patch Changes

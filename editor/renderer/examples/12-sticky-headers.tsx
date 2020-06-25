@@ -36,9 +36,10 @@ export default function Example() {
           <Renderer
             dataProviders={providerFactory}
             document={document}
+            allowColumnSorting
             stickyHeaders={{
               offsetTop: height,
-              showStickyHeaders: true,
+              show: true,
             }}
             {...additionalProps}
           />

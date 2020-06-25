@@ -54,7 +54,7 @@ async function resizeMediaSingle(
   page: Page,
   mediaSingle: WebdriverIO.Element,
 ): Promise<ResizeHandle> {
-  const handleElement = await mediaSingle.$('.mediaSingle-resize-handle-right');
+  const handleElement = await mediaSingle.$('.richMedia-resize-handle-right');
 
   if (!handleElement) {
     throw new Error(`Could not find mediasingle resize handle`);

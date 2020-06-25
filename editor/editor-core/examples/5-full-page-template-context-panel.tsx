@@ -14,7 +14,23 @@ import decisionAdf from '../example-helpers/templates/decision.adf.json';
 import breakoutAdf from '../example-helpers/templates/breakout.adf.json';
 import { EditorActions, ContextPanel } from '../src';
 
-const isEmptyDoc = (adf: any) => adf.content.length === 0;
+const isEmptyDoc = (adf: any) => (adf ? adf.content.length === 0 : true);
+
+let queuedIdleTask: number;
+
+const idle = () => {
+  if (queuedIdleTask) {
+    ((window as any).cancelIdleCallback || window.cancelAnimationFrame)(
+      queuedIdleTask,
+    );
+  }
+
+  return new Promise(resolve => {
+    ((window as any).requestIdleCallback || window.requestAnimationFrame)(
+      resolve,
+    );
+  });
+};
 
 type TemplateDefinition = {
   title: string;
@@ -53,6 +69,10 @@ const TemplateCard = styled.div`
 //
 // normalises column widths between documents by clearing them.
 const clearTableWidths = (adf: any) => {
+  if (!adf) {
+    return adf;
+  }
+
   if (!adf.content) {
     // leaf node
     return adf;
@@ -74,35 +94,76 @@ const clearTableWidths = (adf: any) => {
   return adf;
 };
 
+const equalDocument = (a: any, b: any): boolean =>
+  JSON.stringify(clearTableWidths(a)) === JSON.stringify(clearTableWidths(b));
+
 type TemplatePanelState = {
-  selectedTemplate: TemplateDefinition | null;
   adf: any;
+  selectedTemplate: TemplateDefinition | null;
+  panelVisible: boolean;
+};
+
+type TemplatePanelProps = {
+  actions: EditorActions;
+  defaultValue: string | undefined;
 };
 
 class TemplatePanel extends React.Component<
-  {
-    actions: EditorActions;
-    defaultValue: string | undefined;
-  },
+  TemplatePanelProps,
   TemplatePanelState
 > {
   state: TemplatePanelState = {
-    selectedTemplate: null,
     adf: null,
+    selectedTemplate: null,
+    panelVisible: false,
   };
 
-  onChange = async () => {
-    const actions = this.props.actions;
-    const adf = await actions.getValue();
+  static derivePanelVisibility(adf: any, state: TemplatePanelState): boolean {
+    if (!adf) {
+      return true;
+    }
 
-    this.setState(state => ({
+    const selectedTemplate = isEmptyDoc(adf) ? null : state.selectedTemplate;
+    return isEmptyDoc(adf) || equalDocument(adf, selectedTemplate);
+  }
+
+  static getDerivedStateFromProps(
+    props: TemplatePanelProps,
+    state: TemplatePanelState,
+  ): TemplatePanelState | null {
+    if (state.adf || (state.adf && state.adf === props.defaultValue)) {
+      return null;
+    }
+
+    return {
       ...state,
+      adf: props.defaultValue,
+      panelVisible: TemplatePanel.derivePanelVisibility(
+        props.defaultValue,
+        state,
+      ),
+    };
+  }
 
-      adf,
+  onChange = async () => {
+    await idle();
+    const actions = this.props.actions;
+    const adf = (await actions.getValue()) || this.props.defaultValue;
+    const panelVisible = TemplatePanel.derivePanelVisibility(adf, this.state);
+    const selectedTemplate = isEmptyDoc(adf)
+      ? null
+      : this.state.selectedTemplate;
 
-      // reset selected template if document is cleared
-      selectedTemplate: isEmptyDoc(adf) ? null : this.state.selectedTemplate,
-    }));
+    if (
+      panelVisible !== this.state.panelVisible ||
+      selectedTemplate !== this.state.selectedTemplate
+    ) {
+      this.setState({
+        adf,
+        panelVisible,
+        selectedTemplate,
+      });
+    }
   };
 
   selectTemplate(tmpl: TemplateDefinition) {
@@ -114,24 +175,8 @@ class TemplatePanel extends React.Component<
   }
 
   render() {
-    const adf = this.state.adf || this.props.defaultValue;
-    let panelVisible;
-
-    if (!adf) {
-      panelVisible = true;
-    } else {
-      if (this.state.selectedTemplate) {
-        // if templates are the same
-        panelVisible =
-          JSON.stringify(clearTableWidths(adf)) ===
-          JSON.stringify(clearTableWidths(this.state.selectedTemplate.adf));
-      } else {
-        panelVisible = isEmptyDoc(adf);
-      }
-    }
-
     return (
-      <ContextPanel visible={panelVisible}>
+      <ContextPanel visible={this.state.panelVisible}>
         <div>
           {templates.map((tmpl, idx) => (
             <TemplateCard key={idx} onClick={() => this.selectTemplate(tmpl)}>

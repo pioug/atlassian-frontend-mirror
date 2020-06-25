@@ -1,5 +1,6 @@
 import {
   getExampleUrl,
+  loadPage,
   takeScreenShot,
 } from '@atlaskit/visual-regression/helper';
 
@@ -19,7 +20,7 @@ describe('date picker snapshots', () => {
       global.__BASEURL__,
     );
     const { page } = global;
-    await page.goto(url);
+    await loadPage(page, url);
     await page.waitForSelector(darkModeDatePicker);
 
     await page.click(darkModeDatePicker);
@@ -37,7 +38,7 @@ describe('date picker snapshots', () => {
       global.__BASEURL__,
     );
     const { page } = global;
-    await page.goto(url);
+    await loadPage(page, url);
     await page.waitForSelector(emotionJankDatePicker);
 
     await page.click(emotionJankDatePicker);

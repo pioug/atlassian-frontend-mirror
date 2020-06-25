@@ -10,6 +10,7 @@ export type MenuItem = {
   extensionType: ExtensionType;
   title: string;
   description: string;
+  keywords: string[];
   icon: Icon;
   node: ADFEntity | ExtensionModuleActionHandler;
 };

@@ -1,7 +1,7 @@
 import {
   MediaAttributes,
-  MediaSingleAttributes,
-  MediaSingleLayout,
+  RichMediaAttributes as MediaSingleAttributes,
+  RichMediaLayout as MediaSingleLayout,
   acNameToEmoji,
   acShortcutToEmoji,
   tableBackgroundColorNames,

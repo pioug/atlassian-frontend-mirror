@@ -6,9 +6,12 @@ import {
 import {
   fullpage,
   setProseMirrorTextSelection,
+  editable,
 } from '../../../../__tests__/integration/_helpers';
 import * as paragraphWithEmoji from '../__fixtures__/paragraph-with-emoji.adf.json';
+import * as paragraphADF from '../__fixtures__/paragraph.adf.json';
 import { annotationSelectors } from '../_utils';
+import { BrowserObject } from '@atlaskit/webdriver-runner/wd-wrapper';
 
 BrowserTestCase(
   `toolbar is disabled when selection includes inline nodes`,
@@ -29,5 +32,32 @@ BrowserTestCase(
       `${annotationSelectors.floatingToolbarCreate}[disabled]`,
     );
     expect(disabledButton).toBe(true);
+  },
+);
+
+BrowserTestCase(
+  `toolbar shows up when selecting whole paragraph and releasing mouse outside editor`,
+  { skip: ['ie', 'edge'] },
+  async (client: BrowserObject) => {
+    const page = await goToEditorTestingExample(client);
+
+    await mountEditor(page, {
+      defaultValue: paragraphADF,
+      appearance: fullpage.appearance,
+      annotationProviders: true,
+    });
+
+    const bounds = await page.getBoundingRect(editable + ' > p');
+    await page.simulateUserDragAndDrop(
+      Math.floor(bounds.left + bounds.width - 4),
+      Math.floor(bounds.top + bounds.height - 4),
+      Math.floor(bounds.left - 4),
+      Math.floor(bounds.top),
+    );
+    const buttonExists = await page.waitFor(
+      annotationSelectors.floatingToolbarCreate,
+    );
+
+    expect(buttonExists).toBe(true);
   },
 );

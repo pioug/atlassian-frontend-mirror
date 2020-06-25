@@ -1,5 +1,6 @@
 import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
+import { richMediaClassName } from '@atlaskit/editor-common';
 import {
   editable,
   getDocFromElement,
@@ -31,9 +32,9 @@ async function setupEditorWithMedia(client: any): Promise<Page> {
 
   // now we can insert media as necessary
   await insertMedia(page);
-  await page.isVisible('.media-single');
+  await page.isVisible(`.${richMediaClassName}`);
 
-  await page.waitForSelector('.ProseMirror .media-single');
+  await page.waitForSelector(`.ProseMirror .${richMediaClassName}`);
   return page;
 }
 

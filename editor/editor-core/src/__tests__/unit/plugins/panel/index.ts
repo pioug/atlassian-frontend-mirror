@@ -22,6 +22,7 @@ import {
   removePanel,
   changePanelType,
 } from '../../../../plugins/panel/actions';
+import { Selection } from 'prosemirror-state';
 
 describe('@atlaskit/editor-core ui/PanelPlugin', () => {
   const createEditor = createEditorFactory<PanelState>();
@@ -164,6 +165,20 @@ describe('@atlaskit/editor-core ui/PanelPlugin', () => {
         );
         expect(pluginState.toolbarVisible).toBe(true);
       });
+    });
+
+    it('is false when selection moves outside panel', () => {
+      const { editorView } = editor(
+        doc(p('text'), panel()(p('text'), ol(li(p('te{<>}xt'))))),
+      );
+      const {
+        state: { tr },
+      } = editorView;
+
+      tr.setSelection(Selection.near(tr.doc.resolve(0)));
+      editorView.dispatch(tr);
+      const newPluginState = pluginKey.getState(editorView!.state);
+      expect(newPluginState.toolbarVisible).toBe(false);
     });
   });
 

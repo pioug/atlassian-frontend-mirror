@@ -8,10 +8,8 @@ import {
 } from '@atlaskit/editor-common';
 import { defaultSchema as schema } from '@atlaskit/adf-schema';
 import { table, tr, th, td, p, inlineCard } from '@atlaskit/adf-utils';
-import Table, {
-  calcScalePercent,
-  TableContainer,
-} from '../../../../react/nodes/table';
+import Table, { TableProcessor } from '../../../../react/nodes/table';
+import { calcScalePercent } from '../../../../react/nodes/table/colgroup';
 import { TableCell, TableHeader } from '../../../../react/nodes/tableCell';
 import TableRow from '../../../../react/nodes/tableRow';
 import { Context as SmartCardStorageContext } from '../../../../ui/SmartCardStorage';
@@ -497,7 +495,7 @@ describe('Renderer - React/Nodes/Table', () => {
         </Table>,
       );
 
-      const container = wrap.find(TableContainer).instance();
+      const container = wrap.find(TableProcessor).instance();
 
       container.setState({
         tableOrderStatus: { columnIndex: 0, sortOrdered: SortOrder.ASC },
@@ -540,7 +538,7 @@ describe('Renderer - React/Nodes/Table', () => {
           </Table>,
         );
 
-        const container = wrap.find(TableContainer).instance();
+        const container = wrap.find(TableProcessor).instance();
 
         container.setState({
           tableOrderStatus: { columnIndex: 0, sortOrdered: SortOrder.ASC },
@@ -580,7 +578,7 @@ describe('Renderer - React/Nodes/Table', () => {
           </Table>,
         );
 
-        const container = wrap.find(TableContainer).instance();
+        const container = wrap.find(TableProcessor).instance();
 
         container.setState({
           tableOrderStatus: { columnIndex: 0, sortOrdered: SortOrder.ASC },
@@ -618,7 +616,7 @@ describe('Renderer - React/Nodes/Table', () => {
           </Table>,
         );
 
-        const container = wrap.find(TableContainer).instance();
+        const container = wrap.find(TableProcessor).instance();
 
         container.setState({
           tableOrderStatus: { columnIndex: 0, sortOrdered: SortOrder.ASC },

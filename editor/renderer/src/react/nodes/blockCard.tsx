@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Card } from '@atlaskit/smart-card';
 import { EventHandlers, UnsupportedBlock } from '@atlaskit/editor-common';
 
-import { getEventHandler } from '../../utils';
+import { getEventHandler, getPlatform } from '../../utils';
 import { CardErrorBoundary } from './fallback';
 import { RendererAppearance } from '../../ui/Renderer/types';
 
@@ -20,6 +20,10 @@ export default function BlockCard(props: {
       ? (e: React.MouseEvent<HTMLElement>) => handler(e, url)
       : undefined;
 
+  const platform = useMemo(() => getPlatform(rendererAppearance), [
+    rendererAppearance,
+  ]);
+
   const cardProps = { url, data, onClick, container: portal };
   return (
     <div
@@ -32,6 +36,7 @@ export default function BlockCard(props: {
         <Card
           appearance="block"
           showActions={rendererAppearance !== 'mobile'}
+          platform={platform}
           {...cardProps}
         />
       </CardErrorBoundary>

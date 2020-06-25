@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from 'styled-components';
 import { Node as PMNode } from 'prosemirror-model';
 import { EditorView } from 'prosemirror-view';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
@@ -11,18 +10,6 @@ import {
 } from '@atlaskit/editor-common';
 import { Date } from '@atlaskit/date';
 import { setDatePickerAt } from '../actions';
-import { akEditorSelectedBorderStyles } from '@atlaskit/editor-common';
-
-const SelectableDate = styled(Date)`
-  .dateView-content-wrap.ProseMirror-selectednode & {
-    ${akEditorSelectedBorderStyles};
-  }
-  cursor: pointer;
-`;
-
-const Span = styled.span`
-  line-height: initial;
-`;
 
 export interface Props {
   children?: React.ReactNode;
@@ -50,16 +37,16 @@ class DateNodeView extends React.Component<Props & InjectedIntlProps> {
       withinIncompleteTask && isPastDate(timestamp) ? 'red' : undefined;
 
     return (
-      <Span
+      <span
         className={DateSharedCssClassName.DATE_WRAPPER}
         onClick={this.handleClick}
       >
-        <SelectableDate color={color} value={timestamp}>
+        <Date color={color} value={timestamp}>
           {withinIncompleteTask
             ? timestampToTaskContext(timestamp, intl)
             : timestampToString(timestamp, intl)}
-        </SelectableDate>
-      </Span>
+        </Date>
+      </span>
     );
   }
 

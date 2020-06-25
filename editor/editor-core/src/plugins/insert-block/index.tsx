@@ -20,7 +20,6 @@ import { insertBlockTypesWithAnalytics } from '../block-type/commands';
 import { startImageUpload } from '../image-upload/pm-plugins/commands';
 import { pluginKey as typeAheadPluginKey } from '../type-ahead/pm-plugins/main';
 import { TypeAheadPluginState } from '../type-ahead';
-import { TablePluginState } from '../table/types';
 import { ImageUploadPluginState } from '../image-upload/types';
 import { INPUT_METHOD } from '../analytics';
 import { LayoutState } from '../layout/pm-plugins/types';
@@ -116,7 +115,6 @@ const insertBlockPlugin = (options: InsertBlockOptions = {}): EditorPlugin => ({
             mentionState: MentionPluginState | undefined;
             blockTypeState: BlockTypeState | undefined;
             mediaState: MediaPluginState | undefined;
-            tablesState: TablePluginState | undefined;
             macroState: MacroState | undefined;
             hyperlinkState: HyperlinkState | undefined;
             emojiState: EmojiPluginState | undefined;

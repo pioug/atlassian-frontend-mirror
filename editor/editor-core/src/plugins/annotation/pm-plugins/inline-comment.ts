@@ -1,3 +1,4 @@
+import { RESOLVE_METHOD } from './../../analytics/types/inline-comment-events';
 import { EditorState, Plugin } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
@@ -60,10 +61,8 @@ const fetchState = async (
 const initialState = (): InlineCommentPluginState => {
   return {
     annotations: {},
-    annotationsInSelection: [],
+    selectedAnnotations: [],
     mouseData: {
-      x: 0,
-      y: 0,
       isSelecting: false,
     },
   };
@@ -77,7 +76,10 @@ const hideToolbar = (state: EditorState, dispatch: CommandDispatch) => () => {
 const onResolve = (state: EditorState, dispatch: CommandDispatch) => (
   annotationId: string,
 ) => {
-  updateInlineCommentResolvedState({ [annotationId]: true })(state, dispatch);
+  updateInlineCommentResolvedState(
+    { [annotationId]: true },
+    RESOLVE_METHOD.CONSUMER,
+  )(state, dispatch);
 };
 
 const onUnResolve = (state: EditorState, dispatch: CommandDispatch) => (
@@ -89,11 +91,12 @@ const onUnResolve = (state: EditorState, dispatch: CommandDispatch) => (
 const onMouseUp = (state: EditorState, dispatch: CommandDispatch) => (
   e: Event,
 ) => {
-  const { clientX, clientY } = e as MouseEvent;
-  updateMouseState({ isSelecting: false, x: clientX, y: clientY })(
-    state,
-    dispatch,
-  );
+  const {
+    mouseData: { isSelecting },
+  } = getPluginState(state);
+  if (isSelecting) {
+    updateMouseState({ isSelecting: false })(state, dispatch);
+  }
 };
 
 export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
@@ -108,8 +111,6 @@ export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
       // Need to pass `editorView` to mitigate editor state going stale
       fetchState(provider, getAllAnnotations(editorView.state.doc), editorView);
 
-      const toolbar = () =>
-        hideToolbar(editorView.state, editorView.dispatch)();
       const resolve = (annotationId: string) =>
         onResolve(editorView.state, editorView.dispatch)(annotationId);
       const unResolve = (annotationId: string) =>
@@ -122,8 +123,7 @@ export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
         updateSubscriber.on('resolve', resolve).on('unresolve', unResolve);
       }
 
-      editorView.dom.addEventListener('mousedown', toolbar);
-      editorView.dom.addEventListener('mouseup', mouseUp);
+      editorView.root.addEventListener('mouseup', mouseUp);
 
       return {
         update(view: EditorView, _prevState: EditorState) {
@@ -137,8 +137,7 @@ export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
         },
 
         destroy() {
-          editorView.dom.removeEventListener('mousedown', toolbar);
-          editorView.dom.removeEventListener('mouseup', mouseUp);
+          editorView.root.removeEventListener('mouseup', mouseUp);
           if (updateSubscriber) {
             updateSubscriber
               .off('resolve', resolve)
@@ -158,6 +157,15 @@ export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
             portalProviderAPI,
             eventDispatcher,
           ).init(),
+      },
+      handleDOMEvents: {
+        mousedown: view => {
+          const pluginState = getPluginState(view.state);
+          if (!pluginState.mouseData.isSelecting) {
+            hideToolbar(view.state, view.dispatch)();
+          }
+          return false;
+        },
       },
       decorations(state) {
         const { draftDecorationSet } = getPluginState(state);

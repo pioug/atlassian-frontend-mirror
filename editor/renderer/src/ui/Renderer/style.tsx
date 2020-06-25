@@ -37,10 +37,9 @@ import {
   shadowClassNames,
   dateSharedStyle,
   akEditorFullWidthLayoutWidth,
-  mediaSingleClassName,
+  richMediaClassName,
   tasksAndDecisionsStyles,
   akEditorStickyHeaderZIndex,
-  akEditorSmallZIndex,
   smartCardSharedStyles,
 } from '@atlaskit/editor-common';
 import { RendererCssClassName } from '../../consts';
@@ -260,20 +259,20 @@ export const Wrapper = styled.div<RendererWrapperProps & HTMLAttributes<{}>>`
     margin: ${gridSize() * 3}px 0;
   }
 
-  .${mediaSingleClassName}.media-wrapped + .${mediaSingleClassName}:not(.media-wrapped) {
+  .${richMediaClassName}.rich-media-wrapped + .${richMediaClassName}:not(.rich-media-wrapped) {
     clear: both;
   }
 
   & .code-block,
   & blockquote,
   & hr,
-  & > div > div:not(.media-wrapped),
-  .${mediaSingleClassName}.media-wrapped + .media-wrapped + *:not(.media-wrapped),
-  .${mediaSingleClassName}.media-wrapped + div:not(.media-wrapped) {
+  & > div > div:not(.rich-media-wrapped),
+  .${richMediaClassName}.rich-media-wrapped + .rich-media-wrapped + *:not(.rich-media-wrapped),
+  .${richMediaClassName}.rich-media-wrapped + div:not(.rich-media-wrapped) {
     clear: both;
   }
 
-  & .media-wrapped {
+  & .rich-media-wrapped {
     & + h1,
     & + h2,
     & + h3,
@@ -339,7 +338,7 @@ export const Wrapper = styled.div<RendererWrapperProps & HTMLAttributes<{}>>`
        }::before {
       top: ${tableMarginTop - 1}px;
       height: calc(100% - ${tableMarginTop}px);
-      z-index: ${akEditorSmallZIndex};
+      z-index: ${akEditorStickyHeaderZIndex};
     }
 
     table {

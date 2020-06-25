@@ -2,7 +2,7 @@ import {
   MediaAttributes,
   getEmojiAcName,
   hexToRgb,
-  MediaSingleAttributes,
+  RichMediaAttributes as MediaSingleAttributes,
   tableBackgroundColorPalette,
 } from '@atlaskit/adf-schema';
 import {

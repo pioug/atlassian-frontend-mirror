@@ -35,7 +35,7 @@
   "devDependencies": {
     "@atlaskit/build-utils": "*",
     "@atlaskit/docs": "*",
-    "@atlaskit/spinner": "^13.0.0",
+    "@atlaskit/spinner": "^14.0.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/tooltip": "^15.2.7",
     "@atlaskit/visual-regression": "*",

@@ -1,7 +1,11 @@
 import { JsonLd } from 'json-ld-types';
 import { InlineCardResolvedViewProps } from '@atlaskit/media-ui';
 
-import { extractLink, extractTitle } from '../common/primitives';
+import {
+  extractLink,
+  extractTitle,
+  extractTitleTextColor,
+} from '../common/primitives';
 import { extractLozenge } from '../common/lozenge';
 import { extractIcon } from '../common/icon';
 import { extractProvider } from '../common/context';
@@ -27,4 +31,5 @@ export const extractInlineProps = (
   title: extractTitle(jsonLd),
   lozenge: extractLozenge(jsonLd),
   icon: extractInlineIcon(jsonLd),
+  titleTextColor: extractTitleTextColor(jsonLd),
 });

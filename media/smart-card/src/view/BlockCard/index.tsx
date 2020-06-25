@@ -13,11 +13,10 @@ import {
 } from '@atlaskit/media-ui';
 import { BlockCardProps } from './types';
 import { JsonLd } from 'json-ld-types';
-import { extractPreviewFromProps } from '../../extractors/common/actions/extractPreviewAction';
 import { getDefinitionId } from '../../state/helpers';
-import { extractBlockActionPropsFromJSONLD } from '../../extractors/common/actions/extractActions';
 import { extractBlockProps } from '../../extractors/block';
 import { getEmptyJsonLd } from '../../utils/jsonld';
+import { ExtractBlockOpts } from '../../extractors/block/types';
 
 export const BlockCard: FC<BlockCardProps> = ({
   url,
@@ -35,6 +34,12 @@ export const BlockCard: FC<BlockCardProps> = ({
 }) => {
   const data =
     ((details && details.data) as JsonLd.Data.BaseData) || getEmptyJsonLd();
+  const extractorOpts: ExtractBlockOpts = {
+    handleAnalytics: handlePreviewAnalytics,
+    handleInvoke,
+    definitionId: getDefinitionId(details),
+  };
+
   switch (status) {
     case 'pending':
       return (
@@ -48,38 +53,13 @@ export const BlockCard: FC<BlockCardProps> = ({
     case 'resolving':
       return <BlockCardResolvingView testId={testId} isSelected={isSelected} />;
     case 'resolved':
-      const resolvedViewProps = extractBlockProps(data);
-      const resolvedViewActionProps = extractBlockActionPropsFromJSONLD(
-        data,
-        handleInvoke,
-      );
-      const actions = (resolvedViewProps.actions || []).concat(
-        resolvedViewActionProps,
-      );
-      // At this point, we always have the `definitionId`.
-      const definitionId = getDefinitionId(details) as string;
-      const previewAction = extractPreviewFromProps(
-        definitionId,
-        resolvedViewProps,
-        data,
-        handleInvoke,
-        handlePreviewAnalytics,
-        testId,
-      );
-      // The previewAction should always be the last action
-      if (previewAction) {
-        actions.push(previewAction);
-      }
-
-      resolvedViewProps.actions = actions;
-
+      const resolvedViewProps = extractBlockProps(data, extractorOpts);
       if (onResolve) {
         onResolve({
           title: resolvedViewProps.title,
           url,
         });
       }
-
       return (
         <BlockCardResolvedView
           {...resolvedViewProps}
@@ -90,7 +70,7 @@ export const BlockCard: FC<BlockCardProps> = ({
         />
       );
     case 'unauthorized':
-      const unauthorizedViewProps = extractBlockProps(data);
+      const unauthorizedViewProps = extractBlockProps(data, extractorOpts);
       return (
         <BlockCardUnauthorisedView
           {...unauthorizedViewProps}
@@ -102,7 +82,7 @@ export const BlockCard: FC<BlockCardProps> = ({
         />
       );
     case 'forbidden':
-      const forbiddenViewProps = extractBlockProps(data);
+      const forbiddenViewProps = extractBlockProps(data, extractorOpts);
       return (
         <BlockCardForbiddenView
           {...forbiddenViewProps}
@@ -113,7 +93,7 @@ export const BlockCard: FC<BlockCardProps> = ({
         />
       );
     case 'not_found':
-      const notFoundViewProps = extractBlockProps(data);
+      const notFoundViewProps = extractBlockProps(data, extractorOpts);
       return (
         <BlockCardNotFoundView
           {...notFoundViewProps}

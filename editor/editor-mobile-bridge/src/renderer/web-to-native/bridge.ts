@@ -1,4 +1,18 @@
+import { AnnotationId, AnnotationTypes } from '@atlaskit/adf-schema';
 import { TaskState } from '@atlaskit/task-decision';
+
+export type AnnotationPayloadsByType = {
+  annotationIds: AnnotationId[];
+  annotationType: AnnotationTypes;
+};
+
+type Serialized<T> = string | T;
+
+export interface AnnotationBridge {
+  onAnnotationClick(
+    annotationClickPayload?: Serialized<AnnotationPayloadsByType[]>,
+  ): void;
+}
 
 export interface TaskDecisionBridge {
   updateTask(taskId: string, state: TaskState): void;
@@ -40,6 +54,7 @@ export interface RendererBridges {
   mentionBridge?: MentionBridge;
   renderBridge?: RenderBridge;
   analyticsBridge?: AnalyticsBridge;
+  annotationBridge?: AnnotationBridge;
 }
 
 export type RendererPluginBridges = keyof RendererBridges;

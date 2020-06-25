@@ -33,7 +33,9 @@ BrowserTestCase(
     // now we can insert media as necessary
     await insertMedia(page);
 
-    expect(await page.isVisible('.media-single')).toBe(true);
+    expect(await page.isVisible('[data-testid="media-file-card-view"]')).toBe(
+      true,
+    );
 
     const doc = await page.$eval(editable, getDocFromElement);
     expect(doc).toMatchCustomDocSnapshot(testName);

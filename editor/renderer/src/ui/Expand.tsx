@@ -10,6 +10,7 @@ import {
   ExpandIconWrapper,
   ExpandLayoutWrapper,
   ClearNextSiblingMarginTop,
+  akEditorLineHeight,
 } from '@atlaskit/editor-common';
 import { AnalyticsEventPayload, PLATFORM, MODE } from '../analytics/events';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../analytics/enums';
@@ -25,7 +26,7 @@ const Title = styled.span`
   outline: none;
   border: none;
   font-size: ${fontSize}px;
-  line-height: 1.714;
+  line-height: ${akEditorLineHeight};
   font-weight: normal;
   display: flex;
   flex: 1;
@@ -98,7 +99,12 @@ function Expand({
   );
 
   return (
-    <Container data-node-type={nodeType} data-title={title} expanded={expanded}>
+    <Container
+      data-node-type={nodeType}
+      data-title={title}
+      data-expanded={expanded}
+      expanded={expanded}
+    >
       <TitleContainer
         onClick={(e: React.SyntheticEvent) => {
           e.stopPropagation();

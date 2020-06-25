@@ -60,6 +60,7 @@ export const Title = styled.h4`
 interface TitleTextProps {
   isHeadingMultiline?: boolean;
 }
+
 export const TitleText = styled.span<TitleTextProps>`
   flex: 1 1 auto;
   min-width: 0;

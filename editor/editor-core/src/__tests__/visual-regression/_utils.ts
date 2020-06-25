@@ -471,7 +471,14 @@ export const getContentBoundingRectTopLeftCoords = async (
     const element = document.querySelector(selector);
     if (element) {
       const rect = element.getBoundingClientRect();
-      return { top: rect.top, left: rect.left };
+      return {
+        top: rect.top,
+        left: rect.left,
+        right: rect.right,
+        bottom: rect.bottom,
+        width: rect.width,
+        height: rect.height,
+      };
     }
   }, elementSelector);
 

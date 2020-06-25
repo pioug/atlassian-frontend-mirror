@@ -14,6 +14,7 @@ export interface FrameProps {
   /* Set whether the frame has a hover state. Note that this should only be true in the `editor` view */
   isHoverable?: boolean;
   testId?: string;
+  inheritDimensions?: boolean;
 }
 
 export const Frame = (
@@ -66,6 +67,7 @@ export const CompactFrame = ({
   isHoverable,
   isSelected,
   testId,
+  inheritDimensions,
 }: FrameProps) => {
   return (
     <div
@@ -80,7 +82,7 @@ export const CompactFrame = ({
         border: isSelected ? `2px solid ${B200}` : '',
         justifyContent: 'center',
         alignItems: 'center',
-        height: gs(5),
+        height: inheritDimensions ? '100%' : gs(5),
         backgroundColor: N20A,
         width: ['calc(100% - 16px)', '100%'],
         padding: [`0px ${gs(1)}`, '0'],

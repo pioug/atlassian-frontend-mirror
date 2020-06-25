@@ -65,19 +65,16 @@ export const createPlugin = (
       return {
         update: view => {
           const pluginState = getPluginState(view.state);
-          const panelNode = findPanel(view.state);
-          if (!panelNode) {
-            return;
-          }
-          const panelRef = findDomRefAtPos(
-            panelNode.pos,
-            domAtPos,
-          ) as HTMLDivElement;
+          const panelNode = findPanel(view.state, view.state.selection);
+          const panelRef = panelNode
+            ? (findDomRefAtPos(panelNode.pos, domAtPos) as HTMLDivElement)
+            : undefined;
 
           if (panelRef !== pluginState.element) {
             const newState: PanelState = {
               element: panelRef,
-              activePanelType: panelRef && panelNode.node.attrs['panelType'],
+              activePanelType:
+                panelRef && panelNode && panelNode.node.attrs['panelType'],
               toolbarVisible: !!panelRef,
             };
             setPluginState(newState)(view.state, view.dispatch);

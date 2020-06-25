@@ -1,5 +1,11 @@
 # @atlaskit/media-client
 
+## 6.2.2
+
+### Patch Changes
+
+- [`328902687e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/328902687e) - Remove stack traces from media analytic events
+
 ## 6.2.1
 
 ### Patch Changes

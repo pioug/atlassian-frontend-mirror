@@ -17,4 +17,5 @@ export const extractorPriorityMap: Record<JsonLdType, number> = {
   'atlassian:SourceCodeRepository': 10,
   'atlassian:SourceCodePullRequest': 10,
   'atlassian:SourceCodeReference': 10,
+  'atlassian:UndefinedLink': 10,
 } as Record<JsonLdType, number>;

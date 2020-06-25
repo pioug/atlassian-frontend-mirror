@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import { EditorView } from 'prosemirror-view';
 import rafSchedule from 'raf-schd';
 
-import { SmartCardProps, Card } from './genericCard';
+import { SmartCardProps, Card, CardDerivedProps } from './genericCard';
 import { SelectionBasedNodeView, getPosHandler } from '../../../nodeviews/';
 import { registerCard } from '../pm-plugins/actions';
 import { findOverflowScrollParent } from '@atlaskit/editor-common';
@@ -54,7 +54,7 @@ export class BlockCardComponent extends React.PureComponent<SmartCardProps> {
   };
 
   render() {
-    const { node, selected, cardContext, isMobile } = this.props;
+    const { node, selected, cardContext, platform } = this.props;
     const { url, data } = node.attrs;
 
     // render an empty span afterwards to get around Webkit bug
@@ -70,7 +70,8 @@ export class BlockCardComponent extends React.PureComponent<SmartCardProps> {
           isSelected={selected}
           onClick={this.onClick}
           onResolve={this.onResolve}
-          showActions={!isMobile}
+          showActions={platform === 'web'}
+          platform={platform}
         />
         <span contentEditable={true} />
       </>
@@ -92,7 +93,7 @@ export class BlockCardComponent extends React.PureComponent<SmartCardProps> {
 
 const WrappedBlockCard = Card(BlockCardComponent, UnsupportedBlock);
 
-export class BlockCard extends SelectionBasedNodeView {
+export class BlockCard extends SelectionBasedNodeView<CardDerivedProps> {
   render() {
     return (
       <WrappedBlockCard
@@ -100,7 +101,7 @@ export class BlockCard extends SelectionBasedNodeView {
         selected={this.insideSelection()}
         view={this.view}
         getPos={this.getPos}
-        isMobile={!!this.reactComponentProps.isMobile}
+        platform={this.reactComponentProps.platform}
       />
     );
   }

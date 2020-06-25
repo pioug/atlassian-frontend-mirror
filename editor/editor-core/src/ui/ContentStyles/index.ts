@@ -41,7 +41,10 @@ import { expandStyles } from '../../plugins/expand/ui/styles';
 import { ClassNames } from '../../plugins/media/pm-plugins/alt-text/style';
 import { findReplaceStyles } from '../../plugins/find-replace/styles';
 import { taskDecisionStyles } from '../../plugins/tasks-and-decisions/styles';
+import { statusStyles } from '../../plugins/status/styles';
 import { smartCardStyles } from '../../plugins/card/styles';
+import { dateStyles } from '../../plugins/date/styles';
+import { embedCardStyles } from '../../plugins/card/ui/styled';
 
 const ContentStyles: ComponentClass<HTMLAttributes<{}> & {
   theme: any;
@@ -113,9 +116,12 @@ const ContentStyles: ComponentClass<HTMLAttributes<{}> & {
   ${expandStyles}
   ${findReplaceStyles}
   ${taskDecisionStyles}
+  ${statusStyles}
   ${annotationSharedStyles}
   ${smartCardStyles}
   ${smartCardSharedStyles}
+  ${dateStyles}
+  ${embedCardStyles}
 
   /** Global selector for extensions, as .danger tag is assigned to root level node which is unaccessible from triggered child node **/
   /* Danger when nested node */

@@ -17,13 +17,13 @@ import { isEmptyNode } from '../../../utils';
 import {
   updateExpandTitle,
   toggleExpandExpanded,
-  selectExpand,
   deleteExpandAtPos,
 } from '../commands';
 import { expandClassNames } from '../ui/class-names';
 import { GapCursorSelection, Side } from '../../../plugins/gap-cursor';
 import { getFeatureFlags } from '../../feature-flags-context';
 import { closestElement } from '../../../utils/dom';
+import { selectNode } from '../../../utils/commands';
 
 function buildExpandClassName(type: string, expanded: boolean) {
   return `${expandClassNames.prefix} ${expandClassNames.type(type)} ${
@@ -209,7 +209,8 @@ export class ExpandNodeView implements NodeView {
     if (target === this.dom) {
       event.stopPropagation();
       const { state, dispatch } = this.view;
-      selectExpand(this.getPos())(state, dispatch);
+      selectNode(this.getPos())(state, dispatch);
+      return;
     }
   };
 

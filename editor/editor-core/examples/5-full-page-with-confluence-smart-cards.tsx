@@ -139,6 +139,7 @@ class FullPageWithFF extends React.Component<
               resolveBeforeMacros: this.state.resolveBeforeMacros,
               allowBlockCards: true,
               allowEmbeds: true,
+              allowResizing: true,
             }}
           />
         )}
@@ -367,6 +368,27 @@ const exampleDocument = {
       type: 'blockCard',
       attrs: {
         url: 'https://www.dropbox.com/s/q3njsd094anqero/birdman.jpg?dl=0',
+      },
+    },
+    {
+      type: 'paragraph',
+      content: [
+        {
+          type: 'text',
+          text: 'Example of a Embed Smart Card (dropbox, action):',
+          marks: [
+            {
+              type: 'strong',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      type: 'embedCard',
+      attrs: {
+        url: 'https://www.dropbox.com/s/q3njsd094anqero/birdman.jpg?dl=0',
+        layout: 'center',
       },
     },
     {

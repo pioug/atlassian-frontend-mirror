@@ -1,5 +1,6 @@
 import {
   getExampleUrl,
+  loadPage,
   takeElementScreenShot,
 } from '@atlaskit/visual-regression/helper';
 
@@ -18,7 +19,7 @@ describe('<PopupMenuGroup />', () => {
     );
     const { page } = global;
 
-    await page.goto(url);
+    await loadPage(page, url);
     await page.setViewport({ width: 1920, height: 1080 });
     await page.waitForSelector(selector);
   };

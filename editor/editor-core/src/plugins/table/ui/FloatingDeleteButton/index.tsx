@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Popup } from '@atlaskit/editor-common';
+import { createPortal } from 'react-dom';
+import { Popup, akEditorTableNumberColumnWidth } from '@atlaskit/editor-common';
 import { CellSelection } from 'prosemirror-tables';
 import { getSelectionRect, isTableSelected } from 'prosemirror-utils';
 import { EditorView } from 'prosemirror-view';
@@ -23,6 +24,8 @@ import { CellSelectionType } from './types';
 import { Selection } from 'prosemirror-state';
 import { getPluginState as getTablePluginState } from '../../pm-plugins/plugin-factory';
 import { closestElement } from '../../../../utils/dom';
+import { RowStickyState } from '../../pm-plugins/sticky-headers';
+import { stickyRowZIndex } from '../styles';
 
 export interface Props {
   editorView: EditorView;
@@ -31,6 +34,8 @@ export interface Props {
   mountPoint?: HTMLElement;
   boundariesElement?: HTMLElement;
   scrollableElement?: HTMLElement;
+  stickyHeaders?: RowStickyState;
+  isNumberColumnEnabled?: boolean;
 }
 
 export interface State {
@@ -38,6 +43,8 @@ export interface State {
   left: number;
   top: number;
   indexes: number[];
+  position?: string;
+  scrollLeft: number;
 }
 
 export function getSelectionType(
@@ -58,6 +65,8 @@ export function getSelectionType(
 class FloatingDeleteButton extends Component<Props, State> {
   static displayName = 'FloatingDeleteButton';
 
+  wrapper: HTMLElement | null = null;
+
   constructor(props: Props) {
     super(props);
 
@@ -66,6 +75,7 @@ class FloatingDeleteButton extends Component<Props, State> {
       top: 0,
       left: 0,
       indexes: [],
+      scrollLeft: 0,
     };
   }
 
@@ -73,9 +83,58 @@ class FloatingDeleteButton extends Component<Props, State> {
     return (
       this.state.selectionType !== nextState.selectionType ||
       this.state.left !== nextState.left ||
-      this.state.top !== nextState.top
+      this.state.top !== nextState.top ||
+      this.state.scrollLeft !== nextState.scrollLeft
     );
   }
+
+  componentDidMount() {
+    this.updateWrapper();
+  }
+
+  componentDidUpdate() {
+    this.updateWrapper();
+  }
+
+  updateWrapper = () => {
+    const tableWrapper = closestElement(
+      this.props.tableRef,
+      `.${ClassName.TABLE_NODE_WRAPPER}`,
+    );
+    if (tableWrapper) {
+      this.wrapper = tableWrapper;
+      this.wrapper.addEventListener('scroll', this.onWrapperScrolled);
+
+      this.setState({
+        scrollLeft: tableWrapper.scrollLeft,
+      });
+    } else {
+      if (this.wrapper) {
+        // unsubscribe if we previously had one and it just went away
+        this.wrapper.removeEventListener('scroll', this.onWrapperScrolled);
+
+        // and reset scroll position
+        this.setState({
+          scrollLeft: 0,
+        });
+      }
+
+      this.wrapper = null;
+    }
+  };
+
+  componentWillUnmount() {
+    if (this.wrapper) {
+      this.wrapper.removeEventListener('scroll', this.onWrapperScrolled);
+    }
+  }
+
+  onWrapperScrolled = (e: Event) => {
+    const wrapper = e.target as HTMLElement;
+    this.setState({
+      scrollLeft: wrapper.scrollLeft,
+    });
+  };
 
   /**
    * We derivate the button state from the properties passed.
@@ -87,6 +146,20 @@ class FloatingDeleteButton extends Component<Props, State> {
     prevState: State,
   ): Partial<State> | null {
     const selectionType = getSelectionType(nextProps.selection);
+
+    const inStickyMode =
+      nextProps.stickyHeaders && nextProps.stickyHeaders.sticky;
+
+    const rect = getSelectionRect(nextProps.selection);
+
+    // only tie row delete to sticky header if it's the only thing
+    // in the selection, otherwise the row delete will hover around
+    // the rest of the selection
+    const firstRowInSelection = rect && rect.top === 0 && rect.bottom === 1;
+    const shouldStickyButton = inStickyMode && firstRowInSelection;
+    const stickyTop = nextProps.stickyHeaders
+      ? nextProps.stickyHeaders.top + nextProps.stickyHeaders.padding
+      : 0;
 
     if (selectionType) {
       switch (selectionType) {
@@ -100,7 +173,8 @@ class FloatingDeleteButton extends Component<Props, State> {
           if (deleteBtnParams) {
             return {
               ...deleteBtnParams,
-              top: 0,
+              top: inStickyMode ? nextProps.stickyHeaders!.top : 0,
+              position: inStickyMode ? 'sticky' : undefined,
               selectionType,
             };
           }
@@ -110,13 +184,18 @@ class FloatingDeleteButton extends Component<Props, State> {
           // Calculate the button position and indexes for rows
           if (nextProps.tableRef) {
             const rowHeights = getRowHeights(nextProps.tableRef);
+            const offsetTop = inStickyMode ? -rowHeights[0] : 0;
+
             const deleteBtnParams = getRowDeleteButtonParams(
               rowHeights,
               nextProps.editorView.state.selection,
+              shouldStickyButton ? stickyTop : offsetTop,
             );
+
             if (deleteBtnParams) {
               return {
                 ...deleteBtnParams,
+                position: shouldStickyButton ? 'sticky' : undefined,
                 left: 0,
                 selectionType: selectionType,
               };
@@ -217,36 +296,74 @@ class FloatingDeleteButton extends Component<Props, State> {
       `.${ClassName.TABLE_CONTAINER}`,
     );
 
-    const tableWrapper = closestElement(
-      tableRef,
-      `.${ClassName.TABLE_NODE_WRAPPER}`,
+    const button = (
+      <DeleteButton
+        removeLabel={
+          selectionType === 'column'
+            ? tableMessages.removeColumns
+            : tableMessages.removeRows
+        }
+        onClick={this.handleClick}
+        onMouseEnter={this.handleMouseEnter}
+        onMouseLeave={this.handleMouseLeave}
+      />
     );
+
+    const popupOpts = getPopupOptions({
+      left: this.state.left,
+      top: this.state.top,
+      selectionType: this.state.selectionType,
+      tableWrapper: this.wrapper,
+    });
+
+    const mountTo = tableContainerWrapper || mountPoint;
+    if (this.state.position === 'sticky' && mountTo) {
+      const headerRow = tableRef.querySelector('tr.sticky');
+      if (headerRow) {
+        const rect = headerRow!.getBoundingClientRect();
+
+        const calculatePosition =
+          popupOpts.onPositionCalculated || (pos => pos);
+        const pos = calculatePosition({
+          left: this.state.left,
+          top: this.state.top,
+        });
+
+        return createPortal(
+          <div
+            style={{
+              position: 'fixed',
+              top: pos.top,
+              zIndex: stickyRowZIndex,
+              left:
+                rect.left +
+                (pos.left || 0) -
+                (this.state.selectionType === 'column'
+                  ? this.state.scrollLeft
+                  : 0) -
+                (this.props.isNumberColumnEnabled
+                  ? akEditorTableNumberColumnWidth
+                  : 0),
+            }}
+          >
+            {button}
+          </div>,
+          mountTo,
+        );
+      }
+    }
 
     return (
       <Popup
-        target={tableRef!}
-        mountTo={tableContainerWrapper || mountPoint}
+        target={tableRef}
+        mountTo={mountTo}
         boundariesElement={tableContainerWrapper || boundariesElement}
-        scrollableElement={tableWrapper!}
+        scrollableElement={this.wrapper || undefined}
         forcePlacement={true}
         allowOutOfBounds
-        {...getPopupOptions({
-          left: this.state.left,
-          top: this.state.top,
-          selectionType: this.state.selectionType,
-          tableWrapper,
-        })}
+        {...popupOpts}
       >
-        <DeleteButton
-          removeLabel={
-            selectionType === 'column'
-              ? tableMessages.removeColumns
-              : tableMessages.removeRows
-          }
-          onClick={this.handleClick}
-          onMouseEnter={this.handleMouseEnter}
-          onMouseLeave={this.handleMouseLeave}
-        />
+        {button}
       </Popup>
     );
   }

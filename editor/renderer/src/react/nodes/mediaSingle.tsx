@@ -1,6 +1,9 @@
 import React, { SyntheticEvent, Component, ReactElement } from 'react';
 import styled from 'styled-components';
-import { MediaSingleLayout, MediaADFAttrs } from '@atlaskit/adf-schema';
+import {
+  RichMediaLayout as MediaSingleLayout,
+  MediaADFAttrs,
+} from '@atlaskit/adf-schema';
 import { Mark } from 'prosemirror-model';
 import { InjectedIntlProps, injectIntl } from 'react-intl';
 import Tooltip from '@atlaskit/tooltip';

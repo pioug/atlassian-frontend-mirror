@@ -1,9 +1,8 @@
 import { DecorationSet } from 'prosemirror-view';
 import { EditorState, SelectionBookmark } from 'prosemirror-state';
-import { AnnotationId } from '@atlaskit/adf-schema';
 import { PortalProviderAPI } from '../../../ui/PortalProvider';
 import { Dispatch, EventDispatcher } from '../../../event-dispatcher';
-import { InlineCommentAnnotationProvider } from '../types';
+import { InlineCommentAnnotationProvider, AnnotationInfo } from '../types';
 
 export enum ACTIONS {
   UPDATE_INLINE_COMMENT_STATE,
@@ -17,6 +16,9 @@ export interface InlineCommentPluginOptions {
   eventDispatcher: EventDispatcher;
   portalProviderAPI: PortalProviderAPI;
   provider: InlineCommentAnnotationProvider;
+}
+export interface InlineCommentMouseData {
+  isSelecting: boolean;
 }
 
 export type InlineCommentMap = { [key: string]: boolean };
@@ -35,11 +37,7 @@ export type InlineCommentAction =
   | {
       type: ACTIONS.INLINE_COMMENT_UPDATE_MOUSE_STATE;
       data: {
-        mouseData: {
-          x?: number;
-          y?: number;
-          isSelecting?: boolean;
-        };
+        mouseData: InlineCommentMouseData;
       };
     }
   | {
@@ -48,13 +46,9 @@ export type InlineCommentAction =
 
 export type InlineCommentPluginState = {
   annotations: InlineCommentMap;
-  annotationsInSelection: AnnotationId[];
+  selectedAnnotations: AnnotationInfo[];
   dirtyAnnotations?: boolean;
-  mouseData: {
-    x: number;
-    y: number;
-    isSelecting: boolean;
-  };
+  mouseData: InlineCommentMouseData;
   draftDecorationSet?: DecorationSet;
   bookmark?: SelectionBookmark<any>;
 };

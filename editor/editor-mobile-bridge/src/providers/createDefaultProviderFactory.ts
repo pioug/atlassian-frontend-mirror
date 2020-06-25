@@ -1,14 +1,15 @@
 import { ProviderFactory } from '@atlaskit/editor-common';
 import { createEditorProviders } from './createEditorProviders';
 import mockEmojiProvider from './mockEmojiProvider';
+import { FetchProxy } from '../utils/fetch-proxy';
 
-export function createDefaultProviderFactory() {
+export function createDefaultProviderFactory(fetchProxy: FetchProxy) {
   const {
     mediaProvider,
     mentionProvider,
     cardProvider,
     taskDecisionProvider,
-  } = createEditorProviders();
+  } = createEditorProviders(fetchProxy);
 
   return ProviderFactory.create({
     mediaProvider,

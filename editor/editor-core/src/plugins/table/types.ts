@@ -48,6 +48,7 @@ export interface PluginConfig {
   stickToolbarToBottom?: boolean;
   permittedLayouts?: PermittedLayoutsDescriptor;
   allowControls?: boolean;
+  stickyHeaders?: boolean;
 }
 
 export interface ColumnResizingPluginState {
@@ -102,6 +103,7 @@ export interface TablePluginState {
   // e.g. when pressing enter inside of a cell, it creates a new p and we need to update row controls
   tableNode?: PmNode;
   tableRef?: HTMLTableElement;
+  tablePos?: number;
   tableWrapperTarget?: HTMLElement;
   isContextualMenuOpen?: boolean;
   isInDanger?: boolean;
@@ -286,6 +288,7 @@ export const TableCssClassName = {
   TABLE_SELECTED: `${tablePrefixSelector}-table__selected`,
   TABLE_CELL: tableCellSelector,
   TABLE_HEADER_CELL: tableHeaderSelector,
+  TABLE_STICKY: `${tablePrefixSelector}-sticky`,
 
   TOP_LEFT_CELL: 'table > tbody > tr:nth-child(2) > td:nth-child(1)',
   LAST_ITEM_IN_CELL: `${tablePrefixSelector}-last-item-in-cell`,

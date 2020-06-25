@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/modal-dialog",
-  "version": "10.6.2",
+  "version": "10.6.3",
   "description": "A modal dialog displays content that requires user interaction, in a layer above the page.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -40,6 +40,7 @@
     "react-focus-lock": "^1.19.1",
     "react-scrolllock": "^5.0.1",
     "react-transition-group": "^4.4.1",
+    "react-uid": "^2.2.0",
     "tiny-invariant": "^0.0.3",
     "tslib": "^1.9.3"
   },
@@ -52,7 +53,7 @@
     "@atlaskit/checkbox": "^10.1.12",
     "@atlaskit/docs": "*",
     "@atlaskit/field-radio-group": "^7.0.2",
-    "@atlaskit/form": "^7.3.0",
+    "@atlaskit/form": "^7.4.0",
     "@atlaskit/inline-dialog": "^12.1.13",
     "@atlaskit/select": "^11.0.11",
     "@atlaskit/ssr": "*",

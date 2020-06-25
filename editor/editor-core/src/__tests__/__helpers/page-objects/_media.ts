@@ -7,10 +7,9 @@ import commonMessages, {
   linkToolbarMessages,
   linkMessages,
 } from '../../../messages';
-import { messages as mediaLayoutToolbarMessages } from '../../../plugins/media/toolbar/buildMediaLayoutButtons';
+import { messages as mediaLayoutToolbarMessages } from '../../../ui/MediaAndEmbedsToolbar';
 import { mediaLinkToolbarMessages } from '../../../plugins/media/ui/MediaLinkingToolbar';
 import { waitForLoadedImageElements } from '@atlaskit/visual-regression/helper';
-import { mediaSingleClassName } from '@atlaskit/editor-common';
 import { MediaPickerPageObject } from '@atlaskit/media-integration-test-helpers';
 import Page, { BrowserObject } from '@atlaskit/webdriver-runner/wd-wrapper';
 import { messages as insertBlockMessages } from '../../../plugins/insert-block/ui/ToolbarInsertBlock/messages';
@@ -52,8 +51,8 @@ export enum MediaToolbarButton {
 // Selectors
 const mediaUploadCardSelector =
   '[data-testid="media-picker-popup"] [data-testid="media-file-card-view"]';
-const mediaImageSelector = `.${mediaSingleClassName} .img-wrapper, .mediaGroupView-content-wrap .img-wrapper`;
-const mediaImageSelected = `.ProseMirror-selectednode .${mediaSingleClassName} .img-wrapper, .ProseMirror-selectednode .mediaGroupView-content-wrap .img-wrapper`;
+const mediaImageSelector = `[data-testid="media-file-card-view"] .img-wrapper, .mediaGroupView-content-wrap .img-wrapper`;
+const mediaImageSelected = `.ProseMirror-selectednode [data-testid="media-file-card-view"] .img-wrapper, .ProseMirror-selectednode .mediaGroupView-content-wrap .img-wrapper`;
 const insertMediaFileSelector = 'div[aria-label="%s"]';
 
 export const LinkToolbarSelectors = {
@@ -67,37 +66,37 @@ export const LinkToolbarSelectors = {
 const LayoutSelectors = {
   [MediaLayout.center]: {
     button: `[aria-label="Media floating controls"] [aria-label="${commonMessages.alignImageCenter.defaultMessage}"]`,
-    modifier: `.${mediaSingleClassName}.image-center`,
+    modifier: `.image-center`,
   },
   [MediaLayout.wrapLeft]: {
     button: `[aria-label="Media floating controls"] [aria-label="${mediaLayoutToolbarMessages.wrapLeft.defaultMessage}"]`,
-    modifier: `.${mediaSingleClassName}.image-wrap-left`,
+    modifier: `.image-wrap-left`,
   },
   [MediaLayout.wrapRight]: {
     button: `[aria-label="Media floating controls"] [aria-label="${mediaLayoutToolbarMessages.wrapRight.defaultMessage}"]`,
-    modifier: `.${mediaSingleClassName}.image-wrap-right`,
+    modifier: `.image-wrap-right`,
   },
   [MediaLayout.wide]: {
     button: `[aria-label="Media floating controls"] [aria-label="${commonMessages.layoutWide.defaultMessage}"]`,
-    modifier: `.${mediaSingleClassName}.image-wide`,
+    modifier: `.image-wide`,
   },
   [MediaLayout.fullWidth]: {
     button: `[aria-label="Media floating controls"] [aria-label="${commonMessages.layoutFullWidth.defaultMessage}"]`,
-    modifier: `.${mediaSingleClassName}.image-full-width`,
+    modifier: `.image-full-width`,
   },
   [MediaLayout.alignStart]: {
     button: `[aria-label="Media floating controls"] [aria-label="${commonMessages.alignImageLeft.defaultMessage}"]`,
-    modifier: `.${mediaSingleClassName}.image-align-start`,
+    modifier: `.image-align-start`,
   },
   [MediaLayout.alignEnd]: {
     button: `[aria-label="Media floating controls"] [aria-label="${commonMessages.alignImageRight.defaultMessage}"]`,
-    modifier: `.${mediaSingleClassName}.image-align-end`,
+    modifier: `.image-align-end`,
   },
 };
 
 const mediaResizeSelectors = {
-  [MediaResizeSide.right]: '.mediaSingle-resize-handle-right',
-  [MediaResizeSide.left]: '.mediaSingle-resize-handle-left',
+  [MediaResizeSide.right]: '.richMedia-resize-handle-right',
+  [MediaResizeSide.left]: '.richMedia-resize-handle-left',
 };
 
 export async function waitForMediaToBeLoaded(page: PuppeteerPage) {

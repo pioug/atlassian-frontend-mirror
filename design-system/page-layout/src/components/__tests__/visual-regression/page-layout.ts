@@ -1,5 +1,6 @@
 import {
   getExampleUrl,
+  loadPage,
   takeScreenShot,
 } from '@atlaskit/visual-regression/helper';
 
@@ -19,7 +20,7 @@ describe('<PageLayout />', () => {
       width: 1200,
     });
 
-    await page.goto(url);
+    await loadPage(page, url);
 
     const screenshot = await takeScreenShot(page, url);
     expect(screenshot).toMatchProdImageSnapshot();
@@ -38,7 +39,7 @@ describe('<PageLayout />', () => {
       width: 1200,
     });
 
-    await page.goto(url);
+    await loadPage(page, url);
 
     const screenshot = await takeScreenShot(page, url);
     expect(screenshot).toMatchProdImageSnapshot();

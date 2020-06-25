@@ -39,7 +39,7 @@ import Button from '../../../../../plugins/floating-toolbar/ui/Button';
 import { MediaOptions } from '../../../../../plugins/media/types';
 import { stateKey } from '../../../../../plugins/media/pm-plugins/main';
 import { floatingToolbar } from '../../../../../plugins/media/toolbar';
-import { messages as toolbarMessages } from '../../../../../plugins/media/toolbar/buildMediaLayoutButtons';
+import { messages as toolbarMessages } from '../../../../../ui/MediaAndEmbedsToolbar';
 import {
   AnnotationToolbar,
   messages as annotateMessages,
@@ -329,7 +329,7 @@ describe('media', () => {
 
       button.onClick(editorView.state, editorView.dispatch);
       expect(editorView.state.doc).toEqualDocument(
-        doc(mediaSingle({ layout: 'align-start', width: 50 })(temporaryMedia)),
+        doc(mediaSingle({ layout: 'align-start' })(temporaryMedia)),
       );
     });
 

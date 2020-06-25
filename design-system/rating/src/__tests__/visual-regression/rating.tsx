@@ -1,5 +1,6 @@
 import {
   getExampleUrl,
+  loadPage,
   takeElementScreenShot,
 } from '@atlaskit/visual-regression/helper';
 
@@ -19,7 +20,7 @@ describe('star rating', () => {
       __BASEURL__,
     );
 
-    await page.goto(url);
+    await loadPage(page, url, true);
 
     expect(
       await takeElementScreenShot(page, rootSelector),
@@ -35,7 +36,7 @@ describe('star rating', () => {
       'uncontrolled',
       __BASEURL__,
     );
-    await page.goto(url);
+    await loadPage(page, url, true);
 
     await page.hover(ratingItemSelector(2));
 
@@ -53,7 +54,7 @@ describe('star rating', () => {
       'uncontrolled',
       __BASEURL__,
     );
-    await page.goto(url);
+    await loadPage(page, url, true);
 
     await page.click(ratingItemSelector(1));
 
@@ -71,15 +72,12 @@ describe('star rating', () => {
       'uncontrolled',
       __BASEURL__,
     );
-    await page.goto(url);
+    await loadPage(page, url, true);
 
     await page.focus(emptyItemSelector);
     await page.keyboard.press('ArrowRight');
     await page.keyboard.press('ArrowRight');
     await page.keyboard.press('ArrowRight');
-
-    // wait for animations to complete
-    await page.waitFor(20);
 
     expect(
       await takeElementScreenShot(page, rootSelector),

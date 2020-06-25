@@ -1,7 +1,6 @@
 import React from 'react';
 import { withAnalyticsEvents } from '@atlaskit/analytics-next';
-import { CardAppearance } from './types';
-import { CardProps } from './types';
+import { CardAppearance, CardPlatform, CardProps } from './types';
 import { CardWithDataRenderer } from '../CardWithData/loader';
 import { CardWithURLRenderer } from '../CardWithUrl/loader';
 import { isCardWithData } from '../../utils';
@@ -18,4 +17,4 @@ class PlainCard extends React.PureComponent<CardProps> {
 
 export const Card = withAnalyticsEvents()(PlainCard);
 
-export { CardAppearance, CardProps };
+export { CardAppearance, CardProps, CardPlatform };

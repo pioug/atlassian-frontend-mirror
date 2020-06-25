@@ -34,22 +34,34 @@ const IconWrapper = styled.span`
 interface Props {
   /** The content of the message */
   children: ReactNode;
+  /** A testId prop is provided for specified elements, which is a unique string
+   *  that appears as a data attribute data-testid in the rendered code,
+   *  serving as a hook for automated tests
+   */
+  testId?: string;
 }
 
-export const HelperMessage = ({ children }: Props) => (
+export const HelperMessage = ({ children, testId }: Props) => (
   <FieldId.Consumer>
     {fieldId => (
-      <Message id={fieldId ? `${fieldId}-helper` : undefined}>
+      <Message
+        id={fieldId ? `${fieldId}-helper` : undefined}
+        data-testid={testId}
+      >
         {children}
       </Message>
     )}
   </FieldId.Consumer>
 );
 
-export const ErrorMessage = ({ children }: Props) => (
+export const ErrorMessage = ({ children, testId }: Props) => (
   <FieldId.Consumer>
     {fieldId => (
-      <Message error id={fieldId ? `${fieldId}-error` : undefined}>
+      <Message
+        error
+        id={fieldId ? `${fieldId}-error` : undefined}
+        data-testid={testId}
+      >
         <IconWrapper>
           <ErrorIcon size="small" label="error" />
         </IconWrapper>
@@ -59,10 +71,14 @@ export const ErrorMessage = ({ children }: Props) => (
   </FieldId.Consumer>
 );
 
-export const ValidMessage = ({ children }: Props) => (
+export const ValidMessage = ({ children, testId }: Props) => (
   <FieldId.Consumer>
     {fieldId => (
-      <Message valid id={fieldId ? `${fieldId}-valid` : undefined}>
+      <Message
+        valid
+        id={fieldId ? `${fieldId}-valid` : undefined}
+        data-testid={testId}
+      >
         <IconWrapper>
           <SuccessIcon size="small" label="success" />
         </IconWrapper>

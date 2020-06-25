@@ -1,5 +1,20 @@
 # @atlaskit/smart-card
 
+## 13.5.0
+
+### Minor Changes
+
+- [`0ae829a4ea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0ae829a4ea) - EDM-648: Adds resizing and alignment to embed cards
+- [`62269a3e45`](https://bitbucket.org/atlassian/atlassian-frontend/commits/62269a3e45) - Added undefined links
+- [`996e045cc4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/996e045cc4) - EDM-776: add platform prop to @atlaskit/smart-card for rendering fallback on mobile (embed -> block)
+
+### Patch Changes
+
+- [`4360fd6cd4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4360fd6cd4) - fix: performance for Smart Links to same URL (exponential) and different (extraneous re-renders).
+- [`1508cc97c9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1508cc97c9) - fix: lazy-rendering, React key, isFrameVisible in @atlaskit/renderer and click handlers for EmbedCard components.
+- [`328902687e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/328902687e) - Remove stack traces from media analytic events
+- Updated dependencies
+
 ## 13.4.1
 
 ### Patch Changes

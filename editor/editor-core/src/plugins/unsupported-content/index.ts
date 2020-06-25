@@ -8,7 +8,7 @@ import { UnsupportedBlock, UnsupportedInline } from '@atlaskit/editor-common';
 import { EditorState, Plugin, PluginKey } from 'prosemirror-state';
 import { EditorPlugin, PMPluginFactory } from '../../types';
 import { ReactNodeView } from '../../nodeviews';
-import { traverseNode } from './utils';
+import { findAndTrackUnsupportedContentNodes } from './utils';
 
 export const pluginKey = new PluginKey('unsupportedContentPlugin');
 
@@ -16,11 +16,16 @@ const createPlugin: PMPluginFactory = ({
   schema,
   portalProviderAPI,
   eventDispatcher,
+  dispatchAnalyticsEvent,
 }) => {
   return new Plugin({
     state: {
       init(_config, state: EditorState) {
-        traverseNode(state.doc, schema);
+        findAndTrackUnsupportedContentNodes(
+          state.doc,
+          schema,
+          dispatchAnalyticsEvent,
+        );
       },
       apply(_tr, pluginState) {
         return pluginState;

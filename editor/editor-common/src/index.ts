@@ -55,6 +55,11 @@ export {
 export {
   Transformer,
   SortOrder,
+  AnnotationState,
+  AnnotationProviders,
+} from './types';
+
+export {
   CollabEditProvider,
   CollabEvent,
   CollabEventData,
@@ -65,9 +70,7 @@ export {
   CollabEventRemoteData,
   CollabSendableSelection,
   CollabEventTelepointerData, // End Collab Types
-  AnnotationState,
-  AnnotationProviders,
-} from './types';
+} from './collab/types';
 
 export {
   DefaultExtensionProvider,
@@ -111,7 +114,6 @@ export {
 export { combineProviders } from './provider-helpers';
 
 export {
-  DateSharedCssClassName,
   EditorTheme,
   TableSharedCssClassName,
   akEditorActiveBackground,
@@ -125,6 +127,7 @@ export {
   akEditorDefaultLayoutWidth,
   akEditorDeleteBackground,
   akEditorDeleteBackgroundShaded,
+  akEditorDeleteBackgroundWithOpacity,
   akEditorDeleteBorder,
   akEditorDeleteIconColor,
   akEditorDropdownActiveBackground,
@@ -154,6 +157,7 @@ export {
   akEditorSelectedBlanketOpacity,
   akEditorSelectedIconColor,
   akEditorSmallZIndex,
+  akEditorShadowZIndex,
   akEditorSubtleAccent,
   akEditorSwoopCubicBezier,
   akEditorTableBorder,
@@ -176,7 +180,7 @@ export {
   akEditorUnitZIndex,
   akEditorWideLayoutWidth,
   akLayoutGutterOffset,
-  akMediaSingleResizeZIndex,
+  akRichMediaResizeZIndex,
   akEditorStickyHeaderZIndex,
   getAkEditorFullPageMaxWidth,
   blockMarksSharedStyles,
@@ -187,6 +191,7 @@ export {
   codeMarkSharedStyles,
   columnLayoutSharedStyle,
   dateSharedStyle,
+  DateSharedCssClassName,
   annotationSharedStyles,
   AnnotationSharedCSSByState,
   AnnotationSharedClassNames,
@@ -197,7 +202,7 @@ export {
   inlineNodeSharedStyle,
   linkSharedStyle,
   listsSharedStyles,
-  mediaSingleClassName,
+  richMediaClassName,
   mediaSingleSharedStyle,
   panelSharedStyles,
   PanelSharedCssClassName,
@@ -216,11 +221,16 @@ export {
   tableResizeHandleWidth,
   tableSharedStyle,
   tasksAndDecisionsStyles,
+  TaskDecisionSharedCssClassName,
   whitespaceSharedStyles,
   akEditorSelectedBorderStyles,
   MentionSharedCssClassName,
   EmojiSharedCssClassName,
+  StatusSharedCssClassName,
   smartCardSharedStyles,
+  DEFAULT_EMBED_CARD_WIDTH,
+  DEFAULT_EMBED_CARD_HEIGHT,
+  akEditorLineHeight,
 } from './styles';
 
 export {

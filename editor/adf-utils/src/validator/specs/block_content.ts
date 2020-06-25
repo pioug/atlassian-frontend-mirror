@@ -16,6 +16,7 @@ export default [
   'decisionList',
   'taskList',
   'extension',
+  'embedCard',
   'table',
   'expand_with_no_mark',
   'bodiedExtension',

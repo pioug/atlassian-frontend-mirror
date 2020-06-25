@@ -5,7 +5,7 @@ import DecisionItem from '../ui/Decision';
 import { ReactNodeView, ForwardRef, getPosHandler } from '../../../nodeviews';
 import { PortalProviderAPI } from '../../../ui/PortalProvider';
 import { EventDispatcher } from '../../../event-dispatcher';
-import { selectTaskDecision } from '../commands';
+import { selectNode } from '../../../utils/commands';
 
 class Decision extends ReactNodeView {
   init() {
@@ -29,7 +29,7 @@ class Decision extends ReactNodeView {
       const { state, dispatch } = this.view;
       // getPos can also be a boolean
       if (typeof this.getPos === 'function') {
-        selectTaskDecision(this.getPos())(state, dispatch);
+        selectNode(this.getPos())(state, dispatch);
       }
     }
   };

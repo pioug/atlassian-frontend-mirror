@@ -1,3 +1,5 @@
+import { Node } from 'prosemirror-model';
+
 export const shallowEqual = (objA?: Object, objB?: Object) => {
   if (objA === objB) {
     return true;
@@ -46,3 +48,24 @@ export const compareArrays = <T>(
 
   return true;
 };
+
+// find node in descendants by condition
+export function findNode(
+  parent: Node,
+  predicate: (node: Node) => boolean,
+): Node | undefined {
+  let matchedNode: Node | undefined;
+
+  parent.descendants(node => {
+    // dont run predicate if node already found
+    if (matchedNode) {
+      return false;
+    }
+    if (predicate(node)) {
+      matchedNode = node;
+      return false;
+    }
+    return true;
+  });
+  return matchedNode;
+}

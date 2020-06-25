@@ -15,6 +15,7 @@ import { TablePluginState } from '../../../../../plugins/table/types';
 import TableComponent from '../../../../../plugins/table/nodeviews/TableComponent';
 import { findTable } from 'prosemirror-utils';
 import { pluginKey } from '../../../../../plugins/table/pm-plugins/plugin-factory';
+import { EventDispatcher } from '../../../../../event-dispatcher';
 
 describe('table -> nodeviews -> TableComponent.tsx', () => {
   const createEditor = createEditorFactory<TablePluginState>();
@@ -56,6 +57,7 @@ describe('table -> nodeviews -> TableComponent.tsx', () => {
       const wrapper = shallow(
         <TableComponent
           view={view}
+          eventDispatcher={({ on: () => {} } as any) as EventDispatcher}
           // @ts-ignore
           containerWidth={{}}
           // @ts-ignore
@@ -83,6 +85,7 @@ describe('table -> nodeviews -> TableComponent.tsx', () => {
       const wrapper = shallow(
         <TableComponent
           view={view}
+          eventDispatcher={({ on: () => {} } as any) as EventDispatcher}
           // @ts-ignore
           containerWidth={{}}
           // @ts-ignore

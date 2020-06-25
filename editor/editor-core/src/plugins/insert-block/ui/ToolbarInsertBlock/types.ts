@@ -9,6 +9,7 @@ import { MenuItem } from '../../../../ui/DropdownMenu/types';
 import { Node as PMNode } from 'prosemirror-model';
 import { EditorState } from 'prosemirror-state';
 import { DispatchAnalyticsEvent } from '../../../analytics';
+import { BlockMenuItem } from './create-items';
 
 export interface Props {
   buttons: number;
@@ -57,6 +58,8 @@ export interface Props {
 export interface State {
   isOpen: boolean;
   emojiPickerOpen: boolean;
+  buttons: BlockMenuItem[];
+  dropdownItems: BlockMenuItem[];
 }
 
 export type TOOLBAR_MENU_TYPE = INPUT_METHOD.TOOLBAR | INPUT_METHOD.INSERT_MENU;

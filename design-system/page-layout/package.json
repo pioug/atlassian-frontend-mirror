@@ -37,9 +37,18 @@
     "react-dom": "^16.8.0"
   },
   "devDependencies": {
+    "@atlaskit/atlassian-navigation": "^0.10.5",
+    "@atlaskit/atlassian-notifications": "^0.1.4",
     "@atlaskit/docs": "*",
+    "@atlaskit/drawer": "^5.3.6",
     "@atlaskit/icon": "*",
+    "@atlaskit/logo": "^12.3.4",
+    "@atlaskit/menu": "^0.4.2",
+    "@atlaskit/notification-indicator": "^7.0.11",
+    "@atlaskit/notification-log-client": "^4.0.10",
+    "@atlaskit/popup": "^0.4.0",
     "@atlaskit/section-message": "^4.1.10",
+    "@atlaskit/side-navigation": "^0.5.1",
     "@atlaskit/tooltip": "*",
     "@atlaskit/visual-regression": "*",
     "@testing-library/react": "^8.0.1",

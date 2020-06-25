@@ -1,5 +1,65 @@
 # @atlaskit/editor-core
 
+## 125.0.0
+
+### Major Changes
+
+- [`b0df4dc455`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b0df4dc455) - NO-ISSUE refactor: make ContextPanel.visible required
+  NO-ISSUE perf: do not trigger context panel state transition on textinput
+
+### Minor Changes
+
+- [`0ae829a4ea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0ae829a4ea) - EDM-648: Adds resizing and alignment to embed cards
+- [`1315ce63a0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1315ce63a0) - CEMS-720: add sticky table header support to editor
+- [`28758c6c4d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/28758c6c4d) - ED-8812 Make code block selectable
+
+### Patch Changes
+
+- [`fe46facd37`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fe46facd37) - ED-9124 Apply expand selection styles using the selection plugin, and update to use a blanket style rather than a background colour
+- [`e37e0fb768`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e37e0fb768) - ED-9008: Allow images on select lists for Config Panel
+- [`1508cc97c9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1508cc97c9) - fix: lazy-rendering, React key, isFrameVisible in @atlaskit/renderer and click handlers for EmbedCard components.
+- [`cdf049f462`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cdf049f462) - ED-9198: Pass keywords down from manifest to quick insert provider
+- [`06a6b937ac`](https://bitbucket.org/atlassian/atlassian-frontend/commits/06a6b937ac) - perf: untangle avatars ui to avoid wasted render cycles
+- [`6b50c37be9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6b50c37be9) - perf: avoid insert-block items rerendering
+- [`6113a602e1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6113a602e1) - ED-9343 Added onClose for annotation view component
+- [`b506576a91`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b506576a91) - CEMS-1034: fix performance regression when interacting with table controls with sticky headers enabled
+- [`0ccff66344`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0ccff66344) - ED-9227 Adding Stateless Element Browser Component
+- [`b498fe941e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b498fe941e) - ED-9123 ED-9129 Use selection plugin to generate selection styling for selected date & status nodes
+- [`1ba62fffb2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1ba62fffb2) - Fix a bug where small image when aligned left changes to half line width in renderer
+- [`9c6c6683bd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9c6c6683bd) - ED-9360: Fix toolbar to be at the head of selection not always anchor.
+- [`92b9a96267`](https://bitbucket.org/atlassian/atlassian-frontend/commits/92b9a96267) - ED-9340 Add annotation shortcut to shortcut menu
+- [`bbc2ea896d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bbc2ea896d) - ED-9151 Fixed issues with adding comments by selecting all content, and selecting the whole paragraph
+- [`22130d8fce`](https://bitbucket.org/atlassian/atlassian-frontend/commits/22130d8fce) - ED-9301 Fix danger styling not appearing on parent when child nodes are selected
+- [`23dcb270a1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/23dcb270a1) - ED-9390 Remove unnecessary !important modifiers for danger styling
+- [`0894ac2163`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0894ac2163) - ED-9375 Update internal logic of selection plugin, so its selected node class decorations are added in a new transaction, rather than just using the `onSelectionChange` method of the plugin state factory
+
+  This fixes an issue where extensions would re-render when going from a gap cursor selection to a node selection in a way that still allows us to add the selected node class decorations to selected extension nodes
+
+- [`6ce2418b54`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6ce2418b54) - ED-9349 Remove hover state from decision item
+- [`508b972baf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/508b972baf) - ED-9384 Corrections to inline comments analytics: added analytics event on resolve from consumer, changed comment added to insterted, changed overlap to start from 2 annotations.
+- [`7c75ddf54f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7c75ddf54f) - [EDM-704]: Fix EmbedCard UI issues
+- [`996e045cc4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/996e045cc4) - EDM-776: add platform prop to @atlaskit/smart-card for rendering fallback on mobile (embed -> block)
+- [`71a4de3370`](https://bitbucket.org/atlassian/atlassian-frontend/commits/71a4de3370) - ED-9524 Prevent right side shadow from overlapping product UI elements
+- [`d8c2cecba5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d8c2cecba5) - ED-9411 Refactor selection of decisions, panels and layouts to use node selection util function
+- [`3a006398d2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3a006398d2) - Fix to avoid showing "create comment" toolbar right after an inline comment was created
+- [`5d022f8b0c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5d022f8b0c) - ED-9343 fixed comments box reopening on mouseup
+- [`2589a3e4fc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2589a3e4fc) - EDM-713: fix copy-paste from Renderer to Editor on Firefox
+- [`e557e359c4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e557e359c4) - ED-9227 Adding Modal and inline dialog examples for Element Browser
+- [`3a675aaa4e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3a675aaa4e) - ED-9305: Update annotation toolbar to only show on text selections
+
+  ED-9359: Update annotation toolbar disabled message
+
+- [`51a73b9961`](https://bitbucket.org/atlassian/atlassian-frontend/commits/51a73b9961) - ED-9308 Migrate Unsupported Content from GasV2 to GasV3 Analytics
+- [`68f848b954`](https://bitbucket.org/atlassian/atlassian-frontend/commits/68f848b954) - EDM-891 fix selection crash
+- [`d0dca5ab81`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d0dca5ab81) - ED-9579 Fix uncaught error issue inside extension
+- [`ea6dd76837`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ea6dd76837) - ED-9128 Make divider selection use selection plugin to add selected styles
+
+  Also increase click leniency to 4px above/below divider
+
+  Export new line height const from editor-common `akEditorLineHeight`
+
+- Updated dependencies
+
 ## 124.0.5
 
 ### Patch Changes

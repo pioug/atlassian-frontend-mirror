@@ -12,6 +12,7 @@ export interface IconAndTitleLayoutProps {
   title: React.ReactNode;
   right?: React.ReactNode;
   titleColor?: string;
+  titleTextColor?: string;
   children?: React.ReactNode;
 }
 
@@ -26,7 +27,7 @@ export class IconAndTitleLayout extends React.Component<
     // Each of these are scaled down to 12x12.
     if (icon) {
       if (typeof icon === 'string') {
-        return <Icon className="inline-card-icon" src={icon} />;
+        return <Icon className="smart-link-icon" src={icon} />;
       } else {
         return <IconWrapper>{icon}</IconWrapper>;
       }
@@ -35,7 +36,8 @@ export class IconAndTitleLayout extends React.Component<
   }
 
   render() {
-    const { title, titleColor, children } = this.props;
+    const { children, title, titleColor, titleTextColor } = this.props;
+
     return (
       <>
         <IconTitleWrapper style={{ color: titleColor }}>
@@ -47,7 +49,7 @@ export class IconAndTitleLayout extends React.Component<
               </>
             )}
           </IconPositionWrapper>
-          {title}
+          <span style={{ color: titleTextColor }}>{title}</span>
         </IconTitleWrapper>
       </>
     );

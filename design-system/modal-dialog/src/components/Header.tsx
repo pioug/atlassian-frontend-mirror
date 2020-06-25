@@ -37,6 +37,10 @@ export interface HeaderProps extends HeaderComponentProps {
 }
 
 export interface HeaderComponentProps {
+  /** refer by aria-labelledby attribute for a11y */
+  id?: string;
+  /** A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests */
+  testId?: string;
   /** Appearance of the primary button. Also adds an icon to the heading, if provided. */
   appearance?: AppearanceType;
 
@@ -60,12 +64,14 @@ export default class ModalHeader extends React.Component<HeaderProps, {}> {
 
   render() {
     const {
+      id,
       appearance,
       component,
       heading,
       onClose,
       showKeyline,
       isHeadingMultiline,
+      testId,
     } = this.props;
     const warning = 'You can provide `component` OR `heading`, not both.';
 
@@ -76,6 +82,8 @@ export default class ModalHeader extends React.Component<HeaderProps, {}> {
     }
     if (component) {
       return React.createElement(component, {
+        id,
+        testId,
         appearance,
         onClose,
         showKeyline,
@@ -87,7 +95,11 @@ export default class ModalHeader extends React.Component<HeaderProps, {}> {
       <Header showKeyline={showKeyline}>
         <Title>
           <TitleIcon appearance={appearance} />
-          <TitleText isHeadingMultiline={isHeadingMultiline}>
+          <TitleText
+            isHeadingMultiline={isHeadingMultiline}
+            id={id}
+            data-testid={testId && `${testId}-heading`}
+          >
             {heading}
           </TitleText>
         </Title>

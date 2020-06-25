@@ -67,7 +67,7 @@ export class PluginState {
   }
 
   apply(tr: Transaction) {
-    let { decorationSet, participants, sid, isReady } = this;
+    let { participants, sid, isReady } = this;
 
     const presenceData = tr.getMeta('presence') as CollabeEventPresenceData;
     const telepointerData = tr.getMeta(
@@ -98,7 +98,7 @@ export class PluginState {
 
       // Remove telepointers for users that left
       left.forEach(i => {
-        const pointers = findPointers(i.sessionId, decorationSet);
+        const pointers = findPointers(i.sessionId, this.decorationSet);
         if (pointers) {
           remove = remove.concat(pointers);
         }
@@ -110,7 +110,7 @@ export class PluginState {
       if (participants.get(sessionId) && sessionId !== sid) {
         const oldPointers = findPointers(
           telepointerData.sessionId,
-          decorationSet,
+          this.decorationSet,
         );
 
         if (oldPointers) {
@@ -150,7 +150,7 @@ export class PluginState {
     if (tr.docChanged) {
       // Adjust decoration positions to changes made by the transaction
       try {
-        decorationSet = decorationSet.map(tr.mapping, tr.doc, {
+        this.decorationSet = this.decorationSet.map(tr.mapping, tr.doc, {
           // Reapplies decorators those got removed by the state change
           onRemove: spec => {
             if (spec.pointer && spec.pointer.sessionId) {
@@ -191,7 +191,7 @@ export class PluginState {
       // takes care of the issue when after pasting we end up with a dead selection
       tr.steps.filter(isReplaceStep).forEach(s => {
         const { from, to } = s as any;
-        decorationSet.find(from, to).forEach((deco: any) => {
+        this.decorationSet.find(from, to).forEach((deco: any) => {
           // `type` is private, `from` and `to` are public in latest version
           // `from` != `to` means it's a selection
           if (deco.from !== deco.to) {
@@ -202,7 +202,7 @@ export class PluginState {
     }
 
     const { selection } = tr;
-    decorationSet.find().forEach((deco: any) => {
+    this.decorationSet.find().forEach((deco: any) => {
       if (deco.type.toDOM) {
         if (deco.from === selection.from && deco.to === selection.to) {
           deco.type.toDOM.classList.add('telepointer-dim');
@@ -215,14 +215,29 @@ export class PluginState {
     });
 
     if (remove.length) {
-      decorationSet = decorationSet.remove(remove);
+      this.decorationSet = this.decorationSet.remove(remove);
     }
 
     if (add.length) {
-      decorationSet = decorationSet.add(tr.doc, add);
+      this.decorationSet = this.decorationSet.add(tr.doc, add);
     }
 
-    return new PluginState(decorationSet, participants, sid, collabInitialised);
+    const nextState = new PluginState(
+      this.decorationSet,
+      participants,
+      sid,
+      collabInitialised,
+    );
+
+    return PluginState.eq(nextState, this) ? this : nextState;
+  }
+
+  static eq(a: PluginState, b: PluginState): boolean {
+    return (
+      a.participants === b.participants &&
+      a.sessionId === b.sessionId &&
+      a.isReady === b.isReady
+    );
   }
 
   static init(config: any) {

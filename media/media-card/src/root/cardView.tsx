@@ -108,10 +108,14 @@ export class CardViewBase extends React.Component<
       onClick,
       onMouseEnter,
       testId,
+      featureFlags,
     } = this.props;
     const wrapperDimensions = dimensions
       ? dimensions
       : getDefaultCardDimensions(appearance);
+    const isNewExpFeatureFlagOn = featureFlags
+      ? featureFlags.enableNewExperience
+      : false;
 
     return (
       <Wrapper
@@ -123,11 +127,17 @@ export class CardViewBase extends React.Component<
         onMouseEnter={onMouseEnter}
         innerRef={this.divRef}
       >
-        {this.renderFile()}
+        {isNewExpFeatureFlagOn
+          ? this.renderFileNewExperience()
+          : this.renderFile()}
       </Wrapper>
     );
   }
 
+  private renderFileNewExperience = () => {
+    // Let's replace this with the new experience
+    return null;
+  };
   private renderFile = () => {
     const {
       status,

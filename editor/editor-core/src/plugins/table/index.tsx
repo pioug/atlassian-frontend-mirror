@@ -20,6 +20,13 @@ import {
   createPlugin as createFlexiResizingPlugin,
   pluginKey as tableResizingPluginKey,
 } from './pm-plugins/table-resizing';
+import {
+  createPlugin as createStickyHeadersPlugin,
+  pluginKey as stickyHeadersPluginKey,
+  StickyPluginState,
+  findStickyHeaderForTable,
+} from './pm-plugins/sticky-headers';
+
 import { getToolbarConfig } from './toolbar';
 import { ColumnResizingPluginState, PluginConfig } from './types';
 import FloatingContextualButton from './ui/FloatingContextualButton';
@@ -98,6 +105,14 @@ const tablesPlugin = (options?: TablePluginOptions): EditorPlugin => ({
       // plugin as it is currently swallowing backspace events inside tables
       { name: 'tableKeymap', plugin: () => keymapPlugin() },
       { name: 'tableEditing', plugin: () => tableEditing() },
+
+      {
+        name: 'tableStickyHeaders',
+        plugin: ({ dispatch, eventDispatcher }) =>
+          options && options.tableOptions.stickyHeaders
+            ? createStickyHeadersPlugin(dispatch, eventDispatcher)
+            : undefined,
+      },
     ];
   },
 
@@ -112,8 +127,13 @@ const tablesPlugin = (options?: TablePluginOptions): EditorPlugin => ({
         plugins={{
           pluginState: pluginKey,
           tableResizingPluginState: tableResizingPluginKey,
+          stickyHeadersState: stickyHeadersPluginKey,
         }}
-        render={_ => {
+        render={({
+          stickyHeadersState,
+        }: {
+          stickyHeadersState?: StickyPluginState;
+        }) => {
           const { state } = editorView;
           const pluginState = getPluginState(state);
           const resizingPluginState = tableResizingPluginKey.getState(state);
@@ -121,6 +141,7 @@ const tablesPlugin = (options?: TablePluginOptions): EditorPlugin => ({
             resizingPluginState && resizingPluginState.dragging;
           const {
             tableNode,
+            tablePos,
             targetCellPosition,
             isContextualMenuOpen,
             layout,
@@ -132,7 +153,12 @@ const tablesPlugin = (options?: TablePluginOptions): EditorPlugin => ({
             isHeaderRowEnabled,
             tableWrapperTarget,
           } = pluginState || {};
+
           const allowControls = pluginConfig && pluginConfig.allowControls;
+
+          const stickyHeader = stickyHeadersState
+            ? findStickyHeaderForTable(stickyHeadersState, tablePos)
+            : undefined;
 
           return (
             <>
@@ -151,6 +177,7 @@ const tablesPlugin = (options?: TablePluginOptions): EditorPlugin => ({
                     scrollableElement={popupsScrollableElement}
                     isContextualMenuOpen={isContextualMenuOpen}
                     layout={layout}
+                    stickyHeader={stickyHeader}
                   />
                 )}
               {allowControls && (
@@ -165,6 +192,7 @@ const tablesPlugin = (options?: TablePluginOptions): EditorPlugin => ({
                   mountPoint={popupsMountPoint}
                   boundariesElement={popupsBoundariesElement}
                   scrollableElement={popupsScrollableElement}
+                  hasStickyHeaders={stickyHeader && stickyHeader.sticky}
                 />
               )}
               <FloatingContextualMenu
@@ -183,6 +211,10 @@ const tablesPlugin = (options?: TablePluginOptions): EditorPlugin => ({
                   mountPoint={popupsMountPoint}
                   boundariesElement={popupsBoundariesElement}
                   scrollableElement={popupsScrollableElement}
+                  stickyHeaders={stickyHeader}
+                  isNumberColumnEnabled={
+                    tableNode && tableNode.attrs.isNumberColumnEnabled
+                  }
                 />
               )}
               {isLayoutSupported(state) &&

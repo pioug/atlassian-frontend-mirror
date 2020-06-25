@@ -13,16 +13,27 @@ import { messages } from '../../messages';
 export interface ResolvingProps {
   isSelected?: boolean;
   testId?: string;
+  inheritDimensions?: boolean;
 }
 
 export const ResolvingView = ({
   isSelected = false,
-  testId,
+  testId = 'block-card-resolving-view',
+  inheritDimensions,
 }: ResolvingProps) => (
-  <Frame compact={true} isSelected={isSelected} testId={testId}>
+  <Frame
+    inheritDimensions={inheritDimensions}
+    compact={true}
+    isSelected={isSelected}
+    testId={testId}
+  >
     <DocumentFilledIcon size="small" primaryColor={N50} label="document-icon" />
     <span
-      css={{ fontSize: `${fontSize()}px`, color: N90, marginLeft: gs(0.5) }}
+      css={{
+        fontSize: `${fontSize()}px`,
+        color: N90,
+        marginLeft: gs(0.5),
+      }}
     >
       <FormattedMessage {...messages.loading} />
     </span>

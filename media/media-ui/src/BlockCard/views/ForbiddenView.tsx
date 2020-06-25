@@ -16,6 +16,7 @@ import { LockImage } from '../utils/constants';
 import { messages } from '../../messages';
 import { ContentFooter } from '../components/ContentFooter';
 import { IconProps, Icon } from '../components/Icon';
+import { ContentHeader } from '../components/ContentHeader';
 import { handleClickCommon } from '../utils/handlers';
 
 const textTitleProps = { ...messages.invalid_permissions };
@@ -42,7 +43,7 @@ export const ForbiddenView = ({
   context = { text: '' },
   isSelected = false,
   actions = [],
-  testId,
+  testId = 'block-card-forbidden-view',
   showActions = true,
   link = '',
   onClick = () => {},
@@ -55,18 +56,13 @@ export const ForbiddenView = ({
     <Frame isSelected={isSelected} testId={testId}>
       <Content>
         <div>
-          <a
-            onClick={handleClick}
-            href={link}
-            target="_blank"
-            css={{ display: 'flex', alignItems: 'flex-start' }}
-          >
+          <ContentHeader onClick={handleClick} link={link}>
             <Icon {...icon} />
             <Name
               name={<FormattedMessage {...textTitleProps} />}
               testId={testId ? `${testId}-name` : undefined}
             />
-          </a>
+          </ContentHeader>
           <Byline text={<FormattedMessage {...textDescriptionProps} />} />
         </div>
         <ContentFooter>

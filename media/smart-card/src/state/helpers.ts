@@ -1,6 +1,7 @@
 import { JsonLd } from 'json-ld-types';
 import { CardType, CardStore } from './store/types';
 import { Store } from 'redux';
+import { extractVisitUrl } from '../extractors/common/primitives/extractVisitUrl';
 
 export const getByDefinitionId = (
   definitionId: string | undefined,
@@ -20,6 +21,16 @@ export const getUrl = (store: Store<CardStore>, url: string) => {
       lastUpdatedAt: Date.now(),
     }
   );
+};
+
+export const getClickUrl = (url: string, jsonLd?: JsonLd.Response): string => {
+  if (jsonLd && jsonLd.data) {
+    const visitUrl = extractVisitUrl(jsonLd.data as JsonLd.Data.BaseData);
+    if (visitUrl) {
+      return visitUrl;
+    }
+  }
+  return url;
 };
 
 export const getDefinitionId = (details?: JsonLd.Response) =>

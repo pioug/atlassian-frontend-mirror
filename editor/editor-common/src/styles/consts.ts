@@ -46,6 +46,7 @@ export const akEditorCodeBlockPadding = '12px';
 export const akEditorCodeInlinePadding = '2px 4px';
 export const akEditorDeleteBackground = R50;
 export const akEditorDeleteBackgroundShaded = R50;
+export const akEditorDeleteBackgroundWithOpacity = 'rgba(255, 189, 173, 0.5)'; // R75 with 50% opacity
 export const akEditorDeleteBorder = R300;
 export const akEditorDeleteIconColor = R400;
 export const akEditorSelectedBorder = B300;
@@ -56,6 +57,7 @@ export const akEditorSelectedBorderSize = 1;
 export const akEditorSelectedBorderBoldSize = 2;
 export const akEditorSelectedBlanketOpacity = 0.3;
 export const akEditorUnitZIndex = 1;
+export const akEditorShadowZIndex = 2;
 export const akEditorStickyHeaderZIndex = 11; // filmstrip uses 10 for its shadow
 export const akEditorSmallZIndex = akEditorStickyHeaderZIndex + 1;
 export const akEditorGridLineZIndex = 9999;
@@ -105,8 +107,9 @@ export const akEditorMediaResizeHandlerPadding = 4;
 export const akEditorSwoopCubicBezier = `cubic-bezier(0.15, 1, 0.3, 1)`;
 export const gridMediumMaxWidth = 1024;
 export const breakoutWideScaleRatio = 1.33;
-export const akMediaSingleResizeZIndex = akEditorUnitZIndex * 99;
+export const akRichMediaResizeZIndex = akEditorUnitZIndex * 99;
 export const akLayoutGutterOffset = gridSize() * 1.5;
+export const akEditorLineHeight = 1.714;
 
 export const akEditorSelectedBorderStyles = `
   // No offset, no blur
@@ -129,3 +132,6 @@ export const relativeSize = (multiplier: number) => ({
 
 // @see typography spreadsheet: https://docs.google.com/spreadsheets/d/1iYusRGCT4PoPfvxbJ8NrgjtfFgXLm5lpDWXzjua1W2E/edit#gid=93913128
 export const blockNodesVerticalMargin = '1.143rem';
+
+export const DEFAULT_EMBED_CARD_WIDTH = 680;
+export const DEFAULT_EMBED_CARD_HEIGHT = 480;

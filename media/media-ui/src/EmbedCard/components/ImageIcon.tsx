@@ -25,7 +25,15 @@ export const ImageIcon: FC<ImageIconProps> = ({
     <ImageLoader
       src={src}
       loading={defaultIcon}
-      loaded={<Image src={src} alt={alt} size={size} title={title} />}
+      loaded={
+        <Image
+          className="smart-link-icon"
+          src={src}
+          alt={alt}
+          size={size}
+          title={title}
+        />
+      }
       errored={defaultIcon}
     />
   );

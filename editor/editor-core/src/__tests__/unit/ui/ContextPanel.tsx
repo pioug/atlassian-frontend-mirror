@@ -28,7 +28,7 @@ describe('SwappableContentArea', () => {
 
   it('renders children', () => {
     wrapper = mount(
-      <SwappableContentArea>
+      <SwappableContentArea visible>
         <Component></Component>
       </SwappableContentArea>,
     );
@@ -37,7 +37,7 @@ describe('SwappableContentArea', () => {
 
   it('passes through width prop', () => {
     wrapper = mount(
-      <SwappableContentArea width={69}>
+      <SwappableContentArea width={69} visible>
         <Component></Component>
       </SwappableContentArea>,
     );
@@ -63,22 +63,6 @@ describe('SwappableContentArea', () => {
       expect(getComputedStyle(panel.getDOMNode()).width).toEqual('69px');
     });
 
-    it('displays no content when visible is undefined and no children', () => {
-      wrapper = mount(<SwappableContentArea width={69}></SwappableContentArea>);
-      const panel = wrapper.find(Panel);
-      expect(getComputedStyle(panel.getDOMNode()).width).toEqual('0px');
-    });
-
-    it('displays content when visible is undefined and children', () => {
-      wrapper = mount(
-        <SwappableContentArea width={69}>
-          <Component />
-        </SwappableContentArea>,
-      );
-      const panel = wrapper.find(Panel);
-      expect(getComputedStyle(panel.getDOMNode()).width).toEqual('69px');
-    });
-
     it('hides content when visible is false', () => {
       wrapper = mount(
         <SwappableContentArea
@@ -91,7 +75,7 @@ describe('SwappableContentArea', () => {
     });
 
     it('clips content using the container', () => {
-      wrapper = mount(<SwappableContentArea />);
+      wrapper = mount(<SwappableContentArea visible />);
       const style = getComputedStyle(wrapper.find(Panel).getDOMNode());
       expect(style.overflow).toEqual('hidden');
     });
@@ -99,7 +83,7 @@ describe('SwappableContentArea', () => {
 
   describe('content', () => {
     it('is scrollable up/down', () => {
-      wrapper = mount(<SwappableContentArea />);
+      wrapper = mount(<SwappableContentArea visible />);
       const style = getComputedStyle(wrapper.find(Content).getDOMNode());
       expect(style.overflowY).toEqual('scroll');
     });

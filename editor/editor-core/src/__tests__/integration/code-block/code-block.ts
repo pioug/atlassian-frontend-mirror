@@ -6,9 +6,8 @@ import {
   goToEditorTestingExample,
 } from '../../__helpers/testing-example-helpers';
 import { messages } from '../../../plugins/block-type/messages';
+import { codeBlockSelectors } from '../../__helpers/page-objects/_code-block';
 
-const selectQuery =
-  'div[aria-label="CodeBlock floating controls"] input[aria-autocomplete="list"]';
 const floatingToolbarLanguageSelector = 'div[aria-label="Floating Toolbar"]';
 
 ['comment', 'full-page'].forEach(editor => {
@@ -16,7 +15,7 @@ const floatingToolbarLanguageSelector = 'div[aria-label="Floating Toolbar"]';
   // Fix wrong ADF for code block when language is selected
   BrowserTestCase(
     `code-block: produces correct ADF after language change for ${editor}`,
-    { skip: ['ie', 'edge', 'safari'] },
+    { skip: ['ie', 'safari'] },
     async (client: any, testName: string) => {
       const page = await goToEditorTestingExample(client);
 
@@ -25,8 +24,8 @@ const floatingToolbarLanguageSelector = 'div[aria-label="Floating Toolbar"]';
       });
 
       await page.click(`[aria-label="${messages.codeblock.defaultMessage}"]`);
-      await page.waitForSelector(selectQuery);
-      await page.type(selectQuery, ['javascript']);
+      await page.waitForSelector(codeBlockSelectors.languageSelectInput);
+      await page.type(codeBlockSelectors.languageSelectInput, ['javascript']);
       await page.keys('Return');
 
       const doc = await page.$eval(editable, getDocFromElement);
@@ -36,7 +35,7 @@ const floatingToolbarLanguageSelector = 'div[aria-label="Floating Toolbar"]';
 
   BrowserTestCase(
     `code-block: code block language is preserved after floating toolbar loses and gains focus for ${editor}`,
-    { skip: ['ie', 'edge', 'safari'] },
+    { skip: ['ie', 'safari'] },
     async (client: any) => {
       const page = await goToEditorTestingExample(client);
 
@@ -46,9 +45,9 @@ const floatingToolbarLanguageSelector = 'div[aria-label="Floating Toolbar"]';
 
       // Insert code block
       await page.click(`[aria-label="${messages.codeblock.defaultMessage}"]`);
-      await page.waitForSelector(selectQuery);
+      await page.waitForSelector(codeBlockSelectors.languageSelectInput);
       // Change code block language
-      await page.type(selectQuery, ['javascript']);
+      await page.type(codeBlockSelectors.languageSelectInput, ['javascript']);
       await page.keys('Return');
       await page.click(editable);
       // Unfocus code block (so floating toolbar hides)
@@ -65,7 +64,7 @@ const floatingToolbarLanguageSelector = 'div[aria-label="Floating Toolbar"]';
 
   BrowserTestCase(
     `code-block: code block selected language correctly changes when moving selection directly from one code block to another for ${editor}`,
-    { skip: ['ie', 'safari', 'edge'] },
+    { skip: ['ie', 'safari'] },
     async (client: any) => {
       const page = await goToEditorTestingExample(client);
 
@@ -75,10 +74,10 @@ const floatingToolbarLanguageSelector = 'div[aria-label="Floating Toolbar"]';
 
       // Insert code block
       await page.click(`[aria-label="${messages.codeblock.defaultMessage}"]`);
-      await page.waitForSelector(selectQuery);
+      await page.waitForSelector(codeBlockSelectors.languageSelectInput);
 
       // Change code block language
-      await page.type(selectQuery, ['javascript']);
+      await page.type(codeBlockSelectors.languageSelectInput, ['javascript']);
       await page.keys('Return');
       await page.click(editable);
       // Move out of code block
@@ -88,13 +87,13 @@ const floatingToolbarLanguageSelector = 'div[aria-label="Floating Toolbar"]';
       await page.click(`[aria-label="${messages.codeblock.defaultMessage}"]`);
 
       // Make sure the second code block doesn't have a language set.
-      await page.waitForSelector(selectQuery);
+      await page.waitForSelector(codeBlockSelectors.languageSelectInput);
       const secondCodeblockInitialLanguage = await page.getText(
         floatingToolbarLanguageSelector,
       );
       expect(secondCodeblockInitialLanguage.trim()).toEqual('Select language');
       // Set a language on the second code block
-      await page.type(selectQuery, ['Arduino']);
+      await page.type(codeBlockSelectors.languageSelectInput, ['Arduino']);
       await page.keys('Return');
 
       // Check that the language on the first code block is still the same
@@ -117,7 +116,7 @@ const floatingToolbarLanguageSelector = 'div[aria-label="Floating Toolbar"]';
   );
 
   // This bug isn't fixed. See ticket for details.
-  // https://product-fabric.atlassian.net/browse/ED-5963
+  // https://product-fabric.atlassian.net/browse/ED-7545
   /*
   BrowserTestCase(
     'code-block: code block selected language correctly changes when moving selection directly from one code block to another where one blocks selected is undefined',
@@ -129,19 +128,19 @@ const floatingToolbarLanguageSelector = 'div[aria-label="Floating Toolbar"]';
       await page.click(editor.placeholder);
       // Insert code block
       await insertBlockMenuItem(page, messages.codeblock.defaultMessage);
-      await page.waitForSelector(selectQuery);
+      await page.waitForSelector(codeBlockSelectors.languageSelectInput);
       // Move out of code block
       await page.type(editor.placeholder, ['ArrowDown']);
       // Insert a second code block
       await insertBlockMenuItem(page, messages.codeblock.defaultMessage);
       // Make sure the second code block doesn't have a language set.
-      await page.waitForSelector(selectQuery);
+      await page.waitForSelector(codeBlockSelectors.languageSelectInput);
       const secondCodeblockInitialLanguage = await page.getText(
         floatingToolbarLanguageSelector,
       );
       expect(secondCodeblockInitialLanguage.trim()).toEqual('Select language');
       // Set a language on the second code block
-      await page.type(selectQuery, ['C', 'Return']);
+      await page.type(codeBlockSelectors.languageSelectInput, ['C', 'Return']);
 
       // Check that the language on the first code block is still the same
       await page.click('code');

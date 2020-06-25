@@ -6,7 +6,6 @@ import {
   Selection,
   Transaction,
   TextSelection,
-  NodeSelection,
 } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import { autoJoin } from 'prosemirror-commands';
@@ -369,14 +368,4 @@ export const createListAtSelection = (
   }
 
   return safeInsert(emptyList)(tr);
-};
-
-export const selectTaskDecision = (pos: number): Command => (
-  state,
-  dispatch,
-) => {
-  if (dispatch) {
-    dispatch(state.tr.setSelection(new NodeSelection(state.doc.resolve(pos))));
-  }
-  return true;
 };

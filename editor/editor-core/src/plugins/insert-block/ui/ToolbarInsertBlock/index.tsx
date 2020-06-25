@@ -1,6 +1,6 @@
 import React, { ReactInstance } from 'react';
 import ReactDOM from 'react-dom';
-import { InjectedIntlProps, injectIntl, FormattedMessage } from 'react-intl';
+import { InjectedIntlProps, injectIntl } from 'react-intl';
 import { EmojiPicker as AkEmojiPicker } from '@atlaskit/emoji/picker';
 import { EmojiId } from '@atlaskit/emoji/types';
 import { akEditorMenuZIndex, Popup } from '@atlaskit/editor-common';
@@ -8,15 +8,9 @@ import {
   analyticsService as analytics,
   withAnalytics,
 } from '../../../../analytics';
-import {
-  findKeymapByDescription,
-  findShortcutByDescription,
-  tooltip,
-} from '../../../../keymaps';
 import DropdownMenu from '../../../../ui/DropdownMenu';
 import ToolbarButton from '../../../../ui/ToolbarButton';
 import { ButtonGroup, Wrapper } from '../../../../ui/styles';
-import { BlockType } from '../../../block-type/types';
 import { createTable } from '../../../table/commands';
 import { insertDate, openDatePicker } from '../../../date/actions';
 import { showPlaceholderFloatingToolbar } from '../../../placeholder-text/actions';
@@ -39,8 +33,9 @@ import { insertEmoji } from '../../../emoji/commands/insert-emoji';
 import { DropdownItem } from '../../../block-type/ui/ToolbarBlockType';
 import { messages } from './messages';
 import { Props, State, TOOLBAR_MENU_TYPE } from './types';
-import { createItems } from './create-items';
+import { createItems, BlockMenuItem } from './create-items';
 import { DropDownButton } from './dropdown-button';
+import memoizeOne from 'memoize-one';
 
 /**
  * Checks if an element is detached (i.e. not in the current document)
@@ -48,23 +43,61 @@ import { DropDownButton } from './dropdown-button';
 const isDetachedElement = (el: HTMLElement) => !document.body.contains(el);
 const noop = () => {};
 
-class ToolbarInsertBlock extends React.Component<
+class ToolbarInsertBlock extends React.PureComponent<
   Props & InjectedIntlProps,
   State
 > {
   private pickerRef?: ReactInstance;
-  private button?: HTMLElement;
+  private emojiButtonRef?: HTMLElement;
 
   state: State = {
     isOpen: false,
     emojiPickerOpen: false,
+    buttons: [],
+    dropdownItems: [],
   };
 
-  UNSAFE_componentWillReceiveProps(nextProps: Props) {
-    // If number of visible buttons changed, close emoji picker
-    if (nextProps.buttons !== this.props.buttons) {
-      this.setState({ emojiPickerOpen: false });
-    }
+  static getDerivedStateFromProps(
+    props: Props & InjectedIntlProps,
+    state: State,
+  ): State | null {
+    const [buttons, dropdownItems] = createItems({
+      isTypeAheadAllowed: props.isTypeAheadAllowed,
+      tableSupported: props.tableSupported,
+      mediaUploadsEnabled: props.mediaUploadsEnabled,
+      mediaSupported: props.mediaSupported,
+      imageUploadSupported: props.imageUploadSupported,
+      imageUploadEnabled: props.imageUploadEnabled,
+      mentionsSupported: props.mentionsSupported,
+      actionSupported: props.actionSupported,
+      decisionSupported: props.decisionSupported,
+      linkSupported: props.linkSupported,
+      linkDisabled: props.linkDisabled,
+      emojiDisabled: props.emojiDisabled,
+      nativeStatusSupported: props.nativeStatusSupported,
+      dateEnabled: props.dateEnabled,
+      placeholderTextEnabled: props.placeholderTextEnabled,
+      horizontalRuleEnabled: props.horizontalRuleEnabled,
+      layoutSectionEnabled: props.layoutSectionEnabled,
+      expandEnabled: props.expandEnabled,
+      macroProvider: props.macroProvider,
+      emojiProvider: props.emojiProvider,
+      availableWrapperBlockTypes: props.availableWrapperBlockTypes,
+      insertMenuItems: props.insertMenuItems,
+      schema: props.editorView.state.schema,
+      numberOfButtons: props.buttons,
+      formatMessage: props.intl.formatMessage,
+    });
+
+    const emojiPickerOpen =
+      props.buttons !== state.buttons.length ? false : state.emojiPickerOpen;
+
+    return {
+      ...state,
+      emojiPickerOpen,
+      buttons,
+      dropdownItems,
+    };
   }
 
   private onOpenChange = (attrs: { isOpen: boolean; open?: boolean }) => {
@@ -113,13 +146,13 @@ class ToolbarInsertBlock extends React.Component<
       popupsScrollableElement,
       emojiProvider,
     } = this.props;
-    if (!emojiPickerOpen || !this.button || !emojiProvider) {
+    if (!emojiPickerOpen || !this.emojiButtonRef || !emojiProvider) {
       return null;
     }
 
     return (
       <Popup
-        target={this.button}
+        target={this.emojiButtonRef}
         fitHeight={350}
         fitWidth={350}
         offset={[0, 3]}
@@ -136,18 +169,17 @@ class ToolbarInsertBlock extends React.Component<
     );
   }
 
-  private handleButtonRef = (ref: HTMLElement): void => {
-    const buttonRef = ref || null;
-    if (buttonRef) {
-      this.button = ReactDOM.findDOMNode(buttonRef) as HTMLElement;
+  private handleEmojiButtonRef = (button: ToolbarButton | null): void => {
+    const ref = ReactDOM.findDOMNode(button) as HTMLElement | null;
+    if (ref) {
+      this.emojiButtonRef = ref;
     }
   };
 
-  private handleDropDownButtonRef = (
-    ref: ToolbarButton | null,
-    items: Array<any>,
-  ) => {
-    items.forEach(item => item.handleRef && item.handleRef(ref));
+  private handleDropDownButtonRef = (ref: ToolbarButton | null) => {
+    this.state.dropdownItems.forEach(
+      item => item.handleRef && item.handleRef(ref),
+    );
   };
 
   private onPickerRef = (ref: any) => {
@@ -175,71 +207,30 @@ class ToolbarInsertBlock extends React.Component<
     }
   };
 
-  private getShortcutBlock = (blockType: BlockType) => {
-    switch (blockType.name) {
-      case 'blockquote':
-        return '>';
-      case 'codeblock':
-        return '```';
-      default:
-        return tooltip(findKeymapByDescription(blockType.title.defaultMessage));
-    }
-  };
+  private toDropdownItems = memoizeOne((items: BlockMenuItem[]) => {
+    const emojiItem = items.find(item => item.value.name === 'emoji');
 
-  private formatMessage = (
-    input: FormattedMessage.MessageDescriptor,
-    values?: any,
-  ): string => {
-    return this.props.intl.formatMessage(input, values);
-  };
+    if (emojiItem) {
+      emojiItem.handleRef = this.handleEmojiButtonRef;
+    }
+
+    return [{ items }];
+  });
 
   render() {
-    const { isOpen } = this.state;
+    const { isOpen, buttons, dropdownItems } = this.state;
     const {
       popupsMountPoint,
       popupsBoundariesElement,
       popupsScrollableElement,
       isDisabled,
-      buttons: numberOfButtons,
       isReducedSpacing,
       intl: { formatMessage },
     } = this.props;
 
-    const [buttons, dropdownItems] = createItems({
-      isTypeAheadAllowed: this.props.isTypeAheadAllowed,
-      tableSupported: this.props.tableSupported,
-      mediaUploadsEnabled: this.props.mediaUploadsEnabled,
-      mediaSupported: this.props.mediaSupported,
-      imageUploadSupported: this.props.imageUploadSupported,
-      imageUploadEnabled: this.props.imageUploadEnabled,
-      mentionsSupported: this.props.mentionsSupported,
-      actionSupported: this.props.actionSupported,
-      decisionSupported: this.props.decisionSupported,
-      linkSupported: this.props.linkSupported,
-      linkDisabled: this.props.linkDisabled,
-      emojiDisabled: this.props.emojiDisabled,
-      nativeStatusSupported: this.props.nativeStatusSupported,
-      dateEnabled: this.props.dateEnabled,
-      placeholderTextEnabled: this.props.placeholderTextEnabled,
-      horizontalRuleEnabled: this.props.horizontalRuleEnabled,
-      layoutSectionEnabled: this.props.layoutSectionEnabled,
-      expandEnabled: this.props.expandEnabled,
-      macroProvider: this.props.macroProvider,
-      emojiProvider: this.props.emojiProvider,
-      availableWrapperBlockTypes: this.props.availableWrapperBlockTypes,
-      insertMenuItems: this.props.insertMenuItems,
-      schema: this.props.editorView.state.schema,
-      numberOfButtons,
-      handleButtonRef: this.handleButtonRef,
-      getShortcutBlock: this.getShortcutBlock,
-      formatMessage: this.formatMessage,
-    });
-
     if (buttons.length === 0 && dropdownItems.length === 0) {
       return null;
     }
-
-    findShortcutByDescription(messages.insertMenu.description);
 
     const dropDownLabel = formatMessage(messages.insertMenu);
     const spacing = isReducedSpacing ? 'none' : 'default';
@@ -249,7 +240,7 @@ class ToolbarInsertBlock extends React.Component<
         {buttons.map(btn => (
           <ToolbarButton
             item={btn}
-            ref={btn.handleRef || noop}
+            ref={btn.value.name === 'emoji' ? this.handleEmojiButtonRef : noop}
             key={btn.value.name}
             spacing={isReducedSpacing ? 'none' : 'default'}
             disabled={isDisabled || btn.isDisabled}
@@ -264,7 +255,7 @@ class ToolbarInsertBlock extends React.Component<
           {dropdownItems.length > 0 &&
             (!isDisabled ? (
               <DropdownMenu
-                items={[{ items: dropdownItems }]}
+                items={this.toDropdownItems(dropdownItems)}
                 onItemActivated={this.insertInsertMenuItem}
                 onOpenChange={this.onOpenChange}
                 mountTo={popupsMountPoint}
@@ -282,7 +273,6 @@ class ToolbarInsertBlock extends React.Component<
                   onClick={this.handleTriggerClick}
                   spacing={spacing}
                   label={dropDownLabel}
-                  items={dropdownItems}
                 />
               </DropdownMenu>
             ) : (
@@ -294,7 +284,6 @@ class ToolbarInsertBlock extends React.Component<
                   onClick={this.handleTriggerClick}
                   spacing={spacing}
                   label={dropDownLabel}
-                  items={dropdownItems}
                 />
               </div>
             ))}

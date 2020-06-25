@@ -23,9 +23,11 @@ export interface EmbedCardResolvedViewProps {
   /** The src to be used for the `iframe` */
   preview?: string;
   /** The optional click handler */
-  onClick?: () => void;
+  onClick?: (evt: React.MouseEvent) => void;
   /** For testing purposes only. */
   testId?: string;
+
+  inheritDimensions?: boolean;
 }
 
 export const EmbedCardResolvedView: FC<EmbedCardResolvedViewProps> = ({
@@ -35,7 +37,9 @@ export const EmbedCardResolvedView: FC<EmbedCardResolvedViewProps> = ({
   isSelected,
   isFrameVisible,
   preview,
-  testId = 'resolved-view',
+  title,
+  testId = 'embed-card-resolved-view',
+  inheritDimensions,
 }) => {
   const src =
     context && context.icon
@@ -43,9 +47,10 @@ export const EmbedCardResolvedView: FC<EmbedCardResolvedViewProps> = ({
         ? context.icon
         : undefined
       : undefined;
+  const text = title || (context && context.text);
+
   return (
     <ExpandedFrame
-      minWidth={200}
       isSelected={isSelected}
       isFrameVisible={isFrameVisible}
       href={link}
@@ -56,8 +61,9 @@ export const EmbedCardResolvedView: FC<EmbedCardResolvedViewProps> = ({
           default={<LinkGlyph label="icon" size="small" />}
         />
       }
-      text={context && context.text}
+      text={text}
       onClick={onClick}
+      inheritDimensions={inheritDimensions}
     >
       <Frame url={preview} testId={testId} />
     </ExpandedFrame>

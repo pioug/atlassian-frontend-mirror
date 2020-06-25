@@ -99,25 +99,70 @@ describe('Smart Card: Reducers', () => {
   });
 
   describe('ACTION_RESOLVED', () => {
+    const mockPayload: JsonLd.Response = {
+      meta: {
+        visibility: 'public',
+        access: 'granted',
+        definitionId: 'elgoog',
+        auth: [],
+      },
+      data: {
+        '@context': {
+          '@vocab': 'https://www.w3.org/ns/activitystreams#',
+          atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
+          schema: 'http://schema.org/',
+        },
+        '@type': 'Object',
+        name: '/some/url',
+      },
+    };
+    const mockOtherPayload: JsonLd.Response = {
+      meta: { ...mockPayload.meta },
+      data: { ...mockPayload.data, name: 'new name' },
+    } as JsonLd.Response;
+
+    it('successfully persists existing state when not transitioning between states', () => {
+      mockDateNow.mockImplementationOnce(() => 456);
+      store[url] = {
+        status: 'resolved',
+        details: mockPayload,
+        lastUpdatedAt: 456,
+      };
+      store = reducer(
+        store,
+        cardAction(ACTION_RESOLVED, mockActionParams, mockOtherPayload),
+      );
+      expect(store).toHaveProperty('/some/url', {
+        status: 'resolved',
+        details: mockPayload,
+        lastUpdatedAt: 456,
+      });
+    });
+
+    it('successfully updates URL state when expired', () => {
+      mockDateNow.mockImplementationOnce(() => 456);
+      store[url] = {
+        status: 'resolved',
+        details: mockPayload,
+        lastUpdatedAt: 0,
+      };
+      store = reducer(
+        store,
+        cardAction(
+          ACTION_RESOLVED,
+          { ...mockActionParams, hasExpired: true },
+          mockOtherPayload,
+        ),
+      );
+      expect(store).toHaveProperty('/some/url', {
+        status: 'resolved',
+        details: mockOtherPayload,
+        lastUpdatedAt: 456,
+      });
+    });
+
     it('successfully updates URL state to resolved (happy path)', () => {
       mockDateNow.mockImplementationOnce(() => 123);
-      const mockPayload: JsonLd.Response = {
-        meta: {
-          visibility: 'public',
-          access: 'granted',
-          definitionId: 'elgoog',
-          auth: [],
-        },
-        data: {
-          '@context': {
-            '@vocab': 'https://www.w3.org/ns/activitystreams#',
-            atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
-            schema: 'http://schema.org/',
-          },
-          '@type': 'Object',
-          name: '/some/url',
-        },
-      };
       store = reducer(
         store,
         cardAction(ACTION_RESOLVED, mockActionParams, mockPayload),

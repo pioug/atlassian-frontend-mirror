@@ -1,6 +1,6 @@
 import React from 'react';
 import { findDomRefAtPos } from 'prosemirror-utils';
-import { EditorState } from 'prosemirror-state';
+import { EditorState, TextSelection } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import { annotation, AnnotationTypes } from '@atlaskit/adf-schema';
 import { EditorPlugin } from '../../types';
@@ -27,7 +27,7 @@ import {
   AnnotationTestIds,
 } from './types';
 import { UpdateEvent, AnnotationUpdateEmitter } from './update-provider';
-import { findAnnotationsInSelection, getAnnotationViewKey } from './utils';
+import { getAnnotationViewKey, getAnnotationText } from './utils';
 import {
   removeInlineCommentNearSelection,
   updateInlineCommentResolvedState,
@@ -80,11 +80,15 @@ export const createAnnotation = (
   setInlineCommentDraftState(false)(state, dispatch);
 
   const tr = addAnalytics(state, state.tr.addMark(from, to, annotationMark), {
-    action: ACTION.ADDED,
+    action: ACTION.INSERTED,
     actionSubject: ACTION_SUBJECT.ANNOTATION,
     eventType: EVENT_TYPE.TRACK,
     actionSubjectId: ACTION_SUBJECT_ID.INLINE_COMMENT,
   });
+
+  const $to = state.doc.resolve(to);
+  tr.setSelection(new TextSelection($to, $to));
+
   dispatch(tr);
 };
 
@@ -125,9 +129,13 @@ const renderInlineCommentComponents = (
         <CreateComponent
           dom={dom}
           textSelection={textselection}
-          onCreate={createAnnotation(state, dispatch)}
+          onCreate={id => {
+            createAnnotation(state, dispatch)(id);
+            !editorView.hasFocus() && editorView.focus();
+          }}
           onClose={() => {
             setInlineCommentDraftState(false)(state, dispatch);
+            !editorView.hasFocus() && editorView.focus();
           }}
         />
       </div>
@@ -135,10 +143,9 @@ const renderInlineCommentComponents = (
   }
 
   // View Component
-  const annotations = findAnnotationsInSelection(
-    state.selection,
-    state.doc,
-  ).filter(mark => inlineCommentState.annotations[mark.id] === false);
+  const annotations = inlineCommentState.selectedAnnotations.filter(
+    mark => inlineCommentState.annotations[mark.id] === false,
+  );
   if (!ViewComponent || annotations.length === 0) {
     return null;
   }
@@ -147,7 +154,6 @@ const renderInlineCommentComponents = (
     if (!dispatchAnalyticsEvent) {
       return;
     }
-
     // fire analytics
     const payload: AnnotationAEP = {
       action: ACTION.VIEWED,
@@ -155,31 +161,42 @@ const renderInlineCommentComponents = (
       actionSubjectId: ACTION_SUBJECT_ID.INLINE_COMMENT,
       eventType: EVENT_TYPE.TRACK,
       attributes: {
-        overlap: annotations.length,
+        overlap: annotations.length ? annotations.length - 1 : 0,
       },
     };
     dispatchAnalyticsEvent(payload);
   };
 
+  // can not use dom.innerText here
+  // because annotation can be split into multiple dom elements
+  const annotationText = getAnnotationText(
+    state.doc,
+    annotations.map(x => x.id),
+  );
+
   return (
     <AnnotationViewWrapper
+      annotationText={annotationText}
       data-testid={AnnotationTestIds.floatingComponent}
       key={getAnnotationViewKey(annotations)}
       onViewed={onAnnotationViewed}
     >
-      <ViewComponent
-        annotations={annotations}
-        dom={dom}
-        onDelete={(id: string) =>
-          removeInlineCommentNearSelection(id)(state, dispatch)
-        }
-        onResolve={(id: string) =>
-          updateInlineCommentResolvedState(
-            { [id]: true },
-            RESOLVE_METHOD.COMPONENT,
-          )(state, dispatch)
-        }
-      />
+      {(dismissCallback: () => void) => (
+        <ViewComponent
+          annotations={annotations}
+          dom={dom}
+          onDelete={(id: string) =>
+            removeInlineCommentNearSelection(id)(state, dispatch)
+          }
+          onResolve={(id: string) =>
+            updateInlineCommentResolvedState(
+              { [id]: true },
+              RESOLVE_METHOD.COMPONENT,
+            )(state, dispatch)
+          }
+          onClose={dismissCallback}
+        />
+      )}
     </AnnotationViewWrapper>
   );
 };
@@ -256,7 +273,11 @@ const annotationPlugin = (
         }
 
         const pluginState = getPluginState(state);
-        if (pluginState && !pluginState.bookmark) {
+        if (
+          pluginState &&
+          !pluginState.bookmark &&
+          !pluginState.mouseData.isSelecting
+        ) {
           return buildToolbar(state, intl);
         }
       },

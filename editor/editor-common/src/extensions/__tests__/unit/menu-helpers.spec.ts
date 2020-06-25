@@ -1,4 +1,5 @@
-import { getItemsFromModule } from '../../menu-helpers';
+import { ExtensionManifest, MenuItem } from '../../../extensions/types';
+import { getItemsFromModule, buildMenuItem } from '../../menu-helpers';
 import {
   createFakeExtensionManifest,
   createFakeModule,
@@ -151,6 +152,65 @@ describe('menu-helpers', () => {
           default: bodiedExtension,
         });
       }
+    });
+  });
+
+  describe('buildMenuItem', () => {
+    let menuItem: MenuItem;
+    let myMacro: ExtensionManifest;
+
+    beforeEach(() => {
+      myMacro = createFakeExtensionManifest({
+        title: 'Awesome macro',
+        type: 'confluence.macro',
+        extensionKey: 'awesome',
+        nodes: [
+          {
+            key: 'list',
+          },
+          {
+            key: 'item',
+            parameters: {
+              word: 'awesome',
+            },
+          },
+        ],
+      });
+
+      myMacro.keywords = ['manifest a', 'manifest b'];
+    });
+
+    describe('should use data from the quickInsert module', () => {
+      beforeEach(() => {
+        myMacro.modules.quickInsert![0] = {
+          ...myMacro.modules.quickInsert![0],
+          description: 'quickinsert item description',
+          keywords: ['a', 'b', 'c'],
+        };
+
+        menuItem = buildMenuItem(myMacro, myMacro.modules.quickInsert![0]);
+      });
+
+      test('keywords', () => {
+        expect(menuItem.keywords).toEqual(['a', 'b', 'c']);
+      });
+
+      test('description', () => {
+        expect(menuItem.description).toEqual('quickinsert item description');
+      });
+    });
+
+    describe('should fallback to manifeest data if not provided in the quickInsert module', () => {
+      beforeEach(() => {
+        menuItem = buildMenuItem(myMacro, myMacro.modules.quickInsert![0]);
+      });
+      test('keywords', () => {
+        expect(menuItem.keywords).toEqual(['manifest a', 'manifest b']);
+      });
+
+      test('description', () => {
+        expect(menuItem.description).toEqual('Awesome macro extension');
+      });
     });
   });
 });

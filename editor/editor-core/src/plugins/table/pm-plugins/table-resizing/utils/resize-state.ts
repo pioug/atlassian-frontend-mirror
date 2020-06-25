@@ -7,6 +7,7 @@ import {
 import { getCellsRefsInColumn, getColumnStateFromDOM } from './column-state';
 import { hasTableBeenResized, insertColgroupFromNode } from './colgroup';
 import { ResizeState } from './types';
+import { syncStickyRowToTable } from './dom';
 
 export const getResizeState = ({
   minWidth,
@@ -58,6 +59,9 @@ export const updateColgroup = (
         cols[i].style.width = `${column.width}px`;
       }
     });
+
+  // colgroup has updated, reflect new widths in sticky header
+  syncStickyRowToTable(tableRef);
 };
 
 export const getTotalWidth = ({ cols }: ResizeState): number => {

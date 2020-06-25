@@ -13,7 +13,7 @@ import WidthEmitter from '../../ui/WidthEmitter';
 import { ClickAreaBlock } from '../../ui/Addon';
 import { scrollbarStyles } from '../../ui/styles';
 import { tableFullPageEditorStyles } from '../../plugins/table/ui/styles';
-import Avatars from '../../plugins/collab-edit/ui/avatars';
+import AvatarsWithPluginState from '../../plugins/collab-edit/ui';
 import { akEditorToolbarKeylineHeight } from '../../styles';
 import { EditorProps } from '../../types';
 import EditorActions from '../../actions';
@@ -112,6 +112,7 @@ const MainToolbar: React.ComponentClass<React.HTMLAttributes<{}> &
   display: flex;
   height: 80px;
   flex-shrink: 0;
+  background-color: white;
 
   & object {
     height: 0 !important;
@@ -203,7 +204,7 @@ function FullPage(props: FullPageProps) {
               <Toolbar containerElement={scrollContainerRef.current} />
               <MainToolbarCustomComponentsSlot>
                 {!config ? null : (
-                  <Avatars
+                  <AvatarsWithPluginState
                     editorView={config.editorView}
                     eventDispatcher={config.eventDispatcher}
                     inviteToEditHandler={

@@ -1,14 +1,7 @@
 import { css } from 'styled-components';
 import { gridSize, borderRadius, colors, themed } from '@atlaskit/theme';
 import { PanelType, hexToRgba } from '@atlaskit/adf-schema';
-import {
-  akEditorTableCellMinWidth,
-  akEditorDeleteBackground,
-  akEditorDeleteBorder,
-  akEditorSelectedBorderSize,
-  akEditorDeleteIconColor,
-  blockNodesVerticalMargin,
-} from '../consts';
+import { akEditorTableCellMinWidth, blockNodesVerticalMargin } from '../consts';
 
 const lightPanelColor = {
   info: colors.B50,
@@ -73,6 +66,7 @@ export const PanelSharedCssClassName = {
 export const PanelSharedSelectors = {
   infoPanel: `.${prefix}[data-panel-type=info]`,
   noteButton: `button[aria-label="Note"]`,
+  removeButton: `button[aria-label="Remove"]`,
 };
 
 const iconDynamicStyles = (panelType: PanelType) => (props: any) => {
@@ -169,26 +163,6 @@ export const panelSharedStyles = css`
       .${PanelSharedCssClassName.icon} {
         ${iconDynamicStyles('success')}
       }
-    }
-
-    /* Danger when top level node */
-    &.danger {
-      box-shadow: 0 0 0 ${akEditorSelectedBorderSize}px
-        ${akEditorDeleteBorder};
-      background: ${akEditorDeleteBackground} !important;
-
-      .${PanelSharedCssClassName.icon} {
-        color: ${akEditorDeleteIconColor} !important;
-      }
-    }
-  }
-
-  /* Danger when nested node */
-  & .danger .${PanelSharedCssClassName.prefix} {
-    background: rgb(255, 189, 173, 0.5) !important; /* R75 with 50% opactiy */
-
-    .${PanelSharedCssClassName.icon} {
-      color: ${akEditorDeleteIconColor} !important;
     }
   }
 `;

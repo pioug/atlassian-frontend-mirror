@@ -62,7 +62,13 @@ export class InlineCardUnauthorizedView extends React.Component<
   };
 
   render() {
-    const { url, icon, onClick, isSelected, testId } = this.props;
+    const {
+      url,
+      icon,
+      onClick,
+      isSelected,
+      testId = 'inline-card-unauthorized-view',
+    } = this.props;
     return (
       <Frame
         testId={testId}

@@ -1,7 +1,7 @@
 import { css } from 'styled-components';
 import { colors } from '@atlaskit/theme';
 import { shadowClassNames } from '../../ui/OverflowShadow';
-import { akEditorSmallZIndex } from '../consts';
+import { akEditorShadowZIndex } from '../consts';
 
 const shadowWidth = 8;
 
@@ -28,7 +28,7 @@ const shadowSharedStyle = css`
     display: none;
     position: absolute;
     pointer-events: none;
-    z-index: ${akEditorSmallZIndex};
+    z-index: ${akEditorShadowZIndex};
     width: ${shadowWidth}px;
     content: '';
     /* Scrollbar is outside the content in IE, inset in other browsers. */

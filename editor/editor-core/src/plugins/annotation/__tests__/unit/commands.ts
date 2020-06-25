@@ -139,13 +139,15 @@ describe('commands', () => {
     });
 
     describe('with overlap', () => {
-      it('with 1 overlap', () => {
+      it('when adding annotation inside existing annotation sends analytics with overlap 1', () => {
+        // using formatted text for annotation to make it split into multiple nodes
+        // to make sure this does not increase overlap value
         const commentedDoc = doc(
           p(
             annotation({
               id: 'comment-1',
               annotationType: AnnotationTypes.INLINE_COMMENT,
-            })('This {<}line is an ', strong('UNRESOLVED'), ' comment{>}'),
+            })('This {<}line is a ', strong('formatted'), ' comment{>}'),
           ),
         );
         const editorView = editor(commentedDoc).editorView;
@@ -163,19 +165,19 @@ describe('commands', () => {
         });
       });
 
-      it('with 2 overlaps', () => {
+      it('when adding annotation across 2 existing annotations sends analytics with overlap 2', () => {
         const commentedADF = doc(
           p(
             annotation({
               id: 'comment-1',
               annotationType: AnnotationTypes.INLINE_COMMENT,
-            })('This {<}line is an ', strong('UNRESOLVED'), ' comment'),
+            })('This {<}line is a comment'),
           ),
           p(
             annotation({
               id: 'comment-2',
               annotationType: AnnotationTypes.INLINE_COMMENT,
-            })('This line is an ', strong('RESOLVED'), ' comment{>}'),
+            })('This line is another comment{>}'),
           ),
         );
         const editorView = editor(commentedADF).editorView;

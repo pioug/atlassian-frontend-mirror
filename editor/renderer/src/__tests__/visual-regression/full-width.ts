@@ -37,6 +37,10 @@ describe.skip('Snapshot Test: Full Width', () => {
 
       it('should correctly size images', async () => {
         await initRenderer(page, { ...viewport, height: 1100 }, mediaAdf);
+
+        // Wait for media to be rendered. The examples use a broken media ID
+        // which means it never gets past the loading state.
+        await page.waitForSelector('div[data-testid="media-card-loading"]');
       });
     },
   );

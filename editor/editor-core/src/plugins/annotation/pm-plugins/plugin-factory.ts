@@ -81,11 +81,10 @@ const handleSelectionChanged = (
   tr: Transaction,
   pluginState: InlineCommentPluginState,
 ): InlineCommentPluginState => {
-  pluginState.annotationsInSelection = findAnnotationsInSelection(
+  pluginState.selectedAnnotations = findAnnotationsInSelection(
     tr.selection,
     tr.doc,
-  ).map(annotation => annotation.id);
-
+  );
   return pluginState;
 };
 

@@ -21,6 +21,7 @@ export interface CardOptions {
   resolveBeforeMacros?: string[];
   allowBlockCards?: boolean;
   allowEmbeds?: boolean;
+  allowResizing?: boolean;
 }
 
 export type Request = {

@@ -8,15 +8,13 @@ import WithPluginState from '../WithPluginState';
 import {
   pluginKey as contextPanelPluginKey,
   ContextPanelPluginState,
-  getPluginState,
 } from '../../plugins/context-panel';
 import WithEditorActions from '../WithEditorActions';
 import { EditorView } from 'prosemirror-view';
 
 export type Props = {
-  visible?: boolean;
+  visible: boolean;
   width?: number;
-  onVisibilityChange?: ({ visible }: { visible: boolean }) => void;
   children?: React.ReactElement;
 };
 
@@ -58,7 +56,7 @@ type State = {
   currentPluginContent?: React.ReactNode;
 };
 
-export class SwappableContentArea extends React.Component<
+export class SwappableContentArea extends React.PureComponent<
   SwappableContentAreaProps,
   State
 > {
@@ -67,53 +65,22 @@ export class SwappableContentArea extends React.Component<
     currentPluginContent: undefined,
   };
 
-  private setContextPanelVisibility(visible: boolean) {
-    if (this.props.editorView) {
-      const { editorView, onVisibilityChange } = this.props;
-      const { dispatch, state } = editorView;
-
-      const currentPluginState = getPluginState(state);
-
-      if (currentPluginState.visible !== visible) {
-        dispatch(
-          state.tr.setMeta(contextPanelPluginKey, {
-            visible: visible,
-          }),
-        );
-
-        onVisibilityChange && onVisibilityChange({ visible });
-      }
+  static getDerivedStateFromProps(
+    props: SwappableContentAreaProps,
+    state: State,
+  ): State | null {
+    if (props.pluginContent !== state.currentPluginContent) {
+      return {
+        ...state,
+        currentPluginContent: props.pluginContent,
+      };
     }
-  }
 
-  private setPluginContent(pluginContent?: React.ReactNode) {
-    if (pluginContent && this.state.currentPluginContent !== pluginContent) {
-      this.setState({ currentPluginContent: pluginContent });
-    }
+    return null;
   }
 
   private unsetPluginContent() {
     this.setState({ currentPluginContent: undefined });
-  }
-
-  getVisibility() {
-    const { pluginContent, children, visible } = this.props;
-
-    const userVisible = !!(
-      visible ||
-      (typeof visible === 'undefined' && children)
-    );
-
-    return !!(pluginContent || userVisible);
-  }
-
-  manageVisibilityAndContent() {
-    // there are safe guards in place inside the method to avoig calling it unnecessary
-    this.setContextPanelVisibility(this.getVisibility());
-
-    // When plugin adds content, we save it to state so we can unmount it on a transition.
-    // We only remove it from state after transition is done
-    this.setPluginContent(this.props.pluginContent);
   }
 
   componentDidMount() {
@@ -121,12 +88,6 @@ export class SwappableContentArea extends React.Component<
     this.setState({
       mounted: true,
     });
-
-    this.manageVisibilityAndContent();
-  }
-
-  componentDidUpdate() {
-    this.manageVisibilityAndContent();
   }
 
   showPluginContent = () => {
@@ -170,27 +131,22 @@ export class SwappableContentArea extends React.Component<
   };
 
   render() {
-    const { pluginContent, children, visible } = this.props;
     const { currentPluginContent } = this.state;
 
     const width = currentPluginContent
       ? DEFAULT_CONTEXT_PANEL_WIDTH
       : this.props.width || DEFAULT_CONTEXT_PANEL_WIDTH;
 
-    const userVisible = !!(
-      visible ||
-      (typeof visible === 'undefined' && children)
-    );
-
-    const isVisible = !!(pluginContent || userVisible);
+    const userVisible = !!this.props.visible;
+    const visible = userVisible || !!this.state.currentPluginContent;
 
     return (
       <ContextPanelConsumer>
         {({ broadcastWidth }) => {
-          broadcastWidth(isVisible ? width : 0);
+          broadcastWidth(visible ? width : 0);
 
           return (
-            <Panel panelWidth={width} visible={isVisible}>
+            <Panel panelWidth={width} visible={visible}>
               <Content panelWidth={width}>
                 {this.showPluginContent() ||
                   this.showProvidedContent(userVisible)}

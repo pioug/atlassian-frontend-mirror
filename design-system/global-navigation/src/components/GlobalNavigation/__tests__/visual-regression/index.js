@@ -1,7 +1,10 @@
 import {
   getExampleUrl,
+  loadPage,
   takeScreenShot,
 } from '@atlaskit/visual-regression/helper';
+
+const toggleButtonSelector = 'button[aria-label="Toggle navigation"]';
 
 describe('Snapshot Test', () => {
   it('Basic global navigation should match prod', async () => {
@@ -11,6 +14,8 @@ describe('Snapshot Test', () => {
       'basic-global-navigation',
       global.__BASEURL__,
     );
+    await loadPage(global.page, url);
+    await global.page.waitForSelector(toggleButtonSelector);
     const image = await takeScreenShot(global.page, url);
     expect(image).toMatchProdImageSnapshot();
   });
@@ -22,6 +27,8 @@ describe('Snapshot Test', () => {
       'with-notification-integration',
       global.__BASEURL__,
     );
+    await loadPage(global.page, url);
+    await global.page.waitForSelector(toggleButtonSelector);
     const image = await takeScreenShot(global.page, url);
     expect(image).toMatchProdImageSnapshot();
   });
@@ -35,11 +42,11 @@ describe('Snapshot Test', () => {
     );
     const { page } = global;
     const button = '#profileGlobalItem';
-    await page.goto(url);
+    await loadPage(page, url);
+    await global.page.waitForSelector(toggleButtonSelector);
     await page.waitForSelector(button);
 
     await page.click(button);
-    await page.waitFor(300);
 
     const image = await page.screenshot();
     expect(image).toMatchProdImageSnapshot();
@@ -54,11 +61,10 @@ describe('Snapshot Test', () => {
     );
     const { page } = global;
     const button = '#starDrawerGlobalItem';
-    await page.goto(url);
+    await loadPage(page, url);
     await page.waitForSelector(button);
 
     await page.click(button);
-    await page.waitFor(300);
 
     const image = await page.screenshot();
     expect(image).toMatchProdImageSnapshot();
@@ -73,11 +79,10 @@ describe('Snapshot Test', () => {
     );
     const { page } = global;
     const button = '[data-testid="Navigation"] + div button';
-    await page.goto(url);
+    await loadPage(page, url);
     await page.waitForSelector(button);
 
     await page.click(button);
-    await page.waitFor(350);
 
     const image = await page.screenshot();
     expect(image).toMatchProdImageSnapshot();

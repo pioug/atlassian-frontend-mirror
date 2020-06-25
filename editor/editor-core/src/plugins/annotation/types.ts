@@ -17,6 +17,10 @@ type AnnotationComponentProps = {
    * DOM element around selected text (for positioning)
    */
   dom?: HTMLElement;
+  /**
+   * Indicates that a draft comment was discarded/cancelled
+   */
+  onClose?: () => void;
 };
 
 export type InlineCommentCreateComponentProps = AnnotationComponentProps & {
@@ -24,11 +28,6 @@ export type InlineCommentCreateComponentProps = AnnotationComponentProps & {
    * Creates an annotation mark in the document with the given id.
    */
   onCreate: (id: string) => void;
-
-  /**
-   * Indicates that a draft comment was discarded/cancelled
-   */
-  onClose?: () => void;
 };
 
 export type InlineCommentViewComponentProps = AnnotationComponentProps & {

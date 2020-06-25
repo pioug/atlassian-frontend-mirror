@@ -1,5 +1,6 @@
 import {
   getExampleUrl,
+  loadPage,
   takeElementScreenShot,
 } from '@atlaskit/visual-regression/helper';
 
@@ -20,7 +21,7 @@ describe('Snapshot Test', () => {
 
     const { page } = global;
 
-    await page.goto(url);
+    await loadPage(page, url, true);
     await page.waitForSelector(button);
 
     await page.click(button);
@@ -39,12 +40,10 @@ describe('Snapshot Test', () => {
 
     const { page } = global;
 
-    await page.goto(url);
+    await loadPage(page, url, true);
     await page.waitForSelector(button);
     await page.click(button);
     await page.click(popupPositionButton);
-    // wait for background colour animation on button hover
-    await page.waitFor(500);
 
     const popupImage = await page.screenshot();
     expect(popupImage).toMatchProdImageSnapshot();
@@ -60,7 +59,7 @@ describe('Snapshot Test', () => {
 
     const { page } = global;
 
-    await page.goto(url);
+    await loadPage(page, url);
     await page.waitForSelector(button);
 
     await page.click(button);
@@ -84,7 +83,7 @@ describe('Snapshot Test', () => {
 
     const { page } = global;
 
-    await page.goto(url);
+    await loadPage(page, url);
     await page.waitFor(button);
 
     await page.click(button);
@@ -97,8 +96,7 @@ describe('Snapshot Test', () => {
     await page.click(button0);
     await page.click(button);
     await page.waitForSelector(popup);
-    // We need to wait for the active state animation to finish.
-    await page.waitFor(500);
+
     const popupImageWithFocus = await takeElementScreenShot(page, popup);
     expect(popupImageWithFocus).toMatchProdImageSnapshot();
   });

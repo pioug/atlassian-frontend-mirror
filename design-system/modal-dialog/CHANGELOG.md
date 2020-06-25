@@ -1,5 +1,12 @@
 # @atlaskit/modal-dialog
 
+## 10.6.3
+
+### Patch Changes
+
+- [`fddc283495`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fddc283495) - Added aria-labelledby to dialog and point it to the real heading
+- [`b2b0b94079`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b2b0b94079) - Reverts breaking test id change.
+
 ## 10.6.2
 
 ### Patch Changes

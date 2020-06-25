@@ -1,30 +1,59 @@
 import { Schema, Node as PMNode } from 'prosemirror-model';
-import { analyticsService, AnalyticsProperties } from '../../analytics';
+import {
+  DispatchAnalyticsEvent,
+  ACTION_SUBJECT,
+  ACTION_SUBJECT_ID,
+  ACTION,
+  EVENT_TYPE,
+  AnalyticsEventPayload,
+} from '../analytics';
 
-export const traverseNode = (node: PMNode, schema: Schema): void => {
-  let cxhtml = '';
+function concatAncestorHierarchy(node: PMNode, ancestoryHierarchy?: string) {
+  const { name } = node.type;
+  // Space concatenator used to reduce analytics payload size
+  return ancestoryHierarchy ? `${ancestoryHierarchy} ${name}` : name;
+}
+
+export const findAndTrackUnsupportedContentNodes = (
+  node: PMNode,
+  schema: Schema,
+  dispatchAnalyticsEvent: DispatchAnalyticsEvent,
+  ancestorHierarchy = '',
+): void => {
+  const { type: nodeType } = node;
   const { unsupportedInline, unsupportedBlock } = schema.nodes;
-  if (node.attrs && node.attrs.cxhtml) {
-    cxhtml = node.attrs.cxhtml;
-  }
-
-  const data: AnalyticsProperties = {
-    type: node.type.name,
-    cxhtml: cxhtml,
-    text: node.text || '',
-  };
-
-  if (node.type === unsupportedInline) {
-    analyticsService.trackEvent(
-      'atlassian.editor.confluenceUnsupported.inline',
-      data,
-    );
-  } else if (node.type === unsupportedBlock) {
-    analyticsService.trackEvent(
-      'atlassian.editor.confluenceUnsupported.block',
-      data,
-    );
+  if (nodeType === unsupportedInline || nodeType === unsupportedBlock) {
+    const { originalValue } = node.attrs || {};
+    const { type } = (originalValue || {}) as { type?: string };
+    const unsupportedNode = {
+      type: type || '',
+      ancestry: ancestorHierarchy,
+      parentType: ancestorHierarchy.split(' ').pop() || '',
+    };
+    const actionSubjectId =
+      nodeType === unsupportedInline
+        ? ACTION_SUBJECT_ID.UNSUPPORTED_INLINE
+        : ACTION_SUBJECT_ID.UNSUPPORTED_BLOCK;
+    const payload: AnalyticsEventPayload = {
+      action: ACTION.UNSUPPORTED_CONTENT_ENCOUNTERED,
+      actionSubject: ACTION_SUBJECT.DOCUMENT,
+      actionSubjectId,
+      attributes: {
+        unsupportedNode,
+      },
+      eventType: EVENT_TYPE.TRACK,
+    };
+    // Track the encounter
+    dispatchAnalyticsEvent(payload);
   } else {
-    node.content.forEach(node => traverseNode(node, schema));
+    // Recursive check for nested content
+    node.content.forEach(childNode =>
+      findAndTrackUnsupportedContentNodes(
+        childNode,
+        schema,
+        dispatchAnalyticsEvent,
+        concatAncestorHierarchy(node, ancestorHierarchy),
+      ),
+    );
   }
 };

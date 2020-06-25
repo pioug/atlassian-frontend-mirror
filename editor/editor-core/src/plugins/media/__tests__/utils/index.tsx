@@ -41,10 +41,11 @@ import {
 } from '../../../../utils';
 import { Side } from '../../../gap-cursor';
 import { AnalyticsHandler, analyticsService } from '../../../../analytics';
+import { insertMediaAsMediaSingle } from '../../../../plugins/media/utils/media-single';
 import {
-  insertMediaAsMediaSingle,
   alignAttributes,
-} from '../../../../plugins/media/utils/media-single';
+  wrappedLayouts,
+} from '../../../../utils/rich-media-utils';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { Clipboard } from '@atlaskit/media-picker';
 import { UploadPreviewUpdateEventPayload } from '@atlaskit/media-picker/types';
@@ -59,9 +60,10 @@ import {
 } from '../../../../__tests__/unit/plugins/media/_utils';
 import {
   MediaAttributes,
-  MediaSingleAttributes,
+  RichMediaAttributes as MediaSingleAttributes,
   defaultSchema,
   MediaADFAttrs,
+  RichMediaLayout,
 } from '@atlaskit/adf-schema';
 import { CardEvent, CardOnClickCallback } from '@atlaskit/media-card';
 import { FileDetails } from '@atlaskit/media-client';
@@ -1480,177 +1482,300 @@ describe('Media plugin', () => {
   });
 
   describe('image layout modes', () => {
-    describe('alignment', () => {
-      describe('100% image', () => {
-        it('maintains width for center layout', () => {
+    const lineWidth = 50;
+    const bigImageWidth = 40;
+    const smallImageWidth = 20;
+
+    const nonCenterNonWrappedLayouts: RichMediaLayout[] = [
+      'full-width',
+      'wide',
+    ];
+
+    describe('#alignAttributes', () => {
+      describe('with <100% image', () => {
+        wrappedLayouts.forEach(newAlignment => {
+          it(`should maintain width on ${newAlignment}`, () => {
+            const centerNode: MediaSingleAttributes = {
+              width: 70,
+              layout: 'center',
+            };
+            expect(
+              alignAttributes(
+                newAlignment,
+                centerNode,
+                undefined,
+                bigImageWidth,
+                lineWidth,
+              ),
+            ).toEqual({
+              layout: newAlignment,
+              width: 70,
+            });
+          });
+        });
+      });
+
+      describe('with 100% image', () => {
+        it('should maintain width for center layout', () => {
           const centerNode: MediaSingleAttributes = {
             width: 100,
             layout: 'center',
           };
-          expect(alignAttributes('center', centerNode)).toEqual({
+          expect(
+            alignAttributes(
+              'center',
+              centerNode,
+              undefined,
+              bigImageWidth,
+              lineWidth,
+            ),
+          ).toEqual({
             width: 100,
             layout: 'center',
           });
         });
 
-        it('resizes to half width on align-start', () => {
-          const centerNode: MediaSingleAttributes = { layout: 'center' };
-          expect(alignAttributes('align-start', centerNode)).toEqual({
-            layout: 'align-start',
-            width: 50,
-          });
-        });
-
-        it('resizes to half width on align-end', () => {
-          const centerNode: MediaSingleAttributes = { layout: 'center' };
-          expect(alignAttributes('align-end', centerNode)).toEqual({
-            layout: 'align-end',
-            width: 50,
-          });
-        });
-
-        it('resizes to half width on wrap-left', () => {
-          const centerNode: MediaSingleAttributes = { layout: 'center' };
-          expect(alignAttributes('wrap-left', centerNode)).toEqual({
-            layout: 'wrap-left',
-            width: 50,
-          });
-        });
-
-        it('resizes to half width on wrap-right', () => {
-          const centerNode: MediaSingleAttributes = { layout: 'center' };
-          expect(alignAttributes('wrap-right', centerNode)).toEqual({
-            layout: 'wrap-right',
-            width: 50,
-          });
-        });
-
-        it('changes layout to wide', () => {
-          const centerNode: MediaSingleAttributes = { layout: 'center' };
-          expect(alignAttributes('wide', centerNode)).toEqual({
-            layout: 'wide',
-          });
-        });
-
-        it('changes layout to full-width', () => {
-          const centerNode: MediaSingleAttributes = { layout: 'center' };
-          expect(alignAttributes('full-width', centerNode)).toEqual({
-            layout: 'full-width',
+        wrappedLayouts.forEach(newAlignment => {
+          it(`should resize to half width for ${newAlignment}`, () => {
+            const centerNode: MediaSingleAttributes = {
+              width: 100,
+              layout: 'center',
+            };
+            expect(
+              alignAttributes(
+                newAlignment,
+                centerNode,
+                undefined,
+                bigImageWidth,
+                lineWidth,
+              ),
+            ).toEqual({
+              layout: newAlignment,
+              width: 50,
+            });
           });
         });
       });
 
-      describe('50% image', () => {
-        const centerNode: MediaSingleAttributes = {
-          layout: 'center',
-          width: 50,
-        };
+      nonCenterNonWrappedLayouts.forEach(oldAlignment => {
+        describe(`with ${oldAlignment} and 70% width`, () => {
+          wrappedLayouts.forEach(newAlignment => {
+            it(`should resize to 50 for ${newAlignment}`, () => {
+              const centerNode: MediaSingleAttributes = {
+                width: 70,
+                layout: oldAlignment,
+              };
+              expect(
+                alignAttributes(
+                  newAlignment,
+                  centerNode,
+                  undefined,
+                  bigImageWidth,
+                  lineWidth,
+                ),
+              ).toEqual({
+                layout: newAlignment,
+                width: 50,
+              });
+            });
+          });
+        });
+      });
 
-        it('maintains width on center', () => {
+      describe('with unresized image', () => {
+        wrappedLayouts.forEach(newAlignment => {
+          it(`should resize to half width for ${newAlignment}`, () => {
+            const centerNode: MediaSingleAttributes = { layout: 'center' };
+            expect(
+              alignAttributes(
+                newAlignment,
+                centerNode,
+                undefined,
+                bigImageWidth,
+                lineWidth,
+              ),
+            ).toEqual({
+              layout: newAlignment,
+              width: 50,
+            });
+          });
+        });
+      });
+
+      nonCenterNonWrappedLayouts.forEach(oldAlignment => {
+        it(`should drop width for center from ${oldAlignment}`, () => {
+          const centerNode: MediaSingleAttributes = {
+            layout: oldAlignment,
+            width: 60,
+          };
+          expect(
+            alignAttributes(
+              'center',
+              centerNode,
+              undefined,
+              bigImageWidth,
+              lineWidth,
+            ),
+          ).toEqual({
+            layout: 'center',
+          });
+        });
+      });
+
+      describe('with small image', () => {
+        wrappedLayouts.forEach(newAlignment => {
+          it(`should not add 50% width when alignment changed to ${newAlignment}`, () => {
+            const centerNode: MediaSingleAttributes = { layout: 'center' };
+            expect(
+              alignAttributes(
+                newAlignment,
+                centerNode,
+                undefined,
+                smallImageWidth,
+                lineWidth,
+              ),
+            ).toEqual({
+              layout: newAlignment,
+            });
+          });
+        });
+      });
+
+      describe('with 50% image', () => {
+        it('should maintain width on center', () => {
           const leftAlignedNode: MediaSingleAttributes = {
             layout: 'center',
             width: 50,
           };
-          expect(alignAttributes('center', leftAlignedNode)).toEqual({
+          expect(
+            alignAttributes(
+              'center',
+              leftAlignedNode,
+              undefined,
+              bigImageWidth,
+              lineWidth,
+            ),
+          ).toEqual({
             layout: 'center',
             width: 50,
           });
         });
 
-        it('maintains width on align-start', () => {
-          expect(alignAttributes('align-start', centerNode)).toEqual({
-            layout: 'align-start',
-            width: 50,
+        wrappedLayouts.forEach(newAlignment => {
+          it(`should maintain width on ${newAlignment}`, () => {
+            const centerNode: MediaSingleAttributes = {
+              layout: 'center',
+              width: 50,
+            };
+            expect(
+              alignAttributes(
+                newAlignment,
+                centerNode,
+                undefined,
+                bigImageWidth,
+                lineWidth,
+              ),
+            ).toEqual({
+              layout: newAlignment,
+              width: 50,
+            });
           });
         });
 
-        it('maintains width on align-end', () => {
-          expect(alignAttributes('align-end', centerNode)).toEqual({
-            layout: 'align-end',
+        it('should change layout to wide', () => {
+          const centerNode: MediaSingleAttributes = {
+            layout: 'center',
             width: 50,
-          });
-        });
-
-        it('maintains width on wrap-left', () => {
-          expect(alignAttributes('wrap-left', centerNode)).toEqual({
-            layout: 'wrap-left',
-            width: 50,
-          });
-        });
-
-        it('maintains width on wrap-right', () => {
-          expect(alignAttributes('wrap-right', centerNode)).toEqual({
-            layout: 'wrap-right',
-            width: 50,
-          });
-        });
-
-        it('changes layout to wide', () => {
-          expect(alignAttributes('wide', centerNode)).toEqual({
+          };
+          expect(
+            alignAttributes(
+              'wide',
+              centerNode,
+              undefined,
+              bigImageWidth,
+              lineWidth,
+            ),
+          ).toEqual({
             layout: 'wide',
             width: 50,
           });
         });
 
-        it('changes layout to full-width', () => {
-          expect(alignAttributes('full-width', centerNode)).toEqual({
+        it('should change layout to full-width', () => {
+          const centerNode: MediaSingleAttributes = {
+            layout: 'center',
+            width: 50,
+          };
+          expect(
+            alignAttributes(
+              'full-width',
+              centerNode,
+              undefined,
+              bigImageWidth,
+              lineWidth,
+            ),
+          ).toEqual({
             layout: 'full-width',
             width: 50,
           });
         });
       });
 
-      describe('11-column align-left image', () => {
-        it('changes width to 10-column on centering', () => {
+      it('should update width when previous width does not align to even grid', () => {
+        const leftAlignedNode: MediaSingleAttributes = {
+          layout: 'align-start',
+          width: 60,
+        };
+        expect(
+          alignAttributes(
+            'center',
+            leftAlignedNode,
+            undefined,
+            bigImageWidth,
+            lineWidth,
+          ),
+        ).toEqual({
+          layout: 'center',
+          width: 50,
+        });
+      });
+
+      it('should drop width when previous width aligns to even grid', () => {
+        const leftAlignedNode: MediaSingleAttributes = {
+          layout: 'align-start',
+          width: 50,
+        };
+        expect(
+          alignAttributes(
+            'center',
+            leftAlignedNode,
+            undefined,
+            bigImageWidth,
+            lineWidth,
+          ),
+        ).toEqual({
+          layout: 'center',
+        });
+      });
+
+      describe('with 11-column align-left image', () => {
+        it('should changes width to 10-column on centering', () => {
           const attrs: MediaSingleAttributes = {
             width: 91.6,
             layout: 'align-start',
           };
 
-          expect(alignAttributes('center', attrs)).toEqual({
+          expect(
+            alignAttributes(
+              'center',
+              attrs,
+              undefined,
+              bigImageWidth,
+              lineWidth,
+            ),
+          ).toEqual({
             layout: 'center',
             width: 83.33333333333334,
-          });
-        });
-      });
-
-      describe('unresized image', () => {
-        it('does not apply width if already center', () => {
-          const centerNode: MediaSingleAttributes = { layout: 'center' };
-          expect(alignAttributes('center', centerNode)).toEqual({
-            layout: 'center',
-          });
-        });
-
-        it('resizes to half width on align-start', () => {
-          const centerNode: MediaSingleAttributes = { layout: 'center' };
-          expect(alignAttributes('align-start', centerNode)).toEqual({
-            layout: 'align-start',
-            width: 50,
-          });
-        });
-
-        it('resizes to half width on align-end', () => {
-          const centerNode: MediaSingleAttributes = { layout: 'center' };
-          expect(alignAttributes('align-end', centerNode)).toEqual({
-            layout: 'align-end',
-            width: 50,
-          });
-        });
-
-        it('resizes to half width on wrap-left', () => {
-          const centerNode: MediaSingleAttributes = { layout: 'center' };
-          expect(alignAttributes('wrap-left', centerNode)).toEqual({
-            layout: 'wrap-left',
-            width: 50,
-          });
-        });
-
-        it('resizes to half width on wrap-right', () => {
-          const centerNode: MediaSingleAttributes = { layout: 'center' };
-          expect(alignAttributes('wrap-right', centerNode)).toEqual({
-            layout: 'wrap-right',
-            width: 50,
           });
         });
       });

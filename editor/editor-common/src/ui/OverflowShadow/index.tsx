@@ -57,7 +57,6 @@ export default function overflowShadow<P>(
         return;
       }
 
-      this.applyScrollToFixedHeaders(this.overflowContainer);
       this.updateShadows();
     };
 
@@ -90,16 +89,6 @@ export default function overflowShadow<P>(
       overflowContainer: HTMLElement | null | undefined,
     ): boolean => {
       return !!overflowContainer && overflowContainer.scrollLeft > 0;
-    };
-
-    applyScrollToFixedHeaders = (overflowContainer: HTMLElement): void => {
-      const headers = overflowContainer.querySelectorAll(
-        'tr[data-header-row].fixed',
-      );
-      headers.forEach(header => {
-        header.scrollLeft = overflowContainer.scrollLeft;
-      });
-      return;
     };
 
     calcOverflowDiff = () => {

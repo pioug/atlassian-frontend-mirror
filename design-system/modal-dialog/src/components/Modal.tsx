@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { canUseDOM } from 'exenv';
+import { UIDConsumer, UIDReset } from 'react-uid';
 
 import {
   createAndFireEvent,
@@ -157,35 +158,47 @@ class Modal extends React.Component<Props, State> {
                 widthName={widthName}
                 widthValue={widthValue}
               >
-                <Dialog
-                  heightValue={height}
-                  isChromeless={isChromeless}
-                  role="dialog"
-                  data-testid={testId}
-                  tabIndex={-1}
-                >
-                  <Content
-                    actions={actions}
-                    appearance={appearance}
-                    components={components}
-                    footer={footer}
-                    heading={heading}
-                    isHeadingMultiline={isHeadingMultiline}
-                    header={header}
-                    onClose={onClose}
-                    shouldScroll={
-                      scrollBehavior === 'inside' ||
-                      scrollBehavior === 'inside-wide'
-                    }
-                    shouldCloseOnEscapePress={shouldCloseOnEscapePress}
-                    onStackChange={onStackChange}
-                    isChromeless={isChromeless}
-                    stackIndex={stackIndex}
-                    body={body}
-                  >
-                    {children}
-                  </Content>
-                </Dialog>
+                {/*
+                  When converting this into lite mode, please use `useUID` hooks instead. More can be find here: https://github.com/thearnica/react-uid
+                 */}
+                <UIDReset>
+                  <UIDConsumer>
+                    {(id, _) => (
+                      <Dialog
+                        heightValue={height}
+                        isChromeless={isChromeless}
+                        role="dialog"
+                        aria-labelledby={`dialog-heading-${id}`}
+                        data-testid={testId}
+                        tabIndex={-1}
+                      >
+                        <Content
+                          actions={actions}
+                          appearance={appearance}
+                          components={components}
+                          footer={footer}
+                          heading={heading}
+                          headingId={`dialog-heading-${id}`}
+                          testId={testId && `${testId}-dialog-content`}
+                          isHeadingMultiline={isHeadingMultiline}
+                          header={header}
+                          onClose={onClose}
+                          shouldScroll={
+                            scrollBehavior === 'inside' ||
+                            scrollBehavior === 'inside-wide'
+                          }
+                          shouldCloseOnEscapePress={shouldCloseOnEscapePress}
+                          onStackChange={onStackChange}
+                          isChromeless={isChromeless}
+                          stackIndex={stackIndex}
+                          body={body}
+                        >
+                          {children}
+                        </Content>
+                      </Dialog>
+                    )}
+                  </UIDConsumer>
+                </UIDReset>
               </Positioner>
             </FocusLock>
           </StyledFillScreen>

@@ -10,13 +10,31 @@ export const {
   getPluginState,
 } = pluginFactory(pluginKey, reducer, {
   mapping: (tr, pluginState) => {
-    if (tr.docChanged && pluginState.targetCellPosition) {
-      const { pos, deleted } = tr.mapping.mapResult(
-        pluginState.targetCellPosition,
-      );
+    if (tr.docChanged) {
+      let updatedTargetCell = {};
+      if (pluginState.targetCellPosition) {
+        const { pos, deleted } = tr.mapping.mapResult(
+          pluginState.targetCellPosition,
+        );
+
+        updatedTargetCell = {
+          targetCellPosition: deleted ? undefined : pos,
+        };
+      }
+
+      let updatedTablePos = {};
+      if (pluginState.tablePos) {
+        const { pos, deleted } = tr.mapping.mapResult(pluginState.tablePos, -1);
+
+        updatedTablePos = {
+          tablePos: deleted ? undefined : pos,
+        };
+      }
+
       return {
         ...pluginState,
-        targetCellPosition: deleted ? undefined : pos,
+        ...updatedTargetCell,
+        ...updatedTablePos,
       };
     }
     return pluginState;

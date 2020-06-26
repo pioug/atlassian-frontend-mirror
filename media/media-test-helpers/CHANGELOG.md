@@ -1,5 +1,11 @@
 # @atlaskit/media-test-helpers
 
+## 27.2.2
+
+### Patch Changes
+
+- [`eac08411a3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eac08411a3) - Updated react-redux dependency to 5.1.0
+
 ## 27.2.1
 
 ### Patch Changes

@@ -17,14 +17,12 @@ describe.skip('onboarding spotlight visual regression', () => {
       'spotlight-dialog-placement',
       __BASEURL__,
     );
-    await loadPage(page, url);
+    await loadPage(page, url, true);
     await page.waitForSelector(openButtonSelector);
 
     await page.click(openButtonSelector);
     await page.waitForSelector(spotlightTargetSelector);
     await page.waitForSelector(spotlightDialogSelector);
-    // We need to wait for the animation to finish.
-    await page.waitFor(1000);
 
     const image = await takeElementScreenShot(page, 'body');
     expect(image).toMatchProdImageSnapshot();
@@ -38,14 +36,12 @@ describe.skip('onboarding spotlight visual regression', () => {
       'spotlight-dialog-placement',
       __BASEURL__,
     );
-    await loadPage(page, url);
+    await loadPage(page, url, true);
     await page.waitForSelector(openButtonSelector);
 
     await page.click(openButtonSelector);
     await page.waitForSelector(spotlightTargetSelector);
     await page.waitForSelector(spotlightDialogSelector);
-    // We need to wait for the animation to finish.
-    await page.waitFor(1000);
 
     await page.setViewport({
       height: page.viewport().height,

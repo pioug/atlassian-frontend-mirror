@@ -1,5 +1,11 @@
 # @atlaskit/table-tree
 
+## 8.0.7
+
+### Patch Changes
+
+- [`eac08411a3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eac08411a3) - Updated react-redux dependency to 5.1.0
+
 ## 8.0.6
 
 ### Patch Changes

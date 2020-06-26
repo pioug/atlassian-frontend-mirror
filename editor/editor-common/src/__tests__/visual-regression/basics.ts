@@ -1,5 +1,7 @@
 import { loadFullPageEditorWithAdf, snapshot } from './_utils';
 import { waitForLoadedBackgroundImages } from '@atlaskit/visual-regression/helper';
+import { EmojiSharedCssClassName } from '../../styles/shared/emoji';
+
 import adf from './adf/basic-content.adf.json';
 
 describe('Snapshot Test: Basic Content', () => {
@@ -8,8 +10,10 @@ describe('Snapshot Test: Basic Content', () => {
     await page.setViewport({ width: 1000, height: 1000 });
     await loadFullPageEditorWithAdf(page, adf);
     // Wait for loaded emoji image (contained within ADF)
-    const emojiSelector = '.emoji-common-emoji-sprite';
-    await waitForLoadedBackgroundImages(page, emojiSelector);
+    await waitForLoadedBackgroundImages(
+      page,
+      `.${EmojiSharedCssClassName.EMOJI_SPRITE}`,
+    );
     await snapshot(page);
   });
 });

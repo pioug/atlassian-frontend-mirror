@@ -32,7 +32,8 @@ export const placeholder: NodeSpec = {
     const { text } = node.attrs;
     const attrs = {
       'data-placeholder': text,
-      contenteditable: 'false',
+      // Needs to be edtiable for mobile to not close keyboard
+      contenteditable: 'true',
     };
     return ['span', attrs, text];
   },

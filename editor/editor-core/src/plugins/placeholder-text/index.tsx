@@ -1,11 +1,14 @@
 import React from 'react';
+import { Node as PmNode } from 'prosemirror-model';
 import {
   NodeSelection,
   Plugin,
   TextSelection,
   Transaction,
 } from 'prosemirror-state';
+import { EditorView } from 'prosemirror-view';
 import { placeholder } from '@atlaskit/adf-schema';
+import { getPosHandler } from '../../nodeviews/types';
 import { EditorPlugin } from '../../types/editor-plugin';
 import WithPluginState from '../../ui/WithPluginState';
 import { Dispatch } from '../../event-dispatcher';
@@ -16,8 +19,9 @@ import {
   hidePlaceholderFloatingToolbar,
   insertPlaceholderTextAtSelection,
 } from './actions';
-import { PlaceholderTextOptions, PluginState } from './types';
+import { PlaceholderTextNodeView } from './placeholder-text-nodeview';
 import { pluginKey } from './plugin-key';
+import { PlaceholderTextOptions, PluginState } from './types';
 
 export function createPlugin(
   dispatch: Dispatch<PluginState>,
@@ -99,6 +103,12 @@ export function createPlugin(
         }
       }
       return;
+    },
+    props: {
+      nodeViews: {
+        placeholder: (node: PmNode, view: EditorView, getPos: getPosHandler) =>
+          new PlaceholderTextNodeView(node, view, getPos),
+      },
     },
   });
 }

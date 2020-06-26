@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/conversation",
-  "version": "15.7.7",
+  "version": "15.7.8",
   "description": "Render conversation threads",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -36,7 +36,7 @@
     "lodash.debounce": "^4.0.8",
     "lodash.isequal": "^4.5.0",
     "react": "^16.8.0",
-    "react-redux": "^5.0.0",
+    "react-redux": "^5.1.2",
     "redux": "^3.7.2",
     "redux-thunk": "^2.3.0",
     "tslib": "^1.9.3"

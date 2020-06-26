@@ -2,6 +2,7 @@ import {
   getExampleUrl,
   loadPage,
   takeElementScreenShot,
+  waitForLoadedImageElements,
 } from '@atlaskit/visual-regression/helper';
 
 const openModalBtn = "[type='button']";
@@ -21,6 +22,7 @@ describe('Snapshot Test', () => {
     await page.waitForSelector(openModalBtn);
     await page.click(openModalBtn);
     await page.waitForSelector(modalDialog);
+    await waitForLoadedImageElements(page, 5000);
 
     const image = await takeElementScreenShot(page, modalDialog);
     expect(image).toMatchProdImageSnapshot();
@@ -40,6 +42,7 @@ describe('Snapshot Test', () => {
     await page.waitForSelector(openModalBtn);
     await page.click(toggle);
     await page.click(openModalBtn);
+    await waitForLoadedImageElements(page, 5000);
 
     const image = await takeElementScreenShot(page, modalDialog);
     expect(image).toMatchProdImageSnapshot();
@@ -58,6 +61,7 @@ describe('Snapshot Test', () => {
     await page.waitForSelector(openModalBtn);
     await page.click(openModalBtn);
     await page.waitForSelector(modalDialog);
+    await waitForLoadedImageElements(page, 5000);
 
     const image = await takeElementScreenShot(page, modalDialog);
     expect(image).toMatchProdImageSnapshot();

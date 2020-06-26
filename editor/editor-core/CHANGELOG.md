@@ -1,5 +1,11 @@
 # @atlaskit/editor-core
 
+## 125.0.1
+
+### Patch Changes
+
+- [`8566522867`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8566522867) - ED-9613 fix: prevent Android from closing keyboard when clicking placeholder-text
+
 ## 125.0.0
 
 ### Major Changes

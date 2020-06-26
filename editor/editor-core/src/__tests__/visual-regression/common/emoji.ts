@@ -22,8 +22,7 @@ describe('Emoji', () => {
         viewport: { width: 300, height: 150 },
       });
       // Wait for loaded emoji image (contained within ADF)
-      const emojiSelector = '.emoji-common-emoji-sprite';
-      await waitForLoadedBackgroundImages(page, emojiSelector);
+      await waitForLoadedBackgroundImages(page, emojiSelectors.standard);
     });
 
     afterEach(async () => {

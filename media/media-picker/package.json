@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-picker",
-  "version": "54.2.0",
+  "version": "54.2.1",
   "description": "Library for handling file uploads",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -47,7 +47,7 @@
     "lodash.debounce": "^4.0.8",
     "perf-marks": "^1.5.0",
     "postis": "^2.2.0",
-    "react-redux": "^5.0.0",
+    "react-redux": "^5.1.2",
     "redux": "^3.7.2",
     "redux-devtools-extension": "^2.13.2",
     "url": "^0.11.0",

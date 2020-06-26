@@ -1,5 +1,11 @@
 # @atlaskit/media-picker
 
+## 54.2.1
+
+### Patch Changes
+
+- [`eac08411a3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eac08411a3) - Updated react-redux dependency to 5.1.0
+
 ## 54.2.0
 
 ### Minor Changes

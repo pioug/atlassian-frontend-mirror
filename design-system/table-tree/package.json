@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/table-tree",
-  "version": "8.0.6",
+  "version": "8.0.7",
   "description": "A React Component for displaying expandable tables with tree-like hierarchies",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -47,7 +47,7 @@
     "enzyme": "^3.10.0",
     "exenv": "^1.2.2",
     "react-dom": "^16.8.0",
-    "react-redux": "^5.0.0",
+    "react-redux": "^5.1.2",
     "redux": "^3.7.2",
     "redux-thunk": "^2.3.0",
     "wait-for-expect": "^1.2.0"

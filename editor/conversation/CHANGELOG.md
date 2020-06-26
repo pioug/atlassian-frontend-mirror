@@ -1,5 +1,11 @@
 # @atlaskit/conversation
 
+## 15.7.8
+
+### Patch Changes
+
+- [`eac08411a3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eac08411a3) - Updated react-redux dependency to 5.1.0
+
 ## 15.7.7
 
 ### Patch Changes

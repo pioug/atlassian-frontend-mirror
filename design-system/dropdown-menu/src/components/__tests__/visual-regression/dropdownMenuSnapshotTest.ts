@@ -9,7 +9,7 @@ const dropdownItem = '[data-testid="dropdown--content"]';
 const dialogBox = '[data-testid="dialogBox"]';
 
 describe('Snapshot Test', () => {
-  it('Dropdown-menu modal should match snapshot when open with keyboard', async () => {
+  it.skip('Dropdown-menu modal should match snapshot when open with keyboard', async () => {
     const url = getExampleUrl(
       'design-system',
       'dropdown-menu',

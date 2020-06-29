@@ -1,16 +1,13 @@
 import { Observable } from 'rxjs/Observable';
-import { safeUnsubscribe } from './safeUnsubscribe';
+import { Subscriber } from 'rxjs/Subscriber';
 
 // We can't use observable.toPromise() because it only resolves when the observable completes, which never happens with ReplaySubject
-export const observableToPromise = <T>(
-  observable: Observable<T>,
-): Promise<T> => {
-  return new Promise<T>(resolve => {
-    const subscription = observable.subscribe({
-      next: state => {
+export const observableToPromise = <T>(observable: Observable<T>): Promise<T> =>
+  new Promise<T>(resolve =>
+    observable.subscribe({
+      next(this: Subscriber<T>, state) {
         resolve(state);
-        safeUnsubscribe(subscription);
+        this.unsubscribe();
       },
-    });
-  });
-};
+    }),
+  );

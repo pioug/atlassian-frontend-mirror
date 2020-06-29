@@ -31,6 +31,7 @@ export const Popup: FC<PopupProps> = memo(
     shouldFlip = true,
     popupComponent: PopupContainer = DefaultPopupComponent,
     zIndex = layers.layer(),
+    autoFocus = true,
   }: PopupProps) => {
     const [popupRef, setPopupRef] = useState<HTMLDivElement | null>(null);
     const [triggerRef, setTriggerRef] = useState<HTMLElement | null>(null);
@@ -95,7 +96,7 @@ export const Popup: FC<PopupProps> = memo(
                     style={style}
                     // using tabIndex={-1} would cause a bug where Safari focuses
                     // first on the browser address bar when using keyboard
-                    tabIndex={0}
+                    tabIndex={autoFocus ? 0 : undefined}
                   >
                     <RepositionOnUpdate
                       content={content}

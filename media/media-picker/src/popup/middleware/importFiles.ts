@@ -14,12 +14,12 @@ import {
   observableToPromise,
   isErrorFileState,
   isProcessedFileState,
-  safeUnsubscribe,
   ErrorFileState,
   isFinalFileState,
   isMimeTypeSupportedByBrowser,
 } from '@atlaskit/media-client';
 import { RECENTS_COLLECTION } from '@atlaskit/media-client/constants';
+import { Subscriber } from 'rxjs/Subscriber';
 
 import { State, SelectedItem, LocalUpload, ServiceName } from '../domain';
 import { isStartImportAction } from '../actions/startImport';
@@ -40,7 +40,6 @@ import { getPreviewFromMetadata } from '../../domain/preview';
 import { NotifyMetadataPayload } from '../tools/websocket/upload/wsUploadEvents';
 import { UploadEvent } from '../../domain/uploadEvent';
 import { getPreviewFromBlob } from '../../util/getPreviewFromBlob';
-import { Subscription } from 'rxjs/Subscription';
 
 export interface RemoteFileItem extends SelectedItem {
   accountId: string;
@@ -158,25 +157,25 @@ const getPreviewByService = (
   } else if (serviceName === 'upload') {
     const observable = getFileStreamsCache().get(fileId);
     if (observable) {
-      return new Promise<FilePreview>((resolve, reject) => {
-        const subscription = observable.subscribe({
-          next(state) {
+      return new Promise<FilePreview>((resolve, reject) =>
+        observable.subscribe({
+          next(this: Subscriber<FileState>, state) {
             if (isPreviewableFileState(state)) {
               // We only want to resolve defined state.preview, even though
               // TS allows resolve with undefined.
-              safeUnsubscribe(subscription);
+              this.unsubscribe();
               return resolve(state.preview);
             }
 
             if (isFinalFileState(state)) {
-              safeUnsubscribe(subscription);
+              this.unsubscribe();
               return isImageRepresentationReady(state)
                 ? resolve(getRemotePreview(store, fileId))
                 : reject(new Error('File has no image representation'));
             }
           },
-        });
-      });
+        }),
+      );
     }
   } else if (serviceName === 'recent_files' && isPreviewableType(mediaType)) {
     // TODO, EDM-674: handle case where recent file is an image/video and has failed processing
@@ -499,7 +498,7 @@ const emitPublicEvents = (
   };
 
   tenantMediaClient.file.getFileState(fileId).subscribe({
-    async next(this: Subscription, fileState: FileState) {
+    async next(this: Subscriber<FileState>, fileState: FileState) {
       if (isErrorFileState(fileState)) {
         if (publicEventEmissionState['upload-error'] !== 'sent') {
           dispatchUploadError(fileState);

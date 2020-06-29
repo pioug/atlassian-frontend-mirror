@@ -1,5 +1,11 @@
 # @atlaskit/media-client
 
+## 6.2.3
+
+### Patch Changes
+
+- [`81c6a2fcb2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/81c6a2fcb2) - Fixed potential exception when synchronously accessing uninitialized RxJS subscription.
+
 ## 6.2.2
 
 ### Patch Changes

@@ -1,6 +1,10 @@
 import { Subscription } from 'rxjs/Subscription';
 
-// Unsubscribes on the next tick since "next" callback gets called sync and the subscription didn't return anything yet
+// TODO: remove this in next major version
 export const safeUnsubscribe = (subscription: Subscription) => {
+  // eslint-disable-next-line no-console
+  console.warn(
+    'safeUnsubscribe() is deprecated and will be removed in the next media-client major version',
+  );
   setTimeout(() => subscription && subscription.unsubscribe(), 0);
 };

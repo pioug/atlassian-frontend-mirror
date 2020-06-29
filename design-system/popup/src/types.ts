@@ -76,7 +76,7 @@ export interface PopupComponentProps {
   /**
    * Tab index passed through by the parent popup.
    */
-  tabIndex: number;
+  tabIndex: number | undefined;
 }
 
 export interface PopupProps {
@@ -154,6 +154,13 @@ export interface PopupProps {
    * Defaults to `layers.layer()` from `@atlaskit/theme`.
    */
   zIndex?: number;
+
+  /**
+   * Controls whether the popup takes focus when opening.
+   * This changes the `popupComponent` component tabIndex to `null`.
+   * Defaults to `true`.
+   */
+  autoFocus?: boolean;
 }
 
 export type CloseManagerHook = Pick<PopupProps, 'isOpen' | 'onClose'> & {

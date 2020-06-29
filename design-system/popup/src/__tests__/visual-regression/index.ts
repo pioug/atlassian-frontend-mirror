@@ -2,6 +2,7 @@ import {
   getExampleUrl,
   loadPage,
   takeElementScreenShot,
+  takeScreenShot,
 } from '@atlaskit/visual-regression/helper';
 
 const button = '#popup-trigger';
@@ -9,6 +10,7 @@ const spinner = '#spinner';
 const popup = '#popup-content';
 const button0 = '[name="Button 0"]';
 const popupPositionButton = '[data-testid="popup-position"]';
+const container = '#container';
 
 describe('Snapshot Test', () => {
   it('it should match visual snapshot for popup', async () => {
@@ -99,5 +101,29 @@ describe('Snapshot Test', () => {
 
     const popupImageWithFocus = await takeElementScreenShot(page, popup);
     expect(popupImageWithFocus).toMatchProdImageSnapshot();
+  });
+
+  it('it should match visual snapshot for setting focus when autoFocus = false', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'popup',
+      'popup-disable-autofocus',
+      global.__BASEURL__,
+    );
+
+    const { page } = global;
+
+    await loadPage(page, url);
+
+    await page.waitFor(container);
+
+    const popupInputeWithFocus = await takeScreenShot(page, container);
+    expect(popupInputeWithFocus).toMatchProdImageSnapshot();
+
+    await page.click(button);
+    await page.waitForSelector(popup);
+
+    const inputShouldStillHaveFocus = await takeScreenShot(page, container);
+    expect(inputShouldStillHaveFocus).toMatchProdImageSnapshot();
   });
 });

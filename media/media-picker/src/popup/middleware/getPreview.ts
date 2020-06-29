@@ -1,10 +1,11 @@
 import { Store, Dispatch, Middleware } from 'redux';
+import { Subscriber } from 'rxjs/Subscriber';
+import { FileState } from '@atlaskit/media-client';
 import { GetPreviewAction, isGetPreviewAction } from '../actions/getPreview';
 import { State } from '../domain';
 import { sendUploadEvent } from '../actions/sendUploadEvent';
 import { getPreviewFromMetadata } from '../../domain/preview';
 import { NonImagePreview, Preview } from '../../types';
-import { safeUnsubscribe } from '@atlaskit/media-client';
 
 export default function(): Middleware {
   return store => (next: Dispatch<State>) => (action: any) => {
@@ -37,16 +38,17 @@ const dispatchPreviewUpdate = (
 export function getPreview(store: Store<State>, action: GetPreviewAction) {
   const { file, collection } = action;
   const { userMediaClient } = store.getState();
-  const subscription = userMediaClient.file
+  userMediaClient.file
     .getFileState(file.id, { collectionName: collection })
     .subscribe({
-      async next(state) {
+      async next(this: Subscriber<FileState>, state) {
         if (state.status === 'error') {
           return;
         }
 
         const { mediaType } = state;
-        safeUnsubscribe(subscription);
+        this.unsubscribe();
+
         if (mediaType === 'image' || mediaType === 'video') {
           const metadata = await userMediaClient.getImageMetadata(file.id, {
             collection,

@@ -1,5 +1,6 @@
 import uuidV4 from 'uuid/v4';
 import {
+  FileState,
   MediaStore,
   MediaStoreCopyFileWithTokenBody,
   UploadController,
@@ -14,10 +15,10 @@ import {
   getFileStreamsCache,
   MediaClient,
   globalMediaEventEmitter,
-  safeUnsubscribe,
 } from '@atlaskit/media-client';
 import { RECENTS_COLLECTION } from '@atlaskit/media-client/constants';
 import { EventEmitter2 } from 'eventemitter2';
+import { Subscriber } from 'rxjs/Subscriber';
 import { MediaFile, UploadParams } from '../types';
 
 import { mapAuthToSourceFileOwner } from '../popup/domain/source-file';
@@ -179,15 +180,16 @@ export class UploadServiceImpl implements UploadService {
           },
         };
 
-        const subscription = sourceFileObservable.subscribe({
-          next: state => {
+        const onFileSuccess = this.onFileSuccess.bind(this);
+        sourceFileObservable.subscribe({
+          next(this: Subscriber<FileState>, state) {
             if (state.status === 'processing') {
-              safeUnsubscribe(subscription);
+              this.unsubscribe();
               if (shouldCopyFileToRecents) {
                 mediaClient.emit('file-added', state);
                 globalMediaEventEmitter.emit('file-added', state);
               }
-              this.onFileSuccess(cancellableFileUpload, id);
+              onFileSuccess(cancellableFileUpload, id);
             }
           },
           error: error => {

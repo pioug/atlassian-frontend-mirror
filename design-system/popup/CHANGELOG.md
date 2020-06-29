@@ -1,5 +1,11 @@
 # @atlaskit/popup
 
+## 0.5.0
+
+### Minor Changes
+
+- [`ebcb467688`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ebcb467688) - Add a new prop `autoFocus` to allow consumers to control whether the Popup takes focus when opened
+
 ## 0.4.3
 
 ### Patch Changes

@@ -1,5 +1,5 @@
-import React, { useMemo } from 'react';
-import { Card } from '@atlaskit/smart-card';
+import React, { useMemo, useContext, useState } from 'react';
+import { Card, Context as CardContext } from '@atlaskit/smart-card';
 import {
   EventHandlers,
   WidthConsumer,
@@ -101,6 +101,20 @@ export default function EmbedCard(props: {
 
   const padding = rendererAppearance === 'full-page' ? FullPagePadding * 2 : 0;
 
+  const [hasPreview, setPreviewAvailableState] = useState(true);
+  const cardContext = useContext(CardContext);
+
+  const onResolve = () => {
+    const hasPreviewOnResolve = !!(
+      cardContext &&
+      url &&
+      cardContext.extractors.getPreview(url, platform)
+    );
+    if (!hasPreviewOnResolve) {
+      setPreviewAvailableState(false);
+    }
+  };
+
   return (
     <WidthConsumer>
       {({ width: containerWidth, breakpoint }) => {
@@ -142,6 +156,7 @@ export default function EmbedCard(props: {
               fullWidthMode={isFullWidth}
               nodeType="embedCard"
               lineLength={isInsideOfBlockNode ? containerWidth : lineLength}
+              hasFallbackContainer={hasPreview}
             >
               <EmbedCardWrapper>
                 <div
@@ -157,6 +172,7 @@ export default function EmbedCard(props: {
                   <Card
                     appearance="embed"
                     {...cardProps}
+                    onResolve={onResolve}
                     inheritDimensions={true}
                   />
                 </div>

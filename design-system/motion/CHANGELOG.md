@@ -1,5 +1,13 @@
 # @atlaskit/motion
 
+## 0.3.0
+
+### Minor Changes
+
+- [`dd275c9b81`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dd275c9b81) - Added the option to animate opacity within `SlideIn`.
+
+  You can now add the property `animateOpacity` which if true, animates the opacity from 0 -> 1 on enter and 1 -> 0 on exit.
+
 ## 0.2.6
 
 ### Patch Changes

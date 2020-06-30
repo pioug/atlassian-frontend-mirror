@@ -17,7 +17,7 @@ interface ReResizableNumberSize {
 }
 
 type ResizerProps = ResizableMediaSingleProps & {
-  selected: boolean;
+  selected?: boolean;
   enable: EnabledHandles;
   calcNewSize: (
     newWidth: number,

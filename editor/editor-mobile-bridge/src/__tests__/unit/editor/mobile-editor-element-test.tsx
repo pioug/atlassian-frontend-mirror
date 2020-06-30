@@ -10,6 +10,7 @@ import {
 } from '../../../providers';
 import { IntlProvider } from 'react-intl';
 import { FetchProxy } from '../../../utils/fetch-proxy';
+import { createCollabProviderFactory } from '../../../providers/collab-provider';
 
 const initialDocument = JSON.stringify({
   version: 1,
@@ -42,6 +43,7 @@ describe('mobile editor element', () => {
     wrapper = mount(
       <MobileEditor
         mode="light"
+        createCollabProvider={createCollabProviderFactory(fetchProxy)}
         cardClient={createCardClient()}
         cardProvider={createCardProvider()}
         defaultValue={initialDocument}
@@ -71,12 +73,14 @@ describe('mobile editor element', () => {
 
   describe('when the mobile editor is mounted', () => {
     it('should set the editorView in the bridge', () => {
-      expect((window as any).bridge).toBeDefined();
-      expect((window as any).bridge.editorView).toBeNull();
+      expect(window.bridge).toBeDefined();
+      if (window.bridge) {
+        expect(window.bridge.editorView).toBeNull();
 
-      initEditor();
-      expect((window as any).bridge).toBeDefined();
-      expect((window as any).bridge.editorView).not.toBeNull();
+        initEditor();
+        expect(window.bridge).toBeDefined();
+        expect(window.bridge.editorView).not.toBeNull();
+      }
     });
   });
 

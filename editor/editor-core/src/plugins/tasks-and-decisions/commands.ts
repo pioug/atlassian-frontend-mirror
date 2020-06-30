@@ -1,41 +1,44 @@
-import { uuid } from '@atlaskit/adf-schema';
-import { ContextIdentifierProvider } from '@atlaskit/editor-common';
-import { ResolvedPos, Schema, NodeType } from 'prosemirror-model';
+import { autoJoin } from 'prosemirror-commands';
+import { NodeType, ResolvedPos, Schema } from 'prosemirror-model';
 import {
   EditorState,
   Selection,
-  Transaction,
   TextSelection,
+  Transaction,
 } from 'prosemirror-state';
-import { EditorView } from 'prosemirror-view';
-import { autoJoin } from 'prosemirror-commands';
 import {
-  safeInsert,
+  findParentNodeOfType,
   hasParentNodeOfType,
   replaceParentNodeOfType,
-  findParentNodeOfType,
+  safeInsert,
   setTextSelection,
 } from 'prosemirror-utils';
-import { GapCursorSelection } from '../gap-cursor';
+import { EditorView } from 'prosemirror-view';
+
+import { uuid } from '@atlaskit/adf-schema';
+import { ContextIdentifierProvider } from '@atlaskit/editor-common';
+
+import { Command } from '../../types';
 import {
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
-  EVENT_TYPE,
-  AnalyticsEventPayload,
   addAnalytics,
+  AnalyticsEventPayload,
+  EVENT_TYPE,
   INPUT_METHOD,
   USER_CONTEXT,
 } from '../analytics';
-import {
-  ContextData,
-  TaskDecisionListType,
-  AddItemTransactionCreator,
-  TaskDecisionInputMethod,
-} from './types';
-import { stateKey as taskDecisionStateKey } from './pm-plugins/plugin-key';
-import { Command } from '../../types';
+import { GapCursorSelection } from '../gap-cursor';
 import { TOOLBAR_MENU_TYPE } from '../insert-block/ui/ToolbarInsertBlock/types';
+
+import { stateKey as taskDecisionStateKey } from './pm-plugins/plugin-key';
+import {
+  AddItemTransactionCreator,
+  ContextData,
+  TaskDecisionInputMethod,
+  TaskDecisionListType,
+} from './types';
 
 const getContextData = (
   contextProvider: ContextIdentifierProvider = {} as ContextIdentifierProvider,

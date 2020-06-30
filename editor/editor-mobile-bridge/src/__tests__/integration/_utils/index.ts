@@ -91,7 +91,6 @@ export const callRendererBridge = async (
 
 export const clearBridgeOutput = async (browser: any) => {
   await browser.execute(() => {
-    // @ts-ignore
     window.logBridge = [];
   });
 };
@@ -103,7 +102,6 @@ export const getBridgeOutput = async (
 ) => {
   const logs = await browser.execute(
     (bridge: string, bridgeFn: string) => {
-      // @ts-ignore
       let logs = window.logBridge;
 
       if (logs[`${bridge}:${bridgeFn}`]) {

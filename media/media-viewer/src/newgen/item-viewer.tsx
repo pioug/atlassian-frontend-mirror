@@ -83,19 +83,16 @@ export class ItemViewerBase extends React.Component<Props, State> {
     this.init(this.props);
   }
 
-  private onImageViewerLoaded = async (payload: ViewerLoadPayload) => {
+  private onImageViewerLoaded = (payload: ViewerLoadPayload) => {
     const { item } = this.state;
     // the item.whenFailed case is handled in the "init" method
-    item.whenSuccessful(async fileState => {
+    item.whenSuccessful(fileState => {
       if (fileState.status === 'processed') {
         const { identifier } = this.props;
         if (payload.status === 'success') {
           this.fireAnalytics(mediaFileLoadSucceededEvent(fileState));
         } else if (payload.status === 'error' && isFileIdentifier(identifier)) {
-          const id =
-            typeof identifier.id === 'string'
-              ? identifier.id
-              : await identifier.id;
+          const { id } = identifier;
           this.fireAnalytics(
             mediaFileLoadFailedEvent(
               id,
@@ -259,15 +256,14 @@ export class ItemViewerBase extends React.Component<Props, State> {
     );
   }
 
-  private async init(props: Props) {
+  private init(props: Props) {
     const { mediaClient, identifier } = props;
 
     if (isExternalImageIdentifier(identifier)) {
       return;
     }
 
-    const id =
-      typeof identifier.id === 'string' ? identifier.id : await identifier.id;
+    const { id } = identifier;
     this.fireAnalytics(mediaFileCommencedEvent(id));
     this.subscription = mediaClient.file
       .getFileState(id, {

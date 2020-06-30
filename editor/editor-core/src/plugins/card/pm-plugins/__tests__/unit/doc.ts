@@ -904,8 +904,25 @@ describe('card', () => {
         updateCard(atlassianUrl)(state, dispatch);
 
         expect(editorView.state.doc).toEqualDocument(
-          doc(p('hello', inlineCard({ url: atlassianUrl })())),
+          doc(
+            p('hello', a({ href: atlassianUrl })('http://www.atlassian.com/')),
+          ),
         );
+
+        expect(pluginKey.getState(editorView.state)).toEqual({
+          cards: [],
+          requests: [
+            {
+              url: 'http://www.atlassian.com/',
+              pos: 6,
+              appearance: 'inline',
+              compareLinkText: true,
+              source: 'manual',
+            },
+          ],
+          provider: null,
+          showLinkingToolbar: false,
+        } as CardPluginState);
       });
     });
   });

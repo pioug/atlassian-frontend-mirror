@@ -1,18 +1,19 @@
 import { keymap } from 'prosemirror-keymap';
+import { ResolvedPos } from 'prosemirror-model';
 import { EditorState, Plugin, TextSelection } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
+
 import { analyticsService } from '../../analytics';
-import { EditorPlugin, CommandDispatch } from '../../types';
+import { Dispatch } from '../../event-dispatcher';
 import {
-  AnalyticsEventPayload,
   ACTION,
   ACTION_SUBJECT,
-  INPUT_METHOD,
-  EVENT_TYPE,
   ACTION_SUBJECT_ID,
+  AnalyticsEventPayload,
+  EVENT_TYPE,
+  INPUT_METHOD,
 } from '../../plugins/analytics';
-import { Dispatch } from '../../event-dispatcher';
-import { ResolvedPos } from 'prosemirror-model';
+import { CommandDispatch, EditorPlugin } from '../../types';
 import { analyticsEventKey } from '../analytics/consts';
 
 export function createPlugin(

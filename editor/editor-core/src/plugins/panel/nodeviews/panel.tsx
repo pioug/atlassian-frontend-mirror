@@ -104,12 +104,7 @@ class PanelNodeView {
     // If clicking in the left margin or icon of panel
     const targetIsGutter = target.closest(`.${PanelSharedCssClassName.icon}`);
 
-    // This gives us click leniency
-    const targetIsContent = target.classList.contains(
-      PanelSharedCssClassName.content,
-    );
-
-    if (targetIsBorder || targetIsGutter || targetIsContent) {
+    if (targetIsBorder || targetIsGutter) {
       event.stopPropagation();
       const { state, dispatch } = this.view;
       selectNode(this.getPos())(state, dispatch);

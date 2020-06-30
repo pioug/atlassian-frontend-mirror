@@ -57,6 +57,9 @@ export {
   SortOrder,
   AnnotationState,
   AnnotationProviders,
+  AnnotationUpdateEmitter,
+  AnnotationUpdateEvent,
+  AnnotationUpdateEventPayloads,
 } from './types';
 
 export {
@@ -228,6 +231,7 @@ export {
   EmojiSharedCssClassName,
   StatusSharedCssClassName,
   smartCardSharedStyles,
+  SmartCardSharedCssClassName,
   DEFAULT_EMBED_CARD_WIDTH,
   DEFAULT_EMBED_CARD_HEIGHT,
   akEditorLineHeight,
@@ -284,6 +288,8 @@ export {
   withOuterListeners,
   MediaLink,
   MediaLinkWrapper,
+  wrappedLayouts,
+  shouldAddDefaultWrappedWidth,
 } from './ui';
 
 export { linkMessages } from './messages/link';

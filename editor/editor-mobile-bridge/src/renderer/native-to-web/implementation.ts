@@ -1,10 +1,11 @@
 import { TaskState, ObjectKey } from '@atlaskit/task-decision';
-
+import { AnnotationUpdateEvent } from '@atlaskit/editor-common';
 import RendererBridge, {
   ScrollToContentNode,
-  Serialized,
   AnnotationFocusPayload,
+  AnnotationStatePayload,
 } from './bridge';
+import { Serialized } from '../../types';
 import WebBridge from '../../web-bridge';
 import { eventDispatcher } from '../dispatcher';
 import { resolvePromise, rejectPromise } from '../../cross-platform-promise';
@@ -126,7 +127,23 @@ class RendererBridgeImplementation extends RendererMobileWebBridgeOverride
 
   setAnnotationFocus(
     annotationFocusPayload?: Serialized<AnnotationFocusPayload>,
-  ) {}
+  ) {
+    if (typeof annotationFocusPayload === 'string') {
+      const payload = JSON.parse(annotationFocusPayload);
+
+      eventDispatcher.emit(AnnotationUpdateEvent.SET_ANNOTATION_FOCUS, payload);
+    } else {
+      eventDispatcher.emit(AnnotationUpdateEvent.REMOVE_ANNOTATION_FOCUS);
+    }
+  }
+
+  setAnnotationState(annotations: Serialized<AnnotationStatePayload[]>) {
+    if (typeof annotations === 'string') {
+      const payload = JSON.parse(annotations);
+
+      eventDispatcher.emit(AnnotationUpdateEvent.SET_ANNOTATION_STATE, payload);
+    }
+  }
 }
 
 export default RendererBridgeImplementation;

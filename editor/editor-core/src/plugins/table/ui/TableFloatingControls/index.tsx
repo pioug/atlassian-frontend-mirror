@@ -1,15 +1,18 @@
-import React from 'react';
-import { Component } from 'react';
-import { EditorView } from 'prosemirror-view';
+import React, { Component } from 'react';
+
 import { Selection } from 'prosemirror-state';
+import { EditorView } from 'prosemirror-view';
+
 import { browser } from '@atlaskit/editor-common';
-import CornerControls from './CornerControls';
-import RowControls from './RowControls';
-import NumberColumn from './NumberColumn';
-import { isSelectionUpdated } from '../../utils';
+
 import { hoverRows, selectRow } from '../../commands';
-import { TableColumnOrdering } from '../../types';
 import { RowStickyState } from '../../pm-plugins/sticky-headers';
+import { TableColumnOrdering } from '../../types';
+import { isSelectionUpdated } from '../../utils';
+
+import CornerControls from './CornerControls';
+import NumberColumn from './NumberColumn';
+import RowControls from './RowControls';
 
 export interface Props {
   editorView: EditorView;

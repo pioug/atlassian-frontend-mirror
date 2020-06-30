@@ -31,3 +31,10 @@ export type Match = {
   /** End position */
   end: number;
 };
+
+export type TextGrouping = {
+  /** The concatenated text across nodes */
+  text: string;
+  /** Start position */
+  pos: number;
+} | null;

@@ -1,43 +1,45 @@
-import { Slice, Fragment } from 'prosemirror-model';
+import { Fragment, Slice } from 'prosemirror-model';
 import { TextSelection } from 'prosemirror-state';
 import { CellSelection } from 'prosemirror-tables';
-import { isRowSelected, findParentNodeOfType } from 'prosemirror-utils';
+import { findParentNodeOfType, isRowSelected } from 'prosemirror-utils';
+import { EditorView } from 'prosemirror-view';
+
 import { defaultSchema } from '@atlaskit/adf-schema';
 import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
 import {
   doc,
   p,
+  panelNote,
   table,
-  tr,
   td,
-  th,
   tdCursor,
   tdEmpty,
-  panelNote,
+  th,
+  tr,
 } from '@atlaskit/editor-test-helpers/schema-builder';
+
 import {
-  transformSliceToAddTableHeaders,
-  clearMultipleCells,
-  setMultipleCellAttrs,
-  toggleContextualMenu,
-  setEditorFocus,
-  setTableRef,
-  selectColumn,
-  selectRow,
-  toggleHeaderColumn,
-  addBoldInEmptyHeaderCells,
-  toggleHeaderRow,
-} from '../../commands';
-import { handleCut } from '../../event-handlers';
-import { TablePluginState } from '../../types';
-import { EditorView } from 'prosemirror-view';
-import {
-  temporaryMediaGroup,
   getFreshMediaProvider,
+  temporaryMediaGroup,
 } from '../../../../__tests__/unit/plugins/media/_utils';
 import { EditorProps } from '../../../../types';
-import { getPluginState, pluginKey } from '../../pm-plugins/plugin-factory';
+import {
+  addBoldInEmptyHeaderCells,
+  clearMultipleCells,
+  selectColumn,
+  selectRow,
+  setEditorFocus,
+  setMultipleCellAttrs,
+  setTableRef,
+  toggleContextualMenu,
+  toggleHeaderColumn,
+  toggleHeaderRow,
+  transformSliceToAddTableHeaders,
+} from '../../commands';
 import { splitCell } from '../../commands/split-cell';
+import { handleCut } from '../../event-handlers';
+import { getPluginState, pluginKey } from '../../pm-plugins/plugin-factory';
+import { TablePluginState } from '../../types';
 
 describe('table plugin: actions', () => {
   const createEditor = createEditorFactory<TablePluginState>();

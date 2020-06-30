@@ -1,49 +1,50 @@
-import React from 'react';
-import { Component } from 'react';
-import { defineMessages, injectIntl, InjectedIntlProps } from 'react-intl';
+import React, { Component } from 'react';
+
+import { Rect, splitCell } from 'prosemirror-tables';
 import { EditorView } from 'prosemirror-view';
-import { splitCell, Rect } from 'prosemirror-tables';
-import { canMergeCells } from '../../transforms';
+import { defineMessages, InjectedIntlProps, injectIntl } from 'react-intl';
+
 import {
-  hoverMergedCells,
-  hoverColumns,
-  hoverRows,
+  addColumnAfter,
+  addRowAfter,
+  backspace,
+  tooltip,
+} from '../../../../keymaps';
+import ColorPalette from '../../../../ui/ColorPalette';
+import cellBackgroundColorPalette from '../../../../ui/ColorPalette/Palettes/cellBackgroundColorPalette';
+import DropdownMenu from '../../../../ui/DropdownMenu';
+import { Shortcut } from '../../../../ui/styles';
+import { closestElement } from '../../../../utils/dom';
+import { INPUT_METHOD } from '../../../analytics';
+import { DropdownItem } from '../../../block-type/ui/ToolbarBlockType';
+import {
   clearHoverSelection,
+  hoverColumns,
+  hoverMergedCells,
+  hoverRows,
   toggleContextualMenu,
 } from '../../commands';
-import { TableCssClassName as ClassName, SortOrder } from '../../types';
-import { contextualMenuDropdownWidth } from '../styles';
-import { Shortcut } from '../../../../ui/styles';
-import DropdownMenu from '../../../../ui/DropdownMenu';
-import ColorPalette from '../../../../ui/ColorPalette';
-import tableMessages from '../messages';
-import { INPUT_METHOD } from '../../../analytics';
 import {
-  setColorWithAnalytics,
-  deleteRowsWithAnalytics,
   deleteColumnsWithAnalytics,
-  insertRowWithAnalytics,
-  mergeCellsWithAnalytics,
-  splitCellWithAnalytics,
+  deleteRowsWithAnalytics,
   emptyMultipleCellsWithAnalytics,
   insertColumnWithAnalytics,
+  insertRowWithAnalytics,
+  mergeCellsWithAnalytics,
+  setColorWithAnalytics,
   sortColumnWithAnalytics,
+  splitCellWithAnalytics,
 } from '../../commands-with-analytics';
+import { getPluginState } from '../../pm-plugins/plugin-factory';
+import { canMergeCells } from '../../transforms';
+import { TableCssClassName as ClassName, SortOrder } from '../../types';
 import {
   getMergedCellsPositions,
   getSelectedColumnIndexes,
   getSelectedRowIndexes,
 } from '../../utils';
-import {
-  tooltip,
-  addColumnAfter,
-  addRowAfter,
-  backspace,
-} from '../../../../keymaps';
-import { DropdownItem } from '../../../block-type/ui/ToolbarBlockType';
-import cellBackgroundColorPalette from '../../../../ui/ColorPalette/Palettes/cellBackgroundColorPalette';
-import { getPluginState } from '../../pm-plugins/plugin-factory';
-import { closestElement } from '../../../../utils/dom';
+import tableMessages from '../messages';
+import { contextualMenuDropdownWidth } from '../styles';
 
 export const messages = defineMessages({
   cellBackground: {

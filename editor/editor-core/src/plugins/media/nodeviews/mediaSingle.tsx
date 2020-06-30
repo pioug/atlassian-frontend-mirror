@@ -16,7 +16,7 @@ import {
   ContextIdentifierProvider,
 } from '@atlaskit/editor-common';
 import { CardEvent } from '@atlaskit/media-card';
-import { NodeSelection } from 'prosemirror-state';
+import { isNodeSelectedOrInRange } from '../../../utils/nodes';
 import { MediaClientConfig } from '@atlaskit/media-core';
 
 import {
@@ -323,7 +323,7 @@ export default class MediaSingleNode extends Component<
         allowBreakoutSnapPoints={
           mediaOptions && mediaOptions.allowBreakoutSnapPoints
         }
-        selected={this.props.selected()}
+        selected={selected()}
       >
         {MediaChild}
       </ResizableMediaSingle>
@@ -371,6 +371,7 @@ class MediaSingleNodeView extends SelectionBasedNodeView<
 > {
   lastOffsetLeft = 0;
   forceViewUpdate = false;
+  isSelected = false;
 
   createDomRef(): HTMLElement {
     const domRef = document.createElement('div');
@@ -396,8 +397,29 @@ class MediaSingleNodeView extends SelectionBasedNodeView<
       return true;
     }
 
+    if (this.isSelected !== this.checkAndUpdateIsSelected()) {
+      return true;
+    }
     return super.viewShouldUpdate(nextNode);
   }
+
+  checkAndUpdateIsSelected = () => {
+    const getPos = this.getPos as getPosHandlerNode;
+    const isNodeSelected =
+      isNodeSelectedOrInRange(
+        this.view.state.selection.$anchor.pos,
+
+        this.view.state.selection.$head.pos,
+
+        getPos(),
+
+        this.node.nodeSize,
+      ) !== null;
+
+    this.isSelected = isNodeSelected;
+
+    return isNodeSelected;
+  };
 
   getNodeMediaId(node: PMNode): string | undefined {
     if (node.firstChild) {
@@ -443,12 +465,6 @@ class MediaSingleNodeView extends SelectionBasedNodeView<
                 mediaPluginState: mediaPluginKey,
               }}
               render={({ width, mediaPluginState }) => {
-                const { selection } = this.view.state;
-                const isSelected = () =>
-                  this.isSelectionInsideNode(selection.from, selection.to) ||
-                  (selection instanceof NodeSelection &&
-                    selection.from === getPos());
-
                 return (
                   <MediaSingleNode
                     width={width.width}
@@ -460,7 +476,7 @@ class MediaSingleNodeView extends SelectionBasedNodeView<
                     mediaOptions={mediaOptions || {}}
                     view={this.view}
                     fullWidthMode={fullWidthMode}
-                    selected={isSelected}
+                    selected={this.checkAndUpdateIsSelected}
                     eventDispatcher={eventDispatcher}
                     mediaPluginState={mediaPluginState}
                     dispatchAnalyticsEvent={dispatchAnalyticsEvent}

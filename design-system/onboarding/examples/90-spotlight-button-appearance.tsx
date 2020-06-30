@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 
 import styled from 'styled-components';
 
+import Button from '@atlaskit/button';
+
 import {
   Spotlight,
   SpotlightManager,
@@ -23,7 +25,10 @@ interface State {
   active: boolean;
 }
 
-export default class SpotlightDialogWidthExample extends Component<{}, State> {
+export default class SpotlightButtonAppearanceExample extends Component<
+  {},
+  State
+> {
   state: State = { active: false };
 
   start = () => this.setState({ active: true });
@@ -39,14 +44,22 @@ export default class SpotlightDialogWidthExample extends Component<{}, State> {
           <SpotlightTarget name="custom-button-appearances">
             <Highlight color="neutral">Target</Highlight>
           </SpotlightTarget>
+
           <p>
-            <button onClick={this.start}>Show</button>
+            <Button onClick={this.start} testId="open-spotlight">
+              Show
+            </Button>
           </p>
           <SpotlightTransition>
             {active && (
               <Spotlight
                 actions={[
                   { onClick: this.finish, text: 'Default' },
+                  {
+                    appearance: 'subtle',
+                    onClick: this.finish,
+                    text: 'Subtle',
+                  },
                   {
                     appearance: 'subtle-link', //TODO: this is required
                     onClick: this.finish,
@@ -59,8 +72,9 @@ export default class SpotlightDialogWidthExample extends Component<{}, State> {
                 target="custom-button-appearances"
               >
                 <p>
-                  Spotlight provides theming for <code>default</code> and{' '}
-                  <code>subtle-link</code> button appearances.
+                  Spotlight provides theming for <code>default</code>,{' '}
+                  <code>subtle</code>, and <code>subtle-link</code> button
+                  appearances.
                 </p>
               </Spotlight>
             )}

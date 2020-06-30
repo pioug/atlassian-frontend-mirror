@@ -1,4 +1,3 @@
-import { CollabSendableSelection } from '@atlaskit/editor-common';
 import { Channel } from '../channel';
 import {
   ParticipantPayload,
@@ -6,6 +5,8 @@ import {
   InitPayload,
   Config,
 } from '../types';
+import { CollabSendableSelection } from '@atlaskit/editor-common/collab';
+import { createSocketIOSocket } from '../socket-io-provider';
 
 jest.mock('socket.io-client');
 
@@ -34,6 +35,7 @@ const testChannelConfig: Config = {
   url: `http://dummy-url:6666`,
   documentAri: 'ari:cloud:confluence:ABC:page/testpage',
   userId: 'ari:cloud:identity::user/foo:testuser',
+  createSocket: createSocketIOSocket,
 };
 
 const getChannel = (config: Config = testChannelConfig): Channel => {
@@ -60,6 +62,15 @@ const getExpectValidEventHandler = (channel: Channel) => (
 };
 
 describe('channel unit tests', () => {
+  let logSpy: jest.SpyInstance;
+
+  beforeEach(() => {
+    logSpy = jest.spyOn(console, 'log').mockImplementation(() => {});
+  });
+  afterEach(() => {
+    logSpy.mockClear();
+  });
+
   it('should register eventHandlers as expected', async () => {
     const channel = getChannel();
     const expectValidEventHandler = getExpectValidEventHandler(channel);

@@ -1,9 +1,10 @@
 import { keymap } from 'prosemirror-keymap';
 import { Plugin } from 'prosemirror-state';
-import * as keymaps from '../../../keymaps';
+
 import { trackAndInvoke } from '../../../analytics';
-import { clearFormattingWithAnalytics } from '../commands/clear-formatting';
+import * as keymaps from '../../../keymaps';
 import { INPUT_METHOD } from '../../analytics';
+import { clearFormattingWithAnalytics } from '../commands/clear-formatting';
 
 export function keymapPlugin(): Plugin {
   const list = {};

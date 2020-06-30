@@ -37,7 +37,7 @@ export default () => {
         {isModalOpen && (
           <ModalDialog
             testId="dialogBox"
-            heading="Hi there 👋"
+            heading="Hi there"
             onClose={() => setModalOpen(false)}
           >
             <div style={{ padding: '20px 0' }}>

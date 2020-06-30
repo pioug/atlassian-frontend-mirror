@@ -1,27 +1,29 @@
 import React from 'react';
+
 import {
   DOMOutputSpec,
   DOMSerializer,
   Node as PmNode,
 } from 'prosemirror-model';
 import { EditorView, NodeView } from 'prosemirror-view';
+
+import { EventDispatcher } from '../../../event-dispatcher';
 import {
   ForwardRef,
   getPosHandler,
   getPosHandlerNode,
-} from '../../../nodeviews/';
+} from '../../../nodeviews';
 import ReactNodeView from '../../../nodeviews/ReactNodeView';
 import { PortalProviderAPI } from '../../../ui/PortalProvider';
-import { generateColgroup } from '../pm-plugins/table-resizing/utils';
-import TableComponent from './TableComponent';
-
 import WithPluginState from '../../../ui/WithPluginState';
 import { pluginKey as widthPluginKey } from '../../width';
-import { pluginKey as tableResizingPluginKey } from '../pm-plugins/table-resizing/index';
-import { getPluginState, pluginKey } from '../pm-plugins/plugin-factory';
 import { pluginConfig as getPluginConfig } from '../create-plugin-config';
+import { getPluginState, pluginKey } from '../pm-plugins/plugin-factory';
+import { pluginKey as tableResizingPluginKey } from '../pm-plugins/table-resizing';
+import { generateColgroup } from '../pm-plugins/table-resizing/utils';
+
+import TableComponent from './TableComponent';
 import { Props, TableOptions } from './types';
-import { EventDispatcher } from '../../../event-dispatcher';
 
 const tableAttributes = (node: PmNode) => {
   return {

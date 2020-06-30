@@ -1,5 +1,46 @@
 # @atlaskit/toggle
 
+## 9.0.0
+
+### Major Changes
+
+- [`74b9e80533`](https://bitbucket.org/atlassian/atlassian-frontend/commits/74b9e80533) - **BREAKING** - The `label` prop has been removed.
+  If wanting to pair your toggle with a `label` element make sure to use the freshly introduced `id` prop!
+
+  Before:
+
+  ```js
+  <Toggle label="Allow pull requests" />
+  ```
+
+  After (we use Emotion here - but you can use any equivalent library):
+
+  ```js
+  /** @jsx jsx */
+  import { jsx } from '@emotion/core';
+  import { visuallyHidden } from '@atlaskit/theme/constants';
+
+  <label css={visuallyHidden()} htmlFor="my-toggle">Allow pull requests</label>
+  <Toggle id="my-toggle" />
+  ```
+
+  This now also allows you to visually show a label (just omit the visually hidden mixin) -
+  which for the most part you'll want to do.
+  Read [the design docs](https://atlassian.design/guidelines/product/components/toggles) for more inspiration.
+
+  Happy toggling!
+
+### Minor Changes
+
+- [`5ab389c082`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5ab389c082) - Adds an `id` prop for you to use with a pairing label element, for use like so:
+
+  ```js
+  import Toggle from '@atlaskit/toggle';
+
+  <label htmlFor="my-toggle">Do the thing</label>
+  <Toggle id="my-toggle" />
+  ```
+
 ## 8.1.9
 
 ### Patch Changes

@@ -117,10 +117,10 @@ export class SmartMediaEditor extends React.Component<
     }
   }
 
-  getFile = async (identifier: FileIdentifier) => {
+  getFile = (identifier: FileIdentifier) => {
     const { mediaClient } = this.props;
     const { collectionName, occurrenceKey } = identifier;
-    const id = await identifier.id;
+    const { id } = identifier;
     const getFileSubscription = mediaClient.file
       .getFileState(id, { collectionName, occurrenceKey })
       .subscribe({
@@ -171,7 +171,7 @@ export class SmartMediaEditor extends React.Component<
 
   setRemoteImageUrl = async (identifier: FileIdentifier) => {
     const { mediaClient } = this.props;
-    const id = await identifier.id;
+    const { id } = identifier;
     const imageUrl = await mediaClient.getImageUrl(id, {
       collection: identifier.collectionName,
       mode: 'full-fit',

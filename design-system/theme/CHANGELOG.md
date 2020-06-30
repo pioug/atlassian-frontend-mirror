@@ -1,5 +1,11 @@
 # @atlaskit/theme
 
+## 9.5.6
+
+### Patch Changes
+
+- [`9326de67db`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9326de67db) - fix: return default theme mode if mode is other than 'light' or 'dark'
+
 ## 9.5.5
 
 ### Patch Changes

@@ -23,6 +23,21 @@
         {
           "type": "inlineCard",
           "attrs": {
+            "url": "https://inlineCardTestUrl/resolving"
+          }
+        },
+        {
+          "type": "text",
+          "text": " "
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "inlineCard",
+          "attrs": {
             "url": "https://inlineCardTestUrl/unauthorized"
           }
         },

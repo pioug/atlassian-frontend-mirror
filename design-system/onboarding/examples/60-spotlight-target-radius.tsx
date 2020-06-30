@@ -46,8 +46,8 @@ export default class SpotlightTargetRadiusExample extends Component<{}, State> {
       </Spotlight>,
       <Spotlight
         actions={[
-          { onClick: this.prev, text: 'Prev' },
           { onClick: this.next, text: 'Next' },
+          { onClick: this.prev, text: 'Prev', appearance: 'subtle' },
         ]}
         dialogPlacement="bottom center"
         heading="Medium"

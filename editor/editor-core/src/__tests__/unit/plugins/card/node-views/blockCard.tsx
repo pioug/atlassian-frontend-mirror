@@ -64,7 +64,6 @@ describe('blockCard', () => {
       <BlockCardComponent
         node={mockBlockCardPmNode}
         view={mockEditorView}
-        selected={false}
         getPos={() => 0}
       />,
     );
@@ -85,7 +84,6 @@ describe('blockCard', () => {
       <BlockCardComponent
         node={mockBlockCardPmNode}
         view={mockEditorView}
-        selected={false}
         getPos={() => 0}
       />,
     );
@@ -104,7 +102,6 @@ describe('blockCard', () => {
       <BlockCardComponent
         node={mockBlockPmNode}
         view={mockEditorView}
-        selected={false}
         getPos={() => 0}
       />,
     );

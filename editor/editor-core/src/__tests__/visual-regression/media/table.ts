@@ -24,8 +24,8 @@ const editors: { appearance: Appearance; snapshotSelector?: string }[] = [
     snapshotSelector: editorCommentContentSelector,
   },
 ];
-// TODO: https://product-fabric.atlassian.net/browse/ED-7721
-describe.skip('Snapshot Test: Media', () => {
+
+describe('Snapshot Test: Media', () => {
   let page: Page;
   beforeAll(async () => {
     page = global.page;

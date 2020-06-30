@@ -1,7 +1,7 @@
-import { Command } from '../../../types';
-import { findTypeAheadQuery } from '../utils/find-query-mark';
 import { analyticsService } from '../../../analytics';
+import { Command } from '../../../types';
 import { pluginKey } from '../pm-plugins/plugin-key';
+import { findTypeAheadQuery } from '../utils/find-query-mark';
 
 export const dismissCommand = (): Command => (state, dispatch) => {
   const queryMark = findTypeAheadQuery(state);

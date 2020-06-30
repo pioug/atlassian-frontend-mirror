@@ -1,8 +1,8 @@
 import { Plugin, EditorState } from 'prosemirror-state';
 import {
   selectionPluginKey,
-  SelectionPluginState,
   SelectionPluginOptions,
+  SelectionPluginState,
 } from './types';
 import { Dispatch } from '../../event-dispatcher';
 import { getDecorations, shouldRecalcDecorations } from './utils';

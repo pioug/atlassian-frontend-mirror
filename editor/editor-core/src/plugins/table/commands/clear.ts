@@ -2,10 +2,11 @@
 import { Selection } from 'prosemirror-state';
 import { CellSelection } from 'prosemirror-tables';
 import {
-  isCellSelection,
-  findCellClosestToPos,
   emptyCell,
+  findCellClosestToPos,
+  isCellSelection,
 } from 'prosemirror-utils';
+
 import { Command } from '../../../types';
 // #endregion
 

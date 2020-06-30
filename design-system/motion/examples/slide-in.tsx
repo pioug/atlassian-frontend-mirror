@@ -7,13 +7,15 @@ import Button, { ButtonGroup } from '@atlaskit/button';
 
 import { Block, Centered, RetryContainer } from '../examples-utils';
 import { ExitingPersistence, SlideIn } from '../src';
-import { Direction } from '../src/entering/types';
+import { Direction, Fade } from '../src/entering/types';
 
 const froms: Direction[] = ['top', 'right', 'bottom', 'left'];
+const fades: Fade[] = ['none', 'in', 'out', 'inout'];
 
 export default () => {
   const [isIn, setIsIn] = useState(true);
   const [fromIndex, setFromIndex] = useState(0);
+  const [fadeIndex, setFadeIndex] = useState(0);
 
   return (
     <RetryContainer>
@@ -27,6 +29,11 @@ export default () => {
           >
             From {froms[fromIndex]}
           </Button>
+          <Button
+            onClick={() => setFadeIndex(prev => (prev + 1) % fades.length)}
+          >
+            Fade {fades[fadeIndex]}
+          </Button>
         </ButtonGroup>
 
         <Centered
@@ -39,14 +46,13 @@ export default () => {
         >
           <ExitingPersistence>
             {isIn && (
-              <SlideIn enterFrom={froms[fromIndex]}>
+              <SlideIn enterFrom={froms[fromIndex]} fade={fades[fadeIndex]}>
                 {props => (
                   <Block
                     {...props}
                     css={{
                       height: '95%',
                       width: '95%',
-                      position: 'absolute',
                       margin: 'auto',
                     }}
                   />

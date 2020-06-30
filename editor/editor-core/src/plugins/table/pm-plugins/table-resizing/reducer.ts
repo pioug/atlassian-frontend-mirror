@@ -1,6 +1,6 @@
 import {
-  ColumnResizingPluginState,
   ColumnResizingPluginAction,
+  ColumnResizingPluginState,
 } from '../../types';
 
 export default (

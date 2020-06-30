@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "paragraph",
+      "content": []
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Hello"
+        }
+      ]
+    },
+    {
+      "type": "embedCard",
+      "attrs": {
+        "url": "https://embedCardTestUrl/fallback",
+        "layout": "center"
+      }
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "There"
+        }
+      ]
+    }
+  ]
+}

@@ -1,25 +1,29 @@
 import React from 'react';
-import styled from 'styled-components';
-import { EditorView } from 'prosemirror-view';
+
 import { EditorState } from 'prosemirror-state';
 import {
+  findCellRectClosestToPos,
   findDomRefAtPos,
   getSelectionRect,
-  findCellRectClosestToPos,
   isCellSelection,
 } from 'prosemirror-utils';
+import { EditorView } from 'prosemirror-view';
+import styled from 'styled-components';
+
 import {
-  Popup,
   akEditorFloatingOverlapPanelZIndex,
+  Popup,
 } from '@atlaskit/editor-common';
-import ContextualMenu from './ContextualMenu';
+
+import { getPluginState, pluginKey } from '../../pm-plugins/plugin-factory';
+import { PluginConfig } from '../../types';
 import {
   contextualMenuDropdownWidth,
   contextualMenuTriggerSize,
   tablePopupStyles,
 } from '../styles';
-import { PluginConfig } from '../../types';
-import { getPluginState, pluginKey } from '../../pm-plugins/plugin-factory';
+
+import ContextualMenu from './ContextualMenu';
 
 const MenuWrapper = styled.div`
   ${tablePopupStyles}

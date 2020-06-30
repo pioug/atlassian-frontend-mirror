@@ -17,6 +17,7 @@ interface AppProps {
 
 const App: React.FC<AppProps> = props => {
   const fetchProxy = useFetchProxy();
+
   return (
     <MobileRenderer
       cardClient={createCardClient()}

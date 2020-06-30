@@ -17,6 +17,8 @@ import {
   TOP_NAVIGATION_HEIGHT,
   TRANSITION_DURATION,
 } from '../../common/constants';
+
+import { focusStyles } from './styles';
 // This inner wrapper is required to allow the
 // sidebar to be position: fixed. If we were to apply position: fixed
 // to the outer wrapper, it will be popped out of it's flex container
@@ -25,6 +27,7 @@ export const fixedLeftSidebarInnerStyles = (
   isFixed?: boolean,
   isFlyoutOpen?: boolean,
 ): CSSObject => ({
+  ...focusStyles,
   ...(isFixed
     ? {
         position: 'fixed',
@@ -124,6 +127,6 @@ export const leftSidebarStyles = (
       width: COLLAPSED_LEFT_SIDEBAR_WIDTH,
     }),
   }),
-
+  ...focusStyles,
   ...prefersReducedMotion(),
 });

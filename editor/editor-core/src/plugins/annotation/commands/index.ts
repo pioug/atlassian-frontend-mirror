@@ -1,29 +1,19 @@
 import { EditorState } from 'prosemirror-state';
-import { Mark } from 'prosemirror-model';
-import {
-  AnnotationAEPAttributes,
-  RESOLVE_METHOD,
-} from './../../analytics/types/inline-comment-events';
+import { RESOLVE_METHOD } from './../../analytics/types/inline-comment-events';
 import { Command } from '../../../types';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
 import { createCommand } from '../pm-plugins/plugin-factory';
-import {
-  withAnalytics,
-  ACTION_SUBJECT,
-  ACTION_SUBJECT_ID,
-  EVENT_TYPE,
-  ACTION,
-  INPUT_METHOD,
-} from '../../analytics';
-import { AnalyticsEventPayloadCallback } from '../../analytics/utils';
-import { AnalyticsEventPayload } from '../../analytics/types';
-import { hasInlineNodes } from '../utils';
+import { INPUT_METHOD } from '../../analytics';
+import { isSelectionValid } from '../utils';
 import {
   InlineCommentAction,
   ACTIONS,
   InlineCommentMap,
   InlineCommentMouseData,
 } from '../pm-plugins/types';
+
+import transform from './transform';
+import { AnnotationSelectionType } from '../types';
 
 export const updateInlineCommentResolvedState = (
   partialNewState: InlineCommentMap,
@@ -37,15 +27,7 @@ export const updateInlineCommentResolvedState = (
   const allResolved = Object.values(partialNewState).every(state => state);
 
   if (resolveMethod && allResolved) {
-    return withAnalytics({
-      action: ACTION.RESOLVED,
-      actionSubject: ACTION_SUBJECT.ANNOTATION,
-      actionSubjectId: ACTION_SUBJECT_ID.INLINE_COMMENT,
-      eventType: EVENT_TYPE.TRACK,
-      attributes: {
-        method: resolveMethod,
-      },
-    })(createCommand(command));
+    return createCommand(command, transform.addResolveAnalytics(resolveMethod));
   }
 
   return createCommand(command);
@@ -91,40 +73,18 @@ export const removeInlineCommentNearSelection = (id: string): Command => (
   return true;
 };
 
-// get number of unique annotations within current selection
-const getAnnotationsInSelectionCount = (state: EditorState): number => {
-  const { annotation } = state.schema.marks;
-  const { from, to } = state.selection;
-  const annotations = new Set<string>();
-
-  state.doc.nodesBetween(from, to, node => {
-    node.marks.forEach((mark: Mark<any>) => {
-      if (mark.type === annotation) {
-        annotations.add(mark.attrs.id);
-      }
-    });
-    return true; // be thorough, go through all children
-  });
-
-  return annotations.size;
-};
-
-export const setInlineCommentDraftState = (
+const getDraftCommandAction: (
   drafting: boolean,
-  inputMethod:
-    | INPUT_METHOD.TOOLBAR
-    | INPUT_METHOD.SHORTCUT = INPUT_METHOD.TOOLBAR,
-): Command => {
-  const commandAction: (
-    state: Readonly<EditorState<any>>,
-  ) => InlineCommentAction | false = (editorState: EditorState) => {
+) => (state: Readonly<EditorState<any>>) => InlineCommentAction | false = (
+  drafting: boolean,
+) => {
+  return (editorState: EditorState) => {
     // validate selection only when entering draft mode
-    if (drafting) {
-      const selectionHasInlineNodes = hasInlineNodes(editorState);
-
-      if (selectionHasInlineNodes || editorState.selection.empty) {
-        return false;
-      }
+    if (
+      drafting &&
+      isSelectionValid(editorState) !== AnnotationSelectionType.VALID
+    ) {
+      return false;
     }
 
     return {
@@ -135,29 +95,34 @@ export const setInlineCommentDraftState = (
       },
     };
   };
+};
 
-  const payload: AnalyticsEventPayloadCallback = (
-    state: EditorState,
-  ): AnalyticsEventPayload | undefined => {
-    let attributes: AnnotationAEPAttributes = {};
+export const setInlineCommentDraftState = (
+  drafting: boolean,
+  inputMethod:
+    | INPUT_METHOD.TOOLBAR
+    | INPUT_METHOD.SHORTCUT = INPUT_METHOD.TOOLBAR,
+): Command => {
+  const commandAction = getDraftCommandAction(drafting);
+  return createCommand(
+    commandAction,
+    transform.addOpenCloseAnalytics(drafting, inputMethod),
+  );
+};
 
-    if (drafting) {
-      attributes = {
-        inputMethod,
-        overlap: getAnnotationsInSelectionCount(state),
-      };
-    }
+export const addInlineComment = (id: string): Command => {
+  const commandAction: (editorState: EditorState) => InlineCommentAction = (
+    editorState: EditorState,
+  ) => ({
+    type: ACTIONS.ADD_INLINE_COMMENT,
+    data: {
+      drafting: false,
+      inlineComments: { [id]: false },
+      editorState,
+    },
+  });
 
-    return {
-      action: drafting ? ACTION.OPENED : ACTION.CLOSED,
-      actionSubject: ACTION_SUBJECT.ANNOTATION,
-      actionSubjectId: ACTION_SUBJECT_ID.INLINE_COMMENT,
-      eventType: EVENT_TYPE.TRACK,
-      attributes,
-    };
-  };
-
-  return withAnalytics(payload)(createCommand(commandAction));
+  return createCommand(commandAction, transform.addInlineComment(id));
 };
 
 export const updateMouseState = (mouseData: InlineCommentMouseData): Command =>

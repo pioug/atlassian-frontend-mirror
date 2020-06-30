@@ -219,7 +219,6 @@ const createPlugin = (
               : 'default';
 
             updateState({
-              nodeWithPos: selectedExtension,
               showContextPanel: false,
               element: newElement,
               showEditButton,

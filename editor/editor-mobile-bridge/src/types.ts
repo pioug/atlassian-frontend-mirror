@@ -14,12 +14,16 @@ export type EditorViewWithComposition = EditorView & {
 export type PromiseName =
   | 'getAuth'
   | 'getConfig'
+  | 'getCollabConfig'
   | 'nativeFetch'
   | 'getAccountId'
   | 'getResolvedLink'
   | 'getLinkResolve'
   | 'onSelection'
-  | 'getAnnotationStates';
+  | 'getAnnotationStates'
+  | 'deleteStorageValue'
+  | 'setStorageValue'
+  | 'getStorageValue';
 
 export type PromisePayload =
   | GetAuthPayload
@@ -47,6 +51,12 @@ export interface NativeFetchPayload {
   statusText: string;
 }
 
+export interface GetCollabConfigPayload {
+  baseUrl: string;
+  documentAri: string;
+  userId: string;
+}
+
 export type GetAccountIdPayload = string;
 
 export type GetResolvedLinkPayload = ResolveResponse;
@@ -65,3 +75,5 @@ export interface SelectionPayload {
   selection: SelectionData;
   rect: { top: number; left: number };
 }
+
+export type Serialized<T> = string | T;

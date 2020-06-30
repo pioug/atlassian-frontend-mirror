@@ -1,5 +1,11 @@
 # @atlaskit/adf-schema
 
+## 11.1.0
+
+### Minor Changes
+
+- [`01c27cf8cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/01c27cf8cf) - ED-9552 Move SetAttrsStep into adf-schema
+
 ## 11.0.0
 
 ### Major Changes

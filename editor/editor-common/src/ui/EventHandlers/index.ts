@@ -1,6 +1,7 @@
-import { Identifier } from '@atlaskit/media-client';
-import { CardEvent } from '@atlaskit/media-card';
 import { SyntheticEvent } from 'react';
+
+import { CardEvent } from '@atlaskit/media-card';
+import { Identifier } from '@atlaskit/media-client';
 
 export interface CardSurroundings {
   collectionName: string;

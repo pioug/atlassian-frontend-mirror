@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   code,
   em,
@@ -7,25 +8,27 @@ import {
   subsup,
   underline,
 } from '@atlaskit/adf-schema';
+
 import { EditorPlugin } from '../../types';
 import { ButtonGroup } from '../../ui/styles';
-import {
-  plugin as textFormattingPlugin,
-  pluginKey as textFormattingPluginKey,
-} from './pm-plugins/main';
+import WithPluginState from '../../ui/WithPluginState';
+
 import {
   plugin as clearFormattingPlugin,
   pluginKey as clearFormattingPluginKey,
 } from './pm-plugins/clear-formatting';
+import clearFormattingKeymapPlugin from './pm-plugins/clear-formatting-keymap';
 import textFormattingCursorPlugin from './pm-plugins/cursor';
 import textFormattingInputRulePlugin from './pm-plugins/input-rule';
-import clearFormattingKeymapPlugin from './pm-plugins/clear-formatting-keymap';
-import textFormattingSmartInputRulePlugin from './pm-plugins/smart-input-rule';
 import keymapPlugin from './pm-plugins/keymap';
+import {
+  plugin as textFormattingPlugin,
+  pluginKey as textFormattingPluginKey,
+} from './pm-plugins/main';
+import textFormattingSmartInputRulePlugin from './pm-plugins/smart-input-rule';
+import { TextFormattingOptions } from './types';
 import ToolbarAdvancedTextFormatting from './ui/ToolbarAdvancedTextFormatting';
 import ToolbarTextFormatting from './ui/ToolbarTextFormatting';
-import WithPluginState from '../../ui/WithPluginState';
-import { TextFormattingOptions } from './types';
 
 const textFormatting = (options: TextFormattingOptions = {}): EditorPlugin => ({
   name: 'textFormatting',

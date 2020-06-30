@@ -1,17 +1,19 @@
-import { DecorationSet } from 'prosemirror-view';
-import { findTable } from 'prosemirror-utils';
 import { Transaction } from 'prosemirror-state';
 import { CellSelection } from 'prosemirror-tables';
-import {
-  findControlsHoverDecoration,
-  findColumnControlSelectedDecoration,
-  updateDecorations,
-  createColumnSelectedDecoration,
-  createColumnControlsDecoration,
-} from '../../../utils/decoration';
+import { findTable } from 'prosemirror-utils';
+import { DecorationSet } from 'prosemirror-view';
+
 import { TableDecorations } from '../../../types';
-import { DecorationTransformer } from './types';
+import {
+  createColumnControlsDecoration,
+  createColumnSelectedDecoration,
+  findColumnControlSelectedDecoration,
+  findControlsHoverDecoration,
+  updateDecorations,
+} from '../../../utils/decoration';
+
 import { composeDecorations } from './compose-decorations';
+import { DecorationTransformer } from './types';
 
 const isColumnSelected = (tr: Transaction): boolean =>
   tr.selection instanceof CellSelection && tr.selection.isColSelection();

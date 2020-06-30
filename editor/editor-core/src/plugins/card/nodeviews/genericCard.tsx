@@ -26,7 +26,6 @@ export interface CardDerivedProps {
 export interface CardProps extends CardDerivedProps {
   children?: React.ReactNode;
   node: PMNode;
-  selected: boolean;
   view: EditorView;
   getPos: getPosHandler;
   isMobile?: boolean;

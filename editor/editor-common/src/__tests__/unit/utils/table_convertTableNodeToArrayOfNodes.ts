@@ -1,5 +1,6 @@
-import { td, th, p, table, tr as row } from '@atlaskit/editor-test-helpers';
 import { defaultSchema as schema } from '@atlaskit/adf-schema';
+import { p, tr as row, table, td, th } from '@atlaskit/editor-test-helpers';
+
 import { convertProsemirrorTableNodeToArrayOfRows } from '../../../utils/table';
 
 describe('@atlaskit/editor-common table utils 2', () => {

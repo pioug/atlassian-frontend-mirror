@@ -1,7 +1,7 @@
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 
-import { DN30, N30, R400, Y400 } from '@atlaskit/theme/colors';
+import { DN30, N30, N800, R400, Y400 } from '@atlaskit/theme/colors';
 import { themed } from '@atlaskit/theme/components';
 import { gridSize } from '@atlaskit/theme/constants';
 import { divide } from '@atlaskit/theme/math';
@@ -110,6 +110,12 @@ export const bodyStyles = (shouldScroll?: boolean) => css`
   @media (min-width: 320px) and (max-width: 480px) {
     overflow-y: auto;
     height: 100%;
+  }
+  &:focus {
+    outline-offset: -1px;
+    outline-style: dotted;
+    outline-color: ${N800};
+    outline-width: thin;
   }
 `;
 

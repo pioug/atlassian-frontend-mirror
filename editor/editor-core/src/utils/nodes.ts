@@ -71,7 +71,7 @@ export const isNodeSelectedOrInRange = (
   if (rangeStart < nodeStart && nodeEnd < rangeEnd) {
     return SelectedState.selectedInRange;
   }
-  if (nodeStart < anchorPosition && headPosition < nodeEnd) {
+  if (nodeStart <= anchorPosition && headPosition <= nodeEnd) {
     return SelectedState.selectedInside;
   }
   return null;

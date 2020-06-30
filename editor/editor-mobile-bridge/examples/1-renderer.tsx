@@ -25,7 +25,6 @@ export const Wrapper: any = styled.div`
 
 Wrapper.displayName = 'Wrapper';
 
-// @ts-ignore
 window.logBridge = window.logBridge || [];
 
 const initialDocument = JSON.stringify({

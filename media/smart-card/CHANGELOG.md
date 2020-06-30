@@ -1,5 +1,12 @@
 # @atlaskit/smart-card
 
+## 13.5.1
+
+### Patch Changes
+
+- [`cd9c2500a8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cd9c2500a8) - EDM-834: Jira Roadmap embeds will now be an embedCard by default and also wide
+- [`b17d1c437a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b17d1c437a) - EDM-920: add required className to intersection observer loader
+
 ## 13.5.0
 
 ### Minor Changes

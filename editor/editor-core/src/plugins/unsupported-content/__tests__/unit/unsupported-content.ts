@@ -1,18 +1,19 @@
 import {
+  createProsemirrorEditorFactory,
   LightEditorPlugin,
   Preset,
-  createProsemirrorEditorFactory,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   doc,
   p,
   table,
-  tr,
   td,
-  unsupportedInline,
+  tr,
   unsupportedBlock,
+  unsupportedInline,
 } from '@atlaskit/editor-test-helpers/schema-builder';
-import { unsupportedContentPlugin, tablesPlugin } from '../../../';
+
+import { tablesPlugin, unsupportedContentPlugin } from '../../../index';
 
 describe('unsupported content', () => {
   const createEditor = createProsemirrorEditorFactory();

@@ -1,6 +1,6 @@
 // #region Imports
 import { Selection, Transaction } from 'prosemirror-state';
-import { TableMap, selectedRect } from 'prosemirror-tables';
+import { selectedRect, TableMap } from 'prosemirror-tables';
 import {
   addColumnAt as addColumnAtPMUtils,
   addRowAt,
@@ -8,10 +8,12 @@ import {
   findTable,
   safeInsert,
 } from 'prosemirror-utils';
-import { checkIfHeaderRowEnabled, copyPreviousRow } from '../utils';
+
+import { AddColumnStep } from '@atlaskit/adf-schema/steps';
+
 import { Command } from '../../../types';
 import { getPluginState } from '../pm-plugins/plugin-factory';
-import { AddColumnStep } from '@atlaskit/adf-schema/steps';
+import { checkIfHeaderRowEnabled, copyPreviousRow } from '../utils';
 import { getAllowAddColumnCustomStep } from '../utils/get-allow-add-column-custom-step';
 // #endregion
 

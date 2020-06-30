@@ -1,6 +1,6 @@
 import { Transaction } from 'prosemirror-state';
-import { findTable } from 'prosemirror-utils';
 import { TableMap } from 'prosemirror-tables';
+import { findTable } from 'prosemirror-utils';
 
 export const getMergedCellsPositions = (tr: Transaction): number[] => {
   const table = findTable(tr.selection);

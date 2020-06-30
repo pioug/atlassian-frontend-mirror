@@ -9,6 +9,7 @@ import {
   GasPureScreenEventPayload,
 } from '@atlaskit/analytics-gas-types';
 import { WithCreateAnalyticsEvent } from '@atlaskit/editor-common';
+import { Provider as CollabProvider } from '@atlaskit/collab-provider';
 import {
   ProviderFactoryProvider,
   ProviderFactory,
@@ -47,6 +48,7 @@ import {
 } from '../providers';
 import { getEnableQuickInsertValue } from '../query-param-reader';
 import useTranslations from '../editor/useTranslations';
+import { useCollabProvider } from '../providers/collab-provider';
 
 // Expose WebBridge instance for use by native side
 const bridge = new WebBridgeImpl();
@@ -55,6 +57,7 @@ window.bridge = bridge;
 type Props = {
   defaultValue?: string;
   mode?: 'light' | 'dark';
+  createCollabProvider?: (bridge: WebBridgeImpl) => Promise<CollabProvider>;
   cardProvider?: Promise<EditorCardProvider>;
   cardClient?: EditorCardClient;
   emojiProvider?: Promise<EmojiResource>;
@@ -76,6 +79,7 @@ const quickInsertProvider = createQuickInsertProvider(bridge.quickInsertItems);
 export default function Editor(props: Props = {}, context: any) {
   const mode = props.mode || 'light';
   const [locale, messages] = useTranslations();
+  const collabProvider = useCollabProvider(bridge, props.createCollabProvider);
   const providerFactory = React.useMemo(
     () =>
       ProviderFactory.create({
@@ -85,12 +89,14 @@ export default function Editor(props: Props = {}, context: any) {
         taskDecisionProvider: Promise.resolve(createTaskDecisionProvider()),
         cardProvider: props.cardProvider,
         quickInsertProvider: quickInsertProvider,
+        collabEditProvider: collabProvider,
       }),
     [
       props.mentionProvider,
       props.emojiProvider,
       props.mediaProvider,
       props.cardProvider,
+      collabProvider,
     ],
   );
 
@@ -170,7 +176,7 @@ export default function Editor(props: Props = {}, context: any) {
                       </EditorPresetMobile>
                     );
                   }}
-                ></WithCreateAnalyticsEvent>
+                />
               </ProviderFactoryProvider>
             </EditorContext>
           </IntlProvider>

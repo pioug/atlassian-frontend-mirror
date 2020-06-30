@@ -1,6 +1,6 @@
 import { EditorView } from 'prosemirror-view';
 import createStub from 'raf-stub';
-import { doc, p } from '@atlaskit/editor-test-helpers/schema-builder';
+import { doc, p, em } from '@atlaskit/editor-test-helpers/schema-builder';
 import {
   CreateUIAnalyticsEvent,
   UIAnalyticsEvent,
@@ -162,6 +162,25 @@ describe('find/replace commands: find', () => {
         doc(
           p('this is a {firstMatchStart}DOCUMENT{firstMatchEnd}'),
           p('{<>}this is a {secondMatchStart}document{secondMatchEnd}'),
+          p('this is a {thirdMatchStart}Document{thirdMatchEnd}'),
+        ),
+      );
+      await findCommand('document');
+      expect(getPluginState(editorView.state)).toMatchObject({
+        findText: 'document',
+        matches: [
+          { start: refs.firstMatchStart, end: refs.firstMatchEnd },
+          { start: refs.secondMatchStart, end: refs.secondMatchEnd },
+          { start: refs.thirdMatchStart, end: refs.thirdMatchEnd },
+        ],
+      });
+    });
+
+    it('finds all results irrespective of splitting of text nodes or partial marks', async () => {
+      initEditor(
+        doc(
+          p('this is a {firstMatchStart}DOC', em('UME'), 'NT{firstMatchEnd}'),
+          p('{<>}this is a {secondMatchStart}docu', 'ment{secondMatchEnd}'),
           p('this is a {thirdMatchStart}Document{thirdMatchEnd}'),
         ),
       );

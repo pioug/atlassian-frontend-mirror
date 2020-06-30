@@ -9,7 +9,7 @@ import {
 } from '../../common/constants';
 import { SlotWidthProps } from '../../common/types';
 import { resolveDimension } from '../../common/utils';
-import { publishGridState } from '../../controllers';
+import { publishGridState, useSkipLinks } from '../../controllers';
 
 import SlotDimensions from './slot-dimensions';
 import { rightPanelStyles } from './styles';
@@ -21,6 +21,8 @@ const RightPanel = (props: SlotWidthProps) => {
     width = DEFAULT_RIGHT_PANEL_WIDTH,
     shouldPersistWidth,
     testId,
+    id,
+    skipLinkTitle,
   } = props;
 
   const rightPanelWidth = resolveDimension(
@@ -29,15 +31,23 @@ const RightPanel = (props: SlotWidthProps) => {
     shouldPersistWidth,
   );
 
+  const { registerSkipLink, unregisterSkipLink } = useSkipLinks();
+
   useEffect(() => {
     publishGridState({ [RIGHT_PANEL_WIDTH]: rightPanelWidth });
     return () => {
       publishGridState({ [RIGHT_PANEL_WIDTH]: 0 });
+      unregisterSkipLink(id);
     };
-  }, [rightPanelWidth]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [rightPanelWidth, id]);
+
+  if (id && skipLinkTitle) {
+    registerSkipLink({ id, skipLinkTitle });
+  }
 
   return (
-    <div css={rightPanelStyles(isFixed)} data-testid={testId}>
+    <div css={rightPanelStyles(isFixed)} data-testid={testId} id={id}>
       <SlotDimensions
         variableName={RIGHT_PANEL_WIDTH}
         value={rightPanelWidth}

@@ -1,25 +1,27 @@
 import {
-  Plugin,
-  Transaction,
   EditorState,
+  Plugin,
   TextSelection,
+  Transaction,
 } from 'prosemirror-state';
+
 import { Dispatch } from '../../../event-dispatcher';
 import { isMarkTypeAllowedInCurrentSelection } from '../../../utils';
+import { dismissCommand } from '../commands/dismiss';
+import { insertTypeAheadQuery } from '../commands/insert-query';
+import { itemsListUpdated } from '../commands/items-list-updated';
+import { selectCurrentItem } from '../commands/select-item';
+import { updateQueryCommand } from '../commands/update-query';
 import {
   TypeAheadHandler,
   TypeAheadItem,
   TypeAheadItemsLoader,
 } from '../types';
-import { dismissCommand } from '../commands/dismiss';
-import { insertTypeAheadQuery } from '../commands/insert-query';
-import { itemsListUpdated } from '../commands/items-list-updated';
-import { updateQueryCommand } from '../commands/update-query';
-import { isQueryActive } from '../utils/is-query-active';
 import { findTypeAheadQuery } from '../utils/find-query-mark';
-import { selectCurrentItem } from '../commands/select-item';
-import { pluginKey } from './plugin-key';
+import { isQueryActive } from '../utils/is-query-active';
+
 import { ACTIONS } from './actions';
+import { pluginKey } from './plugin-key';
 
 export { pluginKey } from './plugin-key';
 export { ACTIONS } from './actions';

@@ -124,9 +124,6 @@ class FullPageWithFF extends React.Component<
           <ToggleStateless
             isChecked={!!this.state.resolveBeforeMacros.length}
             onChange={this.toggleFF}
-            label={`Resolve ${RESOLVE_BEFORE_MACROS.join(
-              ',',
-            )} smart links first`}
           />
           Priortise smart links over {RESOLVE_BEFORE_MACROS.join(',')} macros
         </div>

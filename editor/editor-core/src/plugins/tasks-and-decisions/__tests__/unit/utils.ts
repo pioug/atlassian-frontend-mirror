@@ -1,9 +1,11 @@
 import { Fragment, Slice } from 'prosemirror-model';
-import {
-  decisionList,
-  decisionItem,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
+import {
+  decisionItem,
+  decisionList,
+} from '@atlaskit/editor-test-helpers/schema-builder';
+
 import { transformSliceToDecisionList } from '../../utils';
 
 const fragment = (...args: any) =>

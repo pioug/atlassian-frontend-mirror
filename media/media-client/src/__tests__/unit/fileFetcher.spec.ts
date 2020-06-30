@@ -49,7 +49,7 @@ describe('FileFetcher', () => {
   const fileId = 'some-file-id';
   const collectionName = 'some-collection-name';
   const fileName = 'some-name';
-  const binaryUrl = 'some-binary-url';
+  const binaryUrl = 'http://some-binary-url.com/';
 
   const setup = () => {
     getFileStreamsCache().removeAll();
@@ -243,15 +243,16 @@ describe('FileFetcher', () => {
         );
       });
 
-      // TODO: JEST-23 this started failing in landkid - must be investigated
-      // it('should create a link', () => {
-      //   const lastAppendCall =
-      //     appendChild.mock.calls[appendChild.mock.calls.length - 1];
-      //   const link = lastAppendCall[0] as HTMLAnchorElement;
-      //   expect(link.download).toBe(fileName);
-      //   expect(link.href).toBe(binaryUrl);
-      //   expect(link.target).toBe('media-download-iframe');
-      // });
+      it('should create a link', async () => {
+        const { fileFetcher } = setup();
+        await fileFetcher.downloadBinary(fileId, fileName, collectionName);
+        const lastAppendCall =
+          appendChild.mock.calls[appendChild.mock.calls.length - 1];
+        const link = lastAppendCall[0] as HTMLAnchorElement;
+        expect(link.download).toBe(fileName);
+        expect(link.href).toBe(binaryUrl);
+        expect(link.target).toBe('media-download-iframe');
+      });
 
       it('should create iframe and open binary url in it', () => {
         const { fileFetcher } = setup();
@@ -320,8 +321,8 @@ describe('FileFetcher', () => {
         done();
       });
     });
-    //TODO: https://product-fabric.atlassian.net/browse/BUILDTOOLS-177
-    it.skip('should group ids without collection in the same call to /items', done => {
+
+    it('should group ids without collection in the same call to /items', done => {
       const { fileFetcher, mediaStore, items } = setup();
 
       fileFetcher.getFileState(items[0].id).subscribe();

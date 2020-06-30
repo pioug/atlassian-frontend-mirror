@@ -1,8 +1,10 @@
-import { InjectedIntl } from 'react-intl';
-import { EditorState, Transaction } from 'prosemirror-state';
 import { Node } from 'prosemirror-model';
-import { Dispatch } from '../../event-dispatcher';
+import { EditorState, Transaction } from 'prosemirror-state';
+import { InjectedIntl } from 'react-intl';
+
 import { TypeAheadItem } from '@atlaskit/editor-common/provider-factory';
+
+import { Dispatch } from '../../event-dispatcher';
 
 // Re-export typeahead types
 export {

@@ -24,6 +24,8 @@ const gridTemplateAreas = `
   "${LEFT_PANEL} ${CONTENT} ${RIGHT_PANEL}"
  `;
 export const gridStyles = css`
+  outline: none;
+
   /* IE11 */
   display: -ms-grid;
   // prettier-ignore
@@ -54,10 +56,24 @@ export const contentStyles = css`
   position: relative;
 `;
 
+export const focusStyles = {
+  '&:focus': {
+    outline: 'none',
+    '&  [data-wrapper-element]': {
+      outline: 'none',
+      boxShadow: '0px 0px 0px 2px inset #4C9AFF',
+    },
+    '& > div:not([data-skip-link-wrapper])': {
+      outline: 'none',
+      boxShadow: '0px 0px 0px 2px inset #4C9AFF',
+    },
+  },
+};
+
 export const bannerStyles = (isFixed?: boolean): CSSObject => ({
   gridArea: `${BANNER}`,
   height: `var(--${BANNER_HEIGHT})`,
-
+  ...focusStyles,
   ...(isFixed && {
     position: 'fixed',
     top: 0,
@@ -76,7 +92,7 @@ export const bannerStyles = (isFixed?: boolean): CSSObject => ({
 export const topNavigationStyles = (isFixed?: boolean): CSSObject => ({
   gridArea: `${TOP_NAVIGATION}`,
   height: `var(--${TOP_NAVIGATION_HEIGHT})`,
-
+  ...focusStyles,
   ...(isFixed && {
     position: 'fixed',
     top: `var(--${BANNER_HEIGHT})`,
@@ -93,6 +109,7 @@ export const topNavigationStyles = (isFixed?: boolean): CSSObject => ({
 });
 
 export const mainStyles: CSSObject = {
+  ...focusStyles,
   // Prevent flex container from blowing
   // up when there's super wide content
   flexGrow: 1,
@@ -117,6 +134,7 @@ export const mainStyles: CSSObject = {
 // to the outer wrapper, it will be popped out of it's flex container
 // and Main would stretch to occupy all the space.
 export const fixedRightSidebarInnerStyles = (isFixed?: boolean): CSSObject => ({
+  ...focusStyles,
   ...(isFixed
     ? {
         position: 'fixed',
@@ -126,9 +144,10 @@ export const fixedRightSidebarInnerStyles = (isFixed?: boolean): CSSObject => ({
       }
     : { height: '100%' }),
 });
+
 export const rightSidebarStyles = (isFixed?: boolean): CSSObject => ({
   width: `var(--${RIGHT_SIDEBAR_WIDTH})`,
-
+  ...focusStyles,
   ...(isFixed && {
     // in fixed mode this element's child is taken out of the document flow
     // It doesn't take up the width as expected
@@ -143,7 +162,7 @@ export const rightSidebarStyles = (isFixed?: boolean): CSSObject => ({
 
 export const rightPanelStyles = (isFixed?: boolean): CSSObject => ({
   gridArea: RIGHT_PANEL,
-
+  ...focusStyles,
   ...(isFixed && {
     position: 'fixed',
     width: `var(--${RIGHT_PANEL_WIDTH})`,
@@ -161,7 +180,7 @@ export const rightPanelStyles = (isFixed?: boolean): CSSObject => ({
 
 export const leftPanelStyles = (isFixed?: boolean): CSSObject => ({
   gridArea: LEFT_PANEL,
-
+  ...focusStyles,
   ...(isFixed && {
     position: 'fixed',
     width: `var(--${LEFT_PANEL_WIDTH})`,

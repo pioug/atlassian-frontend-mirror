@@ -1,5 +1,11 @@
 # @atlaskit/datetime-picker
 
+## 9.4.7
+
+### Patch Changes
+
+- [`038b0fbb8e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/038b0fbb8e) - fix typings after reverting DST-461 changes. typeof is fixed in ERT repo (https://github.com/atlassian/extract-react-types/pull/126)
+
 ## 9.4.6
 
 ### Patch Changes

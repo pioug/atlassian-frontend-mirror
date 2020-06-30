@@ -53,3 +53,7 @@ export const RESIZE_BUTTON_SELECTOR = 'data-resize-button';
 export const RESIZE_CONTROL_SELECTOR = 'data-resize-control';
 export const MAIN_SELECTOR = 'data-main';
 export const LEFT_SIDEBAR_SELECTOR = 'data-left-sidebar';
+
+export const DEFAULT_I18N_PROPS_SKIP_LINKS = 'Skip to:';
+
+export const PAGE_LAYOUT_CONTAINER_SELECTOR = 'data-layout-container';

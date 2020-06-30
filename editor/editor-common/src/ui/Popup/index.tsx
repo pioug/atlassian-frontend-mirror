@@ -1,10 +1,13 @@
 import React from 'react';
-import { createPortal } from 'react-dom';
+
 import rafSchedule from 'raf-schd';
+import { createPortal } from 'react-dom';
+
 import { akEditorFloatingPanelZIndex } from '../../styles/consts';
+
 import {
-  calculatePosition,
   calculatePlacement,
+  calculatePosition,
   findOverflowScrollParent,
   Position,
   validatePosition,

@@ -1,12 +1,14 @@
-import React from 'react';
-import { HTMLAttributes } from 'react';
+import React, { HTMLAttributes } from 'react';
+
 import styled, { css } from 'styled-components';
+
 import { RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema';
+
 import {
   akEditorFullPageMaxWidth,
   akEditorFullWidthLayoutWidth,
 } from '../../styles';
-import { calcWideWidth, calcBreakoutWidth } from '../../utils/breakout';
+import { calcBreakoutWidth, calcWideWidth } from '../../utils/breakout';
 
 function float(layout: MediaSingleLayout): string {
   switch (layout) {
@@ -125,7 +127,7 @@ export interface WrapperProps {
   innerRef?: (elem: HTMLElement) => void;
   fullWidthMode?: boolean;
   isResized?: boolean;
-  isResizable?: boolean;
+  hasFallbackContainer?: boolean;
 }
 
 /**
@@ -139,7 +141,6 @@ export const MediaSingleDimensionHelper = ({
   pctWidth,
   fullWidthMode,
   isResized,
-  isResizable = false,
 }: WrapperProps) => css`
   tr & {
     max-width: 100%;
@@ -153,7 +154,7 @@ export const MediaSingleDimensionHelper = ({
         fullWidthMode,
         isResized,
       )};
-  max-width: ${isResizable ? undefined : calcMaxWidth(layout, containerWidth)};
+  max-width: ${calcMaxWidth(layout, containerWidth)};
   float: ${float(layout)};
   margin: ${calcMargin(layout)};
   ${isImageAligned(layout)};
@@ -163,24 +164,36 @@ export const MediaSingleDimensionHelper = ({
   }
 `;
 
-const Wrapper: React.ComponentClass<HTMLAttributes<{}> &
-  WrapperProps> = styled.div`
-  ${MediaSingleDimensionHelper};
-  position: relative;
-
+const RenderFallbackContainer = ({
+  hasFallbackContainer,
+  ratio,
+}: WrapperProps) => css`
+  ${hasFallbackContainer
+    ? `
   &::after {
     content: '';
     display: block;
-    padding-bottom: ${p => p.ratio}%;
+    padding-bottom: ${ratio}%;
 
     /* Fixes extra padding problem in Firefox */
     font-size: 0;
     line-height: 0;
   }
+  `
+    : ''}
+`;
+
+const Wrapper: React.ComponentClass<HTMLAttributes<{}> &
+  WrapperProps> = styled.div`
+  ${MediaSingleDimensionHelper};
+  position: relative;
+
+  ${RenderFallbackContainer}
 
   /* Editor */
   & > div {
-    position: absolute;
+    position: ${({ hasFallbackContainer }) =>
+      hasFallbackContainer ? 'absolute' : 'relative'};
     height: 100%;
   }
 

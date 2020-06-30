@@ -1,12 +1,14 @@
 import { keymap } from 'prosemirror-keymap';
-import { Plugin, EditorState } from 'prosemirror-state';
+import { EditorState, Plugin } from 'prosemirror-state';
+
 import * as keymaps from '../../../keymaps';
-import { pluginKey, ACTIONS } from './main';
+import { dismissCommand } from '../commands/dismiss';
 import {
   selectCurrentItem,
   selectSingleItemOrDismiss,
 } from '../commands/select-item';
-import { dismissCommand } from '../commands/dismiss';
+
+import { ACTIONS, pluginKey } from './main';
 
 export function keymapPlugin(): Plugin {
   const list = {};

@@ -11,8 +11,10 @@ import { performNodeUpdate } from './actions';
 export const getContextPanel = (allowAutoSave?: boolean) => (
   state: EditorState,
 ) => {
+  const nodeWithPos = getSelectedExtension(state, true);
+
   // Adding checks to bail out early
-  if (!getSelectedExtension(state, true)) {
+  if (!nodeWithPos) {
     return;
   }
 
@@ -20,12 +22,11 @@ export const getContextPanel = (allowAutoSave?: boolean) => (
 
   if (
     extensionState &&
-    extensionState.nodeWithPos &&
     extensionState.showContextPanel &&
     extensionState.extensionProvider &&
     extensionState.processParametersAfter
   ) {
-    const node = extensionState.nodeWithPos.node.toJSON();
+    const node = nodeWithPos.node;
     const { extensionType, extensionKey, parameters, content } = node.attrs;
 
     const [extKey, nodeKey] = getExtensionKeyAndNodeKey(
@@ -53,6 +54,7 @@ export const getContextPanel = (allowAutoSave?: boolean) => (
               extensionType={extensionType}
               extensionKey={extKey}
               nodeKey={nodeKey}
+              extensionParameters={parameters}
               parameters={configParams}
               extensionProvider={extensionState.extensionProvider!}
               autoSave={allowAutoSave}
@@ -70,7 +72,7 @@ export const getContextPanel = (allowAutoSave?: boolean) => (
                 };
 
                 performNodeUpdate(
-                  node.type,
+                  node.toJSON().type,
                   newAttrs,
                   content,
                   false,

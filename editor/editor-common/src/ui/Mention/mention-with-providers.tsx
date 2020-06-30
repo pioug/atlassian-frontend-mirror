@@ -1,12 +1,13 @@
-import React from 'react';
-import { PureComponent } from 'react';
-import { MentionProvider } from '@atlaskit/mention/resource';
-import { ResourcedMention } from '@atlaskit/mention/element';
-import { MentionUserType as UserType } from '@atlaskit/adf-schema';
+import React, { PureComponent } from 'react';
 
-import { MentionEventHandlers } from '../EventHandlers';
-import ResourcedMentionWithProfilecard from './mention-with-profilecard';
+import { MentionUserType as UserType } from '@atlaskit/adf-schema';
+import { ResourcedMention } from '@atlaskit/mention/element';
+import { MentionProvider } from '@atlaskit/mention/resource';
+
 import { ProfilecardProvider } from '../../provider-factory/profile-card-provider';
+import { MentionEventHandlers } from '../EventHandlers';
+
+import ResourcedMentionWithProfilecard from './mention-with-profilecard';
 
 export interface Props {
   id: string;

@@ -7,13 +7,9 @@ import { INPUT_METHOD } from '../../analytics';
 export function keymapPlugin(): Plugin {
   const list = {};
 
-  const showDraftCommentCommand = setInlineCommentDraftState(
-    true,
-    INPUT_METHOD.SHORTCUT,
-  );
   bindKeymapWithCommand(
     addInlineComment.common!,
-    showDraftCommentCommand,
+    setInlineCommentDraftState(true, INPUT_METHOD.SHORTCUT),
     list,
   );
 

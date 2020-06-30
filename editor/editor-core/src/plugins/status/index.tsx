@@ -1,24 +1,28 @@
 import React from 'react';
-import { status } from '@atlaskit/adf-schema';
+
 import { findDomRefAtPos } from 'prosemirror-utils';
+
+import { status } from '@atlaskit/adf-schema';
+
 import { EditorPlugin } from '../../types';
-import createStatusPlugin from './plugin';
-import { pluginKey } from './plugin-key';
-import { StatusPluginOptions, StatusState, StatusType } from './types';
 import WithPluginState from '../../ui/WithPluginState';
-import StatusPicker from './ui/statusPicker';
-import { commitStatusPicker, updateStatus, createStatus } from './actions';
-import { keymapPlugin } from './keymap';
-import { IconStatus } from '../quick-insert/assets';
 import {
-  addAnalytics,
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
-  INPUT_METHOD,
+  addAnalytics,
   EVENT_TYPE,
+  INPUT_METHOD,
 } from '../analytics';
 import { messages } from '../insert-block/ui/ToolbarInsertBlock/messages';
+import { IconStatus } from '../quick-insert/assets';
+
+import { commitStatusPicker, createStatus, updateStatus } from './actions';
+import { keymapPlugin } from './keymap';
+import createStatusPlugin from './plugin';
+import { pluginKey } from './plugin-key';
+import { StatusPluginOptions, StatusState, StatusType } from './types';
+import StatusPicker from './ui/statusPicker';
 
 const baseStatusPlugin = (options?: StatusPluginOptions): EditorPlugin => ({
   name: 'status',

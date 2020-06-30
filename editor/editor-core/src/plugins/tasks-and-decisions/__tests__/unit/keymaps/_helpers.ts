@@ -1,8 +1,8 @@
 import {
-  taskList,
-  taskItem,
-  decisionList,
   decisionItem,
+  decisionList,
+  taskItem,
+  taskList,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 
 export type TestCase = [

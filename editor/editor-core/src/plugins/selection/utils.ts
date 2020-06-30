@@ -1,19 +1,21 @@
-import { DecorationSet, Decoration } from 'prosemirror-view';
 import {
   NodeSelection,
   Transaction,
   TextSelection,
   EditorState,
 } from 'prosemirror-state';
+import { Decoration, DecorationSet } from 'prosemirror-view';
+
 import {
-  akEditorSelectedBorderSize,
-  akEditorSelectedBorder,
   akEditorSelectedBgColor,
   akEditorSelectedBlanketColor,
   akEditorSelectedBlanketOpacity,
+  akEditorSelectedBorder,
+  akEditorSelectedBorderSize,
 } from '@atlaskit/editor-common';
-import { SelectionStyle, SelectionPluginState } from './types';
 import { akEditorSelectedNodeClassName } from '../../styles';
+
+import { SelectionStyle, SelectionPluginState } from './types';
 
 export const getDecorations = (tr: Transaction): DecorationSet => {
   if (tr.selection instanceof NodeSelection) {

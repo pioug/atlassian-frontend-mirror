@@ -1,46 +1,51 @@
-import { Rect, CellSelection } from 'prosemirror-tables';
-import { findCellClosestToPos } from 'prosemirror-utils';
-import { TableLayout, tableBackgroundColorPalette } from '@atlaskit/adf-schema';
+import { CellSelection, Rect } from 'prosemirror-tables';
+import {
+  findCellClosestToPos,
+  findCellRectClosestToPos,
+  getSelectionRect,
+} from 'prosemirror-utils';
+
+import { tableBackgroundColorPalette, TableLayout } from '@atlaskit/adf-schema';
 
 import {
   analyticsService as analyticsV2,
   withAnalytics as withV2Analytics,
 } from '../../analytics';
+import { Command } from '../../types';
 import {
-  withAnalytics,
-  TABLE_ACTION,
   ACTION_SUBJECT,
   EVENT_TYPE,
   INPUT_METHOD,
+  TABLE_ACTION,
   TABLE_BREAKOUT,
+  withAnalytics,
 } from '../analytics';
-import { insertColumn, insertRow } from './commands/insert';
+
 import { clearMultipleCells } from './commands/clear';
-import { setMultipleCellAttrs, deleteTable } from './commands/misc';
+import { insertColumn, insertRow } from './commands/insert';
+import { deleteTable, setMultipleCellAttrs } from './commands/misc';
+import { sortByColumn } from './commands/sort';
+import { splitCell } from './commands/split-cell';
 import {
-  toggleHeaderRow,
+  getNextLayout,
   toggleHeaderColumn,
+  toggleHeaderRow,
   toggleNumberColumn,
   toggleTableLayout,
-  getNextLayout,
 } from './commands/toggle';
-import { sortByColumn } from './commands/sort';
-import {
-  getSelectedCellInfo,
-  getSelectedTableInfo,
-  checkIfNumberColumnEnabled,
-} from './utils';
-import { mergeCells, deleteColumns, deleteRows } from './transforms';
+import { getPluginState } from './pm-plugins/plugin-factory';
+import { deleteColumns, deleteRows, mergeCells } from './transforms';
 import {
   InsertRowMethods,
   InsertRowOptions,
-  SortOrder,
   RowInsertPosition,
+  SortOrder,
 } from './types';
-import { Command } from '../../types';
-import { getSelectionRect, findCellRectClosestToPos } from 'prosemirror-utils';
-import { getPluginState } from './pm-plugins/plugin-factory';
-import { splitCell } from './commands/split-cell';
+import {
+  checkIfNumberColumnEnabled,
+  getSelectedCellInfo,
+  getSelectedTableInfo,
+} from './utils';
 import { getAllowAddColumnCustomStep } from './utils/get-allow-add-column-custom-step';
 
 const TABLE_BREAKOUT_NAME_MAPPING = {

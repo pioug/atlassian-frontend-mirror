@@ -22,10 +22,7 @@ function inputFromSource(source: NavigationSource): string {
 }
 
 const fileDetailsFromIdentifier = (identifier: Identifier) => ({
-  fileId:
-    isFileIdentifier(identifier) && typeof identifier.id === 'string'
-      ? identifier.id
-      : '',
+  fileId: isFileIdentifier(identifier) ? identifier.id : '',
 });
 
 export interface NavigationAttributes {

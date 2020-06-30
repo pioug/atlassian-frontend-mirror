@@ -12,6 +12,7 @@ import {
   calcPctFromPx,
   akEditorBreakoutPadding,
   calcColumnsFromPx,
+  wrappedLayouts,
 } from '@atlaskit/editor-common';
 
 import { Wrapper } from './styled';
@@ -25,7 +26,6 @@ import {
 import { calcMediaPxWidth } from '../../utils/media-single';
 import { getPluginState } from '../../../table/pm-plugins/table-resizing/plugin-factory';
 import { ColumnResizingPluginState } from '../../../table/types';
-import { wrappedLayouts } from '../../../../utils/rich-media-utils';
 
 type State = {
   offsetLeft: number;

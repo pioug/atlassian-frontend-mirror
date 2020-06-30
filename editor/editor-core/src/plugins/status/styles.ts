@@ -1,13 +1,15 @@
 import { css } from 'styled-components';
+
 import {
-  StatusSharedCssClassName,
-  akEditorSelectedBorderSize,
-  akEditorDeleteBorder,
   akEditorDeleteBackgroundWithOpacity,
+  akEditorDeleteBorder,
+  akEditorSelectedBorderSize,
+  StatusSharedCssClassName,
 } from '@atlaskit/editor-common';
+
 import { akEditorSelectedNodeClassName } from '../../styles';
-import { getSelectionStyles } from '../selection/utils';
 import { SelectionStyle } from '../selection/types';
+import { getSelectionStyles } from '../selection/utils';
 
 export const statusStyles = css`
   .${StatusSharedCssClassName.STATUS_CONTAINER} {

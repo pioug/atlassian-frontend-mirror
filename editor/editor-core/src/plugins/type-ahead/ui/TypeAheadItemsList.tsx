@@ -1,10 +1,13 @@
 import React from 'react';
+
 import styled, { ThemeProvider } from 'styled-components';
+
 import Item, { ItemGroup, itemThemeNamespace } from '@atlaskit/item';
-import { colors, borderRadius, themed } from '@atlaskit/theme';
-import { TypeAheadItem } from '../types';
-import IconFallback from '../../quick-insert/assets/fallback';
+import { borderRadius, colors, themed } from '@atlaskit/theme';
+
 import { Shortcut } from '../../../ui/styles';
+import IconFallback from '../../quick-insert/assets/fallback';
+import { TypeAheadItem } from '../types';
 
 const itemTheme = {
   [itemThemeNamespace]: {

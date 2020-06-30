@@ -75,7 +75,7 @@ export class Header extends React.Component<Props & InjectedIntlProps, State> {
   }
 
   private init(props: Props) {
-    this.setState(initialState, async () => {
+    this.setState(initialState, () => {
       const { mediaClient, identifier } = props;
 
       if (isExternalImageIdentifier(identifier)) {
@@ -96,8 +96,8 @@ export class Header extends React.Component<Props & InjectedIntlProps, State> {
         });
         return;
       }
-      const id =
-        typeof identifier.id === 'string' ? identifier.id : await identifier.id;
+      const { id } = identifier;
+
       this.subscription = mediaClient.file
         .getFileState(id, {
           collectionName: identifier.collectionName,

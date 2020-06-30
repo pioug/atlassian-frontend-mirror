@@ -1,4 +1,5 @@
 import React from 'react';
+
 import browser from '../../utils/browser';
 
 export const shadowClassNames = {

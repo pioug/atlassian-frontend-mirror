@@ -1,5 +1,23 @@
 # @atlaskit/editor-mobile-bridge
 
+## 15.1.0
+
+### Minor Changes
+
+- [`2725c8ba93`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2725c8ba93) - ED-9451 Pass lifecycle event emitter to colalb provider
+- [`cbf6bfb3cb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cbf6bfb3cb) - ED-9367 Implement bridge integration to new collab service
+- [`4921566a4e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4921566a4e) - [FM-3943] change tsx compiler options in webpack config to support older browsers
+- [`df5ac71588`](https://bitbucket.org/atlassian/atlassian-frontend/commits/df5ac71588) - ED-9451 Create and pass Native Storage into collab provider
+- [`a4948958c4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a4948958c4) - [FM-3820] Implements to set annotation state event on Renderer
+- [`a602a1a359`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a602a1a359) - [FM-3814] Enables the mobile bridge to add two new blocks items: divider and expand
+- [`ea81ff42a0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ea81ff42a0) - [FM-3819] Implements a subscriber API to allows set focus in an specific annotation
+
+### Patch Changes
+
+- [`29fa2d4985`](https://bitbucket.org/atlassian/atlassian-frontend/commits/29fa2d4985) - Improve global types for editor mobile bridge. Minor refactoring of sendToBridge method to utilise updated types. There shouldn't be any functional change.
+- [`7524d31817`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7524d31817) - ED-9367 Prevent from emitting an event with invalid payload
+- Updated dependencies
+
 ## 15.0.1
 
 ### Patch Changes

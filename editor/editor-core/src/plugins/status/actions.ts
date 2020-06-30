@@ -2,22 +2,25 @@ import { Fragment } from 'prosemirror-model';
 import {
   EditorState,
   NodeSelection,
-  Transaction,
   Selection,
+  Transaction,
 } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
+
 import { uuid } from '@atlaskit/adf-schema';
-import { StatusType } from './types';
-import { pluginKey } from './plugin-key';
+
+import { Command } from '../../types';
 import {
-  withAnalytics,
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
   EVENT_TYPE,
+  withAnalytics,
 } from '../analytics';
-import { Command } from '../../types';
 import { TOOLBAR_MENU_TYPE } from '../insert-block/ui/ToolbarInsertBlock/types';
+
+import { pluginKey } from './plugin-key';
+import { StatusType } from './types';
 
 export const DEFAULT_STATUS: StatusType = {
   text: '',

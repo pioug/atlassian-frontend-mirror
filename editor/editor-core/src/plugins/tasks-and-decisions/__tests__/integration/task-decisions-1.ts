@@ -1,11 +1,12 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import Page from '@atlaskit/webdriver-runner/wd-wrapper';
+
 import {
+  copyToClipboard,
+  editable,
   getDocFromElement,
   gotoEditor,
-  editable,
   insertBlockMenuItem,
-  copyToClipboard,
 } from '../../../../__tests__/integration/_helpers';
 
 /*

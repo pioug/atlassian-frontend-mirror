@@ -1,4 +1,9 @@
-import { snapshot, initEditorWithAdf, Appearance } from '../_utils';
+import {
+  snapshot,
+  initEditorWithAdf,
+  Appearance,
+  mediaToFullyLoad,
+} from '../_utils';
 import adfWithMixedContent from './__fixtures__/mixed-content.adf.json';
 import adfWithMedia from './__fixtures__/content-with-media.adf.json';
 import adfWithBreakout from './__fixtures__/mixed-content-with-breakout.adf.json';
@@ -44,6 +49,7 @@ describe('Full-width mode', () => {
         await waitForMediaToBeLoaded(page);
         // click is needed to trigger scroll bars
         await clickFirstParagraph(page);
+        await mediaToFullyLoad(page);
         await snapshot(page);
       });
 

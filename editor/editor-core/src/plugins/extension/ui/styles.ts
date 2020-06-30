@@ -1,10 +1,13 @@
 import { css } from 'styled-components';
-import { borderRadius } from '@atlaskit/theme';
 import {
-  akEditorSelectedBorder,
-  akEditorSelectedBorderBoldSize,
   blockNodesVerticalMargin,
+  akEditorSelectedBorderSize,
+  akEditorDeleteBorder,
+  akEditorDeleteBackground,
 } from '@atlaskit/editor-common';
+import { akEditorSelectedNodeClassName } from '../../../styles';
+import { getSelectionStyles } from '../../selection/utils';
+import { SelectionStyle } from '../../selection/types';
 
 export const extensionStyles = css`
   .extensionView-content-wrap,
@@ -19,10 +22,18 @@ export const extensionStyles = css`
       margin-bottom: 0;
     }
 
-    &.ProseMirror-selectednode:not(.danger) .extension-container {
-      border-radius: ${borderRadius}px;
-      box-shadow: 0 0 0 ${akEditorSelectedBorderBoldSize}px
-        ${akEditorSelectedBorder};
+    &:not(.danger).${akEditorSelectedNodeClassName} {
+      & > span > .extension-container {
+        ${getSelectionStyles([
+          SelectionStyle.BoxShadow,
+          SelectionStyle.Blanket,
+        ])}
+      }
+    }
+
+    &.danger > span > .extension-container {
+      box-shadow: 0 0 0 ${akEditorSelectedBorderSize}px ${akEditorDeleteBorder};
+      background-color: ${akEditorDeleteBackground};
     }
   }
 

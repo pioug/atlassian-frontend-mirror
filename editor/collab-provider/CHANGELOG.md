@@ -1,5 +1,21 @@
 # @atlaskit/collab-provider
 
+## 2.0.0
+
+### Major Changes
+
+- [`3eb98cd820`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3eb98cd820) - ED-9367 Add required config argument to `createSocket`
+
+### Minor Changes
+
+- [`f90d5a351e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f90d5a351e) - ED-9367 Create entry point with a collab provider factory pre-configured with SocketIO
+- [`f80f07b072`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f80f07b072) - ED-9451 Support lifecycle emitter on configuration
+- [`8814c0a119`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8814c0a119) - ED-9451 Support for custom storage interface
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.0.2
 
 ### Patch Changes

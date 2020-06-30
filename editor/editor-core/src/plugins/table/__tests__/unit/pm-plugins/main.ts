@@ -1,16 +1,16 @@
 import {
-  doc,
-  table,
-  tr,
-  p,
-  tdEmpty,
-  tdCursor,
-} from '@atlaskit/editor-test-helpers/schema-builder';
-import {
+  createProsemirrorEditorFactory,
   LightEditorPlugin,
   Preset,
-  createProsemirrorEditorFactory,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+import {
+  doc,
+  p,
+  table,
+  tdCursor,
+  tdEmpty,
+  tr,
+} from '@atlaskit/editor-test-helpers/schema-builder';
 
 import tablePlugin from '../../../../table';
 import { pluginKey } from '../../../pm-plugins/plugin-factory';

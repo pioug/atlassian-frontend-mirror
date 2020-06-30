@@ -2,10 +2,15 @@ import { Page } from 'puppeteer';
 import { snapshot, animationFrame, initRendererWithADF } from './_utils';
 import * as wideTableResized from '../__fixtures__/table-wide-resized.adf.json';
 import * as tableWithShadowAdf from '../__fixtures__/table-with-shadow.adf.json';
+import { RendererAppearance } from '../../ui/Renderer/types';
 
-const initRenderer = async (page: Page, adf: any) => {
+const initRenderer = async (
+  page: Page,
+  adf: any,
+  appearance: RendererAppearance = 'full-page',
+) => {
   await initRendererWithADF(page, {
-    appearance: 'full-page',
+    appearance,
     viewport: { width: 1485, height: 1175 },
     adf,
     rendererProps: { showSidebar: true },
@@ -48,5 +53,13 @@ describe('Snapshot Test: Table scaling', () => {
     }
     `;
     await page.addStyleTag({ content: css });
+  });
+
+  it('should render table content correctly in mobile appearance', async () => {
+    await initRendererWithADF(page, {
+      appearance: 'mobile',
+      viewport: { width: 1485, height: 1175 },
+      adf: wideTableResized,
+    });
   });
 });

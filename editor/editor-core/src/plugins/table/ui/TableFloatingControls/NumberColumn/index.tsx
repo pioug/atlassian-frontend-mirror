@@ -1,8 +1,9 @@
-import React from 'react';
-import { Component } from 'react';
+import React, { Component } from 'react';
+
+import { Selection } from 'prosemirror-state';
 import { isRowSelected } from 'prosemirror-utils';
 import { EditorView } from 'prosemirror-view';
-import { Selection } from 'prosemirror-state';
+
 import { clearHoverSelection } from '../../../commands';
 import { TableCssClassName as ClassName } from '../../../types';
 import { getRowHeights } from '../../../utils';

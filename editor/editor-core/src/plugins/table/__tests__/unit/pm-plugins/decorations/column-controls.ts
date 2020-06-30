@@ -1,20 +1,22 @@
 import { DecorationSet } from 'prosemirror-view';
+
+import {
+  createProsemirrorEditorFactory,
+  LightEditorPlugin,
+  Preset,
+} from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   doc,
   table,
-  tr,
-  tdEmpty,
   tdCursor,
+  tdEmpty,
+  tr,
 } from '@atlaskit/editor-test-helpers/schema-builder';
-import {
-  LightEditorPlugin,
-  Preset,
-  createProsemirrorEditorFactory,
-} from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+
 import tablePlugin from '../../../../../table';
 import { buildColumnControlsDecorations } from '../../../../pm-plugins/decorations/utils';
-import { TableDecorations } from '../../../../types';
 import { pluginKey } from '../../../../pm-plugins/plugin-factory';
+import { TableDecorations } from '../../../../types';
 
 describe('tables: column controls decorations', () => {
   const createEditor = createProsemirrorEditorFactory();

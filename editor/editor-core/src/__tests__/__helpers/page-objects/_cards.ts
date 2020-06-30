@@ -14,6 +14,9 @@ export const waitForResolvedInlineCard = async (
   status?: CardType,
 ) => {
   await page.waitForSelector(inlineCardSelector(status));
+  if (status === 'resolving') {
+    await page.waitForSelector('.inline-resolving-spinner');
+  }
 };
 
 export const waitForResolvedBlockCard = async (
@@ -30,14 +33,16 @@ export const waitForResolvedEmbedCard = async (
   await page.waitForSelector(embedCardSelector(status));
 };
 
-export const waitForInlineCardSelection = async (page: Page) => {
+export const waitForInlineCardSelection = async (
+  page: Page | PuppeteerPage,
+) => {
   await page.waitForSelector('.inlineCardView-content-wrap');
   await page.click('.inlineCardView-content-wrap');
   await page.waitForSelector('div[aria-label="Floating Toolbar"]');
 };
 
 export const waitForBlockCardSelection = async (
-  page: Page,
+  page: Page | PuppeteerPage,
   status?: CardType,
 ) => {
   const selector = status
@@ -49,7 +54,7 @@ export const waitForBlockCardSelection = async (
 };
 
 export const waitForEmbedCardSelection = async (
-  page: Page,
+  page: Page | PuppeteerPage,
   status?: CardType,
 ) => {
   const selector = status

@@ -127,4 +127,7 @@ export {
 export { MentionSharedCssClassName } from './shared/mention';
 export { EmojiSharedCssClassName } from './shared/emoji';
 export { StatusSharedCssClassName } from './shared/status';
-export { smartCardSharedStyles } from './shared/block-card';
+export {
+  smartCardSharedStyles,
+  SmartCardSharedCssClassName,
+} from './shared/smart-card';

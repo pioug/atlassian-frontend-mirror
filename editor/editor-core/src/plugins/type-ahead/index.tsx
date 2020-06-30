@@ -1,16 +1,19 @@
 import React from 'react';
+
 import { typeAheadQuery } from '@atlaskit/adf-schema';
+
 import { EditorPlugin } from '../../types';
 import WithPluginState from '../../ui/WithPluginState';
-import { TypeAheadHandler } from './types';
+
+import { inputRulePlugin } from './pm-plugins/input-rules';
+import { keymapPlugin } from './pm-plugins/keymap';
 import {
   createInitialPluginState,
   createPlugin,
   pluginKey as typeAheadPluginKey,
   PluginState as TypeAheadPluginState,
 } from './pm-plugins/main';
-import { inputRulePlugin } from './pm-plugins/input-rules';
-import { keymapPlugin } from './pm-plugins/keymap';
+import { TypeAheadHandler } from './types';
 import { TypeAhead } from './ui/TypeAhead';
 
 const typeAheadPlugin = (): EditorPlugin => ({

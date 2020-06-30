@@ -1,9 +1,11 @@
+import React from 'react';
 import { ActivityItem } from '@atlaskit/activity';
 import { ProviderFactory, ErrorMessage } from '@atlaskit/editor-common';
 import { activityProviderFactory } from '@atlaskit/editor-test-helpers/activity-provider';
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
 import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { render, fireEvent } from '@testing-library/react';
 
 import {
   a,
@@ -59,7 +61,6 @@ import {
 import { MediaFloatingToolbarOptions } from '../../../../../plugins/media/types';
 import PanelTextInput from '../../../../../ui/PanelTextInput';
 import { MediaPluginState } from '../../../../../plugins/media/pm-plugins/types';
-import { flushPromises } from '../../../../__helpers/utils';
 
 interface ToolbarWrapper {
   editorView: EditorView;
@@ -175,7 +176,7 @@ describe('media', () => {
     };
   }
 
-  async function clickOnToolbarButton(
+  function clickOnToolbarButton(
     wrapper: ToolbarWrapper,
     type: 'edit' | 'add',
     items: Array<ActivityItem>,
@@ -202,9 +203,14 @@ describe('media', () => {
       linkingToolbarComponent.render(editorView) as ReactElement<any>,
     );
 
+    const linkingToolbarReactTestingLibrary = render(
+      <IntlProvider>{linkingToolbarComponent.render(editorView)}</IntlProvider>,
+    );
+
     return {
       toolbar,
       linkingToolbar,
+      linkingToolbarReactTestingLibrary,
     };
   }
 
@@ -256,12 +262,10 @@ describe('media', () => {
           let linkingToolbar: ReactWrapper<LinkAddToolbarProps>;
           let mediaLinkingState: MediaLinkingState;
 
-          beforeEach(async () => {
-            ({ linkingToolbar } = await clickOnToolbarButton(
-              toolbarWrapper,
-              'add',
-              [recentItem1],
-            ));
+          beforeEach(() => {
+            ({ linkingToolbar } = clickOnToolbarButton(toolbarWrapper, 'add', [
+              recentItem1,
+            ]));
             mediaLinkingState = getMediaLinkingState(editorView.state);
           });
 
@@ -340,25 +344,37 @@ describe('media', () => {
             });
 
             describe('with link input via selection', () => {
-              it('should allow invalid url', async () => {
-                // call onchange with text matching recent items to invoke recent items list
+              it('should allow invalid url', () => {
+                const {
+                  linkingToolbarReactTestingLibrary,
+                } = clickOnToolbarButton(toolbarWrapper, 'add', [recentItem1]);
+                const {
+                  getByPlaceholderText,
+                  queryByText,
+                } = linkingToolbarReactTestingLibrary;
+
                 const inputText = recentItem1.name.substr(0, 1);
-                const onChange = linkingToolbar.find(PanelTextInput).props()
-                  .onChange as (value: string) => void;
-                onChange(inputText);
+                let input = getByPlaceholderText(
+                  linkToolbarMessages.linkPlaceholder.defaultMessage,
+                );
+                fireEvent.change(input, { target: { value: inputText } });
 
-                // need to await for events queue to clear to make sure currentInputMethod gets updated
-                await flushPromises();
+                // get new input to make sure typeAhead mode is registered
+                input = getByPlaceholderText(
+                  linkToolbarMessages.placeholder.defaultMessage,
+                );
 
-                // update PanelTextInput and get updated onSubmit to make sure it gets new currentInputMethod
-                linkingToolbar.find(PanelTextInput).update();
-                onSubmit = linkingToolbar.find(PanelTextInput).props()
-                  .onSubmit as (value: string) => void;
+                fireEvent.keyDown(input, {
+                  key: 'Enter',
+                  code: 'Enter',
+                  keyCode: 13,
+                });
 
-                onSubmit(inputText);
-                linkingToolbar.update();
-                const errorMessage = linkingToolbar.find(ErrorMessage);
-                expect(errorMessage).toHaveLength(0);
+                const error = queryByText(
+                  linkToolbarMessages.invalidLink.defaultMessage,
+                );
+
+                expect(error).toBeNull();
               });
             });
           });
@@ -442,11 +458,11 @@ describe('media', () => {
           });
 
           it('should not display unlink button and not display invalid url', async () => {
-            const {
-              linkingToolbar,
-            } = await clickOnToolbarButton(toolbarWrapper, 'edit', [
-              recentItem1,
-            ]);
+            const { linkingToolbar } = clickOnToolbarButton(
+              toolbarWrapper,
+              'edit',
+              [recentItem1],
+            );
 
             expect(
               linkingToolbar.find('button[aria-label="Unlink"]').length,
@@ -460,12 +476,10 @@ describe('media', () => {
         describe('Linking Toolbar', () => {
           let linkingToolbar: ReactWrapper<LinkAddToolbarProps>;
 
-          beforeEach(async () => {
-            ({ linkingToolbar } = await clickOnToolbarButton(
-              toolbarWrapper,
-              'edit',
-              [recentItem1],
-            ));
+          beforeEach(() => {
+            ({ linkingToolbar } = clickOnToolbarButton(toolbarWrapper, 'edit', [
+              recentItem1,
+            ]));
           });
 
           afterEach(() => {

@@ -1,4 +1,5 @@
-import { Node as PmNode, DOMSerializer } from 'prosemirror-model';
+import { DOMSerializer, Node as PmNode } from 'prosemirror-model';
+
 import { getFragmentBackingArray } from '../../../../../utils/slice';
 
 type Col = Array<string | { [name: string]: string }>;

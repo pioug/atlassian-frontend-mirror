@@ -1,12 +1,11 @@
 import {
-  FieldResolver,
-  Serializer,
   Deserializer,
   ExtensionManifest,
   ExtensionModuleFieldTypeCustom,
   ExtensionModuleFieldTypeFieldset,
+  FieldResolver,
+  Serializer,
 } from './types/extension-manifest';
-
 import { FieldHandlerLink } from './types/field-definitions';
 
 const assertFieldHandlerLink = (handlerLink: FieldHandlerLink) => {

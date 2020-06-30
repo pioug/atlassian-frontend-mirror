@@ -10,7 +10,6 @@ export const selectedSearchMatchClass = 'selected-search-match';
 export const findReplaceStyles = css`
   .${searchMatchClass} {
     background-color: ${searchMatchBgColour};
-    border-radius: 4px;
   }
 
   .${selectedSearchMatchClass} {

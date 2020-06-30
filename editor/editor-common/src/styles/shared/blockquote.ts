@@ -1,5 +1,7 @@
 import { css } from 'styled-components';
+
 import { gridSize } from '@atlaskit/theme';
+
 import {
   akEditorBlockquoteBorderColor,
   blockNodesVerticalMargin,

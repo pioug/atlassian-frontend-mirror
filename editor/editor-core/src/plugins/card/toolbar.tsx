@@ -1,7 +1,7 @@
 import React from 'react';
 import { InjectedIntl } from 'react-intl';
 import { EditorState, NodeSelection } from 'prosemirror-state';
-import { removeSelectedNode } from 'prosemirror-utils';
+import { removeSelectedNode, findDomRefAtPos } from 'prosemirror-utils';
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 import UnlinkIcon from '@atlaskit/icon/glyph/editor/unlink';
 import OpenIcon from '@atlaskit/icon/glyph/shortcut';
@@ -30,7 +30,7 @@ import { hoverDecoration } from '../base/pm-plugins/decoration';
 import { changeSelectedCardToText } from './pm-plugins/doc';
 import { CardPluginState, CardOptions } from './types';
 import { pluginKey } from './pm-plugins/main';
-import { ProviderFactory } from '@atlaskit/editor-common';
+import { ProviderFactory, richMediaClassName } from '@atlaskit/editor-common';
 import {
   buildEditLinkToolbar,
   editLink,
@@ -238,12 +238,43 @@ export const floatingToolbar = (
   ): FloatingToolbarConfig | undefined => {
     const { inlineCard, blockCard, embedCard } = state.schema.nodes;
     const nodeType = [inlineCard, blockCard, embedCard];
-
     const pluginState: CardPluginState = pluginKey.getState(state);
+    if (!(state.selection instanceof NodeSelection)) {
+      return;
+    }
+    const selectedNode = state.selection.node;
+
+    if (!selectedNode) {
+      return;
+    }
+
+    const isEmbedCard = appearanceForNodeType(selectedNode.type) === 'embed';
+
+    /* add an offset to embeds due to extra padding */
+    const toolbarOffset: { offset: [number, number] } | {} = isEmbedCard
+      ? {
+          offset: [0, 24],
+        }
+      : {};
 
     return {
       title: intl.formatMessage(messages.card),
       nodeType,
+      ...toolbarOffset,
+      getDomRef: view => {
+        const element = findDomRefAtPos(
+          state.selection.from,
+          view.domAtPos.bind(view),
+        ) as HTMLElement;
+        if (!element) {
+          return undefined;
+        }
+        if (isEmbedCard) {
+          return element.querySelector(`.${richMediaClassName}`) as HTMLElement;
+        }
+        return element;
+      },
+
       items: generateToolbarItems(
         state,
         intl,

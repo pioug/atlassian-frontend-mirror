@@ -19,7 +19,6 @@ import {
   removeInlineCommentNearSelection,
   setInlineCommentDraftState,
 } from '../../commands';
-import { inlineCommentPluginKey } from '../../pm-plugins/plugin-factory';
 import { InlineCommentPluginState } from '../../pm-plugins/types';
 import annotationPlugin, { createAnnotation } from '../..';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
@@ -29,11 +28,11 @@ import {
   EVENT_TYPE,
   ACTION_SUBJECT_ID,
 } from '../../../analytics/types/enums';
-import { getPluginState } from './../../pm-plugins/inline-comment';
 import { flushPromises } from '../../../../__tests__/__helpers/utils';
 import { AnnotationTestIds } from '../../types';
 import { RESOLVE_METHOD } from '../../../analytics/types/inline-comment-events';
 import * as commands from '../../commands/index';
+import { inlineCommentPluginKey, getPluginState } from '../../utils';
 
 describe('annotation', () => {
   const createEditor = createEditorFactory();
@@ -85,6 +84,7 @@ describe('annotation', () => {
       selectedAnnotations: [],
       mouseData: { isSelecting: false },
       bookmark: getBookmark(editorView, refs),
+      disallowOnWhitespace: false,
     };
     jest
       .spyOn(inlineCommentPluginKey, 'getState')
@@ -287,6 +287,17 @@ describe('annotation', () => {
           expect(contentComponent.find(nullComponent).exists()).toBeFalsy();
         });
 
+        it('when annotation is deleted', async () => {
+          const viewComponent = contentComponent.find(nullComponent);
+          expect(viewComponent.exists()).toBeTruthy();
+          viewComponent.prop('onDelete')('first123');
+          // rerender to let onDelete update hidden state
+          contentComponent.setProps(contentComponent.props());
+          // rerender after hidden state updated
+          contentComponent.setProps(contentComponent.props());
+          expect(contentComponent.find(nullComponent).exists()).toBeFalsy();
+        });
+
         it('not closed when clicking same annotation', () => {
           expect(contentComponent.find(nullComponent)).toBeTruthy();
           const { state } = editorView;
@@ -394,6 +405,25 @@ describe('annotation', () => {
   });
 
   describe('create annotation', () => {
+    it('calls dispatch just once', () => {
+      const { editorView, refs } = editor(
+        doc(p('Fluke {start}{<}jib scourge of the{>}{end} seven seas')),
+      );
+      mockPluginStateWithBookmark(editorView, refs);
+
+      const dispatchSpy = jest.spyOn(editorView, 'dispatch');
+      const id = 'annotation-id-123';
+      createAnnotation(editorView.state, editorView.dispatch)(id);
+
+      let inlineCommentTransactionCalls = 0;
+      dispatchSpy.mock.calls.forEach(call => {
+        call.forEach(tr => {
+          tr.getMeta(inlineCommentPluginKey) && inlineCommentTransactionCalls++;
+        });
+      });
+      expect(inlineCommentTransactionCalls).toBe(1);
+    });
+
     it('paragraph', () => {
       const { editorView, refs } = editor(
         doc(p('Fluke {start}{<}jib scourge of the{>}{end} seven seas')),

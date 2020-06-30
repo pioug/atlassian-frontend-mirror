@@ -1,5 +1,6 @@
-import DefaultExtensionProvider from '../../default-extension-provider';
 import { createFakeExtensionManifest } from '@atlaskit/editor-test-helpers/extensions';
+
+import DefaultExtensionProvider from '../../default-extension-provider';
 
 describe('default-extension-provider', () => {
   const confluenceAwesomeMacro = createFakeExtensionManifest({

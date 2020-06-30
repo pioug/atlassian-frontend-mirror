@@ -7,10 +7,10 @@ import {
 import { AnnotationState } from '@atlaskit/editor-common';
 
 export class Deferred<T> {
-  promise: Promise<T>;
+  promise: Promise<T | null>;
   isFulfilled: boolean = false;
   reject?: () => void;
-  resolve?: (arg: T) => void;
+  resolve?: (arg: T | null) => void;
 
   constructor() {
     this.promise = new Promise((resolve, reject) => {
@@ -57,7 +57,10 @@ export const getAnnotationDeferred = (
 };
 
 export const resolveAnnotationPromises = (
-  data: AnnotationState<AnnotationTypes.INLINE_COMMENT, AnnotationMarkStates>[],
+  data: AnnotationState<
+    AnnotationTypes.INLINE_COMMENT,
+    AnnotationMarkStates | null
+  >[],
 ): void => {
   if (!data || !data.length) {
     return;

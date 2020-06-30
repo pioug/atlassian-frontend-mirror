@@ -8,6 +8,7 @@ import {
 const table = "[data-testid='the-table--table']";
 const tableHeadCell = "[data-testid='the-table--head--cell']";
 const tableHeadParty = `${tableHeadCell}:nth-child(2)`;
+const pagination = "[page='3']";
 
 describe('Snapshot Test', () => {
   // You can't use other example as they create dynamic content and will fail the test
@@ -39,7 +40,11 @@ describe('Snapshot Test', () => {
     // Take screenshot before sorting
     const tableBefore = await takeElementScreenShot(page, table);
     expect(tableBefore).toMatchProdImageSnapshot();
-    // Take screenshot after sorting
+    // Take screenshot after going to page 3 and sorting
+    await page.waitForSelector(pagination);
+    await page.click(pagination);
+    // We need to wait for the animation to finish.
+    await page.waitFor(1000);
     await page.waitForSelector(tableHeadCell);
     await page.click(tableHeadParty);
     const tableAfter = await takeElementScreenShot(page, table);

@@ -9,7 +9,7 @@ import {
 } from '../../common/constants';
 import { SlotHeightProps } from '../../common/types';
 import { resolveDimension } from '../../common/utils';
-import { publishGridState } from '../../controllers';
+import { publishGridState, useSkipLinks } from '../../controllers';
 
 import SlotDimensions from './slot-dimensions';
 import { topNavigationStyles } from './styles';
@@ -21,6 +21,8 @@ const TopNavigation = (props: SlotHeightProps) => {
     isFixed = true,
     shouldPersistHeight,
     testId,
+    id,
+    skipLinkTitle,
   } = props;
 
   const topNavigationHeight = resolveDimension(
@@ -29,15 +31,23 @@ const TopNavigation = (props: SlotHeightProps) => {
     shouldPersistHeight,
   );
 
+  const { registerSkipLink, unregisterSkipLink } = useSkipLinks();
+
   useEffect(() => {
     publishGridState({ [TOP_NAVIGATION_HEIGHT]: topNavigationHeight });
     return () => {
       publishGridState({ [TOP_NAVIGATION_HEIGHT]: 0 });
+      unregisterSkipLink(id);
     };
-  }, [topNavigationHeight]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [topNavigationHeight, id]);
+
+  if (id && skipLinkTitle) {
+    registerSkipLink({ id, skipLinkTitle });
+  }
 
   return (
-    <div css={topNavigationStyles(isFixed)} data-testid={testId}>
+    <div css={topNavigationStyles(isFixed)} data-testid={testId} id={id}>
       <SlotDimensions
         variableName={TOP_NAVIGATION_HEIGHT}
         value={topNavigationHeight}

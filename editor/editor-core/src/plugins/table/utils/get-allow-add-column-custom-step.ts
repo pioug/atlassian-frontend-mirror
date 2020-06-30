@@ -1,4 +1,5 @@
 import { EditorState } from 'prosemirror-state';
+
 import { getPluginState } from '../pm-plugins/plugin-factory';
 
 export function getAllowAddColumnCustomStep(state: EditorState): boolean {

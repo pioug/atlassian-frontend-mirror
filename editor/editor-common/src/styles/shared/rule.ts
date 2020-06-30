@@ -1,5 +1,7 @@
 import { css } from 'styled-components';
+
 import { colors } from '@atlaskit/theme';
+
 import { akEditorLineHeight } from '../consts';
 
 // @see typography spreadsheet: https://docs.google.com/spreadsheets/d/1iYusRGCT4PoPfvxbJ8NrgjtfFgXLm5lpDWXzjua1W2E/edit#gid=93913128

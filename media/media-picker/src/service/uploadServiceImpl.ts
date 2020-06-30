@@ -12,6 +12,7 @@ import {
   UploadableFile,
   MediaType,
   getMediaTypeFromMimeType,
+  isMimeTypeSupportedByBrowser,
   getFileStreamsCache,
   MediaClient,
   globalMediaEventEmitter,
@@ -253,7 +254,17 @@ export class UploadServiceImpl implements UploadService {
   private emitPreviews(cancellableFileUploads: CancellableFileUpload[]) {
     cancellableFileUploads.forEach(cancellableFileUpload => {
       const { file, mediaFile, source } = cancellableFileUpload;
+      const { type } = file;
       const mediaType = this.getMediaTypeFromFile(file);
+
+      if (!isMimeTypeSupportedByBrowser(type)) {
+        this.emit('file-preview-update', {
+          file: mediaFile,
+          preview: {},
+        });
+        return;
+      }
+
       if (mediaType === 'image') {
         getPreviewFromImage(
           file,

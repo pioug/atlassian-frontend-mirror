@@ -47,7 +47,9 @@ export interface ReactSerializerInit {
   stickyHeaders?: StickyHeaderConfig;
   allowMediaLinking?: boolean;
   allowAnnotations?: boolean;
-  getAnnotationPromise?: (id: AnnotationId) => Promise<AnnotationMarkStates>;
+  getAnnotationPromise?: (
+    id: AnnotationId,
+  ) => Promise<AnnotationMarkStates | null>;
 }
 
 interface ParentInfo {
@@ -91,7 +93,7 @@ type AnnotationConfig = {
   allowAnnotations: boolean;
   getAnnotationPromise:
     | null
-    | ((id: AnnotationId) => Promise<AnnotationMarkStates>);
+    | ((id: AnnotationId) => Promise<AnnotationMarkStates | null>);
 };
 
 export default class ReactSerializer implements Serializer<JSX.Element> {

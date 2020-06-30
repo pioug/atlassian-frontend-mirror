@@ -1,7 +1,10 @@
-import { table, tableCell, tableHeader, tableRow } from '@atlaskit/adf-schema';
+import React from 'react';
+
 import { tableEditing } from 'prosemirror-tables';
 import { createTable } from 'prosemirror-utils';
-import React from 'react';
+
+import { table, tableCell, tableHeader, tableRow } from '@atlaskit/adf-schema';
+
 import { toggleTable, tooltip } from '../../keymaps';
 import { EditorPlugin } from '../../types';
 import WithPluginState from '../../ui/WithPluginState';
@@ -13,20 +16,24 @@ import {
   EVENT_TYPE,
   INPUT_METHOD,
 } from '../analytics';
+import { messages } from '../insert-block/ui/ToolbarInsertBlock/messages';
 import { IconTable } from '../quick-insert/assets';
+
+import { pluginConfig } from './create-plugin-config';
+import { createPlugin as createDecorationsPlugin } from './pm-plugins/decorations/plugin';
 import { keymapPlugin } from './pm-plugins/keymap';
 import { createPlugin } from './pm-plugins/main';
+import { getPluginState, pluginKey } from './pm-plugins/plugin-factory';
+import {
+  createPlugin as createStickyHeadersPlugin,
+  findStickyHeaderForTable,
+  pluginKey as stickyHeadersPluginKey,
+  StickyPluginState,
+} from './pm-plugins/sticky-headers';
 import {
   createPlugin as createFlexiResizingPlugin,
   pluginKey as tableResizingPluginKey,
 } from './pm-plugins/table-resizing';
-import {
-  createPlugin as createStickyHeadersPlugin,
-  pluginKey as stickyHeadersPluginKey,
-  StickyPluginState,
-  findStickyHeaderForTable,
-} from './pm-plugins/sticky-headers';
-
 import { getToolbarConfig } from './toolbar';
 import { ColumnResizingPluginState, PluginConfig } from './types';
 import FloatingContextualButton from './ui/FloatingContextualButton';
@@ -35,10 +42,6 @@ import FloatingDeleteButton from './ui/FloatingDeleteButton';
 import FloatingInsertButton from './ui/FloatingInsertButton';
 import LayoutButton from './ui/LayoutButton';
 import { isLayoutSupported } from './utils';
-import { messages } from '../insert-block/ui/ToolbarInsertBlock/messages';
-import { getPluginState, pluginKey } from './pm-plugins/plugin-factory';
-import { pluginConfig } from './create-plugin-config';
-import { createPlugin as createDecorationsPlugin } from './pm-plugins/decorations/plugin';
 
 interface TablePluginOptions {
   tableOptions: PluginConfig;

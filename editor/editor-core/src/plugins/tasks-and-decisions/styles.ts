@@ -1,13 +1,15 @@
 import { css } from 'styled-components';
+
+import {
+  akEditorDeleteBackgroundWithOpacity,
+  akEditorDeleteBorder,
+  akEditorSelectedBorderSize,
+  TaskDecisionSharedCssClassName,
+} from '@atlaskit/editor-common';
+
 import { akEditorSelectedNodeClassName } from '../../styles';
 import { SelectionStyle } from '../selection/types';
 import { getSelectionStyles } from '../selection/utils';
-import {
-  TaskDecisionSharedCssClassName,
-  akEditorSelectedBorderSize,
-  akEditorDeleteBorder,
-  akEditorDeleteBackgroundWithOpacity,
-} from '@atlaskit/editor-common';
 
 export const taskDecisionStyles = css`
   .${akEditorSelectedNodeClassName} > [data-decision-wrapper] {

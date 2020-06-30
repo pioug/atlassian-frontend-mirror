@@ -31,6 +31,7 @@ export default function FieldsLoader({
   extensionKey,
   nodeKey,
   extensionProvider,
+  extensionParameters = {},
   parameters = {},
   autoSave,
   closeOnEsc,
@@ -54,10 +55,10 @@ export default function FieldsLoader({
       );
 
       if (typeof fn === 'function') {
-        return fn();
+        return fn(extensionParameters);
       }
     },
-    [extensionManifest, nodeKey],
+    [extensionManifest, nodeKey, extensionParameters],
   );
 
   if (!extensionManifest || !fields) {

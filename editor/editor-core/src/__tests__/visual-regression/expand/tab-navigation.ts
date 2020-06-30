@@ -20,6 +20,14 @@ describe('Expand: tab navigation', () => {
     await snapshot(page);
   });
 
+  beforeEach(async () => {
+    await page.evaluate(data => {
+      // window.matchMedia('(any-hover: hover)').matches returns false on headless chrome
+      // @ts-ignore
+      window.matchMedia = () => ({ matches: true });
+    });
+  });
+
   describe('given the gap cursor is on the left of the expand', () => {
     beforeEach(async () => {
       await initFullPageEditorWithAdf(page, adfWithExpand, Device.LaptopMDPI);

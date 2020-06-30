@@ -1,7 +1,7 @@
 // Resize a given column by an amount from the current state
-import { ResizeState } from './types';
 import { growColumn, shrinkColumn } from './resize-logic';
 import { updateColgroup } from './resize-state';
+import { ResizeState } from './types';
 
 export const resizeColumn = (
   resizeState: ResizeState,

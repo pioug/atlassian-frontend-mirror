@@ -30,5 +30,12 @@ describe('node utils', () => {
         isNodeSelectedOrInRange(range.anchor, range.head, node.pos, node.size),
       ).toBe(SelectedState.selectedInside);
     });
+    it('should return selectedInside if range is the same as node', () => {
+      const range = { anchor: 8, head: 11 };
+      const node = { pos: 8, size: 3 };
+      expect(
+        isNodeSelectedOrInRange(range.anchor, range.head, node.pos, node.size),
+      ).toBe(SelectedState.selectedInside);
+    });
   });
 });

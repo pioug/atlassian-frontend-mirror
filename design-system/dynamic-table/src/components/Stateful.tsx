@@ -36,10 +36,13 @@ export default class DynamicTable extends React.Component<
   };
 
   UNSAFE_componentWillReceiveProps(newProps: StatefulProps) {
+    const sortKey = newProps.sortKey || this.state.sortKey;
+    const sortOrder = newProps.sortOrder || this.state.sortOrder;
+    const page = newProps.page || this.state.page;
     this.setState({
-      page: newProps.page,
-      sortKey: newProps.defaultSortKey,
-      sortOrder: newProps.defaultSortOrder,
+      page,
+      sortKey,
+      sortOrder,
       rows: newProps.rows,
     });
   }
@@ -59,7 +62,7 @@ export default class DynamicTable extends React.Component<
     const { onSort } = this.props;
     if (onSort) {
       onSort({ key, item, sortOrder }, analyticsEvent);
-      this.setState({ sortKey: key, sortOrder, page: 1 });
+      this.setState({ sortKey: key, sortOrder });
     }
   };
 

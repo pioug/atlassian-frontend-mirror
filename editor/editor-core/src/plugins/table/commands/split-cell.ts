@@ -1,7 +1,8 @@
-import { Command } from '../../../types/command';
-import { TablePluginState } from '../types';
-import { getPluginState } from '../pm-plugins/plugin-factory';
 import { splitCellWithType } from 'prosemirror-tables';
+
+import { Command } from '../../../types/command';
+import { getPluginState } from '../pm-plugins/plugin-factory';
+import { TablePluginState } from '../types';
 
 /**
  * We need to split cell keeping the right type of cell given current table configuration.

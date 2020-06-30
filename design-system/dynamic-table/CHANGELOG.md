@@ -1,5 +1,12 @@
 # @atlaskit/dynamic-table
 
+## 13.7.9
+
+### Patch Changes
+
+- [`e8b1104637`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e8b1104637) - Previously when sorting the rows weren’t using a stable key - thus they would re-mount unexpectedly! This has been fixed now.
+- [`3cac2203ba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3cac2203ba) - Previously, sorting columns in dynamic table wouldn’t persist the page when table was updated, Now user will be able to apply sorting on dynamic table and page will be remain same even after updating table
+
 ## 13.7.8
 
 ### Patch Changes

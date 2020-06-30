@@ -1,26 +1,42 @@
 import React, { Component } from 'react';
-import StatelessElementBrowser from './StatelessElementBrowser';
-
 import {
   QuickInsertItem,
   QuickInsertProvider,
 } from '@atlaskit/editor-common/provider-factory';
-import { Modes } from './types';
+import { find } from '../../plugins/quick-insert/search';
+import StatelessElementBrowser from './StatelessElementBrowser';
+import { Category, Modes } from './types';
 
 interface Props {
+  categories: Category[];
+  mode: keyof typeof Modes;
   quickInsertProvider: Promise<QuickInsertProvider>;
+  onSelectItem: (item: QuickInsertItem) => void;
+  search: (
+    searchTerm: string,
+    items: QuickInsertItem[],
+    category?: string,
+  ) => QuickInsertItem[];
   showSearch: boolean;
   showCategories: boolean;
-  mode: keyof typeof Modes;
+  defaultCategory?: string;
 }
 
 interface State {
+  allItems: QuickInsertItem[];
   items: QuickInsertItem[];
+  selectedCategory?: string;
 }
 
 export default class ElementBrowser extends Component<Props, State> {
+  static defaultProps = {
+    search: find,
+  };
+
   state: State = {
+    allItems: [],
     items: [],
+    selectedCategory: this.props.defaultCategory,
   };
 
   componentDidMount() {
@@ -31,19 +47,75 @@ export default class ElementBrowser extends Component<Props, State> {
     const { quickInsertProvider } = this.props;
     const provider = await quickInsertProvider;
     const items = await provider.getItems();
-    this.setState({ items });
+    this.setState({ allItems: items, items });
   };
+
+  getFilteredItemsForCategory = (
+    items: QuickInsertItem[],
+    selected: Category,
+  ): QuickInsertItem[] => {
+    return selected.name === 'all'
+      ? items
+      : items.filter(
+          (item: QuickInsertItem) => item.category === selected.name,
+        );
+  };
+
+  handleSearch = (searchTerm: string) => {
+    const { selectedCategory, allItems } = this.state;
+    const filteredItems = this.props.search(
+      searchTerm,
+      allItems,
+      selectedCategory,
+    );
+    this.setState({ items: filteredItems });
+  };
+
+  resetCategorySelection = (state: State, { defaultCategory }: Props) => ({
+    ...state,
+    selectedCategory: defaultCategory,
+    items: state.allItems,
+  });
+
+  handleCategorySelection = (clickedCategory: Category) => {
+    const { allItems, selectedCategory: stateCategoryValue } = this.state;
+
+    /**
+     * Reset selection if clicked on the same category twice.
+     */
+    if (stateCategoryValue === clickedCategory.name) {
+      return this.setState(this.resetCategorySelection);
+    }
+
+    const filteredItems = this.getFilteredItemsForCategory(
+      allItems,
+      clickedCategory,
+    );
+
+    this.setState({
+      selectedCategory: clickedCategory.name,
+      items: filteredItems,
+    });
+  };
+
   render() {
-    const { showSearch, showCategories, mode } = this.props;
-    const { items } = this.state;
+    const {
+      categories,
+      onSelectItem,
+      showSearch,
+      showCategories,
+      mode,
+    } = this.props;
+    const { selectedCategory, items } = this.state;
     return (
       <StatelessElementBrowser
         items={items}
-        categories={categoriesList}
-        onSearch={() => {}}
-        onSelectCategory={() => {}}
-        onClickItem={() => {}}
-        onEnter={() => {}}
+        categories={categories}
+        onSearch={this.handleSearch}
+        onSelectCategory={this.handleCategorySelection}
+        onSelectItem={onSelectItem}
+        onEnterKeyPress={onSelectItem}
+        selectedCategory={selectedCategory}
         showSearch={showSearch}
         showCategories={showCategories}
         mode={mode}
@@ -51,17 +123,3 @@ export default class ElementBrowser extends Component<Props, State> {
     );
   }
 }
-
-const categoriesList = [
-  { title: 'Formatting', name: 'formatting' },
-  { title: 'Confluence content', name: 'confluence-content' },
-  { title: 'Media', name: 'media' },
-  { title: 'Visuals & images', name: 'visuals' },
-  { title: 'Navigation', name: 'navigation' },
-  { title: 'External content', name: 'external-content' },
-  { title: 'Communication', name: 'communication' },
-  { title: 'Reporting', name: 'reporting' },
-  { title: 'Administration', name: 'admin' },
-  { title: 'Development', name: 'development' },
-  { title: 'Hidden', name: 'hidden-macros' },
-];

@@ -1,16 +1,18 @@
 import { isColumnSelected } from 'prosemirror-utils';
+
 import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
 import {
   doc,
   table,
-  tr,
   tdEmpty,
+  tr,
 } from '@atlaskit/editor-test-helpers/schema-builder';
-import { selectColumn } from '../../../commands';
+
 import { EditorProps } from '../../../../../types';
-import { TablePluginState, TableDecorations } from '../../../types';
-import { getPluginState, pluginKey } from '../../../pm-plugins/plugin-factory';
+import { selectColumn } from '../../../commands';
 import { getDecorations } from '../../../pm-plugins/decorations/plugin';
+import { getPluginState, pluginKey } from '../../../pm-plugins/plugin-factory';
+import { TableDecorations, TablePluginState } from '../../../types';
 
 describe('table plugin: commands', () => {
   const createEditor = createEditorFactory<TablePluginState>();

@@ -1,17 +1,18 @@
-import { liftTarget } from 'prosemirror-transform';
-import { Command } from '../../../types';
-import {
-  addAnalytics,
-  INPUT_METHOD,
-  ACTION,
-  EVENT_TYPE,
-  ACTION_SUBJECT,
-  ACTION_SUBJECT_ID,
-} from '../../analytics';
 import { Node, NodeType } from 'prosemirror-model';
 import { EditorState, Transaction } from 'prosemirror-state';
 import { CellSelection } from 'prosemirror-tables';
+import { liftTarget } from 'prosemirror-transform';
+
+import { Command } from '../../../types';
 import { cellSelectionNodesBetween } from '../../../utils/cell-selection';
+import {
+  ACTION,
+  ACTION_SUBJECT,
+  ACTION_SUBJECT_ID,
+  addAnalytics,
+  EVENT_TYPE,
+  INPUT_METHOD,
+} from '../../analytics';
 
 export const FORMATTING_NODE_TYPES = ['heading', 'codeBlock', 'blockquote'];
 export const FORMATTING_MARK_TYPES = [

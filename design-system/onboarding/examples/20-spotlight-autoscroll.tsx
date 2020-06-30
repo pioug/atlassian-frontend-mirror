@@ -87,21 +87,31 @@ export default class SpotlightAutoscrollExample extends Component<{}, State> {
           <SpotlightTransition>
             {spotlight !== 'off' && (
               <Spotlight
-                actions={[
+                actions={
                   spotlight === 'target-one'
-                    ? {
-                        onClick: this.highlightTwo,
-                        text: 'Next',
-                      }
-                    : {
-                        onClick: this.highlightOne,
-                        text: 'Prev',
-                      },
-                  {
-                    onClick: this.close,
-                    text: 'Got it',
-                  },
-                ]}
+                    ? [
+                        {
+                          onClick: this.highlightTwo,
+                          text: 'Next',
+                        },
+                        {
+                          onClick: this.close,
+                          appearance: 'subtle',
+                          text: 'Dismiss',
+                        },
+                      ]
+                    : [
+                        {
+                          onClick: this.close,
+                          text: 'Got it',
+                        },
+                        {
+                          onClick: this.highlightOne,
+                          appearance: 'subtle',
+                          text: 'Go back',
+                        },
+                      ]
+                }
                 dialogPlacement="bottom left"
                 heading="Aww, yiss!"
                 key={spotlight}

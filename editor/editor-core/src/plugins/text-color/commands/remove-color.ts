@@ -1,7 +1,8 @@
 import { TextSelection } from 'prosemirror-state';
-import { pluginKey, ACTIONS } from '../pm-plugins/main';
-import { Command } from '../../../types';
 import { CellSelection } from 'prosemirror-tables';
+
+import { Command } from '../../../types';
+import { ACTIONS, pluginKey } from '../pm-plugins/main';
 
 export const removeColor = (): Command => (state, dispatch) => {
   const { schema, selection } = state;

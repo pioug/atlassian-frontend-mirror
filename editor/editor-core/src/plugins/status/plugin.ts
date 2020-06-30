@@ -1,20 +1,21 @@
-import { DecorationSet, Decoration } from 'prosemirror-view';
 import {
   EditorState,
-  Plugin,
-  Transaction,
   NodeSelection,
+  Plugin,
   TextSelection,
+  Transaction,
 } from 'prosemirror-state';
+import { Decoration, DecorationSet } from 'prosemirror-view';
+
+import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common';
+
+import { Dispatch, EventDispatcher } from '../../event-dispatcher';
+import { PortalProviderAPI } from '../../ui/PortalProvider';
 
 import statusNodeView from './nodeviews/status';
-import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common';
-import { mayGetStatusAtSelection, isEmptyStatus } from './utils';
-import { Dispatch } from '../../event-dispatcher';
-import { PortalProviderAPI } from '../../ui/PortalProvider';
-import { StatusState, StatusPluginOptions } from './types';
 import { pluginKey } from './plugin-key';
-import { EventDispatcher } from '../../event-dispatcher';
+import { StatusPluginOptions, StatusState } from './types';
+import { isEmptyStatus, mayGetStatusAtSelection } from './utils';
 
 export { pluginKey, pluginKeyName } from './plugin-key';
 export { StatusState, StatusType } from './types';

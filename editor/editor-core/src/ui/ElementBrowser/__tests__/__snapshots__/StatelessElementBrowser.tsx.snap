@@ -1,0 +1,92 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StatelessElementBrowser should render desktop components for width >= 600 1`] = `
+<styled.div>
+  <styled.div
+    showCategories={true}
+  >
+    <SideBarHeading>
+      Browse
+    </SideBarHeading>
+    <Styled(styled.nav)>
+      <Memo(WithAnalyticsContext(CategoryList))
+        categories={
+          Array [
+            Object {
+              "name": "category-1",
+              "title": "Category 1",
+            },
+          ]
+        }
+        onSelectCategory={[Function]}
+        selectedCategory="all"
+      />
+    </Styled(styled.nav)>
+  </styled.div>
+  <Styled(styled.div)>
+    <styled.div>
+      <Memo(WithAnalyticsContext(ElementSearch))
+        mode="full"
+        onSearch={[Function]}
+      />
+    </styled.div>
+    <Memo(WithAnalyticsContext(CategoryItems))
+      items={
+        Array [
+          Object {
+            "action": [MockFunction],
+            "name": "item-1",
+            "title": "Item 1",
+          },
+        ]
+      }
+      mode="full"
+      onEnterKeyPress={[Function]}
+      onSelectItem={[Function]}
+    />
+  </Styled(styled.div)>
+</styled.div>
+`;
+
+exports[`StatelessElementBrowser should render mobile components for width < 600 1`] = `
+<styled.div>
+  <styled.div
+    showCategories={true}
+  >
+    <Memo(WithAnalyticsContext(ElementSearch))
+      mode="inline"
+      onSearch={[Function]}
+    />
+    <styled.nav>
+      <Memo(WithAnalyticsContext(CategoryList))
+        categories={
+          Array [
+            Object {
+              "name": "category-1",
+              "title": "Category 1",
+            },
+          ]
+        }
+        onSelectCategory={[Function]}
+        selectedCategory="all"
+      />
+    </styled.nav>
+  </styled.div>
+  <styled.div>
+    <Memo(WithAnalyticsContext(CategoryItems))
+      items={
+        Array [
+          Object {
+            "action": [MockFunction],
+            "name": "item-1",
+            "title": "Item 1",
+          },
+        ]
+      }
+      mode="inline"
+      onEnterKeyPress={[Function]}
+      onSelectItem={[Function]}
+    />
+  </styled.div>
+</styled.div>
+`;

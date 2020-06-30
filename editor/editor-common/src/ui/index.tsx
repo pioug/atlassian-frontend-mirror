@@ -4,6 +4,8 @@ export {
   Props as MediaSingleProps,
   DEFAULT_IMAGE_WIDTH,
   DEFAULT_IMAGE_HEIGHT,
+  wrappedLayouts,
+  shouldAddDefaultWrappedWidth,
 } from './MediaSingle';
 
 export {

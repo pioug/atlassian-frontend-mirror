@@ -1,51 +1,50 @@
 import React from 'react';
-import rafSchedule from 'raf-schd';
+
+import classnames from 'classnames';
 import { Node as PmNode } from 'prosemirror-model';
-import { EditorView } from 'prosemirror-view';
 import { isTableSelected } from 'prosemirror-utils';
+import { EditorView } from 'prosemirror-view';
+import rafSchedule from 'raf-schd';
+
 import {
   akEditorMobileBreakoutPoint,
   browser,
   calcTableWidth,
-  akEditorTableToolbarSize as tableToolbarSize,
   tableMarginSides,
+  akEditorTableToolbarSize as tableToolbarSize,
 } from '@atlaskit/editor-common';
 
-import TableFloatingControls from '../ui/TableFloatingControls';
-
+import { parsePx } from '../../../utils/dom';
+import { getParentNodeWidth } from '../../../utils/node-width';
+import { WidthPluginState } from '../../width';
+import { autoSizeTable } from '../commands';
+import { getPluginState } from '../pm-plugins/plugin-factory';
+import {
+  findStickyHeaderForTable,
+  RowStickyState,
+  pluginKey as stickyHeadersPluginKey,
+  StickyPluginState,
+} from '../pm-plugins/sticky-headers';
 import { scaleTable } from '../pm-plugins/table-resizing';
 import {
   getLayoutSize,
   insertColgroupFromNode as recreateResizeColsByNode,
 } from '../pm-plugins/table-resizing/utils';
-
 import { updateControls } from '../pm-plugins/table-resizing/utils/dom';
 import {
-  ColumnResizingPluginState,
   TableCssClassName as ClassName,
+  ColumnResizingPluginState,
   TablePluginState,
 } from '../types';
-import classnames from 'classnames';
-
+import TableFloatingControls from '../ui/TableFloatingControls';
 import {
   containsHeaderRow,
   tablesHaveDifferentColumnWidths,
   tablesHaveDifferentNoOfColumns,
 } from '../utils';
-import { autoSizeTable } from '../commands';
-import { WidthPluginState } from '../../width';
-import { getParentNodeWidth } from '../../../utils/node-width';
-import { getPluginState } from '../pm-plugins/plugin-factory';
+
 import { Props, TableOptions } from './types';
 import { updateOverflowShadows } from './update-overflow-shadows';
-import { parsePx } from '../../../utils/dom';
-
-import {
-  StickyPluginState,
-  pluginKey as stickyHeadersPluginKey,
-  findStickyHeaderForTable,
-  RowStickyState,
-} from '../pm-plugins/sticky-headers';
 
 const isIE11 = browser.ie_version === 11;
 

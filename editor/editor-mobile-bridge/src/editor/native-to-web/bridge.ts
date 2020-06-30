@@ -50,4 +50,8 @@ export default interface NativeToWebBridge {
   redo(): void;
   setKeyboardControlsHeight(height: string): void;
   setSelection(payload: string): void;
+  onCollabEvent(event: string, payload: string): void;
+
+  saveCollabChanges(): void;
+  restoreCollabChanges(): void;
 }

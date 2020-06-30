@@ -1,12 +1,15 @@
 import React from 'react';
+
 import { mount } from 'enzyme';
+
+import { EmojiProvider } from '@atlaskit/emoji';
+import { MentionProvider } from '@atlaskit/mention';
+
 import {
   ProviderFactory,
-  WithProviders,
   Providers,
+  WithProviders,
 } from '../../../provider-factory';
-import { MentionProvider } from '@atlaskit/mention';
-import { EmojiProvider } from '@atlaskit/emoji';
 
 describe('WithProviders', () => {
   it('should pass multiple providers to UI component', () => {

@@ -1,11 +1,14 @@
 import React from 'react';
+
 import { textColor } from '@atlaskit/adf-schema';
+
 import { EditorPlugin } from '../../types';
 import WithPluginState from '../../ui/WithPluginState';
+
 import {
-  pluginKey as textColorPluginKey,
   createPlugin,
   TextColorPluginConfig,
+  pluginKey as textColorPluginKey,
   TextColorPluginState,
 } from './pm-plugins/main';
 import ToolbarTextColor from './ui/ToolbarTextColor';

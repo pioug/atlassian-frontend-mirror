@@ -1,5 +1,4 @@
-import React from 'react';
-import { Component, ComponentType } from 'react';
+import React, { Component, ComponentType } from 'react';
 
 export interface ImageLoaderProps {
   url?: string;

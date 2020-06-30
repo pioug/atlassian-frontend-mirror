@@ -1,4 +1,3 @@
-import { NodeWithPos } from 'prosemirror-utils';
 import { ExtensionLayout } from '@atlaskit/adf-schema';
 import {
   UpdateExtension,
@@ -12,7 +11,6 @@ export type ExtensionState = {
   showEditButton: boolean;
   showContextPanel: boolean;
   updateExtension?: Promise<UpdateExtension<object> | void>;
-  nodeWithPos?: NodeWithPos;
   element?: HTMLElement;
   extensionProvider?: ExtensionProvider;
   processParametersBefore?: ParametersGetter;

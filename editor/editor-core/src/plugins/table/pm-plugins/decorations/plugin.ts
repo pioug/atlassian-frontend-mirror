@@ -1,12 +1,13 @@
-import { Plugin, EditorState, Transaction } from 'prosemirror-state';
-import { DecorationSet } from 'prosemirror-view';
-import { PluginKey } from 'prosemirror-state';
+import { EditorState, Plugin, PluginKey, Transaction } from 'prosemirror-state';
 import { CellSelection } from 'prosemirror-tables';
+import { DecorationSet } from 'prosemirror-view';
+
+import { pluginKey as tablePluginKey } from '../plugin-factory';
+
 import {
   buildColumnControlsDecorations,
   maybeUpdateColumnControlsSelectedDecoration,
 } from './utils';
-import { pluginKey as tablePluginKey } from '../plugin-factory';
 
 export const pluginKey = new PluginKey('tableDecorationsPlugin');
 

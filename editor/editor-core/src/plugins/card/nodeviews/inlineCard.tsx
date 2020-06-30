@@ -7,7 +7,7 @@ import { findOverflowScrollParent } from '@atlaskit/editor-common';
 import rafSchedule from 'raf-schd';
 
 import { SmartCardProps, Card } from './genericCard';
-import { SelectionBasedNodeView } from '../../../nodeviews/ReactNodeView';
+import ReactNodeView from '../../../nodeviews/ReactNodeView';
 import { registerCard } from '../pm-plugins/actions';
 
 export class InlineCardComponent extends React.PureComponent<SmartCardProps> {
@@ -46,7 +46,7 @@ export class InlineCardComponent extends React.PureComponent<SmartCardProps> {
   };
 
   render() {
-    const { node, selected, cardContext } = this.props;
+    const { node, cardContext } = this.props;
     const { url, data } = node.attrs;
 
     const card = (
@@ -58,7 +58,6 @@ export class InlineCardComponent extends React.PureComponent<SmartCardProps> {
             url={url}
             data={data}
             appearance="inline"
-            isSelected={selected}
             onClick={this.onClick}
             container={this.scrollContainer}
             onResolve={this.onResolve}
@@ -79,12 +78,11 @@ export class InlineCardComponent extends React.PureComponent<SmartCardProps> {
 
 const WrappedInlineCard = Card(InlineCardComponent, UnsupportedInline);
 
-export class InlineCard extends SelectionBasedNodeView {
+export class InlineCard extends ReactNodeView {
   render() {
     return (
       <WrappedInlineCard
         node={this.node}
-        selected={this.insideSelection()}
         view={this.view}
         getPos={this.getPos}
       />

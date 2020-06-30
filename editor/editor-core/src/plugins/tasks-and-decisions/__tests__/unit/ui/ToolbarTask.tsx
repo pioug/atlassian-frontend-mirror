@@ -1,10 +1,12 @@
 import React from 'react';
+
+import { ProviderFactory } from '@atlaskit/editor-common';
 import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { doc, p } from '@atlaskit/editor-test-helpers/schema-builder';
-import { ProviderFactory } from '@atlaskit/editor-common';
-import ToolbarButton from '../../../../../ui/ToolbarButton';
+
 import ToolbarTask from '../../../../../plugins/tasks-and-decisions/ui/ToolbarTask';
+import ToolbarButton from '../../../../../ui/ToolbarButton';
 
 describe('tasks and decisions - ToolbarTask', () => {
   const createEditor = createEditorFactory();

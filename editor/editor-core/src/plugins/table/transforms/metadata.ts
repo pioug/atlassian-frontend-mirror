@@ -1,6 +1,8 @@
 import { Transaction } from 'prosemirror-state';
-import { fireAnalytics } from './fix-tables';
+
 import { pluginKey } from '../pm-plugins/plugin-factory';
+
+import { fireAnalytics } from './fix-tables';
 
 // Set metadata on a ProseMirror transaction for debugging purposes in Synchrony
 type TableProblems =

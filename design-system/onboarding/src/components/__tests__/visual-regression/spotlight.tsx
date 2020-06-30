@@ -8,7 +8,7 @@ const openButtonSelector = '[data-testid="open-spotlight"]';
 const spotlightTargetSelector = '[data-testid="spotlight--target"]';
 const spotlightDialogSelector = '[data-testid="spotlight--dialog"]';
 // https://ecosystem.atlassian.net/browse/DS-7006
-describe.skip('onboarding spotlight visual regression', () => {
+describe('onboarding spotlight visual regression', () => {
   it('should render a spotlight next to a target', async () => {
     const { __BASEURL__, page } = global as any;
     const url = getExampleUrl(
@@ -47,6 +47,25 @@ describe.skip('onboarding spotlight visual regression', () => {
       height: page.viewport().height,
       width: page.viewport().width * 0.8,
     });
+
+    const image = await takeElementScreenShot(page, 'body');
+    expect(image).toMatchProdImageSnapshot();
+  });
+
+  it('should render each button type correctly, with primary action in focus on the right hand side', async () => {
+    const { __BASEURL__, page } = global as any;
+    const url = getExampleUrl(
+      'design-system',
+      'onboarding',
+      'spotlight-button-appearance',
+      __BASEURL__,
+    );
+    await loadPage(page, url);
+    await page.waitForSelector(openButtonSelector);
+
+    await page.click(openButtonSelector);
+    await page.waitForSelector(spotlightTargetSelector);
+    await page.waitForSelector(spotlightDialogSelector);
 
     const image = await takeElementScreenShot(page, 'body');
     expect(image).toMatchProdImageSnapshot();

@@ -4,6 +4,7 @@ import { Theme, ThemeProps } from '../types';
 // circular dep loop. This will be refactored as part of a breaking
 // change in the future.
 const DEFAULT_THEME_MODE = 'light';
+const THEME_MODES = ['light', 'dark'];
 
 // Resolves the different types of theme objects in the current API
 export default function getTheme(props?: ThemeProps): Theme {
@@ -13,7 +14,7 @@ export default function getTheme(props?: ThemeProps): Theme {
       return props.theme.__ATLASKIT_THEME__;
     }
     // User has provided alternative modes
-    else if ('mode' in props.theme) {
+    else if ('mode' in props.theme && THEME_MODES.includes(props.theme.mode)) {
       return props.theme;
     }
   }

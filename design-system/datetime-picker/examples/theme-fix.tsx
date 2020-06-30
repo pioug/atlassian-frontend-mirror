@@ -21,6 +21,12 @@ export default () => {
         <DatePicker defaultValue="2020-02-02" testId="date-picker-theme-jank" />
         <Button>Fake dark mode</Button>
       </ThemeContext.Provider>
+
+      <p>
+        This example was used to fix a bug where a bad theme provider was
+        affecting drop shadow on the calendar.{' '}
+        <strong>Unfortunately Calendar does not support Dark Mode.</strong>
+      </p>
     </>
   );
 };

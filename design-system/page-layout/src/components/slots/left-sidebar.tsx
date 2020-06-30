@@ -19,7 +19,11 @@ import {
   mergeGridStateIntoStorage,
   resolveDimension,
 } from '../../common/utils';
-import { publishGridState, usePageLayoutResize } from '../../controllers';
+import {
+  publishGridState,
+  usePageLayoutResize,
+  useSkipLinks,
+} from '../../controllers';
 import ResizeControl from '../resize-control';
 
 import {
@@ -46,6 +50,8 @@ const LeftSidebar = (props: LeftSidebarProps) => {
     onFlyoutExpand,
     onFlyoutCollapse,
     testId,
+    id,
+    skipLinkTitle,
   } = props;
 
   const flyoutTimerRef = useRef<ReturnType<typeof setTimeout>>();
@@ -61,6 +67,8 @@ const LeftSidebar = (props: LeftSidebarProps) => {
   const leftSidebarWidthOnMount = isLeftSidebarCollapsed
     ? COLLAPSED_LEFT_SIDEBAR_WIDTH
     : resolveDimension(LEFT_SIDEBAR_WIDTH, width, true);
+
+  const { registerSkipLink, unregisterSkipLink } = useSkipLinks();
 
   // Update state from cache on mount
   useEffect(() => {
@@ -103,8 +111,12 @@ const LeftSidebar = (props: LeftSidebarProps) => {
     if (!notFirstRun.current) {
       notFirstRun.current = true;
     }
+
+    return () => {
+      unregisterSkipLink(id);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLeftSidebarCollapsed, leftSidebarWidth]);
+  }, [isLeftSidebarCollapsed, leftSidebarWidth, id]);
 
   const onMouseEnter = (event: MouseEvent) => {
     const isMouseOnResizeButton =
@@ -139,6 +151,10 @@ const LeftSidebar = (props: LeftSidebarProps) => {
     }
   };
 
+  if (id && skipLinkTitle) {
+    registerSkipLink({ id, skipLinkTitle });
+  }
+
   return (
     <div
       css={leftSidebarStyles(isFixed, isFlyoutOpen)}
@@ -146,10 +162,11 @@ const LeftSidebar = (props: LeftSidebarProps) => {
       onMouseOver={onMouseEnter}
       onMouseLeave={onMouseLeave}
       {...leftSidebarSelector}
+      id={id}
     >
       <SlotDimensions
         variableName={LEFT_SIDEBAR_WIDTH}
-        value={leftSidebarWidthOnMount}
+        value={leftSidebarWidth}
       />
       <div css={fixedLeftSidebarInnerStyles(isFixed, isFlyoutOpen)}>
         {children}

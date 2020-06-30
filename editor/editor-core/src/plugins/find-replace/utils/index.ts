@@ -1,7 +1,7 @@
 import { Fragment, Node as PmNode } from 'prosemirror-model';
 import { Decoration, DecorationSet } from 'prosemirror-view';
 import { TextSelection, EditorState } from 'prosemirror-state';
-import { Match } from '../types';
+import { Match, TextGrouping } from '../types';
 import { selectedSearchMatchClass, searchMatchClass } from '../styles';
 
 export function getSelectedText(selection: TextSelection): string {
@@ -43,22 +43,43 @@ export function findMatches(
   let matches: Match[] = [];
   searchText = searchText.toLowerCase();
   const searchTextLength = searchText.length;
-  if (searchTextLength > 0) {
-    content.descendants((node, relativePos) => {
-      if (node.isText) {
-        const pos = contentIndex + relativePos;
-        let index = node.textContent.toLowerCase().indexOf(searchText);
 
-        while (index !== -1) {
-          // Find the next substring from the end of the first, so that they don't overlap
-          const end = index + searchTextLength;
-          // Add the substring index to the position of the node
-          matches.push({ start: pos + index, end: pos + end });
-          index = node.textContent.toLowerCase().indexOf(searchText, end);
+  let textGrouping: TextGrouping = null;
+
+  const collectMatch = (textGrouping: TextGrouping) => {
+    if (!textGrouping) return;
+    const { text, pos: relativePos } = textGrouping;
+    const pos = contentIndex + relativePos;
+    let index = text.toLowerCase().indexOf(searchText);
+    while (index !== -1) {
+      // Find the next substring from the end of the first, so that they don't overlap
+      const end = index + searchTextLength;
+      // Add the substring index to the position of the node
+      matches.push({ start: pos + index, end: pos + end });
+      index = text.toLowerCase().indexOf(searchText, end);
+    }
+  };
+
+  if (searchTextLength > 0) {
+    content.descendants((node, pos) => {
+      if (node.isText) {
+        if (textGrouping === null) {
+          textGrouping = {
+            text: node.text as string,
+            pos,
+          };
+        } else {
+          textGrouping.text = textGrouping.text + node.text;
         }
+      } else {
+        collectMatch(textGrouping);
+        textGrouping = null;
       }
     });
+    // if there's a dangling text grouping and no non-text node to trigger collectMatch, manually collectMatch
+    if (textGrouping) collectMatch(textGrouping);
   }
+
   return matches;
 }
 

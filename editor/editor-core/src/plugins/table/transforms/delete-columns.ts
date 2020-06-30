@@ -1,10 +1,12 @@
+import { Node as PMNode } from 'prosemirror-model';
 import { Selection, Transaction } from 'prosemirror-state';
 import { Rect, TableMap } from 'prosemirror-tables';
 import { findTable } from 'prosemirror-utils';
-import { Node as PMNode } from 'prosemirror-model';
+
 import { CellAttributes } from '@atlaskit/adf-schema';
-import { setMeta } from './metadata';
 import { AddColumnStep } from '@atlaskit/adf-schema/steps';
+
+import { setMeta } from './metadata';
 import { splitCellsInColumns } from './split';
 
 const deleteColumnsCustomStep = (rect: Rect) => (

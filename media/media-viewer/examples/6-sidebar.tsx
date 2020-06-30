@@ -176,24 +176,20 @@ const Sidebar = (props: SidebarProps) => {
   useEffect(() => {
     if (identifier.mediaItemType === 'file') {
       setStatus('loading');
-      const deferredIdentifier =
-        identifier.id instanceof Promise
-          ? identifier.id
-          : Promise.resolve(identifier.id);
-      deferredIdentifier.then(id => {
-        mediaClient.file
-          .getFileState(id, { collectionName: identifier.collectionName })
-          .subscribe({
-            next: newFileState => {
-              setFileState(newFileState);
-              setStatus('succeed');
-            },
-            error(error) {
-              console.log('sidebar error', error);
-              setStatus('error');
-            },
-          });
-      });
+      mediaClient.file
+        .getFileState(identifier.id, {
+          collectionName: identifier.collectionName,
+        })
+        .subscribe({
+          next: newFileState => {
+            setFileState(newFileState);
+            setStatus('succeed');
+          },
+          error(error) {
+            console.log('sidebar error', error);
+            setStatus('error');
+          },
+        });
     }
   }, [identifier]);
 

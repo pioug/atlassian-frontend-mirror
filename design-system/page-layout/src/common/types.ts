@@ -11,6 +11,10 @@ interface SlotProps {
   testId?: string;
   /** React Children! */
   children: ReactNode;
+  /* HTML id attribute. It also used as a target for skip links to land on. If missing, skip link for that Slot will not be generated */
+  id?: string;
+  /* Title of the skip link for the Slot.  If missing, skip link for that Slot will not be generated */
+  skipLinkTitle?: string;
 }
 
 export interface SlotHeightProps extends SlotProps {
@@ -72,3 +76,17 @@ export type DimensionNames =
   | 'rightPanelWidth';
 
 export type Dimensions = Partial<Record<DimensionNames, number>>;
+
+export interface PageLayoutProps {
+  /** React children! */
+  children: ReactNode;
+  skipLinksI18n?: string;
+  /**
+   * A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests.
+   **/
+  testId?: string;
+  /** Called when left-sidebar expanded. */
+  onLeftSidebarExpand?: () => void;
+  /** Called when left-sidebar collapsed. */
+  onLeftSidebarCollapse?: () => void;
+}

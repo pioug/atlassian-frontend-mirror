@@ -48,7 +48,7 @@ interface InternalKeyframesMotionProps extends KeyframesMotionProps {
 }
 
 /**
- * Used to multipy the initial duration for exiting motions.
+ * Used to multiply the initial duration for exiting motions.
  */
 const EXITING_MOTION_MULTIPLIER = 0.5;
 

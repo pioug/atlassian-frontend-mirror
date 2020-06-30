@@ -60,7 +60,7 @@
     "@atlaskit/single-select": "^9.0.1",
     "@atlaskit/ssr": "*",
     "@atlaskit/textfield": "^3.1.9",
-    "@atlaskit/toggle": "^8.1.6",
+    "@atlaskit/toggle": "^9.0.0",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.15.1",
     "raf-stub": "^2.0.1",

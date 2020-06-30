@@ -1,5 +1,12 @@
 # @atlaskit/media-ui
 
+## 12.5.1
+
+### Patch Changes
+
+- [`39d076a3bd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/39d076a3bd) - fix: smart links inline loading state
+- Updated dependencies
+
 ## 12.5.0
 
 ### Minor Changes

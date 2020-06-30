@@ -9,7 +9,7 @@ import {
 } from '../../common/constants';
 import { SlotWidthProps } from '../../common/types';
 import { resolveDimension } from '../../common/utils';
-import { publishGridState } from '../../controllers';
+import { publishGridState, useSkipLinks } from '../../controllers';
 
 import SlotDimensions from './slot-dimensions';
 import { fixedRightSidebarInnerStyles, rightSidebarStyles } from './styles';
@@ -21,6 +21,8 @@ const RightSidebar = (props: SlotWidthProps) => {
     isFixed,
     shouldPersistWidth,
     testId,
+    id,
+    skipLinkTitle,
   } = props;
 
   const rightSidebarWidth = resolveDimension(
@@ -29,15 +31,23 @@ const RightSidebar = (props: SlotWidthProps) => {
     shouldPersistWidth,
   );
 
+  const { registerSkipLink, unregisterSkipLink } = useSkipLinks();
+
   useEffect(() => {
     publishGridState({ [RIGHT_SIDEBAR_WIDTH]: rightSidebarWidth });
     return () => {
       publishGridState({ [RIGHT_SIDEBAR_WIDTH]: 0 });
+      unregisterSkipLink(id);
     };
-  }, [rightSidebarWidth]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [rightSidebarWidth, id]);
+
+  if (id && skipLinkTitle) {
+    registerSkipLink({ id, skipLinkTitle });
+  }
 
   return (
-    <div data-testid={testId} css={rightSidebarStyles(isFixed)}>
+    <div data-testid={testId} css={rightSidebarStyles(isFixed)} id={id}>
       <SlotDimensions
         variableName={RIGHT_SIDEBAR_WIDTH}
         value={rightSidebarWidth}

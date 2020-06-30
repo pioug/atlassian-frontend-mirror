@@ -1,13 +1,3 @@
-const mediaViewerModule = require.requireActual(
-  '../../../newgen/analytics/media-viewer',
-);
-const mediaViewerModalEventSpy = jest.fn();
-const mockMediaViewer = {
-  ...mediaViewerModule,
-  mediaViewerModalEvent: mediaViewerModalEventSpy,
-};
-jest.mock('../../../newgen/analytics/media-viewer', () => mockMediaViewer);
-
 import React from 'react';
 import { mount } from 'enzyme';
 import { Subject } from 'rxjs/Subject';
@@ -38,7 +28,10 @@ import {
   MediaViewerExtensions,
 } from '../../../components/types';
 import { Blanket } from '../../../newgen/styled';
-
+import {
+  name as packageName,
+  version as packageVersion,
+} from '../../../version.json';
 function createFixture(
   items: Identifier[],
   identifier: Identifier,
@@ -121,8 +114,19 @@ describe('<MediaViewer />', () => {
 
   describe('Analytics', () => {
     it('should trigger the screen event when the component loads', () => {
-      createFixture([identifier], identifier);
-      expect(mediaViewerModalEventSpy).toHaveBeenCalled();
+      const { onEvent } = createFixture([identifier], identifier);
+      const mediaViewerModalEvent = onEvent.mock.calls[0][0].payload;
+      expect(mediaViewerModalEvent).toEqual({
+        attributes: {
+          componentName: 'media-viewer',
+          packageName,
+          packageVersion,
+        },
+        action: 'viewed',
+        actionSubject: 'mediaViewerModal',
+        eventType: 'screen',
+        name: 'mediaViewerModal',
+      });
     });
 
     it('should send analytics when closed with button', () => {

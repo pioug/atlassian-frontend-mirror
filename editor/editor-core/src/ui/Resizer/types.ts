@@ -20,7 +20,7 @@ export type Props = MediaSingleProps & {
   gridSize: number;
   containerWidth: number;
   allowBreakoutSnapPoints?: boolean;
-  selected: boolean;
+  selected?: boolean;
   viewMediaClientConfig?: MediaClientConfig;
   fullWidthMode?: boolean;
 };

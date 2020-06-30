@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 
-import { uid } from 'react-uid';
-
 import {
   createAndFireEvent,
   withAnalyticsContext,
@@ -32,7 +30,6 @@ class ToggleStateless extends Component<StatelessProps, State> {
     onChange: () => {},
     onFocus: () => {},
     size: 'regular' as Sizes,
-    label: '',
     name: '',
     value: '',
     isChecked: false,
@@ -60,15 +57,7 @@ class ToggleStateless extends Component<StatelessProps, State> {
   };
 
   render() {
-    const {
-      isChecked,
-      isDisabled,
-      label,
-      name,
-      size,
-      value,
-      testId,
-    } = this.props;
+    const { isChecked, isDisabled, name, size, value, testId, id } = this.props;
     const { isFocused } = this.state;
 
     const styledProps: StyledProps = {
@@ -78,10 +67,8 @@ class ToggleStateless extends Component<StatelessProps, State> {
       size: size!,
     };
 
-    const id = uid({ id: this.constructor.name });
-
     return (
-      <Label htmlFor={id} data-testid={testId}>
+      <Label data-testid={testId}>
         <Input
           checked={isChecked}
           disabled={isDisabled}
@@ -101,11 +88,7 @@ class ToggleStateless extends Component<StatelessProps, State> {
               isDisabled={isDisabled}
               size={size!}
             />
-            <IconWrapper
-              isChecked={isChecked}
-              size={size!}
-              aria-label={label || (isChecked ? 'Uncheck' : 'Check')}
-            >
+            <IconWrapper isChecked={isChecked} size={size!}>
               <Icon isChecked={isChecked} size={size!} />
             </IconWrapper>
           </Inner>

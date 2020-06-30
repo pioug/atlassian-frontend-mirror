@@ -1,21 +1,23 @@
-import { Decoration, DecorationSet } from 'prosemirror-view';
 import { Node as PmNode } from 'prosemirror-model';
 import { Selection, Transaction } from 'prosemirror-state';
+import { TableMap } from 'prosemirror-tables';
 import {
   ContentNodeWithPos,
   findTable,
   getCellsInRow,
   getSelectionRect,
 } from 'prosemirror-utils';
-import { TableMap } from 'prosemirror-tables';
+import { Decoration, DecorationSet } from 'prosemirror-view';
+
 import { CellAttributes } from '@atlaskit/adf-schema';
+
+import { nonNullable } from '../../../utils';
 import {
   Cell,
   CellColumnPositioning,
   TableCssClassName as ClassName,
   TableDecorations,
 } from '../types';
-import { nonNullable } from '../../../utils';
 
 const filterDecorationByKey = (
   key: TableDecorations,

@@ -1,17 +1,20 @@
-import { EditorView } from 'prosemirror-view';
-import { Plugin, NodeSelection } from 'prosemirror-state';
 import { Node as PMNode } from 'prosemirror-model';
+import { NodeSelection, Plugin } from 'prosemirror-state';
+import { EditorView } from 'prosemirror-view';
+
 import { uuid } from '@atlaskit/adf-schema';
 import {
-  ProviderFactory,
   ContextIdentifierProvider,
+  ProviderFactory,
 } from '@atlaskit/editor-common';
+
+import { Dispatch, EventDispatcher } from '../../../event-dispatcher';
+import { Command } from '../../../types';
 import { PortalProviderAPI } from '../../../ui/PortalProvider';
+import { nodesBetweenChanged } from '../../../utils';
 import { decisionItemNodeView } from '../nodeviews/decisionItem';
 import { taskItemNodeViewFactory } from '../nodeviews/taskItem';
-import { Command } from '../../../types';
-import { Dispatch, EventDispatcher } from '../../../event-dispatcher';
-import { nodesBetweenChanged } from '../../../utils';
+
 import { stateKey } from './plugin-key';
 
 enum ACTIONS {

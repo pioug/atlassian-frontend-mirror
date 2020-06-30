@@ -1,8 +1,8 @@
 import {
+  ExtensionKey,
   ExtensionManifest,
   ExtensionProvider,
   ExtensionType,
-  ExtensionKey,
 } from './types';
 
 export default class DefaultExtensionProvider implements ExtensionProvider {

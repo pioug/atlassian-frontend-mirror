@@ -56,8 +56,8 @@ export default class SpotlightTargetBackgroundExample extends Component<
       </Spotlight>,
       <Spotlight
         actions={[
-          { onClick: this.prev, text: 'Back' },
-          { onClick: this.finish, text: 'Got it!' },
+          { onClick: this.finish, text: 'Got it' },
+          { onClick: this.prev, text: 'Back', appearance: 'subtle' },
         ]}
         dialogPlacement="bottom right"
         heading="Aah, that's better!"

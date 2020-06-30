@@ -1,11 +1,24 @@
 import React from 'react';
-import { RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema';
-import Wrapper from './styled';
+
 import classnames from 'classnames';
-import { calcPxFromPct, layoutSupportsWidth } from './grid';
+
+import {
+  RichMediaLayout as MediaSingleLayout,
+  RichMediaLayout,
+} from '@atlaskit/adf-schema';
+
+import { calcPxFromPct } from './grid';
+import Wrapper from './styled';
 
 export const DEFAULT_IMAGE_WIDTH = 250;
 export const DEFAULT_IMAGE_HEIGHT = 200;
+
+export const wrappedLayouts: RichMediaLayout[] = [
+  'wrap-left',
+  'wrap-right',
+  'align-end',
+  'align-start',
+];
 
 export interface Props {
   children: React.ReactChild;
@@ -20,8 +33,21 @@ export interface Props {
   fullWidthMode?: boolean;
   blockLink?: string;
   nodeType?: string;
-  isResizable?: boolean;
+  hasFallbackContainer?: boolean;
 }
+
+export const shouldAddDefaultWrappedWidth = (
+  layout: RichMediaLayout,
+  width?: number,
+  lineLength?: number,
+) => {
+  return (
+    wrappedLayouts.indexOf(layout) > -1 &&
+    lineLength &&
+    width &&
+    width > 0.5 * lineLength
+  );
+};
 
 export default function MediaSingle({
   children,
@@ -36,10 +62,12 @@ export default function MediaSingle({
   lineLength,
   blockLink,
   nodeType = 'mediaSingle',
-  isResizable,
+  hasFallbackContainer = true,
 }: Props) {
-  const usePctWidth = pctWidth && layoutSupportsWidth(layout);
-  if (pctWidth && usePctWidth) {
+  if (!pctWidth && shouldAddDefaultWrappedWidth(layout, width, lineLength)) {
+    pctWidth = 50;
+  }
+  if (pctWidth) {
     const pxWidth = Math.ceil(
       calcPxFromPct(pctWidth / 100, lineLength || containerWidth),
     );
@@ -61,11 +89,11 @@ export default function MediaSingle({
       data-layout={layout}
       data-width={pctWidth}
       data-block-link={blockLink}
+      hasFallbackContainer={hasFallbackContainer}
       className={classnames('rich-media-item', `image-${layout}`, className, {
         'is-loading': isLoading,
         'rich-media-wrapped': layout === 'wrap-left' || layout === 'wrap-right',
       })}
-      isResizable={isResizable}
     >
       {React.Children.only(children)}
     </Wrapper>

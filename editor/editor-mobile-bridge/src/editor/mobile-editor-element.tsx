@@ -17,6 +17,7 @@ import {
   GasPurePayload,
   GasPureScreenEventPayload,
 } from '@atlaskit/analytics-gas-types';
+import { Provider as CollabProvider } from '@atlaskit/collab-provider';
 import { AtlaskitThemeProvider } from '@atlaskit/theme';
 import { toNativeBridge } from './web-to-native';
 import WebBridgeImpl from './native-to-web';
@@ -35,8 +36,9 @@ import { EmojiResource } from '@atlaskit/emoji/resource';
 import { analyticsBridgeClient } from '../analytics-client';
 import { createQuickInsertProvider } from '../providers';
 import { getEnableQuickInsertValue } from '../query-param-reader';
+import { useCollabProvider } from '../providers/collab-provider';
 
-export const bridge: WebBridgeImpl = ((window as any).bridge = new WebBridgeImpl());
+export const bridge: WebBridgeImpl = (window.bridge = new WebBridgeImpl());
 
 const handleAnalyticsEvent = (
   event: GasPurePayload | GasPureScreenEventPayload,
@@ -102,6 +104,7 @@ class EditorWithState extends Editor {
 
 export interface MobileEditorProps extends EditorProps {
   mode?: 'light' | 'dark';
+  createCollabProvider: (bridge: WebBridgeImpl) => Promise<CollabProvider>;
   cardProvider: Promise<EditorCardProvider>;
   cardClient: EditorCardClient;
   emojiProvider: Promise<EmojiResource>;
@@ -110,6 +113,7 @@ export interface MobileEditorProps extends EditorProps {
 }
 
 export default function MobileEditor(props: MobileEditorProps) {
+  const collabProvider = useCollabProvider(bridge, props.createCollabProvider);
   const mode = props.mode || 'light';
 
   // Temporarily opting out of the default oauth2 flow for phase 1 of Smart Links
@@ -124,6 +128,13 @@ export default function MobileEditor(props: MobileEditorProps) {
         provider: createQuickInsertProvider(bridge.quickInsertItems),
       }
     : false;
+
+  const collabEdit: EditorProps['collabEdit'] | undefined = collabProvider
+    ? {
+        useNativePlugin: true,
+        provider: collabProvider,
+      }
+    : undefined;
 
   return (
     <FabricAnalyticsListeners client={analyticsClient}>
@@ -166,6 +177,7 @@ export default function MobileEditor(props: MobileEditorProps) {
             allowTemplatePlaceholders={{ allowInserting: true }}
             taskDecisionProvider={Promise.resolve(createTaskDecisionProvider())}
             quickInsert={quickInsert}
+            collabEdit={collabEdit}
             {...props}
           />
         </AtlaskitThemeProvider>

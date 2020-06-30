@@ -10,13 +10,13 @@ import {
   calcPxFromPct,
   breakoutWideScaleRatio,
   akEditorBreakoutPadding,
+  wrappedLayouts,
 } from '@atlaskit/editor-common';
 import { checkNodeDown, isEmptyParagraph } from '../../../utils';
 import { copyOptionalAttrsFromMediaState } from '../utils/media-common';
 import { MediaState } from '../types';
 import { Command } from '../../../types';
 import { mapSlice } from '../../../utils/slice';
-import { alignmentLayouts } from '../../../ui/Resizer/utils';
 import { WidthPluginState } from '../../width';
 import {
   addAnalytics,
@@ -31,7 +31,6 @@ import { safeInsert } from '../../../utils/insert';
 import { getFeatureFlags } from '../../feature-flags-context';
 import { isImage } from './is-image';
 import { atTheBeginningOfBlock } from '../../../utils/prosemirror/position';
-import { wrappedLayouts } from '../../../utils/rich-media-utils';
 
 export interface MediaSingleState extends MediaState {
   dimensions: { width: number; height: number };
@@ -313,7 +312,7 @@ export const calcMediaPxWidth = (opts: {
       return calculatedResizedPctWidth;
     }
     return Math.min(origWidth, lineLength || width);
-  } else if (layout && alignmentLayouts.indexOf(layout) !== -1) {
+  } else if (layout && wrappedLayouts.indexOf(layout) !== -1) {
     const halfLineLength = Math.ceil((lineLength || width) / 2);
     return origWidth <= halfLineLength ? origWidth : halfLineLength;
   }

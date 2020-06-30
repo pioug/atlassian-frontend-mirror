@@ -1,21 +1,22 @@
 import { InputRule } from 'prosemirror-inputrules';
 import { Fragment, Schema } from 'prosemirror-model';
-import { Plugin, EditorState, Transaction } from 'prosemirror-state';
+import { EditorState, Plugin, Transaction } from 'prosemirror-state';
+
 import { analyticsService } from '../../../analytics';
 import {
   createInputRule,
-  leafNodeReplacementCharacter,
   instrumentedInputRule,
+  leafNodeReplacementCharacter,
 } from '../../../utils/input-rules';
+import { safeInsert } from '../../../utils/insert';
 import {
-  addAnalytics,
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
-  INPUT_METHOD,
+  addAnalytics,
   EVENT_TYPE,
+  INPUT_METHOD,
 } from '../../analytics';
-import { safeInsert } from '../../../utils/insert';
 import { getFeatureFlags } from '../../feature-flags-context';
 
 export const createHorizontalRule = (

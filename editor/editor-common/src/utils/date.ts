@@ -1,6 +1,6 @@
-import { InjectedIntl } from 'react-intl';
-import isBefore from 'date-fns/is_before';
 import differenceInCalendarDays from 'date-fns/difference_in_calendar_days';
+import isBefore from 'date-fns/is_before';
+import { InjectedIntl } from 'react-intl';
 
 enum FORMATS {
   ISO_FORMAT = 'YYYY-MM-DD',

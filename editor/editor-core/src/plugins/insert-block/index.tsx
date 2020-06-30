@@ -134,7 +134,6 @@ const insertBlockPlugin = (options: InsertBlockOptions = {}): EditorPlugin => ({
               mentionsSupported={
                 !!(mentionState && mentionState.mentionProvider)
               }
-              mentionsEnabled={!!mentionState}
               decisionSupported={!!editorView.state.schema.nodes.decisionItem}
               dateEnabled={!!dateState}
               placeholderTextEnabled={

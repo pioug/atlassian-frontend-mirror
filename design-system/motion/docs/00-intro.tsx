@@ -19,10 +19,10 @@ export default md`
 
   ### Quick links
 
-  - [Entering motions](/packages/helpers/motion/docs/entering-motions)
-  - [Resizing motions](/packages/helpers/motion/docs/resizing-motions)
-  - [Variables](/packages/helpers/motion/docs/variables)
-  - [Accessibility](/packages/helpers/motion/docs/accessibility)
+  - [Entering motions](/packages/design-system/motion/docs/entering-motions)
+  - [Resizing motions](/packages/design-system/motion/docs/resizing-motions)
+  - [Variables](/packages/design-system/motion/docs/variables)
+  - [Accessibility](/packages/design-system/motion/docs/accessibility)
 
   ## Library Considerations
 

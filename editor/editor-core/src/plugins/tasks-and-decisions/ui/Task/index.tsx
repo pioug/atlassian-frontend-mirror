@@ -1,13 +1,15 @@
-import React from 'react';
-import { defineMessages, injectIntl, InjectedIntlProps } from 'react-intl';
-import { PureComponent, ReactElement } from 'react';
+import React, { PureComponent, ReactElement } from 'react';
+
+import { defineMessages, InjectedIntlProps, injectIntl } from 'react-intl';
+
 import {
-  Providers,
   ProviderFactory,
+  Providers,
   WithProviders,
 } from '@atlaskit/editor-common';
-import TaskItemWithProviders from './task-item-with-providers';
 import { ContentRef } from '@atlaskit/task-decision';
+
+import TaskItemWithProviders from './task-item-with-providers';
 
 const messages = defineMessages({
   placeholder: {

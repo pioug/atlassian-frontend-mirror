@@ -1,6 +1,7 @@
 import { Plugin, PluginKey } from 'prosemirror-state';
-import { EditorPlugin } from '../../types';
+
 import { Dispatch } from '../../event-dispatcher';
+import { EditorPlugin } from '../../types';
 
 export const pluginKey = new PluginKey('widthPlugin');
 

@@ -38,6 +38,7 @@ describe('PortalProvider', () => {
   };
 
   beforeEach(() => {
+    mockReactDom.unmountComponentAtNode = jest.fn();
     place = document.body.appendChild(document.createElement('div'));
     place.classList.add('place');
     place2 = document.body.appendChild(document.createElement('div'));
@@ -50,21 +51,23 @@ describe('PortalProvider', () => {
     place2.parentNode!.removeChild(place2);
   });
 
-  it.skip('should render a component successfully', () => {
-    expect(wrapper.find(Component).length).toBe(1);
+  it('should render a component successfully', () => {
+    expect(mount(<Component />).html()).toEqual(place.innerHTML);
   });
 
-  it.skip('should render several components successfully', () => {
+  it('should render several components successfully', () => {
     portalProviderAPI!.render(Component, place2);
     wrapper.update();
-    expect(wrapper.find(Component).length).toBe(2);
+    const component = mount(<Component />);
+    expect(component.html()).toEqual(place.innerHTML);
+    expect(component.html()).toEqual(place2.innerHTML);
   });
 
-  it.skip('should destroy a component successfully', () => {
+  it('should destroy a component successfully', () => {
     portalProviderAPI!.remove(place);
     wrapper.update();
 
-    expect(wrapper.find(Component).length).toBe(0);
+    expect(mockReactDom.unmountComponentAtNode).toBeCalledWith(place);
   });
 
   describe('React throws an error while unmounting child component', () => {

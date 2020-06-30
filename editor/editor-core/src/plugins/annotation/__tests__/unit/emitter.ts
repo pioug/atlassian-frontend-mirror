@@ -11,8 +11,7 @@ import {
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
-import { getPluginState } from '../../pm-plugins/inline-comment';
-import { inlineCommentPluginKey } from '../../pm-plugins/plugin-factory';
+import { inlineCommentPluginKey, getPluginState } from '../../utils';
 import { inlineCommentProvider } from '../_utils';
 import annotationPlugin, { AnnotationUpdateEmitter } from '../..';
 import { flushPromises } from '../../../../__tests__/__helpers/utils';
@@ -120,12 +119,32 @@ describe('annotation emitter', () => {
       updateSubscriber.emit('unresolve', 'id-3');
 
       const pluginState = getPluginState(editorView.state);
-
       expect(pluginState.annotations).toStrictEqual({
         'id-0': false,
         'id-1': false,
         'id-3': false,
       });
+    });
+  });
+
+  it('create annotation', () => {
+    updateSubscriber.emit('create', 'id-3');
+
+    const pluginState = getPluginState(editorView.state);
+    expect(pluginState.annotations).toStrictEqual({
+      'id-0': false,
+      'id-1': false,
+      'id-3': false,
+    });
+  });
+
+  it('delete annotation', () => {
+    updateSubscriber.emit('delete', 'id-0');
+
+    const pluginState = getPluginState(editorView.state);
+    expect(pluginState.annotations).toStrictEqual({
+      'id-0': true,
+      'id-1': false,
     });
   });
 });

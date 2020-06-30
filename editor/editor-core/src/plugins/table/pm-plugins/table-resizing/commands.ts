@@ -1,19 +1,21 @@
 import { Node as PMNode } from 'prosemirror-model';
+import { Transaction } from 'prosemirror-state';
 import { isTableSelected } from 'prosemirror-utils';
+
 import { Command, DomAtPos } from '../../../../types';
 import { updateColumnWidths } from '../../transforms';
+
 import { createCommand, getPluginState } from './plugin-factory';
 import {
+  evenAllColumnsWidths,
   hasTableBeenResized,
+  isClickNear,
   insertColgroupFromNode as recreateResizeColsByNode,
+  ResizeState,
+  scale,
   ScaleOptions,
   scaleWithParent,
-  scale,
-  ResizeState,
-  isClickNear,
-  evenAllColumnsWidths,
 } from './utils';
-import { Transaction } from 'prosemirror-state';
 
 // Scale the table to meet new requirements (col, layout change etc)
 export const scaleTable = (

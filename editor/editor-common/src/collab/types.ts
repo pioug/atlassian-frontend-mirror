@@ -1,5 +1,5 @@
-import { Step } from 'prosemirror-transform';
 import { EditorState, Transaction } from 'prosemirror-state';
+import { Step } from 'prosemirror-transform';
 
 export interface CollabParticipant {
   lastActive: number;

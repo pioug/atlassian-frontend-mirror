@@ -1,15 +1,16 @@
 // #region Imports
 import { TableMap } from 'prosemirror-tables';
 import { findTable, getCellsInColumn, getCellsInRow } from 'prosemirror-utils';
-import {
-  updatePluginStateDecorations,
-  createCellHoverDecoration,
-  createControlsHoverDecoration,
-  createColumnLineResize,
-  getMergedCellsPositions,
-} from '../utils';
-import { TableDecorations, Cell, CellColumnPositioning } from '../types';
+
 import { createCommand } from '../pm-plugins/plugin-factory';
+import { Cell, CellColumnPositioning, TableDecorations } from '../types';
+import {
+  createCellHoverDecoration,
+  createColumnLineResize,
+  createControlsHoverDecoration,
+  getMergedCellsPositions,
+  updatePluginStateDecorations,
+} from '../utils';
 // #endregion
 
 // #region Utils

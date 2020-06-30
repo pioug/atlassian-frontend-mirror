@@ -20,6 +20,7 @@ import { hoverDecoration } from '../base/pm-plugins/decoration';
 import { editExtension } from './actions';
 import { getPluginState } from './pm-plugins/main';
 import { ExtensionState } from './types';
+import { getSelectedExtension } from './utils';
 import { updateExtensionLayout, removeExtension } from './commands';
 import { pluginKey as macroPluginKey } from '../macro/plugin-key';
 
@@ -62,7 +63,8 @@ const breakoutOptions = (
   extensionState: ExtensionState,
   breakoutEnabled: boolean,
 ): Array<FloatingToolbarItem<Command>> => {
-  const { layout, nodeWithPos } = extensionState;
+  const nodeWithPos = getSelectedExtension(state, true);
+  const { layout } = extensionState;
   return nodeWithPos && breakoutEnabled && isLayoutSupported(state, nodeWithPos)
     ? [
         {

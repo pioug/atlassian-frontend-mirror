@@ -1,12 +1,16 @@
 import React from 'react';
-import styled from 'styled-components';
+
 import { EditorView } from 'prosemirror-view';
+import styled from 'styled-components';
+
+import { akEditorFloatingDialogZIndex, Popup } from '@atlaskit/editor-common';
 import { borderRadius, colors, gridSize, math } from '@atlaskit/theme';
-import { Popup, akEditorFloatingDialogZIndex } from '@atlaskit/editor-common';
-import { TypeAheadItemsList } from './TypeAheadItemsList';
+
 import { selectByIndex } from '../commands/select-item';
 import { setCurrentIndex } from '../commands/set-current-index';
 import { TypeAheadItem } from '../types';
+
+import { TypeAheadItemsList } from './TypeAheadItemsList';
 
 export const TypeAheadContent: React.ComponentClass<React.HTMLAttributes<{}>> = styled.div`
   background: ${colors.N0};

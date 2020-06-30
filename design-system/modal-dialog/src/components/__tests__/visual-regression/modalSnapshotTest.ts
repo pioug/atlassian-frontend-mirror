@@ -58,8 +58,14 @@ describe('Snapshot Test', () => {
     await page.waitForSelector(openModalBtn);
     await page.click(openModalBtn);
     await page.waitForSelector(modalDialog);
-    const image = await takeElementScreenShot(page, 'body');
-    expect(image).toMatchProdImageSnapshot();
+    // We need to wait for the animation to finish.
+    await page.waitFor(1000);
+    const imageBeforeScrollDown = await takeElementScreenShot(page, 'body');
+    await page.keyboard.press('ArrowDown');
+    await page.waitFor(1000);
+    const imageAfterScrollDown = await takeElementScreenShot(page, 'body');
+    expect(imageBeforeScrollDown).toMatchProdImageSnapshot();
+    expect(imageAfterScrollDown).toMatchProdImageSnapshot();
   });
 
   it('Scroll behaviour outside should match production example', async () => {

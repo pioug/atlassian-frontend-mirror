@@ -1,20 +1,21 @@
 declare var global: any;
 import {
+  createSchema,
   isSafeUrl,
   defaultSchema as schema,
-  createSchema,
 } from '@atlaskit/adf-schema';
+
 import {
   ADDoc,
-  isSubSupType,
-  getValidDocument,
-  getValidNode,
-  getValidMark,
-  getValidUnknownNode,
-  getMarksByOrder,
-  isSameMark,
-  markOrder,
   ADNode,
+  getMarksByOrder,
+  getValidDocument,
+  getValidMark,
+  getValidNode,
+  getValidUnknownNode,
+  isSameMark,
+  isSubSupType,
+  markOrder,
 } from '../../../utils/validator';
 
 describe('Renderer - Validator', () => {

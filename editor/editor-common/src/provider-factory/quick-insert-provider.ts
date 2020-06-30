@@ -1,5 +1,6 @@
 import { Node } from 'prosemirror-model';
 import { EditorState, Transaction } from 'prosemirror-state';
+
 import { TypeAheadItem } from '../types/typeAhead';
 
 export type QuickInsertActionInsert = (

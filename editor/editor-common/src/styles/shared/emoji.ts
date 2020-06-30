@@ -1,4 +1,4 @@
-import { emojiNode, emojiSprite, emojiImage } from '@atlaskit/emoji';
+import { emojiImage, emojiNode, emojiSprite } from '@atlaskit/emoji';
 
 export const EmojiSharedCssClassName = {
   EMOJI_CONTAINER: 'emojiView-content-wrap',

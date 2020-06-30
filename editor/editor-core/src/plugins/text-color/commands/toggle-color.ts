@@ -1,7 +1,7 @@
-import { pluginKey, ACTIONS } from '../pm-plugins/main';
-import { getDisabledState } from '../utils/disabled';
 import { Command } from '../../../types';
 import { toggleMark } from '../../../utils/commands';
+import { ACTIONS, pluginKey } from '../pm-plugins/main';
+import { getDisabledState } from '../utils/disabled';
 
 export const toggleColor = (color: string): Command => (state, dispatch) => {
   const { textColor } = state.schema.marks;

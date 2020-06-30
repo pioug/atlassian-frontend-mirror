@@ -1,6 +1,7 @@
 import { createFakeExtensionManifest } from '@atlaskit/editor-test-helpers/extensions';
-import DefaultExtensionProvider from '../../default-extension-provider';
+
 import combineExtensionProviders from '../../combine-extension-providers';
+import DefaultExtensionProvider from '../../default-extension-provider';
 import { ExtensionProvider } from '../../types';
 
 describe('combine-extension-providers', () => {

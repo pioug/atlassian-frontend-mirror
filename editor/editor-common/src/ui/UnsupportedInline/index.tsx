@@ -1,7 +1,9 @@
 import React from 'react';
+
 import styled from 'styled-components';
-import { borderRadius, colors } from '@atlaskit/theme';
-import { fontSize } from '@atlaskit/theme';
+
+import { borderRadius, colors, fontSize } from '@atlaskit/theme';
+
 import { ZERO_WIDTH_SPACE } from '../../utils';
 
 const InlineNode = styled.span`

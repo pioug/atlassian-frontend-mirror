@@ -1,4 +1,5 @@
 import React from 'react';
+
 import Icon from '@atlaskit/icon/cjs/components/Icon';
 
 const textColorGlyph = () => (

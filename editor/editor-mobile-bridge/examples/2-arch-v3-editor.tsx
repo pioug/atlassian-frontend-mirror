@@ -12,7 +12,6 @@ import {
 import Editor from './../src/labs/mobile-editor-element';
 import { useFetchProxy } from '../src/utils/fetch-proxy';
 
-// @ts-ignore
 window.logBridge = window.logBridge || [];
 
 function EditorWithFetchProxy() {
@@ -40,7 +39,7 @@ export default class Example extends React.Component {
   componentDidMount() {
     disableZooming();
     // Set initial padding (this usually is set by native)
-    (window as any).bridge.setPadding(32, 16, 0, 16);
+    if (window.bridge) window.bridge.setPadding(32, 16, 0, 16);
   }
 
   render() {

@@ -1,27 +1,26 @@
 import { keymap } from 'prosemirror-keymap';
 import { Plugin } from 'prosemirror-state';
+
+import * as keymaps from '../../../keymaps';
+import {
+  ACTION,
+  ACTION_SUBJECT,
+  ACTION_SUBJECT_ID,
+  EVENT_TYPE,
+  INPUT_METHOD,
+  withAnalytics,
+} from '../../analytics';
 import {
   createTable,
   goToNextCell,
   moveCursorBackward,
   triggerUnlessTableHeader,
 } from '../commands';
-
-import { addColumnAfter, addColumnBefore } from '../commands/insert';
-
-import * as keymaps from '../../../keymaps';
 import {
-  withAnalytics,
-  ACTION,
-  ACTION_SUBJECT,
-  ACTION_SUBJECT_ID,
-  INPUT_METHOD,
-  EVENT_TYPE,
-} from '../../analytics';
-import {
-  emptyMultipleCellsWithAnalytics,
   addRowAroundSelection,
+  emptyMultipleCellsWithAnalytics,
 } from '../commands-with-analytics';
+import { addColumnAfter, addColumnBefore } from '../commands/insert';
 
 const createTableWithAnalytics = () =>
   withAnalytics({

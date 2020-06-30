@@ -19,12 +19,12 @@ const initEditor = async (adf?: Object) => {
   await initEditorWithAdf(page, {
     appearance: Appearance.fullPage,
     adf,
-    viewport: { width: 1040, height: 750 },
+    viewport: { width: 1040, height: 1000 },
   });
   await clickEditableContent(page);
 };
-// TODO: https://product-fabric.atlassian.net/browse/ED-7721
-describe.skip('Snapshot Test: Media', () => {
+
+describe('Snapshot Test: Media', () => {
   beforeEach(async () => {
     page = global.page;
   });

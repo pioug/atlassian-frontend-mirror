@@ -1,5 +1,14 @@
 # @atlaskit/media-card
 
+## 68.0.2
+
+### Patch Changes
+
+- [`e04c837864`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e04c837864) - File-state-errors should only be fired when the filestate is Error OR failed-processing
+- [`5989238f54`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5989238f54) - Reuse existing preview in InlineVideoPlayer to prevent re renders when video is uploading
+- [`3879663f8b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3879663f8b) - Replace use of findDOMNode with React.Ref
+- Updated dependencies
+
 ## 68.0.1
 
 ### Patch Changes

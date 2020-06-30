@@ -1,11 +1,12 @@
-import {
-  generateUuid as uuid,
-  defaultSchema,
-  isSafeUrl,
-  inlineNodes,
-  CellAttributes,
-} from '@atlaskit/adf-schema';
 import { Mark as PMMark, Schema } from 'prosemirror-model';
+
+import {
+  CellAttributes,
+  defaultSchema,
+  inlineNodes,
+  isSafeUrl,
+  generateUuid as uuid,
+} from '@atlaskit/adf-schema';
 
 export type ADFStage = 'stage0' | 'final';
 

@@ -1,5 +1,12 @@
 # @atlaskit/media-viewer
 
+## 44.4.4
+
+### Patch Changes
+
+- [`b8b8a16490`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b8b8a16490) - added action and actionSubject to mediaViewerModal event, so that it won't be filtered out and will fire
+- Updated dependencies
+
 ## 44.4.3
 
 ### Patch Changes

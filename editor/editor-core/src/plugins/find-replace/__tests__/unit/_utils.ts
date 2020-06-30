@@ -12,6 +12,7 @@ import { getPluginState } from '../../plugin';
 import { findReplacePluginKey } from '../../types';
 import { selectedSearchMatchClass } from '../../styles';
 import analyticsPlugin from '../../../analytics/plugin';
+import { textFormattingPlugin } from '../../../index';
 
 export const createEditor = createProsemirrorEditorFactory();
 
@@ -22,6 +23,7 @@ export const getFindReplacePreset = (
   if (createAnalyticsEvent) {
     preset = preset.add([analyticsPlugin, { createAnalyticsEvent }]);
   }
+  preset.add(textFormattingPlugin);
   return preset;
 };
 

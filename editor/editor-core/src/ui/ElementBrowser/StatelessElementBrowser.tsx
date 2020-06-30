@@ -1,11 +1,9 @@
 import React, { memo } from 'react';
 import styled, { css } from 'styled-components';
-import WidthDetector from '@atlaskit/width-detector';
 import { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
-import { CategoryType, Modes } from './types';
-import ElementSearch from './components/ElementSearch';
-import CategoryList from './components/CategoryList';
 import CategoryItems from './components/CategoryItems';
+import CategoryList from './components/CategoryList';
+import ElementSearch from './components/ElementSearch';
 import {
   DEVICE_BREAKPOINT_NUMBERS,
   GRID_SIZE,
@@ -15,103 +13,141 @@ import {
   SIDEBAR_HEADING_WRAPPER_HEIGHT,
   SIDEBAR_WIDTH,
 } from './constants';
+import useContainerWidth from './hooks/useContainerWidth';
+import { Category, Modes } from './types';
 
-interface StatelessElementBrowserProps {
+export interface StatelessElementBrowserProps {
   items: QuickInsertItem[];
-  categories: Partial<CategoryType>[];
+  categories: Category[];
   onSearch: (searchTerm: string) => void;
-  onSelectCategory: (category: Partial<CategoryType>) => void;
-  onSelectItem?: (item: QuickInsertItem) => void;
-  onEnter: (item: QuickInsertItem) => void;
-  onClickItem: (item: QuickInsertItem) => void;
+  onSelectCategory: (category: Category) => void;
+  onSelectItem: (item: QuickInsertItem) => void;
+  onEnterKeyPress: (item: QuickInsertItem) => void;
+  selectedCategory?: string;
   showSearch: boolean;
   showCategories: boolean;
   mode: keyof typeof Modes;
 }
 
-const StatelessElementBrowser = ({
-  categories,
-  items,
-  onSearch,
-  onSelectCategory,
+function StatelessElementBrowser(props: StatelessElementBrowserProps) {
+  const { containerWidth, ContainerWidthMonitor } = useContainerWidth();
+  return (
+    <Wrapper>
+      <ContainerWidthMonitor />
+      {containerWidth < DEVICE_BREAKPOINT_NUMBERS.medium ? (
+        <MobileBrowser {...props} />
+      ) : (
+        <DesktopBrowser {...props} />
+      )}
+    </Wrapper>
+  );
+}
+
+const Wrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  max-height: inherit;
+  overflow: hidden;
+`;
+
+function MobileBrowser({
   showCategories,
   showSearch,
+  onSearch,
   mode,
-}: StatelessElementBrowserProps) => {
+  categories,
+  onSelectCategory,
+  items,
+  onSelectItem,
+  onEnterKeyPress,
+  selectedCategory,
+}: StatelessElementBrowserProps) {
   return (
-    <WidthDetector containerStyle={widthDetectorStyle}>
-      {(width?: number) => {
-        if (width && width < DEVICE_BREAKPOINT_NUMBERS.medium) {
-          return (
-            <MobileElementBrowserContainer>
-              <MobileSideBar showCategories={showCategories}>
-                {showSearch && (
-                  <div>
-                    <ElementSearch onSearch={onSearch} mode={mode} />
-                  </div>
-                )}
-                {showCategories && (
-                  <MobileCategoryListWrapper>
-                    <CategoryList
-                      categories={categories}
-                      onSelect={onSelectCategory}
-                    />
-                  </MobileCategoryListWrapper>
-                )}
-              </MobileSideBar>
-              <MobileMainContent>
-                <CategoryItems items={items} mode={mode} />
-              </MobileMainContent>
-            </MobileElementBrowserContainer>
-          );
-        }
-        return (
-          <ElementBrowserContainer>
-            {showCategories && (
-              <SideBar showCategories>
-                <SideBarHeading>{SIDEBAR_HEADING_TEXT}</SideBarHeading>
-                <CategoryListWrapper>
-                  <CategoryList
-                    categories={categories}
-                    onSelect={onSelectCategory}
-                  />
-                </CategoryListWrapper>
-              </SideBar>
-            )}
-            <MainContent>
-              {showSearch && (
-                <SearchContainer>
-                  <ElementSearch onSearch={onSearch} mode={mode} />
-                </SearchContainer>
-              )}
-              <CategoryItems items={items} mode={mode} />
-            </MainContent>
-          </ElementBrowserContainer>
-        );
-      }}
-    </WidthDetector>
+    <MobileElementBrowserContainer>
+      <MobileSideBar showCategories={showCategories}>
+        {showSearch && <ElementSearch onSearch={onSearch} mode={mode} />}
+        {showCategories && (
+          <MobileCategoryListWrapper>
+            <CategoryList
+              categories={categories}
+              onSelectCategory={onSelectCategory}
+              selectedCategory={selectedCategory}
+            />
+          </MobileCategoryListWrapper>
+        )}
+      </MobileSideBar>
+      <MobileMainContent>
+        <CategoryItems
+          items={items}
+          mode={mode}
+          onSelectItem={onSelectItem}
+          onEnterKeyPress={onEnterKeyPress}
+        />
+      </MobileMainContent>
+    </MobileElementBrowserContainer>
   );
-};
+}
 
-const widthDetectorStyle = {
-  height: '100%',
-  maxHeight: 'inherit',
-  overflow: 'hidden',
-};
+function DesktopBrowser({
+  showCategories,
+  showSearch,
+  onSearch,
+  mode,
+  categories,
+  onSelectCategory,
+  items,
+  onSelectItem,
+  onEnterKeyPress,
+  selectedCategory,
+}: StatelessElementBrowserProps) {
+  return (
+    <ElementBrowserContainer>
+      {showCategories && (
+        <SideBar showCategories>
+          <SideBarHeading>{SIDEBAR_HEADING_TEXT}</SideBarHeading>
+          <CategoryListWrapper>
+            <CategoryList
+              categories={categories}
+              onSelectCategory={onSelectCategory}
+              selectedCategory={selectedCategory}
+            />
+          </CategoryListWrapper>
+        </SideBar>
+      )}
+      <MainContent>
+        {showSearch && (
+          <SearchContainer>
+            <ElementSearch onSearch={onSearch} mode={mode} />
+          </SearchContainer>
+        )}
+        <CategoryItems
+          items={items}
+          mode={mode}
+          onSelectItem={onSelectItem}
+          onEnterKeyPress={onEnterKeyPress}
+        />
+      </MainContent>
+    </ElementBrowserContainer>
+  );
+}
 
 const baseBrowserContainerStyles = css`
   display: flex;
   height: 100%;
-  max-height: inherit;
 `;
 
 const MobileElementBrowserContainer = styled.div`
   ${baseBrowserContainerStyles};
+  max-height: inherit;
   flex-direction: column;
 `;
 
 const ElementBrowserContainer = styled.div`
   ${baseBrowserContainerStyles};
+  /**
+   * For Safari, as 100% doesn't work.
+   */
+  max-height: fill-available;
   flex-direction: row;
 `;
 
@@ -148,7 +184,15 @@ const SideBarHeading = styled.h2`
   display: inline-flex;
   align-items: center;
   padding-left: ${SIDEBAR_HEADING_PADDING_LEFT};
+  font-weight: 700;
 `;
+
+/**
+ *  In enzyme styled components show up as styled.element
+ *  and if we don't wanna export SideBarHeading just for testing.
+ *  https://github.com/styled-components/styled-components/issues/896
+ */
+SideBarHeading.displayName = 'SideBarHeading';
 
 const MobileMainContent = styled.div`
   flex: 1 1 auto;
@@ -158,13 +202,6 @@ const MobileMainContent = styled.div`
 
   overflow-y: auto;
 
-  overflow: -moz-scrollbars-none;
-  ::-webkit-scrollbar {
-    display: none;
-  }
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-
   /** Needed for Safari to work with current css.
   * For some reason, specified 100% height in parent containers didn't work and
   * the content still overflows in safari.
@@ -173,7 +210,7 @@ const MobileMainContent = styled.div`
 `;
 
 const MainContent = styled(MobileMainContent)`
-  padding: ${GRID_SIZE * 3}px 0;
+  margin-left: ${GRID_SIZE * 2}px;
 `;
 
 const SearchContainer = styled.div`
@@ -183,9 +220,21 @@ const SearchContainer = styled.div`
 const MobileCategoryListWrapper = styled.nav`
   display: flex;
   overflow-x: auto;
+
+  padding: ${GRID_SIZE}px 0;
+
+  overflow: -moz-scrollbars-none;
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 `;
 
 const CategoryListWrapper = styled(MobileCategoryListWrapper)`
+  padding: 0;
+  margin-top: ${GRID_SIZE * 4}px;
+  height: 100%;
   flex-direction: column;
 `;
 

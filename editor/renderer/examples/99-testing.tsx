@@ -4,6 +4,13 @@ import { ProviderFactory } from '@atlaskit/editor-common';
 import { taskDecision, emoji } from '@atlaskit/util-data-test';
 import { Provider } from '@atlaskit/smart-card';
 import {
+  MediaMock,
+  generateFilesFromTestData,
+  fakeImage,
+} from '@atlaskit/media-test-helpers';
+import {
+  testMediaFileId,
+  testMediaGroupFileId,
   storyMediaProviderFactory,
   storyContextIdentifierProviderFactory,
   extensionHandlers,
@@ -17,6 +24,20 @@ import { RendererActionsContext as RendererContext } from '../src/ui/RendererAct
 import { WithRendererActions } from '../src/ui/RendererActionsContext/WithRendererActions';
 import RendererActions from '../src/actions/index';
 
+const mediaMockServer = new MediaMock({
+  MediaServicesSample: generateFilesFromTestData([
+    {
+      id: testMediaFileId,
+      name: 'one.svg',
+      dataUri: fakeImage,
+    },
+    {
+      id: testMediaGroupFileId,
+      name: 'text_file.txt',
+      mediaType: 'doc',
+    },
+  ]),
+});
 const mediaProvider = storyMediaProviderFactory({
   useMediaPickerAuthProvider: false,
 });
@@ -71,6 +92,8 @@ function createRendererWindowBindings(win: Window & WindowBindings) {
   if (win.__mountRenderer) {
     return;
   }
+
+  mediaMockServer.enable();
 
   (window as any)['__mountRenderer'] = (
     props: MountProps,

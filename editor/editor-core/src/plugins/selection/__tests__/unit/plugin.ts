@@ -1,16 +1,18 @@
-import { Decoration, EditorView } from 'prosemirror-view';
 import { NodeSelection, TextSelection } from 'prosemirror-state';
+import { Decoration, EditorView } from 'prosemirror-view';
+
 import {
   createProsemirrorEditorFactory,
-  Preset,
   LightEditorPlugin,
+  Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import { doc, p, hr } from '@atlaskit/editor-test-helpers/schema-builder';
+import { doc, hr, p } from '@atlaskit/editor-test-helpers/schema-builder';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
-import selectionPlugin from '../..';
-import { getPluginState } from '../../plugin-factory';
-import rulePlugin from '../../../rule';
+
 import { akEditorSelectedNodeClassName } from '../../../../styles';
+import rulePlugin from '../../../rule';
+import selectionPlugin from '../../index';
+import { getPluginState } from '../../plugin-factory';
 
 describe('selection plugin', () => {
   const createEditor = createProsemirrorEditorFactory();

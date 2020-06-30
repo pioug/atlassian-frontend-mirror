@@ -1,5 +1,7 @@
-import { codeFontFamily, colors } from '@atlaskit/theme';
 import { css } from 'styled-components';
+
+import { codeFontFamily, colors } from '@atlaskit/theme';
+
 import { relativeSize } from '../consts';
 
 export const codeMarkSharedStyles = css`

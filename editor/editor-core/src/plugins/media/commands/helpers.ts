@@ -1,8 +1,8 @@
 import { MediaAttributes } from '@atlaskit/adf-schema';
 import { stateKey as mediaPluginKey } from '../pm-plugins/plugin-key';
 import { Command } from '../../../types/command';
-import { SetAttrsStep } from '../../../utils/step';
 import { MediaNodeWithPosHandler, MediaPluginState } from '../pm-plugins/types';
+import { SetAttrsStep } from '@atlaskit/adf-schema/steps';
 
 export const findMediaSingleNode = (
   mediaPluginState: MediaPluginState,

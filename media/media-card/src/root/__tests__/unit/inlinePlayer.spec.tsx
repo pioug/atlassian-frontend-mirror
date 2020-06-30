@@ -64,7 +64,7 @@ describe('<InlinePlayer />', () => {
       Promise.resolve('binary-url'),
     );
     const identifier = {
-      id: Promise.resolve('some-id'),
+      id: 'some-id',
       collectionName: 'some-collection',
     } as FileIdentifier;
 
@@ -176,6 +176,51 @@ describe('<InlinePlayer />', () => {
 
     expect(component.find(CustomMediaPlayer).prop('src')).toEqual(
       'mock result of URL.createObjectURL()',
+    );
+  });
+
+  it('should keep existing local preview', async () => {
+    const createObjectURLSpy = jest.spyOn(URL, 'createObjectURL');
+    let createObjectURLCallTimes = 0;
+    createObjectURLSpy.mockImplementation(() => {
+      createObjectURLCallTimes++;
+      return `object-url-src-${createObjectURLCallTimes}`;
+    });
+    const blob = new Blob([], { type: 'video/mp4' });
+    const mediaClient = fakeMediaClient();
+    const baseState: FileState = {
+      status: 'uploading',
+      preview: {
+        value: blob,
+      },
+      id: '',
+      mediaType: 'image',
+      mimeType: '',
+      name: '',
+      progress: 0,
+      size: 0,
+    };
+    const fileStateSubject = createFileStateSubject(baseState);
+
+    asMockReturnValue(mediaClient.file.getFileState, fileStateSubject);
+    const { component } = setup({ mediaClient });
+
+    await update(component);
+
+    expect(component.find(CustomMediaPlayer).prop('src')).toEqual(
+      'object-url-src-1',
+    );
+
+    fileStateSubject.next({
+      ...baseState,
+      progress: 0.5,
+    });
+
+    await update(component);
+
+    expect(createObjectURLSpy).toBeCalledTimes(1);
+    expect(component.find(CustomMediaPlayer).prop('src')).toEqual(
+      'object-url-src-1',
     );
   });
 
@@ -324,11 +369,6 @@ describe('<InlinePlayer />', () => {
   it('should trigger media-viewed when video is first played', async () => {
     const { component } = setup();
     await update(component);
-    const { onFirstPlay } = component.find(CustomMediaPlayer).props();
-    if (!onFirstPlay) {
-      return expect(onFirstPlay).toBeDefined();
-    }
-    onFirstPlay();
     expect(globalMediaEventEmitter.emit).toHaveBeenCalledTimes(1);
     expectFunctionToHaveBeenCalledWith(globalMediaEventEmitter.emit, [
       'media-viewed',

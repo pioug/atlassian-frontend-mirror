@@ -1,5 +1,11 @@
 # @atlaskit/form
 
+## 7.4.1
+
+### Patch Changes
+
+- [`2e4000e57b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e4000e57b) - Form now fully supports object and array field names.
+
 ## 7.4.0
 
 ### Minor Changes

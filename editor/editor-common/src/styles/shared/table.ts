@@ -1,21 +1,23 @@
 import { css } from 'styled-components';
+
 import {
-  TableLayout,
   tableCellContentDomSelector,
+  TableLayout,
   tablePrefixSelector,
 } from '@atlaskit/adf-schema';
-import { themed, colors } from '@atlaskit/theme';
+import { colors, themed } from '@atlaskit/theme';
+
+import browser from '../../utils/browser';
 import {
+  akEditorBreakoutPadding,
+  akEditorFullWidthLayoutWidth,
   akEditorTableBorder,
   akEditorTableBorderDark,
+  akEditorTableNumberColumnWidth,
   akEditorTableToolbar,
   akEditorTableToolbarDark,
   akEditorWideLayoutWidth,
-  akEditorTableNumberColumnWidth,
-  akEditorFullWidthLayoutWidth,
-  akEditorBreakoutPadding,
 } from '../consts';
-import browser from '../../utils/browser';
 
 export const tableMarginTop = 24;
 export const tableMarginBottom = 16;

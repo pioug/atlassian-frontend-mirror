@@ -19,13 +19,15 @@ export const tableStickyPadding = 8;
 
 interface RelativeProps {
   left?: number;
+  top?: number;
 }
 
 // creates a new stacking context and places the div in the same
 // position as the table
 const RelativeTableDiv = styled.div.attrs<RelativeProps>({
-  style: ({ left }: RelativeProps) => ({
+  style: ({ left, top }: RelativeProps) => ({
     left: left && left < 0 ? left : undefined,
+    top,
   }),
 })`
   position: relative;
@@ -110,9 +112,9 @@ export const StickyTable = ({
   rowHeight,
 }: StickyTableProps) => {
   return (
-    <RelativeTableDiv left={left}>
+    <RelativeTableDiv left={left} top={mode === 'pin-bottom' ? top : undefined}>
       <FixedTableDiv
-        top={top}
+        top={mode === 'stick' ? top : undefined}
         mode={rowHeight > 300 ? 'none' : mode}
         wrapperWidth={wrapperWidth}
       >

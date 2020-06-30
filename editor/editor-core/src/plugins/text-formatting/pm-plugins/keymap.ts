@@ -1,10 +1,11 @@
 import { MarkType, Schema } from 'prosemirror-model';
 import { Plugin } from 'prosemirror-state';
-import * as keymaps from '../../../keymaps';
+
 import { trackAndInvoke } from '../../../analytics';
-import * as commands from '../commands/text-formatting';
-import { INPUT_METHOD } from '../../analytics';
+import * as keymaps from '../../../keymaps';
 import { keymap } from '../../../utils/keymap';
+import { INPUT_METHOD } from '../../analytics';
+import * as commands from '../commands/text-formatting';
 
 export default function keymapPlugin(schema: Schema): Plugin {
   const list = {};

@@ -15,14 +15,12 @@ import {
   InlineCommentPluginOptions,
 } from './types';
 import { CommandDispatch } from '../../../types';
-import { getAllAnnotations } from '../utils';
-import { inlineCommentPluginKey, createPluginState } from './plugin-factory';
-
-export const getPluginState = (
-  state: EditorState,
-): InlineCommentPluginState => {
-  return inlineCommentPluginKey.getState(state);
-};
+import {
+  getAllAnnotations,
+  inlineCommentPluginKey,
+  getPluginState,
+} from '../utils';
+import { createPluginState } from './plugin-factory';
 
 const fetchProviderStates = async (
   provider: InlineCommentAnnotationProvider,
@@ -58,13 +56,16 @@ const fetchState = async (
   }
 };
 
-const initialState = (): InlineCommentPluginState => {
+const initialState = (
+  disallowOnWhitespace: boolean = false,
+): InlineCommentPluginState => {
   return {
     annotations: {},
     selectedAnnotations: [],
     mouseData: {
       isSelecting: false,
     },
+    disallowOnWhitespace,
   };
 };
 
@@ -104,7 +105,10 @@ export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
 
   return new Plugin({
     key: inlineCommentPluginKey,
-    state: createPluginState(options.dispatch, initialState()),
+    state: createPluginState(
+      options.dispatch,
+      initialState(provider.disallowOnWhitespace),
+    ),
 
     view(editorView: EditorView) {
       // Get initial state
@@ -120,7 +124,11 @@ export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
 
       const { updateSubscriber } = provider;
       if (updateSubscriber) {
-        updateSubscriber.on('resolve', resolve).on('unresolve', unResolve);
+        updateSubscriber
+          .on('resolve', resolve)
+          .on('delete', resolve)
+          .on('unresolve', unResolve)
+          .on('create', unResolve);
       }
 
       editorView.root.addEventListener('mouseup', mouseUp);
@@ -141,7 +149,9 @@ export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
           if (updateSubscriber) {
             updateSubscriber
               .off('resolve', resolve)
-              .off('unresolve', unResolve);
+              .off('delete', resolve)
+              .off('unresolve', unResolve)
+              .off('create', unResolve);
           }
         },
       };

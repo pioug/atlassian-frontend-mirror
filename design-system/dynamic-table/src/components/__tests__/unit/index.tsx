@@ -21,7 +21,7 @@ import RankableTableBody from '../../rankable/Body';
 import { State } from '../../Stateless';
 import TableHead from '../../TableHead';
 
-import { head, rows, rowsWithKeys } from './_data';
+import { head, rows, rowsWithKeys, secondSortKey } from './_data';
 import { headNumeric, rowsNumeric } from './_dataNumeric';
 
 describe(name, () => {
@@ -368,10 +368,9 @@ describe(name, () => {
         expect(onSort).toHaveBeenCalledTimes(1);
         headCells.at(1).simulate('click');
         expect(onSort).toHaveBeenCalledTimes(1);
-        expect(onSetPage).toHaveBeenCalledWith(1, undefined);
       });
 
-      it('should run onSort & onSetPage', () => {
+      it('should run onSort', () => {
         const headCells = wrapper.find('th');
         headCells.at(0).simulate('click');
         expect(onSort).toHaveBeenCalledTimes(1);
@@ -387,11 +386,9 @@ describe(name, () => {
           },
           expect.anything(),
         );
-        expect(onSetPage).toHaveBeenCalledWith(1, undefined);
-        expect(onSetPage).toHaveBeenCalledTimes(1);
       });
 
-      it('should run onSort with enter key pressed & onSetPage', () => {
+      it('should run onSort with enter key pressed', () => {
         const headCells = wrapper.find('th');
         headCells.at(0).simulate('keyDown', { key: 'Enter' });
         expect(onSort).toHaveBeenCalledTimes(1);
@@ -407,8 +404,6 @@ describe(name, () => {
           },
           expect.anything(),
         );
-        expect(onSetPage).toHaveBeenCalledWith(1, undefined);
-        expect(onSetPage).toHaveBeenCalledTimes(1);
       });
 
       it('should not run onSort with enter key pressed when th is not sortable', () => {
@@ -666,6 +661,162 @@ describe(name, () => {
           .at(1)
           .text(),
       ).toBe('10');
+    });
+
+    it('should preserve sorting, even after updating table dynamically', () => {
+      const newData = {
+        cells: [
+          {
+            key: 'abli',
+            content: 'Abraham',
+          },
+          {
+            content: 'Lincon',
+          },
+        ],
+      };
+
+      const newRows = [...rows, newData];
+      const wrapper = mount(<DynamicTable head={head} rows={rows} />);
+
+      wrapper
+        .find('th')
+        .at(0)
+        .simulate('click');
+      wrapper.update();
+
+      const bodyRows = wrapper.find('tbody tr');
+      expect(
+        bodyRows
+          .at(0)
+          .find('td')
+          .at(0)
+          .text(),
+      ).toBe('Barack');
+      expect(
+        bodyRows
+          .at(0)
+          .find('td')
+          .at(1)
+          .text(),
+      ).toBe('Obama');
+
+      wrapper.setProps({ rows: newRows });
+      expect(
+        bodyRows
+          .at(0)
+          .find('td')
+          .at(0)
+          .text(),
+      ).toBe('Abraham');
+      expect(
+        bodyRows
+          .at(0)
+          .find('td')
+          .at(1)
+          .text(),
+      ).toBe('Lincon');
+      expect(
+        bodyRows
+          .at(1)
+          .find('td')
+          .at(0)
+          .text(),
+      ).toBe('Barack');
+      expect(
+        bodyRows
+          .at(1)
+          .find('td')
+          .at(1)
+          .text(),
+      ).toBe('Obama');
+    });
+
+    it('should use new sortKey and sortOrder passed as prop for sorting the table', () => {
+      const wrapper = mount(<DynamicTable head={head} rows={rows} />);
+      wrapper
+        .find('th')
+        .at(0)
+        .simulate('click');
+      wrapper.update();
+      const bodyRows = wrapper.find('tbody tr');
+      expect(
+        bodyRows
+          .at(0)
+          .find('td')
+          .at(0)
+          .text(),
+      ).toBe('Barack');
+      expect(
+        bodyRows
+          .at(0)
+          .find('td')
+          .at(1)
+          .text(),
+      ).toBe('Obama');
+
+      wrapper.setProps({ sortOrder: 'DESC', sortKey: secondSortKey });
+      wrapper.update();
+
+      expect(
+        bodyRows
+          .at(0)
+          .find('td')
+          .at(0)
+          .text(),
+      ).toBe('Donald');
+      expect(
+        bodyRows
+          .at(0)
+          .find('td')
+          .at(1)
+          .text(),
+      ).toBe('Trump');
+      expect(
+        bodyRows
+          .at(1)
+          .find('td')
+          .at(0)
+          .text(),
+      ).toBe('Barack');
+      expect(
+        bodyRows
+          .at(1)
+          .find('td')
+          .at(1)
+          .text(),
+      ).toBe('Obama');
+    });
+
+    it('should preserve page after applying sorting and updating table dynamically', () => {
+      const newData = {
+        cells: [
+          {
+            key: 'abli',
+            content: 'Abraham',
+          },
+          {
+            content: 'Lincon',
+          },
+        ],
+      };
+
+      const newRows = [...rows, newData];
+      const wrapper = mount(
+        <DynamicTable
+          head={head}
+          rows={rows}
+          rowsPerPage={2}
+          defaultPage={2}
+        />,
+      );
+      wrapper
+        .find('th')
+        .at(0)
+        .simulate('click');
+      expect(wrapper.find(Pagination).prop('value')).toBe(2);
+      wrapper.setProps({ rows: newRows });
+      expect(wrapper.find(Pagination).prop('value')).toBe(2);
     });
   });
 });

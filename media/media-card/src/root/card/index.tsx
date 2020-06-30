@@ -177,7 +177,7 @@ export class CardBase extends Component<
     document.removeEventListener('copy', this.onCopyListener);
   }
 
-  async getResolvedId(): Promise<string> {
+  getId(): string {
     const { identifier } = this.props;
     if (identifier.mediaItemType === 'external-image') {
       return identifier.mediaItemType;
@@ -204,7 +204,7 @@ export class CardBase extends Component<
     const { dimensions } = this.props;
     const options = {
       dimensions,
-      component: this,
+      element: this.cardRef.current && this.cardRef.current.divRef.current,
     };
     const width = getDataURIDimension('width', options);
     const height = getDataURIDimension('height', options);
@@ -242,7 +242,7 @@ export class CardBase extends Component<
 
   private async getObjectUrlFromBackendImageBlob(
     mediaClient: MediaClient,
-    resolvedId: string,
+    id: string,
     { width, height }: NumericalCardDimensions,
     collectionName: string | undefined,
   ): Promise<string | undefined> {
@@ -250,7 +250,7 @@ export class CardBase extends Component<
     const mode = resizeMode === 'stretchy-fit' ? 'full-fit' : resizeMode;
 
     try {
-      const blob = await mediaClient.getImage(resolvedId, {
+      const blob = await mediaClient.getImage(id, {
         collection: collectionName,
         mode,
         height,
@@ -264,14 +264,10 @@ export class CardBase extends Component<
     }
   }
 
-  async subscribeInternalFile(
-    identifier: FileIdentifier,
-    mediaClient: MediaClient,
-  ) {
-    const { collectionName, occurrenceKey } = identifier;
-    const resolvedId = await identifier.id;
+  subscribeInternalFile(identifier: FileIdentifier, mediaClient: MediaClient) {
+    const { id, collectionName, occurrenceKey } = identifier;
     this.subscription = mediaClient.file
-      .getFileState(resolvedId, { collectionName, occurrenceKey })
+      .getFileState(id, { collectionName, occurrenceKey })
       .subscribe({
         next: async fileState => {
           let { dataURI } = this.state;
@@ -289,11 +285,7 @@ export class CardBase extends Component<
 
           // Dimensions are used to create a key. We want to be able to
           // request new image from backend when different dimensions are provided.
-          const cacheKey = [
-            resolvedId,
-            dimensions.height,
-            dimensions.width,
-          ].join('-');
+          const cacheKey = [id, dimensions.height, dimensions.width].join('-');
 
           if (!dataURI && objectURLCache.has(cacheKey)) {
             // No dataURI in state. Let's try and get one.
@@ -326,7 +318,7 @@ export class CardBase extends Component<
               requestedDimensions = this.getRequestedDimensions();
               dataURI = await this.getObjectUrlFromBackendImageBlob(
                 mediaClient,
-                resolvedId,
+                id,
                 requestedDimensions,
                 collectionName,
               );
@@ -341,7 +333,7 @@ export class CardBase extends Component<
                 this.getRequestedDimensions();
               dataURI = this.addContextToDataURI(
                 dataURI,
-                resolvedId,
+                id,
                 metadata,
                 contextDimensions,
                 collectionName,
@@ -362,7 +354,7 @@ export class CardBase extends Component<
           const status = getCardStatusFromFileState(fileState, dataURI);
 
           this.fireLoadingStatusAnalyticsEvent({
-            resolvedId,
+            id,
             status,
             metadata,
           });
@@ -395,7 +387,7 @@ export class CardBase extends Component<
         },
         error: error => {
           this.fireLoadingStatusAnalyticsEvent({
-            resolvedId,
+            id,
             status: 'error',
             error,
           });
@@ -423,12 +415,12 @@ export class CardBase extends Component<
   };
 
   fireLoadingStatusAnalyticsEvent = ({
-    resolvedId,
+    id,
     status,
     metadata,
     error,
   }: {
-    resolvedId: string;
+    id: string;
     status: CardStatus;
     metadata?: FileDetails;
     error?: Error;
@@ -459,7 +451,7 @@ export class CardBase extends Component<
       createAndFireCustomMediaEvent(
         getLoadingStatusAnalyticsPayload(
           action,
-          resolvedId,
+          id,
           fileAttributes,
           errorState,
         ),
@@ -468,7 +460,7 @@ export class CardBase extends Component<
     }
   };
 
-  async fireCardCommencedAnalytics() {
+  fireCardCommencedAnalytics() {
     const { createAnalyticsEvent } = this.props;
     const { isCardVisible } = this.state;
 
@@ -476,18 +468,18 @@ export class CardBase extends Component<
       return;
     }
 
-    const id = await this.getResolvedId();
+    const id = this.getId();
     createAndFireCustomMediaEvent(
       getMediaCardCommencedAnalyticsPayload(id),
       createAnalyticsEvent,
     );
   }
 
-  fireFileCopiedAnalytics = async () => {
+  fireFileCopiedAnalytics = () => {
     const { createAnalyticsEvent, identifier } = this.props;
 
     createAndFireCustomMediaEvent(
-      await getCopiedFileAnalyticsPayload(identifier),
+      getCopiedFileAnalyticsPayload(identifier),
       createAnalyticsEvent,
     );
   };
@@ -525,9 +517,9 @@ export class CardBase extends Component<
       const downloadAction = {
         label: 'Download',
         icon: <DownloadIcon label="Download" />,
-        handler: async () =>
+        handler: () =>
           this.props.mediaClient.file.downloadBinary(
-            await identifier.id,
+            identifier.id,
             (metadata as FileDetails).name,
             identifier.collectionName,
           ),
@@ -538,7 +530,7 @@ export class CardBase extends Component<
     }
   }
 
-  onCardViewClick = async (
+  onCardViewClick = (
     event: React.MouseEvent<HTMLDivElement>,
     analyticsEvent?: UIAnalyticsEvent,
   ) => {
@@ -561,7 +553,7 @@ export class CardBase extends Component<
 
       if (isFileIdentifier(identifier)) {
         mediaViewerSelectedItem = {
-          id: await identifier.id,
+          id: identifier.id,
           mediaItemType: 'file',
           collectionName: identifier.collectionName,
           occurrenceKey: identifier.occurrenceKey,
@@ -615,7 +607,7 @@ export class CardBase extends Component<
     });
   };
 
-  private onDisplayImage = async () => {
+  private onDisplayImage = () => {
     const { identifier } = this.props;
     let payloadPart: Pick<
       MediaViewedEventPayload,
@@ -623,7 +615,7 @@ export class CardBase extends Component<
     >;
     if (isFileIdentifier(identifier)) {
       payloadPart = {
-        fileId: await identifier.id,
+        fileId: identifier.id,
         isUserCollection: identifier.collectionName === RECENTS_COLLECTION,
       };
     } else {

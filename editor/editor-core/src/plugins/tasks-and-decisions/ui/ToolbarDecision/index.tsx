@@ -1,12 +1,14 @@
-import React from 'react';
-import { PureComponent } from 'react';
-import { injectIntl, InjectedIntlProps } from 'react-intl';
+import React, { PureComponent } from 'react';
+
 import { EditorView } from 'prosemirror-view';
+import { InjectedIntlProps, injectIntl } from 'react-intl';
+
 import DecisionIcon from '@atlaskit/icon/glyph/editor/decision';
+
 import { withAnalytics } from '../../../../analytics';
 import ToolbarButton from '../../../../ui/ToolbarButton';
-import { insertTaskDecision } from '../../commands';
 import { messages } from '../../../insert-block/ui/ToolbarInsertBlock/messages';
+import { insertTaskDecision } from '../../commands';
 
 export interface Props {
   editorView?: EditorView;

@@ -1,20 +1,21 @@
-import { Transaction } from 'prosemirror-state';
 import { Node as PMNode } from 'prosemirror-model';
+import { Transaction } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
+
 import { TableLayout } from '@atlaskit/adf-schema';
 import {
-  akEditorWideLayoutWidth,
   akEditorDefaultLayoutWidth,
+  akEditorWideLayoutWidth,
   tableCellMinWidth,
 } from '@atlaskit/editor-common';
 
+import { sendLogs } from '../../../utils/sendLogs';
 import {
   calculateColumnWidth,
-  getCellsRefsInColumn,
   contentWidth,
+  getCellsRefsInColumn,
   getLayoutSize,
 } from '../pm-plugins/table-resizing/utils';
-import { sendLogs } from '../../../utils/sendLogs';
 
 export const fireAnalytics = (properties = {}) =>
   sendLogs({

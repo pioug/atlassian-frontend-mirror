@@ -1,16 +1,18 @@
-import React from 'react';
-import { SyntheticEvent } from 'react';
-import { injectIntl, InjectedIntlProps } from 'react-intl';
+import React, { SyntheticEvent } from 'react';
+
+import { InjectedIntlProps, injectIntl } from 'react-intl';
+
 import {
   akEditorTableNumberColumnWidth,
   tableMarginTop,
 } from '@atlaskit/editor-common';
 import Tooltip from '@atlaskit/tooltip';
-import { TableCssClassName as ClassName } from '../../types';
-import { tableToolbarSize } from '../styles';
-import tableMessages from '../messages';
+
 import * as keymaps from '../../../../keymaps';
 import { closestElement } from '../../../../utils/dom';
+import { TableCssClassName as ClassName } from '../../types';
+import tableMessages from '../messages';
+import { tableToolbarSize } from '../styles';
 
 export interface ButtonProps {
   type: 'row' | 'column';

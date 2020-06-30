@@ -1,5 +1,6 @@
 import { css } from 'styled-components';
-import { orderedListSelector, bulletListSelector } from '@atlaskit/adf-schema';
+
+import { bulletListSelector, orderedListSelector } from '@atlaskit/adf-schema';
 
 export const listsSharedStyles = css`
   /* =============== INDENTATION SPACING ========= */

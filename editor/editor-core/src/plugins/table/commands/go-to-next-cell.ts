@@ -1,10 +1,11 @@
 // #region Constants
-import { findParentNodeOfType, findTable } from 'prosemirror-utils';
 import { goToNextCell as baseGotoNextCell, TableMap } from 'prosemirror-tables';
-import { insertRowWithAnalytics } from '../commands-with-analytics';
-import { INPUT_METHOD } from '../../analytics/types';
+import { findParentNodeOfType, findTable } from 'prosemirror-utils';
+
 import { analyticsService } from '../../../analytics';
 import { Command } from '../../../types/command';
+import { INPUT_METHOD } from '../../analytics/types';
+import { insertRowWithAnalytics } from '../commands-with-analytics';
 
 const TAB_FORWARD_DIRECTION = 1;
 const TAB_BACKWARD_DIRECTION = -1;

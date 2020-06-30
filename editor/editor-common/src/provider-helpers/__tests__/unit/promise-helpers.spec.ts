@@ -1,8 +1,8 @@
 import {
   getOnlyFulfilled,
+  ResultStatus,
   waitForAllPromises,
   waitForFirstFulfilledPromise,
-  ResultStatus,
 } from '../../promise-helpers';
 
 const resolvesIn = (timeout: number, value: any) =>

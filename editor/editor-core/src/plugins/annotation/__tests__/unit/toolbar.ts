@@ -1,4 +1,4 @@
-import { getPluginState } from './../../pm-plugins/inline-comment';
+import { getPluginState, inlineCommentPluginKey } from './../../utils';
 import { IntlProvider } from 'react-intl';
 import {
   doc,
@@ -15,13 +15,11 @@ import {
   LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import { inlineCommentPluginKey } from '../../pm-plugins/plugin-factory';
 import annotationPlugin from '../..';
 import emojiPlugin from '../../../emoji';
 import blockTypePlugin from '../../../block-type';
 import tasksAndDecisionsPlugin from '../../../tasks-and-decisions';
 import { buildToolbar } from '../../toolbar';
-import { hasInlineNodes } from '../../utils';
 import { inlineCommentProvider } from '../_utils';
 import {
   FloatingToolbarConfig,
@@ -156,29 +154,5 @@ describe('annotation', () => {
     expect((decorations[0] as any).type.attrs.class).toEqual(
       AnnotationSharedClassNames.draft,
     );
-  });
-
-  describe('hasInlineNodes', () => {
-    test.each([
-      [
-        'text only',
-        doc(p('{<}Corsair{>}', emoji({ shortName: ':smiley:' })())),
-        false,
-      ],
-      [
-        'mixed',
-        doc(p('{<}Corsair', emoji({ shortName: ':smiley:' })(), '{>}')),
-        true,
-      ],
-      [
-        'inline only',
-        doc(p('Corsair{<}', emoji({ shortName: ':smiley:' })(), '{>}')),
-        true,
-      ],
-    ])('%s', (_, inputDoc, expected) => {
-      const { editorView } = editor(inputDoc);
-
-      expect(hasInlineNodes(editorView.state)).toBe(expected);
-    });
   });
 });

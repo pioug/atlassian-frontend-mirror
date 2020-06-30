@@ -629,7 +629,7 @@ describe('<PageLayout />', () => {
         'var(--leftSidebarWidth)',
       );
       expect(document.head.innerHTML).toEqual(
-        expect.stringContaining('{--leftSidebarWidth:200px;}'),
+        expect.stringContaining('{--leftSidebarWidth:240px;}'),
       );
     });
 
@@ -649,7 +649,7 @@ describe('<PageLayout />', () => {
         'var(--leftSidebarWidth)',
       );
       expect(document.head.innerHTML).toEqual(
-        expect.stringContaining(':root{--leftSidebarWidth:200px;}'),
+        expect.stringContaining(':root{--leftSidebarWidth:240px;}'),
       );
     });
 

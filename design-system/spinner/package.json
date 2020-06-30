@@ -37,7 +37,7 @@
     "@atlaskit/button": "^13.4.0",
     "@atlaskit/docs": "*",
     "@atlaskit/lozenge": "^9.1.6",
-    "@atlaskit/motion": "^0.2.2",
+    "@atlaskit/motion": "^0.3.0",
     "@atlaskit/select": "^11.0.9",
     "@atlaskit/ssr": "*",
     "@atlaskit/webdriver-runner": "*",

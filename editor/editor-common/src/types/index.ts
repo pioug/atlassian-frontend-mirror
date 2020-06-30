@@ -11,6 +11,12 @@ export enum SortOrder {
   NO_ORDER = 'no_order',
 }
 
-export { AnnotationState, AnnotationProviders } from './annotation';
+export {
+  AnnotationState,
+  AnnotationProviders,
+  AnnotationUpdateEmitter,
+  AnnotationUpdateEvent,
+  AnnotationUpdateEventPayloads,
+} from './annotation';
 
 export { TypeAheadItem, TypeAheadItemRenderProps } from './typeAhead';

@@ -1,10 +1,8 @@
 import { RichMediaAttributes, RichMediaLayout } from '@atlaskit/adf-schema';
-export const wrappedLayouts: RichMediaLayout[] = [
-  'wrap-left',
-  'wrap-right',
-  'align-end',
-  'align-start',
-];
+import {
+  wrappedLayouts,
+  shouldAddDefaultWrappedWidth,
+} from '@atlaskit/editor-common';
 
 export const nonWrappedLayouts: RichMediaLayout[] = [
   'center',
@@ -29,10 +27,7 @@ export const alignAttributes = (
   const oldLayoutIsWrapped = wrappedLayouts.indexOf(oldLayout) > -1;
   if (
     oldLayoutIsNonWrapped &&
-    newLayoutIsWrapped &&
-    originalWidth &&
-    lineLength &&
-    originalWidth > 0.5 * lineLength
+    shouldAddDefaultWrappedWidth(layout, originalWidth, lineLength)
   ) {
     // 'full-width' or 'wide' or 'center' -> 'wrap-left' or 'wrap-right' or 'align-end' or 'align-start'
     if (

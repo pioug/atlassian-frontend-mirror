@@ -1,4 +1,3 @@
-import { Component } from 'react';
 import { isRetina } from './isRetina';
 import { CardDimensions } from '..';
 import { ElementDimension, getElementDimension } from './getElementDimension';
@@ -7,7 +6,7 @@ import { isValidPercentageUnit } from './isValidPercentageUnit';
 import { containsPixelUnit } from './containsPixelUnit';
 
 export type getDataURIDimensionOptions = {
-  component: Component;
+  element?: Element | null;
   dimensions?: CardDimensions;
 };
 
@@ -19,8 +18,8 @@ export const getDataURIDimension = (
   const dimensionValue =
     (options.dimensions && options.dimensions[dimension]) || '';
 
-  if (isValidPercentageUnit(dimensionValue)) {
-    return getElementDimension(options.component, dimension) * retinaFactor;
+  if (isValidPercentageUnit(dimensionValue) && options.element) {
+    return getElementDimension(options.element, dimension) * retinaFactor;
   }
 
   if (typeof dimensionValue === 'number') {

@@ -1,11 +1,13 @@
-import { Node as PMNode, Mark } from 'prosemirror-model';
+import { Mark, Node as PMNode } from 'prosemirror-model';
+
 import {
-  StatusDefinition,
+  CardAttributes,
   DateDefinition,
   MentionAttributes,
-  CardAttributes,
+  StatusDefinition,
   UrlType,
 } from '@atlaskit/adf-schema';
+
 import { SortOrder } from '../types';
 
 enum ContentType {

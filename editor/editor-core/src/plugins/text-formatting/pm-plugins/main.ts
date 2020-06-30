@@ -1,12 +1,14 @@
 import { toggleMark } from 'prosemirror-commands';
-import { Plugin, PluginKey, EditorState } from 'prosemirror-state';
-import { Dispatch } from '../../../event-dispatcher';
-import { shallowEqual } from '../../../utils';
-import { anyMarkActive } from '../utils';
-import { createInlineCodeFromTextInputWithAnalytics } from '../commands/text-formatting';
+import { EditorState, Plugin, PluginKey } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
+
+import { Dispatch } from '../../../event-dispatcher';
 import * as keymaps from '../../../keymaps';
+import { shallowEqual } from '../../../utils';
+import { createInlineCodeFromTextInputWithAnalytics } from '../commands/text-formatting';
+// eslint-disable-next-line no-duplicate-imports
 import * as commands from '../commands/text-formatting';
+import { anyMarkActive } from '../utils';
 
 export const pluginKey = new PluginKey('textFormatting');
 

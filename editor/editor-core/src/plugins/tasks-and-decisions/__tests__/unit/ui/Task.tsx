@@ -1,8 +1,10 @@
 import React from 'react';
-import { ResourcedTaskItem, TaskItem } from '@atlaskit/task-decision';
-import { taskDecision } from '@atlaskit/util-data-test';
+
 import { ProviderFactory } from '@atlaskit/editor-common';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { ResourcedTaskItem, TaskItem } from '@atlaskit/task-decision';
+import { taskDecision } from '@atlaskit/util-data-test';
+
 import Task from '../../../../../plugins/tasks-and-decisions/ui/Task';
 // avoid polluting test logs with error message in console
 // please ensure you fix it if you expect console.error to be thrown

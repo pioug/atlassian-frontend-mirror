@@ -70,18 +70,23 @@ export class InlinePlayerBase extends Component<
     dimensions: defaultImageCardDimensions,
   };
 
-  async componentDidMount() {
+  componentDidMount() {
     const { mediaClient, identifier } = this.props;
     const { id, collectionName } = identifier;
 
     this.revoke();
     this.unsubscribe();
     this.subscription = mediaClient.file
-      .getFileState(await id, { collectionName })
+      .getFileState(id, { collectionName })
       .subscribe({
-        next: async state => {
-          if (state.status !== 'error' && state.preview) {
-            const { value } = await state.preview;
+        next: async fileState => {
+          const { fileSrc: existingFileSrc } = this.state;
+          // we want to reuse the existing fileSrc to prevent re renders
+          if (existingFileSrc) {
+            return;
+          }
+          if (fileState.status !== 'error' && fileState.preview) {
+            const { value } = await fileState.preview;
 
             if (value instanceof Blob && value.type.indexOf('video/') === 0) {
               const fileSrc = URL.createObjectURL(value);
@@ -90,9 +95,12 @@ export class InlinePlayerBase extends Component<
             }
           }
 
-          if (state.status === 'processed' || state.status === 'processing') {
-            const artifactName = getPreferredVideoArtifact(state);
-            const { artifacts } = state;
+          if (
+            fileState.status === 'processed' ||
+            fileState.status === 'processing'
+          ) {
+            const artifactName = getPreferredVideoArtifact(fileState);
+            const { artifacts } = fileState;
             if (!artifactName || !artifacts) {
               this.setBinaryURL();
               return;
@@ -126,10 +134,10 @@ export class InlinePlayerBase extends Component<
   setBinaryURL = async () => {
     const { mediaClient, identifier, onError } = this.props;
     const { id, collectionName } = identifier;
-    const resolvedId = await id;
+
     try {
       const fileSrc = await mediaClient.file.getFileBinaryURL(
-        resolvedId,
+        id,
         collectionName,
       );
 
@@ -172,17 +180,17 @@ export class InlinePlayerBase extends Component<
     };
   };
 
-  onDownloadClick = async () => {
+  onDownloadClick = () => {
     const { mediaClient, identifier } = this.props;
     const { id, collectionName } = identifier;
 
-    mediaClient.file.downloadBinary(await id, undefined, collectionName);
+    mediaClient.file.downloadBinary(id, undefined, collectionName);
   };
 
-  onFirstPlay = async () => {
+  onFirstPlay = () => {
     const { identifier } = this.props;
     globalMediaEventEmitter.emit('media-viewed', {
-      fileId: await identifier.id,
+      fileId: identifier.id,
       viewingLevel: 'full',
     });
   };

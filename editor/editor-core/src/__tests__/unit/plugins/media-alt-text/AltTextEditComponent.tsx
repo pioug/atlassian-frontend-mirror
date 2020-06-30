@@ -288,42 +288,6 @@ describe('AltTextEditComponent', () => {
     });
   });
 
-  describe.skip('uses custom undo/redo on text input', () => {
-    it('calls prosemirror history undo when PanelTextInput onUndo is called', () => {
-      const panelTextInput = wrapper.find(PanelTextInput);
-      expect(panelTextInput.length).toBe(1);
-
-      (panelTextInput.prop('onUndo') as Function)();
-      expect(panelTextInput.prop('onUndo')).toBeDefined();
-      expect(mockPmHistory.undo).toHaveBeenCalledWith(
-        view.state,
-        view.dispatch,
-        undefined,
-      );
-      expect(undoInputRuleMock).toHaveBeenCalledWith(view.state, view.dispatch);
-    });
-
-    it('calls prosemirror history redo when PanelTextInput onRedo is called', () => {
-      const panelTextInput = wrapper.find(PanelTextInput);
-      expect(panelTextInput.prop('onRedo')).toBeDefined();
-      (panelTextInput.prop('onRedo') as Function)();
-      expect(mockPmHistory.redo).toHaveBeenCalledWith(
-        view.state,
-        view.dispatch,
-      );
-    });
-  });
-
-  it.skip('does not close alt text editor on undo/redo', () => {
-    const panelTextInput = wrapper.find(PanelTextInput);
-    (panelTextInput.prop('onUndo') as Function)();
-    expect(mockPmHistory.undo).toHaveBeenCalledWith(
-      view.state,
-      view.dispatch,
-      undefined,
-    );
-  });
-
   describe('validation', () => {
     let wrapper: ReactWrapper<
         ReactIntl.InjectedIntlProps,

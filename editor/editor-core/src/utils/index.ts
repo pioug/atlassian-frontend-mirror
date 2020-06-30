@@ -48,7 +48,6 @@ export {
 } from './document';
 
 export { cascadeCommands, getEditorValueWithMedia } from './action';
-export { SetAttrsStep } from './step';
 export {
   isMarkAllowedInRange,
   isMarkExcluded,
@@ -720,7 +719,7 @@ export function dedupe<T>(
     f  o|  o|__     "`-.
     ,-._.,--'_ `.   _.,-`
     `"' ___.,'` j,-'
-      `-.__.,--' 
+      `-.__.,--'
     Gotta go fast!
  */
 
@@ -860,3 +859,4 @@ export function sum<T>(arr: Array<T>, f: (val: T) => number) {
 export function nonNullable<T>(value: T): value is NonNullable<T> {
   return value !== null && value !== undefined;
 }
+export { SetAttrsStep } from '@atlaskit/adf-schema/steps';

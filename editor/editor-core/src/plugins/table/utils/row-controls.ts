@@ -1,16 +1,17 @@
-import {
-  getSelectionRect,
-  isRowSelected,
-  isTableSelected,
-  findTable,
-  safeInsert,
-} from 'prosemirror-utils';
 import { Node as PMNode, Schema } from 'prosemirror-model';
 import { Selection, Transaction } from 'prosemirror-state';
 import { CellSelection, TableMap } from 'prosemirror-tables';
-import { tableDeleteButtonSize } from '../ui/styles';
-import { TableCssClassName as ClassName } from '../types';
+import {
+  findTable,
+  getSelectionRect,
+  isRowSelected,
+  isTableSelected,
+  safeInsert,
+} from 'prosemirror-utils';
+
 import { parsePx } from '../../../utils/dom';
+import { TableCssClassName as ClassName } from '../types';
+import { tableDeleteButtonSize } from '../ui/styles';
 
 export interface RowParams {
   startIndex: number;

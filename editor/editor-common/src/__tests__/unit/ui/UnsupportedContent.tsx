@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { mount } from 'enzyme';
+
 import UnsupportedBlockNode from '../../../ui/UnsupportedBlock';
 import UnsupportedInlineNode from '../../../ui/UnsupportedInline';
 

@@ -1,25 +1,29 @@
-import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
-import {
-  doc,
-  p,
-  emoji,
-  taskList,
-  taskItem,
-} from '@atlaskit/editor-test-helpers/schema-builder';
-import { compareSelection } from '@atlaskit/editor-test-helpers/selection';
-import sendKeyToPm, {
-  testKeymap,
-} from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { uuid } from '@atlaskit/adf-schema';
 import {
   CreateUIAnalyticsEvent,
   UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
-import { MockMentionResource } from '@atlaskit/util-data-test';
+import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
+import {
+  doc,
+  emoji,
+  p,
+  taskItem,
+  taskList,
+} from '@atlaskit/editor-test-helpers/schema-builder';
+import { compareSelection } from '@atlaskit/editor-test-helpers/selection';
+import sendKeyToPm, {
+  testKeymap,
+} from '@atlaskit/editor-test-helpers/send-key-to-pm';
+import {
+  emoji as emojiData,
+  MockMentionResource,
+} from '@atlaskit/util-data-test';
+
+import { emojiPluginKey } from '../../../../../plugins/emoji';
+import { isEmptyTaskDecision } from '../../../../../plugins/tasks-and-decisions/pm-plugins/helpers';
+
 import { ListTypes } from './_helpers';
-import { emojiPluginKey } from './../../../../../plugins/emoji/index';
-import { emoji as emojiData } from '@atlaskit/util-data-test';
-import { isEmptyTaskDecision } from './../../../../../plugins/tasks-and-decisions/pm-plugins/helpers';
 
 describe('tasks and decisions - keymaps', () => {
   const createEditor = createEditorFactory();

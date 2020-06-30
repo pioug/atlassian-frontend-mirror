@@ -1,8 +1,9 @@
-import React from 'react';
-import { SyntheticEvent } from 'react';
-import { injectIntl, InjectedIntlProps } from 'react-intl';
-import { TableCssClassName as ClassName } from '../../types';
+import React, { SyntheticEvent } from 'react';
+
+import { InjectedIntlProps, injectIntl } from 'react-intl';
+
 import { MessageDescriptor } from '../../../../types/i18n';
+import { TableCssClassName as ClassName } from '../../types';
 
 export interface ButtonProps {
   removeLabel: MessageDescriptor;

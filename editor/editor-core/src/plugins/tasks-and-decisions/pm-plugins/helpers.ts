@@ -1,8 +1,9 @@
-import { Node, ResolvedPos, NodeType } from 'prosemirror-model';
+import { Node, NodeType, ResolvedPos } from 'prosemirror-model';
 import { EditorState, Selection, Transaction } from 'prosemirror-state';
-import { hasParentNodeOfType } from 'prosemirror-utils';
-import { findFarthestParentNode } from '../../../utils';
 import { liftTarget } from 'prosemirror-transform';
+import { hasParentNodeOfType } from 'prosemirror-utils';
+
+import { findFarthestParentNode } from '../../../utils';
 
 export const isInsideTaskOrDecisionItem = (state: EditorState) => {
   const { decisionItem, taskItem } = state.schema.nodes;

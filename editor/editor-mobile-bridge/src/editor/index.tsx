@@ -12,6 +12,7 @@ import {
 } from '../providers';
 import { getModeValue, getQueryParams } from '../query-param-reader';
 import { useFetchProxy } from '../utils/fetch-proxy';
+import { createCollabProviderFactory } from '../providers/collab-provider';
 
 interface AppProps {
   defaultValue?: Node | string | Object;
@@ -23,6 +24,7 @@ const App: React.FC<AppProps> = props => {
   return (
     <MobileEditor
       mode={getModeValue()}
+      createCollabProvider={createCollabProviderFactory(fetchProxy)}
       cardClient={createCardClient()}
       cardProvider={createCardProvider()}
       defaultValue={props.defaultValue}

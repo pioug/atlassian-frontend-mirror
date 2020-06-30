@@ -1,3 +1,4 @@
+jest.useFakeTimers();
 import React from 'react';
 import { AnnotationTypes } from '@atlaskit/adf-schema/src/schema/marks/annotation';
 import MobileRenderer from '../../mobile-renderer-element';
@@ -9,7 +10,6 @@ import {
 } from '../../../providers';
 import { render, unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
-import DummyBridge from '../../../editor/web-to-native/dummy-impl';
 import { FetchProxy } from '../../../utils/fetch-proxy';
 import { nativeBridgeAPI } from '../../../renderer/web-to-native/implementation';
 
@@ -41,10 +41,6 @@ const initialDocument = JSON.stringify({
   ],
 });
 
-function currentEventLoopEnd() {
-  return new Promise(resolve => setImmediate(resolve));
-}
-
 let container: HTMLElement;
 beforeEach(() => {
   container = document.createElement('div');
@@ -52,8 +48,11 @@ beforeEach(() => {
 });
 
 afterEach(() => {
-  unmountComponentAtNode(container);
-  container.remove();
+  act(() => {
+    unmountComponentAtNode(container);
+    jest.runAllTimers();
+    container.remove();
+  });
 });
 
 describe('renderer bridge', () => {
@@ -76,6 +75,11 @@ describe('renderer bridge', () => {
         />,
         container,
       );
+      jest.runAllTimers();
+    });
+
+    act(() => {
+      jest.runAllTimers();
     });
 
     return container;
@@ -96,53 +100,39 @@ describe('renderer bridge', () => {
   });
 
   describe('annotations', () => {
-    let instanceMock: jest.Mocked<DummyBridge>;
     const expected = [
-      [
-        'getAnnotationStates',
-        expect.any(String),
-        '{"annotationIds":["18983b72-dd27-41f4-9171-a4f2e180ca83"],"annotationType":"inlineComment"}',
-      ],
+      {
+        annotationIds: ['18983b72-dd27-41f4-9171-a4f2e180ca83'],
+        annotationType: 'inlineComment',
+      },
     ];
-
-    beforeEach(() => {
-      // @ts-ignore
-      instanceMock = DummyBridge.mock.instances[0];
-    });
 
     describe('when allowAnnotations is false', () => {
       it(`should not call getAnnotationStates birdge method on renderer`, () => {
         initRenderer(initialDocument, false);
-        expect(instanceMock.submitPromise.mock.calls).toEqual(
-          expect.not.arrayContaining(expected),
-        );
+        expect(nativeBridgeAPI.fetchAnnotationStates).not.toHaveBeenCalled();
       });
     });
 
     describe('when allowAnnotations is true', () => {
       it(`should call getAnnotationStates birdge method on renderer`, () => {
         initRenderer(initialDocument, true);
-        expect(instanceMock.submitPromise.mock.calls).toEqual(
-          expect.arrayContaining(expected),
+
+        expect(nativeBridgeAPI.fetchAnnotationStates).toHaveBeenCalledWith(
+          expected,
         );
       });
       describe('when the annotation is clicked', () => {
-        it('should call the onAnnotationClick native bridge api', async () => {
+        it('should call the onAnnotationClick native bridge api', () => {
           initRenderer(initialDocument, true);
-          const callAnnotation = instanceMock.submitPromise.mock.calls.find(
-            c => {
-              return c[0] === 'getAnnotationStates';
-            },
-          );
 
           act(() => {
-            (window as any).rendererBridge.onPromiseResolved(
-              `${callAnnotation![1]}`,
-              `{"annotationIdToState": {"18983b72-dd27-41f4-9171-a4f2e180ca83": "active" }}`,
+            (window as any).rendererBridge.setAnnotationState(
+              `[{"annotationId": "18983b72-dd27-41f4-9171-a4f2e180ca83", "annotationState": "active" }]`,
             );
+            jest.runAllTimers();
           });
 
-          await currentEventLoopEnd();
           const element = container.querySelector(
             '[data-id="18983b72-dd27-41f4-9171-a4f2e180ca83"]',
           )! as HTMLElement;
@@ -155,6 +145,38 @@ describe('renderer bridge', () => {
               annotationType: AnnotationTypes.INLINE_COMMENT,
             },
           ]);
+        });
+      });
+
+      describe('when the setAnnotationFocus is called', () => {
+        it('should focus the annotation', () => {
+          initRenderer(initialDocument, true);
+
+          act(() => {
+            (window as any).rendererBridge.setAnnotationState(
+              `[{"annotationId": "18983b72-dd27-41f4-9171-a4f2e180ca83", "annotationState": "active" }]`,
+            );
+            jest.runAllTimers();
+          });
+
+          let element = container.querySelector(
+            '[data-id="18983b72-dd27-41f4-9171-a4f2e180ca83"]',
+          )! as HTMLElement;
+          expect(element.dataset.hasFocus).toBe('false');
+
+          act(() => {
+            (window as any).rendererBridge.setAnnotationFocus(
+              JSON.stringify({
+                annotationId: '18983b72-dd27-41f4-9171-a4f2e180ca83',
+                annotationType: AnnotationTypes.INLINE_COMMENT,
+              }),
+            );
+            jest.runAllTimers();
+          });
+          element = container.querySelector(
+            '[data-id="18983b72-dd27-41f4-9171-a4f2e180ca83"]',
+          )! as HTMLElement;
+          expect(element.dataset.hasFocus).toBe('true');
         });
       });
     });

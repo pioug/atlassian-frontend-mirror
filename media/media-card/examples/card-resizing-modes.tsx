@@ -135,6 +135,38 @@ const fullFitCards = [
     ),
   },
 ];
+const stretchyFitCards = [
+  {
+    title: 'Small',
+    content: (
+      <Card
+        identifier={smallImageFileId}
+        mediaClientConfig={mediaClientConfig}
+        resizeMode="stretchy-fit"
+      />
+    ),
+  },
+  {
+    title: 'Wide',
+    content: (
+      <Card
+        identifier={wideImageFileId}
+        mediaClientConfig={mediaClientConfig}
+        resizeMode="stretchy-fit"
+      />
+    ),
+  },
+  {
+    title: 'Large',
+    content: (
+      <Card
+        identifier={largeImageFileId}
+        mediaClientConfig={mediaClientConfig}
+        resizeMode="stretchy-fit"
+      />
+    ),
+  },
+];
 
 export default () => (
   <div>
@@ -146,5 +178,7 @@ export default () => (
     <StoryList>{fitCards}</StoryList>
     <h3>Full Fit</h3>
     <StoryList>{fullFitCards}</StoryList>
+    <h3>Stretchy Fit</h3>
+    <StoryList>{stretchyFitCards}</StoryList>
   </div>
 );

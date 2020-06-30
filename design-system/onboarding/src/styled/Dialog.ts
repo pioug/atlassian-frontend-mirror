@@ -47,6 +47,9 @@ export const Actions = styled.div`
 export const ActionItems = styled.div`
   display: flex;
   margin: 0 -${divide(gridSize, 2)}px;
+  /* When there is more than one action, place primary action visually on the
+  right, but keep it's position as the first focusable element in the DOM */
+  flex-direction: row-reverse;
 `;
 export const ActionItem = styled.div`
   margin: 0 ${divide(gridSize, 2)}px;

@@ -1,13 +1,14 @@
-import React from 'react';
-import { Component } from 'react';
+import React, { Component } from 'react';
+
 import { EditorView } from 'prosemirror-view';
+
 import { clearHoverSelection } from '../../../commands';
 import { TableCssClassName as ClassName } from '../../../types';
 import {
-  RowParams,
+  getRowClassNames,
   getRowHeights,
   getRowsParams,
-  getRowClassNames,
+  RowParams,
 } from '../../../utils';
 import { tableControlsSpacing, tableToolbarSize } from '../../styles';
 

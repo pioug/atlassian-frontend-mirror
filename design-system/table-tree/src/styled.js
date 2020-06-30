@@ -61,11 +61,11 @@ export const LoaderItemContainer = styled.span`
 
 const commonCell = css`
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   position: relative;
   box-sizing: border-box;
   min-height: 40px;
-  padding: 8px ${defaultToPx(indentWidth)};
+  padding: 10px ${defaultToPx(indentWidth)};
   color: ${N800};
   line-height: 20px;
   ${props =>

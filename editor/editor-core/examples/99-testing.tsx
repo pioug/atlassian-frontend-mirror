@@ -12,10 +12,12 @@ import { Editor, ContextPanel } from '../src';
 import { SaveAndCancelButtons } from './5-full-page';
 import { TitleInput } from '../example-helpers/PageElements';
 import { cardClient } from '../example-helpers/smart-card';
+import { CollabEditOptions } from '../src/plugins/collab-edit';
+import { createCollabEditProvider } from '@atlaskit/synchrony-test-helpers';
 
 export default function EditorExampleForIntegrationTests({ clipboard = true }) {
   return createEditorExampleForTests<any>(
-    (props, nonSerializableProps, lifecycleHandlers) => {
+    (props, nonSerializableProps, lifecycleHandlers, withCollab) => {
       const { onMount, onChange, onDestroy } = lifecycleHandlers;
 
       if (props && props.primaryToolbarComponents) {
@@ -60,24 +62,45 @@ export default function EditorExampleForIntegrationTests({ clipboard = true }) {
           ...props.media,
         };
       }
-      const editor = (
-        <Editor
-          {...mapProvidersToProps(nonSerializableProps.providers, props)}
-          {...nonSerializableProps.providers}
-          insertMenuItems={customInsertMenuItems}
-          extensionHandlers={nonSerializableProps.extensionHandlers}
-          onEditorReady={onMount}
-          onChange={onChange}
-          onDestroy={onDestroy}
-        />
+      const createCollabEdit = (userId: string): CollabEditOptions => {
+        return {
+          provider: createCollabEditProvider({ userId }),
+          sendDataOnViewUpdated: true,
+        };
+      };
+      const createEditor = (sessionId?: string) => {
+        const collabEdit = sessionId ? createCollabEdit(sessionId) : undefined;
+
+        return (
+          <Editor
+            {...mapProvidersToProps(nonSerializableProps.providers, props)}
+            {...nonSerializableProps.providers}
+            insertMenuItems={customInsertMenuItems}
+            extensionHandlers={nonSerializableProps.extensionHandlers}
+            onEditorReady={onMount}
+            onChange={onChange}
+            onDestroy={onDestroy}
+            collabEdit={collabEdit}
+          />
+        );
+      };
+      const editorContent = withCollab ? (
+        <div>
+          {createEditor('rick')}
+          {createEditor('morty')}
+        </div>
+      ) : (
+        createEditor()
       );
 
       if (props && props.UNSAFE_cards) {
         return (
-          <SmartCardProvider client={cardClient}>{editor}</SmartCardProvider>
+          <SmartCardProvider client={cardClient}>
+            {editorContent}
+          </SmartCardProvider>
         );
       } else {
-        return editor;
+        return editorContent;
       }
     },
     { clipboard },

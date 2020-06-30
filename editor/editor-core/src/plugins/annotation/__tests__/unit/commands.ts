@@ -15,7 +15,7 @@ import {
   LightEditorPlugin,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import { RESOLVE_METHOD } from './../../../analytics/types/inline-comment-events';
-import { inlineCommentPluginKey } from '../../pm-plugins/plugin-factory';
+import { inlineCommentPluginKey } from '../../utils';
 import {
   setInlineCommentDraftState,
   updateInlineCommentResolvedState,
@@ -195,6 +195,23 @@ describe('commands', () => {
         });
       });
     });
+
+    it('calls dispatch just once', async () => {
+      const editorView = editor(helloWorldDoc).editorView;
+      await nextTick();
+      const dispatchSpy = jest.spyOn(editorView, 'dispatch');
+      setInlineCommentDraftState(true, INPUT_METHOD.TOOLBAR)(
+        editorView.state,
+        editorView.dispatch,
+      );
+      let inlineCommentTransactionCalls = 0;
+      dispatchSpy.mock.calls.forEach(call => {
+        call.forEach(tr => {
+          tr.getMeta(inlineCommentPluginKey) && inlineCommentTransactionCalls++;
+        });
+      });
+      expect(inlineCommentTransactionCalls).toBe(1);
+    });
   });
 
   describe('setInlineCommentDraftState to resolve', () => {
@@ -260,35 +277,56 @@ describe('commands', () => {
     });
   });
 
-  describe('analytics', () => {
-    it.each([
-      [
-        'sends analytics when resolving comment from component',
-        {
-          resolveMethod: RESOLVE_METHOD.COMPONENT,
-        },
-      ],
-      [
-        'sends analytics when resolving comment by deleting text',
-        {
-          resolveMethod: RESOLVE_METHOD.ORPHANED,
-        },
-      ],
-    ])('%s', async (name, { resolveMethod }) => {
-      const editorView = editor(helloWorldDoc).editorView;
-      updateInlineCommentResolvedState({ testId: true }, resolveMethod)(
-        editorView.state,
-        editorView.dispatch,
-      );
-      expect(createAnalyticsEvent).toHaveBeenCalledWith({
-        action: 'resolved',
-        actionSubject: ACTION_SUBJECT.ANNOTATION,
-        actionSubjectId: ACTION_SUBJECT_ID.INLINE_COMMENT,
-        eventType: EVENT_TYPE.TRACK,
-        attributes: { method: resolveMethod },
-      });
+  describe('updateInlineCommentResolvedState', () => {
+    let editorView: EditorView;
+    beforeEach(() => {
+      editorView = editor(helloWorldDoc).editorView;
+    });
 
+    it('calls dispatch just once', async () => {
       await nextTick();
+      const dispatchSpy = jest.spyOn(editorView, 'dispatch');
+      updateInlineCommentResolvedState(
+        { testId: true },
+        RESOLVE_METHOD.COMPONENT,
+      )(editorView.state, editorView.dispatch);
+      let inlineCommentTransactionCalls = 0;
+      dispatchSpy.mock.calls.forEach(call => {
+        call.forEach(tr => {
+          tr.getMeta(inlineCommentPluginKey) && inlineCommentTransactionCalls++;
+        });
+      });
+      expect(inlineCommentTransactionCalls).toBe(1);
+    });
+
+    describe('analytics', () => {
+      it.each([
+        [
+          'sends analytics when resolving comment from component',
+          {
+            resolveMethod: RESOLVE_METHOD.COMPONENT,
+          },
+        ],
+        [
+          'sends analytics when resolving comment by deleting text',
+          {
+            resolveMethod: RESOLVE_METHOD.ORPHANED,
+          },
+        ],
+      ])('%s', async (name, { resolveMethod }) => {
+        updateInlineCommentResolvedState({ testId: true }, resolveMethod)(
+          editorView.state,
+          editorView.dispatch,
+        );
+        expect(createAnalyticsEvent).toHaveBeenCalledWith({
+          action: 'resolved',
+          actionSubject: ACTION_SUBJECT.ANNOTATION,
+          actionSubjectId: ACTION_SUBJECT_ID.INLINE_COMMENT,
+          eventType: EVENT_TYPE.TRACK,
+          attributes: { method: resolveMethod },
+        });
+        await nextTick();
+      });
     });
   });
 });

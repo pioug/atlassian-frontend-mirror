@@ -3,21 +3,22 @@ import { EditorView, NodeView } from 'prosemirror-view';
 
 import { findOverflowScrollParent } from '@atlaskit/editor-common';
 
-import { mapChildren } from '../../../../../utils/slice';
 import { EventDispatcher } from '../../../../../event-dispatcher';
 import { pluginKey as widthPluginKey } from '../../../../../plugins/width';
-import { TablePluginState } from '../../../types';
-import { pluginKey as tablePluginKey } from '../../plugin-factory';
-import { tableControlsSpacing } from '../../../ui/styles';
-import { TableCssClassName as ClassName } from '../../../types';
-
-import { updateStickyState } from '../commands';
+import { mapChildren } from '../../../../../utils/slice';
 import {
-  updateStickyMargins as updateTableMargin,
+  TableCssClassName as ClassName,
+  TablePluginState,
+} from '../../../types';
+import { tableControlsSpacing } from '../../../ui/styles';
+import { pluginKey as tablePluginKey } from '../../plugin-factory';
+import {
   syncStickyRowToTable,
+  updateStickyMargins as updateTableMargin,
 } from '../../table-resizing/utils/dom';
+import { updateStickyState } from '../commands';
 
-import { getTree, getTop, TableDOMElements } from './dom';
+import { getTop, getTree, TableDOMElements } from './dom';
 
 export const supportedHeaderRow = (node: PmNode) => {
   const allHeaders = mapChildren(

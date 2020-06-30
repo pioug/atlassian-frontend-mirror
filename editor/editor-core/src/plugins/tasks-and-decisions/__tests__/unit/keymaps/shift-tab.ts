@@ -1,16 +1,17 @@
-import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
-import {
-  doc,
-  taskList,
-  taskItem,
-} from '@atlaskit/editor-test-helpers/schema-builder';
-import { testKeymap } from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { uuid } from '@atlaskit/adf-schema';
 import {
   CreateUIAnalyticsEvent,
   UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
+import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
+import {
+  doc,
+  taskItem,
+  taskList,
+} from '@atlaskit/editor-test-helpers/schema-builder';
+import { testKeymap } from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { MockMentionResource } from '@atlaskit/util-data-test';
+
 import { ListTypes } from './_helpers';
 
 describe('tasks and decisions - keymaps', () => {

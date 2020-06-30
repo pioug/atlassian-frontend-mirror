@@ -4,7 +4,7 @@ import { render } from '@testing-library/react';
 
 import ExitingPersistence from '../../../entering/exiting-persistence';
 import SlideIn, { slideInAnimation } from '../../../entering/slide-in';
-import { Direction, Transition } from '../../../entering/types';
+import { Direction, Fade, Transition } from '../../../entering/types';
 import { easeIn, easeOut } from '../../../utils/curves';
 import { mediumDurationMs } from '../../../utils/durations';
 
@@ -69,10 +69,16 @@ describe('<SlideIn />', () => {
 
   ['entering', 'exiting'].forEach(state => {
     ['top', 'right', 'bottom', 'left'].forEach(from => {
-      it(`should animate ${state} from ${from}`, () => {
-        expect(
-          slideInAnimation(from as Direction, state as Transition),
-        ).toMatchSnapshot();
+      ['none', 'in', 'out', 'inout'].forEach(fade => {
+        it(`should animate ${state} from ${from} with fade ${fade}`, () => {
+          expect(
+            slideInAnimation(
+              from as Direction,
+              state as Transition,
+              fade as Fade,
+            ),
+          ).toMatchSnapshot();
+        });
       });
     });
   });

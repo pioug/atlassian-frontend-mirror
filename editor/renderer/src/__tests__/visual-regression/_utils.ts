@@ -5,7 +5,7 @@ import {
   compareScreenshot,
   SideEffectOptions,
 } from '@atlaskit/visual-regression/helper';
-import { Page } from 'puppeteer';
+import { Page, ScreenshotOptions } from 'puppeteer';
 import { RendererAppearance } from '../../ui/Renderer/types';
 import { RendererPropsOverrides } from '../__helpers/testing-example-helpers';
 
@@ -105,6 +105,7 @@ export async function snapshot(
     useUnsafeThreshold?: boolean;
   } = {},
   selector: string = '#RendererOutput',
+  screenshotOptions: ScreenshotOptions = {},
 ) {
   const { tolerance, useUnsafeThreshold } = threshold;
   const renderer = await page.$(selector);
@@ -113,12 +114,12 @@ export async function snapshot(
   // Otherwise take the whole page.
   let image;
   if (renderer) {
-    image = await renderer.screenshot();
+    image = await renderer.screenshot(screenshotOptions);
   } else {
-    image = await page.screenshot();
+    image = await page.screenshot(screenshotOptions);
   }
 
-  return compareScreenshot(image, tolerance, { useUnsafeThreshold });
+  return compareScreenshot(image as string, tolerance, { useUnsafeThreshold });
 }
 
 export async function animationFrame(page: Page) {

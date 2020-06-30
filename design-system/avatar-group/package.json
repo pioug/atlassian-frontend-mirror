@@ -43,7 +43,7 @@
     "@atlaskit/field-base": "^14.0.2",
     "@atlaskit/icon": "^20.1.1",
     "@atlaskit/ssr": "*",
-    "@atlaskit/toggle": "^8.1.7",
+    "@atlaskit/toggle": "^9.0.0",
     "@atlaskit/visual-regression": "*",
     "@testing-library/react": "^8.0.1",
     "react-dom": "^16.8.0",

@@ -180,6 +180,43 @@ describe('modal-dialog', () => {
         expect(wrapper.contains(TestSpan)).toBe(true);
       });
 
+      it('should render body with tabIndex attribute when scrollHeight is greater than clientHeight', () => {
+        const CustomBody = React.forwardRef((_, ref: any) => {
+          ref({
+            addEventListener: jest.fn(),
+            removeEventListener: jest.fn(),
+            clientHeight: 200,
+            scrollHeight: 400,
+          });
+          return <div />;
+        });
+        const wrapper = mount(
+          <ModalDialog components={{ Body: CustomBody }} onClose={noop} />,
+        );
+
+        const body = wrapper.find(CustomBody);
+        expect(body.prop('tabIndex')).toEqual(0);
+      });
+
+      it('should not render body with tabIndex attribute when scrollHeight is less than or equal to clientHeight', () => {
+        const CustomBody = React.forwardRef((_, ref: any) => {
+          ref({
+            addEventListener: jest.fn(),
+            removeEventListener: jest.fn(),
+            clientHeight: 100,
+            scrollHeight: 100,
+          });
+          return <div />;
+        });
+
+        const wrapper = mount(
+          <ModalDialog components={{ Body: CustomBody }} onClose={noop} />,
+        );
+
+        const body = wrapper.find(CustomBody);
+        expect(body.prop('tabIndex')).toBeUndefined();
+      });
+
       it('should render when set via (deprecated) body prop', () => {
         const warnSpy = jest
           .spyOn(console, 'warn')

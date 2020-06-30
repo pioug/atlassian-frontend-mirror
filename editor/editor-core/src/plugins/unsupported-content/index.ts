@@ -1,3 +1,5 @@
+import { EditorState, Plugin, PluginKey } from 'prosemirror-state';
+
 import {
   confluenceUnsupportedBlock,
   confluenceUnsupportedInline,
@@ -5,9 +7,10 @@ import {
   unsupportedInline,
 } from '@atlaskit/adf-schema';
 import { UnsupportedBlock, UnsupportedInline } from '@atlaskit/editor-common';
-import { EditorState, Plugin, PluginKey } from 'prosemirror-state';
-import { EditorPlugin, PMPluginFactory } from '../../types';
+
 import { ReactNodeView } from '../../nodeviews';
+import { EditorPlugin, PMPluginFactory } from '../../types';
+
 import { findAndTrackUnsupportedContentNodes } from './utils';
 
 export const pluginKey = new PluginKey('unsupportedContentPlugin');

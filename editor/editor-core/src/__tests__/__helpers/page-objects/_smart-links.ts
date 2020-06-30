@@ -13,5 +13,5 @@ export const waitForCard = async (page: Page) => {
 };
 
 export const waitForCardToolbar = async (page: Page) => {
-  await waitForFloatingControl(page, 'Card floating controls');
+  await waitForFloatingControl(page, 'Card options');
 };

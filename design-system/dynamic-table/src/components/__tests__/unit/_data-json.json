@@ -6,6 +6,7 @@
         "content": "Barack"
       },
       {
+        "key": "obam",
         "content": "Obama"
       }
     ]
@@ -17,6 +18,7 @@
         "content": "hillary"
       },
       {
+        "key": "clin",
         "content": "clinton"
       }
     ]
@@ -28,6 +30,7 @@
         "content": "Donald"
       },
       {
+        "key": "trum",
         "content": "Trump"
       }
     ]
@@ -40,6 +43,7 @@
         "content": "Thomas"
       },
       {
+        "key": "jeff",
         "content": "Jefferson"
       }
     ]

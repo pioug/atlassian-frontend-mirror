@@ -1,8 +1,9 @@
 import { ADFEntity } from '@atlaskit/adf-utils';
+
 import {
+  ExtensionModuleActionHandler,
   ExtensionType,
   Icon,
-  ExtensionModuleActionHandler,
 } from './extension-manifest';
 
 export type MenuItem = {

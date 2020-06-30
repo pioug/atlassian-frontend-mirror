@@ -1,23 +1,24 @@
-import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
-import {
-  doc,
-  p,
-  taskList,
-  taskItem,
-  decisionList,
-  decisionItem,
-  ol,
-  ul,
-  li,
-} from '@atlaskit/editor-test-helpers/schema-builder';
-import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
-import { insertText } from '@atlaskit/editor-test-helpers/transactions';
+import { EditorView } from 'prosemirror-view';
+
+import { uuid } from '@atlaskit/adf-schema';
 import {
   CreateUIAnalyticsEvent,
   UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
-import { uuid } from '@atlaskit/adf-schema';
-import { EditorView } from 'prosemirror-view';
+import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
+import {
+  decisionItem,
+  decisionList,
+  doc,
+  li,
+  ol,
+  p,
+  taskItem,
+  taskList,
+  ul,
+} from '@atlaskit/editor-test-helpers/schema-builder';
+import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
+import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 
 describe('tasks and decisions', () => {
   const createEditor = createEditorFactory();

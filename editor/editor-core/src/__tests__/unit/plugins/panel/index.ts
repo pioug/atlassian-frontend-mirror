@@ -23,6 +23,7 @@ import {
   changePanelType,
 } from '../../../../plugins/panel/actions';
 import { Selection } from 'prosemirror-state';
+import { selectNode } from '../../../../utils/commands';
 
 describe('@atlaskit/editor-core ui/PanelPlugin', () => {
   const createEditor = createEditorFactory<PanelState>();
@@ -154,6 +155,15 @@ describe('@atlaskit/editor-core ui/PanelPlugin', () => {
       changePanelType('note')(editorView.state, editorView.dispatch);
       const newPluginState = pluginKey.getState(editorView!.state);
       expect(newPluginState.activePanelType).toEqual('note');
+    });
+
+    it('should select node', () => {
+      const { editorView, refs } = editor(
+        doc('{nodeStart}', panel()(p('text'), p('more text'))),
+      );
+      selectNode(refs['nodeStart'])(editorView.state, editorView.dispatch);
+      const expectedDoc = doc('{<node>}', panel()(p('text'), p('more text')));
+      expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
     });
   });
 

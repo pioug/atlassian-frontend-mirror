@@ -1,10 +1,11 @@
+import { InjectedIntl, IntlProvider } from 'react-intl';
+
 import {
-  timestampToTaskContext,
-  timestampToString,
-  timestampToUTCDate,
   isPastDate,
+  timestampToString,
+  timestampToTaskContext,
+  timestampToUTCDate,
 } from '../../../utils/date';
-import { IntlProvider, InjectedIntl } from 'react-intl';
 
 describe('@atlaskit/editor-common date utils', () => {
   describe('timestampToString', () => {

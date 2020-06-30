@@ -1,64 +1,66 @@
-import { EditorView } from 'prosemirror-view';
+import { Node as PmNode } from 'prosemirror-model';
 import {
   EditorState,
-  Transaction,
-  TextSelection,
   Selection,
+  TextSelection,
+  Transaction,
 } from 'prosemirror-state';
-import { Node as PmNode } from 'prosemirror-model';
-import { TableMap, cellAround, CellSelection } from 'prosemirror-tables';
+import { cellAround, CellSelection, TableMap } from 'prosemirror-tables';
 import {
+  findCellRectClosestToPos,
   findTable,
   getSelectionRect,
   removeTable,
-  findCellRectClosestToPos,
 } from 'prosemirror-utils';
+import { EditorView } from 'prosemirror-view';
 import rafSchedule from 'raf-schd';
+
 import { browser } from '@atlaskit/editor-common';
 
 import { analyticsService } from '../../analytics';
 import {
-  addAnalytics,
-  TABLE_ACTION,
-  ACTION_SUBJECT,
-  EVENT_TYPE,
-} from '../analytics';
-import {
   isElementInTableCell,
-  setNodeSelection,
   isLastItemMediaGroup,
-} from '../../utils/';
+  setNodeSelection,
+} from '../../utils';
+import { closestElement } from '../../utils/dom';
 import {
-  isCell,
-  isInsertRowButton,
-  isColumnControlsDecorations,
-  isTableControlsButton,
-  isRowControlsButton,
-  isCornerButton,
-  isResizeHandleDecoration,
-  hasResizeHandler,
-  getColumnOrRowIndex,
-  getMousePositionHorizontalRelativeByElement,
-  getMousePositionVerticalRelativeByElement,
-} from './utils';
+  ACTION_SUBJECT,
+  addAnalytics,
+  EVENT_TYPE,
+  TABLE_ACTION,
+} from '../analytics';
+
 import {
+  addResizeHandleDecorations,
+  clearHoverSelection,
+  hideInsertColumnOrRowButton,
+  hideResizeHandleLine,
+  hoverColumns,
+  selectColumn,
   setEditorFocus,
   showInsertColumnButton,
   showInsertRowButton,
-  hideInsertColumnOrRowButton,
-  addResizeHandleDecorations,
-  selectColumn,
-  hoverColumns,
-  clearHoverSelection,
   showResizeHandleLine,
-  hideResizeHandleLine,
 } from './commands';
+import { getPluginState } from './pm-plugins/plugin-factory';
 import { getPluginState as getResizePluginState } from './pm-plugins/table-resizing/plugin-factory';
-import { getSelectedCellInfo } from './utils';
 import { deleteColumns, deleteRows } from './transforms';
 import { RESIZE_HANDLE_AREA_DECORATION_GAP } from './types';
-import { getPluginState } from './pm-plugins/plugin-factory';
-import { closestElement } from '../../utils/dom';
+import {
+  getColumnOrRowIndex,
+  getMousePositionHorizontalRelativeByElement,
+  getMousePositionVerticalRelativeByElement,
+  getSelectedCellInfo,
+  hasResizeHandler,
+  isCell,
+  isColumnControlsDecorations,
+  isCornerButton,
+  isInsertRowButton,
+  isResizeHandleDecoration,
+  isRowControlsButton,
+  isTableControlsButton,
+} from './utils';
 import { getAllowAddColumnCustomStep } from './utils/get-allow-add-column-custom-step';
 
 export const handleBlur = (view: EditorView, event: Event): boolean => {

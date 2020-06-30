@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/dynamic-table",
-  "version": "13.7.8",
+  "version": "13.7.9",
   "description": "Table component with pagination and sorting functionality",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -43,7 +43,7 @@
     "@atlaskit/docs": "*",
     "@atlaskit/dropdown-menu": "^9.0.4",
     "@atlaskit/ssr": "*",
-    "@atlaskit/toggle": "^8.1.8",
+    "@atlaskit/toggle": "^9.0.0",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
     "@testing-library/react": "^8.0.1",

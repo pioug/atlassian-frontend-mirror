@@ -1,11 +1,13 @@
-import { DecorationSet, Decoration } from 'prosemirror-view';
-import {
-  updateDecorations,
-  createResizeHandleDecoration,
-} from '../../../utils/decoration';
+import { Decoration, DecorationSet } from 'prosemirror-view';
+
 import { TableDecorations } from '../../../types';
-import { DecorationTransformer } from './types';
+import {
+  createResizeHandleDecoration,
+  updateDecorations,
+} from '../../../utils/decoration';
+
 import { composeDecorations } from './compose-decorations';
+import { DecorationTransformer } from './types';
 
 const emptyDecorations = [[], []];
 

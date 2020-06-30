@@ -1,5 +1,5 @@
-import { createCommand } from './plugin-factory';
 import { SelectionActionTypes } from './actions';
+import { createCommand } from './plugin-factory';
 import { getDecorations } from './utils';
 
 export const setDecorations = () =>

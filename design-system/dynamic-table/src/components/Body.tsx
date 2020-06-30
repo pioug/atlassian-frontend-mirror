@@ -30,7 +30,7 @@ class Body extends React.Component<Props, {}> {
           <TableRow
             head={head}
             isFixedSize={isFixedSize}
-            key={rowIndex} // eslint-disable-line react/no-array-index-key
+            key={row.key || rowIndex}
             row={row}
             isHighlighted={highlightedRowIndex === rowIndex}
             testId={testId}

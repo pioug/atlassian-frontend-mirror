@@ -150,6 +150,33 @@ export default class IosBridge implements NativeBridge {
     }
   }
 
+  connectToCollabService(path: string): void {
+    if (window.webkit && window.webkit.messageHandlers.collabBridge) {
+      window.webkit.messageHandlers.collabBridge.postMessage({
+        name: 'connect',
+        path,
+      });
+    }
+  }
+
+  disconnectFromCollabService(): void {
+    if (window.webkit && window.webkit.messageHandlers.collabBridge) {
+      window.webkit.messageHandlers.collabBridge.postMessage({
+        name: 'disconnect',
+      });
+    }
+  }
+
+  emitCollabChanges(event: string, jsonArgs: string): void {
+    if (window.webkit && window.webkit.messageHandlers.collabBridge) {
+      window.webkit.messageHandlers.collabBridge.postMessage({
+        name: 'emit',
+        event,
+        jsonArgs,
+      });
+    }
+  }
+
   call<T extends EditorBridgeNames>(
     bridge: T,
     event: keyof Exclude<EditorBridges[T], undefined>,

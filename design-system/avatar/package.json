@@ -42,7 +42,7 @@
     "@atlaskit/icon": "^20.1.1",
     "@atlaskit/section-message": "^4.1.9",
     "@atlaskit/ssr": "*",
-    "@atlaskit/toggle": "^8.1.8",
+    "@atlaskit/toggle": "^9.0.0",
     "@atlaskit/tooltip": "^15.2.6",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",

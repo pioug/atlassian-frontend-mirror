@@ -4,7 +4,11 @@ import {
   a,
   code_block,
   code,
+  strong,
+  emoji,
 } from '@atlaskit/editor-test-helpers/schema-builder';
+import { emoji as emojiData } from '@atlaskit/util-data-test';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { EditorTestCardProvider } from '@atlaskit/editor-test-helpers/card-provider';
 import {
   createProsemirrorEditorFactory,
@@ -33,12 +37,16 @@ import {
   UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
 import cardPlugin from '../../../card';
+import emojiPlugin from '../../../emoji';
 import hyperlinkPlugin from '../../index';
 import textFormattingPlugin from '../../../text-formatting';
 import codeBlockPlugin from '../../../code-block';
 
 const googleUrl = 'https://google.com';
 const yahooUrl = 'https://yahoo.com';
+
+const emojiProvider = emojiData.testData.getEmojiResourcePromise();
+const providerFactory = ProviderFactory.create({ emojiProvider });
 
 describe('hyperlink commands', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -50,10 +58,12 @@ describe('hyperlink commands', () => {
     );
     return createEditor({
       doc,
+      providerFactory,
       preset: new Preset<LightEditorPlugin>()
         .add([analyticsPlugin, { createAnalyticsEvent }])
         .add(hyperlinkPlugin)
         .add(textFormattingPlugin)
+        .add(emojiPlugin)
         .add(codeBlockPlugin)
         .add([cardPlugin, { provider: Promise.resolve(cardProvider) }]),
     });
@@ -202,6 +212,44 @@ describe('hyperlink commands', () => {
         doc(p(a({ href: googleUrl })(googleUrl))),
       );
     });
+
+    it('should not remove marks if text has not changed', () => {
+      const {
+        editorView: view,
+        refs: { '<': from, '>': to },
+      } = editor(doc(p('He{<}llo', strong('wor{>}ld'))));
+
+      insertLink(from, to, googleUrl, 'llowor')(view.state, view.dispatch);
+      expect(view.state.doc).toEqualDocument(
+        doc(
+          p('He', a({ href: googleUrl })('llo', strong('wor')), strong('ld')),
+        ),
+      );
+    });
+
+    it('should not remove inline nodes if text has not changed', () => {
+      const {
+        editorView: view,
+        refs: { '<': from, '>': to },
+      } = editor(
+        doc(p('He{<}llo', emoji({ shortName: ':smiley:' })(), ' world{>}')),
+      );
+
+      insertLink(from, to, googleUrl, 'llo world')(view.state, view.dispatch);
+      expect(view.state.doc).toEqualDocument(
+        doc(
+          p(
+            'He',
+            a({ href: googleUrl })(
+              'llo',
+              emoji({ shortName: ':smiley:' })(),
+              ' world',
+            ),
+          ),
+        ),
+      );
+    });
+
     it('should insert normalized link when selection is a range and href is a non-empty string', () => {
       const {
         editorView: view,
@@ -367,10 +415,10 @@ describe('hyperlink commands', () => {
     });
   });
   describe('#insertLinkWithAnalytics', () => {
-    it('should fire analytics event', () => {
+    it('should fire analytics event when it is a normal link', () => {
       const { editorView: view, sel } = editor(doc(p('{<>}')));
       insertLinkWithAnalytics(
-        INPUT_METHOD.TYPEAHEAD,
+        INPUT_METHOD.MANUAL,
         sel,
         sel,
         googleUrl,
@@ -381,9 +429,21 @@ describe('hyperlink commands', () => {
         actionSubject: 'document',
         actionSubjectId: 'link',
         eventType: 'track',
-        attributes: expect.objectContaining({ inputMethod: 'typeAhead' }),
+        attributes: expect.objectContaining({ inputMethod: 'manual' }),
         nonPrivacySafeAttributes: { linkDomain: 'google.com' },
       });
+    });
+  });
+  describe('#insertLinkWithAnalytics', () => {
+    it('should not fire analytics event when it is a smart link', () => {
+      const { editorView: view, sel } = editor(doc(p('{<>}')));
+      insertLinkWithAnalytics(
+        INPUT_METHOD.TYPEAHEAD,
+        sel,
+        sel,
+        googleUrl,
+      )(view.state, view.dispatch);
+      expect(createAnalyticsEvent).not.toBeCalled();
     });
   });
   describe('#removeLink', () => {

@@ -59,6 +59,7 @@ export interface AnnotationTypeProvider<Type, State> {
     annotationIds: string[],
   ) => Promise<AnnotationState<Type, State>[]>;
   updateSubscriber?: AnnotationUpdateEmitter;
+  disallowOnWhitespace?: boolean;
 }
 
 export type InlineCommentState = { resolved: boolean };
@@ -73,6 +74,12 @@ export type InlineCommentAnnotationProvider = AnnotationTypeProvider<
 
 export interface AnnotationProviders {
   inlineComment: InlineCommentAnnotationProvider;
+}
+
+export enum AnnotationSelectionType {
+  INVALID = 'invalid', // Annotation should not be created, toolbar should not be shown
+  DISABLED = 'disabled', // Annotation should not be created, toolbar should be shown, but disabled
+  VALID = 'valid', // Annotation can be created
 }
 
 const prefix = 'ak-editor-annotation';

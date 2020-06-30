@@ -1,5 +1,6 @@
-import { createPlugin } from './plugin';
 import { EditorPlugin } from '../../types';
+
+import { createPlugin } from './plugin';
 import { SelectionPluginOptions } from './types';
 
 export const selectionPlugin = (

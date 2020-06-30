@@ -1,8 +1,11 @@
 import React, { useMemo } from 'react';
+
 import { ThemeProvider } from 'styled-components';
+
 import { fontSize } from '@atlaskit/theme/constants';
-import { WidthConsumer, Breakpoints } from '../WidthProvider';
+
 import { akEditorDefaultLayoutWidth } from '../../styles';
+import { Breakpoints, WidthConsumer } from '../WidthProvider';
 
 function mapBreakpointToFontSize(breakpoint: Breakpoints) {
   switch (breakpoint) {

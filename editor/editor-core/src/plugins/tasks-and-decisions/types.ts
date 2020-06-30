@@ -1,5 +1,6 @@
-import { Transaction, EditorState } from 'prosemirror-state';
 import { NodeType } from 'prosemirror-model';
+import { EditorState, Transaction } from 'prosemirror-state';
+
 import { INPUT_METHOD, USER_CONTEXT } from '../analytics';
 
 export type TaskDecisionListType = 'taskList' | 'decisionList';

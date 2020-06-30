@@ -36,7 +36,6 @@ import { ANALYTICS_MEDIA_CHANNEL } from '../../common';
 import { Blanket } from '../styled';
 
 describe('Smart Media Editor', () => {
-  let fileIdPromise: Promise<string>;
   let fileId: string;
   let fileIdentifier: FileIdentifier;
   let onFinish: SmartMediaEditorProps['onFinish'];
@@ -55,9 +54,8 @@ describe('Smart Media Editor', () => {
       .mockImplementation((message: any) => message.defaultMessage);
     const fakeIntl: any = { formatMessage };
     fileId = 'some-file-id';
-    fileIdPromise = Promise.resolve(fileId);
     fileIdentifier = {
-      id: fileIdPromise,
+      id: fileId,
       mediaItemType: 'file',
       collectionName: 'some-collection-name',
       occurrenceKey: 'some-occurrence-key',
@@ -112,9 +110,9 @@ describe('Smart Media Editor', () => {
     expect(stopPropagation).toHaveBeenCalled();
   });
 
-  it('should call getFileState for given file', async () => {
+  it('should call getFileState for given file', () => {
     const { collectionName, occurrenceKey } = fileIdentifier;
-    await fileIdPromise;
+
     expectFunctionToHaveBeenCalledWith(mediaClient.file.getFileState, [
       fileId,
       {
@@ -138,7 +136,7 @@ describe('Smart Media Editor', () => {
       artifacts: {},
       representations: {},
     });
-    await fileIdPromise;
+
     await imageUrlPromise;
     component.update();
     await nextTick();
@@ -524,7 +522,7 @@ describe('Smart Media Editor', () => {
       expect(modalDialog).toHaveLength(0);
     });
 
-    it('should emit analytics ui clicked+annotated events', async () => {
+    it('should emit analytics ui clicked+annotated events', () => {
       expect(fakeCreateAnalyticsEvent).toHaveBeenCalledTimes(2);
       expect(fakeCreateAnalyticsEvent).toBeCalledWith(
         expect.objectContaining({
@@ -562,7 +560,7 @@ describe('Smart Media Editor', () => {
       component.update();
     });
 
-    it('should emit analytics ui annotated event', async () => {
+    it('should emit analytics ui annotated event', () => {
       expect(fakeCreateAnalyticsEvent).toHaveBeenCalledTimes(2);
       expect(fakeCreateAnalyticsEvent).toBeCalledWith(
         expect.objectContaining({

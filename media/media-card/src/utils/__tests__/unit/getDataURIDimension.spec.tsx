@@ -1,40 +1,22 @@
 jest.mock('../../isRetina');
 jest.mock('../../getElementDimension');
-
-import React from 'react';
-import { Component } from 'react';
-import { shallow } from 'enzyme';
 import { getDataURIDimension } from '../../getDataURIDimension';
 import { isRetina } from '../../isRetina';
 import { getElementDimension } from '../../getElementDimension';
 
 describe('getDataURIDimension()', () => {
-  class SomeComponent extends Component<any, any> {
-    render() {
-      return <div />;
-    }
-  }
-
-  const setup = () => {
-    const component = shallow(<SomeComponent />) as any;
-
-    return {
-      component,
-    };
-  };
-
   it('should use passed dimensions', () => {
-    const { component } = setup();
+    const element = document.createElement('div');
     const dimensions = {
       width: 100,
       height: 50,
     };
     const width = getDataURIDimension('width', {
-      component,
+      element,
       dimensions,
     });
     const height = getDataURIDimension('height', {
-      component,
+      element,
       dimensions,
     });
 
@@ -43,12 +25,12 @@ describe('getDataURIDimension()', () => {
   });
 
   it('should use default dimensions', () => {
-    const { component } = setup();
+    const element = document.createElement('div');
     const noAppearanceWidth = getDataURIDimension('width', {
-      component,
+      element,
     });
     const noAppearanceHeight = getDataURIDimension('height', {
-      component,
+      element,
     });
 
     expect(noAppearanceWidth).toEqual(156);
@@ -57,9 +39,9 @@ describe('getDataURIDimension()', () => {
 
   it('should use getElementDimension when dimension is percentage unit', () => {
     (getElementDimension as any).mockReturnValueOnce(50);
-    const { component } = setup();
+    const element = document.createElement('div');
     const width = getDataURIDimension('width', {
-      component,
+      element,
       dimensions: {
         width: '25%',
       },
@@ -69,16 +51,16 @@ describe('getDataURIDimension()', () => {
 
   it('should return double size dimensions when is retina factor', () => {
     (isRetina as any).mockReturnValue(true);
-    const { component } = setup();
+    const element = document.createElement('div');
 
     const width = getDataURIDimension('width', {
-      component,
+      element,
       dimensions: {
         width: 10,
       },
     });
     const height = getDataURIDimension('height', {
-      component,
+      element,
       dimensions: {
         height: 20,
       },

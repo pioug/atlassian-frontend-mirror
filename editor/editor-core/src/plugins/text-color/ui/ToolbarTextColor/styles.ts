@@ -1,5 +1,7 @@
-import { HTMLAttributes, ComponentClass } from 'react';
+import { ComponentClass, HTMLAttributes } from 'react';
+
 import styled from 'styled-components';
+
 import { borderRadius, colors, gridSize } from '@atlaskit/theme';
 
 export const ShowMoreWrapper: ComponentClass<HTMLAttributes<{}>> = styled.div`

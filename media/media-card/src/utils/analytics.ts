@@ -113,6 +113,9 @@ export type AnalyticsErrorStateAttributes = {
   error?: string;
 };
 
+/*
+ * Returns an empty object (success event) or an object containing an error with its corresponding failReason.
+ */
 export const getAnalyticsErrorStateAttributes = (
   previewable: boolean,
   hasMinimalData: boolean,
@@ -123,11 +126,15 @@ export const getAnalyticsErrorStateAttributes = (
   const errorMessage = error instanceof Error ? error.message : error;
   const errorMessageInFileState =
     fileState && 'message' in fileState && fileState.message;
+  const fileStateIsErrorOrFailedProcessing =
+    fileState && ['error', 'failed-processing'].includes(fileState.status);
 
+  // if the fileState is undefined and theres no error message, don't fire an error event
   if (!fileState && !errorMessage) {
     return {};
   }
 
+  // if the filestate IS undefined and has an error message, then fire an error event
   if (!fileState) {
     return {
       failReason: 'media-client-error',
@@ -135,12 +142,18 @@ export const getAnalyticsErrorStateAttributes = (
     };
   }
 
+  // if the file has no preview (i.e docs/pdfs/unknown files). Note, if the mediaType is undefined it is assumed to be unpreviewable
   if (!previewable) {
+    // if an unpreviewable file has its filename and size (minimal metadata), then it can render successfully (card does not appear broken to the user)
+    // files that are previewable i.e videos, need more than this minimal metadata as otherwise the card will appear broken
     if (hasMinimalData) {
       return {};
     }
 
-    if (!errorMessageInFileState) {
+    // If a file does not have minimal metadata, then fire an error with an error message stating this. Only do this if a pre-existing error message
+    // such as a network error, does not exist. Additionally, only fire this error state if the fileState is an error or failed-processing.
+    // For instance, we do not want to return an error state state if the fileState is uploading/uploaded/processing, as these states do not indicate an error.
+    if (!errorMessageInFileState && fileStateIsErrorOrFailedProcessing) {
       return {
         failReason: 'file-status-error',
         error:
@@ -149,26 +162,28 @@ export const getAnalyticsErrorStateAttributes = (
     }
   }
 
-  if (fileState && ['error', 'failed-processing'].includes(fileState.status)) {
+  // if the state of a file is an error or has failed to process, fire an error message.
+  if (fileStateIsErrorOrFailedProcessing) {
     return {
       failReason: 'file-status-error',
       error: errorMessageInFileState || unknownError,
     };
   }
 
+  // if not, then the filestate is uploading/processed/processing, and hence we should not fire an error
   return {};
 };
 
-export const getCopiedFileAnalyticsPayload = async (
+export const getCopiedFileAnalyticsPayload = (
   identifier: Identifier,
-): Promise<MediaCardAnalyticsPayload> => {
+): MediaCardAnalyticsPayload => {
   return {
     eventType: 'ui',
     action: 'copied',
     actionSubject: 'file',
     actionSubjectId:
       identifier.mediaItemType === 'file'
-        ? await identifier.id
+        ? identifier.id
         : identifier.mediaItemType,
   };
 };

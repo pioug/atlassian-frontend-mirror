@@ -1,5 +1,17 @@
 # @atlaskit/page-layout
 
+## 0.6.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.6.0
+
+### Minor Changes
+
+- [`339a126382`](https://bitbucket.org/atlassian/atlassian-frontend/commits/339a126382) - Added skip links
+
 ## 0.5.2
 
 ### Patch Changes

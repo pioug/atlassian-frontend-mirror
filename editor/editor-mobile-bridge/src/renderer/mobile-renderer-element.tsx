@@ -1,10 +1,11 @@
 /* eslint-disable no-console */
-import React, { useCallback, useLayoutEffect } from 'react';
+import React, { useCallback, useEffect, useLayoutEffect } from 'react';
 import {
   ProviderFactory,
   WithCreateAnalyticsEvent,
-  AnnotationState,
   AnnotationProviders,
+  AnnotationUpdateEmitter,
+  AnnotationUpdateEvent,
 } from '@atlaskit/editor-common';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { MentionProvider } from '@atlaskit/mention/types';
@@ -27,6 +28,7 @@ import {
   GasPureScreenEventPayload,
 } from '@atlaskit/analytics-gas-types';
 
+import { AnnotationStatePayload } from './native-to-web/bridge';
 import RendererBridgeImpl from './native-to-web/implementation';
 import {
   toNativeBridge,
@@ -45,7 +47,6 @@ import {
   getDisableActionsValue,
   getDisableMediaLinkingValue,
 } from '../query-param-reader';
-import { createPromise } from '../cross-platform-promise';
 
 export interface MobileRendererProps extends RendererProps {
   cardClient: CardClient;
@@ -55,7 +56,7 @@ export interface MobileRendererProps extends RendererProps {
   emojiProvider: Promise<EmojiResource>;
 }
 
-const rendererBridge = ((window as any).rendererBridge = new RendererBridgeImpl());
+const rendererBridge = (window.rendererBridge = new RendererBridgeImpl());
 
 const handleAnalyticsEvent = (
   event: GasPurePayload | GasPureScreenEventPayload,
@@ -69,32 +70,6 @@ const analyticsClient: AnalyticsWebClient = analyticsBridgeClient(
   handleAnalyticsEvent,
 );
 
-const annotationInlineCommentProvider = {
-  getState: async (
-    annotationIds: AnnotationId[],
-  ): Promise<
-    AnnotationState<AnnotationTypes.INLINE_COMMENT, AnnotationMarkStates>[]
-  > => {
-    const response = await createPromise('getAnnotationStates', {
-      annotationIds,
-      annotationType: AnnotationTypes.INLINE_COMMENT,
-    }).submit();
-
-    if (!response || !response.annotationIdToState) {
-      return [];
-    }
-
-    const { annotationIdToState } = response;
-    return annotationIds.map(id => {
-      return {
-        id,
-        annotationType: AnnotationTypes.INLINE_COMMENT,
-        state: annotationIdToState[id],
-      };
-    });
-  },
-};
-
 type WithSmartCardClientProps = {
   cardClient: CardClient;
 };
@@ -102,7 +77,6 @@ type WithSmartCardClientProps = {
 type BasicRendererProps = {
   providerFactory: ProviderFactory;
   allowAnnotations: boolean;
-  annotationProvider: AnnotationProviders<AnnotationMarkStates> | null;
   objectAri: string;
   containerAri: string;
   document: object;
@@ -110,6 +84,7 @@ type BasicRendererProps = {
 
 interface WithCreateAnalyticsEventProps extends BasicRendererProps {
   createAnalyticsEvent: CreateUIAnalyticsEvent;
+  annotationProvider: AnnotationProviders<AnnotationMarkStates> | null;
 }
 
 const BasicRenderer: React.FC<WithCreateAnalyticsEventProps> = ({
@@ -206,9 +181,46 @@ const BasicRenderer: React.FC<WithCreateAnalyticsEventProps> = ({
   );
 };
 
+const useUpdateEmitter = () =>
+  React.useMemo(() => new AnnotationUpdateEmitter(), []);
+
+const useAnnotationProvider = (updateEmitter: AnnotationUpdateEmitter) => {
+  return React.useMemo(
+    () => ({
+      getState: async (annotationIds: AnnotationId[]) => {
+        nativeBridgeAPI.fetchAnnotationStates([
+          {
+            annotationIds,
+            annotationType: AnnotationTypes.INLINE_COMMENT,
+          },
+        ]);
+
+        return annotationIds.map(id => {
+          return {
+            id,
+            annotationType: AnnotationTypes.INLINE_COMMENT,
+            state: null,
+          };
+        });
+      },
+      updateSubscriber: updateEmitter,
+    }),
+    [updateEmitter],
+  );
+};
+
 const withAnnotations = <P extends BasicRendererProps>(
   Component: React.ComponentType<P>,
 ): React.FC<P> => (props: P) => {
+  const { allowAnnotations } = props;
+
+  if (!allowAnnotations) {
+    return <Component {...(props as P)} />;
+  }
+  const updateEmitter = useUpdateEmitter();
+  const annotationProvider = {
+    inlineComment: useAnnotationProvider(updateEmitter),
+  };
   const onAnnotationClick = useCallback((ids?: AnnotationId[]) => {
     const obj = ids
       ? [
@@ -221,11 +233,65 @@ const withAnnotations = <P extends BasicRendererProps>(
     nativeBridgeAPI.onAnnotationClick(obj);
   }, []);
 
+  useEffect(() => {
+    const setAnnotationStateCallback = (payload: AnnotationStatePayload[]) => {
+      const data = payload.reduce<{
+        [AnnotationId: string]: AnnotationMarkStates;
+      }>((acc, value) => {
+        acc[value.annotationId] = value.annotationState;
+
+        return acc;
+      }, {});
+
+      updateEmitter.emit(AnnotationUpdateEvent.SET_ANNOTATION_STATE, data);
+    };
+    const setAnnotationFocusCallback = (payload: {
+      annotationId: AnnotationId;
+    }) => {
+      updateEmitter.emit(AnnotationUpdateEvent.SET_ANNOTATION_FOCUS, payload);
+    };
+    const removeAnnotationFocusCallback = () => {
+      updateEmitter.emit(AnnotationUpdateEvent.REMOVE_ANNOTATION_FOCUS);
+    };
+
+    eventDispatcher.on(
+      AnnotationUpdateEvent.SET_ANNOTATION_STATE,
+      setAnnotationStateCallback,
+    );
+    eventDispatcher.on(
+      AnnotationUpdateEvent.SET_ANNOTATION_FOCUS,
+      setAnnotationFocusCallback,
+    );
+    eventDispatcher.on(
+      AnnotationUpdateEvent.REMOVE_ANNOTATION_FOCUS,
+      removeAnnotationFocusCallback,
+    );
+
+    return () => {
+      eventDispatcher.off(
+        AnnotationUpdateEvent.SET_ANNOTATION_STATE,
+        setAnnotationStateCallback,
+      );
+      eventDispatcher.off(
+        AnnotationUpdateEvent.SET_ANNOTATION_FOCUS,
+        setAnnotationFocusCallback,
+      );
+      eventDispatcher.off(
+        AnnotationUpdateEvent.REMOVE_ANNOTATION_FOCUS,
+        removeAnnotationFocusCallback,
+      );
+    };
+  }, [updateEmitter]);
+
   return (
     <AnnotationContext.Provider
-      value={{ onAnnotationClick, enableAutoHighlight: false }}
+      value={{
+        onAnnotationClick,
+        enableAutoHighlight: false,
+        updateSubscriber: updateEmitter,
+      }}
     >
-      <Component {...(props as P)} />
+      <Component {...(props as P)} annotationProvider={annotationProvider} />
     </AnnotationContext.Provider>
   );
 };
@@ -310,9 +376,6 @@ const withMobileBridge = (
   const cardClient = props.cardClient;
   const containerAri = 'MOCK-containerAri';
   const objectAri = 'MOCK-objectAri';
-  const annotationProvider = {
-    inlineComment: annotationInlineCommentProvider,
-  };
 
   rendererBridge.containerAri = containerAri;
   rendererBridge.objectAri = objectAri;
@@ -325,7 +388,6 @@ const withMobileBridge = (
   const params = {
     providerFactory,
     allowAnnotations,
-    annotationProvider,
     objectAri,
     containerAri,
     document,

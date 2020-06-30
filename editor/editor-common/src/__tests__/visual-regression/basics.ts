@@ -1,7 +1,8 @@
-import { loadFullPageEditorWithAdf, snapshot } from './_utils';
 import { waitForLoadedBackgroundImages } from '@atlaskit/visual-regression/helper';
+
 import { EmojiSharedCssClassName } from '../../styles/shared/emoji';
 
+import { loadFullPageEditorWithAdf, snapshot } from './_utils';
 import adf from './adf/basic-content.adf.json';
 
 describe('Snapshot Test: Basic Content', () => {

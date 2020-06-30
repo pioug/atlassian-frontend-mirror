@@ -41,7 +41,7 @@ export default () => (
     <SpotlightCard
       actions={[
         { text: 'Next', onClick: () => {} },
-        { text: 'Skip', onClick: () => {} },
+        { text: 'Skip', onClick: () => {}, appearance: 'subtle' },
       ]}
       width={275}
     >
@@ -63,7 +63,7 @@ export default () => (
     <SpotlightCard
       heading="Switch it up"
       headingAfterElement={
-        <Button iconBefore={<UndoIcon label="undo" />} appearance="subtle-link">
+        <Button iconBefore={<UndoIcon label="undo" />} appearance="subtle">
           Replay
         </Button>
       }

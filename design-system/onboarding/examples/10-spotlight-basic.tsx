@@ -45,7 +45,7 @@ export default class SpotlightBasicExample extends Component<Object, State> {
       <Spotlight
         actions={[
           { onClick: this.next, text: 'Next' },
-          { onClick: this.prev, text: 'Prev' },
+          { onClick: this.prev, text: 'Prev', appearance: 'subtle' },
         ]}
         dialogPlacement="bottom center"
         heading="Yellow"

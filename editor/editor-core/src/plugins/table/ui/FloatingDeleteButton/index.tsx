@@ -1,15 +1,22 @@
 import React, { Component } from 'react';
-import { createPortal } from 'react-dom';
-import { Popup, akEditorTableNumberColumnWidth } from '@atlaskit/editor-common';
+
+import { Selection } from 'prosemirror-state';
 import { CellSelection } from 'prosemirror-tables';
 import { getSelectionRect, isTableSelected } from 'prosemirror-utils';
 import { EditorView } from 'prosemirror-view';
+import { createPortal } from 'react-dom';
+
+import { akEditorTableNumberColumnWidth, Popup } from '@atlaskit/editor-common';
+
+import { closestElement } from '../../../../utils/dom';
 import { INPUT_METHOD } from '../../../analytics';
 import { clearHoverSelection, hoverColumns, hoverRows } from '../../commands';
 import {
   deleteColumnsWithAnalytics,
   deleteRowsWithAnalytics,
 } from '../../commands-with-analytics';
+import { getPluginState as getTablePluginState } from '../../pm-plugins/plugin-factory';
+import { RowStickyState } from '../../pm-plugins/sticky-headers';
 import { TableCssClassName as ClassName } from '../../types';
 import {
   getColumnDeleteButtonParams,
@@ -18,14 +25,11 @@ import {
   getRowHeights,
 } from '../../utils';
 import tableMessages from '../messages';
+import { stickyRowZIndex } from '../styles';
+
 import DeleteButton from './DeleteButton';
 import getPopupOptions from './getPopUpOptions';
 import { CellSelectionType } from './types';
-import { Selection } from 'prosemirror-state';
-import { getPluginState as getTablePluginState } from '../../pm-plugins/plugin-factory';
-import { closestElement } from '../../../../utils/dom';
-import { RowStickyState } from '../../pm-plugins/sticky-headers';
-import { stickyRowZIndex } from '../styles';
 
 export interface Props {
   editorView: EditorView;

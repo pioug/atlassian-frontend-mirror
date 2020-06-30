@@ -5,8 +5,8 @@ export type Sizes = 'regular' | 'large';
 export interface BaseProps extends WithAnalyticsEventsProps {
   /** Whether the toggle is disabled or not. This will prevent any interaction with the user */
   isDisabled?: boolean;
-  /** Label to be set for accessibility */
-  label?: string;
+  /** Id to be set for input element */
+  id?: string;
   /** Descriptive name for value property to be submitted in a form */
   name?: string;
   /** The value to be submitted in a form. */

@@ -1,8 +1,8 @@
 import { Command } from '../../../types';
-import { findTypeAheadQuery } from '../utils/find-query-mark';
-import { isQueryActive } from '../utils/is-query-active';
 import { ACTIONS } from '../pm-plugins/actions';
 import { pluginKey } from '../pm-plugins/plugin-key';
+import { findTypeAheadQuery } from '../utils/find-query-mark';
+import { isQueryActive } from '../utils/is-query-active';
 
 export const updateQueryCommand = (query: string): Command => (
   state,

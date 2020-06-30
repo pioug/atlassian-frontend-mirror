@@ -1,6 +1,7 @@
+import { MarkType, Mark as PMMark } from 'prosemirror-model';
 import { EditorState } from 'prosemirror-state';
-import { Mark as PMMark, MarkType } from 'prosemirror-model';
 import { CellSelection } from 'prosemirror-tables';
+
 import {
   FORMATTING_MARK_TYPES,
   FORMATTING_NODE_TYPES,

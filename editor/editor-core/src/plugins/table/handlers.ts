@@ -1,15 +1,17 @@
 // #region Imports
 import { Transaction } from 'prosemirror-state';
 import {
-  findTable,
-  findParentNodeOfType,
   ContentNodeWithPos,
+  findParentNodeOfType,
+  findTable,
 } from 'prosemirror-utils';
-import { pluginKey as tableResizingPluginKey } from './pm-plugins/table-resizing';
-import { TablePluginState, TableColumnOrdering } from './types';
-import { TableSortStep } from './utils/sort-step';
-import { defaultTableSelection } from './pm-plugins/default-table-selection';
+
 import { isTextInput } from '../../utils/is-text-input';
+
+import { defaultTableSelection } from './pm-plugins/default-table-selection';
+import { pluginKey as tableResizingPluginKey } from './pm-plugins/table-resizing';
+import { TableColumnOrdering, TablePluginState } from './types';
+import { TableSortStep } from './utils/sort-step';
 // #endregion
 
 const nextTableSorting = (

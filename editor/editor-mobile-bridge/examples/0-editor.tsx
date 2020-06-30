@@ -13,8 +13,8 @@ import {
   createMentionProvider,
 } from '../src/providers';
 import { useFetchProxy } from '../src/utils/fetch-proxy';
+import { createCollabProviderFactory } from '../src/providers/collab-provider';
 
-// @ts-ignore
 window.logBridge = window.logBridge || [];
 
 function EditorWithFetchProxy() {
@@ -22,6 +22,7 @@ function EditorWithFetchProxy() {
 
   return (
     <Editor
+      createCollabProvider={createCollabProviderFactory(fetchProxy)}
       cardProvider={Promise.resolve(cardProvider)}
       cardClient={createCardClient()}
       emojiProvider={createEmojiProvider(fetchProxy)}
@@ -40,7 +41,7 @@ export default class Example extends React.Component {
   componentDidMount() {
     disableZooming();
     // Set initial padding (this usually gets set by native)
-    (window as any).bridge.setPadding(32, 16, 0, 16);
+    if (window.bridge) window.bridge.setPadding(32, 16, 0, 16);
   }
 
   render() {

@@ -20,6 +20,7 @@ function getInitialState() {
   return {
     showFooterKeyline: false,
     showHeaderKeyline: false,
+    showContentFocus: false,
     tabbableElements: [],
   };
 }
@@ -102,6 +103,7 @@ interface Props {
 interface State {
   showFooterKeyline: boolean;
   showHeaderKeyline: boolean;
+  showContentFocus: boolean;
   tabbableElements: Array<{}>;
 }
 
@@ -198,8 +200,12 @@ export default class Content extends React.Component<Props, State> {
     const scrollableDistance = scrollHeight - clientHeight;
     const showHeaderKeyline = scrollTop > keylineHeight;
     const showFooterKeyline = scrollTop <= scrollableDistance - keylineHeight;
-
-    this.setState({ showHeaderKeyline, showFooterKeyline });
+    const showContentFocus = scrollHeight > clientHeight;
+    this.setState({
+      showHeaderKeyline,
+      showFooterKeyline,
+      showContentFocus,
+    });
   });
 
   getScrollContainer = (ref: HTMLElement) => {
@@ -254,7 +260,11 @@ export default class Content extends React.Component<Props, State> {
       headingId,
     } = this.props;
 
-    const { showFooterKeyline, showHeaderKeyline } = this.state;
+    const {
+      showFooterKeyline,
+      showHeaderKeyline,
+      showContentFocus,
+    } = this.state;
     const { Container = 'div', Body: CustomBody } = components;
 
     const Body = CustomBody || DeprecatedBody || DefaultBody;
@@ -277,6 +287,7 @@ export default class Content extends React.Component<Props, State> {
             />
             {/* Backwards compatibility for styled-components innerRefs */}
             <Body
+              tabIndex={showContentFocus ? 0 : undefined}
               css={bodyStyles(shouldScroll)}
               {...(!Body.hasOwnProperty('styledComponentId')
                 ? { ref: this.getScrollContainer }

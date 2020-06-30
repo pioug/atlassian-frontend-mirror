@@ -1,13 +1,14 @@
-import {
-  doc,
-  p,
-  decisionItem,
-} from '@atlaskit/editor-test-helpers/schema-builder';
 import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
-import { decisionItemNodeView } from '../../../../../plugins/tasks-and-decisions/nodeviews/decisionItem';
+import {
+  decisionItem,
+  doc,
+  p,
+} from '@atlaskit/editor-test-helpers/schema-builder';
+
 import { EventDispatcher } from '../../../../../event-dispatcher';
 import ReactNodeView from '../../../../../nodeviews/ReactNodeView';
+import { decisionItemNodeView } from '../../../../../plugins/tasks-and-decisions/nodeviews/decisionItem';
 
 describe('Decision Item - NodeView', () => {
   const createEditor = createEditorFactory();

@@ -64,7 +64,6 @@ describe('inlineCard', () => {
       <InlineCardComponent
         node={mockInlinePmNode}
         view={mockEditorView}
-        selected={false}
         getPos={() => 0}
       />,
     );
@@ -85,7 +84,6 @@ describe('inlineCard', () => {
       <InlineCardComponent
         node={mockInlinePmNode}
         view={mockEditorView}
-        selected={false}
         getPos={() => 0}
       />,
     );
@@ -104,7 +102,6 @@ describe('inlineCard', () => {
       <InlineCardComponent
         node={mockInlinePmNode}
         view={mockEditorView}
-        selected={false}
         getPos={() => 0}
       />,
     );

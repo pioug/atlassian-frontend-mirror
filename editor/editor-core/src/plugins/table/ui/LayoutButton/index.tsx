@@ -1,16 +1,18 @@
 import React from 'react';
-import { injectIntl, InjectedIntlProps } from 'react-intl';
+
 import classnames from 'classnames';
 import { EditorView } from 'prosemirror-view';
+import { InjectedIntlProps, injectIntl } from 'react-intl';
+
 import { TableLayout } from '@atlaskit/adf-schema';
 import { Popup, PopupPosition } from '@atlaskit/editor-common';
-import ExpandIcon from '@atlaskit/icon/glyph/editor/expand';
 import CollapseIcon from '@atlaskit/icon/glyph/editor/collapse';
+import ExpandIcon from '@atlaskit/icon/glyph/editor/expand';
 
 import commonMessages from '../../../../messages';
 import ToolbarButton from '../../../../ui/ToolbarButton';
-import { TableCssClassName as ClassName } from '../../types';
 import { toggleTableLayoutWithAnalytics } from '../../commands-with-analytics';
+import { TableCssClassName as ClassName } from '../../types';
 
 export interface Props {
   editorView: EditorView;

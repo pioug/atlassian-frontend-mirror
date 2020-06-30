@@ -1,10 +1,13 @@
 import React from 'react';
+
 import { mount } from 'enzyme';
-import { ResourcedMention } from '@atlaskit/mention/element';
-import { ProviderFactory } from '../../../provider-factory';
-import Mention from '../../../ui/Mention';
+
 import { MentionProvider } from '@atlaskit/mention';
+import { ResourcedMention } from '@atlaskit/mention/element';
+
+import { ProviderFactory } from '../../../provider-factory';
 import { ProfilecardProvider } from '../../../provider-factory/profile-card-provider';
+import Mention from '../../../ui/Mention';
 // avoid polluting test logs with error message in console
 // please ensure you fix it if you expect console.error to be thrown
 // eslint-disable-next-line no-console

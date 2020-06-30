@@ -17,10 +17,10 @@ export const Wrapper = styled(WrapperDefault)`
   .ProseMirror > * [extensiontype] &[data-layout='wide'] {
     width: 100% !important;
   }
+  cursor: pointer;
 `;
 
 export const Header = styled.div`
-  cursor: pointer;
   padding: ${padding / 2}px ${padding / 2}px ${padding / 4}px;
   vertical-align: middle;
 
@@ -40,6 +40,7 @@ export const Content = styled.div`
   })};
   border: 1px solid ${colors.N30};
   border-radius: ${borderRadius()}px;
+  cursor: initial;
 `;
 
 export const ContentWrapper = styled.div`

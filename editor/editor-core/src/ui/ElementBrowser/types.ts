@@ -1,7 +1,6 @@
-export type CategoryType = {
+export type Category = {
   title: string;
   name: string;
-  selected: boolean;
 };
 
 export enum Modes {

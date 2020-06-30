@@ -17,6 +17,7 @@ import {
 
 import Editor from './../src/editor/mobile-editor-element';
 import { useFetchProxy } from '../src/utils/fetch-proxy';
+import { createCollabProviderFactory } from '../src/providers/collab-provider';
 
 export const Wrapper: any = styled.div`
   position: absolute;
@@ -48,7 +49,6 @@ export const CopyWrapper: any = styled.button`
 
 Wrapper.displayName = 'Wrapper';
 
-// @ts-ignore
 window.logBridge = window.logBridge || [];
 
 function EditorWithFetchProxy() {
@@ -56,6 +56,7 @@ function EditorWithFetchProxy() {
 
   return (
     <Editor
+      createCollabProvider={createCollabProviderFactory(fetchProxy)}
       cardProvider={Promise.resolve(cardProvider)}
       cardClient={createCardClient()}
       emojiProvider={createEmojiProvider(fetchProxy)}

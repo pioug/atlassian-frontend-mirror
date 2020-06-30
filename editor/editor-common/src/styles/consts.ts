@@ -1,10 +1,10 @@
 import {
+  borderRadius,
   codeFontFamily,
-  layers,
   colors,
   fontSize as defaultFontSize,
   gridSize,
-  borderRadius,
+  layers,
 } from '@atlaskit/theme';
 
 const {

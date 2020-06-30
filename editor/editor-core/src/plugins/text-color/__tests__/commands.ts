@@ -1,3 +1,5 @@
+import { PluginKey } from 'prosemirror-state';
+
 import {
   createProsemirrorEditorFactory,
   LightEditorPlugin,
@@ -5,23 +7,23 @@ import {
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   doc,
-  textColor,
-  p,
   hardBreak,
-  tr,
-  td,
+  p,
   table,
+  td,
+  textColor,
+  tr,
 } from '@atlaskit/editor-test-helpers/schema-builder';
-import {
-  TextColorPluginState,
-  pluginKey as textColorPluginKey,
-} from '../pm-plugins/main';
-import { changeColor } from '../commands/change-color';
-import { PluginKey } from 'prosemirror-state';
-import textColorPlugin from '../';
+
+import blockTypePlugin from '../../block-type';
 import panelPlugin from '../../panel';
 import tablesPlugin from '../../table';
-import blockTypePlugin from '../../block-type';
+import { changeColor } from '../commands/change-color';
+import textColorPlugin from '../index';
+import {
+  pluginKey as textColorPluginKey,
+  TextColorPluginState,
+} from '../pm-plugins/main';
 
 describe('#changeColor', () => {
   const createEditor = createProsemirrorEditorFactory();

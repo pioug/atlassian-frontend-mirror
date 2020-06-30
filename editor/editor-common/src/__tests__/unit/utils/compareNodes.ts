@@ -1,19 +1,21 @@
+import { EditorView } from 'prosemirror-view';
+
+import { CardAttributes, UrlType } from '@atlaskit/adf-schema';
 import {
+  a,
   createEditorFactory,
   date,
-  p,
   inlineCard,
+  mention,
+  p,
+  SchemaBuilderContent,
   status,
   td,
-  mention,
-  a,
-  SchemaBuilderContent,
 } from '@atlaskit/editor-test-helpers';
-import { EditorView } from 'prosemirror-view';
-import { createCompareNodes } from '../../../utils/compareNodes';
 import { mention as mentionDataTest } from '@atlaskit/util-data-test';
-import { CardAttributes, UrlType } from '@atlaskit/adf-schema';
+
 import { SortOrder } from '../../../types';
+import { createCompareNodes } from '../../../utils/compareNodes';
 
 const compareNodes = createCompareNodes({
   getInlineCardTextFromStore() {

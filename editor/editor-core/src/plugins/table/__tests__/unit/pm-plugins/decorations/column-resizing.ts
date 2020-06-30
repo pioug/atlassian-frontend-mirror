@@ -1,29 +1,31 @@
 import { PluginKey } from 'prosemirror-state';
-import { DecorationSet, EditorView } from 'prosemirror-view';
 import { ContentNodeWithPos, getCellsInColumn } from 'prosemirror-utils';
+import { DecorationSet, EditorView } from 'prosemirror-view';
+
 import {
-  td,
+  createProsemirrorEditorFactory,
+  LightEditorPlugin,
+  Preset,
+} from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+import {
   doc,
   p,
   table,
-  tr,
-  tdEmpty,
+  td,
   tdCursor,
+  tdEmpty,
+  tr,
 } from '@atlaskit/editor-test-helpers/schema-builder';
-import {
-  LightEditorPlugin,
-  Preset,
-  createProsemirrorEditorFactory,
-} from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import {
-  showResizeHandleLine,
-  hideResizeHandleLine,
-} from '../../../../commands/hover';
+
 import tablePlugin from '../../../../../table';
-import { buildColumnResizingDecorations } from '../../../../pm-plugins/decorations/utils';
-import { TableDecorations, TablePluginState } from '../../../../types';
-import { pluginKey } from '../../../../pm-plugins/plugin-factory';
+import {
+  hideResizeHandleLine,
+  showResizeHandleLine,
+} from '../../../../commands/hover';
 import { getDecorations } from '../../../../pm-plugins/decorations/plugin';
+import { buildColumnResizingDecorations } from '../../../../pm-plugins/decorations/utils';
+import { pluginKey } from '../../../../pm-plugins/plugin-factory';
+import { TableDecorations, TablePluginState } from '../../../../types';
 
 describe('tables: column resizing decorations', () => {
   const createEditor = createProsemirrorEditorFactory();

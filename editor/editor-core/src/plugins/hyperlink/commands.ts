@@ -142,7 +142,7 @@ export function insertLink(
   to: number,
   href: string,
   text?: string,
-  source?: INPUT_METHOD.MANUAL | INPUT_METHOD.TYPEAHEAD,
+  source?: LinkInputType,
 ): Command {
   return (state, dispatch) => {
     const link = state.schema.marks.link;
@@ -150,19 +150,19 @@ export function insertLink(
       const { tr } = state;
       const normalizedUrl = normalizeUrl(href);
       const textContent = text || href;
+      const displayText = stateKey.getState(state).activeText;
 
-      tr.insertText(textContent, from, to);
-      tr.addMark(
-        from,
-        from + textContent.length,
-        link.create({ href: normalizedUrl }),
-      );
-      tr.setSelection(
-        Selection.near(tr.doc.resolve(from + textContent.length)),
-      );
+      let markEnd = to;
+      if (!text || text !== displayText) {
+        tr.insertText(textContent, from, to);
+        markEnd = from + textContent.length;
+      }
+
+      tr.addMark(from, markEnd, link.create({ href: normalizedUrl }));
+      tr.setSelection(Selection.near(tr.doc.resolve(markEnd)));
 
       //Create a smart link when the user doesn't provide a title
-      if (source === INPUT_METHOD.TYPEAHEAD || !text || text === href) {
+      if (isSmartLink(href, source, text)) {
         queueCardsFromChangedTr(state, tr, source!, false);
       }
 
@@ -182,10 +182,25 @@ export const insertLinkWithAnalytics = (
   to: number,
   href: string,
   text?: string,
+) => {
+  // If we are inserting a smart link, skip insert hyperlink analytics
+  if (isSmartLink(href, inputMethod, text)) {
+    return insertLink(from, to, href, text, inputMethod);
+  } else {
+    return withAnalytics(getLinkCreationAnalyticsEvent(inputMethod, href))(
+      insertLink(from, to, href, text, inputMethod),
+    );
+  }
+};
+
+const isSmartLink = (
+  href: string,
+  inputMethod?: LinkInputType,
+  text?: string,
 ) =>
-  withAnalytics(getLinkCreationAnalyticsEvent(inputMethod, href))(
-    insertLink(from, to, href, text, inputMethod),
-  );
+  (inputMethod && inputMethod === INPUT_METHOD.TYPEAHEAD) ||
+  !text ||
+  text === href;
 
 export function removeLink(pos: number): Command {
   return setLinkHref('', pos);

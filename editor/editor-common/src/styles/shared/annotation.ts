@@ -1,5 +1,6 @@
 import { css } from 'styled-components';
-import { Y75, Y200 } from '@atlaskit/theme/colors';
+
+import { Y200, Y75 } from '@atlaskit/theme/colors';
 
 export const annotationPrefix = 'ak-editor-annotation';
 export const AnnotationSharedClassNames = {

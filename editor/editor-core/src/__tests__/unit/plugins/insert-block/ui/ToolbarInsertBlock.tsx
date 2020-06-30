@@ -472,26 +472,10 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
       });
 
       describe('mentions option', () => {
-        // Following test case is breaking due to trouble in @atlaskit/downdown.
-        // isDisabled is always set to false.
-        it.skip('should disable button if mentionsEnabled is false', () => {
-          buildToolbarForMenu({
-            mentionsSupported: true,
-            isTypeAheadAllowed: true,
-            mentionsEnabled: false,
-          });
-          const mentionButton = menu.getButton(
-            messages.mention.defaultMessage,
-            toolbarOption,
-          );
-          expect(mentionButton.prop('isDisabled')).toEqual(true);
-        });
-
         it('should fire v3 analytics event when mention option clicked', () => {
           buildToolbarForMenu({
             mentionsSupported: true,
             isTypeAheadAllowed: true,
-            mentionsEnabled: true,
           });
           menu.clickButton(messages.mention.defaultMessage, toolbarOption);
           expect(createAnalyticsEvent).toHaveBeenCalledWith({

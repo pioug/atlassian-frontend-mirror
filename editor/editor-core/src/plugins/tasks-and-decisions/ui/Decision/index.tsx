@@ -1,5 +1,7 @@
 import React from 'react';
-import { defineMessages, injectIntl, InjectedIntlProps } from 'react-intl';
+
+import { defineMessages, InjectedIntlProps, injectIntl } from 'react-intl';
+
 import { DecisionItem } from '@atlaskit/task-decision';
 
 const messages = defineMessages({

@@ -1,8 +1,10 @@
 import { Transaction } from 'prosemirror-state';
 import { DecorationSet } from 'prosemirror-view';
+
 import { pluginFactory } from '../../utils/plugin-state-factory';
-import { selectionPluginKey, SelectionPluginState } from './types';
+
 import { reducer } from './reducer';
+import { selectionPluginKey, SelectionPluginState } from './types';
 import { getDecorations } from './utils';
 
 const handleDocChanged = (

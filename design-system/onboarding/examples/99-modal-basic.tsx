@@ -11,7 +11,7 @@ interface State {
   primaryButtonOnRight: boolean;
 }
 
-export default class Example extends Component<{}, State> {
+export default class ModalBasicExample extends Component<{}, State> {
   state: State = { active: false, primaryButtonOnRight: false };
 
   start = () => this.setState({ active: true });

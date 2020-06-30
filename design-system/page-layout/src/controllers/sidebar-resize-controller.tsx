@@ -32,6 +32,7 @@ const handleDataAttributesAndCb = (
   document.documentElement.removeAttribute(IS_SIDEBAR_COLLAPSING);
   callback();
 };
+
 export const SidebarResizeController: FC<SidebarResizeControllerProps> = ({
   children,
   onLeftSidebarExpand: onExpand,

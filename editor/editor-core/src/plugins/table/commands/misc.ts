@@ -1,8 +1,7 @@
 // #region Imports
+import { Node as PMNode, Schema, Slice } from 'prosemirror-model';
 import { Selection, TextSelection, Transaction } from 'prosemirror-state';
 import { CellSelection, selectionCell, TableMap } from 'prosemirror-tables';
-import { EditorView } from 'prosemirror-view';
-import { Node as PMNode, Schema, Slice } from 'prosemirror-model';
 import {
   ContentNodeWithPos,
   findCellClosestToPos,
@@ -16,28 +15,30 @@ import {
   selectRow as selectRowTransform,
   setCellAttrs,
 } from 'prosemirror-utils';
+import { EditorView } from 'prosemirror-view';
 
+import { CellAttributes } from '@atlaskit/adf-schema';
+
+import { Command } from '../../../types';
+import { isNodeTypeParagraph, isTextSelection } from '../../../utils';
+import { closestElement } from '../../../utils/dom';
+import { mapSlice } from '../../../utils/slice';
+import { outdentList } from '../../lists/commands';
+import { getDecorations } from '../pm-plugins/decorations/plugin';
+import { buildColumnResizingDecorations } from '../pm-plugins/decorations/utils';
+import { createCommand, getPluginState } from '../pm-plugins/plugin-factory';
+import { fixAutoSizedTable } from '../transforms';
+import { TableCssClassName as ClassName, TableDecorations } from '../types';
+import {
+  createColumnControlsDecoration,
+  createColumnSelectedDecoration,
+} from '../utils/decoration';
 import {
   checkIfHeaderColumnEnabled,
   checkIfHeaderRowEnabled,
   isIsolating,
 } from '../utils/nodes';
 import { updatePluginStateDecorations } from '../utils/update-plugin-state-decorations';
-import { Command } from '../../../types';
-import { outdentList } from '../../lists/commands';
-import { mapSlice } from '../../../utils/slice';
-import { isNodeTypeParagraph, isTextSelection } from '../../../utils';
-import { fixAutoSizedTable } from '../transforms';
-import { TableCssClassName as ClassName, TableDecorations } from '../types';
-import { CellAttributes } from '@atlaskit/adf-schema';
-import {
-  createColumnControlsDecoration,
-  createColumnSelectedDecoration,
-} from '../utils/decoration';
-import { buildColumnResizingDecorations } from '../pm-plugins/decorations/utils';
-import { createCommand, getPluginState } from '../pm-plugins/plugin-factory';
-import { getDecorations } from '../pm-plugins/decorations/plugin';
-import { closestElement } from '../../../utils/dom';
 // #endregion
 
 // #endregion

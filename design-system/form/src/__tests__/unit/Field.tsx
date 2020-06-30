@@ -229,7 +229,7 @@ test('object identity change in defaultValue should not reset form field', async
                   <>
                     <TextField
                       value={value.value.deep}
-                      onChange={(event: React.FormEvent<HTMLInputElement>) => {
+                      onChange={event => {
                         onChange({
                           value: { deep: event.currentTarget.value },
                         });
@@ -292,7 +292,7 @@ test('array element identity change in defaultValue should not reset form field'
                   <>
                     <TextField
                       value={JSON.stringify(value)}
-                      onChange={(event: React.FormEvent<HTMLInputElement>) => {
+                      onChange={event => {
                         onChange([
                           ...value,
                           { val: event.currentTarget.value },
@@ -711,7 +711,7 @@ test('should continue to show field validation normally, even after submit has f
   expect(queryByText('Too short')).toBeNull();
 });
 
-test('should correctly update the form state with a non-event value', () => {
+test('should correctly update form state with a non-event value', () => {
   const onSubmitMock = jest.fn();
 
   const { getByTestId } = render(
@@ -723,9 +723,7 @@ test('should correctly update the form state with a non-event value', () => {
               <TextField
                 {...rest}
                 testId="TextField"
-                onChange={(event: React.FormEvent<HTMLInputElement>) =>
-                  onChange(event.currentTarget.value)
-                }
+                onChange={event => onChange(event.currentTarget.value)}
               />
             )}
           </Field>
@@ -745,6 +743,152 @@ test('should correctly update the form state with a non-event value', () => {
 
   expect(onSubmitMock).toHaveBeenCalledWith(
     expect.objectContaining({ username: 'joebloggs123' }),
+    expect.any(Object),
+    expect.any(Function),
+  );
+});
+
+test('should submit default form state with array of usernames', () => {
+  const onSubmitMock = jest.fn();
+
+  const { getByTestId } = render(
+    <Form onSubmit={onSubmitMock}>
+      {({ formProps: { onSubmit } }) => (
+        <>
+          <Field name="username[0]" defaultValue="Foo">
+            {({ fieldProps: { onChange, ...rest } }) => (
+              <TextField
+                {...rest}
+                testId="TextField"
+                onChange={event => onChange(event.currentTarget.value)}
+              />
+            )}
+          </Field>
+          <Field name="username[1]" defaultValue="Bar">
+            {({ fieldProps: { onChange, ...rest } }) => (
+              <TextField
+                {...rest}
+                onChange={event => onChange(event.currentTarget.value)}
+              />
+            )}
+          </Field>
+          <Button testId="Submit" onClick={onSubmit}>
+            Submit
+          </Button>
+        </>
+      )}
+    </Form>,
+  );
+
+  fireEvent.click(getByTestId('Submit'));
+
+  expect(onSubmitMock).toHaveBeenCalledWith(
+    expect.objectContaining({ username: ['Foo', 'Bar'] }),
+    expect.any(Object),
+    expect.any(Function),
+  );
+});
+
+test('should correctly update form state with array of usernames', () => {
+  const onSubmitMock = jest.fn();
+
+  const { getByTestId } = render(
+    <Form onSubmit={onSubmitMock}>
+      {({ formProps: { onSubmit } }) => (
+        <>
+          <Field name="username.name" defaultValue="johndoe">
+            {({ fieldProps: { onChange, ...rest } }) => (
+              <TextField
+                {...rest}
+                testId="name"
+                onChange={event => onChange(event.currentTarget.value)}
+              />
+            )}
+          </Field>
+          <Field name="username.email" defaultValue="johndoe@atlassian.com">
+            {({ fieldProps: { onChange, ...rest } }) => (
+              <TextField
+                {...rest}
+                testId="email"
+                onChange={event => onChange(event.currentTarget.value)}
+              />
+            )}
+          </Field>
+          <Button testId="Submit" onClick={onSubmit}>
+            Submit
+          </Button>
+        </>
+      )}
+    </Form>,
+  );
+
+  act(() => {
+    fireEvent.click(getByTestId('Submit'));
+  });
+
+  expect(onSubmitMock).toHaveBeenCalledWith(
+    expect.objectContaining({
+      username: {
+        name: 'johndoe',
+        email: 'johndoe@atlassian.com',
+      },
+    }),
+    expect.any(Object),
+    expect.any(Function),
+  );
+});
+
+test('should correctly update form state with a nested of object usernames', () => {
+  const onSubmitMock = jest.fn();
+
+  const { getByTestId } = render(
+    <Form onSubmit={onSubmitMock}>
+      {({ formProps: { onSubmit } }) => (
+        <>
+          <Field name="username.name" defaultValue="">
+            {({ fieldProps: { onChange, ...rest } }) => (
+              <TextField
+                {...rest}
+                testId="name"
+                onChange={event => onChange(event.currentTarget.value)}
+              />
+            )}
+          </Field>
+          <Field name="username.email" defaultValue="">
+            {({ fieldProps: { onChange, ...rest } }) => (
+              <TextField
+                {...rest}
+                testId="email"
+                onChange={event => onChange(event.currentTarget.value)}
+              />
+            )}
+          </Field>
+          <Button testId="Submit" onClick={onSubmit}>
+            Submit
+          </Button>
+        </>
+      )}
+    </Form>,
+  );
+
+  act(() => {
+    fireEvent.change(getByTestId('name') as HTMLInputElement, {
+      target: { value: 'johndoe' },
+    });
+    fireEvent.change(getByTestId('email') as HTMLInputElement, {
+      target: { value: 'johndoe@atlassian.com' },
+    });
+
+    fireEvent.click(getByTestId('Submit'));
+  });
+
+  expect(onSubmitMock).toHaveBeenCalledWith(
+    expect.objectContaining({
+      username: {
+        name: 'johndoe',
+        email: 'johndoe@atlassian.com',
+      },
+    }),
     expect.any(Object),
     expect.any(Function),
   );

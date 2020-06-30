@@ -241,7 +241,7 @@ export class MediaStore {
     controller?: AbortController,
     fetchMaxRes?: boolean,
   ): Promise<Blob> => {
-    // TODO [MS-1787]: add checkWebpSupport() back
+    // TODO add checkWebpSupport() back https://product-fabric.atlassian.net/browse/MPT-584
     const isWebpSupported = false;
     let headers;
     if (isWebpSupported) {

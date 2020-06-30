@@ -1,11 +1,12 @@
-import { Schema, Node as PMNode } from 'prosemirror-model';
+import { Node as PMNode, Schema } from 'prosemirror-model';
+
 import {
-  DispatchAnalyticsEvent,
+  ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
-  ACTION,
-  EVENT_TYPE,
   AnalyticsEventPayload,
+  DispatchAnalyticsEvent,
+  EVENT_TYPE,
 } from '../analytics';
 
 function concatAncestorHierarchy(node: PMNode, ancestoryHierarchy?: string) {

@@ -24,6 +24,7 @@ export type PublicProps = {
   extensionType: ExtensionType;
   extensionKey: ExtensionKey;
   nodeKey: string;
+  extensionParameters?: Parameters;
   parameters?: Parameters;
   autoSave?: boolean;
   closeOnEsc?: boolean;

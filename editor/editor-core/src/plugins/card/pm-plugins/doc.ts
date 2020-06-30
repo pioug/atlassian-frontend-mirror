@@ -22,6 +22,7 @@ import {
   addAnalytics,
   EVENT_TYPE,
   AnalyticsEventPayload,
+  INPUT_METHOD,
 } from '../../../plugins/analytics';
 import { SmartLinkNodeContext } from '../../analytics/types/smart-links';
 import { isSafeUrl, normalizeUrl } from '@atlaskit/adf-schema';
@@ -217,19 +218,7 @@ export const changeSelectedCardToLink = (
   text?: string,
   href?: string,
 ): Command => (state, dispatch) => {
-  const selectedNode =
-    state.selection instanceof NodeSelection && state.selection.node;
-  if (!selectedNode) {
-    return false;
-  }
-
-  const { link } = state.schema.marks;
-  const url = selectedNode.attrs.url || selectedNode.attrs.data.url;
-
-  const tr = state.tr.replaceSelectionWith(
-    state.schema.text(text || url, [link.create({ href: href || url })]),
-    false,
-  );
+  const tr = cardToLinkWithTransaction(state, text, href);
 
   if (dispatch) {
     dispatch(tr.scrollIntoView());
@@ -244,15 +233,36 @@ export const updateCard = (href: string): Command => (state, dispatch) => {
   if (!selectedNode) {
     return false;
   }
-  const tr = state.tr.setNodeMarkup(state.selection.from, undefined, {
-    url: href,
-  });
+
+  const tr = cardToLinkWithTransaction(state, href, href);
+
+  queueCardsFromChangedTr(state, tr, INPUT_METHOD.MANUAL);
+
   if (dispatch) {
     dispatch(tr.scrollIntoView());
   }
 
   return true;
 };
+
+function cardToLinkWithTransaction(
+  state: EditorState<any>,
+  text: string | undefined,
+  href: string | undefined,
+): Transaction {
+  const selectedNode =
+    state.selection instanceof NodeSelection && state.selection.node;
+  if (!selectedNode) {
+    return state.tr;
+  }
+  const { link } = state.schema.marks;
+  const url = selectedNode.attrs.url || selectedNode.attrs.data.url;
+  const tr = state.tr.replaceSelectionWith(
+    state.schema.text(text || url, [link.create({ href: href || url })]),
+    false,
+  );
+  return tr;
+}
 
 export const changeSelectedCardToText = (text: string): Command => (
   state,

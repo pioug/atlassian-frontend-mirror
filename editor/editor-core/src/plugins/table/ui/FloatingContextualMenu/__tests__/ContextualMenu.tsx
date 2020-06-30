@@ -1,19 +1,21 @@
 import React from 'react';
-import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
-import {
-  doc,
-  tdEmpty,
-  tdCursor,
-  th,
-  tr,
-  table,
-  p,
-} from '@atlaskit/editor-test-helpers/schema-builder';
-import { shallowWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+
 import { EditorView } from 'prosemirror-view';
 
-import ContextualMenu from '../ContextualMenu';
+import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
+import { shallowWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import {
+  doc,
+  p,
+  table,
+  tdCursor,
+  tdEmpty,
+  th,
+  tr,
+} from '@atlaskit/editor-test-helpers/schema-builder';
+
 import DropdownMenuWrapper from '../../../../../ui/DropdownMenu';
+import ContextualMenu from '../ContextualMenu';
 
 describe('ContextualMenu', () => {
   const createEditor = createEditorFactory();

@@ -1,4 +1,5 @@
 import { EditorState, Plugin, PluginKey } from 'prosemirror-state';
+
 import { Dispatch } from '../../../event-dispatcher';
 import { checkFormattingIsPresent } from '../utils';
 

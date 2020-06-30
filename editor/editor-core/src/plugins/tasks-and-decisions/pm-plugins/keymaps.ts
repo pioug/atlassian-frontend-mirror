@@ -1,48 +1,49 @@
-import { uuid } from '@atlaskit/adf-schema';
+import { autoJoin, chainCommands } from 'prosemirror-commands';
 import { keymap } from 'prosemirror-keymap';
-import { Node, Schema, Fragment, ResolvedPos, Slice } from 'prosemirror-model';
+import { Fragment, Node, ResolvedPos, Schema, Slice } from 'prosemirror-model';
 import {
   EditorState,
-  Transaction,
   Plugin,
   TextSelection,
+  Transaction,
 } from 'prosemirror-state';
 import { findParentNodeOfTypeClosestToPos } from 'prosemirror-utils';
-import { insertTaskDecisionWithAnalytics } from '../commands';
-import { TaskDecisionListType } from '../types';
-import { autoJoin, chainCommands } from 'prosemirror-commands';
+
+import { uuid } from '@atlaskit/adf-schema';
+
+import { Command } from '../../../types';
 import {
   filter,
   isEmptySelectionAtEnd,
   isEmptySelectionAtStart,
 } from '../../../utils/commands';
-import { Command } from '../../../types';
 import {
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
+  AnalyticsEventPayload,
   EVENT_TYPE,
   INDENT_DIR,
   INDENT_TYPE,
   INPUT_METHOD,
-  AnalyticsEventPayload,
   withAnalytics,
 } from '../../analytics';
+import { insertTaskDecisionWithAnalytics } from '../commands';
+import { TaskDecisionListType } from '../types';
 
+import { joinAtCut, liftSelection, wrapSelectionInTaskList } from './commands';
 import {
-  isInsideTaskOrDecisionItem,
-  isActionOrDecisionList,
-  isActionOrDecisionItem,
-  isInsideTask,
   getBlockRange,
   getCurrentIndentLevel,
-  walkOut,
+  isActionOrDecisionItem,
+  isActionOrDecisionList,
   isEmptyTaskDecision,
+  isInsideTask,
+  isInsideTaskOrDecisionItem,
   liftBlock,
   subtreeHeight,
+  walkOut,
 } from './helpers';
-
-import { liftSelection, wrapSelectionInTaskList, joinAtCut } from './commands';
 
 const indentationAnalytics = (
   curIndentLevel: number,

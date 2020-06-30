@@ -1,7 +1,7 @@
 import { EditorState, NodeSelection } from 'prosemirror-state';
 import { InjectedIntl, defineMessages } from 'react-intl';
 import { hasParentNodeOfType } from 'prosemirror-utils';
-import { Schema, NodeType } from 'prosemirror-model';
+import { Schema, NodeType, Node } from 'prosemirror-model';
 import {
   FloatingToolbarSeparator,
   FloatingToolbarItem,
@@ -26,6 +26,7 @@ import {
   WidthPluginState,
   pluginKey as widthPluginKey,
 } from '../../plugins/width';
+import { DEFAULT_EMBED_CARD_WIDTH } from '@atlaskit/editor-common';
 
 type IconMap = Array<
   { value: string; icon: React.ComponentClass<any> } | { value: 'separator' }
@@ -70,6 +71,14 @@ const layoutToMessages: Record<string, any> = {
   'align-start': commonMessages.alignImageLeft,
 };
 
+const getNodeWidth = (node: Node, schema: Schema): number => {
+  const { embedCard } = schema.nodes;
+  if (node.type === embedCard) {
+    return node.attrs.originalWidth || DEFAULT_EMBED_CARD_WIDTH;
+  }
+  return (node.firstChild && node.firstChild.attrs.width) || node.attrs.width;
+};
+
 const makeAlign = (layout: MediaSingleLayout, nodeType: NodeType): Command => {
   return (state, dispatch) => {
     const { node } = state.selection as NodeSelection;
@@ -85,8 +94,8 @@ const makeAlign = (layout: MediaSingleLayout, nodeType: NodeType): Command => {
       return false;
     }
 
-    const nodeWidth =
-      (node.firstChild && node.firstChild.attrs.width) || node.attrs.width;
+    const nodeWidth = getNodeWidth(node, state.schema);
+
     const newAttrs = alignAttributes(
       layout,
       node.attrs as RichMediaAttributes,

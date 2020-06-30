@@ -38,3 +38,6 @@ export const getAllowAnnotations = (): boolean =>
 
 export const getSelectionObserverEnabled = (): boolean =>
   getQueryParams().get('selectionObserverEnabled') === 'true';
+
+export const getAllowCollabProvider = (): boolean =>
+  getQueryParams().get('allowCollabProvider') === 'true';

@@ -1,6 +1,6 @@
 import React from 'react';
 import { findDomRefAtPos } from 'prosemirror-utils';
-import { EditorState, TextSelection } from 'prosemirror-state';
+import { EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import { annotation, AnnotationTypes } from '@atlaskit/adf-schema';
 import { EditorPlugin } from '../../types';
@@ -10,11 +10,7 @@ import { stateKey as reactPluginKey } from '../../plugins/base/pm-plugins/react-
 import { FloatingToolbarConfig } from '../floating-toolbar/types';
 import { keymapPlugin } from './pm-plugins/keymap';
 
-import {
-  inlineCommentPlugin,
-  getPluginState,
-} from './pm-plugins/inline-comment';
-import { InlineCommentPluginState } from './pm-plugins/types';
+import { inlineCommentPlugin } from './pm-plugins/inline-comment';
 import {
   AnnotationProviders,
   InlineCommentAnnotationProvider,
@@ -27,16 +23,21 @@ import {
   AnnotationTestIds,
 } from './types';
 import { UpdateEvent, AnnotationUpdateEmitter } from './update-provider';
-import { getAnnotationViewKey, getAnnotationText } from './utils';
+import {
+  getAnnotationViewKey,
+  getAnnotationText,
+  getSelectionPositions,
+  getPluginState,
+  inlineCommentPluginKey,
+} from './utils';
 import {
   removeInlineCommentNearSelection,
   updateInlineCommentResolvedState,
   setInlineCommentDraftState,
+  addInlineComment,
 } from './commands';
 import { buildToolbar } from './toolbar';
-import { inlineCommentPluginKey } from './pm-plugins/plugin-factory';
 import {
-  addAnalytics,
   ACTION,
   ACTION_SUBJECT,
   EVENT_TYPE,
@@ -54,42 +55,15 @@ export const createAnnotation = (
   dispatch: CommandDispatch,
   annotationType: AnnotationTypes = AnnotationTypes.INLINE_COMMENT,
 ) => (id: string) => {
-  const inlineCommentState = getPluginState(state);
-  if (!inlineCommentState) {
-    return;
-  }
-
-  const { bookmark } = inlineCommentState;
+  // don't try to add if there are is no temp highlight bookmarked
+  const { bookmark } = getPluginState(state) || {};
   if (!bookmark || !dispatch) {
     return;
   }
 
-  const { from, to } = getSelectionPositions(state, inlineCommentState);
-  const annotationMark = state.schema.marks.annotation.create({
-    id,
-    type: annotationType,
-  });
-
-  /**
-   * Optimistic creation: This will create the comment right away in the state,
-   * assuming no failure on consumer side. We will follow up on failure scenarios under
-   * https://product-fabric.atlassian.net/browse/ED-9338
-   **/
-  updateInlineCommentResolvedState({ [id]: false })(state, dispatch);
-
-  setInlineCommentDraftState(false)(state, dispatch);
-
-  const tr = addAnalytics(state, state.tr.addMark(from, to, annotationMark), {
-    action: ACTION.INSERTED,
-    actionSubject: ACTION_SUBJECT.ANNOTATION,
-    eventType: EVENT_TYPE.TRACK,
-    actionSubjectId: ACTION_SUBJECT_ID.INLINE_COMMENT,
-  });
-
-  const $to = state.doc.resolve(to);
-  tr.setSelection(new TextSelection($to, $to));
-
-  dispatch(tr);
+  if (annotationType === AnnotationTypes.INLINE_COMMENT) {
+    addInlineComment(id)(state, dispatch);
+  }
 };
 
 const renderInlineCommentComponents = (
@@ -200,29 +174,6 @@ const renderInlineCommentComponents = (
     </AnnotationViewWrapper>
   );
 };
-
-/*
- * get selection from position to apply new comment for
- */
-function getSelectionPositions(
-  editorState: EditorState,
-  inlineCommentState: InlineCommentPluginState,
-): {
-  from: number;
-  to: number;
-} {
-  let { from, to } = editorState.selection;
-  const { bookmark } = inlineCommentState;
-
-  // get positions via saved bookmark if it is available
-  // this is to make comments box positioned relative to temporary highlight rather then current selection
-  if (bookmark) {
-    const resolvedBookmark = bookmark.resolve(editorState.doc);
-    from = resolvedBookmark.from;
-    to = resolvedBookmark.to;
-  }
-  return { from, to };
-}
 
 const annotationPlugin = (
   annotationProviders?: AnnotationProviders,

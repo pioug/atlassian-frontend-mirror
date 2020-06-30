@@ -1,5 +1,6 @@
-import { ExtensionProvider, ExtensionType, ExtensionKey } from './types';
 import { combineProviders } from '../provider-helpers';
+
+import { ExtensionKey, ExtensionProvider, ExtensionType } from './types';
 
 /**
  * Allow to run methods from the `ExtensionProvider` interface across all providers seamlessly.

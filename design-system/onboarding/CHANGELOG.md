@@ -1,5 +1,11 @@
 # @atlaskit/onboarding
 
+## 9.2.0
+
+### Minor Changes
+
+- [`2c8d296246`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2c8d296246) - Adds support for the `subtle` button appearance in the Spotlight dialog theme to align more closely with ADG guidelines. Also visually re-orders action items so that the primary item in the actions list appears on the right hand side, but still recieves focus first.
+
 ## 9.1.10
 
 ### Patch Changes

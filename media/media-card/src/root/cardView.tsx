@@ -94,9 +94,8 @@ export class CardViewBase extends React.Component<
 
     const { width } = dimensions;
 
-    if (width && isValidPercentageUnit(width)) {
-      const elementWidth = getElementDimension(this, 'width');
-
+    if (width && isValidPercentageUnit(width) && this.divRef.current) {
+      const elementWidth = getElementDimension(this.divRef.current, 'width');
       this.setState({ elementWidth });
     }
   }

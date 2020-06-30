@@ -1,4 +1,3 @@
-import io from 'socket.io-client';
 import { utils } from '@atlaskit/util-service-support';
 
 import { Emitter } from './emitter';
@@ -8,6 +7,7 @@ import {
   TelepointerPayload,
   ParticipantPayload,
   StepsPayload,
+  Socket,
 } from './types';
 
 import { createLogger } from './utils';
@@ -17,7 +17,7 @@ const logger = createLogger('Channel', 'green');
 export class Channel extends Emitter<ChannelEvent> {
   private connected: boolean = false;
   private config: Config;
-  private socket: SocketIOClient.Socket | null = null;
+  private socket: Socket | null = null;
 
   private initialized: boolean = false;
 
@@ -36,10 +36,8 @@ export class Channel extends Emitter<ChannelEvent> {
    */
   connect() {
     const { documentAri, url } = this.config;
-    this.socket = io(`${url}/session/${documentAri}`, {
-      transports: ['polling', 'websocket'],
-    });
-
+    const { createSocket } = this.config;
+    this.socket = createSocket(`${url}/session/${documentAri}`);
     this.socket.on('connect', this.onConnect);
     this.socket.on('data', this.onReceiveData);
     this.socket.on('steps:added', (data: StepsPayload) => {

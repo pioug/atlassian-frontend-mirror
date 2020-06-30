@@ -1,6 +1,6 @@
 import {
-  getExtensionKeyAndNodeKey,
   FORGE_EXTENSION_TYPE,
+  getExtensionKeyAndNodeKey,
 } from '../../manifest-helpers';
 
 describe('manifest-helpers', () => {

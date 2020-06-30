@@ -1,5 +1,7 @@
 import React from 'react';
+
 import MoreIcon from '@atlaskit/icon/glyph/editor/more';
+
 import { TriggerWrapper } from '../../../../ui/styles';
 import ToolbarButton from '../../../../ui/ToolbarButton';
 

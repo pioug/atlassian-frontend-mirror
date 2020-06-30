@@ -318,8 +318,7 @@ describe('hyperlink', () => {
       );
     });
 
-    // TODO: Unskip after ED-3688 is resolved
-    it.skip('does convert to hyperlink if markdown formatting is used with pasting of link with spaces', () => {
+    it('does convert to hyperlink if markdown formatting is used with pasting of link with spaces', () => {
       const { editorView, sel } = editor(doc(p('[test]({<>}')));
       dispatchPasteEvent(editorView, {
         plain: 'http://www.atla%20ssian.com',

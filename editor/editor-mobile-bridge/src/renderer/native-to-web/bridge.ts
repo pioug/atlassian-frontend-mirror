@@ -1,5 +1,10 @@
-import { AnnotationId, AnnotationTypes } from '@atlaskit/adf-schema';
+import {
+  AnnotationMarkStates,
+  AnnotationId,
+  AnnotationTypes,
+} from '@atlaskit/adf-schema';
 import { TaskState } from '@atlaskit/task-decision';
+import { Serialized } from '../../types';
 
 export enum ScrollToContentNode {
   MENTION = 'mention',
@@ -9,17 +14,22 @@ export enum ScrollToContentNode {
   INLINE_COMMENT = 'inlineComment',
 }
 
-export type Serialized<T> = string;
-
 export type AnnotationFocusPayload = {
   annotationId: AnnotationId;
   annotationType: AnnotationTypes;
+};
+
+export type AnnotationStatePayload = {
+  annotationId: AnnotationId;
+  annotationType: AnnotationTypes;
+  annotationState: AnnotationMarkStates;
 };
 
 export interface AnnotationBridge {
   setAnnotationFocus(
     annotationFocusPayload?: Serialized<AnnotationFocusPayload>,
   ): void;
+  setAnnotationState(annotations: Serialized<AnnotationStatePayload[]>): void;
 }
 
 export interface TaskDecisionBridge {

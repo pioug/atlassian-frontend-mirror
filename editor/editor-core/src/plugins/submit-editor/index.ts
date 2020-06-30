@@ -1,19 +1,20 @@
 import { keymap } from 'prosemirror-keymap';
 import { EditorState, Plugin } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
+
 import { analyticsService } from '../../analytics';
-import { EditorPlugin, CommandDispatch } from '../../types';
+import { Dispatch } from '../../event-dispatcher';
 import * as keymaps from '../../keymaps';
-import { stateKey as mediaPluginKey } from '../../plugins/media/pm-plugins/plugin-key';
 import {
-  AnalyticsEventPayload,
   ACTION,
   ACTION_SUBJECT,
-  INPUT_METHOD,
-  EVENT_TYPE,
   ACTION_SUBJECT_ID,
+  AnalyticsEventPayload,
+  EVENT_TYPE,
+  INPUT_METHOD,
 } from '../../plugins/analytics';
-import { Dispatch } from '../../event-dispatcher';
+import { stateKey as mediaPluginKey } from '../../plugins/media/pm-plugins/plugin-key';
+import { CommandDispatch, EditorPlugin } from '../../types';
 import { analyticsEventKey } from '../analytics/consts';
 
 export function createPlugin(

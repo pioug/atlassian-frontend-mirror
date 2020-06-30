@@ -1,7 +1,7 @@
 import {
+  ExtensionKey,
   ExtensionManifest,
   ExtensionType,
-  ExtensionKey,
 } from './extension-manifest';
 
 export interface ExtensionProvider {

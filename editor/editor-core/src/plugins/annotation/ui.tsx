@@ -4,7 +4,7 @@ import { ReactNodeView, ForwardRef } from '../../nodeviews';
 import WithPluginState from '../../ui/WithPluginState';
 import { stateKey as reactPluginKey } from '../../plugins/base/pm-plugins/react-nodeview';
 import { InlineCommentPluginState } from './pm-plugins/types';
-import { inlineCommentPluginKey } from './pm-plugins/plugin-factory';
+import { inlineCommentPluginKey } from './utils';
 
 export class AnnotationNodeView extends ReactNodeView {
   createDomRef() {
@@ -76,6 +76,11 @@ export class AnnotationViewWrapper extends React.Component<
   ) {
     const textChanged = this.props.annotationText !== nextProps.annotationText;
 
+    // close annotation view if annotation is gone (annotationText is empty)
+    if (!nextProps.annotationText && nextState.renderChild !== false) {
+      this.setState({ renderChild: false });
+      return true;
+    }
     // reopen comment when clicking the same annotation if it was closed before
     // but keep closed when text is changing
     if (
@@ -113,7 +118,6 @@ export class AnnotationViewWrapper extends React.Component<
   render() {
     const { children } = this.props;
     const renderChildren = children as (props: any) => React.ReactNode;
-
     // check false explicitly, undefined is initial state and we need to render in this case
     return this.state.renderChild !== false ? (
       <div>{renderChildren(this.dismiss)}</div>

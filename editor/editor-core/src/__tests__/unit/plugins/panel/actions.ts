@@ -59,21 +59,6 @@ describe('panel actions', () => {
         eventType: 'track',
       });
     });
-
-    // Postponing as deletion of panels via keyboard is broken: https://product-fabric.atlassian.net/browse/ED-6504
-    it.skip('trigger GAS3 analytics when deleted via keyboard', () => {
-      const { editorView } = editor(
-        doc(panel({ panelType: 'info' })(p('text{<>}'))),
-      );
-
-      removePanel()(editorView.state, editorView.dispatch);
-      expect(createAnalyticsEvent).toHaveBeenCalledWith({
-        action: 'deleted',
-        actionSubject: 'panel',
-        attributes: { inputMethod: 'keyboard' },
-        eventType: 'track',
-      });
-    });
   });
 
   describe('change panel type', () => {

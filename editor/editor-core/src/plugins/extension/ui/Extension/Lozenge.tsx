@@ -48,7 +48,12 @@ export default class ExtensionLozenge extends Component<Props, any> {
     const { parameters, extensionKey } = this.props.node.attrs;
     const { name } = this.props.node.type;
     const params = parameters && parameters.macroParams;
-    const title = (parameters && parameters.extensionTitle) || extensionKey;
+    const title =
+      (parameters && parameters.extensionTitle) ||
+      (parameters &&
+        parameters.macroMetadata &&
+        parameters.macroMetadata.title) ||
+      extensionKey;
     const isBlockExtension = name === 'extension';
     return (
       <PlaceholderFallback>

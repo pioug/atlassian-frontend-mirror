@@ -592,24 +592,6 @@ describe('MediaStore', () => {
         );
       });
 
-      // TODO [MS-1787]: add checkWebpSupport() back
-      it.skip('should request webp content when supported', async () => {
-        fetchMock.mock(`begin:${baseUrl}/file`, {
-          body: {
-            data,
-          },
-          status: 201,
-        });
-        checkWebpSupportMock.mockResolvedValueOnce(true);
-
-        await mediaStore.getImage('123');
-
-        expect(lastOptionsHeaders()).toHaveProperty(
-          'accept',
-          'image/webp,image/*,*/*;q=0.8',
-        );
-      });
-
       it('should not request webp content when not supported', async () => {
         fetchMock.mock(`begin:${baseUrl}/file`, {
           body: {

@@ -1,9 +1,11 @@
 import React from 'react';
+
 import { mount, ReactWrapper } from 'enzyme';
+
 import {
   calculatePosition,
-  getVerticalPlacement,
   getHorizontalPlacement,
+  getVerticalPlacement,
   validatePosition,
 } from '../../../../ui/Popup/utils';
 

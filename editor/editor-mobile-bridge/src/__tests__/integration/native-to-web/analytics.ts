@@ -3,6 +3,7 @@ import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 import {
   callNativeBridge,
   clearBridgeOutput,
+  clearEditor,
   editor,
   skipBrowsers as skip,
   getBridgeOutput,
@@ -10,14 +11,9 @@ import {
 
 import { INPUT_METHOD, AnalyticsEventPayload } from '@atlaskit/editor-core';
 
-const callNativeBridgeFirst = async (
-  browser: any,
-  fnName: any,
-  ...args: any[]
-) => {
+const initPage = async (browser: Page) => {
   await browser.goto(editor.path);
   await browser.waitForSelector(editor.placeholder);
-  await callNativeBridge(browser, fnName, ...args);
 };
 
 const expectTrackEventsToMatchCustomSnapshot = async (
@@ -41,169 +37,106 @@ const expectTrackEventsToMatchCustomSnapshot = async (
 };
 
 const simpleBrowserTestCase = async (
-  client: any,
+  browser: Page,
   testName: string,
   fnName: any,
   ...args: any[]
 ) => {
-  const browser = new Page(client);
-  await callNativeBridgeFirst(browser, fnName, ...args);
+  await callNativeBridge(browser, fnName, ...args);
   await expectTrackEventsToMatchCustomSnapshot(browser, testName);
+  await clearEditor(browser);
+  await clearBridgeOutput(browser);
 };
 
 BrowserTestCase(
-  'editor: toggling bold style fires an analytics event via the bridge',
+  'editor: ensure actions fire an analytics event via the bridge',
   { skip },
-  async (client: any, testName: string) => {
+  async (client: any) => {
+    const browser = new Page(client);
+    await initPage(browser);
+
     await simpleBrowserTestCase(
-      client,
-      testName,
+      browser,
+      'editor: toggling bold style fires an analytics event via the bridge',
       'onBoldClicked',
       INPUT_METHOD.TOOLBAR,
     );
-  },
-);
 
-BrowserTestCase(
-  'editor: toggling italic style fires an analytics event via the bridge',
-  { skip },
-  async (client: any, testName: string) => {
     await simpleBrowserTestCase(
-      client,
-      testName,
+      browser,
+      'editor: toggling italic style fires an analytics event via the bridge',
       'onItalicClicked',
       INPUT_METHOD.TOOLBAR,
     );
-  },
-);
 
-BrowserTestCase(
-  'editor: toggling underline style fires an analytics event via the bridge',
-  { skip },
-  async (client: any, testName: string) => {
     await simpleBrowserTestCase(
       client,
-      testName,
+      'editor: toggling underline style fires an analytics event via the bridge',
       'onUnderlineClicked',
       INPUT_METHOD.TOOLBAR,
     );
-  },
-);
 
-BrowserTestCase(
-  'editor: toggling code style fires an analytics event via the bridge',
-  { skip },
-  async (client: any, testName: string) => {
     await simpleBrowserTestCase(
       client,
-      testName,
+      'editor: toggling code style fires an analytics event via the bridge',
       'onCodeClicked',
       INPUT_METHOD.TOOLBAR,
     );
-  },
-);
 
-BrowserTestCase(
-  'editor: toggling strike style fires an analytics event via the bridge',
-  { skip },
-  async (client: any, testName: string) => {
     await simpleBrowserTestCase(
       client,
-      testName,
+      'editor: toggling strike style fires an analytics event via the bridge',
       'onStrikeClicked',
       INPUT_METHOD.TOOLBAR,
     );
-  },
-);
 
-BrowserTestCase(
-  'editor: toggling superscript style fires an analytics event via the bridge',
-  { skip },
-  async (client: any, testName: string) => {
     await simpleBrowserTestCase(
       client,
-      testName,
+      'editor: toggling superscript style fires an analytics event via the bridge',
       'onSuperClicked',
       INPUT_METHOD.TOOLBAR,
     );
-  },
-);
 
-BrowserTestCase(
-  'editor: toggling subscript style fires an analytics event via the bridge',
-  { skip },
-  async (client: any, testName: string) => {
     await simpleBrowserTestCase(
       client,
-      testName,
+      'editor: toggling subscript style fires an analytics event via the bridge',
       'onSubClicked',
       INPUT_METHOD.TOOLBAR,
     );
-  },
-);
 
-BrowserTestCase(
-  'editor: updating status fires an analytics event via the bridge',
-  { skip },
-  async (client: any, testName: string) => {
     await simpleBrowserTestCase(
       client,
-      testName,
+      'editor: updating status fires an analytics event via the bridge',
       'onStatusUpdate',
       'test-text',
       'red',
       'test-uuid',
       INPUT_METHOD.TOOLBAR,
     );
-  },
-);
 
-BrowserTestCase(
-  'editor: setting block type to heading fires an analytics event via the bridge',
-  { skip },
-  async (client: any, testName: string) => {
     await simpleBrowserTestCase(
       client,
-      testName,
+      'editor: setting block type to heading fires an analytics event via the bridge',
       'onBlockSelected',
       'heading1',
       INPUT_METHOD.TOOLBAR,
     );
-  },
-);
 
-BrowserTestCase(
-  'editor: inserting ordered list fires an analytics event via the bridge',
-  { skip },
-  async (client: any, testName: string) => {
     await simpleBrowserTestCase(
       client,
-      testName,
+      'editor: inserting ordered list fires an analytics event via the bridge',
       'onOrderedListSelected',
       INPUT_METHOD.TOOLBAR,
     );
-  },
-);
 
-BrowserTestCase(
-  'editor: inserting bullet list fires an analytics event via the bridge',
-  { skip },
-  async (client: any, testName: string) => {
     await simpleBrowserTestCase(
       client,
-      testName,
+      'editor: inserting bullet list fires an analytics event via the bridge',
       'onBulletListSelected',
       INPUT_METHOD.TOOLBAR,
     );
-  },
-);
 
-BrowserTestCase(
-  'editor: indenting list fires analytics events via the bridge',
-  { skip },
-  async (client: any, testName: string) => {
-    const browser = new Page(client);
-    await callNativeBridgeFirst(
+    await callNativeBridge(
       browser,
       'onBulletListSelected',
       INPUT_METHOD.TOOLBAR,
@@ -212,106 +145,73 @@ BrowserTestCase(
     await browser.keys(['Enter']);
     await clearBridgeOutput(browser);
     await callNativeBridge(browser, 'onIndentList', INPUT_METHOD.TOOLBAR);
-    await expectTrackEventsToMatchCustomSnapshot(browser, testName);
-  },
-);
+    await expectTrackEventsToMatchCustomSnapshot(
+      browser,
+      'editor: indenting list fires analytics events via the bridge',
+    );
+    await clearEditor(browser);
+    await clearBridgeOutput(browser);
 
-BrowserTestCase(
-  'editor: outdenting list fires analytics events via the bridge',
-  { skip },
-  async (client: any, testName: string) => {
-    const browser = new Page(client);
-    await callNativeBridgeFirst(
+    await callNativeBridge(
       browser,
       'onBulletListSelected',
       INPUT_METHOD.TOOLBAR,
     );
     await clearBridgeOutput(browser);
     await callNativeBridge(browser, 'onOutdentList', INPUT_METHOD.TOOLBAR);
-    await expectTrackEventsToMatchCustomSnapshot(browser, testName);
-  },
-);
+    await expectTrackEventsToMatchCustomSnapshot(
+      browser,
+      'editor: outdenting list fires analytics events via the bridge',
+    );
+    await clearEditor(browser);
+    await clearBridgeOutput(browser);
 
-BrowserTestCase(
-  'editor: inserting link fires analytics events via the bridge',
-  { skip },
-  async (client: any, testName: string) => {
     await simpleBrowserTestCase(
       client,
-      testName,
+      'editor: inserting link fires analytics events via the bridge',
       'onLinkUpdate',
       'test-link-title',
       'https://test.link.url',
       INPUT_METHOD.TOOLBAR,
     );
-  },
-);
 
-BrowserTestCase(
-  'editor: inserting block quote fires an analytics event via the bridge',
-  { skip },
-  async (client: any, testName: string) => {
     await simpleBrowserTestCase(
       client,
-      testName,
+      'editor: inserting block quote fires an analytics event via the bridge',
       'insertBlockType',
       'blockquote',
       INPUT_METHOD.INSERT_MENU,
     );
-  },
-);
 
-BrowserTestCase(
-  'editor: inserting code block fires an analytics event via the bridge',
-  { skip },
-  async (client: any, testName: string) => {
     await simpleBrowserTestCase(
       client,
-      testName,
+      'editor: inserting code block fires an analytics event via the bridge',
       'insertBlockType',
       'codeblock',
       INPUT_METHOD.INSERT_MENU,
     );
-  },
-);
 
-BrowserTestCase(
-  'editor: inserting panel fires an analytics event via the bridge',
-  { skip },
-  async (client: any, testName: string) => {
     await simpleBrowserTestCase(
       client,
-      testName,
+      'editor: inserting panel fires an analytics event via the bridge',
       'insertBlockType',
       'panel',
       INPUT_METHOD.INSERT_MENU,
     );
-  },
-);
 
-BrowserTestCase(
-  'editor: inserting action fires an analytics event via the bridge',
-  { skip },
-  async (client: any, testName: string) => {
     await simpleBrowserTestCase(
       client,
-      testName,
+      'editor: inserting action fires an analytics event via the bridge',
       'insertBlockType',
       'action',
       INPUT_METHOD.INSERT_MENU,
       'test-action-list-id',
       'test-action-item-id',
     );
-  },
-);
 
-BrowserTestCase(
-  'editor: inserting decision fires an analytics event via the bridge',
-  { skip },
-  async (client: any, testName: string) => {
     await simpleBrowserTestCase(
       client,
-      testName,
+      'editor: inserting decision fires an analytics event via the bridge',
       'insertBlockType',
       'decision',
       INPUT_METHOD.INSERT_MENU,

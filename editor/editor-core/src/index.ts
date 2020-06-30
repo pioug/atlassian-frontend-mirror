@@ -1,6 +1,6 @@
 // Used in products integration code
 export { name, version } from './version-wrapper';
-export { clearEditorContent } from './commands';
+export { clearEditorContent, insertRule } from './commands';
 export { default as Editor } from './editor';
 export { default as EditorContext } from './ui/EditorContext';
 export { default as WithEditorActions } from './ui/WithEditorActions';
@@ -176,3 +176,4 @@ export {
   SelectionDataState,
   selectionPluginKey,
 } from './plugins/mobile-selection';
+export { insertExpand } from './plugins/expand/commands';

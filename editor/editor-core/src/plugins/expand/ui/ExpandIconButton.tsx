@@ -21,7 +21,7 @@ interface ExpandIconButtonWithLabelProps extends ExpandIconButtonProps {
   label: string;
 }
 
-const withTooltip = (WrapperComponent: React.ElementType) => {
+export const withTooltip = (WrapperComponent: React.ElementType) => {
   return class WithSortableColumn extends React.Component<
     ExpandIconButtonWithLabelProps
   > {
@@ -41,7 +41,7 @@ const withTooltip = (WrapperComponent: React.ElementType) => {
   };
 };
 
-const CustomButton = (props: ExpandIconButtonWithLabelProps) => {
+export const CustomButton = (props: ExpandIconButtonWithLabelProps) => {
   const { label, allowInteractiveExpand } = props;
   const useTheme = useCallback(
     (currentTheme: any, themeProps: any) => {
@@ -84,8 +84,17 @@ export const ExpandIconButton = (props: ExpandIconButtonProps) => {
     ? expandMessages.collapseNode
     : expandMessages.expandNode;
   const label = (intl && intl.formatMessage(message)) || message.defaultMessage;
+  // check to ensure device supports any-hover
+  const supportsAnyHover: boolean = !!window.matchMedia
+    ? window.matchMedia('(any-hover: hover)').matches !==
+      window.matchMedia('(any-hover: none)').matches
+    : false;
+  const hoverEventCheck: boolean = supportsAnyHover
+    ? window.matchMedia('(any-hover: hover)').matches
+    : true;
 
-  if (props.allowInteractiveExpand) {
+  // hoverEventCheck is to disable tooltips for mobile to prevent incorrect hover state causing issues on iOS
+  if (props.allowInteractiveExpand && hoverEventCheck) {
     return <ButtonWithTooltip label={label} {...props} />;
   }
 

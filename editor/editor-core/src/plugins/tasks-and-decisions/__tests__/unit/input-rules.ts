@@ -1,38 +1,36 @@
-import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
-
-import {
-  doc,
-  blockquote,
-  p,
-  decisionList,
-  decisionItem,
-  hardBreak,
-  taskList,
-  taskItem,
-  thEmpty,
-  table,
-  tr,
-  td,
-  th,
-  tdEmpty,
-  tdCursor,
-  thCursor,
-  a as link,
-  br,
-  bodiedExtension,
-  layoutColumn,
-  layoutSection,
-} from '@atlaskit/editor-test-helpers/schema-builder';
-
-import { compareSelection } from '@atlaskit/editor-test-helpers/selection';
-import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
-import { insertText } from '@atlaskit/editor-test-helpers/transactions';
-import { taskDecision } from '@atlaskit/util-data-test';
 import { uuid } from '@atlaskit/adf-schema';
 import {
   CreateUIAnalyticsEvent,
   UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
+import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
+import {
+  blockquote,
+  bodiedExtension,
+  br,
+  decisionItem,
+  decisionList,
+  doc,
+  hardBreak,
+  layoutColumn,
+  layoutSection,
+  a as link,
+  p,
+  table,
+  taskItem,
+  taskList,
+  td,
+  tdCursor,
+  tdEmpty,
+  th,
+  thCursor,
+  thEmpty,
+  tr,
+} from '@atlaskit/editor-test-helpers/schema-builder';
+import { compareSelection } from '@atlaskit/editor-test-helpers/selection';
+import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
+import { insertText } from '@atlaskit/editor-test-helpers/transactions';
+import { taskDecision } from '@atlaskit/util-data-test';
 
 describe('tasks and decisions - input rules', () => {
   const createEditor = createEditorFactory();

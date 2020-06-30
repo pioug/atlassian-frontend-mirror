@@ -12,6 +12,7 @@ import {
   AnalyticsBridge,
   EditorBridges,
   EditorBridgeNames,
+  CollabBridge,
 } from './bridge';
 
 import { sendToBridge } from '../../bridge-utils';
@@ -26,6 +27,7 @@ export default class AndroidBridge implements NativeBridge {
   linkBridge: LinkBridge;
   undoRedoBridge: UndoRedoBridge;
   analyticsBridge: AnalyticsBridge;
+  collabBridge: CollabBridge;
 
   constructor() {
     this.mentionBridge = window.mentionsBridge as MentionBridge;
@@ -37,6 +39,7 @@ export default class AndroidBridge implements NativeBridge {
     this.linkBridge = window.linkBridge as LinkBridge;
     this.undoRedoBridge = window.undoRedoBridge as UndoRedoBridge;
     this.analyticsBridge = window.analyticsBridge as AnalyticsBridge;
+    this.collabBridge = window.collabBridge as CollabBridge;
   }
 
   showMentions(query: string) {
@@ -109,6 +112,18 @@ export default class AndroidBridge implements NativeBridge {
 
   trackEvent(event: string) {
     this.analyticsBridge.trackEvent(event);
+  }
+
+  connectToCollabService(path: string): void {
+    this.collabBridge.connect(path);
+  }
+
+  disconnectFromCollabService(): void {
+    this.collabBridge.disconnect();
+  }
+
+  emitCollabChanges(event: string, jsonArgs: string): void {
+    this.collabBridge.emit(event, jsonArgs);
   }
 
   call<T extends EditorBridgeNames>(

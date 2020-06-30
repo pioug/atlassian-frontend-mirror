@@ -10,6 +10,7 @@ import {
   calcPctFromPx,
   akEditorBreakoutPadding,
   calcColumnsFromPx,
+  wrappedLayouts,
 } from '@atlaskit/editor-common';
 
 import { Wrapper } from '../../../ui/Resizer/styled';
@@ -20,7 +21,6 @@ import {
   handleSides,
   imageAlignmentMap,
 } from '../../../ui/Resizer/utils';
-import { wrappedLayouts } from '../../../utils/rich-media-utils';
 import { calcMediaPxWidth } from '../../../plugins/media/utils/media-single';
 
 type State = {
@@ -286,7 +286,6 @@ export default class ResizableEmbedCard extends React.Component<Props, State> {
       pctWidth,
       containerWidth,
       fullWidthMode,
-      selected,
       children,
     } = this.props;
 
@@ -318,13 +317,11 @@ export default class ResizableEmbedCard extends React.Component<Props, State> {
         containerWidth={containerWidth || origWidth}
         innerRef={elem => (this.wrapper = elem)}
         fullWidthMode={fullWidthMode}
-        isResizable={true}
       >
         <Resizer
           {...this.props}
           width={width}
           height={height}
-          selected={selected}
           enable={enable}
           calcNewSize={this.calcNewSize}
           snapPoints={this.calcSnapPoints()}

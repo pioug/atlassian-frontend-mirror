@@ -1,5 +1,7 @@
 import React from 'react';
+
 import styled from 'styled-components';
+
 import { borderRadius, colors, fontSize } from '@atlaskit/theme';
 
 const BlockNode = styled.div`

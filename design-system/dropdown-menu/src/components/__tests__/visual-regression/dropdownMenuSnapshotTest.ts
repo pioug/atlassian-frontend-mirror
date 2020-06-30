@@ -6,7 +6,7 @@ import {
 
 const dropdown = '[data-testid="dropdown--trigger"]';
 const dropdownItem = '[data-testid="dropdown--content"]';
-const dialogBox = '[data-testid="dialogBox"]';
+const dialogBox = '[data-testid="dialogBox-dialog"]';
 
 describe('Snapshot Test', () => {
   it.skip('Dropdown-menu modal should match snapshot when open with keyboard', async () => {

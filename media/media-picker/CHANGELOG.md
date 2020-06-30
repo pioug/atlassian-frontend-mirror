@@ -1,5 +1,12 @@
 # @atlaskit/media-picker
 
+## 54.2.3
+
+### Patch Changes
+
+- [`dfd656e4ec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dfd656e4ec) - MPT-503: fixed dragndrop of non-natively supported files in editor
+- Updated dependencies
+
 ## 54.2.2
 
 ### Patch Changes

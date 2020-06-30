@@ -58,47 +58,4 @@ describe('table utilities', () => {
       });
     });
   });
-
-  describe('resized table/with colgroup', () => {
-    let row: HTMLTableRowElement;
-
-    // create a table that has 3 columns: 100px 200px 300px
-    beforeEach(() => {
-      row = createRow(3);
-
-      for (let colWidth of [100, 200, 300]) {
-        const col = document.createElement('col');
-        col.style.width = `${colWidth}px`;
-        colgroup.appendChild(col);
-      }
-    });
-
-    afterEach(() => {
-      row.remove();
-    });
-
-    it('works for unmerged cells', () => {
-      expect(colWidthsForRow(colgroup, row)).toEqual('100px 200px 300px');
-    });
-
-    it('works for merged cells', () => {
-      // merge columns 1 and 2
-      // to give 300px 300px
-      row.children[0].setAttribute('colspan', '2');
-      row.children[1].remove();
-
-      expect(row.childElementCount).toEqual(2);
-      expect(colWidthsForRow(colgroup, row)).toEqual('300px 300px');
-    });
-
-    it('works if the whole row is a single merged cell', () => {
-      // merge all the columns
-      row.children[0].setAttribute('colspan', '3');
-      row.children[1].remove();
-      row.children[1].remove();
-
-      expect(row.childElementCount).toEqual(1);
-      expect(colWidthsForRow(colgroup, row)).toEqual('600px');
-    });
-  });
 });

@@ -251,14 +251,33 @@ export const insertMedia = async (
   filenames = ['one.svg'],
   fileSelector = 'div=%s',
 ) => {
-  const openMediaPopup = `button:enabled  [aria-label="${insertBlockMessages.filesAndImages.defaultMessage}"]`;
-  // wait for media button in toolbar and click it
-  await page.waitForSelector(openMediaPopup);
-  // Potential fix for EDM-486. The theory is media picker is not opening with following click
-  // is because click handler hasn't been assigned yet for some reason.
-  await sleep(300);
-  await page.click(openMediaPopup);
-  await page.waitForSelector('[data-testid="media-picker-popup"]');
+  let mediaPickerHasOpened = false;
+  const attempts = 3;
+  for (let i = 0; i < attempts; i++) {
+    const openMediaPopup = `button:enabled  [aria-label="${insertBlockMessages.filesAndImages.defaultMessage}"]`;
+    // wait for media button in toolbar and click it
+    await page.waitForSelector(openMediaPopup);
+    // Potential fix for EDM-486. The theory is media picker is not opening with following click
+    // is because click handler hasn't been assigned yet for some reason.
+    await sleep(300);
+    await page.click(openMediaPopup);
+    try {
+      await page.waitForSelector('[data-testid="media-picker-popup"]');
+      mediaPickerHasOpened = true;
+      break;
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.error(
+        `Clicking ${insertBlockMessages.filesAndImages.defaultMessage} toolbar button did not yielded media picker popup.`,
+      );
+    }
+  }
+  if (!mediaPickerHasOpened) {
+    throw new Error(
+      `After ${attempts} clicking ${insertBlockMessages.filesAndImages.defaultMessage} toolbar button did not yielded media picker popup.`,
+    );
+  }
+
   await insertMediaFromMediaPicker(page, filenames, fileSelector);
 };
 

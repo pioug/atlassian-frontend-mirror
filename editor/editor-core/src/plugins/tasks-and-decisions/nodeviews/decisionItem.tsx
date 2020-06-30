@@ -1,11 +1,13 @@
 import React from 'react';
+
 import { Node as PMNode } from 'prosemirror-model';
-import { NodeView, Decoration } from 'prosemirror-view';
-import DecisionItem from '../ui/Decision';
-import { ReactNodeView, ForwardRef, getPosHandler } from '../../../nodeviews';
-import { PortalProviderAPI } from '../../../ui/PortalProvider';
+import { Decoration, NodeView } from 'prosemirror-view';
+
 import { EventDispatcher } from '../../../event-dispatcher';
+import { ForwardRef, getPosHandler, ReactNodeView } from '../../../nodeviews';
+import { PortalProviderAPI } from '../../../ui/PortalProvider';
 import { selectNode } from '../../../utils/commands';
+import DecisionItem from '../ui/Decision';
 
 class Decision extends ReactNodeView {
   init() {

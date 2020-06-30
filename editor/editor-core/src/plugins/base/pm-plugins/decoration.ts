@@ -41,11 +41,9 @@ export const hoverDecoration = (
   // This adds danger styling if the selection is not a node selection, OR if
   // the selected node is a child of the one that requires the decoration to
   // be added, e.g. if a decision item is selected inside a layout and the
-  // user hovers over the layout's delete button. It should not overwrite the
-  // values set above as that node selection will not have a parent
-  // (foundParentNode should be undefined in that case).
+  // user hovers over the layout's delete button.
   const foundParentNode = findParentNodeOfType(nodeType)(state.selection);
-  if (foundParentNode) {
+  if (from === undefined && foundParentNode) {
     from = foundParentNode.pos;
     parentNode = foundParentNode.node;
   }

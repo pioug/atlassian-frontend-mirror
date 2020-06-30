@@ -1,12 +1,12 @@
 import {
   akEditorBreakoutPadding,
   akEditorDefaultLayoutWidth,
-  breakoutWideScaleRatio,
   akEditorFullWidthLayoutWidth,
   akEditorWideLayoutWidth,
+  breakoutWideScaleRatio,
 } from '../styles/consts';
-import { getBreakpoint as getBreakpointExported } from '../ui/WidthProvider';
 import { mapBreakpointToLayoutMaxWidth as mapBreakpointToLayoutMaxWidthExported } from '../ui/BaseTheme';
+import { getBreakpoint as getBreakpointExported } from '../ui/WidthProvider';
 
 /**
  * Variables required to get better naming and

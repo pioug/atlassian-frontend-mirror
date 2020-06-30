@@ -6,7 +6,7 @@ import { jsx } from '@emotion/core';
 import { BANNER_HEIGHT, DEFAULT_BANNER_HEIGHT } from '../../common/constants';
 import { SlotHeightProps } from '../../common/types';
 import { resolveDimension } from '../../common/utils';
-import { publishGridState } from '../../controllers';
+import { publishGridState, useSkipLinks } from '../../controllers';
 
 import SlotDimensions from './slot-dimensions';
 import { bannerStyles } from './styles';
@@ -18,6 +18,8 @@ const Banner = (props: SlotHeightProps) => {
     isFixed = true,
     shouldPersistHeight,
     testId,
+    skipLinkTitle,
+    id,
   } = props;
 
   const bannerHeight = resolveDimension(
@@ -26,15 +28,23 @@ const Banner = (props: SlotHeightProps) => {
     shouldPersistHeight,
   );
 
+  const { registerSkipLink, unregisterSkipLink } = useSkipLinks();
+
   useEffect(() => {
     publishGridState({ [BANNER_HEIGHT]: bannerHeight });
     return () => {
       publishGridState({ [BANNER_HEIGHT]: 0 });
+      unregisterSkipLink(id);
     };
-  }, [bannerHeight]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [bannerHeight, id]);
+
+  if (id && skipLinkTitle) {
+    registerSkipLink({ id, skipLinkTitle });
+  }
 
   return (
-    <div css={bannerStyles(isFixed)} data-testid={testId}>
+    <div css={bannerStyles(isFixed)} data-testid={testId} id={id}>
       <SlotDimensions variableName={BANNER_HEIGHT} value={bannerHeight} />
       {children}
     </div>

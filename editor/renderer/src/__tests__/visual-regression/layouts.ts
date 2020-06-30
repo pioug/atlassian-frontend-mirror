@@ -8,6 +8,7 @@ import * as layoutLeftSidebar from '../__fixtures__/layout-left-sidebar.adf.json
 import * as layoutRightSidebar from '../__fixtures__/layout-right-sidebar.adf.json';
 import * as layout3ColWithSidebars from '../__fixtures__/layout-3-columns-with-sidebars.adf.json';
 import { emojiSelectors } from '../__helpers/page-objects/_emoji';
+import { selectors as rendererSelectors } from '../__helpers/page-objects/_renderer';
 
 const initRenderer = async (page: Page, adf: any) => {
   await initRendererWithADF(page, {
@@ -16,9 +17,8 @@ const initRenderer = async (page: Page, adf: any) => {
     adf,
   });
 };
-// TODO: https://product-fabric.atlassian.net/browse/ED-8787
-// This full test has been higly inconsistent and need some rework.
-describe.skip('Snapshot Test: Layouts', () => {
+
+describe('Snapshot Test: Layouts', () => {
   let page: Page;
 
   const layouts = [
@@ -34,6 +34,7 @@ describe.skip('Snapshot Test: Layouts', () => {
   });
 
   afterEach(async () => {
+    await page.waitForSelector(rendererSelectors.document);
     await snapshot(page);
   });
 

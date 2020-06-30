@@ -1,5 +1,21 @@
 # @atlaskit/editor-common
 
+## 46.1.0
+
+### Minor Changes
+
+- [`64d75b8f7e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/64d75b8f7e) - Call getFieldsDefinition with extension parameters
+- [`a4948958c4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a4948958c4) - [FM-3820] Implements to set annotation state event on Renderer
+- [`ea81ff42a0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ea81ff42a0) - [FM-3819] Implements a subscriber API to allows set focus in an specific annotation
+
+### Patch Changes
+
+- [`82053beb2d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/82053beb2d) - ED-8944 fix: propagete width updates after scrolling
+- [`73552b28ae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/73552b28ae) - ED-8835 Use selection plugin to style smartlinks
+- [`234697357d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/234697357d) - ED-9541 Change editor-common imports to comply with Atlassian conventions
+- [`62d2c116af`](https://bitbucket.org/atlassian/atlassian-frontend/commits/62d2c116af) - Fix width for media when wrapped width is not available
+- Updated dependencies
+
 ## 46.0.0
 
 ### Major Changes

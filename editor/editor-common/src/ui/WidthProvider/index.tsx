@@ -1,6 +1,8 @@
 import React from 'react';
+
 import rafSchedule from 'raf-schd';
 import styled from 'styled-components';
+
 import { WidthObserver } from '@atlaskit/width-detector';
 
 export type Breakpoints = 'S' | 'M' | 'L';
@@ -58,7 +60,7 @@ export class WidthProvider extends React.Component<
   render() {
     return (
       <RelativeContainer className={this.props.className}>
-        <WidthObserver setWidth={this.setWidth} />
+        <WidthObserver setWidth={this.setWidth} offscreen />
         <Provider value={createWidthContext(this.state.width)}>
           {this.props.children}
         </Provider>

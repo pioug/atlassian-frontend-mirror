@@ -3,6 +3,10 @@
   "type": "doc",
   "content": [
     {
+      "type": "paragraph",
+      "content": []
+    },
+    {
       "type": "mediaSingle",
       "attrs": {
         "width": 50,

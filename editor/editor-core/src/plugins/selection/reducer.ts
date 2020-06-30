@@ -1,5 +1,5 @@
+import { SelectionAction, SelectionActionTypes } from './actions';
 import { SelectionPluginState } from './types';
-import { SelectionActionTypes, SelectionAction } from './actions';
 
 export function reducer(
   pluginState: SelectionPluginState,

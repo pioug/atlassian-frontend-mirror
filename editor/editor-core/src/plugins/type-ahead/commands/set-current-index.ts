@@ -1,5 +1,5 @@
 import { Command } from '../../../types';
-import { pluginKey, ACTIONS } from '../pm-plugins/main';
+import { ACTIONS, pluginKey } from '../pm-plugins/main';
 
 export const setCurrentIndex = (currentIndex: number): Command => (
   state,

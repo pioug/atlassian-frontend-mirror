@@ -9,6 +9,7 @@ import {
   akEditorMediaResizeHandlerPadding,
 } from '@atlaskit/editor-common';
 import { colors } from '@atlaskit/theme';
+import { akEditorSelectedNodeClassName } from '../../styles';
 
 export const mediaStyles = css`
   .ProseMirror {
@@ -101,8 +102,8 @@ export const mediaStyles = css`
     background: ${colors.N60};
   }
 
-  .richMedia-selected .richMedia-resize-handle-right::after,
-  .richMedia-selected .richMedia-resize-handle-left::after,
+  .${akEditorSelectedNodeClassName} .richMedia-resize-handle-right::after,
+  .${akEditorSelectedNodeClassName} .richMedia-resize-handle-left::after,
   .${richMediaClassName} .richMedia-resize-handle-right:hover::after,
   .${richMediaClassName} .richMedia-resize-handle-left:hover::after,
   .${richMediaClassName}.is-resizing .richMedia-resize-handle-right::after,

@@ -1,67 +1,71 @@
 import {
-  MentionPluginState,
-  TextFormattingState,
-  EditorActions,
-  Command,
-  CustomMediaPicker,
-  BlockTypeState,
-  ListsState,
-  indentList,
-  outdentList,
-  toggleOrderedList,
-  toggleBulletList,
-  toggleSuperscriptWithAnalytics,
-  toggleSubscriptWithAnalytics,
-  toggleStrikeWithAnalytics,
-  toggleCodeWithAnalytics,
-  toggleUnderlineWithAnalytics,
-  toggleEmWithAnalytics,
-  toggleStrongWithAnalytics,
-  StatusState,
-  updateStatusWithAnalytics,
-  commitStatusPicker,
-  insertBlockTypesWithAnalytics,
-  setBlockTypeWithAnalytics,
-  createTable,
-  insertTaskDecision,
-  changeColor,
-  TypeAheadItem,
-  selectItem as selectTypeAheadItem,
-  insertLinkWithAnalytics,
-  isTextAtPos,
-  isLinkAtPos,
-  setLinkHref,
-  setLinkText,
-  clearEditorContent,
-  setKeyboardHeight,
-  setMobilePaddingTop,
-  INPUT_METHOD,
   BlockTypeInputMethod,
+  BlockTypeState,
+  changeColor,
+  clearEditorContent,
+  Command,
+  commitStatusPicker,
+  createTable,
+  CustomMediaPicker,
+  EditorActions,
+  indentList,
+  INPUT_METHOD,
   InsertBlockInputMethodToolbar,
+  insertBlockTypesWithAnalytics,
+  insertEmojiQuery,
+  insertLinkWithAnalytics,
+  insertMentionQuery,
+  insertTaskDecision,
+  isLinkAtPos,
+  isTextAtPos,
   LinkInputMethod,
   ListInputMethod,
-  TextFormattingInputMethodBasic,
-  typeAheadPluginKey,
+  ListsState,
+  MentionPluginState,
+  outdentList,
   QuickInsertItem,
   QuickInsertPluginState,
-  insertMentionQuery,
-  insertEmojiQuery,
+  selectItem as selectTypeAheadItem,
+  setBlockTypeWithAnalytics,
+  setKeyboardHeight,
+  setLinkHref,
+  setLinkText,
+  setMobilePaddingTop,
+  StatusState,
+  TextFormattingInputMethodBasic,
+  TextFormattingState,
+  toggleBulletList,
+  toggleCodeWithAnalytics,
+  toggleEmWithAnalytics,
+  toggleOrderedList,
+  toggleStrikeWithAnalytics,
+  toggleStrongWithAnalytics,
+  toggleSubscriptWithAnalytics,
+  toggleSuperscriptWithAnalytics,
+  toggleUnderlineWithAnalytics,
+  TypeAheadItem,
+  typeAheadPluginKey,
+  updateStatusWithAnalytics,
+  insertExpand,
+  insertRule,
 } from '@atlaskit/editor-core';
 import { EditorViewWithComposition } from '../../types';
 import { EditorState, Selection } from 'prosemirror-state';
 import {
-  undo as pmHistoryUndo,
   redo as pmHistoryRedo,
+  undo as pmHistoryUndo,
 } from 'prosemirror-history';
 import { JSONTransformer } from '@atlaskit/editor-json-transformer';
 import { Color as StatusColor } from '@atlaskit/status/element';
-
 import NativeToWebBridge from './bridge';
 import WebBridge from '../../web-bridge';
-import { hasValue, createDeferred, DeferredValue } from '../../utils';
+import { createDeferred, DeferredValue, hasValue } from '../../utils';
 import { rejectPromise, resolvePromise } from '../../cross-platform-promise';
 import { getEnableQuickInsertValue } from '../../query-param-reader';
 import { assertSelectionPayload } from '../../validation';
+import { CollabSocket } from './collab-socket';
+import { Socket } from '@atlaskit/collab-provider/types';
+import { LifecycleImpl } from './lifecycle';
 
 type InsertQueryMethod = (
   inputMethod: InsertBlockInputMethodToolbar,
@@ -94,6 +98,8 @@ export default class WebBridgeImpl extends WebBridge
   quickInsertItems: DeferredValue<QuickInsertItem[]> = createDeferred<
     QuickInsertItem[]
   >();
+  collabSocket: CollabSocket | null = null;
+  lifecycle: LifecycleImpl = new LifecycleImpl();
 
   setPadding(
     top: number = 0,
@@ -418,6 +424,12 @@ export default class WebBridgeImpl extends WebBridge
           itemLocalId,
         )(state, dispatch);
         return;
+      case 'divider':
+        insertRule()(state, dispatch);
+        return;
+      case 'expand':
+        insertExpand(state, dispatch);
+        return;
       case 'table':
         createTable(state, dispatch);
         return;
@@ -624,5 +636,29 @@ export default class WebBridgeImpl extends WebBridge
         .setSelection(Selection.fromJSON(doc, result.data.selection))
         .scrollIntoView(),
     );
+  }
+
+  createCollabSocket(path: string): Socket {
+    this.collabSocket = new CollabSocket(path, {
+      onDisconnect: () => {
+        // Clean collab socket on disconnect
+        this.collabSocket = null;
+      },
+    });
+
+    return this.collabSocket;
+  }
+
+  onCollabEvent(event: string, payload: string): void {
+    if (this.collabSocket) {
+      this.collabSocket.received(event, payload);
+    }
+  }
+
+  saveCollabChanges(): void {
+    this.lifecycle.saveCollabChanges();
+  }
+  restoreCollabChanges(): void {
+    this.lifecycle.restoreCollabChanges();
   }
 }

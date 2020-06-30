@@ -39,23 +39,4 @@ describe('generateIdentifierKey()', () => {
 
     expect(generateIdentifierKey(linkIdentifier)).toEqual('some-external-img');
   });
-
-  it('should work with promises', () => {
-    const firstPromise = Promise.resolve('id');
-    const firstDeferredIdentifier: FileIdentifier = {
-      mediaItemType: 'file',
-      id: firstPromise,
-    };
-    const secondDeferredIdentifier: FileIdentifier = {
-      mediaItemType: 'file',
-      id: Promise.resolve('id'),
-    };
-    const firstKey = generateIdentifierKey(firstDeferredIdentifier);
-    const secondKey = generateIdentifierKey(secondDeferredIdentifier);
-
-    expect(firstKey).not.toEqual(secondKey);
-    expect(
-      generateIdentifierKey({ mediaItemType: 'file', id: firstPromise }),
-    ).toEqual(firstKey);
-  });
 });

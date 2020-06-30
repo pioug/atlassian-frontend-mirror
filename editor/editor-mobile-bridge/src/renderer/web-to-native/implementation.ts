@@ -6,14 +6,20 @@ class WebRendererBridge {
 }
 
 class Bridge implements AnnotationBridge {
-  onAnnotationClick(annotationClickPayload?: AnnotationPayloadsByType[]) {
-    if (annotationClickPayload) {
+  onAnnotationClick(annotations?: AnnotationPayloadsByType[]) {
+    if (annotations) {
       sendToBridge('annotationBridge', 'onAnnotationClick', {
-        payload: JSON.stringify(annotationClickPayload),
+        payload: JSON.stringify(annotations),
       });
     } else {
       sendToBridge('annotationBridge', 'onAnnotationClick');
     }
+  }
+
+  fetchAnnotationStates(annotations: AnnotationPayloadsByType[]) {
+    sendToBridge('annotationBridge', 'fetchAnnotationStates', {
+      payload: JSON.stringify(annotations),
+    });
   }
 }
 

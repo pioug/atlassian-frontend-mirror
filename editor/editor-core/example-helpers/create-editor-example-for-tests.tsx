@@ -155,6 +155,7 @@ function createEditorWindowBindings<T>(
             win.onChangeCounter = undefined;
           },
         }}
+        withCollab={options.withCollab}
       />,
       target,
     );
@@ -305,7 +306,12 @@ export function mapProvidersToProps(
 
 function createWrappers(options: MountEditorOptions, RenderCmp: any) {
   let Cmp: EditorExampleComponent<any> = props =>
-    RenderCmp(props.props, props.nonSerializableProps, props.lifeCycleHandlers);
+    RenderCmp(
+      props.props,
+      props.nonSerializableProps,
+      props.lifeCycleHandlers,
+      props.withCollab,
+    );
 
   if (options.mode === 'dark') {
     Cmp = withDarkMode(Cmp);
@@ -422,12 +428,14 @@ type EditorExampleComponentProps<T> = {
     onMount?: (actions: EditorActions) => void;
     onDestroy?: () => void;
   };
+  withCollab?: boolean;
 };
 
 type EditorExampleRenderFunction<T> = (
   props: EditorExampleComponentProps<T>['props'],
   nonSerializableProps: EditorExampleComponentProps<T>['nonSerializableProps'],
   lifeCycleHandlers: EditorExampleComponentProps<T>['lifeCycleHandlers'],
+  withCollab?: boolean,
 ) => JSX.Element;
 
 export type MountEditorOptions = {
@@ -438,4 +446,5 @@ export type MountEditorOptions = {
   providers?: Record<string, boolean>;
   extensionHandlers?: boolean;
   invalidAltTextValues?: string[];
+  withCollab?: boolean;
 };

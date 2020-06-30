@@ -105,8 +105,9 @@ const getRefTop = (refElement: HTMLElement): number => {
 const shouldHeaderStick = (
   scrollTop: number,
   tableTop: number,
-  tableHeight: number,
-) => tableTop <= scrollTop && !(tableTop + tableHeight < scrollTop);
+  tableBottom: number,
+  rowHeight: number,
+) => tableTop <= scrollTop && !(tableBottom - rowHeight <= scrollTop);
 
 const shouldHeaderPinBottom = (
   scrollTop: number,
@@ -180,6 +181,9 @@ interface TableState {
 
 const MainTableContainer = styled.div``;
 
+const canUseLinelength = (appearance: RendererAppearance) =>
+  appearance === 'full-page' || appearance === 'mobile';
+
 export class TableContainer extends React.Component<
   TableProps & OverflowShadowProps & WithSmartCardStorageProps,
   TableState
@@ -212,6 +216,11 @@ export class TableContainer extends React.Component<
     } else if (!this.props.stickyHeaders && this.overflowParent) {
       this.overflowParent.removeEventListener('scroll', this.onScroll);
       this.overflowParent = null;
+    }
+
+    // offsetTop might have changed, re-position sticky header
+    if (this.props.stickyHeaders !== prevProps.stickyHeaders) {
+      this.updateSticky();
     }
 
     // sync horizontal scroll in floating div when toggling modes
@@ -250,7 +259,8 @@ export class TableContainer extends React.Component<
     const shouldSticky = shouldHeaderStick(
       scrollTop,
       tableTop,
-      tableElem.clientHeight,
+      tableBottom,
+      refElem.clientHeight,
     );
     const shouldPin = shouldHeaderPinBottom(
       scrollTop,
@@ -334,7 +344,7 @@ export class TableContainer extends React.Component<
 
     let left;
     if (
-      this.props.rendererAppearance === 'full-page' &&
+      canUseLinelength(this.props.rendererAppearance) &&
       tableWidth !== 'inherit'
     ) {
       const tableWidthPx = Number(

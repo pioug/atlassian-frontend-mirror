@@ -1,4 +1,5 @@
 import { css } from 'styled-components';
+
 import { akEditorTableCellMinWidth } from '../consts';
 
 export const TaskDecisionSharedCssClassName = {

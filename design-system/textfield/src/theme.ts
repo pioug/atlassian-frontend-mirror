@@ -10,7 +10,7 @@ const disabledRules = {
     backgroundColor: componentTokens.defaultBackgroundColor.light,
     backgroundColorFocus: componentTokens.disabledBackgroundColor.light,
     backgroundColorHover: componentTokens.disabledBackgroundColor.light,
-    borderColor: componentTokens.defaultBorderColor.light,
+    borderColor: componentTokens.defaultBackgroundColor.light, // same as bg, appears as no border
     borderColorFocus: componentTokens.defaultBorderColorFocus.light,
     textColor: componentTokens.disabledTextColor.light,
   },
@@ -18,7 +18,7 @@ const disabledRules = {
     backgroundColor: componentTokens.defaultBackgroundColor.dark,
     backgroundColorFocus: componentTokens.disabledBackgroundColor.dark,
     backgroundColorHover: componentTokens.disabledBackgroundColor.dark,
-    borderColor: componentTokens.defaultBorderColor.dark,
+    borderColor: componentTokens.defaultBackgroundColor.dark, // same as bg, appears as no border
     borderColorFocus: componentTokens.defaultBorderColorFocus.dark,
     textColor: componentTokens.disabledTextColor.dark,
   },

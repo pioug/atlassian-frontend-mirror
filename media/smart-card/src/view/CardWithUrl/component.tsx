@@ -56,38 +56,35 @@ const LoadingCardLink: FC<CardWithUrlContentProps> = ({
 export function LazyIntersectionObserverCard(props: CardWithUrlContentProps) {
   const [isIntersecting, setIsIntersecting] = useState(false);
   const { showActions, appearance } = props;
+
   const Component = appearance === 'inline' ? 'span' : 'div';
+  const ComponentObserver = Component;
+
+  const onIntersection: IntersectionObserverCallback = (entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        setIsIntersecting(true);
+        observer.disconnect();
+      }
+    });
+  };
   const onRef = useCallback((element: HTMLElement | null) => {
     if (!element) {
       return;
     }
-    const onIntersection: IntersectionObserverCallback = (
-      entries,
-      observer,
-    ) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          setIsIntersecting(true);
-          observer.disconnect();
-        }
-      });
-    };
     const intersectionObserver = new IntersectionObserver(onIntersection);
-
     intersectionObserver.observe(element);
-
     return () => intersectionObserver.disconnect();
   }, []);
 
-  if (isIntersecting) {
-    return <CardWithUrlContent {...props} showActions={showActions} />;
-  } else {
-    return (
-      <Component ref={onRef}>
-        <LoadingCardLink {...props} />
-      </Component>
-    );
-  }
+  const content = isIntersecting ? (
+    <CardWithUrlContent {...props} showActions={showActions} />
+  ) : (
+    <ComponentObserver ref={onRef}>
+      <LoadingCardLink {...props} />
+    </ComponentObserver>
+  );
+  return <Component className="loader-wrapper">{content}</Component>;
 }
 
 export function CardWithUrlContent({

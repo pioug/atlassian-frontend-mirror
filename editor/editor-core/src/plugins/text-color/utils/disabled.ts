@@ -1,4 +1,5 @@
-import { TextSelection, EditorState } from 'prosemirror-state';
+import { EditorState, TextSelection } from 'prosemirror-state';
+
 import { isMarkAllowedInRange, isMarkExcluded } from '../../../utils/mark';
 
 export const getDisabledState = (state: EditorState): boolean => {

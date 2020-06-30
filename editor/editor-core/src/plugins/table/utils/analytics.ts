@@ -1,5 +1,5 @@
-import { TableMap } from 'prosemirror-tables';
 import { Selection } from 'prosemirror-state';
+import { TableMap } from 'prosemirror-tables';
 import { findTable, getSelectionRect } from 'prosemirror-utils';
 
 export function getSelectedTableInfo(selection: Selection) {

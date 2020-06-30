@@ -1,4 +1,4 @@
-import { Node, MarkType } from 'prosemirror-model';
+import { MarkType, Node } from 'prosemirror-model';
 
 export function isQueryActive(
   mark: MarkType,

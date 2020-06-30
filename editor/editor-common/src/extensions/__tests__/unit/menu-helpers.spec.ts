@@ -1,9 +1,10 @@
-import { ExtensionManifest, MenuItem } from '../../../extensions/types';
-import { getItemsFromModule, buildMenuItem } from '../../menu-helpers';
 import {
   createFakeExtensionManifest,
   createFakeModule,
 } from '@atlaskit/editor-test-helpers/extensions';
+
+import { ExtensionManifest, MenuItem } from '../../../extensions/types';
+import { buildMenuItem, getItemsFromModule } from '../../menu-helpers';
 
 describe('menu-helpers', () => {
   describe('getItemsFromCapability', () => {

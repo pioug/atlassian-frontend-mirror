@@ -1,4 +1,8 @@
-import { Identifier, MediaClient } from '@atlaskit/media-client';
+import {
+  Identifier,
+  FileIdentifier,
+  MediaClient,
+} from '@atlaskit/media-client';
 import { HeadType } from '@atlaskit/dynamic-table/types';
 import { SortOrderType } from '@atlaskit/dynamic-table/types';
 

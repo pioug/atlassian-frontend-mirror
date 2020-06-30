@@ -10,7 +10,10 @@ interface State {
   active: number | null;
 }
 
-export default class SpotlightBasicExample extends Component<Object, State> {
+export default class SpotlightBlanketTintExample extends Component<
+  Object,
+  State
+> {
   state: State = { active: null };
 
   start = () => this.setState({ active: 0 });
@@ -39,8 +42,8 @@ export default class SpotlightBasicExample extends Component<Object, State> {
       </Spotlight>,
       <Spotlight
         actions={[
-          { onClick: this.prev, text: 'Prev' },
           { onClick: this.next, text: 'Next' },
+          { onClick: this.prev, text: 'Prev', appearance: 'subtle' },
         ]}
         dialogPlacement="bottom center"
         heading="Yellow"

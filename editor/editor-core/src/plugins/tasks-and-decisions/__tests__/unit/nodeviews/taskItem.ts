@@ -1,9 +1,10 @@
-import { doc, p, taskItem } from '@atlaskit/editor-test-helpers/schema-builder';
 import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
-import { taskItemNodeViewFactory } from '../../../../../plugins/tasks-and-decisions/nodeviews/taskItem';
+import { doc, p, taskItem } from '@atlaskit/editor-test-helpers/schema-builder';
+
 import { EventDispatcher } from '../../../../../event-dispatcher';
 import ReactNodeView from '../../../../../nodeviews/ReactNodeView';
+import { taskItemNodeViewFactory } from '../../../../../plugins/tasks-and-decisions/nodeviews/taskItem';
 
 describe('Task Item - NodeView', () => {
   const createEditor = createEditorFactory();

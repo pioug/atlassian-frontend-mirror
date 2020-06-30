@@ -18,34 +18,6 @@ describe('isDifferentIdentifier()', () => {
 
       expect(isDifferentIdentifier(a, b)).toBeTruthy();
     });
-
-    it('should work with promise id', () => {
-      const id = Promise.resolve('same');
-      const a: FileIdentifier = {
-        id: Promise.resolve('1'),
-        mediaItemType: 'file',
-      };
-      const b: FileIdentifier = {
-        id: Promise.resolve('2'),
-        mediaItemType: 'file',
-      };
-      const c: FileIdentifier = {
-        id: Promise.resolve('1'),
-        mediaItemType: 'file',
-      };
-      const e: FileIdentifier = {
-        id,
-        mediaItemType: 'file',
-      };
-      const f: FileIdentifier = {
-        id,
-        mediaItemType: 'file',
-      };
-
-      expect(isDifferentIdentifier(a, b)).toBeTruthy();
-      expect(isDifferentIdentifier(a, c)).toBeTruthy();
-      expect(isDifferentIdentifier(e, f)).toBeFalsy();
-    });
   });
 
   describe('non file identifier', () => {

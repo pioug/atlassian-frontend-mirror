@@ -15,9 +15,7 @@ describe('width plugin', () => {
     });
   };
 
-  // Skipped by LB as it's flakey and blocking repo move
-  // TODO: unskip this
-  it.skip('should not updating plugin state for a non related plugin transaction', () => {
+  it('should not updating plugin state for a non related plugin transaction', () => {
     const { editorView: view, eventDispatcher } = editor(
       doc(paragraph('{<>}')),
     );
@@ -48,9 +46,7 @@ describe('width plugin', () => {
     expect(spy).toHaveBeenCalledWith(pluginKey.key, { width: 50 });
   });
 
-  // Skipped by LB as it's flakey and blocking repo move
-  // TODO: unskip this
-  it.skip('should update lineLength', () => {
+  it('should update lineLength', () => {
     const { editorView: view, eventDispatcher } = editor(
       doc(paragraph('{<>}')),
     );
@@ -68,9 +64,7 @@ describe('width plugin', () => {
     });
   });
 
-  // Skipped by LB as it's flakey and blocking repo move
-  // TODO: unskip this
-  it.skip('shouldnt emit with no new values', () => {
+  it('shouldnt emit with no new values', () => {
     const { editorView: view, eventDispatcher } = editor(
       doc(paragraph('{<>}')),
     );

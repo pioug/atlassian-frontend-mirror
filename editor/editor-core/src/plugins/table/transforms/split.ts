@@ -1,8 +1,9 @@
 // @ts-ignore
-import { CellAttributes } from '@atlaskit/adf-schema';
-import { TableMap } from 'prosemirror-tables';
-import { Transaction } from 'prosemirror-state';
 import { Node as ProseMirrorNode } from 'prosemirror-model';
+import { Transaction } from 'prosemirror-state';
+import { TableMap } from 'prosemirror-tables';
+
+import { CellAttributes } from '@atlaskit/adf-schema';
 
 /**
  * Helper to split all the cells in a range of columns

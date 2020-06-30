@@ -15,6 +15,7 @@ import {
   Unsubscribe,
 } from 'final-form';
 import createDecorator from 'final-form-focus';
+import set from 'lodash.set';
 
 import { OnSubmitHandler } from './types';
 
@@ -86,8 +87,8 @@ function Form<FormData extends Record<string, any> = {}>(
                 : defaultValue;
 
             /* eslint-disable no-param-reassign */
-            initialValues[name] = value;
-            values[name] = value;
+            set(initialValues, name, value);
+            set(values, name, value);
             /* eslint-enable */
           }
         },
@@ -125,7 +126,6 @@ function Form<FormData extends Record<string, any> = {}>(
   const registerField = useCallback<RegisterField>(
     (name, defaultValue, subscriber, subscription, config) => {
       form.pauseValidation();
-
       const unsubscribe = form.registerField(
         name,
         subscriber,

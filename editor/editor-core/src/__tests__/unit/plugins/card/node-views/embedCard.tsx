@@ -34,12 +34,7 @@ describe('EmbedCard', () => {
     const node = editorView.state.doc.firstChild;
 
     const mockInlineCardNode = mount(
-      <EmbedCardComponent
-        node={node!}
-        view={editorView}
-        selected={false}
-        getPos={() => 0}
-      />,
+      <EmbedCardComponent node={node!} view={editorView} getPos={() => 0} />,
     );
     const wrapper = mockInlineCardNode.find(Card);
     expect(wrapper).toHaveLength(1);
@@ -61,7 +56,6 @@ describe('EmbedCard', () => {
       <EmbedCardComponent
         node={node!}
         view={editorView}
-        selected={false}
         getPos={() => 0}
         allowResizing={false}
       />,

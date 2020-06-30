@@ -1,5 +1,5 @@
-import { getSelectionStyles } from '../../utils';
 import { SelectionStyle } from '../../types';
+import { getSelectionStyles } from '../../utils';
 
 describe('selection plugin: utils', () => {
   describe('getSelectionStyles', () => {

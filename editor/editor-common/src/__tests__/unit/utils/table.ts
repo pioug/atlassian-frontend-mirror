@@ -1,11 +1,11 @@
-import { calcTableWidth } from '../../../styles/shared/table';
-import { akEditorFullWidthLayoutWidth } from '../../../styles/consts';
 import { defaultSchema as schema } from '@atlaskit/adf-schema';
-import { calcTableColumnWidths } from '../../../utils/table';
 
-import * as tableMergeResized from '../../__fixtures__/table-merge-resized.adf.json';
-import * as defaultTable from '../../__fixtures__/default-table.adf.json';
+import { akEditorFullWidthLayoutWidth } from '../../../styles/consts';
+import { calcTableWidth } from '../../../styles/shared/table';
+import { calcTableColumnWidths } from '../../../utils/table';
 import * as defaultTableResized from '../../__fixtures__/default-table-resized.adf.json';
+import * as defaultTable from '../../__fixtures__/default-table.adf.json';
+import * as tableMergeResized from '../../__fixtures__/table-merge-resized.adf.json';
 
 describe('@atlaskit/editor-common table utils', () => {
   describe('#calcTableWidth', () => {

@@ -1,8 +1,10 @@
 //#region Imports
+import { Transaction } from 'prosemirror-state';
 import { toggleHeader } from 'prosemirror-tables';
 import { findTable } from 'prosemirror-utils';
-import { Transaction } from 'prosemirror-state';
+
 import { TableLayout } from '@atlaskit/adf-schema';
+
 import { Command } from '../../../types';
 import { createCommand } from '../pm-plugins/plugin-factory';
 //#endregion

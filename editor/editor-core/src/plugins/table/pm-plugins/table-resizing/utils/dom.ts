@@ -8,16 +8,16 @@ import {
   tableMarginTop,
 } from '@atlaskit/editor-common';
 
-import { TableCssClassName as ClassName } from '../../../types';
 import {
-  containsClassName,
   closestElement,
+  containsClassName,
   parsePx,
 } from '../../../../../utils/dom';
-import { getPluginState as getMainPluginState } from '../../plugin-factory';
 import { updateOverflowShadows } from '../../../nodeviews/update-overflow-shadows';
+import { TableCssClassName as ClassName } from '../../../types';
 import { getRowHeights } from '../../../utils';
 import { colWidthsForRow } from '../../../utils/column-controls';
+import { getPluginState as getMainPluginState } from '../../plugin-factory';
 
 export const updateControls = (state: EditorState) => {
   const { tableRef } = getMainPluginState(state);

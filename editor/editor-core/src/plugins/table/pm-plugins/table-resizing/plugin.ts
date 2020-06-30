@@ -1,15 +1,17 @@
 import classnames from 'classnames';
 import { Plugin } from 'prosemirror-state';
-import { getResizeCellPos } from './utils';
-import {
-  ColumnResizingPluginState,
-  TableCssClassName as ClassName,
-} from '../../types';
+
 import { Dispatch } from '../../../../event-dispatcher';
+import {
+  TableCssClassName as ClassName,
+  ColumnResizingPluginState,
+} from '../../types';
+
+import { setResizeHandlePos } from './commands';
 import { handleMouseDown } from './event-handlers';
 import { createPluginState, getPluginState } from './plugin-factory';
-import { setResizeHandlePos } from './commands';
 import { pluginKey } from './plugin-key';
+import { getResizeCellPos } from './utils';
 
 export function createPlugin(
   dispatch: Dispatch<ColumnResizingPluginState>,

@@ -1,4 +1,5 @@
 import { DecorationSet } from 'prosemirror-view';
+
 import { DecorationTransformer } from './types';
 
 export const composeDecorations = (

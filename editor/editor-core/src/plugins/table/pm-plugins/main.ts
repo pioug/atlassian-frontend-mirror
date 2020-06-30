@@ -12,17 +12,15 @@ import {
 import { EditorView } from 'prosemirror-view';
 
 import { browser } from '@atlaskit/editor-common';
+
 import { Dispatch, EventDispatcher } from '../../../event-dispatcher';
 import { PortalProviderAPI } from '../../../ui/PortalProvider';
-import { pluginKey as decorationsPluginKey } from '../pm-plugins/decorations/plugin';
-
-import { createTableView } from '../nodeviews/table';
+import { closestElement } from '../../../utils/dom';
 import {
   addBoldInEmptyHeaderCells,
   clearHoverSelection,
   setTableRef,
 } from '../commands';
-import { PluginConfig, TableCssClassName as ClassName } from '../types';
 import {
   handleBlur,
   handleClick,
@@ -36,12 +34,14 @@ import {
   handleTripleClick,
   whenTableInFocus,
 } from '../event-handlers';
-import { findControlsHoverDecoration, updateResizeHandles } from '../utils';
+import { createTableView } from '../nodeviews/table';
+import { pluginKey as decorationsPluginKey } from '../pm-plugins/decorations/plugin';
 import { fixTables } from '../transforms';
-import { getPluginState, pluginKey } from './plugin-factory';
-import { createPluginState } from './plugin-factory';
+import { TableCssClassName as ClassName, PluginConfig } from '../types';
+import { findControlsHoverDecoration, updateResizeHandles } from '../utils';
+
 import { defaultTableSelection } from './default-table-selection';
-import { closestElement } from '../../../utils/dom';
+import { createPluginState, getPluginState, pluginKey } from './plugin-factory';
 
 let isBreakoutEnabled: boolean | undefined;
 let isDynamicTextSizingEnabled: boolean | undefined;

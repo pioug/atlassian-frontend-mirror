@@ -38,7 +38,7 @@
     "@atlaskit/logo": "^12.3.4",
     "@atlaskit/navigation": "^36.0.1",
     "@atlaskit/ssr": "*",
-    "@atlaskit/toggle": "^8.1.7",
+    "@atlaskit/toggle": "^9.0.0",
     "@atlaskit/visual-regression": "*",
     "enzyme": "^3.10.0",
     "react-dom": "^16.8.0",

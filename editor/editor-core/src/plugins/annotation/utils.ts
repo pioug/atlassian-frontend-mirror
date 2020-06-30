@@ -1,10 +1,26 @@
 import { ResolvedPos, Mark, Node } from 'prosemirror-model';
-import { EditorState, Selection } from 'prosemirror-state';
+import {
+  EditorState,
+  Selection,
+  PluginKey,
+  TextSelection,
+  AllSelection,
+} from 'prosemirror-state';
 import { Decoration } from 'prosemirror-view';
 import { AnnotationSharedClassNames } from '@atlaskit/editor-common';
-import { AnnotationInfo } from './types';
+import { AnnotationInfo, AnnotationSelectionType } from './types';
 import { sum } from '../../utils';
-
+import { InlineCommentPluginState } from './pm-plugins/types';
+import {
+  ACTION_SUBJECT,
+  ACTION_SUBJECT_ID,
+  EVENT_TYPE,
+  ACTION,
+  INPUT_METHOD,
+  AnalyticsEventPayload,
+} from '../analytics';
+import { AnalyticsEventPayloadCallback } from '../analytics/utils';
+import { AnnotationAEPAttributes } from '../analytics/types/inline-comment-events';
 /**
  * Finds the marks in the nodes to the left and right.
  * @param $pos Position to center search around
@@ -136,20 +152,6 @@ export const addDraftDecoration = (start: number, end: number) => {
   });
 };
 
-export const hasInlineNodes = (state: EditorState): boolean => {
-  const { selection, doc } = state;
-  let inlineNodesCount = 0;
-
-  doc.nodesBetween(selection.from, selection.to, node => {
-    if (node.isInline && !node.isText) {
-      ++inlineNodesCount;
-    }
-    return true;
-  });
-
-  return inlineNodesCount > 0;
-};
-
 export const getAnnotationViewKey = (annotations: AnnotationInfo[]): string => {
   const keys = annotations.map(mark => mark.id).join('_');
   return `view-annotation-wrapper_${keys}`;
@@ -180,3 +182,139 @@ export const findAnnotationsInSelection = (
   reorderAnnotations(annotations, $anchor);
   return annotations;
 };
+
+/**
+ * get selection from position to apply new comment for
+ * @return bookmarked positions if they exists, otherwise current selection positions
+ */
+export function getSelectionPositions(
+  editorState: EditorState,
+  inlineCommentState: InlineCommentPluginState,
+): {
+  from: number;
+  to: number;
+} {
+  let { from, to } = editorState.selection;
+  const { bookmark } = inlineCommentState;
+
+  // get positions via saved bookmark if it is available
+  // this is to make comments box positioned relative to temporary highlight rather then current selection
+  if (bookmark) {
+    const resolvedBookmark = bookmark.resolve(editorState.doc);
+    from = resolvedBookmark.from;
+    to = resolvedBookmark.to;
+  }
+  return { from, to };
+}
+
+export const inlineCommentPluginKey = new PluginKey('inlineCommentPluginKey');
+
+export const getPluginState = (
+  state: EditorState,
+): InlineCommentPluginState => {
+  return inlineCommentPluginKey.getState(state);
+};
+
+/**
+ * get number of unique annotations within current selection
+ */
+const getAnnotationsInSelectionCount = (state: EditorState): number => {
+  const { annotation } = state.schema.marks;
+  const { from, to } = state.selection;
+  const annotations = new Set<string>();
+
+  state.doc.nodesBetween(from, to, node => {
+    node.marks.forEach((mark: Mark<any>) => {
+      if (mark.type === annotation) {
+        annotations.add(mark.attrs.id);
+      }
+    });
+    return true; // be thorough, go through all children
+  });
+
+  return annotations.size;
+};
+
+/**
+ * get payload for the open/close analytics event
+ */
+export const getDraftCommandAnalyticsPayload = (
+  drafting: boolean,
+  inputMethod: INPUT_METHOD.TOOLBAR | INPUT_METHOD.SHORTCUT,
+) => {
+  const payload: AnalyticsEventPayloadCallback = (
+    state: EditorState,
+  ): AnalyticsEventPayload => {
+    let attributes: AnnotationAEPAttributes = {};
+
+    if (drafting) {
+      attributes = {
+        inputMethod,
+        overlap: getAnnotationsInSelectionCount(state),
+      };
+    }
+
+    return {
+      action: drafting ? ACTION.OPENED : ACTION.CLOSED,
+      actionSubject: ACTION_SUBJECT.ANNOTATION,
+      actionSubjectId: ACTION_SUBJECT_ID.INLINE_COMMENT,
+      eventType: EVENT_TYPE.TRACK,
+      attributes,
+    };
+  };
+  return payload;
+};
+
+export const isSelectionValid = (
+  state: EditorState,
+): AnnotationSelectionType => {
+  const { selection } = state;
+  const { disallowOnWhitespace } = getPluginState(state);
+
+  if (
+    selection.empty ||
+    !(selection instanceof TextSelection || selection instanceof AllSelection)
+  ) {
+    return AnnotationSelectionType.INVALID;
+  }
+
+  if (hasInlineNodes(state)) {
+    return AnnotationSelectionType.DISABLED;
+  }
+
+  if (disallowOnWhitespace && hasWhitespaceNode(selection)) {
+    return AnnotationSelectionType.INVALID;
+  }
+
+  return AnnotationSelectionType.VALID;
+};
+
+export const hasInlineNodes = (state: EditorState): boolean => {
+  const { selection, doc } = state;
+  let inlineNodesCount = 0;
+
+  doc.nodesBetween(selection.from, selection.to, node => {
+    if (node.isInline && !node.isText) {
+      ++inlineNodesCount;
+    }
+    return true;
+  });
+
+  return inlineNodesCount > 0;
+};
+
+/**
+ * Checks if any of the nodes in a given selection are completely whitespace
+ * This is to conform to Confluence annotation specifications
+ */
+export function hasWhitespaceNode(selection: TextSelection | AllSelection) {
+  let foundWhitespace = false;
+  selection.content().content.descendants(node => {
+    if (node.textContent.trim() === '') {
+      foundWhitespace = true;
+    }
+    return !foundWhitespace;
+  });
+
+  return foundWhitespace;
+}

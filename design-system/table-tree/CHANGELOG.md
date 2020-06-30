@@ -1,5 +1,11 @@
 # @atlaskit/table-tree
 
+## 8.0.8
+
+### Patch Changes
+
+- [`e80d58698b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e80d58698b) - Fixed alignment of Cell items
+
 ## 8.0.7
 
 ### Patch Changes

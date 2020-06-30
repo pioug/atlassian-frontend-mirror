@@ -51,8 +51,8 @@ export enum MediaToolbarButton {
 // Selectors
 const mediaUploadCardSelector =
   '[data-testid="media-picker-popup"] [data-testid="media-file-card-view"]';
-const mediaImageSelector = `[data-testid="media-file-card-view"] .img-wrapper, .mediaGroupView-content-wrap .img-wrapper`;
-const mediaImageSelected = `.ProseMirror-selectednode [data-testid="media-file-card-view"] .img-wrapper, .ProseMirror-selectednode .mediaGroupView-content-wrap .img-wrapper`;
+const mediaImageSelector = `[data-testid="media-file-card-view"][data-test-status="complete"] .img-wrapper, .mediaGroupView-content-wrap .img-wrapper`;
+const mediaImageSelected = `.ProseMirror-selectednode [data-testid="media-file-card-view"][data-test-status="complete"] .img-wrapper, .ProseMirror-selectednode .mediaGroupView-content-wrap .img-wrapper`;
 const insertMediaFileSelector = 'div[aria-label="%s"]';
 
 export const LinkToolbarSelectors = {

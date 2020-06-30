@@ -1,5 +1,20 @@
 # @atlaskit/media-table
 
+## 4.0.0
+
+### Major Changes
+
+- [`198b19dcc7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/198b19dcc7) - Refactor items to take a FileIdentifier instead of string id
+
+### Minor Changes
+
+- [`f4b74d89c1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f4b74d89c1) - Add i18n support to media-table
+- [`e44e4959b3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e44e4959b3) - Expose sortKey and sortOrder as props. Add props documentation
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.0.1
 
 ### Patch Changes

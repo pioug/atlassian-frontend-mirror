@@ -1,5 +1,11 @@
 # @atlaskit/dropdown-menu
 
+## 9.0.6
+
+### Patch Changes
+
+- [`a8d5ae5d98`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a8d5ae5d98) - Fix analytics when dropdown menu gets closed. Now passing dropdown-menu analytics instead of droplist.
+
 ## 9.0.5
 
 ### Patch Changes

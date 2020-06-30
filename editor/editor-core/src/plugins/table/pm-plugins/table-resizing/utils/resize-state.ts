@@ -1,13 +1,15 @@
 import { Node as PMNode } from 'prosemirror-model';
+
 import {
   calcTableColumnWidths,
   tableCellMinWidth,
   tableNewColumnMinWidth,
 } from '@atlaskit/editor-common';
-import { getCellsRefsInColumn, getColumnStateFromDOM } from './column-state';
+
 import { hasTableBeenResized, insertColgroupFromNode } from './colgroup';
-import { ResizeState } from './types';
+import { getCellsRefsInColumn, getColumnStateFromDOM } from './column-state';
 import { syncStickyRowToTable } from './dom';
+import { ResizeState } from './types';
 
 export const getResizeState = ({
   minWidth,

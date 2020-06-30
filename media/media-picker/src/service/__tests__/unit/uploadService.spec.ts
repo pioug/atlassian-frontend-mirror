@@ -204,6 +204,29 @@ describe('UploadService', () => {
       expect(callback).toHaveBeenCalledWith(expectedPayload);
     });
 
+    it('should emit empty file-preview-update for non native files', async () => {
+      const { uploadService, filesAddedPromise } = setup();
+      const file = { size: 100, name: 'some-filename', type: 'video/3gpp' };
+
+      const callback = jest.fn();
+      uploadService.on('file-preview-update', callback);
+
+      uploadService.addFiles([file as File]);
+      await filesAddedPromise;
+      const expectedPayload: UploadPreviewUpdateEventPayload = {
+        file: {
+          creationDate: expect.any(Number),
+          id: expect.any(String),
+          name: 'some-filename',
+          size: 100,
+          type: 'video/3gpp',
+          occurrenceKey: expect.any(String),
+        },
+        preview: {},
+      };
+      expect(callback).toHaveBeenCalledWith(expectedPayload);
+    });
+
     it('should use getPreviewFromBlob for non-image files when emitting preview', async () => {
       const { uploadService, filesAddedPromise } = setup();
       const file = { size: 100, name: 'some-filename', type: 'video/mp4' };

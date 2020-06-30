@@ -9,6 +9,11 @@ export type Transition = 'entering' | 'exiting';
 export type Direction = 'top' | 'right' | 'bottom' | 'left';
 
 /**
+ * Whether an element will fade on enter, on exit or both
+ */
+export type Fade = 'none' | 'in' | 'out' | 'inout';
+
+/**
  * Common props all entering motions should make available for consumers.
  */
 export interface MotionProps<TProps extends {}> {

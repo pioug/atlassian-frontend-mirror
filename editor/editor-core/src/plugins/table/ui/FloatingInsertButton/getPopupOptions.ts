@@ -2,6 +2,7 @@ import {
   akEditorTableNumberColumnWidth,
   PopupProps,
 } from '@atlaskit/editor-common';
+
 import {
   tableInsertColumnButtonOffset,
   tableInsertColumnButtonSize,

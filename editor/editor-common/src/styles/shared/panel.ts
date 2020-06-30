@@ -1,6 +1,8 @@
 import { css } from 'styled-components';
-import { gridSize, borderRadius, colors, themed } from '@atlaskit/theme';
-import { PanelType, hexToRgba } from '@atlaskit/adf-schema';
+
+import { hexToRgba, PanelType } from '@atlaskit/adf-schema';
+import { borderRadius, colors, gridSize, themed } from '@atlaskit/theme';
+
 import { akEditorTableCellMinWidth, blockNodesVerticalMargin } from '../consts';
 
 const lightPanelColor = {

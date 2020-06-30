@@ -10,7 +10,7 @@ interface State {
   active: boolean;
 }
 
-export default class Example extends Component<{}, State> {
+export default class ModalWideButtonTextExample extends Component<{}, State> {
   state: State = { active: false };
 
   start = () => this.setState({ active: true });

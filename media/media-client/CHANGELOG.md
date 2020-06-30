@@ -1,5 +1,27 @@
 # @atlaskit/media-client
 
+## 7.0.0
+
+### Major Changes
+
+- [`6658272d94`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6658272d94) - Remove Promise<string> from FileIdentifier to just be string
+
+  ## Before
+
+  ```
+  FileIdentifier {
+    id: string | Promise<string>;
+  }
+  ```
+
+  ## Now
+
+  ```
+  FileIdentifier {
+    id: string;
+  }
+  ```
+
 ## 6.2.3
 
 ### Patch Changes

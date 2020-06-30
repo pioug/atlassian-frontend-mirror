@@ -1,4 +1,9 @@
-import { snapshot, Device, initRendererWithADF } from '../_utils';
+import {
+  snapshot,
+  Device,
+  initRendererWithADF,
+  deviceViewPorts,
+} from '../_utils';
 import * as resizeAdf from './__fixtures__/renderer-media.adf.json';
 import * as commentRendererAdf from './__fixtures__/comment-renderer-media-adf.json';
 import * as wrappedMediaADf from './__fixtures__/wrapped-media.adf.json';
@@ -7,13 +12,12 @@ import * as wrappedMediaSmallADF from './__fixtures__/wrapped-media-small.adf.js
 import * as layoutAdf from '../../../../examples/helper/media-resize-layout.adf.json';
 import { selectors as mediaSelectors } from '../../__helpers/page-objects/_media';
 import { selectors as rendererSelectors } from '../../__helpers/page-objects/_renderer';
-import { Page } from 'puppeteer';
+import { Page, ScreenshotOptions } from 'puppeteer';
 import { RendererAppearance } from '../../../ui/Renderer/types';
 
 const devices = [
-  // TODO: ED-7455
-  // Device.LaptopHiDPI,
-  // Device.LaptopMDPI,
+  Device.LaptopHiDPI,
+  Device.LaptopMDPI,
   Device.iPad,
   Device.iPadPro,
   Device.iPhonePlus,
@@ -32,35 +36,49 @@ const initRenderer = async (
     adf,
     device,
   });
-// TODO: https://product-fabric.atlassian.net/browse/ED-8011
-// ED-8011 Implement proper mock for media client on Renderer VR Tests.
+
 describe('Snapshot Test: Media', () => {
   let page: Page;
+  let snapshotRenderer = async (options: ScreenshotOptions = {}) => {
+    await page.waitForSelector(mediaSelectors.errorLoading); // In test should show overlay error
+    await page.waitForSelector(rendererSelectors.document);
+    await snapshot(page, {}, rendererSelectors.document, options);
+  };
 
   beforeEach(() => {
     page = global.page;
   });
 
-  afterEach(async () => {
-    await page.waitForSelector(mediaSelectors.errorLoading); // In test should show overlay error
-    await page.waitForSelector(rendererSelectors.document);
-    await snapshot(page, {}, rendererSelectors.document);
-  });
-
-  describe.skip('resize', () => {
+  describe('resize', () => {
     devices.forEach(device => {
-      // TODO: ED-7455
       it(`should correctly render for ${device}`, async () => {
         await initRenderer(page, resizeAdf, device);
+        await snapshotRenderer();
       });
     });
   });
 
-  describe.skip('layout', () => {
+  describe('layout', () => {
+    const deviceDocumentHeight = {
+      [Device.Default]: 6500,
+      [Device.LaptopHiDPI]: 6700,
+      [Device.LaptopMDPI]: 6600,
+      [Device.iPadPro]: 6500,
+      [Device.iPad]: 6150,
+      [Device.iPhonePlus]: 4900,
+    };
+
     devices.forEach(device => {
-      // TODO: ED-8011
       it(`should correctly render for ${device}`, async () => {
         await initRenderer(page, layoutAdf, device);
+        await snapshotRenderer({
+          clip: {
+            x: 0,
+            y: 0,
+            width: deviceViewPorts[device].width,
+            height: deviceDocumentHeight[device],
+          },
+        });
       });
     });
   });
@@ -68,12 +86,14 @@ describe('Snapshot Test: Media', () => {
   describe('comment appearance', () => {
     it('should renderer the same size for comment apperance', async () => {
       await initRenderer(page, commentRendererAdf, undefined, 'comment');
+      await snapshotRenderer();
     });
   });
 
   describe('wrapped media', () => {
     it('should render 2 media items in 1 line when wrapped', async () => {
       await initRenderer(page, wrappedMediaADf);
+      await snapshotRenderer();
     });
 
     it('should render 2 media items in 1 line when wrapped without dynamic text sizing', async () => {
@@ -84,6 +104,7 @@ describe('Snapshot Test: Media', () => {
         'full-page',
         false,
       );
+      await snapshotRenderer();
     });
   });
 });

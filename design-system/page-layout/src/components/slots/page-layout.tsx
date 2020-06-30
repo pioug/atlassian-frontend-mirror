@@ -1,39 +1,35 @@
 /** @jsx jsx */
-import { ReactNode, useEffect } from 'react';
+import { Fragment, useEffect } from 'react';
 
 import { css, Global, jsx } from '@emotion/core';
 
 import {
   BANNER_HEIGHT,
+  DEFAULT_I18N_PROPS_SKIP_LINKS,
   IS_SIDEBAR_DRAGGING,
   LEFT_PANEL_WIDTH,
   LEFT_SIDEBAR_FLYOUT,
   LEFT_SIDEBAR_FLYOUT_WIDTH,
   LEFT_SIDEBAR_WIDTH,
+  PAGE_LAYOUT_CONTAINER_SELECTOR,
   RIGHT_PANEL_WIDTH,
   RIGHT_SIDEBAR_WIDTH,
   TOP_NAVIGATION_HEIGHT,
 } from '../../common/constants';
+import { PageLayoutProps } from '../../common/types';
 import { removeFromGridStateInStorage } from '../../common/utils';
-import { SidebarResizeController } from '../../controllers/sidebar-resize-controller';
+import {
+  SidebarResizeController,
+  SkipLinksController,
+} from '../../controllers';
+import { SkipLinkWrapper } from '../skip-links';
 
 import { gridStyles } from './styles';
 
-interface PageLayoutProps {
-  /** React children! */
-  children: ReactNode;
-
-  /**
-   * A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests.
-   **/
-  testId?: string;
-  /** Called when left-sidebar expanded. */
-  onLeftSidebarExpand?: () => void;
-  /** Called when left-sidebar collapsed. */
-  onLeftSidebarCollapse?: () => void;
-}
+const pageLayoutSelector = { [PAGE_LAYOUT_CONTAINER_SELECTOR]: true };
 
 const PageLayout = ({
+  skipLinksI18n = DEFAULT_I18N_PROPS_SKIP_LINKS,
   children,
   testId,
   onLeftSidebarExpand,
@@ -46,31 +42,41 @@ const PageLayout = ({
   }, []);
 
   return (
-    <div data-testid={testId} css={gridStyles}>
-      <SidebarResizeController
-        onLeftSidebarCollapse={onLeftSidebarCollapse}
-        onLeftSidebarExpand={onLeftSidebarExpand}
-      >
-        <Global
-          styles={css`
-              :root {
-                --${LEFT_PANEL_WIDTH}: 0px;
-                --${LEFT_SIDEBAR_WIDTH}: 0px;
-                --${RIGHT_SIDEBAR_WIDTH}: 0px;
-                --${RIGHT_PANEL_WIDTH}: 0px;
-                --${TOP_NAVIGATION_HEIGHT}: 0px;
-                --${BANNER_HEIGHT}: 0px;
-                --${LEFT_SIDEBAR_FLYOUT}: ${LEFT_SIDEBAR_FLYOUT_WIDTH}px;
-              }
+    <Fragment>
+      <SkipLinksController>
+        <SkipLinkWrapper i18n={{ title: skipLinksI18n }} />
+        <div
+          {...pageLayoutSelector}
+          data-testid={testId}
+          css={gridStyles}
+          tabIndex={-1}
+        >
+          <SidebarResizeController
+            onLeftSidebarCollapse={onLeftSidebarCollapse}
+            onLeftSidebarExpand={onLeftSidebarExpand}
+          >
+            <Global
+              styles={css`
+            :root {
+              --${LEFT_PANEL_WIDTH}: 0px;
+              --${LEFT_SIDEBAR_WIDTH}: 0px;
+              --${RIGHT_SIDEBAR_WIDTH}: 0px;
+              --${RIGHT_PANEL_WIDTH}: 0px;
+              --${TOP_NAVIGATION_HEIGHT}: 0px;
+              --${BANNER_HEIGHT}: 0px;
+              --${LEFT_SIDEBAR_FLYOUT}: ${LEFT_SIDEBAR_FLYOUT_WIDTH}px;
+            }
 
-              [${IS_SIDEBAR_DRAGGING}] {
-                user-select: none !important;
-              }
+            [${IS_SIDEBAR_DRAGGING}] {
+              user-select: none !important;
+            }
           `}
-        />
-        {children}
-      </SidebarResizeController>
-    </div>
+            />
+            {children}
+          </SidebarResizeController>
+        </div>
+      </SkipLinksController>
+    </Fragment>
   );
 };
 

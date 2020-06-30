@@ -2,7 +2,7 @@ import React from 'react';
 import assert from 'assert';
 import { EditorView } from 'prosemirror-view';
 
-import { ProviderFactory } from '@atlaskit/editor-common';
+import { ProviderFactory, wrappedLayouts } from '@atlaskit/editor-common';
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
 import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
@@ -42,10 +42,7 @@ import {
 import { Side } from '../../../gap-cursor';
 import { AnalyticsHandler, analyticsService } from '../../../../analytics';
 import { insertMediaAsMediaSingle } from '../../../../plugins/media/utils/media-single';
-import {
-  alignAttributes,
-  wrappedLayouts,
-} from '../../../../utils/rich-media-utils';
+import { alignAttributes } from '../../../../utils/rich-media-utils';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { Clipboard } from '@atlaskit/media-picker';
 import { UploadPreviewUpdateEventPayload } from '@atlaskit/media-picker/types';

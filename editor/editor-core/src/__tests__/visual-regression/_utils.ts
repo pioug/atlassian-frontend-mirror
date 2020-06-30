@@ -216,6 +216,7 @@ export type MountOptions = {
   };
   withContextPanel?: boolean;
   invalidAltTextValues?: string[];
+  withCollab?: boolean;
 };
 
 export async function mountEditor(
@@ -269,10 +270,7 @@ type InitEditorWithADFOptions = {
 
 async function setupEditor(
   page: PuppeteerPage,
-  options: Omit<
-    InitEditorWithADFOptions,
-    'withSidebar' | 'withCollab' | 'mode'
-  >,
+  options: Omit<InitEditorWithADFOptions, 'withSidebar' | 'mode'>,
   mountOptions: MountOptions,
 ) {
   const {
@@ -286,7 +284,12 @@ async function setupEditor(
     forceReload,
   } = options;
 
-  const { mode, withSidebar = false, invalidAltTextValues } = mountOptions;
+  const {
+    mode,
+    withSidebar = false,
+    invalidAltTextValues,
+    withCollab,
+  } = mountOptions;
   await page.bringToFront();
   const url = getExampleUrl('editor', 'editor-core', 'vr-testing');
 
@@ -310,7 +313,7 @@ async function setupEditor(
       ...getEditorProps(appearance),
       ...editorProps,
     },
-    { mode, withSidebar, withContextPanel, invalidAltTextValues },
+    { mode, withSidebar, withContextPanel, invalidAltTextValues, withCollab },
   );
 
   // We disable possible side effects, like animation, transitions and caret cursor,
@@ -329,21 +332,13 @@ export const initEditorWithAdf = async (
   page: PuppeteerPage,
   options: InitEditorWithADFOptions,
 ) => {
-  let mountOptions: MountOptions = {
+  const mountOptions: MountOptions = {
     mode: options.mode,
     withSidebar: options.withSidebar,
     invalidAltTextValues: options.invalidAltTextValues,
+    withCollab: options.withCollab,
   };
-  const collabPage = global.collabPage as PuppeteerPage;
-  if (options.withCollab && collabPage) {
-    mountOptions.collab = {
-      docId: Math.random()
-        .toString(32)
-        .substring(2),
-    };
-    // Remove adf, the page should be initialized by the other page.
-    await setupEditor(collabPage, { ...options, adf: '' }, mountOptions);
-  }
+
   await setupEditor(page, options, mountOptions);
 };
 
@@ -356,6 +351,7 @@ export const initFullPageEditorWithAdf = async (
   mode?: 'light' | 'dark',
   allowSideEffects?: SideEffectOptions,
   forceReload?: boolean,
+  withCollab?: boolean,
 ) => {
   await initEditorWithAdf(page, {
     adf,
@@ -366,6 +362,7 @@ export const initFullPageEditorWithAdf = async (
     mode,
     allowSideEffects,
     forceReload,
+    withCollab,
   });
 };
 
@@ -487,4 +484,10 @@ export const getContentBoundingRectTopLeftCoords = async (
   }
 
   return boundingRectCoords;
+};
+
+export const mediaToFullyLoad = async (page: Page) => {
+  await page.waitForSelector(
+    '[data-testid="media-file-card-view"][data-test-status="complete"]',
+  );
 };

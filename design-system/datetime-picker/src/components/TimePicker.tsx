@@ -105,7 +105,7 @@ export interface Props extends WithAnalyticsEventsProps {
   testId?: string;
 }
 
-export type TimePickerProps = typeof TimePicker.defaultProps & Props;
+type TimePickerProps = typeof TimePicker.defaultProps & Props;
 
 interface State {
   isOpen: boolean;
@@ -143,9 +143,7 @@ const FixedLayerMenu = ({ selectProps, ...rest }: { selectProps: any }) => (
   />
 );
 
-// TODO: Please replace Props with TimePickerProps
-// when https://github.com/atlassian/extract-react-types/issues/113 gets resolved
-class TimePicker extends React.Component<Props, State> {
+class TimePicker extends React.Component<TimePickerProps, State> {
   containerRef: HTMLElement | null = null;
 
   static defaultProps = {
@@ -159,9 +157,9 @@ class TimePicker extends React.Component<Props, State> {
     isDisabled: false,
     isInvalid: false,
     name: '',
-    onBlur: (_: React.FocusEvent<HTMLInputElement>) => {},
-    onChange: (_: string) => {},
-    onFocus: (_: React.FocusEvent<HTMLInputElement>) => {},
+    onBlur: (event: React.FocusEvent<HTMLInputElement>) => {},
+    onChange: (value: string) => {},
+    onFocus: (event: React.FocusEvent<HTMLInputElement>) => {},
     parseInputValue: (time: string, timeFormat: string) => parseTime(time),
     selectProps: {},
     spacing: 'default' as Spacing,
@@ -173,42 +171,30 @@ class TimePicker extends React.Component<Props, State> {
   };
 
   state = {
-    isOpen: this.getTypeSafeProps().defaultIsOpen,
+    isOpen: this.props.defaultIsOpen,
     clearingFromIcon: false,
-    value: this.getTypeSafeProps().defaultValue,
+    value: this.props.defaultValue,
     isFocused: false,
-    l10n: createLocalizationProvider(this.getTypeSafeProps().locale),
+    l10n: createLocalizationProvider(this.props.locale),
   };
 
   componentWillReceiveProps(nextProps: TimePickerProps): void {
-    const { locale } = this.getTypeSafeProps();
-
-    if (locale !== nextProps.locale) {
+    if (this.props.locale !== nextProps.locale) {
       this.setState({ l10n: createLocalizationProvider(nextProps.locale) });
     }
-  }
-
-  // TODO: Please remove this method
-  // when https://github.com/atlassian/extract-react-types/issues/113 gets resolved
-  getTypeSafeProps() {
-    return this.props as TimePickerProps;
   }
 
   // All state needs to be accessed via this function so that the state is mapped from props
   // correctly to allow controlled/uncontrolled usage.
   getSafeState = (): State => {
-    const typeSafeProps = this.getTypeSafeProps();
-
     return {
       ...this.state,
-      ...pick(typeSafeProps, ['value', 'isOpen']),
+      ...pick(this.props, ['value', 'isOpen']),
     };
   };
 
   getOptions(): Array<Option> {
-    const { times } = this.getTypeSafeProps();
-
-    return times.map(
+    return this.props.times.map(
       (time: string): Option => {
         return {
           label: this.formatTime(time),
@@ -230,22 +216,13 @@ class TimePicker extends React.Component<Props, State> {
     }
 
     this.setState(changedState);
-
-    const { onChange } = this.getTypeSafeProps();
-
-    onChange(value);
+    this.props.onChange(value);
   };
 
   /** Only allow custom times if timeIsEditable prop is true  */
   onCreateOption = (inputValue: any): void => {
-    const {
-      timeIsEditable,
-      parseInputValue,
-      timeFormat,
-      onChange,
-    } = this.getTypeSafeProps();
-
-    if (timeIsEditable) {
+    if (this.props.timeIsEditable) {
+      const { parseInputValue, timeFormat } = this.props;
       // TODO parseInputValue doesn't accept `timeFormat` as an function arg yet...
       const value =
         format(
@@ -253,7 +230,7 @@ class TimePicker extends React.Component<Props, State> {
           'HH:mm',
         ) || '';
       this.setState({ value });
-      onChange(value);
+      this.props.onChange(value);
     } else {
       this.onChange(inputValue);
     }
@@ -289,18 +266,12 @@ class TimePicker extends React.Component<Props, State> {
 
   onBlur = (event: React.FocusEvent<HTMLElement>) => {
     this.setState({ isFocused: false });
-
-    const { onBlur } = this.getTypeSafeProps();
-
-    onBlur(event);
+    this.props.onBlur(event);
   };
 
   onFocus = (event: React.FocusEvent<HTMLElement>) => {
     this.setState({ isFocused: true });
-
-    const { onFocus } = this.getTypeSafeProps();
-
-    onFocus(event);
+    this.props.onFocus(event);
   };
 
   onSelectKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -334,7 +305,7 @@ class TimePicker extends React.Component<Props, State> {
    *   3. locale
    */
   formatTime = (time: string): string => {
-    const { formatDisplayLabel, timeFormat } = this.getTypeSafeProps();
+    const { formatDisplayLabel, timeFormat } = this.props;
     const { l10n } = this.getSafeState();
 
     if (formatDisplayLabel) {
@@ -358,7 +329,7 @@ class TimePicker extends React.Component<Props, State> {
   };
 
   getPlaceholder = () => {
-    const { placeholder } = this.getTypeSafeProps();
+    const { placeholder } = this.props;
     if (placeholder) {
       return placeholder;
     }
@@ -378,20 +349,21 @@ class TimePicker extends React.Component<Props, State> {
       selectProps,
       spacing,
       testId,
-      isInvalid,
-      appearance,
-      timeIsEditable,
-    } = this.getTypeSafeProps();
+    } = this.props;
     const ICON_PADDING = 2;
     const BORDER_WIDTH = 2;
 
     const { value = '', isOpen } = this.getSafeState();
-    const validationState = isInvalid ? 'error' : 'default';
+    const validationState = this.props.isInvalid ? 'error' : 'default';
 
     const { styles: selectStyles = {}, ...otherSelectProps } = selectProps;
     const controlStyles =
-      appearance === 'subtle' ? this.getSubtleControlStyles(selectStyles) : {};
-    const SelectComponent = timeIsEditable ? CreatableSelect : Select;
+      this.props.appearance === 'subtle'
+        ? this.getSubtleControlStyles(selectStyles)
+        : {};
+    const SelectComponent = this.props.timeIsEditable
+      ? CreatableSelect
+      : Select;
 
     const labelAndValue = value && {
       label: this.formatTime(value),

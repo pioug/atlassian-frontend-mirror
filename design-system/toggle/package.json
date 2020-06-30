@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/toggle",
-  "version": "8.1.9",
+  "version": "9.0.0",
   "description": "A toggle is used to view or switch between enabled or disabled states.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -26,7 +26,6 @@
   "dependencies": {
     "@atlaskit/analytics-next": "^6.3.5",
     "@atlaskit/theme": "^9.5.1",
-    "react-uid": "^2.2.0",
     "tslib": "^1.9.3"
   },
   "peerDependencies": {
@@ -38,6 +37,7 @@
     "@atlaskit/button": "^13.3.12",
     "@atlaskit/docs": "*",
     "@atlaskit/ssr": "*",
+    "@atlaskit/tooltip": "^15.2.7",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
     "@testing-library/react": "^8.0.1",

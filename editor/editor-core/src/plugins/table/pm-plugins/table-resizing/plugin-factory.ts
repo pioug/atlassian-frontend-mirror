@@ -1,8 +1,10 @@
+import { Transaction } from 'prosemirror-state';
+
 import { pluginFactory } from '../../../../utils/plugin-state-factory';
+import { ColumnResizingPluginState } from '../../types';
+
 import { pluginKey } from './plugin-key';
 import reducer from './reducer';
-import { Transaction } from 'prosemirror-state';
-import { ColumnResizingPluginState } from '../../types';
 
 function mapping(
   tr: Transaction,

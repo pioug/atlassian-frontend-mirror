@@ -19,7 +19,6 @@ export interface Props {
   editorView: EditorView;
   editorActions?: EditorActions;
   tableSupported?: boolean;
-  mentionsEnabled?: boolean;
   actionSupported?: boolean;
   decisionSupported?: boolean;
   mentionsSupported?: boolean;

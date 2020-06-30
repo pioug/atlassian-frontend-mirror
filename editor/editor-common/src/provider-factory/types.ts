@@ -1,16 +1,18 @@
 import { EmojiProvider } from '@atlaskit/emoji/types';
 import { MentionProvider } from '@atlaskit/mention/types';
 import { TaskDecisionProvider } from '@atlaskit/task-decision/types';
-import { MediaProvider } from './media-provider';
+
+import { CollabEditProvider } from '../collab/types';
 import { ExtensionProvider } from '../extensions/types';
+
 import { AutoformattingProvider } from './autoformatting-provider';
+import { CardProvider } from './card-provider';
 import { ContextIdentifierProvider } from './context-identifier-provider';
 import { ImageUploadProvider } from './image-upload-provider';
-import { CollabEditProvider } from '../collab/types';
 import { MacroProvider } from './macro-provider';
-import { CardProvider } from './card-provider';
-import { QuickInsertProvider } from './quick-insert-provider';
+import { MediaProvider } from './media-provider';
 import { ProfilecardProvider } from './profile-card-provider';
+import { QuickInsertProvider } from './quick-insert-provider';
 
 export interface Providers {
   mediaProvider?: Promise<MediaProvider>;

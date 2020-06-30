@@ -1,0 +1,38 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "inlineCard",
+          "attrs": {
+            "url": "https://inlineCardTestUrl"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": []
+    },
+    {
+      "type": "blockCard",
+      "attrs": {
+        "url": "https://blockCardTestUrl"
+      }
+    },
+    {
+      "type": "paragraph",
+      "content": []
+    },
+    {
+      "type": "embedCard",
+      "attrs": {
+        "url": "https://embedCardTestUrl",
+        "layout": "center"
+      }
+    }
+  ]
+}

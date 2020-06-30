@@ -1,14 +1,16 @@
 import { Node as PmNode } from 'prosemirror-model';
 import { Transaction } from 'prosemirror-state';
+import { Rect } from 'prosemirror-tables';
 import { DecorationSet } from 'prosemirror-view';
+
 import {
-  TableLayout,
-  tablePrefixSelector,
   tableCellSelector,
   tableHeaderSelector,
+  TableLayout,
+  tablePrefixSelector,
 } from '@atlaskit/adf-schema';
 import { TableSharedCssClassName } from '@atlaskit/editor-common';
-import { Rect } from 'prosemirror-tables';
+
 import { INPUT_METHOD } from '../analytics/types/enums';
 
 export enum SortOrder {

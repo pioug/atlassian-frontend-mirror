@@ -4,7 +4,7 @@ jest.mock('../../../../../../plugins/media/nodeviews/mediaNodeUpdater');
 
 import { MediaNodeUpdater } from '../../../../../../plugins/media/nodeviews/mediaNodeUpdater';
 
-import { mount, ReactWrapper } from 'enzyme';
+import { mount, shallow, ReactWrapper } from 'enzyme';
 import { EditorView } from 'prosemirror-view';
 import { Image } from '@atlaskit/editor-test-helpers/jsdom-fixtures';
 import { fakeMediaProvider } from '@atlaskit/editor-test-helpers/media-provider';
@@ -71,6 +71,12 @@ describe('nodeviews/mediaSingle', () => {
       selection: {
         from: 0,
         to: 0,
+        $anchor: {
+          pos: 0,
+        },
+        $head: {
+          pos: 20,
+        },
       },
     },
   } as EditorView;
@@ -575,5 +581,79 @@ describe('nodeviews/mediaSingle', () => {
     wrapper.setProps({ mediaProvider });
 
     expect(getLastMediaNodeUpdaterMockInstance().updateFileAttrs).toBeCalled();
+  });
+  describe('selected state for mediaSingle', () => {
+    const node = mediaSingle()(mediaNode)(defaultSchema);
+    const createView = (anchorPos: number, headPos: number) =>
+      ({
+        state: {
+          selection: {
+            from: 0,
+            to: 0,
+            $anchor: {
+              pos: anchorPos,
+            },
+            $head: {
+              pos: headPos,
+            },
+          },
+        },
+      } as EditorView);
+
+    it('returns true when media is selected', () => {
+      const getPos = () => 12;
+      const testView = createView(12, 15);
+      const nodeView = ReactMediaSingleNode(
+        portalProviderAPI,
+        eventDispatcher,
+        providerFactory,
+        mediaOptions,
+      )(node, testView, getPos);
+
+      expect(nodeView.checkAndUpdateIsSelected).toBeTruthy();
+    });
+
+    it('returns true when a range is selected around media', () => {
+      const getPos = () => 12;
+      const testView = createView(12, 15);
+      const nodeView = ReactMediaSingleNode(
+        portalProviderAPI,
+        eventDispatcher,
+        providerFactory,
+        mediaOptions,
+      )(node, testView, getPos);
+
+      expect(nodeView.checkAndUpdateIsSelected).toBeTruthy();
+    });
+
+    it('returns false when selection is outside media', () => {
+      const getPos = () => 12;
+      const testView = createView(9, 12);
+      const nodeView = ReactMediaSingleNode(
+        portalProviderAPI,
+        eventDispatcher,
+        providerFactory,
+        mediaOptions,
+      )(node, testView, getPos);
+
+      expect(nodeView.checkAndUpdateIsSelected).toBeTruthy();
+    });
+    it('pass checkAndUpdateIsSelected to mediaSingleNode', () => {
+      const getPos = () => 12;
+      const testView = createView(9, 12);
+      const nodeView = ReactMediaSingleNode(
+        portalProviderAPI,
+        eventDispatcher,
+        providerFactory,
+        mediaOptions,
+      )(node, testView, getPos);
+      const mediaSingleNodeSelectedProp = shallow(nodeView.render())
+        .props()
+        .render({ width: 20, mediaPluginState: {} }).props.selected;
+
+      expect(mediaSingleNodeSelectedProp).toEqual(
+        nodeView.checkAndUpdateIsSelected,
+      );
+    });
   });
 });

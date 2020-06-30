@@ -2,9 +2,9 @@ import { Plugin } from 'prosemirror-state';
 
 import { Dispatch, EventDispatcher } from '../../../../event-dispatcher';
 
+import { TableRowNodeView } from './nodeviews/tableRow';
 import { pluginKey } from './plugin-key';
 import { createPluginState } from './plugin-state';
-import { TableRowNodeView } from './nodeviews/tableRow';
 
 export const createPlugin = (
   dispatch: Dispatch,

@@ -13,9 +13,8 @@ import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-p
 import { mention, emoji, taskDecision } from '@atlaskit/util-data-test';
 import { EmojiProvider } from '@atlaskit/emoji/resource';
 import { customInsertMenuItems } from '@atlaskit/editor-test-helpers/mock-insert-menu';
+import { createSocketIOCollabProvider } from '@atlaskit/collab-provider/socket-io-provider';
 import { EditorActions } from '../src';
-
-import { Provider } from '@atlaskit/collab-provider';
 
 export const getRandomUser = () => {
   return Math.floor(Math.random() * 10000).toString();
@@ -24,7 +23,7 @@ export const getRandomUser = () => {
 const userId = `ari:cloud:identity::user/${getRandomUser()}`;
 
 const defaultCollabUrl =
-  'https://pf-collab-service--app.ap-southeast-2.dev.atl-paas.net/';
+  'https://pf-collab-service--app.ap-southeast-2.dev.atl-paas.net/ccollab';
 
 export const Content: any = styled.div`
   padding: 0 20px;
@@ -190,9 +189,9 @@ export default class Example extends React.Component<Props, State> {
                 collabEdit={{
                   useNativePlugin: true,
                   provider: Promise.resolve(
-                    new Provider({
+                    createSocketIOCollabProvider({
                       url: collabUrl,
-                      documentAri: `ari:cloud:demo::document/${documentId}`,
+                      documentAri: `ari:cloud:confluence:collab-test:blog/${documentId}`,
                       userId,
                     }),
                   ),

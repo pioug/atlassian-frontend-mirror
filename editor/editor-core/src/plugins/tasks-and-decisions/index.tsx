@@ -1,24 +1,28 @@
 import React from 'react';
+
+import { Node as PMNode } from 'prosemirror-model';
+import { EditorState, Transaction } from 'prosemirror-state';
 import styled from 'styled-components';
+
 import {
   decisionItem,
   decisionList,
   taskItem,
   taskList,
 } from '@atlaskit/adf-schema';
-import { Node as PMNode } from 'prosemirror-model';
+
 import { EditorPlugin } from '../../types';
-import { createPlugin } from './pm-plugins/main';
+import { INPUT_METHOD } from '../analytics';
+import { messages as insertBlockMessages } from '../insert-block/ui/ToolbarInsertBlock/messages';
+import { IconAction, IconDecision } from '../quick-insert/assets';
+
+import { getListTypes, insertTaskDecisionWithAnalytics } from './commands';
 import inputRulePlugin from './pm-plugins/input-rules';
 import keymap from './pm-plugins/keymaps';
+import { createPlugin } from './pm-plugins/main';
+import { TaskDecisionListType } from './types';
 import ToolbarDecision from './ui/ToolbarDecision';
 import ToolbarTask from './ui/ToolbarTask';
-import { INPUT_METHOD } from '../analytics';
-import { insertTaskDecisionWithAnalytics, getListTypes } from './commands';
-import { Transaction, EditorState } from 'prosemirror-state';
-import { TaskDecisionListType } from './types';
-import { IconAction, IconDecision } from '../quick-insert/assets';
-import { messages as insertBlockMessages } from '../insert-block/ui/ToolbarInsertBlock/messages';
 
 const TaskDecisionToolbarGroup = styled.div`
   display: flex;

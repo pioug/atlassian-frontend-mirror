@@ -3,6 +3,11 @@ import { getResolverUrl, getBaseUrl } from '../../client/utils/environments';
 import { EnvironmentsKeys } from '../../client/types';
 import { CardProvider, ORSCheckResponse } from './types';
 
+const isJiraRoadMap = (url: string) =>
+  url.match(
+    /^https:\/\/.*?\/jira\/software\/projects\/([^\/]+?)\/boards\/.*?\/roadmap\/?$/,
+  );
+
 export class EditorCardProvider implements CardProvider {
   private baseUrl: string;
   private resolverUrl: string;
@@ -29,6 +34,15 @@ export class EditorCardProvider implements CardProvider {
       ).json();
 
       if (result && result.isSupported) {
+        if (isJiraRoadMap(url)) {
+          return {
+            type: 'embedCard',
+            attrs: {
+              url,
+              layout: 'wide',
+            },
+          };
+        }
         return {
           type: appearance === 'inline' ? 'inlineCard' : 'blockCard',
           attrs: {

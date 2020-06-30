@@ -1,26 +1,26 @@
 import { NodeSelection } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
-import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
 
-import {
-  doc,
-  p,
-  blockquote,
-  decisionList,
-  decisionItem,
-  taskList,
-  taskItem,
-  mediaGroup,
-  media,
-  br,
-  panel,
-} from '@atlaskit/editor-test-helpers/schema-builder';
-
-import { compareSelection } from '@atlaskit/editor-test-helpers/selection';
-import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import { uuid } from '@atlaskit/adf-schema';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { ProviderFactory } from '@atlaskit/editor-common';
+import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
+import {
+  blockquote,
+  br,
+  decisionItem,
+  decisionList,
+  doc,
+  media,
+  mediaGroup,
+  p,
+  panel,
+  taskItem,
+  taskList,
+} from '@atlaskit/editor-test-helpers/schema-builder';
+import { compareSelection } from '@atlaskit/editor-test-helpers/selection';
+import { insertText } from '@atlaskit/editor-test-helpers/transactions';
+
 import { insertTaskDecision } from '../../../../plugins/tasks-and-decisions/commands';
 import { TaskDecisionListType } from '../../../../plugins/tasks-and-decisions/types';
 import { selectNode } from '../../../../utils/commands';

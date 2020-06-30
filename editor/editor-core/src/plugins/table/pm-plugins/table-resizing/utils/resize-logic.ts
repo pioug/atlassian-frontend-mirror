@@ -1,5 +1,5 @@
 import { ColumnState, getFreeSpace } from './column-state';
-import { getTotalWidth, bulkColumnsResize } from './resize-state';
+import { bulkColumnsResize, getTotalWidth } from './resize-state';
 import { ResizeState } from './types';
 
 export const growColumn = (

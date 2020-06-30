@@ -24,13 +24,24 @@ import { findParentNodeOfTypeClosestToPos } from 'prosemirror-utils';
 import { floatingLayouts } from '../../../utils/rich-media-utils';
 import { EventDispatcher } from '../../../event-dispatcher';
 
-export class EmbedCardComponent extends React.PureComponent<SmartCardProps> {
+type EmbedCardState = {
+  hasPreview: boolean;
+};
+
+export class EmbedCardComponent extends React.PureComponent<
+  SmartCardProps,
+  EmbedCardState
+> {
   private scrollContainer?: HTMLElement;
 
   onClick = () => {};
 
   static contextTypes = {
     contextAdapter: PropTypes.object,
+  };
+
+  state = {
+    hasPreview: true,
   };
 
   UNSAFE_componentWillMount() {
@@ -58,6 +69,22 @@ export class EmbedCardComponent extends React.PureComponent<SmartCardProps> {
         })(view.state.tr),
       ),
     )();
+
+    try {
+      const cardContext = this.context.contextAdapter
+        ? this.context.contextAdapter.card
+        : undefined;
+
+      const hasPreview =
+        cardContext &&
+        cardContext.value.extractors.getPreview(url, this.props.platform);
+
+      if (!hasPreview) {
+        this.setState({
+          hasPreview: false,
+        });
+      }
+    } catch (e) {}
   };
 
   updateSize = (width: number | null, layout: RichMediaLayout) => {
@@ -116,7 +143,6 @@ export class EmbedCardComponent extends React.PureComponent<SmartCardProps> {
   render() {
     const {
       node,
-      selected,
       cardContext,
       platform,
       allowResizing,
@@ -142,6 +168,8 @@ export class EmbedCardComponent extends React.PureComponent<SmartCardProps> {
       pctWidth: nodeWidth,
       fullWidthMode: fullWidthMode,
     };
+
+    const { hasPreview } = this.state;
     const cardInner = (
       <>
         <WithPluginState
@@ -154,7 +182,6 @@ export class EmbedCardComponent extends React.PureComponent<SmartCardProps> {
               <SmartCard
                 url={url}
                 appearance="embed"
-                isSelected={selected}
                 onClick={this.onClick}
                 onResolve={this.onResolve}
                 showActions={platform === 'web'}
@@ -165,9 +192,13 @@ export class EmbedCardComponent extends React.PureComponent<SmartCardProps> {
               />
             );
 
-            if (!allowResizing) {
+            if (!allowResizing || !hasPreview) {
               return (
-                <RichMediaWrapper {...cardProps} nodeType="embedCard">
+                <RichMediaWrapper
+                  {...cardProps}
+                  nodeType="embedCard"
+                  hasFallbackContainer={hasPreview}
+                >
                   {smartCard}
                 </RichMediaWrapper>
               );
@@ -189,7 +220,6 @@ export class EmbedCardComponent extends React.PureComponent<SmartCardProps> {
                 displayGrid={createDisplayGrid(
                   this.props.eventDispatcher as EventDispatcher,
                 )}
-                selected={selected}
                 updateSize={this.updateSize}
               >
                 {smartCard}
@@ -244,7 +274,6 @@ export class EmbedCard extends SelectionBasedNodeView<EmbedCardNodeViewProps> {
     return (
       <WrappedBlockCard
         node={this.node}
-        selected={this.insideSelection()}
         view={this.view}
         eventDispatcher={eventDispatcher}
         getPos={this.getPos}

@@ -1,5 +1,11 @@
 # @atlaskit/textfield
 
+## 3.1.13
+
+### Patch Changes
+
+- [`088c636cbd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/088c636cbd) - Updated disabled state border-color to match the ADG spec. It now appears as if there is no border on a disabled textfield.
+
 ## 3.1.12
 
 ### Patch Changes

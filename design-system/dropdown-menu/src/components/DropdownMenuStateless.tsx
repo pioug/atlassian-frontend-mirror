@@ -18,6 +18,7 @@ import {
   DeprecatedItem,
   DeprecatedItemGroup,
   DropdownMenuStatelessProps,
+  OnOpenChangeArgs,
 } from '../types';
 import { KEY_DOWN, KEY_ENTER, KEY_SPACE } from '../util/keys';
 import {
@@ -279,6 +280,10 @@ export class DropdownMenuStateless extends Component<
     }
   }
 
+  handleOpenChange = (args: OnOpenChangeArgs) => {
+    this.props.onOpenChange(args);
+  };
+
   triggerContent = () => {
     const {
       children,
@@ -462,7 +467,7 @@ export class DropdownMenuStateless extends Component<
           isLoading={isLoading}
           isOpen={isOpen}
           onClick={(e: MouseEvent) => this.handleClick(e)}
-          onOpenChange={onOpenChange}
+          onOpenChange={this.handleOpenChange}
           position={position}
           isMenuFixed={isMenuFixed}
           shouldFitContainer={shouldFitContainer}

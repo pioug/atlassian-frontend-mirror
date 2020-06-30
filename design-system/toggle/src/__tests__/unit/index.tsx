@@ -2,7 +2,7 @@ import React from 'react';
 
 import { mount } from 'enzyme';
 
-import { Icon, Input } from '../../styled';
+import { Icon, Input, Label } from '../../styled';
 import ToggleStatelessWithAnalytics, {
   ToggleStatelessWithoutAnalytics as Toggle,
 } from '../../ToggleStateless';
@@ -35,11 +35,19 @@ describe('Toggle', () => {
       expect(wrapper.find(Input).prop('disabled')).toBe(false);
     });
 
-    it('Input id should match Label htmlFor', () => {
+    it('should default id to undefined', () => {
       const wrapper = mount(<Toggle />);
-      expect(wrapper.find(Toggle).prop('htmlFor')).toEqual(
-        wrapper.find(Toggle).prop('id'),
-      );
+
+      expect(wrapper.find(Input).prop('id')).toEqual(undefined);
+      expect(wrapper.find(Label).prop('htmlFor')).toEqual(undefined);
+    });
+
+    it('Input id should match id passed in prop', () => {
+      const Id = 'Some_ID';
+      const wrapper = mount(<Toggle id={Id} />);
+
+      expect(wrapper.find(Input).prop('id')).toEqual(Id);
+      expect(wrapper.find(Label).prop('htmlFor')).toEqual(undefined);
     });
 
     describe('input events handlers', () => {

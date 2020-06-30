@@ -1,5 +1,6 @@
 import { Mark, MarkType } from 'prosemirror-model';
-import { TextSelection, EditorState } from 'prosemirror-state';
+import { EditorState, TextSelection } from 'prosemirror-state';
+
 import { colors } from '@atlaskit/theme';
 
 export const DEFAULT_COLOR = {

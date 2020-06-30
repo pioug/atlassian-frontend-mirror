@@ -1,7 +1,7 @@
 import React from 'react';
 import { defineMessages, InjectedIntl } from 'react-intl';
 import { EditorView } from 'prosemirror-view';
-import { TextSelection, EditorState, AllSelection } from 'prosemirror-state';
+import { EditorState } from 'prosemirror-state';
 import { NodeType } from 'prosemirror-model';
 import CommentIcon from '@atlaskit/icon/glyph/comment';
 import { Position } from '@atlaskit/editor-common/src/ui/Popup/utils';
@@ -12,8 +12,8 @@ import {
   FloatingToolbarButton,
 } from '../../plugins/floating-toolbar/types';
 import { setInlineCommentDraftState } from './commands';
-import { AnnotationTestIds } from './types';
-import { hasInlineNodes } from './utils';
+import { AnnotationTestIds, AnnotationSelectionType } from './types';
+import { isSelectionValid } from './utils';
 
 export const annotationMessages = defineMessages({
   createComment: {
@@ -39,35 +39,34 @@ export const buildToolbar = (
   state: EditorState,
   intl: InjectedIntl,
 ): FloatingToolbarConfig | undefined => {
-  const { selection, schema } = state;
-
-  // Toolbar can only be specified on ranged text selections and all selections
-  if (
-    selection.empty ||
-    !(selection instanceof TextSelection || selection instanceof AllSelection)
-  ) {
+  const { schema } = state;
+  const selectionValid = isSelectionValid(state);
+  if (selectionValid === AnnotationSelectionType.INVALID) {
     return undefined;
   }
 
-  const selectionDisabled = hasInlineNodes(state);
   const createCommentMessage = intl.formatMessage(
     annotationMessages.createComment,
+  );
+  const commentDisabledMessage = intl.formatMessage(
+    annotationMessages.createCommentInvalid,
   );
 
   const createComment: FloatingToolbarButton<Command> = {
     type: 'button',
     showTitle: true,
-    disabled: selectionDisabled,
+    disabled: selectionValid === AnnotationSelectionType.DISABLED,
     testId: AnnotationTestIds.floatingToolbarCreateButton,
     icon: CommentIcon,
-    tooltipContent: selectionDisabled ? (
-      intl.formatMessage(annotationMessages.createCommentInvalid)
-    ) : (
-      <ToolTipContent
-        description={createCommentMessage}
-        keymap={addInlineComment}
-      />
-    ),
+    tooltipContent:
+      selectionValid === AnnotationSelectionType.DISABLED ? (
+        commentDisabledMessage
+      ) : (
+        <ToolTipContent
+          description={createCommentMessage}
+          keymap={addInlineComment}
+        />
+      ),
     title: createCommentMessage,
     onClick: (state, dispatch) => {
       return setInlineCommentDraftState(true)(state, dispatch);

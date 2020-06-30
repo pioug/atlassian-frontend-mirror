@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CategoryItems should match snapshot 1`] = `
+<AnalyticsContext
+  data={
+    Object {
+      "component": "category-item",
+    }
+  }
+>
+  <CategoryItems
+    items={
+      Array [
+        Object {
+          "action": [MockFunction],
+          "name": "item-1",
+          "title": "Item 1",
+        },
+        Object {
+          "action": [MockFunction],
+          "name": "item-2",
+          "title": "Item 2",
+        },
+        Object {
+          "action": [MockFunction],
+          "name": "item-3",
+          "title": "Item 3",
+        },
+        Object {
+          "action": [MockFunction],
+          "name": "item-4",
+          "title": "Item 4",
+        },
+        Object {
+          "action": [MockFunction],
+          "name": "item-5",
+          "title": "Item 5",
+        },
+      ]
+    }
+    mode="full"
+    onEnterKeyPress={[MockFunction]}
+    onSelectItem={[MockFunction]}
+  />
+</AnalyticsContext>
+`;
+
+exports[`CategoryItems should render CategoryItem component 1`] = `
+<CategoryItem
+  item={
+    Object {
+      "action": [MockFunction],
+      "name": "item-1",
+      "title": "Item 1",
+    }
+  }
+  key="0"
+  onEnterKeyPress={[MockFunction]}
+  onSelectItem={[MockFunction]}
+/>
+`;

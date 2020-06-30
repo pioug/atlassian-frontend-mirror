@@ -15,7 +15,10 @@ interface State {
   active: boolean;
 }
 
-export default class SpotlightDialogWidthExample extends Component<{}, State> {
+export default class SpotlightTargetFixedPositionExample extends Component<
+  {},
+  State
+> {
   state: State = { active: false };
 
   start = () => this.setState({ active: true });
@@ -41,7 +44,7 @@ export default class SpotlightDialogWidthExample extends Component<{}, State> {
                 position: 'relative',
               }}
             >
-              <SpotlightTarget name="custom-button-appearances">
+              <SpotlightTarget name="fixed-position">
                 <Highlight color="neutral">
                   <h1>Target</h1>
                 </Highlight>
@@ -82,21 +85,21 @@ export default class SpotlightDialogWidthExample extends Component<{}, State> {
               {active && (
                 <Spotlight
                   actions={[
-                    { onClick: this.finish, text: 'Default' },
+                    { onClick: this.finish, text: 'Got it' },
                     {
-                      appearance: 'subtle-link',
+                      appearance: 'subtle',
                       onClick: this.finish,
-                      text: 'Subtle link',
+                      text: 'Back',
                     },
                   ]}
                   dialogPlacement="top center"
-                  heading="Custom button appearances"
-                  key="custom-button-appearances"
-                  target="custom-button-appearances"
+                  heading="Target is in a fixed position"
+                  key="target-fixed-position"
+                  target="fixed-position"
                 >
                   <p>
-                    Spotlight provides theming for <code>default</code> and{' '}
-                    <code>subtle-link</code> button appearances.
+                    Spotlight is used to introduce new features and
+                    functionality when on-boarding or change-boarding users.
                   </p>
                 </Spotlight>
               )}

@@ -1,39 +1,32 @@
-import { EditorView } from 'prosemirror-view';
 import React from 'react';
-import { defineMessages, injectIntl, InjectedIntlProps } from 'react-intl';
 
-import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
-import { akEditorMenuZIndex } from '@atlaskit/editor-common';
+import { EditorView } from 'prosemirror-view';
+import { defineMessages, InjectedIntlProps, injectIntl } from 'react-intl';
+
 import Button from '@atlaskit/button';
+import { akEditorMenuZIndex } from '@atlaskit/editor-common';
+import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
 import EditorBackgroundColorIcon from '@atlaskit/icon/glyph/editor/background-color';
-import {
-  ACTION_SUBJECT,
-  ACTION,
-  EVENT_TYPE,
-  ACTION_SUBJECT_ID,
-  DispatchAnalyticsEvent,
-  AnalyticsEventPayload,
-} from '../../../analytics';
+
 import { withAnalytics } from '../../../../analytics';
-import ToolbarButton from '../../../../ui/ToolbarButton';
 import ColorPalette from '../../../../ui/ColorPalette';
+import { textColorPalette as originalTextColors } from '../../../../ui/ColorPalette/Palettes/textColorPalette';
 import Dropdown from '../../../../ui/Dropdown';
-import { TextColorPluginState } from '../../pm-plugins/main';
-import * as commands from '../../commands/change-color';
-import { EditorTextColorIcon } from './icon';
 import {
-  TextColorIconWrapper,
-  TextColorIconBar,
-  ShowMoreWrapper,
-  rainbow,
-  disabledRainbow,
-} from './styles';
-import {
+  ExpandIconWrapper,
+  MenuWrapper,
   Separator,
   TriggerWrapper,
-  MenuWrapper,
-  ExpandIconWrapper,
 } from '../../../../ui/styles';
+import ToolbarButton from '../../../../ui/ToolbarButton';
+import {
+  ACTION,
+  ACTION_SUBJECT,
+  ACTION_SUBJECT_ID,
+  AnalyticsEventPayload,
+  DispatchAnalyticsEvent,
+  EVENT_TYPE,
+} from '../../../analytics';
 import {
   ExperimentalTextColorSelectedAEP,
   ExperimentalTextColorShowMoreToggleAEP,
@@ -42,7 +35,17 @@ import {
   TextColorShowMoreToggleAttr,
   TextColorShowPaletteToggleAttr,
 } from '../../../analytics/types/experimental-events';
-import { textColorPalette as originalTextColors } from '../../../../ui/ColorPalette/Palettes/textColorPalette';
+import * as commands from '../../commands/change-color';
+import { TextColorPluginState } from '../../pm-plugins/main';
+
+import { EditorTextColorIcon } from './icon';
+import {
+  disabledRainbow,
+  rainbow,
+  ShowMoreWrapper,
+  TextColorIconBar,
+  TextColorIconWrapper,
+} from './styles';
 
 const EXPERIMENT_NAME: string = 'editor.toolbarTextColor.moreColors';
 const EXPERIMENT_GROUP_CONTROL: string = 'control';

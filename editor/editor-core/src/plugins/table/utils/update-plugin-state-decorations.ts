@@ -1,7 +1,9 @@
 import { EditorState } from 'prosemirror-state';
 import { Decoration, DecorationSet } from 'prosemirror-view';
-import { TableDecorations } from '../types';
+
 import { getDecorations } from '../pm-plugins/decorations/plugin';
+import { TableDecorations } from '../types';
+
 import { updateDecorations } from './decoration';
 
 export const updatePluginStateDecorations = (

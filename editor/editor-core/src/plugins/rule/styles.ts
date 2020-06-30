@@ -1,9 +1,11 @@
 import { css } from 'styled-components';
+
 import {
-  ruleSharedStyles,
-  akEditorSelectedBorder,
   akEditorLineHeight,
+  akEditorSelectedBorder,
+  ruleSharedStyles,
 } from '@atlaskit/editor-common';
+
 import { akEditorSelectedNodeClassName } from '../../styles';
 
 export const ruleStyles = css`

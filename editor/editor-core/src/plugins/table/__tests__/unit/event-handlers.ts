@@ -1,22 +1,22 @@
 import {
-  doc,
-  table,
-  tr,
-  tdEmpty,
-  tdCursor,
-  td,
-  p,
-} from '@atlaskit/editor-test-helpers/schema-builder';
-import {
+  createProsemirrorEditorFactory,
   LightEditorPlugin,
   Preset,
-  createProsemirrorEditorFactory,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+import {
+  doc,
+  p,
+  table,
+  td,
+  tdCursor,
+  tdEmpty,
+  tr,
+} from '@atlaskit/editor-test-helpers/schema-builder';
 
 import tablePlugin from '../../../table';
 import { handleMouseOut } from '../../event-handlers';
-import { TableCssClassName as ClassName } from '../../types';
 import { pluginKey } from '../../pm-plugins/plugin-factory';
+import { TableCssClassName as ClassName } from '../../types';
 
 describe('table plugin: decorations', () => {
   const createEditor = createProsemirrorEditorFactory();

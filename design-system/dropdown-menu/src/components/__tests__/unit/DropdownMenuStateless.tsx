@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { fireEvent, render } from '@testing-library/react';
 import { mount, shallow } from 'enzyme';
 
 import Droplist from '@atlaskit/droplist';
@@ -173,5 +174,43 @@ describe('DropdownMenuStatelessWithAnalytics', () => {
       packageName,
       packageVersion,
     });
+  });
+
+  test('should call #onOpenChange prop when clicked outside of dropdown menu', () => {
+    const onOpenChange = jest.fn();
+
+    const { getByText } = render(
+      <React.Fragment>
+        <button>Click Me!!</button>
+        <DropdownMenuStatelessWithAnalytics
+          isOpen
+          onOpenChange={onOpenChange}
+        />
+      </React.Fragment>,
+    );
+
+    fireEvent.click(getByText('Click Me!!'));
+
+    expect(onOpenChange).toHaveBeenCalledWith(
+      expect.objectContaining({ isOpen: false }),
+      expect.objectContaining({
+        context: [
+          {
+            componentName: 'dropdownMenu',
+            packageName,
+            packageVersion,
+          },
+        ],
+        payload: {
+          action: 'toggled',
+          actionSubject: 'dropdownMenu',
+          attributes: {
+            componentName: 'dropdownMenu',
+            packageName,
+            packageVersion,
+          },
+        },
+      }),
+    );
   });
 });

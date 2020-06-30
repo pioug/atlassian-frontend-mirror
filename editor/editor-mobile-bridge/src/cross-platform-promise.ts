@@ -11,6 +11,7 @@ import {
   GetLinkResolvePayload,
   SelectionPayload,
   GetAnnotationStatesPayload,
+  GetCollabConfigPayload,
 } from './types';
 
 const pendingPromises: Map<string, Holder<any>> = new Map<
@@ -30,6 +31,18 @@ export interface SubmitPromiseToNative<T> {
 }
 
 export function createPromise(
+  name: 'getStorageValue',
+  args: { key: string },
+): SubmitPromiseToNative<string>;
+export function createPromise(
+  name: 'setStorageValue',
+  args: { key: string; value: string },
+): SubmitPromiseToNative<void>;
+export function createPromise(
+  name: 'deleteStorageValue',
+  args: { key: string },
+): SubmitPromiseToNative<void>;
+export function createPromise(
   name: 'onSelection',
   args: SelectionPayload,
 ): SubmitPromiseToNative<void>;
@@ -40,6 +53,9 @@ export function createPromise(
 export function createPromise(
   name: 'getConfig',
 ): SubmitPromiseToNative<GetConfigPayload>;
+export function createPromise(
+  name: 'getCollabConfig',
+): SubmitPromiseToNative<GetCollabConfigPayload>;
 export function createPromise(
   name: 'nativeFetch',
   args: { url: string; options?: RequestInit },

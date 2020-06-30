@@ -5,6 +5,7 @@ import {
   Appearance,
   deviceViewPorts,
 } from '../_utils';
+import { waitForMediaToBeLoaded } from '../../__helpers/page-objects/_media';
 import { traverse } from '@atlaskit/adf-utils/traverse';
 import smartLinksAdf from './__fixtures__/smart-link-nested-in-list.adf.json';
 import extensionAdf from './__fixtures__/inline-extension-inside-lists.adf.json';
@@ -35,8 +36,8 @@ import {
   scrollToBottom,
 } from '../../__helpers/page-objects/_editor';
 import { EditorTestCardProvider } from '@atlaskit/editor-test-helpers/card-provider';
-// TODO: https://product-fabric.atlassian.net/browse/ED-7721
-describe.skip('Lists', () => {
+
+describe('Lists', () => {
   let page: Page;
   const cardProvider = new EditorTestCardProvider();
 
@@ -121,7 +122,7 @@ describe('Lists adjacent floated media', () => {
   });
 
   afterEach(async () => {
-    await animationFrame(page);
+    await waitForMediaToBeLoaded(page);
     await snapshot(page);
   });
 

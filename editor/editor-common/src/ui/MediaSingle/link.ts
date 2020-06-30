@@ -1,5 +1,7 @@
 import styled from 'styled-components';
-import { gridSize, colors } from '@atlaskit/theme';
+
+import { colors, gridSize } from '@atlaskit/theme';
+
 import { akEditorSwoopCubicBezier } from '../../styles/consts';
 
 export const MediaLinkWrapper = styled.span`

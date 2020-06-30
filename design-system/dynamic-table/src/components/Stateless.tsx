@@ -99,7 +99,6 @@ class DynamicTable extends React.Component<Props, State> {
     if (!key) {
       return;
     }
-    this.onSetPage(1, undefined);
 
     if (onSort && isRankable && key === sortKey && sortOrder === DESC) {
       onSort({ key: null, sortOrder: null, item });

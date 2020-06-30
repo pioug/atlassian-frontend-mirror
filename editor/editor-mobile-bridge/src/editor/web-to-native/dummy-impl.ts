@@ -76,6 +76,14 @@ export default class DummyBridge implements NativeBridge {
   trackEvent(event: string) {
     this.call('analyticsBridge', 'trackEvent', event);
   }
+
+  // TODO: I need to implement this somehow.... Or it's just ok with just logging?
+  connectToCollabService(path: string): void {}
+
+  disconnectFromCollabService(): void {}
+
+  emitCollabChanges(event: string, jsonArgs: string): void {}
+
   call<T extends EditorBridgeNames>(
     bridge: T,
     event: keyof Exclude<EditorBridges[T], undefined>,

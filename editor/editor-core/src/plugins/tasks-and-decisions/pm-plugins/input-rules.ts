@@ -1,21 +1,22 @@
 import { InputRule } from 'prosemirror-inputrules';
-import { Schema, Node } from 'prosemirror-model';
+import { Node, Schema } from 'prosemirror-model';
 import {
+  EditorState,
   NodeSelection,
   Plugin,
-  EditorState,
   TextSelection,
 } from 'prosemirror-state';
+import { canInsert } from 'prosemirror-utils';
+
 import { analyticsService } from '../../../analytics';
 import {
   createInputRule,
   instrumentedInputRule,
   leafNodeReplacementCharacter,
 } from '../../../utils/input-rules';
-import { canInsert } from 'prosemirror-utils';
-import { changeInDepth, insertTaskDecisionWithAnalytics } from '../commands';
 import { INPUT_METHOD } from '../../analytics';
-import { TaskDecisionListType, AddItemTransactionCreator } from '../types';
+import { changeInDepth, insertTaskDecisionWithAnalytics } from '../commands';
+import { AddItemTransactionCreator, TaskDecisionListType } from '../types';
 
 const createListRule = (regex: RegExp, listType: TaskDecisionListType) => {
   return createInputRule(

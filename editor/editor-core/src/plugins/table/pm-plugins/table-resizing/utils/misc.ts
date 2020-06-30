@@ -1,15 +1,17 @@
+import { NodeSpec, ResolvedPos } from 'prosemirror-model';
 import { EditorView } from 'prosemirror-view';
-import { ResolvedPos, NodeSpec } from 'prosemirror-model';
-import { TableLayout, CellAttributes } from '@atlaskit/adf-schema';
+
+import { CellAttributes, TableLayout } from '@atlaskit/adf-schema';
 import {
-  calcTableWidth,
-  akEditorWideLayoutWidth,
   akEditorDefaultLayoutWidth,
   akEditorFullWidthLayoutWidth,
+  akEditorGutterPadding,
+  akEditorWideLayoutWidth,
+  calcTableWidth,
   getBreakpoint,
   mapBreakpointToLayoutMaxWidth,
-  akEditorGutterPadding,
 } from '@atlaskit/editor-common';
+
 import { containsClassName } from '../../../../../utils';
 import { TableOptions } from '../../../nodeviews/types';
 

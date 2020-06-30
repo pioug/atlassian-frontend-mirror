@@ -3,6 +3,7 @@ import { Plugin } from 'prosemirror-state';
 
 import * as keymaps from '../../keymaps';
 import { Command } from '../../types';
+
 import { mayGetStatusAtSelection } from './utils';
 
 export function keymapPlugin(): Plugin {

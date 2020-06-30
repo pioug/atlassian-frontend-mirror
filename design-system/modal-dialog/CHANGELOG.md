@@ -1,5 +1,12 @@
 # @atlaskit/modal-dialog
 
+## 10.6.4
+
+### Patch Changes
+
+- [`5be257c6f6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5be257c6f6) - Fix issue with the way that tabIndex was applied to dialog content. Now the check looks at whether the container is scrollable, rather than the shouldScroll prop.
+- [`057d870973`](https://bitbucket.org/atlassian/atlassian-frontend/commits/057d870973) - Fix keyboard scrolling of modal dialog content
+
 ## 10.6.3
 
 ### Patch Changes

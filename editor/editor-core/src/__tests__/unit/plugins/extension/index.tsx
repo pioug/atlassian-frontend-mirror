@@ -45,6 +45,7 @@ import {
   updateExtensionLayout,
 } from '../../../../plugins/extension/commands';
 import { getPluginState } from '../../../../plugins/extension/pm-plugins/main';
+import { getSelectedExtension } from '../../../../plugins/extension/utils';
 import { setNodeSelection } from '../../../../utils';
 import { waitForProvider, flushPromises } from '../../../__helpers/utils';
 
@@ -323,15 +324,16 @@ describe('extension', () => {
               ),
             ),
           );
-          const pluginState = getPluginState(editorView.state);
+
+          const nodeWithPos = getSelectedExtension(editorView.state, true);
+
           const provider = await macroProviderPromise;
           expect(
             editExtension(provider)(editorView.state, editorView.dispatch),
           ).toBe(true);
-          expect(pluginState.nodeWithPos).toBeDefined();
-          expect(pluginState.nodeWithPos!.node.attrs.layout).toEqual(
-            'full-width',
-          );
+
+          expect(nodeWithPos).toBeDefined();
+          expect(nodeWithPos!.node.attrs.layout).toEqual('full-width');
         });
       });
 

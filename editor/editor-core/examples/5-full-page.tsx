@@ -491,16 +491,18 @@ const Renderer = (props: {
       >
         Edit
       </Button>
-      <ReactRenderer
-        allowHeadingAnchorLinks
-        allowAltTextOnImages
-        allowColumnSorting
-        adfStage="stage0"
-        dataProviders={providerFactory}
-        extensionHandlers={extensionHandlers}
-        document={props.document && JSON.parse(props.document)}
-        appearance={getAppearance()}
-      />
+      <SmartCardProvider client={smartCardClient}>
+        <ReactRenderer
+          allowHeadingAnchorLinks
+          allowAltTextOnImages
+          allowColumnSorting
+          adfStage="stage0"
+          dataProviders={providerFactory}
+          extensionHandlers={extensionHandlers}
+          document={props.document && JSON.parse(props.document)}
+          appearance={getAppearance()}
+        />
+      </SmartCardProvider>
     </div>
   );
 };

@@ -1,11 +1,11 @@
-import { Transaction, Selection } from 'prosemirror-state';
-import { CellSelection, TableMap, Rect } from 'prosemirror-tables';
+import { Selection, Transaction } from 'prosemirror-state';
+import { CellSelection, Rect, TableMap } from 'prosemirror-tables';
 import {
   findTable,
-  isCellSelection,
-  getSelectionRect,
   getSelectionRangeInColumn,
   getSelectionRangeInRow,
+  getSelectionRect,
+  isCellSelection,
 } from 'prosemirror-utils';
 
 export const isSelectionUpdated = (

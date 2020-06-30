@@ -10,9 +10,6 @@ import {
   shadowSharedStyle,
   inlineNodeSharedStyle,
   dateSharedStyle,
-  akEditorDeleteBackground,
-  akEditorDeleteBorder,
-  akEditorSelectedBorderBoldSize,
   tasksAndDecisionsStyles,
   annotationSharedStyles,
   smartCardSharedStyles,
@@ -122,19 +119,6 @@ const ContentStyles: ComponentClass<HTMLAttributes<{}> & {
   ${smartCardSharedStyles}
   ${dateStyles}
   ${embedCardStyles}
-
-  /** Global selector for extensions, as .danger tag is assigned to root level node which is unaccessible from triggered child node **/
-  /* Danger when nested node */
-  .danger .extension-container {
-    background: rgb(255, 189, 173, 0.5); /* R75 with 50% opactiy */
-    transition: opacity 0s;
-  }
-
-  /* Danger when top level node */
-  .danger > span > .extension-container {
-    background: ${akEditorDeleteBackground};
-    box-shadow: 0 0 0 ${akEditorSelectedBorderBoldSize}px ${akEditorDeleteBorder};
-  }
 
   .panelView-content-wrap {
     box-sizing: border-box;

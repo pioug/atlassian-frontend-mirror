@@ -1,5 +1,6 @@
-import { Node as PMNode, Schema, Slice, Fragment } from 'prosemirror-model';
+import { Fragment, Node as PMNode, Schema, Slice } from 'prosemirror-model';
 import { flatten } from 'prosemirror-utils';
+
 import { flatmap, mapSlice } from '../../../utils/slice';
 
 // lifts up the content of each cell, returning an array of nodes

@@ -1,5 +1,6 @@
 import { Node as PMNode, Slice } from 'prosemirror-model';
-import { Step, StepResult, StepMap, ReplaceStep } from 'prosemirror-transform';
+import { ReplaceStep, Step, StepMap, StepResult } from 'prosemirror-transform';
+
 import { TableColumnOrdering } from '../types';
 
 export const tableSortingStepType = 'atlaskit-table-sorting-ordering';

@@ -16,7 +16,6 @@ export default class Toggle extends Component<StatefulProps, State> {
     onChange: () => {},
     onFocus: () => {},
     size: 'regular',
-    label: '',
     name: '',
     value: '',
     isDefaultChecked: false,

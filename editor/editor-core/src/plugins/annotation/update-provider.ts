@@ -1,6 +1,6 @@
 import { EventEmitter } from 'events';
 
-export type UpdateEvent = 'resolve' | 'unresolve';
+export type UpdateEvent = 'create' | 'delete' | 'resolve' | 'unresolve';
 export class AnnotationUpdateEmitter extends EventEmitter {
   on(event: UpdateEvent, listener: (annotationId: string) => void): this {
     return super.on(event, listener);

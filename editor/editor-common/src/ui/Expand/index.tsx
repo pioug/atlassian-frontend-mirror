@@ -1,12 +1,12 @@
-import styled, { css } from 'styled-components';
 import { defineMessages } from 'react-intl';
+import styled, { css } from 'styled-components';
 
-import { colors, gridSize, fontSize } from '@atlaskit/theme';
+import { colors, fontSize, gridSize } from '@atlaskit/theme';
 
 import {
+  akEditorLineHeight,
   akEditorSwoopCubicBezier,
   akLayoutGutterOffset,
-  akEditorLineHeight,
 } from '../../styles/consts';
 
 export const messages = defineMessages({

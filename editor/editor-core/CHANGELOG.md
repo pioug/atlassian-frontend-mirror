@@ -1,5 +1,56 @@
 # @atlaskit/editor-core
 
+## 125.1.0
+
+### Minor Changes
+
+- [`64d75b8f7e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/64d75b8f7e) - Call getFieldsDefinition with extension parameters
+- [`a602a1a359`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a602a1a359) - [FM-3814] Enables the mobile bridge to add two new blocks items: divider and expand
+
+### Patch Changes
+
+- [`029fe86668`](https://bitbucket.org/atlassian/atlassian-frontend/commits/029fe86668) - Fix browser freeze issue
+- [`a614b880df`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a614b880df) - [FM-3627] Fix bug in editor-mobile-bridge where it required two taps to trigger the 'Toggle Expand' button. Now it works with a single tap, and is consistent with the desktop web experience.
+- [`89d31dbb00`](https://bitbucket.org/atlassian/atlassian-frontend/commits/89d31dbb00) - Change card/pm-plugins to render as dumblink with queued inline card
+- [`29ffa9c4d0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/29ffa9c4d0) - ED-9357 Fix links replacing text when text hasn't changed
+- [`2c174200a5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2c174200a5) - Fix duplicate smart link and non-smart link analytics emitted from link typeahead menu
+- [`5daf66df61`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5daf66df61) - ED-9439: Do not store node in the state - get it from selection to avoid stale data
+- [`ea24b0ad90`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ea24b0ad90) - ED-9341 restructured annotation plugin commands to avoid redundant dispatches
+- [`b7ff890135`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b7ff890135) - ED-9405 added adf viewer example for DAC
+- [`c3729993fb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c3729993fb) - Image singles now show selected state when selected in a range
+- [`01c27cf8cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/01c27cf8cf) - ED-9552 Move SetAttrsStep into adf-schema
+- [`b17d1c437a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b17d1c437a) - EDM-920: add required className to intersection observer loader
+- [`73552b28ae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/73552b28ae) - ED-8835 Use selection plugin to style smartlinks
+- [`ba7242598f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ba7242598f) - CEMS-378 load macro title from macroMetadata
+- [`a1b1dc690e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a1b1dc690e) - ED-9373 Fix panel being selected when clicking between paragraphs inside
+- [`9136a3e011`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9136a3e011) - ED-9542 Change editor-core/plugins/{r-w} imports to comply with Atlassian conventions
+- [`63ed17b2bf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/63ed17b2bf) - ED-9343 close view comments component on delete
+- [`7696db8259`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7696db8259) - EDM-834: Fix toolbar not moving with aligned embeds
+- [`613b7549e6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/613b7549e6) - Element browser smart component, adding unit tests, and replacing element items css grid container with flexbox
+- [`770984852a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/770984852a) - add VR test to editor collab + add test-id to collab avatars
+- [`d4220ca169`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d4220ca169) - ED-9315: Ensures find/replace picks up partially styled or marked text when determining text matches
+- [`bf155d0aa7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bf155d0aa7) - ED-9003 Use selection plugin to style block and bodied extensions
+- [`b8d3690c47`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b8d3690c47) - CEMS-1108: always match sticky header column widths from table
+- [`363e3e6877`](https://bitbucket.org/atlassian/atlassian-frontend/commits/363e3e6877) - ED-9536 Add 'create' and 'delete' events to annotation event emitter
+- [`1b69b8dc78`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1b69b8dc78) - ED-9579 Fix uncaught error issue inside extension
+- [`b7a4b99d9c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b7a4b99d9c) - ED-9546 Add option to disable annotatios on whitespace
+
+  Adds the option to disable creation of annotations on whitespace nodes. Note, this is per provider (see example). It will prevent annotation creation if any node in the current user selection is empty.
+
+  ```
+  <FullPageExample
+    annotationProviders={{
+      inlineComment: {
+        ...
+        disallowOnWhitespace: true,
+      },
+    }}
+  />
+  ```
+
+- [`62d2c116af`](https://bitbucket.org/atlassian/atlassian-frontend/commits/62d2c116af) - Fix width for media when wrapped width is not available
+- Updated dependencies
+
 ## 125.0.1
 
 ### Patch Changes

@@ -1,3 +1,5 @@
+import { Serialized } from '../../types';
+
 export default interface NativeBridge
   extends MentionBridge,
     TextFormattingBridge,
@@ -7,7 +9,8 @@ export default interface NativeBridge
     LinkBridge,
     UndoRedoBridge,
     AnalyticsBridge,
-    SelectionBridge {
+    SelectionBridge,
+    CollabEditNativeBridge {
   call<T extends EditorBridgeNames>(
     bridge: T,
     event: keyof Exclude<EditorBridges[T], undefined>,
@@ -16,6 +19,7 @@ export default interface NativeBridge
 }
 
 import { Color as StatusColor } from '@atlaskit/status/element';
+import { CollabAnalyticsEvents } from '../../analytics/collab';
 
 export interface EditorBridges {
   mentionsBridge?: MentionBridge;
@@ -31,6 +35,7 @@ export interface EditorBridges {
   undoRedoBridge?: UndoRedoBridge;
   analyticsBridge?: AnalyticsBridge;
   selectionBridge?: SelectionBridge;
+  collabBridge?: CollabBridge;
 }
 
 export type EditorBridgeNames = keyof EditorBridges;
@@ -92,7 +97,19 @@ export interface UndoRedoBridge {
 }
 
 export interface AnalyticsBridge {
-  trackEvent(event: string): void;
+  trackEvent(eventPayload: Serialized<CollabAnalyticsEvents> | string): void;
 }
 
 export interface SelectionBridge {}
+
+export interface CollabBridge {
+  emit(event: string, jsonArgs: string): void;
+  connect(path: string): void;
+  disconnect(): void;
+}
+
+export interface CollabEditNativeBridge {
+  connectToCollabService: CollabBridge['connect'];
+  emitCollabChanges: CollabBridge['emit'];
+  disconnectFromCollabService: CollabBridge['disconnect'];
+}

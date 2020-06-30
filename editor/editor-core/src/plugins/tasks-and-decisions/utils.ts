@@ -1,4 +1,4 @@
-import { Schema, Slice, Fragment } from 'prosemirror-model';
+import { Fragment, Schema, Slice } from 'prosemirror-model';
 
 // If slice is decisionItem, wrap it inside a decisionList. This prevents an
 // additional newline from being pasted along with the selected decision item.

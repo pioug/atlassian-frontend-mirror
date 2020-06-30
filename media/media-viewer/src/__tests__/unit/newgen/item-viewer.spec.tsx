@@ -124,10 +124,10 @@ describe('<ItemViewer />', () => {
     expect(errorMessage.find(Button)).toHaveLength(0);
   });
 
-  it('should show the image viewer if media type is image', async () => {
+  it('should show the image viewer if media type is image', () => {
     const defaultFileState: FileState = {
       status: 'processed',
-      id: await identifier.id,
+      id: identifier.id,
       name: 'file-name',
       size: 10,
       artifacts: {},
@@ -214,9 +214,9 @@ describe('<ItemViewer />', () => {
     expect(errorMessage.find(Button)).toHaveLength(1);
   });
 
-  it('should show the video viewer if media type is video', async () => {
+  it('should show the video viewer if media type is video', () => {
     const state: ProcessedFileState = {
-      id: await identifier.id,
+      id: identifier.id,
       mediaType: 'video',
       status: 'processed',
       mimeType: '',
@@ -235,9 +235,9 @@ describe('<ItemViewer />', () => {
     );
   });
 
-  it('should show the audio viewer if media type is audio', async () => {
+  it('should show the audio viewer if media type is audio', () => {
     const state: ProcessedFileState = {
-      id: await identifier.id,
+      id: identifier.id,
       mediaType: 'audio',
       status: 'processed',
       mimeType: '',
@@ -256,9 +256,9 @@ describe('<ItemViewer />', () => {
     );
   });
 
-  it('should show the document viewer if media type is document', async () => {
+  it('should show the document viewer if media type is document', () => {
     const state: FileState = {
-      id: await identifier.id,
+      id: identifier.id,
       mediaType: 'doc',
       status: 'processed',
       artifacts: {},
@@ -277,9 +277,9 @@ describe('<ItemViewer />', () => {
     );
   });
 
-  it('should should error and download button if file is unsupported', async () => {
+  it('should should error and download button if file is unsupported', () => {
     const state: FileState = {
-      id: await identifier.id,
+      id: identifier.id,
       mediaType: 'unknown',
       status: 'processed',
       artifacts: {},
@@ -299,9 +299,9 @@ describe('<ItemViewer />', () => {
     expect(errorMessage.find(Button)).toHaveLength(1);
   });
 
-  it('MSW-720: passes the collectionName to getFileState', async () => {
+  it('MSW-720: passes the collectionName to getFileState', () => {
     const state: FileState = {
-      id: await identifier.id,
+      id: identifier.id,
       mediaType: 'image',
       status: 'processed',
       artifacts: {},
@@ -318,9 +318,9 @@ describe('<ItemViewer />', () => {
     });
   });
 
-  it('should render InteractiveImg for external image identifier', async () => {
+  it('should render InteractiveImg for external image identifier', () => {
     const state: FileState = {
-      id: await identifier.id,
+      id: identifier.id,
       mediaType: 'image',
       status: 'processed',
       artifacts: {},
@@ -445,10 +445,10 @@ describe('<ItemViewer />', () => {
       packageVersion,
     };
 
-    it('should trigger analytics when the preview commences', async () => {
+    it('should trigger analytics when the preview commences', () => {
       const mediaClient = makeFakeMediaClient(
         createFileStateSubject({
-          id: await identifier.id,
+          id: identifier.id,
           mediaType: 'unknown',
           status: 'processed',
           artifacts: {},
@@ -507,14 +507,14 @@ describe('<ItemViewer />', () => {
       });
     });
 
-    it('should trigger analytics when viewer returned an error', async () => {
+    it('should trigger analytics when viewer returned an error', () => {
       setViewerPayload({
         status: 'error',
         errorMessage: 'Image viewer failed :(',
       });
       const mediaClient = makeFakeMediaClient(
         createFileStateSubject({
-          id: await identifier.id,
+          id: identifier.id,
           mediaType: 'image',
           status: 'processed',
           artifacts: {},
@@ -545,10 +545,10 @@ describe('<ItemViewer />', () => {
       });
     });
 
-    it('should trigger analytics when viewer is successful', async () => {
+    it('should trigger analytics when viewer is successful', () => {
       const mediaClient = makeFakeMediaClient(
         createFileStateSubject({
-          id: await identifier.id,
+          id: identifier.id,
           mediaType: 'image',
           status: 'processed',
           artifacts: {},
@@ -578,10 +578,10 @@ describe('<ItemViewer />', () => {
       });
     });
 
-    it('should trigger analytics when file failed processing', async () => {
+    it('should trigger analytics when file failed processing', () => {
       const mediaClient = makeFakeMediaClient(
         createFileStateSubject({
-          id: await identifier.id,
+          id: identifier.id,
           mediaType: 'image',
           status: 'failed-processing',
           artifacts: {},
@@ -611,7 +611,7 @@ describe('<ItemViewer />', () => {
 
     it('should trigger error analytics if DocumentViewer fails', async () => {
       const state: FileState = {
-        id: await identifier.id,
+        id: identifier.id,
         mediaType: 'doc',
         status: 'processed',
         artifacts: {},
@@ -651,9 +651,9 @@ describe('<ItemViewer />', () => {
 
     test.each(['audio', 'video'])(
       'should trigger analytics when %s can play',
-      async type => {
+      type => {
         const state: ProcessedFileState = {
-          id: await identifier.id,
+          id: identifier.id,
           // @ts-ignore This violated type definition upgrade of @types/jest to v24.0.18 & ts-jest v24.1.0.
           //See BUILDTOOLS-210-clean: https://bitbucket.org/atlassian/atlaskit-mk-2/pull-requests/7178/buildtools-210-clean/diff
           mediaType: type,
@@ -693,9 +693,9 @@ describe('<ItemViewer />', () => {
 
     test.each<[MediaType, MediaType]>([['audio', 'video']])(
       'should trigger analytics when %s errors',
-      async type => {
+      type => {
         const state: ProcessedFileState = {
-          id: await identifier.id,
+          id: identifier.id,
           mediaType: type,
           status: 'processed',
           mimeType: '',

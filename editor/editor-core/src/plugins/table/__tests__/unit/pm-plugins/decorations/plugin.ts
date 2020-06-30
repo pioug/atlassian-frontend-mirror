@@ -1,21 +1,23 @@
 import { Selection } from 'prosemirror-state';
-import { DecorationSet } from 'prosemirror-view';
 import { addColumnAt } from 'prosemirror-utils';
+import { DecorationSet } from 'prosemirror-view';
+
 import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
 import {
   doc,
   table,
-  tr,
-  tdEmpty,
   tdCursor,
+  tdEmpty,
+  tr,
 } from '@atlaskit/editor-test-helpers/schema-builder';
-import { TablePluginState, TableDecorations } from '../../../../types';
+
 import { selectColumn } from '../../../../commands';
-import { pluginKey } from '../../../../pm-plugins/plugin-factory';
 import {
   getDecorations,
   handleDocOrSelectionChanged,
 } from '../../../../pm-plugins/decorations/plugin';
+import { pluginKey } from '../../../../pm-plugins/plugin-factory';
+import { TableDecorations, TablePluginState } from '../../../../types';
 
 describe('decorations plugin', () => {
   const createEditor = createEditorFactory<TablePluginState>();

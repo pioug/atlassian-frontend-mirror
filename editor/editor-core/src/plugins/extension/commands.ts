@@ -70,7 +70,7 @@ export const removeExtension = () =>
   createCommand(
     {
       type: 'UPDATE_STATE',
-      data: { element: undefined, nodeWithPos: undefined },
+      data: { element: undefined },
     },
     (tr, state) => {
       if (getSelectedExtension(state)) {

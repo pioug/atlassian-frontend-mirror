@@ -6,7 +6,7 @@ const spotlightTheme = {
       default: { light: colors.P400, dark: colors.P400 },
       hover: { light: colors.P200, dark: colors.P200 },
       active: { light: colors.P500, dark: colors.P500 },
-      disabled: { light: colors.N30, dark: colors.DN70 },
+      disabled: { light: colors.P400, dark: colors.P400 },
       selected: { light: colors.R500, dark: colors.R500 },
       focus: { light: colors.P400, dark: colors.P400 },
     },
@@ -21,6 +21,33 @@ const spotlightTheme = {
       hover: { light: colors.N0, dark: colors.N0 },
       active: { light: colors.N0, dark: colors.N0 },
       disabled: { light: colors.N0, dark: colors.DN30 },
+      selected: { light: colors.N0, dark: colors.N0 },
+      focus: { light: colors.N0, dark: colors.N0 },
+    },
+    outline: {
+      focus: { light: 'none', dark: 'none' },
+    },
+  },
+  subtle: {
+    background: {
+      default: { light: 'none', dark: 'none' },
+      hover: { light: colors.P200, dark: colors.P200 },
+      active: { light: colors.P500, dark: colors.P500 },
+      disabled: { light: 'none', dark: 'none' },
+      selected: { light: colors.N700, dark: colors.DN0 },
+      focusSelected: { light: colors.N700, dark: colors.DN0 },
+    },
+    boxShadow: {
+      focus: {
+        light: `${colors.P100} 0 0 0 2px`,
+        dark: `${colors.P100} 0 0 0 2px`,
+      },
+    },
+    color: {
+      default: { light: colors.N0, dark: colors.N0 },
+      hover: { light: colors.N0, dark: colors.N0 },
+      active: { light: colors.N0, dark: colors.N0 },
+      disabled: { light: colors.N0, dark: colors.N0 },
       selected: { light: colors.N0, dark: colors.N0 },
       focus: { light: colors.N0, dark: colors.N0 },
     },
@@ -50,6 +77,7 @@ const spotlightTheme = {
       active: { light: colors.P100, dark: colors.P100 },
       disabled: { light: colors.P500, dark: colors.P500 },
       selected: { light: colors.N0, dark: colors.N0 },
+      focus: { light: colors.N0, dark: colors.N0 },
     },
   },
 };

@@ -1,14 +1,14 @@
-import { Plugin, PluginKey, Transaction, EditorState } from 'prosemirror-state';
+import { EditorState, Plugin, PluginKey, Transaction } from 'prosemirror-state';
 
 import { Dispatch } from '../../../event-dispatcher';
-import { getActiveColor, DEFAULT_COLOR } from '../utils/color';
-import { getDisabledState } from '../utils/disabled';
-import { PaletteColor } from '../../../ui/ColorPalette/Palettes/type';
 import {
+  DEFAULT_BORDER_COLOR,
   textColorPalette,
   textColorPaletteExperimental,
-  DEFAULT_BORDER_COLOR,
 } from '../../../ui/ColorPalette/Palettes/textColorPalette';
+import { PaletteColor } from '../../../ui/ColorPalette/Palettes/type';
+import { DEFAULT_COLOR, getActiveColor } from '../utils/color';
+import { getDisabledState } from '../utils/disabled';
 
 export { DEFAULT_COLOR } from '../utils/color';
 

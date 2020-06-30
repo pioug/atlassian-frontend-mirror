@@ -1,12 +1,15 @@
 import React from 'react';
+
+import {
+  AnnotationUpdateEmitter,
+  AnnotationUpdateEvent,
+} from '@atlaskit/editor-common';
 import { AnnotationMarkStates, AnnotationTypes } from '@atlaskit/adf-schema';
-import Annotation, {
-  AnnotationContext,
-  AnnotationsProvider,
-} from '../../annotation';
+import Annotation, { AnnotationContext } from '../../annotation';
 import { render, unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
 
+jest.useFakeTimers();
 let container: HTMLElement;
 beforeEach(() => {
   container = document.createElement('div');
@@ -14,7 +17,9 @@ beforeEach(() => {
 });
 
 afterEach(() => {
-  unmountComponentAtNode(container);
+  act(() => {
+    unmountComponentAtNode(container);
+  });
   container.remove();
 });
 
@@ -68,9 +73,11 @@ describe('Renderer - React/Marks/Annottation', () => {
       );
       act(() => {
         render(
-          <AnnotationsProvider
-            onAnnotationClick={onAnnotationClick}
-            enableAutoHighlight={false}
+          <AnnotationContext.Provider
+            value={{
+              onAnnotationClick,
+              enableAutoHighlight: false,
+            }}
           >
             <Annotation
               dataAttributes={{
@@ -82,7 +89,7 @@ describe('Renderer - React/Marks/Annottation', () => {
             >
               <small>second test</small>
             </Annotation>
-          </AnnotationsProvider>,
+          </AnnotationContext.Provider>,
           container,
         );
       });
@@ -151,7 +158,6 @@ describe('Renderer - React/Marks/Annottation', () => {
       });
 
       await annotationStatePromise;
-
       annotation = document.querySelector(
         `[data-id="random-id"]`,
       ) as HTMLElement;
@@ -181,6 +187,144 @@ describe('Renderer - React/Marks/Annottation', () => {
 
         expect(annotation).toBeDefined();
         expect(onAnnotationClick).toHaveBeenCalledWith();
+      });
+    });
+  });
+
+  describe('with updateSubscriber', () => {
+    const updateSubscriber = new AnnotationUpdateEmitter();
+    const annotationId = 'random-id';
+    const annotationStatePromise = Promise.resolve(AnnotationMarkStates.ACTIVE);
+
+    beforeEach(async () => {
+      act(() => {
+        render(
+          <AnnotationContext.Provider
+            value={{
+              onAnnotationClick: jest.fn(),
+              updateSubscriber,
+              enableAutoHighlight: false,
+            }}
+          >
+            <Annotation
+              dataAttributes={{
+                'data-renderer-mark': true,
+              }}
+              id={annotationId}
+              annotationType={AnnotationTypes.INLINE_COMMENT}
+              getAnnotationState={() => annotationStatePromise}
+            >
+              <small>second test</small>
+            </Annotation>
+          </AnnotationContext.Provider>,
+          container,
+        );
+      });
+
+      await annotationStatePromise;
+
+      act(() => {
+        jest.runAllTimers();
+      });
+    });
+
+    it('should add a SET_ANNOTATION_FOCUS listener in the emitter', () => {
+      expect(
+        updateSubscriber.listeners(AnnotationUpdateEvent.SET_ANNOTATION_FOCUS),
+      ).toHaveLength(1);
+    });
+
+    it('should add a SET_ANNOTATION_STATE listener in the emitter', () => {
+      expect(
+        updateSubscriber.listeners(AnnotationUpdateEvent.SET_ANNOTATION_STATE),
+      ).toHaveLength(1);
+    });
+
+    it('should set data attritube hasFocus to true', () => {
+      const payload = {
+        annotationId,
+      };
+      act(() => {
+        updateSubscriber.emit(
+          AnnotationUpdateEvent.SET_ANNOTATION_FOCUS,
+          payload,
+        );
+        jest.runAllTimers();
+      });
+
+      const annotation = container.querySelector(
+        `[data-id="${annotationId}"]`,
+      ) as HTMLElement;
+      const dataSet = Object.assign({}, annotation!.dataset);
+      expect(dataSet.hasFocus).toBe('true');
+    });
+
+    describe('when SET_ANNOTATION_STATE is dispatched', () => {
+      it('should set the state based on the payload', () => {
+        const payload = {
+          [annotationId]: AnnotationMarkStates.RESOLVED,
+        };
+
+        act(() => {
+          updateSubscriber.emit(
+            AnnotationUpdateEvent.SET_ANNOTATION_STATE,
+            payload,
+          );
+          jest.runAllTimers();
+        });
+
+        const annotation = container.querySelector(
+          `[data-id="${annotationId}"]`,
+        ) as HTMLElement;
+        const dataSet = Object.assign({}, annotation!.dataset);
+        expect(dataSet.markAnnotationState).toBe('resolved');
+      });
+    });
+
+    describe('when REMOVE_ANNOTATION_FOCUS is dispatched', () => {
+      it('should set data attritube hasFocus to false', () => {
+        act(() => {
+          updateSubscriber.emit(AnnotationUpdateEvent.REMOVE_ANNOTATION_FOCUS);
+          jest.runAllTimers();
+        });
+
+        const annotation = container.querySelector(
+          `[data-id="${annotationId}"]`,
+        ) as HTMLElement;
+        const dataSet = Object.assign({}, annotation!.dataset);
+        expect(dataSet.hasFocus).toBe('false');
+      });
+    });
+
+    describe('when the component is unmounted', () => {
+      it('should remove the listener SET_ANNOTATION_FOCUS', () => {
+        expect(
+          updateSubscriber.listeners(
+            AnnotationUpdateEvent.SET_ANNOTATION_FOCUS,
+          ),
+        ).toHaveLength(1);
+
+        unmountComponentAtNode(container);
+        expect(
+          updateSubscriber.listeners(
+            AnnotationUpdateEvent.SET_ANNOTATION_FOCUS,
+          ),
+        ).toHaveLength(0);
+      });
+
+      it('should remove the listener REMOVE_ANNOTATION_FOCUS', () => {
+        expect(
+          updateSubscriber.listeners(
+            AnnotationUpdateEvent.REMOVE_ANNOTATION_FOCUS,
+          ),
+        ).toHaveLength(1);
+
+        unmountComponentAtNode(container);
+        expect(
+          updateSubscriber.listeners(
+            AnnotationUpdateEvent.REMOVE_ANNOTATION_FOCUS,
+          ),
+        ).toHaveLength(0);
       });
     });
   });

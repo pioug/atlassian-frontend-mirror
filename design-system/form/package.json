@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/form",
-  "version": "7.4.0",
+  "version": "7.4.1",
   "description": "Form package provides layout & validation for form fields",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -28,6 +28,7 @@
     "@atlaskit/theme": "^9.5.1",
     "final-form": "^4.14.1",
     "final-form-focus": "^1.1.0",
+    "lodash.set": "^4.3.2",
     "react-uid": "^2.2.0",
     "tiny-invariant": "^0.0.3",
     "tslib": "^1.9.3"
@@ -56,7 +57,7 @@
     "@atlaskit/ssr": "*",
     "@atlaskit/textarea": "^2.2.9",
     "@atlaskit/textfield": "^3.1.11",
-    "@atlaskit/toggle": "^8.1.8",
+    "@atlaskit/toggle": "^9.0.0",
     "@atlaskit/tooltip": "^15.2.7",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",

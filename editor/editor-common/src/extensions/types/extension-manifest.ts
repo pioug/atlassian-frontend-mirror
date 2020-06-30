@@ -1,8 +1,10 @@
 import { ReactNode } from 'react';
+
 import { ADFEntity } from '@atlaskit/adf-utils';
-import { FieldDefinition } from './field-definitions';
+
 import { UpdateExtension } from './extension-handler';
 import { Parameters } from './extension-parameters';
+import { FieldDefinition } from './field-definitions';
 
 export type ExtensionType = string;
 
@@ -96,7 +98,7 @@ export type ExtensionModuleNode<T = any> = {
   type: ExtensionNodeType;
   render: () => AsyncESModule<ReactNode>;
   update?: UpdateExtension<T>;
-  getFieldsDefinition?: () => Promise<FieldDefinition[]>;
+  getFieldsDefinition?: (extensionParameters?: T) => Promise<FieldDefinition[]>;
 };
 
 export type ExtensionModuleType = Exclude<

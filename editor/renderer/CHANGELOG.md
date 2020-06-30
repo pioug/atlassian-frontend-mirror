@@ -1,5 +1,31 @@
 # @atlaskit/renderer
 
+## 61.1.0
+
+### Minor Changes
+
+- [`a4948958c4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a4948958c4) - [FM-3820] Implements to set annotation state event on Renderer
+- [`ea81ff42a0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ea81ff42a0) - [FM-3819] Implements a subscriber API to allows set focus in an specific annotation
+
+### Patch Changes
+
+- [`82053beb2d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/82053beb2d) - ED-8944 fix: propagete width updates after scrolling
+- [`b95b4f6374`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b95b4f6374) - CEMS-1067: fix breakout mode in mobile renderer appearance
+- [`63aab9186d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/63aab9186d) - CEMS-1099: fix positioning of sticky header when table would be outside viewport
+- [`d8562972e4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d8562972e4) - CEMS-1131: allow animation on sticky headers
+
+  `div[mode="stick"]` will receive a `top` CSS property only in sticky mode. When in `pin-bottom` mode, its `top` position is applied to its relatively positioned parent. When not in sticky mode, neither of these elements will receive a `top` value.
+
+  This lets you animate any `offsetTop` changes using something like:
+
+  ```
+  div[mode="stick"] {
+    transition: top 0.25s ease;
+  }
+  ```
+
+- Updated dependencies
+
 ## 61.0.0
 
 ### Major Changes

@@ -1,4 +1,5 @@
 import { css } from 'styled-components';
+
 import { typography } from '@atlaskit/theme';
 
 // @see typography spreadsheet: https://docs.google.com/spreadsheets/d/1iYusRGCT4PoPfvxbJ8NrgjtfFgXLm5lpDWXzjua1W2E/edit#gid=93913128

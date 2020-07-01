@@ -1,5 +1,11 @@
 # @atlaskit/editor-common
 
+## 46.1.1
+
+### Patch Changes
+
+- [`050c9121ab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/050c9121ab) - CEMS-1106: show sticky headers in editor when in expand
+
 ## 46.1.0
 
 ### Minor Changes

@@ -122,10 +122,6 @@ const ContentStyles = css<StyleProps>`
           white-space: nowrap;
           user-select: none;
         }
-
-        .sticky, .fixed {
-          visibility: hidden;
-        }
       `
         : ''}
     `;

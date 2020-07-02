@@ -1,12 +1,3 @@
-export interface UsePageLayoutResize {
-  isLeftSidebarCollapsed: boolean;
-  expandLeftSidebar: () => void;
-  collapseLeftSidebar: () => void;
-  setLeftSidebarWidth: (width: number) => void;
-  getLeftSidebarWidth: () => number;
-  getLeftPanelWidth: () => number;
-}
-
 export type SkipLinkContextProps = {
   skipLinksData: SkipLinkData[];
   registerSkipLink: (skipLinkDate: SkipLinkData) => void;

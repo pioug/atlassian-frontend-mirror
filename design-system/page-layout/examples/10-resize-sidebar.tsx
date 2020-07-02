@@ -25,7 +25,8 @@ type SlotName =
   | 'LeftSidebar'
   | 'Main'
   | 'RightSidebar'
-  | 'RightPanel';
+  | 'RightPanel'
+  | 'PageLayout';
 type ToggleElProps = {
   onChange: () => void;
   value: boolean;
@@ -51,6 +52,7 @@ interface InitialState {
   isRightSidebarScrollable: boolean;
   isRightPanelFixed: boolean;
   isRightPanelScrollable: boolean;
+  isPageLayoutShown: boolean;
 }
 type InitialStateKeys = keyof InitialState;
 
@@ -83,7 +85,7 @@ const ToggleFixed = ({ onChange, value }: ToggleElProps) => (
 const ToggleShown = ({ onChange, value, name }: ToggleElProps) => (
   <label css={{ display: 'block' }}>
     <input type="checkbox" onChange={onChange} value={value.toString()} />
-    {`${value ? 'Hide' : 'Show'} ${name}`}
+    {`${value ? 'Unmount' : 'Mount'} ${name}`}
   </label>
 );
 
@@ -201,6 +203,7 @@ const initialState = {
   isRightSidebarScrollable: false,
   isRightPanelFixed: false,
   isRightPanelScrollable: false,
+  isPageLayoutShown: true,
 };
 const BasicGrid = () => {
   const [gridState, setGridState] = useState(initialState);
@@ -231,139 +234,147 @@ const BasicGrid = () => {
   };
 
   return (
-    <PageLayout>
-      {gridState.isBannerShown && (
-        <Banner height={60} isFixed={gridState.isBannerFixed}>
-          <Wrapper borderColor="gold">
-            <h3 css={{ textAlign: 'center' }}>Banner</h3>
-            <ToggleFixed
-              onChange={() => toggleFixed('Banner')}
-              value={gridState.isBannerFixed}
-            />
-          </Wrapper>
-        </Banner>
-      )}
-      {gridState.isTopNavigationShown && (
-        <TopNavigation height={60} isFixed={gridState.isTopNavigationFixed}>
-          <Wrapper borderColor="blue">
-            <h3 css={{ textAlign: 'center' }}>TopNavigation</h3>
-            <ToggleFixed
-              onChange={() => toggleFixed('TopNavigation')}
-              value={gridState.isTopNavigationFixed}
-            />
-          </Wrapper>
-        </TopNavigation>
-      )}
-      {gridState.isLeftPanelShown && (
-        <LeftPanel isFixed={gridState.isLeftPanelFixed} width={200}>
-          <Wrapper borderColor="orange">
-            <h3 css={{ textAlign: 'center' }}>LeftPanel</h3>
-            <ToggleFixed
-              onChange={() => toggleFixed('LeftPanel')}
-              value={gridState.isLeftPanelFixed}
-            />
-            <ToggleScrollableContent
-              onChange={() => toggleScrollable('LeftPanel')}
-              value={gridState.isLeftPanelScrollable}
-            />
-          </Wrapper>
-        </LeftPanel>
-      )}
-      <Content testId="content">
-        {gridState.isLeftSidebarShown && (
-          <LeftSidebar
-            testId="left-sidebar"
-            isFixed={gridState.isLeftSidebarFixed}
-            width={450}
-            onExpand={() => console.log('onExpand')}
-            onCollapse={() => console.log('onCollapse')}
-            onResizeStart={() => console.log('onResizeStart')}
-            onResizeEnd={() => console.log('onResizeEnd')}
-            onFlyoutExpand={() => console.log('onFlyoutExpand')}
-            onFlyoutCollapse={() => console.log('onFlyoutCollapse')}
-            overrides={{
-              ResizeButton: {
-                render: (Component, props) => (
-                  <Tooltip
-                    content={
-                      props.isLeftSidebarCollapsed ? 'Expand' : 'Collapse'
-                    }
-                    hideTooltipOnClick
-                    position="right"
-                    testId="tooltip"
-                  >
-                    <Component {...props} />
-                  </Tooltip>
-                ),
-              },
-            }}
-          >
-            <Wrapper noOutline noHorizontalScrollbar borderColor="darkgreen">
-              <div css={{ minWidth: 50, padding: '0 20px' }}>
-                <h3 css={{ textAlign: 'center' }}>LeftSidebar</h3>
+    <Fragment>
+      {gridState.isPageLayoutShown && (
+        <PageLayout>
+          {gridState.isBannerShown && (
+            <Banner height={60} isFixed={gridState.isBannerFixed}>
+              <Wrapper borderColor="gold">
+                <h3 css={{ textAlign: 'center' }}>Banner</h3>
                 <ToggleFixed
-                  onChange={() => toggleFixed('LeftSidebar')}
-                  value={gridState.isLeftSidebarFixed}
+                  onChange={() => toggleFixed('Banner')}
+                  value={gridState.isBannerFixed}
+                />
+              </Wrapper>
+            </Banner>
+          )}
+          {gridState.isTopNavigationShown && (
+            <TopNavigation height={60} isFixed={gridState.isTopNavigationFixed}>
+              <Wrapper borderColor="blue">
+                <h3 css={{ textAlign: 'center' }}>TopNavigation</h3>
+                <ToggleFixed
+                  onChange={() => toggleFixed('TopNavigation')}
+                  value={gridState.isTopNavigationFixed}
+                />
+              </Wrapper>
+            </TopNavigation>
+          )}
+          {gridState.isLeftPanelShown && (
+            <LeftPanel isFixed={gridState.isLeftPanelFixed} width={200}>
+              <Wrapper borderColor="orange">
+                <h3 css={{ textAlign: 'center' }}>LeftPanel</h3>
+                <ToggleFixed
+                  onChange={() => toggleFixed('LeftPanel')}
+                  value={gridState.isLeftPanelFixed}
                 />
                 <ToggleScrollableContent
-                  onChange={() => toggleScrollable('LeftSidebar')}
-                  value={gridState.isLeftSidebarScrollable}
+                  onChange={() => toggleScrollable('LeftPanel')}
+                  value={gridState.isLeftPanelScrollable}
                 />
-              </div>
-            </Wrapper>
-            <ExpandKeyboardShortcut />
-          </LeftSidebar>
-        )}
-        {gridState.isMainShown && (
-          <Main>
-            <Wrapper noOutline borderColor="black">
-              <h3 css={{ textAlign: 'center' }}>Main</h3>
-              <ToggleExtraWide
-                onChange={() =>
-                  setGridState({
-                    ...gridState,
-                    isMainExtraWide: !gridState.isMainExtraWide,
-                  })
-                }
-                value={gridState.isMainExtraWide}
-              />
-              <ToggleScrollableContent
-                onChange={() => toggleScrollable('Main')}
-                value={gridState.isMainScrollable}
-              />
-            </Wrapper>
-          </Main>
-        )}
-        {gridState.isRightSidebarShown && (
-          <RightSidebar isFixed={gridState.isRightSidebarFixed} width={200}>
-            <Wrapper borderColor="darkgreen">
-              <h3 css={{ textAlign: 'center' }}>RightSidebar</h3>
-              <ToggleFixed
-                onChange={() => toggleFixed('RightSidebar')}
-                value={gridState.isRightSidebarFixed}
-              />
-              <ToggleScrollableContent
-                onChange={() => toggleScrollable('RightSidebar')}
-                value={gridState.isRightSidebarScrollable}
-              />
-            </Wrapper>
-          </RightSidebar>
-        )}
-      </Content>
-      {gridState.isRightPanelShown && (
-        <RightPanel isFixed={gridState.isRightPanelFixed} width={200}>
-          <Wrapper borderColor="orange">
-            <h3 css={{ textAlign: 'center' }}>RightPanel</h3>
-            <ToggleFixed
-              onChange={() => toggleFixed('RightPanel')}
-              value={gridState.isRightPanelFixed}
-            />
-            <ToggleScrollableContent
-              onChange={() => toggleScrollable('RightPanel')}
-              value={gridState.isRightPanelScrollable}
-            />
-          </Wrapper>
-        </RightPanel>
+              </Wrapper>
+            </LeftPanel>
+          )}
+          <Content testId="content">
+            {gridState.isLeftSidebarShown && (
+              <LeftSidebar
+                testId="left-sidebar"
+                isFixed={gridState.isLeftSidebarFixed}
+                width={450}
+                onExpand={() => console.log('onExpand')}
+                onCollapse={() => console.log('onCollapse')}
+                onResizeStart={() => console.log('onResizeStart')}
+                onResizeEnd={() => console.log('onResizeEnd')}
+                onFlyoutExpand={() => console.log('onFlyoutExpand')}
+                onFlyoutCollapse={() => console.log('onFlyoutCollapse')}
+                overrides={{
+                  ResizeButton: {
+                    render: (Component, props) => (
+                      <Tooltip
+                        content={
+                          props.isLeftSidebarCollapsed ? 'Expand' : 'Collapse'
+                        }
+                        hideTooltipOnClick
+                        position="right"
+                        testId="tooltip"
+                      >
+                        <Component {...props} />
+                      </Tooltip>
+                    ),
+                  },
+                }}
+              >
+                <Wrapper
+                  noOutline
+                  noHorizontalScrollbar
+                  borderColor="darkgreen"
+                >
+                  <div css={{ minWidth: 50, padding: '0 20px' }}>
+                    <h3 css={{ textAlign: 'center' }}>LeftSidebar</h3>
+                    <ToggleFixed
+                      onChange={() => toggleFixed('LeftSidebar')}
+                      value={gridState.isLeftSidebarFixed}
+                    />
+                    <ToggleScrollableContent
+                      onChange={() => toggleScrollable('LeftSidebar')}
+                      value={gridState.isLeftSidebarScrollable}
+                    />
+                  </div>
+                </Wrapper>
+                <ExpandKeyboardShortcut />
+              </LeftSidebar>
+            )}
+            {gridState.isMainShown && (
+              <Main>
+                <Wrapper noOutline borderColor="black">
+                  <h3 css={{ textAlign: 'center' }}>Main</h3>
+                  <ToggleExtraWide
+                    onChange={() =>
+                      setGridState({
+                        ...gridState,
+                        isMainExtraWide: !gridState.isMainExtraWide,
+                      })
+                    }
+                    value={gridState.isMainExtraWide}
+                  />
+                  <ToggleScrollableContent
+                    onChange={() => toggleScrollable('Main')}
+                    value={gridState.isMainScrollable}
+                  />
+                </Wrapper>
+              </Main>
+            )}
+            {gridState.isRightSidebarShown && (
+              <RightSidebar isFixed={gridState.isRightSidebarFixed} width={200}>
+                <Wrapper borderColor="darkgreen">
+                  <h3 css={{ textAlign: 'center' }}>RightSidebar</h3>
+                  <ToggleFixed
+                    onChange={() => toggleFixed('RightSidebar')}
+                    value={gridState.isRightSidebarFixed}
+                  />
+                  <ToggleScrollableContent
+                    onChange={() => toggleScrollable('RightSidebar')}
+                    value={gridState.isRightSidebarScrollable}
+                  />
+                </Wrapper>
+              </RightSidebar>
+            )}
+          </Content>
+          {gridState.isRightPanelShown && (
+            <RightPanel isFixed={gridState.isRightPanelFixed} width={200}>
+              <Wrapper borderColor="orange">
+                <h3 css={{ textAlign: 'center' }}>RightPanel</h3>
+                <ToggleFixed
+                  onChange={() => toggleFixed('RightPanel')}
+                  value={gridState.isRightPanelFixed}
+                />
+                <ToggleScrollableContent
+                  onChange={() => toggleScrollable('RightPanel')}
+                  value={gridState.isRightPanelScrollable}
+                />
+              </Wrapper>
+            </RightPanel>
+          )}
+        </PageLayout>
       )}
       <div
         css={{
@@ -413,8 +424,13 @@ const BasicGrid = () => {
           onChange={() => toggleShown('RightPanel')}
           value={gridState.isRightPanelShown}
         />
+        <ToggleShown
+          name="PageLayout"
+          onChange={() => toggleShown('PageLayout')}
+          value={gridState.isPageLayoutShown}
+        />
       </div>
-    </PageLayout>
+    </Fragment>
   );
 };
 export default BasicGrid;

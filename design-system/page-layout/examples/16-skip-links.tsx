@@ -135,14 +135,14 @@ const BasicGrid = () => {
   };
 
   return (
-    <PageLayout>
+    <PageLayout skipLinksLabel="Jump to section">
       {gridState.isBannerShown && (
         <Fragment>
           <Banner
             testId="banner"
             height={60}
             id="banner"
-            skipLinkTitle="This is a banner"
+            skipLinkTitle="Banner"
           >
             <Wrapper borderColor="gold">
               <h3 css={{ textAlign: 'center' }}>Banner</h3>
@@ -157,7 +157,7 @@ const BasicGrid = () => {
             testId="topNavigation"
             height={60}
             id="top-navigation"
-            skipLinkTitle="This is top navigation"
+            skipLinkTitle="Top navigation"
           >
             <Wrapper borderColor="blue">
               <h3 css={{ textAlign: 'center' }}>TopNavigation</h3>
@@ -171,7 +171,7 @@ const BasicGrid = () => {
           testId="leftPanel"
           width={200}
           id="left-panel"
-          skipLinkTitle="left panel"
+          skipLinkTitle="Left panel"
         >
           <Wrapper borderColor="orange">
             <h3 css={{ textAlign: 'center' }}>LeftPanel</h3>
@@ -185,7 +185,7 @@ const BasicGrid = () => {
             testId="leftSidebar"
             width={250}
             id="left-sidebar"
-            skipLinkTitle="left sidebar"
+            skipLinkTitle="Left sidebar"
           >
             <Wrapper borderColor="darkgreen">
               <div css={{ minWidth: 50, padding: '0 20px' }}>
@@ -197,7 +197,7 @@ const BasicGrid = () => {
         )}
         {gridState.isMainShown && (
           <Fragment>
-            <Main testId="main" id="main" skipLinkTitle="This is main">
+            <Main testId="main" id="main" skipLinkTitle="Main">
               <Wrapper borderColor="black">
                 <h3 css={{ textAlign: 'center' }}>Main</h3>
                 <ToggleExtraWide
@@ -219,7 +219,7 @@ const BasicGrid = () => {
             testId="rightSidebar"
             width={200}
             id="right-sidebar"
-            skipLinkTitle="right sidebar"
+            skipLinkTitle="Right sidebar"
           >
             <Wrapper borderColor="darkgreen">
               <h3 css={{ textAlign: 'center' }}>RightSidebar</h3>
@@ -233,7 +233,7 @@ const BasicGrid = () => {
           testId="rightPanel"
           width={200}
           id="right-panel"
-          skipLinkTitle="right panel"
+          skipLinkTitle="Right panel"
         >
           <Wrapper borderColor="orange">
             <h3 css={{ textAlign: 'center' }}>RightPanel</h3>

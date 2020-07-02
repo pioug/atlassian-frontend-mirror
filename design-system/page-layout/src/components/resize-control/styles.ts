@@ -5,7 +5,6 @@ import { B100, B200, N0, N200, N30A } from '@atlaskit/theme/colors';
 
 import {
   GRAB_AREA_LINE_SELECTOR,
-  IS_SIDEBAR_COLLAPSED,
   IS_SIDEBAR_DRAGGING,
   RESIZE_BUTTON_SELECTOR,
 } from '../../common/constants';
@@ -79,24 +78,24 @@ export const resizeIconButtonCSS = (isCollapsed: boolean): CSSObject => ({
   },
 });
 
-export const grabAreaCSS = {
+export const grabAreaCSS = (isLeftSidebarCollapsed: boolean) => ({
   cursor: 'ew-resize',
   height: '100%',
   width: '24px',
-  [`[${IS_SIDEBAR_COLLAPSED}] &`]: {
+  ...(isLeftSidebarCollapsed && {
     cursor: 'default',
-  },
-};
+  }),
+});
 
-export const lineCSS = {
+export const lineCSS = (isLeftSidebarCollapsed: boolean) => ({
   height: '100%',
   transition: 'background-color 200ms',
   width: 2,
 
-  [`[${IS_SIDEBAR_COLLAPSED}] &&`]: {
-    backgroundColor: 'transparent',
-  },
-};
+  ...(isLeftSidebarCollapsed && {
+    '&&': { backgroundColor: 'transparent' },
+  }),
+});
 
 export const increaseHitArea: CSSObject = {
   position: 'absolute',

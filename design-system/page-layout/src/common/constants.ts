@@ -46,7 +46,6 @@ export const PAGE_LAYOUT_LS_KEY = 'DS_PAGE_LAYOUT_UI_STATE';
 // Data attributes
 export const IS_SIDEBAR_DRAGGING = 'data-is-sidebar-dragging';
 export const IS_SIDEBAR_COLLAPSING = 'data-is-sidebar-collapsing';
-export const IS_SIDEBAR_COLLAPSED = 'data-is-sidebar-collapsed';
 export const IS_FLYOUT_OPEN = 'data-is-flyout-open';
 export const GRAB_AREA_LINE_SELECTOR = 'data-grab-area-line';
 export const RESIZE_BUTTON_SELECTOR = 'data-resize-button';

@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { Fragment, useEffect } from 'react';
+import { Fragment } from 'react';
 
 import { css, Global, jsx } from '@emotion/core';
 
@@ -17,7 +17,6 @@ import {
   TOP_NAVIGATION_HEIGHT,
 } from '../../common/constants';
 import { PageLayoutProps } from '../../common/types';
-import { removeFromGridStateInStorage } from '../../common/utils';
 import {
   SidebarResizeController,
   SkipLinksController,
@@ -29,22 +28,16 @@ import { gridStyles } from './styles';
 const pageLayoutSelector = { [PAGE_LAYOUT_CONTAINER_SELECTOR]: true };
 
 const PageLayout = ({
-  skipLinksI18n = DEFAULT_I18N_PROPS_SKIP_LINKS,
+  skipLinksLabel = DEFAULT_I18N_PROPS_SKIP_LINKS,
   children,
   testId,
   onLeftSidebarExpand,
   onLeftSidebarCollapse,
 }: PageLayoutProps) => {
-  useEffect(() => {
-    return () => {
-      removeFromGridStateInStorage('gridState');
-    };
-  }, []);
-
   return (
     <Fragment>
       <SkipLinksController>
-        <SkipLinkWrapper i18n={{ title: skipLinksI18n }} />
+        <SkipLinkWrapper skipLinksLabel={skipLinksLabel} />
         <div
           {...pageLayoutSelector}
           data-testid={testId}

@@ -19,7 +19,7 @@ describe('skip links', () => {
       };
       const { container } = render(
         <SkipLinksContext.Provider value={context}>
-          <SkipLinkWrapper i18n={{ title }}></SkipLinkWrapper>,
+          <SkipLinkWrapper skipLinksLabel={title}></SkipLinkWrapper>,
         </SkipLinksContext.Provider>,
       );
 

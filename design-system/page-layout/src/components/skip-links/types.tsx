@@ -5,7 +5,5 @@ export type SkipLinkData = {
 };
 
 export type SkipLinkWrapperProps = {
-  i18n: {
-    title: string;
-  };
+  skipLinksLabel: string;
 };

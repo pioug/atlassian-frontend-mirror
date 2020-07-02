@@ -18,40 +18,10 @@ import {
 import { getDimension } from './__utils__/get-dimension';
 import * as raf from './__utils__/raf';
 
-const emptyGridState = {};
+const emptyGridState = { gridState: {} };
 describe('<PageLayout />', () => {
   beforeEach(() => {
     localStorage.clear();
-  });
-
-  // This is no longer a requirement?
-  it('should reset localStorage when it is unmounted', () => {
-    const { unmount } = render(
-      <PageLayout testId="grid">
-        <Banner testId="component" isFixed height={50}>
-          Contents
-        </Banner>
-        <TopNavigation testId="component" height={50}>
-          Contents
-        </TopNavigation>
-        <LeftPanel width={300}>Left Panel</LeftPanel>
-        <Content>
-          <RightSidebar testId="component" width={200}>
-            Contents
-          </RightSidebar>
-          <Main>Main content</Main>
-          <LeftSidebar testId="component" width={200}>
-            Contents
-          </LeftSidebar>
-        </Content>
-        <RightPanel width={300}>Right Panel</RightPanel>
-      </PageLayout>,
-    );
-    unmount();
-
-    expect(localStorage.getItem('DS_PAGE_LAYOUT_UI_STATE')).toEqual(
-      JSON.stringify({ isLeftSidebarCollapsed: false }),
-    );
   });
 
   describe('<Banner />', () => {
@@ -591,7 +561,6 @@ describe('<PageLayout />', () => {
     };
 
     it('should mount the LeftSidebar in collapsed mode if already collapsed previously', () => {
-      document.documentElement.removeAttribute('data-is-sidebar-collapsed');
       localStorage.setItem(
         'DS_PAGE_LAYOUT_UI_STATE',
         JSON.stringify({
@@ -610,7 +579,13 @@ describe('<PageLayout />', () => {
       );
 
       triggerTransitionEnd(getByTestId('grid'));
-      expect(document.documentElement.dataset.isSidebarCollapsed).toBe('true');
+      expect(getByTestId('component')).toHaveStyleDeclaration(
+        'width',
+        'var(--leftSidebarWidth)',
+      );
+      expect(document.head.innerHTML).toEqual(
+        expect.stringContaining('{--leftSidebarWidth:20px;}'),
+      );
     });
 
     it('should render with the width that was passed to it', () => {
@@ -683,24 +658,10 @@ describe('<PageLayout />', () => {
       ).toEqual({
         gridState: {
           leftSidebarWidth: 240,
+          leftSidebarFlyoutWidth: 240,
         },
         isLeftSidebarCollapsed: false,
       });
-    });
-
-    it('should remove the width in localStorage on unmount', () => {
-      const { unmount } = render(
-        <PageLayout testId="grid">
-          <LeftSidebar testId="component" isFixed width={50}>
-            Contents
-          </LeftSidebar>
-        </PageLayout>,
-      );
-
-      unmount();
-      expect(
-        JSON.parse(localStorage.getItem('DS_PAGE_LAYOUT_UI_STATE')!),
-      ).toEqual({ isLeftSidebarCollapsed: false });
     });
   });
 

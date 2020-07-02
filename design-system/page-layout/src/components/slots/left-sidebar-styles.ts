@@ -5,7 +5,6 @@ import { easeOut, prefersReducedMotion } from '@atlaskit/motion';
 import {
   BANNER_HEIGHT,
   COLLAPSED_LEFT_SIDEBAR_WIDTH,
-  IS_SIDEBAR_COLLAPSED,
   IS_SIDEBAR_COLLAPSING,
   IS_SIDEBAR_DRAGGING,
   LEFT_PANEL_WIDTH,
@@ -26,6 +25,7 @@ import { focusStyles } from './styles';
 export const fixedLeftSidebarInnerStyles = (
   isFixed?: boolean,
   isFlyoutOpen?: boolean,
+  isLeftSidebarCollapsed?: boolean,
 ): CSSObject => ({
   ...focusStyles,
   ...(isFixed
@@ -52,15 +52,17 @@ export const fixedLeftSidebarInnerStyles = (
       }),
 
   // Hide contents when collapsed
-  ...(!isFlyoutOpen && {
-    [`[${IS_SIDEBAR_COLLAPSED}] & > *:not([${RESIZE_CONTROL_SELECTOR}])`]: {
-      transition: `0ms linear ${TRANSITION_DURATION - 100}ms`,
-      transitionProperty: 'opacity, visibility',
-      opacity: 0,
-      visibility: 'hidden',
-      ...prefersReducedMotion(),
-    },
-  }),
+  ...(isLeftSidebarCollapsed &&
+    !isFlyoutOpen && {
+      [`&&> *:not([${RESIZE_CONTROL_SELECTOR}])`]: {
+        transition: `0ms linear ${TRANSITION_DURATION - 100}ms`,
+        transitionProperty: 'opacity, visibility',
+        opacity: 0,
+        visibility: 'hidden',
+        ...prefersReducedMotion(),
+      },
+    }),
+
   [`[${IS_SIDEBAR_COLLAPSING}] & > *:not([${RESIZE_CONTROL_SELECTOR}])`]: {
     transition: `0ms linear ${TRANSITION_DURATION - 100}ms`,
     transitionProperty: 'opacity, visibility',
@@ -68,6 +70,7 @@ export const fixedLeftSidebarInnerStyles = (
     visibility: 'hidden',
     ...prefersReducedMotion(),
   },
+
   [`& > *:not([${RESIZE_CONTROL_SELECTOR}])`]: {
     transition: 'none',
     visibility: 'visible',

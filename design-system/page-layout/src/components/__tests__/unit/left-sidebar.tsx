@@ -5,7 +5,6 @@ import { act, fireEvent, render } from '@testing-library/react';
 import Tooltip from '@atlaskit/tooltip';
 
 import {
-  IS_SIDEBAR_COLLAPSED,
   IS_SIDEBAR_COLLAPSING,
   PAGE_LAYOUT_LS_KEY,
 } from '../../../common/constants';
@@ -69,8 +68,8 @@ describe('Left sidebar', () => {
 
     return (
       <>
-        <button data-testid="collapse" onClick={collapseLeftSidebar} />
-        <button data-testid="expand" onClick={expandLeftSidebar} />
+        <button data-testid="collapse" onClick={() => collapseLeftSidebar()} />
+        <button data-testid="expand" onClick={() => expandLeftSidebar()} />
         <p data-testid="isLeftSidebarCollapsed">
           {String(isLeftSidebarCollapsed)}
         </p>
@@ -136,9 +135,6 @@ describe('Left sidebar', () => {
       expect(
         document.documentElement.getAttribute(IS_SIDEBAR_COLLAPSING),
       ).toEqual(null);
-      expect(
-        document.documentElement.getAttribute(IS_SIDEBAR_COLLAPSED),
-      ).toEqual(null);
 
       act(() => {
         fireEvent.click(getByTestId('collapse'));
@@ -154,9 +150,6 @@ describe('Left sidebar', () => {
       expect(
         document.documentElement.getAttribute(IS_SIDEBAR_COLLAPSING),
       ).toEqual(null);
-      expect(
-        document.documentElement.getAttribute(IS_SIDEBAR_COLLAPSED),
-      ).toEqual('true');
     });
 
     it('should add the correct data attributes while expanding and collapsing', () => {
@@ -180,18 +173,12 @@ describe('Left sidebar', () => {
       ).toEqual('true');
 
       triggerTransitionEnd(getByTestId('left-sidebar'));
-      expect(
-        document.documentElement.getAttribute(IS_SIDEBAR_COLLAPSED),
-      ).toEqual('true');
 
       act(() => {
         fireEvent.click(getByTestId('expand'));
       });
       expect(
         document.documentElement.getAttribute(IS_SIDEBAR_COLLAPSING),
-      ).toEqual(null);
-      expect(
-        document.documentElement.getAttribute(IS_SIDEBAR_COLLAPSED),
       ).toEqual(null);
     });
 
@@ -928,6 +915,162 @@ describe('Left sidebar', () => {
         JSON.parse(localStorage.getItem(PAGE_LAYOUT_LS_KEY)!)
           .isLeftSidebarCollapsed,
       ).toBe(false);
+    });
+
+    it('should mount in collapsed state if LS is corrupt and "isLeftSidebarCollapsed: true" and "leftSidebarWidth > 20"', () => {
+      localStorage.clear();
+      localStorage.setItem(
+        'DS_PAGE_LAYOUT_UI_STATE',
+        JSON.stringify({
+          isLeftSidebarCollapsed: true,
+          gridState: {
+            leftSidebarWidth: 356,
+          },
+        }),
+      );
+
+      render(
+        <PageLayout testId="grid">
+          <Content>
+            <LeftSidebar testId="left-sidebar" width={200}>
+              LeftSidebar
+            </LeftSidebar>
+            <Main testId="content">Main</Main>
+          </Content>
+        </PageLayout>,
+      );
+
+      expect(getDimension('leftSidebarWidth')).toEqual('20px');
+      expect(getDimension('leftSidebarFlyoutWidth')).toEqual('240px');
+    });
+
+    it('should mount in expanded state if LS is corrupt and "isLeftSidebarCollapsed: false" and "leftSidebarWidth < 20"', () => {
+      localStorage.clear();
+      localStorage.setItem(
+        'DS_PAGE_LAYOUT_UI_STATE',
+        JSON.stringify({
+          isLeftSidebarCollapsed: false,
+          gridState: {
+            leftSidebarWidth: 20,
+          },
+        }),
+      );
+
+      render(
+        <PageLayout testId="grid">
+          <Content>
+            <LeftSidebar testId="left-sidebar" width={200}>
+              LeftSidebar
+            </LeftSidebar>
+            <Main testId="content">Main</Main>
+          </Content>
+        </PageLayout>,
+      );
+
+      expect(getDimension('leftSidebarWidth')).toEqual('240px');
+      expect(getDimension('leftSidebarFlyoutWidth')).toEqual('240px');
+    });
+
+    it('should mount in expanded state if LS is corrupt and "isLeftSidebarCollapsed: false" and gridState is absent', () => {
+      localStorage.clear();
+      localStorage.setItem(
+        'DS_PAGE_LAYOUT_UI_STATE',
+        JSON.stringify({
+          isLeftSidebarCollapsed: false,
+        }),
+      );
+
+      render(
+        <PageLayout testId="grid">
+          <Content>
+            <LeftSidebar testId="left-sidebar" width={200}>
+              LeftSidebar
+            </LeftSidebar>
+            <Main testId="content">Main</Main>
+          </Content>
+        </PageLayout>,
+      );
+
+      expect(getDimension('leftSidebarWidth')).toEqual('240px');
+      expect(getDimension('leftSidebarFlyoutWidth')).toEqual('240px');
+    });
+
+    it('should mount in collapsed state if LS is corrupt and "isLeftSidebarCollapsed: true" and gridState is absent', () => {
+      localStorage.clear();
+      localStorage.setItem(
+        'DS_PAGE_LAYOUT_UI_STATE',
+        JSON.stringify({
+          isLeftSidebarCollapsed: true,
+        }),
+      );
+
+      render(
+        <PageLayout testId="grid">
+          <Content>
+            <LeftSidebar testId="left-sidebar" width={200}>
+              LeftSidebar
+            </LeftSidebar>
+            <Main testId="content">Main</Main>
+          </Content>
+        </PageLayout>,
+      );
+
+      expect(getDimension('leftSidebarWidth')).toEqual('20px');
+      expect(getDimension('leftSidebarFlyoutWidth')).toEqual('240px');
+    });
+
+    it('should mount in collapsed state if LS is corrupt and "isLeftSidebarCollapsed: true" and "leftSidebarFlyoutWidth < 20"', () => {
+      localStorage.clear();
+      localStorage.setItem(
+        'DS_PAGE_LAYOUT_UI_STATE',
+        JSON.stringify({
+          isLeftSidebarCollapsed: true,
+          gridState: {
+            leftSidebarFlyoutWidth: 20,
+          },
+        }),
+      );
+
+      render(
+        <PageLayout testId="grid">
+          <Content>
+            <LeftSidebar testId="left-sidebar" width={200}>
+              LeftSidebar
+            </LeftSidebar>
+            <Main testId="content">Main</Main>
+          </Content>
+        </PageLayout>,
+      );
+
+      expect(getDimension('leftSidebarWidth')).toEqual('20px');
+      expect(getDimension('leftSidebarFlyoutWidth')).toEqual('240px');
+    });
+
+    it('should mount in expanded state if LS is corrupt and "isLeftSidebarCollapsed: false" and "leftSidebarFlyoutWidth < 20"', () => {
+      localStorage.clear();
+      localStorage.setItem(
+        'DS_PAGE_LAYOUT_UI_STATE',
+        JSON.stringify({
+          isLeftSidebarCollapsed: false,
+          gridState: {
+            leftSidebarFlyoutWidth: 20,
+          },
+        }),
+      );
+
+      render(
+        <PageLayout testId="grid">
+          <Content>
+            <LeftSidebar testId="left-sidebar" width={200}>
+              LeftSidebar
+            </LeftSidebar>
+            <Main testId="content">Main</Main>
+          </Content>
+        </PageLayout>,
+      );
+
+      expect(getDimension('leftSidebarWidth')).toEqual('240px');
+      expect(getDimension('leftSidebarFlyoutWidth')).toEqual('240px');
     });
 
     it('should mount in collapsed state if it was unmounted while collapsed', () => {

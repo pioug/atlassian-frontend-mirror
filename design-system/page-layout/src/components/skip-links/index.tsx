@@ -13,7 +13,7 @@ import { SkipLinkData, useSkipLinks } from '../../controllers';
 import { skipLinkStyles } from './styles';
 import { SkipLinkWrapperProps } from './types';
 
-export const SkipLinkWrapper = ({ i18n }: SkipLinkWrapperProps) => {
+export const SkipLinkWrapper = ({ skipLinksLabel }: SkipLinkWrapperProps) => {
   const { skipLinksData } = useSkipLinks();
 
   if (skipLinksData.length === 0) {
@@ -44,14 +44,14 @@ export const SkipLinkWrapper = ({ i18n }: SkipLinkWrapperProps) => {
       css={skipLinkStyles}
       data-skip-link-wrapper
     >
-      <h5>{i18n!.title}</h5>
+      <h5>{skipLinksLabel}</h5>
       <ol>
         {skipLinksData.map(({ id, skipLinkTitle }: SkipLinkData) => (
           <SkipLink
             key={id}
             href={`#${id}`}
             isFocusable
-            title={`${i18n.title} ${skipLinkTitle}`}
+            title={`${skipLinksLabel} ${skipLinkTitle}`}
           >
             {skipLinkTitle}
           </SkipLink>

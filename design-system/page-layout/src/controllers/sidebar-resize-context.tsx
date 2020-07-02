@@ -11,7 +11,7 @@ export type LeftSidebarState = {
 export type SidebarResizeContextValue = {
   isLeftSidebarCollapsed: boolean;
   expandLeftSidebar: () => void;
-  collapseLeftSidebar: () => void;
+  collapseLeftSidebar: (collapseWithoutTransition?: boolean) => void;
   leftSidebarState: LeftSidebarState;
   setLeftSidebarState: (leftSidebarState: LeftSidebarState) => void;
 };

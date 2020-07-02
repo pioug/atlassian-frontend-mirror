@@ -3,7 +3,13 @@ import { Fragment } from 'react';
 
 import { CSSObject, jsx } from '@emotion/core';
 
-import { Content, LeftSidebar, Main, PageLayout, TopNavigation } from '../src';
+import {
+  Content,
+  LeftSidebarWithoutResize,
+  Main,
+  PageLayout,
+  TopNavigation,
+} from '../src';
 
 const scrollableContentCSS = {
   height: '2rem',
@@ -47,11 +53,11 @@ const WithStickyElement = () => {
         </div>
       </TopNavigation>
       <Content testId="content">
-        <LeftSidebar testId="leftSidebar" width={250}>
+        <LeftSidebarWithoutResize testId="leftSidebar" width={250}>
           <div css={{ minWidth: 50, padding: '0 20px' }}>
             <h3 css={{ textAlign: 'center' }}>LeftSidebar</h3>
           </div>
-        </LeftSidebar>
+        </LeftSidebarWithoutResize>
         <Main testId="main">
           <h3 css={{ textAlign: 'center' }}>Main</h3>
           <ScrollableContent />

@@ -7,7 +7,6 @@ import { isReducedMotion } from '@atlaskit/motion';
 import {
   COLLAPSED_LEFT_SIDEBAR_WIDTH,
   DEFAULT_LEFT_SIDEBAR_WIDTH,
-  IS_SIDEBAR_COLLAPSED,
   IS_SIDEBAR_COLLAPSING,
   LEFT_SIDEBAR_SELECTOR,
 } from '../common/constants';
@@ -24,11 +23,6 @@ const handleDataAttributesAndCb = (
   callback: Callback = noop,
   isLeftSidebarCollapsed: boolean,
 ) => {
-  if (isLeftSidebarCollapsed) {
-    document.documentElement.setAttribute(IS_SIDEBAR_COLLAPSED, 'true');
-  } else {
-    document.documentElement.removeAttribute(IS_SIDEBAR_COLLAPSED);
-  }
   document.documentElement.removeAttribute(IS_SIDEBAR_COLLAPSING);
   callback();
 };
@@ -90,7 +84,6 @@ export const SidebarResizeController: FC<SidebarResizeControllerProps> = ({
           lastLeftSidebarWidth,
           DEFAULT_LEFT_SIDEBAR_WIDTH,
         );
-        document.documentElement.removeAttribute(IS_SIDEBAR_COLLAPSED);
 
         setLeftSidebarState({
           isLeftSidebarCollapsed: false,
@@ -100,10 +93,12 @@ export const SidebarResizeController: FC<SidebarResizeControllerProps> = ({
         });
 
         // onTransitionEnd isn't triggered when a user prefers reduced motion
-        isReducedMotion() && handleDataAttributesAndCb(onExpand, false);
+        if (isReducedMotion()) {
+          handleDataAttributesAndCb(onExpand, false);
+        }
       }, 200),
 
-      collapseLeftSidebar: debounce(() => {
+      collapseLeftSidebar: debounce((collapseWithoutTransition?: boolean) => {
         const { leftSidebarWidth } = leftSidebarState;
         // data-attribute is used as a CSS selector to sync the hiding/showing
         // of the nav contents with expand/collapse animation
@@ -116,7 +111,9 @@ export const SidebarResizeController: FC<SidebarResizeControllerProps> = ({
         });
 
         // onTransitionEnd isn't triggered when a user prefers reduced motion
-        isReducedMotion() && handleDataAttributesAndCb(onCollapse, true);
+        if (collapseWithoutTransition || isReducedMotion()) {
+          handleDataAttributesAndCb(onCollapse, true);
+        }
       }, 200),
 
       leftSidebarState,

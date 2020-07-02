@@ -86,7 +86,7 @@ const ResizeControl = ({
     requestAnimationFrame(() => setIsDragFinished(true));
     offset.current = 0;
 
-    shouldCollapse ? collapseLeftSidebar() : expandLeftSidebar();
+    collapseLeftSidebar(true);
   };
 
   const onMouseMove = rafSchd((event: MouseEvent) => {
@@ -97,7 +97,7 @@ const ResizeControl = ({
     const invalidDrag = event.clientX < 0;
 
     if (invalidDrag) {
-      cancelDrag(true);
+      cancelDrag();
     }
     const delta = Math.max(
       Math.min(
@@ -119,13 +119,7 @@ const ResizeControl = ({
     setIsDragFinished(false);
   });
 
-  const cleanupAfterResize = (width: number) => {
-    // Update grid state when resize finishes
-    setLeftSidebarState({
-      ...leftSidebarState,
-      [LEFT_SIDEBAR_WIDTH]: width,
-      lastLeftSidebarWidth: width,
-    });
+  const cleanupAfterResize = () => {
     x.current = 0;
     offset.current = 0;
     document.removeEventListener('mousemove', onMouseMove);
@@ -143,22 +137,45 @@ const ResizeControl = ({
       onResizeEnd && onResizeEnd();
     });
 
+    // If it is dragged to below the threshold,
+    // collapse the navigation
     if (x.current < MIN_LEFT_SIDEBAR_DRAG_THRESHOLD) {
-      cleanupAfterResize(COLLAPSED_LEFT_SIDEBAR_WIDTH);
-      collapseLeftSidebar();
+      document.documentElement.style.setProperty(
+        `--${LEFT_SIDEBAR_WIDTH}`,
+        `${COLLAPSED_LEFT_SIDEBAR_WIDTH}px`,
+      );
+      collapseLeftSidebar(true);
+      cleanupAfterResize();
       return;
     }
 
+    // If it is dragged to position in between the
+    // min threshold and default width
+    // expand the nav to the default width
     if (
       x.current > MIN_LEFT_SIDEBAR_DRAG_THRESHOLD &&
       x.current < DEFAULT_LEFT_SIDEBAR_WIDTH
     ) {
-      cleanupAfterResize(DEFAULT_LEFT_SIDEBAR_WIDTH);
-      expandLeftSidebar();
+      document.documentElement.style.setProperty(
+        `--${LEFT_SIDEBAR_WIDTH}`,
+        `${DEFAULT_LEFT_SIDEBAR_WIDTH}px`,
+      );
+      setLeftSidebarState({
+        ...leftSidebarState,
+        [LEFT_SIDEBAR_WIDTH]: DEFAULT_LEFT_SIDEBAR_WIDTH,
+        lastLeftSidebarWidth: DEFAULT_LEFT_SIDEBAR_WIDTH,
+      });
+      cleanupAfterResize();
       return;
     }
 
-    cleanupAfterResize(x.current);
+    // otherwise resize it to the desired width
+    setLeftSidebarState({
+      ...leftSidebarState,
+      [LEFT_SIDEBAR_WIDTH]: x.current,
+      lastLeftSidebarWidth: x.current,
+    });
+    cleanupAfterResize();
   };
 
   const resizeButton = {
@@ -176,6 +193,7 @@ const ResizeControl = ({
         onMouseDown={onMouseDown}
         onClick={!isLeftSidebarCollapsed ? toggleSideBar : noop}
         testId={testId && `${testId}-grab-area`}
+        isLeftSidebarCollapsed={isLeftSidebarCollapsed}
       />
       {resizeButton.render(ResizeButton, {
         css: resizeIconButtonCSS(isLeftSidebarCollapsed),

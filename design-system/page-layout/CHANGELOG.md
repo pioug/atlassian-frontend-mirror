@@ -1,5 +1,15 @@
 # @atlaskit/page-layout
 
+## 0.7.0
+
+### Minor Changes
+
+- [`45b6bc10a8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/45b6bc10a8) - Renames i18n prop to skipLinksLabel which is now a string. This prop is used as the title of the skip links container.
+
+### Patch Changes
+
+- [`be2323a168`](https://bitbucket.org/atlassian/atlassian-frontend/commits/be2323a168) - Prevents clearing localStorage on unmount
+
 ## 0.6.1
 
 ### Patch Changes

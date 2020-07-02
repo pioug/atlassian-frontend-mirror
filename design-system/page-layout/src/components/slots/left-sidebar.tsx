@@ -7,7 +7,6 @@ import {
   COLLAPSED_LEFT_SIDEBAR_WIDTH,
   DEFAULT_LEFT_SIDEBAR_WIDTH,
   FLYOUT_DELAY,
-  IS_SIDEBAR_COLLAPSED,
   LEFT_SIDEBAR_FLYOUT,
   LEFT_SIDEBAR_SELECTOR,
   LEFT_SIDEBAR_WIDTH,
@@ -76,20 +75,29 @@ const LeftSidebar = (props: LeftSidebarProps) => {
       getGridStateFromStorage('isLeftSidebarCollapsed') || false;
     const cachedGridState = getGridStateFromStorage('gridState') || {};
 
+    let leftSidebarWidth = cachedGridState[LEFT_SIDEBAR_FLYOUT]
+      ? Math.max(
+          cachedGridState[LEFT_SIDEBAR_FLYOUT],
+          DEFAULT_LEFT_SIDEBAR_WIDTH,
+        )
+      : DEFAULT_LEFT_SIDEBAR_WIDTH;
+    const lastLeftSidebarWidth = cachedGridState[LEFT_SIDEBAR_FLYOUT]
+      ? Math.max(
+          cachedGridState[LEFT_SIDEBAR_FLYOUT],
+          DEFAULT_LEFT_SIDEBAR_WIDTH,
+        )
+      : DEFAULT_LEFT_SIDEBAR_WIDTH;
+
+    if (cachedCollapsedState) {
+      leftSidebarWidth = COLLAPSED_LEFT_SIDEBAR_WIDTH;
+    }
+
     setLeftSidebarState({
       isFlyoutOpen: false,
       isLeftSidebarCollapsed: cachedCollapsedState,
-      leftSidebarWidth:
-        cachedGridState[LEFT_SIDEBAR_WIDTH] || DEFAULT_LEFT_SIDEBAR_WIDTH,
-      lastLeftSidebarWidth: Math.max(
-        cachedGridState[LEFT_SIDEBAR_FLYOUT],
-        DEFAULT_LEFT_SIDEBAR_WIDTH,
-      ),
+      leftSidebarWidth,
+      lastLeftSidebarWidth,
     });
-
-    if (cachedCollapsedState) {
-      document.documentElement.setAttribute(IS_SIDEBAR_COLLAPSED, 'true');
-    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -166,9 +174,15 @@ const LeftSidebar = (props: LeftSidebarProps) => {
     >
       <SlotDimensions
         variableName={LEFT_SIDEBAR_WIDTH}
-        value={leftSidebarWidth}
+        value={leftSidebarWidthOnMount}
       />
-      <div css={fixedLeftSidebarInnerStyles(isFixed, isFlyoutOpen)}>
+      <div
+        css={fixedLeftSidebarInnerStyles(
+          isFixed,
+          isFlyoutOpen,
+          isLeftSidebarCollapsed,
+        )}
+      >
         {children}
         <ResizeControl
           testId={testId}

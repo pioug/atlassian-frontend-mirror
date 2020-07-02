@@ -80,7 +80,7 @@ export type Dimensions = Partial<Record<DimensionNames, number>>;
 export interface PageLayoutProps {
   /** React children! */
   children: ReactNode;
-  skipLinksI18n?: string;
+  skipLinksLabel?: string;
   /**
    * A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests.
    **/

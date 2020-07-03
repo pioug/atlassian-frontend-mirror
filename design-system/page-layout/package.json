@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/page-layout",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "description": "A collection of components which let you compose an application's page layout",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -23,9 +23,9 @@
     }
   },
   "dependencies": {
-    "@atlaskit/icon": "^20.1.1",
-    "@atlaskit/motion": "^0.3.0",
-    "@atlaskit/theme": "^9.5.1",
+    "@atlaskit/icon": "^21.0.0",
+    "@atlaskit/motion": "^0.4.0",
+    "@atlaskit/theme": "^10.0.0",
     "@emotion/core": "^10.0.9",
     "css-vars-ponyfill": "^2.2.0",
     "lodash.debounce": "^4.0.8",
@@ -37,18 +37,18 @@
     "react-dom": "^16.8.0"
   },
   "devDependencies": {
-    "@atlaskit/atlassian-navigation": "^0.10.5",
-    "@atlaskit/atlassian-notifications": "^0.1.4",
+    "@atlaskit/atlassian-navigation": "^0.11.0",
+    "@atlaskit/atlassian-notifications": "^0.2.0",
     "@atlaskit/docs": "*",
-    "@atlaskit/drawer": "^5.3.6",
+    "@atlaskit/drawer": "^6.0.0",
     "@atlaskit/icon": "*",
-    "@atlaskit/logo": "^12.3.4",
-    "@atlaskit/menu": "^0.4.2",
-    "@atlaskit/notification-indicator": "^7.0.11",
-    "@atlaskit/notification-log-client": "^4.0.10",
-    "@atlaskit/popup": "^0.5.0",
-    "@atlaskit/section-message": "^4.1.10",
-    "@atlaskit/side-navigation": "^0.5.1",
+    "@atlaskit/logo": "^13.0.0",
+    "@atlaskit/menu": "^0.5.0",
+    "@atlaskit/notification-indicator": "^8.0.0",
+    "@atlaskit/notification-log-client": "^5.0.0",
+    "@atlaskit/popup": "^0.6.0",
+    "@atlaskit/section-message": "^5.0.0",
+    "@atlaskit/side-navigation": "^0.6.0",
     "@atlaskit/tooltip": "*",
     "@atlaskit/visual-regression": "*",
     "@testing-library/react": "^8.0.1",

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/layer",
-  "version": "8.0.3",
+  "version": "9.0.0",
   "description": "A React layer component responsible for the position of an element on a page",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -34,8 +34,8 @@
   },
   "devDependencies": {
     "@atlaskit/build-utils": "*",
-    "@atlaskit/docs": "^8.5.0",
-    "@atlaskit/section-message": "^4.1.5",
+    "@atlaskit/docs": "^9.0.0",
+    "@atlaskit/section-message": "^5.0.0",
     "@atlaskit/ssr": "*",
     "enzyme": "^3.10.0",
     "raf-stub": "^2.0.1",

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/field-text-area",
-  "version": "7.0.2",
+  "version": "8.0.0",
   "description": "Field Text Component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -25,9 +25,9 @@
     }
   },
   "dependencies": {
-    "@atlaskit/analytics-next": "^6.3.5",
-    "@atlaskit/field-base": "^14.0.1",
-    "@atlaskit/theme": "^9.5.1",
+    "@atlaskit/analytics-next": "^7.0.0",
+    "@atlaskit/field-base": "^15.0.0",
+    "@atlaskit/theme": "^10.0.0",
     "@babel/runtime": "^7.0.0"
   },
   "peerDependencies": {
@@ -36,9 +36,9 @@
   },
   "devDependencies": {
     "@atlaskit/build-utils": "*",
-    "@atlaskit/button": "^13.3.7",
+    "@atlaskit/button": "^14.0.0",
     "@atlaskit/docs": "*",
-    "@atlaskit/section-message": "^4.1.5",
+    "@atlaskit/section-message": "^5.0.0",
     "@atlaskit/ssr": "*",
     "enzyme": "^3.10.0",
     "react-dom": "^16.8.0",

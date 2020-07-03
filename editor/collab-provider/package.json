@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/collab-provider",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "A provider for collaborative editing.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -20,8 +20,8 @@
     "releaseModel": "scheduled"
   },
   "dependencies": {
-    "@atlaskit/editor-common": "^46.1.0",
-    "@atlaskit/util-service-support": "^5.0.1",
+    "@atlaskit/editor-common": "^47.0.0",
+    "@atlaskit/util-service-support": "^6.0.0",
     "@types/prosemirror-collab": "^1.0.2",
     "@types/prosemirror-state": "^1.2.0",
     "@types/socket.io-client": "^1.4.32",

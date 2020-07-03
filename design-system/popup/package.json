@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/popup",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "A portalled popup primitive that is tied to a trigger element.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -23,9 +23,9 @@
     }
   },
   "dependencies": {
-    "@atlaskit/popper": "^3.1.12",
-    "@atlaskit/portal": "^3.1.7",
-    "@atlaskit/theme": "^9.5.3",
+    "@atlaskit/popper": "^4.0.0",
+    "@atlaskit/portal": "^4.0.0",
+    "@atlaskit/theme": "^10.0.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/core": "^10.0.9",
     "focus-trap": "^2.4.5",
@@ -37,13 +37,13 @@
   },
   "devDependencies": {
     "@atlaskit/build-utils": "*",
-    "@atlaskit/button": "^13.4.0",
+    "@atlaskit/button": "^14.0.0",
     "@atlaskit/docs": "*",
-    "@atlaskit/icon": "^20.1.1",
-    "@atlaskit/menu": "^0.4.1",
-    "@atlaskit/radio": "^3.1.11",
-    "@atlaskit/select": "^11.0.10",
-    "@atlaskit/spinner": "^14.0.0",
+    "@atlaskit/icon": "^21.0.0",
+    "@atlaskit/menu": "^0.5.0",
+    "@atlaskit/radio": "^4.0.0",
+    "@atlaskit/select": "^12.0.0",
+    "@atlaskit/spinner": "^15.0.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
     "@testing-library/react": "^8.0.1",

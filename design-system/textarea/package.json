@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/textarea",
-  "version": "2.2.10",
+  "version": "3.0.0",
   "description": "Textarea Component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -24,8 +24,8 @@
     }
   },
   "dependencies": {
-    "@atlaskit/analytics-next": "^6.3.6",
-    "@atlaskit/theme": "^9.5.3",
+    "@atlaskit/analytics-next": "^7.0.0",
+    "@atlaskit/theme": "^10.0.0",
     "tslib": "^1.9.3"
   },
   "peerDependencies": {
@@ -34,7 +34,7 @@
   },
   "devDependencies": {
     "@atlaskit/build-utils": "*",
-    "@atlaskit/button": "^13.3.12",
+    "@atlaskit/button": "^14.0.0",
     "@atlaskit/docs": "*",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",

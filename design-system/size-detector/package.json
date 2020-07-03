@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/size-detector",
-  "version": "9.0.2",
+  "version": "10.0.0",
   "description": "Wrapper for components that need to respond to size changes",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -33,7 +33,7 @@
   "devDependencies": {
     "@atlaskit/build-utils": "*",
     "@atlaskit/docs": "*",
-    "@atlaskit/section-message": "^4.1.5",
+    "@atlaskit/section-message": "^5.0.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
     "enzyme": "^3.10.0",

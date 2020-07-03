@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/tag-group",
-  "version": "9.0.8",
+  "version": "10.0.0",
   "description": "A React component used for grouping and controlling @atlskit/tag components",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -31,11 +31,11 @@
     "styled-components": "^3.2.6"
   },
   "devDependencies": {
-    "@atlaskit/avatar": "^18.0.0",
+    "@atlaskit/avatar": "^19.0.0",
     "@atlaskit/build-utils": "*",
     "@atlaskit/docs": "*",
     "@atlaskit/ssr": "*",
-    "@atlaskit/tag": "^9.0.13",
+    "@atlaskit/tag": "^10.0.0",
     "@atlaskit/visual-regression": "*",
     "enzyme": "^3.10.0",
     "exenv": "^1.2.2",

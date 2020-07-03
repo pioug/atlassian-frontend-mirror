@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/popper",
-  "version": "3.1.13",
+  "version": "4.0.0",
   "description": "Wrapper for react-popper with common config and some helpers",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -29,10 +29,10 @@
   },
   "devDependencies": {
     "@atlaskit/build-utils": "*",
-    "@atlaskit/button": "^13.3.11",
+    "@atlaskit/button": "^14.0.0",
     "@atlaskit/docs": "*",
     "@atlaskit/ssr": "*",
-    "@atlaskit/theme": "^9.5.1",
+    "@atlaskit/theme": "^10.0.0",
     "enzyme": "^3.10.0",
     "react-dom": "^16.8.0",
     "react-lorem-component": "^0.12.2",

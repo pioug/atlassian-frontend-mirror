@@ -1,5 +1,12 @@
 # @atlaskit/popper
 
+## 4.0.0
+
+### Major Changes
+
+- [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
+  For more information see: https://community.developer.atlassian.com/t/atlaskit-to-drop-support-for-internet-explorer-11-from-1st-july-2020/39534
+
 ## 3.1.13
 
 ### Patch Changes

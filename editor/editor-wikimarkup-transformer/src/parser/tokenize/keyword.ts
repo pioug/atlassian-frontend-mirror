@@ -129,8 +129,9 @@ const leadingKeywordTokenMap: KeywordToken[] = [
     regex: /^-{2}\s/,
   },
   {
+    // Lists are limited to max 20 levels of depth
     type: TokenType.LIST,
-    regex: /^([*#]+|-) /,
+    regex: /^([*#]{1,20}|-) /,
   },
   {
     type: TokenType.TABLE,

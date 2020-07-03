@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/avatar",
-  "version": "18.0.2",
+  "version": "19.0.0",
   "description": "An avatar is a visual representation of a user or entity.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -24,10 +24,10 @@
     }
   },
   "dependencies": {
-    "@atlaskit/analytics-next": "^6.3.5",
-    "@atlaskit/icon": "^20.1.0",
-    "@atlaskit/theme": "^9.5.1",
-    "@atlaskit/tooltip": "^15.2.7",
+    "@atlaskit/analytics-next": "^7.0.0",
+    "@atlaskit/icon": "^21.0.0",
+    "@atlaskit/theme": "^10.0.0",
+    "@atlaskit/tooltip": "^16.0.0",
     "@emotion/core": "^10.0.9",
     "tslib": "^1.9.3"
   },
@@ -36,14 +36,14 @@
   },
   "devDependencies": {
     "@atlaskit/build-utils": "*",
-    "@atlaskit/button": "^13.4.0",
+    "@atlaskit/button": "^14.0.0",
     "@atlaskit/docs": "*",
-    "@atlaskit/field-base": "^14.0.2",
-    "@atlaskit/icon": "^20.1.1",
-    "@atlaskit/section-message": "^4.1.9",
+    "@atlaskit/field-base": "^15.0.0",
+    "@atlaskit/icon": "^21.0.0",
+    "@atlaskit/section-message": "^5.0.0",
     "@atlaskit/ssr": "*",
-    "@atlaskit/toggle": "^9.0.0",
-    "@atlaskit/tooltip": "^15.2.6",
+    "@atlaskit/toggle": "^10.0.0",
+    "@atlaskit/tooltip": "^16.0.0",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
     "@emotion/styled": "^10.0.7",

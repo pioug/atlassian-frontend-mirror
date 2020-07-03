@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/datetime-picker",
-  "version": "9.4.7",
+  "version": "10.0.0",
   "description": "A React component for picking date/time values",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -24,14 +24,14 @@
     }
   },
   "dependencies": {
-    "@atlaskit/analytics-next": "^6.3.6",
-    "@atlaskit/calendar": "^9.2.8",
-    "@atlaskit/field-base": "^14.0.2",
-    "@atlaskit/icon": "^20.1.1",
-    "@atlaskit/locale": "^1.0.6",
-    "@atlaskit/popper": "^3.1.12",
-    "@atlaskit/select": "^11.0.11",
-    "@atlaskit/theme": "^9.5.3",
+    "@atlaskit/analytics-next": "^7.0.0",
+    "@atlaskit/calendar": "^10.0.0",
+    "@atlaskit/field-base": "^15.0.0",
+    "@atlaskit/icon": "^21.0.0",
+    "@atlaskit/locale": "^2.0.0",
+    "@atlaskit/popper": "^4.0.0",
+    "@atlaskit/select": "^12.0.0",
+    "@atlaskit/theme": "^10.0.0",
     "@emotion/core": "^10.0.9",
     "@emotion/styled": "^10.0.7",
     "date-fns": "^1.30.1",
@@ -45,12 +45,12 @@
   },
   "devDependencies": {
     "@atlaskit/build-utils": "*",
-    "@atlaskit/button": "^13.4.0",
+    "@atlaskit/button": "^14.0.0",
     "@atlaskit/docs": "*",
-    "@atlaskit/field-range": "^8.0.2",
-    "@atlaskit/modal-dialog": "^10.6.0",
+    "@atlaskit/field-range": "^9.0.0",
+    "@atlaskit/modal-dialog": "^11.0.0",
     "@atlaskit/ssr": "*",
-    "@atlaskit/textfield": "^3.1.11",
+    "@atlaskit/textfield": "^4.0.0",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
     "@testing-library/react": "^8.0.1",

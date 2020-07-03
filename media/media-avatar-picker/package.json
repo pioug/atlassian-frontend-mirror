@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-avatar-picker",
-  "version": "21.2.9",
+  "version": "22.0.0",
   "description": "A component to select, drag and resize image avatars. It also provides a default list of predefined avatars.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -23,13 +23,13 @@
     }
   },
   "dependencies": {
-    "@atlaskit/button": "^13.4.0",
-    "@atlaskit/icon": "^20.1.0",
-    "@atlaskit/media-ui": "^12.5.0",
-    "@atlaskit/modal-dialog": "^10.6.0",
-    "@atlaskit/range": "^4.0.0",
-    "@atlaskit/spinner": "^14.0.0",
-    "@atlaskit/theme": "^9.5.1",
+    "@atlaskit/button": "^14.0.0",
+    "@atlaskit/icon": "^21.0.0",
+    "@atlaskit/media-ui": "^13.0.0",
+    "@atlaskit/modal-dialog": "^11.0.0",
+    "@atlaskit/range": "^5.0.0",
+    "@atlaskit/spinner": "^15.0.0",
+    "@atlaskit/theme": "^10.0.0",
     "exenv": "^1.2.2",
     "tslib": "^1.9.3"
   },
@@ -41,9 +41,9 @@
   "devDependencies": {
     "@atlaskit/build-utils": "*",
     "@atlaskit/docs": "*",
-    "@atlaskit/media-core": "^31.0.5",
-    "@atlaskit/media-test-helpers": "^27.0.0",
-    "@atlaskit/page": "^11.0.12",
+    "@atlaskit/media-core": "^32.0.0",
+    "@atlaskit/media-test-helpers": "^28.0.0",
+    "@atlaskit/page": "^12.0.0",
     "@types/enzyme": "^3.1.15",
     "enzyme": "^3.10.0",
     "react": "^16.8.0",

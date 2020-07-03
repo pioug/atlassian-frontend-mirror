@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/icon-object",
-  "version": "5.0.3",
+  "version": "6.0.0",
   "description": "A React package that contains object icons",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -27,7 +27,7 @@
     "build:typescript:cjs": "NODE_ENV=production tsc --project build/cjs/tsconfig.json"
   },
   "dependencies": {
-    "@atlaskit/theme": "^9.5.1",
+    "@atlaskit/theme": "^10.0.0",
     "tslib": "^1.9.3"
   },
   "peerDependencies": {
@@ -36,13 +36,13 @@
   },
   "devDependencies": {
     "@atlaskit/build-utils": "*",
-    "@atlaskit/button": "^13.3.9",
+    "@atlaskit/button": "^14.0.0",
     "@atlaskit/docs": "*",
-    "@atlaskit/icon-build-process": "^0.1.2",
-    "@atlaskit/modal-dialog": "^10.5.4",
+    "@atlaskit/icon-build-process": "^0.2.0",
+    "@atlaskit/modal-dialog": "^11.0.0",
     "@atlaskit/ssr": "*",
-    "@atlaskit/textfield": "^3.1.9",
-    "@atlaskit/tooltip": "^15.2.5",
+    "@atlaskit/textfield": "^4.0.0",
+    "@atlaskit/tooltip": "^16.0.0",
     "enzyme": "^3.10.0",
     "fs-extra": "^4.0.2",
     "pkg-dir": "^4.2.0",

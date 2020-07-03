@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/feedback-collector",
-  "version": "5.0.2",
+  "version": "6.0.0",
   "description": "A component that collects feedback across Atlassian products.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -26,15 +26,15 @@
     "access": "public"
   },
   "dependencies": {
-    "@atlaskit/button": "^13.3.11",
-    "@atlaskit/checkbox": "^10.1.11",
-    "@atlaskit/flag": "^12.3.11",
-    "@atlaskit/form": "^7.2.1",
-    "@atlaskit/icon": "^20.1.1",
-    "@atlaskit/modal-dialog": "^10.5.7",
-    "@atlaskit/select": "^11.0.10",
-    "@atlaskit/textarea": "^2.2.4",
-    "@atlaskit/theme": "^9.5.1",
+    "@atlaskit/button": "^14.0.0",
+    "@atlaskit/checkbox": "^11.0.0",
+    "@atlaskit/flag": "^13.0.0",
+    "@atlaskit/form": "^8.0.0",
+    "@atlaskit/icon": "^21.0.0",
+    "@atlaskit/modal-dialog": "^11.0.0",
+    "@atlaskit/select": "^12.0.0",
+    "@atlaskit/textarea": "^3.0.0",
+    "@atlaskit/theme": "^10.0.0",
     "@babel/runtime": "^7.0.0",
     "lodash.truncate": "^4.4.2",
     "tslib": "^1.9.3"
@@ -46,9 +46,9 @@
   "devDependencies": {
     "@atlaskit/build-utils": "*",
     "@atlaskit/docs": "*",
-    "@atlaskit/global-navigation": "^9.0.0",
-    "@atlaskit/logo": "^12.3.4",
-    "@atlaskit/navigation-next": "^8.0.4",
+    "@atlaskit/global-navigation": "^10.0.0",
+    "@atlaskit/logo": "^13.0.0",
+    "@atlaskit/navigation-next": "^9.0.0",
     "@atlaskit/ssr": "*",
     "axios": "^0.19.2",
     "enzyme": "^3.10.0",

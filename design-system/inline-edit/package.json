@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/inline-edit",
-  "version": "10.0.33",
+  "version": "11.0.0",
   "description": "A base component used to build inline-editable components that match the Atlassian Design Guidelines",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -24,13 +24,13 @@
     }
   },
   "dependencies": {
-    "@atlaskit/analytics-next": "^6.3.5",
-    "@atlaskit/button": "^13.3.12",
-    "@atlaskit/form": "^7.2.2",
-    "@atlaskit/icon": "^20.1.1",
-    "@atlaskit/inline-dialog": "^12.1.13",
-    "@atlaskit/textfield": "^3.1.11",
-    "@atlaskit/theme": "^9.5.1",
+    "@atlaskit/analytics-next": "^7.0.0",
+    "@atlaskit/button": "^14.0.0",
+    "@atlaskit/form": "^8.0.0",
+    "@atlaskit/icon": "^21.0.0",
+    "@atlaskit/inline-dialog": "^13.0.0",
+    "@atlaskit/textfield": "^4.0.0",
+    "@atlaskit/theme": "^10.0.0",
     "react-loadable": "^5.1.0",
     "tslib": "^1.9.3"
   },
@@ -41,11 +41,11 @@
   "devDependencies": {
     "@atlaskit/build-utils": "*",
     "@atlaskit/docs": "*",
-    "@atlaskit/select": "^11.0.11",
+    "@atlaskit/select": "^12.0.0",
     "@atlaskit/ssr": "*",
-    "@atlaskit/tag": "^9.1.0",
-    "@atlaskit/tag-group": "^9.0.6",
-    "@atlaskit/textarea": "^2.2.9",
+    "@atlaskit/tag": "^10.0.0",
+    "@atlaskit/tag-group": "^10.0.0",
+    "@atlaskit/textarea": "^3.0.0",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
     "@testing-library/react": "^8.0.1",

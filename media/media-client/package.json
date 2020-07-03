@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-client",
-  "version": "7.0.0",
+  "version": "8.0.0",
   "description": "Media API Web Client Library",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -23,8 +23,8 @@
     }
   },
   "dependencies": {
-    "@atlaskit/chunkinator": "^1.1.0",
-    "@atlaskit/media-common": "^1.1.0",
+    "@atlaskit/chunkinator": "^2.0.0",
+    "@atlaskit/media-common": "^2.0.0",
     "dataloader": "^1.4.0",
     "deep-equal": "^1.0.1",
     "eventemitter2": "^4.1.0",
@@ -36,17 +36,17 @@
     "uuid-validate": "^0.0.3"
   },
   "peerDependencies": {
-    "@atlaskit/media-core": "^31.1.0",
+    "@atlaskit/media-core": "^32.0.0",
     "react": "^16.8.0",
     "rxjs": "^5.5.0"
   },
   "devDependencies": {
     "@atlaskit/build-utils": "*",
-    "@atlaskit/button": "^13.4.0",
+    "@atlaskit/button": "^14.0.0",
     "@atlaskit/docs": "*",
-    "@atlaskit/media-card": "^68.0.0",
-    "@atlaskit/media-core": "^31.1.0",
-    "@atlaskit/media-test-helpers": "^27.2.0",
+    "@atlaskit/media-card": "^69.0.0",
+    "@atlaskit/media-core": "^32.0.0",
+    "@atlaskit/media-test-helpers": "^28.0.0",
     "@atlaskit/ssr": "*",
     "@types/deep-equal": "^1.0.1",
     "@types/query-string": "^4.3.1",

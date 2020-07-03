@@ -100,6 +100,10 @@ sadfsadf
     ['should create a list if started with multiple hash symbols', `## a`],
     ['should create a list if started with multiple star symbols', `** a`],
     [
+      'should NOT create a list of more than 20 levels of nesting',
+      `********************* a`,
+    ],
+    [
       'should correctly insert a ruler if it occurs within a list',
       `
 - a

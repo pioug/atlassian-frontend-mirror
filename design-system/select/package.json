@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/select",
-  "version": "11.0.14",
+  "version": "12.0.0",
   "description": "Select gives users the ability to make a single selection, or multiple selections from a number of options.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -24,10 +24,10 @@
     }
   },
   "dependencies": {
-    "@atlaskit/analytics-next": "^6.3.5",
-    "@atlaskit/icon": "^20.1.1",
-    "@atlaskit/spinner": "^14.0.0",
-    "@atlaskit/theme": "^9.5.1",
+    "@atlaskit/analytics-next": "^7.0.0",
+    "@atlaskit/icon": "^21.0.0",
+    "@atlaskit/spinner": "^15.0.0",
+    "@atlaskit/theme": "^10.0.0",
     "@emotion/core": "^10.0.9",
     "@types/react-select": "^3.0.8",
     "focus-trap": "^2.4.5",
@@ -45,15 +45,15 @@
   },
   "devDependencies": {
     "@atlaskit/build-utils": "*",
-    "@atlaskit/button": "^13.4.0",
-    "@atlaskit/checkbox": "^10.1.12",
+    "@atlaskit/button": "^14.0.0",
+    "@atlaskit/checkbox": "^11.0.0",
     "@atlaskit/docs": "*",
-    "@atlaskit/drawer": "^5.3.7",
-    "@atlaskit/form": "^7.4.0",
-    "@atlaskit/logo": "^12.3.4",
-    "@atlaskit/modal-dialog": "^10.6.0",
+    "@atlaskit/drawer": "^6.0.0",
+    "@atlaskit/form": "^8.0.0",
+    "@atlaskit/logo": "^13.0.0",
+    "@atlaskit/modal-dialog": "^11.0.0",
     "@atlaskit/ssr": "*",
-    "@atlaskit/tooltip": "^15.2.7",
+    "@atlaskit/tooltip": "^16.0.0",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
     "@testing-library/react": "^8.0.1",

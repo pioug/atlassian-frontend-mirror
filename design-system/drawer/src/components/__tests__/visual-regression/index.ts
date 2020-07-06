@@ -1,6 +1,7 @@
 import {
   getExampleUrl,
   loadPage,
+  waitForElementCount,
   waitForLoadedBackgroundImages,
 } from '@atlaskit/visual-regression/helper';
 
@@ -75,14 +76,10 @@ describe('Snapshot Test', () => {
     // Wait for BG images which replace SVG icons (final state)
     const bgImgSelector = 'span[role="img"]';
     const bgImgIconSelector = `${objectExamplesSelector} ${bgImgSelector}`;
-    await page.waitFor(
-      (selector: string) => {
-        return document.querySelectorAll(selector).length === 2;
-      },
-      // Longer timeout to allow time to download over the internet
-      { timeout: 30000, polling: 500 },
-      bgImgIconSelector,
-    );
+    await waitForElementCount(page, bgImgIconSelector, 2, {
+      timeout: 30000, // Longer timeout to allow time to download over the internet
+      polling: 500,
+    });
     // Wait for BG image icons to be downloaded from an external URL
     await waitForLoadedBackgroundImages(page, bgImgSelector);
 

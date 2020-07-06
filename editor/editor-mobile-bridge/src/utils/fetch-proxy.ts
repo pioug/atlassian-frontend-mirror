@@ -1,14 +1,11 @@
-import { useEffect, useRef } from 'react';
+import { useLayoutEffect, useRef } from 'react';
 import { createPromise } from '../cross-platform-promise';
 import { isApple } from './is-apple';
 
 export class FetchProxy {
   private urls: string[] = [];
-  private globalFetch: typeof window.fetch;
-
-  constructor() {
-    this.globalFetch = window.fetch;
-  }
+  // Fetch requires to be binded to the window.
+  private globalFetch = window.fetch.bind(window);
 
   add(url: string): void {
     this.urls.push(url);
@@ -32,7 +29,7 @@ export class FetchProxy {
       // Determine whether its a URL we want native to handle, otherwise continue as normal.
       const shouldMock = this.urls.some(u => url.startsWith(u));
       if (!shouldMock) {
-        return this.globalFetch(url, options);
+        return this.globalFetch(request, options);
       }
 
       return createPromise('nativeFetch', { url, options })
@@ -55,7 +52,7 @@ export class FetchProxy {
 export function useFetchProxy() {
   const fetchProxy = useRef(new FetchProxy());
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const currentFetchProxy = fetchProxy.current;
     currentFetchProxy.enable();
     return () => {

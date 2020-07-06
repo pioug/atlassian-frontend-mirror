@@ -1,20 +1,23 @@
 import {
+  waitForElementCount,
+  waitForLoadedBackgroundImages,
+} from '@atlaskit/visual-regression/helper';
+import {
   snapshot,
   editorSelector,
   initEditorWithAdf,
   Appearance,
 } from '../_utils';
-import { waitForLoadedBackgroundImages } from '@atlaskit/visual-regression/helper';
 
 async function waitForCollabAvatars(page: any) {
-  // Collab user avatars are external CSS background images
-  const toolbarSelector = '.akEditor > div:first-child';
-  const toolbarRightGroupSelector = `${toolbarSelector} > div:nth-child(2)`;
-  await page.waitForSelector(toolbarRightGroupSelector);
-  await waitForLoadedBackgroundImages(
-    page,
-    `${toolbarRightGroupSelector} span[role="img"]`,
-  );
+  // Wait for both editors (and their toolbars)
+  const editorToolbarSelector = '.akEditor > div:first-child';
+  await waitForElementCount(page, editorToolbarSelector, 2);
+
+  // Wait for avatar image downloads
+  const avatarSelector = `span[class$="AvatarImage"][role="img"]`;
+  await waitForElementCount(page, avatarSelector, 4); // 2 images x 2 editor instances
+  await waitForLoadedBackgroundImages(page, avatarSelector);
 }
 
 describe('Collab', () => {
@@ -29,7 +32,8 @@ describe('Collab', () => {
       // editorProps: { allowFindReplace: true },
       withCollab: true,
     });
-    await page.waitForSelector('[data-testid="editor-collab-badge"]');
+
+    // Wait for avatars within each instance
     await waitForCollabAvatars(page);
     await snapshot(page, undefined, editorSelector);
   });

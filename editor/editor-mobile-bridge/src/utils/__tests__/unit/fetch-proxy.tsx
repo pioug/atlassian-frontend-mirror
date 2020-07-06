@@ -26,6 +26,23 @@ describe('FetchProxy', () => {
     fetchProxy.disable();
   });
 
+  describe('setup', () => {
+    let bindSpy: jest.SpyInstance;
+    beforeEach(() => {
+      bindSpy = jest.spyOn(window.fetch as Function, 'bind');
+    });
+
+    afterEach(() => {
+      bindSpy.mockRestore();
+    });
+
+    it('should set global fetch context to window', function() {
+      fetchProxy = new FetchProxy();
+
+      expect(bindSpy).toHaveBeenCalledWith(window);
+    });
+  });
+
   describe('Apple', () => {
     beforeEach(() => {
       (isApple as jest.Mock).mockImplementation(() => true);

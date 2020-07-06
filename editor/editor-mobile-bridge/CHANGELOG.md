@@ -1,5 +1,11 @@
 # @atlaskit/editor-mobile-bridge
 
+## 16.0.1
+
+### Patch Changes
+
+- [`6ced984cdc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6ced984cdc) - TWISTA-248 Fix bug where emoji were not ben loaded on iOS
+
 ## 16.0.0
 
 ### Patch Changes

@@ -8,7 +8,11 @@ import {
   getBoundingRect,
   scrollToElement,
 } from './_editor';
-import { clickToolbarMenu, ToolbarMenuItem } from './_toolbar';
+import {
+  clickToolbarMenu,
+  ToolbarMenuItem,
+  waitForFloatingControl,
+} from './_toolbar';
 import { TableCssClassName as ClassName } from '../../../plugins/table/types';
 import messages from '../../../messages';
 import {
@@ -71,10 +75,22 @@ export const insertTable = async (page: any) => {
   await page.click(tableSelectors.tableTh);
 };
 
-// click into first cell on table
-export const clickFirstCell = async (page: any) => {
+// Click into first cell on table.
+//
+// VR Only:
+// If the cell is empty, you should wait for the table controls
+// If the cell contains a node with its own floating controls (e.g. media)
+// thne you should set `waitForTableControls` to false, and provide your
+// own `waitForFloatingControl` condition after invoking this method.
+export const clickFirstCell = async (
+  page: any,
+  waitForTableControls = true,
+) => {
   await page.waitForSelector(tableSelectors.topLeftCell);
   await page.click(tableSelectors.topLeftCell);
+  if (isVisualRegression() && waitForTableControls) {
+    await waitForFloatingControl(page, 'Table floating controls');
+  }
 };
 
 export const selectTable = async (page: any) => {
@@ -448,7 +464,7 @@ const select = (type: 'row' | 'column' | 'numbered') => async (
   isShiftPressed: boolean = false,
 ) => {
   // @ts-ignore
-  const page = global.page;
+  const { page } = global;
   const selector =
     type === 'row'
       ? tableSelectors.nthRowControl(n + 1)

@@ -1,8 +1,4 @@
-import {
-  getExampleUrl,
-  loadPage,
-  takeScreenShot,
-} from '@atlaskit/visual-regression/helper';
+import { getExampleUrl, loadPage } from '@atlaskit/visual-regression/helper';
 
 const toggleButtonSelector = 'button[aria-label="Toggle navigation"]';
 
@@ -14,9 +10,10 @@ describe('Snapshot Test', () => {
       'basic-global-navigation',
       global.__BASEURL__,
     );
-    await loadPage(global.page, url);
-    await global.page.waitForSelector(toggleButtonSelector);
-    const image = await takeScreenShot(global.page, url);
+    const { page } = global;
+    await loadPage(page, url);
+    await page.waitForSelector(toggleButtonSelector);
+    const image = await page.screenshot();
     expect(image).toMatchProdImageSnapshot();
   });
 
@@ -27,9 +24,10 @@ describe('Snapshot Test', () => {
       'with-notification-integration',
       global.__BASEURL__,
     );
-    await loadPage(global.page, url);
-    await global.page.waitForSelector(toggleButtonSelector);
-    const image = await takeScreenShot(global.page, url);
+    const { page } = global;
+    await loadPage(page, url);
+    await page.waitForSelector(toggleButtonSelector);
+    const image = await page.screenshot();
     expect(image).toMatchProdImageSnapshot();
   });
 
@@ -43,7 +41,7 @@ describe('Snapshot Test', () => {
     const { page } = global;
     const button = '#profileGlobalItem';
     await loadPage(page, url);
-    await global.page.waitForSelector(toggleButtonSelector);
+    await page.waitForSelector(toggleButtonSelector);
     await page.waitForSelector(button);
 
     await page.click(button);

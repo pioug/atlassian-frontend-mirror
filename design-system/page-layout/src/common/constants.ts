@@ -48,6 +48,7 @@ export const IS_SIDEBAR_DRAGGING = 'data-is-sidebar-dragging';
 export const IS_SIDEBAR_COLLAPSING = 'data-is-sidebar-collapsing';
 export const IS_FLYOUT_OPEN = 'data-is-flyout-open';
 export const GRAB_AREA_LINE_SELECTOR = 'data-grab-area-line';
+export const GRAB_AREA_SELECTOR = 'data-grab-area';
 export const RESIZE_BUTTON_SELECTOR = 'data-resize-button';
 export const RESIZE_CONTROL_SELECTOR = 'data-resize-control';
 export const MAIN_SELECTOR = 'data-main';

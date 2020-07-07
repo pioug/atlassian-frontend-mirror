@@ -41,6 +41,7 @@ const LeftSidebar = (props: LeftSidebarProps) => {
     width = DEFAULT_LEFT_SIDEBAR_WIDTH,
     isFixed = true,
     resizeButtonLabel,
+    resizeGrabAreaLabel,
     overrides,
     onExpand,
     onCollapse,
@@ -186,6 +187,7 @@ const LeftSidebar = (props: LeftSidebarProps) => {
         {children}
         <ResizeControl
           testId={testId}
+          resizeGrabAreaLabel={resizeGrabAreaLabel}
           resizeButtonLabel={resizeButtonLabel}
           overrides={overrides}
           onCollapse={onCollapse}

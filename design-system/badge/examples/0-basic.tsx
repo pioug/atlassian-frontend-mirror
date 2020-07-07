@@ -31,45 +31,59 @@ export default function Example() {
     <div>
       <Item>
         <p>Added</p>
-        <Badge appearance="added" max={99}>
+        <Badge appearance="added" max={99} testId="badge">
           {3000}
         </Badge>
       </Item>
       <Item>
         <p>Default</p>
-        <Badge>{5}</Badge>
+        <Badge testId="badge-default">{5}</Badge>
       </Item>
       <Item>
         <p>Default (∞)</p>
-        <Badge max={Infinity}>{Infinity}</Badge>
+        <Badge max={Infinity} testId="badge">
+          {Infinity}
+        </Badge>
       </Item>
       <Item>
         <p>Important</p>
-        <Badge appearance="important">{25}</Badge>
+        <Badge appearance="important" testId="badge">
+          {25}
+        </Badge>
       </Item>
       <Item>
         <p>Primary</p>
-        <Badge appearance="primary">{-5}</Badge>
+        <Badge appearance="primary" testId="badge">
+          {-5}
+        </Badge>
       </Item>
       <Item inverted>
         <p>Primary Inverted</p>
-        <Badge appearance="primaryInverted">{5}</Badge>
+        <Badge appearance="primaryInverted" testId="badge">
+          {5}
+        </Badge>
       </Item>
       <Item>
         <p>Removed</p>
-        <Badge appearance="removed">{100}</Badge>
+        <Badge appearance="removed" testId="badge">
+          {100}
+        </Badge>
       </Item>
       <Item>
         <p>Added code</p>
-        <Badge appearance="added">+100</Badge>
+        <Badge appearance="added" testId="badge">
+          +100
+        </Badge>
       </Item>
       <Item>
         <p>Removed code</p>
-        <Badge appearance="removed">-100</Badge>
+        <Badge appearance="removed" testId="badge">
+          -100
+        </Badge>
       </Item>
       <Item>
         <p>Added</p>
-        <Badge appearance="added" max={4000}>
+        <Badge appearance="added" max={4000} testId="badge">
           {3000}
         </Badge>
       </Item>

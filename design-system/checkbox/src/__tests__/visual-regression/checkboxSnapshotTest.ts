@@ -1,11 +1,16 @@
 import {
   getExampleUrl,
+  loadPage,
   takeElementScreenShot,
-  takeScreenShot,
 } from '@atlaskit/visual-regression/helper';
 
 const checkbox = "[data-testid='cb-basic--checkbox-label']";
 const invalidCheckbox = "[data-testid='cb-invalid--checkbox-label']";
+
+async function waitForCheckboxes(page: any) {
+  await page.waitForSelector(checkbox);
+  await page.waitForSelector(invalidCheckbox);
+}
 
 describe('Snapshot Test', () => {
   it('Basic usage example should match production example', async () => {
@@ -15,7 +20,11 @@ describe('Snapshot Test', () => {
       'basic-usage',
       global.__BASEURL__,
     );
-    const image = await takeScreenShot(global.page, url);
+    const { page } = global;
+    await loadPage(page, url);
+    await waitForCheckboxes(page);
+
+    const image = await page.screenshot();
     expect(image).toMatchProdImageSnapshot();
   });
 
@@ -27,25 +36,21 @@ describe('Snapshot Test', () => {
       'basic-usage',
       __BASEURL__,
     );
-    await page.goto(url);
+    await loadPage(page, url);
+    await waitForCheckboxes(page);
 
-    await page.waitForSelector(checkbox);
-    await page.waitForSelector(invalidCheckbox);
     const defaultImg = await takeElementScreenShot(page, checkbox);
     expect(defaultImg).toMatchProdImageSnapshot();
 
     await page.focus(checkbox);
-    await page.waitFor(500);
     const focusedImg = await takeElementScreenShot(page, checkbox);
     expect(focusedImg).toMatchProdImageSnapshot();
 
     await page.click(checkbox);
-    await page.waitFor(500);
     const focusedAndSelectedImg = await takeElementScreenShot(page, checkbox);
     expect(focusedAndSelectedImg).toMatchProdImageSnapshot();
 
     await page.click(invalidCheckbox); //blur the default checkbox
-    await page.waitFor(500);
     const selectedImg = await takeElementScreenShot(page, checkbox);
     expect(selectedImg).toMatchProdImageSnapshot();
   });
@@ -58,20 +63,17 @@ describe('Snapshot Test', () => {
       'basic-usage',
       __BASEURL__,
     );
-    await page.goto(url);
+    await loadPage(page, url);
+    await waitForCheckboxes(page);
 
-    await page.waitForSelector(checkbox);
-    await page.waitForSelector(invalidCheckbox);
     const defaultImg = await takeElementScreenShot(page, invalidCheckbox);
     expect(defaultImg).toMatchProdImageSnapshot();
 
     await page.focus(invalidCheckbox);
-    await page.waitFor(500);
     const focusedImg = await takeElementScreenShot(page, invalidCheckbox);
     expect(focusedImg).toMatchProdImageSnapshot();
 
     await page.click(invalidCheckbox);
-    await page.waitFor(500);
     const focusedAndSelectedImg = await takeElementScreenShot(
       page,
       invalidCheckbox,
@@ -79,7 +81,6 @@ describe('Snapshot Test', () => {
     expect(focusedAndSelectedImg).toMatchProdImageSnapshot();
 
     await page.click(checkbox); //blur the default invalidCheckbox
-    await page.waitFor(500);
     const selectedImg = await takeElementScreenShot(page, invalidCheckbox);
     expect(selectedImg).toMatchProdImageSnapshot();
   });

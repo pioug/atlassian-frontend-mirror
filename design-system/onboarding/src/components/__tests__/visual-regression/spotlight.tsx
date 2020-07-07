@@ -17,7 +17,7 @@ describe('onboarding spotlight visual regression', () => {
       'spotlight-dialog-placement',
       __BASEURL__,
     );
-    await loadPage(page, url, true);
+    await loadPage(page, url);
     await page.waitForSelector(openButtonSelector);
 
     await page.click(openButtonSelector);
@@ -36,7 +36,7 @@ describe('onboarding spotlight visual regression', () => {
       'spotlight-dialog-placement',
       __BASEURL__,
     );
-    await loadPage(page, url, true);
+    await loadPage(page, url);
     await page.waitForSelector(openButtonSelector);
 
     await page.click(openButtonSelector);

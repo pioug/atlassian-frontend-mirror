@@ -19,8 +19,8 @@ describe('<PopupMenuGroup />', () => {
     );
     const { page } = global;
 
-    await loadPage(page, url);
     await page.setViewport({ width: 1920, height: 1080 });
+    await loadPage(page, url);
     await page.waitForSelector(selector);
   };
 
@@ -34,23 +34,22 @@ describe('<PopupMenuGroup />', () => {
 
   it('should match the PopupMenuGroup', async () => {
     await openExamplesAndWaitFor(withAdjacentSections);
-
-    await global.page.hover(mockStarredMenu);
+    const { page } = global;
+    await page.hover(mockStarredMenu);
 
     expect(
-      await takeElementScreenShot(global.page, mockStarredMenu),
+      await takeElementScreenShot(page, mockStarredMenu),
     ).toMatchProdImageSnapshot();
   });
 
   it('should match the adjacent sections menu when Favourite articles scrolled down', async () => {
     await openExamplesAndWaitFor(withAdjacentSections);
 
-    await global.page.focus(
-      '[aria-label="Favourite articles"] > button:last-child',
-    );
+    const { page } = global;
+    await page.focus('[aria-label="Favourite articles"] > button:last-child');
 
     expect(
-      await takeElementScreenShot(global.page, withAdjacentSections),
+      await takeElementScreenShot(page, withAdjacentSections),
     ).toMatchProdImageSnapshot();
   });
 });

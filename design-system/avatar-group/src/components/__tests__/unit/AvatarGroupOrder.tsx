@@ -8,13 +8,15 @@ import Avatar, {
   SizeType,
 } from '@atlaskit/avatar';
 
+import { RANDOM_USERS } from '../../../../examples-util/data';
 import AvatarGroup from '../../AvatarGroup';
-import { composeAUniqueKey } from '../../utils';
+import { composeUniqueKey } from '../../utils';
 
 const generateData = (avatarCount: number) => {
-  return [...Array(avatarCount).keys()].map(index => ({
-    name: `Name ${index}`,
+  return RANDOM_USERS.slice(0, avatarCount).map((user, index) => ({
+    name: user.name,
     src: `#${index}`,
+    key: user.email,
     size: 'medium' as SizeType,
     appearance: 'circle' as AppearanceType,
     href: '#',
@@ -61,7 +63,7 @@ describe('avatar group re-ordering', () => {
           Component: ElementType<AvatarPropTypes>,
           props: AvatarPropTypes,
           index: number,
-        ) => <Component {...props} key={composeAUniqueKey(props, index)} />,
+        ) => <Component {...props} key={composeUniqueKey(props, index)} />,
       },
     };
 

@@ -1,7 +1,4 @@
-import {
-  getExampleUrl,
-  takeScreenShot,
-} from '@atlaskit/visual-regression/helper';
+import { getExampleUrl, loadPage } from '@atlaskit/visual-regression/helper';
 
 describe('Status', () => {
   it('should match production example', async () => {
@@ -11,8 +8,14 @@ describe('Status', () => {
       'basicStatus',
       global.__BASEURL__,
     );
-    await global.page.setViewport({ width: 500, height: 400 });
-    const image = await takeScreenShot(global.page, url);
+    const { page } = global;
+    await page.setViewport({ width: 500, height: 400 });
+    await loadPage(page, url);
+    // Wait for status badges
+    await page.waitForSelector('span > svg:not([role="presentation"])');
+    // Wait for avatars
+    await page.waitForSelector('span > svg[role="presentation"]');
+    const image = await page.screenshot();
     expect(image).toMatchProdImageSnapshot();
   });
 });

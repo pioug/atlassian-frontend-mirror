@@ -1,8 +1,4 @@
-import {
-  getExampleUrl,
-  loadPage,
-  takeScreenShot,
-} from '@atlaskit/visual-regression/helper';
+import { getExampleUrl, loadPage } from '@atlaskit/visual-regression/helper';
 
 declare var global: any;
 
@@ -24,8 +20,11 @@ describe('<PageLayout />', () => {
     });
 
     await loadPage(page, url);
+    await page.waitForSelector('div[data-testid="leftPanel"]');
+    await page.waitForSelector('div[data-testid="rightPanel"]');
+    await page.waitForSelector('div[data-testid="main"]');
 
-    const screenshot = await takeScreenShot(page, url);
+    const screenshot = await page.screenshot();
     expect(screenshot).toMatchProdImageSnapshot();
   });
 
@@ -42,10 +41,11 @@ describe('<PageLayout />', () => {
       width: 1200,
     });
 
-    await page.goto(url);
+    await loadPage(page, url);
+    await page.waitForSelector('#banner');
     await page.keyboard.press('Tab');
 
-    const screenshot = await takeScreenShot(page, url);
+    const screenshot = await page.screenshot();
     expect(screenshot).toMatchProdImageSnapshot();
   });
 
@@ -62,7 +62,8 @@ describe('<PageLayout />', () => {
       width: 1200,
     });
 
-    await page.goto(url);
+    await loadPage(page, url);
+    await page.waitForSelector('#banner');
     await page.keyboard.press('Tab');
     await page.waitForSelector('div[data-skip-link-wrapper="true"]');
     await page.keyboard.press('Enter');
@@ -89,7 +90,8 @@ describe('<PageLayout />', () => {
       width: 1200,
     });
 
-    await page.goto(url);
+    await loadPage(page, url);
+    await page.waitForSelector('#banner');
     await page.keyboard.press('Tab');
     await page.waitForSelector('div[data-skip-link-wrapper="true"] ol li a');
 
@@ -142,7 +144,8 @@ describe('<PageLayout />', () => {
       width: 1200,
     });
 
-    await page.goto(url);
+    await loadPage(page, url);
+    await page.waitForSelector('#banner');
     await page.keyboard.press('Tab');
     await page.waitForSelector('div[data-skip-link-wrapper="true"]');
     await page.keyboard.press('Escape');
@@ -151,7 +154,7 @@ describe('<PageLayout />', () => {
       visible: false,
     });
 
-    const screenshot = await takeScreenShot(page, url);
+    const screenshot = await page.screenshot();
     expect(screenshot).toMatchProdImageSnapshot();
   });
 
@@ -169,8 +172,10 @@ describe('<PageLayout />', () => {
     });
 
     await loadPage(page, url);
+    await page.waitForSelector('div[data-testid="leftSidebar"]');
+    await page.waitForSelector('div[data-testid="main"]');
 
-    const screenshot = await takeScreenShot(page, url);
+    const screenshot = await page.screenshot();
     expect(screenshot).toMatchProdImageSnapshot();
 
     // await page.evaluate(async () => {
@@ -178,7 +183,7 @@ describe('<PageLayout />', () => {
     // });
 
     await page.$eval('body', () => window.scrollBy(0, 300));
-    const screenshotWithSticky = await takeScreenShot(page, url);
+    const screenshotWithSticky = await page.screenshot();
     expect(screenshotWithSticky).toMatchProdImageSnapshot();
   });
 });

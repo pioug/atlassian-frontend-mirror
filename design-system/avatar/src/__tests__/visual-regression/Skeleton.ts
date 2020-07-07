@@ -1,6 +1,7 @@
 import {
   getExampleUrl,
-  takeScreenShot,
+  loadPage,
+  waitForElementCount,
 } from '@atlaskit/visual-regression/helper';
 
 describe('Skeleton', () => {
@@ -17,7 +18,12 @@ describe('Skeleton', () => {
       'skeleton',
       global.__BASEURL__,
     );
-    const image = await takeScreenShot(page, url);
+
+    await loadPage(page, url);
+    // Wait for 5 example groups
+    await waitForElementCount(page, '[data-testid="example-block"]', 5);
+
+    const image = await page.screenshot();
     expect(image).toMatchProdImageSnapshot();
   });
 });

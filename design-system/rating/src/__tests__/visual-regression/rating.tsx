@@ -11,7 +11,6 @@ const ratingItemSelector = (index: number) =>
 
 describe('star rating', () => {
   it('should start with nothing checked', async () => {
-    //@ts-ignore
     const { __BASEURL__, page } = global;
     const url = getExampleUrl(
       'design-system',
@@ -20,7 +19,7 @@ describe('star rating', () => {
       __BASEURL__,
     );
 
-    await loadPage(page, url, true);
+    await loadPage(page, url);
 
     expect(
       await takeElementScreenShot(page, rootSelector),
@@ -28,7 +27,6 @@ describe('star rating', () => {
   });
 
   it('should hover over three stars', async () => {
-    //@ts-ignore
     const { __BASEURL__, page } = global;
     const url = getExampleUrl(
       'design-system',
@@ -36,7 +34,7 @@ describe('star rating', () => {
       'uncontrolled',
       __BASEURL__,
     );
-    await loadPage(page, url, true);
+    await loadPage(page, url);
 
     await page.hover(ratingItemSelector(2));
 
@@ -46,7 +44,6 @@ describe('star rating', () => {
   });
 
   it('should start select two stars', async () => {
-    //@ts-ignore
     const { __BASEURL__, page } = global;
     const url = getExampleUrl(
       'design-system',
@@ -54,7 +51,7 @@ describe('star rating', () => {
       'uncontrolled',
       __BASEURL__,
     );
-    await loadPage(page, url, true);
+    await loadPage(page, url);
 
     await page.click(ratingItemSelector(1));
 
@@ -64,7 +61,6 @@ describe('star rating', () => {
   });
 
   it('should select three stars using keyboard', async () => {
-    //@ts-ignore
     const { __BASEURL__, page } = global;
     const url = getExampleUrl(
       'design-system',
@@ -72,7 +68,7 @@ describe('star rating', () => {
       'uncontrolled',
       __BASEURL__,
     );
-    await loadPage(page, url, true);
+    await loadPage(page, url);
 
     await page.focus(emptyItemSelector);
     await page.keyboard.press('ArrowRight');

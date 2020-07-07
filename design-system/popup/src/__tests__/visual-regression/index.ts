@@ -2,7 +2,6 @@ import {
   getExampleUrl,
   loadPage,
   takeElementScreenShot,
-  takeScreenShot,
 } from '@atlaskit/visual-regression/helper';
 
 const button = '#popup-trigger';
@@ -23,7 +22,7 @@ describe('Snapshot Test', () => {
 
     const { page } = global;
 
-    await loadPage(page, url, true);
+    await loadPage(page, url);
     await page.waitForSelector(button);
 
     await page.click(button);
@@ -42,7 +41,7 @@ describe('Snapshot Test', () => {
 
     const { page } = global;
 
-    await loadPage(page, url, true);
+    await loadPage(page, url);
     await page.waitForSelector(button);
     await page.click(button);
     await page.click(popupPositionButton);
@@ -117,13 +116,13 @@ describe('Snapshot Test', () => {
 
     await page.waitFor(container);
 
-    const popupInputeWithFocus = await takeScreenShot(page, container);
+    const popupInputeWithFocus = await page.screenshot();
     expect(popupInputeWithFocus).toMatchProdImageSnapshot();
 
     await page.click(button);
     await page.waitForSelector(popup);
 
-    const inputShouldStillHaveFocus = await takeScreenShot(page, container);
+    const inputShouldStillHaveFocus = await page.screenshot();
     expect(inputShouldStillHaveFocus).toMatchProdImageSnapshot();
   });
 });

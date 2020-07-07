@@ -46,7 +46,7 @@ describe.skip('<LeftSidebar />', () => {
 
     const { page } = global;
     await loadPage(page, url);
-    await global.page.evaluate(() => {
+    await page.evaluate(() => {
       localStorage.clear();
     });
     await page.setViewport(screenSize);

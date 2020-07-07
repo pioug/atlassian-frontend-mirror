@@ -38,11 +38,11 @@ describe('<SkeletonMenu />', () => {
 
   it('should match the loaded menu', async () => {
     await openExamplesAndWaitFor(leftMenu);
-
-    await global.page.click(toggleButton);
+    const { page } = global;
+    await page.click(toggleButton);
 
     expect(
-      await takeElementScreenShot(global.page, leftMenu),
+      await takeElementScreenShot(page, leftMenu),
     ).toMatchProdImageSnapshot();
   });
 });

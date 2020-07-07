@@ -18,7 +18,7 @@ describe('Snapshot Test', () => {
       __BASEURL__,
     );
 
-    await loadPage(page, url, true);
+    await loadPage(page, url);
     await page.waitForSelector(openModalBtn);
     await page.click(openModalBtn);
     await page.waitForSelector(modalDialog);
@@ -38,7 +38,7 @@ describe('Snapshot Test', () => {
     );
     const toggle = '#togglePrimaryButtonPosition';
 
-    await loadPage(page, url, true);
+    await loadPage(page, url);
     await page.waitForSelector(openModalBtn);
     await page.click(toggle);
     await page.click(openModalBtn);

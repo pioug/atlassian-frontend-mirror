@@ -44,7 +44,7 @@ describe('Snapshot Test: Media', () => {
 
     // Reset cursor selection
     await animationFrame(page);
-    await clickFirstCell(page);
+    await clickFirstCell(page, false);
     await snapshot(page);
   });
 });

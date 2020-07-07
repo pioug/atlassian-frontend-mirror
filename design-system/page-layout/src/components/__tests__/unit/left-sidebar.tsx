@@ -5,7 +5,9 @@ import { act, fireEvent, render } from '@testing-library/react';
 import Tooltip from '@atlaskit/tooltip';
 
 import {
+  DEFAULT_LEFT_SIDEBAR_WIDTH,
   IS_SIDEBAR_COLLAPSING,
+  LEFT_SIDEBAR_FLYOUT_WIDTH,
   PAGE_LAYOUT_LS_KEY,
 } from '../../../common/constants';
 import {
@@ -18,6 +20,7 @@ import {
 
 import { getDimension } from './__utils__/get-dimension';
 import * as raf from './__utils__/raf';
+import { triggerTransitionEnd } from './__utils__/transition-end';
 
 describe('Left sidebar', () => {
   beforeEach(() => {
@@ -33,21 +36,6 @@ describe('Left sidebar', () => {
   const completeAnimations = () => {
     act(() => raf.flush());
     act(() => jest.runAllTimers());
-  };
-
-  const triggerTransitionEnd = (component: any) => {
-    // JSDom doesn't trigger transitionend event
-    // https://github.com/jsdom/jsdom/issues/1781
-    act(() => {
-      const transitionEndEvent = new Event('transitionend', {
-        bubbles: true,
-        cancelable: false,
-      });
-      (transitionEndEvent as any).propertyName = 'width';
-
-      fireEvent(component, transitionEndEvent);
-      completeAnimations();
-    });
   };
 
   const ResizeControlledConsumer = () => {
@@ -68,8 +56,8 @@ describe('Left sidebar', () => {
 
     return (
       <>
-        <button data-testid="collapse" onClick={() => collapseLeftSidebar()} />
-        <button data-testid="expand" onClick={() => expandLeftSidebar()} />
+        <button data-testid="collapse" onClick={collapseLeftSidebar} />
+        <button data-testid="expand" onClick={expandLeftSidebar} />
         <p data-testid="isLeftSidebarCollapsed">
           {String(isLeftSidebarCollapsed)}
         </p>
@@ -1413,6 +1401,294 @@ describe('Left sidebar', () => {
           getByTestId('component').firstElementChild!.firstElementChild!,
         ).opacity,
       ).toBe('1');
+    });
+  });
+
+  describe('Accessibility features', () => {
+    beforeEach(() => {
+      jest.useFakeTimers();
+      raf.replace();
+    });
+
+    afterEach(() => {
+      jest.useRealTimers();
+      localStorage.clear();
+    });
+
+    it('should have all accessibility data-attrs', () => {
+      const { getByTestId } = render(
+        <PageLayout testId="grid">
+          <Content>
+            <LeftSidebar testId="left-sidebar" width={200}>
+              LeftSidebar
+            </LeftSidebar>
+            <Main testId="content">Main</Main>
+          </Content>
+        </PageLayout>,
+      );
+
+      const handle: HTMLElement = getByTestId('left-sidebar-grab-area');
+
+      expect(handle.hasAttribute('role')).toEqual(true);
+      expect(handle.hasAttribute('aria-label')).toEqual(true);
+      expect(handle.hasAttribute('aria-valuenow')).toEqual(true);
+      expect(handle.hasAttribute('aria-valuemin')).toEqual(true);
+      expect(handle.hasAttribute('aria-valuemax')).toEqual(true);
+      expect(handle.hasAttribute('aria-expanded')).toEqual(true);
+    });
+
+    it('should change step by 10px on arrow left-top/right-bottom push', () => {
+      const { getByTestId } = render(
+        <PageLayout testId="grid">
+          <Content>
+            <LeftSidebar
+              testId="left-sidebar"
+              width={LEFT_SIDEBAR_FLYOUT_WIDTH}
+            >
+              LeftSidebar
+            </LeftSidebar>
+            <Main testId="content">Main</Main>
+          </Content>
+        </PageLayout>,
+      );
+
+      const handle: HTMLElement = getByTestId('left-sidebar-grab-area');
+
+      fireEvent.focus(handle);
+      fireEvent.keyDown(handle, { keyCode: 39 });
+      completeAnimations();
+
+      expect(getDimension('leftSidebarWidth')).toEqual(
+        `${LEFT_SIDEBAR_FLYOUT_WIDTH + 10}px`,
+      );
+
+      fireEvent.keyDown(handle, { keyCode: 37 });
+      completeAnimations();
+
+      expect(getDimension('leftSidebarWidth')).toEqual(
+        `${LEFT_SIDEBAR_FLYOUT_WIDTH}px`,
+      );
+
+      fireEvent.keyDown(handle, { keyCode: 40 });
+      completeAnimations();
+
+      expect(getDimension('leftSidebarWidth')).toEqual(
+        `${LEFT_SIDEBAR_FLYOUT_WIDTH + 10}px`,
+      );
+
+      fireEvent.keyDown(handle, { keyCode: 38 });
+      completeAnimations();
+
+      expect(getDimension('leftSidebarWidth')).toEqual(
+        `${LEFT_SIDEBAR_FLYOUT_WIDTH}px`,
+      );
+    });
+
+    it('should expand to maximum and minimum widths on arrow left-top/right-bottom push with a modifier', () => {
+      const { getByTestId } = render(
+        <PageLayout testId="grid">
+          <Content>
+            <LeftSidebar
+              testId="left-sidebar"
+              width={LEFT_SIDEBAR_FLYOUT_WIDTH}
+            >
+              LeftSidebar
+            </LeftSidebar>
+            <Main testId="content">Main</Main>
+          </Content>
+        </PageLayout>,
+      );
+
+      const handle: HTMLElement = getByTestId('left-sidebar-grab-area');
+      const maxWidth = 512;
+
+      //Meta key
+      fireEvent.focus(handle);
+      fireEvent.keyDown(handle, { keyCode: 39, metaKey: true });
+      completeAnimations();
+
+      expect(getDimension('leftSidebarWidth')).toEqual(`${maxWidth}px`);
+
+      fireEvent.keyDown(handle, { keyCode: 37, metaKey: true });
+      completeAnimations();
+
+      expect(getDimension('leftSidebarWidth')).toEqual(
+        `${DEFAULT_LEFT_SIDEBAR_WIDTH}px`,
+      );
+
+      //Shift key
+      fireEvent.keyDown(handle, { keyCode: 39, shiftKey: true });
+      completeAnimations();
+
+      expect(getDimension('leftSidebarWidth')).toEqual(`${maxWidth}px`);
+
+      fireEvent.keyDown(handle, { keyCode: 38, shiftKey: true });
+      completeAnimations();
+
+      expect(getDimension('leftSidebarWidth')).toEqual(
+        `${DEFAULT_LEFT_SIDEBAR_WIDTH}px`,
+      );
+
+      // alt key
+      fireEvent.focus(handle);
+      fireEvent.keyDown(handle, { keyCode: 39, altKey: true });
+      completeAnimations();
+
+      expect(getDimension('leftSidebarWidth')).toEqual(`${maxWidth}px`);
+
+      fireEvent.keyDown(handle, { keyCode: 37, altKey: true });
+      completeAnimations();
+
+      expect(getDimension('leftSidebarWidth')).toEqual(
+        `${DEFAULT_LEFT_SIDEBAR_WIDTH}px`,
+      );
+
+      // ctrl key
+      fireEvent.focus(handle);
+      fireEvent.keyDown(handle, { keyCode: 39, ctrlKey: true });
+      completeAnimations();
+
+      expect(getDimension('leftSidebarWidth')).toEqual(`${maxWidth}px`);
+
+      fireEvent.keyDown(handle, { keyCode: 37, ctrlKey: true });
+      completeAnimations();
+
+      expect(getDimension('leftSidebarWidth')).toEqual(
+        `${DEFAULT_LEFT_SIDEBAR_WIDTH}px`,
+      );
+    });
+
+    it(`should not change width of navbar on min ${LEFT_SIDEBAR_FLYOUT_WIDTH}px limit`, () => {
+      const { getByTestId } = render(
+        <PageLayout testId="grid">
+          <Content>
+            <LeftSidebar
+              testId="left-sidebar"
+              width={LEFT_SIDEBAR_FLYOUT_WIDTH}
+            >
+              LeftSidebar
+            </LeftSidebar>
+            <Main testId="content">Main</Main>
+          </Content>
+        </PageLayout>,
+      );
+
+      const handle: HTMLElement = getByTestId('left-sidebar-grab-area');
+
+      fireEvent.keyDown(handle, { keyCode: 37 });
+
+      expect(getDimension('leftSidebarWidth')).toEqual(
+        `${LEFT_SIDEBAR_FLYOUT_WIDTH}px`,
+      );
+    });
+
+    it(`should not change width of navbar on max ${Math.round(
+      window.innerWidth / 2,
+    ) - +getDimension('leftPanelWidth')}px limit`, () => {
+      const maxWidth =
+        Math.round(window.innerWidth / 2) - +getDimension('leftPanelWidth');
+      localStorage.setItem(
+        'DS_PAGE_LAYOUT_UI_STATE',
+        JSON.stringify({
+          isLeftSidebarCollapsed: false,
+          gridState: {
+            leftSidebarWidth: maxWidth,
+            leftSidebarFlyoutWidth: maxWidth,
+          },
+        }),
+      );
+      const { getByTestId } = render(
+        <PageLayout testId="grid">
+          <Content>
+            <LeftSidebar testId="left-sidebar" width={maxWidth}>
+              LeftSidebar
+            </LeftSidebar>
+            <Main testId="content">Main</Main>
+          </Content>
+        </PageLayout>,
+      );
+
+      const handle: HTMLElement = getByTestId('left-sidebar-grab-area');
+
+      fireEvent.keyDown(handle, { keyCode: 39 });
+
+      expect(getDimension('leftSidebarWidth')).toEqual(`${maxWidth}px`);
+    });
+
+    it('should collapse navbar on line Enter, Space or Click (that the same)', () => {
+      const { getByTestId } = render(
+        <PageLayout testId="grid">
+          <Content>
+            <LeftSidebar
+              testId="left-sidebar"
+              width={LEFT_SIDEBAR_FLYOUT_WIDTH}
+            >
+              LeftSidebar
+            </LeftSidebar>
+            <Main testId="content">Main</Main>
+          </Content>
+        </PageLayout>,
+      );
+
+      const handle: HTMLElement = getByTestId('left-sidebar-grab-area');
+
+      fireEvent.click(handle);
+
+      expect(handle.getAttribute('aria-expanded')).toEqual('false');
+    });
+
+    it('should make the grab area non-interactive when left sidebar is collapsed', () => {
+      localStorage.setItem(
+        'DS_PAGE_LAYOUT_UI_STATE',
+        JSON.stringify({
+          isLeftSidebarCollapsed: true,
+          gridState: {},
+        }),
+      );
+
+      const { getByTestId } = render(
+        <PageLayout testId="grid">
+          <Content>
+            <LeftSidebar
+              testId="left-sidebar"
+              width={LEFT_SIDEBAR_FLYOUT_WIDTH}
+            >
+              LeftSidebar
+            </LeftSidebar>
+            <Main testId="content">Main</Main>
+          </Content>
+        </PageLayout>,
+      );
+
+      expect(getByTestId('left-sidebar-grab-area')).toHaveAttribute('disabled');
+    });
+
+    it('should make the grab area interactive when left sidebar is expanded', () => {
+      localStorage.setItem(
+        'DS_PAGE_LAYOUT_UI_STATE',
+        JSON.stringify({
+          isLeftSidebarCollapsed: false,
+          gridState: {},
+        }),
+      );
+
+      const { getByTestId } = render(
+        <PageLayout testId="grid">
+          <Content>
+            <LeftSidebar
+              testId="left-sidebar"
+              width={LEFT_SIDEBAR_FLYOUT_WIDTH}
+            >
+              LeftSidebar
+            </LeftSidebar>
+            <Main testId="content">Main</Main>
+          </Content>
+        </PageLayout>,
+      );
+
+      expect(getByTestId('left-sidebar-grab-area')).not.toHaveAttribute(
+        'disabled',
+      );
     });
   });
 });

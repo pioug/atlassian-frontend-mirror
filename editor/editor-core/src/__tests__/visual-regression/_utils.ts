@@ -295,7 +295,7 @@ async function setupEditor(
 
   // Chrome adjusts screen/CSS viewport but not layout viewport with setViewport.
   // Try this if you're adjusting screen resolution in your test and snapshots look odd.
-  await navigateToUrl(page, forceReload ? `${url}&rand=${Math.random()}` : url);
+  await navigateToUrl(page, url, !forceReload);
 
   // Set the viewport to the right one
   if (viewport) {

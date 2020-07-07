@@ -14,7 +14,6 @@ const tracker = "[data-testid='tracker']";
 // https://ecosystem.atlassian.net/browse/DS-7006
 describe.skip('Snapshot Test for Progress Tracker', () => {
   it('should handle stages being added', async () => {
-    //@ts-ignore
     const { __BASEURL__, page } = global;
     const url = getExampleUrl(
       'design-system',
@@ -36,12 +35,10 @@ describe.skip('Snapshot Test for Progress Tracker', () => {
 
     await page.waitFor(500);
     const image = await takeElementScreenShot(page, tracker);
-    //@ts-ignore
     expect(image).toMatchProdImageSnapshot();
   });
 
   it('should handle stages being removed', async () => {
-    //@ts-ignore
     const { __BASEURL__, page } = global;
 
     const url = getExampleUrl(
@@ -67,7 +64,6 @@ describe.skip('Snapshot Test for Progress Tracker', () => {
 
     await page.waitFor(500);
     const image = await takeElementScreenShot(page, tracker);
-    //@ts-ignore
     expect(image).toMatchProdImageSnapshot();
   });
 });

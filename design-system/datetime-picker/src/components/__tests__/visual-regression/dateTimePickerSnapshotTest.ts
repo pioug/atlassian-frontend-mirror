@@ -1,10 +1,8 @@
-import {
-  getExampleUrl,
-  takeScreenShot,
-} from '@atlaskit/visual-regression/helper';
+import { getExampleUrl, loadPage } from '@atlaskit/visual-regression/helper';
 
 declare var global: any;
 
+const datePickerSelector = '#react-select-datepicker-1-input';
 const timePickerSelector = '[data-testid="timepicker-1--container"]';
 const timePickerDropdownSelector =
   '[data-testid="timepicker-1--popper--container"]';
@@ -21,7 +19,10 @@ describe('Snapshot Test', () => {
 
     await page.setViewport({ width: 800, height: 1100 });
 
-    const image = await takeScreenShot(page, url);
+    await loadPage(page, url);
+    await page.waitForSelector(datePickerSelector);
+    await page.waitForSelector(timePickerSelector);
+    const image = await page.screenshot();
     expect(image).toMatchProdImageSnapshot();
   });
 
@@ -37,12 +38,12 @@ describe('Snapshot Test', () => {
 
     await page.setViewport({ width: 800, height: 800 });
 
-    await takeScreenShot(page, url);
+    await loadPage(page, url);
     await page.waitForSelector(timePickerSelector);
     await page.click(timePickerSelector);
     await page.waitForSelector(timePickerDropdownSelector);
 
-    const image = await takeScreenShot(page, url);
+    const image = await page.screenshot();
     expect(image).toMatchProdImageSnapshot();
   });
 });

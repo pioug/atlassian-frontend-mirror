@@ -1,4 +1,12 @@
-import React, { FC, useEffect, useMemo, useRef, useState } from 'react';
+import React, {
+  FC,
+  KeyboardEvent,
+  MouseEvent,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 
 import debounce from 'lodash.debounce';
 
@@ -98,23 +106,29 @@ export const SidebarResizeController: FC<SidebarResizeControllerProps> = ({
         }
       }, 200),
 
-      collapseLeftSidebar: debounce((collapseWithoutTransition?: boolean) => {
-        const { leftSidebarWidth } = leftSidebarState;
-        // data-attribute is used as a CSS selector to sync the hiding/showing
-        // of the nav contents with expand/collapse animation
-        document.documentElement.setAttribute(IS_SIDEBAR_COLLAPSING, 'true');
-        setLeftSidebarState({
-          isLeftSidebarCollapsed: true,
-          isFlyoutOpen: false,
-          leftSidebarWidth: COLLAPSED_LEFT_SIDEBAR_WIDTH,
-          lastLeftSidebarWidth: leftSidebarWidth,
-        });
+      collapseLeftSidebar: debounce(
+        (
+          event?: MouseEvent | KeyboardEvent,
+          collapseWithoutTransition?: boolean,
+        ) => {
+          const { leftSidebarWidth } = leftSidebarState;
+          // data-attribute is used as a CSS selector to sync the hiding/showing
+          // of the nav contents with expand/collapse animation
+          document.documentElement.setAttribute(IS_SIDEBAR_COLLAPSING, 'true');
+          setLeftSidebarState({
+            isLeftSidebarCollapsed: true,
+            isFlyoutOpen: false,
+            leftSidebarWidth: COLLAPSED_LEFT_SIDEBAR_WIDTH,
+            lastLeftSidebarWidth: leftSidebarWidth,
+          });
 
-        // onTransitionEnd isn't triggered when a user prefers reduced motion
-        if (collapseWithoutTransition || isReducedMotion()) {
-          handleDataAttributesAndCb(onCollapse, true);
-        }
-      }, 200),
+          // onTransitionEnd isn't triggered when a user prefers reduced motion
+          if (collapseWithoutTransition || isReducedMotion()) {
+            handleDataAttributesAndCb(onCollapse, true);
+          }
+        },
+        200,
+      ),
 
       leftSidebarState,
       setLeftSidebarState,

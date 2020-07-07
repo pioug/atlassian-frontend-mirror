@@ -1,7 +1,6 @@
 import {
   getExampleUrl,
   loadPage,
-  takeScreenShot,
   waitForTooltip,
 } from '@atlaskit/visual-regression/helper';
 
@@ -24,12 +23,17 @@ describe('Avatar', () => {
   });
 
   it('should match production example', async () => {
-    const image = await takeScreenShot(page, url);
+    await loadPage(page, url);
+    await page.waitForSelector(
+      'div[data-testid="avatar"] span[role="img"] svg',
+      { visible: true },
+    );
+    const image = await page.screenshot();
     expect(image).toMatchProdImageSnapshot();
   });
 
   it('should render a tooltip on hover', async () => {
-    await loadPage(page, url, true);
+    await loadPage(page, url);
     await page.hover('[data-testid="avatar"]');
     await waitForTooltip(page);
 

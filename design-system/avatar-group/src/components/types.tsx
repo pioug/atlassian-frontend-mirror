@@ -9,6 +9,11 @@ export type DeepRequired<T> = {
   [P in keyof T]-?: Required<T[P]>;
 };
 
+export type AvatarProps = AvatarPropTypes & {
+  enableTooltip?: boolean;
+  key?: string | number;
+};
+
 export interface AvatarOverrideProps {
   /**
    * Avatar data passed to each avatar item.
@@ -83,7 +88,7 @@ export interface AvatarGroupProps {
    * Array of avatar data passed to each `avatar` component.
    * These props will be spread on to the component passed into avatar.
    */
-  data: Array<AvatarPropTypes & { enableTooltip?: boolean }>;
+  data: Array<AvatarProps>;
 
   /**
    * Handle the click event on the avatar item

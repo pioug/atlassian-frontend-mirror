@@ -38,7 +38,6 @@ describe('Snapshot Test', () => {
     await page.waitFor(500);
     const image = await takeElementScreenShot(page, menu);
     // Threshold is there to avoid false-positive with the fade.
-    // @ts-ignore Expected 0 arguments, but got 1.
     expect(image).toMatchProdImageSnapshot({
       failureThreshold: '50',
       failureThresholdType: 'pixel',
@@ -54,7 +53,6 @@ describe('Snapshot Test', () => {
     await page.waitFor(500);
     const image = await takeElementScreenShot(page, menu);
     // Threshold is there to avoid false-positive with the fade.
-    // @ts-ignore Expected 0 arguments, but got 1.
     expect(image).toMatchProdImageSnapshot({
       failureThreshold: '50',
       failureThresholdType: 'pixel',
@@ -71,7 +69,6 @@ describe('Snapshot Test', () => {
     const image = await takeElementScreenShot(page, menu);
     // Threshold is there to avoid false-positive with the fade.
     // It increased with the number of elements in the menu.
-    // @ts-ignore Expected 0 arguments, but got 1.
     expect(image).toMatchProdImageSnapshot({
       failureThreshold: '250',
       failureThresholdType: 'pixel',
@@ -88,7 +85,6 @@ describe('Snapshot Test', () => {
     const image = await takeElementScreenShot(page, menu);
     // Threshold is there to avoid false-positive with the fade.
     // It increased with the number of elements in the menu.
-    // @ts-ignore Expected 0 arguments, but got 1.
     expect(image).toMatchProdImageSnapshot({
       failureThreshold: '100',
       failureThresholdType: 'pixel',
@@ -105,7 +101,6 @@ describe('Snapshot Test', () => {
     const image = await takeElementScreenShot(page, menu);
     // Threshold is there to avoid false-positive with the fade.
     // It increased with the number of elements in the menu.
-    // @ts-ignore Expected 0 arguments, but got 1.
     expect(image).toMatchProdImageSnapshot({
       failureThreshold: '100',
       failureThresholdType: 'pixel',

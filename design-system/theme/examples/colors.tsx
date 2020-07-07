@@ -58,6 +58,7 @@ export const ColorPill = ({
   name: string;
 }) => (
   <span
+    data-testid="color-pill"
     css={css`
       display: inline-block;
       background-color: ${primary};
@@ -103,7 +104,7 @@ export default () =>
     <div key={groupName}>
       <Heading>{separateWords(groupName)}</Heading>
 
-      <div>
+      <div data-testid="color-palette">
         {groupColors.map(colorData => {
           const actualColor =
             typeof colorData.value === 'string'

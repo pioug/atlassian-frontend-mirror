@@ -5,7 +5,7 @@ import { waitForResolvedEmbedCard } from '../../__helpers/page-objects/_cards';
 
 describe('Embed Cards:', () => {
   it('displays embed properly with different layouts', async () => {
-    const page = global.page;
+    const { page } = global;
 
     await initFullPageEditorWithAdf(page, adf, Device.LaptopHiDPI, undefined, {
       UNSAFE_cards: {

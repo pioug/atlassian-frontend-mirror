@@ -20,7 +20,7 @@ describe('Snapshot Test', () => {
     );
     const { page } = global;
 
-    await loadPage(page, url, true);
+    await loadPage(page, url);
     await page.waitForSelector(openModalBtn);
     await page.click(openModalBtn);
     await page.waitForSelector(modalDialog);
@@ -37,7 +37,7 @@ describe('Snapshot Test', () => {
     );
     const { page } = global;
 
-    await loadPage(page, url, true);
+    await loadPage(page, url);
     await page.waitForSelector(openModalBtn);
     await page.click(openModalBtn);
     await page.waitForSelector(modalDialog);
@@ -54,7 +54,7 @@ describe('Snapshot Test', () => {
     );
     const { page } = global;
 
-    await loadPage(page, url, true);
+    await loadPage(page, url);
     await page.waitForSelector(openModalBtn);
     await page.click(openModalBtn);
     await page.waitForSelector(modalDialog);
@@ -77,7 +77,7 @@ describe('Snapshot Test', () => {
     );
     const { page } = global;
 
-    await loadPage(page, url, true);
+    await loadPage(page, url);
     await page.waitForSelector(openModalBtn);
     const radioSelector = scrollBehaviorGroup + ' input[value="outside"]';
     await page.waitForSelector(radioSelector);
@@ -98,7 +98,7 @@ describe('Snapshot Test', () => {
     );
     const { page } = global;
 
-    await loadPage(page, url, true);
+    await loadPage(page, url);
     await page.waitForSelector(openModalBtn);
     const radioSelector = scrollBehaviorGroup + ' input[value="inside-wide"]';
     await page.waitForSelector(radioSelector);

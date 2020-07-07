@@ -5,8 +5,7 @@ import { waitForMediaToBeLoaded } from '../../__helpers/page-objects/_media';
 describe('Snapshot Test: Media', () => {
   describe('full page editor', () => {
     it('display media with correct layouts and widths', async () => {
-      // @ts-ignore
-      const page = global.page;
+      const { page } = global;
 
       await initFullPageEditorWithAdf(
         page,

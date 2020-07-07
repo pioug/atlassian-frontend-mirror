@@ -1,7 +1,10 @@
-import {
-  getExampleUrl,
-  takeScreenShot,
-} from '@atlaskit/visual-regression/helper';
+import { getExampleUrl, loadPage } from '@atlaskit/visual-regression/helper';
+
+async function waitForBannerVisible(page: any) {
+  await page.waitForSelector('div[aria-hidden="false"][role="alert"]', {
+    visible: true,
+  });
+}
 
 describe('Snapshot Test', () => {
   it('Announcement banner example should match production example', async () => {
@@ -11,7 +14,10 @@ describe('Snapshot Test', () => {
       'AnnouncementBanner',
       global.__BASEURL__,
     );
-    const image = await takeScreenShot(global.page, url);
+    const { page } = global;
+    await loadPage(page, url);
+    await waitForBannerVisible(page);
+    const image = await page.screenshot();
     expect(image).toMatchProdImageSnapshot();
   });
   it('basic-usage example should match production example', async () => {
@@ -21,7 +27,10 @@ describe('Snapshot Test', () => {
       'basic-usage',
       global.__BASEURL__,
     );
-    const image = await takeScreenShot(global.page, url);
+    const { page } = global;
+    await loadPage(page, url);
+    await waitForBannerVisible(page);
+    const image = await page.screenshot();
     expect(image).toMatchProdImageSnapshot();
   });
 });

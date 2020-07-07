@@ -5,31 +5,45 @@ import { B100, B200, N0, N200, N30A } from '@atlaskit/theme/colors';
 
 import {
   GRAB_AREA_LINE_SELECTOR,
+  GRAB_AREA_SELECTOR,
   IS_SIDEBAR_DRAGGING,
   RESIZE_BUTTON_SELECTOR,
 } from '../../common/constants';
 
-export const resizeControlCSS: CSSObject = {
+export const resizeControlCSS = (setIsGrabAreaFocused: boolean): CSSObject => ({
   left: '100%',
   top: 0,
   bottom: 0,
   position: 'absolute',
 
-  [`&:hover [${GRAB_AREA_LINE_SELECTOR}]`]: {
-    backgroundColor: B100,
-  },
+  [`[${GRAB_AREA_SELECTOR}]:enabled`]: {
+    [`&:hover [${GRAB_AREA_LINE_SELECTOR}]`]: {
+      backgroundColor: B100,
+    },
 
-  [`&:active [${GRAB_AREA_LINE_SELECTOR}]`]: {
-    backgroundColor: B200,
-  },
+    [`&:active [${GRAB_AREA_LINE_SELECTOR}]`]: {
+      backgroundColor: B200,
+    },
 
-  [`&:hover [${RESIZE_BUTTON_SELECTOR}]:not(:focus):not(:hover)`]: {
-    color: B100,
+    [`&:hover [${RESIZE_BUTTON_SELECTOR}]:not(:focus):not(:hover)`]: {
+      color: B100,
+    },
+    [`&:hover [${RESIZE_BUTTON_SELECTOR}]`]: {
+      opacity: 1,
+    },
+    ...(setIsGrabAreaFocused && {
+      [`[${GRAB_AREA_SELECTOR}]`]: {
+        outline: 'none',
+      },
+      [`[${GRAB_AREA_LINE_SELECTOR}]`]: {
+        backgroundColor: B200,
+      },
+      [`[${RESIZE_BUTTON_SELECTOR}]`]: {
+        opacity: 1,
+      },
+    }),
   },
-  [`&:hover [${RESIZE_BUTTON_SELECTOR}]`]: {
-    opacity: 1,
-  },
-};
+});
 
 export const resizeIconButtonCSS = (isCollapsed: boolean): CSSObject => ({
   backgroundColor: N0,
@@ -82,12 +96,26 @@ export const grabAreaCSS = (isLeftSidebarCollapsed: boolean) => ({
   cursor: 'ew-resize',
   height: '100%',
   width: '24px',
+  padding: 0,
+  border: 0,
+  backgroundColor: 'transparent',
+
+  ['&::-moz-focus-inner']: {
+    border: 0,
+  },
+  [':focus']: {
+    outline: 0,
+  },
   ...(isLeftSidebarCollapsed && {
+    padding: 0,
+    border: 0,
+    backgroundColor: 'transparent',
     cursor: 'default',
   }),
 });
 
 export const lineCSS = (isLeftSidebarCollapsed: boolean) => ({
+  display: 'block',
   height: '100%',
   transition: 'background-color 200ms',
   width: 2,

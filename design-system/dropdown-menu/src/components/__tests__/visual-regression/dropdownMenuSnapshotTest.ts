@@ -1,8 +1,4 @@
-import {
-  getExampleUrl,
-  loadPage,
-  takeScreenShot,
-} from '@atlaskit/visual-regression/helper';
+import { getExampleUrl, loadPage } from '@atlaskit/visual-regression/helper';
 
 const dropdown = '[data-testid="dropdown--trigger"]';
 const dropdownItem = '[data-testid="dropdown--content"]';
@@ -29,7 +25,7 @@ describe('Snapshot Test', () => {
     await page.keyboard.press('Enter');
 
     await page.waitForSelector(dialogBox);
-    const selectedImg = await takeScreenShot(global.page, url);
+    const selectedImg = await page.screenshot();
     expect(selectedImg).toMatchProdImageSnapshot();
   });
 });

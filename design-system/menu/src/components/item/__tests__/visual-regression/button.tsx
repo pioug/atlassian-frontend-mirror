@@ -41,22 +41,23 @@ describe('<ButtonItem />', () => {
 
   it('should match the hovered state', async () => {
     await openExamplesAndWaitFor(buttonLink);
-
-    await global.page.hover(buttonLink);
+    const { page } = global;
+    await page.hover(buttonLink);
 
     expect(
-      await takeElementScreenShot(global.page, buttonLink),
+      await takeElementScreenShot(page, buttonLink),
     ).toMatchProdImageSnapshot();
   });
 
   it('should match the clicked state', async () => {
     await openExamplesAndWaitFor(buttonLink);
 
-    await global.page.hover(buttonLink);
-    await global.page.mouse.down();
+    const { page } = global;
+    await page.hover(buttonLink);
+    await page.mouse.down();
 
     expect(
-      await takeElementScreenShot(global.page, buttonLink),
+      await takeElementScreenShot(page, buttonLink),
     ).toMatchProdImageSnapshot();
   });
 

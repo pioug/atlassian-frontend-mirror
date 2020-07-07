@@ -2,7 +2,6 @@ import {
   getExampleUrl,
   loadPage,
   takeElementScreenShot,
-  takeScreenShot,
 } from '@atlaskit/visual-regression/helper';
 
 const table = "[data-testid='the-table--table']";
@@ -23,7 +22,9 @@ describe('Snapshot Test', () => {
     // Move the mouse away from the top left corner to prevent the selected state
     // of the first heading cell from triggering.
     await page.mouse.move(0, 100);
-    const image = await takeScreenShot(page, url);
+    await loadPage(page, url);
+    await page.waitForSelector('table');
+    const image = await page.screenshot();
     expect(image).toMatchProdImageSnapshot();
   });
   it('Testing example should match production example before and after sorting', async () => {

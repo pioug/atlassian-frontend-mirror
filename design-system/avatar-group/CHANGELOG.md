@@ -1,5 +1,11 @@
 # @atlaskit/avatar-group
 
+## 7.0.1
+
+### Patch Changes
+
+- [`ae57cd8744`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ae57cd8744) - Assignment of key for AvatarGroup children made user driven now and using Array.index as a fallback, which fixes the unique key issue in AvaratGroup.
+
 ## 7.0.0
 
 ### Major Changes

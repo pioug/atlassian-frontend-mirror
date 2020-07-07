@@ -7,7 +7,7 @@ import { Skeleton } from '../src';
 
 export default () => (
   <div>
-    <Block heading="Circle">
+    <Block heading="Circle" testId="example-block">
       <Skeleton size="xxlarge" />
       <Gap />
       <Skeleton size="xlarge" />
@@ -20,7 +20,7 @@ export default () => (
       <Gap />
       <Skeleton size="xsmall" />
     </Block>
-    <Block heading="Square">
+    <Block heading="Square" testId="example-block">
       <Skeleton appearance="square" size="xxlarge" />
       <Gap />
       <Skeleton appearance="square" size="xlarge" />
@@ -33,7 +33,7 @@ export default () => (
       <Gap />
       <Skeleton appearance="square" size="xsmall" />
     </Block>
-    <Block heading="Coloured via inheritance">
+    <Block heading="Coloured via inheritance" testId="example-block">
       <div style={{ color: colors.P500 }}>
         <Skeleton size="xxlarge" />
         <Gap />
@@ -48,7 +48,7 @@ export default () => (
         <Skeleton size="xsmall" />
       </div>
     </Block>
-    <Block heading="Coloured using props">
+    <Block heading="Coloured using props" testId="example-block">
       <Skeleton size="xxlarge" color={colors.Y500} />
       <Gap />
       <Skeleton size="xlarge" color={colors.G500} />
@@ -61,7 +61,7 @@ export default () => (
       <Gap />
       <Skeleton size="xsmall" color={colors.T500} />
     </Block>
-    <Block heading="With a strong weight">
+    <Block heading="With a strong weight" testId="example-block">
       <Skeleton size="xxlarge" color={colors.Y500} weight="strong" />
       <Gap />
       <Skeleton size="xlarge" color={colors.G500} weight="strong" />

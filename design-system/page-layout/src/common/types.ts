@@ -45,7 +45,9 @@ export interface LeftSidebarProps extends SlotWidthProps {
       ) => ReactElement;
     };
   };
-  /** Displays label for resize button. */
+  /** Display label for grab area. This will be announced to the screenreaders when the grab area receives focus */
+  resizeGrabAreaLabel?: string;
+  /** Display label for resize button. */
   resizeButtonLabel?: string;
   /** Called when left-sidebar is collapsed. */
   onCollapse?: () => void;
@@ -62,8 +64,10 @@ export interface LeftSidebarProps extends SlotWidthProps {
 }
 
 export type SidebarResizeControllerProps = {
-  onLeftSidebarCollapse?: () => void;
+  /** Called when left-sidebar expanded. */
   onLeftSidebarExpand?: () => void;
+  /** Called when left-sidebar collapsed. */
+  onLeftSidebarCollapse?: () => void;
 };
 
 export type DimensionNames =
@@ -77,16 +81,13 @@ export type DimensionNames =
 
 export type Dimensions = Partial<Record<DimensionNames, number>>;
 
-export interface PageLayoutProps {
+export interface PageLayoutProps extends SidebarResizeControllerProps {
   /** React children! */
   children: ReactNode;
+  /* This prop is used to label the skip links container. Defaults to "Skip to:" */
   skipLinksLabel?: string;
   /**
    * A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests.
    **/
   testId?: string;
-  /** Called when left-sidebar expanded. */
-  onLeftSidebarExpand?: () => void;
-  /** Called when left-sidebar collapsed. */
-  onLeftSidebarCollapse?: () => void;
 }

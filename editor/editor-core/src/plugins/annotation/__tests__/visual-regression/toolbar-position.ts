@@ -31,7 +31,12 @@ const evaluateCoordinates = async (page: Page, pos: number) => {
   }, pos);
 };
 
-const selectAtPos = async (page: Page, startPos: number, endPos: number) => {
+const selectAtPos = async (
+  page: Page,
+  startPos: number,
+  endPos: number,
+  waitForCreateCommentButton = true,
+) => {
   const start = await evaluateCoordinates(page, startPos);
   const end = await evaluateCoordinates(page, endPos);
 
@@ -39,6 +44,10 @@ const selectAtPos = async (page: Page, startPos: number, endPos: number) => {
   await page.keyboard.down('Shift');
   await page.mouse.click(end.left, end.top);
   await page.keyboard.up('Shift');
+
+  if (waitForCreateCommentButton) {
+    await page.waitForSelector(`${annotationSelectors.floatingToolbarCreate}`);
+  }
 };
 
 const selectAtPosForBreakout = async (
@@ -94,12 +103,13 @@ describe('Annotation toolbar positioning', () => {
       await scrollToBottom(page);
 
       await selectAtPos(page, 1654, 1666);
-      await snapshot(page);
 
       // ensure it is disabled
       await page.waitForSelector(
         `${annotationSelectors.floatingToolbarCreate}[disabled]`,
       );
+
+      await snapshot(page);
     });
   });
 
@@ -189,10 +199,11 @@ describe('Annotation toolbar positioning', () => {
       page = global.page;
       await init(page, adfWithTable);
     });
+
     it(`text selection across table cells`, async () => {
       await scrollToElement(page, 'table');
 
-      await selectAtPos(page, 9, 104);
+      await selectAtPos(page, 9, 104, false);
       await page.waitForSelector('.pm-table-column__selected');
       await snapshot(page);
     });

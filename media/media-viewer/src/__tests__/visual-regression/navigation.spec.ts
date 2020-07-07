@@ -15,6 +15,7 @@ describe('Media Viewer Navigation', () => {
   it('renders a file and nav button given multiple files', async () => {
     const { page } = global;
 
+    // This test relies on side effects (CSS transitons)
     await page.goto(url);
     await page.waitForSelector(pageSelector);
     await page.waitForSelector('img');
@@ -30,6 +31,7 @@ describe('Media Viewer Navigation', () => {
   it('hides nav for multiple files after a timeout', async () => {
     const { page } = global;
 
+    // This test relies on side effects (CSS transitons)
     await page.goto(url);
     await page.waitForSelector(pageSelector);
     await page.waitForSelector('img');

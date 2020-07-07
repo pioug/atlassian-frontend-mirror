@@ -50,20 +50,20 @@ const PageLayout = ({
           >
             <Global
               styles={css`
-            :root {
-              --${LEFT_PANEL_WIDTH}: 0px;
-              --${LEFT_SIDEBAR_WIDTH}: 0px;
-              --${RIGHT_SIDEBAR_WIDTH}: 0px;
-              --${RIGHT_PANEL_WIDTH}: 0px;
-              --${TOP_NAVIGATION_HEIGHT}: 0px;
-              --${BANNER_HEIGHT}: 0px;
-              --${LEFT_SIDEBAR_FLYOUT}: ${LEFT_SIDEBAR_FLYOUT_WIDTH}px;
-            }
+                :root {
+                  --${LEFT_PANEL_WIDTH}: 0px;
+                  --${LEFT_SIDEBAR_WIDTH}: 0px;
+                  --${RIGHT_SIDEBAR_WIDTH}: 0px;
+                  --${RIGHT_PANEL_WIDTH}: 0px;
+                  --${TOP_NAVIGATION_HEIGHT}: 0px;
+                  --${BANNER_HEIGHT}: 0px;
+                  --${LEFT_SIDEBAR_FLYOUT}: ${LEFT_SIDEBAR_FLYOUT_WIDTH}px;
+                }
 
-            [${IS_SIDEBAR_DRAGGING}] {
-              user-select: none !important;
-            }
-          `}
+                [${IS_SIDEBAR_DRAGGING}] {
+                  user-select: none !important;
+                }
+              `}
             />
             {children}
           </SidebarResizeController>

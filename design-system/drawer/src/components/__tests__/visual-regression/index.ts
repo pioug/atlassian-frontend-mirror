@@ -29,7 +29,7 @@ describe('Snapshot Test', () => {
       );
 
       const { page } = global;
-      await loadPage(page, url, true);
+      await loadPage(page, url);
       const button = `#open-${width}-drawer`;
       await waitForSidebar(page, button);
 
@@ -48,7 +48,7 @@ describe('Snapshot Test', () => {
 
     const { page } = global;
     const button = '#button';
-    await loadPage(page, url, true);
+    await loadPage(page, url);
 
     await waitForSidebar(page, button);
 

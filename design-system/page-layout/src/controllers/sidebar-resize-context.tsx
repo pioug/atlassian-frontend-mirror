@@ -1,4 +1,4 @@
-import { createContext, useContext } from 'react';
+import { createContext, KeyboardEvent, MouseEvent, useContext } from 'react';
 
 const noop = () => {};
 
@@ -11,7 +11,10 @@ export type LeftSidebarState = {
 export type SidebarResizeContextValue = {
   isLeftSidebarCollapsed: boolean;
   expandLeftSidebar: () => void;
-  collapseLeftSidebar: (collapseWithoutTransition?: boolean) => void;
+  collapseLeftSidebar: (
+    event?: MouseEvent | KeyboardEvent,
+    collapseWithoutTransition?: boolean,
+  ) => void;
   leftSidebarState: LeftSidebarState;
   setLeftSidebarState: (leftSidebarState: LeftSidebarState) => void;
 };

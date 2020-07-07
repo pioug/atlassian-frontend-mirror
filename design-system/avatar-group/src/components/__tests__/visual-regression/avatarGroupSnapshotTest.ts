@@ -2,10 +2,18 @@ import {
   getExampleUrl,
   loadPage,
   takeElementScreenShot,
-  takeScreenShot,
 } from '@atlaskit/visual-regression/helper';
 
+const avatarSelector = `div[data-testid="grid--avatar-0"] > a[data-testid="grid--avatar-0--inner"]`;
 const moreIndicator = `[data-testid="grid--overflow-menu--trigger"]`;
+const inputSelector = 'input[type="range"]';
+
+async function waitForPageRendered(page: any) {
+  await page.waitForSelector(avatarSelector);
+  await page.waitForSelector(moreIndicator);
+  await page.waitForSelector(inputSelector);
+  await page.waitForSelector(`${avatarSelector} svg[role="presentation"]`);
+}
 
 describe('Snapshot Test', () => {
   let page: any;
@@ -17,21 +25,19 @@ describe('Snapshot Test', () => {
     global.__BASEURL__,
   );
 
-  beforeEach(() => {
+  beforeEach(async () => {
     page = global.page;
+    await loadPage(page, url);
+    await waitForPageRendered(page);
   });
 
   it('Playground avatar group example should match production example', async () => {
-    const image = await takeScreenShot(global.page, url);
+    const image = await page.screenshot();
     expect(image).toMatchProdImageSnapshot();
   });
 
   it('More indicator should get opacity onHover', async () => {
-    await loadPage(page, url);
-
-    await page.waitForSelector(moreIndicator);
     await page.hover(moreIndicator);
-
     const image = await takeElementScreenShot(page, moreIndicator);
     expect(image).toMatchProdImageSnapshot();
   });

@@ -55,11 +55,13 @@ export const Heading = styled.div`
 export const Block = ({
   children,
   heading,
+  testId,
 }: {
   children?: ReactNode;
   heading?: string;
+  testId?: string;
 }) => (
-  <Wrapper>
+  <Wrapper data-testid={testId}>
     {heading ? <Heading>{heading}</Heading> : null}
     <ChildrenWrapper>{children}</ChildrenWrapper>
   </Wrapper>

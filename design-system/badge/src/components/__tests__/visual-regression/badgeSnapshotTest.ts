@@ -1,6 +1,7 @@
 import {
   getExampleUrl,
-  takeScreenShot,
+  loadPage,
+  waitForElementCount,
 } from '@atlaskit/visual-regression/helper';
 
 describe('Snapshot Test', () => {
@@ -13,12 +14,15 @@ describe('Snapshot Test', () => {
     );
     const { page } = global;
 
+    await loadPage(page, url);
     // Move the mouse away from the first button to avoid
     // the hover effect from triggering.
     await page.mouse.move(400, 0);
 
-    const image = await takeScreenShot(page, url);
+    // Wait for 10 list items
+    await waitForElementCount(page, 'span[data-testid="badge"]', 9);
 
+    const image = await page.screenshot();
     expect(image).toMatchProdImageSnapshot();
   });
 });

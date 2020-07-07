@@ -1,11 +1,7 @@
-import {
-  getExampleUrl,
-  takeScreenShot,
-} from '@atlaskit/visual-regression/helper';
+import { getExampleUrl, loadPage } from '@atlaskit/visual-regression/helper';
 
 declare var global: any;
 
-// TODO - identify threshold or do not set cursor
 describe('Snapshot Test', () => {
   it('Textfield variations should match production example', async () => {
     const url = getExampleUrl(
@@ -14,7 +10,11 @@ describe('Snapshot Test', () => {
       'variations',
       global.__BASEURL__,
     );
-    const image = await takeScreenShot(global.page, url);
+    const { page } = global;
+    await loadPage(page, url);
+    await page.waitForSelector('input[disabled]');
+    await page.waitForSelector('input[required]');
+    const image = await page.screenshot();
     expect(image).toMatchProdImageSnapshot();
   });
 });

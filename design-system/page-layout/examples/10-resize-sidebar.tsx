@@ -184,13 +184,13 @@ const ExpandKeyboardShortcut: FC = () => {
 };
 
 const initialState = {
-  isBannerShown: true,
+  isBannerShown: false,
   isTopNavigationShown: true,
-  isLeftPanelShown: true,
+  isLeftPanelShown: false,
   isLeftSidebarShown: true,
   isMainShown: true,
-  isRightSidebarShown: true,
-  isRightPanelShown: true,
+  isRightSidebarShown: false,
+  isRightPanelShown: false,
   isBannerFixed: true,
   isTopNavigationFixed: true,
   isLeftPanelFixed: false,
@@ -278,6 +278,8 @@ const BasicGrid = () => {
             {gridState.isLeftSidebarShown && (
               <LeftSidebar
                 testId="left-sidebar"
+                id="left-sidebar"
+                skipLinkTitle="Left sidebar"
                 isFixed={gridState.isLeftSidebarFixed}
                 width={450}
                 onExpand={() => console.log('onExpand')}
@@ -324,7 +326,7 @@ const BasicGrid = () => {
               </LeftSidebar>
             )}
             {gridState.isMainShown && (
-              <Main>
+              <Main id="main" skipLinkTitle="Main">
                 <Wrapper noOutline borderColor="black">
                   <h3 css={{ textAlign: 'center' }}>Main</h3>
                   <ToggleExtraWide

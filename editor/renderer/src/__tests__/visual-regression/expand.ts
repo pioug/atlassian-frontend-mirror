@@ -19,6 +19,8 @@ describe('Snapshot Test: Expand', () => {
 
   afterEach(async () => {
     await snapshot(page, undefined, selectors.expand);
+    // Reset mouse position to avoid accidental hover effects for subsequent tests
+    await page.mouse.move(0, 0);
   });
 
   test(`should render a border on hover of a collapsed top level expand`, async () => {

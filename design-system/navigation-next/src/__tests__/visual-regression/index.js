@@ -2,8 +2,12 @@ import {
   compareScreenshot,
   getExampleUrl,
   loadPage,
-  takeScreenShot,
 } from '@atlaskit/visual-regression/helper';
+
+async function waitForPageFrame(page) {
+  await page.waitForSelector('div[data-testid="Navigation"]');
+  await page.waitForSelector('div[data-testid="Content"]');
+}
 
 describe('Snapshot Test', () => {
   afterEach(async () => {
@@ -24,18 +28,22 @@ describe('Snapshot Test', () => {
       'navigation-app',
       global.__BASEURL__,
     );
-    const index = getExampleUrl('design-system', global.__BASEURL__);
     const { page } = global;
-    await loadPage(page, index);
+
+    // Avoids `DOMException: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.`
+    // by loading the page twice. The first load enables the localStorage usage. The 2nd load leverages the pre-set value.
+    // This is only problematic because it's the first test in this file.
+    await loadPage(page, url);
     await page.evaluate(() => {
       localStorage.setItem(
         'ATLASKIT_NAVIGATION_UI_STATE',
         '{"isCollapsed":false,"productNavWidth":240}',
       );
     });
-
     await loadPage(page, url);
-    const image = await takeScreenShot(global.page, url);
+    await waitForPageFrame(page);
+
+    const image = await page.screenshot();
     expect(image).toMatchProdImageSnapshot();
   });
 
@@ -48,7 +56,8 @@ describe('Snapshot Test', () => {
     );
     const { page } = global;
     await loadPage(page, url);
-    const image = await takeScreenShot(page, url);
+    await waitForPageFrame(page);
+    const image = await page.screenshot();
     expect(image).toMatchProdImageSnapshot(); // Snapshot of product nav
   });
 
@@ -60,17 +69,18 @@ describe('Snapshot Test', () => {
       global.__BASEURL__,
     );
     const { page } = global;
+    await loadPage(page, url);
     const pageContent = "[class$='LayoutContainer']";
     await page.waitForSelector(pageContent);
     await page.evaluate(
       selector => document.querySelector(selector).scrollBy(0, 500),
       pageContent,
     );
-    const image = await takeScreenShot(page, url);
+    const image = await page.screenshot();
     expect(image).toMatchProdImageSnapshot();
   });
 
-  xit('Should match switcher', async () => {
+  it('Should match switcher', async () => {
     const url = getExampleUrl(
       'design-system',
       'navigation-next',
@@ -78,13 +88,15 @@ describe('Snapshot Test', () => {
       global.__BASEURL__,
     );
     const { page } = global;
-    const button = `[data-webdriver-test-key="container-header"] > div > button`;
-    await loadPage(page, url);
-    await page.waitFor(300);
 
+    await loadPage(page, url);
+
+    // This matches all buttons, but will resolve the first one.
+    const button = `[data-testid="NavigationItem"]`;
     await page.waitForSelector(button);
     await page.click(button);
-    await page.waitFor(300);
+    // Wait for list search which gets added to the DOM afterwards
+    await page.waitForSelector('input[aria-autocomplete="list"]');
 
     const imageWithProjectSwitcher = await page.screenshot();
     expect(imageWithProjectSwitcher).toMatchProdImageSnapshot();
@@ -98,10 +110,11 @@ describe('Snapshot Test', () => {
       global.__BASEURL__,
     );
     const { page } = global;
-    await loadPage(page, url);
     await page.setViewport({ width: 1500, height: 700 });
+    await loadPage(page, url);
+    await page.waitForSelector('div[class*="PrimaryItemsList"]');
 
-    const image = await takeScreenShot(page, url);
+    const image = await page.screenshot();
     expect(image).toMatchProdImageSnapshot();
   });
 
@@ -113,9 +126,10 @@ describe('Snapshot Test', () => {
       global.__BASEURL__,
     );
     const { page } = global;
-    await loadPage(page, url);
     await page.setViewport({ width: 1500, height: 1700 });
-    const image = await takeScreenShot(page, url);
+    await loadPage(page, url);
+    await page.waitForSelector('button[data-testid="NavigationItem"]');
+    const image = await page.screenshot();
     expect(image).toMatchProdImageSnapshot();
   });
 
@@ -127,14 +141,21 @@ describe('Snapshot Test', () => {
       global.__BASEURL__,
     );
     const { page } = global;
-    // TODO: Fix button selector
     const button = '#toggle-shadow';
+    const shadow = 'div[data-testid="GlobalNavigation"] > div[class*="Shadow"]';
 
     await loadPage(page, url);
+    // Ensure the shadow element exists
+    await page.waitForSelector(shadow);
     await page.waitForSelector(button);
     await page.click(button);
+    // Ensure the shadow element is removed
+    await page.waitFor(
+      selector => document.querySelector(selector) === null,
+      shadow,
+    );
 
-    const image = await takeScreenShot(page, url);
+    const image = await page.screenshot();
     expect(image).toMatchProdImageSnapshot();
     await page.click(button);
   });
@@ -148,9 +169,10 @@ describe('Snapshot Test', () => {
     );
 
     const { page } = global;
-    await loadPage(page, url);
     await page.setViewport({ width: 900, height: 1350 });
-    const image = await takeScreenShot(page, url);
+    await loadPage(page, url);
+    await page.waitForSelector('button[data-testid="NavigationItem"]');
+    const image = await page.screenshot();
     expect(image).toMatchProdImageSnapshot();
   });
 
@@ -162,19 +184,18 @@ describe('Snapshot Test', () => {
       global.__BASEURL__,
     );
     const { page } = global;
-    // TODO: Fix button selector
-    const button = "[data-testid='Navigation'] > div:last-of-type button";
+    const button = '.ak-navigation-resize-button';
 
-    await loadPage(page, url);
     await page.setViewport({ width: 750, height: 700 });
+    await loadPage(page, url);
     await page.waitForSelector(button);
     await page.click(button);
-    await page.waitFor(300);
+    // Wait for collapsed state
+    await page.waitForSelector(`${button}[aria-expanded="false"]`);
 
-    const image = await takeScreenShot(page, url);
+    const image = await page.screenshot();
     // Using percentage based tolerance instead of the default pixel based,
     // because the rounded edges of the navigation bar icons cause flaky results.
     await compareScreenshot(image);
-    await page.click(button);
   });
 });

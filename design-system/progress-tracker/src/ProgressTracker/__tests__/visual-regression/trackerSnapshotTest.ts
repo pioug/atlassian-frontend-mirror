@@ -1,7 +1,4 @@
-import {
-  getExampleUrl,
-  takeScreenShot,
-} from '@atlaskit/visual-regression/helper';
+import { getExampleUrl, loadPage } from '@atlaskit/visual-regression/helper';
 
 describe('Snapshot Test', () => {
   it(`Progress-tracker example should match prod`, async () => {
@@ -9,11 +6,13 @@ describe('Snapshot Test', () => {
       'design-system',
       'progress-tracker',
       'progressTrackerDefault',
-      //@ts-ignore
       global.__BASEURL__,
     );
-    //@ts-ignore
-    const image = await takeScreenShot(global.page, url);
+    const { page } = global;
+    await loadPage(page, url);
+    await page.waitForSelector('div[spacing="cosy"]');
+    await page.waitForSelector('.fade-exit-done');
+    const image = await page.screenshot();
     expect(image).toMatchProdImageSnapshot();
   });
 });

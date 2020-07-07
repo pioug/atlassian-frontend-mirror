@@ -53,7 +53,7 @@ describe('Snapshot Test', () => {
     const selectSelector =
       '.react-select-single-disabled-options__value-container';
     const selectMenuSelector = '.react-select-single-disabled-options__menu';
-    await loadPage(page, url, true);
+    await loadPage(page, url);
     await page.waitForSelector(selectSelector);
     await page.click(selectSelector);
     await page.waitForSelector(selectMenuSelector);
@@ -74,7 +74,7 @@ describe('Snapshot Test', () => {
     const selectSelector =
       '.react-select-multi-disabled-options__value-container';
     const selectMenuSelector = '.react-select-multi-disabled-options__menu';
-    await loadPage(page, url, true);
+    await loadPage(page, url);
     await page.waitForSelector(selectSelector);
     await page.click(selectSelector);
     await page.waitForSelector(selectMenuSelector);

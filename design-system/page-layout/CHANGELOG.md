@@ -1,5 +1,13 @@
 # @atlaskit/page-layout
 
+## 0.8.1
+
+### Patch Changes
+
+- [`a05fe35b29`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a05fe35b29) - Side navigation now supports being able to resize the sidebar with your keyboard!
+  Simply focus onto the grab area and then use your arrow keys to resize.
+  Use the `resizeGrabAreaLabel` prop to describe what happens when interacting with it.
+
 ## 0.8.0
 
 ### Minor Changes

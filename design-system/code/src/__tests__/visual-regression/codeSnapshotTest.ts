@@ -1,9 +1,17 @@
-import {
-  getExampleUrl,
-  takeScreenShot,
-} from '@atlaskit/visual-regression/helper';
+import { getExampleUrl, loadPage } from '@atlaskit/visual-regression/helper';
 
 declare var global: any;
+
+async function waitForInlineCode(page: any) {
+  await page.waitForSelector('code > .token');
+  await page.waitForSelector('code > .token,operator');
+  await page.waitForSelector('code > .token,punctuation');
+}
+
+async function waitForCodeblock(page: any) {
+  await waitForInlineCode(page);
+  await page.waitForSelector('code > .react-syntax-highlighter-line-number');
+}
 
 describe('Snapshot Test', () => {
   it('Inline code basic example should match production example', async () => {
@@ -13,7 +21,10 @@ describe('Snapshot Test', () => {
       'inline-code-basic',
       global.__BASEURL__,
     );
-    const image = await takeScreenShot(global.page, url);
+    const { page } = global;
+    await loadPage(page, url);
+    await waitForInlineCode(page);
+    const image = await page.screenshot();
 
     expect(image).toMatchProdImageSnapshot();
   });
@@ -24,7 +35,10 @@ describe('Snapshot Test', () => {
       'code-block-basic',
       global.__BASEURL__,
     );
-    const image = await takeScreenShot(global.page, url);
+    const { page } = global;
+    await loadPage(page, url);
+    await waitForCodeblock(page);
+    const image = await page.screenshot();
 
     expect(image).toMatchProdImageSnapshot();
   });

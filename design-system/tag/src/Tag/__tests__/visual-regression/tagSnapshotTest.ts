@@ -1,7 +1,4 @@
-import {
-  getExampleUrl,
-  takeScreenShot,
-} from '@atlaskit/visual-regression/helper';
+import { getExampleUrl, loadPage } from '@atlaskit/visual-regression/helper';
 
 declare var global: any;
 
@@ -13,7 +10,10 @@ describe('Snapshot Test', () => {
       'basicTag',
       global.__BASEURL__,
     );
-    const image = await takeScreenShot(global.page, url);
+    const { page } = global;
+    await loadPage(page, url);
+    await page.waitForSelector('div[color="standard"]');
+    const image = await page.screenshot();
     expect(image).toMatchProdImageSnapshot();
   });
   it('Tag-colors should match production example', async () => {
@@ -23,7 +23,11 @@ describe('Snapshot Test', () => {
       'colors',
       global.__BASEURL__,
     );
-    const image = await takeScreenShot(global.page, url);
+    const { page } = global;
+    await loadPage(page, url);
+    await page.waitForSelector('div[color="standard"]');
+    await page.waitForSelector('div[color="blue"]');
+    const image = await page.screenshot();
     expect(image).toMatchProdImageSnapshot();
   });
 });

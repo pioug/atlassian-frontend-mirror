@@ -1,32 +1,36 @@
 /** @jsx jsx */
-import { HTMLAttributes } from 'react';
+import { ComponentProps } from 'react';
 
 import { jsx } from '@emotion/core';
 
-import { GRAB_AREA_LINE_SELECTOR } from '../../common/constants';
+import {
+  GRAB_AREA_LINE_SELECTOR,
+  GRAB_AREA_SELECTOR,
+} from '../../common/constants';
 
 import { grabAreaCSS, lineCSS } from './styles';
 
 export type GrabAreaProps = {
   testId?: string;
   isLeftSidebarCollapsed: boolean;
-} & HTMLAttributes<HTMLDivElement>;
+} & ComponentProps<'button'>;
 
-const cssSelector = { [GRAB_AREA_LINE_SELECTOR]: true };
+const grabAreaLineSelector = { [GRAB_AREA_LINE_SELECTOR]: true };
+const grabAreaSelector = { [GRAB_AREA_SELECTOR]: true };
 // TODO: Consider allowing this to be controlled using arrow keys
 const GrabArea = ({
   testId,
   isLeftSidebarCollapsed,
   ...rest
 }: GrabAreaProps) => (
-  <div
-    data-grab-area
+  <button
+    {...grabAreaSelector}
     data-testid={testId}
     css={grabAreaCSS(isLeftSidebarCollapsed)}
     {...rest}
   >
-    <div css={lineCSS(isLeftSidebarCollapsed)} {...cssSelector} />
-  </div>
+    <span css={lineCSS(isLeftSidebarCollapsed)} {...grabAreaLineSelector} />
+  </button>
 );
 
 export default GrabArea;

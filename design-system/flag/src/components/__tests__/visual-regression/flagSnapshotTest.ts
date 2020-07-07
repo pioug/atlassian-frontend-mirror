@@ -1,7 +1,4 @@
-import {
-  getExampleUrl,
-  takeScreenShot,
-} from '@atlaskit/visual-regression/helper';
+import { getExampleUrl, loadPage } from '@atlaskit/visual-regression/helper';
 
 describe('Snapshot Test', () => {
   it('Flag-without-flagGroup should match production example', async () => {
@@ -9,12 +6,13 @@ describe('Snapshot Test', () => {
       'design-system',
       'flag',
       'flag-without-flagGroup',
-      //@ts-ignore - global usage
       global.__BASEURL__,
     );
 
-    //@ts-ignore - global usage
-    const image = await takeScreenShot(global.page, url);
+    const { page } = global;
+    await loadPage(page, url);
+    await page.waitForSelector('span[aria-label="Info"]');
+    const image = await page.screenshot();
 
     expect(image).toMatchProdImageSnapshot();
   });
@@ -24,12 +22,16 @@ describe('Snapshot Test', () => {
       'design-system',
       'flag',
       'bold-flag-component',
-      //@ts-ignore - global usage
       global.__BASEURL__,
     );
 
-    //@ts-ignore - global usage
-    const image = await takeScreenShot(global.page, url);
+    const { page } = global;
+    await loadPage(page, url);
+    await page.waitForSelector('span[aria-label="Error icon"] > svg');
+    await page.waitForSelector('span[aria-label="Info icon"] > svg');
+    await page.waitForSelector('span[aria-label="Success"] > svg');
+    await page.waitForSelector('span[aria-label="Warning icon"] > svg');
+    const image = await page.screenshot();
 
     expect(image).toMatchProdImageSnapshot();
   });

@@ -43,7 +43,7 @@ describe('Table sorting', () => {
         editorProps,
       });
 
-      await clickFirstCell(page);
+      await clickFirstCell(page, false);
     });
 
     it('should update rows controls', async () => {

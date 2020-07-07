@@ -33,7 +33,9 @@ export default () => (
         <p>Subtle</p>
         {APPEARANCES.map(a => (
           <p key={a.value as string}>
-            <Lozenge appearance={a.value}>{a.label}</Lozenge>
+            <Lozenge appearance={a.value} testId="lozenge-subtle">
+              {a.label}
+            </Lozenge>
           </p>
         ))}
       </Col>
@@ -41,7 +43,7 @@ export default () => (
         <p>Bold</p>
         {APPEARANCES.map(a => (
           <p key={a.value as string}>
-            <Lozenge appearance={a.value} isBold>
+            <Lozenge appearance={a.value} isBold testId="lozenge-bold">
               {a.label}
             </Lozenge>
           </p>
@@ -53,7 +55,9 @@ export default () => (
 
     <p>Overflowed Lozenge</p>
     <p>
-      <Lozenge>Long text will be truncated after a point.</Lozenge>
+      <Lozenge testId="lozenge-truncated">
+        Long text will be truncated after a point.
+      </Lozenge>
     </p>
   </div>
 );

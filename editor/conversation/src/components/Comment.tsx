@@ -23,7 +23,7 @@ import { Comment as CommentType, User } from '../model';
 import Editor from './Editor';
 import { SharedProps, RenderEditorWithComments } from './types';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import isEqual from 'lodash.isequal';
+import isEqual from 'lodash/isEqual';
 
 export interface Props extends SharedProps {
   conversationId: string;

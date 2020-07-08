@@ -1,11 +1,12 @@
 import {
   getExampleUrl,
   loadPage,
+  PuppeteerPage,
   waitForTooltip,
 } from '@atlaskit/visual-regression/helper';
 
 describe('Avatar', () => {
-  let page: any;
+  let page: PuppeteerPage;
   let url: string;
 
   beforeAll(() => {

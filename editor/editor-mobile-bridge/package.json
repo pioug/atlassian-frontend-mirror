@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-mobile-bridge",
-  "version": "16.0.1",
+  "version": "16.0.2",
   "description": "Mobile distribution of the Editor",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -31,7 +31,7 @@
   "dependencies": {
     "@atlaskit/adf-schema": "^12.0.0",
     "@atlaskit/analytics-gas-types": "5.0.0",
-    "@atlaskit/analytics-listeners": "7.0.0",
+    "@atlaskit/analytics-listeners": "7.0.1",
     "@atlaskit/collab-provider": "^3.0.0",
     "@atlaskit/editor-common": "47.0.0",
     "@atlaskit/editor-core": "126.0.0",

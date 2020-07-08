@@ -1,5 +1,11 @@
 # @atlaskit/page-layout
 
+## 0.8.2
+
+### Patch Changes
+
+- [`0c532edf6e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0c532edf6e) - Use the 'lodash' package instead of single-function 'lodash.\*' packages
+
 ## 0.8.1
 
 ### Patch Changes

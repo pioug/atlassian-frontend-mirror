@@ -1,5 +1,4 @@
 /* eslint-disable react/prop-types */
-import '@atlaskit/polyfills/object-assign';
 import React, { PureComponent } from 'react';
 import { getTheme } from '@atlaskit/theme/components';
 import {

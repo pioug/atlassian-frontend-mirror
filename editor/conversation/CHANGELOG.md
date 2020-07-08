@@ -1,5 +1,11 @@
 # @atlaskit/conversation
 
+## 16.0.1
+
+### Patch Changes
+
+- [`0c532edf6e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0c532edf6e) - Use the 'lodash' package instead of single-function 'lodash.\*' packages
+
 ## 16.0.0
 
 ### Major Changes

@@ -96,6 +96,10 @@ export default class Example extends React.Component<any, State> {
                   </button>
                   <FullPageEditor
                     UNSAFE_cards={{ allowEmbeds: true, allowBlockCards: true }}
+                    allowTables={{
+                      advanced: true,
+                      allowColumnSorting: true,
+                    }}
                   />
                 </React.Fragment>
               );

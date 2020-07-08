@@ -41,10 +41,8 @@
     "@atlaskit/theme": "^10.0.0",
     "@atlaskit/util-data-test": "^14.0.0",
     "@types/prosemirror-model": "^1.7.2",
-    "@types/puppeteer": "^2.1.0",
     "cookie": "^0.3.1",
     "debug": "^2.2.0",
-    "puppeteer": "3.0.4",
     "react": "^16.8.0",
     "rxjs": "^5.5.0",
     "styled-components": "^3.2.6"

@@ -1,5 +1,11 @@
 # @atlaskit/navigation
 
+## 37.0.1
+
+### Patch Changes
+
+- [`74f6ff698c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/74f6ff698c) - Removed @atlaskit/polyfills from navigation as the only polyfill being included was Object.assign which is only needed in IE11 (which we dropped support for)
+
 ## 37.0.0
 
 ### Major Changes

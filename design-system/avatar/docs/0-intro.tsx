@@ -23,8 +23,8 @@ export default md`
 
   - Avatar (Default Export)
   - [AvatarItem](/packages/design-system/avatar/docs/avatar-item)
-  - [Presence](/packages/design-system/avatar/docs/presence)
-  - [Status](/packages/design-system/avatar/docs/status)
+  - [Presence](/packages/design-system/avatar/docs/Presence)
+  - [Status](/packages/design-system/avatar/docs/Status)
   - [Skeleton](/packages/design-system/avatar/docs/skeleton)
 
 

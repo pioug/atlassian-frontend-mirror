@@ -4,6 +4,7 @@ const noop = () => {};
 
 export type LeftSidebarState = {
   isFlyoutOpen: boolean;
+  isResizing: boolean;
   isLeftSidebarCollapsed: boolean;
   leftSidebarWidth: number;
   lastLeftSidebarWidth: number;
@@ -21,6 +22,7 @@ export type SidebarResizeContextValue = {
 
 const leftSidebarState = {
   isFlyoutOpen: false,
+  isResizing: false,
   isLeftSidebarCollapsed: false,
   leftSidebarWidth: 0,
   lastLeftSidebarWidth: 0,

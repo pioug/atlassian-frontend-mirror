@@ -12,8 +12,14 @@ ${(
   </SectionMessage>
 )}
 
+## Documentation
+
+  Extra documentation can be found in the **sidebar nav links** 👈
+  - [Skip Links](page-layout/docs/skip-links)
+
 ## Usage
-${code`import { 
+
+${code`import {
   PageLayout,
   Main,
   Content,
@@ -57,7 +63,7 @@ ${(
   />
 )}
 
-## Content 
+## Content
 Shows some the content.
 
 ${(

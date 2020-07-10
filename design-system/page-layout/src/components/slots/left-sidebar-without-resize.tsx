@@ -5,7 +5,10 @@ import { jsx } from '@emotion/core';
 
 import { LEFT_SIDEBAR_WIDTH } from '../../common/constants';
 import { SlotWidthProps } from '../../common/types';
-import { resolveDimension } from '../../common/utils';
+import {
+  getPageLayoutSlotSelector,
+  resolveDimension,
+} from '../../common/utils';
 import { publishGridState, useSkipLinks } from '../../controllers';
 
 import {
@@ -47,7 +50,12 @@ const LeftSidebarWithoutResize = (props: SlotWidthProps) => {
   }
 
   return (
-    <div id={id} data-testid={testId} css={leftSidebarStyles(isFixed)}>
+    <div
+      id={id}
+      data-testid={testId}
+      css={leftSidebarStyles(isFixed)}
+      {...getPageLayoutSlotSelector('left-sidebar')}
+    >
       <SlotDimensions
         variableName={LEFT_SIDEBAR_WIDTH}
         value={leftSidebarWidth}

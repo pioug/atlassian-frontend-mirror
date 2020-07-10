@@ -60,9 +60,9 @@ export const resizeIconButtonCSS = (isCollapsed: boolean): CSSObject => ({
   outline: 0,
   padding: 0,
   transition: `
-    background-color ${smallDurationMs} linear,
-    color ${smallDurationMs} linear,
-    opacity ${mediumDurationMs} ${easeOut}
+    background-color ${smallDurationMs}ms linear,
+    color ${smallDurationMs}ms linear,
+    opacity ${mediumDurationMs}ms ${easeOut}
   `,
   width: 24,
 

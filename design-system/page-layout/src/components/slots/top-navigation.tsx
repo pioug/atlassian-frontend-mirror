@@ -8,7 +8,10 @@ import {
   TOP_NAVIGATION_HEIGHT,
 } from '../../common/constants';
 import { SlotHeightProps } from '../../common/types';
-import { resolveDimension } from '../../common/utils';
+import {
+  getPageLayoutSlotSelector,
+  resolveDimension,
+} from '../../common/utils';
 import { publishGridState, useSkipLinks } from '../../controllers';
 
 import SlotDimensions from './slot-dimensions';
@@ -47,7 +50,12 @@ const TopNavigation = (props: SlotHeightProps) => {
   }
 
   return (
-    <div css={topNavigationStyles(isFixed)} data-testid={testId} id={id}>
+    <div
+      css={topNavigationStyles(isFixed)}
+      data-testid={testId}
+      id={id}
+      {...getPageLayoutSlotSelector('top-navigation')}
+    >
       <SlotDimensions
         variableName={TOP_NAVIGATION_HEIGHT}
         value={topNavigationHeight}

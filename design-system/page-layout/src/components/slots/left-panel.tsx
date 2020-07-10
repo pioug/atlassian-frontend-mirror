@@ -8,7 +8,10 @@ import {
   LEFT_PANEL_WIDTH,
 } from '../../common/constants';
 import { SlotWidthProps } from '../../common/types';
-import { resolveDimension } from '../../common/utils';
+import {
+  getPageLayoutSlotSelector,
+  resolveDimension,
+} from '../../common/utils';
 import { publishGridState, useSkipLinks } from '../../controllers';
 
 import SlotDimensions from './slot-dimensions';
@@ -46,7 +49,12 @@ const LeftPanel = (props: SlotWidthProps) => {
   }, [leftPanelWidth, id]);
 
   return (
-    <div css={leftPanelStyles(isFixed)} data-testid={testId} id={id}>
+    <div
+      css={leftPanelStyles(isFixed)}
+      data-testid={testId}
+      id={id}
+      {...getPageLayoutSlotSelector('left-panel')}
+    >
       <SlotDimensions variableName={LEFT_PANEL_WIDTH} value={leftPanelWidth} />
       {children}
     </div>

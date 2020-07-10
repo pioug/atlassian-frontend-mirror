@@ -838,4 +838,32 @@ describe('<PageLayout />', () => {
       );
     });
   });
+
+  describe('<PageLayout />', () => {
+    it('should have data attribute for all the page layout slots', () => {
+      render(
+        <PageLayout testId="grid">
+          <Banner height={60}>
+            <h3>Banner</h3>
+          </Banner>
+          <TopNavigation testId="component" height={50}>
+            Contents
+          </TopNavigation>
+          <LeftPanel width={200}>left panel</LeftPanel>
+          <Content testId="content">
+            <LeftSidebarWithoutResize testId="component" width={200}>
+              Contents
+            </LeftSidebarWithoutResize>
+            <Main testId="main">Main</Main>
+            <RightSidebar width={50}>Contents</RightSidebar>
+          </Content>
+          <RightPanel width={200}>Right panel</RightPanel>
+        </PageLayout>,
+      );
+      const elements = document.querySelectorAll(
+        '[data-ds--page-layout--slot]',
+      );
+      expect(elements.length).toEqual(7);
+    });
+  });
 });

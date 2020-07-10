@@ -42,16 +42,26 @@ function SideNavigationWrapper(props: { children: React.ReactNode }) {
 export default function ProductLayout() {
   return (
     <PageLayout>
-      <TopNavigation height={60} isFixed={true}>
+      <TopNavigation
+        height={60}
+        isFixed={true}
+        id="confluence-navigation"
+        skipLinkTitle="Confluence Navigation"
+      >
         <TopNavigationContents />
       </TopNavigation>
       <Content>
-        <LeftSidebar isFixed={false} width={450}>
+        <LeftSidebar
+          isFixed={false}
+          width={450}
+          id="project-navigation"
+          skipLinkTitle="Project Navigation"
+        >
           <SideNavigationWrapper>
             <SideNavigationContent />
           </SideNavigationWrapper>
         </LeftSidebar>
-        <Main>
+        <Main id="main-content" skipLinkTitle="Main Content">
           <div
             css={{
               marginTop: '8px',

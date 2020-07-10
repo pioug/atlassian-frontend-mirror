@@ -1,6 +1,11 @@
 import { DimensionNames, Dimensions } from '../common/types';
 
-import { DIMENSIONS, LEFT_PANEL_WIDTH, PAGE_LAYOUT_LS_KEY } from './constants';
+import {
+  DIMENSIONS,
+  LEFT_PANEL_WIDTH,
+  PAGE_LAYOUT_LS_KEY,
+  PAGE_LAYOUT_SLOT_SELECTOR,
+} from './constants';
 import safeLocalStorage from './safe-local-storage';
 
 const emptyGridState: Dimensions = DIMENSIONS.reduce(
@@ -70,6 +75,13 @@ const getLeftPanelWidth = () =>
     10,
   ) || 0;
 
+const getPageLayoutSlotSelector = (slotName: string) => ({
+  [PAGE_LAYOUT_SLOT_SELECTOR]: slotName,
+});
+
+const getPageLayoutSlotCSSSelector = (slotName: string) =>
+  `[${PAGE_LAYOUT_SLOT_SELECTOR}='${slotName}']`;
+
 export {
   emptyGridState,
   mergeGridStateIntoStorage,
@@ -77,4 +89,6 @@ export {
   removeFromGridStateInStorage,
   resolveDimension,
   getLeftPanelWidth,
+  getPageLayoutSlotSelector,
+  getPageLayoutSlotCSSSelector,
 };

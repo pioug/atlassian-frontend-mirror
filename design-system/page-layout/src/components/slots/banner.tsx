@@ -5,7 +5,10 @@ import { jsx } from '@emotion/core';
 
 import { BANNER_HEIGHT, DEFAULT_BANNER_HEIGHT } from '../../common/constants';
 import { SlotHeightProps } from '../../common/types';
-import { resolveDimension } from '../../common/utils';
+import {
+  getPageLayoutSlotSelector,
+  resolveDimension,
+} from '../../common/utils';
 import { publishGridState, useSkipLinks } from '../../controllers';
 
 import SlotDimensions from './slot-dimensions';
@@ -44,7 +47,12 @@ const Banner = (props: SlotHeightProps) => {
   }
 
   return (
-    <div css={bannerStyles(isFixed)} data-testid={testId} id={id}>
+    <div
+      css={bannerStyles(isFixed)}
+      data-testid={testId}
+      id={id}
+      {...getPageLayoutSlotSelector('banner')}
+    >
       <SlotDimensions variableName={BANNER_HEIGHT} value={bannerHeight} />
       {children}
     </div>

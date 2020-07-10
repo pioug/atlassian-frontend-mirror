@@ -1,5 +1,24 @@
 # @atlaskit/page-layout
 
+## 0.8.5
+
+### Patch Changes
+
+- [`3305a0494b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3305a0494b) - Added resizing state in left-sidebar - can be used to stop keyboard resize temporarily
+
+## 0.8.4
+
+### Patch Changes
+
+- [`c319029742`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c319029742) - All page-layout slots will now have data attributes
+
+## 0.8.3
+
+### Patch Changes
+
+- [`4d74245d2b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4d74245d2b) - The left sidebar now has a minimium width of 240px when being resized.
+- [`404a32df15`](https://bitbucket.org/atlassian/atlassian-frontend/commits/404a32df15) - The left sidebar now has a minimium width of 240px when being resized.
+
 ## 0.8.2
 
 ### Patch Changes

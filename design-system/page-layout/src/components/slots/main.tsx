@@ -3,15 +3,12 @@ import { useEffect } from 'react';
 
 import { jsx } from '@emotion/core';
 
-import { MAIN_SELECTOR } from '../../common/constants';
 import { SlotWidthProps } from '../../common/types';
+import { getPageLayoutSlotSelector } from '../../common/utils';
 import { useSkipLinks } from '../../controllers';
 
 import { mainStyles } from './styles';
 
-const mainSelector = {
-  [MAIN_SELECTOR]: 'true',
-};
 const Main = (props: SlotWidthProps) => {
   const { children, testId, id, skipLinkTitle } = props;
   const { registerSkipLink, unregisterSkipLink } = useSkipLinks();
@@ -28,7 +25,12 @@ const Main = (props: SlotWidthProps) => {
   }
 
   return (
-    <div data-testid={testId} {...mainSelector} css={mainStyles} id={id}>
+    <div
+      data-testid={testId}
+      css={mainStyles}
+      id={id}
+      {...getPageLayoutSlotSelector('main')}
+    >
       {children}
     </div>
   );

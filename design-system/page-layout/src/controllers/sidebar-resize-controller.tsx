@@ -16,9 +16,9 @@ import {
   COLLAPSED_LEFT_SIDEBAR_WIDTH,
   DEFAULT_LEFT_SIDEBAR_WIDTH,
   IS_SIDEBAR_COLLAPSING,
-  LEFT_SIDEBAR_SELECTOR,
 } from '../common/constants';
 import { SidebarResizeControllerProps } from '../common/types';
+import { getPageLayoutSlotCSSSelector } from '../common/utils';
 
 import {
   SidebarResizeContext,
@@ -42,6 +42,7 @@ export const SidebarResizeController: FC<SidebarResizeControllerProps> = ({
 }) => {
   const [leftSidebarState, setLeftSidebarState] = useState({
     isFlyoutOpen: false,
+    isResizing: false,
     isLeftSidebarCollapsed: false,
     leftSidebarWidth: 0,
     lastLeftSidebarWidth: 0,
@@ -51,7 +52,9 @@ export const SidebarResizeController: FC<SidebarResizeControllerProps> = ({
 
   const firstRun = useRef(false);
   useEffect(() => {
-    const $leftSidebar = document.querySelector(`[${LEFT_SIDEBAR_SELECTOR}]`);
+    const $leftSidebar = document.querySelector(
+      `${getPageLayoutSlotCSSSelector('left-sidebar')}`,
+    );
     // Don't attach event listener on first run
     if ($leftSidebar && firstRun.current && !isReducedMotion()) {
       $leftSidebar.addEventListener(
@@ -61,7 +64,7 @@ export const SidebarResizeController: FC<SidebarResizeControllerProps> = ({
             (event as TransitionEvent).propertyName === 'width' &&
             event.target &&
             (event.target as HTMLDivElement).matches(
-              `[${LEFT_SIDEBAR_SELECTOR}]`,
+              `${getPageLayoutSlotCSSSelector('left-sidebar')}`,
             )
           ) {
             handleDataAttributesAndCb(
@@ -70,7 +73,7 @@ export const SidebarResizeController: FC<SidebarResizeControllerProps> = ({
             );
             // Make sure multiple event handlers do not get attached
             document
-              .querySelector(`[${LEFT_SIDEBAR_SELECTOR}]`)!
+              .querySelector(`${getPageLayoutSlotCSSSelector('left-sidebar')}`)!
               .removeEventListener('transitionend', transitionEventHandler);
           }
         },
@@ -87,7 +90,12 @@ export const SidebarResizeController: FC<SidebarResizeControllerProps> = ({
       isLeftSidebarCollapsed,
 
       expandLeftSidebar: debounce(() => {
-        const { lastLeftSidebarWidth } = leftSidebarState;
+        const { lastLeftSidebarWidth, isResizing } = leftSidebarState;
+
+        if (isResizing) {
+          return;
+        }
+
         const width = Math.max(
           lastLeftSidebarWidth,
           DEFAULT_LEFT_SIDEBAR_WIDTH,
@@ -98,6 +106,7 @@ export const SidebarResizeController: FC<SidebarResizeControllerProps> = ({
           isFlyoutOpen: false,
           leftSidebarWidth: width,
           lastLeftSidebarWidth,
+          isResizing,
         });
 
         // onTransitionEnd isn't triggered when a user prefers reduced motion
@@ -111,7 +120,10 @@ export const SidebarResizeController: FC<SidebarResizeControllerProps> = ({
           event?: MouseEvent | KeyboardEvent,
           collapseWithoutTransition?: boolean,
         ) => {
-          const { leftSidebarWidth } = leftSidebarState;
+          const { leftSidebarWidth, isResizing } = leftSidebarState;
+          if (isResizing) {
+            return;
+          }
           // data-attribute is used as a CSS selector to sync the hiding/showing
           // of the nav contents with expand/collapse animation
           document.documentElement.setAttribute(IS_SIDEBAR_COLLAPSING, 'true');
@@ -120,6 +132,7 @@ export const SidebarResizeController: FC<SidebarResizeControllerProps> = ({
             isFlyoutOpen: false,
             leftSidebarWidth: COLLAPSED_LEFT_SIDEBAR_WIDTH,
             lastLeftSidebarWidth: leftSidebarWidth,
+            isResizing,
           });
 
           // onTransitionEnd isn't triggered when a user prefers reduced motion

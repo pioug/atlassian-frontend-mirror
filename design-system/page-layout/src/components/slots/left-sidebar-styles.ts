@@ -10,14 +10,14 @@ import {
   LEFT_PANEL_WIDTH,
   LEFT_SIDEBAR_FLYOUT,
   LEFT_SIDEBAR_WIDTH,
-  MAIN_SELECTOR,
   RESIZE_BUTTON_SELECTOR,
-  RESIZE_CONTROL_SELECTOR,
   TOP_NAVIGATION_HEIGHT,
   TRANSITION_DURATION,
 } from '../../common/constants';
+import { getPageLayoutSlotCSSSelector } from '../../common/utils';
 
 import { focusStyles } from './styles';
+
 // This inner wrapper is required to allow the
 // sidebar to be position: fixed. If we were to apply position: fixed
 // to the outer wrapper, it will be popped out of it's flex container
@@ -51,32 +51,6 @@ export const fixedLeftSidebarInnerStyles = (
         height: '100%',
       }),
 
-  // Hide contents when collapsed
-  ...(isLeftSidebarCollapsed &&
-    !isFlyoutOpen && {
-      [`&&> *:not([${RESIZE_CONTROL_SELECTOR}])`]: {
-        transition: `0ms linear ${TRANSITION_DURATION - 100}ms`,
-        transitionProperty: 'opacity, visibility',
-        opacity: 0,
-        visibility: 'hidden',
-        ...prefersReducedMotion(),
-      },
-    }),
-
-  [`[${IS_SIDEBAR_COLLAPSING}] & > *:not([${RESIZE_CONTROL_SELECTOR}])`]: {
-    transition: `0ms linear ${TRANSITION_DURATION - 100}ms`,
-    transitionProperty: 'opacity, visibility',
-    opacity: 0,
-    visibility: 'hidden',
-    ...prefersReducedMotion(),
-  },
-
-  [`& > *:not([${RESIZE_CONTROL_SELECTOR}])`]: {
-    transition: 'none',
-    visibility: 'visible',
-    opacity: 1,
-  },
-
   ...prefersReducedMotion(),
 });
 
@@ -106,7 +80,7 @@ export const leftSidebarStyles = (
 
   ...(isFlyoutOpen &&
     !isFixed && {
-      [`& + [${MAIN_SELECTOR}]`]: {
+      [`& + ${getPageLayoutSlotCSSSelector('main')}`]: {
         // adds a negative left margin to main
         // which transitions at the same speed
         // with which left sidebars width increases
@@ -133,3 +107,30 @@ export const leftSidebarStyles = (
   ...focusStyles,
   ...prefersReducedMotion(),
 });
+
+export const resizeableChildrenWrapperStyle = (
+  isFlyoutOpen?: boolean,
+  isLeftSidebarCollapsed?: boolean,
+): CSSObject => ({
+  visibility: 'visible',
+  transition: 'none',
+  opacity: 1,
+  overflow: 'hidden auto',
+  height: '100%',
+  [`[${IS_SIDEBAR_COLLAPSING}] &`]: hideLeftSidebarContents,
+  ...(isLeftSidebarCollapsed && !isFlyoutOpen && hideLeftSidebarContents),
+});
+const hideLeftSidebarContents: CSSObject = {
+  // the transition duration is intentionally set to 0ms
+  // transition is being used here to delay the setting of
+  // opacity and visibility so that it syncs collapsing sidebar.
+  transition: `opacity 0ms linear, visibility 0ms linear`,
+  transitionDelay: `${TRANSITION_DURATION - 100}ms`,
+  opacity: 0,
+  visibility: 'hidden',
+  ...prefersReducedMotion(),
+};
+
+export const fixedChildrenWrapperStyle: CSSObject = {
+  minWidth: '240px',
+};

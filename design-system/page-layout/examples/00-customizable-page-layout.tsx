@@ -27,6 +27,7 @@ type ToggleElProps = {
   onChange: () => void;
   value: boolean;
   name?: SlotName;
+  id?: string;
 };
 interface InitialState {
   isBannerShown: boolean;
@@ -77,9 +78,14 @@ const ToggleFixed = ({ onChange, value }: ToggleElProps) => (
   </label>
 );
 
-const ToggleShown = ({ onChange, value, name }: ToggleElProps) => (
+const ToggleShown = ({ onChange, value, name, id }: ToggleElProps) => (
   <label css={{ display: 'block' }}>
-    <input type="checkbox" onChange={onChange} value={value.toString()} />
+    <input
+      type="checkbox"
+      onChange={onChange}
+      value={value.toString()}
+      id={id}
+    />
     {`${value ? 'Hide' : 'Show'} ${name}`}
   </label>
 );
@@ -198,9 +204,19 @@ const BasicGrid = () => {
   return (
     <PageLayout>
       {gridState.isBannerShown && (
-        <Banner testId="banner" height={60} isFixed={gridState.isBannerFixed}>
+        <Banner
+          testId="banner"
+          id="banner"
+          skipLinkTitle="Banner"
+          height={100}
+          isFixed={gridState.isBannerFixed}
+        >
           <Wrapper borderColor="gold">
             <h3 css={{ textAlign: 'center' }}>Banner</h3>
+            <b>
+              Visit the first focusable element on the page to see the skip
+              links menu
+            </b>
             <ToggleFixed
               onChange={() => toggleFixed('Banner')}
               value={gridState.isBannerFixed}
@@ -211,6 +227,8 @@ const BasicGrid = () => {
       {gridState.isTopNavigationShown && (
         <TopNavigation
           testId="topNavigation"
+          id="top-navigation"
+          skipLinkTitle="Top Navigation"
           height={60}
           isFixed={gridState.isTopNavigationFixed}
         >
@@ -226,6 +244,8 @@ const BasicGrid = () => {
       {gridState.isLeftPanelShown && (
         <LeftPanel
           testId="leftPanel"
+          id="left-panel"
+          skipLinkTitle="Left Panel"
           isFixed={gridState.isLeftPanelFixed}
           width={200}
         >
@@ -246,6 +266,8 @@ const BasicGrid = () => {
         {gridState.isLeftSidebarShown && (
           <LeftSidebarWithoutResize
             testId="leftSidebar"
+            id="left-sidebar"
+            skipLinkTitle="Left Sidebar"
             isFixed={gridState.isLeftSidebarFixed}
             width={250}
           >
@@ -265,7 +287,7 @@ const BasicGrid = () => {
           </LeftSidebarWithoutResize>
         )}
         {gridState.isMainShown && (
-          <Main testId="main">
+          <Main testId="main" id="main" skipLinkTitle="Main Content">
             <Wrapper borderColor="black">
               <h3 css={{ textAlign: 'center' }}>Main</h3>
               <ToggleExtraWide
@@ -287,6 +309,8 @@ const BasicGrid = () => {
         {gridState.isRightSidebarShown && (
           <RightSidebar
             testId="rightSidebar"
+            id="right-sidebar"
+            skipLinkTitle="Right Sidebar"
             isFixed={gridState.isRightSidebarFixed}
             width={200}
           >
@@ -307,6 +331,8 @@ const BasicGrid = () => {
       {gridState.isRightPanelShown && (
         <RightPanel
           testId="rightPanel"
+          id="right-panel"
+          skipLinkTitle="Right Panel"
           isFixed={gridState.isRightPanelFixed}
           width={200}
         >
@@ -360,6 +386,7 @@ const BasicGrid = () => {
           name="Main"
           onChange={() => toggleShown('Main')}
           value={gridState.isMainShown}
+          id="toggle-main"
         />
         <ToggleShown
           name="RightSidebar"

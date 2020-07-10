@@ -8,7 +8,10 @@ import {
   RIGHT_PANEL_WIDTH,
 } from '../../common/constants';
 import { SlotWidthProps } from '../../common/types';
-import { resolveDimension } from '../../common/utils';
+import {
+  getPageLayoutSlotSelector,
+  resolveDimension,
+} from '../../common/utils';
 import { publishGridState, useSkipLinks } from '../../controllers';
 
 import SlotDimensions from './slot-dimensions';
@@ -47,7 +50,12 @@ const RightPanel = (props: SlotWidthProps) => {
   }
 
   return (
-    <div css={rightPanelStyles(isFixed)} data-testid={testId} id={id}>
+    <div
+      css={rightPanelStyles(isFixed)}
+      data-testid={testId}
+      id={id}
+      {...getPageLayoutSlotSelector('right-panel')}
+    >
       <SlotDimensions
         variableName={RIGHT_PANEL_WIDTH}
         value={rightPanelWidth}

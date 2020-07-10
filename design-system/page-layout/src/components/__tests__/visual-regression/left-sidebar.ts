@@ -120,6 +120,25 @@ describe.skip('<LeftSidebar />', () => {
     expect(screenshot).toMatchProdImageSnapshot();
   });
 
+  it('should clip off the left-sidebar content on resizing towards left', async () => {
+    const { page } = global;
+    const grabArea = "[data-testid='leftSidebar-grab-area']";
+    const content = "[data-testid='content']";
+
+    await openExamplesAndWaitFor('stickied-element', content);
+
+    const grabAreaElement = await page.$(grabArea);
+    const { x, y } = await grabAreaElement.boundingBox();
+    page.mouse.move(x, y);
+    page.mouse.down();
+    page.mouse.move(x - 130, y);
+    await page.waitFor(300);
+
+    const screenshot = await takeElementScreenShot(global.page, content);
+
+    expect(screenshot).toMatchProdImageSnapshot();
+  });
+
   it('should match the snapshot when it is collapsed', async () => {
     const content = "[data-testid='content']";
 
@@ -143,6 +162,25 @@ describe.skip('<LeftSidebar />', () => {
     await page.click(scrollableContent);
 
     await controlSidebar('collapse');
+
+    const screenshot = await takeElementScreenShot(global.page, content);
+    expect(screenshot).toMatchProdImageSnapshot();
+  });
+
+  it('should match the snapshot to show scroll content of left sidebar', async () => {
+    const { page } = global;
+    const scrollableContent =
+      "[data-testid='left-sidebar'] [data-toggle-scrollable]";
+    const content = "[data-testid='content']";
+    const leftSidbar = "[data-testid='left-sidebar']>div>div";
+    await openExamplesAndWaitFor('resize-sidebar', content);
+    await controlSidebar('expand');
+
+    await page.click(scrollableContent);
+
+    await page.evaluate((selector: any) => {
+      return document.querySelector(selector).scrollBy(0, 100);
+    }, leftSidbar);
 
     const screenshot = await takeElementScreenShot(global.page, content);
     expect(screenshot).toMatchProdImageSnapshot();

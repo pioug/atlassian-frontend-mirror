@@ -26,7 +26,7 @@ import { usePageLayoutResize } from '../../controllers/sidebar-resize-context';
 
 import GrabArea from './grab-area';
 import ResizeButton from './resize-button';
-import { resizeControlCSS, resizeIconButtonCSS, shadowCSS } from './styles';
+import { resizeControlCSS, shadowCSS } from './styles';
 import { ResizeButtonProps, ResizeControlProps } from './types';
 
 const cssSelector = { [RESIZE_CONTROL_SELECTOR]: true };
@@ -48,16 +48,15 @@ const ResizeControl = ({
     leftSidebarState,
     setLeftSidebarState,
   } = usePageLayoutResize();
-  const { isLeftSidebarCollapsed } = leftSidebarState;
+  const { isLeftSidebarCollapsed, isResizing } = leftSidebarState;
   const x = useRef(leftSidebarState[LEFT_SIDEBAR_WIDTH]);
   // Distance of mouse from left sidebar onMouseDown
   const offset = useRef(0);
   const keyboardEventTimeout = useRef<number>();
-  const [isDragFinished, setIsDragFinished] = useState(true);
   const [isGrabAreaFocused, setIsGrabAreaFocused] = useState(false);
 
   const toggleSideBar = (e?: ReactMouseEvent<HTMLButtonElement>) => {
-    if (!isDragFinished) {
+    if (isResizing) {
       return;
     }
 
@@ -89,6 +88,11 @@ const ResizeControl = ({
     document.addEventListener('mouseup', onMouseUp);
     document.documentElement.setAttribute(IS_SIDEBAR_DRAGGING, 'true');
 
+    setLeftSidebarState({
+      ...leftSidebarState,
+      isResizing: true,
+    });
+
     onResizeStart && onResizeStart();
   };
 
@@ -97,7 +101,6 @@ const ResizeControl = ({
     document.removeEventListener('mousemove', onMouseMove);
     document.removeEventListener('mouseup', onMouseUp);
     document.documentElement.removeAttribute(IS_SIDEBAR_DRAGGING);
-    requestAnimationFrame(() => setIsDragFinished(true));
     offset.current = 0;
 
     collapseLeftSidebar(undefined, true);
@@ -131,7 +134,6 @@ const ResizeControl = ({
       `--${LEFT_SIDEBAR_WIDTH}`,
       `${x.current}px`,
     );
-    setIsDragFinished(false);
   });
 
   const cleanupAfterResize = () => {
@@ -167,6 +169,7 @@ const ResizeControl = ({
       );
       setLeftSidebarState({
         ...leftSidebarState,
+        isResizing: false,
         [LEFT_SIDEBAR_WIDTH]: DEFAULT_LEFT_SIDEBAR_WIDTH,
         lastLeftSidebarWidth: DEFAULT_LEFT_SIDEBAR_WIDTH,
       });
@@ -174,6 +177,7 @@ const ResizeControl = ({
       // otherwise resize it to the desired width
       setLeftSidebarState({
         ...leftSidebarState,
+        isResizing: false,
         [LEFT_SIDEBAR_WIDTH]: x.current,
         lastLeftSidebarWidth: x.current,
       });
@@ -181,7 +185,6 @@ const ResizeControl = ({
 
     requestAnimationFrame(() => {
       onMouseMove.cancel();
-      setIsDragFinished(true);
       setIsGrabAreaFocused(false);
       onResizeEnd && onResizeEnd();
       cleanupAfterResize();
@@ -296,7 +299,6 @@ const ResizeControl = ({
         disabled={isLeftSidebarCollapsed}
       />
       {resizeButton.render(ResizeButton, {
-        css: resizeIconButtonCSS(isLeftSidebarCollapsed),
         isLeftSidebarCollapsed,
         label: resizeButtonLabel,
         onClick: toggleSideBar,

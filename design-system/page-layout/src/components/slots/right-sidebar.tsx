@@ -8,7 +8,10 @@ import {
   RIGHT_SIDEBAR_WIDTH,
 } from '../../common/constants';
 import { SlotWidthProps } from '../../common/types';
-import { resolveDimension } from '../../common/utils';
+import {
+  getPageLayoutSlotSelector,
+  resolveDimension,
+} from '../../common/utils';
 import { publishGridState, useSkipLinks } from '../../controllers';
 
 import SlotDimensions from './slot-dimensions';
@@ -47,7 +50,12 @@ const RightSidebar = (props: SlotWidthProps) => {
   }
 
   return (
-    <div data-testid={testId} css={rightSidebarStyles(isFixed)} id={id}>
+    <div
+      data-testid={testId}
+      css={rightSidebarStyles(isFixed)}
+      id={id}
+      {...getPageLayoutSlotSelector('right-sidebar')}
+    >
       <SlotDimensions
         variableName={RIGHT_SIDEBAR_WIDTH}
         value={rightSidebarWidth}

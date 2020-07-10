@@ -8,13 +8,13 @@ import {
   DEFAULT_LEFT_SIDEBAR_WIDTH,
   FLYOUT_DELAY,
   LEFT_SIDEBAR_FLYOUT,
-  LEFT_SIDEBAR_SELECTOR,
   LEFT_SIDEBAR_WIDTH,
   RESIZE_BUTTON_SELECTOR,
 } from '../../common/constants';
 import { LeftSidebarProps } from '../../common/types';
 import {
   getGridStateFromStorage,
+  getPageLayoutSlotSelector,
   mergeGridStateIntoStorage,
   resolveDimension,
 } from '../../common/utils';
@@ -26,14 +26,12 @@ import {
 import ResizeControl from '../resize-control';
 
 import {
+  fixedChildrenWrapperStyle,
   fixedLeftSidebarInnerStyles,
   leftSidebarStyles,
+  resizeableChildrenWrapperStyle,
 } from './left-sidebar-styles';
 import SlotDimensions from './slot-dimensions';
-
-const leftSidebarSelector = {
-  [LEFT_SIDEBAR_SELECTOR]: true,
-};
 
 const LeftSidebar = (props: LeftSidebarProps) => {
   const {
@@ -59,6 +57,7 @@ const LeftSidebar = (props: LeftSidebarProps) => {
   const { leftSidebarState, setLeftSidebarState } = usePageLayoutResize();
   const {
     isFlyoutOpen,
+    isResizing,
     isLeftSidebarCollapsed,
     leftSidebarWidth,
     lastLeftSidebarWidth,
@@ -95,6 +94,7 @@ const LeftSidebar = (props: LeftSidebarProps) => {
 
     setLeftSidebarState({
       isFlyoutOpen: false,
+      isResizing,
       isLeftSidebarCollapsed: cachedCollapsedState,
       leftSidebarWidth,
       lastLeftSidebarWidth,
@@ -170,21 +170,22 @@ const LeftSidebar = (props: LeftSidebarProps) => {
       data-testid={testId}
       onMouseOver={onMouseEnter}
       onMouseLeave={onMouseLeave}
-      {...leftSidebarSelector}
       id={id}
+      {...getPageLayoutSlotSelector('left-sidebar')}
     >
       <SlotDimensions
         variableName={LEFT_SIDEBAR_WIDTH}
         value={leftSidebarWidthOnMount}
       />
-      <div
-        css={fixedLeftSidebarInnerStyles(
-          isFixed,
-          isFlyoutOpen,
-          isLeftSidebarCollapsed,
-        )}
-      >
-        {children}
+      <div css={fixedLeftSidebarInnerStyles(isFixed, isFlyoutOpen)}>
+        <div
+          css={resizeableChildrenWrapperStyle(
+            isFlyoutOpen,
+            isLeftSidebarCollapsed,
+          )}
+        >
+          <div css={fixedChildrenWrapperStyle}>{children}</div>
+        </div>
         <ResizeControl
           testId={testId}
           resizeGrabAreaLabel={resizeGrabAreaLabel}

@@ -207,7 +207,6 @@ const initialState = {
 };
 const BasicGrid = () => {
   const [gridState, setGridState] = useState(initialState);
-
   const toggleFixed = (slotName: SlotName) => {
     setGridState({
       ...gridState,

@@ -1,5 +1,7 @@
 import {
   getGridStateFromStorage,
+  getPageLayoutSlotCSSSelector,
+  getPageLayoutSlotSelector,
   mergeGridStateIntoStorage,
   removeFromGridStateInStorage,
 } from '../../utils';
@@ -275,5 +277,19 @@ describe('removeFromGridStateInStorage', () => {
     expect(
       JSON.parse(localStorage.getItem('DS_PAGE_LAYOUT_UI_STATE')!),
     ).toStrictEqual({});
+  });
+});
+
+describe('getPageLayoutSelector', () => {
+  it('should get page-layout selector object', () => {
+    const pageSlotSelector = getPageLayoutSlotSelector('main');
+    expect(pageSlotSelector).toStrictEqual({
+      'data-ds--page-layout--slot': 'main',
+    });
+  });
+
+  it('should get page-layout selector css', () => {
+    const pageSlotSelectorCSS = getPageLayoutSlotCSSSelector('main');
+    expect(pageSlotSelectorCSS).toEqual("[data-ds--page-layout--slot='main']");
   });
 });

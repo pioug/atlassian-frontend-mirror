@@ -32,7 +32,7 @@ describe('<PageLayout />', () => {
     const url = getExampleUrl(
       'design-system',
       'page-layout',
-      'skip-links',
+      'customizable-page-layout',
       global.__BASEURL__,
     );
     const { page } = global;
@@ -53,7 +53,7 @@ describe('<PageLayout />', () => {
     const url = getExampleUrl(
       'design-system',
       'page-layout',
-      'skip-links',
+      'customizable-page-layout',
       global.__BASEURL__,
     );
     const { page } = global;
@@ -80,7 +80,7 @@ describe('<PageLayout />', () => {
     const url = getExampleUrl(
       'design-system',
       'page-layout',
-      'skip-links',
+      'customizable-page-layout',
       global.__BASEURL__,
     );
 
@@ -135,7 +135,7 @@ describe('<PageLayout />', () => {
     const url = getExampleUrl(
       'design-system',
       'page-layout',
-      'skip-links',
+      'customizable-page-layout',
       global.__BASEURL__,
     );
     const { page } = global;

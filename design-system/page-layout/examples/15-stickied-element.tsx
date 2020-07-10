@@ -54,7 +54,7 @@ const WithStickyElement = () => {
       </TopNavigation>
       <Content testId="content">
         <LeftSidebarWithoutResize testId="leftSidebar" width={250}>
-          <div css={{ minWidth: 50, padding: '0 20px' }}>
+          <div css={{ padding: '0 20px' }}>
             <h3 css={{ textAlign: 'center' }}>LeftSidebar</h3>
           </div>
         </LeftSidebarWithoutResize>

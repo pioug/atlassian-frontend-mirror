@@ -51,8 +51,7 @@ export const GRAB_AREA_LINE_SELECTOR = 'data-grab-area-line';
 export const GRAB_AREA_SELECTOR = 'data-grab-area';
 export const RESIZE_BUTTON_SELECTOR = 'data-resize-button';
 export const RESIZE_CONTROL_SELECTOR = 'data-resize-control';
-export const MAIN_SELECTOR = 'data-main';
-export const LEFT_SIDEBAR_SELECTOR = 'data-left-sidebar';
+export const PAGE_LAYOUT_SLOT_SELECTOR = 'data-ds--page-layout--slot';
 
 export const DEFAULT_I18N_PROPS_SKIP_LINKS = 'Skip to:';
 

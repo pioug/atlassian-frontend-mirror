@@ -73,7 +73,6 @@ export const media = mem((init: CreateInit) =>
   from({
     content: init.content,
     disabled: init.disabled,
-
     name: 'media',
     Icon: EditorImageIcon,
   }),

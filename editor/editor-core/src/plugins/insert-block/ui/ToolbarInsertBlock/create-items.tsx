@@ -30,6 +30,7 @@ import {
   placeholder,
   status,
   more,
+  imageUpload,
 } from './item';
 import { shallowEquals } from './shallow-equals';
 
@@ -150,7 +151,7 @@ const createInsertBlockItems = (
 
   if (imageUploadSupported) {
     items.push(
-      media({
+      imageUpload({
         content: formatMessage(messages.image),
         disabled: !imageUploadEnabled,
       }),

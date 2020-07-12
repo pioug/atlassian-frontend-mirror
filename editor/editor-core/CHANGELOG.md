@@ -1,5 +1,11 @@
 # @atlaskit/editor-core
 
+## 126.0.1
+
+### Patch Changes
+
+- [`d218cac0a3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d218cac0a3) - ED-9816 fix: create appropriate item for image upload
+
 ## 126.0.0
 
 ### Major Changes

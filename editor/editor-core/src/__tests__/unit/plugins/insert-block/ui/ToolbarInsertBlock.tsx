@@ -73,7 +73,8 @@ const getToolbarButton = (
   toolbarOption
     .find(ToolbarButton)
     .filterWhere(
-      toolbarButton => toolbarButton.find('Icon').prop('label') === title,
+      toolbarButton =>
+        toolbarButton.find('Icon').find({ label: title }).length > 0,
     )
     .find(Button);
 
@@ -328,6 +329,22 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
       });
       const items = toolbarOption.find(DropdownMenu).prop('items')[0];
       expect(items.items.map(item => item.content)).toEqual(sortedItems);
+    });
+  });
+
+  describe('image upload', () => {
+    it('should call handleImageUpload onClick if enabled, supported and handled', () => {
+      const cb = jest.fn();
+      const handleImageUpload = () => cb;
+
+      buildToolbar({
+        handleImageUpload,
+        imageUploadEnabled: true,
+        imageUploadSupported: true,
+      });
+
+      clickInsertMenuOption(messages.image.defaultMessage, toolbarOption);
+      expect(cb).toHaveBeenCalledTimes(1);
     });
   });
 

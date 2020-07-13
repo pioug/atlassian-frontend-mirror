@@ -210,6 +210,7 @@ const ResizeControl = ({
 
     if (isLeftOrTopArrow || isRightOrBottomArrow) {
       event.preventDefault(); // prevent content scroll
+      onResizeStart && onResizeStart();
 
       const step = 10;
       const stepValue = isLeftOrTopArrow ? -step : step;
@@ -252,6 +253,7 @@ const ResizeControl = ({
             [LEFT_SIDEBAR_WIDTH]: width,
             lastLeftSidebarWidth: width,
           });
+          onResizeEnd && onResizeEnd();
         }, 50);
       });
     }

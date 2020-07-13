@@ -2,29 +2,41 @@ import React from 'react';
 
 import { render } from '@testing-library/react';
 
-import { Banner, LeftPanel, PageLayout, TopNavigation } from '../../../index';
+import {
+  Banner,
+  Content,
+  LeftPanel,
+  LeftSidebarWithoutResize,
+  Main,
+  PageLayout,
+  RightPanel,
+  RightSidebar,
+  TopNavigation,
+} from '../../../index';
 
 describe('page-layout', () => {
-  it('basic renders', () => {
-    const bannerName = 'Banner panel';
-    const bannerContent = 'This is the banner';
-
-    const { getByTestId } = render(
-      <PageLayout>
-        <Banner
-          testId="banner"
-          height={60}
-          skipLinkTitle={bannerName}
-          id="banner"
-        >
-          <h3 css={{ textAlign: 'center' }}>{bannerContent}</h3>
+  it('should have data attribute for all the page layout slots', () => {
+    render(
+      <PageLayout testId="grid">
+        <Banner height={60}>
+          <h3>Banner</h3>
         </Banner>
+        <TopNavigation testId="component" height={50}>
+          Contents
+        </TopNavigation>
+        <LeftPanel width={200}>left panel</LeftPanel>
+        <Content testId="content">
+          <LeftSidebarWithoutResize testId="component" width={200}>
+            Contents
+          </LeftSidebarWithoutResize>
+          <Main testId="main">Main</Main>
+          <RightSidebar width={50}>Contents</RightSidebar>
+        </Content>
+        <RightPanel width={200}>Right panel</RightPanel>
       </PageLayout>,
     );
-
-    expect(getByTestId('banner').firstElementChild!.textContent).toEqual(
-      bannerContent,
-    );
+    const elements = document.querySelectorAll('[data-ds--page-layout--slot]');
+    expect(elements.length).toEqual(7);
   });
 
   it('renders skip links panel', () => {

@@ -9,6 +9,7 @@ import {
   IS_SIDEBAR_DRAGGING,
   LEFT_PANEL_WIDTH,
   LEFT_SIDEBAR_FLYOUT,
+  LEFT_SIDEBAR_FLYOUT_WIDTH,
   LEFT_SIDEBAR_WIDTH,
   RESIZE_BUTTON_SELECTOR,
   TOP_NAVIGATION_HEIGHT,
@@ -31,10 +32,10 @@ export const fixedLeftSidebarInnerStyles = (
   ...(isFixed
     ? {
         position: 'fixed',
-        top: `calc(var(--${BANNER_HEIGHT}) + var(--${TOP_NAVIGATION_HEIGHT}))`,
-        left: `calc(var(--${LEFT_PANEL_WIDTH}))`,
+        top: `calc(var(--${BANNER_HEIGHT}, 0px) + var(--${TOP_NAVIGATION_HEIGHT}, 0px))`,
+        left: `calc(var(--${LEFT_PANEL_WIDTH}), 0px)`,
         bottom: 0,
-        width: `var(--${LEFT_SIDEBAR_WIDTH})`,
+        width: `var(--${LEFT_SIDEBAR_WIDTH}, 0px)`,
         transition: `width ${TRANSITION_DURATION}ms ${easeOut} 0s`,
 
         [`[${IS_SIDEBAR_DRAGGING}] &`]: {
@@ -44,7 +45,7 @@ export const fixedLeftSidebarInnerStyles = (
         },
 
         ...(isFlyoutOpen && {
-          width: `var(--${LEFT_SIDEBAR_FLYOUT})`,
+          width: `var(--${LEFT_SIDEBAR_FLYOUT}, ${LEFT_SIDEBAR_FLYOUT_WIDTH}px)`,
         }),
       }
     : {
@@ -59,7 +60,7 @@ export const leftSidebarStyles = (
   isFlyoutOpen?: boolean,
 ): CSSObject => ({
   position: 'relative',
-  width: `var(--${LEFT_SIDEBAR_WIDTH})`,
+  width: `var(--${LEFT_SIDEBAR_WIDTH}, 0px)`,
   transition: `width ${TRANSITION_DURATION}ms ${easeOut} 0s`,
   zIndex: 1, // Make resize affordance appear on top of content
   marginLeft: 0,
@@ -75,7 +76,7 @@ export const leftSidebarStyles = (
   },
 
   ...(isFlyoutOpen && {
-    width: `var(--${LEFT_SIDEBAR_FLYOUT})`,
+    width: `var(--${LEFT_SIDEBAR_FLYOUT}, ${LEFT_SIDEBAR_FLYOUT_WIDTH}px)`,
   }),
 
   ...(isFlyoutOpen &&
@@ -86,7 +87,7 @@ export const leftSidebarStyles = (
         // with which left sidebars width increases
         // This give an illusion that the flyout is appearing
         // on top of the main content, while main remains in place
-        marginLeft: `calc(-1 * var(--${LEFT_SIDEBAR_FLYOUT}) + ${COLLAPSED_LEFT_SIDEBAR_WIDTH}px)`,
+        marginLeft: `calc(-1 * var(--${LEFT_SIDEBAR_FLYOUT}, ${LEFT_SIDEBAR_FLYOUT_WIDTH}px) + ${COLLAPSED_LEFT_SIDEBAR_WIDTH}px)`,
       },
     }),
 
@@ -97,7 +98,7 @@ export const leftSidebarStyles = (
     '&::after': {
       content: "''",
       display: 'inline-block',
-      width: `var(--${LEFT_SIDEBAR_WIDTH})`,
+      width: `var(--${LEFT_SIDEBAR_WIDTH}, 0px)`,
     },
 
     ...(isFlyoutOpen && {

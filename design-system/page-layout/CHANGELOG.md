@@ -1,5 +1,11 @@
 # @atlaskit/page-layout
 
+## 0.8.6
+
+### Patch Changes
+
+- [`859d71f610`](https://bitbucket.org/atlassian/atlassian-frontend/commits/859d71f610) - Replaces internal usage of Global component from emotion with a style tag
+
 ## 0.8.5
 
 ### Patch Changes

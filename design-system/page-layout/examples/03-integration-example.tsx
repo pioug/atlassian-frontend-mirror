@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { useState } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { jsx } from '@emotion/core';
 
 import {
   AtlassianNavigation,
@@ -23,27 +23,10 @@ import {
 
 import { Content, LeftSidebar, Main, PageLayout, TopNavigation } from '../src';
 
-function SideNavigationWrapper(props: { children: React.ReactNode }) {
-  return (
-    <div
-      css={css`
-        height: 100%;
-        & nav {
-          min-width: 20px;
-          overflow-x: hidden;
-        }
-      `}
-    >
-      {props.children}
-    </div>
-  );
-}
-
 export default function ProductLayout() {
   return (
     <PageLayout>
       <TopNavigation
-        height={60}
         isFixed={true}
         id="confluence-navigation"
         skipLinkTitle="Confluence Navigation"
@@ -57,9 +40,7 @@ export default function ProductLayout() {
           id="project-navigation"
           skipLinkTitle="Project Navigation"
         >
-          <SideNavigationWrapper>
-            <SideNavigationContent />
-          </SideNavigationWrapper>
+          <SideNavigationContent />
         </LeftSidebar>
         <Main id="main-content" skipLinkTitle="Main Content">
           <div

@@ -38,10 +38,11 @@ export const resizeControlCSS = (setIsGrabAreaFocused: boolean): CSSObject => ({
       [`[${GRAB_AREA_LINE_SELECTOR}]`]: {
         backgroundColor: B200,
       },
-      [`[${RESIZE_BUTTON_SELECTOR}]`]: {
-        opacity: 1,
-      },
     }),
+  },
+
+  [`[${RESIZE_BUTTON_SELECTOR}]`]: {
+    opacity: setIsGrabAreaFocused ? 1 : 0,
   },
 });
 
@@ -49,6 +50,7 @@ export const resizeIconButtonCSS = (isCollapsed: boolean): CSSObject => ({
   backgroundColor: N0,
   position: 'absolute',
   top: 32,
+  left: 0,
   transform: 'translateX(-50%)',
   border: 0,
   borderRadius: '50%',
@@ -56,7 +58,7 @@ export const resizeIconButtonCSS = (isCollapsed: boolean): CSSObject => ({
   color: N200,
   cursor: 'pointer',
   height: 24,
-  opacity: isCollapsed ? 1 : 0,
+  opacity: 0,
   outline: 0,
   padding: 0,
   transition: `
@@ -85,6 +87,7 @@ export const resizeIconButtonCSS = (isCollapsed: boolean): CSSObject => ({
   ...(!isCollapsed && {
     transform: 'rotate(180deg)',
     transformOrigin: 7,
+    opacity: 1,
   }),
 
   [`[${IS_SIDEBAR_DRAGGING}] &`]: {

@@ -29,15 +29,15 @@ export const gridStyles = css`
   /* IE11 */
   display: -ms-grid;
   // prettier-ignore
-  -ms-grid-columns: var(--${LEFT_PANEL_WIDTH}) var(--${LEFT_SIDEBAR_WIDTH}) 1fr var(--${RIGHT_SIDEBAR_WIDTH}) var(--${RIGHT_PANEL_WIDTH});
-  -ms-grid-rows: var(--${BANNER_HEIGHT}) var(--${TOP_NAVIGATION_HEIGHT}) 1fr;
+  -ms-grid-columns: var(--${LEFT_PANEL_WIDTH}, 0px) var(--${LEFT_SIDEBAR_WIDTH}, 0px) 1fr var(--${RIGHT_SIDEBAR_WIDTH}, 0px) var(--${RIGHT_PANEL_WIDTH}, 0px);
+  -ms-grid-rows: var(--${BANNER_HEIGHT}, 0px) var(--${TOP_NAVIGATION_HEIGHT}, 0px) 1fr;
   /* IE11 */
 
   display: grid;
   height: 100%;
   // prettier-ignore
-  grid-template-columns: var(--${LEFT_PANEL_WIDTH}) minmax(0, 1fr) var(--${RIGHT_PANEL_WIDTH});
-  grid-template-rows: var(--${BANNER_HEIGHT}) var(--${TOP_NAVIGATION_HEIGHT})
+  grid-template-columns: var(--${LEFT_PANEL_WIDTH}, 0px) minmax(0, 1fr) var(--${RIGHT_PANEL_WIDTH}, 0px);
+  grid-template-rows: var(--${BANNER_HEIGHT}, 0px) var(--${TOP_NAVIGATION_HEIGHT}, 0px)
     auto;
   grid-template-areas: ${gridTemplateAreas};
 `;
@@ -72,13 +72,13 @@ export const focusStyles = {
 
 export const bannerStyles = (isFixed?: boolean): CSSObject => ({
   gridArea: `${BANNER}`,
-  height: `var(--${BANNER_HEIGHT})`,
+  height: `var(--${BANNER_HEIGHT}, 0px)`,
   ...focusStyles,
   ...(isFixed && {
     position: 'fixed',
     top: 0,
-    left: `var(--${LEFT_PANEL_WIDTH})`,
-    right: `var(--${RIGHT_PANEL_WIDTH})`,
+    left: `var(--${LEFT_PANEL_WIDTH}, 0px)`,
+    right: `var(--${RIGHT_PANEL_WIDTH}, 0px)`,
     zIndex: 2,
   }),
 
@@ -91,13 +91,13 @@ export const bannerStyles = (isFixed?: boolean): CSSObject => ({
 
 export const topNavigationStyles = (isFixed?: boolean): CSSObject => ({
   gridArea: `${TOP_NAVIGATION}`,
-  height: `var(--${TOP_NAVIGATION_HEIGHT})`,
+  height: `var(--${TOP_NAVIGATION_HEIGHT}, 0px)`,
   ...focusStyles,
   ...(isFixed && {
     position: 'fixed',
-    top: `var(--${BANNER_HEIGHT})`,
-    left: `var(--${LEFT_PANEL_WIDTH})`,
-    right: `var(--${RIGHT_PANEL_WIDTH})`,
+    top: `var(--${BANNER_HEIGHT}, 0px)`,
+    left: `var(--${LEFT_PANEL_WIDTH}, 0px)`,
+    right: `var(--${RIGHT_PANEL_WIDTH}, 0px)`,
     zIndex: 2,
   }),
 
@@ -138,15 +138,15 @@ export const fixedRightSidebarInnerStyles = (isFixed?: boolean): CSSObject => ({
   ...(isFixed
     ? {
         position: 'fixed',
-        top: `calc(var(--${BANNER_HEIGHT}) + var(--${TOP_NAVIGATION_HEIGHT}))`,
-        right: `calc(var(--${RIGHT_PANEL_WIDTH}))`,
+        top: `calc(var(--${BANNER_HEIGHT},0px) + var(--${TOP_NAVIGATION_HEIGHT},0px))`,
+        right: `calc(var(--${RIGHT_PANEL_WIDTH},0px))`,
         bottom: 0,
       }
     : { height: '100%' }),
 });
 
 export const rightSidebarStyles = (isFixed?: boolean): CSSObject => ({
-  width: `var(--${RIGHT_SIDEBAR_WIDTH})`,
+  width: `var(--${RIGHT_SIDEBAR_WIDTH}, 0px)`,
   ...focusStyles,
   ...(isFixed && {
     // in fixed mode this element's child is taken out of the document flow
@@ -155,7 +155,7 @@ export const rightSidebarStyles = (isFixed?: boolean): CSSObject => ({
     '&::after': {
       content: "''",
       display: 'inline-block',
-      width: `var(--${LEFT_SIDEBAR_WIDTH})`,
+      width: `var(--${LEFT_SIDEBAR_WIDTH}, 0px)`,
     },
   }),
 });
@@ -165,7 +165,7 @@ export const rightPanelStyles = (isFixed?: boolean): CSSObject => ({
   ...focusStyles,
   ...(isFixed && {
     position: 'fixed',
-    width: `var(--${RIGHT_PANEL_WIDTH})`,
+    width: `var(--${RIGHT_PANEL_WIDTH}, 0px)`,
     top: 0,
     bottom: 0,
     right: 0,
@@ -183,7 +183,7 @@ export const leftPanelStyles = (isFixed?: boolean): CSSObject => ({
   ...focusStyles,
   ...(isFixed && {
     position: 'fixed',
-    width: `var(--${LEFT_PANEL_WIDTH})`,
+    width: `var(--${LEFT_PANEL_WIDTH}, 0px)`,
     top: 0,
     bottom: 0,
     left: 0,

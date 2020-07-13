@@ -235,7 +235,10 @@ const BasicGrid = () => {
   return (
     <Fragment>
       {gridState.isPageLayoutShown && (
-        <PageLayout>
+        <PageLayout
+          onLeftSidebarExpand={() => console.log('onExpand')}
+          onLeftSidebarCollapse={() => console.log('onCollapse')}
+        >
           {gridState.isBannerShown && (
             <Banner height={60} isFixed={gridState.isBannerFixed}>
               <Wrapper borderColor="gold">
@@ -281,8 +284,6 @@ const BasicGrid = () => {
                 skipLinkTitle="Left sidebar"
                 isFixed={gridState.isLeftSidebarFixed}
                 width={450}
-                onExpand={() => console.log('onExpand')}
-                onCollapse={() => console.log('onCollapse')}
                 onResizeStart={() => console.log('onResizeStart')}
                 onResizeEnd={() => console.log('onResizeEnd')}
                 onFlyoutExpand={() => console.log('onFlyoutExpand')}

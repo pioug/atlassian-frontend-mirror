@@ -125,7 +125,7 @@ export const contentCSS = {
   display: 'flex',
   flexDirection: 'column',
   // Fix - avoid clipped text descenders when using standard 16px line-height
-  lineHeight: 1.2,
+  lineHeight: 1.22,
 } as CSSObject;
 
 export const truncateCSS = {

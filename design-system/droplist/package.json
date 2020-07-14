@@ -19,7 +19,8 @@
     "inPublicMirror": true,
     "releaseModel": "scheduled",
     "website": {
-      "name": "Droplist"
+      "name": "Droplist",
+      "deprecated": "For the pop up behaviour please use @atlaskit/popup and for common menu components please use @atlaskit/menu."
     }
   },
   "dependencies": {

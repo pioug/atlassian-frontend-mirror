@@ -1,5 +1,11 @@
 # @atlaskit/menu
 
+## 0.5.1
+
+### Patch Changes
+
+- [`a70b60d9f1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a70b60d9f1) - The line height of menu items has been slightly increased to accomodate descender spacing viewed on non-retina displays.
+
 ## 0.5.0
 
 ### Minor Changes

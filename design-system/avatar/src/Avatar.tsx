@@ -88,7 +88,7 @@ const Avatar: FC<AvatarPropTypes> = ({
   status,
   target,
   testId,
-}) => {
+}: AvatarPropTypes) => {
   const { createAnalyticsEvent } = useAnalyticsEvents();
   const avatarSize = AVATAR_SIZES[size];
   const avatarRadius = AVATAR_RADIUS[size];

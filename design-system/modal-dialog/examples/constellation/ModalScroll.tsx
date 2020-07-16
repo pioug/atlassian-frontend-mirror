@@ -60,7 +60,9 @@ export default class ScrollModal extends React.PureComponent<{}, State> {
           label="Scroll behavior:"
           onRadioChange={this.onScrollBehaviorChange}
         />
-        <Button onClick={this.open}>Open modal</Button>
+        <Button appearance="primary" onClick={this.open}>
+          Open modal
+        </Button>
         <ModalTransition>
           {isOpen && (
             <Modal

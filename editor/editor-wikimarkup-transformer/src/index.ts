@@ -46,9 +46,14 @@ export class WikiMarkupTransformer implements Transformer<string> {
  * This is okay, because conversion context object contains mapping and that should be case insensitive
  */
 const normalizeContextObject = (context?: Context) => {
-  if (!context || !context.conversion || !context.conversion.mentionConversion)
+  if (
+    !context ||
+    !context.conversion ||
+    !context.conversion.mentionConversion
+  ) {
     // nothing to normalize, return original object
     return context;
+  }
   const mentionConversion: ConversionMap = {};
   for (const key in context.conversion.mentionConversion) {
     mentionConversion[key.toLowerCase()] =

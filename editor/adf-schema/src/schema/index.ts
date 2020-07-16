@@ -194,6 +194,7 @@ export {
   buildAnnotationMarkDataAttributes,
   AnnotationMarkStates,
   AnnotationId,
+  unsupportedMark,
 } from './marks';
 export { unsupportedNodeTypesForMediaCards } from './unsupported';
 export { inlineNodes } from './inline-nodes';

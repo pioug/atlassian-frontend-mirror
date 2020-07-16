@@ -5,10 +5,8 @@ import {
   useProviderFactory,
 } from '@atlaskit/editor-common/provider-factory';
 import analyticsPlugin from '../../../plugins/analytics';
-import annotationPlugin from '../../../plugins/annotation';
 import basePlugin from '../../../plugins/base';
 import cardPlugin from '../../../plugins/card';
-import codeBlockPlugin from '../../../plugins/code-block';
 import datePlugin from '../../../plugins/date';
 import emojiPlugin from '../../../plugins/emoji';
 import extensionPlugin from '../../../plugins/extension';
@@ -54,7 +52,7 @@ export function useMobilePreset({
   featureFlags,
 }: EditorPresetMobileProps & EditorPresetProps) {
   const mediaProvider = useProvider('mediaProvider');
-  const [preset] = useDefaultPreset({ featureFlags });
+  const [preset] = useDefaultPreset({ featureFlags, paste: {} });
 
   preset.add([
     basePlugin,
@@ -67,7 +65,6 @@ export function useMobilePreset({
   ]);
   preset.add([analyticsPlugin, createAnalyticsEvent]);
   preset.add([tablesPlugin, { tableOptions: { allowControls: false } }]);
-  preset.add(codeBlockPlugin);
   preset.add(panelPlugin);
   preset.add(listsPlugin);
   preset.add(textColorPlugin);
@@ -81,13 +78,12 @@ export function useMobilePreset({
   ]);
   preset.add([statusPlugin, { menuDisabled: false, useInlineWrapper: true }]);
   preset.add([placeholderPlugin, { placeholder }]);
-  preset.add(annotationPlugin);
   preset.add(mobileScrollPlugin);
   preset.add(expandPlugin);
   preset.add([selectionPlugin, { useLongPressSelection: true }]);
   // Begin -> This would be exclude if the provider doesnt exist in the factory
   preset.add(tasksAndDecisionsPlugin);
-  preset.add([cardPlugin, { allowBlockCards: true }]);
+  preset.add([cardPlugin, { allowBlockCards: true, platform: 'mobile' }]);
   preset.add([mentionsPlugin, { useInlineWrapper: true }]);
   preset.add([emojiPlugin, { useInlineWrapper: true }]);
   // End

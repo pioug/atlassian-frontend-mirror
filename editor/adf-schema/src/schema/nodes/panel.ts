@@ -36,6 +36,7 @@ export interface DOMAttributes {
 export const panel: NodeSpec = {
   group: 'block',
   content: '(paragraph | heading | bulletList | orderedList | blockCard)+',
+  marks: 'unsupportedMark',
   attrs: {
     panelType: { default: 'info' },
   },

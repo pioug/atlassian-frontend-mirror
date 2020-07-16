@@ -1,5 +1,14 @@
 # @atlaskit/modal-dialog
 
+## 11.0.1
+
+### Patch Changes
+
+- [`95261cf7b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/95261cf7b0) - Fixed modal dialog focus issue
+- [`3414523d6f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3414523d6f) - Rearange buttons order to align with design guidelines
+- [`30f8909177`](https://bitbucket.org/atlassian/atlassian-frontend/commits/30f8909177) - fixed the layering between header, content, and footer
+- [`db053b24d8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/db053b24d8) - Update all the theme imports to be tree-shakable
+
 ## 11.0.0
 
 ### Major Changes

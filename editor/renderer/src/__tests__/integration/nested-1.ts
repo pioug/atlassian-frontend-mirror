@@ -13,7 +13,7 @@ const CHAR_WIDTH = 6;
 
 BrowserTestCase(
   `Can create an annotation on nested text inside a list inside a table`,
-  { skip: ['ie', 'edge', 'firefox'] },
+  { skip: ['edge', 'firefox'] },
   async (client: any, testName: string) => {
     const page = await goToRendererTestingExample(client);
     await mountRenderer(page, { withRendererActions: true }, nestedAdf);
@@ -30,7 +30,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   `Can create an annotation on nested text inside a layout`,
-  { skip: ['ie', 'edge', 'firefox'] },
+  { skip: ['edge', 'firefox'] },
   async (client: any, testName: string) => {
     const page = await goToRendererTestingExample(client);
     await mountRenderer(page, { withRendererActions: true }, nestedAdf);
@@ -50,7 +50,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   `Can create an annotation on a nested heading`,
-  { skip: ['ie', 'edge', 'firefox'] },
+  { skip: ['edge', 'firefox'] },
   async (client: any, testName: string) => {
     const page = await goToRendererTestingExample(client);
     await mountRenderer(page, { withRendererActions: true }, nestedAdf);
@@ -66,7 +66,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   `Can create an annotation on a nested task inside a table with overlapping marks`,
-  { skip: ['ie', 'edge', 'firefox'] },
+  { skip: ['edge', 'firefox'] },
   async (client: any, testName: string) => {
     const page = await goToRendererTestingExample(client);
     await mountRenderer(page, { withRendererActions: true }, taskDecisionAdf);

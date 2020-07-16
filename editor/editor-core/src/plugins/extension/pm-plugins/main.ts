@@ -38,33 +38,22 @@ const maybeGetUpdateMethodFromExtensionProvider = async (
 
   const { extensionType, extensionKey } = nodeWithPos.node.attrs;
 
-  try {
-    const extensionModuleNode = await getExtensionModuleNode(
-      extensionProvider,
-      extensionType,
-      extensionKey,
-    );
+  const extensionModuleNode = await getExtensionModuleNode(
+    extensionProvider,
+    extensionType,
+    extensionKey,
+  );
 
-    const newNodeWithPos = getSelectedExtension(view.state, true);
-    if (
-      newNodeWithPos &&
-      newNodeWithPos.node.attrs.extensionType === extensionType &&
-      newNodeWithPos.node.attrs.extensionKey === extensionKey &&
-      newNodeWithPos.pos === nodeWithPos.pos &&
-      extensionModuleNode.update
-    ) {
-      return extensionModuleNode.update;
-    }
+  const newNodeWithPos = getSelectedExtension(view.state, true);
 
-    throw new Error(
-      `Can't find the right handler for ${extensionType}:${extensionKey} on the extension provider!`,
-    );
-  } catch (err) {
-    updateState({
-      showEditButton: true,
-    })(view.state, view.dispatch);
-
-    throw err;
+  if (
+    newNodeWithPos &&
+    newNodeWithPos.node.attrs.extensionType === extensionType &&
+    newNodeWithPos.node.attrs.extensionKey === extensionKey &&
+    newNodeWithPos.pos === nodeWithPos.pos &&
+    extensionModuleNode
+  ) {
+    return extensionModuleNode.update;
   }
 };
 
@@ -79,15 +68,14 @@ export const updateEditButton = async (
     );
 
     updateState({
-      showEditButton: true,
-      updateExtension: Promise.resolve(updateMethod),
+      showEditButton: !!updateMethod,
+      updateExtension:
+        (updateMethod && Promise.resolve(updateMethod)) || undefined,
     })(view.state, view.dispatch);
 
     return updateMethod;
   } catch {
-    updateState({
-      showEditButton: true,
-    })(view.state, view.dispatch);
+    // this exception is not important for this case, fail silently
   }
 };
 
@@ -201,6 +189,7 @@ const createPlugin = (
             const { extensionType } = selectedExtension.node.attrs;
             const extensionHandler = extensionHandlers[extensionType];
 
+            // showEditButton might change async based on results from extension providers
             const showEditButton = shouldShowEditButton(
               extensionHandler,
               extensionProvider,

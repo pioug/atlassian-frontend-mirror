@@ -4,6 +4,9 @@ import {
   shouldAddDefaultWrappedWidth,
 } from '@atlaskit/editor-common';
 
+import { findParentNodeOfTypeClosestToPos } from 'prosemirror-utils';
+import { EditorView } from 'prosemirror-view';
+
 export const nonWrappedLayouts: RichMediaLayout[] = [
   'center',
   'wide',
@@ -11,6 +14,24 @@ export const nonWrappedLayouts: RichMediaLayout[] = [
 ];
 
 export const floatingLayouts = ['wrap-left', 'wrap-right'];
+
+export const isRichMediaInsideOfBlockNode = (
+  view: EditorView,
+  pos: number | boolean,
+) => {
+  if (typeof pos !== 'number' || isNaN(pos) || !view) {
+    return false;
+  }
+
+  const $pos = view.state.doc.resolve(pos);
+
+  const { expand, nestedExpand, layoutColumn } = view.state.schema.nodes;
+  return !!findParentNodeOfTypeClosestToPos($pos, [
+    expand,
+    nestedExpand,
+    layoutColumn,
+  ]);
+};
 
 export const alignAttributes = (
   layout: RichMediaLayout,

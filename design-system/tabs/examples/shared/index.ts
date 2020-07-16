@@ -1,12 +1,15 @@
 import styled from 'styled-components';
 
-import { borderRadius, colors, gridSize, math, themed } from '@atlaskit/theme';
+import { DN10, N20, subtleText } from '@atlaskit/theme/colors';
+import { themed } from '@atlaskit/theme/components';
+import { borderRadius, gridSize } from '@atlaskit/theme/constants';
+import { multiply } from '@atlaskit/theme/math';
 
 export const Content = styled.div`
   align-items: center;
-  background-color: ${themed({ light: colors.N20, dark: colors.DN10 })};
+  background-color: ${themed({ light: N20, dark: DN10 })};
   border-radius: ${borderRadius}px;
-  color: ${colors.subtleText};
+  color: ${subtleText};
   display: flex;
   flex-direction: column;
   flex-grow: 1;
@@ -14,6 +17,6 @@ export const Content = styled.div`
   font-weight: 500;
   justify-content: center;
   margin-bottom: ${gridSize}px;
-  margin-top: ${math.multiply(gridSize, 2)}px;
-  padding: ${math.multiply(gridSize, 4)}px;
+  margin-top: ${multiply(gridSize, 2)}px;
+  padding: ${multiply(gridSize, 4)}px;
 `;

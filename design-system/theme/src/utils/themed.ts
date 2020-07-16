@@ -15,7 +15,9 @@ function themedVariants<V>(variantProp: string, variants?: VariantModes<V>) {
       const modes = variants[props[variantProp]];
       if (modes && modes[theme.mode]) {
         const value = modes[theme.mode];
-        if (value) return value; // TS believes value can be undefined
+        if (value) {
+          return value;
+        } // TS believes value can be undefined
       }
     }
     return '';
@@ -36,7 +38,9 @@ export default function themed<V = DefaultValue>(
     // User isn't required to provide both light and dark values
     if (theme.mode in modes) {
       const value = modes[theme.mode]; // TS believes value can be undefined
-      if (value) return value;
+      if (value) {
+        return value;
+      }
     }
     return '';
   };

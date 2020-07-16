@@ -1,13 +1,17 @@
-import { FocusEventHandler, MouseEventHandler, ReactNode } from 'react';
+import { ComponentType, MouseEventHandler, ReactNode } from 'react';
 
-import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
+import {
+  UIAnalyticsEvent,
+  WithAnalyticsEventsProps,
+} from '@atlaskit/analytics-next';
+import { ButtonProps } from '@atlaskit/button/types';
 
-export type ChildrenType = any;
-export type ElementType = any;
-export type FunctionType = (...args: Array<any>) => any;
 export type ActionType = {
   content: ReactNode;
-  onClick?: FunctionType;
+  onClick?: (
+    e: React.MouseEvent<HTMLElement>,
+    analyticsEvent: UIAnalyticsEvent,
+  ) => void;
   href?: string;
   target?: string;
   testId?: string;
@@ -50,28 +54,32 @@ export type AutoDismissFlagProps = {
   icon: ReactNode;
   /** A unique identifier used for rendering and onDismissed callbacks. */
   id: number | string;
-  /** Private, do not use. */
-  isDismissAllowed?: boolean;
-  /** Private, do not use. Use the FlagGroup onDismissed handler. */
-  onDismissed?: FunctionType;
   /** The bold text shown at the top of the flag. */
   title: ReactNode;
   /** A link component that is passed down to the `@atlaskit/button` used by actions,
   to allow custom routers to be used. See the
   [button with router](https://atlaskit.atlassian.com/packages/design-system/button/example/ButtonWithRouter)
   example of what this component should look like. */
-  linkComponent?: ElementType;
+  linkComponent?: ComponentType<ButtonProps>;
   /** A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests */
   testId?: string;
+  /** Additional information to be included in the `context` of analytics events that come from flag */
+  analyticsContext?: Record<string, any>;
 };
 
 export interface FlagProps
   extends AutoDismissFlagProps,
     WithAnalyticsEventsProps {
   /** Standard onBlur event, applied to Flag by AutoDismissFlag */
-  onBlur?: FocusEventHandler;
+  onBlur?: (
+    e: React.FocusEvent<HTMLElement>,
+    analyticsEvent: UIAnalyticsEvent,
+  ) => void;
   /** Standard onFocus event, applied to Flag by AutoDismissFlag */
-  onFocus?: FocusEventHandler;
+  onFocus?: (
+    e: React.FocusEvent<HTMLElement>,
+    analyticsEvent: UIAnalyticsEvent,
+  ) => void;
   /** Standard onMouseOut event, applied to Flag by AutoDismissFlag */
   onMouseOut?: MouseEventHandler;
   /** Standard onMouseOver event, applied to Flag by AutoDismissFlag */

@@ -28,6 +28,14 @@ import {
 } from '../../plugins/width';
 import { DEFAULT_EMBED_CARD_WIDTH } from '@atlaskit/editor-common';
 
+import { addAnalytics } from '../../plugins/analytics/utils';
+import {
+  ACTION_SUBJECT,
+  ACTION_SUBJECT_ID,
+  EVENT_TYPE,
+  ACTION,
+} from '../../plugins/analytics';
+
 type IconMap = Array<
   { value: string; icon: React.ComponentClass<any> } | { value: 'separator' }
 >;
@@ -82,6 +90,8 @@ const getNodeWidth = (node: Node, schema: Schema): number => {
 const makeAlign = (layout: MediaSingleLayout, nodeType: NodeType): Command => {
   return (state, dispatch) => {
     const { node } = state.selection as NodeSelection;
+    const { layout: previousLayoutType } = node.attrs;
+    const { mediaSingle } = state.schema.nodes;
     if (!dispatch) {
       return false;
     }
@@ -109,7 +119,19 @@ const makeAlign = (layout: MediaSingleLayout, nodeType: NodeType): Command => {
       newAttrs,
     );
     tr.setMeta('scrollIntoView', false);
-    dispatch(tr);
+    dispatch(
+      addAnalytics(state, tr, {
+        eventType: EVENT_TYPE.TRACK,
+        action: ACTION.SELECTED,
+        actionSubject:
+          ACTION_SUBJECT[node.type === mediaSingle ? 'MEDIA_SINGLE' : 'EMBEDS'],
+        actionSubjectId: ACTION_SUBJECT_ID.RICH_MEDIA_LAYOUT,
+        attributes: {
+          previousLayoutType,
+          currentLayoutType: layout,
+        },
+      }),
+    );
     return true;
   };
 };

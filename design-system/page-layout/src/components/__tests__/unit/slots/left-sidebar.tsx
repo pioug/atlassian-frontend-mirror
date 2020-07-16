@@ -166,7 +166,7 @@ describe('Left sidebar', () => {
       const { getByTestId } = render(
         <PageLayout testId="grid">
           <Content>
-            <LeftSidebar testId="left-sidebar" width={200}>
+            <LeftSidebar testId="left-sidebar" width={300}>
               LeftSidebar
             </LeftSidebar>
             <Main testId="content">Main</Main>
@@ -174,8 +174,8 @@ describe('Left sidebar', () => {
         </PageLayout>,
       );
 
-      fireEvent.click(getByTestId('left-sidebar-grab-area'));
-      completeAnimations();
+      fireEvent.mouseDown(getByTestId('left-sidebar-grab-area'));
+      fireEvent.mouseUp(document);
 
       // Add test to see main is animating
       expect(getDimension('leftSidebarWidth')).toEqual('20px');
@@ -1232,7 +1232,8 @@ describe('Left sidebar', () => {
 
       const handle: HTMLElement = getByTestId('left-sidebar-grab-area');
 
-      fireEvent.click(handle);
+      fireEvent.focus(handle);
+      fireEvent.keyDown(handle, { keyCode: 32, key: ' ' });
 
       expect(handle.getAttribute('aria-expanded')).toEqual('false');
     });

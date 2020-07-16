@@ -35,7 +35,7 @@ const gapCursorSelector = '.ProseMirror-gapcursor span';
   ['Left', 'Right'].forEach(direction => {
     BrowserTestCase(
       `gap-cursor: should display to ${direction} of block node after hitting ${direction} key for ${editor} editor`,
-      { skip: ['ie', 'edge'] },
+      { skip: ['edge'] },
       async (client: any) => {
         const page = await goToEditorTestingExample(client);
 

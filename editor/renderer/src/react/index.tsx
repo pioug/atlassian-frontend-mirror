@@ -2,7 +2,12 @@ import React from 'react';
 import { ComponentType } from 'react';
 import { Fragment, Mark, MarkType, Node } from 'prosemirror-model';
 import { Serializer } from '../';
-import { RendererAppearance, StickyHeaderConfig } from '../ui/Renderer/types';
+import {
+  RendererAppearance,
+  StickyHeaderConfig,
+  HeadingAnchorLinksProps,
+} from '../ui/Renderer/types';
+import { isNestedHeaderLinksEnabled } from './utils/links';
 import { AnalyticsEventPayload } from '../analytics/events';
 
 import {
@@ -13,6 +18,7 @@ import {
   TextWrapper,
   toReact,
 } from './nodes';
+import TextWrapperComponent from './nodes/text-wrapper';
 
 import { toReact as markToReact, AnnotationContext } from './marks';
 import {
@@ -24,6 +30,7 @@ import {
   calcTableColumnWidths,
 } from '@atlaskit/editor-common';
 import { getText } from '../utils';
+import { findChildrenByType } from 'prosemirror-utils';
 import { RendererContext, NodeMeta, MarkMeta } from './types';
 import { AnnotationId, AnnotationMarkStates } from '@atlaskit/adf-schema';
 import { insideBreakoutLayout } from './renderer-node';
@@ -39,7 +46,7 @@ export interface ReactSerializerInit {
   disableHeadingIDs?: boolean;
   disableActions?: boolean;
   allowDynamicTextSizing?: boolean;
-  allowHeadingAnchorLinks?: boolean;
+  allowHeadingAnchorLinks?: HeadingAnchorLinksProps;
   allowColumnSorting?: boolean;
   fireAnalyticsEvent?: (event: AnalyticsEventPayload) => void;
   shouldOpenMediaViewer?: boolean;
@@ -47,6 +54,7 @@ export interface ReactSerializerInit {
   stickyHeaders?: StickyHeaderConfig;
   allowMediaLinking?: boolean;
   allowAnnotations?: boolean;
+  surroundTextNodesWithTextWrapper?: boolean;
   getAnnotationPromise?: (
     id: AnnotationId,
   ) => Promise<AnnotationMarkStates | null>;
@@ -106,8 +114,17 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
   private disableHeadingIDs?: boolean;
   private disableActions?: boolean;
   private headingIds: string[] = [];
+  /**
+   * The reason we have this extra array here is because we need to generate the same unique
+   * heading id for 2 different nodes: headers and expands (check the implementation of
+   * `getUniqueHeadingId` for more info).
+   *
+   * We will eventually need to refactor the current approach to generate unique ids
+   * for headers under this ticket -> https://product-fabric.atlassian.net/browse/ED-9668
+   */
+  private expandHeadingIds: string[] = [];
   private allowDynamicTextSizing?: boolean;
-  private allowHeadingAnchorLinks?: boolean;
+  private allowHeadingAnchorLinks?: HeadingAnchorLinksProps;
   private allowColumnSorting?: boolean;
   private fireAnalyticsEvent?: (event: AnalyticsEventPayload) => void;
   private shouldOpenMediaViewer?: boolean;
@@ -115,6 +132,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
   private stickyHeaders?: StickyHeaderConfig;
   private allowMediaLinking?: boolean;
   private startPos: number = 1;
+  private surroundTextNodesWithTextWrapper: boolean = false;
   private annotationsConfig: AnnotationConfig = {
     allowAnnotations: false,
     getAnnotationPromise: null,
@@ -141,10 +159,14 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
       allowAnnotations: Boolean(init.allowAnnotations),
       getAnnotationPromise: init.getAnnotationPromise || null,
     };
+    this.surroundTextNodesWithTextWrapper = Boolean(
+      init.surroundTextNodesWithTextWrapper,
+    );
   }
 
   private resetState() {
     this.headingIds = [];
+    this.expandHeadingIds = [];
     this.startPos = 1;
   }
 
@@ -171,6 +193,8 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
         return this.getTaskItemProps(node, path);
       case 'embedCard':
         return this.getEmbedCardProps(node, path);
+      case 'expand':
+        return this.getExpandProps(node, path);
       default:
         return this.getProps(node, path);
     }
@@ -194,7 +218,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
       key,
       ReactSerializer.getChildNodes(fragment).map((node, index) => {
         if (isTextWrapper(node)) {
-          return this.serializeTextWrapper(node.content);
+          return this.serializeTextWrapper(node.content, { index, parentInfo });
         }
         return this.serializeFragmentChild(node, { index, parentInfo });
       }),
@@ -274,27 +298,47 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
     };
   };
 
-  private serializeTextWrapper(content: Node[]) {
+  private serializeTextWrapper(
+    content: Node[],
+    { index, parentInfo }: FragmentChildContext,
+  ) {
+    const currentPath = (parentInfo && parentInfo.path) || [];
+    const depth = currentPath.length;
     return ReactSerializer.buildMarkStructure(content).map((mark, index) =>
-      this.serializeMark(mark, index),
+      this.serializeMark(mark, index, depth),
     );
   }
 
-  private serializeMark(mark: Mark, index: number = 0) {
-    if (isTextNode(mark)) {
-      this.startPos += mark.nodeSize;
-      return mark.text;
+  private serializeMark(mark: Mark, index: number = 0, depth: number = 0) {
+    if (!isTextNode(mark)) {
+      const content = (
+        (mark as any).content || []
+      ).map((child: Mark, index: number) => this.serializeMark(child, index));
+      return this.renderMark(
+        markToReact(mark),
+        this.getMarkProps(mark),
+        `${mark.type.name}-${index}`,
+        content,
+      );
     }
 
-    const content = (
-      (mark as any).content || []
-    ).map((child: Mark, index: number) => this.serializeMark(child, index));
-    return this.renderMark(
-      markToReact(mark),
-      this.getMarkProps(mark),
-      `${mark.type.name}-${index}`,
-      content,
-    );
+    if (this.surroundTextNodesWithTextWrapper) {
+      const startPos = this.startPos;
+      const endPos = startPos + mark.nodeSize;
+      const parentDepth = depth - 1;
+      return (
+        <TextWrapperComponent
+          key={`${index}-text-content`}
+          startPos={startPos + parentDepth}
+          endPos={endPos + parentDepth}
+          text={mark.text}
+        />
+      );
+    }
+
+    this.startPos += mark.nodeSize;
+
+    return mark.text;
   }
 
   private renderNode(
@@ -453,7 +497,9 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 
   private headingAnchorSupported(path: Array<Node> = []): boolean {
     return (
-      path.length === 0 || path[path.length - 1].type.name === 'layoutColumn'
+      isNestedHeaderLinksEnabled(this.allowHeadingAnchorLinks) ||
+      path.length === 0 ||
+      path[path.length - 1].type.name === 'layoutColumn'
     );
   }
 
@@ -461,7 +507,10 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
     return {
       ...this.getProps(node, path),
       content: node.content ? node.content.toJSON() : undefined,
-      headingId: this.getHeadingId(node),
+      headingId: this.getHeadingId(node, this.headingIds),
+      enableNestedHeaderLinks: isNestedHeaderLinksEnabled(
+        this.allowHeadingAnchorLinks,
+      ),
       showAnchorLink:
         this.allowHeadingAnchorLinks &&
         !this.disableHeadingIDs &&
@@ -469,11 +518,27 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
     };
   }
 
+  private getExpandProps(node: Node, path: Array<Node> = []) {
+    if (!isNestedHeaderLinksEnabled(this.allowHeadingAnchorLinks)) {
+      return this.getProps(node);
+    }
+
+    const nestedHeaderIds = findChildrenByType(
+      node,
+      node.type.schema.nodes.heading,
+    ).map(({ node }) => this.getHeadingId(node, this.expandHeadingIds));
+
+    return {
+      ...this.getProps(node),
+      nestedHeaderIds,
+    };
+  }
+
   // The return value of this function is NOT url encoded,
   // In HTML5 standard, id can contain any characters, encoding is no necessary.
   // Plus we trying to avoid double encoding, therefore we leave the value as is.
   // Remember to use encodeURIComponent when generating url from the id value.
-  private getHeadingId(node: Node) {
+  private getHeadingId(node: Node, headingIds: string[]) {
     if (this.disableHeadingIDs || !node.content.size) {
       return;
     }
@@ -490,22 +555,26 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
       return;
     }
 
-    return this.getUniqueHeadingId(nodeContent);
+    return this.getUniqueHeadingId(nodeContent, headingIds);
   }
 
-  private getUniqueHeadingId(baseId: string, counter = 0): string {
-    if (counter === 0 && this.headingIds.indexOf(baseId) === -1) {
-      this.headingIds.push(baseId);
+  private getUniqueHeadingId(
+    baseId: string,
+    headingIds: string[],
+    counter = 0,
+  ): string {
+    if (counter === 0 && headingIds.indexOf(baseId) === -1) {
+      headingIds.push(baseId);
       return baseId;
     } else if (counter !== 0) {
       const headingId = `${baseId}.${counter}`;
-      if (this.headingIds.indexOf(headingId) === -1) {
-        this.headingIds.push(headingId);
+      if (headingIds.indexOf(headingId) === -1) {
+        headingIds.push(headingId);
         return headingId;
       }
     }
 
-    return this.getUniqueHeadingId(baseId, ++counter);
+    return this.getUniqueHeadingId(baseId, headingIds, ++counter);
   }
 
   private getMarkProps = (mark: Mark): MarkMeta => {

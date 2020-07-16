@@ -264,14 +264,20 @@ const transformLegacyMacrosToExtensionManifest = (
     };
 
     nodes.default.getFieldsDefinition = () =>
-      Promise.resolve(
-        macro.formDetails.parameters.map(params =>
-          transformFormDetailsIntoFields(params, {
-            pluginKey: macro.pluginKey,
-            macroName: safeGetMacroName(macro),
-          }),
-        ),
-      );
+      new Promise(resolve => {
+        setTimeout(
+          () =>
+            resolve(
+              macro.formDetails.parameters.map(params =>
+                transformFormDetailsIntoFields(params, {
+                  pluginKey: macro.pluginKey,
+                  macroName: safeGetMacroName(macro),
+                }),
+              ),
+            ),
+          2000,
+        );
+      });
   }
 
   return {
@@ -282,6 +288,27 @@ const transformLegacyMacrosToExtensionManifest = (
     icons: buildIconObject(macro),
     modules: {
       quickInsert,
+      autoConvert: {
+        url: [
+          text => {
+            if (text.startsWith(`http://${extensionKey}-convert`)) {
+              return {
+                type: 'extension',
+                attrs: {
+                  extensionType,
+                  extensionKey,
+                  parameters: {
+                    macroParams: {
+                      url: text,
+                    },
+                  },
+                  layout: 'default',
+                },
+              };
+            }
+          },
+        ],
+      },
       nodes,
       fields: {
         custom: {

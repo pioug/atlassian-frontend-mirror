@@ -1,5 +1,12 @@
 # @atlaskit/media-client
 
+## 8.0.1
+
+### Patch Changes
+
+- [`b73317b63c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b73317b63c) - Increased polling interval for processing files
+- [`4543f920b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4543f920b0) - Disabled previews for redesign; fixed not initially showing a doc icon when uploading a document
+
 ## 8.0.0
 
 ### Major Changes

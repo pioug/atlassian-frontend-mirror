@@ -143,7 +143,9 @@ describe('BreadcrumbsItem', () => {
           />,
         ).find(Link);
         expect(actualComponent.length).toBe(1);
-        if (!expectedProps) throw new Error('no expected props');
+        if (!expectedProps) {
+          throw new Error('no expected props');
+        }
         Object.keys(expectedProps).forEach(expectedProp =>
           expect(
             Object.keys(actualComponent.props()).includes(expectedProp),

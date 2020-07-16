@@ -1,5 +1,11 @@
 # @atlaskit/navigation
 
+## 37.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 37.0.1
 
 ### Patch Changes

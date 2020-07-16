@@ -15,6 +15,7 @@ import {
   smartCardSharedStyles,
 } from '@atlaskit/editor-common';
 
+import { unsupportedStyles } from '../../plugins/unsupported-content/styles';
 import { telepointerStyle } from '../../plugins/collab-edit/styles';
 import { gapCursorStyles } from '../../plugins/gap-cursor/styles';
 import { tableStyles } from '../../plugins/table/ui/styles';
@@ -119,6 +120,7 @@ const ContentStyles: ComponentClass<HTMLAttributes<{}> & {
   ${smartCardSharedStyles}
   ${dateStyles}
   ${embedCardStyles}
+  ${unsupportedStyles}
 
   .panelView-content-wrap {
     box-sizing: border-box;

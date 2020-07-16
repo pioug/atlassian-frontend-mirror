@@ -2,6 +2,7 @@ import { Node as PMNode, ResolvedPos, Schema } from 'prosemirror-model';
 import { TableCssClassName } from '../table/types';
 import { Side } from './selection';
 import { closestElement } from '../../utils/dom';
+import { UnsupportedSharedCssClassName } from '../unsupported-content/styles';
 
 export const isLeftCursor = (side: Side): side is Side.LEFT =>
   side === Side.LEFT;
@@ -147,6 +148,14 @@ export const isIgnoredClick = (elem: HTMLElement) => {
     return (
       (rowControls && rowControls.contains(elem)) || isColumnControlsDecoration
     );
+  }
+
+  // Check if unsupported node selection
+  // (without this, selection requires double clicking in FF due to posAtCoords differences)
+  if (
+    closestElement(elem, `.${UnsupportedSharedCssClassName.BLOCK_CONTAINER}`)
+  ) {
+    return true;
   }
 
   return false;

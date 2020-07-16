@@ -57,11 +57,21 @@ const border = css<{ isHovered?: boolean }>`
 `;
 
 const getBorderColor = (props: IconWrapperProps) => {
-  if (props.isDisabled) return '';
-  if (props.isFocused) return focusBorder;
-  if (props.isActive) return activeBorder;
-  if (props.isInvalid) return invalidBorder;
-  if (props.isChecked) return checkedBorder;
+  if (props.isDisabled) {
+    return '';
+  }
+  if (props.isFocused) {
+    return focusBorder;
+  }
+  if (props.isActive) {
+    return activeBorder;
+  }
+  if (props.isInvalid) {
+    return invalidBorder;
+  }
+  if (props.isChecked) {
+    return checkedBorder;
+  }
   return border;
 };
 

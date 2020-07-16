@@ -11,7 +11,6 @@ export default () => {
     email: d.email,
     key: d.email,
     name: d.name,
-    href: '#',
     appearance: 'circle' as AppearanceType,
     size: 'medium' as SizeType,
   }));
@@ -24,6 +23,7 @@ export default () => {
           onAvatarClick={console.log}
           data={data}
           size="large"
+          testId="test"
         />
       </ExampleGroup>
       <ExampleGroup heading="Display as a Grid">
@@ -33,6 +33,7 @@ export default () => {
           data={data}
           maxCount={14}
           size="large"
+          testId="test"
         />
       </ExampleGroup>
     </div>

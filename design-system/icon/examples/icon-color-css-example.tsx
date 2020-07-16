@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { colors } from '@atlaskit/theme';
+import * as colors from '@atlaskit/theme/colors';
 import HomeCircleIcon from '../glyph/home-circle';
 
 const purple = '.purple { color: rebeccapurple; fill: yellow; }';

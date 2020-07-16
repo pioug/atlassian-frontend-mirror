@@ -75,7 +75,9 @@ class PopupWrapper extends Component<{}, PopupWrapperState> {
 
   componentWillUnmount() {
     const { popup } = this.state;
-    if (popup) popup.removeAllListeners();
+    if (popup) {
+      popup.removeAllListeners();
+    }
   }
 
   onUploadsStart = (data: UploadsStartEventPayload) => {
@@ -104,7 +106,9 @@ class PopupWrapper extends Component<{}, PopupWrapperState> {
   onShow = () => {
     const { popup } = this.state;
     // Synchronously with next command tenantAuthProvider will be requested.
-    if (popup) popup.show().catch(console.error);
+    if (popup) {
+      popup.show().catch(console.error);
+    }
   };
 
   renderCards = () => {

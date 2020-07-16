@@ -1,5 +1,15 @@
 # @atlaskit/adf-schema
 
+## 12.1.0
+
+### Minor Changes
+
+- [`b7c4fc3b08`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b7c4fc3b08) - Preseve unsupported mark from getting lost
+
+### Patch Changes
+
+- [`7c6dc39447`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7c6dc39447) - ED-9568 annotations are now preserved when copy/pasting; also updated general copy/paste behaviour to preserve formatting of the pasted content, so that e.g. copying italic text into bold will preserve both italic and bold.
+
 ## 12.0.0
 
 ### Major Changes

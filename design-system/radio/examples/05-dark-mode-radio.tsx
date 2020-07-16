@@ -1,6 +1,6 @@
 import React, { Component, SyntheticEvent } from 'react';
 
-import { AtlaskitThemeProvider } from '@atlaskit/theme';
+import { AtlaskitThemeProvider } from '@atlaskit/theme/components';
 
 import { RadioGroup } from '../src';
 

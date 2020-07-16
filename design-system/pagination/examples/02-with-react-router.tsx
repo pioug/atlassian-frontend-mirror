@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import { HashRouter, Link, Route, Switch } from 'react-router-dom';
 
-import { gridSize } from '@atlaskit/theme';
+import { gridSize } from '@atlaskit/theme/constants';
 
 import Pagination from '../src';
 

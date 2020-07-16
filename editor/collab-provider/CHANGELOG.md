@@ -1,5 +1,16 @@
 # @atlaskit/collab-provider
 
+## 3.1.0
+
+### Minor Changes
+
+- [`90a0d166b3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/90a0d166b3) - fix: pass the correct path to resolve the conflict with http
+- [`372494e25b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/372494e25b) - add path to collab provider
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.0.0
 
 ### Major Changes

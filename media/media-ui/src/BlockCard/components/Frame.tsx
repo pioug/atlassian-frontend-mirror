@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import React from 'react';
-import { N20A, N30A, B200, N50A, N60A } from '@atlaskit/theme/colors';
+import { N20A, N30A, B200, N40A, N50A } from '@atlaskit/theme/colors';
 
 import { gs, br, mq } from '../utils';
 
@@ -53,7 +53,7 @@ export const ExpandedFrame = ({
         border: `2px solid ${isSelected ? B200 : 'transparent'}`,
         justifyContent: 'space-between',
         overflow: 'hidden',
-        boxShadow: `0 1px 1px ${N50A}, 0 0 1px 0 ${N60A};`,
+        boxShadow: `0 1px 1px ${N50A}, 0 0 1px 1px ${N40A};`,
       })}
       data-testid={testId}
     >

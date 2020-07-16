@@ -35,9 +35,14 @@ export type ExtensionManifest = {
 };
 
 export type ExtensionModules = {
+  // define items to show up in the slash menu, element browser and plus menu
   quickInsert?: ExtensionModule[];
+  // define how to handle each type of node (update, render, config, etc)
   nodes?: ExtensionModuleNodes;
+  // define how to handle special fields used in config forms
   fields?: ExtensionModuleFields;
+  // define how/when to convert pasted content to this extension
+  autoConvert?: ExtensionModuleAutoConvert;
 };
 
 export type ExtensionModuleAction =
@@ -61,6 +66,14 @@ export type ExtensionModule = {
   keywords?: Array<string>;
   action: ExtensionModuleAction;
 };
+
+export type ExtensionModuleAutoConvert = {
+  url?: ExtensionAutoConvertHandler[];
+};
+
+export type ExtensionAutoConvertHandler = (
+  text: string,
+) => ADFEntity | undefined;
 
 export type ExtensionModuleFieldTypeCustom = {
   resolver?: FieldResolver;
@@ -101,10 +114,7 @@ export type ExtensionModuleNode<T = any> = {
   getFieldsDefinition?: (extensionParameters?: T) => Promise<FieldDefinition[]>;
 };
 
-export type ExtensionModuleType = Exclude<
-  keyof ExtensionModules,
-  'nodes' | 'fields'
->;
+export type ExtensionQuickInsertModule = 'quickInsert';
 
 export type ESModule<T> = {
   __esModule?: boolean;

@@ -1,5 +1,11 @@
 # @atlaskit/page-header
 
+## 10.0.1
+
+### Patch Changes
+
+- [`db053b24d8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/db053b24d8) - Update all the theme imports to be tree-shakable
+
 ## 10.0.0
 
 ### Major Changes

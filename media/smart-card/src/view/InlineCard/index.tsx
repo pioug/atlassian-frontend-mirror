@@ -27,21 +27,13 @@ export const InlineCard: FC<InlineCardProps> = ({
   const cardDetails = (details && details.data) || getEmptyJsonLd();
   switch (status) {
     case 'pending':
-      return (
-        <CardLinkView
-          link={url}
-          isSelected={isSelected}
-          onClick={handleFrameClick}
-          testId={`${testId}-${status}-view`}
-        />
-      );
     case 'resolving':
       return (
         <InlineCardResolvingView
           url={url}
           isSelected={isSelected}
           onClick={handleFrameClick}
-          testId={`${testId}-${status}-view`}
+          testId={`${testId}-resolving-view`}
         />
       );
     case 'resolved':

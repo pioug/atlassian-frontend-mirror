@@ -37,7 +37,7 @@ let wrapper: ShallowWrapper<any, any, ElementBrowser>;
 let instance: ElementBrowser;
 
 beforeEach(() => {
-  wrapper = shallow<ElementBrowser>(
+  wrapper = shallow(
     <ElementBrowser
       categories={testData.categories}
       quickInsertProvider={quickInsertProvider}
@@ -50,10 +50,6 @@ beforeEach(() => {
     />,
   );
   instance = wrapper.instance();
-});
-
-afterAll(() => {
-  wrapper.unmount();
 });
 
 describe('ElementBrowser', () => {

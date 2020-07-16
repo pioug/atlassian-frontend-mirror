@@ -30,11 +30,44 @@ import {
   startPositionOfParent,
 } from '../../../utils/prosemirror/position';
 import { isSupportedInParent } from '../../../utils/nodes';
+import {
+  InsertEventPayload,
+  ACTION,
+  ACTION_SUBJECT,
+  ACTION_SUBJECT_ID,
+  EVENT_TYPE,
+  addAnalytics,
+  InputMethodInsertMedia,
+} from '../../analytics';
 
 export interface Range {
   start: number;
   end: number;
 }
+
+const getInsertMediaGroupAnalytics = (
+  mediaState: MediaState[],
+  inputMethod?: InputMethodInsertMedia,
+): InsertEventPayload => {
+  let media = '';
+  if (mediaState.length === 1) {
+    media = mediaState[0].fileMimeType || 'unknown';
+  } else if (mediaState.length > 1) {
+    media = 'multiple';
+  }
+
+  return {
+    action: ACTION.INSERTED,
+    actionSubject: ACTION_SUBJECT.DOCUMENT,
+    actionSubjectId: ACTION_SUBJECT_ID.MEDIA,
+    attributes: {
+      type: ACTION_SUBJECT_ID.MEDIA_GROUP,
+      inputMethod,
+      fileExtension: media,
+    },
+    eventType: EVENT_TYPE.TRACK,
+  };
+};
 
 /**
  * Check if current editor selections is a media group or not.
@@ -86,6 +119,7 @@ export const insertMediaGroupNode = (
   view: EditorView,
   mediaStates: MediaState[],
   collection: string,
+  inputMethod?: InputMethodInsertMedia,
 ): void => {
   const { state, dispatch } = view;
   const { tr, schema } = state;
@@ -95,13 +129,11 @@ export const insertMediaGroupNode = (
   if (!media || !mediaStates.length) {
     return;
   }
-
   const mediaNodes = createMediaFileNodes(mediaStates, collection, media);
   const mediaInsertPos = findMediaInsertPos(state);
   const resolvedInsertPos = tr.doc.resolve(mediaInsertPos);
   const parent = resolvedInsertPos.parent;
   const nodeAtInsertionPoint = tr.doc.nodeAt(mediaInsertPos);
-
   const shouldSplit =
     !isSelectionMediaGroup(state) &&
     isSupportedInParent(
@@ -112,16 +144,12 @@ export const insertMediaGroupNode = (
     );
 
   const withParagraph = shouldAppendParagraph(state, nodeAtInsertionPoint);
-
   let content: PMNode[] =
     parent.type === schema.nodes.mediaGroup
       ? mediaNodes // If parent is a mediaGroup do not wrap items again.
       : [schema.nodes.mediaGroup.createChecked({}, mediaNodes)];
-
   if (shouldSplit) {
     content = withParagraph ? content.concat(paragraph.create()) : content;
-
-    // delete the selection or empty paragraph
     // delete the selection or empty paragraph
     const deleteRange = findDeleteRange(state);
     if (!deleteRange) {
@@ -137,6 +165,11 @@ export const insertMediaGroupNode = (
         deleteRange.end,
       );
     }
+    addAnalytics(
+      state,
+      tr,
+      getInsertMediaGroupAnalytics(mediaStates, inputMethod),
+    );
     dispatch(tr);
     setSelectionAfterMediaInsertion(view);
     return;
@@ -146,6 +179,11 @@ export const insertMediaGroupNode = (
   if (withParagraph && parent.type !== schema.nodes.mediaGroup) {
     content.push(paragraph.create());
   }
+  addAnalytics(
+    state,
+    tr,
+    getInsertMediaGroupAnalytics(mediaStates, inputMethod),
+  );
 
   dispatch(safeInsert(Fragment.fromArray(content), mediaInsertPos)(tr));
 };

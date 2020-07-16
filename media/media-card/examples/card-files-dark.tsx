@@ -9,7 +9,7 @@ import {
 } from '@atlaskit/media-test-helpers';
 
 // @ts-ignore
-import { AtlaskitThemeProvider } from '@atlaskit/theme';
+import { AtlaskitThemeProvider } from '@atlaskit/theme/components';
 import { FileIdentifier } from '@atlaskit/media-client';
 import { Card } from '../src';
 import { createApiCards, actions } from '../example-helpers';

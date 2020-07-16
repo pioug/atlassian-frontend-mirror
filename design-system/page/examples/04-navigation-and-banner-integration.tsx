@@ -41,8 +41,12 @@ export default class NavigationExample extends Component<void, State> {
       : 0;
 
     let offset = 0;
-    if (isErrorBannerOpen) offset += errorBannerHeight;
-    if (isAnnouncementBannerOpen) offset += announcementBannerHeight;
+    if (isErrorBannerOpen) {
+      offset += errorBannerHeight;
+    }
+    if (isAnnouncementBannerOpen) {
+      offset += announcementBannerHeight;
+    }
     return offset;
   };
 

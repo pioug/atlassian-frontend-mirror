@@ -4,6 +4,7 @@ import { N40 } from '@atlaskit/theme/colors';
 import DownloadIcon from '@atlaskit/icon/glyph/download';
 import Button from '@atlaskit/button';
 import { messages } from '@atlaskit/media-ui';
+import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 interface Props {
   onClick: (event: React.MouseEvent<HTMLElement>) => void;
@@ -19,7 +20,19 @@ const MediaDownloadButton = (props: Props & InjectedIntlProps) => {
     <Button
       appearance="subtle"
       iconAfter={<DownloadIcon label={formatMessage(messages.download)} />}
-      onClick={onClick}
+      onClick={(
+        event: React.MouseEvent<HTMLElement>,
+        analyticsEvent: UIAnalyticsEvent,
+      ) => {
+        analyticsEvent
+          .update(payload => ({
+            ...payload,
+            actionSubjectId: 'mediaTableDownload',
+          }))
+          .fire();
+
+        onClick(event);
+      }}
       theme={(current, themeProps) => ({
         buttonStyles: {
           ...current(themeProps).buttonStyles,

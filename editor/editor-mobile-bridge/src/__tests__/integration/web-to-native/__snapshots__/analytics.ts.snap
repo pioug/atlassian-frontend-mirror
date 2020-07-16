@@ -2,23 +2,21 @@
 
 exports[`editor: calls analyticsBridge.trackEvent when analytics events are captured 1`] = `
 Array [
-  Object {
-    "event": "{\\"source\\":\\"unknown\\",\\"action\\":\\"started\\",\\"actionSubject\\":\\"editor\\",\\"attributes\\":{\\"packageName\\":\\"@atlaskit/editor-core\\",\\"packageVersion\\":\\"999.9.9\\",\\"componentName\\":\\"editorCore\\",\\"appearance\\":\\"mobile\\",\\"platform\\":\\"web\\",\\"featureFlags\\":[\\"newInsertionBehaviour\\",\\"interactiveExpand\\"]},\\"tags\\":[\\"editor\\",\\"fabricEditor\\"],\\"eventType\\":\\"ui\\"}",
-  },
-  Object {
-    "event": "{\\"source\\":\\"unknown\\",\\"action\\":\\"formatted\\",\\"actionSubject\\":\\"text\\",\\"actionSubjectId\\":\\"bulletedList\\",\\"attributes\\":{\\"packageName\\":\\"@atlaskit/editor-core\\",\\"packageVersion\\":\\"999.9.9\\",\\"componentName\\":\\"editorCore\\",\\"appearance\\":\\"mobile\\",\\"inputMethod\\":\\"autoformatting\\"},\\"tags\\":[\\"editor\\",\\"fabricEditor\\"],\\"eventType\\":\\"track\\"}",
-  },
+  Array [
+    Object {
+      "event": "{\\"source\\":\\"unknown\\",\\"action\\":\\"started\\",\\"actionSubject\\":\\"editor\\",\\"attributes\\":{\\"packageName\\":\\"@atlaskit/editor-core\\",\\"packageVersion\\":\\"999.9.9\\",\\"componentName\\":\\"editorCore\\",\\"appearance\\":\\"mobile\\",\\"platform\\":\\"web\\",\\"featureFlags\\":[\\"newInsertionBehaviour\\",\\"interactiveExpand\\"]},\\"tags\\":[\\"editor\\",\\"fabricEditor\\"],\\"eventType\\":\\"ui\\"}",
+    },
+  ],
 ]
 `;
 
 exports[`editor: calls analyticsBridge.trackEvent when analytics events are captured 2`] = `
 Array [
-  Object {
-    "event": "{\\"source\\":\\"unknown\\",\\"action\\":\\"started\\",\\"actionSubject\\":\\"editor\\",\\"attributes\\":{\\"packageName\\":\\"@atlaskit/editor-core\\",\\"packageVersion\\":\\"999.9.9\\",\\"componentName\\":\\"editorCore\\",\\"appearance\\":\\"mobile\\",\\"platform\\":\\"web\\",\\"featureFlags\\":[\\"newInsertionBehaviour\\",\\"interactiveExpand\\"]},\\"tags\\":[\\"editor\\",\\"fabricEditor\\"],\\"eventType\\":\\"ui\\"}",
-  },
-  Object {
-    "event": "{\\"source\\":\\"unknown\\",\\"action\\":\\"formatted\\",\\"actionSubject\\":\\"text\\",\\"actionSubjectId\\":\\"bulletedList\\",\\"attributes\\":{\\"packageName\\":\\"@atlaskit/editor-core\\",\\"packageVersion\\":\\"999.9.9\\",\\"componentName\\":\\"editorCore\\",\\"appearance\\":\\"mobile\\",\\"inputMethod\\":\\"autoformatting\\"},\\"tags\\":[\\"editor\\",\\"fabricEditor\\"],\\"eventType\\":\\"track\\"}",
-  },
+  Array [
+    Object {
+      "event": "{\\"source\\":\\"unknown\\",\\"action\\":\\"started\\",\\"actionSubject\\":\\"editor\\",\\"attributes\\":{\\"packageName\\":\\"@atlaskit/editor-core\\",\\"packageVersion\\":\\"999.9.9\\",\\"componentName\\":\\"editorCore\\",\\"appearance\\":\\"mobile\\",\\"platform\\":\\"web\\",\\"featureFlags\\":[\\"newInsertionBehaviour\\",\\"interactiveExpand\\"]},\\"tags\\":[\\"editor\\",\\"fabricEditor\\"],\\"eventType\\":\\"ui\\"}",
+    },
+  ],
 ]
 `;
 

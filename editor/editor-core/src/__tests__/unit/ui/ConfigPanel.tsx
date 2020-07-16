@@ -21,7 +21,9 @@ import { FieldTypeError, ValidationError } from '../../../ui/ConfigPanel/types';
 import { validate } from '../../../ui/ConfigPanel/utils';
 import ConfigPanel from '../../../ui/ConfigPanel';
 
-const createManifest = (testFields: FieldDefinition[]): ExtensionManifest => {
+const createManifest = (
+  testFields: (() => Promise<FieldDefinition[]>) | FieldDefinition[],
+): ExtensionManifest => {
   const key = 'test-item';
 
   const quickInsert: ExtensionModule[] = [
@@ -41,7 +43,10 @@ const createManifest = (testFields: FieldDefinition[]): ExtensionManifest => {
     [key]: {
       type: 'extension',
       render: () => Promise.resolve(() => null),
-      getFieldsDefinition: () => Promise.resolve(testFields),
+      getFieldsDefinition: () =>
+        typeof testFields === 'function'
+          ? testFields()
+          : Promise.resolve(testFields),
     },
   };
 
@@ -93,7 +98,9 @@ const createManifest = (testFields: FieldDefinition[]): ExtensionManifest => {
   };
 };
 
-const createProvider = (fields: FieldDefinition[]) => {
+const createProvider = (
+  fields: (() => Promise<FieldDefinition[]>) | FieldDefinition[],
+) => {
   return combineExtensionProviders([
     new DefaultExtensionProvider([createManifest(fields)]),
   ]);
@@ -212,6 +219,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
       let onChange = jest.fn();
 
       const defaultProps = {
+        showHeader: true,
         onCancel: noop,
         onChange,
         autoSave,
@@ -224,6 +232,69 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
 
       afterEach(() => {
         onChange.mockClear();
+      });
+
+      describe('UI States', () => {
+        describe('Loading', () => {
+          it('should show a spinner before the manifest is loaded', async () => {
+            const provider = createProvider([]);
+
+            // never resolves the manifest
+            provider.getExtension = () => new Promise(resolve => {});
+
+            const wrapper = mount(
+              <IntlProvider locale="en">
+                <ConfigPanel {...defaultProps} extensionProvider={provider} />
+              </IntlProvider>,
+            );
+
+            await flushPromises();
+
+            wrapper.update();
+
+            expect(wrapper.find('LoadingState')).toHaveLength(1);
+          });
+
+          it('should show a spinner and the title while loading fields', async () => {
+            const extensionProvider = createProvider(
+              () => new Promise(() => {}),
+            );
+
+            const mountResult = await mountWithProviders({
+              ...defaultProps,
+              extensionProvider,
+            });
+
+            const header = await eventuallyFind(mountResult.wrapper, 'Header');
+
+            expect(header.props().title).toBe('Editor test extensions');
+            expect(mountResult.wrapper.find('LoadingState')).toHaveLength(1);
+          });
+        });
+
+        describe('Error', () => {
+          it('should show an error message if it fails to load the fields', async () => {
+            const extensionProvider = createProvider(() =>
+              Promise.reject(new Error('Error loading fields')),
+            );
+
+            const mountResult = await mountWithProviders({
+              ...defaultProps,
+              extensionProvider,
+            });
+
+            const header = await eventuallyFind(mountResult.wrapper, 'Header');
+            const errorMessage = await eventuallyFind(
+              mountResult.wrapper,
+              'ConfigPanelErrorMessage',
+            );
+
+            expect(header.props().title).toBe('Editor test extensions');
+            expect(errorMessage.props().errorMessage).toBe(
+              'Error loading fields',
+            );
+          });
+        });
       });
 
       describe('Native types', () => {

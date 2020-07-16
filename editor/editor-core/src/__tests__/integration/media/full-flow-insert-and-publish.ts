@@ -108,7 +108,7 @@ async function assertCustomMediaPlayerIsPlaying(page: FullPageEditor) {
 // Skipping IE because editor doesn't load properly and media button is not activated on time.
 // Skipping Edge because sometimes it fails due to "The uploadFile command is not available in msedge". (comms via email with support with Browserstack atm)
 const skipVersions: Parameters<typeof BrowserTestCase>[1] = {
-  skip: ['ie', 'safari', 'edge'],
+  skip: ['safari', 'edge'],
 };
 
 BrowserTestCase(

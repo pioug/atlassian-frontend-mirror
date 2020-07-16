@@ -26,7 +26,7 @@ import messages from '../../../messages';
 
 BrowserTestCase(
   'Avoid overflow when table scale to wide',
-  { skip: ['edge', 'ie', 'safari', 'firefox'] },
+  { skip: ['edge', 'safari', 'firefox'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
 
@@ -48,7 +48,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'Avoid overflow when table scale to full width',
-  { skip: ['ie', 'edge', 'safari', 'firefox'] },
+  { skip: ['edge', 'safari', 'firefox'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
 
@@ -70,7 +70,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'Maintains the wide layout size without overflow',
-  { skip: ['edge', 'ie', 'firefox', 'safari'] },
+  { skip: ['edge', 'firefox', 'safari'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
 
@@ -92,7 +92,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'Maintains the wide layout size without overflow with dynamic text sizing',
-  { skip: ['ie', 'edge', 'safari', 'firefox'] },
+  { skip: ['edge', 'safari', 'firefox'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
 
@@ -115,7 +115,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'Maintains the full-width layout size without overflow',
-  { skip: ['edge', 'ie', 'firefox', 'safari'] },
+  { skip: ['edge', 'firefox', 'safari'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
 
@@ -137,7 +137,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'Maintains the default layout size without overflow when toggling through layouts',
-  { skip: ['ie', 'edge', 'safari', 'firefox'] },
+  { skip: ['edge', 'safari', 'firefox'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
 
@@ -159,7 +159,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'Scales down column sizes when bodied extension parent layout changes',
-  { skip: ['ie', 'edge', 'firefox', 'safari'] },
+  { skip: ['edge', 'firefox', 'safari'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
 
@@ -193,7 +193,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'Scales down column sizes when parent layout changes breakout',
-  { skip: ['ie', 'edge', 'firefox', 'safari'] },
+  { skip: ['edge', 'firefox', 'safari'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
 

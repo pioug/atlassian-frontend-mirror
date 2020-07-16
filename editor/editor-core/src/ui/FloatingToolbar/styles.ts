@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 import { HTMLAttributes, ComponentClass } from 'react';
-import { colors, borderRadius } from '@atlaskit/theme';
+import { borderRadius } from '@atlaskit/theme/constants';
+import { N0 } from '@atlaskit/theme/colors';
 import { dropShadow } from '../styles';
 
 export const Container: ComponentClass<HTMLAttributes<{}> & {
@@ -12,7 +13,7 @@ export const Container: ComponentClass<HTMLAttributes<{}> & {
   align-items: center;
   box-sizing: border-box;
   padding: 4px 8px;
-  background-color: ${colors.N0};
+  background-color: ${N0};
   ${({ height }: { height?: number }) =>
     height
       ? css`

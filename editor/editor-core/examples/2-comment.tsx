@@ -137,8 +137,8 @@ class CommentEditorWithFeedbackComponent extends React.Component<Props, State> {
                     emojiProvider={emojiProvider}
                     media={{
                       provider: mediaProvider,
-                      allowMediaSingle: enabledFeatures.imageResizing,
-                      allowResizing: enabledFeatures.imageResizing,
+                      allowMediaSingle: true,
+                      allowResizing: true,
                     }}
                     allowDynamicTextSizing={enabledFeatures.dynamicTextSizing}
                     taskDecisionProvider={taskDecisionProvider}

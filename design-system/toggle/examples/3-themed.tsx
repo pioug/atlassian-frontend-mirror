@@ -1,7 +1,8 @@
 import React from 'react';
 
 import Button from '@atlaskit/button';
-import { AtlaskitThemeProvider, gridSize } from '@atlaskit/theme';
+import { AtlaskitThemeProvider } from '@atlaskit/theme/components';
+import { gridSize } from '@atlaskit/theme/constants';
 
 import Toggle from '../src';
 

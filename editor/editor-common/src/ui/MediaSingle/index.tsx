@@ -90,10 +90,16 @@ export default function MediaSingle({
       data-width={pctWidth}
       data-block-link={blockLink}
       hasFallbackContainer={hasFallbackContainer}
-      className={classnames('rich-media-item', `image-${layout}`, className, {
-        'is-loading': isLoading,
-        'rich-media-wrapped': layout === 'wrap-left' || layout === 'wrap-right',
-      })}
+      className={classnames(
+        'rich-media-item mediaSingleView-content-wrap',
+        `image-${layout}`,
+        className,
+        {
+          'is-loading': isLoading,
+          'rich-media-wrapped':
+            layout === 'wrap-left' || layout === 'wrap-right',
+        },
+      )}
     >
       {React.Children.only(children)}
     </Wrapper>

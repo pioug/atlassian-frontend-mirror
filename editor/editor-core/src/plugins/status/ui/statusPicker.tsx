@@ -11,7 +11,8 @@ import {
   StatusPicker as AkStatusPicker,
   ColorType as Color,
 } from '@atlaskit/status/picker';
-import { borderRadius, colors, gridSize } from '@atlaskit/theme';
+import { borderRadius, gridSize } from '@atlaskit/theme/constants';
+import { N0 } from '@atlaskit/theme/colors';
 
 import { dropShadow } from '../../../ui/styles';
 import withOuterListeners from '../../../ui/with-outer-listeners';
@@ -48,7 +49,7 @@ export interface State {
 }
 
 const PickerContainer = styled.div`
-  background: ${colors.N0};
+  background: ${N0};
   padding: ${gridSize()}px 0;
   border-radius: ${borderRadius()}px;
   ${dropShadow};

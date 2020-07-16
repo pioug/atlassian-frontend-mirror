@@ -13,7 +13,7 @@ import { selectors } from './_utils';
 
 BrowserTestCase(
   'quick-insert.ts: Insert panel via quick insert',
-  { skip: ['edge', 'ie'] },
+  { skip: ['edge'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
     await mountEditor(page, {

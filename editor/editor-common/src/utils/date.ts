@@ -78,7 +78,7 @@ export const timestampToIsoFormat = (timestamp: string | number): string => {
 export const isPastDate = (timestamp: string | number): boolean => {
   return isBefore(
     timestampToIsoFormat(Number(timestamp)),
-    timestampToIsoFormat(new Date().valueOf()),
+    timestampToIsoFormat(Number(todayTimestampInUTC())),
   );
 };
 
@@ -95,6 +95,7 @@ export const timestampToTaskContext = (
     return capitalizeFirstLetter(
       intl.formatRelative(givenDate, {
         units: 'day',
+        now: Number(todayTimestampInUTC()),
       }),
     );
   }

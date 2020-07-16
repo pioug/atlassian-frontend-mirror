@@ -13,7 +13,9 @@ export {
 export { ExtensionProvider } from './extension-provider';
 
 export {
-  ExtensionModuleType,
+  ExtensionAutoConvertHandler,
+  Deserializer,
+  ExtensionQuickInsertModule,
   ExtensionModuleNode,
   ExtensionModuleNodes,
   ExtensionManifest,
@@ -24,11 +26,11 @@ export {
   ExtensionModuleActionObject,
   ExtensionModuleActionHandler,
   ExtensionModuleAction,
-  MaybeADFEntity,
+  ExtensionModuleAutoConvert,
   FieldResolver,
-  Serializer,
-  Deserializer,
   Icon,
+  MaybeADFEntity,
+  Serializer,
 } from './extension-manifest';
 
 export { Parameters } from './extension-parameters';

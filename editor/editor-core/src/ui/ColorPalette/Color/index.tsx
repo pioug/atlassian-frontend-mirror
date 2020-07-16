@@ -2,7 +2,7 @@ import React from 'react';
 import { PureComponent } from 'react';
 import { defineMessages, injectIntl, InjectedIntlProps } from 'react-intl';
 import EditorDoneIcon from '@atlaskit/icon/glyph/editor/done';
-import { colors } from '@atlaskit/theme';
+import { N0 } from '@atlaskit/theme/colors';
 import { Button, ButtonWrapper } from './styles';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -33,7 +33,7 @@ class Color extends PureComponent<Props & InjectedIntlProps> {
       label,
       isSelected,
       borderColor,
-      checkMarkColor = colors.N0,
+      checkMarkColor = N0,
       intl: { formatMessage },
     } = this.props;
 

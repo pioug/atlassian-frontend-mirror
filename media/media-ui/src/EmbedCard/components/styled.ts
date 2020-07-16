@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 import { size as csssize } from '../../mixins';
-import { colors, fontFamily } from '@atlaskit/theme';
+import { fontFamily } from '@atlaskit/theme/constants';
+import * as colors from '@atlaskit/theme/colors';
 import { borderRadius, size, ellipsis } from '../../mixins';
 import { gs as gridSize } from '../../BlockCard/utils';
 

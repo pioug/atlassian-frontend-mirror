@@ -41,7 +41,9 @@ export default class ClickAreaMobile extends React.Component<Props> {
 
   private handleClick = (event: React.MouseEvent<any>) => {
     const { editorView: view } = this.props;
-    if (!view) return;
+    if (!view) {
+      return;
+    }
 
     // The scroll gutter plugin's element sits beneath the editor so any clicks lower
     // than the bottom of the editor can be considered suitable for inserttion and refocusing.
@@ -62,8 +64,9 @@ export default class ClickAreaMobile extends React.Component<Props> {
 
       // Reset the default prosemirror scrollIntoView logic by
       // clamping the scroll position to the bottom of the viewport.
-      if (this.clickElementRef.current)
+      if (this.clickElementRef.current) {
         this.clickElementRef.current.scrollIntoView(false);
+      }
     }
   };
 

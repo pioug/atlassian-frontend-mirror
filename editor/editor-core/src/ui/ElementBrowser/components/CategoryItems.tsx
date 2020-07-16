@@ -1,7 +1,7 @@
 import React, { memo, useCallback } from 'react';
 import styled, { css, ThemeProvider } from 'styled-components';
 import { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
-import { colors } from '@atlaskit/theme';
+import { N200 } from '@atlaskit/theme/colors';
 import Item from '@atlaskit/item';
 import { withAnalyticsContext } from '@atlaskit/analytics-next';
 import { Shortcut } from '../../styles';
@@ -73,9 +73,12 @@ function CategoryItems({ items, mode, ...props }: Props) {
 }
 
 const getItemWidthForContainer = (clientWidth?: number) => {
-  if (clientWidth == null) return '33%';
-  if (clientWidth < FLEX_ITEMS_CONTAINER_BREAKPOINT_NUMBERS.small)
+  if (clientWidth == null) {
+    return '33%';
+  }
+  if (clientWidth < FLEX_ITEMS_CONTAINER_BREAKPOINT_NUMBERS.small) {
     return '100%';
+  }
   if (
     clientWidth >= FLEX_ITEMS_CONTAINER_BREAKPOINT_NUMBERS.small &&
     clientWidth < FLEX_ITEMS_CONTAINER_BREAKPOINT_NUMBERS.medium
@@ -88,8 +91,9 @@ const getItemWidthForContainer = (clientWidth?: number) => {
   ) {
     return '33%';
   }
-  if (clientWidth >= FLEX_ITEMS_CONTAINER_BREAKPOINT_NUMBERS.large)
+  if (clientWidth >= FLEX_ITEMS_CONTAINER_BREAKPOINT_NUMBERS.large) {
     return '25%';
+  }
 };
 
 type CategoryItemType = {
@@ -106,7 +110,9 @@ function CategoryItem({
   const onClick = useCallback(() => onSelectItem(item), [item, onSelectItem]);
   const onKeyPress = useCallback(
     (e: KeyboardEvent) => {
-      if (e.key !== 'Enter') return;
+      if (e.key !== 'Enter') {
+        return;
+      }
       onEnterKeyPress(item);
     },
     [item, onEnterKeyPress],
@@ -184,7 +190,7 @@ const ItemDescription = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
   font-size: 11.67px;
-  color: ${colors.N200};
+  color: ${N200};
   margin-top: ${GRID_SIZE / 2}px;
 `;
 

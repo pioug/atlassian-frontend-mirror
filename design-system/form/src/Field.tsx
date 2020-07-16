@@ -57,6 +57,7 @@ export interface Meta {
   valid: boolean;
   error?: string;
   submitError?: boolean;
+  validating?: boolean;
 }
 
 interface Props<FieldValue, Element extends SupportedElements> {
@@ -171,6 +172,7 @@ function Field<
       dirtySinceLastSubmit: false,
       touched: false,
       valid: false,
+      validating: false,
       submitting: false,
       submitFailed: false,
       error: undefined,
@@ -211,6 +213,7 @@ function Field<
         submitFailed: value.submitFailed || false,
         error: value.error,
         submitError: value.submitError,
+        validating: !!value.validating,
       };
     }
 
@@ -282,7 +285,7 @@ function Field<
             onFocus: fieldState.focus,
             value: fieldState.value!,
           },
-          error: modifiedError,
+          error: modifiedError || undefined,
           /**
            * The following parameters are optionally typed in final-form to indicate that not all parameters need
            * to be subscribed to. We cast them as booleans (using || false), since this is what they are semantically.
@@ -301,6 +304,7 @@ function Field<
         value: true,
         error: true,
         submitError: true,
+        validating: true,
       },
       {
         getValidator: () =>

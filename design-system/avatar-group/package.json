@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/avatar-group",
-  "version": "7.0.1",
+  "version": "8.0.0",
   "description": "An avatar group displays a number of avatars grouped together in a stack or grid.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -24,16 +24,16 @@
     }
   },
   "dependencies": {
-    "@atlaskit/avatar": "^19.0.0",
-    "@atlaskit/dropdown-menu": "^10.0.0",
-    "@atlaskit/item": "^12.0.0",
+    "@atlaskit/avatar": "^20.0.0",
+    "@atlaskit/menu": "^0.5.0",
+    "@atlaskit/popup": "^0.6.0",
     "@atlaskit/theme": "^10.0.0",
     "@atlaskit/tooltip": "^16.0.0",
+    "@emotion/core": "^10.0.9",
     "tslib": "^1.9.3"
   },
   "peerDependencies": {
-    "react": "^16.8.0",
-    "styled-components": "^3.2.6"
+    "react": "^16.8.0"
   },
   "devDependencies": {
     "@atlaskit/build-utils": "*",
@@ -45,6 +45,7 @@
     "@atlaskit/ssr": "*",
     "@atlaskit/toggle": "^10.0.0",
     "@atlaskit/visual-regression": "*",
+    "@emotion/styled": "^10.0.7",
     "@testing-library/react": "^8.0.1",
     "react-dom": "^16.8.0",
     "wait-for-expect": "^1.2.0"
@@ -57,6 +58,20 @@
   "techstack": {
     "@atlassian/frontend": {
       "import-structure": "atlassian-conventions"
+    },
+    "@repo/internal": {
+      "ui-components": [
+        "lite-mode"
+      ],
+      "analytics": [
+        "analytics-next"
+      ],
+      "theming": [
+        "new-theming-api"
+      ],
+      "deprecation": [
+        "no-deprecated-imports"
+      ]
     }
   }
 }

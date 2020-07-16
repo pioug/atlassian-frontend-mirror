@@ -17,7 +17,8 @@ export default md`
   SpotlightManager,
   SpotlightTarget,
   SpotlightTransition,
-  SpotlightPulse
+  SpotlightPulse,
+  useSpotlight
 } from '@atlaskit/onboarding';`}
 
   ## Spotlight
@@ -43,7 +44,7 @@ export default md`
   ## SpotlightCard
 
   The example below the number of appearances.
-  
+
   If you need to include more than one action, make sure the primary action is listed first. It will automatically be displayed on the right-hand side, but it will still recieve focus before the secondary action.
 
   ${(

@@ -147,7 +147,7 @@ export {
 // Used in editor-test-helpers
 export { setTextSelection } from './utils';
 export { ReactEditorView } from './create-editor';
-export { getDefaultPluginsList } from './create-editor/create-plugins-list';
+export { getDefaultPresetOptionsFromEditorProps } from './create-editor';
 export { Command, EditorPlugin, EditorProps, EditorInstance } from './types';
 export { default as EditorActions } from './actions';
 // Re-export from provider factory to not cause a breaking change

@@ -1,4 +1,4 @@
-import { AnalyticsEvent } from '@atlaskit/analytics-next';
+import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 export type AvatarSizeMap = Record<SizeType, number>;
 export type AppearanceType = 'circle' | 'square';
@@ -13,7 +13,7 @@ export type SizeType =
 
 export type IndicatorSizeType = 'small' | 'medium' | 'large' | 'xlarge';
 
-export type AvatarClickType = (
+export type AvatarClickEventHandler = (
   event: React.MouseEvent,
-  analyticsEvent?: AnalyticsEvent,
+  analyticsEvent?: UIAnalyticsEvent,
 ) => void;

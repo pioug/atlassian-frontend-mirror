@@ -57,7 +57,7 @@ export class Preset<T extends { name: string }> {
 
   private removeExcludedPlugins(plugins: Array<T>, excludes?: Set<string>) {
     if (excludes) {
-      return plugins.filter(plugin => !excludes.has(plugin.name));
+      return plugins.filter(plugin => !plugin || !excludes.has(plugin.name));
     }
     return plugins;
   }
@@ -99,7 +99,7 @@ export type PluginConfig<PluginFactory, T> = PluginFactory extends (
 ) => T
   ? Exclude<unknown, Args> extends never
     ? PluginFactory | [PluginFactory]
-    : Args extends undefined
-    ? PluginFactory | [PluginFactory] | [PluginFactory, Args]
-    : [PluginFactory, Args]
+    : Exclude<Args, Exclude<Args, undefined>> extends never
+    ? [PluginFactory, Args]
+    : PluginFactory | [PluginFactory] | [PluginFactory, Args]
   : never;

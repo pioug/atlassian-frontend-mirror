@@ -19,9 +19,15 @@ const colorOptions = {
 
 const getBgColor = ({ isChecked, isDisabled, ...rest }: StyledProps) => {
   let color = colorOptions.bgUnchecked;
-  if (isChecked) color = colorOptions.bgChecked;
-  if (isDisabled && !isChecked) color = colorOptions.bgUncheckedDisabled;
-  if (isDisabled && isChecked) color = colorOptions.bgCheckedDisabled;
+  if (isChecked) {
+    color = colorOptions.bgChecked;
+  }
+  if (isDisabled && !isChecked) {
+    color = colorOptions.bgUncheckedDisabled;
+  }
+  if (isDisabled && isChecked) {
+    color = colorOptions.bgCheckedDisabled;
+  }
 
   return color(rest);
 };

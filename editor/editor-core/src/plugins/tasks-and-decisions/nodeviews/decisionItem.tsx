@@ -8,12 +8,22 @@ import { ForwardRef, getPosHandler, ReactNodeView } from '../../../nodeviews';
 import { PortalProviderAPI } from '../../../ui/PortalProvider';
 import { selectNode } from '../../../utils/commands';
 import DecisionItem from '../ui/Decision';
+import { createSelectionAwareClickHandler } from '../../../nodeviews/utils';
 
 class Decision extends ReactNodeView {
+  clickHandler?: (event: Event) => false | void;
+  clickCleanup?: () => void;
+
   init() {
     super.init();
     if (this.dom) {
-      this.dom.addEventListener('click', this.handleClick);
+      const { handler, cleanup } = createSelectionAwareClickHandler(
+        this.dom,
+        this.handleClick,
+      );
+      this.clickHandler = handler;
+      this.clickCleanup = cleanup;
+      this.dom.addEventListener('click', this.clickHandler);
     }
     return this;
   }
@@ -83,7 +93,9 @@ class Decision extends ReactNodeView {
 
   destroy() {
     if (this.dom) {
-      this.dom.removeEventListener('click', this.handleClick);
+      this.clickHandler &&
+        this.dom.removeEventListener('click', this.clickHandler);
+      this.clickCleanup && this.clickCleanup();
     }
     super.destroy();
   }

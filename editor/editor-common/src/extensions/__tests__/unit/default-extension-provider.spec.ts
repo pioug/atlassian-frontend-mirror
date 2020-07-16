@@ -1,5 +1,9 @@
-import { createFakeExtensionManifest } from '@atlaskit/editor-test-helpers/extensions';
+import {
+  createFakeAutoConvertModule,
+  createFakeExtensionManifest,
+} from '@atlaskit/editor-test-helpers/extensions';
 
+import { createAutoConverterRunner } from '../../../extensions/module-helpers';
 import DefaultExtensionProvider from '../../default-extension-provider';
 
 describe('default-extension-provider', () => {
@@ -62,5 +66,115 @@ describe('default-extension-provider', () => {
       confluenceAmazingMacro,
     ]);
     expect(await extensionProvider.search('none')).toEqual([]);
+  });
+
+  test('should work when no auto aconvert handlers are passed', async () => {
+    const autoConvertHandlers = await extensionProvider.getAutoConverter();
+    const runner = createAutoConverterRunner(autoConvertHandlers);
+
+    expect(runner('anything')).toStrictEqual(undefined);
+  });
+
+  test('should be able to get the auto convert handlers', async () => {
+    const confluenceAwesomeMacroWithAutoConvert = createFakeAutoConvertModule(
+      confluenceAwesomeMacro,
+      'url',
+      ['foo', 'bar'],
+    );
+
+    const confluenceAmazingMacroWithAutoConvert = createFakeAutoConvertModule(
+      confluenceAmazingMacro,
+      'url',
+      ['baz'],
+    );
+
+    const extensionProviderWithAutoConvert = new DefaultExtensionProvider([
+      confluenceAwesomeMacroWithAutoConvert,
+      confluenceAmazingMacroWithAutoConvert,
+    ]);
+
+    const autoConvertHandlers = await extensionProviderWithAutoConvert.getAutoConverter();
+
+    const runner = createAutoConverterRunner(autoConvertHandlers);
+
+    [
+      'http://awesome-foo/test',
+      'http://awesome-bar/bear',
+      'http://amazing-baz/app',
+    ].forEach(url => {
+      const result = runner(url);
+      expect(result).toBeDefined();
+      expect(result).toMatchObject({
+        type: 'extension',
+        attrs: {
+          parameters: {
+            url,
+          },
+        },
+      });
+    });
+
+    expect(runner('unknown')).toStrictEqual(undefined);
+  });
+
+  test('should be able to pass a pre defined auto convert handler to the provider, this can be used for performance reasons or to support legacy converters', async () => {
+    const extensionProviderWithCustomAutoConvertHandler = new DefaultExtensionProvider(
+      [confluenceAwesomeMacro, confluenceAmazingMacro],
+      [
+        (url: string) => {
+          if (url.startsWith('http://jira-legacy-macro/jira-roadmap')) {
+            return {
+              type: 'extension',
+              attrs: {
+                extensionType: 'confluence.macro',
+                extensionKey: 'jira-roadmap',
+                text: 'Jira Roadmap',
+                parameters: {
+                  url,
+                },
+              },
+            };
+          }
+        },
+        (url: string) => {
+          if (url.startsWith('http://jira-legacy-macro/jira-issue')) {
+            return {
+              type: 'extension',
+              attrs: {
+                extensionType: 'confluence.macro',
+                extensionKey: 'jira-issue',
+                text: 'Jira Roadmap',
+                parameters: {
+                  url,
+                },
+              },
+            };
+          }
+        },
+      ],
+    );
+    const autoConvertHandlers = await extensionProviderWithCustomAutoConvertHandler.getAutoConverter();
+
+    const runner = createAutoConverterRunner(autoConvertHandlers);
+
+    [
+      'http://jira-legacy-macro/jira-roadmap/1234',
+      'http://jira-legacy-macro/jira-issue/1234',
+    ].forEach(url => {
+      const result = runner(url);
+      expect(result).toBeDefined();
+      expect(result).toMatchObject({
+        type: 'extension',
+        attrs: {
+          parameters: {
+            url,
+          },
+        },
+      });
+    });
+
+    expect(
+      runner('http://jira-legacy-macro/jira-service-desk'),
+    ).not.toBeDefined();
   });
 });

@@ -209,24 +209,33 @@ describe('extension toolbar', () => {
         expect(pluginState.showEditButton).toBeTruthy();
       });
 
-      it('should not show the edit button when update method is not provided', async () => {
+      it('should not show the edit button if extension is coming from a manifest and update method is not provided', async () => {
         const extensionProvider = createFakeExtensionProvider(
-          'fake.confluence',
+          'macro.from.manifest',
           'expand',
           ExtensionHandlerComponent,
         );
+
+        const openMacroBrowserFn = jest.fn();
+
+        const macroProvider = Promise.resolve({
+          config: {},
+          autoConvert: () => null,
+          openMacroBrowser: openMacroBrowserFn,
+        }) as Promise<MacroProvider>;
 
         const providerFactory = ProviderFactory.create({
           extensionProvider: Promise.resolve(
             combineExtensionProviders([extensionProvider]),
           ),
+          macroProvider,
         });
 
         const { editorView } = editor(
           doc(
             '{<node>}',
             extension({
-              extensionType: 'fake.confluence',
+              extensionType: 'macro.from.manifest',
               extensionKey: 'expand',
             })(),
           ),
@@ -243,7 +252,161 @@ describe('extension toolbar', () => {
         const pluginState = getPluginState(editorView.state);
 
         expect(pluginState.extensionProvider).toBeDefined();
+        expect(pluginState.showEditButton).toBeFalsy();
+      });
+
+      it('should show the edit button if extension is NOT coming from a manifest and uses the extension handler as function', async () => {
+        const extensionProvider = createFakeExtensionProvider(
+          'macro.from.manifest',
+          'expand',
+          ExtensionHandlerComponent,
+        );
+
+        const openMacroBrowserFn = jest.fn();
+
+        const macroProvider = Promise.resolve({
+          config: {},
+          autoConvert: () => null,
+          openMacroBrowser: openMacroBrowserFn,
+        }) as Promise<MacroProvider>;
+
+        const providerFactory = ProviderFactory.create({
+          extensionProvider: Promise.resolve(
+            combineExtensionProviders([extensionProvider]),
+          ),
+          macroProvider,
+        });
+
+        const { editorView } = editor(
+          doc(
+            '{<node>}',
+            extension({
+              extensionType: 'macro.from.macro-provider',
+              extensionKey: 'expand',
+            })(),
+          ),
+          {
+            extensionHandlers: {
+              'macro.from.macro-provider': () => <div />,
+            },
+          },
+          providerFactory,
+        );
+
+        expect(providerFactory.hasProvider('extensionProvider')).toBeTruthy();
+        await waitForProvider(providerFactory)('extensionProvider');
+        // Need to wait for promises to get the updated state from getExtensionModuleNode
+        await flushPromises();
+
+        // Getting `pluginState` from `editor` will give an old state
+        const pluginState = getPluginState(editorView.state);
+
+        expect(pluginState.extensionProvider).toBeDefined();
         expect(pluginState.showEditButton).toBeTruthy();
+      });
+
+      it('should not show the edit button if extension uses the extension handler as object without an update method', async () => {
+        const extensionProvider = createFakeExtensionProvider(
+          'macro.from.manifest',
+          'expand',
+          ExtensionHandlerComponent,
+        );
+
+        const openMacroBrowserFn = jest.fn();
+
+        const macroProvider = Promise.resolve({
+          config: {},
+          autoConvert: () => null,
+          openMacroBrowser: openMacroBrowserFn,
+        }) as Promise<MacroProvider>;
+
+        const providerFactory = ProviderFactory.create({
+          extensionProvider: Promise.resolve(
+            combineExtensionProviders([extensionProvider]),
+          ),
+          macroProvider,
+        });
+
+        const { editorView } = editor(
+          doc(
+            '{<node>}',
+            extension({
+              extensionType: 'macro.from.macro-provider',
+              extensionKey: 'expand',
+            })(),
+          ),
+          {
+            extensionHandlers: {
+              'macro.from.macro-provider': {
+                render: () => <div />,
+              },
+            },
+          },
+          providerFactory,
+        );
+
+        expect(providerFactory.hasProvider('extensionProvider')).toBeTruthy();
+        await waitForProvider(providerFactory)('extensionProvider');
+        // Need to wait for promises to get the updated state from getExtensionModuleNode
+        await flushPromises();
+
+        // Getting `pluginState` from `editor` will give an old state
+        const pluginState = getPluginState(editorView.state);
+
+        expect(pluginState.extensionProvider).toBeDefined();
+        expect(pluginState.showEditButton).toBeFalsy();
+      });
+
+      it('should show the edit button if extension uses the extension handler as object including an update method', async () => {
+        const extensionProvider = createFakeExtensionProvider(
+          'macro.from.manifest',
+          'expand',
+          ExtensionHandlerComponent,
+        );
+
+        const openMacroBrowserFn = jest.fn();
+
+        const macroProvider = Promise.resolve({
+          config: {},
+          autoConvert: () => null,
+          openMacroBrowser: openMacroBrowserFn,
+        }) as Promise<MacroProvider>;
+
+        const providerFactory = ProviderFactory.create({
+          extensionProvider: Promise.resolve(
+            combineExtensionProviders([extensionProvider]),
+          ),
+          macroProvider,
+        });
+
+        const { editorView } = editor(
+          doc(
+            '{<node>}',
+            extension({
+              extensionType: 'macro.from.macro-provider',
+              extensionKey: 'expand',
+            })(),
+          ),
+          {
+            extensionHandlers: {
+              'macro.from.macro-provider': {
+                render: () => <div />,
+              },
+            },
+          },
+          providerFactory,
+        );
+
+        expect(providerFactory.hasProvider('extensionProvider')).toBeTruthy();
+        await waitForProvider(providerFactory)('extensionProvider');
+        // Need to wait for promises to get the updated state from getExtensionModuleNode
+        await flushPromises();
+
+        // Getting `pluginState` from `editor` will give an old state
+        const pluginState = getPluginState(editorView.state);
+
+        expect(pluginState.extensionProvider).toBeDefined();
+        expect(pluginState.showEditButton).toBeFalsy();
       });
 
       it('should call the correct update function when switching between different type of extensions', async () => {

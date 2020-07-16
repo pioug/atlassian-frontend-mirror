@@ -24,8 +24,9 @@ export function* cellsAtColumn(rect: TableRect, col: number) {
   const { map, tableStart, table } = rect;
 
   let refColumn: number | null = col > 0 ? -1 : 0;
-  if (columnIsHeader(map, table, col + refColumn))
+  if (columnIsHeader(map, table, col + refColumn)) {
     refColumn = col === 0 || col === map.width ? null : 0;
+  }
 
   for (let row = 0; row < map.height; row++) {
     let index = getCellIndex(rect.map, row, col);

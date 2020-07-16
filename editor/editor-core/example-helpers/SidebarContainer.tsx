@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { colors } from '@atlaskit/theme';
+import { N70 } from '@atlaskit/theme/colors';
 import { ConfluenceIcon } from '@atlaskit/logo';
 import QuestionCircleIcon from '@atlaskit/icon/glyph/question-circle';
 
@@ -12,7 +12,7 @@ export const App = styled.div`
 
 export const Sidebar = styled.div`
   flex: 0 0 64px;
-  color: ${colors.N70};
+  color: ${N70};
   display: flex;
   flex-direction: column;
   justify-content: space-between;

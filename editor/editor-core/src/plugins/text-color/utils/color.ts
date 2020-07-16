@@ -1,10 +1,10 @@
 import { Mark, MarkType } from 'prosemirror-model';
 import { EditorState, TextSelection } from 'prosemirror-state';
 
-import { colors } from '@atlaskit/theme';
+import { N800 } from '@atlaskit/theme/colors';
 
 export const DEFAULT_COLOR = {
-  color: colors.N800.toLowerCase(),
+  color: N800.toLowerCase(),
   label: 'Dark gray',
 };
 

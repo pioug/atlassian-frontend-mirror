@@ -120,8 +120,11 @@ const manifestFunction = ({
           new Promise(async (resolve, reject) => {
             try {
               let newNode = await pickFromDropbox(appKey, canMountinIframe);
-              if (!newNode) reject();
-              else resolve(newNode);
+              if (!newNode) {
+                reject();
+              } else {
+                resolve(newNode);
+              }
             } catch (e) {
               reject(e);
             }

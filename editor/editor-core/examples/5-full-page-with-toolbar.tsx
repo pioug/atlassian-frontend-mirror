@@ -97,7 +97,6 @@ class ExampleEditorFullPage extends React.Component<Props> {
                   stickToolbarToBottom: true,
                 }}
                 allowJiraIssue={true}
-                allowUnsupportedContent={true}
                 allowPanel={true}
                 allowStatus={true}
                 allowExtension={{

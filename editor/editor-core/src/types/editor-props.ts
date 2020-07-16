@@ -12,7 +12,7 @@ import {
   Transformer,
 } from '@atlaskit/editor-common';
 
-import { ActivityProvider } from '@atlaskit/activity';
+import { ActivityProvider } from '@atlaskit/activity-provider';
 import { MentionProvider } from '@atlaskit/mention/resource';
 import { TaskDecisionProvider } from '@atlaskit/task-decision';
 
@@ -107,11 +107,6 @@ export interface EditorProps {
 
   // This is a temporary setting for Confluence until we ship smart cards. **Please do not use.**
   allowJiraIssue?: boolean;
-
-  // Deprecated. Defaults to true.
-  // Anything it doesn’t understand it will wrap in an unsupported block or inline node.
-  // It will render a gray non editable box.
-  allowUnsupportedContent?: boolean;
 
   // Enable panel blocks, the thing that displays a coloured box with icons aka info, warning macros.
   // You will most likely need backend ADF storage for this feature.

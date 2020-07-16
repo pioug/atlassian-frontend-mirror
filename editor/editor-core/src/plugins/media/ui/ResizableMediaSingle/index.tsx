@@ -393,6 +393,8 @@ export default class ResizableMediaSingle extends React.Component<
               ? !columResizingPluginState.dragging
               : true;
           }}
+          nodeType="media"
+          dispatchAnalyticsEvent={this.props.dispatchAnalyticsEvent}
         >
           {children}
         </Resizer>

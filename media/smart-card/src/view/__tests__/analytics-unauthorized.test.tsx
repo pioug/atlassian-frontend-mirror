@@ -1,4 +1,5 @@
 import { mockEvents } from './_mocks';
+import { AuthError } from '@atlaskit/outbound-auth-flow-client';
 const mockAuthFlow = jest.fn();
 
 jest.mock('react-lazily-render', () => (data: any) => data.content);
@@ -8,6 +9,7 @@ jest.mock('react-transition-group/Transition', () => (data: any) =>
 jest.doMock('../../utils/analytics', () => mockEvents);
 jest.doMock('@atlaskit/outbound-auth-flow-client', () => ({
   auth: mockAuthFlow,
+  AuthError,
 }));
 const mockAPIError = jest.fn();
 jest.doMock('../../client/errors', () => ({
@@ -24,11 +26,6 @@ import {
   fireEvent,
   cleanup,
 } from '@testing-library/react';
-import {
-  MESSAGE_WINDOW_CLOSED,
-  KEY_SENSITIVE_DATA,
-  KEY_WINDOW_CLOSED,
-} from '../../utils/analytics';
 
 describe('smart-card: unauthorized analytics', () => {
   let mockClient: CardClient;
@@ -91,42 +88,57 @@ describe('smart-card: unauthorized analytics', () => {
       );
     });
 
-    it('should fire connectFailed event when auth fails', async () => {
-      const mockUrl = 'https://https://this.is.the.second.url';
-      mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
-      const { getByTestId, container } = render(
-        <Provider client={mockClient}>
-          <Card testId="unauthorizedCard2" appearance="inline" url={mockUrl} />
-        </Provider>,
-      );
-      const unauthorizedLink = await waitForElement(
-        () => getByTestId('unauthorizedCard2-unauthorized-view'),
-        { timeout: 10000 },
-      );
-      const unauthorizedLinkButton = container.querySelector('[type="button"]');
-      expect(unauthorizedLink).toBeTruthy();
-      expect(unauthorizedLinkButton).toBeTruthy();
-      expect(unauthorizedLinkButton!.innerHTML).toContain('Connect');
-      // Mock out auth flow, & click connect.
-      mockAuthFlow.mockImplementationOnce(() => Promise.reject(new Error()));
-      fireEvent.click(unauthorizedLinkButton!);
+    it.each`
+      errorType
+      ${undefined}
+      ${'access_denied'}
+    `(
+      'should fire connectFailed event when auth fails with errorType = $errorType',
+      async errorType => {
+        const mockUrl = 'https://https://this.is.the.second.url';
+        mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
+        const { getByTestId, container } = render(
+          <Provider client={mockClient}>
+            <Card
+              testId="unauthorizedCard2"
+              appearance="inline"
+              url={mockUrl}
+            />
+          </Provider>,
+        );
+        const unauthorizedLink = await waitForElement(
+          () => getByTestId('unauthorizedCard2-unauthorized-view'),
+          { timeout: 10000 },
+        );
+        const unauthorizedLinkButton = container.querySelector(
+          '[type="button"]',
+        );
+        expect(unauthorizedLink).toBeTruthy();
+        expect(unauthorizedLinkButton).toBeTruthy();
+        expect(unauthorizedLinkButton!.innerHTML).toContain('Connect');
+        // Mock out auth flow, & click connect.
+        mockAuthFlow.mockImplementationOnce(() =>
+          Promise.reject(new AuthError('', errorType)),
+        );
+        fireEvent.click(unauthorizedLinkButton!);
 
-      const unresolvedView = await waitForElement(
-        () => getByTestId('unauthorizedCard2-unauthorized-view'),
-        {
-          timeout: 10000,
-        },
-      );
-      expect(unresolvedView).toBeTruthy();
-      expect(mockEvents.unresolvedEvent).toHaveBeenCalledTimes(1);
-      expect(mockEvents.uiAuthEvent).toHaveBeenCalledTimes(1);
-      expect(mockEvents.screenAuthPopupEvent).toHaveBeenCalledTimes(1);
-      expect(mockEvents.connectFailedEvent).toHaveBeenCalledTimes(1);
-      expect(mockEvents.connectFailedEvent).toHaveBeenCalledWith(
-        'd1',
-        KEY_SENSITIVE_DATA,
-      );
-    });
+        const unresolvedView = await waitForElement(
+          () => getByTestId('unauthorizedCard2-unauthorized-view'),
+          {
+            timeout: 10000,
+          },
+        );
+        expect(unresolvedView).toBeTruthy();
+        expect(mockEvents.unresolvedEvent).toHaveBeenCalledTimes(1);
+        expect(mockEvents.uiAuthEvent).toHaveBeenCalledTimes(1);
+        expect(mockEvents.screenAuthPopupEvent).toHaveBeenCalledTimes(1);
+        expect(mockEvents.connectFailedEvent).toHaveBeenCalledTimes(1);
+        expect(mockEvents.connectFailedEvent).toHaveBeenCalledWith(
+          'd1',
+          errorType,
+        );
+      },
+    );
 
     it('should fire connectFailed when auth dialog was closed', async () => {
       const mockUrl = 'https://https://this.is.the.third.url';
@@ -146,7 +158,7 @@ describe('smart-card: unauthorized analytics', () => {
       expect(unauthorizedLinkButton!.innerHTML).toContain('Connect');
       // Mock out auth flow, & click connect.
       mockAuthFlow.mockImplementationOnce(() =>
-        Promise.reject({ message: MESSAGE_WINDOW_CLOSED }),
+        Promise.reject(new AuthError('', 'auth_window_closed')),
       );
       fireEvent.click(unauthorizedLinkButton!);
 
@@ -164,7 +176,7 @@ describe('smart-card: unauthorized analytics', () => {
       expect(mockEvents.connectFailedEvent).toHaveBeenCalledTimes(1);
       expect(mockEvents.connectFailedEvent).toHaveBeenCalledWith(
         'd1',
-        KEY_WINDOW_CLOSED,
+        'auth_window_closed',
       );
     });
   });

@@ -17,6 +17,7 @@ export {
   AnnotationUpdateEmitter,
   AnnotationUpdateEvent,
   AnnotationUpdateEventPayloads,
+  InlineCommentSelectionComponentProps,
 } from './annotation';
 
 export { TypeAheadItem, TypeAheadItemRenderProps } from './typeAhead';

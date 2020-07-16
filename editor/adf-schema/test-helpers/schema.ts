@@ -64,6 +64,7 @@ export default createSchema({
     'link',
     'subsup',
     'textColor',
+    'unsupportedMark',
   ],
   customNodeSpecs: {
     plain: { ...paragraph, content: 'text*', marks: '' },

@@ -7,6 +7,8 @@ import {
 const openButtonSelector = '[data-testid="open-spotlight"]';
 const spotlightTargetSelector = '[data-testid="spotlight--target"]';
 const spotlightDialogSelector = '[data-testid="spotlight--dialog"]';
+const focusLockSelector = 'div[data-focus-lock-disabled="false"]';
+
 // https://ecosystem.atlassian.net/browse/DS-7006
 describe('onboarding spotlight visual regression', () => {
   it('should render a spotlight next to a target', async () => {
@@ -23,7 +25,8 @@ describe('onboarding spotlight visual regression', () => {
     await page.click(openButtonSelector);
     await page.waitForSelector(spotlightTargetSelector);
     await page.waitForSelector(spotlightDialogSelector);
-
+    // allow time for the focus lock to be enabled
+    await page.waitForSelector(focusLockSelector);
     const image = await takeElementScreenShot(page, 'body');
     expect(image).toMatchProdImageSnapshot();
   });
@@ -47,7 +50,7 @@ describe('onboarding spotlight visual regression', () => {
       height: page.viewport().height,
       width: page.viewport().width * 0.8,
     });
-
+    await page.waitForSelector(focusLockSelector);
     const image = await takeElementScreenShot(page, 'body');
     expect(image).toMatchProdImageSnapshot();
   });
@@ -66,7 +69,7 @@ describe('onboarding spotlight visual regression', () => {
     await page.click(openButtonSelector);
     await page.waitForSelector(spotlightTargetSelector);
     await page.waitForSelector(spotlightDialogSelector);
-
+    await page.waitForSelector(focusLockSelector);
     const image = await takeElementScreenShot(page, 'body');
     expect(image).toMatchProdImageSnapshot();
   });

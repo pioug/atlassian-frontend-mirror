@@ -2,14 +2,11 @@ import React, { ElementType, useEffect } from 'react';
 
 import { render } from '@testing-library/react';
 
-import Avatar, {
-  AppearanceType,
-  AvatarPropTypes,
-  SizeType,
-} from '@atlaskit/avatar';
+import Avatar, { AppearanceType, SizeType } from '@atlaskit/avatar';
 
 import { RANDOM_USERS } from '../../../../examples-util/data';
 import AvatarGroup from '../../AvatarGroup';
+import { AvatarProps } from '../../types';
 import { composeUniqueKey } from '../../utils';
 
 const generateData = (avatarCount: number) => {
@@ -29,12 +26,12 @@ const createAvatarAuditor = ({
 }: {
   onMount: () => void;
   onUnmount: () => void;
-}) => (props: AvatarPropTypes) => {
+}) => (props: AvatarProps) => {
   useEffect(() => {
     onMount();
 
     return () => onUnmount();
-  }, []); // [] forces the effect to only run once on mount/unmountt.
+  }, []); // [] forces the effect to only run once on mount/unmount.
 
   return <Avatar {...props} />;
 };
@@ -60,8 +57,8 @@ describe('avatar group re-ordering', () => {
     const overrides = {
       Avatar: {
         render: (
-          Component: ElementType<AvatarPropTypes>,
-          props: AvatarPropTypes,
+          Component: ElementType<AvatarProps>,
+          props: AvatarProps,
           index: number,
         ) => <Component {...props} key={composeUniqueKey(props, index)} />,
       },
@@ -101,8 +98,8 @@ describe('avatar group re-ordering', () => {
     const overrides = {
       Avatar: {
         render: (
-          Component: ElementType<AvatarPropTypes>,
-          props: AvatarPropTypes,
+          Component: ElementType<AvatarProps>,
+          props: AvatarProps,
           index: number,
         ) => <Component {...props} key={index} />,
       },

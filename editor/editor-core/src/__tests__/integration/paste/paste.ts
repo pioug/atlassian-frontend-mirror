@@ -10,7 +10,7 @@ import {
 const editorSelector = '.ProseMirror';
 BrowserTestCase(
   'paste.ts: paste tests on fullpage editor: plain text',
-  { skip: ['edge', 'ie', 'safari'] },
+  { skip: ['edge', 'safari'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
 
@@ -31,7 +31,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'paste.ts: paste tests on fullpage editor: text formatting',
-  { skip: ['edge', 'ie', 'safari'] },
+  { skip: ['edge', 'safari'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
 
@@ -54,7 +54,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'paste.ts: paste tests on fullpage editor: bullet list',
-  { skip: ['edge', 'ie', 'safari'] },
+  { skip: ['edge', 'safari'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
 
@@ -77,7 +77,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'paste.ts: paste tests on fullpage editor: ordered list',
-  { skip: ['edge', 'ie', 'safari'] },
+  { skip: ['edge', 'safari'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
 

@@ -179,7 +179,9 @@ export class DropdownMenuStateless extends Component<
   };
 
   isTargetChildItem = (target: HTMLElement) => {
-    if (!target) return false;
+    if (!target) {
+      return false;
+    }
 
     const isDroplistItem = target.getAttribute('data-role') === 'droplistItem';
 
@@ -339,7 +341,9 @@ export class DropdownMenuStateless extends Component<
   };
 
   toggle = (attrs: OpenCloseArgs) => {
-    if (attrs.source === 'keydown') return;
+    if (attrs.source === 'keydown') {
+      return;
+    }
 
     if (this.props.isOpen) {
       this.close(attrs);
@@ -416,7 +420,9 @@ export class DropdownMenuStateless extends Component<
       autoFocusDropdownItems: this.sourceOfIsOpen === 'keydown',
     });
 
-    if (this.props.onPositioned) this.props.onPositioned();
+    if (this.props.onPositioned) {
+      this.props.onPositioned();
+    }
   };
 
   /** Render focusManager only after droplist has been positioned when trigger via keyboard */

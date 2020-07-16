@@ -1,5 +1,5 @@
 import React from 'react';
-import { ActivityProvider } from '@atlaskit/activity';
+import { ActivityProvider } from '@atlaskit/activity-provider';
 import {
   ProviderFactory,
   WithProviders,

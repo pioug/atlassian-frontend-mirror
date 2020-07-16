@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import CopyIcon from '@atlaskit/icon/glyph/copy';
 import TextArea from '@atlaskit/textarea';
-import { colors } from '@atlaskit/theme';
+import { N50 } from '@atlaskit/theme/colors';
 import { disableZooming } from './utils/viewport';
 import {
   createCardClient,
@@ -31,7 +31,7 @@ export const Wrapper: any = styled.div`
 `;
 
 export const Toolbar: any = styled.div`
-  border-bottom: 1px dashed ${colors.N50};
+  border-bottom: 1px dashed ${N50};
   padding: 1em;
 `;
 

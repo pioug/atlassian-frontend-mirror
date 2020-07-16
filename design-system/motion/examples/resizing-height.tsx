@@ -11,7 +11,9 @@ import {
   OpsGenieIcon,
   StatuspageIcon,
 } from '@atlaskit/logo';
-import { colors, elevation, focusRing } from '@atlaskit/theme';
+import { B500, N10, N20 } from '@atlaskit/theme/colors';
+import { focusRing } from '@atlaskit/theme/constants';
+import { e500 } from '@atlaskit/theme/elevation';
 
 import { Centered } from '../examples-utils';
 import { FadeIn, StaggeredEntrance, useResizingHeight } from '../src';
@@ -57,7 +59,7 @@ export default () => {
           data-testid="menu"
           {...useResizingHeight()}
           css={css`
-            ${elevation.e500()};
+            ${e500()};
             border-radius: 3px;
             margin-top: 24px;
             margin-bottom: 56px;
@@ -72,7 +74,7 @@ export default () => {
             readOnly
             value={searchTerm[`s${num}`]}
             css={css`
-              ${focusRing(colors.B500, 2)};
+              ${focusRing(B500, 2)};
               display: block;
               border-radius: 3px 3px 0 0;
               color: #172b4d;
@@ -84,7 +86,7 @@ export default () => {
               margin-bottom: 8px;
 
               :hover {
-                background-color: ${colors.N10};
+                background-color: ${N10};
               }
             `}
           />
@@ -102,7 +104,7 @@ export default () => {
                         display: flex;
 
                         :hover {
-                          background-color: ${colors.N20};
+                          background-color: ${N20};
                         }
                       `}
                       {...motion}

@@ -11,6 +11,7 @@ import {
   findSearchIndex,
   removeMatchesFromSet,
   findDecorationFromMatch,
+  isMatchAffectedByStep,
 } from './utils';
 import { findUniqueItemsIn } from '../../utils/array';
 import { stepHasSlice } from '../../utils/step';
@@ -61,23 +62,15 @@ const handleDocChanged = (
     // any dead matches from user deleting content
     tr.steps.forEach(step => {
       if (stepHasSlice(step)) {
-        const { from, to, slice } = step;
-        const sliceSize = slice.content.size;
-
-        // check both mapped and unmapped as in different cases the matches will match
-        // mapped vs unmapped eg. undo/redo, replace all, standard typing
-        const isMatchAffectedByStep = (match: Match) =>
-          (from + sliceSize > match.start && to - sliceSize < match.end) ||
-          (tr.mapping.map(from) + sliceSize > match.start &&
-            tr.mapping.map(to) - sliceSize < match.end);
-
         // add all matches that are between the affected positions and don't already have
         // corresponding decorations
         matchesToAdd = [
           ...matchesToAdd,
-          ...newMatches
-            .filter(isMatchAffectedByStep)
-            .filter(match => !findDecorationFromMatch(decorationSet, match)),
+          ...newMatches.filter(
+            match =>
+              isMatchAffectedByStep(match, step, tr) &&
+              !findDecorationFromMatch(decorationSet, match),
+          ),
         ];
 
         // delete any matches that are missing from the newMatches array and have a
@@ -85,9 +78,11 @@ const handleDocChanged = (
         matchesToDelete = [
           ...matchesToDelete,
           ...findUniqueItemsIn<Match>(
-            mappedMatches
-              .filter(isMatchAffectedByStep)
-              .filter(match => !!findDecorationFromMatch(decorationSet, match)),
+            mappedMatches.filter(
+              match =>
+                isMatchAffectedByStep(match, step, tr) &&
+                !!findDecorationFromMatch(decorationSet, match),
+            ),
             newMatches,
             (firstMatch, secondMatch) =>
               firstMatch.start === secondMatch.start &&

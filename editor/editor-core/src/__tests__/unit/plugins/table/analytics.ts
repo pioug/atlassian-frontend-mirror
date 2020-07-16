@@ -13,7 +13,7 @@ import {
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { colors } from '@atlaskit/theme';
+import { B50 } from '@atlaskit/theme/colors';
 
 import {
   TablePluginState,
@@ -308,7 +308,7 @@ describe('Table analytic events', () => {
         ),
       );
 
-      setColorWithAnalytics(colors.B50)(editorView.state, editorView.dispatch);
+      setColorWithAnalytics(B50)(editorView.state, editorView.dispatch);
     });
 
     it('should fire v2 analytics', () => {

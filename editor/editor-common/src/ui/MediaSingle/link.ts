@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
-import { colors, gridSize } from '@atlaskit/theme';
+import { N0, N30, N40, N500 } from '@atlaskit/theme/colors';
+import { gridSize } from '@atlaskit/theme/constants';
 
 import { akEditorSwoopCubicBezier } from '../../styles/consts';
 
@@ -13,11 +14,11 @@ export const MediaLinkWrapper = styled.span`
 
 export const MediaLink = styled.a`
   display: flex;
-  background: ${colors.N30};
-  color: ${colors.N500};
+  background: ${N30};
+  color: ${N500};
   padding: ${gridSize() / 2}px;
   border-radius: ${gridSize() / 2}px;
-  border: 2px solid ${colors.N0};
+  border: 2px solid ${N0};
   transition: opacity 0.3s ${akEditorSwoopCubicBezier};
 
   &&& {
@@ -29,7 +30,7 @@ export const MediaLink = styled.a`
   }
 
   &:hover {
-    background-color: ${colors.N40};
+    background-color: ${N40};
   }
 `;
 

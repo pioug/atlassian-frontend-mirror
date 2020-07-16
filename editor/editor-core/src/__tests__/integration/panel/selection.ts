@@ -14,7 +14,7 @@ import { PanelSharedCssClassName } from '@atlaskit/editor-common';
 
 BrowserTestCase(
   'selection.ts: Writing inside the panel, selecting panel and typing should drop text in panel',
-  { skip: ['edge', 'ie'] },
+  { skip: ['edge'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
     await mountEditor(page, {

@@ -12,6 +12,13 @@ import {
   SpinnerContainer,
 } from '../styled';
 
+export interface RenderImageProps {
+  maxImageWidth?: number;
+  maxImageHeight?: number;
+  imageWidth?: number;
+  imageHeight?: number;
+}
+
 export type Sizes = 'narrow' | 'wide';
 interface Props {
   /** Title that briefly describes the page to the user. */
@@ -20,7 +27,7 @@ interface Props {
   description?: ReactNode;
   /** It affects the width of the main container of this component, "wide" is a default one. */
   size?: Sizes;
-  /** Image that will be shown above the title. The larger side of this image will be shrunk to 160px. */
+  /** Image that will be shown above the title. Goes directly into the src prop of an <img> element. The larger side of this image will be shrunk to 160px. */
   imageUrl?: string;
   /** Maximum width (in pixels) of the image, default value is 160. */
   maxImageWidth?: number;
@@ -28,6 +35,8 @@ interface Props {
   maxImageHeight?: number;
   /** Primary action button for the page, usually it will be something like "Create" (or "Retry" for error pages). */
   primaryAction?: ReactNode;
+  /** Image that will be shown above the title. Only rendered if no imageUrl given. */
+  renderImage?: (props: RenderImageProps) => React.ReactNode;
   /** Secondary action button for the page. */
   secondaryAction?: ReactNode;
   /** Button with link to some external resource like documentation or tutorial, it will be opened in a new tab. */
@@ -50,6 +59,7 @@ const EmptyState = ({
   maxImageHeight = 160,
   maxImageWidth = 160,
   primaryAction,
+  renderImage,
   secondaryAction,
   size = 'wide',
   tertiaryAction,
@@ -58,8 +68,8 @@ const EmptyState = ({
     primaryAction || secondaryAction || isLoading ? (
       <ActionsContainer>
         <ButtonGroup>
-          {primaryAction}
           {secondaryAction}
+          {primaryAction}
         </ButtonGroup>
         <SpinnerContainer>{isLoading && <Spinner />}</SpinnerContainer>
       </ActionsContainer>
@@ -67,7 +77,7 @@ const EmptyState = ({
 
   return (
     <Container size={size}>
-      {imageUrl && (
+      {imageUrl ? (
         <Image
           alt=""
           role="presentation"
@@ -77,6 +87,9 @@ const EmptyState = ({
           width={imageWidth}
           height={imageHeight}
         />
+      ) : (
+        renderImage &&
+        renderImage({ maxImageWidth, maxImageHeight, imageWidth, imageHeight })
       )}
       <Header>{header}</Header>
       {description && <Description>{description}</Description>}

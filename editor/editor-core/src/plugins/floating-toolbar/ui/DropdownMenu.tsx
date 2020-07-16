@@ -1,7 +1,8 @@
 import React from 'react';
 import { Component } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
-import { colors, gridSize } from '@atlaskit/theme';
+import { gridSize } from '@atlaskit/theme/constants';
+import { B400 } from '@atlaskit/theme/colors';
 import Item, { itemThemeNamespace } from '@atlaskit/item';
 import EditorDoneIcon from '@atlaskit/icon/glyph/editor/done';
 
@@ -82,7 +83,7 @@ export default class Dropdown extends Component<Props> {
     if (selected !== undefined) {
       return selected ? (
         <EditorDoneIcon
-          primaryColor={colors.B400}
+          primaryColor={B400}
           size="small"
           label="test question"
         />

@@ -20,9 +20,12 @@ import ResizableEmbedCard from '../ui/ResizableEmbedCard';
 import { createDisplayGrid } from '../../../plugins/grid';
 import WithPluginState from '../../../ui/WithPluginState';
 import { pluginKey as widthPluginKey } from '../../width';
-import { findParentNodeOfTypeClosestToPos } from 'prosemirror-utils';
-import { floatingLayouts } from '../../../utils/rich-media-utils';
+import {
+  floatingLayouts,
+  isRichMediaInsideOfBlockNode,
+} from '../../../utils/rich-media-utils';
 import { EventDispatcher } from '../../../event-dispatcher';
+import { DispatchAnalyticsEvent } from '../../../plugins/analytics';
 
 type EmbedCardState = {
   hasPreview: boolean;
@@ -108,19 +111,8 @@ export class EmbedCardComponent extends React.PureComponent<
     pos: number | boolean,
     originalLineLength: number,
   ): number => {
-    if (typeof pos !== 'number' || isNaN(pos) || !view) {
-      return originalLineLength;
-    }
-
-    const { expand, nestedExpand, layoutColumn } = view.state.schema.nodes;
-    const $pos = view.state.doc.resolve(pos);
-    const isInsideOfBlockNode = !!findParentNodeOfTypeClosestToPos($pos, [
-      expand,
-      nestedExpand,
-      layoutColumn,
-    ]);
-
-    if (isInsideOfBlockNode) {
+    if (typeof pos === 'number' && isRichMediaInsideOfBlockNode(view, pos)) {
+      const $pos = view.state.doc.resolve(pos);
       const domNode = view.nodeDOM($pos.pos);
 
       if (
@@ -147,6 +139,8 @@ export class EmbedCardComponent extends React.PureComponent<
       platform,
       allowResizing,
       fullWidthMode,
+      view,
+      dispatchAnalyticsEvent,
     } = this.props;
     let {
       url,
@@ -204,23 +198,32 @@ export class EmbedCardComponent extends React.PureComponent<
               );
             }
 
+            const lineLength = this.getLineLength(
+              view,
+              typeof this.props.getPos === 'function' && this.props.getPos(),
+              widthState && widthState.lineLength,
+            );
+
+            const containerWidth = isRichMediaInsideOfBlockNode(
+              view,
+              typeof this.props.getPos === 'function' && this.props.getPos(),
+            )
+              ? lineLength
+              : widthState.width;
+
             return (
               <ResizableEmbedCard
                 {...cardProps}
                 view={this.props.view}
                 getPos={this.props.getPos}
-                lineLength={this.getLineLength(
-                  this.props.view,
-                  typeof this.props.getPos === 'function' &&
-                    this.props.getPos(),
-                  widthState && widthState.lineLength,
-                )}
+                lineLength={lineLength}
                 gridSize={12}
-                containerWidth={widthState.width}
+                containerWidth={containerWidth}
                 displayGrid={createDisplayGrid(
                   this.props.eventDispatcher as EventDispatcher,
                 )}
                 updateSize={this.updateSize}
+                dispatchAnalyticsEvent={dispatchAnalyticsEvent}
               >
                 {smartCard}
               </ResizableEmbedCard>
@@ -252,6 +255,7 @@ export interface EmbedCardNodeViewProps {
   allowResizing?: boolean;
   providerFactory?: ProviderFactory;
   fullWidthMode?: boolean;
+  dispatchAnalyticsEvent: DispatchAnalyticsEvent;
 }
 
 export class EmbedCard extends SelectionBasedNodeView<EmbedCardNodeViewProps> {
@@ -269,6 +273,7 @@ export class EmbedCard extends SelectionBasedNodeView<EmbedCardNodeViewProps> {
       allowResizing,
       platform,
       fullWidthMode,
+      dispatchAnalyticsEvent,
     } = this.reactComponentProps;
 
     return (
@@ -280,6 +285,7 @@ export class EmbedCard extends SelectionBasedNodeView<EmbedCardNodeViewProps> {
         allowResizing={allowResizing}
         platform={platform}
         fullWidthMode={fullWidthMode}
+        dispatchAnalyticsEvent={dispatchAnalyticsEvent}
       />
     );
   }

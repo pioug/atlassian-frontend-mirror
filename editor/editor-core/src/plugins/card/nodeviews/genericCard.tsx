@@ -14,6 +14,7 @@ import {
 import { getPosHandler } from '../../../nodeviews';
 import { titleUrlPairFromNode } from '../utils';
 import { EventDispatcher } from '../../../event-dispatcher';
+import { DispatchAnalyticsEvent } from '../../../plugins/analytics';
 
 type EditorContext<T> = React.Context<T> & { value: T };
 
@@ -28,6 +29,7 @@ export interface CardProps extends CardDerivedProps {
   node: PMNode;
   view: EditorView;
   getPos: getPosHandler;
+  dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
   isMobile?: boolean;
   eventDispatcher?: EventDispatcher<any>;
   allowResizing?: boolean;

@@ -1,4 +1,6 @@
 import React from 'react';
+import memoizeOne from 'memoize-one';
+
 import { RendererContext } from '../react/types';
 import { Serializer } from '../index';
 import { ExtensionLayout } from '@atlaskit/adf-schema';
@@ -60,6 +62,8 @@ export default class ExtensionRenderer extends React.Component<Props, State> {
       });
   };
 
+  getNodeRenderer = memoizeOne(getNodeRenderer);
+
   renderExtensionNode = (extensionProvider?: ExtensionProvider | null) => {
     const {
       extensionHandlers,
@@ -89,7 +93,7 @@ export default class ExtensionRenderer extends React.Component<Props, State> {
       }
 
       if (!result && extensionProvider) {
-        const NodeRenderer = getNodeRenderer(
+        const NodeRenderer = this.getNodeRenderer(
           extensionProvider,
           extensionType,
           extensionKey,

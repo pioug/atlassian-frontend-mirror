@@ -1,5 +1,11 @@
 # @atlaskit/media-picker
 
+## 55.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 55.0.0
 
 ### Major Changes

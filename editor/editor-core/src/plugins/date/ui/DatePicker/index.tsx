@@ -7,7 +7,8 @@ import {
   akEditorFloatingDialogZIndex,
 } from '@atlaskit/editor-common';
 import Calendar from '@atlaskit/calendar';
-import { colors, borderRadius } from '@atlaskit/theme';
+import { borderRadius } from '@atlaskit/theme/constants';
+import { N60A, N0 } from '@atlaskit/theme/colors';
 import withOuterListeners from '../../../../ui/with-outer-listeners';
 import { DateType } from '../../types';
 import TextField from '@atlaskit/textfield';
@@ -30,8 +31,8 @@ import { injectIntl, InjectedIntlProps } from 'react-intl';
 const PopupContentWrapper = styled.div`
   padding: ${borderRadius()}px;
   border-radius: ${borderRadius()}px;
-  box-shadow: 0 4px 8px -2px ${colors.N60A}, 0 0 1px ${colors.N60A};
-  background-color: ${colors.N0};
+  box-shadow: 0 4px 8px -2px ${N60A}, 0 0 1px ${N60A};
+  background-color: ${N0};
 `;
 
 const DateTextFieldWrapper = styled.div`

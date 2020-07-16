@@ -108,6 +108,7 @@ export class ImageViewer extends BaseViewer<
       ) {
         originalBinaryImageUrl = await mediaClient.file.getFileBinaryURL(
           file.id,
+          collectionName,
         );
       }
 

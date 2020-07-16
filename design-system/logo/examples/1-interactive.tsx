@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 import Button, { ButtonGroup } from '@atlaskit/button';
 import RadioGroup from '@atlaskit/field-radio-group';
-import { colors } from '@atlaskit/theme';
+import * as colors from '@atlaskit/theme/colors';
 
 import * as logos from '../src';
 import { Props as ConstantProps } from '../src/constants';

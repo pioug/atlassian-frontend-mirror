@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { generateUuid } from '@atlaskit/adf-schema';
-import { colors } from '@atlaskit/theme';
+import { Y75, Y200 } from '@atlaskit/theme/colors';
 
 import RendererDemo from './helper/RendererDemo';
 import { validDocument as storyDataDocument } from './helper/story-data';
@@ -68,8 +68,8 @@ function AnnotationSelect({
 
 const Wrapper = styled.div`
   [data-mark-type='annotation'] {
-    background-color: ${colors.Y75};
-    border-bottom: 2px solid ${colors.Y200};
+    background-color: ${Y75};
+    border-bottom: 2px solid ${Y200};
   }
 `;
 

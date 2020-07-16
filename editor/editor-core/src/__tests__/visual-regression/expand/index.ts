@@ -108,6 +108,23 @@ describe('Expand: full-page', () => {
       contentBoundingRect.top + 5,
     );
   });
+
+  it("doesn't select expand if click and drag before releasing mouse", async () => {
+    await initFullPageEditorWithAdf(page, simpleExpandAdf, Device.LaptopMDPI);
+    const contentBoundingRect = await getContentBoundingRectTopLeftCoords(
+      page,
+      selectors.expandContent,
+    );
+
+    // start in centre of expand, mousedown and then move to padding before releasing
+    await page.mouse.move(
+      contentBoundingRect.left + contentBoundingRect.width * 0.5,
+      contentBoundingRect.top + contentBoundingRect.height * 0.5,
+    );
+    await page.mouse.down();
+    await page.mouse.move(contentBoundingRect.left, contentBoundingRect.top);
+    await page.mouse.up();
+  });
 });
 
 // This block is seperate as Puppeteer has some
@@ -148,7 +165,7 @@ describe('Expand: Media', () => {
   });
 });
 
-describe.skip('Expand: allowInteractiveExpand', () => {
+describe('Expand: allowInteractiveExpand', () => {
   let page: Page;
 
   beforeAll(async () => {
@@ -159,8 +176,25 @@ describe.skip('Expand: allowInteractiveExpand', () => {
     await snapshot(page, undefined, selectors.expand);
   });
 
+  describe('when the flag is true', () => {
+    it('should collapse the expand when clicked', async () => {
+      await initFullPageEditorWithAdf(
+        page,
+        expandADF('default'),
+        Device.LaptopMDPI,
+        undefined,
+        {
+          allowExpand: {
+            allowInteractiveExpand: true,
+          },
+        },
+      );
+      await page.waitForSelector(selectors.expand);
+      await page.click(selectors.expandToggle);
+    });
+  });
   describe('when the flag is false', () => {
-    it('should disable the expand button', async () => {
+    it('should not collapse the expand when clicked', async () => {
       await initFullPageEditorWithAdf(
         page,
         expandADF('default'),

@@ -10,6 +10,33 @@ import {
   akRichMediaResizeZIndex,
   richMediaClassName,
 } from '@atlaskit/editor-common';
+import {
+  DispatchAnalyticsEvent,
+  MediaEventPayload,
+  ACTION,
+  ACTION_SUBJECT,
+  ACTION_SUBJECT_ID,
+  EVENT_TYPE,
+} from '../../plugins/analytics';
+
+const getResizeAnalyticsEvent = (
+  type: string | undefined,
+  size: number | null,
+  layout: string,
+): MediaEventPayload => {
+  const actionSubject =
+    type === 'embed' ? ACTION_SUBJECT.EMBEDS : ACTION_SUBJECT.MEDIA_SINGLE;
+  return {
+    action: ACTION.EDITED,
+    actionSubject,
+    actionSubjectId: ACTION_SUBJECT_ID.RESIZED,
+    attributes: {
+      size,
+      layout,
+    },
+    eventType: EVENT_TYPE.UI,
+  };
+};
 
 interface ReResizableNumberSize {
   width: number;
@@ -29,6 +56,8 @@ type ResizerProps = ResizableMediaSingleProps & {
   handleResizeStart?: (
     event: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>,
   ) => boolean;
+  dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
+  nodeType?: 'media' | 'embed';
   innerPadding?: number;
 };
 
@@ -134,6 +163,7 @@ export default class Resizer extends React.Component<
       displayGrid,
       layout,
       updateSize,
+      dispatchAnalyticsEvent,
     } = this.props;
 
     const resizable = this.resizable.current;
@@ -151,6 +181,15 @@ export default class Resizer extends React.Component<
     const newSize = calcNewSize(snapWidth, true);
     const newHighlights = highlights(newWidth, snapPoints);
 
+    if (dispatchAnalyticsEvent) {
+      dispatchAnalyticsEvent(
+        getResizeAnalyticsEvent(
+          this.props.nodeType,
+          newSize.width,
+          newSize.layout,
+        ),
+      );
+    }
     // show committed grid size
     displayGrid(
       newHighlights.length > 0,

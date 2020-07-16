@@ -11,10 +11,12 @@ export default function({
   field,
   onBlur,
   autoFocus,
+  placeholder,
 }: {
   field: EnumField;
   onBlur: OnBlur;
   autoFocus?: boolean;
+  placeholder?: string;
 }) {
   return (
     <Field<ValueType<Option>>
@@ -40,6 +42,7 @@ export default function({
             validationState={error ? 'error' : 'default'}
             formatOptionLabel={formatOptionLabel}
             autoFocus={autoFocus}
+            placeholder={placeholder}
           />
           <FieldMessages error={error} description={field.description} />
         </Fragment>

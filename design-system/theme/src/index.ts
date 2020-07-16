@@ -22,10 +22,43 @@ export { default as Appearance } from './components/Appearance';
 // backwards-compatible export with old Atlaskit case
 export const AtlasKitThemeProvider = AtlaskitThemeProvider;
 
-export * from './constants';
-// New API
-export * from './components/Reset';
+export {
+  CHANNEL,
+  DEFAULT_THEME_MODE,
+  FLATTENED,
+  THEME_MODES,
+  assistive,
+  borderRadius,
+  codeFontFamily,
+  focusRing,
+  fontFamily,
+  fontSize,
+  fontSizeSmall,
+  gridSize,
+  layers,
+  noFocusRing,
+  skeletonShimmer,
+  visuallyHidden,
+} from './constants';
+export {
+  Reset,
+  ResetTheme,
+  ResetThemeProps,
+  ResetThemeTokens,
+} from './components/Reset';
 export { default } from './components/Theme';
-export * from './hoc';
-export * from './utils/createTheme';
-export * from './types';
+export { withTheme } from './hoc';
+export { ThemeProp, createTheme } from './utils/createTheme';
+export {
+  AtlaskitThemeProps,
+  CustomThemeProps,
+  DefaultValue,
+  Elevation,
+  GlobalThemeTokens,
+  NoThemeProps,
+  Theme,
+  ThemeModes,
+  ThemeProps,
+  ThemedValue,
+  colorPaletteType,
+} from './types';

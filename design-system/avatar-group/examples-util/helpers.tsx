@@ -1,11 +1,12 @@
 import React, { ReactNode } from 'react';
 
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 
 import { SizeType } from '@atlaskit/avatar';
 import { N100, R400, R50, subtleHeading, text } from '@atlaskit/theme/colors';
-import { gridSize } from '@atlaskit/theme/constants';
-import { divide, multiply } from '@atlaskit/theme/math';
+import { gridSize as getGridSize } from '@atlaskit/theme/constants';
+
+const gridSize = getGridSize();
 
 const Wrapper = styled.div`
   margin-top: ${gridSize}px;
@@ -24,8 +25,8 @@ const ChildrenWrapper = styled.div`
 export const Note = styled.p<{ size?: SizeType }>`
   color: ${N100};
   font-size: ${props => (props.size === 'large' ? '1.15em' : '0.9rem')};
-  margin-top: ${divide(gridSize, 2)}px;
-  margin-bottom: ${multiply(gridSize, 2)}px;
+  margin-top: ${gridSize / 2}px;
+  margin-bottom: ${gridSize * 2}px;
 `;
 
 export const Code = styled.code`
@@ -42,8 +43,8 @@ export const Gap = styled.span`
 `;
 
 export const Dot = styled(Gap)`
-  height: ${multiply(gridSize, 3)}px;
-  width: ${multiply(gridSize, 3)}px;
+  height: ${gridSize * 3}px;
+  width: ${gridSize * 3}px;
 `;
 export const Heading = styled.div`
   color: ${subtleHeading};

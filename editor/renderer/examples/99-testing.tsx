@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { ProviderFactory } from '@atlaskit/editor-common';
 import { taskDecision, emoji } from '@atlaskit/util-data-test';
-import { Provider } from '@atlaskit/smart-card';
+import { Provider as SmartCardProvider } from '@atlaskit/smart-card';
+import { cardClient } from '@atlaskit/editor-test-helpers/smart-card';
 import {
   MediaMock,
   generateFilesFromTestData,
@@ -72,7 +73,7 @@ const providerFactory = ProviderFactory.create({
 function renderRenderer({ adf, props }: { props: MountProps; adf: any }) {
   const { showSidebar, ...reactProps } = props;
   return (
-    <Provider>
+    <SmartCardProvider client={cardClient}>
       <Sidebar showSidebar={!!showSidebar}>
         {(additionalRendererProps: any) => (
           <Renderer
@@ -84,7 +85,7 @@ function renderRenderer({ adf, props }: { props: MountProps; adf: any }) {
           />
         )}
       </Sidebar>
-    </Provider>
+    </SmartCardProvider>
   );
 }
 

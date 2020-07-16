@@ -342,6 +342,7 @@ export {
   Emoji,
   Extension,
   ExtensionProps,
+  Expand,
   HardBreak,
   Heading,
   ListItem,

@@ -25,9 +25,10 @@ function Heading(
     level: HeadingLevels;
     headingId?: string;
     showAnchorLink?: boolean;
+    enableNestedHeaderLinks?: boolean;
   }>,
 ) {
-  const { headingId, dataAttributes } = props;
+  const { headingId, dataAttributes, enableNestedHeaderLinks } = props;
   const HX = `h${props.level}` as 'h1';
 
   return (
@@ -40,6 +41,7 @@ function Heading(
                 <AnalyticsContext.Consumer>
                   {({ fireAnalyticsEvent }) => (
                     <HeadingAnchor
+                      enableNestedHeaderLinks={enableNestedHeaderLinks}
                       onCopyText={() => {
                         fireAnalyticsEvent({
                           action: ACTION.CLICKED,

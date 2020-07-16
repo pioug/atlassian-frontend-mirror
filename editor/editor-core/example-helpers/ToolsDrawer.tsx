@@ -1,10 +1,10 @@
 import React from 'react';
 import { EditorView } from 'prosemirror-view';
 import { mention, emoji, taskDecision } from '@atlaskit/util-data-test';
-import { MockActivityResource } from '@atlaskit/activity/dist/es5/support';
 import Button from '@atlaskit/button';
 import Tooltip from '@atlaskit/tooltip';
 
+import { MockActivityResource } from './activity-provider';
 import { Content, ButtonGroup } from './styles';
 import imageUploadHandler from './imageUpload';
 

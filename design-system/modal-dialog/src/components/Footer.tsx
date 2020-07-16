@@ -28,7 +28,9 @@ export default class ModalFooter extends React.Component<FooterProps, {}> {
     const { actions, appearance, component, onClose, showKeyline } = this.props;
     const warning = 'You can provide `component` OR `actions`, not both.';
 
-    if (!component && !actions) return null;
+    if (!component && !actions) {
+      return null;
+    }
     if (component && actions) {
       console.warn(warning); // eslint-disable-line no-console
       return null;
@@ -49,10 +51,10 @@ export default class ModalFooter extends React.Component<FooterProps, {}> {
             ? actions.map(({ text, ...rest }, index) => {
                 const variant =
                   index !== 0 ? 'subtle' : appearance || 'primary';
+
                 return (
-                  // Index used as text can be a ReactNode
                   <ActionItem key={index}>
-                    <Button appearance={variant} {...rest}>
+                    <Button {...rest} appearance={variant}>
                       {text}
                     </Button>
                   </ActionItem>

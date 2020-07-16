@@ -48,6 +48,10 @@ export default (
       );
       return {
         ...updatedPluginState,
+        selectedAnnotations: [
+          ...updatedPluginState.selectedAnnotations,
+          ...action.data.selectedAnnotations,
+        ],
         annotations: {
           ...pluginState.annotations,
           ...action.data.inlineComments,

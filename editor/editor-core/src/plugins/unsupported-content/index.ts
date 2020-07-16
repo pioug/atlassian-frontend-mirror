@@ -5,7 +5,9 @@ import {
   confluenceUnsupportedInline,
   unsupportedBlock,
   unsupportedInline,
+  unsupportedMark,
 } from '@atlaskit/adf-schema';
+
 import { UnsupportedBlock, UnsupportedInline } from '@atlaskit/editor-common';
 
 import { ReactNodeView } from '../../nodeviews';
@@ -64,6 +66,10 @@ const createPlugin: PMPluginFactory = ({
 
 const unsupportedContentPlugin = (): EditorPlugin => ({
   name: 'unsupportedContent',
+
+  marks() {
+    return [{ name: 'unsupportedMark', mark: unsupportedMark }];
+  },
 
   nodes() {
     return [

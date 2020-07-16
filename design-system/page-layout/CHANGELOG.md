@@ -1,5 +1,12 @@
 # @atlaskit/page-layout
 
+## 0.9.0
+
+### Minor Changes
+
+- [`8fb2f0ac0e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8fb2f0ac0e) - **BREAKING** - The `width` prop now controls the width when LeftSidebar is mounted and overrides leftSidebarWidth value in localStorage.
+  Also added `collapsedState` prop to control expanded/collapsed state when LeftSidebar is mounted.
+
 ## 0.8.6
 
 ### Patch Changes

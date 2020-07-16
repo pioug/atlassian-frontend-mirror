@@ -12,11 +12,11 @@ export default md`
       to it to make it re-render the tag.
     `}</SectionMessage>
   )}
-  
+
 
   ## Usage
 
-  ${code`import Tag from '@atlaskit/tag';`}
+  ${code`import Tag, { TagColor } from '@atlaskit/tag';`}
 
   ${(
     <Example

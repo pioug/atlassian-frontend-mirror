@@ -19,6 +19,7 @@ export const testProps = {
   onEnterKeyPress: jest.fn,
   showSearch: true,
   showCategories: true,
+  formatMessage: jest.fn(),
 };
 
 describe('StatelessElementBrowser', () => {
@@ -59,7 +60,7 @@ describe('StatelessElementBrowser', () => {
       wrapper
         .find('MobileBrowser')
         .shallow()
-        .find('SideBarHeading'),
+        .find('SidebarHeading'),
     ).toHaveLength(0);
   });
   it('should render a sidebar heading on desktop', () => {
@@ -71,7 +72,7 @@ describe('StatelessElementBrowser', () => {
       wrapper
         .find('DesktopBrowser')
         .shallow()
-        .find('SideBarHeading'),
+        .find('SidebarHeading'),
     ).toHaveLength(1);
   });
 });

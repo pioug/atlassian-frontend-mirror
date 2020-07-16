@@ -11,6 +11,7 @@ export default {
     'newlinePreserveMarksPlugin',
     'imageUpload',
     'imageUploadInputRule',
+    'clipboard',
     'paste',
     'pasteKeymap',
     'mention',
@@ -159,5 +160,8 @@ export default {
     'breakout',
     'indentation',
     'annotation',
+
+    //Unsupported mark
+    'unsupportedMark',
   ],
 };

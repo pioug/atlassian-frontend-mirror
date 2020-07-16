@@ -214,6 +214,7 @@ export {
   AnnotationId,
   RichMediaAttributes,
   RichMediaLayout,
+  unsupportedMark,
 } from './schema';
 export {
   B100,

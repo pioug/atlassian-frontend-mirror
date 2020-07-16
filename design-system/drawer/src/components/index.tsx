@@ -184,9 +184,9 @@ export const DrawerItemTheme = (props: { children: ReactNode }) => (
   <ThemeProvider theme={drawerItemTheme}>{props.children}</ThemeProvider>
 );
 
-export * from './skeletons';
-export * from './item-group';
-export * from './item';
+export { DrawerSkeletonHeader, DrawerSkeletonItem } from './skeletons';
+export { DrawerItemGroup } from './item-group';
+export { DrawerItem } from './item';
 
 export default withAnalyticsContext({
   componentName: 'drawer',

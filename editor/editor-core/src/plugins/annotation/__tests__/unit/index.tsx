@@ -11,6 +11,7 @@ import {
   h1,
   p,
   panel,
+  hardBreak,
   Refs,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { EventDispatcher } from '../../../../event-dispatcher';
@@ -20,7 +21,7 @@ import {
   setInlineCommentDraftState,
 } from '../../commands';
 import { InlineCommentPluginState } from '../../pm-plugins/types';
-import annotationPlugin, { createAnnotation } from '../..';
+import annotationPlugin from '../..';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import {
   ACTION,
@@ -413,7 +414,7 @@ describe('annotation', () => {
 
       const dispatchSpy = jest.spyOn(editorView, 'dispatch');
       const id = 'annotation-id-123';
-      createAnnotation(editorView.state, editorView.dispatch)(id);
+      commands.createAnnotation(id)(editorView.state, editorView.dispatch);
 
       let inlineCommentTransactionCalls = 0;
       dispatchSpy.mock.calls.forEach(call => {
@@ -431,7 +432,7 @@ describe('annotation', () => {
       mockPluginStateWithBookmark(editorView, refs);
 
       const id = 'annotation-id-123';
-      createAnnotation(editorView.state, editorView.dispatch)(id);
+      commands.createAnnotation(id)(editorView.state, editorView.dispatch);
       expect(editorView.state.doc).toEqualDocument(
         doc(
           p(
@@ -449,6 +450,31 @@ describe('annotation', () => {
         eventType: EVENT_TYPE.TRACK,
         actionSubjectId: ACTION_SUBJECT_ID.INLINE_COMMENT,
       });
+    });
+
+    it('with only text and a hardBreak', () => {
+      const { editorView } = editor(
+        doc(p('Fluke {<}jib scourge', hardBreak(), ' of the{>} seven seas')),
+      );
+
+      const id = 'annotation-id-123';
+      setInlineCommentDraftState(true)(editorView.state, editorView.dispatch);
+      commands.createAnnotation(id)(editorView.state, editorView.dispatch);
+      expect(editorView.state.doc).toEqualDocument(
+        doc(
+          p(
+            'Fluke ',
+            annotation({ annotationType: AnnotationTypes.INLINE_COMMENT, id })(
+              'jib scourge',
+            ),
+            hardBreak(),
+            annotation({ annotationType: AnnotationTypes.INLINE_COMMENT, id })(
+              ' of the',
+            ),
+            ' seven seas',
+          ),
+        ),
+      );
     });
 
     describe('selection and focus', () => {
@@ -518,7 +544,7 @@ describe('annotation', () => {
       setInlineCommentDraftState(true)(editorView.state, editorView.dispatch);
 
       const id = 'annotation-id-123';
-      createAnnotation(editorView.state, editorView.dispatch)(id);
+      commands.createAnnotation(id)(editorView.state, editorView.dispatch);
 
       // Optimistic creation should create the comment in the state right away.
       const pluginState = getPluginState(editorView.state);
@@ -533,7 +559,7 @@ describe('annotation', () => {
       mockPluginStateWithBookmark(editorView, refs);
 
       const id = 'annotation-id-123';
-      createAnnotation(editorView.state, editorView.dispatch)(id);
+      commands.createAnnotation(id)(editorView.state, editorView.dispatch);
       expect(editorView.state.doc).toEqualDocument(
         doc(
           h1(
@@ -558,7 +584,7 @@ describe('annotation', () => {
       mockPluginStateWithBookmark(editorView, refs);
 
       const id = 'annotation-id-123';
-      createAnnotation(editorView.state, editorView.dispatch)(id);
+      commands.createAnnotation(id)(editorView.state, editorView.dispatch);
       expect(editorView.state.doc).toEqualDocument(
         doc(
           p(
@@ -592,7 +618,7 @@ describe('annotation', () => {
       mockPluginStateWithBookmark(editorView, refs);
 
       const id = 'annotation-id-123';
-      createAnnotation(editorView.state, editorView.dispatch)(id);
+      commands.createAnnotation(id)(editorView.state, editorView.dispatch);
       expect(editorView.state.doc).toEqualDocument(
         doc(
           p(

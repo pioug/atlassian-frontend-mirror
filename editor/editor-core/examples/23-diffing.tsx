@@ -2,7 +2,8 @@ import React, { ReactNode } from 'react';
 import styled from 'styled-components';
 import Button from '@atlaskit/button';
 import TextArea from '@atlaskit/textarea';
-import { colors, codeFontFamily } from '@atlaskit/theme';
+import { codeFontFamily } from '@atlaskit/theme/constants';
+import { N900, N10, N40, G75, R75 } from '@atlaskit/theme/colors';
 import { diffLines } from 'diff';
 
 const Container = styled.div`
@@ -26,9 +27,9 @@ const DiffContainer = styled.div`
   height: 100%;
   white-space: pre;
   font-family: ${codeFontFamily()};
-  color: ${colors.N900};
-  background-color: ${colors.N10};
-  border: 2px solid ${colors.N40};
+  color: ${N900};
+  background-color: ${N10};
+  border: 2px solid ${N40};
   border-radius: 3px;
   box-sizing: border-box;
   font-size: 14px;
@@ -49,17 +50,17 @@ const Line = styled.p`
 `;
 
 const AddedLine = styled(Line)`
-  background-color: ${colors.G75};
+  background-color: ${G75};
 `;
 
 const RemovedLine = styled(Line)`
-  background-color: ${colors.R75};
+  background-color: ${R75};
 `;
 
 const Label = styled.p`
   width: 100%;
   text-align: center;
-  border-top: 1px solid ${colors.N40};
+  border-top: 1px solid ${N40};
   font-size: 16px;
   padding-top: 1em;
 `;

@@ -4,6 +4,7 @@ import {
   Client as SmartCardClient,
 } from '@atlaskit/smart-card';
 import { ReactRenderer } from '@atlaskit/renderer';
+import { extensionHandlers } from '@atlaskit/editor-test-helpers';
 import { RendererPadding } from './kitchen-sink-styles';
 import { EditorAppearance } from '../../src/types';
 
@@ -23,7 +24,9 @@ export const KitchenSinkRenderer: React.StatelessComponent<KitchenSinkRendererPr
       <RendererPadding hasPadding={props.isFullPage}>
         <SmartCardProvider client={smartCardClient}>
           <ReactRenderer
-            allowHeadingAnchorLinks
+            allowHeadingAnchorLinks={{
+              allowNestedHeaderLinks: true,
+            }}
             document={props.document}
             adfStage="stage0"
             dataProviders={props.dataProviders}
@@ -31,6 +34,7 @@ export const KitchenSinkRenderer: React.StatelessComponent<KitchenSinkRendererPr
             shouldOpenMediaViewer={true}
             appearance={props.appearance as any}
             allowAltTextOnImages={true}
+            extensionHandlers={extensionHandlers}
           />
         </SmartCardProvider>
       </RendererPadding>

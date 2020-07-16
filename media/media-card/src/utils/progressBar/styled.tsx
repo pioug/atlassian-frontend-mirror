@@ -10,6 +10,7 @@ export const ProgressWrapper: ComponentClass<HTMLAttributes<{}>> = styled.div`
   .progressBar {
     width: 0%;
     height: 3px;
+    transition: width 0.25s ease-in;
     background-color: white;
   }
 `;

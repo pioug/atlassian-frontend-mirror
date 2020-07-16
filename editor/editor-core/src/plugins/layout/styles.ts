@@ -1,5 +1,6 @@
 import { css } from 'styled-components';
-import { colors, gridSize } from '@atlaskit/theme';
+import { gridSize } from '@atlaskit/theme/constants';
+import { N40A, N50A } from '@atlaskit/theme/colors';
 import {
   columnLayoutSharedStyle,
   gridMediumMaxWidth,
@@ -21,7 +22,6 @@ export const LAYOUT_COLUMN_PADDING = gridSize() * 1.5;
 export const layoutStyles = css`
   .ProseMirror {
     ${columnLayoutSharedStyle} [data-layout-section] {
-      position: relative;
       margin: ${gridSize() - 1}px -${akLayoutGutterOffset}px 0;
       transition: border-color 0.3s ${akEditorSwoopCubicBezier};
       cursor: pointer;
@@ -30,7 +30,7 @@ export const layoutStyles = css`
       [data-layout-column] {
         flex: 1;
         min-width: 0;
-        border: ${akEditorSelectedBorderSize}px solid ${colors.N40A};
+        border: ${akEditorSelectedBorderSize}px solid ${N40A};
         border-radius: 4px;
         padding: ${LAYOUT_COLUMN_PADDING}px;
         box-sizing: border-box;
@@ -64,6 +64,18 @@ export const layoutStyles = css`
             .rich-media-item {
             margin-top: 0;
           }
+
+          /* Prevent first DecisionWrapper's margin-top: 8px from shifting decisions down
+          and shrinking layout's node selectable area (leniency margin).
+          Note: ignore prettier to prevent css breaking */
+          /* prettier-ignore */
+          > [data-node-type='decisionList']:first-child,
+          .ProseMirror-gapcursor.-right:first-child + [data-node-type='decisionList'],
+          .ProseMirror-gapcursor:first-child + span + [data-node-type='decisionList'] {
+            .decisionItemView-content-wrap:first-child [data-decision-wrapper='true'] {
+              margin-top: 0;
+            }
+          }
         }
 
         /* Make the 'content' fill the entire height of the layout column to allow click
@@ -87,7 +99,7 @@ export const layoutStyles = css`
       /* Shows the border when cursor is inside a layout */
       &.selected [data-layout-column],
       &:hover [data-layout-column] {
-        border-color: ${colors.N50A};
+        border-color: ${N50A};
       }
 
       &.selected.danger > [data-layout-column] {
@@ -95,7 +107,7 @@ export const layoutStyles = css`
         border-color: ${akEditorDeleteBorder};
       }
 
-      &.${akEditorSelectedNodeClassName} {
+      &.${akEditorSelectedNodeClassName}:not(.danger) {
         [data-layout-column] {
           ${getSelectionStyles([SelectionStyle.Border, SelectionStyle.Blanket])}
         }

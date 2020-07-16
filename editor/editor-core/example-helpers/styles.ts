@@ -3,13 +3,14 @@ import styled from 'styled-components';
 // prettier-ignore
 import { HTMLAttributes, ClassAttributes, ComponentClass } from 'react';
 
-import { colors, gridSize } from '@atlaskit/theme';
+import { gridSize } from '@atlaskit/theme/constants';
+import { N800 } from '@atlaskit/theme/colors';
 
 export const Content: ComponentClass<HTMLAttributes<{}>> = styled.div`
   & div.toolsDrawer {
     margin-top: 16px;
     padding: 8px 16px;
-    background: ${colors.N800};
+    background: ${N800};
 
     & label {
       display: flex;

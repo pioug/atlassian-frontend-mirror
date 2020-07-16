@@ -4,7 +4,8 @@ import Tick from '@atlaskit/icon/glyph/check-circle';
 import Error from '@atlaskit/icon/glyph/error';
 import Info from '@atlaskit/icon/glyph/info';
 import Warning from '@atlaskit/icon/glyph/warning';
-import { colors, gridSize } from '@atlaskit/theme';
+import { G400, N500, R300, Y300 } from '@atlaskit/theme/colors';
+import { gridSize } from '@atlaskit/theme/constants';
 
 import Flag from '../src';
 import { AppearanceTypes } from '../src/types';
@@ -35,10 +36,10 @@ const appearances: { [key: string]: { description: string; title: string } } = {
 
 const iconMap = (key: string) => {
   const icons: { [key: string]: ReactElement } = {
-    info: <Info label="Info icon" secondaryColor={colors.N500} />,
-    success: <Tick label="Success" secondaryColor={colors.G400} />,
-    warning: <Warning label="Warning icon" secondaryColor={colors.Y300} />,
-    error: <Error label="Error icon" secondaryColor={colors.R300} />,
+    info: <Info label="Info icon" secondaryColor={N500} />,
+    success: <Tick label="Success" secondaryColor={G400} />,
+    warning: <Warning label="Warning icon" secondaryColor={Y300} />,
+    error: <Error label="Error icon" secondaryColor={R300} />,
   };
 
   return key ? icons[key] : icons;
@@ -61,7 +62,6 @@ export default () => (
           description={appearances[type].description}
           icon={getIcon(type)}
           id={type}
-          isDismissAllowed
           key={type}
           title={appearances[type].title}
         />

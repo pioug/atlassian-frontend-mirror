@@ -7,10 +7,10 @@ import { mention, emoji } from '@atlaskit/util-data-test';
 import { Editor } from '../src';
 import { Content } from '../example-helpers/styles';
 import imageUploadHandler from '../example-helpers/imageUpload';
-import { colors } from '@atlaskit/theme';
+import { N40 } from '@atlaskit/theme/colors';
 
 const Boundary = styled.div`
-  border: 2px solid ${colors.N40};
+  border: 2px solid ${N40};
   padding: 130px 60px 10px 40px;
 `;
 
@@ -130,7 +130,7 @@ class PortalInScrollContainerExample extends PureComponent<any, any> {
           overflow: 'scroll',
           height: 200,
           position: 'relative',
-          border: `1px solid ${colors.N40}`,
+          border: `1px solid ${N40}`,
         }}
         ref={this.handleBoundryRef}
       >

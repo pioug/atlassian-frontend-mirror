@@ -6,7 +6,7 @@ import {
   ExpandLayoutWrapper,
 } from '@atlaskit/editor-common';
 import ChevronRightIcon from '@atlaskit/icon/glyph/chevron-right';
-import { colors } from '@atlaskit/theme';
+import { N80A } from '@atlaskit/theme/colors';
 import Tooltip from '@atlaskit/tooltip';
 import { InjectedIntl } from 'react-intl';
 import { expandClassNames } from './class-names';
@@ -67,7 +67,7 @@ export const CustomButton = (props: ExpandIconButtonWithLabelProps) => {
     <Button
       appearance="subtle"
       className={expandClassNames.iconContainer}
-      iconBefore={<ChevronRightIcon label={label} primaryColor={colors.N80A} />}
+      iconBefore={<ChevronRightIcon label={label} primaryColor={N80A} />}
       shouldFitContainer
       theme={useTheme}
       isDisabled={!allowInteractiveExpand}

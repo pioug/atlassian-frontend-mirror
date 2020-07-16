@@ -31,7 +31,9 @@ const getHoverColor: themedType = themed('appearance', {
 });
 
 const getColor = (props: Props) => {
-  if (props.isHovered || props.isOpen) return getHoverColor(props);
+  if (props.isHovered || props.isOpen) {
+    return getHoverColor(props);
+  }
   return getBaseColor(props);
 };
 

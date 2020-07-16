@@ -4,6 +4,7 @@ import { EditorView } from 'prosemirror-view';
 
 import { analyticsService } from '../../analytics';
 import { Dispatch } from '../../event-dispatcher';
+import { EditorPlugin, CommandDispatch, EditorProps } from '../../types';
 import * as keymaps from '../../keymaps';
 import {
   ACTION,
@@ -14,7 +15,6 @@ import {
   INPUT_METHOD,
 } from '../../plugins/analytics';
 import { stateKey as mediaPluginKey } from '../../plugins/media/pm-plugins/plugin-key';
-import { CommandDispatch, EditorPlugin } from '../../types';
 import { analyticsEventKey } from '../analytics/consts';
 
 export function createPlugin(
@@ -65,9 +65,7 @@ const analyticsPayload = (
   },
 });
 
-const submitEditorPlugin = (
-  onSave?: (editorView: EditorView) => void,
-): EditorPlugin => ({
+const submitEditorPlugin = (onSave?: EditorProps['onSave']): EditorPlugin => ({
   name: 'submitEditor',
 
   pmPlugins() {

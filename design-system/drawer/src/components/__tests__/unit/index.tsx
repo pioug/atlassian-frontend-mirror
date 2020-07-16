@@ -195,7 +195,9 @@ describe('Drawer Transitions', () => {
 
     const node = document.createElement('div');
     const callback = wrapper.find(DrawerPrimitive).props().onOpenComplete;
-    if (callback) callback(node);
+    if (callback) {
+      callback(node);
+    }
     expect(onOpenComplete).toHaveBeenCalledWith(node);
   });
 

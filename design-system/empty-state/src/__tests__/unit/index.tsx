@@ -5,7 +5,7 @@ import { shallow } from 'enzyme';
 import Button, { ButtonGroup } from '@atlaskit/button';
 import Spinner from '@atlaskit/spinner';
 
-import EmptyState from '../../EmptyState';
+import EmptyState, { RenderImageProps } from '../../EmptyState';
 import { Description, Image } from '../../styled';
 
 describe('Empty state', () => {
@@ -93,5 +93,43 @@ describe('Empty state', () => {
 
     expect(wrapper.find(Image).props().height).toEqual(100);
     expect(wrapper.find(Image).props().width).toEqual(200);
+  });
+
+  it('should render ImageComponent', () => {
+    const TestImageComponent = (props: RenderImageProps) => (
+      <div>Example Image: {JSON.stringify(props)}</div>
+    );
+    const wrapper = shallow(
+      <EmptyState
+        header="Test header"
+        renderImage={props => <TestImageComponent {...props} />}
+        imageHeight={100}
+        imageWidth={200}
+        maxImageHeight={300}
+        maxImageWidth={400}
+      />,
+    );
+
+    expect(wrapper.find(TestImageComponent).length).toBe(1);
+    expect(wrapper.find(TestImageComponent).props().imageHeight).toEqual(100);
+    expect(wrapper.find(TestImageComponent).props().imageWidth).toEqual(200);
+    expect(wrapper.find(TestImageComponent).props().maxImageHeight).toEqual(
+      300,
+    );
+    expect(wrapper.find(TestImageComponent).props().maxImageWidth).toEqual(400);
+  });
+
+  it('imageUrl should take precedence over ImageComponent', () => {
+    const TestImageComponent = () => <div>Example Image</div>;
+    const wrapper = shallow(
+      <EmptyState
+        header="Test header"
+        imageUrl="test"
+        renderImage={() => <TestImageComponent />}
+      />,
+    );
+
+    expect(wrapper.find(Image).length).toBe(1);
+    expect(wrapper.find(TestImageComponent).length).toBe(0);
   });
 });

@@ -1,5 +1,11 @@
 # @atlaskit/menu
 
+## 0.5.2
+
+### Patch Changes
+
+- [`db053b24d8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/db053b24d8) - Update all the theme imports to be tree-shakable
+
 ## 0.5.1
 
 ### Patch Changes

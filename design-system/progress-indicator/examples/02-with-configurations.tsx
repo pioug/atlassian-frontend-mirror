@@ -4,12 +4,9 @@ import Lorem from 'react-lorem-component';
 import styled from 'styled-components';
 
 import Button, { ButtonAppearances, ButtonGroup } from '@atlaskit/button';
-import {
-  AtlaskitThemeProvider,
-  colors,
-  themed,
-  ThemeModes,
-} from '@atlaskit/theme';
+import { DN30, N0, subtleText } from '@atlaskit/theme/colors';
+import { AtlaskitThemeProvider, themed } from '@atlaskit/theme/components';
+import { ThemeModes } from '@atlaskit/theme/types';
 
 import { ProgressDots } from '../src';
 
@@ -28,14 +25,12 @@ const Footer = styled.div<{ appearance: string }>`
   display: flex;
   justify-content: space-between;
   background-color: ${p =>
-    p.appearance === 'inverted'
-      ? themed({ light: colors.DN30, dark: colors.N0 })
-      : null};
+    p.appearance === 'inverted' ? themed({ light: DN30, dark: N0 }) : null};
   margin: 1em -1em;
   padding: 1em;
 `;
 const Heading = styled.div`
-  color: ${colors.subtleText};
+  color: ${subtleText};
   font-size: 0.8em;
   font-weight: 500;
   margin-bottom: 0.8em;

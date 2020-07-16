@@ -1,6 +1,6 @@
 import { css } from 'styled-components';
 
-import { colors } from '@atlaskit/theme';
+import { N30A } from '@atlaskit/theme/colors';
 
 import { akEditorLineHeight } from '../consts';
 
@@ -8,7 +8,7 @@ import { akEditorLineHeight } from '../consts';
 export const ruleSharedStyles = css`
   & hr {
     border: none;
-    background-color: ${colors.N30A};
+    background-color: ${N30A};
     margin: ${akEditorLineHeight}em 0;
     height: 2px;
     border-radius: 1px;

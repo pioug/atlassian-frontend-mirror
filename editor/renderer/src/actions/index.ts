@@ -2,11 +2,15 @@ import {
   JSONTransformer,
   JSONDocNode,
 } from '@atlaskit/editor-json-transformer';
+import { AnnotationTypes } from '@atlaskit/adf-schema';
 import { Node, Schema } from 'prosemirror-model';
 import { Step, RemoveMarkStep } from 'prosemirror-transform';
 import { createAnnotationStep, getPosFromRange } from '../steps';
 
 type ActionResult = { step: Step; doc: JSONDocNode } | false;
+type Position = { from: number; to: number };
+type Annotation = { annotationId: string; annotationType: AnnotationTypes };
+
 export interface RendererActionsOptions {
   annotate: (
     range: Range,
@@ -20,7 +24,24 @@ export interface RendererActionsOptions {
   isValidAnnotationRange: (range: Range) => boolean;
 }
 
-export default class RendererActions implements RendererActionsOptions {
+export type ApplyAnnotation = (
+  pos: Position,
+  annotation: Annotation,
+) => ActionResult;
+export interface AnnotationsRendererActionsOptions {
+  isValidAnnotationPosition: (pos: Position) => boolean;
+  applyAnnotation: ApplyAnnotation;
+}
+
+export interface PositionRendererActionsOptions {
+  getPositionFromRange: (range: Range) => Position | false;
+}
+
+export default class RendererActions
+  implements
+    RendererActionsOptions,
+    AnnotationsRendererActionsOptions,
+    PositionRendererActionsOptions {
   // This is our psuedo feature flag for now
   // This module can only be used when wrapped with
   // the <RendererContext> component for now.
@@ -148,26 +169,10 @@ export default class RendererActions implements RendererActionsOptions {
       return false;
     }
 
-    const step = createAnnotationStep(from, to, {
+    return this.applyAnnotation(pos, {
       annotationId,
-      annotationType,
-      schema: this.schema,
+      annotationType: AnnotationTypes.INLINE_COMMENT,
     });
-
-    if (!step) {
-      return false;
-    }
-
-    const { doc, failed } = step.apply(this.doc);
-
-    if (!failed && doc) {
-      return {
-        step,
-        doc: this.transformer.encode(doc),
-      };
-    }
-
-    return false;
   }
 
   isValidAnnotationRange(range: Range) {
@@ -177,5 +182,46 @@ export default class RendererActions implements RendererActionsOptions {
     }
 
     return this._privateValidatePositionsForAnnotation(pos.from, pos.to);
+  }
+
+  isValidAnnotationPosition(pos: Position) {
+    if (!pos || !this.doc) {
+      return false;
+    }
+
+    return this._privateValidatePositionsForAnnotation(pos.from, pos.to);
+  }
+
+  getPositionFromRange(range: Range): Position | false {
+    if (!this.doc || !this.schema) {
+      return false;
+    }
+
+    return getPosFromRange(range);
+  }
+
+  applyAnnotation(pos: Position, annotation: Annotation): ActionResult {
+    if (!this.doc || !pos || !this.schema) {
+      return false;
+    }
+    const { from, to } = pos;
+    const { annotationId, annotationType } = annotation;
+
+    const step = createAnnotationStep(from, to, {
+      annotationId,
+      annotationType,
+      schema: this.schema,
+    });
+
+    const { doc, failed } = step.apply(this.doc);
+
+    if (failed || !doc) {
+      return false;
+    }
+
+    return {
+      step,
+      doc: this.transformer.encode(doc),
+    };
   }
 }

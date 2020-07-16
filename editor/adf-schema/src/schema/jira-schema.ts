@@ -17,7 +17,13 @@ export interface JIRASchemaConfig {
 
 export default function makeSchema(config: JIRASchemaConfig) {
   const nodes = ['doc', 'paragraph', 'text', 'hardBreak', 'heading', 'rule'];
-  const marks = ['strong', 'em', 'underline', 'typeAheadQuery'];
+  const marks = [
+    'strong',
+    'em',
+    'underline',
+    'typeAheadQuery',
+    'unsupportedMark',
+  ];
 
   if (config.allowLinks) {
     marks.push('link');

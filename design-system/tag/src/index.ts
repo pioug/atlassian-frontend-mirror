@@ -1,3 +1,3 @@
 export { default } from './Tag';
 
-export { AppearanceType } from './types';
+export { AppearanceType, TagColor } from './types';

@@ -328,6 +328,7 @@ export default class ResizableEmbedCard extends React.Component<Props, State> {
           scaleFactor={!this.wrappedLayout && !this.insideInlineLike ? 2 : 1}
           highlights={this.highlights}
           innerPadding={12}
+          nodeType="embed"
         >
           {children}
         </Resizer>

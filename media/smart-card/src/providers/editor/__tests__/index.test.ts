@@ -1,0 +1,144 @@
+import { EditorCardProvider } from '..';
+import { ORSProvidersResponse } from '../types';
+
+const mockProvidersResponse: ORSProvidersResponse = {
+  providers: [
+    {
+      key: 'google-object-provider',
+      patterns: [
+        {
+          source:
+            '^https:\\/\\/docs.google.com\\/(?:spreadsheets|document|presentation)\\/d\\/[^\\\\]+\\/|^https:\\/\\/drive.google.com\\/file\\/d\\/[^\\\\]+\\/|^https:\\/\\/drive.google.com\\/open\\?id=[^&]+|^https:\\/\\/drive.google.com\\/drive\\/u\\/\\d+\\/folders\\/[^&\\?]+|^https:\\/\\/drive.google.com\\/drive\\/folders\\/[^&\\?]+',
+          flags: '',
+        },
+      ],
+    },
+    {
+      key: 'jira-object-provider',
+      patterns: [
+        {
+          source:
+            '^https:\\/\\/.*?\\.jira-dev\\.com\\/browse\\/([a-zA-Z0-9]+-\\d+)#?.*?\\/?$',
+          flags: '',
+        },
+        {
+          source:
+            '^https:\\/\\/.*?\\.jira-dev\\.com\\/jira\\/software\\/projects\\/([^\\/]+?)\\/boards\\/(\\d+)\\/roadmap\\/?$',
+          flags: '',
+        },
+      ],
+    },
+  ],
+};
+
+describe('providers > editor', () => {
+  let mockFetch: jest.Mock;
+
+  beforeEach(() => {
+    mockFetch = jest.fn();
+    (global as any).fetch = mockFetch;
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  afterAll(() => {
+    delete (global as any).fetch;
+  });
+
+  it('returns inlineCard when calling /providers endpoint', async () => {
+    const provider = new EditorCardProvider();
+    mockFetch.mockImplementationOnce(async () => ({
+      json: async () => mockProvidersResponse,
+    }));
+    const url = 'https://drive.google.com/file/d/123/view?usp=sharing';
+    const adf = await provider.resolve(url, 'inline');
+    expect(adf).toEqual({
+      type: 'inlineCard',
+      attrs: {
+        url,
+      },
+    });
+  });
+
+  it('returns blockCard when calling /providers endpoint', async () => {
+    const provider = new EditorCardProvider();
+    mockFetch.mockImplementationOnce(async () => ({
+      json: async () => mockProvidersResponse,
+    }));
+    const url = 'https://drive.google.com/file/d/123/view?usp=sharing';
+    const adf = await provider.resolve(url, 'block');
+    expect(adf).toEqual({
+      type: 'blockCard',
+      attrs: {
+        url,
+      },
+    });
+  });
+
+  it('returns embedCard when roadmap embed inserted, calling /providers endpoint', async () => {
+    const provider = new EditorCardProvider();
+    mockFetch.mockImplementationOnce(async () => ({
+      json: async () => mockProvidersResponse,
+    }));
+    const url =
+      'https://jdog.jira-dev.com/jira/software/projects/DL39857/boards/3186/roadmap';
+    const adf = await provider.resolve(url, 'inline');
+    expect(adf).toEqual({
+      type: 'embedCard',
+      attrs: {
+        url,
+        layout: 'wide',
+      },
+    });
+  });
+
+  it('returns inlineCard when calling /providers endpoint, with fallback to /check', async () => {
+    const provider = new EditorCardProvider();
+    mockFetch.mockImplementationOnce(async () => ({
+      json: async () => mockProvidersResponse,
+    }));
+    mockFetch.mockImplementationOnce(async () => ({
+      json: async () => ({ isSupported: true }),
+    }));
+    const url = 'https://drive.google.com/file/123';
+    const adf = await provider.resolve(url, 'inline');
+    expect(adf).toEqual({
+      type: 'inlineCard',
+      attrs: {
+        url,
+      },
+    });
+  });
+
+  it('returns undefined when calling /providers endpoint, with fallback to /check, not supported', async () => {
+    const provider = new EditorCardProvider();
+    mockFetch.mockImplementationOnce(async () => ({
+      json: async () => mockProvidersResponse,
+    }));
+    mockFetch.mockImplementationOnce(async () => ({
+      json: async () => ({ isSupported: false }),
+    }));
+    const url = 'https://drive.google.com/file/123';
+    const promise = provider.resolve(url, 'inline');
+    await expect(promise).rejects.toEqual(undefined);
+  });
+
+  it('returns undefined when calling /providers endpoint, with fallback to /check, both fail', async () => {
+    const provider = new EditorCardProvider();
+    mockFetch.mockImplementationOnce(async () => ({
+      json: async () => {
+        throw Error();
+      },
+    }));
+    mockFetch.mockImplementationOnce(async () => ({
+      json: async () => {
+        throw Error();
+      },
+    }));
+    const url = 'https://drive.google.com/file/123';
+    const promise = provider.resolve(url, 'inline');
+    await expect(promise).rejects.toEqual(undefined);
+  });
+});

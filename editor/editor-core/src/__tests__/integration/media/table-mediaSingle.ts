@@ -14,7 +14,7 @@ import { messages as insertBlockMessages } from '../../../plugins/insert-block/u
 // FIXME: not entirely sure why firefox is flakey on browserstack
 BrowserTestCase(
   'table-mediaSingle.ts: Can insert media single into table',
-  { skip: ['edge', 'ie', 'safari', 'firefox'] },
+  { skip: ['edge', 'safari', 'firefox'] },
   async (
     client: Parameters<typeof goToEditorTestingExample>[0],
     testName: string,

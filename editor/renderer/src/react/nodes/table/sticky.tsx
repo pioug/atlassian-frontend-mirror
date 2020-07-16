@@ -7,7 +7,7 @@ import {
   OverflowShadowProps,
 } from '@atlaskit/editor-common';
 import { TableLayout } from '@atlaskit/adf-schema';
-import { colors } from '@atlaskit/theme';
+import * as colors from '@atlaskit/theme/colors';
 const { N40A } = colors;
 
 import { findHorizontalOverflowScrollParent } from '../../../utils';

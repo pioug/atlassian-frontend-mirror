@@ -1,5 +1,5 @@
 import React, { Component, ComponentType } from 'react';
-import { colors } from '@atlaskit/theme';
+import { B500, N300 } from '@atlaskit/theme/colors';
 import styled from 'styled-components';
 import Tooltip from '@atlaskit/tooltip';
 import Button from '@atlaskit/button';
@@ -11,7 +11,7 @@ import ArrowRightIcon from '../glyph/arrow-right';
 
 const ColorDiv = styled.div<{ isColorFlipped: boolean }>`
   align-items: center;
-  background-color: ${props => (props.isColorFlipped ? 'white' : colors.B500)};
+  background-color: ${props => (props.isColorFlipped ? 'white' : B500)};
   display: flex;
   flex-wrap: wrap;
   height: 100%;
@@ -59,7 +59,7 @@ export default class ChangingColorWithProps extends Component<{}, State> {
         {this.state.icons.map(([Icon, label]) => (
           <Tooltip content={label} key={label}>
             <Icon
-              primaryColor={this.state.isColorFlipped ? colors.N300 : 'white'}
+              primaryColor={this.state.isColorFlipped ? N300 : 'white'}
               size="xlarge"
               label={label}
             />

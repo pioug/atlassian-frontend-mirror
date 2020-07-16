@@ -36,7 +36,9 @@ export default class MultiLineSearchInput extends Component<{}, State> {
 
   handleKeyDown = (event: KeyboardEvent) => {
     const { inputValue, value } = this.state;
-    if (!inputValue) return;
+    if (!inputValue) {
+      return;
+    }
     switch (event.key) {
       case 'Enter':
       case 'Tab':

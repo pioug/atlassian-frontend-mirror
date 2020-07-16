@@ -11,7 +11,7 @@ const textDisplaySelector = 'input[data-testid="link-label"]';
   BrowserTestCase(
     `hyperlink-toolbar.ts: Link: Empty text to display when link href is same as text`,
     {
-      skip: ['ie', 'edge'],
+      skip: ['edge'],
     },
     async (client: any) => {
       const browser = new Page(client);

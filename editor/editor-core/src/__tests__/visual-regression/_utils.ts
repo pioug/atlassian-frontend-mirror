@@ -157,7 +157,6 @@ function getEditorProps(appearance: Appearance) {
     },
     allowBreakout: true,
     allowJiraIssue: true,
-    allowUnsupportedContent: true,
     allowExtension: {
       allowBreakout: true,
     },

@@ -1,22 +1,22 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
-import { colors } from '@atlaskit/theme';
+import { R100 } from '@atlaskit/theme/colors';
 
 const pulseBackground = keyframes`
   50% {
-    background-color: ${colors.R100};
+    background-color: ${R100};
   }
 `;
 
 const pulseBackgroundReverse = keyframes`
   0% {
-    background-color: ${colors.R100};
+    background-color: ${R100};
   }
   50% {
     background-color: auto;
   }
   100% {
-    background-color: ${colors.R100};
+    background-color: ${R100};
   }
 `;
 

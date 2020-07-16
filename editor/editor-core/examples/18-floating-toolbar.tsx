@@ -4,7 +4,7 @@ import React from 'react';
 import { Component } from 'react';
 import styled from 'styled-components';
 
-import { colors } from '@atlaskit/theme';
+import { R500, Y500, G500 } from '@atlaskit/theme/colors';
 import Button, { ButtonGroup } from '@atlaskit/button';
 import { Skeleton } from '@atlaskit/icon';
 
@@ -25,9 +25,9 @@ const Container = styled.div`
   height: calc(100vh - 96px);
 `;
 
-const RedIcon = () => <Skeleton weight="strong" color={colors.R500} />;
-const YellowIcon = () => <Skeleton weight="strong" color={colors.Y500} />;
-const GreenIcon = () => <Skeleton weight="strong" color={colors.G500} />;
+const RedIcon = () => <Skeleton weight="strong" color={R500} />;
+const YellowIcon = () => <Skeleton weight="strong" color={Y500} />;
+const GreenIcon = () => <Skeleton weight="strong" color={G500} />;
 
 const BUTTONS: Array<FloatingToolbarItem<Function>> = [
   {

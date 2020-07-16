@@ -57,9 +57,9 @@ const AvatarImage: FC<Props> = ({
       <span
         css={{
           backgroundColor: N50,
-          borderRadius,
-          height: `${AVATAR_SIZES[size]}px`,
-          width: `${AVATAR_SIZES[size]}px`,
+          width: '100%',
+          height: '100%',
+          display: 'block',
           '& svg': {
             height: `${AVATAR_SIZES[size]}px`,
             width: `${AVATAR_SIZES[size]}px`,

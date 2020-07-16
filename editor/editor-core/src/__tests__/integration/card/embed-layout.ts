@@ -14,7 +14,7 @@ import { editable, getDocFromElement } from '../_helpers';
 ].forEach(layout => {
   BrowserTestCase(
     `embed-layout.ts: Layout ${layout.type} selector for embed Card`,
-    { skip: ['edge', 'ie', 'safari', 'firefox'] },
+    { skip: ['edge', 'safari', 'firefox'] },
     async (
       client: Parameters<typeof goToEditorTestingExample>[0],
       testName: string,

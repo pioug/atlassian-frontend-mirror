@@ -2,7 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { SortOrder } from '@atlaskit/editor-common';
 import Tooltip from '@atlaskit/tooltip';
-import { colors, gridSize } from '@atlaskit/theme';
+import { gridSize } from '@atlaskit/theme/constants';
+import { N20, N30 } from '@atlaskit/theme/colors';
 
 export enum StatusClassNames {
   ASC = 'sorting-icon-svg__asc',
@@ -20,12 +21,12 @@ const Wrapper = styled.figure`
   top: 0;
   border: 2px solid #fff;
   border-radius: ${gridSize() / 2}px;
-  background-color: ${colors.N20};
+  background-color: ${N20};
   justify-content: center;
   align-items: center;
 
   &:hover {
-    background-color: ${colors.N30};
+    background-color: ${N30};
   }
 
   &.${StatusClassNames.SORTING_NOT_ALLOWED} {

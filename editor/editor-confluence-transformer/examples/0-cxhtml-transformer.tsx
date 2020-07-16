@@ -154,7 +154,6 @@ class Example extends Component<ExampleProps, ExampleState> {
                     allowNumberColumn: true,
                   }}
                   allowJiraIssue={true}
-                  allowUnsupportedContent={true}
                   allowPanel={true}
                   allowExtension={true}
                   allowConfluenceInlineComment={true}

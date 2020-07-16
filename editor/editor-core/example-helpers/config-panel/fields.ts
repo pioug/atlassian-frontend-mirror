@@ -13,6 +13,7 @@ export const nativeFields: FieldDefinition[] = [
     name: 'number-field',
     label: 'Number',
     isRequired: true,
+    placeholder: 'Number goes here',
     type: 'number',
   },
   {
@@ -26,6 +27,7 @@ export const nativeFields: FieldDefinition[] = [
     label: 'Text',
     isRequired: false,
     description: 'Leave it empty',
+    placeholder: 'Text goes here',
     type: 'string',
   },
   {
@@ -45,6 +47,7 @@ export const nativeFields: FieldDefinition[] = [
   {
     name: 'start-date',
     label: 'Date',
+    placeholder: 'Date goes here',
     type: 'date',
   },
   {
@@ -55,6 +58,7 @@ export const nativeFields: FieldDefinition[] = [
     type: 'enum',
     style: 'select',
     isMultiple: false,
+    placeholder: 'Selected option goes here',
     items: [
       { label: 'Option A', value: 'a' },
       { label: 'Option B', value: 'b' },
@@ -89,6 +93,7 @@ export const nativeFields: FieldDefinition[] = [
     type: 'enum',
     defaultValue: ['a', 'b'],
     style: 'select',
+    placeholder: 'Selected options go here',
     isMultiple: true,
     items: [
       {
@@ -307,6 +312,7 @@ export const customFields: FieldDefinition[] = [
     label: 'Custom: Space',
     isRequired: true,
     type: 'custom',
+    placeholder: 'Search for space key...',
     options: {
       resolver: {
         type: 'spacekey',

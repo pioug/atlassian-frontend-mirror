@@ -9,7 +9,7 @@ exports[`Wrapper it should have interactive styles 1`] = `
   box-decoration-break: clone;
   border-radius: 3px;
   background-color: white;
-  box-shadow: 0 1px 1px rgba(9,30,66,0.25),0 0 1px 0 rgba(9,30,66,0.31);
+  box-shadow: 0 1px 1px rgba(9,30,66,0.25),0 0 1px 1px rgba(9,30,66,0.13);
   cursor: pointer;
   -webkit-user-select: text;
   -moz-user-select: text;
@@ -65,7 +65,7 @@ exports[`Wrapper it should have selected styles 1`] = `
   box-decoration-break: clone;
   border-radius: 3px;
   background-color: white;
-  box-shadow: 0 1px 1px rgba(9,30,66,0.25),0 0 1px 0 rgba(9,30,66,0.31);
+  box-shadow: 0 1px 1px rgba(9,30,66,0.25),0 0 1px 1px rgba(9,30,66,0.13);
   cursor: pointer;
   box-shadow: 0 0 0 2px #4C9AFF;
   outline: none;
@@ -99,7 +99,7 @@ exports[`Wrapper it should not have interactive or selected styles 1`] = `
   box-decoration-break: clone;
   border-radius: 3px;
   background-color: white;
-  box-shadow: 0 1px 1px rgba(9,30,66,0.25),0 0 1px 0 rgba(9,30,66,0.31);
+  box-shadow: 0 1px 1px rgba(9,30,66,0.25),0 0 1px 1px rgba(9,30,66,0.13);
   -webkit-user-select: text;
   -moz-user-select: text;
   -ms-user-select: text;

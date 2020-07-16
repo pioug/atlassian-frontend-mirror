@@ -241,6 +241,7 @@ export const generateStoriesForEditableCards = () => {
                 onRetry={() => console.log('onRetry')}
                 appearance={appearance}
                 status={status}
+                mediaItemType="file"
                 metadata={metadata}
                 dataURI={dataURI}
                 dimensions={useDimensions ? newDimensions : undefined}

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import Button from '@atlaskit/button';
 import { ProgressDots } from '@atlaskit/progress-indicator';
-import { gridSize } from '@atlaskit/theme';
+import { gridSize } from '@atlaskit/theme/constants';
 
 import { SpotlightCard } from '../src';
 

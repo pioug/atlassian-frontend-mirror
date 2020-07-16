@@ -16,7 +16,7 @@ const placeholderNodeSelector = '[data-placeholder]';
 
 BrowserTestCase(
   'placeholder text: can insert placeholder',
-  { skip: ['ie', 'edge'] },
+  { skip: ['edge'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
     await mountEditor(page, {
@@ -39,7 +39,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'placeholder text: can type inside placeholder and replace with text',
-  { skip: ['ie', 'edge'] },
+  { skip: ['edge'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
     await mountEditor(page, {

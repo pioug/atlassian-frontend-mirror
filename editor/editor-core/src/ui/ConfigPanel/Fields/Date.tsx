@@ -14,10 +14,12 @@ const Date = function({
   onBlur,
   autoFocus,
   intl,
+  placeholder,
 }: {
   field: DateField;
   onBlur: OnBlur;
   autoFocus?: boolean;
+  placeholder?: string;
 } & InjectedIntlProps) {
   const element = (
     <Field
@@ -37,6 +39,7 @@ const Date = function({
               onBlur(field.name);
             }}
             locale={intl.locale}
+            placeholder={placeholder}
           />
           <FieldMessages error={error} description={field.description} />
         </Fragment>

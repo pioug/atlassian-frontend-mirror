@@ -1,11 +1,8 @@
-import { MentionAttributes } from '@atlaskit/adf-schema';
-import { CardAppearance } from '@atlaskit/smart-card';
 import { closeHistory } from 'prosemirror-history';
 import {
   Fragment,
   Mark,
   Node as PMNode,
-  Node as ProsemirrorNode,
   Schema,
   Slice,
 } from 'prosemirror-model';
@@ -21,6 +18,11 @@ import {
   safeInsert,
 } from 'prosemirror-utils';
 import { EditorView } from 'prosemirror-view';
+
+import { MentionAttributes } from '@atlaskit/adf-schema';
+import { ExtensionAutoConvertHandler } from '@atlaskit/editor-common/extensions';
+import { CardAppearance } from '@atlaskit/smart-card';
+
 import { Command, CommandDispatch } from '../../types';
 import { compose, insideTable, processRawValue } from '../../utils';
 import { mapSlice } from '../../utils/slice';
@@ -210,6 +212,8 @@ export function handlePastePreservingMarks(slice: Slice): Command {
       return true;
     }
 
+    // if the pasted data is one of the node types below
+    // we apply current selection marks to the pasted slice
     if (
       hasOnlyNodesOfType(
         bulletList,
@@ -258,7 +262,7 @@ async function isLinkSmart(
 
 function insertAutoMacro(
   slice: Slice,
-  macro: ProsemirrorNode,
+  macro: PMNode,
   view?: EditorView,
 ): boolean {
   if (view) {
@@ -285,13 +289,28 @@ export function handleMacroAutoConvert(
   text: string,
   slice: Slice,
   cardsOptions?: CardOptions,
+  extensionAutoConverter?: ExtensionAutoConvertHandler,
 ): Command {
   return (
     state: EditorState,
     _dispatch?: CommandDispatch,
     view?: EditorView,
   ) => {
-    const macro = runMacroAutoConvert(state, text);
+    let macro: PMNode | null = null;
+
+    // try to use auto convert from extension provider first
+    if (extensionAutoConverter) {
+      const extension = extensionAutoConverter(text);
+      if (extension) {
+        macro = PMNode.fromJSON(state.schema, extension);
+      }
+    }
+
+    // then try from macro provider (which will be removed some time in the future)
+    if (!macro) {
+      macro = runMacroAutoConvert(state, text);
+    }
+
     if (macro) {
       /**
        * if FF enabled, run through smart links and check for result
@@ -322,9 +341,10 @@ export function handleMacroAutoConvert(
 
             view.dispatch(insertCard(tr, cardAdf, schema));
           })
-          .catch(() => insertAutoMacro(slice, macro, view));
+          .catch(() => insertAutoMacro(slice, macro as PMNode, view));
         return true;
       }
+
       return insertAutoMacro(slice, macro, view);
     }
     return !!macro;

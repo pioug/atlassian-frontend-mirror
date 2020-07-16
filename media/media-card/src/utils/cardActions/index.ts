@@ -11,3 +11,4 @@ export {
   CardActionsDropdownMenu,
   CardActionsDropdownMenuProps,
 } from './cardActionsDropdownMenu';
+export { CardActionIconButtonVariant } from './styled';

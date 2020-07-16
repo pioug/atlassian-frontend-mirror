@@ -1,18 +1,12 @@
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { EditorPlugin, EditorProps } from '../types';
 import {
-  basePlugin,
   breakoutPlugin,
-  blockTypePlugin,
-  clearMarksOnChangeToEmptyDocumentPlugin,
-  codeBlockPlugin,
   collabEditPlugin,
   datePlugin,
   emojiPlugin,
   extensionPlugin,
-  fakeTextCursorPlugin,
   helpDialogPlugin,
-  hyperlinkPlugin,
   imageUploadPlugin,
   insertBlockPlugin,
   jiraIssuePlugin,
@@ -23,48 +17,36 @@ import {
   mediaPlugin,
   mentionsPlugin,
   panelPlugin,
-  pastePlugin,
-  placeholderPlugin,
   placeholderTextPlugin,
   rulePlugin,
   saveOnEnterPlugin,
-  submitEditorPlugin,
   tablesPlugin,
   tasksAndDecisionsPlugin,
   textColorPlugin,
-  textFormattingPlugin,
-  unsupportedContentPlugin,
-  widthPlugin,
-  typeAheadPlugin,
-  quickInsertPlugin,
-  gapCursorPlugin,
   cardPlugin,
-  floatingToolbarPlugin,
   gridPlugin,
   statusPlugin,
   alignmentPlugin,
-  editorDisabledPlugin,
   indentationPlugin,
-  annotationPlugin,
   analyticsPlugin,
   customAutoformatPlugin,
   feedbackDialogPlugin,
   historyPlugin,
-  featureFlagsContextPlugin,
   expandPlugin,
   isExpandInsertionEnabled,
   scrollIntoViewPlugin,
   mobileScrollPlugin,
   findReplacePlugin,
   contextPanelPlugin,
-  selectionPlugin,
   mobileSelectionPlugin,
+  annotationPlugin,
 } from '../plugins';
 import { isFullPage as fullPageCheck } from '../utils/is-full-page';
 import { ScrollGutterPluginOptions } from '../plugins/base/pm-plugins/scroll-gutter';
 import { createFeatureFlagsFromProps } from '../plugins/feature-flags-context/feature-flags-from-props';
 import { PrivateCollabEditOptions } from '../plugins/collab-edit/types';
 import { BlockTypePluginOptions } from '../plugins/block-type/types';
+import { createDefaultPreset } from '../labs/next/presets/default';
 
 const isCodeBlockAllowed = (
   options?: Pick<BlockTypePluginOptions, 'allowBlockType'>,
@@ -76,75 +58,6 @@ const isCodeBlockAllowed = (
 
   return exclude.indexOf('codeBlock') === -1;
 };
-
-/**
- * Returns list of plugins that are absolutely necessary for editor to work
- */
-export function getDefaultPluginsList(props: EditorProps): EditorPlugin[] {
-  const {
-    appearance,
-    textFormatting,
-    placeholder,
-    placeholderHints,
-    placeholderBracketHint,
-  } = props;
-  const isFullPage = fullPageCheck(appearance);
-  const isMobile = props.appearance === 'mobile';
-
-  return [
-    pastePlugin({
-      cardOptions: props.UNSAFE_cards,
-      sanitizePrivateContent: props.sanitizePrivateContent,
-    }),
-    basePlugin({
-      allowInlineCursorTarget: appearance !== 'mobile',
-      allowScrollGutter: getScrollGutterOptions(props),
-      addRunTimePerformanceCheck: isFullPage,
-      inputSamplingLimit: props.inputSamplingLimit,
-    }),
-    blockTypePlugin({
-      lastNodeMustBeParagraph:
-        appearance === 'comment' || appearance === 'chromeless',
-      allowBlockType: props.allowBlockType,
-    }),
-    placeholderPlugin({
-      placeholder,
-      placeholderHints,
-      placeholderBracketHint,
-    }),
-    clearMarksOnChangeToEmptyDocumentPlugin(),
-    // Workaround to place annotationPlugin above hyperlinkPlugin for loading floatingToolbarConfig
-    // Follow up to create floatingToolbarConfig rank: https://product-fabric.atlassian.net/browse/ED-8999
-    ...(props.annotationProviders
-      ? [annotationPlugin(props.annotationProviders)]
-      : []),
-    hyperlinkPlugin(),
-    textFormattingPlugin(textFormatting || {}),
-    widthPlugin(),
-    ...(props.quickInsert
-      ? [
-          quickInsertPlugin({
-            headless: isMobile,
-            disableDefaultItems: isMobile,
-          }),
-        ]
-      : []),
-    typeAheadPlugin(),
-    unsupportedContentPlugin(),
-    editorDisabledPlugin(),
-    gapCursorPlugin(),
-    gridPlugin({ shouldCalcBreakoutGridLines: isFullPage }),
-    submitEditorPlugin(props.onSave),
-    fakeTextCursorPlugin(),
-    floatingToolbarPlugin(),
-    featureFlagsContextPlugin(createFeatureFlagsFromProps(props)),
-    ...(isCodeBlockAllowed({ allowBlockType: props.allowBlockType })
-      ? [codeBlockPlugin()]
-      : []),
-    contextPanelPlugin(),
-    selectionPlugin({ useLongPressSelection: isMobile }),
-  ];
-}
 
 function getScrollGutterOptions(
   props: EditorProps,
@@ -167,6 +80,38 @@ function getScrollGutterOptions(
   return undefined;
 }
 
+export function getDefaultPresetOptionsFromEditorProps(props: EditorProps) {
+  const appearance = props.appearance;
+  const isMobile = appearance === 'mobile';
+  const isFullPage = fullPageCheck(appearance);
+  return {
+    featureFlags: createFeatureFlagsFromProps(props),
+    paste: {
+      cardOptions: props.UNSAFE_cards,
+      sanitizePrivateContent: props.sanitizePrivateContent,
+    },
+    base: {
+      allowInlineCursorTarget: !isMobile,
+      allowScrollGutter: getScrollGutterOptions(props),
+      addRunTimePerformanceCheck: isFullPage,
+      inputSamplingLimit: props.inputSamplingLimit,
+    },
+    blockType: {
+      lastNodeMustBeParagraph:
+        appearance === 'comment' || appearance === 'chromeless',
+      allowBlockType: props.allowBlockType,
+    },
+    placeholder: {
+      placeholder: props.placeholder,
+      placeholderHints: props.placeholderHints,
+      placeholderBracketHint: props.placeholderBracketHint,
+    },
+    textFormatting: props.textFormatting,
+    annotationProviders: props.annotationProviders,
+    submitEditor: props.onSave,
+  };
+}
+
 /**
  * Maps EditorProps to EditorPlugins
  */
@@ -175,15 +120,20 @@ export default function createPluginsList(
   prevProps?: EditorProps,
   createAnalyticsEvent?: CreateUIAnalyticsEvent,
 ): EditorPlugin[] {
-  const isMobile = props.appearance === 'mobile';
-  const isFullPage = fullPageCheck(props.appearance);
-  const plugins = getDefaultPluginsList(props);
+  const appearance = props.appearance;
+  const isMobile = appearance === 'mobile';
+  const isComment = appearance === 'comment';
+  const isFullPage = fullPageCheck(appearance);
+  const preset = createDefaultPreset(
+    getDefaultPresetOptionsFromEditorProps(props),
+  );
 
   if (props.allowAnalyticsGASV3) {
     const { performanceTracking, transactionTracking } = props;
 
-    plugins.push(
-      analyticsPlugin({
+    preset.add([
+      analyticsPlugin,
+      {
         createAnalyticsEvent,
         // TODO: https://product-fabric.atlassian.net/browse/ED-8985
         ...(performanceTracking || transactionTracking
@@ -194,44 +144,58 @@ export default function createPluginsList(
               },
             }
           : {}),
-      }),
-    );
+      },
+    ]);
   }
 
   if (props.allowBreakout && isFullPage) {
-    plugins.push(
-      breakoutPlugin({ allowBreakoutButton: props.appearance === 'full-page' }),
-    );
+    preset.add([
+      breakoutPlugin,
+      { allowBreakoutButton: props.appearance === 'full-page' },
+    ]);
   }
 
   if (props.allowTextAlignment) {
-    plugins.push(alignmentPlugin());
+    preset.add(alignmentPlugin);
   }
 
   if (props.allowTextColor) {
-    plugins.push(textColorPlugin(props.allowTextColor));
+    preset.add([textColorPlugin, props.allowTextColor]);
   }
 
   // Needs to be after allowTextColor as order of buttons in toolbar depends on it
-  plugins.push(listsPlugin());
+  preset.add(listsPlugin);
 
   if (props.allowRule) {
-    plugins.push(rulePlugin());
+    preset.add(rulePlugin);
   }
 
   if (props.allowExpand) {
-    plugins.push(
-      expandPlugin({ allowInsertion: isExpandInsertionEnabled(props) }),
-    );
+    preset.add([
+      expandPlugin,
+      { allowInsertion: isExpandInsertionEnabled(props) },
+    ]);
   }
 
   if (props.media) {
-    plugins.push(
-      mediaPlugin({
+    preset.add([gridPlugin, { shouldCalcBreakoutGridLines: isFullPage }]);
+    const alignLeftOnInsert =
+      typeof props.media.alignLeftOnInsert !== 'undefined'
+        ? props.media.alignLeftOnInsert
+        : isComment;
+
+    const showMediaLayoutOptions =
+      typeof props.media.allowAdvancedToolBarOptions !== 'undefined'
+        ? props.media.allowAdvancedToolBarOptions
+        : isFullPage || isComment;
+
+    preset.add([
+      mediaPlugin,
+      {
         ...props.media,
         allowLazyLoading: !isMobile,
         allowBreakoutSnapPoints: isFullPage,
-        allowAdvancedToolBarOptions: isFullPage,
+        allowAdvancedToolBarOptions: showMediaLayoutOptions,
         allowDropzoneDropLine: isFullPage,
         allowMediaSingleEditable: !isMobile,
         allowRemoteDimensionsFetch: !isMobile,
@@ -242,30 +206,33 @@ export default function createPluginsList(
         uploadErrorHandler: props.uploadErrorHandler,
         waitForMediaUpload: props.waitForMediaUpload,
         isCopyPasteEnabled: !isMobile,
-      }),
-    );
+        alignLeftOnInsert,
+      },
+    ]);
   }
 
   if (props.mentionProvider) {
-    plugins.push(
-      mentionsPlugin({
+    preset.add([
+      mentionsPlugin,
+      {
         createAnalyticsEvent,
         sanitizePrivateContent: props.sanitizePrivateContent,
         mentionInsertDisplayName: props.mentionInsertDisplayName,
         useInlineWrapper: isMobile,
         allowZeroWidthSpaceAfter: !isMobile,
-      }),
-    );
+      },
+    ]);
   }
 
   if (props.emojiProvider) {
-    plugins.push(
-      emojiPlugin({
+    preset.add([
+      emojiPlugin,
+      {
         createAnalyticsEvent,
         useInlineWrapper: isMobile,
         allowZeroWidthSpaceAfter: !isMobile,
-      }),
-    );
+      },
+    ]);
   }
 
   if (props.allowTables) {
@@ -273,45 +240,50 @@ export default function createPluginsList(
       !props.allowTables || typeof props.allowTables === 'boolean'
         ? {}
         : props.allowTables;
-    plugins.push(
-      tablesPlugin({
+    preset.add([
+      tablesPlugin,
+      {
         tableOptions,
         breakoutEnabled: props.appearance === 'full-page',
         allowContextualMenu: !isMobile,
         fullWidthEnabled: props.appearance === 'full-width',
         wasFullWidthEnabled: prevProps && prevProps.appearance === 'full-width',
         dynamicSizingEnabled: props.allowDynamicTextSizing,
-      }),
-    );
+      },
+    ]);
   }
 
   if (props.allowTasksAndDecisions || props.taskDecisionProvider) {
-    plugins.push(tasksAndDecisionsPlugin(props.allowNestedTasks, isFullPage));
+    preset.add([
+      tasksAndDecisionsPlugin,
+      { allowNestedTasks: props.allowNestedTasks, consumeTabs: isFullPage },
+    ]);
   }
 
   if (props.feedbackInfo) {
-    plugins.push(feedbackDialogPlugin(props.feedbackInfo));
+    preset.add([feedbackDialogPlugin, props.feedbackInfo]);
   }
 
   if (props.allowHelpDialog) {
-    plugins.push(helpDialogPlugin(props.legacyImageUploadProvider));
+    preset.add([helpDialogPlugin, props.legacyImageUploadProvider]);
   }
 
   if (props.saveOnEnter) {
-    plugins.push(saveOnEnterPlugin(props.onSave));
+    preset.add([saveOnEnterPlugin, props.onSave]);
   }
 
   if (props.legacyImageUploadProvider) {
-    plugins.push(imageUploadPlugin());
+    preset.add(imageUploadPlugin);
 
     if (!props.media) {
-      plugins.push(
-        mediaPlugin({
+      preset.add([
+        mediaPlugin,
+        {
           allowMediaSingle: { disableLayout: true },
           allowMediaGroup: false,
-          isCopyPasteEnabled: !isMobile,
-        }),
-      );
+          isCopyPasteEnabled: true,
+        },
+      ]);
     }
   }
 
@@ -325,26 +297,27 @@ export default function createPluginsList(
         ...collabEditOptions,
       };
     }
-    plugins.push(collabEditPlugin(collabEditOptions));
+    preset.add([collabEditPlugin, collabEditOptions]);
   }
 
   if (props.maxContentSize) {
-    plugins.push(maxContentSizePlugin(props.maxContentSize));
+    preset.add([maxContentSizePlugin, props.maxContentSize]);
   }
 
   if (props.allowJiraIssue) {
-    plugins.push(jiraIssuePlugin());
+    preset.add(jiraIssuePlugin);
   }
 
   if (props.allowPanel) {
-    plugins.push(panelPlugin({ allowSelection: !isMobile }));
+    preset.add([panelPlugin, { allowSelection: !isMobile }]);
   }
 
   if (props.allowExtension) {
     const extensionConfig =
       typeof props.allowExtension === 'object' ? props.allowExtension : {};
-    plugins.push(
-      extensionPlugin({
+    preset.add([
+      extensionPlugin,
+      {
         breakoutEnabled:
           props.appearance === 'full-page' &&
           extensionConfig.allowBreakout !== false,
@@ -352,21 +325,21 @@ export default function createPluginsList(
         allowAutoSave: extensionConfig.allowAutoSave,
         allowLocalIdGeneration: extensionConfig.allowLocalIdGeneration,
         extensionHandlers: props.extensionHandlers,
-      }),
-    );
+      },
+    ]);
   }
 
   if (props.macroProvider) {
-    plugins.push(macroPlugin());
+    preset.add(macroPlugin);
   }
 
   // See default list for when adding annotations with a provider
   if (!props.annotationProviders && props.allowConfluenceInlineComment) {
-    plugins.push(annotationPlugin());
+    preset.add(annotationPlugin);
   }
 
   if (props.allowDate) {
-    plugins.push(datePlugin());
+    preset.add(datePlugin);
   }
 
   if (props.allowTemplatePlaceholders) {
@@ -374,26 +347,30 @@ export default function createPluginsList(
       props.allowTemplatePlaceholders !== true
         ? props.allowTemplatePlaceholders
         : {};
-    plugins.push(placeholderTextPlugin(options));
+    preset.add([placeholderTextPlugin, options]);
   }
 
   if (props.allowLayouts) {
-    plugins.push(
-      layoutPlugin(
-        typeof props.allowLayouts === 'boolean'
-          ? undefined
-          : props.allowLayouts,
-      ),
-    );
+    preset.add([
+      layoutPlugin,
+      typeof props.allowLayouts === 'boolean' ? undefined : props.allowLayouts,
+    ]);
   }
 
   if (props.UNSAFE_cards) {
     const fullWidthMode = props.appearance === 'full-width';
-    plugins.push(cardPlugin(props.UNSAFE_cards, isMobile, fullWidthMode));
+    preset.add([
+      cardPlugin,
+      {
+        ...props.UNSAFE_cards,
+        platform: isMobile ? 'mobile' : 'web',
+        fullWidthMode,
+      },
+    ]);
   }
 
   if (props.autoformattingProvider) {
-    plugins.push(customAutoformatPlugin());
+    preset.add(customAutoformatPlugin);
   }
 
   let statusMenuDisabled = true;
@@ -402,45 +379,55 @@ export default function createPluginsList(
       typeof props.allowStatus === 'object'
         ? props.allowStatus.menuDisabled
         : false;
-    plugins.push(
-      statusPlugin({
+    preset.add([
+      statusPlugin,
+      {
         menuDisabled: statusMenuDisabled,
         useInlineWrapper: isMobile,
         allowZeroWidthSpaceAfter: !isMobile,
-      }),
-    );
+      },
+    ]);
   }
 
   if (props.allowIndentation) {
-    plugins.push(indentationPlugin());
+    preset.add(indentationPlugin);
+  }
+
+  if (isFullPage) {
+    preset.add(contextPanelPlugin);
+  }
+
+  if (props.autoScrollIntoView !== false) {
+    preset.add(scrollIntoViewPlugin);
+  }
+
+  if (isMobile) {
+    preset.add(historyPlugin);
+    preset.add(mobileScrollPlugin);
+    preset.add(mobileSelectionPlugin);
   }
 
   // UI only plugins
-  plugins.push(
-    insertBlockPlugin({
+  preset.add([
+    insertBlockPlugin,
+    {
       allowTables: !!props.allowTables,
       allowExpand: isExpandInsertionEnabled(props),
       insertMenuItems: props.insertMenuItems,
       horizontalRuleEnabled: props.allowRule,
       nativeStatusSupported: !statusMenuDisabled,
-    }),
-  );
-
-  if (isMobile) {
-    plugins.push(
-      historyPlugin(),
-      mobileScrollPlugin(),
-      mobileSelectionPlugin(),
-    );
-  }
-
-  if (props.autoScrollIntoView !== false) {
-    plugins.push(scrollIntoViewPlugin());
-  }
+    },
+  ]);
 
   if (props.allowFindReplace) {
-    plugins.push(findReplacePlugin());
+    preset.add(findReplacePlugin);
   }
 
-  return plugins;
+  const excludes = new Set<string>();
+
+  if (!isCodeBlockAllowed({ allowBlockType: props.allowBlockType })) {
+    excludes.add('codeBlock');
+  }
+
+  return preset.getEditorPlugins(excludes);
 }

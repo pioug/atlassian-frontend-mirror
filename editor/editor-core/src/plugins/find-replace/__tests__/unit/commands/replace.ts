@@ -278,6 +278,112 @@ describe('find/replace commands: replace', () => {
       });
     });
 
+    describe('and current index is set to second result', () => {
+      beforeEach(async () => {
+        await initEditor(
+          doc(
+            p('this is a {firstMatchStart}quokka{firstMatchEnd}'),
+            p('{<>}this is a {secondMatchStart}quokka{secondMatchEnd}'),
+            p('this is a {thirdMatchStart}quokka{thirdMatchEnd}'),
+          ),
+        );
+        prevDecorations = getPluginState(editorView.state).decorationSet.find();
+        replace('numbat')(editorView.state, editorView.dispatch);
+      });
+
+      it('replaces selected result in document', () => {
+        expect(editorView.state.doc).toEqualDocument(
+          doc(
+            p('this is a quokka'),
+            p('this is a numbat'),
+            p('this is a quokka'),
+          ),
+        );
+      });
+
+      it('updates search results', () => {
+        expect(getPluginState(editorView.state)).toMatchObject({
+          findText: 'quokka',
+          replaceText: 'numbat',
+          matches: [
+            { start: refs.firstMatchStart, end: refs.firstMatchEnd },
+            { start: refs.thirdMatchStart, end: refs.thirdMatchEnd },
+          ],
+        });
+      });
+
+      it('sets index to third match', () => {
+        expect(getPluginState(editorView.state)).toMatchObject({
+          index: 1,
+        });
+      });
+
+      it('sets selection to third result', () => {
+        expect(editorView.state.selection.from).toBe(refs.thirdMatchStart);
+      });
+
+      it('scrolls third result into view', () => {
+        expect(getFindReplaceTr(dispatchSpy).scrolledIntoView).toBe(true);
+      });
+
+      it('decorates third result as the selected word', () => {
+        const selectedWordDecorations = getSelectedWordDecorations(
+          editorView.state,
+        );
+        expect(selectedWordDecorations).toHaveLength(1);
+        expect(selectedWordDecorations[0].from).toEqual(refs.thirdMatchStart);
+        expect(selectedWordDecorations[0].to).toEqual(refs.thirdMatchEnd);
+      });
+
+      it('removes one decoration', () => {
+        expect(
+          getPluginState(editorView.state).decorationSet.find(),
+        ).toHaveLength(prevDecorations.length - 1);
+      });
+
+      describe('and it is the first word in the last line', () => {
+        beforeEach(async () => {
+          await initEditor(
+            doc(
+              p('{firstMatchStart}this{firstMatchEnd} is a quokka'),
+              p('{secondMatchStart}this{secondMatchEnd} is a quokka'),
+              p('{<>}{thirdMatchStart}this{thirdMatchEnd} is a quokka'),
+            ),
+            'this',
+          );
+          prevDecorations = getPluginState(
+            editorView.state,
+          ).decorationSet.find();
+          replace('numbat')(editorView.state, editorView.dispatch);
+        });
+
+        it('sets index to first match', () => {
+          expect(getPluginState(editorView.state)).toMatchObject({
+            index: 0,
+          });
+        });
+
+        it('sets selection to first result', () => {
+          expect(editorView.state.selection.from).toBe(refs.firstMatchStart);
+        });
+
+        it('decorates first result as the selected word', () => {
+          const selectedWordDecorations = getSelectedWordDecorations(
+            editorView.state,
+          );
+          expect(selectedWordDecorations).toHaveLength(1);
+          expect(selectedWordDecorations[0].from).toEqual(refs.firstMatchStart);
+          expect(selectedWordDecorations[0].to).toEqual(refs.firstMatchEnd);
+        });
+
+        it('removes one decoration', () => {
+          expect(
+            getPluginState(editorView.state).decorationSet.find(),
+          ).toHaveLength(prevDecorations.length - 1);
+        });
+      });
+    });
+
     describe('and replace text is shorter in length than find text', () => {
       beforeEach(async () => {
         await initEditor(

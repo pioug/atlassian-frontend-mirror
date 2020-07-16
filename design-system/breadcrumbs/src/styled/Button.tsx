@@ -16,6 +16,7 @@ export default React.forwardRef<HTMLButtonElement, Props>(
         return {
           buttonStyles: {
             ...buttonStyles,
+            fontWeight: 400,
             ...(truncationWidth
               ? { maxWidth: `${truncationWidth}px !important` }
               : { flexShrink: 1, minWidth: 0 }),

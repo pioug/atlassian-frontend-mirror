@@ -25,5 +25,5 @@ export const bitbucketSchema: Schema = createSchema({
     'tableRow',
     'inlineCard',
   ],
-  marks: ['em', 'strong', 'strike', 'link', 'code'],
+  marks: ['em', 'strong', 'strike', 'link', 'code', 'unsupportedMark'],
 });

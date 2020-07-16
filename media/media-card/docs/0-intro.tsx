@@ -70,6 +70,7 @@ export const createCardsOfDifferentResizeModes = () => {
       <CardView
         appearance="image"
         status="complete"
+        mediaItemType="file"
         resizeMode={mode}
         dataURI={img}
       />

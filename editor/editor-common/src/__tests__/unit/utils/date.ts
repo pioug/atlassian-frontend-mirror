@@ -7,6 +7,9 @@ import {
   timestampToUTCDate,
 } from '../../../utils/date';
 
+const UTCPlus10 = 1592179200000;
+const UTCMinus7 = 1592092800000;
+
 describe('@atlaskit/editor-common date utils', () => {
   describe('timestampToString', () => {
     describe('when there is no intl', () => {
@@ -43,6 +46,34 @@ describe('@atlaskit/editor-common date utils', () => {
     it('should return true if passed date is before current date', () => {
       const date = Date.parse('2018-06-18');
       expect(isPastDate(date)).toEqual(true);
+    });
+
+    describe('in different UTC timezones', () => {
+      const commonTimestamp = 1592092800000;
+      let dateUTCMockFn = jest.spyOn(Date, 'UTC');
+      let dateNowMockFn = jest.spyOn(Date, 'now');
+
+      afterEach(() => {
+        dateUTCMockFn.mockReset();
+        dateNowMockFn.mockReset();
+      });
+
+      afterAll(() => {
+        dateUTCMockFn.mockRestore();
+        dateNowMockFn.mockRestore();
+      });
+
+      it('when in UTC -7, the date should NOT be in the past', () => {
+        dateUTCMockFn.mockImplementation(() => UTCMinus7);
+        dateNowMockFn.mockImplementation(() => UTCMinus7);
+        expect(isPastDate(commonTimestamp)).toEqual(false);
+      });
+
+      it('when in UTC +10, the date should be in the past', () => {
+        dateUTCMockFn.mockImplementation(() => UTCPlus10);
+        dateNowMockFn.mockImplementation(() => UTCPlus10);
+        expect(isPastDate(commonTimestamp)).toEqual(true);
+      });
     });
   });
 
@@ -120,6 +151,52 @@ describe('@atlaskit/editor-common date utils', () => {
           expect(timestampToTaskContext(tomorrowInUTC, intl)).toEqual(
             'Tomorrow',
           );
+        });
+      });
+
+      describe('contextual dates in different timezones', () => {
+        // Sydney based timestamps
+        const timestampJun15 = 1592179200000;
+        const timestampJun16 = 1592265600000;
+
+        describe('given dates in UTC -7', () => {
+          beforeEach(() => {
+            // Sunday June 14, 9:20pm (LA)
+            dateUTCMockFn.mockImplementation(() => UTCMinus7);
+            dateNowMockFn.mockImplementation(() => UTCMinus7);
+          });
+
+          it('should give `Tomorrow` for UTC -7', () => {
+            expect(timestampToTaskContext(timestampJun15, intl)).toEqual(
+              'Tomorrow',
+            );
+          });
+
+          it('should give a date for UTC -7', () => {
+            expect(timestampToTaskContext(timestampJun16, intl)).toEqual(
+              'Tue, Jun 16',
+            );
+          });
+        });
+
+        describe('given dates in UTC +10', () => {
+          beforeEach(() => {
+            // Monday June 15, 2:23pm (Sydney)
+            dateUTCMockFn.mockImplementation(() => UTCPlus10);
+            dateNowMockFn.mockImplementation(() => UTCPlus10);
+          });
+
+          it('should give `Today` for UTC +10', () => {
+            expect(timestampToTaskContext(timestampJun15, intl)).toEqual(
+              'Today',
+            );
+          });
+
+          it('should give `Tomorrow` for UTC +10', () => {
+            expect(timestampToTaskContext(timestampJun16, intl)).toEqual(
+              'Tomorrow',
+            );
+          });
         });
       });
     });

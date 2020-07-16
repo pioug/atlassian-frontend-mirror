@@ -46,6 +46,7 @@ const isTable = isType('table');
 const isTableCell = isType('tableCell');
 const isTableHeader = isType('tableHeader');
 const isLinkMark = isType('link');
+const isUnsupportedMark = isType('unsupportedMark');
 const isExpand = isType('expand');
 const isNestedExpand = isType('nestedExpand');
 const isUnsupportedNode = (node: PMNode) =>
@@ -124,11 +125,14 @@ const toJSON = (node: PMNode): JSONNode => {
   }
 
   if (node.marks.length) {
-    obj.marks = node.marks.map(n => {
-      if (isLinkMark(n)) {
-        return linkToJSON(n);
+    obj.marks = node.marks.map(mark => {
+      if (isLinkMark(mark)) {
+        return linkToJSON(mark);
       }
-      return n.toJSON();
+      if (isUnsupportedMark(mark)) {
+        return mark.attrs.originalValue;
+      }
+      return mark.toJSON();
     });
   }
   return obj;

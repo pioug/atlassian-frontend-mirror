@@ -1,5 +1,11 @@
 # @atlaskit/breadcrumbs
 
+## 10.0.1
+
+### Patch Changes
+
+- [`7d6718c600`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7d6718c600) - Fix Breadcrumbs font-weight to 400
+
 ## 10.0.0
 
 ### Major Changes

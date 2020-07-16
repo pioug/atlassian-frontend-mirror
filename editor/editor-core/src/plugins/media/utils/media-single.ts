@@ -48,6 +48,7 @@ const getInsertMediaAnalytics = (
   attributes: {
     inputMethod,
     fileExtension,
+    type: ACTION_SUBJECT_ID.MEDIA_SINGLE,
   },
   eventType: EVENT_TYPE.TRACK,
 });
@@ -133,6 +134,7 @@ export const insertMediaSingleNode = (
   mediaState: MediaState,
   inputMethod?: InputMethodInsertMedia,
   collection?: string,
+  alignLeftOnInsert?: boolean,
 ): boolean => {
   if (collection === undefined) {
     return false;
@@ -143,6 +145,7 @@ export const insertMediaSingleNode = (
   const node = createMediaSingleNode(
     state.schema,
     collection,
+    alignLeftOnInsert,
   )(mediaState as MediaSingleState);
   const shouldSplit =
     grandParent && grandParent.type.validContent(Fragment.from(node));
@@ -187,9 +190,11 @@ export const insertMediaSingleNode = (
   return true;
 };
 
-export const createMediaSingleNode = (schema: Schema, collection: string) => (
-  mediaState: MediaSingleState,
-) => {
+export const createMediaSingleNode = (
+  schema: Schema,
+  collection: string,
+  alignLeftOnInsert?: boolean,
+) => (mediaState: MediaSingleState) => {
   const { id, dimensions, contextId, scaleFactor = 1 } = mediaState;
   const { width, height } = dimensions || {
     height: undefined,
@@ -206,8 +211,10 @@ export const createMediaSingleNode = (schema: Schema, collection: string) => (
     height: height && Math.round(height / scaleFactor),
   });
 
+  const mediaSingleAttrs = alignLeftOnInsert ? { layout: 'align-start' } : {};
+
   copyOptionalAttrsFromMediaState(mediaState, mediaNode);
-  return mediaSingle.createChecked({}, mediaNode);
+  return mediaSingle.createChecked(mediaSingleAttrs, mediaNode);
 };
 
 export function transformSliceForMedia(slice: Slice, schema: Schema) {

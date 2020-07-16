@@ -25,6 +25,17 @@ ${(
   />
 )}
 
+Note that the \`value\` prop for the \`DateTimePicker\` is now a \`string\`, using \`Date\` object could cause other issues. You can see that in the following example:
+
+${(
+  <Example
+    packageName="@atlaskit/datetime-picker"
+    Component={require('../examples/99-format-editable').default}
+    title="DatetimePicker Editable"
+    source={require('!!raw-loader!../examples/99-format-editable')}
+  />
+)}
+
 ${(
   <Props
     heading="DatePicker Props"

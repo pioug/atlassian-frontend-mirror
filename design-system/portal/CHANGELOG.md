@@ -1,5 +1,12 @@
 # @atlaskit/portal
 
+## 4.0.1
+
+### Patch Changes
+
+- [`3414523d6f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3414523d6f) - Rearange buttons order to align with design guidelines
+- [`db053b24d8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/db053b24d8) - Update all the theme imports to be tree-shakable
+
 ## 4.0.0
 
 ### Major Changes

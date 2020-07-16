@@ -4,7 +4,7 @@ import Lorem from 'react-lorem-component';
 
 import Button from '@atlaskit/button';
 import CrossIcon from '@atlaskit/icon/glyph/cross';
-import { colors } from '@atlaskit/theme';
+import { R400 } from '@atlaskit/theme/colors';
 
 import Modal, { HeaderComponentProps, ModalTransition } from '../src';
 
@@ -31,11 +31,7 @@ const Header: FC<HeaderComponentProps> = ({ id, onClose }) => (
     </h3>
     <span style={{ position: 'absolute', right: 0, top: 4 }}>
       <Button onClick={onClose} appearance="link">
-        <CrossIcon
-          label="Close Modal"
-          primaryColor={colors.R400}
-          size="small"
-        />
+        <CrossIcon label="Close Modal" primaryColor={R400} size="small" />
       </Button>
     </span>
   </div>

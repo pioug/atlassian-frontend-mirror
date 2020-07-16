@@ -263,11 +263,6 @@ export default class Editor extends React.Component<EditorProps, State> {
         type: 'removed',
       },
 
-      allowUnsupportedContent: {
-        message: 'Deprecated. Defaults to true.',
-        type: 'removed',
-      },
-
       transactionTracking: {
         message:
           'Deprecated. To enable transaction tracking use performanceTracking prop instead: performanceTracking={{ transactionTracking: { enabled: true } }}',

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { HTMLAttributes, ComponentClass } from 'react';
-import { gridSize } from '@atlaskit/theme';
+import { gridSize } from '@atlaskit/theme/constants';
 
 export const ColorPaletteWrapper: ComponentClass<HTMLAttributes<{}>> = styled.div`
   padding: 0 ${gridSize()}px;

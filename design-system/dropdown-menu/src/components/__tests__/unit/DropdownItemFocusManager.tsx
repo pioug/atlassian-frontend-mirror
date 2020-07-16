@@ -32,7 +32,9 @@ describe('dropdown menu - DropdownItemFocusManager', () => {
   });
 
   afterEach(() => {
-    if (wrapper) wrapper.unmount();
+    if (wrapper) {
+      wrapper.unmount();
+    }
     (wrapper as any) = undefined;
   });
 

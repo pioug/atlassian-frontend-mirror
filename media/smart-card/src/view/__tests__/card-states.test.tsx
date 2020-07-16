@@ -37,64 +37,44 @@ describe('smart-card: card states', () => {
 
   describe('render method: withUrl', () => {
     describe('> state: loading', () => {
-      it('inline: should render the link placeholder for the initial state', async () => {
-        const { getByText } = render(
+      it('inline: should render loading state initially', async () => {
+        const { getByTestId } = render(
           <Provider client={mockClient}>
             <Card appearance="inline" url={mockUrl} />
           </Provider>,
         );
-        const loadingView = await waitForElement(() => getByText(mockUrl));
+        const loadingView = await waitForElement(() =>
+          getByTestId('inline-card-resolving-view'),
+        );
         expect(loadingView).toBeTruthy();
         expect(mockFetch).toBeCalled();
         expect(mockFetch).toBeCalledTimes(1);
       });
 
-      it('block: should render the link placeholder for the initial state', async () => {
-        const { getByText } = render(
+      it('block: should render loading state initially', async () => {
+        const { getByTestId } = render(
           <Provider client={mockClient}>
             <Card appearance="block" url={mockUrl} />
           </Provider>,
         );
-        const loadingView = await waitForElement(() => getByText(mockUrl));
+        const loadingView = await waitForElement(() =>
+          getByTestId('block-card-resolving-view'),
+        );
         expect(loadingView).toBeTruthy();
         expect(mockFetch).toBeCalled();
         expect(mockFetch).toBeCalledTimes(1);
       });
 
-      it('embed: should render the link placeholder for the initial state', async () => {
-        const { getByText } = render(
+      it('embed: should render loading state initially', async () => {
+        const { getByTestId } = render(
           <Provider client={mockClient}>
             <Card appearance="embed" url={mockUrl} />
           </Provider>,
         );
-        const loadingView = await waitForElement(() => getByText(mockUrl));
+        const loadingView = await waitForElement(() =>
+          getByTestId('embed-card-resolving-view'),
+        );
         expect(loadingView).toBeTruthy();
-        expect(mockFetch).toBeCalled();
-        expect(mockFetch).toBeCalledTimes(1);
-      });
-
-      it('should render a link placeholder first, and if data comes within the delay, it should transition to resolved state', async () => {
-        const delay = 100;
-        mockFetch.mockImplementationOnce(
-          () =>
-            new Promise(resolve =>
-              setTimeout(() => resolve(mocks.success), delay),
-            ),
-        );
-        const { getByText } = render(
-          <Provider
-            client={mockClient}
-            cacheOptions={{ maxAge: 1000, maxLoadingDelay: 50 }}
-          >
-            <Card appearance="inline" url={mockUrl} />
-          </Provider>,
-        );
-        expect(getByText(mockUrl)).toBeTruthy();
-        // Then URL resolves, triggering update:
-        const resolvingView = await waitForElement(() =>
-          getByText('I love cheese'),
-        );
-        expect(resolvingView).toBeTruthy();
         expect(mockFetch).toBeCalled();
         expect(mockFetch).toBeCalledTimes(1);
       });
@@ -422,9 +402,8 @@ describe('smart-card: card states', () => {
               <Card appearance="block" url={mockUrl} />
             </Provider>,
           );
-          const forbiddenLinkTruncated = mockUrl.slice(0, 5);
           const forbiddenLink = await waitForElement(() =>
-            getByText(new RegExp(`${forbiddenLinkTruncated}.*?`)),
+            getByText(/You don’t have access to this link/),
           );
           const forbiddenLinkButton = container.querySelector('button');
           expect(forbiddenLink).toBeTruthy();
@@ -441,11 +420,9 @@ describe('smart-card: card states', () => {
               <Card appearance="embed" url={mockUrl} />
             </Provider>,
           );
-          const forbiddenLinkTruncated = mockUrl.slice(0, 5);
           const forbiddenLink = await waitForElement(() =>
-            getByText(new RegExp(`${forbiddenLinkTruncated}.*?`)),
+            getByText(/You don’t have access to this link/),
           );
-
           expect(forbiddenLink).toBeTruthy();
           expect(mockFetch).toBeCalled();
           expect(mockFetch).toBeCalledTimes(1);
@@ -532,9 +509,8 @@ describe('smart-card: card states', () => {
               <Card appearance="inline" url={mockUrl} />
             </Provider>,
           );
-          const unauthorizedLinkTruncated = mockUrl.slice(0, 5);
           const unauthorizedLink = await waitForElement(() =>
-            getByText(new RegExp(`${unauthorizedLinkTruncated}.*?`)),
+            getByText(mockUrl),
           );
           const unauthorizedLinkButton = container.querySelector('button');
           expect(unauthorizedLink).toBeTruthy();
@@ -551,9 +527,8 @@ describe('smart-card: card states', () => {
               <Card appearance="block" url={mockUrl} />
             </Provider>,
           );
-          const unauthorizedLinkTruncated = mockUrl.slice(0, 5);
           const unauthorizedLink = await waitForElement(() =>
-            getByText(new RegExp(`${unauthorizedLinkTruncated}.*?`)),
+            getByText(/Connect your.*?account/),
           );
           const unauthorizedLinkButton = container.querySelector('button');
           expect(unauthorizedLink).toBeTruthy();
@@ -570,9 +545,8 @@ describe('smart-card: card states', () => {
               <Card appearance="embed" url={mockUrl} />
             </Provider>,
           );
-          const unauthorizedLinkTruncated = mockUrl.slice(0, 5);
           const unauthorizedLink = await waitForElement(() =>
-            getByText(new RegExp(`${unauthorizedLinkTruncated}.*?`)),
+            getByText(/Connect your.*?account/),
           );
           expect(unauthorizedLink).toBeTruthy();
           expect(mockFetch).toBeCalled();

@@ -12,6 +12,7 @@ import { PanelType } from '@atlaskit/adf-schema';
 import { getPosHandlerNode, getPosHandler } from '../../../nodeviews/';
 import { PanelSharedCssClassName } from '@atlaskit/editor-common';
 import { selectNode } from '../../../utils/commands';
+import { createSelectionAwareClickHandler } from '../../../nodeviews/utils';
 
 const panelIcons = {
   info: InfoIcon,
@@ -41,6 +42,8 @@ class PanelNodeView {
   getPos: getPosHandlerNode;
   view: EditorView;
   allowSelection?: boolean;
+  clickHandler?: (event: Event) => false | void;
+  clickCleanup?: () => void;
 
   constructor(
     node: Node,
@@ -65,8 +68,13 @@ class PanelNodeView {
 
   private initHandlers() {
     if (this.dom && this.allowSelection) {
-      this.dom.addEventListener('mousedown', this.handleMouseDown);
-      this.dom.addEventListener('click', this.handleClick);
+      const { handler, cleanup } = createSelectionAwareClickHandler(
+        this.dom,
+        this.handleClick,
+      );
+      this.clickHandler = handler;
+      this.clickCleanup = cleanup;
+      this.dom.addEventListener('click', this.clickHandler);
     }
   }
 
@@ -74,26 +82,6 @@ class PanelNodeView {
     const Icon = panelIcons[panelType];
     ReactDOM.render(<Icon label={`Panel ${panelType}`} />, this.icon);
   }
-
-  private handleMouseDown = () => {
-    // need to prevent selecting panel if user clicks and drags from inside and releases
-    // mouse on padding
-    this.dom.addEventListener('mousemove', this.handleMouseMove);
-    this.dom.addEventListener('mouseup', this.handleMouseUp);
-  };
-
-  private handleMouseMove = () => {
-    this.dom.removeEventListener('click', this.handleClick);
-  };
-
-  private handleMouseUp = () => {
-    // wait a frame, otherwise click will still fire immediately after this
-    requestAnimationFrame(() => {
-      this.dom.addEventListener('click', this.handleClick);
-    });
-    this.dom.removeEventListener('mousemove', this.handleMouseMove);
-    this.dom.removeEventListener('mouseup', this.handleMouseUp);
-  };
 
   private handleClick = (event: Event) => {
     const target = event.target as HTMLElement;
@@ -111,6 +99,14 @@ class PanelNodeView {
       return;
     }
   };
+
+  destroy() {
+    if (this.dom) {
+      this.clickHandler &&
+        this.dom.removeEventListener('click', this.clickHandler);
+      this.clickCleanup && this.clickCleanup();
+    }
+  }
 }
 
 export const panelNodeView = (allowSelection?: boolean) => (

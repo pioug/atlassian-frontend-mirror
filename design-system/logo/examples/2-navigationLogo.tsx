@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 
 import styled from 'styled-components';
 
-import { colors } from '@atlaskit/theme';
+import { B500, DN10, N40, P300, Y300 } from '@atlaskit/theme/colors';
 
 import {
   BitbucketIcon,
@@ -31,9 +31,9 @@ const logoOptions = [
 ];
 
 const iconVariants = [
-  { background: colors.B500, color: 'white' },
-  { background: colors.N40, color: colors.DN10 },
-  { background: colors.P300, color: colors.Y300 },
+  { background: B500, color: 'white' },
+  { background: N40, color: DN10 },
+  { background: P300, color: Y300 },
 ];
 
 interface WrapperDivProps {

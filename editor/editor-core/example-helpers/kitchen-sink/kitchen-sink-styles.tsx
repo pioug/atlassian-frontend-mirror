@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { colors } from '@atlaskit/theme';
+import { N50, background, N30 } from '@atlaskit/theme/colors';
 
 export const Container = styled.div<{ vertical?: boolean; root?: boolean }>`
   display: flex;
@@ -9,7 +9,7 @@ export const Container = styled.div<{ vertical?: boolean; root?: boolean }>`
 `;
 
 export const Controls = styled.div`
-  border-bottom: 1px dashed ${colors.N50};
+  border-bottom: 1px dashed ${N50};
   padding: 1em;
 
   h5 {
@@ -37,7 +37,7 @@ export const Rail = styled.div`
   top: 0;
   right: 0;
   bottom: 0;
-  background: ${colors.background};
+  background: ${background};
 `;
 
 export const EditorColumn = styled.div<{ vertical: boolean; narrow: boolean }>`
@@ -45,8 +45,8 @@ export const EditorColumn = styled.div<{ vertical: boolean; narrow: boolean }>`
   margin-right: ${props => (props.narrow ? '360px' : '0')};
   ${p =>
     !p.vertical
-      ? `border-right: 1px solid ${colors.N30}; min-height: 85vh; resize: horizontal;`
-      : `border-bottom: 1px solid ${colors.N30}; resize: vertical;`};
+      ? `border-right: 1px solid ${N30}; min-height: 85vh; resize: horizontal;`
+      : `border-bottom: 1px solid ${N30}; resize: vertical;`};
 `;
 
 export const PopupWrapper = styled.div.attrs({ className: 'popups-wrapper' })`

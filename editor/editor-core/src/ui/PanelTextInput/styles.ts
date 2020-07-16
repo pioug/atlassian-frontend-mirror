@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { InputHTMLAttributes, ComponentClass } from 'react';
-import { colors } from '@atlaskit/theme';
+import { N400, N800 } from '@atlaskit/theme/colors';
 
 // Normal .className gets overridden by input[type=text] hence this hack to produce input.className
 export const Input: ComponentClass<InputHTMLAttributes<{}> & {
@@ -11,7 +11,7 @@ export const Input: ComponentClass<InputHTMLAttributes<{}> & {
     border: 0;
     border-radius: 0;
     box-sizing: content-box;
-    color: ${colors.N400};
+    color: ${N400};
     flex-grow: 1;
     font-size: 13px;
     line-height: 20px;
@@ -29,7 +29,7 @@ export const Input: ComponentClass<InputHTMLAttributes<{}> & {
     }
 
     &::placeholder {
-      color: ${colors.N800};
+      color: ${N800};
       opacity: 0.5;
     }
   }

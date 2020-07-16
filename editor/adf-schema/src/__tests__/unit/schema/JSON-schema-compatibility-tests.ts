@@ -50,6 +50,7 @@ const unsupportedMarks = [
   '__linkGroupDeclaration',
   'confluenceInlineComment',
   'annotation',
+  'unsupportedMark',
 ];
 
 /**

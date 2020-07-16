@@ -185,7 +185,9 @@ export default class RendererDemo extends React.Component<
   }
 
   private copyHTMLToClipboard = () => {
-    if (!this.emailTextareaRef) return;
+    if (!this.emailTextareaRef) {
+      return;
+    }
     this.emailTextareaRef.select();
     document.execCommand('copy');
   };

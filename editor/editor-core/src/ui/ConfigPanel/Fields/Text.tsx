@@ -13,11 +13,13 @@ export default function({
   type,
   autoFocus,
   onBlur,
+  placeholder,
 }: {
   field: StringField | NumberField;
   type: 'number' | 'text';
   autoFocus?: boolean;
   onBlur: OnBlur;
+  placeholder?: string;
 }) {
   const element = (
     <Field
@@ -37,6 +39,7 @@ export default function({
               onBlur(field.name);
             }}
             type={type}
+            placeholder={placeholder}
           />
           <FieldMessages error={error} description={field.description} />
         </Fragment>

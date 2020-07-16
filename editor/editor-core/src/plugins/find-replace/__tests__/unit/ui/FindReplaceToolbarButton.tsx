@@ -1,7 +1,10 @@
 import React from 'react';
 import { InjectedIntlProps } from 'react-intl';
 import { ReactWrapper } from 'enzyme';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers';
+import {
+  mountWithIntl,
+  mockAddEventListener,
+} from '@atlaskit/editor-test-helpers';
 import FindReplaceToolbarButton, {
   FindReplaceToolbarButtonProps,
 } from '../../../ui/FindReplaceToolbarButton';
@@ -56,6 +59,25 @@ describe('FindReplaceToolbarButton', () => {
         expect(onCancelSpy).toHaveBeenCalled();
       });
     });
+
+    describe('and escape key pressed down', () => {
+      const onCancelSpy = jest.fn();
+
+      afterEach(() => {
+        onCancelSpy.mockClear();
+      });
+
+      it('calls props.onCancel', () => {
+        const { trigger, spy } = mockAddEventListener();
+        findReplaceToolbarButton = mountComponent({
+          isActive: true,
+          onCancel: onCancelSpy,
+        });
+        trigger('keydown', { code: 'Escape' });
+        expect(onCancelSpy).toHaveBeenCalled();
+        spy.mockRestore();
+      });
+    });
   });
 
   describe('when isActive=false', () => {
@@ -80,6 +102,25 @@ describe('FindReplaceToolbarButton', () => {
           .find('button[aria-haspopup]')
           .simulate('click');
         expect(onActivateSpy).toHaveBeenCalled();
+      });
+    });
+
+    describe('and escape key pressed down', () => {
+      const onCancelSpy = jest.fn();
+
+      afterEach(() => {
+        onCancelSpy.mockClear();
+      });
+
+      it('does not call props.onCancel', () => {
+        const { trigger, spy } = mockAddEventListener();
+        findReplaceToolbarButton = mountComponent({
+          isActive: false,
+          onCancel: onCancelSpy,
+        });
+        trigger('keydown', { code: 'Escape' });
+        expect(onCancelSpy).not.toHaveBeenCalled();
+        spy.mockRestore();
       });
     });
   });

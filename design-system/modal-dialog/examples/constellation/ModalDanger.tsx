@@ -28,7 +28,9 @@ export default class DangerModal extends React.PureComponent<{}, State> {
 
     return (
       <div>
-        <Button onClick={this.open}>Open modal</Button>
+        <Button appearance="primary" onClick={this.open}>
+          Open modal
+        </Button>
 
         <ModalTransition>
           {isOpen && (

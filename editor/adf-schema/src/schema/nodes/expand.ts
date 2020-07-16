@@ -41,7 +41,7 @@ function getExpandAttrs(domNode: Node | string) {
 export const expand: NodeSpec = {
   inline: false,
   group: 'block',
-  marks: 'link',
+  marks: 'link unsupportedMark',
   content:
     '(paragraph | panel | blockquote | orderedList | bulletList | rule | heading | codeBlock | mediaGroup | mediaSingle | decisionList | taskList | table | blockCard | extension | unsupportedBlock)+',
   isolating: true,

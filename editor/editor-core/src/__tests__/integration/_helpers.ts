@@ -33,6 +33,8 @@ export const typeAheadPicker = '.fabric-editor-typeahead';
 export const lozenge = '[data-mention-id="0"]';
 export const linkToolbar =
   '[placeholder="Paste link or search recently viewed"]';
+export const linkUrlSelector = '[data-testid="link-url"]';
+export const linkLabelSelector = '[data-testid="link-label"]';
 
 export const insertMention = async (browser: any, query: string) => {
   await browser.type(editable, '@');
@@ -49,6 +51,11 @@ export const gotoEditor = async (browser: any) => {
   await browser.waitForSelector(fullpage.placeholder);
   await browser.click(fullpage.placeholder);
   await browser.waitForSelector(editable);
+};
+
+export const manuallyEmptyLinkToolbar = async (page: Page) => {
+  await page.emptyTextFieldByBackspacing(linkLabelSelector);
+  await page.emptyTextFieldByBackspacing(linkUrlSelector);
 };
 
 export const insertMentionUsingClick = async (

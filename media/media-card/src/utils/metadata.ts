@@ -13,6 +13,9 @@ export const extendMetadata = (
       size: state.size,
       mimeType: state.mimeType,
       createdAt: state.createdAt,
+      // We preserve the initial mediaType
+      // in case file subscription returns 'unknown'
+      // while it's uploading/processing
       mediaType:
         currentMediaType && currentMediaType !== 'unknown'
           ? currentMediaType

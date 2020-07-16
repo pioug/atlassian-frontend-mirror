@@ -143,6 +143,30 @@ describe('media-single', () => {
       });
     });
 
+    describe('When alignment is set to left by default', () => {
+      it('inserts media with layout: align-start', () => {
+        const { editorView } = editor(doc(p('text{<>}')));
+
+        insertMediaSingleNode(
+          editorView,
+          createMediaState(temporaryFileId),
+          INPUT_METHOD.PICKER_CLOUD,
+          testCollectionName,
+          true,
+        );
+
+        expect(editorView.state.doc).toEqualDocument(
+          doc(
+            p('text'),
+            mediaSingle({ layout: 'align-start' })(
+              temporaryMediaWithDimensions(),
+            ),
+            p(),
+          ),
+        );
+      });
+    });
+
     describe("when there are multiple images' data", () => {
       it('inserts multiple mediaSingle nodes into the document', () => {
         const { editorView } = editor(doc(p('text{<>}hello')));

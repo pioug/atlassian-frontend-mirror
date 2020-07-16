@@ -1,5 +1,33 @@
 # @atlaskit/avatar-group
 
+## 8.0.0
+
+### Major Changes
+
+- [`cde426961a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cde426961a) - `AvatarGroup` has been migrated to **lite-mode**. Users should see performance improvements and reduced bundlesize.
+
+  **Change summary:**
+
+  - `name` is now a required property of the `data` attribute. This was previously not required simply because we forwarded avatars props. Names should always be supplied so that avatars can be differentiated in a meaningful way (although they are not required to be unique).
+  - new prop `isTooltipDisabled` has been provided to allow users to disable tooltips
+  - AvatarGroup now uses `@emotion`
+
+  **Misc.**
+
+  - Fixed broken margin styling bug with `stack` groups
+  - Replaced `dropdown-menu` with a lighter and more performant `popup` component
+  - Removed custom `dropdown-menu` styling
+  - Removed all HOC usage
+  - More indicator is now just a stylized Avatar rather than a complete style re-implementation of Avatar
+
+### Patch Changes
+
+- [`54f1e38676`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54f1e38676) - Replace custom menu implementation with @atlaskit/menu components
+- [`e99c1c2ac8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e99c1c2ac8) - Removes text decoration from AvatarItems rendered as anchor tags
+- [`d833e8c531`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d833e8c531) - AvatarGroup component is longer typed via FC
+- [`db053b24d8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/db053b24d8) - Update all the theme imports to be tree-shakable
+- Updated dependencies
+
 ## 7.0.1
 
 ### Patch Changes

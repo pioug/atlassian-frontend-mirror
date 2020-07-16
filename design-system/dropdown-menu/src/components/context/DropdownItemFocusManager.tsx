@@ -107,11 +107,15 @@ export default class DropdownItemFocusManager extends Component<Props> {
 
     if (key === KEY_TAB) {
       if (!shiftKey && focusedItemIndex === this.registeredItems.length - 1) {
-        if (this.props.close) this.props.close({ event, source: 'keydown' });
+        if (this.props.close) {
+          this.props.close({ event, source: 'keydown' });
+        }
       }
 
       if (shiftKey && focusedItemIndex === 0) {
-        if (this.props.close) this.props.close({ event, source: 'keydown' });
+        if (this.props.close) {
+          this.props.close({ event, source: 'keydown' });
+        }
       }
     }
   };

@@ -168,7 +168,9 @@ export class AddColumnStep<S extends Schema = any> extends Step {
     for (const oldCellStep of this.columnInfo.values()) {
       const fromResult = mapping.mapResult(oldCellStep.from);
       const toResult = mapping.mapResult(oldCellStep.to);
-      if (fromResult.deleted && toResult.deleted) continue;
+      if (fromResult.deleted && toResult.deleted) {
+        continue;
+      }
       const cellStep: CellStep = {
         ...oldCellStep,
         from: fromResult.pos,

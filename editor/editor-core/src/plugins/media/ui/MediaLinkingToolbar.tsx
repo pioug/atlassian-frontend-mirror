@@ -22,7 +22,7 @@ import { linkToolbarMessages } from '../../../messages';
 import { defineMessages } from 'react-intl';
 import { normalizeUrl } from '../../hyperlink/utils';
 import styled from 'styled-components';
-import { colors } from '@atlaskit/theme';
+import { R400 } from '@atlaskit/theme/colors';
 import { ErrorMessage } from '@atlaskit/editor-common';
 import { INPUT_METHOD } from '../../analytics/types/enums';
 
@@ -54,7 +54,7 @@ const ValidationWrapper = styled.section`
   line-height: 0;
   padding: 12px 24px 12px 0;
   margin: 0 4px 0 32px;
-  border-top: 1px solid ${colors.R400};
+  border-top: 1px solid ${R400};
   align-items: start;
   display: flex;
   flex-direction: column;

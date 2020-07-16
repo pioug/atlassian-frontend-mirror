@@ -32,6 +32,7 @@ export default class InlineDialogExample extends Component<{}, State> {
           isOpen={this.state.dialogOpen}
         >
           <Button
+            appearance="primary"
             isSelected={this.state.dialogOpen}
             onClick={this.toggleDialog}
           >

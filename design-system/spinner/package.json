@@ -32,7 +32,7 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
-    "@atlaskit/avatar": "^19.0.0",
+    "@atlaskit/avatar": "^20.0.0",
     "@atlaskit/build-utils": "*",
     "@atlaskit/button": "^14.0.0",
     "@atlaskit/docs": "*",

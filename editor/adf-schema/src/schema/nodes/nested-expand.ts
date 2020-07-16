@@ -32,7 +32,7 @@ export type NestedExpandDefinition = NestedExpandBaseDefinition & NoMark;
 
 export const nestedExpand: NodeSpec = {
   inline: false,
-  marks: 'link',
+  marks: 'link unsupportedMark',
   content:
     '(paragraph | heading | mediaSingle | mediaGroup | unsupportedBlock)+',
   isolating: true,

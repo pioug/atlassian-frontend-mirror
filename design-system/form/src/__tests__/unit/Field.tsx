@@ -1,6 +1,12 @@
 import React, { ReactNode } from 'react';
 
-import { act, fireEvent, render } from '@testing-library/react';
+import {
+  act,
+  fireEvent,
+  render,
+  wait,
+  waitForElementToBeRemoved,
+} from '@testing-library/react';
 import { mount, ReactWrapper } from 'enzyme';
 
 import Button from '@atlaskit/button';
@@ -659,8 +665,12 @@ test('should continue to show field validation normally, even after submit has f
             name="username"
             defaultValue=""
             validate={(value = '') => {
-              if (value.length < 5) return 'TOO_SHORT';
-              if (value === 'Jane Chan') return 'TAKEN_USERNAME';
+              if (value.length < 5) {
+                return 'TOO_SHORT';
+              }
+              if (value === 'Jane Chan') {
+                return 'TAKEN_USERNAME';
+              }
 
               return undefined;
             }}
@@ -836,6 +846,91 @@ test('should correctly update form state with array of usernames', () => {
     expect.any(Object),
     expect.any(Function),
   );
+});
+
+test('should indicate validating status for async validation', async () => {
+  const onSubmitMock = () => {};
+
+  const promise = new Promise(resolve => setTimeout(resolve, 100));
+  const validate = async (value: any) => {
+    if (value && value.length >= 8) {
+      return undefined;
+    }
+
+    return promise.then(() => 'too short password');
+  };
+
+  const { getByTestId, queryByText } = render(
+    <Form onSubmit={onSubmitMock}>
+      {({ formProps: { onSubmit } }) => (
+        <>
+          <Field
+            name="password"
+            label="Password"
+            defaultValue=""
+            isRequired
+            validate={validate}
+          >
+            {({ fieldProps, error, valid, meta }) => {
+              return (
+                <>
+                  <TextField
+                    type="password"
+                    {...fieldProps}
+                    testId="password"
+                  />
+                  {error && (
+                    <ErrorMessage>
+                      Password needs to be more than 8 characters.
+                    </ErrorMessage>
+                  )}
+                  {meta.validating && meta.dirty ? (
+                    <HelperMessage>Checking......</HelperMessage>
+                  ) : null}
+                  {!meta.validating && valid && meta.dirty ? (
+                    <ValidMessage>Awesome password!</ValidMessage>
+                  ) : null}
+                </>
+              );
+            }}
+          </Field>
+          <Button testId="Submit" onClick={onSubmit}>
+            Submit
+          </Button>
+        </>
+      )}
+    </Form>,
+  );
+
+  const password = getByTestId('password');
+
+  act(() => {
+    fireEvent.change(password, {
+      target: { value: 'short' },
+    });
+  });
+
+  // checking...
+  await waitForElementToBeRemoved(() => queryByText('Checking......'));
+
+  // too short password
+  await wait(() =>
+    expect(
+      queryByText('Password needs to be more than 8 characters.'),
+    ).toBeInTheDocument(),
+  );
+
+  act(() => {
+    fireEvent.change(password, {
+      target: { value: 'long enough' },
+    });
+  });
+
+  // eventually a good password
+  await wait(() =>
+    expect(queryByText('Awesome password!')).toBeInTheDocument(),
+  );
+  await wait(() => promise);
 });
 
 test('should correctly update form state with a nested of object usernames', () => {

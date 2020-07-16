@@ -36,7 +36,7 @@ export const Header = styled.header<HeaderProps>`
   flex: 0 0 auto;
   justify-content: space-between;
   transition: box-shadow 200ms;
-  z-index: 1;
+  position: relative;
   padding: ${modalPadding}px ${modalPadding}px ${modalPadding - keylineHeight}px
     ${modalPadding}px;
   box-shadow: ${props =>
@@ -106,7 +106,6 @@ export const bodyStyles = (shouldScroll?: boolean) => css`
     : `
         padding: 0 ${modalPadding}px;
       `}
-
   @media (min-width: 320px) and (max-width: 480px) {
     overflow-y: auto;
     height: 100%;
@@ -132,12 +131,12 @@ interface FooterProps {
   showKeyline?: boolean;
 }
 export const Footer = styled.footer<FooterProps>`
+  position: relative;
   align-items: center;
   display: flex;
   flex: 0 0 auto;
   justify-content: space-between;
   transition: box-shadow 200ms;
-  z-index: 1;
   padding: ${modalPadding - keylineHeight}px ${modalPadding}px ${modalPadding}px
     ${modalPadding}px;
   box-shadow: ${props =>
@@ -148,6 +147,7 @@ export const Footer = styled.footer<FooterProps>`
 
 export const Actions = styled.div`
   display: inline-flex;
+  flex-direction: row-reverse;
   margin: 0 -${divide(gridSize, 2)}px;
 `;
 

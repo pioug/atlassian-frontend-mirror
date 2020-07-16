@@ -36,6 +36,10 @@ export const getClickUrl = (url: string, jsonLd?: JsonLd.Response): string => {
 export const getDefinitionId = (details?: JsonLd.Response) =>
   details && details.meta && details.meta.definitionId;
 
+export const getResourceType = (
+  details?: JsonLd.Response,
+): string | undefined => details && details.meta && details.meta.resourceType;
+
 export const getServices = (details?: JsonLd.Response) =>
   (details && details.meta.auth) || [];
 

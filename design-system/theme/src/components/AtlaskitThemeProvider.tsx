@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled, { ThemeProvider } from 'styled-components';
 import exenv from 'exenv';
-import { ThemeModes, AtlaskitThemeProps } from '../types';
+import { ThemeModes, AtlaskitThemeProps, ThemedValue } from '../types';
 import * as colors from '../colors';
 
 import { CHANNEL, DEFAULT_THEME_MODE } from '../constants';
@@ -10,8 +10,7 @@ import { CHANNEL, DEFAULT_THEME_MODE } from '../constants';
 // For forward-compat until everything is upgraded.
 import Theme from './Theme';
 
-function getStylesheetResetCSS(state: AtlaskitThemeProps) {
-  const backgroundColor = colors.background(state);
+function getStylesheetResetCSS(backgroundColor: string) {
   return `
     body { background: ${backgroundColor}; }
   `;
@@ -20,14 +19,17 @@ function getStylesheetResetCSS(state: AtlaskitThemeProps) {
 interface Props {
   children: React.ReactNode;
   mode: ThemeModes;
+  background: ThemedValue<string>;
 }
 
 function buildThemeState(mode: ThemeModes): AtlaskitThemeProps {
   return { theme: { [CHANNEL]: { mode } } };
 }
 
-const LegacyReset = styled.div`
-  background-color: ${colors.background};
+const LegacyReset = styled.div<{
+  background: ThemedValue<string>;
+}>`
+  background-color: ${p => p.background};
   color: ${colors.text};
 
   a {
@@ -83,6 +85,7 @@ export default class AtlaskitThemeProvider extends Component<
 
   static defaultProps = {
     mode: DEFAULT_THEME_MODE,
+    background: colors.background,
   };
 
   static childContextTypes = {
@@ -104,7 +107,7 @@ export default class AtlaskitThemeProvider extends Component<
 
   UNSAFE_componentWillMount() {
     if (!this.context.hasAtlaskitThemeProvider && exenv.canUseDOM) {
-      const css = getStylesheetResetCSS(this.state);
+      const css = getStylesheetResetCSS(this.props.background(this.state));
       this.stylesheet = document.createElement('style');
       this.stylesheet.type = 'text/css';
       this.stylesheet.innerHTML = css;
@@ -118,7 +121,7 @@ export default class AtlaskitThemeProvider extends Component<
     if (newProps.mode !== this.props.mode) {
       const newThemeState = buildThemeState(newProps.mode);
       if (this.stylesheet) {
-        const css = getStylesheetResetCSS(newThemeState);
+        const css = getStylesheetResetCSS(newProps.background(newThemeState));
         this.stylesheet.innerHTML = css;
       }
       this.setState(newThemeState);
@@ -143,7 +146,9 @@ export default class AtlaskitThemeProvider extends Component<
       old theming API. */
       <Theme.Provider value={this.getThemeMode}>
         <ThemeProvider theme={theme}>
-          <LegacyReset>{children}</LegacyReset>
+          <LegacyReset background={this.props.background}>
+            {children}
+          </LegacyReset>
         </ThemeProvider>
       </Theme.Provider>
     );

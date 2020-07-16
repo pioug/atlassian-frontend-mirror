@@ -12,8 +12,12 @@ import { asMockFunction } from '@atlaskit/media-test-helpers';
 
 let innerSetWidth: Function | undefined;
 
+let elementWidth: number | undefined;
+
 const setWidth = (width: number) =>
   typeof innerSetWidth === 'function' ? innerSetWidth(width) : undefined;
+
+const setElementWidth = (width?: number) => (elementWidth = width);
 
 const getMockedToolbarItem = () =>
   asMockFunction<ToolbarUIComponentFactory>(jest.fn());
@@ -27,7 +31,19 @@ jest.mock('@atlaskit/width-detector', () => {
   };
 });
 
+jest.mock('../../../ui/Toolbar/hooks', () => {
+  return {
+    useElementWidth() {
+      return elementWidth;
+    },
+  };
+});
+
 describe('Toolbar', () => {
+  beforeEach(() => {
+    elementWidth = undefined;
+  });
+
   it('should render a Toolbar UI Component', () => {
     const toolbarItem = getMockedToolbarItem();
     const toolbar = mount(
@@ -48,6 +64,8 @@ describe('Toolbar', () => {
   });
 
   it('should re-render with different toolbar size when toolbar width changes', async () => {
+    setElementWidth(451);
+
     const toolbarItem = getMockedToolbarItem();
     const toolbar = mount(
       <ToolbarWithSizeDetector
@@ -61,18 +79,27 @@ describe('Toolbar', () => {
       />,
     );
 
+    expect(toolbarItem).toHaveBeenCalledWith(
+      expect.objectContaining({
+        toolbarSize: ToolbarSize.M,
+      }),
+    );
+
     act(() => setWidth(1000));
 
-    expect(toolbarItem.mock.calls[0][0]).toMatchObject({
-      toolbarSize: ToolbarSize.XXL,
-    });
+    expect(toolbarItem).toHaveBeenCalledWith(
+      expect.objectContaining({
+        toolbarSize: ToolbarSize.XXL,
+      }),
+    );
 
     act(() => setWidth(100));
 
-    // Second call
-    expect(toolbarItem.mock.calls[1][0]).toMatchObject({
-      toolbarSize: ToolbarSize.XXXS,
-    });
+    expect(toolbarItem).toHaveBeenCalledWith(
+      expect.objectContaining({
+        toolbarSize: ToolbarSize.XXXS,
+      }),
+    );
 
     toolbar.unmount();
   });

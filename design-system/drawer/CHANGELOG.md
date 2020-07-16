@@ -1,5 +1,12 @@
 # @atlaskit/drawer
 
+## 6.0.1
+
+### Patch Changes
+
+- [`60dd4ecc69`](https://bitbucket.org/atlassian/atlassian-frontend/commits/60dd4ecc69) - Changed export all to export individual components in index
+- Updated dependencies
+
 ## 6.0.0
 
 ### Major Changes

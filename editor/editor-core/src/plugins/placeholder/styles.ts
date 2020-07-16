@@ -1,12 +1,12 @@
 import { css } from 'styled-components';
-import { colors } from '@atlaskit/theme';
+import { N90 } from '@atlaskit/theme/colors';
 
 export const placeHolderClassName = 'placeholder-decoration';
 
 export const placeholderStyles = css`
   .ProseMirror .${placeHolderClassName} {
     position: relative;
-    color: ${colors.N90};
+    color: ${N90};
     width: 100%;
 
     pointer-events: none;

@@ -160,7 +160,9 @@ function Form<FormData extends Record<string, any> = {}>(
       const submitButton: HTMLElement | null = formRef.current.querySelector(
         'button:not([type]), button[type="submit"], input[type="submit"]',
       );
-      if (submitButton) submitButton.click();
+      if (submitButton) {
+        submitButton.click();
+      }
       e.preventDefault();
     }
   };

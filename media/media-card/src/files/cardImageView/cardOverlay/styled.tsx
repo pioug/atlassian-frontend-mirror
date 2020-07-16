@@ -281,6 +281,10 @@ export const Retry = styled.div`
   }
 `;
 
+export const NewExpRetry = styled.a`
+  cursor: pointer;
+`;
+
 export const ErrorWrapper = styled.div`
   display: flex;
 `;

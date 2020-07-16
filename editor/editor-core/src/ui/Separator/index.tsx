@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 import { HTMLAttributes, ComponentClass } from 'react';
-import { colors } from '@atlaskit/theme';
+import { N30 } from '@atlaskit/theme/colors';
 
 const Separator: ComponentClass<HTMLAttributes<HTMLSpanElement>> = styled.span`
-  background: ${colors.N30};
+  background: ${N30};
   height: 100%;
   padding-left: 1px;
   margin: 2px 8px;

@@ -20,8 +20,10 @@ describe('Snapshot Test: Cards', () => {
     await snapshot(page);
   });
 
-  // TODO: https://product-fabric.atlassian.net/browse/ED-7721
-  it.skip('should render unknown content for cards with invalid urls', async () => {
+  it('should render unknown content for cards with invalid urls', async () => {
     await initRenderer(page, cardXSSADF);
+    await page.waitFor(
+      '#renderer-container [data-testid="inline-card-resolved-view"]',
+    );
   });
 });

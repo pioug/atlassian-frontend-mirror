@@ -15,21 +15,22 @@ import {
   getDraftCommandAnalyticsPayload,
 } from '../utils';
 import { RESOLVE_METHOD } from '../../analytics/types/inline-comment-events';
+import { applyMarkOnRange } from '../../../utils/commands';
 
 const addAnnotationMark = (id: string) => (
   transaction: Transaction,
   state: EditorState,
 ) => {
   const inlineCommentState = getPluginState(state);
-  const { from, to } = getSelectionPositions(state, inlineCommentState);
+  const { from, to, head } = getSelectionPositions(state, inlineCommentState);
   const annotationMark = state.schema.marks.annotation.create({
     id,
     type: AnnotationTypes.INLINE_COMMENT,
   });
-  const tr = transaction.addMark(from, to, annotationMark);
+  // Apply the mark only to text node in the range.
+  let tr = applyMarkOnRange(from, to, false, annotationMark, transaction);
   // set selection back to the end of annotation once annotation mark is applied
-  const $to = state.doc.resolve(to);
-  tr.setSelection(new TextSelection($to, $to));
+  tr.setSelection(TextSelection.create(tr.doc, head));
   return tr;
 };
 

@@ -6,7 +6,7 @@ import { getDocFromElement, comment, fullpage, editable } from '../_helpers';
   BrowserTestCase(
     `hyperlink-markdown: Link - entering link markdown ${editor.name} editor`,
     {
-      skip: ['ie', 'edge', 'safari'],
+      skip: ['edge', 'safari'],
     },
     async (client: any, testName: string) => {
       let browser = new Page(client);

@@ -24,12 +24,15 @@ export default class Content extends Component<Props> {
   getLinkComponent = () => {
     const { linkComponent, href } = this.props;
 
-    if (!href) return null;
+    if (!href) {
+      return null;
+    }
 
-    if (linkComponent)
+    if (linkComponent) {
       return styled(linkComponent)`
         ${linkStyles};
       `;
+    }
     return Link;
   };
 

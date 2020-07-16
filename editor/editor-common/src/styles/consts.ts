@@ -1,23 +1,16 @@
 import {
-  borderRadius,
-  codeFontFamily,
-  colors,
-  fontSize as defaultFontSize,
-  gridSize,
-  layers,
-} from '@atlaskit/theme';
-
-const {
   B100,
   B300,
   B400,
   B50,
   B75,
+  DN50,
+  DN70,
   N0,
+  N100,
   N20,
   N40,
   N50,
-  N100,
   N500,
   N700,
   N900,
@@ -25,9 +18,14 @@ const {
   R400,
   R50,
   R75,
-  DN50,
-  DN70,
-} = colors;
+} from '@atlaskit/theme/colors';
+import {
+  borderRadius,
+  codeFontFamily,
+  fontSize as defaultFontSize,
+  gridSize,
+  layers,
+} from '@atlaskit/theme/constants';
 
 export const akEditorFullPageDefaultFontSize = 16;
 export const akEditorCodeFontFamily = codeFontFamily();
@@ -113,7 +111,7 @@ export const akEditorLineHeight = 1.714;
 
 export const akEditorSelectedBorderStyles = `
   // No offset, no blur
-  box-shadow: 0px 0px 0px ${akEditorSelectedBorderSize}px ${colors.B300};
+  box-shadow: 0px 0px 0px ${akEditorSelectedBorderSize}px ${B300};
   border-radius: ${borderRadius()}px;
 `;
 

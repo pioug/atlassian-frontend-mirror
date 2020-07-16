@@ -12,7 +12,7 @@ type ClientType = Parameters<typeof goToEditorTestingExample>[0];
 
 BrowserTestCase(
   'card: changing the link URL of an embed link should convert it to a "dumb" link',
-  { skip: ['safari', 'ie', 'edge'] },
+  { skip: ['safari', 'edge'] },
   async (client: ClientType, testName: string) => {
     const page = await goToEditorTestingExample(client);
 

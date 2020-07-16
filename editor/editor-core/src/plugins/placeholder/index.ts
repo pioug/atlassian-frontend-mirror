@@ -213,7 +213,7 @@ export function createPlugin(
   });
 }
 
-interface PlaceholderPluginOptions {
+export interface PlaceholderPluginOptions {
   placeholder?: string;
   placeholderHints?: string[];
   placeholderBracketHint?: string;

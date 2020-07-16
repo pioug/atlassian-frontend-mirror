@@ -12,7 +12,7 @@ import {
   BrowserTestCase(
     `hyperlink-markdown-paste-text.ts: Link - link markdown with pasting link text ${editor.name} editor`,
     {
-      skip: ['ie', 'edge', 'safari'],
+      skip: ['edge', 'safari'],
     },
     async (client: any, testName: string) => {
       const sample = new Page(client);

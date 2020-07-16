@@ -4,9 +4,8 @@ import { IntlProvider, addLocaleData } from 'react-intl';
 import { EditorView } from 'prosemirror-view';
 import { Step } from 'prosemirror-transform';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
-import { AtlaskitThemeProvider } from '@atlaskit/theme';
+import { AtlaskitThemeProvider } from '@atlaskit/theme/components';
 import { EmojiProvider } from '@atlaskit/emoji/resource';
-import { MockActivityResource } from '@atlaskit/activity/dist/es5/support';
 import { mention, emoji, taskDecision } from '@atlaskit/util-data-test';
 import { createCollabEditProvider } from '@atlaskit/synchrony-test-helpers';
 import { ExtensionHandlers } from '@atlaskit/editor-common';
@@ -23,6 +22,7 @@ import {
   JSONTransformer,
   JSONDocNode,
 } from '@atlaskit/editor-json-transformer';
+import { MockActivityResource } from './activity-provider';
 import ClipboardHelper from '../examples/1-clipboard-helper';
 import EditorActions from '../src/actions';
 import { withSidebarContainer } from './SidebarContainer';

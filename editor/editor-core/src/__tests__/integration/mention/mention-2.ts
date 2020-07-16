@@ -22,7 +22,7 @@ import {
 // Follow up with browserstack as to why @ is keyed in as 2 on ie
 BrowserTestCase(
   'mention-2.ts: user should see picker if they type "@"',
-  { skip: ['ie', 'edge'] },
+  { skip: ['edge'] },
   async (client: any) => {
     const page = await goToEditorTestingExample(client);
     await mountEditor(page, {
@@ -37,7 +37,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'mention-2.ts: text@ should not invoke picker',
-  { skip: ['ie', 'edge'] },
+  { skip: ['edge'] },
   async (client: any) => {
     const page = await goToEditorTestingExample(client);
     await mountEditor(page, {
@@ -53,7 +53,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'mention-2.ts: user should be able remove mention on backspace',
-  { skip: ['ie', 'edge'] },
+  { skip: ['edge'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
     await mountEditor(page, {
@@ -72,7 +72,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'mention-2.ts: @ <space> should not invoke picker',
-  { skip: ['ie', 'edge'] },
+  { skip: ['edge'] },
   async (client: any) => {
     const page = await goToEditorTestingExample(client);
     await mountEditor(page, {
@@ -88,7 +88,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'mention-2.ts: user should see space after node',
-  { skip: ['ie', 'edge'] },
+  { skip: ['edge'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
     await mountEditor(page, {
@@ -104,7 +104,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'mention-2.ts: escape closes picker',
-  { skip: ['ie', 'edge'] },
+  { skip: ['edge'] },
   async (client: any) => {
     const page = await goToEditorTestingExample(client);
     await mountEditor(page, {

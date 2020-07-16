@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { colors } from '@atlaskit/theme';
+import { B500, B75 } from '@atlaskit/theme/colors';
 
 import HomeCircleIcon from '../glyph/home-circle';
 
@@ -14,8 +14,8 @@ export default class Example extends Component<{}, {}> {
           label=""
         />
         <HomeCircleIcon
-          primaryColor={colors.B500}
-          secondaryColor={colors.B75}
+          primaryColor={B500}
+          secondaryColor={B75}
           size="xlarge"
           label=""
         />

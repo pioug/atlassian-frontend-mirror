@@ -1,6 +1,6 @@
 import React from 'react';
 import { MouseEvent } from 'react';
-import { FileDetails, ImageResizeMode } from '@atlaskit/media-client';
+import { MediaItemType, FileDetails } from '@atlaskit/media-client';
 import {
   withAnalyticsEvents,
   WithAnalyticsEventsProps,
@@ -22,11 +22,29 @@ import { createAndFireMediaEvent } from '../utils/analytics';
 import { attachDetailsToActions } from '../actions';
 import { getErrorMessage } from '../utils/getErrorMessage';
 import { toHumanReadableMediaSize } from '@atlaskit/media-ui';
+import {
+  NewFileExperienceWrapper,
+  CardImageContainer,
+  calcBreakpointSize,
+} from './ui/styled';
+import { ImageRenderer } from './ui/imageRenderer/imageRenderer';
+import { TitleBox } from './ui/titleBox/titleBox';
+import { FailedTitleBox } from './ui/titleBox/failedTitleBox';
+import { ProgressBar } from './ui/progressBar/progressBar';
+import { PlayButton } from './ui/playButton/playButton';
+import { TickBox } from './ui/tickBox/tickBox';
+import { Blanket } from './ui/blanket/styled';
+import { ActionsBar } from './ui/actionsBar/actionsBar';
+import Tooltip from '@atlaskit/tooltip';
+import { Breakpoint } from './ui/common';
+import { IconWrapper } from './ui/iconWrapper/styled';
+import { MediaTypeIcon } from '@atlaskit/media-ui/media-type-icon';
+import SpinnerIcon from '@atlaskit/spinner';
 
 export interface CardViewOwnProps extends SharedCardProps {
   readonly status: CardStatus;
+  readonly mediaItemType: MediaItemType;
   readonly metadata?: FileDetails;
-  readonly resizeMode?: ImageResizeMode;
 
   readonly onRetry?: () => void;
   readonly onClick?: (
@@ -44,6 +62,7 @@ export interface CardViewOwnProps extends SharedCardProps {
 
 export interface CardViewState {
   elementWidth?: number;
+  isImageFailedToLoad: boolean;
 }
 
 export type CardViewProps = CardViewOwnProps & WithAnalyticsEventsProps;
@@ -56,7 +75,7 @@ export class CardViewBase extends React.Component<
   CardViewProps,
   CardViewState
 > {
-  state: CardViewState = {};
+  state: CardViewState = { isImageFailedToLoad: false };
   divRef: React.RefObject<HTMLDivElement> = React.createRef();
 
   static defaultProps: Partial<CardViewOwnProps> = {
@@ -66,6 +85,17 @@ export class CardViewBase extends React.Component<
   componentDidMount() {
     this.saveElementWidth();
   }
+
+  componentDidUpdate({ dataURI: prevDataURI }: CardViewProps) {
+    const { dataURI } = this.props;
+    if (prevDataURI !== dataURI) {
+      this.setState({ isImageFailedToLoad: false });
+    }
+  }
+
+  private onImageLoadError = () => {
+    this.setState({ isImageFailedToLoad: true });
+  };
 
   // This width is only used to calculate breakpoints, dimensions are passed down as
   // integrator pass it to the root component
@@ -82,6 +112,15 @@ export class CardViewBase extends React.Component<
     }
 
     return getCSSUnitValue(width);
+  }
+
+  private get breakpoint(): Breakpoint {
+    const width =
+      this.state.elementWidth ||
+      (this.props.dimensions ? this.props.dimensions.width : '') ||
+      defaultImageCardDimensions.width;
+
+    return calcBreakpointSize(parseInt(`${width}`, 10));
   }
 
   // If the dimensions.width is a percentage, we need to transform it
@@ -101,20 +140,23 @@ export class CardViewBase extends React.Component<
   }
 
   render() {
+    const { featureFlags } = this.props;
+
+    if (featureFlags && featureFlags.newExp) {
+      return this.renderFileNewExperience();
+    }
+
     const {
       dimensions,
       appearance,
       onClick,
       onMouseEnter,
       testId,
-      featureFlags,
     } = this.props;
+
     const wrapperDimensions = dimensions
       ? dimensions
       : getDefaultCardDimensions(appearance);
-    const isNewExpFeatureFlagOn = featureFlags
-      ? featureFlags.enableNewExperience
-      : false;
 
     return (
       <Wrapper
@@ -126,20 +168,273 @@ export class CardViewBase extends React.Component<
         onMouseEnter={onMouseEnter}
         innerRef={this.divRef}
       >
-        {isNewExpFeatureFlagOn
-          ? this.renderFileNewExperience()
-          : this.renderFile()}
+        {this.renderFile()}
       </Wrapper>
     );
   }
 
-  private renderFileNewExperience = () => {
-    // Let's replace this with the new experience
-    return null;
+  private renderSpinner() {
+    const { status, dataURI } = this.props;
+    if (!['loading', 'processing'].includes(status) || dataURI) {
+      return null;
+    }
+    const hasTitleBox =
+      !this.isTitleBoxHidden() || !this.isFailedTitleBoxHidden();
+
+    return (
+      <IconWrapper breakpoint={this.breakpoint} hasTitleBox={hasTitleBox}>
+        <SpinnerIcon />
+      </IconWrapper>
+    );
+  }
+
+  private shouldRenderPlayButton() {
+    const { metadata, dataURI } = this.props;
+    const { mediaType } = metadata || {};
+    if (mediaType !== 'video' || !dataURI) {
+      return false;
+    }
+    return true;
+  }
+
+  private renderPlayButton = () => {
+    if (!this.shouldRenderPlayButton()) {
+      return null;
+    }
+    return <PlayButton />;
   };
+
+  private renderBlanket() {
+    const { disableOverlay, status, metadata } = this.props;
+    const { mediaType } = metadata || {};
+    if (disableOverlay && (status !== 'uploading' || mediaType === 'video')) {
+      return null;
+    }
+    const isFixed = status === 'uploading';
+
+    return <Blanket isFixed={isFixed} />;
+  }
+
+  private isTitleBoxHidden(): boolean {
+    const { isImageFailedToLoad } = this.state;
+    const { metadata, disableOverlay, status, dataURI } = this.props;
+    const { name } = metadata || {};
+    return (
+      !name ||
+      isImageFailedToLoad ||
+      (disableOverlay && status !== 'uploading') ||
+      !!(!dataURI && ['error', 'failed-processing'].includes(status))
+    );
+  }
+
+  private isFailedTitleBoxHidden(): boolean {
+    const { isImageFailedToLoad } = this.state;
+    const { status, dataURI } = this.props;
+    return (
+      !isImageFailedToLoad &&
+      (!!dataURI ||
+        ['loading', 'processing', 'uploading', 'complete'].includes(status))
+    );
+  }
+
+  private renderTitleBox() {
+    const { metadata } = this.props;
+    const { name, createdAt } = metadata || {};
+    if (this.isTitleBoxHidden() || !name) {
+      return null;
+    }
+    return (
+      <TitleBox
+        name={name}
+        createdAt={createdAt}
+        breakpoint={this.breakpoint}
+      />
+    );
+  }
+
+  private renderFailedTitleBox() {
+    const { onRetry, metadata } = this.props;
+    const { name } = metadata || {};
+    if (this.isFailedTitleBoxHidden()) {
+      return null;
+    }
+    return (
+      <FailedTitleBox
+        name={name}
+        onRetry={onRetry}
+        breakpoint={this.breakpoint}
+      />
+    );
+  }
+
+  private renderProgressBar() {
+    const { status, progress } = this.props;
+    return (
+      status === 'uploading' && (
+        <ProgressBar
+          progress={progress}
+          breakpoint={this.breakpoint}
+          positionBottom={this.isTitleBoxHidden()}
+        />
+      )
+    );
+  }
+
+  private renderImageRenderer() {
+    const { isImageFailedToLoad } = this.state;
+    const {
+      dataURI,
+      metadata: { mediaType = 'unknown' } = {},
+      previewOrientation,
+      alt,
+      resizeMode,
+      onDisplayImage,
+    } = this.props;
+
+    return (
+      dataURI &&
+      !isImageFailedToLoad && (
+        <ImageRenderer
+          dataURI={dataURI}
+          mediaType={mediaType}
+          previewOrientation={previewOrientation}
+          alt={alt}
+          resizeMode={resizeMode}
+          onDisplayImage={onDisplayImage}
+          onImageError={this.onImageLoadError}
+        />
+      )
+    );
+  }
+
+  private shouldRenderTickBox(): boolean {
+    const { selectable, disableOverlay } = this.props;
+    return !disableOverlay && !!selectable;
+  }
+
+  private renderTickBox() {
+    const { selected } = this.props;
+    return this.shouldRenderTickBox() && <TickBox selected={selected} />;
+  }
+
+  private renderMediaTypeIcon() {
+    const { isImageFailedToLoad } = this.state;
+    const { status, dataURI, metadata } = this.props;
+    const { mediaType } = metadata || {};
+    if (
+      !isImageFailedToLoad &&
+      (dataURI || ['loading', 'processing'].includes(status))
+    ) {
+      return null;
+    }
+
+    const hasTitleBox =
+      !this.isTitleBoxHidden() || !this.isFailedTitleBoxHidden();
+
+    return (
+      <IconWrapper breakpoint={this.breakpoint} hasTitleBox={hasTitleBox}>
+        <MediaTypeIcon type={mediaType} />
+      </IconWrapper>
+    );
+  }
+
+  private renderActionsBar() {
+    const { disableOverlay, actions, metadata } = this.props;
+
+    const actionsWithDetails =
+      metadata && actions ? attachDetailsToActions(actions, metadata) : [];
+
+    if (disableOverlay || !actions || actions.length === 0) {
+      return null;
+    }
+    return <ActionsBar actions={actionsWithDetails} />;
+  }
+
+  private renderFileNewExperienceContents = () => {
+    return (
+      <>
+        <CardImageContainer>
+          {this.renderMediaTypeIcon()}
+          {this.renderSpinner()}
+          {this.renderImageRenderer()}
+          {this.renderPlayButton()}
+          {this.renderBlanket()}
+          {this.renderTickBox()}
+          {this.renderProgressBar()}
+          {this.renderFailedTitleBox()}
+          {this.renderTitleBox()}
+        </CardImageContainer>
+        {this.renderActionsBar()}
+      </>
+    );
+  };
+
+  private renderFileNewExperience = () => {
+    const {
+      dimensions,
+      appearance,
+      onClick,
+      onMouseEnter,
+      testId,
+      metadata,
+      status,
+      selected,
+      selectable,
+      disableOverlay,
+      progress,
+      dataURI,
+    } = this.props;
+    const { mediaType, name } = metadata || {};
+    const shouldUsePointerCursor =
+      status !== 'error' && status !== 'failed-processing';
+    const shouldDisplayBackground = !dataURI || !disableOverlay;
+    const isPlayButtonClickable = !!(
+      this.shouldRenderPlayButton() && disableOverlay
+    );
+    const isTickBoxSelectable = !!(
+      this.shouldRenderTickBox() &&
+      selectable &&
+      !selected
+    );
+    const shouldDisplayTooltip = !!name;
+
+    return (
+      <NewFileExperienceWrapper
+        data-testid={testId || 'media-card-view'}
+        data-test-media-name={name}
+        data-test-status={status}
+        data-test-progress={progress}
+        data-test-selected={selected ? true : undefined}
+        dimensions={dimensions}
+        appearance={appearance}
+        onClick={onClick}
+        onMouseEnter={onMouseEnter}
+        innerRef={this.divRef}
+        mediaType={mediaType}
+        breakpoint={this.breakpoint}
+        shouldUsePointerCursor={shouldUsePointerCursor}
+        disableOverlay={!!disableOverlay}
+        selected={!!selected}
+        displayBackground={shouldDisplayBackground}
+        isPlayButtonClickable={isPlayButtonClickable}
+        isTickBoxSelectable={isTickBoxSelectable}
+        shouldDisplayTooltip={shouldDisplayTooltip}
+      >
+        {shouldDisplayTooltip ? (
+          <Tooltip content={name} position="bottom" tag={'div'}>
+            {this.renderFileNewExperienceContents()}
+          </Tooltip>
+        ) : (
+          this.renderFileNewExperienceContents()
+        )}
+      </NewFileExperienceWrapper>
+    );
+  };
+
   private renderFile = () => {
     const {
       status,
+      mediaItemType,
       metadata,
       dataURI,
       progress,
@@ -155,7 +450,7 @@ export class CardViewBase extends React.Component<
       actions,
     } = this.props;
 
-    const { name, mediaType, size } = metadata || {};
+    const { name, mediaType, mimeType, size } = metadata || {};
     const actionsWithDetails =
       metadata && actions ? attachDetailsToActions(actions, metadata) : [];
     const errorMessage = getErrorMessage(status);
@@ -170,8 +465,10 @@ export class CardViewBase extends React.Component<
         dataURI={dataURI}
         mediaName={name}
         mediaType={mediaType}
+        mimeType={mimeType}
         fileSize={fileSize}
         status={status}
+        mediaItemType={mediaItemType}
         progress={progress}
         resizeMode={resizeMode}
         onRetry={onRetry}

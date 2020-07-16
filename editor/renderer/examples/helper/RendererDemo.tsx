@@ -33,7 +33,10 @@ import { ProfileClient, modifyResponse } from '@atlaskit/profilecard';
 import { renderDocument, TextSerializer } from '../../src';
 
 import Sidebar, { getDefaultShowSidebarState } from './NavigationNext';
-import { RendererAppearance } from '../../src/ui/Renderer/types';
+import {
+  RendererAppearance,
+  HeadingAnchorLinksProps,
+} from '../../src/ui/Renderer/types';
 import { MentionProvider } from '@atlaskit/mention/types';
 import { Schema } from 'prosemirror-model';
 
@@ -167,6 +170,8 @@ export interface DemoRendererProps {
   withPortal?: boolean;
   withProviders?: boolean;
   withExtension?: boolean;
+  disableSidebar?: boolean;
+  disableEventHandlers?: boolean;
   serializer: 'react' | 'text' | 'email';
   document?: object;
   showHowManyCopies?: boolean;
@@ -175,13 +180,14 @@ export interface DemoRendererProps {
   fadeOutHeight?: number;
   truncationEnabled?: boolean;
   allowDynamicTextSizing?: boolean;
-  allowHeadingAnchorLinks?: boolean;
+  allowHeadingAnchorLinks?: HeadingAnchorLinksProps;
   allowColumnSorting?: boolean;
   allowAnnotations?: boolean;
   copies?: number;
   schema?: Schema;
   actionButtons?: any;
   annotationProvider?: AnnotationProviders<AnnotationMarkStates> | null;
+  onDocumentChange?: () => void;
 }
 
 export interface DemoRendererState {
@@ -226,7 +232,18 @@ export default class RendererDemo extends React.Component<
     };
   }
 
-  componentDidUpdate(prevProps: DemoRendererProps) {
+  componentDidUpdate(
+    prevProps: DemoRendererProps,
+    prevState: DemoRendererState,
+  ) {
+    if (
+      this.state.input &&
+      prevState.input !== this.state.input &&
+      this.props.onDocumentChange
+    ) {
+      this.props.onDocumentChange();
+    }
+
     if (this.props.document && prevProps.document !== this.props.document) {
       this.setState({
         input: JSON.stringify(this.props.document, null, 2),
@@ -239,51 +256,15 @@ export default class RendererDemo extends React.Component<
   };
 
   render() {
+    if (this.props.disableSidebar) {
+      return this.renderExampleContent({});
+    }
+
     return (
       <Sidebar showSidebar={this.state.showSidebar}>
-        {(additionalRendererProps: object) => (
-          <div ref="root" style={{ position: 'relative', padding: 20 }}>
-            <fieldset style={{ marginBottom: 20 }}>
-              <legend>Input</legend>
-              <textarea
-                id="renderer-value-input"
-                style={{
-                  boxSizing: 'border-box',
-                  border: '1px solid lightgray',
-                  fontFamily: 'monospace',
-                  fontSize: 16,
-                  padding: 10,
-                  width: '100%',
-                  height: 320,
-                }}
-                ref={ref => {
-                  this.inputBox = ref;
-                }}
-                onChange={this.onDocumentChange}
-                value={this.state.input}
-              />
-              <button onClick={this.toggleSidebar}>Toggle Sidebar</button>
-              <button onClick={this.toggleEventHandlers}>
-                Toggle Event handlers
-              </button>
-              {this.props.showHowManyCopies && (
-                <input
-                  type="number"
-                  ref={ref => {
-                    this.inputCopies = ref;
-                  }}
-                  onChange={this.onCopiesChange}
-                  value={this.state.copies}
-                />
-              )}
-              {this.props.actionButtons ? this.props.actionButtons : null}
-            </fieldset>
-            <IframeWidthObserverFallbackWrapper>
-              {this.renderRenderer(additionalRendererProps)}
-            </IframeWidthObserverFallbackWrapper>
-            {this.renderText()}
-          </div>
-        )}
+        {(additionalRendererProps: object) =>
+          this.renderExampleContent(additionalRendererProps)
+        }
       </Sidebar>
     );
   }
@@ -293,6 +274,58 @@ export default class RendererDemo extends React.Component<
       truncated: !prevState.truncated,
     }));
   };
+
+  private renderExampleContent(additionalRendererProps: object) {
+    return (
+      <div ref="root" style={{ position: 'relative', padding: 20 }}>
+        <fieldset style={{ marginBottom: 20 }}>
+          <legend>Input</legend>
+          <textarea
+            id="renderer-value-input"
+            style={{
+              boxSizing: 'border-box',
+              border: '1px solid lightgray',
+              fontFamily: 'monospace',
+              fontSize: 16,
+              padding: 10,
+              width: '100%',
+              height: 320,
+              resize: 'vertical',
+            }}
+            ref={ref => {
+              this.inputBox = ref;
+            }}
+            onChange={this.onDocumentChange}
+            value={this.state.input}
+          />
+          {this.props.disableSidebar ? null : (
+            <button onClick={this.toggleSidebar}>Toggle Sidebar</button>
+          )}
+          {this.props.disableEventHandlers ? null : (
+            <button onClick={this.toggleEventHandlers}>
+              Toggle Event handlers
+            </button>
+          )}
+          {this.props.showHowManyCopies && (
+            <input
+              type="number"
+              ref={ref => {
+                this.inputCopies = ref;
+              }}
+              onChange={this.onCopiesChange}
+              value={this.state.copies}
+            />
+          )}
+          {this.props.actionButtons ? this.props.actionButtons : null}
+        </fieldset>
+
+        <IframeWidthObserverFallbackWrapper>
+          {this.renderRenderer(additionalRendererProps)}
+        </IframeWidthObserverFallbackWrapper>
+        {this.renderText()}
+      </div>
+    );
+  }
 
   private renderRenderer(additionalRendererProps: any) {
     const { shouldUseEventHandlers, copies } = this.state;
@@ -313,10 +346,6 @@ export default class RendererDemo extends React.Component<
         props.dataProviders = providerFactory;
       }
 
-      if (this.props.allowHeadingAnchorLinks) {
-        props.allowHeadingAnchorLinks = true;
-      }
-
       if (this.props.withExtension) {
         props.extensionHandlers = extensionHandlers;
       }
@@ -331,6 +360,7 @@ export default class RendererDemo extends React.Component<
       props.allowDynamicTextSizing = this.props.allowDynamicTextSizing;
       props.allowColumnSorting = this.props.allowColumnSorting;
       props.allowAnnotations = this.props.allowAnnotations;
+      props.allowHeadingAnchorLinks = this.props.allowHeadingAnchorLinks;
 
       if (props.allowAnnotations) {
         props.annotationProvider = this.props.annotationProvider;

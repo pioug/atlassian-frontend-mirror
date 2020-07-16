@@ -2,7 +2,7 @@ import React from 'react';
 
 import styled, { css } from 'styled-components';
 
-import { colors } from '@atlaskit/theme';
+import { N20, N40 } from '@atlaskit/theme/colors';
 
 import Tooltip from '../src';
 
@@ -19,7 +19,7 @@ interface StyledProps {
 }
 
 const Parent = styled.div<StyledProps>`
-  background-color: ${colors.N20};
+  background-color: ${N20};
   border-radius: 5px;
   margin-bottom: 8px;
   height: 64px;
@@ -74,7 +74,7 @@ export default () => (
         <p>
           Nested &mdash; scroll <strong>right</strong> to see the target.
         </p>
-        <Parent scroll="vertical" style={{ backgroundColor: colors.N40 }}>
+        <Parent scroll="vertical" style={{ backgroundColor: N40 }}>
           <Shim scroll="vertical">
             <p>
               Scroll <strong>down</strong> to see the target.

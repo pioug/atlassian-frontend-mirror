@@ -7,7 +7,10 @@ import {
 } from '@atlaskit/editor-common';
 import { AnalyticsEventPayload } from '../analytics/events';
 import { Serializer } from '../index';
-import { RendererAppearance } from '../ui/Renderer/types';
+import {
+  RendererAppearance,
+  HeadingAnchorLinksProps,
+} from '../ui/Renderer/types';
 
 export interface RendererContext {
   objectAri?: string;
@@ -28,7 +31,7 @@ export interface NodeMeta {
     [key: string]: any;
   } | null;
   allowDynamicTextSizing?: boolean;
-  allowHeadingAnchorLinks?: boolean;
+  allowHeadingAnchorLinks?: HeadingAnchorLinksProps;
   rendererAppearance?: RendererAppearance;
   fireAnalyticsEvent?: (event: AnalyticsEventPayload) => void;
   nodeType: NodeType['name'];

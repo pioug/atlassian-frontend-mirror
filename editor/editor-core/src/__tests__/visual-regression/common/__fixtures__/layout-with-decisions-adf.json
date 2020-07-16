@@ -1,0 +1,185 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "layoutSection",
+      "content": [
+        {
+          "type": "layoutColumn",
+          "attrs": {
+            "width": 50
+          },
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "column one"
+                }
+              ]
+            },
+            {
+              "type": "decisionList",
+              "attrs": {
+                "localId": "82d45995-ff02-4da7-9436-cbb33d24046a"
+              },
+              "content": [
+                {
+                  "type": "decisionItem",
+                  "attrs": {
+                    "localId": "684759c2-cb53-45b5-a41d-9ffb89682500",
+                    "state": "DECIDED"
+                  },
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "decision one - item one"
+                    }
+                  ]
+                },
+                {
+                  "type": "decisionItem",
+                  "attrs": {
+                    "localId": "40ee8b8d-2249-41b8-8555-3528eab5b4ec",
+                    "state": "DECIDED"
+                  },
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "decision one - item two"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "decisionList",
+              "attrs": {
+                "localId": "8c8fc5cf-34b7-4099-8b0f-1a03a97fc100"
+              },
+              "content": [
+                {
+                  "type": "decisionItem",
+                  "attrs": {
+                    "localId": "d90b1d1f-34d2-48cf-894b-69506ab07f8b",
+                    "state": "DECIDED"
+                  },
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "decision two - item one"
+                    }
+                  ]
+                },
+                {
+                  "type": "decisionItem",
+                  "attrs": {
+                    "localId": "0483528c-4db2-4af6-b1e0-53320106713f",
+                    "state": "DECIDED"
+                  },
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "decision two - item two"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "layoutColumn",
+          "attrs": {
+            "width": 50
+          },
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "column two"
+                }
+              ]
+            },
+            {
+              "type": "decisionList",
+              "attrs": {
+                "localId": "0e8dcc2d-5bbb-4df2-9fe1-6f3d2a3bb103"
+              },
+              "content": [
+                {
+                  "type": "decisionItem",
+                  "attrs": {
+                    "localId": "cc1402c2-2788-45cc-b763-c39224c9ecc8",
+                    "state": "DECIDED"
+                  },
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "decision one - item one"
+                    }
+                  ]
+                },
+                {
+                  "type": "decisionItem",
+                  "attrs": {
+                    "localId": "7c88c247-064e-4c00-b08d-9c365b53b647",
+                    "state": "DECIDED"
+                  },
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "decision one - item two"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "decisionList",
+              "attrs": {
+                "localId": "2d6f0d2d-bd09-4957-b113-f041e87029d2"
+              },
+              "content": [
+                {
+                  "type": "decisionItem",
+                  "attrs": {
+                    "localId": "7fd325ea-408d-4c81-912d-f8794fbb4255",
+                    "state": "DECIDED"
+                  },
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "decision two - item one"
+                    }
+                  ]
+                },
+                {
+                  "type": "decisionItem",
+                  "attrs": {
+                    "localId": "234d493b-e4e5-4c58-82ea-90b36c58ecf6",
+                    "state": "DECIDED"
+                  },
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "decision two - item two"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": []
+    }
+  ]
+}

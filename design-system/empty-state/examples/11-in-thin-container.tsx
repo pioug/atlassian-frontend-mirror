@@ -3,7 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import Button from '@atlaskit/button';
-import { colors } from '@atlaskit/theme';
+import { N20 } from '@atlaskit/theme/colors';
 
 import EmptyState from '../src';
 
@@ -11,7 +11,7 @@ import exampleImage from './img/example-image.png';
 
 const Container = styled.div`
   width: 300px;
-  background-color: ${colors.N20};
+  background-color: ${N20};
 `;
 
 const primaryAction = (

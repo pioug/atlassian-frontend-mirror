@@ -79,12 +79,6 @@ class Replace extends React.PureComponent<
     this.replaceAll = formatMessage(messages.replaceAll);
   }
 
-  componentWillReceiveProps(newProps: ReplaceProps & InjectedIntlProps) {
-    if (newProps.replaceText) {
-      this.setState({ replaceText: newProps.replaceText });
-    }
-  }
-
   componentDidMount() {
     this.props.onReplaceTextfieldRefSet(this.replaceTextfieldRef);
   }
@@ -95,6 +89,15 @@ class Replace extends React.PureComponent<
       replaceText: this.state.replaceText,
     });
   };
+
+  componentDidUpdate({
+    replaceText: prevReplaceText,
+  }: ReplaceProps & InjectedIntlProps) {
+    const { replaceText } = this.props;
+    if (replaceText && replaceText !== prevReplaceText) {
+      this.setState({ replaceText });
+    }
+  }
 
   handleReplaceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { dispatchAnalyticsEvent } = this.props;

@@ -1,5 +1,5 @@
 import * as specs from './specs';
-import { ADFEntity } from '../types';
+import { ADFEntity, ADFEntityMark } from '../types';
 
 export type Content = Array<string | [string, object] | Array<string>>;
 
@@ -276,6 +276,9 @@ export function validateAttrs<T>(spec: AttributesSpec, value: T): boolean {
   return false;
 }
 
+const errorMessageFor = (type: string, message: string) =>
+  `${type}: ${message}.`;
+
 const getUnsupportedOptions = (spec?: ValidatorSpec) => {
   if (spec && spec.props && spec.props.content) {
     const {
@@ -292,7 +295,7 @@ const invalidChildContent = (
   errorCallback?: ErrorCallback,
   parentSpec?: ValidatorSpec,
 ) => {
-  const message = `${child.type}: invalid content.`;
+  const message = errorMessageFor(child.type, 'invalid content');
   if (!errorCallback) {
     throw new Error(message);
   } else {
@@ -304,6 +307,31 @@ const invalidChildContent = (
       },
       getUnsupportedOptions(parentSpec),
     );
+  }
+};
+
+const unsupportedMarkContent = (
+  errorCode: ValidationError['code'],
+  mark: ADFEntityMark,
+  errorCallback?: ErrorCallback,
+) => {
+  const message = errorMessageFor(mark.type, 'unsupported mark');
+  if (!errorCallback) {
+    throw new Error(message);
+  } else {
+    return errorCallback(
+      { ...mark },
+      {
+        code: errorCode,
+        message,
+        meta: mark,
+      },
+      {
+        allowUnsupportedBlock: false,
+        allowUnsupportedInline: false,
+        isMark: true,
+      },
+    ) as ADFEntityMark;
   }
 };
 
@@ -336,6 +364,7 @@ export type ErrorCallback = (
   options: {
     allowUnsupportedBlock?: boolean;
     allowUnsupportedInline?: boolean;
+    isMark?: boolean;
   },
 ) => ADFEntity | undefined;
 
@@ -375,7 +404,7 @@ export function validator(
       msg: string,
       meta?: T extends keyof ValidationErrorMap ? ValidationErrorMap[T] : never,
     ): Output => {
-      const message = `${type}: ${msg}.`;
+      const message = errorMessageFor(type, msg);
       if (errorCallback) {
         return {
           valid: false,
@@ -389,7 +418,6 @@ export function validator(
         throw new Error(message);
       }
     };
-
     if (type) {
       const typeOptions = getOptionsForType(type, allowed);
       if (typeOptions === false) {
@@ -537,11 +565,18 @@ export function validator(
               newEntity = { type };
               requiredProps.reduce((acc, p) => copy(entity, acc, p), newEntity);
             } else {
-              return err(
-                'REDUNDANT_PROPERTIES',
-                `redundant props found: ${redundantProps.join(', ')}`,
-                { props: redundantProps },
-              );
+              if (
+                !(
+                  redundantProps.indexOf('marks') > -1 &&
+                  redundantProps.length === 1
+                )
+              ) {
+                return err(
+                  'REDUNDANT_PROPERTIES',
+                  `redundant props found: ${redundantProps.join(', ')}`,
+                  { props: redundantProps },
+                );
+              }
             }
           }
 
@@ -669,15 +704,24 @@ export function validator(
                   : items
                 : [];
               const newMarks = entity.marks
-                .filter(mark =>
-                  mode === 'strict' && marks
-                    ? marks.indexOf(mark.type) > -1
-                    : true,
-                )
-                .map(
-                  mark =>
-                    validate(mark, errorCallback, marksSet, validator).entity,
-                )
+                .map(mark => {
+                  if (
+                    mode === 'strict' && marks
+                      ? marks.indexOf(mark.type) > -1
+                      : true
+                  ) {
+                    return validate(mark, errorCallback, marksSet, validator)
+                      .entity;
+                  } else {
+                    const errorCode = 'INVALID_CONTENT';
+                    return unsupportedMarkContent(
+                      errorCode,
+                      mark,
+                      errorCallback,
+                    );
+                  }
+                })
+
                 .filter(Boolean) as ADFEntity[];
               if (newMarks.length) {
                 newEntity.marks = newMarks;
@@ -686,9 +730,17 @@ export function validator(
                 return { valid: false, entity: newEntity };
               }
             } else {
-              return err('REDUNDANT_MARKS', 'redundant marks', {
-                marks: Object.keys(entity.marks),
-              });
+              const errorCode = 'REDUNDANT_MARKS';
+              const newMarks = entity.marks.map(mark =>
+                unsupportedMarkContent(errorCode, mark, errorCallback),
+              );
+              if (newMarks.length) {
+                newEntity.marks = newMarks;
+              } else {
+                return err('REDUNDANT_MARKS', 'redundant marks', {
+                  marks: Object.keys(entity.marks),
+                });
+              }
             }
           }
         } else {

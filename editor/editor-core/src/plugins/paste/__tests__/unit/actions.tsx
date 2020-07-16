@@ -49,7 +49,7 @@ describe('action paste handler', () => {
       doc,
       preset: new Preset<LightEditorPlugin>()
         .add([pastePlugin, {}])
-        .add([tasksAndDecisionsPlugin, true])
+        .add([tasksAndDecisionsPlugin])
         .add(blockTypePlugin)
         .add(hyperlinkPlugin)
         .add([statusPlugin, { menuDisabled: false }])

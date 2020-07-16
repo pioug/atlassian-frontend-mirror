@@ -32,7 +32,10 @@ describe('z-indexes:', () => {
     await snapshot(page, undefined, editorSelector);
   });
 
-  it('should always position table trash icon below dropdowns from main menu', async () => {
+  // https://product-fabric.atlassian.net/browse/ED-9705
+  // Floating toolbar causes flakiness. Skipping for now. Need to restore once a solution exists
+  // for toolbar centering.
+  it.skip('should always position table trash icon below dropdowns from main menu', async () => {
     await page.waitForSelector(tableSelectors.removeTable);
     await clickToolbarMenu(page, ToolbarMenuItem.insertBlock);
     await page.waitForSelector(selectors.dropList);

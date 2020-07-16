@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { colors } from '@atlaskit/theme';
+import { N30, N10 } from '@atlaskit/theme/colors';
 
 import EditorContext from './../src/ui/EditorContext';
 import WithEditorActions from './../src/ui/WithEditorActions';
@@ -37,13 +37,13 @@ templates[1] = {
 };
 
 const TemplateCard = styled.div`
-  border: 1px solid ${colors.N30};
+  border: 1px solid ${N30};
   padding: 8px;
   margin-bottom: 8px;
   border-radius: 5px;
 
   &:hover {
-    background: ${colors.N10};
+    background: ${N10};
   }
 `;
 

@@ -1,1 +1,1 @@
-export { default, Sizes } from './EmptyState';
+export { default, Sizes, RenderImageProps } from './EmptyState';

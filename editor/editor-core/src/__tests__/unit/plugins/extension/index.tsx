@@ -706,10 +706,12 @@ describe('extension', () => {
       });
 
     const setup = async () => {
-      const { editorView } = editor(
+      const { editorView, refs } = editor(
         doc(
+          '{firstExtension}',
           bodiedExtension(extensionAttrs)(paragraph('{<>}text')),
           paragraph('hello'),
+          '{secondExtension}',
           bodiedExtension(extensionAttrs)(paragraph('text')),
         ),
       );
@@ -721,11 +723,11 @@ describe('extension', () => {
 
       await flushPromises();
 
-      return editorView;
+      return { editorView, refs };
     };
 
     it('when editing extensions on config panel, state should contain showContextPanel=true and the pre and post transformers', async () => {
-      const editorView = await setup();
+      const { editorView } = await setup();
 
       const pluginState = getPluginState(editorView.state);
       expect(pluginState.showContextPanel).toEqual(true);
@@ -734,7 +736,7 @@ describe('extension', () => {
     });
 
     it('when changing selection inside the same bodied extension, should keep context panel open', async () => {
-      const editorView = await setup();
+      const { editorView } = await setup();
 
       setNodeSelection(editorView, 3);
 
@@ -745,9 +747,9 @@ describe('extension', () => {
     });
 
     it('when selecting another extension, should close the context panel', async () => {
-      const editorView = await setup();
+      const { editorView, refs } = await setup();
 
-      setNodeSelection(editorView, 13);
+      setNodeSelection(editorView, refs.secondExtension);
 
       const pluginState = getPluginState(editorView.state);
       expect(pluginState.showContextPanel).toEqual(false);

@@ -1,4 +1,6 @@
 import React from 'react';
+import { browser } from '@atlaskit/editor-common';
+
 let mockFindOverflowScrollParent = jest.fn();
 let mockRafSchedule = jest.fn().mockImplementation((cb: any) => cb());
 jest.mock('raf-schd', () => (cb: any) => () => mockRafSchedule(cb));
@@ -14,7 +16,10 @@ jest.mock('@atlaskit/smart-card', () => ({
   },
 }));
 jest.mock('@atlaskit/editor-common', () => ({
-  browser: () => ({}),
+  browser: {
+    ie: false,
+    ie_version: 0,
+  },
   findOverflowScrollParent: () => mockFindOverflowScrollParent(),
   withImageLoader: jest.fn(),
   overflowShadow: jest.fn(),
@@ -22,7 +27,7 @@ jest.mock('@atlaskit/editor-common', () => ({
   WidthProvider: jest.fn(),
 }));
 
-import { mount } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import { blockCard } from '@atlaskit/editor-test-helpers/schema-builder';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 import { Card } from '@atlaskit/smart-card';
@@ -60,7 +65,7 @@ describe('blockCard', () => {
     const mockBlockCardPmNode = blockCard({ url: 'https://some/url' })()(
       defaultSchema,
     );
-    const mockBlockCardNode = mount(
+    const mockBlockCardNode = shallow(
       <BlockCardComponent
         node={mockBlockCardPmNode}
         view={mockEditorView}
@@ -71,7 +76,6 @@ describe('blockCard', () => {
     expect(wrapper).toHaveLength(1);
     expect(wrapper.prop('url')).toBe('https://some/url');
     expect(wrapper.prop('container')).toBe(undefined);
-    mockBlockCardNode.unmount();
   });
 
   it('should render (findOverflowScrollParent returning node)', () => {
@@ -80,7 +84,7 @@ describe('blockCard', () => {
     const mockBlockCardPmNode = blockCard({ url: 'https://some/url' })()(
       defaultSchema,
     );
-    const mockBlockCardNode = mount(
+    const mockBlockCardNode = shallow(
       <BlockCardComponent
         node={mockBlockCardPmNode}
         view={mockEditorView}
@@ -91,7 +95,6 @@ describe('blockCard', () => {
     expect(wrapper).toHaveLength(1);
     expect(wrapper.prop('url')).toBe('https://some/url');
     expect(wrapper.prop('container')).toBe(scrollContainer);
-    mockBlockCardNode.unmount();
   });
 
   it('should call registerCard when URL renders', () => {
@@ -120,6 +123,47 @@ describe('blockCard', () => {
       },
       type: 'REGISTER',
     });
-    mockBlockCardNode.unmount();
+  });
+
+  describe('give the browser is Edge 44 or below', () => {
+    it('should NOT render span after SmartCard to stop edit popup rendering to low', () => {
+      browser.ie = true;
+      browser.ie_version = 18;
+      const mockBlockCardPmNode = blockCard({ url: 'https://some/url' })()(
+        defaultSchema,
+      );
+      const mockBlockCardNode = shallow(
+        <BlockCardComponent
+          node={mockBlockCardPmNode}
+          view={mockEditorView}
+          getPos={() => 0}
+        />,
+      );
+
+      expect(
+        mockBlockCardNode.contains(<span contentEditable={true} />),
+      ).toEqual(false);
+    });
+  });
+
+  describe('give the browser is Chromium', () => {
+    it('should render a span after SmartCard to fix GAP cursor bug', () => {
+      browser.ie = false;
+      browser.ie_version = 0;
+      const mockBlockCardPmNode = blockCard({ url: 'https://some/url' })()(
+        defaultSchema,
+      );
+      const mockBlockCardNode = shallow(
+        <BlockCardComponent
+          node={mockBlockCardPmNode}
+          view={mockEditorView}
+          getPos={() => 0}
+        />,
+      );
+
+      expect(
+        mockBlockCardNode.contains(<span contentEditable={true} />),
+      ).toEqual(true);
+    });
   });
 });

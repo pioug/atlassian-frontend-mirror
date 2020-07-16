@@ -1,0 +1,381 @@
+type Query {
+
+    """
+    Get user activities.
+    """
+    activities: Activities
+
+}
+
+##### Response #####
+
+# --------------------------------------- Common
+
+# Represents arbitrary transition,
+# e.g. in case of TRANSITIONED event type it could be `from: "inprogress" to: "done"`.
+input ActivityTransition {
+
+    from: String
+
+    to: String
+}
+
+enum ActivityProduct {
+    JIRA
+    JIRA_BUSINESS
+    JIRA_SOFTWARE
+    JIRA_OPS
+    JIRA_SERVICE_DESK
+    CONFLUENCE
+}
+
+enum ActivityEventType {
+    ASSIGNED
+    UNASSIGNED
+    VIEWED
+    COMMENTED
+    UPDATED
+    CREATED
+    LIKED
+    TRANSITIONED
+    PUBLISHED
+    EDITED
+}
+
+# used in caching
+interface Node {
+    id: ID!
+}
+
+type ActivityUser {
+
+    accountId: ID!
+
+    name: String
+
+    picture: String
+}
+
+# --------------------------------------- API
+
+type Activities {
+
+    """
+    get all activity
+    - filters - query filters for the activity stream
+    - first - show 1st <N> items of the response
+    """
+    all(filters: [ActivitiesFilter!], first: Int, after: String): ActivitiesConnection!
+
+    """
+    get "Worked on" activity
+    - filters - query filters for the activity stream
+    - first - show 1st <N> items of the response
+    """
+    workedOn(filters: [ActivitiesFilter!], first: Int, after: String): ActivitiesConnection!
+
+    """
+    get activity about the currently logged in user
+    """
+    myActivities: MyActivities
+
+    """
+    get the activities objects for the given ids
+    """
+    nodes(ids: [ID!]): [ActivitiesObject]
+}
+
+type MyActivities {
+
+    """
+    get all my activity
+    - filters - query filters for the activity stream
+    - first - show 1st <N> items of the response
+    """
+    all(filters: [ActivitiesFilter!], first: Int, after: String): ActivitiesConnection
+
+    """
+    get my "worked on" activity
+    - filters - query filters for the activity stream
+    - first - show 1st <N> items of the response
+    """
+    workedOn(filters: [ActivitiesFilter!], first: Int, after: String): ActivitiesConnection
+
+    """
+    get my "viewed" activity
+    - filters - query filters for the activity stream
+    - first - show 1st <N> items of the response
+    """
+    viewed(filters: [ActivitiesFilter!], first: Int, after: String): ActivitiesConnection
+
+    """
+    get the activities objects for the given ids
+    """
+    nodes(ids: [ID!]): [ActivitiesObject]
+}
+
+input ActivitiesFilter {
+
+    """
+    Defines relationship in-between filter arguments (AND/OR)
+    """
+    type: ActivitiesFilterType
+
+    arguments: ActivitiesArguments
+
+}
+
+enum ActivitiesFilterType {
+    AND
+    OR
+}
+
+input ActivitiesArguments {
+
+    """
+    set of Atlassian account IDs
+    """
+    accountIds: [ID!]
+
+    """
+    set of Cloud IDs
+    """
+    cloudIds: [ID!]
+
+    """
+    set of products
+    """
+    products: [ActivityProduct!]
+
+    """
+    set of Event Types
+    """
+    eventTypes: [ActivityEventType!]
+
+    """
+    set of Object Types
+    """
+    objectTypes: [ActivitiesObjectType!]
+
+    """
+    arbitrary transition filters
+    """
+    transitions: [ActivityTransition!]
+
+    """
+    set of Container IDs
+    """
+    containerIds: [ID!]
+
+    """
+    The creation time of the earliest events to be included in the result
+    """
+    earliestStart: String
+
+    """
+    The creation time of the latest events to be included in the result
+    """
+    latestStart: String
+}
+
+enum ActivitiesObjectType {
+    ISSUE
+    PAGE
+    BLOGPOST
+}
+
+enum ActivitiesContainerType {
+    SITE
+    PROJECT
+    SPACE
+}
+
+type ActivityEdge {
+
+    cursor : String!
+
+    node : ActivitiesItem
+}
+
+type ActivityPageInfo {
+
+    hasNextPage: Boolean!
+
+    hasPreviousPage: Boolean!
+}
+
+type ActivitiesConnection {
+
+    edges: [ActivityEdge]
+
+    nodes: [ActivitiesItem!]!
+
+    pageInfo : ActivityPageInfo!
+}
+
+type ActivitiesItem implements Node {
+
+    """
+    Base64 encoded ARI of the activity.
+    """
+    id: ID!
+
+    """
+    ISO 8601
+    """
+    timestamp: String
+
+    object: ActivitiesObject
+
+}
+
+type ActivitiesObject implements Node {
+
+    """
+    Base64 encoded ARI of the object.
+    """
+    id: ID!
+
+    """
+    Local (in product) object ID of the corresponding object.
+    """
+    localResourceId: ID
+
+    name: String
+
+    type: ActivitiesObjectType
+
+    product: ActivityProduct
+
+    cloudId: String
+
+    url: String
+
+    iconUrl: String
+
+    """
+    Hierarchy of the containers, top container comes first
+    """
+    containers: [ActivitiesContainer!]
+
+    contributors: [ActivitiesContributor!]
+
+    parent: ActivitiesObjectParent
+
+    events(first: Int): [ActivitiesEvent!]
+
+    extension: ActivitiesObjectExtension
+
+}
+
+type ActivitiesContributor {
+
+    profile: ActivityUser
+
+    """
+    ISO 8601
+    """
+    lastAccessedDate: String
+
+    """
+    count of contributions for sorting by frequency,
+    all event types that is being ingested, except VIEWED and VIEWED_CONTENT
+    is considered to be a contribution
+    """
+    count: Int
+}
+
+union ActivitiesObjectExtension = ActivitiesJiraIssue
+
+"""
+Extension of ActivitiesObject, is a part of ActivitiesObjectExtension union
+"""
+type ActivitiesJiraIssue {
+
+    issueKey: String
+
+}
+
+type ActivitiesEvent implements Node {
+
+    """
+    Unique event ID
+    """
+    id: ID!
+
+    """
+    ISO 8601
+    """
+    timestamp: String
+
+    eventType: ActivityEventType
+
+    user: ActivitiesUser
+
+    extension: ActivitiesEventExtension
+
+}
+
+type ActivitiesUser {
+
+    profile: ActivityUser
+
+}
+
+union ActivitiesEventExtension = ActivitiesTransitionedEvent | ActivitiesCommentedEvent
+
+"""
+Extension of ActivitiesEvent, is a part of ActivitiesEventExtension union
+"""
+type ActivitiesTransitionedEvent {
+
+    from: String
+
+    to: String
+}
+
+"""
+Extension of ActivitiesEvent, is a part of ActivitiesEventExtension union
+"""
+type ActivitiesCommentedEvent {
+
+    commentId: ID!
+
+}
+
+type ActivitiesObjectParent {
+
+    """
+    Base64 encoded ARI of the object.
+    """
+    id: ID!
+
+    type: ActivitiesObjectType
+
+}
+
+type ActivitiesContainer {
+
+    """
+    Base64 encoded ARI of container.
+    """
+    id: ID!
+
+    """
+    Local (in product) object ID of the corresponding object.
+    """
+    localResourceId: ID
+
+    name: String
+
+    type: ActivitiesContainerType
+
+    product: ActivityProduct
+
+    cloudId: String
+
+    url: String
+
+    iconUrl: String
+
+}

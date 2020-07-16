@@ -44,25 +44,22 @@ import {
 import { extendMetadata } from '../../utils/metadata';
 import { isBigger } from '../../utils/dimensionComparer';
 import {
-  getCardProgressFromFileState,
   getCardStatus,
   getCardStatusFromFileState,
+  updateCardStatusFromFileState,
 } from './getCardStatus';
 import { InlinePlayer, InlinePlayerBase } from '../inlinePlayer';
 import {
-  AnalyticsErrorStateAttributes,
-  AnalyticsLoadingAction,
   createAndFireCustomMediaEvent,
-  fileIsPreviewable,
-  getAnalyticsErrorStateAttributes,
-  getAnalyticsStatus,
   getBaseAnalyticsContext,
   getCopiedFileAnalyticsPayload,
   getFileAttributes,
   getLoadingStatusAnalyticsPayload,
   getMediaCardAnalyticsContext,
   getMediaCardCommencedAnalyticsPayload,
-  hasFilenameAndFilesize,
+  getAnalyticsLoadingStatus,
+  AnalyticsLoadingStatusArgs,
+  AnalyticsLoadingStatus,
 } from '../../utils/analytics';
 import { MediaAnalyticsContext } from '@atlaskit/analytics-namespaced-context';
 import { objectURLCache } from './objectURLCache';
@@ -74,11 +71,11 @@ export class CardBase extends Component<
   CardState
 > {
   private hasBeenMounted: boolean = false;
-  private lastAction?: AnalyticsLoadingAction = undefined;
-  private lastErrorState?: AnalyticsErrorStateAttributes = {};
+  private lastLoadingStatus?: AnalyticsLoadingStatus = undefined;
   // Stores last retrieved file state for logging purposes
   private lastFileState?: FileState;
   private lastCardStatusUpdateTimestamp?: number;
+  private processingProgressTimer?: number;
   cardRef: React.RefObject<CardViewBase | InlinePlayerBase> = React.createRef();
 
   subscription?: Subscription;
@@ -87,6 +84,7 @@ export class CardBase extends Component<
     resizeMode: 'crop',
     isLazy: true,
     disableOverlay: false,
+    featureFlags: { newExp: false },
   };
 
   state: CardState = {
@@ -270,7 +268,11 @@ export class CardBase extends Component<
       .getFileState(id, { collectionName, occurrenceKey })
       .subscribe({
         next: async fileState => {
-          let { dataURI } = this.state;
+          let {
+            dataURI,
+            progress: lastProgress,
+            status: lastStatus,
+          } = this.state;
           const { dimensions = {} } = this.props;
           this.lastFileState = fileState;
 
@@ -351,19 +353,18 @@ export class CardBase extends Component<
             });
           }
 
-          const status = getCardStatusFromFileState(fileState, dataURI);
-
+          const status = getCardStatusFromFileState(fileState);
           this.fireLoadingStatusAnalyticsEvent({
-            id,
-            status,
+            cardStatus: status,
             metadata,
+            dataURI,
+            fileState,
           });
 
           if (
             !this.lastCardStatusUpdateTimestamp ||
             this.lastCardStatusUpdateTimestamp <= thisCardStatusUpdateTimestamp
           ) {
-            const progress = getCardProgressFromFileState(fileState, dataURI);
             // These status and progress must not override values representing more recent FileState
             /* next() start        some await() delay in next()        status & progress update
              * -------                    ------------------           ------------------------
@@ -378,90 +379,75 @@ export class CardBase extends Component<
              *   |                                 |----[1]FileState:uploading------>| We do not want to update status to `uploading` again!
              *
              */
-            this.safeSetState({
+            this.processingProgressTimer = updateCardStatusFromFileState(
+              fileState,
               status,
-              progress,
-            });
+              // status is not modified inside this function. There is no need to set state here
+              // TODO: move setState(status) out of this callback
+              (status: CardStatus, progress: number) =>
+                this.safeSetState({
+                  status,
+                  progress,
+                }),
+              {
+                lastStatus,
+                lastProgress,
+                lastTimer: this.processingProgressTimer,
+              },
+            );
             this.lastCardStatusUpdateTimestamp = thisCardStatusUpdateTimestamp;
           }
         },
         error: error => {
-          this.fireLoadingStatusAnalyticsEvent({
-            id,
-            status: 'error',
-            error,
-          });
-          this.safeSetState({ error, status: 'error' });
+          const metadata: FileDetails = { id };
+          const cardStatus = 'error';
+          this.fireLoadingStatusAnalyticsEvent({ metadata, cardStatus, error });
+          this.safeSetState({ error, status: cardStatus });
         },
       });
   }
 
   shouldFireLoadingStatusAnalyticsEvent = (
-    action: AnalyticsLoadingAction,
-    errorState: AnalyticsErrorStateAttributes,
+    loadingStatus: AnalyticsLoadingStatus,
   ) => {
-    const previousFailReason =
-      this.lastErrorState && this.lastErrorState.failReason;
-    const previousErrorMessage =
-      this.lastErrorState && this.lastErrorState.error;
-
-    const isDifferentErrorState =
-      errorState.failReason !== previousFailReason ||
-      errorState.error !== previousErrorMessage;
-
-    const isDifferentAction = action !== this.lastAction;
-
-    return isDifferentAction || isDifferentErrorState;
+    const { failReason: lastFailReason, error: lastError, action: lastAction } =
+      this.lastLoadingStatus || {};
+    const { failReason, error, action } = loadingStatus;
+    const result =
+      action !== lastAction ||
+      failReason !== lastFailReason ||
+      error !== lastError;
+    return result;
   };
 
-  fireLoadingStatusAnalyticsEvent = ({
-    id,
-    status,
-    metadata,
-    error,
-  }: {
-    id: string;
-    status: CardStatus;
-    metadata?: FileDetails;
-    error?: Error;
-  }) => {
-    const { createAnalyticsEvent } = this.props;
-
-    const previewable = fileIsPreviewable(metadata);
-    const hasMinimalData = hasFilenameAndFilesize(metadata);
-    const action = getAnalyticsStatus(previewable, hasMinimalData, status);
-    const errorState = getAnalyticsErrorStateAttributes(
-      previewable,
-      hasMinimalData,
-      this.lastFileState,
-      error,
-    );
-
+  fireLoadingStatusAnalyticsEvent = (args: AnalyticsLoadingStatusArgs) => {
+    const loadingStatus = getAnalyticsLoadingStatus(args);
     if (
-      action &&
-      this.shouldFireLoadingStatusAnalyticsEvent(action, errorState)
+      loadingStatus &&
+      this.shouldFireLoadingStatusAnalyticsEvent(loadingStatus)
     ) {
-      this.lastAction = action;
-      this.lastErrorState = errorState;
-      const fileAttributes = getFileAttributes(
-        metadata,
-        this.lastFileState && this.lastFileState.status,
-      );
-
+      this.lastLoadingStatus = loadingStatus;
+      const { createAnalyticsEvent, featureFlags } = this.props;
+      const { action, failReason, error } = loadingStatus;
+      const { metadata, fileState } = args;
+      const { status } = fileState || {};
+      const fileAttributes = getFileAttributes(metadata, status);
       createAndFireCustomMediaEvent(
-        getLoadingStatusAnalyticsPayload(
+        getLoadingStatusAnalyticsPayload({
           action,
-          id,
+          actionSubjectId: metadata.id,
           fileAttributes,
-          errorState,
-        ),
+          failReason,
+          error,
+          featureFlags,
+        }),
         createAnalyticsEvent,
       );
     }
   };
 
   fireCardCommencedAnalytics() {
-    const { createAnalyticsEvent } = this.props;
+    const { createAnalyticsEvent, featureFlags } = this.props;
     const { isCardVisible } = this.state;
 
     if (!isCardVisible) {
@@ -470,16 +456,16 @@ export class CardBase extends Component<
 
     const id = this.getId();
     createAndFireCustomMediaEvent(
-      getMediaCardCommencedAnalyticsPayload(id),
+      getMediaCardCommencedAnalyticsPayload(id, featureFlags),
       createAnalyticsEvent,
     );
   }
 
   fireFileCopiedAnalytics = () => {
-    const { createAnalyticsEvent, identifier } = this.props;
+    const { createAnalyticsEvent, identifier, featureFlags } = this.props;
 
     createAndFireCustomMediaEvent(
-      getCopiedFileAnalyticsPayload(identifier),
+      getCopiedFileAnalyticsPayload(identifier, featureFlags),
       createAnalyticsEvent,
     );
   };
@@ -498,14 +484,12 @@ export class CardBase extends Component<
     if (this.hasBeenMounted) {
       this.setState({ dataURI: undefined });
     }
-    this.lastAction = undefined;
-    this.lastErrorState = {};
+    this.lastLoadingStatus = undefined;
   };
 
   // This method is called when card fails and user press 'Retry'
   private onRetry = () => {
-    this.lastAction = undefined;
-    this.lastErrorState = {};
+    this.lastLoadingStatus = undefined;
     this.fireCardCommencedAnalytics();
     this.updateStateForIdentifier();
   };
@@ -535,7 +519,7 @@ export class CardBase extends Component<
     analyticsEvent?: UIAnalyticsEvent,
   ) => {
     const { identifier, useInlinePlayer, shouldOpenMediaViewer } = this.props;
-    const { metadata } = this.state;
+    const { metadata, dataURI } = this.state;
 
     this.onClick(event, analyticsEvent);
 
@@ -544,7 +528,7 @@ export class CardBase extends Component<
     }
 
     const isVideo = metadata && (metadata as FileDetails).mediaType === 'video';
-    if (useInlinePlayer && isVideo) {
+    if (useInlinePlayer && isVideo && !!dataURI) {
       this.setState({
         isPlayingFile: true,
       });
@@ -665,6 +649,7 @@ export class CardBase extends Component<
 
   renderCard = () => {
     const {
+      identifier,
       isLazy,
       appearance,
       resizeMode,
@@ -676,6 +661,7 @@ export class CardBase extends Component<
       testId,
       featureFlags,
     } = this.props;
+    const { mediaItemType } = identifier;
     const { progress, metadata, dataURI, previewOrientation } = this.state;
     const {
       onRetry,
@@ -689,6 +675,7 @@ export class CardBase extends Component<
     const card = (
       <CardView
         status={status}
+        mediaItemType={mediaItemType}
         metadata={metadata}
         dataURI={dataURI}
         alt={alt}
@@ -743,7 +730,11 @@ export class CardBase extends Component<
 
     return (
       <MediaAnalyticsContext
-        data={getMediaCardAnalyticsContext(metadata, this.lastFileState)}
+        data={getMediaCardAnalyticsContext(
+          metadata,
+          this.lastFileState,
+          this.props.featureFlags,
+        )}
       >
         {this.renderContent()}
       </MediaAnalyticsContext>

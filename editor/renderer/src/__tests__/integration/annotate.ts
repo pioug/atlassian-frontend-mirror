@@ -11,7 +11,7 @@ const CHAR_WIDTH = 6;
 
 BrowserTestCase(
   `Can't create an annotation on a text selection that contains inline nodes`,
-  { skip: ['ie', 'edge', 'firefox'] },
+  { skip: ['edge', 'firefox'] },
   async (client: any) => {
     const page = await goToRendererTestingExample(client);
     await mountRenderer(
@@ -59,7 +59,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   `Can't create an annotation on a text selection that falls in the middle of an inline node`,
-  { skip: ['ie', 'edge', 'firefox'] },
+  { skip: ['edge', 'firefox'] },
   async (client: any) => {
     const page = await goToRendererTestingExample(client);
     await mountRenderer(
@@ -103,7 +103,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'Can create an annotation on a basic text selection',
-  { skip: ['ie', 'edge', 'firefox'] },
+  { skip: ['edge', 'firefox'] },
   async (client: any, testName: string) => {
     const page = await goToRendererTestingExample(client);
     await mountRenderer(
@@ -140,7 +140,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'Can create an annotation on a text selection over two paragraphs',
-  { skip: ['ie', 'edge', 'firefox'] },
+  { skip: ['edge', 'firefox'] },
   async (client: any, testName: string) => {
     const page = await goToRendererTestingExample(client);
     await mountRenderer(
@@ -190,7 +190,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'Can create an annotation on a text selection over a decision item',
-  { skip: ['ie', 'edge', 'firefox'] },
+  { skip: ['edge', 'firefox'] },
   async (client: any, testName: string) => {
     const page = await goToRendererTestingExample(client);
     await mountRenderer(page, { withRendererActions: true }, taskDecisionAdf);
@@ -209,7 +209,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'Can create an annotation on a text selection over a task item',
-  { skip: ['ie', 'edge', 'firefox'] },
+  { skip: ['edge', 'firefox'] },
   async (client: any, testName: string) => {
     const page = await goToRendererTestingExample(client);
     await mountRenderer(page, { withRendererActions: true }, taskDecisionAdf);

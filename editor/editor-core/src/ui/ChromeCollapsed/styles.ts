@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 import { InputHTMLAttributes, ComponentClass } from 'react';
 import { akEditorSubtleAccent } from '../../styles';
-import { borderRadius, colors } from '@atlaskit/theme';
+import { borderRadius } from '@atlaskit/theme/constants';
+import { N300, N50 } from '@atlaskit/theme/colors';
 
 export const Input: ComponentClass<InputHTMLAttributes<{}> & {
   innerRef?: any;
@@ -21,10 +22,10 @@ export const Input: ComponentClass<InputHTMLAttributes<{}> & {
     font-weight: 400;
     line-height: 1.42857142857143;
     letter-spacing: -0.005em;
-    color: ${colors.N300};
+    color: ${N300};
 
     &:hover {
-      border-color: ${colors.N50};
+      border-color: ${N50};
       cursor: text;
     }
   }

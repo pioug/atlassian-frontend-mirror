@@ -1,5 +1,25 @@
 # @atlaskit/flag
 
+## 14.0.0
+
+### Major Changes
+
+- [`807cd28fc0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/807cd28fc0) - In this version we made flag dramatically faster, lighter and easier to use 🤩
+
+  ### Changes
+
+  In `13.0.0` we bring significant performance improvements as well as improving the experience of using flag.
+
+  - Flag no longer has a `peerDependency` on `styled-components@3`. Internally flag is now using `@emotion/core` for styling
+  - Change Flag and FlagGroup to use our standardized and performant `@atlaskit/motion` instead of `react-transition-group`. Along with this change exit animations are now 2x quicker than the entering animation as per the standardized animation practices in `motion`.
+  - Add a `FlagProvider` wrapper for single page applications that allows you to show flags in a flag group imperatively by calling a function, `showFlags` that is stored in the context. Check the docs for more details
+  - Removed the private props `isDismissAllowed` and `onDismissed` from `FlagProps`, in favour of accessing them from context that FlagGroup creates.
+  - Made types more specific, `onDismissed` on `FlagGroup` is now defined as `(id: number | string, analyticsEvent: UIAnalyticsEvent) => void`
+
+### Patch Changes
+
+- [`db053b24d8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/db053b24d8) - Update all the theme imports to be tree-shakable
+
 ## 13.0.0
 
 ### Major Changes

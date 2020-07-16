@@ -1,5 +1,8 @@
 import { Decoration } from 'prosemirror-view';
-import { findLostAdjacentDecorations } from '../../../utils';
+import {
+  findLostAdjacentDecorations,
+  isMatchAffectedByStep,
+} from '../../../utils';
 
 const aquaDec = Decoration.inline(1, 4, {
   style: 'background-color: aquamarine',
@@ -145,6 +148,80 @@ describe('find/replace: utils', () => {
         );
         expect(lost).toEqual([oliveDec, seashellDec]);
       });
+    });
+  });
+
+  describe('isMatchAffectedByStep', () => {
+    it('returns false when one character is removed from another match', () => {
+      // match state after step applied
+      const match = { start: 1, end: 6 };
+      // a step representing removal of a single character
+      const step = {
+        from: 11,
+        to: 12,
+        slice: { content: { size: 0 } },
+      };
+      const tr = { mapping: { map: () => step.from } };
+      const affected = isMatchAffectedByStep(match, step as any, tr as any);
+      expect(affected).toEqual(false);
+    });
+
+    it('returns true when one character is removed from the existing match', () => {
+      // match state after step applied
+      const match = { start: 7, end: 11 };
+      // a step representing removal of a single character
+      const step = {
+        from: 11,
+        to: 12,
+        slice: { content: { size: 0 } },
+      };
+      const tr = { mapping: { map: () => step.from } };
+      const affected = isMatchAffectedByStep(match, step as any, tr as any);
+      expect(affected).toEqual(true);
+    });
+
+    it('returns false when two characters are removed from another match', () => {
+      // match state after step applied
+      const match = { start: 1, end: 6 };
+      // a step representing removal of two characters
+      const step = {
+        from: 10,
+        to: 12,
+        slice: { content: { size: 0 } },
+      };
+      const tr = { mapping: { map: () => step.from } };
+      const affected = isMatchAffectedByStep(match, step as any, tr as any);
+      expect(affected).toEqual(false);
+    });
+
+    it('returns true when two characters are removed from the existing match', () => {
+      // match state after step applied
+      const match = { start: 7, end: 10 };
+      // a step representing removal of two characters
+      const step = {
+        from: 10,
+        to: 12,
+        slice: { content: { size: 0 } },
+      };
+      const tr = { mapping: { map: () => step.from } };
+      const affected = isMatchAffectedByStep(match, step as any, tr as any);
+      expect(affected).toEqual(true);
+    });
+
+    it('returns true when two characters are added to the existing non-match', () => {
+      // match state after step applied
+      const match = { start: 7, end: 12 };
+      // a step representing addition of two characters
+      const step = {
+        from: 10,
+        to: 10,
+        slice: { content: { size: 2 } },
+      };
+      const tr = {
+        mapping: { map: () => step.from + step.slice.content.size },
+      };
+      const affected = isMatchAffectedByStep(match, step as any, tr as any);
+      expect(affected).toEqual(true);
     });
   });
 });

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Node as PMNode } from 'prosemirror-model';
 import { Card as SmartCard } from '@atlaskit/smart-card';
-import { UnsupportedBlock } from '@atlaskit/editor-common';
+import { UnsupportedBlock, browser } from '@atlaskit/editor-common';
 import PropTypes from 'prop-types';
 import { EditorView } from 'prosemirror-view';
 import rafSchedule from 'raf-schd';
@@ -17,6 +17,7 @@ export interface Props {
   view: EditorView;
   getPos: getPosHandler;
 }
+
 export class BlockCardComponent extends React.PureComponent<SmartCardProps> {
   private scrollContainer?: HTMLElement;
   onClick = () => {};
@@ -52,12 +53,22 @@ export class BlockCardComponent extends React.PureComponent<SmartCardProps> {
     )();
   };
 
+  gapCursorSpan = () => {
+    // Don't render in EdgeHTMl version <= 18 (Edge version 44)
+    // as it forces the edit popup to render 24px lower than it should
+    if (browser.ie && browser.ie_version < 79) {
+      return;
+    }
+
+    // render an empty span afterwards to get around Webkit bug
+    // that puts caret in next editable text element
+    return <span contentEditable={true} />;
+  };
+
   render() {
     const { node, cardContext, platform } = this.props;
     const { url, data } = node.attrs;
 
-    // render an empty span afterwards to get around Webkit bug
-    // that puts caret in next editable text element
     const cardInner = (
       <>
         <SmartCard
@@ -71,7 +82,7 @@ export class BlockCardComponent extends React.PureComponent<SmartCardProps> {
           showActions={platform === 'web'}
           platform={platform}
         />
-        <span contentEditable={true} />
+        {this.gapCursorSpan()}
       </>
     );
 

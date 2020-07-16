@@ -242,6 +242,41 @@ describe('SidebarResizeController', () => {
     expect(getByTestId('leftSidebar').innerText).toBe('349');
   });
 
+  it('should set LeftSidebar width when width >= 240', async () => {
+    const { getByTestId } = render(
+      <PageLayout testId="grid">
+        <Content>
+          <LeftSidebar testId="left-sidebar" width={400}>
+            LeftSidebar
+            <ResizeControlledConsumer />
+          </LeftSidebar>
+          <Main testId="content">Main</Main>
+        </Content>
+      </PageLayout>,
+    );
+
+    expect(getByTestId('leftSidebar').innerText).toBe('400');
+  });
+
+  it('should set LeftSidebar collapsed when collapsedState="collapsed"', async () => {
+    const { getByTestId } = render(
+      <PageLayout testId="grid">
+        <Content>
+          <LeftSidebar testId="left-sidebar" collapsedState="collapsed">
+            LeftSidebar
+            <ResizeControlledConsumer />
+          </LeftSidebar>
+          <Main testId="content">Main</Main>
+        </Content>
+      </PageLayout>,
+    );
+
+    expect(JSON.parse(localStorage.getItem(PAGE_LAYOUT_LS_KEY)!)).toEqual(
+      expect.objectContaining({ isLeftSidebarCollapsed: true }),
+    );
+    expect(getByTestId('leftSidebar').innerText).toBe('20');
+  });
+
   it('should reset flyout when expandLeftSidebar is called', () => {
     const { getByTestId } = render(
       <PageLayout testId="grid">

@@ -24,6 +24,7 @@ export const decisionList: NodeSpec = {
   group: 'block',
   defining: true,
   content: 'decisionItem+',
+  marks: 'unsupportedMark',
   attrs: {
     localId: { default: '' },
   },

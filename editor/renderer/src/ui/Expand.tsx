@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { gridSize, fontSize, colors } from '@atlaskit/theme';
+import { gridSize, fontSize } from '@atlaskit/theme/constants';
+import { N80A } from '@atlaskit/theme/colors';
 import ChevronRightIcon from '@atlaskit/icon/glyph/chevron-right';
 import Tooltip from '@atlaskit/tooltip';
 import {
@@ -15,6 +16,7 @@ import {
 import { AnalyticsEventPayload, PLATFORM, MODE } from '../analytics/events';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../analytics/enums';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
+import { ActiveHeaderIdConsumer } from './active-header-id-provider';
 
 export interface StyleProps {
   expanded?: boolean;
@@ -60,6 +62,7 @@ export interface ExpandProps {
   nodeType: 'expand' | 'nestedExpand';
   children: React.ReactNode;
   fireAnalyticsEvent?: (event: AnalyticsEventPayload) => void;
+  nestedHeaderIds?: Array<string>;
 }
 
 function fireExpandToggleAnalytics(
@@ -92,6 +95,7 @@ function Expand({
   nodeType,
   intl,
   fireAnalyticsEvent,
+  nestedHeaderIds,
 }: ExpandProps & InjectedIntlProps) {
   const [expanded, setExpanded] = React.useState(false);
   const label = intl.formatMessage(
@@ -105,6 +109,12 @@ function Expand({
       data-expanded={expanded}
       expanded={expanded}
     >
+      {nestedHeaderIds && nestedHeaderIds.length > 0 ? (
+        <ActiveHeaderIdConsumer
+          nestedHeaderIds={nestedHeaderIds}
+          onNestedHeaderIdMatch={() => setExpanded(true)}
+        />
+      ) : null}
       <TitleContainer
         onClick={(e: React.SyntheticEvent) => {
           e.stopPropagation();
@@ -117,7 +127,7 @@ function Expand({
       >
         <Tooltip content={label} position="top" tag={ExpandLayoutWrapper}>
           <ExpandIconWrapper expanded={expanded}>
-            <ChevronRightIcon label={label} primaryColor={colors.N80A} />
+            <ChevronRightIcon label={label} primaryColor={N80A} />
           </ExpandIconWrapper>
         </Tooltip>
         <Title>

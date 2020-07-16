@@ -79,7 +79,9 @@ class DropzoneWrapper extends Component<{}, DropzoneWrapperState> {
       dropzoneContainer,
     } = this.state;
 
-    if (!isActive || !dropzoneContainer) return null;
+    if (!isActive || !dropzoneContainer) {
+      return null;
+    }
 
     const dropzoneMediaClient = isConnectedToUsersCollection
       ? fakeMediaClient(mediaClientConfig)

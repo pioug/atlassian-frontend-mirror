@@ -106,9 +106,15 @@ type StyleProps = {
 
 const getBorder = ({ appearance, isFocused, isInvalid }: StyleProps) => {
   let color = colors.N20;
-  if (appearance === 'subtle') color = 'transparent';
-  if (isFocused) color = colors.B100;
-  if (isInvalid) color = colors.R400;
+  if (appearance === 'subtle') {
+    color = 'transparent';
+  }
+  if (isFocused) {
+    color = colors.B100;
+  }
+  if (isInvalid) {
+    color = colors.R400;
+  }
 
   return `border: 2px solid ${color};`;
 };
@@ -119,15 +125,23 @@ const getBorderColorHover = ({
   isDisabled,
 }: StyleProps) => {
   let color = colors.N30;
-  if (isFocused || isDisabled) return ``;
-  if (isInvalid) color = colors.R400;
+  if (isFocused || isDisabled) {
+    return ``;
+  }
+  if (isInvalid) {
+    color = colors.R400;
+  }
   return `border-color: ${color};`;
 };
 
 const getBackgroundColor = ({ appearance, isFocused }: StyleProps) => {
   let color = colors.N20;
-  if (isFocused) color = colors.N0;
-  if (appearance === 'subtle') color = 'transparent';
+  if (isFocused) {
+    color = colors.N0;
+  }
+  if (appearance === 'subtle') {
+    color = 'transparent';
+  }
   return `background-color: ${color};`;
 };
 
@@ -137,8 +151,12 @@ const getBackgroundColorHover = ({
   isDisabled,
 }: StyleProps) => {
   let color = colors.N30;
-  if (isFocused || isDisabled) return ``;
-  if (isInvalid) color = colors.N0;
+  if (isFocused || isDisabled) {
+    return ``;
+  }
+  if (isInvalid) {
+    color = colors.N0;
+  }
   return `background-color: ${color};`;
 };
 
@@ -315,12 +333,21 @@ class DateTimePicker extends React.Component<DateTimePickerProps, State> {
     zoneValue: string;
   }) {
     this.setState({ dateValue, timeValue, zoneValue });
-
     if (dateValue && timeValue) {
       const value = formatDateTimeZoneIntoIso(dateValue, timeValue, zoneValue);
-
-      this.setState({ value });
-      this.props.onChange(value);
+      const { zoneValue: parsedZone } = this.parseValue(
+        value,
+        dateValue,
+        timeValue,
+        zoneValue,
+      );
+      const valueWithValidZone = formatDateTimeZoneIntoIso(
+        dateValue,
+        timeValue,
+        parsedZone,
+      );
+      this.setState({ value: valueWithValidZone });
+      this.props.onChange(valueWithValidZone);
       // If the date or time value was cleared when there is an existing datetime value, then clear the value.
     } else if (this.getSafeState().value) {
       this.setState({ value: '' });

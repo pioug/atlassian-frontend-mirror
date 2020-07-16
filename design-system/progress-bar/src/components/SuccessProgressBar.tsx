@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { colors } from '@atlaskit/theme';
+import { G300 } from '@atlaskit/theme/colors';
 
 import { CustomProgressBarProps } from '../types';
 
@@ -26,7 +26,7 @@ export default class extends React.PureComponent<CustomProgressBarProps> {
             ...theme,
             bar: {
               ...theme.bar,
-              background: colors.G300,
+              background: G300,
             },
           };
         }}

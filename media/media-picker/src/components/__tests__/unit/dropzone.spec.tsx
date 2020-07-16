@@ -55,7 +55,9 @@ const container = document.createElement('div');
     const { config, expectedContainer } = data;
 
     afterEach(() => {
-      if (component.exists()) component.unmount();
+      if (component.exists()) {
+        component.unmount();
+      }
     });
 
     it('adds "dragover", "dragleave" and "drop" events to container', async () => {

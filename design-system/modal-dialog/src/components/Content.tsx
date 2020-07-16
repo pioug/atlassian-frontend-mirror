@@ -143,18 +143,21 @@ export default class Content extends React.Component<Props, State> {
 
     /* eslint-disable no-console */
     // Check for deprecated props
-    if (this.props.header)
+    if (this.props.header) {
       console.warn(
         "@atlaskit/modal-dialog: Deprecation warning - Use of the header prop in ModalDialog is deprecated. Please compose your ModalDialog using the 'components' prop instead",
       );
-    if (this.props.footer)
+    }
+    if (this.props.footer) {
       console.warn(
         "@atlaskit/modal-dialog: Deprecation warning - Use of the footer prop in ModalDialog is deprecated. Please compose your ModalDialog using the 'components' prop instead",
       );
-    if (this.props.body)
+    }
+    if (this.props.body) {
       console.warn(
         "@atlaskit/modal-dialog: Deprecation warning - Use of the body prop in ModalDialog is deprecated. Please compose your ModalDialog using the 'components' prop instead",
       );
+    }
 
     // Check that custom body components have used ForwardRef to attach to a DOM element
     if (this.props.components.Body) {
@@ -194,7 +197,9 @@ export default class Content extends React.Component<Props, State> {
   }
 
   determineKeylines = rafSchedule(() => {
-    if (!this.scrollContainer) return;
+    if (!this.scrollContainer) {
+      return;
+    }
 
     const { scrollTop, scrollHeight, clientHeight } = this.scrollContainer;
     const scrollableDistance = scrollHeight - clientHeight;
@@ -209,7 +214,9 @@ export default class Content extends React.Component<Props, State> {
   });
 
   getScrollContainer = (ref: HTMLElement) => {
-    if (!ref) return;
+    if (!ref) {
+      return;
+    }
     this.scrollContainer = ref;
   };
 
@@ -221,17 +228,24 @@ export default class Content extends React.Component<Props, State> {
     const { onClose, shouldCloseOnEscapePress, stackIndex = 0 } = this.props;
 
     // avoid consumers accidentally closing multiple modals if they hold escape.
-    if (this.escapeIsHeldDown) return;
-    if (event.key === 'Escape' || event.key === 'Esc')
+    if (this.escapeIsHeldDown) {
+      return;
+    }
+    if (event.key === 'Escape' || event.key === 'Esc') {
       this.escapeIsHeldDown = true;
+    }
 
     // only the foremost modal should be interactive.
-    if (!this._isMounted || stackIndex > 0) return;
+    if (!this._isMounted || stackIndex > 0) {
+      return;
+    }
 
     switch (event.key) {
       case 'Esc':
       case 'Escape':
-        if (shouldCloseOnEscapePress) onClose(event);
+        if (shouldCloseOnEscapePress) {
+          onClose(event);
+        }
         break;
       default:
     }
@@ -239,7 +253,9 @@ export default class Content extends React.Component<Props, State> {
 
   handleStackChange = (stackIndex: number) => {
     const { onStackChange } = this.props;
-    if (onStackChange) onStackChange(stackIndex);
+    if (onStackChange) {
+      onStackChange(stackIndex);
+    }
   };
 
   render() {

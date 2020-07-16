@@ -2,6 +2,7 @@ import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 import { getExampleUrl } from '@atlaskit/visual-regression/helper';
 import { MediaViewerPageObject } from '@atlaskit/media-integration-test-helpers';
+import { sleep } from '@atlaskit/media-test-helpers';
 
 type WebDriverIOBrowser = ConstructorParameters<typeof Page>[0];
 
@@ -21,14 +22,14 @@ const openMediaViewer = async (client: WebDriverIOBrowser) => {
   );
   const mediaViewer = new MediaViewerPageObject(client);
   await mediaViewer.goto(url);
-  await mediaViewer.maximizeWindow();
   await mediaViewer.init();
+  await sleep(500);
   return mediaViewer;
 };
 
 BrowserTestCase(
   'media-viewer-basic.ts: Navigation should navigate back and forth',
-  { skip: [] },
+  {},
   async (client: WebDriverIOBrowser) => {
     const mediaViewer = await openMediaViewer(client);
     await mediaViewer.validateMediaCard({
@@ -67,7 +68,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'media-viewer-basic.ts: Should close on Close click',
-  { skip: [] },
+  {},
   async (client: ConstructorParameters<typeof Page>[0]) => {
     const mediaViewer = await openMediaViewer(client);
     await mediaViewer.closeMediaViewer(false);
@@ -76,7 +77,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'media-viewer-basic.ts: Should close on Escape press',
-  { skip: [] },
+  {},
   async (client: ConstructorParameters<typeof Page>[0]) => {
     const mediaViewer = await openMediaViewer(client);
     await mediaViewer.closeMediaViewer(true);

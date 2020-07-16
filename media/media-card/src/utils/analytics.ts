@@ -3,9 +3,11 @@ import {
   MediaType,
   FileState,
   Identifier,
-  isPreviewableType,
 } from '@atlaskit/media-client';
-import { MediaAnalyticsData } from '@atlaskit/analytics-namespaced-context';
+import {
+  MediaAnalyticsData,
+  MediaCardFeatureFlags,
+} from '@atlaskit/analytics-namespaced-context';
 import { CardStatus } from '../';
 
 import { GasCorePayload } from '@atlaskit/analytics-gas-types';
@@ -32,10 +34,12 @@ export interface MediaCardAnalyticsFileAttributes {
 
 export type MediaCardAnalyticsPayload = Partial<GasCorePayload> & {
   action?: string;
-  attributes?: GasCorePayload['attributes'] &
-    AnalyticsErrorStateAttributes & {
-      fileAttributes?: MediaCardAnalyticsFileAttributes;
-    };
+  attributes?: GasCorePayload['attributes'] & {
+    fileAttributes?: MediaCardAnalyticsFileAttributes;
+    failReason?: AnalyticsLoadingFailReason;
+    error?: string;
+    featureFlags?: MediaCardFeatureFlags;
+  };
 };
 
 export function getBaseAnalyticsContext(
@@ -67,12 +71,14 @@ export const getFileAttributes = (
 export function getMediaCardAnalyticsContext(
   metadata?: FileDetails,
   fileStatus?: FileState,
+  featureFlags?: MediaCardFeatureFlags,
 ): MediaAnalyticsData {
   return {
     fileAttributes: getFileAttributes(
       metadata,
       fileStatus && fileStatus.status,
     ),
+    featureFlags,
   };
 }
 
@@ -95,89 +101,83 @@ export const createAndFireMediaEvent: CreateAndFireMediaEvent = payload => {
 };
 
 export type AnalyticsLoadingAction = 'succeeded' | 'failed';
+export type AnalyticsLoadingFailReason =
+  | 'media-client-error'
+  | 'file-status-error'
+  | 'file-uri-error';
 
-export const getAnalyticsStatusFromCardStatus = (
-  cardStatus: CardStatus,
-): AnalyticsLoadingAction | undefined => {
-  switch (cardStatus) {
-    case 'error':
-    case 'failed-processing':
-      return 'failed';
-    default:
-      return;
-  }
-};
-
-export type AnalyticsErrorStateAttributes = {
-  failReason?: 'media-client-error' | 'file-status-error' | 'file-uri-error';
+export type AnalyticsLoadingStatus = {
+  action: AnalyticsLoadingAction;
+  failReason?: AnalyticsLoadingFailReason;
   error?: string;
 };
 
-/*
- * Returns an empty object (success event) or an object containing an error with its corresponding failReason.
+export type AnalyticsLoadingStatusArgs = {
+  cardStatus: CardStatus;
+  metadata: FileDetails;
+  fileState?: FileState;
+  dataURI?: string;
+  error?: Error | string;
+};
+
+/**
+ * This function decides if we can fire an event at this stage,
+ * returning a base for the corresponding payload,
+ * or void in case we can't fire any event
+ * based on arguments provided
  */
-export const getAnalyticsErrorStateAttributes = (
-  previewable: boolean,
-  hasMinimalData: boolean,
-  fileState?: FileState,
-  error?: Error | string,
-): AnalyticsErrorStateAttributes => {
-  const unknownError = 'unknown error';
-  const errorMessage = error instanceof Error ? error.message : error;
-  const errorMessageInFileState =
-    fileState && 'message' in fileState && fileState.message;
-  const fileStateIsErrorOrFailedProcessing =
-    fileState && ['error', 'failed-processing'].includes(fileState.status);
-
-  // if the fileState is undefined and theres no error message, don't fire an error event
-  if (!fileState && !errorMessage) {
-    return {};
-  }
-
-  // if the filestate IS undefined and has an error message, then fire an error event
-  if (!fileState) {
-    return {
-      failReason: 'media-client-error',
-      error: errorMessage,
-    };
-  }
-
-  // if the file has no preview (i.e docs/pdfs/unknown files). Note, if the mediaType is undefined it is assumed to be unpreviewable
-  if (!previewable) {
-    // if an unpreviewable file has its filename and size (minimal metadata), then it can render successfully (card does not appear broken to the user)
-    // files that are previewable i.e videos, need more than this minimal metadata as otherwise the card will appear broken
-    if (hasMinimalData) {
-      return {};
+export const getAnalyticsLoadingStatus = ({
+  cardStatus,
+  metadata,
+  fileState,
+  dataURI,
+  error,
+}: AnalyticsLoadingStatusArgs): AnalyticsLoadingStatus | void => {
+  // If we do have dataURI and there is an error, we should not fire a failed event.
+  // Render something is the priority. Any supported file by the browser that has been
+  // failed to process, we should try to render.
+  if (!dataURI && ['error', 'failed-processing'].includes(cardStatus)) {
+    const action = 'failed';
+    if (error) {
+      const message = error instanceof Error ? error.message : error;
+      return { action, failReason: 'media-client-error', error: message };
     }
 
-    // If a file does not have minimal metadata, then fire an error with an error message stating this. Only do this if a pre-existing error message
-    // such as a network error, does not exist. Additionally, only fire this error state if the fileState is an error or failed-processing.
-    // For instance, we do not want to return an error state state if the fileState is uploading/uploaded/processing, as these states do not indicate an error.
-    if (!errorMessageInFileState && fileStateIsErrorOrFailedProcessing) {
+    const errorMessage =
+      fileState && 'message' in fileState && fileState.message;
+    if (errorMessage) {
+      return { action, failReason: 'file-status-error', error: errorMessage };
+    }
+
+    if (!metadata.name) {
       return {
+        action,
         failReason: 'file-status-error',
         error:
           'Does not have minimal metadata (filename and filesize) OR metadata/media-type is undefined',
       };
     }
-  }
 
-  // if the state of a file is an error or has failed to process, fire an error message.
-  if (fileStateIsErrorOrFailedProcessing) {
     return {
+      action,
       failReason: 'file-status-error',
-      error: errorMessageInFileState || unknownError,
+      error: 'unknown error',
     };
   }
-
-  // if not, then the filestate is uploading/processed/processing, and hence we should not fire an error
-  return {};
+  // If we have no dataURI and the card is complete, we can say that
+  // we intend to not display an image, therefore the fetching is a success.
+  if (!dataURI && cardStatus === 'complete') {
+    return {
+      action: 'succeeded',
+    };
+  }
 };
 
 export const getCopiedFileAnalyticsPayload = (
   identifier: Identifier,
+  featureFlags?: MediaCardFeatureFlags,
 ): MediaCardAnalyticsPayload => {
-  return {
+  const payload: MediaCardAnalyticsPayload = {
     eventType: 'ui',
     action: 'copied',
     actionSubject: 'file',
@@ -186,59 +186,66 @@ export const getCopiedFileAnalyticsPayload = (
         ? identifier.id
         : identifier.mediaItemType,
   };
+  if (featureFlags) {
+    payload.attributes = { featureFlags };
+  }
+  return payload;
 };
 
 export const getMediaCardCommencedAnalyticsPayload = (
   actionSubjectId: string,
+  featureFlags?: MediaCardFeatureFlags,
 ): MediaCardAnalyticsPayload => {
-  return {
+  const payload: MediaCardAnalyticsPayload = {
     eventType: 'operational',
     action: 'commenced',
     actionSubject: 'mediaCardRender',
     actionSubjectId,
   };
-};
-
-export const getAnalyticsStatus = (
-  previewable: boolean,
-  hasMinimalData: boolean,
-  status: CardStatus,
-): AnalyticsLoadingAction | undefined => {
-  if (!previewable && hasMinimalData) {
-    return;
+  if (featureFlags) {
+    payload.attributes = { featureFlags };
   }
-  return getAnalyticsStatusFromCardStatus(status);
+  return payload;
 };
 
-export const hasFilenameAndFilesize = (metadata?: FileDetails) =>
-  !!metadata && !!metadata.name && !!metadata.size;
+export type LoadingStatusPayloadArgs = {
+  action: string;
+  actionSubjectId?: string;
+  fileAttributes?: MediaCardAnalyticsFileAttributes;
+  failReason?: AnalyticsLoadingFailReason;
+  error?: string;
+  featureFlags?: MediaCardFeatureFlags;
+};
 
-export const fileIsPreviewable = (metadata?: FileDetails): boolean =>
-  !!metadata && !!metadata.mediaType && isPreviewableType(metadata.mediaType);
+export type LoadingStatusPayload = (
+  args: LoadingStatusPayloadArgs,
+) => MediaCardAnalyticsPayload;
 
-export const getLoadingStatusAnalyticsPayload = (
-  action: string,
-  actionSubjectId?: string,
-  fileAttributes?: MediaCardAnalyticsFileAttributes,
-  errorState?: AnalyticsErrorStateAttributes,
-): MediaCardAnalyticsPayload => {
+export const getLoadingStatusAnalyticsPayload: LoadingStatusPayload = ({
+  action,
+  actionSubjectId,
+  fileAttributes,
+  failReason,
+  error,
+  featureFlags,
+}) => {
   const payload: MediaCardAnalyticsPayload = {
     eventType: 'operational',
     action,
     actionSubject: 'mediaCardRender',
     actionSubjectId,
   };
-
-  if (!payload.attributes) payload.attributes = {};
-
   if (fileAttributes) {
     payload.attributes = { ...payload.attributes, fileAttributes };
   }
-
-  if (errorState) {
-    payload.attributes.failReason = errorState.failReason;
-    payload.attributes.error = errorState.error;
+  if (featureFlags) {
+    payload.attributes = { ...payload.attributes, featureFlags };
   }
-
+  if (failReason) {
+    payload.attributes = { ...payload.attributes, failReason };
+  }
+  if (error) {
+    payload.attributes = { ...payload.attributes, error };
+  }
   return payload;
 };

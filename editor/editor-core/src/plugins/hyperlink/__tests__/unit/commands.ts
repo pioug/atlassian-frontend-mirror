@@ -65,7 +65,10 @@ describe('hyperlink commands', () => {
         .add(textFormattingPlugin)
         .add(emojiPlugin)
         .add(codeBlockPlugin)
-        .add([cardPlugin, { provider: Promise.resolve(cardProvider) }]),
+        .add([
+          cardPlugin,
+          { provider: Promise.resolve(cardProvider), platform: 'web' },
+        ]),
     });
   };
 

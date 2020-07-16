@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { FC, useState } from 'react';
 
 import { AppearanceType, SizeType } from '@atlaskit/avatar';
 import Button, { ButtonGroup } from '@atlaskit/button';
@@ -7,7 +7,7 @@ import { RANDOM_USERS } from '../examples-util/data';
 import { Note } from '../examples-util/helpers';
 import AvatarGroup from '../src';
 
-import { shuffle } from 'lodash';
+import shuffle from 'lodash/shuffle';
 
 type State = {
   avatarCount: number;
@@ -41,49 +41,48 @@ const data = RANDOM_USERS.map(user => ({
   )}`,
 }));
 
-export default class AvatarGroupExample extends Component<{}, State> {
-  state: State = {
+const AvatarGroupExample: FC = () => {
+  const [state, setState] = useState<State>({
     avatarCount: 20,
     avatarCountMax: 18,
     gridWidth: 520,
     mode: 'stack',
-    data: data,
+    data,
+  });
+
+  const shuffleAvatars = () => {
+    const next = state;
+    next.data = shuffle(state.data);
+    setState(next);
   };
 
-  shuffleAvatars = () => {
-    const next = this.state;
-    next.data = shuffle(this.state.data);
-    this.setState(next);
-  };
+  const avatarSize = 'medium';
 
-  render() {
-    const { avatarCountMax, gridWidth, data } = this.state;
-    const avatarSize = 'medium';
-
-    return (
-      <div>
-        <Note size="large">Click button Shuffle to reorder all avatars.</Note>
-        <div style={{ display: 'flex', marginTop: '1em' }}>
-          <div style={{ flex: 1 }}>
-            <ButtonGroup>
-              <Button onClick={() => this.shuffleAvatars()}>Shuffle</Button>
-            </ButtonGroup>
-          </div>
-        </div>
-
-        <h5>Avatars</h5>
-
-        <div style={{ maxWidth: gridWidth, position: 'relative' }}>
-          <AvatarGroup
-            appearance="grid"
-            onAvatarClick={console.log}
-            data={data}
-            maxCount={avatarCountMax}
-            size={avatarSize}
-            testId="grid"
-          />
+  return (
+    <div>
+      <Note size="large">Click button Shuffle to reorder all avatars.</Note>
+      <div style={{ display: 'flex', marginTop: '1em' }}>
+        <div style={{ flex: 1 }}>
+          <ButtonGroup>
+            <Button onClick={() => shuffleAvatars()}>Shuffle</Button>
+          </ButtonGroup>
         </div>
       </div>
-    );
-  }
-}
+
+      <h5>Avatars</h5>
+
+      <div style={{ maxWidth: state.gridWidth, position: 'relative' }}>
+        <AvatarGroup
+          appearance="grid"
+          onAvatarClick={console.log}
+          data={state.data}
+          maxCount={state.avatarCountMax}
+          size={avatarSize}
+          testId="grid"
+        />
+      </div>
+    </div>
+  );
+};
+
+export default AvatarGroupExample;

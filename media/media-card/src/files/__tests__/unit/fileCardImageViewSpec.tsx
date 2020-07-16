@@ -45,6 +45,7 @@ describe('FileCardImageView', () => {
     beforeEach(() => {
       card = shallow(
         <FileCardImageView
+          mediaItemType="file"
           mediaType="video"
           status="complete"
           selectable={true}
@@ -80,6 +81,7 @@ describe('FileCardImageView', () => {
           error={errorStr}
           alt="this is an alt text"
           status="error"
+          mediaItemType="file"
           onRetry={onRetry}
           onDisplayImage={onDisplayImage}
           mediaName={mediaName}
@@ -96,6 +98,7 @@ describe('FileCardImageView', () => {
 
     it('should render card overlay', function() {
       expectToEqual(card.find(CardOverlay).props(), {
+        cardStatus: 'error',
         error: errorStr,
         onRetry,
         persistent: true,
@@ -115,6 +118,7 @@ describe('FileCardImageView', () => {
       card = mount(
         <FileCardImageView
           status="failed-processing"
+          mediaItemType="file"
           onRetry={onRetry}
           mediaName={mediaName}
           mediaType={mediaType}
@@ -130,6 +134,7 @@ describe('FileCardImageView', () => {
 
     it('should render "persistent" card overlay', () => {
       expectToEqual(card.find(CardOverlay).props(), {
+        cardStatus: 'failed-processing',
         noHover: true,
         persistent: true,
         mediaName,
@@ -144,17 +149,9 @@ describe('FileCardImageView', () => {
     [key: string]: () => ShallowWrapper<FileCardImageViewProps>;
   } = {
     'with "loading" status': () =>
-      shallow(<FileCardImageView status="loading" />),
+      shallow(<FileCardImageView status="loading" mediaItemType="file" />),
     'with "processing" status': () =>
-      shallow(<FileCardImageView status="processing" />),
-    'with image type and no dataURI': () =>
-      shallow(
-        <FileCardImageView
-          status="complete"
-          dataURI={undefined}
-          mediaType="image"
-        />,
-      ),
+      shallow(<FileCardImageView status="processing" mediaItemType="file" />),
   };
 
   Object.keys(renderLoadingContentsCards).forEach(description => {
@@ -183,6 +180,7 @@ describe('FileCardImageView', () => {
           mediaType="doc"
           dataURI={undefined}
           status="complete"
+          mediaItemType="file"
           selected={true}
           selectable={true}
           fileSize={fileSize}
@@ -191,6 +189,7 @@ describe('FileCardImageView', () => {
         />,
       );
       expectToEqual(card.find(CardOverlay).props(), {
+        cardStatus: 'complete',
         persistent: true,
         selectable: true,
         selected: true,
@@ -207,6 +206,7 @@ describe('FileCardImageView', () => {
           mediaType="image"
           dataURI="some-data"
           status="complete"
+          mediaItemType="file"
           selected={false}
           selectable={false}
           fileSize={fileSize}
@@ -215,6 +215,7 @@ describe('FileCardImageView', () => {
         />,
       );
       expectToEqual(card.find(CardOverlay).props(), {
+        cardStatus: 'complete',
         persistent: false,
         selectable: false,
         selected: false,
@@ -231,6 +232,7 @@ describe('FileCardImageView', () => {
       <FileCardImageView
         mediaType="image"
         status="loading"
+        mediaItemType="file"
         dataURI="some-data"
       />,
     );
@@ -243,6 +245,7 @@ describe('FileCardImageView', () => {
       <FileCardImageView
         mediaType="video"
         status="complete"
+        mediaItemType="file"
         disableOverlay={true}
       />,
     );
@@ -255,6 +258,7 @@ describe('FileCardImageView', () => {
       <FileCardImageView
         mediaType="image"
         status="uploading"
+        mediaItemType="file"
         dataURI="some-data"
         selected={false}
         selectable={true}
@@ -264,10 +268,11 @@ describe('FileCardImageView', () => {
       />,
     );
     expectToEqual(card.find(CardOverlay).props(), {
+      cardStatus: 'uploading',
       persistent: false,
       selectable: true,
       selected: false,
-      mediaName: '',
+      mediaName: 'some-media-name',
       actions: [],
     });
   });
@@ -277,6 +282,7 @@ describe('FileCardImageView', () => {
       <FileCardImageView
         mediaType="doc"
         status="uploading"
+        mediaItemType="file"
         selected={false}
         selectable={true}
         fileSize={fileSize}
@@ -285,10 +291,11 @@ describe('FileCardImageView', () => {
       />,
     );
     expectToEqual(card.find(CardOverlay).props(), {
+      cardStatus: 'uploading',
       persistent: true,
       selectable: true,
       selected: false,
-      mediaName: '',
+      mediaName: 'some-media-name',
       actions: [],
     });
   });
@@ -298,6 +305,7 @@ describe('FileCardImageView', () => {
       <FileCardImageView
         mediaType="image"
         status="uploading"
+        mediaItemType="file"
         dataURI="some-data"
         selected={false}
         selectable={false}
@@ -316,7 +324,9 @@ describe('FileCardImageView', () => {
       card = shallow(
         <FileCardImageView
           mediaType="image"
+          mimeType="image/png"
           status="uploading"
+          mediaItemType="file"
           dataURI="some-data"
           resizeMode={'stretchy-fit'}
           selected={false}
@@ -359,6 +369,7 @@ describe('FileCardImageView', () => {
       <FileCardImageView
         mediaType="doc"
         status="uploading"
+        mediaItemType="file"
         dataURI="some-data"
       />,
     );
@@ -370,6 +381,7 @@ describe('FileCardImageView', () => {
       <FileCardImageView
         mediaType="video"
         status="uploading"
+        mediaItemType="file"
         dataURI="some-data"
       />,
     );
@@ -379,7 +391,12 @@ describe('FileCardImageView', () => {
 
   it('should not render progress bar when status is not "uploading"', () => {
     const card = shallow(
-      <FileCardImageView mediaType="image" status="complete" progress={0.5} />,
+      <FileCardImageView
+        mediaType="image"
+        status="complete"
+        mediaItemType="file"
+        progress={0.5}
+      />,
     );
     expect(card.find(ProgressBarWrapper)).toHaveLength(0);
   });
@@ -389,6 +406,7 @@ describe('FileCardImageView', () => {
       <FileCardImageView
         mediaType="image"
         status="uploading"
+        mediaItemType="file"
         progress={0.5}
         dataURI="some-data"
         resizeMode={'stretchy-fit'}
@@ -422,6 +440,7 @@ describe('FileCardImageView', () => {
       <FileCardImageView
         mediaType="video"
         status="processing"
+        mediaItemType="file"
         dataURI={undefined}
         selectable={false}
       />,
@@ -436,6 +455,7 @@ describe('FileCardImageView', () => {
       <FileCardImageView
         mediaType="video"
         status="processing"
+        mediaItemType="file"
         dataURI={undefined}
         selectable={true}
       />,
@@ -457,7 +477,9 @@ describe('FileCardImageView', () => {
     const card = shallow(
       <FileCardImageView
         mediaType="image"
+        mimeType="image/png"
         status="complete"
+        mediaItemType="file"
         dataURI="some-data"
         onDisplayImage={onDisplayImage}
       />,
@@ -474,6 +496,7 @@ describe('FileCardImageView', () => {
         <FileCardImageView
           mediaType={mediaType}
           status="complete"
+          mediaItemType="file"
           dataURI="some-data"
           onDisplayImage={onDisplayImage}
         />,

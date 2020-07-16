@@ -1,7 +1,7 @@
 import React from 'react';
 import { Component } from 'react';
 import styled from 'styled-components';
-import { gridSize } from '@atlaskit/theme';
+import { gridSize } from '@atlaskit/theme/constants';
 import DropdownMenu, {
   DropdownItemGroup,
   DropdownItem,

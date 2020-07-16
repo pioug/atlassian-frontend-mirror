@@ -29,7 +29,9 @@ class AnimationDemo extends Component<{}, State> {
 
   componentDidMount() {
     this.startAnimating();
-    if (this.checkbox) this.checkbox.checked = true;
+    if (this.checkbox) {
+      this.checkbox.checked = true;
+    }
   }
 
   componentWillUnmount() {

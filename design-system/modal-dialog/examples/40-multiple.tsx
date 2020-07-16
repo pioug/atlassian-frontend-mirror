@@ -61,7 +61,9 @@ export default class NestedDemo extends React.Component<{}, State> {
           const next = sizes[sizes.indexOf(name) + 1];
           const onClick = next ? () => this.open(next) : () => {};
           const actions = [{ text: 'Close', onClick: this.close }];
-          if (next) actions.push({ text: `Open: ${next}`, onClick });
+          if (next) {
+            actions.push({ text: `Open: ${next}`, onClick });
+          }
 
           return (
             <ModalTransition key={name}>

@@ -7,7 +7,7 @@ import ToolbarHelp from '../src/ui/ToolbarHelp';
 import { mention, emoji } from '@atlaskit/util-data-test';
 import { EmojiProvider } from '@atlaskit/emoji';
 import { mediaProvider } from './5-full-page';
-import { MockActivityResource } from '@atlaskit/activity/dist/es5/support';
+import { MockActivityResource } from '../example-helpers/activity-provider';
 
 export type Props = {
   editorProps?: EditorProps;
@@ -60,9 +60,9 @@ export class CommentEditorJiraBento extends React.Component<Props, State> {
                 defaultValue={this.state.defaultValue}
                 shouldFocus={true}
                 disabled={false}
-                onCancel={() => null}
+                onCancel={() => this.setState({ isExpanded: false })}
                 onChange={this.onChange(actions)}
-                onSave={() => null}
+                onSave={() => this.setState({ isExpanded: false })}
                 {...this.providers}
                 media={{
                   provider: mediaProvider,
@@ -77,7 +77,7 @@ export class CommentEditorJiraBento extends React.Component<Props, State> {
                 allowHelpDialog={true}
                 placeholder="We support markdown! Try **bold**, `inline code`, or ``` for code blocks."
                 primaryToolbarComponents={[
-                  <ToolbarHelp titlePosition="top" title="Help" />,
+                  <ToolbarHelp titlePosition="top" title="Help" key="help" />,
                 ]}
               />
             </CollapsedEditor>

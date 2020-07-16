@@ -1,5 +1,15 @@
 # @atlaskit/editor-json-transformer
 
+## 8.1.0
+
+### Minor Changes
+
+- [`b7c4fc3b08`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b7c4fc3b08) - Preseve unsupported mark from getting lost
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.0.0
 
 ### Major Changes

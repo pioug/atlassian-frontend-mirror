@@ -1,5 +1,12 @@
 # @atlaskit/media-viewer
 
+## 45.0.1
+
+### Patch Changes
+
+- [`9e63f0070f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9e63f0070f) - Fix HD Button (zooming on images bigger then 4K)
+- [`6bcdf043ae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6bcdf043ae) - Fixed flaky Media-Viewer integration tests
+
 ## 45.0.0
 
 ### Major Changes

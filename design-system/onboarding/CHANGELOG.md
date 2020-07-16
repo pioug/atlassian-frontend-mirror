@@ -1,5 +1,15 @@
 # @atlaskit/onboarding
 
+## 10.1.0
+
+### Minor Changes
+
+- [`5d6c324306`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5d6c324306) - Expose useSpotlight hook which returns #isTargetRendered function. We can use this function to check whether target is rendered or not.
+
+### Patch Changes
+
+- [`db053b24d8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/db053b24d8) - Update all the theme imports to be tree-shakable
+
 ## 10.0.0
 
 ### Major Changes

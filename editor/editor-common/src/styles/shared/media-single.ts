@@ -2,6 +2,8 @@ import { css } from 'styled-components';
 
 const richMediaClassName = 'rich-media-item';
 
+const wrappedMediaBreakoutPoint = 410;
+
 const mediaSingleSharedStyle = css`
   li .${richMediaClassName} {
     margin: 0;
@@ -36,6 +38,17 @@ const mediaSingleSharedStyle = css`
     + .${richMediaClassName}.image-wrap-right {
     margin-right: 0;
     margin-left: 0;
+  }
+
+  @media all and (max-width: ${wrappedMediaBreakoutPoint}px) {
+    div.mediaSingleView-content-wrap[layout='wrap-left'],
+    div.mediaSingleView-content-wrap[data-layout='wrap-left'],
+    div.mediaSingleView-content-wrap[layout='wrap-right'],
+    div.mediaSingleView-content-wrap[data-layout='wrap-right'] {
+      float: none;
+      overflow: auto;
+      margin: 12px 0;
+    }
   }
 `;
 

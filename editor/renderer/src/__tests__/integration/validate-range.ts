@@ -14,7 +14,7 @@ const CHAR_WIDTH = 6;
 
 BrowserTestCase(
   `A selection containing text and media validates true`,
-  { skip: ['ie', 'edge', 'firefox', 'safari'] },
+  { skip: ['edge', 'firefox', 'safari'] },
   async (client: any) => {
     const page = await goToRendererTestingExample(client);
     await mountRenderer(
@@ -36,7 +36,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   `A selection containing text and mention validates false`,
-  { skip: ['ie', 'edge', 'firefox'] },
+  { skip: ['edge', 'firefox'] },
   async (client: any) => {
     const page = await goToRendererTestingExample(client);
     await mountRenderer(
@@ -58,7 +58,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   `A selection containing text and emoji validates false`,
-  { skip: ['ie', 'edge', 'firefox'] },
+  { skip: ['edge', 'firefox'] },
   async (client: any) => {
     const page = await goToRendererTestingExample(client);
     await mountRenderer(
@@ -80,7 +80,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   `A selection containing text and status validates false`,
-  { skip: ['ie', 'edge', 'firefox'] },
+  { skip: ['edge', 'firefox'] },
   async (client: any) => {
     const page = await goToRendererTestingExample(client);
     await mountRenderer(

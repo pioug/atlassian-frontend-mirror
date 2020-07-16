@@ -4,6 +4,7 @@ import {
   getDocFromElement,
   insertMedia,
   fullpage,
+  comment,
 } from '../_helpers';
 import {
   mountEditor,
@@ -12,7 +13,7 @@ import {
 
 BrowserTestCase(
   'insert-mediaSingle.ts: Inserts a media single on fullpage',
-  { skip: ['edge', 'ie', 'safari'] },
+  { skip: ['edge', 'safari'] },
   async (
     client: Parameters<typeof goToEditorTestingExample>[0],
     testName: string,
@@ -20,6 +21,71 @@ BrowserTestCase(
     const page = await goToEditorTestingExample(client);
     await mountEditor(page, {
       appearance: fullpage.appearance,
+      media: {
+        allowMediaSingle: true,
+        allowMediaGroup: true,
+      },
+    });
+
+    // type some text
+    await page.click(editable);
+    await page.type(editable, 'some text');
+
+    // now we can insert media as necessary
+    await insertMedia(page);
+
+    expect(await page.isVisible('[data-testid="media-file-card-view"]')).toBe(
+      true,
+    );
+
+    const doc = await page.$eval(editable, getDocFromElement);
+    expect(doc).toMatchCustomDocSnapshot(testName);
+  },
+);
+
+BrowserTestCase(
+  'insert-mediaSingle.ts: Inserts media single on left when the alignLeftOnInsert prop is true',
+  { skip: ['edge', 'safari'] },
+  async (
+    client: Parameters<typeof goToEditorTestingExample>[0],
+    testName: string,
+  ) => {
+    const page = await goToEditorTestingExample(client);
+    await mountEditor(page, {
+      appearance: comment.appearance,
+      media: {
+        alignLeftOnInsert: true,
+        allowMediaSingle: true,
+        allowMediaGroup: true,
+      },
+    });
+
+    // type some text
+    await page.click(editable);
+    await page.type(editable, 'some text');
+
+    // now we can insert media as necessary
+    await insertMedia(page);
+
+    expect(await page.isVisible('[data-testid="media-file-card-view"]')).toBe(
+      true,
+    );
+
+    const doc = await page.$eval(editable, getDocFromElement);
+    expect(doc).toMatchCustomDocSnapshot(testName);
+  },
+);
+
+BrowserTestCase(
+  'insert-mediaSingle.ts: Inserts media single on left in comment editor',
+  { skip: ['edge', 'safari'] },
+  async (
+    client: Parameters<typeof goToEditorTestingExample>[0],
+    testName: string,
+  ) => {
+    const page = await goToEditorTestingExample(client);
+    await mountEditor(page, {
+      appearance: comment.appearance,
       media: {
         allowMediaSingle: true,
         allowMediaGroup: true,

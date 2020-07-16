@@ -4,7 +4,8 @@ import { forwardRef } from 'react';
 import { css, jsx, keyframes } from '@emotion/core';
 
 import { AtlassianIcon } from '@atlaskit/logo';
-import { colors, elevation } from '@atlaskit/theme';
+import { B400, N0 } from '@atlaskit/theme/colors';
+import { e200 } from '@atlaskit/theme/elevation';
 
 interface BlockProps extends React.HTMLProps<HTMLDivElement> {
   appearance?: 'small' | 'medium' | 'large';
@@ -34,18 +35,18 @@ export const Block = forwardRef<HTMLDivElement, BlockProps>(
       <div
         ref={ref}
         css={css`
-          ${elevation.e200()}
+          ${e200()}
           display: flex;
           align-items: center;
           justify-content: center;
           margin: 16px;
           width: ${size}px;
           height: ${size}px;
-          background-color: ${colors.N0};
+          background-color: ${N0};
           border-radius: ${Math.floor(size / 7)}px;
           cursor: ${onClick ? 'pointer' : 'default'};
           :hover {
-            background-color: ${onClick ? colors.B400 : undefined};
+            background-color: ${onClick ? B400 : undefined};
           }
         `}
         {...props}

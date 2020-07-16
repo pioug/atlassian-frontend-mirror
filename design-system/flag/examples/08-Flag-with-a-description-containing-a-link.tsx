@@ -1,7 +1,7 @@
 import React from 'react';
 
 import SuccessIcon from '@atlaskit/icon/glyph/check-circle';
-import { colors } from '@atlaskit/theme';
+import { G300 } from '@atlaskit/theme/colors';
 
 import Flag, { FlagGroup } from '../src';
 
@@ -14,7 +14,7 @@ export default () => (
           <a href="https://ecosystem.atlassian.net/browse/AK-90210">AK-90210</a>
         </span>
       }
-      icon={<SuccessIcon primaryColor={colors.G300} label="Info" />}
+      icon={<SuccessIcon primaryColor={G300} label="Info" />}
       id="1"
       key="1"
       title="I am a Flag"

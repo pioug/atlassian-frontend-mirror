@@ -12,7 +12,7 @@ const dateView = `span.dateView-content-wrap`;
 // https://product-fabric.atlassian.net/browse/ED-4531
 BrowserTestCase(
   'calendar.ts: user should be able to open calendar',
-  { skip: ['edge', 'ie', 'safari'] },
+  { skip: ['edge', 'safari'] },
   async (client: any) => {
     const page = await goToEditorTestingExample(client);
     await mountEditor(page, { appearance: 'full-page', allowDate: true });
@@ -28,7 +28,7 @@ BrowserTestCase(
 // https://product-fabric.atlassian.net/browse/ED-5033
 BrowserTestCase(
   'calendar.ts: clicking date when calendar is open should close it',
-  { skip: ['edge', 'ie', 'safari'] },
+  { skip: ['edge', 'safari'] },
   async (client: any) => {
     const page = await goToEditorTestingExample(client);
     await mountEditor(page, { appearance: 'full-page', allowDate: true });
@@ -46,7 +46,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'calendar.ts: clicking on another date should open its date picker',
-  { skip: ['edge', 'ie', 'safari'] },
+  { skip: ['edge', 'safari'] },
   async (client: any) => {
     const page = await goToEditorTestingExample(client);
     await mountEditor(page, { appearance: 'full-page', allowDate: true });

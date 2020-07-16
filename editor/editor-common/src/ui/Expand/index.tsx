@@ -1,7 +1,8 @@
 import { defineMessages } from 'react-intl';
 import styled, { css } from 'styled-components';
 
-import { colors, fontSize, gridSize } from '@atlaskit/theme';
+import * as colors from '@atlaskit/theme/colors';
+import { fontSize, gridSize } from '@atlaskit/theme/constants';
 
 import {
   akEditorLineHeight,

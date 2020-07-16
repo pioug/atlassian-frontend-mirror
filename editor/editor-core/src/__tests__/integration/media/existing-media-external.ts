@@ -35,7 +35,7 @@ const baseADF = {
 
 BrowserTestCase(
   'upload-external-media.ts: Keeps existing external as is',
-  { skip: ['edge', 'ie', 'safari'] },
+  { skip: ['edge', 'safari'] },
   async (
     client: Parameters<typeof goToEditorTestingExample>[0],
     testCase: string,

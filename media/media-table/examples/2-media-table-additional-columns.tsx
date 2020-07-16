@@ -160,6 +160,8 @@ export default () => {
       pageNumber={1}
       onSetPage={pageNumber => console.log('onSetPage', pageNumber)}
       onSort={(key, sortOrder) => console.log('onSort', key, sortOrder)}
+      onPreviewOpen={() => console.log('onPreviewOpen')}
+      onPreviewClose={() => console.log('onPreviewClose')}
     />,
   );
 };

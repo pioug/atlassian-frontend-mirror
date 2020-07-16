@@ -45,7 +45,7 @@ export const panelStyles = css`
     ${panelSharedStyles};
   }
 
-  .${PanelSharedCssClassName.prefix}.${akEditorSelectedNodeClassName} {
+  .${PanelSharedCssClassName.prefix}.${akEditorSelectedNodeClassName}:not(.danger) {
     ${getSelectionStyles([SelectionStyle.BoxShadow, SelectionStyle.Blanket])}
   }
 `;

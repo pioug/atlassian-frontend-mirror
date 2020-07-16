@@ -22,7 +22,7 @@ import { clickFirstCell } from '../../__helpers/page-objects/_table';
 // - GitHub issue https://github.com/ProseMirror/prosemirror/issues/1052
 BrowserTestCase(
   'Should scale remaining columns when adding a new column preventing from going to overflow',
-  { skip: ['ie', 'edge', 'safari'] },
+  { skip: ['edge', 'safari'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
 

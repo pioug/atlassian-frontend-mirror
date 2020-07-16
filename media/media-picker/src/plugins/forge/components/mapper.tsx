@@ -32,7 +32,9 @@ export const ForgeViewMapper = ({
     pluginName: name,
   };
   if (view === 'bricks') {
-    if (!items.data) return null;
+    if (!items.data) {
+      return null;
+    }
 
     const brickItems: BrickItem[] = items.data.items.map(item => {
       const url = getResourceUrl(item.url) || '';

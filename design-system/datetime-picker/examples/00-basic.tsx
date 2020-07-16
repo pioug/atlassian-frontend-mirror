@@ -96,6 +96,7 @@ const onChange = (value: unknown) => {
 };
 
 export default () => {
+  const [value, setValue] = React.useState('');
   return (
     <div>
       <h3>Date picker</h3>
@@ -218,6 +219,13 @@ export default () => {
         onChange={onChange}
         timeIsEditable
       />
+
+      <Label
+        htmlFor="react-select-datetimepicker-5--input"
+        label="editable times with value (UTC+10:00)"
+      />
+      <DateTimePicker id="datetimepicker-5" onChange={v => setValue(v)} />
+      <pre>{value}</pre>
     </div>
   );
 };

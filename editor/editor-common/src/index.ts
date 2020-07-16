@@ -60,6 +60,7 @@ export {
   AnnotationUpdateEmitter,
   AnnotationUpdateEvent,
   AnnotationUpdateEventPayloads,
+  InlineCommentSelectionComponentProps,
 } from './types';
 
 export {
@@ -88,7 +89,7 @@ export {
   ExtensionModuleActionObject,
   ExtensionModuleNode,
   ExtensionModuleNodes,
-  ExtensionModuleType,
+  ExtensionQuickInsertModule,
   ExtensionModules,
   ExtensionParams,
   ExtensionProvider,
@@ -100,7 +101,7 @@ export {
   combineExtensionProviders,
   getExtensionKeyAndNodeKey,
   getExtensionModuleNode,
-  getItemsFromModule,
+  getQuickInsertItemsFromModule,
   getNodeRenderer,
   resolveImport,
 } from './extensions';

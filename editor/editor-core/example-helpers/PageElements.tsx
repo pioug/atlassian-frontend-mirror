@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { colors, themed } from '@atlaskit/theme';
+import { themed } from '@atlaskit/theme/components';
+import { DN900, N90 } from '@atlaskit/theme/colors';
 
 export const TitleArea: any = styled.textarea`
   border: none;
@@ -11,13 +12,13 @@ export const TitleArea: any = styled.textarea`
   width: 100%;
   resize: none;
   vertical-align: bottom;
-  color: ${themed({ light: 'black', dark: colors.DN900 })};
+  color: ${themed({ light: 'black', dark: DN900 })};
 
   /* Blend into the page bg colour. This way it's theme agnostic. */
   background: transparent;
 
   &::placeholder {
-    color: ${colors.N90};
+    color: ${N90};
   }
 `;
 TitleArea.displayName = 'TitleArea';

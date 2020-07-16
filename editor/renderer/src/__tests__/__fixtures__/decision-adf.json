@@ -1,0 +1,27 @@
+{
+    "version": 1,
+    "type": "doc",
+    "content": [
+      {
+        "type": "decisionList",
+        "attrs": {
+          "localId": "cf05fa7d-a46b-46c6-aa5e-c34b8da412f8"
+        },
+        "content": [
+          {
+            "type": "decisionItem",
+            "attrs": {
+              "localId": "a9b3df28-f733-4a16-8a8f-38044f079adc",
+              "state": "DECIDED"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "decision"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }

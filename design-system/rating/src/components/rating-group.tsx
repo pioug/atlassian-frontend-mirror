@@ -3,7 +3,7 @@ import { Children, cloneElement, Fragment, useState } from 'react';
 
 import { css, jsx } from '@emotion/core';
 
-import { visuallyHidden } from '@atlaskit/theme';
+import { visuallyHidden } from '@atlaskit/theme/constants';
 
 export interface RatingGroupProps {
   /**

@@ -20,7 +20,7 @@ const panelSelector = '.ak-editor-panel__content';
 
 BrowserTestCase(
   'expand.ts: expand copied from renderer and pasted on full-page',
-  { skip: ['ie', 'edge'] },
+  { skip: ['edge'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
 
@@ -44,7 +44,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'expand.ts: expand with legal content pasted in table',
-  { skip: ['ie', 'edge'] },
+  { skip: ['edge'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
 
@@ -73,7 +73,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'expand.ts: expand with illegal content pasted in table',
-  { skip: ['ie', 'edge'] },
+  { skip: ['edge'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
 
@@ -103,7 +103,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'expand.ts: nestedExpand pasted in table',
-  { skip: ['ie', 'edge'] },
+  { skip: ['edge'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
 
@@ -132,7 +132,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'expand.ts: nestedExpand pasted on top level',
-  { skip: ['ie', 'edge'] },
+  { skip: ['edge'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
 
@@ -156,7 +156,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'expand.ts: table with nestedExpand pasted on top level',
-  { skip: ['ie', 'edge'] },
+  { skip: ['edge'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
 
@@ -181,7 +181,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'expand.ts: expand with table with nestedExpand pasted on top level',
-  { skip: ['ie', 'edge'] },
+  { skip: ['edge'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
 
@@ -206,7 +206,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'expand.ts: table with nestedExpand pasted inside an expand',
-  { skip: ['ie', 'edge'] },
+  { skip: ['edge'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
 
@@ -233,7 +233,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'expand.ts: expand pasted inside a table inside an expand',
-  { skip: ['ie', 'edge'] },
+  { skip: ['edge'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
 
@@ -260,7 +260,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'expand.ts: expand pasted inside a panel inside a table should paste below',
-  { skip: ['ie', 'edge'] },
+  { skip: ['edge'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
 
@@ -288,7 +288,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'expand.ts: expand content pasted inside a panel inside a table should paste text inside',
-  { skip: ['ie', 'edge'] },
+  { skip: ['edge'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
 

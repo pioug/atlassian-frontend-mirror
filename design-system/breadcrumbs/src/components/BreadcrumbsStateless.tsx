@@ -96,7 +96,9 @@ class BreadcrumbsStateless extends React.Component<
 
   render() {
     const { children, isExpanded, maxItems, testId } = this.props;
-    if (!children) return <Container />;
+    if (!children) {
+      return <Container />;
+    }
     return (
       <Container data-testid={testId}>
         {isExpanded || (maxItems && toArray(children).length <= maxItems)

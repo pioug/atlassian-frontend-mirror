@@ -47,6 +47,7 @@ import {
   tr,
   ul,
   underline,
+  unsupportedMark,
 } from '@atlaskit/editor-test-helpers';
 import { WikiMarkupTransformer } from '@atlaskit/editor-wikimarkup-transformer';
 import { emoji as emojiData } from '@atlaskit/util-data-test';
@@ -497,6 +498,37 @@ describe('JSONTransformer:', () => {
           },
         ],
       });
+    });
+
+    it('should unwrap an unsupported mark with its originalValue', () => {
+      const { editorView } = editor(
+        doc(
+          p(
+            unsupportedMark({ originalValue: { type: 'em' } })(
+              'Unsupported Text',
+            ),
+          ),
+        ),
+      );
+
+      const expected = {
+        version: 1,
+        type: 'doc',
+        content: [
+          {
+            type: 'paragraph',
+            content: [
+              {
+                type: 'text',
+                text: 'Unsupported Text',
+                marks: [{ type: 'em' }],
+              },
+            ],
+          },
+        ],
+      };
+
+      expect(toJSON(editorView.state.doc)).toEqual(expected);
     });
 
     [

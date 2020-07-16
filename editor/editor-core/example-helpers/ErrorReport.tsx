@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { colors } from '@atlaskit/theme';
+import { N30 } from '@atlaskit/theme/colors';
 import { ADFEntity, ValidationError } from '@atlaskit/adf-utils';
 
 export type Error = {
@@ -22,7 +22,7 @@ const ReportContainer = styled.div`
 const StyledReportEntry = styled.div`
   flex: 1;
   padding: 1em;
-  border-right: 1px solid ${colors.N30};
+  border-right: 1px solid ${N30};
 `;
 
 const ReportEntry = ({ error }: { error: Error }) => (

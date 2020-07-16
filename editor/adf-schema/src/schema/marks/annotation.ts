@@ -68,7 +68,18 @@ export const annotation: MarkSpec = {
   parseDOM: [
     {
       tag: 'span[data-mark-type="annotation"]',
-      skip: true,
+      mark: 'annotation',
+      getAttrs: domNode => {
+        const dom = domNode as HTMLElement;
+        let attrs: AnnotationMarkAttributes = {
+          id: dom.getAttribute('data-id') as string,
+          annotationType: dom.getAttribute(
+            'data-mark-annotation-type',
+          ) as AnnotationTypes,
+        };
+
+        return attrs;
+      },
     },
   ],
   toDOM(node) {

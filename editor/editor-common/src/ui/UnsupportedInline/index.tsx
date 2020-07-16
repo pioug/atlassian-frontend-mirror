@@ -2,14 +2,15 @@ import React from 'react';
 
 import styled from 'styled-components';
 
-import { borderRadius, colors, fontSize } from '@atlaskit/theme';
+import { N30, N50 } from '@atlaskit/theme/colors';
+import { borderRadius, fontSize } from '@atlaskit/theme/constants';
 
 import { ZERO_WIDTH_SPACE } from '../../utils';
 
 const InlineNode = styled.span`
   align-items: center;
-  background: ${colors.N30};
-  border: 1px dashed ${colors.N50};
+  background: ${N30};
+  border: 1px dashed ${N50};
   border-radius: ${borderRadius()}px;
   box-sizing: border-box;
   cursor: default;
@@ -23,7 +24,7 @@ const InlineNode = styled.span`
   white-space: nowrap;
 
   &.ProseMirror-selectednode {
-    background: ${colors.N50};
+    background: ${N50};
     outline: none;
   }
 `;

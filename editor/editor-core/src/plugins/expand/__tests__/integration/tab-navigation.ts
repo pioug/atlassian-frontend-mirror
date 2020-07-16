@@ -33,7 +33,7 @@ describe('given the gap cursor is on the left of the expand', () => {
       describe('and enter is pressed', () => {
         BrowserTestCase(
           'should collapse the expand',
-          { skip: ['ie', 'edge'] },
+          { skip: ['edge'] },
           async (client: any, testName: string) => {
             const page = await startEditor(client);
             await page.keys('Tab');
@@ -49,7 +49,7 @@ describe('given the gap cursor is on the left of the expand', () => {
       describe('and space is pressed', () => {
         BrowserTestCase(
           'should collapse the expand',
-          { skip: ['ie', 'edge'] },
+          { skip: ['edge'] },
           async (client: any, testName: string) => {
             const page = await startEditor(client);
             await page.keys('Tab');
@@ -67,7 +67,7 @@ describe('given the gap cursor is on the left of the expand', () => {
   describe('when tab is pressed tree times', () => {
     BrowserTestCase(
       'should focus on title',
-      { skip: ['ie', 'edge'] },
+      { skip: ['edge'] },
       async (client: any, testName: string) => {
         const page = await startEditor(client);
         await page.keys('Tab');
@@ -85,7 +85,7 @@ describe('given the gap cursor is on the left of the expand', () => {
     describe('when expand is opened', () => {
       BrowserTestCase(
         'should focus on content',
-        { skip: ['ie', 'edge'] },
+        { skip: ['edge'] },
         async (client: any, testName: string) => {
           const page = await startEditor(client);
           await page.keys('Tab');
@@ -103,7 +103,7 @@ describe('given the gap cursor is on the left of the expand', () => {
     describe('when expand is closed', () => {
       BrowserTestCase(
         'should focus outside',
-        { skip: ['ie', 'edge'] },
+        { skip: ['edge'] },
         async (client: any, testName: string) => {
           const page = await startEditor(client, true);
           await page.keys('Tab');

@@ -2,7 +2,8 @@ import { ComponentClass, HTMLAttributes } from 'react';
 
 import styled from 'styled-components';
 
-import { borderRadius, colors, gridSize } from '@atlaskit/theme';
+import { borderRadius, gridSize } from '@atlaskit/theme/constants';
+import * as colors from '@atlaskit/theme/colors';
 
 export const ShowMoreWrapper: ComponentClass<HTMLAttributes<{}>> = styled.div`
   display: flex;

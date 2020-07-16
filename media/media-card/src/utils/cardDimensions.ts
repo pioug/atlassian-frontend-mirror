@@ -12,7 +12,7 @@ export const defaultImageCardDimensions = {
   height: 125,
 };
 
-export const defaultHorizontalCardDimensions: CardDimensions = {
+export const defaultHorizontalCardDimensions = {
   width: 435,
   height: 125,
 };
@@ -111,7 +111,7 @@ export const getCardMaxWidth = (appearance?: CardAppearance) => {
 
 export const getDefaultCardDimensions = (
   appearance?: CardAppearance,
-): CardDimensions => {
+): Required<CardDimensions> => {
   if (appearance === 'image') {
     return defaultImageCardDimensions;
   }

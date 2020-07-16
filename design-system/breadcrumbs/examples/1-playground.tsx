@@ -89,7 +89,9 @@ export default class BreadcrumbsExpand extends React.Component<{}, State> {
             defaultValue={selectOptions[3]}
             options={selectOptions}
             onChange={option => {
-              if (!option) return;
+              if (!option) {
+                return;
+              }
 
               this.setState({ itemsToShow: (option as Option).value });
             }}

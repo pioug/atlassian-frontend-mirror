@@ -54,6 +54,7 @@ const ignoredMarks = [
   'emoji-query',
   'mention-query',
   'type-ahead-query',
+  'unsupported-mark',
   '__tests__',
 ];
 

@@ -2,21 +2,28 @@ import { EditorPlugin } from '../../types';
 import { createPlugin } from './pm-plugins/main';
 import { CardOptions } from '../card';
 
+export type PastePluginOptions = {
+  cardOptions?: CardOptions;
+  sanitizePrivateContent?: boolean;
+};
+
 const pastePlugin = ({
   cardOptions,
   sanitizePrivateContent,
-}: {
-  cardOptions?: CardOptions;
-  sanitizePrivateContent?: boolean;
-}): EditorPlugin => ({
+}: PastePluginOptions): EditorPlugin => ({
   name: 'paste',
 
   pmPlugins() {
     return [
       {
         name: 'paste',
-        plugin: ({ schema }) =>
-          createPlugin(schema, cardOptions, sanitizePrivateContent),
+        plugin: ({ schema, providerFactory }) =>
+          createPlugin(
+            schema,
+            cardOptions,
+            sanitizePrivateContent,
+            providerFactory,
+          ),
       },
     ];
   },

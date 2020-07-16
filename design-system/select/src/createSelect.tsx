@@ -54,11 +54,15 @@ export default function createSelect(WrappedComponent: ComponentType<any>) {
     };
 
     focus() {
-      if (this.select) this.select.focus();
+      if (this.select) {
+        this.select.focus();
+      }
     }
 
     blur() {
-      if (this.select) this.select.blur();
+      if (this.select) {
+        this.select.blur();
+      }
     }
 
     onSelectRef = (ref: Select<Option>) => {

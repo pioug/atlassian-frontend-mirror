@@ -21,7 +21,7 @@ import {
 
 BrowserTestCase(
   'mention-1.ts: user can see mention inside blockquote',
-  { skip: ['safari', 'ie', 'edge'] },
+  { skip: ['safari', 'edge'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
     await mountEditor(page, {
@@ -42,7 +42,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'mention-1.ts: user can see mention inside bulletList',
-  { skip: ['safari', 'ie', 'edge'] },
+  { skip: ['safari', 'edge'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
     await mountEditor(page, {
@@ -61,7 +61,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'mention-1.ts: user can see mention inside orderedList',
-  { skip: ['safari', 'ie', 'edge'] },
+  { skip: ['safari', 'edge'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
     await mountEditor(page, {
@@ -80,7 +80,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'mention-1.ts: user can see mention inside decision',
-  { skip: ['ie', 'safari', 'edge'] },
+  { skip: ['safari', 'edge'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
     await mountEditor(page, {
@@ -97,7 +97,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'mention-1.ts: user can see mention inside action',
-  { skip: ['ie', 'safari', 'edge'] },
+  { skip: ['safari', 'edge'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
     await mountEditor(page, {
@@ -114,7 +114,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'mention-1.ts: user can navigate picker using keyboard',
-  { skip: ['ie', 'safari', 'edge'] },
+  { skip: ['safari', 'edge'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
     await mountEditor(page, {

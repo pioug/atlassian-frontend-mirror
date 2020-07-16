@@ -7,6 +7,7 @@ import {
 
 import { getPosHandlerNode, getPosHandler } from '../../../nodeviews/';
 import { selectNode } from '../../../utils/commands';
+import { createSelectionAwareClickHandler } from '../../../nodeviews/utils';
 
 const toDOM = (): DOMOutputSpec => [
   'div',
@@ -21,6 +22,8 @@ export class LayoutSectionNodeView implements NodeView {
   contentDOM?: HTMLElement;
   getPos: getPosHandlerNode;
   pos: number;
+  clickHandler?: (event: Event) => false | void;
+  clickCleanup?: () => void;
 
   constructor(node: PmNode, view: EditorView, getPos: getPosHandlerNode) {
     const { dom, contentDOM } = DOMSerializer.renderSpec(document, toDOM());
@@ -35,7 +38,13 @@ export class LayoutSectionNodeView implements NodeView {
 
   private initHandlers() {
     if (this.dom) {
-      this.dom.addEventListener('click', this.handleClick);
+      const { handler, cleanup } = createSelectionAwareClickHandler(
+        this.dom,
+        this.handleClick,
+      );
+      this.clickHandler = handler;
+      this.clickCleanup = cleanup;
+      this.dom.addEventListener('click', handler);
     }
   }
 
@@ -54,7 +63,9 @@ export class LayoutSectionNodeView implements NodeView {
 
   destroy() {
     if (this.dom) {
-      this.dom.removeEventListener('click', this.handleClick);
+      this.clickHandler &&
+        this.dom.removeEventListener('click', this.clickHandler);
+      this.clickCleanup && this.clickCleanup();
     }
 
     this.dom = undefined;

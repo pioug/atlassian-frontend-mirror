@@ -1,5 +1,11 @@
 import VideoSnapshot from 'video-snapshot';
-import { FileState, getMediaTypeFromMimeType } from '@atlaskit/media-client';
+import {
+  FileState,
+  getMediaTypeFromMimeType,
+  isMimeTypeSupportedByBrowser,
+  isPreviewableFileState,
+  isErrorFileState,
+} from '@atlaskit/media-client';
 import { getOrientation } from '@atlaskit/media-ui';
 
 export interface FilePreview {
@@ -8,16 +14,26 @@ export interface FilePreview {
 }
 
 export const getFilePreviewFromFileState = async (
-  state: FileState,
+  fileState: FileState,
 ): Promise<FilePreview> => {
+  /**
+   * We don't await on local preview for these following use cases:
+   * - fileState is in error
+   * - fileState isn't previewable
+   * - media hasn't been processed and isn't natively supported by browser
+   * - media has failed processing
+   */
   if (
-    state.status === 'error' ||
-    state.status === 'failed-processing' ||
-    !state.preview
+    isErrorFileState(fileState) ||
+    !isPreviewableFileState(fileState) ||
+    (!isMimeTypeSupportedByBrowser(fileState.mimeType) &&
+      fileState.status !== 'processed') ||
+    ['error', 'failed-processing'].includes(fileState.status)
   ) {
     return {};
   }
-  const { value } = await state.preview;
+
+  const { value } = await fileState.preview;
   if (value instanceof Blob) {
     const { type } = value;
     const mediaType = getMediaTypeFromMimeType(type);

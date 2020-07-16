@@ -45,7 +45,9 @@ function getJSXAttributesByName(
 function updateRef(j: core.JSCodeshift, source: any) {
   const defaultSpecifier = getDefaultSpecifier(j, source, '@atlaskit/range');
 
-  if (!defaultSpecifier) return;
+  if (!defaultSpecifier) {
+    return;
+  }
 
   source
     .findJSXElements(defaultSpecifier)

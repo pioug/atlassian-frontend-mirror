@@ -4,9 +4,11 @@ import {
   p,
   code,
   strong,
+  emoji,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import textFormattingCursorPlugin from '../../../../plugins/text-formatting/pm-plugins/cursor';
 import { EditorView } from 'prosemirror-view';
+import { ProviderFactory } from '@atlaskit/editor-common';
 
 type HandleClick = (
   view: EditorView,
@@ -19,7 +21,16 @@ let handleClick: HandleClick = textFormattingCursorPlugin.spec!.props!
 describe('text-formatting', () => {
   const createEditor = createEditorFactory();
 
-  const editor = (doc: any) => createEditor({ doc });
+  const editor = (doc: any) =>
+    createEditor({
+      doc,
+      editorProps: {
+        emojiProvider: new Promise(() => {}),
+      },
+      providerFactory: ProviderFactory.create({
+        emojiProvider: new Promise(() => {}),
+      }),
+    });
 
   describe('cursor', () => {
     describe('inline-code cursor handling', () => {
@@ -82,6 +93,29 @@ describe('text-formatting', () => {
             expect(handleClick(editorView, click, mouseEvent)).toBe(true);
             expect(editorView.state.storedMarks).toEqual([]);
           });
+        });
+      });
+      describe('when clicking on an adjacent emoji element', () => {
+        it('should not add the code mark to the selection', () => {
+          const {
+            editorView,
+            refs: { click },
+          } = editor(
+            doc(
+              p(
+                'start',
+                code('code'),
+                '{click}',
+                emoji({ shortName: ':flag_bo:', text: '🇧🇴' })(),
+              ),
+            ),
+          );
+          const outsideNodeDOM = editorView.domAtPos(click + 1).node;
+          const mouseEvent: any = { target: outsideNodeDOM } as Partial<
+            MouseEvent
+          >;
+          expect(handleClick(editorView, click, mouseEvent)).toBe(false);
+          expect(editorView.state.storedMarks).toEqual(null);
         });
       });
     });

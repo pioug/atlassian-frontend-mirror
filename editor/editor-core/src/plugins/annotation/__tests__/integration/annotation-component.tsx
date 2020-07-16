@@ -20,7 +20,7 @@ const shortcutMac = [KEY.META, KEY.ALT, 'c', KEY.META, KEY.ALT];
 
 BrowserTestCase(
   `can open create dialogue from toolbar`,
-  { skip: ['ie', 'edge'] },
+  { skip: ['edge'] },
   async (client: BrowserObject) => {
     const page = await goToEditorTestingExample(client);
 
@@ -40,7 +40,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   `can create an annotation from the component`,
-  { skip: ['ie', 'edge'] },
+  { skip: ['edge'] },
   async (client: BrowserObject, testName: string) => {
     const page = await goToEditorTestingExample(client);
 
@@ -65,7 +65,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   `can create annotation dialogue from keyboard shortcut`,
-  { skip: ['ie', 'edge'] },
+  { skip: ['edge'] },
   async (client: BrowserObject) => {
     const page = await goToEditorTestingExample(client);
 
@@ -85,7 +85,7 @@ BrowserTestCase(
 );
 BrowserTestCase(
   `cannot create annotation dialogue from keyboard shortcut with inline selection`,
-  { skip: ['ie', 'edge'] },
+  { skip: ['edge'] },
   async (client: BrowserObject) => {
     const page = await goToEditorTestingExample(client);
 

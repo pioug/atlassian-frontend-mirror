@@ -1,5 +1,5 @@
 import { KeyboardEvent } from 'react';
-import { ActivityProvider, ActivityItem } from '@atlaskit/activity';
+import { ActivityProvider, ActivityItem } from '@atlaskit/activity-provider';
 import { INPUT_METHOD } from '../../plugins/analytics';
 
 export type RecentSearchInputTypes =

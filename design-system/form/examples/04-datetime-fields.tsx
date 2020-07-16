@@ -23,11 +23,12 @@ const requiredValidator = (
   key: string,
   errors?: Record<string, string>,
 ) => {
-  if (!data[key])
+  if (!data[key]) {
     return {
       ...errors,
       [key]: `no ${key} value selected, please select a value.`,
     };
+  }
 
   return errors;
 };

@@ -81,7 +81,9 @@ export default class ErrorBoundary extends React.Component<
     const { contextIdentifierProvider } = this.props;
     if (contextIdentifierProvider) {
       const context = await contextIdentifierProvider;
-      if (context.product) return context.product;
+      if (context.product) {
+        return context.product;
+      }
     }
     return 'atlaskit';
   };

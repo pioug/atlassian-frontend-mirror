@@ -13,7 +13,7 @@ import {
 
 BrowserTestCase(
   'inside-table.ts: Insert panel into table, add text, change panel type',
-  { skip: ['edge', 'ie'] },
+  { skip: ['edge'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
     await mountEditor(page, {

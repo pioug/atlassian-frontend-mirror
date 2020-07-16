@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import Button from '@atlaskit/button';
 import UndoIcon from '@atlaskit/icon/glyph/editor/undo';
-import { typography } from '@atlaskit/theme';
+import { h400 } from '@atlaskit/theme/typography';
 
 import { SpotlightCard } from '../src';
 
@@ -22,7 +22,7 @@ const Wrapper = styled.div`
 `;
 
 const Semibold = styled.p`
-  ${typography.h400};
+  ${h400};
   color: inherit;
 `;
 

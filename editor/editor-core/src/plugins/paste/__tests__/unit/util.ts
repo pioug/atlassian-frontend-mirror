@@ -1,10 +1,11 @@
-import { Slice } from 'prosemirror-model';
+import { Slice, Mark } from 'prosemirror-model';
 import {
   doc,
-  em,
   emoji,
   p,
   strong,
+  underline,
+  annotation,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 
@@ -15,6 +16,7 @@ import {
   isSingleLine,
   htmlContainsSingleFile,
 } from '../../util';
+import { AnnotationTypes } from '@atlaskit/adf-schema';
 
 describe('paste util', () => {
   describe('isSingleLine()', () => {
@@ -95,6 +97,16 @@ describe('paste util', () => {
   });
 
   describe('applyTextMarksToSlice()', () => {
+    const {
+      marks: {
+        code,
+        em: emMark,
+        strong: strongMark,
+        annotation: annotationMark,
+        link: linkMark,
+      },
+    } = defaultSchema;
+
     it('should return input slice when no marks', () => {
       const json = toJSON(doc(p('some text'))(defaultSchema));
       const slice = Slice.fromJSON(defaultSchema, {
@@ -106,50 +118,241 @@ describe('paste util', () => {
       expect(applyTextMarksToSlice(defaultSchema, [])(slice)).toEqual(slice);
     });
 
-    it('should return new slice when marks', () => {
-      const {
-        marks: { code },
-      } = defaultSchema;
-      const json = toJSON(doc(p('some text'))(defaultSchema));
-      const slice = Slice.fromJSON(defaultSchema, {
-        content: json.content,
-        openStart: 1,
-        openEnd: 1,
+    describe('returns new slice with applied marks, and preserves existing marks from input slice', () => {
+      function testApplyTextMarksToSlice({
+        testCase,
+        content,
+        newMarks,
+        expectedContent,
+      }: {
+        testCase: string;
+        content: any;
+        newMarks: Mark<any>[];
+        expectedContent: any[];
+      }) {
+        it(testCase, () => {
+          const slice = Slice.fromJSON(defaultSchema, {
+            content: content,
+            openStart: 1,
+            openEnd: 1,
+          });
+          const transformedSlice = applyTextMarksToSlice(
+            defaultSchema,
+            newMarks,
+          )(slice);
+          expect(transformedSlice).toBeTruthy();
+          expect(transformedSlice).not.toBe(slice);
+          expect(transformedSlice.toJSON()).toEqual({
+            content: expectedContent,
+            openStart: 1,
+            openEnd: 1,
+          });
+        });
+      }
+
+      testApplyTextMarksToSlice({
+        testCase: 'applies code mark to plain text',
+        content: toJSON(doc(p('some text'))(defaultSchema)).content,
+        newMarks: [code.create()],
+        expectedContent: [
+          {
+            content: [
+              {
+                marks: [
+                  {
+                    type: 'code',
+                  },
+                ],
+                text: 'some text',
+                type: 'text',
+              },
+            ],
+            type: 'paragraph',
+          },
+        ],
       });
 
-      const transformedSlice = applyTextMarksToSlice(defaultSchema, [
-        code.create(),
-      ])(slice);
-
-      expect(transformedSlice).not.toBe(slice);
-    });
-
-    it('should apply all marks to slice', () => {
-      const {
-        marks: { em: emMark, strong: strongMark },
-      } = defaultSchema;
-
-      const json = toJSON(doc(p('some text'))(defaultSchema));
-      const slice = Slice.fromJSON(defaultSchema, {
-        content: json.content,
-        openStart: 1,
-        openEnd: 1,
+      testApplyTextMarksToSlice({
+        testCase:
+          'strips off existing marks when applies code mark to a slice with formatted text',
+        content: toJSON(doc(p(underline('some text')))(defaultSchema)).content,
+        newMarks: [code.create()],
+        expectedContent: [
+          {
+            content: [
+              {
+                marks: [
+                  {
+                    type: 'code',
+                  },
+                ],
+                text: 'some text',
+                type: 'text',
+              },
+            ],
+            type: 'paragraph',
+          },
+        ],
       });
 
-      const transformedSlice = applyTextMarksToSlice(defaultSchema, [
-        emMark.create(),
-        strongMark.create(),
-      ])(slice);
+      testApplyTextMarksToSlice({
+        testCase: 'strips off link marks from applied marks',
+        content: toJSON(doc(p('some text'))(defaultSchema)).content,
+        newMarks: [
+          strongMark.create(),
+          linkMark.create({
+            href: 'http://www.atlassian.com',
+          }),
+        ],
+        expectedContent: [
+          {
+            content: [
+              {
+                marks: [
+                  {
+                    type: 'strong',
+                  },
+                ],
+                text: 'some text',
+                type: 'text',
+              },
+            ],
+            type: 'paragraph',
+          },
+        ],
+      });
 
-      expect(transformedSlice).toBeTruthy();
-      expect(transformedSlice).toEqual(
-        Slice.fromJSON(defaultSchema, {
-          content: toJSON(doc(p(em(strong('some text'))))(defaultSchema))
-            .content,
-          openStart: 1,
-          openEnd: 1,
-        }),
-      );
+      testApplyTextMarksToSlice({
+        testCase:
+          'applies new formatting marks, while clears marks from the pasted slice',
+        content: toJSON(doc(p(underline('some text')))(defaultSchema)).content,
+        newMarks: [emMark.create(), strongMark.create()],
+        expectedContent: [
+          {
+            type: 'paragraph',
+            content: [
+              {
+                type: 'text',
+                marks: [{ type: 'em' }, { type: 'strong' }],
+                text: 'some text',
+              },
+            ],
+          },
+        ],
+      });
+
+      testApplyTextMarksToSlice({
+        testCase:
+          'preserves annotation marks in a slice, while strips off text formatting',
+        content: toJSON(
+          doc(
+            p(
+              annotation({
+                id: 'annotation-id',
+                annotationType: AnnotationTypes.INLINE_COMMENT,
+              })('This is a ', strong('formatted'), ' annotation'),
+            ),
+          )(defaultSchema),
+        ).content,
+        newMarks: [emMark.create()],
+        expectedContent: [
+          {
+            type: 'paragraph',
+            content: [
+              {
+                type: 'text',
+                marks: [
+                  {
+                    type: 'annotation',
+                    attrs: {
+                      id: 'annotation-id',
+                      annotationType: 'inlineComment',
+                    },
+                  },
+                  { type: 'em' },
+                ],
+                text: 'This is a ',
+              },
+              {
+                type: 'text',
+                marks: [
+                  {
+                    type: 'annotation',
+                    attrs: {
+                      id: 'annotation-id',
+                      annotationType: 'inlineComment',
+                    },
+                  },
+                  { type: 'em' },
+                ],
+                text: 'formatted',
+              },
+              {
+                type: 'text',
+                marks: [
+                  {
+                    type: 'annotation',
+                    attrs: {
+                      id: 'annotation-id',
+                      annotationType: 'inlineComment',
+                    },
+                  },
+                  { type: 'em' },
+                ],
+                text: ' annotation',
+              },
+            ],
+          },
+        ],
+      });
+
+      testApplyTextMarksToSlice({
+        testCase:
+          'adds new annotation marks to existing annotation marks in a slice',
+        content: toJSON(
+          doc(
+            p(
+              annotation({
+                id: 'annotation-id',
+                annotationType: AnnotationTypes.INLINE_COMMENT,
+              })('This is an annotation'),
+            ),
+          )(defaultSchema),
+        ).content,
+        newMarks: [
+          annotationMark.create({
+            id: 'annotation-new-id',
+            annotationType: AnnotationTypes.INLINE_COMMENT,
+          }),
+        ],
+        expectedContent: [
+          {
+            type: 'paragraph',
+            content: [
+              {
+                type: 'text',
+                marks: [
+                  {
+                    type: 'annotation',
+                    attrs: {
+                      id: 'annotation-id',
+                      annotationType: 'inlineComment',
+                    },
+                  },
+                  {
+                    type: 'annotation',
+                    attrs: {
+                      id: 'annotation-new-id',
+                      annotationType: 'inlineComment',
+                    },
+                  },
+                ],
+                text: 'This is an annotation',
+              },
+            ],
+          },
+        ],
+      });
     });
   });
 });

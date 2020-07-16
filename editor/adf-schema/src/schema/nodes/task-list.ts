@@ -29,6 +29,7 @@ export const taskList: NodeSpec = {
   group: 'block',
   defining: true,
   content: 'taskItem+ (taskItem|taskList)*',
+  marks: 'unsupportedMark',
   attrs: {
     localId: { default: '' },
   },

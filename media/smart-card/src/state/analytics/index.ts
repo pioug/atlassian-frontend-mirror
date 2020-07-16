@@ -59,10 +59,20 @@ export const useSmartLinkAnalytics = (dispatchAnalytics: AnalyticsHandler) => {
 
   const operational = useMemo(
     () => ({
-      resolvedEvent: (id: string, definitionId?: string) =>
-        dispatchAnalytics(resolvedEvent(id, definitionId)),
-      unresolvedEvent: (id: string, status: string, definitionId?: string) =>
-        dispatchAnalytics(unresolvedEvent(id, status, definitionId)),
+      resolvedEvent: (
+        id: string,
+        definitionId?: string,
+        resourceType?: string,
+      ) => dispatchAnalytics(resolvedEvent(id, definitionId, resourceType)),
+      unresolvedEvent: (
+        id: string,
+        status: string,
+        definitionId?: string,
+        resourceType?: string,
+      ) =>
+        dispatchAnalytics(
+          unresolvedEvent(id, status, definitionId, resourceType),
+        ),
       invokeSucceededEvent: (
         id: string,
         providerKey: string,
@@ -90,8 +100,12 @@ export const useSmartLinkAnalytics = (dispatchAnalytics: AnalyticsHandler) => {
         id: string,
         status: CardType,
         definitionId?: string,
+        resourceType?: string,
         error?: APIError,
-      ) => dispatchAnalytics(instrumentEvent(id, status, definitionId, error)),
+      ) =>
+        dispatchAnalytics(
+          instrumentEvent(id, status, definitionId, resourceType, error),
+        ),
     }),
     [dispatchAnalytics],
   );

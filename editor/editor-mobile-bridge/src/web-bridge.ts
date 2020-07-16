@@ -3,7 +3,7 @@ import { DocumentReflowDetector } from './document-reflow-detector';
 
 type Padding = { top: number; right: number; bottom: number; left: number };
 
-export const defaultPadding = [32, 16, 32, 16];
+export const defaultPadding = [16, 16, 0, 16];
 
 export default abstract class WebBridge {
   private reflowDetector = new DocumentReflowDetector({
@@ -29,8 +29,9 @@ export default abstract class WebBridge {
   ) {
     let root = this.getRootElement();
     if (root) {
-      root.style.padding = `${top}px ${right}px ${bottom}px ${left}px`;
-      this.padding = { top, right, bottom, left };
+      // bottom introduces a non-clickable area, so remove it
+      root.style.padding = `${top}px ${right}px 0px ${left}px`;
+      this.padding = { top, right, bottom: 0, left };
     }
   }
 

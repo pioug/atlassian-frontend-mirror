@@ -1,5 +1,5 @@
 import React from 'react';
-import { ActivityItem } from '@atlaskit/activity';
+import { ActivityItem } from '@atlaskit/activity-provider';
 import { ProviderFactory, ErrorMessage } from '@atlaskit/editor-common';
 import { activityProviderFactory } from '@atlaskit/editor-test-helpers/activity-provider';
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';

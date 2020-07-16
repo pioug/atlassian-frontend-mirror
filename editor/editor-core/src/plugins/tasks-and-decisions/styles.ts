@@ -12,6 +12,10 @@ import { SelectionStyle } from '../selection/types';
 import { getSelectionStyles } from '../selection/utils';
 
 export const taskDecisionStyles = css`
+  [data-decision-wrapper] {
+    cursor: pointer;
+  }
+
   .${akEditorSelectedNodeClassName} > [data-decision-wrapper] {
     ${getSelectionStyles([SelectionStyle.BoxShadow, SelectionStyle.Blanket])}
   }

@@ -26,6 +26,262 @@ export const exampleDocumentWithComments = {
       ],
     },
     {
+      type: 'table',
+      attrs: {
+        isNumberColumnEnabled: false,
+        layout: 'default',
+      },
+      content: [
+        {
+          type: 'tableRow',
+          content: [
+            {
+              type: 'tableHeader',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+            {
+              type: 'tableHeader',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+            {
+              type: 'tableHeader',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          type: 'tableRow',
+          content: [
+            {
+              type: 'tableCell',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+            {
+              type: 'tableCell',
+              attrs: {},
+              content: [
+                {
+                  type: 'bulletList',
+                  content: [
+                    {
+                      type: 'listItem',
+                      content: [
+                        {
+                          type: 'paragraph',
+                          content: [
+                            {
+                              type: 'text',
+                              text: 'The Best Singers',
+                            },
+                          ],
+                        },
+                        {
+                          type: 'bulletList',
+                          content: [
+                            {
+                              type: 'listItem',
+                              content: [
+                                {
+                                  type: 'paragraph',
+                                  content: [
+                                    {
+                                      type: 'text',
+                                      text: 'Women',
+                                    },
+                                  ],
+                                },
+                                {
+                                  type: 'bulletList',
+                                  content: [
+                                    {
+                                      type: 'listItem',
+                                      content: [
+                                        {
+                                          type: 'paragraph',
+                                          content: [
+                                            {
+                                              type: 'text',
+                                              text: 'Nina Oliveira',
+                                            },
+                                          ],
+                                        },
+                                      ],
+                                    },
+                                    {
+                                      type: 'listItem',
+                                      content: [
+                                        {
+                                          type: 'paragraph',
+                                          content: [
+                                            {
+                                              type: 'text',
+                                              text: 'Elza Soares',
+                                            },
+                                          ],
+                                        },
+                                      ],
+                                    },
+                                    {
+                                      type: 'listItem',
+                                      content: [
+                                        {
+                                          type: 'paragraph',
+                                          content: [
+                                            {
+                                              type: 'text',
+                                              text: 'Dona Onete',
+                                            },
+                                          ],
+                                        },
+                                      ],
+                                    },
+                                  ],
+                                },
+                              ],
+                            },
+                            {
+                              type: 'listItem',
+                              content: [
+                                {
+                                  type: 'paragraph',
+                                  content: [
+                                    {
+                                      type: 'text',
+                                      text: 'Men',
+                                    },
+                                  ],
+                                },
+                                {
+                                  type: 'bulletList',
+                                  content: [
+                                    {
+                                      type: 'listItem',
+                                      content: [
+                                        {
+                                          type: 'paragraph',
+                                          content: [
+                                            {
+                                              type: 'text',
+                                              text: 'Tim Maia',
+                                            },
+                                          ],
+                                        },
+                                      ],
+                                    },
+                                    {
+                                      type: 'listItem',
+                                      content: [
+                                        {
+                                          type: 'paragraph',
+                                          content: [
+                                            {
+                                              type: 'text',
+                                              text: 'MCs Racionais',
+                                            },
+                                          ],
+                                        },
+                                      ],
+                                    },
+                                    {
+                                      type: 'listItem',
+                                      content: [
+                                        {
+                                          type: 'paragraph',
+                                          content: [
+                                            {
+                                              type: 'text',
+                                              text: 'Jorge Ben',
+                                            },
+                                          ],
+                                        },
+                                      ],
+                                    },
+                                  ],
+                                },
+                              ],
+                            },
+                          ],
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              type: 'tableCell',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          type: 'tableRow',
+          content: [
+            {
+              type: 'tableCell',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+            {
+              type: 'tableCell',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+            {
+              type: 'tableCell',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    {
       type: 'paragraph',
       content: [
         {

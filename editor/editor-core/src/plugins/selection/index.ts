@@ -12,7 +12,8 @@ export const selectionPlugin = (
     return [
       {
         name: 'selection',
-        plugin: ({ dispatch }) => createPlugin(dispatch, options),
+        plugin: ({ dispatch, dispatchAnalyticsEvent }) =>
+          createPlugin(dispatch, dispatchAnalyticsEvent, options),
       },
     ];
   },

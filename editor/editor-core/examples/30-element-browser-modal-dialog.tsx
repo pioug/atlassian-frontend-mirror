@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from 'react';
+import { IntlProvider } from 'react-intl';
 import styled from 'styled-components';
 import {
   AnalyticsEventPayload,
@@ -37,7 +38,7 @@ export default () => {
               width="x-large"
               autoFocus={false}
               components={{
-                Body: RenderElementBrowser,
+                Body: RenderElementBrowserInModal,
               }}
             />
           )}
@@ -46,14 +47,16 @@ export default () => {
           onClose={() => setInlineModalVisibility(false)}
           content={
             <InlineBrowserWrapper>
-              <ElementBrowser
-                categories={categoriesList}
-                quickInsertProvider={quickInsertProvider}
-                showSearch={true}
-                showCategories={false}
-                mode="inline"
-                onSelectItem={onSelectItem}
-              />
+              <IntlProvider locale={'en'}>
+                <ElementBrowser
+                  categories={categoriesList}
+                  quickInsertProvider={quickInsertProvider}
+                  showSearch={true}
+                  showCategories={false}
+                  mode="inline"
+                  onSelectItem={onSelectItem}
+                />
+              </IntlProvider>
             </InlineBrowserWrapper>
           }
           isOpen={showInlineModal}
@@ -74,17 +77,19 @@ const onSelectItem = (item: QuickInsertItem) => {
   console.log('Selected item ', item);
 };
 
-const RenderElementBrowser = () => (
+const RenderElementBrowserInModal = () => (
   <ModalBrowserWrapper>
-    <ElementBrowser
-      categories={categoriesList}
-      quickInsertProvider={quickInsertProvider}
-      showSearch={true}
-      showCategories={true}
-      mode="full"
-      defaultCategory="all"
-      onSelectItem={onSelectItem}
-    />
+    <IntlProvider locale={'en'}>
+      <ElementBrowser
+        categories={categoriesList}
+        quickInsertProvider={quickInsertProvider}
+        showSearch={true}
+        showCategories={true}
+        mode="full"
+        defaultCategory="all"
+        onSelectItem={onSelectItem}
+      />
+    </IntlProvider>
   </ModalBrowserWrapper>
 );
 

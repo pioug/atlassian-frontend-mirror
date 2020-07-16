@@ -22,7 +22,7 @@ import {
 // There is no positionDoubleClick on firefox and edge
 BrowserTestCase(
   'Should even columns on double click on resize handle when table is selected',
-  { skip: ['ie', 'safari', 'firefox', 'edge'] },
+  { skip: ['safari', 'firefox', 'edge'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
 
@@ -45,7 +45,7 @@ BrowserTestCase(
 // There is no positionDoubleClick on firefox and edge
 BrowserTestCase(
   'Should even columns and remain overflown on double click on resize handle when table is selected',
-  { skip: ['ie', 'safari', 'firefox', 'edge'] },
+  { skip: ['safari', 'firefox', 'edge'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
 

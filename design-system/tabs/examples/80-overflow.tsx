@@ -2,7 +2,7 @@ import React from 'react';
 
 import Lorem from 'react-lorem-component';
 
-import { colors } from '@atlaskit/theme';
+import { N100 } from '@atlaskit/theme/colors';
 
 import Tabs from '../src';
 
@@ -11,7 +11,7 @@ export default () => (
     style={{
       height: 200,
       margin: '16px auto',
-      border: `1px dashed ${colors.N100}`,
+      border: `1px dashed ${N100}`,
       display: 'flex',
     }}
   >

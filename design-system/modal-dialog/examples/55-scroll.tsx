@@ -54,7 +54,11 @@ export default class ExampleScroll extends React.PureComponent<{}, State> {
     const { isOpen, scrollBehavior } = this.state;
     const actions = [
       { text: 'Close', onClick: this.close },
-      { text: 'Scroll to bottom', onClick: this.scrollToBottom },
+      {
+        text: 'Scroll to bottom',
+        onClick: this.scrollToBottom,
+        testId: 'scrollDown',
+      },
     ];
 
     return (
@@ -102,6 +106,7 @@ export default class ExampleScroll extends React.PureComponent<{}, State> {
               onClose={this.close}
               heading="Modal Title"
               scrollBehavior={scrollBehavior}
+              testId="modal"
             >
               <Lorem count={10} />
               <div

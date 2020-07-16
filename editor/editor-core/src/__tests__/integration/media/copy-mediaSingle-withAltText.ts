@@ -9,7 +9,7 @@ import adf from './_fixtures_/one-image.adf';
 
 BrowserTestCase(
   'Copy paste a media single with alt text properly',
-  { skip: ['edge', 'ie', 'safari'] },
+  { skip: ['edge', 'safari'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
 

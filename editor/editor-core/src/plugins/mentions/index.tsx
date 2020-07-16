@@ -293,6 +293,7 @@ const mentionsPlugin = (options?: MentionPluginOptions): EditorPlugin => {
               item.mention,
               pluginState.mentions,
               typeAheadPluginState.query || '',
+              pluginState.contextIdentifierProvider,
             ),
           );
 
@@ -528,22 +529,18 @@ function mentionPluginFactory(
                     setResults(mentions)(editorView.state, editorView.dispatch);
 
                     let duration: number = 0;
-                    let userIds: string[] | null = null;
+                    let userOrTeamIds: string[] | null = null;
                     let teams: TeamInfoAttrAnalytics[] | null = null;
 
                     if (!isTeamStats(stats)) {
-                      // is from user mention
+                      // is from primary mention endpoint which could be just user mentions or user/team mentions
                       duration = stats && stats.duration;
                       teams = null;
-                      userIds = mentions
-                        .map(mention =>
-                          isTeamType(mention.userType) ? null : mention.id,
-                        )
-                        .filter(m => !!m) as string[];
+                      userOrTeamIds = mentions.map(mention => mention.id);
                     } else {
-                      // is from team mention
+                      // is from dedicated team-only mention endpoint
                       duration = stats && stats.teamMentionDuration;
-                      userIds = null;
+                      userOrTeamIds = null;
                       teams = mentions
                         .map(mention =>
                           isTeamType(mention.userType)
@@ -559,7 +556,7 @@ function mentionPluginFactory(
 
                     const payload = buildTypeAheadRenderedPayload(
                       duration,
-                      userIds,
+                      userOrTeamIds,
                       query || '',
                       teams,
                     );

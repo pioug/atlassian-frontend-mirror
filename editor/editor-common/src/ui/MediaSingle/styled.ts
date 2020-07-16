@@ -48,9 +48,7 @@ export function calcLegacyWidth(
     case 'align-end':
     case 'wrap-right':
     case 'wrap-left':
-      return width > akEditorFullPageMaxWidth / 2
-        ? 'calc(50% - 12px)'
-        : `${width}px`;
+      return width > containerWidth / 2 ? 'calc(50% - 12px)' : `${width}px`;
     case 'wide':
       return calcWideWidth(containerWidth);
     case 'full-width':

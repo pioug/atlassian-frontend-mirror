@@ -403,7 +403,7 @@
                             {
                               "type": "inlineCard",
                               "attrs": {
-                                "url": "https://wikis.atlassian.net/wiki/spaces/"
+                                "url": "https://inlineCardTestUrl"
                               }
                             },
                             {
@@ -432,7 +432,7 @@
                             {
                               "type": "inlineCard",
                               "attrs": {
-                                "url": "https://wikis.atlassian.net/wiki/spaces"
+                                "url": "https://inlineCardTestUrl"
                               }
                             }
                           ]

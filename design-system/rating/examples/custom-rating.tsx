@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { gridSize } from '@atlaskit/theme';
+import { gridSize } from '@atlaskit/theme/constants';
 
 import { Rating, RatingGroup } from '../src';
 

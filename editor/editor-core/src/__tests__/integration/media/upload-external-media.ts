@@ -14,7 +14,7 @@ import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 
 BrowserTestCase(
   'upload-external-media.ts: Uploads external media when pasted',
-  { skip: ['edge', 'ie', 'safari', 'chrome', 'firefox'] },
+  { skip: ['edge', 'safari', 'chrome', 'firefox'] },
   async (client: ConstructorParameters<typeof Page>[0], testCase: string) => {
     const sample = new Page(client);
     await copyToClipboard(

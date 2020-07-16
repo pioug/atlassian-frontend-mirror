@@ -29,7 +29,6 @@ describe('Collab', () => {
       adf,
       appearance: Appearance.fullPage,
       viewport: { width: 1280, height: 600 },
-      // editorProps: { allowFindReplace: true },
       withCollab: true,
     });
 

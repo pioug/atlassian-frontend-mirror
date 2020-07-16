@@ -71,7 +71,9 @@ export default class SpotlightNodeExample extends Component<Object, State> {
           onExit={this.hideSpotlight}
         >
           {(state: string) => {
-            if (state === 'exited') return null;
+            if (state === 'exited') {
+              return null;
+            }
             const base = {
               transition: `opacity ${duration}ms, transform ${duration}ms`,
               marginTop: 20,

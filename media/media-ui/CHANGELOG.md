@@ -1,5 +1,14 @@
 # @atlaskit/media-ui
 
+## 13.0.1
+
+### Patch Changes
+
+- [`cde426961a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cde426961a) - Bumps Avatar and AvatarGroup depenedencies
+- [`7b90a82e88`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7b90a82e88) - Update the elevation to work correctly in Safari and Edge <79 correctly
+- [`8f2f2422a1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8f2f2422a1) - EDM-955: Fix error state height for embeds
+- Updated dependencies
+
 ## 13.0.0
 
 ### Major Changes

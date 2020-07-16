@@ -1,5 +1,11 @@
 # @atlaskit/tag
 
+## 10.0.1
+
+### Patch Changes
+
+- [`ef21264929`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ef21264929) - Export type TagColor from Tag component
+
 ## 10.0.0
 
 ### Major Changes

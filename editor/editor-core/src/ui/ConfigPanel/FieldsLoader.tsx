@@ -1,6 +1,4 @@
-import React from 'react';
-
-import Spinner from '@atlaskit/spinner';
+import React, { useState } from 'react';
 
 import {
   ExtensionManifest,
@@ -47,6 +45,8 @@ export default function FieldsLoader({
     extensionKey,
   ]);
 
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
   const [fields] = useStateFromPromise<FieldDefinition[] | undefined>(
     function getExtensionFields() {
       const fn = getFieldsDefinitionFn(
@@ -55,19 +55,21 @@ export default function FieldsLoader({
       );
 
       if (typeof fn === 'function') {
-        return fn(extensionParameters);
+        return fn(extensionParameters).catch((err: any) => {
+          if (err && typeof err.message === 'string') {
+            setErrorMessage(err.message);
+          }
+          return undefined;
+        });
       }
     },
     [extensionManifest, nodeKey, extensionParameters],
   );
 
-  if (!extensionManifest || !fields) {
-    return <Spinner size="small" />;
-  }
-
   return (
     <ConfigPanel
       extensionManifest={extensionManifest}
+      isLoading={!extensionManifest || (errorMessage === null && !fields)}
       fields={fields}
       parameters={parameters}
       autoSave={autoSave}
@@ -75,6 +77,7 @@ export default function FieldsLoader({
       showHeader={showHeader}
       onChange={onChange}
       onCancel={onCancel}
+      errorMessage={errorMessage}
     />
   );
 }

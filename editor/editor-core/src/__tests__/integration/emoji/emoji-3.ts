@@ -15,7 +15,7 @@ import {
 // safari failure on browserstack
 BrowserTestCase(
   'emoji-3.ts: user can navigate typeahead using keyboard',
-  { skip: ['safari', 'ie', 'edge'] },
+  { skip: ['safari', 'edge'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
     await mountEditor(page, { appearance: 'full-page' });
@@ -37,7 +37,7 @@ BrowserTestCase(
 // issue with safari on browserstack works on local
 BrowserTestCase(
   'emoji-3.ts: should select emoji on return',
-  { skip: ['safari', 'ie', 'edge'] },
+  { skip: ['safari', 'edge'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
     await mountEditor(page, { appearance: 'full-page' });
@@ -57,7 +57,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'emoji-3.ts: should render emoji inside codeblock',
-  { skip: ['safari', 'ie', 'edge'] },
+  { skip: ['safari', 'edge'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
     await mountEditor(page, { appearance: 'full-page' });
@@ -72,7 +72,7 @@ BrowserTestCase(
 // BUG on IE
 BrowserTestCase(
   'emoji-3.ts: should render emoji inside action',
-  { skip: ['safari', 'ie', 'edge'] },
+  { skip: ['safari', 'edge'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
     await mountEditor(page, { appearance: 'full-page' });
@@ -86,7 +86,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'emoji-3.ts: should not show typeahead with text: ',
-  { skip: ['ie', 'edge'] },
+  { skip: ['edge'] },
   async (client: any) => {
     const page = await goToEditorTestingExample(client);
     await mountEditor(page, { appearance: 'full-page' });
@@ -97,7 +97,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'emoji-3.ts: ":<space>" does not show the picker',
-  { skip: ['ie', 'edge'] },
+  { skip: ['edge'] },
   async (client: any) => {
     const page = await goToEditorTestingExample(client);
     await mountEditor(page, { appearance: 'full-page' });

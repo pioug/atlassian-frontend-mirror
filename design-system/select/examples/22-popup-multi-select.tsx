@@ -39,7 +39,9 @@ class MultiPopupSelectExample extends Component<{}, State> {
   }
 
   onChange = (values: ValueType<OptionType>) => {
-    if (!values) return;
+    if (!values) {
+      return;
+    }
 
     this.setState({
       values: values as OptionsType,

@@ -6,8 +6,7 @@ import {
 
 const overflowMenuTriggerSelector =
   '[data-testid="overrides--overflow-menu--trigger"]';
-const overflowMenuContentSelector =
-  '[data-testid="overrides--overflow-menu--content"]';
+const overflowMenuContentSelector = '[data-testid="overrides--overflow-menu"]';
 
 describe('avatar group override snapshots', () => {
   it('should match the snapshot of the customized overflow menu', async () => {

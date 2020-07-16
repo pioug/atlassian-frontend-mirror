@@ -12,13 +12,16 @@ import { messages } from '../../../plugins/insert-block/ui/ToolbarInsertBlock/me
 const linkText1 = 'http://hello.com ';
 const linkText2 = 'FAB-983';
 
+// These tests verify correct beahviour for pages which aren't
+// supported by Smartlinks from the CMD + K menu
+//
 // https://product-fabric.atlassian.net/browse/ED-4162 - Firefox
 // Floating toolbar is not showin up on IE and edge
 [comment, fullpage].forEach(editor => {
   BrowserTestCase(
     `hyperlink-text.ts: Link: edit text to display with ${editor.name} editor`,
     {
-      skip: ['ie', 'edge', 'safari', 'firefox'],
+      skip: ['edge', 'safari', 'firefox'],
     },
     async (client: any, testName: string) => {
       const textToDisplayInput = '[placeholder="Text to display"]';
@@ -54,7 +57,7 @@ const linkText2 = 'FAB-983';
   BrowserTestCase(
     `hyperlink-text.ts: Link:edit with ${editor.name} editor`,
     {
-      skip: ['ie', 'edge', 'safari', 'firefox'],
+      skip: ['edge', 'safari', 'firefox'],
     },
     async (client: any, testName: string) => {
       const textToDisplayInput = '[placeholder="Text to display"]';

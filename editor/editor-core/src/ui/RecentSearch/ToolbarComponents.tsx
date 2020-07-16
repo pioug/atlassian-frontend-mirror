@@ -28,5 +28,5 @@ export const Container = styled.div`
         ? RECENT_SEARCH_WIDTH_IN_PX
         : RECENT_SEARCH_WIDTH_WITHOUT_ITEMS_IN_PX}px;
     `};
-  line-height: 2;
+  line-height: initial;
 `;

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/tabs",
-  "version": "12.0.0",
+  "version": "12.0.1",
   "description": "Tabs are an easy way to organize content by grouping similar information on the same page. This allows content to be viewed without having to navigate away from that page.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

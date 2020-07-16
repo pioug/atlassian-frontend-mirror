@@ -32,7 +32,7 @@ const baseADF = {
 
 BrowserTestCase(
   'copy-mediaGroup.ts: Copies and pastes mediaGroup file card on fullpage',
-  { skip: ['edge', 'ie', 'safari'] },
+  { skip: ['edge', 'safari'] },
   async (client: any, testCase: string) => {
     const page = await goToEditorTestingExample(client);
     await mountEditor(page, {

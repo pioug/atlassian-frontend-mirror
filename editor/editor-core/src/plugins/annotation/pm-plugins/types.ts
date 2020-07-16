@@ -50,6 +50,7 @@ export type InlineCommentAction =
         drafting: boolean;
         inlineComments: InlineCommentMap;
         editorState: EditorState;
+        selectedAnnotations: AnnotationInfo[];
       };
     };
 

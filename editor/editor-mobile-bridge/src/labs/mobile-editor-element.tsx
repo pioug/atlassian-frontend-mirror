@@ -47,7 +47,7 @@ import {
   createQuickInsertProvider,
 } from '../providers';
 import { getEnableQuickInsertValue } from '../query-param-reader';
-import useTranslations from '../editor/useTranslations';
+import useTranslations from '../editor/hooks/use-translations';
 import { useCollabProvider } from '../providers/collab-provider';
 
 // Expose WebBridge instance for use by native side
@@ -74,7 +74,10 @@ const handleAnalyticsEvent = (
   });
 };
 
-const quickInsertProvider = createQuickInsertProvider(bridge.quickInsertItems);
+const quickInsertProvider = createQuickInsertProvider(
+  bridge.quickInsertItems,
+  bridge.allowList,
+);
 
 export default function Editor(props: Props = {}, context: any) {
   const mode = props.mode || 'light';

@@ -10,11 +10,11 @@ export { CardOptions } from './types';
 export const stateKey = new PluginKey('cardPlugin');
 
 const cardPlugin = (
-  options: CardOptions,
-  isMobile?: boolean,
-  fullWidthMode?: boolean,
+  options: CardOptions & {
+    platform: 'mobile' | 'web';
+    fullWidthMode?: boolean;
+  },
 ): EditorPlugin => {
-  const platform = isMobile ? 'mobile' : 'web';
   return {
     name: 'card',
 
@@ -42,13 +42,17 @@ const cardPlugin = (
       return [
         {
           name: 'card',
-          plugin: createPlugin(platform, allowResizing, fullWidthMode),
+          plugin: createPlugin(
+            options.platform,
+            allowResizing,
+            options.fullWidthMode,
+          ),
         },
       ];
     },
 
     pluginsOptions: {
-      floatingToolbar: floatingToolbar(options, platform),
+      floatingToolbar: floatingToolbar(options, options.platform),
     },
   };
 };

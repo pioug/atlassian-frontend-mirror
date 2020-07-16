@@ -55,7 +55,9 @@ const ResizeControl = ({
   const keyboardEventTimeout = useRef<number>();
   const [isGrabAreaFocused, setIsGrabAreaFocused] = useState(false);
 
-  const toggleSideBar = (e?: ReactMouseEvent<HTMLButtonElement>) => {
+  const toggleSideBar = (
+    e?: ReactMouseEvent | ReactKeyboardEvent<HTMLButtonElement>,
+  ) => {
     if (isResizing) {
       return;
     }
@@ -77,7 +79,9 @@ const ResizeControl = ({
   };
 
   const onMouseDown = (event: ReactMouseEvent<HTMLButtonElement>) => {
-    if (isLeftSidebarCollapsed) return;
+    if (isLeftSidebarCollapsed) {
+      return;
+    }
 
     offset.current =
       event.clientX -
@@ -144,7 +148,10 @@ const ResizeControl = ({
   };
 
   const onMouseUp = (event: MouseEvent) => {
-    if (isLeftSidebarCollapsed) return;
+    if (isLeftSidebarCollapsed) {
+      return;
+    }
+
     document.documentElement.removeAttribute(IS_SIDEBAR_DRAGGING);
 
     // If it is dragged to below the threshold,
@@ -207,6 +214,11 @@ const ResizeControl = ({
       key === 'ArrowDown' ||
       key === 'Right' ||
       key === 'Down';
+
+    const isSpaceOrEnter = key === 'Enter' || key === 'Spacebar' || key === ' ';
+    if (isSpaceOrEnter) {
+      toggleSideBar(event);
+    }
 
     if (isLeftOrTopArrow || isRightOrBottomArrow) {
       event.preventDefault(); // prevent content scroll
@@ -295,7 +307,6 @@ const ResizeControl = ({
         onMouseDown={onMouseDown}
         onFocus={onFocus}
         onBlur={onBlur}
-        onClick={toggleSideBar}
         testId={testId && `${testId}-grab-area`}
         isLeftSidebarCollapsed={isLeftSidebarCollapsed}
         disabled={isLeftSidebarCollapsed}

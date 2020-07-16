@@ -28,6 +28,7 @@ import {
   media,
   mediaSingle,
   panel,
+  extension,
   bodiedExtension,
   inlineExtension,
   a as link,
@@ -46,17 +47,27 @@ import {
   hardBreak,
   a,
   inlineCard,
+  annotation,
 } from '@atlaskit/editor-test-helpers/schema-builder';
+import {
+  createFakeExtensionManifest,
+  createFakeAutoConvertModule,
+} from '@atlaskit/editor-test-helpers/extensions';
 
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
-import { MediaSingle } from '@atlaskit/editor-common';
+import {
+  MediaSingle,
+  DefaultExtensionProvider,
+  combineExtensionProviders,
+  ExtensionProvider,
+} from '@atlaskit/editor-common';
 import { EmojiProvider } from '@atlaskit/emoji';
 import {
   emoji as emojiData,
   mention as mentionData,
 } from '@atlaskit/util-data-test';
 import { TextSelection, Transaction } from 'prosemirror-state';
-import { uuid } from '@atlaskit/adf-schema';
+import { uuid, AnnotationTypes } from '@atlaskit/adf-schema';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import macroPlugin, { setMacroProvider } from '../../../macro';
 import { EditorView } from 'prosemirror-view';
@@ -87,7 +98,15 @@ import hyperlinkPlugin from '../../../hyperlink';
 import listPlugin from '../../../lists';
 import codeBlockPlugin from '../../../code-block';
 import textFormattingPlugin from '../../../text-formatting';
+import layoutPlugin from '../../../layout';
 import { flushPromises } from '../../../../__tests__/__helpers/utils';
+import { InlineCommentAnnotationProvider } from '../../../annotation/types';
+import annotationPlugin from '../../../annotation';
+import {
+  InlineCommentPluginState,
+  InlineCommentMap,
+} from '../../../annotation/pm-plugins/types';
+import { inlineCommentPluginKey } from '../../../annotation/utils';
 
 describe('paste plugins', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -100,6 +119,7 @@ describe('paste plugins', () => {
       sanitizePrivateContent?: boolean;
     };
     table?: TablePluginConfig;
+    extensionProvider?: ExtensionProvider;
   }
 
   const editor = (doc: any, pluginsOptions?: PluginsOptions) => {
@@ -110,13 +130,35 @@ describe('paste plugins', () => {
     const mediaProvider = Promise.resolve({
       viewMediaClientConfig: getDefaultMediaClientConfig(),
     });
+    const inlineCommentProvider: InlineCommentAnnotationProvider = {
+      getState: async (ids: string[]) => {
+        return ids.map(id => ({
+          annotationType: AnnotationTypes.INLINE_COMMENT,
+          id,
+          state: { resolved: false },
+        }));
+      },
+      createComponent: () => null,
+      viewComponent: () => null,
+    };
     providerFactory = ProviderFactory.create({
       contextIdentifierProvider,
       emojiProvider,
       mediaProvider,
       macroProvider: Promise.resolve(macroProvider),
       mentionProvider: Promise.resolve(mentionData.storyData.resourceProvider),
+      annotationProviders: Promise.resolve({
+        inlineComment: inlineCommentProvider,
+      }),
     });
+
+    if (pluginsOptions && pluginsOptions.extensionProvider) {
+      providerFactory.setProvider(
+        'extensionProvider',
+        Promise.resolve(pluginsOptions.extensionProvider),
+      );
+    }
+
     createAnalyticsEvent = createAnalyticsEventMock();
     const pasteOptions = (pluginsOptions && pluginsOptions.paste) || {
       cardOptions: {},
@@ -138,7 +180,7 @@ describe('paste plugins', () => {
         .add(listPlugin)
         .add(codeBlockPlugin)
         .add(panelPlugin)
-        .add([tasksAndDecisionsPlugin, true])
+        .add([tasksAndDecisionsPlugin])
         .add([
           tablesPlugin,
           {
@@ -155,7 +197,9 @@ describe('paste plugins', () => {
         .add([macroPlugin])
         .add([
           cardPlugin,
-          pasteOptions.cardOptions ? pasteOptions.cardOptions : {},
+          pasteOptions.cardOptions
+            ? { platform: 'web', ...pasteOptions.cardOptions }
+            : { platform: 'web' },
         ])
         .add([
           mediaPlugin,
@@ -174,6 +218,11 @@ describe('paste plugins', () => {
             fullWidthEnabled: false,
             isCopyPasteEnabled: true,
           },
+        ])
+        .add(layoutPlugin)
+        .add([
+          annotationPlugin,
+          { inlineComment: { ...inlineCommentProvider } },
         ]),
     });
 
@@ -801,6 +850,143 @@ describe('paste plugins', () => {
           doc(panel()(p(code('code line 1: www.google.com')))),
         );
       });
+
+      describe('with annotations', () => {
+        let commentsPluginStateMock: jest.SpyInstance;
+
+        // mocks comments plugin state to indicate that we have this annotation on a page
+        function mockCommentsStateWithAnnotations(
+          annotations: InlineCommentMap,
+        ) {
+          const testInlineCommentState: InlineCommentPluginState = {
+            annotations: annotations,
+            selectedAnnotations: [],
+            mouseData: { isSelecting: false },
+            disallowOnWhitespace: false,
+          };
+          return jest
+            .spyOn(inlineCommentPluginKey, 'getState')
+            .mockReturnValue(testInlineCommentState);
+        }
+
+        beforeEach(() => {
+          commentsPluginStateMock = mockCommentsStateWithAnnotations({
+            'annotation-id': false,
+            'annotation-id-1': false,
+            'annotation-id-2': false,
+          });
+        });
+
+        afterEach(() => {
+          commentsPluginStateMock.mockClear();
+        });
+
+        it('preserves annotation mark when pasting plain text into annotation', async () => {
+          const { editorView } = editor(
+            doc(
+              p(
+                annotation({
+                  id: 'annotation-id',
+                  annotationType: AnnotationTypes.INLINE_COMMENT,
+                })('This is an {<>}annotation'),
+              ),
+            ),
+          );
+          // it is important to flush promises here because we have async code in annotations setup
+          // which can affect subsequent tests
+          await flushPromises();
+          dispatchPasteEvent(editorView, {
+            html:
+              "<meta charset='utf-8'><p data-pm-slice='1 1 []'>modified </p>",
+          });
+          expect(editorView.state.doc).toEqualDocument(
+            doc(
+              p(
+                annotation({
+                  id: 'annotation-id',
+                  annotationType: AnnotationTypes.INLINE_COMMENT,
+                })('This is an modified annotation'),
+              ),
+            ),
+          );
+        });
+
+        it('keeps annotation mark when pasting text with annotation', async () => {
+          const { editorView } = editor(doc(p('this is a {<>}text')));
+          await flushPromises();
+          dispatchPasteEvent(editorView, {
+            html:
+              "<meta charset='utf-8'><p data-pm-slice='1 1 []'><span data-mark-type='annotation' data-mark-annotation-type='inlineComment' data-id='annotation-id' >annotated </span></p>",
+          });
+          expect(editorView.state.doc).toEqualDocument(
+            doc(
+              p(
+                'this is a ',
+                annotation({
+                  id: 'annotation-id',
+                  annotationType: AnnotationTypes.INLINE_COMMENT,
+                })('annotated '),
+                'text',
+              ),
+            ),
+          );
+        });
+
+        it('strips off annotation mark when pasting text with annotation that does not exist i nthe document', async () => {
+          const { editorView } = editor(doc(p('this is a {<>}text')));
+          await flushPromises();
+          dispatchPasteEvent(editorView, {
+            html:
+              "<meta charset='utf-8'><p data-pm-slice='1 1 []'><span data-mark-type='annotation' data-mark-annotation-type='inlineComment' data-id='nonexisting-annotation-id' >annotated </span></p>",
+          });
+          expect(editorView.state.doc).toEqualDocument(
+            doc(p('this is a annotated text')),
+          );
+        });
+
+        it('merges annotation marks when pasting text with annotation into another text with annotation', async () => {
+          const { editorView } = editor(
+            doc(
+              p(
+                annotation({
+                  id: 'annotation-id-1',
+                  annotationType: AnnotationTypes.INLINE_COMMENT,
+                })('This is an {<>} outer annotation'),
+              ),
+            ),
+          );
+          // it is important to flush promises here because we have async code in annotations setup
+          // which can affect subsequent tests
+          await flushPromises();
+          dispatchPasteEvent(editorView, {
+            html:
+              "<meta charset='utf-8'><p data-pm-slice='1 1 []'><span data-mark-type='annotation' data-mark-annotation-type='inlineComment' data-id='annotation-id-2' >inner annotation </span></p>",
+          });
+          expect(editorView.state.doc).toEqualDocument(
+            doc(
+              p(
+                annotation({
+                  id: 'annotation-id-1',
+                  annotationType: AnnotationTypes.INLINE_COMMENT,
+                })('This is an '),
+                annotation({
+                  id: 'annotation-id-1',
+                  annotationType: AnnotationTypes.INLINE_COMMENT,
+                })(
+                  annotation({
+                    id: 'annotation-id-2',
+                    annotationType: AnnotationTypes.INLINE_COMMENT,
+                  })('inner annotation '),
+                ),
+                annotation({
+                  id: 'annotation-id-1',
+                  annotationType: AnnotationTypes.INLINE_COMMENT,
+                })(' outer annotation'),
+              ),
+            ),
+          );
+        });
+      });
     });
 
     describe('paste paragraphs', () => {
@@ -1191,6 +1377,113 @@ describe('paste plugins', () => {
           ),
         );
       });
+    });
+  });
+
+  describe('extensions api v2 - auto convert', () => {
+    const providerWithAutoConvertHandler = new DefaultExtensionProvider(
+      [
+        createFakeExtensionManifest({
+          title: 'Jira issue',
+          type: 'confluence.macro',
+          extensionKey: 'jira-issue',
+        }),
+      ],
+      [
+        (text: string) => {
+          if (text.startsWith(`http://jira-issue-convert`)) {
+            return {
+              type: 'inlineExtension',
+              attrs: {
+                extensionType: 'confluence.macro',
+                extensionKey: 'jira-issue',
+                parameters: {
+                  macroParams: {
+                    url: text,
+                  },
+                },
+              },
+            };
+          }
+        },
+      ],
+    );
+
+    const assanaMacroWithAutoConvert = createFakeAutoConvertModule(
+      createFakeExtensionManifest({
+        title: 'Assana issue',
+        type: 'forge.macro',
+        extensionKey: 'assana-issue',
+      }),
+      'url',
+      ['foo'],
+    );
+
+    const providerWithManifestAutoConvertHandler = new DefaultExtensionProvider(
+      [assanaMacroWithAutoConvert],
+    );
+
+    const createEditorWithExtensionProviders = async (document: any) => {
+      const { editorView } = editor(document, {
+        extensionProvider: combineExtensionProviders([
+          providerWithAutoConvertHandler,
+          providerWithManifestAutoConvertHandler,
+        ]),
+      });
+
+      await flushPromises();
+
+      return editorView;
+    };
+
+    it('should convert based on handlers passed directly to the provider', async () => {
+      const editorView = await createEditorWithExtensionProviders(
+        doc(p('{<>}')),
+      );
+
+      dispatchPasteEvent(editorView, {
+        plain: 'http://jira-issue-convert?paramA=CFE',
+      });
+
+      expect(editorView.state.doc).toEqualDocument(
+        doc(
+          p(
+            inlineExtension({
+              extensionType: 'confluence.macro',
+              extensionKey: 'jira-issue',
+              parameters: {
+                macroParams: {
+                  url: 'http://jira-issue-convert?paramA=CFE',
+                },
+              },
+            })(),
+          ),
+        ),
+      );
+    });
+
+    it('should convert based on handlers from the manifest', async () => {
+      const editorView = await createEditorWithExtensionProviders(
+        doc(p('{<>}')),
+      );
+
+      dispatchPasteEvent(editorView, {
+        plain: 'http://assana-issue-foo?paramA=CFE',
+      });
+
+      expect(editorView.state.doc).toEqualDocument(
+        doc(
+          extension({
+            extensionType: 'forge.macro',
+            extensionKey: 'assana-issue',
+            parameters: {
+              url: 'http://assana-issue-foo?paramA=CFE',
+            },
+            text: 'Assana issue',
+            layout: 'default',
+          })(),
+        ),
+      );
     });
   });
 
@@ -1765,6 +2058,28 @@ describe('paste plugins', () => {
       );
     });
 
+    it('doesnt convert `-` into a list when at start of an existing list item', () => {
+      const { editorView } = editor(doc(p('{<>}')));
+      const html = '<p>A</p><ul><li><p>-</p></li><li><p>C</p></li></ul>';
+
+      dispatchPasteEvent(editorView, { html });
+
+      expect(editorView.state.doc).toEqualDocument(
+        doc(p('A'), ul(li(p('-')), li(p('C')))),
+      );
+    });
+
+    it('doesnt convert `*` into a list when at start of an existing list item', () => {
+      const { editorView } = editor(doc(p('{<>}')));
+      const html = '<p>A</p><ul><li><p>*</p></li><li><p>C</p></li></ul>';
+
+      dispatchPasteEvent(editorView, { html });
+
+      expect(editorView.state.doc).toEqualDocument(
+        doc(p('A'), ul(li(p('*')), li(p('C')))),
+      );
+    });
+
     it('only converts numbered list when followed by spaces', () => {
       const { editorView } = editor(doc(p('{<>}')));
       const html = '<span>1.line 1<br />2.line 2<br />3.line 3</span>';
@@ -1829,6 +2144,35 @@ describe('paste plugins', () => {
         tr(td()(p('Five')), td()(p('Six'))),
       ),
     );
+
+    describe('paste', () => {
+      describe('layoutSection', () => {
+        it('should create analytics event for pasting a layoutSection', () => {
+          const { editorView } = editor(doc(p()));
+          const html = `
+          <meta charset='utf-8'><div data-layout-section="true" data-pm-slice="0 0 []"><div data-layout-column="true" style="flex-basis: 50%" data-column-width="50"><div data-layout-content="true"><p>foo</p></div></div><div data-layout-column="true" style="flex-basis: 50%" data-column-width="50"><div data-layout-content="true"></div></div></div>
+          `;
+          const linkDomain: string[] = [];
+
+          dispatchPasteEvent(editorView, { html, plain: '' });
+          expect(createAnalyticsEvent).toHaveBeenCalledWith({
+            action: 'pasted',
+            actionSubject: 'document',
+            actionSubjectId: ACTION_SUBJECT_ID.PASTE_PARAGRAPH,
+            eventType: 'track',
+            attributes: expect.objectContaining({
+              content: 'layoutSection',
+              inputMethod: 'keyboard',
+              source: 'fabric-editor',
+              type: 'richText',
+            }),
+            ...(linkDomain && linkDomain.length > 0
+              ? { nonPrivacySafeAttributes: { linkDomain } }
+              : {}),
+          });
+        });
+      });
+    });
 
     /**
      * Table with this format

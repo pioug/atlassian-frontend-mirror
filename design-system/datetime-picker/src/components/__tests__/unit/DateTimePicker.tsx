@@ -60,6 +60,32 @@ test('onChange will only be fired when a valid date is supplied', () => {
   expect(onChange).toHaveBeenCalledTimes(1);
 });
 
+test('onChange will only be fired with the date, time and zone offset ', () => {
+  const dateValue = '2018-05-02';
+  const timeValue = '10:45';
+  const zoneValue = '+0800';
+  const customParseValue = jest
+    .fn()
+    .mockImplementation((value, date, time, zone) => {
+      return {
+        dateValue: date,
+        timeValue: time,
+        zoneValue: date && time ? zoneValue : '',
+      };
+    });
+
+  const onChange = jest.fn();
+  const dateTimePickerWrapper = shallow(
+    <DateTimePicker onChange={onChange} parseValue={customParseValue} />,
+  );
+  dateTimePickerWrapper.find(DatePicker).simulate('change', dateValue);
+  dateTimePickerWrapper.find(TimePicker).simulate('change', timeValue);
+  expect(onChange).toHaveBeenCalledWith(
+    `${dateValue}T${timeValue}${zoneValue}`,
+  );
+  expect(onChange).toHaveBeenCalledTimes(1);
+});
+
 test('fires onChange with empty string when the date is cleared, and there is a datetime value,', () => {
   const onChange = jest.fn();
   const dateTimeValue = '2018-05-02T08:00:00.000+0800';

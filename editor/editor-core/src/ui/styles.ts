@@ -1,6 +1,7 @@
 import { HTMLAttributes, ComponentClass } from 'react';
 import styled, { css } from 'styled-components';
-import { colors, gridSize, borderRadius } from '@atlaskit/theme';
+import { gridSize, borderRadius } from '@atlaskit/theme/constants';
+import { N30, N100 } from '@atlaskit/theme/colors';
 
 const akGridSize = gridSize() + 'px';
 
@@ -16,7 +17,7 @@ export const ButtonGroup: ComponentClass<HTMLAttributes<{}> & {
 `;
 
 export const Separator: ComponentClass<HTMLAttributes<{}>> = styled.span`
-  background: ${colors.N30};
+  background: ${N30};
   width: 1px;
   height: 24px;
   display: inline-block;
@@ -96,7 +97,7 @@ export const scrollbarStyles = `
 
 export const Shortcut = styled.div`
   background-color: rgba(223, 225, 229, 0.5); /* N60 at 50% */
-  color: ${colors.N100};
+  color: ${N100};
   border-radius: ${borderRadius()}px;
   padding: 4px;
   line-height: 12px;

@@ -2,7 +2,7 @@ import React from 'react';
 import { KeyboardEvent } from 'react';
 import RecentList from './RecentList';
 import { InjectedIntlProps, injectIntl } from 'react-intl';
-import { ActivityProvider, ActivityItem } from '@atlaskit/activity';
+import { ActivityProvider, ActivityItem } from '@atlaskit/activity-provider';
 import withActivityProvider, {
   WithActivityProviderProps,
 } from './withActivityProvider';

@@ -116,6 +116,7 @@ const FloatingContextualMenu = ({
           allowMergeCells={pluginConfig!.allowMergeCells}
           allowBackgroundColor={pluginConfig!.allowBackgroundColor}
           selectionRect={selectionRect}
+          boundariesElement={boundariesElement}
         />
       </MenuWrapper>
     </Popup>

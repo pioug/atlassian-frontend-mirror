@@ -1,6 +1,7 @@
-import { Fragment, Node as PmNode } from 'prosemirror-model';
+import { Fragment, Node as PmNode, Slice } from 'prosemirror-model';
 import { Decoration, DecorationSet } from 'prosemirror-view';
-import { TextSelection, EditorState } from 'prosemirror-state';
+import { TextSelection, EditorState, Transaction } from 'prosemirror-state';
+import { Step } from 'prosemirror-transform';
 import { Match, TextGrouping } from '../types';
 import { selectedSearchMatchClass, searchMatchClass } from '../styles';
 
@@ -47,7 +48,9 @@ export function findMatches(
   let textGrouping: TextGrouping = null;
 
   const collectMatch = (textGrouping: TextGrouping) => {
-    if (!textGrouping) return;
+    if (!textGrouping) {
+      return;
+    }
     const { text, pos: relativePos } = textGrouping;
     const pos = contentIndex + relativePos;
     let index = text.toLowerCase().indexOf(searchText);
@@ -77,7 +80,9 @@ export function findMatches(
       }
     });
     // if there's a dangling text grouping and no non-text node to trigger collectMatch, manually collectMatch
-    if (textGrouping) collectMatch(textGrouping);
+    if (textGrouping) {
+      collectMatch(textGrouping);
+    }
   }
 
   return matches;
@@ -324,4 +329,26 @@ export const findIndexBeforePosition = (
   }
 
   return index;
+};
+
+/**
+ * Determines whether a find/replace text Match will be changed as a result
+ * of a Step modification to the document. This is evaluated by checking
+ * both mapped and unmapped versions of the Step as in different cases the
+ * matches will match.
+ *
+ * **Note:** Match state received here is after step has been applied.
+ */
+export const isMatchAffectedByStep = (
+  match: Match,
+  step: Step & { from: number; to: number; slice: Slice },
+  tr: Transaction,
+) => {
+  const { from, to, slice } = step;
+  const sliceSize = slice.content.size;
+  return (
+    (from + sliceSize >= match.start && to - sliceSize <= match.end) ||
+    (tr.mapping.map(from) + sliceSize >= match.start &&
+      tr.mapping.map(to) - sliceSize <= match.end)
+  );
 };

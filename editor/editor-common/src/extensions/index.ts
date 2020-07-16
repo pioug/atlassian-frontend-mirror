@@ -1,5 +1,6 @@
 export {
   Extension,
+  ExtensionAutoConvertHandler,
   ExtensionHandler,
   ExtensionHandlers,
   ExtensionKey,
@@ -10,7 +11,7 @@ export {
   ExtensionModuleActionObject,
   ExtensionModuleNode,
   ExtensionModuleNodes,
-  ExtensionModuleType,
+  ExtensionQuickInsertModule,
   ExtensionModules,
   ExtensionParams,
   ExtensionProvider,
@@ -44,7 +45,11 @@ export { getExtensionKeyAndNodeKey, resolveImport } from './manifest-helpers';
 
 export { default as DefaultExtensionProvider } from './default-extension-provider';
 
-export { getItemsFromModule } from './menu-helpers';
+export {
+  createAutoConverterRunner,
+  getExtensionAutoConvertersFromProvider,
+  getQuickInsertItemsFromModule,
+} from './module-helpers';
 
 export { getExtensionModuleNode, getNodeRenderer } from './extension-handlers';
 

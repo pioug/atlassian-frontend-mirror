@@ -7,4 +7,21 @@ export {
   DrawerItem,
 } from './components';
 
-export * from './components/types';
+export {
+  BaseProps,
+  CloseTrigger,
+  ContentCSSProps,
+  ContentProps,
+  DefaultsType,
+  DrawerPrimitiveDefaults,
+  DrawerPrimitiveOverrides,
+  DrawerPrimitiveProps,
+  DrawerProps,
+  DrawerWidth,
+  FocusLockProps,
+  ItemProps,
+  OverridesType,
+  SidebarCSSProps,
+  SidebarProps,
+  Widths,
+} from './components/types';

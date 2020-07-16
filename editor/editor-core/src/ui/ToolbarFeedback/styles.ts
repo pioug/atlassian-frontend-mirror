@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { HTMLAttributes, ImgHTMLAttributes, ComponentClass } from 'react';
-import { gridSize, borderRadius, colors } from '@atlaskit/theme';
+import { gridSize, borderRadius } from '@atlaskit/theme/constants';
+import { N60A, N400, P400 } from '@atlaskit/theme/colors';
 
 export const ButtonContent: ComponentClass<HTMLAttributes<{}>> = styled.span`
   display: flex;
@@ -18,7 +19,7 @@ export const Wrapper: ComponentClass<HTMLAttributes<{}>> = styled.span`
 export const ConfirmationPopup: ComponentClass<HTMLAttributes<{}>> = styled.div`
   background: #fff;
   border-radius: ${borderRadius()}px;
-  box-shadow: 0 4px 8px -2px ${colors.N60A}, 0 0 1px ${colors.N60A};
+  box-shadow: 0 4px 8px -2px ${N60A}, 0 0 1px ${N60A};
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
@@ -32,7 +33,7 @@ export const ConfirmationText: ComponentClass<HTMLAttributes<{}>> = styled.div`
   font-size: 14px;
   word-spacing: 4px;
   line-height: 22px;
-  color: ${colors.N400};
+  color: ${N400};
   margin-top: 30px;
   padding: 20px;
   & > div {
@@ -47,7 +48,7 @@ export const ConfirmationText: ComponentClass<HTMLAttributes<{}>> = styled.div`
 `;
 
 export const ConfirmationHeader: ComponentClass<HTMLAttributes<{}>> = styled.div`
-  background-color: ${colors.P400};
+  background-color: ${P400};
   height: 100px;
   width: 100%;
   display: inline-block;

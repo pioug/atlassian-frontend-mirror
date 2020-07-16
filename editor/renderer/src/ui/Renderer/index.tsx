@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef } from 'react';
+import React, { useContext, useLayoutEffect, useRef } from 'react';
 import { PureComponent } from 'react';
 import { IntlProvider } from 'react-intl';
 import { Schema, Node as PMNode } from 'prosemirror-model';
@@ -10,11 +10,8 @@ import {
 } from '@atlaskit/adf-schema';
 import { reduce } from '@atlaskit/adf-utils';
 import {
-  ADFStage,
   UnsupportedBlock,
   ProviderFactory,
-  EventHandlers,
-  ExtensionHandlers,
   BaseTheme,
   WidthProvider,
   getAnalyticsAppearance,
@@ -29,14 +26,12 @@ import {
   IframeWidthObserverFallbackWrapper,
   IframeWrapperConsumer,
 } from '@atlaskit/width-detector';
-import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { FabricChannel } from '@atlaskit/analytics-listeners';
 import { FabricEditorAnalyticsContext } from '@atlaskit/analytics-namespaced-context';
 import { ReactSerializer, renderDocument, RendererContext } from '../../';
-import { RenderOutputStat } from '../../render-document';
 import { Wrapper } from './style';
 import { TruncatedWrapper } from './truncated-wrapper';
-import { RendererAppearance, StickyHeaderProps } from './types';
+import { RendererAppearance } from './types';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../../analytics/enums';
 import { AnalyticsEventPayload, PLATFORM, MODE } from '../../analytics/events';
 import AnalyticsContext from '../../analytics/analyticsContext';
@@ -47,11 +42,15 @@ import { ReactSerializerInit } from '../../react';
 import { BreakoutSSRInlineScript } from './breakout-ssr';
 
 import { RendererContext as ActionsContext } from '../RendererActionsContext';
+import { ActiveHeaderIdProvider } from '../active-header-id-provider';
+import { RendererProps } from '../renderer-props';
+import { AnnotationsWrapper } from '../annotations';
 import {
   getAnnotationDeferred,
   resolveAnnotationPromises,
   getAllAnnotationMarks,
 } from './utils/annotations';
+import { getActiveHeadingId } from '../../react/utils/links';
 
 export interface Extension<T> {
   extensionKey: string;
@@ -59,68 +58,41 @@ export interface Extension<T> {
   content?: any; // This would be the original Atlassian Document Format
 }
 
-export interface Props {
-  document: any;
-  dataProviders?: ProviderFactory;
-  eventHandlers?: EventHandlers;
-  extensionHandlers?: ExtensionHandlers;
-  // Enables inline scripts to add support for breakout nodes,
-  // before main JavaScript bundle is available.
-  enableSsrInlineScripts?: boolean;
-  onComplete?: (stat: RenderOutputStat) => void;
-  onError?: (error: any) => void;
-  portal?: HTMLElement;
-  rendererContext?: RendererContext;
-  schema?: Schema;
-  appearance?: RendererAppearance;
-  adfStage?: ADFStage;
-  disableHeadingIDs?: boolean;
-  disableActions?: boolean;
-  allowDynamicTextSizing?: boolean;
-  allowHeadingAnchorLinks?: boolean;
-  maxHeight?: number;
-  fadeOutHeight?: number;
-  truncated?: boolean;
-  createAnalyticsEvent?: CreateUIAnalyticsEvent;
-  allowColumnSorting?: boolean;
-  shouldOpenMediaViewer?: boolean;
-  allowAltTextOnImages?: boolean;
-  stickyHeaders?: StickyHeaderProps;
-  media?: {
-    allowLinking?: boolean;
-  };
-  allowAnnotations?: boolean;
-  annotationProvider?: AnnotationProviders<AnnotationMarkStates> | null;
-}
-export class Renderer extends PureComponent<Props> {
+export { RendererProps as Props };
+export class Renderer extends PureComponent<RendererProps> {
   private providerFactory: ProviderFactory;
   private serializer: ReactSerializer;
   private rafID?: number;
-  private editorRef?: React.RefObject<HTMLElement>;
   private annotationProvider?: AnnotationProviders<AnnotationMarkStates> | null;
+  private editorRef: React.RefObject<HTMLDivElement>;
 
-  constructor(props: Props) {
+  constructor(props: RendererProps) {
     super(props);
     this.providerFactory = props.dataProviders || new ProviderFactory();
     this.serializer = new ReactSerializer(this.deriveSerializerProps(props));
     this.annotationProvider = props.annotationProvider;
+    this.editorRef = props.innerRef || React.createRef();
     startMeasure('Renderer Render Time');
   }
 
   private anchorLinkAnalytics() {
     const hash =
       window.location.hash && decodeURIComponent(window.location.hash.slice(1));
+    const { disableHeadingIDs } = this.props;
 
     if (
-      !this.props.disableHeadingIDs &&
+      !disableHeadingIDs &&
       hash &&
       this.editorRef &&
-      this.editorRef instanceof HTMLElement
+      this.editorRef.current instanceof HTMLElement
     ) {
       const anchorLinkElement = document.getElementById(hash);
       // We are not use this.editorRef.querySelector here, instead we have this.editorRef.contains
       // because querySelector might fail if there are special characters in hash, and CSS.escape is still experimental.
-      if (anchorLinkElement && this.editorRef.contains(anchorLinkElement)) {
+      if (
+        anchorLinkElement &&
+        this.editorRef.current.contains(anchorLinkElement)
+      ) {
         this.fireAnalyticsEvent({
           action: ACTION.VIEWED,
           actionSubject: ACTION_SUBJECT.ANCHOR_LINK,
@@ -164,7 +136,7 @@ export class Renderer extends PureComponent<Props> {
     });
   }
 
-  UNSAFE_componentWillReceiveProps(nextProps: Props) {
+  UNSAFE_componentWillReceiveProps(nextProps: RendererProps) {
     const nextMedia = nextProps.media || {};
     const media = this.props.media || {};
 
@@ -180,13 +152,20 @@ export class Renderer extends PureComponent<Props> {
     }
   }
 
-  private deriveSerializerProps(props: Props): ReactSerializerInit {
+  private deriveSerializerProps(props: RendererProps): ReactSerializerInit {
     // if just passed a boolean, change shape into object to simplify type
     const stickyHeaders = props.stickyHeaders
       ? props.stickyHeaders === true
         ? {}
         : props.stickyHeaders
       : undefined;
+
+    const { annotationProvider } = props;
+    const allowAnnotationsDraftMode = Boolean(
+      annotationProvider &&
+        annotationProvider.inlineComment &&
+        annotationProvider.inlineComment.allowDraftMode,
+    );
 
     return {
       providers: this.providerFactory,
@@ -210,6 +189,7 @@ export class Renderer extends PureComponent<Props> {
       stickyHeaders,
       allowMediaLinking: props.media && props.media.allowLinking,
       allowAnnotations: props.allowAnnotations,
+      surroundTextNodesWithTextWrapper: allowAnnotationsDraftMode,
       getAnnotationPromise: (id: AnnotationId) =>
         getAnnotationDeferred(id).promise,
     };
@@ -263,6 +243,7 @@ export class Renderer extends PureComponent<Props> {
       fadeOutHeight,
       enableSsrInlineScripts,
       allowAnnotations,
+      allowHeadingAnchorLinks,
     } = this.props;
 
     try {
@@ -284,33 +265,35 @@ export class Renderer extends PureComponent<Props> {
 
       const rendererOutput = (
         <CopyTextProvider>
-          <IntlProvider>
-            <AnalyticsContext.Provider
-              value={{
-                fireAnalyticsEvent: (event: AnalyticsEventPayload) =>
-                  this.fireAnalyticsEvent(event),
-              }}
-            >
-              <SmartCardStorageProvider>
-                <RendererWrapper
-                  appearance={appearance}
-                  dynamicTextSizing={!!allowDynamicTextSizing}
-                  wrapperRef={ref => {
-                    this.editorRef = ref;
-                  }}
-                >
-                  {enableSsrInlineScripts ? (
-                    <BreakoutSSRInlineScript
-                      allowDynamicTextSizing={!!allowDynamicTextSizing}
-                    />
-                  ) : null}
-                  <RendererActionsInternalUpdater doc={pmDoc} schema={schema}>
-                    {result}
-                  </RendererActionsInternalUpdater>
-                </RendererWrapper>
-              </SmartCardStorageProvider>
-            </AnalyticsContext.Provider>
-          </IntlProvider>
+          <ActiveHeaderIdProvider
+            value={getActiveHeadingId(allowHeadingAnchorLinks)}
+          >
+            <IntlProvider>
+              <AnalyticsContext.Provider
+                value={{
+                  fireAnalyticsEvent: (event: AnalyticsEventPayload) =>
+                    this.fireAnalyticsEvent(event),
+                }}
+              >
+                <SmartCardStorageProvider>
+                  <RendererWrapper
+                    appearance={appearance}
+                    dynamicTextSizing={!!allowDynamicTextSizing}
+                    innerRef={this.editorRef}
+                  >
+                    {enableSsrInlineScripts ? (
+                      <BreakoutSSRInlineScript
+                        allowDynamicTextSizing={!!allowDynamicTextSizing}
+                      />
+                    ) : null}
+                    <RendererActionsInternalUpdater doc={pmDoc} schema={schema}>
+                      {result}
+                    </RendererActionsInternalUpdater>
+                  </RendererWrapper>
+                </SmartCardStorageProvider>
+              </AnalyticsContext.Provider>
+            </IntlProvider>
+          </ActiveHeaderIdProvider>
         </CopyTextProvider>
       );
 
@@ -351,7 +334,7 @@ export class Renderer extends PureComponent<Props> {
   }
 }
 
-const RendererWithAnalytics = (props: Props) => (
+const RendererWithAnalytics = React.memo((props: RendererProps) => (
   <FabricEditorAnalyticsContext
     data={{
       appearance: getAnalyticsAppearance(props.appearance),
@@ -366,21 +349,19 @@ const RendererWithAnalytics = (props: Props) => (
       )}
     />
   </FabricEditorAnalyticsContext>
-);
-
-export default RendererWithAnalytics;
+));
 
 type RendererWrapperProps = {
   appearance: RendererAppearance;
   dynamicTextSizing: boolean;
-  wrapperRef?: (instance: React.RefObject<HTMLElement>) => void;
+  innerRef?: React.RefObject<HTMLDivElement>;
 } & { children?: React.ReactNode };
 
 const RendererWithIframeFallbackWrapper = React.memo(
   (props: RendererWrapperProps & { subscribe: Function | null }) => {
     const {
       dynamicTextSizing,
-      wrapperRef,
+      innerRef,
       appearance,
       children,
       subscribe,
@@ -395,7 +376,7 @@ const RendererWithIframeFallbackWrapper = React.memo(
               : undefined
           }
         >
-          <Wrapper innerRef={wrapperRef} appearance={appearance}>
+          <Wrapper innerRef={innerRef} appearance={appearance}>
             {children}
           </Wrapper>
         </BaseTheme>
@@ -442,7 +423,7 @@ function RendererActionsInternalUpdater({
 }) {
   const actions = useContext(ActionsContext);
   const rendererRef = useRef(null);
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (doc) {
       actions._privateRegisterRenderer(rendererRef, doc, schema);
     } else {
@@ -454,3 +435,23 @@ function RendererActionsInternalUpdater({
 
   return children;
 }
+
+const RendererWithAnnotationSelection = (props: RendererProps) => {
+  const { allowAnnotations } = props;
+  const innerRef = React.useMemo(() => React.createRef<HTMLDivElement>(), []);
+
+  if (!allowAnnotations) {
+    return <RendererWithAnalytics innerRef={innerRef} {...props} />;
+  }
+
+  return (
+    <AnnotationsWrapper
+      rendererRef={innerRef}
+      annotationProvider={props.annotationProvider}
+    >
+      <RendererWithAnalytics innerRef={innerRef} {...props} />
+    </AnnotationsWrapper>
+  );
+};
+
+export default RendererWithAnnotationSelection;

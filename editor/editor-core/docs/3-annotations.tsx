@@ -2,7 +2,7 @@ import React from 'react';
 import { EditorView } from 'prosemirror-view';
 
 import { md, code } from '@atlaskit/docs';
-import { colors } from '@atlaskit/theme';
+import { N20, N30 } from '@atlaskit/theme/colors';
 
 import { Editor } from '../src';
 
@@ -197,8 +197,8 @@ class SplitExample extends React.Component<{ initialAdf: object }> {
           style={{
             margin: '8px',
             padding: '8px',
-            backgroundColor: colors.N20,
-            border: `1px solid ${colors.N30}`,
+            backgroundColor: N20,
+            border: `1px solid ${N30}`,
             flex: 1,
           }}
         >
@@ -237,8 +237,8 @@ ${(
     style={{
       margin: '8px',
       padding: '8px',
-      backgroundColor: colors.N20,
-      border: `1px solid ${colors.N30}`,
+      backgroundColor: N20,
+      border: `1px solid ${N30}`,
     }}
   >
     {inlineCommentEditor(initialExample)}

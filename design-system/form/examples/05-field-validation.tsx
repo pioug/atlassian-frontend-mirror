@@ -23,7 +23,9 @@ export default class extends Component<{}> {
   };
 
   validate = (value?: string) => {
-    if (!value) return;
+    if (!value) {
+      return;
+    }
 
     if (value.length < 5) {
       return 'TOO_SHORT';

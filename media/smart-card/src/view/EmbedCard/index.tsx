@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
 import {
   BlockCardResolvingView,
-  CardLinkView,
   BlockCardErroredView,
   BlockCardResolvedView,
 } from '@atlaskit/media-ui';
@@ -39,14 +38,6 @@ export const EmbedCard: FC<EmbedCardProps> = ({
     ((details && details.data) as JsonLd.Data.BaseData) || getEmptyJsonLd();
   switch (status) {
     case 'pending':
-      return (
-        <CardLinkView
-          testId={testId}
-          link={url}
-          isSelected={isSelected}
-          onClick={handleFrameClick}
-        />
-      );
     case 'resolving':
       return (
         <BlockCardResolvingView
@@ -126,6 +117,7 @@ export const EmbedCard: FC<EmbedCardProps> = ({
       return (
         <BlockCardErroredView
           onRetry={handleErrorRetry}
+          inheritDimensions={inheritDimensions}
           isSelected={isSelected}
         />
       );

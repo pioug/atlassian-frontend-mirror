@@ -42,6 +42,7 @@ export const PasteContents: { [P in PasteContent]: P } = {
   code: 'code',
   mediaSingle: 'mediaSingle',
   mediaCard: 'mediaCard',
+  mediaGroup: 'mediaGroup',
   tableCells: 'tableCells',
   table: 'table',
   expand: 'expand',
@@ -56,6 +57,7 @@ export const PasteContents: { [P in PasteContent]: P } = {
   decisionItem: 'decisionItem',
   extension: 'extension',
   heading: 'heading',
+  layoutSection: 'layoutSection',
   orderedList: 'orderedList',
   panel: 'panel',
   rule: 'rule',
@@ -70,6 +72,8 @@ export type PasteContent =
   | 'url'
   | 'code'
   | 'mediaSingle'
+  | 'mediaCard'
+  | 'mediaGroup'
   | 'blockquote'
   | 'blockCard'
   | 'bodiedExtension'
@@ -79,7 +83,7 @@ export type PasteContent =
   | 'decisionItem'
   | 'extension'
   | 'heading'
-  | 'mediaCard'
+  | 'layoutSection'
   | 'tableCells'
   | 'table'
   | 'expand'

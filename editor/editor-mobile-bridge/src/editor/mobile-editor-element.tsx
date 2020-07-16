@@ -1,109 +1,40 @@
 import React from 'react';
-import { EditorView } from 'prosemirror-view';
-import { EditorViewWithComposition } from '../types';
 import {
   Editor,
   MediaProvider as MediaProviderType,
   EditorProps,
   MentionProvider,
-  setMobilePaddingTop,
-  quickInsertPluginKey,
-  processQuickInsertItems,
 } from '@atlaskit/editor-core';
 import FabricAnalyticsListeners, {
   AnalyticsWebClient,
 } from '@atlaskit/analytics-listeners';
-import {
-  GasPurePayload,
-  GasPureScreenEventPayload,
-} from '@atlaskit/analytics-gas-types';
 import { Provider as CollabProvider } from '@atlaskit/collab-provider';
-import { AtlaskitThemeProvider } from '@atlaskit/theme';
+import { AtlaskitThemeProvider } from '@atlaskit/theme/components';
 import { toNativeBridge } from './web-to-native';
 import WebBridgeImpl from './native-to-web';
-import MobilePicker from './MobileMediaPicker';
-import {
-  initPluginListeners,
-  destroyPluginListeners,
-} from './plugin-subscription';
-import { createTaskDecisionProvider } from '../providers';
 import {
   Provider as SmartCardProvider,
   EditorCardProvider,
   Client as EditorCardClient,
 } from '@atlaskit/smart-card';
 import { EmojiResource } from '@atlaskit/emoji/resource';
-import { analyticsBridgeClient } from '../analytics-client';
-import { createQuickInsertProvider } from '../providers';
-import { getEnableQuickInsertValue } from '../query-param-reader';
-import { useCollabProvider } from '../providers/collab-provider';
+import { useCollabEdit } from './hooks/use-collab-edit';
+import { useQuickInsert } from './hooks/use-quickinsert';
+import { useAnalytics } from './hooks/use-analytics';
+import { useMedia } from './hooks/use-media';
+import { useSmartCards } from './hooks/use-smart-cards';
+import { useTaskAndDecision } from './hooks/use-task-decision';
+import { useEditorReady } from './hooks/use-editor-ready';
+import { useEditorDestroyed } from './hooks/use-editor-destroyed';
 
+const MOBILE_SAMPLING_LIMIT = 10;
+
+// Bridge creation and initialize on window
 export const bridge: WebBridgeImpl = (window.bridge = new WebBridgeImpl());
-
-const handleAnalyticsEvent = (
-  event: GasPurePayload | GasPureScreenEventPayload,
-) => {
-  toNativeBridge.call('analyticsBridge', 'trackEvent', {
-    event: JSON.stringify(event),
-  });
-};
-
-class EditorWithState extends Editor {
-  onEditorCreated(instance: {
-    view: EditorView & EditorViewWithComposition;
-    eventDispatcher: any;
-    transformer?: any;
-  }) {
-    super.onEditorCreated(instance);
-
-    const { eventDispatcher, view } = instance;
-    const mobilePaddingTop = bridge.getPadding().top;
-
-    bridge.editorView = view;
-    bridge.editorActions._privateRegisterEditor(view, eventDispatcher);
-    if (this.props.media && this.props.media.customMediaPicker) {
-      bridge.mediaPicker = this.props.media.customMediaPicker;
-    }
-
-    initPluginListeners(eventDispatcher, bridge, view);
-
-    if (getEnableQuickInsertValue()) {
-      const quickInsertPluginState = quickInsertPluginKey.getState(view.state);
-      bridge.quickInsertItems.resolve(
-        processQuickInsertItems(
-          quickInsertPluginState.items,
-          this.context.intl,
-        ),
-      );
-    }
-
-    /**
-     * Because native side calls `setPadding` in bridge implementation before editorView is created,
-     * we need to dispatch the `setMobilePaddingTop` action again when the editor view is created,
-     * in order to set the padding on the editor side for height calculations
-     */
-    if (mobilePaddingTop > 0) {
-      setMobilePaddingTop(mobilePaddingTop)(view.state, view.dispatch);
-    }
-  }
-
-  onEditorDestroyed(instance: {
-    view: EditorView;
-    eventDispatcher: any;
-    transformer?: any;
-  }) {
-    super.onEditorDestroyed(instance);
-
-    destroyPluginListeners(instance.eventDispatcher, bridge);
-
-    bridge.editorActions._privateUnregisterEditor();
-    bridge.editorView = null;
-    bridge.mentionsPluginState = null;
-  }
-}
 
 export interface MobileEditorProps extends EditorProps {
   mode?: 'light' | 'dark';
+  bridge: WebBridgeImpl;
   createCollabProvider: (bridge: WebBridgeImpl) => Promise<CollabProvider>;
   cardProvider: Promise<EditorCardProvider>;
   cardClient: EditorCardClient;
@@ -112,72 +43,72 @@ export interface MobileEditorProps extends EditorProps {
   mentionProvider: Promise<MentionProvider>;
 }
 
-export default function MobileEditor(props: MobileEditorProps) {
-  const collabProvider = useCollabProvider(bridge, props.createCollabProvider);
+// Editor options. Keep as external cost to prevent unnecesary re-renders;
+const layoutOptions = {
+  allowBreakout: true,
+};
+
+const tableOptions = {
+  allowControls: false,
+};
+
+const templatePlaceholdersOptions = { allowInserting: true };
+// End Editor options.
+
+export function MobileEditor(props: MobileEditorProps) {
+  const { bridge } = props;
+  const collabEdit = useCollabEdit(bridge, props.createCollabProvider);
+  const analyticsClient: AnalyticsWebClient = useAnalytics();
+  const quickInsert = useQuickInsert(bridge);
+
+  // Hooks to create the options once and prevent rerender
+  const mediaOptions = useMedia(props.mediaProvider);
+  const cardsOptions = useSmartCards(props.cardProvider);
+  const taskDecisionProvider = useTaskAndDecision();
+
+  // Create the handle change only once
+  const handleChange = React.useCallback(() => {
+    toNativeBridge.updateText(bridge.getContent());
+  }, [bridge]);
+
+  const handleEditorReady = useEditorReady(bridge, mediaOptions);
+  const handleEditorDestroyed = useEditorDestroyed(bridge);
+
   const mode = props.mode || 'light';
 
   // Temporarily opting out of the default oauth2 flow for phase 1 of Smart Links
   // See https://product-fabric.atlassian.net/browse/FM-2149 for details.
   const authFlow = 'disabled';
-  const analyticsClient: AnalyticsWebClient = analyticsBridgeClient(
-    handleAnalyticsEvent,
-  );
-
-  const quickInsert = getEnableQuickInsertValue()
-    ? {
-        provider: createQuickInsertProvider(bridge.quickInsertItems),
-      }
-    : false;
-
-  const collabEdit: EditorProps['collabEdit'] | undefined = collabProvider
-    ? {
-        useNativePlugin: true,
-        provider: collabProvider,
-      }
-    : undefined;
 
   return (
     <FabricAnalyticsListeners client={analyticsClient}>
       <SmartCardProvider client={props.cardClient} authFlow={authFlow}>
         <AtlaskitThemeProvider mode={mode}>
-          <EditorWithState
+          <Editor
             appearance="mobile"
+            onEditorReady={handleEditorReady}
+            onDestroy={handleEditorDestroyed}
             mentionProvider={props.mentionProvider}
             emojiProvider={props.emojiProvider}
-            media={{
-              customMediaPicker: new MobilePicker(),
-              provider: props.mediaProvider,
-              allowMediaSingle: true,
-              allowAltTextOnImages: true,
-            }}
+            media={mediaOptions}
             allowConfluenceInlineComment={true}
-            onChange={() => {
-              toNativeBridge.updateText(bridge.getContent());
-            }}
+            onChange={handleChange}
             allowPanel={true}
-            allowTables={{
-              allowControls: false,
-            }}
-            UNSAFE_cards={{
-              provider: props.cardProvider,
-              allowEmbeds: true,
-              allowBlockCards: true,
-              allowResizing: false,
-            }}
+            allowTables={tableOptions}
+            UNSAFE_cards={cardsOptions}
             allowExtension={true}
             allowTextColor={true}
             allowDate={true}
             allowRule={true}
             allowStatus={true}
-            allowLayouts={{
-              allowBreakout: true,
-            }}
+            allowLayouts={layoutOptions}
             allowAnalyticsGASV3={true}
             allowExpand={true}
-            allowTemplatePlaceholders={{ allowInserting: true }}
-            taskDecisionProvider={Promise.resolve(createTaskDecisionProvider())}
+            allowTemplatePlaceholders={templatePlaceholdersOptions}
+            taskDecisionProvider={taskDecisionProvider}
             quickInsert={quickInsert}
             collabEdit={collabEdit}
+            inputSamplingLimit={MOBILE_SAMPLING_LIMIT}
             {...props}
           />
         </AtlaskitThemeProvider>
@@ -185,3 +116,12 @@ export default function MobileEditor(props: MobileEditorProps) {
     </FabricAnalyticsListeners>
   );
 }
+
+const MobileEditorWithBridge: React.FC<Omit<
+  MobileEditorProps,
+  'bridge'
+>> = props => {
+  return <MobileEditor {...props} bridge={bridge} />;
+};
+
+export default MobileEditorWithBridge;

@@ -32,7 +32,7 @@ const collapseExpandThenFocusTitle = async (page: any) => {
 
 BrowserTestCase(
   'navigation.ts: pressing Backspace should delete an expand when cursor is inside content',
-  { skip: ['ie', 'edge', 'safari', 'firefox'] },
+  { skip: ['edge', 'safari', 'firefox'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
 
@@ -52,7 +52,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'navigation.ts: pressing Backspace should delete an expand when cursor is inside title',
-  { skip: ['ie', 'edge', 'safari', 'firefox'] },
+  { skip: ['edge', 'safari', 'firefox'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
 
@@ -72,7 +72,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'navigation.ts: pressing Enter should collapse an expand when cursor is inside title',
-  { skip: ['ie', 'edge', 'safari', 'firefox'] },
+  { skip: ['edge', 'safari', 'firefox'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
 
@@ -91,7 +91,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'navigation.ts: pressing ArrowDown should set cursor after collapsed expand when it is in a title',
-  { skip: ['ie', 'edge', 'safari', 'firefox'] },
+  { skip: ['edge', 'safari', 'firefox'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
 
@@ -112,7 +112,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'navigation.ts: pressing ArrowDown should set cursor from expand title to the content',
-  { skip: ['ie', 'edge', 'safari', 'firefox'] },
+  { skip: ['edge', 'safari', 'firefox'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
 
@@ -133,7 +133,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'navigation.ts: pressing ArrowRight from an expand title should set the right GapCursor',
-  { skip: ['ie', 'edge', 'safari', 'firefox'] },
+  { skip: ['edge', 'safari', 'firefox'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
 
@@ -154,7 +154,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'navigation.ts: pressing ArrowLeft from an expand title should set the left GapCursor',
-  { skip: ['ie', 'edge', 'safari', 'firefox'] },
+  { skip: ['edge', 'safari', 'firefox'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
 
@@ -175,7 +175,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'navigation.ts: pressing ArrowUp from an expand title should set the left GapCursor',
-  { skip: ['ie', 'edge', 'safari', 'firefox'] },
+  { skip: ['edge', 'safari', 'firefox'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
 
@@ -196,7 +196,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'navigation.ts: pressing ArrowUp from an expand content should focus the title',
-  { skip: ['ie', 'edge', 'safari', 'firefox'] },
+  { skip: ['edge', 'safari', 'firefox'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
 
@@ -218,7 +218,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'navigation.ts: pressing ArrowUp from a second line of an expand content should not focus the title',
-  { skip: ['ie', 'edge', 'safari', 'firefox'] },
+  { skip: ['edge', 'safari', 'firefox'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
 
@@ -240,7 +240,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'navigation.ts: pressing ArrowDown from the left GapCursor position should focus the title when an expand is collapsed',
-  { skip: ['ie', 'edge', 'safari', 'firefox'] },
+  { skip: ['edge', 'safari', 'firefox'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
 
@@ -262,7 +262,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'navigation.ts: pressing ArrowUp from the right GapCursor position should focus the title when an expand is collapsed',
-  { skip: ['ie', 'edge', 'safari', 'firefox'] },
+  { skip: ['edge', 'safari', 'firefox'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
 
@@ -287,7 +287,7 @@ describe('when there is a expanded followed by another', () => {
     describe('and the focus are inside of the first title', () => {
       BrowserTestCase(
         'pressing ArrowDown should create a gap cursor on the left',
-        { skip: ['ie', 'edge'] },
+        { skip: ['edge'] },
         async (client: any, testName: string) => {
           const page = await goToEditorTestingExample(client);
 
@@ -313,7 +313,7 @@ describe('when there is a expanded followed by another', () => {
 
 BrowserTestCase(
   'navigation.ts: when cursor is after a collapsed expand, pressing Backspace should focus the title',
-  { skip: ['ie', 'edge', 'safari', 'firefox'] },
+  { skip: ['edge', 'safari', 'firefox'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
 
@@ -335,7 +335,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'navigation.ts: when cursor is after two collapsed expands, pressing Backspace should focus the title of the first one',
-  { skip: ['ie', 'edge', 'safari', 'firefox'] },
+  { skip: ['edge', 'safari', 'firefox'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
 

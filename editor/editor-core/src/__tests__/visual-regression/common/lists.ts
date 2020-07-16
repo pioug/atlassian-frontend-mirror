@@ -36,6 +36,7 @@ import {
   scrollToBottom,
 } from '../../__helpers/page-objects/_editor';
 import { EditorTestCardProvider } from '@atlaskit/editor-test-helpers/card-provider';
+import { waitForResolvedInlineCard } from '../../__helpers/page-objects/_cards';
 
 describe('Lists', () => {
   let page: Page;
@@ -74,8 +75,10 @@ describe('Lists', () => {
         UNSAFE_cards: { provider: Promise.resolve(cardProvider) },
       },
     );
+    await waitForResolvedInlineCard(page);
     await clickOnCard(page);
     await waitForCardToolbar(page);
+    await page.mouse.move(0, 0);
   });
 
   it('should render extension toolbar on click when its nested inside lists', async () => {

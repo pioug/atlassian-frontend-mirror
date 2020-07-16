@@ -3,7 +3,9 @@ import React from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 
 import Item, { ItemGroup, itemThemeNamespace } from '@atlaskit/item';
-import { borderRadius, colors, themed } from '@atlaskit/theme';
+import { themed } from '@atlaskit/theme/components';
+import { borderRadius } from '@atlaskit/theme/constants';
+import * as colors from '@atlaskit/theme/colors';
 
 import { Shortcut } from '../../../ui/styles';
 import IconFallback from '../../quick-insert/assets/fallback';

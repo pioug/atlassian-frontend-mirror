@@ -4,7 +4,8 @@ import styled from 'styled-components';
 import Textfield from '@atlaskit/textfield';
 import Modal, { ModalTransition } from '@atlaskit/modal-dialog';
 import Tooltip from '@atlaskit/tooltip';
-import { colors, gridSize } from '@atlaskit/theme';
+import { gridSize } from '@atlaskit/theme/constants';
+import { N30A } from '@atlaskit/theme/colors';
 
 const IconExplorerLink = styled.a`
   &,
@@ -20,7 +21,7 @@ const IconExplorerLink = styled.a`
   }
 
   &:hover {
-    background: ${colors.N30A};
+    background: ${N30A};
   }
 `;
 

@@ -1,4 +1,4 @@
-import { gridSize } from '@atlaskit/theme';
+import { gridSize } from '@atlaskit/theme/constants';
 
 export const GRID_SIZE = gridSize();
 
@@ -15,8 +15,6 @@ export const FLEX_ITEMS_CONTAINER_BREAKPOINT_NUMBERS = {
 };
 
 export const SIDEBAR_WIDTH = `${GRID_SIZE * 25}px`;
-
-export const SIDEBAR_HEADING_TEXT = 'Browse';
 
 export const SIDEBAR_HEADING_WRAPPER_HEIGHT = `${GRID_SIZE * 6}px`;
 export const SIDEBAR_HEADING_PADDING_LEFT = '12px';

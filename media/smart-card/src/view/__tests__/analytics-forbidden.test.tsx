@@ -1,3 +1,4 @@
+import { AuthError } from '@atlaskit/outbound-auth-flow-client';
 import { mockEvents } from './_mocks';
 const mockAuthFlow = jest.fn();
 
@@ -8,6 +9,7 @@ jest.mock('react-transition-group/Transition', () => (data: any) =>
 jest.doMock('../../utils/analytics', () => mockEvents);
 jest.doMock('@atlaskit/outbound-auth-flow-client', () => ({
   auth: mockAuthFlow,
+  AuthError,
 }));
 const mockAPIError = jest.fn();
 jest.doMock('../../client/errors', () => ({
@@ -24,7 +26,6 @@ import {
   fireEvent,
   cleanup,
 } from '@testing-library/react';
-import { KEY_SENSITIVE_DATA } from '../../utils/analytics';
 
 describe('smart-card: forbidden analytics', () => {
   let mockClient: CardClient;
@@ -109,7 +110,9 @@ describe('smart-card: forbidden analytics', () => {
       expect(forbiddenLinkButton).toBeTruthy();
       expect(forbiddenLinkButton!.innerHTML).toContain('Try another');
       // Mock out auth flow, & click connect.
-      mockAuthFlow.mockImplementationOnce(() => Promise.reject(new Error()));
+      mockAuthFlow.mockImplementationOnce(() =>
+        Promise.reject(new AuthError('')),
+      );
       fireEvent.click(forbiddenLinkButton!);
 
       mockFetch.mockImplementationOnce(async () => mocks.success);
@@ -126,7 +129,7 @@ describe('smart-card: forbidden analytics', () => {
       expect(mockEvents.connectFailedEvent).toHaveBeenCalledTimes(1);
       expect(mockEvents.connectFailedEvent).toHaveBeenCalledWith(
         'd1',
-        KEY_SENSITIVE_DATA,
+        undefined,
       );
     });
   });

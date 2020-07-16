@@ -73,7 +73,9 @@ export class DocumentReflowDetector {
   };
 
   private registerImage = (image: HTMLImageElement): void => {
-    if (image.complete) return;
+    if (image.complete) {
+      return;
+    }
     image.addEventListener('load', this.onImageComplete);
     image.addEventListener('abort', this.onImageComplete);
     image.addEventListener('error', this.onImageComplete);

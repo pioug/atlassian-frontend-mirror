@@ -32,7 +32,7 @@ async function insertList(
 
 BrowserTestCase(
   `list: shouldn't change focus on tab if the list is not indentable`,
-  { skip: ['ie', 'edge'] },
+  { skip: ['edge'] },
   async (client: any, testName: string) => {
     const page = new Page(client);
     await page.goto(fullpage.path);
@@ -55,7 +55,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'list: should be able to insert lists via keyboard shortcut (Windows)',
-  { skip: ['ie', 'edge', 'safari', 'firefox'] },
+  { skip: ['edge', 'safari', 'firefox'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
     await mountEditor(page, { appearance: 'full-page' });
@@ -70,7 +70,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'list: should be able to insert lists via keyboard shortcut (Mac)',
-  { skip: ['ie', 'edge', 'chrome', 'firefox'] },
+  { skip: ['edge', 'chrome', 'firefox'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
     await mountEditor(page, { appearance: 'full-page' });
@@ -100,7 +100,7 @@ BrowserTestCase(
  */
 BrowserTestCase(
   'list: should be able to navigate lists correctly in firefox',
-  { skip: ['ie', 'edge', 'chrome', 'safari'] },
+  { skip: ['edge', 'chrome', 'safari'] },
   async (client: any) => {
     const page = await goToEditorTestingExample(client);
     await mountEditor(page, {
@@ -136,7 +136,7 @@ BrowserTestCase(
 //Cases below refer to the cases found in this document: https://product-fabric.atlassian.net/wiki/spaces/E/pages/1146954996/List+Backspace+and+Delete+Behaviour
 BrowserTestCase(
   'list: should handle backspace correctly when at the start of a list',
-  { skip: ['ie', 'edge', 'safari', 'firefox'] },
+  { skip: ['edge', 'safari', 'firefox'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
 
@@ -206,7 +206,7 @@ BrowserTestCase(
 //Will test cases for paragraphs and other list nodes when deleting at the end of a list
 BrowserTestCase(
   'list: should handle delete correctly when at the end of a list',
-  { skip: ['ie', 'edge', 'safari', 'firefox'] },
+  { skip: ['edge', 'safari', 'firefox'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
 

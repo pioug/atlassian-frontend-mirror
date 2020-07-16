@@ -17,6 +17,7 @@ export default new Plugin({
       }
 
       const { code } = view.state.schema.marks;
+      const { paragraph } = view.state.schema.nodes;
       const $click = view.state.doc.resolve(clickPos);
 
       const clickWasAtEdgeOfATextNode =
@@ -36,10 +37,21 @@ export default new Plugin({
         event.target instanceof Node &&
         (view as EditorView & { posAtDOM: PosAtDOM }).posAtDOM(event.target);
 
+      const clickNode = view.state.doc.nodeAt(clickPos);
+      const clickWasAtTextNode = !!(clickNode && clickNode.isText);
+      const clickWasAtEndOfAParagraphNode =
+        $click.parent.type === paragraph &&
+        $click.textOffset === 0 &&
+        $click.nodeAfter === null;
+
       if (
         clickWasAtEdgeOfATextNode &&
         clickWasNearACodeMark &&
-        clickedDOMElementPosition
+        clickedDOMElementPosition &&
+        // if click did not occur at a text node or end of paragraph, then
+        // it was at a directly adjacent non-text node, so we skip this manual
+        // text selection logic to preserve that non-text node's selection
+        (clickWasAtTextNode || clickWasAtEndOfAParagraphNode)
       ) {
         const clickWasInsideNodeDOM =
           (event.target as Node).parentNode ===

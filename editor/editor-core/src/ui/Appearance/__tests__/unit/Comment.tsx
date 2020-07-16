@@ -13,6 +13,7 @@ import { getMediaPluginState } from '../../../../plugins/media/pm-plugins/main';
 import { ReactWrapper } from 'enzyme';
 import EditorContext from '../../../EditorContext';
 import EditorActions from '../../../../actions';
+import { MediaOptions } from '../../../../plugins/media/types';
 
 describe('comment editor', () => {
   const createEditor = createEditorFactory();
@@ -120,6 +121,28 @@ describe('comment editor', () => {
       await sleep(0);
 
       expect(getSaveButton(comment).prop('disabled')).toBe(false);
+    });
+
+    it('should set up required media options for Comment Editor', () => {
+      const { editorView } = createEditor({
+        doc: doc(p('')),
+        providerFactory,
+        editorProps: {
+          allowExtension: true,
+          media: { allowMediaSingle: true },
+          appearance: 'comment',
+        },
+      });
+
+      const mediaPluginState = getMediaPluginState(editorView.state);
+      expect(mediaPluginState.mediaOptions).toBeDefined();
+
+      const {
+        allowAdvancedToolBarOptions,
+        alignLeftOnInsert,
+      } = mediaPluginState.mediaOptions as MediaOptions;
+      expect(alignLeftOnInsert).toBe(true);
+      expect(allowAdvancedToolBarOptions).toBe(true);
     });
   });
 });

@@ -69,7 +69,9 @@ function createGutter() {
       if (currentParent && mounted) {
         mounted = false;
         currentParent.removeChild(gutter);
-        if (observer) observer.unobserve(gutter);
+        if (observer) {
+          observer.unobserve(gutter);
+        }
       }
     },
     element() {
@@ -80,7 +82,9 @@ function createGutter() {
     },
     visible() {
       // If we know whether it's visible we can avoid expensive calculations
-      if (observer) return isVisible;
+      if (observer) {
+        return isVisible;
+      }
       // Fallback for legacy browsers assumes it's visible (if mounted)
       return mounted;
     },
@@ -94,7 +98,9 @@ function createGutter() {
       }
     },
     destroy() {
-      if (observer) observer.disconnect();
+      if (observer) {
+        observer.disconnect();
+      }
       observer = undefined;
       this.removeGutter();
       initialized = mounted = false;
@@ -135,7 +141,9 @@ function scrollToGutterElement(
   const viewportOffsetY = scrollContainer.getBoundingClientRect().top;
 
   const caretTopPosition = getCaretTopPosition();
-  if (!caretTopPosition) return false;
+  if (!caretTopPosition) {
+    return false;
+  }
 
   const caretTopFromContainer = caretTopPosition - viewportOffsetY;
   const gutterThresholdTop =
@@ -165,7 +173,9 @@ export type ScrollGutterPluginOptions = {
 
 export default (pluginOptions: ScrollGutterPluginOptions = {}) => {
   const { getScrollElement, allowCustomScrollHandler } = pluginOptions;
-  if (!getScrollElement) return undefined;
+  if (!getScrollElement) {
+    return undefined;
+  }
 
   const gutter = createGutter();
   let scrollElement: HTMLElement | null = null; // | undefined;
@@ -208,7 +218,9 @@ export default (pluginOptions: ScrollGutterPluginOptions = {}) => {
          * Toggle the Scroll Gutter Element
          */
         update(view: EditorView, prevState: EditorState) {
-          if (!scrollElement || !editorParentElement) return;
+          if (!scrollElement || !editorParentElement) {
+            return;
+          }
 
           const state = view.state;
           if (prevState.selection === state.selection) {
@@ -233,7 +245,9 @@ export default (pluginOptions: ScrollGutterPluginOptions = {}) => {
               gutter.addGutter(editorParentElement);
             }
           } else {
-            if (gutterMounted) gutter.removeGutter();
+            if (gutterMounted) {
+              gutter.removeGutter();
+            }
           }
         },
       };

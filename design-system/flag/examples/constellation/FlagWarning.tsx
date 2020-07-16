@@ -1,14 +1,14 @@
 import React from 'react';
 
 import WarningIcon from '@atlaskit/icon/glyph/warning';
-import { colors } from '@atlaskit/theme';
+import { Y200 } from '@atlaskit/theme/colors';
 
 import Flag from '../../src';
 
 export default () => (
   <Flag
     appearance="warning"
-    icon={<WarningIcon label="Warning" secondaryColor={colors.Y200} />}
+    icon={<WarningIcon label="Warning" secondaryColor={Y200} />}
     id="warning"
     key="warning"
     title="Presence isn't working"
@@ -17,6 +17,5 @@ export default () => (
       { content: 'Try again', onClick: () => {} },
       { content: 'Check StatusPage', onClick: () => {} },
     ]}
-    isDismissAllowed
   />
 );

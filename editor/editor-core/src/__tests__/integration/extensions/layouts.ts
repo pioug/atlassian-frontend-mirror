@@ -20,7 +20,7 @@ import commonMessages from '../../../messages';
   const layoutName = layoutMessages.id.split('.').pop();
   BrowserTestCase(
     `layouts.ts: Extension: ${layoutName} layout`,
-    { skip: ['edge', 'ie'] },
+    { skip: ['edge'] },
     async (client: any, testName: string) => {
       const page = await goToEditorTestingExample(client);
       await mountEditor(page, {

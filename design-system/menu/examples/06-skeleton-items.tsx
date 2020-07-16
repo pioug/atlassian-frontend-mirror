@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import Button, { ButtonGroup } from '@atlaskit/button';
 import EmojiCustomIcon from '@atlaskit/icon/glyph/emoji/custom';
 import UserAvatarCircleIcon from '@atlaskit/icon/glyph/user-avatar-circle';
-import { colors } from '@atlaskit/theme';
+import { N30, N40 } from '@atlaskit/theme/colors';
 
 import {
   ButtonItem,
@@ -29,13 +29,13 @@ const Item = ({ isLoading, ...props }: any) => {
     icon = (
       <span
         style={{
-          background: colors.N30,
+          background: N30,
           borderRadius: '50%',
           width: 24,
           height: 24,
         }}
       >
-        <UserAvatarCircleIcon primaryColor={colors.N40} label="" />
+        <UserAvatarCircleIcon primaryColor={N40} label="" />
       </span>
     );
     content = 'John Smith';

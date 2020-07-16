@@ -65,7 +65,9 @@ export default class SpotlightBasicExample extends Component<Object, State> {
       </Spotlight>,
     ];
 
-    if (this.state.active == null) return null;
+    if (this.state.active == null) {
+      return null;
+    }
 
     return variants[this.state.active];
   };

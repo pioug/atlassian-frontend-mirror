@@ -132,7 +132,7 @@ export function applyTextMarksToSlice(
 ): (slice: Slice) => Slice {
   return (slice: Slice) => {
     const {
-      marks: { code: codeMark, link: linkMark },
+      marks: { code: codeMark, link: linkMark, annotation: annotationMark },
     } = schema;
 
     if (!Array.isArray(marks) || marks.length === 0) {
@@ -141,13 +141,22 @@ export function applyTextMarksToSlice(
 
     const sliceCopy = Slice.fromJSON(schema, slice.toJSON() || {});
 
+    // allow links and annotations to be pasted
+    const allowedMarksToPaste = [linkMark, annotationMark];
+
     sliceCopy.content.descendants((node, _pos, parent) => {
       if (node.isText && parent && parent.isBlock) {
         node.marks = [
+          // remove all marks from pasted slice when applying code mark
+          // and exclude all marks that are not allowed to be pasted
           ...((node.marks &&
             !codeMark.isInSet(marks) &&
-            node.marks.filter(mark => mark.type === linkMark)) ||
+            node.marks.filter(mark =>
+              allowedMarksToPaste.includes(mark.type),
+            )) ||
             []),
+          // add marks to a slice if they're allowed in parent node
+          // and exclude link marks
           ...parent.type
             .allowedMarks(marks)
             .filter(mark => mark.type !== linkMark),

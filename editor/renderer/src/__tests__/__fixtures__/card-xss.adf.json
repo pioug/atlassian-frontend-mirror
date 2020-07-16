@@ -23,7 +23,7 @@
         {
           "type": "inlineCard",
           "attrs": {
-            "url": "https://product-fabric.atlassian.net/browse/ED-7216"
+            "url": "https://inlineCardTestUrl"
           }
         },
         {

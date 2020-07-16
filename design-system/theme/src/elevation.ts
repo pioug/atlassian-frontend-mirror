@@ -3,8 +3,8 @@ import themed from './utils/themed';
 
 // Cards on a board
 export const e100 = themed({
-  light: `box-shadow: 0 1px 1px ${colors.N50A}, 0 0 1px 0 ${colors.N60A};`,
-  dark: `box-shadow: 0 1px 1px ${colors.DN50A}, 0 0 1px ${colors.DN60A};`,
+  light: `box-shadow: 0 1px 1px ${colors.N50A}, 0 0 1px 1px ${colors.N40A};`,
+  dark: `box-shadow: 0 1px 1px ${colors.DN50A}, 0 0 1px 1px ${colors.DN40A};`,
 });
 
 // Inline dialogs

@@ -36,7 +36,7 @@ import SlotDimensions from './slot-dimensions';
 const LeftSidebar = (props: LeftSidebarProps) => {
   const {
     children,
-    width = DEFAULT_LEFT_SIDEBAR_WIDTH,
+    width,
     isFixed = true,
     resizeButtonLabel,
     resizeGrabAreaLabel,
@@ -50,6 +50,7 @@ const LeftSidebar = (props: LeftSidebarProps) => {
     testId,
     id,
     skipLinkTitle,
+    collapsedState,
   } = props;
 
   const flyoutTimerRef = useRef<ReturnType<typeof setTimeout>>();
@@ -63,30 +64,57 @@ const LeftSidebar = (props: LeftSidebarProps) => {
     lastLeftSidebarWidth,
   } = leftSidebarState;
 
-  const leftSidebarWidthOnMount = isLeftSidebarCollapsed
-    ? COLLAPSED_LEFT_SIDEBAR_WIDTH
-    : resolveDimension(LEFT_SIDEBAR_WIDTH, width, true);
+  const _width = Math.max(width || 0, DEFAULT_LEFT_SIDEBAR_WIDTH);
+
+  const collapsedStateOverrideOpen = collapsedState === 'expanded';
+
+  let leftSidebarWidthOnMount: number;
+
+  if (collapsedStateOverrideOpen) {
+    leftSidebarWidthOnMount = resolveDimension(
+      LEFT_SIDEBAR_FLYOUT,
+      _width,
+      !width,
+    );
+  } else if (isLeftSidebarCollapsed || collapsedState === 'collapsed') {
+    leftSidebarWidthOnMount = COLLAPSED_LEFT_SIDEBAR_WIDTH;
+  } else {
+    leftSidebarWidthOnMount = resolveDimension(
+      LEFT_SIDEBAR_WIDTH,
+      _width,
+      !width ||
+        (!collapsedStateOverrideOpen &&
+          getGridStateFromStorage('isLeftSidebarCollapsed')),
+    );
+  }
 
   const { registerSkipLink, unregisterSkipLink } = useSkipLinks();
 
   // Update state from cache on mount
   useEffect(() => {
     const cachedCollapsedState =
-      getGridStateFromStorage('isLeftSidebarCollapsed') || false;
+      !collapsedStateOverrideOpen &&
+      (collapsedState === 'collapsed' ||
+        getGridStateFromStorage('isLeftSidebarCollapsed') ||
+        false);
+
     const cachedGridState = getGridStateFromStorage('gridState') || {};
 
-    let leftSidebarWidth = cachedGridState[LEFT_SIDEBAR_FLYOUT]
-      ? Math.max(
-          cachedGridState[LEFT_SIDEBAR_FLYOUT],
-          DEFAULT_LEFT_SIDEBAR_WIDTH,
-        )
-      : DEFAULT_LEFT_SIDEBAR_WIDTH;
-    const lastLeftSidebarWidth = cachedGridState[LEFT_SIDEBAR_FLYOUT]
-      ? Math.max(
-          cachedGridState[LEFT_SIDEBAR_FLYOUT],
-          DEFAULT_LEFT_SIDEBAR_WIDTH,
-        )
-      : DEFAULT_LEFT_SIDEBAR_WIDTH;
+    let leftSidebarWidth =
+      !width && cachedGridState[LEFT_SIDEBAR_FLYOUT]
+        ? Math.max(
+            cachedGridState[LEFT_SIDEBAR_FLYOUT],
+            DEFAULT_LEFT_SIDEBAR_WIDTH,
+          )
+        : _width;
+
+    const lastLeftSidebarWidth =
+      !width && cachedGridState[LEFT_SIDEBAR_FLYOUT]
+        ? Math.max(
+            cachedGridState[LEFT_SIDEBAR_FLYOUT],
+            DEFAULT_LEFT_SIDEBAR_WIDTH,
+          )
+        : _width;
 
     if (cachedCollapsedState) {
       leftSidebarWidth = COLLAPSED_LEFT_SIDEBAR_WIDTH;

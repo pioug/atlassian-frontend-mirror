@@ -20,7 +20,7 @@ const dateTimePickerTime =
 
 BrowserTestCase(
   'When DateTimePicker is focused & backspace pressed, the date value should be cleared but the time value should not be affected',
-  { skip: ['safari', 'ie'] }, // Safari and IE drivers have issues - AK-5570, AK-5492
+  { skip: ['safari'] }, // Safari driver has issues
   async (client: any) => {
     const page = new Page(client);
 

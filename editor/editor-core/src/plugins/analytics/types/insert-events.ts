@@ -168,11 +168,22 @@ export type InputMethodInsertMedia =
   | INPUT_METHOD.PICKER_CLOUD
   | INPUT_METHOD.DRAG_AND_DROP;
 
-type InsertMediaAEP = InsertAEP<
+type InsertMediaSingleAEP = InsertAEP<
   ACTION_SUBJECT_ID.MEDIA,
   {
     inputMethod: InputMethodInsertMedia;
     fileExtension?: string;
+    type: ACTION_SUBJECT_ID.MEDIA_SINGLE | ACTION_SUBJECT_ID.MEDIA_GROUP;
+  },
+  undefined
+>;
+
+type InsertMediaGroupAEP = InsertAEP<
+  ACTION_SUBJECT_ID.MEDIA,
+  {
+    inputMethod?: InputMethodInsertMedia;
+    fileExtension?: string;
+    type: ACTION_SUBJECT_ID.MEDIA_SINGLE | ACTION_SUBJECT_ID.MEDIA_GROUP;
   },
   undefined
 >;
@@ -272,7 +283,8 @@ export type InsertEventPayload =
   | InsertActionDecisionAEP
   | InsertEmojiAEP
   | InsertStatusAEP
-  | InsertMediaAEP
+  | InsertMediaSingleAEP
+  | InsertMediaGroupAEP
   | InsertLinkAEP
   | InsertLinkPreviewAEP
   | InsertMediaLinkAEP

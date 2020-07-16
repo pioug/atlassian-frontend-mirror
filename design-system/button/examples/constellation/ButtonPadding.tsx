@@ -4,8 +4,10 @@ import Button, { ButtonGroup } from '../../src';
 
 export default () => (
   <ButtonGroup>
-    <Button>Default</Button>
-    <Button spacing="compact">Compact</Button>
+    <Button appearance="primary">Default</Button>
+    <Button appearance="primary" spacing="compact">
+      Compact
+    </Button>
     <Button spacing="none" appearance="subtle-link">
       None
     </Button>

@@ -162,7 +162,9 @@ export class DropzoneBase extends LocalUploadComponentReact<
 
       this.fireAnalyticsEvent('droppedInto', fileCount);
 
-      if (this.props.onDrop) this.props.onDrop();
+      if (this.props.onDrop) {
+        this.props.onDrop();
+      }
       this.emitDragLeave({ length: fileCount });
     }
   };
@@ -174,7 +176,9 @@ export class DropzoneBase extends LocalUploadComponentReact<
 
       this.fireAnalyticsEvent('draggedInto', payload.length);
 
-      if (onDragEnter) onDragEnter(payload);
+      if (onDragEnter) {
+        onDragEnter(payload);
+      }
     }
   }
 
@@ -191,7 +195,9 @@ export class DropzoneBase extends LocalUploadComponentReact<
 
           this.fireAnalyticsEvent('draggedOut', payload.length);
 
-          if (onDragLeave) onDragLeave(payload);
+          if (onDragLeave) {
+            onDragLeave(payload);
+          }
         }
       }, 50);
     }

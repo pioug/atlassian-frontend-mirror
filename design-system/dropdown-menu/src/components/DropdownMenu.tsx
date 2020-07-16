@@ -84,14 +84,18 @@ export default class DropdownMenu extends Component<
   };
 
   handleOpenChange = (attrs: OnOpenChangeArgs, ...args: Array<any>) => {
-    if (this.state.isOpen === attrs.isOpen) return;
+    if (this.state.isOpen === attrs.isOpen) {
+      return;
+    }
     this.setState({ isOpen: attrs.isOpen });
 
     this.props.onOpenChange(attrs, ...args);
   };
 
   close = (...args: Array<any>) => {
-    if (this.state.isOpen === false) return;
+    if (this.state.isOpen === false) {
+      return;
+    }
     this.setState({ isOpen: false });
     this.props.onOpenChange({ isOpen: false }, ...args);
   };

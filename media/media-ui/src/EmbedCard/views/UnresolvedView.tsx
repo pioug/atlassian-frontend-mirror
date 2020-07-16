@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import Button, { ButtonAppearances } from '@atlaskit/button';
-import { fontSize } from '@atlaskit/theme';
+import { fontSize } from '@atlaskit/theme/constants';
 import { FormattedMessage } from 'react-intl';
 import { FC } from 'react';
 

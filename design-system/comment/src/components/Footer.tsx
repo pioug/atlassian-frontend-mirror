@@ -29,7 +29,9 @@ const FooterItems = ({
   isError,
   isSaving,
 }: Props) => {
-  if (isSaving || (!actions && !errorActions)) return null;
+  if (isSaving || (!actions && !errorActions)) {
+    return null;
+  }
 
   const items = isError
     ? errorActions && mapActions(errorActions)

@@ -5,6 +5,7 @@ import { browser } from '@atlaskit/editor-common';
 import { getPosHandlerNode, getPosHandler } from '../../../nodeviews/';
 import { selectNode } from '../../../utils/commands';
 import { codeBlockClassNames } from '../ui/class-names';
+import { createSelectionAwareClickHandler } from '../../../nodeviews/utils';
 
 const MATCH_NEWLINES = new RegExp('\n', 'g');
 
@@ -39,6 +40,8 @@ export class CodeBlockView {
   lineNumberGutter: HTMLElement;
   getPos: getPosHandlerNode;
   view: EditorView;
+  clickHandler?: (event: Event) => false | void;
+  clickCleanup?: () => void;
 
   constructor(node: Node, view: EditorView, getPos: getPosHandlerNode) {
     const { dom, contentDOM } = DOMSerializer.renderSpec(document, toDOM(node));
@@ -57,7 +60,13 @@ export class CodeBlockView {
 
   private initHandlers() {
     if (this.dom) {
-      this.dom.addEventListener('click', this.handleClick);
+      const { handler, cleanup } = createSelectionAwareClickHandler(
+        this.dom,
+        this.handleClick,
+      );
+      this.clickHandler = handler;
+      this.clickCleanup = cleanup;
+      this.dom.addEventListener('click', this.clickHandler);
     }
   }
 
@@ -129,9 +138,12 @@ export class CodeBlockView {
       selectNode(this.getPos())(state, dispatch);
     }
   };
+
   destroy() {
     if (this.dom) {
-      this.dom.removeEventListener('click', this.handleClick);
+      this.clickHandler &&
+        this.dom.removeEventListener('click', this.clickHandler);
+      this.clickCleanup && this.clickCleanup();
     }
   }
 }

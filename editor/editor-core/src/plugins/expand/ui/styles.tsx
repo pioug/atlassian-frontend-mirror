@@ -1,5 +1,6 @@
 import { css } from 'styled-components';
-import { colors, gridSize } from '@atlaskit/theme';
+import { gridSize } from '@atlaskit/theme/constants';
+import { R50, R300, N40A, N50A } from '@atlaskit/theme/colors';
 import {
   akLayoutGutterOffset,
   sharedExpandStyles,
@@ -37,8 +38,8 @@ export const expandStyles = css`
     }
 
     &.danger {
-      background: ${colors.R50};
-      border-color: ${colors.R300};
+      background: ${R50};
+      border-color: ${R300};
     }
   }
 
@@ -66,7 +67,7 @@ export const expandStyles = css`
 
   .${expandClassNames.expanded} {
     background: ${EXPAND_SELECTED_BACKGROUND};
-    border-color: ${colors.N40A};
+    border-color: ${N40A};
 
     .${expandClassNames.content} {
       padding-top: ${gridSize}px;
@@ -76,14 +77,14 @@ export const expandStyles = css`
   .${expandClassNames.inputContainer} {
     width: 100%;
   }
-  
+
   .${expandClassNames.prefix}:(.${expandClassNames.expanded}) {
     .expand-content-wrapper {
       height: auto;
     }
   }
-  
-  
+
+
 
   .${expandClassNames.prefix}:not(.${expandClassNames.expanded}) {
     .ak-editor-expand__content {
@@ -104,7 +105,7 @@ export const expandStyles = css`
       border-color: transparent;
 
       &:hover {
-        border-color: ${colors.N50A};
+        border-color: ${N50A};
         background: ${EXPAND_SELECTED_BACKGROUND};
       }
     }

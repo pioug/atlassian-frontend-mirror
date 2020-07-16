@@ -14,7 +14,7 @@ import { PanelSharedCssClassName } from '@atlaskit/editor-common';
 
 BrowserTestCase(
   'change-selected-type.ts: Select panel and then change type',
-  { skip: ['edge', 'ie'] },
+  { skip: ['edge'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
     await mountEditor(page, {

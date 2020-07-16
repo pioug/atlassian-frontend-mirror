@@ -1,4 +1,5 @@
 import {
+  ExtensionAutoConvertHandler,
   ExtensionKey,
   ExtensionManifest,
   ExtensionType,
@@ -11,4 +12,5 @@ export interface ExtensionProvider {
     key: ExtensionKey,
   ): Promise<ExtensionManifest | undefined>;
   search(keyword: string): Promise<ExtensionManifest[]>;
+  getAutoConverter(): Promise<ExtensionAutoConvertHandler[]>;
 }

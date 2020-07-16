@@ -5,9 +5,14 @@ exports[`StatelessElementBrowser should render desktop components for width >= 6
   <styled.div
     showCategories={true}
   >
-    <SideBarHeading>
-      Browse
-    </SideBarHeading>
+    <SidebarHeading>
+      <FormattedMessage
+        defaultMessage="Browse"
+        description="Sidebar heading"
+        id="fabric.editor.elementbrowser.sidebar.heading"
+        values={Object {}}
+      />
+    </SidebarHeading>
     <Styled(styled.nav)>
       <Memo(WithAnalyticsContext(CategoryList))
         categories={
@@ -25,7 +30,7 @@ exports[`StatelessElementBrowser should render desktop components for width >= 6
   </styled.div>
   <Styled(styled.div)>
     <styled.div>
-      <Memo(WithAnalyticsContext(ElementSearch))
+      <Memo(WithAnalyticsContext(InjectIntl(ElementSearch)))
         mode="full"
         onSearch={[Function]}
       />
@@ -53,7 +58,7 @@ exports[`StatelessElementBrowser should render mobile components for width < 600
   <styled.div
     showCategories={true}
   >
-    <Memo(WithAnalyticsContext(ElementSearch))
+    <Memo(WithAnalyticsContext(InjectIntl(ElementSearch)))
       mode="inline"
       onSearch={[Function]}
     />

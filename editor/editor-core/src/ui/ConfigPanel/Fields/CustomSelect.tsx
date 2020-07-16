@@ -22,6 +22,7 @@ type Props = {
   extensionManifest: ExtensionManifest;
   onBlur: OnBlur;
   autoFocus?: boolean;
+  placeholder?: string;
 };
 
 type State = {
@@ -113,7 +114,7 @@ export default class CustomSelect extends React.Component<Props, State> {
   }
 
   render() {
-    const { field, onBlur, autoFocus } = this.props;
+    const { field, onBlur, autoFocus, placeholder } = this.props;
     const { defaultValue, fieldResolver, isMissingResolver } = this.state;
 
     return (
@@ -143,6 +144,7 @@ export default class CustomSelect extends React.Component<Props, State> {
                   formatOptionLabel={formatOptionLabel}
                   loadOptions={fieldResolver}
                   autoFocus={autoFocus}
+                  placeholder={placeholder}
                 />
                 <FieldMessages error={error} description={field.description} />
               </Fragment>

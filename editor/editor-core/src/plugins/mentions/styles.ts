@@ -8,7 +8,7 @@ import {
 import { akEditorSelectedNodeClassName } from '../../styles';
 import { getSelectionStyles } from '../selection/utils';
 import { SelectionStyle } from '../selection/types';
-import { colors } from '@atlaskit/theme';
+import { N500, N30A } from '@atlaskit/theme/colors';
 
 export const mentionsStyles = css`
   .${MentionSharedCssClassName.MENTION_CONTAINER} {
@@ -20,7 +20,7 @@ export const mentionsStyles = css`
 
       /* need to specify dark text colour because personal mentions
          (in dark blue) have white text by default */
-      color: ${colors.N500};
+      color: ${N500};
     }
   }
 
@@ -34,8 +34,8 @@ export const mentionsStyles = css`
       background-color: ${akEditorDeleteBackgroundWithOpacity};
     }
     .${MentionSharedCssClassName.MENTION_CONTAINER} > span > span {
-      background-color: ${colors.N30A};
-      color: ${colors.N500};
+      background-color: ${N30A};
+      color: ${N500};
     }
   }
 `;

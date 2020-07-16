@@ -12,7 +12,7 @@ import DelayingExample from '../../examples/delaying';
 
 The default form of spinner.
 
-<Example Component={BasicExample} componentName="@atlaskit/spinner" />
+<Example Component={BasicExample} packageName="@atlaskit/spinner" />
 
 ### Sizes
 
@@ -22,19 +22,19 @@ The default form of spinner.
 - **Large**: Larger than medium
 - **Extra large**: Larger than large
 
-<Example Component={SizeExample} componentName="@atlaskit/spinner" />
+<Example Component={SizeExample} packageName="@atlaskit/spinner" />
 
 ### Theming
 
 A spinner will respect the current theme. You can invert the color of a spinner by setting `appearance="invert"`. This is useful when you are displaying a spinner on a background that is not the same mode as the body.
 
-<Example Component={ThemingExample} componentName="@atlaskit/spinner" />
+<Example Component={ThemingExample} packageName="@atlaskit/spinner" />
 
 ### Animation
 
 A spinner will always animate itself in. For graceful exit animations we recommend that you use `<FadeIn />` from [@atlaskit/motion](https://atlaskit.atlassian.com/packages/design-system/motion)
 
-<Example Component={AnimatedExitExample} componentName="@atlaskit/spinner" />
+<Example Component={AnimatedExitExample} packageName="@atlaskit/spinner" />
 
 ### Delaying a spinner
 
@@ -52,4 +52,4 @@ A spinner has a `delay` prop that can be used to achieve long pausing. You can s
 
 For best results, use `<FadeIn />` from [@atlaskit/motion](https://atlaskit.atlassian.com/packages/design-system/motion) to fade out the spinner. It is still possible for the spinner to show briefly when your async operation takes slightly longer than your long delay. So fading out your spinner will always look the nicest
 
-<Example Component={DelayingExample} componentName="@atlaskit/spinner" />
+<Example Component={DelayingExample} packageName="@atlaskit/spinner" />

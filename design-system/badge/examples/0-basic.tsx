@@ -2,7 +2,8 @@ import React from 'react';
 
 import styled from 'styled-components';
 
-import { borderRadius, colors } from '@atlaskit/theme';
+import { B400, B500, N0, N20 } from '@atlaskit/theme/colors';
+import { borderRadius } from '@atlaskit/theme/constants';
 
 import Badge from '../src';
 
@@ -12,9 +13,9 @@ interface ItemProps {
 
 const Item = styled.div<ItemProps>`
   align-items: center;
-  background: ${props => (props.inverted ? colors.B400 : 'none')};
+  background: ${props => (props.inverted ? B400 : 'none')};
   border-radius: ${borderRadius}px;
-  color: ${props => (props.inverted ? colors.N0 : 'inherit')};
+  color: ${props => (props.inverted ? N0 : 'inherit')};
   display: flex;
   justify-content: space-between;
   margin-bottom: 4px;
@@ -22,7 +23,7 @@ const Item = styled.div<ItemProps>`
   padding: 0.6em 1em;
 
   &:hover {
-    background-color: ${props => (props.inverted ? colors.B500 : colors.N20)};
+    background-color: ${props => (props.inverted ? B500 : N20)};
   }
 `;
 

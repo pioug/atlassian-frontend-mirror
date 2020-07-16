@@ -4,7 +4,7 @@ export { default as ReactSerializer, AnnotationContext } from './react';
 export { default as TextSerializer } from './text';
 
 export { default as ReactRenderer } from './ui/Renderer';
-export { Props as RendererProps } from './ui/Renderer';
+export { RendererProps } from './ui/renderer-props';
 export { RendererContext } from './react/types';
 export { ADFEncoder } from './utils';
 

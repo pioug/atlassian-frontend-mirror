@@ -1,6 +1,6 @@
 import React from 'react';
 import { PopupWrapper, PopUps } from './kitchen-sink-styles';
-import { EditorAppearance } from '../../src/types';
+import { EditorAppearance, EditorProps } from '../../src/types';
 import EditorActions from '../../src/actions';
 import { ValidatingKitchenSinkEditor } from './validating-kitchen-sink-editor';
 import { KitchenSinkToolbar } from './kitchen-sink-toolbar';
@@ -14,7 +14,7 @@ export interface KitchenSinkEditorProps {
   adf: any;
   disabled: boolean;
   appearance: EditorAppearance;
-  extensionProviders: any;
+  extensionProviders: EditorProps['extensionProviders'];
   popupMountPoint: HTMLElement | null | undefined;
   setPopupRef(ref: HTMLElement): void;
   onDocumentChanged(adf: any): void;

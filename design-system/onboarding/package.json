@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/onboarding",
-  "version": "10.0.0",
+  "version": "10.1.0",
   "description": "Highlight elements of the UI to the user and display a complementary dialog.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -52,6 +52,7 @@
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
     "@testing-library/react": "^8.0.1",
+    "@testing-library/react-hooks": "^1.0.4",
     "enzyme": "^3.10.0",
     "raf-stub": "^2.0.1",
     "react-dom": "^16.8.0",

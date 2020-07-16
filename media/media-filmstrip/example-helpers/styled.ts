@@ -1,12 +1,12 @@
 import styled from 'styled-components';
-import { colors } from '@atlaskit/theme';
+import { N50A } from '@atlaskit/theme/colors';
 
 export interface MutableCardContainerProps {
   mutable: boolean;
 }
 
 export const FilmstripContainer = styled.div`
-  border: 1px dotted ${colors.N50A};
+  border: 1px dotted ${N50A};
   margin-top: 10px;
   margin-bottom: 10px;
 `;

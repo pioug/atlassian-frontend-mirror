@@ -40,7 +40,7 @@ async function setupEditorWithMedia(client: any): Promise<Page> {
 
 BrowserTestCase(
   'Inserts a media single with alt text',
-  { skip: ['edge', 'ie', 'safari'] },
+  { skip: ['edge', 'safari'] },
   async (client: any, testName: string) => {
     const page = await setupEditorWithMedia(client);
 
@@ -63,7 +63,7 @@ BrowserTestCase(
 // Skip the test. Will work on introducing this behaviour back again as part of https://product-fabric.atlassian.net/browse/ED-8673
 BrowserTestCase(
   'Inserts can undo clearing the alt text using cmd+z',
-  { skip: ['ie', 'firefox', 'edge', 'chrome', 'safari'] },
+  { skip: ['firefox', 'edge', 'chrome', 'safari'] },
   async (browser: any, testName: string) => {
     const page = await setupEditorWithMedia(browser);
     await page.keys(['ArrowUp']);

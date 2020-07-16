@@ -102,12 +102,7 @@
                     {
                       "type": "inlineCard",
                       "attrs": {
-                        "data": {
-                          "@context": "https://www.w3.org/ns/activitystreams",
-                          "@type": "Document",
-                          "name": "Welcome to Atlassian!",
-                          "url": "http://www.atlassian.com"
-                        }
+                        "url": "https://inlineCardTestUrl"
                       }
                     },
                     {

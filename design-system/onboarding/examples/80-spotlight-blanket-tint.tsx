@@ -63,7 +63,9 @@ export default class SpotlightBlanketTintExample extends Component<
       </Spotlight>,
     ];
 
-    if (this.state.active == null) return null;
+    if (this.state.active == null) {
+      return null;
+    }
 
     return variants[this.state.active];
   };

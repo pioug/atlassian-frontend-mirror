@@ -3,7 +3,7 @@ import React, { PureComponent } from 'react';
 import { BrowserRouter, Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { colors } from '@atlaskit/theme';
+import { N800 } from '@atlaskit/theme/colors';
 
 import { ProgressTracker, Stage, Stages } from '../src';
 
@@ -53,7 +53,7 @@ interface Props {
 }
 
 const StyledLink = styled(Link)`
-  color: ${colors.N800};
+  color: ${N800};
 `;
 
 class CustomProgressTrackerLink extends PureComponent<Props> {

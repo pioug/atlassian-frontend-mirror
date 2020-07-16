@@ -2,7 +2,8 @@ import React, { ReactNode } from 'react';
 
 import styled from '@emotion/styled';
 
-import { colors, gridSize } from '@atlaskit/theme';
+import { N100, R400, R50, subtleHeading, text } from '@atlaskit/theme/colors';
+import { gridSize } from '@atlaskit/theme/constants';
 
 const Wrapper = styled.div`
   margin-top: ${gridSize}px;
@@ -10,7 +11,7 @@ const Wrapper = styled.div`
 
 const ChildrenWrapper = styled.div`
   align-items: baseline;
-  color: ${colors.text};
+  color: ${text};
   display: flex;
   flex-wrap: wrap;
 
@@ -20,16 +21,16 @@ const ChildrenWrapper = styled.div`
 `;
 
 export const Note = styled.p<{ size?: string }>`
-  color: ${colors.N100};
+  color: ${N100};
   font-size: ${props => (props.size === 'large' ? '1.15em' : '0.9rem')};
   margin-top: ${gridSize() / 2}px;
   margin-bottom: ${gridSize() * 2}px;
 `;
 
 export const Code = styled.code`
-  background-color: ${colors.R50};
+  background-color: ${R50};
   border-radius: 0.2em;
-  color: ${colors.R400};
+  color: ${R400};
   font-size: 0.85em;
   line-height: 1.1;
   padding: 0.1em 0.4em;
@@ -44,7 +45,7 @@ export const ShrinkWrap = styled(Gap)`
   width: ${gridSize() * 3}px;
 `;
 export const Heading = styled.div`
-  color: ${colors.subtleHeading};
+  color: ${subtleHeading};
   display: flex;
   font-size: 0.8rem;
   font-weight: 500;

@@ -61,6 +61,7 @@ describe('smart-card: error analytics', () => {
       expect.any(String),
       'fallback',
       undefined,
+      undefined,
       new APIError('fallback', 'https://my', 'received bad request'),
     );
     expect(mockEvents.unresolvedEvent).toHaveBeenCalled();
@@ -89,6 +90,7 @@ describe('smart-card: error analytics', () => {
       expect.any(String),
       'unauthorized',
       'provider-not-found',
+      undefined,
       undefined,
     );
     expect(mockEvents.unresolvedEvent).toHaveBeenCalled();
@@ -157,6 +159,7 @@ describe('smart-card: error analytics', () => {
       expect.any(String),
       'errored',
       undefined,
+      undefined,
       new APIError('error', 'https://my', 'received failure error'),
     );
     expect(mockEvents.unresolvedEvent).toHaveBeenCalled();
@@ -188,6 +191,7 @@ describe('smart-card: error analytics', () => {
       expect.any(String),
       'errored',
       undefined,
+      undefined,
       new APIError('error', 'https://my', 'received timeout error'),
     );
     expect(mockEvents.unresolvedEvent).toHaveBeenCalled();
@@ -218,6 +222,7 @@ describe('smart-card: error analytics', () => {
     expect(mockEvents.instrumentEvent).toHaveBeenCalledWith(
       expect.any(String),
       'errored',
+      undefined,
       undefined,
       new APIError('error', 'https://my', 'received internal server error'),
     );
@@ -296,6 +301,7 @@ describe('smart-card: error analytics', () => {
       expect.any(String),
       'resolved',
       'd1',
+      undefined,
       undefined,
     );
     expect(mockEvents.resolvedEvent).toHaveBeenCalledTimes(1);

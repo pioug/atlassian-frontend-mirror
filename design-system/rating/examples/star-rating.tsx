@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import Button, { ButtonGroup } from '@atlaskit/button';
-import { colors } from '@atlaskit/theme';
+import { G300 } from '@atlaskit/theme/colors';
 
 import { RatingGroup, Star } from '../src';
 
@@ -33,7 +33,7 @@ export default () => {
         <Button onClick={decrease}>Smaller</Button>
         <Button
           isSelected={!!color}
-          onClick={() => setColor(prev => (prev ? undefined : colors.G300))}
+          onClick={() => setColor(prev => (prev ? undefined : G300))}
         >
           {color ? 'Reset color' : 'Use custom color'}
         </Button>

@@ -1,7 +1,11 @@
-import { createFakeExtensionManifest } from '@atlaskit/editor-test-helpers/extensions';
+import {
+  createFakeAutoConvertModule,
+  createFakeExtensionManifest,
+} from '@atlaskit/editor-test-helpers/extensions';
 
 import combineExtensionProviders from '../../combine-extension-providers';
 import DefaultExtensionProvider from '../../default-extension-provider';
+import { createAutoConverterRunner } from '../../module-helpers';
 import { ExtensionProvider } from '../../types';
 
 describe('combine-extension-providers', () => {
@@ -110,6 +114,49 @@ describe('combine-extension-providers', () => {
       forgeMehhExtension,
     ]);
     expect(await combinedExtensionProvider.search('none')).toEqual([]);
+  });
+
+  test('should be able to get autoconvert handler across all providers', async () => {
+    const confluenceWithAutoConvert = createFakeAutoConvertModule(
+      confluenceAwesomeMacro,
+      'url',
+      ['foo', 'bar'],
+    );
+
+    const forgeWithAutoConvert = createFakeAutoConvertModule(
+      forgeAmazingExtension,
+      'url',
+      ['baz'],
+    );
+
+    const combinedExtensionProviderWithAutoConvert = combineExtensionProviders([
+      new DefaultExtensionProvider([
+        confluenceWithAutoConvert,
+        confluenceDumbMacro,
+      ]),
+      new DefaultExtensionProvider([forgeWithAutoConvert, forgeMehhExtension]),
+    ]);
+
+    const autoConvertHandlers = await combinedExtensionProviderWithAutoConvert.getAutoConverter();
+    const autoConvertRunner = createAutoConverterRunner(autoConvertHandlers);
+
+    [
+      'http://awesome-foo/test',
+      'http://awesome-bar/bear',
+      'http://amazing-baz/app',
+    ].forEach(url => {
+      const result = autoConvertRunner(url);
+      expect(result).toMatchObject({
+        type: 'extension',
+        attrs: {
+          parameters: {
+            url,
+          },
+        },
+      });
+    });
+
+    expect(autoConvertRunner('unknown')).toStrictEqual(undefined);
   });
 
   test('should work even if the provider is a promise', async () => {

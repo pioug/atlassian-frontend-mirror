@@ -8,10 +8,12 @@ import {
 } from '@atlaskit/adf-schema';
 import { nextTick } from '@atlaskit/media-test-helpers';
 import { Heading } from '../../../react/nodes';
+import { Expand } from '../../../react/nodes';
 import { Emoji } from '../../../react/nodes';
 
 import * as doc from '../../__fixtures__/hello-world.adf.json';
 import * as headingDoc from '../../__fixtures__/heading-doc.adf.json';
+import * as nestedHeadingsDoc from '../../__fixtures__/nested-headings-adf.json';
 import * as mediaFragment from '../../__fixtures__/media-fragment.json';
 import * as mediaGroupFragment from '../../__fixtures__/media-group-fragment.json';
 import * as linkDoc from '../../__fixtures__/links.adf.json';
@@ -22,6 +24,7 @@ import * as tableWithMedia from '../../__fixtures__/table-with-media.json';
 
 const docFromSchema = schema.nodeFromJSON(doc);
 const headingDocFromSchema = schema.nodeFromJSON(headingDoc);
+const nestedHeadingsDocFromSchema = schema.nodeFromJSON(nestedHeadingsDoc);
 const linksDocFromSchema = schema.nodeFromJSON(linkDoc);
 
 const getMedia = (wrapper: ReactWrapper<any, any, any>) => {
@@ -462,6 +465,66 @@ describe('Renderer - ReactSerializer', () => {
       expect(headings.at(1).prop('headingId')).toEqual(undefined);
       expect(headings.at(2).prop('headingId')).toEqual(undefined);
       expect(headings.at(3).prop('headingId')).toEqual(undefined);
+    });
+  });
+
+  describe('Nested Headings', () => {
+    describe('inside expands', () => {
+      it('should provide nested header ids to expand nodes through props', () => {
+        const reactSerializer = new ReactSerializer({
+          allowHeadingAnchorLinks: {
+            allowNestedHeaderLinks: true,
+          },
+        });
+        const reactDoc = shallow(
+          reactSerializer.serializeFragment(
+            nestedHeadingsDocFromSchema.content,
+          ) as any,
+        );
+        const expands = reactDoc.find(Expand);
+        expect(expands.at(0).prop('nestedHeaderIds')).toEqual([
+          'test1',
+          'test2',
+          'test3',
+          'test4',
+          'test5',
+          'test6',
+        ]);
+        expect(expands.at(1).prop('nestedHeaderIds')).toEqual(['test7']);
+        expect(expands.at(2).prop('nestedHeaderIds')).toEqual([]);
+      });
+
+      it('should not provide nested header ids prop to expand nodes when allowNestedHeadersLinks is false', () => {
+        const reactSerializer = new ReactSerializer({
+          allowHeadingAnchorLinks: {
+            allowNestedHeaderLinks: false,
+          },
+        });
+        const reactDoc = shallow(
+          reactSerializer.serializeFragment(
+            nestedHeadingsDocFromSchema.content,
+          ) as any,
+        );
+        const expands = reactDoc.find(Expand);
+        expect(expands.at(0).prop('nestedHeaderIds')).toBeUndefined();
+        expect(expands.at(1).prop('nestedHeaderIds')).toBeUndefined();
+        expect(expands.at(2).prop('nestedHeaderIds')).toBeUndefined();
+      });
+
+      it('should not provide nested header ids prop to expand nodes when allowHeadingAnchorLinks is true', () => {
+        const reactSerializer = new ReactSerializer({
+          allowHeadingAnchorLinks: true,
+        });
+        const reactDoc = shallow(
+          reactSerializer.serializeFragment(
+            nestedHeadingsDocFromSchema.content,
+          ) as any,
+        );
+        const expands = reactDoc.find(Expand);
+        expect(expands.at(0).prop('nestedHeaderIds')).toBeUndefined();
+        expect(expands.at(1).prop('nestedHeaderIds')).toBeUndefined();
+        expect(expands.at(2).prop('nestedHeaderIds')).toBeUndefined();
+      });
     });
   });
 

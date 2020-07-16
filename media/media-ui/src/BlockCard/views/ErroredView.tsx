@@ -15,14 +15,21 @@ export interface ErroredViewProps {
   onRetry?: (val: any) => void;
   isSelected?: boolean;
   testId?: string;
+  inheritDimensions?: boolean;
 }
 
 export const ErroredView = ({
   onRetry,
   isSelected = false,
   testId,
+  inheritDimensions,
 }: ErroredViewProps) => (
-  <Frame compact={true} isSelected={isSelected} testId={testId}>
+  <Frame
+    inheritDimensions={inheritDimensions}
+    compact={true}
+    isSelected={isSelected}
+    testId={testId}
+  >
     <ErrorIcon size="small" primaryColor={R300} label="error-icon" />
     <span
       css={{

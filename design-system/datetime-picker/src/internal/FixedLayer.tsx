@@ -52,7 +52,9 @@ export default class FixedLayer extends React.Component<Props> {
     const { containerRef, content, testId } = this.props;
 
     // Wait for containerRef callback to cause a re-render
-    if (!containerRef) return <div />;
+    if (!containerRef) {
+      return <div />;
+    }
     const containerRect = containerRef.getBoundingClientRect();
 
     return (

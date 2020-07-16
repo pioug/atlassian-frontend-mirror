@@ -15,6 +15,7 @@ import {
 import { SelectItemMode } from '../type-ahead/types';
 import { isTeamType } from './utils';
 import { TeamInfoAttrAnalytics } from './types';
+import { ContextIdentifierProvider } from '@atlaskit/editor-common';
 
 const componentName = 'mention';
 
@@ -104,9 +105,10 @@ export const buildTypeAheadInsertedPayload = (
   mention: MentionDescription,
   mentionList?: MentionDescription[],
   query?: string,
+  contextIdentifierProvider?: ContextIdentifierProvider,
 ): GasPayload => {
   const { queryLength, spaceInQuery } = extractAttributesFromQuery(query);
-  return buildAnalyticsPayload(
+  let analyticsPayload = buildAnalyticsPayload(
     'mentionTypeahead',
     isClicked(insertType) ? 'clicked' : 'pressed',
     UI_EVENT_TYPE,
@@ -133,6 +135,16 @@ export const buildTypeAheadInsertedPayload = (
           : null,
     },
   );
+
+  if (contextIdentifierProvider) {
+    analyticsPayload.containerId =
+      contextIdentifierProvider.containerId || undefined;
+    analyticsPayload.objectId = contextIdentifierProvider.objectId || undefined;
+    analyticsPayload.childObjectId =
+      contextIdentifierProvider.childObjectId || undefined;
+  }
+
+  return analyticsPayload;
 };
 
 export const buildTypeAheadRenderedPayload = (

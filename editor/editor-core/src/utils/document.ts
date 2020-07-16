@@ -136,10 +136,12 @@ export function bracketTyped(state: EditorState) {
 
 function wrapWithUnsupported(
   originalValue: ADFEntity,
-  type: 'block' | 'inline' = 'block',
+  type: 'block' | 'inline' | 'mark' = 'block',
 ) {
   return {
-    type: `unsupported${type === 'block' ? 'Block' : 'Inline'}`,
+    type: `unsupported${
+      type === 'block' ? 'Block' : type === 'mark' ? 'Mark' : 'Inline'
+    }`,
     attrs: { originalValue },
   };
 }
@@ -220,52 +222,58 @@ export function processRawValue(
     const marks = Object.keys(schema.marks);
     const validate = validator(nodes, marks, { allowPrivateAttributes: true });
     const emptyDoc: ADFEntity = { type: 'doc', content: [] };
-
-    const { entity = emptyDoc } = validate(
-      node as ADFEntity,
-      (entity, error, options) => {
-        // Remove any invalid marks
-        if (marks.indexOf(entity.type) > -1) {
-          if (
-            !(
-              error.code === 'INVALID_TYPE' &&
-              FALSE_POSITIVE_MARKS.indexOf(entity.type) > -1
-            )
-          ) {
-            fireAnalyticsEvent(entity, error, 'mark');
-          }
-          return;
-        }
-
-        /**
-         * There's a inconsistency between ProseMirror and ADF.
-         * `content` is actually optional in ProseMirror.
-         * And, also empty `text` node is not valid.
-         */
-        if (
-          error.code === 'MISSING_PROPERTIES' &&
-          entity.type === 'paragraph'
-        ) {
-          return { type: 'paragraph', content: [] };
-        }
-
-        // Can't fix it by wrapping
-        // TODO: We can repair missing content like `panel` without a `paragraph`.
-        if (error.code === 'INVALID_CONTENT_LENGTH') {
-          return entity;
-        }
-
-        if (options.allowUnsupportedBlock) {
-          fireAnalyticsEvent(entity, error);
-          return wrapWithUnsupported(entity);
-        } else if (options.allowUnsupportedInline) {
-          fireAnalyticsEvent(entity, error, 'inline');
-          return wrapWithUnsupported(entity, 'inline');
-        }
-
-        return entity;
+    const errorCallback = (
+      entity: ADFEntity,
+      error: ValidationError,
+      options: {
+        isMark?: any;
+        allowUnsupportedBlock?: any;
+        allowUnsupportedInline?: any;
       },
-    );
+    ) => {
+      if (options.isMark) {
+        return wrapWithUnsupported(error.meta as ADFEntity, 'mark');
+      }
+
+      // Remove any invalid marks
+      if (marks.indexOf(entity.type) > -1) {
+        if (
+          !(
+            error.code === 'INVALID_TYPE' &&
+            FALSE_POSITIVE_MARKS.indexOf(entity.type) > -1
+          )
+        ) {
+          fireAnalyticsEvent(entity, error, 'mark');
+        }
+        return;
+      }
+
+      /**
+       * There's a inconsistency between ProseMirror and ADF.
+       * `content` is actually optional in ProseMirror.
+       * And, also empty `text` node is not valid.
+       */
+      if (error.code === 'MISSING_PROPERTIES' && entity.type === 'paragraph') {
+        return { type: 'paragraph', content: [] };
+      }
+
+      // Can't fix it by wrapping
+      // TODO: We can repair missing content like `panel` without a `paragraph`.
+      if (error.code === 'INVALID_CONTENT_LENGTH') {
+        return entity;
+      }
+
+      if (options.allowUnsupportedBlock) {
+        fireAnalyticsEvent(entity, error);
+        return wrapWithUnsupported(entity);
+      } else if (options.allowUnsupportedInline) {
+        fireAnalyticsEvent(entity, error, 'inline');
+        return wrapWithUnsupported(entity, 'inline');
+      }
+
+      return entity;
+    };
+    const { entity = emptyDoc } = validate(node as ADFEntity, errorCallback);
 
     let newEntity = maySanitizePrivateContent(
       entity as JSONDocNode,

@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { colors } from '@atlaskit/theme';
+import { N30 } from '@atlaskit/theme/colors';
 import { Wrapper, LinkWrapper, IconWrapper, TextWrapper } from '../../styled';
 
 describe('Wrapper', () => {
@@ -70,23 +70,23 @@ describe('LinkWrapper', () => {
 describe('IconWrapper', () => {
   it('should look like a placeholder when isPlaceholder=true', () => {
     const element = shallow(<IconWrapper isPlaceholder={true} />);
-    expect(element).toHaveStyleRule('background-color', colors.N30);
+    expect(element).toHaveStyleRule('background-color', N30);
   });
 
   it('should look like a placeholder when isPlaceholder=false', () => {
     const element = shallow(<IconWrapper isPlaceholder={false} />);
-    expect(element).not.toHaveStyleRule('background-color', colors.N30);
+    expect(element).not.toHaveStyleRule('background-color', N30);
   });
 });
 
 describe('TextWrapper', () => {
   it('should look like a placeholder when isPlaceholder=true', () => {
     const element = shallow(<TextWrapper isPlaceholder={true} />);
-    expect(element).toHaveStyleRule('background-color', colors.N30);
+    expect(element).toHaveStyleRule('background-color', N30);
   });
 
   it('should look like a placeholder when isPlaceholder=false', () => {
     const element = shallow(<TextWrapper isPlaceholder={false} />);
-    expect(element).not.toHaveStyleRule('background-color', colors.N30);
+    expect(element).not.toHaveStyleRule('background-color', N30);
   });
 });

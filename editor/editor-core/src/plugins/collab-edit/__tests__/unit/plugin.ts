@@ -22,7 +22,6 @@ describe('collab-edit: plugin', () => {
       preset: new Preset<LightEditorPlugin>().add([
         collabEditPlugin,
         {
-          allowUnsupportedContent: true,
           sendDataOnViewUpdated,
         },
       ]),

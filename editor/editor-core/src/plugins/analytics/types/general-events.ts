@@ -8,6 +8,7 @@ import {
 import { PluginPerformanceReportData } from '../../../utils/performance/plugin-performance-report';
 import { FeatureFlagKey } from '../../feature-flags-context/types';
 import { AnnotationAEP } from './inline-comment-events';
+import { RichMediaLayout } from '@atlaskit/adf-schema';
 
 export enum PLATFORMS {
   NATIVE = 'mobileNative',
@@ -286,6 +287,17 @@ type ExpandToggleAEP = TrackAEP<
   undefined
 >;
 
+type RichMediaLayoutAEP = TrackAEP<
+  ACTION.SELECTED,
+  ACTION_SUBJECT.MEDIA_SINGLE | ACTION_SUBJECT.EMBEDS,
+  ACTION_SUBJECT_ID.RICH_MEDIA_LAYOUT,
+  {
+    previousLayoutType: RichMediaLayout;
+    currentLayoutType: RichMediaLayout;
+  },
+  undefined
+>;
+
 export type GeneralEventPayload =
   | EditorStartAEP
   | EditorStopAEP
@@ -310,4 +322,5 @@ export type GeneralEventPayload =
   | ExpandToggleAEP
   | DispatchedTransactionAEP
   | WithPluginStateCalledAEP
-  | ReactNodeViewRenderedAEP;
+  | ReactNodeViewRenderedAEP
+  | RichMediaLayoutAEP;

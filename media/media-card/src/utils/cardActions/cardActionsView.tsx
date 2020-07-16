@@ -7,6 +7,7 @@ import {
   CardActionIconButton,
   CardActionIconButtonProps,
 } from './cardActionIconButton';
+import { CardActionIconButtonVariant } from './styled';
 import { CardActionsDropdownMenu } from './cardActionsDropdownMenu';
 import { PreventClickThrough } from '../preventClickThrough';
 import { createAndFireMediaEvent } from '../analytics';
@@ -26,6 +27,7 @@ export interface CardActionsViewProps {
 
   readonly onToggle?: (attrs: { isOpen: boolean }) => void;
   readonly triggerColor?: string;
+  readonly variant?: CardActionIconButtonVariant;
 }
 
 export class CardActionsView extends Component<CardActionsViewProps> {
@@ -55,7 +57,7 @@ export class CardActionsView extends Component<CardActionsViewProps> {
     action: CardAction,
     isPrimary?: boolean,
   ): JSX.Element {
-    const { triggerColor } = this.props;
+    const { triggerColor, variant } = this.props;
     const { icon, handler, label } = action;
     const CardActionIconButtonWithAnalytics = withAnalyticsEvents({
       onClick: createAndFireMediaEvent({
@@ -75,6 +77,7 @@ export class CardActionsView extends Component<CardActionsViewProps> {
         icon={icon}
         triggerColor={triggerColor}
         onClick={() => handler()}
+        variant={variant}
       />
     );
   }
@@ -83,7 +86,7 @@ export class CardActionsView extends Component<CardActionsViewProps> {
     if (actions.length === 0) {
       return null;
     } else {
-      const { triggerColor, onToggle } = this.props;
+      const { triggerColor, onToggle, variant } = this.props;
       const firstActionWithIcon = actions.find(actionWithIcon);
       const otherActions = actions.filter(
         actionNotEqualTo(firstActionWithIcon),
@@ -97,6 +100,7 @@ export class CardActionsView extends Component<CardActionsViewProps> {
             actions={actions}
             triggerColor={triggerColor}
             onOpenChange={onToggle}
+            triggerVariant={variant}
           />
         );
       }

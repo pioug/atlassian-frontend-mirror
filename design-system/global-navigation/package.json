@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/global-navigation",
-  "version": "10.0.0",
+  "version": "10.0.1",
   "description": "Global navigation component for Atlassian",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -25,7 +25,7 @@
   "dependencies": {
     "@atlaskit/analytics-namespaced-context": "^5.0.0",
     "@atlaskit/analytics-next": "^7.0.0",
-    "@atlaskit/avatar": "^19.0.0",
+    "@atlaskit/avatar": "^20.0.0",
     "@atlaskit/badge": "^14.0.0",
     "@atlaskit/drawer": "^6.0.0",
     "@atlaskit/dropdown-menu": "^10.0.0",
@@ -50,7 +50,7 @@
     "@atlaskit/field-radio-group": "^8.0.0",
     "@atlaskit/logo": "^13.0.0",
     "@atlaskit/modal-dialog": "^11.0.0",
-    "@atlaskit/onboarding": "^10.0.0",
+    "@atlaskit/onboarding": "^10.1.0",
     "@atlaskit/section-message": "^5.0.0",
     "@atlaskit/tag": "^10.0.0",
     "@atlaskit/toggle": "^10.0.0",

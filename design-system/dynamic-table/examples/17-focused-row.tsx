@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import Button from '@atlaskit/button';
-import { AtlaskitThemeProvider } from '@atlaskit/theme';
+import { AtlaskitThemeProvider } from '@atlaskit/theme/components';
 
 import { DynamicTableStateless } from '../src';
 import { RowType } from '../src/types';

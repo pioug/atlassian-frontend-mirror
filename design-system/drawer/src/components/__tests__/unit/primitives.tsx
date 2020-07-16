@@ -104,7 +104,9 @@ describe('Drawer primitive', () => {
     const callsBeforeIconClick = Array.prototype.concat(onClose.mock.calls);
 
     const handler = wrapper.find('IconWrapper').prop('onClick');
-    if (handler) handler((event as unknown) as MouseEvent);
+    if (handler) {
+      handler((event as unknown) as MouseEvent);
+    }
 
     const callsAfterIconClick = onClose.mock.calls;
 
@@ -129,7 +131,9 @@ describe('Drawer primitive', () => {
     );
 
     const handler = wrapper.find(Slide).props().onExited;
-    if (handler) handler((node as unknown) as HTMLElement);
+    if (handler) {
+      handler((node as unknown) as HTMLElement);
+    }
 
     const callsAfterExited = onCloseComplete.mock.calls;
 
@@ -154,7 +158,9 @@ describe('Drawer primitive', () => {
     const node = document.createElement('div');
 
     const handler = wrapper.find(Slide).props().onEntered;
-    if (handler) handler(node);
+    if (handler) {
+      handler(node);
+    }
 
     expect(handler).toHaveBeenLastCalledWith(node);
   });

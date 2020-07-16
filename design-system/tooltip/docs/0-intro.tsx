@@ -72,6 +72,18 @@ export default md`
   immediate transition as this would display the tooltip at the target boundary
   rather than a more natural position.
 
+  ## Accessibility issues using 'title'
+  A \`Tooltip\` is often used to specify extra information when a user hovers over an element, which matches the behavior of the HTML \`title\` attribute. Avoid using the HTML \`title\` attribute in any children of \`Tooltip\` or you may see double tooltips displayed. In addition, the \`title\` attribute is not supported consistently across screenreaders, and is  inaccessible to all keyboard-only users and mobile phone users.
+
+  ${(
+    <Example
+      packageName="@atlaskit/tooltip"
+      Component={require('../examples/avoid-title-in-tooltip').default}
+      source={require('!!raw-loader!../examples/avoid-title-in-tooltip')}
+      title="Avoid using title attribute"
+    />
+  )}
+
   ${(
     <Props
       props={require('!!extract-react-types-loader!../src/components/Tooltip')}

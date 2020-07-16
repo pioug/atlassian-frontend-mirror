@@ -192,13 +192,16 @@ export default class ReactEditorView<T = {}> extends React.Component<
     this.errorReporter = createErrorReporter(
       props.editorProps.errorReporterHandler,
     );
-    this.editorState = this.createEditorState({ props, replaceDoc: true });
 
+    // This needs to be before initialising editorState because
+    // we dispatch analytics events in plugin initialisation
     const { createAnalyticsEvent, allowAnalyticsGASV3 } = props;
     if (allowAnalyticsGASV3) {
       this.activateAnalytics(createAnalyticsEvent);
     }
     initAnalytics(props.editorProps.analyticsHandler);
+
+    this.editorState = this.createEditorState({ props, replaceDoc: true });
 
     const featureFlags = createFeatureFlagsFromProps(this.props.editorProps);
     const featureFlagsEnabled = featureFlags

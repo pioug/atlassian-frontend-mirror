@@ -14,7 +14,7 @@ const clear = `span=${messages.clearFormatting.defaultMessage}`;
 [comment, fullpage].forEach(editor => {
   BrowserTestCase(
     `toolbar-3.ts: should be able to select Clear Formatting on toolbar for ${editor.name} editor`,
-    { skip: ['ie', 'safari', 'edge'] },
+    { skip: ['safari', 'edge'] },
     async (client: any, testName: string) => {
       const page = await goToEditorTestingExample(client);
       await mountEditor(page, { appearance: editor.appearance });

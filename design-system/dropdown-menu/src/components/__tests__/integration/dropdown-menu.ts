@@ -3,32 +3,38 @@ import { getExampleUrl } from '@atlaskit/webdriver-runner/utils/example';
 import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 
 /* Url to test the example */
-const urlDrawer = getExampleUrl('design-system', 'dropdown-menu', 'testing');
+const urlDropdown = getExampleUrl(
+  'design-system',
+  'dropdown-menu',
+  'with-keyboard-interaction',
+);
 
 /* Css selectors used for the test */
-const dropdownMenuTrigger = '[data-testid="dropdown-menu--trigger"]';
-const dropdownMenuContent = '[data-testid="dropdown-menu--content"]';
-const menuItemSydney = `${dropdownMenuContent} [role="menuitem"]:first-child`;
+const dropdown = '[data-testid="dropdown--trigger"]';
+const dropdownItem = '[data-testid="dropdown--content"]';
+const dialogBox = '[data-testid="dialogBox-dialog-content"]';
 
 BrowserTestCase(
-  'Dropdown Menu should be able to select an item',
-  { skip: ['ie'] },
+  'Verify that Dropdown Menu is able to select an item and validate the associated action',
+  { skip: [] },
   async (client: WebdriverIO.BrowserObject) => {
     const dropdownMenuTest = new Page(client);
-    await dropdownMenuTest.goto(urlDrawer);
-    await dropdownMenuTest.waitForSelector(dropdownMenuTrigger);
-    await dropdownMenuTest.click(dropdownMenuTrigger);
+    await dropdownMenuTest.goto(urlDropdown);
+    await dropdownMenuTest.waitForSelector(dropdown);
+    await dropdownMenuTest.click(dropdown);
 
-    expect(await dropdownMenuTest.isExisting(dropdownMenuContent)).toBe(true);
+    expect(await dropdownMenuTest.isExisting(dropdownItem)).toBe(true);
 
-    await dropdownMenuTest.waitForSelector(dropdownMenuContent);
+    await dropdownMenuTest.waitForSelector(dropdownItem);
 
-    const menuItem = await dropdownMenuTest.getText(menuItemSydney);
+    const menuItem = await dropdownMenuTest.getText(dropdownItem);
 
-    expect(menuItem).toEqual('Sydney');
+    expect(menuItem).toEqual('Open modal');
 
-    await dropdownMenuTest.click(menuItemSydney);
+    await dropdownMenuTest.click(dropdownItem);
 
-    expect(await dropdownMenuTest.isExisting(dropdownMenuContent)).toBe(false);
+    expect(await dropdownMenuTest.isExisting(dialogBox)).toBe(true);
+
+    expect(await dropdownMenuTest.isExisting(dropdownItem)).toBe(false);
   },
 );

@@ -1,5 +1,7 @@
 import { css } from 'styled-components';
-import { borderRadius, colors, themed } from '@atlaskit/theme';
+import { themed } from '@atlaskit/theme/components';
+import { borderRadius } from '@atlaskit/theme/constants';
+import * as colors from '@atlaskit/theme/colors';
 import {
   blockNodesVerticalMargin,
   akEditorTableCellMinWidth,

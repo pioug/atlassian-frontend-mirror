@@ -19,8 +19,12 @@ const getBackgroundColor = ({
   isDisabled,
   ...rest
 }: StyledProps) => {
-  if (isDisabled) return backgroundColorDisabled(rest);
-  if (isChecked) return backgroundColorChecked(rest);
+  if (isDisabled) {
+    return backgroundColorDisabled(rest);
+  }
+  if (isChecked) {
+    return backgroundColorChecked(rest);
+  }
   return backgroundColor(rest);
 };
 

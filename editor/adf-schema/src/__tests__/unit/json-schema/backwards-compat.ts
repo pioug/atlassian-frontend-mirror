@@ -18,7 +18,9 @@ function fetchLastPublishedJSONSchema(): Promise<string> {
       `git show origin/master:packages/editor/adf-schema/json-schema/v1/full.json`,
       { maxBuffer: 512000 },
       (error, stdout, stderr) => {
-        if (error || stderr) reject(error || stderr);
+        if (error || stderr) {
+          reject(error || stderr);
+        }
         resolve(JSON.parse(stdout));
       },
     );

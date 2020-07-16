@@ -1,5 +1,51 @@
 # @atlaskit/editor-mobile-bridge
 
+## 17.0.0
+
+### Major Changes
+
+- [`f378057777`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f378057777) - [FM-2967] height too big on hybrid editor on mobile view
+
+### Minor Changes
+
+- [`c435b74d88`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c435b74d88) - [FM-3825] new bridge methods added to enable change of quick insert whitelist
+
+  ***
+
+  getQuickInsertAllowList(): string {}
+
+  returns a JSON string array with current allowed list
+
+  ***
+
+  setQuickInsertAllowList(newList: string): void {}
+
+  accepts a JSON string array "['item1', 'item2']"
+
+  will overwrite the current allowlist
+
+  ***
+
+  addQuickInsertAllowListItem(listItems: string): void {}
+
+  accepts a JSON string array "['item1', 'item2']"
+
+  will add to current allow list
+
+  ***
+
+  removeQuickInsertAllowListItem(listItems: string): void {}
+
+  accepts a JSON string array "['item1', 'item2']"
+
+  will remove from the current allow list
+
+### Patch Changes
+
+- [`6dae48e3b7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6dae48e3b7) - TWISTA-4 Refactor mobile editor to prevent unnecesary renders after an update happens
+- [`df4f83320d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/df4f83320d) - TWISTA-4 Replace EditorState for respective props in Editor
+- Updated dependencies
+
 ## 16.0.3
 
 ### Patch Changes

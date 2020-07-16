@@ -2,12 +2,13 @@ import React from 'react';
 
 import styled from 'styled-components';
 
-import { borderRadius, colors } from '@atlaskit/theme';
+import { B400 } from '@atlaskit/theme/colors';
+import { borderRadius } from '@atlaskit/theme/constants';
 
 import Badge from '../../src';
 
 const BackgroundContainer = styled.div`
-  background-color: ${colors.B400};
+  background-color: ${B400};
   border-radius: ${borderRadius}px;
   padding: 8px;
 `;

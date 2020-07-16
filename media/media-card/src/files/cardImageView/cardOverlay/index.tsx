@@ -1,21 +1,16 @@
 import React from 'react';
 import { MouseEvent, Component, ReactNode } from 'react';
-import { FormattedMessage } from 'react-intl';
 import cx from 'classnames';
 import { MediaType } from '@atlaskit/media-client';
 import TickIcon from '@atlaskit/icon/glyph/check';
 import { Ellipsify } from '@atlaskit/media-ui';
-import { messages } from '@atlaskit/media-ui';
 // We dont require things directly from "utils" to avoid circular dependencies
 import { FileIcon } from '../../../utils/fileIcon';
 import { ErrorIcon } from '../../../utils/errorIcon';
 import CardActions from '../../../utils/cardActions';
 import { CardAction, CardEventHandler } from '../../../actions';
-import { createAndFireMediaEvent } from '../../../utils/analytics';
-import {
-  withAnalyticsEvents,
-  WithAnalyticsEventsProps,
-} from '@atlaskit/analytics-next';
+import { CardStatus } from '../../../index';
+import { RetryButton } from './retryButton';
 
 import {
   TickBox,
@@ -26,7 +21,6 @@ import {
   BottomRow,
   RightColumn,
   ErrorMessage,
-  Retry,
   TitleWrapper,
   Subtitle,
   Metadata,
@@ -34,22 +28,24 @@ import {
   AltWrapper,
 } from './styled';
 
-type RetryProps = React.HTMLAttributes<HTMLDivElement> &
-  WithAnalyticsEventsProps;
-const RetryWithProps = (props: RetryProps) => (
-  <Retry data-testid="media-card-retry-button" {...props} />
-);
+const resolveTitleText = (
+  cardStatus: CardStatus,
+  mediaName?: string,
+  error?: ReactNode,
+  selected?: boolean,
+): string => {
+  // don't show title if error
+  // also when card is uploading + selected, title is already showing outside of the overlay
+  if (error || !mediaName || (cardStatus === 'uploading' && !selected)) {
+    return '';
+  }
 
-const RetryWithAnalytics = withAnalyticsEvents({
-  onClick: createAndFireMediaEvent({
-    eventType: 'ui',
-    action: 'clicked',
-    actionSubject: 'button',
-    actionSubjectId: 'mediaCardRetry',
-  }),
-})(RetryWithProps);
+  return mediaName;
+};
 
 export interface CardOverlayProps {
+  readonly cardStatus: CardStatus;
+
   mediaType?: MediaType;
   mediaName?: string;
   subtitle?: string;
@@ -109,8 +105,17 @@ export class CardOverlay extends Component<CardOverlayProps, CardOverlayState> {
   }
 
   render() {
-    const { error, noHover, mediaName, persistent, actions } = this.props;
-    const titleText = error || !mediaName ? '' : mediaName;
+    const {
+      cardStatus,
+      error,
+      noHover,
+      mediaName,
+      persistent,
+      selected,
+      actions,
+    } = this.props;
+
+    const titleText = resolveTitleText(cardStatus, mediaName, error, selected);
     const menuTriggerColor = !persistent ? 'white' : undefined;
 
     return (
@@ -185,9 +190,7 @@ export class CardOverlay extends Component<CardOverlayProps, CardOverlayState> {
       return (
         <ErrorWrapper>
           <ErrorIcon />
-          <RetryWithAnalytics onClick={onRetry}>
-            <FormattedMessage {...messages.retry} />
-          </RetryWithAnalytics>
+          <RetryButton onClick={onRetry} />
         </ErrorWrapper>
       );
     } else {

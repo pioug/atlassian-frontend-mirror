@@ -44,3 +44,5 @@ export {
   AnnotationTypes,
   AnnotationId,
 } from './annotation';
+
+export { unsupportedMark } from './unsupported-mark';

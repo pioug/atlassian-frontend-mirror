@@ -1,8 +1,8 @@
-import { colors } from '@atlaskit/theme';
+import { N40 } from '@atlaskit/theme/colors';
 import styled from 'styled-components';
 
 export const OptionsWrapper = styled.div`
-  border-bottom: 1px solid ${colors.N40};
+  border-bottom: 1px solid ${N40};
   padding: 10px;
   margin: 10px auto;
 `;

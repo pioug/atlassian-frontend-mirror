@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { N30 } from '@atlaskit/theme/colors';
-import { gridSize } from '@atlaskit/theme';
+import { gridSize } from '@atlaskit/theme/constants';
 import {
   akEditorMenuZIndex,
   akEditorSwoopCubicBezier,

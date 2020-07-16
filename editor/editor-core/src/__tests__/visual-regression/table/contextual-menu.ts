@@ -17,6 +17,7 @@ describe('Table contextual menu: fullpage', () => {
 
   it('update contextual menu button position when number column changes', async () => {
     await selectTableOption(page, 'Numbered column');
+    await page.mouse.move(0, 0);
     await snapshot(page);
   });
 

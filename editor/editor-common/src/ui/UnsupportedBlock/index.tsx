@@ -2,12 +2,13 @@ import React from 'react';
 
 import styled from 'styled-components';
 
-import { borderRadius, colors, fontSize } from '@atlaskit/theme';
+import { N30, N50 } from '@atlaskit/theme/colors';
+import { borderRadius, fontSize } from '@atlaskit/theme/constants';
 
 const BlockNode = styled.div`
   align-items: center;
-  background: ${colors.N30};
-  border: 1px dashed ${colors.N50};
+  background: ${N30};
+  border: 1px dashed ${N50};
   border-radius: ${borderRadius()}px;
   box-sizing: border-box;
   cursor: default;
@@ -20,11 +21,6 @@ const BlockNode = styled.div`
   user-select: all;
   vertical-align: text-bottom;
   min-width: 120px;
-
-  &.ProseMirror-selectednode {
-    background: ${colors.N50};
-    outline: none;
-  }
 `;
 
 export default function UnsupportedBlockNode() {

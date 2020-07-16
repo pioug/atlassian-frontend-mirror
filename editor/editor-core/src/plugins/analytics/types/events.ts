@@ -7,6 +7,7 @@ import { NodeEventPayload } from './node-events';
 import { MediaEventPayload } from './media-events';
 import { TableEventPayload } from './table-events';
 import { PasteEventPayload } from './paste-events';
+import { CutCopyEventPayload } from './cut-copy-events';
 import { HistoryEventPayload } from './history-events';
 import { ExperimentalEventPayload } from './experimental-events';
 import { FindReplaceEventPayload } from './find-replace-events';
@@ -14,6 +15,7 @@ import { OperationalAEP } from './utils';
 import { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID } from './enums';
 import { SimplifiedNode } from '../../../utils/document-logger';
 import { DateEventPayload } from './date-events';
+import { SelectionEventPayload } from './selection-events';
 
 export type AnalyticsEventPayload =
   | GeneralEventPayload
@@ -24,11 +26,13 @@ export type AnalyticsEventPayload =
   | MediaEventPayload
   | TableEventPayload
   | PasteEventPayload
+  | CutCopyEventPayload
   | ErrorEventPayload
   | HistoryEventPayload
   | ExperimentalEventPayload // Used for A/B testing
   | FindReplaceEventPayload
-  | DateEventPayload;
+  | DateEventPayload
+  | SelectionEventPayload;
 
 export type AnalyticsEventPayloadWithChannel = {
   channel: string;

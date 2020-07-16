@@ -7,7 +7,7 @@ import Button, { ButtonGroup } from '@atlaskit/button';
 import InlineEdit from '@atlaskit/inline-edit';
 import Select from '@atlaskit/select';
 import TextField from '@atlaskit/textfield';
-import { colors } from '@atlaskit/theme';
+import { B100, N40 } from '@atlaskit/theme/colors';
 
 import PageHeader from '../src';
 
@@ -56,11 +56,11 @@ const EditView = styled.input`
   outline: none;
   padding: 6px 6px;
   width: 100%;
-  border: 2px solid ${colors.N40};
+  border: 2px solid ${N40};
   border-radius: 3px;
 
   :focus {
-    border: 2px solid ${colors.B100};
+    border: 2px solid ${B100};
   }
 `;
 

@@ -12,7 +12,7 @@ import { messages } from '../../../plugins/insert-block/ui/ToolbarInsertBlock/me
 
 BrowserTestCase(
   `insert-extension.ts: Extension: Insert Inline/Block extension`,
-  { skip: ['ie', 'safari', 'edge'] },
+  { skip: ['safari', 'edge'] },
   async (client: any, testName: string) => {
     const page = new Page(client);
 

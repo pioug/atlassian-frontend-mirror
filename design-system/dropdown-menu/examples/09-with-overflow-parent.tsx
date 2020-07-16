@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 
 import Button from '@atlaskit/button';
-import { colors } from '@atlaskit/theme';
+import { N20 } from '@atlaskit/theme/colors';
 
 import { DropdownItem, DropdownItemGroup, DropdownMenuStateless } from '../src';
 
@@ -18,7 +18,7 @@ const OverflowParentHidden = styled.div`
   position: relative;
   padding: 20px;
   overflow: hidden;
-  background-color: ${colors.N20};
+  background-color: ${N20};
 `;
 
 const ButtonSpacer = styled.div`

@@ -6,8 +6,7 @@ import { gotoCardFilesMockedPage } from '../_pages/card-files-mocked-page';
 const cardStandardSelector = '[data-testid="media-card-standard"]';
 const cardWithContextIdSelector = '[data-testid="media-card-with-context-id"]';
 const cardStandardSelectorWithMediaViewer = `[data-testid="media-card-standard-with-media-viewer"]`;
-const cardStandardLoading =
-  '[data-testid="media-card-loading-card"] * [data-testid="media-card-loading"]';
+const cardStandardLoading = '[data-testid="media-card-loading-card"]';
 
 BrowserTestCase('MediaCard - load image', {}, async (client: BrowserObject) => {
   const page = await gotoCardFilesMockedPage(client);

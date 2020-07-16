@@ -41,7 +41,9 @@ class ProductErrorBoundary extends React.Component {
     this.setState({ error: { error, info } });
   }
   render() {
-    if (this.state.error) return <div>Stack trace rendered here</div>;
+    if (this.state.error) {
+      return <div>Stack trace rendered here</div>;
+    }
     return this.props.children;
   }
 }

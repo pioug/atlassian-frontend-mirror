@@ -14,3 +14,10 @@ export type StickyHeaderProps =
   | ({
       show?: boolean;
     } & StickyHeaderConfig);
+
+export type HeadingAnchorLinksConfig = {
+  activeHeadingId?: string;
+  allowNestedHeaderLinks?: boolean;
+};
+
+export type HeadingAnchorLinksProps = boolean | HeadingAnchorLinksConfig;

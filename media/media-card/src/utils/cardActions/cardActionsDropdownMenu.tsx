@@ -1,5 +1,5 @@
 import React from 'react';
-import { Component, HTMLAttributes } from 'react';
+import { Component } from 'react';
 
 import MoreIcon from '@atlaskit/icon/glyph/more';
 import DropdownMenu, {
@@ -8,7 +8,11 @@ import DropdownMenu, {
 } from '@atlaskit/dropdown-menu';
 
 import { CardAction } from '../../actions';
-import { CardActionButton } from './styled';
+import {
+  CardActionButton,
+  CardActionIconButtonVariant,
+  CardActionButtonProps,
+} from './styled';
 import {
   withAnalyticsEvents,
   WithAnalyticsEventsProps,
@@ -19,14 +23,15 @@ export type CardActionsDropdownMenuProps = {
   readonly actions: CardAction[];
 
   readonly triggerColor?: string;
+  readonly triggerVariant?: CardActionIconButtonVariant;
   readonly onOpenChange?: (attrs: { isOpen: boolean }) => void;
 };
 
-type CardActionButtonProps = HTMLAttributes<HTMLDivElement> &
+type CardActionButtonWithAnalyticsProps = CardActionButtonProps &
   WithAnalyticsEventsProps;
-const CardActionButtonWithProps = (props: CardActionButtonProps) => (
-  <CardActionButton {...props} />
-);
+const CardActionButtonWithProps = (
+  props: CardActionButtonWithAnalyticsProps,
+) => <CardActionButton {...props} />;
 
 const CardActionButtonWithAnalytics = withAnalyticsEvents({
   onClick: createAndFireMediaEvent({
@@ -67,7 +72,7 @@ export class CardActionsDropdownMenu extends Component<
   CardActionsDropdownMenuProps
 > {
   render(): JSX.Element | null {
-    const { actions, triggerColor, onOpenChange } = this.props;
+    const { actions, triggerColor, onOpenChange, triggerVariant } = this.props;
 
     if (actions.length > 0) {
       return (
@@ -75,7 +80,10 @@ export class CardActionsDropdownMenu extends Component<
           data-testid="media-card-actions-menu"
           onOpenChange={onOpenChange}
           trigger={
-            <CardActionButtonWithAnalytics style={{ color: triggerColor }}>
+            <CardActionButtonWithAnalytics
+              variant={triggerVariant}
+              style={{ color: triggerColor }}
+            >
               <MoreIcon label="more" />
             </CardActionButtonWithAnalytics>
           }

@@ -1,8 +1,8 @@
 import { css } from 'styled-components';
-import { colors } from '@atlaskit/theme';
+import { N300 } from '@atlaskit/theme/colors';
 
 export const placeholderTextStyles = css`
   .ProseMirror span[data-placeholder] {
-    color: ${colors.N300};
+    color: ${N300};
   }
 `;

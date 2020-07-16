@@ -1,14 +1,31 @@
 import React from 'react';
 import styled from 'styled-components';
+import Button from '@atlaskit/button';
 import LinkIcon from '@atlaskit/icon/glyph/link';
-import { colors } from '@atlaskit/theme';
+import { gridSize } from '@atlaskit/theme/constants';
 import Tooltip from '@atlaskit/tooltip';
 import { InjectedIntlProps, injectIntl } from 'react-intl';
 import { headingAnchorLinkMessages } from '../../messages';
+import { MessageDescriptor } from '../../types/i18n';
 
-export const HeadingAnchorWrapperClassName: string = 'heading-anchor-wrapper';
+// Legacy anchor link imports
+import { N500 } from '@atlaskit/theme/colors';
+
+export const HeadingAnchorWrapperClassName = 'heading-anchor-wrapper';
+export const HeadingAnchorWrapperLegacyClassName = 'heading-anchor-wrapper-old';
+export const HeadingAnchorButtonWrapperClassName = 'button-anchor-wrapper';
 
 const CopyAnchorWrapper = styled.div`
+  display: flex;
+  position: absolute;
+  align-items: center;
+  right: ${gridSize()}px;
+  width: ${gridSize() * 5}px;
+  height: ${gridSize() * 5}px;
+  top: -${gridSize()}px;
+`;
+
+const CopyAnchorWrapperLegacy = styled.div`
   display: flex;
   position: absolute;
   align-items: center;
@@ -18,89 +35,115 @@ const CopyAnchorWrapper = styled.div`
   height: 100%;
 `;
 
-const CopyAnchor = styled.button`
+const CopyAnchorLegacy = styled.button`
   outline: none;
   background-color: transparent;
   border: none;
-  color: ${colors.N500};
+  color: ${N500};
   cursor: pointer;
   right: 0;
   height: 100%;
 `;
 
+type Props = {
+  onCopyText: () => Promise<void>;
+  enableNestedHeaderLinks?: boolean;
+};
+
+type HeadingAnchorProps = Props & React.Props<any> & InjectedIntlProps;
+type HeadingAnchorState = { tooltipMessage?: string };
+
 class HeadingAnchor extends React.PureComponent<
-  { onCopyText: () => Promise<void> } & React.Props<any> & InjectedIntlProps
+  HeadingAnchorProps,
+  HeadingAnchorState
 > {
-  initialTooltipMessage = this.props.intl.formatMessage(
-    headingAnchorLinkMessages.copyHeadingLinkToClipboard,
-  );
+  state = { tooltipMessage: '' };
 
-  state = {
-    tooltipMessage: this.initialTooltipMessage,
-  };
-
-  private resetMsgTimeoutId: number | undefined;
-
-  componentWillUnmount() {
-    window.clearTimeout(this.resetMsgTimeoutId);
+  componentDidMount() {
+    this.resetMessage();
   }
 
-  copyToClipboard = async () => {
-    // This is needed to reset tooltip to reposition it.
-    // Might be better to fix tooltip reposition bug.
-    // https://ecosystem.atlassian.net/projects/AK/queues/issue/AK-6548
-    this.setState({ tooltipMessage: '' });
+  private setTooltipState = (message: MessageDescriptor) => {
+    this.setState({ tooltipMessage: this.props.intl.formatMessage(message) });
+  };
 
+  copyToClipboard = async () => {
+    const {
+      copiedHeadingLinkToClipboard,
+      failedToCopyHeadingLink,
+    } = headingAnchorLinkMessages;
     try {
       await this.props.onCopyText();
-      this.setState({
-        tooltipMessage: this.props.intl.formatMessage(
-          headingAnchorLinkMessages.copiedHeadingLinkToClipboard,
-        ),
-      });
+      this.setTooltipState(copiedHeadingLinkToClipboard);
     } catch (e) {
-      this.setState({
-        tooltipMessage: this.props.intl.formatMessage(
-          headingAnchorLinkMessages.failedToCopyHeadingLink,
-        ),
-      });
+      this.setTooltipState(failedToCopyHeadingLink);
     }
   };
 
   resetMessage = () => {
-    this.setState({ tooltipMessage: '' });
-    this.resetMsgTimeoutId = window.setTimeout(() => {
-      this.setState({ tooltipMessage: this.initialTooltipMessage });
-    }, 0);
+    this.setTooltipState(headingAnchorLinkMessages.copyHeadingLinkToClipboard);
   };
 
-  renderAnchor() {
+  renderAnchorButton = () => {
     return (
-      <CopyAnchor
+      <div className={HeadingAnchorButtonWrapperClassName}>
+        <Button
+          appearance="subtle"
+          spacing="none"
+          onMouseLeave={this.resetMessage}
+          onClick={this.copyToClipboard}
+          iconBefore={
+            <LinkIcon label="link icon" size="small">
+              link selected
+            </LinkIcon>
+          }
+        />
+      </div>
+    );
+  };
+
+  renderAnchorButtonLegacy = () => {
+    return (
+      <CopyAnchorLegacy
         onMouseLeave={this.resetMessage}
         onClick={this.copyToClipboard}
       >
         <LinkIcon label="copy" size="small" />
-      </CopyAnchor>
+      </CopyAnchorLegacy>
     );
-  }
+  };
+
+  private renderOptionalTooltip = (renderMethod: () => JSX.Element) => {
+    const { tooltipMessage: message } = this.state;
+    // We set the key to the message to ensure it remounts when the message
+    // changes, so that it correctly repositions.
+    // @see https://ecosystem.atlassian.net/projects/AK/queues/issue/AK-6548
+    return message ? (
+      <Tooltip content={message} position="top" delay={0} key={message}>
+        {renderMethod()}
+      </Tooltip>
+    ) : (
+      <div>{renderMethod()}</div>
+    );
+  };
 
   render() {
+    const { enableNestedHeaderLinks } = this.props;
+    // We've bound the new UI/UX with the enablement of nested header link support
+    const className = enableNestedHeaderLinks
+      ? HeadingAnchorWrapperClassName
+      : HeadingAnchorWrapperLegacyClassName;
     return (
-      <div className={HeadingAnchorWrapperClassName}>
-        <CopyAnchorWrapper>
-          {this.state.tooltipMessage ? (
-            <Tooltip
-              content={this.state.tooltipMessage}
-              position="top"
-              delay={0}
-            >
-              {this.renderAnchor()}
-            </Tooltip>
-          ) : (
-            <div>{this.renderAnchor()}</div>
-          )}
-        </CopyAnchorWrapper>
+      <div className={className}>
+        {enableNestedHeaderLinks ? (
+          <CopyAnchorWrapper>
+            {this.renderOptionalTooltip(this.renderAnchorButton)}
+          </CopyAnchorWrapper>
+        ) : (
+          <CopyAnchorWrapperLegacy>
+            {this.renderOptionalTooltip(this.renderAnchorButtonLegacy)}
+          </CopyAnchorWrapperLegacy>
+        )}
       </div>
     );
   }

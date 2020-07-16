@@ -3,7 +3,7 @@ import Loadable from 'react-loadable';
 import {
   combineProviders,
   ExtensionProvider,
-  getItemsFromModule,
+  getQuickInsertItemsFromModule,
   MenuItem,
   resolveImport,
 } from '@atlaskit/editor-common';
@@ -56,9 +56,8 @@ export async function extensionProviderToQuickInsertProvider(
 
   return {
     getItems: () => {
-      const quickInsertItems = getItemsFromModule<QuickInsertItem>(
+      const quickInsertItems = getQuickInsertItemsFromModule<QuickInsertItem>(
         extensions,
-        'quickInsert',
         item => {
           const Icon = Loadable<{ label: string }, any>({
             loader: item.icon,

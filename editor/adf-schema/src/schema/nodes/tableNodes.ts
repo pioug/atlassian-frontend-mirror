@@ -258,6 +258,7 @@ export const table: any = {
     layout: { default: 'default' },
     __autoSize: { default: false },
   },
+  marks: 'unsupportedMark',
   tableRole: 'table',
   isolating: true,
   selectable: false,
@@ -294,6 +295,7 @@ export const tableToJSON = (node: PmNode) => ({
 
 export const tableRow = {
   content: '(tableCell | tableHeader)+',
+  marks: 'unsupportedMark',
   tableRole: 'row',
   parseDOM: [{ tag: 'tr' }],
   toDOM() {
@@ -313,7 +315,7 @@ export const tableCell = {
     '(paragraph | panel | blockquote | orderedList | bulletList | rule | heading | codeBlock | mediaSingle |  mediaGroup | decisionList | taskList | blockCard | embedCard | extension | nestedExpand | unsupportedBlock)+',
   attrs: cellAttrs,
   tableRole: 'cell',
-  marks: 'link alignment',
+  marks: 'link alignment unsupportedMark',
   isolating: true,
   parseDOM: [
     // Ignore number cell copied from renderer
@@ -347,7 +349,7 @@ export const tableHeader = {
   attrs: cellAttrs,
   tableRole: 'header_cell',
   isolating: true,
-  marks: 'link alignment',
+  marks: 'link alignment unsupportedMark',
   parseDOM: [
     {
       tag: 'th',

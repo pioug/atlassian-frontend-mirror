@@ -10,6 +10,7 @@ import {
   fontSize,
 } from '../..';
 import { colorPalette } from '../../color-palettes';
+import { background } from '../../colors';
 
 describe('AtlaskitThemeProvider', () => {
   it('should mount', () => {
@@ -20,6 +21,25 @@ describe('AtlaskitThemeProvider', () => {
         </AtlaskitThemeProvider>,
       ).prop('mode'),
     ).toBe('light');
+  });
+  it('uses the default background color', () => {
+    expect(
+      mount(
+        <AtlaskitThemeProvider mode="light">
+          <div />
+        </AtlaskitThemeProvider>,
+      ).prop('background'),
+    ).toEqual(background);
+  });
+  it('uses a custom background color', () => {
+    const customBackground = themed({ light: 'white', dark: 'custom-black' });
+    expect(
+      mount(
+        <AtlaskitThemeProvider mode="light" background={customBackground}>
+          <div />
+        </AtlaskitThemeProvider>,
+      ).prop('background'),
+    ).toEqual(customBackground);
   });
 });
 

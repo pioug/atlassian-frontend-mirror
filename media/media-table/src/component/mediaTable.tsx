@@ -20,6 +20,8 @@ import {
   FileIdentifier,
 } from '../types';
 import { generateRowValues, getValidTableProps } from '../util';
+import { withAnalyticsEvents } from '@atlaskit/analytics-next';
+import { ANALYTICS_MEDIA_CHANNEL } from '@atlaskit/media-viewer/src/components/media-viewer-analytics-error-boundary';
 
 export class MediaTable extends Component<MediaTableProps, MediaTableState> {
   state: MediaTableState = {
@@ -182,7 +184,16 @@ export class MediaTable extends Component<MediaTableProps, MediaTableState> {
   };
 
   private onRowClick = (identifier: FileIdentifier) => () => {
+    const { createAnalyticsEvent, onPreviewOpen } = this.props;
+    const ev = createAnalyticsEvent({
+      eventType: 'ui',
+      action: 'clicked',
+      actionSubject: 'mediaFile',
+      actionSubjectId: 'mediaFileRow',
+    });
+    ev.fire(ANALYTICS_MEDIA_CHANNEL);
     this.safeSetState({ mediaViewerSelectedItem: identifier });
+    onPreviewOpen && onPreviewOpen();
   };
 
   private safeSetState = (state: Partial<MediaTableState>) => {
@@ -192,9 +203,9 @@ export class MediaTable extends Component<MediaTableProps, MediaTableState> {
   };
 
   private onMediaViewerClose = () => {
-    this.safeSetState({
-      mediaViewerSelectedItem: undefined,
-    });
+    const { onPreviewClose } = this.props;
+    this.safeSetState({ mediaViewerSelectedItem: undefined });
+    onPreviewClose && onPreviewClose();
   };
 
   private renderMediaViewer = (): React.ReactPortal | null => {
@@ -245,4 +256,4 @@ export class MediaTable extends Component<MediaTableProps, MediaTableState> {
   }
 }
 
-export default withMediaClient(MediaTable);
+export default withMediaClient(withAnalyticsEvents()(MediaTable));

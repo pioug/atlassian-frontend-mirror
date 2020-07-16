@@ -4,7 +4,9 @@ import { EditorView } from 'prosemirror-view';
 import styled from 'styled-components';
 
 import { akEditorFloatingDialogZIndex, Popup } from '@atlaskit/editor-common';
-import { borderRadius, colors, gridSize, math } from '@atlaskit/theme';
+import { borderRadius, gridSize } from '@atlaskit/theme/constants';
+import { N0, N60A, N50A } from '@atlaskit/theme/colors';
+import { divide } from '@atlaskit/theme/math';
 
 import { selectByIndex } from '../commands/select-item';
 import { setCurrentIndex } from '../commands/set-current-index';
@@ -13,10 +15,10 @@ import { TypeAheadItem } from '../types';
 import { TypeAheadItemsList } from './TypeAheadItemsList';
 
 export const TypeAheadContent: React.ComponentClass<React.HTMLAttributes<{}>> = styled.div`
-  background: ${colors.N0};
+  background: ${N0};
   border-radius: ${borderRadius()}px;
-  box-shadow: 0 0 1px ${colors.N60A}, 0 4px 8px -2px ${colors.N50A};
-  padding: ${math.divide(gridSize, 2)}px 0;
+  box-shadow: 0 0 1px ${N60A}, 0 4px 8px -2px ${N50A};
+  padding: ${divide(gridSize, 2)}px 0;
   width: 320px;
   max-height: 380px; /* ~5.5 visibile items */
   overflow-y: auto;

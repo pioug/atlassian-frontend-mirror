@@ -5,7 +5,7 @@ import {
   ProviderFactory,
   combineExtensionProviders,
 } from '@atlaskit/editor-common';
-import { AtlaskitThemeProvider } from '@atlaskit/theme';
+import { AtlaskitThemeProvider } from '@atlaskit/theme/components';
 import { addGlobalEventEmitterListeners } from '@atlaskit/media-test-helpers';
 
 import {
@@ -18,6 +18,7 @@ import { EditorActions, ContextPanel } from '../../src';
 
 import { Error, ErrorReport } from '../ErrorReport';
 import { getXProductExtensionProvider } from '../fake-x-product-extensions';
+import { getConfluenceMacrosExtensionProvider } from '../confluence-macros';
 import { KitchenSinkControls } from './kitchen-sink-controls';
 import { KitchenSinkAdfInput } from './kitchen-sink-adf-input';
 import { Container, EditorColumn, Column, Rail } from './kitchen-sink-styles';
@@ -25,8 +26,6 @@ import { KitchenSinkRenderer } from './kitchen-sink-renderer';
 import { KitchenSinkEditor } from './kitchen-sink-editor';
 
 addGlobalEventEmitterListeners();
-
-const extensionProviders = [getXProductExtensionProvider()];
 
 const appearanceOptions = [
   {
@@ -54,6 +53,10 @@ const docOptions = [
   { label: 'Example document', value: 'example-document.ts' },
   { label: 'With huge table', value: 'example-doc-with-huge-table.ts' },
   { label: 'With table', value: 'example-doc-with-table.ts' },
+  {
+    label: 'Different extension types',
+    value: 'example-doc-with-different-extension-types.ts',
+  },
 ];
 
 type Theme = 'light' | 'dark';
@@ -145,7 +148,10 @@ export class KitchenSink extends React.Component<
     ...providers,
     mediaProvider,
     extensionProvider: Promise.resolve(
-      combineExtensionProviders(extensionProviders),
+      combineExtensionProviders([
+        getXProductExtensionProvider(),
+        getConfluenceMacrosExtensionProvider(),
+      ]),
     ),
   });
 
@@ -295,7 +301,10 @@ export class KitchenSink extends React.Component<
                 loadLocale={this.loadLocale}
                 appearance={this.state.appearance}
                 disabled={this.state.disabled}
-                extensionProviders={extensionProviders}
+                extensionProviders={editorActions => [
+                  getXProductExtensionProvider(),
+                  getConfluenceMacrosExtensionProvider(editorActions),
+                ]}
               />
             </EditorColumn>
             <Column narrow={this.state.vertical && this.state.showADF}>

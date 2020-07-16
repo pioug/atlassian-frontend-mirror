@@ -1,8 +1,9 @@
 import React from 'react';
 import { HTMLAttributes, ComponentClass } from 'react';
 import styled from 'styled-components';
-import { ActivityItem } from '@atlaskit/activity';
-import { colors } from '@atlaskit/theme';
+import { fontSizeSmall } from '@atlaskit/theme';
+import { ActivityItem } from '@atlaskit/activity-provider';
+import { N20, N800, N100 } from '@atlaskit/theme/colors';
 
 interface ContainerProps {
   selected: boolean;
@@ -11,10 +12,11 @@ interface ContainerProps {
 const Container: ComponentClass<HTMLAttributes<{}> &
   ContainerProps> = styled.li`
   background-color: ${(props: ContainerProps) =>
-    props.selected ? colors.N20 : 'transparent'};
-  padding: 5px 8px;
+    props.selected ? N20 : 'transparent'};
+  padding: 8px 12px;
   cursor: pointer;
   display: flex;
+  margin-top: 0; // This is to remove 4px one that comes from packages/css-packs/css-reset/src/base.ts:90
 `;
 
 const NameWrapper: ComponentClass<HTMLAttributes<{}>> = styled.span`
@@ -22,21 +24,23 @@ const NameWrapper: ComponentClass<HTMLAttributes<{}>> = styled.span`
 `;
 
 export const Name: ComponentClass<HTMLAttributes<{}>> = styled.div`
-  color: ${colors.N800};
+  color: ${N800};
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  line-height: 20px;
 `;
 
 export const ContainerName: ComponentClass<React.HTMLAttributes<{}>> = styled.div`
-  color: ${colors.N100};
-  font-size: 12px;
+  color: ${N100};
+  line-height: 14px;
+  font-size: ${fontSizeSmall()}px;
 `;
 
 const Icon: ComponentClass<HTMLAttributes<{}>> = styled.span`
   min-width: 16px;
   margin-top: 3px;
-  margin-right: 8px;
+  margin-right: 12px;
 `;
 
 export interface Props {

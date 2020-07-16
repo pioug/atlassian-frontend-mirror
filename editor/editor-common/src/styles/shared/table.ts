@@ -5,7 +5,8 @@ import {
   TableLayout,
   tablePrefixSelector,
 } from '@atlaskit/adf-schema';
-import { colors, themed } from '@atlaskit/theme';
+import { DN700A, N20A } from '@atlaskit/theme/colors';
+import { themed } from '@atlaskit/theme/components';
 
 import browser from '../../utils/browser';
 import {
@@ -130,7 +131,7 @@ const tableSharedStyle = css`
             Add a background color tint to code blocks inside a table heading since they both
             share the same background colour. This prevents them visually blending together.
           */
-          background: ${themed({ light: colors.N20A, dark: colors.DN700A })};
+          background: ${themed({ light: N20A, dark: DN700A })};
 
           > span {
             /*

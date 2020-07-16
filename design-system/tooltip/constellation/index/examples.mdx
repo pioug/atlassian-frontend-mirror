@@ -2,22 +2,23 @@
 order: 0
 ---
 
-import TooltipDefault from '../../examples/constellation/TooltipDefault';
-import TooltipTruncate from '../../examples/constellation/TooltipTruncate';
-import TooltipPosition from '../../examples/constellation/TooltipPosition';
-import TooltipComponent from '../../examples/constellation/TooltipComponent';
+import TooltipDefault from '../../examples/constellation/tooltip-default';
+import TooltipTruncate from '../../examples/constellation/tooltip-truncate';
+import TooltipPosition from '../../examples/constellation/tooltip-position';
+import TooltipComponent from '../../examples/constellation/tooltip-component';
+import TooltipAvoidTitle from '../../examples/constellation/tooltip-avoid-title';
 
 ## Default
 
 The default form of a tooltip.
 
-<Example Component={TooltipDefault} componentName="@atlaskit/tooltip" />
+<Example Component={TooltipDefault} packageName="@atlaskit/tooltip" />
 
 ## Overflow
 
 The tooltip text wraps when the content is wider than the max-width. Additionally, the text can be set to truncate, which is useful when displaying user-generated content of variable length.
 
-<Example Component={TooltipTruncate} componentName="@atlaskit/tooltip" />
+<Example Component={TooltipTruncate} packageName="@atlaskit/tooltip" />
 
 ## Positioning
 
@@ -25,10 +26,16 @@ The position of tooltips is flexible and will change depending on how close the 
 
 If set to "mouse" the tooltip will display next to the mouse pointer instead. Make sure to utilize the `mousePosition` if you want to customize where the tooltip will show in relation to the mouse.
 
-<Example Component={TooltipPosition} componentName="@atlaskit/tooltip" />
+<Example Component={TooltipPosition} packageName="@atlaskit/tooltip" />
 
 ## Custom component
 
 The tooltip component accepts a component prop, which enables users to customise the look and feel of the tooltip area.
 
-<Example Component={TooltipComponent} componentName="@atlaskit/tooltip" />
+<Example Component={TooltipComponent} packageName="@atlaskit/tooltip" />
+
+## Accessibility issues using 'title'
+
+A `Tooltip` is often used to specify extra information when a user hovers over an element, which matches the behavior of the HTML `title` attribute. Avoid using the HTML `title` attribute in any children of `Tooltip` or you may see double tooltips displayed. In addition, the `title` attribute is not supported consistently across screenreaders, and is inaccessible to all keyboard-only users and mobile phone users.
+
+<Example Component={TooltipAvoidTitle} packageName="@atlaskit/tooltip" />

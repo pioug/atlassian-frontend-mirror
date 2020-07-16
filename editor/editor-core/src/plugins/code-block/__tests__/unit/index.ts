@@ -19,7 +19,8 @@ import { CodeBlockState } from '../../pm-plugins/main';
 import { pluginKey as codeBlockPluginKey } from '../../plugin-key';
 import { removeCodeBlock, changeLanguage } from '../../actions';
 import { setTextSelection } from '../../../../utils';
-import { PluginKey } from 'prosemirror-state';
+import { PluginKey, NodeSelection } from 'prosemirror-state';
+import { isNodeSelection } from 'prosemirror-utils';
 import codeBlockPlugin from '../../';
 import tablesPlugin from '../../../table';
 import basePlugin from '../../../base';
@@ -63,6 +64,12 @@ describe('code-block', () => {
 
       it('should be able to remove code block type using function removeCodeBlock', () => {
         const { editorView } = editor(doc(code_block()('te{<>}xt')));
+        removeCodeBlock(editorView.state, editorView.dispatch);
+        expect(editorView.state.doc).toEqualDocument(doc(p()));
+      });
+
+      it('should be able to remove code block type using function removeCodeBlock when codeblock is selected', () => {
+        const { editorView } = editor(doc(p(), '{<node>}', code_block()('')));
         removeCodeBlock(editorView.state, editorView.dispatch);
         expect(editorView.state.doc).toEqualDocument(doc(p()));
       });
@@ -114,6 +121,48 @@ describe('code-block', () => {
           changeLanguage(language)(editorView.state, editorView.dispatch);
           expect(editorView.state.doc).toEqualDocument(
             doc(code_block({ language: 'someLanguage' })('text')),
+          );
+        });
+        it('selected code block should continue to be selected after language update', () => {
+          const { editorView, refs } = editor(
+            doc(p('{<>}hello'), '{codeBlockPos}', code_block()('text')),
+          );
+          editorView.dispatch(
+            editorView.state.tr.setSelection(
+              NodeSelection.create(editorView.state.doc, refs.codeBlockPos),
+            ),
+          );
+          const [prevFrom, prevTo] = [
+            editorView.state.tr.selection.from,
+            editorView.state.tr.selection.to,
+          ];
+
+          const language = 'someLanguage';
+          changeLanguage(language)(editorView.state, editorView.dispatch);
+
+          expect(editorView.state.selection.from).toBe(prevFrom);
+          expect(editorView.state.selection.to).toBe(prevTo);
+          expect(isNodeSelection(editorView.state.selection)).toBe(true);
+          expect(editorView.state.selection.$from.nodeAfter!.type).toBe(
+            editorView.state.schema.nodes.codeBlock,
+          );
+        });
+        it('unselected code block should continue to be unselected after language update', () => {
+          const { editorView } = editor(
+            doc(p('{<>}hello'), code_block()('text')),
+          );
+          const language = 'someLanguage';
+          const [prevFrom, prevTo, prevType] = [
+            editorView.state.tr.selection.from,
+            editorView.state.tr.selection.to,
+            editorView.state.tr.selection.$from.nodeAfter!.type,
+          ];
+          changeLanguage(language)(editorView.state, editorView.dispatch);
+
+          expect(editorView.state.selection.from).toBe(prevFrom);
+          expect(editorView.state.selection.to).toBe(prevTo);
+          expect(editorView.state.selection.$from.nodeAfter!.type).toBe(
+            prevType,
           );
         });
       });

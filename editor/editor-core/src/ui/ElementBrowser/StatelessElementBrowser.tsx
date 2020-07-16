@@ -1,5 +1,6 @@
 import React, { memo } from 'react';
 import styled, { css } from 'styled-components';
+import { FormattedMessage } from 'react-intl';
 import { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
 import CategoryItems from './components/CategoryItems';
 import CategoryList from './components/CategoryList';
@@ -9,7 +10,6 @@ import {
   GRID_SIZE,
   INLINE_SIDEBAR_HEIGHT,
   SIDEBAR_HEADING_PADDING_LEFT,
-  SIDEBAR_HEADING_TEXT,
   SIDEBAR_HEADING_WRAPPER_HEIGHT,
   SIDEBAR_WIDTH,
 } from './constants';
@@ -104,7 +104,13 @@ function DesktopBrowser({
     <ElementBrowserContainer>
       {showCategories && (
         <SideBar showCategories>
-          <SideBarHeading>{SIDEBAR_HEADING_TEXT}</SideBarHeading>
+          <SidebarHeading>
+            <FormattedMessage
+              id="fabric.editor.elementbrowser.sidebar.heading"
+              defaultMessage="Browse"
+              description="Sidebar heading"
+            />
+          </SidebarHeading>
           <CategoryListWrapper>
             <CategoryList
               categories={categories}
@@ -179,7 +185,7 @@ const SideBar = styled.div`
       showCategories ? SIDEBAR_WIDTH : 'auto'};
 `;
 
-const SideBarHeading = styled.h2`
+const SidebarHeading = styled.h2`
   flex: 0 0 ${SIDEBAR_HEADING_WRAPPER_HEIGHT};
   display: inline-flex;
   align-items: center;
@@ -189,10 +195,10 @@ const SideBarHeading = styled.h2`
 
 /**
  *  In enzyme styled components show up as styled.element
- *  and if we don't wanna export SideBarHeading just for testing.
+ *  and if we don't wanna export SidebarHeading just for testing.
  *  https://github.com/styled-components/styled-components/issues/896
  */
-SideBarHeading.displayName = 'SideBarHeading';
+SidebarHeading.displayName = 'SidebarHeading';
 
 const MobileMainContent = styled.div`
   flex: 1 1 auto;

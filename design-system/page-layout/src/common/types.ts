@@ -61,6 +61,10 @@ export interface LeftSidebarProps extends SlotWidthProps {
   onFlyoutCollapse?: () => void;
   /** Called after flyout delay when left-sidebar is collapsed and mouse enters the area. */
   onFlyoutExpand?: () => void;
+  /** Controls whether the LeftSidebar mounts in a collapsed state, this will override the setting in localStorage */
+  collapsedState?: 'collapsed' | 'expanded';
+  /** Controls the width when LeftSidebar mounts, this will override the setting in localStorage */
+  width?: number;
 }
 
 export type SidebarResizeControllerProps = {

@@ -1,4 +1,5 @@
 import React from 'react';
+import { IntlProvider } from 'react-intl';
 import { mount } from 'enzyme';
 import { NodeSelection } from 'prosemirror-state';
 
@@ -131,9 +132,11 @@ describe('extension context panel', () => {
 
       editorActions._privateRegisterEditor(editorView, {} as any);
       const wrapper = mount(
-        <EditorContext editorActions={editorActions}>
-          {contextPanel!}
-        </EditorContext>,
+        <IntlProvider locale="en">
+          <EditorContext editorActions={editorActions}>
+            {contextPanel!}
+          </EditorContext>
+        </IntlProvider>,
       );
 
       await flushPromises();

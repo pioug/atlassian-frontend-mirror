@@ -23,11 +23,15 @@ export default class RemoveButton extends PureComponent<Props> {
   };
 
   onMouseOver = () => {
-    if (this.props.onHoverChange) this.props.onHoverChange(true);
+    if (this.props.onHoverChange) {
+      this.props.onHoverChange(true);
+    }
   };
 
   onMouseOut = () => {
-    if (this.props.onHoverChange) this.props.onHoverChange(false);
+    if (this.props.onHoverChange) {
+      this.props.onHoverChange(false);
+    }
   };
 
   render() {

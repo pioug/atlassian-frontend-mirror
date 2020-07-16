@@ -58,9 +58,13 @@ export default class TaskItemWithProviders extends Component<Props, State> {
     if (props.contextIdentifierProvider) {
       try {
         const resolvedContextProvider = await props.contextIdentifierProvider;
-        if (this.mounted) this.setState({ resolvedContextProvider });
+        if (this.mounted) {
+          this.setState({ resolvedContextProvider });
+        }
       } catch (err) {
-        if (this.mounted) this.setState({ resolvedContextProvider: undefined });
+        if (this.mounted) {
+          this.setState({ resolvedContextProvider: undefined });
+        }
       }
     } else {
       this.setState({ resolvedContextProvider: undefined });

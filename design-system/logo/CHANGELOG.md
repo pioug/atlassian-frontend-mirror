@@ -1,5 +1,12 @@
 # @atlaskit/logo
 
+## 13.0.1
+
+### Patch Changes
+
+- [`ce3b100bed`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ce3b100bed) - Change the Atlassian Icon for better alignment with other Icons
+- [`db053b24d8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/db053b24d8) - Update all the theme imports to be tree-shakable
+
 ## 13.0.0
 
 ### Major Changes

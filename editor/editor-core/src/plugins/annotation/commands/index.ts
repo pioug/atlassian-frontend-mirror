@@ -4,7 +4,7 @@ import { Command } from '../../../types';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
 import { createCommand } from '../pm-plugins/plugin-factory';
 import { INPUT_METHOD } from '../../analytics';
-import { isSelectionValid } from '../utils';
+import { isSelectionValid, getPluginState } from '../utils';
 import {
   InlineCommentAction,
   ACTIONS,
@@ -118,6 +118,9 @@ export const addInlineComment = (id: string): Command => {
     data: {
       drafting: false,
       inlineComments: { [id]: false },
+      // Auto make the newly inserted comment selected.
+      // We move the selection to the head of the comment selection.
+      selectedAnnotations: [{ id, type: AnnotationTypes.INLINE_COMMENT }],
       editorState,
     },
   });
@@ -130,3 +133,20 @@ export const updateMouseState = (mouseData: InlineCommentMouseData): Command =>
     type: ACTIONS.INLINE_COMMENT_UPDATE_MOUSE_STATE,
     data: { mouseData },
   });
+
+export const createAnnotation = (
+  id: string,
+  annotationType: AnnotationTypes = AnnotationTypes.INLINE_COMMENT,
+): Command => (state, dispatch) => {
+  // don't try to add if there are is no temp highlight bookmarked
+  const { bookmark } = getPluginState(state) || {};
+  if (!bookmark || !dispatch) {
+    return false;
+  }
+
+  if (annotationType === AnnotationTypes.INLINE_COMMENT) {
+    return addInlineComment(id)(state, dispatch);
+  }
+
+  return false;
+};

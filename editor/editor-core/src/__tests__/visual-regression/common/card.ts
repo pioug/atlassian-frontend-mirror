@@ -86,12 +86,15 @@ describe('Cards:', () => {
     await waitForResolvedEmbedCard(page);
 
     await waitForInlineCardSelection(page);
+    await page.mouse.move(0, 0);
     await snapshot(page);
 
     await waitForBlockCardSelection(page, 'resolved');
+    await page.mouse.move(0, 0);
     await snapshot(page);
 
     await waitForEmbedCardSelection(page, 'resolved');
+    await page.mouse.move(0, 0);
     await snapshot(page);
   });
 });

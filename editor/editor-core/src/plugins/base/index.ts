@@ -14,7 +14,7 @@ import scrollGutter, {
 import { keymap } from '../../utils/keymap';
 import frozenEditor from './pm-plugins/frozen-editor';
 
-interface BasePluginOptions {
+export interface BasePluginOptions {
   allowScrollGutter?: ScrollGutterPluginOptions;
   allowInlineCursorTarget?: boolean;
   addRunTimePerformanceCheck?: boolean;

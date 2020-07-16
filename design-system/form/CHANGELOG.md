@@ -1,5 +1,15 @@
 # @atlaskit/form
 
+## 8.1.0
+
+### Minor Changes
+
+- [`694fee4dcc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/694fee4dcc) - Adding validating status to meta for async validations, and make sure the default value of error in form is a string
+
+### Patch Changes
+
+- [`db053b24d8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/db053b24d8) - Update all the theme imports to be tree-shakable
+
 ## 8.0.0
 
 ### Major Changes

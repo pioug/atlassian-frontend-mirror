@@ -1,5 +1,19 @@
 # @atlaskit/smart-card
 
+## 14.1.0
+
+### Minor Changes
+
+- [`4311cf9bf1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4311cf9bf1) - Add additional connectFailedEvent reasons for smartcards
+
+### Patch Changes
+
+- [`d035bea822`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d035bea822) - chore: add integration tests for Smart Links lazy rendering
+- [`9fb8fb388d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9fb8fb388d) - Include resourceType in instrumentation
+- [`38322cbf9a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/38322cbf9a) - EDM-134: perform patterns check on front-end, remove unneeded loading complexity
+- [`8f2f2422a1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8f2f2422a1) - EDM-955: Fix error state height for embeds
+- Updated dependencies
+
 ## 14.0.0
 
 ### Major Changes

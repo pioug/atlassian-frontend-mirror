@@ -24,28 +24,48 @@ interface BaseEnumField extends BaseFieldDefinition {
   items: Option[];
 }
 
-export interface EnumSingleField extends BaseEnumField {
+export interface EnumSingleSelectField extends BaseEnumField {
   isMultiple?: false;
-  style: 'select' | 'radio';
+  style: 'select';
+  defaultValue?: string;
+  placeholder?: string;
+}
+
+export interface EnumRadioField extends BaseEnumField {
+  isMultiple?: false;
+  style: 'radio';
   defaultValue?: string;
 }
 
-export interface EnumMultipleField extends BaseEnumField {
+export interface EnumMultipleSelectField extends BaseEnumField {
   isMultiple: true;
-  style: 'select' | 'checkbox';
+  style: 'select';
+  defaultValue?: string[];
+  placeholder?: string;
+}
+
+export interface EnumCheckboxField extends BaseEnumField {
+  isMultiple: true;
+  style: 'checkbox';
   defaultValue?: string[];
 }
 
-export type EnumField = EnumSingleField | EnumMultipleField;
+export type EnumField =
+  | EnumSingleSelectField
+  | EnumMultipleSelectField
+  | EnumRadioField
+  | EnumCheckboxField;
 
 export interface StringField extends BaseFieldDefinition {
   type: 'string';
   defaultValue?: string;
+  placeholder?: string;
 }
 
 export interface NumberField extends BaseFieldDefinition {
   type: 'number';
   defaultValue?: string;
+  placeholder?: string;
 }
 
 export interface BooleanField extends BaseFieldDefinition {
@@ -56,6 +76,7 @@ export interface BooleanField extends BaseFieldDefinition {
 export interface DateField extends BaseFieldDefinition {
   type: 'date';
   defaultValue?: string;
+  placeholder?: string;
 }
 
 export type FieldHandlerLink = {
@@ -68,6 +89,7 @@ interface BaseCustomField extends BaseFieldDefinition {
   options: {
     resolver: FieldHandlerLink;
   };
+  placeholder?: string;
 }
 
 export interface CustomSingleField extends BaseCustomField {

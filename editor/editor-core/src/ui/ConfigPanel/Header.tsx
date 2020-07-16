@@ -4,7 +4,8 @@ import Loadable from 'react-loadable';
 
 import Button from '@atlaskit/button';
 import CrossIcon from '@atlaskit/icon/glyph/cross';
-import { colors, borderRadius } from '@atlaskit/theme';
+import { borderRadius } from '@atlaskit/theme/constants';
+import { N200 } from '@atlaskit/theme/colors';
 import { Icon } from '@atlaskit/editor-common/extensions';
 
 const iconWidth = 40;
@@ -51,7 +52,7 @@ const ItemText = styled.div`
   white-space: initial;
   .item-description {
     font-size: 11.67px;
-    color: ${colors.N200};
+    color: ${N200};
     margin-top: 4px;
 
     white-space: nowrap;

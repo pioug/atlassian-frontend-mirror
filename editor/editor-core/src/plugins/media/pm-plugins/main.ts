@@ -311,9 +311,15 @@ export class MediaPluginStateImplementation implements MediaPluginState {
         mediaStateWithContext,
         this.getInputMethod(pickerType),
         collection,
+        this.mediaOptions && this.mediaOptions.alignLeftOnInsert,
       );
     } else {
-      insertMediaGroupNode(this.view, [mediaStateWithContext], collection);
+      insertMediaGroupNode(
+        this.view,
+        [mediaStateWithContext],
+        collection,
+        this.getInputMethod(pickerType),
+      );
     }
 
     // do events when media state changes

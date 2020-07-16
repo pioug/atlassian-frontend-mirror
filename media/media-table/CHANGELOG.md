@@ -1,5 +1,13 @@
 # @atlaskit/media-table
 
+## 5.1.0
+
+### Minor Changes
+
+- [`0934ad8798`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0934ad8798) - Add onPreviewOpen and onPreviewClose props
+- [`6cf40e50ea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6cf40e50ea) - Add UI analyticsEvent to individual row download button and table row click
+- [`6c554b874b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c554b874b) - Remove obsolete collectionName from RowData type. The collectionName should be included in the item identifier if it is required.
+
 ## 5.0.0
 
 ### Major Changes

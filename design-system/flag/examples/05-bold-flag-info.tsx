@@ -1,7 +1,7 @@
 import React from 'react';
 
 import InfoIcon from '@atlaskit/icon/glyph/info';
-import { colors } from '@atlaskit/theme';
+import { N500 } from '@atlaskit/theme/colors';
 
 import Flag, { FlagGroup } from '../src';
 
@@ -9,7 +9,7 @@ export default () => (
   <FlagGroup>
     <Flag
       appearance="info"
-      icon={<InfoIcon label="Info" secondaryColor={colors.N500} />}
+      icon={<InfoIcon label="Info" secondaryColor={N500} />}
       id="info"
       key="info"
       title="Connecting"

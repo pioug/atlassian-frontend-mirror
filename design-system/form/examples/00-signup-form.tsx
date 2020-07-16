@@ -64,25 +64,27 @@ export default () => (
               value && value.length < 8 ? 'TOO_SHORT' : undefined
             }
           >
-            {({ fieldProps, error, valid, meta }) => (
-              <Fragment>
-                <TextField type="password" {...fieldProps} />
-                {!error && !valid && (
-                  <HelperMessage>
-                    Use 8 or more characters with a mix of letters, numbers &
-                    symbols.
-                  </HelperMessage>
-                )}
-                {error && (
-                  <ErrorMessage>
-                    Password needs to be more than 8 characters.
-                  </ErrorMessage>
-                )}
-                {valid && meta.dirty ? (
-                  <ValidMessage>Awesome password!</ValidMessage>
-                ) : null}
-              </Fragment>
-            )}
+            {({ fieldProps, error, valid, meta }) => {
+              return (
+                <Fragment>
+                  <TextField type="password" {...fieldProps} />
+                  {error && !valid && (
+                    <HelperMessage>
+                      Use 8 or more characters with a mix of letters, numbers &
+                      symbols.
+                    </HelperMessage>
+                  )}
+                  {error && (
+                    <ErrorMessage>
+                      Password needs to be more than 8 characters.
+                    </ErrorMessage>
+                  )}
+                  {valid && meta.dirty ? (
+                    <ValidMessage>Awesome password!</ValidMessage>
+                  ) : null}
+                </Fragment>
+              );
+            }}
           </Field>
           <CheckboxField name="remember" label="Remember me" defaultIsChecked>
             {({ fieldProps }) => (

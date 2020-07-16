@@ -1,7 +1,7 @@
 import React from 'react';
 import Transition from 'react-transition-group/Transition';
 import styled from 'styled-components';
-import { colors } from '@atlaskit/theme';
+import { N30 } from '@atlaskit/theme/colors';
 import { akEditorSwoopCubicBezier } from '@atlaskit/editor-common';
 import { ContextPanelConsumer } from './context';
 import WithPluginState from '../WithPluginState';
@@ -35,7 +35,7 @@ export const Panel = styled.div<
   height: 100%;
   transition: width ${ANIM_SPEED_MS}ms ${akEditorSwoopCubicBezier};
   overflow: hidden;
-  box-shadow: inset 2px 0 0 0 ${colors.N30};
+  box-shadow: inset 2px 0 0 0 ${N30};
 `;
 
 export const Content = styled.div<StyleProps>`

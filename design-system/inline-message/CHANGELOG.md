@@ -1,5 +1,11 @@
 # @atlaskit/inline-message
 
+## 11.0.1
+
+### Patch Changes
+
+- [`94ba4f2381`](https://bitbucket.org/atlassian/atlassian-frontend/commits/94ba4f2381) - Formatted testId prop description. The prop description was formatted incorrectly.
+
 ## 11.0.0
 
 ### Major Changes

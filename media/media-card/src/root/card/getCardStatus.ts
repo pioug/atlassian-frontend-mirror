@@ -1,5 +1,13 @@
-import { FileDetails, FileState } from '@atlaskit/media-client';
+import {
+  FileState,
+  isMimeTypeSupportedByBrowser,
+} from '@atlaskit/media-client';
 import { CardState, CardProps, CardStatus } from '../../';
+import {
+  PROCESSING_UPLOAD_PORTION,
+  createProcessingProgressTimer,
+  clearProcessingProgressTimer,
+} from '../../utils/processingProgress';
 
 // we don't want to show complete status for empty files, ideally there should be no such file on the media api,
 // but there are some edge cases when using id upfront that can result on that.
@@ -7,25 +15,15 @@ export const getCardStatus = (
   state: CardState,
   props: CardProps,
 ): CardStatus => {
-  const { status, metadata, dataURI } = state;
-  const { identifier, disableOverlay } = props;
+  const { status, metadata } = state;
+  const { identifier } = props;
 
   if (identifier.mediaItemType !== 'file') {
     return status;
   }
 
-  if (metadata) {
-    const { size, mediaType, name } = metadata as FileDetails;
-    if (mediaType === 'image' || mediaType === 'video') {
-      if (status === 'complete' && !dataURI) {
-        return 'processing';
-      }
-    } else if (name && size && !disableOverlay && status === 'processing') {
-      // If we have enough metadata for non images, we show it
-      return 'complete';
-    } else if (status === 'complete' && !size) {
-      return 'processing';
-    }
+  if (status === 'complete' && !!metadata && !metadata.size) {
+    return 'processing';
   }
 
   return status;
@@ -33,7 +31,6 @@ export const getCardStatus = (
 
 export const getCardStatusFromFileState = (
   fileState: FileState,
-  dataURI?: string,
 ): CardStatus => {
   switch (fileState.status) {
     case 'uploading':
@@ -43,26 +40,85 @@ export const getCardStatusFromFileState = (
     case 'processed':
       return 'complete';
     case 'processing':
-      if (dataURI) {
+      // TODO MPT-603: temporaryly fixing empty files sending an empty "mimeType" (fix it better as part of MPT-603)
+      if (
+        !!fileState.mimeType &&
+        isMimeTypeSupportedByBrowser(fileState.mimeType)
+      ) {
         return 'complete';
       } else {
-        return 'processing';
+        // processing of a non-supported file is part of upload time
+        return 'uploading';
       }
     default:
       return 'loading';
   }
 };
 
-export const getCardProgressFromFileState = (
+export function completeCardProgress(
+  status: CardStatus,
+  updateProgress: (status: CardStatus, progress: number) => void,
+  opts: {
+    lastStatus?: CardStatus;
+    lastProgress?: number;
+    lastTimer?: number;
+  } = {},
+) {
+  const { lastStatus, lastProgress, lastTimer } = opts;
+
+  clearProcessingProgressTimer(lastTimer);
+
+  if (lastProgress !== 1 || lastStatus !== status) {
+    updateProgress(status, 1);
+  }
+}
+
+export const updateCardStatusFromFileState = (
   fileState: FileState,
-  dataURI?: string,
-) => {
+  status: CardStatus,
+  updateCardProgress: (status: CardStatus, progress: number) => void,
+  opts: {
+    lastStatus?: CardStatus;
+    lastProgress?: number;
+    lastTimer?: number;
+  } = {},
+): number | undefined => {
+  const { lastStatus, lastProgress, lastTimer } = opts;
+
   switch (fileState.status) {
-    case 'uploading':
-      return fileState.progress;
-    case 'processing':
-      if (dataURI) {
-        return 1;
+    case 'uploading': {
+      const { mimeType, progress } = fileState;
+      updateCardProgress(
+        status,
+        isMimeTypeSupportedByBrowser(mimeType)
+          ? progress
+          : progress * PROCESSING_UPLOAD_PORTION,
+      );
+      break;
+    }
+    case 'processing': {
+      const { mimeType } = fileState;
+      // TODO MPT-603: temporaryly fixing empty files sending an empty "mimeType" (fix it better as part of MPT-603)
+      if (!!fileState.mimeType && isMimeTypeSupportedByBrowser(mimeType)) {
+        completeCardProgress(status, updateCardProgress, {
+          lastStatus,
+          lastProgress,
+          lastTimer,
+        });
+        break;
       }
+
+      return createProcessingProgressTimer(status, updateCardProgress, {
+        lastProgress,
+        lastTimer,
+      });
+    }
+    default:
+      completeCardProgress(status, updateCardProgress, {
+        lastStatus,
+        lastProgress,
+        lastTimer,
+      });
+      break;
   }
 };

@@ -15,7 +15,9 @@ import {
 import { AppearanceType, KeyboardOrMouseEvent } from '../types';
 
 const TitleIcon = ({ appearance }: { appearance?: 'danger' | 'warning' }) => {
-  if (!appearance) return null;
+  if (!appearance) {
+    return null;
+  }
 
   const Icon = appearance === 'danger' ? ErrorIcon : WarningIcon;
 
@@ -75,7 +77,9 @@ export default class ModalHeader extends React.Component<HeaderProps, {}> {
     } = this.props;
     const warning = 'You can provide `component` OR `heading`, not both.';
 
-    if (!component && !heading) return null;
+    if (!component && !heading) {
+      return null;
+    }
     if (component && heading) {
       console.warn(warning); // eslint-disable-line no-console
       return null;

@@ -40,7 +40,10 @@ import { MediaNodeUpdater } from './mediaNodeUpdater';
 import { DispatchAnalyticsEvent } from '../../analytics';
 import { findParentNodeOfTypeClosestToPos } from 'prosemirror-utils';
 import { CellSelection } from 'prosemirror-tables';
-import { floatingLayouts } from '../../../utils/rich-media-utils';
+import {
+  floatingLayouts,
+  isRichMediaInsideOfBlockNode,
+} from '../../../utils/rich-media-utils';
 
 export interface MediaSingleNodeState {
   width?: number;
@@ -324,6 +327,7 @@ export default class MediaSingleNode extends Component<
           mediaOptions && mediaOptions.allowBreakoutSnapPoints
         }
         selected={selected()}
+        dispatchAnalyticsEvent={this.props.dispatchAnalyticsEvent}
       >
         {MediaChild}
       </ResizableMediaSingle>
@@ -333,19 +337,8 @@ export default class MediaSingleNode extends Component<
   }
 
   private getLineLength = (view: EditorView, pos: number): number | null => {
-    if (typeof pos !== 'number' || isNaN(pos) || !view) {
-      return null;
-    }
-
-    const { expand, nestedExpand, layoutColumn } = view.state.schema.nodes;
-    const $pos = view.state.doc.resolve(pos);
-    const isInsideOfBlockNode = !!findParentNodeOfTypeClosestToPos($pos, [
-      expand,
-      nestedExpand,
-      layoutColumn,
-    ]);
-
-    if (isInsideOfBlockNode) {
+    if (isRichMediaInsideOfBlockNode(view, pos)) {
+      const $pos = view.state.doc.resolve(pos);
       const domNode = view.nodeDOM($pos.pos);
 
       if (

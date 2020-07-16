@@ -2,7 +2,7 @@ import React from 'react';
 
 import styled from 'styled-components';
 
-import { colors } from '@atlaskit/theme';
+import { N20, N60A } from '@atlaskit/theme/colors';
 
 import Tooltip from '../src';
 
@@ -19,12 +19,12 @@ const color = {
 };
 
 const boxShadow = `
-  0 4px 8px -2px ${colors.N60A},
-  0 0 1px ${colors.N60A}
+  0 4px 8px -2px ${N60A},
+  0 0 1px ${N60A}
 `;
 
 const Parent = styled.div<{ pos: string }>`
-  background-color: ${colors.N20};
+  background-color: ${N20};
   border-radius: 5px;
   height: 60px;
   padding: 8px;
@@ -32,7 +32,7 @@ const Parent = styled.div<{ pos: string }>`
   width: 280px;
   ${p =>
     p.pos === 'fixed'
-      ? `box-shadow: 0 4px 8px -2px ${colors.N60A}, 0 0 1px ${colors.N60A};`
+      ? `box-shadow: 0 4px 8px -2px ${N60A}, 0 0 1px ${N60A};`
       : ''};
 `;
 

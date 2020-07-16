@@ -19,7 +19,11 @@ export const emojiStyles = css`
       .${EmojiSharedCssClassName.EMOJI_SPRITE},
         .${EmojiSharedCssClassName.EMOJI_IMAGE}
         > span {
-        ${getSelectionStyles([SelectionStyle.Blanket])}
+        border-radius: 2px;
+        ${getSelectionStyles([
+          SelectionStyle.Blanket,
+          SelectionStyle.BoxShadow,
+        ])}
       }
     }
   }

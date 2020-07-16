@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-ui",
-  "version": "13.0.0",
+  "version": "13.0.1",
   "description": "Includes common components and utilities used by other media packages",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -27,8 +27,8 @@
     "i18n:pull": "rm -rf ./src/i18n && i18n-tools pull --resource media-ui --type ts ."
   },
   "dependencies": {
-    "@atlaskit/avatar": "^19.0.0",
-    "@atlaskit/avatar-group": "^7.0.0",
+    "@atlaskit/avatar": "^20.0.0",
+    "@atlaskit/avatar-group": "^8.0.0",
     "@atlaskit/button": "^14.0.0",
     "@atlaskit/droplist": "^11.0.0",
     "@atlaskit/field-base": "^15.0.0",

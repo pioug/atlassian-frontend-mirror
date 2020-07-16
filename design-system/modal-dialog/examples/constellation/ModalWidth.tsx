@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 import Lorem from 'react-lorem-component';
 
 import Button, { ButtonGroup } from '@atlaskit/button';
-import { gridSize } from '@atlaskit/theme';
+import { gridSize } from '@atlaskit/theme/constants';
 
 import ModalDialog, { ModalTransition } from '../../src';
 import { WIDTH_ENUM } from '../../src/shared-variables';
@@ -33,7 +33,7 @@ export default class ModalDemo extends React.Component<{}, State> {
   render() {
     const { isOpen } = this.state;
     const btn = (name: string | number) => (
-      <Button key={name} onClick={() => this.open(name)}>
+      <Button key={name} appearance="primary" onClick={() => this.open(name)}>
         {name}
       </Button>
     );

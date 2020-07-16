@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { colors } from '@atlaskit/theme';
+import { N40, N800 } from '@atlaskit/theme/colors';
 
 import { ButtonItem, MenuGroup, Section } from '../src';
 
@@ -18,8 +18,8 @@ export default () => {
   return (
     <div
       style={{
-        color: colors.N800,
-        border: `1px solid ${colors.N40}`,
+        color: N800,
+        border: `1px solid ${N40}`,
         boxShadow:
           '0px 4px 8px rgba(9, 30, 66, 0.25), 0px 0px 1px rgba(9, 30, 66, 0.31)',
         borderRadius: 4,

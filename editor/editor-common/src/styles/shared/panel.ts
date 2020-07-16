@@ -1,7 +1,9 @@
 import { css } from 'styled-components';
 
 import { hexToRgba, PanelType } from '@atlaskit/adf-schema';
-import { borderRadius, colors, gridSize, themed } from '@atlaskit/theme';
+import * as colors from '@atlaskit/theme/colors';
+import { themed } from '@atlaskit/theme/components';
+import { borderRadius, gridSize } from '@atlaskit/theme/constants';
 
 import { akEditorTableCellMinWidth, blockNodesVerticalMargin } from '../consts';
 

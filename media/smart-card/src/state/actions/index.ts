@@ -1,5 +1,5 @@
 import { useMemo, useCallback } from 'react';
-import { auth } from '@atlaskit/outbound-auth-flow-client';
+import { auth, AuthError } from '@atlaskit/outbound-auth-flow-client';
 import { JsonLd } from 'json-ld-types';
 
 import { cardAction } from './helpers';
@@ -11,7 +11,6 @@ import {
 } from '../helpers';
 import {
   ACTION_PENDING,
-  ACTION_RESOLVING,
   ACTION_RESOLVED,
   ACTION_ERROR,
   ERROR_MESSAGE_OAUTH,
@@ -19,12 +18,6 @@ import {
   ACTION_ERROR_FALLBACK,
 } from './constants';
 import { CardAppearance } from '../../view/Card';
-import {
-  MESSAGE_WINDOW_CLOSED,
-  KEY_WINDOW_CLOSED,
-  KEY_SENSITIVE_DATA,
-} from '../../utils/analytics';
-
 import { useSmartLinkContext } from '../context';
 import { InvokeServerOpts, InvokeClientOpts } from '../../model/invoke-opts';
 import * as measure from '../../utils/performance';
@@ -46,7 +39,6 @@ export const useSmartCardActions = (
   };
 
   const hasAuthFlowSupported = config.authFlow !== 'disabled';
-  const hasAuthorized = status !== 'unauthorized';
   const hasData = !!(details && details.data);
   const hasExpired = Date.now() - lastUpdatedAt >= config.maxAge;
 
@@ -125,51 +117,22 @@ export const useSmartCardActions = (
   );
 
   const resolve = useCallback(
-    async (
-      resourceUrl = url,
-      isReloading = false,
-      showLoadingSpinner = true,
-    ) => {
-      // Trigger asynchronous call to ORS API, race between this and
-      // setting the card to a loading state.
-      // --------------------------------------------
-      // 1. Wait 1.2 seconds - if the card still has not been resolved,
-      // emit the loading action to provide UI feedback. Note: only show
-      // UI feedback if the URL does not already have data.
-      let isCompleted = false;
-      if (showLoadingSpinner && (!hasAuthorized || !hasData)) {
-        setTimeout(() => {
-          if (!isCompleted) {
-            dispatch(cardAction(ACTION_RESOLVING, { url: resourceUrl }));
-          }
-        }, config.maxLoadingDelay);
-      }
-      // 2. Request JSON-LD data for the card from ORS, iff it has extended
+    async (resourceUrl = url, isReloading = false) => {
+      // Request JSON-LD data for the card from ORS, iff it has extended
       // its cache lifespan OR there is no data for it currently. Once the data
       // has come back asynchronously, dispatch the resolved action for the card.
       if (isReloading || hasExpired || !hasData) {
         return connections.client
           .fetchData(resourceUrl)
-          .then(response => {
-            isCompleted = true;
-            handleResolvedLinkResponse(resourceUrl, response);
-          })
-          .catch(error => {
-            isCompleted = true;
-            handleResolvedLinkError(resourceUrl, error);
-          });
-      } else {
-        isCompleted = true;
+          .then(response => handleResolvedLinkResponse(resourceUrl, response))
+          .catch(error => handleResolvedLinkError(resourceUrl, error));
       }
     },
     [
       url,
-      dispatch,
-      hasAuthorized,
       hasData,
       hasExpired,
       connections.client,
-      config.maxLoadingDelay,
       handleResolvedLinkResponse,
       handleResolvedLinkError,
     ],
@@ -182,19 +145,16 @@ export const useSmartCardActions = (
     return resolve();
   }, [url, resolve, details, dispatch]);
 
-  const reload = useCallback(
-    (showLoadingSpinner = false) => {
-      const definitionId = getDefinitionId(details);
-      if (definitionId) {
-        getByDefinitionId(definitionId, getState()).map(url =>
-          resolve(url, true, showLoadingSpinner),
-        );
-      } else {
-        resolve(url, true, showLoadingSpinner);
-      }
-    },
-    [url, details, getState, resolve],
-  );
+  const reload = useCallback(() => {
+    const definitionId = getDefinitionId(details);
+    if (definitionId) {
+      getByDefinitionId(definitionId, getState()).map(url =>
+        resolve(url, true),
+      );
+    } else {
+      resolve(url, true);
+    }
+  }, [url, details, getState, resolve]);
 
   const authorize = useCallback(
     (appearance: CardAppearance) => {
@@ -215,18 +175,10 @@ export const useSmartCardActions = (
             analytics.operational.connectSucceededEvent(definitionId);
             reload();
           },
-          (err: Error) => {
-            if (err.message === MESSAGE_WINDOW_CLOSED) {
+          (err: AuthError) => {
+            analytics.operational.connectFailedEvent(definitionId, err.type);
+            if (err.type === 'auth_window_closed') {
               analytics.ui.closedAuthEvent(appearance, definitionId);
-              analytics.operational.connectFailedEvent(
-                definitionId,
-                KEY_WINDOW_CLOSED,
-              );
-            } else {
-              analytics.operational.connectFailedEvent(
-                definitionId,
-                KEY_SENSITIVE_DATA,
-              );
             }
             reload();
           },

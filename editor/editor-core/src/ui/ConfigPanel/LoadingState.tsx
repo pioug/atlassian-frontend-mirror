@@ -8,8 +8,10 @@ const SpinnerWrapper = styled.div`
   margin-top: 64px;
 `;
 
-export default () => (
+const LoadingState = () => (
   <SpinnerWrapper>
     <Spinner size="small" />
   </SpinnerWrapper>
 );
+
+export default LoadingState;

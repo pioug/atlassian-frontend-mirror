@@ -48,6 +48,7 @@ import {
   updateStatusWithAnalytics,
   insertExpand,
   insertRule,
+  QuickInsertItemId,
 } from '@atlaskit/editor-core';
 import { EditorViewWithComposition } from '../../types';
 import { EditorState, Selection } from 'prosemirror-state';
@@ -66,6 +67,36 @@ import { assertSelectionPayload } from '../../validation';
 import { CollabSocket } from './collab-socket';
 import { Socket } from '@atlaskit/collab-provider/types';
 import { LifecycleImpl } from './lifecycle';
+import {
+  BridgeEventEmitter,
+  allowListPayloadType,
+  EventTypes,
+} from '../event-dispatch';
+import { Serialized } from '../../types';
+
+export const defaultSetList: QuickInsertItemId[] = [
+  'blockquote',
+  'heading1',
+  'heading2',
+  'heading3',
+  'heading4',
+  'heading5',
+  'heading6',
+  'codeblock',
+  'unorderedList',
+  'orderedList',
+  'rule',
+  'mention',
+  'emoji',
+  'action',
+  'decision',
+  'infopanel',
+  'notepanel',
+  'successpanel',
+  'warningpanel',
+  'errorpanel',
+  'layout',
+];
 
 type InsertQueryMethod = (
   inputMethod: InsertBlockInputMethodToolbar,
@@ -100,6 +131,8 @@ export default class WebBridgeImpl extends WebBridge
   >();
   collabSocket: CollabSocket | null = null;
   lifecycle: LifecycleImpl = new LifecycleImpl();
+  eventEmitter: BridgeEventEmitter = new BridgeEventEmitter();
+  allowList: allowListPayloadType = new Set(defaultSetList);
 
   setPadding(
     top: number = 0,
@@ -658,7 +691,40 @@ export default class WebBridgeImpl extends WebBridge
   saveCollabChanges(): void {
     this.lifecycle.saveCollabChanges();
   }
+
   restoreCollabChanges(): void {
     this.lifecycle.restoreCollabChanges();
+  }
+
+  getQuickInsertAllowList(): Serialized<QuickInsertItemId> {
+    return JSON.stringify([...this.allowList]);
+  }
+
+  setQuickInsertAllowList(newList: Serialized<QuickInsertItemId>): void {
+    const newSetList: allowListPayloadType = new Set(JSON.parse(newList));
+    this.eventEmitter.emit(EventTypes.SET_NEW_ALLOWED_INSERT_LIST, newSetList);
+    this.allowList = newSetList;
+  }
+
+  addQuickInsertAllowListItem(listItems: Serialized<QuickInsertItemId>): void {
+    const newItems = JSON.parse(listItems);
+    newItems.forEach((item: QuickInsertItemId) => this.allowList.add(item));
+    this.eventEmitter.emit(
+      EventTypes.ADD_NEW_ALLOWED_INSERT_LIST_ITEM,
+      this.allowList,
+    );
+  }
+
+  removeQuickInsertAllowListItem(
+    listItems: Serialized<QuickInsertItemId>,
+  ): void {
+    const removeItems = JSON.parse(listItems);
+    removeItems.forEach((item: QuickInsertItemId) =>
+      this.allowList.delete(item),
+    );
+    this.eventEmitter.emit(
+      EventTypes.REMOVE_ALLOWED_INSERT_LIST_ITEM,
+      this.allowList,
+    );
   }
 }

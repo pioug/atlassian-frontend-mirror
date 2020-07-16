@@ -1,10 +1,11 @@
 import styled from 'styled-components';
 import React from 'react';
-import { MockActivityResource } from '@atlaskit/activity/dist/es5/support';
 import Button, { ButtonGroup } from '@atlaskit/button';
+import { MockActivityResource } from '../example-helpers/activity-provider';
 import ExamplesErrorBoundary from '../example-helpers/ExamplesErrorBoundary';
 
 import { AtlassianIcon } from '@atlaskit/logo';
+import CopyIcon from '@atlaskit/icon/glyph/copy';
 
 import { autoformattingProvider } from '@atlaskit/editor-test-helpers/autoformatting-provider';
 import { cardProviderStaging } from '@atlaskit/editor-test-helpers/card-provider';
@@ -17,6 +18,7 @@ import {
   ProviderFactory,
   ExtensionProvider,
   combineExtensionProviders,
+  Providers,
 } from '@atlaskit/editor-common';
 
 import { EmojiProvider } from '@atlaskit/emoji/resource';
@@ -90,7 +92,6 @@ const SAVE_ACTION = () => console.log('Save');
 export const LOCALSTORAGE_defaultDocKey = 'fabric.editor.example.full-page';
 export const LOCALSTORAGE_defaultTitleKey =
   'fabric.editor.example.full-page.title';
-
 export const saveChanges = (props: {
   editorActions?: EditorActions;
   setMode?: (mode: boolean) => void;
@@ -146,7 +147,7 @@ export type State = {
   appearance: EditorAppearance;
 };
 
-export const providers: any = {
+export const providers: Partial<Providers> = {
   emojiProvider: emoji.storyData.getEmojiResource({
     uploadSupported: true,
     currentUser: {
@@ -194,6 +195,7 @@ export class ExampleEditorComponent extends React.Component<
   };
 
   private startTime: number = 0;
+  private editorActions: EditorActions | null = null;
 
   componentWillMount() {
     this.startTime = new Date().getTime();
@@ -219,6 +221,48 @@ export class ExampleEditorComponent extends React.Component<
   onEditorReady = () => {
     const now = new Date().getTime();
     console.log('Editor init time', now - this.startTime, 'ms');
+
+    const params = new URLSearchParams(window.parent.location.search);
+
+    if (params.get('adf') && this.editorActions) {
+      const doc = JSON.parse(
+        decodeURIComponent(escape(atob(params.get('adf') || '{}'))),
+      );
+      this.editorActions.replaceDocument(doc);
+    }
+  };
+
+  onCopyLinkWithContent = () => {
+    if (!this.editorActions) {
+      return;
+    }
+
+    this.editorActions.getValue().then(value => {
+      // note: btoa doesn't work with unicode
+      const adfString = btoa(
+        unescape(encodeURIComponent(JSON.stringify(value))),
+      );
+      const { origin, pathname, search } = window.parent.location;
+
+      const params = new URLSearchParams(search);
+      params.set('adf', adfString);
+
+      const url = `${origin + pathname}?${params}`;
+      const input = document.createElement('input');
+      input.type = 'text';
+      input.value = url;
+      document.body.appendChild(input);
+      input.select();
+      input.setSelectionRange(0, url.length);
+      document.execCommand('copy');
+      input.remove();
+
+      if (url.length > 2000) {
+        alert(`Warning:
+        The generated url exceeds the 2000 character limit for safe urls. It _may_ not work in all browsers.
+        Reduce the complexity of the document to reduce the url length if you're having problems.`);
+      }
+    });
   };
 
   render() {
@@ -241,7 +285,6 @@ export class ExampleEditorComponent extends React.Component<
                 }}
                 allowBreakout={true}
                 allowJiraIssue={true}
-                allowUnsupportedContent={true}
                 allowPanel={true}
                 allowExtension={{
                   allowBreakout: true,
@@ -335,12 +378,27 @@ export class ExampleEditorComponent extends React.Component<
                 primaryToolbarComponents={[
                   <WithEditorActions
                     key={1}
-                    render={actions => (
-                      <SaveAndCancelButtons
-                        editorActions={actions}
-                        setMode={this.props.setMode}
-                      />
-                    )}
+                    render={actions => {
+                      this.editorActions = actions;
+
+                      return (
+                        <>
+                          <Button
+                            iconBefore={
+                              <CopyIcon label="Copy link to clipboard" />
+                            }
+                            disabled={!actions}
+                            onClick={this.onCopyLinkWithContent}
+                          >
+                            Copy link
+                          </Button>
+                          <SaveAndCancelButtons
+                            editorActions={actions}
+                            setMode={this.props.setMode}
+                          />
+                        </>
+                      );
+                    }}
                   />,
                 ]}
                 primaryToolbarIconBefore={

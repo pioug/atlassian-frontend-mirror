@@ -1,5 +1,16 @@
 # @atlaskit/empty-state
 
+## 7.1.0
+
+### Minor Changes
+
+- [`22aa614abb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/22aa614abb) - Introduce optional renderImage prop which will be displayed if no imageUrl is provided
+
+### Patch Changes
+
+- [`3414523d6f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3414523d6f) - Rearange buttons order to align with design guidelines
+- [`db053b24d8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/db053b24d8) - Update all the theme imports to be tree-shakable
+
 ## 7.0.0
 
 ### Major Changes

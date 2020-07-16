@@ -2,7 +2,7 @@
 import { jsx } from '@emotion/core';
 
 import Icon from '@atlaskit/icon';
-import { colors } from '@atlaskit/theme';
+import { B100 } from '@atlaskit/theme/colors';
 
 import { CSSFn, CustomItem, CustomItemComponentProps } from '../src';
 
@@ -35,7 +35,7 @@ const cssFn: CSSFn = (currentStyles, state) => {
           width: 3,
           transform: 'translateX(-1px)',
           transition: 'transform 70ms ease-in-out',
-          backgroundColor: colors.B100,
+          backgroundColor: B100,
         },
 
     ':hover:before': state.isDisabled

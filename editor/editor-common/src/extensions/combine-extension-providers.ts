@@ -25,5 +25,9 @@ export default (
     search(keyword: string) {
       return invokeList('search', [keyword]);
     },
+
+    getAutoConverter() {
+      return invokeList('getAutoConverter');
+    },
   };
 };

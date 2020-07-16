@@ -1,17 +1,13 @@
-import React, { Component, ReactElement, ReactNode } from 'react';
+import React, { ReactElement, ReactNode, useRef, useState } from 'react';
 
 import Button from '@atlaskit/button';
 import Tick from '@atlaskit/icon/glyph/check-circle';
 import Error from '@atlaskit/icon/glyph/error';
 import Info from '@atlaskit/icon/glyph/info';
 import Warning from '@atlaskit/icon/glyph/warning';
-import { colors } from '@atlaskit/theme';
+import { G300, P300, R300, Y300 } from '@atlaskit/theme/colors';
 
 import Flag, { FlagGroup } from '../src';
-
-type State = {
-  flags: Array<flagData>;
-};
 
 type flagData = {
   created: number;
@@ -31,12 +27,10 @@ const getRandomIcon = () => {
 
 const iconMap = (key?: string, color?: string) => {
   const icons: { [key: string]: ReactElement } = {
-    info: <Info label="Info icon" primaryColor={color || colors.P300} />,
-    success: <Tick label="Success icon" primaryColor={color || colors.G300} />,
-    warning: (
-      <Warning label="Warning icon" primaryColor={color || colors.Y300} />
-    ),
-    error: <Error label="Error icon" primaryColor={color || colors.R300} />,
+    info: <Info label="Info icon" primaryColor={color || P300} />,
+    success: <Tick label="Success icon" primaryColor={color || G300} />,
+    warning: <Warning label="Warning icon" primaryColor={color || Y300} />,
+    error: <Error label="Error icon" primaryColor={color || R300} />,
   };
 
   return key ? icons[key] : icons;
@@ -54,43 +48,42 @@ const getFlagData = (index: number, timeOffset: number = 0): flagData => {
   };
 };
 
-export default class FlagGroupExample extends Component<void, State> {
-  state = { flags: [] };
+const FlagGroupExample = () => {
+  const [flags, setFlags] = useState<Array<flagData>>([]);
+  let flagCount = useRef(0);
 
-  flagCount = 0;
-
-  addFlag = () => {
-    const flags = this.state.flags.slice() as flagData[];
-    flags.unshift(getFlagData(this.flagCount++));
-    this.setState({ flags });
+  const addFlag = () => {
+    const newFlags = flags.slice();
+    newFlags.unshift(getFlagData(flagCount.current++));
+    setFlags(newFlags);
   };
 
-  dismissFlag = () => {
-    this.setState(state => ({ flags: state.flags.slice(1) }));
-    this.flagCount--;
+  const dismissFlag = () => {
+    setFlags(flags.slice(1));
+    flagCount.current--;
   };
 
-  render() {
-    const actions = [
-      {
-        content: 'Nice one!',
-        onClick: () => alert('Flag has been clicked!'),
-        testId: 'MyFlagAction',
-      },
-      { content: 'Not right now thanks', onClick: this.dismissFlag },
-    ];
+  const actions = [
+    {
+      content: 'Nice one!',
+      onClick: () => alert('Flag has been clicked!'),
+      testId: 'MyFlagAction',
+    },
+    { content: 'Not right now thanks', onClick: dismissFlag },
+  ];
 
-    return (
-      <div>
-        <FlagGroup onDismissed={this.dismissFlag}>
-          {this.state.flags.map(flag => (
-            <Flag actions={actions} {...flag} />
-          ))}
-        </FlagGroup>
-        <Button onClick={this.addFlag} testId="AddFlag">
-          Add Flag
-        </Button>
-      </div>
-    );
-  }
-}
+  return (
+    <div>
+      <FlagGroup onDismissed={dismissFlag}>
+        {flags.map(flag => (
+          <Flag actions={actions} {...flag} />
+        ))}
+      </FlagGroup>
+      <Button onClick={addFlag} testId="AddFlag">
+        Add Flag
+      </Button>
+    </div>
+  );
+};
+
+export default FlagGroupExample;

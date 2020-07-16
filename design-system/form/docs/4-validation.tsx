@@ -31,6 +31,21 @@ ${(
 If the validation requires an async check, the validation function can return a Promise. Note
 that the promise should **resolve** with the error, rather than reject with the error.
 
+<a name="async-validation"></a>
+
+## Async validations
+
+It can be tricky when async come to play in validation. You can use \`validating\` status in \`meta\` to achieve better user
+experience. For example, a spinner when \`validating\` can tell the user some calculation is happening under the hood.
+
+${(
+  <Example
+    packageName="@atlaskit/form"
+    Component={require('../examples/18-async-validation').default}
+    title="Field validation"
+    source={require('!!raw-loader!../examples/18-async-validation')}
+  />
+)}
 
 <a name="submission-validation"></a>
 

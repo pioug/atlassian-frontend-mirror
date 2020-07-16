@@ -2,6 +2,7 @@ import { Node as PmNode } from 'prosemirror-model';
 import { Transaction } from 'prosemirror-state';
 import { Rect } from 'prosemirror-tables';
 import { DecorationSet } from 'prosemirror-view';
+import { InjectedIntl } from 'react-intl';
 
 import {
   tableCellSelector,
@@ -297,3 +298,19 @@ export const TableCssClassName = {
 
   WITH_RESIZE_LINE: `${tablePrefixSelector}-column-resize-line`,
 };
+
+export interface ToolbarMenuConfig {
+  allowHeaderRow?: boolean;
+  allowHeaderColumn?: boolean;
+  allowNumberColumn?: boolean;
+}
+
+export interface ToolbarMenuState {
+  isHeaderRowEnabled?: boolean;
+  isHeaderColumnEnabled?: boolean;
+  isNumberColumnEnabled?: boolean;
+}
+
+export interface ToolbarMenuContext {
+  formatMessage: InjectedIntl['formatMessage'];
+}

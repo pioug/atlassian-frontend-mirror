@@ -1,5 +1,47 @@
 # @atlaskit/renderer
 
+## 63.0.0
+
+### Minor Changes
+
+- [`e6b946351c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e6b946351c) - Prop `allowHeadingAnchorLinks` can now be boolean or a config object.
+  When the prop is `true`, heading anchor links will be enabled only on the top level of the document.
+  When the prop is set to `{ allowNestedHeaderLinks: true }` we will enable the new UI for heading anchor links,
+  and they can be supported everywhere: in tables, panels, expands, etc.
+- [`a70c826d0b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a70c826d0b) - [TWISTER-77] Creates Inline Comments on Renderer mode
+- [`93829e7c90`](https://bitbucket.org/atlassian/atlassian-frontend/commits/93829e7c90) - [TWISTER-162] Inline Comments on Renderer can have draft marks
+
+  There is a new feature flag inside of the Annotation Providers. Hence, we can, for example, enable draft mode inside of the Inline Comments,
+  like this:
+
+  ```
+  const annotationProviders = {
+    allowDraftMode?: boolean;
+    selectionComponent?: React.ComponentType<
+      {
+        [...]
+        applyDraftMode: () => void;
+        removeDraftMode: () => void;
+      }
+    >;
+  };
+  ```
+
+  If the feature flag 'allowDraftMode' is true. You will be able to use the props `applyDraftMode` and `removeDraftMode` on your SelectionComponent. Nothing will happen if you Call those methods when the flag is `false` or undefined.
+
+- [`fe8d48c4d1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fe8d48c4d1) - ED-9428 Updated UI and UX for Header Links. The new UI is used when the `allowNestedHeadingAnchorLinks` prop is enabled.
+
+### Patch Changes
+
+- [`dbe5030111`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dbe5030111) - CCCEM-1786 Unify panel styling between renderer and editor
+- [`4f705f6468`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4f705f6468) - Memoize getNodeRenderer in ExtensionRenderer to avoid unnecessary remounting of extensions
+- [`ea8c96f505`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ea8c96f505) - Adding support to scroll to headers inside expands, by providing a new prop `activeHeadingId` within
+  the config object `allowHeadingAnchorLinks` in renderer props.
+  When `activeHeadingId` is set to a valid heading id, then it will search for any expand that wraps it,
+  and if any, it will open if before hand. This will give the ability for the consumer to scroll to the heading id properly.
+- [`c72502e22a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c72502e22a) - ED-9594: Remove cursor pointer from decision items in renderer
+- Updated dependencies
+
 ## 62.0.0
 
 ### Major Changes

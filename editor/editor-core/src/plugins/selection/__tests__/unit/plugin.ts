@@ -1,4 +1,4 @@
-import { NodeSelection, TextSelection } from 'prosemirror-state';
+import { NodeSelection, TextSelection, PluginKey } from 'prosemirror-state';
 import { Decoration, EditorView } from 'prosemirror-view';
 
 import {
@@ -13,6 +13,11 @@ import { akEditorSelectedNodeClassName } from '../../../../styles';
 import rulePlugin from '../../../rule';
 import selectionPlugin from '../../index';
 import { getPluginState } from '../../plugin-factory';
+import { selectionPluginKey, SelectionPluginState } from '../../types';
+import {
+  setNodeSelection,
+  setTextSelection,
+} from '../../../../utils/selection';
 
 describe('selection plugin', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -20,26 +25,17 @@ describe('selection plugin', () => {
     .add(selectionPlugin)
     .add(rulePlugin);
 
-  const editor = (doc: any) => createEditor({ doc, preset });
+  const editor = (doc: any) =>
+    createEditor<SelectionPluginState, PluginKey>({
+      doc,
+      preset,
+      pluginKey: selectionPluginKey,
+    });
+
   const expectedNodeDecoration = (from: number, to: number) =>
     Decoration.node(from, to, {
       class: akEditorSelectedNodeClassName,
     });
-
-  const setNodeSelection = (pos: number) => {
-    editorView.dispatch(
-      editorView.state.tr.setSelection(
-        NodeSelection.create(editorView.state.doc, pos),
-      ),
-    );
-  };
-  const setTextSelection = (from: number, to?: number) => {
-    editorView.dispatch(
-      editorView.state.tr.setSelection(
-        TextSelection.create(editorView.state.doc, from, to),
-      ),
-    );
-  };
 
   const insertTextAndSetNodeSelection = (
     text: string,
@@ -103,7 +99,7 @@ describe('selection plugin', () => {
         ({ editorView, refs } = editor(
           doc(p('i like bilbies{<>}'), '{nodeStart}', hr(), '{nodeEnd}'),
         ));
-        setNodeSelection(refs.nodeStart);
+        setNodeSelection(editorView, refs.nodeStart);
       });
 
       it('creates new decorations', () => {
@@ -116,7 +112,7 @@ describe('selection plugin', () => {
 
       describe('then back to something else', () => {
         it('removes decorations', () => {
-          setTextSelection(1);
+          setTextSelection(editorView, 1);
           const { decorationSet } = getPluginState(editorView.state);
           expect(decorationSet.find().length).toBe(0);
         });
@@ -127,7 +123,7 @@ describe('selection plugin', () => {
       it("doesn't update plugin state", () => {
         ({ editorView, refs } = editor(doc(p('i like bilbies{<>}'))));
         const prevPluginState = getPluginState(editorView.state);
-        setTextSelection(1);
+        setTextSelection(editorView, 1);
         expect(getPluginState(editorView.state)).toBe(prevPluginState);
       });
     });
@@ -180,7 +176,7 @@ describe('selection plugin', () => {
               ({ editorView, refs } = editor(
                 doc(p('i like bilbies{<>}'), '{nodeStart}', hr(), '{nodeEnd}'),
               ));
-              setNodeSelection(refs.nodeStart);
+              setNodeSelection(editorView, refs.nodeStart);
               insertTextAndSetTextSelection('hi', 1);
               const { decorationSet } = getPluginState(editorView.state);
               expect(decorationSet.find().length).toBe(0);

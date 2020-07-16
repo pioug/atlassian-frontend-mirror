@@ -11,7 +11,7 @@ import {
 [comment, fullpage].forEach(editor => {
   BrowserTestCase(
     `hyperlink-2.ts: Link - paste link and add text, paste link into list for ${editor.name} editor`,
-    { skip: ['edge', 'ie', 'safari'] },
+    { skip: ['edge', 'safari'] },
     async (client: any, testName: string) => {
       const sample = new Page(client);
       const linkText1 = 'https://www.google.com';

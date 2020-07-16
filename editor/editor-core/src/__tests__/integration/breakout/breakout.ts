@@ -17,7 +17,7 @@ const wideBreakoutColumn = 'div[data-layout-column="true"]:first-child p';
 
 BrowserTestCase(
   'breakout: should be able to switch to wide mode',
-  { skip: ['ie', 'edge'] },
+  { skip: ['edge'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
 
@@ -39,7 +39,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'breakout: should be able to switch to full-width mode',
-  { skip: ['ie', 'edge'] },
+  { skip: ['edge'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
 
@@ -63,7 +63,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'breakout: should be able to switch to center mode back',
-  { skip: ['ie', 'edge'] },
+  { skip: ['edge'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
 
@@ -93,7 +93,7 @@ BrowserTestCase(
 // skipped on ie
 BrowserTestCase(
   'breakout: should be able to delete last character inside a "wide" codeBlock preserving the node',
-  { skip: ['ie', 'edge'] },
+  { skip: ['edge'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
 
@@ -119,7 +119,7 @@ BrowserTestCase(
 // @see ED-8293
 BrowserTestCase(
   'breakout: should be able to delete last character inside a "wide" layoutSection in Safari',
-  { skip: ['ie', 'firefox', 'chrome', 'edge'] },
+  { skip: ['firefox', 'chrome', 'edge'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
 

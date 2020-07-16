@@ -1,5 +1,14 @@
 # @atlaskit/theme
 
+## 10.0.1
+
+### Patch Changes
+
+- [`682940909a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/682940909a) - CCCEM-1212 Customize background color in AtlaskitThemeProvider
+- [`60dd4ecc69`](https://bitbucket.org/atlassian/atlassian-frontend/commits/60dd4ecc69) - Changed export all to export individual components in index
+- [`7b90a82e88`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7b90a82e88) - Update the elevation to work correctly in Safari and Edge <79 correctly
+- [`db053b24d8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/db053b24d8) - Update all the theme imports to be tree-shakable
+
 ## 10.0.0
 
 ### Major Changes

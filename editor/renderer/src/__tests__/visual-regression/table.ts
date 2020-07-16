@@ -4,6 +4,12 @@ import * as wideTableResized from '../__fixtures__/table-wide-resized.adf.json';
 import * as tableWithShadowAdf from '../__fixtures__/table-with-shadow.adf.json';
 import { RendererAppearance } from '../../ui/Renderer/types';
 
+const tableContainerSelector = '.pm-table-container';
+
+async function waitForTableWithCards(page: any) {
+  await page.waitForSelector(tableContainerSelector);
+}
+
 const initRenderer = async (
   page: Page,
   adf: any,
@@ -30,10 +36,15 @@ describe('Snapshot Test: Table scaling', () => {
 
   it(`should NOT render a right shadow`, async () => {
     await initRenderer(page, wideTableResized);
+    await waitForTableWithCards(page);
+    await page.waitFor(
+      '#renderer-container [data-testid="inline-card-resolved-view"]',
+    );
   });
 
   it(`should not overlap inline comments dialog`, async () => {
     await initRenderer(page, tableWithShadowAdf);
+    await waitForTableWithCards(page);
 
     await page.evaluate(() => {
       let div = document.createElement('div');
@@ -61,5 +72,9 @@ describe('Snapshot Test: Table scaling', () => {
       viewport: { width: 1485, height: 1175 },
       adf: wideTableResized,
     });
+    await page.waitForSelector(tableContainerSelector);
+    await page.waitFor(
+      '#renderer-container [data-testid="inline-card-resolved-view"]',
+    );
   });
 });

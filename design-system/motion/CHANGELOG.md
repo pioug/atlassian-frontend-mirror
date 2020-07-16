@@ -1,5 +1,12 @@
 # @atlaskit/motion
 
+## 0.4.1
+
+### Patch Changes
+
+- [`60dd4ecc69`](https://bitbucket.org/atlassian/atlassian-frontend/commits/60dd4ecc69) - Changed export all to export individual components in index
+- [`db053b24d8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/db053b24d8) - Update all the theme imports to be tree-shakable
+
 ## 0.4.0
 
 ### Minor Changes

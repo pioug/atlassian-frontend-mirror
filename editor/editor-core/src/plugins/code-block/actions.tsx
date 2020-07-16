@@ -1,4 +1,10 @@
-import { removeParentNodeOfType } from 'prosemirror-utils';
+import {
+  findSelectedNodeOfType,
+  removeSelectedNode,
+  removeParentNodeOfType,
+  isNodeSelection,
+} from 'prosemirror-utils';
+import { NodeSelection } from 'prosemirror-state';
 import { Command } from '../../types';
 import { CodeBlockAttrs } from '@atlaskit/adf-schema';
 import { pluginKey } from './plugin-key';
@@ -11,7 +17,13 @@ export const removeCodeBlock: Command = (state, dispatch) => {
     tr,
   } = state;
   if (dispatch) {
-    dispatch(removeParentNodeOfType(nodes.codeBlock)(tr));
+    let removeTr = tr;
+    if (findSelectedNodeOfType(nodes.codeBlock)(tr.selection)) {
+      removeTr = removeSelectedNode(tr);
+    } else {
+      removeTr = removeParentNodeOfType(nodes.codeBlock)(tr);
+    }
+    dispatch(removeTr);
   }
   return true;
 };
@@ -37,7 +49,16 @@ export const changeLanguage = (language: string): Command => (
     return false;
   }
 
-  const changeLanguageTr = tr.setNodeMarkup(pos, codeBlock, attrs);
+  let changeLanguageTr = tr;
+
+  const shouldRestoreNodeSelection = isNodeSelection(tr.selection);
+
+  changeLanguageTr = tr.setNodeMarkup(pos, codeBlock, attrs);
+
+  if (shouldRestoreNodeSelection) {
+    changeLanguageTr = tr.setSelection(NodeSelection.create(state.doc, pos));
+  }
+
   changeLanguageTr.setMeta('scrollIntoView', false);
 
   if (dispatch) {

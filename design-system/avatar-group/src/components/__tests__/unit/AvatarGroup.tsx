@@ -15,7 +15,6 @@ const generateData = (avatarCount: number) => {
       src: `#${i}`,
       size: 'medium' as SizeType,
       appearance: 'circle' as AppearanceType,
-      href: '#',
     });
   }
   return data;
@@ -101,18 +100,35 @@ describe('<AvatarGroup />', () => {
   });
 
   it('should set href to overflowed avatar dropdown item', () => {
-    const { getByTestId, getAllByRole } = render(
+    const { getByTestId } = render(
       <AvatarGroup
         testId="test"
         appearance="stack"
-        data={generateData(2)}
+        data={[
+          {
+            name: 'Name 0',
+            src: '#0',
+            size: 'medium',
+            appearance: 'circle',
+            href: '#',
+          },
+          {
+            name: 'Name 1',
+            src: '#1',
+            size: 'medium',
+            appearance: 'circle',
+            href: '#',
+          },
+        ]}
         maxCount={1}
       />,
     );
 
     fireEvent.click(getByTestId('test--overflow-menu--trigger'));
 
-    expect(getAllByRole('menuitem')[0].getAttribute('href')).toEqual('#');
+    expect(
+      getByTestId('test--avatar-group-item-1').getAttribute('href'),
+    ).toEqual('#');
   });
 
   it('should ensure href is not set on the avatar inside the overflowed dropdown item', () => {
@@ -192,9 +208,7 @@ describe('<AvatarGroup />', () => {
     );
 
     fireEvent.click(getByTestId('test--overflow-menu--trigger'));
-    fireEvent.click(
-      getByTestId('test--overflow-menu--content').querySelectorAll('a')[1],
-    );
+    fireEvent.click(getByTestId('test--avatar-group-item-3--avatar--inner'));
 
     expect(onClick).toHaveBeenCalledWith(expect.anything(), undefined, 3);
   });
@@ -204,8 +218,14 @@ describe('<AvatarGroup />', () => {
     const { getByTestId } = render(
       <AvatarGroup
         testId="test"
-        data={generateData(1)}
-        maxCount={3}
+        data={[
+          {
+            name: 'Name 0',
+            src: '#0',
+            size: 'medium' as SizeType,
+            appearance: 'circle' as AppearanceType,
+          },
+        ]}
         onAvatarClick={onClick}
       />,
     );

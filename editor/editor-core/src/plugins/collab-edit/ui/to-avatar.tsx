@@ -1,10 +1,10 @@
 import React from 'react';
-import { AvatarPropTypes } from '@atlaskit/avatar';
+import { AvatarProps } from '@atlaskit/avatar-group';
 import memoizeOne, { EqualityFn } from 'memoize-one';
 import { CollabParticipant } from '../types';
 import { ColoredAvatarItem } from './colored-avatar-item';
 
-const toAvatar = (participant: CollabParticipant): AvatarPropTypes => ({
+const toAvatar = (participant: CollabParticipant): AvatarProps => ({
   name: participant.name,
   src: participant.avatar,
   size: 'medium',

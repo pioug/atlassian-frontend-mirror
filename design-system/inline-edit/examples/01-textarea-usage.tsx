@@ -3,7 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import TextArea from '@atlaskit/textarea';
-import { fontSize, gridSize } from '@atlaskit/theme';
+import { fontSize, gridSize } from '@atlaskit/theme/constants';
 
 import InlineEdit from '../src';
 

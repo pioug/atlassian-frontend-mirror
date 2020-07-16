@@ -1,13 +1,22 @@
-import { Plugin, EditorState } from 'prosemirror-state';
+import { EditorState, Plugin } from 'prosemirror-state';
+import { EditorView } from 'prosemirror-view';
+import { Dispatch } from '../../event-dispatcher';
+import { setDecorations } from './commands';
+import { createPluginState, getPluginState } from './plugin-factory';
 import {
   selectionPluginKey,
   SelectionPluginOptions,
   SelectionPluginState,
 } from './types';
-import { Dispatch } from '../../event-dispatcher';
-import { getDecorations, shouldRecalcDecorations } from './utils';
-import { setDecorations } from './commands';
-import { createPluginState, getPluginState } from './plugin-factory';
+import {
+  getDecorations,
+  shouldRecalcDecorations,
+  getNodeSelectionAnalyticsPayload,
+  getRangeSelectionAnalyticsPayload,
+  getAllSelectionAnalyticsPayload,
+  getCellSelectionAnalyticsPayload,
+} from './utils';
+import { DispatchAnalyticsEvent } from '../analytics';
 
 export const getInitialState = (state: EditorState): SelectionPluginState => ({
   decorationSet: getDecorations(state.tr),
@@ -16,6 +25,7 @@ export const getInitialState = (state: EditorState): SelectionPluginState => ({
 
 export const createPlugin = (
   dispatch: Dispatch,
+  dispatchAnalyticsEvent: DispatchAnalyticsEvent,
   options: SelectionPluginOptions = {},
 ) => {
   return new Plugin({
@@ -29,6 +39,24 @@ export const createPlugin = (
           return;
         }
 
+        const analyticsPayload =
+          getNodeSelectionAnalyticsPayload(state.selection) ||
+          getAllSelectionAnalyticsPayload(state.selection) ||
+          // We only handle range/cell selection from shift + arrow keys and shift + click here,
+          // click and drag is handled in mouseup handler below
+          ((editorView as EditorView & { shiftKey: boolean }).shiftKey &&
+            (getRangeSelectionAnalyticsPayload(state.selection, state.doc) ||
+              getCellSelectionAnalyticsPayload(state)));
+
+        // We have to use dispatchAnalyticsEvent over any of the analytics plugin helpers
+        // as there were several issues caused by the fact that adding analytics through
+        // the plugin adds a new step to the transaction
+        // This causes prosemirror to run through some different code paths, eg. attempting
+        // to map selection
+        if (analyticsPayload) {
+          dispatchAnalyticsEvent(analyticsPayload);
+        }
+
         setDecorations()(state, dispatch);
       },
     }),
@@ -38,6 +66,26 @@ export const createPlugin = (
       },
 
       handleClick: options.useLongPressSelection ? () => true : undefined,
+
+      handleDOMEvents: {
+        // We only want to fire analytics for a click and drag range/cell selection when
+        // the user has finished, otherwise we will get an event almost every time they move
+        // their mouse which is too much
+        mouseup: (editorView: EditorView, event: Event) => {
+          const mouseEvent = event as MouseEvent;
+          if (!mouseEvent.shiftKey) {
+            const analyticsPayload =
+              getRangeSelectionAnalyticsPayload(
+                editorView.state.selection,
+                editorView.state.doc,
+              ) || getCellSelectionAnalyticsPayload(editorView.state);
+            if (analyticsPayload) {
+              dispatchAnalyticsEvent(analyticsPayload);
+            }
+          }
+          return false;
+        },
+      },
     },
   });
 };

@@ -110,7 +110,9 @@ class Tooltip extends React.Component<TooltipProps, TooltipState> {
 
   componentDidUpdate(_prevProps: TooltipProps, prevState: TooltipState) {
     if (!prevState.isVisible && this.state.isVisible) {
-      if (this.props.onShow) this.props.onShow();
+      if (this.props.onShow) {
+        this.props.onShow();
+      }
 
       window.addEventListener(
         'scroll',
@@ -118,7 +120,9 @@ class Tooltip extends React.Component<TooltipProps, TooltipState> {
         SCROLL_OPTIONS,
       );
     } else if (prevState.isVisible && !this.state.isVisible) {
-      if (this.props.onHide) this.props.onHide();
+      if (this.props.onHide) {
+        this.props.onHide();
+      }
       this.removeScrollListener();
     }
   }

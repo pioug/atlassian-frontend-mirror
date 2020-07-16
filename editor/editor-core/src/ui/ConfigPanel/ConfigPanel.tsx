@@ -4,7 +4,6 @@ import memoizeOne from 'memoize-one';
 
 import { ExtensionManifest } from '@atlaskit/editor-common';
 import Form from '@atlaskit/form';
-import Spinner from '@atlaskit/spinner';
 
 import {
   FieldDefinition,
@@ -12,19 +11,23 @@ import {
   OnSaveCallback,
 } from '@atlaskit/editor-common/extensions';
 
+import LoadingState from './LoadingState';
 import Header from './Header';
 import ConfigForm from './Form';
+import ErrorMessage from './ErrorMessage';
 import { serialize, deserialize } from './transformers';
 
 type Props = {
-  extensionManifest: ExtensionManifest;
-  fields: FieldDefinition[];
+  extensionManifest?: ExtensionManifest;
+  fields?: FieldDefinition[];
   parameters?: Parameters;
   autoSave?: boolean;
   showHeader?: boolean;
   closeOnEsc?: boolean;
   onChange: OnSaveCallback;
   onCancel: () => void;
+  errorMessage: string | null;
+  isLoading?: boolean;
 } & InjectedIntlProps;
 
 type State = {
@@ -39,7 +42,9 @@ class ConfigPanel extends React.Component<Props, State> {
     this.state = {
       hasParsedParameters: false,
       currentParameters: {},
-      firstVisibleFieldName: this.getFirstVisibleFieldName(props.fields),
+      firstVisibleFieldName: props.fields
+        ? this.getFirstVisibleFieldName(props.fields)
+        : undefined,
     };
   }
 
@@ -53,12 +58,16 @@ class ConfigPanel extends React.Component<Props, State> {
 
     if (
       (parameters && parameters !== prevProps.parameters) ||
-      (fields && fields.length !== prevProps.fields.length)
+      (fields &&
+        (!prevProps.fields || fields.length !== prevProps.fields.length))
     ) {
       this.parseParameters(fields, parameters);
     }
 
-    if (fields && fields.length !== prevProps.fields.length) {
+    if (
+      fields &&
+      (!prevProps.fields || fields.length !== prevProps.fields.length)
+    ) {
       this.setFirstVisibleFieldName(fields);
     }
   }
@@ -71,6 +80,9 @@ class ConfigPanel extends React.Component<Props, State> {
 
   handleSubmit = async (formData: FormData) => {
     const { fields, extensionManifest } = this.props;
+    if (!extensionManifest || !fields) {
+      return;
+    }
 
     try {
       const serializedData = await serialize(
@@ -87,12 +99,12 @@ class ConfigPanel extends React.Component<Props, State> {
   };
 
   parseParameters = async (
-    fields: FieldDefinition[],
+    fields?: FieldDefinition[],
     parameters?: Parameters,
   ) => {
     const { extensionManifest } = this.props;
 
-    if (fields.length === 0) {
+    if (!extensionManifest || !fields || fields.length === 0) {
       // do not parse while fields are not returned
       return;
     }
@@ -118,8 +130,8 @@ class ConfigPanel extends React.Component<Props, State> {
   };
 
   // memoized to prevent rerender on new parameters
-  renderHeader = memoizeOne(() => {
-    const { onCancel, extensionManifest, showHeader } = this.props;
+  renderHeader = memoizeOne((extensionManifest: ExtensionManifest) => {
+    const { onCancel, showHeader } = this.props;
 
     if (!showHeader) {
       return null;
@@ -134,6 +146,34 @@ class ConfigPanel extends React.Component<Props, State> {
       />
     );
   });
+
+  renderBody = (extensionManifest: ExtensionManifest, submitting: boolean) => {
+    const { fields, onCancel, autoSave, errorMessage, isLoading } = this.props;
+
+    const {
+      currentParameters,
+      hasParsedParameters,
+      firstVisibleFieldName,
+    } = this.state;
+
+    if (isLoading || (!hasParsedParameters && errorMessage === null)) {
+      return <LoadingState />;
+    }
+
+    return errorMessage || !fields ? (
+      <ErrorMessage errorMessage={errorMessage || ''} />
+    ) : (
+      <ConfigForm
+        extensionManifest={extensionManifest}
+        fields={fields}
+        parameters={currentParameters}
+        onCancel={onCancel}
+        autoSave={autoSave}
+        submitting={submitting}
+        firstVisibleFieldName={firstVisibleFieldName}
+      />
+    );
+  };
 
   getFirstVisibleFieldName = memoizeOne((fields: FieldDefinition[]) => {
     // finds the first visible field. Returns true for fieldsets too.
@@ -175,16 +215,9 @@ class ConfigPanel extends React.Component<Props, State> {
   };
 
   render() {
-    const { fields, onCancel, extensionManifest, autoSave } = this.props;
-
-    const {
-      currentParameters,
-      hasParsedParameters,
-      firstVisibleFieldName,
-    } = this.state;
-
-    if (!hasParsedParameters) {
-      return <Spinner size="small" />;
+    const { extensionManifest } = this.props;
+    if (!extensionManifest) {
+      return <LoadingState />;
     }
 
     return (
@@ -192,16 +225,8 @@ class ConfigPanel extends React.Component<Props, State> {
         {({ formProps, submitting }) => {
           return (
             <form {...formProps} noValidate onKeyDown={this.handleKeyDown}>
-              {this.renderHeader()}
-              <ConfigForm
-                extensionManifest={extensionManifest}
-                fields={fields}
-                parameters={currentParameters}
-                onCancel={onCancel}
-                autoSave={autoSave}
-                submitting={submitting}
-                firstVisibleFieldName={firstVisibleFieldName}
-              />
+              {this.renderHeader(extensionManifest)}
+              {this.renderBody(extensionManifest, submitting)}
             </form>
           );
         }}

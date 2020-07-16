@@ -3,6 +3,12 @@ import { handlePaste as handlePasteTable } from 'prosemirror-tables';
 import { Schema, Slice, Node, Fragment } from 'prosemirror-model';
 import { Plugin, PluginKey, EditorState } from 'prosemirror-state';
 import { MarkdownTransformer } from '@atlaskit/editor-markdown-transformer';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import {
+  ExtensionProvider,
+  getExtensionAutoConvertersFromProvider,
+  ExtensionAutoConvertHandler,
+} from '@atlaskit/editor-common/extensions';
 
 import * as clipboard from '../../../utils/clipboard';
 import { transformSliceForMedia } from '../../media/utils/media-single';
@@ -58,6 +64,10 @@ import { md } from '../md';
 import { getPluginState as getTablePluginState } from '../../table/pm-plugins/plugin-factory';
 import { transformUnsupportedBlockCardToInline } from '../../card/utils';
 import { transformSliceToDecisionList } from '../../tasks-and-decisions/utils';
+import {
+  containsAnyAnnotations,
+  stripNonExistingAnnotations,
+} from '../../annotation/utils';
 
 export const stateKey = new PluginKey('pastePlugin');
 
@@ -82,6 +92,7 @@ export function createPlugin(
   schema: Schema,
   cardOptions?: CardOptions,
   sanitizePrivateContent?: boolean,
+  providerFactory?: ProviderFactory,
 ) {
   const atlassianMarkDownParser = new MarkdownTransformer(schema, md);
 
@@ -95,6 +106,30 @@ export function createPlugin(
       return new Slice(doc.content, openStart, openEnd);
     }
     return;
+  }
+
+  let extensionAutoConverter: ExtensionAutoConvertHandler;
+
+  async function setExtensionAutoConverter(
+    name: string,
+    extensionProviderPromise?: Promise<ExtensionProvider>,
+  ) {
+    if (name !== 'extensionProvider' || !extensionProviderPromise) {
+      return;
+    }
+
+    try {
+      extensionAutoConverter = await getExtensionAutoConvertersFromProvider(
+        extensionProviderPromise,
+      );
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.error(e);
+    }
+  }
+
+  if (providerFactory) {
+    providerFactory.subscribe('extensionProvider', setExtensionAutoConverter);
   }
 
   return new Plugin({
@@ -172,11 +207,12 @@ export function createPlugin(
           // run macro autoconvert prior to other conversions
           if (
             markdownSlice &&
-            handleMacroAutoConvert(text, markdownSlice, cardOptions)(
-              state,
-              dispatch,
-              view,
-            )
+            handleMacroAutoConvert(
+              text,
+              markdownSlice,
+              cardOptions,
+              extensionAutoConverter,
+            )(state, dispatch, view)
           ) {
             // TODO: handleMacroAutoConvert dispatch twice, so we can't use the helper
             sendPasteAnalyticsEvent(view, event, markdownSlice, {
@@ -248,11 +284,12 @@ export function createPlugin(
           slice = linkifyContent(state.schema)(slice);
           // run macro autoconvert prior to other conversions
           if (
-            handleMacroAutoConvert(text, slice, cardOptions)(
-              state,
-              dispatch,
-              view,
-            )
+            handleMacroAutoConvert(
+              text,
+              slice,
+              cardOptions,
+              extensionAutoConverter,
+            )(state, dispatch, view)
           ) {
             // TODO: handleMacroAutoConvert dispatch twice, so we can't use the helper
             sendPasteAnalyticsEvent(view, event, slice, {
@@ -288,6 +325,12 @@ export function createPlugin(
               type: PasteTypes.richText,
             });
             return true;
+          }
+
+          // remove annotation marks from the pasted data if they are not present in the document
+          // for the cases when they are pasted from external pages
+          if (slice.content.size && containsAnyAnnotations(slice, state)) {
+            stripNonExistingAnnotations(slice, state);
           }
 
           // ED-4732

@@ -107,7 +107,9 @@ function removeRowWithLastCell(
 } {
   // Get row pos
   let from = rect.tableStart;
-  for (let i = 0; i < row; i++) from += rect.table.child(i).nodeSize;
+  for (let i = 0; i < row; i++) {
+    from += rect.table.child(i).nodeSize;
+  }
   const rowNode = rect.table.child(row);
   let to = from + rowNode.nodeSize;
 

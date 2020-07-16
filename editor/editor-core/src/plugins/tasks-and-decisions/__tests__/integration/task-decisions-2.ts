@@ -18,7 +18,7 @@ export const loadActionButton = '[aria-label="Action item"]';
 // Cannot paste rich text in IE/Edge
 BrowserTestCase(
   'task-decision-2.ts: can paste rich text into an action',
-  { skip: ['ie', 'safari', 'edge'] },
+  { skip: ['safari', 'edge'] },
   async (client: any, testName: string) => {
     const browser = new Page(client);
     await copyToClipboard(
@@ -40,7 +40,7 @@ BrowserTestCase(
 // https://product-fabric.atlassian.net/browse/ED-6802
 BrowserTestCase(
   'task-decision-2.ts: can paste plain text into an action',
-  { skip: ['ie', 'safari', 'chrome', 'edge'] },
+  { skip: ['safari', 'chrome', 'edge'] },
   async (client: any, testName: string) => {
     const browser = new Page(client);
     await copyToClipboard(
@@ -62,7 +62,7 @@ BrowserTestCase(
 // IE is generally flaky
 BrowserTestCase(
   'task-decision-2.ts: can type into decision',
-  { skip: ['ie', 'safari', 'edge', 'chrome'] },
+  { skip: ['safari', 'edge', 'chrome'] },
   async (client: any, testName: string) => {
     const browser = new Page(client);
     await gotoEditor(browser);
@@ -79,7 +79,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'task-decision-2.ts: can insert mention into an action using click',
-  { skip: ['ie', 'safari', 'edge'] },
+  { skip: ['safari', 'edge'] },
   async (client: any, testName: string) => {
     const browser = new Page(client);
     await gotoEditor(browser);

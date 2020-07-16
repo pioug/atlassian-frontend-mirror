@@ -1,5 +1,37 @@
 # @atlaskit/media-card
 
+## 69.1.0
+
+### Minor Changes
+
+- [`50d947cdae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/50d947cdae) - Added Media Card New Experience behind a feature flag
+- [`8502dcbdaa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8502dcbdaa) - Adding icons for media-card new experiences
+- [`f98a7a056b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f98a7a056b) - Add action buttons to the new media card experience
+- [`34be68ad22`](https://bitbucket.org/atlassian/atlassian-frontend/commits/34be68ad22) - Ellipsifying the titlebox name if the length of the name overflows the mediacard width
+- [`c9f617fdeb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c9f617fdeb) - Adding tooltip showing full file name on new media card experience
+
+### Patch Changes
+
+- [`8c4210797a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8c4210797a) - MPT-475: Showing upload progress during processing of non-natively supported files
+- [`7e2c17eb4a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7e2c17eb4a) - Fixed missing title in media-card overlay during selected upload
+- [`4c06f345ec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4c06f345ec) - Fixing tooltip covering retry button and excessive padding on action bar
+- [`4543f920b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4543f920b0) - Disabled previews for redesign; fixed not initially showing a doc icon when uploading a document
+- [`46417e790a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/46417e790a) - Display error message when the image fails to render
+- [`47f865f183`](https://bitbucket.org/atlassian/atlassian-frontend/commits/47f865f183) - add @atlaskit/spinner to media-card
+- [`f5150a43c1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f5150a43c1) - Add truncation to title box when card has failed to load
+- [`c62d2c285f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c62d2c285f) - Added Failed To Load Error Message to New Experience
+- [`1e37fff6cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1e37fff6cf) - Removed TemporarySucceededEvent
+- [`011324f3b1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/011324f3b1) - Temporary patch to Analytics Events
+- [`e297a94160`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e297a94160) - Fixing another padding issue with new media card experience
+- [`ce6c20e34b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ce6c20e34b) - Removed duplicated Actions Bar
+- [`890992ee55`](https://bitbucket.org/atlassian/atlassian-frontend/commits/890992ee55) - fixed new upload not showing processing progress when inserted into Editor
+- [`89df1041d5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/89df1041d5) - Attach Media Card Feature Flags to Analytics Events
+- [`95c4be11d5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/95c4be11d5) - Fix Analytics Events for unpreviewable files
+- [`cba906d181`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cba906d181) - Repositioning the spinner to match the mediatypeicon
+- [`31a75d4431`](https://bitbucket.org/atlassian/atlassian-frontend/commits/31a75d4431) - Prevents plays on a processing unsupported video
+- [`f8e73cc7da`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f8e73cc7da) - Fixing new media-card design issues
+- [`e8d2230623`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e8d2230623) - Refactors Tooltip implementation
+
 ## 69.0.0
 
 ### Major Changes

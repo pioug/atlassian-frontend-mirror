@@ -3,7 +3,7 @@ import React from 'react';
 import Icon from '@atlaskit/icon';
 import StarIcon from '@atlaskit/icon/glyph/star';
 import StarFilledIcon from '@atlaskit/icon/glyph/star-filled';
-import { colors } from '@atlaskit/theme';
+import { B300, N40, N800, Y300 } from '@atlaskit/theme/colors';
 
 import { ButtonItem, MenuGroup, Section } from '../src';
 
@@ -16,8 +16,8 @@ export default () => {
   return (
     <div
       style={{
-        color: colors.N800,
-        border: `1px solid ${colors.N40}`,
+        color: N800,
+        border: `1px solid ${N40}`,
         boxShadow:
           '0px 4px 8px rgba(9, 30, 66, 0.25), 0px 0px 1px rgba(9, 30, 66, 0.31)',
         borderRadius: 4,
@@ -38,16 +38,16 @@ export default () => {
                   borderRadius: 3,
                 }}
               >
-                <Icon glyph={Portfolio} primaryColor={colors.B300} label="" />
+                <Icon glyph={Portfolio} primaryColor={B300} label="" />
               </div>
             }
-            iconAfter={<StarFilledIcon primaryColor={colors.Y300} label="" />}
+            iconAfter={<StarFilledIcon primaryColor={Y300} label="" />}
           >
             Portfolio
           </ButtonItem>
           <ButtonItem
             iconBefore={<Icon glyph={Tempo} label="" />}
-            iconAfter={<StarFilledIcon primaryColor={colors.Y300} label="" />}
+            iconAfter={<StarFilledIcon primaryColor={Y300} label="" />}
           >
             Tempo timesheets
           </ButtonItem>

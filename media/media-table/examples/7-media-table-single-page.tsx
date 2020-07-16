@@ -47,6 +47,10 @@ export default () => {
       itemsPerPage={6}
       totalItems={5}
       pageNumber={1}
+      onSetPage={pageNumber => console.log('onSetPage', pageNumber)}
+      onSort={(key, sortOrder) => console.log('onSort', key, sortOrder)}
+      onPreviewOpen={() => console.log('onPreviewOpen')}
+      onPreviewClose={() => console.log('onPreviewClose')}
     />,
   );
 };

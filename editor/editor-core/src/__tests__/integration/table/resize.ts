@@ -37,7 +37,7 @@ import {
 
 BrowserTestCase(
   'Can resize normally with a rowspan in the non last column.',
-  { skip: ['ie', 'edge'] },
+  { skip: ['edge'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
 
@@ -58,7 +58,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'Can resize normally with a rowspan and colspan',
-  { skip: ['ie', 'edge'] },
+  { skip: ['edge'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
 
@@ -79,7 +79,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'Can resize normally on a full width table with content',
-  { skip: ['ie', 'edge', 'firefox', 'safari'] },
+  { skip: ['edge', 'firefox', 'safari'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
 
@@ -100,7 +100,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   `Created column should be set to ${tableNewColumnMinWidth}px`,
-  { skip: ['ie', 'edge', 'safari'] },
+  { skip: ['edge', 'safari'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
 
@@ -121,7 +121,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   "Can't resize the last column of a table with dynamic sizing enabled.",
-  { skip: ['ie', 'edge'] },
+  { skip: ['edge'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
 
@@ -143,7 +143,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'Can resize the last column when table is nested in Columns',
-  { skip: ['ie', 'edge', 'firefox', 'safari'] },
+  { skip: ['edge', 'firefox', 'safari'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
 
@@ -165,7 +165,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'Should stack columns to the left when widths of some of the columns equal minWidth',
-  { skip: ['ie', 'edge'] },
+  { skip: ['edge'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
 
@@ -186,7 +186,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'Should stack columns to the right and go to overflow',
-  { skip: ['ie', 'edge'] },
+  { skip: ['edge'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
 
@@ -207,7 +207,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'Should bulk resize 3 columns in 4 columns table',
-  { skip: ['ie', 'edge', 'firefox', 'safari'] },
+  { skip: ['edge', 'firefox', 'safari'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
 
@@ -230,7 +230,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'Should recover from overflow when number col is selected',
-  { skip: ['ie', 'edge', 'firefox', 'safari'] },
+  { skip: ['edge', 'firefox', 'safari'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
 
@@ -253,7 +253,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'Should bulk resize selected columns',
-  { skip: ['ie', 'edge', 'firefox', 'safari'] },
+  { skip: ['edge', 'firefox', 'safari'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
 
@@ -276,7 +276,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'Can resize normally while editor changes its appearance',
-  { skip: ['ie', 'edge', 'firefox', 'safari'] },
+  { skip: ['edge', 'firefox', 'safari'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
 

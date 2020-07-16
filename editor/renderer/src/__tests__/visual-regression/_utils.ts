@@ -53,11 +53,19 @@ export async function mountRenderer(
   await page.$eval(
     '#renderer-container',
     (_e, props, adf) => {
+      // This will make sure we clean up prev. content of mounting countainer
+      // before applying a new one. This to make sure we don't spill previous
+      // tests DOM into a current one.
+      const el = document.getElementById('#renderer-container');
+      if (el) {
+        el.innerHTML = '';
+      }
       ((window as unknown) as WindowOverride).__mountRenderer(props, adf);
     },
     props,
     adf,
   );
+  await page.waitForSelector('.ak-renderer-document');
 }
 
 type InitRendererWithADFOptions = {
@@ -89,13 +97,13 @@ export async function initRendererWithADF(
     await page.setViewport(deviceViewPorts[device]);
   }
 
-  // Mount the renderer with the right attributes
-  await mountRenderer(page, { appearance, ...rendererProps }, adf);
-
   // We disable possible side effects, like animation, transitions and caret cursor,
   // because we cannot control and affect snapshots
   // You can override this disabling if you are sure that you need it in your test
   await disableAllSideEffects(page, allowSideEffects);
+
+  // Mount the renderer with the right attributes
+  await mountRenderer(page, { appearance, ...rendererProps }, adf);
 }
 
 export async function snapshot(

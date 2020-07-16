@@ -17,13 +17,16 @@ import {
 const linkText1 = 'http://hello.com ';
 const linkText2 = 'FAB-983';
 
+// This test verifies correct beahviour for page which aren't
+// supported by Smartlinks from the CMD + K menu
+//
 // https://product-fabric.atlassian.net/browse/ED-4162 - Firefox
 // Floating toolbar is not showin up on IE and edge
 [comment, fullpage].forEach(editor => {
   BrowserTestCase(
     `hyperlink-1.ts: Link:create link using toolbar,unlinkify ${editor.name} editor`,
     {
-      skip: ['ie', 'edge', 'safari', 'firefox'],
+      skip: ['edge', 'safari', 'firefox'],
     },
     async (client: any, testName: string) => {
       let browser = new Page(client);
@@ -55,7 +58,7 @@ const linkText2 = 'FAB-983';
 
 BrowserTestCase(
   `can open hyperlink toolbar`,
-  { skip: ['ie', 'edge'] },
+  { skip: ['edge'] },
   async (client: any) => {
     const page = await goToEditorTestingExample(client);
 

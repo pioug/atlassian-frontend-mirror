@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { colors } from '@atlaskit/theme';
+import { N30 } from '@atlaskit/theme/colors';
 
 const Separator = styled.div`
-  background: ${colors.N30};
+  background: ${N30};
   width: 1px;
   height: 20px;
   margin: 0 4px;

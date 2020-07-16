@@ -14,7 +14,7 @@ import {
 
 BrowserTestCase(
   'emoji-1.ts:should be able to see emoji if typed the name in full',
-  { skip: ['safari', 'ie', 'edge'] },
+  { skip: ['safari', 'edge'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
     await mountEditor(page, { appearance: 'full-page' });
@@ -28,7 +28,7 @@ BrowserTestCase(
 // ie complains it cannot either type :) or types :0
 BrowserTestCase(
   'emoji-1.ts: should convert :) to emoji',
-  { skip: ['ie', 'edge'] },
+  { skip: ['edge'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
     await mountEditor(page, { appearance: 'full-page' });
@@ -45,7 +45,7 @@ BrowserTestCase(
 // IE now keying in CAPs on browserstack
 BrowserTestCase(
   'user should not be able to see emoji inside inline code',
-  { skip: ['ie', 'edge'] },
+  { skip: ['edge'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
     await mountEditor(page, { appearance: 'full-page' });
@@ -59,7 +59,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'emoji-1.ts: should close emoji picker on Escape',
-  { skip: ['firefox', 'safari', 'ie', 'edge'] },
+  { skip: ['firefox', 'safari', 'edge'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
     await mountEditor(page, { appearance: 'full-page' });
@@ -82,7 +82,7 @@ BrowserTestCase(
 // https://product-fabric.atlassian.net/browse/ED-5951
 /* BrowserTestCase(
   'emoji-1.ts: should be able to click on the emoji button and select emoji',
-  { skip: ['firefox', 'safari', 'ie','edge'] },
+  { skip: ['firefox', 'safari','edge'] },
   async (client: any, testName: string) => {
     const emojiButton = `[aria-label="${messages.emoji.defaultMessage}"]`;
     const sweatSmile = '[aria-label=":sweat_smile:"]';
@@ -104,7 +104,7 @@ BrowserTestCase(
 // Edge: ED-4908
 BrowserTestCase(
   'emoji-1.ts: should be able to navigate between emojis',
-  { skip: ['firefox', 'safari', 'ie', 'edge'] },
+  { skip: ['firefox', 'safari', 'edge'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
     await mountEditor(page, { appearance: 'full-page' });

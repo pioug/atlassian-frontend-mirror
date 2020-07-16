@@ -67,17 +67,23 @@ class ProgressDots extends Component<Props, {}> {
     const indicators = Array.from(this.tablist.children);
 
     // bail if the target isn't an indicator
-    if (!indicators.includes(event.target as HTMLElement)) return;
+    if (!indicators.includes(event.target as HTMLElement)) {
+      return;
+    }
 
     // bail if not valid arrow key
     const isLeft = event.key === 'ArrowLeft';
     const isRight = event.key === 'ArrowRight';
-    if (!isLeft && !isRight) return;
+    if (!isLeft && !isRight) {
+      return;
+    }
 
     // bail if at either end of the values
     const isAlpha = isLeft && selectedIndex === 0;
     const isOmega = isRight && selectedIndex === values.length - 1;
-    if (isAlpha || isOmega) return;
+    if (isAlpha || isOmega) {
+      return;
+    }
 
     const index = isLeft ? selectedIndex - 1 : selectedIndex + 1;
 

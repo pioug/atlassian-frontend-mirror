@@ -4,7 +4,7 @@ import Tick from '@atlaskit/icon/glyph/check-circle';
 import Error from '@atlaskit/icon/glyph/error';
 import Info from '@atlaskit/icon/glyph/info';
 import Warning from '@atlaskit/icon/glyph/warning';
-import { colors } from '@atlaskit/theme';
+import { G400, N0, N500, R300, Y300 } from '@atlaskit/theme/colors';
 
 import Flag, { AppearanceTypes } from '../src';
 
@@ -34,32 +34,32 @@ const flagTypes: Array<FlagType> = [
     appearance: 'error',
     description: 'You need to take action, something has gone terribly wrong!',
     title: 'error flag',
-    icon: <Error label="Error icon" secondaryColor={colors.R300} />,
+    icon: <Error label="Error icon" secondaryColor={R300} />,
   },
   {
     appearance: 'info',
     description:
       "This alert needs your attention, but it's not super important.",
     title: 'info flag',
-    icon: <Info label="Info icon" secondaryColor={colors.N500} />,
+    icon: <Info label="Info icon" secondaryColor={N500} />,
   },
   {
     appearance: 'success',
     description: 'Nothing to worry about, everything is going great!',
     title: 'success flag',
-    icon: <Tick label="Success" secondaryColor={colors.G400} />,
+    icon: <Tick label="Success" secondaryColor={G400} />,
   },
   {
     appearance: 'warning',
     description: 'Pay attention to me, things are not going according to plan.',
     title: 'warning flag',
-    icon: <Warning label="Warning icon" secondaryColor={colors.Y300} />,
+    icon: <Warning label="Warning icon" secondaryColor={Y300} />,
   },
   {
     appearance: 'normal',
     description: 'There is new update available',
     title: 'normal flag',
-    icon: <Tick label="Success" secondaryColor={colors.N0} />,
+    icon: <Tick label="Success" secondaryColor={N0} />,
   },
 ];
 
@@ -73,7 +73,6 @@ export default () => (
           description={flag.description}
           icon={flag.icon}
           id="1"
-          isDismissAllowed
           key="1"
           title={flag.title}
         />

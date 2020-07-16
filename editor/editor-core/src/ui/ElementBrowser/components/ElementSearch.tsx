@@ -1,10 +1,10 @@
 import React, { memo, useCallback } from 'react';
 import styled from 'styled-components';
+import { injectIntl, InjectedIntlProps } from 'react-intl';
 import Textfield from '@atlaskit/textfield';
 import SearchIcon from '@atlaskit/icon/glyph/search';
 import { withAnalyticsContext } from '@atlaskit/analytics-next';
 import { N200 } from '@atlaskit/theme/colors';
-
 import { Shortcut } from '../../styles';
 import {
   GRID_SIZE,
@@ -18,7 +18,11 @@ interface Props {
   mode: keyof typeof Modes;
 }
 
-function ElementSearch({ onSearch = () => {}, mode }: Props): JSX.Element {
+function ElementSearch({
+  onSearch = () => {},
+  mode,
+  intl: { formatMessage },
+}: Props & InjectedIntlProps): JSX.Element {
   const onChange = ({
     target: { value },
   }: React.ChangeEvent<HTMLInputElement>) => {
@@ -61,12 +65,18 @@ function ElementSearch({ onSearch = () => {}, mode }: Props): JSX.Element {
           <StyledShortcut>/</StyledShortcut>
         </ElementAfterInput>
       }
-      placeholder="Type to insert"
+      placeholder={formatMessage(placeHolderMessage)}
       aria-label="search"
       theme={getTheme}
     />
   );
 }
+
+const placeHolderMessage = {
+  id: 'fabric.editor.elementbrowser.searchbar.placeholder',
+  defaultMessage: 'Type to insert',
+  description: 'Search placeholder',
+};
 
 const StyledShortcut = styled(Shortcut)`
   padding: ${GRID_SIZE / 2}px ${GRID_SIZE}px;
@@ -87,7 +97,7 @@ const ElementAfterInput = styled.div`
 const MemoizedElementSearchWithAnalytics = memo(
   withAnalyticsContext({
     component: 'search-textfield',
-  })(ElementSearch),
+  })(injectIntl(ElementSearch)),
 );
 
 export default MemoizedElementSearchWithAnalytics;

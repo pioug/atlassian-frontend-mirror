@@ -10,13 +10,12 @@ import {
 import { validator, ErrorCallback, ADFEntity } from '@atlaskit/adf-utils';
 import { Provider as SmartCardProvider } from '@atlaskit/smart-card';
 import { mention } from '@atlaskit/util-data-test';
-import { ExtensionProvider } from '@atlaskit/editor-common';
 import {
   ConfluenceCardClient,
   ConfluenceCardProvider,
 } from '../../examples/5-full-page-with-confluence-smart-cards';
 import Editor from '../../src/editor';
-import { EditorAppearance } from '../../src/types';
+import { EditorAppearance, EditorProps } from '../../src/types';
 import { EditorActions } from '../../src';
 
 import {
@@ -37,7 +36,7 @@ export type ValidatingKitchenSinkEditorProps = {
   validationTimeout?: number;
   onDocumentChanged?: (adf: any) => void;
   onDocumentValidated?: (errors?: Error[]) => void;
-  extensionProviders?: ExtensionProvider[];
+  extensionProviders: EditorProps['extensionProviders'];
 };
 
 export type ValidatingKitchenSinkEditorState = {
@@ -83,10 +82,10 @@ export class ValidatingKitchenSinkEditor extends React.Component<
           }}
           allowBreakout={true}
           allowJiraIssue={true}
-          allowUnsupportedContent={true}
           allowPanel={true}
           allowExtension={{
             allowBreakout: true,
+            allowAutoSave: true,
           }}
           allowRule={true}
           allowDate={true}

@@ -24,15 +24,11 @@ BrowserTestCase(
 
     // both editor mounted and editor proseMirrorRendered events include timings
     // which will change each time so we exclude them
-    const [editorStartedEvent, , , actionInsertedEvent] = await getBridgeOutput(
-      browser,
-      'analyticsBridge',
-      'trackEvent',
-    );
+    let logs = (
+      await getBridgeOutput(browser, 'analyticsBridge', 'trackEvent')
+    ).filter((log: any) => JSON.parse(log.event).action === 'started');
 
-    expect([editorStartedEvent, actionInsertedEvent]).toMatchCustomSnapshot(
-      testName,
-    );
+    expect([logs]).toMatchCustomSnapshot(testName);
   },
 );
 

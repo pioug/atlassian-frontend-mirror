@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { HTMLAttributes, ComponentClass } from 'react';
-import { colors } from '@atlaskit/theme';
+import { N800, N20 } from '@atlaskit/theme/colors';
 
 export const DropdownItem: ComponentClass<HTMLAttributes<{}>> = styled.div`
   display: flex;
@@ -8,12 +8,12 @@ export const DropdownItem: ComponentClass<HTMLAttributes<{}>> = styled.div`
   cursor: pointer;
   text-decoration: none;
   padding: 8px 32px 8px 12px;
-  color: ${colors.N800};
+  color: ${N800};
   > span {
     display: flex;
     margin-right: 8px;
   }
   &:hover {
-    background-color: ${colors.N20};
+    background-color: ${N20};
   }
 `;

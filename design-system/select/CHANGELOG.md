@@ -1,5 +1,11 @@
 # @atlaskit/select
 
+## 12.0.1
+
+### Patch Changes
+
+- [`5ccf97c849`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5ccf97c849) - Popup Select click and keydown events would not bubble if parent element stopped propagation. Have changed these events to use capture mode instead.
+
 ## 12.0.0
 
 ### Major Changes

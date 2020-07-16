@@ -1,5 +1,5 @@
 import React from 'react';
-import { colors } from '@atlaskit/theme';
+import { B400, B300 } from '@atlaskit/theme/colors';
 import { LinkAttributes } from '@atlaskit/adf-schema';
 import styled from 'styled-components';
 
@@ -9,10 +9,10 @@ import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../../analytics/enums';
 import { MarkProps } from '../types';
 
 const StyledAnchor = styled.a`
-  color: ${colors.B400};
+  color: ${B400};
 
   &:hover {
-    color: ${colors.B300};
+    color: ${B300};
     text-decoration: underline;
   }
 `;

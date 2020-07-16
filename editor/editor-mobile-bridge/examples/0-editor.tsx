@@ -41,7 +41,9 @@ export default class Example extends React.Component {
   componentDidMount() {
     disableZooming();
     // Set initial padding (this usually gets set by native)
-    if (window.bridge) window.bridge.setPadding(32, 16, 0, 16);
+    if (window.bridge) {
+      window.bridge.setPadding(32, 16, 0, 16);
+    }
   }
 
   render() {

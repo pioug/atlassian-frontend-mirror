@@ -58,6 +58,8 @@ const contentToPasteContent: { [name: string]: PasteContent } = {
   panel: PasteContents.panel,
   rule: PasteContents.rule,
   mediaSingle: PasteContents.mediaSingle,
+  mediaCard: PasteContents.mediaCard,
+  mediaGroup: PasteContents.mediaGroup,
   table: PasteContents.table,
   tableCells: PasteContents.tableCells,
   tableHeader: PasteContents.tableHeader,
@@ -68,6 +70,7 @@ const contentToPasteContent: { [name: string]: PasteContent } = {
   extension: PasteContents.extension,
   bodiedExtension: PasteContents.bodiedExtension,
   blockCard: PasteContents.blockCard,
+  layoutSection: PasteContents.layoutSection,
 };
 
 const nodeToActionSubjectId: { [name: string]: PASTE_ACTION_SUBJECT_ID } = {
@@ -118,7 +121,6 @@ function getContent(state: EditorState, slice: Slice): PasteContent {
       nodeOrMarkName.add('url');
       return;
     }
-
     nodeOrMarkName.add(node.type.name);
   });
 
@@ -129,7 +131,6 @@ function getContent(state: EditorState, slice: Slice): PasteContent {
   if (nodeOrMarkName.size === 0) {
     return PasteContents.uncategorized;
   }
-
   const type = nodeOrMarkName.values().next().value;
   const pasteContent = contentToPasteContent[type];
 

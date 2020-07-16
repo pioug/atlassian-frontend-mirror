@@ -1,4 +1,4 @@
-import WebBridgeImpl from '../../implementation';
+import WebBridgeImpl, { defaultSetList } from '../../implementation';
 import { bridge } from '../../../mobile-editor-element';
 jest.mock('../../../web-to-native');
 
@@ -60,5 +60,49 @@ describe('Lifecycle Bridge', () => {
     bridge.restoreCollabChanges();
 
     expect(fn).toHaveBeenCalled();
+  });
+});
+
+describe('AllowList Bridge methods', () => {
+  let bridgeVer: WebBridgeImpl;
+
+  beforeEach(() => {
+    bridgeVer = new WebBridgeImpl();
+  });
+
+  it('have default data set on props', () => {
+    expect(bridgeVer.allowList).toEqual(new Set(defaultSetList));
+  });
+
+  it('should return stringifyed default set from method getQuickInsertAllowList', () => {
+    expect(bridgeVer.getQuickInsertAllowList()).toBe(
+      JSON.stringify(defaultSetList),
+    );
+  });
+
+  it('should return modifed data set when setQuickInsertAllowList is called', () => {
+    const newList = JSON.stringify(['header1', 'header2']);
+    bridgeVer.setQuickInsertAllowList(newList);
+    expect(bridgeVer.getQuickInsertAllowList()).toBe(newList);
+  });
+
+  it('should return modifed data set when addQuickInsertAllowListItem is called', () => {
+    const addList = ['expand', 'status'];
+    const newListExpected = [...defaultSetList, ...addList];
+    bridgeVer.addQuickInsertAllowListItem(JSON.stringify(addList));
+    expect(bridgeVer.getQuickInsertAllowList()).toBe(
+      JSON.stringify(newListExpected),
+    );
+  });
+
+  it('should return modifed data set when removeQuickInsertAllowListItem is called', () => {
+    const removeList = ['heading1', 'heading2'];
+    const newListExpected = [...defaultSetList].filter(
+      item => !removeList.includes(item),
+    );
+    bridgeVer.removeQuickInsertAllowListItem(JSON.stringify(removeList));
+    expect(bridgeVer.getQuickInsertAllowList()).toBe(
+      JSON.stringify(newListExpected),
+    );
   });
 });

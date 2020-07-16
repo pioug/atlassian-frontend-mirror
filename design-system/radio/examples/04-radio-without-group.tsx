@@ -2,12 +2,12 @@ import React, { Component, SyntheticEvent } from 'react';
 
 import styled from 'styled-components';
 
-import { colors } from '@atlaskit/theme';
+import { B50 } from '@atlaskit/theme/colors';
 
 import { Radio } from '../src';
 
 const Tr = styled.tr<{ isChecked?: boolean }>`
-  background-color: ${p => (p.isChecked ? colors.B50 : 'transparent')};
+  background-color: ${p => (p.isChecked ? B50 : 'transparent')};
   transition: background-color 200ms ease-in-out;
 `;
 
@@ -93,11 +93,12 @@ export default class RadioInputExample extends Component<any, State> {
 
   setChecked = (value: string) => {
     const newItems = this.state.items.slice().map(item => {
-      if (item.value === value)
+      if (item.value === value) {
         return {
           ...item,
           isChecked: true,
         };
+      }
       return {
         ...item,
         isChecked: false,

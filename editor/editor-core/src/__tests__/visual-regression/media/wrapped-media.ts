@@ -2,6 +2,7 @@ import { Page } from 'puppeteer';
 import { snapshot, initFullPageEditorWithAdf } from '../_utils';
 import * as wrappedMediaAdf from './__fixtures__/wrapped-media.adf.json';
 import * as wrappedInBlockMedia from './__fixtures__/wrapped-in-block-media.adf.json';
+import * as singleWrappedMedia from './__fixtures__/single-wrapped-media.adf.json';
 import { waitForMediaToBeLoaded } from '../../__helpers/page-objects/_media';
 import * as nonResizableMedia from './__fixtures__/non-resizable-media.adf.json';
 import { pressKey } from '../../__helpers/page-objects/_keyboard';
@@ -65,6 +66,15 @@ describe('Snapshot Test: Wrapped media', () => {
         },
       },
     );
+    await waitForMediaToBeLoaded(page);
+    await snapshot(page);
+  });
+
+  it('should render wrapping as alignment when viewport is less than 410px', async () => {
+    await initFullPageEditorWithAdf(page, singleWrappedMedia, undefined, {
+      width: 390,
+      height: 900,
+    });
     await waitForMediaToBeLoaded(page);
     await snapshot(page);
   });

@@ -12,7 +12,7 @@ type ClientType = Parameters<typeof goToEditorTestingExample>[0];
 
 BrowserTestCase(
   'card: copy paste of embed link should work as expected in editor',
-  { skip: ['safari', 'ie', 'edge'] },
+  { skip: ['safari', 'edge'] },
   async (client: ClientType, testName: string) => {
     const page = await goToEditorTestingExample(client);
 

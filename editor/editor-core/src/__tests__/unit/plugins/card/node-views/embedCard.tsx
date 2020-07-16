@@ -6,9 +6,11 @@ import { EmbedCardComponent } from '../../../../../plugins/card/nodeviews/embedC
 import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
 import { CardOptions } from '../../../../../plugins/card';
 import ResizableEmbedCard from '../../../../../plugins/card/ui/ResizableEmbedCard';
+import { DispatchAnalyticsEvent } from '../../../../../plugins/analytics';
 
 describe('EmbedCard', () => {
   const createEditor = createEditorFactory();
+  let mockDispatchAnalytics: DispatchAnalyticsEvent;
   const editor = (doc: any, cardProps?: Partial<CardOptions>) => {
     return createEditor({
       doc,
@@ -20,6 +22,10 @@ describe('EmbedCard', () => {
       },
     });
   };
+
+  beforeEach(() => {
+    mockDispatchAnalytics = jest.fn();
+  });
 
   afterEach(() => {
     jest.clearAllMocks();
@@ -34,7 +40,12 @@ describe('EmbedCard', () => {
     const node = editorView.state.doc.firstChild;
 
     const mockInlineCardNode = mount(
-      <EmbedCardComponent node={node!} view={editorView} getPos={() => 0} />,
+      <EmbedCardComponent
+        node={node!}
+        view={editorView}
+        getPos={() => 0}
+        dispatchAnalyticsEvent={mockDispatchAnalytics}
+      />,
     );
     const wrapper = mockInlineCardNode.find(Card);
     expect(wrapper).toHaveLength(1);
@@ -58,6 +69,7 @@ describe('EmbedCard', () => {
         view={editorView}
         getPos={() => 0}
         allowResizing={false}
+        dispatchAnalyticsEvent={mockDispatchAnalytics}
       />,
     );
     const wrapper = mockInlineCardNode.find(ResizableEmbedCard);

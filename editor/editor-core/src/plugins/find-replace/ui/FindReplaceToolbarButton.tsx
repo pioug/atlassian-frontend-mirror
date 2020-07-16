@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { defineMessages, InjectedIntlProps, injectIntl } from 'react-intl';
 import EditorSearchIcon from '@atlaskit/icon/glyph/editor/search';
+import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-common';
 import ToolbarButton from '../../../ui/ToolbarButton';
 import Dropdown from '../../../ui/Dropdown';
 import FindReplace, { FindReplaceProps } from './FindReplace';
@@ -88,6 +89,7 @@ class FindReplaceToolbarButton extends React.PureComponent<
     } = this.props;
 
     const title = formatMessage(messages.findReplaceToolbarButton);
+    const stackBelowOtherEditorFloatingPanels = akEditorFloatingPanelZIndex - 1;
 
     return (
       <ToolbarButtonWrapper>
@@ -97,9 +99,12 @@ class FindReplaceToolbarButton extends React.PureComponent<
           scrollableElement={popupsScrollableElement}
           isOpen={isActive}
           handleEscapeKeydown={() => {
-            this.props.onCancel({ triggerMethod: TRIGGER_METHOD.KEYBOARD });
+            if (isActive) {
+              this.props.onCancel({ triggerMethod: TRIGGER_METHOD.KEYBOARD });
+            }
           }}
           fitWidth={352}
+          zIndex={stackBelowOtherEditorFloatingPanels}
           trigger={
             <ToolbarButton
               spacing={isReducedSpacing ? 'none' : 'default'}

@@ -9,7 +9,7 @@ import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 
 BrowserTestCase(
   'resize-mediaSingle.ts: Does not throw for allowTables.advanced: false',
-  { skip: ['edge', 'ie', 'safari', 'firefox'] },
+  { skip: ['edge', 'safari', 'firefox'] },
   async (client: Parameters<typeof goToEditorTestingExample>[0]) => {
     const page = await goToEditorTestingExample(client);
     await mountEditor(page, {

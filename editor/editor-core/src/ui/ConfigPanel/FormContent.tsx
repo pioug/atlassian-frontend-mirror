@@ -87,6 +87,7 @@ class FormContent extends React.Component<Props> {
             key={field.name}
             onBlur={this.props.onFieldBlur}
             field={field}
+            placeholder={field.placeholder}
             autoFocus={field.name === firstVisibleFieldName}
           />
         );
@@ -118,6 +119,7 @@ class FormContent extends React.Component<Props> {
             autoFocus={field.name === firstVisibleFieldName}
             key={field.name}
             onBlur={this.props.onFieldBlur}
+            placeholder={field.placeholder}
             field={field as StringField}
             type="text"
           />
@@ -129,6 +131,7 @@ class FormContent extends React.Component<Props> {
             autoFocus={field.name === firstVisibleFieldName}
             key={field.name}
             onBlur={this.props.onFieldBlur}
+            placeholder={field.placeholder}
             field={field as NumberField}
             type="number"
           />
@@ -149,6 +152,7 @@ class FormContent extends React.Component<Props> {
             autoFocus={field.name === firstVisibleFieldName}
             key={field.name}
             onBlur={this.props.onFieldBlur}
+            placeholder={field.placeholder}
             field={field as DateField}
           />
         );
@@ -162,6 +166,7 @@ class FormContent extends React.Component<Props> {
             autoFocus={field.name === firstVisibleFieldName}
             key={field.name}
             onBlur={this.props.onFieldBlur}
+            placeholder={field.placeholder}
             field={field}
             extensionManifest={extensionManifest}
           />

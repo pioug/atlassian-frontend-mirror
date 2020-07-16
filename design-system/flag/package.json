@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/flag",
-  "version": "13.0.0",
+  "version": "14.0.0",
   "description": "A flag is used for confirmations, alerts, and acknowledgments that require minimal user interaction.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -27,20 +27,20 @@
     "@atlaskit/analytics-next": "^7.0.0",
     "@atlaskit/button": "^14.0.0",
     "@atlaskit/icon": "^21.0.0",
+    "@atlaskit/motion": "^0.4.0",
     "@atlaskit/portal": "^4.0.0",
     "@atlaskit/theme": "^10.0.0",
-    "react-transition-group": "^4.4.1",
-    "tslib": "^1.9.3",
-    "uuid": "^3.1.0"
+    "@emotion/core": "^10.0.9",
+    "tslib": "^1.9.3"
   },
   "peerDependencies": {
-    "react": "^16.8.0",
-    "styled-components": "^3.2.6"
+    "react": "^16.8.0"
   },
   "devDependencies": {
     "@atlaskit/build-utils": "*",
     "@atlaskit/docs": "*",
     "@atlaskit/field-radio-group": "^8.0.0",
+    "@atlaskit/radio": "^4.0.0",
     "@atlaskit/spinner": "^15.0.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/theme": "^10.0.0",
@@ -48,7 +48,8 @@
     "@atlaskit/webdriver-runner": "*",
     "@testing-library/react": "^8.0.1",
     "enzyme": "^3.10.0",
-    "react-dom": "^16.8.0"
+    "react-dom": "^16.8.0",
+    "storybook-addon-performance": "0.11.0"
   },
   "keywords": [
     "atlaskit",
@@ -56,8 +57,19 @@
     "ui"
   ],
   "techstack": {
-    "@atlassian/frontend": {
-      "import-structure": "atlassian-conventions"
+    "@repo/internal": {
+      "ui-components": [
+        "lite-mode"
+      ],
+      "analytics": [
+        "analytics-next"
+      ],
+      "theming": [
+        "new-theming-api"
+      ],
+      "deprecation": [
+        "no-deprecated-imports"
+      ]
     }
   }
 }

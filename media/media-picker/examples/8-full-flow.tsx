@@ -188,7 +188,9 @@ export default class Example extends React.Component<{}, State> {
   };
 
   private onDataSourceChange = (option: ValueType<DataSourceOption>) => {
-    if (!option) return;
+    if (!option) {
+      return;
+    }
 
     this.setState({
       dataSourceType: (option as DataSourceOption).value,

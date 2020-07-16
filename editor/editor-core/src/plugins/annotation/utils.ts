@@ -1,4 +1,4 @@
-import { ResolvedPos, Mark, Node } from 'prosemirror-model';
+import { ResolvedPos, Mark, Node, Slice } from 'prosemirror-model';
 import {
   EditorState,
   Selection,
@@ -28,7 +28,8 @@ import { AnnotationAEPAttributes } from '../analytics/types/inline-comment-event
 export const surroundingMarks = ($pos: ResolvedPos) => {
   const { nodeBefore, nodeAfter } = $pos;
   const markNodeBefore =
-    nodeBefore && $pos.doc.nodeAt($pos.pos - nodeBefore.nodeSize - 1);
+    nodeBefore &&
+    $pos.doc.nodeAt(Math.max(0, $pos.pos - nodeBefore.nodeSize - 1));
   const markNodeAfter =
     nodeAfter && $pos.doc.nodeAt($pos.pos + nodeAfter.nodeSize);
 
@@ -161,18 +162,29 @@ export const findAnnotationsInSelection = (
   selection: Selection,
   doc: Node,
 ): AnnotationInfo[] => {
-  const { empty, anchor, $anchor } = selection;
+  const { empty, $anchor, anchor } = selection;
   // Only detect annotations on caret selection
   if (!empty || !doc) {
     return [];
   }
 
   const node = doc.nodeAt(anchor);
-  if (!node || !node.marks.length) {
+  if (!node && !$anchor.nodeBefore) {
     return [];
   }
 
-  const annotations = node.marks
+  const annotationMark = doc.type.schema.marks.annotation;
+  const nodeBefore = $anchor.nodeBefore;
+  const anchorAnnotationMarks = (node && node.marks) || [];
+
+  let marks: Mark[] = [];
+  if (annotationMark.isInSet(anchorAnnotationMarks)) {
+    marks = anchorAnnotationMarks;
+  } else if (nodeBefore && annotationMark.isInSet(nodeBefore.marks)) {
+    marks = nodeBefore.marks;
+  }
+
+  const annotations = marks
     .filter(mark => mark.type.name === 'annotation')
     .map(mark => ({
       id: mark.attrs.id,
@@ -190,21 +202,14 @@ export const findAnnotationsInSelection = (
 export function getSelectionPositions(
   editorState: EditorState,
   inlineCommentState: InlineCommentPluginState,
-): {
-  from: number;
-  to: number;
-} {
-  let { from, to } = editorState.selection;
+): Selection {
   const { bookmark } = inlineCommentState;
-
   // get positions via saved bookmark if it is available
   // this is to make comments box positioned relative to temporary highlight rather then current selection
   if (bookmark) {
-    const resolvedBookmark = bookmark.resolve(editorState.doc);
-    from = resolvedBookmark.from;
-    to = resolvedBookmark.to;
+    return bookmark.resolve(editorState.doc);
   }
-  return { from, to };
+  return editorState.selection;
 }
 
 export const inlineCommentPluginKey = new PluginKey('inlineCommentPluginKey');
@@ -278,7 +283,15 @@ export const isSelectionValid = (
     return AnnotationSelectionType.INVALID;
   }
 
-  if (hasInlineNodes(state)) {
+  const containsInvalidNodes = hasInvalidNodes(state);
+
+  // A selection that only covers 1 pos, and is an invalid node
+  // e.g. a text selection over a mention
+  if (containsInvalidNodes && selection.to - selection.from === 1) {
+    return AnnotationSelectionType.INVALID;
+  }
+
+  if (containsInvalidNodes) {
     return AnnotationSelectionType.DISABLED;
   }
 
@@ -289,18 +302,32 @@ export const isSelectionValid = (
   return AnnotationSelectionType.VALID;
 };
 
-export const hasInlineNodes = (state: EditorState): boolean => {
-  const { selection, doc } = state;
-  let inlineNodesCount = 0;
+export const hasInvalidNodes = (state: EditorState): boolean => {
+  const { selection, doc, schema } = state;
+  let foundInvalid = false;
 
-  doc.nodesBetween(selection.from, selection.to, node => {
-    if (node.isInline && !node.isText) {
-      ++inlineNodesCount;
+  doc.nodesBetween(selection.from, selection.to, (node, _pos, parent) => {
+    // Special exception for hardBreak nodes
+    if (schema.nodes.hardBreak === node.type) {
+      return false;
     }
+
+    // For block elements or text nodes, we want to check
+    // if annotations are allowed inside this tree
+    // or if we're leaf and not text
+    if (
+      (node.isInline && !node.isText) ||
+      (node.isLeaf && !node.isText) ||
+      (node.isText && !parent.type.allowsMarkType(schema.marks.annotation))
+    ) {
+      foundInvalid = true;
+      return false;
+    }
+
     return true;
   });
 
-  return inlineNodesCount > 0;
+  return foundInvalid;
 };
 
 /**
@@ -317,4 +344,96 @@ export function hasWhitespaceNode(selection: TextSelection | AllSelection) {
   });
 
   return foundWhitespace;
+}
+
+/*
+ * verifies if node contains annotation mark
+ */
+export function hasAnnotationMark(node: Node, state: EditorState): boolean {
+  const {
+    schema: {
+      marks: { annotation: annotationMark },
+    },
+  } = state;
+  return !!(
+    annotationMark &&
+    node &&
+    node.marks.length &&
+    annotationMark.isInSet(node.marks)
+  );
+}
+
+/*
+ * verifies that the annotation exists by the given id
+ */
+export function annotationExists(
+  annotationId: string,
+  state: EditorState,
+): boolean {
+  const commentsPluginState = getPluginState(state);
+  return (
+    commentsPluginState.annotations &&
+    Object.keys(commentsPluginState.annotations).includes(annotationId)
+  );
+}
+
+/*
+ * verifies that slice contains any annotations
+ */
+export function containsAnyAnnotations(
+  slice: Slice,
+  state: EditorState,
+): boolean {
+  if (!slice.content.size) {
+    return false;
+  }
+  let hasAnnotation = false;
+  slice.content.forEach(node => {
+    hasAnnotation = hasAnnotation || hasAnnotationMark(node, state);
+    // return early if annotation found already
+    if (hasAnnotation) {
+      return true;
+    }
+    // check annotations in descendants
+    node.descendants(node => {
+      if (hasAnnotationMark(node, state)) {
+        hasAnnotation = true;
+        return false;
+      }
+      return true;
+    });
+  });
+  return hasAnnotation;
+}
+
+/*
+ * remove annotations that dont exsist in plugin state from slice
+ */
+export function stripNonExistingAnnotations(slice: Slice, state: EditorState) {
+  if (!slice.content.size) {
+    return false;
+  }
+  slice.content.forEach(node => {
+    stripNonExistingAnnotationsFromNode(node, state);
+    node.content.descendants(node => {
+      stripNonExistingAnnotationsFromNode(node, state);
+      return true;
+    });
+  });
+}
+
+/*
+ * remove annotations that dont exsist in plugin state
+ * from node
+ */
+function stripNonExistingAnnotationsFromNode(node: Node, state: EditorState) {
+  if (hasAnnotationMark(node, state)) {
+    node.marks = node.marks.filter(mark => {
+      if (mark.type.name === 'annotation') {
+        return annotationExists(mark.attrs.id, state);
+      }
+      return true;
+    });
+  }
+  return node;
 }

@@ -36,7 +36,12 @@ const mockPlugins: { [name: string]: jest.Mock } = {
   contextPanelPlugin: jest.fn(),
   selectionPlugin: jest.fn(),
   mobileSelectionPlugin: jest.fn(),
+  clipboardPlugin: jest.fn(),
 };
+jest.mock('../../../plugins/placeholder', () => ({
+  __esModule: true,
+  default: mockPlugins.placeholderPlugin,
+}));
 jest.mock('../../../plugins', () => mockPlugins);
 
 import {

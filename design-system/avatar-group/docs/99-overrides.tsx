@@ -14,8 +14,8 @@ export default md`
     <Example
       highlight="31-48"
       packageName="@atlaskit/avatar-group"
-      Component={require('../examples/overrides').default}
-      source={require('!!raw-loader!../examples/overrides')}
+      Component={require('../examples/30-overrides').default}
+      source={require('!!raw-loader!../examples/30-overrides')}
     />
   )}
 `;

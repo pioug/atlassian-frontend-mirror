@@ -105,4 +105,18 @@ describe('Popup Select', () => {
     const input = body.querySelector('input') as HTMLElement;
     expect(input.hasAttribute('readonly')).toBe(true);
   });
+
+  test('event listeners continue to work when stopPropagation is called in parent', async () => {
+    const { getByText } = render(
+      <div onClick={e => e.stopPropagation()}>
+        <PopupSelect
+          options={OPTIONS}
+          value={OPTIONS[0]}
+          target={({ ref }) => <button ref={ref}>Target</button>}
+        />
+      </div>,
+    );
+    fireEvent.click(getByText('Target'));
+    expect(getByText('Select...')).toBeTruthy();
+  });
 });

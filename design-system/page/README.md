@@ -4,7 +4,9 @@ Provides Grid layouts for content & components
 
 ## Installation
 
+```sh
 yarn add @atlaskit/page
+```
 
 ## Usage
 

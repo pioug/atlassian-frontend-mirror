@@ -15,7 +15,7 @@ import { messages as insertBlockMessages } from '../../../plugins/insert-block/u
 
 BrowserTestCase(
   'inside-table.ts: Insert panel into table, add text, change panel type',
-  { skip: ['edge', 'ie'] },
+  { skip: ['edge'] },
   async (client: any, testName: string) => {
     const insertTableMenu = `[aria-label="${insertBlockMessages.table.defaultMessage}"]`;
     const tableControls = '[aria-label="Table floating controls"]';

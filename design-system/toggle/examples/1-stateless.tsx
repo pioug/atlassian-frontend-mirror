@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import Button from '@atlaskit/button';
-import { gridSize } from '@atlaskit/theme';
+import { gridSize } from '@atlaskit/theme/constants';
 
 import { ToggleStateless } from '../src';
 

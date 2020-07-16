@@ -15,7 +15,7 @@ import {
 // TODO: unskip firefox and safari
 BrowserTestCase(
   'emoji.ts: Insert an emoji, then a mention, move to right before the emoji and try to add text between both',
-  { skip: ['ie', 'safari', 'firefox', 'edge'] },
+  { skip: ['safari', 'firefox', 'edge'] },
   async (client: any, testName: string) => {
     const browser = new Page(client);
 

@@ -123,20 +123,26 @@ export default class PopupSelect<Option = OptionType> extends PureComponent<
       newState.mergedComponents = mergedComponents;
     }
 
-    if (!isEmpty(newState)) return newState;
+    if (!isEmpty(newState)) {
+      return newState;
+    }
 
     return null;
   }
 
   componentDidMount() {
-    if (typeof window === 'undefined') return;
-    window.addEventListener('click', this.handleClick);
+    if (typeof window === 'undefined') {
+      return;
+    }
+    window.addEventListener('click', this.handleClick, true);
   }
 
   componentWillUnmount() {
-    if (typeof window === 'undefined') return;
-    window.removeEventListener('click', this.handleClick);
-    window.removeEventListener('keydown', this.handleKeyDown);
+    if (typeof window === 'undefined') {
+      return;
+    }
+    window.removeEventListener('click', this.handleClick, true);
+    window.removeEventListener('keydown', this.handleKeyDown, true);
   }
 
   // Event Handlers
@@ -158,7 +164,9 @@ export default class PopupSelect<Option = OptionType> extends PureComponent<
   handleClick = ({ target }: MouseEvent) => {
     const { isOpen } = this.state;
     // appease flow
-    if (!(target instanceof Element)) return;
+    if (!(target instanceof Element)) {
+      return;
+    }
 
     // NOTE: Why not use the <Blanket /> component to close?
     // We don't want to interupt the user's flow. Taking this approach allows
@@ -176,8 +184,12 @@ export default class PopupSelect<Option = OptionType> extends PureComponent<
 
   handleSelectChange = (value: ValueType<Option>, actionMeta: ActionMeta) => {
     const { closeMenuOnSelect, onChange } = this.props;
-    if (closeMenuOnSelect && actionMeta.action !== 'clear') this.close();
-    if (onChange) onChange(value, actionMeta);
+    if (closeMenuOnSelect && actionMeta.action !== 'clear') {
+      this.close();
+    }
+    if (onChange) {
+      onChange(value, actionMeta);
+    }
   };
 
   // Internal Lifecycle
@@ -185,7 +197,9 @@ export default class PopupSelect<Option = OptionType> extends PureComponent<
 
   open = () => {
     const { onOpen } = this.props;
-    if (onOpen) onOpen();
+    if (onOpen) {
+      onOpen();
+    }
 
     this.setState({ isOpen: true }, this.initialiseFocusTrap);
 
@@ -193,12 +207,16 @@ export default class PopupSelect<Option = OptionType> extends PureComponent<
       this.selectRef.select.openMenu('first'); // HACK
     }
 
-    if (typeof window === 'undefined') return;
-    window.addEventListener('keydown', this.handleKeyDown);
+    if (typeof window === 'undefined') {
+      return;
+    }
+    window.addEventListener('keydown', this.handleKeyDown, true);
   };
 
   initialiseFocusTrap = () => {
-    if (!this.menuRef) return;
+    if (!this.menuRef) {
+      return;
+    }
 
     const trapConfig = {
       clickOutsideDeactivates: true,
@@ -215,7 +233,9 @@ export default class PopupSelect<Option = OptionType> extends PureComponent<
 
   close = () => {
     const { onClose } = this.props;
-    if (onClose) onClose();
+    if (onClose) {
+      onClose();
+    }
 
     this.setState({ isOpen: false });
 
@@ -223,9 +243,11 @@ export default class PopupSelect<Option = OptionType> extends PureComponent<
       this.focusTrap.deactivate();
     }
 
-    if (typeof window === 'undefined') return;
+    if (typeof window === 'undefined') {
+      return;
+    }
 
-    window.removeEventListener('keydown', this.handleKeyDown);
+    window.removeEventListener('keydown', this.handleKeyDown, true);
   };
 
   // Refs
@@ -285,7 +307,9 @@ export default class PopupSelect<Option = OptionType> extends PureComponent<
   getMaxHeight = () => {
     const { maxMenuHeight } = this.props;
 
-    if (!this.selectRef) return maxMenuHeight;
+    if (!this.selectRef) {
+      return maxMenuHeight;
+    }
 
     // subtract the control height to maintain consistency
     const showSearchControl = this.showSearchControl();
@@ -318,7 +342,9 @@ export default class PopupSelect<Option = OptionType> extends PureComponent<
       Control: showSearchControl ? mergedComponents.Control : DummyControl,
     };
 
-    if (!portalDestination || !isOpen) return null;
+    if (!portalDestination || !isOpen) {
+      return null;
+    }
 
     const popper = (
       <Popper {...mergedPopperProps}>

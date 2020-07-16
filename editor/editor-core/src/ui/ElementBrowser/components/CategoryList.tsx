@@ -1,6 +1,6 @@
 import React, { memo, useCallback } from 'react';
 import styled from 'styled-components';
-import { colors } from '@atlaskit/theme';
+import { N800, B400, B50 } from '@atlaskit/theme/colors';
 import Button from '@atlaskit/button';
 import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import { withAnalyticsContext } from '@atlaskit/analytics-next';
@@ -49,9 +49,9 @@ function CategoryListItem({
           ...buttonStyles,
           height: `100%`,
           width: '100%',
-          color: category.name !== selectedCategory ? colors.N800 : colors.B400,
+          color: category.name !== selectedCategory ? N800 : B400,
           ...(category.name === selectedCategory && {
-            background: colors.B50,
+            background: B50,
           }),
         },
         ...rest,

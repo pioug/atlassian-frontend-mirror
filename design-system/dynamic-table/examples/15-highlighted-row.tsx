@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Button, { ButtonGroup } from '@atlaskit/button';
-import { AtlaskitThemeProvider } from '@atlaskit/theme';
+import { AtlaskitThemeProvider } from '@atlaskit/theme/components';
 
 import { DynamicTableStateless } from '../src';
 

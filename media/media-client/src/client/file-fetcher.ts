@@ -41,7 +41,7 @@ import { getMediaTypeFromMimeType } from '../utils/getMediaTypeFromMimeType';
 import { createFileStateSubject } from '../utils/createFileStateSubject';
 import { isMimeTypeSupportedByBrowser } from '../utils/isMimeTypeSupportedByBrowser';
 
-const POLLING_INTERVAL = 3000;
+const POLLING_INTERVAL = 6000;
 const maxNumberOfItemsPerCall = 100;
 const makeCacheKey = (id: string, collection?: string) =>
   collection ? `${id}-${collection}` : id;

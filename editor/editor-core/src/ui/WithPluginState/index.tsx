@@ -307,7 +307,9 @@ export default class WithPluginState extends React.Component<Props, State> {
   }
 
   componentWillUnmount() {
-    if (this.debounce) window.clearTimeout(this.debounce);
+    if (this.debounce) {
+      window.clearTimeout(this.debounce);
+    }
     this.unsubscribeFromContextUpdates(this.context);
     this.unsubscribe();
   }

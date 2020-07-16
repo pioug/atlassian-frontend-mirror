@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import { AvatarClickType } from '@atlaskit/avatar';
+import { AvatarClickEventHandler } from '@atlaskit/avatar';
 import Lozenge from '@atlaskit/lozenge';
 import { MouseEvent } from 'react';
 
@@ -46,7 +46,7 @@ export interface ResolvedViewProps {
   /* Actions which can be taken on the URL */
   actions?: Array<ActionProps>;
   /* Event handler - on avatar item */
-  handleAvatarClick?: AvatarClickType;
+  handleAvatarClick?: AvatarClickEventHandler;
   /* Event handler - on avatar dropdown items */
   handleMoreAvatarsClick?: React.MouseEventHandler;
   /* Event handler - on click of the card, to be passed down to clickable components */

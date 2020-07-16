@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import Select, { ValueType } from '@atlaskit/select';
 import Tag from '@atlaskit/tag';
 import Group from '@atlaskit/tag-group';
-import { fontSize, gridSize } from '@atlaskit/theme';
+import { fontSize, gridSize } from '@atlaskit/theme/constants';
 
 import InlineEdit from '../src';
 
@@ -48,7 +48,9 @@ export default class InlineEditExample extends React.Component<void, State> {
   };
 
   onConfirm = (value: ValueType<OptionType>) => {
-    if (!value) return;
+    if (!value) {
+      return;
+    }
 
     this.setState({
       editValue: value as OptionType[],

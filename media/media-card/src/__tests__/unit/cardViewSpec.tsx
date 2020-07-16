@@ -54,7 +54,7 @@ describe('CardView', () => {
 
   describe('render FileCardImageView', () => {
     it('should render FileCardImageView when no metadata is passed', () => {
-      const element = mount(<CardView status="loading" />);
+      const element = mount(<CardView status="loading" mediaItemType="file" />);
       const fileCard = element.find(FileCardImageView);
       expect(fileCard).toHaveLength(1);
     });
@@ -168,7 +168,12 @@ describe('CardView', () => {
 
   it('should render a cropped image by default', () => {
     const card = mount(
-      <CardView status="complete" dataURI="a" metadata={file} />,
+      <CardView
+        status="complete"
+        mediaItemType="file"
+        dataURI="a"
+        metadata={file}
+      />,
     );
 
     expect(card.find('MediaImage').prop('crop')).toBe(true);
@@ -176,7 +181,12 @@ describe('CardView', () => {
 
   it('should render a non-stretched image by default', () => {
     const card = mount(
-      <CardView status="complete" dataURI="a" metadata={file} />,
+      <CardView
+        status="complete"
+        mediaItemType="file"
+        dataURI="a"
+        metadata={file}
+      />,
     );
 
     expect(card.find('MediaImage').prop('stretch')).toBe(false);
@@ -186,6 +196,7 @@ describe('CardView', () => {
     const card = mount(
       <CardView
         status="complete"
+        mediaItemType="file"
         dataURI="a"
         metadata={file}
         resizeMode="full-fit"
@@ -199,6 +210,7 @@ describe('CardView', () => {
     const card = mount(
       <CardView
         status="complete"
+        mediaItemType="file"
         dataURI="a"
         metadata={file}
         resizeMode="stretchy-fit"
@@ -304,7 +316,12 @@ describe('CardView', () => {
         channel={FabricChannel.media}
         onEvent={analyticsEventHandler}
       >
-        <CardView status="loading" metadata={file} onClick={clickHandler} />
+        <CardView
+          status="loading"
+          mediaItemType="file"
+          metadata={file}
+          onClick={clickHandler}
+        />
       </AnalyticsListener>,
     );
 
@@ -331,6 +348,7 @@ describe('CardView', () => {
     mount(
       <CardView
         status="complete"
+        mediaItemType="file"
         dataURI="a"
         metadata={file}
         resizeMode="stretchy-fit"

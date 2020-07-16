@@ -14,6 +14,7 @@ import EditorContext from '../../../ui/EditorContext';
 import { EditorPlugin } from '../../../types';
 import { EventDispatcher } from '../../../event-dispatcher';
 import EditorActions from '../../../actions';
+import contextPanelPlugin from '../../../plugins/context-panel';
 
 describe('SwappableContentArea', () => {
   const Component: React.FC = jest.fn(() => null);
@@ -164,7 +165,7 @@ describe('ContextPanel', () => {
 
   it('uses pluginContent instead if plugins define content', () => {
     const editor = editorFactory({
-      editorPlugins: [mockContextPanelPlugin],
+      editorPlugins: [mockContextPanelPlugin, contextPanelPlugin()],
       doc: doc(p('hello')),
     });
     const editorActions = new EditorActions();

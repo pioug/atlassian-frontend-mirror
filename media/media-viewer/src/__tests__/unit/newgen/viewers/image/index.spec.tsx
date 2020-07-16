@@ -8,6 +8,7 @@ import {
   asMockFunction,
   nextTick,
   expectToEqual,
+  expectFunctionToHaveBeenCalledWith,
 } from '@atlaskit/media-test-helpers';
 
 import {
@@ -60,10 +61,15 @@ function setup(response: Promise<Blob>, props?: Partial<ImageViewerProps>) {
 describe('ImageViewer', () => {
   it('assigns an object url for images when successful', async () => {
     const response = Promise.resolve(new Blob());
-    const { component } = setup(response);
+    const { component, mediaClient } = setup(response);
 
     await response;
     await nextTick();
+
+    expectFunctionToHaveBeenCalledWith(mediaClient.file.getFileBinaryURL, [
+      'some-id',
+      'some-collection',
+    ]);
 
     expectToEqual(component.state().content.data, {
       objectUrl: 'mock result of URL.createObjectURL()',

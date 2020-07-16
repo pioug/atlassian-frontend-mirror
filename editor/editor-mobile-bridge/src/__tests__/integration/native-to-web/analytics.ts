@@ -32,8 +32,9 @@ const expectTrackEventsToMatchCustomSnapshot = async (
       (analyticsEvent: AnalyticsEventPayload) =>
         analyticsEvent.eventType === 'track',
     );
+  const trackEvent = trackEvents.length > 0 ? trackEvents[0] : undefined;
 
-  expect(trackEvents).toMatchCustomSnapshot(testName);
+  expect(trackEvent).toMatchCustomSnapshot(testName);
 };
 
 const simpleBrowserTestCase = async (

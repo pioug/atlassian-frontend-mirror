@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/form",
-  "version": "8.0.0",
+  "version": "8.1.0",
   "description": "Form package provides layout & validation for form fields",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

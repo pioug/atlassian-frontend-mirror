@@ -34,6 +34,8 @@ import { MediaTableItem } from '../types';
 describe('MediaTable', () => {
   const onSetPageMock = jest.fn();
   const onSortMock = jest.fn();
+  const onPreviewOpenMock = jest.fn();
+  const onPreviewCloseMock = jest.fn();
 
   beforeEach(() => {
     jest.spyOn(console, 'warn').mockImplementation(() => {});
@@ -134,6 +136,8 @@ describe('MediaTable', () => {
     totalItems?: number,
   ) => {
     const mediaClientConfig = mediaClient.config;
+    const createAnalyticsEventSpy = jest.fn();
+    createAnalyticsEventSpy.mockReturnValue({ fire: jest.fn() });
     const mediaTable = mount(
       <MediaTable
         mediaClient={mediaClient}
@@ -144,6 +148,9 @@ describe('MediaTable', () => {
         columns={columns}
         onSetPage={onSetPageMock}
         onSort={onSortMock}
+        createAnalyticsEvent={createAnalyticsEventSpy}
+        onPreviewOpen={onPreviewOpenMock}
+        onPreviewClose={onPreviewCloseMock}
       />,
     );
 
@@ -156,10 +163,11 @@ describe('MediaTable', () => {
       mediaClient,
       mediaTable,
       mediaClientConfig,
+      createAnalyticsEventSpy,
     };
   };
 
-  it('should open MediaViewer when a row is clicked', async () => {
+  it('should open MediaViewer and call onPreviewOpen when a row is clicked', async () => {
     const { mediaTable } = await setup();
     const rows = mediaTable.find(DynamicTableStateless).prop('rows');
 
@@ -170,6 +178,27 @@ describe('MediaTable', () => {
     mediaTable.update();
 
     expect(mediaTable.find(MediaViewer)).toHaveLength(1);
+    expect(onPreviewOpenMock).toHaveBeenCalledTimes(1);
+  });
+
+  it('should close the MediaViwer and call onPreviewClose when the preview is closed', async () => {
+    const { mediaTable } = await setup();
+    const rows = mediaTable.find(DynamicTableStateless).prop('rows');
+
+    // Open the MediaViewer
+    if (rows && rows[0].onClick) {
+      rows[0].onClick({} as any);
+    }
+    mediaTable.update();
+
+    // Close the MediaViewer
+    const onCloseProp = mediaTable.find(MediaViewer).props().onClose;
+    onCloseProp && onCloseProp();
+    mediaTable.update();
+
+    expect(mediaTable.find(MediaViewer)).toHaveLength(0);
+    expect(onPreviewOpenMock).toHaveBeenCalledTimes(1);
+    expect(onPreviewCloseMock).toHaveBeenCalledTimes(1);
   });
 
   it('should pass right options to MediaViewer', async () => {
@@ -459,6 +488,7 @@ describe('MediaTable', () => {
             totalItems={defaultItems.length}
             isLoading={false}
             columns={defaultHeaders}
+            createAnalyticsEvent={jest.fn()}
           />
         </IntlProvider>,
       );
@@ -470,6 +500,25 @@ describe('MediaTable', () => {
     it('renders the IntlProvider internally if intl is not present in context', async () => {
       const { mediaTable } = await setup();
       expect(mediaTable.find(IntlProvider).exists()).toEqual(true);
+    });
+  });
+
+  describe('analyticsEvent', () => {
+    it('should trigger UI analyticsEvent when mediaTable row is clicked', async () => {
+      const { mediaTable, createAnalyticsEventSpy } = await setup();
+
+      const rows = mediaTable.find(DynamicTableStateless).prop('rows');
+
+      if (rows && rows[0].onClick) {
+        rows[0].onClick({} as any);
+      }
+
+      expect(createAnalyticsEventSpy).toHaveBeenCalledWith({
+        action: 'clicked',
+        actionSubject: 'mediaFile',
+        actionSubjectId: 'mediaFileRow',
+        eventType: 'ui',
+      });
     });
   });
 });

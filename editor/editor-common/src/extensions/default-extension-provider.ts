@@ -1,4 +1,6 @@
+import { getAutoConvertPatternsFromModule } from './module-helpers';
 import {
+  ExtensionAutoConvertHandler,
   ExtensionKey,
   ExtensionManifest,
   ExtensionProvider,
@@ -7,9 +9,20 @@ import {
 
 export default class DefaultExtensionProvider implements ExtensionProvider {
   private manifestsPromise: Promise<ExtensionManifest[]>;
+  private autoConvertHandlers?: ExtensionAutoConvertHandler[];
 
-  constructor(manifests: ExtensionManifest[] | Promise<ExtensionManifest[]>) {
+  constructor(
+    manifests: ExtensionManifest[] | Promise<ExtensionManifest[]>,
+    /**
+     * Allows for an optional list of pre compiled auto convert handlers to be passed.
+     * Useful for performance improvements or to support legacy converters.
+     *
+     * Warning: If this attribute is passed, this provider will ignore auto convert patterns from the manifests.
+     */
+    autoConvertHandlers?: ExtensionAutoConvertHandler[],
+  ) {
     this.manifestsPromise = Promise.resolve(manifests);
+    this.autoConvertHandlers = autoConvertHandlers;
   }
 
   getExtensions() {
@@ -35,5 +48,17 @@ export default class DefaultExtensionProvider implements ExtensionProvider {
       manifest.title.toLowerCase().includes(keyword.toLowerCase()),
     );
     return extensions;
+  }
+
+  async getAutoConverter() {
+    if (this.autoConvertHandlers) {
+      return this.autoConvertHandlers;
+    }
+
+    const autoConverters = getAutoConvertPatternsFromModule(
+      await this.manifestsPromise,
+    );
+
+    return autoConverters;
   }
 }

@@ -24,6 +24,7 @@ import { GapCursorSelection, Side } from '../../../plugins/gap-cursor';
 import { getFeatureFlags } from '../../feature-flags-context';
 import { closestElement } from '../../../utils/dom';
 import { selectNode } from '../../../utils/commands';
+import { createSelectionAwareClickHandler } from '../../../nodeviews/utils';
 
 function buildExpandClassName(type: string, expanded: boolean) {
   return `${expandClassNames.prefix} ${expandClassNames.type(type)} ${
@@ -93,6 +94,8 @@ export class ExpandNodeView implements NodeView {
   pos: number;
   reactContext: ReactContext;
   allowInteractiveExpand: boolean = true;
+  clickHandler?: (event: Event) => false | void;
+  clickCleanup?: () => void;
 
   constructor(
     node: PmNode,
@@ -124,12 +127,19 @@ export class ExpandNodeView implements NodeView {
       `.${expandClassNames.content}`,
     );
     this.renderIcon(this.reactContext.intl);
+
     this.initHandlers();
   }
 
   private initHandlers() {
     if (this.dom) {
-      this.dom.addEventListener('click', this.handleClick);
+      const { handler, cleanup } = createSelectionAwareClickHandler(
+        this.dom,
+        this.handleClick,
+      );
+      this.clickHandler = handler;
+      this.clickCleanup = cleanup;
+      this.dom.addEventListener('click', this.clickHandler);
       this.dom.addEventListener('input', this.handleInput);
     }
 
@@ -398,7 +408,9 @@ export class ExpandNodeView implements NodeView {
 
   destroy() {
     if (this.dom) {
-      this.dom.removeEventListener('click', this.handleClick);
+      this.clickHandler &&
+        this.dom.removeEventListener('click', this.clickHandler);
+      this.clickCleanup && this.clickCleanup();
       this.dom.removeEventListener('input', this.handleInput);
     }
     if (this.input) {

@@ -51,7 +51,10 @@ export default interface NativeToWebBridge {
   setKeyboardControlsHeight(height: string): void;
   setSelection(payload: string): void;
   onCollabEvent(event: string, payload: string): void;
-
   saveCollabChanges(): void;
   restoreCollabChanges(): void;
+  getQuickInsertAllowList(): string;
+  setQuickInsertAllowList(newList: string): void;
+  addQuickInsertAllowListItem(listItems: string): void;
+  removeQuickInsertAllowListItem(listItems: string): void;
 }

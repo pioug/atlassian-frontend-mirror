@@ -158,7 +158,11 @@ const getListType = (node: Node, schema: Schema): [NodeType, number] | null => {
   }, null);
 };
 
-const extractListFromParagaph = (node: Node, schema: Schema): Fragment => {
+const extractListFromParagaph = (
+  node: Node,
+  parent: Node | null,
+  schema: Schema,
+): Fragment => {
   const { hardBreak, bulletList, orderedList } = schema.nodes;
   const content: Array<Node> = mapChildren(node.content, node => node);
 
@@ -195,7 +199,14 @@ const extractListFromParagaph = (node: Node, schema: Schema): Fragment => {
         return child;
       }
 
-      return nodeType.createChecked(undefined, [listItemNode]);
+      const newList = nodeType.createChecked(undefined, [listItemNode]);
+      // Check whether our new list is valid content in our current structure,
+      // otherwise dont convert.
+      if (parent && !parent.type.validContent(Fragment.from(newList))) {
+        return child;
+      }
+
+      return newList;
     })
     .filter((child, idx, arr) => {
       // remove hardBreaks that have a list node on either side
@@ -320,7 +331,7 @@ export const splitParagraphs = (slice: Slice, schema: Schema): Slice => {
 export const upgradeTextToLists = (slice: Slice, schema: Schema): Slice => {
   return mapSlice(slice, (node, parent) => {
     if (node.type === schema.nodes.paragraph) {
-      return extractListFromParagaph(node, schema);
+      return extractListFromParagaph(node, parent, schema);
     }
 
     return node;

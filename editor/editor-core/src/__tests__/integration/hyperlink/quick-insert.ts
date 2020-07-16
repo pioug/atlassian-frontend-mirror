@@ -10,7 +10,7 @@ import {
 
 BrowserTestCase(
   'quick-insert.ts: Insert hyperlink via quick insert',
-  { skip: ['ie', 'edge', 'safari'] },
+  { skip: ['edge', 'safari'] },
   async (client: any, testName: string) => {
     const browser = new Page(client);
 

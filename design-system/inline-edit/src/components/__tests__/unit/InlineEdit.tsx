@@ -34,7 +34,9 @@ beforeAll(() => {
 });
 
 afterEach(() => {
-  if (wrapper) wrapper.unmount();
+  if (wrapper) {
+    wrapper.unmount();
+  }
   wrapper = undefined;
 });
 

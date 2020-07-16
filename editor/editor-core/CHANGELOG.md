@@ -1,5 +1,93 @@
 # @atlaskit/editor-core
 
+## 127.0.0
+
+### Major Changes
+
+- [`6e5c32935a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6e5c32935a) - Remove deprecated flag allowUnsupportedContent and enable by default
+- [`35be24c587`](https://bitbucket.org/atlassian/atlassian-frontend/commits/35be24c587) - ED-9344: avoid toolbar layout shift in comment appearance
+
+### Minor Changes
+
+- [`86d3b209d2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/86d3b209d2) - ED-9576 Update emoji selection style to be more obvious
+- [`760046f819`](https://bitbucket.org/atlassian/atlassian-frontend/commits/760046f819) - Add placeholder prop to Select, Date, String, Number, Custom field in ConfigPanel + display error message if promise returned from getFieldsDefinition rejects
+- [`88adf1772e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/88adf1772e) - ED-9274 Fix block node selection in Safari
+- [`6723d1e7c8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6723d1e7c8) - ED-9610: Use presets inside create plugins list
+- [`2006639232`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2006639232) - ED-8880 Fire selection analytics events for: node, all & range selection
+
+  More information on the events here: https://hello.atlassian.net/wiki/spaces/PData/pages/140331421/Minimum+Event+Spec+-+Editor#Selection-events
+
+- [`b7c4fc3b08`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b7c4fc3b08) - Preseve unsupported mark from getting lost
+- [`f6204640c4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f6204640c4) - ED-9638 Update "document selected", "document cut" & "document copied" analytics events to work with cell selections
+
+  See in-depth info on the events here:
+
+  - [Selection events](https://hello.atlassian.net/wiki/spaces/PData/pages/140331421/Minimum+Event+Spec+-+Editor#Selection-events)
+  - [Clipboard events](https://hello.atlassian.net/wiki/spaces/PData/pages/140331421/Minimum+Event+Spec+-+Editor#Clipboard-events)
+
+- [`be96983239`](https://bitbucket.org/atlassian/atlassian-frontend/commits/be96983239) - ED-8881 Add analytics for cut and copy events in new clipboard plugin
+- [`71c78f8719`](https://bitbucket.org/atlassian/atlassian-frontend/commits/71c78f8719) - EDM-642 Use new ActivityProvider and it's going to be a replacement of the existing `@atlaskit/activity`. The new ActivityProvider will use the new platform API instead of talking to the old Activity Service API.
+- [`faf010cbc3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/faf010cbc3) - ED-9212: Add support for extension auto convert
+
+  ## Breaking changes:
+
+  Renamed the following exports from '@atlaskit/editor-common/extensions':
+
+  - from `ExtensionModuleType` to `ExtensionQuickInsertModule`;
+  - from `getItemsFromModule` to `getQuickInsertItemsFromModule`,
+
+  Renamed the following exports from '@atlaskit/editor-common':
+
+  - from `ExtensionModuleType` to `ExtensionQuickInsertModule`;
+
+- [`584cd5c528`](https://bitbucket.org/atlassian/atlassian-frontend/commits/584cd5c528) - Add cardConfluencePayload in example-helpers
+- [`6166ec91b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6166ec91b0) - ED-9126 Make unsupported node selection consistent
+- [`9aa6146cdf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9aa6146cdf) - TYPH-106: Enable typing performance tracking on Mobile
+- [`650bb09df1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/650bb09df1) - EDM-409: Comment Editor will now align media inserted to left by default
+
+### Patch Changes
+
+- [`722438cfcc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/722438cfcc) - ED-9557: fix table cell popup menu ignoring editor boundaries
+- [`c962dfd3dd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c962dfd3dd) - ED-9574: Allow codeblock to be deleted via toolbar when codeblock node is selected
+- [`d53d146e11`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d53d146e11) - ED-9646: Update inline comment validation to cover all nodes and smaller inline node cases
+- [`e1cc8bcc74`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e1cc8bcc74) - ED-9570: Ensure find/replace onCancel fires strictly when toolbar is active/open
+- [`d035bea822`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d035bea822) - chore: add integration tests for Smart Links lazy rendering
+- [`ab83c61b08`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ab83c61b08) - Media analytics fixes involving copy pasting media groups, resizing medis singles and inserting media nodes.
+- [`2179cf4e09`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2179cf4e09) - ED-9107: restore table column header controls on Safari
+- [`03851d1e5c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/03851d1e5c) - ED-9339: fix macros overflowing expand container
+- [`1c79549044`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1c79549044) - ED-9611: Fix issue with pasting a list with a list item starting with - or \*
+- [`467ff2e758`](https://bitbucket.org/atlassian/atlassian-frontend/commits/467ff2e758) - ED-9563: Fix layout paste analytics content attribute to be layoutSection
+- [`cde426961a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cde426961a) - Bumps Avatar and AvatarGroup depenedencies
+- [`ae9b0d5086`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ae9b0d5086) - ED-9310: Fix decisions positioning inside layout nodes and preserve layout selectable area padding
+- [`1ae91e8167`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1ae91e8167) - ED-9388: Prevent selecting layout, codeblock, expand, decision nodes during drag release over padding
+- [`09ec1c6758`](https://bitbucket.org/atlassian/atlassian-frontend/commits/09ec1c6758) - EDM-847: Add analytics to media and embed layout options
+- [`7c6dc39447`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7c6dc39447) - ED-9568 annotations are now preserved when copy/pasting; also updated general copy/paste behaviour to preserve formatting of the pasted content, so that e.g. copying italic text into bold will preserve both italic and bold.
+- [`3245eaef0e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3245eaef0e) - UR-710 Add containerId, objectId, and childObjectId to mention selected event
+- [`294e489427`](https://bitbucket.org/atlassian/atlassian-frontend/commits/294e489427) - ED-9381 Internationalising Element Browser
+- [`df675606be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/df675606be) - ED-9560: Restore existing codeblock selection when language changed via toolbar
+- [`4557fa3ce4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4557fa3ce4) - Allow ConfigPanel to accept an empty error message
+- [`2c641859a8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2c641859a8) - ED-9318: Ensures text matched from find/replace is accurately highlighted after document edits
+- [`87c1557f7c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87c1557f7c) - ED-9319: Ensure find/replace selection highlights update correctly on match text removals
+- [`f668a2f87c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f668a2f87c) - ED-9547: Fixes issue where the inline comment view wouldnt trigger after creating a comment
+- [`e633e8da2f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e633e8da2f) - EDM-719 Fix linting error when checking the Edge version number
+- [`370ef2dd3b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/370ef2dd3b) - Remove SVG from source and replace with inline SVG, using new empty-state renderImage prop
+- [`1a6b7e205b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1a6b7e205b) - NOISSUE: Use better emoji sprite selector in find-replace VR test
+- [`bb1c337c11`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bb1c337c11) - ED-9412: Fix selected node and danger style interactions
+- [`4476c0426a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4476c0426a) - ED-9453: Allow nodes directly adjacent to inline code marks to be selected
+- [`eee5ec3f95`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eee5ec3f95) - Given user-recommendations-service now returns users and teams interspersed and ranked, the metric needs users and teams on the same event to reflect actual list (and with correct order) shown to the user in order to correctly quantify effectivity of mention recommendation.
+- [`4a4c9ebf26`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4a4c9ebf26) - ED-9667: Improve loading experience for Config
+- [`04c8ad1423`](https://bitbucket.org/atlassian/atlassian-frontend/commits/04c8ad1423) - ED-9324: Ensure find/replace floating panel always stacks underneath other editor floating panels
+- [`588c7e0115`](https://bitbucket.org/atlassian/atlassian-frontend/commits/588c7e0115) - ED-9481 Fix analytics for unsupported content GasV3
+- [`3c09b35ce2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3c09b35ce2) - Move Display text in link search dropdown up and tweak cosmetics
+- [`e2f2b6497d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e2f2b6497d) - ED-9721: Do not show edit button if update method is not provided
+- [`fd1a77c1b6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd1a77c1b6) - ED-9535: show toolbar menu if at least one option is allowed
+- [`8855a71596`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8855a71596) - EDM-929: Fix width for embeds in container nodes like layouts
+- [`c72502e22a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c72502e22a) - ED-9594: Remove cursor pointer from decision items in renderer
+- [`d5c987637f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d5c987637f) - ED-9322: Ensures find text updates in find/replace do not cause stale replace text states to reappear/overwrite the current replace text
+- [`8f2f2422a1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8f2f2422a1) - EDM-955: Fix error state height for embeds
+- [`36e4b8e6c8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/36e4b8e6c8) - Fix width for media when wrapped width is not available
+- Updated dependencies
+
 ## 126.0.1
 
 ### Patch Changes

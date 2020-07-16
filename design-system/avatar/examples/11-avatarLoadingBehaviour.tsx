@@ -1,7 +1,7 @@
 import React, { ChangeEvent, FC, FormEvent, useState } from 'react';
 
 import Button, { ButtonProps } from '@atlaskit/button';
-import { gridSize } from '@atlaskit/theme';
+import { gridSize } from '@atlaskit/theme/constants';
 
 import { Note } from '../examples-util/helpers';
 import Avatar from '../src';
@@ -38,8 +38,11 @@ const ExternalSrcAvatar: FC = props => {
   const resetState = () => setState(initialState);
 
   let avatarName = 'Default Avatar';
-  if (imageUrl === initialState.inputValue) avatarName = 'Mike Cannon-Brookes';
-  else if (imageUrl.length) avatarName = 'Custom Avatar';
+  if (imageUrl === initialState.inputValue) {
+    avatarName = 'Mike Cannon-Brookes';
+  } else if (imageUrl.length) {
+    avatarName = 'Custom Avatar';
+  }
 
   return (
     <form onSubmit={loadImage}>

@@ -1,13 +1,13 @@
 // #region Imports
 import React from 'react';
-import pastePlugin from '../../../plugins/paste';
+import pastePlugin, { PastePluginOptions } from '../../../plugins/paste';
 import blockTypePlugin from '../../../plugins/block-type';
 import clearMarksOnChangeToEmptyDocumentPlugin from '../../../plugins/clear-marks-on-change-to-empty-document';
 import hyperlinkPlugin from '../../../plugins/hyperlink';
 import textFormattingPlugin from '../../../plugins/text-formatting';
 import widthPlugin from '../../../plugins/width';
 import unsupportedContentPlugin from '../../../plugins/unsupported-content';
-import basePlugin from '../../../plugins/base';
+import basePlugin, { BasePluginOptions } from '../../../plugins/base';
 import editorDisabledPlugin from '../../../plugins/editor-disabled';
 import typeAheadPlugin from '../../../plugins/type-ahead';
 import gapCursorPlugin from '../../../plugins/gap-cursor';
@@ -15,43 +15,83 @@ import submitEditorPlugin from '../../../plugins/submit-editor';
 import fakeTextCursorPlugin from '../../../plugins/fake-text-cursor';
 import featureFlagsContextPlugin from '../../../plugins/feature-flags-context';
 import floatingToolbarPlugin from '../../../plugins/floating-toolbar';
-import scrollIntoViewPlugin from '../../../plugins/scroll-into-view';
-import { PresetProvider } from '../Editor';
+import { PresetProvider, EditorProps } from '../Editor';
 import { EditorPresetProps } from './types';
 import { Preset } from './preset';
 import { EditorPlugin } from '../../../types/editor-plugin';
+import clipboardPlugin from '../../../plugins/clipboard';
+import { BlockTypePluginOptions } from '../../../plugins/block-type/types';
+import placeholderPlugin, {
+  PlaceholderPluginOptions,
+} from '../../../plugins/placeholder';
+import annotationPlugin, {
+  AnnotationProviders,
+} from '../../../plugins/annotation';
+import { TextFormattingOptions } from '../../../plugins/text-formatting/types';
+import quickInsertPlugin from '../../../plugins/quick-insert';
+import selectionPlugin from '../../../plugins/selection';
+import codeBlockPlugin from '../../../plugins/code-block';
 // #endregion
 
 interface EditorPresetDefaultProps {
   children?: React.ReactNode;
 }
 
-export function useDefaultPreset({ featureFlags }: EditorPresetProps) {
+type DefaultPresetPluginOptions = {
+  paste: PastePluginOptions;
+  base?: BasePluginOptions;
+  blockType?: BlockTypePluginOptions;
+  placeholder?: PlaceholderPluginOptions;
+  textFormatting?: TextFormattingOptions;
+  submitEditor?: EditorProps['onSave'];
+  annotationProviders?: AnnotationProviders;
+};
+
+export function createDefaultPreset(
+  options: EditorPresetProps & DefaultPresetPluginOptions,
+) {
   const preset = new Preset<EditorPlugin>();
-  preset.add([pastePlugin, {}]);
-  preset.add(basePlugin);
-  preset.add(blockTypePlugin);
+  preset.add([pastePlugin, options.paste]);
+  preset.add(clipboardPlugin);
+  preset.add([basePlugin, options.base]);
+  preset.add([blockTypePlugin, options.blockType]);
+  preset.add([placeholderPlugin, options.placeholder]);
   preset.add(clearMarksOnChangeToEmptyDocumentPlugin);
+
+  if (options.annotationProviders) {
+    preset.add([annotationPlugin, options.annotationProviders]);
+  }
+
   preset.add(hyperlinkPlugin);
-  preset.add(textFormattingPlugin);
+  preset.add([textFormattingPlugin, options.textFormatting]);
   preset.add(widthPlugin);
+  preset.add(quickInsertPlugin);
   preset.add(typeAheadPlugin);
   preset.add(unsupportedContentPlugin);
   preset.add(editorDisabledPlugin);
   preset.add(gapCursorPlugin);
-  preset.add(submitEditorPlugin);
+  preset.add([submitEditorPlugin, options.submitEditor]);
   preset.add(fakeTextCursorPlugin);
-  preset.add([featureFlagsContextPlugin, featureFlags || {}]);
   preset.add(floatingToolbarPlugin);
-  preset.add(scrollIntoViewPlugin);
+  preset.add([featureFlagsContextPlugin, options.featureFlags || {}]);
+  preset.add(selectionPlugin);
+  preset.add(codeBlockPlugin);
+  return preset;
+}
+
+export function useDefaultPreset(
+  props: EditorPresetProps & DefaultPresetPluginOptions,
+) {
+  const preset = createDefaultPreset(props);
   return [preset];
 }
 
 export function EditorPresetDefault(
-  props: EditorPresetDefaultProps & EditorPresetProps,
+  props: EditorPresetDefaultProps &
+    EditorPresetProps &
+    DefaultPresetPluginOptions,
 ) {
   const [preset] = useDefaultPreset(props);
   const plugins = preset.getEditorPlugins();
-
   return <PresetProvider value={plugins}>{props.children}</PresetProvider>;
 }

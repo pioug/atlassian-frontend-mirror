@@ -1,5 +1,11 @@
 # @atlaskit/media-test-helpers
 
+## 28.0.1
+
+### Patch Changes
+
+- [`50d947cdae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/50d947cdae) - Added Media Card New Experience behind a feature flag
+
 ## 28.0.0
 
 ### Major Changes

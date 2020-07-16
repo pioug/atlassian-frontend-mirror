@@ -4,6 +4,7 @@ import { MediaClientConfig } from '@atlaskit/media-core';
 import { GridType } from '../../../grid/types';
 import { EditorView } from 'prosemirror-view';
 import { getPosHandler } from '../../../../nodeviews/types';
+import { DispatchAnalyticsEvent } from '../../../../plugins/analytics';
 
 export type EnabledHandles = { left?: boolean; right?: boolean };
 
@@ -23,4 +24,5 @@ export type Props = MediaSingleProps & {
   selected: boolean;
   viewMediaClientConfig?: MediaClientConfig;
   fullWidthMode?: boolean;
+  dispatchAnalyticsEvent: DispatchAnalyticsEvent;
 };

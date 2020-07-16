@@ -16,7 +16,8 @@ import {
   tableMarginTop,
   tableSharedStyle,
 } from '@atlaskit/editor-common';
-import { borderRadius, colors, fontSize } from '@atlaskit/theme';
+import { borderRadius, fontSize } from "@atlaskit/theme/constants";
+import * as colors from "@atlaskit/theme/colors";
 
 import { scrollbarStyles } from '../../../ui/styles';
 import { TableCssClassName as ClassName, RESIZE_HANDLE_AREA_DECORATION_GAP } from '../types';
@@ -882,7 +883,6 @@ export const tableStyles = css`
 
     /* Table */
     .${ClassName.TABLE_NODE_WRAPPER} > table {
-      overflow: hidden visible;
       table-layout: fixed;
 
       .${ClassName.COLUMN_CONTROLS_DECORATIONS} + * {

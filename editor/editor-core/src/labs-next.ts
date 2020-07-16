@@ -14,3 +14,4 @@ export {
   useEditorSharedConfig,
 } from './labs/next/Editor';
 export { default as EditorContext } from './ui/EditorContext';
+export { createDefaultPreset } from './labs/next/presets/default';

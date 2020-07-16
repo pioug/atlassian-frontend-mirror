@@ -175,20 +175,23 @@ export const replace = (replaceText: string) =>
         const { findText } = pluginState;
         let { decorationSet, matches, index } = pluginState;
 
+        decorationSet = updateSelectedHighlight(
+          state,
+          nextIndex(index, matches.length),
+        );
         if (replaceText.toLowerCase().indexOf(findText.toLowerCase()) === -1) {
           decorationSet = removeMatchesFromSet(
             decorationSet,
             [matches[index]],
             state.doc,
           );
-          matches = matches.splice(index, 1);
+          matches.splice(index, 1);
           if (index > matches.length - 1) {
             index = 0;
           }
         } else {
           index = nextIndex(index, matches.length);
         }
-        decorationSet = updateSelectedHighlight(state, index);
 
         return {
           type: FindReplaceActionTypes.REPLACE,

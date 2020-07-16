@@ -1,5 +1,58 @@
 # @atlaskit/avatar
 
+## 20.0.0
+
+### Major Changes
+
+- [`cde426961a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cde426961a) - Changes to Avatar in this release are intended to provide users with more flexible and performant customization options.
+
+  Previously Avatars could only be customized like so:
+
+  ```javascript
+  <Avatar component={Button} />
+  ```
+
+  This is restrictive in that you're not able to pass custom props or children to button without passing props directly through to Avatar first.
+
+  Now with render props, we can enable that:
+
+  ```jsx
+  const initials = 'MCB';
+
+  <Avatar
+    render={props => (
+      <Button {...props}>{initials} // custom initials etc.</Button>
+    )}
+  />;
+  ```
+
+  Since there are significant prop and API changes we provided a codemod to help consumers upgrade their components.
+
+  To run the codemod: **You first need to have the latest avatar installed before you can run the codemod**
+
+  `yarn upgrade @atlaskit/avatar@^19.0.0`
+
+  **Run the codemod cli**
+
+  `npx @atlaskit/codemod-cli /path/to/target/directory`
+
+  For more information on `@atlaskit/codemod-cli` please refer to [this doc](https://atlaskit.atlassian.com/docs/guides/atlassian-codemods)
+
+  **Change summary:**
+
+  - BREAKING: `Avatar`'s `component` prop is now a [renderProp](https://reactjs.org/docs/render-props.html) and has been renamed to `render`
+  - BREAKING: `AvatarItem`'s `component` prop is now a [renderProp](https://reactjs.org/docs/render-props.html) and has been renamed to `render`
+  - Avatar now forwards its ref
+  - AvatarItem now forwards its ref
+  - Type `AvatarClickType` has been renamed to `AvatarClickEventHandler`
+
+### Patch Changes
+
+- [`cacf9a3097`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cacf9a3097) - Fixes a regression in AvatarItem where the default padding was 16px instead of 4px.
+- [`e99c1c2ac8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e99c1c2ac8) - Removes text decoration from AvatarItems rendered as anchor tags
+- [`19b9dc6daf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19b9dc6daf) - Avatar now sends complete contextualised analytics metadata.
+- [`db053b24d8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/db053b24d8) - Update all the theme imports to be tree-shakable
+
 ## 19.0.0
 
 ### Major Changes

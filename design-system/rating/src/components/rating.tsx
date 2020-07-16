@@ -4,7 +4,7 @@ import { forwardRef, Fragment, useCallback } from 'react';
 import { jsx } from '@emotion/core';
 
 import { easeInOut, smallDurationMs } from '@atlaskit/motion';
-import { visuallyHidden } from '@atlaskit/theme';
+import { visuallyHidden } from '@atlaskit/theme/constants';
 import Tooltip from '@atlaskit/tooltip';
 
 export type RatingRender = (props: { isChecked: boolean }) => React.ReactNode;

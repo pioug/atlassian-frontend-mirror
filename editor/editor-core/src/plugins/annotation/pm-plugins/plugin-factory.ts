@@ -10,7 +10,7 @@ const handleDocChanged = (
   prevPluginState: InlineCommentPluginState,
 ): InlineCommentPluginState => {
   if (!tr.getMeta('replaceDocument')) {
-    return prevPluginState;
+    return handleSelectionChanged(tr, prevPluginState);
   }
 
   return { ...prevPluginState, dirtyAnnotations: true };
@@ -20,10 +20,21 @@ const handleSelectionChanged = (
   tr: Transaction,
   pluginState: InlineCommentPluginState,
 ): InlineCommentPluginState => {
-  pluginState.selectedAnnotations = findAnnotationsInSelection(
-    tr.selection,
-    tr.doc,
-  );
+  const selectedAnnotations = findAnnotationsInSelection(tr.selection, tr.doc);
+  const changed =
+    selectedAnnotations.length !== pluginState.selectedAnnotations.length ||
+    selectedAnnotations.some(annotationInfo => {
+      return !pluginState.selectedAnnotations.some(
+        aInfo => aInfo.type === annotationInfo.id,
+      );
+    });
+
+  if (changed) {
+    return {
+      ...pluginState,
+      selectedAnnotations,
+    };
+  }
   return pluginState;
 };
 

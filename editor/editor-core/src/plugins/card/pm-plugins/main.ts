@@ -55,6 +55,7 @@ export const createPlugin = (
   portalProviderAPI,
   eventDispatcher,
   providerFactory,
+  dispatchAnalyticsEvent,
 }: PMPluginFactoryParams) =>
   new Plugin({
     state: {
@@ -189,6 +190,7 @@ export const createPlugin = (
               platform,
               allowResizing,
               fullWidthMode: fullWidthMode,
+              dispatchAnalyticsEvent,
             },
             undefined,
             true,

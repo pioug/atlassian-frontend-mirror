@@ -27,13 +27,21 @@ export default function baseStyles(
         backgroundColor = colors.N20;
       }
 
-      if (validationState === 'error') borderColor = colors.R400;
-      if (validationState === 'success') borderColor = colors.G400;
+      if (validationState === 'error') {
+        borderColor = colors.R400;
+      }
+      if (validationState === 'success') {
+        borderColor = colors.G400;
+      }
 
       let borderColorHover = isFocused ? colors.B100 : colors.N30;
 
-      if (validationState === 'error') borderColorHover = colors.R400;
-      if (validationState === 'success') borderColorHover = colors.G400;
+      if (validationState === 'error') {
+        borderColorHover = colors.R400;
+      }
+      if (validationState === 'success') {
+        borderColorHover = colors.G400;
+      }
 
       const transitionDuration = '200ms';
 
@@ -124,13 +132,20 @@ export default function baseStyles(
     }),
     option: (css, { isFocused, isSelected, isDisabled }) => {
       let color;
-      if (isDisabled) color = colors.N70;
-      else if (isSelected) color = colors.N0;
+      if (isDisabled) {
+        color = colors.N70;
+      } else if (isSelected) {
+        color = colors.N0;
+      }
 
       let backgroundColor;
-      if (isDisabled) backgroundColor = undefined;
-      else if (isSelected) backgroundColor = colors.N500;
-      else if (isFocused) backgroundColor = colors.N30;
+      if (isDisabled) {
+        backgroundColor = undefined;
+      } else if (isSelected) {
+        backgroundColor = colors.N500;
+      } else if (isFocused) {
+        backgroundColor = colors.N30;
+      }
 
       const cursor = isDisabled ? 'not-allowed' : undefined;
 

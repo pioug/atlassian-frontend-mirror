@@ -2,7 +2,7 @@ import { colorPalette, colorPaletteExperimental } from '@atlaskit/adf-schema';
 import { PaletteColor } from './type';
 import getColorMessage from './getColorMessage';
 import paletteMessages from './paletteMessages';
-import { colors } from '@atlaskit/theme';
+import { N800 } from '@atlaskit/theme/colors';
 import chromatism from 'chromatism';
 
 /**
@@ -17,7 +17,7 @@ function setAlpha(color: string, alpha: number): string {
   return `rgba(${r}, ${g}, ${b}, ${alpha})`;
 }
 
-export const DEFAULT_BORDER_COLOR = setAlpha(colors.N800, 0.12);
+export const DEFAULT_BORDER_COLOR = setAlpha(N800, 0.12);
 
 const mapPaletteColor = (label: string, color: string) => {
   const key = label.toLowerCase().replace(' ', '-');

@@ -2,7 +2,7 @@ import { RESOLVE_METHOD } from './../../analytics/types/inline-comment-events';
 import { EditorState, Plugin } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
-import { AnnotationNodeView } from '../ui';
+import { AnnotationNodeView } from '../nodeviews';
 import {
   updateInlineCommentResolvedState,
   updateMouseState,
@@ -43,6 +43,10 @@ const fetchState = async (
   annotationIds: string[],
   editorView: EditorView,
 ) => {
+  if (!annotationIds || !annotationIds.length) {
+    return;
+  }
+
   const inlineCommentStates = await fetchProviderStates(
     provider,
     annotationIds,

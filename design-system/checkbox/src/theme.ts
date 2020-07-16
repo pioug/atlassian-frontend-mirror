@@ -1,4 +1,5 @@
-import { colors, createTheme } from '@atlaskit/theme';
+import * as colors from '@atlaskit/theme/colors';
+import { createTheme } from '@atlaskit/theme/components';
 
 import { ComponentTokens, ThemeProps, ThemeTokens } from './types';
 

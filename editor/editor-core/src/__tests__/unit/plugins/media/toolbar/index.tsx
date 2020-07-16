@@ -16,7 +16,7 @@ import {
   tr,
   ul,
 } from '@atlaskit/editor-test-helpers/schema-builder';
-
+import * as analytics from '../../../../../plugins/analytics/utils';
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 import * as MediaClientModule from '@atlaskit/media-client';
 import { FileState, MediaClient } from '@atlaskit/media-client';
@@ -314,7 +314,7 @@ describe('media', () => {
     it('aligns a media single to the left', () => {
       const { editorView } = editor(docWithMediaSingle);
       setNodeSelection(editorView, 0);
-
+      const analyticsFn = jest.spyOn(analytics, 'addAnalytics');
       const alignLeftTitle = intl.formatMessage(commonMessages.alignImageLeft);
 
       const toolbar = floatingToolbar(editorView.state, intl, {
@@ -328,6 +328,7 @@ describe('media', () => {
       );
 
       button.onClick(editorView.state, editorView.dispatch);
+      expect(analyticsFn).toBeCalled();
       expect(editorView.state.doc).toEqualDocument(
         doc(mediaSingle({ layout: 'align-start' })(temporaryMedia)),
       );

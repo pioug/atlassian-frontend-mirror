@@ -28,7 +28,6 @@ import {
 } from '@atlaskit/editor-json-transformer';
 import { FakeTextCursorSelection } from '../plugins/fake-text-cursor/cursor';
 import { hasParentNodeOfType } from 'prosemirror-utils';
-import { GapCursorSelection, Side } from '../plugins/gap-cursor/selection';
 import { isNodeEmpty } from './document';
 import { atTheBeginningOfDoc, atTheEndOfDoc } from './prosemirror/position';
 import { LEFT } from '../keymaps/consts';
@@ -55,6 +54,13 @@ export {
   sanitiseSelectionMarksForWrapping,
 } from './mark';
 export { isNodeTypeParagraph } from './nodes';
+export {
+  setNodeSelection,
+  setAllSelection,
+  setGapCursorSelection,
+  setCellSelection,
+  setTextSelection,
+} from './selection';
 
 export { JSONDocNode, JSONNode };
 
@@ -233,40 +239,6 @@ export function checkNodeDown(
 
   const res = doc.resolve(selection.$to.after(ancestorDepth));
   return res.nodeAfter ? filter(res.nodeAfter) : false;
-}
-
-export const setNodeSelection = (view: EditorView, pos: number) => {
-  const { state, dispatch } = view;
-
-  if (!isFinite(pos)) {
-    return;
-  }
-
-  const tr = state.tr.setSelection(NodeSelection.create(state.doc, pos));
-  dispatch(tr);
-};
-
-export function setTextSelection(
-  view: EditorView,
-  anchor: number,
-  head?: number,
-) {
-  const { state } = view;
-  const tr = state.tr.setSelection(
-    TextSelection.create(state.doc, anchor, head),
-  );
-  view.dispatch(tr);
-}
-
-export function setGapCursorSelection(
-  view: EditorView,
-  pos: number,
-  side: Side,
-) {
-  const { state } = view;
-  view.dispatch(
-    state.tr.setSelection(new GapCursorSelection(state.doc.resolve(pos), side)),
-  );
 }
 
 /**

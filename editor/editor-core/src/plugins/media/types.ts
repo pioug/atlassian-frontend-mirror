@@ -43,6 +43,7 @@ export interface MediaOptions {
   useForgePlugins?: boolean;
   useMediaPickerPopup?: boolean;
   allowTemplatePlaceholders?: boolean | PlaceholderTextOptions;
+  alignLeftOnInsert?: boolean;
 }
 
 export interface MediaSingleOptions {

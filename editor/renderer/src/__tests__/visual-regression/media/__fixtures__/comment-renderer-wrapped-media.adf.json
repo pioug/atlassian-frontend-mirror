@@ -1,0 +1,109 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "HELLO THERE"
+        }
+      ]
+    },
+    {
+      "type": "mediaSingle",
+      "attrs": {
+        "layout": "align-start"
+      },
+      "content": [
+        {
+          "type": "media",
+          "attrs": {
+            "id": "a559980d-cd47-43e2-8377-27359fcb905f",
+            "type": "file",
+            "collection": "MediaServicesSample",
+            "width": 50,
+            "height": 50
+          }
+        }
+      ]
+    },
+    {
+      "type": "mediaSingle",
+      "attrs": {
+        "layout": "align-start"
+      },
+      "content": [
+        {
+          "type": "media",
+          "attrs": {
+            "id": "a559980d-cd47-43e2-8377-27359fcb905f",
+            "type": "file",
+            "collection": "MediaServicesSample",
+            "width": 620,
+            "height": 489
+          }
+        }
+      ]
+    },
+    {
+      "type": "mediaSingle",
+      "attrs": {
+        "layout": "align-start"
+      },
+      "content": [
+        {
+          "type": "media",
+          "attrs": {
+            "id": "a559980d-cd47-43e2-8377-27359fcb905f",
+            "type": "file",
+            "collection": "MediaServicesSample",
+            "width": 800,
+            "height": 450
+          }
+        }
+      ]
+    },
+    {
+      "type": "mediaSingle",
+      "attrs": {
+        "layout": "align-start"
+      },
+      "content": [
+        {
+          "type": "media",
+          "attrs": {
+            "id": "a559980d-cd47-43e2-8377-27359fcb905f",
+            "type": "file",
+            "collection": "MediaServicesSample",
+            "width": 250,
+            "height": 250
+          }
+        }
+      ]
+    },
+    {
+      "type": "mediaSingle",
+      "attrs": {
+        "layout": "align-start"
+      },
+      "content": [
+        {
+          "type": "media",
+          "attrs": {
+            "id": "a559980d-cd47-43e2-8377-27359fcb905f",
+            "type": "file",
+            "collection": "MediaServicesSample",
+            "width": 3479,
+            "height": 5219
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": []
+    }
+  ]
+}

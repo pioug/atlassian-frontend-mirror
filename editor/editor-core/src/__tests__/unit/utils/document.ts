@@ -185,10 +185,23 @@ describe(name, () => {
     });
 
     describe('Unsupported', () => {
-      it('should wrap unsupported block nodes', () => {
+      it('should wrap unsupported block nodes and preserve contents', () => {
+        const unsupportedBlockWithContents = {
+          type: 'x',
+          text: 'hello',
+          attrs: { id: '4' },
+          content: [
+            {
+              type: 'text',
+              text: 'task',
+              marks: [{ type: 'strong' }],
+            },
+          ],
+        };
+
         const result = processRawValue(schema, {
           type: 'doc',
-          content: [{ type: 'x' }],
+          content: [unsupportedBlockWithContents],
         });
 
         expect(result).toBeDefined();
@@ -197,19 +210,28 @@ describe(name, () => {
           content: [
             {
               type: 'unsupportedBlock',
-              attrs: { originalValue: { type: 'x' } },
+              attrs: {
+                originalValue: unsupportedBlockWithContents,
+              },
             },
           ],
         });
       });
 
-      it('should wrap unsupported inline nodes', () => {
+      it('should wrap unsupported inline nodes and preserve contents', () => {
+        const unsupportedInlineWithContents: any = {
+          type: 'x',
+          attrs: { id: '4', text: '@hey' },
+        };
         const result = processRawValue(schema, {
           type: 'doc',
           content: [
             {
               type: 'paragraph',
-              content: [{ type: 'text', text: 'hello' }, { type: 'x' }],
+              content: [
+                { type: 'text', text: 'hello' },
+                unsupportedInlineWithContents,
+              ],
             },
           ],
         });
@@ -224,12 +246,223 @@ describe(name, () => {
                 { type: 'text', text: 'hello' },
                 {
                   type: 'unsupportedInline',
-                  attrs: { originalValue: { type: 'x' } },
+                  attrs: { originalValue: unsupportedInlineWithContents },
                 },
               ],
             },
           ],
         });
+      });
+
+      it('should wrap unsupported mark for inline node', () => {
+        const unsupportedMark = {
+          type: 'dasdsad',
+        };
+        const expected = {
+          type: 'doc',
+          content: [
+            {
+              type: 'paragraph',
+              content: [
+                {
+                  type: 'text',
+                  text: 'Hello',
+                  marks: [
+                    {
+                      type: 'unsupportedMark',
+                      attrs: {
+                        originalValue: unsupportedMark,
+                      },
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        };
+
+        const result = processRawValue(schema, {
+          type: 'doc',
+          content: [
+            {
+              type: 'paragraph',
+              content: [
+                {
+                  type: 'text',
+                  text: 'Hello',
+                  marks: [unsupportedMark],
+                },
+              ],
+            },
+          ],
+        });
+
+        expect(result).toBeDefined();
+
+        expect(result!.toJSON()).toEqual(expected);
+      });
+
+      it('should wrap unsupported mark for inline node where no marks specified in spec', () => {
+        const unsupportedMark = {
+          type: 'dasdsad',
+        };
+        const expected = {
+          type: 'doc',
+          content: [
+            {
+              type: 'paragraph',
+              content: [
+                {
+                  type: 'placeholder',
+                  attrs: {
+                    text: 'text',
+                  },
+                  marks: [
+                    {
+                      type: 'unsupportedMark',
+                      attrs: {
+                        originalValue: unsupportedMark,
+                      },
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        };
+
+        const result = processRawValue(schema, {
+          type: 'doc',
+          content: [
+            {
+              type: 'paragraph',
+              content: [
+                {
+                  type: 'placeholder',
+                  attrs: {
+                    text: 'text',
+                  },
+                  marks: [unsupportedMark],
+                },
+              ],
+            },
+          ],
+        });
+
+        expect(result).toBeDefined();
+
+        expect(result!.toJSON()).toEqual(expected);
+      });
+
+      it('should wrap a known mark not supported by the node', () => {
+        const unsupportedMark = {
+          type: 'textColor',
+          attrs: {
+            color: '#6554c0',
+          },
+        };
+        const expected = {
+          type: 'doc',
+          content: [
+            {
+              type: 'paragraph',
+              content: [
+                {
+                  type: 'placeholder',
+                  attrs: {
+                    text: 'text',
+                  },
+                  marks: [
+                    {
+                      type: 'unsupportedMark',
+                      attrs: {
+                        originalValue: unsupportedMark,
+                      },
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        };
+
+        const result = processRawValue(schema, {
+          type: 'doc',
+          content: [
+            {
+              type: 'paragraph',
+              content: [
+                {
+                  type: 'placeholder',
+                  attrs: {
+                    text: 'text',
+                  },
+                  marks: [unsupportedMark],
+                },
+              ],
+            },
+          ],
+        });
+
+        expect(result).toBeDefined();
+
+        expect(result!.toJSON()).toEqual(expected);
+      });
+
+      it('should wrap the node with an invalid mark and property as unsupported', () => {
+        const result = processRawValue(schema, {
+          version: 1,
+          type: 'doc',
+          content: [
+            {
+              type: 'panel',
+              attrs: {
+                panelType: 'success',
+              },
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [
+                    {
+                      type: 'text',
+                      text: 'Hello',
+                    },
+                  ],
+                },
+              ],
+              marks: [
+                {
+                  type: 'unknown',
+                },
+              ],
+              unknownProp: true,
+            },
+          ],
+        });
+        const expected = {
+          type: 'doc',
+          content: [
+            {
+              type: 'unsupportedBlock',
+              attrs: {
+                originalValue: {
+                  type: 'panel',
+                  attrs: { panelType: 'success' },
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [{ type: 'text', text: 'Hello' }],
+                    },
+                  ],
+                  marks: [{ type: 'unknown' }],
+                  unknownProp: true,
+                },
+              },
+            },
+          ],
+        };
+        expect(result).toBeDefined();
+        expect(result!.toJSON()).toEqual(expected);
       });
     });
   });

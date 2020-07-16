@@ -3,9 +3,7 @@ import React from 'react';
 import { MentionProvider } from '@atlaskit/mention/resource';
 
 import {
-  quickInsertPlugin,
   tablesPlugin,
-  codeBlockPlugin,
   panelPlugin,
   listsPlugin,
   textColorPlugin,
@@ -25,7 +23,6 @@ import {
   basePlugin,
   placeholderPlugin,
 } from '../../../plugins';
-import selectionPlugin from '../../../plugins/selection';
 import { MediaProvider } from '../../../plugins/media';
 import { PresetProvider } from '../Editor';
 import { EditorPresetProps } from './types';
@@ -45,7 +42,10 @@ export function useCXHTMLPreset({
   placeholder,
   featureFlags,
 }: EditorPresetCXHTMLProps) {
-  const [preset] = useDefaultPreset({ featureFlags });
+  const [preset] = useDefaultPreset({
+    featureFlags,
+    paste: {},
+  });
 
   preset.add([
     basePlugin,
@@ -57,9 +57,7 @@ export function useCXHTMLPreset({
       },
     },
   ]);
-  preset.add(quickInsertPlugin);
   preset.add([tablesPlugin, { tableOptions: { advanced: true } }]);
-  preset.add(codeBlockPlugin);
   preset.add([panelPlugin, { allowSelection: true }]);
   preset.add(listsPlugin);
   preset.add(textColorPlugin);
@@ -70,12 +68,11 @@ export function useCXHTMLPreset({
   preset.add(datePlugin);
   preset.add(layoutPlugin);
   preset.add(indentationPlugin);
-  preset.add([cardPlugin, { allowBlockCards: true }]);
+  preset.add([cardPlugin, { allowBlockCards: true, platform: 'web' }]);
   preset.add([statusPlugin, { menuDisabled: false }]);
   preset.add(tasksAndDecisionsPlugin);
   preset.add(insertBlockPlugin);
   preset.add([placeholderPlugin, { placeholder }]);
-  preset.add(selectionPlugin);
 
   if (mentionProvider) {
     preset.add(mentionsPlugin);

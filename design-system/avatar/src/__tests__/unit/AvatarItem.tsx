@@ -91,8 +91,9 @@ describe('Avatar', () => {
         avatar={<Avatar />}
         testId={'avatar'}
         href={'https://atlaskit.atlassian.com/'}
-        component={MyComponent}
-      />,
+      >
+        {({ ref, ...props }) => <MyComponent {...props} />}
+      </AvatarItem>,
     );
     expect(getByTestId('avatar--itemInner').tagName).toEqual('DIV');
   });

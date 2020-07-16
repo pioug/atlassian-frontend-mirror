@@ -69,13 +69,30 @@ export const waitForFloatingControl = async (
   // Note: there can be multiple popups visible at once...
   // e.g. floating toolbar and breakout controls on a layout.
   const popupSelector = '[data-editor-popup="true"]';
+  const forceLayout = async (selector: string, page: Page) =>
+    page.$eval(
+      selector,
+      el => el && (el as HTMLElement).getBoundingClientRect(),
+    );
+
   // Case insensitive fuzzy matching
   const ariaLabelSelector = `[aria-label*="${ariaLabel}" i]`;
-  await page.waitForSelector(`${popupSelector}${ariaLabelSelector}`, options);
+  const selector = `${popupSelector}${ariaLabelSelector}`;
+  await page.waitForSelector(selector, options);
+
   if (repositionalWait) {
     // Additional time buffer to account for repositional shifts while
     // centering underneath the anchoring element. This reduces the
     // amount of flaky test failures due to non centered toolbars.
     await page.waitFor(200);
+
+    // Force layout
+    await forceLayout(selector, page);
+
+    // Wait for next frame
+    await page.$eval(
+      selector,
+      () => new Promise(resolve => requestAnimationFrame(resolve)),
+    );
   }
 };

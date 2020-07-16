@@ -2,7 +2,8 @@ import React from 'react';
 
 import ErrorIcon from '@atlaskit/icon/glyph/error';
 import TextField from '@atlaskit/textfield';
-import { colors, gridSize } from '@atlaskit/theme';
+import { R400 } from '@atlaskit/theme/colors';
+import { gridSize } from '@atlaskit/theme/constants';
 
 import InlineEdit from '../src';
 import ReadViewContainer from '../src/styled/ReadViewContainer';
@@ -66,7 +67,7 @@ export default class InlineEditExample extends React.Component<void, State> {
                       lineHeight: '100%',
                     }}
                   >
-                    <ErrorIcon label="error" primaryColor={colors.R400} />
+                    <ErrorIcon label="error" primaryColor={R400} />
                   </div>
                 )
               }

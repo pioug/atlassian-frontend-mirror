@@ -132,8 +132,9 @@ export default class PropChanges extends Component<Prop, State> {
           <tbody>
             {data
               .sort((a, b) => {
-                if (filterValue === 'propName')
+                if (filterValue === 'propName') {
                   return a.key.localeCompare(b.key);
+                }
                 return getDisplayedStatus(a.status).localeCompare(
                   getDisplayedStatus(b.status),
                 );

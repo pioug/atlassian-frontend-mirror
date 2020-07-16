@@ -32,7 +32,9 @@ class InlineDialog extends Component<Props, {}> {
   triggerRef?: HTMLElement;
 
   componentDidUpdate(prevProps: Props) {
-    if (typeof window === 'undefined') return;
+    if (typeof window === 'undefined') {
+      return;
+    }
 
     if (!prevProps.isOpen && this.props.isOpen) {
       window.addEventListener('click', this.handleClickOutside, true);
@@ -42,7 +44,9 @@ class InlineDialog extends Component<Props, {}> {
   }
 
   componentDidMount() {
-    if (typeof window === 'undefined') return;
+    if (typeof window === 'undefined') {
+      return;
+    }
 
     if (this.props.isOpen) {
       window.addEventListener('click', this.handleClickOutside, true);
@@ -50,7 +54,9 @@ class InlineDialog extends Component<Props, {}> {
   }
 
   componentWillUnmount() {
-    if (typeof window === 'undefined') return;
+    if (typeof window === 'undefined') {
+      return;
+    }
 
     window.removeEventListener('click', this.handleClickOutside, true);
   }
@@ -58,14 +64,18 @@ class InlineDialog extends Component<Props, {}> {
   handleClickOutside = (event: any) => {
     const { isOpen, onClose } = this.props;
 
-    if (event.defaultPrevented) return;
+    if (event.defaultPrevented) {
+      return;
+    }
 
     const container = this.containerRef;
     const trigger = this.triggerRef;
     const { target } = event;
 
     // exit if we click outside but on the trigger — it can handle the clicks itself
-    if (trigger && trigger.contains(target)) return;
+    if (trigger && trigger.contains(target)) {
+      return;
+    }
 
     // call onClose if the click originated from outside the dialog
     if (isOpen && container && !container.contains(target)) {

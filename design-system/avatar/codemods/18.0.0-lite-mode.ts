@@ -83,7 +83,9 @@ function getJSXAttributesByName(
 function updateAvatarProps(j: core.JSCodeshift, source: ReturnType<typeof j>) {
   const defaultSpecifier = getDefaultSpecifier(j, source, '@atlaskit/avatar');
 
-  if (!defaultSpecifier) return;
+  if (!defaultSpecifier) {
+    return;
+  }
 
   source.findJSXElements(defaultSpecifier).forEach(element => {
     getJSXAttributesByName(j, element, 'isHover').remove();
@@ -181,7 +183,9 @@ function updateAvatarItemProps(
     'AvatarItem',
   );
 
-  if (!importSpecifier) return;
+  if (!importSpecifier) {
+    return;
+  }
 
   source.findJSXElements(importSpecifier).forEach(element => {
     getJSXAttributesByName(j, element, 'isHover').remove();

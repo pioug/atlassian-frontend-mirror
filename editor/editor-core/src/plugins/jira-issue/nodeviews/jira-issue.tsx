@@ -2,12 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 import { Node as PMNode } from 'prosemirror-model';
 import { JiraIcon } from '@atlaskit/logo';
-import { borderRadius, colors } from '@atlaskit/theme';
+import { borderRadius } from '@atlaskit/theme/constants';
+import { N30, N50 } from '@atlaskit/theme/colors';
 
 const WrapperNode = styled.span`
   align-items: center;
-  background: ${colors.N30};
-  border: 1px solid ${colors.N50};
+  background: ${N30};
+  border: 1px solid ${N50};
   border-radius: ${borderRadius()}px;
   box-sizing: border-box;
   cursor: default;
@@ -21,7 +22,7 @@ const WrapperNode = styled.span`
   white-space: nowrap;
 
   .ProseMirror-selectednode & {
-    background: ${colors.N50};
+    background: ${N50};
     outline: none;
   }
 `;

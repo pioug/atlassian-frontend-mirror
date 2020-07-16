@@ -11,7 +11,6 @@ import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-hel
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 import { macroProvider } from '@atlaskit/editor-test-helpers/mock-macro-provider';
 import { mention, emoji, taskDecision } from '@atlaskit/util-data-test';
-import { MockActivityResource } from '@atlaskit/activity/dist/es5/support';
 import { EmojiProvider } from '@atlaskit/emoji/resource';
 import { Provider as SmartCardProvider } from '@atlaskit/smart-card';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
@@ -19,6 +18,7 @@ import { customInsertMenuItems } from '@atlaskit/editor-test-helpers/mock-insert
 import quickInsertProviderFactory from '../example-helpers/quick-insert-provider';
 import { TitleInput } from '../example-helpers/PageElements';
 import { EditorActions, MediaProvider, MediaOptions } from './../src';
+import { MockActivityResource } from '../example-helpers/activity-provider';
 import BreadcrumbsMiscActions from '../example-helpers/breadcrumbs-misc-actions';
 import {
   defaultCollectionName,
@@ -398,7 +398,6 @@ class ExampleEditorComponent extends React.Component<
                   }}
                   allowBreakout={true}
                   allowJiraIssue={true}
-                  allowUnsupportedContent={true}
                   allowPanel={true}
                   allowExtension={{
                     allowBreakout: true,

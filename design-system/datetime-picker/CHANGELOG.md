@@ -1,5 +1,12 @@
 # @atlaskit/datetime-picker
 
+## 10.0.1
+
+### Patch Changes
+
+- [`23f968def3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/23f968def3) - Earlier value returned from DateTimePicker component was inconsistent, like for the first time it was without zone offset and after that with zone offset. Now it is consistent with zone offset every-time.
+- [`db053b24d8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/db053b24d8) - Update all the theme imports to be tree-shakable
+
 ## 10.0.0
 
 ### Major Changes

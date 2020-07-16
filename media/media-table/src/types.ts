@@ -5,6 +5,7 @@ import {
 } from '@atlaskit/media-client';
 import { HeadType } from '@atlaskit/dynamic-table/types';
 import { SortOrderType } from '@atlaskit/dynamic-table/types';
+import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 export { SortOrderType };
 
@@ -24,7 +25,6 @@ export interface FileInfo {
 }
 
 export interface RowData {
-  collectionName?: string;
   [key: string]: string | React.ReactNode;
 }
 
@@ -67,6 +67,11 @@ export interface MediaTableProps {
   onSetPage?: (pageNumber: number) => void;
   /** Called when a column header is clicked. Provides the key of the column and the new sortOrder to sort by */
   onSort?: (key: string, sortOrder: SortOrderType) => void;
+  createAnalyticsEvent: CreateUIAnalyticsEvent;
+  /** Called when the preview is opened by the user clicking on an item in the table */
+  onPreviewOpen?: () => void;
+  /** Called when the preview is closed */
+  onPreviewClose?: () => void;
 }
 
 export interface MediaTableState {

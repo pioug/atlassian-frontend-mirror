@@ -16,30 +16,30 @@ import { Fade } from './Animation';
 
 const noop = () => {};
 
-interface SpotlightContext {
+const { Consumer: TargetConsumer, Provider: TargetProvider } = createContext<
+  any
+>(undefined);
+
+const SpotlightContext = createContext<{
   opened: () => void;
   closed: () => void;
   targets: {
     [key: string]: HTMLElement | undefined;
   };
-}
-
-const { Consumer: TargetConsumer, Provider: TargetProvider } = createContext<
-  any
->(undefined);
-
-const {
-  Consumer: SpotlightStateConsumer,
-  Provider: SpotlightStateProvider,
-} = createContext<SpotlightContext>({
+}>({
   opened: noop,
   closed: noop,
   targets: {},
 });
 
+const {
+  Consumer: SpotlightStateConsumer,
+  Provider: SpotlightStateProvider,
+} = SpotlightContext;
+
 export { TargetConsumer };
 
-export { SpotlightStateConsumer as SpotlightConsumer };
+export { SpotlightContext, SpotlightStateConsumer as SpotlightConsumer };
 
 interface Props {
   /** Boolean prop for toggling blanket transparency  */

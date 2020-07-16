@@ -1,6 +1,10 @@
 import React from 'react';
 import { Component, ReactNode } from 'react';
-import { MediaType, ImageResizeMode } from '@atlaskit/media-client';
+import {
+  MediaItemType,
+  MediaType,
+  ImageResizeMode,
+} from '@atlaskit/media-client';
 import { Ellipsify, MediaImage } from '@atlaskit/media-ui';
 import VidPlayIcon from '@atlaskit/icon/glyph/vid-play';
 
@@ -18,7 +22,6 @@ import {
   ProgressWrapper,
   Title,
 } from './styled';
-import { isLoadingImage } from '../../utils/isLoadingImage';
 import { CardLoading } from '../../utils/lightCards/cardLoading';
 import { shouldDisplayImageThumbnail } from '../../utils/shouldDisplayImageThumbnail';
 import { ProgressBar } from '../../utils/progressBar';
@@ -36,12 +39,15 @@ import {
 export interface FileCardImageViewProps {
   readonly mediaName?: string;
   readonly mediaType?: MediaType;
+  readonly mimeType?: string;
   readonly fileSize?: string;
 
   readonly dataURI?: string;
   readonly alt?: string;
   readonly progress?: number;
+
   readonly status: CardStatus;
+  readonly mediaItemType: MediaItemType;
 
   readonly dimensions?: CardDimensions;
   readonly resizeMode?: ImageResizeMode;
@@ -107,7 +113,7 @@ export class FileCardImageViewBase extends Component<
 
     // If a video has no errors/failed processing, we want to be able to play it
     // immediately, even if there's no image preview
-    if (mediaType !== 'video' && this.isImageNotReadyForDisplay) {
+    if (mediaType !== 'video' && !this.isFileCardImageReadyForDisplay) {
       return this.renderLoadingContents();
     }
 
@@ -126,6 +132,7 @@ export class FileCardImageViewBase extends Component<
 
   private renderErrorContents = (): JSX.Element => {
     const {
+      status,
       error,
       alt,
       mediaName,
@@ -139,44 +146,55 @@ export class FileCardImageViewBase extends Component<
       <>
         <div className="wrapper" />
         <CardOverlay
+          cardStatus={status}
+          error={error}
           persistent={true}
           mediaName={mediaName}
           mediaType={mediaType}
-          error={error}
           alt={alt}
           onRetry={onRetry}
-          actions={actions}
           subtitle={fileSize}
+          actions={actions}
         />
       </>
     );
   };
 
   private renderFailedContents = () => {
-    const { mediaName, mediaType, actions, fileSize } = this.props;
+    const { status, mediaName, mediaType, actions, fileSize } = this.props;
 
     return (
       <>
         <div className="wrapper" />
         <CardOverlay
+          cardStatus={status}
           noHover={true}
           persistent={true}
           mediaName={mediaName}
           mediaType={mediaType}
-          actions={actions}
           subtitle={fileSize}
+          actions={actions}
         />
       </>
     );
   };
 
   private renderUploadingCardOverlay = (): JSX.Element => {
-    const { mediaType, dataURI, selectable, selected } = this.props;
+    const {
+      status,
+      mediaName,
+      mediaType,
+      dataURI,
+      selectable,
+      selected,
+    } = this.props;
     const isPersistent = mediaType === 'doc' || !dataURI;
 
     return (
       <CardOverlay
+        cardStatus={status}
         persistent={isPersistent}
+        mediaName={mediaName}
         selectable={selectable}
         selected={selected}
       />
@@ -184,13 +202,29 @@ export class FileCardImageViewBase extends Component<
   };
 
   private renderPlayButton = () => {
-    const { mediaType, selectable, dataURI } = this.props;
+    const {
+      status,
+      mediaItemType,
+      mediaType,
+      mimeType,
+      selectable,
+      dataURI,
+    } = this.props;
 
     if (mediaType !== 'video') {
       return null;
     }
 
-    if (selectable && !shouldDisplayImageThumbnail(dataURI, mediaType)) {
+    if (
+      selectable &&
+      !shouldDisplayImageThumbnail(
+        status,
+        mediaItemType,
+        dataURI,
+        mediaType,
+        mimeType,
+      )
+    ) {
       return null;
     }
 
@@ -211,15 +245,25 @@ export class FileCardImageViewBase extends Component<
 
   private renderMediaImage = () => {
     const {
+      status,
+      mediaItemType,
       dataURI,
       mediaType,
+      mimeType,
       previewOrientation,
       onDisplayImage,
       alt,
     } = this.props;
 
-    if (!shouldDisplayImageThumbnail(dataURI, mediaType)) {
-      this.fireLoadingStatusAnalyticsEvent('succeeded');
+    if (
+      !shouldDisplayImageThumbnail(
+        status,
+        mediaItemType,
+        dataURI,
+        mediaType,
+        mimeType,
+      )
+    ) {
       return null;
     }
 
@@ -255,7 +299,8 @@ export class FileCardImageViewBase extends Component<
 
       if (action === 'failed') {
         createAndFireCustomMediaEvent(
-          getLoadingStatusAnalyticsPayload(action, undefined, undefined, {
+          getLoadingStatusAnalyticsPayload({
+            action,
             error: 'unknown error',
             failReason: 'file-uri-error',
           }),
@@ -263,7 +308,7 @@ export class FileCardImageViewBase extends Component<
         );
       } else {
         createAndFireCustomMediaEvent(
-          getLoadingStatusAnalyticsPayload(action),
+          getLoadingStatusAnalyticsPayload({ action }),
           createAnalyticsEvent,
         );
       }
@@ -330,6 +375,7 @@ export class FileCardImageViewBase extends Component<
 
   private renderSuccessCardOverlay = (): JSX.Element => {
     const {
+      status,
       mediaName,
       mediaType,
       fileSize,
@@ -342,29 +388,22 @@ export class FileCardImageViewBase extends Component<
 
     return (
       <CardOverlay
+        cardStatus={status}
         persistent={isPersistent}
-        selectable={selectable}
-        selected={selected}
         mediaName={mediaName}
         mediaType={mediaType}
+        selectable={selectable}
+        selected={selected}
         subtitle={fileSize}
         actions={actions}
       />
     );
   };
 
-  private get isImageNotReadyForDisplay() {
-    const { status, dataURI, mediaType } = this.props;
+  private get isFileCardImageReadyForDisplay() {
+    const { dataURI, status } = this.props;
 
-    if (dataURI) {
-      return false;
-    }
-
-    return (
-      status === 'loading' ||
-      status === 'processing' ||
-      isLoadingImage(mediaType, dataURI)
-    );
+    return !!dataURI || !['loading', 'processing'].includes(status);
   }
 
   private get isCropped() {

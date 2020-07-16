@@ -28,10 +28,23 @@ describe('getFilePreviewFromFileState()', () => {
       name: '',
       size: 1,
       mediaType: 'doc',
-      mimeType: 'application/pdf',
-      preview: {
-        value: new File([], 'filename', { type: 'text/plain' }),
-      },
+      mimeType:
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      representations: {},
+    });
+
+    expect(src).toBeUndefined();
+  });
+
+  it('should not work for processing failures', async () => {
+    const { src } = await getFilePreviewFromFileState({
+      status: 'failed-processing',
+      id: '1',
+      name: 'filename.heic',
+      size: 1,
+      mediaType: 'image',
+      mimeType: 'image/heic',
+      artifacts: {},
       representations: {},
     });
 
@@ -46,9 +59,9 @@ describe('getFilePreviewFromFileState()', () => {
       size: 1,
       progress: 0.5,
       mediaType: 'image',
-      mimeType: 'image/jpg',
+      mimeType: 'image/jpeg',
       preview: {
-        value: new File([], 'filename', { type: 'image/png' }),
+        value: new File([], 'filename', { type: 'image/jpeg' }),
       },
     });
 
@@ -77,7 +90,7 @@ describe('getFilePreviewFromFileState()', () => {
     (getOrientation as jest.Mock<any>).mockReset();
     (getOrientation as jest.Mock<any>).mockReturnValue(10);
 
-    const blob = new File([], 'filename', { type: 'image/png' });
+    const blob = new File([], 'filename', { type: 'image/jpeg' });
     const { orientation } = await getFilePreviewFromFileState({
       status: 'uploading',
       id: '1',
@@ -85,7 +98,7 @@ describe('getFilePreviewFromFileState()', () => {
       size: 1,
       progress: 0.5,
       mediaType: 'image',
-      mimeType: 'image/jpg',
+      mimeType: 'image/jpeg',
       preview: {
         value: blob,
       },
@@ -96,16 +109,16 @@ describe('getFilePreviewFromFileState()', () => {
     expect(orientation).toEqual(10);
   });
 
-  it('should return default orientation for videos', async () => {
+  it('should return default orientation for supported videos', async () => {
     const { orientation } = await getFilePreviewFromFileState({
       status: 'processed',
       id: '1',
       name: '',
       size: 1,
-      mediaType: 'image',
-      mimeType: 'image/png',
+      mediaType: 'video',
+      mimeType: 'video/quicktime',
       preview: {
-        value: new File([], 'filename', { type: 'video/mov' }),
+        value: new File([], 'filename', { type: 'video/quicktime' }),
       },
       artifacts: {},
       representations: {},

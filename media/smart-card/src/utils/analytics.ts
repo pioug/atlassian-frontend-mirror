@@ -12,9 +12,6 @@ import { getMeasure } from './performance';
 import { APIError } from '../client/errors';
 
 export const ANALYTICS_CHANNEL = 'media';
-export const MESSAGE_WINDOW_CLOSED = 'The auth window was closed';
-export const KEY_WINDOW_CLOSED = 'authWindowClosed';
-export const KEY_SENSITIVE_DATA = 'potentialSensitiveData';
 
 export const context = {
   componentName: 'smart-cards',
@@ -34,6 +31,7 @@ export const fireSmartLinkEvent = (
 export const resolvedEvent = (
   id: string,
   definitionId?: string,
+  resourceType?: string,
 ): AnalyticsPayload => ({
   action: 'resolved',
   actionSubject: 'smartLink',
@@ -42,6 +40,7 @@ export const resolvedEvent = (
     id,
     ...context,
     ...(definitionId ? { definitionId: definitionId } : {}),
+    ...(resourceType ? { resourceType } : {}),
   },
 });
 
@@ -49,6 +48,7 @@ export const unresolvedEvent = (
   id: string,
   status: string,
   definitionId?: string,
+  resourceType?: string,
   error?: APIError,
 ): AnalyticsPayload => ({
   action: 'unresolved',
@@ -58,6 +58,7 @@ export const unresolvedEvent = (
     id,
     ...context,
     ...(definitionId ? { definitionId: definitionId } : {}),
+    ...(resourceType ? { resourceType } : {}),
     reason: status,
     error: error
       ? {
@@ -272,11 +273,12 @@ export const instrumentEvent = (
   id: string,
   status: CardType,
   definitionId?: string,
+  resourceType?: string,
   error?: APIError,
 ): AnalyticsPayload => {
   const measure = getMeasure(id, status) || { duration: undefined };
   if (status === 'resolved') {
-    const event = resolvedEvent(id, definitionId);
+    const event = resolvedEvent(id, definitionId, resourceType);
     return {
       ...event,
       attributes: {
@@ -285,7 +287,13 @@ export const instrumentEvent = (
       },
     };
   } else {
-    const event = unresolvedEvent(id, status, definitionId, error);
+    const event = unresolvedEvent(
+      id,
+      status,
+      definitionId,
+      resourceType,
+      error,
+    );
     return {
       ...event,
       attributes: {

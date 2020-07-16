@@ -1,14 +1,15 @@
 import { HTMLAttributes } from 'react';
 import styled, { css } from 'styled-components';
+import { themed } from '@atlaskit/theme/components';
+import { e400 } from '@atlaskit/theme/elevation';
 import {
-  colors,
   gridSize,
   fontFamily,
   fontSize,
   borderRadius,
-  themed,
-  typography,
-} from '@atlaskit/theme';
+} from '@atlaskit/theme/constants';
+import * as colors from '@atlaskit/theme/colors';
+import { headingSizes as headingSizesImport } from '@atlaskit/theme/typography';
 import {
   tableSharedStyle,
   columnLayoutSharedStyle,
@@ -44,7 +45,11 @@ import {
 } from '@atlaskit/editor-common';
 import { RendererCssClassName } from '../../consts';
 import { RendererAppearance } from './types';
-import { HeadingAnchorWrapperClassName } from '../../react/nodes/heading-anchor';
+import {
+  HeadingAnchorWrapperClassName,
+  HeadingAnchorWrapperLegacyClassName,
+  HeadingAnchorButtonWrapperClassName,
+} from '../../react/nodes/heading-anchor';
 
 export const FullPagePadding = 32;
 
@@ -53,11 +58,10 @@ export type RendererWrapperProps = {
   theme?: any;
 };
 
-type HeadingSizes = keyof typeof typography.headingSizes;
+type HeadingSizes = keyof typeof headingSizesImport;
 
 const getLineHeight = <T extends HeadingSizes>(fontCode: T): number =>
-  typography.headingSizes[fontCode].lineHeight /
-  typography.headingSizes[fontCode].size;
+  headingSizesImport[fontCode].lineHeight / headingSizesImport[fontCode].size;
 
 export const headingSizes: { [key: string]: { [key: string]: number } } = {
   h1: {
@@ -82,7 +86,8 @@ export const headingSizes: { [key: string]: { [key: string]: number } } = {
 
 const headingAnchorStyle = (headingTag: string) =>
   css`
-    & .${HeadingAnchorWrapperClassName} {
+    /* Legacy Styles start */
+    & .${HeadingAnchorWrapperLegacyClassName} {
       position: absolute;
       width: 0;
       height: ${headingSizes[headingTag].lineHeight}em;
@@ -95,10 +100,62 @@ const headingAnchorStyle = (headingTag: string) =>
     }
 
     &:hover {
-      & .${HeadingAnchorWrapperClassName} button {
+      & .${HeadingAnchorWrapperLegacyClassName} button {
         opacity: 1;
         transform: none;
         width: unset;
+      }
+    }
+    /* Legacy Styles end */
+
+    & .${HeadingAnchorWrapperClassName} {
+      position: absolute;
+      width: 0;
+      height: ${headingSizes[headingTag].lineHeight}em;
+      transform: translate(8px, 0px);
+
+      & .${HeadingAnchorButtonWrapperClassName} {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        border: 1px solid rgb(235, 236, 240);
+        background-color: white;
+        border-radius: 4px;
+        padding: 4px;
+      }
+
+      & button {
+        opacity: 0;
+        transition: opacity 0.2s ease 0s, transform 0.2s ease 0s;
+        background-color: white;
+      }
+    }
+
+    &:hover {
+      &
+        .${HeadingAnchorWrapperClassName}
+        .${HeadingAnchorButtonWrapperClassName}
+        button {
+        opacity: 1;
+        transform: none;
+        width: unset;
+        border-radius: 4px;
+        padding: 2px 3px;
+        ${e400};
+      }
+
+      &
+        .${HeadingAnchorWrapperClassName}
+        .${HeadingAnchorButtonWrapperClassName} {
+        opacity: 1;
+      }
+
+      &
+        .${HeadingAnchorWrapperClassName}
+        .${HeadingAnchorButtonWrapperClassName}
+        button:hover {
+        background-color: ${colors.N50};
       }
     }
   `;

@@ -1,4 +1,5 @@
 import React, { useCallback } from 'react';
+import { IntlProvider } from 'react-intl';
 import {
   AnalyticsEventPayload,
   AnalyticsListener,
@@ -25,15 +26,17 @@ export default () => {
   }, []);
   return (
     <AnalyticsListener channel="editor" onEvent={handleAnalytics}>
-      <ElementBrowser
-        categories={categoriesList}
-        quickInsertProvider={quickInsertProvider}
-        showSearch={true}
-        showCategories={true}
-        mode="full"
-        defaultCategory="all"
-        onSelectItem={onSelectItem}
-      />
+      <IntlProvider locale={'en'}>
+        <ElementBrowser
+          categories={categoriesList}
+          quickInsertProvider={quickInsertProvider}
+          showSearch={true}
+          showCategories={true}
+          mode="full"
+          defaultCategory="all"
+          onSelectItem={onSelectItem}
+        />
+      </IntlProvider>
     </AnalyticsListener>
   );
 };

@@ -286,7 +286,9 @@ class DatePicker extends React.Component<DatePickerProps, State> {
   };
 
   onInputClick = () => {
-    if (!this.getSafeState().isOpen) this.setState({ isOpen: true });
+    if (!this.getSafeState().isOpen) {
+      this.setState({ isOpen: true });
+    }
   };
 
   onSelectBlur = (event: React.FocusEvent<HTMLInputElement>) => {
@@ -417,7 +419,9 @@ class DatePicker extends React.Component<DatePickerProps, State> {
 
   handleInputChange = (inputValue: string, actionMeta: {}) => {
     const { onInputChange } = this.props.selectProps;
-    if (onInputChange) onInputChange(inputValue, actionMeta);
+    if (onInputChange) {
+      onInputChange(inputValue, actionMeta);
+    }
     this.setState({ inputValue });
   };
 

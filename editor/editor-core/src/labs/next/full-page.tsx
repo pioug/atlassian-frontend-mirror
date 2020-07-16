@@ -1,7 +1,7 @@
 import rafSchedule from 'raf-schd';
 import React from 'react';
 import styled from 'styled-components';
-import { colors } from '@atlaskit/theme';
+import { N30 } from '@atlaskit/theme/colors';
 import {
   withAnalyticsEvents,
   WithAnalyticsEventsProps,
@@ -105,7 +105,7 @@ const MainToolbar: React.ComponentClass<React.HTMLAttributes<{}> &
   align-items: center;
   box-shadow: ${(props: MainToolbarProps) =>
     props.showKeyline
-      ? `0 ${akEditorToolbarKeylineHeight}px 0 0 ${colors.N30}`
+      ? `0 ${akEditorToolbarKeylineHeight}px 0 0 ${N30}`
       : 'none'};
   transition: box-shadow 200ms;
   z-index: ${akEditorMenuZIndex};

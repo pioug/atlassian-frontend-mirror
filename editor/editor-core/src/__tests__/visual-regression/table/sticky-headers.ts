@@ -14,7 +14,9 @@ async function scrollToPos(page: Page, nthTable: number, offsetY = -80) {
       const table = document.querySelectorAll<HTMLElement>(
         `.ProseMirror .tableView-content-wrap`,
       )[nth];
-      if (!table) return;
+      if (!table) {
+        return;
+      }
 
       const findRoot = (element: HTMLElement): HTMLElement => {
         const parent = element.parentElement;

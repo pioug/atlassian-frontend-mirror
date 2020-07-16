@@ -6,6 +6,7 @@ import {
 } from '../_utils';
 import * as resizeAdf from './__fixtures__/renderer-media.adf.json';
 import * as commentRendererAdf from './__fixtures__/comment-renderer-media-adf.json';
+import * as wrappedCommentRendererAdf from './__fixtures__/comment-renderer-wrapped-media.adf.json';
 import * as wrappedMediaADf from './__fixtures__/wrapped-media.adf.json';
 import * as wrappedMediaSmallADF from './__fixtures__/wrapped-media-small.adf.json';
 
@@ -86,6 +87,11 @@ describe('Snapshot Test: Media', () => {
   describe('comment appearance', () => {
     it('should renderer the same size for comment apperance', async () => {
       await initRenderer(page, commentRendererAdf, undefined, 'comment');
+      await snapshotRenderer();
+    });
+
+    it('should render correct sizes for wrapped media', async () => {
+      await initRenderer(page, wrappedCommentRendererAdf, undefined, 'comment');
       await snapshotRenderer();
     });
   });

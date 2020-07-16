@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { colors } from '@atlaskit/theme';
+import * as colors from '@atlaskit/theme/colors';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
 import { EditorView } from 'prosemirror-view';
 import { Node as PMNode } from 'prosemirror-model';

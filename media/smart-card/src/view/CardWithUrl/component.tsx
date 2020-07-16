@@ -14,6 +14,7 @@ import {
   getServices,
   isFinalState,
   getClickUrl,
+  getResourceType,
 } from '../../state/helpers';
 import { useSmartLink } from '../../state';
 import { BlockCard } from '../BlockCard';
@@ -40,16 +41,12 @@ export function LazyCardWithUrlContent(props: CardWithUrlContentProps) {
   }
 }
 
-const LoadingCardLink: FC<CardWithUrlContentProps> = ({
-  isSelected,
-  url,
-  testId,
-}) => (
+const LoadingCardLink: FC<CardWithUrlContentProps> = ({ isSelected, url }) => (
   <CardLinkView
+    key={'lazy-render-key'}
+    testId={'lazy-render-placeholder'}
     isSelected={isSelected}
-    key={'lazy-render-placeholder'}
     link={url}
-    testId={testId}
   />
 );
 
@@ -108,6 +105,7 @@ export function CardWithUrlContent({
     dispatchAnalytics,
   );
   const definitionId = getDefinitionId(state.details);
+  const resourceType = getResourceType(state.details);
   const services = getServices(state.details);
 
   // Setup UI handlers.
@@ -159,6 +157,7 @@ export function CardWithUrlContent({
         id,
         state.status,
         definitionId,
+        resourceType,
         state.error,
       );
     }
@@ -168,6 +167,7 @@ export function CardWithUrlContent({
     state.status,
     state.error,
     definitionId,
+    resourceType,
     analytics.operational,
   ]);
 

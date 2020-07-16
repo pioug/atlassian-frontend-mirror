@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
+import React, { FC } from 'react';
 
-import Avatar, { AvatarPropTypes } from '@atlaskit/avatar';
-import { DropdownItem } from '@atlaskit/dropdown-menu';
+import Avatar from '@atlaskit/avatar';
+import { ButtonItem, LinkItem } from '@atlaskit/menu';
 
-import { onAvatarClickHandler } from './types';
+import { AvatarProps, onAvatarClickHandler } from './types';
 
 export interface AvatarGroupItemProps {
-  avatar: AvatarPropTypes;
+  avatar: AvatarProps;
   isActive?: boolean;
   isHover?: boolean;
   index: number;
@@ -14,36 +14,51 @@ export interface AvatarGroupItemProps {
   testId?: string;
 }
 
-class AvatarGroupItem extends Component<AvatarGroupItemProps> {
-  render() {
-    const { avatar, onAvatarClick, testId, index } = this.props;
-    const { href, ...rest } = avatar;
-    const enhancedProps = this.props;
-    return (
-      <DropdownItem
-        isInteractive
-        {...enhancedProps}
-        elemBefore={
-          <Avatar
-            {...rest}
-            testId={testId && `${testId}--avatar`}
-            borderColor="transparent"
-            size="small"
-          />
-        }
-        href={href}
-        onClick={(event: React.MouseEvent) => {
-          if (typeof onAvatarClick === 'function') {
-            onAvatarClick(event, undefined, index);
-          }
-        }}
-        rel={avatar.target ? 'noopener noreferrer' : null}
-        target={avatar.target}
-      >
-        {avatar.name}
-      </DropdownItem>
-    );
-  }
-}
+const AvatarGroupItem: FC<AvatarGroupItemProps> = ({
+  avatar,
+  onAvatarClick,
+  testId,
+  index,
+}) => {
+  const { href, onClick, ...rest } = avatar;
+
+  const AvatarIcon = (
+    <Avatar
+      {...rest}
+      testId={testId && `${testId}--avatar`}
+      borderColor="transparent"
+      size="small"
+    />
+  );
+
+  return href ? (
+    <LinkItem
+      href={href}
+      target={avatar.target}
+      rel={avatar.target === '_blank' ? 'noopener noreferrer' : undefined}
+      iconBefore={AvatarIcon}
+      testId={testId}
+    >
+      {avatar.name}
+    </LinkItem>
+  ) : (
+    <ButtonItem
+      onClick={
+        typeof onAvatarClick === 'function'
+          ? event =>
+              onAvatarClick(
+                event as React.MouseEvent<Element>,
+                undefined,
+                index,
+              )
+          : undefined
+      }
+      iconBefore={AvatarIcon}
+      testId={testId}
+    >
+      {avatar.name}
+    </ButtonItem>
+  );
+};
 
 export default AvatarGroupItem;

@@ -1,5 +1,52 @@
 # @atlaskit/editor-common
 
+## 48.0.0
+
+### Major Changes
+
+- [`faf010cbc3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/faf010cbc3) - ED-9212: Add support for extension auto convert
+
+  ## Breaking changes:
+
+  Renamed the following exports from '@atlaskit/editor-common/extensions':
+
+  - from `ExtensionModuleType` to `ExtensionQuickInsertModule`;
+  - from `getItemsFromModule` to `getQuickInsertItemsFromModule`,
+
+  Renamed the following exports from '@atlaskit/editor-common':
+
+  - from `ExtensionModuleType` to `ExtensionQuickInsertModule`;
+
+### Minor Changes
+
+- [`7649595644`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7649595644) - Add placeholder prop to Select, String, Number, Date and Custom fields in extension field definitions
+- [`a70c826d0b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a70c826d0b) - [TWISTER-77] Creates Inline Comments on Renderer mode
+- [`93829e7c90`](https://bitbucket.org/atlassian/atlassian-frontend/commits/93829e7c90) - [TWISTER-162] Inline Comments on Renderer can have draft marks
+
+  There is a new feature flag inside of the Annotation Providers. Hence, we can, for example, enable draft mode inside of the Inline Comments,
+  like this:
+
+  ```
+  const annotationProviders = {
+    allowDraftMode?: boolean;
+    selectionComponent?: React.ComponentType<
+      {
+        [...]
+        applyDraftMode: () => void;
+        removeDraftMode: () => void;
+      }
+    >;
+  };
+  ```
+
+  If the feature flag 'allowDraftMode' is true. You will be able to use the props `applyDraftMode` and `removeDraftMode` on your SelectionComponent. Nothing will happen if you Call those methods when the flag is `false` or undefined.
+
+### Patch Changes
+
+- [`36e4b8e6c8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/36e4b8e6c8) - Fix width for media when wrapped width is not available
+- [`3a4c70dedd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3a4c70dedd) - ED-9526: Fix date comparisons for dates in actions
+- Updated dependencies
+
 ## 47.0.0
 
 ### Major Changes

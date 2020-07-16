@@ -49,32 +49,57 @@ const getBorderColors = (props: DateProps) =>
   props.focused ? getBorderColorFocused(props) : getTransparent(props);
 
 function getBackgroundColor(props: DateProps) {
-  if (props.selected) return selectedBackground(props);
-  if (props.previouslySelected) return prevSelectedBackground(props);
+  if (props.selected) {
+    return selectedBackground(props);
+  }
+  if (props.previouslySelected) {
+    return prevSelectedBackground(props);
+  }
   return getTransparent(props);
 }
 
 function getColor(props: DateProps) {
-  if (props.disabled) return textDisabled(props);
-  if (props.selected) return textSelected(props);
-  if (props.previouslySelected) return textPreviouslySelected(props);
-  if (props.isToday) return colors.primary(props);
-  if (props.sibling) return textSibling(props);
+  if (props.disabled) {
+    return textDisabled(props);
+  }
+  if (props.selected) {
+    return textSelected(props);
+  }
+  if (props.previouslySelected) {
+    return textPreviouslySelected(props);
+  }
+  if (props.isToday) {
+    return colors.primary(props);
+  }
+  if (props.sibling) {
+    return textSibling(props);
+  }
   return colors.text(props);
 }
 
 function getHoverBackgroundColor(props: DateProps) {
-  if (props.disabled) return getTransparent(props);
-  if (props.previouslySelected) return hoverPreviouslySelectedBackground(props);
-  if (props.isActive) return isActiveBackground(props);
+  if (props.disabled) {
+    return getTransparent(props);
+  }
+  if (props.previouslySelected) {
+    return hoverPreviouslySelectedBackground(props);
+  }
+  if (props.isActive) {
+    return isActiveBackground(props);
+  }
   return hoverBackground(props);
 }
 
 const getHoverColor = (props: DateProps) => {
-  if (props.sibling) return textSibling(props);
-  if (props.disabled) return textDisabled(props);
-  if (props.selected || props.previouslySelected || props.isActive)
+  if (props.sibling) {
+    return textSibling(props);
+  }
+  if (props.disabled) {
+    return textDisabled(props);
+  }
+  if (props.selected || props.previouslySelected || props.isActive) {
     return textHoverSelected(props);
+  }
   return colors.text(props);
 };
 

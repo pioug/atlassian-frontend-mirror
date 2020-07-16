@@ -1,2 +1,2 @@
-export * from './blocks';
-export * from './containers';
+export { Block, MovesRightBlock } from './blocks';
+export { Centered, RetryContainer } from './containers';

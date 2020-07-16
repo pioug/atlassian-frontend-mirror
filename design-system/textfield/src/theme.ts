@@ -193,7 +193,9 @@ const getPlaceholderStyle = (props: ThemeProps) => ({
 });
 
 const getMaxWidth = ({ width }: ThemeProps) => {
-  if (!width) return `100%`;
+  if (!width) {
+    return `100%`;
+  }
   switch (width) {
     case 'xsmall':
       return '80px';

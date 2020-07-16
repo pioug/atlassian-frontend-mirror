@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "before "
+        },
+        {
+          "type": "notastatus",
+          "attrs": {
+            "text": "status text",
+            "color": "yellow",
+            "localId": "adbe9016-5da4-4aba-8fee-4ed40de4ba05",
+            "style": ""
+          }
+        },
+        {
+          "type": "text",
+          "text": " after  "
+        }
+      ]
+    }
+  ]
+}

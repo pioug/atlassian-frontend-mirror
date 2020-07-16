@@ -68,7 +68,9 @@ export default class RadioGroup extends Component<RadioGroupProps, State> {
   buildOptions = (): RadioElementArray => {
     const { options, isDisabled, isRequired, onInvalid, name } = this.props;
     const value = this.getProp('value');
-    if (!options.length) return [];
+    if (!options.length) {
+      return [];
+    }
 
     return options.map(
       ({ testId, ...optionProps }: OptionPropType, index: number) => {

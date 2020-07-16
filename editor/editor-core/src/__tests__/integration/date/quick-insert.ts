@@ -10,7 +10,7 @@ const dateLozenge = 'span[timestamp]';
 
 BrowserTestCase(
   'quick-insert.ts: Insert date via quick insert',
-  { skip: ['firefox', 'edge', 'ie'] },
+  { skip: ['firefox', 'edge'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
 
@@ -43,7 +43,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   "quick-insert.ts: Uses today's date in user's local timezone as initial selection",
-  { skip: ['firefox', 'edge', 'ie', 'safari'] },
+  { skip: ['firefox', 'edge', 'safari'] },
   async (client: any) => {
     const page = await goToEditorTestingExample(client);
 
@@ -73,7 +73,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'quick-insert.ts: format date to localized version',
-  { skip: ['firefox', 'edge', 'ie', 'safari'] },
+  { skip: ['firefox', 'edge', 'safari'] },
   async (client: any) => {
     const page = await goToEditorTestingExample(client);
     await loadLocale(page, ['pt', 'es']);

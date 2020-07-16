@@ -4,6 +4,7 @@ import { MediaClientConfig } from '@atlaskit/media-core';
 import { GridType } from '../../plugins/grid/types';
 import { EditorView } from 'prosemirror-view';
 import { getPosHandler } from '../../nodeviews/types';
+import { DispatchAnalyticsEvent } from '../../plugins/analytics';
 
 export type EnabledHandles = { left?: boolean; right?: boolean };
 
@@ -19,6 +20,7 @@ export type Props = MediaSingleProps & {
   lineLength: number;
   gridSize: number;
   containerWidth: number;
+  dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
   allowBreakoutSnapPoints?: boolean;
   selected?: boolean;
   viewMediaClientConfig?: MediaClientConfig;

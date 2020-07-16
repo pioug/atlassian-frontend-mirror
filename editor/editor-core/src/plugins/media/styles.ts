@@ -8,7 +8,8 @@ import {
   akEditorMediaResizeHandlerPaddingWide,
   akEditorMediaResizeHandlerPadding,
 } from '@atlaskit/editor-common';
-import { colors } from '@atlaskit/theme';
+
+import { N60, B200 } from '@atlaskit/theme/colors';
 import { akEditorSelectedNodeClassName } from '../../styles';
 
 export const mediaStyles = css`
@@ -99,7 +100,7 @@ export const mediaStyles = css`
 
   .${richMediaClassName}:hover .richMedia-resize-handle-left::after,
   .${richMediaClassName}:hover .richMedia-resize-handle-right::after {
-    background: ${colors.N60};
+    background: ${N60};
   }
 
   .${akEditorSelectedNodeClassName} .richMedia-resize-handle-right::after,
@@ -108,7 +109,7 @@ export const mediaStyles = css`
   .${richMediaClassName} .richMedia-resize-handle-left:hover::after,
   .${richMediaClassName}.is-resizing .richMedia-resize-handle-right::after,
   .${richMediaClassName}.is-resizing .richMedia-resize-handle-left::after {
-    background: ${colors.B200};
+    background: ${B200};
   }
 
   .__resizable_base__ {

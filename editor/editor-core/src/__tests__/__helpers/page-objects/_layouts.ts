@@ -7,6 +7,7 @@ export const layoutSelectors = {
   section: '[data-layout-section]',
   column: '[data-layout-column]',
   active: '[data-layout-section].selected',
+  removeButton: 'button[aria-label="Remove"]',
 };
 
 function getLayoutSelector(columWidthPercentages = [50, 50]) {

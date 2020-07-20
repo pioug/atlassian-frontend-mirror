@@ -10,7 +10,10 @@ import {
   RESIZE_BUTTON_SELECTOR,
 } from '../../common/constants';
 
-export const resizeControlCSS = (setIsGrabAreaFocused: boolean): CSSObject => ({
+export const resizeControlCSS = (
+  setIsGrabAreaFocused: boolean,
+  isLeftSidebarCollapsed: boolean,
+): CSSObject => ({
   left: '100%',
   top: 0,
   bottom: 0,
@@ -42,7 +45,7 @@ export const resizeControlCSS = (setIsGrabAreaFocused: boolean): CSSObject => ({
   },
 
   [`[${RESIZE_BUTTON_SELECTOR}]`]: {
-    opacity: setIsGrabAreaFocused ? 1 : 0,
+    opacity: setIsGrabAreaFocused || isLeftSidebarCollapsed ? 1 : 0,
   },
 });
 

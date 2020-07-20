@@ -48,7 +48,7 @@ const ResizeControl = ({
     leftSidebarState,
     setLeftSidebarState,
   } = usePageLayoutResize();
-  const { isLeftSidebarCollapsed, isResizing } = leftSidebarState;
+  const { isLeftSidebarCollapsed, isResizing, isFlyoutOpen } = leftSidebarState;
   const x = useRef(leftSidebarState[LEFT_SIDEBAR_WIDTH]);
   // Distance of mouse from left sidebar onMouseDown
   const offset = useRef(0);
@@ -294,7 +294,10 @@ const ResizeControl = ({
 
   /* eslint-disable jsx-a11y/role-supports-aria-props */
   return (
-    <div {...cssSelector} css={resizeControlCSS(isGrabAreaFocused)}>
+    <div
+      {...cssSelector}
+      css={resizeControlCSS(isGrabAreaFocused, isLeftSidebarCollapsed)}
+    >
       <Shadow testId={testId && `${testId}-shadow`} />
       <GrabArea
         role="separator"
@@ -309,7 +312,7 @@ const ResizeControl = ({
         onBlur={onBlur}
         testId={testId && `${testId}-grab-area`}
         isLeftSidebarCollapsed={isLeftSidebarCollapsed}
-        disabled={isLeftSidebarCollapsed}
+        disabled={isLeftSidebarCollapsed && !isFlyoutOpen}
       />
       {resizeButton.render(ResizeButton, {
         isLeftSidebarCollapsed,

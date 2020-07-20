@@ -33,7 +33,7 @@ export default function ProductLayout() {
       >
         <TopNavigationContents />
       </TopNavigation>
-      <Content>
+      <Content testId="content">
         <LeftSidebar
           isFixed={false}
           width={450}

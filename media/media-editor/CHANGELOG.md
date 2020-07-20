@@ -1,5 +1,13 @@
 # @atlaskit/media-editor
 
+## 38.0.1
+
+### Patch Changes
+
+- [`6315a0658d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6315a0658d) - Add class name to SmartMediaEditor default export
+
+  This fixes a build issue in the Confluence Frontend pipeline
+
 ## 38.0.0
 
 ### Major Changes

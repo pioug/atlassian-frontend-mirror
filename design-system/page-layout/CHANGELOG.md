@@ -1,5 +1,11 @@
 # @atlaskit/page-layout
 
+## 0.9.1
+
+### Patch Changes
+
+- [`0d72fedadb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0d72fedadb) - Left-sidebar fixed content will occupy 100% height"
+
 ## 0.9.0
 
 ### Minor Changes

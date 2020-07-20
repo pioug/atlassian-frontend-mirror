@@ -6,9 +6,9 @@ import {
 
 declare var global: any;
 
-describe.skip('<LeftSidebar />', () => {
+describe('<LeftSidebar />', () => {
   const controlSidebar = async (sidebarState: 'expand' | 'collapse') => {
-    const resizeControl = "[data-testid='left-sidebar-resize-button']";
+    const resizeControl = "[data-resize-button='true']";
     const { page } = global;
 
     const isSidebarExpanded =
@@ -122,16 +122,16 @@ describe.skip('<LeftSidebar />', () => {
 
   it('should clip off the left-sidebar content on resizing towards left', async () => {
     const { page } = global;
-    const grabArea = "[data-testid='leftSidebar-grab-area']";
+    const grabArea = "[data-testid='left-sidebar-grab-area']";
     const content = "[data-testid='content']";
 
-    await openExamplesAndWaitFor('stickied-element', content);
+    await openExamplesAndWaitFor('resize-sidebar', content);
 
     const grabAreaElement = await page.$(grabArea);
     const { x, y } = await grabAreaElement.boundingBox();
     page.mouse.move(x, y);
     page.mouse.down();
-    page.mouse.move(x - 130, y);
+    page.mouse.move(x - 325, y);
     await page.waitFor(300);
 
     const screenshot = await takeElementScreenShot(global.page, content);
@@ -182,6 +182,40 @@ describe.skip('<LeftSidebar />', () => {
       return document.querySelector(selector).scrollBy(0, 100);
     }, leftSidbar);
 
+    const screenshot = await takeElementScreenShot(global.page, content);
+    expect(screenshot).toMatchProdImageSnapshot();
+  });
+
+  it('should match the snapshot before and after closing flyout by moving mouse out of the left-sidebar', async () => {
+    const { page } = global;
+    const content = "[data-testid='content']";
+    const grabArea = "[data-testid='left-sidebar-grab-area']";
+    await openExamplesAndWaitFor('resize-sidebar', content);
+
+    // collapse sidebar
+    await controlSidebar('collapse');
+
+    // open flyout
+    const grabAreaElement = await page.$(grabArea);
+    const { x, y } = await grabAreaElement.boundingBox();
+    await page.mouse.move(x + 1, y + 200);
+    await page.waitFor(500);
+
+    const screenshot1 = await takeElementScreenShot(global.page, content);
+    expect(screenshot1).toMatchProdImageSnapshot();
+
+    // close flyout by moving the mouse outside the left-sidbar
+    page.mouse.move(400, 200);
+    await page.waitFor(300);
+
+    const screenshot2 = await takeElementScreenShot(global.page, content);
+    expect(screenshot2).toMatchProdImageSnapshot();
+  });
+
+  it('should match the snapshot of left sidebar content height 100%', async () => {
+    const content = "[data-testid='content']";
+    await openExamplesAndWaitFor('integration-example', content);
+    await controlSidebar('expand');
     const screenshot = await takeElementScreenShot(global.page, content);
     expect(screenshot).toMatchProdImageSnapshot();
   });

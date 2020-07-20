@@ -503,7 +503,9 @@ export class SmartMediaEditor extends React.Component<
   }
 }
 
-export default class extends React.Component<SmartMediaEditorProps> {
+export default class SmartMediaEditorWithAnalytics extends React.Component<
+  SmartMediaEditorProps
+> {
   render() {
     const Component = withAnalyticsContext({
       packageName,

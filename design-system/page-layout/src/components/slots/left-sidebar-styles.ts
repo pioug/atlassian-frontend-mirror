@@ -133,5 +133,6 @@ const hideLeftSidebarContents: CSSObject = {
 };
 
 export const fixedChildrenWrapperStyle: CSSObject = {
+  height: '100%',
   minWidth: '240px',
 };

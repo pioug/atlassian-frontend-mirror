@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { IntlProvider, intlShape } from 'react-intl';
 import { Subscription } from 'rxjs/Subscription';
 import { DynamicTableStateless } from '@atlaskit/dynamic-table';
@@ -20,6 +21,7 @@ import {
   FileIdentifier,
 } from '../types';
 import { generateRowValues, getValidTableProps } from '../util';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { withAnalyticsEvents } from '@atlaskit/analytics-next';
 import { ANALYTICS_MEDIA_CHANNEL } from '@atlaskit/media-viewer/src/components/media-viewer-analytics-error-boundary';
 

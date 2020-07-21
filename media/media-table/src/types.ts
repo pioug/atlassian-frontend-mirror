@@ -5,6 +5,7 @@ import {
 } from '@atlaskit/media-client';
 import { HeadType } from '@atlaskit/dynamic-table/types';
 import { SortOrderType } from '@atlaskit/dynamic-table/types';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 export { SortOrderType };

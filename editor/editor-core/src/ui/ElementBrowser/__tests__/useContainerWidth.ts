@@ -5,6 +5,7 @@ jest.mock('../hooks/useContainerWidth', () => () => ({
   ContainerWidthMonitor: jest.fn(),
 }));
 
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { renderHook } from '@testing-library/react-hooks';
 import { DEVICE_BREAKPOINT_NUMBERS } from '../constants';
 import useContainerWidth from '../hooks/useContainerWidth';

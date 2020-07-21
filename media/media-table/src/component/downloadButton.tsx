@@ -1,9 +1,11 @@
 import React from 'react';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { injectIntl, InjectedIntlProps } from 'react-intl';
 import { N40 } from '@atlaskit/theme/colors';
 import DownloadIcon from '@atlaskit/icon/glyph/download';
 import Button from '@atlaskit/button';
 import { messages } from '@atlaskit/media-ui';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 interface Props {

@@ -1,4 +1,4 @@
-import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
+import { BetaBrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import { BrowserObject } from '@atlaskit/webdriver-runner/wd-wrapper';
 
 import { gotoCardFilesMockedPage } from '../_pages/card-files-mocked-page';
@@ -8,13 +8,17 @@ const cardWithContextIdSelector = '[data-testid="media-card-with-context-id"]';
 const cardStandardSelectorWithMediaViewer = `[data-testid="media-card-standard-with-media-viewer"]`;
 const cardStandardLoading = '[data-testid="media-card-loading-card"]';
 
-BrowserTestCase('MediaCard - load image', {}, async (client: BrowserObject) => {
-  const page = await gotoCardFilesMockedPage(client);
+BetaBrowserTestCase(
+  'MediaCard - load image',
+  {},
+  async (client: BrowserObject) => {
+    const page = await gotoCardFilesMockedPage(client);
 
-  expect(await page.isCardLoadedSuccessful(cardStandardSelector)).toBe(true);
-});
+    expect(await page.isCardLoadedSuccessful(cardStandardSelector)).toBe(true);
+  },
+);
 
-BrowserTestCase(
+BetaBrowserTestCase(
   'MediaCard - load image with contextId',
   {},
   async (client: BrowserObject) => {
@@ -26,7 +30,7 @@ BrowserTestCase(
   },
 );
 
-BrowserTestCase(
+BetaBrowserTestCase(
   'MediaCard - load image and launch media viewer',
   {},
   async (client: BrowserObject) => {
@@ -40,7 +44,7 @@ BrowserTestCase(
   },
 );
 
-BrowserTestCase(
+BetaBrowserTestCase(
   'MediaCard - renders loading card',
   {},
   async (client: BrowserObject) => {

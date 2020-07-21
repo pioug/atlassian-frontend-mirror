@@ -1,8 +1,9 @@
 import React, { ReactNode, SFC, useEffect, useState } from 'react';
 
-import DynamicTable from '../src';
-
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { v4 as uuid } from 'uuid';
+
+import DynamicTable from '../src';
 
 const caption = 'Example issue with DynamicTable';
 

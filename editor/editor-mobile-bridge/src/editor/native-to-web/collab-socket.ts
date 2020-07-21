@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { EventEmitter2 } from 'eventemitter2';
 import { toNativeBridge } from '../web-to-native';
 import { Socket } from '@atlaskit/collab-provider/types';

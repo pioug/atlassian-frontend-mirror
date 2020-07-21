@@ -1,5 +1,13 @@
 # @atlaskit/modal-dialog
 
+## 11.0.2
+
+### Patch Changes
+
+- [`9796654bab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9796654bab) - The button sequence correction has been reverted as it was causing unintended regressions for some use cases. Affected versions include: @atlaskit/modal-dialog@11.0.1.
+
+  This change will be re-introduced in a future major version, please follow this ticket for updates https://product-fabric.atlassian.net/browse/DST-660.
+
 ## 11.0.1
 
 ### Patch Changes

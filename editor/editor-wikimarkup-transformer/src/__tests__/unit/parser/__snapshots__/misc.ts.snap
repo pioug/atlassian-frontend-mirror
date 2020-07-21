@@ -1,5 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`JIRA wiki markup - Misc :puppy: should not be an emoji clusterfuck 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": ":puppy:",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
 exports[`JIRA wiki markup - Misc [CS-480] this is not a list 1`] = `
 Object {
   "content": Array [
@@ -49,6 +66,140 @@ Object {
   "content": Array [
     Object {
       "type": "rule",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Misc an emoji at the end of line should still be emoji 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "hello",
+          "type": "text",
+        },
+        Object {
+          "attrs": Object {
+            "id": "1f642",
+            "shortName": ":slight_smile:",
+            "text": "🙂",
+          },
+          "type": "emoji",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Misc an emoji itself should work too 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "attrs": Object {
+            "id": "1f642",
+            "shortName": ":slight_smile:",
+            "text": "🙂",
+          },
+          "type": "emoji",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Misc an emoji with characters after should not be an emoji 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": ":)hello",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Misc an emoji with characters before and after should not be an emoji 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "hello:)hello",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Misc an emoji with characters before and after with a whitespace should be an emoji 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "hello",
+          "type": "text",
+        },
+        Object {
+          "attrs": Object {
+            "id": "1f642",
+            "shortName": ":slight_smile:",
+            "text": "🙂",
+          },
+          "type": "emoji",
+        },
+        Object {
+          "text": " hello",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Misc an emoji with characters before should still be an emoji 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "hello",
+          "type": "text",
+        },
+        Object {
+          "attrs": Object {
+            "id": "1f642",
+            "shortName": ":slight_smile:",
+            "text": "🙂",
+          },
+          "type": "emoji",
+        },
+      ],
+      "type": "paragraph",
     },
   ],
   "type": "doc",

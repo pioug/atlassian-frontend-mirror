@@ -5,6 +5,7 @@ jest.mock('dateformat', () => ({
 import { HeadType } from '@atlaskit/dynamic-table/types';
 
 import React from 'react';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { IntlProvider } from 'react-intl';
 import { mount } from 'enzyme';
 import * as MediaClientModule from '@atlaskit/media-client';

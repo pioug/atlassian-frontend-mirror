@@ -147,7 +147,6 @@ export const Footer = styled.footer<FooterProps>`
 
 export const Actions = styled.div`
   display: inline-flex;
-  flex-direction: row-reverse;
   margin: 0 -${divide(gridSize, 2)}px;
 `;
 

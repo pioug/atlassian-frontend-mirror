@@ -7,6 +7,7 @@ import {
   AnnotationUpdateEmitter,
   AnnotationUpdateEvent,
 } from '@atlaskit/editor-common';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { MentionProvider } from '@atlaskit/mention/types';
 import { MediaProvider as MediaProviderType } from '@atlaskit/editor-common/provider-factory';

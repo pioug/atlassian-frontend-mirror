@@ -1,6 +1,7 @@
 import { Step } from 'prosemirror-transform';
 
 import { AnnotationId, AnnotationTypes } from '@atlaskit/adf-schema';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { JSONDocNode } from '@atlaskit/editor-json-transformer';
 
 import {

@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { act, create, ReactTestRenderer } from 'react-test-renderer';
 import { FetchProxy, useFetchProxy } from '../../fetch-proxy';
 import { isApple } from '../../is-apple';

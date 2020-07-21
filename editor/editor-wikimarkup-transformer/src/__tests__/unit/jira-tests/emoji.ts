@@ -84,13 +84,13 @@ describe('WikiMarkup Transformer', () => {
   });
 
   describe('info emoji', () => {
-    const WIKI_NOTATION = `(i)&nbsp;`;
+    const WIKI_NOTATION = `(i) &nbsp;`;
 
     checkParseEncodeRoundTrips(
       WIKI_NOTATION,
       defaultSchema,
       WIKI_NOTATION,
-      doc(p(emoji(findEmojiConfig('(i)'))(), '&nbsp;')),
+      doc(p(emoji(findEmojiConfig('(i)'))(), ' &nbsp;')),
     );
   });
 

@@ -10,6 +10,19 @@ describe('JIRA wiki markup - Misc', () => {
       'should find emojis in text with marks',
       'this is a string ~with :) emojis~ in it (*) tada',
     ],
+    ['an emoji itself should work too', ':)'],
+    [':puppy: should not be an emoji clusterfuck', ':puppy:'],
+    ['an emoji with characters after should not be an emoji', ':)hello'],
+    ['an emoji with characters before should still be an emoji', 'hello:)'],
+    ['an emoji at the end of line should still be emoji', 'hello:)\n'],
+    [
+      'an emoji with characters before and after should not be an emoji',
+      'hello:)hello',
+    ],
+    [
+      'an emoji with characters before and after with a whitespace should be an emoji',
+      'hello:) hello',
+    ],
     [
       'should find emojis and mentions in text',
       'this is a string with :) emojis and [~username] mentions',

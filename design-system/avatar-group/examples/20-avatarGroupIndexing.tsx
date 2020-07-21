@@ -1,13 +1,14 @@
 import React, { FC, useState } from 'react';
 
+// eslint-disable-next-line import/no-extraneous-dependencies
+import shuffle from 'lodash/shuffle';
+
 import { AppearanceType, SizeType } from '@atlaskit/avatar';
 import Button, { ButtonGroup } from '@atlaskit/button';
 
 import { RANDOM_USERS } from '../examples-util/data';
 import { Note } from '../examples-util/helpers';
 import AvatarGroup from '../src';
-
-import shuffle from 'lodash/shuffle';
 
 type State = {
   avatarCount: number;

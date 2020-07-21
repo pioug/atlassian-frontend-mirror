@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import Button from '@atlaskit/button';
 import LinkIcon from '@atlaskit/icon/glyph/link';
 import { gridSize } from '@atlaskit/theme/constants';

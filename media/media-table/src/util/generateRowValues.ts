@@ -3,6 +3,7 @@ import {
   HeadCellType,
   RowCellType,
 } from '@atlaskit/dynamic-table/types';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import memoizeOne from 'memoize-one';
 
 function generateEmptyRows(

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import RendererDemo from './helper/RendererDemo';
 import { RadioGroup } from '@atlaskit/radio';
 import nestedHeadersAdf from '../src/__tests__/__fixtures__/nested-headings-adf.json';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import debounce from 'lodash.debounce';
 import { OptionsPropType } from '@atlaskit/radio/types';
 import Button from '@atlaskit/button';

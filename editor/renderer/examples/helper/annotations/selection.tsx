@@ -1,6 +1,7 @@
 import React from 'react';
 import Button from '@atlaskit/button';
 import AddCommentIcon from '@atlaskit/icon/glyph/comment';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import uuid from 'uuid/v4';
 import { InlineCommentSelectionComponentProps } from '@atlaskit/editor-common';
 import styled from 'styled-components';

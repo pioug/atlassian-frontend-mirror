@@ -1,17 +1,19 @@
 import React from 'react';
 
-import ProductExample from './perf-example';
-
+// eslint-disable-next-line import/no-extraneous-dependencies
 import {
   findByTestId,
   findByText,
   fireEvent,
   getByTestId,
 } from '@testing-library/dom';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import {
   InteractionTaskArgs,
   PublicInteractionTask,
 } from 'storybook-addon-performance';
+
+import ProductExample from './perf-example';
 
 export default {
   title: 'Examples',

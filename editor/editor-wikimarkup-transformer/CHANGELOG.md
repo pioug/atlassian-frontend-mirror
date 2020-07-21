@@ -1,5 +1,11 @@
 # @atlaskit/editor-wikimarkup-transformer
 
+## 7.1.0
+
+### Minor Changes
+
+- [`5b4f43d395`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5b4f43d395) - CS-2987 basic emojis now behave the same way as in wiki renderer
+
 ## 7.0.0
 
 ### Major Changes

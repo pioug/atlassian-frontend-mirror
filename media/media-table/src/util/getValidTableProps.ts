@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 import memoizeOne from 'memoize-one';
 import { ValidatedProps } from '../types';
 

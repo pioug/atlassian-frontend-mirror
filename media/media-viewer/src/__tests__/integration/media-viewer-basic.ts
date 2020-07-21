@@ -1,4 +1,4 @@
-import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
+import { BetaBrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 import { getExampleUrl } from '@atlaskit/visual-regression/helper';
 import { MediaViewerPageObject } from '@atlaskit/media-integration-test-helpers';
@@ -27,7 +27,7 @@ const openMediaViewer = async (client: WebDriverIOBrowser) => {
   return mediaViewer;
 };
 
-BrowserTestCase(
+BetaBrowserTestCase(
   'media-viewer-basic.ts: Navigation should navigate back and forth',
   {},
   async (client: WebDriverIOBrowser) => {
@@ -66,7 +66,7 @@ BrowserTestCase(
   },
 );
 
-BrowserTestCase(
+BetaBrowserTestCase(
   'media-viewer-basic.ts: Should close on Close click',
   {},
   async (client: ConstructorParameters<typeof Page>[0]) => {
@@ -75,7 +75,7 @@ BrowserTestCase(
   },
 );
 
-BrowserTestCase(
+BetaBrowserTestCase(
   'media-viewer-basic.ts: Should close on Escape press',
   {},
   async (client: ConstructorParameters<typeof Page>[0]) => {

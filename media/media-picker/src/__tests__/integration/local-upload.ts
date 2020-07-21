@@ -1,10 +1,10 @@
 import * as path from 'path';
 import { MediaMockControlsBackdoor } from '@atlaskit/media-test-helpers';
-import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
+import { BetaBrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 
 import { gotoPopupSimplePage } from '../../../pages/popup-simple-page';
 
-BrowserTestCase(
+BetaBrowserTestCase(
   'local-upload.ts: MediaPicker - insert newly fully uploaded file',
   // Skipping safari because of ongoing issue (comms via email with support) with Browserstack atm
   { skip: ['safari'] },
@@ -35,7 +35,7 @@ BrowserTestCase(
   },
 );
 
-BrowserTestCase(
+BetaBrowserTestCase(
   'local-upload.ts: MediaPicker - insert a file before it finished uploading',
   // Skipping safari because of ongoing issue (comms via email with support) with Browserstack atm
   { skip: ['safari'] },

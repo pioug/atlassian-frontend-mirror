@@ -54,7 +54,7 @@ export default class ModalFooter extends React.Component<FooterProps, {}> {
 
                 return (
                   <ActionItem key={index}>
-                    <Button {...rest} appearance={variant}>
+                    <Button appearance={variant} {...rest}>
                       {text}
                     </Button>
                   </ActionItem>

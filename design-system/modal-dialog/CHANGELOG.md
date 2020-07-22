@@ -1,5 +1,13 @@
 # @atlaskit/modal-dialog
 
+## 11.0.3
+
+### Patch Changes
+
+- [`5b5e7b6323`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5b5e7b6323) - The previous hotfix (https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3781) didn't fix the appearance override issue.
+
+  This change will be re-introduced in a future major version, please follow this ticket for updates https://product-fabric.atlassian.net/browse/DST-660.
+
 ## 11.0.2
 
 ### Patch Changes

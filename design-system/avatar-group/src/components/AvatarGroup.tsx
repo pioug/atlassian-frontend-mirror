@@ -163,7 +163,7 @@ const AvatarGroup = ({
       },
     ) => (
       <MoreIndicator
-        {...showMoreButtonProps}
+        buttonProps={showMoreButtonProps}
         borderColor={borderColor}
         count={total - max}
         size={size}

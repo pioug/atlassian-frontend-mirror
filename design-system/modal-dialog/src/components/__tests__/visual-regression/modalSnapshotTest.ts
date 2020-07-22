@@ -32,6 +32,24 @@ describe('Snapshot Test', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 
+  //
+  it('User can use appearance to override button sequence as a walk-around', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'modal-dialog',
+      'appearance-override',
+      global.__BASEURL__,
+    );
+    const { page } = global;
+
+    await loadPage(page, url);
+    await page.waitForSelector(openModalBtn);
+    await page.click(openModalBtn);
+    await page.waitForSelector(modalDialog);
+    const image = await takeElementScreenShot(page, modalDialog);
+    expect(image).toMatchProdImageSnapshot();
+  });
+
   it('Basic example with primary button on right should match production example', async () => {
     const url = getExampleUrl(
       'design-system',

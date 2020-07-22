@@ -1,5 +1,11 @@
 # @atlaskit/avatar-group
 
+## 8.0.1
+
+### Patch Changes
+
+- [`ab9503b252`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ab9503b252) - Ensure moreButtonProps is passed through to the MoreButton
+
 ## 8.0.0
 
 ### Major Changes

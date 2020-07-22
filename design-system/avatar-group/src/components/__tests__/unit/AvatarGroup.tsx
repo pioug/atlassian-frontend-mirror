@@ -213,6 +213,46 @@ describe('<AvatarGroup />', () => {
     expect(onClick).toHaveBeenCalledWith(expect.anything(), undefined, 3);
   });
 
+  it('onClick handlers provided via showMoreButtonProps should still open the dropdown', () => {
+    const onClick = jest.fn();
+    const { getByTestId, queryByTestId } = render(
+      <AvatarGroup
+        testId="test"
+        data={generateData(4)}
+        maxCount={3}
+        showMoreButtonProps={{
+          onClick,
+        }}
+      />,
+    );
+
+    fireEvent.click(getByTestId('test--overflow-menu--trigger'));
+
+    expect(
+      queryByTestId('test--avatar-group-item-3--avatar--inner'),
+    ).toBeTruthy();
+    expect(onClick).toHaveBeenCalled();
+  });
+
+  it('onMoreClick should not open the dropdown', () => {
+    const onClick = jest.fn();
+    const { getByTestId, queryByTestId } = render(
+      <AvatarGroup
+        testId="test"
+        data={generateData(4)}
+        maxCount={3}
+        onMoreClick={onClick}
+      />,
+    );
+
+    fireEvent.click(getByTestId('test--overflow-menu--trigger'));
+
+    expect(
+      queryByTestId('test--avatar-group-item-3--avatar--inner'),
+    ).not.toBeTruthy();
+    expect(onClick).toHaveBeenCalled();
+  });
+
   it('should pass the index of the avatar when onAvatarClicked is fired', () => {
     const onClick = jest.fn();
     const { getByTestId } = render(

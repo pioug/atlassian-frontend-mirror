@@ -1,10 +1,11 @@
 /** @jsx jsx */
-import { forwardRef } from 'react';
+import { forwardRef, useCallback } from 'react';
 
 import { ClassNames, jsx } from '@emotion/core';
 
 import Avatar, {
   AppearanceType,
+  AvatarClickEventHandler,
   AvatarPropTypes,
   SizeType,
 } from '@atlaskit/avatar';
@@ -24,6 +25,8 @@ export interface MoreIndicatorProps extends AvatarPropTypes {
   'aria-controls'?: string;
   'aria-expanded'?: boolean;
   'aria-haspopup'?: boolean;
+  buttonProps: Partial<React.HTMLAttributes<HTMLElement>>;
+  onClick: AvatarClickEventHandler;
 }
 
 const MAX_DISPLAY_COUNT = 99;
@@ -40,42 +43,58 @@ const MoreIndicator = forwardRef<HTMLButtonElement, MoreIndicatorProps>(
       'aria-controls': ariaControls,
       'aria-expanded': ariaExpanded,
       'aria-haspopup': ariaHaspopup,
+      buttonProps = {},
     },
     ref,
-  ) => (
-    <Avatar
-      appearance={appearance}
-      size={size}
-      borderColor={borderColor}
-      onClick={onClick}
-      ref={ref}
-    >
-      {({ testId: _, className, ref, ...props }) => (
-        <ClassNames>
-          {({ css, cx }) => (
-            <button
-              {...props}
-              ref={ref as any}
-              data-testid={testId}
-              aria-controls={ariaControls}
-              aria-expanded={ariaExpanded}
-              aria-haspopup={ariaHaspopup}
-              className={cx(
-                className,
-                css`
-                  color: ${N500};
-                  background-color: ${N40};
-                  font-size: ${FONT_SIZE[size]}px;
-                `,
-              )}
-            >
-              +{count! > MAX_DISPLAY_COUNT ? MAX_DISPLAY_COUNT : count}
-            </button>
-          )}
-        </ClassNames>
-      )}
-    </Avatar>
-  ),
+  ) => {
+    const onClickHander = useCallback(
+      (event, analyticsEvent) => {
+        if (buttonProps.onClick) {
+          buttonProps.onClick(event);
+        }
+
+        onClick(event, analyticsEvent);
+      },
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      [buttonProps.onClick, onClick],
+    );
+
+    return (
+      <Avatar
+        appearance={appearance}
+        size={size}
+        borderColor={borderColor}
+        ref={ref}
+        onClick={onClickHander}
+      >
+        {({ testId: _, className, ref, ...props }) => (
+          <ClassNames>
+            {({ css, cx }) => (
+              <button
+                {...buttonProps}
+                {...props}
+                ref={ref as any}
+                data-testid={testId}
+                aria-controls={ariaControls}
+                aria-expanded={ariaExpanded}
+                aria-haspopup={ariaHaspopup}
+                className={cx(
+                  className,
+                  css`
+                    color: ${N500};
+                    background-color: ${N40};
+                    font-size: ${FONT_SIZE[size]}px;
+                  `,
+                )}
+              >
+                +{count! > MAX_DISPLAY_COUNT ? MAX_DISPLAY_COUNT : count}
+              </button>
+            )}
+          </ClassNames>
+        )}
+      </Avatar>
+    );
+  },
 );
 
 MoreIndicator.displayName = 'MoreIndicator';

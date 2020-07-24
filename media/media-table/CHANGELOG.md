@@ -1,5 +1,11 @@
 # @atlaskit/media-table
 
+## 5.1.1
+
+### Patch Changes
+
+- [`ff9c75810c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ff9c75810c) - Remove faulty import in mediaTable
+
 ## 5.1.0
 
 ### Minor Changes

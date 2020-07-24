@@ -23,7 +23,8 @@ import {
 import { generateRowValues, getValidTableProps } from '../util';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { withAnalyticsEvents } from '@atlaskit/analytics-next';
-import { ANALYTICS_MEDIA_CHANNEL } from '@atlaskit/media-viewer/src/components/media-viewer-analytics-error-boundary';
+
+const ANALYTICS_MEDIA_CHANNEL = 'media';
 
 export class MediaTable extends Component<MediaTableProps, MediaTableState> {
   state: MediaTableState = {

@@ -3,7 +3,9 @@ import { exampleDocument } from '../example-helpers/example-document';
 import { createCollabEditProvider } from '@atlaskit/synchrony-test-helpers';
 
 export default function Example() {
-  const collabProvider = createCollabEditProvider();
+  const collabProvider = createCollabEditProvider(undefined, {
+    autoConnect: true,
+  });
 
   return FullPageExample({
     defaultValue: exampleDocument,

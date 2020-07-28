@@ -16,7 +16,7 @@ const dialogBox = '[data-testid="dialogBox-dialog-content"]';
 
 BrowserTestCase(
   'Verify that Dropdown Menu is able to select an item and validate the associated action',
-  { skip: [] },
+  { skip: ['edge'] },
   async (client: WebdriverIO.BrowserObject) => {
     const dropdownMenuTest = new Page(client);
     await dropdownMenuTest.goto(urlDropdown);

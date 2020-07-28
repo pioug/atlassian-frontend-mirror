@@ -12,7 +12,7 @@ const nextMonthQuery = '[data-testid="the-calendar--next-month"]';
 
 BrowserTestCase(
   'A user is able to select a date',
-  { skip: [] },
+  { skip: ['edge'] },
   async (client: any) => {
     const calendarPage = new Page(client);
     await calendarPage.goto(urlCalendar);
@@ -30,7 +30,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'A user is able to navigate between months',
-  { skip: [] },
+  { skip: ['edge'] },
   async (client: any) => {
     const calendar = new Page(client);
 

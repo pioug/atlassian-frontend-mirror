@@ -14,7 +14,7 @@ const FirstButton = '#examples p:nth-child(2) > button:nth-child(1)';
 
 BrowserTestCase(
   'FocusLock.js: AK-4416 - focus should loop to first element when inside a focus boundary',
-  { skip: ['safari'] }, // browserstack has an issue with safari
+  { skip: ['safari', 'edge'] }, // browserstack has an issue with safari
   async client => {
     const LayerManagerTest = new Page(client);
     await LayerManagerTest.goto(urlFocusLock);

@@ -12,7 +12,7 @@ const textfieldsTextfield = 'input[name="firstname"]';
 
 BrowserTestCase(
   'Pressing ctrl + enter in the text area should focus on invalid field',
-  {},
+  { skip: ['edge'] },
   async (client: any) => {
     const formTest = new Page(client);
     await formTest.goto(urlTextfields);

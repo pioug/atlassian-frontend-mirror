@@ -10,7 +10,7 @@ const cardStandardLoading = '[data-testid="media-card-loading-card"]';
 
 BetaBrowserTestCase(
   'MediaCard - load image',
-  {},
+  { skip: ['edge'] },
   async (client: BrowserObject) => {
     const page = await gotoCardFilesMockedPage(client);
 
@@ -20,7 +20,7 @@ BetaBrowserTestCase(
 
 BetaBrowserTestCase(
   'MediaCard - load image with contextId',
-  {},
+  { skip: ['edge'] },
   async (client: BrowserObject) => {
     const page = await gotoCardFilesMockedPage(client);
 
@@ -32,7 +32,7 @@ BetaBrowserTestCase(
 
 BetaBrowserTestCase(
   'MediaCard - load image and launch media viewer',
-  {},
+  { skip: ['edge'] },
   async (client: BrowserObject) => {
     const page = await gotoCardFilesMockedPage(client);
 
@@ -46,7 +46,7 @@ BetaBrowserTestCase(
 
 BetaBrowserTestCase(
   'MediaCard - renders loading card',
-  {},
+  { skip: ['edge'] },
   async (client: BrowserObject) => {
     const page = await gotoCardFilesMockedPage(client);
 

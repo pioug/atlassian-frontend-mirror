@@ -18,7 +18,7 @@ const value = `${datePicker} > div`;
 
 BrowserTestCase(
   'When DatePicker is focused & backspace pressed, the input should be cleared and defaulted to the place holder date',
-  {},
+  { skip: ['edge'] },
   async (client: any) => {
     const page = new Page(client);
 
@@ -58,7 +58,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'When choosing another day in a Datetime picker focused, the date should be updated to the new value',
-  {},
+  { skip: ['edge'] },
   async (client: any) => {
     const page = new Page(client);
 

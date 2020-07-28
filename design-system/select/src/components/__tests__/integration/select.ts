@@ -8,7 +8,7 @@ const selectMenu = '.react-select__menu';
 
 BrowserTestCase(
   `Single-select should display a menu once clicked and not throwing errors`,
-  { skip: [] },
+  { skip: ['edge'] },
   async (client: any) => {
     const selectTest = new Page(client);
     const urlSelect = getExampleUrl('design-system', 'select', 'single-select');
@@ -23,7 +23,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   `Multi-select should display a menu once clicked and not throwing errors`,
-  { skip: [] },
+  { skip: ['edge'] },
   async (client: any) => {
     const selectTest = new Page(client);
     const urlSelect = getExampleUrl('design-system', 'select', 'multi-select');
@@ -38,7 +38,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   `Radio-select should display a menu once clicked and not throwing errors`,
-  { skip: [] },
+  { skip: ['edge'] },
   async (client: any) => {
     const selectTest = new Page(client);
     const urlSelect = getExampleUrl('design-system', 'select', 'radio-select');
@@ -53,7 +53,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   `Async-select should display a menu once clicked and not throwing errors`,
-  { skip: [] },
+  { skip: ['edge'] },
   async (client: any) => {
     const selectTest = new Page(client);
     const urlSelect = getExampleUrl(

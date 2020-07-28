@@ -7,7 +7,7 @@ import { gotoPopupSimplePage } from '../../../pages/popup-simple-page';
 BetaBrowserTestCase(
   'local-upload.ts: MediaPicker - insert newly fully uploaded file',
   // Skipping safari because of ongoing issue (comms via email with support) with Browserstack atm
-  { skip: ['safari'] },
+  { skip: ['safari', 'edge'] },
   async (client: Parameters<typeof gotoPopupSimplePage>[0]) => {
     const page = await gotoPopupSimplePage(client);
     const filename = 'popup.png';
@@ -38,7 +38,7 @@ BetaBrowserTestCase(
 BetaBrowserTestCase(
   'local-upload.ts: MediaPicker - insert a file before it finished uploading',
   // Skipping safari because of ongoing issue (comms via email with support) with Browserstack atm
-  { skip: ['safari'] },
+  { skip: ['safari', 'edge'] },
   async (client: Parameters<typeof gotoPopupSimplePage>[0]) => {
     const page = await gotoPopupSimplePage(client);
 

@@ -20,7 +20,7 @@ const dateTimePickerValue = `${dateTimePicker} > div > div > div > div`;
 
 BrowserTestCase(
   '[i18n] When entering a new time in Timepicker Editable, the time should be updated to the new value',
-  {},
+  { skip: ['edge'] },
   async (client: any) => {
     const page = new Page(client);
 
@@ -47,7 +47,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   '[i18n] When a user types a year into the date input in DatetimePicker and subsequently hits enter, the value is correctly updated',
-  { skip: ['safari'] }, // Safari driver has issues
+  { skip: ['safari', 'edge'] }, // Safari driver has issues
   async (client: any) => {
     const page = new Page(client);
 

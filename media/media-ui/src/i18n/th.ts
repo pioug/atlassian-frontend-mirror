@@ -33,6 +33,7 @@ export default {
   'fabric.media.close': 'ปิด',
   'fabric.media.connect_account_description':
     'เราจะเปิดหน้าเพจใหม่เพื่อช่วยให้คุณสามารถเชื่อมต่อบัญชี {name} ของคุณได้',
+  'fabric.media.connect_link_account': 'เชื่อมต่อเพื่อดูตัวอย่าง',
   'fabric.media.connect_link_account_card_view': 'เชื่อมต่อ',
   'fabric.media.connect_link_account_card_view_description':
     'ปรับปรุงการแสดงตัวอย่างลิงก์ของคุณให้ดียิ่งขึ้นโดยการเชื่อมต่อ {context} ไปยังผลิตภัณฑ์ Atlassian ของคุณ',

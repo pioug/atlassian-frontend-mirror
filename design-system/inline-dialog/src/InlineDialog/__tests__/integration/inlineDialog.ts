@@ -15,7 +15,7 @@ const inlineDialogTestId = "[data-testid='the-inline-dialog']";
 
 BrowserTestCase(
   'InlineDialog should be able to be identified and clicked by data-testid',
-  {} as any,
+  { skip: ['edge'] },
   async (client: any) => {
     const inlineDialogTest = new Page(client);
     await inlineDialogTest.goto(urlInlineDialog);

@@ -33,6 +33,7 @@ export default {
   'fabric.media.close': 'Đóng',
   'fabric.media.connect_account_description':
     'Chúng tôi sẽ mở một trang mới để giúp bạn kết nối tài khoản {name} của bạn',
+  'fabric.media.connect_link_account': 'Kết nối để xem trước',
   'fabric.media.connect_link_account_card_view': 'Kết nối',
   'fabric.media.connect_link_account_card_view_description':
     'Làm phong phú các bản xem trước liên kết của bạn bằng cách kết nối {context} với sản phẩm Atlassian của bạn.',

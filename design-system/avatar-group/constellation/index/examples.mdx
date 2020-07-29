@@ -2,11 +2,12 @@
 order: 0
 ---
 
-import AvatarGroupStack from '../../examples/constellation/AvatarGroupStack';
-import AvatarGroupGrid from '../../examples/constellation/AvatarGroupGrid';
-import AvatarGroupMaxCount from '../../examples/constellation/AvatarGroupMaxCount';
-import AvatarGroupBorderColor from '../../examples/constellation/AvatarGroupBorderColor';
-import AvatarGroupSize from '../../examples/constellation/AvatarGroupSize';
+import AvatarGroupStack from '../../examples/constellation/avatar-group-stack';
+import AvatarGroupGrid from '../../examples/constellation/avatar-group-grid';
+import AvatarGroupMaxCount from '../../examples/constellation/avatar-group-max-count';
+import AvatarGroupBorderColor from '../../examples/constellation/avatar-group-border-color';
+import AvatarGroupOverrides from '../../examples/constellation/avatar-group-overrides';
+import AvatarGroupSize from '../../examples/constellation/avatar-group-size';
 
 ## Appearance
 
@@ -41,9 +42,19 @@ The color of the border around the avatar. Any color that the CSS `border-color`
 
 ## Overrides
 
-Avatar group can override some properties of [Avatar](/components/avatar).
+Custom components can be passed in via the `overrides` prop.
 
-### Size
+For example, you can add extra behavior into the overflow menu using the `overrides`
+prop. Click the overflow avatar and you'll see a load more button
+powered by our custom `AvatarGroupItem`.
+
+<Example
+  highlight="33-50"
+  Component={AvatarGroupOverrides}
+  packageName="@atlaskit/avatar-group"
+/>
+
+## Size
 
 Avatars are available in six sizes. See [avatar](/components/avatar) for information on which size to use when.
 

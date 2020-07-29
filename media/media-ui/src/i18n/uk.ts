@@ -31,6 +31,7 @@ export default {
   'fabric.media.close': 'Закрити',
   'fabric.media.connect_account_description':
     'Відкриється нова сторінка, що допоможе вам підключити новий обліковий запис {name}',
+  'fabric.media.connect_link_account': 'Для перегляду потрібно підключитись',
   'fabric.media.connect_link_account_card_view': 'Підключення',
   'fabric.media.connect_link_account_card_view_description':
     'Підключіть {context} до продуктів Atlassian для попереднього перегляду посилань.',

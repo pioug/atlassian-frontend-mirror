@@ -95,8 +95,8 @@ interface DropdownMenuBaseProps {
    serving as a hook for automated tests.
 
    As dropdown-menu is composed of different components, we passed down the testId to the sub component you want to test:
-   - testId--trigger to get the menu trigger.
-   - testId--content to get the dropdown content trigger.
+   - `testId--trigger` to get the menu trigger.
+   - `testId--content` to get the dropdown content trigger.
     */
   testId?: string;
 }
@@ -109,14 +109,14 @@ export interface OnOpenChangeArgs {
 export interface DropdownMenuStatelessProps
   extends DropdownMenuBaseProps,
     WithAnalyticsEventsProps {
-  /** Called when the menu should be open/closed. Received an object with isOpen state. */
+  /** Called when the menu should be open/closed. Received an object with `isOpen` state. */
   onOpenChange: (args: OnOpenChangeArgs) => void;
 }
 
 export interface DropdownMenuStatefulProps extends DropdownMenuBaseProps {
   /** Controls the initial open state of the dropdown. */
   defaultOpen: boolean;
-  /** Called when the menu is open or closed. Received an object with isOpen state. */
+  /** Called when the menu is open or closed. Received an object with `isOpen` state. */
   onOpenChange: (args: OnOpenChangeArgs, ...restArgs: any) => void;
   // TODO: rest args is probably unnecessary - could remove it in handler
 }

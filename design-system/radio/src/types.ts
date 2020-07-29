@@ -66,7 +66,7 @@ export interface RadioProps extends WithAnalyticsEventsProps {
   label?: ReactNode;
   /** Field name */
   name?: string;
-  /** onChange event handler, passed into the props of each Radio Component instantiated within RadioGroup */
+  /** `onChange` event handler, passed into the props of each `Radio` component instantiated within `RadioGroup` */
   onChange: React.ChangeEventHandler<HTMLInputElement>;
   onBlur?: React.FocusEventHandler<HTMLInputElement>;
   onFocus?: React.FocusEventHandler<HTMLInputElement>;
@@ -74,13 +74,13 @@ export interface RadioProps extends WithAnalyticsEventsProps {
   onMouseUp?: React.MouseEventHandler;
   onMouseEnter?: React.MouseEventHandler;
   onMouseLeave?: React.MouseEventHandler;
-  /** onInvalid event handler, passed into the props of each Radio Component instantiated within RadioGroup */
+  /** `onInvalid` event handler, passed into the props of each `Radio` component instantiated within `RadioGroup` */
   onInvalid?: (e: SyntheticEvent<any>) => void;
   /** Field value */
   value?: RadioValue;
   /**
       A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests
-      we have 2 different testid generated based on the one you pass to the Radio component:
+      we have two different `testId`s generated based on the one you pass to the Radio component:
       - `{testId}--hidden-radio` to check if it got changed to checked/unchecked.
       - `{testId}--radio-label` to click the input, because in IE11 the input has opacity: 0 and can't be interacted.
     */

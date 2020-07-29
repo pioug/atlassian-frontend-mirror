@@ -1,0 +1,102 @@
+---
+title: Dropdown item
+description: A dropdown item populates the dropdown menu with items. Every item should be inside a dropdown item group.
+order: 0
+---
+import DropdownItemCompact from '../../examples/constellation/dropdown-item-compact';
+import DropdownItemDescription from '../../examples/constellation/dropdown-item-description';
+import DropdownItemHidden from '../../examples/constellation/dropdown-item-hidden';
+import DropdownItemAutoFocus from '../../examples/constellation/dropdown-item-auto-focus';
+import DropdownItemMultiline from '../../examples/constellation/dropdown-item-multiline';
+
+import DropdownItemSelected from '../../examples/constellation/dropdown-item-selected';
+import DropdownItemDisabled from '../../examples/constellation/dropdown-item-disabled';
+
+import DropdownItemElementBefore from '../../examples/constellation/dropdown-item-elem-before';
+import DropdownItemElementAfter from '../../examples/constellation/dropdown-item-elem-after';
+
+## Compact
+
+Use `isCompact` to display the item in a compact look.
+
+<Example
+  Component={DropdownItemCompact}
+  packageName="@atlaskit/dropdown-menu"
+/>
+
+## Description
+
+Description of the item. This renders smaller text below the item’s primary text, while also slightly increasing the height of the item.
+
+<Example
+  Component={DropdownItemDescription}
+  packageName="@atlaskit/dropdown-menu"
+/>
+
+## Hidden
+
+Use `isHidden` to hide the item.
+
+<Example
+  Component={DropdownItemHidden}
+  packageName="@atlaskit/dropdown-menu"
+/>
+
+## Auto focus
+
+Use `autoFocus` to automatically focus the item when it’s mounted.
+
+<Example
+  Component={DropdownItemAutoFocus}
+  packageName="@atlaskit/dropdown-menu"
+/>
+
+## Allow multiline
+
+Use `shouldAllowMultiline` to allow the primary content to wrap over multiple lines.
+
+<Example
+  Component={DropdownItemMultiline}
+  packageName="@atlaskit/dropdown-menu"
+/>
+
+## States
+
+### Selected
+
+Use `isSelected` to make the element appear selected.
+
+<Example
+  Component={DropdownItemSelected}
+  packageName="@atlaskit/dropdown-menu"
+/>
+
+### Disabled
+
+Use `isDisabled` to make the element appear disabled and remove interactivity.
+
+<Example
+  Component={DropdownItemDisabled}
+  packageName="@atlaskit/dropdown-menu"
+/>
+
+## With elements
+
+### Element before
+
+Use `elemBefore` to render the element before the item text. Generally, this should be an `icon` component.
+
+<Example
+  Component={DropdownItemElementBefore}
+  packageName="@atlaskit/dropdown-menu"
+/>
+
+### Element after
+
+Use `elemAfter` to render the element after the item text. Generally, this should be an `icon` component.
+
+<Example
+  Component={DropdownItemElementAfter}
+  packageName="@atlaskit/dropdown-menu"
+/>
+

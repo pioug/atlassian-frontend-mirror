@@ -1,7 +1,7 @@
 {
   "name": "@atlaskit/code",
   "version": "12.0.1",
-  "description": "Code renders inline code snippets and code blocks.",
+  "description": "Code highlights short strings of code snippets inline with body text.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },

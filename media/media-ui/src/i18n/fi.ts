@@ -32,6 +32,7 @@ export default {
   'fabric.media.close': 'Sulje',
   'fabric.media.connect_account_description':
     'Avaamme uuden sivun, jotta voimme auttaa sinua yhdistämään {name} -tilisi',
+  'fabric.media.connect_link_account': 'Yhdistä esikatseluun',
   'fabric.media.connect_link_account_card_view': 'Yhdistä',
   'fabric.media.connect_link_account_card_view_description':
     'Täydennä linkkiesi esikatseluja yhdistämällä {context} Atlassian-tuotteisiisi.',

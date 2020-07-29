@@ -1,0 +1,26 @@
+---
+title: Dropdown item radio
+description: A dropdown item radio presents a user with groups that have a single selection.
+order: 0
+---
+import DropdownItemRadioDefaultSelected from '../../examples/constellation/dropdown-item-radio-default-selected';
+import DropdownItemRadioSelected from '../../examples/constellation/dropdown-item-radio-selected';
+
+## Default selected
+
+Use `defaultSelected` to make the item appear checked. The user may interact with the item after mount.
+
+<Example
+  Component={DropdownItemRadioDefaultSelected}
+  packageName="@atlaskit/dropdown-menu"
+/>
+
+## Selected
+
+Use `isSelected` to make the item appear checked. It can be set at mount time and updated after mount. Changing the value will not cause `onClick` to be called.
+
+<Example
+  Component={DropdownItemRadioSelected}
+  packageName="@atlaskit/dropdown-menu"
+/>
+

@@ -1,6 +1,6 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import Page from '@atlaskit/webdriver-runner/wd-wrapper';
-import { renderer, skipBrowsers as skip, callRendererBridge } from '../_utils';
+import { renderer, callRendererBridge } from '../_utils';
 import adf from './__fixtures__/scroll-to-adf.json';
 
 type ScrollTestResult = {
@@ -52,6 +52,9 @@ async function checkScrollTo(
     selectorMatched: didScroll === 'true',
   };
 }
+
+// These tests are flakey and they should be fixed under this ticket -> https://product-fabric.atlassian.net/browse/ED-10026
+export const skip: any = ['firefox', 'edge', 'chrome', 'safari'];
 
 // Tests for `scrollToContentNode`:
 

@@ -1,0 +1,95 @@
+---
+title: Dropdown menu stateless
+description: A dropdown menu stateless sub-component allows more control over the menu using props.
+order: 0
+---
+import DropdownMenuStatelessDefault from '../../examples/constellation/dropdown-menu-stateless-default';
+import DropdownMenuStatelessTall from '../../examples/constellation/dropdown-menu-stateless-tall';
+import DropdownMenuStatelessLoading from '../../examples/constellation/dropdown-menu-stateless-loading';
+import DropdownMenuStatelessOpen from '../../examples/constellation/dropdown-menu-stateless-open';
+import DropdownMenuStatelessShouldFlip from '../../examples/constellation/dropdown-menu-stateless-should-flip';
+import DropdownMenuStatelessBoundries from '../../examples/constellation/dropdown-menu-stateless-boundaries';
+import DropdownMenuStatelessMenuFixed from '../../examples/constellation/dropdown-menu-stateless-menu-fixed';
+import DropdownMenuStatelessOnOpenChange from '../../examples/constellation/dropdown-menu-stateless-on-open-change';
+
+
+
+## Appearance
+
+### Default
+
+Use `default` for the default dropdown menu appearance. Default menu has scroll after its height exceeds the pre-defined amount.
+
+<Example
+  Component={DropdownMenuStatelessDefault}
+  packageName="@atlaskit/dropdown-menu"
+/>
+
+### Tall
+
+Use `tall` to control the height of the menu. Tall menu has no scroll until the height exceeds the height of the viewport.
+
+<Example
+  Component={DropdownMenuStatelessTall}
+  packageName="@atlaskit/dropdown-menu"
+/>
+
+## States
+
+### Loading
+
+If true, a spinner is rendered instead of the dropdown items.
+
+<Example
+  Component={DropdownMenuStatelessLoading}
+  packageName="@atlaskit/dropdown-menu"
+/>
+
+### Open
+
+Use `isOpen` to control the open state of the dropdown menu.
+
+<Example
+  Component={DropdownMenuStatelessOpen}
+  packageName="@atlaskit/dropdown-menu"
+/>
+
+## Positioning
+
+### Should flip
+
+Use `shouldFlip` to place to the dropdown menu on the opposite side of its trigger if it doesn’t fit in the viewport.
+
+<Example
+  Component={DropdownMenuStatelessShouldFlip}
+  packageName="@atlaskit/dropdown-menu"
+/>
+
+### Boundaries element
+
+Use `boundariesElement` to determine when to reposition the menu.
+
+<Example
+  Component={DropdownMenuStatelessBoundries}
+  packageName="@atlaskit/dropdown-menu"
+/>
+
+### Is menu fixed
+
+Use `isMenuFixed` to determine if the menu should be in a fixed position. This is useful for breaking out of overflow scroll or hidden containers.
+Extra layout management is needed to control scroll behavior when this property is enabled as the menu will not update the position with the target on scroll.
+
+<Example
+  Component={DropdownMenuStatelessMenuFixed}
+  packageName="@atlaskit/dropdown-menu"
+/>
+
+## On open change
+
+Use `onOpenChange` to call when the menu should be opened or closed.
+
+<Example
+  Component={DropdownMenuStatelessOnOpenChange}
+  packageName="@atlaskit/dropdown-menu"
+/>
+

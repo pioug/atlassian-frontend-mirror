@@ -10,7 +10,7 @@ const example = '#examples';
 
 BrowserTestCase(
   'Spinner should be able to be identified by data-testid',
-  {} as any,
+  { skip: ['edge'] },
   async (client: any) => {
     const spinnerTest = new Page(client);
     await spinnerTest.goto(urlSpinner);

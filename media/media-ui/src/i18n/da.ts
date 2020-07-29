@@ -30,6 +30,7 @@ export default {
   'fabric.media.close': 'Luk',
   'fabric.media.connect_account_description':
     'Vi åbner en ny side for at hjælpe dig til at forbinde din {name}-konto',
+  'fabric.media.connect_link_account': 'Forbind til forhåndsvisning',
   'fabric.media.connect_link_account_card_view': 'Forbind',
   'fabric.media.connect_link_account_card_view_description':
     'Gør forhåndsvisning af dine links bedre ved at forbinde {context} med dine Atlassian-produkter.',

@@ -251,7 +251,10 @@ const AvatarGroup = ({
         );
 
         return !isTooltipDisabled ? (
-          <Tooltip key={avatarData.name} content={avatarData.name}>
+          <Tooltip
+            key={composeUniqueKey(avatarData, idx)}
+            content={avatarData.name}
+          >
             {finalAvatar}
           </Tooltip>
         ) : (

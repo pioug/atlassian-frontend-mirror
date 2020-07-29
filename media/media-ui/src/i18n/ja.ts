@@ -32,6 +32,7 @@ export default {
   'fabric.media.close': '閉じる',
   'fabric.media.connect_account_description':
     '{name} アカウントを接続するため、新しいページを開きます',
+  'fabric.media.connect_link_account': '接続してプレビュー',
   'fabric.media.connect_link_account_card_view': '接続',
   'fabric.media.connect_link_account_card_view_description':
     '{context} をご使用のアトラシアン製品に接続して、リンクのプレビューを強化します。',

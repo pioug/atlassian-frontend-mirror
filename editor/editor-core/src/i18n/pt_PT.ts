@@ -14,19 +14,26 @@ export default {
   'fabric.editor.alttext.validation':
     'Remova todos os carateres especiais no texto alternativo.',
   'fabric.editor.annotate': 'Anotar',
+  'fabric.editor.annotationToolbar': 'Barra de Ferramentas de Anotações',
   'fabric.editor.backLink': 'Retroceder',
+  'fabric.editor.blockCardUnavailable':
+    'A ligação incorporada está no interior do {node} e a sua visualização não pode ser alterada',
   'fabric.editor.blockquote': 'Cotação',
   'fabric.editor.blockquote.description': 'Inserir uma cotação ou citação',
   'fabric.editor.bold': 'Negrito',
   'fabric.editor.canNotSortTable':
     "⚠️ You can't sort a table with merged cells",
+  'fabric.editor.cardFloatingControls': 'Opções do cartão',
   'fabric.editor.cellBackground': 'Fundo da célula',
   'fabric.editor.cellOptions': 'Opções da célula',
   'fabric.editor.clearAltTextEdit': 'Limpar texto alternativo',
+  'fabric.editor.clearCells':
+    '{0, plural, one {Limpar célula} other {Limpar células}}',
   'fabric.editor.clearFormatting': 'Limpar formatação',
   'fabric.editor.clearLink': 'Limpar ligação',
   'fabric.editor.clearLinkText': 'Limpar texto',
   'fabric.editor.closeAltTextEdit': 'Voltar',
+  'fabric.editor.closeFindReplaceDialog': 'Fechar',
   'fabric.editor.closeHelpDialog': 'Fechar caixa de diálogo de ajuda',
   'fabric.editor.code': 'Código',
   'fabric.editor.codeblock': 'Fragmento de código',
@@ -38,8 +45,13 @@ export default {
   'fabric.editor.configPanel.cancel': 'Cancelar',
   'fabric.editor.configPanel.fieldTypeError.isMultipleAndRadio':
     'Não é possível combinar isMultiple com o estilo: rádio',
+  'fabric.editor.configPanel.formType.addField': 'Adicionar campos',
+  'fabric.editor.configPanel.formType.removeField': 'Remover campo',
   'fabric.editor.configPanel.required': 'Campo obrigatório',
   'fabric.editor.configPanel.submit': 'Enviar',
+  'fabric.editor.createComment': 'Criar comentário',
+  'fabric.editor.createCommentInvalid':
+    'Os comentários só estão ativos para texto e cabeçalhos',
   'fabric.editor.date': 'Data',
   'fabric.editor.date.description':
     'Adicionar uma data utilizando um calendário',
@@ -48,6 +60,8 @@ export default {
     'Registar decisões para que estas sejam fáceis de localizar',
   'fabric.editor.decisionPlaceholder': 'Adicionar uma decisão...',
   'fabric.editor.displayBlock': 'Mostrar como cartão',
+  'fabric.editor.displayEmbed': 'Mostrar como incorporado',
+  'fabric.editor.displayInline': 'Visualizar incorporado(a)',
   'fabric.editor.displayLink': 'Mostrar como texto',
   'fabric.editor.displayText': 'Texto a apresentar',
   'fabric.editor.edit': 'Editar',
@@ -67,6 +81,10 @@ export default {
   'fabric.editor.filesAndImages': 'Ficheiros e imagens',
   'fabric.editor.filesAndImages.description':
     'Adicionar imagens e outros ficheiros à sua página',
+  'fabric.editor.find': 'Localizar',
+  'fabric.editor.findNext': 'Localizar seguinte',
+  'fabric.editor.findPrevious': 'Localizar anterior',
+  'fabric.editor.findReplaceToolbarButton': 'Localizar e substituir',
   'fabric.editor.headerColumn': 'Coluna do cabeçalho',
   'fabric.editor.headerRow': 'Linha do cabeçalho',
   'fabric.editor.heading1': 'Título 1',
@@ -113,6 +131,7 @@ export default {
     'Mencionar alguém enviando-lhes uma notificação',
   'fabric.editor.mergeCells': 'Unir células',
   'fabric.editor.moreFormatting': 'Mais formatação',
+  'fabric.editor.noResultsFound': 'Não foram encontrados resultados',
   'fabric.editor.normal': 'Texto normal',
   'fabric.editor.note': 'Nota',
   'fabric.editor.notePanel': 'Painel de notas',
@@ -130,6 +149,13 @@ export default {
     'Adicionar texto de marcador de posição',
   'fabric.editor.quickInsert': 'Inserção rápida',
   'fabric.editor.redo': 'Refazer',
+  'fabric.editor.removeColumns':
+    '{0, plural, one {Remover coluna} other {Remover colunas}}',
+  'fabric.editor.removeRows':
+    '{0, plural, one {Remover linha} other {Remover linhas}}',
+  'fabric.editor.replace': 'Substituir',
+  'fabric.editor.replaceAll': 'Substituir tudo',
+  'fabric.editor.replaceWith': 'Substituir por',
   'fabric.editor.rightSidebar': 'Barra lateral direita',
   'fabric.editor.selectLanguage': 'Selecionar idioma',
   'fabric.editor.selected': 'Selecionado',
@@ -155,6 +181,7 @@ export default {
   'fabric.editor.taskPlaceholder':
     'Introduza a ação, utilize "@" para atribuir a um utilizador.',
   'fabric.editor.textColor': 'Cor do texto',
+  'fabric.editor.textColor.lessColors': 'Menos cores',
   'fabric.editor.textColor.moreColors': 'Mais cores',
   'fabric.editor.textStyles': 'Estilos de texto',
   'fabric.editor.threeColumns': 'Três colunas',

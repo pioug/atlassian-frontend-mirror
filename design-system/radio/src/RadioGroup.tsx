@@ -11,21 +11,21 @@ import { OptionPropType, OptionsPropType, RadioValue } from './types';
 /* eslint-disable react/no-array-index-key */
 
 export interface RadioGroupProps {
-  /** Once set, controls the selected value on the Radio Group */
+  /** Once set, controls the selected value on the `RadioGroup` */
   value?: RadioValue | null;
-  /** Sets the initial selected value on the Radio Group */
+  /** Sets the initial selected value on the `RadioGroup` */
   defaultValue?: RadioValue | null;
-  /** Sets the disabled state of all Radio elements in the group */
+  /** Sets the disabled state of all `Radio` elements in the group */
   isDisabled?: boolean;
-  /** Sets the required state of all Radio elements in the group */
+  /** Sets the required state of all `Radio` elements in the group */
   isRequired?: boolean;
-  /** An array of objects, each object is mapped onto a Radio element within the group */
+  /** An array of objects, each object is mapped onto a `Radio` element within the group */
   options: OptionsPropType;
   /** Function that gets fired after each invalid event */
   onInvalid?: (event: SyntheticEvent<any>) => void;
   /** Function that gets after each change event */
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
-  /** Sets the name prop on each of the Radio elements in the group */
+  /** Sets the `name` prop on each of the `Radio` elements in the group */
   name?: string;
   [key: string]: any;
 }

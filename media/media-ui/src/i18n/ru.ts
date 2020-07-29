@@ -31,6 +31,7 @@ export default {
   'fabric.media.close': 'Закрыть',
   'fabric.media.connect_account_description':
     'Откроется новая страница, где вы сможете подключить свой аккаунт {name}',
+  'fabric.media.connect_link_account': 'Подключить для просмотра',
   'fabric.media.connect_link_account_card_view': 'Подключить',
   'fabric.media.connect_link_account_card_view_description':
     'Добавьте возможность предварительного просмотра ссылок, подключив {context} к своим продуктам Atlassian.',

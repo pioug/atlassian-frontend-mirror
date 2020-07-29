@@ -30,6 +30,7 @@ export default {
   'fabric.media.close': '닫기',
   'fabric.media.connect_account_description':
     '{name} 계정을 연결할 수 있도록 새로운 페이지를 열겠습니다.',
+  'fabric.media.connect_link_account': '미리 보기에 연결',
   'fabric.media.connect_link_account_card_view': '연결',
   'fabric.media.connect_link_account_card_view_description':
     'Atlassian 제품에 {context}을(를) 연결하여 링크 미리 보기를 향상하세요.',

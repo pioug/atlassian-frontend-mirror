@@ -31,6 +31,7 @@ export default {
   'fabric.media.close': 'Sluiten',
   'fabric.media.connect_account_description':
     'We zullen een nieuwe pagina openen waarop je je {name}-account kunt verbinden',
+  'fabric.media.connect_link_account': 'Maak verbinding voor voorbeeld',
   'fabric.media.connect_link_account_card_view': 'Koppelen',
   'fabric.media.connect_link_account_card_view_description':
     'Verbeter de voorvertoning van je links door {context} te koppelen aan je Atlassian-producten.',

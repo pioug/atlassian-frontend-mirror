@@ -30,6 +30,7 @@ export default {
   'fabric.media.close': '关闭',
   'fabric.media.connect_account_description':
     '我们将打开新页面帮助您连接 {name} 帐户',
+  'fabric.media.connect_link_account': '连接以预览',
   'fabric.media.connect_link_account_card_view': '连接',
   'fabric.media.connect_link_account_card_view_description':
     '将 {context} 连接到您的 Atlassian 产品，可以扩充链接预览。',

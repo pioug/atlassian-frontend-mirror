@@ -10,7 +10,7 @@ const textAreaTestId = "[data-testid='MyTextAreaTestId']";
 
 BrowserTestCase(
   'TextArea should be able to be clicked by data-testid',
-  {} as any,
+  { skip: ['edge'] },
   async (client: any) => {
     const textAreaTest = new Page(client);
     await textAreaTest.goto(urlTextArea);

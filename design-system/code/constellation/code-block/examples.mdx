@@ -1,0 +1,31 @@
+---
+title: Code block
+description: A code block highlights an entire block of code and keeps the formatting.
+order: 0
+---
+
+import CodeBlock from '../../examples/constellation/code-block';
+import CodeBlockLineNumbers from '../../examples/constellation/code-block-line-numbers';
+import CodeBlockLineHighlight from '../../examples/constellation/code-block-line-highlight';
+
+## Default
+
+A code block highlights an entire block of code and keeps the formatting.
+
+<Example Component={CodeBlock} packageName="@atlaskit/code" />
+
+## Line numbers
+
+A code block can be displayed with or without line numbers. Line numbers are shown by default.
+
+<Example Component={CodeBlockLineNumbers} packageName="@atlaskit/code" />
+
+## Line highlighting
+
+Lines in a code block can be highlighted.
+
+- To highlight one line: `highlight="3"`
+- To highlight a group of lines: `highlight="1-5"`
+- To highlight multiple groups: `highlight="1-5,7,10,15-20"`
+
+<Example Component={CodeBlockLineHighlight} packageName="@atlaskit/code" />

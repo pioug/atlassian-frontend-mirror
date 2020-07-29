@@ -33,6 +33,7 @@ export default {
   'fabric.media.close': 'Cerrar',
   'fabric.media.connect_account_description':
     'Abriremos otra página para ayudarte a conectar tu cuenta de {name}',
+  'fabric.media.connect_link_account': 'Conectar para obtener vista previa',
   'fabric.media.connect_link_account_card_view': 'Conectar',
   'fabric.media.connect_link_account_card_view_description':
     'Enriquece la vista previa de tus enlaces conectando {context} a tus productos de Atlassian.',

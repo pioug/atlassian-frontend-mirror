@@ -33,6 +33,8 @@ export default {
   'fabric.media.close': 'Zatvoriť',
   'fabric.media.connect_account_description':
     'Otvoríme novú stránku, aby sme vám pomohli pri pripojení k vášmu účtu {name}',
+  'fabric.media.connect_link_account':
+    'Ak chcete zobraziť náhľad, pripojte svoj účet',
   'fabric.media.connect_link_account_card_view': 'Pripojiť',
   'fabric.media.connect_link_account_card_view_description':
     'Rozšírte ukážky prepojení pripojením účtu {context} k vašim produktom Atlassian.',

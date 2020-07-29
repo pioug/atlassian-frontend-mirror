@@ -10,7 +10,7 @@ const query = "[data-testid='the-textfield']";
 
 BrowserTestCase(
   'Textfield should be able to be clicked by data-testid',
-  {} as any,
+  { skip: ['edge'] },
   async (client: any) => {
     const page = new Page(client);
     await page.goto(url);

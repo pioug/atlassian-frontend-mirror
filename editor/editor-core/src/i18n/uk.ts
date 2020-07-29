@@ -9,22 +9,49 @@ export default {
   'fabric.editor.addAltText': 'Текст заміщення',
   'fabric.editor.alttext.validation':
     'Видаліть будь-які спеціальні символи з тексту заміщення.',
+  'fabric.editor.annotationToolbar': 'Панель приміток',
+  'fabric.editor.blockCardUnavailable':
+    'Вбудоване посилання знаходиться у вузлі {node}, тому змінити подання не можна',
+  'fabric.editor.cardFloatingControls': 'Параметри картки',
   'fabric.editor.clearAltTextEdit': 'Очистити текст заміщення',
+  'fabric.editor.clearCells':
+    '{0, plural, one {Очистити клітинки} few {Очистити клітинки} many {Очистити клітинки} other {Очистити клітинки}}',
   'fabric.editor.closeAltTextEdit': 'Назад',
+  'fabric.editor.closeFindReplaceDialog': 'Закрити',
   'fabric.editor.configPanel.cancel': 'Скасувати',
   'fabric.editor.configPanel.fieldTypeError.isMultipleAndRadio':
     'Can not combine isMultiple with style: radio',
+  'fabric.editor.configPanel.formType.addField': 'Додати поле',
+  'fabric.editor.configPanel.formType.removeField': 'Видалити поле',
   'fabric.editor.configPanel.required': 'Обов’язкове поле',
   'fabric.editor.configPanel.submit': 'Надіслати',
+  'fabric.editor.createComment': 'Створити коментар',
+  'fabric.editor.createCommentInvalid':
+    'Коментарі увімкнуто лише для тексту та заголовків',
+  'fabric.editor.displayEmbed': 'Показати як вбудований об’єкт',
+  'fabric.editor.displayInline': 'Показати лише заголовок',
   'fabric.editor.editAltText': 'Редагувати текст заміщення',
   'fabric.editor.expand': 'Розгортка',
   'fabric.editor.expand.description': 'Вставити розгортку',
+  'fabric.editor.find': 'Знайти',
+  'fabric.editor.findNext': 'Знайти наступне',
+  'fabric.editor.findPrevious': 'Знайти попереднє',
+  'fabric.editor.findReplaceToolbarButton': 'Знайти й замінити',
   'fabric.editor.help': 'Допомога',
   'fabric.editor.help.description':
     'Переглянути всі сполучення клавіш і параметри розмітки',
+  'fabric.editor.noResultsFound': 'Немає результатів',
   'fabric.editor.placeholderAltText':
     'Опишіть це зображення за допомогою тексту заміщення',
+  'fabric.editor.removeColumns':
+    '{0, plural, one {Видалити стовпці} few {Видалити стовпці} many {Видалити стовпці} other {Видалити стовпці}}',
+  'fabric.editor.removeRows':
+    '{0, plural, one {Видалити рядки} few {Видалити рядки} many {Видалити рядки} other {Видалити рядки}}',
+  'fabric.editor.replace': 'Замінити',
+  'fabric.editor.replaceAll': 'Замінити всі',
+  'fabric.editor.replaceWith': 'Замінити на',
   'fabric.editor.supportAltText':
     'Текст заміщення потрібний для людей, які користуються засобами читання з екрана через обмеження зору.',
+  'fabric.editor.textColor.lessColors': 'Менше кольорів',
   'fabric.editor.textColor.moreColors': 'Більше кольорів',
 };

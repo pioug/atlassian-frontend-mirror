@@ -1,5 +1,11 @@
 # @atlaskit/media-ui
 
+## 13.0.2
+
+### Patch Changes
+
+- [`d03bff2147`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d03bff2147) - updated translations
+
 ## 13.0.1
 
 ### Patch Changes

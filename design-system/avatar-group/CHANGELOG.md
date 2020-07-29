@@ -1,5 +1,11 @@
 # @atlaskit/avatar-group
 
+## 8.0.2
+
+### Patch Changes
+
+- [`3a919f4263`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3a919f4263) - Fixed .name being used as a key for AvatarGroup Tooltip's
+
 ## 8.0.1
 
 ### Patch Changes

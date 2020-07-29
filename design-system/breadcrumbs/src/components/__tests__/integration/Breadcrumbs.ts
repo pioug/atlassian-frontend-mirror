@@ -13,7 +13,7 @@ const breadcrumbsItemTestId = "[data-testid='myBreadcrumbsItemTestId']";
 
 BrowserTestCase(
   'Breadcrumbs should be able to be clicked by data-testid',
-  {} as any,
+  { skip: ['edge'] },
   async (client: any) => {
     const breadcrumbsTest = new Page(client);
     await breadcrumbsTest.goto(urlBreadcrumbs);

@@ -31,6 +31,7 @@ export default {
   'fabric.media.close': 'Stäng',
   'fabric.media.connect_account_description':
     'Vi kommer att öppna en ny sida som hjälper dig att ansluta till ditt {name}-konto',
+  'fabric.media.connect_link_account': 'Anslut till förhandsgranskning',
   'fabric.media.connect_link_account_card_view': 'Anslut',
   'fabric.media.connect_link_account_card_view_description':
     'Förbättra dina förhandsgranskningar av länkar genom att ansluta {context} till dina Atlassian-produkter.',

@@ -32,6 +32,7 @@ export default {
   'fabric.media.close': 'Lukk',
   'fabric.media.connect_account_description':
     'Vi vil åpne en ny side for å hjelpe deg med å koble til {name}-kontoen din',
+  'fabric.media.connect_link_account': 'Koble til for forhåndsvisning',
   'fabric.media.connect_link_account_card_view': 'Koble til',
   'fabric.media.connect_link_account_card_view_description':
     'Gjør forhåndsvisningen av koblingene dine bedre ved å koble {context} til Atlassian-produktene dine.',

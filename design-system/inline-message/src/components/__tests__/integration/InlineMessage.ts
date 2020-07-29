@@ -20,7 +20,7 @@ const messageHeading = 'h4';
 
 BrowserTestCase(
   'InlineMessage should be able to be identified and clicked by data-testid',
-  {} as any,
+  { skip: ['edge'] },
   async (client: any) => {
     const inlineMessageTest = new Page(client);
     await inlineMessageTest.goto(urlInlineMessage);

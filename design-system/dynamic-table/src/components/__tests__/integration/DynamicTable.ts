@@ -29,7 +29,7 @@ const tableCell3 = "[data-testid='the-table--cell-3']";
 
 BrowserTestCase(
   'DynamicTable elements should be able to be identified, interacted and sorted by data-testid',
-  {} as any,
+  { skip: ['edge'] },
   async (client: any) => {
     const dynamicTableTest = new Page(client);
     await dynamicTableTest.goto(urlDynamicTable);

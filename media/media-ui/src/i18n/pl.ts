@@ -32,6 +32,7 @@ export default {
   'fabric.media.close': 'Zamknij',
   'fabric.media.connect_account_description':
     'Otworzymy nową stronę, aby pomóc Ci połączyć swoje konto {name}',
+  'fabric.media.connect_link_account': 'Połącz podgląd',
   'fabric.media.connect_link_account_card_view': 'Połącz',
   'fabric.media.connect_link_account_card_view_description':
     'Łącząc {context} z produktami Atlassian, uatrakcyjnisz podgląd łączy.',

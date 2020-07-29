@@ -10,7 +10,7 @@ const buttonTestId = "[data-testid='MyButtonTestId']";
 
 BrowserTestCase(
   'Button should be able to be clicked by data-testid',
-  {} as any,
+  { skip: ['edge'] },
   async (client: any) => {
     const buttonTest = new Page(client);
     await buttonTest.goto(urlButton);

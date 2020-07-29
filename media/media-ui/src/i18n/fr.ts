@@ -7,6 +7,7 @@
 // French
 export default {
   'fabric.media.accounts': 'Comptes',
+  'fabric.media.actions': 'Actions',
   'fabric.media.add_account': 'Ajouter un compte',
   'fabric.media.annotate': 'Annoter',
   'fabric.media.annotate.confirmation.close.anyway': 'Fermer quand même',
@@ -20,15 +21,24 @@ export default {
   'fabric.media.annotate.tool.line.thickness': 'Épaisseur de ligne',
   'fabric.media.annotate.tool.shape': 'Forme',
   'fabric.media.annotate.tool.text': 'Texte',
+  'fabric.media.audio': 'audio',
   'fabric.media.cancel': 'Annuler',
   'fabric.media.cant_preview_file_type':
     'Aucun aperçu disponible pour ce type de fichiers.',
+  'fabric.media.cant_retrieve_files':
+    'Désolés, impossible de récupérer le moindre fichier',
   'fabric.media.cant_retrieve_gifs':
     "Désolés, nous n'avons pu récupérer aucun GIF",
   'fabric.media.check_your_network': 'Vérifier votre connexion réseau',
   'fabric.media.close': 'Fermer',
   'fabric.media.connect_account_description':
     'Nous ouvrirons une nouvelle page pour vous aider à vous connecter à votre compte {name}',
+  'fabric.media.connect_link_account': "Connecter à l'aperçu",
+  'fabric.media.connect_link_account_card_view': 'Connecter',
+  'fabric.media.connect_link_account_card_view_description':
+    'Enrichissez vos aperçus de lien en connectant {context} à vos produits Atlassian.',
+  'fabric.media.connect_link_account_card_view_name':
+    'Connectez votre compte {context}',
   'fabric.media.connect_to': 'Se connecter à {name}',
   'fabric.media.could_not_load_editor':
     "Désolés, nous n'avons pas pu charger l'éditeur",
@@ -36,8 +46,11 @@ export default {
     "Désolés, nous n'avons pas pu enregistrer l'image",
   'fabric.media.couldnt_generate_preview':
     "Impossible de générer l'aperçu de ce fichier.",
+  'fabric.media.couldnt_load_link':
+    'Impossible de charger ce lien pour une raison quelconque.',
   'fabric.media.default_avatars': 'Avatars par défaut',
   'fabric.media.disable_fullscreen': 'désactiver le mode plein écran',
+  'fabric.media.document': 'document',
   'fabric.media.download': 'Télécharger',
   'fabric.media.drag_and_drop_images_here': 'Glisser-déplacer vos images ici',
   'fabric.media.drag_and_drop_your_files':
@@ -52,12 +65,19 @@ export default {
   'fabric.media.error_loading_file': 'Erreur de chargement du fichier',
   'fabric.media.failed_to_load': 'Échec du chargement',
   'fabric.media.give_feedback': 'Envoyer un commentaire',
+  'fabric.media.image': 'image',
+  'fabric.media.image.search': 'rechercher',
   'fabric.media.image_format_invalid_error':
     "Impossible de charger l'image, le format n'est pas valide.",
   'fabric.media.image_size_too_large_error':
     "L'image est trop grande. Elle ne doit pas dépasser {MAX_SIZE_MB} Mo",
   'fabric.media.image_url_invalid_error':
     "Impossible de charger l'image, l'URL n'est pas valide.",
+  'fabric.media.insert_files':
+    '{0, plural, one {Insérer {0} fichier} other {Insérer {0} fichiers}}',
+  'fabric.media.invalid_permissions': "Vous n'avez pas accès à ce lien",
+  'fabric.media.invalid_permissions_description':
+    "Vous devrez demander l'accès ou essayer un autre compte pour afficher cet aperçu.",
   'fabric.media.item_not_found_in_list':
     "L'élément sélectionné ne fait pas partie de la liste.",
   'fabric.media.learn_more': 'En savoir plus',
@@ -68,6 +88,9 @@ export default {
   'fabric.media.no_gifs_found_suggestion':
     "Nous n'avons trouvé aucun résultat pour « {query} »",
   'fabric.media.no_pdf_artifacts': 'Aucun artefact PDF trouvé pour ce fichier.',
+  'fabric.media.not_found_description':
+    "Cliquez sur l'URL et essayez de la modifier, ou collez-la de nouveau.",
+  'fabric.media.not_found_title': 'Oups, ce lien est introuvable !',
   'fabric.media.or': 'ou',
   'fabric.media.pause': 'mettre en pause',
   'fabric.media.play': 'démarrer',
@@ -78,6 +101,8 @@ export default {
   'fabric.media.search_all_gifs': 'Rechercher parmi tous les GIF',
   'fabric.media.share_files_instantly': 'Nous les partagerons instantanément',
   'fabric.media.something_went_wrong': "Une erreur s'est produite.",
+  'fabric.media.srclink': 'Afficher dans',
+  'fabric.media.srclinkunknown': "Afficher l'original",
   'fabric.media.try_again': 'Réessayez',
   'fabric.media.try_another_account': 'Essayez un autre compte',
   'fabric.media.try_downloading_file':

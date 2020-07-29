@@ -17,7 +17,7 @@ const dismisFlag = "[aria-label='Dismiss flag']";
 
 BrowserTestCase(
   'Flag and Flag actions should be able to be identified and clicked by data-testid',
-  {} as any,
+  { skip: ['edge'] },
   async (client: any) => {
     const flagTest = new Page(client);
     await flagTest.goto(urlFlag);

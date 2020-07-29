@@ -18,7 +18,7 @@ const sectionMessageGoogleAction = `${sectionMessageError} [data-testid='google'
 
 BrowserTestCase(
   'SectionMessage and SectionMessage actions should be able to be identified and clicked by data-testid',
-  {} as any,
+  { skip: ['edge'] },
   async (client: any) => {
     const page = new Page(client);
     await page.goto(urlSectionMessage);

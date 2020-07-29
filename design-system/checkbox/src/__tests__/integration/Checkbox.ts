@@ -11,7 +11,7 @@ const hiddenCheckboxQuery = "[data-testid='the-checkbox--hidden-checkbox']";
 
 BrowserTestCase(
   'Checkbox should be able to be clicked by data-testid',
-  {} as any,
+  { skip: ['edge'] },
   async (client: any) => {
     const testPage = new Page(client);
     await testPage.goto(exampleUrl);

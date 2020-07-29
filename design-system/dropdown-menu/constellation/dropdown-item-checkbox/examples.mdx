@@ -1,0 +1,26 @@
+---
+title: Dropdown item checkbox
+description: A dropdown item checkbox creates groups that have multiple selections.
+order: 0
+---
+import DropdownItemCheckboxDefaultSelected from '../../examples/constellation/dropdown-item-checkbox-default-selected';
+import DropdownItemCheckboxSelected from '../../examples/constellation/dropdown-item-checkbox-selected';
+
+## Default selected
+
+Use `defaultSelected` to make the item appear checked. The user may interact with the item after mount. 
+
+<Example
+  Component={DropdownItemCheckboxDefaultSelected}
+  packageName="@atlaskit/dropdown-menu"
+/>
+
+## Selected
+
+Use `isSelected` to make the item appear checked. It can be set at mount time and updated after mount.
+
+<Example
+  Component={DropdownItemCheckboxSelected}
+  packageName="@atlaskit/dropdown-menu"
+/>
+

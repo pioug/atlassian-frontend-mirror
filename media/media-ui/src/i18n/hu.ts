@@ -33,6 +33,7 @@ export default {
   'fabric.media.close': 'Bezárás',
   'fabric.media.connect_account_description':
     'Megnyitunk egy új lapot, hogy könnyebben csatlakozhasson {name}-fiókjához',
+  'fabric.media.connect_link_account': 'Csatlakozás az előnézethez',
   'fabric.media.connect_link_account_card_view': 'Csatlakoztatás',
   'fabric.media.connect_link_account_card_view_description':
     'Információdúsabbá teheted a hivatkozások előnézeteit a(z) {context} és az Atlassian-termékeid összekapcsolásával.',

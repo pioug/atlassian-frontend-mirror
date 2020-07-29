@@ -30,6 +30,7 @@ export default {
   'fabric.media.close': 'Sulge',
   'fabric.media.connect_account_description':
     '{name} konto ühendamisel abi pakkumiseks avame uue lehekülje',
+  'fabric.media.connect_link_account': 'Eelvaatega ühenduse loomine',
   'fabric.media.connect_link_account_card_view': 'Ühenda',
   'fabric.media.connect_link_account_card_view_description':
     'Saate rikastada linkide eelvaateid, kui ühendate Atlassiani toodetega konto {context}.',

@@ -15,7 +15,7 @@ const toggleLargeInput = "[data-testid='my-large-stateful-toggle--input']";
 
 BrowserTestCase(
   'Toggle should be able to be identified and checked by data-testid',
-  {} as any,
+  { skip: ['edge'] },
   async (client: any) => {
     const toggleTest = new Page(client);
     await toggleTest.goto(urlToggle);

@@ -9,22 +9,46 @@ export default {
   'fabric.editor.addAltText': 'Văn bản thay thế',
   'fabric.editor.alttext.validation':
     'Vui lòng xóa tất cả các ký tự đặc biệt trong văn bản thay thế.',
+  'fabric.editor.annotationToolbar': 'Thanh công cụ chú thích',
+  'fabric.editor.blockCardUnavailable':
+    'Liên kết nội tuyến nằm trong {node} và không thể thay đổi chế độ xem liên kết',
+  'fabric.editor.cardFloatingControls': 'Tùy chọn thẻ',
   'fabric.editor.clearAltTextEdit': 'Xóa văn bản thay thế',
+  'fabric.editor.clearCells': '{0, plural, other {Xóa ô}}',
   'fabric.editor.closeAltTextEdit': 'Quay lại',
+  'fabric.editor.closeFindReplaceDialog': 'Đóng',
   'fabric.editor.configPanel.cancel': 'Hủy',
   'fabric.editor.configPanel.fieldTypeError.isMultipleAndRadio':
     'Không thể kết hợp isMultiple với kiểu: radio',
+  'fabric.editor.configPanel.formType.addField': 'Thêm trường',
+  'fabric.editor.configPanel.formType.removeField': 'Xóa trường',
   'fabric.editor.configPanel.required': 'Trường bắt buộc',
   'fabric.editor.configPanel.submit': 'Gửi',
+  'fabric.editor.createComment': 'Tạo bình luận',
+  'fabric.editor.createCommentInvalid':
+    'Bình luận chỉ bật cho văn bản và tiêu đề',
+  'fabric.editor.displayEmbed': 'Hiển thị dưới dạng nhúng',
+  'fabric.editor.displayInline': 'Hiển thị nội tuyến',
   'fabric.editor.editAltText': 'Chỉnh sửa văn bản thay thế',
   'fabric.editor.expand': 'Mở rộng',
   'fabric.editor.expand.description': 'Chèn đoạn mở rộng',
+  'fabric.editor.find': 'Tìm kiếm',
+  'fabric.editor.findNext': 'Tìm tiếp theo',
+  'fabric.editor.findPrevious': 'Tìm trước đó',
+  'fabric.editor.findReplaceToolbarButton': 'Tìm kiếm và thay thế',
   'fabric.editor.help': 'Trợ giúp',
   'fabric.editor.help.description':
     'Duyệt qua tất cả các phím tắt trên bàn phím và các tùy chọn đánh dấu',
+  'fabric.editor.noResultsFound': 'Không tìm thấy kết quả',
   'fabric.editor.placeholderAltText':
     'Mô tả hình ảnh này bằng văn bản thay thế',
+  'fabric.editor.removeColumns': '{0, plural, other {Xóa cột}}',
+  'fabric.editor.removeRows': '{0, plural, other {Xóa dòng}}',
+  'fabric.editor.replace': 'Thay thế',
+  'fabric.editor.replaceAll': 'Thay thế tất cả',
+  'fabric.editor.replaceWith': 'Thay thế bằng',
   'fabric.editor.supportAltText':
     'Văn bản thay thế là tính năng hữu ích cho những người sử dụng trình đọc màn hình do suy giảm thị lực.',
+  'fabric.editor.textColor.lessColors': 'Ít màu hơn',
   'fabric.editor.textColor.moreColors': 'Hiển thị nhiều màu hơn',
 };

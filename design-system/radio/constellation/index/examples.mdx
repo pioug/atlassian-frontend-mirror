@@ -2,10 +2,19 @@
 order: 0
 ---
 
-import RadioDefault from '../../examples/constellation/RadioDefault.tsx';
+import RadioDefault from '../../examples/constellation/radio-default.tsx';
+import RadioInTable from '../../examples/constellation/radio-in-table.tsx';
 
 ## Default
 
-The default way to select a single option from a list.
+The default way to present a single option from a list.
+
+In most situations where you want to present a list of mutually exclusive options, you will want to use a [radio group](/components/radio/radio-group/examples).
 
 <Example Component={RadioDefault} packageName="@atlaskit/radio" />
+
+## Complex Radio usage
+
+There may be some situations where you are unable to directly stack the radio inputs vertically. In those situations, using individual `Radio` components rather than a `RadioGroup` may be more suited to your needs.
+
+<Example Component={RadioInTable} packageName="@atlaskit/radio" />

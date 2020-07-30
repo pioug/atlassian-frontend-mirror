@@ -2,19 +2,16 @@
 order: 0
 ---
 
-import AvatarDefault from '../../examples/constellation/AvatarDefault';
-import AvatarCircle from '../../examples/constellation/AvatarCircle';
-import AvatarSquare from '../../examples/constellation/AvatarSquare';
-import AvatarHover from '../../examples/constellation/AvatarHover';
-import AvatarBasicStatus from '../../examples/constellation/AvatarBasicStatus';
-import AvatarBasicPresence from '../../examples/constellation/AvatarBasicPresence';
-
-import AvatarSmall from '../../examples/constellation/AvatarSmall';
-import AvatarXSmall from '../../examples/constellation/AvatarXSmall';
-import AvatarMedium from '../../examples/constellation/AvatarMedium';
-import AvatarLarge from '../../examples/constellation/AvatarLarge';
-import AvatarXLarge from '../../examples/constellation/AvatarXLarge';
-import AvatarXXLarge from '../../examples/constellation/AvatarXXLarge';
+import AvatarDefault from '../../examples/constellation/avatar-default';
+import AvatarCircle from '../../examples/constellation/avatar-circle';
+import AvatarSquare from '../../examples/constellation/avatar-square';
+import AvatarHover from '../../examples/constellation/avatar-hover';
+import AvatarSmall from '../../examples/constellation/avatar-small';
+import AvatarXSmall from '../../examples/constellation/avatar-x-small';
+import AvatarMedium from '../../examples/constellation/avatar-medium';
+import AvatarLarge from '../../examples/constellation/avatar-large';
+import AvatarXLarge from '../../examples/constellation/avatar-x-large';
+import AvatarXXLarge from '../../examples/constellation/avatar-x-x-large';
 
 ## Default
 
@@ -79,18 +76,3 @@ Use `xsmall` circle and square avatars for onscreen metadata such as in Jira iss
 On hover, a tooltip is displayed to reveal the avatar `name`.
 
 <Example Component={AvatarHover} packageName="@atlaskit/avatar" />
-
-## User presence
-
-Use presence indicators on avatars to display a user or entity’s availability.
-Note: `xsmall` and `xxlarge` avatars don’t support presence indicators.
-
-<Example Component={AvatarBasicPresence} packageName="@atlaskit/avatar" />
-
-## Avatar status
-
-Use a `status` to show if a user approves or declines something, such as a pull request in Bitbucket. You can also use `status` to show if an entity is private, such as a Confluence space.
-
-Note: `xsmall` and `xxlarge` avatars don't support statuses.
-
-<Example Component={AvatarBasicStatus} packageName="@atlaskit/avatar" />

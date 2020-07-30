@@ -8,13 +8,13 @@ import { AVATAR_RADIUS, AVATAR_SIZES, BORDER_WIDTH } from './constants';
 import { AppearanceType, SizeType } from './types';
 
 export interface SkeletonProps {
-  /* Indicates the shape of the skeleton */
+  /* Skeleton shape */
   appearance?: AppearanceType;
-  /* Sets the color of the skeleton. By default it will inherit the current text color. */
+  /* Color of the skeleton. By default, it will inherit the current text color. */
   color?: string;
-  /* Defines the size of the skeleton */
+  /* Skeleton size */
   size?: SizeType;
-  /* Determines the opacity of the skeleton */
+  /* Skeleton opacity */
   weight?: 'normal' | 'strong';
 }
 
@@ -23,7 +23,7 @@ const Skeleton: FC<SkeletonProps> = ({
   appearance = 'circle',
   color = 'currentColor',
   weight = 'normal',
-}) => (
+}: SkeletonProps) => (
   <div
     css={css`
       width: ${AVATAR_SIZES[size]}px;

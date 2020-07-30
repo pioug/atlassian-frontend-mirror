@@ -5,7 +5,14 @@ export {
   Header as ModalHeader,
   Footer as ModalFooter,
   Title as ModalTitle,
+  BodyProps as BodyComponentProps,
+  TitleTextProps as TitleComponentProps,
 } from './styled/Content';
-export { KeyboardOrMouseEvent, ActionProps } from './types';
+export {
+  KeyboardOrMouseEvent,
+  ActionProps,
+  ScrollBehavior,
+  ContainerComponentProps,
+} from './types';
 export { FooterComponentProps } from './components/Footer';
 export { HeaderComponentProps } from './components/Header';

@@ -1,5 +1,11 @@
 # @atlaskit/avatar
 
+## 20.0.1
+
+### Patch Changes
+
+- [`dfd7418707`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dfd7418707) - Added types for function parameters in the Presence, Status and Skeleton avatar sub-components. Without these types we were unable to generate prop tables in the documentation site using `extract-react-types`.
+
 ## 20.0.0
 
 ### Major Changes

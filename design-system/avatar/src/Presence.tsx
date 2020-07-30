@@ -73,7 +73,11 @@ function getPresence(presence: PresenceType) {
   }
 }
 
-const Presence: FC<PresenceProps> = ({ borderColor, children, presence }) => (
+const Presence: FC<PresenceProps> = ({
+  borderColor,
+  children,
+  presence,
+}: PresenceProps) => (
   <IconWrapper bgColor={borderColor}>
     {presence ? (
       <svg

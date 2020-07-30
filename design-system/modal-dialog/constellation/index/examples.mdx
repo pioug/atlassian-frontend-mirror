@@ -2,11 +2,12 @@
 order: 0
 ---
 
-import ModalDefault from '../../examples/constellation/ModalDefault';
-import ModalWarning from '../../examples/constellation/ModalWarning';
-import ModalDanger from '../../examples/constellation/ModalDanger';
-import ModalWidth from '../../examples/constellation/ModalWidth';
-import ModalScroll from '../../examples/constellation/ModalScroll';
+import ModalDefault from '../../examples/constellation/modal-default';
+import ModalWarning from '../../examples/constellation/modal-warning';
+import ModalDanger from '../../examples/constellation/modal-danger';
+import ModalWidth from '../../examples/constellation/modal-width';
+import ModalScroll from '../../examples/constellation/modal-scroll';
+import ModalContainerCustom from '../../examples/constellation/modal-container-custom';
 
 ## Default
 
@@ -16,36 +17,62 @@ The default form of a modal dialog.
 
 ## Appearance
 
-A modal dialog is available in two other variations. The appearance of the primary action and icon will change per variation.
+A modal dialog is available in two other variations.
+The appearance of the primary action and icon will change per variation.
 
 ### Warning
 
-Warning modals appear in anticipation of a significant change that affects the user. Have empathy for the user. Inform, but don't alarm. If the warning comes before an action, clearly communicate what will happen if they proceed, and provide an alternative where possible.
+Warning modals appear in anticipation of a significant change.
+Have empathy for people.
+Inform,
+but don't alarm.
+If the warning comes before an action,
+clearly communicate what will happen if they proceed,
+and provide an alternative where possible.
 
 <Example Component={ModalWarning} packageName="@atlaskit/modal" />
 
 ### Danger
 
-Danger modals let the user know that something potentially destructive will happen if they continue. Explain the problem and provide the user with a next step or an alternative.
+Danger modals are used to inform people when something potentially destructive will happen if they continue.
+Explain the problem and provide a next step or an alternative.
 
 <Example Component={ModalDanger} packageName="@atlaskit/modal" />
 
 ## Width
 
-The width of the modal can be specified in different ways.
+The width of the modal can be specified in different ways:
 
+- The recommended way to specify modal width is using named size options.
 - If a number is provided, the width is set to that number in pixels.
 - If a string including pixels or a percentage is provided, the width will be directly applied as a style.
-- Several size options are also recognized.
 
 <Example Component={ModalWidth} packageName="@atlaskit/modal" />
 
 ## Scrolling behavior
 
-Modal dialogs differ in width, whereas height is determined by the content. Once it reaches a certain threshold, the body content will scroll while the header and footer remain fixed until the bottom of the modal dialog is reached.
+Modal dialogs differ in width,
+whereas height is determined by the content.
+Once it reaches a certain threshold,
+the body content will scroll while the header and footer remain fixed until the bottom of the modal dialog is reached.
 
-The scroll behavior of modals can be configured so that scrolling happens inside the modal body or outside the modal, within the viewport.
+The scroll behavior of modals can be configured so that scrolling happens inside the modal body or outside the modal,
+within the viewport.
+If your application scrolls horizontally instead of vertically for example like Trello,
+you may need to use `inside-width`.
 
-In either case, modals prevent the window from being scrolled both natively and programatically. This means that certain browser issues such as `scrollIntoView` scrolling the window instead of only the closest scroll parent will be prevented.
+In either case,
+modals prevent the window from being scrolled both natively and programatically.
+This will prevent browser issues such as `scrollIntoView` scrolling the window instead of only the closest scroll parent.
 
 <Example Component={ModalScroll} packageName="@atlaskit/modal" />
+
+## Modal container
+
+Use the `Container` component override to customize the outer modal body,
+for example to wrap the modal in a `form` element.
+See [modal header](modal-header),
+[modal body](modal-body),
+and [modal footer](modal-footer) for other customization options.
+
+<Example Component={ModalContainerCustom} packageName="@atlaskit/modal" />

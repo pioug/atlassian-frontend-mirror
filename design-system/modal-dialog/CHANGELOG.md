@@ -1,5 +1,22 @@
 # @atlaskit/modal-dialog
 
+## 11.1.0
+
+### Minor Changes
+
+- [`727776fa32`](https://bitbucket.org/atlassian/atlassian-frontend/commits/727776fa32) - Missing types for component overrides are now exposed - you can access them through the root entrypoint.
+
+  ```js
+  import {
+    BodyComponentProps,
+    TitleComponentProps,
+    ContainerComponentProps,
+    FooterComponentProps,
+    HeaderComponentProps,
+    ScrollBehavior,
+  } from '@atlaskit/modal-dialog';
+  ```
+
 ## 11.0.3
 
 ### Patch Changes

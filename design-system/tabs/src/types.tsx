@@ -26,7 +26,7 @@ export interface TabItemElementProps {
 type TabItemInnerRef = (ref: HTMLElement) => void;
 
 export interface TabItemComponentProvided {
-  /** The complete tab object which you provided to Tabs in the tabs array. */
+  /** The complete tab object which you provided to `Tabs` in the tabs array. */
   data: TabData;
   /** Accessibility props and interaction callbacks which should be spread onto
    * your component. */
@@ -38,7 +38,7 @@ export interface TabItemComponentProvided {
 }
 
 export interface TabContentComponentProvided {
-  /** The complete tab object which you provided to Tabs in the tabs array. */
+  /** The complete tab object which you provided to `Tabs` in the tabs array. */
   data: TabData;
   /** Accessibility props which should be spread onto your component. */
   elementProps: {

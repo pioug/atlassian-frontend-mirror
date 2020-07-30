@@ -9,14 +9,14 @@ import { AppearanceType, IndicatorSizeType } from './types';
 export type StatusType = ('approved' | 'declined' | 'locked') | ReactNode;
 
 export interface StatusProps {
-  /** Used to override the default border color of the status indicator.
-   Accepts any color argument that the border-color CSS property accepts. */
+  /** Override the default border color of the status indicator. This accepts
+   any color argument that the CSS property `border-color` accepts. */
   borderColor?: string;
-  /** Content to use as a custom status indicator (usually not required if
-   consuming Status separate to Avatar). */
+  /** Content to use as a custom status indicator. Not needed if consuming
+   `Status` separate to `Avatar`. */
   children?: ReactNode;
-  /** Content to use as a custom status indicator (usually not required if
-   consuming Status separate to Avatar). */
+  /** Content to use as a custom status indicator. Not needed if consuming
+   `Status` separate to `Avatar`. */
   status?: StatusType;
 }
 
@@ -59,7 +59,11 @@ function getStatus(status: StatusType) {
   }
 }
 
-const Status: FC<StatusProps> = ({ borderColor, children, status }) => (
+const Status: FC<StatusProps> = ({
+  borderColor,
+  children,
+  status,
+}: StatusProps) => (
   <IconWrapper bgColor={borderColor}>
     {status ? (
       <svg

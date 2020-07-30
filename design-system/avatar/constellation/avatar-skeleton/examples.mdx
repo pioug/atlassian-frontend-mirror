@@ -1,0 +1,70 @@
+---
+title: Avatar skeleton
+description: A skeleton is the loading state for the avatar component.
+order: 0
+---
+
+import AvatarSkeletonCircle from '../../examples/constellation/avatar-skeleton-circle';
+import AvatarSkeletonSquare from '../../examples/constellation/avatar-skeleton-square';
+import AvatarSkeletonSize from '../../examples/constellation/avatar-skeleton-size';
+import AvatarSkeletonColorDefault from '../../examples/constellation/avatar-skeleton-color-default';
+import AvatarSkeletonColor from '../../examples/constellation/avatar-skeleton-color';
+import AvatarSkeletonWeightNormal from '../../examples/constellation/avatar-skeleton-weight-normal';
+import AvatarSkeletonWeightStrong from '../../examples/constellation/avatar-skeleton-weight-strong';
+
+## Appearance
+
+### Circle
+
+The default appearance. Use `appearance="circle"` for a circular skeleton.
+
+<Example Component={AvatarSkeletonCircle} packageName="@atlaskit/avatar" />
+
+### Square
+
+Use `appearance="square"` for a square skeleton.
+
+<Example Component={AvatarSkeletonSquare} packageName="@atlaskit/avatar" />
+
+## Size
+
+Use `size` to define the size of the skeleton.
+
+<Example Component={AvatarSkeletonSize} packageName="@atlaskit/avatar" />
+
+## Color
+
+### Default
+
+By default, a skeleton inherits the color of its parent container.
+
+<Example
+  Component={AvatarSkeletonColorDefault}
+  packageName="@atlaskit/avatar"
+/>
+
+### Specific color
+
+Set the color of a skeleton by defining the `color` property.
+
+<Example Component={AvatarSkeletonColor} packageName="@atlaskit/avatar" />
+
+## Weight
+
+### Default opacity
+
+Use `weight="normal"` for the default opacity for the skeleton.
+
+<Example
+  Component={AvatarSkeletonWeightNormal}
+  packageName="@atlaskit/avatar"
+/>
+
+### Strong opacity
+
+Use `weight="strong"` for a stronger opacity for the skeleton.
+
+<Example
+  Component={AvatarSkeletonWeightStrong}
+  packageName="@atlaskit/avatar"
+/>

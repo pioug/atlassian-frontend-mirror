@@ -1,0 +1,59 @@
+---
+title: Avatar presence
+description: A presence shows an avatar’s availability.
+order: 0
+---
+
+import AvatarPresenceOnline from '../../examples/constellation/avatar-presence-online';
+import AvatarPresenceBusy from '../../examples/constellation/avatar-presence-busy';
+import AvatarPresenceFocus from '../../examples/constellation/avatar-presence-focus';
+import AvatarPresenceOffline from '../../examples/constellation/avatar-presence-offline';
+import AvatarPresenceUsingAvatar from '../../examples/constellation/avatar-presence-using-avatar';
+import AvatarPresenceBorderColor from '../../examples/constellation/avatar-presence-border-color';
+import AvatarPresenceSize from '../../examples/constellation/avatar-presence-size';
+
+## Presence
+
+### Online
+
+Use the online presence indicator to show the person is online and available.
+
+<Example Component={AvatarPresenceOnline} packageName="@atlaskit/avatar" />
+
+### Busy
+
+Use the busy presence indicator to show the person is busy.
+
+<Example Component={AvatarPresenceBusy} packageName="@atlaskit/avatar" />
+
+### Focus
+
+Use the focus presence indicator to show the person is focused.
+
+<Example Component={AvatarPresenceFocus} packageName="@atlaskit/avatar" />
+
+### Offline
+
+Use the offline presence indicator to show the person is offline or away.
+
+<Example Component={AvatarPresenceOffline} packageName="@atlaskit/avatar" />
+
+## Using avatar
+
+The `presence` can be passed directly to `Avatar` instead of using the `Presence` component.
+
+<Example Component={AvatarPresenceUsingAvatar} packageName="@atlaskit/avatar" />
+
+## Border color
+
+By default, a status has a white border color. Use `borderColor` to override the default border color of the status indicator. This accepts any color that the CSS property `border-color` accepts.
+
+<Example Component={AvatarPresenceBorderColor} packageName="@atlaskit/avatar" />
+
+## Size
+
+By default, presences will stretch to fill their parents. Try resizing the wrapping `div` below to see this in action.
+
+It’s best to always have a wrapping `div` around `Presence` components when consuming them separately to `Avatar`.
+
+<Example Component={AvatarPresenceSize} packageName="@atlaskit/avatar" />

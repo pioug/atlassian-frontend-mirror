@@ -27,9 +27,13 @@ export const wrapperStyles = css`
 
 // Header
 // ==============================
-interface HeaderProps {
+export interface HeaderProps {
+  /**
+   * When `true` it will show the keyline below the header.
+   */
   showKeyline?: boolean;
 }
+
 export const Header = styled.header<HeaderProps>`
   align-items: center;
   display: flex;
@@ -57,7 +61,10 @@ export const Title = styled.h4`
   min-width: 0;
 `;
 
-interface TitleTextProps {
+export interface TitleTextProps {
+  /**
+   * When `true` will enable the heading to span multiple lines if it is long enough.
+   */
   isHeadingMultiline?: boolean;
 }
 
@@ -118,18 +125,29 @@ export const bodyStyles = (shouldScroll?: boolean) => css`
   }
 `;
 
-interface BodyProps {
-  shouldScroll?: boolean;
+export interface BodyProps {
+  /**
+   * Tab index used to enable the component to receive focus.
+   */
+  tabIndex?: number;
+
+  /**
+   * Class name passed to the component.
+   */
+  className?: string;
 }
-export const Body = styled.div<BodyProps>`
-  ${props => bodyStyles(props.shouldScroll)}
-`;
+
+export const Body = styled.div``;
 
 // Footer
 // ==============================
-interface FooterProps {
+export interface FooterProps {
+  /**
+   * When `true` it will show the keyline above the footer.
+   */
   showKeyline?: boolean;
 }
+
 export const Footer = styled.footer<FooterProps>`
   position: relative;
   align-items: center;

@@ -11,7 +11,12 @@ import {
   keylineHeight,
   wrapperStyles,
 } from '../styled/Content';
-import { ActionProps, AppearanceType, KeyboardOrMouseEvent } from '../types';
+import {
+  ActionProps,
+  AppearanceType,
+  ContainerComponentProps,
+  KeyboardOrMouseEvent,
+} from '../types';
 
 import Footer, { FooterComponentProps } from './Footer';
 import Header, { HeaderComponentProps } from './Header';
@@ -27,76 +32,105 @@ function getInitialState() {
 
 interface Props {
   /**
-    Buttons to render in the footer
-  */
+   * Buttons to render in the footer.
+   * The first element in the array will implictly become the primary action.
+   */
   actions?: Array<ActionProps>;
+
   /**
-    Appearance of the primary action. Also adds an icon to the heading, if provided.
-  */
+   * Appearance of the modal that changes the color of the primary action and adds an icon to the heading.
+   */
   appearance?: AppearanceType;
+
   /**
-    Deprecated, use components prop: Component to render the body of the modal.
-  */
-  body?: React.ElementType;
-  /**
-    Content of the modal
-  */
+   * Contents of the modal dialog.
+   */
   children?: React.ReactNode;
+
   /**
-    Object describing internal components. Use this to swap out the default components.
-  */
+   * Component overrides to change components in the modal dialog.
+   */
   components: {
     Header?: React.ElementType<HeaderComponentProps>;
     Body?: React.ElementType;
     Footer?: React.ElementType<FooterComponentProps>;
-    Container?: React.ElementType;
+    Container?: React.ElementType<ContainerComponentProps>;
   };
+
   /**
-    Deprecated, use components prop: Component to render the header of the modal.
-  */
+   * Do not use. This prop has been deprecated.
+   * Use the `components` prop instead.
+   */
+  body?: React.ElementType;
+
+  /**
+   * Do not use. This prop has been deprecated.
+   * Use the `components` prop instead.
+   */
   header?: React.ElementType<HeaderComponentProps>;
+
   /**
-    Deprecated, use components prop: Component to render the footer of the moda.l
-  */
+   * Do not use. This prop has been deprecated.
+   * Use the `components` prop instead.
+   */
   footer?: React.ElementType<FooterComponentProps>;
+
   /**
-    Function that will be called to initiate the exit transition.
-  */
+   * Callback function called when the modal dialog is requesting to be closed.
+   */
   onClose: (event: KeyboardOrMouseEvent) => void;
+
   /**
-    Function that will be called when the modal changes position in the stack.
-  */
+   * Callback function called when the modal changes position in the stack.
+   */
   onStackChange?: (stackIndex: number) => void;
+
   /**
-    Whether or not the body content should scroll
-  */
+   * Whether or not the body content should scroll.
+   */
   shouldScroll?: boolean;
+
   /**
-    Boolean indicating if pressing the `esc` key should close the modal
-  */
+   * Calls `onClose` when pressing escape.
+   * Defaults to `true`.
+   */
   shouldCloseOnEscapePress?: boolean;
+
   /**
-    Boolean indicating content should be rendered on a transparent background.
-  */
+   * Will remove all styling from the modal dialog container allowing you to define your own styles,
+   * heading,
+   * and footer with actions.
+   * This prop should only be used as a last resort.
+   */
   isChromeless?: boolean;
+
   /**
-    Number representing where in the stack of modals, this modal sits
-  */
+   * Number representing where in the stack of modals this modal sits.
+   * This offsets the modal dialogs vertical position.
+   */
   stackIndex?: number;
+
   /**
-    The modal title; rendered in the header.
-  */
+   * Heading for the modal dialog.
+   */
   heading?: React.ReactNode;
+
   /**
-   The modal id; used for aria-labelledby
+   * Unique id for the modal heading element.
    */
   headingId?: string;
+
   /**
-   * Makes heading multiline.
-   * If false and heading is longer than one line overflow will be not displayed.
+   * When `true` will allow the heading to span multiple lines.
+   * Defaults to `false`.
    */
   isHeadingMultiline?: boolean;
-  /** A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests */
+
+  /**
+   * A `testId` prop is provided for specified elements,
+   * which is a unique string that appears as a data attribute `data-testid` in the rendered code,
+   * serving as a hook for automated tests.
+   */
   testId?: string;
 }
 

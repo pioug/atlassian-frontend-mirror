@@ -20,110 +20,139 @@ import StackConsumer from './StackConsumer';
 
 export interface WrapperProps extends WithAnalyticsEventsProps {
   /**
-    Buttons to render in the footer
-  */
+   * Buttons to render in the footer.
+   * The first element in the array will implictly become the primary action.
+   */
   actions?: Array<ActionProps>;
+
   /**
-    Appearance of the primary action. Also adds an icon to the heading, if provided.
-  */
+   * Appearance of the modal that changes the color of the primary action and adds an icon to the heading.
+   */
   appearance?: AppearanceType;
+
   /**
-    Boolean indicating whether to focus on the first tabbable element inside the focus lock.
-  */
+   * Will focus on the first interactive element inside the modal dialog when `true`.
+   * Pass in a callback function to return a HTML element to focus if you need more control.
+   * Defaults to `true`.
+   */
   autoFocus: boolean | (() => HTMLElement | null);
+
   /**
-    Content of the modal
-  */
+   * Contents of the modal dialog.
+   */
   children?: React.ReactNode;
+
   /**
-    Object containing header, footer, body and container components. Components here will be used instead of the defaults.
-    - Header: container for the title
-    - Footer: container for the actions
-    - Body: container for the content. Component ref must return a HTMLElement. See Custom example.
-    - Container: wrapper around Header, Body and Footer components.
-  */
+   * Component overrides to change components in the modal dialog.
+   */
   components?: {
     Header?: React.ElementType<HeaderComponentProps>;
     Footer?: React.ElementType<FooterComponentProps>;
     Body?: React.ElementType;
     Container?: React.ElementType;
   };
+
   /**
-    Deprecated, use components prop: Component to render the body of the modal, replaces the internal implementation.
-  */
+   * Do not use. This prop has been deprecated.
+   * Use the `components` prop instead.
+   */
   body?: React.ElementType;
+
   /**
-    Deprecated, use components prop: Component to render the footer of the modal, replaces internal implementation.
-  */
+   * Do not use. This prop has been deprecated.
+   * Use the `components` prop instead.
+   */
   footer?: React.ElementType<FooterComponentProps>;
+
   /**
-    Deprecated, use components prop: Component to render the header of the modal, replaces internal implementation.
-  */
+   * Do not use. This prop has been deprecated.
+   * Use the `components` prop instead.
+   */
   header?: React.ElementType<HeaderComponentProps>;
+
   /**
-    The modal title; rendered in the header.
-  */
+   * Heading for the modal dialog.
+   */
   heading?: React.ReactNode;
+
   /**
-   * Makes heading multiline.
-   * If false and heading is longer than one line overflow will be not displayed.
+   * When `true` will allow the heading to span multiple lines.
+   * Defaults to `false`.
    */
   isHeadingMultiline?: boolean;
+
   /**
-    Height of the modal. If not set, the modal grows to fit the content until it
-    runs out of vertical space, at which point scrollbars appear. If a number is
-    provided, the height is set to that number in pixels. A string including pixels,
-    or a percentage, will be directly applied as a style. Several size options are
-    also recognised.
-  */
+   * Height of the modal dialog.
+   * When unset the modal dialog will grow to fill the viewport and then start overflowing its contents.
+   */
   height?: number | string;
+
   /**
-    Function that will be called to initiate the exit transition.
-  */
+   * Width of the modal dialog.
+   * The recommended way to specify modal width is using named size options.
+   * Defaults to `medium`.
+   */
+  width?: number | string | WidthNames;
+
+  /**
+   * Callback function called when the modal dialog is requesting to be closed.
+   */
   onClose: (event: KeyboardOrMouseEvent) => void;
+
   /**
-    Function that will be called when the exit transition is complete.
-  */
+   * Callback function called when the modal dialog has finished closing.
+   */
   onCloseComplete?: (element: HTMLElement) => void;
+
   /**
-    Function that will be called when the enter transition is complete.
-  */
+   * Callback function called when the modal dialog has finished opening.
+   */
   onOpenComplete?: (node: HTMLElement, isAppearing: boolean) => void;
+
   /**
-    Function that will be called when the modal changes position in the stack.
-  */
+   * Callback function called when the modal changes position in the stack.
+   */
   onStackChange?: (stackIndex: number) => void;
+
   /**
-  Values that decide the positioning and scroll behaviour of the modal.
-  - `inside` locks the modal on the outside and allows scroll only on the modal body.
-  - `outside` lets the entire modal be scrolled in its container
-  - `inside-wide` is like `inside` but for body wider than the viewport
+   * Controls the positioning and scroll behaviour of the modal dialog.
+    - `inside` scrolls overflow contents within the modal dialog body.
+    - `outside` turns off overflow and will scroll the entire modal dialog.
+    - `inside-wide` has the same behaviour as `inside` but is made for wide horizontal scrolling applications, like Trello.
   */
   scrollBehavior: ScrollBehavior;
+
   /**
-    Boolean indicating if clicking the overlay should close the modal.
-  */
+   * Calls `onClose` when clicking the blanket behind the modal dialog.
+   * Defaults to `true`.
+   */
   shouldCloseOnOverlayClick?: boolean;
+
   /**
-    Boolean indicating if pressing the `esc` key should close the modal.
-  */
+   * Calls `onClose` when pressing escape.
+   * Defaults to `true`.
+   */
   shouldCloseOnEscapePress?: boolean;
+
   /**
-    Boolean indicating content should be rendered on a transparent background.
-  */
+   * Will remove all styling from the modal dialog container allowing you to define your own styles,
+   * heading,
+   * and footer with actions.
+   * This prop should only be used as a last resort.
+   */
   isChromeless?: boolean;
+
   /**
-    Number representing where this instance lives in the stack of modals.
-  */
+   * Number representing where in the stack of modals this modal sits.
+   * This offsets the modal dialogs vertical position.
+   */
   stackIndex?: number;
+
   /**
-    Width of the modal. This can be provided in three different ways.
-    If a number is provided, the width is set to that number in pixels.
-    A string including pixels, or a percentage, will be directly applied as a style.
-    Several size options are also recognised.
-  */
-  width?: number | string | WidthNames;
-  /** A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests */
+   * A `testId` prop is provided for specified elements,
+   * which is a unique string that appears as a data attribute `data-testid` in the rendered code,
+   * serving as a hook for automated tests.
+   */
   testId?: string;
 }
 

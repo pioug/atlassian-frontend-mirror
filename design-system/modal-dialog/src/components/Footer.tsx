@@ -8,18 +8,32 @@ import { ActionProps, AppearanceType, KeyboardOrMouseEvent } from '../types';
 const JustifyShim = (props: any) => <span {...props} />;
 
 export interface FooterProps extends FooterComponentProps {
-  /** Buttons to render in the footer */
+  /**
+   * Buttons to render in the footer.
+   * The first element in the array will implictly become the primary action.
+   */
   actions?: Array<ActionProps>;
-  /** Component to render the footer of the modal */
+
+  /**
+   * Component overrides to change footer.
+   */
   component?: React.ElementType<FooterComponentProps>;
 }
 
 export interface FooterComponentProps {
-  /** Appearance of the primary button. Also adds an icon to the heading, if provided. */
+  /**
+   * Appearance of the modal that changes the color of the primary action and adds an icon to the heading.
+   */
   appearance?: AppearanceType;
-  /** Function to close the dialog */
+
+  /**
+   * Callback function called when the modal dialog is requesting to be closed.
+   */
   onClose: (e: KeyboardOrMouseEvent) => void;
-  /** Whether or not to display a line above the footer */
+
+  /**
+   * When set to `true` should be used to draw a line above the footer signifying that there is overflowed content inside the modal dialog.
+   */
   showKeyline?: boolean;
 }
 

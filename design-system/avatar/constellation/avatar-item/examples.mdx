@@ -1,0 +1,55 @@
+---
+title: Avatar item
+description: An avatar item is a wrapper that goes around an avatar when it's displayed alongside text, such as a name or status.
+order: 0
+---
+
+import AvatarItemBackgroundColor from '../../examples/constellation/avatar-item-background-color';
+import AvatarItemIsDisabled from '../../examples/constellation/avatar-item-is-disabled';
+import AvatarItemPrimaryText from '../../examples/constellation/avatar-item-primary-text';
+import AvatarItemSecondaryText from '../../examples/constellation/avatar-item-secondary-text';
+import AvatarItemText from '../../examples/constellation/avatar-item-text';
+import AvatarItemIsTruncationDisabled from '../../examples/constellation/avatar-item-is-truncation-disabled';
+
+## Background color
+
+Use a `backgroundColor` to change the background color of the avatar.
+
+<Example Component={AvatarItemBackgroundColor} packageName="@atlaskit/avatar" />
+
+## States
+
+### Disabled
+
+Use `isDisabled` to show the avatar is disabled.
+
+<Example Component={AvatarItemIsDisabled} packageName="@atlaskit/avatar" />
+
+## Text
+
+### Primary text
+
+Use `primaryText` to style the avatar text as primary text.
+
+<Example Component={AvatarItemPrimaryText} packageName="@atlaskit/avatar" />
+
+### Secondary text
+
+Use `secondaryText` to style the avatar text as secondary text.
+
+<Example Component={AvatarItemSecondaryText} packageName="@atlaskit/avatar" />
+
+### Composing text
+
+`primaryText` and `secondaryText` can be composed together.
+
+<Example Component={AvatarItemText} packageName="@atlaskit/avatar" />
+
+## Truncation
+
+By default, overflowing text is truncated if it exceeds the width of its container. Use `isTruncationDisabled` to disable this.
+
+<Example
+  Component={AvatarItemIsTruncationDisabled}
+  packageName="@atlaskit/avatar"
+/>

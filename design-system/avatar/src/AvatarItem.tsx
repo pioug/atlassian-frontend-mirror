@@ -32,24 +32,25 @@ export interface CustomAvatarItemProps {
 }
 
 export interface AvatarItemProps {
+  /** Slot to place an avatar element. Use @atlaskit/avatar. */
   avatar: ReactNode;
-  /** Change background color */
+  /** Change background color. */
   backgroundColor?: string;
-  /** A custom component to use instead of the default span. */
+  /** Use a custom component instead of the default span. */
   children?: (props: CustomAvatarItemProps) => ReactNode;
-  /** Provides a url for avatars being used as a link. */
+  /** URL for avatars being used as a link. */
   href?: string;
-  /** Change the style to indicate the item is disabled. */
+  /** Disable the item from being interactive */
   isDisabled?: boolean;
   /** Handler to be called on click. */
   onClick?: AvatarClickEventHandler;
-  /** PrimaryText text */
+  /** PrimaryText text. */
   primaryText?: ReactNode;
-  /** SecondaryText text */
+  /** SecondaryText text. */
   secondaryText?: ReactNode;
   /** Pass target down to the anchor, if href is provided. */
   target?: '_blank' | '_self' | '_top' | '_parent';
-  /** Whether or not overflowing primary and secondary text is truncated */
+  /** By default, overflowing text is truncated if it exceeds the container width. Use this prop to disable this. */
   isTruncationDisabled?: boolean;
   /** A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests */
   testId?: string;

@@ -13,3 +13,9 @@ export type ActionProps = ButtonProps & {
   // ReactNode provides support for i18n libraries
   text: React.ReactNode;
 };
+
+export interface ContainerComponentProps {
+  className?: string;
+  ['data-testid']?: string;
+  children?: React.ReactNode;
+}

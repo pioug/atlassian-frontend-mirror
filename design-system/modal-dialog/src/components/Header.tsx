@@ -39,24 +39,43 @@ export interface HeaderProps extends HeaderComponentProps {
 }
 
 export interface HeaderComponentProps {
-  /** refer by aria-labelledby attribute for a11y */
+  /**
+   * Unique identifier for the heading.
+   */
   id?: string;
-  /** A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests */
-  testId?: string;
-  /** Appearance of the primary button. Also adds an icon to the heading, if provided. */
+
+  /**
+   * Appearance of the modal that changes the color of the primary action and adds an icon to the heading.
+   */
   appearance?: AppearanceType;
 
-  /** The modal heading */
-  heading?: React.ReactNode;
-  /** Function to close the dialog */
-  onClose: (e: KeyboardOrMouseEvent) => void;
-  /** Whether or not to display a line under the header */
-  showKeyline?: boolean;
   /**
-   * Makes heading multiline.
-   * If false and heading is longer than one line overflow will be not displayed.
+   * Callback function called when the modal dialog is requesting to be closed.
+   */
+  onClose: (e: KeyboardOrMouseEvent) => void;
+
+  /**
+   * Heading for the modal dialog.
+   */
+  heading?: React.ReactNode;
+
+  /**
+   * When set to `true` should be used to draw a line underneath the header signifying that there is overflowed content inside the modal dialog.
+   */
+  showKeyline?: boolean;
+
+  /**
+   * When `true` will allow the heading to span multiple lines.
+   * Defaults to `false`.
    */
   isHeadingMultiline?: boolean;
+
+  /**
+   * A `testId` prop is provided for specified elements,
+   * which is a unique string that appears as a data attribute `data-testid` in the rendered code,
+   * serving as a hook for automated tests.
+   */
+  testId?: string;
 }
 
 export default class ModalHeader extends React.Component<HeaderProps, {}> {

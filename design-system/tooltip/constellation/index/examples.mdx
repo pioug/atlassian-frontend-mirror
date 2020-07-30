@@ -7,6 +7,7 @@ import TooltipTruncate from '../../examples/constellation/tooltip-truncate';
 import TooltipPosition from '../../examples/constellation/tooltip-position';
 import TooltipComponent from '../../examples/constellation/tooltip-component';
 import TooltipAvoidTitle from '../../examples/constellation/tooltip-avoid-title';
+import TooltipCustomization from '../../examples/constellation/tooltip-customization';
 
 ## Default
 
@@ -39,3 +40,9 @@ The tooltip component accepts a component prop, which enables users to customise
 A `Tooltip` is often used to specify extra information when a user hovers over an element, which matches the behavior of the HTML `title` attribute. Avoid using the HTML `title` attribute in any children of `Tooltip` or you may see double tooltips displayed. In addition, the `title` attribute is not supported consistently across screenreaders, and is inaccessible to all keyboard-only users and mobile phone users.
 
 <Example Component={TooltipAvoidTitle} packageName="@atlaskit/tooltip" />
+
+## Customization
+
+Use `TooltipPrimitive` to customize the style of a default tooltip.
+
+<Example Component={TooltipCustomization} packageName="@atlaskit/tooltip" />

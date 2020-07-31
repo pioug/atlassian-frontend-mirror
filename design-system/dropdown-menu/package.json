@@ -21,7 +21,8 @@
     "releaseModel": "scheduled",
     "website": {
       "name": "Dropdown menu"
-    }
+    },
+    "deprecatedAutoEntryPoints": true
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^7.0.0",

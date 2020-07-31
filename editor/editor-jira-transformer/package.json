@@ -20,7 +20,8 @@
     "releaseModel": "scheduled",
     "website": {
       "name": "Editor Jira Transformer"
-    }
+    },
+    "deprecatedAutoEntryPoints": true
   },
   "dependencies": {
     "@atlaskit/adf-schema": "^12.1.0",

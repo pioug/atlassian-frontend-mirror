@@ -20,7 +20,8 @@
     "releaseModel": "scheduled",
     "website": {
       "name": "Media Client"
-    }
+    },
+    "deprecatedAutoEntryPoints": true
   },
   "dependencies": {
     "@atlaskit/button": "^14.0.0",

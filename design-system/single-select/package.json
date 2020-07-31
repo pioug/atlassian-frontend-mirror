@@ -21,7 +21,8 @@
     "website": {
       "deprecated": "Please use @atlaskit/select instead.",
       "name": "Single Select"
-    }
+    },
+    "deprecatedAutoEntryPoints": true
   },
   "dependencies": {
     "@atlaskit/droplist": "^11.0.0",

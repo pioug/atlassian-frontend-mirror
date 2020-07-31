@@ -11,7 +11,7 @@ const StatelessMenuShouldFlipExample = () => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <DropdownMenuStateless
-      trigger="Filter City"
+      trigger="Filter city"
       triggerType="button"
       shouldFlip
       isOpen={isOpen}

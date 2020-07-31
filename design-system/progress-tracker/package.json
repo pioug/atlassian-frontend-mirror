@@ -21,7 +21,8 @@
     "releaseModel": "scheduled",
     "website": {
       "name": "Progress tracker"
-    }
+    },
+    "deprecatedAutoEntryPoints": true
   },
   "dependencies": {
     "@atlaskit/page": "^12.0.0",

@@ -21,7 +21,8 @@
     "releaseModel": "scheduled",
     "website": {
       "name": "Inline message"
-    }
+    },
+    "deprecatedAutoEntryPoints": true
   },
   "dependencies": {
     "@atlaskit/button": "^14.0.0",

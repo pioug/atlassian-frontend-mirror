@@ -21,7 +21,8 @@
     "releaseModel": "scheduled",
     "website": {
       "name": "Form"
-    }
+    },
+    "deprecatedAutoEntryPoints": true
   },
   "dependencies": {
     "@atlaskit/icon": "^21.0.0",

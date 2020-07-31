@@ -1,5 +1,11 @@
 # @atlaskit/theme
 
+## 10.0.2
+
+### Patch Changes
+
+- [`0408cc26ef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0408cc26ef) - Declare entry points in af:exports field of package.json
+
 ## 10.0.1
 
 ### Patch Changes

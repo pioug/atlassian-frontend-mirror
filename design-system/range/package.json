@@ -20,7 +20,8 @@
     "releaseModel": "scheduled",
     "website": {
       "name": "Range"
-    }
+    },
+    "deprecatedAutoEntryPoints": true
   },
   "dependencies": {
     "@atlaskit/theme": "^10.0.0",

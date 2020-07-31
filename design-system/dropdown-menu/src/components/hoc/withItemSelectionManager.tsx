@@ -5,8 +5,8 @@ import DropdownItemSelectionManager from '../context/DropdownItemSelectionManage
 
 export interface WithDropdownItemSelectionManagerProps {
   /**
-   * Unique id used to enable selections.
-   * When using multiple groups make sure they each have a unique id.
+   * Unique `id` used to enable selections.
+   * When using multiple groups make sure they each have a unique `id`.
    */
   id: string;
 }

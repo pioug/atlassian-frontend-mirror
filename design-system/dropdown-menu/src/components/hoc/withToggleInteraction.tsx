@@ -12,18 +12,18 @@ import { KEY_ENTER, KEY_SPACE } from '../../util/keys';
 import safeContextCall from '../../util/safeContextCall';
 
 export interface Props {
-  /** Content to be displayed inside the item. Same as @atlaskit/item `children` prop. */
+  /** Content to be displayed inside the item. Same as `@atlaskit/item` `children` prop. */
   children?: ReactNode;
   /** Unique identifier for the item, so that selection state can be tracked when the dropdown
    * is opened/closed. */
   id: string;
   /** Set at mount to make the item appear checked. The user may interact with the
-   * item after mount. See isSelected if you want to control the item state manually. */
+   * item after mount. See `isSelected` if you want to control the item state manually. */
   defaultSelected?: boolean;
   /** Causes the item to appear visually checked. Can be set at mount time, and updated after
-   * mount. Changing the value will not cause onClick to be called. */
+   * mount. Changing the value will not cause `onClick` to be called. */
   isSelected?: boolean;
-  /** Standard optional onClick handler */
+  /** Standard optional `onClick` handler */
   onClick?: React.MouseEventHandler<HTMLElement>;
 }
 

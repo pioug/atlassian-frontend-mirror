@@ -20,7 +20,8 @@
     "releaseModel": "scheduled",
     "website": {
       "name": "Email Renderer"
-    }
+    },
+    "deprecatedAutoEntryPoints": true
   },
   "scripts": {
     "ak-postbuild": "ts-node --project ./tsconfig.ts-node.json ./build/ts-to-css.ts",

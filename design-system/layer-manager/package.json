@@ -20,7 +20,8 @@
     "website": {
       "name": "Layer Manager",
       "deprecated": "@atlaskit/layer-manager is deprecated"
-    }
+    },
+    "deprecatedAutoEntryPoints": true
   },
   "dependencies": {
     "@babel/runtime": "^7.0.0",

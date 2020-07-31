@@ -20,7 +20,8 @@
     "releaseModel": "scheduled",
     "website": {
       "name": "Code"
-    }
+    },
+    "deprecatedAutoEntryPoints": true
   },
   "config": {
     "access": "public"

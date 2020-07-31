@@ -20,7 +20,8 @@
     "releaseModel": "scheduled",
     "website": {
       "name": "Media Common"
-    }
+    },
+    "deprecatedAutoEntryPoints": true
   },
   "scripts": {},
   "dependencies": {

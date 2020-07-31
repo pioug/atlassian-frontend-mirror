@@ -21,7 +21,8 @@
     "releaseModel": "scheduled",
     "website": {
       "name": "Text field"
-    }
+    },
+    "deprecatedAutoEntryPoints": true
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^7.0.0",

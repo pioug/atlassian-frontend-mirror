@@ -20,7 +20,8 @@
     "releaseModel": "scheduled",
     "website": {
       "name": "Drawer"
-    }
+    },
+    "deprecatedAutoEntryPoints": true
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^7.0.0",

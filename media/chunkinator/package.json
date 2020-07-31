@@ -20,7 +20,8 @@
     "releaseModel": "scheduled",
     "website": {
       "name": "Media Client"
-    }
+    },
+    "deprecatedAutoEntryPoints": true
   },
   "dependencies": {
     "rxjs-async-map": "^0.1.2",

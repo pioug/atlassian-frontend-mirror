@@ -1,5 +1,11 @@
 # @atlaskit/menu
 
+## 0.6.0
+
+### Minor Changes
+
+- [`63625ea30c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/63625ea30c) - Add `aria-current="page"` attribute to anchor tag when `isSelected` prop is `true` for `LinkItem` component.
+
 ## 0.5.2
 
 ### Patch Changes

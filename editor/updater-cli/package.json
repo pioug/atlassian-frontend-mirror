@@ -12,7 +12,8 @@
   "atlassian": {
     "team": "Editor",
     "inPublicMirror": true,
-    "releaseModel": "scheduled"
+    "releaseModel": "scheduled",
+    "deprecatedAutoEntryPoints": true
   },
   "bin": {
     "akup": "./bin/akup.js"

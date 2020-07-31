@@ -20,7 +20,8 @@
     "releaseModel": "scheduled",
     "website": {
       "name": "Feedback Collector"
-    }
+    },
+    "deprecatedAutoEntryPoints": true
   },
   "config": {
     "access": "public"

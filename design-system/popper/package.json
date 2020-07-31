@@ -17,7 +17,8 @@
   "atlassian": {
     "team": "Design System Team",
     "inPublicMirror": true,
-    "releaseModel": "scheduled"
+    "releaseModel": "scheduled",
+    "deprecatedAutoEntryPoints": true
   },
   "dependencies": {
     "memoize-one": "^5.1.0",

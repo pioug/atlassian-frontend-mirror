@@ -21,7 +21,8 @@
     "releaseModel": "scheduled",
     "website": {
       "name": "Banner"
-    }
+    },
+    "deprecatedAutoEntryPoints": true
   },
   "dependencies": {
     "@atlaskit/theme": "^10.0.0",

@@ -20,7 +20,8 @@
     "releaseModel": "continuous",
     "website": {
       "name": "Popup"
-    }
+    },
+    "deprecatedAutoEntryPoints": true
   },
   "dependencies": {
     "@atlaskit/popper": "^4.0.0",
@@ -40,7 +41,7 @@
     "@atlaskit/button": "^14.0.0",
     "@atlaskit/docs": "*",
     "@atlaskit/icon": "^21.0.0",
-    "@atlaskit/menu": "^0.5.0",
+    "@atlaskit/menu": "^0.6.0",
     "@atlaskit/radio": "^4.0.0",
     "@atlaskit/select": "^12.0.0",
     "@atlaskit/spinner": "^15.0.0",

@@ -20,7 +20,8 @@
     "releaseModel": "scheduled",
     "website": {
       "name": "Media Viewer"
-    }
+    },
+    "deprecatedAutoEntryPoints": true
   },
   "dependencies": {
     "@atlaskit/analytics-gas-types": "^5.0.0",

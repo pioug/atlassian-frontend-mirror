@@ -1,7 +1,7 @@
 import React from 'react';
 import Select from '../../src';
 
-export default () => (
+const SelectSingleExample = () => (
   <Select
     className="single-select"
     classNamePrefix="react-select"
@@ -15,6 +15,8 @@ export default () => (
       { label: 'Perth', value: 'perth' },
       { label: 'Sydney', value: 'sydney' },
     ]}
-    placeholder="Choose a city"
+    placeholder="Choose a City"
   />
 );
+
+export default SelectSingleExample;

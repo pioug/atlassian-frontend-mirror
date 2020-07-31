@@ -121,4 +121,14 @@ describe('<LinkItem />', () => {
     //  Default was prevented?
     expect(dragStartEvent.mock.results[0].value).toEqual(true);
   });
+
+  it('should have "aria-current=page" when link item is selected', () => {
+    const { getByTestId } = render(
+      <LinkItem href="#" isSelected testId="target">
+        Hello world
+      </LinkItem>,
+    );
+
+    expect(getByTestId('target')).toHaveAttribute('aria-current', 'page');
+  });
 });

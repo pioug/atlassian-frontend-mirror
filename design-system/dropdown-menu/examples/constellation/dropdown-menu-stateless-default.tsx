@@ -17,7 +17,7 @@ const StatelessMenuDefaultExample = () => {
         onOpenChange={(attrs: OnOpenChangeArgs) => {
           setIsOpen(attrs.isOpen);
         }}
-        trigger="Filter City"
+        trigger="Filter city"
         triggerType="button"
         appearance="default"
       >

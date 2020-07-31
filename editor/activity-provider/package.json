@@ -16,7 +16,8 @@
   "atlaskit:src": "src/index.ts",
   "atlassian": {
     "team": "Editor Media",
-    "releaseModel": "scheduled"
+    "releaseModel": "scheduled",
+    "deprecatedAutoEntryPoints": true
   },
   "dependencies": {
     "@atlaskit/util-service-support": "^6.0.0"

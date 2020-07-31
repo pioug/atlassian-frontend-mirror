@@ -20,7 +20,8 @@
     "releaseModel": "scheduled",
     "website": {
       "name": "Editor Core"
-    }
+    },
+    "deprecatedAutoEntryPoints": true
   },
   "dependencies": {
     "@atlaskit/adf-utils": "^10.1.0",

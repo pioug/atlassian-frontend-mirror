@@ -2,7 +2,7 @@ import React from 'react';
 import Select from '../../src';
 import { cities } from '../common/data';
 
-export default () => (
+const SelectMultiExample = () => (
   <Select
     className="multi-select"
     classNamePrefix="react-select"
@@ -12,3 +12,5 @@ export default () => (
     placeholder="Choose a city"
   />
 );
+
+export default SelectMultiExample;

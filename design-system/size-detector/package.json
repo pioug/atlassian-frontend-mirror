@@ -20,7 +20,8 @@
     "website": {
       "name": "Size Detector",
       "deprecated": "Please use @atlaskit/width-detector instead."
-    }
+    },
+    "deprecatedAutoEntryPoints": true
   },
   "dependencies": {
     "@babel/runtime": "^7.0.0",

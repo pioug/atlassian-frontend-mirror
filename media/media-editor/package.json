@@ -20,7 +20,8 @@
     "releaseModel": "scheduled",
     "website": {
       "name": "Media Editor"
-    }
+    },
+    "deprecatedAutoEntryPoints": true
   },
   "scripts": {
     "check-dist": "ls -d dist/*/engine | xargs -I{} test -d {}/core/binaries",

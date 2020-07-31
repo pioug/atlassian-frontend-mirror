@@ -16,7 +16,8 @@
   "atlassian": {
     "team": "Media Platform",
     "inPublicMirror": true,
-    "releaseModel": "scheduled"
+    "releaseModel": "scheduled",
+    "deprecatedAutoEntryPoints": true
   },
   "dependencies": {
     "@atlaskit/dropdown-menu": "^10.0.0",

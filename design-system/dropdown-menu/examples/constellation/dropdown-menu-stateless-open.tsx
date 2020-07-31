@@ -8,14 +8,14 @@ import {
 import { OnOpenChangeArgs } from '../../src/types';
 
 const StatelessMenuOpenExample = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
   return (
     <DropdownMenuStateless
       isOpen={isOpen}
       onOpenChange={(attrs: OnOpenChangeArgs) => {
         setIsOpen(attrs.isOpen);
       }}
-      trigger="Filter City"
+      trigger="Filter city"
       triggerType="button"
     >
       <DropdownItemGroupRadio id="cities">

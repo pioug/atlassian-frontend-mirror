@@ -20,7 +20,8 @@
     "releaseModel": "scheduled",
     "website": {
       "name": "Nps"
-    }
+    },
+    "deprecatedAutoEntryPoints": true
   },
   "dependencies": {
     "@atlaskit/button": "^14.0.0",

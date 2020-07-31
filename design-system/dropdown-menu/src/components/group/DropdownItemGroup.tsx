@@ -3,7 +3,7 @@ import React, { Component, ReactNode } from 'react';
 import { ItemGroup } from '@atlaskit/item';
 
 export interface Props {
-  /** DropdownItems to be rendered inside the group.*/
+  /** `DropdownItems` to be rendered inside the group.*/
   children?: ReactNode;
   /** Optional heading text to be shown above the items. */
   title?: string;

@@ -21,7 +21,8 @@
     "website": {
       "name": "Droplist",
       "deprecated": "For the pop up behaviour please use @atlaskit/popup and for common menu components please use @atlaskit/menu."
-    }
+    },
+    "deprecatedAutoEntryPoints": true
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^7.0.0",

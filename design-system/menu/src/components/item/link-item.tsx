@@ -51,6 +51,7 @@ const LinkItem = forwardRef<HTMLElement, LinkItemProps>(
         data-testid={testId}
         onMouseDown={onMouseDownHandler}
         onClick={isDisabled ? undefined : onClick}
+        aria-current={isSelected ? 'page' : undefined}
         {...others}
       >
         <BaseItem

@@ -21,7 +21,8 @@
     "website": {
       "deprecated": "Please use @atlaskit/select instead.",
       "name": "Multi Select"
-    }
+    },
+    "deprecatedAutoEntryPoints": true
   },
   "dependencies": {
     "@atlaskit/droplist": "^11.0.0",

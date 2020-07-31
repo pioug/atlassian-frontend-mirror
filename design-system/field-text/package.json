@@ -22,7 +22,8 @@
     "website": {
       "name": "Field Text",
       "deprecated": "@atlaskit/field-text is deprecated in favor of @atlaskit/textfield."
-    }
+    },
+    "deprecatedAutoEntryPoints": true
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^7.0.0",

@@ -19,7 +19,8 @@
     "releaseModel": "scheduled",
     "website": {
       "name": "Media Core"
-    }
+    },
+    "deprecatedAutoEntryPoints": true
   },
   "dependencies": {
     "eventemitter2": "^4.1.0",

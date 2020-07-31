@@ -19,7 +19,8 @@
     "releaseModel": "scheduled",
     "website": {
       "name": "Media Picker"
-    }
+    },
+    "deprecatedAutoEntryPoints": true
   },
   "dependencies": {
     "@atlaskit/analytics-gas-types": "^5.0.0",

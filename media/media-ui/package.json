@@ -20,7 +20,8 @@
     "releaseModel": "scheduled",
     "website": {
       "name": "Media UI"
-    }
+    },
+    "deprecatedAutoEntryPoints": true
   },
   "scripts": {
     "i18n:push": "i18n-tools push --resource media-ui --type ts .",

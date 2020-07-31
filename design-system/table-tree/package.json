@@ -19,7 +19,8 @@
     "releaseModel": "scheduled",
     "website": {
       "name": "Table Tree"
-    }
+    },
+    "deprecatedAutoEntryPoints": true
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^7.0.0",

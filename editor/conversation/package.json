@@ -19,7 +19,8 @@
     "releaseModel": "continuous",
     "website": {
       "name": "Conversation"
-    }
+    },
+    "deprecatedAutoEntryPoints": true
   },
   "config": {
     "access": "public"

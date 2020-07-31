@@ -21,7 +21,8 @@
     "releaseModel": "scheduled",
     "website": {
       "name": "Logo"
-    }
+    },
+    "deprecatedAutoEntryPoints": true
   },
   "dependencies": {
     "react-uid": "^2.2.0",

@@ -21,7 +21,8 @@
     "releaseModel": "scheduled",
     "website": {
       "name": "Tag group"
-    }
+    },
+    "deprecatedAutoEntryPoints": true
   },
   "dependencies": {
     "tslib": "^1.9.3"

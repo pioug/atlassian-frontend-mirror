@@ -17,7 +17,8 @@
   "atlassian": {
     "team": "Content Services",
     "inPublicMirror": true,
-    "releaseModel": "scheduled"
+    "releaseModel": "scheduled",
+    "deprecatedAutoEntryPoints": true
   },
   "dependencies": {
     "@atlaskit/editor-common": "^48.0.0",

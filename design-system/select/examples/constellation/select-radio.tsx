@@ -2,7 +2,7 @@ import React from 'react';
 import { RadioSelect } from '../../src';
 import { cities } from '../common/data';
 
-export default () => (
+const SelectRadioExample = () => (
   <RadioSelect
     className="radio-select"
     classNamePrefix="react-select"
@@ -17,3 +17,5 @@ export default () => (
     placeholder="Choose a city"
   />
 );
+
+export default SelectRadioExample;

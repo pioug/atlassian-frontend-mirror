@@ -19,6 +19,7 @@
     "team": "Design System Team",
     "inPublicMirror": true,
     "releaseModel": "scheduled",
+    "deprecatedAutoEntryPoints": true,
     "website": {
       "name": "Button"
     }

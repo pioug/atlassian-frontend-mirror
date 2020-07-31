@@ -20,7 +20,8 @@
     "releaseModel": "continuous",
     "website": {
       "name": "Page Layout"
-    }
+    },
+    "deprecatedAutoEntryPoints": true
   },
   "dependencies": {
     "@atlaskit/icon": "^21.0.0",
@@ -43,7 +44,7 @@
     "@atlaskit/drawer": "^6.0.0",
     "@atlaskit/icon": "*",
     "@atlaskit/logo": "^13.0.0",
-    "@atlaskit/menu": "^0.5.0",
+    "@atlaskit/menu": "^0.6.0",
     "@atlaskit/notification-indicator": "^8.0.0",
     "@atlaskit/notification-log-client": "^5.0.0",
     "@atlaskit/popup": "^0.6.0",

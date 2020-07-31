@@ -2,13 +2,15 @@
 order: 0
 ---
 
-import SelectAsyncWithCallback from '../../examples/constellation/SelectAsyncWithCallback';
-import SelectCreatable from '../../examples/constellation/SelectCreatable';
-import SelectSingle from '../../examples/constellation/SelectSingle';
-import SelectMulti from '../../examples/constellation/SelectMulti';
-import SelectRadio from '../../examples/constellation/SelectRadio';
-import SelectCheckbox from '../../examples/constellation/SelectCheckbox';
-import SelectPopup from '../../examples/constellation/SelectPopup';
+import SelectCreatable from '../../examples/constellation/select-creatable';
+import SelectSingle from '../../examples/constellation/select-single';
+import SelectMulti from '../../examples/constellation/select-multi';
+import SelectRadio from '../../examples/constellation/select-radio';
+import SelectCheckbox from '../../examples/constellation/select-checkbox';
+import SelectPopup from '../../examples/constellation/select-popup';
+import SelectAsync from '../../examples/constellation/select-async';
+import SelectAsyncCreatable from '../../examples/constellation/select-async-creatable';
+import SelectCountry from '../../examples/constellation/select-country';
 
 ## Single select
 
@@ -21,6 +23,12 @@ Allows the user to select a single item from a dropdown menu.
 Allows the user to select a multiple items from a dropdown menu.
 
 <Example Component={SelectMulti} packageName="@atlaskit/select" />
+
+## Popup select
+
+A searchable select where the input is detached from the trigger. Use this select in scenarios where the trigger needs a custom appearance, or must occupy very limited horizontal space.
+
+<Example Component={SelectPopup} packageName="@atlaskit/select" />
 
 ## Named exports
 
@@ -39,14 +47,27 @@ Use this select when displaying selected multi select options is imperative, but
 
 <Example Component={SelectCheckbox} packageName="@atlaskit/select" />
 
+### Country select
+
+Use CountrySelect to add a country picker to the select component.
+
+<Example Component={SelectCountry} packageName="@atlaskit/select" />
+
+### Async select
+
+Use `AsyncSelect` to load asynchronous data from a remote source either during load or every time the input changes.
+
+<Example Component={SelectAsync} packageName="@atlaskit/select" />
+
 ### Creatable select
 
 Allows the user to insert an item into the list for selection.
 
 <Example Component={SelectCreatable} packageName="@atlaskit/select" />
 
-## Popup select
+### Async creatable
 
-A searchable select where the input is detached from the trigger. Use this select in scenarios where the trigger needs a custom appearance, or must occupy very limited horizontal space.
+Use `AsyncCreatableSelect` to allow people to create new options asynchronously.
+For example, execute async calls before creating the option.
 
-<Example Component={SelectPopup} packageName="@atlaskit/select" />
+<Example Component={SelectAsyncCreatable} packageName="@atlaskit/select" />

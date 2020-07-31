@@ -20,7 +20,8 @@
     "website": {
       "name": "Navigation Next",
       "deprecated": "Please use @atlaskit/atlassian-navigation for the horizontal nav bar, @atlaskit/side-navigation for the side nav, and @atlaskit/page-layout to layout your application."
-    }
+    },
+    "deprecatedAutoEntryPoints": true
   },
   "dependencies": {
     "@atlaskit/analytics-namespaced-context": "^5.0.0",

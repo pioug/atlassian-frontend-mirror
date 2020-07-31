@@ -21,7 +21,8 @@
     "releaseModel": "scheduled",
     "website": {
       "name": "Modal dialog"
-    }
+    },
+    "deprecatedAutoEntryPoints": true
   },
   "scripts": {
     "watch": "tsc --watch --noEmit --project './tsconfig.json'"

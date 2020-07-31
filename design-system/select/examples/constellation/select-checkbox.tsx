@@ -2,7 +2,7 @@ import React from 'react';
 import { CheckboxSelect } from '../../src';
 import { cities } from '../common/data';
 
-export default () => (
+const SelectCheckboxExample = () => (
   <CheckboxSelect
     className="checkbox-select"
     classNamePrefix="select"
@@ -17,3 +17,5 @@ export default () => (
     placeholder="Choose a city"
   />
 );
+
+export default SelectCheckboxExample;

@@ -17,7 +17,7 @@ const StatelessMenuTallExample = () => {
         onOpenChange={(attrs: OnOpenChangeArgs) => {
           setIsOpen(attrs.isOpen);
         }}
-        trigger="Filter City"
+        trigger="Filter city"
         triggerType="button"
         appearance="tall"
       >

@@ -12,7 +12,7 @@ const StatelessMenuLoadingExample = () => {
   return (
     <DropdownMenuStateless
       isOpen={isOpen}
-      trigger="Filter City"
+      trigger="Filter city"
       triggerType="button"
       isLoading
       onOpenChange={(attrs: OnOpenChangeArgs) => {

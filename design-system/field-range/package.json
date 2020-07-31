@@ -20,7 +20,8 @@
     "website": {
       "name": "Field Range",
       "deprecated": "@atlaskit/field-range is deprecated in favor of @atlaskit/range."
-    }
+    },
+    "deprecatedAutoEntryPoints": true
   },
   "dependencies": {
     "@atlaskit/theme": "^10.0.0",

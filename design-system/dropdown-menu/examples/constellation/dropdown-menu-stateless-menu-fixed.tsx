@@ -13,7 +13,7 @@ const StatelessMenuFixedExample = () => {
   return (
     <DropdownMenuStateless
       isOpen={isOpen}
-      trigger="Filter City"
+      trigger="Filter city"
       triggerType="button"
       isMenuFixed
       onOpenChange={(attrs: OnOpenChangeArgs) => {

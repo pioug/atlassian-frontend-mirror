@@ -21,7 +21,8 @@
     "releaseModel": "scheduled",
     "website": {
       "name": "Page"
-    }
+    },
+    "deprecatedAutoEntryPoints": true
   },
   "dependencies": {
     "tslib": "^1.9.3"

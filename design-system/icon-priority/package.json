@@ -20,7 +20,8 @@
     "releaseModel": "scheduled",
     "website": {
       "name": "Icon Priority"
-    }
+    },
+    "deprecatedAutoEntryPoints": true
   },
   "scripts": {
     "update": "ts-node --project build/cjs/tsconfig.json ./build/index.ts && yarn build:typescript:cjs",

@@ -17,7 +17,8 @@
   "atlassian": {
     "team": "Editor",
     "inPublicMirror": true,
-    "releaseModel": "scheduled"
+    "releaseModel": "scheduled",
+    "deprecatedAutoEntryPoints": true
   },
   "scripts": {
     "build:json-schema": "mkdir -p dist && cp -r json-schema dist",

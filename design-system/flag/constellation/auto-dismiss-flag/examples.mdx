@@ -1,0 +1,50 @@
+---
+title: Auto dismiss flag
+description: A flag component that is dismissed automatically after eight seconds.
+order: 0
+---
+
+import AutoDismissFlagDefault from '../../examples/constellation/auto-dismiss-flag-default';
+import AutoDismissFlagInfo from '../../examples/constellation/auto-dismiss-flag-info';
+import AutoDismissFlagWarning from '../../examples/constellation/auto-dismiss-flag-warning';
+import AutoDismissFlagError from '../../examples/constellation/auto-dismiss-flag-error';
+import AutoDismissFlagSuccess from '../../examples/constellation/auto-dismiss-flag-success';
+import AutoDismissFlagActions from '../../examples/constellation/auto-dismiss-flag-actions';
+
+## Default
+
+Use `AutoDismissFlag` to create a flag that will be dismissed automatically in eight seconds.
+
+<Example Component={AutoDismissFlagDefault} packageName="@atlaskit/flag" />
+
+## Appearance
+
+### Information
+
+Use `appearance="info"` to alert the user to additional information without requiring an action. These are also used for loading states.
+
+<Example Component={AutoDismissFlagInfo} packageName="@atlaskit/flag" />
+
+### Warning
+
+Use `appearance="warning"` to warn the user before requesting them to take action. This is usually in anticipation of a significant change.
+
+<Example Component={AutoDismissFlagWarning} packageName="@atlaskit/flag" />
+
+### Error
+
+Use `appearance="error"` to let the user know something has gone wrong. Explain the problem and provide the user with a next step or an alternative action.
+
+<Example Component={AutoDismissFlagError} packageName="@atlaskit/flag" />
+
+### Success
+
+Use `appearance="success"` to let the user know that they have completed an action. Reaffirm the outcome and let the user continue.
+
+<Example Component={AutoDismissFlagSuccess} packageName="@atlaskit/flag" />
+
+## Actions
+
+Use `actions` to show a clickable action at the bottom of the flag. For flags where the `appearance` is `normal`, the action will be shown as a link. For all other appearances the action will be shown as a button.
+
+<Example Component={AutoDismissFlagActions} packageName="@atlaskit/flag" />

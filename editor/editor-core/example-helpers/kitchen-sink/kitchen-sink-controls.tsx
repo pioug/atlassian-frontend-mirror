@@ -35,6 +35,7 @@ export interface KitchenSinkControlsProps {
   vertical: boolean;
   onAppearanceChange(appearance: EditorAppearance): void;
   onLoadDocument(opt: any): void;
+  onCopyLink(): void;
   onFullWidthChange(fullWidth: boolean): void;
   onThemeChange(theme: Theme): void;
   onOrientationChange(vertical: boolean): void;
@@ -132,7 +133,7 @@ export const KitchenSinkControls: React.FunctionComponent<KitchenSinkControlsPro
             >
               {editorEnabled ? 'Disable' : 'Enable'} editor
             </Button>
-
+            <Button onClick={props.onCopyLink}>Copy Link</Button>
             <Button
               appearance={props.errors.length ? 'danger' : 'subtle'}
               isSelected={props.errorsEnabled}
@@ -141,7 +142,6 @@ export const KitchenSinkControls: React.FunctionComponent<KitchenSinkControlsPro
             >
               {props.errors.length} errors
             </Button>
-
             <Button
               appearance="primary"
               isSelected={props.adfEnabled}

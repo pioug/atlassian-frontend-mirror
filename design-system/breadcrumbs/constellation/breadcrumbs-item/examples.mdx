@@ -1,0 +1,48 @@
+---
+title: Breadcrumbs item
+description: A breadcrumbs item renders each individual item in a breadcrumb list.
+order: 0
+---
+
+import BreadcrumbsItemText from '../../examples/constellation/breadcrumbs-item-text';
+import BreadcrumbsItemIconBefore from '../../examples/constellation/breadcrumbs-item-icon-before';
+import BreadcrumbsItemIconAfter from '../../examples/constellation/breadcrumbs-item-icon-after';
+import BreadcrumbsItemTruncation from '../../examples/constellation/breadcrumbs-item-truncation';
+
+## Text
+
+Use `text` to indicate the text to appear within the breadcrumb as a link.
+
+<Example Component={BreadcrumbsItemText} packageName="@atlaskit/breadcrumbs" />
+
+## With an icon
+
+### Icon before
+
+Use `iconBefore` to display an icon before the breadcrumb.
+
+<Example
+  Component={BreadcrumbsItemIconBefore}
+  packageName="@atlaskit/breadcrumbs"
+/>
+
+### Icon after
+
+Use `iconAfter` to display an icon after the breadcrumb.
+
+<Example
+  Component={BreadcrumbsItemIconAfter}
+  packageName="@atlaskit/breadcrumbs"
+/>
+
+## Truncation width
+
+When a `truncationWidth` is specified,
+long item names will truncate and a [tooltip](/components/tooltip) containing the full item name will appear on hover.
+If unspecified,
+truncation will only occur when an item cannot fit alone on a line.
+
+<Example
+  Component={BreadcrumbsItemTruncation}
+  packageName="@atlaskit/breadcrumbs"
+/>

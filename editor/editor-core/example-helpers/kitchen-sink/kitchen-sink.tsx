@@ -5,8 +5,10 @@ import {
   ProviderFactory,
   combineExtensionProviders,
 } from '@atlaskit/editor-common';
+import Flag from '@atlaskit/flag';
 import { AtlaskitThemeProvider } from '@atlaskit/theme/components';
 import { addGlobalEventEmitterListeners } from '@atlaskit/media-test-helpers';
+import Warning from '@atlaskit/icon/glyph/warning';
 
 import {
   providers,
@@ -16,6 +18,8 @@ import {
 import { EditorAppearance } from '../../src/types';
 import { EditorActions, ContextPanel } from '../../src';
 
+import { fromLocation, encode, amend, check, Message } from '../adf-url';
+import { copy } from '../copy';
 import { Error, ErrorReport } from '../ErrorReport';
 import { getXProductExtensionProvider } from '../fake-x-product-extensions';
 import { getConfluenceMacrosExtensionProvider } from '../confluence-macros';
@@ -89,6 +93,8 @@ export type KitchenSinkState = {
   showErrors: boolean;
   waitingToValidate: boolean;
   theme: Theme;
+
+  warning?: Message;
 };
 
 function getInitialTheme(): Theme {
@@ -117,12 +123,31 @@ export class KitchenSink extends React.Component<
     return localADF ? JSON.parse(localADF) : fallback;
   };
 
-  private getDefaultADF = () =>
-    this.getJSONFromStorage(LOCALSTORAGE_defaultDocKey, {
-      version: 1,
-      type: 'doc',
-      content: [],
-    });
+  private getDefaultADF = () => {
+    const maybeAdf = fromLocation<object>(window.parent.location);
+    const adf = maybeAdf instanceof window.Error ? undefined : maybeAdf;
+
+    if (maybeAdf instanceof window.Error) {
+      window.setTimeout(() => {
+        this.setState({
+          warning: {
+            type: 'warn',
+            title: "Couldn't load ADF from URL",
+            message: maybeAdf.message,
+          },
+        });
+      }, 1000);
+    }
+
+    return (
+      adf ||
+      this.getJSONFromStorage(LOCALSTORAGE_defaultDocKey, {
+        version: 1,
+        type: 'doc',
+        content: [],
+      })
+    );
+  };
 
   private getDefaultOrientation = () => {
     const data = this.getJSONFromStorage(LOCALSTORAGE_orientationKey, {
@@ -213,6 +238,21 @@ export class KitchenSink extends React.Component<
     this.setState({ showADF });
   };
 
+  private onCopyLink = async () => {
+    const value = await this.props.actions.getValue();
+    const encoded = encode(value);
+    const url = amend(window.parent.location, encoded);
+
+    window.parent.history.pushState(value, window.parent.document.title, url);
+    copy(url);
+
+    const warning = check(url);
+
+    if (warning) {
+      this.setState({ warning });
+    }
+  };
+
   private setPopupRef = (ref: HTMLElement) => {
     this.popupMountPoint = ref;
   };
@@ -283,6 +323,7 @@ export class KitchenSink extends React.Component<
             onEditorToggle={this.onEditorToggle}
             onErrorToggle={this.onErrorToggle}
             onAdfToggle={this.onAdfToggle}
+            onCopyLink={this.onCopyLink}
           />
           <Container vertical={this.state.vertical} root>
             <EditorColumn
@@ -336,6 +377,23 @@ export class KitchenSink extends React.Component<
             ) : null}
           </Container>
         </>
+        {this.state.warning && (
+          <div style={{ position: 'fixed', top: 125, right: 15, width: 400 }}>
+            <Flag
+              actions={[
+                {
+                  content: 'Sure',
+                  onClick: () => this.setState({ warning: undefined }),
+                },
+              ]}
+              appearance="warning"
+              description={this.state.warning.message}
+              icon={<Warning label="Heads up!" />}
+              title={this.state.warning.title}
+              id="warning"
+            />
+          </div>
+        )}
       </AtlaskitThemeProvider>
     );
   }

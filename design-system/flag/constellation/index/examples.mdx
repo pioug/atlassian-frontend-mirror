@@ -2,11 +2,12 @@
 order: 0
 ---
 
-import FlagDefault from '../../examples/constellation/FlagDefault';
-import FlagWarning from '../../examples/constellation/FlagWarning';
-import FlagError from '../../examples/constellation/FlagError';
-import FlagSuccess from '../../examples/constellation/FlagSuccess';
-import FlagInfo from '../../examples/constellation/FlagInfo';
+import FlagDefault from '../../examples/constellation/flag-default';
+import FlagWarning from '../../examples/constellation/flag-warning';
+import FlagError from '../../examples/constellation/flag-error';
+import FlagSuccess from '../../examples/constellation/flag-success';
+import FlagInfo from '../../examples/constellation/flag-info';
+import FlagActions from '../../examples/constellation/flag-actions';
 
 ## Default
 
@@ -36,6 +37,12 @@ Error messages let the user know that something has gone wrong after they've tri
 
 ### Success
 
-Success messages let the user know that they have completed an action. For these messages, it's best to reaffirm the outcome and get out of the user's way. If they have just created something, give them an option to view it.
+Success messages let people know they have completed an action. For these messages, it's best to confirm the outcome and let people continue. If they have just created something, give them an option to view it.
 
 <Example Component={FlagSuccess} packageName="@atlaskit/flag" />
+
+## Actions
+
+Use `actions` to show a clickable action at the bottom of the flag. For flags where the appearance is normal, the action will be shown as a link. For all other appearances the action will be shown as a button.
+
+<Example Component={FlagActions} packageName="@atlaskit/flag" />

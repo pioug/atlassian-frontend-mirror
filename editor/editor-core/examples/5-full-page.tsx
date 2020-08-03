@@ -5,7 +5,8 @@ import { MockActivityResource } from '../example-helpers/activity-provider';
 import ExamplesErrorBoundary from '../example-helpers/ExamplesErrorBoundary';
 
 import { AtlassianIcon } from '@atlaskit/logo';
-import CopyIcon from '@atlaskit/icon/glyph/copy';
+import Flag from '@atlaskit/flag';
+import Warning from '@atlaskit/icon/glyph/warning';
 
 import { autoformattingProvider } from '@atlaskit/editor-test-helpers/autoformatting-provider';
 import { cardProviderStaging } from '@atlaskit/editor-test-helpers/card-provider';
@@ -36,6 +37,14 @@ import {
 import Editor, { EditorProps, EditorAppearance } from './../src/editor';
 import EditorContext from './../src/ui/EditorContext';
 import WithEditorActions from './../src/ui/WithEditorActions';
+import {
+  fromLocation,
+  encode,
+  amend,
+  check,
+  Message,
+} from '../example-helpers/adf-url';
+import { copy } from '../example-helpers/copy';
 import quickInsertProviderFactory from '../example-helpers/quick-insert-provider';
 import { DevTools } from '../example-helpers/DevTools';
 import { TitleInput } from '../example-helpers/PageElements';
@@ -145,6 +154,7 @@ export type State = {
   disabled: boolean;
   title?: string;
   appearance: EditorAppearance;
+  warning?: Message;
 };
 
 export const providers: Partial<Providers> = {
@@ -180,6 +190,7 @@ export const getAppearance = (): 'full-page' | 'full-width' => {
 export interface ExampleProps {
   onTitleChange?: (title: string) => void;
   setMode?: (isEditing: boolean) => void;
+  customPrimaryToolbarComponents?: EditorProps['primaryToolbarComponents'];
 }
 
 const smartCardClient = new SmartCardClient('staging');
@@ -221,48 +232,27 @@ export class ExampleEditorComponent extends React.Component<
   onEditorReady = () => {
     const now = new Date().getTime();
     console.log('Editor init time', now - this.startTime, 'ms');
-
-    const params = new URLSearchParams(window.parent.location.search);
-
-    if (params.get('adf') && this.editorActions) {
-      const doc = JSON.parse(
-        decodeURIComponent(escape(atob(params.get('adf') || '{}'))),
-      );
-      this.editorActions.replaceDocument(doc);
-    }
   };
 
-  onCopyLinkWithContent = () => {
+  onCopyLinkWithContent = async () => {
     if (!this.editorActions) {
       return;
     }
 
-    this.editorActions.getValue().then(value => {
-      // note: btoa doesn't work with unicode
-      const adfString = btoa(
-        unescape(encodeURIComponent(JSON.stringify(value))),
-      );
-      const { origin, pathname, search } = window.parent.location;
+    const value = await this.editorActions.getValue();
+    const encoded = encode(value);
+    const url = amend(window.parent.location, encoded);
 
-      const params = new URLSearchParams(search);
-      params.set('adf', adfString);
+    window.parent.history.pushState(value, window.parent.document.title, url);
+    copy(url);
 
-      const url = `${origin + pathname}?${params}`;
-      const input = document.createElement('input');
-      input.type = 'text';
-      input.value = url;
-      document.body.appendChild(input);
-      input.select();
-      input.setSelectionRange(0, url.length);
-      document.execCommand('copy');
-      input.remove();
+    const warning = check(url);
 
-      if (url.length > 2000) {
-        alert(`Warning:
-        The generated url exceeds the 2000 character limit for safe urls. It _may_ not work in all browsers.
-        Reduce the complexity of the document to reduce the url length if you're having problems.`);
-      }
-    });
+    if (warning) {
+      this.setState({
+        warning,
+      });
+    }
   };
 
   render() {
@@ -383,12 +373,11 @@ export class ExampleEditorComponent extends React.Component<
 
                       return (
                         <>
+                          {this.props.customPrimaryToolbarComponents}
                           <Button
-                            iconBefore={
-                              <CopyIcon label="Copy link to clipboard" />
-                            }
                             disabled={!actions}
                             onClick={this.onCopyLinkWithContent}
+                            style={{ marginRight: 5 }}
                           >
                             Copy link
                           </Button>
@@ -423,6 +412,31 @@ export class ExampleEditorComponent extends React.Component<
               />
             </SmartCardProvider>
           </Content>
+          {this.state.warning && (
+            <div
+              style={{
+                position: 'fixed',
+                top: 90,
+                right: 15,
+                width: 400,
+                zIndex: 100,
+              }}
+            >
+              <Flag
+                actions={[
+                  {
+                    content: 'Sure',
+                    onClick: () => this.setState({ warning: undefined }),
+                  },
+                ]}
+                appearance="warning"
+                description={this.state.warning.message}
+                icon={<Warning label="Heads up!" />}
+                title={this.state.warning.title}
+                id="warning"
+              />
+            </div>
+          )}
         </Wrapper>
       </ExamplesErrorBoundary>
     );
@@ -567,7 +581,12 @@ const Renderer = (props: {
 
 export default function Example(props: EditorProps & ExampleProps) {
   const [isEditingMode, setMode] = React.useState(true);
+
+  const maybeDoc = fromLocation<object>(window.parent.location);
+  const doc = maybeDoc instanceof window.Error ? undefined : maybeDoc;
+
   const document =
+    doc ||
     (localStorage && localStorage.getItem(LOCALSTORAGE_defaultDocKey)) ||
     undefined;
 
@@ -576,7 +595,7 @@ export default function Example(props: EditorProps & ExampleProps) {
       <div style={{ height: '100%' }}>
         <DevTools />
         {isEditingMode ? (
-          <ExampleEditor {...props} setMode={setMode} />
+          <ExampleEditor {...props} defaultValue={document} setMode={setMode} />
         ) : (
           <Renderer
             document={document}

@@ -2,13 +2,10 @@
 order: 0
 ---
 
-import BreadcrumbsDefault from '../../examples/constellation/BreadcrumbsDefault';
-import BreadcrumbsLong from '../../examples/constellation/BreadcrumbsLong';
-import BreadcrumbsBeforeAfterCollapse from '../../examples/constellation/BreadcrumbsBeforeAfterCollapse';
-import BreadcrumbsMaxItems from '../../examples/constellation/BreadcrumbsMaxItems';
-import BreadcrumbsExpanded from '../../examples/constellation/BreadcrumbsExpanded';
-import BreadcrumbsTruncation from '../../examples/constellation/BreadcrumbsTruncation';
-import BreadcrumbsIcons from '../../examples/constellation/BreadcrumbsIcons';
+import BreadcrumbsDefault from '../../examples/constellation/breadcrumbs-default';
+import BreadcrumbsLong from '../../examples/constellation/breadcrumbs-long';
+import BreadcrumbsMaxItems from '../../examples/constellation/breadcrumbs-max-items';
+import BreadcrumbsExpanded from '../../examples/constellation/breadcrumbs-expanded';
 
 ## Default
 
@@ -22,17 +19,6 @@ When a breadcrumb contains more than eight items, the breadcrumb auto-collapses 
 
 <Example Component={BreadcrumbsLong} packageName="@atlaskit/breadcrumbs" />
 
-## Items before or after collapse
-
-The number of items shown before or after auto-collapse can be customized. This is useful when the user needs more information on the breadcrumb hierarchy to be aware of their location within the product.
-
-To reduce screen clutter, it's best practice to only display the first and last items when collapsing.
-
-<Example
-  Component={BreadcrumbsBeforeAfterCollapse}
-  packageName="@atlaskit/breadcrumbs"
-/>
-
 ## Max items
 
 The maximum number of items in a breadcrumb can be customized. When there are more than the maximum number, the breadcrumb auto-collapses.
@@ -44,18 +30,3 @@ The maximum number of items in a breadcrumb can be customized. When there are mo
 When expanded, breadcrumbs that exceed the page width will overflow to the next line.
 
 <Example Component={BreadcrumbsExpanded} packageName="@atlaskit/breadcrumbs" />
-
-## Truncation
-
-When a `truncationWidth` is specified, long item names will truncate and a [tooltip](/components/tooltip) containing the full item name will appear on hover. If unspecified, truncation will only occur when an item cannot fit alone on a line.
-
-<Example
-  Component={BreadcrumbsTruncation}
-  packageName="@atlaskit/breadcrumbs"
-/>
-
-## Icons
-
-Icons can be displayed before and after a breadcrumb item.
-
-<Example Component={BreadcrumbsIcons} packageName="@atlaskit/breadcrumbs" />

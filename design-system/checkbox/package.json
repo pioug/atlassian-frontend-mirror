@@ -43,6 +43,7 @@
     "@atlaskit/form": "^8.1.0",
     "@atlaskit/section-message": "^5.0.0",
     "@atlaskit/ssr": "*",
+    "@atlaskit/toggle": "^10.0.1",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
     "@testing-library/react": "^8.0.1",

@@ -1,5 +1,6 @@
 import EmailSerializer, { EmailSerializerOpts } from '../..';
 import { defaultSchema as schema } from '@atlaskit/adf-schema';
+import MockDate from 'mockdate';
 
 import * as paragraphIndents from './__fixtures__/paragraph-indents.adf.json';
 import * as paragraphAlign from './__fixtures__/paragraph-align.adf.json';
@@ -64,6 +65,7 @@ const render = (
 };
 
 describe('EmailSerializer constructor', () => {
+  MockDate.reset();
   it('should initialize with default values', () => {
     const s = new EmailSerializer(schema);
     expect(s.opts).toEqual({

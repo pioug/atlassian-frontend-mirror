@@ -345,13 +345,15 @@ export class TableRowNodeView implements NodeView {
     this.getScrolledTableTop(tree.wrapper) + tree.table.clientHeight;
 
   makeRowHeaderNotSticky = (table: HTMLElement) => {
-    if (this.isSticky) {
-      this.dom.style.removeProperty('width');
-      this.dom.classList.remove('sticky');
-      table.classList.remove(ClassName.TABLE_STICKY);
-
-      this.isSticky = false;
+    if (!this.isSticky) {
+      return;
     }
+
+    this.dom.style.removeProperty('width');
+    this.dom.classList.remove('sticky');
+    table.classList.remove(ClassName.TABLE_STICKY);
+
+    this.isSticky = false;
 
     this.dom.style.top = '';
     table.style.removeProperty('margin-top');

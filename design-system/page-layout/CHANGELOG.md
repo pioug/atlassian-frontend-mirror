@@ -1,5 +1,11 @@
 # @atlaskit/page-layout
 
+## 0.9.2
+
+### Patch Changes
+
+- [`14d289a7ee`](https://bitbucket.org/atlassian/atlassian-frontend/commits/14d289a7ee) - Fix LeftSidebar flyout not closing sometimes when not in hover state
+
 ## 0.9.1
 
 ### Patch Changes

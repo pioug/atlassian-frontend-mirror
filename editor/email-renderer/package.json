@@ -37,6 +37,7 @@
     "@atlaskit/docs": "*",
     "@atlaskit/util-data-test": "^14.0.0",
     "mkdirp": "^0.5.1",
+    "mockdate": "^3.0.2",
     "react": "^16.8.0",
     "rimraf": "^2.6.3",
     "svgexport": "^0.4.0",

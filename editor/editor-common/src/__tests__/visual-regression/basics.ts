@@ -15,6 +15,6 @@ describe('Snapshot Test: Basic Content', () => {
       page,
       `.${EmojiSharedCssClassName.EMOJI_SPRITE}`,
     );
-    await snapshot(page);
+    await snapshot(page, undefined, '.ProseMirror');
   });
 });

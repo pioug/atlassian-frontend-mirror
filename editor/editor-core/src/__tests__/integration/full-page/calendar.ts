@@ -15,6 +15,7 @@ BrowserTestCase(
   { skip: ['edge', 'safari'] },
   async (client: any) => {
     const page = await goToEditorTestingExample(client);
+    page.teardownMockDate();
     await mountEditor(page, { appearance: 'full-page', allowDate: true });
     await page.click(editorSelector);
     await insertBlockMenuItem(page, 'Date');
@@ -31,6 +32,7 @@ BrowserTestCase(
   { skip: ['edge', 'safari'] },
   async (client: any) => {
     const page = await goToEditorTestingExample(client);
+    page.teardownMockDate();
     await mountEditor(page, { appearance: 'full-page', allowDate: true });
     await page.click(editorSelector);
     await insertBlockMenuItem(page, 'Date');
@@ -49,6 +51,7 @@ BrowserTestCase(
   { skip: ['edge', 'safari'] },
   async (client: any) => {
     const page = await goToEditorTestingExample(client);
+    page.teardownMockDate();
     await mountEditor(page, { appearance: 'full-page', allowDate: true });
     await page.click(editorSelector);
     await insertBlockMenuItem(page, 'Date');

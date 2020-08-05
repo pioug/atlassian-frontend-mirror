@@ -22,7 +22,7 @@ BrowserTestCase(
       minute: 0,
       tz: 11,
     };
-    const teardownMockDate = page.mockDate(JAN_1ST_2019_AEST_TIMEZONE);
+    page.mockDate(JAN_1ST_2019_AEST_TIMEZONE);
     // 1st Jan 2019 00:00 AEST / 31st Dec 2018 13:00 UTC
 
     await mountEditor(page, {
@@ -37,7 +37,7 @@ BrowserTestCase(
     const doc = await page.$eval(editable, getDocFromElement);
     expect(doc).toMatchCustomDocSnapshot(testName);
 
-    teardownMockDate();
+    page.teardownMockDate();
   },
 );
 
@@ -55,7 +55,7 @@ BrowserTestCase(
       minute: 0,
       tz: 11,
     };
-    const teardownMockDate = page.mockDate(JAN_1ST_2019_AEST_TIMEZONE);
+    page.mockDate(JAN_1ST_2019_AEST_TIMEZONE);
     // 1st Jan 2019 00:00 AEST / 31st Dec 2018 13:00 UTC
 
     await mountEditor(page, {
@@ -67,7 +67,7 @@ BrowserTestCase(
     await quickInsert(page, 'Date');
 
     expect(await page.getText(dateLozenge)).toBe('Jan 1, 2019');
-    teardownMockDate();
+    page.teardownMockDate();
   },
 );
 
@@ -86,7 +86,7 @@ BrowserTestCase(
       minute: 0,
       tz: 11,
     };
-    const teardownMockDate = page.mockDate(JAN_1ST_2019_AEST_TIMEZONE);
+    page.mockDate(JAN_1ST_2019_AEST_TIMEZONE);
     // 1st Jan 2019 00:00 AEST / 31st Dec 2018 13:00 UTC
 
     await mountEditor(
@@ -116,6 +116,6 @@ BrowserTestCase(
     await quickInsert(page, 'Date');
     expect(await page.getText(dateLozenge)).toBe('1 ene. 2019');
 
-    teardownMockDate();
+    page.teardownMockDate();
   },
 );

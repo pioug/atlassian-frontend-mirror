@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { MouseEvent, useEffect, useRef } from 'react';
+import { MouseEvent as ReactMouseEvent, useEffect, useRef } from 'react';
 
 import { jsx } from '@emotion/core';
 
@@ -54,6 +54,8 @@ const LeftSidebar = (props: LeftSidebarProps) => {
   } = props;
 
   const flyoutTimerRef = useRef<ReturnType<typeof setTimeout>>();
+  const mouseOverEventRef = useRef<(event: MouseEvent) => void | null>();
+  const leftSideBarRef = useRef(null);
 
   const { leftSidebarState, setLeftSidebarState } = usePageLayoutResize();
   const {
@@ -151,41 +153,69 @@ const LeftSidebar = (props: LeftSidebarProps) => {
 
     return () => {
       unregisterSkipLink(id);
+      removeMouseOverListener();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLeftSidebarCollapsed, leftSidebarWidth, id]);
 
-  const onMouseEnter = (event: MouseEvent) => {
+  const onMouseOver = (event: ReactMouseEvent) => {
     const isMouseOnResizeButton =
       (event.target as Element).matches(`[${RESIZE_BUTTON_SELECTOR}]`) ||
       (event.target as Element).matches(`[${RESIZE_BUTTON_SELECTOR}] *`);
 
-    if (isFlyoutOpen || isMouseOnResizeButton) {
+    if (isFlyoutOpen || isMouseOnResizeButton || !isLeftSidebarCollapsed) {
       return;
     }
 
     event.persist();
     flyoutTimerRef.current && clearTimeout(flyoutTimerRef.current);
 
-    if (isLeftSidebarCollapsed) {
-      flyoutTimerRef.current = setTimeout(() => {
-        setLeftSidebarState({ ...leftSidebarState, isFlyoutOpen: true });
-        onFlyoutExpand && onFlyoutExpand();
-      }, FLYOUT_DELAY);
+    if (!mouseOverEventRef.current) {
+      mouseOverEventRef.current = (event: MouseEvent) => {
+        const leftSidebar: HTMLElement | null = leftSideBarRef.current;
+
+        if (leftSidebar === null) {
+          return;
+        }
+
+        if (
+          !(leftSidebar as HTMLElement).contains(event.target as HTMLElement)
+        ) {
+          flyoutTimerRef.current && clearTimeout(flyoutTimerRef.current);
+
+          onFlyoutCollapse && onFlyoutCollapse();
+          setLeftSidebarState({ ...leftSidebarState, isFlyoutOpen: false });
+
+          removeMouseOverListener();
+        }
+      };
     }
+
+    document.addEventListener(
+      'mouseover',
+      mouseOverEventRef.current as EventListener,
+      {
+        capture: true,
+        passive: true,
+      } as EventListenerOptions,
+    );
+
+    flyoutTimerRef.current = setTimeout(() => {
+      setLeftSidebarState({ ...leftSidebarState, isFlyoutOpen: true });
+      onFlyoutExpand && onFlyoutExpand();
+    }, FLYOUT_DELAY);
   };
 
-  const onMouseLeave = () => {
-    flyoutTimerRef.current && clearTimeout(flyoutTimerRef.current);
-
-    if (!isFlyoutOpen) {
-      return;
-    }
-
-    if (isLeftSidebarCollapsed) {
-      onFlyoutCollapse && onFlyoutCollapse();
-      setLeftSidebarState({ ...leftSidebarState, isFlyoutOpen: false });
-    }
+  const removeMouseOverListener = () => {
+    mouseOverEventRef.current &&
+      document.removeEventListener(
+        'mouseover',
+        mouseOverEventRef.current as EventListener,
+        {
+          capture: true,
+          passive: true,
+        } as EventListenerOptions,
+      );
   };
 
   if (id && skipLinkTitle) {
@@ -194,10 +224,10 @@ const LeftSidebar = (props: LeftSidebarProps) => {
 
   return (
     <div
+      ref={leftSideBarRef}
       css={leftSidebarStyles(isFixed, isFlyoutOpen)}
       data-testid={testId}
-      onMouseOver={onMouseEnter}
-      onMouseLeave={onMouseLeave}
+      onMouseOver={onMouseOver}
       id={id}
       {...getPageLayoutSlotSelector('left-sidebar')}
     >

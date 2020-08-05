@@ -90,6 +90,7 @@ const FullPageWithAdfImport: React.FC = function FullPageWithAdfImport() {
         />
         <div style={{ position: 'fixed', top: 90, right: 15 }}>
           <Button
+            id="toggle-adf-input"
             onClick={() => setPanelOpen(!panelOpen)}
             style={{ marginRight: 5 }}
           >
@@ -126,6 +127,7 @@ const AdfPanel: React.FC<AdfPanelProps> = function AdfPanel(props) {
   return (
     <ContextPanel visible={props.open} width={500}>
       <div
+        id="adf-input"
         contentEditable
         ref={ref}
         onInput={e => {

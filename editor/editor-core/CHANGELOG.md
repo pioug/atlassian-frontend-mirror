@@ -1,5 +1,11 @@
 # @atlaskit/editor-core
 
+## 127.0.2
+
+### Patch Changes
+
+- [`64abcd247b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/64abcd247b) - CEMS-1231 make table contents align with row controls with sticky headers
+
 ## 127.0.1
 
 ### Patch Changes

@@ -762,7 +762,7 @@ describe('Left sidebar', () => {
       const onFlyoutCollapse = jest.fn();
       const { getByTestId } = render(
         <PageLayout testId="grid">
-          <Main>
+          <Content>
             <LeftSidebar
               testId="component"
               width={200}
@@ -771,7 +771,8 @@ describe('Left sidebar', () => {
             >
               Contents
             </LeftSidebar>
-          </Main>
+            <Main testId="main">Main</Main>
+          </Content>
         </PageLayout>,
       );
 
@@ -782,7 +783,7 @@ describe('Left sidebar', () => {
       expect(onFlyoutExpand).toHaveBeenCalledTimes(1);
 
       act(() => {
-        fireEvent.mouseLeave(getByTestId('component'));
+        fireEvent.mouseOver(getByTestId('main'));
         jest.runAllTimers();
       });
       expect(onFlyoutCollapse).toHaveBeenCalledTimes(1);
@@ -857,11 +858,12 @@ describe('Left sidebar', () => {
     it('should collapse flyout when mouse leaves the LeftSidebar', () => {
       const { getByTestId } = render(
         <PageLayout testId="grid">
-          <Main>
+          <Content>
             <LeftSidebar testId="component" width={200}>
               Contents
             </LeftSidebar>
-          </Main>
+            <Main testId="main">Main</Main>
+          </Content>
         </PageLayout>,
       );
 
@@ -880,7 +882,7 @@ describe('Left sidebar', () => {
       ).toEqual(expect.stringContaining(':root{--leftSidebarWidth:20px;}'));
 
       act(() => {
-        fireEvent.mouseLeave(getByTestId('component'));
+        fireEvent.mouseOver(getByTestId('main'));
         jest.runAllTimers();
       });
 
@@ -924,33 +926,34 @@ describe('Left sidebar', () => {
     it('should collapse flyout when mouse leaves the LeftSidebar when isFixed is false', () => {
       const { getByTestId } = render(
         <PageLayout testId="grid">
-          <Main>
-            <LeftSidebar isFixed={false} testId="component" width={200}>
+          <Content>
+            <LeftSidebar isFixed={false} testId="leftsidebar" width={200}>
               Contents
             </LeftSidebar>
-          </Main>
+            <Main testId="main">Stuff</Main>
+          </Content>
         </PageLayout>,
       );
 
       act(() => {
-        fireEvent.mouseOver(getByTestId('component'));
-        jest.runAllTimers();
+        fireEvent.mouseOver(getByTestId('leftsidebar'));
+        completeAnimations();
       });
       expect(document.documentElement.dataset.isSidebarCollapsed).toBe('true');
-      expect(getByTestId('component')).toHaveStyleDeclaration(
+      expect(getByTestId('leftsidebar')).toHaveStyleDeclaration(
         'width',
         'var(--leftSidebarFlyoutWidth,240px)',
       );
       expect(
-        getByTestId('component').querySelector('style')!.innerHTML,
+        getByTestId('leftsidebar').querySelector('style')!.innerHTML,
       ).toEqual(expect.stringContaining(':root{--leftSidebarWidth:20px;}'));
 
       act(() => {
-        fireEvent.mouseLeave(getByTestId('component'));
-        jest.runAllTimers();
+        fireEvent.mouseOver(getByTestId('main'));
+        completeAnimations();
       });
 
-      expect(getByTestId('component')).toHaveStyleDeclaration(
+      expect(getByTestId('leftsidebar')).toHaveStyleDeclaration(
         'width',
         'var(--leftSidebarWidth,0px)',
       );

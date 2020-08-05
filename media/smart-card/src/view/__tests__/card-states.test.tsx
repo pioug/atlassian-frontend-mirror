@@ -1,3 +1,4 @@
+import MockDate from 'mockdate';
 import { mockEvents } from './_mocks';
 
 jest.mock('react-lazily-render', () => (data: any) => data.content);
@@ -116,6 +117,7 @@ describe('smart-card: card states', () => {
       });
 
       it('should work the same with stale cache after expiry', async () => {
+        MockDate.reset();
         const DelayedCard: FC<{}> = () => {
           const [component, setComponent] = React.useState<ReactNode>(<></>);
           useEffect(() => {

@@ -1,3 +1,4 @@
+import MockDate from 'mockdate';
 import { uploadinator } from '../../src/uploadinator';
 import { empty } from 'rxjs/observable/empty';
 import { toArray } from 'rxjs/operators/toArray';
@@ -65,6 +66,7 @@ describe('Uploadinator', () => {
   });
 
   it('invokes parallel batches of N uploads, sequentially', async () => {
+    MockDate.reset();
     const probedChunks = [
       { blob: new Blob(), hash: 'foo', exists: false },
       { blob: new Blob(), hash: 'bar', exists: false },

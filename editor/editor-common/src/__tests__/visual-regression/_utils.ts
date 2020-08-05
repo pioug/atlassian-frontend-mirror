@@ -8,7 +8,7 @@ export const DEFAULT_WIDTH = 800;
 export const DEFAULT_HEIGHT = 600;
 
 const adfInputSelector = '#adf-input';
-const importAdfBtnSelector = '#import-adf';
+const toggleSelector = '#toggle-adf-input';
 
 export const loadFullPageEditorWithAdf = async (page: any, adf: any) => {
   const url = getExampleUrl(
@@ -17,17 +17,16 @@ export const loadFullPageEditorWithAdf = async (page: any, adf: any) => {
     'full-page-with-adf-import',
   );
   await loadExampleUrl(page, url);
-  await page.waitForSelector(adfInputSelector);
-  await page.evaluate(
-    (adfInputSelector: string, adf: object) => {
-      (document as any).querySelector(adfInputSelector).value = JSON.stringify(
-        adf,
-      );
-    },
-    adfInputSelector,
-    adf,
+  const $el = await page.waitForSelector(adfInputSelector);
+  await $el.click();
+  await $el.evaluate(
+    (el: any, content: any) => (el.textContent = content),
+    JSON.stringify(adf, null, ' '),
   );
-  await page.click(importAdfBtnSelector);
+  await $el.type(' ');
+  const $button = await page.waitForSelector(toggleSelector);
+  await $button.click();
+  await page.waitFor(1000);
 };
 
 export const snapshot = async (

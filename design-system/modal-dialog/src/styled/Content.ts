@@ -135,9 +135,20 @@ export interface BodyProps {
    * Class name passed to the component.
    */
   className?: string;
+
+  /**
+   * @deprecated
+   * Enables the body to scroll within the modal dialog.
+   */
+  shouldScroll?: boolean;
 }
 
-export const Body = styled.div``;
+// Body styles are used when customizing the body of the component.
+// This is duplicated here: https://bitbucket.org/atlassian/atlassian-frontend/src/3c6a7cf3d18e97608fc1a4dc822b9bb003781bf2/packages/design-system/modal-dialog/src/components/Content.tsx#packages/design-system/modal-dialog/src/components/Content.tsx-341
+// On the next major version delete `bodyStyles` from this declaration! They're just doubling up now!
+export const Body = styled.div<BodyProps>`
+  ${props => bodyStyles(props.shouldScroll)};
+`;
 
 // Footer
 // ==============================

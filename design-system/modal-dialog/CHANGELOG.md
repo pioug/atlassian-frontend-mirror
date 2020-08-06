@@ -1,5 +1,11 @@
 # @atlaskit/modal-dialog
 
+## 11.1.1
+
+### Patch Changes
+
+- [`810f11aaab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/810f11aaab) - Custom body styles have been added back. They will be removed in the next major version - if you're customizing the body of the modal dialog please make sure to spread props onto your custom component.
+
 ## 11.1.0
 
 ### Minor Changes

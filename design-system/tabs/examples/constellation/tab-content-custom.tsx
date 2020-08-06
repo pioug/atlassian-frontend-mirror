@@ -1,56 +1,36 @@
 import React from 'react';
 
-import styled from 'styled-components';
-
 import Tabs from '../../src';
 import { TabContentComponentProvided } from '../../src/types';
-
-const Content = styled.div`
-  padding: 20px;
-`;
+import { Content } from '../shared';
 
 export const tabs = [
   {
     label: 'Tab 1',
-    heading: 'Tab One',
-    body: 'This is tab one.',
-    content: 1,
+    heading: 'One',
+    body: 'Body of tab one',
   },
   {
     label: 'Tab 2',
-    heading: 'Tab Two',
-    body: 'This is tab two.',
-    content: 2,
+    heading: 'Two',
+    body: 'Body of tab two',
   },
   {
     label: 'Tab 3',
-    heading: 'Tab Three',
-    body: 'This is tab three.',
-    content: '3',
-  },
-  {
-    label: 'Tab 4',
-    heading: 'Tab Four',
-    body: 'This is tab four.',
-    content: '4',
+    heading: 'Three',
+    body: 'Body of tab three',
   },
 ];
 
 const CustomContent = ({ data, elementProps }: TabContentComponentProvided) => (
   <Content {...elementProps}>
-    <h3>{data.heading}</h3>
+    <span>{data.heading}</span>
     <p>{data.body}</p>
   </Content>
 );
 
 const TabContentCustomComponentExample = () => (
-  <div>
-    <Tabs
-      components={{ Content: CustomContent }}
-      onSelect={(_tab, index) => console.log('Selected Tab', index + 1)}
-      tabs={tabs}
-    />
-  </div>
+  <Tabs components={{ Content: CustomContent }} tabs={tabs} />
 );
 
 export default TabContentCustomComponentExample;

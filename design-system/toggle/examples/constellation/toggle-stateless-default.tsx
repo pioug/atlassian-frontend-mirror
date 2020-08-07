@@ -1,37 +1,21 @@
-import React, { Component } from 'react';
-
-import Button from '@atlaskit/button';
+import React, { useState } from 'react';
 
 import { ToggleStateless } from '../../src';
 
-interface State {
-  isChecked: boolean;
-}
+import { Label } from './label';
 
-export default class StatelessExample extends Component<any, State> {
-  state: State = {
-    isChecked: false,
-  };
+export default function Example() {
+  const [isChecked, setIsChecked] = useState(false);
 
-  toggle = () => {
-    this.setState({
-      isChecked: !this.state.isChecked,
-    });
-  };
+  return (
+    <>
+      <Label htmlFor="toggle-controlled">Allow pull requests</Label>
 
-  render() {
-    return (
-      <div>
-        <p>
-          Interacting with this stateless toggle will not change the state by
-          default
-        </p>
-        <ToggleStateless isChecked={this.state.isChecked} />
-        <p>Use this button to trigger the toggle</p>
-        <Button appearance="primary" onClick={this.toggle}>
-          Toggle the state
-        </Button>
-      </div>
-    );
-  }
+      <ToggleStateless
+        id="toggle-controlled"
+        onChange={() => setIsChecked(prev => !prev)}
+        isChecked={isChecked}
+      />
+    </>
+  );
 }

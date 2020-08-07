@@ -5,18 +5,22 @@ order: 0
 import ToggleDefault from '../../examples/constellation/toggle-default';
 import ToggleLarge from '../../examples/constellation/toggle-large';
 import ToggleDisabled from '../../examples/constellation/toggle-disabled';
+import ToggleTooltip from '../../examples/constellation/toggle-tooltip';
 
 ## Size
 
 ### Default
 
-The default form of a toggle. For pages with lots of toggles, use the default size.
+The default form of a toggle.
+For pages with lots of toggles,
+use the default size.
 
 <Example Component={ToggleDefault} packageName="@atlaskit/toggle" />
 
 ### Large
 
-To call attention to a specific action, use a `large` toggle.
+To call attention to a specific action,
+use a `large` toggle.
 
 <Example Component={ToggleLarge} packageName="@atlaskit/toggle" />
 
@@ -25,3 +29,10 @@ To call attention to a specific action, use a `large` toggle.
 A toggle is disabled when a selection has already been made outside of the current context that negates the need for the toggle.
 
 <Example Component={ToggleDisabled} packageName="@atlaskit/toggle" />
+
+## Tooltips
+
+To let people know what will happen when they interact with a toggle,
+use a [tooltip](/components/tooltip).
+
+<Example Component={ToggleTooltip} packageName="@atlaskit/toggle" />

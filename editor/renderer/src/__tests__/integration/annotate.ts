@@ -8,10 +8,11 @@ import { annotate } from '../__helpers/page-objects/_actions';
 import taskDecisionAdf from './__fixtures__/task-decision.adf.json';
 
 const CHAR_WIDTH = 6;
-
+// TODO: https://product-fabric.atlassian.net/browse/ED-9831
+// Selection in Catalina Safari isn't working properly.
 BrowserTestCase(
   `Can't create an annotation on a text selection that contains inline nodes`,
-  { skip: ['edge', 'firefox'] },
+  { skip: ['edge', 'firefox', 'safari'] },
   async (client: any) => {
     const page = await goToRendererTestingExample(client);
     await mountRenderer(
@@ -59,7 +60,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   `Can't create an annotation on a text selection that falls in the middle of an inline node`,
-  { skip: ['edge', 'firefox'] },
+  { skip: ['edge', 'firefox', 'safari'] },
   async (client: any) => {
     const page = await goToRendererTestingExample(client);
     await mountRenderer(
@@ -103,7 +104,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'Can create an annotation on a basic text selection',
-  { skip: ['edge', 'firefox'] },
+  { skip: ['edge', 'firefox', 'safari'] },
   async (client: any, testName: string) => {
     const page = await goToRendererTestingExample(client);
     await mountRenderer(
@@ -140,7 +141,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'Can create an annotation on a text selection over two paragraphs',
-  { skip: ['edge', 'firefox'] },
+  { skip: ['edge', 'firefox', 'safari'] },
   async (client: any, testName: string) => {
     const page = await goToRendererTestingExample(client);
     await mountRenderer(
@@ -190,7 +191,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'Can create an annotation on a text selection over a decision item',
-  { skip: ['edge', 'firefox'] },
+  { skip: ['edge', 'firefox', 'safari'] },
   async (client: any, testName: string) => {
     const page = await goToRendererTestingExample(client);
     await mountRenderer(page, { withRendererActions: true }, taskDecisionAdf);
@@ -209,7 +210,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'Can create an annotation on a text selection over a task item',
-  { skip: ['edge', 'firefox'] },
+  { skip: ['edge', 'firefox', 'safari'] },
   async (client: any, testName: string) => {
     const page = await goToRendererTestingExample(client);
     await mountRenderer(page, { withRendererActions: true }, taskDecisionAdf);

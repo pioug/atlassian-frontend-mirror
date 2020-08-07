@@ -17,10 +17,11 @@ const expandSelector = '[data-node-type="expand"]';
 const nestedExpandSelector = '[data-node-type="nestedExpand"]';
 const controlSelector = 'tbody tr:first-child th:nth-child(1)';
 const panelSelector = '.ak-editor-panel__content';
-
+// TODO: https://product-fabric.atlassian.net/browse/ED-9831
+// Selection in Catalina Safari isn't working properly.
 BrowserTestCase(
   'expand.ts: expand copied from renderer and pasted on full-page',
-  { skip: ['edge'] },
+  { skip: ['edge', 'safari'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
 
@@ -44,7 +45,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'expand.ts: expand with legal content pasted in table',
-  { skip: ['edge'] },
+  { skip: ['edge', 'safari'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
 
@@ -73,7 +74,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'expand.ts: expand with illegal content pasted in table',
-  { skip: ['edge'] },
+  { skip: ['edge', 'safari'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
 
@@ -103,7 +104,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'expand.ts: nestedExpand pasted in table',
-  { skip: ['edge'] },
+  { skip: ['edge', 'safari'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
 
@@ -132,7 +133,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'expand.ts: nestedExpand pasted on top level',
-  { skip: ['edge'] },
+  { skip: ['edge', 'safari'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
 
@@ -156,7 +157,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'expand.ts: table with nestedExpand pasted on top level',
-  { skip: ['edge'] },
+  { skip: ['edge', 'safari'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
 
@@ -181,7 +182,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'expand.ts: expand with table with nestedExpand pasted on top level',
-  { skip: ['edge'] },
+  { skip: ['edge', 'safari'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
 
@@ -206,7 +207,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'expand.ts: table with nestedExpand pasted inside an expand',
-  { skip: ['edge'] },
+  { skip: ['edge', 'safari'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
 
@@ -233,7 +234,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'expand.ts: expand pasted inside a table inside an expand',
-  { skip: ['edge'] },
+  { skip: ['edge', 'safari'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
 
@@ -260,7 +261,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'expand.ts: expand pasted inside a panel inside a table should paste below',
-  { skip: ['edge'] },
+  { skip: ['edge', 'safari'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
 
@@ -288,7 +289,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'expand.ts: expand content pasted inside a panel inside a table should paste text inside',
-  { skip: ['edge'] },
+  { skip: ['edge', 'safari'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
 

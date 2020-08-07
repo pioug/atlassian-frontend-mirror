@@ -2,9 +2,13 @@ import React from 'react';
 
 import Toggle from '../../src';
 
-export default () => (
-  <>
-    <Toggle size="large" />
-    <Toggle size="large" isDefaultChecked />
-  </>
-);
+import { Label } from './label';
+
+export default function Example() {
+  return (
+    <>
+      <Label htmlFor="toggle-large">Allow pull requests</Label>
+      <Toggle id="toggle-large" size="large" isDefaultChecked />
+    </>
+  );
+}

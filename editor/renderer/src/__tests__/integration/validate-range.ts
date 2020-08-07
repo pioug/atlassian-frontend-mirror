@@ -11,7 +11,8 @@ import {
 } from './__fixtures__/validation-fixtures';
 
 const CHAR_WIDTH = 6;
-
+// TODO: https://product-fabric.atlassian.net/browse/ED-9831
+// Selection in Catalina Safari isn't working properly.
 BrowserTestCase(
   `A selection containing text and media validates true`,
   { skip: ['edge', 'firefox', 'safari'] },
@@ -36,7 +37,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   `A selection containing text and mention validates false`,
-  { skip: ['edge', 'firefox'] },
+  { skip: ['edge', 'firefox', 'safari'] },
   async (client: any) => {
     const page = await goToRendererTestingExample(client);
     await mountRenderer(
@@ -58,7 +59,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   `A selection containing text and emoji validates false`,
-  { skip: ['edge', 'firefox'] },
+  { skip: ['edge', 'firefox', 'safari'] },
   async (client: any) => {
     const page = await goToRendererTestingExample(client);
     await mountRenderer(
@@ -80,7 +81,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   `A selection containing text and status validates false`,
-  { skip: ['edge', 'firefox'] },
+  { skip: ['edge', 'firefox', 'safari'] },
   async (client: any) => {
     const page = await goToRendererTestingExample(client);
     await mountRenderer(

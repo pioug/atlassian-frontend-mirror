@@ -5,7 +5,10 @@ export type Sizes = 'regular' | 'large';
 export interface BaseProps extends WithAnalyticsEventsProps {
   /** If the toggle is disabled or not. This prevents any interaction. */
   isDisabled?: boolean;
-  /** The unique identifier set for the input element. */
+  /**
+   * Use a pairing label with your toggle using `id` and `htmlFor` props to set the relationship.
+   * For more information see [labels on MDN web docs](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/label).
+   */
   id?: string;
   /** Descriptive name for value property to be submitted in a form. */
   name?: string;

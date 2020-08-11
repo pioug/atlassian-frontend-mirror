@@ -1,6 +1,6 @@
 # Logo
 
-This package contains the Atlassian logo and a range of product logos as components which render an SVG.
+A logo is a visual representation of a brand or product. It can be a word or an image, or a combination of both.
 
 ## Installation
 
@@ -10,4 +10,4 @@ yarn add @atlaskit/logo
 
 ## Usage
 
-Detailed docs and example usage can be found [here](https://atlaskit.atlassian.com/packages/core/logo).
+Detailed docs and example usage can be found [here](https://atlassian.design/components/logo/).

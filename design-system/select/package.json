@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/select",
-  "version": "12.0.1",
+  "version": "12.0.2",
   "description": "Select gives users the ability to make a single selection, or multiple selections from a number of options.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -14,7 +14,7 @@
   "types": "dist/cjs/index.d.ts",
   "sideEffects": false,
   "atlaskit:src": "src/index.ts",
-  "atlaskit:designLink": "https://atlassian.design/guidelines/product/components/select",
+  "homepage": "https://atlassian.design/components/select/",
   "atlassian": {
     "team": "Design System Team",
     "inPublicMirror": true,

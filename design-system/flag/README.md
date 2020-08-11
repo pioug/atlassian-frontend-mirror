@@ -1,6 +1,6 @@
 # Flag
 
-Flags are used for confirmations, alerts, and acknowledgments that require minimal user interaction.
+A flag is used for confirmations, alerts, and acknowledgments that require minimal user interaction.
 
 ## Installation
 
@@ -10,4 +10,4 @@ yarn add @atlaskit/flag
 
 ## Usage
 
-Detailed docs and example usage can be found [here](https://atlaskit.atlassian.com/packages/core/flag).
+Detailed docs and example usage can be found [here](https://atlassian.design/components/flag/).

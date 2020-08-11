@@ -1,6 +1,6 @@
 # Progress-tracker
 
-A React component that shows the steps and progress through a user journey.
+A progress tracker displays the steps and progress through a journey.
 
 ## Installation
 
@@ -10,4 +10,4 @@ yarn add @atlaskit/progress-tracker
 
 ## Usage
 
-Detailed docs and example usage can be found [here](https://atlaskit.atlassian.com/packages/core/progress-tracker).
+Detailed docs and example usage can be found [here](https://atlassian.design/components/progress-tracker/).

@@ -1,6 +1,6 @@
 # Badge
 
-Tools for tracking interactions with UI components. Easily capture UI context and state when these events occur.
+A badge is a visual indicator for numeric values such as tallies and scores.
 
 ## Installation
 
@@ -10,4 +10,4 @@ yarn add @atlaskit/badge
 
 ## Usage
 
-Detailed docs and example usage can be found [here](https://atlaskit.atlassian.com/packages/core/badge).
+Detailed docs and example usage can be found [here](https://atlassian.design/components/badge/).

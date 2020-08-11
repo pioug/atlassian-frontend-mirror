@@ -1,3 +1,13 @@
-# Avatar
+# Avatar group
 
-The Avatars represent users that are collaborating within the same application. You can use an avatar for projects, repositories and spaces within the Atlassian applications.
+An avatar group displays a number of avatars grouped together in a stack or grid.
+
+## Installation
+
+```sh
+yarn add @atlaskit/avatar-group
+```
+
+## Usage
+
+Detailed docs and example usage can be found [here](https://atlassian.design/components/avatar-group/).

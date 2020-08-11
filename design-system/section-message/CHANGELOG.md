@@ -1,5 +1,11 @@
 # @atlaskit/section-message
 
+## 5.0.2
+
+### Patch Changes
+
+- [`954cc87b62`](https://bitbucket.org/atlassian/atlassian-frontend/commits/954cc87b62) - The readme and package information has been updated to point to the new design system website.
+
 ## 5.0.1
 
 ### Patch Changes

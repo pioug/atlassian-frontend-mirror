@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/code",
-  "version": "12.0.1",
+  "version": "12.0.2",
   "description": "Code highlights short strings of code snippets inline with body text.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -14,6 +14,7 @@
   "types": "dist/cjs/index.d.ts",
   "sideEffects": false,
   "atlaskit:src": "src/index.ts",
+  "homepage": "https://atlassian.design/components/code/",
   "atlassian": {
     "team": "Design System Team",
     "inPublicMirror": true,

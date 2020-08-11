@@ -1,7 +1,7 @@
 {
   "name": "@atlaskit/tabs",
-  "version": "12.0.1",
-  "description": "Tabs are an easy way to organize content by grouping similar information on the same page. This allows content to be viewed without having to navigate away from that page.",
+  "version": "12.0.2",
+  "description": "Tabs are used to organize content by grouping similar information on the same page.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
@@ -14,7 +14,7 @@
   "types": "dist/cjs/index.d.ts",
   "sideEffects": false,
   "atlaskit:src": "src/index.ts",
-  "atlaskit:designLink": "https://atlassian.design/guidelines/product/components/tabs",
+  "homepage": "https://atlassian.design/components/tabs/",
   "atlassian": {
     "team": "Design System Team",
     "inPublicMirror": true,

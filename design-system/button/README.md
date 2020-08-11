@@ -1,7 +1,6 @@
 # Button
 
-Buttons are used as triggers for actions. They are used in forms, toolbars,
-dialog footers and as stand-alone action triggers.
+A button triggers an event or action. They let users know what will happen next.
 
 ## Installation
 
@@ -11,4 +10,4 @@ yarn add @atlaskit/button
 
 ## Usage
 
-Detailed docs and example usage can be found [here](https://atlaskit.atlassian.com/packages/core/button).
+Detailed docs and example usage can be found [here](https://atlassian.design/components/button/).

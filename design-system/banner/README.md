@@ -1,7 +1,6 @@
 # Banner
 
-This is a React component that displays a prominent banner message. It is
-intended to be used at the top of the page.
+A banner displays a prominent message at the top of the screen.
 
 ## Installation
 
@@ -11,4 +10,4 @@ yarn add @atlaskit/banner
 
 ## Usage
 
-Detailed docs and example usage can be found [here](https://atlaskit.atlassian.com/packages/core/banner).
+Detailed docs and example usage can be found [here](https://atlassian.design/components/banner/).

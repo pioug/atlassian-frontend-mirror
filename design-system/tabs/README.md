@@ -1,6 +1,6 @@
 # Tabs
 
-A tab is a simple graphical element that allows to contain multiple panels within a single window, and provides an easy way to switch between panels of similar content.
+Tabs are used to organize content by grouping similar information on the same page.
 
 ## Installation
 
@@ -10,4 +10,4 @@ yarn add @atlaskit/tabs
 
 ## Usage
 
-Detailed docs and example usage can be found [here](https://atlaskit.atlassian.com/packages/core/tabs).
+Detailed docs and example usage can be found [here](https://atlassian.design/components/tabs/).

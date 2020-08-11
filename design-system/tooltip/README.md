@@ -1,6 +1,6 @@
 # Tooltip
 
-Use this component to display extra information about an element by displaying a floating description.
+A tooltip is a floating, non-actionable label used to explain a user interface element or feature.
 
 ## Installation
 
@@ -10,4 +10,4 @@ yarn add @atlaskit/tooltip
 
 ## Usage
 
-Detailed docs and example usage can be found [here](https://atlaskit.atlassian.com/packages/core/tooltip).
+Detailed docs and example usage can be found [here](https://atlassian.design/components/tooltip/).

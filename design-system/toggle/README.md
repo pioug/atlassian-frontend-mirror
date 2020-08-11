@@ -1,6 +1,6 @@
 # Toggle
 
-A component to view and switch between enabled or disabled states.
+A toggle is used to view or switch between enabled or disabled states.
 
 ## Installation
 
@@ -10,4 +10,4 @@ yarn add @atlaskit/toggle
 
 ## Usage
 
-Detailed docs and example usage can be found [here](https://atlaskit.atlassian.com/packages/core/toggle).
+Detailed docs and example usage can be found [here](https://atlassian.design/components/toggle/).

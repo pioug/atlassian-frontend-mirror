@@ -1,6 +1,6 @@
-# Section Message
+# Section message
 
-A react component used to alert users of a particular screen area that needs user action
+A section message is used to alert users to a particular section of the screen.
 
 ## Installation
 
@@ -10,4 +10,4 @@ yarn add @atlaskit/section-message
 
 ## Usage
 
-Detailed docs and example usage can be found [here](https://atlaskit.atlassian.com/packages/core/section-message).
+Detailed docs and example usage can be found [here](https://atlassian.design/components/section-message/).

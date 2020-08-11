@@ -1,6 +1,6 @@
 # Pagination
 
-This package provides component used for pagination. It truncates the total number of pages and shows ellipsis when needed.
+Pagination allows you to divide large amounts of content into smaller chunks across multiple pages.
 
 ## Installation
 
@@ -10,4 +10,4 @@ yarn add @atlaskit/pagination
 
 ## Usage
 
-Detailed docs and example usage can be found [here](https://atlaskit.atlassian.com/packages/core/pagination).
+Detailed docs and example usage can be found [here](https://atlassian.design/components/pagination/).

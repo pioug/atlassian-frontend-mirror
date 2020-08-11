@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/progress-tracker",
-  "version": "7.0.1",
+  "version": "7.0.2",
   "description": "A progress tracker displays the steps and progress through a journey.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -14,7 +14,7 @@
   "types": "dist/cjs/index.d.ts",
   "sideEffects": false,
   "atlaskit:src": "src/index.ts",
-  "atlaskit:designLink": "https://atlassian.design/guidelines/product/components/progress-tracker",
+  "homepage": "https://atlassian.design/components/progress-tracker/",
   "atlassian": {
     "team": "Design System Team",
     "inPublicMirror": true,

@@ -1,7 +1,7 @@
 {
   "name": "@atlaskit/logo",
-  "version": "13.0.1",
-  "description": "A logo is a visual representation of a brand or product. It can be a word or an image, or both.",
+  "version": "13.0.2",
+  "description": "A logo is a visual representation of a brand or product. It can be a word or an image, or a combination of both.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
@@ -14,7 +14,7 @@
   "types": "dist/cjs/index.d.ts",
   "sideEffects": false,
   "atlaskit:src": "src/index.ts",
-  "atlaskit:designLink": "https://atlassian.design/guidelines/product/components/logos-in-product",
+  "homepage": "https://atlassian.design/components/logo/",
   "atlassian": {
     "team": "Design System Team",
     "inPublicMirror": true,

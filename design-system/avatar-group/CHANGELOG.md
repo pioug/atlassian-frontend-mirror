@@ -1,5 +1,11 @@
 # @atlaskit/avatar-group
 
+## 8.0.4
+
+### Patch Changes
+
+- [`954cc87b62`](https://bitbucket.org/atlassian/atlassian-frontend/commits/954cc87b62) - The readme and package information has been updated to point to the new design system website.
+
 ## 8.0.3
 
 ### Patch Changes

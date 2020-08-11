@@ -1,6 +1,6 @@
 # Code
 
-Renders inline code snippets and code blocks.
+Code renders inline code snippets and code blocks.
 
 ## Installation
 
@@ -10,4 +10,4 @@ yarn add @atlaskit/code
 
 ## Usage
 
-Detailed docs and example usage can be found [here](https://atlaskit.atlassian.com/packages/core/code).
+Detailed docs and example usage can be found [here](https://atlassian.design/components/code/).

@@ -11,21 +11,20 @@ export default function FlagDefault() {
       icon={<SuccessIcon primaryColor={G300} label="Info" />}
       actions={[
         {
-          content: 'with onClick',
+          content: 'Try it now',
           onClick: () => {
             console.log('flag action clicked');
           },
         },
         {
-          content: 'with href',
-          href: 'https://atlaskit.atlassian.com/',
-          target: '_blank',
+          content: 'Learn more',
+          href: '/components/flag/examples#actions',
         },
       ]}
-      description="We got fun and games. We got everything you want honey, we know the names."
+      description="We’ve turbocharged your search results so you can get back to doing what you do best."
       id="1"
       key="1"
-      title="Welcome to the jungle"
+      title="Test drive your new search"
     />
   );
 }

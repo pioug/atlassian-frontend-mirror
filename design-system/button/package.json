@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/button",
-  "version": "14.0.0",
+  "version": "14.0.1",
   "description": "A button triggers an event or action. They let users know what will happen next.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -14,7 +14,7 @@
   "types": "dist/cjs/index.d.ts",
   "sideEffects": false,
   "atlaskit:src": "src/index.ts",
-  "atlaskit:designLink": "https://atlassian.design/guidelines/product/components/buttons",
+  "homepage": "https://atlassian.design/components/button/",
   "atlassian": {
     "team": "Design System Team",
     "inPublicMirror": true,

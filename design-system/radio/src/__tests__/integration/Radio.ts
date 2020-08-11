@@ -11,7 +11,7 @@ const inputQuery = "[data-testid='red--hidden-radio']";
 
 BrowserTestCase(
   'Radio should be able to be clicked by data-testid',
-  { skip: ['firefox', 'chrome', 'safari'] } as any, // Need to investigate why this is flaky and remove this skip asap.
+  { skip: ['edge', 'firefox', 'chrome', 'safari'] } as any, // Need to investigate why this is flaky and remove this skip asap.
   async (client: any) => {
     const testPage = new Page(client);
     await testPage.goto(exampleUrl);

@@ -1,6 +1,6 @@
-# Inline-dialog
+# Inline dialog
 
-An inline dialog React component for secondary content and controls that are displayed on user request.
+An inline dialog is a pop-up container for small amounts of information. It can also contain controls.
 
 ## Installation
 
@@ -10,4 +10,4 @@ yarn add @atlaskit/inline-dialog
 
 ## Usage
 
-Detailed docs and example usage can be found [here](https://atlaskit.atlassian.com/packages/core/inline-dialog).
+Detailed docs and example usage can be found [here](https://atlassian.design/components/inline-dialog/).

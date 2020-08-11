@@ -1,6 +1,6 @@
 # Breadcrumbs
 
-Breadcrumbs help users visualize their current location in relation to the rest of the website or application by showing the hierarchy of pages.
+Breadcrumbs are a navigation system used to show a user's location in a site or app.
 
 ## Installation
 
@@ -10,4 +10,4 @@ yarn add @atlaskit/breadcrumbs
 
 ## Usage
 
-Detailed docs and example usage can be found [here](https://atlaskit.atlassian.com/packages/core/breadcrumbs).
+Detailed docs and example usage can be found [here](https://atlassian.design/components/breadcrumbs/).

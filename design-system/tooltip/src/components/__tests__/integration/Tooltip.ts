@@ -11,7 +11,7 @@ const tooltipTestId = "[data-testid='my-tooltip']";
 
 BrowserTestCase(
   'Tooltip should be able to be identified by data-testid',
-  { skip: ['edge'] },
+  { skip: ['edge', 'safari'] },
   async (client: any) => {
     const tooltipTest = new Page(client);
     await tooltipTest.goto(urlTooltip);

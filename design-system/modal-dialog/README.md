@@ -1,6 +1,6 @@
-# ModalDialog
+# Modal dialog
 
-This component displays content in a layer that sits above the rest of the page content. Users won't be able to interact with the page until the dialog is closed.
+A modal dialog displays content that requires user interaction, in a layer above the page.
 
 # Installation
 
@@ -10,4 +10,4 @@ yarn add @atlaskit/modal-dialog
 
 ## Usage
 
-Detailed docs and example usage can be found [here](https://atlaskit.atlassian.com/packages/core/modal-dialog).
+Detailed docs and example usage can be found [here](https://atlassian.design/components/modal-dialog/).

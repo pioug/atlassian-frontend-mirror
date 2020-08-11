@@ -1,6 +1,6 @@
 # Textfield
 
-Provides a standard way to create a text-based form input.
+A text field is an input that allows a user to write or edit text.
 
 ## Installation
 
@@ -10,4 +10,4 @@ yarn add @atlaskit/textfield
 
 ## Usage
 
-Detailed docs and example usage can be found [here](https://atlaskit.atlassian.com/packages/core/textfield).
+Detailed docs and example usage can be found [here](https://atlassian.design/components/textfield/).

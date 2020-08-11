@@ -1,6 +1,6 @@
-# Dropdown-menu
+# Dropdown menu
 
-Creates a dropdown menu, with optional groups, headings, icons, checkbox items, radio group items and disabled items.
+A dropdown menu displays a list of actions or options to a user.
 
 ## Installation
 
@@ -10,4 +10,4 @@ yarn add @atlaskit/dropdown-menu
 
 ## Usage
 
-Detailed docs and example usage can be found [here](https://atlaskit.atlassian.com/packages/core/dropdown-menu).
+Detailed docs and example usage can be found [here](https://atlassian.design/components/dropdown-menu/).

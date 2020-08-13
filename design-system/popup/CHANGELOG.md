@@ -1,5 +1,11 @@
 # @atlaskit/popup
 
+## 0.6.1
+
+### Patch Changes
+
+- [`8dd80245bb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8dd80245bb) - Remove unnecessary code for IE11.
+
 ## 0.6.0
 
 ### Minor Changes

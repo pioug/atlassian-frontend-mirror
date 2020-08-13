@@ -1,5 +1,11 @@
 # @atlaskit/editor-core
 
+## 127.0.3
+
+### Patch Changes
+
+- [`f3749628bb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f3749628bb) - CEMS-1258: Fixing misaligned Sticky header cells on tables with merged cells
+
 ## 127.0.2
 
 ### Patch Changes

@@ -27,10 +27,7 @@ export const useFocusManager = ({
 
     // wait for the popup to reposition itself before we focus
     requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        // second call needed for IE compatability
-        focusTrap.activate();
-      });
+      focusTrap.activate();
     });
 
     return () => {

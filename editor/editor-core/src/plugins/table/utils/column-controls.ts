@@ -14,6 +14,12 @@ import { maphElem } from '../../../utils/dom';
 import { TableCssClassName as ClassName } from '../types';
 import { tableDeleteButtonSize } from '../ui/styles';
 
+interface CellWidthInfo {
+  width: number;
+  colspan: number;
+  colwidth: string | undefined;
+}
+
 export const getColumnsWidths = (
   view: EditorView,
 ): Array<number | undefined> => {
@@ -124,6 +130,45 @@ const mapTableColwidthsToRow = (
   return colWidths;
 };
 
+const getRelativeDomCellWidths = ({
+  width,
+  colspan,
+  colwidth,
+}: CellWidthInfo) => {
+  // For cells with colSpan 1
+  // or
+  // for cells in a table with unchanged column widths,
+  // these are identified by the lack of colwidth data attribute,
+  // return equally partitioned total cell width in DOM for each cell.
+  if (colspan <= 1 || !colwidth) {
+    return new Array(colspan).fill(width / colspan);
+  }
+
+  // For cells that have colSpan > 1 and
+  // are part of a table with resized columns
+  // return the current total DOM width of the cell multiplied
+  // by the percentage of the each individual cell's size.
+  // The cell size percentage is calculated using individual colwidth of the cell,
+  // from data-colwidth attribute on the cell,
+  // divided by the total width of the cells from colwidths for merged cells.
+
+  // Ex:
+  // colwidth = ‘201,102’
+  // Total colWidth = 303
+  // returned cellWidths = [303 * (201/303), 303 * (102/303)]
+
+  // For merged cells we get back colwidth as `201,102`
+  const cellColWidths = colwidth.split(',').map(colwidth => Number(colwidth));
+  const totalCalculatedCellWidth = cellColWidths.reduce(
+    (acc, cellColWidth) => acc + cellColWidth,
+    0,
+  );
+
+  return cellColWidths.map(
+    cellColWidth => width * (cellColWidth / totalCalculatedCellWidth),
+  );
+};
+
 export const colWidthsForRow = (
   colGroup: HTMLTableColElement | null,
   tr: HTMLTableRowElement,
@@ -149,18 +194,17 @@ export const colWidthsForRow = (
     const cellInfos = maphElem(copyTarget, cell => ({
       width: cell.offsetWidth,
       colspan: Number(cell.getAttribute('colspan') || 1),
+      colwidth: cell.dataset.colwidth,
     }));
 
     // reverse engineer cell widths from table widths
-    let equalCellWidths: number[] = [];
+    let domBasedCellWidths: number[] = [];
     cellInfos.map((cell, idx) => {
-      equalCellWidths.push(
-        ...new Array(cell.colspan).fill(cell.width / cell.colspan),
-      );
+      domBasedCellWidths.push(...getRelativeDomCellWidths(cell));
     });
 
     if (cellInfos.reduce((acc, cell) => acc + cell.width, 0) !== 0) {
-      const newWidths = mapTableColwidthsToRow(rowColSpans, equalCellWidths);
+      const newWidths = mapTableColwidthsToRow(rowColSpans, domBasedCellWidths);
       return newWidths.map(px => `${px}px`).join(' ');
     }
   }

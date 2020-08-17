@@ -1,10 +1,10 @@
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { snapshot, initRendererWithADF, animationFrame } from './_utils';
 import * as mixedAdf from '../__fixtures__/document-without-media.adf.json';
 import * as mediaAdf from '../__fixtures__/1600px-media.adf.json';
-import { Page } from 'puppeteer';
 
 const initRenderer = async (
-  page: Page,
+  page: PuppeteerPage,
   viewport: { width: number; height: number },
   adf: any,
 ) => {
@@ -17,7 +17,7 @@ const initRenderer = async (
 };
 
 describe('Snapshot Test: Full Width', () => {
-  let page: Page;
+  let page: PuppeteerPage;
   beforeAll(() => {
     page = global.page;
   });

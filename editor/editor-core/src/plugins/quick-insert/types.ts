@@ -1,4 +1,5 @@
 import { InjectedIntl } from 'react-intl';
+
 import {
   QuickInsertItem,
   QuickInsertProvider,
@@ -23,3 +24,16 @@ export type QuickInsertHandler =
 export type IconProps = {
   label?: string;
 };
+
+export type QuickInsertPluginState = {
+  isElementBrowserModalOpen: boolean;
+  lazyDefaultItems: () => QuickInsertItem[];
+  providedItems?: QuickInsertItem[];
+  provider?: QuickInsertProvider;
+};
+
+export interface QuickInsertPluginOptions {
+  headless?: boolean;
+  disableDefaultItems?: boolean;
+  enableElementBrowser?: boolean;
+}

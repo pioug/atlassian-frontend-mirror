@@ -23,7 +23,6 @@ import {
   CreateUIAnalyticsEvent,
   UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
-import { analyticsService } from '../../../../analytics';
 import { HeadingLevels } from '../../types';
 import { EditorView } from 'prosemirror-view';
 import blockTypePlugin from '../../';
@@ -39,14 +38,9 @@ describe('inputrules', () => {
   const createEditor = createProsemirrorEditorFactory();
 
   let createAnalyticsEvent: CreateUIAnalyticsEvent;
-  let trackEvent: jest.Mock;
 
   const editor = (doc: any) => {
     createAnalyticsEvent = jest.fn(() => ({ fire() {} } as UIAnalyticsEvent));
-
-    // Mocking analytics singleton
-    trackEvent = jest.fn();
-    analyticsService.trackEvent = trackEvent;
 
     return createEditor({
       doc,
@@ -117,9 +111,6 @@ describe('inputrules', () => {
 
       insertText(editorView, '# ', sel);
       expect(editorView.state.doc).toEqualDocument(doc(h1()));
-      expect(trackEvent).toHaveBeenCalledWith(
-        'atlassian.editor.format.heading1.autoformatting',
-      );
     });
 
     it('should convert "# " after shift+enter to heading 1', () => {
@@ -127,9 +118,6 @@ describe('inputrules', () => {
 
       insertText(editorView, '# ', sel);
       expect(editorView.state.doc).toEqualDocument(doc(p('test'), h1()));
-      expect(trackEvent).toHaveBeenCalledWith(
-        'atlassian.editor.format.heading1.autoformatting',
-      );
     });
 
     it('should not convert "# " to heading 1 when inside a code_block', () => {
@@ -144,9 +132,6 @@ describe('inputrules', () => {
 
       insertText(editorView, '## ', sel);
       expect(editorView.state.doc).toEqualDocument(doc(h2()));
-      expect(trackEvent).toHaveBeenCalledWith(
-        'atlassian.editor.format.heading2.autoformatting',
-      );
     });
 
     it('should not convert "## " to heading 1 when inside a code_block', () => {
@@ -161,9 +146,6 @@ describe('inputrules', () => {
 
       insertText(editorView, '### ', sel);
       expect(editorView.state.doc).toEqualDocument(doc(h3()));
-      expect(trackEvent).toHaveBeenCalledWith(
-        'atlassian.editor.format.heading3.autoformatting',
-      );
     });
 
     it('should not convert "### " to heading 3 when inside a code_block', () => {
@@ -235,9 +217,6 @@ describe('inputrules', () => {
 
       insertText(editorView, '> ', sel);
       expect(editorView.state.doc).toEqualDocument(doc(blockquote(p())));
-      expect(trackEvent).toHaveBeenCalledWith(
-        'atlassian.editor.format.blockquote.autoformatting',
-      );
     });
 
     it('should convert "> " to a blockquote after shift+enter', () => {
@@ -246,9 +225,6 @@ describe('inputrules', () => {
       insertText(editorView, '> ', sel);
       expect(editorView.state.doc).toEqualDocument(
         doc(p('test'), blockquote(p())),
-      );
-      expect(trackEvent).toHaveBeenCalledWith(
-        'atlassian.editor.format.blockquote.autoformatting',
       );
     });
 
@@ -261,9 +237,6 @@ describe('inputrules', () => {
       expect(editorView.state.doc).toEqualDocument(
         doc(p('test', hardBreak()), blockquote(p('test'))),
       );
-      expect(trackEvent).toHaveBeenCalledWith(
-        'atlassian.editor.format.blockquote.autoformatting',
-      );
     });
 
     it('should convert "> " after shift+enter to blockquote for only current line', () => {
@@ -274,9 +247,6 @@ describe('inputrules', () => {
       insertText(editorView, '> ', sel);
       expect(editorView.state.doc).toEqualDocument(
         doc(p('test1'), blockquote(p('test2')), p('test3')),
-      );
-      expect(trackEvent).toHaveBeenCalledWith(
-        'atlassian.editor.format.blockquote.autoformatting',
       );
     });
 
@@ -306,7 +276,6 @@ describe('inputrules', () => {
   });
 
   describe('codeblock rule', () => {
-    const analyticsV2Event = 'atlassian.editor.format.codeblock.autoformatting';
     const analyticsV3Payload = {
       action: 'inserted',
       actionSubject: 'document',
@@ -341,7 +310,6 @@ describe('inputrules', () => {
       });
 
       it('should fire analytics event', () => {
-        expect(trackEvent).toHaveBeenCalledWith(analyticsV2Event);
         expect(createAnalyticsEvent).toBeCalledWith(analyticsV3Payload);
       });
     });
@@ -359,7 +327,6 @@ describe('inputrules', () => {
       });
 
       it('should fire analytics event', () => {
-        expect(trackEvent).toHaveBeenCalledWith(analyticsV2Event);
         expect(createAnalyticsEvent).toBeCalledWith(analyticsV3Payload);
       });
     });
@@ -377,7 +344,6 @@ describe('inputrules', () => {
       });
 
       it('should fire analytics event', () => {
-        expect(trackEvent).toHaveBeenCalledWith(analyticsV2Event);
         expect(createAnalyticsEvent).toBeCalledWith(analyticsV3Payload);
       });
     });
@@ -395,7 +361,6 @@ describe('inputrules', () => {
       });
 
       it('should fire analytics event', () => {
-        expect(trackEvent).toHaveBeenCalledWith(analyticsV2Event);
         expect(createAnalyticsEvent).toBeCalledWith(analyticsV3Payload);
       });
     });
@@ -413,7 +378,6 @@ describe('inputrules', () => {
       });
 
       it('should fire analytics event', () => {
-        expect(trackEvent).toHaveBeenCalledWith(analyticsV2Event);
         expect(createAnalyticsEvent).toBeCalledWith(analyticsV3Payload);
       });
     });

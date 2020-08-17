@@ -2,10 +2,22 @@ import {
   insertContentDeleteRange,
   isEmptySelectionAtEnd,
   walkNextNode,
+  WalkNode,
 } from '../../../utils/commands';
+import {
+  ACTION,
+  ACTION_SUBJECT,
+  ACTION_SUBJECT_ID,
+  EVENT_TYPE,
+  INPUT_METHOD,
+  DELETE_DIRECTION,
+  addAnalytics,
+  LIST_TEXT_SCENARIOS,
+} from '../../analytics';
 import { Command } from '../../../types';
 import { ResolvedPos } from 'prosemirror-model';
 import { Transaction } from 'prosemirror-state';
+import { findParentNodeOfType } from 'prosemirror-utils';
 import { CommandDispatch } from '../../../../src/types';
 import { isPosInsideList, isPosInsideParagraph } from '../utils';
 
@@ -332,18 +344,28 @@ const listDeleteCase4: DeleteCommand = (tr, dispatch, $next, $head) => {
   return true;
 };
 
-export const listDelete: Command = (state, dispatch) => {
-  const {
-    tr,
-    selection: { $head },
-  } = state;
-  const { $pos: $next, foundNode: nextFoundNode } = walkNextNode($head);
+type ScenariosAllowed =
+  | LIST_TEXT_SCENARIOS.JOIN_PARAGRAPH_WITH_LIST
+  | LIST_TEXT_SCENARIOS.JOIN_SIBLINGS
+  | LIST_TEXT_SCENARIOS.JOIN_DESCENDANT_TO_PARENT
+  | LIST_TEXT_SCENARIOS.JOIN_PARENT_SIBLING_TO_PARENT_CHILD;
+
+const DELETE_FORWARD_COMMANDS: Record<ScenariosAllowed, DeleteCommand> = {
+  [LIST_TEXT_SCENARIOS.JOIN_PARAGRAPH_WITH_LIST]: listDeleteCase1,
+  [LIST_TEXT_SCENARIOS.JOIN_SIBLINGS]: listDeleteCase2,
+  [LIST_TEXT_SCENARIOS.JOIN_DESCENDANT_TO_PARENT]: listDeleteCase3,
+  [LIST_TEXT_SCENARIOS.JOIN_PARENT_SIBLING_TO_PARENT_CHILD]: listDeleteCase4,
+};
+
+export const calcJoinListScenario = (
+  walkNode: WalkNode,
+  $head: ResolvedPos,
+): ScenariosAllowed | false => {
+  const { $pos: $next, foundNode: nextFoundNode } = walkNode;
 
   const headParent = $head.parent;
   const headGrandParent = $head.node(-1);
-
   const headInList = isPosInsideList($head);
-
   const headInParagraph = isPosInsideParagraph($head);
 
   const headInLastNonListChild =
@@ -360,48 +382,100 @@ export const listDelete: Command = (state, dispatch) => {
   const nextInParagraph = isPosInsideParagraph($next);
 
   if (
-    nextFoundNode &&
-    headInList &&
-    headInParagraph &&
-    headInLastNonListChild &&
-    isEmptySelectionAtEnd(state)
+    !nextFoundNode ||
+    !headInList ||
+    !headInParagraph ||
+    !headInLastNonListChild
   ) {
-    if (nextInList) {
-      const nextNodeAfter = $next.nodeAfter;
-      const nextGrandParent = $next.node(-1);
-      const headGreatGrandParent = $head.node(-2);
-
-      const nextInListItem = $next.parent.type.name === 'listItem';
-
-      const nextNodeAfterListItem =
-        nextNodeAfter && nextNodeAfter.type.name === 'listItem';
-
-      const nextListItemHasFirstChildParagraph =
-        nextNodeAfter && //Redundant check but the linter complains otherwise
-        nextNodeAfterListItem &&
-        nextNodeAfter.firstChild &&
-        nextNodeAfter.firstChild.type.name === 'paragraph';
-
-      if (nextInListItem) {
-        const nextParentSiblingOfHeadParent =
-          nextGrandParent && nextGrandParent === headGreatGrandParent;
-
-        const nextNodeAfterIsParagraph =
-          nextNodeAfter && nextNodeAfter.type.name === 'paragraph';
-
-        if (nextNodeAfterIsParagraph) {
-          if (nextParentSiblingOfHeadParent) {
-            return listDeleteCase2(tr, dispatch, $next, $head);
-          } else {
-            return listDeleteCase4(tr, dispatch, $next, $head);
-          }
-        }
-      } else if (nextListItemHasFirstChildParagraph) {
-        return listDeleteCase3(tr, dispatch, $next, $head);
-      }
-    } else if (nextInParagraph) {
-      return listDeleteCase1(tr, dispatch, $next, $head);
-    }
+    return false;
   }
-  return false;
+
+  if (!nextInList && nextInParagraph) {
+    return LIST_TEXT_SCENARIOS.JOIN_PARAGRAPH_WITH_LIST;
+  }
+
+  if (!nextInList) {
+    return false;
+  }
+
+  const nextNodeAfter = $next.nodeAfter;
+  const nextGrandParent = $next.node(-1);
+  const headGreatGrandParent = $head.node(-2);
+
+  const nextInListItem = $next.parent.type.name === 'listItem';
+
+  const nextNodeAfterListItem =
+    nextNodeAfter && nextNodeAfter.type.name === 'listItem';
+
+  const nextListItemHasFirstChildParagraph =
+    nextNodeAfter && //Redundant check but the linter complains otherwise
+    nextNodeAfterListItem &&
+    nextNodeAfter.firstChild &&
+    nextNodeAfter.firstChild.type.name === 'paragraph';
+
+  if (!nextInListItem && nextListItemHasFirstChildParagraph) {
+    return LIST_TEXT_SCENARIOS.JOIN_DESCENDANT_TO_PARENT;
+  }
+
+  if (!nextInListItem) {
+    return false;
+  }
+
+  const nextParentSiblingOfHeadParent =
+    nextGrandParent && nextGrandParent === headGreatGrandParent;
+
+  const nextNodeAfterIsParagraph =
+    nextNodeAfter && nextNodeAfter.type.name === 'paragraph';
+
+  if (!nextNodeAfterIsParagraph) {
+    return false;
+  }
+
+  if (nextParentSiblingOfHeadParent) {
+    return LIST_TEXT_SCENARIOS.JOIN_SIBLINGS;
+  }
+
+  return LIST_TEXT_SCENARIOS.JOIN_PARENT_SIBLING_TO_PARENT_CHILD;
+};
+
+export const listDelete: Command = (state, dispatch) => {
+  const {
+    tr,
+    selection: { $head },
+  } = state;
+  const walkNode = walkNextNode($head);
+
+  if (!isEmptySelectionAtEnd(state)) {
+    return false;
+  }
+
+  const scenario = calcJoinListScenario(walkNode, $head);
+
+  if (!scenario) {
+    return false;
+  }
+
+  const { bulletList, orderedList } = state.schema.nodes;
+  const listParent = findParentNodeOfType([bulletList, orderedList])(
+    tr.selection,
+  );
+
+  let actionSubjectId = ACTION_SUBJECT_ID.FORMAT_LIST_BULLET;
+  if (listParent && listParent.node.type === orderedList) {
+    actionSubjectId = ACTION_SUBJECT_ID.FORMAT_LIST_NUMBER;
+  }
+
+  addAnalytics(state, tr, {
+    action: ACTION.DELETED,
+    actionSubject: ACTION_SUBJECT.TEXT,
+    actionSubjectId,
+    eventType: EVENT_TYPE.TRACK,
+    attributes: {
+      inputMethod: INPUT_METHOD.KEYBOARD,
+      direction: DELETE_DIRECTION.FORWARD,
+      scenario,
+    },
+  });
+
+  return DELETE_FORWARD_COMMANDS[scenario](tr, dispatch, walkNode.$pos, $head);
 };

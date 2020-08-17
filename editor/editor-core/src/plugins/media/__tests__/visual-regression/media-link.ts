@@ -1,5 +1,7 @@
-import { waitForTooltip } from '@atlaskit/visual-regression/helper';
-import { Page } from '../../../../__tests__/__helpers/page-objects/_types';
+import {
+  PuppeteerPage,
+  waitForTooltip,
+} from '@atlaskit/visual-regression/helper';
 import {
   snapshot,
   initFullPageEditorWithAdf,
@@ -39,7 +41,7 @@ const getMediaWithLink = (link: string) => ({
   ],
 });
 
-async function initEditor(page: Page, mediaLink: string) {
+async function initEditor(page: PuppeteerPage, mediaLink: string) {
   await initFullPageEditorWithAdf(
     page,
     getMediaWithLink(mediaLink),
@@ -61,7 +63,7 @@ async function initEditor(page: Page, mediaLink: string) {
 }
 
 describe('Snapshot Test: Media with link', () => {
-  let page: Page;
+  let page: PuppeteerPage;
 
   beforeEach(() => {
     page = global.page;

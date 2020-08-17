@@ -20,7 +20,8 @@ const manifest: ExtensionManifest = {
           type: 'node',
           key: 'default',
           parameters: {
-            item: 'a',
+            item: 'b',
+            sentence: 'Hello world',
           },
         },
       },
@@ -49,10 +50,24 @@ const manifest: ExtensionManifest = {
     ],
     nodes: {
       default: {
-        type: 'extension',
+        type: 'bodiedExtension',
         render: () => import('./extension-handler'),
+        update: (data, actions) => {
+          return new Promise(() => {
+            actions!.editInContextPanel(
+              parameters => parameters,
+              parameters => Promise.resolve(parameters),
+            );
+          });
+        },
         getFieldsDefinition: () =>
           Promise.resolve([
+            {
+              name: 'sentence',
+              label: 'Sentence',
+              isRequired: true,
+              type: 'string',
+            },
             {
               name: 'item',
               label: 'Select single choice',

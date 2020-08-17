@@ -1,7 +1,6 @@
 import React from 'react';
 import { Plugin } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
-import { findParentNode } from 'prosemirror-utils';
 import { Node as PMNode } from 'prosemirror-model';
 import { breakout } from '@atlaskit/adf-schema';
 import { calcBreakoutWidth } from '@atlaskit/editor-common';
@@ -9,13 +8,12 @@ import { EditorPlugin, PMPluginFactoryParams } from '../../types';
 import WithPluginState from '../../ui/WithPluginState';
 import { pluginKey as widthPluginKey, WidthPluginState } from '../width';
 import LayoutButton from './ui/LayoutButton';
-import { isSupportedNodeForBreakout } from './utils/is-supported-node';
 import { BreakoutCssClassName } from './constants';
 import { EventDispatcher } from '../../';
 import { pluginKey } from './plugin-key';
 import { parsePx } from '../../utils/dom';
-
-let debounce: number | null = null;
+import { findSupportedNodeForBreakout } from './utils/find-breakout-node';
+import { BreakoutPluginState } from './types';
 
 class BreakoutView {
   dom: HTMLElement;
@@ -45,7 +43,6 @@ class BreakoutView {
 
     eventDispatcher.on((widthPluginKey as any).key, this.updateWidth);
     this.updateWidth(widthPluginKey.getState(this.view.state));
-    this.updateState();
   }
 
   private updateWidth = (widthState: WidthPluginState) => {
@@ -71,28 +68,19 @@ class BreakoutView {
     }
   };
 
-  // update pluginState on each nodeView update in order to reposition layout button relatively the updated node
-  private updateState = () => {
-    if (debounce) {
-      clearTimeout(debounce);
-    }
-
-    debounce = setTimeout(() => {
-      const pluginState = pluginKey.getState(this.view.state);
-      if (this.node !== pluginState.breakoutNode) {
-        const nextPluginState = {
-          ...pluginState,
-          breakoutNode: this.node,
-        };
-        this.eventDispatcher.emit((pluginKey as any).key, nextPluginState);
-      }
-      debounce = null;
-    });
-  };
-
   destroy() {
     this.eventDispatcher.off((widthPluginKey as any).key, this.updateWidth);
   }
+}
+
+function shouldPluginStateUpdate(
+  newBreakoutNode: PMNode<any> | null,
+  currentBreakoutNode: PMNode<any> | null,
+): boolean {
+  if (newBreakoutNode && currentBreakoutNode) {
+    return !newBreakoutNode.eq(currentBreakoutNode);
+  }
+  return newBreakoutNode || currentBreakoutNode ? true : false;
 }
 
 function createPlugin({ dispatch, eventDispatcher }: PMPluginFactoryParams) {
@@ -103,13 +91,11 @@ function createPlugin({ dispatch, eventDispatcher }: PMPluginFactoryParams) {
           breakoutNode: null,
         };
       },
-      apply(tr, pluginState) {
-        const breakoutNode = findParentNode(isSupportedNodeForBreakout)(
-          tr.selection,
-        );
-
+      apply(tr, pluginState: BreakoutPluginState) {
+        const breakoutNode = findSupportedNodeForBreakout(tr.selection);
         const node = breakoutNode ? breakoutNode.node : null;
-        if (node !== pluginState.breakoutNode) {
+
+        if (shouldPluginStateUpdate(node, pluginState.breakoutNode)) {
           const nextPluginState = {
             ...pluginState,
             breakoutNode: node,
@@ -117,7 +103,6 @@ function createPlugin({ dispatch, eventDispatcher }: PMPluginFactoryParams) {
           dispatch(pluginKey, nextPluginState);
           return nextPluginState;
         }
-
         return pluginState;
       },
     },
@@ -167,7 +152,7 @@ const breakoutPlugin = (options?: BreakoutPluginOptions): EditorPlugin => ({
         plugins={{
           pluginState: pluginKey,
         }}
-        render={({ pluginState }) => (
+        render={({ pluginState }: { pluginState: BreakoutPluginState }) => (
           <LayoutButton
             editorView={editorView}
             mountPoint={popupsMountPoint}

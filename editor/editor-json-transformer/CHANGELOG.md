@@ -1,5 +1,16 @@
 # @atlaskit/editor-json-transformer
 
+## 8.2.0
+
+### Minor Changes
+
+- [`d55f8066fd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d55f8066fd) - ED-9569 Preserve unsupported mark attribute and value
+
+### Patch Changes
+
+- [`6262f382de`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6262f382de) - Use the 'lodash' package instead of single-function 'lodash.\*' packages
+- Updated dependencies
+
 ## 8.1.0
 
 ### Minor Changes

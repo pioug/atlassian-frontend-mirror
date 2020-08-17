@@ -1,6 +1,4 @@
 import { Selection, TextSelection } from 'prosemirror-state';
-
-import { analyticsService } from '../../../analytics';
 import { Command } from '../../../types';
 import { applyMarkOnRange, toggleMark } from '../../../utils/commands';
 import {
@@ -341,9 +339,6 @@ const createInlineCodeFromTextInput = (
       const hasTickBefore = before && before.text && before.text.endsWith('`');
       const hasTickAfter = after && after.text && after.text.startsWith('`');
       if (hasTickBefore && hasTickAfter) {
-        analyticsService.trackEvent(
-          `atlassian.editor.format.code.autoformatting`,
-        );
         let tr = state.tr.replaceRangeWith(
           from - 1,
           to + 1,

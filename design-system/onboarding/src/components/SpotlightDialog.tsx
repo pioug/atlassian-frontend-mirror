@@ -122,10 +122,29 @@ class SpotlightDialog extends Component<SpotlightDialogProps, State> {
         }[dialogPlacement] as Placement)
       : undefined;
 
+    // If there's no room on either side of the popper, it will extend off-screen.
+    //  This looks buggy when scroll-lock and focus is placed on the dialog, so we
+    //  customise popper so it overflows the spotlight instead with altAxis=true.
+    const modifiers = [
+      {
+        name: 'preventOverflow',
+        options: {
+          padding: 5,
+          rootBoundary: 'document',
+          altAxis: true,
+          tether: false,
+        },
+      },
+    ];
+
     return (
-      <Popper referenceElement={targetNode} placement={translatedPlacement}>
-        {({ ref, style, scheduleUpdate }) => (
-          <ValueChanged value={dialogWidth} onChange={scheduleUpdate}>
+      <Popper
+        modifiers={modifiers}
+        referenceElement={targetNode}
+        placement={translatedPlacement}
+      >
+        {({ ref, style, update }) => (
+          <ValueChanged value={dialogWidth} onChange={update}>
             <FocusLock
               disabled={focusLockDisabled}
               returnFocus={false}

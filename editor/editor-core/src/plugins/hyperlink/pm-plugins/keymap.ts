@@ -1,7 +1,6 @@
 import { keymap } from 'prosemirror-keymap';
 import { Plugin, EditorState } from 'prosemirror-state';
 import * as keymaps from '../../../keymaps';
-import { analyticsService, trackAndInvoke } from '../../../analytics';
 import { Match, getLinkMatch } from '../utils';
 import { HyperlinkState, stateKey } from '../pm-plugins/main';
 import { showLinkToolbar, hideLinkToolbar } from '../commands';
@@ -15,10 +14,7 @@ export function createKeymapPlugin(): Plugin | undefined {
 
   keymaps.bindKeymapWithCommand(
     keymaps.addLink.common!,
-    trackAndInvoke(
-      'atlassian.editor.format.hyperlink.keyboard',
-      showLinkToolbar(INPUT_METHOD.SHORTCUT),
-    ),
+    showLinkToolbar(INPUT_METHOD.SHORTCUT),
     list,
   );
 
@@ -84,10 +80,6 @@ const mayConvertLastWordToHyperlink: Command = (state, dispatch) => {
         source: INPUT_METHOD.AUTO_DETECT,
       },
     ])(state.tr.addMark(start, end, markType));
-
-    analyticsService.trackEvent(
-      'atlassian.editor.format.hyperlink.autoformatting',
-    );
 
     if (dispatch) {
       dispatch(

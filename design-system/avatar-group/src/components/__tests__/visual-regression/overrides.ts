@@ -10,7 +10,7 @@ const overflowMenuContentSelector = '[data-testid="overrides--overflow-menu"]';
 
 describe('avatar group override snapshots', () => {
   it('should match the snapshot of the customized overflow menu', async () => {
-    const { __BASEURL__, page } = global as any;
+    const { __BASEURL__, page } = global;
     const url = getExampleUrl(
       'design-system',
       'avatar-group',

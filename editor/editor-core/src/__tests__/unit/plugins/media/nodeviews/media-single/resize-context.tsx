@@ -59,6 +59,7 @@ describe('media resizing', () => {
         mediaProvider={(editorProps.media || {}).provider}
         contextIdentifierProvider={editorProps.contextIdentifierProvider}
         mediaPluginState={pluginState}
+        forwardRef={() => {}}
       />,
     );
   };

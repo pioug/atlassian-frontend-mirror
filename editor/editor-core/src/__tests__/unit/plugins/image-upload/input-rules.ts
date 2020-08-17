@@ -11,7 +11,7 @@ import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 describe('inputrules', () => {
   const createEditor = createEditorFactory();
 
-  const editor = (doc: any, trackEvent?: () => {}) =>
+  const editor = (doc: any) =>
     createEditor({
       doc,
       editorProps: {
@@ -19,36 +19,25 @@ describe('inputrules', () => {
         media: {
           allowMediaSingle: true,
         },
-        analyticsHandler: trackEvent,
       },
     });
 
   describe('image rule', () => {
     it('should convert `![text](url)` to image', () => {
-      const trackEvent = jest.fn();
-      const { editorView, sel } = editor(doc(p('{<>}')), trackEvent);
+      const { editorView, sel } = editor(doc(p('{<>}')));
 
       insertText(editorView, '![text](url)', sel);
       expect(editorView.state.doc).toEqualDocument(
         doc(p(), mediaSingle()(media({ type: 'external', url: 'url' })()), p()),
       );
-
-      expect(trackEvent).toHaveBeenCalledWith(
-        'atlassian.editor.image.autoformatting',
-      );
     });
 
     it('should convert `![](url)` to image', () => {
-      const trackEvent = jest.fn();
-      const { editorView, sel } = editor(doc(p('{<>}')), trackEvent);
+      const { editorView, sel } = editor(doc(p('{<>}')));
 
       insertText(editorView, '![](url)', sel);
       expect(editorView.state.doc).toEqualDocument(
         doc(p(), mediaSingle()(media({ type: 'external', url: 'url' })()), p()),
-      );
-
-      expect(trackEvent).toHaveBeenCalledWith(
-        'atlassian.editor.image.autoformatting',
       );
     });
 

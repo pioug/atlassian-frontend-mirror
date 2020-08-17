@@ -98,6 +98,12 @@ export type FileState =
   | ErrorFileState
   | ProcessingFailedState;
 
+export type NonErrorFileState = Exclude<FileState, ErrorFileState>;
+
+export const isProcessingFileState = (
+  fileState: FileState,
+): fileState is ProcessingFileState => fileState.status === 'processing';
+
 export const isProcessedFileState = (
   fileState: FileState,
 ): fileState is ProcessedFileState => fileState.status === 'processed';

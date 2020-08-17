@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/avatar-group",
-  "version": "8.0.4",
+  "version": "8.0.5",
   "description": "An avatar group displays a number of avatars grouped together in a stack or grid.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -17,17 +17,17 @@
   "homepage": "https://atlassian.design/components/avatar-group/",
   "atlassian": {
     "team": "Design System Team",
+    "deprecatedAutoEntryPoints": true,
     "inPublicMirror": true,
     "releaseModel": "scheduled",
     "website": {
       "name": "Avatar group"
-    },
-    "deprecatedAutoEntryPoints": true
+    }
   },
   "dependencies": {
     "@atlaskit/avatar": "^20.0.0",
     "@atlaskit/menu": "^0.6.0",
-    "@atlaskit/popup": "^0.6.0",
+    "@atlaskit/popup": "^1.0.0",
     "@atlaskit/theme": "^10.0.0",
     "@atlaskit/tooltip": "^16.0.0",
     "@emotion/core": "^10.0.9",

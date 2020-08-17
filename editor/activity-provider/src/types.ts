@@ -4,6 +4,7 @@ export interface ActivityItem {
   container: string;
   url: string;
   iconUrl: string;
+  viewedTimestamp?: string;
 }
 
 type ActivityProduct =
@@ -14,7 +15,7 @@ type ActivityProduct =
   | 'JIRA_SERVICE_DESK'
   | 'CONFLUENCE';
 type ActivitiesContainerType = 'SITE' | 'PROJECT' | 'SPACE';
-type ActivityObjectType = 'ISSUE' | 'PAGE' | 'BLOGPOST';
+export type ActivityObjectType = 'ISSUE' | 'PAGE' | 'BLOGPOST';
 export interface ActivityContainer {
   id: string;
   name: string | null;
@@ -38,7 +39,7 @@ export interface ActivityResponse {
   data: {
     activities: {
       myActivities: {
-        all: {
+        viewed: {
           nodes: Array<{
             id: string;
             timestamp: string;

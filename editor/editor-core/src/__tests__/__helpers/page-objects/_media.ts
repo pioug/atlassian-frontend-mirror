@@ -1,5 +1,5 @@
+import { PuppeteerPage } from './_types';
 import { insertMedia as integrationInsertMedia } from '../../integration/_helpers';
-import { Page as PuppeteerPage } from 'puppeteer';
 import { getBoundingRect, scrollToElement } from './_editor';
 
 import { snapshot } from '../../visual-regression/_utils';
@@ -51,9 +51,13 @@ export enum MediaToolbarButton {
 // Selectors
 const mediaUploadCardSelector =
   '[data-testid="media-picker-popup"] [data-testid="media-file-card-view"]';
-const mediaImageSelector = `[data-testid="media-file-card-view"][data-test-status="complete"] .img-wrapper, .mediaGroupView-content-wrap .img-wrapper`;
+export const mediaImageSelector = `[data-testid="media-file-card-view"][data-test-status="complete"] .img-wrapper, .mediaGroupView-content-wrap .img-wrapper`;
 const mediaImageSelected = `.ProseMirror-selectednode [data-testid="media-file-card-view"][data-test-status="complete"] .img-wrapper, .ProseMirror-selectednode .mediaGroupView-content-wrap .img-wrapper`;
 const insertMediaFileSelector = 'div[aria-label="%s"]';
+export const mediaToolbarRemoveSelector =
+  'button[data-testid="media-toolbar-remove-button"]';
+export const mediaDangerSelector =
+  '.danger [data-testid="media-file-card-view"][data-test-status="complete"]';
 
 export const LinkToolbarSelectors = {
   [MediaToolbarButton.addLink]: `[aria-label="Media floating controls"] [aria-label="${linkToolbarMessages.addLink.defaultMessage}"]`,
@@ -115,8 +119,6 @@ export const insertMedia = async (
   page: PuppeteerPage,
   filenames = ['one.svg'],
 ) => {
-  // We need to wrap this as the xpath selector used in integration tests
-  // isnt valid in puppeteer
   await integrationInsertMedia(page, filenames, insertMediaFileSelector);
   await waitForMediaToBeLoaded(page);
 };

@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import AkButton from '@atlaskit/button';
 import { Popup } from '@atlaskit/editor-common';
 import ToolbarFeedback from '../../../ui/ToolbarFeedback';
-import { analyticsService } from '../../../analytics';
 import { openFeedbackDialog } from '../../../plugins/feedback-dialog';
 import { analyticsEventKey } from '../../../plugins/analytics/consts';
 
@@ -45,17 +44,6 @@ describe('@atlaskit/editor-core/ui/ToolbarFeedback', () => {
       if (toolbarOption) {
         toolbarOption.unmount();
       }
-    });
-
-    it('should trigger analyticsService.trackEvent when feedback icon is clicked', () => {
-      const trackEvent = jest.fn();
-      analyticsService.trackEvent = trackEvent;
-      mountWithEditorActions();
-
-      toolbarOption.find(AkButton).simulate('click');
-      expect(trackEvent).toHaveBeenCalledWith(
-        'atlassian.editor.feedback.button',
-      );
     });
 
     it('should trigger feedback button clicked analytics event when feedback icon clicked', () => {

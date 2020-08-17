@@ -5,6 +5,7 @@ import { Schema } from 'prosemirror-model';
 // TODO: Check if this circular dependency is still needed or is just legacy
 // eslint-disable-next-line import/no-cycle
 import { EditorConfig } from './editor-config';
+import { EditorReactContext } from '../types';
 import { Dispatch, EventDispatcher } from '../event-dispatcher';
 import { PortalProviderAPI } from '../ui/PortalProvider';
 import { DispatchAnalyticsEvent } from '../plugins/analytics/types/dispatch-analytics-event';
@@ -17,7 +18,7 @@ export type PMPluginFactoryParams = {
   providerFactory: ProviderFactory;
   errorReporter?: ErrorReporter;
   portalProviderAPI: PortalProviderAPI;
-  reactContext: () => { [key: string]: any };
+  reactContext: () => EditorReactContext;
   dispatchAnalyticsEvent: DispatchAnalyticsEvent;
 };
 export type PMPluginCreateConfig = PMPluginFactoryParams & {

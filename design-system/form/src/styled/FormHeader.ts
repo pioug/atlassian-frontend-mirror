@@ -1,13 +1,15 @@
 import styled from 'styled-components';
 
-import { gridSize } from '@atlaskit/theme/constants';
+import { fontFamily, gridSize } from '@atlaskit/theme/constants';
 import { multiply } from '@atlaskit/theme/math';
 import { h700 } from '@atlaskit/theme/typography';
 
 /**
  * Provide a styled container for form headers.
  */
-const FormHeaderWrapper = styled.div``;
+const FormHeaderWrapper = styled.div`
+  font-family: ${fontFamily()};
+`;
 
 /**
  * Provide a styled container for form header title.

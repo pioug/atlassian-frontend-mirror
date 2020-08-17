@@ -1,4 +1,5 @@
 import {
+  PuppeteerPage,
   waitForTooltip,
   waitForNoTooltip,
 } from '@atlaskit/visual-regression/helper';
@@ -8,11 +9,7 @@ import {
   getBoundingRect,
   scrollToElement,
 } from './_editor';
-import {
-  clickToolbarMenu,
-  ToolbarMenuItem,
-  waitForFloatingControl,
-} from './_toolbar';
+import { clickToolbarMenu, ToolbarMenuItem } from './_toolbar';
 import { TableCssClassName as ClassName } from '../../../plugins/table/types';
 import messages from '../../../messages';
 import {
@@ -20,8 +17,8 @@ import {
   pressKeyUp,
 } from '../../__helpers/page-objects/_keyboard';
 import { animationFrame } from '../../__helpers/page-objects/_editor';
+import { retryUntilStablePosition } from '../../__helpers/page-objects/_toolbar';
 import { isVisualRegression } from '../utils';
-import { Page } from 'puppeteer';
 import { RESIZE_HANDLE_AREA_DECORATION_GAP } from '../../../plugins/table/types';
 
 export const tableSelectors = {
@@ -67,6 +64,7 @@ export const tableSelectors = {
   tableTh: 'table th',
   cellBackgroundText: 'Cell background',
   cellBackgroundSubmenuSelector: `.${ClassName.CONTEXTUAL_SUBMENU}`,
+  floatingToolbar: '[aria-label*="Table floating controls"]',
 };
 // insert table from menu
 export const insertTable = async (page: any) => {
@@ -75,21 +73,25 @@ export const insertTable = async (page: any) => {
   await page.click(tableSelectors.tableTh);
 };
 
-// Click into first cell on table.
-//
-// VR Only:
-// If the cell is empty, you should wait for the table controls
-// If the cell contains a node with its own floating controls (e.g. media)
-// thne you should set `waitForTableControls` to false, and provide your
-// own `waitForFloatingControl` condition after invoking this method.
+// click into first cell on table
 export const clickFirstCell = async (
   page: any,
-  waitForTableControls = true,
+  retryUntilToolbarPositionStable = false,
 ) => {
-  await page.waitForSelector(tableSelectors.topLeftCell);
-  await page.click(tableSelectors.topLeftCell);
-  if (isVisualRegression() && waitForTableControls) {
-    await waitForFloatingControl(page, 'Table floating controls');
+  if (retryUntilToolbarPositionStable) {
+    await page.waitForSelector(tableSelectors.topLeftCell);
+    await retryUntilStablePosition(
+      page,
+      async () => {
+        await page.click(tableSelectors.topLeftCell);
+        await page.waitForSelector('.pm-table-column-controls-decoration');
+      },
+      tableSelectors.floatingToolbar,
+      1000,
+    );
+  } else {
+    await page.waitForSelector(tableSelectors.topLeftCell);
+    await page.click(tableSelectors.topLeftCell);
   }
 };
 
@@ -450,7 +452,7 @@ export const scrollToTable = async (page: any) => {
   await scrollToElement(page, tableSelectors.tableTd, 50);
 };
 
-export const unselectTable = async (page: Page) => {
+export const unselectTable = async (page: PuppeteerPage) => {
   const rect = await getBoundingRect(page, `.${ClassName.TABLE_NODE_WRAPPER}`)!;
 
   await page.mouse.click(

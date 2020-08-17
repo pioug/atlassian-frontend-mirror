@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 import { R400 } from '@atlaskit/theme/colors';
-import { gridSize } from '@atlaskit/theme/constants';
+import { fontFamily, gridSize } from '@atlaskit/theme/constants';
 import { multiply } from '@atlaskit/theme/math';
 import { h200 } from '@atlaskit/theme/typography';
 
@@ -17,12 +17,14 @@ const FieldWrapper = styled.div`
  */
 export const Label = styled.label`
   ${h200()} display: inline-block;
+  font-family: ${fontFamily()};
   margin-bottom: ${multiply(gridSize, 0.5)}px;
   margin-top: 0;
 `;
 
 export const RequiredIndicator = styled.span`
   color: ${R400};
+  font-family: ${fontFamily()};
   padding-left: ${multiply(gridSize, 0.25)}px;
 `;
 

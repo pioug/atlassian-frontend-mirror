@@ -14,6 +14,7 @@ import {
   emoji,
   code_block,
   hardBreak,
+  panel,
   BuilderContent as SchemaBuilderContent,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 
@@ -29,7 +30,6 @@ import {
 } from '../../../../plugins/text-formatting/pm-plugins/input-rule';
 import { EditorView } from 'prosemirror-view';
 import { ProviderFactory } from '@atlaskit/editor-common';
-import { AnalyticsHandler } from '../../../../analytics';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 const createProductPayload = (product: string, originalSpelling: string) => ({
@@ -114,8 +114,6 @@ const autoFormatPatterns = [
 
 describe('text-formatting input rules', () => {
   const createEditor = createEditorFactory();
-
-  let trackEvent: AnalyticsHandler;
   let createAnalyticsEvent: jest.MockInstance<UIAnalyticsEvent, any>;
 
   const editor = (doc: any, disableCode = false) => {
@@ -123,11 +121,11 @@ describe('text-formatting input rules', () => {
     const editorWrapper = createEditor({
       doc,
       editorProps: {
-        analyticsHandler: trackEvent,
         allowAnalyticsGASV3: true,
         textFormatting: { disableCode },
         emojiProvider: new Promise(() => {}),
         mentionProvider: new Promise(() => {}),
+        allowPanel: true,
       },
       createAnalyticsEvent: createAnalyticsEvent as any,
       providerFactory: ProviderFactory.create({
@@ -138,14 +136,9 @@ describe('text-formatting input rules', () => {
     return editorWrapper;
   };
 
-  beforeEach(() => {
-    trackEvent = jest.fn();
-  });
-
   const autoformats = (
     string: string,
     editorContent: SchemaBuilderContent,
-    analyticsName: string,
     analyticsV3Payload?: object,
     contentNode = p,
   ) => {
@@ -159,12 +152,6 @@ describe('text-formatting input rules', () => {
 
       it(`should autoformat`, () => {
         expect(editorView.state.doc).toEqualDocument(doc(editorContent));
-      });
-
-      it('should track analytics v2 event', () => {
-        expect(trackEvent).toHaveBeenCalledWith(
-          `atlassian.editor.format.${analyticsName}.autoformatting`,
-        );
       });
 
       if (analyticsV3Payload) {
@@ -205,7 +192,6 @@ describe('text-formatting input rules', () => {
   const autoformatCombinations = (
     strings: Array<string>,
     editorContent: SchemaBuilderContent,
-    analyticsName?: string,
   ) => {
     it(`should autoformat combinations: ${strings}`, () => {
       const { editorView } = editor(doc(p('{<>}')));
@@ -213,12 +199,6 @@ describe('text-formatting input rules', () => {
         insertText(editorView, str, editorView.state.selection.$from.pos);
       });
       expect(editorView.state.doc).toEqualDocument(doc(p(editorContent)));
-
-      if (analyticsName) {
-        expect(trackEvent).toHaveBeenCalledWith(
-          `atlassian.editor.format.${analyticsName}.autoformatting`,
-        );
-      }
     });
   };
 
@@ -226,7 +206,6 @@ describe('text-formatting input rules', () => {
     autoformats(
       'atlassian ',
       p('Atlassian '),
-      'product',
       createProductPayload('Atlassian', 'atlassian'),
     );
     notautoformats('something-atlassian');
@@ -236,7 +215,6 @@ describe('text-formatting input rules', () => {
     autoformats(
       'jira and JIRA ',
       p('Jira and Jira '),
-      'product',
       createProductPayload('Jira', 'jira'),
     );
     notautoformats('.jira');
@@ -245,7 +223,6 @@ describe('text-formatting input rules', () => {
     autoformats(
       'bitbucket ',
       p('Bitbucket '),
-      'product',
       createProductPayload('Bitbucket', 'bitbucket'),
     );
     notautoformats('.bitbucket');
@@ -254,7 +231,6 @@ describe('text-formatting input rules', () => {
     autoformats(
       'hipchat and HipChat ',
       p('Hipchat and Hipchat '),
-      'product',
       createProductPayload('Hipchat', 'hipchat'),
     );
     notautoformats('.hipchat');
@@ -263,7 +239,6 @@ describe('text-formatting input rules', () => {
     autoformats(
       'trello ',
       p('Trello '),
-      'product',
       createProductPayload('Trello', 'trello'),
     );
     notautoformats('.trello');
@@ -271,35 +246,26 @@ describe('text-formatting input rules', () => {
     autoformats(
       '  \t    atlassian   ',
       p('  \t    Atlassian   '),
-      'product',
       createProductPayload('Atlassian', 'atlassian'),
     );
   });
 
   describe('smart quotes rule', () => {
-    autoformats(
-      "'nice'",
-      p('‘nice’'),
-      'quote',
-      createPunctuationPayload('singleQuote'),
-    );
+    autoformats("'nice'", p('‘nice’'), createPunctuationPayload('singleQuote'));
     autoformats(
       "'hello' 'world'",
       p('‘hello’ ‘world’'),
-      'quote',
       createPunctuationPayload('singleQuote'),
     );
 
     autoformats(
       "don't hate, can't wait",
       p('don’t hate, can’t wait'),
-      'quote',
       createPunctuationPayload('singleQuote'),
     );
     autoformats(
       "don't hate, can't 'wait'",
       p('don’t hate, can’t ‘wait’'),
-      'quote',
       createPunctuationPayload('singleQuote'),
     );
 
@@ -313,34 +279,26 @@ describe('text-formatting input rules', () => {
     autoformats(
       '"hello" "world"',
       p('“hello” “world”'),
-      'quote',
       createPunctuationPayload('doubleQuote'),
     );
     autoformats(
       'let " it\'d close"',
       p('let “ it’d close”'),
-      'quote',
       createPunctuationPayload('doubleQuote'),
     );
     autoformats(
       'let " it\'d close" \'hey',
       p("let “ it’d close” 'hey"),
-      'quote',
       createPunctuationPayload('doubleQuote'),
     );
 
     describe('supports composed autoformatting for quotation', () => {
-      trackEvent = jest.fn();
       const { editorView } = editor(doc(p('{<>}')));
       typeText(editorView, 'it');
       expect(editorView.state.doc).toEqualDocument(doc(p('it{<>}')));
 
       typeText(editorView, "'s");
       expect(editorView.state.doc).toEqualDocument(doc(p('it’s{<>}')));
-
-      expect(trackEvent).toHaveBeenCalledWith(
-        `atlassian.editor.format.quote.autoformatting`,
-      );
     });
 
     describe('should not break other inline marks', () => {
@@ -355,11 +313,34 @@ describe('text-formatting input rules', () => {
       expect(editorView.state.doc).toEqualDocument(doc(p(strong(em('it’s')))));
     });
 
+    it('should only trigger on text selections #1', () => {
+      const { editorView } = editor(
+        doc(
+          code_block()(`'str'`),
+          '{<node>}',
+          panel({ type: 'info' })(p('something else')),
+        ),
+      );
+      typeText(editorView, 's');
+      expect(editorView.state.doc).toEqualDocument(
+        doc(code_block()(`'str'`), p('s')),
+      );
+    });
+
+    it('should only trigger on text selections #2', () => {
+      const { editorView } = editor(
+        doc(code_block()(`'str'`), '{<node>}', code_block()('something else')),
+      );
+      typeText(editorView, 's');
+      expect(editorView.state.doc).toEqualDocument(
+        doc(code_block()(`'str'`), p('s')),
+      );
+    });
+
     // test spacing
     autoformats(
       '  \t   "hello" \'world\'   ',
       p('  \t   “hello” ‘world’   '),
-      'quote',
       createPunctuationPayload('doubleQuote'),
     );
 
@@ -399,18 +380,14 @@ describe('text-formatting input rules', () => {
     notautoformats('->> ');
 
     // autoformat only after space
-    autoformats('-> ', p('→ '), 'arrow', createSymbolPayload('rightArrow'));
-    autoformats('--> ', p('→ '), 'arrow', createSymbolPayload('rightArrow'));
-    autoformats('<- ', p('← '), 'arrow', createSymbolPayload('leftArrow'));
-    autoformats('<-- ', p('← '), 'arrow', createSymbolPayload('leftArrow'));
-    autoformats('<-> ', p('↔︎ '), 'arrow', createSymbolPayload('doubleArrow'));
+    autoformats('-> ', p('→ '), createSymbolPayload('rightArrow'));
+    autoformats('--> ', p('→ '), createSymbolPayload('rightArrow'));
+    autoformats('<- ', p('← '), createSymbolPayload('leftArrow'));
+    autoformats('<-- ', p('← '), createSymbolPayload('leftArrow'));
+    autoformats('<-> ', p('↔︎ '), createSymbolPayload('doubleArrow'));
 
     // test spacing
-    autoformatCombinations(
-      [' \t   -> ', ' \t  --> ', ' '],
-      ' \t   →  \t  →  ',
-      'arrow',
-    );
+    autoformatCombinations([' \t   -> ', ' \t  --> ', ' '], ' \t   →  \t  →  ');
 
     describe('cursor movement', () => {
       const { editorView } = editor(doc(p('hel{<}lo{>}o')));
@@ -428,17 +405,13 @@ describe('text-formatting input rules', () => {
     autoformats(
       '...',
       p('…'),
-      'typography',
+
       createPunctuationPayload('ellipsis'),
     );
-    autoformatCombinations(['...', '.'], '….', 'typography');
-    autoformatCombinations(['...', '...'], '……', 'typography');
-    autoformatCombinations(['...', '\t...'], '…\t…', 'typography');
-    autoformatCombinations(
-      ['\t ...', '  \t text'],
-      '\t …  \t text',
-      'typography',
-    );
+    autoformatCombinations(['...', '.'], '….');
+    autoformatCombinations(['...', '...'], '……');
+    autoformatCombinations(['...', '\t...'], '…\t…');
+    autoformatCombinations(['\t ...', '  \t text'], '\t …  \t text');
 
     notautoformats('--');
     notautoformats('    --.');
@@ -446,21 +419,17 @@ describe('text-formatting input rules', () => {
     autoformats(
       '-- ',
       p('– '),
-      'typography',
+
       createPunctuationPayload('emDash'),
     );
     autoformats(
       '--\t',
       p('–\t'),
-      'typography',
+
       createPunctuationPayload('emDash'),
     );
 
-    autoformatCombinations(
-      ['\t -- ', '  \t text'],
-      '\t –   \t text',
-      'typography',
-    );
+    autoformatCombinations(['\t -- ', '  \t text'], '\t –   \t text');
 
     describe('cursor movement', () => {
       const { editorView } = editor(doc(p('hel{<}lo{>}o')));
@@ -477,10 +446,6 @@ describe('text-formatting input rules', () => {
       const { editorView, sel } = editor(doc(p('hello {<>} there')));
 
       insertText(editorView, '**text**', sel);
-
-      expect(trackEvent).toHaveBeenCalledWith(
-        'atlassian.editor.format.strong.autoformatting',
-      );
       expect(createAnalyticsEvent).toHaveBeenCalledWith(
         createFormattedPayload('strong'),
       );
@@ -545,9 +510,6 @@ describe('text-formatting input rules', () => {
 
       insertText(editorView, '*text*', sel);
 
-      expect(trackEvent).toHaveBeenCalledWith(
-        'atlassian.editor.format.em.autoformatting',
-      );
       expect(createAnalyticsEvent).toHaveBeenCalledWith(
         createFormattedPayload('italic'),
       );
@@ -605,9 +567,6 @@ describe('text-formatting input rules', () => {
 
       insertText(editorView, '~~text~~', sel);
 
-      expect(trackEvent).toHaveBeenCalledWith(
-        'atlassian.editor.format.strike.autoformatting',
-      );
       expect(createAnalyticsEvent).toHaveBeenCalledWith(
         createFormattedPayload('strike'),
       );
@@ -632,9 +591,6 @@ describe('text-formatting input rules', () => {
 
       insertText(editorView, '`text`', sel);
 
-      expect(trackEvent).toHaveBeenCalledWith(
-        'atlassian.editor.format.code.autoformatting',
-      );
       expect(createAnalyticsEvent).toHaveBeenCalledWith(
         createFormattedPayload('code'),
       );
@@ -751,12 +707,6 @@ describe('text-formatting input rules', () => {
       expect(editorView.state.doc).toEqualDocument(
         doc(p(strike(strong('text')))),
       );
-      expect(trackEvent).toHaveBeenCalledWith(
-        'atlassian.editor.format.strong.autoformatting',
-      );
-      expect(trackEvent).toHaveBeenCalledWith(
-        'atlassian.editor.format.strike.autoformatting',
-      );
     });
   });
 
@@ -780,7 +730,7 @@ describe('text-formatting input rules', () => {
   describe('valid autoformatting', () => {
     describe('simple single word', () => {
       autoFormatPatterns.forEach(pattern => {
-        autoformats(pattern.string, p(pattern.doc), pattern.name);
+        autoformats(pattern.string, p(pattern.doc));
       });
     });
 
@@ -789,7 +739,6 @@ describe('text-formatting input rules', () => {
         autoformats(
           pattern.string,
           h1(pattern.doc),
-          pattern.name,
           pattern.analyticsGasV3Payload,
           h1,
         );
@@ -797,44 +746,44 @@ describe('text-formatting input rules', () => {
     });
 
     describe('multiple word should autoformat', () => {
-      autoformats('__test test__', p(strong('test test')), 'strong');
-      autoformats('**test test**', p(strong('test test')), 'strong');
-      autoformats('_test test_', p(em('test test')), 'em');
-      autoformats('*test test*', p(em('test test')), 'em');
-      autoformats('~~test test~~', p(strike('test test')), 'strike');
-      autoformats('`test test`', p(code('test test')), 'code');
+      autoformats('__test test__', p(strong('test test')));
+      autoformats('**test test**', p(strong('test test')));
+      autoformats('_test test_', p(em('test test')));
+      autoformats('*test test*', p(em('test test')));
+      autoformats('~~test test~~', p(strike('test test')));
+      autoformats('`test test`', p(code('test test')));
     });
 
     describe('single word with special characters', () => {
-      autoformats('__^hello__', p(strong('^hello')), 'strong');
-      autoformats('**^hello**', p(strong('^hello')), 'strong');
-      autoformats('_^hello_', p(em('^hello')), 'em');
-      autoformats('*^hello*', p(em('^hello')), 'em');
-      autoformats('~~^hello~~', p(strike('^hello')), 'strike');
-      autoformats('`^hello`', p(code('^hello')), 'code');
-      autoformats('__`test`__', p(strong('`test`')), 'strong');
-      autoformats('**`test`**', p(strong('`test`')), 'strong');
-      autoformats('_`test`_', p(em('`test`')), 'em');
-      autoformats('*`test`*', p(em('`test`')), 'em');
-      autoformats('~~`test`~~', p(strike('`test`')), 'strike');
+      autoformats('__^hello__', p(strong('^hello')));
+      autoformats('**^hello**', p(strong('^hello')));
+      autoformats('_^hello_', p(em('^hello')));
+      autoformats('*^hello*', p(em('^hello')));
+      autoformats('~~^hello~~', p(strike('^hello')));
+      autoformats('`^hello`', p(code('^hello')));
+      autoformats('__`test`__', p(strong('`test`')));
+      autoformats('**`test`**', p(strong('`test`')));
+      autoformats('_`test`_', p(em('`test`')));
+      autoformats('*`test`*', p(em('`test`')));
+      autoformats('~~`test`~~', p(strike('`test`')));
     });
 
     describe('single character', () => {
-      autoformats('__a__', p(strong('a')), 'strong');
-      autoformats('**a**', p(strong('a')), 'strong');
-      autoformats('_a_', p(em('a')), 'em');
-      autoformats('*a*', p(em('a')), 'em');
-      autoformats('~~a~~', p(strike('a')), 'strike');
-      autoformats('`a`', p(code('a')), 'code');
+      autoformats('__a__', p(strong('a')));
+      autoformats('**a**', p(strong('a')));
+      autoformats('_a_', p(em('a')));
+      autoformats('*a*', p(em('a')));
+      autoformats('~~a~~', p(strike('a')));
+      autoformats('`a`', p(code('a')));
     });
 
     describe('2 characters', () => {
-      autoformats('__ab__', p(strong('ab')), 'strong');
-      autoformats('**ab**', p(strong('ab')), 'strong');
-      autoformats('_ab_', p(em('ab')), 'em');
-      autoformats('*ab*', p(em('ab')), 'em');
-      autoformats('~~ab~~', p(strike('ab')), 'strike');
-      autoformats('`ab`', p(code('ab')), 'code');
+      autoformats('__ab__', p(strong('ab')));
+      autoformats('**ab**', p(strong('ab')));
+      autoformats('_ab_', p(em('ab')));
+      autoformats('*ab*', p(em('ab')));
+      autoformats('~~ab~~', p(strike('ab')));
+      autoformats('`ab`', p(code('ab')));
     });
 
     describe('after other works', () => {
@@ -842,7 +791,6 @@ describe('text-formatting input rules', () => {
         autoformats(
           `abc abc abc ${pattern.string}`,
           p('abc abc abc ', pattern.doc),
-          pattern.name,
         );
       });
     });
@@ -850,16 +798,8 @@ describe('text-formatting input rules', () => {
     describe('` not in beginning of the word', () => {
       autoFormatPatterns.forEach(pattern => {
         if (pattern.name !== 'code') {
-          autoformats(
-            `\`test ${pattern.string}`,
-            p('`test ', pattern.doc),
-            pattern.name,
-          );
-          autoformats(
-            `\` ${pattern.string}`,
-            p('` ', pattern.doc),
-            pattern.name,
-          );
+          autoformats(`\`test ${pattern.string}`, p('`test ', pattern.doc));
+          autoformats(`\` ${pattern.string}`, p('` ', pattern.doc));
         }
       });
     });
@@ -928,7 +868,7 @@ describe('text-formatting input rules', () => {
 
   describe('code mark autoformatting using ` with space or other regex characters', () => {
     notautoformats('` test`');
-    autoformats('`test test`', p(code('test test')), 'code');
+    autoformats('`test test`', p(code('test test')));
   });
 
   describe('invalid autoformatting', () => {

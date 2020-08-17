@@ -1,5 +1,21 @@
 # @atlaskit/renderer
 
+## 64.0.0
+
+### Minor Changes
+
+- [`fe31ba459f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fe31ba459f) - ED-8198 Include Spec based validator behind toggle for Renderer
+- [`b932cbbc42`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b932cbbc42) - Added support for rendering image captions
+- [`62eb1114c4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/62eb1114c4) - Enable passing of MediaFeatureFlags through Editor Renderer via MediaOptions to Media components
+
+### Patch Changes
+
+- [`6262f382de`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6262f382de) - Use the 'lodash' package instead of single-function 'lodash.\*' packages
+- [`6fbaccca68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6fbaccca68) - ED-7786 (ED-7785, ED-7786) fix table content overlow (e.g. dates) when columns widths are smaller than the content
+- [`a93d423be6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a93d423be6) - [TWISTA-218] Implements the Mobile Bridge API methods to works with Inline Comments on Renderer
+  [TWISTA-146] Remove previous annotation highlight before focus in another one
+- Updated dependencies
+
 ## 63.0.0
 
 ### Minor Changes

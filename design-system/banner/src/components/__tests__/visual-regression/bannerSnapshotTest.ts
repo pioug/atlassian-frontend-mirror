@@ -1,6 +1,10 @@
-import { getExampleUrl, loadPage } from '@atlaskit/visual-regression/helper';
+import {
+  getExampleUrl,
+  loadPage,
+  PuppeteerPage,
+} from '@atlaskit/visual-regression/helper';
 
-async function waitForBannerVisible(page: any) {
+async function waitForBannerVisible(page: PuppeteerPage) {
   await page.waitForSelector('div[aria-hidden="false"][role="alert"]', {
     visible: true,
   });

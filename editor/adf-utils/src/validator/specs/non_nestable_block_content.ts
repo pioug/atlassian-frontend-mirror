@@ -14,4 +14,5 @@ export default [
   'taskList',
   'extension',
   'table',
+  'embedCard',
 ];

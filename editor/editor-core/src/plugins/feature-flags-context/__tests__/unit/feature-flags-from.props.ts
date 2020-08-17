@@ -112,5 +112,42 @@ describe('Feature Flags from Props', () => {
       });
       expect(flags.findReplace).toBe(false);
     });
+    describe('findReplaceMatchCase', () => {
+      it('should set findReplaceMatchCase to false if allowFindReplace props is false', () => {
+        const flags = createFeatureFlagsFromProps({
+          allowFindReplace: false,
+        });
+        expect(flags.findReplaceMatchCase).toBe(false);
+      });
+      it('should set findReplaceMatchCase to false if allowFindReplace props is boolean true', () => {
+        const flags = createFeatureFlagsFromProps({
+          allowFindReplace: true,
+        });
+        expect(flags.findReplaceMatchCase).toBe(false);
+      });
+      it('should set findReplaceMatchCase to false if allowFindReplace props is object but missing allowMatchCase property', () => {
+        const flags = createFeatureFlagsFromProps({
+          allowFindReplace: {},
+        });
+        expect(flags.findReplaceMatchCase).toBe(false);
+      });
+
+      it('should set findReplaceMatchCase to false if allowFindReplace props is object but allowMatchCase is false', () => {
+        const flags = createFeatureFlagsFromProps({
+          allowFindReplace: {
+            allowMatchCase: false,
+          },
+        });
+        expect(flags.findReplaceMatchCase).toBe(false);
+      });
+      it('should set findReplaceMatchCase to true if allowFindReplace props is object and allowMatchCase is true', () => {
+        const flags = createFeatureFlagsFromProps({
+          allowFindReplace: {
+            allowMatchCase: true,
+          },
+        });
+        expect(flags.findReplaceMatchCase).toBe(true);
+      });
+    });
   });
 });

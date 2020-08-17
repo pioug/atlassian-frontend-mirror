@@ -17,12 +17,12 @@
   "homepage": "https://atlassian.design/components/flag/",
   "atlassian": {
     "team": "Design System Team",
+    "deprecatedAutoEntryPoints": true,
     "inPublicMirror": true,
     "releaseModel": "scheduled",
     "website": {
       "name": "Flag"
-    },
-    "deprecatedAutoEntryPoints": true
+    }
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^7.0.0",

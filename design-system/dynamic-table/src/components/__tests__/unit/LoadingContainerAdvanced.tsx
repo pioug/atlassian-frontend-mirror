@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { mount, ReactWrapper, shallow, ShallowWrapper } from 'enzyme';
+import ReactDOM from 'react-dom';
 import styled from 'styled-components';
 
 import Spinner from '@atlaskit/spinner';
@@ -792,6 +793,25 @@ describe('LoadingContainerAdvanced', () => {
       expect(detachSpy).toHaveBeenCalledTimes(0);
       wrapper.unmount();
       expect(detachSpy).toHaveBeenCalledTimes(1);
+    });
+
+    it('should not throw an error when mounting if findDOMNode throws an error', () => {
+      const findDOMNodeMock = jest
+        .spyOn(ReactDOM, 'findDOMNode')
+        .mockImplementation(() => {
+          throw new Error('Cannot find node of unmounted component');
+        });
+
+      expect(() =>
+        mount(
+          <LoadingContainerAdvanced>
+            <Contents />
+          </LoadingContainerAdvanced>,
+        ),
+      ).not.toThrow();
+
+      expect(findDOMNodeMock).toHaveBeenCalled();
+      findDOMNodeMock.mockRestore();
     });
 
     /**

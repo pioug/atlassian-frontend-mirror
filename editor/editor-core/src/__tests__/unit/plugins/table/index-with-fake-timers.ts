@@ -20,7 +20,7 @@ import { EventDispatcher } from '../../../../event-dispatcher';
 describe('TableView', () => {
   const createEditor = createEditorFactory<TablePluginState>();
 
-  const editor = (doc: any, trackEvent = () => {}) => {
+  const editor = (doc: any) => {
     const tableOptions = {
       allowNumberColumn: true,
       allowHeaderRow: true,
@@ -30,7 +30,6 @@ describe('TableView', () => {
     return createEditor({
       doc,
       editorProps: {
-        analyticsHandler: trackEvent,
         allowTables: tableOptions,
         media: {
           allowMediaSingle: true,

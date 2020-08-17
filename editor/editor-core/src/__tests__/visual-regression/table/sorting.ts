@@ -5,7 +5,10 @@ import {
   initFullPageEditorWithAdf,
   snapshot,
 } from '../_utils';
-import { waitForTooltip } from '@atlaskit/visual-regression/helper';
+import {
+  PuppeteerPage,
+  waitForTooltip,
+} from '@atlaskit/visual-regression/helper';
 import {
   selectCellOption,
   getSelectorForTableCell,
@@ -23,7 +26,7 @@ import adfWithMergedRows from './__fixtures__/table-with-merged-rows.adf.json';
 import adfWithMedia from './__fixtures__/table-with-media.adf.json';
 
 describe('Table sorting', () => {
-  let page: any;
+  let page: PuppeteerPage;
   const editorProps: EditorProps = {
     allowTables: {
       allowColumnSorting: true,

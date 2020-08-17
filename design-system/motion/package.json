@@ -16,12 +16,12 @@
   "atlaskit:src": "src/index.tsx",
   "atlassian": {
     "team": "Design System Team",
+    "deprecatedAutoEntryPoints": true,
     "inPublicMirror": true,
     "releaseModel": "scheduled",
     "website": {
       "name": "Motion"
-    },
-    "deprecatedAutoEntryPoints": true
+    }
   },
   "dependencies": {
     "@emotion/core": "^10.0.9",

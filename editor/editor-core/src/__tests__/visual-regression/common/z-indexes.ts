@@ -14,10 +14,10 @@ import { insertTable } from '../../__helpers/page-objects/_table';
 import { emojiSelectors } from '../../__helpers/page-objects/_emoji';
 import { waitForLoadedBackgroundImages } from '@atlaskit/visual-regression/helper';
 import adf from './__fixtures__/noData-adf.json';
-import { Page } from '../../__helpers/page-objects/_types';
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 
 describe('z-indexes:', () => {
-  let page: Page;
+  let page: PuppeteerPage;
 
   beforeAll(async () => {
     page = global.page;

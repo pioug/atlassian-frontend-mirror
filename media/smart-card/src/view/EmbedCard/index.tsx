@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
 import {
   BlockCardResolvingView,
-  BlockCardErroredView,
   BlockCardResolvedView,
 } from '@atlaskit/media-ui';
 import {
@@ -9,6 +8,7 @@ import {
   EmbedCardUnauthorisedView,
   EmbedCardForbiddenView,
   EmbedCardNotFoundView,
+  EmbedCardErroredView,
 } from '@atlaskit/media-ui/embeds';
 import { JsonLd } from 'json-ld-types';
 
@@ -115,7 +115,7 @@ export const EmbedCard: FC<EmbedCardProps> = ({
     case 'fallback':
     case 'errored':
       return (
-        <BlockCardErroredView
+        <EmbedCardErroredView
           onRetry={handleErrorRetry}
           inheritDimensions={inheritDimensions}
           isSelected={isSelected}

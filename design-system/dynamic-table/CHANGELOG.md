@@ -1,5 +1,16 @@
 # @atlaskit/dynamic-table
 
+## 14.1.0
+
+### Minor Changes
+
+- [`dff687b37a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dff687b37a) - Expose onKeyPress prop for dynamic-table and use it to show mediaViewer
+- [`e9a1942ae0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e9a1942ae0) - Set the attribute `data-testid` on the loading spinners. The convention follows the existing \${testId}--loadingSpinner.
+
+### Patch Changes
+
+- [`930e4aea2b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/930e4aea2b) - fix a bug where DynamicTable is used with Suspense
+
 ## 14.0.1
 
 ### Patch Changes

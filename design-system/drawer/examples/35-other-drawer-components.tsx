@@ -3,7 +3,7 @@
 import { Component, Fragment, SyntheticEvent } from 'react';
 
 import { jsx } from '@emotion/core';
-import throttle from 'lodash.throttle';
+import throttle from 'lodash/throttle';
 
 import Button from '@atlaskit/button';
 import BoardIcon from '@atlaskit/icon/glyph/board';

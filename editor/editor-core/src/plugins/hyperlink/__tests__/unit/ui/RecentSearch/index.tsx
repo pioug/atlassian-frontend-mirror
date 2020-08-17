@@ -70,6 +70,7 @@ describe('@atlaskit/editor-core/ui/RecentSearch', () => {
     expect(onSubmit).toHaveBeenCalledWith(
       'recent2-url.com',
       'recent item 2',
+      '',
       'typeAhead',
     );
   });
@@ -83,6 +84,7 @@ describe('@atlaskit/editor-core/ui/RecentSearch', () => {
     expect(onSubmit).toHaveBeenCalledWith(
       'http://recent1-url.com',
       'recent item 1',
+      '',
       'typeAhead',
     );
   });
@@ -96,6 +98,7 @@ describe('@atlaskit/editor-core/ui/RecentSearch', () => {
     expect(onSubmit).toHaveBeenCalledWith(
       'http://recent2-url.com',
       'recent item 2',
+      '',
       'typeAhead',
     );
   });
@@ -117,6 +120,7 @@ describe('@atlaskit/editor-core/ui/RecentSearch', () => {
     expect(onSubmit).toHaveBeenCalledWith(
       'http://example.com',
       'example.com',
+      '',
       'manual',
     );
   });

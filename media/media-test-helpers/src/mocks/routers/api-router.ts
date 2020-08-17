@@ -11,6 +11,7 @@ import uuid from 'uuid/v4';
 import {
   getMediaTypeFromMimeType,
   MediaCollectionItemFullDetails,
+  isMediaCollectionItemFullDetails,
   TouchFileDescriptor,
   ItemsPayload,
   ResponseFileItem,
@@ -24,7 +25,11 @@ import {
 } from '../database';
 import { defaultBaseUrl } from '../..';
 import { createUpload } from '../database/upload';
-import { mockDataUri } from '../database/mockData';
+import {
+  getTextFileType,
+  getFakeFileName,
+  mockDataUri,
+} from '../database/mockData';
 import { mapDataUriToBlob } from '../../utils';
 
 class RouterWithLogging<M> extends Router<M> {
@@ -444,9 +449,45 @@ export function createApiRouter(
     });
 
     if (sourceRecord && existingRecord) {
-      const { details, blob } = sourceRecord.data;
+      const extension = getTextFileType();
+      const { id, details, blob } = sourceRecord.data;
+      const {
+        name = getFakeFileName(extension),
+        size = (blob && blob.size) || 0,
+        mediaType = 'image',
+        mimeType = 'image/jpeg',
+        processingStatus = 'succeeded',
+        artifacts = {
+          'thumb_320.jpg': {
+            url: `/file/${id}/artifact/thumb_320.jpg/binary`,
+            processingStatus: 'succeeded',
+          },
+          'thumb_large.jpg': {
+            url: `/file/${id}/artifact/thumb_320.jpg/binary`,
+            processingStatus: 'succeeded',
+          },
+          'thumb_120.jpg': {
+            url: `/file/${id}/artifact/thumb_120.jpg/binary`,
+            processingStatus: 'succeeded',
+          },
+          'thumb.jpg': {
+            url: `/file/${id}/artifact/thumb_120.jpg/binary`,
+            processingStatus: 'succeeded',
+          },
+          'meta.json': {
+            url: `/file/${id}/artifact/meta.json/binary`,
+            processingStatus: 'succeeded',
+          },
+          'image.jpg': {
+            url: `/file/${id}/artifact/image.jpg/binary`,
+            processingStatus: 'succeeded',
+          },
+        },
+        representations = { image: {} },
+        createdAt = -1,
+      } = isMediaCollectionItemFullDetails(details) ? details : {};
 
-      const record = database.update('collectionItem', existingRecord.id, {
+      database.update('collectionItem', existingRecord.id, {
         id: replaceFileId,
         insertedAt: sourceRecord.data.insertedAt,
         occurrenceKey,
@@ -456,7 +497,17 @@ export function createApiRouter(
       });
 
       return {
-        data: record.data,
+        data: {
+          id: replaceFileId,
+          mediaType,
+          mimeType,
+          name,
+          processingStatus,
+          size,
+          artifacts,
+          representations,
+          createdAt,
+        },
       };
     } else {
       return new KakapoResponse(404, undefined, {});

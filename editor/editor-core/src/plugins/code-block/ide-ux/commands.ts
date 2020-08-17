@@ -6,7 +6,6 @@ import {
   forEachLine,
   getStartOfCurrentLine,
 } from './line-handling';
-import { analyticsService } from '../../../analytics';
 import {
   addAnalytics,
   ACTION,
@@ -71,7 +70,6 @@ export function indent(state: EditorState, dispatch?: CommandDispatch) {
   });
   if (dispatch) {
     dispatch(tr);
-    analyticsService.trackEvent(`atlassian.editor.codeblock.indent`);
   }
   return true;
 }
@@ -108,7 +106,6 @@ export function outdent(state: EditorState, dispatch?: CommandDispatch) {
   });
   if (dispatch) {
     dispatch(tr);
-    analyticsService.trackEvent('atlassian.editor.codeblock.outdent');
   }
   return true;
 }
@@ -121,7 +118,6 @@ export function insertIndent(state: EditorState, dispatch: CommandDispatch) {
       indentToken.size,
   );
   dispatch(state.tr.insertText(indentToAdd));
-  analyticsService.trackEvent('atlassian.editor.codeblock.indent.insert');
   return true;
 }
 

@@ -1,7 +1,5 @@
 import { getExampleUrl, loadPage } from '@atlaskit/visual-regression/helper';
 
-declare var global: any;
-
 describe('Snapshot Test', () => {
   it('Stateful example should match production example', async () => {
     const url = getExampleUrl(

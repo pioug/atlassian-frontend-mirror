@@ -9,8 +9,9 @@ export type MediaFileProcessingStatus = 'pending' | 'succeeded' | 'failed';
 export { MediaType } from '@atlaskit/media-common';
 
 export const isPreviewableType = (type: MediaType): boolean => {
-  return ['audio', 'video', 'image'].indexOf(type) > -1;
+  return ['audio', 'video', 'image', 'doc'].indexOf(type) > -1;
 };
+
 export type MediaFile = {
   readonly id: string;
   readonly mediaType: MediaType;
@@ -63,6 +64,13 @@ export type MediaRepresentations = {
 export type MediaCollectionItemDetails =
   | MediaCollectionItemMinimalDetails
   | MediaCollectionItemFullDetails;
+
+export const isMediaCollectionItemFullDetails = (
+  mediaCollectionItem: MediaCollectionItemDetails,
+): mediaCollectionItem is MediaCollectionItemFullDetails =>
+  !!(mediaCollectionItem as any)['mediaType'] &&
+  !!(mediaCollectionItem as any)['mimeType'] &&
+  !!(mediaCollectionItem as any)['processingStatus'];
 
 export type MediaUpload = {
   readonly id: string;

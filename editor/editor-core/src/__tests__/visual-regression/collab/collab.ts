@@ -1,4 +1,5 @@
 import {
+  PuppeteerPage,
   waitForElementCount,
   waitForLoadedBackgroundImages,
 } from '@atlaskit/visual-regression/helper';
@@ -9,7 +10,7 @@ import {
   Appearance,
 } from '../_utils';
 
-async function waitForCollabAvatars(page: any) {
+async function waitForCollabAvatars(page: PuppeteerPage) {
   // Wait for both editors (and their toolbars)
   const editorToolbarSelector = '.akEditor > div:first-child';
   await waitForElementCount(page, editorToolbarSelector, 2);

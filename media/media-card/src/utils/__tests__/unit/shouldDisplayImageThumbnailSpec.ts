@@ -79,7 +79,7 @@ describe('#shouldDisplayImageThumbnail()', () => {
             'file',
             'data-uri',
             'video',
-            'video/3gp',
+            'video/3gpp',
           ),
         ).toEqual(false),
       );
@@ -92,7 +92,7 @@ describe('#shouldDisplayImageThumbnail()', () => {
         'file',
         'data-uri',
         'video',
-        'video/3gp',
+        'video/3gpp',
       ),
     ).toEqual(true);
   });

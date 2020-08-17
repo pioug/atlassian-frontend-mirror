@@ -1,5 +1,5 @@
 import { JSDOM } from 'jsdom';
-import { Page } from 'puppeteer';
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import Loadable from 'react-loadable';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
@@ -15,7 +15,7 @@ const { window } = new JSDOM('', { url: 'http://localhost/' });
 (global as any).document = window.document;
 
 describe('ssr for renderer', () => {
-  let page: Page;
+  let page: PuppeteerPage;
 
   beforeEach(async () => {
     page = global.page;

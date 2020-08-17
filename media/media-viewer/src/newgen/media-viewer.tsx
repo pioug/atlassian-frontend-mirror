@@ -1,6 +1,7 @@
 import React from 'react';
 import { SyntheticEvent } from 'react';
 import { MediaClient, Identifier } from '@atlaskit/media-client';
+import { MediaFeatureFlags } from '@atlaskit/media-common';
 import { IntlProvider, intlShape } from 'react-intl';
 import { Shortcut } from '@atlaskit/media-ui';
 import {
@@ -15,7 +16,7 @@ import {
   GasPayload,
   GasScreenEventPayload,
 } from '@atlaskit/analytics-gas-types';
-import { ItemSource, MediaViewerFeatureFlags } from './domain';
+import { ItemSource } from './domain';
 import { List } from './list';
 import { Collection } from './collection';
 import { Content } from './content';
@@ -26,7 +27,7 @@ import { MediaViewerExtensions } from '../components/types';
 export type Props = {
   onClose?: () => void;
   selectedItem?: Identifier;
-  featureFlags?: MediaViewerFeatureFlags;
+  featureFlags?: MediaFeatureFlags;
   mediaClient: MediaClient;
   itemSource: ItemSource;
   extensions?: MediaViewerExtensions;
@@ -154,6 +155,7 @@ export class MediaViewerComponent extends React.Component<Props, State> {
       itemSource,
       extensions,
       contextId,
+      featureFlags,
     } = this.props;
     const { isSidebarVisible } = this.state;
 
@@ -168,6 +170,7 @@ export class MediaViewerComponent extends React.Component<Props, State> {
           extensions={extensions}
           onNavigationChange={this.onNavigationChange}
           onSidebarButtonClick={this.toggleSidebar}
+          featureFlags={featureFlags}
         />
       );
     } else if (itemSource.kind === 'ARRAY') {
@@ -184,6 +187,7 @@ export class MediaViewerComponent extends React.Component<Props, State> {
           onSidebarButtonClick={this.toggleSidebar}
           isSidebarVisible={isSidebarVisible}
           contextId={contextId}
+          featureFlags={featureFlags}
         />
       );
     } else {

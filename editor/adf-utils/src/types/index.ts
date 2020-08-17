@@ -11,3 +11,14 @@ export interface ADFEntity {
   text?: string;
   [key: string]: any;
 }
+
+export type Visitor = (
+  node: ADFEntity,
+  parent: EntityParent,
+  index: number,
+  depth: number,
+) => ADFEntity | false | undefined | void;
+
+export type VisitorCollection = { [nodeType: string]: Visitor };
+
+export type EntityParent = { node?: ADFEntity; parent?: EntityParent };

@@ -1,11 +1,12 @@
 import {
   getExampleUrl,
   loadPage,
+  PuppeteerPage,
   takeElementScreenShot,
 } from '@atlaskit/visual-regression/helper';
 
 describe('TextArea', () => {
-  let page: any;
+  let page: PuppeteerPage;
   let url: string;
 
   beforeAll(async () => {

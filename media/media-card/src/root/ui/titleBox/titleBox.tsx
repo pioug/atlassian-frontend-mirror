@@ -3,7 +3,7 @@ import { TitleBoxWrapper, TitleBoxHeader, TitleBoxFooter } from './styled';
 // eslint-disable-next-line no-restricted-imports
 import { format } from 'date-fns';
 import { Breakpoint } from '../common';
-import { Truncate } from './truncateText';
+import { Truncate } from '@atlaskit/media-ui/truncateText';
 
 export type TitleBoxProps = {
   name: string;

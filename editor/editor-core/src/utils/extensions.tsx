@@ -69,6 +69,7 @@ export async function extensionProviderToQuickInsertProvider(
             description: item.description,
             icon: () => <Icon label={item.title} />,
             keywords: item.keywords,
+            categories: item.categories,
             action: insert => {
               if (typeof item.node === 'function') {
                 resolveImport(item.node()).then(node => {

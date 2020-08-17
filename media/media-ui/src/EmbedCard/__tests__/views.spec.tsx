@@ -8,6 +8,7 @@ import { BlockCardResolvingView } from '../../BlockCard';
 import { EmbedCardUnauthorisedView } from '../views/UnauthorisedView';
 import { EmbedCardForbiddenView } from '../views/ForbiddenView';
 import { EmbedCardNotFoundView } from '../views/NotFoundView';
+import { ErroredView } from '../views/ErroredView';
 
 let mockOnClick: React.MouseEventHandler = jest.fn();
 const getResolvedProps = (overrides = {}): EmbedCardResolvedViewProps => ({
@@ -115,7 +116,7 @@ describe('EmbedCard Views', () => {
         <EmbedCardForbiddenView link="" />,
       );
       const button = getByTestId('embed-card-forbidden-view-button');
-      const message = getByText('You don’t have access to this link');
+      const message = getByText('Restricted link');
 
       expect(button.textContent).toEqual('Try another account');
       expect(button).toBeTruthy();
@@ -151,6 +152,36 @@ describe('EmbedCard Views', () => {
       expect(link).toBeTruthy();
       fireEvent.click(link!);
       expect(mockOnClick).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('view: errored', () => {
+    it('renders view', () => {
+      const { getByTestId } = render(<ErroredView testId="errored-view" />);
+      const frame = getByTestId('errored-view');
+      expect(frame.textContent).toBe(
+        "We couldn't load this link for an unknown reason.Try again",
+      );
+    });
+
+    it('renders view - clicking on retry enacts callback', () => {
+      const onRetryMock = jest.fn();
+      const { getByTestId } = render(
+        <ErroredView testId="errored-view" onRetry={onRetryMock} />,
+      );
+      const frame = getByTestId('errored-view');
+      expect(frame.textContent).toBe(
+        "We couldn't load this link for an unknown reason.Try again",
+      );
+
+      // Check the button is there
+      const button = getByTestId('err-view-retry');
+      expect(button.textContent).toBe('Try again');
+
+      // Click it, check mock is called
+      fireEvent.click(button);
+      expect(onRetryMock).toHaveBeenCalled();
+      expect(onRetryMock).toHaveBeenCalledTimes(1);
     });
   });
 });

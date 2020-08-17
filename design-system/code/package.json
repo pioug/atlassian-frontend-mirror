@@ -17,12 +17,12 @@
   "homepage": "https://atlassian.design/components/code/",
   "atlassian": {
     "team": "Design System Team",
+    "deprecatedAutoEntryPoints": true,
     "inPublicMirror": true,
     "releaseModel": "scheduled",
     "website": {
       "name": "Code"
-    },
-    "deprecatedAutoEntryPoints": true
+    }
   },
   "config": {
     "access": "public"

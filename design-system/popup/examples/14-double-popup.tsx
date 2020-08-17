@@ -4,7 +4,6 @@ import { FC, Fragment, useState } from 'react';
 import { jsx } from '@emotion/core';
 
 import Button from '@atlaskit/button';
-import { Placement } from '@atlaskit/popper';
 
 import Popup from '../src';
 
@@ -19,11 +18,6 @@ const sizedContentCSS = {
   verticalAlign: 'center',
 } as const;
 
-type PopupProps = {
-  setPosition(): void;
-  placement: string;
-};
-
 const OtherItems: FC = () => {
   return (
     <Fragment>
@@ -36,7 +30,7 @@ const OtherItems: FC = () => {
   );
 };
 
-const PopupContent: FC<PopupProps> = ({ placement }) => {
+const PopupContent: FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <div id="popup-content" css={sizedContentCSS}>
@@ -50,7 +44,7 @@ const PopupContent: FC<PopupProps> = ({ placement }) => {
             <OtherItems />
           </div>
         )}
-        offset="0, 12px"
+        offset={[0, 12]}
         trigger={triggerProps => (
           <a
             id="popup-trigger"
@@ -68,46 +62,15 @@ const PopupContent: FC<PopupProps> = ({ placement }) => {
   );
 };
 
-const placements: Placement[] = [
-  'bottom-start',
-  'bottom',
-  'bottom-end',
-  'top-start',
-  'top',
-  'top-end',
-  'right-start',
-  'right',
-  'right-end',
-  'left-start',
-  'left',
-  'left-end',
-  'auto-start',
-  'auto',
-  'auto-end',
-];
-
 export default () => {
-  const [idx, setIdx] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
-
-  const placement = placements[idx];
-
-  const setPlacement = () => {
-    if (idx !== placements.length - 1) {
-      setIdx(idx + 1);
-    } else {
-      setIdx(0);
-    }
-  };
 
   return (
     <div css={spacerCSS}>
       <Popup
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
-        content={() => (
-          <PopupContent setPosition={setPlacement} placement={placement} />
-        )}
+        content={() => <PopupContent />}
         trigger={triggerProps => (
           <Button
             id="popup-trigger"
@@ -117,7 +80,7 @@ export default () => {
             {isOpen ? 'Close' : 'Open'} Popup
           </Button>
         )}
-        placement={placement}
+        placement={'bottom-start'}
       />
     </div>
   );

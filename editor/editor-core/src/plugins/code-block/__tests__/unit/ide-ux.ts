@@ -23,7 +23,6 @@ import analyticsPlugin, {
   INDENT_TYPE,
 } from '../../../analytics';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { analyticsService } from '../../../../analytics';
 import basePlugin from '../../../base';
 import codeBlockPlugin from '../../';
 
@@ -41,12 +40,9 @@ const createIndentationAttributes = (
 describe('IDE UX plugin', () => {
   const createEditor = createProsemirrorEditorFactory();
   let createAnalyticsEvent: jest.Mock<UIAnalyticsEvent>;
-  let trackEvent: jest.Mock;
 
   const editor = (doc: any) => {
     createAnalyticsEvent = createAnalyticsEventMock();
-    trackEvent = jest.fn();
-    analyticsService.handler = trackEvent;
     return createEditor({
       doc,
       preset: new Preset<LightEditorPlugin>()
@@ -287,14 +283,6 @@ describe('IDE UX plugin', () => {
           );
         });
       });
-
-      it('should track when Mod-] is pressed', () => {
-        const { editorView } = editor(doc(code_block()('top\n{<>}start\nend')));
-        sendKeyToPm(editorView, 'Mod-]');
-        expect(trackEvent).toHaveBeenCalledWith(
-          'atlassian.editor.codeblock.indent',
-        );
-      });
     });
 
     describe('Mod-[ pressed', () => {
@@ -462,16 +450,6 @@ describe('IDE UX plugin', () => {
           );
         });
       });
-
-      it('should track when Mod-[ is pressed', () => {
-        const { editorView } = editor(
-          doc(code_block()('top\n{<>}   start\nend')),
-        );
-        sendKeyToPm(editorView, 'Mod-[');
-        expect(trackEvent).toHaveBeenCalledWith(
-          'atlassian.editor.codeblock.outdent',
-        );
-      });
     });
 
     describe('Tab pressed', () => {
@@ -586,14 +564,6 @@ describe('IDE UX plugin', () => {
             doc(code_block()('to'), p('end')),
           );
         });
-      });
-
-      it('should track when Tab is pressed', () => {
-        const { editorView } = editor(doc(code_block()('top\n{<>}start\nend')));
-        sendKeyToPm(editorView, 'Tab');
-        expect(trackEvent).toHaveBeenLastCalledWith(
-          'atlassian.editor.codeblock.indent.insert',
-        );
       });
     });
 
@@ -718,16 +688,6 @@ describe('IDE UX plugin', () => {
             doc(code_block()('  to'), p('end')),
           );
         });
-      });
-
-      it('should track when Shift-Tab is pressed', () => {
-        const { editorView } = editor(
-          doc(code_block()('top\n{<>}   start\nend')),
-        );
-        sendKeyToPm(editorView, 'Shift-Tab');
-        expect(trackEvent).toHaveBeenLastCalledWith(
-          'atlassian.editor.codeblock.outdent',
-        );
       });
     });
 

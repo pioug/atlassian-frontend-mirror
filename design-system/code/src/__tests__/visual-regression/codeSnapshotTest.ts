@@ -1,14 +1,16 @@
-import { getExampleUrl, loadPage } from '@atlaskit/visual-regression/helper';
+import {
+  getExampleUrl,
+  loadPage,
+  PuppeteerPage,
+} from '@atlaskit/visual-regression/helper';
 
-declare var global: any;
-
-async function waitForInlineCode(page: any) {
+async function waitForInlineCode(page: PuppeteerPage) {
   await page.waitForSelector('code > .token');
   await page.waitForSelector('code > .token,operator');
   await page.waitForSelector('code > .token,punctuation');
 }
 
-async function waitForCodeblock(page: any) {
+async function waitForCodeblock(page: PuppeteerPage) {
   await waitForInlineCode(page);
   await page.waitForSelector('code > .react-syntax-highlighter-line-number');
 }

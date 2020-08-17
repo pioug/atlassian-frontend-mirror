@@ -6,7 +6,7 @@ import {
   createMediaProvider,
   createMentionProvider,
 } from '../../../providers';
-import { eventDispatcher } from '../../dispatcher';
+import { eventDispatcher, EmitterEvents } from '../../dispatcher';
 import { render, unmountComponentAtNode } from 'react-dom';
 import { FetchProxy } from '../../../utils/fetch-proxy';
 
@@ -41,7 +41,9 @@ describe('renderer bridge', () => {
 
   describe('when the Mobile Renderer is loaded without document', () => {
     it('should listener for setRendererContent', () => {
-      expect(eventDispatcher.listeners('setRendererContent')).toHaveLength(0);
+      expect(
+        eventDispatcher.listeners(EmitterEvents.SET_RENDERER_CONTENT),
+      ).toHaveLength(0);
       // do not wrapper this render with act
       render(
         <MobileRenderer
@@ -54,7 +56,9 @@ describe('renderer bridge', () => {
         container,
       );
 
-      expect(eventDispatcher.listeners('setRendererContent')).toHaveLength(1);
+      expect(
+        eventDispatcher.listeners(EmitterEvents.SET_RENDERER_CONTENT),
+      ).toHaveLength(1);
     });
   });
 });

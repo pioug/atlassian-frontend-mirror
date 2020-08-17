@@ -18,6 +18,12 @@ import {
   errorFileId,
   videoSquareFileId,
   verticalImageFileId,
+  zipFileId,
+  zipFileWithNestedFolderId,
+  zipItemMultipleFoldersAtRootId,
+  zipItemLargeInnerFileId,
+  zipJiraArchiveFileId,
+  zipEncryptedFileId,
 } from '@atlaskit/media-test-helpers';
 import { FileIdentifier } from '@atlaskit/media-client';
 
@@ -136,6 +142,16 @@ export const archiveItem: FileIdentifier = {
   occurrenceKey: 'testOccurrenceKey',
 };
 
+export const zipJiraArchiveItem: FileIdentifier = {
+  ...zipJiraArchiveFileId,
+  occurrenceKey: 'testOccurrenceKey',
+};
+
+export const zipEncryptedItem: FileIdentifier = {
+  ...zipEncryptedFileId,
+  occurrenceKey: 'testOccurrenceKey',
+};
+
 export const unsupportedItem: FileIdentifier = {
   ...unknownFileId,
   occurrenceKey: 'testOccurrenceKey',
@@ -143,5 +159,25 @@ export const unsupportedItem: FileIdentifier = {
 
 export const errorItem: FileIdentifier = {
   ...errorFileId,
+  occurrenceKey: 'testOccurrenceKey',
+};
+
+export const zipItem: FileIdentifier = {
+  ...zipFileId,
+  occurrenceKey: 'testOccurrenceKey',
+};
+
+export const zipWithNestedFolderItem: FileIdentifier = {
+  ...zipFileWithNestedFolderId,
+  occurrenceKey: 'testOccurrenceKey',
+};
+
+export const zipItemMultipleFoldersAtRoot = {
+  ...zipItemMultipleFoldersAtRootId,
+  occurrenceKey: 'testOccurenceKey',
+};
+
+export const zipItemLargeInnerFile = {
+  ...zipItemLargeInnerFileId,
   occurrenceKey: 'testOccurrenceKey',
 };

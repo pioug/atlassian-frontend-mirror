@@ -1,5 +1,4 @@
-import { Page } from './_types';
-import { ElementHandle, BoundingBox } from 'puppeteer';
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 
 export const selectors = {
   editor: '.ProseMirror',
@@ -24,12 +23,12 @@ export enum timeouts {
   DEFAULT = 5000,
 }
 
-export async function clickEditableContent(page: Page) {
+export async function clickEditableContent(page: PuppeteerPage) {
   await page.waitForSelector(selectors.editor);
   await page.click(selectors.editor);
 }
 
-export async function clickFirstParagraph(page: Page) {
+export async function clickFirstParagraph(page: PuppeteerPage) {
   await page.waitForSelector(selectors.firstEditorParagraph);
   await page.click(selectors.firstEditorParagraph);
 }
@@ -42,10 +41,10 @@ const getElementPathWithText = (text: string, htmlTag: string = 'span') =>
   `//${htmlTag}[contains(text(), ${replaceInputStr(text)})]`;
 
 export const waitForElementWithText = async (
-  page: Page,
+  page: PuppeteerPage,
   text: string,
   htmlTag = 'span',
-): Promise<ElementHandle> => {
+) => {
   const elementPath = getElementPathWithText(text, htmlTag);
   return await page.waitForXPath(elementPath, { timeout: timeouts.DEFAULT });
 };
@@ -55,12 +54,12 @@ export const clickElementWithText = async ({
   tag,
   text,
 }: {
-  page: Page;
+  page: PuppeteerPage;
   tag: string;
   text: string;
 }) => {
   const elementPath = getElementPathWithText(text, tag);
-  const target: ElementHandle = await page.waitForXPath(elementPath, {
+  const target = await page.waitForXPath(elementPath, {
     timeout: timeouts.DEFAULT,
   });
   await target.click();
@@ -71,25 +70,28 @@ export const selectElementWithText = async ({
   tag,
   text,
 }: {
-  page: Page;
+  page: PuppeteerPage;
   tag: string;
   text: string;
 }) => {
   const elementPath = getElementPathWithText(text, tag);
-  const target: ElementHandle = await page.waitForXPath(elementPath, {
+  const target = await page.waitForXPath(elementPath, {
     timeout: timeouts.DEFAULT,
   });
 
-  const { x, y, width, height } = (await target.boundingBox()) as BoundingBox;
-  await setSelection(
-    page,
-    { x: x, y: y + height / 2 },
-    { x: x + width, y: y + height / 2 },
-  );
+  const box = await target.boundingBox();
+  if (box) {
+    const { x, y, width, height } = box;
+    await setSelection(
+      page,
+      { x: x, y: y + height / 2 },
+      { x: x + width, y: y + height / 2 },
+    );
+  }
 };
 
 export const setSelection = async (
-  page: Page,
+  page: PuppeteerPage,
   from: { x: number; y: number },
   to: { x: number; y: number },
 ) => {
@@ -107,7 +109,7 @@ export const hoverElementWithText = async ({
   tag,
   text,
 }: {
-  page: Page;
+  page: PuppeteerPage;
   tag: string;
   text: string;
 }) => {
@@ -157,12 +159,12 @@ export async function animationFrame(page: any) {
   await page.waitForFunction('1 === 1');
 }
 
-export async function typeInEditor(page: Page, text: string) {
+export async function typeInEditor(page: PuppeteerPage, text: string) {
   await page.click(selectors.editor);
   await page.type(selectors.editor, text);
 }
 
-export async function setCaretInNewParagraphAtTheEnd(page: Page) {
+export async function setCaretInNewParagraphAtTheEnd(page: PuppeteerPage) {
   // To find the end of the document in a content agnostic way we click beneath
   // the last content node to insert a new paragaph prior to typing.
   // Complex node structures which support nesting (e.g. tables) make standard
@@ -174,7 +176,7 @@ export async function setCaretInNewParagraphAtTheEnd(page: Page) {
 }
 
 export async function typeInEditorAtEndOfDocument(
-  page: Page,
+  page: PuppeteerPage,
   text: string,
   options?: any,
 ) {
@@ -184,12 +186,12 @@ export async function typeInEditorAtEndOfDocument(
   await page.type(selectors.lastEditorChildParagraph, text, options);
 }
 
-export async function getEditorWidth(page: Page) {
+export async function getEditorWidth(page: PuppeteerPage) {
   return page.$eval(selectors.editor, (el: Element) => el.clientWidth);
 }
 
 export async function scrollToElement(
-  page: Page,
+  page: PuppeteerPage,
   elementSelector: string,
   padding: number = 0,
 ) {
@@ -215,15 +217,18 @@ export async function scrollToElement(
   );
 }
 
-export async function scrollToTop(page: Page) {
+export async function scrollToTop(page: PuppeteerPage) {
   return await scrollToTopBottom(page, 'top');
 }
 
-export async function scrollToBottom(page: Page) {
+export async function scrollToBottom(page: PuppeteerPage) {
   return await scrollToTopBottom(page, 'bottom');
 }
 
-async function scrollToTopBottom(page: Page, position: 'top' | 'bottom') {
+async function scrollToTopBottom(
+  page: PuppeteerPage,
+  position: 'top' | 'bottom',
+) {
   return page.evaluate(
     (editorScrollSelector: string, position: 'top' | 'bottom') => {
       const editorScroll = document.querySelector(

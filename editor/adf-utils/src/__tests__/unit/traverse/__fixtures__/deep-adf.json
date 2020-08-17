@@ -1,0 +1,219 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "layoutSection",
+      "content": [
+        {
+          "type": "layoutColumn",
+          "attrs": {
+            "width": 66.66
+          },
+          "content": [
+            {
+              "type": "expand",
+              "attrs": {
+                "title": ""
+              },
+              "content": [
+                {
+                  "type": "table",
+                  "attrs": {
+                    "isNumberColumnEnabled": false,
+                    "layout": "default"
+                  },
+                  "content": [
+                    {
+                      "type": "tableRow",
+                      "content": [
+                        {
+                          "type": "tableHeader",
+                          "attrs": {},
+                          "content": [
+                            {
+                              "type": "paragraph",
+                              "content": []
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "tableRow",
+                      "content": [
+                        {
+                          "type": "tableCell",
+                          "attrs": {},
+                          "content": [
+                            {
+                              "type": "panel",
+                              "attrs": {
+                                "panelType": "info"
+                              },
+                              "content": [
+                                {
+                                  "type": "bulletList",
+                                  "content": [
+                                    {
+                                      "type": "listItem",
+                                      "content": [
+                                        {
+                                          "type": "paragraph",
+                                          "content": [
+                                            {
+                                              "type": "text",
+                                              "text": "a"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "type": "bulletList",
+                                          "content": [
+                                            {
+                                              "type": "listItem",
+                                              "content": [
+                                                {
+                                                  "type": "paragraph",
+                                                  "content": [
+                                                    {
+                                                      "type": "text",
+                                                      "text": "a"
+                                                    }
+                                                  ]
+                                                },
+                                                {
+                                                  "type": "bulletList",
+                                                  "content": [
+                                                    {
+                                                      "type": "listItem",
+                                                      "content": [
+                                                        {
+                                                          "type": "paragraph",
+                                                          "content": [
+                                                            {
+                                                              "type": "text",
+                                                              "text": "a"
+                                                            }
+                                                          ]
+                                                        },
+                                                        {
+                                                          "type": "bulletList",
+                                                          "content": [
+                                                            {
+                                                              "type": "listItem",
+                                                              "content": [
+                                                                {
+                                                                  "type": "paragraph",
+                                                                  "content": [
+                                                                    {
+                                                                      "type": "text",
+                                                                      "text": "a"
+                                                                    }
+                                                                  ]
+                                                                },
+                                                                {
+                                                                  "type": "bulletList",
+                                                                  "content": [
+                                                                    {
+                                                                      "type": "listItem",
+                                                                      "content": [
+                                                                        {
+                                                                          "type": "paragraph",
+                                                                          "content": [
+                                                                            {
+                                                                              "type": "text",
+                                                                              "text": "a"
+                                                                            }
+                                                                          ]
+                                                                        },
+                                                                        {
+                                                                          "type": "bulletList",
+                                                                          "content": [
+                                                                            {
+                                                                              "type": "listItem",
+                                                                              "content": [
+                                                                                {
+                                                                                  "type": "paragraph",
+                                                                                  "content": [
+                                                                                    {
+                                                                                      "type": "text",
+                                                                                      "text": "a"
+                                                                                    }
+                                                                                  ]
+                                                                                }
+                                                                              ]
+                                                                            }
+                                                                          ]
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  ]
+                                                                }
+                                                              ]
+                                                            }
+                                                          ]
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "tableRow",
+                      "content": [
+                        {
+                          "type": "tableCell",
+                          "attrs": {},
+                          "content": [
+                            {
+                              "type": "paragraph",
+                              "content": []
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "layoutColumn",
+          "attrs": {
+            "width": 33.33
+          },
+          "content": [
+            {
+              "type": "paragraph",
+              "content": []
+            }
+          ]
+        }
+      ],
+      "marks": [
+        {
+          "type": "breakout",
+          "attrs": {
+            "mode": "full-width"
+          }
+        }
+      ]
+    }
+  ]
+}

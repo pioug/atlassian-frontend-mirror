@@ -36,7 +36,9 @@ const FlagActions = (props: Props) => {
     mode,
     testId,
   } = props;
-  if (!actions.length) return null;
+  if (!actions.length) {
+    return null;
+  }
 
   const isBold = appearance !== DEFAULT_APPEARANCE;
 

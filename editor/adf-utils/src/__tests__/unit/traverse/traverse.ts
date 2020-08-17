@@ -1,6 +1,7 @@
 import { traverse } from '../../../traverse/traverse';
 import mentionsDoc from './__fixtures__/mentions.json';
 import emojiDoc from './__fixtures__/emoji.json';
+import deepDoc from './__fixtures__/deep-adf.json';
 
 describe('Traverse', () => {
   it('should call a callback for all nodes of a given type', () => {
@@ -21,6 +22,7 @@ describe('Traverse', () => {
       },
       expect.objectContaining({}),
       expect.any(Number),
+      2,
     );
   });
 
@@ -58,5 +60,79 @@ describe('Traverse', () => {
       any: visitor,
     });
     expect(visitor).toHaveBeenCalledTimes(5);
+  });
+
+  it('should provide depth in visitor', () => {
+    let maxDepth = 0;
+    let listItemDepth = 0;
+    traverse(deepDoc, {
+      any: (_node, _parent, _index, depth) => {
+        maxDepth = Math.max(depth, maxDepth);
+      },
+      listItem: (_node, _parent, _index, depth) => {
+        listItemDepth = Math.max(depth, listItemDepth);
+      },
+    });
+    expect(maxDepth).toEqual(21);
+    expect(listItemDepth).toEqual(19);
+  });
+
+  it('should correctly pass reference to parent in visitor', () => {
+    const doc = {
+      type: 'doc',
+      version: 1,
+      content: [
+        {
+          type: 'paragraph',
+          content: [
+            {
+              type: 'text',
+              text: 'fizz buzz',
+            },
+          ],
+        },
+      ],
+    };
+    expect.assertions(2);
+    traverse(doc, {
+      paragraph: (node, parent) => {
+        expect(parent).toEqual({ node: doc, parent: { node: undefined } });
+      },
+
+      text: (node, parent) => {
+        expect(parent).toEqual({
+          node: doc.content[0],
+          parent: { node: doc, parent: { node: undefined } },
+        });
+      },
+    });
+  });
+
+  it('should allow node mutation outside of traversal using references', () => {
+    const mentions: any = [];
+    const doc = Object.assign({}, mentionsDoc);
+
+    // collect all mentions
+    traverse(doc, {
+      mention: node => {
+        mentions.push(node);
+        return node;
+      },
+    });
+
+    // mutate mentions
+    mentions.forEach((node: any) => {
+      node.attrs.text = 'modified';
+    });
+
+    // 'Expect' should be called for each mention node
+    expect.assertions(mentions.length);
+    // assert mutation
+    traverse(doc, {
+      mention: (node: any) => {
+        expect(node.attrs.text).toEqual('modified');
+        return node;
+      },
+    });
   });
 });

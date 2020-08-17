@@ -1,4 +1,4 @@
-import { Page } from 'puppeteer';
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { snapshot, animationFrame, initRendererWithADF } from './_utils';
 import * as tableSortable from '../__fixtures__/table-sortable.adf.json';
 import * as tableWithMergedCells from '../__fixtures__/table-with-merged-cells.adf.json';
@@ -6,10 +6,13 @@ import * as tableWithHeaderColumnButWithoutHeaderRow from '../__fixtures__/table
 import * as tableWithHeaderColumnButWithoutHeaderRowWithoutNumberColumn from '../__fixtures__/table-with-header-column-but-without-header-row-without-number-column.adf.json';
 import { RendererCssClassName } from '../../consts';
 import { StatusClassNames } from '../../ui/SortingIcon';
-import { waitForTooltip } from '@atlaskit/visual-regression/helper';
+import {
+  waitForTooltip,
+  waitForText,
+} from '@atlaskit/visual-regression/helper';
 
 async function waitForSort(
-  page: Page,
+  page: PuppeteerPage,
   columnIndex = 1,
   sortModifier: 'no_order' | 'asc' | 'desc' | 'not_allowed',
 ) {
@@ -19,7 +22,7 @@ async function waitForSort(
   await page.waitForSelector(`${col} ${element} ${icon}`);
 }
 
-const initRenderer = async (page: Page, adf: any) => {
+const initRenderer = async (page: PuppeteerPage, adf: any) => {
   await initRendererWithADF(page, {
     appearance: 'full-page',
     viewport: { width: 800, height: 600 },
@@ -31,8 +34,11 @@ const initRenderer = async (page: Page, adf: any) => {
 const getSortableColumnSelector = (nth: number) =>
   `tr:first-of-type .${RendererCssClassName.SORTABLE_COLUMN}:nth-of-type(${nth})`;
 
+const waitForDateText = async (page: PuppeteerPage, text: string) =>
+  await waitForText(page, '.date-lozenger-container > span', text);
+
 describe('Snapshot Test: Table sorting', () => {
-  let page: Page;
+  let page: PuppeteerPage;
 
   beforeAll(() => {
     page = global.page;
@@ -49,6 +55,9 @@ describe('Snapshot Test: Table sorting', () => {
       await page.waitForSelector(`.${RendererCssClassName.SORTABLE_COLUMN}`);
       // default sort order
       await waitForSort(page, 1, 'no_order');
+    });
+    afterEach(async () => {
+      await waitForDateText(page, 'Aug 23, 2019');
     });
 
     it('should sort table in asc on the first click', async () => {

@@ -1,8 +1,7 @@
 import React from 'react';
 import { defineMessages, InjectedIntlProps, injectIntl } from 'react-intl';
 import Textfield from '@atlaskit/textfield';
-import Button from '@atlaskit/button';
-import { SectionWrapper } from './styles';
+import { SectionWrapper, ReplaceSectionButton } from './styles';
 import {
   EVENT_TYPE,
   ACTION,
@@ -30,6 +29,7 @@ export type ReplaceProps = {
 
 export type ReplaceState = {
   replaceText: string;
+  isComposing: boolean;
 };
 
 const messages = defineMessages({
@@ -72,7 +72,7 @@ class Replace extends React.PureComponent<
       intl: { formatMessage },
     } = props;
 
-    this.state = { replaceText: replaceText || '' };
+    this.state = { replaceText: replaceText || '', isComposing: false };
 
     this.replaceWith = formatMessage(messages.replaceWith);
     this.replace = formatMessage(messages.replace);
@@ -83,23 +83,36 @@ class Replace extends React.PureComponent<
     this.props.onReplaceTextfieldRefSet(this.replaceTextfieldRef);
   }
 
-  handleReplaceClick = () => {
-    this.props.onReplace({
-      triggerMethod: TRIGGER_METHOD.BUTTON,
-      replaceText: this.state.replaceText,
-    });
-  };
-
   componentDidUpdate({
     replaceText: prevReplaceText,
   }: ReplaceProps & InjectedIntlProps) {
     const { replaceText } = this.props;
     if (replaceText && replaceText !== prevReplaceText) {
-      this.setState({ replaceText });
+      this.setState({ replaceText, isComposing: false });
     }
   }
 
-  handleReplaceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  skipWhileComposing = (fn: Function) => {
+    if (this.state.isComposing) {
+      return;
+    }
+    fn();
+  };
+
+  handleReplaceClick = () =>
+    this.skipWhileComposing(() => {
+      this.props.onReplace({
+        triggerMethod: TRIGGER_METHOD.BUTTON,
+        replaceText: this.state.replaceText,
+      });
+    });
+
+  handleReplaceChange = (event: React.ChangeEvent<HTMLInputElement>) =>
+    this.skipWhileComposing(() => {
+      this.updateReplaceValue(event.target.value);
+    });
+
+  updateReplaceValue = (replaceText: string) => {
     const { dispatchAnalyticsEvent } = this.props;
     if (dispatchAnalyticsEvent) {
       dispatchAnalyticsEvent({
@@ -108,27 +121,39 @@ class Replace extends React.PureComponent<
         actionSubject: ACTION_SUBJECT.FIND_REPLACE_DIALOG,
       });
     }
-    this.setState({ replaceText: event.target.value });
+    this.setState({ replaceText });
   };
 
-  handleReplaceKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === 'Enter') {
-      this.props.onReplace({
-        triggerMethod: TRIGGER_METHOD.KEYBOARD,
-        replaceText: this.state.replaceText,
-      });
-    } else if (event.key === 'ArrowUp') {
-      // we want to move focus between find & replace texfields when user hits up/down arrows
-      this.props.onArrowUp();
-    }
-  };
+  handleReplaceKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) =>
+    this.skipWhileComposing(() => {
+      if (event.key === 'Enter') {
+        this.props.onReplace({
+          triggerMethod: TRIGGER_METHOD.KEYBOARD,
+          replaceText: this.state.replaceText,
+        });
+      } else if (event.key === 'ArrowUp') {
+        // we want to move focus between find & replace texfields when user hits up/down arrows
+        this.props.onArrowUp();
+      }
+    });
 
-  handleReplaceAllClick = () => {
-    this.props.onReplaceAll({ replaceText: this.state.replaceText });
-  };
+  handleReplaceAllClick = () =>
+    this.skipWhileComposing(() => {
+      this.props.onReplaceAll({ replaceText: this.state.replaceText });
+    });
 
   handleReplaceFocus = () => {
     this.props.onFocusElementRefSet(this.replaceTextfieldRef);
+  };
+
+  handleCompositionStart = () => {
+    this.setState({ isComposing: true });
+  };
+
+  handleCompositionEnd = (event: React.CompositionEvent<HTMLInputElement>) => {
+    this.setState({ isComposing: false });
+    // type for React.CompositionEvent doesn't set type for target correctly
+    this.updateReplaceValue((event.target as HTMLInputElement).value);
   };
 
   render() {
@@ -147,21 +172,23 @@ class Replace extends React.PureComponent<
           onChange={this.handleReplaceChange}
           onKeyDown={this.handleReplaceKeyDown}
           onFocus={this.handleReplaceFocus}
+          onCompositionStart={this.handleCompositionStart}
+          onCompositionEnd={this.handleCompositionEnd}
         />
-        <Button
+        <ReplaceSectionButton
           testId={this.replace}
           onClick={this.handleReplaceClick}
           isDisabled={!canReplace}
         >
           {this.replace}
-        </Button>
-        <Button
+        </ReplaceSectionButton>
+        <ReplaceSectionButton
           testId={this.replaceAll}
           onClick={this.handleReplaceAllClick}
           isDisabled={!canReplace}
         >
           {this.replaceAll}
-        </Button>
+        </ReplaceSectionButton>
       </SectionWrapper>
     );
   }

@@ -14,7 +14,6 @@ import {
   PasteContents,
   withAnalytics,
 } from '../../analytics';
-import { commandWithAnalytics as commandWithV2Analytics } from '../../../analytics';
 import { EditorView } from 'prosemirror-view';
 import { Slice, Node } from 'prosemirror-model';
 import { getPasteSource } from '../util';
@@ -296,9 +295,6 @@ export const handlePasteAsPlainTextWithAnalytics = (
       type: PasteTypes.plain,
       asPlain: true,
     }),
-    commandWithV2Analytics('atlassian.editor.paste.alt', {
-      source: getPasteSource(event),
-    }),
   )(slice, event);
 
 export const handlePasteIntoTaskAndDecisionWithAnalytics = (
@@ -309,7 +305,6 @@ export const handlePasteIntoTaskAndDecisionWithAnalytics = (
 ): Command =>
   pipe(
     handlePasteIntoTaskAndDecision,
-    commandWithV2Analytics('atlassian.fabric.action-decision.editor.paste'),
     pasteCommandWithAnalytics(view, event, slice, {
       type: type,
     }),
@@ -336,9 +331,6 @@ export const handleMediaSingleWithAnalytics = (
 ): Command =>
   pipe(
     handleMediaSingle(INPUT_METHOD.CLIPBOARD),
-    commandWithV2Analytics('atlassian.editor.paste', {
-      source: getPasteSource(event),
-    }),
     pasteCommandWithAnalytics(view, event, slice, {
       type,
     }),
@@ -350,17 +342,8 @@ export const handlePastePreservingMarksWithAnalytics = (
   slice: Slice,
   type: PasteType,
 ): Command => {
-  let withV2Analytics = commandWithV2Analytics('atlassian.editor.paste', {
-    source: getPasteSource(event),
-  });
-
-  if (type === PasteTypes.markdown) {
-    withV2Analytics = commandWithV2Analytics('atlassian.editor.markdown');
-  }
-
   return pipe(
     handlePastePreservingMarks,
-    withV2Analytics,
     pasteCommandWithAnalytics(view, event, slice, {
       type,
     }),
@@ -374,7 +357,6 @@ export const handleMarkdownWithAnalytics = (
 ): Command =>
   pipe(
     handleMarkdown,
-    commandWithV2Analytics('atlassian.editor.markdown'),
     pasteCommandWithAnalytics(view, event, slice, {
       type: PasteTypes.markdown,
     }),
@@ -387,9 +369,6 @@ export const handleRichTextWithAnalytics = (
 ): Command =>
   pipe(
     handleRichText,
-    commandWithV2Analytics('atlassian.editor.paste', {
-      source: getPasteSource(event),
-    }),
     pasteCommandWithAnalytics(view, event, slice, {
       type: PasteTypes.richText,
     }),
@@ -402,9 +381,6 @@ export const handleExpandWithAnalytics = (
 ): Command =>
   pipe(
     handleExpand,
-    commandWithV2Analytics('atlassian.editor.paste', {
-      source: getPasteSource(event),
-    }),
     pasteCommandWithAnalytics(view, event, slice, {
       type: PasteTypes.richText,
     }),

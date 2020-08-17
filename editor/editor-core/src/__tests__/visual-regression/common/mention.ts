@@ -1,10 +1,10 @@
 import { snapshot, initEditorWithAdf, Appearance } from '../_utils';
-import { Page } from '../../__helpers/page-objects/_types';
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import mentionAdf from './__fixtures__/mention-adf.json';
 import { mentionSelectors } from '../../__helpers/page-objects/_mention';
 
 describe('Mention', () => {
-  let page: Page;
+  let page: PuppeteerPage;
 
   beforeAll(() => {
     page = global.page;

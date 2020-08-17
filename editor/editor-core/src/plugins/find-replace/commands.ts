@@ -28,7 +28,8 @@ export const activate = () =>
     // if user has selected text and hit cmd-f, set that as the keyword
     if (selection instanceof TextSelection && !selection.empty) {
       findText = getSelectedText(selection);
-      matches = findMatches(state.doc, findText);
+      const { shouldMatchCase } = getPluginState(state);
+      matches = findMatches(state.doc, findText, shouldMatchCase);
       index = findSearchIndex(selection.from, matches);
     }
 
@@ -49,8 +50,11 @@ export const find = (
     createCommand(
       state => {
         const { selection } = state;
+        const { shouldMatchCase } = getPluginState(state);
         const matches =
-          keyword !== undefined ? findMatches(state.doc, keyword) : [];
+          keyword !== undefined
+            ? findMatches(state.doc, keyword, shouldMatchCase)
+            : [];
         const index = findSearchIndex(selection.from, matches);
 
         // we can't just apply all the decorations to highlight the search results at once
@@ -76,8 +80,11 @@ export const find = (
       },
       (tr, state) => {
         const { selection } = state;
+        const { shouldMatchCase } = getPluginState(state);
         const matches =
-          keyword !== undefined ? findMatches(state.doc, keyword) : [];
+          keyword !== undefined
+            ? findMatches(state.doc, keyword, shouldMatchCase)
+            : [];
         if (matches.length > 0) {
           const index = findSearchIndex(selection.from, matches);
           return tr.setSelection(getSelectionForMatch(state, index, matches));
@@ -277,6 +284,9 @@ export const blur = () =>
   createCommand({
     type: FindReplaceActionTypes.BLUR,
   });
+
+export const toggleMatchCase = () =>
+  createCommand({ type: FindReplaceActionTypes.TOGGLE_MATCH_CASE });
 
 export const updateFocusElementRef = (
   focusElementRef: React.RefObject<HTMLElement> | undefined,

@@ -5,10 +5,10 @@ import {
   insertColumn,
   clickFirstCell,
 } from '../../__helpers/page-objects/_table';
-import { Page } from '../../__helpers/page-objects/_types';
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 
 describe('Snapshot Test: table insert/delete', () => {
-  let page: Page;
+  let page: PuppeteerPage;
   beforeAll(async () => {
     page = global.page;
   });
@@ -19,7 +19,7 @@ describe('Snapshot Test: table insert/delete', () => {
       adf,
       viewport: { width: 1040, height: 500 },
     });
-    await clickFirstCell(page);
+    await clickFirstCell(page, true);
   });
 
   afterEach(async () => {

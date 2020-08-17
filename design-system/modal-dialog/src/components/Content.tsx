@@ -3,7 +3,7 @@ import React from 'react';
 
 import { jsx } from '@emotion/core';
 import rafSchedule from 'raf-schd';
-import ScrollLock from 'react-scrolllock';
+import ScrollLock, { TouchScrollable } from 'react-scrolllock';
 
 import {
   bodyStyles,
@@ -27,6 +27,18 @@ function getInitialState() {
     showHeaderKeyline: false,
     showContentFocus: false,
     tabbableElements: [],
+  };
+}
+
+function mergeRefs(refs: any) {
+  return (value: any) => {
+    refs.forEach((ref: any) => {
+      if (typeof ref === 'function') {
+        ref(value);
+      } else if (ref != null) {
+        ref.current = value;
+      }
+    });
   };
 }
 
@@ -336,15 +348,42 @@ export default class Content extends React.Component<Props, State> {
               testId={testId}
             />
             {/* Backwards compatibility for styled-components innerRefs */}
-            <Body
-              tabIndex={showContentFocus ? 0 : undefined}
-              css={bodyStyles(shouldScroll)}
-              {...(!Body.hasOwnProperty('styledComponentId')
-                ? { ref: this.getScrollContainer }
-                : { innerRef: this.getScrollContainer })}
-            >
-              {children}
-            </Body>
+            {this.scrollContainer instanceof HTMLElement ? (
+              <TouchScrollable>
+                {(touchRef: HTMLElement | null) => (
+                  <Body
+                    tabIndex={showContentFocus ? 0 : undefined}
+                    css={bodyStyles(shouldScroll)}
+                    {...(!Body.hasOwnProperty('styledComponentId')
+                      ? {
+                          ref: mergeRefs([touchRef, this.getScrollContainer]),
+                        }
+                      : {
+                          innerRef: mergeRefs([
+                            touchRef,
+                            this.getScrollContainer,
+                          ]),
+                        })}
+                  >
+                    {children}
+                  </Body>
+                )}
+              </TouchScrollable>
+            ) : (
+              <Body
+                tabIndex={showContentFocus ? 0 : undefined}
+                css={bodyStyles(shouldScroll)}
+                {...(!Body.hasOwnProperty('styledComponentId')
+                  ? {
+                      ref: this.getScrollContainer,
+                    }
+                  : {
+                      innerRef: this.getScrollContainer,
+                    })}
+              >
+                {children}
+              </Body>
+            )}
             <Footer
               actions={actions}
               appearance={appearance}

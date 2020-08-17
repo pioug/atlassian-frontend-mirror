@@ -5,6 +5,7 @@ import { CSSProperties, forwardRef, useMemo } from 'react';
 
 import { css, jsx } from '@emotion/core';
 
+import { fontFamily } from '@atlaskit/theme/constants';
 import { e200 } from '@atlaskit/theme/elevation';
 
 import { ThemeTokens, ThemeTokensTrack } from './theme';
@@ -229,6 +230,8 @@ export const rangeInputStyle = (tokens: ThemeTokens) => {
     ${chromeRangeInputStyle(tokens)}
     ${firefoxRangeInputStyle(tokens)}
     ${IERangeInputStyle(tokens)};
+
+    font-family: ${fontFamily()};
 
     background-position: right;
   `;

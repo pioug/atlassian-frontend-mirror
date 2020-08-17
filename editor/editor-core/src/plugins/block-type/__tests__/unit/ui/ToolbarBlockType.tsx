@@ -28,7 +28,6 @@ import {
   HEADING_5,
   HEADING_6,
 } from '../../../types';
-import { analyticsService } from '../../../../../analytics';
 import { setBlockType } from '../../../commands';
 import { ReactWrapper } from 'enzyme';
 import { PluginKey } from 'prosemirror-state';
@@ -193,50 +192,6 @@ describe('@atlaskit/editor-core/ui/ToolbarBlockType', () => {
                 n.text() === blockType.title.defaultMessage,
             ).length,
         ).toEqual(1);
-      });
-    });
-  });
-
-  describe('analytics', () => {
-    let trackEvent: jest.SpyInstance;
-    let toolbarOption: ReactWrapper;
-    beforeEach(() => {
-      const { editorView, pluginState } = editor(doc(p('text')));
-      const { state, dispatch } = editorView;
-      toolbarOption = mountWithIntl(
-        <ToolbarBlockType
-          pluginState={pluginState}
-          setBlockType={name => setBlockType(name)(state, dispatch)}
-        />,
-      );
-      toolbarOption.find('button').simulate('click');
-      trackEvent = jest.fn();
-      analyticsService.trackEvent = trackEvent as any;
-    });
-
-    afterEach(() => {
-      toolbarOption.unmount();
-    });
-
-    [
-      NORMAL_TEXT,
-      HEADING_1,
-      HEADING_2,
-      HEADING_3,
-      HEADING_4,
-      HEADING_5,
-      HEADING_6,
-    ].forEach(blockType => {
-      it(`should trigger analyticsService.trackEvent when ${blockType.title.defaultMessage} is clicked`, () => {
-        toolbarOption
-          .find(Item)
-          .filterWhere(
-            n => n.text().indexOf(blockType.title.defaultMessage) === 0,
-          )
-          .simulate('click');
-        expect(trackEvent).toHaveBeenCalledWith(
-          `atlassian.editor.format.${blockType.name}.button`,
-        );
       });
     });
   });

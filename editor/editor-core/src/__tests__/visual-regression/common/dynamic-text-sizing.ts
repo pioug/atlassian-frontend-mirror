@@ -1,10 +1,13 @@
 import { initFullPageEditorWithAdf, snapshot } from '../_utils';
 import dynamicTextExample from './__fixtures__/dynamic-text-adf.json';
 import { emojiSelectors } from '../../__helpers/page-objects/_emoji';
-import { waitForLoadedBackgroundImages } from '@atlaskit/visual-regression/helper';
+import {
+  PuppeteerPage,
+  waitForLoadedBackgroundImages,
+} from '@atlaskit/visual-regression/helper';
 
 describe('Dynamic Text Sizing', () => {
-  let page: any;
+  let page: PuppeteerPage;
   // move this to the test since its used only here
   const dynamicTextViewportSizes = [
     { width: 768, height: 4500 },

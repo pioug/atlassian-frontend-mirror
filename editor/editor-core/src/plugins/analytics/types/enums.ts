@@ -28,6 +28,7 @@ export enum ACTION {
   EDITED = 'edited',
   EDITOR_CRASHED = 'unhandledErrorCaught',
   EDITOR_MOUNTED = 'mounted',
+  EDITOR_TTI = 'tti',
   FAILED_TO_UNMOUNT = 'failedToUnmount',
   FIND_PERFORMED = 'findPerformed',
   FIND_NEXT_PERFORMED = 'findNextPerformed',

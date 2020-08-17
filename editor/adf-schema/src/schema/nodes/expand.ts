@@ -43,7 +43,7 @@ export const expand: NodeSpec = {
   group: 'block',
   marks: 'link unsupportedMark',
   content:
-    '(paragraph | panel | blockquote | orderedList | bulletList | rule | heading | codeBlock | mediaGroup | mediaSingle | decisionList | taskList | table | blockCard | extension | unsupportedBlock)+',
+    '(paragraph | panel | blockquote | orderedList | bulletList | rule | heading | codeBlock | mediaGroup | mediaSingle | decisionList | taskList | table | blockCard | embedCard | extension | unsupportedBlock)+',
   isolating: true,
   selectable: true,
   attrs: {

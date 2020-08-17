@@ -7,7 +7,7 @@
  * # ADDING NEW FEATURE FLAG
  *
  * – Every feature flag must have a description explaining what it's meant to be doing.
- * – Every feature flag must have an assotiated ticket and a DUE DATE when this flag will be removed and an owner who will remove it.
+ * – Every feature flag must have an associated ticket and a DUE DATE when this flag will be removed and an owner who will remove it.
  *
  * ## TEMPLATE
  *
@@ -86,7 +86,13 @@ export type FeatureFlags = {
    * [https://product-fabric.atlassian.net/browse/ED-3504]
    */
   findReplace?: boolean;
-
+  /**
+   * Feature flag to enable case matching functionality in find/replace feature within the editor
+   *
+   * [Default: disabled]
+   * [https://product-fabric.atlassian.net/browse/ED-9684]
+   */
+  findReplaceMatchCase?: boolean;
   /**
    * Feature flag to enable `localId` generation for extensions.
    *
@@ -112,6 +118,15 @@ export type FeatureFlags = {
    * [Default: disabled]
    */
   addColumnWithCustomStep?: boolean;
+
+  /**
+   * Feature flag to enable new list behaviors
+   *
+   * https://product-fabric.atlassian.net/browse/ED-9438
+   *
+   * [Default: disabled]
+   */
+  predictableLists?: boolean;
 };
 
 export type FeatureFlagKey = keyof FeatureFlags;

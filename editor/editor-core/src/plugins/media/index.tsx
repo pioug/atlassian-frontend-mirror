@@ -34,6 +34,7 @@ import WithPluginState from '../../ui/WithPluginState';
 import MediaEditor from './ui/MediaEditor';
 import { MediaPickerComponents } from './ui/MediaPicker';
 import { messages } from '../insert-block/ui/ToolbarInsertBlock/messages';
+import { ReactMediaNode } from './nodeviews/mediaNodeView';
 
 export { MediaState, MediaProvider, CustomMediaPicker };
 export { insertMediaSingleNode } from './utils/media-single';
@@ -84,17 +85,20 @@ const mediaPlugin = (options?: MediaOptions): EditorPlugin => ({
                   portalProviderAPI,
                   eventDispatcher,
                   providerFactory,
-                  options && options.allowLazyLoading,
-                  options && options.isCopyPasteEnabled,
+                  options,
                 ),
                 mediaSingle: ReactMediaSingleNode(
                   portalProviderAPI,
                   eventDispatcher,
                   providerFactory,
-                  options,
-                  options && options.fullWidthEnabled,
                   dispatchAnalyticsEvent,
-                  options && options.isCopyPasteEnabled,
+                  options,
+                ),
+                media: ReactMediaNode(
+                  portalProviderAPI,
+                  eventDispatcher,
+                  providerFactory,
+                  options,
                 ),
               },
               errorReporter,

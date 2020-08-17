@@ -3,8 +3,9 @@ import Find from './Find';
 import Replace from './Replace';
 import { Rule, Wrapper } from './styles';
 import { TRIGGER_METHOD, DispatchAnalyticsEvent } from '../../analytics/types';
+import { MatchCaseProps } from '../types';
 
-export interface FindReplaceProps {
+export type FindReplaceProps = {
   findText?: string;
   replaceText?: string;
   count: { index: number; total: number };
@@ -39,7 +40,7 @@ export interface FindReplaceProps {
   }) => void;
   onFocusElementRefSet: (ref: React.RefObject<HTMLElement>) => void;
   dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
-}
+} & MatchCaseProps;
 
 interface FindReplaceState {
   findTextfieldRef?: React.RefObject<HTMLElement>;
@@ -91,11 +92,17 @@ class FindReplace extends React.PureComponent<
       onReplace,
       onReplaceAll,
       dispatchAnalyticsEvent,
+      allowMatchCase,
+      shouldMatchCase,
+      onToggleMatchCase,
     } = this.props;
 
     return (
       <Wrapper>
         <Find
+          allowMatchCase={allowMatchCase}
+          shouldMatchCase={shouldMatchCase}
+          onToggleMatchCase={onToggleMatchCase}
           findText={findText}
           count={count}
           shouldFocus={shouldFocus}

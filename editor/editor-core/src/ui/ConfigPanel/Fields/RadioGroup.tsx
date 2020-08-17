@@ -30,15 +30,15 @@ export default function({
       {({ fieldProps, error }) => (
         <Fragment>
           <RadioGroup
-            onChange={value => {
-              fieldProps.onChange(value);
-              onBlur(field.name);
-            }}
+            {...fieldProps}
             options={(field.items || []).map(option => ({
               ...option,
               name: field.name,
             }))}
-            {...fieldProps}
+            onChange={value => {
+              fieldProps.onChange(value);
+              onBlur(field.name);
+            }}
           />
           <FieldMessages error={error} />
         </Fragment>

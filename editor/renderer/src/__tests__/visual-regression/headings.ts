@@ -1,11 +1,13 @@
+import {
+  PuppeteerPage,
+  waitForTooltip,
+} from '@atlaskit/visual-regression/helper';
 import { snapshot, initRendererWithADF } from './_utils';
 import headings from '../__fixtures__/headings-adf.json';
 import nestedHeadings from '../__fixtures__/nested-headings-adf.json';
 import { selectors as rendererSelectors } from '../__helpers/page-objects/_renderer';
-import { waitForTooltip } from '@atlaskit/visual-regression/helper';
-import { Page } from 'puppeteer';
 
-const hoverOnHeading = async (page: Page, selector: string) => {
+const hoverOnHeading = async (page: PuppeteerPage, selector: string) => {
   await page.waitForSelector(selector);
   await page.hover(selector);
   await page.waitForSelector(`${selector} button`);
@@ -14,7 +16,7 @@ const hoverOnHeading = async (page: Page, selector: string) => {
 };
 
 describe('Headings:', () => {
-  let page: Page;
+  let page: PuppeteerPage;
 
   describe('Nested UX', () => {
     beforeEach(async () => {
@@ -86,7 +88,7 @@ describe('Headings:', () => {
 
 describe('Nested Headings', () => {
   const initRendererForNestedHeaders = async (
-    page: Page,
+    page: PuppeteerPage,
     activeHeadingId: string,
   ) => {
     await initRendererWithADF(page, {

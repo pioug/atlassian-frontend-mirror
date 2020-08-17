@@ -1,12 +1,12 @@
-import Page from '@atlaskit/webdriver-runner/wd-wrapper';
+import { WebDriverPage } from './_types';
 
 export async function annotate(
-  page: Page,
+  page: WebDriverPage,
   annotationId: string,
   annotationType: string = 'inlineComment',
 ) {
   return page.execute(
-    (annotationId, annotationType) => {
+    (annotationId: string, annotationType: string) => {
       // @ts-ignore
       const actions = window.__rendererActions;
       if (actions) {
@@ -36,7 +36,7 @@ export async function annotate(
   );
 }
 
-export async function validateRange(page: Page) {
+export async function validateRange(page: WebDriverPage) {
   return page.execute(() => {
     // @ts-ignore
     const actions = window.__rendererActions;

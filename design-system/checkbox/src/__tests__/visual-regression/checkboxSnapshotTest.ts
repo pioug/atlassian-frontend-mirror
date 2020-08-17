@@ -1,13 +1,14 @@
 import {
   getExampleUrl,
   loadPage,
+  PuppeteerPage,
   takeElementScreenShot,
 } from '@atlaskit/visual-regression/helper';
 
 const checkbox = "[data-testid='cb-basic--checkbox-label']";
 const invalidCheckbox = "[data-testid='cb-invalid--checkbox-label']";
 
-async function waitForCheckboxes(page: any) {
+async function waitForCheckboxes(page: PuppeteerPage) {
   await page.waitForSelector(checkbox);
   await page.waitForSelector(invalidCheckbox);
 }

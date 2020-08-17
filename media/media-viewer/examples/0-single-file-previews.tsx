@@ -25,6 +25,12 @@ import {
   wideImageItem,
   verticalImageItem,
   videoSquareFileIdItem,
+  zipItem,
+  zipWithNestedFolderItem,
+  zipItemMultipleFoldersAtRoot,
+  zipItemLargeInnerFile,
+  zipJiraArchiveItem,
+  zipEncryptedItem,
 } from '../example-helpers';
 import { MediaViewer } from '../src';
 import { I18NWrapper } from '@atlaskit/media-test-helpers';
@@ -104,6 +110,31 @@ export default class Example extends React.Component<{}, State> {
               <li>
                 {this.createItem(externalImageIdentifier, 'Atlassian logo')}
               </li>
+            </ButtonList>
+          </Group>
+          <Group>
+            <h2>Archives</h2>
+            <ButtonList>
+              <li>{this.createItem(zipItem, 'Zip with all types')}</li>
+              <li>
+                {this.createItem(
+                  zipWithNestedFolderItem,
+                  'Zip with nested folders',
+                )}
+              </li>
+              <li>
+                {this.createItem(
+                  zipItemMultipleFoldersAtRoot,
+                  'Zip with folders at root',
+                )}
+              </li>
+              <li>
+                {this.createItem(zipItemLargeInnerFile, 'Zip with large file')}
+              </li>
+              <li>
+                {this.createItem(zipJiraArchiveItem, 'Jira zipped folder')}
+              </li>
+              <li>{this.createItem(zipEncryptedItem, 'Zip encrypted file')}</li>
             </ButtonList>
           </Group>
           <Group>

@@ -35,6 +35,8 @@ const nodeTypes: Record<string, NodeMapping> = {
   panel: { name: 'panel', attrs: ['panelType'] },
   codeBlock: { name: 'code_block', attrs: ['language'] },
   emoji: { name: 'emoji', attrs: ['shortName', 'id', 'fallback', 'text'] },
+  expand: { name: 'expand', attrs: ['title'] },
+  nestedExpand: { name: 'nestedExpand', attrs: ['title'] },
   mention: {
     name: 'mention',
     attrs: ['id', 'text', 'userType', 'accessLevel'],

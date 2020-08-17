@@ -4,11 +4,14 @@ import {
   clickOnLayoutColumn,
   scrollToLayoutColumn,
 } from '../../__helpers/page-objects/_layouts';
-import { waitForFloatingControl } from '../../__helpers/page-objects/_toolbar';
-import { Page } from '../../__helpers/page-objects/_types';
+import {
+  waitForFloatingControl,
+  retryUntilStablePosition,
+} from '../../__helpers/page-objects/_toolbar';
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 
 describe('Columns:', () => {
-  let page: Page;
+  let page: PuppeteerPage;
   beforeEach(async () => {
     page = global.page;
     await initFullPageEditorWithAdf(page, adf, Device.LaptopHiDPI);
@@ -16,7 +19,12 @@ describe('Columns:', () => {
 
   it('should show breakout', async () => {
     const columnNumber = 1;
-    await clickOnLayoutColumn(page, columnNumber);
+    await retryUntilStablePosition(
+      page,
+      () => clickOnLayoutColumn(page, columnNumber),
+      '[aria-label*="Layout floating controls"]',
+      1000,
+    );
     await waitForFloatingControl(page, 'Layout floating controls');
     await waitForFloatingControl(page, 'Go wide', undefined, false);
     await snapshot(page);
@@ -26,7 +34,12 @@ describe('Columns:', () => {
     const columnNumber = 1;
     const offset = 100;
 
-    await clickOnLayoutColumn(page, columnNumber);
+    await retryUntilStablePosition(
+      page,
+      () => clickOnLayoutColumn(page, columnNumber),
+      '[aria-label*="Layout floating controls"]',
+      1000,
+    );
     await waitForFloatingControl(page, 'Layout floating controls');
     await scrollToLayoutColumn(page, columnNumber, offset);
     await waitForFloatingControl(page, 'Go wide', undefined, false);

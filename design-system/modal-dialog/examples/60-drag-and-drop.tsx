@@ -304,7 +304,9 @@ export default class extends React.PureComponent<{}, State> {
 
     return (
       <div>
-        <Button onClick={this.open}>Open Modal</Button>
+        <Button testId={'open-modal'} onClick={this.open}>
+          Open Modal
+        </Button>
         <p>
           We remove the transform css rule used for animating transitions after
           the enter animation occurs to work around an issue in
@@ -313,7 +315,7 @@ export default class extends React.PureComponent<{}, State> {
         </p>
         <ModalTransition>
           {isOpen && (
-            <Modal onClose={this.close}>
+            <Modal onClose={this.close} testId={'my-modal'}>
               <Wrapper />
             </Modal>
           )}

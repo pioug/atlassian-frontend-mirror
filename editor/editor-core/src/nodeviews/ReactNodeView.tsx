@@ -374,14 +374,35 @@ export class SelectionBasedNodeView<
     this.posEnd = this.pos + this.node.nodeSize;
   }
 
+  private getPositionsWithDefault(pos?: number, posEnd?: number) {
+    return {
+      pos: typeof pos !== 'number' ? this.pos : pos,
+      posEnd: typeof posEnd !== 'number' ? this.posEnd : posEnd,
+    };
+  }
+
+  isNodeInsideSelection = (
+    from: number,
+    to: number,
+    pos?: number,
+    posEnd?: number,
+  ) => {
+    ({ pos, posEnd } = this.getPositionsWithDefault(pos, posEnd));
+
+    if (typeof pos !== 'number' || typeof posEnd !== 'number') {
+      return false;
+    }
+
+    return from <= pos && to >= posEnd;
+  };
+
   isSelectionInsideNode = (
     from: number,
     to: number,
     pos?: number,
     posEnd?: number,
   ) => {
-    pos = typeof pos !== 'number' ? this.pos : pos;
-    posEnd = typeof posEnd !== 'number' ? this.posEnd : posEnd;
+    ({ pos, posEnd } = this.getPositionsWithDefault(pos, posEnd));
 
     if (typeof pos !== 'number' || typeof posEnd !== 'number') {
       return false;
@@ -448,16 +469,16 @@ export class SelectionBasedNodeView<
     }
 
     const movedInToSelection =
-      this.isSelectionInsideNode(from, to) &&
-      !this.isSelectionInsideNode(oldFrom, oldTo);
+      this.isNodeInsideSelection(from, to) &&
+      !this.isNodeInsideSelection(oldFrom, oldTo);
 
     const movedOutOfSelection =
-      !this.isSelectionInsideNode(from, to) &&
-      this.isSelectionInsideNode(oldFrom, oldTo);
+      !this.isNodeInsideSelection(from, to) &&
+      this.isNodeInsideSelection(oldFrom, oldTo);
 
     const moveOutFromOldSelection =
-      this.isSelectionInsideNode(from, to, oldPos, oldPosEnd) &&
-      !this.isSelectionInsideNode(from, to);
+      this.isNodeInsideSelection(from, to, oldPos, oldPosEnd) &&
+      !this.isNodeInsideSelection(from, to);
 
     if (movedInToSelection || movedOutOfSelection || moveOutFromOldSelection) {
       return true;

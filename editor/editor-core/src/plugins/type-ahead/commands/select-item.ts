@@ -1,13 +1,9 @@
 import { Fragment, Node } from 'prosemirror-model';
-import { EditorState, NodeSelection, Selection } from 'prosemirror-state';
-import { safeInsert } from 'prosemirror-utils';
+import { EditorState } from 'prosemirror-state';
 
-import { analyticsService } from '../../../analytics';
 import { Command } from '../../../types';
-import {
-  isChromeWithSelectionBug,
-  normaliseNestedLayout,
-} from '../../../utils';
+
+import { insertSelectedItem } from '../../../utils/insert';
 import { ACTIONS } from '../pm-plugins/actions';
 import { pluginKey } from '../pm-plugins/plugin-key';
 import { SelectItemMode, TypeAheadHandler, TypeAheadItem } from '../types';
@@ -91,71 +87,8 @@ export const selectItem = (
         .setMeta(pluginKey, { action: ACTIONS.SELECT_CURRENT })
         .replaceWith(start, end, Fragment.empty);
 
-      if (!maybeNode) {
-        return tr;
-      }
-
-      const isInputFragment = maybeNode instanceof Fragment;
-      let node;
-      try {
-        node =
-          maybeNode instanceof Node || isInputFragment
-            ? maybeNode
-            : typeof maybeNode === 'string'
-            ? state.schema.text(maybeNode)
-            : Node.fromJSON(state.schema, maybeNode);
-      } catch (e) {
-        // eslint-disable-next-line no-console
-        console.error(e);
-        return tr;
-      }
-
-      if (node.isText) {
-        tr = tr.replaceWith(start, start, node);
-
-        /**
-         *
-         * Replacing a type ahead query mark with a block node.
-         *
-         */
-      } else if (node.isBlock) {
-        tr = safeInsert(normaliseNestedLayout(state, node))(tr);
-
-        /**
-         *
-         * Replacing a type ahead query mark with an inline node.
-         *
-         */
-      } else if (node.isInline || isInputFragment) {
-        const fragment = isInputFragment
-          ? node
-          : Fragment.fromArray([node, state.schema.text(' ')]);
-
-        tr = tr.replaceWith(start, start, fragment);
-
-        // This problem affects Chrome v58+. See: https://github.com/ProseMirror/prosemirror/issues/710
-        if (isChromeWithSelectionBug) {
-          const selection = document.getSelection();
-          if (selection) {
-            selection.empty();
-          }
-        }
-
-        if (opts.selectInlineNode) {
-          // Select inserted node
-          tr = tr.setSelection(NodeSelection.create(tr.doc, start));
-        } else {
-          // Placing cursor after node + space.
-          tr = tr.setSelection(
-            Selection.near(tr.doc.resolve(start + fragment.size)),
-          );
-        }
-      }
-
-      return tr;
+      return insertSelectedItem(maybeNode, opts)(state, tr, start);
     };
-
-    analyticsService.trackEvent('atlassian.editor.typeahead.select', { mode });
 
     const tr = handler.selectItem(state, item, insert, { mode });
 

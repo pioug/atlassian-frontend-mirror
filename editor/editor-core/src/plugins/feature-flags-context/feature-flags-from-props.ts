@@ -29,7 +29,12 @@ export function createFeatureFlagsFromProps(props: EditorProps): FeatureFlags {
             props.allowTextColor &&
               props.allowTextColor.EXPERIMENTAL_allowMoreTextColors === true,
           ),
-    findReplace: props.allowFindReplace,
+
+    findReplace: !!props.allowFindReplace,
+
+    findReplaceMatchCase:
+      typeof props.allowFindReplace === 'object' &&
+      Boolean(props.allowFindReplace.allowMatchCase),
 
     extensionLocalIdGeneration:
       typeof props.allowExtension === 'boolean'
@@ -47,6 +52,8 @@ export function createFeatureFlagsFromProps(props: EditorProps): FeatureFlags {
       !props.allowTables || typeof props.allowTables === 'boolean'
         ? false
         : Boolean(props.allowTables.allowAddColumnWithCustomStep),
+
+    predictableLists: props.UNSAFE_predictableLists,
   };
 }
 

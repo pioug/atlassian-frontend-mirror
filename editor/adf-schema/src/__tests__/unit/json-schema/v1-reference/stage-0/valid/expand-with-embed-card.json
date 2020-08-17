@@ -1,0 +1,34 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "expand",
+      "attrs": {
+        "title": ""
+      },
+      "content": [
+        {
+          "type": "paragraph",
+          "content": []
+        },
+        {
+          "type": "embedCard",
+          "attrs": {
+            "url": "https://embedCardTestUrl",
+            "layout": "center"
+          }
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": " "
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

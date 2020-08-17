@@ -14,6 +14,7 @@ import WebBridgeImpl from '../native-to-web';
 import { InjectedIntl } from 'react-intl';
 
 import { getEnableQuickInsertValue } from '../../query-param-reader';
+import { toNativeBridge } from '../web-to-native';
 
 export function useEditorReady(
   bridge: WebBridgeImpl,
@@ -52,8 +53,11 @@ export function useEditorReady(
         );
         bridge.quickInsertItems.resolve(
           processQuickInsertItems(
-            quickInsertPluginState.items,
-            {} as InjectedIntl, // TWISTA-4 This was broken already, it needs to wait for IntlProvider to get set up (PR after editorReady event get implemented)
+            quickInsertPluginState.lazyDefaultItems(),
+            {
+              formatMessage: messageDescriptor =>
+                messageDescriptor && messageDescriptor.defaultMessage,
+            } as InjectedIntl, // TWISTA-4 This was broken already, it needs to wait for IntlProvider to get set up (PR after editorReady event get implemented)
           ),
         );
       }
@@ -68,6 +72,7 @@ export function useEditorReady(
           bridge.editorView.dispatch,
         );
       }
+      toNativeBridge.editorReady();
     },
     [bridge, mediaOptions],
   );

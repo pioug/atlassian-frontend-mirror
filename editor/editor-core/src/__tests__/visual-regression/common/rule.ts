@@ -1,4 +1,4 @@
-import { Page } from '../../__helpers/page-objects/_types';
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import * as rule from './__fixtures__/rule-adf.json';
 import {
   snapshot,
@@ -9,7 +9,7 @@ import {
 const ruleSelector = 'hr';
 
 describe('Rule', () => {
-  let page: Page;
+  let page: PuppeteerPage;
 
   beforeAll(() => {
     page = global.page;

@@ -11,6 +11,12 @@ import {
   mention,
   code_block,
   panel,
+  table,
+  tr as row,
+  th,
+  td,
+  layoutSection,
+  layoutColumn,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { MockMentionResource } from '@atlaskit/util-data-test';
 import {
@@ -39,6 +45,8 @@ describe('media-files', () => {
       doc,
       editorProps: {
         media: {},
+        allowTables: true,
+        allowLayouts: true,
         mentionProvider: Promise.resolve(new MockMentionResource({})),
         allowRule: true,
         allowPanel: true,
@@ -643,6 +651,75 @@ describe('media-files', () => {
 
       expect(editorView.state.doc).toEqualDocument(
         doc(temporaryMediaGroup, p()),
+      );
+    });
+
+    it('should add empty paragraph after mediaGroup when in table cell', () => {
+      const { editorView } = editor(doc(table()(row(td({})(p('{<>}'), p())))));
+
+      insertMediaGroupNode(
+        editorView,
+        [{ id: temporaryFileId }],
+        testCollectionName,
+      );
+
+      expect(editorView.state.doc).toEqualDocument(
+        doc(table()(row(td({})(temporaryMediaGroup, p(), p())))),
+      );
+    });
+
+    it('should add empty paragraph after mediaGroup when in table head', () => {
+      const { editorView } = editor(doc(table()(row(th({})(p('{<>}'), p())))));
+
+      insertMediaGroupNode(
+        editorView,
+        [{ id: temporaryFileId }],
+        testCollectionName,
+      );
+
+      expect(editorView.state.doc).toEqualDocument(
+        doc(table()(row(th({})(temporaryMediaGroup, p(), p())))),
+      );
+    });
+
+    it('should add empty paragraph after mediaGroup when in list item', () => {
+      // TODO Ask Vij - is that rather a bug?
+      const { editorView } = editor(doc(ul(li(p('{<>}'))), p()));
+
+      insertMediaGroupNode(
+        editorView,
+        [{ id: temporaryFileId }],
+        testCollectionName,
+      );
+
+      expect(editorView.state.doc).toEqualDocument(
+        doc(ul(li(p())), temporaryMediaGroup, p(), p()),
+      );
+    });
+
+    it('should add empty paragraph after mediaGroup when in layout item', () => {
+      const { editorView } = editor(
+        doc(
+          layoutSection(
+            layoutColumn({ width: 50 })(p('{<>}')),
+            layoutColumn({ width: 50 })(p()),
+          ),
+        ),
+      );
+
+      insertMediaGroupNode(
+        editorView,
+        [{ id: temporaryFileId }],
+        testCollectionName,
+      );
+
+      expect(editorView.state.doc).toEqualDocument(
+        doc(
+          layoutSection(
+            layoutColumn({ width: 50 })(temporaryMediaGroup, p()),
+            layoutColumn({ width: 50 })(p()),
+          ),
+        ),
       );
     });
 

@@ -43,7 +43,7 @@ export default class NestedDemo extends React.Component<{}, State> {
       <div style={{ maxWidth: 400, padding: 16 }}>
         <ButtonGroup>
           {sizes.map(name => (
-            <Button key={name} onClick={() => this.open(name)}>
+            <Button key={name} testId={name} onClick={() => this.open(name)}>
               Open: {name}
             </Button>
           ))}

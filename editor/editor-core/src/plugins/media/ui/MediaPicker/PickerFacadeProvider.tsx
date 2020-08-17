@@ -90,7 +90,6 @@ export default class PickerFacadeProvider extends React.Component<
      * Second one in order to track all analytics as before.
      */
     pickerFacadeInstance.onNewMedia(mediaState.insertFile);
-    pickerFacadeInstance.onNewMedia(mediaState.trackNewMediaEvent);
     pickerFacadeInstance.setUploadParams(mediaProvider.uploadParams);
 
     const config = {

@@ -1,5 +1,5 @@
 import { snapshot, initEditorWithAdf, Appearance } from '../_utils';
-import { Page } from '../../__helpers/page-objects/_types';
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import {
   clickOnStatus,
   waitForStatusToolbar,
@@ -15,7 +15,7 @@ import {
 } from '../../__helpers/page-objects/_task';
 
 describe('Status:', () => {
-  let page: Page;
+  let page: PuppeteerPage;
   beforeEach(async () => {
     page = global.page;
   });

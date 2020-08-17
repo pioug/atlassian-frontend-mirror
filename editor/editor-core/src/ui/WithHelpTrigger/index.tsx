@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { analyticsService } from '../../analytics';
 import {
   AnalyticsDispatch,
   ACTION,
@@ -36,7 +35,6 @@ export default class WithHelpTrigger extends React.Component<
         eventType: EVENT_TYPE.UI,
       },
     });
-    analyticsService.trackEvent('atlassian.editor.help.button');
 
     const editorView = editorActions._privateGetEditorView();
     if (editorView) {

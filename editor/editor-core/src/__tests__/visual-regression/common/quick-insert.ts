@@ -1,5 +1,5 @@
 import { snapshot, initEditorWithAdf, Appearance } from '../_utils';
-import { Page } from '../../__helpers/page-objects/_types';
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { typeInEditorAtEndOfDocument } from '../../__helpers/page-objects/_editor';
 import {
   waitForTypeAheadMenu,
@@ -7,7 +7,7 @@ import {
 } from '../../__helpers/page-objects/_quick-insert';
 
 describe('Quick Insert:', () => {
-  let page: Page;
+  let page: PuppeteerPage;
   beforeEach(async () => {
     page = global.page;
     await initEditorWithAdf(page, {
@@ -19,8 +19,7 @@ describe('Quick Insert:', () => {
   it('should render the quick insert menu', async () => {
     await typeInEditorAtEndOfDocument(page, '/');
     await waitForTypeAheadMenu(page);
-    await waitForMenuIconsToLoad(page);
-
+    await waitForMenuIconsToLoad(page, 6);
     await snapshot(page);
   });
 });

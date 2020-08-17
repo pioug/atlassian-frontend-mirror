@@ -18,3 +18,7 @@ export {
   EmbedCardUnresolvedView,
   EmbedCardUnresolvedViewProps,
 } from './EmbedCard/views/UnresolvedView';
+export {
+  ErroredView as EmbedCardErroredView,
+  ErroredViewProps as EmbedCardErroredViewProps,
+} from './EmbedCard/views/ErroredView';

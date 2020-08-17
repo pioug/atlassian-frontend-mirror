@@ -6,7 +6,6 @@ import { defineMessages, InjectedIntlProps, injectIntl } from 'react-intl';
 import { akEditorMenuZIndex } from '@atlaskit/editor-common';
 import MoreIcon from '@atlaskit/icon/glyph/editor/more';
 
-import { analyticsService } from '../../../../analytics';
 import {
   clearFormatting as clearFormattingKeymap,
   toggleCode,
@@ -296,10 +295,6 @@ class ToolbarAdvancedTextFormatting extends PureComponent<
   };
 
   private onItemActivated = ({ item }: { item: MenuItem }) => {
-    analyticsService.trackEvent(
-      `atlassian.editor.format.${item.value.name}.button`,
-    );
-
     const { state, dispatch } = this.props.editorView;
     switch (item.value.name) {
       case 'underline':

@@ -144,6 +144,8 @@ const withSetFocus = <P extends AnnotationProps>(
     ({ annotationId }) => {
       if (id === annotationId) {
         setDataHasFocus(true);
+      } else {
+        setDataHasFocus(false);
       }
     },
     [id],

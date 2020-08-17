@@ -1,14 +1,7 @@
 import React from 'react';
 import { shallow, ShallowWrapper } from 'enzyme';
-import { getConfluenceMacrosExtensionProvider } from '../../../../example-helpers/confluence-macros';
-import { extensionProviderToQuickInsertProvider } from '../../../utils/extensions';
-import EditorActions from '../../../actions';
 import ElementBrowser from '../ElementBrowser';
 
-const quickInsertProvider = extensionProviderToQuickInsertProvider(
-  getConfluenceMacrosExtensionProvider({} as EditorActions),
-  {} as EditorActions,
-);
 const testData = {
   categories: [
     { name: 'all', title: 'all' },
@@ -30,128 +23,96 @@ const testData = {
   showSearch: true,
   showCategories: true,
   mode: 'full',
-  quickInsertProvider,
 };
 
 let wrapper: ShallowWrapper<any, any, ElementBrowser>;
 let instance: ElementBrowser;
 
+let getItems: jest.Mock;
+
 beforeEach(() => {
+  getItems = jest.fn(() =>
+    Promise.resolve([
+      {
+        name: 'item-1',
+        title: 'Item 1',
+        action: jest.fn(),
+        category: 'category-2',
+      },
+      {
+        name: 'item-2',
+        title: 'Item 2',
+        action: jest.fn(),
+        category: 'category-3',
+      },
+      {
+        name: 'item-3',
+        title: 'Item 3',
+        action: jest.fn(),
+        category: 'category-3',
+      },
+      {
+        name: 'item-4',
+        title: 'Item 4',
+        action: jest.fn(),
+        category: 'category-3',
+      },
+    ]),
+  );
+
   wrapper = shallow(
     <ElementBrowser
       categories={testData.categories}
-      quickInsertProvider={quickInsertProvider}
+      getItems={getItems}
       showSearch={true}
       showCategories={false}
-      search={jest.fn()}
       mode="inline"
       defaultCategory="all"
       onSelectItem={jest.fn()}
     />,
   );
   instance = wrapper.instance();
+
+  getItems.mockClear();
 });
 
 describe('ElementBrowser', () => {
   describe('onMount', () => {
     it('fetches quick insert items', () => {
-      jest.spyOn(instance, 'fetchItems');
       instance.componentDidMount();
-      expect(instance.fetchItems).toHaveBeenCalledTimes(1);
+      expect(getItems).toHaveBeenCalledTimes(1);
     });
   });
   describe('handleSearch', () => {
-    it('Calls back the search handler with searchTerm, initialItems, and selectedCategory', () => {
-      jest.spyOn(instance, 'handleSearch');
+    it('should call the getItems passing the search term and selected category', () => {
       instance.handleSearch('test');
-      expect(instance.props.search).toHaveBeenCalledWith(
-        'test',
-        instance.state.allItems,
-        instance.state.selectedCategory,
-      );
-    });
-    it('Updates own state items with filtered results from searchTerm', () => {
-      instance.handleSearch('test');
-      const res = instance.props.search(
-        'test',
-        instance.state.allItems,
-        instance.state.selectedCategory,
-      );
-      expect(instance.state.items).toStrictEqual(res);
+      expect(getItems).toHaveBeenCalledWith('test', 'all');
+      expect(getItems).toHaveBeenCalledTimes(1);
     });
   });
   describe('onSelectCategory', () => {
-    describe('getFilteredItemsForCategory', () => {
-      const items = [
-        {
-          name: 'item-1',
-          title: 'Item 1',
-          action: jest.fn(),
-          category: 'category-2',
-        },
-        {
-          name: 'item-2',
-          title: 'Item 2',
-          action: jest.fn(),
-          category: 'category-3',
-        },
-        {
-          name: 'item-3',
-          title: 'Item 3',
-          action: jest.fn(),
-          category: 'category-3',
-        },
-        {
-          name: 'item-4',
-          title: 'Item 4',
-          action: jest.fn(),
-          category: 'category-3',
-        },
-      ];
-      it("Get's all items if selected category is all", () => {
-        const res = instance.getFilteredItemsForCategory(items, {
-          name: 'all',
-          title: 'All',
+    describe('handleCategorySelection', () => {
+      it('should calls getItems with the new category', () => {
+        instance.handleCategorySelection({
+          name: 'category-1',
+          title: 'Category 1',
         });
-        expect(res).toEqual(items);
+
+        expect(getItems).toHaveBeenCalledWith('', 'category-1');
+        expect(getItems).toHaveBeenCalledTimes(1);
       });
-      it("Get's items for a selected category", () => {
-        const res = instance.getFilteredItemsForCategory(items, {
-          name: 'category-2',
-          title: 'Category 2',
+
+      it('should reset the category to default if selected twice', () => {
+        wrapper.setState({ selectedCategory: 'category-1' });
+        getItems.mockClear();
+        instance.handleCategorySelection({
+          name: 'category-1',
+          title: 'Category 1',
         });
-        /**
-         * JSON.stringify is a Workaround
-         * for the below error based on https://github.com/facebook/jest/issues/8475
-         * Expected: [{...}]
-         * Received: serializes to the same string
-         */
-        expect(JSON.stringify(res)).toEqual(
-          JSON.stringify([
-            {
-              name: 'item-1',
-              title: 'Item 1',
-              action: jest.fn(),
-              category: 'category-2',
-            },
-          ]),
-        );
+
+        expect(getItems).toHaveBeenCalledWith('', 'all');
+        expect(getItems).toHaveBeenCalledTimes(1);
       });
-    });
-  });
-  describe('resetCategorySelection', () => {
-    it('resets the category selection if clicked on a same category twice ', () => {
-      jest.spyOn(instance, 'handleCategorySelection');
-      instance.setState({
-        selectedCategory: 'category-1',
-      });
-      instance.handleCategorySelection({
-        title: 'Category 1',
-        name: 'category-1',
-      });
-      expect(instance.state.selectedCategory).toStrictEqual(
-        instance.props.defaultCategory,
-      );
     });
   });
 });

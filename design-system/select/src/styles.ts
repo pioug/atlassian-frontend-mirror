@@ -1,4 +1,4 @@
-import { gridSize } from '@atlaskit/theme/constants';
+import { gridSize, fontFamily } from '@atlaskit/theme/constants';
 import * as colors from '@atlaskit/theme/colors';
 
 import { StylesConfig, ValidationState } from './types';
@@ -14,6 +14,7 @@ export default function baseStyles(
   return {
     container: (css, { isDisabled }) => ({
       ...css,
+      fontFamily: fontFamily(),
       // react-select disables pointer events when isDisabled is true.
       // We override this and make the inner container turn it off instead.
       pointerEvents: 'all',
@@ -59,7 +60,6 @@ export default function baseStyles(
         padding: 0,
         transition: `background-color ${transitionDuration} ease-in-out,
         border-color ${transitionDuration} ease-in-out`,
-        msOverflowStyle: '-ms-autohiding-scrollbar',
         '::-webkit-scrollbar': {
           height: gridSize(),
           width: gridSize(),

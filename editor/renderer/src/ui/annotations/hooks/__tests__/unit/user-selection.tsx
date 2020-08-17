@@ -191,13 +191,13 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
 
     describe('when a component is render using this hook', () => {
       describe('after mounting', () => {
-        it('should attach a mouseup event at the DOM element', () => {
-          jest.spyOn(rendererDOM, 'addEventListener');
+        it('should attach a listener at the document selection change event', () => {
+          jest.spyOn(document, 'addEventListener');
 
           const fakeRef = { current: rendererDOM } as React.RefObject<
             HTMLDivElement
           >;
-          expect(rendererDOM.addEventListener).toHaveBeenCalledTimes(0);
+          expect(document.addEventListener).toHaveBeenCalledTimes(0);
           act(() => {
             render(
               <DummyComponent
@@ -207,18 +207,22 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
               rendererDOM,
             );
           });
-          expect(rendererDOM.addEventListener).toHaveBeenCalledTimes(1);
+          expect(document.addEventListener).toHaveBeenCalledTimes(1);
+          expect(document.addEventListener).toHaveBeenCalledWith(
+            'selectionchange',
+            expect.any(Function),
+          );
         });
       });
 
       describe('after unmounting', () => {
-        it('should remove the mouseup event at the DOM element', () => {
-          jest.spyOn(rendererDOM, 'removeEventListener');
+        it('should remove should the listener from the document selection change event', () => {
+          jest.spyOn(document, 'removeEventListener');
 
           const fakeRef = { current: rendererDOM } as React.RefObject<
             HTMLDivElement
           >;
-          expect(rendererDOM.removeEventListener).toHaveBeenCalledTimes(0);
+          expect(document.removeEventListener).toHaveBeenCalledTimes(0);
           act(() => {
             render(
               <DummyComponent
@@ -232,7 +236,11 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
           act(() => {
             unmountComponentAtNode(rendererDOM);
           });
-          expect(rendererDOM.removeEventListener).toHaveBeenCalledTimes(1);
+          expect(document.removeEventListener).toHaveBeenCalledTimes(1);
+          expect(document.removeEventListener).toHaveBeenCalledWith(
+            'selectionchange',
+            expect.any(Function),
+          );
         });
       });
     });

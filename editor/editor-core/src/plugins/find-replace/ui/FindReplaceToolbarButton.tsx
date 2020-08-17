@@ -17,7 +17,6 @@ const ToolbarButtonWrapper = styled.div`
 `;
 
 const Wrapper = styled.div`
-  padding: 0 4px;
   display: flex;
   flex-direction: column;
 `;
@@ -84,7 +83,6 @@ class FindReplaceToolbarButton extends React.PureComponent<
       isActive,
       index,
       numMatches,
-      shouldFocus,
       intl: { formatMessage },
     } = this.props;
 
@@ -125,7 +123,6 @@ class FindReplaceToolbarButton extends React.PureComponent<
               findText={findText}
               replaceText={replaceText}
               count={{ index, total: numMatches }}
-              shouldFocus={shouldFocus}
               {...this.props}
             />
           </Wrapper>

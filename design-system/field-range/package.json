@@ -15,13 +15,13 @@
   "atlaskit:src": "src/index.js",
   "atlassian": {
     "team": "Design System Team",
+    "deprecatedAutoEntryPoints": true,
     "inPublicMirror": true,
     "releaseModel": "scheduled",
     "website": {
       "name": "Field Range",
       "deprecated": "@atlaskit/field-range is deprecated in favor of @atlaskit/range."
-    },
-    "deprecatedAutoEntryPoints": true
+    }
   },
   "dependencies": {
     "@atlaskit/theme": "^10.0.0",

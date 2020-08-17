@@ -41,10 +41,6 @@ export const Content = styled.div`
 `;
 Content.displayName = 'Content';
 
-// eslint-disable-next-line no-console
-const analyticsHandler = (actionName: string, props: any) =>
-  console.log(actionName, props);
-
 const SaveAndCancelButtons = (props: any) => (
   <ButtonGroup>
     <Button
@@ -145,7 +141,6 @@ class Example extends Component<ExampleProps, ExampleState> {
               render={actions => (
                 <Editor
                   appearance="full-page"
-                  analyticsHandler={analyticsHandler}
                   allowTextColor={true}
                   allowTables={{
                     allowColumnResizing: true,

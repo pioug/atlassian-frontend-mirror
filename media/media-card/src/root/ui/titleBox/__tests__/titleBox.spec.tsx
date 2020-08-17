@@ -7,7 +7,7 @@ dateFns.format = jest.fn((date: Date, format: string) =>
 ) as any;
 import { shallow } from 'enzyme';
 import { TitleBox, formatDate } from '../titleBox';
-import { Truncate } from '../truncateText';
+import { Truncate } from '@atlaskit/media-ui/truncateText';
 import { Breakpoint } from '../../common';
 import { TitleBoxWrapper, TitleBoxHeader, TitleBoxFooter } from '../styled';
 

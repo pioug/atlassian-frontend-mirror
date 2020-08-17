@@ -1,7 +1,12 @@
 import { CSSProperties } from 'react';
 
 import { createTheme } from '@atlaskit/theme/components';
-import { codeFontFamily, fontSize, gridSize } from '@atlaskit/theme/constants';
+import {
+  codeFontFamily,
+  fontFamily,
+  fontSize,
+  gridSize,
+} from '@atlaskit/theme/constants';
 
 import * as componentTokens from './component-tokens';
 
@@ -259,7 +264,7 @@ export const Theme = createTheme<ThemeTokens, ThemeProps>(props => ({
     boxSizing: 'border-box',
     color: 'inherit',
     cursor: 'inherit',
-    fontFamily: props.isMonospaced ? codeFontFamily() : 'inherit',
+    fontFamily: props.isMonospaced ? codeFontFamily() : fontFamily(),
     fontSize: `${fontSize()}px`,
     minWidth: '0',
     outline: 'none',

@@ -412,11 +412,16 @@ export const getValidNode = (
         break;
       }
       case 'mediaSingle': {
-        if (
+        const containsJustMedia =
           Array.isArray(content) &&
           content.length === 1 &&
-          content[0].type === 'media'
-        ) {
+          content[0].type === 'media';
+        const containsMediaAndCaption =
+          Array.isArray(content) &&
+          content.length === 2 &&
+          content[0].type === 'media' &&
+          content[1].type === 'caption';
+        if (containsJustMedia || containsMediaAndCaption) {
           return {
             type,
             attrs,

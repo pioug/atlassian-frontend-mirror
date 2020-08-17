@@ -1,5 +1,6 @@
 import * as uuid from 'uuid';
 import {
+  MediaType,
   MediaCollectionItem,
   MediaFileProcessingStatus,
 } from '@atlaskit/media-client';
@@ -20,6 +21,7 @@ export type CollectionItem = MediaCollectionItem & {
 
 export type CreateCollectionItemOptions = {
   readonly name?: string;
+  readonly mediaType?: MediaType;
   readonly mimeType?: string;
   readonly collectionName?: string;
   readonly occurrenceKey?: string;
@@ -47,6 +49,7 @@ export function createEmptyCollectionItem({
 
 export function createCollectionItem({
   name,
+  mediaType,
   mimeType,
   collectionName,
   occurrenceKey,
@@ -63,7 +66,7 @@ export function createCollectionItem({
       name: name || getFakeFileName(extension),
       size: blob.size,
       mimeType,
-      mediaType: 'image',
+      mediaType,
       artifacts: {},
       processingStatus,
       representations:

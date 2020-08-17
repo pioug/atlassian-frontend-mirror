@@ -1,4 +1,4 @@
-import { Page } from './_types';
+import { PuppeteerPage } from './_types';
 import { clickToolbarMenu, ToolbarMenuItem } from './_toolbar';
 
 import { messages as insertBlockMessages } from '../../../plugins/insert-block/ui/ToolbarInsertBlock/messages';
@@ -34,7 +34,10 @@ const blockMenuItemsSelectors = {
   [BlockMenuItem.bodiedExtension]: '[aria-label="Bodied macro (EH)"]',
 };
 
-export async function clickBlockMenuItem(page: Page, menu: BlockMenuItem) {
+export async function clickBlockMenuItem(
+  page: PuppeteerPage,
+  menu: BlockMenuItem,
+) {
   await clickToolbarMenu(page, ToolbarMenuItem.insertBlock);
   await page.waitForSelector(blockMenuItemsSelectors[menu]);
   await page.click(blockMenuItemsSelectors[menu]);

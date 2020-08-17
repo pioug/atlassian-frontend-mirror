@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/feedback-collector",
-  "version": "6.0.1",
+  "version": "6.0.2",
   "description": "A component that collects feedback across Atlassian products.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -16,12 +16,12 @@
   "atlaskit:src": "src/index.ts",
   "atlassian": {
     "team": "Design System Team",
+    "deprecatedAutoEntryPoints": true,
     "inPublicMirror": true,
     "releaseModel": "scheduled",
     "website": {
       "name": "Feedback Collector"
-    },
-    "deprecatedAutoEntryPoints": true
+    }
   },
   "config": {
     "access": "public"
@@ -33,11 +33,11 @@
     "@atlaskit/form": "^8.1.0",
     "@atlaskit/icon": "^21.0.0",
     "@atlaskit/modal-dialog": "^11.0.0",
-    "@atlaskit/select": "^12.0.0",
+    "@atlaskit/select": "^13.0.0",
     "@atlaskit/textarea": "^3.0.0",
     "@atlaskit/theme": "^10.0.0",
     "@babel/runtime": "^7.0.0",
-    "lodash.truncate": "^4.4.2",
+    "lodash": "^4.17.15",
     "tslib": "^1.9.3"
   },
   "peerDependencies": {

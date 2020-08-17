@@ -1,11 +1,11 @@
 import { snapshot, initEditorWithAdf, Appearance } from '../_utils';
 import adf from './__fixtures__/with-content.json';
-import { Page } from '../../__helpers/page-objects/_types';
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { emojiSelectors } from '../../__helpers/page-objects/_emoji';
 import { waitForLoadedBackgroundImages } from '@atlaskit/visual-regression/helper';
 // TODO: https://product-fabric.atlassian.net/browse/ED-7721
 describe.skip('Snapshot Test: Mobile Dark Editor', () => {
-  let page: Page;
+  let page: PuppeteerPage;
   beforeAll(async () => {
     page = global.page;
     await initEditorWithAdf(page, {

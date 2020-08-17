@@ -11,11 +11,14 @@ import {
   getSelectorForTableCell,
 } from '../../__helpers/page-objects/_table';
 import { emojiSelectors } from '../../__helpers/page-objects/_emoji';
-import { waitForLoadedBackgroundImages } from '@atlaskit/visual-regression/helper';
-import { Page } from '../../__helpers/page-objects/_types';
+import { retryUntilStablePosition } from '../../__helpers/page-objects/_toolbar';
+import {
+  PuppeteerPage,
+  waitForLoadedBackgroundImages,
+} from '@atlaskit/visual-regression/helper';
 
 describe('Table with block looks correct for fullpage:', () => {
-  let page: Page;
+  let page: PuppeteerPage;
 
   beforeAll(async () => {
     page = global.page;
@@ -28,7 +31,14 @@ describe('Table with block looks correct for fullpage:', () => {
 
   it('default layout ', async () => {
     await initFullPageEditorWithAdf(page, adf, Device.LaptopMDPI);
-    await page.click(getSelectorForTableCell({ row: 4, cell: 1 }));
+    const cellSelector = getSelectorForTableCell({ row: 4, cell: 1 });
+    await page.waitForSelector(cellSelector);
+    await retryUntilStablePosition(
+      page,
+      () => page.click(cellSelector),
+      '[aria-label*="Table floating controls"]',
+      1000,
+    );
   });
 
   // TODO: ED-7814
@@ -60,7 +70,7 @@ describe('Table with block looks correct for fullpage:', () => {
 });
 
 describe('Table with block looks correct for comment:', () => {
-  let page: Page;
+  let page: PuppeteerPage;
 
   beforeAll(async () => {
     page = global.page;

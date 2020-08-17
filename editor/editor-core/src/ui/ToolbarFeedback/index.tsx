@@ -6,7 +6,6 @@ import Spinner from '@atlaskit/spinner';
 import { Popup } from '@atlaskit/editor-common';
 import Button, { ButtonGroup } from '@atlaskit/button';
 
-import { withAnalytics } from '../../analytics';
 import ToolbarButton from '../ToolbarButton';
 import withOuterListeners from '../with-outer-listeners';
 
@@ -221,25 +220,22 @@ export default class ToolbarFeedback extends PureComponent<Props, State> {
     this.setState({ jiraIssueCollectorScriptLoading: false });
   };
 
-  private openFeedbackPopup = withAnalytics(
-    'atlassian.editor.feedback.button',
-    (): boolean => {
-      const dispatch: AnalyticsDispatch = createDispatch(
-        this.context.editorActions.eventDispatcher,
-      );
-      dispatch(analyticsEventKey, {
-        payload: {
-          action: ACTION.CLICKED,
-          actionSubject: ACTION_SUBJECT.BUTTON,
-          actionSubjectId: ACTION_SUBJECT_ID.BUTTON_FEEDBACK,
-          eventType: EVENT_TYPE.UI,
-        },
-      });
-      this.openJiraIssueCollector();
+  private openFeedbackPopup = (): boolean => {
+    const dispatch: AnalyticsDispatch = createDispatch(
+      this.context.editorActions.eventDispatcher,
+    );
+    dispatch(analyticsEventKey, {
+      payload: {
+        action: ACTION.CLICKED,
+        actionSubject: ACTION_SUBJECT.BUTTON,
+        actionSubjectId: ACTION_SUBJECT_ID.BUTTON_FEEDBACK,
+        eventType: EVENT_TYPE.UI,
+      },
+    });
+    this.openJiraIssueCollector();
 
-      return true;
-    },
-  );
+    return true;
+  };
 
   private openLearnMorePage = () => {
     window.open('https://confluence.atlassian.com/x/NU1VO', '_blank');

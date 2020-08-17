@@ -2,7 +2,6 @@ import React from 'react';
 import { defineMessages, injectIntl, InjectedIntlProps } from 'react-intl';
 import { akEditorMenuZIndex } from '@atlaskit/editor-common';
 
-import { analyticsService as analytics } from '../../../../analytics';
 import DropdownMenu from '../../../../ui/DropdownMenu';
 import { Separator, Wrapper, MenuWrapper } from '../../../../ui/styles';
 import { BlockTypeState } from '../../pm-plugins/main';
@@ -181,8 +180,6 @@ class ToolbarBlockType extends React.PureComponent<
     const blockType = item.value;
     this.props.setBlockType(blockType.name);
     this.setState({ active: false });
-
-    analytics.trackEvent(`atlassian.editor.format.${blockType.name}.button`);
   };
 }
 

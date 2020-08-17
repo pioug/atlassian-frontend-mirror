@@ -17,13 +17,13 @@
   "atlaskit:designLink": "https://atlassian.design/guidelines/product/components/text-field",
   "atlassian": {
     "team": "Design System Team",
+    "deprecatedAutoEntryPoints": true,
     "inPublicMirror": true,
     "releaseModel": "scheduled",
     "website": {
       "name": "Field Text",
       "deprecated": "@atlaskit/field-text is deprecated in favor of @atlaskit/textfield."
-    },
-    "deprecatedAutoEntryPoints": true
+    }
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^7.0.0",

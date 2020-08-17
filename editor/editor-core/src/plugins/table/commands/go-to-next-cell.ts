@@ -2,7 +2,6 @@
 import { goToNextCell as baseGotoNextCell, TableMap } from 'prosemirror-tables';
 import { findParentNodeOfType, findTable } from 'prosemirror-utils';
 
-import { analyticsService } from '../../../analytics';
 import { Command } from '../../../types/command';
 import { INPUT_METHOD } from '../../analytics/types';
 import { insertRowWithAnalytics } from '../commands-with-analytics';
@@ -40,12 +39,6 @@ export const goToNextCell = (direction: number): Command => (
     })(state, dispatch);
     return true;
   }
-
-  const event =
-    direction === TAB_FORWARD_DIRECTION ? 'next_cell' : 'previous_cell';
-  analyticsService.trackEvent(
-    `atlassian.editor.format.table.${event}.keyboard`,
-  );
 
   return baseGotoNextCell(direction)(state, dispatch);
 };

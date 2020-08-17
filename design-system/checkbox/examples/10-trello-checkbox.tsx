@@ -1,6 +1,6 @@
 import React from 'react';
 
-import merge from 'lodash.merge';
+import merge from 'lodash/merge';
 
 import Icon, { IconProps } from '@atlaskit/icon';
 

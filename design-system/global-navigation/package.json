@@ -15,13 +15,13 @@
   "atlaskit:src": "src/index.js",
   "atlassian": {
     "team": "Design System Team",
+    "deprecatedAutoEntryPoints": true,
     "inPublicMirror": true,
     "releaseModel": "scheduled",
     "website": {
       "name": "Global Navigation",
       "deprecated": "Please use @atlaskit/atlassian-navigation for the horizontal nav bar, @atlaskit/side-navigation for the side nav, and @atlaskit/page-layout to layout your application."
-    },
-    "deprecatedAutoEntryPoints": true
+    }
   },
   "dependencies": {
     "@atlaskit/analytics-namespaced-context": "^5.0.0",

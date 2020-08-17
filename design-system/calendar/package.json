@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/calendar",
-  "version": "10.0.0",
+  "version": "10.0.1",
   "description": "A React component for displaying a calendar.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -17,21 +17,21 @@
   "atlaskit:designLink": "https://atlassian.design/guidelines/product/components/date-picker",
   "atlassian": {
     "team": "Design System Team",
+    "deprecatedAutoEntryPoints": true,
     "inPublicMirror": true,
     "releaseModel": "scheduled",
     "website": {
       "name": "Calendar"
-    },
-    "deprecatedAutoEntryPoints": true
+    }
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^7.0.0",
     "@atlaskit/button": "^14.0.0",
     "@atlaskit/icon": "^21.0.0",
-    "@atlaskit/locale": "^2.0.0",
+    "@atlaskit/locale": "^2.1.0",
     "@atlaskit/theme": "^10.0.0",
     "calendar-base": "^0.3.0",
-    "lodash.pick": "^4.4.0",
+    "lodash": "^4.17.15",
     "react-uid": "^2.2.0",
     "tslib": "^1.9.3"
   },
@@ -42,7 +42,7 @@
   "devDependencies": {
     "@atlaskit/build-utils": "*",
     "@atlaskit/docs": "*",
-    "@atlaskit/select": "^12.0.0",
+    "@atlaskit/select": "^13.0.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/webdriver-runner": "*",
     "@testing-library/react": "^8.0.1",

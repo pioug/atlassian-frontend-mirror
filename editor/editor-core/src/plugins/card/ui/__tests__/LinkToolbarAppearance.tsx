@@ -11,6 +11,7 @@ import {
   inlineCard,
   blockCard,
   blockquote,
+  panel as panelNode,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { pluginKey } from '../../pm-plugins/main';
 import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
@@ -25,6 +26,7 @@ describe('LinkToolbarAppearance', () => {
       providerFactory,
       editorProps: {
         UNSAFE_cards: {},
+        allowPanel: true,
       },
       pluginKey,
     });
@@ -163,7 +165,7 @@ describe('LinkToolbarAppearance', () => {
     expect(dropdown.prop('disabled')).toBeTruthy();
   });
 
-  it('it switches apperance on dropdown option click', () => {
+  it('it switches appearance on dropdown option click', () => {
     const { editorView } = editor(
       doc(
         p(
@@ -192,9 +194,53 @@ describe('LinkToolbarAppearance', () => {
 
     expect(editorView.state.doc).toEqualDocument(
       doc(
+        p(),
         blockCard({
           url: 'http://www.atlassian.com/',
         })(),
+        p(),
+      ),
+    );
+  });
+
+  it('switches to block appearance in the existing position on appearance change', () => {
+    const { editorView } = editor(
+      doc(
+        panelNode()(
+          p(
+            '{<node>}',
+            inlineCard({
+              url: 'http://www.atlassian.com/',
+            })(),
+          ),
+        ),
+      ),
+    );
+
+    const toolbar = shallow(
+      <LinkToolbarAppearance
+        intl={fakeIntl}
+        currentAppearance="inline"
+        editorState={editorView.state}
+        url="some-url"
+      />,
+    );
+    const dropdown = toolbar.find(Dropdown);
+
+    (dropdown.prop('options') as any)[1].onClick(
+      editorView.state,
+      editorView.dispatch,
+    );
+
+    expect(editorView.state.doc).toEqualDocument(
+      doc(
+        panelNode()(
+          p(),
+          blockCard({
+            url: 'http://www.atlassian.com/',
+          })(),
+          p(),
+        ),
       ),
     );
   });

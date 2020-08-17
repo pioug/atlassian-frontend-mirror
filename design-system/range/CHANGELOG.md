@@ -1,5 +1,12 @@
 # @atlaskit/range
 
+## 5.0.1
+
+### Patch Changes
+
+- [`6262f382de`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6262f382de) - Use the 'lodash' package instead of single-function 'lodash.\*' packages
+- [`e99262c6f0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e99262c6f0) - All form elements now have a default font explicitly set
+
 ## 5.0.0
 
 ### Major Changes

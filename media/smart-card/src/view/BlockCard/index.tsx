@@ -108,8 +108,10 @@ export const BlockCard: FC<BlockCardProps> = ({
       }
       return (
         <BlockCardErroredView
+          link={url}
           isSelected={isSelected}
           onRetry={handleErrorRetry}
+          onClick={handleFrameClick}
           testId={testId}
         />
       );

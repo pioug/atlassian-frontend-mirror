@@ -25,6 +25,7 @@ export const initialState: FindReplacePluginState = {
   matches: [],
   decorationSet: DecorationSet.empty,
   focusElementRef: undefined,
+  shouldMatchCase: false,
 };
 
 const handleDocChanged = (
@@ -40,8 +41,8 @@ const handleDocChanged = (
     return pluginState;
   }
 
-  let { index, decorationSet, matches } = pluginState;
-  const newMatches = findMatches(tr.doc, findText);
+  let { index, decorationSet, matches, shouldMatchCase } = pluginState;
+  const newMatches = findMatches(tr.doc, findText, shouldMatchCase);
   decorationSet = decorationSet.map(tr.mapping, tr.doc);
   const numDecorations = decorationSet.find().length;
 

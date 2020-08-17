@@ -4,8 +4,6 @@ import {
   takeElementScreenShot,
 } from '@atlaskit/visual-regression/helper';
 
-declare var global: any;
-
 const buttonLink = "[data-testid='item-button']";
 const buttonLinkAtScale = "[data-testid='item-button-at-scale']";
 const buttonLinkAtScaleBeforeAfter =

@@ -3,15 +3,14 @@ import React from 'react';
 import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
 import { doc, p } from '@atlaskit/editor-test-helpers/schema-builder';
 import MentionIcon from '@atlaskit/icon/glyph/editor/mention';
-import { analyticsService } from '../../../../../analytics';
 import ToolbarMention from '../../../../../plugins/mentions/ui/ToolbarMention';
 
 describe('ToolbarMention', () => {
   const createEditor = createEditorFactory();
-  const editor = (doc: any, analyticsHandler = () => {}) =>
+  const editor = (doc: any) =>
     createEditor({
       doc,
-      editorProps: { analyticsHandler, mentionProvider: new Promise(() => {}) },
+      editorProps: { mentionProvider: new Promise(() => {}) },
     });
 
   it('should create a typeAheadQuery by clicking on the ToolbarMention icon', () => {
@@ -23,19 +22,5 @@ describe('ToolbarMention', () => {
       state.doc.rangeHasMark(0, 2, state.schema.marks.typeAheadQuery),
     ).toBe(true);
     toolbarMention.unmount();
-  });
-
-  describe('analytics', () => {
-    it('should trigger analyticsService.trackEvent when mention icon is clicked', () => {
-      const trackEvent = jest.fn();
-      analyticsService.trackEvent = trackEvent;
-      const { editorView } = editor(doc(p('')), trackEvent);
-      const toolbarOption = mount(<ToolbarMention editorView={editorView} />);
-      toolbarOption.find(MentionIcon).simulate('click');
-      expect(trackEvent).toHaveBeenCalledWith(
-        'atlassian.fabric.mention.picker.trigger.button',
-      );
-      toolbarOption.unmount();
-    });
   });
 });

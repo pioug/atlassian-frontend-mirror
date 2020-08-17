@@ -1,5 +1,34 @@
 # @atlaskit/popup
 
+## 1.0.0
+
+### Major Changes
+
+- [`740e011f8d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/740e011f8d) - This first major release of popup brings in major changes from @atlaskit/popper. These changes come with performance, maintainability and behavioral improvements.
+
+  As popup wraps popper's functionality, these changes result in a breaking change for popup as well.
+
+  These changes have ⚙️ codemod support:
+
+  - ⚙️ `offset` is no longer a string, but an array of two integers (i.e. '0px 8px' is now [0, 8])
+  - ⚙️ `boundariesElement` has been replaced with two props: `boundary` and `rootBoundary`. The three supported values
+    from the boundariesElement prop have been split between the two as follows:
+
+    - `boundariesElement = "scrollParents"` has been renamed: use `boundary = "clippingParents"`.
+    - `boundariesElement = "window"` has been renamed: use `rootBoundary = "document"`, and acts in a similar fashion.
+    - `boundariesElement = "viewport"` has been moved: use `rootBoundary = "document"`.
+    - **✨new** the `boundary` prop now supports custom elements.
+
+  - Components passed into the `content` have a change to render props:
+
+    - ⚙️ `scheduleUpdate`, for async updates, has been renamed to `update`, and now returns a Promise.
+
+  - For more information on the change, see [the popper.js docs](https://popper.js.org/docs/v2/utils/detect-overflow/#boundary)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.6.1
 
 ### Patch Changes

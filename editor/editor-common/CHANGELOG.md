@@ -1,5 +1,27 @@
 # @atlaskit/editor-common
 
+## 49.0.0
+
+### Major Changes
+
+- [`6faafb144c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6faafb144c) - Introduce MediaFeatureFlags. Refactor components to use.
+
+### Minor Changes
+
+- [`fe31ba459f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fe31ba459f) - ED-8198 Include Spec based validator behind toggle for Renderer
+- [`b932cbbc42`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b932cbbc42) - Added support for rendering image captions
+- [`0cddad271a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0cddad271a) - Move SearchProvider types to editor-common
+- [`b3dad32cdd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b3dad32cdd) - ED-9746: Add support to categories for quick insert items and extensions
+- [`7abb7a2a51`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7abb7a2a51) - ED-9679: Add TTI measurements to editor-core
+
+### Patch Changes
+
+- [`6fbaccca68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6fbaccca68) - ED-7786 (ED-7785, ED-7786) fix table content overlow (e.g. dates) when columns widths are smaller than the content
+- [`178a5c4a90`](https://bitbucket.org/atlassian/atlassian-frontend/commits/178a5c4a90) - ED-9862: Check if longtask type is available in performance observer
+- [`861d585ba8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/861d585ba8) - Changed mediaSingle to now render it's child adf nodes using nodeviews rather than directly with react
+- [`69ff62ba36`](https://bitbucket.org/atlassian/atlassian-frontend/commits/69ff62ba36) - ED-9788: Fix issue where bodied macros wouldn't update properly if cursor was inside
+- Updated dependencies
+
 ## 48.0.0
 
 ### Major Changes

@@ -1,4 +1,6 @@
 import { mount } from 'enzyme';
+import { Filmstrip } from '@atlaskit/media-filmstrip/filmstrip';
+import { MediaFeatureFlags } from '@atlaskit/media-common';
 import { Node as PMNode } from 'prosemirror-model';
 import { EditorView } from 'prosemirror-view';
 import React from 'react';
@@ -23,9 +25,10 @@ export const getMediaGroupProps = () => ({
   getPos: jest.fn(),
   anchorPos: 1,
   headPos: 1,
+  mediaOptions: {},
 });
 
-jest.mock('../media', () => () => null);
+jest.mock('../mediaNodeView/media', () => () => null);
 
 jest.mock('../../pm-plugins/plugin-key', () => ({
   stateKey: {
@@ -74,5 +77,20 @@ describe('mediaGroup', () => {
     });
 
     expect(updateNodeAttrs).not.toHaveBeenCalled();
+  });
+
+  test('should pass media feature flags to Filmstrip', () => {
+    const featureFlags: MediaFeatureFlags = {};
+    const wrapper = mount(
+      <MediaGroup
+        {...{
+          ...getMediaGroupProps(),
+          mediaOptions: {
+            featureFlags,
+          },
+        }}
+      />,
+    );
+    expect(wrapper.find(Filmstrip).props().featureFlags).toEqual(featureFlags);
   });
 });

@@ -216,6 +216,7 @@ describe('links should work', () => {
       1,
       3,
       'url',
+      undefined,
       'text',
     );
   });

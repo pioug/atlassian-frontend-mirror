@@ -1,6 +1,5 @@
 import { Step } from 'prosemirror-transform';
 import { Plugin, Transaction } from 'prosemirror-state';
-import { analyticsService } from '../../../analytics';
 import {
   DispatchAnalyticsEvent,
   ACTION_SUBJECT,
@@ -33,11 +32,6 @@ export default (dispatchAnalyticsEvent: DispatchAnalyticsEvent) => {
             ),
           },
           eventType: EVENT_TYPE.OPERATIONAL,
-        });
-
-        // Temporarily dispatch legacy GasV2 event in parallel
-        analyticsService.trackEvent('atlaskit.fabric.editor.invalidstep', {
-          message: 'Blocked transaction with invalid steps',
         });
 
         return false;

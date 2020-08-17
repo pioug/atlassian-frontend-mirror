@@ -8,3 +8,16 @@ export async function waitForNumImages(page: Page, n: number) {
 
   return await page.$$('.ProseMirror [data-testid="media-image"]');
 }
+
+export async function waitForAtLeastNumFileCards(page: Page, n: number) {
+  await page.waitUntil(async () => {
+    const fileCards = await page.$$(
+      '.ProseMirror [data-testid="media-file-card-view"][data-test-status="complete"]',
+    );
+    return fileCards.length >= n;
+  });
+
+  return await page.$$(
+    '.ProseMirror [data-testid="media-file-card-view"][data-test-status="complete"]',
+  );
+}

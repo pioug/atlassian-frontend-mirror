@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/textfield",
-  "version": "4.0.1",
+  "version": "4.0.2",
   "description": "A text field is an input that allows a user to write or edit text.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -17,12 +17,12 @@
   "homepage": "https://atlassian.design/components/textfield/",
   "atlassian": {
     "team": "Design System Team",
+    "deprecatedAutoEntryPoints": true,
     "inPublicMirror": true,
     "releaseModel": "scheduled",
     "website": {
       "name": "Text field"
-    },
-    "deprecatedAutoEntryPoints": true
+    }
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^7.0.0",

@@ -6,7 +6,6 @@ import { AnalyticsEventPayload } from '@atlaskit/analytics-next';
 import {
   ELEMENTS_CHANNEL,
   isResolvingMentionProvider,
-  isSpecialMention,
   MentionDescription,
   SLI_EVENT_TYPE,
   buildSliPayload,
@@ -25,7 +24,6 @@ import {
   ProviderFactory,
 } from '@atlaskit/editor-common';
 
-import { analyticsService } from '../../analytics';
 import { Command, EditorPlugin } from '../../types';
 import { Dispatch } from '../../event-dispatcher';
 import { PortalProviderAPI } from '../../ui/PortalProvider';
@@ -190,21 +188,16 @@ const mentionsPlugin = (options?: MentionPluginOptions): EditorPlugin => {
           tr,
           dispatch,
         ) {
-          if (!prevActive && queryChanged) {
-            analyticsService.trackEvent(
-              'atlassian.fabric.mention.picker.trigger.shortcut',
-            );
-            if (!tr.getMeta(analyticsPluginKey)) {
-              (dispatch as AnalyticsDispatch)(analyticsEventKey, {
-                payload: {
-                  action: ACTION.INVOKED,
-                  actionSubject: ACTION_SUBJECT.TYPEAHEAD,
-                  actionSubjectId: ACTION_SUBJECT_ID.TYPEAHEAD_MENTION,
-                  attributes: { inputMethod: INPUT_METHOD.KEYBOARD },
-                  eventType: EVENT_TYPE.UI,
-                },
-              });
-            }
+          if (!prevActive && queryChanged && !tr.getMeta(analyticsPluginKey)) {
+            (dispatch as AnalyticsDispatch)(analyticsEventKey, {
+              payload: {
+                action: ACTION.INVOKED,
+                actionSubject: ACTION_SUBJECT.TYPEAHEAD,
+                actionSubjectId: ACTION_SUBJECT_ID.TYPEAHEAD_MENTION,
+                attributes: { inputMethod: INPUT_METHOD.KEYBOARD },
+                eventType: EVENT_TYPE.UI,
+              },
+            });
           }
 
           const pluginState = getMentionPluginState(state);
@@ -269,19 +262,6 @@ const mentionsPlugin = (options?: MentionPluginOptions): EditorPlugin => {
           const pickerElapsedTime = typeAheadPluginState.queryStarted
             ? Date.now() - typeAheadPluginState.queryStarted
             : 0;
-
-          analyticsService.trackEvent(
-            'atlassian.fabric.mention.picker.insert',
-            {
-              mode,
-              isSpecial: isSpecialMention(item.mention) || false,
-              accessLevel: accessLevel || '',
-              mentionee: id,
-              duration: pickerElapsedTime,
-              queryLength: (typeAheadPluginState.query || '').length,
-              ...(pluginState.contextIdentifierProvider as any),
-            },
-          );
 
           fireEvent(
             buildTypeAheadInsertedPayload(

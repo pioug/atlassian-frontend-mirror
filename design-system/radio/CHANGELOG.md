@@ -1,5 +1,11 @@
 # @atlaskit/radio
 
+## 4.0.3
+
+### Patch Changes
+
+- [`e99262c6f0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e99262c6f0) - All form elements now have a default font explicitly set
+
 ## 4.0.2
 
 ### Patch Changes

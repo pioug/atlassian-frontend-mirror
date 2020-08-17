@@ -16,7 +16,7 @@ import {
 } from '../../cardActions';
 import { CardActionButton } from '../../cardActions/styled';
 import { CardAction } from '../../../actions';
-import PreventClickThrough from '../../preventClickThrough';
+import { PreventClickThrough } from '../../preventClickThrough';
 
 describe('CardActions', () => {
   const openAction = {

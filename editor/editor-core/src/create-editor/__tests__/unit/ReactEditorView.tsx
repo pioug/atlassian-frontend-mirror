@@ -31,7 +31,6 @@ import {
   EVENT_TYPE,
   INPUT_METHOD,
 } from '../../../plugins/analytics';
-import { analyticsService } from '../../../analytics';
 import { EditorAppearance } from '../../../types';
 import {
   analyticsEventKey,
@@ -280,18 +279,6 @@ describe('@atlaskit/editor-core', () => {
 
       it('should not throw error', () => {
         expect(() => dispatchInvalidTransaction()).not.toThrowError();
-      });
-
-      it('sends V2 analytics event', () => {
-        jest.spyOn(analyticsService, 'trackEvent');
-        dispatchInvalidTransaction();
-
-        expect(analyticsService.trackEvent).toHaveBeenCalledWith(
-          'atlaskit.fabric.editor.invalidtransaction',
-          {
-            invalidNodes: JSON.stringify([createInvalidCodeBlock()]),
-          },
-        );
       });
 
       it('sends V3 analytics event with info on failed transaction', () => {

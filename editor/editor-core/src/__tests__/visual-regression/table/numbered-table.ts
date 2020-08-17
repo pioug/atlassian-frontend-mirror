@@ -12,10 +12,11 @@ import {
 import adf from './__fixtures__/numbered-table.adf.json';
 import tableWithContentAdf from './__fixtures__/numbered-table-with-content.adf.json';
 import multipleTablesAdf from './__fixtures__/numbered-table-multiple.adf.json';
-import { Page } from '../../__helpers/page-objects/_types';
+import { waitForFloatingControl } from '../../__helpers/page-objects/_toolbar';
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 
 describe('Snapshot Test: numbered table', () => {
-  let page: Page;
+  let page: PuppeteerPage;
 
   beforeAll(async () => {
     page = global.page;
@@ -23,19 +24,22 @@ describe('Snapshot Test: numbered table', () => {
 
   it('looks correct for fullpage', async () => {
     await initFullPageEditorWithAdf(page, multipleTablesAdf, Device.LaptopMDPI);
-    await clickFirstCell(page);
+    await clickFirstCell(page, true);
+    await waitForFloatingControl(page, 'Table floating controls');
     await snapshot(page);
   });
 
   it('looks correct  for comment', async () => {
     await initCommentEditorWithAdf(page, multipleTablesAdf, Device.LaptopMDPI);
-    await clickFirstCell(page);
+    await clickFirstCell(page, true);
+    await waitForFloatingControl(page, 'Table floating controls');
     await snapshot(page, undefined, editorCommentContentSelector);
   });
 
   it('should show insert button when mouse is hover numbered button', async () => {
     await initFullPageEditorWithAdf(page, adf);
-    await clickFirstCell(page);
+    await clickFirstCell(page, true);
+    await waitForFloatingControl(page, 'Table floating controls');
     await page.hover(tableSelectors.nthRowControl(2));
     await page.waitFor(tableSelectors.insertRowButton);
     await snapshot(page);

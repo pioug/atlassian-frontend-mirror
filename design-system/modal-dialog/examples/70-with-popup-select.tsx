@@ -31,7 +31,7 @@ export default class ModalWithPopupSelect extends React.Component<{}> {
           target={({ ref }: { ref: React.RefObject<any> }) => (
             <button ref={ref}>Click me</button>
           )}
-          popperProps={{ placement: 'bottom', positionFixed: true }}
+          popperProps={{ placement: 'bottom', strategy: 'fixed' }}
           searchThreshold={10}
         />
       </ModalDialog>

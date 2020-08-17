@@ -56,6 +56,8 @@ export interface InsertBlockOptions {
   insertMenuItems?: any;
   horizontalRuleEnabled?: boolean;
   nativeStatusSupported?: boolean;
+  replacePlusMenuWithElementBrowser?: boolean;
+  showElementBrowserLink?: boolean;
 }
 
 /**
@@ -169,6 +171,10 @@ const insertBlockPlugin = (options: InsertBlockOptions = {}): EditorPlugin => ({
               insertMenuItems={options.insertMenuItems}
               editorActions={editorActions}
               dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+              replacePlusMenuWithElementBrowser={
+                options.replacePlusMenuWithElementBrowser
+              }
+              showElementBrowserLink={options.showElementBrowserLink}
             />
           )}
         />

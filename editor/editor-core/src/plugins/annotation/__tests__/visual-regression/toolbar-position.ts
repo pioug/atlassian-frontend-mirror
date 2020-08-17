@@ -1,5 +1,5 @@
 import { EditorView } from 'prosemirror-view';
-import { Page } from 'puppeteer';
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import {
   ExampleCreateInlineCommentComponent,
   ExampleViewInlineCommentComponent,
@@ -16,7 +16,7 @@ import adf from '../__fixtures__/toolbar-position.adf.json';
 import adfWithTable from '../__fixtures__/toolbar-position-table.adf.json';
 import { annotationSelectors, getState } from '../_utils';
 
-const evaluateCoordinates = async (page: Page, pos: number) => {
+const evaluateCoordinates = async (page: PuppeteerPage, pos: number) => {
   return await page.evaluate(p => {
     const editor = (window as any).__editorView as EditorView;
     const coords = editor.coordsAtPos(p);
@@ -32,7 +32,7 @@ const evaluateCoordinates = async (page: Page, pos: number) => {
 };
 
 const selectAtPos = async (
-  page: Page,
+  page: PuppeteerPage,
   startPos: number,
   endPos: number,
   waitForCreateCommentButton = true,
@@ -51,7 +51,7 @@ const selectAtPos = async (
 };
 
 const selectAtPosForBreakout = async (
-  page: Page,
+  page: PuppeteerPage,
   startPos: number,
   endPos: number,
 ) => {
@@ -75,7 +75,7 @@ const selectAtPosForBreakout = async (
   );
 };
 
-const init = async (page: Page, adf: Object) => {
+const init = async (page: PuppeteerPage, adf: Object) => {
   return await initFullPageEditorWithAdf(
     page,
     adf,
@@ -94,7 +94,7 @@ const init = async (page: Page, adf: Object) => {
 };
 
 describe('Annotation toolbar positioning', () => {
-  let page: Page;
+  let page: PuppeteerPage;
 
   describe(`should disable comment button`, () => {
     it(`when selection includes inline nodes`, async () => {

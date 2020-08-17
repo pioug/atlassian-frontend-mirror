@@ -259,6 +259,81 @@ describe('Renderer - React/Marks/Annottation', () => {
       expect(dataSet.hasFocus).toBe('true');
     });
 
+    describe('when a SET_ANNOTATION_FOCUS happens twice', () => {
+      it('should remove the focus from the previous annotation', async () => {
+        const secondAnnotationId = 'secondAnnotationId';
+
+        act(() => {
+          render(
+            <AnnotationContext.Provider
+              value={{
+                onAnnotationClick: jest.fn(),
+                updateSubscriber,
+                enableAutoHighlight: false,
+              }}
+            >
+              <Annotation
+                dataAttributes={{
+                  'data-renderer-mark': true,
+                }}
+                id={secondAnnotationId}
+                annotationType={AnnotationTypes.INLINE_COMMENT}
+                getAnnotationState={() => annotationStatePromise}
+              >
+                <small>first text test</small>
+              </Annotation>
+              <Annotation
+                dataAttributes={{
+                  'data-renderer-mark': true,
+                }}
+                id={annotationId}
+                annotationType={AnnotationTypes.INLINE_COMMENT}
+                getAnnotationState={() => annotationStatePromise}
+              >
+                <small>second test</small>
+              </Annotation>
+            </AnnotationContext.Provider>,
+            container,
+          );
+        });
+
+        await annotationStatePromise;
+
+        act(() => {
+          jest.runAllTimers();
+        });
+
+        act(() => {
+          updateSubscriber.emit(AnnotationUpdateEvent.SET_ANNOTATION_FOCUS, {
+            annotationId,
+          });
+          jest.runAllTimers();
+        });
+
+        let annotation = container.querySelector(
+          `[data-id="${annotationId}"]`,
+        ) as HTMLElement;
+        expect(annotation!.dataset.hasFocus).toBe('true');
+
+        act(() => {
+          updateSubscriber.emit(AnnotationUpdateEvent.SET_ANNOTATION_FOCUS, {
+            annotationId: secondAnnotationId,
+          });
+          jest.runAllTimers();
+        });
+
+        annotation = container.querySelector(
+          `[data-id="${annotationId}"]`,
+        ) as HTMLElement;
+        expect(annotation!.dataset.hasFocus).toBe('false');
+
+        annotation = container.querySelector(
+          `[data-id="${secondAnnotationId}"]`,
+        ) as HTMLElement;
+        expect(annotation!.dataset.hasFocus).toBe('true');
+      });
+    });
+
     describe('when SET_ANNOTATION_STATE is dispatched', () => {
       it('should set the state based on the payload', () => {
         const payload = {

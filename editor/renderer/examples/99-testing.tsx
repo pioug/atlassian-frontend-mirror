@@ -8,6 +8,7 @@ import {
   MediaMock,
   generateFilesFromTestData,
   fakeImage,
+  wideImage,
 } from '@atlaskit/media-test-helpers';
 import {
   testMediaFileId,
@@ -15,6 +16,7 @@ import {
   storyMediaProviderFactory,
   storyContextIdentifierProviderFactory,
   extensionHandlers,
+  testMediaPictureFileId,
 } from '@atlaskit/editor-test-helpers';
 import { default as Renderer } from '../src/ui/Renderer';
 import { document as defaultDoc } from './helper/story-data';
@@ -36,6 +38,12 @@ const mediaMockServer = new MediaMock({
       id: testMediaGroupFileId,
       name: 'text_file.txt',
       mediaType: 'doc',
+    },
+    {
+      id: testMediaPictureFileId,
+      name: 'wide_image.png',
+      mediaType: 'image',
+      dataUri: wideImage,
     },
   ]),
 });

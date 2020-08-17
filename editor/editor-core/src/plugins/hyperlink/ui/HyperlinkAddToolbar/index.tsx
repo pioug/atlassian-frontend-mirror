@@ -7,10 +7,16 @@ export interface Props {
   onBlur?: (
     type: string,
     url: string,
-    text: string,
+    title: string | undefined,
+    displayText: string | undefined,
     isTabPressed?: boolean,
   ) => void;
-  onSubmit: (href: string, text: string, inputMethod: LinkInputType) => void;
+  onSubmit: (
+    href: string,
+    title: string | undefined,
+    displayText: string | undefined,
+    inputMethod: LinkInputType,
+  ) => void;
   displayText: string;
   displayUrl?: string;
 }

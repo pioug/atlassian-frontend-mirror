@@ -38,6 +38,8 @@ import {
 } from '@atlaskit/analytics-gas-types';
 import { AudioViewer } from './viewers/audio';
 import { InteractiveImg } from './viewers/image/interactive-img';
+import ArchiveViewerLoader from './viewers/archiveSidebar/archiveViewerLoader';
+import { MediaFeatureFlags, getMediaFeatureFlag } from '@atlaskit/media-common';
 
 export type Props = Readonly<{
   identifier: Identifier;
@@ -46,6 +48,7 @@ export type Props = Readonly<{
   previewCount: number;
   isSidebarVisible?: boolean;
   contextId?: string;
+  featureFlags?: MediaFeatureFlags;
 }> &
   WithAnalyticsEventsProps &
   WithShowControlMethodProp;
@@ -144,6 +147,7 @@ export class ItemViewerBase extends React.Component<Props, State> {
       previewCount,
       isSidebarVisible,
       contextId,
+      featureFlags,
     } = this.props;
     const collectionName = isFileIdentifier(identifier)
       ? identifier.collectionName
@@ -192,6 +196,11 @@ export class ItemViewerBase extends React.Component<Props, State> {
             {...viewerProps}
           />
         );
+      case 'archive':
+        if (getMediaFeatureFlag('zipPreviews', featureFlags)) {
+          return <ArchiveViewerLoader {...viewerProps} />;
+        }
+        return this.renderError('unsupported', item);
       default:
         return this.renderError('unsupported', item);
     }

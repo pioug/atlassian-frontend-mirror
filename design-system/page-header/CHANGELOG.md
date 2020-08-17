@@ -1,5 +1,11 @@
 # @atlaskit/page-header
 
+## 10.0.2
+
+### Patch Changes
+
+- [`f9fe8ed609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f9fe8ed609) - Added tabIndex and innerRef to underlying heading so it can be focused
+
 ## 10.0.1
 
 ### Patch Changes

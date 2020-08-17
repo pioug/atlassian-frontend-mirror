@@ -16,14 +16,13 @@ import {
   Identifier,
   isDifferentIdentifier,
   isFileIdentifier,
-  isImageRepresentationReady,
-  isPreviewableType,
+  isMimeTypeSupportedByBrowser,
+  isErrorFileState,
   MediaClient,
   MediaViewedEventPayload,
   RECENTS_COLLECTION,
 } from '@atlaskit/media-client';
 import { MediaViewer, MediaViewerDataSource } from '@atlaskit/media-viewer';
-
 import { Subscription } from 'rxjs/Subscription';
 import { IntlProvider } from 'react-intl';
 import {
@@ -36,18 +35,18 @@ import {
 } from '../..';
 import { CardView, CardViewBase } from '../cardView';
 import { LazyContent } from '../../utils/lazyContent';
+import { isIntersectionObserverSupported } from '../../utils/intersectionObserver';
 import { getDataURIDimension } from '../../utils/getDataURIDimension';
 import {
-  FilePreview,
-  getFilePreviewFromFileState,
-} from '../../utils/getFilePreviewFromFileState';
+  CardPreview,
+  getCardPreviewFromFileState,
+  getCardPreviewFromBackend,
+} from './getCardPreview';
 import { extendMetadata } from '../../utils/metadata';
 import { isBigger } from '../../utils/dimensionComparer';
-import {
-  getCardStatus,
-  getCardStatusFromFileState,
-  updateCardStatusFromFileState,
-} from './getCardStatus';
+import { createObjectURLCache } from '../../utils/objectURLCache';
+import { getCardStatus, getCardStatusFromFileState } from './getCardStatus';
+import { updateProgressFromFileState } from './getCardProgress';
 import { InlinePlayer, InlinePlayerBase } from '../inlinePlayer';
 import {
   createAndFireCustomMediaEvent,
@@ -62,9 +61,10 @@ import {
   AnalyticsLoadingStatus,
 } from '../../utils/analytics';
 import { MediaAnalyticsContext } from '@atlaskit/analytics-namespaced-context';
-import { objectURLCache } from './objectURLCache';
 
 export type CardWithAnalyticsEventsProps = CardProps & WithAnalyticsEventsProps;
+
+const cardPreviewCache = createObjectURLCache();
 
 export class CardBase extends Component<
   CardWithAnalyticsEventsProps,
@@ -76,6 +76,8 @@ export class CardBase extends Component<
   private lastFileState?: FileState;
   private lastCardStatusUpdateTimestamp?: number;
   private processingProgressTimer?: number;
+  private intersectionObserver?: IntersectionObserver;
+
   cardRef: React.RefObject<CardViewBase | InlinePlayerBase> = React.createRef();
 
   subscription?: Subscription;
@@ -84,15 +86,34 @@ export class CardBase extends Component<
     resizeMode: 'crop',
     isLazy: true,
     disableOverlay: false,
-    featureFlags: { newExp: false },
+    // Media Feature Flag defaults are defined in @atlaskit/media-common
+    featureFlags: {},
   };
 
-  state: CardState = {
-    status: 'loading',
-    isCardVisible: !this.props.isLazy,
-    previewOrientation: 1,
-    isPlayingFile: false,
-  };
+  constructor(props: CardWithAnalyticsEventsProps) {
+    super(props);
+
+    let cardPreview: CardPreview | undefined;
+
+    const { identifier, dimensions = {} } = this.props;
+
+    if (isFileIdentifier(identifier)) {
+      const { id } = identifier;
+      const cacheKey = this.getPreviewCacheKey(id, dimensions);
+      cardPreview = cardPreviewCache.get(cacheKey);
+    }
+
+    /**
+     * If cardPreview is available from local cache, `isCardVisible`
+     * should be true to avoid flickers during re-mount of the component
+     */
+    this.state = {
+      status: 'loading',
+      isCardVisible: cardPreview ? true : !this.props.isLazy,
+      isPlayingFile: false,
+      cardPreview,
+    };
+  }
 
   // we add a listener for each of the cards on the page
   // and then check if the triggered listener is from the card
@@ -114,11 +135,54 @@ export class CardBase extends Component<
     }
   };
 
+  private getPreviewCacheKey = (id: string, dimensions: CardDimensions) => {
+    // Dimensions are used to create a key.
+    // Cache is invalidated when different dimensions are provided.
+    return [id, dimensions.height, dimensions.width].join('-');
+  };
+
+  // We want to detect when the component enters the viewport so we know when we
+  // can fetch the /image preview
+  private checkIfCardIsInViewport = () => {
+    const { isLazy } = this.props;
+    const target = this.cardRef.current && this.cardRef.current.divRef.current;
+
+    if (!isLazy || !isIntersectionObserverSupported() || !target) {
+      return;
+    }
+
+    const onIntersection: IntersectionObserverCallback = (
+      entries,
+      observer,
+    ) => {
+      for (let entry of entries) {
+        if (entry.isIntersecting) {
+          this.setState({ isCardVisible: true });
+          observer.disconnect();
+          break;
+        }
+      }
+    };
+    // IntersectionObserver uses root and target elements to detect intersections, defaulting root to the viewport
+    this.intersectionObserver = new IntersectionObserver(onIntersection);
+
+    if (target) {
+      this.intersectionObserver.observe(target);
+    }
+  };
+
+  private cleanupCardInViewportObserver = () => {
+    if (this.intersectionObserver) {
+      this.intersectionObserver.disconnect();
+    }
+  };
+
   componentDidMount() {
     this.hasBeenMounted = true;
     this.fireCardCommencedAnalytics();
     this.updateStateForIdentifier();
     document.addEventListener('copy', this.onCopyListener);
+    this.checkIfCardIsInViewport();
   }
 
   componentDidUpdate(prevProps: CardProps, prevState: CardState) {
@@ -150,11 +214,14 @@ export class CardBase extends Component<
 
       return {
         status: 'complete',
-        dataURI,
         metadata: {
           id: mediaItemType,
           name: name || dataURI,
           mediaType: 'image',
+        },
+        cardPreview: {
+          dataURI,
+          orientation: 1,
         },
       };
     }
@@ -173,6 +240,7 @@ export class CardBase extends Component<
     this.hasBeenMounted = false;
     this.unsubscribe();
     document.removeEventListener('copy', this.onCopyListener);
+    this.cleanupCardInViewportObserver();
   }
 
   getId(): string {
@@ -197,6 +265,12 @@ export class CardBase extends Component<
       this.subscribeInternalFile(identifier, mediaClient);
     }
   }
+
+  private isLatestCardStatusUpdate = (
+    cardStatusUpdateTimestamp: number,
+  ): boolean =>
+    !this.lastCardStatusUpdateTimestamp ||
+    this.lastCardStatusUpdateTimestamp <= cardStatusUpdateTimestamp;
 
   private getRequestedDimensions(): NumericalCardDimensions {
     const { dimensions } = this.props;
@@ -238,133 +312,94 @@ export class CardBase extends Component<
     });
   }
 
-  private async getObjectUrlFromBackendImageBlob(
+  private getCardPreview = async (
     mediaClient: MediaClient,
-    id: string,
-    { width, height }: NumericalCardDimensions,
-    collectionName: string | undefined,
-  ): Promise<string | undefined> {
-    const { resizeMode } = this.props;
-    const mode = resizeMode === 'stretchy-fit' ? 'full-fit' : resizeMode;
+    identifier: FileIdentifier,
+    fileState: FileState,
+    metadata: FileDetails,
+  ): Promise<CardPreview | undefined> => {
+    const { dimensions = {}, originalDimensions, resizeMode } = this.props;
+    const { cardPreview: currentCardPreview } = this.state;
+    const { id, collectionName } = identifier;
 
-    try {
-      const blob = await mediaClient.getImage(id, {
-        collection: collectionName,
-        mode,
-        height,
-        width,
-        allowAnimated: true,
-      });
-
-      return URL.createObjectURL(blob);
-    } catch (e) {
-      // We don't want to set status=error if the preview fails, we still want to display the metadata
+    if (currentCardPreview) {
+      return currentCardPreview;
     }
-  }
+
+    // No cardPreview in state? Let's try to get one from the cache.
+    const cacheKey = this.getPreviewCacheKey(id, dimensions);
+    if (cardPreviewCache.has(cacheKey)) {
+      return cardPreviewCache.get(cacheKey);
+    }
+
+    // don't use error fileStates
+    if (isErrorFileState(fileState)) {
+      return;
+    }
+
+    const { mediaType, mimeType } = fileState;
+    const requestedDimensions = this.getRequestedDimensions();
+
+    const shouldUseLocalPreview =
+      mediaType !== 'doc' &&
+      !!mimeType &&
+      isMimeTypeSupportedByBrowser(mimeType);
+
+    const cardPreview =
+      (shouldUseLocalPreview &&
+        (await getCardPreviewFromFileState(fileState))) ||
+      (await getCardPreviewFromBackend(
+        mediaClient,
+        identifier,
+        fileState,
+        requestedDimensions,
+        resizeMode,
+      ));
+
+    if (cardPreview) {
+      if (cardPreview.dataURI) {
+        // In case we've retrieved cardPreview using one of the two methods above,
+        // we want to embed some meta context into dataURI for Copy/Paste to work.
+        const contextDimensions = originalDimensions || requestedDimensions;
+        cardPreview.dataURI = this.addContextToDataURI(
+          cardPreview.dataURI,
+          id,
+          metadata,
+          contextDimensions,
+          collectionName,
+        );
+      }
+
+      // We store new cardPreview into cache
+      cardPreviewCache.set(cacheKey, cardPreview);
+
+      return cardPreview;
+    }
+  };
 
   subscribeInternalFile(identifier: FileIdentifier, mediaClient: MediaClient) {
+    const { featureFlags } = this.props;
     const { id, collectionName, occurrenceKey } = identifier;
     this.subscription = mediaClient.file
       .getFileState(id, { collectionName, occurrenceKey })
       .subscribe({
         next: async fileState => {
-          let {
-            dataURI,
-            progress: lastProgress,
-            status: lastStatus,
-          } = this.state;
-          const { dimensions = {} } = this.props;
+          let { progress: lastProgress, status: lastStatus } = this.state;
           this.lastFileState = fileState;
 
           const thisCardStatusUpdateTimestamp = (performance || Date).now();
           const metadata = extendMetadata(fileState, this.state.metadata);
+          const status = getCardStatusFromFileState(fileState, featureFlags);
           this.safeSetState({ metadata });
 
-          const shouldFetchRemotePreview =
-            isImageRepresentationReady(fileState) &&
-            metadata.mediaType &&
-            isPreviewableType(metadata.mediaType);
-
-          // Dimensions are used to create a key. We want to be able to
-          // request new image from backend when different dimensions are provided.
-          const cacheKey = [id, dimensions.height, dimensions.width].join('-');
-
-          if (!dataURI && objectURLCache.has(cacheKey)) {
-            // No dataURI in state. Let's try and get one.
-            // First, we try to get one from the cache
-            dataURI = objectURLCache.get(cacheKey);
-          }
-
-          if (!dataURI) {
-            // Second, we try to get one from Preview possibly stored in FileState
-            let filePreview: FilePreview;
-
-            try {
-              filePreview = await getFilePreviewFromFileState(fileState);
-            } catch (err) {
-              // no preview could be fetched from FileState
-              filePreview = { orientation: 1 };
-            }
-
-            let { originalDimensions } = this.props;
-            let requestedDimensions: NumericalCardDimensions | undefined;
-
-            if (filePreview.src) {
-              dataURI = filePreview.src;
-              this.safeSetState({
-                previewOrientation: filePreview.orientation,
-              });
-
-              // Third, if there is no Preview in FileState we fetch one from /image backend
-            } else if (shouldFetchRemotePreview) {
-              requestedDimensions = this.getRequestedDimensions();
-              dataURI = await this.getObjectUrlFromBackendImageBlob(
-                mediaClient,
-                id,
-                requestedDimensions,
-                collectionName,
-              );
-            }
-
-            if (dataURI) {
-              // In case we've retrieved dataURI using one of the two methods above,
-              // we want to embed some meta context into this URL for Copy/Paste to work.
-              const contextDimensions =
-                originalDimensions ||
-                requestedDimensions ||
-                this.getRequestedDimensions();
-              dataURI = this.addContextToDataURI(
-                dataURI,
-                id,
-                metadata,
-                contextDimensions,
-                collectionName,
-              );
-
-              // We store new dataURI into cache
-              objectURLCache.set(cacheKey, dataURI);
-            }
-          }
-
-          if (dataURI) {
-            // Finally we store retrieved dataURI into state
-            this.safeSetState({
-              dataURI,
-            });
-          }
-
-          const status = getCardStatusFromFileState(fileState);
-          this.fireLoadingStatusAnalyticsEvent({
-            cardStatus: status,
-            metadata,
-            dataURI,
+          const cardPreview = await this.getCardPreview(
+            mediaClient,
+            identifier,
             fileState,
-          });
+            metadata,
+          );
 
-          if (
-            !this.lastCardStatusUpdateTimestamp ||
-            this.lastCardStatusUpdateTimestamp <= thisCardStatusUpdateTimestamp
-          ) {
+          if (this.isLatestCardStatusUpdate(thisCardStatusUpdateTimestamp)) {
             // These status and progress must not override values representing more recent FileState
             /* next() start        some await() delay in next()        status & progress update
              * -------                    ------------------           ------------------------
@@ -379,20 +414,30 @@ export class CardBase extends Component<
              *   |                                 |----[1]FileState:uploading------>| We do not want to update status to `uploading` again!
              *
              */
-            this.processingProgressTimer = updateCardStatusFromFileState(
+            this.fireLoadingStatusAnalyticsEvent({
+              cardStatus: status,
+              metadata,
+              dataURI: cardPreview && cardPreview.dataURI,
+              fileState,
+            });
+
+            this.safeSetState({
+              status,
+              cardPreview,
+            });
+
+            this.processingProgressTimer = updateProgressFromFileState(
               fileState,
               status,
-              // status is not modified inside this function. There is no need to set state here
-              // TODO: move setState(status) out of this callback
-              (status: CardStatus, progress: number) =>
+              (progress: number) =>
                 this.safeSetState({
-                  status,
                   progress,
                 }),
               {
                 lastStatus,
                 lastProgress,
                 lastTimer: this.processingProgressTimer,
+                featureFlags,
               },
             );
             this.lastCardStatusUpdateTimestamp = thisCardStatusUpdateTimestamp;
@@ -400,7 +445,7 @@ export class CardBase extends Component<
         },
         error: error => {
           const metadata: FileDetails = { id };
-          const cardStatus = 'error';
+          const cardStatus: CardStatus = 'error';
           this.fireLoadingStatusAnalyticsEvent({ metadata, cardStatus, error });
           this.safeSetState({ error, status: cardStatus });
         },
@@ -482,7 +527,7 @@ export class CardBase extends Component<
     }
 
     if (this.hasBeenMounted) {
-      this.setState({ dataURI: undefined });
+      this.setState({ cardPreview: undefined });
     }
     this.lastLoadingStatus = undefined;
   };
@@ -519,7 +564,7 @@ export class CardBase extends Component<
     analyticsEvent?: UIAnalyticsEvent,
   ) => {
     const { identifier, useInlinePlayer, shouldOpenMediaViewer } = this.props;
-    const { metadata, dataURI } = this.state;
+    const { metadata, cardPreview } = this.state;
 
     this.onClick(event, analyticsEvent);
 
@@ -528,7 +573,7 @@ export class CardBase extends Component<
     }
 
     const isVideo = metadata && (metadata as FileDetails).mediaType === 'video';
-    if (useInlinePlayer && isVideo && !!dataURI) {
+    if (useInlinePlayer && isVideo && !!cardPreview) {
       this.setState({
         isPlayingFile: true,
       });
@@ -574,7 +619,7 @@ export class CardBase extends Component<
     return (
       <InlinePlayer
         mediaClient={mediaClient}
-        dimensions={dimensions || {}}
+        dimensions={dimensions}
         identifier={identifier as FileIdentifier}
         onError={this.onInlinePlayerError}
         onClick={this.onClick}
@@ -662,7 +707,14 @@ export class CardBase extends Component<
       featureFlags,
     } = this.props;
     const { mediaItemType } = identifier;
-    const { progress, metadata, dataURI, previewOrientation } = this.state;
+    const {
+      metadata,
+      progress,
+      cardPreview: { dataURI, orientation } = {
+        dataURI: undefined,
+        orientation: 1,
+      },
+    } = this.state;
     const {
       onRetry,
       onCardViewClick,
@@ -691,14 +743,15 @@ export class CardBase extends Component<
         progress={progress}
         onRetry={onRetry}
         onDisplayImage={onDisplayImage}
-        previewOrientation={previewOrientation}
+        previewOrientation={orientation}
         ref={this.cardRef}
         testId={testId}
         featureFlags={featureFlags}
       />
     );
+    const shouldUseLazyContent = isLazy && !isIntersectionObserverSupported(); // We use LazyContent for old browsers
 
-    return isLazy ? (
+    return shouldUseLazyContent ? (
       <LazyContent placeholder={card} onRender={this.onCardInViewport}>
         {card}
       </LazyContent>
@@ -741,7 +794,7 @@ export class CardBase extends Component<
     );
   }
 
-  onCardInViewport = () => {
+  private onCardInViewport = () => {
     this.setState({ isCardVisible: true });
   };
 

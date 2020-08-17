@@ -19,7 +19,7 @@ type Providers = {
 export default class Media extends PureComponent<MediaProps, {}> {
   private renderCard = (providers: Providers = {}) => {
     const { mediaProvider, contextIdentifierProvider } = providers;
-    const { allowAltTextOnImages, alt } = this.props;
+    const { allowAltTextOnImages, alt, featureFlags } = this.props;
 
     return (
       <MediaCard
@@ -27,6 +27,7 @@ export default class Media extends PureComponent<MediaProps, {}> {
         contextIdentifierProvider={contextIdentifierProvider}
         {...this.props}
         alt={allowAltTextOnImages ? alt : undefined}
+        featureFlags={featureFlags}
       />
     );
   };

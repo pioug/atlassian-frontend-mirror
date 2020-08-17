@@ -1,5 +1,12 @@
 # @atlaskit/calendar
 
+## 10.0.1
+
+### Patch Changes
+
+- [`6262f382de`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6262f382de) - Use the 'lodash' package instead of single-function 'lodash.\*' packages
+- Updated dependencies
+
 ## 10.0.0
 
 ### Major Changes

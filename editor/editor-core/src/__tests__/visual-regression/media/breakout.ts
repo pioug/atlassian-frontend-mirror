@@ -1,4 +1,4 @@
-import { Page } from '../../__helpers/page-objects/_types';
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { snapshot, initEditorWithAdf, Appearance } from '../_utils';
 import {
   resizeMediaInPosition,
@@ -10,7 +10,7 @@ import { toggleBreakout } from '../../__helpers/page-objects/_layouts';
 import adf from './__fixtures__/breakout-nodes-with-media.adf.json';
 
 describe('Snapshot Test: Media inside of breakout nodes', () => {
-  let page: Page;
+  let page: PuppeteerPage;
 
   beforeAll(async () => {
     page = global.page;

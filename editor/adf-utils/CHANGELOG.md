@@ -1,5 +1,21 @@
 # @atlaskit/adf-utils
 
+## 10.2.0
+
+### Minor Changes
+
+- [`0f5b0a3f5d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0f5b0a3f5d) - CS-2944 Traversing visitor function provides current node's depth inside document tree
+- [`d55f8066fd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d55f8066fd) - ED-9569 Preserve unsupported mark attribute and value
+- [`abce19a6d1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/abce19a6d1) - Remove hard coded branching for Tuples
+  Remove `forceContentValidation`
+- [`9d278c2387`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d278c2387) - NONE: ADF traverse Visitor and VisitorCollection is now exported
+
+### Patch Changes
+
+- [`9fe56e9d64`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9fe56e9d64) - Revert TaskList and ItemList type
+- [`0cd9a41d67`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0cd9a41d67) - ED-9843 Refactor spec based validator
+- Updated dependencies
+
 ## 10.1.0
 
 ### Minor Changes

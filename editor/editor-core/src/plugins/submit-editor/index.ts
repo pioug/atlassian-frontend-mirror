@@ -2,7 +2,6 @@ import { keymap } from 'prosemirror-keymap';
 import { EditorState, Plugin } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 
-import { analyticsService } from '../../analytics';
 import { Dispatch } from '../../event-dispatcher';
 import { EditorPlugin, CommandDispatch, EditorProps } from '../../types';
 import * as keymaps from '../../keymaps';
@@ -42,7 +41,6 @@ export function createPlugin(
       }
 
       eventDispatch(analyticsEventKey, analyticsPayload(state));
-      analyticsService.trackEvent('atlassian.editor.stop.submit');
       onSave(editorView);
       return true;
     },

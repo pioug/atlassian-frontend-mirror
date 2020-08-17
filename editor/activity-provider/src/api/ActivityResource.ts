@@ -6,17 +6,18 @@ import {
   ActivityContainer,
 } from '../types';
 
-export const GET_RECENT_ITEM_BODY = {
+export const makeGetRecentItemBody = (cloudId: string) => ({
   query: `
     query editor_recentActivities($filter: [ActivitiesFilter!], $first: Int) {
       activities {
         myActivities {
-          all(filters: $filter, first: $first) {
+          viewed(filters: $filter, first: $first) {
             nodes {
               timestamp,
               object {
                 id,
                 name,
+                type,
                 url,
                 iconUrl,
                 containers {
@@ -35,21 +36,22 @@ export const GET_RECENT_ITEM_BODY = {
       {
         type: 'AND',
         arguments: {
-          objectTypes: ['ISSUE', 'PAGE', 'BLOGPOST'],
-          eventTypes: ['VIEWED', 'EDITED', 'PUBLISHED'],
+          cloudIds: [cloudId],
         },
       },
     ],
   },
-};
+});
 
 export default class ActivityResource implements ActivityProvider {
   private recentPromise?: Promise<ActivityResponse>;
   private url: string;
+  private cloudId: string;
   private options: RequestInit;
 
-  constructor(url: string, options: RequestInit = {}) {
+  constructor(url: string, cloudId: string, options: RequestInit = {}) {
     this.url = url;
+    this.cloudId = cloudId;
     this.options = options;
   }
 
@@ -66,7 +68,7 @@ export default class ActivityResource implements ActivityProvider {
         redirect: 'follow',
         referrer: 'no-referrer',
         ...this.options,
-        body: JSON.stringify(GET_RECENT_ITEM_BODY),
+        body: JSON.stringify(makeGetRecentItemBody(this.cloudId)),
       };
 
       this.recentPromise = utils.requestService(
@@ -77,15 +79,14 @@ export default class ActivityResource implements ActivityProvider {
 
     try {
       const response = await this.recentPromise;
-      return response.data.activities.myActivities.all.nodes.map<ActivityItem>(
-        node => ({
-          objectId: node.object.id,
-          name: node.object.name,
-          container: this.getContainerName(node.object.containers),
-          url: node.object.url,
-          iconUrl: node.object.iconUrl,
-        }),
-      );
+      return response.data.activities.myActivities.viewed.nodes.map(node => ({
+        objectId: atob(node.object.id),
+        name: node.object.name,
+        container: this.getContainerName(node.object.containers),
+        url: node.object.url,
+        iconUrl: node.object.iconUrl,
+        viewedTimestamp: node.timestamp,
+      }));
     } catch (e) {
       // We will add instrumentations in the next PR
       return [];

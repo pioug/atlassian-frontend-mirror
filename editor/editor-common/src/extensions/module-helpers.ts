@@ -36,6 +36,7 @@ export const buildMenuItem = (
     title,
     extensionType: manifest.type,
     keywords: extensionModule.keywords || manifest.keywords || [],
+    categories: extensionModule.categories || manifest.categories || [],
     description: extensionModule.description || manifest.description,
     icon: extensionModule.icon || manifest.icons['48'],
     node,

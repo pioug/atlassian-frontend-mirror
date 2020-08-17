@@ -3,7 +3,6 @@ import { ResolvedPos } from 'prosemirror-model';
 import { EditorState, Plugin, TextSelection } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 
-import { analyticsService } from '../../analytics';
 import { Dispatch } from '../../event-dispatcher';
 import {
   ACTION,
@@ -32,7 +31,6 @@ export function createPlugin(
     ) {
       if (canSaveOnEnter(editorView)) {
         eventDispatch(analyticsEventKey, analyticsPayload(state));
-        analyticsService.trackEvent('atlassian.editor.stop.submit');
         onSave(editorView);
         return true;
       }

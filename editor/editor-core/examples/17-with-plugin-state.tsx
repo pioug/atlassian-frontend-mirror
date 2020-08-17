@@ -8,8 +8,6 @@ import WithPluginState from '../src/ui/WithPluginState';
 import { pluginKey as typeAheadPluginKey } from '../src/plugins/type-ahead/pm-plugins/main';
 
 const SAVE_ACTION = () => console.log('Save');
-const analyticsHandler = (actionName: string, props?: {}) =>
-  console.log(actionName, props);
 
 export default function Example() {
   return (
@@ -57,7 +55,6 @@ export default function Example() {
             onChange,
           }: any) => (
             <Editor
-              analyticsHandler={analyticsHandler}
               disabled={disabled}
               media={{ provider: mediaProvider }}
               mentionProvider={mentionProvider}

@@ -1,3 +1,8 @@
+import {
+  getFileStreamsCache,
+  isPreviewableFileState,
+  observableToPromise,
+} from '@atlaskit/media-client';
 import { RECENTS_COLLECTION } from '@atlaskit/media-client/constants';
 
 import { Action, Dispatch, Store } from 'redux';
@@ -58,7 +63,7 @@ export const handleCloudFetchingEvent = (store: Store<State>) => (
   };
 
   // Handle cloud upload end
-  const handleRemoteUploadEndMessage = (
+  const handleRemoteUploadEndMessage = async (
     file: MediaFile,
     payload: RemoteUploadEndPayload,
   ) => {
@@ -67,11 +72,23 @@ export const handleCloudFetchingEvent = (store: Store<State>) => (
       id: userFileId,
       collection: RECENTS_COLLECTION,
     };
-    const uploadedFile = {
+    const uploadedFile: MediaFile = {
       ...file,
       id: userFileId,
     };
-    store.dispatch(finalizeUpload(uploadedFile, tenantFileId, source));
+
+    const tenantFileObservable = getFileStreamsCache().get(tenantFileId);
+
+    const tenantFileState = tenantFileObservable
+      ? await observableToPromise(tenantFileObservable)
+      : undefined;
+
+    const preview =
+      tenantFileState && isPreviewableFileState(tenantFileState)
+        ? tenantFileState.preview
+        : undefined;
+
+    store.dispatch(finalizeUpload(uploadedFile, tenantFileId, source, preview));
   };
 
   // Handle cloud upload fail

@@ -9,5 +9,5 @@ export const ForbiddenAction = (handler: () => void): ActionProps => ({
   id: 'connect-other-account',
   text: <FormattedMessage {...messages.try_another_account} />,
   promise: () => new Promise(resolve => resolve(handler())),
-  buttonAppearance: 'primary' as ButtonAppearances,
+  buttonAppearance: 'default' as ButtonAppearances,
 });

@@ -1,6 +1,6 @@
 import { snapshot, initEditorWithAdf, Appearance } from '../_utils';
 import adf from './__fixtures__/date-adf.json';
-import { Page } from '../../__helpers/page-objects/_types';
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import {
   clickOnDate,
   waitForDatePicker,
@@ -9,7 +9,7 @@ import { pressKey } from '../../__helpers/page-objects/_keyboard';
 import { animationFrame } from '../../__helpers/page-objects/_editor';
 
 describe('Date:', () => {
-  let page: Page;
+  let page: PuppeteerPage;
   beforeEach(async () => {
     page = global.page;
   });

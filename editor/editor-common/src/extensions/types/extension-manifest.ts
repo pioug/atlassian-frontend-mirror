@@ -29,6 +29,7 @@ export type ExtensionManifest = {
   key: ExtensionKey;
   title: string;
   description: string;
+  categories?: string[];
   keywords?: string[];
   icons: Icons;
   modules: ExtensionModules;
@@ -63,7 +64,8 @@ export type ExtensionModule = {
   description?: string;
   icon?: Icon;
   priority?: number;
-  keywords?: Array<string>;
+  keywords?: string[];
+  categories?: string[];
   action: ExtensionModuleAction;
 };
 

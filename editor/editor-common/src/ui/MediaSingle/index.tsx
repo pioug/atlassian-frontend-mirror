@@ -8,7 +8,7 @@ import {
 } from '@atlaskit/adf-schema';
 
 import { calcPxFromPct } from './grid';
-import Wrapper from './styled';
+import { MediaSingleWrapper, MediaWrapper } from './styled';
 
 export const DEFAULT_IMAGE_WIDTH = 250;
 export const DEFAULT_IMAGE_HEIGHT = 200;
@@ -21,18 +21,18 @@ export const wrappedLayouts: RichMediaLayout[] = [
 ];
 
 export interface Props {
-  children: React.ReactChild;
+  children: React.ReactNode;
   layout: MediaSingleLayout;
   width: number;
   height: number;
-  lineLength?: number;
+  lineLength: number;
   containerWidth?: number;
   isLoading?: boolean;
   className?: string;
   pctWidth?: number;
+  nodeType?: string;
   fullWidthMode?: boolean;
   blockLink?: string;
-  nodeType?: string;
   hasFallbackContainer?: boolean;
 }
 
@@ -50,7 +50,6 @@ export const shouldAddDefaultWrappedWidth = (
 };
 
 export default function MediaSingle({
-  children,
   layout,
   width,
   height,
@@ -58,12 +57,14 @@ export default function MediaSingle({
   isLoading = false,
   pctWidth,
   className,
+  children: propsChildren,
+  nodeType = 'mediaSingle',
   fullWidthMode,
   lineLength,
   blockLink,
-  nodeType = 'mediaSingle',
   hasFallbackContainer = true,
 }: Props) {
+  const children = React.Children.toArray<React.ReactNode>(propsChildren);
   if (!pctWidth && shouldAddDefaultWrappedWidth(layout, width, lineLength)) {
     pctWidth = 50;
   }
@@ -77,19 +78,19 @@ export default function MediaSingle({
     width = pxWidth;
   }
 
+  const [media, caption] = children;
+
   return (
-    <Wrapper
-      layout={layout}
+    <MediaSingleWrapper
       width={width}
-      ratio={((height / width) * 100).toFixed(3)}
+      layout={layout}
       containerWidth={containerWidth}
       pctWidth={pctWidth}
       fullWidthMode={fullWidthMode}
-      data-node-type={nodeType}
       data-layout={layout}
       data-width={pctWidth}
+      data-node-type={nodeType}
       data-block-link={blockLink}
-      hasFallbackContainer={hasFallbackContainer}
       className={classnames(
         'rich-media-item mediaSingleView-content-wrap',
         `image-${layout}`,
@@ -101,7 +102,13 @@ export default function MediaSingle({
         },
       )}
     >
-      {React.Children.only(children)}
-    </Wrapper>
+      <MediaWrapper
+        hasFallbackContainer={hasFallbackContainer}
+        ratio={((height / width) * 100).toFixed(3)}
+      >
+        {media}
+      </MediaWrapper>
+      {caption}
+    </MediaSingleWrapper>
   );
 }

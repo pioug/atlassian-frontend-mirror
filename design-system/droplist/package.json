@@ -16,13 +16,13 @@
   "atlaskit:designLink": "https://atlassian.design/guidelines/product/components/drop-menu",
   "atlassian": {
     "team": "Design System Team",
+    "deprecatedAutoEntryPoints": true,
     "inPublicMirror": true,
     "releaseModel": "scheduled",
     "website": {
       "name": "Droplist",
       "deprecated": "For the pop up behaviour please use @atlaskit/popup and for common menu components please use @atlaskit/menu."
-    },
-    "deprecatedAutoEntryPoints": true
+    }
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^7.0.0",

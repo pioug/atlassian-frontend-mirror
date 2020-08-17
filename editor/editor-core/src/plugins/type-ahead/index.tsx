@@ -63,9 +63,18 @@ const typeAheadPlugin = (): EditorPlugin => ({
           ) {
             return null;
           }
+
           const { queryMarkPos } = typeAhead;
-          const domRef =
-            queryMarkPos !== null ? editorView.domAtPos(queryMarkPos) : null;
+          let domRef = null;
+          if (queryMarkPos !== null) {
+            // temporary fix to avoid page crash until it is fixed properly
+            try {
+              domRef = editorView.domAtPos(queryMarkPos);
+            } catch (ex) {
+              return null;
+            }
+          }
+
           const anchorElement = domRef
             ? ((domRef.node as HTMLElement).childNodes[
                 domRef.offset

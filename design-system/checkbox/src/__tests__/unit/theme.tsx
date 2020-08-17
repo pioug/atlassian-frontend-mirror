@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { mount } from 'enzyme';
-import merge from 'lodash.merge';
+import merge from 'lodash/merge';
 
 import Checkbox from '../../Checkbox';
 import { ComponentTokens, ThemeTokens } from '../../types';

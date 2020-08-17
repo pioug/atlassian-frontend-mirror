@@ -1,5 +1,11 @@
 # @atlaskit/modal-dialog
 
+## 11.1.3
+
+### Patch Changes
+
+- [`c1b8d0e897`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c1b8d0e897) - You can now scroll using a touchscreen in the body of `modal-dialog` content
+
 ## 11.1.2
 
 ### Patch Changes

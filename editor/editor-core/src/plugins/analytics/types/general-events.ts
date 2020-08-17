@@ -82,6 +82,18 @@ type EditorPerfAEP = OperationalAEP<
   undefined
 >;
 
+type EditorTTIAEP = OperationalAEP<
+  ACTION.EDITOR_TTI,
+  ACTION_SUBJECT.EDITOR,
+  undefined,
+  {
+    tti: number;
+    ttiFromInvocation: number;
+    canceled: boolean;
+  },
+  undefined
+>;
+
 type BrowserFreezePayload = OperationalAEP<
   ACTION.BROWSER_FREEZE,
   ACTION_SUBJECT.EDITOR,
@@ -314,6 +326,7 @@ export type GeneralEventPayload =
   | TypeAheadMentionAEP
   | FullWidthModeAEP
   | EditorPerfAEP
+  | EditorTTIAEP
   | BrowserFreezePayload
   | SlowInputAEP
   | UploadExternalFailedAEP

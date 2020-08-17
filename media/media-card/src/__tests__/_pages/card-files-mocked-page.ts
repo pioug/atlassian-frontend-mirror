@@ -45,6 +45,11 @@ export class CardFilesMockedPage {
     );
   }
 
+  async isShowingLoadingIcon(selector: string): Promise<boolean> {
+    const iconSelector = `${selector} .img-wrapper [data-testid="media-card-loading"]`;
+    return this.page.isExisting(iconSelector);
+  }
+
   async launchMediaViewer(selector: string) {
     return this.page.click(selector);
   }

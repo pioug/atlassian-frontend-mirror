@@ -10,7 +10,8 @@ export default interface NativeBridge
     UndoRedoBridge,
     AnalyticsBridge,
     SelectionBridge,
-    CollabEditNativeBridge {
+    CollabEditNativeBridge,
+    LifecycleBridge {
   call<T extends EditorBridgeNames>(
     bridge: T,
     event: keyof Exclude<EditorBridges[T], undefined>,
@@ -36,6 +37,7 @@ export interface EditorBridges {
   analyticsBridge?: AnalyticsBridge;
   selectionBridge?: SelectionBridge;
   collabBridge?: CollabBridge;
+  lifecycleBridge?: LifecycleBridge;
 }
 
 export type EditorBridgeNames = keyof EditorBridges;
@@ -106,6 +108,11 @@ export interface CollabBridge {
   emit(event: string, jsonArgs: string): void;
   connect(path: string): void;
   disconnect(): void;
+}
+
+export interface LifecycleBridge {
+  editorReady(): void;
+  editorDestroyed(): void;
 }
 
 export interface CollabEditNativeBridge {

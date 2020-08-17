@@ -7,6 +7,7 @@ import { ReactRenderer } from '@atlaskit/renderer';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers';
 import { RendererPadding } from './kitchen-sink-styles';
 import { EditorAppearance } from '../../src/types';
+import { exampleMediaFeatureFlags } from '@atlaskit/media-test-helpers';
 
 export interface KitchenSinkRendererProps {
   appearance: EditorAppearance;
@@ -35,6 +36,9 @@ export const KitchenSinkRenderer: React.StatelessComponent<KitchenSinkRendererPr
             appearance={props.appearance as any}
             allowAltTextOnImages={true}
             extensionHandlers={extensionHandlers}
+            media={{
+              featureFlags: exampleMediaFeatureFlags,
+            }}
           />
         </SmartCardProvider>
       </RendererPadding>

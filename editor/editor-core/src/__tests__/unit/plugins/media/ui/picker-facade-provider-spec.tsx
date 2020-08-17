@@ -35,7 +35,6 @@ describe('PickerFacadeProvider', () => {
   let pluginState: MediaPluginState;
   let provider: MediaProvider;
   const dummyMediaClientConfig = getDefaultMediaClientConfig();
-  const sendAnalyticsSpy = jest.fn();
 
   beforeEach(() => {
     pluginState = {} as MediaPluginState;
@@ -53,7 +52,6 @@ describe('PickerFacadeProvider', () => {
     providerFactory.unsubscribe = jest.fn();
 
     pluginState.insertFile = jest.fn();
-    pluginState.trackNewMediaEvent = jest.fn(sendAnalyticsSpy);
     pluginState.options = {
       providerFactory,
       nodeViews: {},

@@ -1,3 +1,5 @@
+export { validateAttrs, validator } from './validator/validator';
+
 export {
   Content,
   ErrorCallback,
@@ -6,6 +8,4 @@ export {
   ValidationErrorType,
   ValidationMode,
   ValidationOptions,
-  validateAttrs,
-  validator,
-} from './validator/validator';
+} from './types/validatorTypes';

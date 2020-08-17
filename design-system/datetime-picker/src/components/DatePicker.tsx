@@ -3,7 +3,7 @@ import React, { CSSProperties } from 'react';
 import styled from '@emotion/styled';
 // eslint-disable-next-line no-restricted-imports
 import { format, isValid, lastDayOfMonth, parse } from 'date-fns';
-import pick from 'lodash.pick';
+import pick from 'lodash/pick';
 
 import {
   createAndFireEvent,
@@ -104,7 +104,7 @@ export interface Props extends WithAnalyticsEventsProps {
   testId?: string;
 }
 
-type DatePickerProps = typeof DatePicker.defaultProps & Props;
+type DatePickerProps = typeof datePickerDefaultProps & Props;
 
 interface State {
   isOpen: boolean;
@@ -179,34 +179,36 @@ const Menu = ({
   />
 );
 
+const datePickerDefaultProps = {
+  appearance: 'default' as Appearance,
+  autoFocus: false,
+  defaultIsOpen: false,
+  defaultValue: '',
+  disabled: [] as string[],
+  hideIcon: false,
+  icon: (CalendarIcon as unknown) as React.ComponentType<
+    IndicatorProps<OptionType>
+  >,
+  id: '',
+  innerProps: {},
+  isDisabled: false,
+  isInvalid: false,
+  name: '',
+  onBlur: (event: React.FocusEvent<HTMLInputElement>) => {},
+  onChange: (value: string) => {},
+  onFocus: (event: React.FocusEvent<HTMLInputElement>) => {},
+  selectProps: {},
+  spacing: 'default' as Spacing,
+  locale: 'en-US',
+  // Not including a default prop for value as it will
+  // Make the component a controlled component
+};
+
 class DatePicker extends React.Component<DatePickerProps, State> {
   calendarRef: CalendarClassType | null = null;
   containerRef: HTMLElement | null = null;
 
-  static defaultProps = {
-    appearance: 'default' as Appearance,
-    autoFocus: false,
-    defaultIsOpen: false,
-    defaultValue: '',
-    disabled: [] as string[],
-    hideIcon: false,
-    icon: (CalendarIcon as unknown) as React.ComponentType<
-      IndicatorProps<OptionType>
-    >,
-    id: '',
-    innerProps: {},
-    isDisabled: false,
-    isInvalid: false,
-    name: '',
-    onBlur: (event: React.FocusEvent<HTMLInputElement>) => {},
-    onChange: (value: string) => {},
-    onFocus: (event: React.FocusEvent<HTMLInputElement>) => {},
-    selectProps: {},
-    spacing: 'default' as Spacing,
-    locale: 'en-US',
-    // Not including a default prop for value as it will
-    // Make the component a controlled component
-  };
+  static defaultProps = datePickerDefaultProps;
 
   constructor(props: any) {
     super(props);

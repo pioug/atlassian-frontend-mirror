@@ -1,4 +1,4 @@
-import { Page } from 'puppeteer';
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import {
   ExampleCreateInlineCommentComponent,
   ExampleViewInlineCommentComponent,
@@ -13,7 +13,7 @@ import * as highlightAdf from './../__fixtures__/highlight.adf.json';
 import { getState } from '../_utils';
 
 describe('highlight', () => {
-  let page: Page;
+  let page: PuppeteerPage;
   beforeAll(async () => {
     page = global.page;
     await initEditorWithAdf(page, {

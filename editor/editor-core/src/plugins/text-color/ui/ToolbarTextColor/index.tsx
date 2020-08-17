@@ -8,7 +8,6 @@ import { akEditorMenuZIndex } from '@atlaskit/editor-common';
 import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
 import EditorBackgroundColorIcon from '@atlaskit/icon/glyph/editor/background-color';
 
-import { withAnalytics } from '../../../../analytics';
 import ColorPalette from '../../../../ui/ColorPalette';
 import { textColorPalette as originalTextColors } from '../../../../ui/ColorPalette/Palettes/textColorPalette';
 import Dropdown from '../../../../ui/Dropdown';
@@ -195,41 +194,38 @@ class ToolbarTextColor extends React.Component<
     );
   }
 
-  private changeTextColor = withAnalytics(
-    'atlassian.editor.format.textcolor.button',
-    (color: string, disabled: boolean) => {
-      if (!disabled) {
-        const {
-          pluginState: { palette, paletteExpanded, defaultColor },
-        } = this.props;
-        const { isShowingMoreColors } = this.state;
+  private changeTextColor = (color: string, disabled?: boolean) => {
+    if (!disabled) {
+      const {
+        pluginState: { palette, paletteExpanded, defaultColor },
+      } = this.props;
+      const { isShowingMoreColors } = this.state;
 
-        // we store color names in analytics
-        const swatch = (paletteExpanded || palette).find(
-          sw => sw.value === color,
-        );
-        const isNewColor =
-          color !== defaultColor &&
-          !originalTextColors.some(col => col.value === color);
+      // we store color names in analytics
+      const swatch = (paletteExpanded || palette).find(
+        sw => sw.value === color,
+      );
+      const isNewColor =
+        color !== defaultColor &&
+        !originalTextColors.some(col => col.value === color);
 
-        this.dispatchAnalyticsEvent(
-          this.buildExperimentalAnalyticsSelectColor({
-            color: (swatch ? swatch.label : color).toLowerCase(),
-            isShowingMoreColors,
-            isNewColor,
-          }),
-        );
+      this.dispatchAnalyticsEvent(
+        this.buildExperimentalAnalyticsSelectColor({
+          color: (swatch ? swatch.label : color).toLowerCase(),
+          isShowingMoreColors,
+          isNewColor,
+        }),
+      );
 
-        this.handleOpenChange({
-          isOpen: false,
-          logCloseEvent: false,
-        });
-        return this.changeColor(color);
-      }
+      this.handleOpenChange({
+        isOpen: false,
+        logCloseEvent: false,
+      });
+      return this.changeColor(color);
+    }
 
-      return false;
-    },
-  );
+    return false;
+  };
 
   private toggleOpen = () => {
     this.handleOpenChange({ isOpen: !this.state.isOpen, logCloseEvent: true });

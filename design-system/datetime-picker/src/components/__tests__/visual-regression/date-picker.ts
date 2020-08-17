@@ -1,13 +1,15 @@
-import { getExampleUrl, loadPage } from '@atlaskit/visual-regression/helper';
-
-declare var global: any;
+import {
+  getExampleUrl,
+  loadPage,
+  PuppeteerPage,
+} from '@atlaskit/visual-regression/helper';
 
 const darkModeDatePicker =
   '[data-testid="date-picker-real-dark-mode--container"]';
 const emotionJankDatePicker =
   '[data-testid="date-picker-theme-jank--container"]';
 
-async function waitForCalendarPicker(page: any, theme: string) {
+async function waitForCalendarPicker(page: PuppeteerPage, theme: string) {
   await page.waitForSelector(
     `div[data-testid="date-picker-${theme}--popper--container"]`,
   );

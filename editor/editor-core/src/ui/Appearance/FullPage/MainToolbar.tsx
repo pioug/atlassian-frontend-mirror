@@ -21,7 +21,7 @@ export const MainToolbar = styled.div<MainToolbarProps>`
   transition: box-shadow 200ms ${akEditorSwoopCubicBezier};
   z-index: ${akEditorMenuZIndex};
   display: flex;
-  height: 80px;
+  height: 56px;
   flex-shrink: 0;
   background-color: white;
 

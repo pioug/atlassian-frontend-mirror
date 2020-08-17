@@ -13,6 +13,8 @@ export interface FrameProps {
   isSelected?: boolean;
   /* Set whether the frame has a hover state. Note that this should only be true in the `editor` view */
   isHoverable?: boolean;
+  /* Set whether the height is fixed or auto (according to content) */
+  isFluidHeight?: boolean;
   testId?: string;
   inheritDimensions?: boolean;
 }
@@ -21,6 +23,7 @@ export const Frame = (
   props: FrameProps = {
     isSelected: false,
     isHoverable: false,
+    isFluidHeight: false,
   },
 ) =>
   props.compact ? <CompactFrame {...props} /> : <ExpandedFrame {...props} />;
@@ -37,6 +40,7 @@ export const ExpandedFrame = ({
   isSelected,
   isHoverable,
   testId,
+  isFluidHeight,
 }: FrameProps) => {
   return (
     <div
@@ -48,7 +52,7 @@ export const ExpandedFrame = ({
               cursor: 'pointer',
             }
           : undefined,
-        minHeight: [gs(21), gs(15)],
+        minHeight: isFluidHeight ? 0 : [gs(21), gs(15)],
         borderRadius: isSelected ? br() : br(0.5),
         border: `2px solid ${isSelected ? B200 : 'transparent'}`,
         justifyContent: 'space-between',

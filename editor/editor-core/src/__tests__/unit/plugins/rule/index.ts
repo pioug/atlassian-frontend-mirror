@@ -17,12 +17,11 @@ describe('rule', () => {
 
   let createAnalyticsEvent: CreateUIAnalyticsEvent;
 
-  const editor = (doc: any, trackEvent = () => {}) => {
+  const editor = (doc: any) => {
     createAnalyticsEvent = jest.fn(() => ({ fire() {} } as UIAnalyticsEvent));
     return createEditor({
       doc,
       editorProps: {
-        analyticsHandler: trackEvent,
         allowExtension: {
           allowBreakout: true,
         },

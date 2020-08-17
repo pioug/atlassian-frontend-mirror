@@ -244,7 +244,6 @@ export const TopRow = styled.div``;
 export const BottomRow = styled.div`
   display: flex;
   align-items: center;
-  z-index: 1;
   height: 16px;
 `;
 
@@ -268,6 +267,7 @@ export const AltWrapper = styled(ErrorMessage)`
 `;
 
 export const Retry = styled.div`
+  user-select: none;
   ${antialiased} box-sizing: border-box;
   margin-left: 5px;
   font-weight: bold;
@@ -282,6 +282,7 @@ export const Retry = styled.div`
 `;
 
 export const NewExpRetry = styled.a`
+  user-select: none;
   cursor: pointer;
 `;
 

@@ -5,7 +5,6 @@ import { EditorView } from 'prosemirror-view';
 import BulletListIcon from '@atlaskit/icon/glyph/editor/bullet-list';
 import NumberListIcon from '@atlaskit/icon/glyph/editor/number-list';
 import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
-import { withAnalytics } from '../../../../analytics';
 import {
   toggleBulletList as toggleBulletListKeymap,
   toggleOrderedList as toggleOrderedListKeymap,
@@ -184,29 +183,23 @@ class ToolbarLists extends PureComponent<Props & InjectedIntlProps, State> {
     }
   }
 
-  private handleBulletListClick = withAnalytics(
-    'atlassian.editor.format.list.bullet.button',
-    () => {
-      if (!this.props.bulletListDisabled) {
-        if (toggleBulletList(this.props.editorView, INPUT_METHOD.TOOLBAR)) {
-          return true;
-        }
+  private handleBulletListClick = () => {
+    if (!this.props.bulletListDisabled) {
+      if (toggleBulletList(this.props.editorView, INPUT_METHOD.TOOLBAR)) {
+        return true;
       }
-      return false;
-    },
-  );
+    }
+    return false;
+  };
 
-  private handleOrderedListClick = withAnalytics(
-    'atlassian.editor.format.list.numbered.button',
-    () => {
-      if (!this.props.orderedListDisabled) {
-        if (toggleOrderedList(this.props.editorView, INPUT_METHOD.TOOLBAR)) {
-          return true;
-        }
+  private handleOrderedListClick = () => {
+    if (!this.props.orderedListDisabled) {
+      if (toggleOrderedList(this.props.editorView, INPUT_METHOD.TOOLBAR)) {
+        return true;
       }
-      return false;
-    },
-  );
+    }
+    return false;
+  };
 
   private onItemActivated = ({
     item,

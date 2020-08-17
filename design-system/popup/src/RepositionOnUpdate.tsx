@@ -4,13 +4,13 @@ import { RepositionOnUpdateProps } from './types';
 
 export const RepositionOnUpdate: FC<RepositionOnUpdateProps> = ({
   children,
-  scheduleUpdate,
+  update,
   content,
 }) => {
   useLayoutEffect(() => {
     // callback function from popper that repositions pop-up on content Update
-    scheduleUpdate();
-  }, [content, scheduleUpdate]);
+    update();
+  }, [content, update]);
   // wrapping in fragment to make TS happy (known issue with FC returning children)
   return <Fragment>{children}</Fragment>;
 };

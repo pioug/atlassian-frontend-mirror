@@ -49,7 +49,7 @@ describe('image-upload', () => {
 
   it('permits an image to be added when an image is selected', () => {
     const { editorView, sel } = editor(doc(p('{<>}'), testImg()));
-    setNodeSelection(editorView, sel + 2);
+    setNodeSelection(editorView, sel + 1);
 
     insertExternalImage({ src: testImgSrc })(
       editorView.state,

@@ -4,7 +4,6 @@ import { EditorState, Plugin, Transaction } from 'prosemirror-state';
 import { EditorPlugin } from '../../types';
 import * as keymaps from '../../keymaps';
 import { openHelp, tooltip } from '../../keymaps';
-import { analyticsService } from '../../analytics';
 import WithPluginState from '../../ui/WithPluginState';
 import { HelpDialogLoader } from './ui/HelpDialogLoader';
 import { pluginKey as quickInsertPluginKey } from '../quick-insert';
@@ -115,7 +114,6 @@ const keymapPlugin = (): Plugin => {
       let { tr } = state;
       const isVisible = tr.getMeta(pluginKey);
       if (!isVisible) {
-        analyticsService.trackEvent('atlassian.editor.help.keyboard');
         tr = addAnalytics(state, tr, {
           action: ACTION.CLICKED,
           actionSubject: ACTION_SUBJECT.BUTTON,

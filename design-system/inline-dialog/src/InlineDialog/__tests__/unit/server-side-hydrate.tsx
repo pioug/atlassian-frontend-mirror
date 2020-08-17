@@ -45,9 +45,12 @@ test('should ssr then hydrate inline-dialog correctly', async () => {
     const mockCalls = console.error.mock.calls.filter(
       ([f, s]: [string, string]) =>
         !(
-          f ===
+          (f ===
             'Warning: Did not expect server HTML to contain a <%s> in <%s>.' &&
-          s === 'style'
+            s === 'style') ||
+          f.includes(
+            'Warning: An update to %s inside a test was not wrapped in act',
+          )
         ),
     );
     expect(mockCalls.length).toBe(0);

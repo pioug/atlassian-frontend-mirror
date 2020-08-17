@@ -192,6 +192,7 @@ export class Renderer extends PureComponent<RendererProps> {
       surroundTextNodesWithTextWrapper: allowAnnotationsDraftMode,
       getAnnotationPromise: (id: AnnotationId) =>
         getAnnotationDeferred(id).promise,
+      media: props.media,
     };
   }
 
@@ -253,6 +254,7 @@ export class Renderer extends PureComponent<RendererProps> {
         this.serializer,
         schema,
         adfStage,
+        this.props.useSpecBasedValidator,
       );
 
       if (onComplete) {

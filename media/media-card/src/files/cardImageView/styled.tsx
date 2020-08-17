@@ -47,8 +47,10 @@ export const Wrapper = styled(Root)`
       position: relative;
       width: inherit;
       height: inherit;
-      display: block;
       overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-content: center;
       ${borderRadius}
     }
   }
@@ -87,13 +89,14 @@ export const PlayIconWrapper = styled.div`
 const bodyHeight = 26;
 
 export const ProgressBarWrapper = styled.div`
-  position: relative;
-  height: inherit;
+  position: absolute;
+  height: 100%;
+  width: 100%;
 `;
 
 export const Overlay = styled.div`
   ${absolute()}
-  ${size()} 
+  ${size()}
   border-radius: inherit;
   background-color: rgba(9, 30, 66, 0.5);
 `;

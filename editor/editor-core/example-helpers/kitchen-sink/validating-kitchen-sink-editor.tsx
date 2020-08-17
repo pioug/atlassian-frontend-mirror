@@ -6,7 +6,7 @@ import {
   customInsertMenuItems,
   extensionHandlers,
 } from '@atlaskit/editor-test-helpers';
-
+import { exampleMediaFeatureFlags } from '@atlaskit/media-test-helpers';
 import { validator, ErrorCallback, ADFEntity } from '@atlaskit/adf-utils';
 import { Provider as SmartCardProvider } from '@atlaskit/smart-card';
 import { mention } from '@atlaskit/util-data-test';
@@ -21,7 +21,6 @@ import { EditorActions } from '../../src';
 import {
   providers,
   mediaProvider,
-  analyticsHandler,
   quickInsertProvider,
 } from '../../examples/5-full-page';
 import { Error } from '../ErrorReport';
@@ -72,7 +71,6 @@ export class ValidatingKitchenSinkEditor extends React.Component<
       <SmartCardProvider client={smartCardClient}>
         <Editor
           appearance={appearance}
-          analyticsHandler={analyticsHandler}
           quickInsert={{
             provider: this.quickInsertProviderPromise,
           }}
@@ -116,6 +114,7 @@ export class ValidatingKitchenSinkEditor extends React.Component<
             allowLinking: true,
             allowResizingInTables: true,
             allowAltTextOnImages: true,
+            featureFlags: exampleMediaFeatureFlags,
           }}
           insertMenuItems={customInsertMenuItems}
           extensionHandlers={extensionHandlers}

@@ -1,8 +1,12 @@
-import { Page } from 'puppeteer';
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { snapshot, initEditorWithAdf, Appearance } from '../_utils';
 import * as stickyHeaderADF from './__fixtures__/sticky-header.adf.json';
 
-async function scrollToPos(page: Page, nthTable: number, offsetY = -80) {
+async function scrollToPos(
+  page: PuppeteerPage,
+  nthTable: number,
+  offsetY = -80,
+) {
   return page.evaluate(
     (nth: number, offset: number) => {
       const scrollParent = document.querySelector(
@@ -35,7 +39,7 @@ async function scrollToPos(page: Page, nthTable: number, offsetY = -80) {
   );
 }
 
-const initEditor = async (page: Page, adf: any) => {
+const initEditor = async (page: PuppeteerPage, adf: any) => {
   await initEditorWithAdf(page, {
     appearance: Appearance.fullPage,
     adf,
@@ -49,7 +53,7 @@ const initEditor = async (page: Page, adf: any) => {
 };
 
 describe('Snapshot Test: sticky-headers', () => {
-  let page: Page;
+  let page: PuppeteerPage;
   beforeAll(() => {
     page = global.page;
   });

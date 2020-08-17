@@ -5,11 +5,11 @@ import {
   getContentBoundingRectTopLeftCoords,
 } from '../_utils';
 import adf from './__fixtures__/decision-adf.json';
-import { Page } from '../../__helpers/page-objects/_types';
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { decisionSelectors } from '../../__helpers/page-objects/_decision';
 
 describe('Decisions', () => {
-  let page: Page;
+  let page: PuppeteerPage;
 
   beforeEach(async () => {
     page = global.page;

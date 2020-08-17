@@ -1,9 +1,6 @@
-import {
-  AnnotationMarkStates,
-  AnnotationId,
-  AnnotationTypes,
-} from '@atlaskit/adf-schema';
+import { AnnotationPayload, AnnotationStatePayload } from '../types';
 import { TaskState } from '@atlaskit/task-decision';
+import { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import { Serialized } from '../../types';
 
 export enum ScrollToContentNode {
@@ -14,22 +11,14 @@ export enum ScrollToContentNode {
   INLINE_COMMENT = 'inlineComment',
 }
 
-export type AnnotationFocusPayload = {
-  annotationId: AnnotationId;
-  annotationType: AnnotationTypes;
-};
-
-export type AnnotationStatePayload = {
-  annotationId: AnnotationId;
-  annotationType: AnnotationTypes;
-  annotationState: AnnotationMarkStates;
-};
-
 export interface AnnotationBridge {
   setAnnotationFocus(
-    annotationFocusPayload?: Serialized<AnnotationFocusPayload>,
+    annotationFocusPayload?: Serialized<AnnotationPayload>,
   ): void;
   setAnnotationState(annotations: Serialized<AnnotationStatePayload[]>): void;
+  createAnnotationOnSelection(annotation: Serialized<AnnotationPayload>): void;
+  highlightSelection(): void;
+  cancelHighlight(): void;
 }
 
 export interface TaskDecisionBridge {
@@ -45,7 +34,7 @@ export default interface RendererBridge
   extends TaskDecisionBridge,
     PromiseBridge,
     AnnotationBridge {
-  setContent(content: string): void;
+  setContent(adf: Serialized<JSONDocNode>): void;
   scrollToContentNode(
     nodeType: ScrollToContentNode,
     id: string,

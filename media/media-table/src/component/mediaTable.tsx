@@ -20,8 +20,12 @@ import {
   MediaTableState,
   FileIdentifier,
 } from '../types';
-import { generateRowValues, getValidTableProps } from '../util';
-// eslint-disable-next-line import/no-extraneous-dependencies
+import {
+  generateRowValues,
+  getValidTableProps,
+  generateHeadValues,
+  CELL_KEY_DOWNLOAD,
+} from '../util';
 import { withAnalyticsEvents } from '@atlaskit/analytics-next';
 
 const ANALYTICS_MEDIA_CHANNEL = 'media';
@@ -81,7 +85,7 @@ export class MediaTable extends Component<MediaTableProps, MediaTableState> {
 
     columns.cells.forEach(cell => {
       const content =
-        cell.key === 'download' ? (
+        cell.key === CELL_KEY_DOWNLOAD ? (
           <DownloadButton onClick={this.onDownloadClick(identifier)} />
         ) : (
           (cell.key && data[cell.key]) || ''
@@ -121,7 +125,7 @@ export class MediaTable extends Component<MediaTableProps, MediaTableState> {
     validPageNumber: number,
     validTotalItems: number,
   ) => {
-    const { items, columns } = this.props;
+    const { items, columns, rowProps } = this.props;
 
     const rowValues: RowType[] = items.map(item => {
       const { data, identifier } = item;
@@ -129,7 +133,14 @@ export class MediaTable extends Component<MediaTableProps, MediaTableState> {
       return {
         cells: this.generateCellValues(data, identifier),
         key: identifier.id,
+        tabIndex: 0,
         onClick: this.onRowClick(identifier),
+        onKeyPress: event => {
+          if (event.key === 'Enter') {
+            this.onRowEnterKeyPressed(identifier);
+          }
+        },
+        ...rowProps,
       };
     });
 
@@ -167,7 +178,7 @@ export class MediaTable extends Component<MediaTableProps, MediaTableState> {
     return (
       <DynamicTableStateless
         caption={''}
-        head={columns}
+        head={generateHeadValues(columns)}
         rows={this.renderRowValues(
           validItemsPerPage,
           validPageNumber,
@@ -186,8 +197,28 @@ export class MediaTable extends Component<MediaTableProps, MediaTableState> {
     );
   };
 
+  private openPreview = (identifier: FileIdentifier) => {
+    const { onPreviewOpen } = this.props;
+
+    this.safeSetState({ mediaViewerSelectedItem: identifier });
+    onPreviewOpen && onPreviewOpen();
+  };
+
+  private onRowEnterKeyPressed = (identifier: FileIdentifier) => {
+    const { createAnalyticsEvent } = this.props;
+    const ev = createAnalyticsEvent({
+      eventType: 'ui',
+      action: 'keyPressed',
+      actionSubject: 'mediaFile',
+      actionSubjectId: 'mediaFileRow',
+    });
+    ev.fire(ANALYTICS_MEDIA_CHANNEL);
+
+    this.openPreview(identifier);
+  };
+
   private onRowClick = (identifier: FileIdentifier) => () => {
-    const { createAnalyticsEvent, onPreviewOpen } = this.props;
+    const { createAnalyticsEvent } = this.props;
     const ev = createAnalyticsEvent({
       eventType: 'ui',
       action: 'clicked',
@@ -195,8 +226,8 @@ export class MediaTable extends Component<MediaTableProps, MediaTableState> {
       actionSubjectId: 'mediaFileRow',
     });
     ev.fire(ANALYTICS_MEDIA_CHANNEL);
-    this.safeSetState({ mediaViewerSelectedItem: identifier });
-    onPreviewOpen && onPreviewOpen();
+
+    this.openPreview(identifier);
   };
 
   private safeSetState = (state: Partial<MediaTableState>) => {

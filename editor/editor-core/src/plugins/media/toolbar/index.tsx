@@ -129,6 +129,7 @@ export const floatingToolbar = (
       onMouseLeave: hoverDecoration(mediaSingle, false),
       title: intl.formatMessage(commonMessages.remove),
       onClick: remove,
+      testId: 'media-toolbar-remove-button',
     },
   ];
 

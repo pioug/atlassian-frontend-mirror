@@ -15,7 +15,7 @@ import {
   Unsubscribe,
 } from 'final-form';
 import createDecorator from 'final-form-focus';
-import set from 'lodash.set';
+import set from 'lodash/set';
 
 import { OnSubmitHandler } from './types';
 

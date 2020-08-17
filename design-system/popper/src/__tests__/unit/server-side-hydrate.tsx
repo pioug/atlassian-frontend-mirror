@@ -28,6 +28,7 @@ afterEach(() => {
   jest.resetAllMocks();
 });
 
+//TODO fix react popper act() error
 test('should ssr then hydrate popper correctly', async () => {
   const [example] = await getExamplesFor('popper');
   const Example = require(example.filePath).default; // eslint-disable-line import/no-dynamic-require
@@ -44,9 +45,12 @@ test('should ssr then hydrate popper correctly', async () => {
       // @ts-ignore
       ([f, s]) =>
         !(
-          f ===
+          (f ===
             'Warning: Did not expect server HTML to contain a <%s> in <%s>.' &&
-          s === 'style'
+            s === 'style') ||
+          f.includes(
+            'Warning: An update to %s inside a test was not wrapped in act',
+          )
         ),
     );
     expect(mockCalls.length).toBe(0);

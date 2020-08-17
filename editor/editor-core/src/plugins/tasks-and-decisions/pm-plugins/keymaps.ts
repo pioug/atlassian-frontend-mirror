@@ -43,6 +43,7 @@ import {
   liftBlock,
   subtreeHeight,
   walkOut,
+  isTable,
 } from './helpers';
 
 const indentationAnalytics = (
@@ -219,10 +220,17 @@ const deleteHandler = filter(
   chainCommands(joinTaskDecisionFollowing, (state, dispatch) => {
     // look for the node after this current one
     const $next = walkOut(state.selection.$from);
-    const { taskList, paragraph } = state.schema.nodes;
+
+    const { taskList, paragraph, doc } = state.schema.nodes;
+
+    // this is a top-level node it wont have $next.before()
+    if (!$next.parent || $next.parent.type === doc) {
+      return false;
+    }
 
     // previous was empty, just delete backwards
     const taskBefore = $next.doc.resolve($next.before());
+
     if (
       taskBefore.nodeBefore &&
       isActionOrDecisionItem(taskBefore.nodeBefore) &&
@@ -232,13 +240,23 @@ const deleteHandler = filter(
     }
 
     // if nested, just unindent
-    if ($next.node($next.depth - 2).type === taskList) {
+    if (
+      $next.node($next.depth - 2).type === taskList ||
+      // this is for the case when we are on a non-nested item and next one is nested
+      ($next.node($next.depth - 1).type === taskList &&
+        $next.parent.type === taskList)
+    ) {
       const tr = liftBlock(state.tr, $next, $next);
       if (dispatch && tr) {
         dispatch(tr);
       }
 
       return true;
+    }
+
+    // if located inside of a table, don't delete forward
+    if (isTable(taskBefore.nodeBefore)) {
+      return false;
     }
 
     // bottom level, should "unwrap" taskItem contents into paragraph
@@ -288,7 +306,6 @@ const splitListItemWith = (
       },
     ]);
   }
-
   // and delete the action at the current pos
   // we can do this because we know either first new child will be taskItem or nothing at all
   const frag = Fragment.from(content);

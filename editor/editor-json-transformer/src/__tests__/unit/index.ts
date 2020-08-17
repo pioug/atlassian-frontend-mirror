@@ -531,6 +531,203 @@ describe('JSONTransformer:', () => {
       expect(toJSON(editorView.state.doc)).toEqual(expected);
     });
 
+    it(
+      'should drop unsupportedMark that has same type ' +
+        'as one of its siblings',
+      () => {
+        const { editorView } = editor(
+          doc(
+            p(
+              textColor({ color: '#ff5630' })(
+                unsupportedMark({
+                  originalValue: {
+                    type: 'textColor',
+                    attrs: {
+                      color: '#00b8d9',
+                    },
+                  },
+                })('Some Text'),
+              ),
+            ),
+          ),
+        );
+
+        const expected = {
+          version: 1,
+          type: 'doc',
+          content: [
+            {
+              type: 'paragraph',
+              content: [
+                {
+                  type: 'text',
+                  text: 'Some Text',
+                  marks: [
+                    {
+                      type: 'textColor',
+                      attrs: {
+                        color: '#ff5630',
+                      },
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        };
+        expect(toJSON(editorView.state.doc)).toEqual(expected);
+      },
+    );
+
+    it(
+      'should drop unsupportedMark that has same type as ' +
+        'one of its siblings and has invalid attributes',
+      () => {
+        const { editorView } = editor(
+          doc(
+            p(
+              textColor({ color: '#ff5630' })(
+                unsupportedMark({
+                  originalValue: {
+                    type: 'textColor',
+                    attrs: {
+                      color: 'red',
+                      bgcolor: 'green',
+                    },
+                  },
+                })('Some Text'),
+              ),
+            ),
+          ),
+        );
+
+        const expected = {
+          version: 1,
+          type: 'doc',
+          content: [
+            {
+              type: 'paragraph',
+              content: [
+                {
+                  type: 'text',
+                  text: 'Some Text',
+                  marks: [
+                    {
+                      type: 'textColor',
+                      attrs: {
+                        color: '#ff5630',
+                      },
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        };
+        expect(toJSON(editorView.state.doc)).toEqual(expected);
+      },
+    );
+
+    it(
+      'should drop unsupportedMark that has same type as ' +
+        'one of its siblings and retain other marks that are valid',
+      () => {
+        const { editorView } = editor(
+          doc(
+            p(
+              textColor({ color: '#ff5630' })(
+                unsupportedMark({
+                  originalValue: {
+                    type: 'textColor',
+                    attrs: {
+                      color: 'red',
+                      bgcolor: 'green',
+                    },
+                  },
+                })(em('Some Text')),
+              ),
+            ),
+          ),
+        );
+
+        const expected = {
+          version: 1,
+          type: 'doc',
+          content: [
+            {
+              type: 'paragraph',
+              content: [
+                {
+                  type: 'text',
+                  text: 'Some Text',
+                  marks: [
+                    {
+                      type: 'em',
+                    },
+                    {
+                      type: 'textColor',
+                      attrs: {
+                        color: '#ff5630',
+                      },
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        };
+        expect(toJSON(editorView.state.doc)).toEqual(expected);
+      },
+    );
+
+    it(
+      'should not drop unsupportedMark when its type is unique among siblings ' +
+        'and should properly unwrap the value',
+      () => {
+        const { editorView } = editor(
+          doc(
+            p(
+              unsupportedMark({
+                originalValue: {
+                  type: 'textColor',
+                  attrs: {
+                    color: 'red',
+                    bgcolor: 'green',
+                  },
+                },
+              })('Some Text'),
+            ),
+          ),
+        );
+
+        const expected = {
+          version: 1,
+          type: 'doc',
+          content: [
+            {
+              type: 'paragraph',
+              content: [
+                {
+                  type: 'text',
+                  text: 'Some Text',
+                  marks: [
+                    {
+                      type: 'textColor',
+                      attrs: {
+                        color: 'red',
+                        bgcolor: 'green',
+                      },
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        };
+        expect(toJSON(editorView.state.doc)).toEqual(expected);
+      },
+    );
+
     [
       { nodeName: 'tableCell', schemaBuilder: td },
       { nodeName: 'tableHeader', schemaBuilder: th },

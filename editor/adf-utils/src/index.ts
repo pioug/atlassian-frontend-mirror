@@ -63,6 +63,7 @@ export {
 } from './builders';
 export { filter, map, reduce, traverse } from './traverse';
 export { sanitizeNode, removeMarks } from './sanitize';
+export { validateAttrs, validator } from './validator';
 export {
   Content,
   ErrorCallback,
@@ -71,8 +72,6 @@ export {
   ValidationErrorType,
   ValidationMode,
   ValidationOptions,
-  validateAttrs,
-  validator,
-} from './validator';
-export { ADFEntity, ADFEntityMark } from './types';
+} from './types/validatorTypes';
+export { ADFEntity, ADFEntityMark, Visitor, VisitorCollection } from './types';
 export { getEmptyADF } from './empty-adf';

@@ -1,4 +1,4 @@
-import { Page } from './_types';
+import { TestPage, PuppeteerPage } from './_types';
 import { waitForFloatingControl } from './_toolbar';
 
 function getExtensionSelector(type: string, key: string) {
@@ -6,13 +6,13 @@ function getExtensionSelector(type: string, key: string) {
 }
 
 export const clickOnExtension = async (
-  page: Page,
+  page: TestPage,
   type: string,
   key: string,
 ) => {
   await page.click(getExtensionSelector(type, key));
 };
 
-export const waitForExtensionToolbar = async (page: Page) => {
+export const waitForExtensionToolbar = async (page: PuppeteerPage) => {
   await waitForFloatingControl(page, 'Extension floating controls');
 };

@@ -14,10 +14,10 @@ import {
 import { pressKey } from '../../__helpers/page-objects/_keyboard';
 import * as singleCellTable from './__fixtures__/single-cell-table-adf.json';
 import adf from './__fixtures__/3-column-layout-with-image.adf.json';
-import { Page } from '../../__helpers/page-objects/_types';
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 
 describe('Snapshot Test: Media', () => {
-  let page: Page;
+  let page: PuppeteerPage;
 
   describe('layouts', () => {
     beforeEach(async () => {

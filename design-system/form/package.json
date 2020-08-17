@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/form",
-  "version": "8.1.0",
+  "version": "8.1.1",
   "description": "Form package provides layout & validation for form fields",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -17,19 +17,19 @@
   "atlaskit:designLink": "https://atlassian.design/guidelines/product/patterns/forms",
   "atlassian": {
     "team": "Design System Team",
+    "deprecatedAutoEntryPoints": true,
     "inPublicMirror": true,
     "releaseModel": "scheduled",
     "website": {
       "name": "Form"
-    },
-    "deprecatedAutoEntryPoints": true
+    }
   },
   "dependencies": {
     "@atlaskit/icon": "^21.0.0",
     "@atlaskit/theme": "^10.0.0",
     "final-form": "^4.14.1",
     "final-form-focus": "^1.1.0",
-    "lodash.set": "^4.3.2",
+    "lodash": "^4.17.15",
     "react-uid": "^2.2.0",
     "tiny-invariant": "^0.0.3",
     "tslib": "^1.9.3"
@@ -53,7 +53,7 @@
     "@atlaskit/multi-select": "^15.0.0",
     "@atlaskit/radio": "^4.0.0",
     "@atlaskit/section-message": "^5.0.0",
-    "@atlaskit/select": "^12.0.0",
+    "@atlaskit/select": "^13.0.0",
     "@atlaskit/single-select": "^10.0.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/textarea": "^3.0.0",

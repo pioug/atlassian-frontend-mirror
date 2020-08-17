@@ -4,8 +4,6 @@ import {
   takeElementScreenShot,
 } from '@atlaskit/visual-regression/helper';
 
-declare var global: any;
-
 const selector = "[data-testid='link-item']";
 
 describe('<LinkItem />', () => {

@@ -5,7 +5,6 @@ import { InjectedIntlProps, injectIntl } from 'react-intl';
 
 import TaskIcon from '@atlaskit/icon/glyph/editor/task';
 
-import { withAnalytics } from '../../../../analytics';
 import ToolbarButton from '../../../../ui/ToolbarButton';
 import { messages } from '../../../insert-block/ui/ToolbarInsertBlock/messages';
 import { insertTaskDecision } from '../../commands';
@@ -47,20 +46,17 @@ export class ToolbarTask extends PureComponent<
     );
   }
 
-  private handleInsertTask = withAnalytics(
-    'atlassian.fabric.action.trigger.button',
-    (): boolean => {
-      const { editorView } = this.props;
-      if (!editorView) {
-        return false;
-      }
-      insertTaskDecision(editorView, 'taskList')(
-        editorView.state,
-        editorView.dispatch,
-      );
-      return true;
-    },
-  );
+  private handleInsertTask = (): boolean => {
+    const { editorView } = this.props;
+    if (!editorView) {
+      return false;
+    }
+    insertTaskDecision(editorView, 'taskList')(
+      editorView.state,
+      editorView.dispatch,
+    );
+    return true;
+  };
 }
 
 export default injectIntl(ToolbarTask);

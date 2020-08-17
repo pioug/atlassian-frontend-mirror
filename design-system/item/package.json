@@ -15,13 +15,13 @@
   "atlaskit:src": "src/index.js",
   "atlassian": {
     "team": "Design System Team",
+    "deprecatedAutoEntryPoints": true,
     "inPublicMirror": true,
     "releaseModel": "scheduled",
     "website": {
       "deprecated": "This is an internal component and should not be used directly.",
       "name": "Item"
-    },
-    "deprecatedAutoEntryPoints": true
+    }
   },
   "dependencies": {
     "@atlaskit/theme": "^10.0.0",

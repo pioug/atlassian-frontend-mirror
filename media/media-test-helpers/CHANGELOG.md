@@ -1,5 +1,25 @@
 # @atlaskit/media-test-helpers
 
+## 28.1.0
+
+### Minor Changes
+
+- [`62eb1114c4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/62eb1114c4) - Enable passing of MediaFeatureFlags through Editor Renderer via MediaOptions to Media components
+- [`155125a472`](https://bitbucket.org/atlassian/atlassian-frontend/commits/155125a472) - Add flushPromise
+- [`5d20188710`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5d20188710) - Added all supported languages to I18NWrapper
+- [`8cfc88423a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cfc88423a) - Added more zip examples and added error handling for zip previews
+- [`2202870181`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2202870181) - Added support for zip previews in media viewer
+- [`b8695823e3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b8695823e3) - Fixed Giphy images display as plain text when inserted into Editor
+
+### Patch Changes
+
+- [`3a188fc905`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3a188fc905) - Fixed error when using empty mimeType in media examples
+- [`6262f382de`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6262f382de) - Use the 'lodash' package instead of single-function 'lodash.\*' packages
+- [`0c1bb3fa88`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0c1bb3fa88) - Fixed mocked response for "/file/copy/withToken" in MediaMock. Added isMediaCollectionItemFullDetails() to media-client.
+- [`fa6fb5dfbb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fa6fb5dfbb) - Removing unused code to be published
+- [`7af030b047`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7af030b047) - Added example for broken external file Id
+- Updated dependencies
+
 ## 28.0.1
 
 ### Patch Changes

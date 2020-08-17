@@ -156,7 +156,10 @@ describe('hyperlink', () => {
         action: 'inserted',
         actionSubject: 'document',
         actionSubjectId: 'link',
-        attributes: expect.objectContaining({ inputMethod: 'autoDetect' }),
+        attributes: expect.objectContaining({
+          inputMethod: 'autoDetect',
+          fromCurrentDomain: false,
+        }),
         nonPrivacySafeAttributes: { linkDomain: 'atlassian.com' },
         eventType: 'track',
       });
@@ -170,7 +173,10 @@ describe('hyperlink', () => {
         action: 'inserted',
         actionSubject: 'document',
         actionSubjectId: 'link',
-        attributes: expect.objectContaining({ inputMethod: 'autoformatting' }),
+        attributes: expect.objectContaining({
+          inputMethod: 'autoformatting',
+          fromCurrentDomain: false,
+        }),
         nonPrivacySafeAttributes: { linkDomain: 'atlassian.com' },
         eventType: 'track',
       });

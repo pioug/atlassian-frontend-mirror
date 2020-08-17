@@ -93,4 +93,11 @@ export default class DummyBridge implements NativeBridge {
     sendToBridge(bridge, event, ...args);
   }
   updateTextColor() {}
+
+  editorReady() {
+    this.call('lifecycleBridge', 'editorReady');
+  }
+  editorDestroyed() {
+    this.call('lifecycleBridge', 'editorDestroyed');
+  }
 }

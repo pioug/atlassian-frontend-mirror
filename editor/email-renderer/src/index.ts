@@ -1,8 +1,7 @@
 import { defaultSchema } from '@atlaskit/adf-schema';
 import { Fragment, Node as PMNode, Schema } from 'prosemirror-model';
-// TODO: Import individual lodash functions that are specified in package.json
-// eslint-disable-next-line import/no-extraneous-dependencies
-import * as _ from 'lodash';
+import flow from 'lodash/flow';
+import property from 'lodash/property';
 import {
   SerializeFragmentWithAttachmentsResult,
   SerializerWithImages,
@@ -146,14 +145,14 @@ export class EmailSerializer implements SerializerWithImages<string> {
     fragment: Fragment,
     context?: MetaDataContext,
   ): SerializeFragmentWithAttachmentsResult => {
-    return _.flow(
+    return flow(
       (fragment: Fragment) => fragment.toJSON(),
       JSON.stringify,
       escapeHtmlString,
       JSON.parse,
       wrapAdf,
       this.schema.nodeFromJSON,
-      _.property('content'),
+      property('content'),
       fragment => traverseTree(fragment, undefined, context),
       html => juicify(html, this.opts.isInlineCSSEnabled),
       html => processImages(html, this.opts.isImageStubEnabled), // inline static assets for demo purposes
@@ -161,9 +160,9 @@ export class EmailSerializer implements SerializerWithImages<string> {
     )(fragment);
   };
 
-  serializeFragment: (...args: any) => string = _.flow(
+  serializeFragment: (...args: any) => string = flow(
     this.serializeFragmentWithImages,
-    _.property('result'),
+    property('result'),
   );
 
   static fromSchema(

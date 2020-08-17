@@ -1,6 +1,7 @@
 import {
   getExampleUrl,
   loadPage,
+  PuppeteerPage,
   takeElementScreenShot,
 } from '@atlaskit/visual-regression/helper';
 
@@ -14,7 +15,7 @@ const button4 = "[data-testid='button--4']";
 const button5 = "[data-testid='button--5']";
 
 describe('Snapshot Test', () => {
-  let page: any;
+  let page: PuppeteerPage;
   let url: string;
 
   beforeAll(async () => {

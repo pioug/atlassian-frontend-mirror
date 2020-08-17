@@ -28,7 +28,7 @@ export type EditLinkToolbarProps = {
   url: string | undefined;
   text: string;
   node: Node;
-  onSubmit?: (href: string, text: string) => void;
+  onSubmit?: (href: string, text?: string) => void;
 };
 
 export class EditLinkToolbar extends React.Component<EditLinkToolbarProps> {
@@ -55,10 +55,10 @@ export class EditLinkToolbar extends React.Component<EditLinkToolbarProps> {
         providerFactory={providerFactory}
         displayUrl={url}
         displayText={text}
-        onSubmit={(href, text) => {
+        onSubmit={(href, title, displayText) => {
           this.hideLinkToolbar();
           if (onSubmit) {
-            onSubmit(href, text);
+            onSubmit(href, displayText || title);
           }
         }}
       />
@@ -99,7 +99,7 @@ export const buildEditLinkToolbar = ({
           url={displayInfo.url}
           text={displayInfo.title || ''}
           node={node}
-          onSubmit={(newHref: string, newText: string) => {
+          onSubmit={(newHref: string, newText?: string) => {
             // Completely new link - could be a Smart Link, the title and href point
             // to different destinations.
             if (newText !== displayInfo.title && newHref !== displayInfo.url) {

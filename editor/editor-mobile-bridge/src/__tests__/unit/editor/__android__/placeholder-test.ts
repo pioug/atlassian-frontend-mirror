@@ -21,7 +21,6 @@ describe('placeholder on mobile', () => {
       doc,
       editorProps: {
         placeholder: 'potato',
-        analyticsHandler: () => {},
       },
     });
 

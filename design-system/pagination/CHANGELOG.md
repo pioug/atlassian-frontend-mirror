@@ -1,5 +1,11 @@
 # @atlaskit/pagination
 
+## 13.0.3
+
+### Patch Changes
+
+- [`7c7ec3b7ab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7c7ec3b7ab) - Earlier user was unable to see next page once he goes to page 5, While using Pagination component. Now it works fine for page 5 and other page as well.
+
 ## 13.0.2
 
 ### Patch Changes

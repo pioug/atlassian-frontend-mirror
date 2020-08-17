@@ -8,6 +8,7 @@ import {
   ProcessingFileState,
   Identifier,
   isExternalImageIdentifier,
+  isErrorFileState,
 } from '@atlaskit/media-client';
 import { Subscription } from 'rxjs/Subscription';
 import deepEqual from 'deep-equal';
@@ -29,13 +30,14 @@ import {
   MetadataIconWrapper,
   MetadataFileName,
 } from './styled';
-import { MediaTypeIcon } from '@atlaskit/media-ui/media-type-icon';
 import { MediaViewerError, createError } from './error';
 import {
   ToolbarDownloadButton,
   DisabledToolbarDownloadButton,
 } from './download';
 import { MediaViewerExtensions } from '../components/types';
+import { MediaFeatureFlags, getMediaFeatureFlag } from '@atlaskit/media-common';
+import { MimeTypeIcon } from '@atlaskit/media-ui/mime-type-icon';
 
 export type Props = {
   readonly identifier: Identifier;
@@ -44,6 +46,7 @@ export type Props = {
   readonly extensions?: MediaViewerExtensions;
   readonly onSidebarButtonClick?: () => void;
   readonly isSidebarVisible?: boolean;
+  readonly featureFlags?: MediaFeatureFlags;
 };
 
 export type State = {
@@ -149,8 +152,22 @@ export class Header extends React.Component<Props & InjectedIntlProps, State> {
   };
 
   render() {
+    const { item } = this.state;
+    const { featureFlags } = this.props;
+    let isArchiveSideBarVisible = false;
+    if (
+      getMediaFeatureFlag('zipPreviews', featureFlags) &&
+      item.data &&
+      !isErrorFileState(item.data)
+    ) {
+      const { mediaType } = item.data;
+      isArchiveSideBarVisible = mediaType === 'archive';
+    }
     return (
-      <HeaderWrapper className={hideControlsClassName}>
+      <HeaderWrapper
+        isArchiveSideBarVisible={isArchiveSideBarVisible}
+        className={hideControlsClassName}
+      >
         <LeftHeader>{this.renderMetadata()}</LeftHeader>
         <RightHeader>
           {this.renderSidebarButton()}
@@ -174,7 +191,7 @@ export class Header extends React.Component<Props & InjectedIntlProps, State> {
       return (
         <MetadataWrapper>
           <MetadataIconWrapper>
-            {this.getMediaIcon(item.mediaType)}
+            {this.getMediaIcon(item.mediaType, item.mimeType, item.name)}
           </MetadataIconWrapper>
           <MedatadataTextWrapper>
             <MetadataFileName data-testid="media-viewer-file-name">
@@ -210,6 +227,7 @@ export class Header extends React.Component<Props & InjectedIntlProps, State> {
       audio: messages.audio,
       video: messages.video,
       image: messages.image,
+      archive: messages.archive,
       unknown: messages.unknown,
     };
     const message = mediaTypeTranslationMap[mediaType || 'unknown'];
@@ -218,8 +236,14 @@ export class Header extends React.Component<Props & InjectedIntlProps, State> {
     return <FormattedMessage {...(message || messages.unknown)} />;
   };
 
-  private getMediaIcon = (mediaType?: MediaType) => {
-    return <MediaTypeIcon type={mediaType} />;
+  private getMediaIcon = (
+    mediaType?: MediaType,
+    mimeType?: string,
+    fileName?: string,
+  ) => {
+    return (
+      <MimeTypeIcon mediaType={mediaType} mimeType={mimeType} name={fileName} />
+    );
   };
 
   private needsReset(propsA: Props, propsB: Props) {

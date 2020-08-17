@@ -9,9 +9,9 @@ import {
   clickFirstCell,
 } from '../../__helpers/page-objects/_table';
 import { animationFrame } from '../../__helpers/page-objects/_editor';
-import { Page } from '../../__helpers/page-objects/_types';
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 
-let page: Page;
+let page: PuppeteerPage;
 const initEditor = async (adf: Object) => {
   await initEditorWithAdf(page, {
     appearance: Appearance.fullPage,

@@ -7,6 +7,8 @@ import {
 import { Retry, NewExpRetry } from './styled';
 import { FormattedMessage } from 'react-intl';
 import { messages } from '@atlaskit/media-ui';
+import { createPreventClickThrough } from '../../../utils/preventClickThrough';
+import RetryIcon from '@atlaskit/icon/glyph/retry';
 
 type RetryProps = React.HTMLAttributes<HTMLDivElement> &
   WithAnalyticsEventsProps;
@@ -19,7 +21,9 @@ type NewExpRetryProps = React.HTMLAttributes<HTMLAnchorElement> &
   WithAnalyticsEventsProps;
 
 const NewExpRetryWithProps = (props: NewExpRetryProps) => (
-  <NewExpRetry data-testid="media-card-retry-button" {...props} />
+  <NewExpRetry data-testid="media-card-retry-button" {...props}>
+    <RetryIcon label={'Retry'} size={'small'} />
+  </NewExpRetry>
 );
 
 const createRetryWithAnalytics = withAnalyticsEvents({
@@ -34,7 +38,7 @@ const createRetryWithAnalytics = withAnalyticsEvents({
 const RetryWithAnalytics = createRetryWithAnalytics(RetryWithProps);
 
 export const RetryButton = ({ onClick }: { onClick: () => void }) => (
-  <RetryWithAnalytics onClick={onClick}>
+  <RetryWithAnalytics onClick={createPreventClickThrough(onClick)}>
     <FormattedMessage {...messages.retry} />
   </RetryWithAnalytics>
 );
@@ -42,7 +46,7 @@ export const RetryButton = ({ onClick }: { onClick: () => void }) => (
 const NewExpRetryWithAnalytics = createRetryWithAnalytics(NewExpRetryWithProps);
 
 export const NewExpRetryButton = ({ onClick }: { onClick: () => void }) => (
-  <NewExpRetryWithAnalytics onClick={onClick}>
+  <NewExpRetryWithAnalytics onClick={createPreventClickThrough(onClick)}>
     <FormattedMessage {...messages.retry} />
   </NewExpRetryWithAnalytics>
 );

@@ -1,3 +1,4 @@
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import {
   snapshot,
   Device,
@@ -26,7 +27,6 @@ import {
   waitForStatusToolbar,
   clickOnStatus,
 } from '../../__helpers/page-objects/_status';
-import { Page } from '../../__helpers/page-objects/_types';
 import {
   waitForDatePicker,
   clickOnDate,
@@ -39,11 +39,11 @@ import { EditorTestCardProvider } from '@atlaskit/editor-test-helpers/card-provi
 import { waitForResolvedInlineCard } from '../../__helpers/page-objects/_cards';
 
 describe('Lists', () => {
-  let page: Page;
+  let page: PuppeteerPage;
   const cardProvider = new EditorTestCardProvider();
 
   const initEditor = async (
-    page: Page,
+    page: PuppeteerPage,
     adf: any,
     viewport: { width: number; height: number } = deviceViewPorts[
       Device.Default
@@ -110,9 +110,9 @@ describe('Lists', () => {
 });
 
 describe('Lists adjacent floated media', () => {
-  let page: Page;
+  let page: PuppeteerPage;
 
-  const initEditor = async (page: Page, adf: any) =>
+  const initEditor = async (page: PuppeteerPage, adf: any) =>
     await initEditorWithAdf(page, {
       appearance: Appearance.fullPage,
       adf,
@@ -160,7 +160,7 @@ describe('Lists adjacent floated media', () => {
   });
 });
 
-async function visualiseListItemBoundingBoxes(page: any) {
+async function visualiseListItemBoundingBoxes(page: PuppeteerPage) {
   const css = `
       li > *,
       .taskItemView-content-wrap > * {

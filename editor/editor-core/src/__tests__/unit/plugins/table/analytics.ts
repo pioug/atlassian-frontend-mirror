@@ -19,7 +19,6 @@ import {
   TablePluginState,
   PluginConfig,
 } from '../../../../plugins/table/types';
-import { AnalyticsHandler } from '../../../../analytics';
 import {
   deleteTableWithAnalytics,
   emptyMultipleCellsWithAnalytics,
@@ -51,7 +50,6 @@ const secondColumn: Rect = { left: 1, top: 0, bottom: 3, right: 2 };
 describe('Table analytic events', () => {
   const createEditor = createEditorFactory<TablePluginState>();
   let createAnalyticsEvent: jest.Mock<UIAnalyticsEvent>;
-  let trackEvent: jest.Mock<AnalyticsHandler>;
 
   const editor = (doc: any) => {
     const tableOptions = {
@@ -61,7 +59,6 @@ describe('Table analytic events', () => {
       permittedLayouts: 'all',
     } as PluginConfig;
 
-    trackEvent = jest.fn();
     createAnalyticsEvent = jest
       .fn()
       .mockReturnValue({ fire() {} }) as jest.Mock<UIAnalyticsEvent>;
@@ -69,7 +66,6 @@ describe('Table analytic events', () => {
     const _editor = createEditor({
       doc,
       editorProps: {
-        analyticsHandler: trackEvent,
         allowTables: tableOptions,
         allowAnalyticsGASV3: true,
         appearance: 'full-page',
@@ -79,7 +75,6 @@ describe('Table analytic events', () => {
       createAnalyticsEvent,
     });
 
-    trackEvent.mockClear();
     createAnalyticsEvent.mockClear();
 
     return _editor;
@@ -90,15 +85,6 @@ describe('Table analytic events', () => {
       const { editorView, sel } = editor(doc(p('{<>}')));
       insertText(editorView, '/Table', sel);
       sendKeyToPm(editorView, 'Enter');
-    });
-
-    it('should fire v2 analytics', () => {
-      expect(trackEvent).toHaveBeenCalledWith(
-        'atlassian.editor.quickinsert.select',
-        {
-          item: 'Table',
-        },
-      );
     });
 
     it('should fire v3 analytics', () => {
@@ -116,12 +102,6 @@ describe('Table analytic events', () => {
     beforeEach(() => {
       const { editorView } = editor(doc(defaultTable));
       deleteTableWithAnalytics()(editorView.state, editorView.dispatch);
-    });
-
-    it('should fire v2 analytics', () => {
-      expect(trackEvent).toHaveBeenCalledWith(
-        'atlassian.editor.format.table.delete.button',
-      );
     });
 
     it('should fire v3 analytics', () => {
@@ -158,12 +138,6 @@ describe('Table analytic events', () => {
         );
       });
 
-      it('should fire v2 analytics', () => {
-        expect(trackEvent).toHaveBeenCalledWith(
-          'atlassian.editor.format.table.delete_content.button',
-        );
-      });
-
       it('should fire v3 analytics', () => {
         expect(createAnalyticsEvent).toHaveBeenCalledWith({
           action: 'cleared',
@@ -194,12 +168,6 @@ describe('Table analytic events', () => {
         );
 
         sendKeyToPm(editorView, 'Backspace');
-      });
-
-      it('should fire v2 analytics', () => {
-        expect(trackEvent).toHaveBeenCalledWith(
-          'atlassian.editor.format.table.delete_content.keyboard',
-        );
       });
 
       it('should fire v3 analytics', () => {
@@ -235,12 +203,6 @@ describe('Table analytic events', () => {
       mergeCellsWithAnalytics()(editorView.state, editorView.dispatch);
     });
 
-    it('should fire v2 analytics', () => {
-      expect(trackEvent).toHaveBeenCalledWith(
-        'atlassian.editor.format.table.merge.button',
-      );
-    });
-
     it('should fire v3 analytics', () => {
       expect(createAnalyticsEvent).toHaveBeenCalledWith({
         action: 'merged',
@@ -271,12 +233,6 @@ describe('Table analytic events', () => {
       );
 
       splitCellWithAnalytics()(editorView.state, editorView.dispatch);
-    });
-
-    it('should fire v2 analytics', () => {
-      expect(trackEvent).toHaveBeenCalledWith(
-        'atlassian.editor.format.table.split.button',
-      );
     });
 
     it('should fire v3 analytics', () => {
@@ -311,12 +267,6 @@ describe('Table analytic events', () => {
       setColorWithAnalytics(B50)(editorView.state, editorView.dispatch);
     });
 
-    it('should fire v2 analytics', () => {
-      expect(trackEvent).toHaveBeenCalledWith(
-        'atlassian.editor.format.table.backgroundColor.button',
-      );
-    });
-
     it('should fire v3 analytics', () => {
       expect(createAnalyticsEvent).toHaveBeenCalledWith({
         action: 'colored',
@@ -341,12 +291,6 @@ describe('Table analytic events', () => {
       toggleHeaderRowWithAnalytics()(editorView.state, editorView.dispatch);
     });
 
-    it('should fire v2 analytics', () => {
-      expect(trackEvent).toHaveBeenCalledWith(
-        'atlassian.editor.format.table.toggleHeaderRow.button',
-      );
-    });
-
     it('should fire v3 analytics', () => {
       expect(createAnalyticsEvent).toHaveBeenCalledWith({
         action: 'toggledHeaderRow',
@@ -368,12 +312,6 @@ describe('Table analytic events', () => {
       toggleHeaderColumnWithAnalytics()(editorView.state, editorView.dispatch);
     });
 
-    it('should fire v2 analytics', () => {
-      expect(trackEvent).toHaveBeenCalledWith(
-        'atlassian.editor.format.table.toggleHeaderColumn.button',
-      );
-    });
-
     it('should fire v3 analytics', () => {
       expect(createAnalyticsEvent).toHaveBeenCalledWith({
         action: 'toggledHeaderColumn',
@@ -393,12 +331,6 @@ describe('Table analytic events', () => {
     beforeEach(() => {
       const { editorView } = editor(defaultTable);
       toggleNumberColumnWithAnalytics()(editorView.state, editorView.dispatch);
-    });
-
-    it('should fire v2 analytics', () => {
-      expect(trackEvent).toHaveBeenCalledWith(
-        'atlassian.editor.format.table.toggleNumberColumn.button',
-      );
     });
 
     it('should fire v3 analytics', () => {
@@ -514,12 +446,6 @@ describe('Table analytic events', () => {
       );
     });
 
-    it('should fire v2 analytics', () => {
-      expect(trackEvent).toHaveBeenCalledWith(
-        'atlassian.editor.format.table.delete_row.button',
-      );
-    });
-
     it('should fire v3 analytics', () => {
       expect(createAnalyticsEvent).toHaveBeenCalledWith({
         action: 'cut',
@@ -547,12 +473,6 @@ describe('Table analytic events', () => {
         })(editorView.state, editorView.dispatch);
       });
 
-      it('should fire v2 analytics', () => {
-        expect(trackEvent).toHaveBeenCalledWith(
-          'atlassian.editor.format.table.row.button',
-        );
-      });
-
       it('should fire v3 analytics', () => {
         expect(createAnalyticsEvent).toHaveBeenCalledWith({
           action: 'addedRow',
@@ -574,12 +494,6 @@ describe('Table analytic events', () => {
         beforeEach(() => {
           const { editorView } = editor(defaultTable);
           sendKeyToPm(editorView, 'Tab');
-        });
-
-        it('should fire v2 analytics', () => {
-          expect(trackEvent).toHaveBeenCalledWith(
-            'atlassian.editor.format.table.row.keyboard',
-          );
         });
 
         it('should fire v3 analytics', () => {
@@ -612,12 +526,6 @@ describe('Table analytic events', () => {
           sendKeyToPm(editorView, 'Shift-Tab');
         });
 
-        it('should fire v2 analytics', () => {
-          expect(trackEvent).toHaveBeenCalledWith(
-            'atlassian.editor.format.table.row.keyboard',
-          );
-        });
-
         it('should fire v3 analytics', () => {
           expect(createAnalyticsEvent).toHaveBeenCalledWith({
             action: 'addedRow',
@@ -642,12 +550,6 @@ describe('Table analytic events', () => {
       insertColumnWithAnalytics(INPUT_METHOD.CONTEXT_MENU, 2)(
         editorView.state,
         editorView.dispatch,
-      );
-    });
-
-    it('should fire v2 analytics', () => {
-      expect(trackEvent).toHaveBeenCalledWith(
-        'atlassian.editor.format.table.column.button',
       );
     });
 
@@ -677,12 +579,6 @@ describe('Table analytic events', () => {
       )(editorView.state, editorView.dispatch);
     });
 
-    it('should fire v2 analytics', () => {
-      expect(trackEvent).toHaveBeenCalledWith(
-        'atlassian.editor.format.table.delete_row.button',
-      );
-    });
-
     it('should fire v3 analytics', () => {
       expect(createAnalyticsEvent).toHaveBeenCalledWith({
         action: 'deletedRow',
@@ -706,12 +602,6 @@ describe('Table analytic events', () => {
       deleteColumnsWithAnalytics(INPUT_METHOD.CONTEXT_MENU, secondColumn)(
         editorView.state,
         editorView.dispatch,
-      );
-    });
-
-    it('should fire v2 analytics', () => {
-      expect(trackEvent).toHaveBeenCalledWith(
-        'atlassian.editor.format.table.delete_column.button',
       );
     });
 

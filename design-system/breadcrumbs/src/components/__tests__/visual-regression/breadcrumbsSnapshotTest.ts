@@ -1,5 +1,3 @@
-declare var global: any;
-
 import {
   getExampleUrl,
   loadPage,

@@ -140,29 +140,32 @@ export function setLinkText(text: string, pos: number, to?: number): Command {
 export function insertLink(
   from: number,
   to: number,
-  href: string,
-  text?: string,
+  incomingHref: string,
+  incomingTitle?: string,
+  displayText?: string,
   source?: LinkInputType,
 ): Command {
   return (state, dispatch) => {
     const link = state.schema.marks.link;
-    if (href.trim()) {
+    if (incomingHref.trim()) {
       const { tr } = state;
-      const normalizedUrl = normalizeUrl(href);
-      const textContent = text || href;
-      const displayText = stateKey.getState(state).activeText;
+      const normalizedUrl = normalizeUrl(incomingHref);
+      // NB: in this context, `currentText` represents text which has been
+      // highlighted in the Editor, upon which a link is is being added.
+      const currentText = stateKey.getState(state).activeText;
 
       let markEnd = to;
-      if (!text || text !== displayText) {
-        tr.insertText(textContent, from, to);
-        markEnd = from + textContent.length;
+      const text = displayText || incomingTitle || incomingHref;
+      if (!displayText || displayText !== currentText) {
+        tr.insertText(text, from, to);
+        markEnd = from + text.length;
       }
 
       tr.addMark(from, markEnd, link.create({ href: normalizedUrl }));
       tr.setSelection(Selection.near(tr.doc.resolve(markEnd)));
 
       //Create a smart link when the user doesn't provide a title
-      if (isSmartLink(href, source, text)) {
+      if (isSmartLink(incomingHref, source, incomingTitle, displayText)) {
         queueCardsFromChangedTr(state, tr, source!, false);
       }
 
@@ -181,14 +184,15 @@ export const insertLinkWithAnalytics = (
   from: number,
   to: number,
   href: string,
-  text?: string,
+  title?: string | undefined,
+  displayText?: string | undefined,
 ) => {
   // If we are inserting a smart link, skip insert hyperlink analytics
-  if (isSmartLink(href, inputMethod, text)) {
-    return insertLink(from, to, href, text, inputMethod);
+  if (isSmartLink(href, inputMethod, title, displayText)) {
+    return insertLink(from, to, href, title, displayText, inputMethod);
   } else {
     return withAnalytics(getLinkCreationAnalyticsEvent(inputMethod, href))(
-      insertLink(from, to, href, text, inputMethod),
+      insertLink(from, to, href, title, displayText, inputMethod),
     );
   }
 };
@@ -196,11 +200,19 @@ export const insertLinkWithAnalytics = (
 const isSmartLink = (
   href: string,
   inputMethod?: LinkInputType,
-  text?: string,
+  title?: string,
+  displayText?: string,
 ) =>
-  (inputMethod && inputMethod === INPUT_METHOD.TYPEAHEAD) ||
-  !text ||
-  text === href;
+  // NB: A link is a Smart Link if:
+  // - it is inserted from the CMD + K menu without display text
+  // - it is inserted manually (by typing) without display text and a title
+  // - it is inserted using either approach and the display text, href are the same
+  (inputMethod && inputMethod === INPUT_METHOD.TYPEAHEAD && !displayText) ||
+  (inputMethod &&
+    inputMethod === INPUT_METHOD.MANUAL &&
+    !title &&
+    !displayText) ||
+  displayText === href;
 
 export function removeLink(pos: number): Command {
   return setLinkHref('', pos);

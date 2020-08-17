@@ -1,5 +1,8 @@
 import React from 'react';
-import { waitForNoTooltip } from '@atlaskit/visual-regression/helper';
+import {
+  waitForNoTooltip,
+  waitForTooltip,
+} from '@atlaskit/visual-regression/helper';
 import {
   snapshot,
   initEditorWithAdf,
@@ -13,12 +16,12 @@ import {
   ToolbarMenuItem,
   toolbarMenuItemsSelectors as selectors,
 } from '../../__helpers/page-objects/_toolbar';
-import { Page } from '../../__helpers/page-objects/_types';
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { scrollToBottom } from '../../__helpers/page-objects/_editor';
 import * as parapgrahADF from './__fixtures__/paragraph-of-text.adf.json';
 
 describe('Toolbar', () => {
-  let page: Page;
+  let page: PuppeteerPage;
 
   beforeEach(async () => {
     page = global.page;
@@ -30,30 +33,33 @@ describe('Toolbar', () => {
 
   afterEach(async () => {
     await page.waitForSelector(selectors[ToolbarMenuItem.toolbarDropList]);
-    await waitForNoTooltip(page);
     await snapshot(page, undefined, editorSelector);
   });
 
   it('should display headings menu correctly', async () => {
     await clickToolbarMenu(page, ToolbarMenuItem.fontStyle);
+    await waitForTooltip(page, 'Text styles');
   });
 
   it('should display text formatting menu correctly', async () => {
     await clickToolbarMenu(page, ToolbarMenuItem.moreFormatting);
+    await waitForTooltip(page, 'More formatting');
   });
 
   it('should display text color menu correctly', async () => {
     await clickToolbarMenu(page, ToolbarMenuItem.textColor);
+    await waitForTooltip(page, 'Text color');
   });
 
   it('should display insert menu correctly', async () => {
     await page.setViewport({ width: 1000, height: 700 });
     await clickToolbarMenu(page, ToolbarMenuItem.insertMenu);
+    await waitForTooltip(page, 'Insert');
   });
 });
 
 describe('Toolbar: Comment', () => {
-  let page: Page;
+  let page: PuppeteerPage;
 
   beforeEach(async () => {
     page = global.page;
@@ -65,18 +71,18 @@ describe('Toolbar: Comment', () => {
 
   afterEach(async () => {
     await page.waitForSelector(selectors[ToolbarMenuItem.toolbarDropList]);
-    await waitForNoTooltip(page);
     await snapshot(page, undefined, editorSelector);
   });
 
   it('should display text color menu correctly at small viewport', async () => {
     await page.setViewport(deviceViewPorts[Device.iPhonePlus]);
     await clickToolbarMenu(page, ToolbarMenuItem.textColor);
+    await waitForTooltip(page, 'Text color');
   });
 });
 
 describe('Toolbar: IconBefore', () => {
-  let page: Page;
+  let page: PuppeteerPage;
 
   afterEach(async () => {
     await waitForNoTooltip(page);
@@ -96,7 +102,11 @@ describe('Toolbar: IconBefore', () => {
       });
     });
 
-    it('should show the icon', () => {});
+    it('should show the icon', async () => {
+      await waitForTooltip(page, 'Bold');
+      await page.mouse.move(-30, -30);
+      await waitForNoTooltip(page);
+    });
 
     it('should show the icon in narrow view', async () => {
       await page.setViewport({ width: 400, height: 350 });

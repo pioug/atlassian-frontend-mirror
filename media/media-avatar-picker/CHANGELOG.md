@@ -1,5 +1,13 @@
 # @atlaskit/media-avatar-picker
 
+## 22.0.1
+
+### Patch Changes
+
+- [`fa6fb5dfbb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fa6fb5dfbb) - Removing unused code to be published
+- [`861d585ba8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/861d585ba8) - Changed mediaSingle to now render it's child adf nodes using nodeviews rather than directly with react
+- Updated dependencies
+
 ## 22.0.0
 
 ### Major Changes

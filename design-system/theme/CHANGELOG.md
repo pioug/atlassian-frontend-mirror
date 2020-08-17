@@ -1,5 +1,11 @@
 # @atlaskit/theme
 
+## 10.0.3
+
+### Patch Changes
+
+- [`676a1c7aa3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/676a1c7aa3) - regenerate snapshot for vr
+
 ## 10.0.2
 
 ### Patch Changes

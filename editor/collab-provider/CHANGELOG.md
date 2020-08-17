@@ -1,5 +1,16 @@
 # @atlaskit/collab-provider
 
+## 3.2.0
+
+### Minor Changes
+
+- [`4809ed1b20`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4809ed1b20) - fix many infinite heartbeats
+
+### Patch Changes
+
+- [`6262f382de`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6262f382de) - Use the 'lodash' package instead of single-function 'lodash.\*' packages
+- Updated dependencies
+
 ## 3.1.0
 
 ### Minor Changes

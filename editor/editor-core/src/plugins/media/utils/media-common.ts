@@ -30,6 +30,12 @@ import {
   startPositionOfParent,
 } from '../../../utils/prosemirror/position';
 import { GapCursorSelection } from '../../gap-cursor/selection';
+import { MediaADFAttrs } from '@atlaskit/adf-schema';
+import { isMediaBlobUrl } from '@atlaskit/media-client';
+
+export const isMediaBlobUrlFromAttrs = (attrs: MediaADFAttrs): boolean => {
+  return !!(attrs && attrs.type === 'external' && isMediaBlobUrl(attrs.url));
+};
 
 export const posOfMediaGroupNearby = (
   state: EditorState,

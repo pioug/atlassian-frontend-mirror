@@ -1,11 +1,26 @@
 import { Color as StatusColor } from '@atlaskit/status/element';
 import NativeBridge, { EditorBridges, EditorBridgeNames } from './bridge';
 import { sendToBridge } from '../../bridge-utils';
+import {
+  EditorLifecycleActions,
+  EditorLifecycleAnalyticsEvents,
+} from '../../analytics/lifecycle';
+import { ActionSubject, EventType } from '../../analytics/enums';
 
 export default class IosBridge implements NativeBridge {
+  private _editorReady = false;
+  private window: Window;
+
+  constructor(win: Window = window) {
+    this.window = win;
+  }
+
   showMentions(query: string) {
-    if (window.webkit && window.webkit.messageHandlers.mentionBridge) {
-      window.webkit.messageHandlers.mentionBridge.postMessage({
+    if (
+      this.window.webkit &&
+      this.window.webkit.messageHandlers.mentionBridge
+    ) {
+      this.window.webkit.messageHandlers.mentionBridge.postMessage({
         name: 'showMentions',
         query: query,
       });
@@ -13,31 +28,40 @@ export default class IosBridge implements NativeBridge {
   }
 
   dismissMentions() {
-    if (window.webkit && window.webkit.messageHandlers.mentionBridge) {
-      window.webkit.messageHandlers.mentionBridge.postMessage({
+    if (
+      this.window.webkit &&
+      this.window.webkit.messageHandlers.mentionBridge
+    ) {
+      this.window.webkit.messageHandlers.mentionBridge.postMessage({
         name: 'dismissMentions',
       });
     }
   }
   updateTextFormat(markStates: string) {
-    if (window.webkit && window.webkit.messageHandlers.textFormatBridge) {
-      window.webkit.messageHandlers.textFormatBridge.postMessage({
+    if (
+      this.window.webkit &&
+      this.window.webkit.messageHandlers.textFormatBridge
+    ) {
+      this.window.webkit.messageHandlers.textFormatBridge.postMessage({
         name: 'updateTextFormat',
         states: markStates,
       });
     }
   }
   updateText(content: string) {
-    if (window.webkit && window.webkit.messageHandlers.textFormatBridge) {
-      window.webkit.messageHandlers.textFormatBridge.postMessage({
+    if (
+      this.window.webkit &&
+      this.window.webkit.messageHandlers.textFormatBridge
+    ) {
+      this.window.webkit.messageHandlers.textFormatBridge.postMessage({
         name: 'updateText',
         query: content,
       });
     }
   }
   getServiceHost(): string {
-    if (window.mediaBridge) {
-      return window.mediaBridge.getServiceHost();
+    if (this.window.mediaBridge) {
+      return this.window.mediaBridge.getServiceHost();
     } else {
       // ¯\_(ツ)_/¯ ugly, I know, but we need this data, and don't want call native side
       return 'http://www.atlassian.com';
@@ -45,8 +69,8 @@ export default class IosBridge implements NativeBridge {
   }
 
   getCollection(): string {
-    if (window.mediaBridge) {
-      return window.mediaBridge.getCollection();
+    if (this.window.mediaBridge) {
+      return this.window.mediaBridge.getCollection();
     } else {
       // ¯\_(ツ)_/¯ @see #getServiceHost()
       return 'FabricMediaSampleCollection';
@@ -54,8 +78,11 @@ export default class IosBridge implements NativeBridge {
   }
 
   submitPromise(name: string, uuid: string, args: string) {
-    if (window.webkit && window.webkit.messageHandlers.promiseBridge) {
-      window.webkit.messageHandlers.promiseBridge.postMessage({
+    if (
+      this.window.webkit &&
+      this.window.webkit.messageHandlers.promiseBridge
+    ) {
+      this.window.webkit.messageHandlers.promiseBridge.postMessage({
         name: 'submitPromise',
         promise: {
           name: name,
@@ -67,8 +94,11 @@ export default class IosBridge implements NativeBridge {
   }
 
   updateBlockState(currentBlockType: string) {
-    if (window.webkit && window.webkit.messageHandlers.blockFormatBridge) {
-      window.webkit.messageHandlers.blockFormatBridge.postMessage({
+    if (
+      this.window.webkit &&
+      this.window.webkit.messageHandlers.blockFormatBridge
+    ) {
+      this.window.webkit.messageHandlers.blockFormatBridge.postMessage({
         name: 'updateBlockState',
         states: currentBlockType,
       });
@@ -76,8 +106,8 @@ export default class IosBridge implements NativeBridge {
   }
 
   updateListState(listState: string) {
-    if (window.webkit && window.webkit.messageHandlers.listBridge) {
-      window.webkit.messageHandlers.listBridge.postMessage({
+    if (this.window.webkit && this.window.webkit.messageHandlers.listBridge) {
+      this.window.webkit.messageHandlers.listBridge.postMessage({
         name: 'updateListState',
         states: listState,
       });
@@ -90,8 +120,8 @@ export default class IosBridge implements NativeBridge {
     uuid: string,
     isNew: boolean,
   ) {
-    if (window.webkit && window.webkit.messageHandlers.statusBridge) {
-      window.webkit.messageHandlers.statusBridge.postMessage({
+    if (this.window.webkit && this.window.webkit.messageHandlers.statusBridge) {
+      this.window.webkit.messageHandlers.statusBridge.postMessage({
         name: 'showStatusPicker',
         text,
         color,
@@ -102,8 +132,8 @@ export default class IosBridge implements NativeBridge {
   }
 
   dismissStatusPicker(isNew: boolean) {
-    if (window.webkit && window.webkit.messageHandlers.statusBridge) {
-      window.webkit.messageHandlers.statusBridge.postMessage({
+    if (this.window.webkit && this.window.webkit.messageHandlers.statusBridge) {
+      this.window.webkit.messageHandlers.statusBridge.postMessage({
         name: 'dismissStatusPicker',
         isNew,
       });
@@ -118,8 +148,8 @@ export default class IosBridge implements NativeBridge {
     bottom: number,
     left: number,
   ) {
-    if (window.webkit && window.webkit.messageHandlers.linkBridge) {
-      window.webkit.messageHandlers.linkBridge.postMessage({
+    if (this.window.webkit && this.window.webkit.messageHandlers.linkBridge) {
+      this.window.webkit.messageHandlers.linkBridge.postMessage({
         name: 'currentSelection',
         text,
         url,
@@ -132,8 +162,11 @@ export default class IosBridge implements NativeBridge {
   }
 
   stateChanged(canUndo: boolean, canRedo: boolean) {
-    if (window.webkit && window.webkit.messageHandlers.undoRedoBridge) {
-      window.webkit.messageHandlers.undoRedoBridge.postMessage({
+    if (
+      this.window.webkit &&
+      this.window.webkit.messageHandlers.undoRedoBridge
+    ) {
+      this.window.webkit.messageHandlers.undoRedoBridge.postMessage({
         name: 'stateChanged',
         canUndo,
         canRedo,
@@ -142,8 +175,11 @@ export default class IosBridge implements NativeBridge {
   }
 
   trackEvent(event: string) {
-    if (window.webkit && window.webkit.messageHandlers.analyticsBridge) {
-      window.webkit.messageHandlers.analyticsBridge.postMessage({
+    if (
+      this.window.webkit &&
+      this.window.webkit.messageHandlers.analyticsBridge
+    ) {
+      this.window.webkit.messageHandlers.analyticsBridge.postMessage({
         name: 'trackEvent',
         event,
       });
@@ -151,8 +187,8 @@ export default class IosBridge implements NativeBridge {
   }
 
   connectToCollabService(path: string): void {
-    if (window.webkit && window.webkit.messageHandlers.collabBridge) {
-      window.webkit.messageHandlers.collabBridge.postMessage({
+    if (this.window.webkit && this.window.webkit.messageHandlers.collabBridge) {
+      this.window.webkit.messageHandlers.collabBridge.postMessage({
         name: 'connect',
         path,
       });
@@ -160,16 +196,16 @@ export default class IosBridge implements NativeBridge {
   }
 
   disconnectFromCollabService(): void {
-    if (window.webkit && window.webkit.messageHandlers.collabBridge) {
-      window.webkit.messageHandlers.collabBridge.postMessage({
+    if (this.window.webkit && this.window.webkit.messageHandlers.collabBridge) {
+      this.window.webkit.messageHandlers.collabBridge.postMessage({
         name: 'disconnect',
       });
     }
   }
 
   emitCollabChanges(event: string, jsonArgs: string): void {
-    if (window.webkit && window.webkit.messageHandlers.collabBridge) {
-      window.webkit.messageHandlers.collabBridge.postMessage({
+    if (this.window.webkit && this.window.webkit.messageHandlers.collabBridge) {
+      this.window.webkit.messageHandlers.collabBridge.postMessage({
         name: 'emit',
         event,
         jsonArgs,
@@ -186,4 +222,45 @@ export default class IosBridge implements NativeBridge {
   }
 
   updateTextColor() {}
+
+  editorDestroyed(): void {
+    if (
+      this.window.webkit &&
+      this.window.webkit.messageHandlers.lifecycleBridge
+    ) {
+      this.window.webkit.messageHandlers.lifecycleBridge.postMessage({
+        name: 'editorDestroyed',
+      });
+    }
+  }
+
+  editorReady(): void {
+    if (
+      !this.window.webkit ||
+      !this.window.webkit.messageHandlers.lifecycleBridge
+    ) {
+      const editorReadyTwice: EditorLifecycleAnalyticsEvents = {
+        action:
+          EditorLifecycleActions.EDITOR_READY_CALLED_BEFORE_LIFECYCLE_BRIDGE_SETUP,
+        actionSubject: ActionSubject.EDITOR,
+        eventType: EventType.TRACK,
+      };
+      this.trackEvent(JSON.stringify(editorReadyTwice));
+      return;
+    }
+
+    if (this._editorReady) {
+      const editorReadyTwice: EditorLifecycleAnalyticsEvents = {
+        action: EditorLifecycleActions.EDITOR_READY_CALLED_TWICE,
+        actionSubject: ActionSubject.EDITOR,
+        eventType: EventType.OPERATIONAL,
+      };
+      this.trackEvent(JSON.stringify(editorReadyTwice));
+      return;
+    }
+    this._editorReady = true;
+    this.window.webkit.messageHandlers.lifecycleBridge.postMessage({
+      name: 'editorReady',
+    });
+  }
 }

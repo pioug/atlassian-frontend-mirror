@@ -1,5 +1,27 @@
 # @atlaskit/media-viewer
 
+## 45.1.0
+
+### Minor Changes
+
+- [`65652ba165`](https://bitbucket.org/atlassian/atlassian-frontend/commits/65652ba165) - Added 15 new icons based on the mimetype (.sketch, .gif, ect). Previously, we only had 6 icons based on the mediaType (doc/audio/unknown/image/video). Also created a dedicated examples page for icons
+- [`6faafb144c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6faafb144c) - Introduce MediaFeatureFlags. Refactor components to use.
+- [`af4a8c4262`](https://bitbucket.org/atlassian/atlassian-frontend/commits/af4a8c4262) - Added custom error message for encrypted zip file previews
+- [`8cfc88423a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cfc88423a) - Added more zip examples and added error handling for zip previews
+- [`2202870181`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2202870181) - Added support for zip previews in media viewer
+
+### Patch Changes
+
+- [`fa6fb5dfbb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fa6fb5dfbb) - Removing unused code to be published
+- [`caf46c7c45`](https://bitbucket.org/atlassian/atlassian-frontend/commits/caf46c7c45) - Improved remote preview functionality for media-card redesign.
+  Breaking change: renamed type of argument "SourceFile" to "CopySourceFile" in the method "copyFile" of media-client.
+- [`b90eb38044`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b90eb38044) - Fix bug with MediaViewer when panning image in Firefox
+- [`7742cd3db2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7742cd3db2) - Fixing wrong import
+- [`ff10574de9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ff10574de9) - Centering error in zip preview
+- [`8295b0648e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8295b0648e) - Fixing archive entry bug
+- [`3a38fe4afd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3a38fe4afd) - Fixing sidebar UI
+- Updated dependencies
+
 ## 45.0.1
 
 ### Patch Changes

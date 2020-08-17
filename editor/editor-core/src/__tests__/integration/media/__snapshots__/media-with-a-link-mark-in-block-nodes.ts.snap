@@ -1,63 +1,131 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`should load the adf with media single inside a bodied extension 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "type": "paragraph",
+    },
+    Object {
+      "attrs": Object {
+        "extensionKey": "expand",
+        "extensionType": "com.atlassian.confluence.macro.core",
+        "layout": "default",
+        "parameters": null,
+        "text": null,
+      },
+      "content": Array [
+        Object {
+          "attrs": Object {
+            "layout": "center",
+            "width": null,
+          },
+          "content": Array [
+            Object {
+              "attrs": Object {
+                "__contextId": "DUMMY-OBJECT-ID",
+                "__displayType": null,
+                "__external": false,
+                "__fileMimeType": "image/svg+xml",
+                "__fileName": "example.png",
+                "__fileSize": 235,
+                "alt": null,
+                "collection": "MediaServicesSample",
+                "height": 500,
+                "id": "1234-5678-abcd-efgh",
+                "occurrenceKey": null,
+                "type": "file",
+                "url": null,
+                "width": 500,
+              },
+              "type": "media",
+            },
+          ],
+          "marks": Array [
+            Object {
+              "attrs": Object {
+                "__confluenceMetadata": null,
+                "href": "https://gnu.org",
+              },
+              "type": "link",
+            },
+          ],
+          "type": "mediaSingle",
+        },
+      ],
+      "type": "bodiedExtension",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
 exports[`should load the adf with media single inside a layout column 1`] = `
 Object {
   "content": Array [
     Object {
-      "attrs": Object {
-        "originalValue": Object {
+      "type": "paragraph",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "attrs": Object {
+            "width": 50,
+          },
           "content": Array [
             Object {
               "attrs": Object {
-                "width": 50,
+                "layout": "center",
+                "width": null,
               },
               "content": Array [
                 Object {
                   "attrs": Object {
-                    "layout": "center",
+                    "__contextId": "DUMMY-OBJECT-ID",
+                    "__displayType": null,
+                    "__external": false,
+                    "__fileMimeType": "image/svg+xml",
+                    "__fileName": "example.png",
+                    "__fileSize": 235,
+                    "alt": null,
+                    "collection": "MediaServicesSample",
+                    "height": 500,
+                    "id": "1234-5678-abcd-efgh",
+                    "occurrenceKey": null,
+                    "type": "file",
+                    "url": null,
+                    "width": 500,
                   },
-                  "content": Array [
-                    Object {
-                      "attrs": Object {
-                        "collection": "MediaServicesSample",
-                        "height": 683,
-                        "id": "f3522853-855b-471b-869c-6d9a8c424eea",
-                        "type": "file",
-                        "width": 1024,
-                      },
-                      "type": "media",
-                    },
-                  ],
-                  "marks": Array [
-                    Object {
-                      "attrs": Object {
-                        "href": "https://gnu.org",
-                      },
-                      "type": "link",
-                    },
-                  ],
-                  "type": "mediaSingle",
+                  "type": "media",
                 },
               ],
-              "type": "layoutColumn",
-            },
-            Object {
-              "attrs": Object {
-                "width": 50,
-              },
-              "content": Array [
+              "marks": Array [
                 Object {
-                  "content": Array [],
-                  "type": "paragraph",
+                  "attrs": Object {
+                    "__confluenceMetadata": null,
+                    "href": "https://gnu.org",
+                  },
+                  "type": "link",
                 },
               ],
-              "type": "layoutColumn",
+              "type": "mediaSingle",
             },
           ],
-          "type": "layoutSection",
+          "type": "layoutColumn",
         },
-      },
-      "type": "unsupportedBlock",
+        Object {
+          "attrs": Object {
+            "width": 50,
+          },
+          "content": Array [
+            Object {
+              "type": "paragraph",
+            },
+          ],
+          "type": "layoutColumn",
+        },
+      ],
+      "type": "layoutSection",
     },
   ],
   "type": "doc",
@@ -67,6 +135,9 @@ Object {
 exports[`should load the adf with media single inside a list item 1`] = `
 Object {
   "content": Array [
+    Object {
+      "type": "paragraph",
+    },
     Object {
       "content": Array [
         Object {
@@ -110,12 +181,12 @@ Object {
                     "__contextId": "DUMMY-OBJECT-ID",
                     "__displayType": null,
                     "__external": false,
-                    "__fileMimeType": null,
+                    "__fileMimeType": "image/svg+xml",
                     "__fileName": "example.png",
-                    "__fileSize": null,
+                    "__fileSize": 235,
                     "alt": null,
                     "collection": "MediaServicesSample",
-                    "height": 381,
+                    "height": 500,
                     "id": "1234-5678-abcd-efgh",
                     "occurrenceKey": null,
                     "type": "file",
@@ -168,9 +239,17 @@ exports[`should load the adf with media single inside a nested expand 1`] = `
 Object {
   "content": Array [
     Object {
+      "type": "paragraph",
+    },
+    Object {
       "attrs": Object {
-        "originalValue": Object {
+        "__expanded": true,
+        "title": "",
+      },
+      "content": Array [
+        Object {
           "attrs": Object {
+            "__autoSize": false,
             "isNumberColumnEnabled": false,
             "layout": "default",
           },
@@ -178,24 +257,40 @@ Object {
             Object {
               "content": Array [
                 Object {
-                  "attrs": Object {},
+                  "attrs": Object {
+                    "background": null,
+                    "colspan": 1,
+                    "colwidth": null,
+                    "rowspan": 1,
+                  },
                   "content": Array [
                     Object {
                       "attrs": Object {
+                        "__expanded": true,
                         "title": "",
                       },
                       "content": Array [
                         Object {
                           "attrs": Object {
                             "layout": "center",
+                            "width": null,
                           },
                           "content": Array [
                             Object {
                               "attrs": Object {
+                                "__contextId": "DUMMY-OBJECT-ID",
+                                "__displayType": null,
+                                "__external": false,
+                                "__fileMimeType": "image/svg+xml",
+                                "__fileName": "example.png",
+                                "__fileSize": 235,
+                                "alt": null,
                                 "collection": "MediaServicesSample",
-                                "height": 381,
-                                "id": "4b4bbf71-4ff5-4827-8b48-ac9e4e15cb68",
+                                "height": 500,
+                                "id": "1234-5678-abcd-efgh",
+                                "occurrenceKey": null,
                                 "type": "file",
+                                "url": null,
                                 "width": 500,
                               },
                               "type": "media",
@@ -204,16 +299,13 @@ Object {
                           "marks": Array [
                             Object {
                               "attrs": Object {
+                                "__confluenceMetadata": null,
                                 "href": "https://gnu.org",
                               },
                               "type": "link",
                             },
                           ],
                           "type": "mediaSingle",
-                        },
-                        Object {
-                          "content": Array [],
-                          "type": "paragraph",
                         },
                       ],
                       "type": "nestedExpand",
@@ -227,8 +319,8 @@ Object {
           ],
           "type": "table",
         },
-      },
-      "type": "unsupportedBlock",
+      ],
+      "type": "expand",
     },
   ],
   "type": "doc",
@@ -239,59 +331,70 @@ exports[`should load the adf with media single inside a table cell 1`] = `
 Object {
   "content": Array [
     Object {
+      "type": "paragraph",
+    },
+    Object {
       "attrs": Object {
-        "originalValue": Object {
-          "attrs": Object {
-            "isNumberColumnEnabled": false,
-            "layout": "default",
-          },
+        "__autoSize": false,
+        "isNumberColumnEnabled": false,
+        "layout": "default",
+      },
+      "content": Array [
+        Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
               "content": Array [
                 Object {
-                  "attrs": Object {},
+                  "attrs": Object {
+                    "layout": "center",
+                    "width": null,
+                  },
                   "content": Array [
                     Object {
                       "attrs": Object {
-                        "layout": "center",
+                        "__contextId": "DUMMY-OBJECT-ID",
+                        "__displayType": null,
+                        "__external": false,
+                        "__fileMimeType": "image/svg+xml",
+                        "__fileName": "example.png",
+                        "__fileSize": 235,
+                        "alt": null,
+                        "collection": "MediaServicesSample",
+                        "height": 500,
+                        "id": "1234-5678-abcd-efgh",
+                        "occurrenceKey": null,
+                        "type": "file",
+                        "url": null,
+                        "width": 500,
                       },
-                      "content": Array [
-                        Object {
-                          "attrs": Object {
-                            "collection": "MediaServicesSample",
-                            "height": 381,
-                            "id": "6dca16ef-0e85-4e85-89be-f780ac7929ff",
-                            "type": "file",
-                            "width": 500,
-                          },
-                          "type": "media",
-                        },
-                      ],
-                      "marks": Array [
-                        Object {
-                          "attrs": Object {
-                            "href": "https://gnu.org",
-                          },
-                          "type": "link",
-                        },
-                      ],
-                      "type": "mediaSingle",
-                    },
-                    Object {
-                      "content": Array [],
-                      "type": "paragraph",
+                      "type": "media",
                     },
                   ],
-                  "type": "tableCell",
+                  "marks": Array [
+                    Object {
+                      "attrs": Object {
+                        "__confluenceMetadata": null,
+                        "href": "https://gnu.org",
+                      },
+                      "type": "link",
+                    },
+                  ],
+                  "type": "mediaSingle",
                 },
               ],
-              "type": "tableRow",
+              "type": "tableCell",
             },
           ],
-          "type": "table",
+          "type": "tableRow",
         },
-      },
-      "type": "unsupportedBlock",
+      ],
+      "type": "table",
     },
   ],
   "type": "doc",
@@ -302,47 +405,56 @@ exports[`should load the adf with media single inside an expand 1`] = `
 Object {
   "content": Array [
     Object {
+      "type": "paragraph",
+    },
+    Object {
       "attrs": Object {
-        "originalValue": Object {
+        "__expanded": true,
+        "title": "",
+      },
+      "content": Array [
+        Object {
           "attrs": Object {
-            "title": "",
+            "layout": "center",
+            "width": null,
           },
           "content": Array [
             Object {
               "attrs": Object {
-                "layout": "center",
+                "__contextId": "DUMMY-OBJECT-ID",
+                "__displayType": null,
+                "__external": false,
+                "__fileMimeType": "image/svg+xml",
+                "__fileName": "example.png",
+                "__fileSize": 235,
+                "alt": null,
+                "collection": "MediaServicesSample",
+                "height": 500,
+                "id": "1234-5678-abcd-efgh",
+                "occurrenceKey": null,
+                "type": "file",
+                "url": null,
+                "width": 500,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
-                    "collection": "MediaServicesSample",
-                    "height": 381,
-                    "id": "d70b7150-f3a5-4018-abee-cfb669f6867d",
-                    "type": "file",
-                    "width": 500,
-                  },
-                  "type": "media",
-                },
-              ],
-              "marks": Array [
-                Object {
-                  "attrs": Object {
-                    "href": "https://gnu.org",
-                  },
-                  "type": "link",
-                },
-              ],
-              "type": "mediaSingle",
-            },
-            Object {
-              "content": Array [],
-              "type": "paragraph",
+              "type": "media",
             },
           ],
-          "type": "expand",
+          "marks": Array [
+            Object {
+              "attrs": Object {
+                "__confluenceMetadata": null,
+                "href": "https://gnu.org",
+              },
+              "type": "link",
+            },
+          ],
+          "type": "mediaSingle",
         },
-      },
-      "type": "unsupportedBlock",
+        Object {
+          "type": "paragraph",
+        },
+      ],
+      "type": "expand",
     },
   ],
   "type": "doc",

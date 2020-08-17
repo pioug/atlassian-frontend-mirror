@@ -1,4 +1,4 @@
-import { Page } from 'puppeteer';
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { snapshot, initFullPageEditorWithAdf } from '../_utils';
 import * as wrappedMediaAdf from './__fixtures__/wrapped-media.adf.json';
 import * as wrappedInBlockMedia from './__fixtures__/wrapped-in-block-media.adf.json';
@@ -8,7 +8,7 @@ import * as nonResizableMedia from './__fixtures__/non-resizable-media.adf.json'
 import { pressKey } from '../../__helpers/page-objects/_keyboard';
 
 describe('Snapshot Test: Wrapped media', () => {
-  let page: Page;
+  let page: PuppeteerPage;
   const viewport = { width: 1024, height: 900 };
 
   beforeAll(async () => {

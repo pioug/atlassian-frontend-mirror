@@ -1,3 +1,10 @@
+const openElementBrowserModal = jest
+  .fn()
+  .mockImplementation(() => () => jest.fn());
+jest.mock('../../../../../plugins/quick-insert/commands', () => ({
+  openElementBrowserModal,
+}));
+
 import React from 'react';
 import Item from '@atlaskit/item';
 import { EmojiPicker as AkEmojiPicker } from '@atlaskit/emoji';
@@ -13,7 +20,7 @@ import {
   taskItem,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { taskDecision } from '@atlaskit/util-data-test';
-import { ProviderFactory } from '@atlaskit/editor-common';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { uuid } from '@atlaskit/adf-schema';
 import Button from '@atlaskit/button';
 import {
@@ -39,7 +46,6 @@ import {
   INPUT_METHOD,
   DispatchAnalyticsEvent,
 } from '../../../../../plugins/analytics';
-import { AnalyticsHandler } from '../../../../../analytics';
 import { ReactWrapper, mount } from 'enzyme';
 import { EditorView } from 'prosemirror-view';
 import { TooltipShortcut } from '../../../../../keymaps';
@@ -122,7 +128,6 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
   let editorView: EditorView;
   let pluginState: any;
   let toolbarOption: ToolbarOptionWrapper;
-  let analyticsHandlerSpy: jest.Mock<AnalyticsHandler>;
   let createAnalyticsEvent: CreateUIAnalyticsEvent;
   let dispatchAnalyticsSpy: jest.SpyInstance<DispatchAnalyticsEvent>;
   let dispatchSpy: jest.SpyInstance;
@@ -133,7 +138,6 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
       doc,
       pluginKey: blockTypePluginKey,
       editorProps: {
-        analyticsHandler: analyticsHandlerSpy,
         allowLayouts: true,
         allowPanel: true,
         allowRule: true,
@@ -163,8 +167,8 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
   };
 
   beforeEach(() => {
+    openElementBrowserModal.mockClear();
     dispatchAnalyticsSpy = jest.fn();
-    analyticsHandlerSpy = jest.fn();
     ({ editorView, pluginState } = editor(doc(p('text'))));
     dispatchSpy = jest.spyOn(editorView, 'dispatch');
   });
@@ -524,12 +528,6 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
           expect(onShowMediaPickerSpy).toHaveBeenCalledTimes(1);
         });
 
-        it('should fire v2 analytics event', () => {
-          expect(analyticsHandlerSpy).toHaveBeenCalledWith(
-            'atlassian.editor.format.media.button',
-          );
-        });
-
         it('should fire v3 analytics event', () => {
           expect(dispatchAnalyticsSpy).toHaveBeenCalledWith({
             action: 'opened',
@@ -591,12 +589,6 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
           menu.clickButton(messages.table.defaultMessage, toolbarOption);
         });
 
-        it('should fire v2 analytics event', () => {
-          expect(analyticsHandlerSpy).toHaveBeenCalledWith(
-            'atlassian.editor.format.table.button',
-          );
-        });
-
         it('should fire v3 analytics event', () => {
           expect(createAnalyticsEvent).toBeCalledWith({
             action: 'inserted',
@@ -626,12 +618,6 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
                 taskItem({ localId: 'local-highlight', state: 'TODO' })('text'),
               ),
             ),
-          );
-        });
-
-        it('should fire v2 analytics event', () => {
-          expect(analyticsHandlerSpy).toHaveBeenCalledWith(
-            'atlassian.fabric.action.trigger.button',
           );
         });
 
@@ -667,12 +653,6 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
           );
         });
 
-        it('should fire v2 analytics event', () => {
-          expect(analyticsHandlerSpy).toHaveBeenCalledWith(
-            'atlassian.fabric.decision.trigger.button',
-          );
-        });
-
         it('should fire v3 analytics event', () => {
           expect(createAnalyticsEvent).toBeCalledWith({
             action: 'inserted',
@@ -684,26 +664,18 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
         });
       });
 
-      describe('click macro option', () => {
-        let insertMacroFromMacroBrowserSpy: jest.Mock;
-
-        beforeEach(() => {
-          insertMacroFromMacroBrowserSpy = jest.fn();
+      describe('click mview more (macro) option', () => {
+        it('should open the element browser', () => {
+          const insertMacroFromMacroBrowserSpy = jest.fn();
           buildToolbarForMenu({
-            macroProvider: {} as any,
+            insertMenuItems: [],
+            showElementBrowserLink: true,
             onInsertMacroFromMacroBrowser: () => insertMacroFromMacroBrowserSpy,
           });
+
           menu.clickButton(messages.viewMore.defaultMessage, toolbarOption);
-        });
-
-        it('should insert macro', () => {
-          expect(insertMacroFromMacroBrowserSpy).toHaveBeenCalled();
-        });
-
-        it('should fire v2 analytics event', () => {
-          expect(analyticsHandlerSpy).toHaveBeenCalledWith(
-            'atlassian.editor.format.macro.button',
-          );
+          expect(insertMacroFromMacroBrowserSpy).not.toHaveBeenCalled();
+          expect(openElementBrowserModal).toHaveBeenCalled();
         });
       });
 
@@ -715,24 +687,12 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
             toolbarOption,
           );
         });
-
-        it('should fire v2 analytics event', () => {
-          expect(analyticsHandlerSpy).toHaveBeenCalledWith(
-            'atlassian.editor.format.placeholder.button',
-          );
-        });
       });
 
       describe('click columns option', () => {
         beforeEach(() => {
           buildToolbarForMenu({ layoutSectionEnabled: true });
           menu.clickButton(messages.columns.defaultMessage, toolbarOption);
-        });
-
-        it('should fire v2 analytics event', () => {
-          expect(analyticsHandlerSpy).toHaveBeenCalledWith(
-            'atlassian.editor.format.layout.button',
-          );
         });
 
         it('should fire v3 analytics event', () => {
@@ -794,12 +754,6 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
           it('should call insertBlockType', () => {
             expect(insertBlockTypeSpy).toHaveBeenCalledTimes(1);
             expect(insertBlockTypeSpy).toHaveBeenCalledWith(type.name);
-          });
-
-          it('should fire v2 analytics event', () => {
-            expect(analyticsHandlerSpy).toHaveBeenCalledWith(
-              `atlassian.editor.format.${type.name}.button`,
-            );
           });
         });
       });

@@ -61,6 +61,7 @@ import {
   mobileScrollPlugin,
   findReplacePlugin,
   contextPanelPlugin,
+  quickInsertPlugin,
 } from '../../../plugins';
 
 import createPluginsList from '../../create-plugins-list';
@@ -91,6 +92,21 @@ describe('createPluginsList', () => {
   it('should always add submitEditorPlugin to the editor', () => {
     const plugins = createPluginsList({});
     expect(plugins).toContain(submitEditorPlugin());
+  });
+
+  it('should always add quickInsert', () => {
+    const plugins = createPluginsList({});
+    expect(plugins).toContain(quickInsertPlugin());
+  });
+
+  it('should add quickInsertPlugin with special options when appearance === "mobile"', () => {
+    const plugins = createPluginsList({ appearance: 'mobile' });
+    expect(plugins).toContain(
+      quickInsertPlugin({
+        disableDefaultItems: true,
+        headless: true,
+      }),
+    );
   });
 
   it('should add mediaPlugin if media prop is provided', () => {
@@ -230,6 +246,8 @@ describe('createPluginsList', () => {
       allowTables: true,
       insertMenuItems: customItems,
       nativeStatusSupported: false,
+      replacePlusMenuWithElementBrowser: false,
+      showElementBrowserLink: false,
     };
 
     createPluginsList(props);

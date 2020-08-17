@@ -24,7 +24,6 @@ import {
   LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import { AnalyticsHandler, analyticsService } from '../../../../analytics';
 import { setNodeSelection } from '../../../../utils';
 import {
   CreateUIAnalyticsEvent,
@@ -54,14 +53,9 @@ const codeBlockGASV3Payload = {
 describe('codeBlock - keymaps', () => {
   const createEditor = createProsemirrorEditorFactory();
   let createAnalyticsEvent: CreateUIAnalyticsEvent;
-  let analyticsHandler: jest.Mock<AnalyticsHandler, any[]>;
 
   const editor = (doc: any) => {
     createAnalyticsEvent = jest.fn(() => ({ fire() {} } as UIAnalyticsEvent));
-
-    // Mocking analytics singleton
-    analyticsHandler = jest.fn();
-    analyticsService.trackEvent = analyticsHandler;
 
     const providerFactory = ProviderFactory.create({
       mentionProvider: new Promise(() => {}),
@@ -90,9 +84,6 @@ describe('codeBlock - keymaps', () => {
         expect(editorView.state.doc).toEqualDocument(doc(h1()));
         sendKeyToPm(editorView, 'Mod-z');
         expect(editorView.state.doc).toEqualDocument(doc(p('# ')));
-        expect(analyticsHandler).toHaveBeenCalledWith(
-          'atlassian.editor.undo.keyboard',
-        );
       });
     });
 
@@ -435,9 +426,6 @@ describe('codeBlock - keymaps', () => {
             expect(editorView.state.doc).toEqualDocument(
               doc(blockquote(p('text'), p('')), p('')),
             );
-            expect(analyticsHandler).toHaveBeenCalledWith(
-              'atlassian.editor.movedown.keyboard',
-            );
           });
         });
       });
@@ -462,19 +450,12 @@ describe('codeBlock - keymaps', () => {
 
       beforeEach(() => {
         ({ editorView } = editor(doc(h1('t{<}ex{>}t'))));
-        analyticsHandler.mockClear();
         sendKeyToPm(editorView, 'Shift-Enter');
       });
 
       it('should insert hard-break', () => {
         expect(editorView.state.doc).toEqualDocument(
           doc(h1('t', hardBreak(), 't')),
-        );
-      });
-
-      it('should handle analytics V2 event', () => {
-        expect(analyticsHandler).toHaveBeenCalledWith(
-          'atlassian.editor.newline.keyboard',
         );
       });
 
@@ -520,12 +501,6 @@ describe('codeBlock - keymaps', () => {
         it('should inserts blockquote', () => {
           expect(editorView.state.doc).toEqualDocument(
             doc(blockquote(p('text'))),
-          );
-        });
-
-        it('should handle analytics V2 event', () => {
-          expect(analyticsHandler).toHaveBeenCalledWith(
-            'atlassian.editor.format.blockquote.keyboard',
           );
         });
 

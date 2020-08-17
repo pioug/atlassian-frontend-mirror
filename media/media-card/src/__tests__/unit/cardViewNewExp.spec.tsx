@@ -17,6 +17,7 @@ import { TitleBox } from '../../root/ui/titleBox/titleBox';
 import { ProgressBar } from '../../root/ui/progressBar/progressBar';
 import { ImageRenderer } from '../../root/ui/imageRenderer/imageRenderer';
 import { TickBox } from '../../root/ui/tickBox/tickBox';
+import { MimeTypeIcon } from '@atlaskit/media-ui/mime-type-icon';
 import { FailedTitleBox } from '../../root/ui/titleBox/failedTitleBox';
 import { MediaTypeIcon } from '@atlaskit/media-ui/media-type-icon';
 import {
@@ -39,7 +40,7 @@ const shallowCardViewBase = (
   shallow(
     <CardViewBase
       status="loading"
-      featureFlags={{ newExp: true }}
+      featureFlags={{ newCardExperience: true }}
       {...props}
     />,
     renderOptions,
@@ -114,7 +115,7 @@ describe('CardView New Experience', () => {
           <CardViewBase
             status="complete"
             mediaItemType="file"
-            featureFlags={{ newExp: true }}
+            featureFlags={{ newCardExperience: true }}
             dimensions={{ width }}
           />,
         );
@@ -175,8 +176,8 @@ describe('CardView New Experience', () => {
           dataURI: undefined,
           status: 'complete',
         });
-        expect(component.find(MediaTypeIcon)).toHaveLength(1);
-        expect(component.find(MediaTypeIcon).prop('type')).toEqual('video');
+        expect(component.find(MimeTypeIcon)).toHaveLength(1);
+        expect(component.find(MimeTypeIcon).prop('mediaType')).toEqual('video');
       }),
     );
 
@@ -228,7 +229,7 @@ describe('CardView New Experience', () => {
       expect(componentC.find(Blanket)).toHaveLength(0);
     });
 
-    it(`should render TitleBox when has filename and overlay is enabled or card is uploading`, () => {
+    it(`should render TitleBox when has filename and overlay is enabled`, () => {
       const metadata: FileDetails = {
         id: 'some-id',
         name: 'some-file-name',
@@ -242,16 +243,6 @@ describe('CardView New Experience', () => {
       expect(titleBoxA.props().breakpoint).toBeDefined();
       expect(titleBoxA.props().name).toBe(metadata.name);
       expect(titleBoxA.props().createdAt).toBe(metadata.createdAt);
-
-      // Uploading and disabled overlay
-      const componentB = shallowCardViewBase({
-        disableOverlay: true,
-        status: 'uploading',
-        metadata,
-      });
-      const titleBoxB = componentB.find(TitleBox);
-      expect(titleBoxB).toHaveLength(1);
-      expect(titleBoxB.props().breakpoint).toBeDefined();
 
       // Uploading and disabled overlay, no metadata
       const componentC = shallowCardViewBase({
@@ -292,7 +283,6 @@ describe('CardView New Experience', () => {
       const failedTitleBoxA = componentA.find(FailedTitleBox);
       expect(failedTitleBoxA).toHaveLength(1);
       expect(failedTitleBoxA.props().breakpoint).toBeDefined();
-      expect(failedTitleBoxA.props().name).toBe(metadata.name);
       expect(failedTitleBoxA.props().onRetry).toBe(onRetry);
 
       // With broken dataURI
@@ -312,7 +302,6 @@ describe('CardView New Experience', () => {
       const failedTitleBoxB = componentB.find(FailedTitleBox);
       expect(failedTitleBoxB).toHaveLength(1);
       expect(failedTitleBoxB.props().breakpoint).toBeDefined();
-      expect(failedTitleBoxB.props().name).toBe(metadata.name);
       expect(failedTitleBoxB.props().onRetry).toBe(onRetry);
     });
 

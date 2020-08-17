@@ -3,7 +3,6 @@ import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analy
 import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { doc, p } from '@atlaskit/editor-test-helpers/schema-builder';
-import { AnalyticsHandler } from '../../../../../analytics';
 import {
   ListsPluginState,
   pluginKey,
@@ -32,7 +31,6 @@ describe('ToolbarLists', () => {
   const createEditor = createEditorFactory<ListsPluginState>();
   let toolBarListsWrapper: ReactWrapper;
   let createAnalyticsEvent: jest.MockInstance<UIAnalyticsEvent, any>;
-  let analyticsHandler: AnalyticsHandler;
 
   afterEach(() => {
     if (toolBarListsWrapper) {
@@ -45,11 +43,9 @@ describe('ToolbarLists', () => {
 
   const editor = (doc: any) => {
     createAnalyticsEvent = createAnalyticsEventMock();
-    analyticsHandler = jest.fn();
     return createEditor({
       doc,
       editorProps: {
-        analyticsHandler,
         allowAnalyticsGASV3: true,
         allowTasksAndDecisions: true,
       },
@@ -90,14 +86,6 @@ describe('ToolbarLists', () => {
       ({ toolbarLists } = setup());
     });
 
-    it('should trigger analyticsService.trackEvent when bulleted list button is clicked', () => {
-      clickToolbarOption(toolbarLists, messages.unorderedList.defaultMessage);
-
-      expect(analyticsHandler).toHaveBeenCalledWith(
-        'atlassian.editor.format.list.bullet.button',
-      );
-    });
-
     it('should dispatch analytics event when bulleted list button is clicked', () => {
       clickToolbarOption(toolbarLists, messages.unorderedList.defaultMessage);
 
@@ -110,14 +98,6 @@ describe('ToolbarLists', () => {
           inputMethod: 'toolbar',
         },
       });
-    });
-
-    it('should trigger analyticsService.trackEvent when numbered list button is clicked', () => {
-      clickToolbarOption(toolbarLists, messages.orderedList.defaultMessage);
-
-      expect(analyticsHandler).toHaveBeenCalledWith(
-        'atlassian.editor.format.list.numbered.button',
-      );
     });
 
     it('should dispatch analytics event when numbered list button is clicked', () => {

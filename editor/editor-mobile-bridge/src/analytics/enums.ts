@@ -8,4 +8,5 @@ export enum ActionSubjectID {
 
 export enum EventType {
   TRACK = 'track',
+  OPERATIONAL = 'operational',
 }

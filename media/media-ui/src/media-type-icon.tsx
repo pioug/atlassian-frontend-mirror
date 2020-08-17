@@ -5,6 +5,7 @@ import ImageIcon from '@atlaskit/icon/glyph/media-services/image';
 import AudioIcon from '@atlaskit/icon/glyph/media-services/audio';
 import VideoIcon from '@atlaskit/icon/glyph/media-services/video';
 import DocIcon from '@atlaskit/icon/glyph/media-services/document';
+import ArchiveIcon from '@atlaskit/icon/glyph/media-services/zip';
 import UnknownIcon from '@atlaskit/icon/glyph/media-services/unknown';
 import { MediaType } from '@atlaskit/media-common';
 
@@ -18,6 +19,7 @@ export const mediaTypeIconColors = {
   video: '#ff7143',
   doc: B300,
   unknown: '#3dc7dc',
+  archive: '',
 };
 
 export const IconWrapper = styled.div`
@@ -31,6 +33,7 @@ const icons = {
   audio: AudioIcon,
   video: VideoIcon,
   doc: DocIcon,
+  archive: ArchiveIcon,
   unknown: UnknownIcon,
 };
 

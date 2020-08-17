@@ -6,7 +6,7 @@ export const DateSharedCssClassName = {
 };
 
 export const dateSharedStyle = css`
-  .${DateSharedCssClassName.DATE_WRAPPER} {
-    display: inline-block;
+  .${DateSharedCssClassName.DATE_WRAPPER} span {
+    white-space: unset;
   }
 `;

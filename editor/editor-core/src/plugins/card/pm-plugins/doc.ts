@@ -12,7 +12,7 @@ import { appearanceForNodeType } from '../utils';
 
 import { Command } from '../../../types';
 import { nodesBetweenChanged, processRawValue } from '../../../utils';
-import { Fragment, Node, Schema, Slice } from 'prosemirror-model';
+import { Fragment, Node, Schema, Slice, NodeType } from 'prosemirror-model';
 import { md } from '../../paste/md';
 import { closeHistory } from 'prosemirror-history';
 import {
@@ -26,6 +26,7 @@ import {
 } from '../../../plugins/analytics';
 import { SmartLinkNodeContext } from '../../analytics/types/smart-links';
 import { isSafeUrl, normalizeUrl } from '@atlaskit/adf-schema';
+import { isFromCurrentDomain } from '../../hyperlink/utils';
 
 export function shouldReplace(
   node: Node,
@@ -166,6 +167,7 @@ export const replaceQueuedUrlWithCard = (
           nodeType,
           nodeContext: nodeContext as SmartLinkNodeContext,
           domainName,
+          fromCurrentDomain: isFromCurrentDomain(url),
         },
       });
     }
@@ -295,51 +297,16 @@ export const setSelectedCardAppearance: (
   if (appearanceForNodeType(selectedNode.type) === appearance) {
     return false;
   }
-
-  const { inlineCard, blockCard, embedCard } = state.schema.nodes;
-  const pos = state.selection.from;
-  const hasOneChild = state.selection.$from.parent.childCount === 1;
-  let { tr } = state;
-
-  if (appearance === 'block' && hasOneChild) {
-    tr = tr.replaceRangeWith(
-      pos - 1,
-      pos + selectedNode.nodeSize + 1,
-      blockCard.createChecked(
-        selectedNode.attrs,
-        undefined,
-        selectedNode.marks,
-      ),
-    );
-  } else if (appearance === 'embed' && hasOneChild) {
-    tr = tr.replaceRangeWith(
-      Math.max(pos - 1, 0),
-      pos + selectedNode.nodeSize + 1,
-      embedCard.createChecked(
-        {
-          ...selectedNode.attrs,
-          layout: 'center',
-        },
-        undefined,
-        selectedNode.marks,
-      ),
-    );
-  } else {
-    const nodeType =
-      appearance === 'inline'
-        ? inlineCard
-        : appearance === 'block'
-        ? blockCard
-        : embedCard;
-
-    tr = tr.setNodeMarkup(
-      pos,
-      nodeType,
-      selectedNode.attrs,
-      selectedNode.marks,
-    );
-  }
-
+  const isEmbed = appearance === 'embed';
+  const attrs = isEmbed
+    ? {
+        ...selectedNode.attrs,
+        layout: 'center',
+      }
+    : selectedNode.attrs;
+  const { from } = state.selection;
+  const nodeType = getLinkNodeType(appearance, state.schema.nodes);
+  const tr = state.tr.setNodeMarkup(from, nodeType, attrs, selectedNode.marks);
   addAnalytics(state, tr, {
     action: ACTION.CHANGED_TYPE,
     actionSubject: ACTION_SUBJECT.SMART_LINK,
@@ -355,4 +322,22 @@ export const setSelectedCardAppearance: (
   }
 
   return true;
+};
+
+type LinkNodes = {
+  [key in 'inlineCard' | 'blockCard' | 'embedCard']: NodeType;
+};
+
+const getLinkNodeType = (
+  appearance: CardAppearance,
+  linkNodes: LinkNodes,
+): NodeType => {
+  switch (appearance) {
+    case 'inline':
+      return linkNodes.inlineCard;
+    case 'block':
+      return linkNodes.blockCard;
+    case 'embed':
+      return linkNodes.embedCard;
+  }
 };

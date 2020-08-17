@@ -20,6 +20,7 @@ describe('FindReplace', () => {
   const onCancelSpy = jest.fn();
   const onReplaceSpy = jest.fn();
   const onReplaceAllSpy = jest.fn();
+  const onToggleMatchCaseSpy = jest.fn();
   const dispatchAnalyticsEventSpy = jest.fn();
   let rafSpy: jest.SpyInstance;
 
@@ -30,6 +31,9 @@ describe('FindReplace', () => {
         count={{ index: 0, total: 0 }}
         replaceText=""
         shouldFocus
+        allowMatchCase
+        shouldMatchCase={false}
+        onToggleMatchCase={onToggleMatchCaseSpy}
         onFind={onFindSpy}
         onFindNext={onFindNextSpy}
         onFindPrev={onFindPrevSpy}
@@ -42,6 +46,50 @@ describe('FindReplace', () => {
         {...props}
       />,
     );
+
+  const compose = (wrapper: ReactWrapper, steps: string[]) => {
+    const currentText = wrapper.prop('defaultValue');
+    wrapper.simulate('compositionstart');
+
+    steps.forEach(step => {
+      wrapper.simulate('compositionupdate', { data: currentText + step });
+      wrapper.simulate('change', { target: { value: currentText + step } });
+      rafStub.flush();
+    });
+
+    return () => {
+      const result =
+        currentText + (steps.length > 0 ? steps[steps.length - 1] : '');
+      wrapper.simulate('compositionend', {
+        data: result,
+        target: { value: result },
+      });
+      rafStub.flush();
+    };
+  };
+
+  const simulateChangeEvent = (
+    component: typeof Find | typeof Replace,
+    data: any,
+  ) => {
+    findReplace
+      .find(component)
+      .find(Textfield)
+      .find('input')
+      .simulate('change', data);
+    rafStub.flush();
+  };
+
+  const simulateKeydownEvent = (
+    component: typeof Find | typeof Replace,
+    data: any,
+  ) => {
+    findReplace
+      .find(component)
+      .find(Textfield)
+      .find('input')
+      .simulate('keydown', data);
+  };
 
   beforeAll(() => {
     rafSpy = jest
@@ -59,6 +107,10 @@ describe('FindReplace', () => {
     onReplaceSpy.mockClear();
     onReplaceAllSpy.mockClear();
     dispatchAnalyticsEventSpy.mockClear();
+    rafStub.flush();
+    if (findReplace) {
+      findReplace.unmount();
+    }
   });
 
   afterAll(() => {
@@ -83,15 +135,15 @@ describe('FindReplace', () => {
         findText: 'quokka',
         count: { index: 2, total: 32 },
       });
-      expect(findReplace.find(Count).text()).toBe('3/32');
+      expect(findReplace.find(Count).text()).toBe('3 of 32');
     });
 
-    it('should display "No results found" if no results', () => {
+    it('should display "No results" if no results', () => {
       findReplace = mountComponent({
         findText: 'quokka',
         count: { index: 0, total: 0 },
       });
-      expect(findReplace.find(Count).text()).toBe('No results found');
+      expect(findReplace.find(Count).text()).toBe('No results');
     });
 
     it('should not display num results if no search text', () => {
@@ -113,25 +165,37 @@ describe('FindReplace', () => {
       const replaceTextfieldEl = replaceTextfield.current as HTMLElement;
       jest.spyOn(replaceTextfieldEl, 'focus');
 
-      findReplace
-        .find(Find)
-        .find(Textfield)
-        .find('input')
-        .simulate('keydown', { key: 'ArrowDown' });
-
+      simulateKeydownEvent(Find, { key: 'ArrowDown' });
       expect(replaceTextfieldEl.focus).toHaveBeenCalled();
     });
 
     describe('when typing inside find textfield', () => {
       it('should call props.onFind', () => {
         findReplace = mountComponent();
-        findReplace
-          .find(Find)
-          .find(Textfield)
-          .find('input')
-          .simulate('change', { target: { value: 'quokka' } });
+        simulateChangeEvent(Find, { target: { value: 'quokka' } });
         rafStub.flush();
         expect(onFindSpy).toHaveBeenCalledWith('quokka');
+      });
+    });
+
+    describe('when Match Case button clicked', () => {
+      const matchCaseBtnSelector = 'button[data-testid="Match case"]';
+      beforeEach(() => {
+        findReplace = mountComponent({
+          findText: 'rokka',
+        });
+      });
+      afterEach(() => {
+        onFindSpy.mockClear();
+        onToggleMatchCaseSpy.mockClear();
+      });
+      it('should call props.onFind', () => {
+        findReplace.find(matchCaseBtnSelector).simulate('click');
+        expect(onFindSpy).toHaveBeenCalledWith('rokka');
+      });
+      it('should call props.onToggleMatchCase', () => {
+        findReplace.find(matchCaseBtnSelector).simulate('click');
+        expect(onToggleMatchCaseSpy).toHaveBeenCalledTimes(1);
       });
     });
 
@@ -149,11 +213,7 @@ describe('FindReplace', () => {
       });
 
       it('should call props.onFindNext when hit enter inside find textfield', () => {
-        findReplace
-          .find(Find)
-          .find(Textfield)
-          .find('input')
-          .simulate('keydown', { key: 'Enter' });
+        simulateKeydownEvent(Find, { key: 'Enter' });
         expect(onFindNextSpy).toHaveBeenCalled();
       });
 
@@ -183,11 +243,7 @@ describe('FindReplace', () => {
       });
 
       it('should call props.onFindPrev when hit shift + enter inside find textfield', () => {
-        findReplace
-          .find(Find)
-          .find(Textfield)
-          .find('input')
-          .simulate('keydown', { key: 'Enter', shiftKey: true });
+        simulateKeydownEvent(Find, { key: 'Enter', shiftKey: true });
         expect(onFindPrevSpy).toHaveBeenCalled();
       });
 
@@ -208,6 +264,97 @@ describe('FindReplace', () => {
         findReplace = mountComponent();
         findReplace.find('button[data-testid="Close"]').simulate('click');
         expect(onCancelSpy).toHaveBeenCalled();
+      });
+    });
+
+    describe('composition', () => {
+      let endComposition: () => void;
+
+      beforeEach(() => {
+        findReplace = mountComponent({ count: { index: 0, total: 32 } });
+
+        endComposition = compose(
+          findReplace
+            .find(Find)
+            .find(Textfield)
+            .find('input'),
+          ['k', 'か', 'かy', 'かよ', 'かよう', 'かようb', 'かようび'],
+        );
+      });
+
+      describe('find', () => {
+        it('does not call props.onFind while composing', () => {
+          expect(onFindSpy).not.toHaveBeenCalled();
+        });
+
+        it('calls props.onFind on composition end', () => {
+          endComposition();
+          expect(onFindSpy).toHaveBeenCalledWith('かようび');
+        });
+
+        it('calls props.onFind with whole word if compose in parts', () => {
+          endComposition();
+          findReplace.setProps({ findText: 'かようび' });
+          endComposition = compose(
+            findReplace
+              .find(Find)
+              .find(Textfield)
+              .find('input'),
+            [
+              'g',
+              'げ',
+              'げt',
+              'げts',
+              'げつ',
+              'げつy',
+              'げつよ',
+              'げつよう',
+              'げつようb',
+              'げつようび',
+            ],
+          );
+          endComposition();
+          expect(onFindSpy).toHaveBeenCalledWith('かようびげつようび');
+        });
+      });
+
+      describe('find next', () => {
+        it('does not call props.onFindNext when user clicks find next button while composing', () => {
+          findReplace.find('button[data-testid="Find next"]').simulate('click');
+          expect(onFindNextSpy).not.toHaveBeenCalled();
+        });
+
+        it('does not call props.onFindNext when user hits enter while composing', () => {
+          simulateKeydownEvent(Find, { key: 'Enter' });
+          expect(onFindNextSpy).not.toHaveBeenCalled();
+        });
+      });
+
+      describe('find previous', () => {
+        it('does not call props.onFindPrev when user clicks find prev button while composing', () => {
+          findReplace
+            .find('button[data-testid="Find previous"]')
+            .simulate('click');
+          expect(onFindPrevSpy).not.toHaveBeenCalled();
+        });
+
+        it('does not call props.onFindPrev when user hits shift + enter while composing', () => {
+          simulateKeydownEvent(Find, { key: 'Enter', shiftKey: true });
+          expect(onFindNextSpy).not.toHaveBeenCalled();
+        });
+      });
+
+      describe('arrow down', () => {
+        it('does not focus replace textfield while composing', () => {
+          const replaceTextfield: React.RefObject<HTMLElement> = findReplace.state(
+            'replaceTextfieldRef',
+          );
+          const replaceTextfieldEl = replaceTextfield.current as HTMLElement;
+          jest.spyOn(replaceTextfieldEl, 'focus');
+
+          simulateKeydownEvent(Find, { key: 'ArrowDown' });
+          expect(replaceTextfieldEl.focus).not.toHaveBeenCalled();
+        });
       });
     });
   });
@@ -231,11 +378,7 @@ describe('FindReplace', () => {
     });
 
     it('should fire analytics event when typing in replace field', () => {
-      findReplace
-        .find(Replace)
-        .find(Textfield)
-        .find('input')
-        .simulate('change', { key: 'c' });
+      simulateChangeEvent(Replace, { target: { value: 'c' } });
       expect(dispatchAnalyticsEventSpy).toHaveBeenCalledWith({
         eventType: 'track',
         action: 'changedReplacementText',
@@ -250,12 +393,7 @@ describe('FindReplace', () => {
       const findTextfieldEl = findTextfield.current as HTMLElement;
       jest.spyOn(findTextfieldEl, 'focus');
 
-      findReplace
-        .find(Replace)
-        .find(Textfield)
-        .find('input')
-        .simulate('keydown', { key: 'ArrowUp' });
-
+      simulateKeydownEvent(Replace, { key: 'ArrowUp' });
       expect(findTextfieldEl.focus).toHaveBeenCalled();
     });
 
@@ -269,11 +407,7 @@ describe('FindReplace', () => {
       });
 
       it('should call props.onReplace when hit enter inside replace textfield', () => {
-        findReplace
-          .find(Replace)
-          .find(Textfield)
-          .find('input')
-          .simulate('keydown', { key: 'Enter' });
+        simulateKeydownEvent(Replace, { key: 'Enter' });
         expect(onReplaceSpy).toHaveBeenCalledWith({
           replaceText: 'bilby',
           triggerMethod: 'keyboard',
@@ -305,6 +439,174 @@ describe('FindReplace', () => {
         });
         const buttonEl = findReplace.find('button[data-testid="Replace all"]');
         expect(buttonEl.props().disabled).toBe(true);
+      });
+    });
+
+    describe('composition', () => {
+      let endComposition: () => void;
+
+      beforeEach(() => {
+        findReplace = mountComponent({
+          findText: 'すいようび',
+          replaceText: '',
+          count: { index: 0, total: 32 },
+        });
+        endComposition = compose(
+          findReplace
+            .find(Replace)
+            .find(Textfield)
+            .find('input'),
+          ['k', 'か', 'かy', 'かよ', 'かよう', 'かようb', 'かようび'],
+        );
+      });
+
+      describe('replace', () => {
+        it('does not fire analytics while composing in replace textfield', () => {
+          expect(dispatchAnalyticsEventSpy).not.toHaveBeenCalled();
+        });
+
+        it('fires analytics after composition end', () => {
+          endComposition();
+          expect(dispatchAnalyticsEventSpy).toHaveBeenCalledWith({
+            eventType: 'track',
+            action: 'changedReplacementText',
+            actionSubject: 'findReplaceDialog',
+          });
+        });
+
+        describe('when click replace button', () => {
+          it('does not call props.onReplace while composing', () => {
+            findReplace.find('button[data-testid="Replace"]').simulate('click');
+            expect(onReplaceSpy).not.toHaveBeenCalled();
+          });
+
+          it('calls props.onReplace after composition end', () => {
+            endComposition();
+            findReplace.find('button[data-testid="Replace"]').simulate('click');
+            expect(onReplaceSpy).toHaveBeenCalledWith({
+              replaceText: 'かようび',
+              triggerMethod: 'button',
+            });
+          });
+
+          it('calls props.onReplace with whole word if compose in parts', () => {
+            endComposition();
+            findReplace.setProps({ replaceText: 'かようび' });
+            endComposition = compose(
+              findReplace
+                .find(Replace)
+                .find(Textfield)
+                .find('input'),
+              [
+                'g',
+                'げ',
+                'げt',
+                'げts',
+                'げつ',
+                'げつy',
+                'げつよ',
+                'げつよう',
+                'げつようb',
+                'げつようび',
+              ],
+            );
+            endComposition();
+            findReplace.find('button[data-testid="Replace"]').simulate('click');
+            expect(onReplaceSpy).toHaveBeenCalledWith({
+              replaceText: 'かようびげつようび',
+              triggerMethod: 'button',
+            });
+          });
+        });
+
+        describe('when hit enter key inside replace textfield', () => {
+          it('does not call props.onReplace when hit enter inside replace textfield while composing', () => {
+            simulateKeydownEvent(Replace, { key: 'Enter' });
+            expect(onReplaceSpy).not.toHaveBeenCalled();
+          });
+
+          it('calls props.onReplace when hit enter inside replace textfield after composition end', () => {
+            endComposition();
+            simulateKeydownEvent(Replace, { key: 'Enter' });
+            expect(onReplaceSpy).toHaveBeenCalledWith({
+              replaceText: 'かようび',
+              triggerMethod: 'keyboard',
+            });
+          });
+
+          it('calls props.onReplace with whole word if compose in parts', () => {
+            endComposition();
+            findReplace.setProps({ replaceText: 'かようび' });
+            endComposition = compose(
+              findReplace
+                .find(Replace)
+                .find(Textfield)
+                .find('input'),
+              [
+                'g',
+                'げ',
+                'げt',
+                'げts',
+                'げつ',
+                'げつy',
+                'げつよ',
+                'げつよう',
+                'げつようb',
+                'げつようび',
+              ],
+            );
+            endComposition();
+            simulateKeydownEvent(Replace, { key: 'Enter' });
+            expect(onReplaceSpy).toHaveBeenCalledWith({
+              replaceText: 'かようびげつようび',
+              triggerMethod: 'keyboard',
+            });
+          });
+        });
+      });
+
+      describe('replace all', () => {
+        it('does not call props.onReplaceAll while composing', () => {
+          findReplace
+            .find('button[data-testid="Replace all"]')
+            .simulate('click');
+          expect(onReplaceAllSpy).not.toHaveBeenCalled();
+        });
+
+        it('calls props.onReplaceAll after composition end', () => {
+          endComposition();
+          findReplace
+            .find('button[data-testid="Replace all"]')
+            .simulate('click');
+          expect(onReplaceAllSpy).toHaveBeenCalledWith({
+            replaceText: 'かようび',
+          });
+        });
+      });
+
+      describe('arrow up', () => {
+        it('does not focus find textfield while composing', () => {
+          const findTextfield: React.RefObject<HTMLElement> = findReplace.state(
+            'findTextfieldRef',
+          );
+          const findTextfieldEl = findTextfield.current as HTMLElement;
+          jest.spyOn(findTextfieldEl, 'focus');
+
+          simulateKeydownEvent(Replace, { key: 'ArrowUp' });
+          expect(findTextfieldEl.focus).not.toHaveBeenCalled();
+        });
+
+        it('focuses find textfield after composition end', () => {
+          endComposition();
+          const findTextfield: React.RefObject<HTMLElement> = findReplace.state(
+            'findTextfieldRef',
+          );
+          const findTextfieldEl = findTextfield.current as HTMLElement;
+          jest.spyOn(findTextfieldEl, 'focus');
+
+          simulateKeydownEvent(Replace, { key: 'ArrowUp' });
+          expect(findTextfieldEl.focus).toHaveBeenCalled();
+        });
       });
     });
   });

@@ -2,7 +2,6 @@ import { toggleMark } from 'prosemirror-commands';
 import {
   Fragment,
   Mark as PMMark,
-  Mark,
   MarkType,
   Node,
   NodeRange,
@@ -20,7 +19,6 @@ import {
   Transaction,
 } from 'prosemirror-state';
 import { findWrapping, liftTarget } from 'prosemirror-transform';
-import { browser } from '@atlaskit/editor-common';
 import {
   JSONDocNode,
   JSONNode,
@@ -55,6 +53,8 @@ export {
 } from './mark';
 export { isNodeTypeParagraph } from './nodes';
 export {
+  isChromeWithSelectionBug,
+  normaliseNestedLayout,
   setNodeSelection,
   setAllSelection,
   setGapCursorSelection,
@@ -567,12 +567,6 @@ export const isTemporary = (id: string): boolean => {
   return id.indexOf('temporary:') === 0;
 };
 
-// @see: https://github.com/ProseMirror/prosemirror/issues/710
-// @see: https://bugs.chromium.org/p/chromium/issues/detail?id=740085
-// Chrome >= 58 (desktop only)
-export const isChromeWithSelectionBug =
-  browser.chrome && !browser.android && browser.chrome_version >= 58;
-
 export const isEmptyNode = (schema: Schema) => {
   const {
     doc,
@@ -653,6 +647,10 @@ export const isElementInTableCell = (
 export const isLastItemMediaGroup = (node: Node): boolean => {
   const { content } = node;
   return !!content.lastChild && content.lastChild.type.name === 'mediaGroup';
+};
+
+export const isInLayoutColumn = (state: EditorState): boolean => {
+  return hasParentNodeOfType(state.schema.nodes.layoutSection)(state.selection);
 };
 
 export const isInListItem = (state: EditorState): boolean => {
@@ -788,31 +786,6 @@ export function pipe(...fns: Function[]) {
     nextFn(prevFn(...args)),
   );
 }
-
-export const normaliseNestedLayout = (state: EditorState, node: Node) => {
-  if (state.selection.$from.depth > 1) {
-    if (node.attrs.layout && node.attrs.layout !== 'default') {
-      return node.type.createChecked(
-        {
-          ...node.attrs,
-          layout: 'default',
-        },
-        node.content,
-        node.marks,
-      );
-    }
-
-    // If its a breakout layout, we can remove the mark
-    // Since default isn't a valid breakout mode.
-    const breakoutMark: Mark = state.schema.marks.breakout;
-    if (breakoutMark && breakoutMark.isInSet(node.marks)) {
-      const newMarks = breakoutMark.removeFromSet(node.marks);
-      return node.type.createChecked(node.attrs, node.content, newMarks);
-    }
-  }
-
-  return node;
-};
 
 export function shallowEqual(obj1: any = {}, obj2: any = {}) {
   const keys1 = Object.keys(obj1);

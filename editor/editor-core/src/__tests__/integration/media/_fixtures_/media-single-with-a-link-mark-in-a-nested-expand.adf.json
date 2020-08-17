@@ -3,54 +3,62 @@
   "type": "doc",
   "content": [
     {
-      "type": "table",
+      "type": "paragraph",
+      "content": []
+    },
+    {
+      "type": "expand",
       "attrs": {
-        "isNumberColumnEnabled": false,
-        "layout": "default"
+        "title": ""
       },
       "content": [
         {
-          "type": "tableRow",
+          "type": "table",
+          "attrs": {
+            "isNumberColumnEnabled": false,
+            "layout": "default"
+          },
           "content": [
             {
-              "type": "tableCell",
-              "attrs": {},
+              "type": "tableRow",
               "content": [
                 {
-                  "type": "nestedExpand",
-                  "attrs": {
-                    "title": ""
-                  },
+                  "type": "tableCell",
+                  "attrs": {},
                   "content": [
                     {
-                      "type": "mediaSingle",
+                      "type": "nestedExpand",
                       "attrs": {
-                        "layout": "center"
+                        "title": ""
                       },
-                      "marks": [
-                        {
-                          "type": "link",
-                          "attrs": {
-                            "href": "https://gnu.org"
-                          }
-                        }
-                      ],
                       "content": [
                         {
-                          "type": "media",
+                          "type": "mediaSingle",
                           "attrs": {
-                            "id": "4b4bbf71-4ff5-4827-8b48-ac9e4e15cb68",
-                            "type": "file",
-                            "collection": "MediaServicesSample",
-                            "width": 500,
-                            "height": 381
-                          }
+                            "layout": "center"
+                          },
+                          "content": [
+                            {
+                              "type": "media",
+                              "attrs": {
+                                "id": "a559980d-cd47-43e2-8377-27359fcb905f",
+                                "type": "file",
+                                "collection": "MediaServicesSample",
+                                "width": 500,
+                                "height": 500
+                              }
+                            }
+                          ],
+                          "marks": [
+                            {
+                              "type": "link",
+                              "attrs": {
+                                "href": "https://gnu.org"
+                              }
+                            }
+                          ]
                         }
                       ]
-                    },
-                    {
-                      "type": "paragraph",
-                      "content": []
                     }
                   ]
                 }

@@ -1,5 +1,45 @@
 # @atlaskit/popper
 
+## 5.0.0
+
+### Major Changes
+
+- [`044869b067`](https://bitbucket.org/atlassian/atlassian-frontend/commits/044869b067) - This major release of Popper upgrades from react-popper v.1.3.6 to 2.2.3, which includes version 2 of Popper JS (@popperjs/core). This is a complete re-write of popper.js which comes with bundle-size and performance improvements, as well as a number of bug fixes and longer-term support.
+
+  There are a number of major changes for consumers are listed below; ⚙️ indicates the change has codemod support:
+
+  - **Component Props**:
+    - ⚙️ `offset` is no longer a string, but an array of two integers (i.e. '0px 8px' is now [0, 8])
+  - **Render Props**:
+    - ⚙️ `outOfBoundaries` has been replaced with `isReferenceHidden`, and is now true when the popper is hidden (i.e. by a
+      scroll container)
+    - ⚙️ `scheduleUpdate`, for async updates, has been renamed to `update`, and now returns a Promise.
+    - **✨new** `hasPopperEscaped` tracks when the reference element is fully clipped or hidden
+    - **✨new** `forceUpdate` is exposed to perform synchronous updates
+  - **Types**:
+    - @atlaskit/popper now exports a number of useful types from both `@popperjs/core` (`Placement`) and `react-popper`
+      (`ManagerProps`, `ReferenceProps`, `PopperProps`, `PopperArrowProps`, `PopperChildrenProps`, `StrictModifier`,
+      `Modifier`).
+    - Custom modifiers are now more strongly typed; to improve the specificity of the types, pass a generic type with
+      the modifier names you plan to use.
+  - **Custom modifiers**:
+    This only affects users applying custom modifiers via the `modifiers` prop:
+  - the `modifiers` prop has been significantly updated:
+  - The format is now an array of objects, each labelled via a `name` key:value pair. Previously the prop
+    was an object where each property was the modifier name.
+  - Prop options are grouped together in an `options` object
+  - default boundary paddings have been removed from `preventOverflow` and `flip`; to restore original
+    padding, set `padding: 5`
+  - modifiers that supported a `boundariesElement` option now have two options in its place:
+    - `boundary`, which takes `clippingParents` (similar to `scrollParent`)
+    - `rootBoundary` which takes `viewport` or `document` (replacing `viewport` and `window`respectively)
+
+  Each modifier has more internal changes not listed here: see [the Popper JS docs](https://popper.js.org/docs/v2/modifiers/) for more information, as well as the [Popper migration guide](https://popper.js.org/docs/v2/migration-guide/) for an example of the new list structure.
+
+  Due to the highly specific nature of these modifiers, codemod support is not provided for this change
+
+  Note: due to a bug in `react-popper`, a console.error message relating to React `act()` may be raised on some tests. It should not cause test failures. This issue has been raised in [the React Popper issue tracker](https://github.com/popperjs/react-popper/issues/368)
+
 ## 4.0.1
 
 ### Patch Changes

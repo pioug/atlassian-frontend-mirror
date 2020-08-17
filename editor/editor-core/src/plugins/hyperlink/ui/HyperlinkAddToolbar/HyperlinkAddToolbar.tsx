@@ -8,7 +8,6 @@ import Tooltip from '@atlaskit/tooltip';
 import { KeyboardEvent, PureComponent } from 'react';
 import { defineMessages, InjectedIntlProps, injectIntl } from 'react-intl';
 import styled from 'styled-components';
-import { analyticsService } from '../../../../analytics';
 import { linkToolbarMessages as linkToolbarCommonMessages } from '../../../../messages';
 import PanelTextInput from '../../../../ui/PanelTextInput';
 import RecentList from '../../../../ui/RecentSearch/RecentList';
@@ -61,10 +60,16 @@ export interface Props {
   onBlur?: (
     type: string,
     url: string,
-    displayText: string,
+    title: string | undefined,
+    displayText: string | undefined,
     isTabPressed?: boolean,
   ) => void;
-  onSubmit?: (href: string, text: string, inputMethod: LinkInputType) => void;
+  onSubmit?: (
+    href: string,
+    title: string | undefined,
+    displayText: string | undefined,
+    inputMethod: LinkInputType,
+  ) => void;
   popupsMountPoint?: HTMLElement;
   popupsBoundariesElement?: HTMLElement;
   autoFocus?: boolean;
@@ -267,23 +272,19 @@ class LinkAddToolbar extends PureComponent<Props & InjectedIntlProps, State> {
   }
 
   private handleSelected = (href: string, text: string) => {
-    this.setState(
-      {
-        displayText: text,
-      },
-      () => {
-        if (this.props.onSubmit) {
-          this.props.onSubmit(
-            href,
-            this.state.displayText || text,
-            INPUT_METHOD.TYPEAHEAD,
-          );
-          this.trackAutoCompleteAnalyticsEvent(
-            'atlassian.editor.format.hyperlink.autocomplete.click',
-          );
-        }
-      },
-    );
+    this.handleInsert(href, text, INPUT_METHOD.TYPEAHEAD, 'click');
+  };
+
+  private handleInsert = (
+    href: string,
+    title: string | undefined,
+    inputType: LinkInputType,
+    interaction: 'click' | 'keyboard' | 'notselected',
+  ) => {
+    if (this.props.onSubmit) {
+      this.submitted = true;
+      this.props.onSubmit(href, title, this.state.displayText, inputType);
+    }
   };
 
   private handleMouseMove = (objectId: string) => {
@@ -303,28 +304,11 @@ class LinkAddToolbar extends PureComponent<Props & InjectedIntlProps, State> {
     if (items && items.length > 0 && selectedIndex > -1) {
       const item = items[selectedIndex];
       const url = normalizeUrl(item.url);
-      if (this.props.onSubmit) {
-        this.props.onSubmit(
-          url,
-          this.state.displayText || item.name,
-          INPUT_METHOD.TYPEAHEAD,
-        );
-        this.trackAutoCompleteAnalyticsEvent(
-          'atlassian.editor.format.hyperlink.autocomplete.keyboard',
-        );
-      }
+      this.handleInsert(url, item.name, INPUT_METHOD.TYPEAHEAD, 'keyboard');
     } else if (text && text.length > 0) {
       const url = normalizeUrl(text);
-      if (this.props.onSubmit && url) {
-        this.submitted = true;
-        this.props.onSubmit(
-          url,
-          this.state.displayText || text,
-          INPUT_METHOD.MANUAL,
-        );
-        this.trackAutoCompleteAnalyticsEvent(
-          'atlassian.editor.format.hyperlink.autocomplete.notselected',
-        );
+      if (url) {
+        this.handleInsert(url, text, INPUT_METHOD.MANUAL, 'notselected');
       }
     }
   };
@@ -365,16 +349,12 @@ class LinkAddToolbar extends PureComponent<Props & InjectedIntlProps, State> {
       this.props.onBlur(
         type,
         url,
-        this.state.displayText || this.state.text,
+        this.state.text,
+        this.state.displayText,
         this.isTabPressed,
       );
     }
   };
-
-  private trackAutoCompleteAnalyticsEvent(name: string) {
-    const numChars = this.state.text ? this.state.text.length : 0;
-    analyticsService.trackEvent(name, { numChars: numChars });
-  }
 }
 
 const findIndex = (array: any[], predicate: (item: any) => boolean): number => {

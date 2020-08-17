@@ -10,6 +10,8 @@ const typeToColorMap: { [k in MediaType]: string } = {
   video: '#ff7143',
   doc: B300,
   unknown: '#3dc7dc',
+  archive: '',
+  // TODO [BMPT-389]: Remove this and use existing MediaTypeIcon in media-ui
 };
 
 export interface IconWrapperProps {

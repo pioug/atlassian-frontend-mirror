@@ -1,6 +1,7 @@
 import {
   getExampleUrl,
   loadPage,
+  PuppeteerPage,
   takeElementScreenShot,
 } from '@atlaskit/visual-regression/helper';
 
@@ -8,7 +9,7 @@ const avatarSelector = `div[data-testid="grid--avatar-0"] > a[data-testid="grid-
 const moreIndicator = `[data-testid="grid--overflow-menu--trigger"]`;
 const inputSelector = 'input[type="range"]';
 
-async function waitForPageRendered(page: any) {
+async function waitForPageRendered(page: PuppeteerPage) {
   await page.waitForSelector(avatarSelector);
   await page.waitForSelector(moreIndicator);
   await page.waitForSelector(inputSelector);
@@ -16,7 +17,7 @@ async function waitForPageRendered(page: any) {
 }
 
 describe('Snapshot Test', () => {
-  let page: any;
+  let page: PuppeteerPage;
 
   const url = getExampleUrl(
     'design-system',

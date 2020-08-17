@@ -19,7 +19,7 @@ export const createEditor = createProsemirrorEditorFactory();
 export const getFindReplacePreset = (
   createAnalyticsEvent?: CreateUIAnalyticsEvent,
 ) => {
-  let preset = new Preset<LightEditorPlugin>().add(findReplacePlugin);
+  let preset = new Preset<LightEditorPlugin>().add([findReplacePlugin]);
   if (createAnalyticsEvent) {
     preset = preset.add([analyticsPlugin, { createAnalyticsEvent }]);
   }

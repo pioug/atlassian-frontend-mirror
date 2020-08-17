@@ -1,6 +1,4 @@
-import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 import { sleep } from '@atlaskit/editor-test-helpers';
-import { Page as PuppeteerPage } from 'puppeteer';
 import { getExampleUrl } from '@atlaskit/webdriver-runner/utils/example';
 import { ToolbarFeatures } from '../../../example-helpers/ToolsDrawer';
 import { EditorAppearance, EditorProps } from '../../types';
@@ -10,6 +8,12 @@ import {
   tableSelectors,
   getSelectorForTableCell,
 } from '../__helpers/page-objects/_table';
+import {
+  isPuppeteer,
+  PuppeteerPage,
+  WebDriverPage,
+} from '../__helpers/page-objects/_types';
+import { selectors } from '../__helpers/page-objects/_editor';
 import { TableCssClassName } from '../../plugins/table/types';
 import { messages as insertBlockMessages } from '../../plugins/insert-block/ui/ToolbarInsertBlock/messages';
 /**
@@ -27,7 +31,7 @@ export const expectToMatchDocument = async (page: any, testName: string) => {
   expect(doc).toMatchCustomDocSnapshot(testName);
 };
 
-export const editable = '.ProseMirror';
+export const editable = selectors.editor;
 export const LONG_WAIT_FOR = 5000;
 export const typeAheadPicker = '.fabric-editor-typeahead';
 export const lozenge = '[data-mention-id="0"]';
@@ -35,6 +39,7 @@ export const linkToolbar =
   '[placeholder="Paste link or search recently viewed"]';
 export const linkUrlSelector = '[data-testid="link-url"]';
 export const linkLabelSelector = '[data-testid="link-label"]';
+export const linkRecentList = '.recent-list';
 
 export const insertMention = async (browser: any, query: string) => {
   await browser.type(editable, '@');
@@ -53,7 +58,7 @@ export const gotoEditor = async (browser: any) => {
   await browser.waitForSelector(editable);
 };
 
-export const manuallyEmptyLinkToolbar = async (page: Page) => {
+export const manuallyEmptyLinkToolbar = async (page: WebDriverPage) => {
   await page.emptyTextFieldByBackspacing(linkLabelSelector);
   await page.emptyTextFieldByBackspacing(linkUrlSelector);
 };
@@ -124,7 +129,7 @@ export const copyAsHTMLButton = '.copy-as-html';
  * Copies plain text or HTML to clipboard for tests that need to paste
  */
 export const copyToClipboard = async (
-  page: Page,
+  page: WebDriverPage,
   text: string,
   copyAs: 'plain' | 'html' = 'plain',
 ) => {
@@ -136,10 +141,24 @@ export const copyToClipboard = async (
   );
 };
 
+export async function copyAsPlainText(page: WebDriverPage, data: string) {
+  await page.isVisible(clipboardInput);
+  await page.clear(clipboardInput);
+  await page.type(clipboardInput, data);
+  await page.click(copyAsPlaintextButton);
+}
+
+export async function copyAsHTML(page: WebDriverPage, data: string) {
+  await page.isVisible(clipboardInput);
+  await page.clear(clipboardInput);
+  await page.type(clipboardInput, data);
+  await page.click(copyAsHTMLButton);
+}
+
 export const mediaInsertDelay = 1000;
 
 const mediaPickerMock = '.mediaPickerMock';
-export const setupMediaMocksProviders = async (page: Page) => {
+export const setupMediaMocksProviders = async (page: WebDriverPage) => {
   // enable the media picker mock
   await page.waitForSelector(mediaPickerMock);
   await page.click(mediaPickerMock);
@@ -156,7 +175,7 @@ export const setupMediaMocksProviders = async (page: Page) => {
  * Toggles a given feature on a page with a toolbar.
  */
 export const toggleFeature = async (
-  page: Page,
+  page: WebDriverPage,
   name: keyof ToolbarFeatures,
 ) => {
   const selector = `.toggleFeature-${name}`;
@@ -168,7 +187,7 @@ export const toggleFeature = async (
  * Enables or disables a given feature on a page with a toolbar.
  */
 export const setFeature = async (
-  page: Page,
+  page: WebDriverPage,
   name: keyof ToolbarFeatures,
   enable: boolean,
 ) => {
@@ -188,13 +207,9 @@ export const rerenderEditor = async (browser: any) => {
   await browser.click('.reloadEditorButton');
 };
 
-const isPage = (page: Page | PuppeteerPage): page is Page => {
-  return !!(page as any).hasCapabilities;
-};
-
 // This function assumes the media picker modal is already shown.
 export const insertMediaFromMediaPicker = async (
-  page: Page | PuppeteerPage,
+  page: WebDriverPage | PuppeteerPage,
   filenames = ['one.svg'],
   fileSelector = 'div=%s',
 ) => {
@@ -221,7 +236,7 @@ export const insertMediaFromMediaPicker = async (
   // Wait until we have found media-cards for all inserted items.
   const mediaCardCount = get$$Length(existingMediaCards) + filenames.length;
 
-  if (isPage(page)) {
+  if (!isPuppeteer(page)) {
     // Workaround - we need to use different wait methods depending on where we are running.
     if (page.hasCapabilities()) {
       await page.waitUntil(async () => {
@@ -254,7 +269,7 @@ export const insertMediaFromMediaPicker = async (
 };
 
 export const insertMedia = async (
-  page: Page | PuppeteerPage,
+  page: WebDriverPage | PuppeteerPage,
   filenames = ['one.svg'],
   fileSelector = 'div=%s',
 ) => {
@@ -575,4 +590,32 @@ export const selectColumns = async (page: any, indexes: number[]) => {
     await page.click(controlSelector);
     await page.waitForSelector(tableSelectors.selectedCell);
   }
+};
+
+export const insertLongText = async (page: WebDriverPage) => {
+  await page.type(
+    editable,
+    [
+      'This',
+      'is',
+      'my',
+      'page',
+      'with',
+      'lots',
+      'of',
+      'content',
+      'because',
+      'I',
+      'need',
+      'to',
+      'test',
+      'in',
+      'an',
+      'editor',
+      'with',
+      'lots',
+      'of',
+      'content',
+    ].reduce((acc, text) => acc.concat([text, 'Enter']), [] as string[]),
+  );
 };

@@ -16,6 +16,7 @@ import ArrowRightCircleIcon from '@atlaskit/icon/glyph/chevron-right-circle';
 import { Collection, Props, State } from '../../../newgen/collection';
 import { ErrorMessage } from '../../../newgen/error';
 import { List } from '../../../newgen/list';
+import { MediaFeatureFlags } from '@atlaskit/media-common';
 
 const collectionName = 'my-collection';
 
@@ -64,6 +65,7 @@ function createFixture(
   mediaClient: MediaClient,
   identifier: FileIdentifier,
   onClose?: () => {},
+  featureFlags?: MediaFeatureFlags,
 ) {
   const el = mountWithIntlContext<Props, State>(
     <Collection
@@ -72,6 +74,7 @@ function createFixture(
       mediaClient={mediaClient}
       onClose={onClose}
       pageSize={999}
+      featureFlags={featureFlags}
     />,
   );
   return el;
@@ -199,6 +202,22 @@ describe('<Collection />', () => {
       expect(mediaClient.collection.loadNextPage).not.toHaveBeenCalled();
       el.find(ArrowRightCircleIcon).simulate('click');
       expect(mediaClient.collection.loadNextPage).toHaveBeenCalled();
+    });
+  });
+
+  it('should pass featureFlags to list props', () => {
+    const subject = new Subject();
+    const mediaClient = fakeMediaClient();
+    asMock(mediaClient.collection.getItems).mockReturnValue(subject);
+    asMock(mediaClient.file.getFileState).mockReturnValue(subject);
+    const el = createFixture(mediaClient, identifier, undefined, {
+      zipPreviews: true,
+    });
+    subject.next(mediaCollectionItems);
+    el.update();
+    const listProps: any = el.find(List).props();
+    expect(listProps.featureFlags).toEqual({
+      zipPreviews: true,
     });
   });
 });

@@ -6,6 +6,8 @@ import {
   ADNode,
   ADFStage,
 } from '@atlaskit/editor-common/validator';
+
+import { validateADFEntity } from '@atlaskit/editor-common';
 import { Node as PMNode, Schema, Fragment } from 'prosemirror-model';
 
 export interface RenderOutput<T> {
@@ -41,12 +43,16 @@ export const renderDocument = <T>(
   serializer: Serializer<T>,
   schema: Schema = defaultSchema,
   adfStage: ADFStage = 'final',
+  useSpecBasedValidator: boolean = false,
 ): RenderOutput<T | null> => {
   const stat: RenderOutputStat = { sanitizeTime: 0 };
 
-  const { output: validDoc, time: sanitizeTime } = withStopwatch(() =>
-    getValidDocument(doc, schema, adfStage),
-  );
+  const { output: validDoc, time: sanitizeTime } = withStopwatch(() => {
+    if (useSpecBasedValidator) {
+      return validateADFEntity(schema, doc);
+    }
+    return getValidDocument(doc, schema, adfStage);
+  });
 
   // save sanitize time to stats
   stat.sanitizeTime = sanitizeTime;

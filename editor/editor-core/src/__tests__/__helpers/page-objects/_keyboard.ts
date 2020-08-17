@@ -1,4 +1,4 @@
-import { Page } from './_types';
+import { PuppeteerPage } from './_types';
 
 export enum KEY {
   CONTROL = '\uE051',
@@ -35,7 +35,7 @@ type KeyPressOptions = {
 
 // Default 5ms delay between key presses to reduce test flakiness
 export async function pressKey(
-  page: Page,
+  page: PuppeteerPage,
   key: KeyboardKey | KeyboardKey[],
   options: KeyPressOptions = { delay: 5 },
 ) {
@@ -46,16 +46,16 @@ export async function pressKey(
   }
 }
 
-export async function pressKeyDown(page: Page, key: KeyboardKey) {
+export async function pressKeyDown(page: PuppeteerPage, key: KeyboardKey) {
   await page.keyboard.down(key);
 }
 
-export async function pressKeyUp(page: Page, key: KeyboardKey) {
+export async function pressKeyUp(page: PuppeteerPage, key: KeyboardKey) {
   await page.keyboard.up(key);
 }
 
 // simulate press of keys combination
-export async function pressKeyCombo(page: Page, keys: KeyboardKey[]) {
+export async function pressKeyCombo(page: PuppeteerPage, keys: KeyboardKey[]) {
   // dispatch key down events in parallel
   await Promise.all(keys.map(key => page.keyboard.down(key)));
   // dispatch key up events in parallel after short delay

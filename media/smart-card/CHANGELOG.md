@@ -1,5 +1,20 @@
 # @atlaskit/smart-card
 
+## 14.2.0
+
+### Minor Changes
+
+- [`fae1f71b0f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fae1f71b0f) - Implement caching of duplicate URLs
+
+### Patch Changes
+
+- [`6262f382de`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6262f382de) - Use the 'lodash' package instead of single-function 'lodash.\*' packages
+- [`fa6fb5dfbb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fa6fb5dfbb) - Removing unused code to be published
+- [`fae15b52ef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fae15b52ef) - Implement a delay queue between batch requests to the backend, to avoid flooding the backend with too many requests at once.
+- [`889a2d9486`](https://bitbucket.org/atlassian/atlassian-frontend/commits/889a2d9486) - fix: updated error views for all Inline and Block links
+- [`de5ee48f89`](https://bitbucket.org/atlassian/atlassian-frontend/commits/de5ee48f89) - fix: added icon prop on media-ui, InlineCardForbiddenView - moving to updated link framework for fforbidden view of Inline Smart Links.
+- Updated dependencies
+
 ## 14.1.0
 
 ### Minor Changes

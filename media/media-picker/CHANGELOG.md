@@ -1,5 +1,18 @@
 # @atlaskit/media-picker
 
+## 55.0.2
+
+### Patch Changes
+
+- [`6262f382de`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6262f382de) - Use the 'lodash' package instead of single-function 'lodash.\*' packages
+- [`fa6fb5dfbb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fa6fb5dfbb) - Removing unused code to be published
+- [`caf46c7c45`](https://bitbucket.org/atlassian/atlassian-frontend/commits/caf46c7c45) - Improved remote preview functionality for media-card redesign.
+  Breaking change: renamed type of argument "SourceFile" to "CopySourceFile" in the method "copyFile" of media-client.
+- [`9dd7f8aa2e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9dd7f8aa2e) - Fixed media-picker not sending upload-end with Giphy images
+- [`b8695823e3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b8695823e3) - Fixed Giphy images display as plain text when inserted into Editor
+- [`87459b57ba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87459b57ba) - Fixed insertion failure of processing file from recent files into Editor
+- Updated dependencies
+
 ## 55.0.1
 
 ### Patch Changes

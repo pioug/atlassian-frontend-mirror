@@ -79,6 +79,7 @@ describe('nodeviews/mediaGroup', () => {
       mediaProvider,
       headPos: 1,
       anchorPos: 1,
+      mediaOptions: {},
       ...propOverrides,
     };
 
@@ -106,6 +107,7 @@ describe('nodeviews/mediaGroup', () => {
       mediaProvider,
       headPos: 1,
       anchorPos: 1,
+      mediaOptions: {},
     };
 
     const wrapper = mount(<MediaGroup {...props} />);

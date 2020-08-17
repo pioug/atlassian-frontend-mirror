@@ -187,6 +187,7 @@ export interface DemoRendererProps {
   schema?: Schema;
   actionButtons?: any;
   annotationProvider?: AnnotationProviders<AnnotationMarkStates> | null;
+  useSpecBasedValidator?: boolean;
   onDocumentChange?: () => void;
 }
 
@@ -361,6 +362,7 @@ export default class RendererDemo extends React.Component<
       props.allowColumnSorting = this.props.allowColumnSorting;
       props.allowAnnotations = this.props.allowAnnotations;
       props.allowHeadingAnchorLinks = this.props.allowHeadingAnchorLinks;
+      props.useSpecBasedValidator = this.props.useSpecBasedValidator;
 
       if (props.allowAnnotations) {
         props.annotationProvider = this.props.annotationProvider;

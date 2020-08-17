@@ -22,7 +22,7 @@ describe('handleCloudFetchingEvent', () => {
     name: 'some-name',
     size: 12345,
     creationDate: Date.now(),
-    type: 'image/jpg',
+    type: 'image/jpeg',
   };
 
   const setup = () => {

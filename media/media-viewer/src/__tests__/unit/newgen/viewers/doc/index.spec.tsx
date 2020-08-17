@@ -2,7 +2,10 @@ import React from 'react';
 import {
   globalMediaEventEmitter,
   MediaViewedEventPayload,
+  FileState,
   ProcessedFileState,
+  ProcessingFileState,
+  PreviewableFileState,
 } from '@atlaskit/media-client';
 import {
   mountWithIntlContext,
@@ -14,10 +17,18 @@ import { Spinner } from '../../../../../newgen/loading';
 import { DocViewer, Props } from '../../../../../newgen/viewers/doc/index';
 import { BaseState } from '../../../../../newgen/viewers/base-viewer';
 import { Content } from '../../../../../newgen/content';
+import { getObjectUrlFromFileState } from '../../../../../newgen/utils/getObjectUrlFromFileState';
+
+jest.mock('../../../../../newgen/utils/getObjectUrlFromFileState', () => ({
+  __esModule: true,
+  getObjectUrlFromFileState: jest
+    .fn()
+    .mockResolvedValue('object-url-from-filestate'),
+}));
 
 function createFixture(
   fetchPromise: Promise<any>,
-  item: ProcessedFileState,
+  item: FileState,
   collectionName?: string,
   mockReturnGetArtifactURL?: Promise<string>,
 ) {
@@ -51,8 +62,8 @@ const item: ProcessedFileState = {
   status: 'processed',
   name: 'my pdf',
   size: 11222,
-  mediaType: 'video',
-  mimeType: 'mp4',
+  mediaType: 'doc',
+  mimeType: 'application/pdf',
   artifacts: {
     'document.pdf': {
       url: '/pdf',
@@ -60,6 +71,19 @@ const item: ProcessedFileState = {
     },
   },
   representations: {},
+};
+
+const previewableItem: ProcessingFileState & PreviewableFileState = {
+  id: 'some-id',
+  status: 'processing',
+  name: 'my pdf',
+  size: 11222,
+  mediaType: 'doc',
+  mimeType: 'application/pdf',
+  preview: {
+    value: new Blob([], { type: 'application/pdf' }),
+    origin: 'local',
+  },
 };
 
 describe('DocViewer', () => {
@@ -78,6 +102,15 @@ describe('DocViewer', () => {
     await nextTick();
     await nextTick();
     return el;
+  };
+
+  const getPreviewableDocument = async () => {
+    const fetchPromise = Promise.resolve();
+    const { el, mediaClient } = createFixture(fetchPromise, previewableItem);
+    await nextTick();
+    await nextTick();
+    await nextTick();
+    return { el, mediaClient };
   };
 
   it('assigns a document content when successful', async () => {
@@ -129,5 +162,14 @@ describe('DocViewer', () => {
     );
     await (el as any).instance()['init']();
     expect(onError).toBeCalledWith('some error');
+  });
+
+  it('should use local preview when available', async () => {
+    const { el, mediaClient } = await getPreviewableDocument();
+    await (el as any).instance()['init']();
+    expect(getObjectUrlFromFileState).toHaveBeenCalledWith(previewableItem);
+    expect(mediaClient.file.getArtifactURL as jest.Mock).toHaveBeenCalledTimes(
+      0,
+    );
   });
 });

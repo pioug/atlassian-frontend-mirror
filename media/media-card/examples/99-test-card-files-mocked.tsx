@@ -11,6 +11,7 @@ import {
 import { FileIdentifier } from '@atlaskit/media-client';
 
 import { Card } from '../src';
+import { DelayedRender } from '../example-helpers/DelayedRender';
 import { MediaClientConfig } from '@atlaskit/media-core';
 
 const identifiers = [1, 2, 3, 4].map(
@@ -20,8 +21,13 @@ const identifiers = [1, 2, 3, 4].map(
     mediaItemType: 'file',
   }),
 );
+const freshNewFile: FileIdentifier = {
+  id: `1f35526d-0299-4e1c-be10-36af3c209781`,
+  collectionName: defaultCollectionName,
+  mediaItemType: 'file',
+};
 const files = generateFilesFromTestData(
-  identifiers.slice(0, 3).map(
+  [...identifiers.slice(0, 3), freshNewFile].map(
     ({ id }: FileIdentifier): MockFileInputParams => ({
       id: id as string,
       name: `media-test-file-${id}.png`,
@@ -113,6 +119,46 @@ const loadingCard = [
   },
 ];
 
+const hiddenCardWithCacheAvailable = [
+  {
+    title: 'The is hidden from the viewport but local cache is available',
+    content: (
+      <div
+        data-testid="media-card-hidden-card-with-cache"
+        style={{ position: 'absolute', bottom: '-100000px' }}
+      >
+        <DelayedRender
+          timeout={2000}
+          component={Card}
+          componentProps={{
+            identifier: identifiers[0],
+            mediaClientConfig,
+            appearance: 'image',
+          }}
+        />
+      </div>
+    ),
+  },
+];
+
+const hiddenCardWithoutCacheAvailable = [
+  {
+    title: 'The is hidden from the viewport and NO local cache is available',
+    content: (
+      <div
+        data-testid="media-card-hidden-card-without-cache"
+        style={{ position: 'absolute', bottom: '-100000px' }}
+      >
+        <Card
+          identifier={freshNewFile}
+          mediaClientConfig={mediaClientConfig}
+          appearance="image"
+        />
+      </div>
+    ),
+  },
+];
+
 export default () => (
   <div>
     <h1 style={{ margin: '10px 20px' }}>File cards</h1>
@@ -122,6 +168,8 @@ export default () => (
       <StoryList>{cardWithContextId}</StoryList>
       <StoryList>{standardCardWithMediaViewer}</StoryList>
       <StoryList>{loadingCard}</StoryList>
+      <StoryList>{hiddenCardWithoutCacheAvailable}</StoryList>
+      <StoryList>{hiddenCardWithCacheAvailable}</StoryList>
     </div>
   </div>
 );

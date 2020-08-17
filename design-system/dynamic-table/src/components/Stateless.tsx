@@ -209,6 +209,7 @@ class DynamicTable extends React.Component<Props, State> {
           isLoading={isLoading && rowsExist}
           spinnerSize={spinnerSize}
           targetRef={() => this.tableBody}
+          testId={testId}
         >
           <Table
             isFixedSize={isFixedSize}
@@ -251,7 +252,11 @@ class DynamicTable extends React.Component<Props, State> {
           </PaginationWrapper>
         )}
         {!rowsExist && emptyBody && (
-          <LoadingContainer isLoading={isLoading} spinnerSize={LARGE}>
+          <LoadingContainer
+            isLoading={isLoading}
+            spinnerSize={LARGE}
+            testId={testId}
+          >
             {emptyBody}
           </LoadingContainer>
         )}

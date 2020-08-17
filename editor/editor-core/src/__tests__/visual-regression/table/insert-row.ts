@@ -6,11 +6,12 @@ import {
   selectRow,
 } from '../../__helpers/page-objects/_table';
 import { tableSelectors } from '../../__helpers/page-objects/_table';
-import { Page } from '../../__helpers/page-objects/_types';
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { pressKeyCombo } from '../../__helpers/page-objects/_keyboard';
 import { animationFrame } from '../../__helpers/page-objects/_editor';
+import { retryUntilStablePosition } from '../../__helpers/page-objects/_toolbar';
 
-let page: Page;
+let page: PuppeteerPage;
 const initEditor = async (adf: Object) => {
   await initEditorWithAdf(page, {
     appearance: Appearance.fullPage,
@@ -24,10 +25,20 @@ const initEditor = async (adf: Object) => {
       },
     },
   });
-  await clickFirstCell(page);
+  await clickFirstCell(page, true);
 };
 
 describe('Snapshot Test: table insert row', () => {
+  const click = async (page: any, selector: string) => {
+    await page.waitForSelector(selector);
+    await retryUntilStablePosition(
+      page,
+      () => page.click(selector),
+      '[aria-label*="Table floating controls"]',
+      1000,
+    );
+  };
+
   beforeAll(() => {
     page = global.page;
   });
@@ -48,7 +59,7 @@ describe('Snapshot Test: table insert row', () => {
       cell: 1,
       cellType: 'td',
     });
-    await page.click(lastCell);
+    await click(page, lastCell);
     await pressKeyCombo(page, ['Control', 'Alt', 'ArrowUp']);
   });
 
@@ -58,7 +69,7 @@ describe('Snapshot Test: table insert row', () => {
       cell: 1,
       cellType: 'td',
     });
-    await page.click(lastCell);
+    await click(page, lastCell);
     await pressKeyCombo(page, ['Control', 'Alt', 'ArrowDown']);
   });
 

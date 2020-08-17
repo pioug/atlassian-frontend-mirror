@@ -16,13 +16,13 @@
   "atlaskit:designLink": "https://atlassian.design/guidelines/product/components/radios",
   "atlassian": {
     "team": "Design System Team",
+    "deprecatedAutoEntryPoints": true,
     "inPublicMirror": true,
     "releaseModel": "scheduled",
     "website": {
       "name": "Field Radio Group",
       "deprecated": "Please use the @atlaskit/field-radio-group package instead."
-    },
-    "deprecatedAutoEntryPoints": true
+    }
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^7.0.0",

@@ -3,6 +3,10 @@
   "type": "doc",
   "content": [
     {
+      "type": "paragraph",
+      "content": []
+    },
+    {
       "type": "table",
       "attrs": {
         "isNumberColumnEnabled": false,
@@ -33,18 +37,14 @@
                     {
                       "type": "media",
                       "attrs": {
-                        "id": "6dca16ef-0e85-4e85-89be-f780ac7929ff",
+                        "id": "a559980d-cd47-43e2-8377-27359fcb905f",
                         "type": "file",
                         "collection": "MediaServicesSample",
                         "width": 500,
-                        "height": 381
+                        "height": 500
                       }
                     }
                   ]
-                },
-                {
-                  "type": "paragraph",
-                  "content": []
                 }
               ]
             }

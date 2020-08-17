@@ -33,9 +33,6 @@ export const Content: any = styled.div`
 `;
 Content.displayName = 'Content';
 
-const analyticsHandler = (actionName: string, props?: {}) =>
-  console.log(actionName, props);
-
 const SaveAndCancelButtons = (props: { editorActions: EditorActions }) => (
   <ButtonGroup>
     <Button
@@ -159,7 +156,6 @@ export default class Example extends React.Component<Props, State> {
             <EditorContext>
               <Editor
                 appearance="full-page"
-                analyticsHandler={analyticsHandler}
                 allowStatus={true}
                 allowAnalyticsGASV3={true}
                 allowLayouts={true}

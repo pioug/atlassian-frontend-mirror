@@ -3,7 +3,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 // eslint-disable-next-line no-restricted-imports
 import { format, isValid, parse } from 'date-fns';
-import pick from 'lodash.pick';
+import pick from 'lodash/pick';
 
 import {
   createAndFireEvent,
@@ -86,7 +86,7 @@ export interface Props extends WithAnalyticsEventsProps {
   testId?: string;
 }
 
-type DateTimePickerProps = typeof DateTimePicker.defaultProps & Props;
+type DateTimePickerProps = typeof dateTimePickerDefaultProps & Props;
 
 interface State {
   active: 0 | 1 | 2;
@@ -218,30 +218,31 @@ const styles: StylesConfig = {
   }),
 };
 
+const dateTimePickerDefaultProps = {
+  appearance: 'default',
+  autoFocus: false,
+  isDisabled: false,
+  name: '',
+  onBlur: (event: React.FocusEvent<HTMLInputElement>) => {},
+  onChange: (value: string) => {},
+  onFocus: (event: React.FocusEvent<HTMLInputElement>) => {},
+  innerProps: {},
+  id: '',
+  defaultValue: '',
+  timeIsEditable: false,
+  isInvalid: false,
+  datePickerProps: {},
+  timePickerProps: {},
+  datePickerSelectProps: {},
+  timePickerSelectProps: {},
+  times: defaultTimes,
+  spacing: 'default',
+  locale: 'en-US',
+  // Not including a default prop for value as it will
+  // Make the component a controlled component
+};
 class DateTimePicker extends React.Component<DateTimePickerProps, State> {
-  static defaultProps = {
-    appearance: 'default',
-    autoFocus: false,
-    isDisabled: false,
-    name: '',
-    onBlur: (event: React.FocusEvent<HTMLInputElement>) => {},
-    onChange: (value: string) => {},
-    onFocus: (event: React.FocusEvent<HTMLInputElement>) => {},
-    innerProps: {},
-    id: '',
-    defaultValue: '',
-    timeIsEditable: false,
-    isInvalid: false,
-    datePickerProps: {},
-    timePickerProps: {},
-    datePickerSelectProps: {},
-    timePickerSelectProps: {},
-    times: defaultTimes,
-    spacing: 'default',
-    locale: 'en-US',
-    // Not including a default prop for value as it will
-    // Make the component a controlled component
-  };
+  static defaultProps = dateTimePickerDefaultProps;
 
   state: State = {
     active: 0,

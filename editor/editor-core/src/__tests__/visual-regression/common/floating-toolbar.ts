@@ -9,10 +9,11 @@ import {
   clickOnExtension,
   waitForExtensionToolbar,
 } from '../../__helpers/page-objects/_extensions';
-import { Page } from '../../__helpers/page-objects/_types';
+import { retryUntilStablePosition } from '../../__helpers/page-objects/_toolbar';
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 
 describe('Floating toolbars:', () => {
-  let page: Page;
+  let page: PuppeteerPage;
   beforeEach(async () => {
     page = global.page;
     await initEditorWithAdf(page, {
@@ -28,7 +29,13 @@ describe('Floating toolbars:', () => {
 
   it('should render the table toolbar', async () => {
     const endCellSelector = getSelectorForTableCell({ row: 3, cell: 2 });
-    await page.click(endCellSelector);
+    await page.waitForSelector(endCellSelector);
+    await retryUntilStablePosition(
+      page,
+      () => page.click(endCellSelector),
+      tableSelectors.floatingToolbar,
+      1000,
+    );
 
     await waitForElementWithText(page, tableSelectors.tableOptionsText);
   });

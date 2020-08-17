@@ -1,9 +1,9 @@
-import { Page } from 'puppeteer';
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { snapshot, initRendererWithADF, Device } from './_utils';
 import { selectors } from '../__helpers/page-objects/_expand';
 import { expandADF } from '../__fixtures__/expand-adf';
 
-const initRenderer = async (page: Page, adf: any) => {
+const initRenderer = async (page: PuppeteerPage, adf: any) => {
   await initRendererWithADF(page, {
     appearance: 'full-page',
     device: Device.LaptopMDPI,
@@ -12,7 +12,7 @@ const initRenderer = async (page: Page, adf: any) => {
 };
 
 describe('Snapshot Test: Expand', () => {
-  let page: Page;
+  let page: PuppeteerPage;
   beforeAll(() => {
     page = global.page;
   });

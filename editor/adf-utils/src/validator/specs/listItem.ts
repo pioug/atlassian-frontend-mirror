@@ -13,6 +13,7 @@ export default {
           'orderedList',
         ],
       ],
+      isTupleLike: true,
       minItems: 1,
     },
   },

@@ -4,7 +4,10 @@ import {
   initFullPageEditorWithAdf,
   getContentBoundingRectTopLeftCoords,
 } from '../_utils';
-import { waitForLoadedBackgroundImages } from '@atlaskit/visual-regression/helper';
+import {
+  PuppeteerPage,
+  waitForLoadedBackgroundImages,
+} from '@atlaskit/visual-regression/helper';
 import {
   expandADF,
   tableMediaADF,
@@ -15,7 +18,6 @@ import {
 } from './__fixtures__/expand-adf';
 import * as simpleExpandAdf from './__fixtures__/simple-expand.adf.json';
 import { selectors } from '../../__helpers/page-objects/_expand';
-import { Page } from '../../__helpers/page-objects/_types';
 import { emojiSelectors } from '../../__helpers/page-objects/_emoji';
 import {
   clickFirstCell,
@@ -25,8 +27,12 @@ import {
   resizeMediaInPositionWithSnapshot,
   waitForMediaToBeLoaded,
 } from '../../__helpers/page-objects/_media';
+import { getBoundingRect } from '../../__helpers/page-objects/_editor';
+import expandAdf from './__fixtures__/expand-breakout.adf.json';
+import { waitForFloatingControl } from '../../__helpers/page-objects/_toolbar';
+import { toggleBreakout } from '../../__helpers/page-objects/_layouts';
 
-const hideTooltip = async (page: Page) => {
+const hideTooltip = async (page: PuppeteerPage) => {
   // Hide the tooltip
   const css = `
  .Tooltip {
@@ -37,7 +43,7 @@ const hideTooltip = async (page: Page) => {
 };
 
 describe('Expand: full-page', () => {
-  let page: Page;
+  let page: PuppeteerPage;
 
   beforeAll(async () => {
     page = global.page;
@@ -126,11 +132,50 @@ describe('Expand: full-page', () => {
     await page.mouse.up();
   });
 });
+describe('Expand: Selection', () => {
+  let page: PuppeteerPage;
+  beforeAll(() => {
+    page = global.page;
+  });
+
+  beforeEach(async () => {
+    await initFullPageEditorWithAdf(page, expandAdf, Device.LaptopHiDPI, {
+      width: 1000,
+      height: 400,
+    });
+    await page.waitForSelector(selectors.expand);
+  });
+
+  afterEach(async () => {
+    await snapshot(page);
+  });
+
+  it('shows the breakout button when selected', async () => {
+    await page.waitForSelector(selectors.expand);
+
+    const bounds = await getBoundingRect(page, selectors.expand);
+    const middleTopX = bounds.left + bounds.width / 2;
+    await page.mouse.click(middleTopX, bounds.top);
+    await page.waitForSelector(selectors.removeButton);
+  });
+  it('keeps node selection when breakout changed', async () => {
+    await page.waitForSelector(selectors.expand);
+
+    const bounds = await getBoundingRect(page, selectors.expand);
+    const middleTopX = bounds.left + bounds.width / 2;
+    await page.mouse.click(middleTopX, bounds.top);
+    await page.waitForSelector(selectors.removeButton);
+
+    await waitForFloatingControl(page, 'Go wide', undefined, false);
+    await toggleBreakout(page, 1);
+    await page.waitForSelector('div[aria-label="Go full width"]');
+  });
+});
 
 // This block is seperate as Puppeteer has some
 // issues screenshotting the expand with wrapped media.
 describe('Expand: Media', () => {
-  let page: Page;
+  let page: PuppeteerPage;
 
   beforeAll(async () => {
     page = global.page;
@@ -166,7 +211,7 @@ describe('Expand: Media', () => {
 });
 
 describe('Expand: allowInteractiveExpand', () => {
-  let page: Page;
+  let page: PuppeteerPage;
 
   beforeAll(async () => {
     page = global.page;
@@ -174,6 +219,7 @@ describe('Expand: allowInteractiveExpand', () => {
 
   afterEach(async () => {
     await snapshot(page, undefined, selectors.expand);
+    await waitForLoadedBackgroundImages(page, emojiSelectors.standard, 10000);
   });
 
   describe('when the flag is true', () => {

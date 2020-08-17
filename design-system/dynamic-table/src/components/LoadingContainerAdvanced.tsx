@@ -12,12 +12,22 @@ import {
 } from '../styled/LoadingContainerAdvanced';
 import { SpinnerSizeType } from '../types';
 
+// there is a bug with findDOMNode and Suspense in React < 16.9: https://github.com/facebook/react/issues/14188
+const safeFindDOMNode: typeof findDOMNode = component => {
+  try {
+    return findDOMNode(component);
+  } catch (e) {
+    return null;
+  }
+};
+
 export interface Props {
   children: React.ReactElement<any>;
   isLoading?: boolean;
   spinnerSize?: SpinnerSizeType;
   contentsOpacity: number;
   targetRef?: () => React.ComponentType<any> | undefined;
+  testId?: string;
 }
 
 export default class LoadingContainerAdvanced extends React.Component<
@@ -68,15 +78,15 @@ export default class LoadingContainerAdvanced extends React.Component<
     // targetRef prop may be defined but it is not guaranteed it returns an element
     const targetElement = targetRef ? targetRef() : this.children;
     // @ts-ignore - targetElement is not assignable to type 'ReactInstance'
-    const targetNode = findDOMNode(targetElement);
+    const targetNode = safeFindDOMNode(targetElement);
 
     return targetNode;
   };
 
-  getThisNode = () => findDOMNode(this);
+  getThisNode = () => safeFindDOMNode(this);
 
   // @ts-ignore - this.spinner is not assignable to type 'ReactInstance'
-  getSpinnerNode = () => findDOMNode(this.spinner);
+  getSpinnerNode = () => safeFindDOMNode(this.spinner);
 
   hasTargetNode = (nextProps?: Props) => !!this.getTargetNode(nextProps);
 
@@ -205,7 +215,7 @@ export default class LoadingContainerAdvanced extends React.Component<
   }
 
   render() {
-    const { children, isLoading, spinnerSize } = this.props;
+    const { children, isLoading, spinnerSize, testId } = this.props;
 
     return (
       <Container>
@@ -221,7 +231,10 @@ export default class LoadingContainerAdvanced extends React.Component<
                 this.spinner = el;
               }}
             >
-              <Spinner size={spinnerSize} />
+              <Spinner
+                size={spinnerSize}
+                testId={testId && `${testId}--loadingSpinner`}
+              />
             </SpinnerContainer>
           </SpinnerBackdrop>
         )}

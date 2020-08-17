@@ -44,6 +44,7 @@ export {
   measureRender,
   startMeasure,
   stopMeasure,
+  measureTTI,
   timestampToIsoFormat,
   timestampToString,
   timestampToTaskContext,
@@ -113,6 +114,9 @@ export {
   WithProviders,
   Providers,
   MediaProvider,
+  SearchProvider,
+  LinkContentType,
+  QuickSearchResult,
 } from './provider-factory';
 
 export { combineProviders } from './provider-helpers';
@@ -294,3 +298,5 @@ export {
 } from './ui';
 
 export { linkMessages } from './messages/link';
+
+export { validateADFEntity } from './utils/validate-using-spec';

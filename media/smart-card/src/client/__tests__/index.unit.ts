@@ -1,6 +1,6 @@
 let mockRequest = jest.fn();
 jest.mock('../api', () => ({
-  request: (...args: any) => mockRequest(args[0], args[1], args[2]),
+  request: (...args: any) => mockRequest(...args),
 }));
 
 import { mocks } from '../../utils/mocks';
@@ -33,6 +33,46 @@ describe('Smart Card: Client', () => {
       ],
     );
     expect(response).toBe(mocks.success);
+  });
+
+  it('successfully deduplicates requests made in batches in same execution frame', async () => {
+    const hostname = 'https://www.google.com';
+
+    // Map the URLs sent by DataLoader to their respective responses.
+    async function mockRequestFn(_method: string, _url: string, data?: any) {
+      return data.map(({ resourceUrl }: any) => {
+        const key: keyof typeof mocks = resourceUrl.split(`${hostname}/`)[1];
+        return { status: 200, body: mocks[key] };
+      });
+    }
+
+    mockRequest.mockImplementationOnce(mockRequestFn);
+    const client = new SmartCardClient('stg');
+    const [responseFirst, responseSecond, responseThird] = await Promise.all([
+      // NOTE: send in _two_ of the same URL
+      client.fetchData(`${hostname}/success`),
+      client.fetchData(`${hostname}/success`),
+      client.fetchData(`${hostname}/notFound`),
+    ]);
+    expect(mockRequest).toBeCalled();
+    expect(mockRequest).toBeCalledWith(
+      'post',
+      expect.stringMatching(/.*?stg.*?\/resolve\/batch/),
+      [
+        // NOTE: we only expect _one_ of the duplicated URLs to actually be sent to the backend
+        {
+          resourceUrl: `${hostname}/success`,
+        },
+        {
+          resourceUrl: `${hostname}/notFound`,
+        },
+      ],
+    );
+
+    // NOTE: we still expect all three responses to be the same
+    expect(responseFirst).toBe(mocks.success);
+    expect(responseSecond).toBe(mocks.success);
+    expect(responseThird).toBe(mocks.notFound);
   });
 
   it('successfully batches requests in same execution frame', async () => {

@@ -20,11 +20,11 @@ import { isNodeSelectedOrInRange } from '../../../utils/nodes';
 import { MediaClientConfig } from '@atlaskit/media-core';
 
 import {
-  SelectionBasedNodeView,
   getPosHandler,
   getPosHandlerNode,
+  ForwardRef,
+  ReactNodeView,
 } from '../../../nodeviews/';
-import MediaItem from './media';
 import WithPluginState from '../../../ui/WithPluginState';
 import { pluginKey as widthPluginKey } from '../../width';
 import { setNodeSelection, setTextSelection } from '../../../utils';
@@ -34,16 +34,18 @@ import { EventDispatcher } from '../../../event-dispatcher';
 import { PortalProviderAPI } from '../../../ui/PortalProvider';
 import { MediaOptions } from '../types';
 import { stateKey as mediaPluginKey } from '../pm-plugins/main';
-import { isMobileUploadCompleted } from '../commands/helpers';
 import { MediaSingleNodeProps, MediaSingleNodeViewProps } from './types';
 import { MediaNodeUpdater } from './mediaNodeUpdater';
 import { DispatchAnalyticsEvent } from '../../analytics';
 import { findParentNodeOfTypeClosestToPos } from 'prosemirror-utils';
 import { CellSelection } from 'prosemirror-tables';
+import { FigureWrapper } from './styles';
 import {
   floatingLayouts,
   isRichMediaInsideOfBlockNode,
 } from '../../../utils/rich-media-utils';
+import { getAttrsFromUrl } from '@atlaskit/media-client';
+import { isMediaBlobUrlFromAttrs } from '../utils/media-common';
 
 export interface MediaSingleNodeState {
   width?: number;
@@ -163,24 +165,6 @@ export default class MediaSingleNode extends Component<
     });
   }
 
-  private onExternalImageLoaded = ({
-    width,
-    height,
-  }: {
-    width: number;
-    height: number;
-  }) => {
-    this.setState(
-      {
-        width,
-        height,
-      },
-      () => {
-        this.forceUpdate();
-      },
-    );
-  };
-
   selectMediaSingle = ({ event }: CardEvent) => {
     // We need to call "stopPropagation" here in order to prevent the browser from navigating to
     // another URL if the media node is wrapped in a link mark.
@@ -221,6 +205,10 @@ export default class MediaSingleNode extends Component<
     return dispatch(tr);
   };
 
+  forwardInnerRef = (elem: HTMLElement) => {
+    this.props.forwardRef(elem);
+  };
+
   render() {
     const {
       selected,
@@ -231,13 +219,21 @@ export default class MediaSingleNode extends Component<
       view: { state },
       view,
     } = this.props;
-    const { contextIdentifierProvider, isCopying } = this.state;
 
     const { layout, width: mediaSingleWidth } = node.attrs;
     const childNode = node.firstChild!;
-    let { width, height, type } = childNode.attrs as MediaADFAttrs;
+    const attrs = childNode.attrs as MediaADFAttrs;
+    let { width, height } = attrs;
 
-    if (type === 'external') {
+    if (attrs.type === 'external') {
+      if (isMediaBlobUrlFromAttrs(attrs)) {
+        const urlAttrs = getAttrsFromUrl(attrs.url);
+        if (urlAttrs) {
+          const { width: urlWidth, height: urlHeight } = urlAttrs;
+          width = width || urlWidth;
+          height = height || urlHeight;
+        }
+      }
       const { width: stateWidth, height: stateHeight } = this.state;
 
       if (width === null) {
@@ -253,12 +249,6 @@ export default class MediaSingleNode extends Component<
       width = DEFAULT_IMAGE_WIDTH;
       height = DEFAULT_IMAGE_HEIGHT;
     }
-    const cardWidth = this.props.width;
-    const cardHeight = (height / width) * cardWidth;
-    const cardDimensions = {
-      width: `${cardWidth}px`,
-      height: `${cardHeight}px`,
-    };
 
     const mediaSingleProps = {
       layout,
@@ -270,32 +260,7 @@ export default class MediaSingleNode extends Component<
       fullWidthMode,
     };
 
-    const uploadComplete = isMobileUploadCompleted(
-      this.props.mediaPluginState,
-      childNode.attrs.id,
-    );
-    const originalDimensions = {
-      width,
-      height,
-    };
-    const MediaChild = (
-      <MediaItem
-        view={this.props.view}
-        node={childNode}
-        getPos={this.props.getPos}
-        cardDimensions={cardDimensions}
-        originalDimensions={originalDimensions}
-        viewMediaClientConfig={this.state.viewMediaClientConfig}
-        selected={selected()}
-        onClick={this.selectMediaSingle}
-        onExternalImageLoaded={this.onExternalImageLoaded}
-        allowLazyLoading={mediaOptions && mediaOptions.allowLazyLoading}
-        uploadComplete={uploadComplete}
-        url={childNode.attrs.url}
-        contextIdentifierProvider={contextIdentifierProvider}
-        isLoading={isCopying}
-      />
-    );
+    const MediaChild = <FigureWrapper innerRef={this.forwardInnerRef} />;
 
     let canResize = !!this.props.mediaOptions.allowResizing;
 
@@ -359,12 +324,10 @@ export default class MediaSingleNode extends Component<
   };
 }
 
-class MediaSingleNodeView extends SelectionBasedNodeView<
-  MediaSingleNodeViewProps
-> {
+class MediaSingleNodeView extends ReactNodeView<MediaSingleNodeViewProps> {
   lastOffsetLeft = 0;
   forceViewUpdate = false;
-  isSelected = false;
+  selectionType: number | null = null;
 
   createDomRef(): HTMLElement {
     const domRef = document.createElement('div');
@@ -380,6 +343,11 @@ class MediaSingleNodeView extends SelectionBasedNodeView<
     return domRef;
   }
 
+  getContentDOM() {
+    const dom = document.createElement('div');
+    return { dom };
+  }
+
   viewShouldUpdate(nextNode: PMNode) {
     if (this.forceViewUpdate) {
       this.forceViewUpdate = false;
@@ -390,28 +358,30 @@ class MediaSingleNodeView extends SelectionBasedNodeView<
       return true;
     }
 
-    if (this.isSelected !== this.checkAndUpdateIsSelected()) {
+    if (this.selectionType !== this.checkAndUpdateSelectionType()) {
       return true;
     }
     return super.viewShouldUpdate(nextNode);
   }
 
-  checkAndUpdateIsSelected = () => {
+  checkAndUpdateSelectionType = () => {
     const getPos = this.getPos as getPosHandlerNode;
-    const isNodeSelected =
-      isNodeSelectedOrInRange(
-        this.view.state.selection.$anchor.pos,
+    const { selection } = this.view.state;
+    const isNodeSelected = isNodeSelectedOrInRange(
+      selection.$anchor.pos,
+      selection.$head.pos,
+      getPos(),
+      this.node.nodeSize,
+    );
 
-        this.view.state.selection.$head.pos,
-
-        getPos(),
-
-        this.node.nodeSize,
-      ) !== null;
-
-    this.isSelected = isNodeSelected;
+    this.selectionType = isNodeSelected;
 
     return isNodeSelected;
+  };
+
+  isNodeSelected = () => {
+    this.checkAndUpdateSelectionType();
+    return this.selectionType !== null;
   };
 
   getNodeMediaId(node: PMNode): string | undefined {
@@ -433,7 +403,7 @@ class MediaSingleNodeView extends SelectionBasedNodeView<
     return super.update(node, decorations, isValidUpdate);
   }
 
-  render() {
+  render(props: MediaSingleNodeViewProps, forwardRef?: ForwardRef) {
     const {
       eventDispatcher,
       fullWidthMode,
@@ -466,13 +436,14 @@ class MediaSingleNodeView extends SelectionBasedNodeView<
                     getPos={getPos}
                     mediaProvider={mediaProvider}
                     contextIdentifierProvider={contextIdentifierProvider}
-                    mediaOptions={mediaOptions || {}}
+                    mediaOptions={mediaOptions}
                     view={this.view}
                     fullWidthMode={fullWidthMode}
-                    selected={this.checkAndUpdateIsSelected}
+                    selected={this.isNodeSelected}
                     eventDispatcher={eventDispatcher}
                     mediaPluginState={mediaPluginState}
                     dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+                    forwardRef={forwardRef}
                   />
                 );
               }}
@@ -504,10 +475,8 @@ export const ReactMediaSingleNode = (
   portalProviderAPI: PortalProviderAPI,
   eventDispatcher: EventDispatcher,
   providerFactory: ProviderFactory,
-  mediaOptions: MediaOptions = {},
-  fullWidthMode?: boolean,
   dispatchAnalyticsEvent?: DispatchAnalyticsEvent,
-  isCopyPasteEnabled?: boolean,
+  mediaOptions: MediaOptions = {},
 ) => (node: PMNode, view: EditorView, getPos: getPosHandler) => {
   return new MediaSingleNodeView(
     node,
@@ -517,11 +486,11 @@ export const ReactMediaSingleNode = (
     eventDispatcher,
     {
       eventDispatcher,
-      fullWidthMode,
+      fullWidthMode: mediaOptions.fullWidthEnabled,
       providerFactory,
       mediaOptions,
       dispatchAnalyticsEvent,
-      isCopyPasteEnabled,
+      isCopyPasteEnabled: mediaOptions.isCopyPasteEnabled,
     },
   ).init();
 };

@@ -19,7 +19,12 @@ export class InlineCardResolvingView extends React.Component<
   InlineCardResolvingViewProps
 > {
   render() {
-    const { url, onClick, isSelected, testId } = this.props;
+    const {
+      url,
+      onClick,
+      isSelected,
+      testId = 'inline-card-resolving-view',
+    } = this.props;
     return (
       <Frame testId={testId} onClick={onClick} isSelected={isSelected}>
         <IconAndTitleLayout title={url}>

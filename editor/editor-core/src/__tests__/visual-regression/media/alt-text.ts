@@ -1,4 +1,4 @@
-import { ElementHandle } from 'puppeteer';
+import { PuppeteerElementHandle } from '@atlaskit/visual-regression/helper';
 import { snapshot, Appearance, initEditorWithAdf } from '../_utils';
 
 import {
@@ -16,11 +16,11 @@ import {
   pressKey,
   pressKeyCombo,
 } from '../../__helpers/page-objects/_keyboard';
-import { Page } from '../../__helpers/page-objects/_types';
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { EditorProps } from '../../../types';
 
 describe('Snapshot Test: Media with alt text', () => {
-  let page: Page;
+  let page: PuppeteerPage;
   const initEditorWithMedia = async (
     appearance: Appearance,
     viewport: { width: number; height: number },
@@ -103,7 +103,7 @@ describe('Snapshot Test: Media with alt text', () => {
       });
 
       describe('when the user adds an alt text value', () => {
-        let altTextInput: ElementHandle<Element>;
+        let altTextInput: PuppeteerElementHandle<HTMLElement>;
         beforeEach(async () => {
           const altTextButton = await page.waitForSelector(
             '[data-testid="alt-text-edit-button"]',

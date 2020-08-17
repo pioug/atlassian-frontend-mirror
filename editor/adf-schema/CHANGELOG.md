@@ -1,5 +1,31 @@
 # @atlaskit/adf-schema
 
+## 12.2.0
+
+### Minor Changes
+
+- [`50b49e0eb9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/50b49e0eb9) - [ED-9780] allow link mark inside bodied extension
+- [`abce19a6d1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/abce19a6d1) - Change old Array style tuples to Tuple
+
+  ```
+  interface X extends Array<T | U> {
+    0: T
+  }
+  ```
+
+  to
+
+  ```
+  type X = [T, T | U];
+  ```
+
+- [`8f843aaa4b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8f843aaa4b) - EDM-927: Adding embeds inside expand and layouts
+
+### Patch Changes
+
+- [`9fe56e9d64`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9fe56e9d64) - Revert TaskList and ItemList type
+- [`0cd9a41d67`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0cd9a41d67) - ED-9843 Refactor spec based validator
+
 ## 12.1.0
 
 ### Minor Changes

@@ -10,7 +10,7 @@ const modalDialog = "[role='dialog']";
 
 describe('Snapshot Test', () => {
   it('Modal Basic example should match production example', async () => {
-    const { __BASEURL__, page } = global as any;
+    const { __BASEURL__, page } = global;
     const url = getExampleUrl(
       'design-system',
       'onboarding',
@@ -29,7 +29,7 @@ describe('Snapshot Test', () => {
   });
 
   it('Modal Basic example with primary button on right should match production example', async () => {
-    const { __BASEURL__, page } = global as any;
+    const { __BASEURL__, page } = global;
     const url = getExampleUrl(
       'design-system',
       'onboarding',
@@ -49,7 +49,7 @@ describe('Snapshot Test', () => {
   });
 
   it('Modal Wide Button Text example should match production example', async () => {
-    const { __BASEURL__, page } = global as any;
+    const { __BASEURL__, page } = global;
     const url = getExampleUrl(
       'design-system',
       'onboarding',

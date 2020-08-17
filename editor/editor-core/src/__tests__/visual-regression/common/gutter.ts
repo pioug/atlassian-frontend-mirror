@@ -1,3 +1,4 @@
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { initFullPageEditorWithAdf, snapshot, Device } from '../_utils';
 import longContent from './__fixtures__/long-content-adf.json';
 import { typeInEditorAtEndOfDocument } from '../../__helpers/page-objects/_editor';
@@ -6,14 +7,13 @@ import { waitForTypeAheadMenu as waitForTypeAhead } from '../../__helpers/page-o
 import { panelSelectors } from '../../__helpers/page-objects/_panel';
 import { decisionSelectors } from '../../__helpers/page-objects/_decision';
 import { pressKey } from '../../__helpers/page-objects/_keyboard';
-import { Page } from '../../__helpers/page-objects/_types';
 
-const waitForScrollGutter = async (page: Page) => {
+const waitForScrollGutter = async (page: PuppeteerPage) => {
   await page.waitForSelector('#editor-scroll-gutter');
 };
 
 describe('Gutter:', () => {
-  let page: Page;
+  let page: PuppeteerPage;
 
   beforeEach(async () => {
     page = global.page;

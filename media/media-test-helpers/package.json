@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-test-helpers",
-  "version": "28.0.1",
+  "version": "28.1.0",
   "description": "Collection of test helpers used in media component stories and specs",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -15,21 +15,21 @@
   "atlaskit:src": "src/index.tsx",
   "atlassian": {
     "team": "Media Platform",
+    "deprecatedAutoEntryPoints": true,
     "inPublicMirror": true,
-    "releaseModel": "scheduled",
-    "deprecatedAutoEntryPoints": true
+    "releaseModel": "scheduled"
   },
   "dependencies": {
-    "@atlaskit/dropdown-menu": "^10.0.0",
-    "@atlaskit/icon": "^21.0.0",
-    "@atlaskit/media-client": "^8.0.0",
+    "@atlaskit/locale": "^2.1.0",
+    "@atlaskit/media-client": "^9.0.0",
+    "@atlaskit/media-common": "^2.1.0",
     "@atlaskit/media-core": "^32.0.0",
     "@atlaskit/media-picker": "^55.0.0",
-    "@atlaskit/media-ui": "^13.0.0",
+    "@atlaskit/media-ui": "^13.1.0",
     "enzyme": "^3.10.0",
     "exenv": "^1.2.2",
     "kakapo": "^4.0.4",
-    "lodash.matches": "^4.6.0",
+    "lodash": "^4.17.15",
     "react-intl": "^2.6.0",
     "react-redux": "^5.1.2",
     "styled-components": "^3.2.6",

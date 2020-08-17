@@ -29,19 +29,16 @@ import {
   INPUT_METHOD,
   ACTION_SUBJECT_ID,
 } from '../../../../plugins/analytics';
-import { AnalyticsHandler } from '../../../../analytics';
 
 describe('text-formatting', () => {
   const createEditor = createEditorFactory<TextFormattingState>();
 
-  let trackEvent: AnalyticsHandler;
   let createAnalyticsEvent: CreateUIAnalyticsEvent;
   const editor = (doc: any) => {
     createAnalyticsEvent = jest.fn().mockReturnValue({ fire() {} });
     return createEditor({
       doc,
       editorProps: {
-        analyticsHandler: trackEvent,
         allowAnalyticsGASV3: true,
         mentionProvider: new Promise(() => {}),
       },
@@ -68,9 +65,6 @@ describe('text-formatting', () => {
   });
 
   describe('keymap', () => {
-    beforeEach(() => {
-      trackEvent = jest.fn();
-    });
     if (browser.mac) {
       describe('when on a mac', () => {
         describe('when hits Cmd-B', () => {
@@ -90,9 +84,6 @@ describe('text-formatting', () => {
 
             expect(editorView.state.doc).toEqualDocument(
               doc(p(strong('text'))),
-            );
-            expect(trackEvent).toHaveBeenCalledWith(
-              'atlassian.editor.format.strong.keyboard',
             );
             expect(createAnalyticsEvent).toHaveBeenCalledWith(expectedPayload);
           });
@@ -114,9 +105,6 @@ describe('text-formatting', () => {
             sendKeyToPm(editorView, 'Cmd-i');
 
             expect(editorView.state.doc).toEqualDocument(doc(p(em('text'))));
-            expect(trackEvent).toHaveBeenCalledWith(
-              'atlassian.editor.format.em.keyboard',
-            );
             expect(createAnalyticsEvent).toHaveBeenCalledWith(expectedPayload);
           });
         });
@@ -138,9 +126,6 @@ describe('text-formatting', () => {
 
             expect(editorView.state.doc).toEqualDocument(
               doc(p(underline('text'))),
-            );
-            expect(trackEvent).toHaveBeenCalledWith(
-              'atlassian.editor.format.underline.keyboard',
             );
             expect(createAnalyticsEvent).toHaveBeenCalledWith(expectedPayload);
           });
@@ -167,9 +152,6 @@ describe('text-formatting', () => {
 
             expect(editorView.state.doc).toEqualDocument(
               doc(p(strike('text'))),
-            );
-            expect(trackEvent).toHaveBeenCalledWith(
-              'atlassian.editor.format.strike.keyboard',
             );
             expect(createAnalyticsEvent).toHaveBeenCalledWith(expectedPayload);
           });
@@ -201,9 +183,6 @@ describe('text-formatting', () => {
             expect(editorView.state.doc).toEqualDocument(
               doc(p(code('text @helga text'))),
             );
-            expect(trackEvent).toHaveBeenCalledWith(
-              'atlassian.editor.format.code.keyboard',
-            );
             expect(createAnalyticsEvent).toHaveBeenCalledWith(expectedPayload);
           });
         });
@@ -228,9 +207,6 @@ describe('text-formatting', () => {
             expect(editorView.state.doc).toEqualDocument(
               doc(p(strong('text'))),
             );
-            expect(trackEvent).toHaveBeenCalledWith(
-              'atlassian.editor.format.strong.keyboard',
-            );
             expect(createAnalyticsEvent).toHaveBeenCalledWith(expectedPayload);
           });
         });
@@ -251,9 +227,6 @@ describe('text-formatting', () => {
             sendKeyToPm(editorView, 'Ctrl-i');
 
             expect(editorView.state.doc).toEqualDocument(doc(p(em('text'))));
-            expect(trackEvent).toHaveBeenCalledWith(
-              'atlassian.editor.format.em.keyboard',
-            );
             expect(createAnalyticsEvent).toHaveBeenCalledWith(expectedPayload);
           });
         });
@@ -275,9 +248,6 @@ describe('text-formatting', () => {
 
             expect(editorView.state.doc).toEqualDocument(
               doc(p(underline('text'))),
-            );
-            expect(trackEvent).toHaveBeenCalledWith(
-              'atlassian.editor.format.underline.keyboard',
             );
             expect(createAnalyticsEvent).toHaveBeenCalledWith(expectedPayload);
           });
@@ -305,9 +275,6 @@ describe('text-formatting', () => {
             expect(editorView.state.doc).toEqualDocument(
               doc(p(strike('text'))),
             );
-            expect(trackEvent).toHaveBeenCalledWith(
-              'atlassian.editor.format.strike.keyboard',
-            );
             expect(createAnalyticsEvent).toHaveBeenCalledWith(expectedPayload);
           });
         });
@@ -328,9 +295,6 @@ describe('text-formatting', () => {
             sendKeyToPm(editorView, 'Shift-Ctrl-M');
 
             expect(editorView.state.doc).toEqualDocument(doc(p(code('text'))));
-            expect(trackEvent).toHaveBeenCalledWith(
-              'atlassian.editor.format.code.keyboard',
-            );
             expect(createAnalyticsEvent).toHaveBeenCalledWith(expectedPayload);
           });
         });
@@ -350,9 +314,6 @@ describe('text-formatting', () => {
         const { editorView, sel } = editor(doc(p('`{<>}`')));
         insertText(editorView, 'c', sel);
         expect(editorView.state.doc).toEqualDocument(doc(p(code('c'))));
-        expect(trackEvent).toHaveBeenCalledWith(
-          'atlassian.editor.format.code.autoformatting',
-        );
         expect(createAnalyticsEvent).toHaveBeenCalledWith(expectedPayload);
       });
     });

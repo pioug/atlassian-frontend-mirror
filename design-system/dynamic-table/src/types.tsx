@@ -65,6 +65,7 @@ export interface StatelessProps extends WithAnalyticsEventsProps {
    * `${testId}--row--{index - content of the first cell}` - Table row.
    * `${testId}--body` - Table body.
    * `${testId}--body--{content of the cell}` - Table body cell can be identified by their content.
+   * `${testId}--loadingSpinner` - The spinner overlaid when loading.
    **/
   testId?: string;
 }
@@ -100,6 +101,7 @@ export type RowType = {
   cells: Array<RowCellType>;
   key?: string;
   onClick?: React.MouseEventHandler;
+  onKeyPress?: React.KeyboardEventHandler;
   testId?: string;
   innerRef?: RefObject<HTMLElement>;
 };

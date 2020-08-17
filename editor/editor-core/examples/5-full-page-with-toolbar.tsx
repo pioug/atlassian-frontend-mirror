@@ -18,9 +18,6 @@ import withSentry from '../example-helpers/withSentry';
 import { EditorActions } from '../src';
 
 // eslint-disable-next-line no-console
-const analyticsHandler = (actionName: string, props?: {}) =>
-  console.log(actionName, props);
-// eslint-disable-next-line no-console
 const SAVE_ACTION = () => console.log('Save');
 
 const SaveAndCancelButtons = (props: { editorActions: EditorActions }) => (
@@ -76,7 +73,6 @@ class ExampleEditorFullPage extends React.Component<Props> {
               <Editor
                 defaultValue={this.props.defaultValue}
                 appearance="full-page"
-                analyticsHandler={analyticsHandler}
                 allowAnalyticsGASV3={true}
                 quickInsert={{
                   provider: Promise.resolve(quickInsertProvider),

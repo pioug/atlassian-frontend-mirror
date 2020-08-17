@@ -17,7 +17,6 @@ import rafSchedule from 'raf-schd';
 
 import { browser } from '@atlaskit/editor-common';
 
-import { analyticsService } from '../../analytics';
 import {
   isElementInTableCell,
   isLastItemMediaGroup,
@@ -418,13 +417,7 @@ export const handleCut = (
               pluginConfig: { isHeaderRowRequired },
             } = getPluginState(newState);
             tr = deleteRows(rect, isHeaderRowRequired)(tr);
-            analyticsService.trackEvent(
-              'atlassian.editor.format.table.delete_row.button',
-            );
           } else if (tr.selection.isColSelection()) {
-            analyticsService.trackEvent(
-              'atlassian.editor.format.table.delete_column.button',
-            );
             tr = deleteColumns(rect, getAllowAddColumnCustomStep(oldState))(tr);
           }
         }

@@ -17,9 +17,6 @@ const generateResponsiveStyles = (
   return `
     height: ${height}px;
     padding: ${verticalPadding}px ${horizontalPadding}px;
-    > div {
-      max-height: ${setting.lineHeight}px;
-    }
   `;
 };
 
@@ -58,12 +55,14 @@ export const TitleBoxFooter = styled.div`
 TitleBoxFooter.displayName = 'TitleBoxFooter';
 
 export const ErrorMessageWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
   span {
-    display: inline;
-    margin-right: 4px;
     vertical-align: middle;
-    > svg {
-      vertical-align: middle;
+    :nth-child(2) {
+      margin-left: 4px;
+      margin-right: 4px;
     }
   }
 `;

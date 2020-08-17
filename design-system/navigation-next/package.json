@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/navigation-next",
-  "version": "9.0.1",
+  "version": "9.0.2",
   "description": "The Atlassian navigation component.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -15,20 +15,20 @@
   "atlaskit:src": "src/index.js",
   "atlassian": {
     "team": "Design System Team",
+    "deprecatedAutoEntryPoints": true,
     "inPublicMirror": true,
     "releaseModel": "scheduled",
     "website": {
       "name": "Navigation Next",
       "deprecated": "Please use @atlaskit/atlassian-navigation for the horizontal nav bar, @atlaskit/side-navigation for the side nav, and @atlaskit/page-layout to layout your application."
-    },
-    "deprecatedAutoEntryPoints": true
+    }
   },
   "dependencies": {
-    "@atlaskit/analytics-namespaced-context": "^5.0.0",
+    "@atlaskit/analytics-namespaced-context": "^5.1.0",
     "@atlaskit/analytics-next": "^7.0.0",
     "@atlaskit/avatar": "^20.0.0",
     "@atlaskit/icon": "^21.0.0",
-    "@atlaskit/select": "^12.0.0",
+    "@atlaskit/select": "^13.0.0",
     "@atlaskit/spinner": "^15.0.0",
     "@atlaskit/theme": "^10.0.0",
     "@atlaskit/tooltip": "^16.0.0",

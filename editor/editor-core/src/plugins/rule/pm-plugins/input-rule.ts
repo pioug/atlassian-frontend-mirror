@@ -2,7 +2,6 @@ import { InputRule } from 'prosemirror-inputrules';
 import { Fragment, Schema } from 'prosemirror-model';
 import { EditorState, Plugin, Transaction } from 'prosemirror-state';
 
-import { analyticsService } from '../../../analytics';
 import {
   createInputRule,
   instrumentedInputRule,
@@ -82,10 +81,6 @@ const createHorizontalRuleAutoformat = (
   start: number,
   end: number,
 ) => {
-  analyticsService.trackEvent(
-    `atlassian.editor.format.horizontalrule.autoformatting`,
-  );
-
   return createHorizontalRule(state, start, end, INPUT_METHOD.FORMATTING);
 };
 

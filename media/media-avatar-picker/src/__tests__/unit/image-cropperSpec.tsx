@@ -79,7 +79,6 @@ describe('Image cropper', () => {
 
         expect(img.props().style).toMatchObject({
           height: '100%',
-          transform: 'translate(-50%, -50%)',
         });
       });
     });

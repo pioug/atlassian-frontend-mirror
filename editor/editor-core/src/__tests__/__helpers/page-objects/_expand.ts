@@ -1,3 +1,4 @@
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { clickToolbarMenu, ToolbarMenuItem } from './_toolbar';
 import { expandClassNames } from '../../../plugins/expand/ui/class-names';
 
@@ -12,9 +13,10 @@ export const selectors = {
   expandTitleInput: `${expand} .${expandClassNames.titleInput}`,
   nestedExpandTitleInput: `${nestedExpand} .${expandClassNames.titleInput}`,
   expandContent: `${expand} .${expandClassNames.content}`,
+  removeButton: 'button[aria-label="Remove"]',
 };
 
-export const insertExpand = async (page: any) => {
+export const insertExpand = async (page: PuppeteerPage) => {
   await clickToolbarMenu(page, ToolbarMenuItem.insertMenu);
   await clickToolbarMenu(page, ToolbarMenuItem.expand);
   await page.waitForSelector(selectors.expand);

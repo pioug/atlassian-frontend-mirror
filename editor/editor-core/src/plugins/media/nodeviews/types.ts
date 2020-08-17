@@ -5,7 +5,7 @@ import {
   ProviderFactory,
   MediaProvider,
 } from '@atlaskit/editor-common';
-import { ProsemirrorGetPosHandler } from '../../../nodeviews';
+import { ProsemirrorGetPosHandler, ForwardRef } from '../../../nodeviews';
 import { EventDispatcher } from '../../../event-dispatcher';
 import { MediaOptions } from '../types';
 import { DispatchAnalyticsEvent } from '../../analytics';
@@ -26,6 +26,7 @@ export interface MediaSingleNodeProps {
   mediaPluginState: MediaPluginState;
   dispatchAnalyticsEvent: DispatchAnalyticsEvent;
   isCopyPasteEnabled?: boolean;
+  forwardRef: ForwardRef;
 }
 
 export interface MediaSingleNodeViewProps {
@@ -35,4 +36,10 @@ export interface MediaSingleNodeViewProps {
   fullWidthMode?: boolean;
   dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
   isCopyPasteEnabled?: boolean;
+}
+
+export interface MediaNodeViewProps {
+  eventDispatcher: EventDispatcher;
+  providerFactory: ProviderFactory;
+  mediaOptions: MediaOptions;
 }

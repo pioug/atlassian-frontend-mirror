@@ -1,11 +1,12 @@
 import {
+  compareScreenshot,
+  disableAllSideEffects,
   getExampleUrl,
   navigateToUrl,
-  disableAllSideEffects,
-  compareScreenshot,
+  PuppeteerPage,
+  PuppeteerScreenshotOptions,
   SideEffectOptions,
 } from '@atlaskit/visual-regression/helper';
-import { Page, ScreenshotOptions } from 'puppeteer';
 import { RendererAppearance } from '../../ui/Renderer/types';
 import { RendererPropsOverrides } from '../__helpers/testing-example-helpers';
 
@@ -34,7 +35,7 @@ export const deviceViewPorts = {
   [Device.iPhonePlus]: { width: 414, height: 736 },
 };
 
-export async function goToRendererTestingExample(page: Page) {
+export async function goToRendererTestingExample(page: PuppeteerPage) {
   const url = getExampleUrl(
     'editor',
     'renderer',
@@ -46,7 +47,7 @@ export async function goToRendererTestingExample(page: Page) {
 }
 
 export async function mountRenderer(
-  page: Page,
+  page: PuppeteerPage,
   props?: RendererPropsOverrides,
   adf?: Object,
 ) {
@@ -78,7 +79,7 @@ type InitRendererWithADFOptions = {
 };
 
 export async function initRendererWithADF(
-  page: Page,
+  page: PuppeteerPage,
   {
     adf,
     appearance,
@@ -107,13 +108,13 @@ export async function initRendererWithADF(
 }
 
 export async function snapshot(
-  page: Page,
+  page: PuppeteerPage,
   threshold: {
     tolerance?: number;
     useUnsafeThreshold?: boolean;
   } = {},
   selector: string = '#RendererOutput',
-  screenshotOptions: ScreenshotOptions = {},
+  screenshotOptions: PuppeteerScreenshotOptions = {},
 ) {
   const { tolerance, useUnsafeThreshold } = threshold;
   const renderer = await page.$(selector);
@@ -130,7 +131,28 @@ export async function snapshot(
   return compareScreenshot(image as string, tolerance, { useUnsafeThreshold });
 }
 
-export async function animationFrame(page: Page) {
+export async function animationFrame(page: PuppeteerPage) {
   // Give browser time to render, waitForFunction by default fires on RAF.
   await page.waitForFunction('1 === 1');
 }
+
+export const waitForText = async (
+  page: PuppeteerPage,
+  selector: string,
+  text: string,
+) =>
+  await page.waitForFunction(
+    (selector: string, text: string) => {
+      const items = Array.from(
+        document.querySelectorAll<HTMLElement>(selector),
+      );
+      if (items) {
+        return items.some(item => {
+          return item.innerText && item.innerText.includes(text);
+        });
+      }
+    },
+    { timeout: 5000 },
+    selector,
+    text,
+  );

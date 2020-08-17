@@ -43,15 +43,14 @@ import {
 import {
   EditorAppearance,
   EditorConfig,
+  EditorReactContext,
   EditorPlugin,
   EditorProps,
 } from '../types';
 import { PortalProviderAPI } from '../ui/PortalProvider';
-import { analyticsService } from '../analytics';
 import {
   createErrorReporter,
   createPMPlugins,
-  initAnalytics,
   processPluginsList,
 } from './create-editor';
 import { getDocStructure, SimplifiedNode } from '../utils/document-logger';
@@ -102,9 +101,10 @@ function handleEditorFocus(view: EditorView): number | undefined {
     view.focus();
   }, 0);
 }
-
 export default class ReactEditorView<T = {}> extends React.Component<
-  EditorViewProps & T
+  EditorViewProps & T,
+  {},
+  EditorReactContext
 > {
   view?: EditorView;
   eventDispatcher: EventDispatcher;
@@ -184,8 +184,8 @@ export default class ReactEditorView<T = {}> extends React.Component<
     return nodes;
   }
 
-  constructor(props: EditorViewProps & T) {
-    super(props);
+  constructor(props: EditorViewProps & T, context: EditorReactContext) {
+    super(props, context);
 
     this.eventDispatcher = new EventDispatcher();
     this.dispatch = createDispatch(this.eventDispatcher);
@@ -199,9 +199,12 @@ export default class ReactEditorView<T = {}> extends React.Component<
     if (allowAnalyticsGASV3) {
       this.activateAnalytics(createAnalyticsEvent);
     }
-    initAnalytics(props.editorProps.analyticsHandler);
 
-    this.editorState = this.createEditorState({ props, replaceDoc: true });
+    this.editorState = this.createEditorState({
+      props,
+      context,
+      replaceDoc: true,
+    });
 
     const featureFlags = createFeatureFlagsFromProps(this.props.editorProps);
     const featureFlagsEnabled = featureFlags
@@ -405,6 +408,7 @@ export default class ReactEditorView<T = {}> extends React.Component<
 
   createEditorState = (options: {
     props: EditorViewProps;
+    context: EditorReactContext;
     replaceDoc?: boolean;
   }) => {
     if (this.view) {
@@ -444,7 +448,7 @@ export default class ReactEditorView<T = {}> extends React.Component<
       eventDispatcher: this.eventDispatcher,
       providerFactory: options.props.providerFactory,
       portalProviderAPI: this.props.portalProviderAPI,
-      reactContext: () => this.context,
+      reactContext: () => options.context,
       dispatchAnalyticsEvent: this.dispatchAnalyticsEvent,
       performanceTracking: this.props.editorProps.performanceTracking || {
         transactionTracking: this.transactionTrackingProp,
@@ -549,11 +553,6 @@ export default class ReactEditorView<T = {}> extends React.Component<
       const invalidNodes = nodes
         .filter(node => !validNode(node))
         .map<SimplifiedNode | string>(node => getDocStructure(node));
-
-      analyticsService.trackEvent(
-        'atlaskit.fabric.editor.invalidtransaction',
-        { invalidNodes: JSON.stringify(invalidNodes) }, // V2 events don't support object properties
-      );
 
       this.dispatchAnalyticsEvent({
         action: ACTION.DISPATCHED_INVALID_TRANSACTION,

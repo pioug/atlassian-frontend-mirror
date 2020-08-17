@@ -6,7 +6,7 @@ import {
   WithAnalyticsEventsProps,
   UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
-
+import { getMediaFeatureFlag } from '@atlaskit/media-common';
 import { SharedCardProps, CardStatus, CardDimensionValue } from '../index';
 import { FileCardImageView } from '../files';
 import { breakpointSize } from '../utils/breakpoint';
@@ -38,7 +38,7 @@ import { ActionsBar } from './ui/actionsBar/actionsBar';
 import Tooltip from '@atlaskit/tooltip';
 import { Breakpoint } from './ui/common';
 import { IconWrapper } from './ui/iconWrapper/styled';
-import { MediaTypeIcon } from '@atlaskit/media-ui/media-type-icon';
+import { MimeTypeIcon } from '@atlaskit/media-ui/mime-type-icon';
 import SpinnerIcon from '@atlaskit/spinner';
 
 export interface CardViewOwnProps extends SharedCardProps {
@@ -142,7 +142,7 @@ export class CardViewBase extends React.Component<
   render() {
     const { featureFlags } = this.props;
 
-    if (featureFlags && featureFlags.newExp) {
+    if (getMediaFeatureFlag('newCardExperience', featureFlags)) {
       return this.renderFileNewExperience();
     }
 
@@ -222,7 +222,7 @@ export class CardViewBase extends React.Component<
     return (
       !name ||
       isImageFailedToLoad ||
-      (disableOverlay && status !== 'uploading') ||
+      disableOverlay ||
       !!(!dataURI && ['error', 'failed-processing'].includes(status))
     );
   }
@@ -253,18 +253,11 @@ export class CardViewBase extends React.Component<
   }
 
   private renderFailedTitleBox() {
-    const { onRetry, metadata } = this.props;
-    const { name } = metadata || {};
+    const { onRetry } = this.props;
     if (this.isFailedTitleBoxHidden()) {
       return null;
     }
-    return (
-      <FailedTitleBox
-        name={name}
-        onRetry={onRetry}
-        breakpoint={this.breakpoint}
-      />
-    );
+    return <FailedTitleBox onRetry={onRetry} breakpoint={this.breakpoint} />;
   }
 
   private renderProgressBar() {
@@ -320,7 +313,7 @@ export class CardViewBase extends React.Component<
   private renderMediaTypeIcon() {
     const { isImageFailedToLoad } = this.state;
     const { status, dataURI, metadata } = this.props;
-    const { mediaType } = metadata || {};
+    const { mediaType, mimeType, name } = metadata || {};
     if (
       !isImageFailedToLoad &&
       (dataURI || ['loading', 'processing'].includes(status))
@@ -333,7 +326,7 @@ export class CardViewBase extends React.Component<
 
     return (
       <IconWrapper breakpoint={this.breakpoint} hasTitleBox={hasTitleBox}>
-        <MediaTypeIcon type={mediaType} />
+        <MimeTypeIcon mediaType={mediaType} mimeType={mimeType} name={name} />
       </IconWrapper>
     );
   }

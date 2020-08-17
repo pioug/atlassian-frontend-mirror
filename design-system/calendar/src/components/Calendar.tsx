@@ -1,7 +1,7 @@
 import React, { Component, KeyboardEvent } from 'react';
 
 import { Calendar as CalendarBase } from 'calendar-base';
-import pick from 'lodash.pick';
+import pick from 'lodash/pick';
 import { uid } from 'react-uid';
 
 import {

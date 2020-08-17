@@ -15,6 +15,7 @@ import {
   StickyHeaderProps,
   HeadingAnchorLinksProps,
 } from './Renderer/types';
+import { MediaOptions } from '../types/mediaOptions';
 
 export interface RendererProps {
   document: any;
@@ -43,10 +44,9 @@ export interface RendererProps {
   shouldOpenMediaViewer?: boolean;
   allowAltTextOnImages?: boolean;
   stickyHeaders?: StickyHeaderProps;
-  media?: {
-    allowLinking?: boolean;
-  };
+  media?: MediaOptions;
   allowAnnotations?: boolean;
   annotationProvider?: AnnotationProviders<AnnotationMarkStates> | null;
   innerRef?: React.RefObject<HTMLDivElement>;
+  useSpecBasedValidator?: boolean;
 }

@@ -13,9 +13,10 @@ import {
   findPrevWithAnalytics,
   activateWithAnalytics,
 } from './commands-with-analytics';
-import { blur, updateFocusElementRef } from './commands';
+import { blur, updateFocusElementRef, toggleMatchCase } from './commands';
 import FindReplaceToolbarButton from './ui/FindReplaceToolbarButton';
 import { TRIGGER_METHOD } from '../analytics';
+import { getFeatureFlags } from '../feature-flags-context';
 
 export const findReplacePlugin = (): EditorPlugin => {
   return {
@@ -128,6 +129,11 @@ export const findReplacePlugin = (): EditorPlugin => {
       const handleFocusElementRefSet = (ref: React.RefObject<HTMLElement>) => {
         dispatchCommand(updateFocusElementRef(ref));
       };
+      const handleToggleMatchCase = () => {
+        dispatchCommand(toggleMatchCase());
+      };
+
+      const { findReplaceMatchCase } = getFeatureFlags(editorView.state);
 
       return (
         <WithPluginState
@@ -137,6 +143,9 @@ export const findReplacePlugin = (): EditorPlugin => {
           render={({ findReplaceState }) => {
             return (
               <FindReplaceToolbarButton
+                allowMatchCase={findReplaceMatchCase}
+                shouldMatchCase={findReplaceState.shouldMatchCase}
+                onToggleMatchCase={handleToggleMatchCase}
                 isActive={findReplaceState.isActive}
                 findText={findReplaceState.findText}
                 index={findReplaceState.index}

@@ -1,5 +1,16 @@
 # @atlaskit/media-filmstrip
 
+## 39.1.0
+
+### Minor Changes
+
+- [`6faafb144c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6faafb144c) - Introduce MediaFeatureFlags. Refactor components to use.
+
+### Patch Changes
+
+- [`fa6fb5dfbb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fa6fb5dfbb) - Removing unused code to be published
+- Updated dependencies
+
 ## 39.0.0
 
 ### Major Changes

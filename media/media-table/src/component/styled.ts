@@ -4,25 +4,16 @@ import { N20 } from '@atlaskit/theme/colors';
 export const NameCellWrapper = styled.div`
   display: flex;
   align-content: center;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+  align-items: center;
 `;
 
-export const NameCell = styled.div`
-  display: flex;
-  align-content: center;
-  overflow: hidden;
-  flex-direction: column;
-  justify-content: center;
+export const TruncateWrapper = styled.div`
+  min-width: 0;
+  width: 100%;
 
-  span {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-
+  span:first-of-type {
     &::first-letter {
-      text-transform: uppercase;
+      text-transform: capitalize;
     }
   }
 `;
@@ -33,6 +24,10 @@ export const MediaTableWrapper = styled.div`
 
     &:hover {
       background: ${N20};
+    }
+
+    td:empty {
+      padding: 0;
     }
   }
 `;

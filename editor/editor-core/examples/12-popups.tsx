@@ -28,7 +28,6 @@ class CustomBoundryExample extends PureComponent<any, any> {
       <Boundary innerRef={this.handleBoundryRef}>
         <Editor
           appearance="comment"
-          analyticsHandler={props.analyticsHandler}
           onCancel={props.onCancel}
           onSave={props.onSave}
           mentionProvider={props.mentionProvider}
@@ -58,7 +57,6 @@ class PortalExample extends PureComponent<any, any> {
         <div style={{ overflow: 'hidden' }}>
           <Editor
             appearance="comment"
-            analyticsHandler={props.analyticsHandler}
             onCancel={props.onCancel}
             onSave={props.onSave}
             mentionProvider={props.mentionProvider}
@@ -93,7 +91,6 @@ class PortalWithCustomBoundaryExample extends PureComponent<any, any> {
           <div style={{ overflow: 'hidden' }}>
             <Editor
               appearance="comment"
-              analyticsHandler={props.analyticsHandler}
               onCancel={props.onCancel}
               onSave={props.onSave}
               mentionProvider={props.mentionProvider}
@@ -137,7 +134,6 @@ class PortalInScrollContainerExample extends PureComponent<any, any> {
         <div style={{ minHeight: 500, width: '120%' }}>
           <Editor
             appearance="comment"
-            analyticsHandler={props.analyticsHandler}
             onCancel={props.onCancel}
             onSave={props.onSave}
             mentionProvider={props.mentionProvider}
@@ -152,7 +148,6 @@ class PortalInScrollContainerExample extends PureComponent<any, any> {
 
         <Editor
           appearance="comment"
-          analyticsHandler={props.analyticsHandler}
           onCancel={props.onCancel}
           onSave={props.onSave}
           mentionProvider={props.mentionProvider}
@@ -193,7 +188,6 @@ class JiraSidebarEditor extends PureComponent<any, any> {
             >
               <div style={{ height: 500 }}>
                 <Editor
-                  analyticsHandler={analyticsHandler}
                   onCancel={CANCEL_ACTION}
                   onSave={SAVE_ACTION}
                   mentionProvider={mentionProvider}
@@ -215,8 +209,6 @@ class JiraSidebarEditor extends PureComponent<any, any> {
 
 const CANCEL_ACTION = () => console.log('Cancel');
 const SAVE_ACTION = () => console.log('Save');
-const analyticsHandler = (actionName: string, props?: {}) =>
-  console.log(actionName, props);
 
 const mentionProvider = new Promise<any>(resolve =>
   resolve(mention.storyData.resourceProvider),
@@ -234,7 +226,6 @@ export default function Example() {
         <div style={{ width: 300, overflow: 'hidden' }}>
           <Editor
             appearance="comment"
-            analyticsHandler={analyticsHandler}
             onCancel={CANCEL_ACTION}
             onSave={SAVE_ACTION}
             mentionProvider={mentionProvider}
@@ -254,7 +245,6 @@ export default function Example() {
         <div style={{ width: 300 }}>
           <Editor
             appearance="comment"
-            analyticsHandler={analyticsHandler}
             onCancel={CANCEL_ACTION}
             onSave={SAVE_ACTION}
             mentionProvider={mentionProvider}
@@ -273,7 +263,6 @@ export default function Example() {
           <CustomBoundryExample
             appearance="comment"
             imageUploadHandler={imageUploadHandler}
-            analyticsHandler={analyticsHandler}
             onCancel={CANCEL_ACTION}
             onSave={SAVE_ACTION}
             mentionProvider={mentionProvider}
@@ -292,7 +281,6 @@ export default function Example() {
         <div style={{ width: 300 }}>
           <PortalExample
             imageUploadHandler={imageUploadHandler}
-            analyticsHandler={analyticsHandler}
             onCancel={CANCEL_ACTION}
             onSave={SAVE_ACTION}
             mentionProvider={mentionProvider}
@@ -310,7 +298,6 @@ export default function Example() {
         <div style={{ width: 500 }}>
           <PortalWithCustomBoundaryExample
             imageUploadHandler={imageUploadHandler}
-            analyticsHandler={analyticsHandler}
             onCancel={CANCEL_ACTION}
             onSave={SAVE_ACTION}
             mentionProvider={mentionProvider}
@@ -327,7 +314,6 @@ export default function Example() {
         <div style={{ maxWidth: 700 }}>
           <PortalInScrollContainerExample
             imageUploadHandler={imageUploadHandler}
-            analyticsHandler={analyticsHandler}
             onCancel={CANCEL_ACTION}
             onSave={SAVE_ACTION}
             mentionProvider={mentionProvider}

@@ -27,7 +27,7 @@ export const getContextPanel = (allowAutoSave?: boolean) => (
     extensionState.processParametersAfter
   ) {
     const node = nodeWithPos.node;
-    const { extensionType, extensionKey, parameters, content } = node.attrs;
+    const { extensionType, extensionKey, parameters } = node.attrs;
 
     const [extKey, nodeKey] = getExtensionKeyAndNodeKey(
       extensionKey,
@@ -74,7 +74,7 @@ export const getContextPanel = (allowAutoSave?: boolean) => (
                 performNodeUpdate(
                   node.toJSON().type,
                   newAttrs,
-                  content,
+                  node.content,
                   false,
                 )(editorView.state, editorView.dispatch);
               }}

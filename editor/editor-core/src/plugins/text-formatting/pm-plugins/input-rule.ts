@@ -2,7 +2,6 @@ import { InputRule } from 'prosemirror-inputrules';
 import { MarkType, Schema } from 'prosemirror-model';
 import { Plugin } from 'prosemirror-state';
 
-import { analyticsService } from '../../../analytics';
 import { applyMarkOnRange } from '../../../utils/commands';
 import {
   createInputRule,
@@ -95,10 +94,6 @@ function addMark(
       }
     }
 
-    analyticsService.trackEvent(
-      `atlassian.editor.format.${markType.name}.autoformatting`,
-    );
-
     // apply mark to the range (from, to)
     let tr = state.tr.addMark(from, to, markType.create());
 
@@ -156,7 +151,6 @@ function addCodeMark(
       end -= state.selection.to - state.selection.from;
     }
 
-    analyticsService.trackEvent('atlassian.editor.format.code.autoformatting');
     const regexStart = end - match[2].length + 1;
     const codeMark = state.schema.marks.code.create();
     return applyMarkOnRange(regexStart, end, false, codeMark, tr)

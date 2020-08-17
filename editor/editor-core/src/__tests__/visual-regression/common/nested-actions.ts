@@ -1,11 +1,10 @@
 import { snapshot, initEditorWithAdf, Appearance } from '../_utils';
 import adf from './__fixtures__/nested-actions.adf.json';
-import { Page } from '../../__helpers/page-objects/_types';
 import { selectors } from '../../__helpers/page-objects/_editor';
 
 describe('Nested actions', () => {
   it('looks correct', async () => {
-    const page: Page = global.page;
+    const { page } = global;
     await initEditorWithAdf(page, {
       adf,
       appearance: Appearance.fullPage,

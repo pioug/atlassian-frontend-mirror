@@ -15,7 +15,7 @@ import {
 import { clickEditableContent } from '../../__helpers/page-objects/_editor';
 import { pressKey } from '../../__helpers/page-objects/_keyboard';
 import { scrollToTable } from '../../__helpers/page-objects/_table';
-import { Page } from '../../__helpers/page-objects/_types';
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 
 const editors: { appearance: Appearance; snapshotSelector?: string }[] = [
   { appearance: Appearance.fullPage },
@@ -26,7 +26,7 @@ const editors: { appearance: Appearance; snapshotSelector?: string }[] = [
 ];
 
 describe('Snapshot Test: Media', () => {
-  let page: Page;
+  let page: PuppeteerPage;
   beforeAll(async () => {
     page = global.page;
   });

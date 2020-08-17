@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ActivityResource search recent should perform case-insensitive prefix search on name property 1`] = `
+Array [
+  Object {
+    "container": "Editor Media",
+    "iconUrl": "https://product-fabric.atlassian.net/secure/viewavatar?size=medium&avatarId=10318&avatarType=issuetype",
+    "name": "recent item 1",
+    "objectId": "ari:cloud:confluence:DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b:content/1456834291",
+    "url": "https://product-fabric.atlassian.net/browse/EDM-642",
+    "viewedTimestamp": "2020-06-24T01:15:39.680Z",
+  },
+  Object {
+    "container": "",
+    "iconUrl": "https://product-fabric.atlassian.net/secure/viewavatar?size=medium&avatarId=10318&avatarType=issuetype",
+    "name": "recent item 2",
+    "objectId": "ari:cloud:jira:DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b:issue/159941",
+    "url": "https://product-fabric.atlassian.net/browse/EDM-649",
+    "viewedTimestamp": "2020-06-24T01:10:44.797Z",
+  },
+]
+`;
+
+exports[`ActivityResource should resolve recent items 1`] = `
+Array [
+  Object {
+    "container": "Editor Media",
+    "iconUrl": "https://product-fabric.atlassian.net/secure/viewavatar?size=medium&avatarId=10318&avatarType=issuetype",
+    "name": "recent item 1",
+    "objectId": "ari:cloud:confluence:DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b:content/1456834291",
+    "url": "https://product-fabric.atlassian.net/browse/EDM-642",
+    "viewedTimestamp": "2020-06-24T01:15:39.680Z",
+  },
+  Object {
+    "container": "",
+    "iconUrl": "https://product-fabric.atlassian.net/secure/viewavatar?size=medium&avatarId=10318&avatarType=issuetype",
+    "name": "recent item 2",
+    "objectId": "ari:cloud:jira:DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b:issue/159941",
+    "url": "https://product-fabric.atlassian.net/browse/EDM-649",
+    "viewedTimestamp": "2020-06-24T01:10:44.797Z",
+  },
+]
+`;

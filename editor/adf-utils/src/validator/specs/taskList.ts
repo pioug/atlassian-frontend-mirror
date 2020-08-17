@@ -4,6 +4,7 @@ export default {
     content: {
       type: 'array',
       items: ['taskItem', ['taskItem', 'taskList']],
+      isTupleLike: true,
       minItems: 1,
     },
     attrs: { props: { localId: { type: 'string' } } },

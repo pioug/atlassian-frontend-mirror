@@ -27,6 +27,7 @@ export const mocks = {
       preview: {
         href: 'https://www.ilovecheese.com',
       },
+      url: 'https://some.url',
     },
   } as JsonLd.Response,
   notFound: {
@@ -44,6 +45,7 @@ export const mocks = {
       },
       '@type': 'Object',
       name: 'I love cheese',
+      url: 'https://some.url',
     },
   } as JsonLd.Response,
   forbidden: {
@@ -67,6 +69,7 @@ export const mocks = {
       },
       '@type': 'Object',
       name: 'I love cheese',
+      url: 'https://some.url',
     },
   } as JsonLd.Response,
   unauthorized: {
@@ -90,6 +93,7 @@ export const mocks = {
       },
       '@type': 'Object',
       name: 'I love cheese',
+      url: 'https://some.url',
     },
   } as JsonLd.Response,
   actionSuccess: {

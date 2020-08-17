@@ -1,4 +1,4 @@
-import React, { Component, ReactElement, ReactNode } from 'react';
+import React, { ReactElement, ReactNode } from 'react';
 
 import {
   ActionsWrapper,
@@ -10,6 +10,8 @@ import {
 } from './styled';
 
 type Props = {
+  /** Returns the inner ref of the component. This is exposed so the focus can be set. */
+  innerRef?: (element: HTMLElement) => void;
   /** Page breadcrumbs to be rendered above the title. */
   breadcrumbs?: ReactElement;
   /** Contents of the action bar to be rendered next to the page title. */
@@ -24,36 +26,38 @@ type Props = {
   /** Prevent the title from wrapping across lines */
   truncateTitle?: boolean;
 };
-export default class PageHeader extends Component<Props> {
-  static defaultProps: Partial<Props> = {
-    disableTitleStyles: false,
-    truncateTitle: false,
-  };
 
-  render() {
-    const {
-      breadcrumbs,
-      actions,
-      bottomBar,
-      children,
-      disableTitleStyles,
-      truncateTitle,
-    } = this.props;
-    return (
-      <Outer>
-        {breadcrumbs}
-        <TitleWrapper truncate={truncateTitle}>
-          <TitleContainer truncate={truncateTitle}>
-            {disableTitleStyles ? (
-              children
-            ) : (
-              <StyledTitle truncate={truncateTitle}>{children}</StyledTitle>
-            )}
-          </TitleContainer>
-          <ActionsWrapper>{actions}</ActionsWrapper>
-        </TitleWrapper>
-        {bottomBar && <BottomBarWrapper> {bottomBar} </BottomBarWrapper>}
-      </Outer>
-    );
-  }
-}
+const PageHeader = ({
+  innerRef,
+  breadcrumbs,
+  actions,
+  bottomBar,
+  children,
+  disableTitleStyles = false,
+  truncateTitle = false,
+}: Props) => {
+  return (
+    <Outer>
+      {breadcrumbs}
+      <TitleWrapper truncate={truncateTitle}>
+        <TitleContainer truncate={truncateTitle}>
+          {disableTitleStyles ? (
+            children
+          ) : (
+            <StyledTitle
+              innerRef={innerRef}
+              tabIndex={-1}
+              truncate={truncateTitle}
+            >
+              {children}
+            </StyledTitle>
+          )}
+        </TitleContainer>
+        <ActionsWrapper>{actions}</ActionsWrapper>
+      </TitleWrapper>
+      {bottomBar && <BottomBarWrapper> {bottomBar} </BottomBarWrapper>}
+    </Outer>
+  );
+};
+
+export default PageHeader;

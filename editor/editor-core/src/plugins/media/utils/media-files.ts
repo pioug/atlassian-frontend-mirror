@@ -7,6 +7,7 @@ import {
   insideTableCell,
   isInListItem,
   findFarthestParentNode,
+  isInLayoutColumn,
 } from '../../../utils';
 import { MediaState } from '../types';
 import {
@@ -101,6 +102,7 @@ function shouldAppendParagraph(
   return (
     (insideTableCell(state) ||
       isInListItem(state) ||
+      isInLayoutColumn(state) ||
       (atTheEndOfDoc(state) &&
         (!posOfPrecedingMediaGroup(state) ||
           isSelectionNonMediaBlockNode(state)))) &&

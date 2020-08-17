@@ -1,4 +1,8 @@
-import { waitForTooltip } from '@atlaskit/visual-regression/helper';
+import {
+  PuppeteerPage,
+  waitForTooltip,
+  waitForLoadedImageElements,
+} from '@atlaskit/visual-regression/helper';
 import { snapshot, initEditorWithAdf, Appearance } from '../_utils';
 import adf from './__fixtures__/nested-elements.adf.json';
 import {
@@ -7,9 +11,23 @@ import {
 } from '../../__helpers/page-objects/_table';
 import { animationFrame } from '../../__helpers/page-objects/_editor';
 import { EditorTestCardProvider } from '@atlaskit/editor-test-helpers/card-provider';
+import {
+  PanelSharedCssClassName,
+  PanelSharedSelectors,
+} from '@atlaskit/editor-common';
+import { mentionSelectors } from '../../__helpers/page-objects/_mention';
+import { layoutSelectors } from '../../__helpers/page-objects/_layouts';
+import { unsupportedNodeSelectors } from '../../__helpers/page-objects/_unsupported';
+import { waitForResolvedInlineCard } from '../../__helpers/page-objects/_cards';
 
 import * as selectionPanelAdf from './__fixtures__/selection-panel-adf.json';
 import * as selectionLayoutAdf from './__fixtures__/selection-layout-adf.json';
+import {
+  waitForMediaToBeLoaded,
+  mediaImageSelector,
+  mediaToolbarRemoveSelector,
+  mediaDangerSelector,
+} from '../../__helpers/page-objects/_media';
 
 /*
 When importing this ADF from a file using
@@ -170,18 +188,8 @@ const selectionUnsupportedBlockInExpand = {
   ],
 };
 
-import { Page } from '../../__helpers/page-objects/_types';
-import {
-  PanelSharedCssClassName,
-  PanelSharedSelectors,
-} from '@atlaskit/editor-common';
-import { mentionSelectors } from '../../__helpers/page-objects/_mention';
-import { layoutSelectors } from '../../__helpers/page-objects/_layouts';
-import { unsupportedNodeSelectors } from '../../__helpers/page-objects/_unsupported';
-import { waitForResolvedInlineCard } from '../../__helpers/page-objects/_cards';
-
 describe('Danger for nested elements', () => {
-  let page: any;
+  let page: PuppeteerPage;
   const cardProvider = new EditorTestCardProvider();
 
   describe(`Full page`, () => {
@@ -217,7 +225,7 @@ describe('Danger for nested elements', () => {
 });
 
 describe('Selection:', () => {
-  let page: Page;
+  let page: PuppeteerPage;
 
   describe('Panel', () => {
     beforeAll(() => {
@@ -246,6 +254,40 @@ describe('Selection:', () => {
 
     it('displays danger styling when child node is selected', async () => {
       await page.click(mentionSelectors.mention);
+    });
+  });
+
+  describe('Media', () => {
+    const cardProvider = new EditorTestCardProvider();
+
+    beforeAll(() => {
+      page = global.page;
+    });
+
+    beforeEach(async () => {
+      await initEditorWithAdf(page, {
+        appearance: Appearance.fullPage,
+        adf,
+        viewport: { width: 1280, height: 550 },
+        editorProps: {
+          UNSAFE_cards: { provider: Promise.resolve(cardProvider) },
+        },
+      });
+
+      await waitForMediaToBeLoaded(page);
+      await waitForLoadedImageElements(page, 3000);
+    });
+
+    afterEach(async () => {
+      await snapshot(page);
+    });
+
+    it('displays danger styling when selected and hovering over delete button', async () => {
+      await page.click(mediaImageSelector);
+      await page.waitForSelector(mediaToolbarRemoveSelector);
+      await page.hover(mediaToolbarRemoveSelector);
+      await page.waitForSelector(mediaDangerSelector);
+      await waitForTooltip(page);
     });
   });
 
@@ -357,7 +399,7 @@ describe('Selection:', () => {
 
     afterEach(async () => {
       await waitForTooltip(page);
-      await snapshot(page);
+      await snapshot(page, { tolerance: 0.0005 });
     });
 
     it('displays red border when selected and panel about to be deleted', async () => {

@@ -1,4 +1,4 @@
-import { Page } from './_types';
+import { TestPage, PuppeteerPage } from './_types';
 import { selectors } from './_editor';
 import messages from '../../../messages';
 import { messages as toolbarMessages } from '../../../plugins/layout/toolbar';
@@ -7,6 +7,7 @@ export const layoutSelectors = {
   section: '[data-layout-section]',
   column: '[data-layout-column]',
   active: '[data-layout-section].selected',
+  content: '[data-layout-content="true"]',
   removeButton: 'button[aria-label="Remove"]',
 };
 
@@ -45,11 +46,12 @@ const layoutElementSelectors = {
 
 // Wait for layout to adjust to newly chosen type
 export async function waitForLayoutChange(
-  page: Page,
+  page: PuppeteerPage,
   layoutButtonLabel: keyof typeof layoutElementSelectors,
 ) {
   await page.waitForFunction(
-    data => document.querySelectorAll(data.selector).length === data.columns,
+    (data: { selector: string; columns: number }) =>
+      document.querySelectorAll(data.selector).length === data.columns,
     { timeout: 5000 },
     layoutElementSelectors[layoutButtonLabel],
   );
@@ -60,7 +62,7 @@ function getColumnElementXPath(column: number, paragraph: number) {
 }
 
 export const clickOnLayoutColumn = async (
-  page: Page,
+  page: PuppeteerPage,
   column: number = 1,
   paragraph: number = 1,
 ) => {
@@ -69,12 +71,11 @@ export const clickOnLayoutColumn = async (
   const target = await page.$x(elementPath);
   expect(target.length).toBeGreaterThan(0);
   await target[0].click();
-
   await page.waitForSelector(layoutSelectors.active);
 };
 
 export const scrollToLayoutColumn = async (
-  page: Page,
+  page: PuppeteerPage,
   column: number = 0,
   offset: number = 0,
 ) => {
@@ -140,11 +141,11 @@ export const scrollToLayoutColumn = async (
   );
 };
 
-export const waitForLayoutToolbar = async (page: Page) => {
+export const waitForLayoutToolbar = async (page: TestPage) => {
   await page.waitForSelector('[aria-label="Layout floating controls"]');
 };
 
-export const toggleBreakout = async (page: Page, times: number) => {
+export const toggleBreakout = async (page: TestPage, times: number) => {
   const timesArray = Array.from({ length: times });
 
   const breakoutSelector = [
@@ -163,7 +164,7 @@ export const toggleBreakout = async (page: Page, times: number) => {
 
 // Wait for a layout to be nested within a particular breakout container
 export async function waitForBreakoutNestedLayout(
-  page: Page,
+  page: TestPage,
   breakoutType: 'wide' | 'full-width',
 ) {
   const layoutSelector = 'div[data-layout-section="true"]';

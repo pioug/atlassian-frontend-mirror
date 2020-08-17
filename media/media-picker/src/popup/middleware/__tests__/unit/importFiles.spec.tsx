@@ -565,6 +565,7 @@ describe('importFiles middleware', () => {
               id: 'some-selected-item-id-3',
               collection: RECENTS_COLLECTION,
             },
+            expect.anything(),
           ),
           finalizeUpload(
             {
@@ -580,6 +581,7 @@ describe('importFiles middleware', () => {
               id: 'some-selected-item-id-1',
               collection: RECENTS_COLLECTION,
             },
+            expect.anything(),
           ),
         ]);
       };
@@ -1045,7 +1047,18 @@ describe('importFiles middleware', () => {
       return;
     });
 
-    it('should fetch remote preview for recent files if image is previewable', async () => {
+    it('should fetch remote preview for recent files with image representation ready', async () => {
+      const subject = createFileStateSubject();
+      subject.next({
+        id: 'user-id-1',
+        status: 'processing',
+        name: 'some-name',
+        size: 42,
+        mediaType: 'video',
+        mimeType: 'video/quicktime',
+        representations: { image: {} },
+      });
+      getFileStreamsCache().set('user-id-1', subject);
       const selectedFile: SelectedUploadFile = {
         file,
         serviceName: 'recent_files',
@@ -1073,6 +1086,144 @@ describe('importFiles middleware', () => {
         undefined,
         true,
       );
+    });
+
+    it('should not fetch remote preview for recent files with image representation not ready', async () => {
+      const subject = createFileStateSubject();
+      subject.next({
+        id: 'user-id-1',
+        status: 'processing',
+        name: 'some-name',
+        size: 42,
+        mediaType: 'video',
+        mimeType: 'video/quicktime',
+        representations: {},
+      });
+      getFileStreamsCache().set('user-id-1', subject);
+      const selectedFile: SelectedUploadFile = {
+        file,
+        serviceName: 'recent_files',
+        touchFileDescriptor: {
+          fileId: 'id-1',
+        },
+      };
+      const store = mockStore();
+
+      const fileState = await getTenantFileState(store, selectedFile);
+
+      if (isErrorFileState(fileState)) {
+        return expect(fileState.status).not.toBe('error');
+      }
+
+      const { userMediaClient } = store.getState();
+      expect(userMediaClient.getImage).toBeCalledTimes(0);
+
+      try {
+        await fileState.preview;
+      } catch (e) {
+        expect(e.message).toEqual("File preview isn't ready");
+      }
+
+      expect.assertions(2);
+    });
+
+    it('should not fetch remote preview for recent files having local preview', async () => {
+      const subject = createFileStateSubject();
+      const preview = {
+        value: new Blob([], { type: 'application/pdf' }),
+      };
+      subject.next({
+        id: 'user-id-1',
+        status: 'processing',
+        name: 'some-name',
+        size: 42,
+        mediaType: 'doc',
+        mimeType: 'application/pdf',
+        representations: {},
+        preview,
+      });
+      getFileStreamsCache().set('user-id-1', subject);
+      const selectedFile: SelectedUploadFile = {
+        file,
+        serviceName: 'recent_files',
+        touchFileDescriptor: {
+          fileId: 'id-1',
+        },
+      };
+      const store = mockStore();
+
+      const fileState = await getTenantFileState(store, selectedFile);
+
+      if (isErrorFileState(fileState)) {
+        return expect(fileState.status).not.toBe('error');
+      }
+
+      const { userMediaClient } = store.getState();
+      expect(userMediaClient.getImage).toBeCalledTimes(0);
+
+      expect(await fileState.preview).toBe(preview);
+    });
+
+    it('should not fetch remote preview for recent files not supported by server', async () => {
+      const subject = createFileStateSubject();
+      subject.next({
+        id: 'user-id-1',
+        status: 'failed-processing',
+        name: 'some-name',
+        size: 42,
+        mediaType: 'archive',
+        mimeType: 'application/zip',
+        artifacts: {},
+      });
+      getFileStreamsCache().set('user-id-1', subject);
+      const selectedFile: SelectedUploadFile = {
+        file,
+        serviceName: 'recent_files',
+        touchFileDescriptor: {
+          fileId: 'id-1',
+        },
+      };
+      const store = mockStore();
+
+      const fileState = await getTenantFileState(store, selectedFile);
+
+      if (isErrorFileState(fileState)) {
+        return expect(fileState.status).not.toBe('error');
+      }
+
+      const { userMediaClient } = store.getState();
+      expect(userMediaClient.getImage).toBeCalledTimes(0);
+
+      try {
+        await fileState.preview;
+      } catch (e) {
+        expect(e.message).toEqual("File isn't supported by server");
+      }
+
+      expect.assertions(2);
+    });
+
+    it('should not fetch remote preview for recent files in error', async () => {
+      const subject = createFileStateSubject();
+      subject.next({
+        id: 'user-id-1',
+        status: 'error',
+      });
+      getFileStreamsCache().set('user-id-1', subject);
+      const selectedFile: SelectedUploadFile = {
+        file,
+        serviceName: 'recent_files',
+        touchFileDescriptor: {
+          fileId: 'id-1',
+        },
+      };
+      const store = mockStore();
+
+      const fileState = await getTenantFileState(store, selectedFile);
+      expect(fileState.status).toBe('error');
+
+      const { userMediaClient } = store.getState();
+      expect(userMediaClient.getImage).toBeCalledTimes(0);
     });
 
     it('should fetch remote preview for non previewable local upload when processing is done', async () => {

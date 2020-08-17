@@ -1,4 +1,3 @@
-import { Page } from '../../../../__tests__/__helpers/page-objects/_types';
 import {
   Device,
   initFullPageEditorWithAdf,
@@ -8,10 +7,8 @@ import {
 import * as adjacentDecisionsAdf from './__fixtures__/adjacent-decisions-adf.json';
 
 describe('decisions', () => {
-  let page: Page;
-
   it('adjacent', async () => {
-    page = global.page;
+    const { page } = global;
     await initFullPageEditorWithAdf(
       page,
       adjacentDecisionsAdf,

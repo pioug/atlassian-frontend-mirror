@@ -85,9 +85,9 @@ describe('Popup Select', () => {
     );
 
     atlaskitSelectWrapper.setState({ isOpen: true });
-    expect(addedListeners().length).toBe(3);
+    expect(addedListeners().length).toBe(4);
     atlaskitSelectWrapper.unmount();
-    expect(removedListeners().length).toBe(4);
+    expect(removedListeners().length).toBe(5);
   });
 
   test('renders a read only input when isSearchable is false', async () => {

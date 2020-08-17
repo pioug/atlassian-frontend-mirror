@@ -60,7 +60,7 @@ export function createDatabase(
         createdAt: Date.now(),
       });
       collections[collectionName].forEach(
-        ({ id, name, blob, mimeType, processingStatus }) =>
+        ({ id, name, blob, mediaType, mimeType, processingStatus }) =>
           database.push(
             'collectionItem',
             createCollectionItem({
@@ -68,6 +68,7 @@ export function createDatabase(
               collectionName,
               blob,
               occurrenceKey: uuidV4(),
+              mediaType,
               mimeType,
               name,
               processingStatus,

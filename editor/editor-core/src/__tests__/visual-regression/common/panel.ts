@@ -4,8 +4,11 @@ import {
   getContentBoundingRectTopLeftCoords,
 } from '../_utils';
 import * as panel from './__fixtures__/panel-adf.json';
-import { Page } from '../../__helpers/page-objects/_types';
-import { waitForFloatingControl } from '../../__helpers/page-objects/_toolbar';
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import {
+  waitForFloatingControl,
+  retryUntilStablePosition,
+} from '../../__helpers/page-objects/_toolbar';
 import {
   PanelSharedCssClassName,
   PanelSharedSelectors,
@@ -13,7 +16,7 @@ import {
 import { waitForNoTooltip } from '@atlaskit/visual-regression/helper';
 
 describe('Panel:', () => {
-  let page: Page;
+  let page: PuppeteerPage;
 
   beforeAll(() => {
     page = global.page;
@@ -30,7 +33,14 @@ describe('Panel:', () => {
   });
 
   it('looks correct', async () => {
-    await page.click(`.${PanelSharedCssClassName.prefix}`);
+    const panelSelector = `.${PanelSharedCssClassName.prefix}`;
+    await page.waitForSelector(panelSelector);
+    await retryUntilStablePosition(
+      page,
+      () => page.click(panelSelector),
+      '[aria-label*="Panel floating controls"]',
+      1000,
+    );
   });
 
   it('displays as selected when click on panel icon', async () => {

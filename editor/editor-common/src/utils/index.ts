@@ -45,6 +45,7 @@ export { default as ADFTraversor } from './traversor';
 export { getAnalyticsAppearance } from './analytics';
 export { measureRender } from './performance/measure-render';
 export { startMeasure, stopMeasure, clearMeasure } from './performance/measure';
+export { measureTTI } from './performance/measure-tti';
 export {
   isPerformanceAPIAvailable,
   isPerformanceObserverAvailable,

@@ -7,3 +7,9 @@ export enum Modes {
   full = 'full',
   inline = 'inline',
 }
+
+export type SelectedItemProps = {
+  selectedItemIndex: number;
+  focusedItemIndex?: number;
+  setItemsContainerWidth: (width: number) => void;
+};

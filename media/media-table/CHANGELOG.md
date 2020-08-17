@@ -1,5 +1,19 @@
 # @atlaskit/media-table
 
+## 5.2.0
+
+### Minor Changes
+
+- [`c026e59e68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c026e59e68) - Move truncateText helper from media-card to media-ui and expose entry point. Export optional NameCell component from MediaTable.
+- [`89a1c63251`](https://bitbucket.org/atlassian/atlassian-frontend/commits/89a1c63251) - Add the rowProps property, which enables consumers to apply properties to the underlying row component. Move truncateText helper from media-card to media-ui and expose entry point. Export optional NameCell component from MediaTable.
+- [`6c3c26f10c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c3c26f10c) - Add fixed width to download button column in media-table
+
+### Patch Changes
+
+- [`fa6fb5dfbb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fa6fb5dfbb) - Removing unused code to be published
+- [`dff687b37a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dff687b37a) - Expose onKeyPress prop for dynamic-table and use it to show mediaViewer
+- Updated dependencies
+
 ## 5.1.1
 
 ### Patch Changes

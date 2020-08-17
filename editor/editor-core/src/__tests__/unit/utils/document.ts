@@ -464,6 +464,127 @@ describe(name, () => {
         expect(result).toBeDefined();
         expect(result!.toJSON()).toEqual(expected);
       });
+
+      it('should drop a mark which is invalid for node and not wrapped as unsupported ', () => {
+        const entity = {
+          version: 1,
+          type: 'doc',
+          content: [
+            {
+              type: 'paragraph',
+              content: [
+                {
+                  type: 'text',
+                  text: '. What are yours?',
+                  marks: [
+                    {
+                      type: 'indentation',
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        };
+
+        const result = processRawValue(schema, entity);
+        const expected = {
+          type: 'doc',
+          content: [
+            {
+              type: 'paragraph',
+              content: [
+                {
+                  type: 'text',
+                  text: '. What are yours?',
+                },
+              ],
+            },
+          ],
+        };
+        expect(result).toBeDefined();
+        expect(result!.toJSON()).toEqual(expected);
+      });
+
+      it(
+        'should invoke error callback with  erorr code as "REDUNDANT_ATTRIBUTES" ' +
+          ' when we apply attribute to a mark which does not support any attributes' +
+          'and the node has multiple specs with multiple marks',
+        () => {
+          const strongMarkWithAttribute = {
+            type: 'strong',
+            attrs: {
+              bgStrong: 'red',
+            },
+          };
+          const strikeMarkWithAttribute = {
+            type: 'strike',
+            attrs: {
+              bg: 'red',
+            },
+          };
+          const entity = {
+            version: 1,
+            type: 'doc',
+            content: [
+              {
+                type: 'paragraph',
+                content: [
+                  {
+                    type: 'text',
+                    text: 'Hello',
+                    marks: [strongMarkWithAttribute, strikeMarkWithAttribute],
+                  },
+                ],
+              },
+            ],
+          };
+
+          const result = processRawValue(schema, entity);
+
+          const expected = {
+            type: 'doc',
+            content: [
+              {
+                type: 'paragraph',
+                content: [
+                  {
+                    type: 'text',
+                    text: 'Hello',
+                    marks: [
+                      {
+                        attrs: {
+                          originalValue: {
+                            attrs: {
+                              bgStrong: 'red',
+                            },
+                            type: 'strong',
+                          },
+                        },
+                        type: 'unsupportedMark',
+                      },
+                      {
+                        attrs: {
+                          originalValue: {
+                            attrs: {
+                              bg: 'red',
+                            },
+                            type: 'strike',
+                          },
+                        },
+                        type: 'unsupportedMark',
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          };
+
+          expect(result).toBeDefined();
+          expect(result!.toJSON()).toEqual(expected);
+        },
+      );
     });
   });
 });

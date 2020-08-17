@@ -1,13 +1,14 @@
 import { Node, Schema, ResolvedPos } from 'prosemirror-model';
 import { Transaction, EditorState, TextSelection } from 'prosemirror-state';
-import { validator, ADFEntity, ValidationError } from '@atlaskit/adf-utils';
-import { analyticsService } from '../analytics';
+import { ADFEntity } from '@atlaskit/adf-utils';
 import { ContentNodeWithPos } from 'prosemirror-utils';
 import { sanitizeNodeForPrivacy } from '../utils/filter/privacy-filter';
-import { ProviderFactory, Transformer } from '@atlaskit/editor-common';
+import {
+  ProviderFactory,
+  Transformer,
+  validateADFEntity,
+} from '@atlaskit/editor-common';
 import { JSONDocNode } from '@atlaskit/editor-json-transformer';
-
-const FALSE_POSITIVE_MARKS = ['code', 'alignment', 'indentation'];
 
 /**
  * Checks if node is an empty paragraph.
@@ -134,32 +135,6 @@ export function bracketTyped(state: EditorState) {
   return false;
 }
 
-function wrapWithUnsupported(
-  originalValue: ADFEntity,
-  type: 'block' | 'inline' | 'mark' = 'block',
-) {
-  return {
-    type: `unsupported${
-      type === 'block' ? 'Block' : type === 'mark' ? 'Mark' : 'Inline'
-    }`,
-    attrs: { originalValue },
-  };
-}
-
-function fireAnalyticsEvent(
-  entity: ADFEntity,
-  error: ValidationError,
-  type: 'block' | 'inline' | 'mark' = 'block',
-) {
-  const { code, meta } = error;
-  analyticsService.trackEvent('atlassian.editor.unsupported', {
-    name: entity.type || 'unknown',
-    type,
-    errorCode: code,
-    meta: meta && JSON.stringify(meta),
-  });
-}
-
 export function processRawValue(
   schema: Schema,
   value?: string | object,
@@ -171,9 +146,11 @@ export function processRawValue(
     return;
   }
 
-  let node: {
+  interface NodeType {
     [key: string]: any;
-  };
+  }
+
+  let node: NodeType | ADFEntity;
 
   if (typeof value === 'string') {
     try {
@@ -218,62 +195,7 @@ export function processRawValue(
       return Node.fromJSON(schema, node);
     }
 
-    const nodes = Object.keys(schema.nodes);
-    const marks = Object.keys(schema.marks);
-    const validate = validator(nodes, marks, { allowPrivateAttributes: true });
-    const emptyDoc: ADFEntity = { type: 'doc', content: [] };
-    const errorCallback = (
-      entity: ADFEntity,
-      error: ValidationError,
-      options: {
-        isMark?: any;
-        allowUnsupportedBlock?: any;
-        allowUnsupportedInline?: any;
-      },
-    ) => {
-      if (options.isMark) {
-        return wrapWithUnsupported(error.meta as ADFEntity, 'mark');
-      }
-
-      // Remove any invalid marks
-      if (marks.indexOf(entity.type) > -1) {
-        if (
-          !(
-            error.code === 'INVALID_TYPE' &&
-            FALSE_POSITIVE_MARKS.indexOf(entity.type) > -1
-          )
-        ) {
-          fireAnalyticsEvent(entity, error, 'mark');
-        }
-        return;
-      }
-
-      /**
-       * There's a inconsistency between ProseMirror and ADF.
-       * `content` is actually optional in ProseMirror.
-       * And, also empty `text` node is not valid.
-       */
-      if (error.code === 'MISSING_PROPERTIES' && entity.type === 'paragraph') {
-        return { type: 'paragraph', content: [] };
-      }
-
-      // Can't fix it by wrapping
-      // TODO: We can repair missing content like `panel` without a `paragraph`.
-      if (error.code === 'INVALID_CONTENT_LENGTH') {
-        return entity;
-      }
-
-      if (options.allowUnsupportedBlock) {
-        fireAnalyticsEvent(entity, error);
-        return wrapWithUnsupported(entity);
-      } else if (options.allowUnsupportedInline) {
-        fireAnalyticsEvent(entity, error, 'inline');
-        return wrapWithUnsupported(entity, 'inline');
-      }
-
-      return entity;
-    };
-    const { entity = emptyDoc } = validate(node as ADFEntity, errorCallback);
+    const entity: ADFEntity = validateADFEntity(schema, node as ADFEntity);
 
     let newEntity = maySanitizePrivateContent(
       entity as JSONDocNode,

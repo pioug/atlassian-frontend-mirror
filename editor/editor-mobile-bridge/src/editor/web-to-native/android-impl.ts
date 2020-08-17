@@ -1,21 +1,27 @@
 import { Color as StatusColor } from '@atlaskit/status/element';
 import {
-  MentionBridge,
-  TextFormattingBridge,
-  default as NativeBridge,
-  MediaBridge,
-  PromiseBridge,
-  ListBridge,
-  StatusBridge,
-  LinkBridge,
-  UndoRedoBridge,
   AnalyticsBridge,
-  EditorBridges,
-  EditorBridgeNames,
   CollabBridge,
+  default as NativeBridge,
+  EditorBridgeNames,
+  EditorBridges,
+  LifecycleBridge,
+  LinkBridge,
+  ListBridge,
+  MediaBridge,
+  MentionBridge,
+  PromiseBridge,
+  StatusBridge,
+  TextFormattingBridge,
+  UndoRedoBridge,
 } from './bridge';
 
 import { sendToBridge } from '../../bridge-utils';
+import {
+  EditorLifecycleActions,
+  EditorLifecycleAnalyticsEvents,
+} from '../../analytics/lifecycle';
+import { ActionSubject, EventType } from '../../analytics/enums';
 
 export default class AndroidBridge implements NativeBridge {
   mentionBridge: MentionBridge;
@@ -28,18 +34,21 @@ export default class AndroidBridge implements NativeBridge {
   undoRedoBridge: UndoRedoBridge;
   analyticsBridge: AnalyticsBridge;
   collabBridge: CollabBridge;
+  lifecycleBridge?: LifecycleBridge;
+  private _editorReady: boolean = false;
 
-  constructor() {
-    this.mentionBridge = window.mentionsBridge as MentionBridge;
-    this.textFormatBridge = window.textFormatBridge as TextFormattingBridge;
-    this.mediaBridge = window.mediaBridge as MediaBridge;
-    this.promiseBridge = window.promiseBridge as PromiseBridge;
-    this.listBridge = window.listBridge as ListBridge;
-    this.statusBridge = window.statusBridge as StatusBridge;
-    this.linkBridge = window.linkBridge as LinkBridge;
-    this.undoRedoBridge = window.undoRedoBridge as UndoRedoBridge;
-    this.analyticsBridge = window.analyticsBridge as AnalyticsBridge;
-    this.collabBridge = window.collabBridge as CollabBridge;
+  constructor(win: Window = window as Window) {
+    this.mentionBridge = win.mentionsBridge!;
+    this.textFormatBridge = win.textFormatBridge!;
+    this.mediaBridge = win.mediaBridge!;
+    this.promiseBridge = win.promiseBridge!;
+    this.listBridge = win.listBridge!;
+    this.statusBridge = win.statusBridge!;
+    this.linkBridge = win.linkBridge!;
+    this.undoRedoBridge = win.undoRedoBridge!;
+    this.analyticsBridge = win.analyticsBridge!;
+    this.collabBridge = win.collabBridge!;
+    this.lifecycleBridge = win.lifecycleBridge;
   }
 
   showMentions(query: string) {
@@ -135,4 +144,35 @@ export default class AndroidBridge implements NativeBridge {
   }
 
   updateTextColor() {}
+
+  editorDestroyed(): void {
+    if (this.lifecycleBridge) {
+      this.lifecycleBridge.editorDestroyed();
+    }
+  }
+
+  editorReady(): void {
+    if (!this.lifecycleBridge) {
+      const editorReadyTwice: EditorLifecycleAnalyticsEvents = {
+        action:
+          EditorLifecycleActions.EDITOR_READY_CALLED_BEFORE_LIFECYCLE_BRIDGE_SETUP,
+        actionSubject: ActionSubject.EDITOR,
+        eventType: EventType.TRACK,
+      };
+      this.trackEvent(JSON.stringify(editorReadyTwice));
+      return;
+    }
+    if (this._editorReady) {
+      const editorReadyTwice: EditorLifecycleAnalyticsEvents = {
+        action: EditorLifecycleActions.EDITOR_READY_CALLED_TWICE,
+        actionSubject: ActionSubject.EDITOR,
+        eventType: EventType.OPERATIONAL,
+      };
+      this.trackEvent(JSON.stringify(editorReadyTwice));
+      return;
+    }
+
+    this._editorReady = true;
+    this.lifecycleBridge.editorReady();
+  }
 }

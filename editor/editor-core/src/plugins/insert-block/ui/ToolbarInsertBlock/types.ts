@@ -44,6 +44,8 @@ export interface Props {
   popupsScrollableElement?: HTMLElement;
   macroProvider?: MacroProvider | null;
   insertMenuItems?: MenuItem[];
+  showElementBrowserLink?: boolean;
+  replacePlusMenuWithElementBrowser?: boolean;
   onShowMediaPicker?: () => void;
   onInsertBlockType?: (name: string) => Command;
   onInsertMacroFromMacroBrowser?: (

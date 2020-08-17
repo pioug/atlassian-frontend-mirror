@@ -1,5 +1,12 @@
 # @atlaskit/media-image
 
+## 17.0.1
+
+### Patch Changes
+
+- [`fa6fb5dfbb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fa6fb5dfbb) - Removing unused code to be published
+- Updated dependencies
+
 ## 17.0.0
 
 ### Major Changes

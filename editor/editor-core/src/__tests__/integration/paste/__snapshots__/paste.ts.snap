@@ -1,5 +1,68 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`paste.ts: decision item copied from renderer and pasted 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "xx",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "attrs": Object {
+        "localId": "abc-123",
+      },
+      "content": Array [
+        Object {
+          "attrs": Object {
+            "localId": "abc-123",
+            "state": "DECIDED",
+          },
+          "content": Array [
+            Object {
+              "text": "Decision 1",
+              "type": "text",
+            },
+          ],
+          "type": "decisionItem",
+        },
+        Object {
+          "attrs": Object {
+            "localId": "abc-123",
+            "state": "DECIDED",
+          },
+          "content": Array [
+            Object {
+              "text": "Decision 2",
+              "type": "text",
+            },
+          ],
+          "type": "decisionItem",
+        },
+      ],
+      "type": "decisionList",
+    },
+    Object {
+      "attrs": Object {
+        "level": 3,
+      },
+      "content": Array [
+        Object {
+          "text": "h3",
+          "type": "text",
+        },
+      ],
+      "type": "heading",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
 exports[`paste.ts: paste tests on fullpage editor: bullet list 1`] = `
 Object {
   "content": Array [

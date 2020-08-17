@@ -3,6 +3,7 @@ import { MediaType } from '@atlaskit/media-client';
 import { layers, borderRadius } from '@atlaskit/theme/constants';
 import { DN30, DN50, DN400, N0 } from '@atlaskit/theme/colors';
 import { ellipsis, hideControlsClassName } from '@atlaskit/media-ui';
+import { ArchiveSideBarWidth } from './viewers/archiveSidebar/styled';
 
 const overlayZindex = layers.modal() + 10;
 const sidebarWidth = 416;
@@ -180,8 +181,14 @@ export const RightWrapper = styled(ArrowWrapper)`
 `;
 
 // header.tsx
+export type HeaderProps = {
+  isArchiveSideBarVisible: boolean;
+};
+
 export const Header = styled.div`
   display: flex;
+  padding-left: ${({ isArchiveSideBarVisible }: HeaderProps) =>
+    isArchiveSideBarVisible ? `${ArchiveSideBarWidth}px` : '0'};
 `;
 
 export const LeftHeader = styled.div`
@@ -193,7 +200,7 @@ export const LeftHeader = styled.div`
 `;
 
 export const ImageWrapper = styled.div`
-  width: 100%;
+  width: 100vw;
   height: 100vh;
   overflow: auto;
   text-align: center;
@@ -352,4 +359,11 @@ export const SidebarWrapper = styled.div`
   overflow: hidden auto;
   background-color: ${DN50};
   color: ${N0};
+`;
+
+export const SpinnerWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 `;

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/activity-provider",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "A provider to support recent activities in editor",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -16,8 +16,8 @@
   "atlaskit:src": "src/index.ts",
   "atlassian": {
     "team": "Editor Media",
-    "releaseModel": "scheduled",
-    "deprecatedAutoEntryPoints": true
+    "deprecatedAutoEntryPoints": true,
+    "releaseModel": "scheduled"
   },
   "dependencies": {
     "@atlaskit/util-service-support": "^6.0.0"

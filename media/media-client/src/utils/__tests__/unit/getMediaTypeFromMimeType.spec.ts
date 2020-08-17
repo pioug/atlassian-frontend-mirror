@@ -1,52 +1,172 @@
 import { getMediaTypeFromMimeType } from '../../getMediaTypeFromMimeType';
 
 describe('getMediaTypeFromMimeType()', () => {
-  it('should return media type for known mime types', () => {
-    expect(getMediaTypeFromMimeType('image/png')).toEqual('image');
-    expect(getMediaTypeFromMimeType('image/jpeg')).toEqual('image');
-    expect(getMediaTypeFromMimeType('audio/mp3')).toEqual('audio');
-    expect(getMediaTypeFromMimeType('audio/wav')).toEqual('audio');
-    expect(getMediaTypeFromMimeType('video/mp4')).toEqual('video');
-    expect(getMediaTypeFromMimeType('video/mov')).toEqual('video');
-    expect(getMediaTypeFromMimeType('application/pdf')).toEqual('doc');
-    expect(getMediaTypeFromMimeType('text/plain')).toEqual('doc');
-    expect(getMediaTypeFromMimeType('text/csv')).toEqual('doc');
-    expect(getMediaTypeFromMimeType('text/x-java')).toEqual('doc');
-    expect(getMediaTypeFromMimeType('application/msword')).toEqual('doc');
-    expect(
-      getMediaTypeFromMimeType(
-        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-      ),
-    ).toEqual('doc');
-    expect(
-      getMediaTypeFromMimeType(
-        'application/vnd.oasis.opendocument.presentation',
-      ),
-    ).toEqual('doc');
-    expect(
-      getMediaTypeFromMimeType(
-        'application/vnd.oasis.opendocument.spreadsheet',
-      ),
-    ).toEqual('doc');
-    expect(
-      getMediaTypeFromMimeType('application/vnd.oasis.opendocument.text'),
-    ).toEqual('doc');
-    expect(getMediaTypeFromMimeType('application/vnd.ms-powerpoint')).toEqual(
-      'doc',
+  it('should return media type for known images', () => {
+    [
+      'image/bmp',
+      'image/x-windows-bmp',
+      'application/dicom',
+      'image/gif',
+      'image/jpeg',
+      'image/jpg',
+      'image/jp_',
+      'application/jpg',
+      'image/jpeg',
+      'application/x-jpg',
+      'image/apng',
+      'image/png',
+      'application/png',
+      'application/x-png',
+      'application/vnd.adobe.photoshop',
+      'image/vnd.adobe.photoshop',
+      'image/photoshop',
+      'image/x-photoshop',
+      'image/psd',
+      'application/photoshop',
+      'application/psd',
+      'zz-application/zz-winassoc-psd',
+      'image/tiff',
+      'image/x-tif',
+      'image/x-tiff',
+      'application/tif',
+      'application/x-tif',
+      'application/tiff',
+      'application/x-tiff',
+      'image/svg+xml',
+      'image/x-icon',
+      'image/webp',
+      'image/heif',
+      'image/heif-sequence',
+      'image/heic',
+      'image/heic-sequence',
+    ].forEach(mimeType =>
+      expect(getMediaTypeFromMimeType(mimeType)).toEqual('image'),
     );
-    expect(
-      getMediaTypeFromMimeType(
-        'application/vnd.openxmlformats-officedocument.presentationml.presentation',
-      ),
-    ).toEqual('doc');
-    expect(getMediaTypeFromMimeType('application/rtf')).toEqual('doc');
-    expect(getMediaTypeFromMimeType('application/vnd.visio')).toEqual('doc');
-    expect(getMediaTypeFromMimeType('application/vnd.ms-excel')).toEqual('doc');
-    expect(
-      getMediaTypeFromMimeType(
-        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-      ),
-    ).toEqual('doc');
+  });
+
+  it('should return media type for known documents', () => {
+    [
+      'application/pdf',
+      'application/x-pdf',
+      'application/acrobat',
+      'applications/vnd.pdf',
+      'text/pdf',
+      'text/x-pdf',
+      'application/vnd.adobe.illustrator',
+      'application/vnd.ms-office',
+      'application/msword',
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.template',
+      'application/vnd.ms-word.document.macroEnabled.12',
+      'application/vnd.ms-word.template.macroEnabled.12',
+      'application/vnd.ms-excel',
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.template',
+      'application/vnd.ms-excel.sheet.macroEnabled.12',
+      'application/vnd.ms-excel.template.macroEnabled.12',
+      'application/vnd.ms-excel.addin.macroEnabled.12',
+      'application/vnd.ms-excel.sheet.macroEnabled',
+      'application/vnd.ms-excel.template.macroEnabled',
+      'application/vnd.ms-excel.addin.macroEnabled',
+      'application/vnd.ms-powerpoint',
+      'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+      'application/vnd.openxmlformats-officedocument.presentationml.template',
+      'application/vnd.openxmlformats-officedocument.presentationml.slideshow',
+      'application/vnd.ms-powerpoint.presentation.macroEnabled.12',
+      'application/vnd.ms-powerpoint.template.macroEnabled.12',
+      'application/vnd.ms-powerpoint.slideshow.macroEnabled.12',
+      'application/vnd.sun.xml.writer',
+      'application/vnd.sun.xml.writer.template',
+      'application/vnd.sun.xml.draw',
+      'application/vnd.sun.xml.draw.template',
+      'application/vnd.oasis.opendocument.graphics',
+      'application/vnd.oasis.opendocument.presentation',
+      'application/x-vnd.oasis.opendocument.presentation',
+      'application/vnd.sun.xml.calc',
+      'application/vnd.sun.xml.calc.template',
+      'application/vnd.oasis.opendocument.spreadsheet',
+      'application/x-vnd.oasis.opendocument.spreadsheet',
+      'application/vnd.oasis.opendocument.spreadsheet-template',
+      'application/vnd.oasis.opendocument.text',
+      'application/vnd.oasis.opendocument.text-template',
+      'application/vnd.oasis.opendocument.text-master',
+      'application/x-vnd.oasis.opendocument.text',
+      'application/x-vnd.oasis.opendocument.text-template',
+      'application/x-vnd.oasis.opendocument.text-master',
+      'application/vnd.wordperfect',
+      'text/csv',
+      'text/x-diff',
+      'text/x-perl',
+      'text/x-python',
+      'text/x-ruby',
+      'text/rtf',
+      'text/richtext',
+      'text/plain',
+      'application/txt',
+      'application/rtf',
+      'application/x-rtf',
+      'application/postscript',
+    ].forEach(mimeType =>
+      expect(getMediaTypeFromMimeType(mimeType)).toEqual('doc'),
+    );
+  });
+
+  it('should return media type for known audios', () => {
+    [
+      'audio/aac',
+      'audio/x-hx-aac-adts',
+      'audio/vnd.dolby.dd-raw',
+      'audio/aiff',
+      'audio/x-aiff',
+      'audio/x-monkeys-audio',
+      'audio/x-ape',
+      'audio/basic',
+      'audio/flac',
+      'audio/mp4',
+      'audio/midi',
+      'audio/x-matroska',
+      'audio/x-mod',
+      'audio/mpeg',
+      'audio/ogg',
+      'audio/x-ogg',
+      'audio/x-pn-realaudio',
+      'audio/wav',
+      'audio/x-wav',
+      'audio/x-ms-wma',
+    ].forEach(mimeType =>
+      expect(getMediaTypeFromMimeType(mimeType)).toEqual('audio'),
+    );
+  });
+
+  it('should return media type for known videos', () => {
+    [
+      'video/3gpp',
+      'video/3gpp2',
+      'video/x-ms-asf',
+      'video/avi',
+      'video/msvideo',
+      'video/x-msvideo',
+      'video/x-dv',
+      'video/x-flv',
+      'video/m2ts',
+      'video/x-m4v',
+      'video/x-matroska',
+      'video/quicktime',
+      'video/mp4',
+      'video/mpeg',
+      'video/ogg',
+      'video/x-ogg',
+      'video/webm',
+      'video/x-ms-wmv',
+    ].forEach(mimeType =>
+      expect(getMediaTypeFromMimeType(mimeType)).toEqual('video'),
+    );
+  });
+
+  it('should return archive type for known archives', () => {
+    ['application/zip'].forEach(mimeType =>
+      expect(getMediaTypeFromMimeType(mimeType)).toEqual('archive'),
+    );
   });
 
   it('should return unknown for not supported media types', () => {

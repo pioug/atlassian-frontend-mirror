@@ -1,3 +1,4 @@
+import { FilePreview } from '@atlaskit/media-client';
 import { Action } from 'redux';
 import { MediaFile } from '../../types';
 
@@ -13,7 +14,7 @@ export interface FinalizeUploadAction extends Action {
   readonly file: MediaFile;
   readonly replaceFileId: string;
   readonly source: FinalizeUploadSource;
-  readonly occurrenceKey?: string;
+  readonly preview?: FilePreview | Promise<FilePreview>;
 }
 
 export function isFinalizeUploadAction(
@@ -26,11 +27,13 @@ export function finalizeUpload(
   file: MediaFile,
   replaceFileId: string,
   source: FinalizeUploadSource,
+  preview?: FilePreview | Promise<FilePreview>,
 ): FinalizeUploadAction {
   return {
     type: FINALIZE_UPLOAD,
     file,
     replaceFileId,
     source,
+    preview,
   };
 }

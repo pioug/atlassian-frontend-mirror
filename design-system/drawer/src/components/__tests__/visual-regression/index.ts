@@ -1,13 +1,14 @@
 import {
   getExampleUrl,
   loadPage,
+  PuppeteerPage,
   waitForElementCount,
   waitForLoadedBackgroundImages,
 } from '@atlaskit/visual-regression/helper';
 
 import { widths } from '../../../constants';
 
-async function waitForSidebar(page: any, buttonSelector: string) {
+async function waitForSidebar(page: PuppeteerPage, buttonSelector: string) {
   // Find and click the button to open the sidebar...
   await page.waitForSelector(buttonSelector);
   await page.click(buttonSelector);
@@ -19,8 +20,7 @@ async function waitForSidebar(page: any, buttonSelector: string) {
 
 describe('Snapshot Test', () => {
   for (const width of widths) {
-    // FIXME - we need to investigate and remove this skip asap
-    it.skip(`should match ${width} drawer screenshot`, async () => {
+    it(`should match ${width} drawer screenshot`, async () => {
       const url = getExampleUrl(
         'design-system',
         'drawer',
@@ -38,8 +38,7 @@ describe('Snapshot Test', () => {
       expect(image).toMatchProdImageSnapshot();
     });
   }
-  // FIXME - we need to investigate and remove this skip asap
-  it.skip('should match themed drawer screenshot', async () => {
+  it('should match themed drawer screenshot', async () => {
     const url = getExampleUrl(
       'design-system',
       'drawer',
@@ -56,24 +55,6 @@ describe('Snapshot Test', () => {
     const objectExamplesSelector = 'div[aria-label="Object examples"]';
     await page.waitForSelector(objectExamplesSelector);
 
-    // Icons within sidebar have an initial loading state where an SVG is shown,
-    // before loading an external background-image spritesheet. There are two icons.
-
-    /*
-    // Wait for SVG icons (loading state)
-    // FIXME: Flaky results in CI. Possibly the loading state is skipped under some scenarios?
-    const svgIconSelector = `${objectExamplesSelector} span[role="presentation"] > svg`;
-    await page.waitFor(
-      (selector: string) => {
-        // There are two elements, but we can proceed to start listening for
-        // the final state as soon as one is present.
-        return document.querySelectorAll(selector).length > 0;
-      },
-      // requestAnimationFrame polling because these elements get replaced
-      { timeout: 10000, polling: 'raf' },
-      svgIconSelector,
-    );
-    */
     // Wait for BG images which replace SVG icons (final state)
     const bgImgSelector = 'span[role="img"]';
     const bgImgIconSelector = `${objectExamplesSelector} ${bgImgSelector}`;

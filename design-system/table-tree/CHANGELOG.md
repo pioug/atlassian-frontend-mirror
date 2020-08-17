@@ -1,5 +1,11 @@
 # @atlaskit/table-tree
 
+## 9.0.1
+
+### Patch Changes
+
+- [`6262f382de`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6262f382de) - Use the 'lodash' package instead of single-function 'lodash.\*' packages
+
 ## 9.0.0
 
 ### Major Changes

@@ -28,7 +28,9 @@ import annotationPlugin, {
   AnnotationProviders,
 } from '../../../plugins/annotation';
 import { TextFormattingOptions } from '../../../plugins/text-formatting/types';
-import quickInsertPlugin from '../../../plugins/quick-insert';
+import quickInsertPlugin, {
+  QuickInsertPluginOptions,
+} from '../../../plugins/quick-insert';
 import selectionPlugin from '../../../plugins/selection';
 import codeBlockPlugin from '../../../plugins/code-block';
 // #endregion
@@ -37,7 +39,7 @@ interface EditorPresetDefaultProps {
   children?: React.ReactNode;
 }
 
-type DefaultPresetPluginOptions = {
+export type DefaultPresetPluginOptions = {
   paste: PastePluginOptions;
   base?: BasePluginOptions;
   blockType?: BlockTypePluginOptions;
@@ -45,6 +47,7 @@ type DefaultPresetPluginOptions = {
   textFormatting?: TextFormattingOptions;
   submitEditor?: EditorProps['onSave'];
   annotationProviders?: AnnotationProviders;
+  quickInsert?: QuickInsertPluginOptions;
 };
 
 export function createDefaultPreset(
@@ -65,7 +68,7 @@ export function createDefaultPreset(
   preset.add(hyperlinkPlugin);
   preset.add([textFormattingPlugin, options.textFormatting]);
   preset.add(widthPlugin);
-  preset.add(quickInsertPlugin);
+  preset.add([quickInsertPlugin, options.quickInsert]);
   preset.add(typeAheadPlugin);
   preset.add(unsupportedContentPlugin);
   preset.add(editorDisabledPlugin);

@@ -4,15 +4,20 @@ import {
   takeElementScreenShot,
 } from '@atlaskit/visual-regression/helper';
 
-declare var global: any;
-
 const openModalBtn = "[type='button']";
 const modalDialog = "[role='dialog']";
+const modalFooter = `${modalDialog}>div>footer`;
+const modalHeader = `${modalDialog}>div>header`;
 const dialogBody = "[data-testid='dialog-body']";
 const scrollBehaviorGroup = "[role='group']";
 const modalBodyPara =
   "[data-testid='modal-dialog-content']>div>div>p:nth-child(6)";
 const scrollToBottomBtn = "[data-testid='scrollDown']";
+const largeModalBtn = "[data-testid='large']";
+const booleanBtn = "[data-testid='booleanBtn']";
+const autoFocusBtn = "[data-testid='autoFocusBtn']";
+const warningModalBtn = "[data-testid='warning']";
+const dangerModalBtn = "[data-testid='danger']";
 
 describe('Snapshot Test', () => {
   it('Basic example should match production example', async () => {
@@ -167,5 +172,122 @@ describe('Snapshot Test', () => {
     await page.waitFor(1000);
     const image = await takeElementScreenShot(page, dropdownMenu);
     expect(image).toMatchProdImageSnapshot();
+  });
+
+  it('Example with focus on secondary button should match production', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'modal-dialog',
+      'with-focus-on-secondary-button',
+      global.__BASEURL__,
+    );
+    const { page } = global;
+
+    await page.goto(url);
+    await page.waitForSelector(openModalBtn);
+    await page.click(openModalBtn);
+    await page.waitForSelector(modalDialog);
+    await page.waitFor(1000);
+    const image = await takeElementScreenShot(page, modalFooter);
+    expect(image).toMatchProdImageSnapshot();
+  });
+
+  it('Form example should match production', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'modal-dialog',
+      'form',
+      global.__BASEURL__,
+    );
+    const { page } = global;
+
+    await page.goto(url);
+    await page.waitForSelector(openModalBtn);
+    await page.click(openModalBtn);
+    await page.waitForSelector(modalDialog);
+    // Focus should be on first text input of form when modal opens
+    await page.waitFor(1000);
+    const image = await takeElementScreenShot(page, modalDialog);
+    expect(image).toMatchProdImageSnapshot();
+  });
+
+  it('Multiple stacked modal example should match production', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'modal-dialog',
+      'multiple',
+      global.__BASEURL__,
+    );
+    const { page } = global;
+
+    await page.goto(url);
+    await page.waitForSelector(largeModalBtn);
+    await page.click(largeModalBtn);
+    await page.waitForSelector(modalDialog);
+    await page.waitFor(1000);
+    const image = await page.screenshot();
+    expect(image).toMatchProdImageSnapshot();
+    //open second stacked modal
+    await page.keyboard.press('Tab');
+    await page.keyboard.press('Enter');
+    await page.waitFor(1000);
+    const image2 = await page.screenshot();
+    expect(image2).toMatchProdImageSnapshot();
+    //open third stacked modal
+    await page.keyboard.press('Tab');
+    await page.keyboard.press('Enter');
+    await page.waitFor(1000);
+    const image3 = await page.screenshot();
+    expect(image3).toMatchProdImageSnapshot();
+  });
+
+  it('Autofocus example should match production example', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'modal-dialog',
+      'autofocus',
+      global.__BASEURL__,
+    );
+    const { page } = global;
+
+    await loadPage(page, url);
+    await page.waitForSelector(booleanBtn);
+    await page.click(booleanBtn);
+    await page.waitForSelector(modalDialog);
+    const image = await takeElementScreenShot(page, modalDialog);
+    expect(image).toMatchProdImageSnapshot();
+    await loadPage(page, url);
+    await page.waitForSelector(autoFocusBtn);
+    await page.click(autoFocusBtn);
+    await page.waitForSelector(modalDialog);
+    const image2 = await takeElementScreenShot(page, modalDialog);
+    expect(image2).toMatchProdImageSnapshot();
+  });
+
+  it('Warning and Danger modal appearances should match production example', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'modal-dialog',
+      'appearance',
+      global.__BASEURL__,
+    );
+    const { page } = global;
+
+    await loadPage(page, url);
+    await page.waitForSelector(warningModalBtn);
+    await page.click(warningModalBtn);
+    await page.waitForSelector(modalDialog);
+    const image1 = await takeElementScreenShot(page, modalFooter);
+    expect(image1).toMatchProdImageSnapshot();
+    const image2 = await takeElementScreenShot(page, modalHeader);
+    expect(image2).toMatchProdImageSnapshot();
+    await loadPage(page, url);
+    await page.waitForSelector(dangerModalBtn);
+    await page.click(dangerModalBtn);
+    await page.waitForSelector(modalDialog);
+    const image3 = await takeElementScreenShot(page, modalFooter);
+    expect(image3).toMatchProdImageSnapshot();
+    const image4 = await takeElementScreenShot(page, modalHeader);
+    expect(image4).toMatchProdImageSnapshot();
   });
 });

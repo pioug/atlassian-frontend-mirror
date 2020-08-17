@@ -9,6 +9,7 @@ import { TableEventPayload } from './table-events';
 import { PasteEventPayload } from './paste-events';
 import { CutCopyEventPayload } from './cut-copy-events';
 import { HistoryEventPayload } from './history-events';
+import { ListEventPayload } from './list-events';
 import { ExperimentalEventPayload } from './experimental-events';
 import { FindReplaceEventPayload } from './find-replace-events';
 import { OperationalAEP } from './utils';
@@ -32,7 +33,8 @@ export type AnalyticsEventPayload =
   | ExperimentalEventPayload // Used for A/B testing
   | FindReplaceEventPayload
   | DateEventPayload
-  | SelectionEventPayload;
+  | SelectionEventPayload
+  | ListEventPayload;
 
 export type AnalyticsEventPayloadWithChannel = {
   channel: string;

@@ -2,7 +2,6 @@ import { EditorState, Plugin, Transaction } from 'prosemirror-state';
 
 import { isPastedFile } from '../../../utils/clipboard';
 import { isDroppedFile } from '../../../utils/drag-drop';
-import { analyticsService } from '../../../analytics';
 
 import { canInsertMedia, isMediaSelected } from '../utils';
 import { ImageUploadPluginAction, ImageUploadPluginState } from '../types';
@@ -27,9 +26,7 @@ const createDOMHandler = (pred: DOMHandlerPredicate, eventName: string) => (
   event.preventDefault();
   event.stopPropagation();
 
-  if (startImageUpload(event)(view.state, view.dispatch)) {
-    analyticsService.trackEvent(eventName);
-  }
+  startImageUpload(event)(view.state, view.dispatch);
 
   return true;
 };

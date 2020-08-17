@@ -24,8 +24,6 @@ import {
 } from '../analytics';
 import { IconEmoji } from '../quick-insert/assets';
 import emojiNodeView from './nodeviews/emoji';
-import { typeAheadPluginKey, TypeAheadPluginState } from '../type-ahead';
-import { analyticsService } from '../../analytics';
 import { TypeAheadItem } from '../type-ahead/types';
 import { EmojiContextProvider } from './ui/EmojiContextProvider';
 import { messages } from '../insert-block/ui/ToolbarInsertBlock/messages';
@@ -104,20 +102,6 @@ const emojiPlugin = (options?: EmojiPluginOptions): EditorPlugin => ({
       customRegex: '\\(?(:)',
       headless: options ? options.headless : undefined,
       getItems(query, state, _intl, { prevActive, queryChanged }) {
-        if (!prevActive && queryChanged) {
-          analyticsService.trackEvent(
-            'atlassian.fabric.emoji.typeahead.open',
-            {},
-          );
-        }
-
-        if (query.charAt(query.length - 1) === ' ') {
-          analyticsService.trackEvent(
-            'atlassian.fabric.emoji.typeahead.space',
-            {},
-          );
-        }
-
         const pluginState = getEmojiPluginState(state);
         const emojis =
           !prevActive && queryChanged ? [] : pluginState.emojis || [];
@@ -159,17 +143,11 @@ const emojiPlugin = (options?: EmojiPluginOptions): EditorPlugin => ({
         );
       },
       selectItem(state, item, insert, { mode }) {
-        const { id = '', type = '', fallback, shortName } = item.emoji;
+        const { id = '', fallback, shortName } = item.emoji;
         const text = fallback || shortName;
         const emojiPluginState = emojiPluginKey.getState(
           state,
         ) as EmojiPluginState;
-        const typeAheadPluginState = typeAheadPluginKey.getState(
-          state,
-        ) as TypeAheadPluginState;
-        const pickerElapsedTime = typeAheadPluginState.queryStarted
-          ? Date.now() - typeAheadPluginState.queryStarted
-          : 0;
 
         if (
           emojiPluginState.emojiProvider &&
@@ -181,14 +159,6 @@ const emojiPlugin = (options?: EmojiPluginOptions): EditorPlugin => ({
             .then(recordSelectionSucceededSli(options))
             .catch(recordSelectionFailedSli(options));
         }
-
-        analyticsService.trackEvent('atlassian.fabric.emoji.typeahead.select', {
-          mode,
-          duration: pickerElapsedTime,
-          emojiId: id,
-          type: type,
-          queryLength: (typeAheadPluginState.query || '').length,
-        });
 
         return addAnalytics(
           state,
@@ -206,12 +176,6 @@ const emojiPlugin = (options?: EmojiPluginOptions): EditorPlugin => ({
             attributes: { inputMethod: INPUT_METHOD.TYPEAHEAD },
             eventType: EVENT_TYPE.TRACK,
           },
-        );
-      },
-      dismiss() {
-        analyticsService.trackEvent(
-          'atlassian.fabric.emoji.typeahead.close',
-          {},
         );
       },
     },

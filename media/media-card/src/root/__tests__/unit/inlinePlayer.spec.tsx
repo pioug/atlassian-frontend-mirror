@@ -138,17 +138,37 @@ describe('<InlinePlayer />', () => {
     });
   });
 
-  it('should set width according to dimensions in the wrapper element', async () => {
-    const { component } = setup({
-      dimensions: {
-        width: 1,
-        height: 1,
-      },
-    });
+  describe('dimensions', () => {
+    const expectToHaveWidthHeight = (
+      component: any,
+      width: string,
+      height: string,
+    ) => {
+      expect(component.find(InlinePlayerWrapper)).toHaveStyleRule(
+        'width',
+        width,
+      );
+      expect(component.find(InlinePlayerWrapper)).toHaveStyleRule(
+        'height',
+        height,
+      );
+    };
+    it('should set width/height according to dimensions in the wrapper element', async () => {
+      const { component } = setup({
+        dimensions: {
+          width: '80%',
+          height: '20px',
+        },
+      });
 
-    await update(component);
-    expect(component.find(InlinePlayerWrapper).prop('style')).toEqual({
-      width: 1,
+      await update(component);
+      expectToHaveWidthHeight(component, '80%', '20px');
+    });
+    it('default to 100%/audo width/height if no dimensions given', async () => {
+      const { component } = setup();
+
+      await update(component);
+      expectToHaveWidthHeight(component, '100%', 'auto');
     });
   });
 

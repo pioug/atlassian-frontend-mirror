@@ -22,7 +22,6 @@ import ToolbarTextColor, {
   Props as ToolbarTextColorProps,
 } from '../../../../../plugins/text-color/ui/ToolbarTextColor';
 import { ShowMoreWrapper } from '../../../../../plugins/text-color/ui/ToolbarTextColor/styles';
-import { AnalyticsHandler } from '../../../../../analytics';
 import { PaletteColor } from '../../../../../ui/ColorPalette/Palettes/type';
 
 const mockDispatchAnalytics = jest.fn(() => () => {});
@@ -93,16 +92,13 @@ function getColorFromPalette(palette: PaletteColor[], position: number) {
 describe('ToolbarTextColor', () => {
   const createEditor = createEditorFactory<TextColorPluginState>();
   let createAnalyticsEvent: jest.MockInstance<UIAnalyticsEvent, any>;
-  let analyticsHandler: jest.MockInstance<AnalyticsHandler, any>;
   let toolbarTextColor: ReactWrapper<ToolbarTextColorProps>;
 
   const editor = (doc: any, props: any = {}) => {
     createAnalyticsEvent = createAnalyticsEventMock();
-    analyticsHandler = jest.fn();
     return createEditor({
       doc,
       editorProps: {
-        analyticsHandler: analyticsHandler as any,
         allowAnalyticsGASV3: true,
         allowTextColor: true,
         ...props,
@@ -172,17 +168,6 @@ describe('ToolbarTextColor', () => {
     });
 
     describe('analytics', () => {
-      it('should trigger analyticsService.trackEvent when a color is clicked', () => {
-        const color = getColorFromPalette(pluginState.palette, 1);
-
-        clickToolbarButton(toolbarTextColor);
-        clickColor(toolbarTextColor, color);
-
-        expect(analyticsHandler).toHaveBeenCalledWith(
-          'atlassian.editor.format.textcolor.button',
-        );
-      });
-
       it('should create analytics event when color change', () => {
         const defaultColor = getColorFromPalette(pluginState.palette, 0);
         const color = getColorFromPalette(pluginState.palette, 1); // Get not default (0) color

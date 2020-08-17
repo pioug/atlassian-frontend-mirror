@@ -174,6 +174,7 @@ describe('module-helpers', () => {
       });
 
       myMacro.keywords = ['manifest a', 'manifest b'];
+      myMacro.categories = ['formatting'];
     });
 
     describe('should use data from the quickInsert module', () => {
@@ -182,6 +183,7 @@ describe('module-helpers', () => {
           ...myMacro.modules.quickInsert![0],
           description: 'quickinsert item description',
           keywords: ['a', 'b', 'c'],
+          categories: ['vizualization'],
         };
 
         menuItem = buildMenuItem(myMacro, myMacro.modules.quickInsert![0]);
@@ -189,6 +191,10 @@ describe('module-helpers', () => {
 
       test('keywords', () => {
         expect(menuItem.keywords).toEqual(['a', 'b', 'c']);
+      });
+
+      test('categories', () => {
+        expect(menuItem.categories).toEqual(['vizualization']);
       });
 
       test('description', () => {
@@ -200,8 +206,13 @@ describe('module-helpers', () => {
       beforeEach(() => {
         menuItem = buildMenuItem(myMacro, myMacro.modules.quickInsert![0]);
       });
+
       test('keywords', () => {
         expect(menuItem.keywords).toEqual(['manifest a', 'manifest b']);
+      });
+
+      test('categories', () => {
+        expect(menuItem.categories).toEqual(['formatting']);
       });
 
       test('description', () => {

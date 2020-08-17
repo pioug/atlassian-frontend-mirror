@@ -1,7 +1,6 @@
 import { InputRule, wrappingInputRule } from 'prosemirror-inputrules';
 import { NodeType, Schema, NodeRange, Node as PMNode } from 'prosemirror-model';
 import { Plugin, EditorState } from 'prosemirror-state';
-import { analyticsService, trackAndInvoke } from '../../../analytics';
 import {
   createInputRule as defaultCreateInputRule,
   defaultInputRuleHandler,
@@ -30,7 +29,6 @@ export function createInputRule(regexp: RegExp, nodeType: NodeType) {
 export const insertList = (
   state: EditorState,
   listType: NodeType,
-  listTypeName: string,
   start: number,
   end: number,
 ) => {
@@ -44,11 +42,6 @@ export const insertList = (
   if (state.doc.resolve(start).depth > 1) {
     return null;
   }
-
-  // Track event
-  analyticsService.trackEvent(
-    `atlassian.editor.format.list.${listTypeName}.autoformatting`,
-  );
 
   // Split at the start of autoformatting and delete formatting characters.
   let tr = state.tr.delete(start, end).split(start);
@@ -92,15 +85,10 @@ function getBulletListInputRules(schema: Schema): InputRule[] {
     true,
   );
 
-  asteriskRule.handler = trackAndInvoke(
-    'atlassian.editor.format.list.bullet.autoformatting',
-    asteriskRule.handler as any,
-  );
-
   const leafNodeAsteriskRule = defaultCreateInputRule(
     new RegExp(`${leafNodeReplacementCharacter}\\s*([\\*\\-]) $`),
     (state, _match, start, end) => {
-      return insertList(state, schema.nodes.bulletList, 'bullet', start, end);
+      return insertList(state, schema.nodes.bulletList, start, end);
     },
     true,
   );
@@ -136,21 +124,11 @@ function getOrderedListInputRules(schema: Schema): InputRule[] {
     createInputRule(/^(1)[\.\)] $/, schema.nodes.orderedList),
     true,
   );
-  numberOneRule.handler = trackAndInvoke(
-    'atlassian.editor.format.list.numbered.autoformatting',
-    numberOneRule.handler as any,
-  );
 
   const leafNodeNumberOneRule = defaultCreateInputRule(
     new RegExp(`${leafNodeReplacementCharacter}(1)[\\.\\)] $`),
     (state, _match, start, end) => {
-      return insertList(
-        state,
-        schema.nodes.orderedList,
-        'numbered',
-        start,
-        end,
-      );
+      return insertList(state, schema.nodes.orderedList, start, end);
     },
     true,
   );

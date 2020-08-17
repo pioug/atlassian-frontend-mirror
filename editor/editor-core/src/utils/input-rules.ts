@@ -1,5 +1,5 @@
 import { inputRules, InputRule } from 'prosemirror-inputrules';
-import { EditorState, Transaction } from 'prosemirror-state';
+import { EditorState, Transaction, TextSelection } from 'prosemirror-state';
 import { Mark as PMMark } from 'prosemirror-model';
 import { startMeasure, stopMeasure } from '@atlaskit/editor-common';
 import { EditorView } from 'prosemirror-view';
@@ -25,7 +25,13 @@ export function defaultInputRuleHandler(
       ? hasUnsupportedMarkForBlockInputRule(state, start, end)
       : hasUnsupportedMarkForInputRule(state, start, end);
 
-    if (state.selection.$from.parent.type.spec.code || unsupportedMarks) {
+    const $from = state.selection.$from;
+
+    if (
+      $from.parent.type.spec.code ||
+      !(state.selection instanceof TextSelection) ||
+      unsupportedMarks
+    ) {
       return;
     }
 

@@ -20,7 +20,7 @@ import { pluginKey as tablePluginKey } from '../../../../plugins/table/pm-plugin
 describe('table plugin', () => {
   const createEditor = createEditorFactory<TablePluginState>();
 
-  const editor = (doc: any, trackEvent = () => {}) => {
+  const editor = (doc: any) => {
     const tableOptions = {
       allowNumberColumn: true,
       allowHeaderRow: true,
@@ -32,7 +32,6 @@ describe('table plugin', () => {
     return createEditor({
       doc,
       editorProps: {
-        analyticsHandler: trackEvent,
         allowTables: tableOptions,
       },
       pluginKey: tablePluginKey,

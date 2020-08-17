@@ -1,5 +1,5 @@
 import { snapshot, initEditorWithAdf, Appearance } from '../_utils';
-import { Page } from '../../__helpers/page-objects/_types';
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import emojiAdf from './__fixtures__/emoji-adf.json';
 import { emojiSelectors } from '../../__helpers/page-objects/_emoji';
 import {
@@ -8,7 +8,7 @@ import {
 } from '@atlaskit/visual-regression/helper';
 
 describe('Emoji', () => {
-  let page: Page;
+  let page: PuppeteerPage;
 
   beforeAll(() => {
     page = global.page;

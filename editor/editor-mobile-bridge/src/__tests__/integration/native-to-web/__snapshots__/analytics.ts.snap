@@ -306,6 +306,7 @@ Object {
   "attributes": Object {
     "appearance": "mobile",
     "componentName": "editorCore",
+    "fromCurrentDomain": false,
     "inputMethod": "toolbar",
     "insertLocation": "doc",
     "packageName": "@atlaskit/editor-core",
@@ -333,6 +334,7 @@ Object {
   "attributes": Object {
     "appearance": "mobile",
     "componentName": "editorCore",
+    "fromCurrentDomain": false,
     "inputMethod": "toolbar",
     "insertLocation": "doc",
     "packageName": "@atlaskit/editor-core",

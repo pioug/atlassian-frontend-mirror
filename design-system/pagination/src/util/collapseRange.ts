@@ -12,9 +12,9 @@ export default function collapseRange<T>(
   const total = pages.length;
   // only need ellipsis if we have more pages than we can display
   const needEllipsis = total > max;
-  // show start ellipsis if the current page is further away than max - 3 from the first page
-  const hasStartEllipsis = needEllipsis && max - 3 < current;
-  // show end ellipsis if the current page is further than total - max + 3 from the last page
+  // show start ellipsis if the current page is further away than max - 4 from the first page
+  const hasStartEllipsis = needEllipsis && max - 4 < current;
+  // show end ellipsis if the current page is further than total - max + 4 from the last page
   const hasEndEllipsis = needEllipsis && current < total - max + 4;
 
   if (!needEllipsis) {

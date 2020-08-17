@@ -1,5 +1,78 @@
 # @atlaskit/editor-core
 
+## 128.0.0
+
+### Major Changes
+
+- [`68ca47f536`](https://bitbucket.org/atlassian/atlassian-frontend/commits/68ca47f536) - ED-9145: Remove analyticsHandler prop.
+
+  We have removed the prop `analyticsHandler` from the `Editor` component, as these events are no longer tracked.
+
+  e.g.
+
+  ```
+   <Editor
+    analyticsHandler={fn}
+   />
+  ```
+
+  You can safely remove this prop.
+
+### Minor Changes
+
+- [`9cef81c5f0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9cef81c5f0) - ED-9145: Remove GASv2 event calls invoked by withAnalytics
+- [`92a85eab5a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/92a85eab5a) - ED-9598 Fix breakout for selected nodes
+- [`41596c1581`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41596c1581) - EDM-925: fix cmd + k behaviour of Smart Links; respect user's display text
+- [`fe31ba459f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fe31ba459f) - ED-8198 Include Spec based validator behind toggle for Renderer
+- [`b932cbbc42`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b932cbbc42) - Added support for rendering image captions
+- [`62eb1114c4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/62eb1114c4) - Enable passing of MediaFeatureFlags through Editor Renderer via MediaOptions to Media components
+- [`84065cf60b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/84065cf60b) - ED-9652: Extract insert method from typeahed so it can be reused by element browser
+- [`b3dad32cdd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b3dad32cdd) - ED-9746: Add support to categories for quick insert items and extensions
+- [`db1e7a477b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/db1e7a477b) - ED-9684: Add match-case toggle in find/replace
+- [`861d585ba8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/861d585ba8) - Changed mediaSingle to now render it's child adf nodes using nodeviews rather than directly with react
+- [`b7cf6e5be1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b7cf6e5be1) - ED-9145: Remove GASv2 event calls invoked by trackAndInvoke and commandWithAnalytics
+- [`50b49e0eb9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/50b49e0eb9) - [ED-9780] allow link mark inside bodied extension
+- [`7abb7a2a51`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7abb7a2a51) - ED-9679: Add TTI measurements to editor-core
+- [`d6efacb2a3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d6efacb2a3) - ED-9145: Remove GASv2 event calls invoked by analyticsService
+- [`53d07c0c06`](https://bitbucket.org/atlassian/atlassian-frontend/commits/53d07c0c06) - ED-9652: Integrate Element browser with the editor
+
+### Patch Changes
+
+- [`4a1120b6a8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4a1120b6a8) - Fix quickInsert on mobile:
+
+  - Fixed missing options on quickInsertPlugin + added tests
+  - Mock `formatMessage` on Editor component on mobile bridge, to be able to not depend on i18n for now, and unblock native side work
+
+- [`b185c79605`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b185c79605) - ED-9950 Add feature flag for upcoming predictable lists work
+- [`6262f382de`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6262f382de) - Use the 'lodash' package instead of single-function 'lodash.\*' packages
+- [`d2483f3d06`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d2483f3d06) - EDM-930: Fix cursor appearing after selection for embeds and blocks
+- [`9ef4fc596e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9ef4fc596e) - ED-9624: added a copy of CellSelection from prosemirror-tables
+- [`1f3d2d4eda`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1f3d2d4eda) - ED-9452: Ensure text is editable in Firefox when directly adjacent to uneditable dom nodes
+- [`279ca8bd02`](https://bitbucket.org/atlassian/atlassian-frontend/commits/279ca8bd02) - ED-9447 Add keyboard navigation to ElementBrowser items
+- [`6fbaccca68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6fbaccca68) - ED-7786 (ED-7785, ED-7786) fix table content overlow (e.g. dates) when columns widths are smaller than the content
+- [`d91016d47e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d91016d47e) - ED-9652: Use quick insert search on element browser examples
+- [`19c0061cd3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19c0061cd3) - [ED-9727] Adds track event for delete actions on list items.
+- [`8fed75a7f1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8fed75a7f1) - ED-10091 fixed media linking drag and drop lost its link
+- [`be55acf3c8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/be55acf3c8) - ED-9652: Show a spinner while loading element browser
+- [`178a5c4a90`](https://bitbucket.org/atlassian/atlassian-frontend/commits/178a5c4a90) - ED-9862: Check if longtask type is available in performance observer
+- [`2bb4cb0f5f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2bb4cb0f5f) - CSS update to readd red delete border for media
+- [`a6e1e11757`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a6e1e11757) - ED-9802: Prevent pasting negative numbers from converting into lists
+- [`bd1b6db96a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bd1b6db96a) - ED-9651: Pass intl to plugin constructors
+- [`a416fe8006`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a416fe8006) - ED-10134: Fixes issues when a non text selection would trigger autoformatting
+- [`c4ced8f3e8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c4ced8f3e8) - ED-9407:Fix forward delete bug of tasks and decisions inside table
+- [`b6f6391797`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b6f6391797) - Include fromCurrentDomain: boolean to link/smartlink create event
+- [`fa96936872`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fa96936872) - ElementBrowser Qa demo changes; Fix ElementItem icon width, add tooltip, escape to close inline dialog, update search placeholder font, replace / with Enter to insert icon, internationalise strings, and add initial EmptyState.
+- [`aefd832e37`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aefd832e37) - Add empty paragraph after media group when inserted in layout column
+- [`23aedc429a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/23aedc429a) - ED-9113 Reduce toolbar height to align with nav v3
+- [`a0d36785a0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a0d36785a0) - EDM-933: fix smart link replacement
+- [`69ff62ba36`](https://bitbucket.org/atlassian/atlassian-frontend/commits/69ff62ba36) - ED-9788: Fix issue where bodied macros wouldn't update properly if cursor was inside
+- [`889a2d9486`](https://bitbucket.org/atlassian/atlassian-frontend/commits/889a2d9486) - fix: updated error views for all Inline and Block links
+- [`5013235947`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5013235947) - ED-9680 Fix not being able to search using IME input for composed languages eg. Japanese, Korean
+- [`de5ee48f89`](https://bitbucket.org/atlassian/atlassian-frontend/commits/de5ee48f89) - fix: added icon prop on media-ui, InlineCardForbiddenView - moving to updated link framework for fforbidden view of Inline Smart Links.
+- [`a203051a92`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a203051a92) - EDM-627 Fix typeover on media items
+- [`50e8b99c3b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/50e8b99c3b) - ED-9754: prevent typeahead crash from breaking synchrony
+- Updated dependencies
+
 ## 127.0.3
 
 ### Patch Changes

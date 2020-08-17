@@ -199,6 +199,7 @@ type InsertLinkAEP = InsertAEP<
   ACTION_SUBJECT_ID.LINK,
   {
     inputMethod: InputMethodInsertLink;
+    fromCurrentDomain: boolean;
   },
   {
     linkDomain: string;

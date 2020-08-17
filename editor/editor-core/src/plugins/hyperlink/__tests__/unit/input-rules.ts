@@ -15,7 +15,6 @@ import {
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { AnalyticsHandler, analyticsService } from '../../../../analytics';
 import analyticsPlugin from '../../../analytics';
 import hyperlinkPlugin from '../../index';
 import codeBlockPlugin from '../../../code-block';
@@ -24,12 +23,10 @@ import blockTypePlugin from '../../../block-type';
 
 describe('hyperlink', () => {
   const createEditor = createProsemirrorEditorFactory();
-  let trackEvent: AnalyticsHandler;
   let createAnalyticsEvent: CreateUIAnalyticsEvent;
 
   const editor = (doc: any) => {
     createAnalyticsEvent = jest.fn().mockReturnValue({ fire() {} });
-    analyticsService.handler = trackEvent;
     return createEditor({
       doc,
       preset: new Preset<LightEditorPlugin>()
@@ -41,10 +38,6 @@ describe('hyperlink', () => {
     });
   };
 
-  beforeEach(() => {
-    trackEvent = jest.fn();
-  });
-
   describe('input rules', () => {
     it('should convert "www.atlassian.com" to hyperlink', () => {
       const { editorView, sel } = editor(doc(p('{<>}')));
@@ -52,9 +45,6 @@ describe('hyperlink', () => {
 
       const a = link({ href: 'http://www.atlassian.com' })('www.atlassian.com');
       expect(editorView.state.doc).toEqualDocument(doc(p(a, ' ')));
-      expect(trackEvent).toHaveBeenCalledWith(
-        'atlassian.editor.format.hyperlink.autoformatting',
-      );
     });
 
     it('should not convert a hash text to hyperlink', () => {
@@ -378,7 +368,10 @@ describe('hyperlink', () => {
         action: 'inserted',
         actionSubject: 'document',
         actionSubjectId: 'link',
-        attributes: expect.objectContaining({ inputMethod: 'autoDetect' }),
+        attributes: expect.objectContaining({
+          inputMethod: 'autoDetect',
+          fromCurrentDomain: false,
+        }),
         eventType: 'track',
         nonPrivacySafeAttributes: { linkDomain: 'atlassian.com' },
       });
@@ -391,7 +384,10 @@ describe('hyperlink', () => {
         action: 'inserted',
         actionSubject: 'document',
         actionSubjectId: 'link',
-        attributes: expect.objectContaining({ inputMethod: 'autoformatting' }),
+        attributes: expect.objectContaining({
+          inputMethod: 'autoformatting',
+          fromCurrentDomain: false,
+        }),
         eventType: 'track',
         nonPrivacySafeAttributes: { linkDomain: 'foo' },
       });
@@ -404,7 +400,10 @@ describe('hyperlink', () => {
         action: 'inserted',
         actionSubject: 'document',
         actionSubjectId: 'link',
-        attributes: expect.objectContaining({ inputMethod: 'autoDetect' }),
+        attributes: expect.objectContaining({
+          inputMethod: 'autoDetect',
+          fromCurrentDomain: false,
+        }),
         eventType: 'track',
         nonPrivacySafeAttributes: { linkDomain: 'foo.org' },
       });

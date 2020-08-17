@@ -26,7 +26,8 @@ export const Popup: FC<PopupProps> = memo(
     content,
     trigger,
     onClose,
-    boundariesElement = 'viewport',
+    boundary,
+    rootBoundary = 'viewport',
     placement = 'auto',
     shouldFlip = true,
     popupComponent: PopupContainer = DefaultPopupComponent,
@@ -69,14 +70,18 @@ export const Popup: FC<PopupProps> = memo(
             <Popper
               placement={placement}
               offset={offset}
-              modifiers={{
-                flip: {
+              modifiers={[
+                {
+                  name: 'flip',
                   enabled: shouldFlip,
-                  boundariesElement,
+                  options: {
+                    rootBoundary: rootBoundary,
+                    boundary: boundary,
+                  },
                 },
-              }}
+              ]}
             >
-              {({ ref, style, placement, scheduleUpdate }) => {
+              {({ ref, style, placement, update }) => {
                 return (
                   <PopupContainer
                     id={id}
@@ -98,12 +103,9 @@ export const Popup: FC<PopupProps> = memo(
                     // first on the browser address bar when using keyboard
                     tabIndex={autoFocus ? 0 : undefined}
                   >
-                    <RepositionOnUpdate
-                      content={content}
-                      scheduleUpdate={scheduleUpdate}
-                    >
+                    <RepositionOnUpdate content={content} update={update}>
                       {content({
-                        scheduleUpdate,
+                        update,
                         isOpen,
                         onClose,
                         setInitialFocusRef,

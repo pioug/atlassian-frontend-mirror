@@ -77,7 +77,9 @@ export {
   getFileInfoFromSrc,
   loadImage,
   findParentByClassname,
+  getMimeIcon,
 } from './util';
+export { MimeTypeIcon } from './mime-type-icon';
 export { default as CustomMediaPlayer } from './customMediaPlayer/index';
 export {
   TimeRange,
@@ -93,3 +95,4 @@ export { MediaImage, MediaImageProps, MediaImageState } from './mediaImage';
 export { InactivityDetector } from './inactivityDetector/inactivityDetector';
 export { WithShowControlMethodProp } from './types';
 export { isIntersectionObserverSupported } from './intersectionObserver';
+export { Truncate, TruncateProps } from './truncateText';

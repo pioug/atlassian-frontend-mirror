@@ -12,6 +12,7 @@ import randomId from '@atlaskit/editor-test-helpers/random-id';
 import {
   mediaSingle,
   media,
+  RefsNode,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { defaultSchema, MediaAttributes } from '@atlaskit/adf-schema';
 import { stateKey as mediaStateKey } from '../../../../../../plugins/media/pm-plugins/plugin-key';
@@ -20,23 +21,21 @@ import { MediaProvider } from '@atlaskit/editor-common/provider-factory';
 import MediaSingle, {
   ReactMediaSingleNode,
 } from '../../../../../../plugins/media/nodeviews/mediaSingle';
-import Media from '../../../../../../plugins/media/nodeviews/media';
 import {
   ProviderFactory,
-  MediaSingle as MediaSingleWrapper,
   ContextIdentifierProvider,
 } from '@atlaskit/editor-common';
 import { EventDispatcher } from '../../../../../../event-dispatcher';
 import { PortalProviderAPI } from '../../../../../../ui/PortalProvider';
 import { stateKey as SelectionChangePluginKey } from '../../../../../../plugins/base/pm-plugins/react-nodeview';
 import { MediaOptions } from '../../../../../../plugins/media/types';
-import ResizableMediaSingle from '../../../../../../plugins/media/ui/ResizableMediaSingle';
 import {
   nextTick,
   asMock,
   asMockReturnValue,
 } from '@atlaskit/media-test-helpers';
 import { MediaPluginState } from '../../../../../../plugins/media/pm-plugins/types';
+import { MediaSingleNodeViewProps } from '../../../../../../plugins/media/nodeviews/types';
 
 const testCollectionName = `media-plugin-mock-collection-${randomId()}`;
 
@@ -95,6 +94,38 @@ describe('nodeviews/mediaSingle', () => {
   let providerFactory: ProviderFactory;
   let contextIdentifierProvider: Promise<ContextIdentifierProvider>;
   let getDimensions: any;
+
+  const mountNode = (
+    node: RefsNode,
+    editorView = view,
+    dummyEventDispatcher = eventDispatcher,
+    lineLength = 680,
+    getNodePos = getPos,
+    width = 123,
+    selected = () => 1,
+    editorMediaOptions = mediaOptions,
+    editorMediaProvider = mediaProvider,
+    dummyContextIdentifierProvider = contextIdentifierProvider,
+    mediaPluginState = pluginState,
+    forwardRef = () => {},
+  ) => {
+    return mount(
+      <MediaSingle
+        view={editorView}
+        eventDispatcher={dummyEventDispatcher}
+        node={node}
+        lineLength={lineLength}
+        getPos={getNodePos}
+        width={width}
+        selected={selected}
+        mediaOptions={editorMediaOptions}
+        mediaProvider={editorMediaProvider}
+        contextIdentifierProvider={dummyContextIdentifierProvider}
+        mediaPluginState={mediaPluginState}
+        forwardRef={forwardRef}
+      />,
+    );
+  };
 
   afterEach(() => {
     jest.resetModules();
@@ -178,62 +209,13 @@ describe('nodeviews/mediaSingle', () => {
           mediaProvider={mediaProvider}
           contextIdentifierProvider={contextIdentifierProvider}
           mediaPluginState={pluginState}
+          forwardRef={() => {}}
         />,
       );
     });
 
     afterEach(() => {
       wrapper.unmount();
-    });
-
-    it('sets "onExternalImageLoaded" for external images', () => {
-      expect(wrapper.find(Media).props().onExternalImageLoaded).toBeDefined();
-    });
-
-    it('passes url prop for external images', () => {
-      expect(wrapper.find(Media).props().url).toEqual(
-        'http://example.com/1920x1080.jpg',
-      );
-    });
-
-    it('loads external dimensions into component state', () => {
-      expect(wrapper.state().width).toBe(1920);
-      expect(wrapper.state().height).toBe(1080);
-    });
-
-    it('passes external dimensions to MediaSingle', () => {
-      expect(wrapper.find(MediaSingleWrapper).props().width).toBe(1920);
-      expect(wrapper.find(MediaSingleWrapper).props().height).toBe(1080);
-    });
-
-    it('passes external dimensions to ResizableMediaSingle', () => {
-      const wrapperWithResizing = mount(
-        <MediaSingle
-          view={view}
-          eventDispatcher={eventDispatcher}
-          node={mediaSingleNode(defaultSchema)}
-          lineLength={680}
-          getPos={getPos}
-          width={123}
-          selected={() => 1}
-          mediaOptions={{
-            ...mediaOptions,
-            allowResizing: true,
-          }}
-          mediaProvider={mediaProvider}
-          contextIdentifierProvider={contextIdentifierProvider}
-          mediaPluginState={pluginState}
-        />,
-      );
-
-      expect(wrapperWithResizing.find(ResizableMediaSingle).props().width).toBe(
-        1920,
-      );
-      expect(
-        wrapperWithResizing.find(ResizableMediaSingle).props().height,
-      ).toBe(1080);
-
-      wrapperWithResizing.unmount();
     });
   });
 
@@ -248,118 +230,13 @@ describe('nodeviews/mediaSingle', () => {
     const mediaNode = media(mediaNodeAttrs as MediaAttributes)();
     const mediaSingleNodeWithoutDimensions = mediaSingle()(mediaNode);
 
-    const wrapper = mount(
-      <MediaSingle
-        view={view}
-        eventDispatcher={eventDispatcher}
-        node={mediaSingleNodeWithoutDimensions(defaultSchema)}
-        lineLength={680}
-        getPos={getPos}
-        width={123}
-        selected={() => 1}
-        mediaOptions={mediaOptions}
-        mediaProvider={mediaProvider}
-        contextIdentifierProvider={contextIdentifierProvider}
-        mediaPluginState={pluginState}
-      />,
-    );
+    const wrapper = mountNode(mediaSingleNodeWithoutDimensions(defaultSchema));
 
     const instances: MediaNodeUpdater[] = (MediaNodeUpdater as any).instances;
     instances[0].getRemoteDimensions = getDimensions(wrapper);
 
     await (wrapper.instance() as MediaSingle).componentDidMount();
     expect(instances[0].uploadExternalMedia).toHaveBeenCalledTimes(1);
-  });
-
-  it('passes the editor width down as cardDimensions', () => {
-    const mediaSingleNode = mediaSingle()(mediaNode);
-    const wrapper = mount(
-      <MediaSingle
-        view={view}
-        eventDispatcher={eventDispatcher}
-        node={mediaSingleNode(defaultSchema)}
-        lineLength={680}
-        getPos={getPos}
-        width={123}
-        selected={() => 1}
-        mediaOptions={mediaOptions}
-        mediaProvider={mediaProvider}
-        contextIdentifierProvider={contextIdentifierProvider}
-        mediaPluginState={pluginState}
-      />,
-    );
-
-    const { cardDimensions } = wrapper.find(Media).props();
-    const imageAspectRatio = mediaNodeAttrs.height / mediaNodeAttrs.width;
-
-    expect(cardDimensions.width).toEqual('123px');
-    const cardHeight: string = cardDimensions.height as string;
-
-    expect(Number(cardHeight.substring(0, cardHeight.length - 2))).toBeCloseTo(
-      123 * imageAspectRatio,
-    );
-  });
-
-  it('propagates mobile upload progress to Media component', async () => {
-    pluginState.mediaOptions = {
-      allowMarkingUploadsAsIncomplete: true,
-    };
-    pluginState.mobileUploadComplete = { foo: false };
-
-    const mediaSingleNode = mediaSingle()(mediaNode);
-    const wrapper = mount(
-      <MediaSingle
-        view={view}
-        eventDispatcher={eventDispatcher}
-        node={mediaSingleNode(defaultSchema)}
-        lineLength={680}
-        getPos={getPos}
-        width={123}
-        selected={() => 1}
-        mediaOptions={mediaOptions}
-        mediaProvider={mediaProvider}
-        contextIdentifierProvider={contextIdentifierProvider}
-        mediaPluginState={pluginState}
-      />,
-    );
-
-    const instances: MediaNodeUpdater[] = (MediaNodeUpdater as any).instances;
-    instances[0].getRemoteDimensions = getDimensions(wrapper);
-
-    await (wrapper.instance() as MediaSingle).componentDidMount();
-    const { uploadComplete } = wrapper.find(Media).props();
-    expect(uploadComplete).toBe(false);
-  });
-
-  it('propagates mobile upload complete to Media component', async () => {
-    pluginState.mediaOptions = {
-      allowMarkingUploadsAsIncomplete: true,
-    };
-    pluginState.mobileUploadComplete = { foo: true };
-
-    const mediaSingleNode = mediaSingle()(mediaNode);
-    const wrapper = mount(
-      <MediaSingle
-        view={view}
-        eventDispatcher={eventDispatcher}
-        node={mediaSingleNode(defaultSchema)}
-        lineLength={680}
-        getPos={getPos}
-        width={123}
-        selected={() => 1}
-        mediaOptions={mediaOptions}
-        mediaProvider={mediaProvider}
-        contextIdentifierProvider={contextIdentifierProvider}
-        mediaPluginState={pluginState}
-      />,
-    );
-
-    const instances: MediaNodeUpdater[] = (MediaNodeUpdater as any).instances;
-    instances[0].getRemoteDimensions = getDimensions(wrapper);
-
-    await (wrapper.instance() as MediaSingle).componentDidMount();
-    const { uploadComplete } = wrapper.find(Media).props();
-    expect(uploadComplete).toBe(true);
   });
 
   describe('re-rendering based on offsetLeft', () => {
@@ -370,6 +247,7 @@ describe('nodeviews/mediaSingle', () => {
         portalProviderAPI,
         eventDispatcher,
         providerFactory,
+        undefined,
         mediaOptions,
       )(node, view, getPos);
 
@@ -385,6 +263,7 @@ describe('nodeviews/mediaSingle', () => {
         portalProviderAPI,
         eventDispatcher,
         providerFactory,
+        undefined,
         mediaOptions,
       )(node, view, getPos);
 
@@ -413,20 +292,8 @@ describe('nodeviews/mediaSingle', () => {
       const mediaNode = media(mediaNodeAttrs as MediaAttributes)();
       const mediaSingleNodeWithoutDimensions = mediaSingle()(mediaNode);
 
-      const wrapper = mount(
-        <MediaSingle
-          view={view}
-          eventDispatcher={eventDispatcher}
-          node={mediaSingleNodeWithoutDimensions(defaultSchema)}
-          lineLength={680}
-          getPos={getPos}
-          width={123}
-          selected={() => 1}
-          mediaOptions={mediaOptions}
-          mediaProvider={mediaProvider}
-          contextIdentifierProvider={contextIdentifierProvider}
-          mediaPluginState={pluginState}
-        />,
+      const wrapper = mountNode(
+        mediaSingleNodeWithoutDimensions(defaultSchema),
       );
 
       (MediaNodeUpdater as any).setMock(
@@ -450,25 +317,14 @@ describe('nodeviews/mediaSingle', () => {
         id: 'foo',
         type: 'external',
         collection: 'collection',
+        url: '',
       };
 
       const mediaNode = media(mediaNodeAttrs as MediaAttributes)();
       const mediaSingleNodeWithoutDimensions = mediaSingle()(mediaNode);
 
-      const wrapper = mount(
-        <MediaSingle
-          view={view}
-          eventDispatcher={eventDispatcher}
-          node={mediaSingleNodeWithoutDimensions(defaultSchema)}
-          lineLength={680}
-          getPos={getPos}
-          width={123}
-          selected={() => 1}
-          mediaOptions={mediaOptions}
-          mediaProvider={mediaProvider}
-          contextIdentifierProvider={contextIdentifierProvider}
-          mediaPluginState={pluginState}
-        />,
+      const wrapper = mountNode(
+        mediaSingleNodeWithoutDimensions(defaultSchema),
       );
 
       const instances: MediaNodeUpdater[] = (MediaNodeUpdater as any).instances;
@@ -489,20 +345,8 @@ describe('nodeviews/mediaSingle', () => {
     const mediaNode = media(mediaNodeAttrs as MediaAttributes)();
     const mediaSingleNodeFromDifferentCollection = mediaSingle()(mediaNode);
 
-    const wrapper = mount(
-      <MediaSingle
-        view={view}
-        eventDispatcher={eventDispatcher}
-        node={mediaSingleNodeFromDifferentCollection(defaultSchema)}
-        lineLength={680}
-        getPos={getPos}
-        width={123}
-        selected={() => 1}
-        mediaOptions={mediaOptions}
-        mediaProvider={mediaProvider}
-        contextIdentifierProvider={contextIdentifierProvider}
-        mediaPluginState={pluginState}
-      />,
+    const wrapper = mountNode(
+      mediaSingleNodeFromDifferentCollection(defaultSchema),
     );
     const instance = wrapper.instance() as MediaSingle;
 
@@ -528,20 +372,7 @@ describe('nodeviews/mediaSingle', () => {
 
     const mediaNode = media(mediaNodeAttrs as MediaAttributes)();
     const mediaSingleNode = mediaSingle()(mediaNode);
-    const wrapper = mount(
-      <MediaSingle
-        view={view}
-        eventDispatcher={eventDispatcher}
-        node={mediaSingleNode(defaultSchema)}
-        lineLength={680}
-        getPos={getPos}
-        width={123}
-        selected={() => 1}
-        mediaOptions={mediaOptions}
-        contextIdentifierProvider={contextIdentifierProvider}
-        mediaPluginState={pluginState}
-      />,
-    );
+    const wrapper = mountNode(mediaSingleNode(defaultSchema));
 
     expect(wrapper.state('viewMediaClientConfig')).toBeUndefined();
     wrapper.setProps({ mediaProvider });
@@ -562,20 +393,7 @@ describe('nodeviews/mediaSingle', () => {
 
     const mediaNode = media(mediaNodeAttrs as MediaAttributes)();
     const mediaSingleNode = mediaSingle()(mediaNode);
-    const wrapper = mount(
-      <MediaSingle
-        view={view}
-        eventDispatcher={eventDispatcher}
-        node={mediaSingleNode(defaultSchema)}
-        lineLength={680}
-        getPos={getPos}
-        width={123}
-        selected={() => 1}
-        mediaOptions={mediaOptions}
-        contextIdentifierProvider={contextIdentifierProvider}
-        mediaPluginState={pluginState}
-      />,
-    );
+    const wrapper = mountNode(mediaSingleNode(defaultSchema));
 
     expect(wrapper.state('viewMediaClientConfig')).toBeUndefined();
     wrapper.setProps({ mediaProvider });
@@ -607,10 +425,11 @@ describe('nodeviews/mediaSingle', () => {
         portalProviderAPI,
         eventDispatcher,
         providerFactory,
+        undefined,
         mediaOptions,
       )(node, testView, getPos);
 
-      expect(nodeView.checkAndUpdateIsSelected).toBeTruthy();
+      expect(nodeView.isNodeSelected).toBeTruthy();
     });
 
     it('returns true when a range is selected around media', () => {
@@ -620,10 +439,11 @@ describe('nodeviews/mediaSingle', () => {
         portalProviderAPI,
         eventDispatcher,
         providerFactory,
+        undefined,
         mediaOptions,
       )(node, testView, getPos);
 
-      expect(nodeView.checkAndUpdateIsSelected).toBeTruthy();
+      expect(nodeView.isNodeSelected).toBeTruthy();
     });
 
     it('returns false when selection is outside media', () => {
@@ -633,27 +453,29 @@ describe('nodeviews/mediaSingle', () => {
         portalProviderAPI,
         eventDispatcher,
         providerFactory,
+        undefined,
         mediaOptions,
       )(node, testView, getPos);
 
-      expect(nodeView.checkAndUpdateIsSelected).toBeTruthy();
+      expect(nodeView.isNodeSelected).toBeTruthy();
     });
-    it('pass checkAndUpdateIsSelected to mediaSingleNode', () => {
+    it('pass isNodeSelected to mediaSingleNode', () => {
       const getPos = () => 12;
       const testView = createView(9, 12);
       const nodeView = ReactMediaSingleNode(
         portalProviderAPI,
         eventDispatcher,
         providerFactory,
+        undefined,
         mediaOptions,
       )(node, testView, getPos);
-      const mediaSingleNodeSelectedProp = shallow(nodeView.render())
+      const mediaSingleNodeSelectedProp = shallow(
+        nodeView.render({} as MediaSingleNodeViewProps, () => {}),
+      )
         .props()
         .render({ width: 20, mediaPluginState: {} }).props.selected;
 
-      expect(mediaSingleNodeSelectedProp).toEqual(
-        nodeView.checkAndUpdateIsSelected,
-      );
+      expect(mediaSingleNodeSelectedProp).toEqual(nodeView.isNodeSelected);
     });
   });
 });

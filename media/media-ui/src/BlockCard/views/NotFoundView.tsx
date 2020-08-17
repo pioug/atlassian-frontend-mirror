@@ -1,23 +1,23 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
+import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { R50 } from '@atlaskit/theme/colors';
 import { MouseEvent } from 'react';
+import { R300 } from '@atlaskit/theme/colors';
+import WarningIcon from '@atlaskit/icon/glyph/warning';
 
 import { Frame } from '../components/Frame';
-import { Thumbnail } from '../components/Thumbnail';
 import { Provider } from '../components/Provider';
-import { Name } from '../components/Name';
 import { Byline } from '../components/Byline';
 import { Content } from '../components/Content';
-import { NotFoundImage } from '../utils/constants';
 import { messages } from '../../messages';
 import { ContentFooter } from '../components/ContentFooter';
-import { IconProps, Icon } from '../components/Icon';
+import { IconProps } from '../components/Icon';
 import { ContentHeader } from '../components/ContentHeader';
+import { Link } from '../components/Link';
+import { UnresolvedText } from '../components/UnresolvedText';
 import { handleClickCommon } from '../utils/handlers';
 
-const textTitleProps = { ...messages.not_found_title };
 const textDescriptionProps = { ...messages.not_found_description };
 
 export interface NotFoundProps {
@@ -38,34 +38,36 @@ export interface NotFoundProps {
 export const NotFoundView = ({
   context = { text: '' },
   isSelected = false,
-  testId,
-  icon,
+  testId = 'block-card-not-found-view',
   link = '',
   onClick = () => {},
 }: NotFoundProps) => {
   const handleClick = (event: MouseEvent) => handleClickCommon(event, onClick);
   return (
-    <Frame isSelected={isSelected} testId={testId}>
-      <Content>
+    <Frame isSelected={isSelected} testId={testId} isFluidHeight>
+      <Content isCompact>
         <div>
           <ContentHeader onClick={handleClick} link={link}>
-            <Icon {...icon} />
-            <Name
-              name={<FormattedMessage {...textTitleProps} />}
-              testId={testId ? `${testId}-name` : undefined}
-            />
+            <Link url={link} testId={testId} />
           </ContentHeader>
-          <Byline text={<FormattedMessage {...textDescriptionProps} />} />
+          <Byline>
+            <UnresolvedText
+              icon={
+                <WarningIcon
+                  label="not-found-warning-icon"
+                  size="small"
+                  primaryColor={R300}
+                  testId={`${testId}-warning-icon`}
+                />
+              }
+              text={<FormattedMessage {...textDescriptionProps} />}
+            />
+          </Byline>
         </div>
         <ContentFooter>
           <Provider name={context.text} icon={context.icon} />
         </ContentFooter>
       </Content>
-      <Thumbnail
-        testId={testId ? `${testId}-thumb` : undefined}
-        src={NotFoundImage}
-        color={R50}
-      />
     </Frame>
   );
 };

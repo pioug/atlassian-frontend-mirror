@@ -1,6 +1,6 @@
 import { waitForLoadedImageElements } from '@atlaskit/visual-regression/helper';
 import { snapshot, initFullPageEditorWithAdf, Device } from '../_utils';
-import { Page } from '../../__helpers/page-objects/_types';
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import cardAdf from './__fixtures__/card-adf.json';
 import cardSelectionAdf from './__fixtures__/card-selection-adf.json';
 import {
@@ -13,7 +13,7 @@ import {
 } from '../../__helpers/page-objects/_cards';
 
 describe('Cards:', () => {
-  let page: Page;
+  let page: PuppeteerPage;
 
   beforeEach(async () => {
     page = global.page;
@@ -36,7 +36,7 @@ describe('Cards:', () => {
 
     await page.setViewport({
       width: 800,
-      height: 2900,
+      height: 4200,
     });
 
     // Render an assortment of inline cards.
@@ -44,18 +44,24 @@ describe('Cards:', () => {
     await waitForResolvedInlineCard(page, 'resolving');
     await waitForResolvedInlineCard(page, 'unauthorized');
     await waitForResolvedInlineCard(page, 'forbidden');
+    await waitForResolvedInlineCard(page, 'not_found');
+    await waitForResolvedInlineCard(page, 'errored');
 
     // Render an assortment of block cards.
     await waitForResolvedBlockCard(page);
     await waitForResolvedBlockCard(page, 'resolving');
     await waitForResolvedBlockCard(page, 'unauthorized');
     await waitForResolvedBlockCard(page, 'forbidden');
+    await waitForResolvedBlockCard(page, 'not_found');
+    await waitForResolvedBlockCard(page, 'errored');
 
     // Render an assortment of embed cards.
     await waitForResolvedEmbedCard(page);
     await waitForResolvedBlockCard(page, 'resolving');
     await waitForResolvedEmbedCard(page, 'unauthorized');
     await waitForResolvedEmbedCard(page, 'forbidden');
+    await waitForResolvedEmbedCard(page, 'not_found');
+    await waitForResolvedEmbedCard(page, 'errored');
 
     // Ensure all images have finished loading on the page.
     await waitForLoadedImageElements(page, 3000);

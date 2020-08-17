@@ -1,6 +1,11 @@
 import styled, { css } from 'styled-components';
 
-import { codeFontFamily, fontSize, gridSize } from '@atlaskit/theme/constants';
+import {
+  codeFontFamily,
+  fontFamily,
+  fontSize,
+  gridSize,
+} from '@atlaskit/theme/constants';
 
 import { Props } from '../components/TextArea';
 import { ThemeTokens } from '../theme';
@@ -147,7 +152,7 @@ export const TextAreaWrapper = styled.div<StyleProps>`
     ${({ isDisabled }) => (isDisabled ? 'pointer-events: none;' : null)}
     cursor: inherit;
     font-family: ${props =>
-      props.isMonospaced ? codeFontFamily() : 'inherit'};
+      props.isMonospaced ? codeFontFamily() : fontFamily()};
     font-size: inherit;
     line-height: ${({ isCompact }) =>
       getLineHeight({ isCompact }) / fontSize()};

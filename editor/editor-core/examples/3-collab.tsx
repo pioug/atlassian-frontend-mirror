@@ -69,9 +69,6 @@ export const Column = styled.div`
 
 const quickInsertProvider = quickInsertProviderFactory();
 
-const analyticsHandler = (actionName: string, props?: {}) =>
-  console.log(actionName, props);
-
 const SaveAndCancelButtons = (props: { editorActions: EditorActions }) => (
   <ButtonGroup>
     <Button
@@ -219,7 +216,6 @@ const editorProps = ({
   parentContainer,
 }: PropOptions): EditorProps => ({
   appearance: 'full-page',
-  analyticsHandler,
   allowAnalyticsGASV3: true,
   allowBreakout: true,
   allowLayouts: {

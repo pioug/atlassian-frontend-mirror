@@ -5,7 +5,7 @@ import { B400, B300, B200 } from '@atlaskit/theme/colors';
 import DocumentFilledIcon from '@atlaskit/icon/glyph/document-filled';
 import { hexToRgba } from '@atlaskit/adf-schema';
 
-import { MEDIA_HEIGHT, FILE_WIDTH } from '../../nodeviews/media';
+import { MEDIA_HEIGHT, FILE_WIDTH } from '../../nodeviews/mediaNodeView/media';
 
 const IconWrapper = styled.div`
   color: ${hexToRgba(B400, 0.4) || B400};

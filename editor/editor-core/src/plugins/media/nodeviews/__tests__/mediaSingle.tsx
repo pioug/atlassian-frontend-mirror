@@ -26,13 +26,14 @@ export const getMediaSingleProps = () => ({
   mediaProvider: createMediaProvider(),
   selected: jest.fn(),
   getPos: jest.fn(),
+  forwardRef: jest.fn(),
 });
 
 const handleExternalMediaMock = jest.fn();
 const hasDifferentContextIdMock = jest.fn();
 const copyNodeMock = jest.fn();
 
-jest.mock('../media', () => () => null);
+jest.mock('../mediaNodeView/media', () => () => null);
 jest.mock('../mediaNodeUpdater', () => ({
   MediaNodeUpdater: jest.fn(() => ({
     updateFileAttrs: jest.fn(),

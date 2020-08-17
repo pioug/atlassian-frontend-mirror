@@ -1,41 +1,31 @@
 import React, { Component } from 'react';
-import {
-  QuickInsertItem,
-  QuickInsertProvider,
-} from '@atlaskit/editor-common/provider-factory';
-import { find } from '../../plugins/quick-insert/search';
+import { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
 import StatelessElementBrowser from './StatelessElementBrowser';
 import { Category, Modes } from './types';
 
-interface Props {
-  categories: Category[];
+export interface Props {
+  categories?: Category[];
   mode: keyof typeof Modes;
-  quickInsertProvider: Promise<QuickInsertProvider>;
-  onSelectItem: (item: QuickInsertItem) => void;
-  search: (
-    searchTerm: string,
-    items: QuickInsertItem[],
+  getItems: (
+    query?: string,
     category?: string,
-  ) => QuickInsertItem[];
+  ) => QuickInsertItem[] | Promise<QuickInsertItem[]>;
+  onSelectItem: (item: QuickInsertItem) => void;
   showSearch: boolean;
   showCategories: boolean;
   defaultCategory?: string;
 }
 
-interface State {
-  allItems: QuickInsertItem[];
+export interface State {
   items: QuickInsertItem[];
   selectedCategory?: string;
+  searchTerm?: string;
 }
 
 export default class ElementBrowser extends Component<Props, State> {
-  static defaultProps = {
-    search: find,
-  };
-
   state: State = {
-    allItems: [],
     items: [],
+    searchTerm: '',
     selectedCategory: this.props.defaultCategory,
   };
 
@@ -43,58 +33,37 @@ export default class ElementBrowser extends Component<Props, State> {
     this.fetchItems();
   }
 
-  fetchItems = async () => {
-    const { quickInsertProvider } = this.props;
-    const provider = await quickInsertProvider;
-    const items = await provider.getItems();
-    this.setState({ allItems: items, items });
+  fetchItems = async (query?: string, category?: string) => {
+    const items = await this.props.getItems(query, category);
+    this.setState({ items });
   };
 
-  getFilteredItemsForCategory = (
-    items: QuickInsertItem[],
-    selected: Category,
-  ): QuickInsertItem[] => {
-    return selected.name === 'all'
-      ? items
-      : items.filter(
-          (item: QuickInsertItem) => item.category === selected.name,
-        );
-  };
+  componentDidUpdate(prevProps: Props, prevState: State) {
+    const { searchTerm, selectedCategory } = this.state;
+    if (
+      searchTerm !== prevState.searchTerm ||
+      selectedCategory !== prevState.selectedCategory
+    ) {
+      this.fetchItems(searchTerm, selectedCategory);
+    }
+  }
 
   handleSearch = (searchTerm: string) => {
-    const { selectedCategory, allItems } = this.state;
-    const filteredItems = this.props.search(
-      searchTerm,
-      allItems,
-      selectedCategory,
-    );
-    this.setState({ items: filteredItems });
+    this.setState({ searchTerm });
   };
 
-  resetCategorySelection = (state: State, { defaultCategory }: Props) => ({
-    ...state,
-    selectedCategory: defaultCategory,
-    items: state.allItems,
-  });
-
   handleCategorySelection = (clickedCategory: Category) => {
-    const { allItems, selectedCategory: stateCategoryValue } = this.state;
+    const { selectedCategory: stateCategoryValue } = this.state;
 
     /**
      * Reset selection if clicked on the same category twice.
      */
     if (stateCategoryValue === clickedCategory.name) {
-      return this.setState(this.resetCategorySelection);
+      return this.setState({ selectedCategory: this.props.defaultCategory });
     }
-
-    const filteredItems = this.getFilteredItemsForCategory(
-      allItems,
-      clickedCategory,
-    );
 
     this.setState({
       selectedCategory: clickedCategory.name,
-      items: filteredItems,
     });
   };
 

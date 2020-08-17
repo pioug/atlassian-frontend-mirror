@@ -12,7 +12,7 @@ const focusLockSelector = 'div[data-focus-lock-disabled="false"]';
 // https://ecosystem.atlassian.net/browse/DS-7006
 describe('onboarding spotlight visual regression', () => {
   it('should render a spotlight next to a target', async () => {
-    const { __BASEURL__, page } = global as any;
+    const { __BASEURL__, page } = global;
     const url = getExampleUrl(
       'design-system',
       'onboarding',
@@ -32,7 +32,7 @@ describe('onboarding spotlight visual regression', () => {
   });
 
   it('should move a spotlight after resizing the viewport', async () => {
-    const { __BASEURL__, page } = global as any;
+    const { __BASEURL__, page } = global;
     const url = getExampleUrl(
       'design-system',
       'onboarding',
@@ -56,7 +56,7 @@ describe('onboarding spotlight visual regression', () => {
   });
 
   it('should render each button type correctly, with primary action in focus on the right hand side', async () => {
-    const { __BASEURL__, page } = global as any;
+    const { __BASEURL__, page } = global;
     const url = getExampleUrl(
       'design-system',
       'onboarding',

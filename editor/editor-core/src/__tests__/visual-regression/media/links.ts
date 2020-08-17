@@ -1,9 +1,9 @@
-import { Page } from '../../__helpers/page-objects/_types';
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { Appearance, initEditorWithAdf, snapshot } from '../_utils';
 import { MockActivityResource } from '@atlaskit/activity/dist/es5/support';
 
 describe('Snapshot Test: Media', () => {
-  let page: Page;
+  let page: PuppeteerPage;
   beforeEach(async () => {
     page = global.page;
     await initEditorWithAdf(page, {

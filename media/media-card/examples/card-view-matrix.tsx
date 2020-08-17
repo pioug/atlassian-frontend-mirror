@@ -59,7 +59,7 @@ interface State {
   hasActions: boolean;
   hasManyActions: boolean;
   isExternalImage: boolean;
-  newExp: boolean;
+  newCardExperience: boolean;
   useBigCard: boolean;
   shouldRenderCard: boolean;
 }
@@ -75,7 +75,7 @@ class Example extends React.Component<{}, State> {
     hasActions: true,
     hasManyActions: false,
     isExternalImage: false,
-    newExp: true,
+    newCardExperience: true,
     useBigCard: false,
     shouldRenderCard: true,
   };
@@ -89,12 +89,12 @@ class Example extends React.Component<{}, State> {
       'error',
       'failed-processing',
     ];
-    const mediaTypes: MediaType[] = [
-      'image',
-      'audio',
-      'video',
-      'doc',
-      'unknown',
+    const mediaTypes: [MediaType, string][] = [
+      ['image', 'image/jpeg'],
+      ['audio', 'audio/mp4'],
+      ['video', 'video/mp4'],
+      ['doc', 'application/pdf'],
+      ['unknown', 'something/unknown'],
     ];
 
     if (!this.state.shouldRenderCard) {
@@ -105,9 +105,9 @@ class Example extends React.Component<{}, State> {
       <StyledContainer>
         <CheckboxesContainer>
           <Checkbox
-            value="newExp"
+            value="newCardExperience"
             label="Display the new experience?"
-            isChecked={this.state.newExp}
+            isChecked={this.state.newCardExperience}
             onChange={this.onCheckboxChange}
             name="isExternalImage"
           />
@@ -201,7 +201,7 @@ class Example extends React.Component<{}, State> {
             </tr>
           </thead>
           <tbody>
-            {mediaTypes.map(mediaType => (
+            {mediaTypes.map(([mediaType, mimeType]) => (
               <tr key={`${mediaType}-row`}>
                 <th
                   style={{
@@ -217,6 +217,7 @@ class Example extends React.Component<{}, State> {
                     {this.renderCardImageView(
                       status,
                       mediaType,
+                      mimeType,
                       this.setSelected,
                     )}
                   </td>
@@ -242,6 +243,7 @@ class Example extends React.Component<{}, State> {
   private renderCardImageView = (
     status: CardStatus,
     mediaType: MediaType = 'image',
+    mimeType: string = 'image/jpeg',
     setSelected: (selected: boolean) => void,
   ) => {
     const {
@@ -281,6 +283,7 @@ class Example extends React.Component<{}, State> {
       id: 'some-file-id',
       name: 'hubert-blaine-wolfeschlegelsteinhausenbergerdorff.jpg',
       mediaType,
+      mimeType,
       size: 4200,
       createdAt: 1589481162745,
     };
@@ -302,7 +305,7 @@ class Example extends React.Component<{}, State> {
       <CardWrapper {...wrapperDimensions}>
         <CardView
           featureFlags={{
-            newExp: this.state.newExp,
+            newCardExperience: this.state.newCardExperience,
           }}
           status={status}
           mediaItemType="file"

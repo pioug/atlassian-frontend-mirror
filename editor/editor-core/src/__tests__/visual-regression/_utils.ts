@@ -1,26 +1,17 @@
 import {
-  getExampleUrl,
-  disableAllSideEffects,
-  navigateToUrl,
   compareScreenshot,
-  SideEffectOptions,
   CustomSnapshotIdentifier,
+  disableAllSideEffects,
+  getExampleUrl,
+  navigateToUrl,
+  PuppeteerPage,
+  PuppeteerSerializable,
+  SideEffectOptions,
 } from '@atlaskit/visual-regression/helper';
 import { EditorProps } from '../../types';
-import { Page as PuppeteerPage, JSONObject } from 'puppeteer';
 import { animationFrame } from '../__helpers/page-objects/_editor';
 import { GUTTER_SELECTOR } from '../../plugins/base/pm-plugins/scroll-gutter';
 import { CreateCollabProviderOptions } from '@atlaskit/synchrony-test-helpers';
-import { Page } from '../__helpers/page-objects/_types';
-
-export {
-  setupMediaMocksProviders,
-  editable,
-  changeSelectedNodeLayout,
-  rerenderEditor,
-  setFeature,
-  toggleFeature,
-} from '../integration/_helpers';
 
 export const editorSelector = '.akEditor';
 export const editorFullPageContentSelector =
@@ -240,7 +231,7 @@ export async function mountEditor(
       });
     },
     props,
-    mountOptions as JSONObject,
+    mountOptions as PuppeteerSerializable,
   );
   await page.waitForSelector(pmSelector);
 }
@@ -458,7 +449,7 @@ export const applyRemoteStep = async (
 };
 
 export const getContentBoundingRectTopLeftCoords = async (
-  page: Page,
+  page: PuppeteerPage,
   elementSelector: string,
 ) => {
   // page.click clicks in centre of element, so we need to get the bounding rect
@@ -485,7 +476,7 @@ export const getContentBoundingRectTopLeftCoords = async (
   return boundingRectCoords;
 };
 
-export const mediaToFullyLoad = async (page: Page) => {
+export const mediaToFullyLoad = async (page: PuppeteerPage) => {
   await page.waitForSelector(
     '[data-testid="media-file-card-view"][data-test-status="complete"]',
   );

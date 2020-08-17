@@ -22,6 +22,8 @@ describe('FindReplaceToolbarButton', () => {
         numMatches={0}
         replaceText=""
         shouldFocus
+        shouldMatchCase
+        onToggleMatchCase={jest.fn()}
         onActivate={jest.fn()}
         onCancel={jest.fn()}
         onFind={jest.fn()}

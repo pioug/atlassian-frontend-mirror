@@ -4,15 +4,12 @@ import { InjectedIntlProps, injectIntl } from 'react-intl';
 import { EmojiPicker as AkEmojiPicker } from '@atlaskit/emoji/picker';
 import { EmojiId } from '@atlaskit/emoji/types';
 import { akEditorMenuZIndex, Popup } from '@atlaskit/editor-common';
-import {
-  analyticsService as analytics,
-  withAnalytics,
-} from '../../../../analytics';
 import DropdownMenu from '../../../../ui/DropdownMenu';
 import ToolbarButton from '../../../../ui/ToolbarButton';
 import { ButtonGroup, Wrapper } from '../../../../ui/styles';
 import { createTable } from '../../../table/commands';
 import { insertDate, openDatePicker } from '../../../date/actions';
+import { openElementBrowserModal } from '../../../quick-insert/commands';
 import { showPlaceholderFloatingToolbar } from '../../../placeholder-text/actions';
 import { createHorizontalRule } from '../../../rule/pm-plugins/input-rule';
 import { insertLayoutColumnsWithAnalytics } from '../../../layout/actions';
@@ -81,6 +78,7 @@ class ToolbarInsertBlock extends React.PureComponent<
       layoutSectionEnabled: props.layoutSectionEnabled,
       expandEnabled: props.expandEnabled,
       macroProvider: props.macroProvider,
+      showElementBrowserLink: props.showElementBrowserLink,
       emojiProvider: props.emojiProvider,
       availableWrapperBlockTypes: props.availableWrapperBlockTypes,
       insertMenuItems: props.insertMenuItems,
@@ -292,166 +290,141 @@ class ToolbarInsertBlock extends React.PureComponent<
     );
   }
 
-  private toggleLinkPanel = withAnalytics(
-    'atlassian.editor.format.hyperlink.button',
-    (inputMethod: TOOLBAR_MENU_TYPE): boolean => {
-      const { editorView } = this.props;
-      showLinkToolbar(inputMethod)(editorView.state, editorView.dispatch);
-      return true;
-    },
-  );
+  private toggleLinkPanel = (inputMethod: TOOLBAR_MENU_TYPE): boolean => {
+    const { editorView } = this.props;
+    showLinkToolbar(inputMethod)(editorView.state, editorView.dispatch);
+    return true;
+  };
 
-  private insertMention = withAnalytics(
-    'atlassian.fabric.mention.picker.trigger.button',
-    (inputMethod: TOOLBAR_MENU_TYPE): boolean => {
-      const { editorView } = this.props;
-      insertMentionQuery(inputMethod)(editorView.state, editorView.dispatch);
-      return true;
-    },
-  );
+  private insertMention = (inputMethod: TOOLBAR_MENU_TYPE): boolean => {
+    const { editorView } = this.props;
+    insertMentionQuery(inputMethod)(editorView.state, editorView.dispatch);
+    return true;
+  };
 
-  private insertTable = withAnalytics(
-    'atlassian.editor.format.table.button',
-    (inputMethod: TOOLBAR_MENU_TYPE): boolean => {
-      const { editorView } = this.props;
-      return commandWithAnalytics({
-        action: ACTION.INSERTED,
-        actionSubject: ACTION_SUBJECT.DOCUMENT,
-        actionSubjectId: ACTION_SUBJECT_ID.TABLE,
-        attributes: { inputMethod },
-        eventType: EVENT_TYPE.TRACK,
-      })(createTable)(editorView.state, editorView.dispatch);
-    },
-  );
+  private insertTable = (inputMethod: TOOLBAR_MENU_TYPE): boolean => {
+    const { editorView } = this.props;
+    return commandWithAnalytics({
+      action: ACTION.INSERTED,
+      actionSubject: ACTION_SUBJECT.DOCUMENT,
+      actionSubjectId: ACTION_SUBJECT_ID.TABLE,
+      attributes: { inputMethod },
+      eventType: EVENT_TYPE.TRACK,
+    })(createTable)(editorView.state, editorView.dispatch);
+  };
 
-  private createDate = withAnalytics(
-    'atlassian.editor.format.date.button',
-    (inputMethod: TOOLBAR_MENU_TYPE): boolean => {
-      const { editorView } = this.props;
-      insertDate(undefined, inputMethod)(editorView.state, editorView.dispatch);
-      openDatePicker()(editorView.state, editorView.dispatch);
-      return true;
-    },
-  );
+  private createDate = (inputMethod: TOOLBAR_MENU_TYPE): boolean => {
+    const { editorView } = this.props;
+    insertDate(undefined, inputMethod)(editorView.state, editorView.dispatch);
+    openDatePicker()(editorView.state, editorView.dispatch);
+    return true;
+  };
 
-  private createPlaceholderText = withAnalytics(
-    'atlassian.editor.format.placeholder.button',
-    (): boolean => {
-      const { editorView } = this.props;
-      showPlaceholderFloatingToolbar(editorView.state, editorView.dispatch);
-      return true;
-    },
-  );
+  private createPlaceholderText = (): boolean => {
+    const { editorView } = this.props;
+    showPlaceholderFloatingToolbar(editorView.state, editorView.dispatch);
+    return true;
+  };
 
-  private insertLayoutColumns = withAnalytics(
-    'atlassian.editor.format.layout.button',
-    (inputMethod: TOOLBAR_MENU_TYPE): boolean => {
-      const { editorView } = this.props;
-      insertLayoutColumnsWithAnalytics(inputMethod)(
-        editorView.state,
-        editorView.dispatch,
-      );
-      return true;
-    },
-  );
+  private insertLayoutColumns = (inputMethod: TOOLBAR_MENU_TYPE): boolean => {
+    const { editorView } = this.props;
+    insertLayoutColumnsWithAnalytics(inputMethod)(
+      editorView.state,
+      editorView.dispatch,
+    );
+    return true;
+  };
 
-  private createStatus = withAnalytics(
-    'atlassian.editor.format.status.button',
-    (inputMethod: TOOLBAR_MENU_TYPE): boolean => {
-      const { editorView } = this.props;
-      updateStatusWithAnalytics(inputMethod)(
-        editorView.state,
-        editorView.dispatch,
-      );
-      return true;
-    },
-  );
+  private createStatus = (inputMethod: TOOLBAR_MENU_TYPE): boolean => {
+    const { editorView } = this.props;
+    updateStatusWithAnalytics(inputMethod)(
+      editorView.state,
+      editorView.dispatch,
+    );
+    return true;
+  };
 
-  private openMediaPicker = withAnalytics(
-    'atlassian.editor.format.media.button',
-    (inputMethod: TOOLBAR_MENU_TYPE): boolean => {
-      const { onShowMediaPicker, dispatchAnalyticsEvent } = this.props;
-      if (onShowMediaPicker) {
-        onShowMediaPicker();
-        if (dispatchAnalyticsEvent) {
-          dispatchAnalyticsEvent({
-            action: ACTION.OPENED,
-            actionSubject: ACTION_SUBJECT.PICKER,
-            actionSubjectId: ACTION_SUBJECT_ID.PICKER_CLOUD,
-            attributes: { inputMethod },
-            eventType: EVENT_TYPE.UI,
-          });
-        }
+  private openMediaPicker = (inputMethod: TOOLBAR_MENU_TYPE): boolean => {
+    const { onShowMediaPicker, dispatchAnalyticsEvent } = this.props;
+    if (onShowMediaPicker) {
+      onShowMediaPicker();
+      if (dispatchAnalyticsEvent) {
+        dispatchAnalyticsEvent({
+          action: ACTION.OPENED,
+          actionSubject: ACTION_SUBJECT.PICKER,
+          actionSubjectId: ACTION_SUBJECT_ID.PICKER_CLOUD,
+          attributes: { inputMethod },
+          eventType: EVENT_TYPE.UI,
+        });
       }
-      return true;
-    },
-  );
+    }
+    return true;
+  };
 
   private insertTaskDecision = (
     name: 'action' | 'decision',
     inputMethod: TOOLBAR_MENU_TYPE,
-  ) =>
-    withAnalytics(`atlassian.fabric.${name}.trigger.button`, (): boolean => {
-      const { editorView } = this.props;
-      if (!editorView) {
-        return false;
-      }
-      const listType = name === 'action' ? 'taskList' : 'decisionList';
-      insertTaskDecision(
-        editorView,
-        listType,
-        inputMethod,
-      )(editorView.state, editorView.dispatch);
-      return true;
-    });
-
-  private insertHorizontalRule = withAnalytics(
-    'atlassian.editor.format.horizontalrule.button',
-    (inputMethod: TOOLBAR_MENU_TYPE): boolean => {
-      const { editorView } = this.props;
-
-      const tr = createHorizontalRule(
-        editorView.state,
-        editorView.state.selection.from,
-        editorView.state.selection.to,
-        inputMethod,
-      );
-
-      if (tr) {
-        editorView.dispatch(tr);
-        return true;
-      }
-
+  ) => (): boolean => {
+    const { editorView } = this.props;
+    if (!editorView) {
       return false;
-    },
-  );
+    }
+    const listType = name === 'action' ? 'taskList' : 'decisionList';
+    insertTaskDecision(
+      editorView,
+      listType,
+      inputMethod,
+    )(editorView.state, editorView.dispatch);
+    return true;
+  };
+
+  private insertHorizontalRule = (inputMethod: TOOLBAR_MENU_TYPE): boolean => {
+    const { editorView } = this.props;
+
+    const tr = createHorizontalRule(
+      editorView.state,
+      editorView.state.selection.from,
+      editorView.state.selection.to,
+      inputMethod,
+    );
+
+    if (tr) {
+      editorView.dispatch(tr);
+      return true;
+    }
+
+    return false;
+  };
 
   private insertExpand = (): boolean => {
     const { state, dispatch } = this.props.editorView;
     return insertExpand(state, dispatch);
   };
 
-  private insertBlockType = (itemName: string) =>
-    withAnalytics(`atlassian.editor.format.${itemName}.button`, () => {
-      const { editorView, onInsertBlockType } = this.props;
-      const { state, dispatch } = editorView;
+  private insertBlockType = (itemName: string) => () => {
+    const { editorView, onInsertBlockType } = this.props;
+    const { state, dispatch } = editorView;
 
-      onInsertBlockType!(itemName)(state, dispatch);
-      return true;
-    });
+    onInsertBlockType!(itemName)(state, dispatch);
+    return true;
+  };
 
-  private handleSelectedEmoji = withAnalytics(
-    'atlassian.editor.emoji.button',
-    (emojiId: EmojiId): boolean => {
-      this.props.editorView.focus();
-      insertEmoji(emojiId, INPUT_METHOD.PICKER)(
-        this.props.editorView.state,
-        this.props.editorView.dispatch,
-      );
-      this.toggleEmojiPicker();
-      return true;
-    },
-  );
+  private handleSelectedEmoji = (emojiId: EmojiId): boolean => {
+    this.props.editorView.focus();
+    insertEmoji(emojiId, INPUT_METHOD.PICKER)(
+      this.props.editorView.state,
+      this.props.editorView.dispatch,
+    );
+    this.toggleEmojiPicker();
+    return true;
+  };
+
+  private openElementBrowser = () => {
+    openElementBrowserModal()(
+      this.props.editorView.state,
+      this.props.editorView.dispatch,
+    );
+  };
 
   private onItemActivated = ({
     item,
@@ -463,8 +436,6 @@ class ToolbarInsertBlock extends React.PureComponent<
     const {
       editorView,
       editorActions,
-      onInsertMacroFromMacroBrowser,
-      macroProvider,
       handleImageUpload,
       expandEnabled,
     } = this.props;
@@ -510,13 +481,7 @@ class ToolbarInsertBlock extends React.PureComponent<
         this.insertHorizontalRule(inputMethod);
         break;
       case 'macro':
-        analytics.trackEvent(
-          `atlassian.editor.format.${item.value.name}.button`,
-        );
-        onInsertMacroFromMacroBrowser!(macroProvider!)(
-          editorView.state,
-          editorView.dispatch,
-        );
+        this.openElementBrowser();
         break;
       case 'date':
         this.createDate(inputMethod);

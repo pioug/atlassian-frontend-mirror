@@ -22,6 +22,7 @@ export {
   wideTransparentImage,
 } from './images';
 export { waitUntil } from './waitUntil';
+export { flushPromises } from './flushPromises';
 export { Matrix } from './story-styles';
 export {
   collectionNames,
@@ -44,6 +45,7 @@ export {
   errorFileId,
   externalImageIdentifier,
   externalSmallImageIdentifier,
+  externaBrokenlIdentifier,
   genericDataURI,
   genericFileDetails,
   genericFileId,
@@ -65,6 +67,12 @@ export {
   videoProcessingFailedId,
   videoSquareFileId,
   wideImageFileId,
+  zipFileId,
+  zipFileWithNestedFolderId,
+  zipItemLargeInnerFileId,
+  zipItemMultipleFoldersAtRootId,
+  zipJiraArchiveFileId,
+  zipEncryptedFileId,
 } from './exampleMediaItems';
 export { MouseEventProps, createMouseEvent } from './createMouseEvent';
 export { TouchEventProps, createTouchEvent } from './createTouchEvent';
@@ -91,6 +99,7 @@ export {
 } from './mocks/media-mock';
 export { awaitError } from './await-error';
 export { nextTick, sleep } from './nextTick';
+export { timeoutPromise } from './timeoutPromise';
 export {
   ExpectConstructorToHaveBeenCalledWith,
   ExpectFunctionToHaveBeenCalledWith,
@@ -144,3 +153,5 @@ export {
   enableMockGlobalImage,
   disableMockGlobalImage,
 } from './MockGlobalImage';
+
+export { exampleMediaFeatureFlags } from './example-mediaFeatureFlags';

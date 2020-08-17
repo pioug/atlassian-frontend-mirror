@@ -7,7 +7,6 @@ import UnlinkIcon from '@atlaskit/icon/glyph/editor/unlink';
 import OpenIcon from '@atlaskit/icon/glyph/shortcut';
 import { CardPlatform } from '@atlaskit/smart-card';
 
-import { analyticsService } from '../../analytics';
 import { Command } from '../../types';
 import {
   FloatingToolbarConfig,
@@ -70,7 +69,6 @@ export const removeCard: Command = (state, dispatch) => {
   if (dispatch) {
     dispatch(addAnalytics(state, removeSelectedNode(state.tr), payload));
   }
-  analyticsService.trackEvent('atlassian.editor.format.card.delete.button');
   return true;
 };
 
@@ -95,7 +93,6 @@ export const visitCardLink: Command = (state, dispatch) => {
   };
 
   // All card links should open in the same tab per https://product-fabric.atlassian.net/browse/MS-1583.
-  analyticsService.trackEvent('atlassian.editor.format.card.visit.button');
   // We are in edit mode here, open the smart card URL in a new window.
   window.open(url);
 

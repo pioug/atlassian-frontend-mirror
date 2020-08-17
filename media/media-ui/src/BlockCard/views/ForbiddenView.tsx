@@ -1,25 +1,24 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import { FormattedMessage } from 'react-intl';
-import { R50 } from '@atlaskit/theme/colors';
 import { MouseEvent } from 'react';
+import { R300 } from '@atlaskit/theme/colors';
+import LockIcon from '@atlaskit/icon/glyph/lock-filled';
 
 import { Frame } from '../components/Frame';
-import { Thumbnail } from '../components/Thumbnail';
 import { Provider } from '../components/Provider';
-import { Name } from '../components/Name';
 import { Byline } from '../components/Byline';
 import { ActionList } from '../components/ActionList';
 import { Content } from '../components/Content';
 import { ActionProps } from '../components/Action';
-import { LockImage } from '../utils/constants';
 import { messages } from '../../messages';
 import { ContentFooter } from '../components/ContentFooter';
-import { IconProps, Icon } from '../components/Icon';
+import { IconProps } from '../components/Icon';
 import { ContentHeader } from '../components/ContentHeader';
 import { handleClickCommon } from '../utils/handlers';
+import { Link } from '../components/Link';
+import { UnresolvedText } from '../components/UnresolvedText';
 
-const textTitleProps = { ...messages.invalid_permissions };
 const textDescriptionProps = { ...messages.invalid_permissions_description };
 
 export interface PermissionDeniedProps {
@@ -47,34 +46,36 @@ export const ForbiddenView = ({
   showActions = true,
   link = '',
   onClick = () => {},
-  icon,
 }: PermissionDeniedProps) => {
   const handleClick = (event: MouseEvent<HTMLElement>) =>
     handleClickCommon(event, onClick);
 
   return (
-    <Frame isSelected={isSelected} testId={testId}>
-      <Content>
+    <Frame isSelected={isSelected} testId={testId} isFluidHeight>
+      <Content isCompact>
         <div>
           <ContentHeader onClick={handleClick} link={link}>
-            <Icon {...icon} />
-            <Name
-              name={<FormattedMessage {...textTitleProps} />}
-              testId={testId ? `${testId}-name` : undefined}
-            />
+            <Link url={link} testId={testId} />
           </ContentHeader>
-          <Byline text={<FormattedMessage {...textDescriptionProps} />} />
+          <Byline>
+            <UnresolvedText
+              icon={
+                <LockIcon
+                  label="forbidden-lock-icon"
+                  size="small"
+                  primaryColor={R300}
+                  testId={`${testId}-lock-icon`}
+                />
+              }
+              text={<FormattedMessage {...textDescriptionProps} />}
+            />
+          </Byline>
         </div>
         <ContentFooter>
           <Provider name={context.text} icon={context.icon} />
           {showActions && <ActionList items={actions} />}
         </ContentFooter>
       </Content>
-      <Thumbnail
-        testId={testId ? `${testId}-thumb` : undefined}
-        src={LockImage}
-        color={R50}
-      />
     </Frame>
   );
 };

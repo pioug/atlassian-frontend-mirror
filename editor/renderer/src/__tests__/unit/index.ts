@@ -13,11 +13,19 @@ class MockSerializer implements Serializer<string> {
 describe('Renderer', () => {
   describe('renderDocument', () => {
     const serializer = new MockSerializer();
+    let getValidDocumentSpy: sinon.SinonSpy;
+
+    beforeEach(() => {
+      getValidDocumentSpy = sinon.spy(common, 'getValidDocument');
+    });
+
+    afterEach(() => {
+      getValidDocumentSpy.restore();
+    });
 
     it('should call getValidDocument', () => {
-      const spy = sinon.spy(common, 'getValidDocument');
       renderDocument(doc, serializer, schema);
-      expect(spy.calledWith(doc)).toEqual(true);
+      expect(getValidDocumentSpy.calledWith(doc)).toEqual(true);
     });
 
     it('should call schema.nodeFromJSON', () => {
@@ -57,6 +65,30 @@ describe('Renderer', () => {
       unexpectedContent.forEach(content => {
         expect(renderDocument(content, serializer).result).toEqual(null);
       });
+    });
+
+    it('should not call getValidDocument when useSpecBasedValidator is TRUE', () => {
+      renderDocument(doc, serializer, schema, 'final', true);
+      expect(getValidDocumentSpy.called).toEqual(false);
+    });
+
+    it('should return stat when useSpecBasedValidator is TRUE', () => {
+      const result = renderDocument(doc, serializer, schema, 'final', true);
+      expect(getValidDocumentSpy.called).toEqual(false);
+      expect(result.stat.sanitizeTime).toBeGreaterThan(0);
+      expect(result.stat.buildTreeTime).toBeDefined();
+      expect(result.stat.buildTreeTime).toBeGreaterThan(0);
+      expect(result.stat.serializeTime).toBeDefined();
+      expect(result.stat.serializeTime).toBeGreaterThan(0);
+    });
+
+    it('should return stat when useSpecBasedValidator is false', () => {
+      const result = renderDocument(doc, serializer, schema, 'final', false);
+      expect(result.stat.sanitizeTime).toBeGreaterThan(0);
+      expect(result.stat.buildTreeTime).toBeDefined();
+      expect(result.stat.buildTreeTime).toBeGreaterThan(0);
+      expect(result.stat.serializeTime).toBeDefined();
+      expect(result.stat.serializeTime).toBeGreaterThan(0);
     });
   });
 });

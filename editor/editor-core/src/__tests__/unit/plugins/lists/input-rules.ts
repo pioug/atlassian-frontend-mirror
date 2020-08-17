@@ -9,7 +9,6 @@ import {
   hardBreak,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
-import { analyticsService, AnalyticsHandler } from '../../../../analytics';
 import { EditorView } from 'prosemirror-view';
 import {
   CreateUIAnalyticsEvent,
@@ -19,24 +18,17 @@ import {
 describe('inputrules', () => {
   const createEditor = createEditorFactory();
   let createAnalyticsEvent: CreateUIAnalyticsEvent;
-  let trackEvent: jest.SpyInstance<AnalyticsHandler>;
 
   const editor = (doc: any) => {
     createAnalyticsEvent = jest.fn(() => ({ fire() {} } as UIAnalyticsEvent));
     return createEditor({
       doc,
       editorProps: {
-        analyticsHandler: trackEvent as any,
         allowAnalyticsGASV3: true,
       },
       createAnalyticsEvent,
     });
   };
-
-  beforeEach(() => {
-    trackEvent = jest.fn();
-    analyticsService.trackEvent = trackEvent as any;
-  });
 
   describe('bullet list rule', () => {
     describe('type "* "', () => {
@@ -51,12 +43,6 @@ describe('inputrules', () => {
 
       it('should convert to a bullet list item', () => {
         expect(editorView.state.doc).toEqualDocument(doc(ul(li(p()))));
-      });
-
-      it('should track analytics V2 event', () => {
-        expect(trackEvent).toHaveBeenCalledWith(
-          'atlassian.editor.format.list.bullet.autoformatting',
-        );
       });
 
       it('should create analytics GAS V3 event', () => {
@@ -117,12 +103,6 @@ describe('inputrules', () => {
         expect(editorView.state.doc).toEqualDocument(doc(ul(li(p()))));
       });
 
-      it('should track analytics V2 event', () => {
-        expect(trackEvent).toHaveBeenCalledWith(
-          'atlassian.editor.format.list.bullet.autoformatting',
-        );
-      });
-
       it('should create analytics GAS V3 event', () => {
         expect(createAnalyticsEvent).toHaveBeenCalledWith({
           action: 'formatted',
@@ -156,12 +136,6 @@ describe('inputrules', () => {
 
       it('should convert to an ordered list item', () => {
         expect(editorView.state.doc).toEqualDocument(doc(ol(li(p()))));
-      });
-
-      it('should track analytics V2 event', () => {
-        expect(trackEvent).toHaveBeenCalledWith(
-          'atlassian.editor.format.list.numbered.autoformatting',
-        );
       });
 
       it('should create analytics GAS V3 event', () => {
@@ -212,12 +186,6 @@ describe('inputrules', () => {
         expect(editorView.state.doc).toEqualDocument(doc(ol(li(p()))));
       });
 
-      it('should track analytics V2 event', () => {
-        expect(trackEvent).toHaveBeenCalledWith(
-          'atlassian.editor.format.list.numbered.autoformatting',
-        );
-      });
-
       it('should create analytics GAS V3 event', () => {
         const expectedPayload = {
           action: 'formatted',
@@ -238,9 +206,6 @@ describe('inputrules', () => {
 
         insertText(editorView, '2. ', sel);
         expect(editorView.state.doc).toEqualDocument(doc(p('2. ')));
-        expect(trackEvent).not.toHaveBeenCalledWith(
-          'atlassian.editor.format.list.numbered.autoformatting',
-        );
       });
 
       it('should not convert "2. " after shift+enter to a ordered list item', () => {
@@ -248,9 +213,6 @@ describe('inputrules', () => {
         insertText(editorView, '2. ', sel);
         expect(editorView.state.doc).toEqualDocument(
           doc(p('test', hardBreak(), '2. ')),
-        );
-        expect(trackEvent).not.toHaveBeenCalledWith(
-          'atlassian.editor.format.list.numbered.autoformatting',
         );
       });
 
@@ -262,9 +224,6 @@ describe('inputrules', () => {
         expect(editorView.state.doc).toEqualDocument(
           doc(p('test', hardBreak(), hardBreak(), '2. ')),
         );
-        expect(trackEvent).not.toHaveBeenCalledWith(
-          'atlassian.editor.format.list.numbered.autoformatting',
-        );
       });
 
       it('should not convert "2) " to a ordered list item', () => {
@@ -272,9 +231,6 @@ describe('inputrules', () => {
 
         insertText(editorView, '2) ', sel);
         expect(editorView.state.doc).toEqualDocument(doc(p('2) ')));
-        expect(trackEvent).not.toHaveBeenCalledWith(
-          'atlassian.editor.format.list.numbered.autoformatting',
-        );
       });
     });
 

@@ -15,13 +15,13 @@
   "atlaskit:src": "src/index.js",
   "atlassian": {
     "team": "Design System Team",
+    "deprecatedAutoEntryPoints": true,
     "inPublicMirror": true,
     "releaseModel": "scheduled",
     "website": {
       "name": "Size Detector",
       "deprecated": "Please use @atlaskit/width-detector instead."
-    },
-    "deprecatedAutoEntryPoints": true
+    }
   },
   "dependencies": {
     "@babel/runtime": "^7.0.0",

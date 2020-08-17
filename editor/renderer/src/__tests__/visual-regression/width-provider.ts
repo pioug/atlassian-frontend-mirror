@@ -1,4 +1,4 @@
-import { Page } from 'puppeteer';
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { snapshot, animationFrame } from './_utils';
 import {
   getExampleUrl,
@@ -7,7 +7,7 @@ import {
 } from '@atlaskit/visual-regression/helper';
 
 describe('Snapshot Test: WidthProvider', () => {
-  let page: Page;
+  let page: PuppeteerPage;
   beforeAll(() => {
     page = global.page;
   });

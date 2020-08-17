@@ -13,10 +13,12 @@ import {
 } from '@atlaskit/editor-common';
 import { Identifier } from '@atlaskit/media-client';
 import { MediaProps } from './media';
+import { MediaFeatureFlags } from '@atlaskit/media-common';
 
 export interface MediaGroupProps {
   children?: React.ReactNode;
   eventHandlers?: EventHandlers;
+  featureFlags?: MediaFeatureFlags;
 }
 
 export interface MediaGroupState {
@@ -66,12 +68,14 @@ export default class MediaGroup extends PureComponent<
       resizeMode: 'stretchy-fit',
       cardDimensions: defaultImageCardDimensions,
       useInlinePlayer: false,
+      featureFlags: this.props.featureFlags,
     } as MediaProps);
   }
 
   renderSingleLink(child: ReactElement<MediaProps>) {
     return React.cloneElement(child, {
       appearance: 'auto',
+      featureFlags: this.props.featureFlags,
     } as MediaProps);
   }
 
@@ -108,6 +112,7 @@ export default class MediaGroup extends PureComponent<
           onClick,
         },
       },
+      featureFlags: this.props.featureFlags,
     } as MediaProps);
   }
 
@@ -138,7 +143,9 @@ export default class MediaGroup extends PureComponent<
             case 'link':
               return null;
             default:
-              return React.cloneElement(child);
+              return React.cloneElement(child, {
+                featureFlags: this.props.featureFlags,
+              });
           }
         })}
       </FilmstripView>

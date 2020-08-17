@@ -1,11 +1,11 @@
 import { snapshot, initEditorWithAdf, Appearance } from '../_utils';
 
 import adfWithMixedContent from './__fixtures__/content.adf.json';
-import { Page } from '../../__helpers/page-objects/_types';
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { scrollToTop } from '../../__helpers/page-objects/_editor';
 
 describe('Context panel', () => {
-  let page: Page;
+  let page: PuppeteerPage;
 
   const initEditor = async (
     adf: any,

@@ -84,7 +84,7 @@ describe(name, () => {
             providerFactory: {} as any,
             errorReporter: {} as any,
             portalProviderAPI: { render() {}, remove() {} } as any,
-            reactContext: () => ({}),
+            reactContext: () => ({} as any),
             dispatchAnalyticsEvent: () => {},
             performanceTracking: {},
           }).length,

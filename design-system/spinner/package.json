@@ -17,12 +17,12 @@
   "homepage": "https://atlassian.design/components/spinner/",
   "atlassian": {
     "team": "Design System Team",
+    "deprecatedAutoEntryPoints": true,
     "inPublicMirror": true,
     "releaseModel": "scheduled",
     "website": {
       "name": "Spinner"
-    },
-    "deprecatedAutoEntryPoints": true
+    }
   },
   "dependencies": {
     "@atlaskit/theme": "^10.0.0",
@@ -39,7 +39,7 @@
     "@atlaskit/docs": "*",
     "@atlaskit/lozenge": "^10.0.0",
     "@atlaskit/motion": "^0.4.0",
-    "@atlaskit/select": "^12.0.0",
+    "@atlaskit/select": "^13.0.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/webdriver-runner": "*",
     "@testing-library/react": "^8.0.1",

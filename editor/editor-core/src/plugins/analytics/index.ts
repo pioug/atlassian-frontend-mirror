@@ -44,6 +44,8 @@ export {
   TableEventPayload,
   TRIGGER_METHOD,
   USER_CONTEXT,
+  DELETE_DIRECTION,
+  LIST_TEXT_SCENARIOS,
 } from './types';
 export {
   withAnalytics,

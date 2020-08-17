@@ -17,7 +17,11 @@ import {
 } from '@atlaskit/media-test-helpers';
 import { MediaButton } from '@atlaskit/media-ui';
 import { Header, State as HeaderState } from '../../../newgen/header';
-import { MetadataFileName, MetadataSubText } from '../../../newgen/styled';
+import {
+  MetadataFileName,
+  MetadataSubText,
+  Header as HeaderWrapper,
+} from '../../../newgen/styled';
 import { LeftHeader } from '../../../newgen/styled';
 
 const identifier: Identifier = {
@@ -53,7 +57,65 @@ const processedImageState: FileState = {
   },
 };
 
+const processedArchiveState: FileState = {
+  id: '123',
+  mediaType: 'archive',
+  mimeType: 'application/zip',
+  status: 'processed',
+  name: 'my zip',
+  size: 0,
+  artifacts: {},
+};
+
 describe('<Header />', () => {
+  it('passes isArchiveSideBarVisible as true if media type is archive', () => {
+    const mediaClient = fakeMediaClient();
+    asMock(mediaClient.file.getFileState).mockReturnValue(
+      createFileStateSubject(processedArchiveState),
+    );
+    const el = mountWithIntlContext(
+      <Header
+        intl={fakeIntl}
+        mediaClient={mediaClient}
+        identifier={identifier}
+        featureFlags={{ zipPreviews: true }}
+      />,
+    );
+    const headerWrapper = el.find(HeaderWrapper);
+    expect(headerWrapper.prop('isArchiveSideBarVisible')).toBeTruthy();
+  });
+  it('passes isArchiveSideBarVisible as false if media type is not archive', () => {
+    const mediaClient = fakeMediaClient();
+    asMock(mediaClient.file.getFileState).mockReturnValue(
+      createFileStateSubject(processedImageState),
+    );
+    const el = mountWithIntlContext(
+      <Header
+        intl={fakeIntl}
+        mediaClient={mediaClient}
+        identifier={identifier}
+        featureFlags={{ zipPreviews: true }}
+      />,
+    );
+    const headerWrapper = el.find(HeaderWrapper);
+    expect(headerWrapper.prop('isArchiveSideBarVisible')).toBeFalsy();
+  });
+  it('passes isArchiveSideBarVisible as false if zipPreviews FF is off', () => {
+    const mediaClient = fakeMediaClient();
+    asMock(mediaClient.file.getFileState).mockReturnValue(
+      createFileStateSubject(processedArchiveState),
+    );
+    const el = mountWithIntlContext(
+      <Header
+        intl={fakeIntl}
+        mediaClient={mediaClient}
+        identifier={identifier}
+        featureFlags={{ zipPreviews: false }}
+      />,
+    );
+    const headerWrapper = el.find(HeaderWrapper);
+    expect(headerWrapper.prop('isArchiveSideBarVisible')).toBeFalsy();
+  });
   it('shows an empty header while loading', () => {
     const mediaClient = fakeMediaClient();
     asMockReturnValue(mediaClient.file.getFileState, createFileStateSubject());

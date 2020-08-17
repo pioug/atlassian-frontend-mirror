@@ -3,7 +3,7 @@ import {
   clickFirstCell,
   tableSelectors,
 } from '../../__helpers/page-objects/_table';
-import { Page } from '../../__helpers/page-objects/_types';
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import {
   initFullPageEditorWithAdf,
   initCommentEditorWithAdf,
@@ -15,7 +15,7 @@ import defaultTableAdf from './__fixtures__/default-table.adf.json';
 
 // TODO: https://product-fabric.atlassian.net/browse/ED-7721
 describe.skip('Snapshot Test: hover rows controlls', () => {
-  let page: Page;
+  let page: PuppeteerPage;
 
   beforeAll(async () => {
     page = global.page;

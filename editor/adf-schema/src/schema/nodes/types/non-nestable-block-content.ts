@@ -13,6 +13,7 @@ import { TaskListDefinition as TaskList } from '../task-list';
 import { TableDefinition as Table } from '../tableNodes';
 import { ExtensionDefinition as Extension } from '../extension';
 import { BlockCardDefinition as BlockCard } from '../block-card';
+import { EmbedCardDefinition as EmbedCard } from '../embed-card';
 
 // We don't want paragraphs/headings with block marks inside bodied extensions or expands.
 // We also don't want to allow nesting of expands or bodied extensions.
@@ -34,4 +35,5 @@ export type NonNestableBlockContent =
   | TaskList
   | Table
   | Extension
-  | BlockCard;
+  | BlockCard
+  | EmbedCard;

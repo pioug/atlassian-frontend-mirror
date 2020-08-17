@@ -107,7 +107,6 @@ describe('media', () => {
         allowLayouts: true,
         allowTables: true,
         allowAnalyticsGASV3: true,
-        analyticsHandler: jest.fn(),
         contextIdentifierProvider,
       },
       providerFactory,

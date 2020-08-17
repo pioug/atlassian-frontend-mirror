@@ -1,23 +1,21 @@
-import Page from '@atlaskit/webdriver-runner/wd-wrapper';
+import WebdriverPage from '@atlaskit/webdriver-runner/wd-wrapper';
 import { getExampleUrl } from '@atlaskit/visual-regression/helper';
 import { mediaMockQueryOptInFlag } from '@atlaskit/media-test-helpers';
 import { EditorProps } from '../../types';
-import {
-  clipboardInput,
-  copyAsPlaintextButton,
-  copyAsHTMLButton,
-} from '../integration/_helpers';
+import { selectors } from './page-objects/_editor';
 import { MountEditorOptions } from '../../../example-helpers/create-editor-example-for-tests';
 import { FullPageEditor } from './page-objects/_media';
 
-export async function loadLocale(page: Page, locales: Array<string>) {
+const EDITOR_SELECTOR = selectors.editor;
+
+export async function loadLocale(page: WebdriverPage, locales: Array<string>) {
   await page.executeAsync((locales, done) => {
     (window as any).__loadReactIntlLocale(locales, done);
   }, locales);
 }
 
 export async function mountEditor<T = EditorProps>(
-  page: Page,
+  page: WebdriverPage,
   props: T,
   options?: MountEditorOptions,
 ) {
@@ -40,20 +38,19 @@ export async function mountEditor<T = EditorProps>(
     props,
     options || {},
   );
-  await page.waitForSelector('.ProseMirror', { timeout: 500 });
-  await page.click('.ProseMirror');
+  await page.waitForSelector(EDITOR_SELECTOR, { timeout: 500 });
+  await page.click(EDITOR_SELECTOR);
 }
 
 export async function goToEditorTestingExample(
-  client: ConstructorParameters<typeof Page>[0],
+  client: ConstructorParameters<typeof WebdriverPage>[0],
 ) {
-  const page = new Page(client);
+  const page = new WebdriverPage(client);
   const currentUrl = await page.url();
   const url = getExampleUrl(
     'editor',
     'editor-core',
     'testing',
-    // @ts-ignore
     global.__BASEURL__,
   );
 
@@ -67,10 +64,10 @@ export async function goToEditorTestingExample(
 }
 
 export async function goToEditorLabsTestingExample(
-  client: ConstructorParameters<typeof Page>[0],
+  client: ConstructorParameters<typeof WebdriverPage>[0],
   appearance: 'mobile' | 'full-page' = 'full-page',
 ) {
-  const page = new Page(client);
+  const page = new WebdriverPage(client);
   const currentUrl = await page.url();
   const url = getExampleUrl(
     'editor',
@@ -90,7 +87,7 @@ export async function goToEditorLabsTestingExample(
 }
 
 export async function goToFullPage(
-  client: ConstructorParameters<typeof Page>[0],
+  client: ConstructorParameters<typeof WebdriverPage>[0],
 ) {
   const page = new FullPageEditor(client);
   const url =
@@ -104,22 +101,8 @@ export async function goToFullPage(
 
   await page.goto(url);
   await page.maximizeWindow();
-  await page.waitForSelector('.ProseMirror', { timeout: 500 });
-  await page.click('.ProseMirror');
+  await page.waitForSelector(EDITOR_SELECTOR, { timeout: 500 });
+  await page.click(EDITOR_SELECTOR);
 
   return page;
-}
-
-export async function copyAsPlainText(page: Page, data: string) {
-  await page.isVisible(clipboardInput);
-  await page.clear(clipboardInput);
-  await page.type(clipboardInput, data);
-  await page.click(copyAsPlaintextButton);
-}
-
-export async function copyAsHTML(page: Page, data: string) {
-  await page.isVisible(clipboardInput);
-  await page.clear(clipboardInput);
-  await page.type(clipboardInput, data);
-  await page.click(copyAsHTMLButton);
 }

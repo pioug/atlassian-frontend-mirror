@@ -16,7 +16,12 @@ import {
   GasPureScreenEventPayload,
 } from '@atlaskit/analytics-gas-types';
 import { EDITOR_APPEARANCE_CONTEXT } from '@atlaskit/analytics-namespaced-context';
-import { QuickInsertProvider } from '@atlaskit/editor-common/provider-factory';
+import {
+  AutoformattingProvider,
+  ProviderFactory,
+  QuickInsertProvider,
+} from '@atlaskit/editor-common/provider-factory';
+import { ExtensionProvider } from '@atlaskit/editor-common';
 import { EditorAppearance } from '../../types';
 import * as extensionUtils from '../../utils/extensions';
 
@@ -24,6 +29,23 @@ import {
   name as packageName,
   version as packageVersion,
 } from '../../version-wrapper';
+import ReactEditorView, {
+  EditorViewProps,
+} from '../../create-editor/ReactEditorView';
+import { MediaOptions } from '../..';
+import { CardOptions } from '../../plugins/card';
+import { asMock } from '@atlaskit/media-test-helpers';
+
+import * as ActivityProviderModule from '@atlaskit/activity-provider';
+const { ActivityResource } = jest.genMockFromModule<
+  typeof ActivityProviderModule
+>('@atlaskit/activity-provider');
+
+import * as EmojiModule from '@atlaskit/emoji';
+import { QuickInsertOptions } from '../../plugins/quick-insert/types';
+const { EmojiResource } = jest.genMockFromModule<typeof EmojiModule>(
+  '@atlaskit/emoji',
+);
 
 describe(name, () => {
   describe('Editor', () => {
@@ -174,6 +196,249 @@ describe(name, () => {
         wrapper.setProps({
           children: <Editor appearance="full-width" allowAnalyticsGASV3 />,
         });
+      });
+    });
+
+    describe('providerFactory passed to ReactEditorView', () => {
+      const setup = (
+        useCollabEditObject: boolean = false,
+        defineExtensionsProvider: boolean = true,
+      ) => {
+        // These `any` is not a problem. We later assert by using `toBe` method
+        const activityProvider = new ActivityResource(
+          'some-url',
+          'some-cloud-id',
+        );
+        const emojiProvider = new EmojiResource({} as any);
+        const mentionProvider = {} as any;
+        const taskDecisionProvider = {} as any;
+        const contextIdentifierProvider = {} as any;
+
+        let collabEditProvider = {} as any;
+        const collabEditDotProvider = {} as any;
+        let collabEdit;
+        if (useCollabEditObject) {
+          collabEdit = {
+            provider: Promise.resolve(collabEditDotProvider),
+          };
+          collabEditProvider = undefined;
+        }
+        const presenceProvider = {} as any;
+        const macroProvider = {} as any;
+        const legacyImageUploadProvider = {} as any;
+        const autoformattingProvider: AutoformattingProvider = {
+          getRules: () => Promise.resolve({}),
+        };
+        const mediaProvider = {} as any;
+        const mediaOptions: MediaOptions = {
+          provider: Promise.resolve(mediaProvider),
+        };
+        const cardProvider = {} as any;
+        const cardOptions: CardOptions = {
+          provider: Promise.resolve(cardProvider),
+        };
+        const quickInsertProvider: QuickInsertProvider = {
+          getItems: () => Promise.resolve([]),
+        };
+        const quickInsert: QuickInsertOptions = {
+          provider: Promise.resolve(quickInsertProvider),
+        };
+
+        const extensionProviderProps: ExtensionProvider = {
+          getAutoConverter: () => Promise.resolve([]),
+          getExtension: () => Promise.resolve(undefined),
+          getExtensions: () => Promise.resolve([]),
+          search: () => Promise.resolve([]),
+        };
+
+        asMock(emojiProvider.getAsciiMap).mockResolvedValue({});
+
+        const component = mount(
+          <Editor
+            activityProvider={Promise.resolve(activityProvider)}
+            emojiProvider={Promise.resolve(emojiProvider)}
+            mentionProvider={Promise.resolve(mentionProvider)}
+            taskDecisionProvider={Promise.resolve(taskDecisionProvider)}
+            contextIdentifierProvider={Promise.resolve(
+              contextIdentifierProvider,
+            )}
+            collabEdit={collabEdit}
+            collabEditProvider={Promise.resolve(collabEditProvider)}
+            presenceProvider={Promise.resolve(presenceProvider)}
+            macroProvider={Promise.resolve(macroProvider)}
+            legacyImageUploadProvider={Promise.resolve(
+              legacyImageUploadProvider,
+            )}
+            autoformattingProvider={Promise.resolve(autoformattingProvider)}
+            media={mediaOptions}
+            UNSAFE_cards={cardOptions}
+            quickInsert={quickInsert}
+            extensionProviders={
+              defineExtensionsProvider ? [extensionProviderProps] : undefined
+            }
+          />,
+        );
+        const providerFactory = component
+          .find<EditorViewProps>(ReactEditorView)
+          .props().providerFactory;
+        return {
+          component,
+          activityProvider,
+          emojiProvider,
+          mentionProvider,
+          taskDecisionProvider,
+          contextIdentifierProvider,
+          collabEditProvider,
+          collabEditDotProvider,
+          presenceProvider,
+          macroProvider,
+          legacyImageUploadProvider,
+          autoformattingProvider,
+          providerFactory,
+          mediaProvider,
+          cardProvider,
+          quickInsertProvider,
+        };
+      };
+
+      const assertProvider = (
+        providerFactory: ProviderFactory,
+        providerName: string,
+        expectedProvider: any, // Providers don't have common interface
+        done: () => {},
+      ) => {
+        expect(providerFactory.hasProvider(providerName)).toBe(true);
+        providerFactory.subscribe(providerName, async (name, provider) => {
+          expect(await provider).toBe(expectedProvider);
+          done();
+        });
+      };
+
+      it('should be populated with activityProvider', done => {
+        const { providerFactory, activityProvider } = setup();
+        assertProvider(
+          providerFactory,
+          'activityProvider',
+          activityProvider,
+          done,
+        );
+      });
+
+      it('should be populated with emojiProvider', done => {
+        const { providerFactory, emojiProvider } = setup();
+        assertProvider(providerFactory, 'emojiProvider', emojiProvider, done);
+      });
+
+      it('should be populated with mentionProvider', done => {
+        const { providerFactory, mentionProvider } = setup();
+        assertProvider(
+          providerFactory,
+          'mentionProvider',
+          mentionProvider,
+          done,
+        );
+      });
+
+      it('should be populated with taskDecisionProvider', done => {
+        const { providerFactory, taskDecisionProvider } = setup();
+        assertProvider(
+          providerFactory,
+          'taskDecisionProvider',
+          taskDecisionProvider,
+          done,
+        );
+      });
+
+      it('should be populated with contextIdentifierProvider', done => {
+        const { providerFactory, contextIdentifierProvider } = setup();
+        assertProvider(
+          providerFactory,
+          'contextIdentifierProvider',
+          contextIdentifierProvider,
+          done,
+        );
+      });
+
+      it('should be populated with collabEditProvider', done => {
+        const { providerFactory, collabEditProvider } = setup();
+        assertProvider(
+          providerFactory,
+          'collabEditProvider',
+          collabEditProvider,
+          done,
+        );
+      });
+
+      it('should be populated with collabEditProvider via collabEdit object', done => {
+        const { providerFactory, collabEditDotProvider } = setup(true);
+        assertProvider(
+          providerFactory,
+          'collabEditProvider',
+          collabEditDotProvider,
+          done,
+        );
+      });
+
+      it('should be populated with presenceProvider', done => {
+        const { providerFactory, presenceProvider } = setup();
+        assertProvider(
+          providerFactory,
+          'presenceProvider',
+          presenceProvider,
+          done,
+        );
+      });
+
+      it('should be populated with macroProvider', done => {
+        const { providerFactory, macroProvider } = setup();
+        assertProvider(providerFactory, 'macroProvider', macroProvider, done);
+      });
+
+      it('should be populated with legacyImageUploadProvider', done => {
+        const { providerFactory, legacyImageUploadProvider } = setup();
+        assertProvider(
+          providerFactory,
+          'imageUploadProvider',
+          legacyImageUploadProvider,
+          done,
+        );
+      });
+
+      it('should be populated with autoformattingProvider', done => {
+        const { providerFactory, autoformattingProvider } = setup();
+        assertProvider(
+          providerFactory,
+          'autoformattingProvider',
+          autoformattingProvider,
+          done,
+        );
+      });
+
+      it('should be populated with mediaProvider', done => {
+        const { providerFactory, mediaProvider } = setup();
+        assertProvider(providerFactory, 'mediaProvider', mediaProvider, done);
+      });
+
+      it('should be populated with cardProvider', done => {
+        const { providerFactory, cardProvider } = setup();
+        assertProvider(providerFactory, 'cardProvider', cardProvider, done);
+      });
+
+      it('should be populated with quickInsertProvider', done => {
+        const { providerFactory, quickInsertProvider } = setup(false, false);
+        assertProvider(
+          providerFactory,
+          'quickInsertProvider',
+          quickInsertProvider,
+          done,
+        );
+      });
+
+      it('should be populated with extensionProvider', () => {
+        const { providerFactory } = setup();
+        // extensionProvider is going to be a generated in packages/editor/editor-common/src/extensions/combine-extension-providers.ts
+        // and there is nothing to compare it with
+        expect(providerFactory.hasProvider('extensionProvider')).toBe(true);
       });
     });
 

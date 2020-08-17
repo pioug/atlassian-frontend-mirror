@@ -6,7 +6,6 @@ import {
 } from 'prosemirror-utils';
 import { NodeSelection } from 'prosemirror-state';
 import { PanelType } from '@atlaskit/adf-schema';
-import { analyticsService } from '../../analytics';
 import { Command } from '../../types';
 import {
   AnalyticsEventPayload,
@@ -33,7 +32,6 @@ export const removePanel = (): Command => (state, dispatch) => {
     attributes: { inputMethod: INPUT_METHOD.TOOLBAR },
     eventType: EVENT_TYPE.TRACK,
   };
-  analyticsService.trackEvent(`atlassian.editor.format.panel.delete.button`);
 
   let deleteTr = tr;
   if (findSelectedNodeOfType(nodes.panel)(tr.selection)) {
@@ -71,10 +69,6 @@ export const changePanelType = (panelType: PanelType): Command => (
     },
     eventType: EVENT_TYPE.TRACK,
   };
-
-  analyticsService.trackEvent(
-    `atlassian.editor.format.panel.${panelType}.button`,
-  );
 
   const panelNode = findPanel(state);
   if (panelNode === undefined) {

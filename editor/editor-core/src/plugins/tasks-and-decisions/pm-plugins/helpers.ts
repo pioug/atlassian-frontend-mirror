@@ -25,6 +25,14 @@ export const isInsideTask = (state: EditorState) => {
   return hasParentNodeOfType([taskItem])(state.selection);
 };
 
+export const isTable = (node?: Node | null): Boolean => {
+  if (!node) {
+    return false;
+  }
+  const { table, tableHeader, tableCell, tableRow } = node.type.schema.nodes;
+  return [table, tableHeader, tableCell, tableRow].includes(node.type);
+};
+
 /**
  * Creates a NodeRange around the given taskItem and the following
  * ("nested") taskList, if one exists.

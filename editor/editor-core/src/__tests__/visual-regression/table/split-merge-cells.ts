@@ -11,10 +11,10 @@ import {
   pressKeyUp,
 } from '../../__helpers/page-objects/_keyboard';
 import adf from './__fixtures__/default-table.adf.json';
-import { Page } from '../../__helpers/page-objects/_types';
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 
 describe('Table context menu: merge-split cells', () => {
-  let page: Page;
+  let page: PuppeteerPage;
 
   const tableMergeAndSplitCells = async (
     firstCell: string,
@@ -49,7 +49,7 @@ describe('Table context menu: merge-split cells', () => {
       appearance: Appearance.fullPage,
       viewport: { width: 1280, height: 600 },
     });
-    await clickFirstCell(page);
+    await clickFirstCell(page, true);
   });
 
   it(`should merge and split cell for row`, async () => {

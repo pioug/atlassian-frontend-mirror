@@ -1,6 +1,6 @@
 import React from 'react';
 import { InjectedIntlProps } from 'react-intl';
-import memoize from 'lodash.memoize';
+import memoize from 'lodash/memoize';
 import memoizeOne from 'memoize-one';
 import { Schema } from 'prosemirror-model';
 
@@ -53,6 +53,7 @@ export interface CreateItemsConfig {
   placeholderTextEnabled?: boolean;
   horizontalRuleEnabled?: boolean;
   layoutSectionEnabled?: boolean;
+  showElementBrowserLink?: boolean;
   expandEnabled?: boolean;
   insertMenuItems?: MenuItem[];
   macroProvider?: MacroProvider | null;
@@ -103,7 +104,7 @@ const createInsertBlockItems = (
     availableWrapperBlockTypes,
     actionSupported,
     decisionSupported,
-    macroProvider,
+    showElementBrowserLink,
     linkSupported,
     linkDisabled,
     emojiDisabled,
@@ -287,14 +288,12 @@ const createInsertBlockItems = (
 
   if (insertMenuItems) {
     items.push(...insertMenuItems);
-    // keeping this here for backwards compatibility so confluence
-    // has time to implement this button before it disappears.
-    // Should be safe to delete soon. If in doubt ask Leandro Lemos (llemos)
-  } else if (typeof macroProvider !== 'undefined' && macroProvider) {
-    const labelViewMore = formatMessage(messages.viewMore);
+  }
+
+  if (showElementBrowserLink) {
     items.push(
       more({
-        content: labelViewMore,
+        content: formatMessage(messages.viewMore),
         disabled: false,
       }),
     );

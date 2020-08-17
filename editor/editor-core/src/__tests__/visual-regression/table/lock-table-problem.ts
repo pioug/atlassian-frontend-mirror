@@ -1,3 +1,4 @@
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import {
   initEditorWithAdf,
   Appearance,
@@ -14,7 +15,7 @@ import adf from './__fixtures__/default-table.adf.json';
 import { animationFrame } from '../../__helpers/page-objects/_editor';
 
 describe('Table lock problems', () => {
-  let page: any;
+  let page: PuppeteerPage;
   const editorProps: EditorProps = {
     allowTables: {
       allowControls: true,
@@ -43,7 +44,7 @@ describe('Table lock problems', () => {
     });
 
     it('should be able to delete the table after resizing', async () => {
-      await clickFirstCell(page);
+      await clickFirstCell(page, true);
       await animationFrame(page);
       await grabAndMoveColumnResing(page, { colIdx: 1, row: 2, amount: 123 });
       await applyRemoteStep(page, insertParagraph);

@@ -1,5 +1,13 @@
 # @atlaskit/media-editor
 
+## 38.0.2
+
+### Patch Changes
+
+- [`fa6fb5dfbb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fa6fb5dfbb) - Removing unused code to be published
+- [`02757a0d09`](https://bitbucket.org/atlassian/atlassian-frontend/commits/02757a0d09) - Add mediaStore instance as an optional dependency of copyFile to avoid calls to constructor inside the method
+- Updated dependencies
+
 ## 38.0.1
 
 ### Patch Changes

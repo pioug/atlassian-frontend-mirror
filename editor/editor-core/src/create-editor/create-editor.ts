@@ -1,14 +1,12 @@
 import { MarkSpec } from 'prosemirror-model';
 import { Plugin } from 'prosemirror-state';
 import { ErrorReporter, ErrorReportingHandler } from '@atlaskit/editor-common';
-import { AnalyticsHandler, analyticsService } from '../analytics';
 import {
   EditorConfig,
   EditorPlugin,
   PluginsOptions,
   PMPluginCreateConfig,
 } from '../types';
-import { name, version } from '../version-wrapper';
 import { sortByOrder } from './sort-by-order';
 import { InstrumentedPlugin } from '../utils/performance/instrumented-plugin';
 
@@ -138,12 +136,4 @@ export function createErrorReporter(
     errorReporter.handler = errorReporterHandler;
   }
   return errorReporter;
-}
-
-export function initAnalytics(analyticsHandler?: AnalyticsHandler) {
-  analyticsService.handler = analyticsHandler || (() => {});
-  analyticsService.trackEvent('atlassian.editor.start', {
-    name,
-    version,
-  });
 }

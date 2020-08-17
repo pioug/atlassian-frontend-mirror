@@ -1,7 +1,7 @@
 import React from 'react';
-import Button from '@atlaskit/button';
 import Tooltip from '@atlaskit/tooltip';
 import { ToolTipContent, findKeymapByDescription } from '../../../keymaps';
+import { FindSectionButton } from './styles';
 
 interface Props {
   title: string;
@@ -9,17 +9,25 @@ interface Props {
   keymapDescription: string;
   onClick: (ref: React.RefObject<HTMLElement>) => void;
   disabled?: boolean;
+  isPressed?: boolean;
 }
 
 export class FindReplaceTooltipButton extends React.PureComponent<Props> {
   private buttonRef = React.createRef<HTMLElement>();
+
+  static defaultProps = {
+    keymapDescription: 'no-keymap',
+  };
 
   handleClick = () => {
     this.props.onClick(this.buttonRef);
   };
 
   render() {
-    const { title, icon, keymapDescription, disabled } = this.props;
+    const { title, icon, keymapDescription, disabled, isPressed } = this.props;
+    const pressedProps = {
+      ...(typeof isPressed === 'boolean' && { 'aria-pressed': isPressed }),
+    };
     return (
       <Tooltip
         content={
@@ -31,14 +39,18 @@ export class FindReplaceTooltipButton extends React.PureComponent<Props> {
         hideTooltipOnClick={true}
         position={'top'}
       >
-        <Button
-          testId={title}
-          ref={this.buttonRef}
+        <FindSectionButton
+          label={title}
           appearance="subtle"
+          testId={title}
+          innerRef={this.buttonRef}
           iconBefore={icon}
           spacing="none"
           isDisabled={disabled}
           onClick={this.handleClick}
+          isSelected={isPressed}
+          shouldFitContainer={true}
+          {...pressedProps}
         />
       </Tooltip>
     );

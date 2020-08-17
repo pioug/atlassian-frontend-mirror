@@ -23,6 +23,8 @@ export interface FindReplacePluginState {
   decorationSet: DecorationSet;
   /** Element (if any) that has focus in find/replace popup */
   focusElementRef: React.RefObject<HTMLElement> | undefined;
+  /** Whether find/replace should match case when searching for results */
+  shouldMatchCase: boolean;
 }
 
 export type Match = {
@@ -38,3 +40,13 @@ export type TextGrouping = {
   /** Start position */
   pos: number;
 } | null;
+
+export type FindReplaceOptions = {
+  allowMatchCase?: boolean;
+};
+
+export type MatchCaseProps = {
+  allowMatchCase?: boolean;
+  shouldMatchCase?: boolean;
+  onToggleMatchCase?: () => void;
+};

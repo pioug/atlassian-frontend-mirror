@@ -1,11 +1,11 @@
-import { ProviderFactory } from '@atlaskit/editor-common';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
 import { doc, p, panel } from '@atlaskit/editor-test-helpers/schema-builder';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import sleep from '@atlaskit/editor-test-helpers/sleep';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { pluginKey as quickInsertPluginKey } from '../../../../plugins/quick-insert';
+import { pluginKey as quickInsertPluginKey } from '../../../../plugins/quick-insert/plugin-key';
 import { TypeAheadInsert } from '../../../../plugins/type-ahead/types';
 
 describe('Quick Insert', () => {

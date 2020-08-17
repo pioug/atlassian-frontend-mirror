@@ -14,8 +14,10 @@ import {
 } from '@atlaskit/media-card';
 import { FilmstripView } from '@atlaskit/media-filmstrip';
 import { ProviderFactory, EventHandlers } from '@atlaskit/editor-common';
+import { MediaFeatureFlags } from '@atlaskit/media-common';
 import Media from '../../../../react/nodes/media';
 import MediaGroup from '../../../../react/nodes/mediaGroup';
+import { MediaCardInternal } from '../../../../ui/MediaCard';
 
 describe('MediaGroup', () => {
   let fixture: HTMLDivElement;
@@ -186,5 +188,21 @@ describe('MediaGroup', () => {
         .first()
         .prop('eventHandlers')!.media!.onClick,
     ).toBeDefined();
+  });
+
+  it('should pass feature flags to MediaCardInternal', () => {
+    const featureFlags: MediaFeatureFlags = {};
+    const mediaGroup = mount(
+      <MediaGroup featureFlags={featureFlags}>
+        <Media
+          id={imageFileId.id}
+          type={imageFileId.mediaItemType}
+          collection={imageFileId.collectionName}
+        />
+      </MediaGroup>,
+    );
+    expect(mediaGroup.find(MediaCardInternal).props().featureFlags).toEqual(
+      featureFlags,
+    );
   });
 });

@@ -8,11 +8,11 @@ import {
   clickFirstCell,
 } from '../../__helpers/page-objects/_table';
 import { animationFrame } from '../../__helpers/page-objects/_editor';
-import { Page } from '../../__helpers/page-objects/_types';
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 // TODO: https://product-fabric.atlassian.net/browse/ED-7721
 describe.skip('Snapshot Test: table resizing', () => {
   describe('Re-sizing', () => {
-    let page: Page;
+    let page: PuppeteerPage;
     beforeEach(async () => {
       page = global.page;
       await initEditorWithAdf(page, {

@@ -1,66 +1,61 @@
-import React from 'react';
-import { Component, ReactElement } from 'react';
+import React, { useState, useEffect } from 'react';
+import { locales } from '@atlaskit/media-ui';
 import { IntlProvider, addLocaleData } from 'react-intl';
-import { locales, languages } from '@atlaskit/media-ui';
-import LanguagePicker from './LanguagePicker';
-import * as es from 'react-intl/locale-data/es';
+import LocaleSelect, {
+  Locale,
+  defaultLocales,
+} from '@atlaskit/locale/LocaleSelect';
 
-addLocaleData(es);
+function getMessages(localeValue: string) {
+  const lang = localeValue.substring(0, 2);
+  const langWithRegion = localeValue.replace('-', '_');
+  return locales[langWithRegion] || locales[lang];
+}
 
-// Using it to show only the messages with i18 integrated
-const enabledLanguages = {
-  en: languages.en,
-  es: languages.es,
-};
+const selectableLocales = defaultLocales.reduce((result, locale) => {
+  if (!getMessages(locale.value)) {
+    return result;
+  }
+  return [...result, locale];
+}, [] as Locale[]);
+
+function addAllLocaleData() {
+  Object.keys(locales).forEach(localeKey => {
+    const lang = localeKey.substring(0, 2);
+    const localeData = require(`react-intl/locale-data/${lang}`);
+    addLocaleData(localeData);
+  });
+}
+
 export interface I18NWrapperState {
-  locale: string;
+  locale: Locale;
 }
 
 export interface I18NWrapperProps {
-  children: ReactElement<any>;
+  children: React.ReactNode;
 }
 
-export class I18NWrapper extends Component<I18NWrapperProps, I18NWrapperState> {
-  state: I18NWrapperState = {
-    locale: 'en',
-  };
+export const I18NWrapper = ({ children }: I18NWrapperProps) => {
+  const [locale, setLocale] = useState({ label: 'en', value: 'en' });
 
-  onLocaleChange = (option: any) => {
-    this.setState({
-      locale: option.value,
-    });
-  };
+  // We add the locale data only when mount
+  useEffect(() => addAllLocaleData(), []);
 
-  render() {
-    const { children } = this.props;
-    const { locale } = this.state;
-    // We need to clone the element and pass a the locale prop to force a re render
-    const childrenWithLocale = React.cloneElement(children, { locale });
-
-    return (
+  const lang = locale.value.substring(0, 2);
+  const messages = getMessages(locale.value);
+  return (
+    <div style={{ paddingTop: '40px' }}>
+      <p>Use the Select to move between the available languages</p>
+      <LocaleSelect onLocaleChange={setLocale} locales={selectableLocales} />
       <IntlProvider
-        locale={this.getLocalTag(locale)}
-        messages={locales[locale]}
+        locale={lang}
+        messages={messages}
+        // We need to add this key to force a re-render and refresh translations
+        // when selected language has changed
+        key={locale.value}
       >
-        <div style={{ paddingTop: '40px' }}>
-          <p>
-            Use the Select to move between "English" and "Spanish", click in the
-            "Show Popup" to check the i18 integration.
-          </p>
-          <LanguagePicker
-            languages={enabledLanguages}
-            locale={locale}
-            onChange={this.loadLocale}
-          />
-          {childrenWithLocale}
-        </div>
+        <>{children}</>
       </IntlProvider>
-    );
-  }
-
-  private loadLocale = async (locale: string) => {
-    this.setState({ locale });
-  };
-
-  private getLocalTag = (locale: string) => locale.substring(0, 2);
-}
+    </div>
+  );
+};

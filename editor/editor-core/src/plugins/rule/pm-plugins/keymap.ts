@@ -1,7 +1,6 @@
 import { keymap } from 'prosemirror-keymap';
 import { Plugin } from 'prosemirror-state';
 
-import { trackAndInvoke } from '../../../analytics';
 import * as commands from '../../../commands';
 import * as keymaps from '../../../keymaps';
 import {
@@ -27,10 +26,7 @@ export function keymapPlugin(): Plugin {
 
   keymaps.bindKeymapWithCommand(
     keymaps.insertRule.common!,
-    trackAndInvoke(
-      'atlassian.editor.format.horizontalrule.keyboard',
-      insertRuleWithAnalytics(),
-    ),
+    insertRuleWithAnalytics(),
     list,
   );
 

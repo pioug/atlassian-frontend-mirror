@@ -4,6 +4,7 @@ import { ProviderFactory } from '@atlaskit/editor-common';
 import { Providers } from '@atlaskit/editor-common/provider-factory';
 import { FileIdentifier } from '@atlaskit/media-client';
 import { MediaClientConfig } from '@atlaskit/media-core';
+import { MediaFeatureFlags } from '@atlaskit/media-common';
 import { UploadParams, MediaFile } from '@atlaskit/media-picker/types';
 import { PlaceholderTextOptions } from '../../plugins/placeholder-text/types';
 
@@ -44,6 +45,7 @@ export interface MediaOptions {
   useMediaPickerPopup?: boolean;
   allowTemplatePlaceholders?: boolean | PlaceholderTextOptions;
   alignLeftOnInsert?: boolean;
+  featureFlags?: MediaFeatureFlags;
 }
 
 export interface MediaSingleOptions {

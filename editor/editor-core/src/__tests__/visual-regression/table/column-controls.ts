@@ -16,10 +16,10 @@ import {
 } from '../../__helpers/page-objects/_keyboard';
 import adf from './__fixtures__/default-table.adf.json';
 import adfTableWithoutTableHeader from './__fixtures__/table-without-table-header.adf.json';
-import { Page } from '../../__helpers/page-objects/_types';
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 
 describe('Table context menu: merge-split cells', () => {
-  let page: Page;
+  let page: PuppeteerPage;
 
   const initEditor = async (adf: Object) => {
     await initEditorWithAdf(page, {

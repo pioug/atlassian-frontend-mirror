@@ -44,19 +44,23 @@ export const useUserSelectionRange = (
         return;
       }
 
-      const range = sel.getRangeAt(0).cloneRange();
+      const _range = sel.getRangeAt(0);
 
-      if (isRangeInsideOfRendererContainer(rendererDOM, range)) {
-        setRange(range);
+      if (isRangeInsideOfRendererContainer(rendererDOM, _range)) {
+        const clonedRange = document.createRange();
+        clonedRange.setStart(_range.startContainer, _range.startOffset);
+        clonedRange.setEnd(_range.endContainer, _range.endOffset);
+
+        setRange(clonedRange);
       }
     };
 
-    rendererDOM.addEventListener('mouseup', onMouseUpEvent);
+    document.addEventListener('selectionchange', onMouseUpEvent);
 
     return () => {
-      rendererDOM.removeEventListener('mouseup', onMouseUpEvent);
+      document.removeEventListener('selectionchange', onMouseUpEvent);
     };
-  }, [rendererRef]);
+  }, [rendererRef, range]);
 
   const clearRange = useCallback(() => {
     setRange(null);

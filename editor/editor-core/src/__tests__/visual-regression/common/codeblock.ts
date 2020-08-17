@@ -5,12 +5,15 @@ import {
   getContentBoundingRectTopLeftCoords,
 } from '../_utils';
 import adf from './__fixtures__/code-block-adf.json';
-import { Page } from '../../__helpers/page-objects/_types';
-import { waitForFloatingControl } from '../../__helpers/page-objects/_toolbar';
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import {
+  waitForFloatingControl,
+  retryUntilStablePosition,
+} from '../../__helpers/page-objects/_toolbar';
 import { codeBlockSelectors } from '../../__helpers/page-objects/_code-block';
 
 describe('Code block:', () => {
-  let page: Page;
+  let page: PuppeteerPage;
 
   beforeAll(() => {
     page = global.page;
@@ -30,7 +33,13 @@ describe('Code block:', () => {
   });
 
   it('looks correct', async () => {
-    await page.click(codeBlockSelectors.code);
+    await page.waitForSelector(codeBlockSelectors.code);
+    await retryUntilStablePosition(
+      page,
+      () => page.click(codeBlockSelectors.code),
+      '[aria-label*="CodeBlock floating controls"]',
+      1000,
+    );
   });
 
   it('displays as selected when click on line numbers', async () => {

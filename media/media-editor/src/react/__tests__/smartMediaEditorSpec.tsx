@@ -244,6 +244,11 @@ describe('Smart Media Editor', () => {
             collection: RECENTS_COLLECTION,
             authProvider: userAuthProvider,
             occurrenceKey: expect.any(String),
+            mediaStore: expect.objectContaining({
+              config: {
+                authProvider: mediaClient.config.userAuthProvider,
+              },
+            }),
           },
         ]);
       });

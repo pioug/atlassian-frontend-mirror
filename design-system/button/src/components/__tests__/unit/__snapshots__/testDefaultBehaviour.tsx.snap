@@ -76,6 +76,7 @@ exports[`ak-button/default-behaviour isLoading set the opacity of the text to 0 
   transition-duration: 0.1s,0.15s;
   vertical-align: middle;
   width: auto;
+  font-family: -apple-system,BlinkMacSystemFont,'Segoe UI','Roboto','Oxygen','Ubuntu','Fira Sans','Droid Sans','Helvetica Neue',sans-serif;
   pointer-events: none;
 }
 
@@ -228,6 +229,7 @@ exports[`ak-button/default-behaviour isLoading set the opacity of the text to 0 
   transition-duration: 0.1s,0.15s;
   vertical-align: middle;
   width: auto;
+  font-family: -apple-system,BlinkMacSystemFont,'Segoe UI','Roboto','Oxygen','Ubuntu','Fira Sans','Droid Sans','Helvetica Neue',sans-serif;
   pointer-events: none;
 }
 

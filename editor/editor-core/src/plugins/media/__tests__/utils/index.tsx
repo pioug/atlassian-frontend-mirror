@@ -40,13 +40,9 @@ import {
   setTextSelection,
 } from '../../../../utils';
 import { Side } from '../../../gap-cursor';
-import { AnalyticsHandler, analyticsService } from '../../../../analytics';
 import { insertMediaAsMediaSingle } from '../../../../plugins/media/utils/media-single';
 import { alignAttributes } from '../../../../utils/rich-media-utils';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { Clipboard } from '@atlaskit/media-picker';
-import { UploadPreviewUpdateEventPayload } from '@atlaskit/media-picker/types';
-import { waitUntil } from '@atlaskit/media-test-helpers';
 import {
   temporaryMedia,
   temporaryMediaGroup,
@@ -69,12 +65,12 @@ import { EditorInstanceWithPlugin } from '@atlaskit/editor-test-helpers/src/crea
 import { ReactWrapper, mount } from 'enzyme';
 import { ClipboardWrapper } from '../../../../plugins/media/ui/MediaPicker/ClipboardWrapper';
 import { INPUT_METHOD } from '../../../../plugins/analytics';
-import MediaSingleNode from '../../nodeviews/mediaSingle';
-import MediaItem, { MediaNodeProps } from '../../nodeviews/media';
-
+import MediaItem, {
+  MediaNodeProps,
+  MediaNode,
+} from '../../nodeviews/mediaNodeView/media';
 import { CellSelection } from 'prosemirror-tables';
-import { TextSelection } from 'prosemirror-state';
-
+import { TextSelection, NodeSelection } from 'prosemirror-state';
 import { MediaPluginState } from '../../pm-plugins/types';
 
 const pdfFile = {
@@ -499,74 +495,6 @@ describe('Media plugin', () => {
     });
   });
 
-  it.skip('should trigger analytics events for picking and dropzone', async () => {
-    const { pluginState } = editor(doc(p('{<>}')));
-    const spy = jest.fn();
-    analyticsService.handler = spy as AnalyticsHandler;
-
-    afterEach(() => {
-      analyticsService.handler = null;
-    });
-
-    await mediaProvider;
-    await waitForAllPickersInitialised(pluginState);
-
-    const testFileData = {
-      file: {
-        id: 'test',
-        name: 'test.png',
-        size: 1,
-        type: 'file/test',
-      },
-      preview: {
-        dimensions: {
-          height: 200,
-          width: 200,
-        },
-      },
-    };
-
-    (pluginState as any).dropzonePicker!.handleUploadPreviewUpdate(
-      testFileData,
-    );
-    expect(spy).toHaveBeenCalledWith('atlassian.editor.media.file.dropzone', {
-      fileMimeType: 'file/test',
-    });
-  });
-
-  it('should trigger analytics events for picking and popup', async () => {
-    const { pluginState } = editor(doc(p('{<>}')));
-    const spy = jest.fn();
-    analyticsService.handler = spy as AnalyticsHandler;
-
-    afterEach(() => {
-      analyticsService.handler = null;
-    });
-
-    await mediaProvider;
-    await waitForAllPickersInitialised(pluginState);
-
-    const testFileData = {
-      file: {
-        id: 'test',
-        name: 'test.png',
-        size: 1,
-        type: 'file/test',
-      },
-      preview: {
-        dimensions: {
-          height: 200,
-          width: 200,
-        },
-      },
-    };
-
-    (pluginState as any).popupPicker!.handleUploadPreviewUpdate(testFileData);
-    expect(spy).toHaveBeenCalledWith('atlassian.editor.media.file.popup', {
-      fileMimeType: 'file/test',
-    });
-  });
-
   describe('handleMediaNodeRemove', () => {
     it('removes media node', () => {
       const deletingMediaNodeId = 'foo';
@@ -952,7 +880,93 @@ describe('Media plugin', () => {
         );
       });
 
-      describe('while holding the shift key', () => {
+      describe('when clicked', () => {
+        let mediaSingleNode: (schema: Schema<any, any>) => RefsNode,
+          clickEvent: CardEvent,
+          wrapper: ReactWrapper;
+        const mediaData: MediaADFAttrs = {
+          id: 'media_test',
+          type: 'file',
+          width: 100,
+          height: 100,
+          collection: testCollectionName,
+        };
+        beforeEach(() => {
+          mediaSingleNode = mediaSingle({ layout: 'wrap-left' })(
+            media(mediaData)(),
+          );
+          clickEvent = {
+            event: ({
+              stopPropagation: jest.fn(),
+            } as unknown) as React.MouseEvent<HTMLElement>,
+            mediaItemDetails: {} as FileDetails,
+          };
+        });
+
+        afterEach(() => {
+          if (wrapper) {
+            wrapper.unmount();
+          }
+        });
+
+        function setupWrapper(
+          editorInstance: EditorInstanceWithPlugin<MediaPluginState>,
+        ): {
+          mediaItem: ReactWrapper<MediaNodeProps>;
+          onClickHandler: CardOnClickCallback;
+        } {
+          wrapper = mount(
+            <MediaItem
+              view={editorInstance.editorView}
+              node={mediaSingleNode(defaultSchema).firstChild!}
+              getPos={() => editorInstance.refs['startMediaSingle'] + 1}
+              selected={false}
+              originalDimensions={{ width: 100, height: 100 }}
+              maxDimensions={{ width: 100, height: 100 }}
+              mediaProvider={mediaProvider}
+              contextIdentifierProvider={contextIdentifierProvider}
+            />,
+          );
+
+          const mediaItem = wrapper.find(MediaNode);
+          const onClickHandler = (mediaItem.instance() as MediaNode)[
+            'selectMediaSingleFromCard'
+          ];
+
+          return { mediaItem, onClickHandler };
+        }
+
+        it('should node select media element', () => {
+          const editorInstance = editor(
+            doc(
+              p('{<}test{>}'),
+              '{startMediaSingle}',
+              mediaSingle()(media(mediaData)()),
+              '{endMediaSingle}',
+              p('test'),
+            ),
+          );
+          const { onClickHandler } = setupWrapper(editorInstance);
+
+          onClickHandler(clickEvent);
+
+          expect(clickEvent.event.stopPropagation).toHaveBeenCalled();
+          expect(
+            editorInstance.editorView.state.selection instanceof NodeSelection,
+          ).toBe(true);
+
+          const selectedRange =
+            editorInstance.editorView.state.selection.ranges[0];
+          expect(selectedRange.$from.pos).toBe(
+            editorInstance.refs['startMediaSingle'],
+          );
+          expect(selectedRange.$to.pos).toBe(
+            editorInstance.refs['endMediaSingle'],
+          );
+        });
+      });
+
+      describe('when clicked while holding the shift key', () => {
         let mediaSingleNode: (schema: Schema<any, any>) => RefsNode,
           shiftClickEvent: CardEvent,
           wrapper: ReactWrapper;
@@ -989,24 +1003,22 @@ describe('Media plugin', () => {
           onClickHandler: CardOnClickCallback;
         } {
           wrapper = mount(
-            <MediaSingleNode
+            <MediaItem
               view={editorInstance.editorView}
-              eventDispatcher={editorInstance.eventDispatcher}
-              node={mediaSingleNode(defaultSchema)}
-              lineLength={680}
-              getPos={() => editorInstance.refs['startMediaSingle']}
-              width={123}
-              selected={() => 1}
-              mediaOptions={{ allowResizing: false }}
+              node={mediaSingleNode(defaultSchema).firstChild!}
+              getPos={() => editorInstance.refs['startMediaSingle'] + 1}
+              selected={false}
+              originalDimensions={{ width: 100, height: 100 }}
+              maxDimensions={{ width: 100, height: 100 }}
+              mediaProvider={mediaProvider}
               contextIdentifierProvider={contextIdentifierProvider}
-              mediaPluginState={editorInstance.pluginState}
             />,
           );
 
-          const mediaItem = wrapper.find(MediaItem);
-          const onClickHandler = mediaItem.prop(
-            'onClick',
-          ) as CardOnClickCallback;
+          const mediaItem = wrapper.find(MediaNode);
+          const onClickHandler = (mediaItem.instance() as MediaNode)[
+            'selectMediaSingleFromCard'
+          ];
 
           return { mediaItem, onClickHandler };
         }
@@ -1404,58 +1416,6 @@ describe('Media plugin', () => {
       if (clipboardWrapper && typeof clipboardWrapper.unmount === 'function') {
         clipboardWrapper.unmount();
       }
-    });
-
-    /**
-     * Re-introduce this test when we figure out why it fails in pipelines
-     * https://product-fabric.atlassian.net/browse/MS-1961
-     */
-    it.skip('should trigger analytics for clipboard', async () => {
-      const spy = jest.fn();
-      analyticsService.handler = spy as AnalyticsHandler;
-
-      afterEach(() => {
-        analyticsService.handler = null;
-      });
-
-      const testFileData: UploadPreviewUpdateEventPayload = {
-        file: {
-          id: 'test',
-          name: 'test.png',
-          size: 1,
-          type: 'file/test',
-          creationDate: 1,
-        },
-        preview: {
-          dimensions: {
-            height: 200,
-            width: 200,
-          },
-          scaleFactor: 1,
-        },
-      };
-
-      await waitUntil(
-        () =>
-          (clipboardWrapper as any).state('pickerFacadeInstance') !==
-            undefined &&
-          !clipboardWrapper
-            .update()
-            .find(Clipboard)
-            .isEmpty(),
-      );
-
-      const onPreviewUpdate = clipboardWrapper
-        .find(Clipboard)
-        .prop('onPreviewUpdate');
-
-      onPreviewUpdate && onPreviewUpdate(testFileData);
-      expect(spy).toHaveBeenCalledWith(
-        'atlassian.editor.media.file.clipboard',
-        {
-          fileMimeType: 'file/test',
-        },
-      );
     });
   });
 

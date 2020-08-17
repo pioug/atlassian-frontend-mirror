@@ -16,6 +16,10 @@ import {
   taskItem,
   taskList,
   ul,
+  table,
+  tr,
+  td,
+  th,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
@@ -43,6 +47,7 @@ describe('tasks and decisions', () => {
         allowAnalyticsGASV3: true,
         allowTasksAndDecisions: true,
         quickInsert: true,
+        allowTables: true,
       },
       createAnalyticsEvent,
     });
@@ -176,6 +181,171 @@ describe('tasks and decisions', () => {
               ),
             );
           });
+        });
+      });
+
+      describe('before a paragraph', () => {
+        let editorView: EditorView;
+        const originalDoc = doc(
+          scenario.list({ localId: 'local-uuid' })(
+            scenario.item({ localId: 'local-uuid' })('1{<>}'),
+          ),
+          p('2'),
+        );
+        ({ editorView } = editor(originalDoc));
+
+        it('should join the text', () => {
+          // Forward delete
+          sendKeyToPm(editorView, 'Delete');
+
+          expect(editorView.state.doc).toEqualDocument(
+            doc(
+              scenario.list({ localId: 'local-uuid' })(
+                scenario.item({ localId: 'local-uuid' })('12'),
+              ),
+            ),
+          );
+        });
+      });
+
+      describe(`two times before another ${scenario.name}`, () => {
+        let editorView: EditorView;
+        const originalDoc = doc(
+          scenario.list({ localId: 'local-uuid' })(
+            scenario.item({ localId: 'local-uuid' })('1{<>}'),
+            scenario.item({ localId: 'local-uuid' })('2'),
+          ),
+        );
+        ({ editorView } = editor(originalDoc));
+
+        it('should join the text', () => {
+          // Forward delete two times
+          sendKeyToPm(editorView, 'Delete');
+          sendKeyToPm(editorView, 'Delete');
+
+          // should not have changed the document
+          expect(editorView.state.doc).toEqualDocument(
+            doc(
+              scenario.list({ localId: 'local-uuid' })(
+                scenario.item({ localId: 'local-uuid' })('12'),
+              ),
+            ),
+          );
+        });
+      });
+
+      describe('when inside table', () => {
+        let editorView: EditorView;
+        const shouldNotJoinContent = (view: EditorView, targetDoc: any) => {
+          it('should not join nodes outside of current cell', () => {
+            // Forward delete
+            sendKeyToPm(view, 'Delete');
+
+            // should not have changed the document
+            expect(view.state.doc).toEqualDocument(targetDoc);
+          });
+        };
+
+        describe('header', () => {
+          const originalDoc = doc(
+            table()(
+              tr(
+                th()(p('1')),
+                th()(
+                  scenario.list({ localId: 'local-uuid' })(
+                    scenario.item({ localId: 'local-uuid' })('2{<>}'),
+                  ),
+                ),
+                th()(p('3')),
+              ),
+            ),
+          );
+          ({ editorView } = editor(originalDoc));
+
+          shouldNotJoinContent(editorView, originalDoc);
+        });
+
+        describe('cell', () => {
+          const originalDoc = doc(
+            table()(
+              tr(
+                td()(p('1')),
+                td()(
+                  scenario.list({ localId: 'local-uuid' })(
+                    scenario.item({ localId: 'local-uuid' })('2{<>}'),
+                  ),
+                ),
+                td()(p('3')),
+              ),
+            ),
+          );
+          ({ editorView } = editor(originalDoc));
+
+          shouldNotJoinContent(editorView, originalDoc);
+        });
+
+        describe('last cell on the row', () => {
+          const originalDoc = doc(
+            table()(
+              tr(th()(p()), th()(p()), th()(p())),
+              tr(
+                td()(p()),
+                td()(p()),
+                td()(
+                  scenario.list({ localId: 'local-uuid' })(
+                    scenario.item({ localId: 'local-uuid' })('1{<>}'),
+                  ),
+                ),
+              ),
+              tr(td()(p()), td()(p()), td()(p())),
+            ),
+            p('2'),
+          );
+          ({ editorView } = editor(originalDoc));
+
+          shouldNotJoinContent(editorView, originalDoc);
+        });
+
+        describe('last cell with no following node', () => {
+          const originalDoc = doc(
+            table()(
+              tr(th()(p()), th()(p()), th()(p())),
+              tr(td()(p()), td()(p()), td()(p())),
+              tr(
+                td()(p()),
+                td()(p()),
+                td()(
+                  scenario.list({ localId: 'local-uuid' })(
+                    scenario.item({ localId: 'local-uuid' })('1{<>}'),
+                  ),
+                ),
+              ),
+            ),
+          );
+          ({ editorView } = editor(originalDoc));
+
+          shouldNotJoinContent(editorView, originalDoc);
+        });
+        describe('last cell with following node', () => {
+          const originalDoc = doc(
+            table()(
+              tr(th()(p()), th()(p()), th()(p())),
+              tr(td()(p()), td()(p()), td()(p())),
+              tr(
+                td()(p()),
+                td()(p()),
+                td()(
+                  scenario.list({ localId: 'local-uuid' })(
+                    scenario.item({ localId: 'local-uuid' })('1{<>}'),
+                  ),
+                ),
+              ),
+            ),
+            p('2'),
+          );
+          ({ editorView } = editor(originalDoc));
+
+          shouldNotJoinContent(editorView, originalDoc);
         });
       });
     });

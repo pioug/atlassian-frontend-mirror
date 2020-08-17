@@ -1,8 +1,8 @@
-import React, { memo } from 'react';
-import styled, { css } from 'styled-components';
+import React, { memo, useState, useCallback } from 'react';
 import { FormattedMessage } from 'react-intl';
+import styled, { css } from 'styled-components';
 import { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
-import CategoryItems from './components/CategoryItems';
+import ElementList, { itemStepCounter } from './components/ElementList';
 import CategoryList from './components/CategoryList';
 import ElementSearch from './components/ElementSearch';
 import {
@@ -14,11 +14,12 @@ import {
   SIDEBAR_WIDTH,
 } from './constants';
 import useContainerWidth from './hooks/useContainerWidth';
-import { Category, Modes } from './types';
+import useSelectAndFocusOnArrowNavigation from './hooks/useSelectAndFocusOnArrowNavigation';
+import { Category, Modes, SelectedItemProps } from './types';
 
 export interface StatelessElementBrowserProps {
+  categories?: Category[];
   items: QuickInsertItem[];
-  categories: Category[];
   onSearch: (searchTerm: string) => void;
   onSelectCategory: (category: Category) => void;
   onSelectItem: (item: QuickInsertItem) => void;
@@ -30,14 +31,63 @@ export interface StatelessElementBrowserProps {
 }
 
 function StatelessElementBrowser(props: StatelessElementBrowserProps) {
+  const { items, onEnterKeyPress } = props;
+
   const { containerWidth, ContainerWidthMonitor } = useContainerWidth();
+
+  const [itemsContainerWidth, setItemsContainerWidth] = useState(0);
+  const {
+    selectedItemIndex,
+    focusedItemIndex,
+    setFocusedItemIndex,
+    focusOnSearch,
+    onKeyDown,
+    setFocusOnSearch,
+  } = useSelectAndFocusOnArrowNavigation(
+    items.length - 1,
+    itemStepCounter(itemsContainerWidth),
+  );
+
+  /* Only for hitting enter to select item when focused on search bar,
+   * The actual enter key press is handled on individual items level.
+   */
+  const onItemsEnterKeyPress = useCallback(
+    (e: React.KeyboardEvent) => {
+      if (e.key !== 'Enter') {
+        return;
+      }
+      onEnterKeyPress(items[selectedItemIndex]);
+    },
+    [onEnterKeyPress, items, selectedItemIndex],
+  );
+
   return (
     <Wrapper>
       <ContainerWidthMonitor />
       {containerWidth < DEVICE_BREAKPOINT_NUMBERS.medium ? (
-        <MobileBrowser {...props} />
+        <MobileBrowser
+          {...props}
+          selectedItemIndex={selectedItemIndex}
+          focusedItemIndex={focusedItemIndex}
+          setFocusedItemIndex={setFocusedItemIndex}
+          focusOnSearch={focusOnSearch}
+          setItemsContainerWidth={setItemsContainerWidth}
+          setFocusOnSearch={setFocusOnSearch}
+          onKeyPress={onItemsEnterKeyPress}
+          onKeyDown={onKeyDown}
+        />
       ) : (
-        <DesktopBrowser {...props} />
+        <DesktopBrowser
+          {...props}
+          selectedItemIndex={selectedItemIndex}
+          focusedItemIndex={focusedItemIndex}
+          setFocusedItemIndex={setFocusedItemIndex}
+          focusOnSearch={focusOnSearch}
+          setItemsContainerWidth={setItemsContainerWidth}
+          setFocusOnSearch={setFocusOnSearch}
+          onKeyPress={onItemsEnterKeyPress}
+          onKeyDown={onKeyDown}
+        />
       )}
     </Wrapper>
   );
@@ -50,6 +100,8 @@ const Wrapper = styled.div`
   overflow: hidden;
 `;
 
+Wrapper.displayName = 'Wrapper';
+
 function MobileBrowser({
   showCategories,
   showSearch,
@@ -59,13 +111,37 @@ function MobileBrowser({
   onSelectCategory,
   items,
   onSelectItem,
-  onEnterKeyPress,
   selectedCategory,
-}: StatelessElementBrowserProps) {
+  selectedItemIndex,
+  focusedItemIndex,
+  setFocusedItemIndex,
+  focusOnSearch,
+  setItemsContainerWidth,
+  setFocusOnSearch,
+  onKeyPress,
+  onKeyDown,
+}: StatelessElementBrowserProps &
+  SelectedItemProps & {
+    focusOnSearch: boolean;
+    setFocusOnSearch: () => void;
+    onKeyPress: (e: React.KeyboardEvent) => void;
+    onKeyDown: (e: React.KeyboardEvent<HTMLDivElement>) => void;
+    setFocusedItemIndex: (index: number) => void;
+  }) {
   return (
-    <MobileElementBrowserContainer>
+    <MobileElementBrowserContainer
+      onKeyPress={onKeyPress}
+      onKeyDown={onKeyDown}
+    >
       <MobileSideBar showCategories={showCategories}>
-        {showSearch && <ElementSearch onSearch={onSearch} mode={mode} />}
+        {showSearch && (
+          <ElementSearch
+            onSearch={onSearch}
+            mode={mode}
+            focus={focusOnSearch}
+            onClick={setFocusOnSearch}
+          />
+        )}
         {showCategories && (
           <MobileCategoryListWrapper>
             <CategoryList
@@ -77,11 +153,14 @@ function MobileBrowser({
         )}
       </MobileSideBar>
       <MobileMainContent>
-        <CategoryItems
+        <ElementList
           items={items}
           mode={mode}
           onSelectItem={onSelectItem}
-          onEnterKeyPress={onEnterKeyPress}
+          selectedItemIndex={selectedItemIndex}
+          focusedItemIndex={focusedItemIndex}
+          setFocusedItemIndex={setFocusedItemIndex}
+          setItemsContainerWidth={setItemsContainerWidth}
         />
       </MobileMainContent>
     </MobileElementBrowserContainer>
@@ -97,9 +176,23 @@ function DesktopBrowser({
   onSelectCategory,
   items,
   onSelectItem,
-  onEnterKeyPress,
   selectedCategory,
-}: StatelessElementBrowserProps) {
+  selectedItemIndex,
+  focusedItemIndex,
+  setFocusedItemIndex,
+  focusOnSearch,
+  setItemsContainerWidth,
+  setFocusOnSearch,
+  onKeyPress,
+  onKeyDown,
+}: StatelessElementBrowserProps &
+  SelectedItemProps & {
+    focusOnSearch: boolean;
+    setFocusOnSearch: () => void;
+    onKeyPress: (e: React.KeyboardEvent) => void;
+    onKeyDown: (e: React.KeyboardEvent<HTMLDivElement>) => void;
+    setFocusedItemIndex: (index: number) => void;
+  }) {
   return (
     <ElementBrowserContainer>
       {showCategories && (
@@ -120,17 +213,25 @@ function DesktopBrowser({
           </CategoryListWrapper>
         </SideBar>
       )}
-      <MainContent>
+      <MainContent onKeyPress={onKeyPress} onKeyDown={onKeyDown}>
         {showSearch && (
           <SearchContainer>
-            <ElementSearch onSearch={onSearch} mode={mode} />
+            <ElementSearch
+              onSearch={onSearch}
+              mode={mode}
+              focus={focusOnSearch}
+              onClick={setFocusOnSearch}
+            />
           </SearchContainer>
         )}
-        <CategoryItems
+        <ElementList
           items={items}
           mode={mode}
           onSelectItem={onSelectItem}
-          onEnterKeyPress={onEnterKeyPress}
+          selectedItemIndex={selectedItemIndex}
+          focusedItemIndex={focusedItemIndex}
+          setFocusedItemIndex={setFocusedItemIndex}
+          setItemsContainerWidth={setItemsContainerWidth}
         />
       </MainContent>
     </ElementBrowserContainer>
@@ -147,6 +248,7 @@ const MobileElementBrowserContainer = styled.div`
   max-height: inherit;
   flex-direction: column;
 `;
+MobileElementBrowserContainer.displayName = 'MobileElementBrowserContainer';
 
 const ElementBrowserContainer = styled.div`
   ${baseBrowserContainerStyles};
@@ -171,8 +273,6 @@ const baseSidebarStyles = css`
 
 const MobileSideBar = styled.div`
   ${baseSidebarStyles};
-  padding: ${GRID_SIZE}px;
-  padding-top: 0;
   flex: 0 0
     ${({ showCategories }: SideBarType) =>
       showCategories ? 'auto' : INLINE_SIDEBAR_HEIGHT};
@@ -219,6 +319,8 @@ const MainContent = styled(MobileMainContent)`
   margin-left: ${GRID_SIZE * 2}px;
 `;
 
+MainContent.displayName = 'MainContent';
+
 const SearchContainer = styled.div`
   padding-bottom: ${GRID_SIZE * 3}px;
 `;
@@ -227,7 +329,8 @@ const MobileCategoryListWrapper = styled.nav`
   display: flex;
   overflow-x: auto;
 
-  padding: ${GRID_SIZE}px 0;
+  padding: ${GRID_SIZE * 2}px 0 ${GRID_SIZE}px 0;
+  min-height: ${GRID_SIZE * 4}px;
 
   overflow: -moz-scrollbars-none;
   ::-webkit-scrollbar {

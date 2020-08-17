@@ -1,7 +1,6 @@
 import { Schema } from 'prosemirror-model';
 import { Plugin } from 'prosemirror-state';
 
-import { analyticsService } from '../../../analytics';
 import {
   createInputRule,
   instrumentedInputRule,
@@ -53,10 +52,6 @@ export function inputRulePlugin(
     const mark = schema.mark('typeAheadQuery', { trigger });
     const { tr, selection } = state;
     const marks = selection.$from.marks();
-
-    analyticsService.trackEvent('atlassian.editor.typeahead.trigger', {
-      trigger,
-    });
 
     return tr.replaceSelectionWith(
       schema.text(trigger, [mark, ...marks]),

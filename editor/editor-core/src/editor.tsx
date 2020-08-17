@@ -14,6 +14,7 @@ import {
   startMeasure,
   stopMeasure,
   clearMeasure,
+  measureTTI,
   ExtensionProvider,
   combineExtensionProviders,
   WidthProvider,
@@ -125,6 +126,28 @@ export default class Editor extends React.Component<EditorProps, State> {
     this.onEditorDestroyed = this.onEditorDestroyed.bind(this);
     this.editorActions = (context || {}).editorActions || new EditorActions();
     startMeasure(measurements.EDITOR_MOUNTED);
+    if (
+      props.performanceTracking &&
+      props.performanceTracking.ttiTracking &&
+      props.performanceTracking.ttiTracking.enabled
+    ) {
+      measureTTI(
+        (tti, ttiFromInvocation, canceled) => {
+          if (this.createAnalyticsEvent) {
+            fireAnalyticsEvent(this.createAnalyticsEvent)({
+              payload: {
+                action: ACTION.EDITOR_TTI,
+                actionSubject: ACTION_SUBJECT.EDITOR,
+                attributes: { tti, ttiFromInvocation, canceled },
+                eventType: EVENT_TYPE.OPERATIONAL,
+              },
+            });
+          }
+        },
+        props.performanceTracking.ttiTracking.ttiIdleThreshold,
+        props.performanceTracking.ttiTracking.ttiCancelTimeout,
+      );
+    }
 
     const extensionProvider = this.prepareExtensionProvider(
       props.extensionProviders,
@@ -432,6 +455,8 @@ export default class Editor extends React.Component<EditorProps, State> {
     const overriddenEditorProps = {
       ...this.props,
       onSave: this.props.onSave ? this.handleSave : undefined,
+      // noop all analytic events, even if a handler is still passed.
+      analyticsHandler: undefined,
     };
 
     const editor = (

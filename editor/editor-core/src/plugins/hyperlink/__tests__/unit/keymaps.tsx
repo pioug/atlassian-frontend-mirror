@@ -16,7 +16,6 @@ import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { HyperlinkState, InsertStatus, stateKey } from '../../pm-plugins/main';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import analyticsPlugin from '../../../analytics';
-import { AnalyticsHandler, analyticsService } from '../../../../analytics';
 import hyperlinkPlugin from '../../index';
 import textFormattingPlugin from '../../../text-formatting';
 import blockTypePlugin from '../../../block-type';
@@ -24,14 +23,12 @@ import blockTypePlugin from '../../../block-type';
 describe('hyperlink - keymap', () => {
   const createEditor = createProsemirrorEditorFactory();
   let createAnalyticsEvent: CreateUIAnalyticsEvent;
-  let trackEvent: AnalyticsHandler;
 
   const editor = (
     doc: any,
     preset: Preset<LightEditorPlugin> = new Preset<LightEditorPlugin>(),
   ) => {
     createAnalyticsEvent = jest.fn().mockReturnValue({ fire() {} });
-    analyticsService.handler = trackEvent;
     return createEditor({
       doc,
       preset: preset
@@ -41,10 +38,6 @@ describe('hyperlink - keymap', () => {
         .add(textFormattingPlugin),
     });
   };
-
-  beforeEach(() => {
-    trackEvent = jest.fn();
-  });
 
   describe('Enter keypress', () => {
     describe('when possible link text is at the end', () => {
@@ -60,9 +53,6 @@ describe('hyperlink - keymap', () => {
           expect(editorView.state.doc).toEqualDocument(
             doc(p('hello ', a), p()),
           );
-          expect(trackEvent).toHaveBeenCalledWith(
-            'atlassian.editor.format.hyperlink.autoformatting',
-          );
         });
 
         it('converts possible mailto link text to hyperlink', () => {
@@ -75,9 +65,6 @@ describe('hyperlink - keymap', () => {
           );
           expect(editorView.state.doc).toEqualDocument(
             doc(p('hello ', a), p()),
-          );
-          expect(trackEvent).toHaveBeenCalledWith(
-            'atlassian.editor.format.hyperlink.autoformatting',
           );
         });
 
@@ -140,9 +127,6 @@ describe('hyperlink - keymap', () => {
             hardBreak(),
           ),
         ),
-      );
-      expect(trackEvent).toHaveBeenCalledWith(
-        'atlassian.editor.format.hyperlink.autoformatting',
       );
     });
   });

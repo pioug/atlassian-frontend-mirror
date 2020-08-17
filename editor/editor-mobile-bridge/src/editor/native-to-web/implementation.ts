@@ -24,7 +24,6 @@ import {
   MentionPluginState,
   outdentList,
   QuickInsertItem,
-  QuickInsertPluginState,
   selectItem as selectTypeAheadItem,
   setBlockTypeWithAnalytics,
   setKeyboardHeight,
@@ -45,6 +44,7 @@ import {
   toggleUnderlineWithAnalytics,
   TypeAheadItem,
   typeAheadPluginKey,
+  TypeAheadPluginState,
   updateStatusWithAnalytics,
   insertExpand,
   insertRule,
@@ -377,6 +377,7 @@ export default class WebBridgeImpl extends WebBridge
         from,
         to,
         url,
+        undefined,
         text,
       )(state, dispatch);
       return;
@@ -498,7 +499,7 @@ export default class WebBridgeImpl extends WebBridge
     const parsedPayload: TypeAheadItem | { index: number } = JSON.parse(
       payload,
     );
-    const typeAheadPluginState: QuickInsertPluginState = typeAheadPluginKey.getState(
+    const typeAheadPluginState: TypeAheadPluginState = typeAheadPluginKey.getState(
       state,
     );
 
@@ -517,7 +518,7 @@ export default class WebBridgeImpl extends WebBridge
                * For quickinsert, we already know at this point that the items are processed with `intl`,
                * so we cast this to be an array of `QuickInsertItem`.
                **/
-              const items = (typeAheadPluginState.items as unknown) as QuickInsertItem[];
+              const items = typeAheadPluginState.items as QuickInsertItem[];
               const quickInsertItem = items[parsedPayload.index] as
                 | QuickInsertItem
                 | undefined;

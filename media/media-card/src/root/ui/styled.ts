@@ -156,6 +156,7 @@ export const NewFileExperienceWrapper = styled.div`
 NewFileExperienceWrapper.displayName = 'NewFileExperienceWrapper';
 
 export const CardImageContainer = styled.div`
+  display: flex;
   position: relative;
   max-width: 100%;
   width: 100%;

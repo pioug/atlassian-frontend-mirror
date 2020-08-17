@@ -38,7 +38,12 @@ export default class ModalDemo extends React.Component<{}, State> {
       { text: 'Secondary Action', onClick: this.secondaryAction },
     ];
     const StubDialog = ({ children, ...props }: StubDialogProps) => (
-      <ModalDialog actions={actions} onClose={this.close} {...props}>
+      <ModalDialog
+        testId="modal"
+        actions={actions}
+        onClose={this.close}
+        {...props}
+      >
         {children}
       </ModalDialog>
     );
@@ -47,8 +52,10 @@ export default class ModalDemo extends React.Component<{}, State> {
       <div style={{ padding: 16 }}>
         <H4>Variants</H4>
         <ButtonGroup>
-          <Button onClick={() => this.open('root')}>Boolean on dialog</Button>
-          <Button onClick={() => this.open('autoFocus')}>
+          <Button testId="booleanBtn" onClick={() => this.open('root')}>
+            Boolean on dialog
+          </Button>
+          <Button testId="autoFocusBtn" onClick={() => this.open('autoFocus')}>
             using autoFocus attribute
           </Button>
         </ButtonGroup>

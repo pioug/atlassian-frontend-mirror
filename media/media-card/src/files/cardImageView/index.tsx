@@ -64,6 +64,8 @@ export interface FileCardImageViewProps {
   readonly previewOrientation?: number;
 }
 
+export const fileCardImageViewSelector = 'media-file-card-view';
+
 export class FileCardImageViewBase extends Component<
   FileCardImageViewProps & WithAnalyticsEventsProps,
   {}
@@ -96,6 +98,7 @@ export class FileCardImageViewBase extends Component<
         selectable={selectable}
         selected={selected}
         mediaType={mediaType}
+        className={fileCardImageViewSelector}
       >
         {this.renderCardContents()}
       </Wrapper>

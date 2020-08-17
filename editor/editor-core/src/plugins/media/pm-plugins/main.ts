@@ -13,7 +13,7 @@ import {
   MediaProvider,
 } from '@atlaskit/editor-common';
 import assert from 'assert';
-import { findDomRefAtPos } from 'prosemirror-utils';
+import { findDomRefAtPos, isNodeSelection } from 'prosemirror-utils';
 import { Dispatch } from '../../../event-dispatcher';
 import { ProsemirrorGetPosHandler } from '../../../nodeviews';
 import { insertMediaSingleNode, isMediaSingle } from '../utils/media-single';
@@ -30,7 +30,6 @@ import PickerFacade, {
   MediaStateEventSubscriber,
   PickerFacadeConfig,
 } from '../picker-facade';
-import analyticsService from '../../../analytics/service';
 import { INPUT_METHOD, InputMethodInsertMedia } from '../../analytics/types';
 import { isImage } from '../utils/is-image';
 import { MediaNodeWithPosHandler, MediaPluginState } from './types';
@@ -167,10 +166,6 @@ export class MediaPluginStateImplementation implements MediaPluginState {
           (this
             .mediaProvider as MediaProvider).viewMediaClientConfig = viewMediaClientConfig;
         }
-      }
-
-      if (!this.mediaProvider.uploadMediaClientConfig) {
-        this.mediaProvider.uploadMediaClientConfig = this.mediaProvider.uploadMediaClientConfig;
       }
 
       assert(
@@ -563,23 +558,11 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 
       pickers.forEach(picker => {
         picker.onNewMedia(this.insertFile);
-        picker.onNewMedia(this.trackNewMediaEvent);
       });
     }
 
     // set new upload params for the pickers
     pickers.forEach(picker => picker.setUploadParams(uploadParams));
-  }
-
-  trackNewMediaEvent(
-    mediaState: MediaState,
-    onMediaStateChanged: MediaStateEventSubscriber,
-    pickerType?: string,
-  ) {
-    analyticsService.trackEvent(
-      `atlassian.editor.media.file.${pickerType}`,
-      mediaState.fileMimeType ? { fileMimeType: mediaState.fileMimeType } : {},
-    );
   }
 
   private getInputMethod = (
@@ -777,6 +760,21 @@ export const createPlugin = (
         //       transformations from within the plugin state (i.e. when adding a new file).
         return pluginState;
       },
+    },
+    filterTransaction(transaction, state) {
+      // Media node inside mediaSingle should not be selected
+      // We are relying on plugins/media/nodeviews/mediaNodeView/media.tsx#selectMediaSingleFromCard
+      // to set selection on correct mediaSingle node,
+      // We don't use 'appendTransaction' because we would like to avoid have additional transactions
+      // http://product-fabric.atlassian.net/browse/ED-10091
+      return !(
+        transaction.selectionSet &&
+        isNodeSelection(transaction.selection) &&
+        (transaction.selection as NodeSelection).node.type ===
+          state.schema.nodes.media &&
+        transaction.selection.$anchor.parent.type ===
+          state.schema.nodes.mediaSingle
+      );
     },
     key: stateKey,
     view: view => {

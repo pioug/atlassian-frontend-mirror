@@ -1,6 +1,6 @@
 import React from 'react';
 
-import merge from 'lodash.merge';
+import merge from 'lodash/merge';
 
 import { Checkbox } from '../src';
 import { ComponentTokens, ThemeFn } from '../src/types';

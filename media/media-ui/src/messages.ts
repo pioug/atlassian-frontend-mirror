@@ -43,6 +43,7 @@ export type MessageKey =
   | 'something_went_wrong'
   | 'might_be_a_hiccup'
   | 'couldnt_generate_preview'
+  | 'couldnt_generate_encrypted_entry_preview'
   | 'cant_preview_file_type'
   | 'item_not_found_in_list'
   | 'not_found_title'
@@ -90,6 +91,7 @@ export type MessageKey =
   | 'audio'
   | 'video'
   | 'image'
+  | 'archive'
   | 'search'
   | 'viewIn'
   | 'viewOriginal';
@@ -239,13 +241,13 @@ export const messages = defineMessages<Messages>({
   connect_link_account_card_description: {
     id: 'fabric.media.connect_link_account_card_view_description',
     defaultMessage:
-      'Enrich your link previews by connecting {context} to your Atlassian products.',
+      'To show a preview of this link, connect your {context} account.',
     description:
       'Shown when a user does not have access to a link, but can connect their external account to view the link on card view. Displayed in byline.',
   },
   invalid_permissions: {
     id: 'fabric.media.invalid_permissions',
-    defaultMessage: 'You don’t have access to this link',
+    defaultMessage: 'Restricted link',
     description:
       'Message shown when a user does not have permissions to view an item',
   },
@@ -331,6 +333,11 @@ export const messages = defineMessages<Messages>({
     description:
       'Error case for when the backend cant generate a preview for that file',
   },
+  couldnt_generate_encrypted_entry_preview: {
+    id: 'fabric.media.couldnt_generate_encrypted_entry_preview',
+    defaultMessage: "We can't preview encrypted or password protected files.",
+    description: 'Error case for when an entry selected is encrypted',
+  },
   cant_preview_file_type: {
     id: 'fabric.media.cant_preview_file_type',
     defaultMessage: "We can't preview this file type.",
@@ -350,7 +357,8 @@ export const messages = defineMessages<Messages>({
   },
   not_found_description: {
     id: 'fabric.media.not_found_description',
-    defaultMessage: 'Check the url and try editing or paste again.',
+    defaultMessage:
+      "We couldn't find the link. Check the url and try editing or paste again.",
     description:
       'Error case for when a provided item is not found within the list of items',
   },
@@ -426,7 +434,7 @@ export const messages = defineMessages<Messages>({
   },
   could_not_load_link: {
     id: 'fabric.media.couldnt_load_link',
-    defaultMessage: "We couldn't load this link for some reason.",
+    defaultMessage: "We couldn't load this link for an unknown reason.",
     description: 'Error case for card view - link could not be loaded.',
   },
   annotate: {
@@ -578,6 +586,11 @@ export const messages = defineMessages<Messages>({
   image: {
     id: 'fabric.media.image',
     defaultMessage: 'image',
+    description: '',
+  },
+  archive: {
+    id: 'fabric.media.archive',
+    defaultMessage: 'archive',
     description: '',
   },
   search: {

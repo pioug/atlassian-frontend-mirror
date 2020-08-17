@@ -10,7 +10,7 @@ export {
 
 export {
   MediaSingleDimensionHelper,
-  WrapperProps as MediaSingleDimensionHelperProps,
+  MediaSingleWrapperProps as MediaSingleDimensionHelperProps,
 } from './MediaSingle/styled';
 
 export {

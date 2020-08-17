@@ -1,17 +1,14 @@
 import { TaskState, ObjectKey } from '@atlaskit/task-decision';
-import { AnnotationUpdateEvent } from '@atlaskit/editor-common';
-import RendererBridge, {
-  ScrollToContentNode,
-  AnnotationFocusPayload,
-  AnnotationStatePayload,
-} from './bridge';
+import RendererBridge, { ScrollToContentNode } from './bridge';
+import { AnnotationPayload, AnnotationStatePayload } from '../types';
 import { Serialized } from '../../types';
 import WebBridge from '../../web-bridge';
-import { eventDispatcher } from '../dispatcher';
+import { eventDispatcher, EmitterEvents } from '../dispatcher';
 import { resolvePromise, rejectPromise } from '../../cross-platform-promise';
 import { TaskDecisionProviderImpl } from '../../providers/taskDecisionProvider';
 import { toNativeBridge } from '../web-to-native/implementation';
 import { getElementScrollOffsetByNodeType, scrollToElement } from './utils';
+import { JSONDocNode } from '@atlaskit/editor-json-transformer';
 
 class RendererMobileWebBridgeOverride extends WebBridge {
   containerAri?: string;
@@ -32,16 +29,24 @@ class RendererBridgeImplementation extends RendererMobileWebBridgeOverride
   implements RendererBridge {
   taskDecisionProvider?: Promise<TaskDecisionProviderImpl>;
 
-  /** Renderer bridge MVP to set the content */
-  setContent(content: string) {
-    if (eventDispatcher) {
+  setContent(content: Serialized<JSONDocNode>) {
+    if (!eventDispatcher) {
+      return;
+    }
+    let adfContent: JSONDocNode;
+    if (typeof content === 'string') {
       try {
-        content = JSON.parse(content);
+        adfContent = JSON.parse(content);
       } catch (e) {
         return;
       }
-      eventDispatcher.emit('setRendererContent', { content });
+    } else {
+      adfContent = content;
     }
+
+    eventDispatcher.emit(EmitterEvents.SET_RENDERER_CONTENT, {
+      content: adfContent,
+    });
   }
 
   onPromiseResolved(uuid: string, payload: string) {
@@ -125,15 +130,13 @@ class RendererBridgeImplementation extends RendererMobileWebBridgeOverride
     taskDecisionProvider.notifyUpdated(key, state);
   }
 
-  setAnnotationFocus(
-    annotationFocusPayload?: Serialized<AnnotationFocusPayload>,
-  ) {
+  setAnnotationFocus(annotationFocusPayload?: Serialized<AnnotationPayload>) {
     if (typeof annotationFocusPayload === 'string') {
       const payload = JSON.parse(annotationFocusPayload);
 
-      eventDispatcher.emit(AnnotationUpdateEvent.SET_ANNOTATION_FOCUS, payload);
+      eventDispatcher.emit(EmitterEvents.SET_ANNOTATION_FOCUS, payload);
     } else {
-      eventDispatcher.emit(AnnotationUpdateEvent.REMOVE_ANNOTATION_FOCUS);
+      eventDispatcher.emit(EmitterEvents.REMOVE_ANNOTATION_FOCUS);
     }
   }
 
@@ -141,8 +144,27 @@ class RendererBridgeImplementation extends RendererMobileWebBridgeOverride
     if (typeof annotations === 'string') {
       const payload = JSON.parse(annotations);
 
-      eventDispatcher.emit(AnnotationUpdateEvent.SET_ANNOTATION_STATE, payload);
+      eventDispatcher.emit(EmitterEvents.SET_ANNOTATION_STATE, payload);
     }
+  }
+
+  createAnnotationOnSelection(annotation: Serialized<AnnotationPayload>) {
+    if (typeof annotation === 'string') {
+      const payload = JSON.parse(annotation);
+
+      eventDispatcher.emit(
+        EmitterEvents.CREATE_ANNOTATION_ON_SELECTION,
+        payload,
+      );
+    }
+  }
+
+  highlightSelection() {
+    eventDispatcher.emit(EmitterEvents.APPLY_DRAFT_ANNOTATION);
+  }
+
+  cancelHighlight() {
+    eventDispatcher.emit(EmitterEvents.REMOVE_DRAFT_ANNOTATION);
   }
 }
 

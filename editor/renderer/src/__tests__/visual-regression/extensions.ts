@@ -1,10 +1,10 @@
-import { Page } from 'puppeteer';
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { snapshot, initRendererWithADF, Device } from './_utils';
 import * as nestedIframe from '../__fixtures__/extension-iframe-nested.adf.json';
 import * as breakoutExtensions from '../__fixtures__/extension-breakout.adf.json';
 
 const initRenderer = async (
-  page: Page,
+  page: PuppeteerPage,
   adf: any,
   viewport?: { width: number; height: number },
 ) => {
@@ -17,7 +17,7 @@ const initRenderer = async (
 };
 
 describe('Snapshot Test: Extensions', () => {
-  let page: Page;
+  let page: PuppeteerPage;
   beforeAll(() => {
     page = global.page;
   });

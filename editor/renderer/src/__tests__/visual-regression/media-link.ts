@@ -1,4 +1,4 @@
-import { Page } from 'puppeteer';
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { snapshot, initRendererWithADF, animationFrame } from './_utils';
 import mediaLink from './__fixtures__/media-link.adf.json';
 import wrappedMediaLink from './__fixtures__/wrapped-media-link.adf.json';
@@ -8,7 +8,7 @@ const mediaSingleSelector = `.${richMediaClassName}`;
 // TODO: https://product-fabric.atlassian.net/browse/ED-8011
 // ED-8011 Implement proper mock for media client on Renderer VR Tests.
 describe.skip('media link:', () => {
-  let page: Page;
+  let page: PuppeteerPage;
 
   beforeEach(async () => {
     page = global.page;

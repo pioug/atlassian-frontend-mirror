@@ -373,7 +373,6 @@ export default class ResizableMediaSingle extends React.Component<
         containerWidth={containerWidth || origWidth}
         innerRef={(elem: any) => (this.wrapper = elem)}
         fullWidthMode={fullWidthMode}
-        // data-node-type="mediaSingle"
       >
         <Resizer
           {...this.props}

@@ -16,13 +16,13 @@
   "atlaskit:src": "src/index.js",
   "atlassian": {
     "team": "Design System Team",
+    "deprecatedAutoEntryPoints": true,
     "inPublicMirror": true,
     "releaseModel": "scheduled",
     "website": {
       "deprecated": "Please use the Form/Textfield/Textarea/etc packages instead.",
       "name": "Field Base"
-    },
-    "deprecatedAutoEntryPoints": true
+    }
   },
   "dependencies": {
     "@atlaskit/icon": "^21.0.0",

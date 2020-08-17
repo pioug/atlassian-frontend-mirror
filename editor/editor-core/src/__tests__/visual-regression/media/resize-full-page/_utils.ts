@@ -1,3 +1,4 @@
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { initFullPageEditorWithAdf, snapshot } from '../../_utils';
 import {
   getEditorWidth,
@@ -15,14 +16,13 @@ import {
   isLayoutAvailable,
   waitForMediaToBeLoaded,
 } from '../../../__helpers/page-objects/_media';
+import { selectors } from '../../../__helpers/page-objects/_editor';
 import * as layout2Col from '../../common/__fixtures__/basic-columns.adf.json';
 import { EditorProps } from '../../../../types';
-import { Page } from '../../../__helpers/page-objects/_types';
-import { editable } from '../../../integration/_helpers';
 
 export function createResizeFullPageForConfig(config: TestPageConfig) {
   const initEditor = async (
-    page: Page,
+    page: PuppeteerPage,
     editorProps: Partial<EditorProps>,
     viewport?: { width: number; height: number },
     defaultValue?: Object,
@@ -35,13 +35,13 @@ export function createResizeFullPageForConfig(config: TestPageConfig) {
       editorProps,
     );
     // wait for editor
-    await page.waitForSelector(editable);
-    await page.click(editable);
+    await page.waitForSelector(selectors.editor);
+    await page.click(selectors.editor);
   };
 
   describe('Snapshot Test: Media', () => {
     describe('full page editor', () => {
-      let page: any;
+      let page: PuppeteerPage;
 
       beforeAll(async () => {
         page = global.page;

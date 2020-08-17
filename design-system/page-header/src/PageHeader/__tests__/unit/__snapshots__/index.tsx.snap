@@ -76,6 +76,7 @@ exports[`@atlaskit/page-header should render correctly 1`] = `
     >
       <h1
         className="c3"
+        tabIndex={-1}
       >
         Test
       </h1>

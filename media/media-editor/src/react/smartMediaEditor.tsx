@@ -19,6 +19,7 @@ import {
   MediaClient,
   UploadableFile,
   FileIdentifier,
+  MediaStore,
 } from '@atlaskit/media-client';
 // Importing from own entry-point, since we dont' want to bring whole media-client at this point
 import { RECENTS_COLLECTION } from '@atlaskit/media-client/constants';
@@ -200,6 +201,9 @@ export class SmartMediaEditor extends React.Component<
         collection: RECENTS_COLLECTION,
         authProvider: userAuthProvider,
         occurrenceKey: uuidV4(),
+        mediaStore: new MediaStore({
+          authProvider: userAuthProvider,
+        }),
       };
       await file.copyFile(source, destination);
     }

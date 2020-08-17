@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useRef, useEffect, memo } from 'react';
 import styled from 'styled-components';
 import { WidthObserver } from '@atlaskit/width-detector';
 
@@ -36,19 +36,22 @@ type useContainerWidthReturnType = {
 export default function useContainerWidth(): useContainerWidthReturnType {
   const [containerWidth, setContainerWidth] = useState(0);
 
-  const ref = useCallback(node => {
-    if (node != null) {
-      setContainerWidth(node.getBoundingClientRect().width);
-    }
-  }, []);
+  const ref = useRef<null | HTMLDivElement>(null);
 
-  const ContainerWidthMonitor = () => {
+  useEffect(() => {
+    const { current } = ref;
+    if (ref && current) {
+      setContainerWidth(current.getBoundingClientRect().width);
+    }
+  }, [ref]);
+
+  const ContainerWidthMonitor = memo(() => {
     return (
-      <WidthObserverWrapper innerRef={ref}>
+      <WidthObserverWrapper innerRef={ref} tabIndex={-1}>
         <WidthObserver setWidth={setContainerWidth} />
       </WidthObserverWrapper>
     );
-  };
+  });
   return { containerWidth, ContainerWidthMonitor };
 }
 

@@ -20,12 +20,12 @@ import {
   tableSelectors,
 } from '../../__helpers/page-objects/_table';
 import { animationFrame } from '../../__helpers/page-objects/_editor';
-import { Page } from '../../__helpers/page-objects/_types';
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { TableCssClassName as ClassName } from '../../../plugins/table/types';
 // TODO: https://product-fabric.atlassian.net/browse/ED-7721
 describe.skip('Snapshot Test: table resizing', () => {
   describe('Re-sizing', () => {
-    let page: Page;
+    let page: PuppeteerPage;
 
     beforeAll(() => {
       page = global.page;
@@ -113,7 +113,7 @@ describe.skip('Snapshot Test: table resizing', () => {
 });
 
 describe('Snapshot Test: table resize handle', () => {
-  let page: Page;
+  let page: PuppeteerPage;
   beforeEach(async () => {
     page = global.page;
     await initFullPageEditorWithAdf(page, adf);
@@ -129,7 +129,7 @@ describe('Snapshot Test: table resize handle', () => {
 });
 
 describe('Snapshot Test: table scale', () => {
-  let page: Page;
+  let page: PuppeteerPage;
   beforeEach(async () => {
     page = global.page;
     await initEditorWithAdf(page, {
@@ -151,7 +151,7 @@ describe('Snapshot Test: table scale', () => {
 });
 
 describe('Snapshot Test: table with merged cell on first row', () => {
-  let page: Page;
+  let page: PuppeteerPage;
   beforeEach(async () => {
     page = global.page;
     await initFullPageEditorWithAdf(page, adfTableWithMergedCellsOnFirstRow);
@@ -178,7 +178,7 @@ describe('Snapshot Test: table with merged cell on first row', () => {
 });
 
 describe('Snapshot Test: table resize handle line', () => {
-  let page: Page;
+  let page: PuppeteerPage;
   beforeEach(async () => {
     page = global.page;
     await initFullPageEditorWithAdf(page, adfTableWithMergedCells);

@@ -39,10 +39,10 @@ export const createDecoration = (
 export function findMatches(
   content: PmNode | Fragment,
   searchText: string,
+  shouldMatchCase: boolean,
   contentIndex = 0,
 ): Match[] {
   let matches: Match[] = [];
-  searchText = searchText.toLowerCase();
   const searchTextLength = searchText.length;
 
   let textGrouping: TextGrouping = null;
@@ -51,15 +51,19 @@ export function findMatches(
     if (!textGrouping) {
       return;
     }
-    const { text, pos: relativePos } = textGrouping;
+    let { text, pos: relativePos } = textGrouping;
     const pos = contentIndex + relativePos;
-    let index = text.toLowerCase().indexOf(searchText);
+    if (!shouldMatchCase) {
+      searchText = searchText.toLowerCase();
+      text = text.toLowerCase();
+    }
+    let index = text.indexOf(searchText);
     while (index !== -1) {
       // Find the next substring from the end of the first, so that they don't overlap
       const end = index + searchTextLength;
       // Add the substring index to the position of the node
       matches.push({ start: pos + index, end: pos + end });
-      index = text.toLowerCase().indexOf(searchText, end);
+      index = text.indexOf(searchText, end);
     }
   };
 

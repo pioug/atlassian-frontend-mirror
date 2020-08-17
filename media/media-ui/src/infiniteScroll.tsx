@@ -1,6 +1,6 @@
 import React from 'react';
 import { Component } from 'react';
-import debounce from 'lodash.debounce';
+import debounce from 'lodash/debounce';
 
 export type ThresholdReachedEventHandler = () => void;
 

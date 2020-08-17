@@ -1,5 +1,32 @@
 # @atlaskit/select
 
+## 13.0.0
+
+### Major Changes
+
+- [`b85482c030`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b85482c030) - Upgraded Popper JS to version 2.2.3, which comes with bug fixes, performance improvements and a reduced bundle size when combined with @popperjs/core. As a result, PopupSelect has some changes to the values accepted by the `popperProps` prop.
+
+  Changes labelled with ⚙️ have codemod support:
+
+  - ⚙️ the `positionFixed` prop has been replaced with `strategy`, which takes either `"fixed"` or `"absolute"`
+  - the `modifiers` prop has been significantly updated:
+    - The format is now an array of objects, each labelled via a `name` key:value pair. Previously the prop
+      was an object where each property was the modifier name.
+    - Prop options are grouped together in an `options` object
+    - default boundary paddings have been removed from `preventOverflow` and `flip`; to restore original
+      padding, set `padding: 5`
+    - modifiers that supported a `boundariesElement` option now have two options in its place:
+      - `boundary`, which takes `clippingParents` (similar to `scrollParent`)
+      - `rootBoundary` which takes `viewport` or `document` (replacing `viewport` and `window`respectively)
+    - Each modifier has more internal changes not listed here: see [the Popper JS docs](https://popper.js.org/docs/v2/modifiers/) for more information
+
+  Note: due to a bug in `react-popper`, a console.error message relating to React `act()` may be raised on some tests using PopupSelect. It should not cause test failures. This issue has been raised in [the React Popper issue tracker](https://github.com/popperjs/react-popper/issues/368)
+
+### Patch Changes
+
+- [`e99262c6f0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e99262c6f0) - All form elements now have a default font explicitly set
+- [`aecfa8c991`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aecfa8c991) - Remove non-standard CSS property [-ms-overflow-style](https://developer.mozilla.org/en-US/docs/Archive/Web/CSS/-ms-overflow-style). `-ms-overflow-style` is a Microsoft extension controlling the behavior of scrollbars when the content of an element overflows.
+
 ## 12.0.2
 
 ### Patch Changes

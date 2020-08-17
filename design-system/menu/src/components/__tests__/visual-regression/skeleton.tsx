@@ -4,8 +4,6 @@ import {
   takeElementScreenShot,
 } from '@atlaskit/visual-regression/helper';
 
-declare var global: any;
-
 const toggleButton = "[data-testid='toggle-loading']";
 const leftMenu = "[data-testid='left-menu']";
 

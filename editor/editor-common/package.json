@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-common",
-  "version": "48.0.0",
+  "version": "49.0.0",
   "description": "A package that contains common classes and components for editor and renderer",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -16,19 +16,19 @@
   "atlaskit:src": "src/index.ts",
   "atlassian": {
     "team": "Editor",
+    "deprecatedAutoEntryPoints": true,
     "inPublicMirror": true,
-    "releaseModel": "scheduled",
-    "deprecatedAutoEntryPoints": true
+    "releaseModel": "scheduled"
   },
   "dependencies": {
-    "@atlaskit/adf-schema": "^12.1.0",
-    "@atlaskit/adf-utils": "^10.1.0",
-    "@atlaskit/analytics-namespaced-context": "^5.0.0",
+    "@atlaskit/adf-schema": "^12.2.0",
+    "@atlaskit/adf-utils": "^10.2.0",
+    "@atlaskit/analytics-namespaced-context": "^5.1.0",
     "@atlaskit/analytics-next": "^7.0.0",
     "@atlaskit/emoji": "^63.0.0",
     "@atlaskit/icon": "^21.0.0",
-    "@atlaskit/media-card": "^69.1.0",
-    "@atlaskit/media-client": "^8.0.0",
+    "@atlaskit/media-card": "^69.2.0",
+    "@atlaskit/media-client": "^9.0.0",
     "@atlaskit/media-picker": "^55.0.0",
     "@atlaskit/mention": "^19.0.0",
     "@atlaskit/profilecard": "^13.0.0",
@@ -56,7 +56,7 @@
     "styled-components": "^3.2.6"
   },
   "devDependencies": {
-    "@atlaskit/editor-json-transformer": "^8.1.0",
+    "@atlaskit/editor-json-transformer": "^8.2.0",
     "@atlaskit/editor-test-helpers": "^12.1.0",
     "@atlaskit/media-core": "^32.0.0",
     "@atlaskit/util-data-test": "^14.0.0",

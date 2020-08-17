@@ -17,12 +17,12 @@
   "atlaskit:designLink": "https://atlassian.design/guidelines/product/components/tags",
   "atlassian": {
     "team": "Design System Team",
+    "deprecatedAutoEntryPoints": true,
     "inPublicMirror": true,
     "releaseModel": "scheduled",
     "website": {
       "name": "Tag group"
-    },
-    "deprecatedAutoEntryPoints": true
+    }
   },
   "dependencies": {
     "tslib": "^1.9.3"

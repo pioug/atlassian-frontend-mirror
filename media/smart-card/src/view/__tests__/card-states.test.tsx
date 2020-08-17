@@ -319,7 +319,7 @@ describe('smart-card: card states', () => {
             </Provider>,
           );
           const forbiddenLink = await waitForElement(() =>
-            getByText(/You don’t have access to this link/),
+            getByText(/Restricted link/),
           );
           const forbiddenLinkButton = container.querySelector(
             '[type="button"]',
@@ -335,14 +335,16 @@ describe('smart-card: card states', () => {
 
         it('block: renders the forbidden view if no access, with auth prompt', async () => {
           mockFetch.mockImplementationOnce(async () => mocks.forbidden);
-          const { getByText, container } = render(
+          const { getByText, getByTestId, container } = render(
             <Provider client={mockClient}>
               <Card appearance="block" url={mockUrl} />
             </Provider>,
           );
-          const forbiddenLink = await waitForElement(() =>
-            getByText(/You don’t have access to this link/),
+          const frame = await waitForElement(() =>
+            getByTestId('block-card-forbidden-view'),
           );
+          expect(frame).toBeTruthy();
+          const forbiddenLink = await waitForElement(() => getByText(mockUrl));
           expect(forbiddenLink).toBeTruthy();
           const forbiddenLinkButton = container.querySelector('button');
           expect(forbiddenLinkButton).toBeTruthy();
@@ -363,7 +365,7 @@ describe('smart-card: card states', () => {
           await new Promise(resolve => setTimeout(resolve, 1000));
 
           const forbiddenLink = await waitForElement(() =>
-            getByText(/You don’t have access to this link/),
+            getByText(/Restricted link/),
           );
           expect(forbiddenLink).toBeTruthy();
           const forbiddenLinkButton = container.querySelector('button');
@@ -399,14 +401,16 @@ describe('smart-card: card states', () => {
         it('block: renders the forbidden view if no access, no auth prompt', async () => {
           mocks.forbidden.meta.auth = [];
           mockFetch.mockImplementationOnce(async () => mocks.forbidden);
-          const { getByText, container } = render(
+          const { getByText, getByTestId, container } = render(
             <Provider client={mockClient}>
               <Card appearance="block" url={mockUrl} />
             </Provider>,
           );
-          const forbiddenLink = await waitForElement(() =>
-            getByText(/You don’t have access to this link/),
+          const frame = await waitForElement(() =>
+            getByTestId('block-card-forbidden-view'),
           );
+          expect(frame).toBeTruthy();
+          const forbiddenLink = await waitForElement(() => getByText(mockUrl));
           const forbiddenLinkButton = container.querySelector('button');
           expect(forbiddenLink).toBeTruthy();
           expect(forbiddenLinkButton).toBeFalsy();
@@ -423,7 +427,7 @@ describe('smart-card: card states', () => {
             </Provider>,
           );
           const forbiddenLink = await waitForElement(() =>
-            getByText(/You don’t have access to this link/),
+            getByText(/Restricted link/),
           );
           expect(forbiddenLink).toBeTruthy();
           expect(mockFetch).toBeCalled();
@@ -458,15 +462,15 @@ describe('smart-card: card states', () => {
           mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
           const { getByText, getByTestId } = render(
             <Provider client={mockClient}>
-              <Card
-                testId="block-unauthorized-connect"
-                appearance="block"
-                url={mockUrl}
-              />
+              <Card appearance="block" url={mockUrl} />
             </Provider>,
           );
+          const frame = await waitForElement(() =>
+            getByTestId('block-card-unauthorized-view'),
+          );
+          expect(frame).toBeTruthy();
           const unauthorizedLink = await waitForElement(() =>
-            getByText(/Connect your.*?account/),
+            getByText(mockUrl),
           );
           expect(unauthorizedLink).toBeTruthy();
           const unauthorizedLinkButton = getByTestId('button-connect-account');
@@ -524,13 +528,17 @@ describe('smart-card: card states', () => {
         it('block: renders without connect flow', async () => {
           mocks.unauthorized.meta.auth = [];
           mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
-          const { getByText, container } = render(
+          const { getByText, getByTestId, container } = render(
             <Provider client={mockClient}>
               <Card appearance="block" url={mockUrl} />
             </Provider>,
           );
+          const frame = await waitForElement(() =>
+            getByTestId('block-card-unauthorized-view'),
+          );
+          expect(frame).toBeTruthy();
           const unauthorizedLink = await waitForElement(() =>
-            getByText(/Connect your.*?account/),
+            getByText(mockUrl),
           );
           const unauthorizedLinkButton = container.querySelector('button');
           expect(unauthorizedLink).toBeTruthy();
@@ -627,7 +635,7 @@ describe('smart-card: card states', () => {
           </Provider>,
         );
         const errorView = await waitForElement(() =>
-          getByText(/We couldn't find this link/),
+          getByText(/Can't find link/),
         );
         expect(errorView).toBeTruthy();
         expect(mockFetch).toBeCalled();
@@ -636,15 +644,17 @@ describe('smart-card: card states', () => {
 
       it('block: renders not found card when link not found', async () => {
         mockFetch.mockImplementationOnce(async () => mocks.notFound);
-        const { getByText } = render(
+        const { getByText, getByTestId } = render(
           <Provider client={mockClient}>
             <Card appearance="block" url={mockUrl} />
           </Provider>,
         );
-        const errorView = await waitForElement(() =>
-          getByText(/Uh oh. We can't find this link!/),
+        const frame = await waitForElement(() =>
+          getByTestId('block-card-not-found-view'),
         );
-        expect(errorView).toBeTruthy();
+        expect(frame).toBeTruthy();
+        const link = await waitForElement(() => getByText(mockUrl));
+        expect(link).toBeTruthy();
         expect(mockFetch).toBeCalled();
         expect(mockFetch).toBeCalledTimes(1);
       });

@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import dateformat from 'dateformat';
-import { MediaTypeIcon } from '@atlaskit/media-ui/media-type-icon';
 import { MediaType } from '@atlaskit/media-client';
-import { NameCellWrapper, NameCell, ExampleWrapper } from './styled';
+import { ExampleWrapper } from './styled';
 import FieldRange from '@atlaskit/field-range';
 import { toHumanReadableMediaSize } from '@atlaskit/media-ui';
 import {
@@ -13,17 +12,10 @@ import {
   docFileId,
   videoProcessingFailedId,
 } from '@atlaskit/media-test-helpers';
-import { MediaTableItem } from '../src';
+import { MediaTableItem, NameCell } from '../src';
 
 export const createMockFileData = (name: string, mediaType: MediaType) => {
-  return (
-    <NameCellWrapper>
-      {<MediaTypeIcon type={mediaType} />}{' '}
-      <NameCell>
-        <span>{name}</span>
-      </NameCell>
-    </NameCellWrapper>
-  );
+  return <NameCell text={name} mediaType={mediaType} endFixedChars={4} />;
 };
 
 export const RenderMediaTableWithFieldRange = (
@@ -52,52 +44,79 @@ export const items: MediaTableItem[] = [
   {
     data: {
       file: createMockFileData(
-        'test1-testing-long-column-width-test1-testing-long-column-width',
+        'Alabama-hills-5616x3744-california-us-mountains-sky-sunset-4887.jpg',
         'image',
       ),
       size: toHumanReadableMediaSize(123123),
-      date: dateformat(123123232),
+      date: dateformat(123123232, 'mmm dd, yyyy, h:mmtt'),
     },
     identifier: imageFileId,
   },
   {
     data: {
-      file: createMockFileData('test2', 'audio'),
+      file: createMockFileData(
+        'AirReview-Landmarks-02-ChasingCorporate.mp3',
+        'audio',
+      ),
       size: toHumanReadableMediaSize(123123),
-      date: dateformat(123123232),
+      date: dateformat(123123232, 'mmm dd, yyyy, h:mmtt'),
     },
     identifier: audioFileId,
   },
   {
     data: {
-      file: createMockFileData('test3', 'video'),
+      file: createMockFileData(
+        '1Full Movie Fully Flared - Eric Koston, Guy Mariano, Mike Mo Capaldi.mp4',
+        'video',
+      ),
       size: toHumanReadableMediaSize(123123),
-      date: dateformat(123123232),
+      date: dateformat(123123232, 'mmm dd, yyyy, h:mmtt'),
     },
     identifier: videoProcessingFailedId,
   },
   {
     data: {
-      file: createMockFileData('test4', 'doc'),
+      file: createMockFileData('Elektromaterial.pdf', 'doc'),
       size: toHumanReadableMediaSize(123123),
-      date: dateformat(123123232),
+      date: dateformat(123123232, 'mmm dd, yyyy, h:mmtt'),
     },
     identifier: docFileId,
   },
   {
     data: {
-      file: createMockFileData('test5', 'image'),
+      file: createMockFileData(
+        'Screen Shot 2017-06-28 at 6.27.20 PM.png',
+        'image',
+      ),
       size: toHumanReadableMediaSize(123123),
-      date: dateformat(123123232),
+      date: dateformat(123123232, 'mmm dd, yyyy, h:mmtt'),
     },
     identifier: largeImageFileId,
   },
   {
     data: {
-      file: createMockFileData('test6', 'image'),
+      file: createMockFileData('Icon-dollar-small.png', 'image'),
       size: toHumanReadableMediaSize(123123),
-      date: dateformat(123123232),
+      date: dateformat(123123232, 'mmm dd, yyyy, h:mmtt'),
     },
     identifier: smallImageFileId,
   },
 ];
+
+export const generateItems = (numItems: number) => {
+  const items = [];
+  for (let i = 1; i <= numItems; i++) {
+    items.push({
+      data: {
+        file: createMockFileData(`test-${i}`, 'image'),
+        size: toHumanReadableMediaSize(i),
+        date: dateformat(123123232),
+      },
+      identifier: {
+        ...smallImageFileId,
+        id: `test-id-${i}`,
+      },
+    });
+  }
+  return items;
+};

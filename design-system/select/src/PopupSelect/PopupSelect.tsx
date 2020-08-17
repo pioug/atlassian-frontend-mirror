@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom';
 import Select from 'react-select';
 import createFocusTrap, { FocusTrap } from 'focus-trap';
 import { Manager, Reference, Popper, PopperProps } from 'react-popper';
+import { Placement } from '@popperjs/core';
 import NodeResolver from 'react-node-resolver';
 import shallowEqualObjects from 'shallow-equal/objects';
 import { N80 } from '@atlaskit/theme/colors';
@@ -17,23 +18,6 @@ import {
   StylesConfig,
 } from '../types';
 
-type Placement =
-  | 'auto-start'
-  | 'auto'
-  | 'auto-end'
-  | 'top-start'
-  | 'top'
-  | 'top-end'
-  | 'right-start'
-  | 'right'
-  | 'right-end'
-  | 'bottom-end'
-  | 'bottom'
-  | 'bottom-start'
-  | 'left-end'
-  | 'left'
-  | 'left-start';
-
 /** Are we rendering on the client or server? */
 const canUseDOM = () =>
   Boolean(
@@ -46,21 +30,26 @@ const canUseDOM = () =>
 // Types
 // ==============================
 
-type PopperPropsNoChildren = Omit<PopperProps, 'children'>;
+type defaultModifiers = 'offset' | 'preventOverflow';
 
-export interface PopupSelectProps<Option = OptionType>
+type PopperPropsNoChildren<Modifiers> = Omit<
+  PopperProps<Modifiers>,
+  'children'
+>;
+
+export interface PopupSelectProps<Option = OptionType, Modifiers = {}>
   extends ReactSelectProps<Option> {
   closeMenuOnSelect?: boolean;
   footer?: ReactNode;
-  popperProps?: PopperPropsNoChildren;
+  popperProps?: PopperPropsNoChildren<Modifiers>;
   searchThreshold?: number;
   target?: (options: { ref: any; isOpen: boolean }) => ReactNode;
 }
 
-interface State {
+interface State<Modifiers = {}> {
   isOpen: boolean;
   mergedComponents: Object;
-  mergedPopperProps: PopperPropsNoChildren;
+  mergedPopperProps: PopperPropsNoChildren<defaultModifiers | Modifiers>;
 }
 
 // ==============================
@@ -71,8 +60,22 @@ const defaultStyles: StylesConfig = {
   groupHeading: provided => ({ ...provided, color: N80 }),
 };
 
-const defaultPopperProps: PopperPropsNoChildren = {
-  modifiers: { offset: { offset: `0, 8` } },
+const defaultPopperProps: PopperPropsNoChildren<
+  'offset' | 'preventOverflow'
+> = {
+  modifiers: [
+    { name: 'offset', options: { offset: [0, 8] } },
+    {
+      name: 'preventOverflow',
+      enabled: true,
+      options: {
+        padding: 5,
+        boundary: 'clippingParents',
+        altAxis: true,
+        altBoundary: true,
+      },
+    },
+  ],
   placement: 'bottom-start' as Placement,
 };
 
@@ -379,7 +382,7 @@ export default class PopupSelect<Option = OptionType> extends PureComponent<
       </Popper>
     );
 
-    return mergedPopperProps.positionFixed
+    return mergedPopperProps.strategy === 'fixed'
       ? popper
       : createPortal(popper, portalDestination);
   };

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/range",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "description": "A styled version of the native input[range] element.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -16,12 +16,12 @@
   "atlaskit:src": "src/index.ts",
   "atlassian": {
     "team": "Design System Team",
+    "deprecatedAutoEntryPoints": true,
     "inPublicMirror": true,
     "releaseModel": "scheduled",
     "website": {
       "name": "Range"
-    },
-    "deprecatedAutoEntryPoints": true
+    }
   },
   "dependencies": {
     "@atlaskit/theme": "^10.0.0",
@@ -43,8 +43,7 @@
     "@types/jscodeshift": "^0.6.3",
     "enzyme": "^3.10.0",
     "jscodeshift": "^0.7.0",
-    "lodash.debounce": "^4.0.8",
-    "lodash.throttle": "^4.1.1",
+    "lodash": "^4.17.15",
     "react-dom": "^16.8.0",
     "storybook-addon-performance": "0.12.0"
   },

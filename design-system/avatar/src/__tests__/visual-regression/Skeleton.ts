@@ -1,11 +1,12 @@
 import {
   getExampleUrl,
   loadPage,
+  PuppeteerPage,
   waitForElementCount,
 } from '@atlaskit/visual-regression/helper';
 
 describe('Skeleton', () => {
-  let page: any;
+  let page: PuppeteerPage;
   beforeEach(async () => {
     page = global.page;
     await page.setViewport({ width: 500, height: 850 });

@@ -7,7 +7,7 @@ import {
   SetStateAction,
 } from 'react';
 
-import { Placement } from '@atlaskit/popper';
+import { Placement, PopperChildrenProps } from '@atlaskit/popper';
 
 export interface TriggerProps {
   ref: Ref<HTMLElement>;
@@ -24,7 +24,7 @@ export interface ContentProps {
    * Will reposition the popup if any of the content has changed.
    * Useful for when positions change and the popup was not aware.
    */
-  scheduleUpdate(): void;
+  update: PopperChildrenProps['update'];
 
   /**
    * Passed through from the parent popup.
@@ -99,10 +99,17 @@ export interface PopupProps {
   content: (props: ContentProps) => React.ReactNode;
 
   /**
-   * The element that the popup should try to stay within.
-   * Defaults to `"viewport"`.
+   * The boundary element that the popup will check for overflow.
+   * Defaults to `"clippingParents"` which are parent scroll containers,
+   * but can be set to any element.
    */
-  boundariesElement?: 'viewport' | 'window' | 'scrollParent';
+  boundary?: 'clippingParents' | HTMLElement;
+
+  /**
+   * The root boundary that the popup will check for overflow.
+   * Defaults to `"viewport"` but can be set to `"document"`.
+   */
+  rootBoundary?: 'viewport' | 'document';
 
   /**
    * Id that is assigned to the popup container element.
@@ -110,10 +117,11 @@ export interface PopupProps {
   id?: string;
 
   /**
-   * Distance the popup should be away from the trigger in the format of `"x,y"`.
-   * Defaults to `"0,8px"` - which means the popup will be 8px away of the trigger on the y-axis.
+   * Distance the popup should be offset from the reference in the format of [along, away] (units in px).
+   * Defaults to [0, 8] - which means the popup will be 8px away from the edge of the reference specified
+   * by the `placement` prop.
    */
-  offset?: number | string;
+  offset?: [number, number];
 
   /**
    * Placement of where the popup should be displayed relative to the trigger element.
@@ -175,5 +183,5 @@ export type FocusManagerHook = {
 
 export type RepositionOnUpdateProps = {
   content: (props: ContentProps) => React.ReactNode;
-  scheduleUpdate(): void;
+  update: PopperChildrenProps['update'];
 };

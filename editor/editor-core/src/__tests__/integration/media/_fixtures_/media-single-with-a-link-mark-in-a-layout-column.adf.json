@@ -3,6 +3,10 @@
   "type": "doc",
   "content": [
     {
+      "type": "paragraph",
+      "content": []
+    },
+    {
       "type": "layoutSection",
       "content": [
         {
@@ -28,11 +32,11 @@
                 {
                   "type": "media",
                   "attrs": {
-                    "id": "f3522853-855b-471b-869c-6d9a8c424eea",
+                    "id": "a559980d-cd47-43e2-8377-27359fcb905f",
                     "type": "file",
                     "collection": "MediaServicesSample",
-                    "width": 1024,
-                    "height": 683
+                    "width": 500,
+                    "height": 500
                   }
                 }
               ]

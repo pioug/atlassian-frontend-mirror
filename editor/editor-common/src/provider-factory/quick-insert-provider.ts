@@ -41,6 +41,7 @@ export type QuickInsertItemId =
 
 export type QuickInsertItem = TypeAheadItem & {
   keywords?: Array<string>;
+  categories?: Array<string>;
   priority?: number;
   id?: QuickInsertItemId;
   action: (

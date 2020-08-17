@@ -27,22 +27,19 @@ import {
   CreateUIAnalyticsEvent,
   UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
-import { AnalyticsHandler } from '../../../../analytics';
 import { pluginKey } from '../../../../plugins/table/pm-plugins/plugin-factory';
 
 describe('table keymap', () => {
   const createEditor = createEditorFactory<TablePluginState>();
 
   let createAnalyticsEvent: CreateUIAnalyticsEvent;
-  let trackEvent: AnalyticsHandler;
   let editorView: EditorView;
 
-  const editor = (doc: any, trackEvent: AnalyticsHandler = () => {}) => {
+  const editor = (doc: any) => {
     createAnalyticsEvent = jest.fn(() => ({ fire() {} } as UIAnalyticsEvent));
     return createEditor({
       doc,
       editorProps: {
-        analyticsHandler: trackEvent,
         allowAnalyticsGASV3: true,
         allowTables: true,
       },
@@ -51,14 +48,10 @@ describe('table keymap', () => {
     });
   };
 
-  const editorWithPlugins = (
-    doc: any,
-    trackEvent: AnalyticsHandler = () => {},
-  ) =>
+  const editorWithPlugins = (doc: any) =>
     createEditor({
       doc,
       editorProps: {
-        analyticsHandler: trackEvent,
         allowExtension: true,
         allowTables: true,
         allowRule: true,
@@ -70,10 +63,6 @@ describe('table keymap', () => {
       pluginKey,
     });
 
-  beforeEach(() => {
-    trackEvent = jest.fn();
-  });
-
   describe('Tab keypress', () => {
     describe('when the whole row is selected', () => {
       it('should select the first cell of the next row', () => {
@@ -81,16 +70,12 @@ describe('table keymap', () => {
           doc(
             table()(tr(tdCursor, tdEmpty), tr(td({})(p('{nextPos}')), tdEmpty)),
           ),
-          trackEvent,
         );
         const { nextPos } = refs;
         editorView.dispatch(selectRow(0)(editorView.state.tr));
         sendKeyToPm(editorView, 'Tab');
         expect(editorView.state.selection.$from.pos).toEqual(nextPos);
         expect(editorView.state.selection.empty).toEqual(true);
-        expect(trackEvent).toHaveBeenCalledWith(
-          'atlassian.editor.format.table.next_cell.keyboard',
-        );
       });
     });
 
@@ -100,7 +85,6 @@ describe('table keymap', () => {
           doc(
             table()(tr(tdCursor, tdEmpty), tr(tdEmpty, td({})(p('{nextPos}')))),
           ),
-          trackEvent,
         );
         const { nextPos } = refs;
 
@@ -108,9 +92,6 @@ describe('table keymap', () => {
         sendKeyToPm(editorView, 'Tab');
         expect(editorView.state.selection.$from.pos).toEqual(nextPos);
         expect(editorView.state.selection.empty).toEqual(true);
-        expect(trackEvent).toHaveBeenCalledWith(
-          'atlassian.editor.format.table.next_cell.keyboard',
-        );
       });
     });
 
@@ -118,15 +99,11 @@ describe('table keymap', () => {
       it('should select next cell of the current row', () => {
         const { editorView, refs } = editor(
           doc(table()(tr(tdCursor, td({})(p('{nextPos}')), tdEmpty))),
-          trackEvent,
         );
         const { nextPos } = refs;
         sendKeyToPm(editorView, 'Tab');
         expect(editorView.state.selection.$from.pos).toEqual(nextPos);
         expect(editorView.state.selection.empty).toEqual(true);
-        expect(trackEvent).toHaveBeenCalledWith(
-          'atlassian.editor.format.table.next_cell.keyboard',
-        );
       });
     });
 
@@ -139,15 +116,11 @@ describe('table keymap', () => {
               tr(td({})(p('{nextPos}')), tdEmpty, tdEmpty),
             ),
           ),
-          trackEvent,
         );
         const { nextPos } = refs;
         sendKeyToPm(editorView, 'Tab');
         expect(editorView.state.selection.$from.pos).toEqual(nextPos);
         expect(editorView.state.selection.empty).toEqual(true);
-        expect(trackEvent).toHaveBeenCalledWith(
-          'atlassian.editor.format.table.next_cell.keyboard',
-        );
       });
     });
 
@@ -160,7 +133,6 @@ describe('table keymap', () => {
               tr(tdEmpty, tdEmpty, tdCursor),
             ),
           ),
-          trackEvent,
         );
         sendKeyToPm(editorView, 'Tab');
         const tableNode = findTable(editorView.state.selection)!;
@@ -168,9 +140,6 @@ describe('table keymap', () => {
         expect(map.height).toEqual(3);
         expect(editorView.state.selection.$from.pos).toEqual(32);
         expect(editorView.state.selection.empty).toEqual(true);
-        expect(trackEvent).toHaveBeenCalledWith(
-          'atlassian.editor.format.table.row.keyboard',
-        );
       });
     });
   });
@@ -180,15 +149,11 @@ describe('table keymap', () => {
       it('should select previous cell of the current row', () => {
         const { editorView, refs } = editor(
           doc(table()(tr(tdEmpty, td({})(p('{nextPos}')), tdCursor))),
-          trackEvent,
         );
         const { nextPos } = refs;
         sendKeyToPm(editorView, 'Shift-Tab');
         expect(editorView.state.selection.$from.pos).toEqual(nextPos);
         expect(editorView.state.selection.empty).toEqual(true);
-        expect(trackEvent).toHaveBeenCalledWith(
-          'atlassian.editor.format.table.previous_cell.keyboard',
-        );
       });
     });
 
@@ -201,15 +166,11 @@ describe('table keymap', () => {
               tr(tdCursor, tdEmpty, tdEmpty),
             ),
           ),
-          trackEvent,
         );
         const { nextPos } = refs;
         sendKeyToPm(editorView, 'Shift-Tab');
         expect(editorView.state.selection.$from.pos).toEqual(nextPos);
         expect(editorView.state.selection.empty).toEqual(true);
-        expect(trackEvent).toHaveBeenCalledWith(
-          'atlassian.editor.format.table.previous_cell.keyboard',
-        );
       });
     });
 
@@ -222,7 +183,6 @@ describe('table keymap', () => {
               tr(tdEmpty, tdEmpty, tdEmpty),
             ),
           ),
-          trackEvent,
         );
         sendKeyToPm(editorView, 'Shift-Tab');
         const tableNode = findTable(editorView.state.selection)!;
@@ -230,9 +190,6 @@ describe('table keymap', () => {
         expect(map.height).toEqual(3);
         expect(editorView.state.selection.$from.pos).toEqual(4);
         expect(editorView.state.selection.empty).toEqual(true);
-        expect(trackEvent).toHaveBeenCalledWith(
-          'atlassian.editor.format.table.row.keyboard',
-        );
       });
     });
   });
@@ -329,7 +286,6 @@ describe('table keymap', () => {
               ),
             ),
           ),
-          trackEvent,
         );
 
         editorView.dispatch(selectTable(editorView.state.tr));
@@ -339,9 +295,6 @@ describe('table keymap', () => {
         sendKeyToPm(editorView, 'Backspace');
         expect(editorView.state.doc).toEqualDocument(
           doc(table()(tr(tdEmpty, tdEmpty, tdEmpty))),
-        );
-        expect(trackEvent).toHaveBeenCalledWith(
-          'atlassian.editor.format.table.delete_content.keyboard',
         );
         expect(editorView.state.selection.$from.pos).toEqual(4);
       });
@@ -359,7 +312,6 @@ describe('table keymap', () => {
                 tr(tdEmpty, td({})(p('3'))),
               ),
             ),
-            trackEvent,
           );
 
           editorView.dispatch(selectRow(index)(editorView.state.tr));
@@ -377,9 +329,6 @@ describe('table keymap', () => {
           }
           expect(editorView.state.doc).toEqualDocument(doc(table()(...rows)));
           expect(cursorPos).toEqual(editorView.state.selection.$from.pos);
-          expect(trackEvent).toHaveBeenCalledWith(
-            'atlassian.editor.format.table.delete_content.keyboard',
-          );
           expect(editorView.state.selection.$from.pos).toEqual(
             [4, 15, 26][index],
           );
@@ -397,7 +346,6 @@ describe('table keymap', () => {
                 tr(td({})(p('{<>}1')), td({})(p('2')), td({})(p('3'))),
               ),
             ),
-            trackEvent,
           );
 
           editorView.dispatch(selectColumn(index)(editorView.state.tr));
@@ -417,9 +365,6 @@ describe('table keymap', () => {
             doc(table()(emptyRow, tr(...columns))),
           );
           expect(cursorPos).toEqual(editorView.state.selection.$from.pos);
-          expect(trackEvent).toHaveBeenCalledWith(
-            'atlassian.editor.format.table.delete_content.keyboard',
-          );
           expect(editorView.state.selection.$from.pos).toEqual(
             [4, 8, 12][index],
           );

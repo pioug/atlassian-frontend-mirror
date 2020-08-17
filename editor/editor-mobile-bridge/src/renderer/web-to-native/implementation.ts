@@ -1,11 +1,17 @@
-import { AnnotationBridge, AnnotationPayloadsByType } from './bridge';
+import {
+  ContentBridge,
+  AnnotationBridge,
+  AnnotationPayloadsByType,
+  AnnotationTypesAvailableOnCurrentSelection,
+} from './bridge';
+import { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import { sendToBridge } from '../../bridge-utils';
 
 class WebRendererBridge {
   call = sendToBridge;
 }
 
-class Bridge implements AnnotationBridge {
+class Bridge implements AnnotationBridge, ContentBridge {
   onAnnotationClick(annotations?: AnnotationPayloadsByType[]) {
     if (annotations) {
       sendToBridge('annotationBridge', 'onAnnotationClick', {
@@ -19,6 +25,20 @@ class Bridge implements AnnotationBridge {
   fetchAnnotationStates(annotations: AnnotationPayloadsByType[]) {
     sendToBridge('annotationBridge', 'fetchAnnotationStates', {
       payload: JSON.stringify(annotations),
+    });
+  }
+
+  setContent(adf: JSONDocNode) {
+    sendToBridge('contentBridge', 'setContent', {
+      payload: JSON.stringify(adf),
+    });
+  }
+
+  canApplyAnnotationOnCurrentSelection(
+    payload: AnnotationTypesAvailableOnCurrentSelection[],
+  ) {
+    sendToBridge('annotationBridge', 'canApplyAnnotationOnCurrentSelection', {
+      payload: JSON.stringify(payload),
     });
   }
 }

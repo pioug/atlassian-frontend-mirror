@@ -119,6 +119,15 @@ export function getLinkDomain(url: string): string {
   return withoutWWW.replace(/[:\/?#](.*)$/, '');
 }
 
+export function isFromCurrentDomain(url: string): boolean {
+  if (!window || !window.location) {
+    return false;
+  }
+  const currentDomain = window.location.hostname;
+  const linkDomain = getLinkDomain(url);
+  return currentDomain === linkDomain;
+}
+
 interface LinkMatch {
   start: number;
   end: number;

@@ -25,11 +25,10 @@ const deleteContentBackward = (view: EditorView) => {
 describe('gap-cursor: composition events', () => {
   const createEditor = createEditorFactory();
 
-  const editor = (doc: any, trackEvent?: () => {}) =>
+  const editor = (doc: any) =>
     createEditor({
       doc,
       editorProps: {
-        analyticsHandler: trackEvent,
         allowExtension: true,
         allowPanel: true,
         allowRule: true,

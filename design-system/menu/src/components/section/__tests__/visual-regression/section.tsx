@@ -4,8 +4,6 @@ import {
   takeElementScreenShot,
 } from '@atlaskit/visual-regression/helper';
 
-declare var global: any;
-
 const withAdjacentSections = "[data-testid='with-adjacent-sections']";
 const mockStarredMenu = "[data-testid='mock-starred-menu']";
 

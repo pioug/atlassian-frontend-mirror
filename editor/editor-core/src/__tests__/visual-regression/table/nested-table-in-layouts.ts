@@ -5,7 +5,7 @@ import {
   deviceViewPorts,
 } from '../_utils';
 import tableIn2ColAdf from './__fixtures__/table-in-2-col-layout.adf.json';
-import { Page } from '../../__helpers/page-objects/_types';
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { messages } from '../../../plugins/layout/toolbar';
 import { clickFirstCell } from '../../__helpers/page-objects/_table';
 import {
@@ -14,10 +14,11 @@ import {
   clickOnLayoutColumn,
   waitForLayoutToolbar,
   waitForBreakoutNestedLayout,
+  layoutSelectors,
 } from '../../__helpers/page-objects/_layouts';
 
 describe('Snapshot Test: Nested table inside layouts', () => {
-  let page: Page;
+  let page: PuppeteerPage;
 
   const { rightSidebar, leftSidebar, threeColumns } = messages;
   const layoutBtns = [
@@ -54,13 +55,14 @@ describe('Snapshot Test: Nested table inside layouts', () => {
         });
         layoutBtns.forEach(layout => {
           const layoutBtnSelector = `[aria-label="${layout}"]`;
-
           it(`should resize when changing to ${layout}`, async () => {
+            await page.waitForSelector(layoutSelectors.content);
             await clickOnLayoutColumn(page, 2);
             await waitForLayoutToolbar(page);
+            await page.waitForSelector(layoutBtnSelector);
             await page.click(layoutBtnSelector);
             await waitForLayoutChange(page, layout);
-            await clickFirstCell(page);
+            await clickFirstCell(page, true);
           });
         });
       });

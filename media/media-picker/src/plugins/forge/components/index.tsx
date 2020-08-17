@@ -1,6 +1,6 @@
 import React from 'react';
 import { useEffect, useState, useMemo, useCallback } from 'react';
-import * as debounce from 'lodash.debounce';
+import debounce from 'lodash/debounce';
 
 import { ForgeViewProps, JsonLdCollectionEmpty } from '../types';
 import { ForgeClient } from '../client';
@@ -48,6 +48,7 @@ export const ForgeView = ({
   const onQueryChange: React.FormEventHandler<HTMLInputElement> = useCallback(
     event => {
       setQuery(event.currentTarget.value);
+      // @ts-ignore Introduced by unifying under the lodash package and its types in #3237
       onUpdateItems(query);
     },
     [onUpdateItems, query],
@@ -60,6 +61,7 @@ export const ForgeView = ({
         if (resource['@type'] === 'Collection') {
           const id = resource['@id'] || '';
           setContextId(id);
+          // @ts-ignore Introduced by unifying under the lodash package and its types in #3237
           onUpdateItems(query, id);
         } else {
           const metadata = getMetadata(id, resource as JsonLd.Data.Document);
@@ -72,6 +74,7 @@ export const ForgeView = ({
   const onFileClick = useCallback((id: string) => onClick(id)(), [onClick]);
 
   useEffect(() => {
+    // @ts-ignore Introduced by unifying under the lodash package and its types in #3237
     onUpdateItems(query);
   }, [onUpdateItems, query, id]);
 
@@ -90,6 +93,7 @@ export const ForgeView = ({
       {loading ? (
         <PluginLoadingView />
       ) : error ? (
+        // @ts-ignore Introduced by unifying under the lodash package and its types in #3237
         <PluginErrorView error={error} onRetry={onUpdateItems} />
       ) : (
         <PluginContentView>
@@ -98,6 +102,7 @@ export const ForgeView = ({
             items={items}
             iconUrl={iconUrl}
             selectedItems={selectedItems}
+            // @ts-ignore Introduced by unifying under the lodash package and its types in #3237
             onUpdateItems={onUpdateItems}
             onFileClick={onFileClick}
             onFolderClick={onFileClick}

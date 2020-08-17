@@ -17,12 +17,12 @@
   "atlaskit:designLink": "https://atlassian.design/guidelines/product/patterns/comments",
   "atlassian": {
     "team": "Design System Team",
+    "deprecatedAutoEntryPoints": true,
     "inPublicMirror": true,
     "releaseModel": "scheduled",
     "website": {
       "name": "Comment"
-    },
-    "deprecatedAutoEntryPoints": true
+    }
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^7.0.0",
@@ -40,7 +40,7 @@
     "@atlaskit/avatar": "^20.0.0",
     "@atlaskit/build-utils": "*",
     "@atlaskit/docs": "*",
-    "@atlaskit/editor-core": "^127.0.0",
+    "@atlaskit/editor-core": "^128.0.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
     "enzyme": "^3.10.0",

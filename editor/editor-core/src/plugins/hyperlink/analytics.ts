@@ -6,7 +6,7 @@ import {
   AnalyticsEventPayload,
   InputMethodInsertLink,
 } from '../analytics';
-import { getLinkDomain } from './utils';
+import { getLinkDomain, isFromCurrentDomain } from './utils';
 
 export function getLinkCreationAnalyticsEvent(
   inputMethod: InputMethodInsertLink,
@@ -16,7 +16,7 @@ export function getLinkCreationAnalyticsEvent(
     action: ACTION.INSERTED,
     actionSubject: ACTION_SUBJECT.DOCUMENT,
     actionSubjectId: ACTION_SUBJECT_ID.LINK,
-    attributes: { inputMethod },
+    attributes: { inputMethod, fromCurrentDomain: isFromCurrentDomain(url) },
     eventType: EVENT_TYPE.TRACK,
     nonPrivacySafeAttributes: {
       linkDomain: getLinkDomain(url),

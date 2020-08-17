@@ -1,5 +1,26 @@
 # @atlaskit/media-client
 
+## 9.0.0
+
+### Major Changes
+
+- [`caf46c7c45`](https://bitbucket.org/atlassian/atlassian-frontend/commits/caf46c7c45) - Improved remote preview functionality for media-card redesign.
+  Breaking change: renamed type of argument "SourceFile" to "CopySourceFile" in the method "copyFile" of media-client.
+
+### Minor Changes
+
+- [`0c1bb3fa88`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0c1bb3fa88) - Fixed mocked response for "/file/copy/withToken" in MediaMock. Added isMediaCollectionItemFullDetails() to media-client.
+- [`878d4126c2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/878d4126c2) - Added mime types supported by Media API file preview
+- [`02757a0d09`](https://bitbucket.org/atlassian/atlassian-frontend/commits/02757a0d09) - Add mediaStore instance as an optional dependency of copyFile to avoid calls to constructor inside the method
+- [`2202870181`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2202870181) - Added support for zip previews in media viewer
+- [`b8695823e3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b8695823e3) - Fixed Giphy images display as plain text when inserted into Editor
+
+### Patch Changes
+
+- [`fa6fb5dfbb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fa6fb5dfbb) - Removing unused code to be published
+- [`87459b57ba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87459b57ba) - Fixed insertion failure of processing file from recent files into Editor
+- Updated dependencies
+
 ## 8.0.1
 
 ### Patch Changes

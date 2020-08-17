@@ -35,6 +35,7 @@ exports[`Button should be found by data-testid Using container snapshot 1`] = `
   transition-duration: 0.1s,0.15s;
   vertical-align: middle;
   width: auto;
+  font-family: -apple-system,BlinkMacSystemFont,'Segoe UI','Roboto','Oxygen','Ubuntu','Fira Sans','Droid Sans','Helvetica Neue',sans-serif;
 }
 
 .emotion-2::-moz-focus-inner {

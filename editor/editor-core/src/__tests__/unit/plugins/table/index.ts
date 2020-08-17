@@ -43,7 +43,6 @@ import {
   checkIfHeaderRowEnabled,
 } from '../../../../plugins/table/utils';
 import { insertMediaAsMediaSingle } from '../../../../plugins/media/utils/media-single';
-import { AnalyticsHandler } from '../../../../analytics';
 import { INPUT_METHOD } from '../../../../plugins/analytics';
 import {
   getPluginState,
@@ -53,7 +52,7 @@ import {
 describe('table plugin', () => {
   const createEditor = createEditorFactory<TablePluginState>();
 
-  const editor = (doc: any, trackEvent: AnalyticsHandler = () => {}) => {
+  const editor = (doc: any) => {
     const tableOptions = {
       allowNumberColumn: true,
       allowHeaderRow: true,
@@ -64,7 +63,6 @@ describe('table plugin', () => {
     return createEditor({
       doc,
       editorProps: {
-        analyticsHandler: trackEvent,
         allowTables: tableOptions,
         allowAnalyticsGASV3: true,
         media: {

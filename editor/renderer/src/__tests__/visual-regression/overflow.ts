@@ -1,8 +1,8 @@
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { snapshot, initRendererWithADF } from './_utils';
 import * as document from '../../../examples/helper/overflow.adf.json';
-import { Page } from 'puppeteer';
 
-const initRenderer = async (page: Page, adf: any) => {
+const initRenderer = async (page: PuppeteerPage, adf: any) => {
   await initRendererWithADF(page, {
     appearance: 'full-page',
     viewport: { width: 1280, height: 900 },
@@ -11,7 +11,7 @@ const initRenderer = async (page: Page, adf: any) => {
 };
 
 describe('Snapshot Test: Overflow shadows', () => {
-  let page: Page;
+  let page: PuppeteerPage;
   beforeAll(() => {
     page = global.page;
   });

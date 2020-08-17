@@ -30,8 +30,23 @@ describe('Breakout Commands: set-breakout-mode', () => {
 
     setBreakoutMode('wide')(editorView.state, editorView.dispatch);
 
-    expect(editorView.state.doc).toEqualDocument(
-      doc(breakout({ mode: 'wide' })(code_block()('Hello'))),
+    expect(editorView.state).toEqualDocumentAndSelection(
+      doc(breakout({ mode: 'wide' })(code_block()('Hel{<>}lo'))),
+    );
+  });
+  it('should preserve node selection in breakout mark', () => {
+    const { editorView } = createEditor({
+      doc: doc('{<node>}', code_block()('Hello')),
+      preset: new Preset<LightEditorPlugin>()
+        .add(codeBlockPlugin)
+        .add([breakoutPlugin, { allowBreakoutButton: true }])
+        .add(widthPlugin),
+    });
+
+    setBreakoutMode('wide')(editorView.state, editorView.dispatch);
+
+    expect(editorView.state).toEqualDocumentAndSelection(
+      doc('{<node>}', breakout({ mode: 'wide' })(code_block()('Hello'))),
     );
   });
 
@@ -45,7 +60,7 @@ describe('Breakout Commands: set-breakout-mode', () => {
 
     setBreakoutMode('wide')(editorView.state, editorView.dispatch);
 
-    expect(editorView.state.doc).toEqualDocument(doc(p('Hello')));
+    expect(editorView.state).toEqualDocumentAndSelection(doc(p('Hel{<>}lo')));
   });
 
   it('should be able to change nodes breakout mode', () => {
@@ -59,8 +74,8 @@ describe('Breakout Commands: set-breakout-mode', () => {
 
     setBreakoutMode('full-width')(editorView.state, editorView.dispatch);
 
-    expect(editorView.state.doc).toEqualDocument(
-      doc(breakout({ mode: 'full-width' })(code_block()('Hello'))),
+    expect(editorView.state).toEqualDocumentAndSelection(
+      doc(breakout({ mode: 'full-width' })(code_block()('Hel{<>}lo'))),
     );
   });
 });

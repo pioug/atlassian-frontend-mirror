@@ -6,7 +6,7 @@ import {
   initEditorWithAdf,
   Appearance,
 } from '../_utils';
-import { Page } from '../../__helpers/page-objects/_types';
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import mixedContentAdf from './__fixtures__/mixed-content.adf.json';
 import layoutWithBreakoutAdf from './__fixtures__/layout-with-breakout.adf.json';
 import breakoutAdf from './__fixtures__/mixed-content-with-breakout.adf.json';
@@ -29,7 +29,7 @@ type ToggleFullWidthOptions = {
 };
 
 describe('Snapshot Test: Toggle between full-width and default mode', () => {
-  let page: Page;
+  let page: PuppeteerPage;
   let fullWidthMode: boolean;
 
   const editorProps = {

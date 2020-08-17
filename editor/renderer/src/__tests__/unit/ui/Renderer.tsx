@@ -60,6 +60,45 @@ describe('@atlaskit/renderer/ui/Renderer', () => {
   });
 
   describe('Stage0', () => {
+    describe('captions', () => {
+      const captionText = 'this is a caption';
+      const docWithCaption = {
+        version: 1,
+        type: 'doc',
+        content: [
+          {
+            type: 'mediaSingle',
+            attrs: {
+              layout: 'center',
+            },
+            content: [
+              {
+                type: 'media',
+                attrs: {
+                  id: '0a7b3495-d1e5-4b27-90fb-a2589cd96e3b',
+                  type: 'file',
+                  collection: 'MediaServicesSample',
+                  width: 1874,
+                  height: 1078,
+                },
+              },
+              {
+                type: 'caption',
+                content: [{ type: 'text', text: captionText }],
+              },
+            ],
+          },
+          {
+            type: 'paragraph',
+            content: [],
+          },
+        ],
+      };
+      xit('should render caption text', () => {
+        renderer = initRenderer(docWithCaption);
+        expect(renderer.text()).toContain(captionText);
+      });
+    });
     describe('marks', () => {
       const docWithStage0Mark = {
         type: 'doc',
@@ -154,6 +193,8 @@ describe('@atlaskit/renderer/ui/Renderer', () => {
       renderer = initRenderer(linkDoc, {});
       const mediaSingle = renderer.find(MediaSingle).last();
       const dataBlockLink = mediaSingle
+        .find('[data-node-type="mediaSingle"]')
+        .hostNodes()
         .getDOMNode()
         .attributes.getNamedItem('data-block-link');
       expect(dataBlockLink).toBeNull();
@@ -163,6 +204,8 @@ describe('@atlaskit/renderer/ui/Renderer', () => {
       renderer = initRenderer(linkDoc, {});
       const mediaSingle = renderer.find(MediaSingle).last();
       const dataBlockLink = mediaSingle
+        .find('[data-node-type="mediaSingle"]')
+        .hostNodes()
         .getDOMNode()
         .attributes.getNamedItem('data-block-link');
       expect(dataBlockLink).toBeNull();
@@ -172,6 +215,8 @@ describe('@atlaskit/renderer/ui/Renderer', () => {
       renderer = initRenderer(linkDoc, { media: { allowLinking: true } });
       const mediaSingle = renderer.find(MediaSingle).last();
       const dataBlockLink = mediaSingle
+        .find('[data-node-type="mediaSingle"]')
+        .hostNodes()
         .getDOMNode()
         .attributes.getNamedItem('data-block-link');
       expect(dataBlockLink).not.toBeNull();

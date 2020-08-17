@@ -5,10 +5,12 @@ import {
   AnalyticsListener,
 } from '@atlaskit/analytics-next';
 import { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
+import { useStateFromPromise } from '../src/utils/react-hooks/use-state-from-promise';
 import EditorActions from '../src/actions';
 import ElementBrowser from '../src/ui/ElementBrowser';
 import { extensionProviderToQuickInsertProvider } from '../src/utils/extensions';
 import { getConfluenceMacrosExtensionProvider } from '../example-helpers/confluence-macros';
+import { searchQuickInsertItems } from '../src/plugins/quick-insert/search';
 
 export default () => {
   const quickInsertProvider = extensionProviderToQuickInsertProvider(
@@ -24,12 +26,31 @@ export default () => {
   const onSelectItem = useCallback((item: QuickInsertItem) => {
     console.log('selected item ', item);
   }, []);
+
+  const [items] = useStateFromPromise<QuickInsertItem[]>(
+    () => quickInsertProvider.then(provider => provider.getItems()),
+    [quickInsertProvider],
+    [],
+  );
+
+  const getItems = useCallback(
+    (query?: string, category?: string) =>
+      searchQuickInsertItems(
+        {
+          isElementBrowserModalOpen: true,
+          lazyDefaultItems: () => items || [],
+        },
+        {},
+      )(query, category),
+    [items],
+  );
+
   return (
     <AnalyticsListener channel="editor" onEvent={handleAnalytics}>
       <IntlProvider locale={'en'}>
         <ElementBrowser
           categories={categoriesList}
-          quickInsertProvider={quickInsertProvider}
+          getItems={getItems}
           showSearch={true}
           showCategories={true}
           mode="full"

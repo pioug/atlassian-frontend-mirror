@@ -1,9 +1,8 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
-import { getDocFromElement, fullpage } from '../_helpers';
+import { copyAsHTML, getDocFromElement, fullpage } from '../_helpers';
 import {
   goToEditorTestingExample,
   mountEditor,
-  copyAsHTML,
 } from '../../__helpers/testing-example-helpers';
 import { document } from './__fixtures__/document-with-table';
 import {
@@ -17,12 +16,20 @@ const expandSelector = '[data-node-type="expand"]';
 const nestedExpandSelector = '[data-node-type="nestedExpand"]';
 const controlSelector = 'tbody tr:first-child th:nth-child(1)';
 const panelSelector = '.ak-editor-panel__content';
+
 // TODO: https://product-fabric.atlassian.net/browse/ED-9831
 // Selection in Catalina Safari isn't working properly.
+
+// TODO: https://product-fabric.atlassian.net/browse/ED-9831
+// Note: most of these tests will not work as expected on mac+chrome
+// the paste here happens with Shift+Instert for mac due to chromedriver issue with sending keys with Command
+// when pasting expand into table like this this breaks table in two, and leads to some other issues that are not reproducible manually
+// ticket to implement better pasting - ED-9756
+
 BrowserTestCase(
   'expand.ts: expand copied from renderer and pasted on full-page',
   { skip: ['edge', 'safari'] },
-  async (client: any, testName: string) => {
+  async (client: WebdriverIO.BrowserObject, testName: string) => {
     const page = await goToEditorTestingExample(client);
 
     const data =
@@ -46,7 +53,7 @@ BrowserTestCase(
 BrowserTestCase(
   'expand.ts: expand with legal content pasted in table',
   { skip: ['edge', 'safari'] },
-  async (client: any, testName: string) => {
+  async (client: WebdriverIO.BrowserObject, testName: string) => {
     const page = await goToEditorTestingExample(client);
 
     const data =
@@ -65,8 +72,8 @@ BrowserTestCase(
     await page.waitForSelector(controlSelector);
     await page.click(controlSelector);
     await page.paste();
+    //expand becomes nested expand when pasted inside a table
     await page.waitForSelector(nestedExpandSelector);
-
     const doc = await page.$eval(editorSelector, getDocFromElement);
     expect(doc).toMatchCustomDocSnapshot(testName);
   },
@@ -75,7 +82,7 @@ BrowserTestCase(
 BrowserTestCase(
   'expand.ts: expand with illegal content pasted in table',
   { skip: ['edge', 'safari'] },
-  async (client: any, testName: string) => {
+  async (client: WebdriverIO.BrowserObject, testName: string) => {
     const page = await goToEditorTestingExample(client);
 
     const data =
@@ -105,7 +112,7 @@ BrowserTestCase(
 BrowserTestCase(
   'expand.ts: nestedExpand pasted in table',
   { skip: ['edge', 'safari'] },
-  async (client: any, testName: string) => {
+  async (client: WebdriverIO.BrowserObject, testName: string) => {
     const page = await goToEditorTestingExample(client);
 
     const data =
@@ -134,7 +141,7 @@ BrowserTestCase(
 BrowserTestCase(
   'expand.ts: nestedExpand pasted on top level',
   { skip: ['edge', 'safari'] },
-  async (client: any, testName: string) => {
+  async (client: WebdriverIO.BrowserObject, testName: string) => {
     const page = await goToEditorTestingExample(client);
 
     const data =
@@ -148,6 +155,7 @@ BrowserTestCase(
 
     await page.click(fullpage.placeholder);
     await page.paste();
+    //nestedExpand becomes normal expand when pasted on top level
     await page.waitForSelector(expandSelector);
 
     const doc = await page.$eval(editorSelector, getDocFromElement);
@@ -158,7 +166,7 @@ BrowserTestCase(
 BrowserTestCase(
   'expand.ts: table with nestedExpand pasted on top level',
   { skip: ['edge', 'safari'] },
-  async (client: any, testName: string) => {
+  async (client: WebdriverIO.BrowserObject, testName: string) => {
     const page = await goToEditorTestingExample(client);
 
     const data =
@@ -183,7 +191,7 @@ BrowserTestCase(
 BrowserTestCase(
   'expand.ts: expand with table with nestedExpand pasted on top level',
   { skip: ['edge', 'safari'] },
-  async (client: any, testName: string) => {
+  async (client: WebdriverIO.BrowserObject, testName: string) => {
     const page = await goToEditorTestingExample(client);
 
     const data =
@@ -208,7 +216,7 @@ BrowserTestCase(
 BrowserTestCase(
   'expand.ts: table with nestedExpand pasted inside an expand',
   { skip: ['edge', 'safari'] },
-  async (client: any, testName: string) => {
+  async (client: WebdriverIO.BrowserObject, testName: string) => {
     const page = await goToEditorTestingExample(client);
 
     const data =
@@ -235,7 +243,7 @@ BrowserTestCase(
 BrowserTestCase(
   'expand.ts: expand pasted inside a table inside an expand',
   { skip: ['edge', 'safari'] },
-  async (client: any, testName: string) => {
+  async (client: WebdriverIO.BrowserObject, testName: string) => {
     const page = await goToEditorTestingExample(client);
 
     const data = `<meta charset='utf-8'><div data-node-type="expand" data-title="Copy me nested" data-expanded="true" data-pm-slice="0 0 []"><p>Hello <span data-mention-id="6" data-access-level="" contenteditable="false">@April</span> </p></div>`;
@@ -252,7 +260,7 @@ BrowserTestCase(
     await page.waitForSelector(controlSelector);
     await page.click(controlSelector);
     await page.paste();
-    await page.waitForSelector(nestedExpandSelector);
+    await page.waitForSelector('p*=Hello ');
 
     const doc = await page.$eval(editorSelector, getDocFromElement);
     expect(doc).toMatchCustomDocSnapshot(testName);
@@ -262,7 +270,7 @@ BrowserTestCase(
 BrowserTestCase(
   'expand.ts: expand pasted inside a panel inside a table should paste below',
   { skip: ['edge', 'safari'] },
-  async (client: any, testName: string) => {
+  async (client: WebdriverIO.BrowserObject, testName: string) => {
     const page = await goToEditorTestingExample(client);
 
     const data = `<meta charset='utf-8'><div data-node-type="expand" data-title="Copy me nested" data-expanded="true" data-pm-slice="0 0 []"><p>Hello <span data-mention-id="6" data-access-level="" contenteditable="false">@April</span> </p></div>`;
@@ -280,7 +288,7 @@ BrowserTestCase(
     await page.waitForSelector(panelSelector);
     await page.click(panelSelector);
     await page.paste();
-    await page.waitForSelector(nestedExpandSelector);
+    await page.waitForSelector('p*=Hello ');
 
     const doc = await page.$eval(editorSelector, getDocFromElement);
     expect(doc).toMatchCustomDocSnapshot(testName);
@@ -290,7 +298,7 @@ BrowserTestCase(
 BrowserTestCase(
   'expand.ts: expand content pasted inside a panel inside a table should paste text inside',
   { skip: ['edge', 'safari'] },
-  async (client: any, testName: string) => {
+  async (client: WebdriverIO.BrowserObject, testName: string) => {
     const page = await goToEditorTestingExample(client);
 
     const data = `<meta charset='utf-8'><p data-pm-slice="1 1 [&quot;expand&quot;,null]">sda</p>`;
@@ -308,7 +316,7 @@ BrowserTestCase(
     await page.waitForSelector(panelSelector);
     await page.click(panelSelector);
     await page.paste();
-
+    await page.waitUntil(async () => !!(await page.$('p*=sda')));
     const doc = await page.$eval(editorSelector, getDocFromElement);
     expect(doc).toMatchCustomDocSnapshot(testName);
   },

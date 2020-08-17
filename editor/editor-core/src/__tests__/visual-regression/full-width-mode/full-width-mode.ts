@@ -8,7 +8,7 @@ import adfWithMixedContent from './__fixtures__/mixed-content.adf.json';
 import adfWithMedia from './__fixtures__/content-with-media.adf.json';
 import adfWithBreakout from './__fixtures__/mixed-content-with-breakout.adf.json';
 import adfWithHScrollContent from './__fixtures__/horizontal-scroll-content.adf.json';
-import { Page } from '../../__helpers/page-objects/_types';
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import {
   scrollToTop,
   clickFirstParagraph,
@@ -16,7 +16,7 @@ import {
 import { waitForMediaToBeLoaded } from '../../__helpers/page-objects/_media';
 
 describe('Full-width mode', () => {
-  let page: Page;
+  let page: PuppeteerPage;
 
   const initEditor = async (adf: any, width = 2000, height = 800) => {
     await initEditorWithAdf(page, {

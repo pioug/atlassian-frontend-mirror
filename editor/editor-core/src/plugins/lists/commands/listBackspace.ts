@@ -2,10 +2,22 @@ import {
   insertContentDeleteRange,
   isEmptySelectionAtStart,
   walkPrevNode,
+  WalkNode,
 } from '../../../utils/commands';
+import {
+  ACTION,
+  ACTION_SUBJECT,
+  ACTION_SUBJECT_ID,
+  EVENT_TYPE,
+  INPUT_METHOD,
+  DELETE_DIRECTION,
+  LIST_TEXT_SCENARIOS,
+  addAnalytics,
+} from '../../analytics';
 import { Command } from '../../../types';
 import { ResolvedPos } from 'prosemirror-model';
 import { Transaction } from 'prosemirror-state';
+import { findParentNodeOfType } from 'prosemirror-utils';
 import { CommandDispatch } from '../../../../src/types';
 import { isPosInsideList, isPosInsideParagraph } from '../utils';
 
@@ -14,7 +26,7 @@ type BackspaceCommand = (
   dispatch: CommandDispatch | undefined,
   $prev: ResolvedPos,
   $head: ResolvedPos,
-  $last?: ResolvedPos,
+  $last?: ResolvedPos | null,
 ) => boolean;
 
 //Cases below refer to the cases found in this document: https://product-fabric.atlassian.net/wiki/spaces/E/pages/1146954996/List+Backspace+and+Delete+Behaviour
@@ -292,62 +304,119 @@ const listBackspaceCase4: BackspaceCommand = (
   return true;
 };
 
-export const listBackspace: Command = (state, dispatch) => {
-  const {
-    tr,
-    selection: { $head },
-  } = state;
-  const { $pos: $prev, foundNode: prevFoundNode } = walkPrevNode($head);
+type ScenariosAllowed =
+  | LIST_TEXT_SCENARIOS.JOIN_SIBLINGS
+  | LIST_TEXT_SCENARIOS.JOIN_DESCENDANT_TO_PARENT
+  | LIST_TEXT_SCENARIOS.JOIN_TO_SIBLING_DESCENDANT;
 
+const BACKSPACE_COMMANDS: Record<ScenariosAllowed, BackspaceCommand> = {
+  [LIST_TEXT_SCENARIOS.JOIN_SIBLINGS]: listBackspaceCase2,
+  [LIST_TEXT_SCENARIOS.JOIN_DESCENDANT_TO_PARENT]: listBackspaceCase3,
+  [LIST_TEXT_SCENARIOS.JOIN_TO_SIBLING_DESCENDANT]: listBackspaceCase4,
+};
+
+export const calcJoinListScenario = (
+  walkNode: WalkNode,
+  $head: ResolvedPos,
+  tr: Transaction,
+): [ScenariosAllowed, ResolvedPos | null] | false => {
+  const { $pos: $prev, foundNode: prevFoundNode } = walkNode;
   const prevInList = isPosInsideList($prev);
   const headInParagraph = isPosInsideParagraph($head);
   const headInFirstChild = $head.index(-1) === 0;
   const headInList = isPosInsideList($head);
 
   //Must be at the start of the selection of the first child in the listItem
+
   if (
-    prevFoundNode &&
-    prevInList &&
-    headInParagraph &&
-    headInFirstChild &&
-    headInList &&
-    isEmptySelectionAtStart(state)
+    !prevFoundNode ||
+    !prevInList ||
+    !headInParagraph ||
+    !headInFirstChild ||
+    !headInList
   ) {
-    const prevInParagraph = isPosInsideParagraph($prev);
+    return false;
+  }
 
-    if (prevInParagraph) {
-      return listBackspaceCase3(tr, dispatch, $prev, $head);
-    } else {
-      // Will search for the possible last node for case 4 (where the list could be indented multiple times)
-      // $last is required to determine whether we are in case 2 or 4
-      let $last: ResolvedPos = tr.doc.resolve($prev.pos);
-      let lastFoundNode: boolean;
+  const prevInParagraph = isPosInsideParagraph($prev);
 
-      do {
-        let walkNode = walkPrevNode($last);
+  if (prevInParagraph) {
+    return [LIST_TEXT_SCENARIOS.JOIN_DESCENDANT_TO_PARENT, null];
+  }
 
-        $last = walkNode.$pos;
-        lastFoundNode = walkNode.foundNode;
-      } while (lastFoundNode && !$last.parent.isTextblock);
+  const prevParentLastChildIsList =
+    $prev.parent.lastChild &&
+    ($prev.parent.lastChild.type.name === 'orderedList' ||
+      $prev.parent.lastChild.type.name === 'bulletList');
+  const prevParentLastChildIsParagraph =
+    $prev.parent.lastChild && $prev.parent.lastChild.type.name === 'paragraph';
 
-      const prevParentLastChildIsList =
-        $prev.parent.lastChild &&
-        ($prev.parent.lastChild.type.name === 'orderedList' ||
-          $prev.parent.lastChild.type.name === 'bulletList');
+  // Will search for the possible last node for case 4 (where the list could be indented multiple times)
+  // $last is required to determine whether we are in case 2 or 4
+  let $last: ResolvedPos = tr.doc.resolve($prev.pos);
+  let lastFoundNode: boolean;
 
-      const lastInParagraph = isPosInsideParagraph($last);
+  do {
+    let walkNode = walkPrevNode($last);
 
-      const prevParentLastChildIsParagraph =
-        $prev.parent.lastChild &&
-        $prev.parent.lastChild.type.name === 'paragraph';
+    $last = walkNode.$pos;
+    lastFoundNode = walkNode.foundNode;
+  } while (lastFoundNode && !$last.parent.isTextblock);
+  const lastInParagraph = isPosInsideParagraph($last);
 
-      if (lastFoundNode && prevParentLastChildIsList && lastInParagraph) {
-        return listBackspaceCase4(tr, dispatch, $prev, $head, $last);
-      } else if (prevParentLastChildIsParagraph) {
-        return listBackspaceCase2(tr, dispatch, $prev, $head);
-      }
-    }
+  if (lastFoundNode && prevParentLastChildIsList && lastInParagraph) {
+    return [LIST_TEXT_SCENARIOS.JOIN_TO_SIBLING_DESCENDANT, $last];
+  } else if (prevParentLastChildIsParagraph) {
+    return [LIST_TEXT_SCENARIOS.JOIN_SIBLINGS, null];
   }
 
   return false;
+};
+
+export const listBackspace: Command = (state, dispatch) => {
+  const {
+    tr,
+    selection: { $head },
+  } = state;
+  const walkNode = walkPrevNode($head);
+
+  if (!isEmptySelectionAtStart(state)) {
+    return false;
+  }
+
+  const scenario = calcJoinListScenario(walkNode, $head, tr);
+
+  if (!scenario) {
+    return false;
+  }
+
+  const { bulletList, orderedList } = state.schema.nodes;
+  const listParent = findParentNodeOfType([bulletList, orderedList])(
+    tr.selection,
+  );
+
+  let actionSubjectId = ACTION_SUBJECT_ID.FORMAT_LIST_BULLET;
+  if (listParent && listParent.node.type === orderedList) {
+    actionSubjectId = ACTION_SUBJECT_ID.FORMAT_LIST_NUMBER;
+  }
+
+  addAnalytics(state, tr, {
+    action: ACTION.DELETED,
+    actionSubject: ACTION_SUBJECT.TEXT,
+    actionSubjectId,
+    eventType: EVENT_TYPE.TRACK,
+    attributes: {
+      inputMethod: INPUT_METHOD.KEYBOARD,
+      direction: DELETE_DIRECTION.BACKWARD,
+      scenario: scenario[0],
+    },
+  });
+
+  return BACKSPACE_COMMANDS[scenario[0]](
+    tr,
+    dispatch,
+    walkNode.$pos,
+    $head,
+    scenario[1],
+  );
 };

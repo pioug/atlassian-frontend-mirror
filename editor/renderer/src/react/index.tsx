@@ -34,6 +34,7 @@ import { findChildrenByType } from 'prosemirror-utils';
 import { RendererContext, NodeMeta, MarkMeta } from './types';
 import { AnnotationId, AnnotationMarkStates } from '@atlaskit/adf-schema';
 import { insideBreakoutLayout } from './renderer-node';
+import { MediaOptions } from '../types/mediaOptions';
 
 export { AnnotationContext };
 export interface ReactSerializerInit {
@@ -58,6 +59,7 @@ export interface ReactSerializerInit {
   getAnnotationPromise?: (
     id: AnnotationId,
   ) => Promise<AnnotationMarkStates | null>;
+  media?: MediaOptions;
 }
 
 interface ParentInfo {
@@ -137,6 +139,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
     allowAnnotations: false,
     getAnnotationPromise: null,
   };
+  private media?: MediaOptions;
 
   constructor(init: ReactSerializerInit) {
     this.providers = init.providers;
@@ -162,6 +165,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
     this.surroundTextNodesWithTextWrapper = Boolean(
       init.surroundTextNodesWithTextWrapper,
     );
+    this.media = init.media;
   }
 
   private resetState() {
@@ -181,6 +185,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
       case 'heading':
         return this.getHeadingProps(node, path);
       case 'media':
+      case 'mediaGroup':
         return this.getMediaProps(node);
       case 'mediaSingle':
         return this.getMediaSingleProps(node, path);
@@ -420,6 +425,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
       ),
       isLinkMark,
       isInsideOfBlockNode,
+      featureFlags: this.media && this.media.featureFlags,
     };
   }
 
@@ -444,6 +450,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
       ...this.getProps(node),
       shouldOpenMediaViewer: this.shouldOpenMediaViewer,
       allowAltTextOnImages: this.allowAltTextOnImages,
+      featureFlags: this.media && this.media.featureFlags,
     };
   }
 

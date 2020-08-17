@@ -1,3 +1,3 @@
-import ElementBrowser from './ElementBrowser';
+import ElementBrowser from './ElementBrowserLoader';
 
 export default ElementBrowser;

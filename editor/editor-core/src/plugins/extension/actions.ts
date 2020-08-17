@@ -1,6 +1,10 @@
 import { Slice, Schema, Node as PmNode } from 'prosemirror-model';
-import { EditorState, NodeSelection } from 'prosemirror-state';
-import { replaceSelectedNode } from 'prosemirror-utils';
+import { EditorState, NodeSelection, TextSelection } from 'prosemirror-state';
+import {
+  replaceSelectedNode,
+  replaceParentNodeOfType,
+  isNodeSelection,
+} from 'prosemirror-utils';
 
 import {
   UpdateExtension,
@@ -49,11 +53,32 @@ export const performNodeUpdate = (
     return;
   }
 
-  let transaction = replaceSelectedNode(newNode)(state.tr);
-  // Replacing selected node doesn't update the selection. `selection.node` still returns the old node
-  transaction = transaction.setSelection(
-    NodeSelection.create(transaction.doc, state.selection.anchor),
-  );
+  const isNodeSelected = isNodeSelection(state.selection);
+
+  let transaction = state.tr;
+  let selection;
+
+  if (!isNodeSelected) {
+    // Bodied extensions can trigger an update when the cursor is inside which means that there is no node selected.
+    // To work around that we replace the parent and create a text selection instead of new node selection
+    transaction = replaceParentNodeOfType(
+      state.schema.nodes.bodiedExtension,
+      newNode,
+    )(transaction);
+
+    // Replacing selected node doesn't update the selection. `selection.node` still returns the old node
+    selection = TextSelection.create(transaction.doc, state.selection.anchor);
+  } else {
+    transaction = replaceSelectedNode(newNode)(transaction);
+
+    // Replacing selected node doesn't update the selection. `selection.node` still returns the old node
+    selection = NodeSelection.create(
+      transaction.doc,
+      transaction.mapping.map(state.selection.anchor),
+    );
+  }
+
+  transaction = transaction.setSelection(selection);
 
   if (dispatch) {
     dispatch(shouldScrollIntoView ? transaction.scrollIntoView() : transaction);

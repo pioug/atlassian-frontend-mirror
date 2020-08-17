@@ -1,5 +1,36 @@
 # @atlaskit/media-card
 
+## 69.2.0
+
+### Minor Changes
+
+- [`65652ba165`](https://bitbucket.org/atlassian/atlassian-frontend/commits/65652ba165) - Added 15 new icons based on the mimetype (.sketch, .gif, ect). Previously, we only had 6 icons based on the mediaType (doc/audio/unknown/image/video). Also created a dedicated examples page for icons
+- [`48f416a9d9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/48f416a9d9) - Exporting new css class name for cardImageView: fileCardImageViewSelector
+- [`6faafb144c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6faafb144c) - Introduce MediaFeatureFlags. Refactor components to use.
+- [`861d585ba8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/861d585ba8) - Changed mediaSingle to now render it's child adf nodes using nodeviews rather than directly with react
+- [`2202870181`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2202870181) - Added support for zip previews in media viewer
+
+### Patch Changes
+
+- [`54ba7a137a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54ba7a137a) - Use IntersectionObserver when isLazy is true in media-card
+- [`3a188fc905`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3a188fc905) - Fixed error when using empty mimeType in media examples
+- [`c026e59e68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c026e59e68) - Move truncateText helper from media-card to media-ui and expose entry point. Export optional NameCell component from MediaTable.
+- [`bfaa99bb5d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bfaa99bb5d) - Fixed responsiveness for Failed To Load message (i18n)
+- [`878d4126c2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/878d4126c2) - Added mime types supported by Media API file preview
+- [`fa6fb5dfbb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fa6fb5dfbb) - Removing unused code to be published
+- [`d9ca530258`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d9ca530258) - Retry button stops propagation of the event
+- [`caf46c7c45`](https://bitbucket.org/atlassian/atlassian-frontend/commits/caf46c7c45) - Improved remote preview functionality for media-card redesign.
+  Breaking change: renamed type of argument "SourceFile" to "CopySourceFile" in the method "copyFile" of media-client.
+- [`87434f6a18`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87434f6a18) - Removed unneeded styles
+- [`838f711196`](https://bitbucket.org/atlassian/atlassian-frontend/commits/838f711196) - fix blanket styles to ensure is visible
+- [`4f70769fe1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4f70769fe1) - Minor CSS update to vertically center image in media-card
+- [`89a1c63251`](https://bitbucket.org/atlassian/atlassian-frontend/commits/89a1c63251) - Add the rowProps property, which enables consumers to apply properties to the underlying row component. Move truncateText helper from media-card to media-ui and expose entry point. Export optional NameCell component from MediaTable.
+- [`16f000d172`](https://bitbucket.org/atlassian/atlassian-frontend/commits/16f000d172) - Set isCardVisible to true if local cache is available from the beginning
+- [`367c2fd66d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/367c2fd66d) - Fixed example
+- [`87459b57ba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87459b57ba) - Fixed insertion failure of processing file from recent files into Editor
+- [`2b1ad94f17`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2b1ad94f17) - Hides Titlebox when Media Single uploads
+- Updated dependencies
+
 ## 69.1.0
 
 ### Minor Changes

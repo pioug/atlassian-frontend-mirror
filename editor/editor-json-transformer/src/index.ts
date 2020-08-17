@@ -1,4 +1,4 @@
-import isEqual from 'lodash.isequal';
+import isEqual from 'lodash/isEqual';
 import { Mark as PMMark, Node as PMNode } from 'prosemirror-model';
 
 import {
@@ -125,15 +125,24 @@ const toJSON = (node: PMNode): JSONNode => {
   }
 
   if (node.marks.length) {
-    obj.marks = node.marks.map(mark => {
-      if (isLinkMark(mark)) {
-        return linkToJSON(mark);
-      }
+    obj.marks = node.marks.reduce((acc: any, mark) => {
       if (isUnsupportedMark(mark)) {
-        return mark.attrs.originalValue;
+        if (
+          node.marks.some(e => mark.attrs.originalValue.type === e.type.name)
+        ) {
+          return acc;
+        } else {
+          acc.push(mark.attrs.originalValue);
+          return acc;
+        }
       }
-      return mark.toJSON();
-    });
+      if (isLinkMark(mark)) {
+        acc.push(linkToJSON(mark));
+        return acc;
+      }
+      acc.push(mark.toJSON());
+      return acc;
+    }, []);
   }
   return obj;
 };

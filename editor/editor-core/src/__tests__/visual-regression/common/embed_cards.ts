@@ -1,8 +1,14 @@
-import { waitForLoadedImageElements } from '@atlaskit/visual-regression/helper';
+import {
+  waitForLoadedImageElements,
+  waitForElementCount,
+} from '@atlaskit/visual-regression/helper';
 import { snapshot, initFullPageEditorWithAdf, Device } from '../_utils';
 import adf from './__fixtures__/embed-card-layouts-adf.json';
 import containerADF from './__fixtures__/embed-containers.adf.json';
-import { waitForResolvedEmbedCard } from '../../__helpers/page-objects/_cards';
+import {
+  waitForResolvedEmbedCard,
+  embedCardSelector,
+} from '../../__helpers/page-objects/_cards';
 
 describe('Embed Cards:', () => {
   it('displays embed properly with different layouts', async () => {
@@ -20,6 +26,7 @@ describe('Embed Cards:', () => {
       height: 4000,
     });
     await waitForResolvedEmbedCard(page);
+    await waitForElementCount(page, embedCardSelector(), 6);
     await waitForLoadedImageElements(page, 3000);
     await snapshot(page);
   });

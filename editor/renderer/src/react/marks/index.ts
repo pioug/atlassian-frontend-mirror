@@ -11,6 +11,7 @@ import Underline from './underline';
 import Breakout from './breakout';
 import Alignment from './alignment';
 import Indentation from './indentation';
+import UnsupportedMark from './unsupportedMark';
 import Annotation, {
   Props as AnnotationProps,
   AnnotationContext,
@@ -35,6 +36,7 @@ export const markToReact: { [key: string]: ComponentType<any> } = {
   breakout: Breakout,
   alignment: Alignment,
   indentation: Indentation,
+  unsupportedMark: UnsupportedMark,
 };
 
 export const toReact = (mark: Mark): ComponentType<any> => {
@@ -54,4 +56,5 @@ export {
   Annotation,
   AnnotationProps,
   AnnotationContext,
+  UnsupportedMark,
 };

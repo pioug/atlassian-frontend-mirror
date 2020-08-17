@@ -1,5 +1,13 @@
 # @atlaskit/datetime-picker
 
+## 10.0.2
+
+### Patch Changes
+
+- [`6262f382de`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6262f382de) - Use the 'lodash' package instead of single-function 'lodash.\*' packages
+- [`39e130698b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/39e130698b) - Fixes an issue in DatePicker, DateTimePicker and TimePicker where they all had a circular dependency between a type declaration and default props which led to TypeScript marking props with default values as required props. This will no longer occur.
+- Updated dependencies
+
 ## 10.0.1
 
 ### Patch Changes

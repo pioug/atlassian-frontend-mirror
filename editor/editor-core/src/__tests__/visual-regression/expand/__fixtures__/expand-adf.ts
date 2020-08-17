@@ -376,14 +376,17 @@ export const expandADF = (breakoutMode = 'default') => ({
           ],
         },
       ],
-      marks: [
-        {
-          type: 'breakout',
-          attrs: {
-            mode: breakoutMode,
-          },
-        },
-      ],
+      marks:
+        breakoutMode !== 'default'
+          ? [
+              {
+                type: 'breakout',
+                attrs: {
+                  mode: breakoutMode,
+                },
+              },
+            ]
+          : undefined,
     },
     {
       type: 'paragraph',

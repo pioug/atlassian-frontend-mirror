@@ -34,7 +34,11 @@ export default class ExampleAppearance extends React.PureComponent<{}, State> {
       <div>
         <ButtonGroup>
           {appearances.map(name => (
-            <Button key={`${name}-trigger`} onClick={() => this.open(name)}>
+            <Button
+              key={`${name}-trigger`}
+              testId={name}
+              onClick={() => this.open(name)}
+            >
               Open: {name}
             </Button>
           ))}

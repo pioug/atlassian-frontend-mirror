@@ -4,10 +4,13 @@ import {
   Appearance,
   getContentBoundingRectTopLeftCoords,
 } from '../_utils';
-import { Page } from '../../__helpers/page-objects/_types';
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { layoutSelectors } from '../../__helpers/page-objects/_layouts';
 import { decisionSelectors } from '../../__helpers/page-objects/_decision';
-import { waitForFloatingControl } from '../../__helpers/page-objects/_toolbar';
+import {
+  waitForFloatingControl,
+  retryUntilStablePosition,
+} from '../../__helpers/page-objects/_toolbar';
 import * as col2 from './__fixtures__/column2-adf.json';
 import * as col3 from './__fixtures__/column3-adf.json';
 import * as layoutWithAction from './__fixtures__/layout-with-action-adf.json';
@@ -18,7 +21,7 @@ import * as colRightSidebar from './__fixtures__/columnRightSidebar-adf.json';
 import * as col3WithSidebars from './__fixtures__/column3WithSidebars-adf.json';
 
 describe('Layouts:', () => {
-  let page: Page;
+  let page: PuppeteerPage;
 
   const layouts = [
     { name: '2 columns', adf: col2 },
@@ -61,7 +64,12 @@ describe('Layouts:', () => {
     describe(layout.name, () => {
       it('should correctly render layout on laptop', async () => {
         await initEditor(layout.adf, largeViewport);
-        await page.click(layoutSelectors.column);
+        await retryUntilStablePosition(
+          page,
+          () => page.click(layoutSelectors.column),
+          '[aria-label*="Layout floating controls"]',
+          1000,
+        );
       });
 
       it('should stack layout on smaller screen', async () => {

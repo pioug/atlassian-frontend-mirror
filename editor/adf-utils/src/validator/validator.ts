@@ -1,86 +1,32 @@
 import * as specs from './specs';
 import { ADFEntity, ADFEntityMark } from '../types';
+import {
+  copy,
+  isBoolean,
+  isDefined,
+  isInteger,
+  isNumber,
+  isPlainObject,
+  isString,
+  makeArray,
+} from './utils';
 
-export type Content = Array<string | [string, object] | Array<string>>;
-
-type ArrayForceContentValidationAttributesSpec = {
-  type: 'array';
-  items: Array<Array<string>>;
-  optional?: boolean;
-  forceContentValidation: boolean;
-};
-
-type AttributesSpec =
-  | ArrayForceContentValidationAttributesSpec
-  | { type: 'number'; optional?: boolean; minimum: number; maximum: number }
-  | { type: 'integer'; optional?: boolean; minimum: number; maximum: number }
-  | { type: 'boolean'; optional?: boolean }
-  | { type: 'string'; optional?: boolean; minLength?: number; pattern?: RegExp }
-  | { type: 'enum'; values: Array<string>; optional?: boolean }
-  | { type: 'object'; optional?: boolean }
-  | { type: 'array'; items: Array<AttributesSpec>; optional?: boolean };
-
-interface ValidatorSpec {
-  props?: {
-    attrs?: { props: { [key: string]: AttributesSpec }; optional?: boolean };
-    content?: {
-      type: 'array';
-      items: Array<Array<string>>;
-      minItems?: number;
-      optional?: boolean;
-      allowUnsupportedBlock: boolean;
-      allowUnsupportedInline: boolean;
-    };
-    text?: AttributesSpec;
-    marks?: {
-      type: 'array';
-      items: Array<Array<string>>;
-      maxItems?: number;
-      optional?: boolean;
-    };
-  };
-  minItems?: number;
-  required?: Array<string>;
-}
-
-const isDefined = <T>(x: T): x is NonNullable<T> => x != null;
-
-const isNumber = (x: any): x is number =>
-  typeof x === 'number' && !isNaN(x) && isFinite(x);
-
-const isInteger = (x: any): x is number =>
-  typeof x === 'number' && isFinite(x) && Math.floor(x) === x;
-
-const isBoolean = (x: any): x is boolean =>
-  x === true || x === false || toString.call(x) === '[object Boolean]';
-
-// This is a kludge, might replace with something like _.isString in future
-const isString = (s: any): s is string =>
-  typeof s === 'string' || s instanceof String;
-
-const isPlainObject = (x: any) =>
-  typeof x === 'object' && x !== null && !Array.isArray(x);
-
-const copy = <
-  T extends Record<string | number, any> = Record<string | number, any>
->(
-  source: Record<string | number, any>,
-  dest: T,
-  key: string | number,
-) => {
-  (dest as Record<string | number, any>)[key] = source[key];
-  return dest;
-};
-
-// Helpers
-const makeArray = <T>(maybeArray: T | Array<T>) =>
-  Array.isArray(maybeArray) ? maybeArray : [maybeArray];
-
-function isForceContentValidationSpec(
-  x: AttributesSpec,
-): x is ArrayForceContentValidationAttributesSpec {
-  return isDefined((x as any).forceContentValidation);
-}
+import {
+  NodeValidationResult,
+  Output,
+  ValidatorSpec,
+  AttributesSpec,
+  ValidationErrorMap,
+  ValidationError,
+  ErrorCallback,
+  ValidationOptions,
+  Content,
+  ValidationErrorType,
+  ValidatorContent,
+  MarkValidationResult,
+  SpecValidatorResult,
+  Err,
+} from '../types/validatorTypes';
 
 function mapMarksItems(spec: ValidatorSpec, fn = (x: any) => x) {
   const { items, ...rest } = spec.props!.marks!;
@@ -120,17 +66,23 @@ const partitionObject = <T extends { [key: string]: any }>(
     [[], []],
   );
 
-// TODO: no-implicit-any
+/**
+ * Normalizes the structure of files imported form './specs'.
+ * We denormalised the spec to save bundle size.
+ */
 function createSpec(nodes?: Array<string>, marks?: Array<string>) {
   return Object.keys(specs).reduce<Record<string, any>>((newSpecs, k) => {
     const spec = { ...(specs as any)[k] };
     if (spec.props) {
       spec.props = { ...spec.props };
-      if (isString(spec.props.content)) {
-        spec.props.content = (specs as any)[spec.props.content];
-      }
       if (spec.props.content) {
-        if (!spec.props.content.items) {
+        // 'tableCell_content' => { type: 'array', items: [ ... ] }
+        if (isString(spec.props.content)) {
+          spec.props.content = (specs as any)[spec.props.content];
+        }
+
+        // ['inline', 'emoji']
+        if (Array.isArray(spec.props.content)) {
           /**
            * Flatten
            *
@@ -142,9 +94,9 @@ function createSpec(nodes?: Array<string>, marks?: Array<string>) {
            */
           spec.props.content = {
             type: 'array',
-            items: ((spec.props.content || []) as Array<{
-              items: Array<Array<string>>;
-            }>).map(arr => arr.items),
+            items: ((spec.props.content || []) as Array<ValidatorContent>).map(
+              arr => arr.items,
+            ),
           };
         } else {
           spec.props.content = { ...spec.props.content };
@@ -256,16 +208,14 @@ export function validateAttrs<T>(spec: AttributesSpec, value: T): boolean {
     case 'object':
       return isPlainObject(value);
     case 'array':
-      if (!isForceContentValidationSpec(spec)) {
-        const types = spec.items;
-        const lastTypeIndex = types.length - 1;
-        if (Array.isArray(value)) {
-          // We are doing this to support tuple which can be defined as [number, string]
-          // NOTE: Not validating tuples strictly
-          return value.every((x, i) =>
-            validateAttrs(types[Math.min(i, lastTypeIndex)], x),
-          );
-        }
+      const types = spec.items;
+      const lastTypeIndex = types.length - 1;
+      if (Array.isArray(value)) {
+        // We are doing this to support tuple which can be defined as [number, string]
+        // NOTE: Not validating tuples strictly
+        return value.every((x, i) =>
+          validateAttrs(types[Math.min(i, lastTypeIndex)], x),
+        );
       }
       return false;
 
@@ -313,9 +263,9 @@ const invalidChildContent = (
 const unsupportedMarkContent = (
   errorCode: ValidationError['code'],
   mark: ADFEntityMark,
+  message: string,
   errorCallback?: ErrorCallback,
 ) => {
-  const message = errorMessageFor(mark.type, 'unsupported mark');
   if (!errorCallback) {
     throw new Error(message);
   } else {
@@ -335,53 +285,6 @@ const unsupportedMarkContent = (
   }
 };
 
-// NOTE: Don't add huge data inside metadata. Also, don't add `any`.
-// We are sending it over analytics, so also be aware of GDPR.
-interface ValidationErrorMap {
-  MISSING_PROPERTIES: { props: Array<string> };
-  REDUNDANT_PROPERTIES: { props: Array<string> };
-  REDUNDANT_ATTRIBUTES: { attrs: Array<string> };
-  REDUNDANT_MARKS: { marks: Array<string> };
-  INVALID_TYPE: never;
-  INVALID_TEXT: never;
-  INVALID_CONTENT: never;
-  INVALID_CONTENT_LENGTH: { length: number };
-  INVALID_ATTRIBUTES: { attrs: Array<string> };
-  DEPRECATED: never;
-}
-
-export type ValidationErrorType = keyof ValidationErrorMap;
-
-export interface ValidationError {
-  code: ValidationErrorType;
-  message: string;
-  meta?: object;
-}
-
-export type ErrorCallback = (
-  entity: ADFEntity,
-  error: ValidationError,
-  options: {
-    allowUnsupportedBlock?: boolean;
-    allowUnsupportedInline?: boolean;
-    isMark?: boolean;
-  },
-) => ADFEntity | undefined;
-
-// `loose` - ignore and filter extra props or attributes
-export type ValidationMode = 'strict' | 'loose';
-
-export interface ValidationOptions {
-  mode?: ValidationMode;
-  // Allow attributes starting with `__` without validation
-  allowPrivateAttributes?: boolean;
-}
-
-export interface Output {
-  valid: boolean;
-  entity?: ADFEntity;
-}
-
 export function validator(
   nodes?: Array<string>,
   marks?: Array<string>,
@@ -396,6 +299,21 @@ export function validator(
     allowed?: Content,
     parentSpec?: ValidatorSpec,
   ): Output => {
+    const validationResult = validateNode(
+      entity,
+      errorCallback,
+      allowed,
+      parentSpec,
+    );
+    return { entity: validationResult.entity, valid: validationResult.valid };
+  };
+  const validateNode = (
+    entity: ADFEntity,
+    errorCallback?: ErrorCallback,
+    allowed?: Content,
+    parentSpec?: ValidatorSpec,
+    isMark: boolean = false,
+  ): NodeValidationResult => {
     const { type } = entity;
     let newEntity: ADFEntity = { ...entity };
 
@@ -403,7 +321,7 @@ export function validator(
       code: T,
       msg: string,
       meta?: T extends keyof ValidationErrorMap ? ValidationErrorMap[T] : never,
-    ): Output => {
+    ): NodeValidationResult => {
       const message = errorMessageFor(type, msg);
       if (errorCallback) {
         return {
@@ -431,329 +349,21 @@ export function validator(
           `${type}: No validation spec found for type!`,
         );
       }
-
-      const validator: ValidatorSpec = {
-        ...spec,
-        ...typeOptions,
-        // options with props can override props of spec
-        ...(spec.props
-          ? { props: { ...spec.props, ...(typeOptions['props'] || {}) } }
-          : {}),
-      };
-
-      if (validator) {
-        // Required Props
-        // For array format where `required` is an array
-        if (validator.required) {
-          if (!validator.required.every(prop => isDefined(entity[prop]))) {
-            return err('MISSING_PROPERTIES', 'required prop missing');
-          }
-        }
-
-        if (validator.props) {
-          // Check text
-          if (validator.props.text) {
-            if (
-              isDefined(entity.text) &&
-              !validateAttrs(validator.props.text, entity.text)
-            ) {
-              return err('INVALID_TEXT', `'text' validation failed`);
-            }
-          }
-
-          // Content Length
-          if (
-            validator.props.content &&
-            isDefined(validator.props.content.minItems) &&
-            entity.content
-          ) {
-            const length = entity.content.length;
-            if (validator.props.content.minItems! > length) {
-              const { minItems } = validator.props.content;
-              return err(
-                'INVALID_CONTENT_LENGTH',
-                `'content' should have more than ${minItems} child`,
-                { length },
-              );
-            }
-          }
-
-          // Required Props
-          // For object format based on `optional` property
-          const [, missingProps] = partitionObject(
-            validator.props,
-            (k, v) => v.optional || !!entity[k],
-          );
-
-          if (missingProps.length) {
-            return err('MISSING_PROPERTIES', 'required prop missing', {
-              props: missingProps,
-            });
-          }
-
-          // Attributes
-          let validatorAttrs: Record<string, any> = {};
-
-          // Attributes Validation
-          if (validator.props.attrs && entity.attrs) {
-            const attrOptions = makeArray(validator.props.attrs);
-            let invalidAttrs: Array<string> = [];
-
-            /**
-             * Attrs can be union type so try each path
-             * attrs: [{ props: { url: { type: 'string' } } }, { props: { data: {} } }],
-             * Gotcha: It will always report the last failure.
-             */
-            for (let i = 0, length = attrOptions.length; i < length; ++i) {
-              const attrOption = attrOptions[i];
-
-              [, invalidAttrs] = partitionObject(attrOption.props, (k, v) => {
-                // We need to validate the content from that kind of
-                // array against the nodes and marks. @see ED-6325
-                if (
-                  isForceContentValidationSpec(v) &&
-                  v.forceContentValidation
-                ) {
-                  const items = (entity.attrs as any)[k] || [];
-                  const newItems: Array<ADFEntity> = [];
-                  const specItemsAllowed = v.items;
-                  const entitySet = specItemsAllowed.reduce((xs, x) =>
-                    xs.concat(x),
-                  );
-
-                  for (let i = 0; i < items.length; i++) {
-                    const validateResult = validate(
-                      items[i],
-                      errorCallback,
-                      entitySet,
-                      validator,
-                    );
-
-                    if (!validateResult.valid && validateResult.entity) {
-                      newItems.push(validateResult.entity);
-                    }
-                  }
-
-                  newEntity.attrs = { ...newEntity.attrs };
-                  newEntity.attrs![k] = newItems;
-
-                  return true;
-                } else {
-                  return validateAttrs(v, (entity.attrs as any)[k]);
-                }
-              });
-
-              if (!invalidAttrs.length) {
-                validatorAttrs = attrOption;
-                break;
-              }
-            }
-
-            if (invalidAttrs.length) {
-              return err('INVALID_ATTRIBUTES', `'attrs' validation failed`, {
-                attrs: invalidAttrs,
-              });
-            }
-          }
-
-          // Extra Props
-          const [requiredProps, redundantProps] = partitionObject(entity, k =>
-            isDefined((validator.props as any)[k]),
-          );
-          if (redundantProps.length) {
-            if (mode === 'loose') {
-              newEntity = { type };
-              requiredProps.reduce((acc, p) => copy(entity, acc, p), newEntity);
-            } else {
-              if (
-                !(
-                  redundantProps.indexOf('marks') > -1 &&
-                  redundantProps.length === 1
-                )
-              ) {
-                return err(
-                  'REDUNDANT_PROPERTIES',
-                  `redundant props found: ${redundantProps.join(', ')}`,
-                  { props: redundantProps },
-                );
-              }
-            }
-          }
-
-          // Extra Attributes
-          if (entity.attrs) {
-            const attrs = Object.keys(entity.attrs).filter(
-              k => !(allowPrivateAttributes && k.startsWith('__')),
-            );
-            if (
-              !validatorAttrs ||
-              !attrs.every(a => !!validatorAttrs.props[a])
-            ) {
-              if (mode === 'loose') {
-                newEntity.attrs = {};
-                attrs
-                  .filter(a => !!validatorAttrs.props![a])
-                  .reduce(
-                    (acc, p) => copy(entity.attrs || {}, acc, p),
-                    newEntity.attrs,
-                  );
-              } else {
-                const redundantAttrs = attrs.filter(
-                  a => !validatorAttrs.props![a],
-                );
-                return err(
-                  'REDUNDANT_ATTRIBUTES',
-                  `redundant attributes found: ${redundantAttrs.join(', ')}`,
-                  { attrs: redundantAttrs },
-                );
-              }
-            }
-          }
-
-          // Children
-          if (validator.props.content) {
-            if (entity.content) {
-              newEntity.content = entity.content
-                .map((child, index) => {
-                  // Only go inside valid branch
-                  const validSets = validator.props!.content!.items.filter(
-                    set =>
-                      /**
-                       * Manually treat listItem content as Tuple,
-                       * hopefully tsc has new AST for Tuple in v3.0
-                       */
-                      type === 'listItem'
-                        ? true
-                        : set.some(
-                            // [p, hr, ...] or [p, [text, {}], ...]
-                            spec =>
-                              (Array.isArray(spec) ? spec[0] : spec) ===
-                              child.type,
-                          ),
-                  );
-
-                  if (validSets.length) {
-                    /**
-                     * In case of multiple valid branches, we are treating them as Tuple.
-                     * Thought this assumption is incorrect but it works for us since we don't
-                     * have any valid alternative branches.
-                     */
-                    const setIndex =
-                      validSets.length > 1
-                        ? Math.min(index, validSets.length - 1)
-                        : 0;
-                    const set = validSets[setIndex].filter(
-                      item =>
-                        (Array.isArray(item) ? item[0] : item) === child.type,
-                    );
-
-                    if (set.length === 0) {
-                      return invalidChildContent(
-                        child,
-                        errorCallback,
-                        validator,
-                      );
-                    }
-
-                    /**
-                     * When there's multiple possible branches try all of them.
-                     * If all of them fails, throw the first one.
-                     * e.g.- [['text', { marks: ['a'] }], ['text', { marks: ['b'] }]]
-                     */
-                    let firstError;
-                    let firstChild;
-                    for (let i = 0, len = set.length; i < len; i++) {
-                      try {
-                        const { valid, entity: newChildEntity } = validate(
-                          child,
-                          errorCallback,
-                          [set[i]],
-                          validator,
-                        );
-                        if (valid) {
-                          return newChildEntity;
-                        } else {
-                          firstChild = firstChild || newChildEntity;
-                        }
-                      } catch (error) {
-                        firstError = firstError || error;
-                      }
-                    }
-                    if (!errorCallback) {
-                      throw firstError;
-                    } else {
-                      return firstChild;
-                    }
-                  } else {
-                    return invalidChildContent(child, errorCallback, validator);
-                  }
-                })
-                .filter(Boolean) as Array<ADFEntity>;
-            } else if (!validator.props.content.optional) {
-              return err('MISSING_PROPERTIES', 'missing `content` prop');
-            }
-          }
-
-          // Marks
-          if (entity.marks) {
-            if (validator.props.marks) {
-              const { items } = validator.props!.marks!;
-              const marksSet = items.length
-                ? Array.isArray(items[0])
-                  ? items[0]
-                  : items
-                : [];
-              const newMarks = entity.marks
-                .map(mark => {
-                  if (
-                    mode === 'strict' && marks
-                      ? marks.indexOf(mark.type) > -1
-                      : true
-                  ) {
-                    return validate(mark, errorCallback, marksSet, validator)
-                      .entity;
-                  } else {
-                    const errorCode = 'INVALID_CONTENT';
-                    return unsupportedMarkContent(
-                      errorCode,
-                      mark,
-                      errorCallback,
-                    );
-                  }
-                })
-
-                .filter(Boolean) as ADFEntity[];
-              if (newMarks.length) {
-                newEntity.marks = newMarks;
-              } else {
-                delete newEntity.marks;
-                return { valid: false, entity: newEntity };
-              }
-            } else {
-              const errorCode = 'REDUNDANT_MARKS';
-              const newMarks = entity.marks.map(mark =>
-                unsupportedMarkContent(errorCode, mark, errorCallback),
-              );
-              if (newMarks.length) {
-                newEntity.marks = newMarks;
-              } else {
-                return err('REDUNDANT_MARKS', 'redundant marks', {
-                  marks: Object.keys(entity.marks),
-                });
-              }
-            }
-          }
-        } else {
-          const props = Object.keys(entity);
-          // If there's no validator.props then there shouldn't be any key except `type`
-          if (props.length > 1) {
-            return err(
-              'REDUNDANT_PROPERTIES',
-              `redundant props found: ${Object.keys(entity).join(', ')}`,
-              { props },
-            );
-          }
-        }
+      const specBasedValidationResult = specBasedValidationFor(
+        spec,
+        typeOptions,
+        entity,
+        err,
+        newEntity,
+        type,
+        errorCallback,
+        isMark,
+      );
+      if (
+        specBasedValidationResult.hasValidated &&
+        specBasedValidationResult.result
+      ) {
+        return specBasedValidationResult.result;
       }
     } else {
       return err(
@@ -765,4 +375,585 @@ export function validator(
   };
 
   return validate;
+
+  function marksValidationFor(
+    validator: ValidatorSpec,
+    entity: ADFEntity,
+    errorCallback: ErrorCallback | undefined,
+    newEntity: ADFEntity,
+    err: Err,
+  ) {
+    let validationResult: NodeValidationResult;
+    if (validator.props && validator.props.marks) {
+      const marksSet = allowedMarksFor(validator);
+      const marksValidationResult = marksAfterValidation(
+        entity,
+        errorCallback,
+        marksSet,
+        validator,
+      );
+      validationResult = {
+        valid: true,
+        entity: newEntity,
+        marksValidationOutput: marksValidationResult,
+      };
+    } else {
+      validationResult = marksForEntitySpecNotSupportingMarks(
+        entity,
+        newEntity,
+        errorCallback,
+        err,
+      );
+    }
+    return validationResult;
+  }
+  function validatorFor(
+    spec: ValidatorSpec,
+    typeOptions: Record<string, any>,
+  ): ValidatorSpec {
+    return {
+      ...spec,
+      ...typeOptions,
+      // options with props can override props of spec
+      ...(spec.props
+        ? { props: { ...spec.props, ...(typeOptions['props'] || {}) } }
+        : {}),
+    };
+  }
+
+  function marksAfterValidation(
+    entity: ADFEntity,
+    errorCallback: ErrorCallback | undefined,
+    marksSet: Array<string | Array<string>>,
+    validator: ValidatorSpec,
+  ): MarkValidationResult[] {
+    return entity.marks
+      ? entity.marks.map(mark => {
+          const isAKnownMark = marks ? marks.indexOf(mark.type) > -1 : true;
+          if (mode === 'strict' && isAKnownMark) {
+            const finalMark = validateNode(
+              mark,
+              errorCallback,
+              marksSet,
+              validator,
+              true,
+            ).entity;
+            return { valid: true, originalMark: mark, newMark: finalMark };
+          } else {
+            const errorCode = 'INVALID_CONTENT';
+            return { valid: false, originalMark: mark, errorCode: errorCode };
+          }
+        })
+      : [];
+  }
+
+  function allowedMarksFor(validator: ValidatorSpec) {
+    const { items } = validator.props!.marks!;
+    const marksSet = items.length
+      ? Array.isArray(items[0])
+        ? items[0]
+        : items
+      : [];
+    return marksSet;
+  }
+
+  function marksForEntitySpecNotSupportingMarks(
+    prevEntity: ADFEntity,
+    newEntity: ADFEntity,
+    errorCallback: ErrorCallback | undefined,
+    err: Err,
+  ) {
+    const errorCode = 'REDUNDANT_MARKS';
+    const currentMarks = prevEntity.marks || [];
+    const newMarks = currentMarks.map((mark: ADFEntityMark) => {
+      const message = errorMessageFor(mark.type, 'unsupported mark');
+      return unsupportedMarkContent(errorCode, mark, message, errorCallback);
+    });
+    if (newMarks.length) {
+      newEntity.marks = newMarks;
+      return { valid: true, entity: newEntity };
+    } else {
+      return err('REDUNDANT_MARKS', 'redundant marks', {
+        marks: Object.keys(currentMarks),
+      });
+    }
+  }
+
+  function requiredPropertyValidationFor(
+    validatorSpec: ValidatorSpec,
+    prevEntity: ADFEntity,
+    err: Err,
+  ) {
+    let result: NodeValidationResult = { valid: true, entity: prevEntity };
+    if (validatorSpec.required) {
+      if (
+        !validatorSpec.required.every((prop: string | number) =>
+          isDefined(prevEntity[prop]),
+        )
+      ) {
+        result = err('MISSING_PROPERTIES', 'required prop missing');
+      }
+    }
+    return result;
+  }
+
+  function textPropertyValidationFor(
+    validatorSpec: ValidatorSpec,
+    prevEntity: ADFEntity,
+    err: Err,
+  ) {
+    let result: NodeValidationResult = { valid: true, entity: prevEntity };
+    if (validatorSpec.props!.text) {
+      if (
+        isDefined(prevEntity.text) &&
+        !validateAttrs(validatorSpec.props!.text, prevEntity.text)
+      ) {
+        result = err('INVALID_TEXT', `'text' validation failed`);
+      }
+    }
+    return result;
+  }
+
+  function contentLengthValidationFor(
+    validatorSpec: ValidatorSpec,
+    prevEntity: ADFEntity,
+    err: Err,
+  ) {
+    let result: NodeValidationResult = { valid: true, entity: prevEntity };
+    if (validatorSpec.props!.content && prevEntity.content) {
+      const { minItems, maxItems } = validatorSpec.props!.content;
+      const length = prevEntity.content.length;
+      if (isDefined(minItems) && minItems > length) {
+        result = err(
+          'INVALID_CONTENT_LENGTH',
+          `'content' should have more than ${minItems} child`,
+          { length },
+        );
+      } else if (isDefined(maxItems) && maxItems < length) {
+        result = err(
+          'INVALID_CONTENT_LENGTH',
+          `'content' should have less than ${maxItems} child`,
+          { length },
+        );
+      }
+    }
+    return result;
+  }
+
+  function attributesValidationFor(
+    validatorSpec: ValidatorSpec,
+    prevEntity: ADFEntity,
+    err: Err,
+    newEntity: ADFEntity,
+    isMark: boolean,
+    errorCallback: ErrorCallback | undefined,
+  ): NodeValidationResult {
+    let validatorAttrs: Record<string, any> = {};
+    let result: NodeValidationResult = { valid: true, entity: prevEntity };
+    // Attributes Validation
+    if (validatorSpec.props!.attrs && prevEntity.attrs) {
+      const attrOptions = makeArray(validatorSpec.props!.attrs);
+      let invalidAttrs: Array<string> = [];
+
+      /**
+       * Attrs can be union type so try each path
+       * attrs: [{ props: { url: { type: 'string' } } }, { props: { data: {} } }],
+       * Gotcha: It will always report the last failure.
+       */
+      for (let i = 0, length = attrOptions.length; i < length; ++i) {
+        const attrOption = attrOptions[i];
+
+        [, invalidAttrs] = partitionObject(attrOption.props, (k, v) => {
+          return validateAttrs(v, (prevEntity.attrs as any)[k]);
+        });
+
+        if (!invalidAttrs.length) {
+          validatorAttrs = attrOption;
+          break;
+        }
+      }
+
+      if (invalidAttrs.length) {
+        if (isMark) {
+          const errorCode = 'INVALID_ATTRIBUTES';
+          const message = errorMessageFor(
+            prevEntity.type,
+            `'attrs' validation failed`,
+          );
+          const unsupportedMark = unsupportedMarkContent(
+            errorCode,
+            prevEntity,
+            message,
+            errorCallback,
+          );
+          return {
+            valid: true,
+            entity: unsupportedMark,
+          };
+        }
+        return err('INVALID_ATTRIBUTES', `'attrs' validation failed`, {
+          attrs: invalidAttrs,
+        });
+      }
+    } else if (prevEntity.attrs) {
+      if (isMark) {
+        const errorCode = 'REDUNDANT_ATTRIBUTES';
+        const message = errorMessageFor(
+          'redundant attributes found',
+          Object.keys(prevEntity.attrs).join(', '),
+        );
+        const unsupportedMark = unsupportedMarkContent(
+          errorCode,
+          prevEntity,
+          message,
+          errorCallback,
+        );
+        return {
+          valid: true,
+          entity: unsupportedMark,
+        };
+      }
+    }
+    if (prevEntity.attrs) {
+      const attrs = Object.keys(prevEntity.attrs).filter(
+        k => !(allowPrivateAttributes && k.startsWith('__')),
+      );
+      if (!validatorAttrs || !attrs.every(a => !!validatorAttrs.props[a])) {
+        if (mode === 'loose') {
+          newEntity.attrs = {};
+          attrs
+            .filter(a => !!validatorAttrs.props![a])
+            .reduce(
+              (acc, p) => copy(prevEntity.attrs || {}, acc, p),
+              newEntity.attrs,
+            );
+        } else {
+          const redundantAttrs = attrs.filter(a => !validatorAttrs.props![a]);
+          const errorCode = 'REDUNDANT_ATTRIBUTES';
+          const message = errorMessageFor(
+            'redundant attributes found',
+            redundantAttrs.join(', '),
+          );
+          if (isMark) {
+            const unsupportedMark = unsupportedMarkContent(
+              errorCode,
+              prevEntity,
+              message,
+              errorCallback,
+            );
+            const result = {
+              valid: true,
+              entity: unsupportedMark,
+            };
+            return result;
+          } else {
+            return err(errorCode, message, { attrs: redundantAttrs });
+          }
+        }
+      }
+    }
+    return result;
+  }
+
+  function extraPropsValidationFor(
+    validatorSpec: ValidatorSpec,
+    prevEntity: ADFEntity,
+    err: Err,
+    newEntity: ADFEntity,
+    type: string,
+  ): NodeValidationResult {
+    let result: NodeValidationResult = { valid: true, entity: prevEntity };
+    const [requiredProps, redundantProps] = partitionObject(prevEntity, k =>
+      isDefined((validatorSpec.props as any)[k]),
+    );
+    if (redundantProps.length) {
+      if (mode === 'loose') {
+        newEntity = { type };
+        requiredProps.reduce((acc, p) => copy(prevEntity, acc, p), newEntity);
+      } else {
+        if (
+          !(redundantProps.indexOf('marks') > -1 && redundantProps.length === 1)
+        ) {
+          return err(
+            'REDUNDANT_PROPERTIES',
+            `redundant props found: ${redundantProps.join(', ')}`,
+            { props: redundantProps },
+          );
+        }
+      }
+    }
+    return result;
+  }
+
+  function specBasedValidationFor(
+    spec: ValidatorSpec,
+    typeOptions: Record<string, any>,
+    prevEntity: ADFEntity,
+    err: Err,
+    newEntity: ADFEntity,
+    type: string,
+    errorCallback: ErrorCallback | undefined,
+    isMark: boolean,
+  ): SpecValidatorResult {
+    let specBasedValidationResult: SpecValidatorResult = {
+      hasValidated: false,
+    };
+    const validatorSpec: ValidatorSpec = validatorFor(spec, typeOptions);
+    if (!validatorSpec) {
+      return specBasedValidationResult;
+    }
+
+    // Required Props
+    // For array format where `required` is an array
+    const requiredPropertyValidatonResult = requiredPropertyValidationFor(
+      validatorSpec,
+      prevEntity,
+      err,
+    );
+    if (!requiredPropertyValidatonResult.valid) {
+      return {
+        hasValidated: true,
+        result: requiredPropertyValidatonResult,
+      };
+    }
+
+    if (!validatorSpec.props) {
+      const props = Object.keys(prevEntity);
+      // If there's no validator.props then there shouldn't be any key except `type`
+      if (props.length > 1) {
+        return {
+          hasValidated: true,
+          result: err(
+            'REDUNDANT_PROPERTIES',
+            `redundant props found: ${Object.keys(prevEntity).join(', ')}`,
+            { props },
+          ),
+        };
+      }
+      return specBasedValidationResult;
+    }
+
+    // Check text
+    const textPropertyValidationResult = textPropertyValidationFor(
+      validatorSpec,
+      prevEntity,
+      err,
+    );
+    if (!textPropertyValidationResult.valid) {
+      return {
+        hasValidated: true,
+        result: textPropertyValidationResult,
+      };
+    }
+    // Content Length
+    const contentLengthValidationResult = contentLengthValidationFor(
+      validatorSpec,
+      prevEntity,
+      err,
+    );
+    if (!contentLengthValidationResult.valid) {
+      return {
+        hasValidated: true,
+        result: contentLengthValidationResult,
+      };
+    }
+
+    // Required Props
+    // For object format based on `optional` property
+    const [, missingProps] = partitionObject(
+      validatorSpec.props,
+      (k, v) => v.optional || isDefined(prevEntity[k]),
+    );
+
+    if (missingProps.length) {
+      return {
+        hasValidated: true,
+        result: err('MISSING_PROPERTIES', 'required prop missing', {
+          props: missingProps,
+        }),
+      };
+    }
+
+    const attributesValidationResult = attributesValidationFor(
+      validatorSpec,
+      prevEntity,
+      err,
+      newEntity,
+      isMark,
+      errorCallback,
+    );
+
+    if (!attributesValidationResult.valid) {
+      return {
+        hasValidated: true,
+        result: attributesValidationResult,
+      };
+    }
+
+    if (isMark && attributesValidationResult.valid) {
+      return {
+        hasValidated: true,
+        result: attributesValidationResult,
+      };
+    }
+
+    const extraPropsValidationResult = extraPropsValidationFor(
+      validatorSpec,
+      prevEntity,
+      err,
+      newEntity,
+      type,
+    );
+
+    if (!extraPropsValidationResult.valid) {
+      return {
+        hasValidated: true,
+        result: extraPropsValidationResult,
+      };
+    }
+
+    // Children
+    if (validatorSpec.props.content) {
+      const contentValidatorSpec = validatorSpec.props.content;
+      if (prevEntity.content) {
+        const validateChildNode = (child: ADFEntity, index: any) => {
+          const hasMultipleCombinationOfContentAllowed = !!contentValidatorSpec.isTupleLike;
+          if (hasMultipleCombinationOfContentAllowed) {
+            return validateNode(
+              child,
+              errorCallback,
+              makeArray(
+                contentValidatorSpec.items[index] ||
+                  contentValidatorSpec.items[
+                    contentValidatorSpec.items.length - 1
+                  ],
+              ),
+              validatorSpec,
+            ).entity;
+          }
+
+          // Only go inside valid branch
+          const allowedSpecsForEntity = contentValidatorSpec.items.filter(
+            item =>
+              Array.isArray(item)
+                ? item.some(
+                    // [p, hr, ...] or [p, [text, {}], ...]
+                    spec =>
+                      (Array.isArray(spec) ? spec[0] : spec) === child.type,
+                  )
+                : true,
+          );
+
+          if (allowedSpecsForEntity.length) {
+            if (allowedSpecsForEntity.length > 1) {
+              throw new Error('Consider using Tuple instead!');
+            }
+
+            const maybeArray = makeArray(allowedSpecsForEntity[0]);
+            const allowedSpecsForChild = maybeArray.filter(
+              item => (Array.isArray(item) ? item[0] : item) === child.type,
+            );
+
+            if (allowedSpecsForChild.length === 0) {
+              return invalidChildContent(child, errorCallback, validatorSpec);
+            }
+
+            /**
+             * When there's multiple possible branches try all of them.
+             * If all of them fails, throw the first one.
+             * e.g.- [['text', { marks: ['a'] }], ['text', { marks: ['b'] }]]
+             */
+            let firstError;
+            let firstChild;
+            for (let i = 0, len = allowedSpecsForChild.length; i < len; i++) {
+              try {
+                const allowedValueForCurrentSpec = [allowedSpecsForChild[i]];
+                const {
+                  valid,
+                  entity: newChildEntity,
+                  marksValidationOutput,
+                } = validateNode(
+                  child,
+                  errorCallback,
+                  allowedValueForCurrentSpec,
+                  validatorSpec,
+                );
+                if (valid) {
+                  let marksAreValid = true;
+                  if (
+                    newChildEntity &&
+                    newChildEntity.marks &&
+                    marksValidationOutput
+                  ) {
+                    const finalMarks = marksValidationOutput!
+                      .map(mr => {
+                        const message = errorMessageFor(
+                          mr.originalMark.type,
+                          'unsupported mark',
+                        );
+                        return mr.valid
+                          ? mr.newMark
+                          : unsupportedMarkContent(
+                              mr.errorCode!,
+                              mr.originalMark,
+                              message,
+                              errorCallback,
+                            );
+                      })
+                      .filter(Boolean) as ADFEntityMark[];
+                    if (finalMarks.length) {
+                      newChildEntity.marks = finalMarks;
+                    } else {
+                      delete newChildEntity.marks;
+                      marksAreValid = false;
+                    }
+                  }
+                  if (marksAreValid) {
+                    return newChildEntity;
+                  } else {
+                    firstChild = firstChild || newChildEntity;
+                  }
+                } else {
+                  firstChild = firstChild || newChildEntity;
+                }
+              } catch (error) {
+                firstError = firstError || error;
+              }
+            }
+            if (!errorCallback) {
+              throw firstError;
+            } else {
+              return firstChild;
+            }
+          } else {
+            return invalidChildContent(child, errorCallback, validatorSpec);
+          }
+        };
+        newEntity.content = prevEntity.content
+          .map(validateChildNode)
+          .filter(Boolean) as Array<ADFEntity>;
+      } else if (!contentValidatorSpec.optional) {
+        return {
+          hasValidated: true,
+          result: err('MISSING_PROPERTIES', 'missing `content` prop'),
+        };
+      }
+    }
+
+    // Marks
+    if (prevEntity.marks) {
+      return {
+        hasValidated: true,
+        result: marksValidationFor(
+          validatorSpec,
+          prevEntity,
+          errorCallback,
+          newEntity,
+          err,
+        ),
+      };
+    }
+
+    return specBasedValidationResult;
+  }
 }

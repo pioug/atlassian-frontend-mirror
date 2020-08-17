@@ -19,7 +19,6 @@ import { TaskDecisionProvider } from '@atlaskit/task-decision';
 import { PluginConfig as TablesPluginConfig } from '../plugins/table/types';
 import { TextColorPluginConfig } from '../plugins/text-color/pm-plugins/main';
 import { MediaOptions, MediaState } from '../plugins/media/types';
-import { AnalyticsHandler } from '../analytics/handler';
 import { CollabEditOptions } from '../plugins/collab-edit/types';
 import { CardOptions } from '../plugins/card/types';
 import { QuickInsertOptions } from '../plugins/quick-insert/types';
@@ -28,6 +27,7 @@ import { TextFormattingOptions } from '../plugins/text-formatting/types';
 import { PlaceholderTextOptions } from '../plugins/placeholder-text/types';
 import { BlockTypePluginOptions } from '../plugins/block-type/types';
 import { LayoutsConfig } from '../plugins/layout/types';
+import { FindReplaceOptions } from '../plugins/find-replace/types';
 import { ExtensionConfig } from './extension-config';
 import { EditorAppearance } from './editor-appearance';
 import { MenuItem } from '../ui/DropdownMenu/types';
@@ -66,9 +66,6 @@ export interface EditorProps {
   - `mobile` - should be used for the mobile web view. It is a full page editor version for mobile.
   */
   appearance?: EditorAppearance;
-
-  // Legacy analytics support handler, which will be removed soon. **Do not use**.
-  analyticsHandler?: AnalyticsHandler;
 
   contentComponents?: ReactComponents;
   primaryToolbarComponents?: ReactComponents;
@@ -158,8 +155,9 @@ export interface EditorProps {
    */
   autoScrollIntoView?: boolean;
 
-  // Enable find/replace functionality within the editor
-  allowFindReplace?: boolean;
+  // Enable find/replace functionality within the editor.
+  // You can use the object form to enable additional individual features e.g. case-matching toggle.
+  allowFindReplace?: boolean | FindReplaceOptions;
 
   // Set to enable the quick insert menu i.e. '/' key trigger.
   // You can also provide your own insert menu options that will be shown in addition to the enabled
@@ -290,10 +288,31 @@ export interface EditorProps {
   // This eventually is going to replace `quickInsert.provider`, `extensionHandlers`, `macroProvider`.
   extensionProviders?: ExtensionProvidersProp;
 
+  // New work on replacing list behaviours with a more predictable experience
+  // Eventually this will be removed and turned on permanently
+  // default: false, which falls back on the current list behaviour
+  UNSAFE_predictableLists?: boolean;
+
   // ⚠️ This API will be deprecated in the future
   transactionTracking?: TransactionTracking;
 
   performanceTracking?: {
+    ttiTracking?: {
+      // Wether ttiTracking should be enabled
+      // default: false
+      enabled: boolean;
+
+      // Time between long tasks that tti measurement considers
+      // long enough to treat page as interactive, default: 1000ms
+      ttiIdleThreshold?: number;
+
+      // Time in [seconds] after which to stop tti measurements,
+      // used to prevent issues when page never becomes responisve,
+      // e.g. infinite loops in rendering / etc...
+      // default: 60s
+      ttiCancelTimeout?: number;
+    };
+
     // Control transaction tracking
     // default:
     // {
@@ -308,5 +327,10 @@ export interface EditorProps {
     transactionTracking?: TransactionTracking;
     uiTracking?: UITracking;
     nodeViewTracking?: NodeViewTracking;
+  };
+
+  elementBrowser?: {
+    showModal?: boolean;
+    replacePlusMenu?: boolean;
   };
 }

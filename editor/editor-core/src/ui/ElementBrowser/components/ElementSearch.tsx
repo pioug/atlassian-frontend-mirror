@@ -11,18 +11,25 @@ import {
   SEARCH_ITEM_HEIGHT_WIDTH,
   SEARCH_ITEM_MARGIN,
 } from '../constants';
+import useRefToFocusOrScroll from '../hooks/useRefToFocusOrScroll';
 import { Modes } from '../types';
 
 interface Props {
   onSearch: (value: string) => void;
   mode: keyof typeof Modes;
+  focus: boolean;
+  onClick: (e: React.MouseEvent) => void;
 }
 
 function ElementSearch({
-  onSearch = () => {},
+  onSearch,
   mode,
   intl: { formatMessage },
+  focus,
+  onClick,
 }: Props & InjectedIntlProps): JSX.Element {
+  const ref = useRefToFocusOrScroll(focus);
+
   const onChange = ({
     target: { value },
   }: React.ChangeEvent<HTMLInputElement>) => {
@@ -40,15 +47,23 @@ function ElementSearch({
           height: mode === Modes.full ? GRID_SIZE * 6 : GRID_SIZE * 5,
           borderRadius: GRID_SIZE,
           flex: mode === Modes.inline ? 0 : '1 1 100%',
+          ...(Modes.inline && { overflow: 'revert' }), // Needed for firefox, inherited property would hide the searchbar.
         },
-        input,
+        input: {
+          ...input,
+          marginBottom: Modes.inline ? 3 : 2,
+          fontSize: Modes.inline ? 14 : GRID_SIZE * 2,
+          padding: `${GRID_SIZE}px 6px ${GRID_SIZE}px 0`,
+        },
       };
     },
     [mode],
   );
   return (
     <Textfield
+      ref={ref}
       onChange={onChange}
+      onClick={onClick}
       onFocus={onFocus}
       onBlur={onBlur}
       elemBeforeInput={
@@ -62,7 +77,9 @@ function ElementSearch({
       }
       elemAfterInput={
         <ElementAfterInput>
-          <StyledShortcut>/</StyledShortcut>
+          <StyledShortcut>
+            &#9166; {formatMessage(elementAfterInputMessage)}
+          </StyledShortcut>
         </ElementAfterInput>
       }
       placeholder={formatMessage(placeHolderMessage)}
@@ -72,6 +89,12 @@ function ElementSearch({
   );
 }
 
+const elementAfterInputMessage = {
+  id: 'fabric.editor.elementbrowser.searchbar.elementAfterInput',
+  defaultMessage: 'Enter',
+  description: 'Enter to insert',
+};
+
 const placeHolderMessage = {
   id: 'fabric.editor.elementbrowser.searchbar.placeholder',
   defaultMessage: 'Type to insert',
@@ -80,17 +103,17 @@ const placeHolderMessage = {
 
 const StyledShortcut = styled(Shortcut)`
   padding: ${GRID_SIZE / 2}px ${GRID_SIZE}px;
+  width: ${GRID_SIZE * 6}px;
 `;
 
 const ElementBeforeInput = styled.div`
-  margin: 0 ${SEARCH_ITEM_MARGIN};
+  margin: 1px ${SEARCH_ITEM_MARGIN} 0 ${SEARCH_ITEM_MARGIN};
   color: ${N200};
 `;
 
 const ElementAfterInput = styled.div`
   margin: 0 ${SEARCH_ITEM_MARGIN};
   height: ${SEARCH_ITEM_HEIGHT_WIDTH};
-  width: ${SEARCH_ITEM_HEIGHT_WIDTH};
   text-align: center;
 `;
 

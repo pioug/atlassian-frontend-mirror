@@ -2,7 +2,7 @@ import React, { CSSProperties } from 'react';
 
 // eslint-disable-next-line no-restricted-imports
 import { format, isValid } from 'date-fns';
-import pick from 'lodash.pick';
+import pick from 'lodash/pick';
 
 import {
   createAndFireEvent,
@@ -105,7 +105,7 @@ export interface Props extends WithAnalyticsEventsProps {
   testId?: string;
 }
 
-type TimePickerProps = typeof TimePicker.defaultProps & Props;
+type TimePickerProps = typeof timePickerDefaultProps & Props;
 
 interface State {
   isOpen: boolean;
@@ -143,32 +143,33 @@ const FixedLayerMenu = ({ selectProps, ...rest }: { selectProps: any }) => (
   />
 );
 
+const timePickerDefaultProps = {
+  appearance: 'default' as Appearance,
+  autoFocus: false,
+  defaultIsOpen: false,
+  defaultValue: '',
+  hideIcon: false,
+  id: '',
+  innerProps: {},
+  isDisabled: false,
+  isInvalid: false,
+  name: '',
+  onBlur: (event: React.FocusEvent<HTMLInputElement>) => {},
+  onChange: (value: string) => {},
+  onFocus: (event: React.FocusEvent<HTMLInputElement>) => {},
+  parseInputValue: (time: string, timeFormat: string) => parseTime(time),
+  selectProps: {},
+  spacing: 'default' as Spacing,
+  times: defaultTimes,
+  timeIsEditable: false,
+  locale: 'en-US',
+  // Not including a default prop for value as it will
+  // Make the component a controlled component
+};
 class TimePicker extends React.Component<TimePickerProps, State> {
   containerRef: HTMLElement | null = null;
 
-  static defaultProps = {
-    appearance: 'default' as Appearance,
-    autoFocus: false,
-    defaultIsOpen: false,
-    defaultValue: '',
-    hideIcon: false,
-    id: '',
-    innerProps: {},
-    isDisabled: false,
-    isInvalid: false,
-    name: '',
-    onBlur: (event: React.FocusEvent<HTMLInputElement>) => {},
-    onChange: (value: string) => {},
-    onFocus: (event: React.FocusEvent<HTMLInputElement>) => {},
-    parseInputValue: (time: string, timeFormat: string) => parseTime(time),
-    selectProps: {},
-    spacing: 'default' as Spacing,
-    times: defaultTimes,
-    timeIsEditable: false,
-    locale: 'en-US',
-    // Not including a default prop for value as it will
-    // Make the component a controlled component
-  };
+  static defaultProps = timePickerDefaultProps;
 
   state = {
     isOpen: this.props.defaultIsOpen,

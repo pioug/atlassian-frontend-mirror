@@ -15,8 +15,10 @@ import {
   isErrorFileState,
   isProcessedFileState,
   ErrorFileState,
+  NonErrorFileState,
   isFinalFileState,
   isMimeTypeSupportedByBrowser,
+  isMimeTypeSupportedByServer,
 } from '@atlaskit/media-client';
 import { RECENTS_COLLECTION } from '@atlaskit/media-client/constants';
 import { Subscriber } from 'rxjs/Subscriber';
@@ -167,6 +169,16 @@ const getPreviewByService = (
               return resolve(state.preview);
             }
 
+            if (
+              !isErrorFileState(state) &&
+              !isMimeTypeSupportedByServer(state.mimeType)
+            ) {
+              // If tenant file isn't supported by server, it won't be processed.
+              // We reject that Promise to render the corresponding card without preview asap.
+              this.unsubscribe();
+              return reject(new Error("File isn't supported by server"));
+            }
+
             if (isFinalFileState(state)) {
               this.unsubscribe();
               return isImageRepresentationReady(state)
@@ -178,8 +190,39 @@ const getPreviewByService = (
       );
     }
   } else if (serviceName === 'recent_files' && isPreviewableType(mediaType)) {
-    // TODO, EDM-674: handle case where recent file is an image/video and has failed processing
-    return getRemotePreview(store, fileId);
+    const observable = getFileStreamsCache().get(fileId);
+    if (observable) {
+      return new Promise<FilePreview>(async (resolve, reject) =>
+        observable.subscribe({
+          next(this: Subscriber<FileState>, state) {
+            if (isErrorFileState(state)) {
+              this.unsubscribe();
+              return reject(new Error(state.message || 'An error has occured'));
+            }
+
+            if (!isMimeTypeSupportedByServer(state.mimeType)) {
+              this.unsubscribe();
+              return reject(new Error("File isn't supported by server"));
+            }
+
+            if (isPreviewableFileState(state)) {
+              // if local preview is available, we should use it
+              this.unsubscribe();
+              return resolve(state.preview);
+            }
+
+            if (isImageRepresentationReady(state)) {
+              this.unsubscribe();
+              return resolve(getRemotePreview(store, fileId));
+            }
+
+            // we only take the current state for "Recent Files" and unsubscribe immediately
+            this.unsubscribe();
+            reject(new Error("File preview isn't ready"));
+          },
+        }),
+      );
+    }
   }
 
   return undefined;
@@ -463,15 +506,18 @@ const emitPublicEvents = (
     store.dispatch(sendUploadEvent({ event, fileId }));
   };
 
-  const dispatchUploadEnd = (fileState: Exclude<FileState, ErrorFileState>) => {
+  const dispatchUploadEnd = (fileState: NonErrorFileState) => {
     const file = fileStateToMediaFile(fileState);
     // File to copy from
     const source = {
       id: localUpload.file.metadata.id,
       collection: RECENTS_COLLECTION,
     };
+    const preview = isPreviewableFileState(fileState)
+      ? fileState.preview
+      : undefined;
 
-    store.dispatch(finalizeUpload(file, fileId, source));
+    store.dispatch(finalizeUpload(file, fileId, source, preview));
   };
 
   const canDispatchUploadPreview = (): boolean =>

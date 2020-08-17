@@ -6,10 +6,11 @@ import {
   ImageResizeMode,
 } from '@atlaskit/media-client';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
-
+import { MediaFeatureFlags } from '@atlaskit/media-common';
 import { CardAction } from './actions';
 import { MediaViewerDataSource } from '@atlaskit/media-viewer';
-import { MediaCardFeatureFlags } from '@atlaskit/analytics-namespaced-context';
+
+import { CardPreview } from './root/card/getCardPreview';
 
 export {
   MediaCardAnalyticsPayload,
@@ -52,7 +53,7 @@ export interface SharedCardProps {
   // only relevant to file card with image appearance
   readonly disableOverlay?: boolean;
   readonly resizeMode?: ImageResizeMode;
-  readonly featureFlags?: MediaCardFeatureFlags;
+  readonly featureFlags?: MediaFeatureFlags;
   readonly appearance?: CardAppearance;
   readonly dimensions?: CardDimensions;
   readonly originalDimensions?: NumericalCardDimensions;
@@ -85,15 +86,15 @@ export interface CardProps extends SharedCardProps, CardEventProps {
 export interface CardState {
   status: CardStatus;
   isCardVisible: boolean;
-  previewOrientation: number;
   isPlayingFile: boolean;
   mediaViewerSelectedItem?: Identifier;
   metadata?: FileDetails;
-  dataURI?: string;
   progress?: number;
+  cardPreview?: CardPreview;
   error?: Error;
 }
 
 export { CardLoading } from './utils/lightCards/cardLoading';
 export { CardError } from './utils/lightCards/cardError';
 export { defaultImageCardDimensions } from './utils/cardDimensions';
+export { fileCardImageViewSelector } from './files/cardImageView';

@@ -1,10 +1,13 @@
 import { EditorState } from 'prosemirror-state';
-import { findParentNode } from 'prosemirror-utils';
 import { BreakoutMode } from '../commands/set-breakout-mode';
-import { isSupportedNodeForBreakout } from './is-supported-node';
+import { findSupportedNodeForBreakout } from './find-breakout-node';
 
+/**
+ * Get the current mode of the breakout at the selection
+ * @param state Current EditorState
+ */
 export function getBreakoutMode(state: EditorState): BreakoutMode | undefined {
-  const node = findParentNode(isSupportedNodeForBreakout)(state.selection);
+  const node = findSupportedNodeForBreakout(state.selection);
 
   if (!node) {
     return;

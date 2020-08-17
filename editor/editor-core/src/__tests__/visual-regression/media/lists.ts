@@ -11,9 +11,9 @@ import {
   clickMediaInPosition,
 } from '../../__helpers/page-objects/_media';
 import * as panelList from './__fixtures__/panel-list-adf.json';
-import { Page } from '../../__helpers/page-objects/_types';
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 
-let page: Page;
+let page: PuppeteerPage;
 
 const initEditor = async (adf?: Object) => {
   await initEditorWithAdf(page, {

@@ -30,21 +30,17 @@ import ToolbarButton from '../../../../../ui/ToolbarButton';
 import DropdownMenuWrapper from '../../../../../ui/DropdownMenu';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { EditorView } from 'prosemirror-view';
-import { AnalyticsHandler } from '../../../../../analytics';
 
 describe('@atlaskit/editor-core/ui/ToolbarAdvancedTextFormatting', () => {
   const createEditor = createEditorFactory();
   let createAnalyticsEvent: jest.MockInstance<UIAnalyticsEvent, any>;
-  let analyticsHandler: AnalyticsHandler;
 
   const editor = (doc: any) => {
     createAnalyticsEvent = createAnalyticsEventMock();
-    analyticsHandler = jest.fn();
     return createEditor({
       doc,
       pluginKey: pluginKey,
       editorProps: {
-        analyticsHandler,
         allowAnalyticsGASV3: true,
         allowPanel: true,
       },
@@ -448,13 +444,6 @@ describe('@atlaskit/editor-core/ui/ToolbarAdvancedTextFormatting', () => {
           clickToolbarOption(type as keyof typeof messages, toolbarOption);
 
           expect(editorView.state.doc).toEqualDocument(expectedDocument);
-        });
-
-        it('should call analytics v2 handler', () => {
-          clickToolbarOption(type as keyof typeof messages, toolbarOption);
-          expect(analyticsHandler).toHaveBeenCalledWith(
-            `atlassian.editor.format.${type}.button`,
-          );
         });
 
         it(`should create analytics V3 events`, async () => {

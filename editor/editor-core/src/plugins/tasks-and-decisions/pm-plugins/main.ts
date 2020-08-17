@@ -72,7 +72,10 @@ export function createPlugin(
 
         const { state, dispatch } = view;
         const { tr } = state;
-        if (state.selection instanceof NodeSelection) {
+        if (
+          state.selection instanceof NodeSelection &&
+          state.selection.node.type === view.state.schema.nodes.decisionItem
+        ) {
           state.selection.replace(tr);
           tr.insertText(text);
           if (dispatch) {

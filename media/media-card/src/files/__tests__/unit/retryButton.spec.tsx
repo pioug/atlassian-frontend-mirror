@@ -14,7 +14,10 @@ describe('RetryButton', () => {
     const onClick = jest.fn();
     const button = shallow(<RetryButton onClick={onClick} />);
     expect(button.find(FormattedMessage)).toHaveLength(1);
-    button.simulate('click');
+    button.simulate('click', {
+      stopPropagation: () => {},
+      preventDefault: () => {},
+    });
     expect(onClick).toHaveBeenCalledTimes(1);
   });
 
@@ -48,7 +51,10 @@ describe('NewExpRetryButton', () => {
     const onClick = jest.fn();
     const button = shallow(<NewExpRetryButton onClick={onClick} />);
     expect(button.find(FormattedMessage)).toHaveLength(1);
-    button.simulate('click');
+    button.simulate('click', {
+      stopPropagation: () => {},
+      preventDefault: () => {},
+    });
     expect(onClick).toHaveBeenCalledTimes(1);
   });
 

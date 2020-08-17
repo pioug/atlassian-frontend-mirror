@@ -1,10 +1,10 @@
-import { Page } from 'puppeteer';
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { snapshot, initRendererWithADF } from './_utils';
 import { waitForLoadedBackgroundImages } from '@atlaskit/visual-regression/helper';
 import * as stickyHeaderADF from '../__fixtures__/sticky-header.adf.json';
 import { emojiSelectors } from '../__helpers/page-objects/_emoji';
 
-async function scrollToPos(page: Page, pos: number) {
+async function scrollToPos(page: PuppeteerPage, pos: number) {
   return page.evaluate((pos: number) => {
     if (!window) {
       return;
@@ -13,7 +13,7 @@ async function scrollToPos(page: Page, pos: number) {
   }, pos);
 }
 
-const initRenderer = async (page: Page, adf: any) => {
+const initRenderer = async (page: PuppeteerPage, adf: any) => {
   await initRendererWithADF(page, {
     appearance: 'full-page',
     viewport: { width: 1280, height: 868 },
@@ -29,7 +29,7 @@ const initRenderer = async (page: Page, adf: any) => {
 };
 
 describe('Snapshot Test: sticky-headers', () => {
-  let page: Page;
+  let page: PuppeteerPage;
   beforeAll(() => {
     page = global.page;
   });

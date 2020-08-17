@@ -1,15 +1,15 @@
+import React from 'react';
 import { InjectedIntl } from 'react-intl';
-import { Plugin, PluginKey } from 'prosemirror-state';
-import { ProviderFactory } from '@atlaskit/editor-common';
-import { analyticsService } from '../../analytics';
-import { EditorPlugin, Command } from '../../types';
-import { dedupe } from '../../utils';
-import { QuickInsertHandler } from './types';
+import { Plugin } from 'prosemirror-state';
 import {
   QuickInsertItem,
   QuickInsertProvider,
+  ProviderFactory,
 } from '@atlaskit/editor-common/provider-factory';
-import { find } from './search';
+
+import { Dispatch } from '../../event-dispatcher';
+import { EditorPlugin, Command } from '../../types';
+
 import {
   AnalyticsDispatch,
   ACTION,
@@ -20,14 +20,18 @@ import {
 } from '../analytics';
 import { analyticsEventKey } from '../analytics/consts';
 
-export type QuickInsertPluginState = {
-  items: Array<QuickInsertHandler>;
-};
+import { pluginKey } from './plugin-key';
+import { searchQuickInsertItems } from './search';
+import {
+  QuickInsertHandler,
+  QuickInsertPluginOptions,
+  QuickInsertPluginState,
+} from './types';
 
-export interface QuickInsertPluginOptions {
-  headless?: boolean;
-  disableDefaultItems?: boolean;
-}
+import ModalElementBrowser from './ui/ModalElementBrowser';
+
+export { QuickInsertHandler, QuickInsertPluginState, QuickInsertPluginOptions };
+export { pluginKey };
 
 const quickInsertPlugin = (
   options?: QuickInsertPluginOptions,
@@ -38,8 +42,13 @@ const quickInsertPlugin = (
     return [
       {
         name: 'quickInsert', // It's important that this plugin is above TypeAheadPlugin
-        plugin: ({ providerFactory }) =>
-          quickInsertPluginFactory(quickInsert, providerFactory),
+        plugin: ({ providerFactory, reactContext, dispatch }) =>
+          quickInsertPluginFactory(
+            quickInsert,
+            providerFactory,
+            reactContext().intl,
+            dispatch,
+          ),
       },
     ];
   },
@@ -56,7 +65,6 @@ const quickInsertPlugin = (
         _tr,
         dispatch,
       ) => {
-        analyticsService.trackEvent('atlassian.editor.quickinsert.query');
         if (!prevActive && queryChanged) {
           (dispatch as AnalyticsDispatch)(analyticsEventKey, {
             payload: {
@@ -68,38 +76,23 @@ const quickInsertPlugin = (
             },
           });
         }
-        const quickInsertState = pluginKey.getState(state);
-
-        const defaultItems =
-          options && options.disableDefaultItems
-            ? []
-            : processItems(quickInsertState.items, intl);
-        const defaultSearch = () => find(query, defaultItems);
-
-        if (quickInsertState.provider) {
-          return (quickInsertState.provider as Promise<Array<QuickInsertItem>>)
-            .then(items =>
-              find(
-                query,
-                dedupe([...defaultItems, ...items], item => item.title),
-              ),
-            )
-            .catch(err => {
-              // eslint-disable-next-line no-console
-              console.error(err);
-              return defaultSearch();
-            });
-        }
-
-        return defaultSearch();
+        const quickInsertState: QuickInsertPluginState = pluginKey.getState(
+          state,
+        );
+        return searchQuickInsertItems(quickInsertState, options)(query);
       },
       selectItem: (state, item, insert) => {
-        analyticsService.trackEvent('atlassian.editor.quickinsert.select', {
-          item: item.title,
-        });
         return (item as QuickInsertItem).action(insert, state);
       },
     },
+  },
+
+  contentComponent({ editorView }) {
+    if (options && options.enableElementBrowser) {
+      return <ModalElementBrowser editorView={editorView} />;
+    }
+
+    return null;
   },
 });
 
@@ -124,19 +117,11 @@ export const processItems = (
   return itemsCache[intl.locale];
 };
 
-/**
- *
- * ProseMirror Plugin
- *
- */
-
-export const pluginKey = new PluginKey('quickInsertPluginKey');
-
-export const setProvider = (
-  provider: Promise<Array<QuickInsertItem>>,
+const setProviderState = (
+  providerState: Partial<QuickInsertPluginState>,
 ): Command => (state, dispatch) => {
   if (dispatch) {
-    dispatch(state.tr.setMeta(pluginKey, provider));
+    dispatch(state.tr.setMeta(pluginKey, providerState));
   }
   return true;
 };
@@ -144,36 +129,57 @@ export const setProvider = (
 function quickInsertPluginFactory(
   quickInsertItems: Array<QuickInsertHandler>,
   providerFactory: ProviderFactory,
+  intl: InjectedIntl,
+  dispatch: Dispatch,
 ) {
   return new Plugin({
     key: pluginKey,
     state: {
       init(): QuickInsertPluginState {
         return {
-          items: quickInsertItems || [],
+          isElementBrowserModalOpen: false,
+          // lazy so it doesn't run on editor initialization
+          lazyDefaultItems: () => processItems(quickInsertItems || [], intl),
         };
       },
 
       apply(tr, pluginState) {
-        const provider = tr.getMeta(pluginKey);
-        if (provider) {
-          return { ...pluginState, provider };
+        const meta = tr.getMeta(pluginKey);
+        if (meta) {
+          const changed = Object.keys(meta).some(key => {
+            return pluginState[key] !== meta[key];
+          });
+
+          if (changed) {
+            const newState = { ...pluginState, ...meta };
+
+            dispatch(pluginKey, newState);
+            return newState;
+          }
         }
+
         return pluginState;
       },
     },
 
     view(editorView) {
-      const providerHandler = (
+      const providerHandler = async (
         _name: string,
         providerPromise?: Promise<QuickInsertProvider>,
       ) => {
         if (providerPromise) {
-          setProvider(
-            providerPromise.then((provider: QuickInsertProvider) =>
-              provider.getItems(),
-            ),
-          )(editorView.state, editorView.dispatch);
+          try {
+            const provider = await providerPromise;
+            const providedItems = await provider.getItems();
+
+            setProviderState({ provider, providedItems })(
+              editorView.state,
+              editorView.dispatch,
+            );
+          } catch (e) {
+            // eslint-disable-next-line no-console
+            console.error('Error getting items from quick insert provider', e);
+          }
         }
       };
 

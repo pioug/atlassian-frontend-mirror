@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/drawer",
-  "version": "6.0.1",
+  "version": "6.0.2",
   "description": "React component the renders a Drawer from the left of the screen",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -16,12 +16,12 @@
   "atlaskit:src": "src/index.ts",
   "atlassian": {
     "team": "Design System Team",
+    "deprecatedAutoEntryPoints": true,
     "inPublicMirror": true,
     "releaseModel": "scheduled",
     "website": {
       "name": "Drawer"
-    },
-    "deprecatedAutoEntryPoints": true
+    }
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^7.0.0",
@@ -54,7 +54,7 @@
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
     "enzyme": "^3.10.0",
-    "lodash.throttle": "^4.1.1",
+    "lodash": "^4.17.15",
     "react-dom": "^16.8.0",
     "react-lorem-component": "^0.12.2",
     "wait-for-expect": "^1.2.0"

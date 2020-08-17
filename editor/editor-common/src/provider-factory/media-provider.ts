@@ -1,7 +1,6 @@
 import { MediaClientConfig } from '@atlaskit/media-core/auth';
 import { UploadParams } from '@atlaskit/media-picker/types';
 
-export interface FeatureFlags {}
 export type MediaProvider = {
   uploadParams?: UploadParams;
 
@@ -11,11 +10,6 @@ export type MediaProvider = {
    *       to initialize
    */
   uploadMediaClientConfig?: MediaClientConfig;
-
-  /**
-   * (optional) For any additional feature to be enabled
-   */
-  featureFlags?: FeatureFlags;
 
   /**
    * Used for displaying Media Cards and downloading files.

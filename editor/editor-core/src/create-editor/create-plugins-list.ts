@@ -46,7 +46,11 @@ import { ScrollGutterPluginOptions } from '../plugins/base/pm-plugins/scroll-gut
 import { createFeatureFlagsFromProps } from '../plugins/feature-flags-context/feature-flags-from-props';
 import { PrivateCollabEditOptions } from '../plugins/collab-edit/types';
 import { BlockTypePluginOptions } from '../plugins/block-type/types';
-import { createDefaultPreset } from '../labs/next/presets/default';
+import {
+  createDefaultPreset,
+  DefaultPresetPluginOptions,
+} from '../labs/next/presets/default';
+import { EditorPresetProps } from '../labs/next/presets/types';
 
 const isCodeBlockAllowed = (
   options?: Pick<BlockTypePluginOptions, 'allowBlockType'>,
@@ -80,7 +84,9 @@ function getScrollGutterOptions(
   return undefined;
 }
 
-export function getDefaultPresetOptionsFromEditorProps(props: EditorProps) {
+export function getDefaultPresetOptionsFromEditorProps(
+  props: EditorProps,
+): EditorPresetProps & DefaultPresetPluginOptions {
   const appearance = props.appearance;
   const isMobile = appearance === 'mobile';
   const isFullPage = fullPageCheck(appearance);
@@ -109,6 +115,12 @@ export function getDefaultPresetOptionsFromEditorProps(props: EditorProps) {
     textFormatting: props.textFormatting,
     annotationProviders: props.annotationProviders,
     submitEditor: props.onSave,
+    quickInsert: {
+      enableElementBrowser:
+        props.elementBrowser && props.elementBrowser.showModal,
+      disableDefaultItems: isMobile,
+      headless: isMobile,
+    },
   };
 }
 
@@ -416,6 +428,10 @@ export default function createPluginsList(
       insertMenuItems: props.insertMenuItems,
       horizontalRuleEnabled: props.allowRule,
       nativeStatusSupported: !statusMenuDisabled,
+      showElementBrowserLink:
+        (props.elementBrowser && props.elementBrowser.showModal) || false,
+      replacePlusMenuWithElementBrowser:
+        (props.elementBrowser && props.elementBrowser.replacePlusMenu) || false,
     },
   ]);
 

@@ -11,6 +11,7 @@ import {
 
 import { N60, B200 } from '@atlaskit/theme/colors';
 import { akEditorSelectedNodeClassName } from '../../styles';
+import { fileCardImageViewSelector } from '@atlaskit/media-card';
 
 export const mediaStyles = css`
   .ProseMirror {
@@ -131,7 +132,7 @@ export const mediaStyles = css`
   /* Danger when nested node or common */
   .danger {
     /* Media single */
-    .${richMediaClassName} div div div::after {
+    .${richMediaClassName} .${fileCardImageViewSelector}::after {
       border: ${akEditorSelectedBorderBoldSize}px solid ${akEditorDeleteBorder};
     }
 

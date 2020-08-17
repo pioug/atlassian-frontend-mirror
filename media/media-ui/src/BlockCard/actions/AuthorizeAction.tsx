@@ -9,5 +9,5 @@ export const AuthorizeAction = (handler: () => void): ActionProps => ({
   id: 'connect-account',
   text: <FormattedMessage {...messages.connect_link_account_card} />,
   promise: () => new Promise(resolve => resolve(handler())),
-  buttonAppearance: 'primary' as ButtonAppearances,
+  buttonAppearance: 'default' as ButtonAppearances,
 });

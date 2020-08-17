@@ -1,7 +1,5 @@
 import { getExampleUrl, loadPage } from '@atlaskit/visual-regression/helper';
 
-declare var global: any;
-
 const datePickerSelector = '#react-select-datepicker-1-input';
 const timePickerSelector = '[data-testid="timepicker-1--container"]';
 const timePickerDropdownSelector =

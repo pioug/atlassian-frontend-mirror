@@ -10,10 +10,13 @@ import {
   ToolbarMenuItem,
   toolbarMenuItemsSelectors as selectors,
 } from '../../__helpers/page-objects/_toolbar';
-import { waitForNoTooltip } from '@atlaskit/visual-regression/helper';
+import {
+  PuppeteerPage,
+  waitForNoTooltip,
+} from '@atlaskit/visual-regression/helper';
 
 describe('Placeholder', () => {
-  let page: any;
+  let page: PuppeteerPage;
 
   beforeAll(async () => {
     page = global.page;

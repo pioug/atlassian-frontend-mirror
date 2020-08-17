@@ -315,7 +315,7 @@ export default class ResizableEmbedCard extends React.Component<Props, State> {
         layout={layout}
         isResized={!!pctWidth}
         containerWidth={containerWidth || origWidth}
-        innerRef={elem => (this.wrapper = elem)}
+        innerRef={(elem?: HTMLElement) => (this.wrapper = elem)}
         fullWidthMode={fullWidthMode}
       >
         <Resizer

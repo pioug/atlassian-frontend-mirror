@@ -1,7 +1,5 @@
 import { getExampleUrl, loadPage } from '@atlaskit/visual-regression/helper';
 
-declare var global: any;
-
 const diff = (arr1: string[], arr2: string[]): string[] =>
   arr1.filter(x => !arr2.includes(x));
 
@@ -125,7 +123,7 @@ describe('<PageLayout />', () => {
 
     expect(newLinks.length).toEqual(6);
 
-    const difference = diff(links, newLinks);
+    const difference = diff(links as string[], newLinks as string[]);
 
     expect(difference.length).toEqual(1);
     expect(difference[0]).toEqual('#main');

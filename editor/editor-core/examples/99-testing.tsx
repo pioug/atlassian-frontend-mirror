@@ -62,6 +62,13 @@ export default function EditorExampleForIntegrationTests({ clipboard = true }) {
           ...props.media,
         };
       }
+
+      if (!props.performanceTracking) {
+        props.performanceTracking = {
+          ttiTracking: { enabled: true },
+        };
+      }
+
       const createCollabEdit = (userId: string): CollabEditOptions => {
         return {
           provider: createCollabEditProvider({ userId }),

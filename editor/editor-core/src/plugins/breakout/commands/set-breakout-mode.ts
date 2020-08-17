@@ -1,12 +1,12 @@
-import { findParentNode } from 'prosemirror-utils';
 import { Command } from '../../../types';
-import { isSupportedNodeForBreakout } from '../utils/is-supported-node';
+import { findSupportedNodeForBreakout } from '../utils/find-breakout-node';
+import { NodeSelection } from 'prosemirror-state';
 
 export type BreakoutMode = 'wide' | 'full-width' | 'center';
 
 export function setBreakoutMode(mode: BreakoutMode): Command {
   return (state, dispatch) => {
-    const node = findParentNode(isSupportedNodeForBreakout)(state.selection);
+    const node = findSupportedNodeForBreakout(state.selection);
 
     if (!node) {
       return false;
@@ -18,6 +18,12 @@ export function setBreakoutMode(mode: BreakoutMode): Command {
       [state.schema.marks.breakout.create({ mode })],
     );
     tr.setMeta('scrollIntoView', false);
+
+    if (state.selection instanceof NodeSelection) {
+      if (state.selection.$anchor.pos === node.pos) {
+        tr.setSelection(NodeSelection.create(tr.doc, node.pos));
+      }
+    }
 
     if (dispatch) {
       dispatch(tr);

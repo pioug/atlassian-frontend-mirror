@@ -31,11 +31,10 @@ import { pluginKey } from '../../../../plugins/gap-cursor/pm-plugins/plugin-key'
 describe('gap-cursor', () => {
   const createEditor = createEditorFactory();
 
-  const editor = (doc: any, trackEvent?: () => {}) =>
+  const editor = (doc: any) =>
     createEditor({
       doc,
       editorProps: {
-        analyticsHandler: trackEvent,
         allowExtension: true,
         allowTables: true,
         allowTasksAndDecisions: true,

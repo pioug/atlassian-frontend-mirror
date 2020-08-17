@@ -61,6 +61,9 @@ interface Props extends WithAnalyticsEventsProps {
   /* A link component to be used instead of our standard anchor. The styling of
   our link item will be applied to the link that is passed in. */
   linkComponent?: ComponentType<any>;
+
+  /** A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests */
+  testId?: string;
 }
 
 interface State {
@@ -117,6 +120,7 @@ class Tag extends Component<Props, State> {
       text,
       color,
       linkComponent,
+      testId,
     } = this.props;
 
     const safeColor = colorList.includes(color) ? color : 'standard';
@@ -135,7 +139,11 @@ class Tag extends Component<Props, State> {
     const onAnimationEnd = () => isRemoving && this.handleRemoveComplete();
 
     return (
-      <Container {...styled} onAnimationEnd={onAnimationEnd}>
+      <Container
+        {...styled}
+        onAnimationEnd={onAnimationEnd}
+        data-testid={testId}
+      >
         <Chrome {...styled} isLink={!!href} isFocused={this.state.isFocused}>
           {elemBefore ? <Before>{elemBefore}</Before> : null}
           <Content

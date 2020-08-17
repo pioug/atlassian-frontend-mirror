@@ -87,6 +87,10 @@ export interface AvatarGroupProps {
    */
   boundariesElement?: 'viewport' | 'window' | 'scrollParent';
 
+  // Add these in the next major release
+  // boundary?: 'clippingParents' | HTMLElement;
+  // rootBoundary?: 'viewport' | 'document';
+
   /**
    * A `testId` prop is provided for specified elements,
    * which is a unique string that appears as a data attribute `data-testid` in the rendered code,
@@ -179,12 +183,23 @@ const AvatarGroup = ({
       });
     }
 
+    // split boundariesElement into `boundary` and `rootBoundary` props for Popup
+    const boundary =
+      boundariesElement === 'scrollParent' ? 'clippingParents' : undefined;
+    const rootBoundary = (() => {
+      if (boundariesElement === 'scrollParent') {
+        return undefined;
+      }
+      return boundariesElement === 'window' ? 'document' : 'viewport';
+    })();
+
     return (
       <Popup
         isOpen={isOpen}
         onClose={onClose}
         placement="bottom-end"
-        boundariesElement={boundariesElement}
+        boundary={boundary}
+        rootBoundary={rootBoundary}
         shouldFlip
         content={() => (
           <PopupMenuGroup

@@ -63,7 +63,14 @@ function getLinkText(
 const handleBlur = (
   activeLinkMark: EditInsertedState | InsertState,
   view: EditorView,
-) => (type: string, url: string, text: string, isTabPressed?: boolean) => {
+) => (
+  type: string,
+  url: string,
+  title?: string,
+  displayText?: string,
+  isTabPressed?: boolean,
+) => {
+  const text = title || displayText;
   switch (type) {
     case 'url': {
       if (url) {
@@ -86,6 +93,7 @@ const handleBlur = (
               activeLinkMark.from,
               activeLinkMark.to,
               url,
+              undefined,
               text,
             )(view.state, view.dispatch)
           : setLinkText(text, (activeLinkMark as EditInsertedState).pos)(
@@ -222,11 +230,11 @@ export const getToolbarConfig: FloatingToolbarHandler = (
                     displayUrl={link}
                     displayText={displayText || ''}
                     providerFactory={providerFactory}
-                    onSubmit={(href, text, inputMethod) => {
+                    onSubmit={(href, title = '', displayText, inputMethod) => {
                       isEditLink(activeLinkMark)
                         ? updateLink(
                             href,
-                            text,
+                            displayText || title,
                             activeLinkMark.pos,
                           )(view.state, view.dispatch)
                         : insertLinkWithAnalytics(
@@ -234,7 +242,8 @@ export const getToolbarConfig: FloatingToolbarHandler = (
                             activeLinkMark.from,
                             activeLinkMark.to,
                             href,
-                            text,
+                            title,
+                            displayText,
                           )(view.state, view.dispatch);
                       view.focus();
                     }}

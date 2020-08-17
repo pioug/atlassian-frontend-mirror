@@ -11,6 +11,7 @@ import {
   DEFAULT_EMBED_CARD_WIDTH,
   MediaSingle as RichMediaWrapper,
   ProviderFactory,
+  browser,
   findOverflowScrollParent,
 } from '@atlaskit/editor-common';
 import { RichMediaLayout } from '@atlaskit/adf-schema';
@@ -140,6 +141,7 @@ export class EmbedCardComponent extends React.PureComponent<
       allowResizing,
       fullWidthMode,
       view,
+      getPos,
       dispatchAnalyticsEvent,
     } = this.props;
     let {
@@ -167,11 +169,22 @@ export class EmbedCardComponent extends React.PureComponent<
     const cardInner = (
       <>
         <WithPluginState
-          editorView={this.props.view}
+          editorView={view}
           plugins={{
             widthState: widthPluginKey,
           }}
           render={({ widthState }) => {
+            const pos = typeof getPos === 'function' && getPos();
+            const lineLength = this.getLineLength(
+              view,
+              pos,
+              widthState && widthState.lineLength,
+            );
+
+            const containerWidth = isRichMediaInsideOfBlockNode(view, pos)
+              ? lineLength
+              : widthState.width;
+
             const smartCard = (
               <SmartCard
                 url={url}
@@ -192,30 +205,18 @@ export class EmbedCardComponent extends React.PureComponent<
                   {...cardProps}
                   nodeType="embedCard"
                   hasFallbackContainer={hasPreview}
+                  lineLength={lineLength}
                 >
                   {smartCard}
                 </RichMediaWrapper>
               );
             }
 
-            const lineLength = this.getLineLength(
-              view,
-              typeof this.props.getPos === 'function' && this.props.getPos(),
-              widthState && widthState.lineLength,
-            );
-
-            const containerWidth = isRichMediaInsideOfBlockNode(
-              view,
-              typeof this.props.getPos === 'function' && this.props.getPos(),
-            )
-              ? lineLength
-              : widthState.width;
-
             return (
               <ResizableEmbedCard
                 {...cardProps}
                 view={this.props.view}
-                getPos={this.props.getPos}
+                getPos={getPos}
                 lineLength={lineLength}
                 gridSize={12}
                 containerWidth={containerWidth}
@@ -265,6 +266,17 @@ export class EmbedCard extends SelectionBasedNodeView<EmbedCardNodeViewProps> {
     }
 
     return super.viewShouldUpdate(nextNode);
+  }
+
+  createDomRef(): HTMLElement {
+    const domRef = document.createElement('div');
+    if (browser.chrome && this.reactComponentProps.platform !== 'mobile') {
+      // workaround Chrome bug in https://product-fabric.atlassian.net/browse/ED-5379
+      // see also: https://github.com/ProseMirror/prosemirror/issues/884
+      domRef.contentEditable = 'true';
+      domRef.setAttribute('spellcheck', 'false');
+    }
+    return domRef;
   }
 
   render() {

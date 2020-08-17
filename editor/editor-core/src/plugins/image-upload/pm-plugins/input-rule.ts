@@ -1,6 +1,5 @@
 import { Schema } from 'prosemirror-model';
 import { Plugin } from 'prosemirror-state';
-import { analyticsService } from '../../../analytics';
 import {
   createInputRule,
   instrumentedInputRule,
@@ -24,7 +23,6 @@ export function inputRulePlugin(schema: Schema): Plugin | undefined {
 
       const node = createExternalMediaNode(attrs.src, schema);
       if (node) {
-        analyticsService.trackEvent('atlassian.editor.image.autoformatting');
         return state.tr.replaceWith(start, end, node);
       }
 

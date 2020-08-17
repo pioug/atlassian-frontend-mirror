@@ -1,5 +1,9 @@
 import React from 'react';
-import { MediaClient, FileState } from '@atlaskit/media-client';
+import {
+  MediaClient,
+  FileState,
+  isPreviewableFileState,
+} from '@atlaskit/media-client';
 import { Outcome } from '../../domain';
 import { createError, MediaViewerError } from '../../error';
 import { Spinner } from '../../loading';
@@ -45,7 +49,18 @@ export class DocViewer extends BaseViewer<string, Props> {
     }
     const { item, mediaClient, collectionName, onError } = this.props;
 
-    if (item.status === 'processed') {
+    if (isPreviewableFileState(item)) {
+      const src = await getObjectUrlFromFileState(item);
+      if (!src) {
+        this.setState({
+          content: Outcome.pending(),
+        });
+        return;
+      }
+      this.setState({
+        content: Outcome.successful(src),
+      });
+    } else if (item.status === 'processed') {
       try {
         const src = await mediaClient.file.getArtifactURL(
           item.artifacts,
@@ -64,17 +79,6 @@ export class DocViewer extends BaseViewer<string, Props> {
           onError(err);
         }
       }
-    } else {
-      const src = await getObjectUrlFromFileState(item);
-      if (!src) {
-        this.setState({
-          content: Outcome.pending(),
-        });
-        return;
-      }
-      this.setState({
-        content: Outcome.successful(src),
-      });
     }
   }
 

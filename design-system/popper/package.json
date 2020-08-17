@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/popper",
-  "version": "4.0.1",
+  "version": "5.0.0",
   "description": "Wrapper for react-popper with common config and some helpers",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -16,13 +16,16 @@
   "atlaskit:src": "src/index.ts",
   "atlassian": {
     "team": "Design System Team",
+    "deprecatedAutoEntryPoints": true,
     "inPublicMirror": true,
     "releaseModel": "scheduled",
-    "deprecatedAutoEntryPoints": true
+    "website": {
+      "name": "Popper"
+    }
   },
   "dependencies": {
-    "memoize-one": "^5.1.0",
-    "react-popper": "1.3.6",
+    "@popperjs/core": "^2.4.2",
+    "react-popper": "^2.2.3",
     "tslib": "^1.9.3"
   },
   "peerDependencies": {
@@ -34,7 +37,11 @@
     "@atlaskit/docs": "*",
     "@atlaskit/ssr": "*",
     "@atlaskit/theme": "^10.0.0",
+    "@atlaskit/visual-regression": "*",
+    "@types/jscodeshift": "^0.6.3",
+    "ast-types": "^0.13.3",
     "enzyme": "^3.10.0",
+    "jscodeshift": "^0.7.0",
     "react-dom": "^16.8.0",
     "react-lorem-component": "^0.12.2",
     "styled-components": "^3.2.6",
@@ -47,6 +54,20 @@
   "techstack": {
     "@atlassian/frontend": {
       "import-structure": "atlassian-conventions"
+    },
+    "@repo/internal": {
+      "ui-components": [
+        "lite-mode"
+      ],
+      "analytics": [
+        "analytics-next"
+      ],
+      "theming": [
+        "new-theming-api"
+      ],
+      "deprecation": [
+        "no-deprecated-imports"
+      ]
     }
   }
 }

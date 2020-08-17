@@ -1,14 +1,13 @@
-import { Page as PuppeteerPage } from 'puppeteer';
 import { CardType, CardAppearance } from '@atlaskit/smart-card';
-import Page from '@atlaskit/webdriver-runner/wd-wrapper';
+import { TestPage } from './_types';
 
 export const lazyCardSelector = `[data-testid="lazy-render-placeholder"]`;
 export const inlineCardSelector = (status: CardType = 'resolved') =>
-  `[data-testid="inline-card-${status}-view"]`;
-const blockCardSelector = (status: CardType = 'resolved') =>
-  `[data-testid="block-card-${status}-view"]`;
-const embedCardSelector = (status: CardType = 'resolved') =>
-  `[data-testid="embed-card-${status}-view"]`;
+  `[data-testid="inline-card-${status.replace(/_/g, '-')}-view"]`;
+export const blockCardSelector = (status: CardType = 'resolved') =>
+  `[data-testid="block-card-${status.replace(/_/g, '-')}-view"]`;
+export const embedCardSelector = (status: CardType = 'resolved') =>
+  `[data-testid="embed-card-${status.replace(/_/g, '-')}-view"]`;
 const getSelector = (
   appearance: CardAppearance = 'inline',
   status: CardType = 'resolved',
@@ -26,7 +25,7 @@ const getSelector = (
   }
 };
 
-export const waitForLazyRenderedCard = async (page: Page | PuppeteerPage) => {
+export const waitForLazyRenderedCard = async (page: TestPage) => {
   await page.waitForSelector(lazyCardSelector);
 };
 export const getLazyRenderedCards = () => {
@@ -40,7 +39,7 @@ export const getCards = (
 };
 
 export const waitForResolvedInlineCard = async (
-  page: Page | PuppeteerPage,
+  page: TestPage,
   status?: CardType,
 ) => {
   await page.waitForSelector(inlineCardSelector(status), { timeout: 4000000 });
@@ -50,29 +49,27 @@ export const waitForResolvedInlineCard = async (
 };
 
 export const waitForResolvedBlockCard = async (
-  page: Page | PuppeteerPage,
+  page: TestPage,
   status?: CardType,
 ) => {
   await page.waitForSelector(blockCardSelector(status));
 };
 
 export const waitForResolvedEmbedCard = async (
-  page: Page | PuppeteerPage,
+  page: TestPage,
   status?: CardType,
 ) => {
   await page.waitForSelector(embedCardSelector(status));
 };
 
-export const waitForInlineCardSelection = async (
-  page: Page | PuppeteerPage,
-) => {
+export const waitForInlineCardSelection = async (page: TestPage) => {
   await page.waitForSelector('.inlineCardView-content-wrap');
   await page.click('.inlineCardView-content-wrap');
   await page.waitForSelector('div[aria-label="Floating Toolbar"]');
 };
 
 export const waitForBlockCardSelection = async (
-  page: Page | PuppeteerPage,
+  page: TestPage,
   status?: CardType,
 ) => {
   const selector = status
@@ -84,7 +81,7 @@ export const waitForBlockCardSelection = async (
 };
 
 export const waitForEmbedCardSelection = async (
-  page: Page | PuppeteerPage,
+  page: TestPage,
   status?: CardType,
 ) => {
   const selector = status

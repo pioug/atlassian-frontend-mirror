@@ -116,16 +116,15 @@ function isImageAligned(layout: MediaSingleLayout): string {
   }
 }
 
-export interface WrapperProps {
-  layout: MediaSingleLayout;
-  width?: number;
-  ratio: string;
+export interface MediaSingleWrapperProps {
   containerWidth?: number;
-  pctWidth?: number;
-  innerRef?: (elem: HTMLElement) => void;
   fullWidthMode?: boolean;
   isResized?: boolean;
-  hasFallbackContainer?: boolean;
+  layout: MediaSingleLayout;
+  ratio?: string;
+  pctWidth?: number;
+  width?: number;
+  innerRef?: (elem: HTMLElement) => void;
 }
 
 /**
@@ -133,13 +132,13 @@ export interface WrapperProps {
  * supporting `styled-components` v1.
  */
 export const MediaSingleDimensionHelper = ({
-  width,
-  layout,
   containerWidth = 0,
-  pctWidth,
   fullWidthMode,
   isResized,
-}: WrapperProps) => css`
+  layout,
+  pctWidth,
+  width,
+}: MediaSingleWrapperProps) => css`
   tr & {
     max-width: 100%;
   }
@@ -162,10 +161,15 @@ export const MediaSingleDimensionHelper = ({
   }
 `;
 
+export interface MediaWrapperProps {
+  ratio: string;
+  hasFallbackContainer?: boolean;
+}
+
 const RenderFallbackContainer = ({
   hasFallbackContainer,
   ratio,
-}: WrapperProps) => css`
+}: MediaWrapperProps) => css`
   ${hasFallbackContainer
     ? `
   &::after {
@@ -181,18 +185,25 @@ const RenderFallbackContainer = ({
     : ''}
 `;
 
-const Wrapper: React.ComponentClass<HTMLAttributes<{}> &
-  WrapperProps> = styled.div`
-  ${MediaSingleDimensionHelper};
+export const MediaWrapper: React.ComponentClass<HTMLAttributes<{}> &
+  MediaWrapperProps> = styled.div`
   position: relative;
 
   ${RenderFallbackContainer}
 
   /* Editor */
+  & > figure {
+    position: ${({ hasFallbackContainer }) =>
+      hasFallbackContainer ? 'absolute' : 'relative'};
+    height: 100%;
+    width: 100%;
+  }
+
   & > div {
     position: ${({ hasFallbackContainer }) =>
       hasFallbackContainer ? 'absolute' : 'relative'};
     height: 100%;
+    width: 100%;
   }
 
   &[data-node-type='embedCard'] > div {
@@ -210,6 +221,8 @@ const Wrapper: React.ComponentClass<HTMLAttributes<{}> &
   }
 `;
 
-Wrapper.displayName = 'WrapperMediaSingle';
+export const MediaSingleWrapper = styled.div<MediaSingleWrapperProps>`
+  ${MediaSingleDimensionHelper};
+`;
 
-export default Wrapper;
+MediaWrapper.displayName = 'WrapperMediaSingle';

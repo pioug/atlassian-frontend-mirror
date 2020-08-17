@@ -37,22 +37,18 @@ import {
 } from '../../../../plugins/lists/commands';
 import { insertMediaAsMediaSingle } from '../../../../plugins/media/utils/media-single';
 import { GapCursorSelection } from '../../../../plugins/gap-cursor';
-import { AnalyticsHandler } from '../../../../analytics';
 import { INPUT_METHOD } from '../../../../plugins/analytics';
 
 describe('lists', () => {
   const createEditor = createEditorFactory();
   let createAnalyticsEvent: CreateUIAnalyticsEvent;
-  let analyticsHandler: AnalyticsHandler;
 
-  const editor = (doc: any, trackEvent?: () => {}) => {
+  const editor = (doc: any) => {
     createAnalyticsEvent = jest.fn(() => ({ fire() {} } as UIAnalyticsEvent));
-    analyticsHandler = trackEvent || jest.fn();
     return createEditor({
       doc,
       editorProps: {
         appearance: 'full-page',
-        analyticsHandler: analyticsHandler,
         allowAnalyticsGASV3: true,
         allowPanel: true,
         allowBreakout: true,
@@ -70,17 +66,9 @@ describe('lists', () => {
   const temporaryFileId = `temporary:${randomId()}`;
 
   describe('keymap', () => {
-    let trackEvent: jest.SpyInstance<AnalyticsHandler>;
-    beforeEach(() => {
-      trackEvent = jest.fn();
-    });
-
     describe('when hit enter', () => {
       it('should split list item', () => {
-        const { editorView } = editor(
-          doc(ul(li(p('text{<>}')))),
-          trackEvent as any,
-        );
+        const { editorView } = editor(doc(ul(li(p('text{<>}')))));
         sendKeyToPm(editorView, 'Enter');
         expect(editorView.state.doc).toEqualDocument(
           doc(ul(li(p('text')), li(p()))),
@@ -98,12 +86,6 @@ describe('lists', () => {
       it('should create a sublist', () => {
         expect(editorView.state.doc).toEqualDocument(
           doc(ol(li(p('text'), ol(li(p('text{<>}')))))),
-        );
-      });
-
-      it('should call indent analytics event', () => {
-        expect(analyticsHandler).toHaveBeenCalledWith(
-          'atlassian.editor.format.list.indent.keyboard',
         );
       });
 
@@ -413,22 +395,13 @@ describe('lists', () => {
     describe('when hit Shift-Tab', () => {
       let editorView: EditorView;
       beforeEach(() => {
-        ({ editorView } = editor(
-          doc(ol(li(p('One'), ul(li(p('Two{<>}')))))),
-          trackEvent as any,
-        ));
+        ({ editorView } = editor(doc(ol(li(p('One'), ul(li(p('Two{<>}'))))))));
         sendKeyToPm(editorView, 'Shift-Tab');
       });
 
       it('should outdent the list', () => {
         expect(editorView.state.doc).toEqualDocument(
           doc(ol(li(p('One')), li(p('Two{<>}')))),
-        );
-      });
-
-      it('should call outdent analytics event', () => {
-        expect(analyticsHandler).toHaveBeenCalledWith(
-          'atlassian.editor.format.list.outdent.keyboard',
         );
       });
 
@@ -462,12 +435,6 @@ describe('lists', () => {
         expect(editorView.state.doc).toEqualDocument(doc(ol(li(p('One')))));
       });
 
-      it('should call numbered list analytics event', () => {
-        expect(analyticsHandler).toHaveBeenCalledWith(
-          'atlassian.editor.format.list.numbered.keyboard',
-        );
-      });
-
       it('should call numbered list analytics V3 event', () => {
         expect(createAnalyticsEvent).toHaveBeenCalledWith({
           action: 'formatted',
@@ -492,12 +459,6 @@ describe('lists', () => {
 
       it('should create a list', () => {
         expect(editorView.state.doc).toEqualDocument(doc(ul(li(p('One')))));
-      });
-
-      it('should call numbered list analytics event', () => {
-        expect(analyticsHandler).toHaveBeenCalledWith(
-          'atlassian.editor.format.list.bullet.keyboard',
-        );
       });
 
       it('should call numbered list analytics V3 event', () => {

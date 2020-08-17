@@ -2,16 +2,22 @@ jest.mock('dateformat', () => ({
   __esModule: true,
   default: () => 'some date',
 }));
-import { HeadType } from '@atlaskit/dynamic-table/types';
-
 import React from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { IntlProvider } from 'react-intl';
 import { mount } from 'enzyme';
-import * as MediaClientModule from '@atlaskit/media-client';
-import { FileState, MediaClient } from '@atlaskit/media-client';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
-import { createFileStateSubject } from '@atlaskit/media-client';
+import { DynamicTableStateless } from '@atlaskit/dynamic-table';
+import { HeadType } from '@atlaskit/dynamic-table/types';
+import DownloadIcon from '@atlaskit/icon/glyph/download';
+import ImageIcon from '@atlaskit/icon/glyph/media-services/image';
+import * as MediaClientModule from '@atlaskit/media-client';
+import {
+  createFileStateSubject,
+  FileState,
+  MediaClient,
+  MediaType,
+} from '@atlaskit/media-client';
 import {
   fakeMediaClient,
   imageFileId,
@@ -21,16 +27,11 @@ import {
   expectFunctionToHaveBeenCalledWith,
   defaultCollectionName,
 } from '@atlaskit/media-test-helpers';
-import DownloadIcon from '@atlaskit/icon/glyph/download';
-import ImageIcon from '@atlaskit/icon/glyph/media-services/image';
-import { DynamicTableStateless } from '@atlaskit/dynamic-table';
 import { MediaViewer } from '@atlaskit/media-viewer';
-import { MediaTable } from '../component/mediaTable';
-import { MediaType } from '@atlaskit/media-client';
-import { NameCell, NameCellWrapper } from '../component/styled';
-import { MediaTypeIcon } from '@atlaskit/media-ui/media-type-icon';
 import { toHumanReadableMediaSize } from '@atlaskit/media-ui';
-import { MediaTableItem } from '../types';
+import { MediaTableProps, MediaTableItem } from '../types';
+import { MediaTable } from '../component/mediaTable';
+import { NameCell } from '../component/nameCell';
 
 describe('MediaTable', () => {
   const onSetPageMock = jest.fn();
@@ -70,14 +71,7 @@ describe('MediaTable', () => {
   };
 
   const createMockFileData = (name: string, mediaType: MediaType) => {
-    return (
-      <NameCellWrapper>
-        {<MediaTypeIcon type={mediaType} />}{' '}
-        <NameCell>
-          <span>{name}</span>
-        </NameCell>
-      </NameCellWrapper>
-    );
+    return <NameCell text={name} mediaType={mediaType} endFixedChars={4} />;
   };
 
   const defaultHeaders: HeadType = {
@@ -127,32 +121,31 @@ describe('MediaTable', () => {
     },
   ];
 
+  const createAnalyticsEventSpy = jest.fn();
+  createAnalyticsEventSpy.mockReturnValue({ fire: jest.fn() });
+
+  const defaultProps = {
+    items: defaultItems,
+    itemsPerPage: 3,
+    totalItems: defaultItems.length,
+    isLoading: false,
+    columns: defaultHeaders,
+    onSetPage: onSetPageMock,
+    onSort: onSortMock,
+    createAnalyticsEvent: createAnalyticsEventSpy,
+    onPreviewOpen: onPreviewOpenMock,
+    onPreviewClose: onPreviewCloseMock,
+  };
+
   const setup = async (
-    columns: HeadType = defaultHeaders,
-    items: MediaTableItem[] = defaultItems,
     waitForItems: boolean = true,
+    props?: Omit<MediaTableProps, 'mediaClient'>,
     mediaClient: MediaClient = getDefaultMediaClient(),
-    isLoading: boolean = false,
-    itemsPerPage: number = 3,
-    totalItems?: number,
   ) => {
     const mediaClientConfig = mediaClient.config;
-    const createAnalyticsEventSpy = jest.fn();
-    createAnalyticsEventSpy.mockReturnValue({ fire: jest.fn() });
+
     const mediaTable = mount(
-      <MediaTable
-        mediaClient={mediaClient}
-        items={items}
-        itemsPerPage={itemsPerPage}
-        totalItems={totalItems || items.length}
-        isLoading={isLoading}
-        columns={columns}
-        onSetPage={onSetPageMock}
-        onSort={onSortMock}
-        createAnalyticsEvent={createAnalyticsEventSpy}
-        onPreviewOpen={onPreviewOpenMock}
-        onPreviewClose={onPreviewCloseMock}
-      />,
+      <MediaTable mediaClient={mediaClient} {...defaultProps} {...props} />,
     );
 
     if (waitForItems) {
@@ -174,6 +167,20 @@ describe('MediaTable', () => {
 
     if (rows && rows[0].onClick) {
       rows[0].onClick({} as any);
+    }
+
+    mediaTable.update();
+
+    expect(mediaTable.find(MediaViewer)).toHaveLength(1);
+    expect(onPreviewOpenMock).toHaveBeenCalledTimes(1);
+  });
+
+  it('should open MediaViewer and call onPreviewOpen when pressing enter on a row', async () => {
+    const { mediaTable } = await setup();
+    const rows = mediaTable.find(DynamicTableStateless).prop('rows');
+
+    if (rows && rows[0].onKeyPress) {
+      rows[0].onKeyPress({ key: 'Enter' } as any);
     }
 
     mediaTable.update();
@@ -240,11 +247,7 @@ describe('MediaTable', () => {
   });
 
   it('should download file if download file is defined and fileState has been processed', async () => {
-    const { mediaClient, mediaTable } = await setup(
-      defaultHeaders,
-      defaultItems,
-      true,
-    );
+    const { mediaClient, mediaTable } = await setup(true);
 
     mediaTable
       .find(DownloadIcon)
@@ -270,9 +273,8 @@ describe('MediaTable', () => {
     });
 
     const { mediaClient, mediaTable } = await setup(
-      defaultHeaders,
-      defaultItems,
       true,
+      defaultProps,
       getDefaultMediaClient(processingFileSubject),
     );
 
@@ -310,7 +312,7 @@ describe('MediaTable', () => {
   });
 
   it('should render empty table with no rows if table has no items', async () => {
-    const { mediaTable } = await setup(defaultHeaders, []);
+    const { mediaTable } = await setup(true, { ...defaultProps, items: [] });
 
     const rowLength = mediaTable.find(DynamicTableStateless).prop('rows')
       .length;
@@ -318,16 +320,21 @@ describe('MediaTable', () => {
   });
 
   it('should allow rendering of custom column lengths', async () => {
-    const customColumnLength = [
-      ...defaultHeaders.cells,
-      {
-        content: 'new column header',
-        width: 20,
-      },
-    ];
-    const customHeader = { ...defaultHeaders, cells: customColumnLength };
+    const customColumns = {
+      ...defaultHeaders,
+      cells: [
+        ...defaultHeaders.cells,
+        {
+          content: 'new column header',
+          width: 20,
+        },
+      ],
+    };
 
-    const { mediaTable } = await setup(customHeader);
+    const { mediaTable } = await setup(true, {
+      ...defaultProps,
+      columns: customColumns,
+    });
     const columnLength = mediaTable.find(DynamicTableStateless).prop('head')
       .cells.length;
 
@@ -356,7 +363,10 @@ describe('MediaTable', () => {
       },
     ];
 
-    const { mediaTable } = await setup(defaultHeaders, customItems, true);
+    const { mediaTable } = await setup(true, {
+      ...defaultProps,
+      items: customItems,
+    });
 
     const columnValue = mediaTable.find(DynamicTableStateless).prop('rows')[0]
       .cells[2].content;
@@ -364,7 +374,7 @@ describe('MediaTable', () => {
   });
 
   it('should still render cell data for each row even if internal media API fails', async () => {
-    const { mediaTable } = await setup(defaultHeaders, defaultItems, false);
+    const { mediaTable } = await setup(false);
 
     const rowDataLength = mediaTable.find(DynamicTableStateless).prop('rows')[0]
       .cells.length;
@@ -382,15 +392,11 @@ describe('MediaTable', () => {
   });
 
   it('should not show pagination when totalItems is less than itemsPerPage', async () => {
-    const { mediaTable } = await setup(
-      defaultHeaders,
-      defaultItems,
-      true,
-      getDefaultMediaClient(),
-      false,
-      6,
-      5,
-    );
+    const { mediaTable } = await setup(true, {
+      ...defaultProps,
+      itemsPerPage: 6,
+      totalItems: 5,
+    });
 
     const tableLength = mediaTable.find(DynamicTableStateless).prop('rows')
       .length;
@@ -398,15 +404,25 @@ describe('MediaTable', () => {
     expect(tableLength).toEqual(2);
   });
 
+  it('should apply row props to all of the generated rows', async () => {
+    const { mediaTable } = await setup(true, {
+      ...defaultProps,
+      rowProps: { className: 'test-class' },
+    });
+
+    const tableRows = mediaTable.find(DynamicTableStateless).prop('rows');
+
+    tableRows.forEach((row: { className: string }) => {
+      expect(row.className).toEqual('test-class');
+    });
+  });
+
   describe('loading spinner', () => {
     test('should be displayed when isLoading is set to true', async () => {
-      const { mediaTable } = await setup(
-        defaultHeaders,
-        defaultItems,
-        true,
-        getDefaultMediaClient(),
-        true,
-      );
+      const { mediaTable } = await setup(true, {
+        ...defaultProps,
+        isLoading: true,
+      });
 
       const isShowingLoadingSpinner = mediaTable
         .find(DynamicTableStateless)
@@ -416,13 +432,10 @@ describe('MediaTable', () => {
     });
 
     test('should not be displayed when isLoading is set to false', async () => {
-      const { mediaTable } = await setup(
-        defaultHeaders,
-        defaultItems,
-        true,
-        getDefaultMediaClient(),
-        false,
-      );
+      const { mediaTable } = await setup(true, {
+        ...defaultProps,
+        isLoading: false,
+      });
 
       const isShowingLoadingSpinner = mediaTable
         .find(DynamicTableStateless)
@@ -519,6 +532,23 @@ describe('MediaTable', () => {
         actionSubject: 'mediaFile',
         actionSubjectId: 'mediaFileRow',
         eventType: 'ui',
+      });
+    });
+
+    it('should trigger UI analyticsEvent when mediaTable enter is pressed on a row', async () => {
+      const { mediaTable, createAnalyticsEventSpy } = await setup();
+
+      const rows = mediaTable.find(DynamicTableStateless).prop('rows');
+
+      if (rows && rows[0].onKeyPress) {
+        rows[0].onKeyPress({ key: 'Enter' } as any);
+      }
+
+      expect(createAnalyticsEventSpy).toHaveBeenCalledWith({
+        eventType: 'ui',
+        action: 'keyPressed',
+        actionSubject: 'mediaFile',
+        actionSubjectId: 'mediaFileRow',
       });
     });
   });

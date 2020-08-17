@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-editor",
-  "version": "38.0.1",
+  "version": "38.0.2",
   "description": "Media component for image annotations",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -16,12 +16,12 @@
   "atlaskit:src": "src/index.tsx",
   "atlassian": {
     "team": "Media Platform",
+    "deprecatedAutoEntryPoints": true,
     "inPublicMirror": true,
     "releaseModel": "scheduled",
     "website": {
       "name": "Media Editor"
-    },
-    "deprecatedAutoEntryPoints": true
+    }
   },
   "scripts": {
     "check-dist": "ls -d dist/*/engine | xargs -I{} test -d {}/core/binaries",
@@ -34,9 +34,9 @@
     "@atlaskit/field-range": "^9.0.0",
     "@atlaskit/icon": "^21.0.0",
     "@atlaskit/inline-dialog": "^13.0.0",
-    "@atlaskit/media-card": "^69.0.0",
-    "@atlaskit/media-client": "^8.0.0",
-    "@atlaskit/media-ui": "^13.0.0",
+    "@atlaskit/media-card": "^69.2.0",
+    "@atlaskit/media-client": "^9.0.0",
+    "@atlaskit/media-ui": "^13.1.0",
     "@atlaskit/modal-dialog": "^11.0.0",
     "@atlaskit/spinner": "^15.0.0",
     "@atlaskit/theme": "^10.0.0",
@@ -55,7 +55,7 @@
   "devDependencies": {
     "@atlaskit/build-utils": "*",
     "@atlaskit/docs": "^9.0.0",
-    "@atlaskit/media-test-helpers": "^28.0.0",
+    "@atlaskit/media-test-helpers": "^28.1.0",
     "@atlaskit/ssr": "*",
     "enzyme": "^3.10.0",
     "react-dom": "^16.8.0",

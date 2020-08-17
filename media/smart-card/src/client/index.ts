@@ -6,6 +6,7 @@ import { APIError } from './errors';
 import { CardClient as CardClientInterface, EnvironmentsKeys } from './types';
 
 import { getResolverUrl } from './utils/environments';
+import { Queue } from './utils/queue';
 
 import { InvokePayload } from '../model/invoke-opts';
 import {
@@ -14,6 +15,9 @@ import {
   ErrorResponse,
 } from './types/responses';
 import { InvokeRequest } from './types/requests';
+
+const MAX_BATCH_SIZE = 50;
+const MIN_TIME_BETWEEN_BATCHES = 250;
 
 export default class CardClient implements CardClientInterface {
   private resolverUrl: string;
@@ -27,26 +31,62 @@ export default class CardClient implements CardClientInterface {
     this.loadersByDomain = {};
   }
 
-  private async batchResolve(resourceUrls: string[]): Promise<BatchResponse> {
-    const urls = resourceUrls.map(resourceUrl => ({ resourceUrl }));
-    return await api.request<BatchResponse>(
+  private async batchResolve(urls: string[]): Promise<BatchResponse> {
+    // De-duplicate requested URLs (see `this.createLoader` for more detail).
+    const deDuplicatedUrls = [...new Set(urls)];
+
+    // Ask the backend to resolve the URLs for us.
+    const resolvedUrls = await api.request<BatchResponse>(
       'post',
       `${this.resolverUrl}/resolve/batch`,
-      urls,
+      deDuplicatedUrls.map(resourceUrl => ({ resourceUrl })),
     );
+
+    // Reduce into a map to make accessing faster and easier.
+    const map: Record<string, SuccessResponse | ErrorResponse> = {};
+    // NOTE: the batch endpoint returns the URLs in the same order they were given.
+    for (let i = 0; i < deDuplicatedUrls.length; ++i) {
+      const url = deDuplicatedUrls[i];
+      const data = resolvedUrls[i];
+      map[url] = data;
+    }
+
+    // Reconvert list back into the original order in which it was given to us.
+    return urls.map(originalUrl => map[originalUrl]);
   }
 
   private createLoader() {
-    return new DataLoader((urls: string[]) => this.batchResolve(urls), {
-      maxBatchSize: 50,
-      cache: false,
+    const queue = new Queue<BatchResponse>({
+      delay: MIN_TIME_BETWEEN_BATCHES,
     });
+
+    return new DataLoader(
+      // We place all calls to `batchResolve` in a queue so we don't send off several simultaneous batch requests.
+      // This is for two reasons:
+      //  1: we want to avoid getting rate limited upstream (eg: forge and other APIs)
+      //  2: we want to avoid sending out heaps of requests from the client at once
+      (urls: string[]) => queue.enqueue(() => this.batchResolve(urls)),
+      {
+        maxBatchSize: MAX_BATCH_SIZE,
+        // NOTE: we turn off DataLoader's cache because it doesn't work for our use-case. Consider the following:
+        // - a smartlink to a restricted item is resolved to "forbidden" with a "request access button"
+        // - the user clicks "request access", and then following the auth prompts and gets access
+        // - the frontend now re-renders the smartlink, but due to DataLoader's caching, the previous "forbidden" state is
+        //   because the smartlink's URL (which is the cache key) is exactly the same
+        //
+        // For this reason, we disable DataLoader's cache.
+        // This means that URLs will not be de-duplicated by DataLoader, so we perform the de-duplication logic
+        // ourselves in `this.batchResolve`.
+        cache: false,
+      },
+    );
   }
 
   private getLoader(hostname: string) {
     if (!this.loadersByDomain[hostname]) {
       this.loadersByDomain[hostname] = this.createLoader();
     }
+
     return this.loadersByDomain[hostname];
   }
 

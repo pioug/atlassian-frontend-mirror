@@ -1,12 +1,14 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { InlineCardForbiddenView } from '../..';
+import LockIcon from '@atlaskit/icon/glyph/lock-filled';
 import { IntlProvider } from 'react-intl';
+
+import { InlineCardForbiddenView } from '../..';
 
 const URL =
   'http://product.example.com/lorem/ipsum/dolor/sit/amet/consectetur/adipiscing/volutpat/';
 
-describe('Unauth view', () => {
+describe('Forbidden view', () => {
   it('should do click if try again clicked', () => {
     const onRetrySpy = jest.fn();
     const element = mount(
@@ -47,7 +49,7 @@ describe('Unauth view', () => {
         <InlineCardForbiddenView url={URL} />
       </IntlProvider>,
     );
-    expect(element.text()).toEqual(`You don’t have access to this link`);
+    expect(element.text()).toEqual(URL);
   });
 
   it('should show correct text if actionable', () => {
@@ -57,7 +59,37 @@ describe('Unauth view', () => {
       </IntlProvider>,
     );
     expect(element.text()).toEqual(
-      `You don’t have access to this link. Try another account`,
+      `${URL} - Restricted link, Try another account`,
     );
+  });
+
+  it('should show correct icon if present', () => {
+    const iconUrl = 'https://google.com/favicon.ico';
+    const element = mount(
+      <IntlProvider locale={'en'}>
+        <InlineCardForbiddenView
+          url={URL}
+          icon="https://google.com/favicon.ico"
+          onAuthorise={jest.fn()}
+        />
+      </IntlProvider>,
+    );
+    expect(element.text()).toEqual(
+      `${URL} - Restricted link, Try another account`,
+    );
+    expect(element.find('img').prop('src')).toBe(iconUrl);
+  });
+
+  it('should show correct icon if not present (fallback icon)', () => {
+    const element = mount(
+      <IntlProvider locale={'en'}>
+        <InlineCardForbiddenView url={URL} onAuthorise={jest.fn()} />
+      </IntlProvider>,
+    );
+    expect(element.text()).toEqual(
+      `${URL} - Restricted link, Try another account`,
+    );
+    expect(element.find(LockIcon)).toHaveLength(1);
+    expect(element.find(LockIcon).prop('label')).toBe('error');
   });
 });

@@ -2,7 +2,6 @@ import React from 'react';
 import { PluginKey } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import AttachmentIcon from '@atlaskit/icon/glyph/editor/attachment';
-import { withAnalytics } from '../../../../analytics';
 import ToolbarButton from '../../../../ui/ToolbarButton';
 import WithPluginState from '../../../../ui/WithPluginState';
 import { EventDispatcher } from '../../../../event-dispatcher';
@@ -16,11 +15,10 @@ export interface Props {
   isReducedSpacing?: boolean;
 }
 
-const onClickMediaButton = (pluginState: MediaPluginState) =>
-  withAnalytics('atlassian.editor.media.button', () => {
-    pluginState.showMediaPicker();
-    return true;
-  });
+const onClickMediaButton = (pluginState: MediaPluginState) => () => {
+  pluginState.showMediaPicker();
+  return true;
+};
 
 const ToolbarMedia = ({
   editorView,

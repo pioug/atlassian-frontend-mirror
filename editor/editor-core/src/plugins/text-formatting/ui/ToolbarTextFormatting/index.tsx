@@ -6,7 +6,6 @@ import { defineMessages, InjectedIntlProps, injectIntl } from 'react-intl';
 import BoldIcon from '@atlaskit/icon/glyph/editor/bold';
 import ItalicIcon from '@atlaskit/icon/glyph/editor/italic';
 
-import { withAnalytics } from '../../../../analytics';
 import { toggleBold, toggleItalic, ToolTipContent } from '../../../../keymaps';
 import { ButtonGroup } from '../../../../ui/styles';
 import ToolbarButton from '../../../../ui/ToolbarButton';
@@ -88,35 +87,29 @@ class ToolbarTextFormatting extends PureComponent<Props & InjectedIntlProps> {
     );
   }
 
-  private handleBoldClick = withAnalytics(
-    'atlassian.editor.format.strong.button',
-    () => {
-      const { strongDisabled } = this.props.textFormattingState;
-      if (!strongDisabled) {
-        const { state, dispatch } = this.props.editorView;
-        return toggleStrongWithAnalytics({ inputMethod: INPUT_METHOD.TOOLBAR })(
-          state,
-          dispatch,
-        );
-      }
-      return false;
-    },
-  );
+  private handleBoldClick = () => {
+    const { strongDisabled } = this.props.textFormattingState;
+    if (!strongDisabled) {
+      const { state, dispatch } = this.props.editorView;
+      return toggleStrongWithAnalytics({ inputMethod: INPUT_METHOD.TOOLBAR })(
+        state,
+        dispatch,
+      );
+    }
+    return false;
+  };
 
-  private handleItalicClick = withAnalytics(
-    'atlassian.editor.format.em.button',
-    (): boolean => {
-      const { emDisabled } = this.props.textFormattingState;
-      if (!emDisabled) {
-        const { state, dispatch } = this.props.editorView;
-        return toggleEmWithAnalytics({ inputMethod: INPUT_METHOD.TOOLBAR })(
-          state,
-          dispatch,
-        );
-      }
-      return false;
-    },
-  );
+  private handleItalicClick = (): boolean => {
+    const { emDisabled } = this.props.textFormattingState;
+    if (!emDisabled) {
+      const { state, dispatch } = this.props.editorView;
+      return toggleEmWithAnalytics({ inputMethod: INPUT_METHOD.TOOLBAR })(
+        state,
+        dispatch,
+      );
+    }
+    return false;
+  };
 }
 
 export default injectIntl(ToolbarTextFormatting);

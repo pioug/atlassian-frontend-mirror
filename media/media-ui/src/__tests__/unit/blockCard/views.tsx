@@ -13,16 +13,12 @@ import {
   BlockCardResolvedView,
   BlockCardNotFoundView,
 } from '../../../BlockCard';
-import {
-  CelebrationImage,
-  LockImage,
-  NotFoundImage,
-} from '../../../BlockCard/utils/constants';
 import { ResolvedViewProps } from '../../../BlockCard/views/ResolvedView';
 
 let mockOnClick: React.MouseEventHandler = jest.fn();
+let mockUrl = 'https://github.com/changesets/changesets';
 const getResolvedProps = (overrides = {}): ResolvedViewProps => ({
-  link: 'https://github.com/changesets/changesets',
+  link: mockUrl,
   icon: { icon: 'https://github.com/atlassian/changesets' },
   title: 'House of Holbein',
   users: [],
@@ -174,19 +170,12 @@ describe('BlockCard Views', () => {
           actions={[]}
         />,
       );
-      const nameFrame = getByTestId('unauthorised-view-name');
-      expect(nameFrame.textContent).toBe(
-        'Connect your cool theatre stuff account',
-      );
+      const nameFrame = getByTestId('unauthorised-view-link');
+      expect(nameFrame.textContent).toBe(mockUrl);
       const byline = getByTestId('unauthorised-view-byline');
       expect(byline.textContent).toBe(
-        `Enrich your link previews by connecting cool theatre stuff to your Atlassian products.`,
+        `To show a preview of this link, connect your cool theatre stuff account.`,
       );
-
-      const thumb = getByTestId('unauthorised-view-thumb');
-
-      // @ts-ignore
-      expect(thumb.firstChild.src).toEqual(CelebrationImage);
     });
 
     it('renders view with actions', () => {
@@ -281,13 +270,10 @@ describe('BlockCard Views', () => {
       );
       const frame = getByTestId('not-found-view');
       expect(frame.textContent).toMatch(
-        /Uh oh. We can't find this link!Check the url and try editing or paste again./,
+        /https:\/\/github.com\/changesets\/changesetsWe couldn't find the link. Check the url and try editing or paste again./,
       );
-
-      const thumb = getByTestId('not-found-view-thumb');
-
-      // @ts-ignore
-      expect(thumb.firstChild.src).toEqual(NotFoundImage);
+      const icon = getByTestId('not-found-view-warning-icon');
+      expect(icon.getAttribute('aria-label')).toBe('not-found-warning-icon');
     });
 
     it('clicking on link should have no side-effects', () => {
@@ -316,13 +302,10 @@ describe('BlockCard Views', () => {
       );
       const frame = getByTestId('forbidden-view');
       expect(frame.textContent).toMatch(
-        /You don’t have access to this linkYou'll need to request access or try a different account to view this preview./,
+        /https:\/\/github.com\/changesets\/changesetsYou'll need to request access or try a different account to view this preview./,
       );
-
-      const thumb = getByTestId('forbidden-view-thumb');
-
-      // @ts-ignore
-      expect(thumb.firstChild.src).toEqual(LockImage);
+      const icon = getByTestId('forbidden-view-lock-icon');
+      expect(icon.getAttribute('aria-label')).toBe('forbidden-lock-icon');
     });
 
     it('clicking on link should have no side-effects', () => {
@@ -342,14 +325,16 @@ describe('BlockCard Views', () => {
   });
 
   describe('view: errored', () => {
-    it('renders view', () => {
+    it('renders view without try again if no retry handler present', () => {
       const { getByTestId } = render(
         <BlockCardErroredView testId="errored-view" />,
       );
       const frame = getByTestId('errored-view');
       expect(frame.textContent).toBe(
-        "We couldn't load this link for some reason.Try again",
+        "We couldn't load this link for an unknown reason.",
       );
+      const icon = getByTestId('errored-view-warning-icon');
+      expect(icon.getAttribute('aria-label')).toBe('errored-warning-icon');
     });
 
     it('renders view - clicking on retry enacts callback', () => {
@@ -359,11 +344,11 @@ describe('BlockCard Views', () => {
       );
       const frame = getByTestId('errored-view');
       expect(frame.textContent).toBe(
-        "We couldn't load this link for some reason.Try again",
+        "We couldn't load this link for an unknown reason.Try again",
       );
 
       // Check the button is there
-      const button = getByTestId('err-view-retry');
+      const button = getByTestId('button-try-again');
       expect(button.textContent).toBe('Try again');
 
       // Click it, check mock is called

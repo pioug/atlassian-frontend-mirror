@@ -16,6 +16,8 @@ export const Blanket = styled.div.attrs({ className: blanketClassName })`
     height: 100%;
     max-height: 100%;
     max-width: 100%;
+    left: 0;
+    top: 0;
     ${isFixed ? fixedBlanketStyles : ''}
   `}
 `;

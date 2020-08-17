@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`type-over-mediaGroup.ts: Typeover the selected media item in a media group 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "some text",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "text": "replace first file card",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "attrs": Object {
+            "__contextId": "DUMMY-OBJECT-ID",
+            "__displayType": null,
+            "__external": false,
+            "__fileMimeType": "image/svg+xml",
+            "__fileName": "example.png",
+            "__fileSize": 235,
+            "alt": null,
+            "collection": "MediaServicesSample",
+            "height": null,
+            "id": "1234-5678-abcd-efgh",
+            "occurrenceKey": null,
+            "type": "file",
+            "url": null,
+            "width": null,
+          },
+          "type": "media",
+        },
+        Object {
+          "attrs": Object {
+            "__contextId": "DUMMY-OBJECT-ID",
+            "__displayType": null,
+            "__external": false,
+            "__fileMimeType": "image/svg+xml",
+            "__fileName": "example.png",
+            "__fileSize": 235,
+            "alt": null,
+            "collection": "MediaServicesSample",
+            "height": null,
+            "id": "1234-5678-abcd-efgh",
+            "occurrenceKey": null,
+            "type": "file",
+            "url": null,
+            "width": null,
+          },
+          "type": "media",
+        },
+      ],
+      "type": "mediaGroup",
+    },
+    Object {
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;

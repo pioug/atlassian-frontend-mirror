@@ -29,6 +29,23 @@ describe('Breakout Commands: remove-breakout', () => {
 
     removeBreakout()(editorView.state, editorView.dispatch);
 
-    expect(editorView.state.doc).toEqualDocument(doc(code_block()('Hello')));
+    expect(editorView.state).toEqualDocumentAndSelection(
+      doc(code_block()('Hel{<>}lo')),
+    );
+  });
+  it('should preserve node selection after removing breakout', () => {
+    const { editorView } = createEditor({
+      doc: doc('{<node>}', breakout({ mode: 'wide' })(code_block()('Hello'))),
+      preset: new Preset<LightEditorPlugin>()
+        .add([breakoutPlugin, { allowBreakoutButton: true }])
+        .add(codeBlockPlugin)
+        .add(widthPlugin),
+    });
+
+    removeBreakout()(editorView.state, editorView.dispatch);
+
+    expect(editorView.state).toEqualDocumentAndSelection(
+      doc('{<node>}', code_block()('Hello')),
+    );
   });
 });

@@ -1,5 +1,27 @@
 # @atlaskit/editor-mobile-bridge
 
+## 17.1.0
+
+### Minor Changes
+
+- [`41596c1581`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41596c1581) - EDM-925: fix cmd + k behaviour of Smart Links; respect user's display text
+- [`564cdfc7e1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/564cdfc7e1) - TYPH-236 Adding lifecycle bridge to editor
+- [`a93d423be6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a93d423be6) - [TWISTA-218] Implements the Mobile Bridge API methods to works with Inline Comments on Renderer
+  [TWISTA-146] Remove previous annotation highlight before focus in another one
+
+### Patch Changes
+
+- [`4a1120b6a8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4a1120b6a8) - Fix quickInsert on mobile:
+
+  - Fixed missing options on quickInsertPlugin + added tests
+  - Mock `formatMessage` on Editor component on mobile bridge, to be able to not depend on i18n for now, and unblock native side work
+
+- [`6262f382de`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6262f382de) - Use the 'lodash' package instead of single-function 'lodash.\*' packages
+- [`3273454e19`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3273454e19) - TYPH-236 Refactor mobile bridge integration into Hooks
+- [`bd1b6db96a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bd1b6db96a) - ED-9651: Pass intl to plugin constructors
+- [`aa8db6bc1a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aa8db6bc1a) - TYPH-236 Refactor annotations into hooks and some fixes related to rules of hooks
+- Updated dependencies
+
 ## 17.0.4
 
 ### Patch Changes

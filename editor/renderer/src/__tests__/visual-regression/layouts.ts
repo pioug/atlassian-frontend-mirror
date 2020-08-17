@@ -1,6 +1,8 @@
-import { waitForLoadedBackgroundImages } from '@atlaskit/visual-regression/helper';
-import { Page } from 'puppeteer';
-import { snapshot, initRendererWithADF } from './_utils';
+import {
+  PuppeteerPage,
+  waitForLoadedBackgroundImages,
+} from '@atlaskit/visual-regression/helper';
+import { snapshot, initRendererWithADF, waitForText } from './_utils';
 import * as layoutWithDefaultBreakoutMark from '../__fixtures__/layout-default-breakout.adf.json';
 import * as layout2Col from '../__fixtures__/layout-2-columns.adf.json';
 import * as layout3Col from '../__fixtures__/layout-3-columns.adf.json';
@@ -10,7 +12,7 @@ import * as layout3ColWithSidebars from '../__fixtures__/layout-3-columns-with-s
 import { emojiSelectors } from '../__helpers/page-objects/_emoji';
 import { selectors as rendererSelectors } from '../__helpers/page-objects/_renderer';
 
-const initRenderer = async (page: Page, adf: any) => {
+const initRenderer = async (page: PuppeteerPage, adf: any) => {
   await initRendererWithADF(page, {
     appearance: 'full-page',
     viewport: { width: 1040, height: 700 },
@@ -19,7 +21,7 @@ const initRenderer = async (page: Page, adf: any) => {
 };
 
 describe('Snapshot Test: Layouts', () => {
-  let page: Page;
+  let page: PuppeteerPage;
 
   const layouts = [
     { name: '2 columns', adf: layout2Col },
@@ -41,9 +43,12 @@ describe('Snapshot Test: Layouts', () => {
   describe('Columns', () => {
     layouts.forEach(layout => {
       it(`should correctly render "${layout.name}" layout`, async () => {
-        await initRenderer(page, layout.adf);
         // Wait for action list (within ADF) to render
+        await initRenderer(page, layout.adf);
         await page.waitForSelector('div[data-task-list-local-id] > div');
+        const taskItemSelector =
+          'div[data-task-list-local-id] div[data-renderer-start-pos]';
+        await waitForText(page, taskItemSelector, 'item one');
       });
     });
   });

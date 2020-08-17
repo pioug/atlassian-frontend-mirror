@@ -18,6 +18,7 @@ import LayoutSection from './layoutSection';
 import LayoutColumn from './layoutColumn';
 import ListItem from './listItem';
 import MediaSingle from './mediaSingle';
+import Caption from './caption';
 import OrderedList from './orderedList';
 import Panel from './panel';
 import Paragraph from './paragraph';
@@ -30,6 +31,7 @@ import TableRow from './tableRow';
 import UnknownBlock from './unknownBlock';
 import Loadable from 'react-loadable';
 import EmbedCard from './embedCard';
+import { UnsupportedBlock, UnsupportedInline } from '@atlaskit/editor-common';
 
 const CodeBlock = Loadable({
   loader: () =>
@@ -143,6 +145,7 @@ export const nodeToReact: { [key: string]: React.ComponentType<any> } = {
   blockquote: Blockquote,
   bulletList: BulletList,
   blockCard: BlockCard,
+  caption: Caption,
   codeBlock: CodeBlock,
   date: Date,
   decisionItem: DecisionItem,
@@ -175,6 +178,8 @@ export const nodeToReact: { [key: string]: React.ComponentType<any> } = {
   tableHeader: TableHeader,
   tableRow: TableRow,
   unknownBlock: UnknownBlock,
+  unsupportedBlock: UnsupportedBlock,
+  unsupportedInline: UnsupportedInline,
   expand: Expand,
   nestedExpand: Expand,
   embedCard: EmbedCard,
@@ -334,6 +339,7 @@ export {
   BodiedExtensionProps,
   BulletList,
   BlockCard,
+  Caption,
   CodeBlock,
   Date,
   DecisionItem,

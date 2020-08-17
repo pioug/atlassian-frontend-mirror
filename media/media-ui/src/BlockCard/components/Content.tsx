@@ -4,15 +4,17 @@ import { gs, mq } from '../utils';
 
 export interface ContentProps {
   children: React.ReactNode;
+  /* Reduces padding by half to visualize content more compactly */
+  isCompact?: boolean;
 }
 
-export const Content = ({ children }: ContentProps) => (
+export const Content = ({ children, isCompact = false }: ContentProps) => (
   <div
     css={mq({
-      padding: gs(2),
+      padding: isCompact ? gs(1) : gs(2),
       display: 'flex',
       flexDirection: 'column',
-      justifyContent: ['unset', 'space-between'],
+      justifyContent: isCompact ? 'unset' : ['unset', 'space-between'],
       flexGrow: 1,
     })}
   >

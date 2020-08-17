@@ -103,6 +103,17 @@ export class BlockCardComponent extends React.PureComponent<SmartCardProps> {
 const WrappedBlockCard = Card(BlockCardComponent, UnsupportedBlock);
 
 export class BlockCard extends ReactNodeView<CardDerivedProps> {
+  createDomRef(): HTMLElement {
+    const domRef = document.createElement('div');
+    if (browser.chrome && this.reactComponentProps.platform !== 'mobile') {
+      // workaround Chrome bug in https://product-fabric.atlassian.net/browse/ED-5379
+      // see also: https://github.com/ProseMirror/prosemirror/issues/884
+      domRef.contentEditable = 'true';
+      domRef.setAttribute('spellcheck', 'false');
+    }
+    return domRef;
+  }
+
   render() {
     return (
       <WrappedBlockCard

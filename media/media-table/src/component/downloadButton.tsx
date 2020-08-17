@@ -39,7 +39,6 @@ const MediaDownloadButton = (props: Props & InjectedIntlProps) => {
         buttonStyles: {
           ...current(themeProps).buttonStyles,
           minWidth: 'max-content',
-          marginRight: '4px',
           '&:hover': {
             background: N40,
           },

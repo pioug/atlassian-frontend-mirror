@@ -51,8 +51,7 @@ const resolvedViewDetails = [
 ];
 
 const resolvedIconProps = {
-  url:
-    'https://upload.wikimedia.org/wikipedia/commons/3/3a/Dropbox_Logo_02.svg',
+  url: 'https://cdn.iconscout.com/icon/free/png-512/dropbox-186-1180072.png',
 };
 
 const resolvedCollabProps: CollaboratorListProps = {
@@ -135,7 +134,7 @@ const unauthorisedActionListProps = {
     {
       id: 'connect',
       text: 'Connect',
-      buttonAppearance: 'primary' as ButtonAppearances,
+      buttonAppearance: 'default' as ButtonAppearances,
       promise: () => new Promise(resolve => setTimeout(() => resolve(), 2000)),
     },
   ],
@@ -148,8 +147,7 @@ const bylineProps = {
 
 const providerProps = {
   name: 'Dropbox',
-  icon:
-    'https://upload.wikimedia.org/wikipedia/commons/3/3a/Dropbox_Logo_02.svg',
+  icon: 'https://cdn.iconscout.com/icon/free/png-512/dropbox-186-1180072.png',
 };
 
 const kittyThumb =
@@ -235,14 +233,14 @@ export default () => {
               console.log('you clicked an avatar!');
             }}
           />
-          <h6 css={subHeaderCSS}>Resolved Failed View</h6>
+          <h6 css={subHeaderCSS}>Unauthorized View</h6>
           <BlockCardUnauthorisedView
             icon={resolvedIconProps}
             link={
               'https://icatcare.org/app/uploads/2019/09/The-Kitten-Checklist-1.png'
             }
             actions={unauthorisedActionListProps.items}
-            context={{ text: 'Cats' }}
+            context={{ text: providerProps.name, icon: providerProps.icon }}
           />
           <h6 css={subHeaderCSS}>Permission Denied View</h6>
           <BlockCardForbiddenView
@@ -263,7 +261,12 @@ export default () => {
           />
           <h6 css={subHeaderCSS}>Error View</h6>
 
-          <BlockCardErroredView onRetry={() => {}} />
+          <BlockCardErroredView
+            onRetry={() => {}}
+            link={
+              'https://icatcare.org/app/uploads/2019/09/The-Kitten-Checklist-1.png'
+            }
+          />
         </div>
       </Page>
     </IntlProvider>

@@ -6,7 +6,6 @@ import {
   EditorState,
   Transaction,
 } from 'prosemirror-state';
-import { analyticsService } from '../../../analytics';
 
 export const insertBlock = (
   state: EditorState,
@@ -30,11 +29,6 @@ export const insertBlock = (
   ) {
     return null;
   }
-
-  // Track event
-  analyticsService.trackEvent(
-    `atlassian.editor.format.${nodeName}.autoformatting`,
-  );
 
   // Split at the start of autoformatting and delete formatting characters.
   let tr = state.tr.delete(start, end).split(start);

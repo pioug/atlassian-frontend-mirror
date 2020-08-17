@@ -18,6 +18,10 @@ import {
   FilePreview,
   FileState,
   ProcessingFileState,
+  isProcessingFileState,
+  ErrorFileState,
+  isErrorFileState,
+  isFinalFileState,
   GetFileOptions,
   mapMediaItemToFileState,
   getFileStreamsCache,
@@ -40,6 +44,7 @@ import {
 import { getMediaTypeFromMimeType } from '../utils/getMediaTypeFromMimeType';
 import { createFileStateSubject } from '../utils/createFileStateSubject';
 import { isMimeTypeSupportedByBrowser } from '../utils/isMimeTypeSupportedByBrowser';
+import { shouldFetchRemoteFileStates } from '../utils/shouldFetchRemoteFileStates';
 
 const POLLING_INTERVAL = 6000;
 const maxNumberOfItemsPerCall = 100;
@@ -83,7 +88,7 @@ interface DataloaderKey {
   collection?: string;
 }
 
-export interface SourceFile {
+export interface CopySourceFile {
   id: string;
   collection?: string;
   authProvider: AuthProvider;
@@ -91,6 +96,11 @@ export interface SourceFile {
 
 export interface CopyDestination extends MediaStoreCopyFileWithTokenParams {
   authProvider: AuthProvider;
+  mediaStore?: MediaStore;
+}
+
+export interface CopyFileOptions {
+  preview?: FilePreview | Promise<FilePreview>;
 }
 
 interface DataloaderErrorResult {
@@ -136,8 +146,9 @@ export interface FileFetcher {
   ): Promise<void>;
   getCurrentState(id: string, options?: GetFileOptions): Promise<FileState>;
   copyFile(
-    source: SourceFile,
+    source: CopySourceFile,
     destination: CopyDestination,
+    options?: CopyFileOptions,
   ): Promise<MediaFile>;
   getFileBinaryURL(id: string, collectionName?: string): Promise<string>;
 }
@@ -455,7 +466,7 @@ export class FileFetcherImpl implements FileFetcher {
         return subject.error(error);
       }
 
-      if (!isMimeTypeSupportedByBrowser(mimeType)) {
+      if (shouldFetchRemoteFileStates(mediaType, mimeType, preview)) {
         processingSubscription = this.createDownloadFileStream(
           id,
           collection,
@@ -526,8 +537,9 @@ export class FileFetcherImpl implements FileFetcher {
   }
 
   public async copyFile(
-    source: SourceFile,
+    source: CopySourceFile,
     destination: CopyDestination,
+    options: CopyFileOptions = {},
   ): Promise<MediaFile> {
     const { authProvider, collection: sourceCollection, id } = source;
     const {
@@ -536,9 +548,12 @@ export class FileFetcherImpl implements FileFetcher {
       replaceFileId,
       occurrenceKey,
     } = destination;
-    const mediaStore = new MediaStore({
-      authProvider: destinationAuthProvider,
-    });
+    const { preview } = options;
+    const mediaStore =
+      destination.mediaStore ||
+      new MediaStore({
+        authProvider: destinationAuthProvider,
+      });
     const owner = authToOwner(
       await authProvider({ collectionName: sourceCollection }),
     );
@@ -557,15 +572,91 @@ export class FileFetcherImpl implements FileFetcher {
       occurrenceKey,
     };
 
-    const copiedFile = (await mediaStore.copyFileWithToken(body, params)).data;
-    const copiedFileObservable = new ReplaySubject<FileState>(1);
-    const copiedFileState: FileState = mapMediaFileToFileState({
-      data: copiedFile,
-    });
+    const cache = getFileStreamsCache();
+    let processingSubscription: Subscription | undefined;
 
-    copiedFileObservable.next(copiedFileState);
-    getFileStreamsCache().set(copiedFile.id, copiedFileObservable);
+    try {
+      const { data: copiedFile } = await mediaStore.copyFileWithToken(
+        body,
+        params,
+      );
+      const { id: copiedId, mimeType } = copiedFile;
 
-    return copiedFile;
+      // backend may return an "unknown" mediaType just after the copy
+      // it's better to deduce it from "mimeType" using getMediaTypeFromMimeType()
+      const mediaType = mimeType
+        ? getMediaTypeFromMimeType(mimeType)
+        : 'unknown';
+      const copiedFileState = mapMediaFileToFileState({ data: copiedFile });
+
+      const fileCache = cache.get(copiedId);
+      const subject = fileCache || createFileStateSubject();
+
+      const previewOverride =
+        !isErrorFileState(copiedFileState) && !!preview ? { preview } : {};
+
+      if (
+        !isFinalFileState(copiedFileState) &&
+        // mimeType should always be returned by "copyFileWithToken"
+        // but in case it's not, we don't want to penalize "copyFile"
+        mimeType &&
+        shouldFetchRemoteFileStates(mediaType, mimeType, preview)
+      ) {
+        subject.next({
+          ...copiedFileState,
+          ...overrideMediaTypeIfUnknown(copiedFileState, mediaType),
+          ...previewOverride,
+        });
+
+        processingSubscription = this.createDownloadFileStream(
+          copiedId,
+          destinationCollectionName,
+        ).subscribe({
+          next: remoteFileState =>
+            subject.next({
+              ...remoteFileState,
+              ...overrideMediaTypeIfUnknown(remoteFileState, mediaType),
+              ...(!isErrorFileState(remoteFileState) && previewOverride),
+            }),
+          error: err => subject.error(err),
+          complete: () => subject.complete(),
+        });
+      } else if (!isProcessingFileState(copiedFileState)) {
+        subject.next({
+          ...copiedFileState,
+          ...(!isErrorFileState(copiedFileState) && previewOverride),
+        });
+      }
+
+      if (!cache.has(copiedId)) {
+        getFileStreamsCache().set(copiedId, subject);
+      }
+
+      return copiedFile;
+    } catch (error) {
+      if (processingSubscription) {
+        processingSubscription.unsubscribe();
+      }
+
+      if (replaceFileId) {
+        const errorState: ErrorFileState = {
+          id,
+          status: 'error',
+          message: `error copying file to ${destinationCollectionName}`,
+        };
+
+        const fileCache = cache.get(replaceFileId);
+
+        if (fileCache) {
+          // This will cause media card to rerender with an error state on existent subscriptions
+          fileCache.next(errorState);
+        } else {
+          // Create a new subject with the error state for new subscriptions
+          cache.set(id, createFileStateSubject(errorState));
+        }
+      }
+
+      throw error;
+    }
   }
 }

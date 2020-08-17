@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components';
 
 import * as colors from '@atlaskit/theme/colors';
 import { themed } from '@atlaskit/theme/components';
+import { fontFamily } from '@atlaskit/theme/constants';
 
 const disabledColor = themed({ light: colors.N80, dark: colors.N80 });
 
@@ -12,6 +13,7 @@ interface LabelProps {
 
 export const Label = styled.label<LabelProps>`
   align-items: flex-start;
+  font-family: ${fontFamily()};
   color: ${(props): string =>
     props.isDisabled ? disabledColor(props) : colors.text(props)};
   ${({ isDisabled }: LabelProps) =>

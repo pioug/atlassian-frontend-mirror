@@ -30,6 +30,7 @@ import {
 import { stateKey as mediaStateKey } from '../pm-plugins/plugin-key';
 import { MediaPluginState } from '../pm-plugins/types';
 import { MediaNodeUpdater } from './mediaNodeUpdater';
+import { MediaOptions } from '../types';
 
 export type MediaGroupProps = {
   forwardRef?: (ref: HTMLElement) => void;
@@ -45,6 +46,7 @@ export type MediaGroupProps = {
   // because the view is *reference* then `shouldComponentUpdate` can't identify changes from incoming props
   anchorPos: number; // This value is required so that shouldComponentUpdate can calculate correctly
   headPos: number; // This value is required so that shouldComponentUpdate can calculate correctly
+  mediaOptions: MediaOptions;
 };
 
 export interface MediaGroupState {
@@ -221,7 +223,7 @@ export default class MediaGroup extends React.Component<
 
   renderChildNodes = () => {
     const { viewMediaClientConfig } = this.state;
-    const { getPos, allowLazyLoading, disabled } = this.props;
+    const { getPos, allowLazyLoading, disabled, mediaOptions } = this.props;
     const items: FilmstripItem[] = this.mediaNodes.map((item, idx) => {
       // We declared this to get a fresh position every time
       const getNodePos = () => {
@@ -249,8 +251,13 @@ export default class MediaGroup extends React.Component<
         ],
       };
     });
+
     return (
-      <Filmstrip items={items} mediaClientConfig={viewMediaClientConfig} />
+      <Filmstrip
+        items={items}
+        mediaClientConfig={viewMediaClientConfig}
+        featureFlags={mediaOptions.featureFlags}
+      />
     );
   };
 
@@ -263,11 +270,12 @@ interface MediaGroupNodeViewProps {
   allowLazyLoading?: boolean;
   isCopyPasteEnabled?: boolean;
   providerFactory: ProviderFactory;
+  mediaOptions: MediaOptions;
 }
 
 class MediaGroupNodeView extends ReactNodeView<MediaGroupNodeViewProps> {
   render(props: MediaGroupNodeViewProps, forwardRef: ForwardRef) {
-    const { allowLazyLoading, providerFactory, isCopyPasteEnabled } = props;
+    const { providerFactory, mediaOptions } = props;
     const getPos = this.getPos as getPosHandlerNode;
     return (
       <WithProviders
@@ -289,12 +297,13 @@ class MediaGroupNodeView extends ReactNodeView<MediaGroupNodeViewProps> {
                 view={this.view}
                 forwardRef={forwardRef}
                 disabled={(editorDisabledPlugin || {}).editorDisabled}
-                allowLazyLoading={allowLazyLoading}
+                allowLazyLoading={mediaOptions.allowLazyLoading}
                 mediaProvider={mediaProvider}
                 contextIdentifierProvider={contextIdentifierProvider}
-                isCopyPasteEnabled={isCopyPasteEnabled}
+                isCopyPasteEnabled={mediaOptions.isCopyPasteEnabled}
                 anchorPos={this.view.state.selection.$anchor.pos}
                 headPos={this.view.state.selection.$head.pos}
+                mediaOptions={mediaOptions}
               />
             );
           };
@@ -318,8 +327,7 @@ export const ReactMediaGroupNode = (
   portalProviderAPI: PortalProviderAPI,
   eventDispatcher: EventDispatcher,
   providerFactory: ProviderFactory,
-  allowLazyLoading?: boolean,
-  isCopyPasteEnabled?: boolean,
+  mediaOptions: MediaOptions = {},
 ) => (node: PMNode, view: EditorView, getPos: getPosHandler): NodeView => {
   return new MediaGroupNodeView(
     node,
@@ -328,9 +336,8 @@ export const ReactMediaGroupNode = (
     portalProviderAPI,
     eventDispatcher,
     {
-      allowLazyLoading,
       providerFactory,
-      isCopyPasteEnabled,
+      mediaOptions,
     },
   ).init();
 };

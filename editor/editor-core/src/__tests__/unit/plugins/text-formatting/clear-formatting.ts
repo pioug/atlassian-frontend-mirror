@@ -45,15 +45,11 @@ describe('clear-formatting', () => {
   const createEditor = createEditorFactory();
   let createAnalyticsEvent: CreateUIAnalyticsEvent;
 
-  const editor = (
-    doc: any,
-    { trackEvent }: { trackEvent: () => void } = { trackEvent: () => {} },
-  ) => {
+  const editor = (doc: any) => {
     createAnalyticsEvent = jest.fn(() => ({ fire() {} } as UIAnalyticsEvent));
     const editor = createEditor({
       doc,
       editorProps: {
-        analyticsHandler: trackEvent,
         allowAnalyticsGASV3: true,
         allowTextColor: true,
         allowPanel: true,
@@ -315,10 +311,7 @@ describe('clear-formatting', () => {
 
   describe('keymap', () => {
     it('should clear formatting', () => {
-      const trackEvent = jest.fn();
-      const { editorView } = editor(doc(p(strong('t{<}ex{>}t'))), {
-        trackEvent,
-      });
+      const { editorView } = editor(doc(p(strong('t{<}ex{>}t'))));
       expect(checkFormattingIsPresent(editorView.state)).toBe(true);
 
       if (browser.mac) {
@@ -328,9 +321,6 @@ describe('clear-formatting', () => {
       }
 
       expect(checkFormattingIsPresent(editorView.state)).toBe(false);
-      expect(trackEvent).toHaveBeenCalledWith(
-        'atlassian.editor.format.clear.keyboard',
-      );
     });
   });
 

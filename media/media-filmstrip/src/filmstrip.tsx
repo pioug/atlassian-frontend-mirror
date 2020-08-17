@@ -10,6 +10,7 @@ import {
 } from '@atlaskit/media-card';
 import { Identifier } from '@atlaskit/media-client';
 import { MediaClientConfig } from '@atlaskit/media-core';
+import { MediaFeatureFlags } from '@atlaskit/media-common';
 import { FilmstripView } from './filmstripView';
 import { generateIdentifierKey } from './utils/generateIdentifierKey';
 
@@ -27,6 +28,7 @@ export type FilmstripProps = {
   shouldOpenMediaViewer?: boolean;
   mediaClientConfig?: MediaClientConfig;
   testId?: string;
+  featureFlags?: MediaFeatureFlags;
 };
 
 export interface FilmstripState {
@@ -46,7 +48,12 @@ export class Filmstrip extends Component<FilmstripProps, FilmstripState> {
     this.setState({ animate, offset });
 
   private renderCards() {
-    const { items, mediaClientConfig, shouldOpenMediaViewer } = this.props;
+    const {
+      items,
+      mediaClientConfig,
+      shouldOpenMediaViewer,
+      featureFlags,
+    } = this.props;
 
     const mediaViewerDataSource = shouldOpenMediaViewer
       ? { list: items.map(item => item.identifier) }
@@ -69,6 +76,7 @@ export class Filmstrip extends Component<FilmstripProps, FilmstripState> {
           useInlinePlayer={false}
           shouldOpenMediaViewer={shouldOpenMediaViewer}
           mediaViewerDataSource={mediaViewerDataSource}
+          featureFlags={featureFlags}
           {...item}
         />
       );

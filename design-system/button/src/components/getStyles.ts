@@ -1,4 +1,9 @@
-import { borderRadius, fontSize, gridSize } from '@atlaskit/theme/constants';
+import {
+  borderRadius,
+  fontFamily,
+  fontSize,
+  gridSize,
+} from '@atlaskit/theme/constants';
 
 import { applyPropertyStyle, baseTheme } from '../theme';
 import { ThemeProps } from '../types';
@@ -108,6 +113,7 @@ export const getButtonStyles = (props: ThemeProps) => ({
   transitionDuration: getTransitionDuration(props),
   verticalAlign: getVerticalAlign(props),
   width: getWidth(props),
+  fontFamily: fontFamily(),
 
   '&::-moz-focus-inner': {
     border: 0,

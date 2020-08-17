@@ -1,4 +1,6 @@
-src/
+build/
+docs/
+examples-helpers/
 examples/
-example-helpers/
-index.ts
+src/
+tsconfig.json

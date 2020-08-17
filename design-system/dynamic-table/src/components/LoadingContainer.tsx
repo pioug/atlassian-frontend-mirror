@@ -15,6 +15,7 @@ interface Props {
   isLoading?: boolean;
   spinnerSize?: SpinnerSizeType;
   contentsOpacity: number;
+  testId?: string;
 }
 
 export default class LoadingContainer extends React.Component<Props, {}> {
@@ -25,7 +26,13 @@ export default class LoadingContainer extends React.Component<Props, {}> {
   };
 
   render() {
-    const { children, isLoading, spinnerSize, contentsOpacity } = this.props;
+    const {
+      children,
+      isLoading,
+      spinnerSize,
+      contentsOpacity,
+      testId,
+    } = this.props;
 
     return (
       <Container>
@@ -38,7 +45,10 @@ export default class LoadingContainer extends React.Component<Props, {}> {
         )}
         {isLoading && (
           <SpinnerContainer>
-            <Spinner size={spinnerSize} />
+            <Spinner
+              size={spinnerSize}
+              testId={testId && `${testId}--loadingSpinner`}
+            />
           </SpinnerContainer>
         )}
       </Container>

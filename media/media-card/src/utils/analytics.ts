@@ -4,12 +4,9 @@ import {
   FileState,
   Identifier,
 } from '@atlaskit/media-client';
-import {
-  MediaAnalyticsData,
-  MediaCardFeatureFlags,
-} from '@atlaskit/analytics-namespaced-context';
+import { MediaAnalyticsData } from '@atlaskit/analytics-namespaced-context';
 import { CardStatus } from '../';
-
+import { MediaFeatureFlags } from '@atlaskit/media-common';
 import { GasCorePayload } from '@atlaskit/analytics-gas-types';
 import {
   version as packageVersion,
@@ -38,7 +35,7 @@ export type MediaCardAnalyticsPayload = Partial<GasCorePayload> & {
     fileAttributes?: MediaCardAnalyticsFileAttributes;
     failReason?: AnalyticsLoadingFailReason;
     error?: string;
-    featureFlags?: MediaCardFeatureFlags;
+    featureFlags?: MediaFeatureFlags;
   };
 };
 
@@ -71,7 +68,7 @@ export const getFileAttributes = (
 export function getMediaCardAnalyticsContext(
   metadata?: FileDetails,
   fileStatus?: FileState,
-  featureFlags?: MediaCardFeatureFlags,
+  featureFlags?: MediaFeatureFlags,
 ): MediaAnalyticsData {
   return {
     fileAttributes: getFileAttributes(
@@ -175,7 +172,7 @@ export const getAnalyticsLoadingStatus = ({
 
 export const getCopiedFileAnalyticsPayload = (
   identifier: Identifier,
-  featureFlags?: MediaCardFeatureFlags,
+  featureFlags?: MediaFeatureFlags,
 ): MediaCardAnalyticsPayload => {
   const payload: MediaCardAnalyticsPayload = {
     eventType: 'ui',
@@ -194,7 +191,7 @@ export const getCopiedFileAnalyticsPayload = (
 
 export const getMediaCardCommencedAnalyticsPayload = (
   actionSubjectId: string,
-  featureFlags?: MediaCardFeatureFlags,
+  featureFlags?: MediaFeatureFlags,
 ): MediaCardAnalyticsPayload => {
   const payload: MediaCardAnalyticsPayload = {
     eventType: 'operational',
@@ -214,7 +211,7 @@ export type LoadingStatusPayloadArgs = {
   fileAttributes?: MediaCardAnalyticsFileAttributes;
   failReason?: AnalyticsLoadingFailReason;
   error?: string;
-  featureFlags?: MediaCardFeatureFlags;
+  featureFlags?: MediaFeatureFlags;
 };
 
 export type LoadingStatusPayload = (

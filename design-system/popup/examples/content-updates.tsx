@@ -44,34 +44,34 @@ const Quotes = ({ onUpdate }: { onUpdate: () => void }) => {
 
 export default () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isScheduleUpdateOn, setIsScheduleUpdateOn] = useState(true);
+  const [isUpdateOn, setIsUpdateOn] = useState(true);
 
   return (
-    <ButtonGroup>
-      <Popup
-        isOpen={isOpen}
-        onClose={() => setIsOpen(false)}
-        content={props => (
-          <Quotes onUpdate={isScheduleUpdateOn ? props.scheduleUpdate : noop} />
-        )}
-        trigger={triggerProps => (
-          <Button
-            {...triggerProps}
-            isSelected={isOpen}
-            onClick={() => setIsOpen(!isOpen)}
-          >
-            Quotes
-          </Button>
-        )}
-      />
-      <Button
-        isSelected={isScheduleUpdateOn}
-        onClick={() => setIsScheduleUpdateOn(prev => !prev)}
-      >
-        {isScheduleUpdateOn
-          ? 'Will schedule update'
-          : 'Will not schedule update'}
-      </Button>
-    </ButtonGroup>
+    <div style={{ width: '100%', textAlign: 'center' }}>
+      <ButtonGroup>
+        <Popup
+          isOpen={isOpen}
+          onClose={() => setIsOpen(false)}
+          content={props => (
+            <Quotes onUpdate={isUpdateOn ? props.update : noop} />
+          )}
+          trigger={triggerProps => (
+            <Button
+              {...triggerProps}
+              isSelected={isOpen}
+              onClick={() => setIsOpen(!isOpen)}
+            >
+              Quotes
+            </Button>
+          )}
+        />
+        <Button
+          isSelected={isUpdateOn}
+          onClick={() => setIsUpdateOn(prev => !prev)}
+        >
+          {isUpdateOn ? 'Will schedule update' : 'Will not schedule update'}
+        </Button>
+      </ButtonGroup>
+    </div>
   );
 };

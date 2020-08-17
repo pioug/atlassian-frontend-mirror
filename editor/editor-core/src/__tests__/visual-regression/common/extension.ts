@@ -1,5 +1,5 @@
 import { snapshot, initEditorWithAdf, Appearance } from '../_utils';
-import { Page } from '../../__helpers/page-objects/_types';
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import {
   clickBlockMenuItem,
   BlockMenuItem,
@@ -16,7 +16,7 @@ describe('Extension:', () => {
     });
   };
 
-  let page: Page;
+  let page: PuppeteerPage;
   beforeEach(async () => {
     page = global.page;
   });

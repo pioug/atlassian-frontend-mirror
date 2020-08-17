@@ -129,7 +129,7 @@ export function liftSelectionList(
 }
 
 // matchers for text lists
-const bullets = /^\s*[\*\-\u2022](\s*|$)/;
+const bullets = /^\s*[\*\-\u2022](\s+|\s+$)/;
 const numbers = /^\s*\d[\.\)](\s+|$)/;
 
 const getListType = (node: Node, schema: Schema): [NodeType, number] | null => {

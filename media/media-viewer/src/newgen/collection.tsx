@@ -14,6 +14,7 @@ import { toIdentifier } from './utils';
 import { Spinner } from './loading';
 import { WithShowControlMethodProp } from '@atlaskit/media-ui';
 import { MediaViewerExtensions } from '../components/types';
+import { MediaFeatureFlags } from '@atlaskit/media-common';
 
 export type Props = Readonly<
   {
@@ -25,6 +26,7 @@ export type Props = Readonly<
     onNavigationChange?: (selectedItem: Identifier) => void;
     extensions?: MediaViewerExtensions;
     onSidebarButtonClick?: () => void;
+    featureFlags?: MediaFeatureFlags;
   } & WithShowControlMethodProp
 >;
 
@@ -63,6 +65,7 @@ export class Collection extends React.Component<Props, State> {
       showControls,
       extensions,
       onSidebarButtonClick,
+      featureFlags,
     } = this.props;
 
     return this.state.items.match({
@@ -83,6 +86,7 @@ export class Collection extends React.Component<Props, State> {
             showControls={showControls}
             extensions={extensions}
             onSidebarButtonClick={onSidebarButtonClick}
+            featureFlags={featureFlags}
           />
         );
       },

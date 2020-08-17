@@ -1,10 +1,16 @@
 import { AnnotationId, AnnotationTypes } from '@atlaskit/adf-schema';
 import { TaskState } from '@atlaskit/task-decision';
+import { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import { Serialized } from '../../types';
 
 export type AnnotationPayloadsByType = {
   annotationIds: AnnotationId[];
   annotationType: AnnotationTypes;
+};
+
+export type AnnotationTypesAvailableOnCurrentSelection = {
+  type: AnnotationTypes;
+  canAnnotate: boolean;
 };
 
 export interface AnnotationBridge {
@@ -15,6 +21,14 @@ export interface AnnotationBridge {
   fetchAnnotationStates(
     annotations: Serialized<AnnotationPayloadsByType[]>,
   ): void;
+
+  canApplyAnnotationOnCurrentSelection(
+    payload: Serialized<AnnotationTypesAvailableOnCurrentSelection[]>,
+  ): void;
+}
+
+export interface ContentBridge {
+  setContent(adf: Serialized<JSONDocNode>): void;
 }
 
 export interface TaskDecisionBridge {
@@ -58,6 +72,7 @@ export interface RendererBridges {
   renderBridge?: RenderBridge;
   analyticsBridge?: AnalyticsBridge;
   annotationBridge?: AnnotationBridge;
+  contentBridge?: ContentBridge;
 }
 
 export type RendererPluginBridges = keyof RendererBridges;

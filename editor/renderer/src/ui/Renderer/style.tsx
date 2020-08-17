@@ -302,7 +302,6 @@ export const Wrapper = styled.div<RendererWrapperProps & HTMLAttributes<{}>>`
     padding: 2px 4px;
     margin: 0 1px;
     transition: background 0.3s;
-    white-space: nowrap;
   }
 
   & span.date-node-highlighted {

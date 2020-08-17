@@ -16,13 +16,13 @@
   "atlaskit:designLink": "https://atlassian.design/guidelines/product/components/multi-select",
   "atlassian": {
     "team": "Design System Team",
+    "deprecatedAutoEntryPoints": true,
     "inPublicMirror": true,
     "releaseModel": "scheduled",
     "website": {
       "deprecated": "Please use @atlaskit/select instead.",
       "name": "Multi Select"
-    },
-    "deprecatedAutoEntryPoints": true
+    }
   },
   "dependencies": {
     "@atlaskit/droplist": "^11.0.0",

@@ -222,7 +222,13 @@ describe('hyperlink commands', () => {
         refs: { '<': from, '>': to },
       } = editor(doc(p('He{<}llo', strong('wor{>}ld'))));
 
-      insertLink(from, to, googleUrl, 'llowor')(view.state, view.dispatch);
+      insertLink(
+        from,
+        to,
+        googleUrl,
+        undefined,
+        'llowor',
+      )(view.state, view.dispatch);
       expect(view.state.doc).toEqualDocument(
         doc(
           p('He', a({ href: googleUrl })('llo', strong('wor')), strong('ld')),
@@ -238,7 +244,13 @@ describe('hyperlink commands', () => {
         doc(p('He{<}llo', emoji({ shortName: ':smiley:' })(), ' world{>}')),
       );
 
-      insertLink(from, to, googleUrl, 'llo world')(view.state, view.dispatch);
+      insertLink(
+        from,
+        to,
+        googleUrl,
+        undefined,
+        'llo world',
+      )(view.state, view.dispatch);
       expect(view.state.doc).toEqualDocument(
         doc(
           p(
@@ -287,6 +299,7 @@ describe('hyperlink commands', () => {
           sel,
           'http://www.atlassian.com/',
           undefined,
+          undefined,
           INPUT_METHOD.MANUAL,
         )(view.state, view.dispatch),
       ).toBe(true);
@@ -312,6 +325,7 @@ describe('hyperlink commands', () => {
           sel,
           sel,
           'http://www.atlassian.com/',
+          undefined,
           'http://www.atlassian.com/',
           INPUT_METHOD.MANUAL,
         )(view.state, view.dispatch),
@@ -347,6 +361,7 @@ describe('hyperlink commands', () => {
           sel,
           sel,
           'http://www.atlassian.com/',
+          undefined,
           'atlassian',
           INPUT_METHOD.MANUAL,
         )(view.state, view.dispatch),
@@ -354,32 +369,6 @@ describe('hyperlink commands', () => {
       expect(cardPluginKey.getState(view.state)).toEqual({
         cards: [],
         requests: [],
-        provider: null, // cardProvider would have been set yet
-        showLinkingToolbar: false,
-      });
-    });
-    it('should attempt to queue the url with the card plugin if source is TYPEAHEAD, despite text being non-empty and url not equal to href', () => {
-      const { editorView: view, sel } = editor(doc(p('{<>}')));
-      expect(
-        insertLink(
-          sel,
-          sel,
-          'http://www.atlassian.com/',
-          'atlassian',
-          INPUT_METHOD.TYPEAHEAD,
-        )(view.state, view.dispatch),
-      ).toBe(true);
-      expect(cardPluginKey.getState(view.state)).toEqual({
-        cards: [],
-        requests: [
-          {
-            url: 'http://www.atlassian.com/',
-            pos: 1,
-            appearance: 'inline',
-            compareLinkText: false,
-            source: 'typeAhead',
-          },
-        ],
         provider: null, // cardProvider would have been set yet
         showLinkingToolbar: false,
       });
@@ -425,6 +414,7 @@ describe('hyperlink commands', () => {
         sel,
         sel,
         googleUrl,
+        undefined,
         'Google',
       )(view.state, view.dispatch);
       expect(createAnalyticsEvent).toBeCalledWith({
@@ -432,7 +422,10 @@ describe('hyperlink commands', () => {
         actionSubject: 'document',
         actionSubjectId: 'link',
         eventType: 'track',
-        attributes: expect.objectContaining({ inputMethod: 'manual' }),
+        attributes: expect.objectContaining({
+          inputMethod: 'manual',
+          fromCurrentDomain: false,
+        }),
         nonPrivacySafeAttributes: { linkDomain: 'google.com' },
       });
     });

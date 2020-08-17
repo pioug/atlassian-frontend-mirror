@@ -1,13 +1,72 @@
+import WebdriverPage from '@atlaskit/webdriver-runner/wd-wrapper';
+import { documentWithDecision } from './__fixtures__/document-with-decision';
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
-import { getDocFromElement, fullpage } from '../_helpers';
+import { getExampleUrl } from '@atlaskit/visual-regression/helper';
+import {
+  getDocFromElement,
+  fullpage,
+  copyAsPlainText,
+  copyAsHTML,
+} from '../_helpers';
 import {
   goToEditorTestingExample,
   mountEditor,
-  copyAsPlainText,
-  copyAsHTML,
 } from '../../__helpers/testing-example-helpers';
 
 const editorSelector = '.ProseMirror';
+
+/*
+ NOTE: this only works on this url:
+ https://atlaskit.atlassian.com/examples.html?groupId=editor&packageId=renderer&exampleId=testing
+ for testing copy/paste logic
+*/
+async function mountRenderer(
+  page: WebdriverPage,
+  props?: {
+    withRendererActions?: boolean;
+  },
+  adf?: Object,
+): Promise<boolean> {
+  const rendererAvailable = await page.executeAsync(
+    (props, adf, done: (found: boolean) => boolean) => {
+      function waitAndCall() {
+        let win = window as any;
+        if (win.__mountRenderer) {
+          win.__mountRenderer(props, adf);
+          done(true);
+        } else {
+          // There is no need to implement own timeout, if done() is not called on time,
+          // webdriver will throw with own timeout.
+          setTimeout(waitAndCall, 20);
+        }
+      }
+
+      waitAndCall();
+
+      // TODO: https://product-fabric.atlassian.net/browse/ED-9925
+      //
+      // As a temporary workaround to the above ticket's probelm, here we
+      // prematurely abort after 3 seconds (less than the 5s default timeout)
+      // if it hasn't found a match.
+      // We do this for graceful continuation in the situation where a default
+      // pipeline build hasn't pre-built the renderer package examples.
+      setTimeout(() => {
+        // eslint-disable-next-line no-console
+        console.warn(
+          `Renderer example isn't available. Gracefully continuing test without any test assertions so that it's non-blocking in CI.`,
+        );
+        done(false);
+      }, 3000);
+    },
+    props,
+    adf,
+  );
+  if (rendererAvailable) {
+    await page.waitForSelector('.ak-renderer-wrapper', { timeout: 500 });
+  }
+  return rendererAvailable;
+}
+
 BrowserTestCase(
   'paste.ts: paste tests on fullpage editor: plain text',
   { skip: ['edge', 'safari'] },
@@ -95,5 +154,57 @@ BrowserTestCase(
     await page.waitForSelector('p');
     const doc = await page.$eval(editorSelector, getDocFromElement);
     expect(doc).toMatchCustomDocSnapshot(testName);
+  },
+);
+
+BrowserTestCase(
+  'paste.ts: decision item copied from renderer and pasted',
+  /* NOTE: https://product-fabric.atlassian.net/browse/ED-9822:
+     we've got this bug in Firefox where it doubles up the items when pasting
+  */
+  { skip: ['edge', 'safari', 'firefox'] },
+  async (client: WebdriverIO.BrowserObject, testName: string) => {
+    let page = new WebdriverPage(client);
+    let url = getExampleUrl(
+      'editor',
+      'renderer',
+      'testing',
+      // @ts-ignore
+      global.__BASEURL__,
+    );
+
+    await page.goto(url);
+    await page.maximizeWindow();
+
+    const rendererMounted = await mountRenderer(
+      page,
+      { withRendererActions: true },
+      documentWithDecision,
+    );
+
+    // Only run the test assertions when the example is available.
+    // When unavailable, gracefully pass the test to avoid blocking CI.
+    if (rendererMounted) {
+      const selectorStart = 'p';
+      const selectorEnd = 'h3';
+      const decisionListSelector = 'ol[data-node-type="decisionList"]';
+
+      await page.waitForSelector(selectorStart);
+      await page.waitForSelector(selectorEnd);
+      await page.waitForSelector(decisionListSelector);
+      await page.simulateUserSelection(selectorStart, selectorEnd);
+      await page.copy();
+
+      page = await goToEditorTestingExample(client);
+      await mountEditor(page, {
+        appearance: fullpage.appearance,
+      });
+
+      await page.paste();
+      await page.waitForSelector(decisionListSelector);
+
+      const doc = await page.$eval(editorSelector, getDocFromElement);
+      expect(doc).toMatchCustomDocSnapshot(testName);
+    }
   },
 );

@@ -21,3 +21,11 @@ export function isPerformanceAPIAvailable(): boolean {
 export function isPerformanceObserverAvailable(): boolean {
   return !!(typeof window !== 'undefined' && 'PerformanceObserver' in window);
 }
+
+export function isPerformanceObserverLongTaskAvailable(): boolean {
+  return (
+    isPerformanceObserverAvailable() &&
+    PerformanceObserver.supportedEntryTypes &&
+    PerformanceObserver.supportedEntryTypes.includes('longtask')
+  );
+}

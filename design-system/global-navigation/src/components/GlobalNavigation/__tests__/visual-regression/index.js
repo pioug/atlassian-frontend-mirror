@@ -13,6 +13,8 @@ describe('Snapshot Test', () => {
     const { page } = global;
     await loadPage(page, url);
     await page.waitForSelector(toggleButtonSelector);
+    await page.hover(toggleButtonSelector);
+
     const image = await page.screenshot();
     expect(image).toMatchProdImageSnapshot();
   });
@@ -27,6 +29,7 @@ describe('Snapshot Test', () => {
     const { page } = global;
     await loadPage(page, url);
     await page.waitForSelector(toggleButtonSelector);
+    await page.hover(toggleButtonSelector);
     const image = await page.screenshot();
     expect(image).toMatchProdImageSnapshot();
   });

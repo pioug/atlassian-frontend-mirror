@@ -4,7 +4,6 @@ import {
 } from 'prosemirror-inputrules';
 import { Schema, NodeType } from 'prosemirror-model';
 import { Plugin } from 'prosemirror-state';
-import { analyticsService, trackAndInvoke } from '../../../analytics';
 import {
   createInputRule,
   instrumentedInputRule,
@@ -86,15 +85,6 @@ function getHeadingRules(schema: Schema): InputRuleWithHandler[] {
     true,
   );
 
-  // Old analytics stuff
-  const currentHandler = hashRule.handler;
-  hashRule.handler = (state, match: string[], start: number, end: number) => {
-    analyticsService.trackEvent(
-      `atlassian.editor.format.heading${match[1].length}.autoformatting`,
-    );
-    return currentHandler(state, match, start, end);
-  };
-
   // New analytics handler
   const ruleWithHeadingAnalytics = ruleWithAnalytics(
     (_state, match: string[]) => ({
@@ -126,11 +116,6 @@ function getBlockQuoteRules(schema: Schema): InputRuleWithHandler[] {
   const greatherThanRule = defaultInputRuleHandler(
     blockQuoteRule(schema.nodes.blockquote),
     true,
-  );
-
-  greatherThanRule.handler = trackAndInvoke(
-    'atlassian.editor.format.blockquote.autoformatting',
-    greatherThanRule.handler as any,
   );
 
   const leftNodeReplacementGreatherRule = createInputRule(
@@ -188,9 +173,6 @@ function getCodeBlockRules(schema: Schema): InputRuleWithHandler[] {
       }
       const newStart = match[0][0] === ' ' ? start + 1 : start;
       if (isConvertableToCodeBlock(state)) {
-        analyticsService.trackEvent(
-          `atlassian.editor.format.codeblock.autoformatting`,
-        );
         const tr = transformToCodeBlockAction(state, attributes)
           // remove markdown decorator ```
           .delete(newStart, end)

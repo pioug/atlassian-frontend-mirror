@@ -26,6 +26,7 @@ import {
   ImageStatus,
   ContextIdentifierProvider,
 } from '@atlaskit/editor-common';
+import { MediaFeatureFlags } from '@atlaskit/media-common';
 import { RendererAppearance } from './Renderer/types';
 import { RendererContext } from '../react/types';
 import styled from 'styled-components';
@@ -58,6 +59,7 @@ export interface MediaCardProps {
   useInlinePlayer?: boolean;
   rendererContext?: RendererContext;
   alt?: string;
+  featureFlags?: MediaFeatureFlags;
 }
 
 export interface State {
@@ -191,6 +193,7 @@ export class MediaCardInternal extends Component<MediaCardProps, State> {
       imageStatus,
       disableOverlay,
       alt,
+      featureFlags,
     } = this.props;
 
     if (imageStatus === 'loading' || !url) {
@@ -218,6 +221,7 @@ export class MediaCardInternal extends Component<MediaCardProps, State> {
         mediaViewerDataSource={{
           list: Array.from(mediaIdentifierMap.values()),
         }}
+        featureFlags={featureFlags}
       />
     );
   }
@@ -269,6 +273,7 @@ export class MediaCardInternal extends Component<MediaCardProps, State> {
       useInlinePlayer,
       originalDimensions,
       shouldOpenMediaViewer: forceOpenMediaViewer,
+      featureFlags,
     } = this.props;
     const isMobile = rendererAppearance === 'mobile';
     const shouldPlayInline =
@@ -334,6 +339,7 @@ export class MediaCardInternal extends Component<MediaCardProps, State> {
           mediaViewerDataSource={{
             list: Array.from(mediaIdentifierMap.values()),
           }}
+          featureFlags={featureFlags}
         />
       </CardWrapper>
     );

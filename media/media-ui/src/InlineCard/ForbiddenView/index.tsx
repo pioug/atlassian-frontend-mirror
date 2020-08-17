@@ -7,11 +7,17 @@ import { IconAndTitleLayout } from '../IconAndTitleLayout';
 import { AKIconWrapper } from '../Icon';
 import { messages } from '../../messages';
 import { FormattedMessage } from 'react-intl';
-import { IconStyledButton, NoLinkAppearance } from '../styled';
+import {
+  IconStyledButton,
+  LowercaseAppearance,
+  LinkAppearance,
+} from '../styled';
 
 export interface InlineCardForbiddenViewProps {
   /** The url to display */
   url: string;
+  /** The icon of the service (e.g. Dropbox/Asana/Google/etc) to display */
+  icon?: React.ReactNode;
   /** The optional click handler */
   onClick?: React.EventHandler<React.MouseEvent | React.KeyboardEvent>;
   /** The optional handler for "Connect" button */
@@ -21,6 +27,12 @@ export interface InlineCardForbiddenViewProps {
   /** A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests */
   testId?: string;
 }
+
+const FallbackForbiddenIcon = (
+  <AKIconWrapper>
+    <LockIcon label="error" size="small" primaryColor={R400} />
+  </AKIconWrapper>
+);
 
 export class InlineCardForbiddenView extends React.Component<
   InlineCardForbiddenViewProps
@@ -33,29 +45,41 @@ export class InlineCardForbiddenView extends React.Component<
   };
 
   renderMessage = () => {
-    const { onAuthorise } = this.props;
+    const { onAuthorise, url } = this.props;
+    const link = <LinkAppearance>{url}</LinkAppearance>;
     return !onAuthorise ? (
-      <FormattedMessage {...messages.invalid_permissions} />
+      link
     ) : (
-      <Button
-        spacing="none"
-        appearance="link"
-        onClick={this.handleRetry}
-        component={IconStyledButton}
-      >
-        <FormattedMessage {...messages.invalid_permissions}>
-          {formattedMessage => {
-            return <NoLinkAppearance>{formattedMessage}. </NoLinkAppearance>;
-          }}
-        </FormattedMessage>
-        <FormattedMessage {...messages.try_another_account} />
-      </Button>
+      <>
+        {link}
+        {' - '}
+        <Button
+          spacing="none"
+          appearance="subtle-link"
+          onClick={this.handleRetry}
+          component={IconStyledButton}
+        >
+          <FormattedMessage {...messages.invalid_permissions}>
+            {formattedMessage => {
+              return <>{formattedMessage}, </>;
+            }}
+          </FormattedMessage>
+          <FormattedMessage {...messages.try_another_account}>
+            {formattedMessage => {
+              return (
+                <LowercaseAppearance>{formattedMessage}</LowercaseAppearance>
+              );
+            }}
+          </FormattedMessage>
+        </Button>
+      </>
     );
   };
 
   render() {
     const {
       url,
+      icon,
       onClick,
       isSelected,
       testId = 'inline-card-forbidden-view',
@@ -68,11 +92,7 @@ export class InlineCardForbiddenView extends React.Component<
         isSelected={isSelected}
       >
         <IconAndTitleLayout
-          icon={
-            <AKIconWrapper>
-              <LockIcon label="error" size="small" primaryColor={R400} />
-            </AKIconWrapper>
-          }
+          icon={icon ? icon : FallbackForbiddenIcon}
           title={this.renderMessage()}
           titleColor={N500}
         />

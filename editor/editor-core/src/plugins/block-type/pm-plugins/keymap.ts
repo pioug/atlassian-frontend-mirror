@@ -5,7 +5,6 @@ import { Schema } from 'prosemirror-model';
 import { Plugin } from 'prosemirror-state';
 import * as keymaps from '../../../keymaps';
 import * as commands from '../../../commands';
-import { trackAndInvoke } from '../../../analytics';
 import * as blockTypes from '../types';
 import { keymap } from '../../../utils/keymap';
 import {
@@ -14,8 +13,6 @@ import {
 } from '../../block-type/commands';
 import { INPUT_METHOD } from '../../analytics';
 
-const analyticsEventName = (blockTypeName: string, eventSource: string) =>
-  `atlassian.editor.format.${blockTypeName}.${eventSource}`;
 const tryUndoInputRuleElseUndoHistory = chainCommands(undoInputRule, undo);
 
 export default function keymapPlugin(schema: Schema): Plugin {
@@ -23,40 +20,28 @@ export default function keymapPlugin(schema: Schema): Plugin {
 
   keymaps.bindKeymapWithCommand(
     keymaps.insertNewLine.common!,
-    trackAndInvoke(
-      'atlassian.editor.newline.keyboard',
-      commands.insertNewLineWithAnalytics,
-    ),
+    commands.insertNewLineWithAnalytics,
     list,
   );
   keymaps.bindKeymapWithCommand(
     keymaps.moveUp.common!,
-    trackAndInvoke(
-      'atlassian.editor.moveup.keyboard',
-      commands.createNewParagraphAbove,
-    ),
+    commands.createNewParagraphAbove,
     list,
   );
   keymaps.bindKeymapWithCommand(
     keymaps.moveDown.common!,
-    trackAndInvoke(
-      'atlassian.editor.movedown.keyboard',
-      commands.createNewParagraphBelow,
-    ),
+    commands.createNewParagraphBelow,
     list,
   );
   keymaps.bindKeymapWithCommand(
     keymaps.findKeyMapForBrowser(keymaps.redo)!,
-    trackAndInvoke('atlassian.editor.redo.keyboard', redo),
+    redo,
     list,
   );
 
   keymaps.bindKeymapWithCommand(
     keymaps.undo.common!,
-    trackAndInvoke(
-      'atlassian.editor.undo.keyboard',
-      tryUndoInputRuleElseUndoHistory,
-    ),
+    tryUndoInputRuleElseUndoHistory,
     list,
   );
   keymaps.bindKeymapWithCommand(
@@ -74,12 +59,9 @@ export default function keymapPlugin(schema: Schema): Plugin {
   if (schema.nodes[blockTypes.BLOCK_QUOTE.nodeName]) {
     keymaps.bindKeymapWithCommand(
       keymaps.findShortcutByKeymap(keymaps.toggleBlockQuote)!,
-      trackAndInvoke(
-        analyticsEventName(blockTypes.BLOCK_QUOTE.name, INPUT_METHOD.KEYBOARD),
-        insertBlockTypesWithAnalytics(
-          blockTypes.BLOCK_QUOTE.name,
-          INPUT_METHOD.KEYBOARD,
-        ),
+      insertBlockTypesWithAnalytics(
+        blockTypes.BLOCK_QUOTE.name,
+        INPUT_METHOD.KEYBOARD,
       ),
       list,
     );

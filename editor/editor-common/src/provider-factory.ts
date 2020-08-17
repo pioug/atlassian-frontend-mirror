@@ -21,6 +21,12 @@ export {
   ExtensionType,
 } from './provider-factory/macro-provider';
 
+export {
+  SearchProvider,
+  LinkContentType,
+  QuickSearchResult,
+} from './provider-factory/search-provider';
+
 export { CardProvider, CardAppearance } from './provider-factory/card-provider';
 
 export {

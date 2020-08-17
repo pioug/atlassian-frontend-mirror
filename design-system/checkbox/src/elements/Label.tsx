@@ -1,10 +1,13 @@
 /** @jsx jsx */
 import { CSSObject, jsx } from '@emotion/core';
 
+import { fontFamily } from '@atlaskit/theme/constants';
+
 import { LabelCSSProps, LabelProps } from '../types';
 import { defaultAttributesFn } from '../utils';
 
 export const labelCSS = ({ isDisabled, tokens }: LabelCSSProps): CSSObject => ({
+  fontFamily: fontFamily(),
   alignItems: 'flex-start',
   display: 'flex',
   color: isDisabled

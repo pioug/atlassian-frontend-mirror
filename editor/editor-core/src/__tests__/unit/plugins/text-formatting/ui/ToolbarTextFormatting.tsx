@@ -4,7 +4,6 @@ import { ReactWrapper } from 'enzyme';
 import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { doc, p } from '@atlaskit/editor-test-helpers/schema-builder';
-import { analyticsService, AnalyticsHandler } from '../../../../../analytics';
 import ToolbarButton from '../../../../../ui/ToolbarButton';
 import {
   TextFormattingState,
@@ -56,7 +55,6 @@ describe('ToolbarTextFormatting', () => {
   });
 
   describe('analytics', () => {
-    let trackEvent: AnalyticsHandler;
     let toolbarOption: ReactWrapper;
 
     function clickItalicButton(wrapper: ReactWrapper): void {
@@ -81,28 +79,10 @@ describe('ToolbarTextFormatting', () => {
           editorView={editorView}
         />,
       );
-      trackEvent = jest.fn();
-
-      analyticsService.trackEvent = trackEvent;
     });
 
     afterEach(() => {
       toolbarOption.unmount();
-    });
-
-    it('should trigger analyticsService.trackEvent when bold button is clicked', () => {
-      clickBoldButton(toolbarOption);
-      expect(trackEvent).toHaveBeenCalledWith(
-        'atlassian.editor.format.strong.button',
-      );
-    });
-
-    it('should trigger analyticsService.trackEvent when italic button is clicked', () => {
-      clickItalicButton(toolbarOption);
-
-      expect(trackEvent).toHaveBeenCalledWith(
-        'atlassian.editor.format.em.button',
-      );
     });
 
     it('should trigger fireAnalyticsEvent when bold button is clicked', () => {

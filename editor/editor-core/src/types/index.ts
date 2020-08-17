@@ -1,12 +1,16 @@
 export { EditorInstance } from './editor-instance';
+// eslint-disable-next-line import/no-cycle
 export { EditorConfig } from './editor-config';
+// eslint-disable-next-line import/no-cycle
 export { EditorPlugin, PluginsOptions } from './editor-plugin';
+export { EditorReactContext } from './editor-react-context';
 export {
   EditorProps,
   FeedbackInfo,
   ReactComponents,
   ExtensionProvidersProp,
 } from './editor-props';
+// eslint-disable-next-line import/no-cycle
 export { EditorAppearanceComponentProps } from './editor-appearance-component';
 export { Command, CommandDispatch } from './command';
 export { MessageDescriptor } from './i18n';
@@ -18,6 +22,7 @@ export {
   ToolbarUIComponentFactory,
   ToolbarUiComponentFactoryParams,
 } from '../ui/Toolbar/types';
+// eslint-disable-next-line import/no-cycle
 export {
   PMPlugin,
   PMPluginFactory,

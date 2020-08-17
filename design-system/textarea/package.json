@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/textarea",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Textarea Component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -17,12 +17,12 @@
   "atlaskit:designLink": "https://atlassian.design/guidelines/product/components/text-field",
   "atlassian": {
     "team": "Design System Team",
+    "deprecatedAutoEntryPoints": true,
     "inPublicMirror": true,
     "releaseModel": "scheduled",
     "website": {
       "name": "Textarea"
-    },
-    "deprecatedAutoEntryPoints": true
+    }
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^7.0.0",

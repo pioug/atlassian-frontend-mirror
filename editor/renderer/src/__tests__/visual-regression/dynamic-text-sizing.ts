@@ -1,9 +1,9 @@
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { snapshot, initRendererWithADF } from './_utils';
 import * as document from '../__fixtures__/document-without-media.adf.json';
-import { Page } from 'puppeteer';
 
 const initRenderer = async (
-  page: Page,
+  page: PuppeteerPage,
   viewport: { width: number; height: number },
 ) => {
   await initRendererWithADF(page, {
@@ -15,7 +15,7 @@ const initRenderer = async (
 };
 // TODO: https://product-fabric.atlassian.net/browse/ED-7721
 describe.skip('Snapshot Test: Dynamic Text Sizing', () => {
-  let page: Page;
+  let page: PuppeteerPage;
   beforeAll(() => {
     page = global.page;
   });

@@ -1,4 +1,4 @@
-import { Auth, AuthProvider } from '@atlaskit/media-core';
+import { authToOwner, AuthProvider } from '@atlaskit/media-core';
 import fetchMock from 'fetch-mock/cjs/client';
 import {
   ResponseFileItem,
@@ -14,9 +14,10 @@ import {
   UploadableFile,
   UploadableFileUpfrontIds,
   UploadController,
+  FilePreview,
+  isPreviewableFileState,
   isErrorFileState,
 } from '../..';
-import * as MediaClientModule from '../..';
 import uuid from 'uuid';
 import { UploadFileCallbacks } from '../../uploader';
 import { FileFetcherImpl, getItemsFromKeys } from '../../client/file-fetcher';
@@ -26,20 +27,18 @@ import {
   asMockFunction,
   asMockFunctionReturnValue,
   fakeMediaClient,
+  sleep,
+  timeoutPromise,
 } from '@atlaskit/media-test-helpers';
 import { observableToPromise } from '../../utils/observableToPromise';
+import { isMimeTypeSupportedByServer } from '../../utils/isMimeTypeSupportedByServer';
+import * as MediaStoreModule from '../../client/media-store';
 
 jest.mock('../../utils/getDimensionsFromBlob', () => {
   return {
     getDimensionsFromBlob: () => {
       return { width: 1, height: 1 };
     },
-  };
-});
-
-jest.mock('../../utils/getMediaTypeFromMimeType', () => {
-  return {
-    getMediaTypeFromMimeType: () => 'image',
   };
 });
 
@@ -165,6 +164,14 @@ describe('FileFetcher', () => {
         occurrenceKey: 'upfront-occurrence-key',
       });
 
+    const mockAuthProvider: jest.Mocked<AuthProvider> = jest
+      .fn()
+      .mockResolvedValue({
+        clientId: 'some-client-id',
+        token: 'some-token',
+        baseUrl: 'some-service-host',
+      });
+
     return {
       fileFetcher,
       mediaStore,
@@ -172,8 +179,18 @@ describe('FileFetcher', () => {
       itemsResponse,
       createUploadableFile,
       uploadFileUpfrontIds,
+      mockAuthProvider,
     };
   };
+
+  const MockMediaStoreConstructor = (jest.genMockFromModule(
+    '../../client/media-store',
+  ) as typeof MediaStoreModule)['MediaStore'];
+
+  const createMockMediaStore = (authProvider: AuthProvider) =>
+    new MockMediaStoreConstructor({
+      authProvider,
+    });
 
   beforeEach(() => {
     jest.spyOn(globalMediaEventEmitter, 'emit');
@@ -451,32 +468,26 @@ describe('FileFetcher', () => {
 
   describe('copyFile', () => {
     it('should call mediaStore.copyFileWithToken', async () => {
-      const MediaStoreSpy = jest.spyOn(MediaClientModule, 'MediaStore');
-      const { items, fileFetcher } = setup();
-      const copyFileWithTokenMock = jest.fn().mockResolvedValue({ data: {} });
-      MediaStoreSpy.mockImplementation(
-        () =>
-          ({
-            copyFileWithToken: copyFileWithTokenMock,
-          } as any),
-      );
-
-      const owner: Auth = {
-        asapIssuer: 'asapIssuer',
-        token: 'sometoken',
-        baseUrl: 'somebaseurl',
-      };
-      const authProvider: AuthProvider = () => Promise.resolve(owner);
+      const { items, fileFetcher, mockAuthProvider } = setup();
+      const copyFileWithTokenMock = jest
+        .fn()
+        .mockResolvedValue({ data: { mimeType: 'application/octet-stream' } });
       const userAuthProvider = jest.fn();
+      const mediaStore = createMockMediaStore(userAuthProvider);
+
+      mediaStore.copyFileWithToken = copyFileWithTokenMock;
+
+      const destinationAuthProvider = jest.fn();
 
       const source = {
         id: items[0].id,
         collection: 'someCollectionName',
-        authProvider,
+        authProvider: mockAuthProvider,
       };
       const destination = {
         collection: RECENTS_COLLECTION,
-        authProvider: userAuthProvider,
+        authProvider: destinationAuthProvider,
+        mediaStore,
       };
       await fileFetcher.copyFile(source, destination);
       expectFunctionToHaveBeenCalledWith(copyFileWithTokenMock, [
@@ -484,58 +495,45 @@ describe('FileFetcher', () => {
           sourceFile: {
             id: items[0].id,
             collection: 'someCollectionName',
-            owner,
+            owner: authToOwner(await mockAuthProvider()),
           },
         },
         {
           collection: RECENTS_COLLECTION,
         },
       ]);
-      expect(MediaStoreSpy).toHaveBeenCalledWith({
-        authProvider: destination.authProvider,
-      });
     });
 
-    it('should populate cache with the copied file', async () => {
-      const MediaStoreSpy = jest.spyOn(MediaClientModule, 'MediaStore');
+    it('should populate cache when copied file "processingStatus" is succeeded', async () => {
+      const { items, fileFetcher, mockAuthProvider } = setup();
       const copiedFile: MediaFile = {
         id: 'copied-file-id',
         name: 'copied-file-name',
+        processingStatus: 'succeeded',
         artifacts: {},
-        mediaType: 'audio',
-        mimeType: '',
+        mediaType: 'archive',
+        mimeType: 'application/zip',
         representations: {},
         size: 1,
+        createdAt: -1,
       };
-      const { items, fileFetcher } = setup();
-      const copyFileWithTokenMock = jest
-        .fn()
-        .mockResolvedValue({ data: copiedFile });
-      MediaStoreSpy.mockImplementation(
-        () =>
-          ({
-            copyFileWithToken: copyFileWithTokenMock,
-          } as any),
-      );
-
-      const owner: Auth = {
-        asapIssuer: 'asapIssuer',
-        token: 'sometoken',
-        baseUrl: 'somebaseurl',
-      };
-      const authProvider: AuthProvider = () => Promise.resolve(owner);
-      const userAuthProvider = jest.fn();
-
+      const mediaStore = createMockMediaStore(jest.fn());
+      asMock(mediaStore.copyFileWithToken).mockResolvedValue({
+        data: copiedFile,
+      });
       const source = {
         id: items[0].id,
         collection: 'someCollectionName',
-        authProvider,
+        authProvider: mockAuthProvider,
       };
       const destination = {
         collection: RECENTS_COLLECTION,
-        authProvider: userAuthProvider,
+        authProvider: mockAuthProvider,
+        mediaStore,
       };
+
       await fileFetcher.copyFile(source, destination);
+
       const copiedFileObservable = getFileStreamsCache().get('copied-file-id');
       if (!copiedFileObservable) {
         return expect(copiedFileObservable).toBeDefined();
@@ -543,9 +541,317 @@ describe('FileFetcher', () => {
 
       const copiedFileState = await observableToPromise(copiedFileObservable);
       expect(copiedFileState).toEqual({
-        ...copiedFile,
-        status: 'processing',
+        id: 'copied-file-id',
+        name: 'copied-file-name',
+        status: 'processed',
+        artifacts: {},
+        mediaType: 'archive',
+        mimeType: 'application/zip',
+        representations: {},
+        size: 1,
+        createdAt: -1,
       });
+    });
+
+    it('should populate cache when copied file "processingStatus" is failed', async () => {
+      const { items, fileFetcher, mockAuthProvider } = setup();
+      const copiedFile: MediaFile = {
+        id: 'copied-file-id',
+        name: 'copied-file-name',
+        processingStatus: 'failed',
+        artifacts: {},
+        mediaType: 'archive',
+        mimeType: 'application/zip',
+        representations: {},
+        size: 1,
+        createdAt: -1,
+      };
+      const mediaStore = createMockMediaStore(jest.fn());
+      asMock(mediaStore.copyFileWithToken).mockResolvedValue({
+        data: copiedFile,
+      });
+      const source = {
+        id: items[0].id,
+        collection: 'someCollectionName',
+        authProvider: mockAuthProvider,
+      };
+      const destination = {
+        collection: RECENTS_COLLECTION,
+        authProvider: mockAuthProvider,
+        mediaStore,
+      };
+
+      await fileFetcher.copyFile(source, destination);
+
+      const copiedFileObservable = getFileStreamsCache().get('copied-file-id');
+      if (!copiedFileObservable) {
+        return expect(copiedFileObservable).toBeDefined();
+      }
+
+      const copiedFileState = await observableToPromise(copiedFileObservable);
+      expect(copiedFileState).toEqual({
+        id: 'copied-file-id',
+        name: 'copied-file-name',
+        status: 'failed-processing',
+        artifacts: {},
+        mediaType: 'archive',
+        mimeType: 'application/zip',
+        representations: {},
+        size: 1,
+        createdAt: -1,
+      });
+    });
+
+    it('should not populate cache when copied file "processingStatus" is pending', async () => {
+      const { items, fileFetcher, mockAuthProvider } = setup();
+      const copiedFile: MediaFile = {
+        id: 'copied-file-id',
+        name: 'copied-file-name',
+        processingStatus: 'pending',
+        artifacts: {},
+        mediaType: 'archive',
+        mimeType: 'application/zip',
+        representations: {},
+        size: 1,
+        createdAt: -1,
+      };
+      const mediaStore = createMockMediaStore(jest.fn());
+      asMock(mediaStore.copyFileWithToken).mockResolvedValue({
+        data: copiedFile,
+      });
+      const source = {
+        id: items[0].id,
+        collection: 'someCollectionName',
+        authProvider: mockAuthProvider,
+      };
+      const destination = {
+        collection: RECENTS_COLLECTION,
+        authProvider: mockAuthProvider,
+        mediaStore,
+      };
+
+      await fileFetcher.copyFile(source, destination);
+
+      const copiedFileObservable = getFileStreamsCache().get('copied-file-id');
+      if (!copiedFileObservable) {
+        return expect(copiedFileObservable).toBeDefined();
+      }
+
+      try {
+        await Promise.race([
+          observableToPromise(copiedFileObservable),
+          timeoutPromise(
+            300,
+            'There should be no emission from copiedFileObservable',
+          ),
+        ]);
+      } catch (e) {
+        expect(e).toEqual(
+          'There should be no emission from copiedFileObservable',
+        );
+      }
+      expect.assertions(1);
+    });
+
+    it('should update cache in case of an error', async () => {
+      const { items, fileFetcher, mockAuthProvider } = setup();
+      const error = new Error('error while copying source file');
+      const mediaStore = createMockMediaStore(jest.fn());
+      asMock(mediaStore.copyFileWithToken).mockRejectedValue(error);
+
+      const source = {
+        id: items[0].id,
+        collection: 'someCollectionName',
+        authProvider: mockAuthProvider,
+      };
+      const destination = {
+        collection: RECENTS_COLLECTION,
+        replaceFileId: 'copied-file-id',
+        authProvider: mockAuthProvider,
+        mediaStore,
+      };
+
+      try {
+        await fileFetcher.copyFile(source, destination);
+      } catch (err) {
+        expect(err).toEqual(error);
+
+        const fileObservable = getFileStreamsCache().get(items[0].id);
+        if (!fileObservable) {
+          return expect(fileObservable).toBeDefined();
+        }
+
+        const errorFileState = await observableToPromise(fileObservable);
+        expect(errorFileState).toEqual({
+          id: items[0].id,
+          status: 'error',
+          message: `error copying file to ${RECENTS_COLLECTION}`,
+        });
+      }
+
+      expect.assertions(2);
+    });
+
+    it('should override preview when provided', async () => {
+      const { items, fileFetcher, mockAuthProvider } = setup();
+      const copiedFile: MediaFile = {
+        id: 'copied-file-id',
+        name: 'copied-file-name',
+        processingStatus: 'succeeded',
+        artifacts: {},
+        mediaType: 'image',
+        mimeType: 'image/jpeg',
+        representations: {},
+        size: 1,
+      };
+      const mediaStore = createMockMediaStore(jest.fn());
+      asMock(mediaStore.copyFileWithToken).mockResolvedValue({
+        data: copiedFile,
+      });
+
+      const source = {
+        id: items[0].id,
+        collection: 'someCollectionName',
+        authProvider: mockAuthProvider,
+      };
+      const destination = {
+        collection: RECENTS_COLLECTION,
+        authProvider: mockAuthProvider,
+        mediaStore,
+      };
+      const copyOptions = {
+        preview: {
+          value: new Blob([], { type: 'image/jpeg' }),
+          origin: 'local',
+        } as FilePreview,
+      };
+      await fileFetcher.copyFile(source, destination, copyOptions);
+
+      const copiedFileObservable = getFileStreamsCache().get('copied-file-id');
+      if (!copiedFileObservable) {
+        return expect(copiedFileObservable).toBeDefined();
+      }
+
+      const copiedFileState = await observableToPromise(copiedFileObservable);
+      if (!isPreviewableFileState(copiedFileState)) {
+        return expect(isPreviewableFileState(copiedFileState)).toBeTruthy();
+      }
+
+      expect(copiedFileState.preview).toEqual(copyOptions.preview);
+    });
+
+    it('should fetch remote processing states for files requiring remote preview', async () => {
+      const { items, fileFetcher, mediaStore, mockAuthProvider } = setup();
+      const copiedFile: MediaFile = {
+        id: 'copied-file-id',
+        name: 'copied-file-name',
+        artifacts: {},
+        mediaType: 'doc',
+        mimeType: 'application/pdf',
+        representations: {},
+        size: 1,
+      };
+      const copyFileWithTokenMock = jest
+        .fn()
+        .mockResolvedValue({ data: copiedFile });
+      const tenantMediaStore = createMockMediaStore(jest.fn());
+      tenantMediaStore.copyFileWithToken = copyFileWithTokenMock;
+
+      const source = {
+        id: items[0].id,
+        collection: 'someCollectionName',
+        authProvider: mockAuthProvider,
+      };
+      const destination = {
+        collection: RECENTS_COLLECTION,
+        authProvider: mockAuthProvider,
+        mediaStore: tenantMediaStore,
+      };
+      await fileFetcher.copyFile(source, destination);
+      expect(copyFileWithTokenMock).toHaveBeenCalledTimes(1);
+
+      await sleep(0);
+      expect(mediaStore.getItems).toHaveBeenCalledTimes(1);
+      expect(mediaStore.getItems).toHaveBeenCalledWith(
+        ['copied-file-id'],
+        destination.collection,
+      );
+    });
+
+    it('should not fetch remote processing states for files not requiring remote preview', async () => {
+      const { items, fileFetcher, mediaStore, mockAuthProvider } = setup();
+      const copiedFile: MediaFile = {
+        id: 'copied-file-id',
+        name: 'copied-file-name',
+        artifacts: {},
+        mediaType: 'image',
+        mimeType: 'image/jpeg',
+        representations: {},
+        size: 1,
+      };
+      const copyFileWithTokenMock = jest
+        .fn()
+        .mockResolvedValue({ data: copiedFile });
+      const tenantMediaStore = createMockMediaStore(jest.fn());
+      tenantMediaStore.copyFileWithToken = copyFileWithTokenMock;
+
+      const source = {
+        id: items[0].id,
+        collection: 'someCollectionName',
+        authProvider: mockAuthProvider,
+      };
+      const destination = {
+        collection: RECENTS_COLLECTION,
+        authProvider: mockAuthProvider,
+        mediaStore: tenantMediaStore,
+      };
+
+      const options = {
+        preview: {
+          value: new Blob([], { type: 'image/jpeg' }),
+          origin: 'local',
+        } as FilePreview,
+      };
+
+      await fileFetcher.copyFile(source, destination, options);
+      expect(copyFileWithTokenMock).toHaveBeenCalledTimes(1);
+
+      await sleep(0);
+      expect(mediaStore.getItems).toHaveBeenCalledTimes(0);
+    });
+
+    it('should not fetch remote processing states for files not supported by server', async () => {
+      const { items, fileFetcher, mediaStore, mockAuthProvider } = setup();
+      const copiedFile: MediaFile = {
+        id: 'copied-file-id',
+        name: 'copied-file-name',
+        artifacts: {},
+        mediaType: 'archive',
+        mimeType: 'application/zip',
+        representations: {},
+        size: 1,
+      };
+      const copyFileWithTokenMock = jest
+        .fn()
+        .mockResolvedValue({ data: copiedFile });
+      const tenantMediaStore = createMockMediaStore(jest.fn());
+      tenantMediaStore.copyFileWithToken = copyFileWithTokenMock;
+
+      const source = {
+        id: items[0].id,
+        collection: 'someCollectionName',
+        authProvider: mockAuthProvider,
+      };
+      const destination = {
+        collection: RECENTS_COLLECTION,
+        authProvider: mockAuthProvider,
+        mediaStore: tenantMediaStore,
+      };
+      await fileFetcher.copyFile(source, destination);
+      expect(copyFileWithTokenMock).toHaveBeenCalledTimes(1);
+
+      await sleep(0);
+      expect(mediaStore.getItems).toHaveBeenCalledTimes(0);
     });
   });
 
@@ -641,8 +947,17 @@ describe('FileFetcher', () => {
 
     it('should set the right mediaType', async () => {
       const { fileFetcher } = setup();
-      const collection = 'destination-collection';
-      await fileFetcher.uploadExternal(url, collection);
+
+      fetchMock.mock(
+        url,
+        {
+          headers: { 'Content-Type': 'image/jpeg' },
+          body: new Blob([], { type: 'image/jpeg' }),
+        },
+        { sendAsJson: false },
+      );
+
+      await fileFetcher.uploadExternal(url);
 
       const fileObservable = getFileStreamsCache().get('upfront-id');
       if (!fileObservable) {
@@ -887,6 +1202,28 @@ describe('FileFetcher', () => {
         undefined,
         uploadFileUpfrontIds,
       );
+
+      setImmediate(() => {
+        expect(mediaStore.getItems).toHaveBeenCalledTimes(0);
+        done();
+      });
+    });
+
+    it('should not fetch remote processing states for files not supported by server', done => {
+      const {
+        mediaStore,
+        fileFetcher,
+        createUploadableFile,
+        uploadFileUpfrontIds,
+      } = setup();
+
+      fileFetcher.upload(
+        createUploadableFile('archive.zip', 'application/zip'), // not supported by server
+        undefined,
+        uploadFileUpfrontIds,
+      );
+
+      expect(isMimeTypeSupportedByServer('application/zip')).toEqual(false);
 
       setImmediate(() => {
         expect(mediaStore.getItems).toHaveBeenCalledTimes(0);

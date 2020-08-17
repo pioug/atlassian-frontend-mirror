@@ -6,10 +6,10 @@ import {
 } from '../../__helpers/page-objects/_table';
 
 import adf from './__fixtures__/default-table.adf.json';
-import { Page } from '../../__helpers/page-objects/_types';
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 
 describe('Table context menu: cells background', () => {
-  let page: Page;
+  let page: PuppeteerPage;
 
   beforeAll(async () => {
     page = global.page;

@@ -1,6 +1,5 @@
 import { snapshot, initEditorWithAdf, Appearance } from '../_utils';
 import adf from './__fixtures__/task-with-status.adf.json';
-import { Page } from '../../__helpers/page-objects/_types';
 import {
   toggleTaskNth,
   waitForTaskList,
@@ -9,7 +8,7 @@ import {
 
 describe('Tasks', () => {
   it('Can check a task with status as the first element', async () => {
-    const page: Page = global.page;
+    const { page } = global;
     await initEditorWithAdf(page, {
       adf,
       appearance: Appearance.fullPage,

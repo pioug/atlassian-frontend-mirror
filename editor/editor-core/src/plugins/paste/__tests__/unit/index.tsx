@@ -2005,7 +2005,7 @@ describe('paste plugins', () => {
 
     it('maintains empty list items', () => {
       const { editorView } = editor(doc(p('{<>}')));
-      const html = '<span>* line 1<br />*<br />* line 3<br />* line 4';
+      const html = '<span>* line 1<br />* <br />* line 3<br />* line 4';
 
       dispatchPasteEvent(editorView, { html });
 
@@ -2088,6 +2088,21 @@ describe('paste plugins', () => {
 
       expect(editorView.state.doc).toEqualDocument(
         doc(p('1.line 1', hardBreak(), '2.line 2', hardBreak(), '3.line 3')),
+      );
+    });
+
+    it('only converts bullet list when followed by spaces', () => {
+      const { editorView } = editor(doc(p('{<>}')));
+      const html = '<span>-13<br />-14<br />-15<br>- 16</span>';
+
+      dispatchPasteEvent(editorView, { html });
+
+      expect(editorView.state.doc).toEqualDocument(
+        doc(
+          p('-13', hardBreak(), '-14', hardBreak(), '-15'),
+          ul(li(p('16'))),
+          p(),
+        ),
       );
     });
 

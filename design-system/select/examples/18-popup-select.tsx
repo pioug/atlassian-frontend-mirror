@@ -31,7 +31,7 @@ const PopupSelectExample = () => (
       <PopupSelect
         {...defaults}
         target={({ ref }) => <button ref={ref}>W/O Search</button>}
-        popperProps={{ placement: 'bottom', positionFixed: true }}
+        popperProps={{ placement: 'bottom', strategy: 'fixed' }}
         searchThreshold={10}
       />
       <PopupSelect

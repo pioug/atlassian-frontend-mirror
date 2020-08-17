@@ -8,13 +8,13 @@ import {
   resizeColumn,
   clickFirstCell,
 } from '../../__helpers/page-objects/_table';
-import { Page } from '../../__helpers/page-objects/_types';
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { animationFrame } from '../../__helpers/page-objects/_editor';
 import { snapshot, initEditorWithAdf, Appearance } from '../_utils';
 import defaultTableADF from '../table/__fixtures__/default-table.adf.json';
 
 describe('Snapshot Test: Media', () => {
-  let page: Page;
+  let page: PuppeteerPage;
 
   beforeAll(async () => {
     page = global.page;

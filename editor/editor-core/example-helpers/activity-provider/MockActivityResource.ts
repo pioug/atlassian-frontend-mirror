@@ -4,7 +4,7 @@ import * as recentData from './mock-recent-data.json';
 
 export default class MockActivityResource extends ActivityResource {
   constructor() {
-    super('');
+    super('', '');
   }
 
   public async getRecentItems() {

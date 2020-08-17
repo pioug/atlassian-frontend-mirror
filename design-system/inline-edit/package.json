@@ -17,12 +17,12 @@
   "atlaskit:designLink": "https://atlassian.design/guidelines/product/components/inline-edit",
   "atlassian": {
     "team": "Design System Team",
+    "deprecatedAutoEntryPoints": true,
     "inPublicMirror": true,
     "releaseModel": "scheduled",
     "website": {
       "name": "Inline Edit"
-    },
-    "deprecatedAutoEntryPoints": true
+    }
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^7.0.0",
@@ -42,7 +42,7 @@
   "devDependencies": {
     "@atlaskit/build-utils": "*",
     "@atlaskit/docs": "*",
-    "@atlaskit/select": "^12.0.0",
+    "@atlaskit/select": "^13.0.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/tag": "^10.0.0",
     "@atlaskit/tag-group": "^10.0.0",

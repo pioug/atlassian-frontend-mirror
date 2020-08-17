@@ -8,7 +8,6 @@ import {
 } from 'prosemirror-state';
 import { canInsert } from 'prosemirror-utils';
 
-import { analyticsService } from '../../../analytics';
 import {
   createInputRule,
   instrumentedInputRule,
@@ -74,8 +73,6 @@ const addItem = (start: number, end: number): AddItemTransactionCreator => ({
   }
 
   const where = $from.before($from.depth);
-
-  analyticsService.trackEvent(`atlassian.fabric.${item.name}.trigger.shortcut`);
 
   if (!shouldBreakNode) {
     tr.delete(where, $from.end($from.depth))

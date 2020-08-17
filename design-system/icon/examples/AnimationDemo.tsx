@@ -1,5 +1,6 @@
 import React, { Component, ComponentType, ChangeEvent } from 'react';
-import sample from 'lodash.sample';
+import nullthrows from 'nullthrows';
+import sample from 'lodash/sample';
 
 import BookIcon from '../glyph/book';
 import ArrowUpIcon from '../glyph/arrow-up';
@@ -39,7 +40,7 @@ class AnimationDemo extends Component<{}, State> {
   }
 
   randomIcon = () => {
-    const Icon = sample(this.state.components);
+    const Icon = nullthrows(sample(this.state.components));
     return <Icon label="Random icon" />;
   };
 

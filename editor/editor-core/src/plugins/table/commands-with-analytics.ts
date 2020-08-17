@@ -7,10 +7,6 @@ import {
 
 import { tableBackgroundColorPalette, TableLayout } from '@atlaskit/adf-schema';
 
-import {
-  analyticsService as analyticsV2,
-  withAnalytics as withV2Analytics,
-} from '../../analytics';
 import { Command } from '../../types';
 import {
   ACTION_SUBJECT,
@@ -79,14 +75,7 @@ export const emptyMultipleCellsWithAnalytics = (
       },
       eventType: EVENT_TYPE.TRACK,
     };
-  })(
-    withV2Analytics(
-      `atlassian.editor.format.table.delete_content.${
-        inputMethod === INPUT_METHOD.KEYBOARD ? 'keyboard' : 'button'
-      }`,
-      clearMultipleCells(targetCellPosition),
-    ),
-  );
+  })(clearMultipleCells(targetCellPosition));
 
 export const mergeCellsWithAnalytics = () =>
   withAnalytics(({ selection }) => {
@@ -113,7 +102,6 @@ export const mergeCellsWithAnalytics = () =>
     };
   })((state, dispatch) => {
     if (dispatch) {
-      analyticsV2.trackEvent('atlassian.editor.format.table.merge.button');
       dispatch(mergeCells(state.tr));
     }
     return true;
@@ -144,7 +132,7 @@ export const splitCellWithAnalytics = () =>
       };
     }
     return;
-  })(withV2Analytics('atlassian.editor.format.table.split.button', splitCell));
+  })(splitCell);
 
 export const setColorWithAnalytics = (
   cellColor: string,
@@ -175,12 +163,7 @@ export const setColorWithAnalytics = (
       },
       eventType: EVENT_TYPE.TRACK,
     };
-  })(
-    withV2Analytics(
-      'atlassian.editor.format.table.backgroundColor.button',
-      setMultipleCellAttrs({ background: cellColor }, targetCellPosition),
-    ),
-  );
+  })(setMultipleCellAttrs({ background: cellColor }, targetCellPosition));
 
 export const addRowAroundSelection = (side: RowInsertPosition): Command => (
   state,
@@ -227,14 +210,7 @@ export const insertRowWithAnalytics = (
       },
       eventType: EVENT_TYPE.TRACK,
     };
-  })(
-    withV2Analytics(
-      `atlassian.editor.format.table.row.${
-        inputMethod === INPUT_METHOD.KEYBOARD ? 'keyboard' : 'button'
-      }`,
-      insertRow(options.index, options.moveCursorToInsertedRow),
-    ),
-  );
+  })(insertRow(options.index, options.moveCursorToInsertedRow));
 
 export const insertColumnWithAnalytics = (
   inputMethod:
@@ -259,12 +235,7 @@ export const insertColumnWithAnalytics = (
       },
       eventType: EVENT_TYPE.TRACK,
     };
-  })(
-    withV2Analytics(
-      'atlassian.editor.format.table.column.button',
-      insertColumn(position),
-    ),
-  );
+  })(insertColumn(position));
 
 export const deleteRowsWithAnalytics = (
   inputMethod: INPUT_METHOD.CONTEXT_MENU | INPUT_METHOD.BUTTON,
@@ -289,7 +260,6 @@ export const deleteRowsWithAnalytics = (
     };
   })((state, dispatch) => {
     if (dispatch) {
-      analyticsV2.trackEvent('atlassian.editor.format.table.delete_row.button');
       dispatch(deleteRows(rect, isHeaderRowRequired)(state.tr));
     }
     return true;
@@ -317,9 +287,6 @@ export const deleteColumnsWithAnalytics = (
     };
   })((state, dispatch) => {
     if (dispatch) {
-      analyticsV2.trackEvent(
-        'atlassian.editor.format.table.delete_column.button',
-      );
       dispatch(
         deleteColumns(rect, getAllowAddColumnCustomStep(state))(state.tr),
       );
@@ -341,9 +308,7 @@ export const deleteTableWithAnalytics = () =>
       },
       eventType: EVENT_TYPE.TRACK,
     };
-  })(
-    withV2Analytics('atlassian.editor.format.table.delete.button', deleteTable),
-  );
+  })(deleteTable);
 
 export const toggleHeaderRowWithAnalytics = () =>
   withAnalytics(state => {
@@ -363,12 +328,7 @@ export const toggleHeaderRowWithAnalytics = () =>
       },
       eventType: EVENT_TYPE.TRACK,
     };
-  })(
-    withV2Analytics(
-      'atlassian.editor.format.table.toggleHeaderRow.button',
-      toggleHeaderRow,
-    ),
-  );
+  })(toggleHeaderRow);
 
 export const toggleHeaderColumnWithAnalytics = () =>
   withAnalytics(state => {
@@ -388,12 +348,7 @@ export const toggleHeaderColumnWithAnalytics = () =>
       },
       eventType: EVENT_TYPE.TRACK,
     };
-  })(
-    withV2Analytics(
-      'atlassian.editor.format.table.toggleHeaderColumn.button',
-      toggleHeaderColumn,
-    ),
-  );
+  })(toggleHeaderColumn);
 
 export const toggleNumberColumnWithAnalytics = () =>
   withAnalytics(state => {
@@ -411,12 +366,7 @@ export const toggleNumberColumnWithAnalytics = () =>
       },
       eventType: EVENT_TYPE.TRACK,
     };
-  })(
-    withV2Analytics(
-      'atlassian.editor.format.table.toggleNumberColumn.button',
-      toggleNumberColumn,
-    ),
-  );
+  })(toggleNumberColumn);
 
 export const toggleTableLayoutWithAnalytics = () =>
   withAnalytics(state => {

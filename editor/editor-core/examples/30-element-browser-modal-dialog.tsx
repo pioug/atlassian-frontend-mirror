@@ -5,14 +5,28 @@ import {
   AnalyticsEventPayload,
   AnalyticsListener,
 } from '@atlaskit/analytics-next';
+import { combineExtensionProviders } from '@atlaskit/editor-common/extensions';
 import { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
 import Button from '@atlaskit/button';
 import Modal, { ModalTransition } from '@atlaskit/modal-dialog';
 import InlineDialog from '@atlaskit/inline-dialog/src/InlineDialog';
+import { useStateFromPromise } from '../src/utils/react-hooks/use-state-from-promise';
 import ElementBrowser from '../src/ui/ElementBrowser';
 import { extensionProviderToQuickInsertProvider } from '../src/utils/extensions';
 import { getConfluenceMacrosExtensionProvider } from '../example-helpers/confluence-macros';
+import { getXProductExtensionProvider } from '../example-helpers/fake-x-product-extensions';
+import { searchQuickInsertItems } from '../src/plugins/quick-insert/search';
 import EditorActions from '../src/actions';
+
+const extensionProvider = combineExtensionProviders([
+  getConfluenceMacrosExtensionProvider({} as EditorActions),
+  getXProductExtensionProvider(),
+]);
+
+const quickInsertProvider = extensionProviderToQuickInsertProvider(
+  extensionProvider,
+  {} as EditorActions,
+);
 
 export default () => {
   const [showModal, setModalVisibility] = useState(false);
@@ -23,6 +37,30 @@ export default () => {
     console.log(event.payload);
     console.groupEnd();
   }, []);
+
+  const onEscapeKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Escape') {
+      setInlineModalVisibility(false);
+    }
+  };
+
+  const [items] = useStateFromPromise<QuickInsertItem[]>(
+    () => quickInsertProvider.then(provider => provider.getItems()),
+    [],
+    [],
+  );
+
+  const getItems = useCallback(
+    (query?: string, category?: string) =>
+      searchQuickInsertItems(
+        {
+          isElementBrowserModalOpen: true,
+          lazyDefaultItems: () => items || [],
+        },
+        {},
+      )(query, category),
+    [items],
+  );
 
   return (
     <ModalExampleWrapper>
@@ -38,36 +76,39 @@ export default () => {
               width="x-large"
               autoFocus={false}
               components={{
-                Body: RenderElementBrowserInModal,
+                Body: RenderElementBrowserInModal(getItems),
               }}
             />
           )}
         </ModalTransition>
-        <InlineDialog
-          onClose={() => setInlineModalVisibility(false)}
-          content={
-            <InlineBrowserWrapper>
-              <IntlProvider locale={'en'}>
-                <ElementBrowser
-                  categories={categoriesList}
-                  quickInsertProvider={quickInsertProvider}
-                  showSearch={true}
-                  showCategories={false}
-                  mode="inline"
-                  onSelectItem={onSelectItem}
-                />
-              </IntlProvider>
-            </InlineBrowserWrapper>
-          }
-          isOpen={showInlineModal}
-        >
-          <Button
-            isSelected={showInlineModal}
-            onClick={() => setInlineModalVisibility(show => !show)}
+
+        <div onKeyDown={onEscapeKeyDown}>
+          <InlineDialog
+            onClose={() => setInlineModalVisibility(false)}
+            content={
+              <InlineBrowserWrapper>
+                <IntlProvider locale={'en'}>
+                  <ElementBrowser
+                    categories={categoriesList}
+                    getItems={getItems}
+                    showSearch={true}
+                    showCategories={false}
+                    mode="inline"
+                    onSelectItem={onSelectItem}
+                  />
+                </IntlProvider>
+              </InlineBrowserWrapper>
+            }
+            isOpen={showInlineModal}
           >
-            {showInlineModal ? 'Close' : 'Open'} Inline Browser
-          </Button>
-        </InlineDialog>
+            <Button
+              isSelected={showInlineModal}
+              onClick={() => setInlineModalVisibility(show => !show)}
+            >
+              {showInlineModal ? 'Close' : 'Open'} Inline Browser
+            </Button>
+          </InlineDialog>
+        </div>
       </AnalyticsListener>
     </ModalExampleWrapper>
   );
@@ -77,12 +118,14 @@ const onSelectItem = (item: QuickInsertItem) => {
   console.log('Selected item ', item);
 };
 
-const RenderElementBrowserInModal = () => (
+const RenderElementBrowserInModal = (
+  getItems: (query?: string, category?: string) => QuickInsertItem[],
+) => () => (
   <ModalBrowserWrapper>
     <IntlProvider locale={'en'}>
       <ElementBrowser
         categories={categoriesList}
-        quickInsertProvider={quickInsertProvider}
+        getItems={getItems}
         showSearch={true}
         showCategories={true}
         mode="full"
@@ -100,11 +143,6 @@ const ModalBrowserWrapper = styled.div`
   overflow: hidden;
 `;
 
-const quickInsertProvider = extensionProviderToQuickInsertProvider(
-  getConfluenceMacrosExtensionProvider({} as EditorActions),
-  {} as EditorActions,
-);
-
 const ModalExampleWrapper = styled.div`
   display: flex;
   justify-content: space-around;
@@ -117,7 +155,7 @@ const InlineBrowserWrapper = styled.div`
   min-height: inherit;
   max-height: inherit;
   width: 320px;
-  margin: 0 -16px;
+  margin: -8px -16px;
 `;
 
 const categoriesList = [

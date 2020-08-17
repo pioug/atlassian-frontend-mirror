@@ -68,7 +68,13 @@ export const isNodeSelectedOrInRange = (
   const rangeEnd = Math.max(anchorPosition, headPosition);
   const nodeStart = nodePosition;
   const nodeEnd = nodePosition + nodeSize;
-  if (rangeStart < nodeStart && nodeEnd < rangeEnd) {
+  if (anchorPosition === headPosition) {
+    return null;
+  }
+  if (
+    (rangeStart <= nodeStart && nodeEnd < rangeEnd) ||
+    (rangeStart < nodeStart && nodeEnd <= rangeEnd)
+  ) {
     return SelectedState.selectedInRange;
   }
   if (nodeStart <= anchorPosition && headPosition <= nodeEnd) {

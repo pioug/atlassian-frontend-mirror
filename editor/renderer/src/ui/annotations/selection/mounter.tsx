@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
 import { InlineCommentSelectionComponentProps } from '@atlaskit/editor-common';
 import { ApplyAnnotation } from '../../../actions/index';
@@ -30,6 +30,10 @@ export const SelectionInlineCommentMounter: React.FC<Props> = React.memo(
       documentPosition,
       applyAnnotation,
     } = props;
+    const [
+      draftDocumentPosition,
+      setDraftDocumentPosition,
+    ] = useState<Position | null>();
 
     const onCreateCallback = useCallback(
       (annotationId: string) => {
@@ -40,25 +44,46 @@ export const SelectionInlineCommentMounter: React.FC<Props> = React.memo(
           annotationId,
           annotationType: AnnotationTypes.INLINE_COMMENT,
         };
-        return applyAnnotation(documentPosition, annotation);
+        return applyAnnotation(
+          draftDocumentPosition || documentPosition,
+          annotation,
+        );
       },
-      [isAnnotationAllowed, documentPosition, applyAnnotation],
+      [
+        isAnnotationAllowed,
+        documentPosition,
+        applyAnnotation,
+        draftDocumentPosition,
+      ],
     );
 
-    const applyDraftModeCallback = useCallback(() => {
-      if (!documentPosition) {
-        return;
-      }
+    const applyDraftModeCallback = useCallback(
+      (keepNativeSelection: boolean = true) => {
+        if (!documentPosition) {
+          return;
+        }
 
-      applyAnnotationDraftAt(documentPosition);
-      window.requestAnimationFrame(() => {
-        updateWindowSelectionAroundDraft(documentPosition);
-      });
-    }, [documentPosition, applyAnnotationDraftAt]);
+        setDraftDocumentPosition(documentPosition);
+        applyAnnotationDraftAt(documentPosition);
+
+        window.requestAnimationFrame(() => {
+          if (keepNativeSelection) {
+            updateWindowSelectionAroundDraft(documentPosition);
+          } else {
+            const sel = window.getSelection();
+            if (sel) {
+              sel.removeAllRanges();
+            }
+          }
+        });
+      },
+      [documentPosition, applyAnnotationDraftAt],
+    );
 
     const removeDraftModeCallback = useCallback(() => {
       clearAnnotationDraft();
 
+      setDraftDocumentPosition(null);
       const sel = window.getSelection();
       if (sel) {
         sel.removeAllRanges();

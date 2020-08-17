@@ -15,6 +15,7 @@ import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 import { customInsertMenuItems } from '@atlaskit/editor-test-helpers/mock-insert-menu';
 import { macroProvider } from '@atlaskit/editor-test-helpers/mock-macro-provider';
+import { exampleMediaFeatureFlags } from '@atlaskit/media-test-helpers';
 import {
   ProviderFactory,
   ExtensionProvider,
@@ -92,9 +93,6 @@ export const Content: any = styled.div`
 `;
 Content.displayName = 'Content';
 
-// eslint-disable-next-line no-console
-export const analyticsHandler = (actionName: string, props?: {}) =>
-  console.log(actionName, props);
 // eslint-disable-next-line no-console
 const SAVE_ACTION = () => console.log('Save');
 
@@ -262,7 +260,6 @@ export class ExampleEditorComponent extends React.Component<
           <Content>
             <SmartCardProvider client={smartCardClient}>
               <Editor
-                analyticsHandler={analyticsHandler}
                 allowAnalyticsGASV3={true}
                 quickInsert={{ provider: Promise.resolve(quickInsertProvider) }}
                 allowTextColor={{
@@ -300,7 +297,9 @@ export class ExampleEditorComponent extends React.Component<
                 }}
                 waitForMediaUpload={true}
                 allowStatus={true}
-                allowFindReplace={true}
+                allowFindReplace={{
+                  allowMatchCase: true,
+                }}
                 allowNestedTasks
                 {...providers}
                 media={{
@@ -325,6 +324,7 @@ export class ExampleEditorComponent extends React.Component<
                     return errors;
                   },
                   useMediaPickerPopup: true,
+                  featureFlags: exampleMediaFeatureFlags,
                 }}
                 allowHelpDialog
                 placeholder="Use markdown shortcuts to format your page as you type, like * for lists, # for headers, and *** for a horizontal rule."
@@ -402,6 +402,7 @@ export class ExampleEditorComponent extends React.Component<
                 insertMenuItems={customInsertMenuItems}
                 extensionHandlers={extensionHandlers}
                 performanceTracking={{
+                  ttiTracking: { enabled: true },
                   transactionTracking: { enabled: true },
                   uiTracking: { enabled: true },
                   nodeViewTracking: { enabled: true },
@@ -573,6 +574,9 @@ const Renderer = (props: {
           extensionHandlers={extensionHandlers}
           document={props.document && JSON.parse(props.document)}
           appearance={getAppearance()}
+          media={{
+            featureFlags: exampleMediaFeatureFlags,
+          }}
         />
       </SmartCardProvider>
     </div>

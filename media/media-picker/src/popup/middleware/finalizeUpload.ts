@@ -1,21 +1,17 @@
 import { Store, Dispatch, Middleware } from 'redux';
 import {
-  MediaStore,
-  MediaStoreCopyFileWithTokenBody,
-  MediaStoreCopyFileWithTokenParams,
-  MediaFile as MediaClientFile,
+  CopySourceFile,
+  CopyDestination,
+  CopyFileOptions,
+  FilePreview,
   globalMediaEventEmitter,
-  getFileStreamsCache,
-  ErrorFileState,
-  createFileStateSubject,
-  observableToPromise,
 } from '@atlaskit/media-client';
 import {
   FinalizeUploadAction,
   isFinalizeUploadAction,
+  FinalizeUploadSource,
 } from '../actions/finalizeUpload';
-import { State, SourceFile } from '../domain';
-import { mapAuthToSourceFileOwner } from '../domain/source-file';
+import { State } from '../domain';
 import { MediaFile } from '../../types';
 import { sendUploadEvent } from '../actions/sendUploadEvent';
 import { resetView } from '../actions';
@@ -31,26 +27,15 @@ export default function(): Middleware {
 
 export function finalizeUpload(
   store: Store<State>,
-  { file, replaceFileId, source }: FinalizeUploadAction,
+  { file, replaceFileId, source, preview }: FinalizeUploadAction,
 ) {
-  const { userMediaClient } = store.getState();
-  return userMediaClient.config
-    .authProvider()
-    .then(mapAuthToSourceFileOwner)
-    .then(owner => {
-      const sourceFile = {
-        ...source,
-        owner,
-      };
-      const copyFileParams: CopyFileParams = {
-        store,
-        file,
-        replaceFileId,
-        sourceFile,
-      };
-
-      return copyFile(copyFileParams);
-    });
+  return copyFile({
+    store,
+    file,
+    replaceFileId,
+    source,
+    preview,
+  });
 }
 
 type CopyFileParams = {
@@ -58,94 +43,66 @@ type CopyFileParams = {
   file: MediaFile;
   // the versioned file ID that this file will overwrite. Destination fileId.
   replaceFileId: string;
-  sourceFile: SourceFile;
-};
-
-// Trigers a fetch to the recently copied file, and populates the existing state with the remote one
-const emitProcessedState = (
-  destinationFile: MediaClientFile,
-  store: Store<State>,
-) => {
-  return new Promise(async resolve => {
-    const { tenantMediaClient, config } = store.getState();
-    const collection = config.uploadParams && config.uploadParams.collection;
-    const tenantSubject = tenantMediaClient.file.getFileState(
-      destinationFile.id,
-    );
-    const response = (
-      await tenantMediaClient.mediaStore.getItems(
-        [destinationFile.id],
-        collection,
-      )
-    ).data;
-    const firstItem = response.items[0];
-
-    if (firstItem && firstItem.details.processingStatus === 'succeeded') {
-      const currentState = await observableToPromise(tenantSubject);
-      setTimeout(() => {
-        const {
-          artifacts,
-          mediaType,
-          mimeType,
-          name,
-          size,
-          representations,
-        } = firstItem.details;
-        // we emit a new state which extends the existing one + the remote fields
-        // fields like "artifacts" will be later on required on MV and we don't have it locally beforehand
-        tenantSubject.next({
-          ...currentState,
-          status: 'processed',
-          artifacts,
-          mediaType,
-          mimeType,
-          name,
-          size,
-          representations,
-        });
-        resolve();
-      }, 0);
-    }
-  });
+  source: FinalizeUploadSource;
+  preview?: FilePreview | Promise<FilePreview>;
 };
 
 async function copyFile({
   store,
   file,
   replaceFileId,
-  sourceFile,
+  source,
+  preview,
 }: CopyFileParams) {
-  const { tenantMediaClient, config } = store.getState();
-  const collection = config.uploadParams && config.uploadParams.collection;
-  const mediaStore = new MediaStore({
-    authProvider: tenantMediaClient.config.authProvider,
-  });
-  const body: MediaStoreCopyFileWithTokenBody = {
-    sourceFile, // Original file that being copied
-  };
-  const params: MediaStoreCopyFileWithTokenParams = {
-    collection, // Destination collection
-    replaceFileId, // Destination fileId
-    // > The file will be added to the specified collection with this occurrence key. For Target collection.
-    // The reason we reusing occurrenceKey from user's collection into tenant one is it remains the same value
-    // if the operation needs to be retried. And for that purpose, using the same occurrence key from the source collection works fine.
-    occurrenceKey: file.occurrenceKey,
-  };
+  const {
+    tenantMediaClient,
+    userMediaClient: {
+      config: { authProvider: userAuthProvider },
+    },
+    config,
+  } = store.getState();
+  const { id, collection: sourceCollection } = source;
+  const destinationCollection =
+    config.uploadParams && config.uploadParams.collection;
 
   try {
-    const destinationFile = await mediaStore.copyFileWithToken(body, params);
+    // Original file that being copied
+    const copySourceFile: CopySourceFile = {
+      id,
+      collection: sourceCollection,
+      authProvider: userAuthProvider,
+    };
 
-    emitProcessedState(destinationFile.data, store);
-    const tenantSubject = tenantMediaClient.file.getFileState(
-      destinationFile.data.id,
+    const copyDestination: CopyDestination = {
+      collection: destinationCollection,
+      replaceFileId, // Destination fileId
+      // > The file will be added to the specified collection with this occurrence key. For Target collection.
+      // The reason we reusing occurrenceKey from user's collection into tenant one is it remains the same value
+      // if the operation needs to be retried. And for that purpose, using the same occurrence key from the source collection works fine.
+      occurrenceKey: file.occurrenceKey,
+      authProvider: tenantMediaClient.config.authProvider,
+    };
+
+    const copyOptions: CopyFileOptions = { preview };
+
+    const destinationFile = await tenantMediaClient.file.copyFile(
+      copySourceFile,
+      copyDestination,
+      copyOptions,
     );
 
-    const fileState = await observableToPromise(tenantSubject);
+    const destinationFileState = await tenantMediaClient.file.getCurrentState(
+      destinationFile.id,
+    );
 
-    tenantMediaClient.emit('file-added', fileState);
-    globalMediaEventEmitter.emit('file-added', fileState);
+    tenantMediaClient.emit('file-added', destinationFileState);
+    globalMediaEventEmitter.emit('file-added', destinationFileState);
 
-    if (fileState.status === 'processing' || fileState.status === 'processed') {
+    if (
+      ['processing', 'processed', 'failed-processing'].includes(
+        destinationFileState.status,
+      )
+    ) {
       store.dispatch(
         sendUploadEvent({
           event: {
@@ -157,10 +114,7 @@ async function copyFile({
           fileId: replaceFileId,
         }),
       );
-    } else if (
-      fileState.status === 'failed-processing' ||
-      fileState.status === 'error'
-    ) {
+    } else if (destinationFileState.status === 'error') {
       store.dispatch(
         sendUploadEvent({
           event: {
@@ -178,23 +132,6 @@ async function copyFile({
       );
     }
   } catch (error) {
-    const errorState: ErrorFileState = {
-      id: replaceFileId,
-      status: 'error',
-      message: `error copying file to ${collection}`,
-    };
-    const cache = getFileStreamsCache();
-    const fileCache = cache.get(replaceFileId);
-
-    // We need this check since the return type of getFileStreamsCache().get might not be a ReplaySubject and won't have "next"
-    if (fileCache && fileCache.next) {
-      // This will cause media card to rerender with an error state on existent subscriptions
-      fileCache.next(errorState);
-    }
-
-    // Create a new subject with the error state for new subscriptions
-    cache.set(replaceFileId, createFileStateSubject(errorState));
-
     store.dispatch(
       sendUploadEvent({
         event: {

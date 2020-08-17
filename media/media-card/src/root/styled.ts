@@ -4,6 +4,7 @@ import { CardDimensions } from '../';
 import { getCSSUnitValue } from '../utils/getCSSUnitValue';
 import { BreakpointSizeValue, breakpointStyles } from '../utils/breakpoint';
 import { getSelectedBorderStyle } from '../styles/getSelectedBorderStyle';
+import { getDimensionsWithDefault } from '../utils/lightCards/getDimensionsWithDefault';
 
 export interface WrapperProps {
   shouldUsePointerCursor?: boolean;
@@ -38,11 +39,18 @@ export const Wrapper = styled.div`
 
 Wrapper.displayName = 'CardViewWrapper';
 
-export const InlinePlayerWrapper = styled.div`
-  overflow: hidden;
-  border-radius: ${borderRadius()};
-  position: relative;
+type InlinePlayerWrapper = {
+  dimensions?: CardDimensions;
+  selected?: boolean;
+};
 
+export const InlinePlayerWrapper = styled.div<InlinePlayerWrapper>`
+  width: ${props => getDimensionsWithDefault(props.dimensions).width || '100%'};
+  height: ${props =>
+    getDimensionsWithDefault(props.dimensions).height || 'auto'};
+  overflow: hidden;
+  border-radius: ${borderRadius()}px;
+  position: relative;
   max-width: 100%;
   max-height: 100%;
 

@@ -4,13 +4,16 @@ import {
 } from '@atlaskit/visual-regression/helper';
 import { Device, snapshot, initFullPageEditorWithAdf } from '../_utils';
 import * as adfWithExpand from './__fixtures__/simple-expand.adf.json';
-import { Page } from '../../__helpers/page-objects/_types';
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { clickEditableContent } from '../../__helpers/page-objects/_editor';
 import { pressKey } from '../../__helpers/page-objects/_keyboard';
-import { waitForFloatingControl } from '../../__helpers/page-objects/_toolbar';
+import {
+  waitForFloatingControl,
+  retryUntilStablePosition,
+} from '../../__helpers/page-objects/_toolbar';
 
 describe('Expand: tab navigation', () => {
-  let page: Page;
+  let page: PuppeteerPage;
 
   beforeAll(async () => {
     page = global.page;
@@ -31,7 +34,13 @@ describe('Expand: tab navigation', () => {
   describe('given the gap cursor is on the left of the expand', () => {
     beforeEach(async () => {
       await initFullPageEditorWithAdf(page, adfWithExpand, Device.LaptopMDPI);
-      await clickEditableContent(page);
+      await page.waitForSelector('.ak-editor-expand__content');
+      await retryUntilStablePosition(
+        page,
+        () => clickEditableContent(page),
+        '[aria-label="Expand toolbar"]',
+        1000,
+      );
       await pressKey(page, ['ArrowUp', 'ArrowUp']);
     });
 

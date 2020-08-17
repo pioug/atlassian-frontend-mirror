@@ -10,9 +10,6 @@ const SAVE_ACTION = () => console.log('Save');
 const CANCEL_ACTION = () => console.log('Cancel');
 const EXPAND_ACTION = () => console.log('Expand');
 
-const analyticsHandler = (actionName: string, props: any) =>
-  console.log(actionName, props);
-
 export type Props = {};
 export type State = {
   hasJquery?: boolean;
@@ -53,7 +50,6 @@ export default class EditorWithFeedback extends React.Component<Props, State> {
                   <Editor
                     appearance="comment"
                     placeholder="What do you want to say?"
-                    analyticsHandler={analyticsHandler}
                     shouldFocus={true}
                     allowRule={true}
                     disabled={disabled}

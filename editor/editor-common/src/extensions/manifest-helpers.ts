@@ -70,8 +70,7 @@ export const buildNode = (
 
   const node = manifest.modules.nodes[action.key];
   const extensionKey = buildExtensionKeyAndNodeKey(manifest.key, action.key);
-
-  return {
+  const extension = {
     type: node.type,
     attrs: {
       extensionType: manifest.type,
@@ -79,4 +78,18 @@ export const buildNode = (
       parameters: action.parameters,
     },
   };
+
+  if (node.type === 'bodiedExtension') {
+    return {
+      ...extension,
+      content: [
+        {
+          type: 'paragraph',
+          content: [],
+        },
+      ],
+    };
+  }
+
+  return extension;
 };

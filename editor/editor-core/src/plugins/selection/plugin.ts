@@ -1,6 +1,7 @@
 import { EditorState, Plugin } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import { Dispatch } from '../../event-dispatcher';
+import { browser } from '@atlaskit/editor-common';
 import { setDecorations } from './commands';
 import { createPluginState, getPluginState } from './plugin-factory';
 import {
@@ -81,6 +82,25 @@ export const createPlugin = (
               ) || getCellSelectionAnalyticsPayload(editorView.state);
             if (analyticsPayload) {
               dispatchAnalyticsEvent(analyticsPayload);
+            }
+          }
+          return false;
+        },
+        keydown: (editorView: EditorView, event: Event) => {
+          // Firefox bugfix to bypass issue with editing text adjacent to a DOM node with
+          // contenteditable="false". (See https://product-fabric.atlassian.net/browse/ED-9452)
+          // On keypress, if the head of cursor selection touches a node with contenteditable="false",
+          // we temporarily remove the attribute, wait one tick, then restore it with its original value.
+          if (browser.gecko) {
+            const node = editorView.nodeDOM(editorView.state.selection.head);
+            if (
+              node instanceof HTMLElement &&
+              node.getAttribute('contenteditable') === 'false'
+            ) {
+              node.removeAttribute('contenteditable');
+              requestAnimationFrame(() => {
+                node.setAttribute('contenteditable', 'false');
+              });
             }
           }
           return false;

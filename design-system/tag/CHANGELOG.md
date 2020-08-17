@@ -1,5 +1,11 @@
 # @atlaskit/tag
 
+## 10.0.3
+
+### Patch Changes
+
+- [`f425b45b5a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f425b45b5a) - Added test-id to Tag
+
 ## 10.0.2
 
 ### Patch Changes

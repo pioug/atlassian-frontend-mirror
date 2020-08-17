@@ -47,6 +47,7 @@ export {
   MediaCollectionItem,
   MediaCollectionItemMinimalDetails,
   MediaCollectionItemFullDetails,
+  isMediaCollectionItemFullDetails,
   MediaRepresentations,
   MediaCollectionItemDetails,
   MediaUpload,
@@ -66,10 +67,12 @@ export {
   GetFileOptions,
   UploadingFileState,
   ProcessingFileState,
+  isProcessingFileState,
   ProcessedFileState,
   isProcessedFileState,
   ProcessingFailedState,
   ErrorFileState,
+  NonErrorFileState,
   isErrorFileState,
   PreviewableFileState,
   isPreviewableFileState,
@@ -106,7 +109,13 @@ export {
 
 export type ImageResizeMode = 'crop' | 'fit' | 'full-fit' | 'stretchy-fit';
 
-export { FileFetcherImpl, FileFetcher } from './client/file-fetcher';
+export {
+  CopySourceFile,
+  CopyDestination,
+  CopyFileOptions,
+  FileFetcherImpl,
+  FileFetcher,
+} from './client/file-fetcher';
 export { CollectionFetcher } from './client/collection-fetcher';
 export { MediaClient } from './client/media-client';
 export { StargateClient, EdgeData } from './client/stargate-client';
@@ -122,6 +131,15 @@ export {
   isDocumentMimeTypeSupportedByBrowser,
   isMimeTypeSupportedByBrowser,
 } from './utils/isMimeTypeSupportedByBrowser';
+
+export {
+  isImageMimeTypeSupportedByServer,
+  isDocumentMimeTypeSupportedByServer,
+  isAudioMimeTypeSupportedByServer,
+  isVideoMimeTypeSupportedByServer,
+  isUnknownMimeTypeSupportedByServer,
+  isMimeTypeSupportedByServer,
+} from './utils/isMimeTypeSupportedByServer';
 
 export { createFileStateSubject } from './utils/createFileStateSubject';
 export { safeUnsubscribe } from './utils/safeUnsubscribe';

@@ -46,6 +46,10 @@ export interface OnSortData {
   };
 }
 
+interface RowProps {
+  [key: string]: any;
+}
+
 export interface MediaTableProps {
   /** The table rows to display in the current page */
   items: MediaTableItem[];
@@ -64,6 +68,8 @@ export interface MediaTableProps {
   sortOrder?: SortOrderType;
   /** Whether to show the loading state or not */
   isLoading?: boolean;
+  /** An object containing props that will be applied to the row component */
+  rowProps?: RowProps;
   /** Called when a pagination control is clicked. Provides the new page number to paginate by */
   onSetPage?: (pageNumber: number) => void;
   /** Called when a column header is clicked. Provides the key of the column and the new sortOrder to sort by */

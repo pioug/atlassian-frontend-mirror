@@ -9,6 +9,7 @@ import { HeaderWrapper, ListWrapper } from './styled';
 import { Navigation } from './navigation';
 import Header from './header';
 import { MediaViewerExtensions } from '../components/types';
+import { MediaFeatureFlags } from '@atlaskit/media-common';
 
 export type Props = Readonly<
   {
@@ -21,6 +22,7 @@ export type Props = Readonly<
     onSidebarButtonClick?: () => void;
     isSidebarVisible?: boolean;
     contextId?: string;
+    featureFlags?: MediaFeatureFlags;
   } & WithShowControlMethodProp
 >;
 
@@ -50,6 +52,7 @@ export class List extends React.Component<Props, State> {
       onSidebarButtonClick,
       isSidebarVisible,
       contextId,
+      featureFlags,
     } = this.props;
     const { selectedItem } = this.state;
 
@@ -63,6 +66,7 @@ export class List extends React.Component<Props, State> {
             extensions={extensions}
             onSidebarButtonClick={onSidebarButtonClick}
             isSidebarVisible={isSidebarVisible}
+            featureFlags={featureFlags}
           />
         </HeaderWrapper>
         <ItemViewer
@@ -73,6 +77,7 @@ export class List extends React.Component<Props, State> {
           previewCount={this.state.previewCount}
           isSidebarVisible={isSidebarVisible}
           contextId={contextId}
+          featureFlags={featureFlags}
         />
         <Navigation
           items={items}

@@ -7,6 +7,15 @@ const mockImageViewer = {
   ImageViewer: ImageViewerMock,
 };
 jest.mock('../../../newgen/viewers/image', () => mockImageViewer);
+jest.mock('unzipit', () => ({
+  unzip: () => {
+    return {
+      archive: 'file',
+      entries: { 'file_a.jpeg': { name: 'file_a.jpeg' } },
+    };
+  },
+  HTTPRangeReader: () => 'reader',
+}));
 
 import React from 'react';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
@@ -49,6 +58,8 @@ import {
   version as packageVersion,
 } from '../../../version.json';
 import { InteractiveImg } from '../../../newgen/viewers/image/interactive-img';
+import ArchiveViewerLoader from '../../../newgen/viewers/archiveSidebar/archiveViewerLoader';
+import { MediaFeatureFlags } from '@atlaskit/media-common';
 
 const identifier: Identifier = {
   id: 'some-id',
@@ -69,12 +80,17 @@ const makeFakeMediaClient = (observable: ReplaySubject<any>) => {
   return mediaClient;
 };
 
-function mountComponent(mediaClient: MediaClient, identifier: Identifier) {
+function mountComponent(
+  mediaClient: MediaClient,
+  identifier: Identifier,
+  featureFlags?: MediaFeatureFlags,
+) {
   const el = mountWithIntlContext(
     <ItemViewer
       previewCount={0}
       mediaClient={mediaClient}
       identifier={identifier}
+      featureFlags={featureFlags}
     />,
   );
   const instance = el.find(ItemViewerBase).instance() as any;
@@ -275,6 +291,42 @@ describe('<ItemViewer />', () => {
     expect(el.find(DocViewer).prop('collectionName')).toEqual(
       identifier.collectionName,
     );
+  });
+
+  it('should load archiveViewerLoader if media type is archive and FF is on', () => {
+    const state: FileState = {
+      id: identifier.id,
+      mediaType: 'archive',
+      status: 'processed',
+      artifacts: {},
+      name: '',
+      size: 10,
+      mimeType: '',
+    };
+    const mediaClient = makeFakeMediaClient(createFileStateSubject(state));
+    const { el } = mountComponent(mediaClient, identifier, {
+      zipPreviews: true,
+    });
+    el.update();
+    expect(el.find(ArchiveViewerLoader)).toHaveLength(1);
+  });
+
+  it('should not load archiveViewerLoader if media type is archive but FF is off', () => {
+    const state: FileState = {
+      id: identifier.id,
+      mediaType: 'archive',
+      status: 'processed',
+      artifacts: {},
+      name: '',
+      size: 10,
+      mimeType: '',
+    };
+    const mediaClient = makeFakeMediaClient(createFileStateSubject(state));
+    const { el } = mountComponent(mediaClient, identifier, {
+      zipPreviews: false,
+    });
+    el.update();
+    expect(el.find(ArchiveViewerLoader)).toHaveLength(0);
   });
 
   it('should should error and download button if file is unsupported', () => {

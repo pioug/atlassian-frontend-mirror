@@ -1,0 +1,8 @@
+__tests__/
+src/
+examples-helpers/
+examples/
+index.ts
+docs/
+build/
+tsconfig.json

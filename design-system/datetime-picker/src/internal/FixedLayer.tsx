@@ -3,7 +3,12 @@ import React from 'react';
 import ScrollLock from 'react-scrolllock';
 
 import { sizes } from '@atlaskit/icon';
-import { Manager, Popper, Reference } from '@atlaskit/popper';
+import {
+  Manager,
+  Popper,
+  PopperChildrenProps,
+  Reference,
+} from '@atlaskit/popper';
 import { gridSize, layers } from '@atlaskit/theme/constants';
 
 interface Props {
@@ -26,25 +31,17 @@ interface Props {
   testId?: string;
 }
 
-/* eslint-disable react/no-unused-prop-types */
-interface PopperProps {
-  ref: React.Ref<HTMLElement>;
-  style: any;
-  placement: {};
-  scheduleUpdate: () => void;
-}
-
 /**
  * This component renders layered content with fixed positioning.
  * Scroll is locked outside the layer to prevent the layered content from detaching from the
  * container ref.
  */
 export default class FixedLayer extends React.Component<Props> {
-  scheduleUpdate: () => void = () => {};
+  update: () => void = () => {};
 
   componentDidUpdate(prevProps: any) {
     if (prevProps.inputValue !== this.props.inputValue) {
-      this.scheduleUpdate();
+      this.update();
     }
   }
 
@@ -83,14 +80,12 @@ export default class FixedLayer extends React.Component<Props> {
           )}
         </Reference>
         <Popper>
-          {({ ref, style, placement, scheduleUpdate }: PopperProps) => {
-            this.scheduleUpdate = scheduleUpdate;
+          {({ ref, style, update }: PopperChildrenProps) => {
+            this.update = update;
 
             return (
-              // @ts-ignore: need to add `placement` onto div for popper
               <div
                 ref={ref as React.Ref<HTMLDivElement>}
-                placement={placement}
                 style={{ ...style, zIndex: layers.dialog() }}
                 data-testid={testId && `${testId}--popper--container`}
               >

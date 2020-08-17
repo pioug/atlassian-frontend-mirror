@@ -1,11 +1,24 @@
 import { snapshot, initEditorWithAdf, Appearance } from '../_utils';
 import { selectors } from '../../__helpers/page-objects/_editor';
-import { waitForFloatingControl } from '../../__helpers/page-objects/_toolbar';
+import {
+  waitForFloatingControl,
+  retryUntilStablePosition,
+} from '../../__helpers/page-objects/_toolbar';
 import adf from './__fixtures__/hyperlink-adf.json';
-import { Page } from '../../__helpers/page-objects/_types';
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+
+const click = async (page: any, selector: string) => {
+  await page.waitForSelector(selector);
+  await retryUntilStablePosition(
+    page,
+    () => page.click(selector),
+    '[aria-label*="Hyperlink floating controls"]',
+    1000,
+  );
+};
 
 describe('Hyperlink:', () => {
-  let page: Page;
+  let page: PuppeteerPage;
 
   beforeEach(async () => {
     page = global.page;
@@ -23,25 +36,25 @@ describe('Hyperlink:', () => {
 
   describe('heading', () => {
     it('should display the link toolbar', async () => {
-      await page.click(`${selectors.editor} > h1 > a`);
+      await click(page, `${selectors.editor} > h1 > a`);
     });
   });
 
   describe('paragraph', () => {
     it('should display the link toolbar', async () => {
-      await page.click(`${selectors.editor} > p > a`);
+      await click(page, `${selectors.editor} > p > a`);
     });
   });
 
   describe('action item', () => {
     it('should display the link toolbar', async () => {
-      await page.click(`${selectors.editor} .taskItemView-content-wrap a`);
+      await click(page, `${selectors.editor} .taskItemView-content-wrap a`);
     });
   });
 
   describe('decision item', () => {
     it('should display the link toolbar', async () => {
-      await page.click(`${selectors.editor} .decisionItemView-content-wrap a`);
+      await click(page, `${selectors.editor} .decisionItemView-content-wrap a`);
     });
   });
 });

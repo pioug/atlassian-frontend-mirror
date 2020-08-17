@@ -1,7 +1,6 @@
 import { InputRule } from 'prosemirror-inputrules';
 import { Schema } from 'prosemirror-model';
 import { Plugin, EditorState } from 'prosemirror-state';
-import { analyticsService } from '../../../analytics';
 import {
   createInputRule,
   instrumentedInputRule,
@@ -24,10 +23,6 @@ export function createLinkInputRule(regexp: RegExp): InputRule {
 
       const url = normalizeUrl(link.url);
       const markType = schema.mark('link', { href: url });
-
-      analyticsService.trackEvent(
-        'atlassian.editor.format.hyperlink.autoformatting',
-      );
 
       const tr = queueCards([
         {
@@ -70,10 +65,6 @@ export function createInputRulePlugin(schema: Schema): Plugin | undefined {
       const [, prefix, linkText, linkUrl] = match;
       const url = normalizeUrl(linkUrl);
       const markType = schema.mark('link', { href: url });
-
-      analyticsService.trackEvent(
-        'atlassian.editor.format.hyperlink.autoformatting',
-      );
 
       const tr = state.tr.replaceWith(
         start + prefix.length,

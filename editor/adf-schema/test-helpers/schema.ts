@@ -50,6 +50,7 @@ export default createSchema({
     'placeholder',
     'inlineCard',
     'blockCard',
+    'embedCard',
     'expand',
     'nestedExpand',
     'unsupportedBlock',

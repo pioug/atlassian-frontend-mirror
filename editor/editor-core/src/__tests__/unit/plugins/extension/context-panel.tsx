@@ -1,10 +1,16 @@
 import React from 'react';
 import { IntlProvider } from 'react-intl';
 import { mount } from 'enzyme';
-import { NodeSelection } from 'prosemirror-state';
-
+import { ADNode } from '@atlaskit/editor-common/validator';
 import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
-import { doc, extension } from '@atlaskit/editor-test-helpers/schema-builder';
+import {
+  doc,
+  bodiedExtension,
+  extension,
+  inlineExtension,
+  p as paragraph,
+  BuilderContent,
+} from '@atlaskit/editor-test-helpers/schema-builder';
 import { createFakeExtensionProvider } from '@atlaskit/editor-test-helpers/extensions';
 
 import {
@@ -89,113 +95,185 @@ describe('extension context panel', () => {
     ),
   });
 
-  describe('Saving', () => {
-    silenceActErrors();
+  const setupConfigPanel = async (content: BuilderContent[]) => {
+    const { editorView, eventDispatcher } = editor(
+      doc(...content),
+      {},
+      providerFactory,
+    );
 
-    const setupConfigPanel = async () => {
-      const { editorView, eventDispatcher } = editor(
-        doc(
-          extension({
-            extensionType: 'fake.confluence',
-            extensionKey: 'expand',
-            parameters: {
-              macroParams: {
-                title: 'click to see something cool',
-                content: 'something cool',
-              },
-            },
-          })(),
-        ),
-        {},
-        providerFactory,
-      );
+    await waitForProvider(providerFactory)('extensionProvider');
 
-      await waitForProvider(providerFactory)('extensionProvider');
+    setEditingContextToContextPanel(transformBefore, transformAfter)(
+      editorView.state,
+      editorView.dispatch,
+    );
 
-      const tr = editorView.state.tr.setSelection(
-        NodeSelection.create(editorView.state.doc, 0),
-      );
+    const contextPanel = getContextPanel(true)(editorView.state);
 
-      editorView.dispatch(tr);
+    expect(contextPanel).toBeTruthy();
+    const editorActions = new EditorActions();
+    const dispatchMock = jest.spyOn(editorView, 'dispatch');
+    const emitMock = jest.spyOn(eventDispatcher, 'emit');
 
-      setEditingContextToContextPanel(transformBefore, transformAfter)(
-        editorView.state,
-        editorView.dispatch,
-      );
+    editorActions._privateRegisterEditor(editorView, {} as any);
+    const wrapper = mount(
+      <IntlProvider locale="en">
+        <EditorContext editorActions={editorActions}>
+          {contextPanel!}
+        </EditorContext>
+      </IntlProvider>,
+    );
 
-      const contextPanel = getContextPanel(true)(editorView.state);
+    await flushPromises();
 
-      expect(contextPanel).toBeTruthy();
-      const editorActions = new EditorActions();
-      const dispatchMock = jest.spyOn(editorView, 'dispatch');
-      const emitMock = jest.spyOn(eventDispatcher, 'emit');
+    wrapper.update();
 
-      editorActions._privateRegisterEditor(editorView, {} as any);
-      const wrapper = mount(
-        <IntlProvider locale="en">
-          <EditorContext editorActions={editorActions}>
-            {contextPanel!}
-          </EditorContext>
-        </IntlProvider>,
-      );
+    const props = wrapper.find('FieldsLoader').props() as PublicProps;
 
-      await flushPromises();
-
-      wrapper.update();
-
-      const props = wrapper.find('FieldsLoader').props() as PublicProps;
-
-      return {
-        props,
-        dispatchMock,
-        editorView,
-        emitMock,
-      };
+    return {
+      props,
+      dispatchMock,
+      editorView,
+      emitMock,
     };
+  };
 
-    it('should unwrap parameters when injecting into the component', async () => {
-      const { props } = await setupConfigPanel();
+  const findExtension = (content: ADNode): ADNode => {
+    const isExtension = [
+      'bodiedExtension',
+      'extension',
+      'inlineExtension',
+    ].includes(content.type);
+    if (isExtension) {
+      return content;
+    }
 
-      expect(props.parameters).toEqual({
-        title: 'click to see something cool',
-        content: 'something cool',
+    return findExtension(content.content![0]);
+  };
+
+  it('should not call emit on every document change', async () => {
+    const { editorView, emitMock } = await setupConfigPanel([
+      '{<node>}',
+      extension({
+        extensionType: 'fake.confluence',
+        extensionKey: 'expand',
+        parameters: {
+          macroParams: {
+            title: 'click to see something cool',
+            content: 'something cool',
+          },
+        },
+      })(),
+    ]);
+
+    emitMock.mockClear();
+
+    editorView.dispatch(editorView.state.tr.insertText('hello'));
+    editorView.dispatch(editorView.state.tr.insertText(' world'));
+    editorView.dispatch(editorView.state.tr.insertText('!'));
+
+    expect(
+      emitMock.mock.calls.filter(([e, _]) => e === 'contextPanelPluginKey$')
+        .length,
+    ).toEqual(1);
+  });
+
+  const testSaving = (type: string, content: BuilderContent[]) => {
+    describe(`Saving ${type}`, () => {
+      silenceActErrors();
+
+      it('should unwrap parameters when injecting into the component', async () => {
+        const { props } = await setupConfigPanel(content);
+
+        expect(props.parameters).toEqual({
+          title: 'click to see something cool',
+          content: 'something cool',
+        });
       });
-    });
 
-    it('should wrap parameters back when saving and not scroll into view', async () => {
-      const { props, dispatchMock } = await setupConfigPanel();
+      it('should wrap parameters back when saving and not scroll into view', async () => {
+        const { props, dispatchMock } = await setupConfigPanel(content);
 
-      props.onChange({
-        title: 'changed',
-        content: 'not that cool',
-      });
-
-      await flushPromises();
-
-      const lastDispatchedTr = dispatchMock.mock.calls.pop();
-
-      expect(
-        lastDispatchedTr![0].doc.toJSON().content[0].attrs.parameters,
-      ).toEqual({
-        macroParams: {
+        props.onChange({
           title: 'changed',
           content: 'not that cool',
-        },
+        });
+
+        await flushPromises();
+
+        const lastDispatchedTr = dispatchMock.mock.calls.pop();
+
+        expect(
+          findExtension(lastDispatchedTr![0].doc.toJSON().content[0]).attrs
+            .parameters,
+        ).toEqual({
+          macroParams: {
+            title: 'changed',
+            content: 'not that cool',
+          },
+        });
+
+        expect((lastDispatchedTr as any).scrolledIntoView).toBeFalsy();
       });
-
-      expect((lastDispatchedTr as any).scrolledIntoView).toBeFalsy();
     });
+  };
 
-    it('should not call emit on every document change', async () => {
-      const { editorView, emitMock } = await setupConfigPanel();
-      emitMock.mockClear();
-      editorView.dispatch(editorView.state.tr.insertText('hello'));
-      editorView.dispatch(editorView.state.tr.insertText(' world'));
+  testSaving('inlineExtension', [
+    paragraph(
+      '{<node>}',
+      inlineExtension({
+        extensionType: 'fake.confluence',
+        extensionKey: 'expand',
+        parameters: {
+          macroParams: {
+            title: 'click to see something cool',
+            content: 'something cool',
+          },
+        },
+      })(),
+      ' text',
+    ),
+  ]);
 
-      expect(
-        emitMock.mock.calls.filter(([e, _]) => e === 'contextPanelPluginKey$')
-          .length,
-      ).toEqual(1);
-    });
-  });
+  testSaving('extension', [
+    '{<node>}',
+    extension({
+      extensionType: 'fake.confluence',
+      extensionKey: 'expand',
+      parameters: {
+        macroParams: {
+          title: 'click to see something cool',
+          content: 'something cool',
+        },
+      },
+    })(),
+  ]);
+
+  testSaving('bodiedExtension', [
+    '{<node>}',
+    bodiedExtension({
+      extensionType: 'fake.confluence',
+      extensionKey: 'expand',
+      parameters: {
+        macroParams: {
+          title: 'click to see something cool',
+          content: 'something cool',
+        },
+      },
+    })(paragraph('text')),
+  ]);
+
+  testSaving('bodiedExtension with cursor inside', [
+    bodiedExtension({
+      extensionType: 'fake.confluence',
+      extensionKey: 'expand',
+      parameters: {
+        macroParams: {
+          title: 'click to see something cool',
+          content: 'something cool',
+        },
+      },
+    })(paragraph('te{<>}xt')),
+  ]);
 });

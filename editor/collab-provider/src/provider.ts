@@ -5,7 +5,7 @@ import {
 import { getVersion, sendableSteps } from 'prosemirror-collab';
 import { EditorState, Transaction } from 'prosemirror-state';
 import { Step, StepMap, Mapping } from 'prosemirror-transform';
-import throttle from 'lodash.throttle';
+import throttle from 'lodash/throttle';
 
 import { Emitter } from './emitter';
 import { Channel } from './channel';
@@ -58,14 +58,14 @@ export class Provider extends Emitter<CollabEvent>
   // SessionID is the unique socket-session.
   private sessionId?: string;
 
-  // ClientID is the unqiue ID for a prosemirror client. Used for step-rebasing.
+  // ClientID is the unique ID for a prosemirror client. Used for step-rebasing.
   private clientId?: string;
 
   // UserID is the users actual account id.
   private userId?: string;
 
-  private participantUpdateTimeout?: number;
-  private presenceUpdateTimeout?: number;
+  private participantUpdateTimeout?: NodeJS.Timeout;
+  private presenceUpdateTimeout?: NodeJS.Timeout;
 
   constructor(config: Config) {
     super();
@@ -334,15 +334,19 @@ export class Provider extends Emitter<CollabEvent>
   }
 
   private sendPresence = () => {
-    clearTimeout(this.presenceUpdateTimeout);
-
+    if (this.presenceUpdateTimeout) {
+      clearTimeout(this.presenceUpdateTimeout);
+    }
     this.channel.broadcast('participant:updated', {
       sessionId: this.sessionId!,
       userId: this.userId!,
       clientId: this.clientId!,
     });
 
-    setTimeout(() => this.sendPresence(), SEND_PRESENCE_INTERVAL * 1000);
+    this.presenceUpdateTimeout = setTimeout(
+      () => this.sendPresence(),
+      SEND_PRESENCE_INTERVAL * 1000,
+    );
   };
 
   /**
@@ -366,7 +370,7 @@ export class Provider extends Emitter<CollabEvent>
   };
 
   /**
-   * Called when a participant leavs the session.
+   * Called when a participant leaves the session.
    *
    * We emit the `presence` event to update the active avatars in the editor.
    */
@@ -453,8 +457,9 @@ export class Provider extends Emitter<CollabEvent>
     joined: CollabParticipant[] = [],
     userIds: string[] = [],
   ) => {
-    clearTimeout(this.participantUpdateTimeout);
-
+    if (this.participantUpdateTimeout) {
+      clearTimeout(this.participantUpdateTimeout);
+    }
     const now = new Date().getTime();
 
     Array.from(this.participants.values()).forEach(p => {
@@ -476,7 +481,7 @@ export class Provider extends Emitter<CollabEvent>
     left.forEach(p => this.participants.delete(p.sessionId));
     this.emit('presence', { joined, left });
 
-    setTimeout(
+    this.participantUpdateTimeout = setTimeout(
       () => this.updateParticipants(),
       PARTICIPANT_UPDATE_INTERVAL * 1000,
     );

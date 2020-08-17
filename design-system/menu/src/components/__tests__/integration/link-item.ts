@@ -9,7 +9,7 @@ const getLinkSelector = (position: number) =>
 
 BrowserTestCase(
   'Selected nav items should have aria-current="page" attribute',
-  {},
+  { skip: ['edge'] },
   async (client: WebdriverIO.BrowserObject) => {
     const page = new Page(client);
     await page.goto(exampleUrl);

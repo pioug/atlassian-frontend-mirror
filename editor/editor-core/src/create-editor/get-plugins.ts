@@ -1,8 +1,10 @@
 import { Schema } from 'prosemirror-model';
 import { Plugin } from 'prosemirror-state';
+
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { EventDispatcher, Dispatch } from '../event-dispatcher';
 import { MarkConfig, NodeConfig } from '../types/pm-config';
+import { EditorReactContext } from '../types/editor-react-context';
 
 export type LightPMPluginFactoryParams = {
   // We can type this safe, we already remove the real code from this types
@@ -14,7 +16,7 @@ export type LightPMPluginFactoryParams = {
   props: {};
   prevProps?: {};
   portalProviderAPI: any;
-  reactContext: () => { [key: string]: any };
+  reactContext: () => EditorReactContext;
   dispatchAnalyticsEvent: any;
 };
 export type LightPMPluginFactory = (

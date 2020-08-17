@@ -1,5 +1,12 @@
 # @atlaskit/feedback-collector
 
+## 6.0.2
+
+### Patch Changes
+
+- [`6262f382de`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6262f382de) - Use the 'lodash' package instead of single-function 'lodash.\*' packages
+- Updated dependencies
+
 ## 6.0.1
 
 ### Patch Changes

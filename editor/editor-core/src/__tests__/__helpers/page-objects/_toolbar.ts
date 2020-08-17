@@ -1,4 +1,5 @@
-import { Page } from './_types';
+import { PuppeteerPage, TestPage } from './_types';
+import { getBoundingRect } from '../../__helpers/page-objects/_editor';
 
 export enum ToolbarMenuItem {
   table,
@@ -54,14 +55,14 @@ export const toolbarMenuItemsSelectors = {
   [ToolbarMenuItem.status]: '[aria-label="Status"]',
 };
 
-export async function clickToolbarMenu(page: Page, menu: ToolbarMenuItem) {
+export async function clickToolbarMenu(page: TestPage, menu: ToolbarMenuItem) {
   await page.waitForSelector(toolbarMenuItemsSelectors[menu]);
   await page.click(toolbarMenuItemsSelectors[menu]);
 }
 
 // Use for floating toolbars other UI controls
 export const waitForFloatingControl = async (
-  page: Page,
+  page: PuppeteerPage,
   ariaLabel: string,
   options = { visible: true },
   repositionalWait = true,
@@ -69,11 +70,8 @@ export const waitForFloatingControl = async (
   // Note: there can be multiple popups visible at once...
   // e.g. floating toolbar and breakout controls on a layout.
   const popupSelector = '[data-editor-popup="true"]';
-  const forceLayout = async (selector: string, page: Page) =>
-    page.$eval(
-      selector,
-      el => el && (el as HTMLElement).getBoundingClientRect(),
-    );
+  const forceLayout = async (selector: string, page: PuppeteerPage) =>
+    page.$eval<ClientRect>(selector, el => el && el.getBoundingClientRect());
 
   // Case insensitive fuzzy matching
   const ariaLabelSelector = `[aria-label*="${ariaLabel}" i]`;
@@ -95,4 +93,29 @@ export const waitForFloatingControl = async (
       () => new Promise(resolve => requestAnimationFrame(resolve)),
     );
   }
+};
+
+export const retryUntilStablePosition = async (
+  page: any,
+  callback: () => Promise<any>,
+  stablePosTargetSelector: string,
+  stableDuration: number,
+) => {
+  return new Promise(async res => {
+    let [prevLeft, prevTop] = [0, 0];
+    const intervalId = setInterval(async () => {
+      await callback();
+      const { left, top } = await getBoundingRect(
+        page,
+        stablePosTargetSelector,
+      );
+      if (left === prevLeft && top === prevTop) {
+        clearInterval(intervalId);
+        res();
+      } else {
+        prevLeft = left;
+        prevTop = top;
+      }
+    }, stableDuration);
+  });
 };

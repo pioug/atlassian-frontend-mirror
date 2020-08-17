@@ -222,10 +222,7 @@ export const backspaceKeyCommand: Command = (state, dispatch) => {
   )(state, dispatch);
 };
 
-export const deleteKeyCommand: Command = (state, dispatch) => {
-  //Should be extended in the future for more delete key functionality
-  return baseCommand.chainCommands(listDelete)(state, dispatch);
-};
+export const deleteKeyCommand: Command = listDelete;
 
 /**
  * Implemetation taken and modified for our needs from PM

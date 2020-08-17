@@ -1,5 +1,7 @@
 import Fuse from 'fuse.js';
 import { QuickInsertItem } from '@atlaskit/editor-common/src/provider-factory/quick-insert-provider';
+import { dedupe } from '../../utils';
+import { QuickInsertPluginState, QuickInsertPluginOptions } from './types';
 
 const options = {
   threshold: 0.3,
@@ -28,3 +30,27 @@ export function find(query: string, items: QuickInsertItem[]) {
 
   return fuse.search(query);
 }
+
+export const searchQuickInsertItems = (
+  quickInsertState: QuickInsertPluginState,
+  options?: QuickInsertPluginOptions,
+) => (query?: string, category?: string): QuickInsertItem[] => {
+  const defaultItems =
+    options && options.disableDefaultItems
+      ? []
+      : quickInsertState.lazyDefaultItems();
+  const providedItems = quickInsertState.providedItems;
+
+  const items = providedItems
+    ? dedupe([...defaultItems, ...providedItems], item => item.title)
+    : defaultItems;
+
+  return find(
+    query || '',
+    category === 'all' || !category
+      ? items
+      : items.filter(
+          item => item.categories && item.categories.includes(category),
+        ),
+  );
+};

@@ -16,12 +16,12 @@
   "atlaskit:src": "src/index.ts",
   "atlassian": {
     "team": "Design System Team",
+    "deprecatedAutoEntryPoints": true,
     "inPublicMirror": true,
     "releaseModel": "continuous",
     "website": {
       "name": "Page Layout"
-    },
-    "deprecatedAutoEntryPoints": true
+    }
   },
   "dependencies": {
     "@atlaskit/icon": "^21.0.0",
@@ -47,7 +47,7 @@
     "@atlaskit/menu": "^0.6.0",
     "@atlaskit/notification-indicator": "^8.0.0",
     "@atlaskit/notification-log-client": "^5.0.0",
-    "@atlaskit/popup": "^0.6.0",
+    "@atlaskit/popup": "^1.0.0",
     "@atlaskit/section-message": "^5.0.0",
     "@atlaskit/side-navigation": "^0.7.0",
     "@atlaskit/tooltip": "*",

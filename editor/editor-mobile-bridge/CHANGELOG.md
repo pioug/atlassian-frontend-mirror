@@ -1,5 +1,12 @@
 # @atlaskit/editor-mobile-bridge
 
+## 17.1.1
+
+### Patch Changes
+
+- [`76165ad82f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/76165ad82f) - Bump required because of conflicts on wadmal release
+- Updated dependencies
+
 ## 17.1.0
 
 ### Minor Changes

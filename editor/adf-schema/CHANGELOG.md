@@ -1,5 +1,11 @@
 # @atlaskit/adf-schema
 
+## 12.2.1
+
+### Patch Changes
+
+- [`76165ad82f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/76165ad82f) - Bump required because of conflicts on wadmal release
+
 ## 12.2.0
 
 ### Minor Changes

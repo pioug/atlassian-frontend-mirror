@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-core",
-  "version": "128.0.0",
+  "version": "128.0.1",
   "description": "A package contains Atlassian editor core functionality",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -127,7 +127,7 @@
   },
   "devDependencies": {
     "@atlaskit/code": "^12.0.0",
-    "@atlaskit/collab-provider": "3.2.0",
+    "@atlaskit/collab-provider": "3.2.1",
     "@atlaskit/docs": "*",
     "@atlaskit/dropdown-menu": "^10.0.0",
     "@atlaskit/editor-bitbucket-transformer": "^7.0.0",

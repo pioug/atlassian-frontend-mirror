@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-mobile-bridge",
-  "version": "17.1.0",
+  "version": "17.1.1",
   "description": "Mobile distribution of the Editor",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -35,15 +35,15 @@
     "@atlaskit/analytics-gas-types": "5.0.0",
     "@atlaskit/analytics-listeners": "7.0.2",
     "@atlaskit/collab-provider": "^3.2.0",
-    "@atlaskit/editor-common": "49.0.0",
-    "@atlaskit/editor-core": "128.0.0",
+    "@atlaskit/editor-common": "49.0.1",
+    "@atlaskit/editor-core": "128.0.1",
     "@atlaskit/editor-json-transformer": "8.2.0",
-    "@atlaskit/emoji": "63.0.2",
+    "@atlaskit/emoji": "63.0.3",
     "@atlaskit/mention": "19.0.2",
-    "@atlaskit/renderer": "64.0.0",
-    "@atlaskit/smart-card": "14.2.0",
+    "@atlaskit/renderer": "64.0.1",
+    "@atlaskit/smart-card": "14.2.1",
     "@atlaskit/status": "0.10.1",
-    "@atlaskit/task-decision": "17.0.2",
+    "@atlaskit/task-decision": "17.0.3",
     "@atlaskit/theme": "10.0.3",
     "@babel/polyfill": "^7.0.0",
     "@types/prosemirror-view": "^1.9.0",
@@ -52,7 +52,7 @@
     "prosemirror-view": "^1.9.12"
   },
   "peerDependencies": {
-    "@atlaskit/media-core": "32.0.1",
+    "@atlaskit/media-core": "32.0.2",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
     "react-intl": "^2.6.0"

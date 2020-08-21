@@ -586,7 +586,8 @@ const Renderer = (props: {
 export default function Example(props: EditorProps & ExampleProps) {
   const [isEditingMode, setMode] = React.useState(true);
 
-  const maybeDoc = fromLocation<object>(window.parent.location);
+  const maybeDoc =
+    props.defaultValue || fromLocation<object>(window.parent.location);
   const doc = maybeDoc instanceof window.Error ? undefined : maybeDoc;
 
   const document =

@@ -261,6 +261,7 @@ function Field<
             const { currentTarget } = eventOrValue;
 
             if (currentTarget.type === 'checkbox') {
+              //@ts-expect-error TODO Fix legit TypeScript 3.9.6 improved inference error
               if ((currentTarget as HTMLInputElement).checked) {
                 return currentTarget.value || true;
               }

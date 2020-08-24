@@ -2,12 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import ModalDialog, { ModalFooter } from '@atlaskit/modal-dialog';
 import Button from '@atlaskit/button';
-import {
-  smallImage,
-  mountWithIntlContext,
-  asMock,
-} from '@atlaskit/media-test-helpers';
-import * as MediaUI from '@atlaskit/media-ui';
+import { smallImage, mountWithIntlContext } from '@atlaskit/media-test-helpers';
 import { Avatar } from '../../avatar-list';
 import { ImageNavigator } from '../../image-navigator';
 import { PredefinedAvatarList } from '../../predefined-avatar-list';
@@ -23,20 +18,13 @@ import {
   AvatarPickerDialogState,
 } from '../../avatar-picker-dialog/types';
 
+const fileFromDataURI = new File([], 'some-file-name');
+jest.mock('@atlaskit/media-ui', () => ({
+  ...jest.requireActual('@atlaskit/media-ui'),
+  dataURItoFile: jest.fn(() => fileFromDataURI),
+}));
+
 describe('Avatar Picker Dialog', () => {
-  let dataURItoFile: typeof MediaUI.dataURItoFile;
-  let fileFromDataURI: File;
-
-  beforeEach(() => {
-    dataURItoFile = jest.spyOn(MediaUI, 'dataURItoFile') as any;
-    fileFromDataURI = new File([], 'some-file-name');
-    asMock(dataURItoFile).mockReturnValue(fileFromDataURI);
-  });
-
-  afterEach(() => {
-    jest.resetAllMocks();
-  });
-
   const renderWithProps = (props: Partial<AvatarPickerDialogProps>) => {
     const component = mountWithIntlContext(
       <AvatarPickerDialog

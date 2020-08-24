@@ -1,14 +1,14 @@
 import { NodeSpec, Node as PMNode } from 'prosemirror-model';
 import { uuid } from '../../utils/uuid';
 import { getExtensionAttrs } from '../../utils/extensions';
-import { ExtensionAttributes } from './types/extensions';
+import { InlineExtensionAttributes } from './types/extensions';
 
 /**
  * @name inlineExtension_node
  */
 export interface InlineExtensionDefinition {
   type: 'inlineExtension';
-  attrs: Omit<ExtensionAttributes, 'layout'>;
+  attrs: InlineExtensionAttributes;
 }
 
 const createInlineExtensionNodeSpec = (

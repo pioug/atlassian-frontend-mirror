@@ -37,7 +37,6 @@ describe('ImageRenderer', () => {
     expect(mediaImage).toHaveLength(1);
     expect(mediaImage.props()).toMatchObject({
       dataURI,
-      stretch: true,
       previewOrientation,
       alt,
       onImageLoad: expect.any(Function),

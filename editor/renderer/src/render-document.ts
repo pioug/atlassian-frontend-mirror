@@ -30,8 +30,10 @@ export interface ResultWithTime<T> {
 const SUPPORTS_HIRES_TIMER_API = window.performance && performance.now;
 
 const withStopwatch = <T>(cb: () => T): ResultWithTime<T> => {
+  //@ts-expect-error TODO Fix legit TypeScript 3.9.6 improved inference error
   const startTime = SUPPORTS_HIRES_TIMER_API ? performance.now() : Date.now();
   const output = cb();
+  //@ts-expect-error TODO Fix legit TypeScript 3.9.6 improved inference error
   const endTime = SUPPORTS_HIRES_TIMER_API ? performance.now() : Date.now();
   const time = endTime - startTime;
 

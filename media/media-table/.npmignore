@@ -1,6 +1,6 @@
-examples/
-examples-helpers/
-test-helpers/
+build/
 docs/
+examples-helpers/
+examples/
 src/
 tsconfig.json

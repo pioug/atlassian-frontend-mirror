@@ -39,7 +39,7 @@ class Example extends Component<{}, ExampleState> {
 
     return (
       <div>
-        <h1>MediaStore=>getItems()</h1>
+        <h1>MediaStore={'>'}getItems()</h1>
         <pre>
           {payload.items.length
             ? JSON.stringify(payload.items, undefined, 2)

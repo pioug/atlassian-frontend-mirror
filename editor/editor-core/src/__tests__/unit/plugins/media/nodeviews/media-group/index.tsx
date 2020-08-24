@@ -1,11 +1,11 @@
 // NOTE: for the purposes of this test we are mocking MediaNodeUpdater using __mocks__ version
 import { defaultSchema } from '@atlaskit/adf-schema';
+import { nextTick } from '@atlaskit/editor-test-helpers/next-tick';
 import { fakeMediaProvider } from '@atlaskit/editor-test-helpers/media-provider';
 import {
   media,
   mediaGroup,
 } from '@atlaskit/editor-test-helpers/schema-builder';
-import { nextTick } from '@atlaskit/media-test-helpers';
 import { mount } from 'enzyme';
 import { EditorView } from 'prosemirror-view';
 import React from 'react';
@@ -17,11 +17,11 @@ import {
 } from '../../../../../../plugins/media/pm-plugins/main';
 import { MediaPluginState } from '../../../../../../plugins/media/pm-plugins/types';
 import { EditorAppearance } from '../../../../../../types';
-// NOTE: Mocking the setNodeSelection function
-import * as Utils from '../../../../../../utils/';
-
+jest.mock('../../../../../../utils/', () => ({
+  __esModule: true,
+  setNodeSelection: jest.fn(),
+}));
 jest.mock('../../../../../../plugins/media/nodeviews/mediaNodeUpdater');
-(Utils as any).setNodeSelection = jest.fn();
 
 const MockMediaNodeUpdater = MediaNodeUpdater as jest.Mock<MediaNodeUpdater>;
 
@@ -85,7 +85,6 @@ describe('nodeviews/mediaGroup', () => {
 
     const wrapper = mount(<MediaGroup {...props} />);
 
-    await nextTick();
     await nextTick();
 
     return {

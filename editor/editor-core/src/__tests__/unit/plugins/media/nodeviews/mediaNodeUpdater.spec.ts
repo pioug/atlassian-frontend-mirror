@@ -1,5 +1,19 @@
 import { ContextIdentifierProvider } from '@atlaskit/editor-common';
 import { EditorView } from 'prosemirror-view';
+/**
+ * TS 3.9+ defines non-configurable property for exports, that's why it's not possible to mock them like this anymore:
+ *
+ * ```
+ * import * as tableUtils from '../../../../../plugins/table/utils';
+ * jest.spyOn(tableUtils, 'getColumnsWidths')
+ * ```
+ *
+ * This is a workaround: https://github.com/microsoft/TypeScript/issues/38568#issuecomment-628637477
+ */
+jest.mock('@atlaskit/media-client', () => ({
+  __esModule: true,
+  ...jest.requireActual('@atlaskit/media-client'),
+}));
 import * as MediaClientModule from '@atlaskit/media-client';
 import { FileState, getMediaClient } from '@atlaskit/media-client';
 import {

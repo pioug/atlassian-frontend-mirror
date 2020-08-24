@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-mobile-bridge",
-  "version": "17.1.1",
+  "version": "17.1.2",
   "description": "Mobile distribution of the Editor",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -23,7 +23,8 @@
     }
   },
   "scripts": {
-    "start": "webpack-dev-server -d --watch --progress",
+    "start": "webpack-dev-server -d --progress --serveIndex",
+    "start:watch": "webpack-dev-server -d --watch --progress --serveIndex",
     "debug": "webpack -d --watch",
     "build:dev": "webpack -d",
     "prebuild": "rm -rf dist && copy-pkg package.json tmp/package.json --only name,version,sideEffects && mv tmp/package.json src/version.json",
@@ -32,19 +33,19 @@
   "dependencies": {
     "@atlaskit/adf-schema": "^12.2.0",
     "@atlaskit/adf-utils": "^10.2.0",
-    "@atlaskit/analytics-gas-types": "5.0.0",
-    "@atlaskit/analytics-listeners": "7.0.2",
+    "@atlaskit/analytics-gas-types": "5.0.1",
+    "@atlaskit/analytics-listeners": "7.0.3",
     "@atlaskit/collab-provider": "^3.2.0",
-    "@atlaskit/editor-common": "49.0.1",
-    "@atlaskit/editor-core": "128.0.1",
-    "@atlaskit/editor-json-transformer": "8.2.0",
-    "@atlaskit/emoji": "63.0.3",
-    "@atlaskit/mention": "19.0.2",
-    "@atlaskit/renderer": "64.0.1",
-    "@atlaskit/smart-card": "14.2.1",
-    "@atlaskit/status": "0.10.1",
-    "@atlaskit/task-decision": "17.0.3",
-    "@atlaskit/theme": "10.0.3",
+    "@atlaskit/editor-common": "49.0.2",
+    "@atlaskit/editor-core": "128.0.2",
+    "@atlaskit/editor-json-transformer": "8.2.1",
+    "@atlaskit/emoji": "63.0.4",
+    "@atlaskit/mention": "19.0.3",
+    "@atlaskit/renderer": "64.0.2",
+    "@atlaskit/smart-card": "14.2.2",
+    "@atlaskit/status": "0.10.2",
+    "@atlaskit/task-decision": "17.0.4",
+    "@atlaskit/theme": "10.0.4",
     "@babel/polyfill": "^7.0.0",
     "@types/prosemirror-view": "^1.9.0",
     "prosemirror-history": "^1.0.2",
@@ -52,7 +53,7 @@
     "prosemirror-view": "^1.9.12"
   },
   "peerDependencies": {
-    "@atlaskit/media-core": "32.0.2",
+    "@atlaskit/media-core": "32.0.3",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
     "react-intl": "^2.6.0"
@@ -67,7 +68,7 @@
     "@atlaskit/media-client": "^9.0.0",
     "@atlaskit/media-core": "^32.0.0",
     "@atlaskit/media-test-helpers": "^28.1.0",
-    "@atlaskit/multi-entry-tools": "^0.0.3",
+    "@atlaskit/multi-entry-tools": "^0.0.4",
     "@atlaskit/select": "^13.0.0",
     "@atlaskit/textarea": "^3.0.0",
     "@atlaskit/textfield": "^4.0.0",

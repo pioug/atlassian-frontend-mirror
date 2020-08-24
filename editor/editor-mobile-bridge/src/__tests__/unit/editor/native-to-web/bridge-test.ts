@@ -7,7 +7,7 @@ const mockPmHistory = {
 jest.mock('prosemirror-history', () => mockPmHistory);
 
 const mockEditorCore = {
-  ...jest.genMockFromModule('@atlaskit/editor-core'),
+  ...(jest.genMockFromModule('@atlaskit/editor-core') as object),
   indentList: jest.fn(() => () => {}),
   outdentList: jest.fn(() => () => {}),
   toggleOrderedList: jest.fn(() => () => {}),

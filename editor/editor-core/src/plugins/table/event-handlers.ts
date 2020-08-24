@@ -96,6 +96,7 @@ export const handleClick = (view: EditorView, event: Event): boolean => {
    * Check if the table cell with an image is clicked
    * and its not the image itself
    */
+  //@ts-expect-error TODO Fix legit TypeScript 3.9.6 improved inference error
   const matches = element.matches ? 'matches' : 'msMatchesSelector';
   if (
     !table ||

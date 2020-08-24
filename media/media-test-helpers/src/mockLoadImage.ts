@@ -1,27 +1,33 @@
+let getOrientationMock: jest.Mock | Promise<number>;
+let loadImageMock: jest.Mock | Promise<{}>;
+
+// so that jest doesn't hoist mock of media-ui and replaces actual module on every import of media-test-helpers
+export const loadImageMockSetup = () => {
+  jest.mock('@atlaskit/media-ui', () => ({
+    ...jest.requireActual('@atlaskit/media-ui'),
+    getOrientation: jest.fn(() => getOrientationMock),
+    loadImage: jest.fn(() => loadImageMock),
+  }));
+};
+
 export const mockLoadImage = (
   naturalWidth: number = 1,
   naturalHeight: number = 1,
   orientation: number = 1,
 ) => {
-  const media_ui = require.requireActual('@atlaskit/media-ui');
-  jest.spyOn(media_ui, 'getOrientation').mockResolvedValue(orientation);
-  jest
-    .spyOn(media_ui, 'loadImage')
-    .mockResolvedValue({ naturalWidth, naturalHeight });
+  getOrientationMock = Promise.resolve(orientation);
+  loadImageMock = Promise.resolve({ naturalHeight, naturalWidth });
 };
 
 export const mockLoadImageError = (
   errorMessage: string = 'some-image-failed-to-load-reason',
 ) => {
-  const media_ui = require.requireActual('@atlaskit/media-ui');
-  jest.spyOn(media_ui, 'getOrientation').mockResolvedValue(1);
-  jest.spyOn(media_ui, 'loadImage').mockImplementation(() => {
-    throw new Error(errorMessage);
-  });
+  getOrientationMock = Promise.resolve(1);
+  loadImageMock = Promise.reject(new Error(errorMessage));
 };
 
 export const unMockLoadImage = () => {
-  const media_ui = require.requireActual('@atlaskit/media-ui');
-  media_ui.getOrientation.mockClear();
-  media_ui.loadImage.mockClear();
+  const uiModule = jest.requireActual('@atlaskit/media-ui');
+  getOrientationMock = uiModule.getOrientation;
+  loadImageMock = uiModule.loadImage;
 };

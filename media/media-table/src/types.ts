@@ -10,16 +10,6 @@ import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 export { SortOrderType };
 
-// Temporarily duplicate the FileIdentifer type from the '@atlaskit/media-client' packagage in order
-// to fix some flow problems that prevented us from releasing this package. This should be removed
-// when the Uranium release is out.
-export interface FileIdentifier {
-  readonly mediaItemType: 'file';
-  readonly id: string;
-  readonly occurrenceKey?: string;
-  readonly collectionName?: string; // files can exist outside of a collection
-}
-
 export interface FileInfo {
   fileName: string;
   id: string;

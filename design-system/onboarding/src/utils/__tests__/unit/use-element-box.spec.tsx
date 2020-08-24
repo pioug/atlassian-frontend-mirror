@@ -7,18 +7,39 @@ import { ElementBox } from '../../use-element-box';
 
 replaceRaf();
 
-describe('use-elememt-box', () => {
+const commonBoundingClientRectValues = {
+  left: 2,
+  right: 0,
+  bottom: 0,
+  x: 0,
+  y: 0,
+  toJSON() {
+    return JSON.stringify(this);
+  },
+};
+
+const getBoundingClientRectValues: DOMRect[] = [
+  {
+    width: 100,
+    height: 250,
+    top: 5,
+    ...commonBoundingClientRectValues,
+  },
+  {
+    width: 50,
+    height: 300,
+    top: 10,
+    ...commonBoundingClientRectValues,
+  },
+];
+
+describe('use-element-box', () => {
   it('correctly provides element dimensions on initial render', () => {
     const element = document.createElement('div');
 
-    jest.spyOn(element, 'getBoundingClientRect').mockImplementationOnce(() => ({
-      width: 100,
-      height: 250,
-      top: 5,
-      left: 2,
-      right: 0,
-      bottom: 0,
-    }));
+    jest
+      .spyOn(element, 'getBoundingClientRect')
+      .mockImplementationOnce(() => getBoundingClientRectValues[0]);
 
     let box = {};
 
@@ -47,22 +68,8 @@ describe('use-elememt-box', () => {
 
     jest
       .spyOn(element, 'getBoundingClientRect')
-      .mockImplementationOnce(() => ({
-        width: 100,
-        height: 250,
-        top: 5,
-        left: 2,
-        right: 0,
-        bottom: 0,
-      }))
-      .mockImplementationOnce(() => ({
-        width: 50,
-        height: 300,
-        top: 10,
-        left: 2,
-        right: 0,
-        bottom: 0,
-      }));
+      .mockImplementationOnce(() => getBoundingClientRectValues[0])
+      .mockImplementationOnce(() => getBoundingClientRectValues[1]);
 
     let box = {};
 
@@ -97,14 +104,9 @@ describe('use-elememt-box', () => {
     const elementNext = document.createElement('span');
     let box = {};
 
-    jest.spyOn(element, 'getBoundingClientRect').mockImplementation(() => ({
-      width: 100,
-      height: 250,
-      top: 5,
-      left: 2,
-      right: 0,
-      bottom: 0,
-    }));
+    jest
+      .spyOn(element, 'getBoundingClientRect')
+      .mockImplementation(() => getBoundingClientRectValues[0]);
 
     const { rerender } = render(
       <ElementBox element={element}>
@@ -126,14 +128,9 @@ describe('use-elememt-box', () => {
     });
     expect(element.getBoundingClientRect).toHaveBeenCalledTimes(1);
 
-    jest.spyOn(elementNext, 'getBoundingClientRect').mockImplementation(() => ({
-      width: 50,
-      height: 300,
-      top: 10,
-      left: 2,
-      right: 0,
-      bottom: 0,
-    }));
+    jest
+      .spyOn(elementNext, 'getBoundingClientRect')
+      .mockImplementation(() => getBoundingClientRectValues[1]);
 
     rerender(
       <ElementBox element={elementNext}>

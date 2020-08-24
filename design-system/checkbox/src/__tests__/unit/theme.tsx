@@ -89,6 +89,7 @@ describe('<Checkbox/>', () => {
       label: {
         spacing: {
           top: '6px',
+          // @ts-ignore
           nonexistent_token: '',
         },
         // @ts-ignore

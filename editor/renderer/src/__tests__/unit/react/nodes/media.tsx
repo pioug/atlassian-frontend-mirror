@@ -4,16 +4,12 @@ import { mount } from 'enzyme';
 import { MediaType } from '@atlaskit/adf-schema';
 import { Card, CardEvent } from '@atlaskit/media-card';
 import { sleep, nextTick, fakeMediaClient } from '@atlaskit/media-test-helpers';
-
 import {
   FileIdentifier,
   ExternalImageIdentifier,
   // @ts-ignore
   getMediaClient,
 } from '@atlaskit/media-client';
-let mediaClient = fakeMediaClient();
-// @ts-ignore
-getMediaClient = jest.fn().mockReturnValue(mediaClient);
 
 import Media from '../../../../react/nodes/media';
 import {
@@ -23,7 +19,14 @@ import {
   getClipboardAttrs,
   CardWrapper,
 } from '../../../../ui/MediaCard';
-import * as doc from '../../../../../examples/helper/media-layout.adf.json';
+
+const doc = require('../../../../../examples/helper/media-layout.adf.json');
+
+let mediaClient = fakeMediaClient();
+jest.mock('@atlaskit/media-client', () => ({
+  __esModule: true,
+  getMediaClient: jest.fn().mockReturnValue(mediaClient),
+}));
 
 describe('Media', () => {
   const mediaNode = {

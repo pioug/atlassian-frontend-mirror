@@ -515,7 +515,13 @@ const TableWithWidth: React.FunctionComponent<React.ComponentProps<
         props.rendererAppearance === 'full-page'
           ? width - FullPagePadding * 2
           : width;
-      return <TableWithShadows renderWidth={renderWidth} {...props} />;
+      return (
+        <TableWithShadows
+          //@ts-expect-error TODO Fix legit TypeScript 3.9.6 improved inference error
+          renderWidth={renderWidth}
+          {...props}
+        />
+      );
     }}
   </WidthConsumer>
 );

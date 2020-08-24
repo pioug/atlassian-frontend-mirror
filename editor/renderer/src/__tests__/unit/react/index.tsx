@@ -1,4 +1,5 @@
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { nextTick } from '@atlaskit/editor-test-helpers/next-tick';
 import { mount, shallow, ReactWrapper } from 'enzyme';
 import { ReactSerializer } from '../../../index';
 import {
@@ -6,7 +7,6 @@ import {
   createSchema,
   defaultSchemaConfig,
 } from '@atlaskit/adf-schema';
-import { nextTick } from '@atlaskit/media-test-helpers';
 import { Heading } from '../../../react/nodes';
 import { Expand } from '../../../react/nodes';
 import { Emoji } from '../../../react/nodes';
@@ -195,7 +195,6 @@ describe('Renderer - ReactSerializer', () => {
             ) as any,
           );
 
-          await nextTick();
           await nextTick();
           reactDoc.update();
           expect(getMediaSingle(reactDoc).prop('isInsideOfBlockNode')).toEqual(

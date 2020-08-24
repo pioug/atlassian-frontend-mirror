@@ -115,6 +115,7 @@ describe('DocViewer', () => {
 
   it('assigns a document content when successful', async () => {
     const el = await getSuccessDocument();
+    await nextTick();
     expect(el.state().content.status).toEqual('SUCCESSFUL');
   });
 

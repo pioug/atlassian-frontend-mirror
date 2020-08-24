@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/icon-object",
-  "version": "6.0.1",
+  "version": "6.0.2",
   "description": "A React package that contains object icons",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "@atlaskit/theme": "^10.0.0",
-    "tslib": "^1.9.3"
+    "tslib": "^2.0.0"
   },
   "peerDependencies": {
     "react": "^16.8.0",

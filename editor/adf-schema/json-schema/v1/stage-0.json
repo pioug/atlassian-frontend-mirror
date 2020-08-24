@@ -522,9 +522,6 @@
         "attrs": {
           "type": "object",
           "properties": {
-            "text": {
-              "type": "string"
-            },
             "extensionKey": {
               "type": "string",
               "minLength": 1
@@ -534,16 +531,19 @@
               "minLength": 1
             },
             "parameters": {},
+            "text": {
+              "type": "string"
+            },
             "localId": {
               "type": "string",
               "minLength": 1
             }
           },
-          "additionalProperties": false,
           "required": [
             "extensionKey",
             "extensionType"
-          ]
+          ],
+          "additionalProperties": false
         }
       },
       "required": [

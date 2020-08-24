@@ -18,7 +18,7 @@ const TestComponent = ({
   onEffectAbort: () => void;
   onEffectCleanup: () => void;
 }) => {
-  const [value, setValue] = useState();
+  const [value, setValue] = useState<string | undefined>();
 
   useAbortableEffect(
     signal => {

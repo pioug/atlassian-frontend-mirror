@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/field-radio-group",
-  "version": "8.0.0",
+  "version": "8.0.1",
   "description": "A radio group React component used for selecting discrete values in a form",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

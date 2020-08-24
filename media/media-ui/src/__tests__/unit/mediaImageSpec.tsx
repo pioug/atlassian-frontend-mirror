@@ -1,13 +1,9 @@
 import React from 'react';
 import { mount, ReactWrapper } from 'enzyme';
-import * as RootModule from '../..';
 import { MediaImage, MediaImageProps, MediaImageState } from '../../mediaImage';
 import { ImageComponent } from '../../mediaImage/styled';
-import {
-  asMock,
-  expectFunctionToHaveBeenCalledWith,
-  expectToEqual,
-} from '@atlaskit/media-test-helpers';
+import { expectToEqual, nextTick } from '@atlaskit/media-test-helpers';
+import { isRotated } from '../../imageMetaData';
 
 interface SetupParams {
   isCoverStrategy: boolean;
@@ -17,6 +13,16 @@ interface SetupParams {
   previewOrientation?: number;
   altText?: string;
 }
+
+let isRotatedMock: jest.Mock | typeof isRotated = jest.fn();
+
+jest.mock('../../imageMetaData/imageOrientationUtil', () => ({
+  ...jest.requireActual('../../imageMetaData/imageOrientationUtil'),
+  isRotated: jest.fn<
+    ReturnType<typeof isRotated>,
+    Parameters<typeof isRotated>
+  >(orientation => isRotatedMock(orientation)),
+}));
 
 describe('MediaImage', () => {
   const originalGetBoundingClientRect = Element.prototype.getBoundingClientRect;
@@ -31,8 +37,6 @@ describe('MediaImage', () => {
     ],
   };
   const defaultTransform = {};
-  let isRotated: typeof RootModule.isRotated;
-  let getCssFromImageOrientation: typeof RootModule.getCssFromImageOrientation;
   let onImageLoad: jest.Mock<any>;
   let onImageError: jest.Mock<any>;
 
@@ -100,12 +104,9 @@ describe('MediaImage', () => {
   beforeEach(() => {
     onImageLoad = jest.fn();
     onImageError = jest.fn();
-    isRotated = jest.spyOn(RootModule, 'isRotated') as any;
-    getCssFromImageOrientation = jest.spyOn(
-      RootModule,
-      'getCssFromImageOrientation',
-    ) as any;
-    asMock(isRotated).mockReset();
+    isRotatedMock = jest.requireActual(
+      '../../imageMetaData/imageOrientationUtil',
+    ).isRotated;
   });
 
   afterAll(() => {
@@ -257,7 +258,7 @@ describe('MediaImage', () => {
 
     describe('when image is rotated', () => {
       it('should choose appropriate width when cover strategy chosen', () => {
-        asMock(isRotated).mockReturnValue(true);
+        isRotatedMock = jest.fn().mockReturnValue(true);
 
         const component = mount<MediaImageProps, MediaImageState>(
           <MediaImage
@@ -276,7 +277,7 @@ describe('MediaImage', () => {
       });
 
       it('should choose appropriate height when fit strategy chosen', () => {
-        asMock(isRotated).mockReturnValue(true);
+        isRotatedMock = jest.fn().mockReturnValue(true);
 
         const component = mount<MediaImageProps, MediaImageState>(
           <MediaImage
@@ -360,9 +361,8 @@ describe('MediaImage', () => {
         expect(component.prop('style')!.transform).toBeUndefined();
       });
 
-      it('should rotate the image and revert width and height when image is rotated 90deg', () => {
-        asMock(getCssFromImageOrientation).mockReturnValue('rotate(90deg)');
-        asMock(isRotated).mockReturnValue(true);
+      it('should rotate the image and revert width and height when image is rotated 90deg', async () => {
+        isRotatedMock = jest.fn().mockReturnValue(true);
 
         const component = mount<MediaImageProps, MediaImageState>(
           <MediaImage
@@ -372,7 +372,10 @@ describe('MediaImage', () => {
             previewOrientation={6}
           />,
         );
-        expectFunctionToHaveBeenCalledWith(getCssFromImageOrientation, [6]);
+
+        await nextTick();
+        await nextTick();
+        await nextTick();
 
         mockImageTag(component, [1000, 750], [75, 100], true);
         expectToEqual(component.find(ImageComponent).prop('style'), {
@@ -383,7 +386,7 @@ describe('MediaImage', () => {
       });
 
       it('should choose appropriate width when cover strategy chosen', () => {
-        asMock(isRotated).mockReturnValue(true);
+        isRotatedMock = jest.fn().mockReturnValue(true);
 
         const component = mount<MediaImageProps, MediaImageState>(
           <MediaImage

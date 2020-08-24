@@ -83,6 +83,7 @@ describe('Dropzone Async Loader', () => {
       );
 
       await nextTick();
+      await nextTick();
 
       expect(wrapper.state().Dropzone).toBeDefined();
     });

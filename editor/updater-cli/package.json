@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/updater-cli",
-  "version": "2.0.9",
+  "version": "2.0.10",
   "description": "Updater CLI for Atlaskit components.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -25,7 +25,7 @@
     "ora": "^3.0.0",
     "semver": "^7.3.0",
     "terminal-link": "^1.2.0",
-    "tslib": "^1.9.3",
+    "tslib": "^2.0.0",
     "yarn-deduplicate": "^1.1.1"
   },
   "devDependencies": {

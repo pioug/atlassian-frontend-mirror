@@ -23,6 +23,21 @@ export class ClipboardMockFile implements File {
     this.size = 0;
     this.webkitRelativePath = '';
   }
+  arrayBuffer() {
+    return Promise.resolve(new ArrayBuffer(0));
+  }
+  stream() {
+    // IE11 compat
+    // eslint-disable-next-line compat/compat
+    return new ReadableStream({
+      start(controller) {
+        controller.close();
+      },
+    });
+  }
+  text() {
+    return Promise.resolve('');
+  }
 }
 
 // this isn't implemented by JSDOM so we've implemented it to make Typescript happy

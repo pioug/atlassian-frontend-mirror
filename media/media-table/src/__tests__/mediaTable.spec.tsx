@@ -11,7 +11,6 @@ import { DynamicTableStateless } from '@atlaskit/dynamic-table';
 import { HeadType } from '@atlaskit/dynamic-table/types';
 import DownloadIcon from '@atlaskit/icon/glyph/download';
 import ImageIcon from '@atlaskit/icon/glyph/media-services/image';
-import * as MediaClientModule from '@atlaskit/media-client';
 import {
   createFileStateSubject,
   FileState,
@@ -32,6 +31,13 @@ import { toHumanReadableMediaSize } from '@atlaskit/media-ui';
 import { MediaTableProps, MediaTableItem } from '../types';
 import { MediaTable } from '../component/mediaTable';
 import { NameCell } from '../component/nameCell';
+
+let mediaClientMock: MediaClient;
+
+jest.mock('@atlaskit/media-client', () => ({
+  ...jest.requireActual('@atlaskit/media-client'),
+  getMediaClient: jest.fn(() => mediaClientMock),
+}));
 
 describe('MediaTable', () => {
   const onSetPageMock = jest.fn();
@@ -59,9 +65,7 @@ describe('MediaTable', () => {
     fileStateSubject: ReplaySubject<FileState> = defaultFileState,
   ): MediaClient => {
     const mediaClient = fakeMediaClient();
-    jest
-      .spyOn(MediaClientModule, 'getMediaClient')
-      .mockReturnValue(mediaClient);
+    mediaClientMock = mediaClient;
 
     asMockFunction(mediaClient.file.getFileState).mockReturnValue(
       fileStateSubject,

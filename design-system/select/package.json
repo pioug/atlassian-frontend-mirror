@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/select",
-  "version": "13.0.1",
+  "version": "13.0.2",
   "description": "Select gives users the ability to make a single selection, or multiple selections from a number of options.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -14,7 +14,6 @@
   "types": "dist/cjs/index.d.ts",
   "sideEffects": false,
   "atlaskit:src": "src/index.ts",
-  "homepage": "https://atlassian.design/components/select/",
   "atlassian": {
     "team": "Design System Team",
     "deprecatedAutoEntryPoints": true,
@@ -39,7 +38,7 @@
     "react-popper": "^2.2.3",
     "react-select": "^3.0.4",
     "shallow-equal": "^1.0.0",
-    "tslib": "^1.9.3"
+    "tslib": "^2.0.0"
   },
   "peerDependencies": {
     "react": "^16.8.0",
@@ -66,5 +65,6 @@
     "react-value": "^0.2.0",
     "styled-components": "^3.2.6",
     "wait-for-expect": "^1.2.0"
-  }
+  },
+  "homepage": "https://atlassian.design/components/select/"
 }

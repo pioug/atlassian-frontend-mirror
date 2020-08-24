@@ -144,6 +144,7 @@ describe('Audio viewer', () => {
       await instance['init']();
       await promiseSrc;
       await nextTick();
+      await nextTick();
       el.update();
 
       expect(el.find(DefaultCoverWrapper)).toHaveLength(0);

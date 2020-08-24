@@ -266,6 +266,7 @@ describe('Smart Media Editor', () => {
 
         expect(onFinish).toHaveBeenCalledTimes(0);
         await nextTick();
+        await nextTick();
         expect(mediaClient.file.copyFile).toHaveBeenCalledTimes(1);
         expect(onFinish).toHaveBeenCalledTimes(1);
       });

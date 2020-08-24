@@ -284,6 +284,8 @@ describe('importFiles middleware', () => {
     await nextTick(); // wait for auth provider
     await nextTick(); // wait for first `await observableToPromise` in getTenantFileState()
     await nextTick(); // wait for second `await observableToPromise` in getTenantFileState()
+    await nextTick();
+    await nextTick();
   };
 
   function getDispatchCallsByType<T extends Action>(
@@ -667,6 +669,7 @@ describe('importFiles middleware', () => {
         resolver({ value: 'some-preview-value' });
         await nextTick();
         await nextTick();
+        await nextTick();
 
         const lastTwoActionTypes = asMockFunction(store.dispatch)
           .mock.calls.map(([action]) => action.type)
@@ -717,6 +720,7 @@ describe('importFiles middleware', () => {
         ]);
 
         resolver({ value: new Blob() });
+        await nextTick();
         await nextTick();
         await nextTick();
         await nextTick();

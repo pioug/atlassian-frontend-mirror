@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/dynamic-table",
-  "version": "14.1.0",
+  "version": "14.1.1",
   "description": "Table component with pagination and sorting functionality",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -30,7 +30,7 @@
     "@atlaskit/spinner": "^15.0.0",
     "@atlaskit/theme": "^10.0.0",
     "react-beautiful-dnd": "^12.1.1",
-    "tslib": "^1.9.3"
+    "tslib": "^2.0.0"
   },
   "peerDependencies": {
     "react": "^16.8.0",

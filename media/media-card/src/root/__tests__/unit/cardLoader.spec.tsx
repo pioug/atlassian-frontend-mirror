@@ -88,6 +88,7 @@ describe('Async Card Loader', () => {
 
       await nextTick();
       await CardModule;
+      await nextTick();
       wrapper.update();
       expect(wrapper.state().Card).not.toBeUndefined();
     });

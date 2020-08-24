@@ -74,6 +74,7 @@ describe('Async Media Image Loader', () => {
       >(<MediaImageLoader {...props} />);
 
       await nextTick();
+      await nextTick();
 
       expect(wrapper.state().MediaImage).not.toBeUndefined();
     });

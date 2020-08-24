@@ -12,6 +12,12 @@ import { UploadComponent } from './component';
 import { UploadServiceImpl } from '../service/uploadServiceImpl';
 import { LocalUploadConfig } from './types';
 
+export interface LocalUploadComponent<
+  M extends UploadEventPayloadMap = UploadEventPayloadMap
+> extends UploadComponent<M> {
+  cancel(uniqueIdentifier?: string): void;
+  setUploadParams(uploadParams: UploadParams): void;
+}
 export class LocalUploadComponent<
   M extends UploadEventPayloadMap = UploadEventPayloadMap
 > extends UploadComponent<M> implements LocalUploadComponent {

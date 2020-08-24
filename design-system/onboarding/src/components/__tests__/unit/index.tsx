@@ -27,13 +27,18 @@ const ElementStub = (props: ElementStubProps) => {
         }
 
         // We calculate the bounding client rect from the props passed in.
-        ref.getBoundingClientRect = (): ClientRect => ({
+        ref.getBoundingClientRect = (): DOMRect => ({
           width: props.width,
           height: props.height,
           left: props.marginLeft || 0,
           top: props.marginTop || 0,
           bottom: window.innerHeight - props.height - (props.marginBottom || 0),
           right: window.innerWidth - props.width - (props.marginRight || 0),
+          x: 0,
+          y: 0,
+          toJSON() {
+            return JSON.stringify(this);
+          },
         });
       }}
     >

@@ -238,7 +238,7 @@ export const formatting: (intl: InjectedIntl) => Format[] = ({
     keymap: () => keymaps.toggleBlockQuote,
     autoFormatting: () => (
       <span>
-        <CodeLg>></CodeLg> <CodeLg>Space</CodeLg>
+        <CodeLg>{'>'}</CodeLg> <CodeLg>Space</CodeLg>
       </span>
     ),
   },

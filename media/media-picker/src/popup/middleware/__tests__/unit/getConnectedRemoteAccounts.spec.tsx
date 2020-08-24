@@ -20,6 +20,8 @@ describe('getConnectedRemoteAccounts middleware', () => {
 
       await nextTick();
       await nextTick();
+      await nextTick();
+      await nextTick();
 
       expect(store.dispatch).toHaveBeenCalledTimes(2);
       expect(store.dispatch).toHaveBeenLastCalledWith(

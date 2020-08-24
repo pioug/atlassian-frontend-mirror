@@ -123,6 +123,7 @@ export {
   unmockFileReader,
 } from './fileReader';
 export {
+  loadImageMockSetup,
   mockLoadImage,
   mockLoadImageError,
   unMockLoadImage,

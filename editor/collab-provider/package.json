@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/collab-provider",
-  "version": "3.2.1",
+  "version": "3.2.2",
   "description": "A provider for collaborative editing.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -32,7 +32,7 @@
     "prosemirror-state": "^1.2.2",
     "prosemirror-transform": "^1.2.5",
     "socket.io-client": "^2.3.0",
-    "tslib": "^1.9.3"
+    "tslib": "^2.0.0"
   },
   "techstack": {
     "@atlassian/frontend": {

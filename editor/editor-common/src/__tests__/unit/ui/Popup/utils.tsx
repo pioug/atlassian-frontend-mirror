@@ -67,15 +67,25 @@ describe('@atlaskit/editor-common popup utils', () => {
           right: 0,
           height: 100,
           width: 100,
+          x: 0,
+          y: 0,
+          toJSON() {
+            return JSON.stringify(this);
+          },
           ...(root ? root : {}),
-        } as ClientRect);
+        } as DOMRect);
 
       popupEl.getBoundingClientRect = () =>
         ({
           height: 10,
           width: 50,
+          x: 0,
+          y: 0,
+          toJSON() {
+            return JSON.stringify(this);
+          },
           ...(popup ? popup : {}),
-        } as ClientRect);
+        } as DOMRect);
 
       targetEl.getBoundingClientRect = () =>
         ({
@@ -84,8 +94,13 @@ describe('@atlaskit/editor-common popup utils', () => {
           right: 40,
           height: 20,
           width: 30,
+          x: 0,
+          y: 0,
+          toJSON() {
+            return JSON.stringify(this);
+          },
           ...(target ? target : {}),
-        } as ClientRect);
+        } as DOMRect);
     };
 
     beforeAll(() => {

@@ -5,8 +5,10 @@ import Select, { OptionProps, components } from '../src';
 const Option = (props: OptionProps) => {
   const { data } = props; // eslint-disable-line react/prop-types
   const { tooltipDescription, tooltipPosition } = data;
+
   return (
     <Tooltip content={tooltipDescription} position={tooltipPosition}>
+      {/*@ts-expect-error TODO Fix legit TypeScript 3.9.6 improved inference error*/}
       <components.Option data={data} {...props} />
     </Tooltip>
   );

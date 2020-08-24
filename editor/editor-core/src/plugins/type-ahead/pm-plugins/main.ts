@@ -377,7 +377,7 @@ export function defaultActionHandler({
     if (pluginState.itemsLoader) {
       pluginState.itemsLoader.cancel();
     }
-
+    //@ts-expect-error TODO Fix legit TypeScript 3.9.6 improved inference error
     if ((typeAheadItems as Promise<Array<TypeAheadItem>>).then) {
       itemsLoader = createItemsLoader(
         typeAheadItems as Promise<Array<TypeAheadItem>>,

@@ -50,7 +50,7 @@ const emptyClient = new MockNotificationLogClient(0);
 export const NotificationsPopup = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [interacted, setInteracted] = useState(false);
-  const [buttonLabel, setButtonLabel] = useState();
+  const [buttonLabel, setButtonLabel] = useState<number | undefined>();
 
   const NotificationsBadge = () => (
     <NotificationIndicator

@@ -21,7 +21,13 @@ import { shouldDisplayImageThumbnail } from '../../utils/shouldDisplayImageThumb
 import { FabricChannel } from '@atlaskit/analytics-listeners';
 import { CardDimensionValue } from '../../index';
 import { FormattedMessage } from 'react-intl';
-const mediaUi = require.requireActual('@atlaskit/media-ui');
+import * as mediaUi from '@atlaskit/media-ui';
+
+const humanReadableMediaSize = 'some KB';
+jest.mock('@atlaskit/media-ui', () => ({
+  ...jest.requireActual('@atlaskit/media-ui'),
+  toHumanReadableMediaSize: jest.fn(() => humanReadableMediaSize),
+}));
 
 describe('CardView', () => {
   const file: FileDetails = {
@@ -60,12 +66,6 @@ describe('CardView', () => {
     });
 
     it('should render FileCardImageView with details passed through to props', function() {
-      const toHumanReadableMediaSize = mediaUi.toHumanReadableMediaSize;
-      const humanReadableMediaSize = 'some KB';
-      mediaUi.toHumanReadableMediaSize = jest
-        .fn()
-        .mockReturnValue(humanReadableMediaSize);
-
       const filesize = 123456;
 
       const details: FileDetails = {
@@ -95,8 +95,6 @@ describe('CardView', () => {
       expect(fileCardView.length).toEqual(1);
       expect(fileCardView.props()).toMatchObject(expectedProps);
       expect(mediaUi.toHumanReadableMediaSize).toBeCalledWith(filesize);
-
-      mediaUi.toHumanReadableMediaSize = toHumanReadableMediaSize;
     });
 
     it('should render FileCardImageView with dataUri when passed', () => {

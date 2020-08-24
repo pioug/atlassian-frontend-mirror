@@ -88,7 +88,9 @@ export function MobileEditor(props: MobileEditorProps) {
             appearance="mobile"
             onEditorReady={handleEditorReady}
             onDestroy={handleEditorDestroyed}
+            //@ts-expect-error TODO Fix legit TypeScript 3.9.6 improved inference error
             mentionProvider={props.mentionProvider}
+            //@ts-expect-error TODO Fix legit TypeScript 3.9.6 improved inference error
             emojiProvider={props.emojiProvider}
             media={mediaOptions}
             allowConfluenceInlineComment={true}

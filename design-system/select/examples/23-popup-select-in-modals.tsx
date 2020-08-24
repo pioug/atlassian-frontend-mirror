@@ -16,7 +16,7 @@ const options = [
 ];
 
 export default () => {
-  const [isOpen, setIsOpen] = React.useState();
+  const [isOpen, setIsOpen] = React.useState(false);
   const [type, setType] = React.useState('modal');
 
   const select = (

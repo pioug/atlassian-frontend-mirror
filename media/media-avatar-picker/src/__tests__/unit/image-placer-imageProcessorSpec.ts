@@ -1,11 +1,14 @@
-import { mockCanvas } from '@atlaskit/media-test-helpers';
-import { FileInfo, Rectangle, Bounds } from '@atlaskit/media-ui';
 import {
+  mockCanvas,
+  loadImageMockSetup,
   mockLoadImage,
   mockLoadImageError,
   unMockLoadImage,
 } from '@atlaskit/media-test-helpers';
 
+loadImageMockSetup(); // setup calls jest.mock('@atlaskit/media-ui') that hoists mocked package
+
+import { FileInfo, Rectangle, Bounds } from '@atlaskit/media-ui';
 const getCanvasMock = mockCanvas();
 const mockImagePlacerUtil = {
   getCanvas: jest.fn().mockReturnValue(getCanvasMock),

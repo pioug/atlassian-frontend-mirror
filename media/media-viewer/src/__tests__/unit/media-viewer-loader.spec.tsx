@@ -89,18 +89,20 @@ describe('Async Media Viewer Loader', () => {
     });
 
     it('should render MediaViewer component', async () => {
-      const wrapper = await mount<
+      const wrapper = mount<
         MediaViewerWithMediaClientConfigProps,
         AsyncMediaViewerState
       >(<AsyncMediaViewer {...props} />);
 
+      await nextTick();
+      await nextTick();
       await nextTick();
 
       expect(wrapper.state().MediaViewer).toBeDefined();
     });
 
     it('should render Error boundary component', async () => {
-      const wrapper = await mount<
+      const wrapper = mount<
         MediaViewerWithMediaClientConfigProps,
         AsyncMediaViewerState
       >(<AsyncMediaViewer {...props} />);

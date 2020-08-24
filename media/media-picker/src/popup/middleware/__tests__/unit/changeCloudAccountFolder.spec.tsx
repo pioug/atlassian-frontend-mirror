@@ -71,6 +71,9 @@ describe('changePath', () => {
     changeCloudAccountFolderMiddleware(fetcher)(store)(next)(action);
 
     await nextTick(); // Await authProvider()
+    await nextTick();
+    await nextTick();
+    await nextTick();
 
     expect(fetcher.fetchCloudAccountFolder).toBeCalledWith(
       auth,
@@ -108,6 +111,13 @@ describe('changePath', () => {
     changeCloudAccountFolderMiddleware(fetcher)(store)(next)(action);
 
     await nextTick(); // Await authProvider()
+    await nextTick();
+    await nextTick();
+    await nextTick();
+
+    try {
+      await fetchCloudAccountFolderResult;
+    } catch (e) {}
 
     expect(fetcher.fetchCloudAccountFolder).toBeCalledWith(
       auth,
@@ -115,10 +125,6 @@ describe('changePath', () => {
       action.accountId,
       action.path[0].id,
     );
-
-    try {
-      await fetchCloudAccountFolderResult;
-    } catch (e) {}
 
     expectFunctionToHaveBeenCalledWith(store.dispatch, [
       requestUnlinkCloudAccount({ id: accountId, name: action.serviceName }),

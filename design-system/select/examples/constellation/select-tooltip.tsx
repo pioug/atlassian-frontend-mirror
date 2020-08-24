@@ -7,7 +7,7 @@ const Option = (props: OptionProps) => {
   const { tooltipDescription, tooltipPosition } = data;
   return (
     <Tooltip content={tooltipDescription} position={tooltipPosition}>
-      <components.Option data={data} {...props} />
+      <components.Option {...props} />
     </Tooltip>
   );
 };

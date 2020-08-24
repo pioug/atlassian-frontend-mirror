@@ -32,7 +32,9 @@ import {
 } from '../database/mockData';
 import { mapDataUriToBlob } from '../../utils';
 
-class RouterWithLogging<M> extends Router<M> {
+class RouterWithLogging<MediaDatabaseSchema> extends Router<
+  MediaDatabaseSchema
+> {
   register(
     method: string,
     path: string,

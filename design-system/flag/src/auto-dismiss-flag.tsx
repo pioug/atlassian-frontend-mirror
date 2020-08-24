@@ -30,6 +30,7 @@ const AutoDismissFlag = (props: AutoDismissFlagProps) => {
   });
 
   const dismissFlag = useCallback(() => {
+    //@ts-expect-error TODO Fix legit TypeScript 3.9.6 improved inference error
     if (isAutoDismissAllowed) {
       onDismissedAnalytics(id);
     }

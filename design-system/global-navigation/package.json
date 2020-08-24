@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/global-navigation",
-  "version": "10.0.1",
+  "version": "10.0.2",
   "description": "Global navigation component for Atlassian",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

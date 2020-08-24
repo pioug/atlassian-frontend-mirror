@@ -68,7 +68,8 @@ const getCellAttrs = (dom: HTMLElement, defaultValues: CellAttributes = {}) => {
   const colspan = Number(dom.getAttribute('colspan') || 1);
   let { backgroundColor } = dom.style;
   if (backgroundColor && isRgb(backgroundColor)) {
-    backgroundColor = rgbToHex(backgroundColor);
+    const result = rgbToHex(backgroundColor);
+    if (result !== null) backgroundColor = result;
   }
 
   return {

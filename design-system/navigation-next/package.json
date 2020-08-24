@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/navigation-next",
-  "version": "9.0.3",
+  "version": "9.0.4",
   "description": "The Atlassian navigation component.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

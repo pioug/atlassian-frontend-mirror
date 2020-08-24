@@ -9,6 +9,7 @@ import {
   isFileIdentifier,
   withMediaClient,
   isProcessedFileState,
+  FileIdentifier,
 } from '@atlaskit/media-client';
 import { MediaViewer, MediaViewerDataSource } from '@atlaskit/media-viewer';
 import { MediaTableWrapper } from './styled';
@@ -18,7 +19,6 @@ import {
   OnSortData,
   MediaTableProps,
   MediaTableState,
-  FileIdentifier,
 } from '../types';
 import {
   generateRowValues,

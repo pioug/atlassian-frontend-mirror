@@ -5,7 +5,7 @@ import {
 
 describe('table plugin: utils/dom.js', () => {
   let element: HTMLElement;
-  const elementRect = {
+  const elementRect: DOMRect = {
     width: 100,
     left: 50,
     height: 100,
@@ -14,6 +14,9 @@ describe('table plugin: utils/dom.js', () => {
     right: 0,
     x: 0,
     y: 0,
+    toJSON() {
+      return JSON.stringify(this);
+    },
   };
 
   beforeEach(() => {

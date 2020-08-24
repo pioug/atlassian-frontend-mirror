@@ -6,6 +6,7 @@ import {
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import { nextTick } from '@atlaskit/editor-test-helpers/next-tick';
 
 // Editor plugins
 import collabEditPlugin from '../../';
@@ -56,6 +57,7 @@ describe('collab-edit: plugin', () => {
     editorView.dispatch(editorView.state.tr.insertText('123'));
 
     await collabEditProviderPromise;
+    await nextTick();
 
     expect(providerMock.send).not.toBeCalled();
   });
@@ -72,6 +74,7 @@ describe('collab-edit: plugin', () => {
 
     editorView.dispatch(editorView.state.tr.insertText('123'));
     await collabEditProviderPromise;
+    await nextTick();
 
     expect(providerMock.send).toBeCalled();
   });
@@ -97,6 +100,7 @@ describe('collab-edit: plugin', () => {
 
       editorView.state.apply(tr);
       await collabEditProviderPromise;
+      await nextTick();
 
       expect(providerMock.send).toHaveBeenCalledTimes(times);
     });

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/popper",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "description": "Wrapper for react-popper with common config and some helpers",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -26,7 +26,7 @@
   "dependencies": {
     "@popperjs/core": "^2.4.2",
     "react-popper": "^2.2.3",
-    "tslib": "^1.9.3"
+    "tslib": "^2.0.0"
   },
   "peerDependencies": {
     "react": "^16.8.0"

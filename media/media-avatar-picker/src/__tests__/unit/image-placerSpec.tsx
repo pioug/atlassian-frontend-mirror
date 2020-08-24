@@ -1,19 +1,22 @@
 import React from 'react';
 import { shallow, ShallowWrapper } from 'enzyme';
-import { Vector2, Rectangle, FileInfo } from '@atlaskit/media-ui';
 import {
   nextTick,
   mockCanvas,
+  loadImageMockSetup,
   mockLoadImage,
   mockLoadImageError,
   unMockLoadImage,
 } from '@atlaskit/media-test-helpers';
 
-const mockImagePlacerUtil = {
-  getCanvas: mockCanvas,
-};
+loadImageMockSetup(); // setup calls jest.mock('@atlaskit/media-ui') that hoists mocked package so it should go before actual import
 
-jest.mock('../../util', () => mockImagePlacerUtil);
+import { Vector2, Rectangle, FileInfo } from '@atlaskit/media-ui';
+
+jest.mock('../../util', () => ({
+  ...jest.requireActual('../../util'),
+  getCanvas: mockCanvas,
+}));
 
 import {
   ImagePlacer,
@@ -526,6 +529,7 @@ describe('Image Placer', () => {
         src: 'some-new-src',
       });
       await nextTick();
+      await nextTick();
       expect(instance.preprocessFile).toHaveBeenCalled();
       done();
     });
@@ -536,6 +540,7 @@ describe('Image Placer', () => {
       wrapper.setProps({
         src: 'some-new-src',
       });
+      await nextTick();
       await nextTick();
       expect(instance.preprocessFile).toHaveBeenCalled();
       done();

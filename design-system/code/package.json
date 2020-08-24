@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/code",
-  "version": "12.0.2",
+  "version": "12.0.3",
   "description": "Code highlights short strings of code snippets inline with body text.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -14,7 +14,6 @@
   "types": "dist/cjs/index.d.ts",
   "sideEffects": false,
   "atlaskit:src": "src/index.ts",
-  "homepage": "https://atlassian.design/components/code/",
   "atlassian": {
     "team": "Design System Team",
     "deprecatedAutoEntryPoints": true,
@@ -31,7 +30,7 @@
     "@atlaskit/theme": "^10.0.0",
     "memoize-one": "^5.1.0",
     "react-syntax-highlighter": "^10.0.1",
-    "tslib": "^1.9.3"
+    "tslib": "^2.0.0"
   },
   "peerDependencies": {
     "react": "^16.8.0",
@@ -54,5 +53,6 @@
     "@atlassian/frontend": {
       "import-structure": "atlassian-conventions"
     }
-  }
+  },
+  "homepage": "https://atlassian.design/components/code/"
 }

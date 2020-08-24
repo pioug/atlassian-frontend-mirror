@@ -65,6 +65,8 @@ describe('ImageViewer', () => {
 
     await response;
     await nextTick();
+    await nextTick();
+    await nextTick();
 
     expectFunctionToHaveBeenCalledWith(mediaClient.file.getFileBinaryURL, [
       'some-id',
@@ -90,6 +92,7 @@ describe('ImageViewer', () => {
       },
     });
 
+    await nextTick();
     await nextTick();
     await nextTick();
 
@@ -207,6 +210,8 @@ describe('ImageViewer', () => {
 
     await response;
     await nextTick();
+    await nextTick();
+    await nextTick();
     component.unmount();
 
     expect(revokeObjectUrl).toHaveBeenCalled();
@@ -264,6 +269,8 @@ describe('ImageViewer', () => {
 
     await response;
     await nextTick();
+    await nextTick();
+    await nextTick();
     component.simulate('click');
 
     expect(onClose).toHaveBeenCalled();
@@ -276,6 +283,8 @@ describe('ImageViewer', () => {
     });
 
     await response;
+    await nextTick();
+    await nextTick();
     await nextTick();
     component.update();
     expect(component.find(InteractiveImg).prop('src')).toEqual(

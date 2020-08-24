@@ -505,9 +505,6 @@
         "attrs": {
           "type": "object",
           "properties": {
-            "text": {
-              "type": "string"
-            },
             "extensionKey": {
               "type": "string",
               "minLength": 1
@@ -516,13 +513,16 @@
               "type": "string",
               "minLength": 1
             },
-            "parameters": {}
+            "parameters": {},
+            "text": {
+              "type": "string"
+            }
           },
-          "additionalProperties": false,
           "required": [
             "extensionKey",
             "extensionType"
-          ]
+          ],
+          "additionalProperties": false
         }
       },
       "required": [

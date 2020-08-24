@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/portal",
-  "version": "4.0.1",
+  "version": "4.0.2",
   "description": "Atlaskit wrapper for rendering components in React portals",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -27,7 +27,7 @@
     "@atlaskit/theme": "^10.0.0",
     "exenv": "^1.2.2",
     "tiny-invariant": "^0.0.3",
-    "tslib": "^1.9.3"
+    "tslib": "^2.0.0"
   },
   "peerDependencies": {
     "react": "^16.8.0",

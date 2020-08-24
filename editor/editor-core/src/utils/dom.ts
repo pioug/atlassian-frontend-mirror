@@ -86,6 +86,7 @@ export function closest(
     return el.closest(s);
   }
 
+  //@ts-expect-error TODO Fix legit TypeScript 3.9.6 improved inference error
   const matches = el.matches ? 'matches' : 'msMatchesSelector';
 
   do {

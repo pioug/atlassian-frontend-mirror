@@ -345,8 +345,10 @@ export default function encode(node: PMNode, schema: Schema) {
   function encodeTextColor(node: PMNode, schema: Schema) {
     const elem: HTMLSpanElement = doc.createElement('span');
     const mark = getNodeMarkOfType(node, schema.marks.textColor);
-    const hexColor = mark ? mark.attrs.color : '';
-    elem.style.color = hexToRgb(hexColor);
+    const color = hexToRgb(mark ? mark.attrs.color : '');
+    if (color !== null) {
+      elem.style.color = color;
+    }
     return elem;
   }
 

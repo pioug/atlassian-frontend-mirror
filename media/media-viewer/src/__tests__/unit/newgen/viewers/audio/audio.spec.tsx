@@ -146,6 +146,7 @@ describe('Audio viewer', () => {
       await instance['init']();
       await promiseSrc;
       await nextTick();
+      await nextTick();
 
       el.update();
 

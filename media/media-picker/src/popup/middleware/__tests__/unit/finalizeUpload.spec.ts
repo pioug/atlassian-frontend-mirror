@@ -1,4 +1,3 @@
-import * as MediaClientModule from '@atlaskit/media-client';
 import { Auth } from '@atlaskit/media-core';
 import {
   getFileStreamsCache,
@@ -33,6 +32,7 @@ describe('finalizeUploadMiddleware', () => {
     token: 'some-token',
     baseUrl: 'some-base-url',
   };
+
   const preview: FilePreview = {
     value: new Blob([], { type: mimeType }),
     origin: 'local',
@@ -45,9 +45,10 @@ describe('finalizeUploadMiddleware', () => {
     type: mediaType,
     occurrenceKey: 'some-occurence-key',
   };
+  const replaceFileId = 'some-replace-file-id';
   const copiedFile: MediaFile = {
     ...file,
-    id: 'some-copied-file-id',
+    id: replaceFileId,
   };
   const copiedFileState: ProcessedFileState = {
     ...copiedFile,
@@ -59,7 +60,6 @@ describe('finalizeUploadMiddleware', () => {
   };
   const collection = 'some-collection';
 
-  const replaceFileId = 'some-replace-file-id';
   const source: FinalizeUploadSource = {
     id: fileId,
     collection,
@@ -72,15 +72,13 @@ describe('finalizeUploadMiddleware', () => {
       Promise.resolve(auth),
     );
 
+    tenantMediaClient.mediaStore.copyFileWithToken = jest
+      .fn()
+      .mockResolvedValue({ data: copiedFile });
+
     tenantMediaClient.file.getCurrentState = jest.fn(() =>
       Promise.resolve(copiedFileState),
     );
-
-    jest
-      .spyOn(MediaClientModule, 'FileFetcherImpl' as any)
-      .mockImplementation(() => ({
-        copyFile: () => Promise.resolve(copiedFile),
-      }));
 
     return {
       store,
@@ -163,10 +161,14 @@ describe('finalizeUploadMiddleware', () => {
   });
 
   it('should call copyFile the right params', async () => {
-    const tenantMediaClient = fakeMediaClient();
-    const { store, action, userMediaClient, preview } = setup({
-      config: { uploadParams: { collection: 'some-tenant-collection' } },
+    const {
+      store,
+      action,
+      userMediaClient,
       tenantMediaClient,
+      preview,
+    } = setup({
+      config: { uploadParams: { collection: 'some-tenant-collection' } },
     });
 
     await finalizeUpload(store, action);

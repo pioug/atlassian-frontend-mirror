@@ -50,6 +50,9 @@ function mockSizing(
       left: 0,
       width: CHILD_WIDTH,
       height: 0,
+      toJSON() {
+        return JSON.stringify(this);
+      },
     });
   }
 

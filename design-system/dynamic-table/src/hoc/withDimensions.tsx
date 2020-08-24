@@ -68,7 +68,9 @@ export default function withDimensions<
 
       return (
         <WrappedComponent
+          //@ts-expect-error TODO Fix legit TypeScript 3.9.6 improved inference error
           refWidth={refWidth}
+          //@ts-expect-error TODO Fix legit TypeScript 3.9.6 improved inference error
           refHeight={refHeight}
           innerRef={this.innerRef}
           {...(this.props as WrappedComponentProps)}

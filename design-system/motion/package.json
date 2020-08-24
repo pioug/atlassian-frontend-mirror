@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/motion",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "Atlassian motion variables, components and more.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "@emotion/core": "^10.0.9",
-    "tslib": "^1.9.3"
+    "tslib": "^2.0.0"
   },
   "peerDependencies": {
     "react": "^16.8.0"

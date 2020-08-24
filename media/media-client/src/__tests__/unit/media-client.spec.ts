@@ -1,8 +1,13 @@
+const uploadFileMock = jest.fn();
+
+jest.mock('../../uploader', () => ({
+  uploadFile: uploadFileMock,
+}));
+
 import uuid from 'uuid/v4';
 import { AuthProvider } from '@atlaskit/media-core';
 import {
   UploadableFileUpfrontIds,
-  uploadFile,
   MediaStore,
   MediaStoreResponse,
   TouchedFiles,
@@ -15,7 +20,7 @@ import {
   FileState,
   isErrorFileState,
 } from '../..';
-import * as mediClientModule from '../..';
+
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 
 const getOrInsertSpy = jest.spyOn(getFileStreamsCache(), 'getOrInsert');
@@ -31,14 +36,8 @@ const createMediaClient = () => {
 };
 
 describe('MediaClient', () => {
-  let uploadFileMock: jest.MockedFunction<typeof uploadFile>;
-
-  beforeEach(() => {
-    uploadFileMock = jest.spyOn(mediClientModule, 'uploadFile') as any;
-  });
-
   afterEach(() => {
-    uploadFileMock.mockRestore();
+    uploadFileMock.mockReset();
   });
 
   describe('.file.getFileState()', () => {
@@ -282,7 +281,7 @@ describe('MediaClient', () => {
 
       const subscription = mediaClient.file.upload(file).subscribe({
         next() {
-          expect(uploadFile).toHaveBeenCalled();
+          expect(uploadFileMock).toHaveBeenCalled();
           expect(uploadFileMock.mock.calls[0][0]).toBe(file);
           expect(uploadFileMock.mock.calls[0][1]).toEqual(fakeStore);
           expect(uploadFileMock.mock.calls[0][2]).toEqual({

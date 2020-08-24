@@ -2,7 +2,7 @@ import URL from 'url';
 import Page, {
   BS_LOCAL_PROXY_DOMAIN,
 } from '@atlaskit/webdriver-runner/wd-app-wrapper';
-import { SPECIAL_KEYS } from '@atlaskit/webdriver-runner/utils/mobile/wd-utils';
+import { SPECIAL_KEYS } from '@atlaskit/webdriver-runner/utils/mobile/keyboard/common-osk';
 import { ADFEntity } from '@atlaskit/adf-utils';
 import { PORT } from '../../../../build/utils';
 
@@ -50,8 +50,8 @@ async function loadBridgeInWebview(page: Page, filePath: string) {
   const url = URL.resolve(`http://${BS_LOCAL_PROXY_DOMAIN}:${PORT}`, filePath);
   // Type the URL into the native input, and hit enter.
   // This triggers the WebView to load the provided URL.
-  await page.addValue(page.getAppInputSelector(), url);
-  await page.sendKeys([SPECIAL_KEYS.ENTER]);
+  await page.insertText(page.getAppInputSelector(), url);
+  await page.tapKeys(SPECIAL_KEYS.ENTER);
 }
 
 export async function getADFContent(page: Page): Promise<ADFEntity> {
@@ -64,4 +64,8 @@ export async function setADFContent(page: Page, adf: ADFEntity) {
   return page.execute(_adf => {
     (window as any).bridge.setContent(_adf);
   }, adf);
+}
+
+export async function clearContent(page: Page) {
+  return page.execute<void>(() => (window as any).bridge.clearContent());
 }

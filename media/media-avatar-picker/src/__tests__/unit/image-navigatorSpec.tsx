@@ -1,16 +1,26 @@
 declare var global: any; // we need define an interface for the Node global object when overwriting global objects, in this case FileReader
-import * as util from '../../util';
-const fileSizeMbSpy = jest.spyOn(util, 'fileSizeMb');
+jest.mock('../../util', () => ({
+  ...jest.requireActual('../../util'),
+  fileSizeMb: jest.fn().mockReturnValue(11),
+}));
+
+const fileToDataURIPromise = Promise.resolve('some-data-uri');
+const getOrientationPromise = Promise.resolve(7);
+
+jest.mock('@atlaskit/media-ui', () => ({
+  ...jest.requireActual('@atlaskit/media-ui'),
+  fileToDataURI: jest.fn(() => fileToDataURIPromise),
+  getOrientation: jest.fn(() => getOrientationPromise),
+}));
+
 import React from 'react';
 import Spinner from '@atlaskit/spinner';
 import Button from '@atlaskit/button';
 import { Ellipsify } from '@atlaskit/media-ui';
-import * as MediaUI from '@atlaskit/media-ui';
 import ImageNavigator, {
   ImageNavigator as ImageNavigatorView,
   Props as ImageNavigatorProps,
 } from '../../image-navigator';
-import { MAX_SIZE_MB } from '../../avatar-picker-dialog';
 import { CONTAINER_INNER_SIZE } from '../../avatar-picker-dialog/layout-const';
 import {
   ImageUploader,
@@ -36,8 +46,6 @@ describe('Image navigator', () => {
   let onImageError: () => void;
   let onImageUploaded: () => void;
   let isLoading: boolean;
-  let getOrientation: jest.SpyInstance;
-  let fileToDataURI: jest.SpyInstance;
 
   const setup = (props?: Partial<ImageNavigatorProps>) => {
     return mountWithIntlContext(
@@ -55,17 +63,11 @@ describe('Image navigator', () => {
   };
 
   beforeEach(() => {
-    getOrientation = jest.spyOn(MediaUI, 'getOrientation');
-    fileToDataURI = jest.spyOn(MediaUI, 'fileToDataURI');
     onImageLoaded = jest.fn();
     onRemoveImage = jest.fn();
     onImageError = jest.fn();
     onImageUploaded = jest.fn();
     isLoading = false;
-  });
-
-  afterEach(() => {
-    jest.resetAllMocks();
   });
 
   describe('with an imageSource', () => {
@@ -201,16 +203,13 @@ describe('Image navigator', () => {
       });
 
       it('should set data-uri, image itself and orientation into state', async () => {
-        const orientationPromise = Promise.resolve(7);
-        const fileToDataURIPromise = Promise.resolve('some-data-uri');
-        getOrientation.mockReturnValue(orientationPromise);
-        fileToDataURI.mockReturnValue(fileToDataURIPromise);
-
         const { onDrop } = viewComponent.find(DragZone).props();
 
         onDrop!(mockDropEvent(droppedImage));
-        await orientationPromise;
+
         await fileToDataURIPromise;
+        await getOrientationPromise;
+
         expect(viewComponent.state('imageFile')).toBe(droppedImage);
         expect(viewComponent.state('fileImageSource')).toBe('some-data-uri');
         expect(viewComponent.state('imageOrientation')).toBe(7);
@@ -230,7 +229,6 @@ describe('Image navigator', () => {
 
       it('should not allow images greater than defined MB limit', () => {
         const { onDrop } = component.find(DragZone).props();
-        fileSizeMbSpy.mockReturnValue(MAX_SIZE_MB + 1);
 
         onDrop(mockDropEvent(droppedImage));
         expect(onImageError).toHaveBeenCalledWith(

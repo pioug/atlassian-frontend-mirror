@@ -1,5 +1,11 @@
 # @atlaskit/flag
 
+## 14.0.3
+
+### Patch Changes
+
+- [`c740579074`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c740579074) - The h2 for Flag Groups no longer causes scrollbars to be triggered when a flag displays.
+
 ## 14.0.2
 
 ### Patch Changes

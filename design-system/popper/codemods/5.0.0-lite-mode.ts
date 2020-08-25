@@ -6,9 +6,15 @@ import core, {
   JSXExpressionContainer,
   Literal,
   Options,
+  StringLiteral,
 } from 'jscodeshift';
 import { Collection } from 'jscodeshift/src/Collection';
 
+import {
+  messageForModifierProps,
+  messageForUsingExpression,
+  messageForUsingVariable,
+} from './constants';
 import {
   addCommentToStartOfFile,
   getJSXAttributesByName,
@@ -18,69 +24,86 @@ import {
   updateRenderProps,
 } from './helpers';
 
+const updateOffsetNumbers = (
+  value: string,
+  j: core.JSCodeshift,
+  attribute: ASTPath<any>,
+) => {
+  if (value.includes(',')) {
+    // Split by comma
+    const offsetArray: Literal[] = value
+      .split(',')
+      //@ts-ignore
+      .map(elem => j.literal(parseInt(elem.replace(/\D/g, ''))));
+    if (offsetArray.length === 2) {
+      j(attribute).replaceWith(
+        j.jsxExpressionContainer(j.arrayExpression(offsetArray)),
+      );
+    }
+  } else {
+    // Split by space but check if it is a single number
+    const offsetArray: Literal[] = value
+      .split(' ')
+      .filter(elem => elem.length)
+      .map(elem => j.literal(parseInt(elem.replace(/\D/g, ''))));
+    if (offsetArray.length === 2) {
+      j(attribute).replaceWith(
+        j.jsxExpressionContainer(j.arrayExpression(offsetArray)),
+      );
+    } else if (offsetArray.length === 1) {
+      j(attribute).replaceWith(
+        j.jsxExpressionContainer(
+          j.arrayExpression([offsetArray[0], j.literal(0)]),
+        ),
+      );
+    }
+  }
+};
+
+const isJSExpression = (value: string) =>
+  value.includes('%') || value.includes('vw') || value.includes('vh');
+
 function updateOffset(
   j: core.JSCodeshift,
   source: Collection<any>,
   specifier: string,
 ) {
   source.findJSXElements(specifier).forEach((path: ASTPath<JSXElement>) => {
-    getJSXAttributesByName({
+    const offsetExpr = getJSXAttributesByName({
       j,
       element: path,
       attributeName: 'offset',
-    })
-      .find(JSXExpressionContainer)
-      .forEach(attribute => {
+    });
+
+    const stringLiteral = offsetExpr.filter(attr => {
+      return attr.value!.value!.type === 'StringLiteral';
+    });
+
+    const expression = offsetExpr.filter(attr => {
+      return attr.value!.value!.type === 'JSXExpressionContainer';
+    });
+
+    if (stringLiteral.length > 0) {
+      stringLiteral.find(StringLiteral).forEach(attribute => {
+        const expression = attribute.value;
+        updateOffsetNumbers(expression.value, j, attribute);
+      });
+    } else {
+      expression.find(JSXExpressionContainer).forEach(attribute => {
         const expression = attribute.value.expression;
         if (expression.type === 'StringLiteral') {
           const value = expression.value;
           // Not testing for cases like '10 + 10%' because I assume if you're
           // adding or taking numbers it's with units that are not supported
           // and will be picked up by the first case
-          if (
-            value.includes('%') ||
-            value.includes('vw') ||
-            value.includes('vh')
-          ) {
+          if (isJSExpression(value)) {
             addCommentToStartOfFile({
               j,
               base: source,
-              message: `
-                Popper.js has been upgraded from 1.14.1 to 2.4.2,
-                and as a result the offset prop has changed to be an array. e.g '0px 8px' -> [0, 8]
-                Along with this change you cannot use vw, vh or % units or addition or multiplication
-                Change the offset value to use pixel values
-                Further details can be found in the popper docs https://popper.js.org/docs/v2/modifiers/offset/
-                `,
+              message: messageForUsingExpression,
             });
-          } else if (value.includes(',')) {
-            // Split by comma
-            const offsetArray: Literal[] = expression.value
-              .split(',')
-              //@ts-ignore
-              .map(elem => j.literal(parseInt(elem.replace(/\D/g, ''))));
-            if (offsetArray.length === 2) {
-              j(attribute).replaceWith(
-                j.jsxExpressionContainer(j.arrayExpression(offsetArray)),
-              );
-            }
           } else {
-            // Split by space but check if it is a single number
-            const offsetArray: Literal[] = expression.value
-              .split(' ')
-              .filter(elem => elem.length)
-              .map(elem => j.literal(parseInt(elem.replace(/\D/g, ''))));
-            if (offsetArray.length === 2) {
-              j(attribute).replaceWith(
-                j.jsxExpressionContainer(j.arrayExpression(offsetArray)),
-              );
-            } else if (offsetArray.length === 1) {
-              j(attribute).replaceWith(
-                j.jsxExpressionContainer(
-                  j.arrayExpression([offsetArray[0], j.literal(0)]),
-                ),
-              );
-            }
+            updateOffsetNumbers(value, j, attribute);
           }
         } else if (expression.type === 'NumericLiteral') {
           // If it is a single number convert to [number, 0]
@@ -94,15 +117,11 @@ function updateOffset(
           addCommentToStartOfFile({
             j,
             base: source,
-            message: `
-              Popper.js has been upgraded from 1.14.1 to 2.4.2, and as a result the offset
-              prop has changed to be an array. e.g '0px 8px' -> [0, 8]
-              As you are using a variable, you will have change the offset prop manually
-              Further details can be found in the popper docs https://popper.js.org/docs/v2/modifiers/offset/
-              `,
+            message: messageForUsingVariable,
           });
         }
       });
+    }
   });
 }
 
@@ -116,14 +135,7 @@ function updateModifierProp(
       addCommentToStartOfFile({
         j,
         base: source,
-        message: `
-          Popper.js has been upgraded from 1.14.1 to 2.4.2,
-          and as a result the modifier prop has changed significantly. The format has been
-          changed from object of objects, to array of objects, with the key for each modifier
-          replaced with a name key:value pair inside the modifier object, and an options:object
-          pair for configuration and other changes unique to each modifier.
-          Further details can be found in the popper docs: https://popper.js.org/docs/v2/modifiers/
-        `,
+        message: messageForModifierProps,
       });
     }
   });

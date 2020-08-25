@@ -7,7 +7,6 @@
     "./examples/*.tsx",
     "./example-helpers/*.ts",
     "./example-helpers/*.tsx",
-    "./typings/atlaskit.d.ts"
   ],
   "compilerOptions": {
     "baseUrl": "./"

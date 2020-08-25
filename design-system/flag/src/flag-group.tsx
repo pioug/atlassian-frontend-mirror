@@ -141,22 +141,6 @@ const FlagGroup = (props: Props) => {
   return (
     <FlagGroupContext.Provider value={api}>
       <Portal zIndex={layers.flag()}>
-        {hasFlags ? (
-          <LabelTag
-            css={css`
-              border: 0;
-              clip: rect(1px, 1px, 1px, 1px);
-              height: 1px;
-              overflow: hidden;
-              padding: 0;
-              position: absolute;
-              white-space: nowrap;
-              width: 1px;
-            `}
-          >
-            {label}
-          </LabelTag>
-        ) : null}
         <div
           css={css`
             bottom: ${flagBottom}px;
@@ -169,6 +153,22 @@ const FlagGroup = (props: Props) => {
             }
           `}
         >
+          {hasFlags ? (
+            <LabelTag
+              css={css`
+                border: 0;
+                clip: rect(1px, 1px, 1px, 1px);
+                height: 1px;
+                overflow: hidden;
+                padding: 0;
+                position: absolute;
+                white-space: nowrap;
+                width: 1px;
+              `}
+            >
+              {label}
+            </LabelTag>
+          ) : null}
           <ExitingPersistence appear={false}>
             {renderChildren()}
           </ExitingPersistence>

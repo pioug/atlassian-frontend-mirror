@@ -16,6 +16,7 @@ import { rule } from './nodes/rule';
 import { table } from './nodes/table';
 import { unknown } from './nodes/unknown';
 import { blockCard } from './nodes/block-card';
+import { embedCard } from './nodes/embed-card';
 import { Context } from '../interfaces';
 
 export type MarkEncoder = (text: string, attrs: any) => string;
@@ -41,6 +42,7 @@ const nodeEncoderMapping: { [key: string]: NodeEncoder } = {
   rule,
   table,
   blockCard,
+  embedCard,
   expand,
 };
 

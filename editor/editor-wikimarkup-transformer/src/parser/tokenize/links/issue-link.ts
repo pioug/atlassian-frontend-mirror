@@ -26,6 +26,13 @@ export function issueLinkResolver(
       }),
     ];
   }
+  if (linkTitle === 'smart-embed') {
+    return [
+      schema.nodes.embedCard.createChecked({
+        url: notLinkBody,
+      }),
+    ];
+  }
   const issue: Issue | null = getIssue(context, originalLinkText);
 
   if (issue) {

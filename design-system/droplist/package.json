@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/droplist",
-  "version": "11.0.1",
+  "version": "11.0.2",
   "description": "Droplist component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

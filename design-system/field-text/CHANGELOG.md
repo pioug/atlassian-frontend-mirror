@@ -1,5 +1,11 @@
 # @atlaskit/field-text
 
+## 11.0.2
+
+### Patch Changes
+
+- [`30853172ff`](https://bitbucket.org/atlassian/atlassian-frontend/commits/30853172ff) - Reset babel config back to ie11 to prevent runtime issues in Jira and to unbreak the Confluence es5-check
+
 ## 11.0.1
 
 ### Patch Changes

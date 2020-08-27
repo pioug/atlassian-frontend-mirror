@@ -1,5 +1,11 @@
 # @atlaskit/editor-wikimarkup-transformer
 
+## 7.2.0
+
+### Minor Changes
+
+- [`cd32d3a1f4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cd32d3a1f4) - CS-3048 Embed cards now round trip in wiki<->adf conversions
+
 ## 7.1.1
 
 ### Patch Changes

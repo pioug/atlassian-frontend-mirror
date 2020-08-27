@@ -15,6 +15,14 @@ describe('JIRA wiki markup - Block Card', () => {
       line 2 `,
     ],
     [
+      'should create embedCard (it is a block node so all content should move to other lines',
+      `hello [http://...|http://...|smart-embed] world!`,
+    ],
+    [
+      'should create embedCard inside table',
+      `|[http://...|http://...|smart-embed]|`,
+    ],
+    [
       'should create Block Card with nothing else in the document',
       `[http://...|http://...|smart-card]`,
     ],

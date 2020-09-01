@@ -11,6 +11,7 @@ import {
   RendererAppearance,
   HeadingAnchorLinksProps,
 } from '../ui/Renderer/types';
+import { AnnotationId, AnnotationTypes } from '@atlaskit/adf-schema';
 
 export interface RendererContext {
   objectAri?: string;
@@ -32,6 +33,7 @@ export interface NodeMeta {
   } | null;
   allowDynamicTextSizing?: boolean;
   allowHeadingAnchorLinks?: HeadingAnchorLinksProps;
+  allowCopyToClipboard?: boolean;
   rendererAppearance?: RendererAppearance;
   fireAnalyticsEvent?: (event: AnalyticsEventPayload) => void;
   nodeType: NodeType['name'];
@@ -50,6 +52,13 @@ export interface MarkMeta {
   fireAnalyticsEvent?: (event: AnalyticsEventPayload) => void;
   markKey?: any;
   [key: string]: any;
+}
+
+export interface AnnotationMarkMeta extends MarkMeta {
+  id: AnnotationId;
+  annotationType: AnnotationTypes;
+  annotationParentIds: string[];
+  allowAnnotations: boolean;
 }
 
 export type NodeProps<NodeAttrs = {}> = NodeAttrs & PropsWithChildren<NodeMeta>;

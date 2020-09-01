@@ -230,8 +230,8 @@ describe('media-common', () => {
             const { editorView } = editor(
               doc(
                 p('hello'),
-                '{<node>}',
                 mediaGroup(
+                  '{<node>}',
                   deletingMediaNode,
                   media({
                     id: 'media2',

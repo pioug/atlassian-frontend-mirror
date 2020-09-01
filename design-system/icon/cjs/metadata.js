@@ -46,6 +46,11 @@ var metaData = {
         componentName: 'AppSwitcherIcon',
         package: '@atlaskit/icon/glyph/app-switcher',
     },
+    archive: {
+        keywords: ['archive', 'icon', 'core'],
+        componentName: 'ArchiveIcon',
+        package: '@atlaskit/icon/glyph/archive',
+    },
     'arrow-down-circle': {
         keywords: ['arrow-down-circle', 'arrowdowncircle', 'icon', 'core'],
         componentName: 'ArrowDownCircleIcon',

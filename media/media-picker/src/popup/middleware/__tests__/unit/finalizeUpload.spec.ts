@@ -88,7 +88,7 @@ describe('finalizeUploadMiddleware', () => {
         file,
         replaceFileId,
         source,
-        preview,
+        overrides: { preview },
       } as FinalizeUploadAction,
       userMediaClient,
       tenantMediaClient,
@@ -188,6 +188,42 @@ describe('finalizeUploadMiddleware', () => {
       },
       {
         preview,
+      },
+    ]);
+  });
+
+  it('should call copyFile the right params given cloud file attributes', async () => {
+    const {
+      store,
+      action,
+      userMediaClient,
+      tenantMediaClient,
+      preview,
+    } = setup({
+      config: { uploadParams: { collection: 'some-tenant-collection' } },
+    });
+
+    await finalizeUpload(store, {
+      ...action,
+      overrides: { preview, mimeType: 'audio/mpeg' },
+    });
+
+    expect(tenantMediaClient.file.copyFile).toBeCalledTimes(1);
+    expectFunctionToHaveBeenCalledWith(tenantMediaClient.file.copyFile, [
+      {
+        id: 'some-file-id',
+        collection: 'some-collection',
+        authProvider: userMediaClient.config.authProvider,
+      },
+      {
+        collection: 'some-tenant-collection',
+        replaceFileId,
+        occurrenceKey: file.occurrenceKey,
+        authProvider: tenantMediaClient.config.authProvider,
+      },
+      {
+        preview,
+        mimeType: 'audio/mpeg',
       },
     ]);
   });

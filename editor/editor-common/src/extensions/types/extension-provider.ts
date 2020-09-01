@@ -4,13 +4,14 @@ import {
   ExtensionManifest,
   ExtensionType,
 } from './extension-manifest';
+import { Parameters } from './extension-parameters';
 
-export interface ExtensionProvider {
-  getExtensions(): Promise<ExtensionManifest[]>;
+export interface ExtensionProvider<T extends Parameters = any> {
+  getExtensions(): Promise<ExtensionManifest<T>[]>;
   getExtension(
     type: ExtensionType,
     key: ExtensionKey,
-  ): Promise<ExtensionManifest | undefined>;
-  search(keyword: string): Promise<ExtensionManifest[]>;
+  ): Promise<ExtensionManifest<T> | undefined>;
+  search(keyword: string): Promise<ExtensionManifest<T>[]>;
   getAutoConverter(): Promise<ExtensionAutoConvertHandler[]>;
 }

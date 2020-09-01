@@ -23,6 +23,8 @@ export {
   LINK_REPRESENTATION,
   LINK_RESOURCE,
   LINK_STATUS,
+  LinkToolBarActionType,
+  LinkToolBarEventPayload,
   MediaAltTextActionType,
   MediaEventPayload,
   MODE,

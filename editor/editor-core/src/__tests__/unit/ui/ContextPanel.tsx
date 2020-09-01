@@ -86,7 +86,7 @@ describe('SwappableContentArea', () => {
     it('is scrollable up/down', () => {
       wrapper = mount(<SwappableContentArea visible />);
       const style = getComputedStyle(wrapper.find(Content).getDOMNode());
-      expect(style.overflowY).toEqual('scroll');
+      expect(style.overflowY).toEqual('auto');
     });
   });
 });

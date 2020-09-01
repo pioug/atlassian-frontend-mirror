@@ -13,6 +13,9 @@ describe('validate Mark', () => {
       'codeBlock',
       'layoutColumn',
       'layoutSection',
+      'orderedList',
+      'taskList',
+      'taskItem',
     ],
     [
       'unsupportedMark',
@@ -22,6 +25,9 @@ describe('validate Mark', () => {
       'textColor',
       'breakout',
       'indentation',
+      'alignment',
+      'underline',
+      'code',
     ],
   );
   let errorCallbackMock: any;
@@ -256,9 +262,9 @@ describe('validate Mark', () => {
       };
 
       validate(initialEntity, errorCallbackMock);
-      expect(errorCallbackMock).toHaveBeenCalledTimes(3);
+      expect(errorCallbackMock).toHaveBeenCalledTimes(2);
       expect(errorCallbackMock).toHaveBeenNthCalledWith(
-        3,
+        2,
         expect.anything(),
         expect.objectContaining({
           code: 'REDUNDANT_MARKS',
@@ -272,7 +278,7 @@ describe('validate Mark', () => {
         }),
       );
       expect(errorCallbackMock).toHaveBeenNthCalledWith(
-        2,
+        1,
         expect.anything(),
         expect.objectContaining({
           code: 'INVALID_CONTENT',
@@ -407,6 +413,8 @@ describe('validate Mark', () => {
     },
   );
 
+  // Single Spec
+
   it('should not drop a valid mark for a node with single validation spec', () => {
     const initialEntity = {
       type: 'layoutSection',
@@ -462,26 +470,229 @@ describe('validate Mark', () => {
   });
 
   it(
-    'should return valid node, when we have multiple validator specs ' +
-      'and one of them is valid for given mark',
+    'should throw INVALID_TYPE error, when a known not supported marks are' +
+      ', applied to a node with single spec',
     () => {
+      const knownUnsupportedADFMark1 = {
+        type: 'alignment',
+      };
+      const knownUnsupportedADFMark2 = {
+        type: 'textColor',
+      };
       const initialEntity = {
         type: 'doc',
         version: 1,
         content: [
           {
-            type: 'paragraph',
+            type: 'layoutSection',
             content: [
               {
-                type: 'text',
-                text: 'Indented Para',
+                type: 'layoutColumn',
+                attrs: {
+                  width: 50,
+                },
+                content: [
+                  {
+                    type: 'paragraph',
+                    content: [
+                      {
+                        type: 'text',
+                        text: 'Column1',
+                      },
+                    ],
+                  },
+                ],
+              },
+              {
+                type: 'layoutColumn',
+                attrs: {
+                  width: 50,
+                },
+                content: [
+                  {
+                    type: 'paragraph',
+                    content: [
+                      {
+                        type: 'text',
+                        text: 'Column2',
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+            marks: [knownUnsupportedADFMark1, knownUnsupportedADFMark2],
+          },
+        ],
+      };
+      const validationResult = validate(initialEntity, errorCallbackMock);
+      expect(errorCallbackMock).toHaveBeenCalledTimes(2);
+      expect(validationResult.valid).toBeTruthy();
+      expect(errorCallbackMock).toHaveBeenNthCalledWith(
+        1,
+        expect.anything(),
+        expect.objectContaining({
+          code: 'INVALID_TYPE',
+          message: 'alignment: unsupported mark.',
+          meta: knownUnsupportedADFMark1,
+        }),
+        expect.objectContaining({
+          allowUnsupportedBlock: false,
+          allowUnsupportedInline: false,
+          isMark: true,
+        }),
+      );
+      expect(errorCallbackMock).toHaveBeenNthCalledWith(
+        2,
+        expect.anything(),
+        expect.objectContaining({
+          code: 'INVALID_TYPE',
+          message: 'textColor: unsupported mark.',
+          meta: knownUnsupportedADFMark2,
+        }),
+        expect.objectContaining({
+          allowUnsupportedBlock: false,
+          allowUnsupportedInline: false,
+          isMark: true,
+        }),
+      );
+    },
+  );
+
+  it(
+    'should throw INVALID_TYPE error, when a known not supported mark and an unknown mark is ' +
+      'applied to a node with single spec',
+    () => {
+      const knownUnsupportedADFMark = {
+        type: 'alignment',
+      };
+      const unknownMark = {
+        type: 'unknownMark',
+      };
+      const initialEntity = {
+        type: 'doc',
+        version: 1,
+        content: [
+          {
+            type: 'layoutSection',
+            content: [
+              {
+                type: 'layoutColumn',
+                attrs: {
+                  width: 50,
+                },
+                content: [
+                  {
+                    type: 'paragraph',
+                    content: [
+                      {
+                        type: 'text',
+                        text: 'Column1',
+                      },
+                    ],
+                  },
+                ],
+              },
+              {
+                type: 'layoutColumn',
+                attrs: {
+                  width: 50,
+                },
+                content: [
+                  {
+                    type: 'paragraph',
+                    content: [
+                      {
+                        type: 'text',
+                        text: 'Column2',
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+            marks: [knownUnsupportedADFMark, unknownMark],
+          },
+        ],
+      };
+      const validationResult = validate(initialEntity, errorCallbackMock);
+      expect(errorCallbackMock).toHaveBeenCalledTimes(2);
+      expect(validationResult.valid).toBeTruthy();
+      expect(errorCallbackMock).toHaveBeenNthCalledWith(
+        1,
+        expect.anything(),
+        expect.objectContaining({
+          code: 'INVALID_TYPE',
+          message: 'alignment: unsupported mark.',
+          meta: knownUnsupportedADFMark,
+        }),
+        expect.objectContaining({
+          allowUnsupportedBlock: false,
+          allowUnsupportedInline: false,
+          isMark: true,
+        }),
+      );
+      expect(errorCallbackMock).toHaveBeenNthCalledWith(
+        2,
+        expect.anything(),
+        expect.objectContaining({
+          code: 'INVALID_CONTENT',
+          message: 'unknownMark: unsupported mark.',
+          meta: unknownMark,
+        }),
+        expect.objectContaining({
+          allowUnsupportedBlock: false,
+          allowUnsupportedInline: false,
+          isMark: true,
+        }),
+      );
+    },
+  );
+
+  it(
+    'should throw INVALID_TYPE error, when a known not supported mark and a valid mark is' +
+      ', applied to a node with single spec',
+    () => {
+      const initialEntity = {
+        version: 1,
+        type: 'doc',
+        content: [
+          {
+            type: 'layoutSection',
+            content: [
+              {
+                type: 'layoutColumn',
+                attrs: {
+                  width: 50,
+                },
+                content: [
+                  {
+                    type: 'paragraph',
+                    content: [],
+                  },
+                ],
+              },
+              {
+                type: 'layoutColumn',
+                attrs: {
+                  width: 50,
+                },
+                content: [
+                  {
+                    type: 'paragraph',
+                    content: [],
+                  },
+                ],
               },
             ],
             marks: [
               {
-                type: 'indentation',
+                type: 'alignment',
+              },
+              {
+                type: 'breakout',
                 attrs: {
-                  level: 2,
+                  mode: 'wide',
                 },
               },
             ],
@@ -489,9 +700,628 @@ describe('validate Mark', () => {
         ],
       };
       const validationResult = validate(initialEntity, errorCallbackMock);
-      expect(errorCallbackMock).toHaveBeenCalledTimes(2);
+      expect(errorCallbackMock).toHaveBeenCalledTimes(1);
       expect(validationResult.valid).toBeTruthy();
-      expect(validationResult.entity).toMatchObject(initialEntity);
+      expect(errorCallbackMock).toHaveBeenNthCalledWith(
+        1,
+        expect.anything(),
+        expect.objectContaining({
+          code: 'INVALID_TYPE',
+          message: 'alignment: unsupported mark.',
+          meta: { type: 'alignment' },
+        }),
+        expect.objectContaining({
+          allowUnsupportedBlock: false,
+          allowUnsupportedInline: false,
+          isMark: true,
+        }),
+      );
     },
   );
+
+  // MultiSpec
+
+  it(`should throw INVALID_TYPE error for specs which does not support the mark and should not
+       throw error for spec which supports it, when a known and valid mark is applied
+      to a node with multple specs`, () => {
+    const initialEntity = {
+      version: 1,
+      type: 'doc',
+      content: [
+        {
+          type: 'paragraph',
+          content: [
+            {
+              type: 'text',
+              text: 'Some Text',
+            },
+          ],
+          marks: [
+            {
+              type: 'indentation',
+              attrs: {
+                level: 1,
+              },
+            },
+          ],
+        },
+      ],
+    };
+
+    validate(initialEntity, errorCallbackMock);
+    expect(errorCallbackMock).not.toHaveBeenCalledWith();
+  });
+
+  it(`should throw INVALID_TYPE error for specs which does not support the mark and should not
+       throw error for spec which supports it, when a known and valid mark is applied along
+       with known but invalid mark to a node with multple specs.`, () => {
+    const initialEntity = {
+      version: 1,
+      type: 'doc',
+      content: [
+        {
+          type: 'paragraph',
+          content: [
+            {
+              type: 'text',
+              text: 'Some Text',
+            },
+          ],
+          marks: [
+            {
+              type: 'breakout',
+            },
+            {
+              type: 'indentation',
+              attrs: {
+                level: 1,
+              },
+            },
+          ],
+        },
+      ],
+    };
+
+    validate(initialEntity, errorCallbackMock);
+    expect(errorCallbackMock).toHaveBeenCalledTimes(1);
+    const expectedMeta = { type: 'breakout' };
+    expect(errorCallbackMock).toHaveBeenNthCalledWith(
+      1,
+      expect.anything(),
+      expect.objectContaining({
+        code: 'INVALID_TYPE',
+        message: 'breakout: unsupported mark.',
+        meta: expectedMeta,
+      }),
+      expect.objectContaining({
+        allowUnsupportedBlock: false,
+        allowUnsupportedInline: false,
+        isMark: true,
+      }),
+    );
+  });
+
+  it(`should throw INVALID_TYPE error for specs which does not support the mark and should not
+       throw error for spec which supports it, when a known and valid mark is applied along
+       with unknown mark to a node with multple specs.`, () => {
+    const initialEntity = {
+      version: 1,
+      type: 'doc',
+      content: [
+        {
+          type: 'paragraph',
+          content: [
+            {
+              type: 'text',
+              text: 'Some Text',
+            },
+          ],
+          marks: [
+            {
+              type: 'unknownMark',
+            },
+            {
+              type: 'alignment',
+              attrs: {
+                align: 'center',
+              },
+            },
+          ],
+        },
+      ],
+    };
+
+    validate(initialEntity, errorCallbackMock);
+    expect(errorCallbackMock).toHaveBeenCalledTimes(1);
+    const expectedMeta = { type: 'unknownMark' };
+    expect(errorCallbackMock).toHaveBeenNthCalledWith(
+      1,
+      expect.anything(),
+      expect.objectContaining({
+        code: 'INVALID_CONTENT',
+        message: 'unknownMark: unsupported mark.',
+        meta: expectedMeta,
+      }),
+      expect.objectContaining({
+        allowUnsupportedBlock: false,
+        allowUnsupportedInline: false,
+        isMark: true,
+      }),
+    );
+  });
+
+  it(
+    `should throw INVALID_TYPE error for all the available specs, when a known but invalid ` +
+      `mark is applied to a node with multple specs and wrap the known mark in unsupportedMark.`,
+    () => {
+      const initialEntity = {
+        version: 1,
+        type: 'doc',
+        content: [
+          {
+            type: 'paragraph',
+            content: [
+              {
+                type: 'text',
+                text: 'Some Text',
+              },
+            ],
+            marks: [
+              {
+                type: 'breakout',
+                attrs: {
+                  mode: 'wide',
+                },
+              },
+            ],
+          },
+        ],
+      };
+
+      validate(initialEntity, errorCallbackMock);
+      expect(errorCallbackMock).toHaveBeenCalledTimes(1);
+      const expectedMeta = { attrs: { mode: 'wide' }, type: 'breakout' };
+      expect(errorCallbackMock).toHaveBeenNthCalledWith(
+        1,
+        expect.anything(),
+        expect.objectContaining({
+          code: 'INVALID_TYPE',
+          message: 'breakout: unsupported mark.',
+          meta: expectedMeta,
+        }),
+        expect.objectContaining({
+          allowUnsupportedBlock: false,
+          allowUnsupportedInline: false,
+          isMark: true,
+        }),
+      );
+    },
+  );
+
+  it(`should wrap unknown mark in unsupportedMark, when a unknwon
+      mark is applied to a node with multple specs.`, () => {
+    const initialEntity = {
+      version: 1,
+      type: 'doc',
+      content: [
+        {
+          type: 'paragraph',
+          content: [
+            {
+              type: 'text',
+              text: 'Some Text',
+            },
+          ],
+          marks: [
+            {
+              type: 'unknownMark',
+            },
+          ],
+        },
+      ],
+    };
+
+    validate(initialEntity, errorCallbackMock);
+    expect(errorCallbackMock).toHaveBeenCalledTimes(1);
+    const expectedMeta = { type: 'unknownMark' };
+    expect(errorCallbackMock).toHaveBeenNthCalledWith(
+      1,
+      expect.anything(),
+      expect.objectContaining({
+        code: 'INVALID_CONTENT',
+        message: 'unknownMark: unsupported mark.',
+        meta: expectedMeta,
+      }),
+      expect.objectContaining({
+        allowUnsupportedBlock: false,
+        allowUnsupportedInline: false,
+        isMark: true,
+      }),
+    );
+  });
+
+  it(`should throw INVALID_TYPE error for specs which does not support the mark and should not
+      throw error for spec which supports it, when a known and valid mark(s) are applied along
+      with unknown mark(s) to a node with multple specs. unknown mark(s) should be wrapped in
+      unsupportedMark's`, () => {
+    const unknownFontSize = {
+      type: 'fontSize',
+      attrs: {
+        mode: 'wide',
+      },
+    };
+    const unknownBackground = {
+      type: 'background',
+      attrs: {
+        mode: 'wide',
+      },
+    };
+    const alignment = {
+      type: 'alignment',
+      attrs: {
+        align: 'center',
+      },
+    };
+
+    const initialEntity = {
+      version: 1,
+      type: 'doc',
+      content: [
+        {
+          type: 'paragraph',
+          content: [
+            {
+              type: 'text',
+              text: 'Some Text',
+            },
+          ],
+          marks: [alignment, unknownBackground, unknownFontSize],
+        },
+      ],
+    };
+
+    validate(initialEntity, errorCallbackMock);
+    expect(errorCallbackMock).toHaveBeenCalledTimes(2);
+    expect(errorCallbackMock).toHaveBeenNthCalledWith(
+      1,
+      expect.anything(),
+      expect.objectContaining({
+        code: 'INVALID_CONTENT',
+        message: 'background: unsupported mark.',
+        meta: unknownBackground,
+      }),
+      expect.objectContaining({
+        allowUnsupportedBlock: false,
+        allowUnsupportedInline: false,
+        isMark: true,
+      }),
+    );
+    expect(errorCallbackMock).toHaveBeenNthCalledWith(
+      2,
+      expect.anything(),
+      expect.objectContaining({
+        code: 'INVALID_CONTENT',
+        message: 'fontSize: unsupported mark.',
+        meta: unknownFontSize,
+      }),
+      expect.objectContaining({
+        allowUnsupportedBlock: false,
+        allowUnsupportedInline: false,
+        isMark: true,
+      }),
+    );
+  });
+
+  it(`should not throw any error when multiple known and valid marks are applied on
+      node with multiple specs`, () => {
+    const initialEntity = {
+      version: 1,
+      type: 'doc',
+      content: [
+        {
+          type: 'paragraph',
+          content: [
+            {
+              type: 'text',
+              text: 'Some Text',
+              marks: [
+                {
+                  type: 'strong',
+                },
+                {
+                  type: 'em',
+                },
+                {
+                  type: 'underline',
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    };
+    validate(initialEntity, errorCallbackMock);
+    expect(errorCallbackMock).not.toHaveBeenCalled();
+  });
+
+  it(`should throw INVALID_TYPE error when multiple known and not valid marks are applied on
+      node with multiple specs`, () => {
+    const mark1 = {
+      type: 'strong',
+    };
+    const mark2 = {
+      type: 'em',
+    };
+    const initialEntity = {
+      version: 1,
+      type: 'doc',
+      content: [
+        {
+          type: 'paragraph',
+          content: [
+            {
+              type: 'text',
+              text: 'Some Text',
+            },
+          ],
+          marks: [mark1, mark2],
+        },
+      ],
+    };
+    validate(initialEntity, errorCallbackMock);
+    expect(errorCallbackMock).toHaveBeenCalledTimes(2);
+    expect(errorCallbackMock).toHaveBeenNthCalledWith(
+      1,
+      expect.anything(),
+      expect.objectContaining({
+        code: 'INVALID_TYPE',
+        message: 'strong: unsupported mark.',
+        meta: mark1,
+      }),
+      expect.objectContaining({
+        allowUnsupportedBlock: false,
+        allowUnsupportedInline: false,
+        isMark: true,
+      }),
+    );
+    expect(errorCallbackMock).toHaveBeenNthCalledWith(
+      2,
+      expect.anything(),
+      expect.objectContaining({
+        code: 'INVALID_TYPE',
+        message: 'em: unsupported mark.',
+        meta: mark2,
+      }),
+      expect.objectContaining({
+        allowUnsupportedBlock: false,
+        allowUnsupportedInline: false,
+        isMark: true,
+      }),
+    );
+  });
+
+  it(`should throw INVALID_TYPE error, when known mark along with an unknown
+      mark which are both invalid is applied to a node with multple specs.`, () => {
+    const initialEntity = {
+      version: 1,
+      type: 'doc',
+      content: [
+        {
+          type: 'paragraph',
+          content: [
+            {
+              type: 'text',
+              text: 'Some Text',
+            },
+          ],
+          marks: [
+            {
+              type: 'strong',
+            },
+            {
+              type: 'unknownMark',
+            },
+          ],
+        },
+      ],
+    };
+
+    validate(initialEntity, errorCallbackMock);
+    expect(errorCallbackMock).toHaveBeenCalledTimes(2);
+    const expectedMeta1 = { type: 'strong' };
+    const expectedMeta2 = { type: 'unknownMark' };
+    expect(errorCallbackMock).toHaveBeenNthCalledWith(
+      1,
+      expect.anything(),
+      expect.objectContaining({
+        code: 'INVALID_TYPE',
+        message: 'strong: unsupported mark.',
+        meta: expectedMeta1,
+      }),
+      expect.objectContaining({
+        allowUnsupportedBlock: false,
+        allowUnsupportedInline: false,
+        isMark: true,
+      }),
+    );
+    expect(errorCallbackMock).toHaveBeenNthCalledWith(
+      2,
+      expect.anything(),
+      expect.objectContaining({
+        code: 'INVALID_CONTENT',
+        message: 'unknownMark: unsupported mark.',
+        meta: expectedMeta2,
+      }),
+      expect.objectContaining({
+        allowUnsupportedBlock: false,
+        allowUnsupportedInline: false,
+        isMark: true,
+      }),
+    );
+  });
+
+  it(`should throw REDUNDANT_MARKS error, when a known mark along with an unknown
+      mark which are both invalid is applied to a node which supports tuple.`, () => {
+    const unsupportedMark = {
+      type: 'unsupportedMark',
+      attrs: {
+        align: 'center',
+      },
+    };
+
+    const initialEntity = {
+      version: 1,
+      type: 'doc',
+      content: [
+        {
+          type: 'orderedList',
+          content: [
+            {
+              type: 'listItem',
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [
+                    {
+                      type: 'text',
+                      text: 'test ',
+                      marks: [
+                        {
+                          type: 'strong',
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+              marks: [
+                {
+                  type: 'strong',
+                },
+                unsupportedMark,
+              ],
+            },
+          ],
+        },
+      ],
+    };
+
+    validate(initialEntity, errorCallbackMock);
+    expect(errorCallbackMock).toHaveBeenCalledTimes(2);
+    expect(errorCallbackMock).toHaveBeenNthCalledWith(
+      1,
+      expect.anything(),
+      expect.objectContaining({
+        code: 'REDUNDANT_MARKS',
+        message: 'strong: unsupported mark.',
+      }),
+      {
+        allowUnsupportedBlock: false,
+        allowUnsupportedInline: false,
+        isMark: true,
+      },
+    );
+    expect(errorCallbackMock).toHaveBeenNthCalledWith(
+      2,
+      expect.anything(),
+      expect.objectContaining({
+        code: 'REDUNDANT_MARKS',
+        message: 'unsupportedMark: unsupported mark.',
+      }),
+      {
+        allowUnsupportedBlock: false,
+        allowUnsupportedInline: false,
+        isMark: true,
+      },
+    );
+  });
+
+  it(`should throw REDUNDANT_MARKS error, when a known mark applied
+    which invalid to a node which supports tuple.`, () => {
+    const strongMark = {
+      type: 'strong',
+    };
+
+    const markWithAttr = { attr: { bg: 'color' }, type: 'alignment' };
+    const initialEntity = {
+      version: 1,
+      type: 'doc',
+      content: [
+        {
+          type: 'taskList',
+          content: [
+            {
+              type: 'taskItem',
+              attrs: {
+                localId: 'd5767f6e-30e2-4200-8aa4-71dde534b09d',
+                state: 'TODO',
+              },
+              content: [
+                {
+                  type: 'text',
+                  text: 'task list in task list',
+                },
+              ],
+            },
+            {
+              type: 'taskList',
+              attrs: {
+                localId: '50886dde-39b3-4918-879e-a2fe7b8fed92',
+              },
+              content: [
+                {
+                  type: 'taskItem',
+                  attrs: {
+                    localId: '7dbecfab-6697-4901-851a-6083cb44f031',
+                    state: 'TODO',
+                  },
+                  content: [
+                    {
+                      type: 'text',
+                      text: 'child',
+                    },
+                  ],
+                  marks: [strongMark, markWithAttr],
+                },
+              ],
+            },
+          ],
+          attrs: {
+            localId: '50886dde-39b3-4918-879e-a2fe7b8fed92',
+          },
+        },
+      ],
+    };
+
+    validate(initialEntity, errorCallbackMock);
+    expect(errorCallbackMock).toHaveBeenCalledTimes(2);
+    expect(errorCallbackMock).toHaveBeenNthCalledWith(
+      1,
+      expect.anything(),
+      expect.objectContaining({
+        code: 'REDUNDANT_MARKS',
+        message: 'strong: unsupported mark.',
+        meta: strongMark,
+      }),
+      {
+        allowUnsupportedBlock: false,
+        allowUnsupportedInline: false,
+        isMark: true,
+      },
+    );
+    expect(errorCallbackMock).toHaveBeenNthCalledWith(
+      2,
+      expect.anything(),
+      expect.objectContaining({
+        code: 'REDUNDANT_MARKS',
+        message: 'alignment: unsupported mark.',
+        meta: markWithAttr,
+      }),
+      {
+        allowUnsupportedBlock: false,
+        allowUnsupportedInline: false,
+        isMark: true,
+      },
+    );
+  });
 });

@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 
 import { EditorView } from 'prosemirror-view';
-import { defineMessages, InjectedIntlProps, injectIntl } from 'react-intl';
+import { InjectedIntlProps, injectIntl } from 'react-intl';
 
 import { akEditorMenuZIndex } from '@atlaskit/editor-common';
 import MoreIcon from '@atlaskit/icon/glyph/editor/more';
@@ -27,6 +27,7 @@ import { clearFormattingWithAnalytics } from '../../commands/clear-formatting';
 import * as commands from '../../commands/text-formatting';
 import { ClearFormattingState } from '../../pm-plugins/clear-formatting';
 import { TextFormattingState } from '../../pm-plugins/main';
+import { toolbarMessages } from './toolbar-messages';
 
 export interface Props {
   isDisabled?: boolean;
@@ -38,47 +39,6 @@ export interface Props {
   popupsScrollableElement?: HTMLElement;
   isReducedSpacing?: boolean;
 }
-
-export const messages = defineMessages({
-  underline: {
-    id: 'fabric.editor.underline',
-    defaultMessage: 'Underline',
-    description: 'Whether the text selection has underlined text',
-  },
-  strike: {
-    id: 'fabric.editor.strike',
-    defaultMessage: 'Strikethrough',
-    description: 'Whether the text selection has crossed out text',
-  },
-  code: {
-    id: 'fabric.editor.code',
-    defaultMessage: 'Code',
-    description: 'Whether the text selection has monospaced/code font',
-  },
-  subscript: {
-    id: 'fabric.editor.subscript',
-    defaultMessage: 'Subscript',
-    description:
-      'Whether the text selection is written below the line in a slightly smaller size',
-  },
-  superscript: {
-    id: 'fabric.editor.superscript',
-    defaultMessage: 'Superscript',
-    description:
-      'Whether the text selection is written above the line in a slightly smaller size',
-  },
-  clearFormatting: {
-    id: 'fabric.editor.clearFormatting',
-    defaultMessage: 'Clear formatting',
-    description: 'Remove all rich text formatting from the selected text',
-  },
-  moreFormatting: {
-    id: 'fabric.editor.moreFormatting',
-    defaultMessage: 'More formatting',
-    description:
-      'Clicking this will show a menu with additional formatting options',
-  },
-});
 
 export interface State {
   isOpen?: boolean;
@@ -127,7 +87,7 @@ class ToolbarAdvancedTextFormatting extends PureComponent<
     } = textFormattingState;
     const { formattingIsPresent } = clearFormattingState;
     const items = this.createItems();
-    const labelMoreFormatting = formatMessage(messages.moreFormatting);
+    const labelMoreFormatting = formatMessage(toolbarMessages.moreFormatting);
 
     const toolbarButtonFactory = (disabled: boolean) => (
       <ToolbarButton
@@ -213,7 +173,7 @@ class ToolbarAdvancedTextFormatting extends PureComponent<
       if (!underlineHidden && underline) {
         this.addRecordToItems(
           items,
-          formatMessage(messages.underline),
+          formatMessage(toolbarMessages.underline),
           'underline',
           tooltip(toggleUnderline),
         );
@@ -221,7 +181,7 @@ class ToolbarAdvancedTextFormatting extends PureComponent<
       if (!strikeHidden && strike) {
         this.addRecordToItems(
           items,
-          formatMessage(messages.strike),
+          formatMessage(toolbarMessages.strike),
           'strike',
           tooltip(toggleStrikethrough),
         );
@@ -229,7 +189,7 @@ class ToolbarAdvancedTextFormatting extends PureComponent<
       if (!codeHidden && code) {
         this.addRecordToItems(
           items,
-          formatMessage(messages.code),
+          formatMessage(toolbarMessages.code),
           'code',
           tooltip(toggleCode),
         );
@@ -237,14 +197,14 @@ class ToolbarAdvancedTextFormatting extends PureComponent<
       if (!subscriptHidden && subsup) {
         this.addRecordToItems(
           items,
-          formatMessage(messages.subscript),
+          formatMessage(toolbarMessages.subscript),
           'subscript',
         );
       }
       if (!superscriptHidden && subsup) {
         this.addRecordToItems(
           items,
-          formatMessage(messages.superscript),
+          formatMessage(toolbarMessages.superscript),
           'superscript',
         );
       }
@@ -252,7 +212,7 @@ class ToolbarAdvancedTextFormatting extends PureComponent<
     if (clearFormattingState) {
       this.addRecordToItems(
         items,
-        formatMessage(messages.clearFormatting),
+        formatMessage(toolbarMessages.clearFormatting),
         'clearFormatting',
         tooltip(clearFormattingKeymap),
         !clearFormattingState.formattingIsPresent,

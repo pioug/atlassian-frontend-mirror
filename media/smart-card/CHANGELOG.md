@@ -1,5 +1,29 @@
 # @atlaskit/smart-card
 
+## 14.2.3
+
+### Patch Changes
+
+- [`6e5372dcda`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6e5372dcda) - **Ticket:** EDM-1121
+
+  **Changes:**
+
+  Added integration tests across the board, asserting that a new window is opened to kick off the 3LO flow.
+
+  - Added integration test for account connection and try another account flows for Inline Links;
+  - Added integration test for account connection and try another account flows for Card Links;
+  - Added integration test for account connection and try another account flows for Embed Links;
+  - Aligned `data-testid`s across all buttons for all unauthenticated views for each of the above to be - `button-connect-account` for connecting account, and `button-connect-other-account` for trying with another account.
+
+  Further, added an `AuthorizationWindow` method to the `@atlaskit/media-integration-test-helpers`, with the following methods:
+
+  - `AuthorizationWindow.open()` - to open a window to authorize, dependent on which card state it is being activated from;
+  - `AuthorizationWindow.checkUrl()` - to check if the window URL when redirected is the same as the `MOCK_URL_AUTH_PROVIDER` inside of the package for assertions which ship with our mocks;
+  - `AuthorizationWindow.close()` - to close the window opened for authorization.
+
+- [`fae131be3b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fae131be3b) - Improve frontend batching logic and timing by using 'bottleneck'
+- Updated dependencies
+
 ## 14.2.2
 
 ### Patch Changes

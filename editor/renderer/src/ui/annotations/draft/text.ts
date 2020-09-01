@@ -9,7 +9,7 @@ export const splitText = (
   text: string,
   { startOffset, endOffset }: Offset,
 ): string[] | null => {
-  if (endOffset > text.length || endOffset - startOffset < 0) {
+  if (endOffset > text.length || endOffset - startOffset <= 0) {
     return null;
   }
 

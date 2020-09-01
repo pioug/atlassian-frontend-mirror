@@ -183,7 +183,7 @@ export class InlinePlayerBase extends Component<
   };
 
   render() {
-    const { onClick, dimensions, selected, testId } = this.props;
+    const { onClick, dimensions, selected, testId, identifier } = this.props;
     const { fileSrc } = this.state;
 
     if (!fileSrc) {
@@ -207,6 +207,9 @@ export class InlinePlayerBase extends Component<
               isHDAvailable={false}
               onDownloadClick={this.onDownloadClick}
               onFirstPlay={this.onFirstPlay}
+              lastWatchTimeConfig={{
+                contentId: identifier.id,
+              }}
             />
           )}
         </InactivityDetector>

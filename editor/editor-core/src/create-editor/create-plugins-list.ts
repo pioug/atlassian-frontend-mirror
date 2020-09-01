@@ -12,6 +12,7 @@ import {
   jiraIssuePlugin,
   layoutPlugin,
   listsPlugin,
+  listsPredictablePlugin,
   macroPlugin,
   maxContentSizePlugin,
   mediaPlugin,
@@ -121,6 +122,7 @@ export function getDefaultPresetOptionsFromEditorProps(
       disableDefaultItems: isMobile,
       headless: isMobile,
     },
+    codeBlock: props.codeBlock,
   };
 }
 
@@ -176,7 +178,11 @@ export default function createPluginsList(
   }
 
   // Needs to be after allowTextColor as order of buttons in toolbar depends on it
-  preset.add(listsPlugin);
+  if (props.UNSAFE_predictableLists) {
+    preset.add(listsPredictablePlugin);
+  } else {
+    preset.add(listsPlugin);
+  }
 
   if (props.allowRule) {
     preset.add(rulePlugin);

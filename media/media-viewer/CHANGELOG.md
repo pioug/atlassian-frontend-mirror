@@ -1,5 +1,23 @@
 # @atlaskit/media-viewer
 
+## 45.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.2.0
+
+### Minor Changes
+
+- [`f3ec9a3f14`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f3ec9a3f14) - Added analytics to zip previews
+- [`8fc5fe20df`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8fc5fe20df) - Inline video player as part of the card and video player in media-viewer will now store last viewed position between sessions for given media id
+- [`0837e7611b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0837e7611b) - Adding spinner to ArchiveViewer entry preview section
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 45.1.2
 
 ### Patch Changes

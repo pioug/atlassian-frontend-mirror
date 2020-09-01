@@ -8,6 +8,7 @@ import {
   ErrorReportingHandler,
   ExtensionHandlers,
   ExtensionProvider,
+  SearchProvider,
   Providers,
   Transformer,
 } from '@atlaskit/editor-common';
@@ -26,6 +27,7 @@ import { AnnotationProviders } from '../plugins/annotation/types';
 import { TextFormattingOptions } from '../plugins/text-formatting/types';
 import { PlaceholderTextOptions } from '../plugins/placeholder-text/types';
 import { BlockTypePluginOptions } from '../plugins/block-type/types';
+import { CodeBlockOptions } from '../plugins/code-block/types';
 import { LayoutsConfig } from '../plugins/layout/types';
 import { FindReplaceOptions } from '../plugins/find-replace/types';
 import { ExtensionConfig } from './extension-config';
@@ -187,6 +189,7 @@ export interface EditorProps {
   uploadErrorHandler?: (state: MediaState) => void;
 
   activityProvider?: Promise<ActivityProvider>;
+  searchProvider?: Promise<SearchProvider>;
 
   annotationProviders?: AnnotationProviders;
 
@@ -333,4 +336,6 @@ export interface EditorProps {
     showModal?: boolean;
     replacePlusMenu?: boolean;
   };
+
+  codeBlock?: CodeBlockOptions;
 }

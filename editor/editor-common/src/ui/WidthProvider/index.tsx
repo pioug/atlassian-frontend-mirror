@@ -31,7 +31,9 @@ export function createWidthContext(width: number = 0): WidthConsumerContext {
   return { width, breakpoint: getBreakpoint(width) };
 }
 
-const { Provider, Consumer } = React.createContext(createWidthContext());
+export const WidthContext = React.createContext(createWidthContext());
+
+const { Provider, Consumer } = WidthContext;
 
 const RelativeContainer = React.memo(styled.div`
   position: relative;

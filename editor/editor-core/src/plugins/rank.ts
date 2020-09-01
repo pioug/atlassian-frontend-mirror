@@ -33,10 +33,13 @@ export default {
     // This should be always after `typeAheadKeymap` & `emojiKeymap`
     'indentationKeymap',
     'lists',
+    'listsPredictable',
     'textColor',
     'alignmentPlugin',
     'listsInputRule',
+    'listsPredictableInputRule',
     'listsKeymap',
+    'listsPredictableKeymap',
     'codeBlock',
     'codeBlockIDEKeyBindings',
     'codeBlockKeyMap',
@@ -46,6 +49,8 @@ export default {
     'textFormattingSmartRule',
     'textFormattingClear',
     'textFormattingKeymap',
+    'expandKeymap',
+    'selectionKeymap',
     'gapCursorKeymap',
     'gapCursor',
     'syncUrlText',
@@ -163,5 +168,6 @@ export default {
 
     //Unsupported mark
     'unsupportedMark',
+    'unsupportedNodeAttribute',
   ],
 };

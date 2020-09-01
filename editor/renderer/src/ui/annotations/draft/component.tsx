@@ -4,15 +4,27 @@ import { AnnotationsDraftContext } from '../context';
 import { splitText, calcTextSplitOffset } from './text';
 import { calcInsertDraftPositionOnText } from './position';
 import { dataAttributes } from './dom';
+import styled from 'styled-components';
+import { AnnotationSharedCSSByState } from '@atlaskit/editor-common';
+
+const DraftAnnotation = styled.mark`
+  color: inherit;
+  background-color: unset;
+
+  ${AnnotationSharedCSSByState.focus};
+`;
 
 export const AnnotationDraft: React.FC<{ draftPosition: Position }> = ({
   draftPosition,
   children,
 }) => {
   return (
-    <mark data-renderer-mark={true} {...dataAttributes(draftPosition)}>
+    <DraftAnnotation
+      data-renderer-mark={true}
+      {...dataAttributes(draftPosition)}
+    >
       {children}
-    </mark>
+    </DraftAnnotation>
   );
 };
 

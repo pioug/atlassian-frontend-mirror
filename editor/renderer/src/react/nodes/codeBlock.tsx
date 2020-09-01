@@ -1,27 +1,33 @@
 import React from 'react';
 import { PureComponent } from 'react';
-import { AkCodeBlock } from '@atlaskit/code';
+import { CodeBlock as AkCodeBlock } from '@atlaskit/code';
 import { overflowShadow, OverflowShadowProps } from '@atlaskit/editor-common';
-
-function identity<T = any>(text: T): T {
-  return text;
-}
+import CopyButton from './codeBlockCopyButton';
 
 export interface Props {
+  text: string;
   language: string;
+  allowCopyToClipboard?: boolean;
 }
 
 class CodeBlock extends PureComponent<Props & OverflowShadowProps, {}> {
   render() {
-    const { children, language, handleRef, shadowClassNames } = this.props;
+    const {
+      text,
+      language,
+      handleRef,
+      shadowClassNames,
+      allowCopyToClipboard = false,
+    } = this.props;
 
     const codeProps = {
       language,
-      text: React.Children.map(children, identity).join(''),
+      text,
     };
 
     return (
       <div className={`code-block ${shadowClassNames}`} ref={handleRef}>
+        {allowCopyToClipboard ? <CopyButton content={codeProps.text} /> : null}
         <AkCodeBlock {...codeProps} />
       </div>
     );

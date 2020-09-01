@@ -1,0 +1,2383 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ModalElementBrowser matches snapshot 1`] = `
+@keyframes animation-0 {
+  from {
+    -webkit-transform: rotate(50deg);
+    -ms-transform: rotate(50deg);
+    transform: rotate(50deg);
+    opacity: 0;
+    stroke-dashoffset: 60;
+  }
+
+  to {
+    -webkit-transform: rotate(230deg);
+    -ms-transform: rotate(230deg);
+    transform: rotate(230deg);
+    opacity: 1;
+    stroke-dashoffset: 50;
+  }
+}
+
+@keyframes animation-1 {
+  to {
+    -webkit-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+.emotion-13 {
+  height: 100vh;
+  left: 0;
+  overflow-y: auto;
+  position: absolute;
+  top: 0px;
+  width: 100%;
+  z-index: 510;
+  -webkit-overflow-scrolling: touch;
+}
+
+.emotion-12 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  height: calc(100% - 119px);
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: calc(100% - 120px);
+  top: 60px;
+  width: 968px;
+  z-index: 510;
+  pointer-events: none;
+  position: absolute;
+}
+
+@media (min-width:320px) and (max-width:480px) {
+  .emotion-12 {
+    height: 100%;
+    left: 0;
+    position: fixed;
+    top: 0;
+    max-width: 100%;
+    width: 100%;
+  }
+}
+
+.emotion-11 {
+  background-color: #FFFFFF;
+  border-radius: 3px;
+  box-shadow: 0 0 0 1px rgba(9,30,66,0.08),0 2px 1px rgba(9,30,66,0.08), 0 0 20px -6px rgba(9,30,66,0.31);
+  color: #091E42;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  height: 720px;
+  max-height: 100%;
+  outline: 0;
+  pointer-events: auto;
+}
+
+@media (min-width:320px) and (max-width:480px) {
+  .emotion-11 {
+    height: 100%;
+    max-height: 100%;
+    border-radius: 0;
+  }
+}
+
+.emotion-10 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  max-height: 100%;
+}
+
+.emotion-2 {
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 2px 24px;
+}
+
+@media (min-width:320px) and (max-width:480px) {
+  .emotion-2 {
+    overflow-y: auto;
+    height: 100%;
+  }
+}
+
+.emotion-2:focus {
+  outline-offset: -1px;
+  outline-style: dotted;
+  outline-color: #172B4D;
+  outline-width: thin;
+}
+
+.emotion-1 {
+  vertical-align: middle;
+  opacity: 0;
+  -webkit-animation: animation-0 1s ease-in-out;
+  animation: animation-0 1s ease-in-out;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+  -webkit-animation-delay: 0ms;
+  animation-delay: 0ms;
+}
+
+.emotion-0 {
+  fill: none;
+  stroke: #42526E;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-dasharray: 60;
+  stroke-dashoffset: inherit;
+  -webkit-transform-origin: center;
+  -ms-transform-origin: center;
+  transform-origin: center;
+  -webkit-animation: animation-1 0.86s infinite;
+  animation: animation-1 0.86s infinite;
+  -webkit-animation-delay: 0ms;
+  animation-delay: 0ms;
+  -webkit-animation-timing-function: cubic-bezier(0.4,0.15,0.6,0.85);
+  animation-timing-function: cubic-bezier(0.4,0.15,0.6,0.85);
+}
+
+.emotion-9 {
+  position: relative;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 0 0 auto;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-transition: box-shadow 200ms;
+  transition: box-shadow 200ms;
+  padding: 22px 24px 24px 24px;
+  box-shadow: none;
+}
+
+.emotion-5 {
+  -webkit-align-items: baseline;
+  -webkit-box-align: baseline;
+  -ms-flex-align: baseline;
+  align-items: baseline;
+  border-width: 0;
+  box-sizing: border-box;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-size: inherit;
+  font-style: normal;
+  font-weight: 500;
+  max-width: 100%;
+  outline: none !important;
+  text-align: center;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  white-space: nowrap;
+  background: #0052CC;
+  border-radius: 3px;
+  box-shadow: 0 0 0 2px inherit;
+  color: #FFFFFF !important;
+  cursor: default;
+  height: 2.2857142857142856em;
+  line-height: 2.2857142857142856em;
+  padding: 0 8px;
+  -webkit-transition: background 0.1s ease-out,box-shadow 0.15s cubic-bezier(0.47,0.03,0.49,1.38);
+  transition: background 0.1s ease-out,box-shadow 0.15s cubic-bezier(0.47,0.03,0.49,1.38);
+  -webkit-transition-duration: 0.1s,0.15s;
+  transition-duration: 0.1s,0.15s;
+  vertical-align: middle;
+  width: auto;
+  font-family: -apple-system,BlinkMacSystemFont,'Segoe UI','Roboto','Oxygen','Ubuntu','Fira Sans','Droid Sans','Helvetica Neue',sans-serif;
+}
+
+.emotion-5::-moz-focus-inner {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.emotion-5:hover {
+  -webkit-text-decoration: inherit;
+  text-decoration: inherit;
+}
+
+.emotion-4 {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-flex-wrap: nowrap;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  max-width: 100%;
+  position: relative;
+}
+
+.emotion-3 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  margin: 0 4px;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  -webkit-transition: opacity 0.3s;
+  transition: opacity 0.3s;
+  opacity: 1;
+}
+
+.emotion-8 {
+  -webkit-align-items: baseline;
+  -webkit-box-align: baseline;
+  -ms-flex-align: baseline;
+  align-items: baseline;
+  border-width: 0;
+  box-sizing: border-box;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-size: inherit;
+  font-style: normal;
+  font-weight: 500;
+  max-width: 100%;
+  outline: none !important;
+  text-align: center;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  white-space: nowrap;
+  background: none;
+  border-radius: 3px;
+  box-shadow: 0 0 0 2px inherit;
+  color: #42526E !important;
+  cursor: default;
+  height: 2.2857142857142856em;
+  line-height: 2.2857142857142856em;
+  padding: 0 8px;
+  -webkit-transition: background 0.1s ease-out,box-shadow 0.15s cubic-bezier(0.47,0.03,0.49,1.38);
+  transition: background 0.1s ease-out,box-shadow 0.15s cubic-bezier(0.47,0.03,0.49,1.38);
+  -webkit-transition-duration: 0.1s,0.15s;
+  transition-duration: 0.1s,0.15s;
+  vertical-align: middle;
+  width: auto;
+  font-family: -apple-system,BlinkMacSystemFont,'Segoe UI','Roboto','Oxygen','Ubuntu','Fira Sans','Droid Sans','Helvetica Neue',sans-serif;
+}
+
+.emotion-8::-moz-focus-inner {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.emotion-8:hover {
+  -webkit-text-decoration: inherit;
+  text-decoration: inherit;
+}
+
+.c0 {
+  background: rgba(9,30,66,0.54);
+  bottom: 0;
+  left: 0;
+  opacity: 1;
+  pointer-events: initial;
+  position: fixed;
+  right: 0;
+  top: 0;
+  -webkit-transition: opacity 220ms;
+  transition: opacity 220ms;
+  z-index: 500;
+}
+
+.c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+
+.c3 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  margin: 0 -4px;
+}
+
+.c4 {
+  -webkit-flex: 1 0 auto;
+  -ms-flex: 1 0 auto;
+  flex: 1 0 auto;
+  margin: 0 4px;
+}
+
+.c1 {
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  height: 100%;
+  padding: 24px 24px 0 24px;
+  overflow: hidden;
+  background-color: #FFFFFF;
+  border-radius: 3px;
+}
+
+<ModalElementBrowser
+  getItems={[MockFunction]}
+  intl={
+    Object {
+      "defaultFormats": Object {},
+      "defaultLocale": "en",
+      "formatDate": [Function],
+      "formatHTMLMessage": [Function],
+      "formatMessage": [Function],
+      "formatNumber": [Function],
+      "formatPlural": [Function],
+      "formatRelative": [Function],
+      "formatTime": [Function],
+      "formats": Object {},
+      "formatters": Object {
+        "getDateTimeFormat": [Function],
+        "getMessageFormat": [Function],
+        "getNumberFormat": [Function],
+        "getPluralFormat": [Function],
+        "getRelativeFormat": [Function],
+      },
+      "locale": "en",
+      "messages": Object {},
+      "now": [Function],
+      "textComponent": "span",
+      "timeZone": null,
+    }
+  }
+  isOpen={true}
+  onClose={[MockFunction]}
+  onInsertItem={[MockFunction]}
+>
+  <Transition>
+    <ModalWrapper
+      autoFocus={false}
+      components={
+        Object {
+          "Body": [Function],
+          "Footer": [Function],
+        }
+      }
+      height="720px"
+      isChromeless={false}
+      isHeadingMultiline={true}
+      key="element-browser-modal"
+      onClose={[MockFunction]}
+      scrollBehavior="inside"
+      shouldCloseOnEscapePress={true}
+      shouldCloseOnOverlayClick={true}
+      stackIndex={1}
+      width="x-large"
+    >
+      <Portal
+        zIndex={510}
+      >
+        <Portal
+          containerInfo={
+            @keyframes animation-0 {
+  from {
+    -webkit-transform: rotate(50deg);
+    -ms-transform: rotate(50deg);
+    transform: rotate(50deg);
+    opacity: 0;
+    stroke-dashoffset: 60;
+  }
+
+  to {
+    -webkit-transform: rotate(230deg);
+    -ms-transform: rotate(230deg);
+    transform: rotate(230deg);
+    opacity: 1;
+    stroke-dashoffset: 50;
+  }
+}
+
+@keyframes animation-1 {
+  to {
+    -webkit-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+.emotion-12 {
+  height: 100vh;
+  left: 0;
+  overflow-y: auto;
+  position: absolute;
+  top: 0px;
+  width: 100%;
+  z-index: 510;
+  -webkit-overflow-scrolling: touch;
+}
+
+.emotion-11 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  height: calc(100% - 119px);
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: calc(100% - 120px);
+  top: 60px;
+  width: 968px;
+  z-index: 510;
+  pointer-events: none;
+  position: absolute;
+}
+
+@media (min-width:320px) and (max-width:480px) {
+  .emotion-11 {
+    height: 100%;
+    left: 0;
+    position: fixed;
+    top: 0;
+    max-width: 100%;
+    width: 100%;
+  }
+}
+
+.emotion-10 {
+  background-color: #FFFFFF;
+  border-radius: 3px;
+  box-shadow: 0 0 0 1px rgba(9,30,66,0.08),0 2px 1px rgba(9,30,66,0.08), 0 0 20px -6px rgba(9,30,66,0.31);
+  color: #091E42;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  height: 720px;
+  max-height: 100%;
+  outline: 0;
+  pointer-events: auto;
+}
+
+@media (min-width:320px) and (max-width:480px) {
+  .emotion-10 {
+    height: 100%;
+    max-height: 100%;
+    border-radius: 0;
+  }
+}
+
+.emotion-9 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  max-height: 100%;
+}
+
+.emotion-1 {
+  vertical-align: middle;
+  opacity: 0;
+  -webkit-animation: animation-0 1s ease-in-out;
+  animation: animation-0 1s ease-in-out;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+  -webkit-animation-delay: 0ms;
+  animation-delay: 0ms;
+}
+
+.emotion-0 {
+  fill: none;
+  stroke: #42526E;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-dasharray: 60;
+  stroke-dashoffset: inherit;
+  -webkit-transform-origin: center;
+  -ms-transform-origin: center;
+  transform-origin: center;
+  -webkit-animation: animation-1 0.86s infinite;
+  animation: animation-1 0.86s infinite;
+  -webkit-animation-delay: 0ms;
+  animation-delay: 0ms;
+  -webkit-animation-timing-function: cubic-bezier(0.4,0.15,0.6,0.85);
+  animation-timing-function: cubic-bezier(0.4,0.15,0.6,0.85);
+}
+
+.emotion-8 {
+  position: relative;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 0 0 auto;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-transition: box-shadow 200ms;
+  transition: box-shadow 200ms;
+  padding: 22px 24px 24px 24px;
+  box-shadow: none;
+}
+
+.emotion-4 {
+  -webkit-align-items: baseline;
+  -webkit-box-align: baseline;
+  -ms-flex-align: baseline;
+  align-items: baseline;
+  border-width: 0;
+  box-sizing: border-box;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-size: inherit;
+  font-style: normal;
+  font-weight: 500;
+  max-width: 100%;
+  outline: none !important;
+  text-align: center;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  white-space: nowrap;
+  background: #0052CC;
+  border-radius: 3px;
+  box-shadow: 0 0 0 2px inherit;
+  color: #FFFFFF !important;
+  cursor: default;
+  height: 2.2857142857142856em;
+  line-height: 2.2857142857142856em;
+  padding: 0 8px;
+  -webkit-transition: background 0.1s ease-out,box-shadow 0.15s cubic-bezier(0.47,0.03,0.49,1.38);
+  transition: background 0.1s ease-out,box-shadow 0.15s cubic-bezier(0.47,0.03,0.49,1.38);
+  -webkit-transition-duration: 0.1s,0.15s;
+  transition-duration: 0.1s,0.15s;
+  vertical-align: middle;
+  width: auto;
+  font-family: -apple-system,BlinkMacSystemFont,'Segoe UI','Roboto','Oxygen','Ubuntu','Fira Sans','Droid Sans','Helvetica Neue',sans-serif;
+}
+
+.emotion-4::-moz-focus-inner {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.emotion-4:hover {
+  -webkit-text-decoration: inherit;
+  text-decoration: inherit;
+}
+
+.emotion-3 {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-flex-wrap: nowrap;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  max-width: 100%;
+  position: relative;
+}
+
+.emotion-2 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  margin: 0 4px;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  -webkit-transition: opacity 0.3s;
+  transition: opacity 0.3s;
+  opacity: 1;
+}
+
+.emotion-7 {
+  -webkit-align-items: baseline;
+  -webkit-box-align: baseline;
+  -ms-flex-align: baseline;
+  align-items: baseline;
+  border-width: 0;
+  box-sizing: border-box;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-size: inherit;
+  font-style: normal;
+  font-weight: 500;
+  max-width: 100%;
+  outline: none !important;
+  text-align: center;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  white-space: nowrap;
+  background: none;
+  border-radius: 3px;
+  box-shadow: 0 0 0 2px inherit;
+  color: #42526E !important;
+  cursor: default;
+  height: 2.2857142857142856em;
+  line-height: 2.2857142857142856em;
+  padding: 0 8px;
+  -webkit-transition: background 0.1s ease-out,box-shadow 0.15s cubic-bezier(0.47,0.03,0.49,1.38);
+  transition: background 0.1s ease-out,box-shadow 0.15s cubic-bezier(0.47,0.03,0.49,1.38);
+  -webkit-transition-duration: 0.1s,0.15s;
+  transition-duration: 0.1s,0.15s;
+  vertical-align: middle;
+  width: auto;
+  font-family: -apple-system,BlinkMacSystemFont,'Segoe UI','Roboto','Oxygen','Ubuntu','Fira Sans','Droid Sans','Helvetica Neue',sans-serif;
+}
+
+.emotion-7::-moz-focus-inner {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.emotion-7:hover {
+  -webkit-text-decoration: inherit;
+  text-decoration: inherit;
+}
+
+<div
+              class="atlaskit-portal"
+              style="z-index: 510;"
+            >
+              <div
+                aria-hidden="true"
+                class="emotion-12"
+                style="transition: opacity 250ms; opacity: 0;"
+              >
+                <div
+                  data-focus-guard="true"
+                  style="width: 1px; height: 0px; padding: 0px; overflow: hidden; position: fixed; top: 1px; left: 1px;"
+                  tabindex="-1"
+                />
+                <div
+                  data-focus-guard="true"
+                  style="width: 1px; height: 0px; padding: 0px; overflow: hidden; position: fixed; top: 1px; left: 1px;"
+                  tabindex="-1"
+                />
+                <div
+                  data-focus-lock-disabled="disabled"
+                >
+                  <div
+                    class="c0"
+                  />
+                  <div
+                    class="emotion-11"
+                    style="transition: transform 500ms cubic-bezier(0.23, 1, 0.32, 1); transform: translate3d(0, 32px, 0);"
+                  >
+                    <div
+                      aria-labelledby="dialog-heading-1"
+                      class="emotion-10"
+                      role="dialog"
+                      tabindex="-1"
+                    >
+                      <div
+                        class="emotion-9"
+                      >
+                        <div
+                          class="c1"
+                        >
+                          <div
+                            class="c2"
+                          >
+                            <svg
+                              class="emotion-1"
+                              focusable="false"
+                              height="24"
+                              viewBox="0 0 16 16"
+                              width="24"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <circle
+                                class="emotion-0"
+                                cx="8"
+                                cy="8"
+                                r="7"
+                              />
+                            </svg>
+                          </div>
+                        </div>
+                        <footer
+                          class="emotion-8"
+                        >
+                          <span />
+                          <div
+                            class="c3"
+                          >
+                            <div
+                              class="c4"
+                            >
+                              <button
+                                class="emotion-4"
+                                type="button"
+                              >
+                                <span
+                                  class="emotion-3"
+                                >
+                                  <span
+                                    class="emotion-2"
+                                  >
+                                    Insert
+                                  </span>
+                                </span>
+                              </button>
+                            </div>
+                            <div
+                              class="c4"
+                            >
+                              <button
+                                class="emotion-7"
+                                type="button"
+                              >
+                                <span
+                                  class="emotion-3"
+                                >
+                                  <span
+                                    class="emotion-2"
+                                  >
+                                    Close
+                                  </span>
+                                </span>
+                              </button>
+                            </div>
+                          </div>
+                        </footer>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  data-focus-guard="true"
+                  style="width: 1px; height: 0px; padding: 0px; overflow: hidden; position: fixed; top: 1px; left: 1px;"
+                  tabindex="-1"
+                />
+              </div>
+            </div>
+          }
+        >
+          <StackConsumer
+            isOpen={true}
+          >
+            <WithAnalyticsContext(WithAnalyticsEvents(Modal))
+              autoFocus={false}
+              components={
+                Object {
+                  "Body": [Function],
+                  "Footer": [Function],
+                }
+              }
+              height="720px"
+              isChromeless={false}
+              isHeadingMultiline={true}
+              isOpen={true}
+              onClose={[MockFunction]}
+              onCloseComplete={[Function]}
+              scrollBehavior="inside"
+              shouldCloseOnEscapePress={true}
+              shouldCloseOnOverlayClick={true}
+              stackIndex={1}
+              width="x-large"
+            >
+              <AnalyticsContext
+                data={
+                  Object {
+                    "componentName": "modalDialog",
+                    "packageName": "@atlaskit/modal-dialog",
+                    "packageVersion": "999.9.9",
+                  }
+                }
+              >
+                <WithAnalyticsEvents(Modal)
+                  autoFocus={false}
+                  components={
+                    Object {
+                      "Body": [Function],
+                      "Footer": [Function],
+                    }
+                  }
+                  height="720px"
+                  isChromeless={false}
+                  isHeadingMultiline={true}
+                  isOpen={true}
+                  onClose={[MockFunction]}
+                  onCloseComplete={[Function]}
+                  scrollBehavior="inside"
+                  shouldCloseOnEscapePress={true}
+                  shouldCloseOnOverlayClick={true}
+                  stackIndex={1}
+                  width="x-large"
+                >
+                  <AnalyticsContextConsumer
+                    createEventMap={
+                      Object {
+                        "onClose": [Function],
+                      }
+                    }
+                    wrappedComponentProps={
+                      Object {
+                        "autoFocus": false,
+                        "children": undefined,
+                        "components": Object {
+                          "Body": [Function],
+                          "Footer": [Function],
+                        },
+                        "height": "720px",
+                        "isChromeless": false,
+                        "isHeadingMultiline": true,
+                        "isOpen": true,
+                        "onClose": [MockFunction],
+                        "onCloseComplete": [Function],
+                        "scrollBehavior": "inside",
+                        "shouldCloseOnEscapePress": true,
+                        "shouldCloseOnOverlayClick": true,
+                        "stackIndex": 1,
+                        "width": "x-large",
+                      }
+                    }
+                  >
+                    <Modal
+                      autoFocus={false}
+                      components={
+                        Object {
+                          "Body": [Function],
+                          "Footer": [Function],
+                        }
+                      }
+                      createAnalyticsEvent={[Function]}
+                      height="720px"
+                      isChromeless={false}
+                      isHeadingMultiline={true}
+                      isOpen={true}
+                      onClose={[Function]}
+                      onCloseComplete={[Function]}
+                      scrollBehavior="inside"
+                      shouldCloseOnEscapePress={true}
+                      shouldCloseOnOverlayClick={true}
+                      stackIndex={1}
+                      width="x-large"
+                    >
+                      <Component
+                        in={true}
+                        onExited={[Function]}
+                        stackIndex={1}
+                      >
+                        <Transition
+                          appear={true}
+                          enter={true}
+                          exit={true}
+                          in={true}
+                          mountOnEnter={false}
+                          onEnter={[Function]}
+                          onEntered={[Function]}
+                          onEntering={[Function]}
+                          onExit={[Function]}
+                          onExited={[Function]}
+                          onExiting={[Function]}
+                          timeout={
+                            Object {
+                              "enter": 0,
+                              "exit": 500,
+                            }
+                          }
+                          unmountOnExit={false}
+                        >
+                          <FillScreen
+                            aria-hidden={true}
+                            scrollDistance={0}
+                            style={
+                              Object {
+                                "opacity": 0,
+                                "transition": "opacity 250ms",
+                              }
+                            }
+                          >
+                            <div
+                              aria-hidden={true}
+                              className="emotion-13"
+                              style={
+                                Object {
+                                  "opacity": 0,
+                                  "transition": "opacity 250ms",
+                                }
+                              }
+                            >
+                              <FocusLock
+                                autoFocus={false}
+                                isEnabled={false}
+                                shouldReturnFocus={true}
+                              >
+                                <FocusLock
+                                  as="div"
+                                  autoFocus={false}
+                                  disabled={true}
+                                  lockProps={Object {}}
+                                  noFocusGuards={false}
+                                  persistentFocus={false}
+                                  returnFocus={true}
+                                >
+                                  <div
+                                    data-focus-guard={true}
+                                    key="guard-first"
+                                    style={
+                                      Object {
+                                        "height": "0px",
+                                        "left": "1px",
+                                        "overflow": "hidden",
+                                        "padding": 0,
+                                        "position": "fixed",
+                                        "top": "1px",
+                                        "width": "1px",
+                                      }
+                                    }
+                                    tabIndex={-1}
+                                  />
+                                  <div
+                                    data-focus-guard={true}
+                                    key="guard-nearest"
+                                    style={
+                                      Object {
+                                        "height": "0px",
+                                        "left": "1px",
+                                        "overflow": "hidden",
+                                        "padding": 0,
+                                        "position": "fixed",
+                                        "top": "1px",
+                                        "width": "1px",
+                                      }
+                                    }
+                                    tabIndex={-1}
+                                  />
+                                  <div
+                                    data-focus-lock-disabled="disabled"
+                                    onBlur={[Function]}
+                                    onFocus={[Function]}
+                                  >
+                                    <SideEffect(FocusWatcher)
+                                      autoFocus={false}
+                                      disabled={true}
+                                      observed={
+                                        @keyframes animation-0 {
+  from {
+    -webkit-transform: rotate(50deg);
+    -ms-transform: rotate(50deg);
+    transform: rotate(50deg);
+    opacity: 0;
+    stroke-dashoffset: 60;
+  }
+
+  to {
+    -webkit-transform: rotate(230deg);
+    -ms-transform: rotate(230deg);
+    transform: rotate(230deg);
+    opacity: 1;
+    stroke-dashoffset: 50;
+  }
+}
+
+@keyframes animation-1 {
+  to {
+    -webkit-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+.emotion-11 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  height: calc(100% - 119px);
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: calc(100% - 120px);
+  top: 60px;
+  width: 968px;
+  z-index: 510;
+  pointer-events: none;
+  position: absolute;
+}
+
+@media (min-width:320px) and (max-width:480px) {
+  .emotion-11 {
+    height: 100%;
+    left: 0;
+    position: fixed;
+    top: 0;
+    max-width: 100%;
+    width: 100%;
+  }
+}
+
+.emotion-10 {
+  background-color: #FFFFFF;
+  border-radius: 3px;
+  box-shadow: 0 0 0 1px rgba(9,30,66,0.08),0 2px 1px rgba(9,30,66,0.08), 0 0 20px -6px rgba(9,30,66,0.31);
+  color: #091E42;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  height: 720px;
+  max-height: 100%;
+  outline: 0;
+  pointer-events: auto;
+}
+
+@media (min-width:320px) and (max-width:480px) {
+  .emotion-10 {
+    height: 100%;
+    max-height: 100%;
+    border-radius: 0;
+  }
+}
+
+.emotion-9 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  max-height: 100%;
+}
+
+.emotion-1 {
+  vertical-align: middle;
+  opacity: 0;
+  -webkit-animation: animation-0 1s ease-in-out;
+  animation: animation-0 1s ease-in-out;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+  -webkit-animation-delay: 0ms;
+  animation-delay: 0ms;
+}
+
+.emotion-0 {
+  fill: none;
+  stroke: #42526E;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-dasharray: 60;
+  stroke-dashoffset: inherit;
+  -webkit-transform-origin: center;
+  -ms-transform-origin: center;
+  transform-origin: center;
+  -webkit-animation: animation-1 0.86s infinite;
+  animation: animation-1 0.86s infinite;
+  -webkit-animation-delay: 0ms;
+  animation-delay: 0ms;
+  -webkit-animation-timing-function: cubic-bezier(0.4,0.15,0.6,0.85);
+  animation-timing-function: cubic-bezier(0.4,0.15,0.6,0.85);
+}
+
+.emotion-8 {
+  position: relative;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 0 0 auto;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-transition: box-shadow 200ms;
+  transition: box-shadow 200ms;
+  padding: 22px 24px 24px 24px;
+  box-shadow: none;
+}
+
+.emotion-4 {
+  -webkit-align-items: baseline;
+  -webkit-box-align: baseline;
+  -ms-flex-align: baseline;
+  align-items: baseline;
+  border-width: 0;
+  box-sizing: border-box;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-size: inherit;
+  font-style: normal;
+  font-weight: 500;
+  max-width: 100%;
+  outline: none !important;
+  text-align: center;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  white-space: nowrap;
+  background: #0052CC;
+  border-radius: 3px;
+  box-shadow: 0 0 0 2px inherit;
+  color: #FFFFFF !important;
+  cursor: default;
+  height: 2.2857142857142856em;
+  line-height: 2.2857142857142856em;
+  padding: 0 8px;
+  -webkit-transition: background 0.1s ease-out,box-shadow 0.15s cubic-bezier(0.47,0.03,0.49,1.38);
+  transition: background 0.1s ease-out,box-shadow 0.15s cubic-bezier(0.47,0.03,0.49,1.38);
+  -webkit-transition-duration: 0.1s,0.15s;
+  transition-duration: 0.1s,0.15s;
+  vertical-align: middle;
+  width: auto;
+  font-family: -apple-system,BlinkMacSystemFont,'Segoe UI','Roboto','Oxygen','Ubuntu','Fira Sans','Droid Sans','Helvetica Neue',sans-serif;
+}
+
+.emotion-4::-moz-focus-inner {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.emotion-4:hover {
+  -webkit-text-decoration: inherit;
+  text-decoration: inherit;
+}
+
+.emotion-3 {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-flex-wrap: nowrap;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  max-width: 100%;
+  position: relative;
+}
+
+.emotion-2 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  margin: 0 4px;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  -webkit-transition: opacity 0.3s;
+  transition: opacity 0.3s;
+  opacity: 1;
+}
+
+.emotion-7 {
+  -webkit-align-items: baseline;
+  -webkit-box-align: baseline;
+  -ms-flex-align: baseline;
+  align-items: baseline;
+  border-width: 0;
+  box-sizing: border-box;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-size: inherit;
+  font-style: normal;
+  font-weight: 500;
+  max-width: 100%;
+  outline: none !important;
+  text-align: center;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  white-space: nowrap;
+  background: none;
+  border-radius: 3px;
+  box-shadow: 0 0 0 2px inherit;
+  color: #42526E !important;
+  cursor: default;
+  height: 2.2857142857142856em;
+  line-height: 2.2857142857142856em;
+  padding: 0 8px;
+  -webkit-transition: background 0.1s ease-out,box-shadow 0.15s cubic-bezier(0.47,0.03,0.49,1.38);
+  transition: background 0.1s ease-out,box-shadow 0.15s cubic-bezier(0.47,0.03,0.49,1.38);
+  -webkit-transition-duration: 0.1s,0.15s;
+  transition-duration: 0.1s,0.15s;
+  vertical-align: middle;
+  width: auto;
+  font-family: -apple-system,BlinkMacSystemFont,'Segoe UI','Roboto','Oxygen','Ubuntu','Fira Sans','Droid Sans','Helvetica Neue',sans-serif;
+}
+
+.emotion-7::-moz-focus-inner {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.emotion-7:hover {
+  -webkit-text-decoration: inherit;
+  text-decoration: inherit;
+}
+
+<div
+                                          data-focus-lock-disabled="disabled"
+                                        >
+                                          <div
+                                            class="c0"
+                                          />
+                                          <div
+                                            class="emotion-11"
+                                            style="transition: transform 500ms cubic-bezier(0.23, 1, 0.32, 1); transform: translate3d(0, 32px, 0);"
+                                          >
+                                            <div
+                                              aria-labelledby="dialog-heading-1"
+                                              class="emotion-10"
+                                              role="dialog"
+                                              tabindex="-1"
+                                            >
+                                              <div
+                                                class="emotion-9"
+                                              >
+                                                <div
+                                                  class="c1"
+                                                >
+                                                  <div
+                                                    class="c2"
+                                                  >
+                                                    <svg
+                                                      class="emotion-1"
+                                                      focusable="false"
+                                                      height="24"
+                                                      viewBox="0 0 16 16"
+                                                      width="24"
+                                                      xmlns="http://www.w3.org/2000/svg"
+                                                    >
+                                                      <circle
+                                                        class="emotion-0"
+                                                        cx="8"
+                                                        cy="8"
+                                                        r="7"
+                                                      />
+                                                    </svg>
+                                                  </div>
+                                                </div>
+                                                <footer
+                                                  class="emotion-8"
+                                                >
+                                                  <span />
+                                                  <div
+                                                    class="c3"
+                                                  >
+                                                    <div
+                                                      class="c4"
+                                                    >
+                                                      <button
+                                                        class="emotion-4"
+                                                        type="button"
+                                                      >
+                                                        <span
+                                                          class="emotion-3"
+                                                        >
+                                                          <span
+                                                            class="emotion-2"
+                                                          >
+                                                            Insert
+                                                          </span>
+                                                        </span>
+                                                      </button>
+                                                    </div>
+                                                    <div
+                                                      class="c4"
+                                                    >
+                                                      <button
+                                                        class="emotion-7"
+                                                        type="button"
+                                                      >
+                                                        <span
+                                                          class="emotion-3"
+                                                        >
+                                                          <span
+                                                            class="emotion-2"
+                                                          >
+                                                            Close
+                                                          </span>
+                                                        </span>
+                                                      </button>
+                                                    </div>
+                                                  </div>
+                                                </footer>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      }
+                                      onActivation={[Function]}
+                                      onDeactivation={[Function]}
+                                      persistentFocus={false}
+                                      shards={Array []}
+                                    >
+                                      <FocusWatcher
+                                        autoFocus={false}
+                                        disabled={true}
+                                        observed={
+                                          @keyframes animation-0 {
+  from {
+    -webkit-transform: rotate(50deg);
+    -ms-transform: rotate(50deg);
+    transform: rotate(50deg);
+    opacity: 0;
+    stroke-dashoffset: 60;
+  }
+
+  to {
+    -webkit-transform: rotate(230deg);
+    -ms-transform: rotate(230deg);
+    transform: rotate(230deg);
+    opacity: 1;
+    stroke-dashoffset: 50;
+  }
+}
+
+@keyframes animation-1 {
+  to {
+    -webkit-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+.emotion-11 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  height: calc(100% - 119px);
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: calc(100% - 120px);
+  top: 60px;
+  width: 968px;
+  z-index: 510;
+  pointer-events: none;
+  position: absolute;
+}
+
+@media (min-width:320px) and (max-width:480px) {
+  .emotion-11 {
+    height: 100%;
+    left: 0;
+    position: fixed;
+    top: 0;
+    max-width: 100%;
+    width: 100%;
+  }
+}
+
+.emotion-10 {
+  background-color: #FFFFFF;
+  border-radius: 3px;
+  box-shadow: 0 0 0 1px rgba(9,30,66,0.08),0 2px 1px rgba(9,30,66,0.08), 0 0 20px -6px rgba(9,30,66,0.31);
+  color: #091E42;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  height: 720px;
+  max-height: 100%;
+  outline: 0;
+  pointer-events: auto;
+}
+
+@media (min-width:320px) and (max-width:480px) {
+  .emotion-10 {
+    height: 100%;
+    max-height: 100%;
+    border-radius: 0;
+  }
+}
+
+.emotion-9 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  max-height: 100%;
+}
+
+.emotion-1 {
+  vertical-align: middle;
+  opacity: 0;
+  -webkit-animation: animation-0 1s ease-in-out;
+  animation: animation-0 1s ease-in-out;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+  -webkit-animation-delay: 0ms;
+  animation-delay: 0ms;
+}
+
+.emotion-0 {
+  fill: none;
+  stroke: #42526E;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-dasharray: 60;
+  stroke-dashoffset: inherit;
+  -webkit-transform-origin: center;
+  -ms-transform-origin: center;
+  transform-origin: center;
+  -webkit-animation: animation-1 0.86s infinite;
+  animation: animation-1 0.86s infinite;
+  -webkit-animation-delay: 0ms;
+  animation-delay: 0ms;
+  -webkit-animation-timing-function: cubic-bezier(0.4,0.15,0.6,0.85);
+  animation-timing-function: cubic-bezier(0.4,0.15,0.6,0.85);
+}
+
+.emotion-8 {
+  position: relative;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 0 0 auto;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-transition: box-shadow 200ms;
+  transition: box-shadow 200ms;
+  padding: 22px 24px 24px 24px;
+  box-shadow: none;
+}
+
+.emotion-4 {
+  -webkit-align-items: baseline;
+  -webkit-box-align: baseline;
+  -ms-flex-align: baseline;
+  align-items: baseline;
+  border-width: 0;
+  box-sizing: border-box;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-size: inherit;
+  font-style: normal;
+  font-weight: 500;
+  max-width: 100%;
+  outline: none !important;
+  text-align: center;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  white-space: nowrap;
+  background: #0052CC;
+  border-radius: 3px;
+  box-shadow: 0 0 0 2px inherit;
+  color: #FFFFFF !important;
+  cursor: default;
+  height: 2.2857142857142856em;
+  line-height: 2.2857142857142856em;
+  padding: 0 8px;
+  -webkit-transition: background 0.1s ease-out,box-shadow 0.15s cubic-bezier(0.47,0.03,0.49,1.38);
+  transition: background 0.1s ease-out,box-shadow 0.15s cubic-bezier(0.47,0.03,0.49,1.38);
+  -webkit-transition-duration: 0.1s,0.15s;
+  transition-duration: 0.1s,0.15s;
+  vertical-align: middle;
+  width: auto;
+  font-family: -apple-system,BlinkMacSystemFont,'Segoe UI','Roboto','Oxygen','Ubuntu','Fira Sans','Droid Sans','Helvetica Neue',sans-serif;
+}
+
+.emotion-4::-moz-focus-inner {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.emotion-4:hover {
+  -webkit-text-decoration: inherit;
+  text-decoration: inherit;
+}
+
+.emotion-3 {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-flex-wrap: nowrap;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  max-width: 100%;
+  position: relative;
+}
+
+.emotion-2 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  margin: 0 4px;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  -webkit-transition: opacity 0.3s;
+  transition: opacity 0.3s;
+  opacity: 1;
+}
+
+.emotion-7 {
+  -webkit-align-items: baseline;
+  -webkit-box-align: baseline;
+  -ms-flex-align: baseline;
+  align-items: baseline;
+  border-width: 0;
+  box-sizing: border-box;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-size: inherit;
+  font-style: normal;
+  font-weight: 500;
+  max-width: 100%;
+  outline: none !important;
+  text-align: center;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  white-space: nowrap;
+  background: none;
+  border-radius: 3px;
+  box-shadow: 0 0 0 2px inherit;
+  color: #42526E !important;
+  cursor: default;
+  height: 2.2857142857142856em;
+  line-height: 2.2857142857142856em;
+  padding: 0 8px;
+  -webkit-transition: background 0.1s ease-out,box-shadow 0.15s cubic-bezier(0.47,0.03,0.49,1.38);
+  transition: background 0.1s ease-out,box-shadow 0.15s cubic-bezier(0.47,0.03,0.49,1.38);
+  -webkit-transition-duration: 0.1s,0.15s;
+  transition-duration: 0.1s,0.15s;
+  vertical-align: middle;
+  width: auto;
+  font-family: -apple-system,BlinkMacSystemFont,'Segoe UI','Roboto','Oxygen','Ubuntu','Fira Sans','Droid Sans','Helvetica Neue',sans-serif;
+}
+
+.emotion-7::-moz-focus-inner {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.emotion-7:hover {
+  -webkit-text-decoration: inherit;
+  text-decoration: inherit;
+}
+
+<div
+                                            data-focus-lock-disabled="disabled"
+                                          >
+                                            <div
+                                              class="c0"
+                                            />
+                                            <div
+                                              class="emotion-11"
+                                              style="transition: transform 500ms cubic-bezier(0.23, 1, 0.32, 1); transform: translate3d(0, 32px, 0);"
+                                            >
+                                              <div
+                                                aria-labelledby="dialog-heading-1"
+                                                class="emotion-10"
+                                                role="dialog"
+                                                tabindex="-1"
+                                              >
+                                                <div
+                                                  class="emotion-9"
+                                                >
+                                                  <div
+                                                    class="c1"
+                                                  >
+                                                    <div
+                                                      class="c2"
+                                                    >
+                                                      <svg
+                                                        class="emotion-1"
+                                                        focusable="false"
+                                                        height="24"
+                                                        viewBox="0 0 16 16"
+                                                        width="24"
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                      >
+                                                        <circle
+                                                          class="emotion-0"
+                                                          cx="8"
+                                                          cy="8"
+                                                          r="7"
+                                                        />
+                                                      </svg>
+                                                    </div>
+                                                  </div>
+                                                  <footer
+                                                    class="emotion-8"
+                                                  >
+                                                    <span />
+                                                    <div
+                                                      class="c3"
+                                                    >
+                                                      <div
+                                                        class="c4"
+                                                      >
+                                                        <button
+                                                          class="emotion-4"
+                                                          type="button"
+                                                        >
+                                                          <span
+                                                            class="emotion-3"
+                                                          >
+                                                            <span
+                                                              class="emotion-2"
+                                                            >
+                                                              Insert
+                                                            </span>
+                                                          </span>
+                                                        </button>
+                                                      </div>
+                                                      <div
+                                                        class="c4"
+                                                      >
+                                                        <button
+                                                          class="emotion-7"
+                                                          type="button"
+                                                        >
+                                                          <span
+                                                            class="emotion-3"
+                                                          >
+                                                            <span
+                                                              class="emotion-2"
+                                                            >
+                                                              Close
+                                                            </span>
+                                                          </span>
+                                                        </button>
+                                                      </div>
+                                                    </div>
+                                                  </footer>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        }
+                                        onActivation={[Function]}
+                                        onDeactivation={[Function]}
+                                        persistentFocus={false}
+                                        shards={Array []}
+                                      />
+                                    </SideEffect(FocusWatcher)>
+                                    <WithAnalyticsContext(WithAnalyticsEvents(Blanket))
+                                      isTinted={true}
+                                      onBlanketClicked={[Function]}
+                                    >
+                                      <AnalyticsContext
+                                        data={
+                                          Object {
+                                            "componentName": "blanket",
+                                            "packageName": "@atlaskit/blanket",
+                                            "packageVersion": "999.9.9",
+                                          }
+                                        }
+                                      >
+                                        <WithAnalyticsEvents(Blanket)
+                                          isTinted={true}
+                                          onBlanketClicked={[Function]}
+                                        >
+                                          <AnalyticsContextConsumer
+                                            createEventMap={
+                                              Object {
+                                                "onBlanketClicked": [Function],
+                                              }
+                                            }
+                                            wrappedComponentProps={
+                                              Object {
+                                                "isTinted": true,
+                                                "onBlanketClicked": [Function],
+                                              }
+                                            }
+                                          >
+                                            <Blanket
+                                              canClickThrough={false}
+                                              createAnalyticsEvent={[Function]}
+                                              isTinted={true}
+                                              onBlanketClicked={[Function]}
+                                            >
+                                              <styled.div
+                                                canClickThrough={false}
+                                                isTinted={true}
+                                                onClick={[Function]}
+                                              >
+                                                <div
+                                                  className="c0"
+                                                  onClick={[Function]}
+                                                />
+                                              </styled.div>
+                                            </Blanket>
+                                          </AnalyticsContextConsumer>
+                                        </WithAnalyticsEvents(Blanket)>
+                                      </AnalyticsContext>
+                                    </WithAnalyticsContext(WithAnalyticsEvents(Blanket))>
+                                    <Positioner
+                                      scrollBehavior="inside"
+                                      style={
+                                        Object {
+                                          "transform": "translate3d(0, 32px, 0)",
+                                          "transition": "transform 500ms cubic-bezier(0.23, 1, 0.32, 1)",
+                                        }
+                                      }
+                                      widthName="x-large"
+                                    >
+                                      <PositionerAbsolute
+                                        style={
+                                          Object {
+                                            "transform": "translate3d(0, 32px, 0)",
+                                            "transition": "transform 500ms cubic-bezier(0.23, 1, 0.32, 1)",
+                                          }
+                                        }
+                                        widthName="x-large"
+                                      >
+                                        <div
+                                          className="emotion-12"
+                                          style={
+                                            Object {
+                                              "transform": "translate3d(0, 32px, 0)",
+                                              "transition": "transform 500ms cubic-bezier(0.23, 1, 0.32, 1)",
+                                            }
+                                          }
+                                        >
+                                          <Component>
+                                            <Component>
+                                              <UID
+                                                idSource={
+                                                  Object {
+                                                    "prefix": "",
+                                                    "uid": [Function],
+                                                    "value": 1,
+                                                  }
+                                                }
+                                              >
+                                                <Dialog
+                                                  aria-labelledby="dialog-heading-1"
+                                                  heightValue="720px"
+                                                  isChromeless={false}
+                                                  role="dialog"
+                                                  tabIndex={-1}
+                                                >
+                                                  <div
+                                                    aria-labelledby="dialog-heading-1"
+                                                    className="emotion-11"
+                                                    role="dialog"
+                                                    tabIndex={-1}
+                                                  >
+                                                    <Content
+                                                      autoFocus={false}
+                                                      components={
+                                                        Object {
+                                                          "Body": [Function],
+                                                          "Footer": [Function],
+                                                        }
+                                                      }
+                                                      headingId="dialog-heading-1"
+                                                      isChromeless={false}
+                                                      isHeadingMultiline={true}
+                                                      onClose={[Function]}
+                                                      shouldCloseOnEscapePress={true}
+                                                      shouldScroll={true}
+                                                      stackIndex={1}
+                                                    >
+                                                      <div
+                                                        className="emotion-10"
+                                                      >
+                                                        <ModalHeader
+                                                          id="dialog-heading-1"
+                                                          isHeadingMultiline={true}
+                                                          onClose={[Function]}
+                                                          showKeyline={false}
+                                                        />
+                                                        <Body
+                                                          className="emotion-2"
+                                                        >
+                                                          <styled.div>
+                                                            <div
+                                                              className="c1"
+                                                            >
+                                                              <LoadableComponent
+                                                                categories={
+                                                                  Array [
+                                                                    Object {
+                                                                      "name": "all",
+                                                                      "title": "All",
+                                                                    },
+                                                                    Object {
+                                                                      "name": "formatting",
+                                                                      "title": "Formatting",
+                                                                    },
+                                                                    Object {
+                                                                      "name": "confluence-content",
+                                                                      "title": "Confluence content",
+                                                                    },
+                                                                    Object {
+                                                                      "name": "media",
+                                                                      "title": "Media",
+                                                                    },
+                                                                    Object {
+                                                                      "name": "visuals",
+                                                                      "title": "Visuals & images",
+                                                                    },
+                                                                    Object {
+                                                                      "name": "navigation",
+                                                                      "title": "Navigation",
+                                                                    },
+                                                                    Object {
+                                                                      "name": "external-content",
+                                                                      "title": "External content",
+                                                                    },
+                                                                    Object {
+                                                                      "name": "communication",
+                                                                      "title": "Communication",
+                                                                    },
+                                                                    Object {
+                                                                      "name": "reporting",
+                                                                      "title": "Reporting",
+                                                                    },
+                                                                    Object {
+                                                                      "name": "admin",
+                                                                      "title": "Administration",
+                                                                    },
+                                                                    Object {
+                                                                      "name": "development",
+                                                                      "title": "Development",
+                                                                    },
+                                                                  ]
+                                                                }
+                                                                getItems={[MockFunction]}
+                                                                mode="full"
+                                                                onInsertItem={[Function]}
+                                                                onSelectItem={[Function]}
+                                                                showCategories={true}
+                                                                showSearch={true}
+                                                              >
+                                                                <loading
+                                                                  error={null}
+                                                                  isLoading={true}
+                                                                  pastDelay={false}
+                                                                  timedOut={false}
+                                                                >
+                                                                  <styled.div>
+                                                                    <div
+                                                                      className="c2"
+                                                                    >
+                                                                      <ForwardRef(Spinner)
+                                                                        size="medium"
+                                                                      >
+                                                                        <Consumer>
+                                                                          <svg
+                                                                            className="emotion-1"
+                                                                            focusable="false"
+                                                                            height={24}
+                                                                            viewBox="0 0 16 16"
+                                                                            width={24}
+                                                                            xmlns="http://www.w3.org/2000/svg"
+                                                                          >
+                                                                            <circle
+                                                                              className="emotion-0"
+                                                                              cx="8"
+                                                                              cy="8"
+                                                                              r="7"
+                                                                            />
+                                                                          </svg>
+                                                                        </Consumer>
+                                                                      </ForwardRef(Spinner)>
+                                                                    </div>
+                                                                  </styled.div>
+                                                                </loading>
+                                                              </LoadableComponent>
+                                                            </div>
+                                                          </styled.div>
+                                                        </Body>
+                                                        <ModalFooter
+                                                          component={[Function]}
+                                                          onClose={[Function]}
+                                                          showKeyline={false}
+                                                        >
+                                                          <Footer
+                                                            onClose={[Function]}
+                                                            showKeyline={false}
+                                                          >
+                                                            <Footer
+                                                              onClose={[Function]}
+                                                              onInsert={[Function]}
+                                                              showKeyline={false}
+                                                            >
+                                                              <Styled(footer)
+                                                                showKeyline={false}
+                                                              >
+                                                                <footer
+                                                                  className="emotion-9"
+                                                                >
+                                                                  <span />
+                                                                  <styled.div>
+                                                                    <div
+                                                                      className="c3"
+                                                                    >
+                                                                      <styled.div>
+                                                                        <div
+                                                                          className="c4"
+                                                                        >
+                                                                          <WithAnalyticsContext(WithAnalyticsEvents(Button))
+                                                                            appearance="primary"
+                                                                            data-testid="ModalElementBrowser__insert-button"
+                                                                            onClick={[Function]}
+                                                                          >
+                                                                            <AnalyticsContext
+                                                                              data={
+                                                                                Object {
+                                                                                  "componentName": "button",
+                                                                                  "packageName": "@atlaskit/button",
+                                                                                  "packageVersion": "999.9.9",
+                                                                                }
+                                                                              }
+                                                                            >
+                                                                              <WithAnalyticsEvents(Button)
+                                                                                appearance="primary"
+                                                                                data-testid="ModalElementBrowser__insert-button"
+                                                                                onClick={[Function]}
+                                                                              >
+                                                                                <AnalyticsContextConsumer
+                                                                                  createEventMap={
+                                                                                    Object {
+                                                                                      "onClick": [Function],
+                                                                                    }
+                                                                                  }
+                                                                                  wrappedComponentProps={
+                                                                                    Object {
+                                                                                      "appearance": "primary",
+                                                                                      "children": "Insert",
+                                                                                      "data-testid": "ModalElementBrowser__insert-button",
+                                                                                      "onClick": [Function],
+                                                                                    }
+                                                                                  }
+                                                                                >
+                                                                                  <Button
+                                                                                    appearance="primary"
+                                                                                    createAnalyticsEvent={[Function]}
+                                                                                    data-testid="ModalElementBrowser__insert-button"
+                                                                                    onClick={[Function]}
+                                                                                  >
+                                                                                    <Button
+                                                                                      appearance="primary"
+                                                                                      autoFocus={false}
+                                                                                      consumerRef={null}
+                                                                                      createAnalyticsEvent={[Function]}
+                                                                                      data-testid="ModalElementBrowser__insert-button"
+                                                                                      isDisabled={false}
+                                                                                      isLoading={false}
+                                                                                      isSelected={false}
+                                                                                      onClick={[Function]}
+                                                                                      shouldFitContainer={false}
+                                                                                      spacing="default"
+                                                                                      type="button"
+                                                                                    >
+                                                                                      <Provider
+                                                                                        value={[Function]}
+                                                                                      >
+                                                                                        <Consumer>
+                                                                                          <Consumer
+                                                                                            appearance="primary"
+                                                                                            autoFocus={false}
+                                                                                            consumerRef={null}
+                                                                                            createAnalyticsEvent={[Function]}
+                                                                                            data-testid="ModalElementBrowser__insert-button"
+                                                                                            iconIsOnlyChild={false}
+                                                                                            isDisabled={false}
+                                                                                            isLoading={false}
+                                                                                            isSelected={false}
+                                                                                            mode="light"
+                                                                                            onClick={[Function]}
+                                                                                            shouldFitContainer={false}
+                                                                                            spacing="default"
+                                                                                            state="default"
+                                                                                            type="button"
+                                                                                          >
+                                                                                            <button
+                                                                                              autoFocus={false}
+                                                                                              className="emotion-5"
+                                                                                              disabled={false}
+                                                                                              onBlur={[Function]}
+                                                                                              onClick={[Function]}
+                                                                                              onFocus={[Function]}
+                                                                                              onMouseDown={[Function]}
+                                                                                              onMouseEnter={[Function]}
+                                                                                              onMouseLeave={[Function]}
+                                                                                              onMouseUp={[Function]}
+                                                                                              type="button"
+                                                                                            >
+                                                                                              <Component
+                                                                                                fit={false}
+                                                                                                onClick={[Function]}
+                                                                                              >
+                                                                                                <span
+                                                                                                  className="emotion-4"
+                                                                                                  onClick={[Function]}
+                                                                                                >
+                                                                                                  <Component
+                                                                                                    followsIcon={false}
+                                                                                                    isLoading={false}
+                                                                                                    spacing="default"
+                                                                                                  >
+                                                                                                    <span
+                                                                                                      className="emotion-3"
+                                                                                                    >
+                                                                                                      Insert
+                                                                                                    </span>
+                                                                                                  </Component>
+                                                                                                </span>
+                                                                                              </Component>
+                                                                                            </button>
+                                                                                          </Consumer>
+                                                                                        </Consumer>
+                                                                                      </Provider>
+                                                                                    </Button>
+                                                                                  </Button>
+                                                                                </AnalyticsContextConsumer>
+                                                                              </WithAnalyticsEvents(Button)>
+                                                                            </AnalyticsContext>
+                                                                          </WithAnalyticsContext(WithAnalyticsEvents(Button))>
+                                                                        </div>
+                                                                      </styled.div>
+                                                                      <styled.div>
+                                                                        <div
+                                                                          className="c4"
+                                                                        >
+                                                                          <WithAnalyticsContext(WithAnalyticsEvents(Button))
+                                                                            appearance="subtle"
+                                                                            data-testid="ModalElementBrowser__cancel-button"
+                                                                            onClick={[Function]}
+                                                                          >
+                                                                            <AnalyticsContext
+                                                                              data={
+                                                                                Object {
+                                                                                  "componentName": "button",
+                                                                                  "packageName": "@atlaskit/button",
+                                                                                  "packageVersion": "999.9.9",
+                                                                                }
+                                                                              }
+                                                                            >
+                                                                              <WithAnalyticsEvents(Button)
+                                                                                appearance="subtle"
+                                                                                data-testid="ModalElementBrowser__cancel-button"
+                                                                                onClick={[Function]}
+                                                                              >
+                                                                                <AnalyticsContextConsumer
+                                                                                  createEventMap={
+                                                                                    Object {
+                                                                                      "onClick": [Function],
+                                                                                    }
+                                                                                  }
+                                                                                  wrappedComponentProps={
+                                                                                    Object {
+                                                                                      "appearance": "subtle",
+                                                                                      "children": "Close",
+                                                                                      "data-testid": "ModalElementBrowser__cancel-button",
+                                                                                      "onClick": [Function],
+                                                                                    }
+                                                                                  }
+                                                                                >
+                                                                                  <Button
+                                                                                    appearance="subtle"
+                                                                                    createAnalyticsEvent={[Function]}
+                                                                                    data-testid="ModalElementBrowser__cancel-button"
+                                                                                    onClick={[Function]}
+                                                                                  >
+                                                                                    <Button
+                                                                                      appearance="subtle"
+                                                                                      autoFocus={false}
+                                                                                      consumerRef={null}
+                                                                                      createAnalyticsEvent={[Function]}
+                                                                                      data-testid="ModalElementBrowser__cancel-button"
+                                                                                      isDisabled={false}
+                                                                                      isLoading={false}
+                                                                                      isSelected={false}
+                                                                                      onClick={[Function]}
+                                                                                      shouldFitContainer={false}
+                                                                                      spacing="default"
+                                                                                      type="button"
+                                                                                    >
+                                                                                      <Provider
+                                                                                        value={[Function]}
+                                                                                      >
+                                                                                        <Consumer>
+                                                                                          <Consumer
+                                                                                            appearance="subtle"
+                                                                                            autoFocus={false}
+                                                                                            consumerRef={null}
+                                                                                            createAnalyticsEvent={[Function]}
+                                                                                            data-testid="ModalElementBrowser__cancel-button"
+                                                                                            iconIsOnlyChild={false}
+                                                                                            isDisabled={false}
+                                                                                            isLoading={false}
+                                                                                            isSelected={false}
+                                                                                            mode="light"
+                                                                                            onClick={[Function]}
+                                                                                            shouldFitContainer={false}
+                                                                                            spacing="default"
+                                                                                            state="default"
+                                                                                            type="button"
+                                                                                          >
+                                                                                            <button
+                                                                                              autoFocus={false}
+                                                                                              className="emotion-8"
+                                                                                              disabled={false}
+                                                                                              onBlur={[Function]}
+                                                                                              onClick={[Function]}
+                                                                                              onFocus={[Function]}
+                                                                                              onMouseDown={[Function]}
+                                                                                              onMouseEnter={[Function]}
+                                                                                              onMouseLeave={[Function]}
+                                                                                              onMouseUp={[Function]}
+                                                                                              type="button"
+                                                                                            >
+                                                                                              <Component
+                                                                                                fit={false}
+                                                                                                onClick={[Function]}
+                                                                                              >
+                                                                                                <span
+                                                                                                  className="emotion-4"
+                                                                                                  onClick={[Function]}
+                                                                                                >
+                                                                                                  <Component
+                                                                                                    followsIcon={false}
+                                                                                                    isLoading={false}
+                                                                                                    spacing="default"
+                                                                                                  >
+                                                                                                    <span
+                                                                                                      className="emotion-3"
+                                                                                                    >
+                                                                                                      Close
+                                                                                                    </span>
+                                                                                                  </Component>
+                                                                                                </span>
+                                                                                              </Component>
+                                                                                            </button>
+                                                                                          </Consumer>
+                                                                                        </Consumer>
+                                                                                      </Provider>
+                                                                                    </Button>
+                                                                                  </Button>
+                                                                                </AnalyticsContextConsumer>
+                                                                              </WithAnalyticsEvents(Button)>
+                                                                            </AnalyticsContext>
+                                                                          </WithAnalyticsContext(WithAnalyticsEvents(Button))>
+                                                                        </div>
+                                                                      </styled.div>
+                                                                    </div>
+                                                                  </styled.div>
+                                                                </footer>
+                                                              </Styled(footer)>
+                                                            </Footer>
+                                                          </Footer>
+                                                        </ModalFooter>
+                                                        <LockToggle
+                                                          accountForScrollbars={true}
+                                                          isActive={true}
+                                                        >
+                                                          <SheetProvider
+                                                            accountForScrollbars={true}
+                                                            isActive={true}
+                                                          >
+                                                            <TouchProvider
+                                                              accountForScrollbars={true}
+                                                              isActive={true}
+                                                            >
+                                                              <ScrollLock
+                                                                accountForScrollbars={true}
+                                                                isActive={true}
+                                                              />
+                                                            </TouchProvider>
+                                                          </SheetProvider>
+                                                        </LockToggle>
+                                                      </div>
+                                                    </Content>
+                                                  </div>
+                                                </Dialog>
+                                              </UID>
+                                            </Component>
+                                          </Component>
+                                        </div>
+                                      </PositionerAbsolute>
+                                    </Positioner>
+                                  </div>
+                                  <div
+                                    data-focus-guard={true}
+                                    style={
+                                      Object {
+                                        "height": "0px",
+                                        "left": "1px",
+                                        "overflow": "hidden",
+                                        "padding": 0,
+                                        "position": "fixed",
+                                        "top": "1px",
+                                        "width": "1px",
+                                      }
+                                    }
+                                    tabIndex={-1}
+                                  />
+                                </FocusLock>
+                              </FocusLock>
+                            </div>
+                          </FillScreen>
+                        </Transition>
+                      </Component>
+                    </Modal>
+                  </AnalyticsContextConsumer>
+                </WithAnalyticsEvents(Modal)>
+              </AnalyticsContext>
+            </WithAnalyticsContext(WithAnalyticsEvents(Modal))>
+          </StackConsumer>
+        </Portal>
+      </Portal>
+    </ModalWrapper>
+  </Transition>
+</ModalElementBrowser>
+`;

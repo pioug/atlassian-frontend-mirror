@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HyperlinkAddToolbar when activity provider returns 5 or more results initially should make default activity items call when input is cleared 1`] = `
+Array [
+  Object {
+    "container": "some-activity-container-1",
+    "iconUrl": "some-activity-icon-url-1.com",
+    "lastViewedDate": 2020-04-16T00:00:00.000Z,
+    "name": "some-activity-name-1",
+    "objectId": "some-activity-id-1",
+    "url": "some-activity-url-1.com",
+  },
+  Object {
+    "container": "some-activity-container-2",
+    "iconUrl": "some-activity-icon-url-2.com",
+    "lastViewedDate": 2020-04-16T01:00:00.000Z,
+    "name": "some-activity-name-2",
+    "objectId": "some-activity-id-2",
+    "url": "some-activity-url-2.com",
+  },
+  Object {
+    "container": "some-activity-container-3",
+    "iconUrl": "some-activity-icon-url-3.com",
+    "lastViewedDate": 2020-04-16T02:00:00.000Z,
+    "name": "some-activity-name-3",
+    "objectId": "some-activity-id-3",
+    "url": "some-activity-url-3.com",
+  },
+  Object {
+    "container": "some-activity-container-4",
+    "iconUrl": "some-activity-icon-url-4.com",
+    "lastViewedDate": 2020-04-16T03:00:00.000Z,
+    "name": "some-activity-name-4",
+    "objectId": "some-activity-id-4",
+    "url": "some-activity-url-4.com",
+  },
+  Object {
+    "container": "some-activity-container-5",
+    "iconUrl": "some-activity-icon-url-5.com",
+    "lastViewedDate": 2020-04-16T04:00:00.000Z,
+    "name": "some-activity-name-5",
+    "objectId": "some-activity-id-5",
+    "url": "some-activity-url-5.com",
+  },
+]
+`;

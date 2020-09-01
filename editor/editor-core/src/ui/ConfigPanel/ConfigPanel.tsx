@@ -1,7 +1,11 @@
 import React from 'react';
 import { InjectedIntlProps, injectIntl } from 'react-intl';
 import memoizeOne from 'memoize-one';
-
+import {
+  withAnalyticsContext,
+  withAnalyticsEvents,
+  WithAnalyticsEventsProps,
+} from '@atlaskit/analytics-next';
 import { ExtensionManifest } from '@atlaskit/editor-common';
 import Form from '@atlaskit/form';
 
@@ -10,6 +14,13 @@ import {
   Parameters,
   OnSaveCallback,
 } from '@atlaskit/editor-common/extensions';
+
+import {
+  fireAnalyticsEvent,
+  EVENT_TYPE,
+  ACTION_SUBJECT,
+  ACTION,
+} from '../../plugins/analytics';
 
 import LoadingState from './LoadingState';
 import Header from './Header';
@@ -28,7 +39,8 @@ type Props = {
   onCancel: () => void;
   errorMessage: string | null;
   isLoading?: boolean;
-} & InjectedIntlProps;
+} & InjectedIntlProps &
+  WithAnalyticsEventsProps;
 
 type State = {
   hasParsedParameters: boolean;
@@ -49,8 +61,28 @@ class ConfigPanel extends React.Component<Props, State> {
   }
 
   componentDidMount() {
-    const { fields, parameters } = this.props;
+    const { fields, parameters, createAnalyticsEvent } = this.props;
     this.parseParameters(fields, parameters);
+
+    fireAnalyticsEvent(createAnalyticsEvent)({
+      payload: {
+        action: ACTION.OPENED,
+        actionSubject: ACTION_SUBJECT.CONFIG_PANEL,
+        eventType: EVENT_TYPE.UI,
+        attributes: {},
+      },
+    });
+  }
+
+  componentWillUnmount() {
+    fireAnalyticsEvent(this.props.createAnalyticsEvent)({
+      payload: {
+        action: ACTION.CLOSED,
+        actionSubject: ACTION_SUBJECT.CONFIG_PANEL,
+        eventType: EVENT_TYPE.UI,
+        attributes: {},
+      },
+    });
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -235,4 +267,6 @@ class ConfigPanel extends React.Component<Props, State> {
   }
 }
 
-export default injectIntl(ConfigPanel);
+export default withAnalyticsContext({ source: 'ConfigPanel' })(
+  withAnalyticsEvents()(injectIntl(ConfigPanel)),
+);

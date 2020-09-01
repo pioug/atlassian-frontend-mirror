@@ -2,13 +2,19 @@ import React from 'react';
 import { Dropzone } from '@atlaskit/media-picker';
 import PickerFacadeProvider from './PickerFacadeProvider';
 import { MediaPluginState } from '../../pm-plugins/types';
+import { MediaFeatureFlags } from '@atlaskit/media-common/mediaFeatureFlags';
 
 type Props = {
   mediaState: MediaPluginState;
   isActive: boolean;
+  featureFlags?: MediaFeatureFlags;
 };
 
-export const DropzoneWrapper = ({ mediaState, isActive }: Props) => (
+export const DropzoneWrapper = ({
+  mediaState,
+  isActive,
+  featureFlags,
+}: Props) => (
   <PickerFacadeProvider mediaState={mediaState} analyticsName="dropzone">
     {({ mediaClientConfig, config, pickerFacadeInstance }) => {
       const {
@@ -30,6 +36,7 @@ export const DropzoneWrapper = ({ mediaState, isActive }: Props) => (
           onEnd={pickerFacadeInstance.handleReady}
           onDragEnter={() => handleDrag('enter')}
           onDragLeave={() => handleDrag('leave')}
+          featureFlags={featureFlags}
         />
       ) : null;
     }}

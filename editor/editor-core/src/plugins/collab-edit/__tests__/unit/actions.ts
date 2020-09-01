@@ -1,10 +1,5 @@
 import { EditorView } from 'prosemirror-view';
-import {
-  doc,
-  p,
-  mention,
-  unsupportedInline,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+import { doc, p } from '@atlaskit/editor-test-helpers/schema-builder';
 import {
   createProsemirrorEditorFactory,
   LightEditorPlugin,
@@ -14,69 +9,11 @@ import { mention as mentionData } from '@atlaskit/util-data-test';
 import { MentionProvider } from '@atlaskit/mention/resource';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 
-import { handleInit, applyRemoteSteps } from '../../actions';
-import { CollabEventInitData, PrivateCollabEditOptions } from '../../types';
+import { applyRemoteSteps } from '../../actions';
+import { PrivateCollabEditOptions } from '../../types';
 import collabEditPlugin from '../../index';
 import mentionsPlugin from '../../../mentions';
 import unsupportedContentPlugin from '../../../unsupported-content';
-
-const unknownNodesDoc = {
-  type: 'doc',
-  content: [
-    {
-      type: 'paragraph',
-      content: [
-        {
-          text: 'Valid! ',
-          type: 'text',
-        },
-      ],
-    },
-    {
-      type: 'paragraph',
-      content: [
-        {
-          type: 'invalidNode',
-          attrs: {
-            url: 'https://atlassian.net',
-          },
-        },
-        {
-          text: ' ',
-          type: 'text',
-        },
-      ],
-    },
-  ],
-  version: 1,
-};
-
-const privateContentNodesDoc = {
-  type: 'doc',
-  content: [
-    {
-      type: 'paragraph',
-      content: [
-        {
-          text: 'Bacon ',
-          type: 'text',
-        },
-        {
-          attrs: {
-            id: '123',
-            text: '@cheese',
-          },
-          type: 'mention',
-        },
-        {
-          text: ' ham',
-          type: 'text',
-        },
-      ],
-    },
-  ],
-  version: 1,
-};
 
 const initializeCollab = (view: EditorView) =>
   view.dispatch(view.state.tr.setMeta('collabInitialised', true));
@@ -102,72 +39,6 @@ describe('collab-edit: actions', () => {
       providerFactory,
     });
   };
-
-  describe('handleInit', () => {
-    it('should wrap invalid nodes in unsupported when the allowUnsupportedContent option is enabled.', () => {
-      const { editorView } = editor(doc(p('')));
-
-      const initData: CollabEventInitData = {
-        doc: unknownNodesDoc,
-      };
-
-      initializeCollab(editorView);
-      handleInit(initData, editorView, { allowUnsupportedContent: true });
-
-      expect(editorView.state.doc).toEqualDocument(
-        doc(
-          p('Valid! '),
-          p(
-            unsupportedInline({
-              originalValue: {
-                attrs: { url: 'https://atlassian.net' },
-                type: 'invalidNode',
-              },
-            })(),
-            ' ',
-          ),
-        ),
-      );
-    });
-
-    it('should sanitize private content when the sanitizePrivateContent option is enabled.', () => {
-      const collabEditOptions: PrivateCollabEditOptions = {
-        allowUnsupportedContent: true,
-        sanitizePrivateContent: true,
-      };
-      const { editorView } = editor(doc(p('')), collabEditOptions);
-
-      const initData: CollabEventInitData = {
-        doc: privateContentNodesDoc,
-      };
-
-      initializeCollab(editorView);
-      handleInit(initData, editorView, collabEditOptions, providerFactory);
-
-      expect(editorView.state.doc).toEqualDocument(
-        doc(p('Bacon ', mention({ id: '123', text: '' })(), ' ham')),
-      );
-    });
-
-    it('should not sanitize private content when the sanitizePrivateContent option is disabled.', () => {
-      const collabEditOptions: PrivateCollabEditOptions = {
-        allowUnsupportedContent: true,
-        sanitizePrivateContent: false,
-      };
-      const { editorView } = editor(doc(p('')), collabEditOptions);
-
-      const initData: CollabEventInitData = {
-        doc: privateContentNodesDoc,
-      };
-
-      initializeCollab(editorView);
-      handleInit(initData, editorView, collabEditOptions, providerFactory);
-
-      expect(editorView.state.doc).toEqualDocument(
-        doc(p('Bacon ', mention({ id: '123', text: '@cheese' })(), ' ham')),
-      );
-    });
-  });
 
   describe('applyRemoteSteps', () => {
     describe("when selection is same as the firstStep's", () => {

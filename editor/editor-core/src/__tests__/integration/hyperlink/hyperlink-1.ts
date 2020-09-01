@@ -37,7 +37,7 @@ const linkText2 = 'FAB-983';
 
       await browser.click(`[aria-label="${messages.link.defaultMessage}"]`);
       await browser.waitForSelector(linkToolbar);
-      await browser.type(linkToolbar, [linkText2, 'Return']);
+      await browser.type(linkToolbar, [linkText2, 'ArrowDown', 'Return']);
       await browser.waitForSelector('a');
 
       // unlink

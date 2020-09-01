@@ -114,6 +114,14 @@ export class ItemViewerBase extends React.Component<Props, State> {
     }
   };
 
+  private onArchiveError = (fileState: FileState) => (error: Error) => {
+    if (fileState.status === 'processed') {
+      this.fireAnalytics(
+        mediaFileLoadFailedEvent(fileState.id, error.message, fileState),
+      );
+    }
+  };
+
   private onError = (fileState: FileState) => () => {
     if (fileState.status === 'processed') {
       this.fireAnalytics(
@@ -198,7 +206,13 @@ export class ItemViewerBase extends React.Component<Props, State> {
         );
       case 'archive':
         if (getMediaFeatureFlag('zipPreviews', featureFlags)) {
-          return <ArchiveViewerLoader {...viewerProps} />;
+          return (
+            <ArchiveViewerLoader
+              onZipFileLoadError={this.onArchiveError(item)}
+              onSuccess={this.onCanPlay(item)}
+              {...viewerProps}
+            />
+          );
         }
         return this.renderError('unsupported', item);
       default:

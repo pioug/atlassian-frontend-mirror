@@ -16,7 +16,8 @@ export interface ArchiveSidebarRendererProps {
   onHeaderClicked: () => void;
   isArchiveEntryLoading: boolean;
   collectionName?: string;
-  onError: (error: Error) => void;
+  onError: (error: Error, entry?: ZipEntry) => void;
+  onSuccess: () => void;
 }
 
 interface ArchiveSidebarRendererState {
@@ -39,6 +40,7 @@ export default class ArchiveSidebarRenderer extends Component<
       mediaClient,
       collectionName,
       onError,
+      onSuccess,
     } = this.props;
 
     try {
@@ -49,7 +51,9 @@ export default class ArchiveSidebarRenderer extends Component<
       );
       const entries = archive.entries;
       this.setState({ entries, status: 'loaded' });
+      onSuccess();
     } catch (error) {
+      this.setState({ status: 'loaded' });
       onError(error);
     }
   }

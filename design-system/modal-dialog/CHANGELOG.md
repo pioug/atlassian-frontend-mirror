@@ -1,5 +1,13 @@
 # @atlaskit/modal-dialog
 
+## 11.1.5
+
+### Patch Changes
+
+- [`8598d0bd13`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8598d0bd13) - Remove unnecessary code and tests for IE11.
+- [`6ac737558f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6ac737558f) - Remove non-standard CSS property [-ms-high-contrast](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/-ms-high-contrast). The `-ms-high-contrast` CSS media feature is a Microsoft extension that describes whether the application is being displayed in high contrast mode, and with what color variation.
+- Updated dependencies
+
 ## 11.1.4
 
 ### Patch Changes

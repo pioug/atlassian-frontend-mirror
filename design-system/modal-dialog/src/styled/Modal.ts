@@ -6,10 +6,6 @@ import { themed } from '@atlaskit/theme/components';
 import { borderRadius, layers } from '@atlaskit/theme/constants';
 
 import { gutter, WIDTH_ENUM, WidthNames } from '../shared-variables';
-import {
-  flexMaxHeightIEFix,
-  IEMaxHeightCalcPx,
-} from '../utils/flex-max-height-ie-fix';
 
 const boxShadow = ({ isChromeless }: { isChromeless?: boolean }) =>
   isChromeless
@@ -22,7 +18,7 @@ const dialogBgColor = ({ isChromeless }: { isChromeless?: boolean }) => {
   return isChromeless ? 'transparent' : themed({ light: N0, dark: DN50 })();
 };
 const maxDimensions = `calc(100% - ${gutter * 2}px)`;
-const maxHeightDimensions = `calc(100% - ${gutter * 2 - IEMaxHeightCalcPx}px)`;
+const maxHeightDimensions = `calc(100% - ${gutter * 2 - 1}px)`;
 
 export const dialogWidth = ({ widthName, widthValue }: PositionerProps) => {
   if (typeof widthValue === 'number') {
@@ -147,7 +143,7 @@ export const Dialog = styled.div<DialogProps>`
   flex-direction: column;
   height: ${(props: DialogProps) =>
     dialogHeight({ heightValue: props.heightValue })};
-  ${flexMaxHeightIEFix};
+  max-height: 100%;
   outline: 0;
   pointer-events: auto;
 

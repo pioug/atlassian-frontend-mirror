@@ -20,6 +20,7 @@ export interface Props {
   className?: string;
   tooltipContent?: React.ReactNode;
   testId?: string;
+  hideTooltipOnClick?: boolean;
 }
 
 export default ({
@@ -38,11 +39,12 @@ export default ({
   className,
   tooltipContent,
   testId,
+  hideTooltipOnClick = true,
 }: Props) => {
   return (
     <Tooltip
       content={tooltipContent || title}
-      hideTooltipOnClick={true}
+      hideTooltipOnClick={hideTooltipOnClick}
       position="top"
     >
       <div onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>

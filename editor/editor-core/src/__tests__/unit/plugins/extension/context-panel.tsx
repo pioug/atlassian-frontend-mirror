@@ -15,8 +15,8 @@ import { createFakeExtensionProvider } from '@atlaskit/editor-test-helpers/exten
 
 import {
   combineExtensionProviders,
-  ParametersGetter,
-  AsyncParametersGetter,
+  TransformBefore,
+  TransformAfter,
   UpdateExtension,
 } from '@atlaskit/editor-common/extensions';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
@@ -70,14 +70,13 @@ describe('extension context panel', () => {
 
   const ExtensionHandlerComponent = () => <div>Awesome Extension</div>;
 
-  const transformBefore: ParametersGetter = parameters =>
-    parameters.macroParams;
-  const transformAfter: AsyncParametersGetter = parameters =>
+  const transformBefore: TransformBefore = parameters => parameters.macroParams;
+  const transformAfter: TransformAfter = parameters =>
     Promise.resolve({
       macroParams: parameters,
     });
 
-  const extensionUpdater: UpdateExtension<object> = (data, actions) =>
+  const extensionUpdater: UpdateExtension = (data, actions) =>
     new Promise(resolve => {
       actions!.editInContextPanel(transformBefore, transformAfter);
     });

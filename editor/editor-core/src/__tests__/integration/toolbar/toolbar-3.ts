@@ -1,14 +1,14 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import { getDocFromElement, comment, fullpage, editable } from '../_helpers';
-import { messages } from '../../../plugins/text-formatting/ui/ToolbarAdvancedTextFormatting';
+import { toolbarMessages } from '../../../plugins/text-formatting/ui/ToolbarAdvancedTextFormatting/toolbar-messages';
 import {
   goToEditorTestingExample,
   mountEditor,
 } from '../../__helpers/testing-example-helpers';
 
-const more = `[aria-label="${messages.moreFormatting.defaultMessage}"]`;
-const underline = `span=${messages.underline.defaultMessage}`;
-const clear = `span=${messages.clearFormatting.defaultMessage}`;
+const more = `[aria-label="${toolbarMessages.moreFormatting.defaultMessage}"]`;
+const underline = `span=${toolbarMessages.underline.defaultMessage}`;
+const clear = `span=${toolbarMessages.clearFormatting.defaultMessage}`;
 
 // https://product-fabric.atlassian.net/browse/ED-4531
 [comment, fullpage].forEach(editor => {

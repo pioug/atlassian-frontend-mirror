@@ -7,6 +7,8 @@ import {
   initFullPageEditorWithAdf,
   Device,
 } from '../../../../__tests__/visual-regression/_utils';
+import { waitForMediaToBeLoaded } from '../../../../__tests__/__helpers/page-objects/_media';
+import { retryUntilStablePosition } from '../../../../__tests__/__helpers/page-objects/_toolbar';
 
 const getMediaWithLink = (link: string) => ({
   version: 1,
@@ -21,11 +23,11 @@ const getMediaWithLink = (link: string) => ({
         {
           type: 'media',
           attrs: {
-            type: 'external',
+            type: 'file',
+            id: 'a559980d-cd47-43e2-8377-27359fcb905f',
+            collection: 'MediaServicesSample',
             width: 320,
             height: 320,
-            url:
-              'data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==',
           },
         },
       ],
@@ -55,11 +57,14 @@ async function initEditor(page: PuppeteerPage, mediaLink: string) {
     },
   );
 
-  await page.click('.mediaSingleView-content-wrap');
+  await waitForMediaToBeLoaded(page);
 
-  await page.waitForSelector('[aria-label="Edit link"]', {
-    visible: true,
-  });
+  await retryUntilStablePosition(
+    page,
+    async () => await page.click('.mediaSingleView-content-wrap'),
+    '[aria-label="Media floating controls"] [aria-label="Floating Toolbar"] [aria-label="Edit link"]',
+    1000,
+  );
 }
 
 describe('Snapshot Test: Media with link', () => {

@@ -68,10 +68,22 @@ export interface Props {
   typeQuestionDefaultValue: FieldValueType;
   /**  Override the default value for the "Empty" type of response in your widget service **/
   typeEmptyDefaultValue: FieldValueType;
+  /**  Override to hide the feedback type select drop down for the feedback **/
+  showTypeField: boolean;
+  /**  Message which will be shown as the title of the feedback dialog **/
+  feedbackTitle?: React.ReactText;
+  /**  Message which will be shown below the title of the feedback dialog **/
+  feedbackTitleDetails?: React.ReactChild;
+  /**  Message which will be shown next to the enrol in research checkbox **/
+  enrolInResearchLabel?: React.ReactChild;
+  /**  Message which will be shown next to the can be contacted checkbox **/
+  canBeContactedLabel?: React.ReactChild;
+  /**  Message which will be shown inside the summary text field **/
+  summaryPlaceholder?: string;
   /** Function that will be called to initiate the exit transition. */
   onClose: () => void;
   /** Function that will be called optimistically after a delay when the feedback is submitted. */
-  onSubmit: () => void;
+  onSubmit: (formFields: FormFields) => void;
 }
 
 const MAX_SUMMARY_LENGTH_CHARS = 100;
@@ -107,6 +119,7 @@ export default class FeedbackCollector extends Component<Props> {
     typeSuggestionDefaultValue: { id: '10107' },
     typeQuestionDefaultValue: { id: '10108' },
     typeEmptyDefaultValue: { id: 'empty' },
+    showTypeField: true,
     onClose: () => {},
     onSubmit: () => {},
   };
@@ -153,10 +166,12 @@ export default class FeedbackCollector extends Component<Props> {
   mapFormToJSD(formValues: FormFields) {
     return {
       fields: [
-        {
-          id: this.props.typeFieldId,
-          value: this.getTypeFieldValue(formValues.type),
-        },
+        this.props.showTypeField
+          ? {
+              id: this.props.typeFieldId,
+              value: this.getTypeFieldValue(formValues.type),
+            }
+          : undefined,
         {
           id: this.props.summaryFieldId,
           value: this.getSummary(formValues),
@@ -216,12 +231,24 @@ export default class FeedbackCollector extends Component<Props> {
     // network request, we deliberately don't clear this timeout inside `componentWillUnmount`.
     //
     // eslint-disable-next-line @wordpress/react-no-unsafe-timeout
-    setTimeout(this.props.onSubmit, this.props.timeoutOnSubmit);
+    setTimeout(
+      () => this.props.onSubmit(formValues),
+      this.props.timeoutOnSubmit,
+    );
   };
 
   render() {
     return (
-      <FeedbackForm onSubmit={this.postFeedback} onClose={this.props.onClose} />
+      <FeedbackForm
+        feedbackTitle={this.props.feedbackTitle}
+        feedbackTitleDetails={this.props.feedbackTitleDetails}
+        showTypeField={this.props.showTypeField}
+        canBeContactedLabel={this.props.canBeContactedLabel}
+        enrolInResearchLabel={this.props.enrolInResearchLabel}
+        summaryPlaceholder={this.props.summaryPlaceholder}
+        onSubmit={this.postFeedback}
+        onClose={this.props.onClose}
+      />
     );
   }
 }

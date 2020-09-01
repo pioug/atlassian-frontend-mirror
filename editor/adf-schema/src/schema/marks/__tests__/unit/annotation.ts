@@ -1,9 +1,9 @@
-import { AnnotationTypes, buildDataAtributes } from '../../annotation';
+import { AnnotationTypes, buildDataAttributes } from '../../annotation';
 
 describe('marks/annotations', () => {
-  describe('#buildDataAtributes', () => {
+  describe('#buildDataAttributes', () => {
     it('should return an object with the data attributes', () => {
-      const result = buildDataAtributes({
+      const result = buildDataAttributes({
         id: '999',
         annotationType: AnnotationTypes.INLINE_COMMENT,
       });

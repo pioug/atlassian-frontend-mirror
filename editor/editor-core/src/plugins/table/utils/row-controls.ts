@@ -11,7 +11,7 @@ import {
 
 import { parsePx } from '../../../utils/dom';
 import { TableCssClassName as ClassName } from '../types';
-import { tableDeleteButtonSize } from '../ui/styles';
+import { tableDeleteButtonSize } from '../ui/consts';
 
 export interface RowParams {
   startIndex: number;

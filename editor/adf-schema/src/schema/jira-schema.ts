@@ -23,6 +23,7 @@ export default function makeSchema(config: JIRASchemaConfig) {
     'underline',
     'typeAheadQuery',
     'unsupportedMark',
+    'unsupportedNodeAttribute',
   ];
 
   if (config.allowLinks) {

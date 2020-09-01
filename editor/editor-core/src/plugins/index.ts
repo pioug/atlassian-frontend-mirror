@@ -15,6 +15,7 @@ export { default as insertBlockPlugin } from './insert-block';
 export { default as jiraIssuePlugin } from './jira-issue';
 export { default as layoutPlugin } from './layout';
 export { default as listsPlugin } from './lists';
+export { default as listsPredictablePlugin } from './lists-predictable';
 export { default as macroPlugin } from './macro';
 export { default as maxContentSizePlugin } from './max-content-size';
 export { default as mediaPlugin } from './media';

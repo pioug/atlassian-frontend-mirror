@@ -1,7 +1,7 @@
 import { TestPage, PuppeteerPage } from './_types';
 import { selectors } from './_editor';
 import messages from '../../../messages';
-import { messages as toolbarMessages } from '../../../plugins/layout/toolbar';
+import { toolbarMessages } from '../../../plugins/layout/toolbar-messages';
 
 export const layoutSelectors = {
   section: '[data-layout-section]',

@@ -83,6 +83,9 @@ export class VideoViewer extends BaseViewer<string, Props, State> {
           onCanPlay={onCanPlay}
           onFirstPlay={this.onFirstPlay}
           onError={onError}
+          lastWatchTimeConfig={{
+            contentId: item.id,
+          }}
         />
       </CustomVideoPlayerWrapper>
     ) : (

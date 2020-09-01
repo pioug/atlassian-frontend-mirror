@@ -11,7 +11,7 @@ function isPositionPointer(element: HTMLElement) {
 
 function findParent(element: ChildNode | Node): HTMLElement | null {
   const { parentElement } = element;
-  if (isRoot(parentElement) || !parentElement) {
+  if (!parentElement || isRoot(parentElement)) {
     return null;
   }
 
@@ -83,7 +83,11 @@ export function resolvePos(node: Node | null, offset: number) {
     return false;
   }
 
-  const parent = findParent(node);
+  if (node instanceof HTMLElement && isPositionPointer(node)) {
+    return getStartPos(node) + offset;
+  }
+
+  const parent: HTMLElement | null = findParent(node);
 
   // Similar to above, if we cant find a parent position pointer
   // we should not proceed.
@@ -133,7 +137,7 @@ export function getPosFromRange(
   const from = resolvePos(startContainer, startOffset);
   const to = resolvePos(endContainer, endOffset);
 
-  if (!from || !to) {
+  if (from === false || to === false) {
     return false;
   }
 

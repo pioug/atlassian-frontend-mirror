@@ -6,7 +6,7 @@ import {
   taskDecision,
 } from '@atlaskit/util-data-test';
 import { CardEvent } from '@atlaskit/media-card';
-import { defaultSchema, AnnotationMarkStates } from '@atlaskit/adf-schema';
+import { defaultSchema } from '@atlaskit/adf-schema';
 import {
   CardSurroundings,
   ProviderFactory,
@@ -20,6 +20,8 @@ import {
   storyMediaProviderFactory,
   storyContextIdentifierProviderFactory,
 } from '@atlaskit/editor-test-helpers';
+
+// @ts-ignore: type definitions are missing
 import * as Clock from 'react-live-clock';
 
 import { document as storyDataDocument } from './story-data';
@@ -102,40 +104,6 @@ const extensionHandlers: ExtensionHandlers = {
         return (
           <Clock format={'HH:mm:ss'} ticking={true} timezone={'US/Pacific'} />
         );
-      case 'mention':
-        return [
-          {
-            type: 'paragraph',
-            content: [
-              {
-                type: 'text',
-                text:
-                  'Hi, my name is... My name is... My name is... My name is ',
-              },
-              {
-                type: 'mention',
-                attrs: {
-                  id: '1',
-                  text: '@Oscar Wallhult',
-                },
-              },
-            ],
-          },
-        ];
-      case 'inline':
-        return [
-          {
-            type: 'text',
-            text: 'Hi, my name is... My name is... My name is... My name is ',
-          },
-          {
-            type: 'mention',
-            attrs: {
-              id: '1',
-              text: '@Oscar Wallhult',
-            },
-          },
-        ];
       default:
         return null;
     }
@@ -183,10 +151,11 @@ export interface DemoRendererProps {
   allowHeadingAnchorLinks?: HeadingAnchorLinksProps;
   allowColumnSorting?: boolean;
   allowAnnotations?: boolean;
+  allowCopyToClipboard?: boolean;
   copies?: number;
   schema?: Schema;
   actionButtons?: any;
-  annotationProvider?: AnnotationProviders<AnnotationMarkStates> | null;
+  annotationProvider?: AnnotationProviders | null;
   useSpecBasedValidator?: boolean;
   onDocumentChange?: () => void;
 }
@@ -363,6 +332,7 @@ export default class RendererDemo extends React.Component<
       props.allowAnnotations = this.props.allowAnnotations;
       props.allowHeadingAnchorLinks = this.props.allowHeadingAnchorLinks;
       props.useSpecBasedValidator = this.props.useSpecBasedValidator;
+      props.allowCopyToClipboard = this.props.allowCopyToClipboard;
 
       if (props.allowAnnotations) {
         props.annotationProvider = this.props.annotationProvider;

@@ -1,12 +1,13 @@
-import { EditorView } from 'prosemirror-view';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import {
   ExampleCreateInlineCommentComponent,
   ExampleViewInlineCommentComponent,
 } from '@atlaskit/editor-test-helpers';
 import {
+  evaluateCoordinates,
   scrollToBottom,
   scrollToElement,
+  selectAtPos,
 } from '../../../../__tests__/__helpers/page-objects/_editor';
 import {
   snapshot,
@@ -15,40 +16,6 @@ import {
 import adf from '../__fixtures__/toolbar-position.adf.json';
 import adfWithTable from '../__fixtures__/toolbar-position-table.adf.json';
 import { annotationSelectors, getState } from '../_utils';
-
-const evaluateCoordinates = async (page: PuppeteerPage, pos: number) => {
-  return await page.evaluate(p => {
-    const editor = (window as any).__editorView as EditorView;
-    const coords = editor.coordsAtPos(p);
-
-    // returning coords immediately causes it to fail
-    return {
-      top: coords.top,
-      left: coords.left,
-      right: coords.right,
-      bottom: coords.bottom,
-    };
-  }, pos);
-};
-
-const selectAtPos = async (
-  page: PuppeteerPage,
-  startPos: number,
-  endPos: number,
-  waitForCreateCommentButton = true,
-) => {
-  const start = await evaluateCoordinates(page, startPos);
-  const end = await evaluateCoordinates(page, endPos);
-
-  await page.mouse.click(start.left, start.top);
-  await page.keyboard.down('Shift');
-  await page.mouse.click(end.left, end.top);
-  await page.keyboard.up('Shift');
-
-  if (waitForCreateCommentButton) {
-    await page.waitForSelector(`${annotationSelectors.floatingToolbarCreate}`);
-  }
-};
 
 const selectAtPosForBreakout = async (
   page: PuppeteerPage,

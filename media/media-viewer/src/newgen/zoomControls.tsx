@@ -52,7 +52,6 @@ export class ZoomControlsBase extends Component<
       <ZoomWrapper className={hideControlsClassName}>
         <ZoomControlsWrapper>
           <MediaButton
-            appearance={'toolbar' as any}
             isDisabled={!zoomLevel.canZoomOut}
             onClick={this.zoomOut}
             iconBefore={
@@ -60,7 +59,6 @@ export class ZoomControlsBase extends Component<
             }
           />
           <MediaButton
-            appearance={'toolbar' as any}
             isDisabled={!zoomLevel.canZoomIn}
             onClick={this.zoomIn}
             iconBefore={<ZoomInIcon label={formatMessage(messages.zoom_in)} />}

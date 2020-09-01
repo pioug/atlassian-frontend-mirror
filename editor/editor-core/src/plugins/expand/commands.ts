@@ -1,8 +1,8 @@
-import { EditorState } from 'prosemirror-state';
+import { EditorState, TextSelection } from 'prosemirror-state';
 import { Node as PMNode, NodeType } from 'prosemirror-model';
 import { safeInsert, findTable } from 'prosemirror-utils';
+
 import { Command } from '../../types';
-import { findExpand } from './utils';
 import {
   addAnalytics,
   AnalyticsEventPayload,
@@ -15,6 +15,8 @@ import {
   MODE,
 } from '../analytics';
 import { GapCursorSelection, Side } from '../gap-cursor';
+
+import { findExpand } from './utils';
 import { createCommand } from './pm-plugins/plugin-factory';
 
 export const setExpandRef = (ref?: HTMLDivElement | null): Command =>
@@ -173,5 +175,42 @@ export const insertExpand: Command = (state, dispatch) => {
     );
   }
 
+  return true;
+};
+
+export const focusTitle = (pos: number): Command => (
+  state,
+  dispatch,
+  editorView,
+) => {
+  if (editorView) {
+    const dom = editorView.domAtPos(pos);
+    const expandWrapper = dom.node.parentElement;
+    if (expandWrapper) {
+      setSelectionInsideExpand(state, dispatch, editorView);
+      const input = expandWrapper.querySelector('input');
+      if (input) {
+        input.focus();
+        return true;
+      }
+    }
+  }
+  return false;
+};
+
+// Used to clear any node or cell selection when expand title is focused
+export const setSelectionInsideExpand: Command = (
+  state,
+  dispatch,
+  editorView,
+) => {
+  const { tr, doc, selection } = state;
+
+  if (editorView && !editorView.hasFocus()) {
+    editorView.focus();
+  }
+  if (dispatch) {
+    dispatch(tr.setSelection(TextSelection.create(doc, selection.from)));
+  }
   return true;
 };

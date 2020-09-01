@@ -9,7 +9,16 @@ import {
   RendererBridges,
   RendererPluginBridges,
 } from './renderer/web-to-native/bridge';
-import { RuntimeBridges } from './error-reporter';
+import { ErrorBridge, RuntimeBridges } from './error-reporter';
+
+type RequestIdleCallbackHandle = any;
+type RequestIdleCallbackOptions = {
+  timeout: number;
+};
+type RequestIdleCallbackDeadline = {
+  readonly didTimeout: boolean;
+  timeRemaining: () => number;
+};
 
 declare global {
   // Automatically de-duplicated set of editor/renderer bridges
@@ -17,6 +26,11 @@ declare global {
     | EditorPluginBridges
     | RendererPluginBridges
     | keyof RuntimeBridges;
+
+  type BridgeEventName<K extends CombinedBridgeNames> =
+    | keyof Required<EditorBridges>[K]
+    | keyof Required<RendererBridges>[K]
+    | keyof Required<RuntimeBridges>[K];
 
   // Android implementation is via extension
   interface Window extends EditorBridges, RendererBridges, RuntimeBridges {
@@ -33,5 +47,10 @@ declare global {
         [key in CombinedBridgeNames]?: { postMessage: (payload: any) => void };
       };
     };
+    requestIdleCallback: (
+      callback: (deadline: RequestIdleCallbackDeadline) => void,
+      opts?: RequestIdleCallbackOptions,
+    ) => RequestIdleCallbackHandle;
+    cancelIdleCallback: (handle: RequestIdleCallbackHandle) => void;
   }
 }

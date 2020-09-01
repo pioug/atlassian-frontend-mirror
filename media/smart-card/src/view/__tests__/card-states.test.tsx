@@ -496,9 +496,7 @@ describe('smart-card: card states', () => {
           );
 
           expect(unauthorizedLink).toBeTruthy();
-          const unauthorizedLinkButton = getByTestId(
-            'embed-card-unauthorized-view-button',
-          );
+          const unauthorizedLinkButton = getByTestId('button-connect-account');
           expect(unauthorizedLinkButton).toBeTruthy();
           expect(unauthorizedLinkButton!.innerHTML).toContain('Connect');
           expect(mockFetch).toBeCalled();

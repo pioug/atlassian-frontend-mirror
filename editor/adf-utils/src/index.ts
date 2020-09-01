@@ -72,6 +72,7 @@ export {
   ValidationErrorType,
   ValidationMode,
   ValidationOptions,
+  ErrorCallbackOptions,
 } from './types/validatorTypes';
 export { ADFEntity, ADFEntityMark, Visitor, VisitorCollection } from './types';
 export { getEmptyADF } from './empty-adf';

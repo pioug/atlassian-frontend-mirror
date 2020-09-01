@@ -17,6 +17,7 @@ import {
   indentation,
   annotation,
   unsupportedMark,
+  unsupportedNodeAttribute,
 } from './marks';
 
 import {
@@ -196,6 +197,7 @@ const marksInOrder: SchemaBuiltInItem[] = [
   { name: 'breakout', spec: breakout },
   { name: 'indentation', spec: indentation },
   { name: 'unsupportedMark', spec: unsupportedMark },
+  { name: 'unsupportedNodeAttribute', spec: unsupportedNodeAttribute },
 ];
 
 /**

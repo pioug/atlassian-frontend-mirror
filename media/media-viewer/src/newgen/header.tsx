@@ -143,7 +143,6 @@ export class Header extends React.Component<Props & InjectedIntlProps, State> {
         <MediaButton
           isSelected={isSidebarVisible}
           testId="media-viewer-sidebar-button"
-          appearance={'toolbar' as any}
           onClick={onSidebarButtonClick}
           iconBefore={extensions.sidebar.icon as ReactChild}
         />

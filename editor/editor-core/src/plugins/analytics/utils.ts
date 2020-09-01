@@ -33,17 +33,25 @@ export function getStateContext(
   state: EditorState,
   payload: AnalyticsEventPayload,
 ): AnalyticsEventPayload {
+  if (!payload.attributes) {
+    return payload;
+  }
+
+  const { type, position } = getSelectionType(state);
+  payload.attributes.selectionType = type;
+  if (position) {
+    payload.attributes.selectionPosition = position;
+  }
+  const insertLocation = findInsertLocation(state);
+
   if (
     payload.action === ACTION.INSERTED &&
     payload.actionSubject === ACTION_SUBJECT.DOCUMENT &&
     payload.attributes
   ) {
-    const { type, position } = getSelectionType(state);
-    payload.attributes.selectionType = type;
-    if (position) {
-      payload.attributes.selectionPosition = position;
-    }
-    payload.attributes.insertLocation = findInsertLocation(state);
+    payload.attributes.insertLocation = insertLocation;
+  } else {
+    payload.attributes.nodeLocation = insertLocation;
   }
 
   return payload;

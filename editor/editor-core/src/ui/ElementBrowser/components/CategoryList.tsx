@@ -5,7 +5,7 @@ import Button from '@atlaskit/button';
 import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import { withAnalyticsContext } from '@atlaskit/analytics-next';
 import { DEVICE_BREAKPOINT_NUMBERS, GRID_SIZE } from '../constants';
-import useRefToFocusOrScroll from '../hooks/useRefToFocusOrScroll';
+import useFocus from '../hooks/use-focus';
 import { Category } from '../types';
 
 interface Props {
@@ -15,7 +15,9 @@ interface Props {
 }
 
 function CategoryList({ categories = [], ...props }: Props): JSX.Element {
-  const [focusedCategoryIndex, setFocusedCategoryIndex] = React.useState(0);
+  const [focusedCategoryIndex, setFocusedCategoryIndex] = React.useState<
+    number | null
+  >(null);
   return (
     <>
       {categories.map<JSX.Element>((category, index) => (
@@ -38,7 +40,7 @@ type CategoryListItemProps = {
   selectedCategory?: string;
   index: number;
   focus: boolean;
-  setFocusedCategoryIndex: Dispatch<SetStateAction<number>>;
+  setFocusedCategoryIndex: Dispatch<SetStateAction<number | null>>;
 };
 
 function CategoryListItem({
@@ -49,8 +51,7 @@ function CategoryListItem({
   focus,
   setFocusedCategoryIndex,
 }: CategoryListItemProps) {
-  const ref = useRefToFocusOrScroll(focus);
-
+  const ref = useFocus(focus);
   const onClick = useCallback(
     (e: {}, analyticsEvent: UIAnalyticsEvent) => {
       onSelectCategory(category);
@@ -119,13 +120,15 @@ const ButtonWrapper = styled.div`
   margin: ${GRID_SIZE / 2}px;
 
   @media (min-width: ${DEVICE_BREAKPOINT_NUMBERS.medium}px) {
-    margin-bottom: 0;
+    :not(:last-child) {
+      margin-bottom: 0;
+    }
   }
 `;
 
 const MemoizedCategoryListWithAnalytics = memo(
   withAnalyticsContext({
-    component: 'category-list',
+    component: 'CategoryList',
   })(CategoryList),
 );
 

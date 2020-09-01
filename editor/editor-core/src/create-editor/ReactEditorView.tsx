@@ -57,7 +57,7 @@ import { getDocStructure, SimplifiedNode } from '../utils/document-logger';
 import { isFullPage } from '../utils/is-full-page';
 import measurements from '../utils/performance/measure-enum';
 import { getNodesCount } from '../utils/document';
-import { analyticsEventKey } from '../plugins/analytics/consts';
+import { analyticsEventKey } from '@atlaskit/editor-common';
 import { createSchema } from './create-schema';
 import { PluginPerformanceObserver } from '../utils/performance/plugin-performance-observer';
 import { PluginPerformanceReportData } from '../utils/performance/plugin-performance-report';
@@ -468,6 +468,7 @@ export default class ReactEditorView<T = {}> extends React.Component<
         options.props.providerFactory,
         options.props.editorProps.sanitizePrivateContent,
         this.contentTransformer,
+        this.dispatchAnalyticsEvent,
       );
     }
     let selection: Selection | undefined;

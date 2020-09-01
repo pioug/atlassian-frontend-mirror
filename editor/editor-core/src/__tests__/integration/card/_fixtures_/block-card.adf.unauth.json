@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "blockCard",
+      "attrs": {
+        "url": "https://blockCardTestUrl/unauthorized"
+      }
+    },
+    {
+      "type": "blockCard",
+      "attrs": {
+        "url": "https://blockCardTestUrl/forbidden"
+      }
+    }
+  ]
+}

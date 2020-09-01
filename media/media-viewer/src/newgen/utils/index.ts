@@ -44,7 +44,7 @@ export const getMediaTypeFromFilename = (filename: string): MediaType => {
   return getMediaTypeFromMimeType(mimeType);
 };
 
-const getMimeTypeFromFilename = (filename: string): string => {
+export const getMimeTypeFromFilename = (filename: string): string => {
   const extension = filename.split('.').pop();
   if (!extension) {
     return '';

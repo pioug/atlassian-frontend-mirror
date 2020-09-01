@@ -1,4 +1,5 @@
 import {
+  findParentNodeOfType,
   findSelectedNodeOfType,
   removeSelectedNode,
   removeParentNodeOfType,
@@ -9,6 +10,8 @@ import { Command } from '../../types';
 import { CodeBlockAttrs } from '@atlaskit/adf-schema';
 import { pluginKey } from './plugin-key';
 import { CodeBlockState } from './pm-plugins/main';
+import { ACTIONS } from './pm-plugins/actions';
+import { copyToClipboard } from '../../utils/clipboard';
 
 export type DomAtPos = (pos: number) => { node: HTMLElement; offset: number };
 export const removeCodeBlock: Command = (state, dispatch) => {
@@ -64,5 +67,49 @@ export const changeLanguage = (language: string): Command => (
   if (dispatch) {
     dispatch(changeLanguageTr);
   }
+  return true;
+};
+
+export const copyContentToClipboard: Command = (state, dispatch) => {
+  const {
+    schema: { nodes },
+    tr,
+  } = state;
+
+  const codeBlock = findParentNodeOfType(nodes.codeBlock)(tr.selection);
+  const textContent = codeBlock && codeBlock.node.textContent;
+
+  if (textContent) {
+    copyToClipboard(textContent);
+    let copyToClipboardTr = tr;
+
+    copyToClipboardTr.setMeta(pluginKey, {
+      type: ACTIONS.SET_COPIED_TO_CLIPBOARD,
+      data: true,
+    });
+
+    if (dispatch) {
+      dispatch(copyToClipboardTr);
+    }
+  }
+
+  return true;
+};
+
+export const resetCopiedState: Command = (state, dispatch) => {
+  const { tr } = state;
+  const codeBlockState: CodeBlockState | undefined = pluginKey.getState(state);
+  let resetCopiedStateTr = tr;
+
+  if (codeBlockState && codeBlockState.contentCopied) {
+    resetCopiedStateTr.setMeta(pluginKey, {
+      type: ACTIONS.SET_COPIED_TO_CLIPBOARD,
+      data: false,
+    });
+    if (dispatch) {
+      dispatch(resetCopiedStateTr);
+    }
+  }
+
   return true;
 };

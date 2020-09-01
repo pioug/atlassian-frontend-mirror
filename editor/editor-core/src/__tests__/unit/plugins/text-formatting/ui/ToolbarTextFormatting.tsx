@@ -91,9 +91,9 @@ describe('ToolbarTextFormatting', () => {
         actionSubject: ACTION_SUBJECT.TEXT,
         actionSubjectId: ACTION_SUBJECT_ID.FORMAT_STRONG,
         eventType: EVENT_TYPE.TRACK,
-        attributes: {
+        attributes: expect.objectContaining({
           inputMethod: INPUT_METHOD.TOOLBAR,
-        },
+        }),
       };
 
       clickBoldButton(toolbarOption);
@@ -107,9 +107,9 @@ describe('ToolbarTextFormatting', () => {
         actionSubject: ACTION_SUBJECT.TEXT,
         actionSubjectId: ACTION_SUBJECT_ID.FORMAT_ITALIC,
         eventType: EVENT_TYPE.TRACK,
-        attributes: {
+        attributes: expect.objectContaining({
           inputMethod: INPUT_METHOD.TOOLBAR,
-        },
+        }),
       };
 
       clickItalicButton(toolbarOption);

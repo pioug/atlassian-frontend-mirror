@@ -13,7 +13,7 @@ export default () => (
       getConfluenceMacrosExtensionProvider(editorActions),
     ]}
     allowExtension={{ allowAutoSave: true, allowLocalIdGeneration: true }}
-    elementBrowser={{ showModal: true }}
+    elementBrowser={{ showModal: true, replacePlusMenu: true }}
     insertMenuItems={[]}
   />
 );

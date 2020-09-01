@@ -6,6 +6,7 @@ import { selectors } from './page-objects/_renderer';
 export type RendererPropsOverrides = { [T in keyof Props]?: Props[T] } & {
   showSidebar?: boolean;
   withRendererActions?: boolean;
+  mockInlineComments?: boolean;
 };
 
 export async function mountRenderer(

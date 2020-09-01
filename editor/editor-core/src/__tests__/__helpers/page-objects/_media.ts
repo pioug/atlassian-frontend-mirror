@@ -7,7 +7,7 @@ import commonMessages, {
   linkToolbarMessages,
   linkMessages,
 } from '../../../messages';
-import { messages as mediaLayoutToolbarMessages } from '../../../ui/MediaAndEmbedsToolbar';
+import { toolbarMessages as mediaLayoutToolbarMessages } from '../../../ui/MediaAndEmbedsToolbar/toolbar-messages';
 import { mediaLinkToolbarMessages } from '../../../plugins/media/ui/MediaLinkingToolbar';
 import { waitForLoadedImageElements } from '@atlaskit/visual-regression/helper';
 import { MediaPickerPageObject } from '@atlaskit/media-integration-test-helpers';

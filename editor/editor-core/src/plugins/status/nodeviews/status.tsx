@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Node as PMNode } from 'prosemirror-model';
 import { EditorView, NodeView } from 'prosemirror-view';
-import { defineMessages, InjectedIntlProps, injectIntl } from 'react-intl';
+import { InjectedIntlProps, injectIntl } from 'react-intl';
 import styled from 'styled-components';
 
 import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common';
@@ -15,15 +15,7 @@ import InlineNodeWrapper, {
 } from '../../../ui/InlineNodeWrapper';
 import { PortalProviderAPI } from '../../../ui/PortalProvider';
 import { StatusPluginOptions } from '../types';
-
-export const messages = defineMessages({
-  placeholder: {
-    id: 'fabric.editor.statusPlaceholder',
-    defaultMessage: 'Set a status',
-    description:
-      'Placeholder description for an empty (new) status item in the editor',
-  },
-});
+import { messages } from './messages';
 
 export interface StyledStatusProps {
   placeholderStyle: boolean;

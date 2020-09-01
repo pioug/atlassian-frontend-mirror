@@ -3,8 +3,11 @@ import { render } from 'react-dom';
 import { PopupImpl } from '../../popup';
 import { UploadParams, PopupConfig } from '../../../types';
 import { fakeMediaClient } from '@atlaskit/media-test-helpers';
+import { MediaFeatureFlags } from '@atlaskit/media-common/mediaFeatureFlags';
 
 describe('MediaPickerPopup', () => {
+  const featureFlags = {} as MediaFeatureFlags;
+
   const mediaClient = fakeMediaClient({
     authProvider: () =>
       Promise.resolve({
@@ -23,6 +26,7 @@ describe('MediaPickerPopup', () => {
     uploadParams: {
       collection: '',
     },
+    featureFlags,
   };
 
   beforeEach(() => {
@@ -118,6 +122,20 @@ describe('MediaPickerPopup', () => {
       const mediaPicker = new PopupImpl(mediaClient, popupConfig) as any;
 
       expect((render as jest.Mock).mock.calls[0][0].props).toEqual({
+        featureFlags,
+        proxyReactContext: undefined,
+        store: mediaPicker.store,
+        tenantUploadParams: {
+          collection: '',
+        },
+        useForgePlugins: false,
+      });
+    });
+
+    it('should render <App /> with passed featureFlags', () => {
+      const mediaPicker = new PopupImpl(mediaClient, popupConfig) as any;
+      expect((render as jest.Mock).mock.calls[0][0].props).toEqual({
+        featureFlags,
         proxyReactContext: undefined,
         store: mediaPicker.store,
         tenantUploadParams: {

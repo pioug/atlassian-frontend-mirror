@@ -11,10 +11,11 @@ export default interface NativeBridge
     AnalyticsBridge,
     SelectionBridge,
     CollabEditNativeBridge,
-    LifecycleBridge {
+    LifecycleBridge,
+    ContentBridge {
   call<T extends EditorBridgeNames>(
     bridge: T,
-    event: keyof Exclude<EditorBridges[T], undefined>,
+    event: keyof Required<EditorBridges>[T],
     ...args: any[]
   ): void;
 }
@@ -38,6 +39,7 @@ export interface EditorBridges {
   selectionBridge?: SelectionBridge;
   collabBridge?: CollabBridge;
   lifecycleBridge?: LifecycleBridge;
+  contentBridge?: ContentBridge;
 }
 
 export type EditorBridgeNames = keyof EditorBridges;
@@ -119,4 +121,8 @@ export interface CollabEditNativeBridge {
   connectToCollabService: CollabBridge['connect'];
   emitCollabChanges: CollabBridge['emit'];
   disconnectFromCollabService: CollabBridge['disconnect'];
+}
+
+export interface ContentBridge {
+  onRenderedContentHeightChanged(height: number): void;
 }

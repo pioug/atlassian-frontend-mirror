@@ -15,6 +15,8 @@ import {
   GasScreenEventPayload,
 } from '@atlaskit/analytics-gas-types';
 import { channel } from '../newgen/analytics';
+import { ZipEntry } from 'unzipit';
+import { zipEntryLoadFailedEvent } from './analytics/archive-viewer';
 
 type MessagesType<Key extends string> = { [k in Key]: ReactNode };
 
@@ -133,6 +135,7 @@ export class MediaViewerError {
     readonly errorName: ErrorName,
     readonly fileState?: FileState,
     readonly innerError?: Error,
+    readonly zipEntry?: ZipEntry,
   ) {}
 }
 
@@ -140,8 +143,9 @@ export const createError = (
   name: ErrorName,
   innerError?: Error,
   fileState?: FileState,
+  zipEntry?: ZipEntry,
 ): MediaViewerError => {
-  return new MediaViewerError(name, fileState, innerError);
+  return new MediaViewerError(name, fileState, innerError, zipEntry);
 };
 
 export class ErrorMessage extends React.Component<
@@ -158,9 +162,12 @@ export class ErrorMessage extends React.Component<
 
   componentDidMount() {
     const {
-      error: { errorName: failReason, fileState },
+      error: { errorName: failReason, fileState, zipEntry, innerError },
     } = this.props;
-    const event = mediaPreviewFailedEvent(failReason, fileState);
+
+    const event = zipEntry
+      ? zipEntryLoadFailedEvent(innerError, zipEntry, fileState)
+      : mediaPreviewFailedEvent(failReason, fileState);
     this.fireAnalytics(event);
   }
 

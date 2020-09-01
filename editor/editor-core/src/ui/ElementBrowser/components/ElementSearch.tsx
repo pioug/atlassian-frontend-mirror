@@ -11,7 +11,7 @@ import {
   SEARCH_ITEM_HEIGHT_WIDTH,
   SEARCH_ITEM_MARGIN,
 } from '../constants';
-import useRefToFocusOrScroll from '../hooks/useRefToFocusOrScroll';
+import useFocus from '../hooks/use-focus';
 import { Modes } from '../types';
 
 interface Props {
@@ -19,6 +19,7 @@ interface Props {
   mode: keyof typeof Modes;
   focus: boolean;
   onClick: (e: React.MouseEvent) => void;
+  searchTerm?: string;
 }
 
 function ElementSearch({
@@ -27,8 +28,9 @@ function ElementSearch({
   intl: { formatMessage },
   focus,
   onClick,
+  searchTerm,
 }: Props & InjectedIntlProps): JSX.Element {
-  const ref = useRefToFocusOrScroll(focus);
+  const ref = useFocus(focus);
 
   const onChange = ({
     target: { value },
@@ -46,7 +48,7 @@ function ElementSearch({
           ...container,
           height: mode === Modes.full ? GRID_SIZE * 6 : GRID_SIZE * 5,
           borderRadius: GRID_SIZE,
-          flex: mode === Modes.inline ? 0 : '1 1 100%',
+          flex: mode === Modes.inline ? 'none' : '1 1 100%',
           ...(Modes.inline && { overflow: 'revert' }), // Needed for firefox, inherited property would hide the searchbar.
         },
         input: {
@@ -85,6 +87,7 @@ function ElementSearch({
       placeholder={formatMessage(placeHolderMessage)}
       aria-label="search"
       theme={getTheme}
+      value={searchTerm}
     />
   );
 }
@@ -119,7 +122,7 @@ const ElementAfterInput = styled.div`
 
 const MemoizedElementSearchWithAnalytics = memo(
   withAnalyticsContext({
-    component: 'search-textfield',
+    component: 'Searchbar',
   })(injectIntl(ElementSearch)),
 );
 

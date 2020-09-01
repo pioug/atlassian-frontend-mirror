@@ -20,7 +20,7 @@ const providerBuilder: ProviderBuilder = (
   try {
     const provider = await collabEditProviderPromise;
     if (provider) {
-      codeToExecute(provider);
+      return codeToExecute(provider);
     }
   } catch (err) {
     if (onError) {

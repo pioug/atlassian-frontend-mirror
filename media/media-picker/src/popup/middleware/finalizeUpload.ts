@@ -3,13 +3,13 @@ import {
   CopySourceFile,
   CopyDestination,
   CopyFileOptions,
-  FilePreview,
   globalMediaEventEmitter,
 } from '@atlaskit/media-client';
 import {
   FinalizeUploadAction,
   isFinalizeUploadAction,
   FinalizeUploadSource,
+  FinalizeUploadOverrides,
 } from '../actions/finalizeUpload';
 import { State } from '../domain';
 import { MediaFile } from '../../types';
@@ -27,14 +27,14 @@ export default function(): Middleware {
 
 export function finalizeUpload(
   store: Store<State>,
-  { file, replaceFileId, source, preview }: FinalizeUploadAction,
+  { file, replaceFileId, source, overrides }: FinalizeUploadAction,
 ) {
   return copyFile({
     store,
     file,
     replaceFileId,
     source,
-    preview,
+    overrides,
   });
 }
 
@@ -44,7 +44,7 @@ type CopyFileParams = {
   // the versioned file ID that this file will overwrite. Destination fileId.
   replaceFileId: string;
   source: FinalizeUploadSource;
-  preview?: FilePreview | Promise<FilePreview>;
+  overrides?: FinalizeUploadOverrides;
 };
 
 async function copyFile({
@@ -52,7 +52,7 @@ async function copyFile({
   file,
   replaceFileId,
   source,
-  preview,
+  overrides,
 }: CopyFileParams) {
   const {
     tenantMediaClient,
@@ -62,6 +62,7 @@ async function copyFile({
     config,
   } = store.getState();
   const { id, collection: sourceCollection } = source;
+  const { preview, mimeType } = overrides || {};
   const destinationCollection =
     config.uploadParams && config.uploadParams.collection;
 
@@ -83,7 +84,16 @@ async function copyFile({
       authProvider: tenantMediaClient.config.authProvider,
     };
 
-    const copyOptions: CopyFileOptions = { preview };
+    /**
+     * If we were passed a "preview", we propagate it into the copyFile.
+     *
+     * BMPT-674: cloud files initially have a "binary/octet-stream" mimeType, in such case we use the one passed in parameters
+     * (note that we are working to deprecate "handleCloudFetchingEvent" hence that cloudFileMimeType will be removed as well)
+     */
+    const copyOptions: CopyFileOptions = {
+      preview,
+      mimeType,
+    };
 
     const destinationFile = await tenantMediaClient.file.copyFile(
       copySourceFile,

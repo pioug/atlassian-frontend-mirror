@@ -37,10 +37,10 @@ const createProductPayload = (product: string, originalSpelling: string) => ({
   actionSubject: 'text',
   actionSubjectId: 'productName',
   eventType: 'track',
-  attributes: {
+  attributes: expect.objectContaining({
     product,
     originalSpelling,
-  },
+  }),
 });
 
 const createPunctuationPayload = (
@@ -50,9 +50,9 @@ const createPunctuationPayload = (
   actionSubject: 'text',
   actionSubjectId: 'punctuation',
   eventType: 'track',
-  attributes: {
+  attributes: expect.objectContaining({
     punctuation,
-  },
+  }),
 });
 
 const createFormattedPayload = (
@@ -62,9 +62,9 @@ const createFormattedPayload = (
   actionSubject: 'text',
   actionSubjectId: actionSubjectId,
   eventType: 'track',
-  attributes: {
+  attributes: expect.objectContaining({
     inputMethod: 'autoformatting',
-  },
+  }),
 });
 
 const autoFormatPatterns = [
@@ -362,9 +362,9 @@ describe('text-formatting input rules', () => {
       actionSubject: 'text',
       actionSubjectId: 'symbol',
       eventType: 'track',
-      attributes: {
+      attributes: expect.objectContaining({
         symbol,
-      },
+      }),
     });
 
     notautoformats('->');

@@ -5,7 +5,7 @@ import {
   clearBridgeOutput,
   clearEditor,
   editor,
-  skipBrowsers as skip,
+  skipBrowsers,
   getBridgeOutput,
 } from '../_utils';
 
@@ -51,7 +51,7 @@ const simpleBrowserTestCase = async (
 
 BrowserTestCase(
   'editor: ensure actions fire an analytics event via the bridge',
-  { skip },
+  { skip: skipBrowsers },
   async (client: any) => {
     const browser = new Page(client);
     await initPage(browser);

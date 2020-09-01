@@ -1,6 +1,7 @@
 export {
   Extension,
   ExtensionAutoConvertHandler,
+  ExtensionComponentProps,
   ExtensionHandler,
   ExtensionHandlers,
   ExtensionKey,
@@ -11,10 +12,10 @@ export {
   ExtensionModuleActionObject,
   ExtensionModuleNode,
   ExtensionModuleNodes,
-  ExtensionQuickInsertModule,
   ExtensionModules,
   ExtensionParams,
   ExtensionProvider,
+  ExtensionQuickInsertModule,
   ExtensionType,
   Icon,
   MaybeADFEntity,
@@ -24,6 +25,7 @@ export {
   Parameters,
   BooleanField,
   CustomField,
+  CustomFieldResolver,
   DateField,
   EnumField,
   FieldDefinition,
@@ -34,11 +36,13 @@ export {
   StringField,
   isFieldset,
   FieldHandlerLink,
-  FieldResolver,
   OnSaveCallback,
+  UpdateContextActions,
+  TransformBefore,
+  TransformAfter,
+  // DEPRECATED
   ParametersGetter,
   AsyncParametersGetter,
-  UpdateContextActions,
 } from './types';
 
 export { getExtensionKeyAndNodeKey, resolveImport } from './manifest-helpers';
@@ -56,7 +60,7 @@ export { getExtensionModuleNode, getNodeRenderer } from './extension-handlers';
 export { default as combineExtensionProviders } from './combine-extension-providers';
 
 export {
-  getFieldResolver,
+  getCustomFieldResolver,
   getFieldSerializer,
   getFieldDeserializer,
 } from './extension-fields-helpers';

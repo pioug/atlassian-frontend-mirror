@@ -10,7 +10,7 @@ import {
   waitForResolvedInlineCard,
   inlineCardSelector,
   lazyCardSelector,
-} from '../../__helpers/page-objects/_cards';
+} from '@atlaskit/media-integration-test-helpers';
 
 type ClientType = Parameters<typeof goToEditorTestingExample>[0];
 

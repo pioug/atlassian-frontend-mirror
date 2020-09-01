@@ -1,5 +1,12 @@
 # @atlaskit/section-message
 
+## 5.0.4
+
+### Patch Changes
+
+- [`7315203b80`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7315203b80) - Rename `AkCode` and `AkCodeBlock` exports to `Code` and `CodeBlock` for `@atlaskit/code`.
+- Updated dependencies
+
 ## 5.0.3
 
 ### Patch Changes

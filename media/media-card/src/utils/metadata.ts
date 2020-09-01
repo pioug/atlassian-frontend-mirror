@@ -1,4 +1,8 @@
-import { FileState, FileDetails } from '@atlaskit/media-client';
+import {
+  FileState,
+  FileDetails,
+  getMediaTypeFromMimeType,
+} from '@atlaskit/media-client';
 
 export const extendMetadata = (
   state: FileState,
@@ -14,12 +18,13 @@ export const extendMetadata = (
       mimeType: state.mimeType,
       createdAt: state.createdAt,
       // We preserve the initial mediaType
-      // in case file subscription returns 'unknown'
-      // while it's uploading/processing
+      // in case file subscription returns 'unknown' we try to deduce it from mimeType
       mediaType:
         currentMediaType && currentMediaType !== 'unknown'
           ? currentMediaType
-          : state.mediaType,
+          : state.mimeType
+          ? getMediaTypeFromMimeType(state.mimeType)
+          : 'unknown',
     };
   } else {
     return {

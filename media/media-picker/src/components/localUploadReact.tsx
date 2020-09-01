@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import { start, end } from 'perf-marks';
 import { MediaClient } from '@atlaskit/media-client';
+import { MediaFeatureFlags } from '@atlaskit/media-common/mediaFeatureFlags';
 import { UploadService } from '../service/types';
 import {
   UploadEndEventPayload,
@@ -31,6 +32,7 @@ export type LocalUploadComponentBaseProps = {
   onPreviewUpdate?: (payload: UploadPreviewUpdateEventPayload) => void;
   onEnd?: (payload: UploadEndEventPayload) => void;
   onError?: (payload: UploadErrorEventPayload) => void;
+  featureFlags?: MediaFeatureFlags;
 } & WithAnalyticsEventsProps;
 
 interface BasePayload {

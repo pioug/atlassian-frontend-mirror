@@ -1,5 +1,42 @@
 # @atlaskit/editor-mobile-bridge
 
+## 18.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.0
+
+### Major Changes
+
+- [`c8cf7f9419`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c8cf7f9419) - ED-9623:
+
+  This piece of work includes:
+
+  - Adopting the api changes on `Renderer` to be able to open an expand that wraps a header that the user want to scroll to. This will change the bridge methods in order to have the expand opened beforehand:
+
+    - `getContentNodeScrollOffset` -> Api is unchanged, but if the header is inside an expand, it will open the expand asynchronously.
+    - **BREAKING CHANGE**: `scrollToContentNode` -> will return `void` instead of a boolean value as before, and if the header is inside an expand, it will scroll to the header once the expand is opened in such case.
+
+  - Creating a query param `allowHeadingAnchorLinks` to enable/disable the entire feature on `Renderer`:
+    - `allowHeadingAnchorLinks=false` -> will disable everything regarding headings
+    - `allowHeadingAnchorLinks=true` -> will enable new nested header behaviour but the UI will not be enabled for mobile (see point bellow)
+  - Disable UI for `mobile`/`comment` appearance: we need to enable the new expand behaviour but we don’t want to render the copy link button on those appearances.
+
+### Minor Changes
+
+- [`39985e61d0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/39985e61d0) - TYPH-236 Add new Lifecycle Bridge for the Renderer
+- [`0100b2c907`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0100b2c907) - [TWISTA-157] changed the reflow detector to use resize observer if available and also refactored where this API lives as it was in the wrong place.
+
+### Patch Changes
+
+- [`dbfbe282e5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dbfbe282e5) - ED-10248 fixed renderer content being cut off in the bottom when using resize observer
+- [`bef7ead91b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bef7ead91b) - TWISTA-357 fixed renderer not displayed in full height on iOS below 13.4
+- [`78de49291b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/78de49291b) - [TWISTA-130] Fixes Annotation onClick sending only one Annotation id
+- [`fba7eda75d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fba7eda75d) - [TWISTA-344] Fixes remove annotation focus on Renderer
+- Updated dependencies
+
 ## 17.1.2
 
 ### Patch Changes

@@ -25,10 +25,9 @@ import {
   getValidTableProps,
   generateHeadValues,
   CELL_KEY_DOWNLOAD,
+  ANALYTICS_MEDIA_CHANNEL,
 } from '../util';
 import { withAnalyticsEvents } from '@atlaskit/analytics-next';
-
-const ANALYTICS_MEDIA_CHANNEL = 'media';
 
 export class MediaTable extends Component<MediaTableProps, MediaTableState> {
   state: MediaTableState = {

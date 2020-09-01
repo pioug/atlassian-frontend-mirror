@@ -2,7 +2,8 @@ import {
   PuppeteerPage,
   waitForTooltip,
 } from '@atlaskit/visual-regression/helper';
-import { snapshot, initRendererWithADF } from './_utils';
+import { RendererAppearance } from '../../';
+import { snapshot, initRendererWithADF, animationFrame } from './_utils';
 import headings from '../__fixtures__/headings-adf.json';
 import nestedHeadings from '../__fixtures__/nested-headings-adf.json';
 import { selectors as rendererSelectors } from '../__helpers/page-objects/_renderer';
@@ -17,6 +18,42 @@ const hoverOnHeading = async (page: PuppeteerPage, selector: string) => {
 
 describe('Headings:', () => {
   let page: PuppeteerPage;
+
+  describe('unsupported appearance', () => {
+    const initRendererWithAppearance = async (
+      appearance: RendererAppearance,
+    ) => {
+      page = global.page;
+      await initRendererWithADF(page, {
+        adf: headings,
+        rendererProps: {
+          allowHeadingAnchorLinks: {
+            allowNestedHeaderLinks: true,
+          },
+          disableHeadingIDs: false,
+        },
+        appearance,
+      });
+    };
+
+    afterEach(async () => {
+      await snapshot(page);
+    });
+
+    it("should not render anchor link tooltip when appearance === 'mobile'", async () => {
+      await initRendererWithAppearance('mobile');
+      await page.waitForSelector('h2:first-of-type');
+      await page.hover('h2:first-of-type');
+      await animationFrame(page);
+    });
+
+    it("should not render anchor link tooltip when appearance === 'comment'", async () => {
+      await initRendererWithAppearance('comment');
+      await page.waitForSelector('h2:first-of-type');
+      await page.hover('h2:first-of-type');
+      await animationFrame(page);
+    });
+  });
 
   describe('Nested UX', () => {
     beforeEach(async () => {

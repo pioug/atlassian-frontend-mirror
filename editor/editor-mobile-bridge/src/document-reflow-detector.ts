@@ -23,20 +23,24 @@ const isImageElement = (node: HTMLElement): node is HTMLImageElement =>
  */
 export class DocumentReflowDetector {
   private enabled: boolean = false;
-  private content: HTMLElement | null | undefined;
+  private content: HTMLElement | Element | HTMLDivElement | null | undefined;
   private pageHeight?: number;
   private onReflowCallback: DocumentReflowDetectorInit['onReflow'];
-  private mutationObserver: MutationObserver;
+  private observer: ResizeObserver | MutationObserver;
+  private isResizeObserverAvailable: boolean = !!(window as any).ResizeObserver;
 
   constructor(init: DocumentReflowDetectorInit) {
     this.onReflowCallback = init.onReflow;
-    this.mutationObserver = new MutationObserver(this.onMutation);
+    // ResizeObserver is more performant for browsers which support it
+    this.observer = this.isResizeObserverAvailable
+      ? new (window as any).ResizeObserver(this.onResizeObservation)
+      : new MutationObserver(this.onMutation);
   }
 
   private onReflow = (options: { forced: boolean }) => {
     if (!this.content) {
       throw new Error(
-        'Failed to find #renderer. Unable to utilise document reflow detector.',
+        'Failed to find HTML element. Unable to utilise document reflow detector.',
       );
     }
 
@@ -50,6 +54,12 @@ export class DocumentReflowDetector {
       this.pageHeight = pageHeight;
       this.onReflowCallback(pageHeight);
     }
+  };
+
+  private onResizeObservation = (entries: ResizeObserverEntry[]) => {
+    const height =
+      (entries && entries[0] && entries[0].contentRect.height) || 0;
+    this.onReflowCallback(Math.round(height));
   };
 
   private onResize = () => {
@@ -124,34 +134,47 @@ export class DocumentReflowDetector {
     this.onReflow({ forced: false });
   };
 
-  public enable = () => {
+  public enable = (rootElement: HTMLElement | null) => {
     if (!this.enabled) {
-      this.content = document.getElementById('renderer');
+      this.content = rootElement;
+
+      if (!rootElement) {
+        throw new Error(`Root element is not provided`);
+      }
 
       // Listen for changes that may impact the page height
       window.addEventListener('resize', this.onResize);
-      this.mutationObserver.observe(document.documentElement, {
-        // Listen for changes to className, style, etc
-        attributes: true,
-        // Listen for changes to the nested structure of the page contents
-        childList: true,
-        subtree: true,
-      });
 
-      // Register images already in document
-      document.querySelectorAll('img').forEach(this.registerImage);
+      if (this.isResizeObserverAvailable) {
+        this.observer.observe(rootElement!);
+      } else {
+        this.observer.observe(document.documentElement, {
+          // Listen for changes to className, style, etc
+          attributes: true,
+          // Listen for changes to the nested structure of the page contents
+          childList: true,
+          subtree: true,
+        });
+
+        // Register images already in document
+        document.querySelectorAll('img').forEach(this.registerImage);
+        // Announce initial height
+        this.onReflow({ forced: true });
+      }
     }
 
-    // Announce initial height
-    this.onReflow({ forced: true });
     this.enabled = true;
   };
 
   public disable = () => {
-    this.content = undefined;
-    this.mutationObserver.disconnect();
     window.removeEventListener('resize', this.onResize);
-    document.querySelectorAll('img').forEach(this.unregisterImage);
+
+    if (!this.isResizeObserverAvailable) {
+      document.querySelectorAll('img').forEach(this.unregisterImage);
+    }
+
+    this.content = undefined;
+    this.observer.disconnect();
     this.enabled = false;
   };
 }

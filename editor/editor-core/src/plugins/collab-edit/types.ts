@@ -7,7 +7,7 @@ export {
   CollabEventInitData,
   CollabEventRemoteData,
   CollabEventConnectionData,
-  CollabeEventPresenceData,
+  CollabEventPresenceData,
   CollabEventTelepointerData,
   CollabSendableSelection,
 } from '@atlaskit/editor-common';
@@ -31,7 +31,6 @@ export type CollabEditOptions = {
   provider?: Providers['collabEditProvider'];
   userId?: string;
   useNativePlugin?: boolean;
-  allowUnsupportedContent?: boolean;
   sendDataOnViewUpdated?: boolean;
 } & CollabInviteToEditProps;
 
@@ -39,10 +38,10 @@ export type PrivateCollabEditOptions = CollabEditOptions & {
   sanitizePrivateContent?: boolean;
 };
 
-export type ProviderCallback = (
-  codeToExecute: (provider: CollabEditProvider) => void,
+export type ProviderCallback = <ReturnType>(
+  codeToExecute: (provider: CollabEditProvider) => ReturnType | undefined,
   onError?: (err: Error) => void,
-) => void;
+) => Promise<ReturnType | undefined> | undefined;
 
 export type ProviderBuilder = (
   collabEditProviderPromise: Promise<CollabEditProvider>,

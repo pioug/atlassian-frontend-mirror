@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 
 import { EditorView } from 'prosemirror-view';
-import { defineMessages, InjectedIntlProps, injectIntl } from 'react-intl';
+import { InjectedIntlProps, injectIntl } from 'react-intl';
 
 import BoldIcon from '@atlaskit/icon/glyph/editor/bold';
 import ItalicIcon from '@atlaskit/icon/glyph/editor/italic';
@@ -15,20 +15,7 @@ import {
   toggleStrongWithAnalytics,
 } from '../../commands/text-formatting';
 import { TextFormattingState } from '../../pm-plugins/main';
-
-export const messages = defineMessages({
-  bold: {
-    id: 'fabric.editor.bold',
-    defaultMessage: 'Bold',
-    description:
-      'This refers to bold or “strong” formatting, indicates that its contents have strong importance, seriousness, or urgency.',
-  },
-  italic: {
-    id: 'fabric.editor.italic',
-    defaultMessage: 'Italic',
-    description: 'This refers to italics or emphasized formatting.',
-  },
-});
+import { toolbarMessages } from './toolbar-messages';
 
 export interface Props {
   editorView: EditorView;
@@ -54,8 +41,8 @@ class ToolbarTextFormatting extends PureComponent<Props & InjectedIntlProps> {
       emDisabled,
     } = textFormattingState;
 
-    const labelBold = formatMessage(messages.bold);
-    const labelItalic = formatMessage(messages.italic);
+    const labelBold = formatMessage(toolbarMessages.bold);
+    const labelItalic = formatMessage(toolbarMessages.italic);
     return (
       <ButtonGroup width={isReducedSpacing ? 'small' : 'large'}>
         {strongHidden ? null : (

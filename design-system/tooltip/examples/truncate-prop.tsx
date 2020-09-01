@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import Tooltip from '../src';
 
@@ -30,45 +30,41 @@ const Checkbox = ({ children, onChange }: CheckboxProps) => {
   );
 };
 
-export default class Image extends React.Component<{}, { truncate: boolean }> {
-  state = { truncate: false };
+const content =
+  'The red panda (Ailurus fulgens), also called the lesser panda, the red bear-cat, and the red cat-bear, is a mammal native to the eastern Himalayas and southwestern China.';
+const srcSmiling =
+  'https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Red_Panda_in_a_Gingko_tree.jpg/220px-Red_Panda_in_a_Gingko_tree.jpg ';
+const srcWalking =
+  'https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/RedPandaFullBody.JPG/440px-RedPandaFullBody.JPG';
 
-  toggle = () => this.setState(state => ({ truncate: !state.truncate }));
+const Image = () => {
+  const [truncate, setTruncate] = useState(false);
 
-  render() {
-    const { truncate } = this.state;
+  const toggle = () => setTruncate(!truncate);
 
-    /* eslint-disable max-len */
-    const content =
-      'The red panda (Ailurus fulgens), also called the lesser panda, the red bear-cat, and the red cat-bear, is a mammal native to the eastern Himalayas and southwestern China.';
-    const srcSmiling =
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Red_Panda_in_a_Gingko_tree.jpg/220px-Red_Panda_in_a_Gingko_tree.jpg ';
-    const srcWalking =
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/RedPandaFullBody.JPG/440px-RedPandaFullBody.JPG';
-    /* eslint-enable max-len */
-
-    return (
-      <div>
-        <Checkbox onChange={this.toggle}>Truncate text</Checkbox>
-        <div style={{ display: 'flex' }}>
-          <Tooltip content={content} truncate={truncate}>
-            <img
-              alt="Red panda - smiling"
-              src={srcSmiling}
-              style={{ borderRadius: 4, marginTop: 4, marginRight: 4 }}
-              width="220"
-            />
-          </Tooltip>
-          <Tooltip content="At the Cincinati Zoo" truncate={truncate}>
-            <img
-              alt="Red panda - walking"
-              src={srcWalking}
-              style={{ borderRadius: 4, marginTop: 4 }}
-              width="220"
-            />
-          </Tooltip>
-        </div>
+  return (
+    <div>
+      <Checkbox onChange={toggle}>Truncate text</Checkbox>
+      <div style={{ display: 'flex' }}>
+        <Tooltip content={content} truncate={truncate}>
+          <img
+            alt="Red panda - smiling"
+            src={srcSmiling}
+            style={{ borderRadius: 4, marginTop: 4, marginRight: 4 }}
+            width="220"
+          />
+        </Tooltip>
+        <Tooltip content="At the Cincinati Zoo" truncate={truncate}>
+          <img
+            alt="Red panda - walking"
+            src={srcWalking}
+            style={{ borderRadius: 4, marginTop: 4 }}
+            width="220"
+          />
+        </Tooltip>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
+
+export default Image;

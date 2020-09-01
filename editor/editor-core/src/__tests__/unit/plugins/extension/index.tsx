@@ -7,9 +7,9 @@ import {
   ExtensionHandlers,
   ExtensionProvider,
   UpdateExtension,
-  ParametersGetter,
   combineExtensionProviders,
-  AsyncParametersGetter,
+  TransformBefore,
+  TransformAfter,
 } from '@atlaskit/editor-common/extensions';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
@@ -351,7 +351,9 @@ describe('extension', () => {
 
         const extensionHandlers: ExtensionHandlers = {
           [extensionType]: {
-            render: ({ parameters: { content } }) => <div>{content}</div>,
+            render: ({ parameters }) => (
+              <div>{parameters ? parameters.content : null}</div>
+            ),
             update: updateHandler,
           },
         };
@@ -693,14 +695,14 @@ describe('extension', () => {
   });
 
   describe('Config Panel', () => {
-    const transformBefore: ParametersGetter = parameters =>
+    const transformBefore: TransformBefore = parameters =>
       parameters.macroParams;
-    const transformAfter: AsyncParametersGetter = parameters =>
+    const transformAfter: TransformAfter = parameters =>
       Promise.resolve({
         macroParams: parameters,
       });
 
-    const extensionUpdater: UpdateExtension<object> = (data, actions) =>
+    const extensionUpdater: UpdateExtension = (data, actions) =>
       new Promise(() => {
         actions!.editInContextPanel(transformBefore, transformAfter);
       });

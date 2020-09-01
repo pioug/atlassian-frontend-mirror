@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import styled from 'styled-components';
 import { gridSize, fontSize } from '@atlaskit/theme/constants';
 import { N80A } from '@atlaskit/theme/colors';
@@ -56,6 +56,14 @@ const ContentContainer = styled.div<StyleProps>`
   padding-right: ${gridSize() * 2}px;
   padding-left: ${gridSize() * 5 - gridSize() / 2}px;
 `;
+
+const ExpandLayoutWrapperWithRef = forwardRef<
+  HTMLElement,
+  React.ComponentProps<typeof ExpandLayoutWrapper>
+>(function WithRef(props, ref) {
+  // @ts-ignore: incorrect innerRef typing
+  return <ExpandLayoutWrapper {...props} innerRef={ref} />;
+});
 
 export interface ExpandProps {
   title: string;
@@ -125,7 +133,11 @@ function Expand({
         contentEditable={false}
         expanded={expanded}
       >
-        <Tooltip content={label} position="top" tag={ExpandLayoutWrapper}>
+        <Tooltip
+          content={label}
+          position="top"
+          tag={ExpandLayoutWrapperWithRef}
+        >
           <ExpandIconWrapper expanded={expanded}>
             <ChevronRightIcon label={label} primaryColor={N80A} />
           </ExpandIconWrapper>

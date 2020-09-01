@@ -24,7 +24,7 @@ describe('help-dialog', () => {
       action: 'clicked',
       actionSubject: 'button',
       actionSubjectId: 'helpButton',
-      attributes: { inputMethod: 'shortcut' },
+      attributes: expect.objectContaining({ inputMethod: 'shortcut' }),
       eventType: 'ui',
     });
   });

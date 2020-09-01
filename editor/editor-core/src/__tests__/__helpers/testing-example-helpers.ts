@@ -18,6 +18,7 @@ export async function mountEditor<T = EditorProps>(
   page: WebdriverPage,
   props: T,
   options?: MountEditorOptions,
+  { clickInEditor = true }: { clickInEditor?: boolean } = {},
 ) {
   await page.waitForSelector('#editor-container');
   await page.executeAsync(
@@ -39,7 +40,9 @@ export async function mountEditor<T = EditorProps>(
     options || {},
   );
   await page.waitForSelector(EDITOR_SELECTOR, { timeout: 500 });
-  await page.click(EDITOR_SELECTOR);
+  if (clickInEditor) {
+    await page.click(EDITOR_SELECTOR);
+  }
 }
 
 export async function goToEditorTestingExample(

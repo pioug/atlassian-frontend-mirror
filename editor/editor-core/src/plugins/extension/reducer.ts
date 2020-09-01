@@ -1,9 +1,9 @@
 import { ExtensionState, ExtensionAction } from './types';
 
-export default (
+export default function(
   pluginState: ExtensionState,
   action: ExtensionAction,
-): ExtensionState => {
+): ExtensionState {
   switch (action.type) {
     case 'UPDATE_STATE':
       return {
@@ -14,4 +14,4 @@ export default (
     default:
       return pluginState;
   }
-};
+}

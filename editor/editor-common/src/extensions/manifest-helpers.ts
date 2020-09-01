@@ -39,10 +39,10 @@ export const buildExtensionKeyAndNodeKey = (
   return `${extensionKey}:${nodeKey}`;
 };
 
-export const buildAction = (
-  action: ExtensionModuleAction,
-  manifest: ExtensionManifest,
-) => {
+export function buildAction<T>(
+  action: ExtensionModuleAction<T>,
+  manifest: ExtensionManifest<T>,
+) {
   if (typeof action === 'function') {
     return action;
   }
@@ -50,7 +50,7 @@ export const buildAction = (
   if (action.type === 'node' && manifest.modules.nodes) {
     return buildNode(action, manifest);
   }
-};
+}
 
 export const resolveImport = async <T>(importPromise: Module<T>) => {
   const importedModule = await importPromise;
@@ -60,10 +60,10 @@ export const resolveImport = async <T>(importPromise: Module<T>) => {
     : (importedModule as T);
 };
 
-export const buildNode = (
-  action: ExtensionModuleActionObject,
-  manifest: ExtensionManifest,
-): ADFEntity | undefined => {
+export function buildNode<T>(
+  action: ExtensionModuleActionObject<T>,
+  manifest: ExtensionManifest<T>,
+): ADFEntity | undefined {
   if (!manifest.modules.nodes) {
     return;
   }
@@ -92,4 +92,4 @@ export const buildNode = (
   }
 
   return extension;
-};
+}

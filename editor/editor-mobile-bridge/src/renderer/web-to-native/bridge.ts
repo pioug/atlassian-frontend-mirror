@@ -56,13 +56,19 @@ export interface AnalyticsBridge {
   trackEvent(event: string): void;
 }
 
+export interface LifecycleBridge {
+  rendererReady(): void;
+  rendererDestroyed(): void;
+}
+
 export default interface WebBridge
   extends LinkBridge,
     TaskDecisionBridge,
     MediaBridge,
     MentionBridge,
     RenderBridge,
-    AnalyticsBridge {}
+    AnalyticsBridge,
+    LifecycleBridge {}
 
 export interface RendererBridges {
   linkBridge?: LinkBridge;
@@ -73,6 +79,7 @@ export interface RendererBridges {
   analyticsBridge?: AnalyticsBridge;
   annotationBridge?: AnnotationBridge;
   contentBridge?: ContentBridge;
+  lifecycleBridge?: LifecycleBridge;
 }
 
 export type RendererPluginBridges = keyof RendererBridges;

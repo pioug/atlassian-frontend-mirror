@@ -21,6 +21,7 @@ import {
   default as React,
   ReactElement,
   SyntheticEvent,
+  forwardRef,
 } from 'react';
 import { InjectedIntlProps, injectIntl } from 'react-intl';
 import {
@@ -64,6 +65,14 @@ const DEFAULT_WIDTH = 250;
 const DEFAULT_HEIGHT = 200;
 
 const AkEditorMediaLinkClassName = 'ak-editor-media-link';
+
+const MediaLinkWrapperWithRef = forwardRef<
+  HTMLElement,
+  React.ComponentProps<typeof MediaLinkWrapper>
+>(function WithRef(props, ref) {
+  // @ts-ignore: incorrect innerRef typing
+  return <MediaLinkWrapper {...props} innerRef={ref} />;
+});
 
 class MediaSingle extends Component<Props & InjectedIntlProps, State> {
   constructor(props: Props & InjectedIntlProps) {
@@ -202,36 +211,38 @@ class MediaSingle extends Component<Props & InjectedIntlProps, State> {
               fullWidthMode={isFullWidth}
               blockLink={linkMark && linkMark.attrs.href}
             >
-              {linkMark && linkMark.attrs.href ? (
-                <Tooltip
-                  content={openLinkMessage}
-                  position="top"
-                  tag={MediaLinkWrapper}
-                  delay={0}
-                >
-                  <MediaLink
-                    href={linkMark.attrs.href}
-                    target="_blank"
-                    rel="noreferrer noopener"
-                    className={AkEditorMediaLinkClassName}
-                    onClick={this.handleMediaLinkClick}
+              <>
+                {linkMark && linkMark.attrs.href ? (
+                  <Tooltip
+                    content={openLinkMessage}
+                    position="top"
+                    tag={MediaLinkWrapperWithRef}
+                    delay={0}
                   >
-                    <ShortcutIcon label={linkMark.attrs.href} size="large" />
-                  </MediaLink>
-                </Tooltip>
-              ) : null}
-              {React.cloneElement(
-                media as ReactElement,
-                {
-                  resizeMode: 'stretchy-fit',
-                  cardDimensions,
-                  originalDimensions,
-                  onExternalImageLoaded: this.onExternalImageLoaded,
-                  disableOverlay: true,
-                  featureFlags: this.props.featureFlags,
-                } as MediaProps & ImageLoaderProps,
-              )}
-              {this.isCaptionsFlaggedOn && caption}
+                    <MediaLink
+                      href={linkMark.attrs.href}
+                      target="_blank"
+                      rel="noreferrer noopener"
+                      className={AkEditorMediaLinkClassName}
+                      onClick={this.handleMediaLinkClick}
+                    >
+                      <ShortcutIcon label={linkMark.attrs.href} size="large" />
+                    </MediaLink>
+                  </Tooltip>
+                ) : null}
+                {React.cloneElement(
+                  media as ReactElement,
+                  {
+                    resizeMode: 'stretchy-fit',
+                    cardDimensions,
+                    originalDimensions,
+                    onExternalImageLoaded: this.onExternalImageLoaded,
+                    disableOverlay: true,
+                    featureFlags: this.props.featureFlags,
+                  } as MediaProps & ImageLoaderProps,
+                )}
+                {this.isCaptionsFlaggedOn && caption}
+              </>
             </ExtendedUIMediaSingle>
           );
         }}

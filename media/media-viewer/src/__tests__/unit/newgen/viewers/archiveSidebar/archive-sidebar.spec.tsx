@@ -97,6 +97,20 @@ describe('ArchiveSidebar', () => {
       'archive/',
     );
   });
+  it('should not call onEntrySelected if entry is directory', async () => {
+    const entry = {
+      name: 'folder_1',
+      isDirectory: true,
+      blob: jest.fn(),
+    } as any;
+
+    const onEntrySelectedMock = jest.fn();
+    const el = mountBaseComponent({ onEntrySelected: onEntrySelectedMock });
+    const archiveSidebarFolderEntry = el.find(ArchiveSidebarFolderEntry);
+    archiveSidebarFolderEntry.prop('onEntrySelected')(entry);
+    await sleep(0);
+    expect(onEntrySelectedMock).toBeCalledTimes(0);
+  });
   it('ArchiveSidebarHeaders onClick should trigger its onHeaderClicked callback', async () => {
     const onHeaderClickedMock = jest.fn();
     const el = mountBaseComponent({
@@ -151,6 +165,6 @@ describe('ArchiveSidebar', () => {
     const archiveSidebarFolderEntry = el.find(ArchiveSidebarFolderEntry);
     archiveSidebarFolderEntry.prop('onEntrySelected')(entry);
     await sleep(0);
-    expect(onErrorMock).toBeCalledWith(new Error('error'));
+    expect(onErrorMock).toBeCalledWith(new Error('error'), entry);
   });
 });

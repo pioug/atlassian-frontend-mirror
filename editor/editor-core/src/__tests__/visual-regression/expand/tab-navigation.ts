@@ -7,10 +7,7 @@ import * as adfWithExpand from './__fixtures__/simple-expand.adf.json';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { clickEditableContent } from '../../__helpers/page-objects/_editor';
 import { pressKey } from '../../__helpers/page-objects/_keyboard';
-import {
-  waitForFloatingControl,
-  retryUntilStablePosition,
-} from '../../__helpers/page-objects/_toolbar';
+import { retryUntilStablePosition } from '../../__helpers/page-objects/_toolbar';
 
 describe('Expand: tab navigation', () => {
   let page: PuppeteerPage;
@@ -45,47 +42,39 @@ describe('Expand: tab navigation', () => {
     });
 
     describe('when tab is pressed once', () => {
-      it('should create a node selection on the expand', async () => {
-        await pressKey(page, ['Tab']);
-      });
-    });
-
-    describe('when tab is pressed twice', () => {
       it('should focus on the button', async () => {
-        await pressKey(page, ['Tab', 'Tab']);
-        await waitForTooltip(page);
+        await pressKey(page, ['Tab']);
       });
 
       describe('when button is focused', () => {
         describe('and enter is pressed', () => {
           it('should collapse the expand', async () => {
-            await pressKey(page, ['Tab', 'Tab', 'Enter']);
-            await waitForFloatingControl(page, 'Expand toolbar');
+            await pressKey(page, ['Tab', 'Enter']);
             await waitForTooltip(page);
           });
         });
 
         describe('and space is pressed', () => {
           it('should collapse the expand', async () => {
-            await pressKey(page, ['Tab', 'Tab', 'Space']);
+            await pressKey(page, ['Tab', 'Space']);
             await waitForTooltip(page);
           });
         });
       });
     });
 
-    describe('when tab is pressed thrice', () => {
+    describe('when tab is pressed twice', () => {
       it('should focus on title', async () => {
-        await pressKey(page, ['Tab', 'Tab', 'Tab']);
+        await pressKey(page, ['Tab', 'Tab']);
         await waitForNoTooltip(page);
         await page.keyboard.type('I am here');
       });
     });
 
-    describe('when tab is pressed four times', () => {
+    describe('when tab is pressed thrice', () => {
       describe('when expand is opened', () => {
         it('should focus on content', async () => {
-          await pressKey(page, ['Tab', 'Tab', 'Tab', 'Tab']);
+          await pressKey(page, ['Tab', 'Tab', 'Tab']);
           await waitForNoTooltip(page);
           await page.keyboard.type('I am here');
         });
@@ -93,7 +82,7 @@ describe('Expand: tab navigation', () => {
 
       describe('when expand is closed', () => {
         it('should focus outside', async () => {
-          await pressKey(page, ['Tab', 'Tab', 'Space', 'Tab', 'Tab']);
+          await pressKey(page, ['Tab', 'Space', 'Tab', 'Tab']);
           await waitForNoTooltip(page);
           await page.keyboard.type('I am here');
         });

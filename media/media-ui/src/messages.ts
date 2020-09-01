@@ -93,8 +93,10 @@ export type MessageKey =
   | 'image'
   | 'archive'
   | 'search'
+  | 'view'
   | 'viewIn'
-  | 'viewOriginal';
+  | 'viewOriginal'
+  | 'preview';
 
 type Messages = { [K in MessageKey]: FormattedMessage.MessageDescriptor };
 
@@ -598,6 +600,12 @@ export const messages = defineMessages<Messages>({
     defaultMessage: 'search',
     description: '',
   },
+  view: {
+    id: 'fabric.media.view',
+    defaultMessage: 'View',
+    description:
+      'Go through to a piece of content to view it in its original context.',
+  },
   viewIn: {
     id: 'fabric.media.srclink',
     defaultMessage: 'View in',
@@ -609,5 +617,11 @@ export const messages = defineMessages<Messages>({
     defaultMessage: 'View Original',
     description:
       "We have a link in our preview modals to the original document. This is for when we don't know the provider name",
+  },
+  preview: {
+    id: 'fabric.media.preview',
+    defaultMessage: 'Preview',
+    description:
+      'Click to view a richer view of your content, without needing to navigate to it.',
   },
 });

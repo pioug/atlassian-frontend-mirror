@@ -15,8 +15,9 @@ import {
 import { IconCode } from '../quick-insert/assets';
 import { PMPluginFactoryParams, EditorPlugin } from '../../types';
 import { messages } from '../block-type/messages';
+import { CodeBlockOptions } from './types';
 
-const codeBlockPlugin = (): EditorPlugin => ({
+const codeBlockPlugin = (options: CodeBlockOptions = {}): EditorPlugin => ({
   name: 'codeBlock',
 
   nodes() {
@@ -59,7 +60,7 @@ const codeBlockPlugin = (): EditorPlugin => ({
         },
       },
     ],
-    floatingToolbar: getToolbarConfig,
+    floatingToolbar: getToolbarConfig(options.allowCopyToClipboard),
   },
 });
 

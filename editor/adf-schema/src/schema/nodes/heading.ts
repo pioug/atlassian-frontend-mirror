@@ -49,6 +49,7 @@ export const heading: NodeSpec = {
   content: `inline*`,
   group: 'block',
   defining: true,
+  selectable: false,
   parseDOM: [
     { tag: 'h1', attrs: { level: 1 } },
     { tag: 'h2', attrs: { level: 2 } },

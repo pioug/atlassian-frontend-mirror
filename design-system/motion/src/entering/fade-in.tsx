@@ -36,7 +36,7 @@ export const fadeInAnimation = (
       opacity: 1,
     },
     to: {
-      transform: 'none',
+      transform: movement !== undefined ? 'none' : undefined,
     },
   };
 };
@@ -46,7 +46,7 @@ export const fadeOutAnimation = (
 ): ObjectInterpolation<undefined> => ({
   from: {
     opacity: 1,
-    transform: 'translate3d(0, 0, 0)',
+    transform: movement !== undefined ? 'translate3d(0, 0, 0)' : undefined,
   },
   to: {
     opacity: 0,

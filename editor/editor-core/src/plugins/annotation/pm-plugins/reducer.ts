@@ -57,6 +57,18 @@ export default (
           ...action.data.inlineComments,
         },
       };
+    case ACTIONS.INLINE_COMMENT_SET_VISIBLE:
+      const { isVisible } = action.data;
+
+      if (isVisible === pluginState.isVisible) {
+        return pluginState;
+      }
+
+      return {
+        ...(isVisible ? pluginState : getNewDraftState(pluginState, false)),
+        isVisible,
+      };
+
     default:
       return pluginState;
   }
@@ -65,7 +77,7 @@ export default (
 function getNewDraftState(
   pluginState: InlineCommentPluginState,
   drafting: boolean,
-  editorState: EditorState<any>,
+  editorState?: EditorState<any>,
 ) {
   let { draftDecorationSet } = pluginState;
 

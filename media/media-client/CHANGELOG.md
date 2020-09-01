@@ -1,5 +1,18 @@
 # @atlaskit/media-client
 
+## 10.0.0
+
+### Major Changes
+
+- [`2ddfbcd92b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2ddfbcd92b) - Removed SVG local previews due to XSS vulnerability
+
+## 9.0.3
+
+### Patch Changes
+
+- [`1434c4e094`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1434c4e094) - Fixed cloud files rendering when publishing page in CF
+- [`21b9d3d336`](https://bitbucket.org/atlassian/atlassian-frontend/commits/21b9d3d336) - Fixed RAR/non-ZIP files not recognised as archives
+
 ## 9.0.2
 
 ### Patch Changes

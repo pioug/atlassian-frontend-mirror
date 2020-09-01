@@ -1,11 +1,14 @@
-import { EditorState, Plugin } from 'prosemirror-state';
+import { EditorState, Plugin, NodeSelection } from 'prosemirror-state';
 import { codeBlockNodeView } from '../nodeviews/code-block';
 import { CommandDispatch, PMPluginFactoryParams } from '../../../types';
 import { pluginKey } from '../plugin-key';
+import { ACTIONS } from './actions';
 import { findCodeBlock } from '../utils';
 
 export type CodeBlockState = {
   pos: number | null;
+  contentCopied: boolean;
+  isNodeSelected: boolean;
 };
 
 export const getPluginState = (state: EditorState): CodeBlockState =>
@@ -34,6 +37,8 @@ export const createPlugin = ({ dispatch }: PMPluginFactoryParams) =>
         const node = findCodeBlock(state, state.selection);
         return {
           pos: node ? node.pos : null,
+          contentCopied: false,
+          isNodeSelected: false,
         };
       },
       apply(
@@ -49,9 +54,19 @@ export const createPlugin = ({ dispatch }: PMPluginFactoryParams) =>
           const newPluginState: CodeBlockState = {
             ...pluginState,
             pos: node ? node.pos : null,
+            isNodeSelected: tr.selection instanceof NodeSelection,
           };
           return newPluginState;
         }
+
+        const meta = tr.getMeta(pluginKey);
+        if (meta && meta.type === ACTIONS.SET_COPIED_TO_CLIPBOARD) {
+          return {
+            ...pluginState,
+            contentCopied: meta.data,
+          };
+        }
+
         return pluginState;
       },
     },

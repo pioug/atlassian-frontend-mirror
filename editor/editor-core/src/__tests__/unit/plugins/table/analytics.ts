@@ -109,11 +109,11 @@ describe('Table analytic events', () => {
         action: 'deleted',
         actionSubject: 'table',
         actionSubjectId: null,
-        attributes: {
+        attributes: expect.objectContaining({
           inputMethod: 'floatingToolbar',
           totalRowCount: 3,
           totalColumnCount: 3,
-        },
+        }),
         eventType: 'track',
       });
     });
@@ -143,13 +143,13 @@ describe('Table analytic events', () => {
           action: 'cleared',
           actionSubject: 'table',
           actionSubjectId: null,
-          attributes: {
+          attributes: expect.objectContaining({
             inputMethod: 'contextMenu',
             verticalCells: 3,
             horizontalCells: 1,
             totalRowCount: 3,
             totalColumnCount: 3,
-          },
+          }),
           eventType: 'track',
         });
       });
@@ -175,13 +175,13 @@ describe('Table analytic events', () => {
           action: 'cleared',
           actionSubject: 'table',
           actionSubjectId: null,
-          attributes: {
+          attributes: expect.objectContaining({
             inputMethod: 'keyboard',
             verticalCells: 1,
             horizontalCells: 3,
             totalRowCount: 3,
             totalColumnCount: 3,
-          },
+          }),
           eventType: 'track',
         });
       });
@@ -208,13 +208,13 @@ describe('Table analytic events', () => {
         action: 'merged',
         actionSubject: 'table',
         actionSubjectId: null,
-        attributes: {
+        attributes: expect.objectContaining({
           verticalCells: 3,
           horizontalCells: 1,
           totalCells: 3,
           totalRowCount: 3,
           totalColumnCount: 3,
-        },
+        }),
         eventType: 'track',
       });
     });
@@ -240,13 +240,13 @@ describe('Table analytic events', () => {
         action: 'split',
         actionSubject: 'table',
         actionSubjectId: null,
-        attributes: {
+        attributes: expect.objectContaining({
           verticalCells: 1,
           horizontalCells: 3,
           totalCells: 3,
           totalRowCount: 3,
           totalColumnCount: 3,
-        },
+        }),
         eventType: 'track',
       });
     });
@@ -272,14 +272,14 @@ describe('Table analytic events', () => {
         action: 'colored',
         actionSubject: 'table',
         actionSubjectId: null,
-        attributes: {
+        attributes: expect.objectContaining({
           cellColor: 'light blue',
           verticalCells: 1,
           horizontalCells: 3,
           totalCells: 3,
           totalRowCount: 3,
           totalColumnCount: 3,
-        },
+        }),
         eventType: 'track',
       });
     });
@@ -296,11 +296,11 @@ describe('Table analytic events', () => {
         action: 'toggledHeaderRow',
         actionSubject: 'table',
         actionSubjectId: null,
-        attributes: {
+        attributes: expect.objectContaining({
           newState: false,
           totalRowCount: 3,
           totalColumnCount: 3,
-        },
+        }),
         eventType: 'track',
       });
     });
@@ -317,11 +317,11 @@ describe('Table analytic events', () => {
         action: 'toggledHeaderColumn',
         actionSubject: 'table',
         actionSubjectId: null,
-        attributes: {
+        attributes: expect.objectContaining({
           newState: true,
           totalRowCount: 3,
           totalColumnCount: 3,
-        },
+        }),
         eventType: 'track',
       });
     });
@@ -338,11 +338,11 @@ describe('Table analytic events', () => {
         action: 'toggledNumberColumn',
         actionSubject: 'table',
         actionSubjectId: null,
-        attributes: {
+        attributes: expect.objectContaining({
           newState: true,
           totalRowCount: 3,
           totalColumnCount: 3,
-        },
+        }),
         eventType: 'track',
       });
     });
@@ -358,12 +358,12 @@ describe('Table analytic events', () => {
           action: 'changedBreakoutMode',
           actionSubject: 'table',
           actionSubjectId: null,
-          attributes: {
+          attributes: expect.objectContaining({
             newBreakoutMode: 'wide',
             previousBreakoutMode: 'normal',
             totalRowCount: 3,
             totalColumnCount: 3,
-          },
+          }),
           eventType: 'track',
         });
       });
@@ -388,12 +388,12 @@ describe('Table analytic events', () => {
           action: 'changedBreakoutMode',
           actionSubject: 'table',
           actionSubjectId: null,
-          attributes: {
+          attributes: expect.objectContaining({
             newBreakoutMode: 'fullWidth',
             previousBreakoutMode: 'wide',
             totalRowCount: 3,
             totalColumnCount: 3,
-          },
+          }),
           eventType: 'track',
         });
       });
@@ -417,12 +417,12 @@ describe('Table analytic events', () => {
           action: 'changedBreakoutMode',
           actionSubject: 'table',
           actionSubjectId: null,
-          attributes: {
+          attributes: expect.objectContaining({
             newBreakoutMode: 'normal',
             previousBreakoutMode: 'fullWidth',
             totalRowCount: 3,
             totalColumnCount: 3,
-          },
+          }),
           eventType: 'track',
         });
       });
@@ -451,13 +451,13 @@ describe('Table analytic events', () => {
         action: 'cut',
         actionSubject: 'table',
         actionSubjectId: null,
-        attributes: {
+        attributes: expect.objectContaining({
           verticalCells: 1,
           horizontalCells: 3,
           totalCells: 3,
           totalRowCount: 3,
           totalColumnCount: 3,
-        },
+        }),
         eventType: 'track',
       });
     });
@@ -478,12 +478,12 @@ describe('Table analytic events', () => {
           action: 'addedRow',
           actionSubject: 'table',
           actionSubjectId: null,
-          attributes: {
+          attributes: expect.objectContaining({
             inputMethod: 'contextMenu',
             position: 2,
             totalRowCount: 3,
             totalColumnCount: 3,
-          },
+          }),
           eventType: 'track',
         });
       });
@@ -501,12 +501,12 @@ describe('Table analytic events', () => {
             action: 'addedRow',
             actionSubject: 'table',
             actionSubjectId: null,
-            attributes: {
+            attributes: expect.objectContaining({
               inputMethod: 'keyboard',
               position: 3,
               totalRowCount: 3,
               totalColumnCount: 3,
-            },
+            }),
             eventType: 'track',
           });
         });
@@ -531,12 +531,12 @@ describe('Table analytic events', () => {
             action: 'addedRow',
             actionSubject: 'table',
             actionSubjectId: null,
-            attributes: {
+            attributes: expect.objectContaining({
               inputMethod: 'keyboard',
               position: 0,
               totalRowCount: 3,
               totalColumnCount: 3,
-            },
+            }),
             eventType: 'track',
           });
         });
@@ -558,12 +558,12 @@ describe('Table analytic events', () => {
         action: 'addedColumn',
         actionSubject: 'table',
         actionSubjectId: null,
-        attributes: {
+        attributes: expect.objectContaining({
           inputMethod: 'contextMenu',
           position: 2,
           totalRowCount: 3,
           totalColumnCount: 3,
-        },
+        }),
         eventType: 'track',
       });
     });
@@ -584,13 +584,13 @@ describe('Table analytic events', () => {
         action: 'deletedRow',
         actionSubject: 'table',
         actionSubjectId: null,
-        attributes: {
+        attributes: expect.objectContaining({
           inputMethod: 'contextMenu',
           position: 1,
           count: 1,
           totalRowCount: 3,
           totalColumnCount: 3,
-        },
+        }),
         eventType: 'track',
       });
     });
@@ -610,13 +610,13 @@ describe('Table analytic events', () => {
         action: 'deletedColumn',
         actionSubject: 'table',
         actionSubjectId: null,
-        attributes: {
+        attributes: expect.objectContaining({
           inputMethod: 'contextMenu',
           position: 1,
           count: 1,
           totalRowCount: 3,
           totalColumnCount: 3,
-        },
+        }),
         eventType: 'track',
       });
     });

@@ -88,7 +88,6 @@ export const ToolbarDownloadButton = (props: ToolbarDownloadButtonProps) => {
     <DownloadButton
       testId="media-viewer-download-button"
       analyticspayload={downloadEvent}
-      appearance={'toolbar' as any}
       onClick={createItemDownloader(
         state,
         mediaClient,
@@ -100,9 +99,5 @@ export const ToolbarDownloadButton = (props: ToolbarDownloadButtonProps) => {
 };
 
 export const DisabledToolbarDownloadButton = (
-  <MediaButton
-    appearance={'toolbar' as any}
-    isDisabled={true}
-    iconBefore={downloadIcon}
-  />
+  <MediaButton isDisabled={true} iconBefore={downloadIcon} />
 );

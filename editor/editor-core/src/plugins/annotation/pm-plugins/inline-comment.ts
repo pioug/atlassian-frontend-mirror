@@ -7,6 +7,7 @@ import {
   updateInlineCommentResolvedState,
   updateMouseState,
   clearDirtyMark,
+  setInlineCommentsVisibility,
 } from '../commands';
 import { InlineCommentAnnotationProvider } from '../types';
 import {
@@ -70,6 +71,7 @@ const initialState = (
       isSelecting: false,
     },
     disallowOnWhitespace,
+    isVisible: true,
   };
 };
 
@@ -104,6 +106,20 @@ const onMouseUp = (state: EditorState, dispatch: CommandDispatch) => (
   }
 };
 
+const onSetVisibility = (view: EditorView) => (isVisible: boolean) => {
+  const { state, dispatch } = view;
+
+  setInlineCommentsVisibility(isVisible)(state, dispatch);
+
+  if (isVisible) {
+    // PM retains focus when we click away from the editor.
+    // This will restore the visual aspect of the selection,
+    // otherwise it will seem a floating toolbar will appear
+    // for no reason.
+    view.focus();
+  }
+};
+
 export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
   const { provider, portalProviderAPI, eventDispatcher } = options;
 
@@ -125,6 +141,8 @@ export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
         onUnResolve(editorView.state, editorView.dispatch)(annotationId);
       const mouseUp = (event: Event) =>
         onMouseUp(editorView.state, editorView.dispatch)(event);
+      const setVisibility = (isVisible: boolean) =>
+        onSetVisibility(editorView)(isVisible);
 
       const { updateSubscriber } = provider;
       if (updateSubscriber) {
@@ -132,7 +150,8 @@ export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
           .on('resolve', resolve)
           .on('delete', resolve)
           .on('unresolve', unResolve)
-          .on('create', unResolve);
+          .on('create', unResolve)
+          .on('setvisibility', setVisibility);
       }
 
       editorView.root.addEventListener('mouseup', mouseUp);
@@ -155,7 +174,8 @@ export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
               .off('resolve', resolve)
               .off('delete', resolve)
               .off('unresolve', unResolve)
-              .off('create', unResolve);
+              .off('create', unResolve)
+              .off('setvisibility', setVisibility);
           }
         },
       };

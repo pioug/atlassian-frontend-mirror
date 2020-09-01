@@ -111,6 +111,7 @@ export default class ResizableMediaSingle extends React.Component<
         resizedPctWidth,
         this.calcPxWidth(newLayout),
       );
+
       this.props.updateSize(resizedPctWidth, layout);
     }
   }
@@ -177,6 +178,7 @@ export default class ResizableMediaSingle extends React.Component<
    */
   get gridWidth() {
     const { gridSize } = this.props;
+
     return !(this.wrappedLayout || this.insideInlineLike)
       ? gridSize / 2
       : gridSize;
@@ -205,32 +207,34 @@ export default class ResizableMediaSingle extends React.Component<
   };
 
   wrapper?: HTMLElement;
-  calcSnapPoints() {
-    const { offsetLeft } = this.state;
-
-    const { containerWidth, lineLength, allowBreakoutSnapPoints } = this.props;
+  calculateSnapPoints(): number[] {
+    const { offsetLeft, isVideoFile } = this.state;
+    const {
+      containerWidth,
+      lineLength,
+      allowBreakoutSnapPoints,
+      gridSize,
+    } = this.props;
     const snapTargets: number[] = [];
+    const isInsideLayout = this.insideLayout;
+
     for (let i = 0; i < this.gridWidth; i++) {
+      const pxFromColumns = calcPxFromColumns(i, lineLength, this.gridWidth);
+
       snapTargets.push(
-        calcPxFromColumns(i, lineLength, this.gridWidth) - offsetLeft,
+        isInsideLayout ? pxFromColumns : pxFromColumns - offsetLeft,
       );
     }
     // full width
     snapTargets.push(lineLength - offsetLeft);
-
-    const minimumWidth = calcPxFromColumns(
-      this.wrappedLayout || this.insideInlineLike ? 1 : 2,
-      lineLength,
-      this.props.gridSize,
-    );
+    const columns = this.wrappedLayout || this.insideInlineLike ? 1 : 2;
+    const minimumWidth = calcPxFromColumns(columns, lineLength, gridSize);
 
     let snapPoints = snapTargets.filter(width => width >= minimumWidth);
     const $pos = this.$pos;
     if (!$pos) {
       return snapPoints;
     }
-
-    const { isVideoFile } = this.state;
 
     snapPoints = isVideoFile
       ? snapPoints.filter(width => width > 320)
@@ -286,6 +290,17 @@ export default class ResizableMediaSingle extends React.Component<
     return !!findParentNodeOfTypeClosestToPos($pos, [listItem]);
   }
 
+  get insideLayout(): boolean {
+    const $pos = this.$pos;
+    if (!$pos) {
+      return false;
+    }
+
+    const { layoutColumn } = this.props.view.state.schema.nodes;
+
+    return !!findParentNodeOfTypeClosestToPos($pos, [layoutColumn]);
+  }
+
   highlights = (newWidth: number, snapPoints: number[]) => {
     const snapWidth = snapTo(newWidth, snapPoints);
     const {
@@ -330,6 +345,8 @@ export default class ResizableMediaSingle extends React.Component<
     return highlight;
   };
 
+  private saveWrapper = (wrapper: HTMLElement) => (this.wrapper = wrapper);
+
   render() {
     const {
       width: origWidth,
@@ -350,7 +367,7 @@ export default class ResizableMediaSingle extends React.Component<
     const width = pxWidth;
 
     const enable: EnabledHandles = {};
-    handleSides.forEach((side: 'left' | 'right') => {
+    handleSides.forEach(side => {
       const oppositeSide = side === 'left' ? 'right' : 'left';
       enable[side] =
         ['full-width', 'wide', 'center']
@@ -371,7 +388,7 @@ export default class ResizableMediaSingle extends React.Component<
         layout={layout}
         isResized={!!pctWidth}
         containerWidth={containerWidth || origWidth}
-        innerRef={(elem: any) => (this.wrapper = elem)}
+        innerRef={this.saveWrapper}
         fullWidthMode={fullWidthMode}
       >
         <Resizer
@@ -381,7 +398,7 @@ export default class ResizableMediaSingle extends React.Component<
           selected={selected}
           enable={enable}
           calcNewSize={this.calcNewSize}
-          snapPoints={this.calcSnapPoints()}
+          snapPoints={this.calculateSnapPoints()}
           scaleFactor={!this.wrappedLayout && !this.insideInlineLike ? 2 : 1}
           highlights={this.highlights}
           handleResizeStart={() => {

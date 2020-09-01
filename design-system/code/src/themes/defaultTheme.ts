@@ -3,10 +3,10 @@ import memoizeOne from 'memoize-one';
 import * as colors from '@atlaskit/theme/colors';
 import { themed } from '@atlaskit/theme/components';
 
-import { Theme } from './themeBuilder';
+import { CodeBlockTheme } from './types';
 
 export const defaultColors = memoizeOne(
-  (theme: any): Theme => {
+  (theme: any): CodeBlockTheme => {
     const akTheme = { theme };
     return {
       lineNumberColor: themed({ light: colors.N90, dark: colors.DN90 })(

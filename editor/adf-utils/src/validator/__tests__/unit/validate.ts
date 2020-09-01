@@ -65,6 +65,12 @@ describe('validate', () => {
         const ignoreList = [
           'taskList-with-taskList-as-first-child.json',
           'layout-with-embed.json',
+          'heading-with-unknown-attrs.json',
+          'mention-with-extra-attrs.json',
+          'status-with-extra-attr.json',
+          'codeBlock-with-unknown-attribute.json',
+          'mention-with-invalid-user-type.json',
+          'hardBreak-with-wrong-text.json',
         ];
         expect(true).toBe(true);
         if (!ignoreList.includes(file.name)) {

@@ -38,7 +38,7 @@ const getResizeAnalyticsEvent = (
   };
 };
 
-interface ReResizableNumberSize {
+export interface ResizableNumberSize {
   width: number;
   height: number;
 }
@@ -64,22 +64,32 @@ type ResizerProps = ResizableMediaSingleProps & {
 type ResizerState = {
   isResizing: boolean;
 };
+
+const getWidthFromSnapPoints = (
+  width: number,
+  snapPoints: number[],
+): number => {
+  if (snapPoints.length) {
+    return Math.min(
+      Math.max(width, snapPoints[0]),
+      snapPoints[snapPoints.length - 1],
+    );
+  }
+
+  return width;
+};
+
 export default class Resizer extends React.Component<
   ResizerProps,
   ResizerState
 > {
-  resizable: RefObject<Resizable>;
+  resizable: RefObject<Resizable> = React.createRef();
 
   state = {
     isResizing: false,
   };
 
-  constructor(props: ResizerProps) {
-    super(props);
-    this.resizable = React.createRef();
-  }
-
-  handleResizeStart = (
+  private handleResizeStart = (
     event: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>,
   ) => {
     const {
@@ -93,7 +103,6 @@ export default class Resizer extends React.Component<
 
     // prevent creating a drag event on Firefox
     event.preventDefault();
-
     if (handleResizeStart && !handleResizeStart(event)) {
       return false;
     }
@@ -108,11 +117,11 @@ export default class Resizer extends React.Component<
     });
   };
 
-  handleResize = (
+  private handleResize = (
     _event: MouseEvent | TouchEvent,
     _direction: ResizeDirection,
     _elementRef: HTMLDivElement,
-    delta: ReResizableNumberSize,
+    delta: ResizableNumberSize,
   ) => {
     const {
       highlights,
@@ -123,17 +132,15 @@ export default class Resizer extends React.Component<
       layout,
       updateSize,
     } = this.props;
-
     const resizable = this.resizable.current;
-    if (!resizable || !resizable.state.original || !this.state.isResizing) {
+    const { isResizing } = this.state;
+    if (!resizable || !resizable.state.original || !isResizing) {
       return;
     }
-
-    let newWidth = Math.max(
+    const newWidth = getWidthFromSnapPoints(
       resizable.state.original.width + delta.width * (scaleFactor || 1),
-      snapPoints[0],
+      snapPoints,
     );
-    newWidth = Math.min(newWidth, snapPoints[snapPoints.length - 1]);
 
     const newSize = calcNewSize(newWidth, false);
     if (newSize.layout !== layout) {
@@ -150,11 +157,11 @@ export default class Resizer extends React.Component<
     resizable.setState({ isResizing: true });
   };
 
-  handleResizeStop = (
+  private handleResizeStop = (
     _event: MouseEvent | TouchEvent,
     _direction: ResizeDirection,
     _elementRef: HTMLElement,
-    delta: ReResizableNumberSize,
+    delta: ResizableNumberSize,
   ) => {
     const {
       highlights,
@@ -164,30 +171,25 @@ export default class Resizer extends React.Component<
       layout,
       updateSize,
       dispatchAnalyticsEvent,
+      nodeType,
     } = this.props;
-
     const resizable = this.resizable.current;
-    if (!resizable || !resizable.state.original || !this.state.isResizing) {
+    const { isResizing } = this.state;
+    if (!resizable || !resizable.state.original || !isResizing) {
       return;
     }
 
-    let newWidth = Math.max(
+    const newWidth = getWidthFromSnapPoints(
       resizable.state.original.width + delta.width,
-      snapPoints[0],
+      snapPoints,
     );
-    newWidth = Math.min(newWidth, snapPoints[snapPoints.length - 1]);
-
     const snapWidth = snapTo(newWidth, snapPoints);
     const newSize = calcNewSize(snapWidth, true);
     const newHighlights = highlights(newWidth, snapPoints);
 
     if (dispatchAnalyticsEvent) {
       dispatchAnalyticsEvent(
-        getResizeAnalyticsEvent(
-          this.props.nodeType,
-          newSize.width,
-          newSize.layout,
-        ),
+        getResizeAnalyticsEvent(nodeType, newSize.width, newSize.layout),
       );
     }
     // show committed grid size
@@ -206,7 +208,16 @@ export default class Resizer extends React.Component<
   render() {
     const handleStyles: Record<string, {}> = {};
     const handles: Record<string, string> = {};
-    const { innerPadding = 0 } = this.props;
+    const {
+      innerPadding = 0,
+      width,
+      pctWidth,
+      selected,
+      layout,
+      enable,
+      children,
+    } = this.props;
+    const { isResizing } = this.state;
     handleSides.forEach(side => {
       handles[side] = `richMedia-resize-handle-${side}`;
       handleStyles[side] = {
@@ -215,6 +226,17 @@ export default class Resizer extends React.Component<
         zIndex: akRichMediaResizeZIndex,
       };
     });
+    const className = classnames(
+      richMediaClassName,
+      `image-${layout}`,
+      this.props.className,
+      {
+        'is-resizing': isResizing,
+        'not-resized': !pctWidth,
+        'richMedia-selected': selected,
+        'rich-media-wrapped': layout === 'wrap-left' || layout === 'wrap-right',
+      },
+    );
 
     // Ideally, Resizable would let you pass in the component rather than
     // the div. For now, we just apply the same styles using CSS
@@ -222,30 +244,18 @@ export default class Resizer extends React.Component<
       <Resizable
         ref={this.resizable}
         size={{
-          width: this.props.width - innerPadding,
+          width: width - innerPadding,
           height: 'auto',
         }}
-        className={classnames(
-          richMediaClassName,
-          `image-${this.props.layout}`,
-          this.props.className,
-          {
-            'is-resizing': this.state.isResizing,
-            'not-resized': !this.props.pctWidth,
-            'richMedia-selected': this.props.selected,
-            'rich-media-wrapped':
-              this.props.layout === 'wrap-left' ||
-              this.props.layout === 'wrap-right',
-          },
-        )}
+        className={className}
         handleClasses={handles}
         handleStyles={handleStyles}
-        enable={this.props.enable}
+        enable={enable}
         onResize={this.handleResize}
         onResizeStop={this.handleResizeStop}
         onResizeStart={this.handleResizeStart}
       >
-        {this.props.children}
+        {children}
       </Resizable>
     );
   }

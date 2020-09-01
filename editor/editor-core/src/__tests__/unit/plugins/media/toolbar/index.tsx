@@ -53,11 +53,9 @@ import Button from '../../../../../plugins/floating-toolbar/ui/Button';
 import { MediaOptions } from '../../../../../plugins/media/types';
 import { stateKey } from '../../../../../plugins/media/pm-plugins/main';
 import { floatingToolbar } from '../../../../../plugins/media/toolbar';
-import { messages as toolbarMessages } from '../../../../../ui/MediaAndEmbedsToolbar';
-import {
-  AnnotationToolbar,
-  messages as annotateMessages,
-} from '../../../../../plugins/media/toolbar/annotation';
+import { toolbarMessages } from '../../../../../ui/MediaAndEmbedsToolbar/toolbar-messages';
+import { AnnotationToolbar } from '../../../../../plugins/media/toolbar/annotation';
+import { toolbarMessages as annotateMessages } from '../../../../../plugins/media/toolbar/toolbar-messages';
 import { setNodeSelection } from '../../../../../utils';
 import {
   getFreshMediaProvider,

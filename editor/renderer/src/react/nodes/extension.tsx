@@ -1,11 +1,9 @@
 import React from 'react';
 import { RendererContext } from '../types';
-import { renderNodes, Serializer } from '../..';
 import { ExtensionLayout } from '@atlaskit/adf-schema';
 import ExtensionRenderer from '../../ui/ExtensionRenderer';
 
 import {
-  ADNode,
   calcBreakoutWidth,
   ExtensionHandlers,
   overflowShadow,
@@ -16,7 +14,6 @@ import {
 import { RendererCssClassName } from '../../consts';
 
 export interface Props {
-  serializer: Serializer<any>;
   extensionHandlers?: ExtensionHandlers;
   providers: ProviderFactory;
   rendererContext: RendererContext;
@@ -57,39 +54,23 @@ export const renderExtension = (
 
 const Extension: React.StatelessComponent<Props &
   OverflowShadowProps> = props => {
-  const {
-    serializer,
-    rendererContext,
-    text,
-    layout = 'default',
-    handleRef,
-    shadowClassNames,
-  } = props;
+  const { text, layout = 'default', handleRef, shadowClassNames } = props;
   return (
     <ExtensionRenderer {...props} type="extension">
       {({ result }) => {
         try {
-          switch (true) {
-            case result && React.isValidElement(result):
-              // Return the result directly if it's a valid JSX.Element
-              return renderExtension(result, layout, {
-                handleRef,
-                shadowClassNames,
-              });
-            case !!result:
-              // We expect it to be Atlassian Document here
-              const nodes = Array.isArray(result) ? result : [result];
-              return renderNodes(
-                nodes as ADNode[],
-                serializer,
-                rendererContext.schema,
-                'div',
-              );
+          // Return the result directly if it's a valid JSX.Element
+          if (result && React.isValidElement(result)) {
+            return renderExtension(result, layout, {
+              handleRef,
+              shadowClassNames,
+            });
           }
         } catch (e) {
           /** We don't want this error to block renderer */
           /** We keep rendering the default content */
         }
+
         // Always return default content if anything goes wrong
         return renderExtension(text || 'extension', layout, {
           handleRef,

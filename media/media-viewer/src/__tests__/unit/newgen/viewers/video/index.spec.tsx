@@ -1,5 +1,16 @@
+jest.mock('@atlaskit/media-ui', () => {
+  const actualModule = jest.requireActual('@atlaskit/media-ui');
+  type CustomMediaPlayerType = typeof actualModule.CustomMediaPlayer;
+  return {
+    ...actualModule,
+    CustomMediaPlayer: jest.fn<
+      ReturnType<CustomMediaPlayerType>,
+      Parameters<CustomMediaPlayerType>
+    >(() => null),
+  };
+});
+
 import React from 'react';
-import Button from '@atlaskit/button';
 import {
   globalMediaEventEmitter,
   MediaViewedEventPayload,
@@ -10,11 +21,12 @@ import {
   mountWithIntlContext,
   fakeMediaClient,
   expectFunctionToHaveBeenCalledWith,
+  expectToEqual,
+  asMockFunction,
 } from '@atlaskit/media-test-helpers';
 import { CustomMediaPlayer } from '@atlaskit/media-ui';
 import { VideoViewer, Props } from '../../../../../newgen/viewers/video';
 import { ErrorMessage } from '../../../../../newgen/error';
-import { Auth } from '@atlaskit/media-core';
 
 const token = 'some-token';
 const clientId = 'some-client-id';
@@ -55,24 +67,33 @@ const sdVideoItem: ProcessedFileState = {
   representations: {},
 };
 
-function createFixture(
-  authPromise: Promise<Auth>,
-  props?: Partial<Props>,
-  item?: ProcessedFileState,
-  mockReturnGetArtifactURL?: Promise<string>,
-) {
+interface SetupOptions {
+  props?: Partial<Props>;
+  item?: ProcessedFileState;
+  mockReturnGetArtifactURL?: Promise<string>;
+  shouldInit?: boolean;
+}
+
+const defaultOptions: SetupOptions = { shouldInit: true };
+async function setup(options: SetupOptions = {}) {
+  const { props, item, mockReturnGetArtifactURL, shouldInit } = {
+    ...defaultOptions,
+    ...options,
+  };
+  const authPromise = Promise.resolve({ token, clientId, baseUrl });
   const mediaClient = fakeMediaClient({
     authProvider: () => authPromise,
   });
 
+  const getArtifactURLResult: ReturnType<typeof mediaClient.file.getArtifactURL> =
+    mockReturnGetArtifactURL ||
+    Promise.resolve(
+      'some-base-url/video_hd?client=some-client-id&token=some-token',
+    );
+
   jest
     .spyOn(mediaClient.file, 'getArtifactURL')
-    .mockReturnValue(
-      mockReturnGetArtifactURL ||
-        Promise.resolve(
-          'some-base-url/video_hd?client=some-client-id&token=some-token',
-        ),
-    );
+    .mockReturnValue(getArtifactURLResult);
 
   const el = mountWithIntlContext(
     <VideoViewer
@@ -82,7 +103,14 @@ function createFixture(
       previewCount={(props && props.previewCount) || 0}
     />,
   );
-  return { mediaClient, el };
+
+  if (shouldInit) {
+    await getArtifactURLResult;
+    el.update();
+  }
+
+  const customMediaPlayer = el.find(CustomMediaPlayer);
+  return { mediaClient, el, item: item || videoItem, customMediaPlayer };
 }
 
 describe('Video viewer', () => {
@@ -98,33 +126,26 @@ describe('Video viewer', () => {
   });
 
   it('assigns a src for videos when successful', async () => {
-    const authPromise = Promise.resolve({ token, clientId, baseUrl });
-    const { el } = createFixture(authPromise);
-    await (el as any).instance()['init']();
-    el.update();
-    expect(el.find(CustomMediaPlayer).prop('src')).toEqual(
+    const { customMediaPlayer } = await setup();
+
+    expect(customMediaPlayer.props().src).toEqual(
       'some-base-url/video_hd?client=some-client-id&token=some-token',
     );
   });
 
   it('shows spinner when pending', async () => {
-    const authPromise: any = new Promise(() => {});
-    const { el } = createFixture(authPromise);
+    const { el } = await setup({
+      shouldInit: false,
+      mockReturnGetArtifactURL: new Promise(() => {}),
+    });
     el.update();
     expect(el.find(Spinner)).toHaveLength(1);
   });
 
   it('shows error message when there are not video artifacts in the media item', async () => {
-    const authPromise = Promise.resolve({ token, clientId, baseUrl });
-    const { el } = createFixture(
-      authPromise,
-      undefined,
-      undefined,
-      Promise.resolve(''),
-    );
-
-    await (el as any).instance()['init']();
-    el.update();
+    const { el } = await setup({
+      mockReturnGetArtifactURL: Promise.resolve(''),
+    });
 
     const errorMessage = el.find(ErrorMessage);
 
@@ -136,68 +157,63 @@ describe('Video viewer', () => {
 
   it('MSW-720: passes collectionName to getArtifactURL', async () => {
     const collectionName = 'some-collection';
-    const authPromise = Promise.resolve({ token, clientId, baseUrl });
-    const { el, mediaClient } = createFixture(authPromise, { collectionName });
-    await (el as any).instance()['init']();
-    el.update();
-    expect(
-      (mediaClient.file.getArtifactURL as jest.Mock).mock.calls[0][2],
-    ).toEqual(collectionName);
+    const { mediaClient } = await setup({
+      props: { collectionName },
+    });
+
+    expectToEqual(
+      asMockFunction(mediaClient.file.getArtifactURL).mock.calls[0][2],
+      collectionName,
+    );
   });
 
   it('should render a custom video player if the feature flag is active', async () => {
-    const authPromise = Promise.resolve({ token, clientId, baseUrl });
-    const { el } = createFixture(authPromise);
+    const { customMediaPlayer } = await setup();
 
-    await (el as any).instance()['init']();
-    el.update();
-
-    expect(el.find(CustomMediaPlayer)).toHaveLength(1);
-    expect(el.find(CustomMediaPlayer).prop('src')).toEqual(
+    expect(customMediaPlayer).toHaveLength(1);
+    expect(customMediaPlayer.props().src).toEqual(
       'some-base-url/video_hd?client=some-client-id&token=some-token',
     );
   });
 
   it('should toggle hd when button is clicked', async () => {
-    const authPromise = Promise.resolve({ token, clientId, baseUrl });
-    const { el } = createFixture(authPromise);
+    const { el, customMediaPlayer } = await setup();
 
-    await (el as any).instance()['init']();
+    expect(customMediaPlayer.props().isHDActive).toBeTruthy();
+    const { onHDToggleClick } = customMediaPlayer.props();
+    if (!onHDToggleClick) {
+      return expect(onHDToggleClick).toBeDefined();
+    }
+    onHDToggleClick();
+
     el.update();
-    expect(el.state('isHDActive')).toBeTruthy();
-    el.find(Button)
-      .at(2)
-      .simulate('click');
-    expect(el.state('isHDActive')).toBeFalsy();
+
+    expect(el.find(CustomMediaPlayer).props().isHDActive).toBeFalsy();
   });
 
   it('should default to hd if available', async () => {
-    const authPromise = Promise.resolve({ token, clientId, baseUrl });
-    const { el } = createFixture(authPromise);
+    const { customMediaPlayer } = await setup();
 
-    await (el as any).instance()['init']();
-    el.update();
-    expect(el.state('isHDActive')).toBeTruthy();
+    expect(customMediaPlayer.props().isHDActive).toBeTruthy();
   });
 
   it('should default to sd if hd is not available', async () => {
-    const authPromise = Promise.resolve({ token, clientId, baseUrl });
-    const { el } = createFixture(authPromise, {}, sdVideoItem);
+    const { customMediaPlayer } = await setup({
+      item: sdVideoItem,
+    });
 
-    await (el as any).instance()['init']();
-    el.update();
-    expect(el.state('isHDActive')).toBeFalsy();
+    expect(customMediaPlayer.props().isHDActive).toBeFalsy();
   });
 
   it('should save video quality when changes', async () => {
-    const authPromise = Promise.resolve({ token, clientId, baseUrl });
-    const { el } = createFixture(authPromise, {});
+    const { customMediaPlayer } = await setup();
 
-    await (el as any).instance()['init']();
-    el.update();
-    el.find(Button)
-      .at(2)
-      .simulate('click');
+    const { onHDToggleClick } = customMediaPlayer.props();
+    if (!onHDToggleClick) {
+      return expect(onHDToggleClick).toBeDefined();
+    }
+    onHDToggleClick();
+
     expect(localStorage.setItem).toBeCalledWith(
       'mv_video_player_quality',
       'sd',
@@ -207,50 +223,44 @@ describe('Video viewer', () => {
 
   it('should default to sd if previous quality was sd', async () => {
     localStorage.setItem('mv_video_player_quality', 'sd');
-    const authPromise = Promise.resolve({ token, clientId, baseUrl });
-    const { el } = createFixture(authPromise, {});
+    const { customMediaPlayer } = await setup();
 
-    await (el as any).instance()['init']();
-    el.update();
-    expect(el.state('isHDActive')).toBeFalsy();
+    expect(customMediaPlayer.props().isHDActive).toBeFalsy();
   });
 
   describe('AutoPlay', () => {
-    async function createAutoPlayFixture(previewCount: number) {
-      const authPromise = Promise.resolve({ token, clientId, baseUrl });
-      const { mediaClient } = createFixture(authPromise);
-      const el = mountWithIntlContext(
-        <VideoViewer
-          mediaClient={mediaClient}
-          previewCount={previewCount}
-          item={videoItem}
-        />,
-      );
-      await (el as any).instance()['init']();
-      el.update();
-      return el;
-    }
-
     it('should auto play video viewer when it is the first preview', async () => {
-      const el = await createAutoPlayFixture(0);
-      expect(el.find(CustomMediaPlayer)).toHaveLength(1);
-      expect(el.find({ autoPlay: true })).toHaveLength(2);
+      const { customMediaPlayer } = await setup({
+        props: {
+          previewCount: 0,
+          item: videoItem,
+        },
+      });
+      expect(customMediaPlayer).toHaveLength(1);
+      expect(customMediaPlayer.props().isAutoPlay).toBe(true);
     });
 
     it('should not auto play video viewer when it is not the first preview', async () => {
-      const el = await createAutoPlayFixture(1);
-      expect(el.find(CustomMediaPlayer)).toHaveLength(1);
-      expect(el.find({ autoPlay: true })).toHaveLength(0);
+      const { customMediaPlayer } = await setup({
+        props: {
+          previewCount: 1,
+          item: videoItem,
+        },
+      });
+      expect(customMediaPlayer).toHaveLength(1);
+      expect(customMediaPlayer.props().isAutoPlay).toBe(false);
     });
   });
 
   it('should trigger media-viewed when video is first played', async () => {
     localStorage.setItem('mv_video_player_quality', 'sd');
-    const authPromise = Promise.resolve({ token, clientId, baseUrl });
-    const { el } = createFixture(authPromise, { previewCount: 1 });
-    await (el as any).instance()['init']();
-    el.update();
-    const { onFirstPlay } = el.find(CustomMediaPlayer).props();
+    const { customMediaPlayer } = await setup({
+      props: {
+        previewCount: 1,
+      },
+    });
+
+    const { onFirstPlay } = customMediaPlayer.props();
     if (!onFirstPlay) {
       return expect(onFirstPlay).toBeDefined();
     }
@@ -263,5 +273,13 @@ describe('Video viewer', () => {
         viewingLevel: 'full',
       } as MediaViewedEventPayload,
     ]);
+  });
+
+  it('should use last watch time feature', async () => {
+    const { item, customMediaPlayer } = await setup();
+
+    expectToEqual(customMediaPlayer.props().lastWatchTimeConfig, {
+      contentId: item.id,
+    });
   });
 });

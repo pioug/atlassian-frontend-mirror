@@ -12,7 +12,10 @@ import { render, unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
 import { FetchProxy } from '../../../utils/fetch-proxy';
 import { nativeBridgeAPI } from '../../../renderer/web-to-native/implementation';
-
+import { IntlProvider } from 'react-intl';
+import { DocumentReflowDetector } from '../../../document-reflow-detector';
+import { eventDispatcher, EmitterEvents } from '../../dispatcher';
+jest.mock('../../../document-reflow-detector');
 jest.mock('../../../editor/web-to-native/dummy-impl');
 jest.mock('../../../renderer/web-to-native/implementation');
 
@@ -42,9 +45,22 @@ const initialDocument = JSON.stringify({
 });
 
 let container: HTMLElement;
+let enableReflowMock = jest.fn();
+let disableReflowMock = jest.fn();
 beforeEach(() => {
   container = document.createElement('div');
   document.body.appendChild(container);
+
+  (DocumentReflowDetector as jest.Mock).mockImplementation(() => {
+    return {
+      disable: disableReflowMock,
+      enable: enableReflowMock,
+    };
+  });
+
+  jest
+    .spyOn(window.rendererBridge!, 'getRootElement')
+    .mockReturnValue(container);
 });
 
 afterEach(() => {
@@ -53,6 +69,7 @@ afterEach(() => {
     jest.runAllTimers();
     container.remove();
   });
+  jest.clearAllMocks();
 });
 
 describe('renderer bridge', () => {
@@ -65,14 +82,16 @@ describe('renderer bridge', () => {
   ): HTMLElement => {
     act(() => {
       render(
-        <MobileRenderer
-          document={adf}
-          cardClient={createCardClient()}
-          emojiProvider={createEmojiProvider(fetchProxy)}
-          mediaProvider={createMediaProvider()}
-          mentionProvider={createMentionProvider()}
-          allowAnnotations={allowAnnotations}
-        />,
+        <IntlProvider locale="en">
+          <MobileRenderer
+            document={adf}
+            cardClient={createCardClient()}
+            emojiProvider={createEmojiProvider(fetchProxy)}
+            mediaProvider={createMediaProvider()}
+            mentionProvider={createMentionProvider()}
+            allowAnnotations={allowAnnotations}
+          />
+        </IntlProvider>,
         container,
       );
       jest.runAllTimers();
@@ -99,6 +118,32 @@ describe('renderer bridge', () => {
     fetchProxy.disable();
   });
 
+  describe('document reflow detector', () => {
+    beforeEach(() => {
+      initRenderer(initialDocument, false);
+    });
+
+    it(`is initialized`, () => {
+      expect(DocumentReflowDetector).toHaveBeenCalled();
+    });
+
+    it(`is enabled with container when SET_DOCUMENT_REFLOW_DETECTOR_STATUS emitted with true`, () => {
+      eventDispatcher.emit(
+        EmitterEvents.SET_DOCUMENT_REFLOW_DETECTOR_STATUS,
+        true,
+      );
+      expect(enableReflowMock).toHaveBeenCalledWith(container);
+    });
+
+    it(`is disabled when SET_DOCUMENT_REFLOW_DETECTOR_STATUS emitted with false`, () => {
+      eventDispatcher.emit(
+        EmitterEvents.SET_DOCUMENT_REFLOW_DETECTOR_STATUS,
+        false,
+      );
+      expect(disableReflowMock).toHaveBeenCalled();
+    });
+  });
+
   describe('annotations', () => {
     const expected = [
       {
@@ -117,7 +162,6 @@ describe('renderer bridge', () => {
     describe('when allowAnnotations is true', () => {
       it(`should call getAnnotationStates birdge method on renderer`, () => {
         initRenderer(initialDocument, true);
-
         expect(nativeBridgeAPI.fetchAnnotationStates).toHaveBeenCalledWith(
           expected,
         );

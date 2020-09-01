@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/droplist",
-  "version": "11.0.2",
+  "version": "11.0.3",
   "description": "Droplist component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -26,12 +26,12 @@
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^7.0.0",
-    "@atlaskit/icon": "^21.0.0",
+    "@atlaskit/icon": "^21.1.0",
     "@atlaskit/item": "^12.0.0",
     "@atlaskit/layer": "^9.0.0",
     "@atlaskit/spinner": "^15.0.0",
     "@atlaskit/theme": "^10.0.0",
-    "@atlaskit/tooltip": "^16.0.0",
+    "@atlaskit/tooltip": "^17.0.0",
     "@babel/runtime": "^7.0.0",
     "prop-types": "^15.5.10"
   },

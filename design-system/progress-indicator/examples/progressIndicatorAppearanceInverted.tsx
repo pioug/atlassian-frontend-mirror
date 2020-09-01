@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import Button from '@atlaskit/button';
 
-import { ProgressDots } from '../src';
+import { ProgressIndicator } from '../src';
 
 const Footer = styled.div`
   align-items: center;
@@ -56,7 +56,7 @@ export default class extends Component<Props, State> {
         >
           Prev
         </Button>
-        <ProgressDots
+        <ProgressIndicator
           selectedIndex={selectedIndex}
           values={values}
           appearance={'inverted'}

@@ -1,5 +1,29 @@
 # @atlaskit/tooltip
 
+## 17.0.0
+
+### Major Changes
+
+- [`83586f015e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/83586f015e) - Tooltip has been refactored to improve performance and be compliant with the lite-mode specification.
+
+  - Removed `react-transition-group` in favor of `@atlaskit/motion` to reduce bundle size
+  - Removed `react-node-resolver` because of its use of `React.findDOMNode` which has been marked as deprecated by the React team (more below...)
+  - Removes analytics-next HOCs in favor of hook variant (You may need to update snapshot tests)
+  - Removes all usage of HOCs
+  - Replaces `styled-components` v3 with `@emotion/core` to improve runtime and bundle-size
+  - If you are passing component to the `tag` prop then your component will need to expose a `ref` prop (`ref: React.Ref<HTMLElement>`).
+
+  **Important to note:**
+
+  Only a single element can be supplied to Tooltip as children, no plain text etc. (this has not changed from previous version).
+
+### Patch Changes
+
+- [`f32a1f0ebf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f32a1f0ebf) - update @atlaskit/tooltip position prop to support Placement type.
+- [`3f7751f72c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3f7751f72c) - - Fixed issue where tooltip would not hide in some circumstances
+  - Added official support for nested tooltips within tooltips
+  - Test IDs will now be applied to the container element as well as the tooltip, with '--container' appended to the end
+
 ## 16.0.4
 
 ### Patch Changes

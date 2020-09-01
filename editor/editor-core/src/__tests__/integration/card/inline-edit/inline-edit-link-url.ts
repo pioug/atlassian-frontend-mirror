@@ -7,7 +7,7 @@ import {
   linkUrlSelector,
 } from '../../_helpers';
 
-import { waitForInlineCardSelection } from '../../../__helpers/page-objects/_cards';
+import { waitForInlineCardSelection } from '@atlaskit/media-integration-test-helpers';
 import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 
 BrowserTestCase(
@@ -30,10 +30,10 @@ BrowserTestCase(
     // Clear the Link Url field before typing
     await page.clear(linkUrlSelector);
     // Change the 'link address' field to another link and press enter
-    await page.type(
-      linkUrlSelector,
-      'https://onedrive.live.com/redir?resid=5D04B397F4A8ABE!1004&authkey=!AN4C7co5280OG_Y\n',
-    );
+    await page.type(linkUrlSelector, [
+      'https://onedrive.live.com/redir?resid=5D04B397F4A8ABE!1004&authkey=!AN4C7co5280OG_Y',
+      'Return',
+    ]);
     expect(
       await page.$eval(editable, getDocFromElement),
     ).toMatchCustomDocSnapshot(testName);

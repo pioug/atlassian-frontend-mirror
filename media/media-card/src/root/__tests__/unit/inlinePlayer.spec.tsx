@@ -1,3 +1,14 @@
+jest.mock('@atlaskit/media-ui', () => {
+  const actualModule = jest.requireActual('@atlaskit/media-ui');
+  type CustomMediaPlayerType = typeof actualModule.CustomMediaPlayer;
+  return {
+    ...actualModule,
+    CustomMediaPlayer: jest.fn<
+      ReturnType<CustomMediaPlayerType>,
+      Parameters<CustomMediaPlayerType>
+    >(() => null),
+  };
+});
 import React from 'react';
 import { ReactWrapper } from 'enzyme';
 import { CustomMediaPlayer } from '@atlaskit/media-ui';
@@ -12,6 +23,7 @@ import {
 import {
   asMockReturnValue,
   expectFunctionToHaveBeenCalledWith,
+  expectToEqual,
   fakeMediaClient,
   mountWithIntlContext,
   nextTick,
@@ -46,6 +58,8 @@ describe('<InlinePlayer />', () => {
     props?: Partial<InlinePlayerProps>,
     artifacts: MediaFileArtifacts = defaultArtifact,
     analyticsHandler: any = false,
+    InlinePlayerComponent: typeof InlinePlayer = InlinePlayer,
+    identifier?: FileIdentifier,
   ) => {
     const mediaClient = fakeMediaClient();
     asMockReturnValue(
@@ -63,16 +77,17 @@ describe('<InlinePlayer />', () => {
       mediaClient.file.getFileBinaryURL,
       Promise.resolve('binary-url'),
     );
-    const identifier = {
+    const defaultIdentifier: FileIdentifier = {
       id: 'some-id',
       collectionName: 'some-collection',
-    } as FileIdentifier;
+      mediaItemType: 'file',
+    };
 
     const TheInlinePlayer = () => (
-      <InlinePlayer
+      <InlinePlayerComponent
         dimensions={{}}
         mediaClient={mediaClient}
-        identifier={identifier}
+        identifier={identifier || defaultIdentifier}
         {...props}
       />
     );
@@ -96,6 +111,7 @@ describe('<InlinePlayer />', () => {
     return {
       component,
       mediaClient,
+      identifier: identifier || defaultIdentifier,
     };
   };
   const update = async (
@@ -301,8 +317,11 @@ describe('<InlinePlayer />', () => {
     const { component, mediaClient } = setup();
 
     await update(component);
-    const button = component.find('DownloadIcon');
-    button.simulate('click');
+    const { onDownloadClick } = component.find(CustomMediaPlayer).props();
+    if (!onDownloadClick) {
+      return expect(onDownloadClick).toBeDefined();
+    }
+    onDownloadClick();
     await nextTick();
     expect(mediaClient.file.downloadBinary).toBeCalledTimes(1);
     expect(mediaClient.file.downloadBinary).toBeCalledWith(
@@ -389,6 +408,13 @@ describe('<InlinePlayer />', () => {
   it('should trigger media-viewed when video is first played', async () => {
     const { component } = setup();
     await update(component);
+
+    const { onFirstPlay } = component.find(CustomMediaPlayer).props();
+    if (!onFirstPlay) {
+      return expect(onFirstPlay).toBeDefined();
+    }
+    onFirstPlay();
+
     expect(globalMediaEventEmitter.emit).toHaveBeenCalledTimes(1);
     expectFunctionToHaveBeenCalledWith(globalMediaEventEmitter.emit, [
       'media-viewed',
@@ -397,5 +423,16 @@ describe('<InlinePlayer />', () => {
         viewingLevel: 'full',
       } as MediaViewedEventPayload,
     ]);
+  });
+
+  it('should use last watch time feature', async () => {
+    const { component, identifier } = setup();
+    await update(component);
+    expectToEqual(
+      component.find(CustomMediaPlayer).props().lastWatchTimeConfig,
+      {
+        contentId: identifier.id,
+      },
+    );
   });
 });

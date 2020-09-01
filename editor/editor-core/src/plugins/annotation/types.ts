@@ -70,6 +70,8 @@ export type InlineCommentAnnotationProvider = AnnotationTypeProvider<
 > & {
   createComponent?: React.ComponentType<InlineCommentCreateComponentProps>;
   viewComponent?: React.ComponentType<InlineCommentViewComponentProps>;
+  // always position toolbar above the selection
+  isToolbarAbove?: boolean;
 };
 
 export interface AnnotationProviders {

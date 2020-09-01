@@ -5,7 +5,7 @@ import { Step, ReplaceStep } from 'prosemirror-transform';
 import {
   CollabParticipant,
   CollabEventConnectionData,
-  CollabeEventPresenceData,
+  CollabEventPresenceData,
   CollabEventTelepointerData,
 } from './types';
 import { Participants, ReadOnlyParticipants } from './participants';
@@ -69,7 +69,7 @@ export class PluginState {
   apply(tr: Transaction) {
     let { participants, sid, isReady } = this;
 
-    const presenceData = tr.getMeta('presence') as CollabeEventPresenceData;
+    const presenceData = tr.getMeta('presence') as CollabEventPresenceData;
     const telepointerData = tr.getMeta(
       'telepointer',
     ) as CollabEventTelepointerData;

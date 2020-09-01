@@ -1,7 +1,8 @@
 import { snapshot, initFullPageEditorWithAdf, Device } from '../_utils';
 import adf from './__fixtures__/embeds-fallback.adf.json';
 import erroredViewAdf from './__fixtures__/embeds-errored.adf.json';
-import { waitForBlockCardSelection } from '../../../__tests__/__helpers/page-objects/_cards';
+import { waitForBlockCardSelection } from '@atlaskit/media-integration-test-helpers';
+
 describe('Embed Cards:', () => {
   it('falls back to block card', async () => {
     const page = global.page;

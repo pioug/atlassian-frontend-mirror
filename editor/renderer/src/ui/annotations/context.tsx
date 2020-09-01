@@ -1,13 +1,17 @@
 import React, { createContext } from 'react';
 import { Position } from './types';
+import { AnnotationProviders } from '@atlaskit/editor-common';
+import { AnnotationId, AnnotationMarkStates } from '@atlaskit/adf-schema';
 
 type ChildrenProps = {
   applyAnnotationDraftAt: (position: Position) => void;
   clearAnnotationDraft: () => void;
 };
 
+export type RenderCallbackType = React.FC<ChildrenProps>;
+
 type Props = {
-  children: React.FC<ChildrenProps>;
+  children: RenderCallbackType;
 };
 
 type State = {
@@ -15,6 +19,12 @@ type State = {
 };
 
 export const AnnotationsDraftContext = createContext<Position | null>(null);
+export const ProvidersContext = createContext<
+  AnnotationProviders | null | undefined
+>(null);
+export const InlineCommentsStateContext = createContext<
+  Record<AnnotationId, AnnotationMarkStates | null>
+>({});
 
 export class AnnotationsDraftContextWrapper extends React.Component<
   Props,

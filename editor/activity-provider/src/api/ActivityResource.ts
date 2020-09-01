@@ -5,6 +5,7 @@ import {
   ActivityProvider,
   ActivityContainer,
 } from '../types';
+import { ActivityError } from './error';
 
 export const makeGetRecentItemBody = (cloudId: string) => ({
   query: `
@@ -87,9 +88,8 @@ export default class ActivityResource implements ActivityProvider {
         iconUrl: node.object.iconUrl,
         viewedTimestamp: node.timestamp,
       }));
-    } catch (e) {
-      // We will add instrumentations in the next PR
-      return [];
+    } catch (err) {
+      throw new ActivityError(err.reason, err.code);
     }
   }
 

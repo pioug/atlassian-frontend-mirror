@@ -19,7 +19,7 @@ export class RuntimeBridgeImpl implements RuntimeBridges {
 
   call<T extends keyof RuntimeBridges>(
     bridge: T,
-    event: keyof Exclude<RuntimeBridges[T], undefined>,
+    event: keyof Required<RuntimeBridges>[T],
     ...args: any
   ) {
     sendToBridge(bridge, event, ...args);

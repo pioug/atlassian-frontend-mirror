@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { AkCodeBlock } from '../../src';
+import { CodeBlock } from '../../src';
 
 const exampleCodeBlock = `// React Component
 class HelloMessage extends React.Component {
@@ -20,5 +20,5 @@ ReactDOM.render(
 `;
 
 export default function CodeBlockLineNumbersExample() {
-  return <AkCodeBlock language="javascript" text={exampleCodeBlock} />;
+  return <CodeBlock language="javascript" text={exampleCodeBlock} />;
 }

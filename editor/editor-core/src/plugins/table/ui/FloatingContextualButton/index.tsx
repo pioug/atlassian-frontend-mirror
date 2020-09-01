@@ -19,7 +19,7 @@ import { toggleContextualMenu } from '../../commands';
 import { RowStickyState } from '../../pm-plugins/sticky-headers';
 import { TableCssClassName as ClassName } from '../../types';
 import messages from '../../ui/messages';
-import { tableFloatingCellButtonStyles } from '../styles';
+import { tableFloatingCellButtonStyles } from './styles.css';
 
 export interface Props {
   editorView: EditorView;

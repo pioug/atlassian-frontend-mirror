@@ -25,6 +25,7 @@ const parameters = {
   cql: 'Q = editor AND USER = llemos AND SPACE = FF',
   'jira-filter':
     'keywords = editor AND project = editor-platform AND status = to-do',
+  'user-lazy': 'akumar',
 };
 
 const extensionProvider = combineExtensionProviders([

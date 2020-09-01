@@ -31,13 +31,18 @@ export class AnnotationNodeView extends ReactNodeView {
           inlineCommentState: InlineCommentPluginState;
         }) => {
           // Check if selection includes current annotation ID
+          const {
+            annotations,
+            selectedAnnotations,
+            isVisible,
+          } = inlineCommentState;
+
           const id = this.node.attrs.id;
-          const { annotations, selectedAnnotations } = inlineCommentState;
-          const visible = annotations[id] === false;
+          const isUnresolved = annotations[id] === false;
           const annotationHasFocus = selectedAnnotations.some(x => x.id === id);
 
           let className;
-          if (visible) {
+          if (isUnresolved && isVisible) {
             className = annotationHasFocus
               ? AnnotationSharedClassNames.focus
               : AnnotationSharedClassNames.blur;

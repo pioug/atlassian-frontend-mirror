@@ -1,5 +1,21 @@
 # @atlaskit/code
 
+## 13.0.0
+
+### Major Changes
+
+- [`37f8133702`](https://bitbucket.org/atlassian/atlassian-frontend/commits/37f8133702) - - Rename `AkCode` and `AkCodeBlock` exports to `Code` and `CodeBlock` respectively.
+  - Remove unnecessary props (`lineNumberContainerStyle`, `showLineNumbers` and `highlight`) from `Code`.
+  - Add codemods for above changes. Codemods can be found inside [codemods](./codemods) directory.
+    Please use [@atlaskit/codemod-cli](https://www.npmjs.com/package/@atlaskit/codemod-cli) for running the codemods according to version of your package.
+    Check its documentation [here](https://www.npmjs.com/package/@atlaskit/codemod-cli).
+  - Split exported `Theme` type into `CodeTheme` and `CodeBlockTheme`.
+  - Remove `lineNumberColor` and `lineNumberBgColor` type from `CodeTheme`. They are available only in `CodeBlockTheme` now.
+
+### Patch Changes
+
+- [`336f870e37`](https://bitbucket.org/atlassian/atlassian-frontend/commits/336f870e37) - fix exception errors of syntax highlighter for several languages
+
 ## 12.0.3
 
 ### Patch Changes

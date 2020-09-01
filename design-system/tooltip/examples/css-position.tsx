@@ -1,6 +1,8 @@
-import React from 'react';
+/** @jsx jsx */
+import { FC, forwardRef, useRef, useState } from 'react';
 
-import styled from 'styled-components';
+import { css, jsx } from '@emotion/core';
+import { ReactNode } from 'react-redux';
 
 import { N20, N60A } from '@atlaskit/theme/colors';
 
@@ -23,85 +25,80 @@ const boxShadow = `
   0 0 1px ${N60A}
 `;
 
-const Parent = styled.div<{ pos: string }>`
-  background-color: ${N20};
-  border-radius: 5px;
-  height: 60px;
-  padding: 8px;
-  position: ${p => p.pos};
-  width: 280px;
-  ${p =>
-    p.pos === 'fixed'
-      ? `box-shadow: 0 4px 8px -2px ${N60A}, 0 0 1px ${N60A};`
-      : ''};
-`;
-
 interface PosTypes {
-  children?: any; // eslint-disable-line react/require-default-props
+  children?: ReactNode;
   pos: 'relative' | 'absolute' | 'fixed';
-  style?: React.CSSProperties;
-  innerRef?: (ref: HTMLElement) => void;
-  rest?: Array<any>; // eslint-disable-line react/require-default-props
+  pinned?: boolean;
+  top?: number;
 }
 
-const Position = ({ children, pos, ...rest }: PosTypes) => (
-  <Parent pos={pos} {...rest}>
-    <Tooltip content={`Position "${pos}"`}>
-      <Target color={color[pos]}>{capitalize(pos)}</Target>
-    </Tooltip>
-    <p>
-      Tooltip container position is <code>{pos}</code>.
-    </p>
-    {children}
-  </Parent>
+const Position = forwardRef<HTMLDivElement, PosTypes>(
+  ({ children, pos, pinned, top = 0 }, ref) => (
+    <div
+      css={css`
+        background-color: ${N20};
+        border-radius: 5px;
+        height: 60px;
+        padding: 8px;
+        position: ${pos};
+        width: 280px;
+        ${pos === 'fixed' && `box-shadow: ${boxShadow};`}
+        ${pinned
+          ? `box-shadow: ${boxShadow}; top: ${top}px;`
+          : `top: ${top}px;`}
+      `}
+      ref={ref}
+    >
+      <Tooltip content={`Position "${pos}"`}>
+        <Target color={color[pos]}>{capitalize(pos)}</Target>
+      </Tooltip>
+      <p>
+        Tooltip container position is <code>{pos}</code>.
+      </p>
+      {children}
+    </div>
+  ),
 );
 
-interface Props {}
-interface State {
-  pinned: boolean;
-  top: number;
-}
+const PositionExample: FC = () => {
+  const panel = useRef<HTMLDivElement>(null);
+  const [pinned, setPinned] = useState(false);
+  const [top, setTop] = useState(0);
 
-export default class PositionExample extends React.Component<Props, State> {
-  panel?: HTMLElement;
-
-  state = { pinned: false, top: 0 };
-
-  pin = () => {
-    if (!this.panel) {
+  const pin = () => {
+    if (panel.current == null) {
       return;
     }
-
-    const { top } = this.panel.getBoundingClientRect();
-    this.setState({ pinned: true, top });
+    const { top } = panel.current.getBoundingClientRect();
+    setPinned(true);
+    setTop(top);
   };
 
-  unpin = () => this.setState({ pinned: false });
+  const unpin = () => setPinned(false);
 
-  ref = (ref: HTMLElement) => {
-    this.panel = ref;
-  };
+  return (
+    <div style={{ height: 246, position: 'relative' }}>
+      <Position pos="relative" top={0} />
+      <Position pos="absolute" top={84} />
+      <Position
+        ref={panel}
+        top={pinned ? top : 92}
+        pinned={pinned}
+        pos={pinned ? 'fixed' : 'relative'}
+      >
+        <button
+          onClick={pinned ? unpin : pin}
+          css={{
+            position: 'absolute',
+            right: 8,
+            top: 8,
+          }}
+        >
+          {pinned ? 'Unpin' : 'Pin'}
+        </button>
+      </Position>
+    </div>
+  );
+};
 
-  render() {
-    const { pinned, top } = this.state;
-    const fixedPos = pinned ? 'fixed' : 'relative';
-    const fixedStyle = pinned ? { boxShadow, top } : { top: 92 };
-    const buttonStyle: React.CSSProperties = {
-      position: 'absolute',
-      right: 8,
-      top: 8,
-    };
-
-    return (
-      <div style={{ height: 246, position: 'relative' }}>
-        <Position pos="relative" />
-        <Position pos="absolute" style={{ top: 84 }} />
-        <Position innerRef={this.ref} pos={fixedPos} style={fixedStyle}>
-          <button onClick={pinned ? this.unpin : this.pin} style={buttonStyle}>
-            {pinned ? 'Unpin' : 'Pin'}
-          </button>
-        </Position>
-      </div>
-    );
-  }
-}
+export default PositionExample;

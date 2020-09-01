@@ -1,5 +1,76 @@
 # @atlaskit/editor-common
 
+## 50.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 50.0.0
+
+### Major Changes
+
+- [`78de49291b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/78de49291b) - [TWISTA-130] Changes on Annotation types
+
+  # WHAT
+
+  ## AnnotationState type changes
+
+  Before:
+
+  ```
+  import { AnnotationTypes, AnnotationMarkStates } from '@atlaskit/adf-schema';
+
+  type myAnnotationState = AnnotationState<AnnotationTypes.INLINE_COMMENT, AnnotationMarkStates>;
+  ```
+
+  Now:
+
+  ```
+  import { AnnotationTypes } from '@atlaskit/adf-schema';
+
+  type myAnnotationState = AnnotationState<AnnotationTypes.INLINE_COMMENT>;
+  ```
+
+  # WHY
+
+  We are normalizing this type to be used on Renderer, and later, on Editor.
+
+  # HOW
+
+  The Annotation feature is still an experiment on Renderer probably, you are not using it. So, no action requried.
+
+- [`94ac6099e2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/94ac6099e2) - Rename FieldResolver to CustomFieldResolver
+- [`3711c0a754`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3711c0a754) - remove ADNode support from ExtensionRenderer
+- [`2914e9ec0a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2914e9ec0a) - Change EditorManifest generic to propagate instead of defaulting to any
+
+### Minor Changes
+
+- [`5a14bab0bf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5a14bab0bf) - ED-10112 Add analytics for unwrapped unsupported contents
+- [`caae78bb98`](https://bitbucket.org/atlassian/atlassian-frontend/commits/caae78bb98) - Adds support for unsupportedBlock and unsupportedInline content analytics for Hybrid Editor and Hybrid Renderer.
+- [`a66b0a0d44`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a66b0a0d44) - ED-9497 Adds analytics to track unsupported Marks and Mark Attributes in editor and renderer.
+- [`21131ce6be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/21131ce6be) - [TWISTA-283, TWISTA-282, TWISTA-241] Normalizes and fixes Annotation range validator logic for Renderer and Editor
+
+  @atlaskit/editor-common: It creates canApplyAnnotationOnRange function
+  @atlaskit/editor-core: It moves current hasInvalidNodes logic to editor-common function
+  @atlaskit/renderer: It replaces current logic to use the same as Editor
+
+- [`c4b1cbec82`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c4b1cbec82) - ED-8344 Unsupported content type lozenge for block and inline in editor and renderer
+- [`a28474f714`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a28474f714) - ED-10015 Analytics for unsupportedNodeAttribute and unsupportedNodeAttribute value
+- [`44d287b640`](https://bitbucket.org/atlassian/atlassian-frontend/commits/44d287b640) - EDM-842: Adding support to the new search provider and activity provider
+- [`d3a075b8ce`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3a075b8ce) - ED-8345 Display text or text attribute value for unsupported content
+- [`18f3f69ed9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/18f3f69ed9) - ED-10110: Add support to featured quickinsert items
+- [`e4114d7053`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e4114d7053) - ED-9607 - Preserve Unsupported Node attributes
+
+### Patch Changes
+
+- [`351c595fbb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/351c595fbb) - ED-9999: Fixes an issue where the collab provider would blindly remove all listeners instead of only its local ones.
+- [`ee232d326d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ee232d326d) - ED-10210 Fixes user sensitive data that is being sent as part of analytics payload.
+- [`5fb111ff42`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5fb111ff42) - ED-10021 ConfigPanel -> CustomSelect's fieldResolver now accepts an optional defaultValue parameter
+- [`9dc913f0df`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9dc913f0df) - ED-9778: fix codeblock transparency in table header cells
+- [`5c283c56e7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5c283c56e7) - Fix pluginFactory ExtensionState types falling back to any
+- Updated dependencies
+
 ## 49.0.2
 
 ### Patch Changes

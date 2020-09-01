@@ -1,5 +1,13 @@
 # @atlaskit/form
 
+## 8.1.3
+
+### Patch Changes
+
+- [`741e4240d0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/741e4240d0) - Final form dependencies have been upgraded to their latest versions
+- [`3773e0ad4e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3773e0ad4e) - There was an issue where the validate function in Field would return an incorrect value or even go unresponsive when mixing async and sync validators. This has been fixed by updating the version of `final-form`. The test that validates this is working has been re-enabled.
+- Updated dependencies
+
 ## 8.1.2
 
 ### Patch Changes

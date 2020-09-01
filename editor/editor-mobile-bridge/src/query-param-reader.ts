@@ -41,3 +41,6 @@ export const getSelectionObserverEnabled = (): boolean =>
 
 export const getAllowCollabProvider = (): boolean =>
   getQueryParams().get('allowCollabProvider') === 'true';
+
+export const getAllowHeadingAnchorLinks = (): boolean =>
+  getQueryParams().get('allowHeadingAnchorLinks') === 'true';

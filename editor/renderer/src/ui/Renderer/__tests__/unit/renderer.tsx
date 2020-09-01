@@ -9,11 +9,12 @@ import {
 import {
   AnnotationState,
   AnnotationProviders,
+  AnnotationUpdateEmitter,
   UnsupportedBlock,
   UnsupportedInline,
 } from '@atlaskit/editor-common';
 import RendererDefaultComponent, { Renderer } from '../../';
-import { AnnotationSelection } from '../../../annotations/selection';
+import { SelectionComponentWrapper } from '../../../annotations/selection';
 import { Paragraph } from '../../../../react/nodes';
 
 describe('Renderer', () => {
@@ -74,19 +75,14 @@ describe('Renderer', () => {
   };
 
   let getStateCallbackMock: jest.Mock;
-  let annotationProvider: AnnotationProviders<AnnotationMarkStates>;
+  let annotationProvider: AnnotationProviders;
   beforeEach(() => {
     getStateCallbackMock = jest.fn();
     annotationProvider = {
       [AnnotationTypes.INLINE_COMMENT]: {
         getState: async (
           ids: AnnotationId[],
-        ): Promise<
-          AnnotationState<
-            AnnotationTypes.INLINE_COMMENT,
-            AnnotationMarkStates
-          >[]
-        > => {
+        ): Promise<AnnotationState<AnnotationTypes.INLINE_COMMENT>[]> => {
           getStateCallbackMock(ids);
           return ids.map(id => ({
             id,
@@ -96,6 +92,7 @@ describe('Renderer', () => {
         },
 
         selectionComponent: jest.fn(),
+        updateSubscriber: new AnnotationUpdateEmitter(),
       },
     };
   });
@@ -104,7 +101,7 @@ describe('Renderer', () => {
     it('should call the provider with ids inside of the document', () => {
       act(() => {
         mount(
-          <Renderer
+          <RendererDefaultComponent
             annotationProvider={annotationProvider}
             document={adf}
             allowAnnotations
@@ -117,7 +114,7 @@ describe('Renderer', () => {
   });
 
   describe('when the allowAnnotations is enabled', () => {
-    it('should render the AnnotationSelection', () => {
+    it('should render the SelectionComponentWrapper', () => {
       let wrapper: ReactWrapper;
       act(() => {
         wrapper = mount(
@@ -129,12 +126,12 @@ describe('Renderer', () => {
         );
       });
 
-      expect(wrapper!.find(AnnotationSelection)).toHaveLength(1);
+      expect(wrapper!.find(SelectionComponentWrapper)).toHaveLength(1);
     });
   });
 
   describe('when the allowAnnotations is disabled', () => {
-    it('should not render the AnnotationSelection', () => {
+    it('should not render the SelectionComponentWrapper', () => {
       let wrapper: ReactWrapper;
       act(() => {
         wrapper = mount(
@@ -146,7 +143,7 @@ describe('Renderer', () => {
         );
       });
 
-      expect(wrapper!.find(AnnotationSelection)).toHaveLength(0);
+      expect(wrapper!.find(SelectionComponentWrapper)).toHaveLength(0);
     });
   });
 });

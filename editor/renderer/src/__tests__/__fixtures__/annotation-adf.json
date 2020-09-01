@@ -1,0 +1,32 @@
+{
+    "version": 1,
+    "type": "doc",
+    "content": [
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "text with annotation",
+            "marks": [
+              {
+                "type": "annotation",
+                "attrs": {
+                  "id": "annotation-id-1"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "another text without annotation"
+          }
+        ]
+      }
+    ]
+  }

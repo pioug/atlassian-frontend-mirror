@@ -3,24 +3,28 @@ import { ExtensionLayout } from '@atlaskit/adf-schema';
 
 import { applyChange } from '../context-panel/transforms';
 import { createCommand } from './plugin-factory';
-import { ExtensionState } from './types';
+import { ExtensionAction, ExtensionState } from './types';
 import { getSelectedExtension } from './utils';
 import {
-  ParametersGetter,
-  AsyncParametersGetter,
+  Parameters,
+  TransformBefore,
+  TransformAfter,
 } from '@atlaskit/editor-common/src/extensions';
 
-export const updateState = (state: Partial<ExtensionState>) =>
-  createCommand({
+export function updateState(state: Partial<ExtensionState>) {
+  return createCommand({
     type: 'UPDATE_STATE',
     data: state,
   });
+}
 
-export const setEditingContextToContextPanel = (
-  processParametersBefore: ParametersGetter,
-  processParametersAfter: AsyncParametersGetter,
-) =>
-  createCommand(
+export function setEditingContextToContextPanel<
+  T extends Parameters = Parameters
+>(
+  processParametersBefore: TransformBefore<T>,
+  processParametersAfter: TransformAfter<T>,
+) {
+  return createCommand<ExtensionAction<T>>(
     {
       type: 'UPDATE_STATE',
       data: {
@@ -31,6 +35,7 @@ export const setEditingContextToContextPanel = (
     },
     applyChange,
   );
+}
 
 export const clearEditingContext = createCommand(
   {

@@ -22,7 +22,7 @@ export interface ArchiveSidebarProps {
   mediaClient: MediaClient;
   onHeaderClicked: () => void;
   isArchiveEntryLoading: boolean;
-  onError: (error: Error) => void;
+  onError: (error: Error, entry?: ZipEntry) => void;
 }
 
 export type ArchiveSidebarState = {
@@ -63,6 +63,10 @@ export class ArchiveSidebar extends React.Component<
 
   private onEntrySelected = async (entry: ZipEntry) => {
     const { onEntrySelected } = this.props;
+    if (!entry.isDirectory) {
+      onEntrySelected(entry);
+    }
+
     const isArchive =
       !entry.isDirectory && getMediaTypeFromFilename(entry.name) === 'archive';
 
@@ -71,10 +75,8 @@ export class ArchiveSidebar extends React.Component<
         ? await this.onFolderEntrySelected(entry, isArchive)
         : null;
     } catch (error) {
-      return this.props.onError(error);
+      return this.props.onError(error, entry);
     }
-
-    onEntrySelected(entry);
   };
 
   private onFolderEntrySelected = async (

@@ -28,7 +28,6 @@ import { FakeTextCursorSelection } from '../plugins/fake-text-cursor/cursor';
 import { hasParentNodeOfType } from 'prosemirror-utils';
 import { isNodeEmpty } from './document';
 import { atTheBeginningOfDoc, atTheEndOfDoc } from './prosemirror/position';
-import { LEFT } from '../keymaps/consts';
 import { closest } from './dom';
 
 export {
@@ -500,16 +499,6 @@ export function whichTransitionEvent<TransitionEventName extends string>() {
   }
 
   return;
-}
-
-export function moveLeft(view: EditorView) {
-  const event = new CustomEvent('keydown', {
-    bubbles: true,
-    cancelable: true,
-  });
-  (event as any).keyCode = LEFT;
-
-  (view as any).dispatchEvent(event);
 }
 
 /**

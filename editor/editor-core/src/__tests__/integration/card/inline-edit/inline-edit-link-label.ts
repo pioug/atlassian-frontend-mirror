@@ -6,7 +6,7 @@ import {
   gotoEditor,
   linkLabelSelector,
 } from '../../_helpers';
-import { waitForInlineCardSelection } from '../../../__helpers/page-objects/_cards';
+import { waitForInlineCardSelection } from '@atlaskit/media-integration-test-helpers';
 import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 
 BrowserTestCase(

@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { CardStatus } from '../src';
 import { CardView } from '../src/root/cardView';
 import { FileDetails, MediaType } from '@atlaskit/media-client';
+import { IntlProvider } from 'react-intl';
 
 type WrapperDimensions = {
   width: string;
@@ -14,28 +15,19 @@ const dimensions = { width: '100%', height: '100%' };
 
 const CardWrapper = styled.div`
   ${({ width, height }: WrapperDimensions) => `
+    display: inline-block;
     width: ${width};
     height: ${height};
     margin: 15px 20px;
   `}
 `;
 
-const StyledTable = styled.table`
-  margin: 30px auto 0 auto;
-  max-width: 1100px;
-  thead * {
+const StyledContainer = styled.div`
+  max-width: 800px;
+  margin: 20px auto;
+  h3 {
     text-align: center;
   }
-  td {
-    display: inline-table;
-  }
-  th {
-    padding: 0;
-  }
-`;
-
-const StyledContainer = styled.div`
-  min-width: 1100px;
 `;
 
 const mimeTypes: { mime: string; name: string }[] = [
@@ -68,18 +60,15 @@ const mimeTypes: { mime: string; name: string }[] = [
 const IconsTable = () => {
   return (
     <StyledContainer>
-      <StyledTable>
-        <thead>
-          <tr>
-            <th key="first-column">MimeTypes</th>
-          </tr>
-        </thead>
-        {mimeTypes.map(item => (
-          <td key={`${status}-entry-${item.mime}`}>
-            {renderCardImageView('complete', 'audio', item.mime, item.name)}
-          </td>
-        ))}
-      </StyledTable>
+      <h3>MimeTypes</h3>
+      {/* TODO: remove this IntlProvider https://product-fabric.atlassian.net/browse/BMPT-139 */}
+      <IntlProvider locale={'en'}>
+        <>
+          {mimeTypes.map((item, i) =>
+            renderCardImageView('complete', 'audio', item.mime, item.name, i),
+          )}
+        </>
+      </IntlProvider>
     </StyledContainer>
   );
 };
@@ -89,6 +78,7 @@ function renderCardImageView(
   mediaType: MediaType = 'image',
   mimeType: any,
   name: string,
+  key: number,
 ) {
   const metadata: FileDetails = {
     id: 'some-file-id',
@@ -100,7 +90,7 @@ function renderCardImageView(
   };
 
   return (
-    <CardWrapper {...wrapperDimensionsSmall}>
+    <CardWrapper key={key} {...wrapperDimensionsSmall}>
       <CardView
         featureFlags={{
           newCardExperience: true,

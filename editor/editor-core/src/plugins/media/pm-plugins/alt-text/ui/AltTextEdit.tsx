@@ -25,7 +25,7 @@ import {
   MediaAltTextActionType,
   FireAnalyticsCallback,
 } from '../../../../analytics';
-import { RECENT_SEARCH_WIDTH_IN_PX } from '../../../../../ui/RecentSearch/ToolbarComponents';
+import { RECENT_SEARCH_WIDTH_IN_PX } from '../../../../../ui/LinkSearch/ToolbarComponents';
 
 import { ErrorMessage } from '@atlaskit/editor-common';
 

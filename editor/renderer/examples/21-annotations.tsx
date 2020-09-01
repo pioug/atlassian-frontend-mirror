@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { exampleDocumentWithComments } from './helper/example-doc-with-comments';
-import { AnnotationContext } from '../src';
 import { default as Renderer } from '../src/ui/Renderer';
 import {
   AnnotationMarkStates,
@@ -14,6 +13,7 @@ import {
 } from '@atlaskit/editor-common';
 import {
   ExampleSelectionInlineComponent,
+  ExampleViewInlineCommentComponent,
   annotationsStore,
   AnnotationsStoreProvider,
 } from './helper/annotations';
@@ -96,6 +96,7 @@ const useAnnotationsProvider = (setDocument: (doc: any) => void) => {
       selectionComponent: ExampleSelectionInlineComponent(
         createNewAnnotationAndReplaceDocument,
       ),
+      viewComponent: ExampleViewInlineCommentComponent,
     }),
     [createNewAnnotationAndReplaceDocument, dispatch],
   );
@@ -112,23 +113,25 @@ const Annotations = () => {
         ? AnnotationMarkStates.RESOLVED
         : AnnotationMarkStates.ACTIVE;
 
-      if (type === AnnotationMarkStates.RESOLVED) {
-        updateAnnotationSubscriber.emit(
-          AnnotationUpdateEvent.SET_ANNOTATION_STATE,
-          {
-            [id]: AnnotationMarkStates.RESOLVED,
+      const [state, dispatchType]: [
+        AnnotationMarkStates,
+        'unresolved' | 'resolved',
+      ] =
+        type === AnnotationMarkStates.RESOLVED
+          ? [AnnotationMarkStates.RESOLVED, 'resolved']
+          : [AnnotationMarkStates.ACTIVE, 'unresolved'];
+
+      updateAnnotationSubscriber.emit(
+        AnnotationUpdateEvent.SET_ANNOTATION_STATE,
+        {
+          [id]: {
+            id,
+            annotationType: AnnotationTypes.INLINE_COMMENT,
+            state,
           },
-        );
-        dispatch({ type: 'resolved', id });
-      } else {
-        updateAnnotationSubscriber.emit(
-          AnnotationUpdateEvent.SET_ANNOTATION_STATE,
-          {
-            [id]: AnnotationMarkStates.ACTIVE,
-          },
-        );
-        dispatch({ type: 'unresolved', id });
-      }
+        },
+      );
+      dispatch({ type: dispatchType, id });
     },
     [dispatch],
   );
@@ -156,14 +159,6 @@ const App = () => {
     };
   }, [annotationInlineCommentProvider]);
   const [enableAutoHighlight, setEnableAutoHighlight] = React.useState(false);
-  const value = React.useMemo(
-    () => ({
-      onAnnotationClick: () => {},
-      enableAutoHighlight,
-      updateSubscriber: updateAnnotationSubscriber,
-    }),
-    [enableAutoHighlight],
-  );
 
   return (
     <Container>
@@ -188,14 +183,12 @@ const App = () => {
         <Annotations />
       </Options>
       <Main>
-        <AnnotationContext.Provider value={value}>
-          <Renderer
-            appearance="full-page"
-            document={doc}
-            annotationProvider={annotationProvider}
-            allowAnnotations
-          />
-        </AnnotationContext.Provider>
+        <Renderer
+          appearance="full-page"
+          document={doc}
+          annotationProvider={annotationProvider}
+          allowAnnotations
+        />
       </Main>
     </Container>
   );

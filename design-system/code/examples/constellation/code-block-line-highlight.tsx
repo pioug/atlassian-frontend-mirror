@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { AkCodeBlock } from '../../src';
+import { CodeBlock } from '../../src';
 
 const exampleCodeBlock = `
   class HelloMessage extends React.Component {
@@ -21,7 +21,7 @@ const exampleCodeBlock = `
 
 export default function CodeBlockLineHighlightExample() {
   return (
-    <AkCodeBlock
+    <CodeBlock
       language="javascript"
       text={exampleCodeBlock}
       highlight="2,5-7"

@@ -1,9 +1,12 @@
 import React from 'react';
 
+import { Node as PMNode } from 'prosemirror-model';
 import styled from 'styled-components';
 
 import { N30, N50 } from '@atlaskit/theme/colors';
 import { borderRadius, fontSize } from '@atlaskit/theme/constants';
+
+import { useNodeData } from '../hooks';
 
 const BlockNode = styled.div`
   align-items: center;
@@ -23,6 +26,16 @@ const BlockNode = styled.div`
   min-width: 120px;
 `;
 
-export default function UnsupportedBlockNode() {
-  return <BlockNode>Unsupported content</BlockNode>;
+export interface Props {
+  node?: PMNode;
+  children?: React.ReactNode;
+}
+
+export default function UnsupportedBlockNode(props: Props) {
+  let node;
+  if (props) {
+    node = props.node;
+  }
+  const text = useNodeData(node);
+  return <BlockNode>{text}</BlockNode>;
 }

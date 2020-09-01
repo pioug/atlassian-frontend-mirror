@@ -7,8 +7,10 @@ import {
   ProviderFactory,
   Transformer,
   validateADFEntity,
+  findAndTrackUnsupportedContentNodes,
 } from '@atlaskit/editor-common';
 import { JSONDocNode } from '@atlaskit/editor-json-transformer';
+import { DispatchAnalyticsEvent } from '../plugins/analytics/types/dispatch-analytics-event';
 
 /**
  * Checks if node is an empty paragraph.
@@ -141,6 +143,7 @@ export function processRawValue(
   providerFactory?: ProviderFactory,
   sanitizePrivateContent?: boolean,
   contentTransformer?: Transformer<string>,
+  dispatchAnalyticsEvent?: DispatchAnalyticsEvent,
 ): Node | undefined {
   if (!value) {
     return;
@@ -195,7 +198,11 @@ export function processRawValue(
       return Node.fromJSON(schema, node);
     }
 
-    const entity: ADFEntity = validateADFEntity(schema, node as ADFEntity);
+    const entity: ADFEntity = validateADFEntity(
+      schema,
+      node as ADFEntity,
+      dispatchAnalyticsEvent,
+    );
 
     let newEntity = maySanitizePrivateContent(
       entity as JSONDocNode,
@@ -207,6 +214,14 @@ export function processRawValue(
 
     // throws an error if the document is invalid
     parsedDoc.check();
+
+    if (dispatchAnalyticsEvent) {
+      findAndTrackUnsupportedContentNodes(
+        parsedDoc,
+        schema,
+        dispatchAnalyticsEvent,
+      );
+    }
 
     return parsedDoc;
   } catch (e) {

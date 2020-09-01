@@ -1,14 +1,11 @@
 import { version } from './version.json';
-import { DocumentReflowDetector } from './document-reflow-detector';
 
 type Padding = { top: number; right: number; bottom: number; left: number };
 
 export const defaultPadding = [16, 16, 0, 16];
 
 export default abstract class WebBridge {
-  private reflowDetector = new DocumentReflowDetector({
-    onReflow: this.sendHeight,
-  });
+  private padding: Padding = { top: 0, right: 0, bottom: 0, left: 0 };
 
   constructor() {
     // Set initial page padding (necessary for seeing the gap cursor for some content nodes).
@@ -16,10 +13,7 @@ export default abstract class WebBridge {
     this.setPadding(...defaultPadding);
   }
 
-  private padding: Padding = { top: 0, right: 0, bottom: 0, left: 0 };
-
   abstract getRootElement(): HTMLElement | null;
-  abstract sendHeight(height: number): void;
 
   setPadding(
     top: number = 0,
@@ -37,20 +31,6 @@ export default abstract class WebBridge {
 
   getPadding(): Padding {
     return this.padding;
-  }
-
-  /**
-   * Used to observe the height of the rendered content and notify the native side when that happens
-   * by calling RenderBridge#onRenderedContentHeightChanged.
-   *
-   * @param enabled whether the height is being observed (and therefore the callback is being called).
-   */
-  observeRenderedContentHeight(enabled: boolean) {
-    if (enabled) {
-      this.reflowDetector.enable();
-    } else {
-      this.reflowDetector.disable();
-    }
   }
 
   reload(): void {

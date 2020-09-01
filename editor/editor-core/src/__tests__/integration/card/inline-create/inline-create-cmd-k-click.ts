@@ -9,7 +9,8 @@ import {
   insertLongText,
 } from '../../_helpers';
 import { messages } from '../../../../plugins/insert-block/ui/ToolbarInsertBlock/messages';
-
+// TODO: https://product-fabric.atlassian.net/browse/ED-9831
+// Selection in Catalina Safari isn't working properly.
 BrowserTestCase(
   `card: selecting a link from CMD + K menu should create an inline card with click`,
   {

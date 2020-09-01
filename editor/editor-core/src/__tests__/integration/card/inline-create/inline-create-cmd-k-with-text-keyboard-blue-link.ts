@@ -33,7 +33,11 @@ BrowserTestCase(
     // Find the link we want to insert.
     await page.type(linkUrlSelector, [mockLinkSearchTitle, 'Tab']);
     // Give the link display text.
-    await page.type(linkLabelSelector, ['Go hard or go home', 'Return']);
+    await page.type(linkLabelSelector, [
+      'Go hard or go home',
+      'ArrowDown',
+      'Return',
+    ]);
 
     // Ensure a link has been inserted.
     await page.waitForSelector(`a[href$="${mockLinkUrlEndsWith}"]`);

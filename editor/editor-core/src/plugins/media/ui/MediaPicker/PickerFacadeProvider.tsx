@@ -66,6 +66,8 @@ export default class PickerFacadeProvider extends React.Component<
     const pickerFacadeConfig = {
       mediaClientConfig: resolvedMediaClientConfig,
       errorReporter: mediaState.options.errorReporter || new ErrorReporter(),
+      featureFlags:
+        mediaState.mediaOptions && mediaState.mediaOptions.featureFlags,
     };
 
     /**

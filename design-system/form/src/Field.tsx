@@ -279,7 +279,10 @@ function Field<
           fieldProps: {
             onChange: e => {
               fieldState.change(
-                getTransform(e as FormEvent<Element>, fieldState.value!),
+                getTransform(
+                  e as FormEvent<Element>,
+                  fieldState.value! as FieldValue,
+                ) as FieldValue,
               );
             },
             onBlur: fieldState.blur,

@@ -104,5 +104,30 @@ describe('Renderer', () => {
       expect(result.stat.serializeTime).toBeDefined();
       expect(result.stat.serializeTime).toBeGreaterThan(0);
     });
+
+    it(`should return prosemirror doc with empty paragraph when useSpecBasedValidator is true
+         and supplied a doc without content`, () => {
+      const initialDoc = {
+        type: 'doc',
+        content: [],
+      };
+      const expectedDoc = {
+        type: 'doc',
+        content: [
+          {
+            type: 'paragraph',
+          },
+        ],
+      };
+      const result = renderDocument(
+        initialDoc,
+        serializer,
+        schema,
+        'final',
+        true,
+      );
+      expect(result.pmDoc).toBeDefined();
+      expect(result.pmDoc!.toJSON()).toEqual(expectedDoc);
+    });
   });
 });

@@ -526,6 +526,161 @@ describe('card', () => {
       });
     });
 
+    describe('#updateCard', () => {
+      it('should replace selection with new url', function() {
+        const { editorView } = editor(
+          doc(p('hello', '{<node>}', inlineCard(inlineCardAdf.attrs)())),
+        );
+
+        const { state, dispatch } = editorView;
+
+        expect(editorView.state.doc).toEqualDocument(
+          doc(p('hello', inlineCard(inlineCardAdf.attrs)())),
+        );
+
+        updateCard(atlassianUrl)(state, dispatch);
+
+        expect(editorView.state.doc).toEqualDocument(
+          doc(
+            p('hello', a({ href: atlassianUrl })('http://www.atlassian.com/')),
+          ),
+        );
+
+        expect(pluginKey.getState(editorView.state)).toEqual({
+          cards: [],
+          requests: [
+            {
+              url: 'http://www.atlassian.com/',
+              pos: 6,
+              appearance: 'inline',
+              compareLinkText: true,
+              source: 'manual',
+            },
+          ],
+          provider: null,
+          showLinkingToolbar: false,
+        } as CardPluginState);
+      });
+    });
+
+    describe('setSelectedCardAppearance()', () => {
+      it('should use the right NodeType for the new node', () => {
+        const { editorView } = editor(
+          doc(p('hello', '{<node>}', inlineCard(inlineCardAdf.attrs)())),
+        );
+        const dispatch = jest.fn();
+
+        setSelectedCardAppearance('block')(editorView.state, dispatch);
+        expect(
+          dispatch.mock.calls[0][0].doc.content.content[1].type.name,
+        ).toEqual('blockCard');
+      });
+
+      it('should use the right range for the transaction', () => {
+        const { editorView } = editor(
+          doc(p('hello ', '{<node>}', inlineCard(inlineCardAdf.attrs)())),
+        );
+        const dispatch = jest.fn();
+
+        setSelectedCardAppearance('block')(editorView.state, dispatch);
+
+        expect(dispatch.mock.calls[0][0].steps[0]).toEqual(
+          expect.objectContaining({ from: 7, to: 8 }),
+        );
+      });
+
+      it('should not remove parent panel when changing from inline to block and is only child', () => {
+        const { editorView } = editor(
+          doc(panel()(p('{<node>}', inlineCard(cardAdfAttrs)()))),
+        );
+
+        // Change the card from "inline" to "block"
+        setSelectedCardAppearance('block')(
+          editorView.state,
+          editorView.dispatch,
+        );
+
+        // The background color of the parent cell should be the same.
+        expect(editorView.state.doc).toEqualDocument(
+          doc(panel()(p(), blockCard(cardAdfAttrs)(), p())),
+        );
+      });
+
+      it('should not remove the background color of a parent table cell', () => {
+        const { editorView } = editor(
+          doc(
+            table()(
+              tr(th()(p('1')), th()(p('2')), th()(p('3'))),
+              tr(
+                td({ background: 'red' })(
+                  '{<node>}',
+                  blockCard(cardAdfAttrs)(),
+                ),
+                td()(p('5')),
+                td()(p('6')),
+              ),
+            ),
+          ),
+        );
+
+        // Change the card from "block" to "inline"
+        setSelectedCardAppearance('inline')(
+          editorView.state,
+          editorView.dispatch,
+        );
+
+        // The background color of the parent cell should be the same.
+        expect(editorView.state.doc).toEqualDocument(
+          doc(
+            table()(
+              tr(th()(p('1')), th()(p('2')), th()(p('3'))),
+              tr(
+                td({ background: 'red' })(
+                  p('{<node>}', inlineCard(cardAdfAttrs)()),
+                ),
+                td()(p('5')),
+                td()(p('6')),
+              ),
+            ),
+          ),
+        );
+      });
+
+      it('should call setNodeMarkup with right values', () => {
+        const { editorView } = editor(
+          doc(p('hello ', '{<node>}', inlineCard(cardAdfAttrs)())),
+        );
+        const setNodeMarkup = jest.fn().mockReturnValue({
+          scrollIntoView: jest.fn(),
+          storedMarks: jest.fn(),
+          step: jest.fn(),
+          setStoredMarks: jest.fn(),
+          selection: {
+            $from: {
+              pos: 1,
+            },
+          },
+        });
+        const dispatch = jest.fn();
+
+        // we can't just override "tr" since it's a getter
+        Object.defineProperty(editorView.state, 'tr', {
+          value: {
+            storedMarks: jest.fn(),
+            setNodeMarkup,
+          },
+        });
+
+        setSelectedCardAppearance('block')(editorView.state, dispatch);
+        expect(setNodeMarkup).toBeCalledWith(
+          7,
+          editorView.state.schema.nodes.blockCard,
+          (editorView.state.selection as NodeSelection).node.attrs,
+          (editorView.state.selection as NodeSelection).node.marks,
+        );
+      });
+    });
+
     describe('analytics GAS V3', () => {
       const providerWrapper = setupProvider(inlineCardAdf);
 
@@ -928,161 +1083,6 @@ describe('card', () => {
 
         expect(editorView.state.doc).toEqualDocument(
           doc(p(inlineCard(inlineCardAdf.attrs)(), ' ')),
-        );
-      });
-    });
-
-    describe('#updateCard', () => {
-      it('should replace selection with new url', function() {
-        const { editorView } = editor(
-          doc(p('hello', '{<node>}', inlineCard(inlineCardAdf.attrs)())),
-        );
-
-        const { state, dispatch } = editorView;
-
-        expect(editorView.state.doc).toEqualDocument(
-          doc(p('hello', inlineCard(inlineCardAdf.attrs)())),
-        );
-
-        updateCard(atlassianUrl)(state, dispatch);
-
-        expect(editorView.state.doc).toEqualDocument(
-          doc(
-            p('hello', a({ href: atlassianUrl })('http://www.atlassian.com/')),
-          ),
-        );
-
-        expect(pluginKey.getState(editorView.state)).toEqual({
-          cards: [],
-          requests: [
-            {
-              url: 'http://www.atlassian.com/',
-              pos: 6,
-              appearance: 'inline',
-              compareLinkText: true,
-              source: 'manual',
-            },
-          ],
-          provider: null,
-          showLinkingToolbar: false,
-        } as CardPluginState);
-      });
-    });
-
-    describe('setSelectedCardAppearance()', () => {
-      it('should use the right NodeType for the new node', () => {
-        const { editorView } = editor(
-          doc(p('hello', '{<node>}', inlineCard(inlineCardAdf.attrs)())),
-        );
-        const dispatch = jest.fn();
-
-        setSelectedCardAppearance('block')(editorView.state, dispatch);
-        expect(
-          dispatch.mock.calls[0][0].doc.content.content[1].type.name,
-        ).toEqual('blockCard');
-      });
-
-      it('should use the right range for the transaction', () => {
-        const { editorView } = editor(
-          doc(p('hello ', '{<node>}', inlineCard(inlineCardAdf.attrs)())),
-        );
-        const dispatch = jest.fn();
-
-        setSelectedCardAppearance('block')(editorView.state, dispatch);
-
-        expect(dispatch.mock.calls[0][0].steps[0]).toEqual(
-          expect.objectContaining({ from: 7, to: 8 }),
-        );
-      });
-
-      it('should not remove parent panel when changing from inline to block and is only child', () => {
-        const { editorView } = editor(
-          doc(panel()(p('{<node>}', inlineCard(cardAdfAttrs)()))),
-        );
-
-        // Change the card from "inline" to "block"
-        setSelectedCardAppearance('block')(
-          editorView.state,
-          editorView.dispatch,
-        );
-
-        // The background color of the parent cell should be the same.
-        expect(editorView.state.doc).toEqualDocument(
-          doc(panel()(p(), blockCard(cardAdfAttrs)(), p())),
-        );
-      });
-
-      it('should not remove the background color of a parent table cell', () => {
-        const { editorView } = editor(
-          doc(
-            table()(
-              tr(th()(p('1')), th()(p('2')), th()(p('3'))),
-              tr(
-                td({ background: 'red' })(
-                  '{<node>}',
-                  blockCard(cardAdfAttrs)(),
-                ),
-                td()(p('5')),
-                td()(p('6')),
-              ),
-            ),
-          ),
-        );
-
-        // Change the card from "block" to "inline"
-        setSelectedCardAppearance('inline')(
-          editorView.state,
-          editorView.dispatch,
-        );
-
-        // The background color of the parent cell should be the same.
-        expect(editorView.state.doc).toEqualDocument(
-          doc(
-            table()(
-              tr(th()(p('1')), th()(p('2')), th()(p('3'))),
-              tr(
-                td({ background: 'red' })(
-                  p('{<node>}', inlineCard(cardAdfAttrs)()),
-                ),
-                td()(p('5')),
-                td()(p('6')),
-              ),
-            ),
-          ),
-        );
-      });
-
-      it('should call setNodeMarkup with right values', () => {
-        const { editorView } = editor(
-          doc(p('hello ', '{<node>}', inlineCard(cardAdfAttrs)())),
-        );
-        const setNodeMarkup = jest.fn().mockReturnValue({
-          scrollIntoView: jest.fn(),
-          storedMarks: jest.fn(),
-          step: jest.fn(),
-          setStoredMarks: jest.fn(),
-          selection: {
-            $from: {
-              pos: 1,
-            },
-          },
-        });
-        const dispatch = jest.fn();
-
-        // we can't just override "tr" since it's a getter
-        Object.defineProperty(editorView.state, 'tr', {
-          value: {
-            storedMarks: jest.fn(),
-            setNodeMarkup,
-          },
-        });
-
-        setSelectedCardAppearance('block')(editorView.state, dispatch);
-        expect(setNodeMarkup).toBeCalledWith(
-          7,
-          editorView.state.schema.nodes.blockCard,
-          (editorView.state.selection as NodeSelection).node.attrs,
-          (editorView.state.selection as NodeSelection).node.marks,
         );
       });
     });

@@ -12,7 +12,7 @@ import * as keymaps from '../../../../keymaps';
 import { closestElement } from '../../../../utils/dom';
 import { TableCssClassName as ClassName } from '../../types';
 import tableMessages from '../messages';
-import { tableToolbarSize } from '../styles';
+import { tableToolbarSize } from '../consts';
 
 export interface ButtonProps {
   type: 'row' | 'column';

@@ -1,23 +1,21 @@
 import {
+  CustomFieldResolver,
   Deserializer,
   ExtensionManifest,
-  ExtensionModuleFieldTypeCustom,
-  ExtensionModuleFieldTypeFieldset,
-  FieldResolver,
+  ExtensionModuleFields,
   Serializer,
 } from './types/extension-manifest';
 import { FieldHandlerLink } from './types/field-definitions';
 
-const assertFieldHandlerLink = (handlerLink: FieldHandlerLink) => {
+async function getExtensionModuleField<K extends keyof ExtensionModuleFields>(
+  manifest: ExtensionManifest,
+  fieldType: K,
+  handlerLink: FieldHandlerLink,
+) {
   if (!handlerLink.type) {
     throw new Error(`Missing type!`);
   }
-};
 
-const assertManifestFieldTypes = (
-  manifest: ExtensionManifest,
-  fieldType: 'custom' | 'fieldset',
-) => {
   if (!manifest.modules.fields) {
     throw new Error(
       `No definition of fields for extension type "${manifest.type}" and key "${manifest.key}"!`,
@@ -29,18 +27,9 @@ const assertManifestFieldTypes = (
       `No definition for field type "${fieldType}" on manifest for extension with type "${manifest.type}" and key "${manifest.key}"!`,
     );
   }
-};
-
-async function getExtensionModuleField<T>(
-  manifest: ExtensionManifest,
-  fieldType: 'custom' | 'fieldset',
-  handlerLink: FieldHandlerLink,
-): Promise<T> {
-  assertFieldHandlerLink(handlerLink);
-  assertManifestFieldTypes(manifest, fieldType);
 
   const { type } = handlerLink;
-  const handler = manifest.modules.fields![fieldType]![type];
+  const handler = manifest.modules.fields[fieldType]![type];
 
   if (!handler) {
     throw new Error(
@@ -48,35 +37,41 @@ async function getExtensionModuleField<T>(
     );
   }
 
-  return handler as T;
+  return handler as Exclude<ExtensionModuleFields[K], undefined>[string];
 }
 
-export async function getFieldResolver(
+export async function getCustomFieldResolver(
   manifest: ExtensionManifest,
   handlerLink: FieldHandlerLink,
-): Promise<FieldResolver | undefined> {
-  const customFieldHandler = await getExtensionModuleField<
-    ExtensionModuleFieldTypeCustom
-  >(manifest, 'custom', handlerLink);
-  return customFieldHandler.resolver;
+): Promise<CustomFieldResolver | undefined> {
+  const handler = await getExtensionModuleField(
+    manifest,
+    'custom',
+    handlerLink,
+  );
+  return handler.resolver;
 }
 
 export async function getFieldSerializer(
   manifest: ExtensionManifest,
   handlerLink: FieldHandlerLink,
 ): Promise<Serializer | undefined> {
-  const fieldsetHandler = await getExtensionModuleField<
-    ExtensionModuleFieldTypeFieldset
-  >(manifest, 'fieldset', handlerLink);
-  return fieldsetHandler.serializer;
+  const handler = await getExtensionModuleField(
+    manifest,
+    'fieldset',
+    handlerLink,
+  );
+  return handler.serializer;
 }
 
 export async function getFieldDeserializer(
   manifest: ExtensionManifest,
   handlerLink: FieldHandlerLink,
 ): Promise<Deserializer | undefined> {
-  const fieldsetHandler = await getExtensionModuleField<
-    ExtensionModuleFieldTypeFieldset
-  >(manifest, 'fieldset', handlerLink);
-  return fieldsetHandler.deserializer;
+  const handler = await getExtensionModuleField(
+    manifest,
+    'fieldset',
+    handlerLink,
+  );
+  return handler.deserializer;
 }

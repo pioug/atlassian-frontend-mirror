@@ -7,7 +7,7 @@ import { ConfluenceCardProvider } from '../../../../examples/5-full-page-with-co
 import {
   waitForBlockCardSelection,
   waitForEmbedCardSelection,
-} from '../../__helpers/page-objects/_cards';
+} from '@atlaskit/media-integration-test-helpers';
 import * as embedCardAdf from './_fixtures_/embed-card.adf.json';
 
 type ClientType = Parameters<typeof goToEditorTestingExample>[0];

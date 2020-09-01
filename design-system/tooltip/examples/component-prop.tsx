@@ -1,11 +1,10 @@
 import React from 'react';
 
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 
 import Button from '@atlaskit/button';
 
-import Tooltip from '../src';
-import { TooltipPrimitive } from '../src/styled';
+import Tooltip, { TooltipPrimitive } from '../src';
 
 const InlineDialog = styled(TooltipPrimitive)`
   background: white;

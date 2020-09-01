@@ -41,13 +41,6 @@ describe('Code', () => {
         .prop('theme'),
     ).toBe(theme);
   });
-  test('should not show the line numbers', () => {
-    expect(
-      mount(<ThemedCode text={javaCode} language="java" />)
-        .find(Code)
-        .prop('showLineNumbers'),
-    ).toBe(false);
-  });
   test('should render a div instead of a span', () => {
     expect(
       mount(<ThemedCode preTag="div" text={pyCode} language="python" />)
@@ -66,25 +59,12 @@ describe('Code', () => {
     );
     expect(wrapperRed).toMatchSnapshot();
   });
-  test('should render a container with a blue color', () => {
-    const wrapperBlue = shallow(
-      <ThemedCode
-        preTag="div"
-        lineNumberContainerStyle={{ style: { color: 'blue' } }}
-        text={pyCode}
-        showLineNumbers
-        language="python"
-      />,
-    );
-    expect(wrapperBlue).toMatchSnapshot();
-  });
-  test('should passe along code style to LineNumbers', () => {
+  test('should apply style to code', () => {
     const wrapperLineNumbers = shallow(
       <ThemedCode
         text={pyCode}
         language="python"
         codeStyle={{ style: { color: 'blue' } }}
-        showLineNumbers
       />,
     );
     expect(wrapperLineNumbers).toMatchSnapshot();

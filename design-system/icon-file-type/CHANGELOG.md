@@ -1,5 +1,11 @@
 # @atlaskit/icon-file-type
 
+## 6.0.3
+
+### Patch Changes
+
+- [`f51e6ff443`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f51e6ff443) - License updated to Apache 2.0 (previously under the ADG license)
+
 ## 6.0.2
 
 ### Patch Changes

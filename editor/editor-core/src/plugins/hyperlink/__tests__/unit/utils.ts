@@ -1,40 +1,4 @@
 import { getLinkMatch, normalizeUrl } from '../../utils';
-import { activityProviderFactory } from '@atlaskit/editor-test-helpers/activity-provider';
-import { ProviderFactory } from '@atlaskit/editor-common';
-
-/**
- * Provides sample data for this suite of tests.
- */
-export const activityProviderMock = activityProviderFactory([
-  {
-    objectId: 'recent1',
-    name: 'recent item 1',
-    container: 'container 1',
-    iconUrl:
-      'https://wac-cdn.atlassian.com/assets/img/favicons/atlassian/favicon.png',
-    url: 'recent1-url.com',
-  },
-  {
-    objectId: 'recent2',
-    name: 'recent item 2',
-    container: 'container 2',
-    iconUrl:
-      'https://wac-cdn.atlassian.com/assets/img/favicons/atlassian/favicon.png',
-    url: 'recent2-url.com',
-  },
-  {
-    objectId: 'recent3',
-    name: 'recent item 3',
-    container: 'container 3',
-    iconUrl:
-      'https://wac-cdn.atlassian.com/assets/img/favicons/atlassian/favicon.png',
-    url: 'recent3-url.com',
-  },
-]);
-
-export const providerFactory = ProviderFactory.create({
-  activityProvider: activityProviderMock,
-});
 
 describe('hyperlink', () => {
   describe('#normalizeUrl', () => {

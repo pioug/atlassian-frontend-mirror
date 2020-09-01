@@ -6,8 +6,10 @@ import { compose, toJSON } from '../utils';
 import { processRawValue, isEmptyDocument } from '../utils/document';
 import { getEditorValueWithMedia } from '../utils/action';
 import { sanitizeNode } from '@atlaskit/adf-utils';
-import { EventDispatcher } from '../event-dispatcher';
+import { EventDispatcher, createDispatch } from '../event-dispatcher';
 import { safeInsert } from 'prosemirror-utils';
+import { AnalyticsEventPayload } from '@atlaskit/analytics-next/AnalyticsEvent';
+import { analyticsEventKey } from '@atlaskit/editor-common';
 
 export type ContextUpdateHandler = (
   editorView: EditorView,
@@ -182,6 +184,7 @@ export default class EditorActions implements EditorActionsOptions {
       undefined,
       undefined,
       this.contentTransformer,
+      this.dispatchAnalyticsEvent,
     );
 
     if (!content) {
@@ -255,4 +258,13 @@ export default class EditorActions implements EditorActionsOptions {
 
     return true;
   }
+
+  dispatchAnalyticsEvent = (payload: AnalyticsEventPayload): void => {
+    if (this.eventDispatcher) {
+      const dispatch = createDispatch(this.eventDispatcher);
+      dispatch(analyticsEventKey, {
+        payload,
+      });
+    }
+  };
 }

@@ -2,12 +2,7 @@ import React, { useContext, useLayoutEffect, useRef } from 'react';
 import { PureComponent } from 'react';
 import { IntlProvider } from 'react-intl';
 import { Schema, Node as PMNode } from 'prosemirror-model';
-import {
-  getSchemaBasedOnStage,
-  AnnotationMarkStates,
-  AnnotationTypes,
-  AnnotationId,
-} from '@atlaskit/adf-schema';
+import { getSchemaBasedOnStage } from '@atlaskit/adf-schema';
 import { reduce } from '@atlaskit/adf-utils';
 import {
   UnsupportedBlock,
@@ -20,7 +15,6 @@ import {
   startMeasure,
   stopMeasure,
   akEditorFullPageDefaultFontSize,
-  AnnotationProviders,
 } from '@atlaskit/editor-common';
 import {
   IframeWidthObserverFallbackWrapper,
@@ -40,16 +34,13 @@ import { Provider as SmartCardStorageProvider } from '../SmartCardStorage';
 import { name, version } from '../../version.json';
 import { ReactSerializerInit } from '../../react';
 import { BreakoutSSRInlineScript } from './breakout-ssr';
-
-import { RendererContext as ActionsContext } from '../RendererActionsContext';
+import {
+  RendererActionsContext,
+  RendererContext as ActionsContext,
+} from '../RendererActionsContext';
 import { ActiveHeaderIdProvider } from '../active-header-id-provider';
 import { RendererProps } from '../renderer-props';
 import { AnnotationsWrapper } from '../annotations';
-import {
-  getAnnotationDeferred,
-  resolveAnnotationPromises,
-  getAllAnnotationMarks,
-} from './utils/annotations';
 import { getActiveHeadingId } from '../../react/utils/links';
 
 export interface Extension<T> {
@@ -63,14 +54,12 @@ export class Renderer extends PureComponent<RendererProps> {
   private providerFactory: ProviderFactory;
   private serializer: ReactSerializer;
   private rafID?: number;
-  private annotationProvider?: AnnotationProviders<AnnotationMarkStates> | null;
   private editorRef: React.RefObject<HTMLDivElement>;
 
   constructor(props: RendererProps) {
     super(props);
     this.providerFactory = props.dataProviders || new ProviderFactory();
     this.serializer = new ReactSerializer(this.deriveSerializerProps(props));
-    this.annotationProvider = props.annotationProvider;
     this.editorRef = props.innerRef || React.createRef();
     startMeasure('Renderer Render Time');
   }
@@ -188,11 +177,10 @@ export class Renderer extends PureComponent<RendererProps> {
       allowAltTextOnImages: props.allowAltTextOnImages,
       stickyHeaders,
       allowMediaLinking: props.media && props.media.allowLinking,
-      allowAnnotations: props.allowAnnotations,
       surroundTextNodesWithTextWrapper: allowAnnotationsDraftMode,
-      getAnnotationPromise: (id: AnnotationId) =>
-        getAnnotationDeferred(id).promise,
       media: props.media,
+      allowCopyToClipboard: props.allowCopyToClipboard,
+      allowAnnotations: props.allowAnnotations,
     };
   }
 
@@ -214,23 +202,6 @@ export class Renderer extends PureComponent<RendererProps> {
     return getSchemaBasedOnStage(adfStage);
   };
 
-  private loadAnnotations = (schema: Schema, pmDocument: PMNode) => {
-    if (
-      !this.annotationProvider ||
-      !this.annotationProvider[AnnotationTypes.INLINE_COMMENT]
-    ) {
-      return;
-    }
-
-    const annotationIdsByType = getAllAnnotationMarks(schema, pmDocument);
-    const inlineCommentProvider = this.annotationProvider[
-      AnnotationTypes.INLINE_COMMENT
-    ];
-    inlineCommentProvider
-      .getState(annotationIdsByType[AnnotationTypes.INLINE_COMMENT])
-      .then(resolveAnnotationPromises);
-  };
-
   render() {
     const {
       document,
@@ -243,8 +214,8 @@ export class Renderer extends PureComponent<RendererProps> {
       maxHeight,
       fadeOutHeight,
       enableSsrInlineScripts,
-      allowAnnotations,
       allowHeadingAnchorLinks,
+      allowCopyToClipboard,
     } = this.props;
 
     try {
@@ -255,14 +226,11 @@ export class Renderer extends PureComponent<RendererProps> {
         schema,
         adfStage,
         this.props.useSpecBasedValidator,
+        this.fireAnalyticsEvent,
       );
 
       if (onComplete) {
         onComplete(stat);
-      }
-
-      if (allowAnnotations && pmDoc && schema) {
-        this.loadAnnotations(schema, pmDoc);
       }
 
       const rendererOutput = (
@@ -281,6 +249,7 @@ export class Renderer extends PureComponent<RendererProps> {
                   <RendererWrapper
                     appearance={appearance}
                     dynamicTextSizing={!!allowDynamicTextSizing}
+                    allowCopyToClipboard={allowCopyToClipboard}
                     innerRef={this.editorRef}
                   >
                     {enableSsrInlineScripts ? (
@@ -314,6 +283,7 @@ export class Renderer extends PureComponent<RendererProps> {
         <RendererWrapper
           appearance={appearance}
           dynamicTextSizing={!!allowDynamicTextSizing}
+          allowCopyToClipboard={allowCopyToClipboard}
         >
           <UnsupportedBlock />
         </RendererWrapper>
@@ -357,6 +327,7 @@ type RendererWrapperProps = {
   appearance: RendererAppearance;
   dynamicTextSizing: boolean;
   innerRef?: React.RefObject<HTMLDivElement>;
+  allowCopyToClipboard?: boolean;
 } & { children?: React.ReactNode };
 
 const RendererWithIframeFallbackWrapper = React.memo(
@@ -439,20 +410,24 @@ function RendererActionsInternalUpdater({
 }
 
 const RendererWithAnnotationSelection = (props: RendererProps) => {
-  const { allowAnnotations } = props;
-  const innerRef = React.useMemo(() => React.createRef<HTMLDivElement>(), []);
+  const { allowAnnotations, document: adfDocument } = props;
+  const localRef = React.useRef<HTMLDivElement>(null);
+  const innerRef = props.innerRef || localRef;
 
   if (!allowAnnotations) {
     return <RendererWithAnalytics innerRef={innerRef} {...props} />;
   }
 
   return (
-    <AnnotationsWrapper
-      rendererRef={innerRef}
-      annotationProvider={props.annotationProvider}
-    >
-      <RendererWithAnalytics innerRef={innerRef} {...props} />
-    </AnnotationsWrapper>
+    <RendererActionsContext>
+      <AnnotationsWrapper
+        rendererRef={innerRef}
+        adfDocument={adfDocument}
+        annotationProvider={props.annotationProvider}
+      >
+        <RendererWithAnalytics innerRef={innerRef} {...props} />
+      </AnnotationsWrapper>
+    </RendererActionsContext>
   );
 };
 

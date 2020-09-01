@@ -11,7 +11,7 @@ import {
 import { Editor, ContextPanel } from '../src';
 import { SaveAndCancelButtons } from './5-full-page';
 import { TitleInput } from '../example-helpers/PageElements';
-import { cardClient } from '@atlaskit/editor-test-helpers/smart-card';
+import { cardClient } from '@atlaskit/media-integration-test-helpers';
 import { CollabEditOptions } from '../src/plugins/collab-edit';
 import { createCollabEditProvider } from '@atlaskit/synchrony-test-helpers';
 

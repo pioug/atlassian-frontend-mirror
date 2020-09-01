@@ -143,7 +143,7 @@ describe('hyperlink', () => {
         action: 'invoked',
         actionSubject: 'typeAhead',
         actionSubjectId: 'linkTypeAhead',
-        attributes: { inputMethod: 'quickInsert' },
+        attributes: expect.objectContaining({ inputMethod: 'quickInsert' }),
         eventType: 'ui',
       });
     });

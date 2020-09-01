@@ -21,7 +21,7 @@ import * as expandWithMedia from '../../__fixtures__/expand-with-media.adf.json'
 import * as nestedExpandWithMedia from '../../__fixtures__/nested-expand-with-media.json';
 import * as layoutWithMedia from '../../__fixtures__/layout-with-media.json';
 import * as tableWithMedia from '../../__fixtures__/table-with-media.json';
-
+import { Node as PMNode } from 'prosemirror-model';
 const docFromSchema = schema.nodeFromJSON(doc);
 const headingDocFromSchema = schema.nodeFromJSON(headingDoc);
 const nestedHeadingsDocFromSchema = schema.nodeFromJSON(nestedHeadingsDoc);
@@ -70,6 +70,72 @@ describe('Renderer - ReactSerializer', () => {
       expect(link.props()).toHaveProperty('href', 'https://www.atlassian.com');
       expect(strong.text()).toEqual('World!');
       reactDoc.unmount();
+    });
+    describe('unsupported nodes', () => {
+      it('should pass node value for unsupported block', () => {
+        const unsupportedNodeJson = {
+          type: 'unsupportedBlock',
+          attrs: {
+            originalValue: {
+              attrs: {
+                panelType: 'info',
+              },
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [
+                    {
+                      type: 'text',
+                      text: 'text in panel',
+                    },
+                  ],
+                },
+              ],
+            },
+          },
+        };
+        const unsupportedBlockJSON = {
+          version: 1,
+          type: 'doc',
+          content: [unsupportedNodeJson],
+        };
+        const unsupportBlockNode = schema.nodeFromJSON(unsupportedBlockJSON);
+        const reactSerializer = new ReactSerializer({});
+        const reactDoc = mount(
+          reactSerializer.serializeFragment(unsupportBlockNode.content) as any,
+        );
+        const unsupportedBlock = reactDoc.find('UnsupportedBlockNode');
+        const unspportedBlockNodeProp = unsupportedBlock.prop('node') as PMNode;
+        expect(unspportedBlockNodeProp.toJSON()).toEqual(unsupportedNodeJson);
+      });
+
+      it('should pass node value for unsupported inline', () => {
+        const unsupportedNodeJson = {
+          type: 'unsupportedInline',
+          attrs: {
+            originalValue: {
+              attrs: {
+                some: 'value',
+              },
+            },
+          },
+        };
+        const unsupportedInlineJSON = {
+          version: 1,
+          type: 'doc',
+          content: [unsupportedNodeJson],
+        };
+        const unsupportInlineNode = schema.nodeFromJSON(unsupportedInlineJSON);
+        const reactSerializer = new ReactSerializer({});
+        const reactDoc = mount(
+          reactSerializer.serializeFragment(unsupportInlineNode.content) as any,
+        );
+        const unsupportedInline = reactDoc.find('UnsupportedInlineNode');
+        const unspportedInlineNodeProp = unsupportedInline.prop(
+          'node',
+        ) as PMNode;
+        expect(unspportedInlineNodeProp.toJSON()).toEqual(unsupportedNodeJson);
+      });
     });
   });
 

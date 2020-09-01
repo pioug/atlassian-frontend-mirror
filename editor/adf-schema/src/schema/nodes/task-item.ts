@@ -20,6 +20,7 @@ export interface TaskItemDefinition {
 export const taskItem: NodeSpec = {
   content: 'inline*',
   defining: true,
+  selectable: false,
   marks: '_',
   attrs: {
     localId: { default: '' },

@@ -7,7 +7,7 @@ import {
   tableInsertColumnButtonOffset,
   tableInsertColumnButtonSize,
   tableToolbarSize,
-} from '../styles';
+} from '../consts';
 
 const HORIZONTAL_ALIGN_COLUMN_BUTTON = -(tableInsertColumnButtonSize / 2);
 const HORIZONTAL_ALIGN_NUMBERED_COLUMN_BUTTON =

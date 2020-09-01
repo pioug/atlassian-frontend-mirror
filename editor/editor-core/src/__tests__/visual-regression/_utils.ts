@@ -166,6 +166,7 @@ function getEditorProps(appearance: Appearance) {
     UNSAFE_cards: true,
     allowExpand: { allowInsertion: true },
     allowHelpDialog: true,
+    codeBlock: { allowCopyToClipboard: true },
   };
 
   if (

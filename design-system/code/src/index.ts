@@ -1,5 +1,4 @@
-import { Theme } from './themes/themeBuilder';
+export { default as Code } from './ThemedCode';
+export { default as CodeBlock } from './ThemedCodeBlock';
 
-export { default as AkCode } from './ThemedCode';
-export { default as AkCodeBlock } from './ThemedCodeBlock';
-export type CodeTheme = Theme;
+export { CodeBlockTheme, CodeTheme } from './themes/types';

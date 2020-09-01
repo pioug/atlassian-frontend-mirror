@@ -1,12 +1,13 @@
 import React from 'react';
-import { ExtensionParams } from '@atlaskit/editor-common/extensions';
+import { ExtensionComponentProps } from '@atlaskit/editor-common/extensions';
 import { ReactRenderer } from '@atlaskit/renderer';
 
-type Props = {
-  node: ExtensionParams<{ sentence?: string; words?: string }>;
+export type LoremParams = {
+  sentence?: string;
+  words?: string;
 };
 
-export default ({ node }: Props) => {
+export default function({ node }: ExtensionComponentProps<LoremParams>) {
   const { parameters, type } = node;
 
   switch (type) {
@@ -49,4 +50,6 @@ export default ({ node }: Props) => {
         </div>
       );
   }
-};
+
+  return null;
+}

@@ -14,7 +14,10 @@ import { insertTable } from '../../__helpers/page-objects/_table';
 import { emojiSelectors } from '../../__helpers/page-objects/_emoji';
 import { waitForLoadedBackgroundImages } from '@atlaskit/visual-regression/helper';
 import adf from './__fixtures__/noData-adf.json';
-import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import {
+  PuppeteerPage,
+  waitForNoTooltip,
+} from '@atlaskit/visual-regression/helper';
 
 describe('z-indexes:', () => {
   let page: PuppeteerPage;
@@ -39,6 +42,7 @@ describe('z-indexes:', () => {
     await page.waitForSelector(tableSelectors.removeTable);
     await clickToolbarMenu(page, ToolbarMenuItem.insertBlock);
     await page.waitForSelector(selectors.dropList);
+    await waitForNoTooltip(page);
   });
 
   it('should always position table trash icon below emoji picker', async () => {
@@ -52,5 +56,6 @@ describe('z-indexes:', () => {
     await page.waitForSelector(tableSelectors.removeTable);
     await clickToolbarMenu(page, ToolbarMenuItem.mention);
     await page.waitForSelector(selectors.mentionQuery);
+    await waitForNoTooltip(page);
   });
 });

@@ -178,7 +178,7 @@ describe('hyperlink - keymap', () => {
         action: 'invoked',
         actionSubject: 'typeAhead',
         actionSubjectId: 'linkTypeAhead',
-        attributes: { inputMethod: 'shortcut' },
+        attributes: expect.objectContaining({ inputMethod: 'shortcut' }),
         eventType: 'ui',
       });
     });

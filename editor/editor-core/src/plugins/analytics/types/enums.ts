@@ -18,9 +18,9 @@ export enum ACTION {
   CLICKED = 'clicked',
   CLOSED = 'closed',
   COPIED = 'copied',
+  COMMITTED = 'committed',
   CUT = 'cut',
   DEACTIVATED = 'deactivated',
-  COMMITTED = 'committed',
   DECREMENTED = 'decremented',
   DELETED = 'deleted',
   DISPATCHED_INVALID_TRANSACTION = 'dispatchedInvalidTransaction',
@@ -101,10 +101,12 @@ export enum TRIGGER_METHOD {
 
 export enum ACTION_SUBJECT {
   BUTTON = 'button',
+  CONFIG_PANEL = 'configPanel',
   DATE = 'date',
   DATE_SEGMENT = 'dateSegment',
   DOCUMENT = 'document',
   EDITOR = 'editor',
+  ELEMENT_BROWSER = 'elementBrowser',
   EMBEDS = 'embeds',
   EXPAND = 'expand',
   FEEDBACK_DIALOG = 'feedbackDialog',
@@ -122,6 +124,7 @@ export enum ACTION_SUBJECT {
   TOOLBAR = 'toolbar',
   TYPEAHEAD = 'typeAhead',
   ANNOTATION = 'annotation',
+  SEARCH_RESULT = 'searchResult',
 }
 
 export enum ACTION_SUBJECT_ID {
@@ -215,4 +218,6 @@ export enum ACTION_SUBJECT_ID {
   TYPEAHEAD_QUICK_INSERT = 'quickInsertTypeAhead',
   UNSUPPORTED_BLOCK = 'unsupportedBlock',
   UNSUPPORTED_INLINE = 'unsupportedInline',
+  UNSUPPORTED_MARK = 'unsupportedMark',
+  RECENT_ACTIVITIES = 'recentActivities',
 }

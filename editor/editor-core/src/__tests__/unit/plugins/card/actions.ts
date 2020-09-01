@@ -150,7 +150,10 @@ describe('card', () => {
               action: 'deleted',
               actionSubject: 'smartLink',
               actionSubjectId: type.name,
-              attributes: { inputMethod: 'toolbar', displayMode: type.name },
+              attributes: expect.objectContaining({
+                inputMethod: 'toolbar',
+                displayMode: type.name,
+              }),
               eventType: 'track',
             });
           });
@@ -174,7 +177,7 @@ describe('card', () => {
               action: 'visited',
               actionSubject: 'smartLink',
               actionSubjectId: type.name,
-              attributes: { inputMethod: 'toolbar' },
+              attributes: expect.objectContaining({ inputMethod: 'toolbar' }),
               eventType: 'track',
             });
           });

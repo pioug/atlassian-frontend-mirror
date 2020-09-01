@@ -4,29 +4,44 @@ import FolderFilledIcon from '@atlaskit/icon/glyph/folder-filled';
 import PageIcon from '@atlaskit/icon/glyph/page';
 import DocumentFilledIcon from '@atlaskit/icon/glyph/document-filled';
 import LabelIcon from '@atlaskit/icon/glyph/label';
+import { Option } from '@atlaskit/editor-common/extensions';
 
-const createFieldResolver = (
-  items: {
-    label: string;
-    value: string;
-    description?: string;
-    icon?: string | React.ReactNode;
-  }[],
-) => (searchTerm?: string) => {
-  if (searchTerm) {
-    return Promise.resolve(
-      items.filter(
+const createCustomFieldResolver = (items: Option[], lazyItems?: Option[]) => (
+  searchTerm?: string,
+  defaultValue?: string[] | string,
+): Promise<Option[]> => {
+  const filter = (term?: string | string[], items?: Option[]): Option[] => {
+    if (!Array.isArray(items)) {
+      return [];
+    }
+
+    const filterByTerm = (term?: string): Option[] => {
+      if (!term) {
+        return items;
+      }
+      return items.filter(
         item =>
-          item.label.search(new RegExp(searchTerm, 'i')) !== -1 ||
-          item.value.search(new RegExp(searchTerm, 'i')) !== -1,
-      ),
-    );
-  }
+          item.label.search(new RegExp(term, 'i')) !== -1 ||
+          item.value.search(new RegExp(term, 'i')) !== -1,
+      );
+    };
 
+    if (Array.isArray(term)) {
+      return ([] as Option[]).concat(...term.map(filterByTerm));
+    }
+    return filterByTerm(term);
+  };
+
+  if (searchTerm) {
+    return Promise.resolve(filter(searchTerm, items));
+  }
+  if (defaultValue) {
+    return Promise.resolve([...items, ...filter(defaultValue, lazyItems)]);
+  }
   return Promise.resolve(items);
 };
 
-export const spaceKeyFieldResolver = createFieldResolver([
+export const spaceKeyFieldResolver = createCustomFieldResolver([
   {
     label: 'XRay',
     value: 'XR',
@@ -48,21 +63,28 @@ export const spaceKeyFieldResolver = createFieldResolver([
     icon: <FolderFilledIcon size="small" label="BF" />,
   },
 ]);
-
-export const usernameFieldResolver = createFieldResolver([
-  {
-    label: 'Leandro Augusto Lemos',
-    value: 'llemos',
-    icon: <PersonIcon size="small" label="llemos" />,
-  },
-  {
-    label: 'Rifat Nabi',
-    value: 'rnabi',
-    icon: <PersonIcon size="small" label="rnabi" />,
-  },
-]);
-
-export const labelFieldResolver = createFieldResolver([
+export const usernameFieldResolver = createCustomFieldResolver(
+  [
+    {
+      label: 'Leandro Augusto Lemos',
+      value: 'llemos',
+      icon: <PersonIcon size="small" label="llemos" />,
+    },
+    {
+      label: 'Rifat Nabi',
+      value: 'rnabi',
+      icon: <PersonIcon size="small" label="rnabi" />,
+    },
+  ],
+  [
+    {
+      label: 'Ajay Kumar',
+      value: 'akumar',
+      icon: <PersonIcon size="small" label="akumar" />,
+    },
+  ],
+);
+export const labelFieldResolver = createCustomFieldResolver([
   {
     label: 'Meeting notes',
     value: 'meeting-notes',
@@ -74,8 +96,7 @@ export const labelFieldResolver = createFieldResolver([
     icon: <LabelIcon size="small" label="decision-register" />,
   },
 ]);
-
-export const confluenceContentFieldResolver = createFieldResolver([
+export const confluenceContentFieldResolver = createCustomFieldResolver([
   {
     label: 'How to populate custom fields?',
     value: '123456',

@@ -3,11 +3,11 @@ import { snapshot, initRendererWithADF, animationFrame } from './_utils';
 import mediaLink from './__fixtures__/media-link.adf.json';
 import wrappedMediaLink from './__fixtures__/wrapped-media-link.adf.json';
 import { richMediaClassName } from '@atlaskit/editor-common';
+import { waitForAllMedia } from '../__helpers/page-objects/_media';
 
 const mediaSingleSelector = `.${richMediaClassName}`;
-// TODO: https://product-fabric.atlassian.net/browse/ED-8011
-// ED-8011 Implement proper mock for media client on Renderer VR Tests.
-describe.skip('media link:', () => {
+
+describe('media link:', () => {
   let page: PuppeteerPage;
 
   beforeEach(async () => {
@@ -18,10 +18,17 @@ describe.skip('media link:', () => {
     await initRendererWithADF(page, {
       adf: mediaLink,
       appearance: 'full-page',
+      rendererProps: {
+        media: {
+          allowLinking: true,
+        },
+      },
     });
-    await page.waitForSelector(mediaSingleSelector);
+
+    await waitForAllMedia(page, 1);
+
     await page.hover(mediaSingleSelector);
-    await page.waitFor(300);
+    await page.waitForSelector('a.ak-editor-media-link', { visible: true });
     await animationFrame(page);
     // the link button is showing up as the larger mobile view as we don't
     // currently have access to puppeteer's Page.emulateMediaFeatures() API
@@ -32,11 +39,16 @@ describe.skip('media link:', () => {
     await initRendererWithADF(page, {
       adf: wrappedMediaLink,
       appearance: 'full-page',
+      rendererProps: {
+        media: {
+          allowLinking: true,
+        },
+      },
     });
 
-    await page.waitForSelector(mediaSingleSelector);
+    await waitForAllMedia(page, 2);
     await page.hover(mediaSingleSelector);
-    await page.waitFor(300);
+    await page.waitForSelector('a.ak-editor-media-link', { visible: true });
     await animationFrame(page);
     await snapshot(page);
   });

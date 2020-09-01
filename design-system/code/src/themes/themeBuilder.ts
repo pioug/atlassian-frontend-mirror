@@ -7,45 +7,7 @@ import {
 import { ThemeProps } from '@atlaskit/theme/types';
 
 import { defaultColors } from './defaultTheme';
-
-export type Theme = {
-  lineNumberColor?: string | number;
-  lineNumberBgColor?: string | number;
-  backgroundColor?: string | number;
-  textColor?: string | number;
-  substringColor?: string | number;
-  keywordColor?: string | number;
-  attributeColor?: string | number;
-  selectorTagColor?: string | number;
-  docTagColor?: string | number;
-  nameColor?: string | number;
-  builtInColor?: string | number;
-  literalColor?: string | number;
-  bulletColor?: string | number;
-  codeColor?: string | number;
-  additionColor?: string | number;
-  regexpColor?: string | number;
-  symbolColor?: string | number;
-  variableColor?: string | number;
-  templateVariableColor?: string | number;
-  linkColor?: string | number;
-  selectorAttributeColor?: string | number;
-  selectorPseudoColor?: string | number;
-  typeColor?: string | number;
-  stringColor?: string | number;
-  selectorIdColor?: string | number;
-  selectorClassColor?: string | number;
-  quoteColor?: string | number;
-  templateTagColor?: string | number;
-  deletionColor?: string | number;
-  titleColor?: string | number;
-  sectionColor?: string | number;
-  commentColor?: string | number;
-  metaKeywordColor?: string | number;
-  metaColor?: string | number;
-  functionColor?: string | number;
-  numberColor?: string | number;
-};
+import { CodeBlockTheme, CodeTheme } from './types';
 
 const codeContainerStyle = {
   fontFamily: codeFontFamily,
@@ -54,7 +16,7 @@ const codeContainerStyle = {
   padding: gridSize(),
 };
 
-const lineNumberContainerStyle = (theme: Theme) => ({
+const lineNumberContainerStyle = (theme: CodeBlockTheme) => ({
   fontSize: `${fontSize()}px`,
   lineHeight: 20 / 14,
   color: theme.lineNumberColor,
@@ -65,7 +27,7 @@ const lineNumberContainerStyle = (theme: Theme) => ({
   userSelect: 'none',
 });
 
-const sharedCodeStyle = (theme: Theme) => ({
+const sharedCodeStyle = (theme: CodeTheme) => ({
   key: {
     color: theme.keywordColor,
     fontWeight: 'bolder',
@@ -179,7 +141,7 @@ const sharedCodeStyle = (theme: Theme) => ({
   },
 });
 
-const codeStyle = (theme: Theme) => ({
+const codeStyle = (theme: CodeTheme) => ({
   fontFamily: codeFontFamily,
   fontSize: '12px',
   background: theme.backgroundColor,
@@ -191,12 +153,12 @@ const codeStyle = (theme: Theme) => ({
   whiteSpace: 'pre',
 });
 
-const codeBlockStyle = (theme: Theme) => ({
+const codeBlockStyle = (theme: CodeBlockTheme) => ({
   'pre[class*="language-"]': codeStyle(theme),
   ...sharedCodeStyle(theme),
 });
 
-const inlineCodeStyle = (theme: Theme) => ({
+const inlineCodeStyle = (theme: CodeTheme) => ({
   'pre[class*="language-"]': {
     ...codeStyle(theme),
     padding: '2px 4px',
@@ -206,7 +168,9 @@ const inlineCodeStyle = (theme: Theme) => ({
   ...sharedCodeStyle(theme),
 });
 
-export function applyTheme(theme: ThemeProps | Theme = {}) {
+export function applyTheme(
+  theme: ThemeProps | CodeTheme | CodeBlockTheme = {},
+) {
   const newTheme = { ...defaultColors(theme), ...theme };
   return {
     lineNumberContainerStyle: lineNumberContainerStyle(newTheme),

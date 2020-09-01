@@ -51,6 +51,7 @@ import {
 } from './styled';
 import { removeFileFromRecents } from '../../../actions/removeFileFromRecents';
 import { BrowserBase } from '../../../../components/browser/browser';
+import { MediaFeatureFlags } from '@atlaskit/media-common/mediaFeatureFlags';
 
 const createEditCardAction = (
   handler: CardEventHandler,
@@ -82,6 +83,7 @@ export interface UploadViewOwnProps {
   readonly browserRef: React.RefObject<BrowserBase>;
   readonly mediaClient: MediaClient;
   readonly recentsCollection: string;
+  readonly featureFlags?: MediaFeatureFlags;
 }
 
 export interface UploadViewStateProps {
@@ -311,7 +313,7 @@ export class StatelessUploadView extends Component<
   }
 
   private uploadingFilesCards(): IterableCard[] {
-    const { uploads, onFileClick, mediaClient } = this.props;
+    const { uploads, onFileClick, mediaClient, featureFlags } = this.props;
     const itemsKeys = Object.keys(uploads);
     itemsKeys.sort((a, b) => {
       return uploads[b].index - uploads[a].index;
@@ -367,6 +369,7 @@ export class StatelessUploadView extends Component<
             onClick={onClick}
             actions={actions}
             testId="media-picker-uploading-media-card"
+            featureFlags={featureFlags}
           />
         ),
       };
@@ -382,6 +385,7 @@ export class StatelessUploadView extends Component<
       onFileClick,
       onEditRemoteImage,
       intl: { formatMessage },
+      featureFlags,
     } = this.props;
     const { items } = recents;
     const selectedRecentFiles = selectedItems
@@ -457,6 +461,7 @@ export class StatelessUploadView extends Component<
             onClick={onClick}
             actions={actions}
             testId="media-picker-recent-media-card"
+            featureFlags={featureFlags}
           />
         ),
       };

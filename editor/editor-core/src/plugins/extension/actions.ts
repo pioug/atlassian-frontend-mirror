@@ -7,10 +7,10 @@ import {
 } from 'prosemirror-utils';
 
 import {
+  TransformBefore,
+  TransformAfter,
   UpdateExtension,
   UpdateContextActions,
-  ParametersGetter,
-  AsyncParametersGetter,
 } from '@atlaskit/editor-common/extensions';
 import { MacroProvider } from '@atlaskit/editor-common/provider-factory';
 
@@ -130,13 +130,13 @@ const createUpdateContextActions = ({
 ): UpdateContextActions => {
   return {
     editInContextPanel: (
-      processParametersBefore: ParametersGetter,
-      processParametersAfter: AsyncParametersGetter,
+      transformBefore: TransformBefore,
+      transformAfter: TransformAfter,
     ) => {
-      setEditingContextToContextPanel(
-        processParametersBefore,
-        processParametersAfter,
-      )(state, dispatch);
+      setEditingContextToContextPanel(transformBefore, transformAfter)(
+        state,
+        dispatch,
+      );
     },
     editInLegacyMacroBrowser,
   };

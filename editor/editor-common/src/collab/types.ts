@@ -26,7 +26,7 @@ export interface CollabEventConnectionData {
   sid: string;
 }
 
-export interface CollabeEventPresenceData {
+export interface CollabEventPresenceData {
   joined?: CollabParticipant[];
   left?: { sessionId: string }[];
 }
@@ -35,6 +35,10 @@ export interface CollabEventTelepointerData {
   type: 'telepointer';
   selection: CollabSendableSelection;
   sessionId: string;
+}
+
+export interface CollabEventLocalStepData {
+  steps: Array<Step>;
 }
 
 export interface CollabSendableSelection {
@@ -59,7 +63,7 @@ export interface CollabEventData {
   connected: CollabEventConnectionData;
   data: CollabEventRemoteData;
   telepointer: CollabEventTelepointerData;
-  presensense: CollabeEventPresenceData;
+  presence: CollabEventPresenceData;
   error: any;
 }
 

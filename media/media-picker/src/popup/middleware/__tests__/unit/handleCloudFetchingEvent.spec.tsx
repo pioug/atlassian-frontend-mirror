@@ -1,7 +1,13 @@
 import {
   expectFunctionToHaveBeenCalledWith,
   mockStore,
+  nextTick,
 } from '@atlaskit/media-test-helpers';
+import {
+  FileState,
+  getFileStreamsCache,
+  createFileStateSubject,
+} from '@atlaskit/media-client';
 import { RECENTS_COLLECTION } from '@atlaskit/media-client/constants';
 import { handleCloudFetchingEvent } from '../../handleCloudFetchingEvent';
 import {
@@ -22,7 +28,19 @@ describe('handleCloudFetchingEvent', () => {
     name: 'some-name',
     size: 12345,
     creationDate: Date.now(),
-    type: 'image/jpeg',
+    type: 'image/gif',
+  };
+  const fileState: FileState = {
+    id: tenantFileId,
+    status: 'processing',
+    name: 'some-name',
+    size: 12345,
+    mediaType: 'image',
+    mimeType: 'image/gif',
+    preview: {
+      value: 'http://some-remote-preview',
+      origin: 'remote',
+    },
   };
 
   const setup = () => {
@@ -32,7 +50,9 @@ describe('handleCloudFetchingEvent', () => {
     };
   };
 
-  it('should dispatch finalizeUpload and getPreview when receives RemoteUploadEnd event', () => {
+  afterEach(() => getFileStreamsCache().removeAll());
+
+  it('should dispatch finalizeUpload and getPreview when receives RemoteUploadEnd event', async () => {
     const { store, next } = setup();
     const action: HandleCloudFetchingEventAction<'RemoteUploadEnd'> = {
       type: HANDLE_CLOUD_FETCHING_EVENT,
@@ -49,7 +69,11 @@ describe('handleCloudFetchingEvent', () => {
       remoteUploads,
     });
 
+    getFileStreamsCache().set(tenantFileId, createFileStateSubject(fileState));
+
     handleCloudFetchingEvent(store)(next)(action);
+
+    await nextTick();
 
     const uploadedFile = {
       ...file,
@@ -58,10 +82,18 @@ describe('handleCloudFetchingEvent', () => {
 
     expect(store.dispatch).toHaveBeenCalledTimes(1);
     expectFunctionToHaveBeenCalledWith(store.dispatch, [
-      finalizeUpload(uploadedFile, tenantFileId, {
-        id: userFileId,
-        collection: RECENTS_COLLECTION,
-      }),
+      finalizeUpload(
+        uploadedFile,
+        tenantFileId,
+        {
+          id: userFileId,
+          collection: RECENTS_COLLECTION,
+        },
+        {
+          preview: fileState.preview,
+          mimeType: fileState.mimeType,
+        },
+      ),
     ]);
   });
 

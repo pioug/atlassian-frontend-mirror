@@ -25,7 +25,7 @@ export interface ArchiveSidebarFolderProps {
   name?: string;
   mediaClient: MediaClient;
   isArchiveEntryLoading: boolean;
-  onError: (error: Error) => void;
+  onError: (error: Error, entry?: ZipEntry) => void;
 }
 
 export class ArchiveSidebarFolderEntry extends React.Component<
@@ -74,7 +74,7 @@ export class ArchiveSidebarFolderEntry extends React.Component<
       const name = this.formatName(root, entry.name);
       downloadUrl(URL.createObjectURL(blob), { name });
     } catch (error) {
-      this.props.onError(error);
+      this.props.onError(error, entry);
     }
   };
 

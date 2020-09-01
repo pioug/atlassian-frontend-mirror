@@ -16,10 +16,12 @@ import SignInIcon from '@atlaskit/icon/glyph/sign-in';
 import QuestionIcon from '@atlaskit/icon/glyph/question-circle';
 import InviteTeamIcon from '@atlaskit/icon/glyph/invite-team';
 import { NotificationIndicator } from '@atlaskit/notification-indicator';
+import { AnalyticsListener } from '@atlaskit/analytics-next';
 import GlobalNavigation from '../../index';
 import ScreenTracker from '../../../ScreenTracker';
 import ItemComponent from '../../../ItemComponent';
 import RecentIcon from '../../../CustomIcons';
+import { NAVIGATION_CHANNEL } from '../../../../constants';
 
 const DrawerContents = () => <div>drawer</div>;
 const EmojiAtlassianIcon = () => <button>EmojiAtlassianIcon</button>;
@@ -1041,38 +1043,32 @@ describe('GlobalNavigation', () => {
   });
 
   describe('Analytics', () => {
-    it('should call fireDrawerDismissedEvents when drawer is closed', () => {
-      const mockFireDrawerDismissedEvents = jest.fn();
-      jest.doMock('../../analytics', () => ({
-        fireDrawerDismissedEvents: mockFireDrawerDismissedEvents,
-        analyticsIdMap: {},
-      }));
-
-      const GlobalNavigationWithMock = require('../../index').default;
+    it('should call dismissDrawer when drawer is closed', () => {
+      const onEvent = jest.fn();
       const wrapper = mount(
-        <GlobalNavigationWithMock searchDrawerContents={DrawerContents} />,
+        <AnalyticsListener onEvent={onEvent} channel={NAVIGATION_CHANNEL}>
+          <GlobalNavigation searchDrawerContents={DrawerContents} />,
+        </AnalyticsListener>,
       );
+      function wasDismissCalled() {
+        return Boolean(
+          onEvent.mock.calls.find(call => {
+            const { payload } = call[0];
+            return (
+              payload.action === 'dismissed' &&
+              payload.actionSubject === 'drawer' &&
+              payload.attributes.trigger === 'escKey'
+            );
+          }),
+        );
+      }
 
       const searchIcon = wrapper.find('SearchIcon');
       searchIcon.simulate('click');
 
-      expect(mockFireDrawerDismissedEvents).not.toHaveBeenCalled();
+      expect(wasDismissCalled()).toBe(false);
 
       escKeyDown();
-
-      expect(mockFireDrawerDismissedEvents).toHaveBeenCalledWith(
-        'search',
-        expect.objectContaining({
-          payload: expect.objectContaining({
-            action: 'dismissed',
-            actionSubject: 'drawer',
-            attributes: expect.objectContaining({
-              trigger: 'escKey',
-            }),
-          }),
-        }),
-        undefined,
-      );
     });
 
     [

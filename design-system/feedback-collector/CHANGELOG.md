@@ -1,5 +1,15 @@
 # @atlaskit/feedback-collector
 
+## 6.1.0
+
+### Minor Changes
+
+- [`ae57065429`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ae57065429) - Updated flexibility for localisation and copy custimisation through additional optional props: showTypeField, feedbackTitle, feedbackTitleDetails, enrolInResearchLabel, canBeContactedLabel, summaryPlaceholder
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.0.3
 
 ### Patch Changes

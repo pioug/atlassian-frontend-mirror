@@ -8,9 +8,9 @@ import { doc, p, status } from '@atlaskit/editor-test-helpers/schema-builder';
 import { Status } from '@atlaskit/status/element';
 import {
   ContainerProps,
-  messages,
   IntlStatusContainerView,
 } from '../../../../../plugins/status/nodeviews/status';
+import { messages } from '../../../../../plugins/status/nodeviews/messages';
 import { pluginKey, StatusType } from '../../../../../plugins/status/plugin';
 import * as Actions from '../../../../../plugins/status/actions';
 // @ts-ignore

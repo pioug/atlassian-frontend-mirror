@@ -17,7 +17,8 @@ export const mediaGroup: NodeSpec = {
   group: 'block',
   content: 'media+',
   attrs: {},
-  marks: 'unsupportedMark',
+  marks: 'unsupportedMark unsupportedNodeAttribute',
+  selectable: false,
   parseDOM: [
     {
       tag: 'div[data-node-type="mediaGroup"]',

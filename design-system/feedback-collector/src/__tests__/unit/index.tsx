@@ -224,6 +224,125 @@ describe('Feedback Collector unit tests', () => {
       });
     });
 
+    describe('Without reason select', () => {
+      let wrapper: ReactWrapper<{}, {}, FeedbackCollector>;
+
+      beforeEach(() => {
+        wrapper = mount(
+          <FeedbackCollector
+            email="email"
+            name="name"
+            requestTypeId="request_type_id"
+            embeddableKey="embeddable_key"
+            showTypeField={false}
+          />,
+        );
+      });
+
+      test('Should set feedback without a feedback type', () => {
+        const formValues: FormFields = {
+          type: 'question',
+          description: 'some text',
+          canBeContacted: true,
+          enrollInResearchGroup: true,
+        };
+
+        const resultValues = {
+          fields: [
+            {
+              id: 'summary',
+              value: 'some text',
+            },
+            {
+              id: 'description',
+              value: 'some text',
+            },
+            {
+              id: 'email',
+              value: 'email',
+            },
+            {
+              id: 'customfield_10045',
+              value: 'name',
+            },
+            {
+              id: 'customfield_10043',
+              value: [
+                {
+                  id: '10109',
+                },
+              ],
+            },
+            {
+              id: 'customfield_10044',
+              value: [
+                {
+                  id: '10110',
+                },
+              ],
+            },
+          ],
+        };
+
+        expect(wrapper.instance().mapFormToJSD(formValues)).toEqual(
+          resultValues,
+        );
+      });
+
+      test('Should not render Select in the component', () => {
+        expect(wrapper.contains('Select')).toBeFalsy();
+      });
+    });
+
+    describe('With custom copy', () => {
+      let wrapper: ReactWrapper<{}, {}, FeedbackCollector>;
+      const customPreamble = 'Your feedback means a lot to us, thank you.';
+      const customCanContact = 'Atlassian can contact me about my feedback';
+      const customEnroll = 'Please enroll me in research program';
+
+      beforeEach(() => {
+        wrapper = mount(
+          <FeedbackCollector
+            email="email"
+            name="name"
+            requestTypeId="request_type_id"
+            embeddableKey="embeddable_key"
+            showTypeField={false}
+            feedbackTitle="Custom title"
+            feedbackTitleDetails={
+              <>
+                <div id="test-preamble-content">{customPreamble}</div>
+              </>
+            }
+            summaryPlaceholder="Enter your feedback here"
+            canBeContactedLabel={
+              <p id="test-contacted-content">
+                Atlassian can contact me about my feedback
+              </p>
+            }
+            enrolInResearchLabel={
+              <p id="test-research-content">
+                Please enroll me in research program
+              </p>
+            }
+          />,
+        );
+      });
+
+      test('Should render the custom copy in the component', () => {
+        expect(wrapper.contains('Select')).toBeFalsy();
+        expect(wrapper.find('#test-preamble-content').text()).toEqual(
+          customPreamble,
+        );
+        expect(wrapper.find('#test-contacted-content').text()).toEqual(
+          customCanContact,
+        );
+        expect(wrapper.find('#test-research-content').text()).toEqual(
+          customEnroll,
+        );
+      });
+    });
+
     describe('Posting feedback', () => {
       test('Should invoke props.onSubmit even after FeedbackCollector unmounts', async () => {
         class TestableFeedbackCollector extends FeedbackCollector {

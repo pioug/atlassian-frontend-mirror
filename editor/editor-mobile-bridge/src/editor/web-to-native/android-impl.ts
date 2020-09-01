@@ -14,6 +14,7 @@ import {
   StatusBridge,
   TextFormattingBridge,
   UndoRedoBridge,
+  ContentBridge,
 } from './bridge';
 
 import { sendToBridge } from '../../bridge-utils';
@@ -35,6 +36,8 @@ export default class AndroidBridge implements NativeBridge {
   analyticsBridge: AnalyticsBridge;
   collabBridge: CollabBridge;
   lifecycleBridge?: LifecycleBridge;
+  contentBridge: ContentBridge;
+
   private _editorReady: boolean = false;
 
   constructor(win: Window = window as Window) {
@@ -49,6 +52,7 @@ export default class AndroidBridge implements NativeBridge {
     this.analyticsBridge = win.analyticsBridge!;
     this.collabBridge = win.collabBridge!;
     this.lifecycleBridge = win.lifecycleBridge;
+    this.contentBridge = win.contentBridge as ContentBridge;
   }
 
   showMentions(query: string) {
@@ -137,7 +141,7 @@ export default class AndroidBridge implements NativeBridge {
 
   call<T extends EditorBridgeNames>(
     bridge: T,
-    event: keyof Exclude<EditorBridges[T], undefined>,
+    event: keyof Required<EditorBridges>[T],
     ...args: any[]
   ) {
     sendToBridge(bridge, event, ...args);
@@ -174,5 +178,11 @@ export default class AndroidBridge implements NativeBridge {
 
     this._editorReady = true;
     this.lifecycleBridge.editorReady();
+  }
+
+  onRenderedContentHeightChanged(height: number) {
+    if (this.contentBridge) {
+      this.contentBridge.onRenderedContentHeightChanged(height);
+    }
   }
 }

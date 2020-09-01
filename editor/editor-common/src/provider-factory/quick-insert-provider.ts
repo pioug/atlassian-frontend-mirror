@@ -40,10 +40,17 @@ export type QuickInsertItemId =
   | 'expand';
 
 export type QuickInsertItem = TypeAheadItem & {
+  /** other names used to find the item */
   keywords?: Array<string>;
+  /** categories where to find the item */
   categories?: Array<string>;
+  /** optional sorting priority */
   priority?: number;
+  /** optional identifier */
   id?: QuickInsertItemId;
+  /** indicates if the item will be highlighted where approppriated (plus menu for now) */
+  featured?: boolean;
+  /** what to do on insert */
   action: (
     insert: QuickInsertActionInsert,
     state: EditorState,

@@ -5,7 +5,8 @@ import {
   UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
 import { IntlProvider } from 'react-intl';
-import { buildToolbar, messages } from '../../toolbar';
+import { buildToolbar } from '../../toolbar';
+import { toolbarMessages } from '../../toolbar-messages';
 import { EditorView } from 'prosemirror-view';
 import {
   FloatingToolbarConfig,
@@ -37,16 +38,19 @@ describe('layout toolbar', () => {
   const stdLayoutButtons = [
     {
       name: LAYOUT_TYPE.TWO_COLS_EQUAL,
-      message: messages.twoColumns,
+      message: toolbarMessages.twoColumns,
     },
-    { name: LAYOUT_TYPE.THREE_COLS_EQUAL, message: messages.threeColumns },
+    {
+      name: LAYOUT_TYPE.THREE_COLS_EQUAL,
+      message: toolbarMessages.threeColumns,
+    },
   ];
   const sidebarLayoutButtons = [
-    { name: LAYOUT_TYPE.LEFT_SIDEBAR, message: messages.leftSidebar },
-    { name: LAYOUT_TYPE.RIGHT_SIDEBAR, message: messages.rightSidebar },
+    { name: LAYOUT_TYPE.LEFT_SIDEBAR, message: toolbarMessages.leftSidebar },
+    { name: LAYOUT_TYPE.RIGHT_SIDEBAR, message: toolbarMessages.rightSidebar },
     {
       name: LAYOUT_TYPE.THREE_WITH_SIDEBARS,
-      message: messages.threeColumnsWithSidebars,
+      message: toolbarMessages.threeColumnsWithSidebars,
     },
   ];
   let editorView: EditorView;
@@ -149,7 +153,7 @@ describe('layout toolbar', () => {
             previousLayout = LAYOUT_TYPE.THREE_COLS_EQUAL;
             findToolbarBtn(
               items,
-              intl.formatMessage(messages.threeColumns),
+              intl.formatMessage(toolbarMessages.threeColumns),
             ).onClick(editorView.state, editorView.dispatch);
           }
 
@@ -163,10 +167,10 @@ describe('layout toolbar', () => {
           expect(createAnalyticsEvent).toHaveBeenCalledWith({
             action: 'changedLayout',
             actionSubject: 'layout',
-            attributes: {
+            attributes: expect.objectContaining({
               previousLayout,
               newLayout: button.name,
-            },
+            }),
             eventType: 'track',
           });
         });
@@ -179,7 +183,7 @@ describe('layout toolbar', () => {
           expect(createAnalyticsEvent).toHaveBeenCalledWith({
             action: 'deleted',
             actionSubject: 'layout',
-            attributes: { layout: button.name },
+            attributes: expect.objectContaining({ layout: button.name }),
             eventType: 'track',
           });
         });

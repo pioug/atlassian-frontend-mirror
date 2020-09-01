@@ -45,6 +45,7 @@ describe('ArchiveSidebarRenderer', () => {
       isArchiveEntryLoading: false,
       collectionName: collectionName,
       onError: () => {},
+      onSuccess: () => {},
     };
     const passedProps = { ...baseProps, ...props };
     return shallow(<ArchiveSidebarRenderer {...passedProps} />);

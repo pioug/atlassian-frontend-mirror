@@ -23,6 +23,8 @@ import {
   leafBlockNodes,
   BlockNodesKeys,
   LeafBlockNodesKeys,
+  blockContainerNodes,
+  BlockContainerNodesKeys,
 } from './_utils';
 
 import { uuid } from '@atlaskit/adf-schema';
@@ -126,6 +128,29 @@ describe('gap-cursor', () => {
               });
             });
           });
+
+          (Object.keys(blockContainerNodes) as BlockContainerNodesKeys).forEach(
+            nodeName => {
+              describe(nodeName, () => {
+                it('should set GapCursorSelection', () => {
+                  const { editorView } = editor(
+                    doc((blockContainerNodes[nodeName] as any)()),
+                  );
+                  sendKeyToPm(editorView, direction);
+                  sendKeyToPm(editorView, direction);
+                  expect(
+                    editorView.state.selection instanceof GapCursorSelection,
+                  ).toBe(true);
+
+                  const expectedSide =
+                    direction === 'ArrowLeft' ? Side.LEFT : Side.RIGHT;
+                  expect(
+                    (editorView.state.selection as GapCursorSelection).side,
+                  ).toEqual(expectedSide);
+                });
+              });
+            },
+          );
         });
 
         describe('when cursor is before or after a leaf block node', () => {
@@ -368,7 +393,7 @@ describe('gap-cursor', () => {
     it('should put gapcursor on the right of the previous node', () => {
       const { editorView } = editor(
         doc(
-          blockNodes['decisionList'](),
+          blockContainerNodes['decisionList'](),
           blockNodes['taskList']({ selected: true }),
         ),
       );

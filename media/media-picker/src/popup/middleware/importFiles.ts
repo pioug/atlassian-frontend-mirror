@@ -417,21 +417,32 @@ export async function importFiles(
   // 4. Now, when empty file was created we can do all the necessary uploading/copy operations
   // TODO here we don't have actually guarantee that empty file was created.
   // https://product-fabric.atlassian.net/browse/MS-2165
-  selectedUploadFiles.forEach(selectedUploadFile => {
+  selectedUploadFiles.forEach(async selectedUploadFile => {
     const { file, serviceName } = selectedUploadFile;
     const selectedItemId = file.id;
-    if (serviceName === 'upload') {
-      const localUpload: LocalUpload = uploads[selectedItemId];
-      importFilesFromLocalUpload(selectedUploadFile, store, localUpload);
-    } else if (serviceName === 'recent_files') {
-      importFilesFromRecentFiles(selectedUploadFile, store);
-    } else if (isRemoteService(serviceName)) {
-      const wsConnectionHolder = wsProvider.getWsConnectionHolder(userAuth);
+    try {
+      if (serviceName === 'upload') {
+        const localUpload: LocalUpload = uploads[selectedItemId];
+        await importFilesFromLocalUpload(
+          selectedUploadFile,
+          store,
+          localUpload,
+        );
+      } else if (serviceName === 'recent_files') {
+        await importFilesFromRecentFiles(selectedUploadFile, store);
+      } else if (isRemoteService(serviceName)) {
+        const wsConnectionHolder = wsProvider.getWsConnectionHolder(userAuth);
 
-      importFilesFromRemoteService(
-        selectedUploadFile,
-        store,
-        wsConnectionHolder,
+        await importFilesFromRemoteService(
+          selectedUploadFile,
+          store,
+          wsConnectionHolder,
+        );
+      }
+    } catch (error) {
+      eventEmitter.emitUploadError(
+        selectedUploadFile.touchFileDescriptor.fileId,
+        error,
       );
     }
   });
@@ -517,7 +528,7 @@ const emitPublicEvents = (
       ? fileState.preview
       : undefined;
 
-    store.dispatch(finalizeUpload(file, fileId, source, preview));
+    store.dispatch(finalizeUpload(file, fileId, source, { preview }));
   };
 
   const canDispatchUploadPreview = (): boolean =>

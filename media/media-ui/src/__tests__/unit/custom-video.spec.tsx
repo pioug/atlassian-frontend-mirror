@@ -7,12 +7,14 @@ import VidPlayIcon from '@atlaskit/icon/glyph/vid-play';
 import { asMock, fakeIntl } from '@atlaskit/media-test-helpers';
 import Spinner from '@atlaskit/spinner';
 import { WidthObserver } from '@atlaskit/width-detector';
+import MediaPlayer from 'react-video-renderer';
 import { mount } from 'enzyme';
 import React from 'react';
 import { Shortcut } from '../../';
 import {
   CustomMediaPlayer,
   CustomMediaPlayerProps,
+  CustomMediaPlayerState,
 } from '../../customMediaPlayer';
 import { toggleFullscreen } from '../../customMediaPlayer/fullscreen';
 import simultaneousPlayManager from '../../customMediaPlayer/simultaneousPlayManager';
@@ -55,7 +57,11 @@ afterAll(() => {
 describe('<CustomMediaPlayer />', () => {
   const setup = (props?: Partial<CustomMediaPlayerProps>) => {
     const onChange = jest.fn();
-    const component = mount(
+    const component = mount<
+      CustomMediaPlayer,
+      CustomMediaPlayerProps,
+      CustomMediaPlayerState
+    >(
       <CustomMediaPlayer
         type="video"
         isAutoPlay={true}
@@ -382,6 +388,86 @@ describe('<CustomMediaPlayer />', () => {
       component.update();
 
       expect(component.find(VolumeTimeRangeWrapper)).toHaveLength(1);
+    });
+  });
+
+  const sourceTypes: CustomMediaPlayerProps['type'][] = ['video', 'audio'];
+
+  sourceTypes.forEach(sourceType => {
+    describe('with save last watch time feature', () => {
+      it(`should continue play from last watch time for the same ${sourceType}`, () => {
+        const { component } = setup({
+          lastWatchTimeConfig: {
+            contentId: 'some-unique-id',
+          },
+          type: sourceType,
+        });
+
+        component.find(sourceType).simulate('timeUpdate', {
+          target: {
+            currentTime: 10,
+            buffered: [],
+          },
+        });
+
+        const { component: component2 } = setup({
+          lastWatchTimeConfig: {
+            contentId: 'some-unique-id',
+          },
+          type: sourceType,
+        });
+
+        expect(component2.find(MediaPlayer).props().defaultTime).toEqual(10);
+      });
+
+      it(`should start from beginning for a different ${sourceType}`, () => {
+        const { component } = setup({
+          lastWatchTimeConfig: {
+            contentId: 'some-unique-id',
+          },
+          type: sourceType,
+        });
+
+        component.find(sourceType).simulate('timeUpdate', {
+          target: {
+            currentTime: 10,
+            buffered: [],
+          },
+        });
+
+        const { component: component2 } = setup({
+          lastWatchTimeConfig: {
+            contentId: 'some-other-unique-id',
+          },
+          type: sourceType,
+        });
+
+        expect(component2.find(MediaPlayer).props().defaultTime).toEqual(0);
+      });
+    });
+
+    describe('without save last watch time feature', () => {
+      it(`should start ${sourceType} from beginning`, () => {
+        const { component } = setup({
+          lastWatchTimeConfig: {
+            contentId: 'some-unique-id',
+          },
+          type: sourceType,
+        });
+
+        component.find(sourceType).simulate('timeUpdate', {
+          target: {
+            currentTime: 10,
+            buffered: [],
+          },
+        });
+
+        const { component: component2 } = setup({
+          type: sourceType,
+        });
+
+        expect(component2.find(MediaPlayer).props().defaultTime).toEqual(0);
+      });
     });
   });
 });

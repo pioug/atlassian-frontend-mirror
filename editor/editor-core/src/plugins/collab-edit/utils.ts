@@ -4,10 +4,9 @@ import { Node as PMNode } from 'prosemirror-model';
 import * as themeColors from '@atlaskit/theme/colors';
 
 import { hexToRgba } from '@atlaskit/adf-schema';
-import { ProviderFactory, ZERO_WIDTH_SPACE } from '@atlaskit/editor-common';
+import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common';
 
 import { CollabEditOptions } from './types';
-import { processRawValue } from '../../utils';
 
 export interface Color {
   solid: string;
@@ -113,31 +112,13 @@ export const replaceDocument = (
   state: EditorState,
   version?: number,
   options?: CollabEditOptions,
-  providerFactory?: ProviderFactory,
-  sanitizePrivateContent?: boolean,
 ) => {
   const { schema, tr } = state;
 
-  let content: Array<PMNode> | PMNode | undefined;
-  let hasContent: boolean;
-  // This can be default when we fix the unsupported nodes we currently produce.
-  if (options && options.allowUnsupportedContent) {
-    // Process the value coming in, this allows us to wrap blocks unknown to us.
-    // Instead of throwing an error at this point.
-    content = processRawValue(
-      state.schema,
-      doc,
-      providerFactory,
-      sanitizePrivateContent,
-    );
-
-    hasContent = !!content;
-  } else {
-    content = (doc.content || []).map((child: any) =>
-      schema.nodeFromJSON(child),
-    );
-    hasContent = Array.isArray(content) ? !!content.length : !!content;
-  }
+  let content: Array<PMNode> = (doc.content || []).map((child: any) =>
+    schema.nodeFromJSON(child),
+  );
+  let hasContent = !!content.length;
 
   if (hasContent) {
     tr.setMeta('addToHistory', false);

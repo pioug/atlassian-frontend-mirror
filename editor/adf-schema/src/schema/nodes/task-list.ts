@@ -28,8 +28,9 @@ export const taskListSelector = `[data-node-type="${name}"]`;
 export const taskList: NodeSpec = {
   group: 'block',
   defining: true,
+  selectable: false,
   content: 'taskItem+ (taskItem|taskList)*',
-  marks: 'unsupportedMark',
+  marks: 'unsupportedMark unsupportedNodeAttribute',
   attrs: {
     localId: { default: '' },
   },

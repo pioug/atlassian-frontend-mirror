@@ -8,15 +8,16 @@ import { validateRange } from '../__helpers/page-objects/_actions';
 import {
   paragraphsWithMedia,
   paragraphWithInlineNodes,
+  paragraphWithoutInlineNodes,
 } from './__fixtures__/validation-fixtures';
 
 const CHAR_WIDTH = 6;
 // TODO: https://product-fabric.atlassian.net/browse/ED-9831
 // Selection in Catalina Safari isn't working properly.
 BrowserTestCase(
-  `A selection containing text and media validates true`,
+  `A selection containing text and media validates false`,
   { skip: ['edge', 'firefox', 'safari'] },
-  async (client: any) => {
+  async (client: WebdriverIO.BrowserObject) => {
     const page = await goToRendererTestingExample(client);
     await mountRenderer(
       page,
@@ -31,7 +32,7 @@ BrowserTestCase(
     );
 
     const result = await validateRange(page);
-    expect(result).toEqual(true);
+    expect(result).toEqual(false);
   },
 );
 
@@ -98,5 +99,65 @@ BrowserTestCase(
 
     const result = await validateRange(page);
     expect(result).toEqual(false);
+  },
+);
+
+BrowserTestCase(
+  `A full line selection with inline nodes validates false`,
+  { skip: ['edge', 'firefox', 'safari'] },
+  async (client: WebdriverIO.BrowserObject) => {
+    const page = await goToRendererTestingExample(client);
+    await mountRenderer(
+      page,
+      { withRendererActions: true },
+      paragraphWithInlineNodes,
+    );
+
+    const bounds = await page.getBoundingRect(
+      `${selectors.document} > p:first-child`,
+    );
+
+    // select exactly one line while releasing mouse on the same x level
+    // so that start and end of the selection range would both be 0
+    await page.simulateUserDragAndDrop(
+      Math.floor(bounds.left + 1),
+      Math.floor(bounds.top + 1),
+      Math.floor(bounds.left + 1),
+      Math.floor(bounds.height + 1),
+    );
+
+    const result = await validateRange(page);
+
+    expect(result).toEqual(false);
+  },
+);
+
+BrowserTestCase(
+  `A full line selection without inline nodes validates true`,
+  { skip: ['edge', 'firefox', 'safari'] },
+  async (client: WebdriverIO.BrowserObject) => {
+    const page = await goToRendererTestingExample(client);
+    await mountRenderer(
+      page,
+      { withRendererActions: true },
+      paragraphWithoutInlineNodes,
+    );
+
+    const bounds = await page.getBoundingRect(
+      `${selectors.document} > p:first-child`,
+    );
+
+    // select exactly one line while releasing mouse on the same x level
+    // so that start and end of the selection range would both be 0
+    await page.simulateUserDragAndDrop(
+      Math.floor(bounds.left + 1),
+      Math.floor(bounds.top + 1),
+      Math.floor(bounds.left + 1),
+      Math.floor(bounds.height + 1),
+    );
+
+    const result = await validateRange(page);
+
+    expect(result).toEqual(true);
   },
 );

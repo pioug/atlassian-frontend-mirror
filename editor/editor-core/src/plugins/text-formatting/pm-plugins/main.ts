@@ -128,11 +128,24 @@ export const plugin = (dispatch: Dispatch) =>
         text: string,
       ) {
         const { state, dispatch } = view;
-        return createInlineCodeFromTextInputWithAnalytics(
-          from,
-          to,
-          text,
-        )(state, dispatch);
+        const {
+          schema,
+          selection: {
+            $from: {
+              parent: { type: parentNodeType },
+            },
+          },
+        } = state;
+
+        if (parentNodeType.allowsMarkType(schema.marks.code)) {
+          return createInlineCodeFromTextInputWithAnalytics(
+            from,
+            to,
+            text,
+          )(state, dispatch);
+        }
+
+        return false;
       },
     },
   });

@@ -1,7 +1,11 @@
 import { EditorState, Plugin } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
-import { Dispatch } from '../../event-dispatcher';
+
 import { browser } from '@atlaskit/editor-common';
+
+import { Dispatch } from '../../event-dispatcher';
+import { DispatchAnalyticsEvent } from '../analytics';
+
 import { setDecorations } from './commands';
 import { createPluginState, getPluginState } from './plugin-factory';
 import {
@@ -17,7 +21,6 @@ import {
   getAllSelectionAnalyticsPayload,
   getCellSelectionAnalyticsPayload,
 } from './utils';
-import { DispatchAnalyticsEvent } from '../analytics';
 
 export const getInitialState = (state: EditorState): SelectionPluginState => ({
   decorationSet: getDecorations(state.tr),

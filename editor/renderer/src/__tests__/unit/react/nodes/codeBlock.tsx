@@ -1,12 +1,37 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/src/enzyme';
 import CodeBlock from '../../../../react/nodes/codeBlock';
-import { AkCodeBlock } from '@atlaskit/code';
+import { CodeBlock as AkCodeBlock } from '@atlaskit/code';
 
+const textSample = 'window.alert';
+const render = (overrides = {}) => {
+  const props = {
+    language: 'javascript',
+    allowCopyToClipboard: false,
+    text: textSample,
+    ...overrides,
+  };
+
+  return mountWithIntl(<CodeBlock {...props}>foo</CodeBlock>);
+};
 describe('Renderer - React/Nodes/CodeBlock', () => {
   it('should render @atlaskit/code component', () => {
-    const node = mount(<CodeBlock language="javascript">foo</CodeBlock>);
-    expect(node.find(AkCodeBlock)).toHaveLength(1);
+    const node = render();
+    const codeBlockWrapper = node.find(AkCodeBlock);
+    expect(codeBlockWrapper).toHaveLength(1);
+    expect(codeBlockWrapper.at(0).prop('text')).toBe(textSample);
+    node.unmount();
+  });
+
+  it('should render CopyButton component if allowCopyToClipboard is enabled', () => {
+    const node = render({ allowCopyToClipboard: true });
+    expect(node.find('CopyButton')).toHaveLength(1);
+    node.unmount();
+  });
+
+  it('should not render CopyButton component if allowCopyToClipboard is disabled', () => {
+    const node = render();
+    expect(node.find('CopyButton').exists()).toBe(false);
     node.unmount();
   });
 });

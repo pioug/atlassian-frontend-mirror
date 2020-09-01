@@ -220,6 +220,6 @@ describe(`${name}/schema codeBlock node`, () => {
 function makeSchema() {
   return createSchema({
     nodes: ['doc', 'paragraph', 'text', 'codeBlock'],
-    marks: ['unsupportedMark'],
+    marks: ['unsupportedMark', 'unsupportedNodeAttribute'],
   });
 }

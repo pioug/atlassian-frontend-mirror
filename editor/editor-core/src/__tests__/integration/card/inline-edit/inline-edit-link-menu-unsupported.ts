@@ -8,7 +8,7 @@ import {
   linkUrlSelector,
 } from '../../_helpers';
 
-import { waitForInlineCardSelection } from '../../../__helpers/page-objects/_cards';
+import { waitForInlineCardSelection } from '@atlaskit/media-integration-test-helpers';
 import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 
 BrowserTestCase(
@@ -34,7 +34,7 @@ BrowserTestCase(
     await manuallyEmptyLinkToolbar(page);
 
     // Choosing an unsupported link
-    await page.type(linkUrlSelector, ['FAB-1166', 'Return']);
+    await page.type(linkUrlSelector, ['FAB-1166', 'ArrowDown', 'Return']);
     await page.waitForSelector('a');
 
     const doc = await page.$eval(editable, getDocFromElement);

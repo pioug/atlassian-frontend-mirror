@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, forwardRef } from 'react';
 import Button from '@atlaskit/button';
 import {
   akEditorSwoopCubicBezier,
@@ -21,6 +21,14 @@ interface ExpandIconButtonWithLabelProps extends ExpandIconButtonProps {
   label: string;
 }
 
+const ExpandLayoutWrapperWithRef = forwardRef<
+  HTMLElement,
+  React.ComponentProps<typeof ExpandLayoutWrapper>
+>(function WithRef(props, ref) {
+  // @ts-ignore: incorrect innerRef typing
+  return <ExpandLayoutWrapper {...props} innerRef={ref} />;
+});
+
 export const withTooltip = (WrapperComponent: React.ElementType) => {
   return class WithSortableColumn extends React.Component<
     ExpandIconButtonWithLabelProps
@@ -33,7 +41,11 @@ export const withTooltip = (WrapperComponent: React.ElementType) => {
       const { label } = this.props;
 
       return (
-        <Tooltip content={label} position="top" tag={ExpandLayoutWrapper}>
+        <Tooltip
+          content={label}
+          position="top"
+          tag={ExpandLayoutWrapperWithRef}
+        >
           <WrapperComponent {...this.props} />
         </Tooltip>
       );

@@ -5,16 +5,13 @@ import { AnnotationId, AnnotationTypes } from '@atlaskit/adf-schema';
 import { JSONDocNode } from '@atlaskit/editor-json-transformer';
 
 import {
+  AnnotationState,
   AnnotationUpdateEmitter,
   AnnotationUpdateEvent,
   AnnotationUpdateEventPayloads,
 } from './emitter';
 
-export interface AnnotationState<Type, State> {
-  annotationType: Type;
-  id: AnnotationId;
-  state: State | null;
-}
+export { AnnotationState };
 
 type ActionResult = { step: Step; doc: JSONDocNode } | false;
 
@@ -55,23 +52,36 @@ export type InlineCommentSelectionComponentProps = {
   removeDraftMode: () => void;
 };
 
-export type AnnotationProviders<State> = {
-  [AnnotationTypes.INLINE_COMMENT]: {
-    getState: (
-      annotationIds: AnnotationId[],
-    ) => Promise<AnnotationState<AnnotationTypes.INLINE_COMMENT, State>[]>;
-    updateSubscriber?: AnnotationUpdateEmitter;
-    allowDraftMode?: boolean;
+type AnnotationInfo = {
+  id: AnnotationId;
+  type: AnnotationTypes.INLINE_COMMENT;
+};
 
-    /**
-     * After the user selects a the document this component will be renderer.
-     *
-     * Usually, it should a floating component
-     */
-    selectionComponent?: React.ComponentType<
-      InlineCommentSelectionComponentProps
-    >;
-  };
+export type InlineCommentViewComponentProps = {
+  /**
+   * Existing annotations where the cursor is placed.
+   * These are provided in order, inner-most first.
+   */
+  annotations: Array<AnnotationInfo>;
+};
+
+interface AnnotationTypeProvider<Type> {
+  getState: (annotationIds: string[]) => Promise<AnnotationState<Type>[]>;
+  updateSubscriber?: AnnotationUpdateEmitter;
+  allowDraftMode?: boolean;
+}
+
+export type InlineCommentAnnotationProvider = AnnotationTypeProvider<
+  AnnotationTypes.INLINE_COMMENT
+> & {
+  selectionComponent?: React.ComponentType<
+    InlineCommentSelectionComponentProps
+  >;
+  viewComponent?: React.ComponentType<InlineCommentViewComponentProps>;
+};
+
+export type AnnotationProviders = {
+  inlineComment: InlineCommentAnnotationProvider;
 };
 
 export {

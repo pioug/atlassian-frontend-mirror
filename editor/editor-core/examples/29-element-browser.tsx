@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { IntlProvider } from 'react-intl';
+import { IntlProvider, injectIntl, InjectedIntlProps } from 'react-intl';
 import {
   AnalyticsEventPayload,
   AnalyticsListener,
@@ -8,6 +8,7 @@ import { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
 import { useStateFromPromise } from '../src/utils/react-hooks/use-state-from-promise';
 import EditorActions from '../src/actions';
 import ElementBrowser from '../src/ui/ElementBrowser';
+import { getCategories } from '../src/ui/ElementBrowser/categories';
 import { extensionProviderToQuickInsertProvider } from '../src/utils/extensions';
 import { getConfluenceMacrosExtensionProvider } from '../example-helpers/confluence-macros';
 import { searchQuickInsertItems } from '../src/plugins/quick-insert/search';
@@ -21,10 +22,6 @@ export default () => {
     console.groupCollapsed('gasv3 event:', event.payload.action);
     console.log(event.payload);
     console.groupEnd();
-  }, []);
-
-  const onSelectItem = useCallback((item: QuickInsertItem) => {
-    console.log('selected item ', item);
   }, []);
 
   const [items] = useStateFromPromise<QuickInsertItem[]>(
@@ -48,30 +45,30 @@ export default () => {
   return (
     <AnalyticsListener channel="editor" onEvent={handleAnalytics}>
       <IntlProvider locale={'en'}>
-        <ElementBrowser
-          categories={categoriesList}
-          getItems={getItems}
-          showSearch={true}
-          showCategories={true}
-          mode="full"
-          defaultCategory="all"
-          onSelectItem={onSelectItem}
-        />
+        <ElementBrowserWithIntl getItems={getItems} />
       </IntlProvider>
     </AnalyticsListener>
   );
 };
 
-const categoriesList = [
-  { title: 'All', name: 'all' },
-  { title: 'Formatting', name: 'formatting' },
-  { title: 'Confluence content', name: 'confluence-content' },
-  { title: 'Media', name: 'media' },
-  { title: 'Visuals & images', name: 'visuals' },
-  { title: 'Navigation', name: 'navigation' },
-  { title: 'External content', name: 'external-content' },
-  { title: 'Communication', name: 'communication' },
-  { title: 'Reporting', name: 'reporting' },
-  { title: 'Administration', name: 'admin' },
-  { title: 'Development', name: 'development' },
-];
+const RenderElementBrowser = (
+  props: {
+    getItems: (query?: string, category?: string) => QuickInsertItem[];
+  } & InjectedIntlProps,
+) => (
+  <ElementBrowser
+    categories={getCategories(props.intl)}
+    getItems={props.getItems}
+    showSearch={true}
+    showCategories={true}
+    mode="full"
+    defaultCategory="all"
+    onInsertItem={onInsertItem}
+  />
+);
+
+const onInsertItem = (item: QuickInsertItem) => {
+  console.log('Inserting item ', item);
+};
+
+const ElementBrowserWithIntl = injectIntl(RenderElementBrowser);

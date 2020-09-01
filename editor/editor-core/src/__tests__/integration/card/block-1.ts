@@ -6,7 +6,7 @@ import {
 } from '../../__helpers/testing-example-helpers';
 import { ConfluenceCardProvider } from '../../../../examples/5-full-page-with-confluence-smart-cards';
 import * as blockCardAdf from './_fixtures_/block-card.adf.json';
-import { waitForBlockCardSelection } from '../../__helpers/page-objects/_cards';
+import { waitForBlockCardSelection } from '@atlaskit/media-integration-test-helpers';
 
 type ClientType = Parameters<typeof goToEditorTestingExample>[0];
 

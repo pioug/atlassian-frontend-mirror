@@ -5,7 +5,7 @@ import {
   EVENT_TYPE,
   ACTION_SUBJECT_ID,
 } from './enums';
-import { SortOrder } from '@atlaskit/editor-common';
+import { SortOrder, UnsupportedContentPayload } from '@atlaskit/editor-common';
 
 export enum PLATFORM {
   NATIVE = 'mobileNative',
@@ -133,4 +133,5 @@ export type AnalyticsEventPayload =
   | TableSortColumnAEP
   | VisitLinkAEP
   | VisitMediaLinkAEP
-  | ExpandAEP;
+  | ExpandAEP
+  | UnsupportedContentPayload;

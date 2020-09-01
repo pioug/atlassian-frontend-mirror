@@ -25,8 +25,8 @@ describe('LinkToolbarAppearance', () => {
       doc,
       providerFactory,
       editorProps: {
-        UNSAFE_cards: {},
         allowPanel: true,
+        UNSAFE_cards: {},
       },
       pluginKey,
     });

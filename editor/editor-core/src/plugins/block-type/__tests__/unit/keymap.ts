@@ -45,9 +45,9 @@ const codeBlockGASV3Payload = {
   actionSubject: 'text',
   eventType: 'track',
   actionSubjectId: 'blockQuote',
-  attributes: {
+  attributes: expect.objectContaining({
     inputMethod: 'keyboard',
-  },
+  }),
 };
 
 describe('codeBlock - keymaps', () => {

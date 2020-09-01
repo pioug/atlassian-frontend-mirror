@@ -123,20 +123,22 @@ BrowserTestCase(
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
 
-    await mountEditor(page, {
-      appearance: 'full-page',
-      defaultValue: adf,
-      allowBreakout: true,
-      allowLayouts: true,
-      allowExtension: true,
-      extensionHandlers: extensionHandlers,
-    });
+    await mountEditor(
+      page,
+      {
+        appearance: 'full-page',
+        defaultValue: adf,
+        allowBreakout: true,
+        allowLayouts: true,
+        allowExtension: true,
+        extensionHandlers: extensionHandlers,
+      },
+      undefined,
+      { clickInEditor: false },
+    );
 
     await page.waitForSelector(wideBreakoutColumn);
     await page.click(wideBreakoutColumn);
-    // this is to deselect layout node in Safari
-    await page.keys('ArrowLeft');
-    await page.keys('ArrowRight');
 
     await page.type(editable, 'a');
     await page.keys('Backspace');

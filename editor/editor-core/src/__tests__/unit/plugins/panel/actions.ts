@@ -55,7 +55,7 @@ describe('panel actions', () => {
       expect(createAnalyticsEvent).toHaveBeenCalledWith({
         action: 'deleted',
         actionSubject: 'panel',
-        attributes: { inputMethod: 'toolbar' },
+        attributes: expect.objectContaining({ inputMethod: 'toolbar' }),
         eventType: 'track',
       });
     });
@@ -82,7 +82,10 @@ describe('panel actions', () => {
         expect(createAnalyticsEvent).toHaveBeenCalledWith({
           action: 'changedType',
           actionSubject: 'panel',
-          attributes: { newType: type, previousType: startType },
+          attributes: expect.objectContaining({
+            newType: type,
+            previousType: startType,
+          }),
           eventType: 'track',
         });
       });

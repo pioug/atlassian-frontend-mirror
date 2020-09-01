@@ -6,7 +6,7 @@ import { APIError } from './errors';
 import { CardClient as CardClientInterface, EnvironmentsKeys } from './types';
 
 import { getResolverUrl } from './utils/environments';
-import { Queue } from './utils/queue';
+import Bottleneck from 'bottleneck';
 
 import { InvokePayload } from '../model/invoke-opts';
 import {
@@ -56,16 +56,16 @@ export default class CardClient implements CardClientInterface {
   }
 
   private createLoader() {
-    const queue = new Queue<BatchResponse>({
-      delay: MIN_TIME_BETWEEN_BATCHES,
+    const limiter = new Bottleneck({
+      minTime: MIN_TIME_BETWEEN_BATCHES,
     });
 
     return new DataLoader(
-      // We place all calls to `batchResolve` in a queue so we don't send off several simultaneous batch requests.
+      // We place all calls to `batchResolve` in a limiter so we don't send off several simultaneous batch requests.
       // This is for two reasons:
       //  1: we want to avoid getting rate limited upstream (eg: forge and other APIs)
       //  2: we want to avoid sending out heaps of requests from the client at once
-      (urls: string[]) => queue.enqueue(() => this.batchResolve(urls)),
+      (urls: string[]) => limiter.schedule(() => this.batchResolve(urls)),
       {
         maxBatchSize: MAX_BATCH_SIZE,
         // NOTE: we turn off DataLoader's cache because it doesn't work for our use-case. Consider the following:

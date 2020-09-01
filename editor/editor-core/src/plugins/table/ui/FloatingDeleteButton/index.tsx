@@ -25,7 +25,7 @@ import {
   getRowHeights,
 } from '../../utils';
 import tableMessages from '../messages';
-import { stickyRowZIndex } from '../styles';
+import { stickyRowZIndex } from '../consts';
 
 import DeleteButton from './DeleteButton';
 import getPopupOptions from './getPopUpOptions';

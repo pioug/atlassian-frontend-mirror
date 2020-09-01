@@ -6,7 +6,7 @@ import dropbox from '@atlaskit/editor-extension-dropbox';
 import { DefaultExtensionProvider } from '@atlaskit/editor-common';
 
 export const getXProductExtensionProvider = () =>
-  new DefaultExtensionProvider(
+  new DefaultExtensionProvider<any>(
     [
       jqlTable,
       loremIpsum,

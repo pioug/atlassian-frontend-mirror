@@ -1,4 +1,4 @@
-import { defineMessages, InjectedIntl } from 'react-intl';
+import { InjectedIntl } from 'react-intl';
 import { EditorState } from 'prosemirror-state';
 import { findDomRefAtPos } from 'prosemirror-utils';
 import LayoutTwoEqualIcon from '@atlaskit/icon/glyph/editor/layout-two-equal';
@@ -8,6 +8,7 @@ import LayoutTwoRightSidebarIcon from '@atlaskit/icon/glyph/editor/layout-two-ri
 import LayoutThreeWithSidebarsIcon from '@atlaskit/icon/glyph/editor/layout-three-with-sidebars';
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 
+import { toolbarMessages } from './toolbar-messages';
 import commonMessages from '../../messages';
 import { MessageDescriptor } from '../../types/i18n';
 import { Command } from '../../types';
@@ -26,36 +27,6 @@ import {
 import { hoverDecoration } from '../base/pm-plugins/decoration';
 import { PresetLayout } from './types';
 
-export const messages = defineMessages({
-  twoColumns: {
-    id: 'fabric.editor.twoColumns',
-    defaultMessage: 'Two columns',
-    description: 'Layout with two columns of equal width',
-  },
-  threeColumns: {
-    id: 'fabric.editor.threeColumns',
-    defaultMessage: 'Three columns',
-    description: 'Layout with three columns of equal width',
-  },
-  rightSidebar: {
-    id: 'fabric.editor.rightSidebar',
-    defaultMessage: 'Right sidebar',
-    description:
-      'Layout with two columns, left column is 2/3 and right is 1/3 of page',
-  },
-  leftSidebar: {
-    id: 'fabric.editor.leftSidebar',
-    defaultMessage: 'Left sidebar',
-    description:
-      'Layout with two columns, left column is 1/3 and right is 2/3 of page',
-  },
-  threeColumnsWithSidebars: {
-    id: 'fabric.editor.threeColumnsWithSidebars',
-    defaultMessage: 'Three columns with sidebars',
-    description: 'Layout with 3 columns laid out as 25% - 50% - 25%',
-  },
-});
-
 type PresetLayoutButtonItem = {
   type: PresetLayout;
   title: MessageDescriptor;
@@ -63,10 +34,14 @@ type PresetLayoutButtonItem = {
 };
 
 const LAYOUT_TYPES: PresetLayoutButtonItem[] = [
-  { type: 'two_equal', title: messages.twoColumns, icon: LayoutTwoEqualIcon },
+  {
+    type: 'two_equal',
+    title: toolbarMessages.twoColumns,
+    icon: LayoutTwoEqualIcon,
+  },
   {
     type: 'three_equal',
-    title: messages.threeColumns,
+    title: toolbarMessages.threeColumns,
     icon: LayoutThreeEqualIcon,
   },
 ];
@@ -74,17 +49,17 @@ const LAYOUT_TYPES: PresetLayoutButtonItem[] = [
 const SIDEBAR_LAYOUT_TYPES: PresetLayoutButtonItem[] = [
   {
     type: 'two_right_sidebar',
-    title: messages.rightSidebar,
+    title: toolbarMessages.rightSidebar,
     icon: LayoutTwoRightSidebarIcon,
   },
   {
     type: 'two_left_sidebar',
-    title: messages.leftSidebar,
+    title: toolbarMessages.leftSidebar,
     icon: LayoutTwoLeftSidebarIcon,
   },
   {
     type: 'three_with_sidebars',
-    title: messages.threeColumnsWithSidebars,
+    title: toolbarMessages.threeColumnsWithSidebars,
     icon: LayoutThreeWithSidebarsIcon,
   },
 ];

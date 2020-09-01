@@ -18,6 +18,7 @@ export const bulletListSelector = '.ak-ul';
 export const bulletList: NodeSpec = {
   group: 'block',
   content: 'listItem+',
+  selectable: false,
   parseDOM: [{ tag: 'ul' }],
   marks: 'unsupportedMark',
   toDOM() {

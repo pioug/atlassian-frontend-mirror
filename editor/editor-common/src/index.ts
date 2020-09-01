@@ -24,7 +24,10 @@ export {
   compose,
   convertProsemirrorTableNodeToArrayOfRows,
   createCompareNodes,
+  findAndTrackUnsupportedContentNodes,
   getAnalyticsAppearance,
+  analyticsEventKey,
+  UnsupportedContentPayload,
   getExtensionLozengeData,
   getExtensionRenderer,
   getMarksByOrder,
@@ -51,6 +54,7 @@ export {
   timestampToUTCDate,
   todayTimestampInUTC,
   withImageLoader,
+  canApplyAnnotationOnRange,
 } from './utils';
 
 export {
@@ -62,6 +66,8 @@ export {
   AnnotationUpdateEvent,
   AnnotationUpdateEventPayloads,
   InlineCommentSelectionComponentProps,
+  InlineCommentViewComponentProps,
+  InlineCommentAnnotationProvider,
 } from './types';
 
 export {
@@ -71,7 +77,8 @@ export {
   CollabEventConnectionData,
   CollabEventInitData,
   CollabParticipant,
-  CollabeEventPresenceData,
+  CollabEventPresenceData,
+  CollabEventLocalStepData,
   CollabEventRemoteData,
   CollabSendableSelection,
   CollabEventTelepointerData, // End Collab Types
@@ -80,6 +87,7 @@ export {
 export {
   DefaultExtensionProvider,
   Extension,
+  ExtensionComponentProps,
   ExtensionHandler,
   ExtensionHandlers,
   ExtensionKey,
@@ -96,6 +104,7 @@ export {
   ExtensionProvider,
   ExtensionType,
   MaybeADFEntity,
+  Parameters,
   MenuItem,
   MenuItemMap,
   UpdateExtension,

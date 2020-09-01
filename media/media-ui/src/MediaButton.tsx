@@ -4,7 +4,7 @@ import { ButtonProps } from '@atlaskit/button/types';
 import * as colors from '@atlaskit/theme/colors';
 
 const buttonTheme = {
-  toolbar: {
+  default: {
     background: {
       default: { light: 'transparent' },
       hover: { light: colors.DN60 },

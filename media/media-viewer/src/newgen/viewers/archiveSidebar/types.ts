@@ -4,4 +4,6 @@ export type ArchiveViewerProps = {
   mediaClient: MediaClient;
   item: FileState;
   collectionName?: string;
+  onZipFileLoadError: (error: Error) => void;
+  onSuccess: () => void;
 };

@@ -48,6 +48,7 @@ export const EmbedCardForbiddenView: FC<EmbedCardForbiddenViewProps> = ({
         button={{
           appearance: 'default',
           text: 'try_another_account',
+          testId: 'connect-other-account',
         }}
         onClick={onAuthorise}
         testId={testId}

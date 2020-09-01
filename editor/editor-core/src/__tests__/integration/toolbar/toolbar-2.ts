@@ -1,6 +1,6 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import { comment, fullpage, editable } from '../_helpers';
-import { messages as blockTypeMessages } from '../../../plugins/block-type/ui/ToolbarBlockType';
+import { toolbarMessages as blockTypeMessages } from '../../../plugins/block-type/ui/ToolbarBlockType/toolbar-messages';
 import {
   goToEditorTestingExample,
   mountEditor,

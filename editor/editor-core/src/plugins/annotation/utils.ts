@@ -7,7 +7,10 @@ import {
   AllSelection,
 } from 'prosemirror-state';
 import { Decoration } from 'prosemirror-view';
-import { AnnotationSharedClassNames } from '@atlaskit/editor-common';
+import {
+  AnnotationSharedClassNames,
+  canApplyAnnotationOnRange,
+} from '@atlaskit/editor-common';
 import { AnnotationInfo, AnnotationSelectionType } from './types';
 import { sum } from '../../utils';
 import { InlineCommentPluginState } from './pm-plugins/types';
@@ -304,30 +307,14 @@ export const isSelectionValid = (
 
 export const hasInvalidNodes = (state: EditorState): boolean => {
   const { selection, doc, schema } = state;
-  let foundInvalid = false;
-
-  doc.nodesBetween(selection.from, selection.to, (node, _pos, parent) => {
-    // Special exception for hardBreak nodes
-    if (schema.nodes.hardBreak === node.type) {
-      return false;
-    }
-
-    // For block elements or text nodes, we want to check
-    // if annotations are allowed inside this tree
-    // or if we're leaf and not text
-    if (
-      (node.isInline && !node.isText) ||
-      (node.isLeaf && !node.isText) ||
-      (node.isText && !parent.type.allowsMarkType(schema.marks.annotation))
-    ) {
-      foundInvalid = true;
-      return false;
-    }
-
-    return true;
-  });
-
-  return foundInvalid;
+  return !canApplyAnnotationOnRange(
+    {
+      from: selection.from,
+      to: selection.to,
+    },
+    doc,
+    schema,
+  );
 };
 
 /**

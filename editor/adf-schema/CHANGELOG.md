@@ -1,5 +1,18 @@
 # @atlaskit/adf-schema
 
+## 12.3.0
+
+### Minor Changes
+
+- [`15fe5f8731`](https://bitbucket.org/atlassian/atlassian-frontend/commits/15fe5f8731) - ED-9601 Mark all nodes that don't support node selection with `selectable: false` in their node spec
+- [`78de49291b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/78de49291b) - [TWISTA-130] Exports AnnotationDataAttributes type and variable typo
+- [`e4114d7053`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e4114d7053) - ED-9607 - Preserve Unsupported Node attributes
+
+### Patch Changes
+
+- [`e485167c47`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e485167c47) - ED-10018: bump prosemirror-tables to fix copy-pasting merged rows
+- [`d0596d4bfa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d0596d4bfa) - change Html and Csharp to HTML and C# in codeblock language list
+
 ## 12.2.2
 
 ### Patch Changes

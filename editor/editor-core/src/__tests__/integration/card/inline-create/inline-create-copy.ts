@@ -6,7 +6,7 @@ import {
 } from '../../../__helpers/testing-example-helpers';
 type ClientType = Parameters<typeof goToEditorTestingExample>[0];
 import * as inlineCardAdf from '../_fixtures_/inline-card.adf.json';
-import { waitForInlineCardSelection } from '../../../__helpers/page-objects/_cards';
+import { waitForInlineCardSelection } from '@atlaskit/media-integration-test-helpers';
 
 BrowserTestCase(
   'card: copy-paste within editor should work',

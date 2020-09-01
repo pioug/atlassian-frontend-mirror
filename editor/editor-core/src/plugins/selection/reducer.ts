@@ -12,6 +12,11 @@ export function reducer(
         decorationSet: action.decorationSet,
         selection: action.selection,
       };
+    case SelectionActionTypes.SET_RELATIVE_SELECTION:
+      return {
+        ...pluginState,
+        selectionRelativeToNode: action.selectionRelativeToNode,
+      };
     default:
       return pluginState;
   }

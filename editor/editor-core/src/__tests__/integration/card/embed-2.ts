@@ -6,7 +6,7 @@ import {
 } from '../../__helpers/testing-example-helpers';
 import { ConfluenceCardProvider } from '../../../../examples/5-full-page-with-confluence-smart-cards';
 import * as embedCardAdf from './_fixtures_/embed-card.adf.json';
-import { waitForEmbedCardSelection } from '../../__helpers/page-objects/_cards';
+import { waitForEmbedCardSelection } from '@atlaskit/media-integration-test-helpers';
 
 type ClientType = Parameters<typeof goToEditorTestingExample>[0];
 
@@ -36,10 +36,10 @@ BrowserTestCase(
     // Clear the Link Label field before typing
     await page.clear('[data-testid="link-url"]');
     // Change the 'link address' field to another link and press enter
-    await page.type(
-      '[data-testid="link-url"]',
-      'https://www.atlassian-new.com\n',
-    );
+    await page.type('[data-testid="link-url"]', [
+      'https://www.atlassian-new.com',
+      'Return',
+    ]);
 
     expect(
       await page.$eval(editable, getDocFromElement),

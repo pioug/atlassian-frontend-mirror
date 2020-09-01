@@ -3,6 +3,7 @@ import { snapshot, initFullPageEditorWithAdf, Device } from '../_utils';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import cardAdf from './__fixtures__/card-adf.json';
 import cardSelectionAdf from './__fixtures__/card-selection-adf.json';
+import cardAdfBlock from './__fixtures__/card-adf.block.json';
 import {
   waitForResolvedInlineCard,
   waitForResolvedBlockCard,
@@ -10,7 +11,9 @@ import {
   waitForInlineCardSelection,
   waitForBlockCardSelection,
   waitForEmbedCardSelection,
-} from '../../__helpers/page-objects/_cards';
+  openPreviewState,
+  waitForPreviewState,
+} from '@atlaskit/media-integration-test-helpers';
 
 describe('Cards:', () => {
   let page: PuppeteerPage;
@@ -101,6 +104,32 @@ describe('Cards:', () => {
 
     await waitForEmbedCardSelection(page, 'resolved');
     await page.mouse.move(0, 0);
+    await snapshot(page);
+  });
+
+  it('displays preview state with correct appearance', async () => {
+    await initFullPageEditorWithAdf(
+      page,
+      cardAdfBlock,
+      Device.LaptopHiDPI,
+      undefined,
+      {
+        UNSAFE_cards: {
+          resolveBeforeMacros: ['jira'],
+          allowBlockCards: true,
+          allowEmbeds: true,
+        },
+      },
+    );
+
+    await page.setViewport({
+      width: 800,
+      height: 1500,
+    });
+
+    await waitForResolvedBlockCard(page);
+    await openPreviewState(page);
+    await waitForPreviewState(page);
     await snapshot(page);
   });
 });

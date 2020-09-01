@@ -7,6 +7,7 @@ import ModalDialog, { ModalTransition } from '@atlaskit/modal-dialog';
 import { MediaClient } from '@atlaskit/media-client';
 import { RECENTS_COLLECTION } from '@atlaskit/media-client/constants';
 import { UIAnalyticsEventHandler } from '@atlaskit/analytics-next';
+import { MediaFeatureFlags } from '@atlaskit/media-common/mediaFeatureFlags';
 
 import { ServiceName, State, ServiceFile, SelectedItem } from '../domain';
 
@@ -86,6 +87,7 @@ export interface AppOwnProps {
   tenantUploadParams: UploadParams;
   proxyReactContext?: AppProxyReactContext;
   useForgePlugins?: boolean;
+  featureFlags?: MediaFeatureFlags;
 }
 
 export type AppProps = AppStateProps & AppOwnProps & AppDispatchProps;
@@ -206,12 +208,13 @@ export class App extends Component<AppProps, AppState> {
     const { plugins = [], onFileClick, selectedItems } = this.props;
     if (selectedServiceName === 'upload') {
       // We need to create a new context since Cards in recents view need user auth
-      const { userMediaClient } = this.props;
+      const { userMediaClient, featureFlags } = this.props;
       return (
         <UploadView
           browserRef={this.browserRef}
           mediaClient={userMediaClient}
           recentsCollection={RECENTS_COLLECTION}
+          featureFlags={featureFlags}
         />
       );
     } else if (selectedServiceName === 'giphy') {
@@ -249,7 +252,7 @@ export class App extends Component<AppProps, AppState> {
   };
 
   private renderClipboard = () => {
-    const { onUploadError, tenantUploadParams } = this.props;
+    const { onUploadError, tenantUploadParams, featureFlags } = this.props;
 
     const config: ClipboardConfig = {
       uploadParams: tenantUploadParams,
@@ -262,12 +265,18 @@ export class App extends Component<AppProps, AppState> {
         config={config}
         onUploadsStart={this.onDrop}
         onError={onUploadError}
+        featureFlags={featureFlags}
       />
     );
   };
 
   private renderBrowser = () => {
-    const { tenantUploadParams, onUploadsStart, onUploadError } = this.props;
+    const {
+      tenantUploadParams,
+      onUploadsStart,
+      onUploadError,
+      featureFlags,
+    } = this.props;
     const config = {
       uploadParams: tenantUploadParams,
       shouldCopyFileToRecents: false,
@@ -281,12 +290,13 @@ export class App extends Component<AppProps, AppState> {
         config={config}
         onUploadsStart={onUploadsStart}
         onError={onUploadError}
+        featureFlags={featureFlags}
       />
     );
   };
 
   private renderDropzone = () => {
-    const { onUploadError, tenantUploadParams } = this.props;
+    const { onUploadError, tenantUploadParams, featureFlags } = this.props;
 
     const config: DropzoneConfig = {
       uploadParams: tenantUploadParams,
@@ -298,6 +308,7 @@ export class App extends Component<AppProps, AppState> {
         ref={this.dropzoneRef}
         mediaClient={this.componentMediaClient}
         config={config}
+        featureFlags={featureFlags}
         onUploadsStart={this.onDrop}
         onError={onUploadError}
         onDragEnter={this.onDragEnter}

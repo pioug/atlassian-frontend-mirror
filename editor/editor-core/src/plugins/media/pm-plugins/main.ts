@@ -532,6 +532,7 @@ export class MediaPluginStateImplementation implements MediaPluginState {
         proxyReactContext: reactContext(),
         useForgePlugins:
           (this.mediaOptions && this.mediaOptions.useForgePlugins) || false,
+        featureFlags: this.mediaOptions && this.mediaOptions.featureFlags,
       };
 
       if (this.options.customMediaPicker) {

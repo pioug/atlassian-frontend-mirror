@@ -389,6 +389,7 @@ describe(name, () => {
         'chevron-left-large',
         'check-circle-outline',
         'like',
+        'archive',
       ];
 
       const expectedPaths = expected.map(a =>

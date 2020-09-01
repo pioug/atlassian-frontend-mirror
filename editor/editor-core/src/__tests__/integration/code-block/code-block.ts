@@ -115,6 +115,39 @@ const floatingToolbarLanguageSelector = 'div[aria-label="Floating Toolbar"]';
     },
   );
 
+  BrowserTestCase(
+    `code-block: code block content is copied to clipboard after clicking on the copy button for ${editor}`,
+    { skip: ['safari', 'firefox', 'edge'] },
+    async (client: any, testName: string) => {
+      const page = await goToEditorTestingExample(client);
+
+      await mountEditor(page, {
+        appearance: editor as EditorAppearance,
+        codeBlock: { allowCopyToClipboard: true },
+      });
+
+      // Insert code block
+      await page.click(`[aria-label="${messages.codeblock.defaultMessage}"]`);
+
+      //Type
+      page.pause(100);
+      await page.waitForSelector(codeBlockSelectors.content);
+      await page.type(codeBlockSelectors.content, 'Some code here');
+
+      // Click on Copy button
+      await page.waitForSelector(codeBlockSelectors.copyToClipboardButton);
+      await page.click(codeBlockSelectors.copyToClipboardButton);
+
+      // Navigate outside the code block and paste
+      await page.keys(['ArrowDown']);
+
+      await page.paste();
+
+      const doc = await page.$eval(editable, getDocFromElement);
+      expect(doc).toMatchCustomDocSnapshot(testName);
+    },
+  );
+
   // This bug isn't fixed. See ticket for details.
   // https://product-fabric.atlassian.net/browse/ED-7545
   /*

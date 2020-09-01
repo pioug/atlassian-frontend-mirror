@@ -8,46 +8,35 @@ import {
 import * as keymaps from '../../../keymaps';
 import { GapCursorSelection, Side } from '../../gap-cursor';
 import { findExpand } from '../utils';
-import { EditorView } from 'prosemirror-view';
 import { findTypeAheadQuery } from '../../type-ahead/utils/find-query-mark';
 import { isEmptyNode } from '../../../utils';
 import { expandClassNames } from '../ui/class-names';
-import { deleteExpand } from '../commands';
+import { deleteExpand, focusTitle } from '../commands';
+import { getPluginState as getSelectionPluginState } from '../../selection/plugin-factory';
+import { RelativeSelectionPos } from '../../selection/types';
 
-const focusTitle = (view: EditorView, pos: number) => {
-  const dom = view.domAtPos(pos);
-  const expandWrapper = dom.node.parentElement;
-  if (expandWrapper) {
-    const input = expandWrapper.querySelector('input');
-    if (input) {
-      input.focus();
-      return true;
-    }
-  }
-  return false;
-};
+const isExpandSelected = (selection: Selection) =>
+  selection instanceof NodeSelection &&
+  (selection.node.type.name === 'expand' ||
+    selection.node.type.name === 'nestedExpand');
 
 export function expandKeymap(): Plugin {
   const list = {};
 
   keymaps.bindKeymapWithCommand(
     keymaps.moveRight.common!,
-    (state, _dispatch, editorView) => {
+    (state, dispatch, editorView) => {
       if (!editorView) {
         return false;
       }
       const { selection } = state;
-      const { nodeAfter } = selection.$from;
-      const { expand, nestedExpand } = state.schema.nodes;
+      const { selectionRelativeToNode } = getSelectionPluginState(state);
 
       if (
-        selection instanceof GapCursorSelection &&
-        selection.side === Side.LEFT &&
-        nodeAfter &&
-        (nodeAfter.type === expand || nodeAfter.type === nestedExpand)
+        isExpandSelected(selection) &&
+        selectionRelativeToNode === RelativeSelectionPos.Start
       ) {
-        const { $from } = selection;
-        return focusTitle(editorView, $from.pos + 1);
+        return focusTitle(selection.from + 1)(state, dispatch, editorView);
       }
       return false;
     },
@@ -56,22 +45,21 @@ export function expandKeymap(): Plugin {
 
   keymaps.bindKeymapWithCommand(
     keymaps.moveLeft.common!,
-    (state, _dispatch, editorView) => {
+    (state, dispatch, editorView) => {
       if (!editorView) {
         return false;
       }
       const { selection } = state;
-      const { nodeBefore } = selection.$from;
-      const { expand, nestedExpand } = state.schema.nodes;
+      const { selectionRelativeToNode } = getSelectionPluginState(state);
+
       if (
-        selection instanceof GapCursorSelection &&
-        selection.side === Side.RIGHT &&
-        nodeBefore &&
-        (nodeBefore.type === expand || nodeBefore.type === nestedExpand)
+        isExpandSelected(selection) &&
+        (selectionRelativeToNode === undefined ||
+          selectionRelativeToNode === RelativeSelectionPos.End)
       ) {
-        const { $from } = selection;
-        return focusTitle(editorView, Math.max($from.pos - 1, 0));
+        return focusTitle(selection.from + 1)(state, dispatch, editorView);
       }
+
       return false;
     },
     list,
@@ -80,26 +68,6 @@ export function expandKeymap(): Plugin {
   keymaps.bindKeymapWithCommand(
     keymaps.tab.common!,
     (state, dispatch, editorView) => {
-      const $nodeAfter = state.selection.$from.nodeAfter;
-
-      if (
-        state.selection instanceof GapCursorSelection &&
-        state.selection.side === Side.LEFT &&
-        $nodeAfter &&
-        $nodeAfter.type === state.schema.nodes.expand &&
-        editorView
-      ) {
-        const { tr } = state;
-        const pos = state.selection.from;
-
-        tr.setSelection(new NodeSelection(tr.doc.resolve(pos)));
-
-        if (dispatch) {
-          dispatch(tr);
-        }
-        return true;
-      }
-
       if (
         state.selection instanceof NodeSelection &&
         state.selection.node.type === state.schema.nodes.expand &&
@@ -153,7 +121,11 @@ export function expandKeymap(): Plugin {
         !nodeBefore.attrs.__expanded
       ) {
         const { $from } = selection;
-        return focusTitle(editorView, Math.max($from.pos - 1, 0));
+        return focusTitle(Math.max($from.pos - 1, 0))(
+          state,
+          dispatch,
+          editorView,
+        );
       }
 
       const { $from } = state.selection;
@@ -162,7 +134,7 @@ export function expandKeymap(): Plugin {
         const prevCursorPos = Math.max($from.pos - $from.parentOffset - 1, 0);
         // move cursor from expand's content to its title
         if (expand && expand.start === prevCursorPos) {
-          return focusTitle(editorView, expand.start);
+          return focusTitle(expand.start)(state, dispatch, editorView);
         }
 
         const sel = Selection.findFrom(state.doc.resolve(prevCursorPos), -1);
@@ -170,7 +142,7 @@ export function expandKeymap(): Plugin {
         if (sel && expandBefore) {
           // moving cursor from outside of an expand to the title when it is collapsed
           if (!expandBefore.node.attrs.__expanded) {
-            return focusTitle(editorView, expandBefore.start);
+            return focusTitle(expandBefore.start)(state, dispatch, editorView);
           }
           // moving cursor from outside of an expand to the content when it is expanded
           else if (dispatch) {
@@ -203,7 +175,7 @@ export function expandKeymap(): Plugin {
         !nodeAfter.attrs.__expanded
       ) {
         const { $from } = selection;
-        return focusTitle(editorView, $from.pos + 1);
+        return focusTitle($from.pos + 1)(state, dispatch, editorView);
       }
 
       if (editorView.endOfTextblock('down')) {
@@ -214,7 +186,7 @@ export function expandKeymap(): Plugin {
           ($after.nodeAfter.type === expand ||
             $after.nodeAfter.type === nestedExpand)
         ) {
-          return focusTitle(editorView, $after.pos + 1);
+          return focusTitle($after.pos + 1)(state, dispatch, editorView);
         }
       }
       return false;
@@ -244,7 +216,7 @@ export function expandKeymap(): Plugin {
             expandBefore.node.type === nestedExpand) &&
           !expandBefore.node.attrs.__expanded
         ) {
-          return focusTitle(editorView, expandBefore.start);
+          return focusTitle(expandBefore.start)(state, dispatch, editorView);
         }
         return false;
       }

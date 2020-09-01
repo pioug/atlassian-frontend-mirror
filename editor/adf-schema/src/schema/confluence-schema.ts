@@ -58,6 +58,7 @@ const marks = [
   'confluenceInlineComment',
   'annotation',
   'unsupportedMark',
+  'unsupportedNodeAttribute',
 ];
 
 export const confluenceSchema: Schema = createSchema({ nodes, marks });

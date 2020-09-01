@@ -13,7 +13,7 @@ describe('Validator Errors', () => {
     });
   }
 
-  it('REDUNDANT_ATTRIBUTES ', async () => {
+  it('UNSUPPORTED_ATTRIBUTES - unsupported node attribute', async () => {
     const error = await validateAndGetError({
       type: 'codeBlock',
       attrs: {
@@ -22,8 +22,8 @@ describe('Validator Errors', () => {
     });
 
     expect(error).toMatchObject({
-      code: 'REDUNDANT_ATTRIBUTES',
-      meta: { attrs: ['redundant'] },
+      code: 'UNSUPPORTED_ATTRIBUTES',
+      meta: { redundant: true },
     });
   });
 
@@ -50,15 +50,16 @@ describe('Validator Errors', () => {
     });
   });
 
-  it('INVALID_ATTRIBUTES ', async () => {
+  it('UNSUPPORTED_ATTRIBUTES - unsupported node attribute value', async () => {
     const error = await validateAndGetError({
       type: 'emoji',
       attrs: { shortName: 'five', text: 5 },
     });
 
     expect(error).toMatchObject({
-      code: 'INVALID_ATTRIBUTES',
-      meta: { attrs: ['text'] },
+      code: 'UNSUPPORTED_ATTRIBUTES',
+      message: `emoji: 'attrs' validation failed.`,
+      meta: { text: 5 },
     });
   });
 

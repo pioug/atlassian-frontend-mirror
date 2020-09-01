@@ -33,7 +33,7 @@ const linkText2 = 'FAB-983';
 
       await browser.click(`[aria-label="${messages.link.defaultMessage}"]`);
       await browser.waitForSelector(linkToolbar);
-      await browser.type(linkToolbar, [linkText2, 'Return']);
+      await browser.type(linkToolbar, [linkText2, 'ArrowDown', 'Return']);
       await browser.waitForSelector('a');
 
       // unlink
@@ -69,7 +69,7 @@ const linkText2 = 'FAB-983';
 
       await browser.click(`[aria-label="${messages.link.defaultMessage}"]`);
       await browser.waitForSelector(linkToolbar);
-      await browser.type(linkToolbar, [linkText2, 'Return']);
+      await browser.type(linkToolbar, [linkText2, 'ArrowDown', 'Return']);
       await browser.waitForSelector('a');
 
       await browser.type(editable, ['ArrowLeft', 'ArrowLeft']);
@@ -79,6 +79,42 @@ const linkText2 = 'FAB-983';
       await browser.waitForSelector(textToDisplayInput);
       await browser.type(textToDisplayInput, 'mmm');
       await browser.type(textToDisplayInput, 'Return');
+      const doc = await browser.$eval(editable, getDocFromElement);
+      expect(doc).toMatchCustomDocSnapshot(testName);
+    },
+  );
+
+  BrowserTestCase(
+    `hyperlink-text.ts: Link:edit with ${editor.name} editor and create with ESC`,
+    {
+      skip: ['edge', 'safari', 'firefox'],
+    },
+    async (client: any, testName: string) => {
+      const textToDisplayInput = '[placeholder="Text to display"]';
+      let browser = new Page(client);
+      await browser.goto(editor.path);
+      await browser.waitForSelector(editor.placeholder);
+      await browser.click(editor.placeholder);
+      await browser.waitForSelector(editable);
+
+      await browser.click(`[aria-label="${messages.link.defaultMessage}"]`);
+      await browser.waitForSelector(linkToolbar);
+      await browser.type(linkToolbar, [linkText2, 'ArrowDown', 'Return']);
+      await browser.waitForSelector('a');
+
+      // unlink
+      await browser.type(editable, [
+        'Return',
+        linkText1,
+        'ArrowLeft',
+        'ArrowLeft',
+      ]);
+      await browser.waitForSelector('[aria-label="Edit link"]');
+      await browser.click('[aria-label="Edit link"]');
+
+      await browser.waitForSelector(textToDisplayInput);
+      await browser.type(textToDisplayInput, 'mmm');
+      await browser.type(textToDisplayInput, 'Escape');
       const doc = await browser.$eval(editable, getDocFromElement);
       expect(doc).toMatchCustomDocSnapshot(testName);
     },

@@ -17,7 +17,7 @@ import {
 import {
   RECENT_SEARCH_HEIGHT_IN_PX,
   RECENT_SEARCH_WIDTH_IN_PX,
-} from '../../../ui/RecentSearch/ToolbarComponents';
+} from '../../../ui/LinkSearch/ToolbarComponents';
 
 import { changeSelectedCardToLink, updateCard } from '../pm-plugins/doc';
 import { findCardInfo, displayInfoForCard } from '../utils';

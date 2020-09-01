@@ -3,33 +3,38 @@ import {
   AnnotationProviders,
   AnnotationUpdateEmitter,
   AnnotationUpdateEvent,
+  AnnotationState,
 } from '@atlaskit/editor-common';
 import RendererBridgeImplementation from '../native-to-web/implementation';
 import { createSelectionComponent } from './create-selection-component';
+import { createViewComponent } from './create-view-component';
 import { AnnotationStatePayload } from '../types';
-import {
-  AnnotationId,
-  AnnotationMarkStates,
-  AnnotationTypes,
-} from '@atlaskit/adf-schema';
+import { AnnotationId, AnnotationTypes } from '@atlaskit/adf-schema';
 import {
   EmitterEvents,
   eventDispatcher as mobileBridgeEventDispatcher,
 } from '../dispatcher';
 import { nativeBridgeAPI as webToNativeBridgeAPI } from '../web-to-native/implementation';
-import { AnnotationContext } from '@atlaskit/renderer';
 
 const updateEmitter = new AnnotationUpdateEmitter();
 const nativeToWebAPI = new RendererBridgeImplementation();
-export const SelectionComponent = createSelectionComponent(nativeToWebAPI);
+const ViewComponent = createViewComponent();
+const SelectionComponent = createSelectionComponent(nativeToWebAPI);
 
 const setAnnotationStateCallback = (payload?: AnnotationStatePayload[]) => {
-  const data = (payload || []).reduce<{
-    [AnnotationId: string]: AnnotationMarkStates;
-  }>((acc, value) => {
-    acc[value.annotationId] = value.annotationState;
+  const data = (payload || []).reduce<
+    Record<AnnotationId, AnnotationState<AnnotationTypes.INLINE_COMMENT>>
+  >((acc, value) => {
+    const { annotationId, annotationState } = value;
 
-    return acc;
+    return {
+      ...acc,
+      [value.annotationId]: {
+        annotationType: AnnotationTypes.INLINE_COMMENT,
+        id: annotationId,
+        state: annotationState,
+      },
+    };
   }, {});
 
   updateEmitter.emit(AnnotationUpdateEvent.SET_ANNOTATION_STATE, data);
@@ -84,22 +89,10 @@ function useAnnotationBridge(allowAnnotations: boolean) {
   }, [allowAnnotations]);
 }
 
-const onAnnotationClick = (ids?: AnnotationId[]) => {
-  const obj = ids
-    ? [
-        {
-          annotationIds: ids,
-          annotationType: AnnotationTypes.INLINE_COMMENT,
-        },
-      ]
-    : undefined;
-  webToNativeBridgeAPI.onAnnotationClick(obj);
-};
-
 const useAnnotationProvider = (
   allowAnnotation: boolean,
-): AnnotationProviders<AnnotationMarkStates> | null => {
-  return useMemo<AnnotationProviders<AnnotationMarkStates> | null>(() => {
+): AnnotationProviders | null => {
+  return useMemo<AnnotationProviders | null>(() => {
     if (!allowAnnotation) {
       return null;
     }
@@ -125,37 +118,18 @@ const useAnnotationProvider = (
         updateSubscriber: updateEmitter,
         allowDraftMode: true,
         selectionComponent: SelectionComponent,
+        viewComponent: ViewComponent,
       },
     };
   }, [allowAnnotation]);
 };
 
-function useAnnotationContext(
-  allowAnnotations: boolean,
-): React.ContextType<typeof AnnotationContext> | null {
-  return useMemo(() => {
-    if (!allowAnnotations) {
-      return null;
-    }
-
-    return {
-      onAnnotationClick,
-      enableAutoHighlight: false,
-      updateSubscriber: updateEmitter,
-    };
-  }, [allowAnnotations]);
-}
-
 export function useAnnotation(
   allowAnnotations: boolean,
-): [
-  AnnotationProviders<AnnotationMarkStates> | null,
-  React.ContextType<typeof AnnotationContext> | null,
-] {
+): AnnotationProviders | null {
   const provider = useAnnotationProvider(allowAnnotations);
-  const context = useAnnotationContext(allowAnnotations);
 
   useAnnotationBridge(allowAnnotations);
 
-  return [provider, context];
+  return provider;
 }

@@ -4,7 +4,7 @@ import {
   tableDeleteButtonOffset,
   tableDeleteButtonSize,
   tableToolbarSize,
-} from '../styles';
+} from '../consts';
 
 import { CellSelectionType } from './types';
 

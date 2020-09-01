@@ -11,6 +11,9 @@ import taskDecisionAdf from './__fixtures__/task-decision.adf.json';
 
 const CHAR_WIDTH = 6;
 
+// Skipped safari tests that were causing Chrome tests so show as
+// failed. Possibly related to: https://product-fabric.atlassian.net/browse/ED-9831
+
 BrowserTestCase(
   `Can create an annotation on nested text inside a list inside a table`,
   { skip: ['chrome', 'safari', 'edge', 'firefox'] },

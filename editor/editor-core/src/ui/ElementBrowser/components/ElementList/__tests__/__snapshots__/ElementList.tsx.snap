@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ElementList should match snapshot 1`] = `
+<AnalyticsContext
+  data={
+    Object {
+      "component": "ElementList",
+    }
+  }
+>
+  <ElementList
+    items={
+      Array [
+        Object {
+          "action": [MockFunction],
+          "name": "item-1",
+          "title": "Item 1",
+        },
+        Object {
+          "action": [MockFunction],
+          "name": "item-2",
+          "title": "Item 2",
+        },
+        Object {
+          "action": [MockFunction],
+          "name": "item-3",
+          "title": "Item 3",
+        },
+        Object {
+          "action": [MockFunction],
+          "name": "item-4",
+          "title": "Item 4",
+        },
+        Object {
+          "action": [MockFunction],
+          "name": "item-5",
+          "title": "Item 5",
+        },
+      ]
+    }
+    mode="full"
+    onEnterKeyPress={[MockFunction]}
+    onInsertItem={[MockFunction]}
+    selectedItemIndex={1}
+    setColumnCount={[MockFunction]}
+    setFocusedItemIndex={[MockFunction]}
+    setSelectedItemIndex={[MockFunction]}
+  />
+</AnalyticsContext>
+`;

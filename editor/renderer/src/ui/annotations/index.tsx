@@ -1,42 +1,47 @@
-import React, { useCallback } from 'react';
-import { AnnotationSelection } from './selection';
+import React from 'react';
+import { AnnotationTypes } from '@atlaskit/adf-schema';
+import { JSONDocNode } from '@atlaskit/editor-json-transformer';
+import { AnnotationView } from './view';
+import { SelectionComponentWrapper } from './selection';
 import { AnnotationsWrapperProps } from './types';
-import { RendererActionsContext } from '../RendererActionsContext';
-import { AnnotationsDraftContextWrapper } from './context';
+import { ProvidersContext, InlineCommentsStateContext } from './context';
+import { useLoadAnnotations } from './hooks/use-load-annotations';
+import { useAnnotationStateByTypeEvent } from './hooks/use-events';
+
+const LoadAnnotations: React.FC<Record<
+  'adfDocument',
+  JSONDocNode
+>> = React.memo(({ adfDocument }) => {
+  useLoadAnnotations({ adfDocument });
+
+  return null;
+});
 
 export const AnnotationsWrapper: React.FC<AnnotationsWrapperProps> = props => {
-  const { annotationProvider, rendererRef, children } = props;
-  const selectionComponent =
+  const { children, annotationProvider, rendererRef, adfDocument } = props;
+  const updateSubscriber =
     annotationProvider &&
     annotationProvider.inlineComment &&
-    annotationProvider.inlineComment.selectionComponent;
-
-  const render = useCallback(
-    ({ applyAnnotationDraftAt, clearAnnotationDraft }) => {
-      return (
-        <RendererActionsContext>
-          <>
-            {children}
-            <AnnotationSelection
-              rendererRef={rendererRef}
-              selectionComponent={selectionComponent!}
-              applyAnnotationDraftAt={applyAnnotationDraftAt}
-              clearAnnotationDraft={clearAnnotationDraft}
-            />
-          </>
-        </RendererActionsContext>
-      );
-    },
-    [selectionComponent, children, rendererRef],
-  );
-
-  if (!selectionComponent) {
-    return <>{children}</>;
-  }
+    annotationProvider.inlineComment.updateSubscriber;
+  const inlineCommentAnnotationsState = useAnnotationStateByTypeEvent({
+    type: AnnotationTypes.INLINE_COMMENT,
+    updateSubscriber: updateSubscriber || null,
+  });
 
   return (
-    <AnnotationsDraftContextWrapper>{render}</AnnotationsDraftContextWrapper>
+    <ProvidersContext.Provider value={annotationProvider}>
+      <InlineCommentsStateContext.Provider
+        value={inlineCommentAnnotationsState}
+      >
+        <SelectionComponentWrapper rendererRef={rendererRef}>
+          <LoadAnnotations adfDocument={adfDocument} />
+          <AnnotationView />
+          {children}
+        </SelectionComponentWrapper>
+      </InlineCommentsStateContext.Provider>
+    </ProvidersContext.Provider>
   );
 };
 
 export { TextWithAnnotationDraft } from './draft';
+export { MarkElement as AnnotationMark } from './element';

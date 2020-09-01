@@ -12,7 +12,7 @@ import { EditorView } from 'prosemirror-view';
 
 import { maphElem } from '../../../utils/dom';
 import { TableCssClassName as ClassName } from '../types';
-import { tableDeleteButtonSize } from '../ui/styles';
+import { tableDeleteButtonSize } from '../ui/consts';
 
 interface CellWidthInfo {
   width: number;

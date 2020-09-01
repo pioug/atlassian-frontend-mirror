@@ -8,6 +8,7 @@ export default function Example() {
       serializer="react"
       allowHeadingAnchorLinks
       allowColumnSorting={true}
+      allowCopyToClipboard
     />
   );
 }

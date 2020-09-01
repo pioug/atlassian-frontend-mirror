@@ -2,7 +2,6 @@ import React from 'react';
 import { mount } from 'enzyme';
 import InlineExtension from '../../../../react/nodes/inlineExtension';
 import { RendererContext } from '../../../../react/types';
-import ReactSerializer from '../../../../react';
 import { defaultSchema } from '@atlaskit/adf-schema';
 import {
   ExtensionHandlers,
@@ -19,13 +18,6 @@ describe('Renderer - React/Nodes/InlineExtension', () => {
       switch (param.extensionKey) {
         case 'react':
           return <span>This is a react element</span>;
-        case 'adf':
-          return [
-            {
-              type: 'text',
-              text: 'This is a ADF node',
-            },
-          ];
         case 'error':
           throw new Error('Cursed by Tong');
         default:
@@ -67,13 +59,10 @@ describe('Renderer - React/Nodes/InlineExtension', () => {
     schema: defaultSchema,
   };
 
-  const serializer = new ReactSerializer({});
-
   it('should be able to fall back to default content', () => {
     const extension = mount(
       <InlineExtension
         providers={providerFactory}
-        serializer={serializer}
         extensionHandlers={extensionHandlers}
         rendererContext={rendererContext}
         extensionType="com.atlassian.fabric"
@@ -95,7 +84,6 @@ describe('Renderer - React/Nodes/InlineExtension', () => {
     const extension = mount(
       <InlineExtension
         providers={providerFactory}
-        serializer={serializer}
         extensionHandlers={extensionHandlers}
         rendererContext={rendererContext}
         extensionType="com.atlassian.fabric"
@@ -112,32 +100,10 @@ describe('Renderer - React/Nodes/InlineExtension', () => {
     extension.unmount();
   });
 
-  it('should be able to render Atlassian Document from extensionHandler', () => {
-    const extension = mount(
-      <InlineExtension
-        providers={providerFactory}
-        serializer={serializer}
-        extensionHandlers={extensionHandlers}
-        rendererContext={rendererContext}
-        extensionType="com.atlassian.fabric"
-        extensionKey="adf"
-      />,
-    );
-
-    expect(
-      extension
-        .find('span')
-        .first()
-        .text(),
-    ).toEqual('This is a ADF node');
-    extension.unmount();
-  });
-
   it('should render the default content if extensionHandler throws an exception', () => {
     const extension = mount(
       <InlineExtension
         providers={providerFactory}
-        serializer={serializer}
         extensionHandlers={extensionHandlers}
         rendererContext={rendererContext}
         extensionType="com.atlassian.fabric"
@@ -163,7 +129,6 @@ describe('Renderer - React/Nodes/InlineExtension', () => {
     const extension = mount(
       <InlineExtension
         providers={providerFactory}
-        serializer={serializer}
         extensionHandlers={extensionHandlers}
         rendererContext={rendererContext}
         extensionType="com.atlassian.fabric"
@@ -203,7 +168,6 @@ describe('Renderer - React/Nodes/InlineExtension', () => {
       const extension = mount(
         <InlineExtension
           providers={providers}
-          serializer={serializer}
           extensionHandlers={extensionHandlers}
           rendererContext={rendererContext}
           extensionType="fake.confluence"
@@ -233,7 +197,6 @@ describe('Renderer - React/Nodes/InlineExtension', () => {
       const extension = mount(
         <InlineExtension
           providers={providers}
-          serializer={serializer}
           extensionHandlers={extensionHandlers}
           rendererContext={rendererContext}
           extensionType="fake.confluence"
@@ -257,7 +220,6 @@ describe('Renderer - React/Nodes/InlineExtension', () => {
       const extension = mount(
         <InlineExtension
           providers={providers}
-          serializer={serializer}
           extensionHandlers={extensionHandlers}
           rendererContext={rendererContext}
           extensionType="fake.confluence"

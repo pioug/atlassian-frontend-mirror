@@ -23,9 +23,9 @@ import {
 } from '../../../../../plugins/text-formatting/pm-plugins/main';
 import { pluginKey as clearFormattingPluginKey } from '../../../../../plugins/text-formatting/pm-plugins/clear-formatting';
 import ToolbarAdvancedTextFormatting, {
-  messages,
   Props as ToolbarProps,
 } from '../../../../../plugins/text-formatting/ui/ToolbarAdvancedTextFormatting';
+import { toolbarMessages } from '../../../../../plugins/text-formatting/ui/ToolbarAdvancedTextFormatting/toolbar-messages';
 import ToolbarButton from '../../../../../ui/ToolbarButton';
 import DropdownMenuWrapper from '../../../../../ui/DropdownMenu';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
@@ -165,7 +165,9 @@ describe('@atlaskit/editor-core/ui/ToolbarAdvancedTextFormatting', () => {
     toolbarOption.find('button').simulate('click');
     const codeButton = toolbarOption
       .find(Item)
-      .filterWhere(n => n.text().indexOf(messages.code.defaultMessage) > -1);
+      .filterWhere(
+        n => n.text().indexOf(toolbarMessages.code.defaultMessage) > -1,
+      );
     codeButton.simulate('click');
     expect(editorView.state.doc).toEqualDocument(doc(p(code('text'))));
     toolbarOption.unmount();
@@ -188,7 +190,9 @@ describe('@atlaskit/editor-core/ui/ToolbarAdvancedTextFormatting', () => {
     toolbarOption.find('button').simulate('click');
     const strikeButton = toolbarOption
       .find(Item)
-      .filterWhere(n => n.text().indexOf(messages.strike.defaultMessage) > -1);
+      .filterWhere(
+        n => n.text().indexOf(toolbarMessages.strike.defaultMessage) > -1,
+      );
     strikeButton.simulate('click');
     expect(editorView.state.doc).toEqualDocument(doc(p(strike('text'))));
     toolbarOption.unmount();
@@ -215,7 +219,7 @@ describe('@atlaskit/editor-core/ui/ToolbarAdvancedTextFormatting', () => {
     const strikeButton = toolbarOption.findWhere(
       wrapper =>
         wrapper.is('span') &&
-        wrapper.text().indexOf(messages.strike.defaultMessage) > -1,
+        wrapper.text().indexOf(toolbarMessages.strike.defaultMessage) > -1,
     );
     expect(strikeButton.length).toEqual(0);
     toolbarOption.unmount();
@@ -233,7 +237,8 @@ describe('@atlaskit/editor-core/ui/ToolbarAdvancedTextFormatting', () => {
     const clearFormattingButton = toolbarOption
       .find(Item)
       .filterWhere(
-        n => n.text().indexOf(messages.clearFormatting.defaultMessage) > -1,
+        n =>
+          n.text().indexOf(toolbarMessages.clearFormatting.defaultMessage) > -1,
       );
     clearFormattingButton.simulate('click');
     expect(editorView.state.doc).toEqualDocument(doc(p('text')));
@@ -385,14 +390,16 @@ describe('@atlaskit/editor-core/ui/ToolbarAdvancedTextFormatting', () => {
    * @param type Type of the button in the toolbar
    */
   function clickToolbarOption(
-    type: keyof typeof messages,
+    type: keyof typeof toolbarMessages,
     toolbarOption: ReactWrapper,
   ) {
     toolbarOption.find('button').simulate('click');
 
     toolbarOption
       .find(Item)
-      .filterWhere(n => n.text().indexOf(messages[type].defaultMessage) > -1)
+      .filterWhere(
+        n => n.text().indexOf(toolbarMessages[type].defaultMessage) > -1,
+      )
       .simulate('click');
   }
 
@@ -441,7 +448,10 @@ describe('@atlaskit/editor-core/ui/ToolbarAdvancedTextFormatting', () => {
     ].forEach(({ type, expectedDocument }) => {
       describe(`Toolbar ${type}`, () => {
         it('should apply the right format', () => {
-          clickToolbarOption(type as keyof typeof messages, toolbarOption);
+          clickToolbarOption(
+            type as keyof typeof toolbarMessages,
+            toolbarOption,
+          );
 
           expect(editorView.state.doc).toEqualDocument(expectedDocument);
         });
@@ -452,12 +462,15 @@ describe('@atlaskit/editor-core/ui/ToolbarAdvancedTextFormatting', () => {
             actionSubject: 'text',
             actionSubjectId: type,
             eventType: 'track',
-            attributes: {
+            attributes: expect.objectContaining({
               inputMethod: 'toolbar',
-            },
+            }),
           };
 
-          clickToolbarOption(type as keyof typeof messages, toolbarOption);
+          clickToolbarOption(
+            type as keyof typeof toolbarMessages,
+            toolbarOption,
+          );
           expect(createAnalyticsEvent).toHaveBeenCalledWith(expectedPayload);
         });
       });

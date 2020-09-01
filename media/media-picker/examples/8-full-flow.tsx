@@ -23,7 +23,10 @@ import {
   Popup,
   UploadEndEventPayload,
   PopupConfig,
+  UploadErrorEventPayload,
 } from '../src/types';
+import Banner from '@atlaskit/banner';
+import WarningIcon from '@atlaskit/icon/glyph/warning';
 
 const userMediaClientConfig = createUploadMediaClientConfig();
 const tenantMediaClientConfig = createStorybookMediaClientConfig();
@@ -49,10 +52,12 @@ export interface State {
   dataSourceType: DataSourceType;
   isUseForgePluginsDefaultEnabled: boolean;
   popup?: Popup;
+  showUploadErrorBanner: boolean;
 }
 
 export default class Example extends React.Component<{}, State> {
   state: State = {
+    showUploadErrorBanner: false,
     events: [],
     dataSourceType: 'list',
     isUseForgePluginsDefaultEnabled:
@@ -104,6 +109,7 @@ export default class Example extends React.Component<{}, State> {
 
     popup.on('upload-preview-update', this.onUploadPreviewUpdate);
     popup.on('upload-end', this.onUploadEnd);
+    popup.on('upload-error', this.onUploadError);
 
     return popup;
   };
@@ -127,6 +133,13 @@ export default class Example extends React.Component<{}, State> {
     event: UploadPreviewUpdateEventPayload,
   ) => {
     console.log('PUBLIC: upload-preview-update', event);
+  };
+
+  private onUploadError = (event: UploadErrorEventPayload) => {
+    console.error('!!! OI LOOK HERE !!! PUBLIC: onUploadError', event);
+    this.setState({
+      showUploadErrorBanner: true,
+    });
   };
 
   private getMediaViewerDataSource = (): MediaViewerDataSource => {
@@ -213,15 +226,33 @@ export default class Example extends React.Component<{}, State> {
   };
 
   render() {
-    const { popup, isUseForgePluginsDefaultEnabled } = this.state;
+    const {
+      popup,
+      isUseForgePluginsDefaultEnabled,
+      showUploadErrorBanner,
+    } = this.state;
 
     return (
       <React.Fragment>
+        <Banner
+          icon={<WarningIcon label="Warning icon" secondaryColor="inherit" />}
+          isOpen={showUploadErrorBanner}
+          appearance="warning"
+        >
+          upload-error was emitted
+        </Banner>
         <OptionsWrapper>
           <Button
             appearance="primary"
             id="show"
-            onClick={() => (popup ? popup.show() : null)}
+            onClick={() => {
+              if (popup) {
+                popup.show();
+              }
+              this.setState({
+                showUploadErrorBanner: false,
+              });
+            }}
           >
             Show
           </Button>

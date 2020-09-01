@@ -10,7 +10,7 @@ import React, {
 import {
   createForm,
   FieldConfig,
-  FieldState,
+  FieldSubscriber,
   FieldSubscription,
   Unsubscribe,
 } from 'final-form';
@@ -24,7 +24,7 @@ type DefaultValue<FieldValue> = (value?: FieldValue) => FieldValue;
 type RegisterField = <FieldValue>(
   name: string,
   defaultValue: FieldValue | DefaultValue<FieldValue>,
-  subscriber: (state: FieldState<FieldValue>) => void,
+  subscriber: FieldSubscriber<FieldValue>,
   subscription: FieldSubscription,
   config: FieldConfig<FieldValue>,
 ) => Unsubscribe;
@@ -69,10 +69,11 @@ function Form<FormData extends Record<string, any> = {}>(
   onSubmitRef.current = props.onSubmit;
 
   const form = useState(() => {
-    const finalForm = createForm<FormData>({
+    // Types here would break the existing API
+    const finalForm = createForm<any>({
       onSubmit: (...args) => onSubmitRef.current(...args),
       destroyOnUnregister: true,
-      initialValues: {} as FormData,
+      initialValues: {},
       mutators: {
         setDefaultValue: (
           [name, defaultValue]: [string, {} | DefaultValue<any>],

@@ -1,3 +1,5 @@
+import { PluginKey, NodeSelection } from 'prosemirror-state';
+import { isNodeSelection } from 'prosemirror-utils';
 import {
   code_block,
   doc,
@@ -17,16 +19,20 @@ import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analy
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { CodeBlockState } from '../../pm-plugins/main';
 import { pluginKey as codeBlockPluginKey } from '../../plugin-key';
-import { removeCodeBlock, changeLanguage } from '../../actions';
+import {
+  removeCodeBlock,
+  changeLanguage,
+  copyContentToClipboard,
+} from '../../actions';
 import { setTextSelection } from '../../../../utils';
-import { PluginKey, NodeSelection } from 'prosemirror-state';
-import { isNodeSelection } from 'prosemirror-utils';
+import { copyToClipboard } from '../../../../utils/clipboard';
 import codeBlockPlugin from '../../';
 import tablesPlugin from '../../../table';
 import basePlugin from '../../../base';
 import typeAheadPlugin from '../../../type-ahead';
 import quickInsertPlugin from '../../../quick-insert';
 import analyticsPlugin from '../../../analytics';
+jest.mock('../../../../utils/clipboard');
 
 describe('code-block', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -167,6 +173,29 @@ describe('code-block', () => {
         });
       });
     });
+
+    describe('copy to clipboard', () => {
+      const mockCopyToClipboard = copyToClipboard as jest.Mocked<any>;
+
+      beforeEach(() => {
+        mockCopyToClipboard.mockClear();
+      });
+
+      it('calls copyToClipboard if there is a content', () => {
+        const { editorView } = editor(doc(code_block()('te{<>}xt')));
+
+        copyContentToClipboard(editorView.state);
+        expect(mockCopyToClipboard).toHaveBeenCalledWith('text');
+      });
+
+      it('does not call copyToClipboard if there is no content', () => {
+        const { editorView } = editor(doc(code_block()()));
+
+        copyContentToClipboard(editorView.state);
+        expect(mockCopyToClipboard).not.toHaveBeenCalled();
+      });
+    });
+
     describe('keyMaps', () => {
       describe('when Enter key is pressed', () => {
         it('a new paragraph should be created in code block', () => {
@@ -218,6 +247,8 @@ describe('code-block', () => {
 
           expect(codeBlockPluginKey.getState(editorView.state)).toEqual({
             pos: null,
+            contentCopied: false,
+            isNodeSelected: false,
           });
         });
       });
@@ -234,6 +265,32 @@ describe('code-block', () => {
             actionSubjectId: 'codeBlock',
             attributes: expect.objectContaining({ inputMethod: 'quickInsert' }),
             eventType: 'track',
+          });
+        });
+      });
+
+      describe('selecting a code block', () => {
+        it('should disable copy to clipboard when the code block is selected', () => {
+          const { editorView, refs } = editor(
+            doc('{codeBlockPos}', code_block()('')),
+          );
+
+          expect(codeBlockPluginKey.getState(editorView.state)).toEqual({
+            pos: 0,
+            contentCopied: false,
+            isNodeSelected: false,
+          });
+
+          editorView.dispatch(
+            editorView.state.tr.setSelection(
+              NodeSelection.create(editorView.state.doc, refs.codeBlockPos),
+            ),
+          );
+
+          expect(codeBlockPluginKey.getState(editorView.state)).toEqual({
+            pos: 0,
+            contentCopied: false,
+            isNodeSelected: true,
           });
         });
       });

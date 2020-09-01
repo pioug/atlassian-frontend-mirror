@@ -1,5 +1,7 @@
 import { MediaType } from '..';
 
+import { isArchive } from './isArchive';
+
 import {
   isImageMimeTypeSupportedByBrowser,
   isDocumentMimeTypeSupportedByBrowser,
@@ -15,7 +17,7 @@ import {
 } from './isMimeTypeSupportedByServer';
 
 export const getMediaTypeFromMimeType = (mimeType: string): MediaType => {
-  if (mimeType === 'application/zip') {
+  if (isArchive(mimeType)) {
     return 'archive';
   }
 

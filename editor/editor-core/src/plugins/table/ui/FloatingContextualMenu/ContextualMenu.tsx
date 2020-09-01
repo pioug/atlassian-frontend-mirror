@@ -44,7 +44,7 @@ import {
   getSelectedRowIndexes,
 } from '../../utils';
 import tableMessages from '../messages';
-import { contextualMenuDropdownWidth } from '../styles';
+import { contextualMenuDropdownWidth } from '../consts';
 
 export const messages = defineMessages({
   cellBackground: {

@@ -9,12 +9,17 @@ export interface FinalizeUploadSource {
   readonly collection?: string;
 }
 
+export interface FinalizeUploadOverrides {
+  readonly preview?: FilePreview | Promise<FilePreview>;
+  readonly mimeType?: string;
+}
+
 export interface FinalizeUploadAction extends Action {
   readonly type: typeof FINALIZE_UPLOAD;
   readonly file: MediaFile;
   readonly replaceFileId: string;
   readonly source: FinalizeUploadSource;
-  readonly preview?: FilePreview | Promise<FilePreview>;
+  readonly overrides?: FinalizeUploadOverrides;
 }
 
 export function isFinalizeUploadAction(
@@ -27,13 +32,13 @@ export function finalizeUpload(
   file: MediaFile,
   replaceFileId: string,
   source: FinalizeUploadSource,
-  preview?: FilePreview | Promise<FilePreview>,
+  overrides?: FinalizeUploadOverrides,
 ): FinalizeUploadAction {
   return {
     type: FINALIZE_UPLOAD,
     file,
     replaceFileId,
     source,
-    preview,
+    overrides,
   };
 }

@@ -7,10 +7,8 @@ import {
 } from '@atlaskit/editor-common';
 import { taskListSelector, decisionListSelector } from '@atlaskit/adf-schema';
 import ContentStyles from '../../ContentStyles';
-import {
-  tableFullPageEditorStyles,
-  tableMarginFullWidthMode,
-} from '../../../plugins/table/ui/styles';
+import { tableFullPageEditorStyles } from '../../../plugins/table/ui/common-styles.css';
+import { tableMarginFullWidthMode } from '../../../plugins/table/ui/consts';
 import { scrollbarStyles } from '../../styles';
 
 const SWOOP_ANIMATION = `0.5s ${akEditorSwoopCubicBezier}`;

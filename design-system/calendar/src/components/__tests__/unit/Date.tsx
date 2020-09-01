@@ -20,15 +20,6 @@ test('should render the component', () => {
   expect(create()).toMatchSnapshot();
 });
 
-test('should prevent default event actions on mouse down', () => {
-  const wrapper = create();
-  const spy = jest.fn();
-  wrapper.simulate('mousedown', {
-    preventDefault: spy,
-  });
-  expect(spy).toHaveBeenCalled();
-});
-
 test('should not trigger onClick on mouseup', () => {
   const wrapper = create({ onClick: dummyOnClickProp });
   wrapper.find(DateTd).simulate('mouseup');

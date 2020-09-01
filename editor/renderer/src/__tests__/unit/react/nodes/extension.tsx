@@ -2,7 +2,6 @@ import React from 'react';
 import { mount } from 'enzyme';
 import Extension from '../../../../react/nodes/extension';
 import { RendererContext } from '../../../../react/types';
-import ReactSerializer from '../../../../react';
 import { defaultSchema } from '@atlaskit/adf-schema';
 import {
   ProviderFactory,
@@ -19,18 +18,6 @@ describe('Renderer - React/Nodes/Extension', () => {
       switch (param.extensionKey) {
         case 'react':
           return <p>This is a react element</p>;
-        case 'adf':
-          return [
-            {
-              type: 'paragraph',
-              content: [
-                {
-                  type: 'text',
-                  text: 'This is a ADF node',
-                },
-              ],
-            },
-          ];
         case 'error':
           throw new Error('Tong is cursing you...');
         default:
@@ -76,13 +63,10 @@ describe('Renderer - React/Nodes/Extension', () => {
     schema: defaultSchema,
   };
 
-  const serializer = new ReactSerializer({});
-
   it('should be able to fall back to default content', () => {
     const extension = mount(
       <Extension
         providers={providerFactory}
-        serializer={serializer}
         extensionHandlers={extensionHandlers}
         rendererContext={rendererContext}
         extensionType="com.atlassian.fabric"
@@ -104,7 +88,6 @@ describe('Renderer - React/Nodes/Extension', () => {
     const extension = mount(
       <Extension
         providers={providerFactory}
-        serializer={serializer}
         extensionHandlers={extensionHandlers}
         rendererContext={rendererContext}
         extensionType="com.atlassian.fabric"
@@ -121,32 +104,10 @@ describe('Renderer - React/Nodes/Extension', () => {
     extension.unmount();
   });
 
-  it('should be able to render Atlassian Document from extensionHandler', () => {
-    const extension = mount(
-      <Extension
-        providers={providerFactory}
-        serializer={serializer}
-        extensionHandlers={extensionHandlers}
-        rendererContext={rendererContext}
-        extensionType="com.atlassian.fabric"
-        extensionKey="adf"
-      />,
-    );
-
-    expect(
-      extension
-        .find('div')
-        .first()
-        .text(),
-    ).toEqual('This is a ADF node');
-    extension.unmount();
-  });
-
   it('should render the default content if extensionHandler throws an exception', () => {
     const extension = mount(
       <Extension
         providers={providerFactory}
-        serializer={serializer}
         extensionHandlers={extensionHandlers}
         rendererContext={rendererContext}
         extensionType="com.atlassian.fabric"
@@ -172,7 +133,6 @@ describe('Renderer - React/Nodes/Extension', () => {
     const extension = mount(
       <Extension
         providers={providerFactory}
-        serializer={serializer}
         extensionHandlers={extensionHandlers}
         rendererContext={rendererContext}
         extensionType="com.atlassian.fabric"
@@ -212,7 +172,6 @@ describe('Renderer - React/Nodes/Extension', () => {
       const extension = mount(
         <Extension
           providers={providers}
-          serializer={serializer}
           extensionHandlers={extensionHandlers}
           rendererContext={rendererContext}
           extensionType="fake.confluence"
@@ -240,7 +199,6 @@ describe('Renderer - React/Nodes/Extension', () => {
       const extension = mount(
         <Extension
           providers={providers}
-          serializer={serializer}
           extensionHandlers={extensionHandlers}
           rendererContext={rendererContext}
           extensionType="fake.confluence"
@@ -262,7 +220,6 @@ describe('Renderer - React/Nodes/Extension', () => {
       const extension = mount(
         <Extension
           providers={providers}
-          serializer={serializer}
           extensionHandlers={extensionHandlers}
           rendererContext={rendererContext}
           extensionType="fake.confluence"

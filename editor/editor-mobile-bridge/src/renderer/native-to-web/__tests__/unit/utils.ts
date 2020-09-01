@@ -20,12 +20,6 @@ describe('utils', () => {
     });
 
     describe('when the element do not exist', () => {
-      it('should return false', () => {
-        const result = scrollToElement(ScrollToContentNode.MENTION, 'non-id');
-
-        expect(result).toBe(false);
-      });
-
       it('should not call the scrollIntoView function', () => {
         scrollToElement(ScrollToContentNode.MENTION, 'non-id');
 
@@ -40,12 +34,6 @@ describe('utils', () => {
           <span data-mention-id='id'</span>
         </body>
       `;
-      });
-
-      it('should return true', () => {
-        const result = scrollToElement(ScrollToContentNode.MENTION, 'id');
-
-        expect(result).toBe(true);
       });
 
       it('should call the scrollIntoView function', () => {

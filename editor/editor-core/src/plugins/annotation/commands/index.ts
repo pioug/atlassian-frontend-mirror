@@ -150,3 +150,10 @@ export const createAnnotation = (
 
   return false;
 };
+
+export const setInlineCommentsVisibility = (isVisible: boolean): Command => {
+  return createCommand({
+    type: ACTIONS.INLINE_COMMENT_SET_VISIBLE,
+    data: { isVisible },
+  });
+};

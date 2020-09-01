@@ -1,5 +1,23 @@
 # @atlaskit/media-picker
 
+## 55.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 55.1.0
+
+### Minor Changes
+
+- [`4c3cc9c1d6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4c3cc9c1d6) - add media feature flags to media-picker
+
+### Patch Changes
+
+- [`1434c4e094`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1434c4e094) - Fixed cloud files rendering when publishing page in CF
+- [`506fb78f08`](https://bitbucket.org/atlassian/atlassian-frontend/commits/506fb78f08) - Bug-fix: emit upload-error on errors thrown in importFiles middleware
+- Updated dependencies
+
 ## 55.0.4
 
 ### Patch Changes

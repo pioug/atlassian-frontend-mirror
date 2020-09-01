@@ -11,6 +11,7 @@ export type MenuItem = {
   extensionType: ExtensionType;
   title: string;
   description: string;
+  featured: boolean;
   keywords: string[];
   categories: string[];
   icon: Icon;

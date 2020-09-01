@@ -74,9 +74,9 @@ describe('text-formatting', () => {
               actionSubject: ACTION_SUBJECT.TEXT,
               actionSubjectId: ACTION_SUBJECT_ID.FORMAT_STRONG,
               eventType: EVENT_TYPE.TRACK,
-              attributes: {
+              attributes: expect.objectContaining({
                 inputMethod: INPUT_METHOD.SHORTCUT,
-              },
+              }),
             };
             const { editorView } = editor(doc(p('{<}text{>}')));
 
@@ -96,9 +96,9 @@ describe('text-formatting', () => {
               actionSubject: ACTION_SUBJECT.TEXT,
               actionSubjectId: ACTION_SUBJECT_ID.FORMAT_ITALIC,
               eventType: EVENT_TYPE.TRACK,
-              attributes: {
+              attributes: expect.objectContaining({
                 inputMethod: INPUT_METHOD.SHORTCUT,
-              },
+              }),
             };
             const { editorView } = editor(doc(p('{<}text{>}')));
 
@@ -116,9 +116,9 @@ describe('text-formatting', () => {
               actionSubject: ACTION_SUBJECT.TEXT,
               actionSubjectId: ACTION_SUBJECT_ID.FORMAT_UNDERLINE,
               eventType: EVENT_TYPE.TRACK,
-              attributes: {
+              attributes: expect.objectContaining({
                 inputMethod: INPUT_METHOD.SHORTCUT,
-              },
+              }),
             };
             const { editorView } = editor(doc(p('{<}text{>}')));
 
@@ -142,9 +142,9 @@ describe('text-formatting', () => {
               actionSubject: ACTION_SUBJECT.TEXT,
               actionSubjectId: ACTION_SUBJECT_ID.FORMAT_STRIKE,
               eventType: EVENT_TYPE.TRACK,
-              attributes: {
+              attributes: expect.objectContaining({
                 inputMethod: INPUT_METHOD.SHORTCUT,
-              },
+              }),
             };
             const { editorView } = editor(doc(p('{<}text{>}')));
 
@@ -164,9 +164,9 @@ describe('text-formatting', () => {
               actionSubject: ACTION_SUBJECT.TEXT,
               actionSubjectId: ACTION_SUBJECT_ID.FORMAT_CODE,
               eventType: EVENT_TYPE.TRACK,
-              attributes: {
+              attributes: expect.objectContaining({
                 inputMethod: INPUT_METHOD.SHORTCUT,
-              },
+              }),
             };
             const { editorView } = editor(
               doc(
@@ -196,9 +196,9 @@ describe('text-formatting', () => {
               actionSubject: ACTION_SUBJECT.TEXT,
               actionSubjectId: ACTION_SUBJECT_ID.FORMAT_STRONG,
               eventType: EVENT_TYPE.TRACK,
-              attributes: {
+              attributes: expect.objectContaining({
                 inputMethod: INPUT_METHOD.SHORTCUT,
-              },
+              }),
             };
             const { editorView } = editor(doc(p('{<}text{>}')));
 
@@ -218,9 +218,9 @@ describe('text-formatting', () => {
               actionSubject: ACTION_SUBJECT.TEXT,
               actionSubjectId: ACTION_SUBJECT_ID.FORMAT_ITALIC,
               eventType: EVENT_TYPE.TRACK,
-              attributes: {
+              attributes: expect.objectContaining({
                 inputMethod: INPUT_METHOD.SHORTCUT,
-              },
+              }),
             };
             const { editorView } = editor(doc(p('{<}text{>}')));
 
@@ -238,9 +238,9 @@ describe('text-formatting', () => {
               actionSubject: ACTION_SUBJECT.TEXT,
               actionSubjectId: ACTION_SUBJECT_ID.FORMAT_UNDERLINE,
               eventType: EVENT_TYPE.TRACK,
-              attributes: {
+              attributes: expect.objectContaining({
                 inputMethod: INPUT_METHOD.SHORTCUT,
-              },
+              }),
             };
             const { editorView } = editor(doc(p('{<}text{>}')));
 
@@ -264,9 +264,9 @@ describe('text-formatting', () => {
               actionSubject: ACTION_SUBJECT.TEXT,
               actionSubjectId: ACTION_SUBJECT_ID.FORMAT_STRIKE,
               eventType: EVENT_TYPE.TRACK,
-              attributes: {
+              attributes: expect.objectContaining({
                 inputMethod: INPUT_METHOD.SHORTCUT,
-              },
+              }),
             };
             const { editorView } = editor(doc(p('{<}text{>}')));
 
@@ -286,9 +286,9 @@ describe('text-formatting', () => {
               actionSubject: ACTION_SUBJECT.TEXT,
               actionSubjectId: ACTION_SUBJECT_ID.FORMAT_CODE,
               eventType: EVENT_TYPE.TRACK,
-              attributes: {
+              attributes: expect.objectContaining({
                 inputMethod: INPUT_METHOD.SHORTCUT,
-              },
+              }),
             };
             const { editorView } = editor(doc(p('{<}text{>}')));
 
@@ -300,21 +300,27 @@ describe('text-formatting', () => {
         });
       });
     }
-    describe('code rule', () => {
+    describe('inline code rule', () => {
       it('should convert when "``" is entered followed by a character in it', () => {
         const expectedPayload: AnalyticsEventPayload = {
           action: ACTION.FORMATTED,
           actionSubject: ACTION_SUBJECT.TEXT,
           actionSubjectId: ACTION_SUBJECT_ID.FORMAT_CODE,
           eventType: EVENT_TYPE.TRACK,
-          attributes: {
+          attributes: expect.objectContaining({
             inputMethod: INPUT_METHOD.FORMATTING,
-          },
+          }),
         };
         const { editorView, sel } = editor(doc(p('`{<>}`')));
         insertText(editorView, 'c', sel);
         expect(editorView.state.doc).toEqualDocument(doc(p(code('c'))));
         expect(createAnalyticsEvent).toHaveBeenCalledWith(expectedPayload);
+      });
+
+      it('should not convert when "``" followed by a character in it is entered in a code block', () => {
+        const { editorView, sel } = editor(doc(code_block()('`{<>}`')));
+        insertText(editorView, 'c', sel);
+        expect(editorView.state.doc).toEqualDocument(doc(code_block()('`c`')));
       });
     });
   });
@@ -327,9 +333,9 @@ describe('text-formatting', () => {
         actionSubject: ACTION_SUBJECT.TEXT,
         actionSubjectId: ACTION_SUBJECT_ID.FORMAT_CODE,
         eventType: EVENT_TYPE.TRACK,
-        attributes: {
+        attributes: expect.objectContaining({
           inputMethod,
-        },
+        }),
       };
 
       const { editorView } = editor(doc(p('{<}t{>}ext')));
@@ -397,9 +403,9 @@ describe('text-formatting', () => {
         actionSubject: ACTION_SUBJECT.TEXT,
         actionSubjectId: ACTION_SUBJECT_ID.FORMAT_ITALIC,
         eventType: EVENT_TYPE.TRACK,
-        attributes: {
+        attributes: expect.objectContaining({
           inputMethod,
-        },
+        }),
       };
 
       const { editorView } = editor(doc(p('{<}t{>}ext')));
@@ -449,9 +455,9 @@ describe('text-formatting', () => {
         actionSubject: ACTION_SUBJECT.TEXT,
         actionSubjectId: ACTION_SUBJECT_ID.FORMAT_STRONG,
         eventType: EVENT_TYPE.TRACK,
-        attributes: {
+        attributes: expect.objectContaining({
           inputMethod,
-        },
+        }),
       };
 
       const { editorView } = editor(doc(p('{<}t{>}ext')));
@@ -501,9 +507,9 @@ describe('text-formatting', () => {
         actionSubject: ACTION_SUBJECT.TEXT,
         actionSubjectId: ACTION_SUBJECT_ID.FORMAT_UNDERLINE,
         eventType: EVENT_TYPE.TRACK,
-        attributes: {
+        attributes: expect.objectContaining({
           inputMethod,
-        },
+        }),
       };
       const { editorView } = editor(doc(p('{<}t{>}ext')));
 
@@ -554,9 +560,9 @@ describe('text-formatting', () => {
         actionSubject: ACTION_SUBJECT.TEXT,
         actionSubjectId: ACTION_SUBJECT_ID.FORMAT_STRIKE,
         eventType: EVENT_TYPE.TRACK,
-        attributes: {
+        attributes: expect.objectContaining({
           inputMethod,
-        },
+        }),
       };
       const { editorView } = editor(doc(p('{<}t{>}ext')));
 
@@ -605,9 +611,9 @@ describe('text-formatting', () => {
         actionSubject: ACTION_SUBJECT.TEXT,
         actionSubjectId: ACTION_SUBJECT_ID.FORMAT_SUB,
         eventType: EVENT_TYPE.TRACK,
-        attributes: {
+        attributes: expect.objectContaining({
           inputMethod,
-        },
+        }),
       };
       const { editorView } = editor(doc(p('{<}t{>}ext')));
 
@@ -676,9 +682,9 @@ describe('text-formatting', () => {
         actionSubject: ACTION_SUBJECT.TEXT,
         actionSubjectId: ACTION_SUBJECT_ID.FORMAT_SUPER,
         eventType: EVENT_TYPE.TRACK,
-        attributes: {
+        attributes: expect.objectContaining({
           inputMethod,
-        },
+        }),
       };
       const { editorView } = editor(doc(p('{<}t{>}ext')));
 
@@ -754,9 +760,9 @@ describe('text-formatting', () => {
         actionSubject: ACTION_SUBJECT.TEXT,
         actionSubjectId: ACTION_SUBJECT_ID.FORMAT_CODE,
         eventType: EVENT_TYPE.TRACK,
-        attributes: {
+        attributes: expect.objectContaining({
           inputMethod,
-        },
+        }),
       };
       const { editorView } = editor(doc(p('{<}t{>}ext')));
 

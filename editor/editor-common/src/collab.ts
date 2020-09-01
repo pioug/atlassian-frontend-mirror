@@ -1,6 +1,6 @@
 export {
   CollabEditProvider,
-  CollabeEventPresenceData,
+  CollabEventPresenceData,
   CollabEvent,
   CollabEventConnectionData,
   CollabEventData,

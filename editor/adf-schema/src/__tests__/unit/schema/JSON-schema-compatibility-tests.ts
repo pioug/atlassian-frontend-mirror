@@ -51,6 +51,7 @@ const unsupportedMarks = [
   'confluenceInlineComment',
   'annotation',
   'unsupportedMark',
+  'unsupportedNodeAttribute',
 ];
 
 /**

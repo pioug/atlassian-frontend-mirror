@@ -34,7 +34,7 @@ const manifest: ExtensionManifest = {
       default: {
         type: 'extension',
         render: () => import('./extension-handler'),
-        update: async (parameters: { id: string }) => {
+        update: async (parameters: { id?: string }) => {
           console.log({ parameters });
           return parameters;
         },

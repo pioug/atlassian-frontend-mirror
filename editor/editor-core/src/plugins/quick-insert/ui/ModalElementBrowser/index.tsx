@@ -6,7 +6,7 @@ import { pluginKey } from '../../plugin-key';
 import { QuickInsertPluginState } from '../../types';
 import { searchQuickInsertItems } from '../../search';
 
-import ModalElementBrowser from './ModalElementBrowser';
+import ModalElementBrowser from '../../../../ui/ElementBrowser/ModalElementBrowser';
 
 import { closeElementBrowserModal, insertItem } from '../../commands';
 
@@ -27,7 +27,7 @@ const Modal = ({
     [quickInsertState],
   );
 
-  const onSelectItem = useCallback(
+  const onInsertItem = useCallback(
     item => {
       closeElementBrowserModal()(editorView.state, editorView.dispatch);
       if (!editorView.hasFocus()) {
@@ -45,7 +45,7 @@ const Modal = ({
   return (
     <ModalElementBrowser
       getItems={getItems}
-      onSelectItem={onSelectItem}
+      onInsertItem={onInsertItem}
       isOpen={
         (quickInsertState && quickInsertState.isElementBrowserModalOpen) ||
         false

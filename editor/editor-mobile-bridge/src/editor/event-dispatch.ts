@@ -7,14 +7,19 @@ export enum EventTypes {
   SET_NEW_ALLOWED_INSERT_LIST = 'SET_NEW_ALLOWED_INSERT_LIST',
   ADD_NEW_ALLOWED_INSERT_LIST_ITEM = 'ADD_NEW_ALLOWED_INSERT_LIST_ITEM',
   REMOVE_ALLOWED_INSERT_LIST_ITEM = 'REMOVE_ALLOWED_INSERT_LIST_ITEM',
+  SET_DOCUMENT_REFLOW_DETECTOR_STATUS = 'SET_DOCUMENT_REFLOW_DETECTOR_STATUS',
 }
 
-type payloadType = allowListPayloadType;
+type GetPayload<
+  T extends EventTypes
+> = T extends EventTypes.SET_DOCUMENT_REFLOW_DETECTOR_STATUS
+  ? boolean
+  : allowListPayloadType;
 
 export class BridgeEventEmitter {
   private emitter: EventEmitter = new EventEmitter();
 
-  emit(event: EventTypes, payload: payloadType): boolean {
+  emit<T extends EventTypes>(event: T, payload: GetPayload<T>): boolean {
     if (typeof payload === 'undefined') {
       return this.emitter.emit(event);
     } else {
@@ -22,16 +27,16 @@ export class BridgeEventEmitter {
     }
   }
 
-  on(
-    event: EventTypes,
-    listener: (payload: payloadType) => void,
+  on<T extends EventTypes>(
+    event: T,
+    listener: (payload: GetPayload<T>) => void,
   ): EventEmitter {
     return this.emitter.on(event, listener);
   }
 
-  off(
-    event: EventTypes,
-    listener: (payload: payloadType) => void,
+  off<T extends EventTypes>(
+    event: T,
+    listener: (payload: GetPayload<T>) => void,
   ): EventEmitter {
     return this.emitter.off(event, listener);
   }

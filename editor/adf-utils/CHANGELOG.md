@@ -1,5 +1,16 @@
 # @atlaskit/adf-utils
 
+## 10.3.0
+
+### Minor Changes
+
+- [`aa03ba4b0b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aa03ba4b0b) - ED-9733 Preserve known mark on node which does not support it.
+- [`e4114d7053`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e4114d7053) - ED-9607 - Preserve Unsupported Node attributes
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.2.2
 
 ### Patch Changes

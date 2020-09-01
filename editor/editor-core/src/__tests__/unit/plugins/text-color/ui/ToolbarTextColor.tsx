@@ -180,10 +180,10 @@ describe('ToolbarTextColor', () => {
           actionSubject: 'text',
           actionSubjectId: 'color',
           eventType: 'track',
-          attributes: {
+          attributes: expect.objectContaining({
             newColor: color!.label.toLowerCase(),
             previousColor: defaultColor!.label.toLowerCase(),
-          },
+          }),
         });
       });
     });

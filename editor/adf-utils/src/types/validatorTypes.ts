@@ -5,7 +5,9 @@ export interface MarkValidationResult {
   originalMark: ADFEntityMark;
   newMark?: ADFEntityMark;
   errorCode?: ValidationError['code'];
+  message?: string;
 }
+
 export interface Output {
   valid: boolean;
   entity?: ADFEntity;
@@ -66,6 +68,7 @@ export interface ValidationErrorMap {
   INVALID_CONTENT: never;
   INVALID_CONTENT_LENGTH: { length: number };
   INVALID_ATTRIBUTES: { attrs: Array<string> };
+  UNSUPPORTED_ATTRIBUTES: { attrs: Array<string> };
   DEPRECATED: never;
 }
 
@@ -82,11 +85,7 @@ export interface ValidationError {
 export type ErrorCallback = (
   entity: ADFEntity,
   error: ValidationError,
-  options: {
-    allowUnsupportedBlock?: boolean;
-    allowUnsupportedInline?: boolean;
-    isMark?: boolean;
-  },
+  options: ErrorCallbackOptions,
 ) => ADFEntity | undefined;
 
 // `loose` - ignore and filter extra props or attributes
@@ -108,3 +107,10 @@ export type Err = <T extends ValidationErrorType>(
   msg: string,
   meta?: T extends keyof ValidationErrorMap ? ValidationErrorMap[T] : never,
 ) => NodeValidationResult;
+
+export interface ErrorCallbackOptions {
+  isNodeAttribute?: boolean;
+  isMark?: any;
+  allowUnsupportedBlock?: boolean;
+  allowUnsupportedInline?: boolean;
+}

@@ -1,4 +1,6 @@
-export { default } from './components/Tooltip';
-export { TooltipPrimitive } from './styled';
-export { PositionType } from './types';
-export { TooltipProps } from './components/types';
+export { default } from './Tooltip';
+export {
+  default as TooltipPrimitive,
+  TooltipPrimitiveProps,
+} from './TooltipPrimitive';
+export { PositionType, TooltipProps } from './types';

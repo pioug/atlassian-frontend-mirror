@@ -1,0 +1,237 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`list: should be able to insert lists via keyboard shortcut (Mac) 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "content": Array [
+                Object {
+                  "text": "item",
+                  "type": "text",
+                },
+              ],
+              "type": "paragraph",
+            },
+          ],
+          "type": "listItem",
+        },
+      ],
+      "type": "orderedList",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "content": Array [
+                Object {
+                  "text": "item",
+                  "type": "text",
+                },
+              ],
+              "type": "paragraph",
+            },
+          ],
+          "type": "listItem",
+        },
+      ],
+      "type": "bulletList",
+    },
+    Object {
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`list: should be able to insert lists via keyboard shortcut (Windows) 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "content": Array [
+                Object {
+                  "text": "item",
+                  "type": "text",
+                },
+              ],
+              "type": "paragraph",
+            },
+          ],
+          "type": "listItem",
+        },
+      ],
+      "type": "orderedList",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "content": Array [
+                Object {
+                  "text": "item",
+                  "type": "text",
+                },
+              ],
+              "type": "paragraph",
+            },
+          ],
+          "type": "listItem",
+        },
+      ],
+      "type": "bulletList",
+    },
+    Object {
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`list: should handle backspace correctly when at the start of a list 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "content": Array [
+                Object {
+                  "text": "wefwef1wefwef2wefwef3wefwef4wefwef5wefwef6wefwef7",
+                  "type": "text",
+                },
+              ],
+              "type": "paragraph",
+            },
+          ],
+          "type": "listItem",
+        },
+      ],
+      "type": "bulletList",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "content": Array [
+                Object {
+                  "text": "wefwef1wefwef2wefwef3wefwef4wefwef5wefwef6wefwef7",
+                  "type": "text",
+                },
+              ],
+              "type": "paragraph",
+            },
+          ],
+          "type": "listItem",
+        },
+      ],
+      "type": "orderedList",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`list: should handle delete correctly when at the end of a list 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "content": Array [
+                Object {
+                  "text": "wefwef1wefwef2wefwef3wefwef4wefwef5wefwef6wefwef7",
+                  "type": "text",
+                },
+              ],
+              "type": "paragraph",
+            },
+          ],
+          "type": "listItem",
+        },
+      ],
+      "type": "bulletList",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "content": Array [
+                Object {
+                  "text": "wefwef1wefwef2wefwef3wefwef4wefwef5wefwef6wefwef7",
+                  "type": "text",
+                },
+              ],
+              "type": "paragraph",
+            },
+          ],
+          "type": "listItem",
+        },
+      ],
+      "type": "orderedList",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`list: shouldn't change focus on tab if the list is not indentable 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "content": Array [
+                Object {
+                  "text": "abc",
+                  "type": "text",
+                },
+              ],
+              "type": "paragraph",
+            },
+            Object {
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "content": Array [
+                        Object {
+                          "text": "123",
+                          "type": "text",
+                        },
+                      ],
+                      "type": "paragraph",
+                    },
+                  ],
+                  "type": "listItem",
+                },
+              ],
+              "type": "bulletList",
+            },
+          ],
+          "type": "listItem",
+        },
+      ],
+      "type": "bulletList",
+    },
+  ],
+  "type": "doc",
+}
+`;

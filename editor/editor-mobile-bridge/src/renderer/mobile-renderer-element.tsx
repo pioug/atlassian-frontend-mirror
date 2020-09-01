@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import React, { useCallback } from 'react';
+import React, { useCallback, useRef } from 'react';
 import {
   WithCreateAnalyticsEvent,
   AnnotationProviders,
@@ -8,7 +8,6 @@ import {
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { MentionProvider } from '@atlaskit/mention/types';
 import { MediaProvider as MediaProviderType } from '@atlaskit/editor-common/provider-factory';
-import { AnnotationMarkStates } from '@atlaskit/adf-schema';
 import { ReactRenderer, RendererProps } from '@atlaskit/renderer';
 import FabricAnalyticsListeners, {
   AnalyticsWebClient,
@@ -32,8 +31,13 @@ import {
 import { useRendererContent } from './hooks/use-set-renderer-content';
 import { useCreateProviderFactory } from './hooks/use-create-provider-factory';
 import { useRendererContext } from './hooks/use-renderer-context';
-import { AnnotationContextProviderWrapper } from './annotations/annotation-context-provider-wrapper';
+import { useHeadingLinks } from './hooks/use-heading-links';
 import { useAnnotation } from './annotations/use-annotation';
+import { useRendererReady } from './hooks/use-renderer-ready';
+import { useRendererDestroyed } from './hooks/use-renderer-destroyed';
+import { eventHandlers } from './event-handlers';
+import { isApple } from '../utils/is-apple';
+import { useRendererReflowDetected } from './hooks/use-renderer-reflow-detected';
 
 export interface MobileRendererProps extends RendererProps {
   cardClient: CardClient;
@@ -66,17 +70,32 @@ type BasicRendererProps = {
   mentionProvider: Promise<MentionProvider>;
   emojiProvider: Promise<EmojiResource>;
   allowAnnotations: boolean;
+  allowHeadingAnchorLinks: boolean;
+  objectAri: string;
+  containerAri: string;
   document: string;
 };
 
 interface WithCreateAnalyticsEventProps extends BasicRendererProps {
   createAnalyticsEvent: CreateUIAnalyticsEvent;
-  annotationProvider: AnnotationProviders<AnnotationMarkStates> | null;
+  annotationProvider: AnnotationProviders | null;
 }
+
+const handleRendererContentLoadedBridge = () => {
+  if (
+    !isApple(window) && // don't fire on iOS
+    window.requestAnimationFrame
+  ) {
+    window.requestAnimationFrame(() =>
+      toNativeBridge.call('renderBridge', 'onContentRendered'),
+    );
+  }
+};
 
 const BasicRenderer: React.FC<WithCreateAnalyticsEventProps> = ({
   createAnalyticsEvent,
   allowAnnotations,
+  allowHeadingAnchorLinks,
   emojiProvider,
   mediaProvider,
   mentionProvider,
@@ -92,89 +111,34 @@ const BasicRenderer: React.FC<WithCreateAnalyticsEventProps> = ({
     rendererBridge,
   );
   const rendererContext = useRendererContext(rendererBridge);
+  const headingAnchorLinksConfig = useHeadingLinks(allowHeadingAnchorLinks);
   const disableActions = getDisableActionsValue();
   const disableMediaLinking = getDisableMediaLinkingValue();
-  const [annotationProvider, annotationContext] = useAnnotation(
-    allowAnnotations,
-  );
-  const handleRendererContentLoaded = useCallback(() => {
-    if (
-      window &&
-      !window.webkit && // don't fire on iOS
-      window.requestAnimationFrame
-    ) {
-      window.requestAnimationFrame(() =>
-        toNativeBridge.call('renderBridge', 'onContentRendered'),
-      );
-    }
-  }, []);
+  const annotationProvider = useAnnotation(allowAnnotations);
+  const innerRef = useRef<HTMLDivElement>(null);
 
-  const onLinkClick = useCallback(
-    (event: React.SyntheticEvent<HTMLElement>, url?: string) => {
-      // Prevent redirection within the WebView
-      event.preventDefault();
-
-      if (!url) {
-        return;
-      }
-      // Relay the URL through the bridge for handling
-      toNativeBridge.call('linkBridge', 'onLinkClick', { url });
-    },
-    [],
-  );
-
-  const onMediaClick = useCallback((result: any, analyticsEvent?: any) => {
-    const { mediaItemDetails } = result;
-    // Media details only exist once resolved. Not available during loading/pending state.
-    if (mediaItemDetails) {
-      const mediaId = mediaItemDetails.id;
-      // We don't have access to the occurrence key at this point so native will default to the first instance for now.
-      // https://product-fabric.atlassian.net/browse/FM-1984
-      const occurrenceKey: string | null = null;
-      toNativeBridge.call('mediaBridge', 'onMediaClick', {
-        mediaId,
-        occurrenceKey,
-      });
-    }
-  }, []);
-
-  const onMentionClick = useCallback((profileId: string, alias: string) => {
-    toNativeBridge.call('mentionBridge', 'onMentionClick', {
-      profileId,
-    });
-  }, []);
+  useRendererReady(innerRef);
+  useRendererDestroyed();
+  useRendererReflowDetected(rendererBridge);
 
   return (
-    <AnnotationContextProviderWrapper value={annotationContext}>
-      <ReactRenderer
-        document={document}
-        annotationProvider={annotationProvider}
-        allowAnnotations={allowAnnotations}
-        dataProviders={providerFactory}
-        onError={handleRendererContentLoaded}
-        onComplete={handleRendererContentLoaded}
-        appearance="mobile"
-        disableActions={disableActions}
-        createAnalyticsEvent={createAnalyticsEvent}
-        allowAltTextOnImages
-        media={{ allowLinking: !disableMediaLinking }}
-        rendererContext={rendererContext}
-        eventHandlers={{
-          link: {
-            onClick: onLinkClick,
-          },
-          media: {
-            onClick: onMediaClick,
-          },
-          mention: {
-            onClick: onMentionClick,
-          },
-          smartCard: {
-            onClick: onLinkClick,
-          },
-        }}
-      />
-    </AnnotationContextProviderWrapper>
+    <ReactRenderer
+      innerRef={innerRef}
+      document={document}
+      annotationProvider={annotationProvider}
+      allowAnnotations={allowAnnotations}
+      dataProviders={providerFactory}
+      onError={handleRendererContentLoadedBridge}
+      onComplete={handleRendererContentLoadedBridge}
+      appearance="mobile"
+      disableActions={disableActions}
+      createAnalyticsEvent={createAnalyticsEvent}
+      allowAltTextOnImages
+      media={{ allowLinking: !disableMediaLinking }}
+      allowHeadingAnchorLinks={headingAnchorLinksConfig}
+      rendererContext={rendererContext}
+      eventHandlers={eventHandlers}
+    />
   );
 };
 

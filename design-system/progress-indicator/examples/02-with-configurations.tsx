@@ -8,7 +8,7 @@ import { DN30, N0, subtleText } from '@atlaskit/theme/colors';
 import { AtlaskitThemeProvider, themed } from '@atlaskit/theme/components';
 import { ThemeModes } from '@atlaskit/theme/types';
 
-import { ProgressDots } from '../src';
+import { ProgressIndicator } from '../src';
 
 type Appearances = 'default' | 'help' | 'inverted' | 'primary';
 type Sizes = 'small' | 'default' | 'large';
@@ -214,7 +214,7 @@ export default class ProgressIndicatorDots extends Component<{}, State> {
             >
               Prev
             </Button>
-            <ProgressDots
+            <ProgressIndicator
               appearance={selectedAppearance}
               onSelect={isInteractive ? this.handleSelect : undefined}
               selectedIndex={selectedIndex}

@@ -115,7 +115,7 @@ describe('EmbedCard Views', () => {
       const { getByTestId, getByText } = render(
         <EmbedCardForbiddenView link="" />,
       );
-      const button = getByTestId('embed-card-forbidden-view-button');
+      const button = getByTestId('button-connect-other-account');
       const message = getByText('Restricted link');
 
       expect(button.textContent).toEqual('Try another account');

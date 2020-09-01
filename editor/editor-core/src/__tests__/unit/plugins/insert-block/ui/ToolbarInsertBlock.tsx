@@ -5,11 +5,28 @@ jest.mock('../../../../../plugins/quick-insert/commands', () => ({
   openElementBrowserModal,
 }));
 
+const InsertMenu = () => <div />;
+
+jest.mock('../../../../../ui/ElementBrowser/InsertMenu', () => InsertMenu);
+
 import React from 'react';
+import { InjectedIntlProps } from 'react-intl';
+import { ReactWrapper, mount } from 'enzyme';
+import { EditorView } from 'prosemirror-view';
+
 import Item from '@atlaskit/item';
 import { EmojiPicker as AkEmojiPicker } from '@atlaskit/emoji';
 import { emoji as emojiData } from '@atlaskit/util-data-test';
-import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
+import Button from '@atlaskit/button';
+import {
+  CreateUIAnalyticsEvent,
+  UIAnalyticsEvent,
+} from '@atlaskit/analytics-next';
+import {
+  createProsemirrorEditorFactory,
+  LightEditorPlugin,
+  Preset,
+} from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import {
   doc,
@@ -22,11 +39,19 @@ import {
 import { taskDecision } from '@atlaskit/util-data-test';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { uuid } from '@atlaskit/adf-schema';
-import Button from '@atlaskit/button';
-import {
-  CreateUIAnalyticsEvent,
-  UIAnalyticsEvent,
-} from '@atlaskit/analytics-next';
+
+import layoutPlugin from '../../../../../plugins/layout';
+import featureFlagsPlugin from '../../../../../plugins/feature-flags-context';
+import blockTypePlugin from '../../../../../plugins/block-type';
+import panelPlugin from '../../../../../plugins/panel';
+import rulePlugin from '../../../../../plugins/rule';
+import tablePlugin from '../../../../../plugins/table';
+import statusPlugin from '../../../../../plugins/status';
+import expandPlugin from '../../../../../plugins/expand';
+import analyticsPlugin from '../../../../../plugins/analytics';
+import typeAheadPlugin from '../../../../../plugins/type-ahead';
+import quickInsertPlugin from '../../../../../plugins/quick-insert';
+import taskDecisionPlugin from '../../../../../plugins/tasks-and-decisions';
 
 import { pluginKey as blockTypePluginKey } from '../../../../../plugins/block-type/pm-plugins/main';
 import {
@@ -34,9 +59,7 @@ import {
   PANEL,
   BLOCK_QUOTE,
 } from '../../../../../plugins/block-type/types';
-import DropdownMenu from '../../../../../ui/DropdownMenu';
 import ToolbarInsertBlock from '../../../../../plugins/insert-block/ui/ToolbarInsertBlock';
-import ToolbarButton from '../../../../../ui/ToolbarButton';
 import { MediaProvider } from '../../../../../plugins/media';
 import {
   stateKey as hyperlinkPluginKey,
@@ -46,14 +69,15 @@ import {
   INPUT_METHOD,
   DispatchAnalyticsEvent,
 } from '../../../../../plugins/analytics';
-import { ReactWrapper, mount } from 'enzyme';
-import { EditorView } from 'prosemirror-view';
+
 import { TooltipShortcut } from '../../../../../keymaps';
-import { InjectedIntlProps } from 'react-intl';
 import { messages } from '../../../../../plugins/insert-block/ui/ToolbarInsertBlock/messages';
 import { messages as blockTypeMessages } from '../../../../../plugins/block-type/messages';
-import { MenuItem } from '../../../../../ui/DropdownMenu/types';
 import { Props as ToolbarInsertBlockProps } from '../../../../../plugins/insert-block/ui/ToolbarInsertBlock/types';
+
+import { MenuItem } from '../../../../../ui/DropdownMenu/types';
+import DropdownMenu from '../../../../../ui/DropdownMenu';
+import ToolbarButton from '../../../../../ui/ToolbarButton';
 
 type ToolbarOptionWrapper = ReactWrapper<
   ToolbarInsertBlockProps & InjectedIntlProps
@@ -65,8 +89,6 @@ const mediaProvider: Promise<MediaProvider> = Promise.resolve({
   viewMediaClientConfig: {} as any,
   uploadMediaClientConfig: {} as any,
 });
-
-const providerFactory = ProviderFactory.create({ mediaProvider });
 
 const openInsertMenu = (toolbarOption: ToolbarOptionWrapper) => {
   toolbarOption.find('button').simulate('click');
@@ -124,7 +146,8 @@ const menus = [
 ];
 
 describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
-  const createEditor = createEditorFactory();
+  const createEditor = createProsemirrorEditorFactory();
+
   let editorView: EditorView;
   let pluginState: any;
   let toolbarOption: ToolbarOptionWrapper;
@@ -132,25 +155,32 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
   let dispatchAnalyticsSpy: jest.SpyInstance<DispatchAnalyticsEvent>;
   let dispatchSpy: jest.SpyInstance;
 
+  const providerFactory = ProviderFactory.create({
+    mediaProvider,
+    taskDecisionProvider: Promise.resolve(
+      taskDecision.getMockTaskDecisionResource(),
+    ),
+  });
+
   const editor = (doc: any) => {
     createAnalyticsEvent = jest.fn(() => ({ fire() {} } as UIAnalyticsEvent));
     return createEditor({
       doc,
       pluginKey: blockTypePluginKey,
-      editorProps: {
-        allowLayouts: true,
-        allowPanel: true,
-        allowRule: true,
-        allowTables: true,
-        allowStatus: true,
-        allowExpand: { allowInsertion: true },
-        allowAnalyticsGASV3: true,
-        taskDecisionProvider: Promise.resolve(
-          taskDecision.getMockTaskDecisionResource(),
-        ),
-      },
+      preset: new Preset<LightEditorPlugin>()
+        .add(blockTypePlugin)
+        .add([featureFlagsPlugin, { newInsertionBehaviour: true }])
+        .add([analyticsPlugin, { createAnalyticsEvent }])
+        .add(layoutPlugin)
+        .add(panelPlugin)
+        .add(rulePlugin)
+        .add(tablePlugin)
+        .add([statusPlugin, { menuDisabled: true }])
+        .add(expandPlugin)
+        .add(taskDecisionPlugin)
+        .add(typeAheadPlugin)
+        .add([quickInsertPlugin, { disableDefaultItems: true }]),
       providerFactory,
-      createAnalyticsEvent,
     });
   };
 
@@ -227,112 +257,182 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
       });
     });
   });
-  describe('sort dropdown items', () => {
-    it('should sort non macro items alphabetically', () => {
-      const customItems = [
-        {
-          content: 'B',
-          value: { name: 'B' },
-        },
-        {
-          content: 'D',
-          value: { name: 'D' },
-        },
-        {
-          content: 'C',
-          value: { name: 'C' },
-        },
-        {
-          content: 'A',
-          value: { name: 'A' },
-        },
-      ];
+  describe('plus menu', () => {
+    describe('legacy', () => {
+      describe('sort dropdown items', () => {
+        it('should sort non macro items alphabetically', () => {
+          const customItems = [
+            {
+              content: 'B',
+              value: { name: 'B' },
+            },
+            {
+              content: 'D',
+              value: { name: 'D' },
+            },
+            {
+              content: 'C',
+              value: { name: 'C' },
+            },
+            {
+              content: 'A',
+              value: { name: 'A' },
+            },
+          ];
 
-      const expected = ['A', 'B', 'C', 'D'];
+          const expected = ['A', 'B', 'C', 'D'];
 
-      buildToolbar({
-        insertMenuItems: customItems,
+          buildToolbar({
+            insertMenuItems: customItems,
+          });
+          const items = toolbarOption.find(DropdownMenu).prop('items')[0];
+          expect(items.items.map(item => item.content)).toEqual(expected);
+        });
+        it('should sort alphabetically with non-macro items at end', () => {
+          const customItemsWithMacros = [
+            {
+              content: 'B macro',
+              value: { name: 'B Macro' },
+            },
+            {
+              content: 'A macro',
+              value: { name: 'A Macro' },
+            },
+            {
+              content: 'B',
+              value: { name: 'B' },
+            },
+            {
+              content: 'A',
+              value: { name: 'A' },
+            },
+          ];
+          const sortedItems = ['A', 'B', 'A macro', 'B macro'];
+          buildToolbar({
+            insertMenuItems: customItemsWithMacros,
+          });
+          const items = toolbarOption.find(DropdownMenu).prop('items')[0];
+          expect(items.items.map(item => item.content)).toEqual(sortedItems);
+        });
+        it('macro browser should always be last item if there is no slash-onboarding', () => {
+          const customItems = [
+            {
+              content: 'View more',
+              value: { name: 'macro-browser' },
+            },
+            {
+              content: 'Date',
+              value: { name: 'date' },
+            },
+            {
+              content: 'Action',
+              value: { name: 'action' },
+            },
+            {
+              content: 'ZZ',
+              value: { name: 'macro-zz' },
+            },
+          ];
+          const sortedItems = ['Action', 'Date', 'ZZ', 'View more'];
+          buildToolbar({
+            insertMenuItems: customItems,
+          });
+          const items = toolbarOption.find(DropdownMenu).prop('items')[0];
+          expect(items.items.map(item => item.content)).toEqual(sortedItems);
+        });
+        it('slash onboarding should always be last item', () => {
+          const customItems = [
+            {
+              content: 'Some help text',
+              value: { name: 'slash-onboarding' },
+            },
+            {
+              content: 'ZZ',
+              value: { name: 'ZZ' },
+            },
+            {
+              content: 'View more',
+              value: { name: 'macro-browser' },
+            },
+            {
+              content: 'Macro',
+              value: { name: 'macro' },
+            },
+          ];
+          const sortedItems = ['Macro', 'ZZ', 'View more', 'Some help text'];
+          buildToolbar({
+            insertMenuItems: customItems,
+          });
+          const items = toolbarOption.find(DropdownMenu).prop('items')[0];
+          expect(items.items.map(item => item.content)).toEqual(sortedItems);
+        });
+
+        it('should render a DropDown', () => {
+          const customItems = [
+            {
+              content: 'Some help text',
+              value: { name: 'slash-onboarding' },
+            },
+            {
+              content: 'ZZ',
+              value: { name: 'ZZ' },
+            },
+            {
+              content: 'View more',
+              value: { name: 'macro-browser' },
+            },
+            {
+              content: 'Macro',
+              value: { name: 'macro' },
+            },
+          ];
+
+          buildToolbar({
+            insertMenuItems: customItems,
+            replacePlusMenuWithElementBrowser: false,
+          });
+
+          toolbarOption.setState({ isPlusMenuOpen: true });
+          toolbarOption.update();
+
+          expect(toolbarOption.find(DropdownMenu).length).toEqual(1);
+          expect(toolbarOption.find(InsertMenu).length).toEqual(0);
+        });
       });
-      const items = toolbarOption.find(DropdownMenu).prop('items')[0];
-      expect(items.items.map(item => item.content)).toEqual(expected);
     });
-    it('should sort alphabetically with non-macro items at end', () => {
-      const customItemsWithMacros = [
-        {
-          content: 'B macro',
-          value: { name: 'B Macro' },
-        },
-        {
-          content: 'A macro',
-          value: { name: 'A Macro' },
-        },
-        {
-          content: 'B',
-          value: { name: 'B' },
-        },
-        {
-          content: 'A',
-          value: { name: 'A' },
-        },
-      ];
-      const sortedItems = ['A', 'B', 'A macro', 'B macro'];
-      buildToolbar({
-        insertMenuItems: customItemsWithMacros,
+
+    describe('modern: using the element browser', () => {
+      it('should render the ElementBrowser on a popup if flag is true', () => {
+        const customItems = [
+          {
+            content: 'Some help text',
+            value: { name: 'slash-onboarding' },
+          },
+          {
+            content: 'ZZ',
+            value: { name: 'ZZ' },
+          },
+          {
+            content: 'View more',
+            value: { name: 'macro-browser' },
+          },
+          {
+            content: 'Macro',
+            value: { name: 'macro' },
+          },
+        ];
+
+        buildToolbar({
+          insertMenuItems: customItems,
+          replacePlusMenuWithElementBrowser: true,
+        });
+
+        toolbarOption.setState({ isPlusMenuOpen: true });
+        toolbarOption.update();
+
+        expect(toolbarOption.find(InsertMenu).length).toEqual(1);
+        expect(toolbarOption.find(DropdownMenu).length).toEqual(0);
       });
-      const items = toolbarOption.find(DropdownMenu).prop('items')[0];
-      expect(items.items.map(item => item.content)).toEqual(sortedItems);
-    });
-    it('macro browser should always be last item if there is no slash-onboarding', () => {
-      const customItems = [
-        {
-          content: 'View more',
-          value: { name: 'macro-browser' },
-        },
-        {
-          content: 'Date',
-          value: { name: 'date' },
-        },
-        {
-          content: 'Action',
-          value: { name: 'action' },
-        },
-        {
-          content: 'ZZ',
-          value: { name: 'macro-zz' },
-        },
-      ];
-      const sortedItems = ['Action', 'Date', 'ZZ', 'View more'];
-      buildToolbar({
-        insertMenuItems: customItems,
-      });
-      const items = toolbarOption.find(DropdownMenu).prop('items')[0];
-      expect(items.items.map(item => item.content)).toEqual(sortedItems);
-    });
-    it('slash onboarding should always be last item', () => {
-      const customItems = [
-        {
-          content: 'Some help text',
-          value: { name: 'slash-onboarding' },
-        },
-        {
-          content: 'ZZ',
-          value: { name: 'ZZ' },
-        },
-        {
-          content: 'View more',
-          value: { name: 'macro-browser' },
-        },
-        {
-          content: 'Macro',
-          value: { name: 'macro' },
-        },
-      ];
-      const sortedItems = ['Macro', 'ZZ', 'View more', 'Some help text'];
-      buildToolbar({
-        insertMenuItems: customItems,
-      });
-      const items = toolbarOption.find(DropdownMenu).prop('items')[0];
-      expect(items.items.map(item => item.content)).toEqual(sortedItems);
     });
   });
 

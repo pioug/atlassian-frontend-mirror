@@ -19,10 +19,10 @@ export const groupBy = <T>(
     return acc;
   }, {});
 
-export const buildMenuItem = (
-  manifest: ExtensionManifest,
-  extensionModule: ExtensionModule,
-): MenuItem => {
+export function buildMenuItem<T>(
+  manifest: ExtensionManifest<T>,
+  extensionModule: ExtensionModule<T>,
+): MenuItem {
   const title = extensionModule.title || manifest.title;
   const key = `${manifest.key}:${extensionModule.key}`;
   const node = buildAction(extensionModule.action, manifest);
@@ -36,12 +36,13 @@ export const buildMenuItem = (
     title,
     extensionType: manifest.type,
     keywords: extensionModule.keywords || manifest.keywords || [],
+    featured: extensionModule.featured || false,
     categories: extensionModule.categories || manifest.categories || [],
     description: extensionModule.description || manifest.description,
     icon: extensionModule.icon || manifest.icons['48'],
     node,
   };
-};
+}
 
 export const getQuickInsertItemsFromModule = <T>(
   extensions: ExtensionManifest[],
@@ -62,9 +63,9 @@ export const getQuickInsertItemsFromModule = <T>(
   });
 };
 
-export const getAutoConvertPatternsFromModule = async (
-  extensions: ExtensionManifest[],
-): Promise<ExtensionAutoConvertHandler[]> => {
+export async function getAutoConvertPatternsFromModule<T>(
+  extensions: ExtensionManifest<T>[],
+): Promise<ExtensionAutoConvertHandler[]> {
   const items = await Promise.all(
     extensions.map(async manifest => {
       if (manifest.modules.autoConvert && manifest.modules.autoConvert.url) {
@@ -76,7 +77,7 @@ export const getAutoConvertPatternsFromModule = async (
   );
 
   return ([] as ExtensionAutoConvertHandler[]).concat(...items);
-};
+}
 
 export const createAutoConverterRunner = (
   autoConvertHandlers: ExtensionAutoConvertHandler[],

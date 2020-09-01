@@ -9,6 +9,7 @@ import EditIcon from '@atlaskit/icon/glyph/edit';
 import { CardAction, CardStatus } from '../src';
 import { CardView } from '../src/root/cardView';
 import { FileDetails, MediaType } from '@atlaskit/media-client';
+import { IntlProvider } from 'react-intl';
 
 type WrapperDimensions = {
   width: string;
@@ -201,29 +202,34 @@ class Example extends React.Component<{}, State> {
             </tr>
           </thead>
           <tbody>
-            {mediaTypes.map(([mediaType, mimeType]) => (
-              <tr key={`${mediaType}-row`}>
-                <th
-                  style={{
-                    textAlign: 'right',
-                    lineHeight: '100%',
-                    verticalAlign: 'middle',
-                  }}
-                >
-                  {mediaType}
-                </th>
-                {statuses.map(status => (
-                  <td key={`${status}-entry-${mediaType}`}>
-                    {this.renderCardImageView(
-                      status,
-                      mediaType,
-                      mimeType,
-                      this.setSelected,
-                    )}
-                  </td>
+            {/* TODO: remove this IntlProvider https://product-fabric.atlassian.net/browse/BMPT-139 */}
+            <IntlProvider locale={'en'}>
+              <>
+                {mediaTypes.map(([mediaType, mimeType]) => (
+                  <tr key={`${mediaType}-row`}>
+                    <th
+                      style={{
+                        textAlign: 'right',
+                        lineHeight: '100%',
+                        verticalAlign: 'middle',
+                      }}
+                    >
+                      {mediaType}
+                    </th>
+                    {statuses.map(status => (
+                      <td key={`${status}-entry-${mediaType}`}>
+                        {this.renderCardImageView(
+                          status,
+                          mediaType,
+                          mimeType,
+                          this.setSelected,
+                        )}
+                      </td>
+                    ))}
+                  </tr>
                 ))}
-              </tr>
-            ))}
+              </>
+            </IntlProvider>
           </tbody>
         </StyledTable>
       </StyledContainer>

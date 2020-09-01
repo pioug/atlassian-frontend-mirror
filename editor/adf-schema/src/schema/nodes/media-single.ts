@@ -29,7 +29,7 @@ export const mediaSingle: NodeSpec = {
   atom: true,
   content: 'media',
   attrs: defaultAttrs,
-  marks: 'unsupportedMark',
+  marks: 'unsupportedMark unsupportedNodeAttribute',
   parseDOM: [
     {
       tag: 'div[data-node-type="mediaSingle"]',

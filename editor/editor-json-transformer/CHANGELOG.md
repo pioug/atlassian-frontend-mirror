@@ -1,5 +1,16 @@
 # @atlaskit/editor-json-transformer
 
+## 8.3.0
+
+### Minor Changes
+
+- [`795d4f1c8e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/795d4f1c8e) - ED-9832 Handle repeating mark overrides
+- [`e4114d7053`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e4114d7053) - ED-9607 - Preserve Unsupported Node attributes
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.2.1
 
 ### Patch Changes

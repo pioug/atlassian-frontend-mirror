@@ -1,18 +1,38 @@
 import { NodeSelection } from 'prosemirror-state';
-import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
-import { doc, p, hr } from '@atlaskit/editor-test-helpers/schema-builder';
+
+import {
+  createProsemirrorEditorFactory,
+  LightEditorPlugin,
+  Preset,
+} from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+import {
+  doc,
+  p,
+  hr,
+  table,
+  tr,
+  td,
+} from '@atlaskit/editor-test-helpers/schema-builder';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
-import { GapCursorSide } from '../../..';
-import { setGapCursorSelection } from '../../../utils';
+
+import {
+  setGapCursorSelection,
+  setCellSelection,
+} from '../../../utils/selection';
+import { Side as GapCursorSide } from '../../../plugins/gap-cursor';
+import rulePlugin from '../../../plugins/rule';
+import tablePlugin from '../../../plugins/table';
 
 describe('toEqualDocumentAndSelection matches', () => {
-  const createEditor = createEditorFactory();
+  const createEditor = createProsemirrorEditorFactory();
+  const preset = new Preset<LightEditorPlugin>()
+    .add(rulePlugin)
+    .add(tablePlugin);
+
   const editor = (doc: any) =>
     createEditor({
       doc,
-      editorProps: {
-        allowRule: true,
-      },
+      preset,
     });
 
   it('cursor positions', () => {
@@ -58,6 +78,27 @@ describe('toEqualDocumentAndSelection matches', () => {
 
     expect(editorView.state).toEqualDocumentAndSelection(
       doc(p('HelloWorld'), hr(), '{<|gap>}'),
+    );
+  });
+
+  it('cell selections', () => {
+    const { editorView, refs } = editor(
+      doc(
+        table()(
+          tr('{firstCell}', td()(p('1{<>}')), td()(p('2')), td()(p('3'))),
+          tr(td()(p('4')), td()(p('5')), '{lastCell}', td()(p('6'))),
+        ),
+      ),
+    );
+    setCellSelection(editorView, refs.firstCell, refs.lastCell);
+
+    expect(editorView.state).toEqualDocumentAndSelection(
+      doc(
+        table()(
+          tr(td()(p('{<cell}1')), td()(p('2')), td()(p('3'))),
+          tr(td()(p('4')), td()(p('5')), td()(p('6{cell>}'))),
+        ),
+      ),
     );
   });
 });

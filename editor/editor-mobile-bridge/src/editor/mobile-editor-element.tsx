@@ -26,6 +26,7 @@ import { useSmartCards } from './hooks/use-smart-cards';
 import { useTaskAndDecision } from './hooks/use-task-decision';
 import { useEditorReady } from './hooks/use-editor-ready';
 import { useEditorDestroyed } from './hooks/use-editor-destroyed';
+import { useReflowDectector } from './hooks/use-reflow-detector';
 
 const MOBILE_SAMPLING_LIMIT = 10;
 
@@ -75,6 +76,9 @@ export function MobileEditor(props: MobileEditorProps) {
   const handleEditorDestroyed = useEditorDestroyed(bridge);
 
   const mode = props.mode || 'light';
+
+  // enable reflowDetector
+  useReflowDectector(bridge);
 
   // Temporarily opting out of the default oauth2 flow for phase 1 of Smart Links
   // See https://product-fabric.atlassian.net/browse/FM-2149 for details.

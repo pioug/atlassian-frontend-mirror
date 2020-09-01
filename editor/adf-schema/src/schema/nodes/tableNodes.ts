@@ -69,7 +69,9 @@ const getCellAttrs = (dom: HTMLElement, defaultValues: CellAttributes = {}) => {
   let { backgroundColor } = dom.style;
   if (backgroundColor && isRgb(backgroundColor)) {
     const result = rgbToHex(backgroundColor);
-    if (result !== null) backgroundColor = result;
+    if (result !== null) {
+      backgroundColor = result;
+    }
   }
 
   return {
@@ -259,7 +261,7 @@ export const table: any = {
     layout: { default: 'default' },
     __autoSize: { default: false },
   },
-  marks: 'unsupportedMark',
+  marks: 'unsupportedMark unsupportedNodeAttribute',
   tableRole: 'table',
   isolating: true,
   selectable: false,
@@ -295,8 +297,9 @@ export const tableToJSON = (node: PmNode) => ({
 });
 
 export const tableRow = {
+  selectable: false,
   content: '(tableCell | tableHeader)+',
-  marks: 'unsupportedMark',
+  marks: 'unsupportedMark unsupportedNodeAttribute',
   tableRole: 'row',
   parseDOM: [{ tag: 'tr' }],
   toDOM() {
@@ -312,11 +315,12 @@ const cellAttrs = {
 };
 
 export const tableCell = {
+  selectable: false,
   content:
     '(paragraph | panel | blockquote | orderedList | bulletList | rule | heading | codeBlock | mediaSingle |  mediaGroup | decisionList | taskList | blockCard | embedCard | extension | nestedExpand | unsupportedBlock)+',
   attrs: cellAttrs,
   tableRole: 'cell',
-  marks: 'link alignment unsupportedMark',
+  marks: 'link alignment unsupportedMark unsupportedNodeAttribute',
   isolating: true,
   parseDOM: [
     // Ignore number cell copied from renderer
@@ -345,12 +349,13 @@ export const toJSONTableCell = (node: PmNode) => ({
 });
 
 export const tableHeader = {
+  selectable: false,
   content:
     '(paragraph | panel | blockquote | orderedList | bulletList | rule | heading | codeBlock | mediaSingle |  mediaGroup | decisionList | taskList | blockCard | embedCard | extension | nestedExpand)+',
   attrs: cellAttrs,
   tableRole: 'header_cell',
   isolating: true,
-  marks: 'link alignment unsupportedMark',
+  marks: 'link alignment unsupportedMark unsupportedNodeAttribute',
   parseDOM: [
     {
       tag: 'th',

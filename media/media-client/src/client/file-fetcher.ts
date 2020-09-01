@@ -101,6 +101,7 @@ export interface CopyDestination extends MediaStoreCopyFileWithTokenParams {
 
 export interface CopyFileOptions {
   preview?: FilePreview | Promise<FilePreview>;
+  mimeType?: string;
 }
 
 interface DataloaderErrorResult {
@@ -548,7 +549,7 @@ export class FileFetcherImpl implements FileFetcher {
       replaceFileId,
       occurrenceKey,
     } = destination;
-    const { preview } = options;
+    const { preview, mimeType } = options;
     const mediaStore =
       destination.mediaStore ||
       new MediaStore({
@@ -580,18 +581,29 @@ export class FileFetcherImpl implements FileFetcher {
         body,
         params,
       );
-      const { id: copiedId, mimeType } = copiedFile;
+
+      // if we were passed a "mimeType", we propagate it into copiedFileWithMimeType
+      const copiedFileWithMimeType: MediaFile = {
+        ...copiedFile,
+        ...(mimeType ? { mimeType } : undefined),
+      };
+
+      const { id: copiedId, mimeType: copiedMimeType } = copiedFileWithMimeType;
 
       // backend may return an "unknown" mediaType just after the copy
-      // it's better to deduce it from "mimeType" using getMediaTypeFromMimeType()
-      const mediaType = mimeType
-        ? getMediaTypeFromMimeType(mimeType)
+      // it's better to deduce it from "copiedMimeType" using getMediaTypeFromMimeType()
+      const mediaType = copiedMimeType
+        ? getMediaTypeFromMimeType(copiedMimeType)
         : 'unknown';
-      const copiedFileState = mapMediaFileToFileState({ data: copiedFile });
+
+      const copiedFileState = mapMediaFileToFileState({
+        data: copiedFileWithMimeType,
+      });
 
       const fileCache = cache.get(copiedId);
       const subject = fileCache || createFileStateSubject();
 
+      // if we were passed a "preview", we propagate it into the copiedFileState
       const previewOverride =
         !isErrorFileState(copiedFileState) && !!preview ? { preview } : {};
 
@@ -599,8 +611,8 @@ export class FileFetcherImpl implements FileFetcher {
         !isFinalFileState(copiedFileState) &&
         // mimeType should always be returned by "copyFileWithToken"
         // but in case it's not, we don't want to penalize "copyFile"
-        mimeType &&
-        shouldFetchRemoteFileStates(mediaType, mimeType, preview)
+        copiedMimeType &&
+        shouldFetchRemoteFileStates(mediaType, copiedMimeType, preview)
       ) {
         subject.next({
           ...copiedFileState,

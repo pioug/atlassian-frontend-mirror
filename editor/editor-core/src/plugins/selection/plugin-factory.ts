@@ -1,11 +1,11 @@
-import { Transaction } from 'prosemirror-state';
+import { Transaction, NodeSelection } from 'prosemirror-state';
 import { DecorationSet } from 'prosemirror-view';
 
 import { pluginFactory } from '../../utils/plugin-state-factory';
 
 import { reducer } from './reducer';
 import { selectionPluginKey, SelectionPluginState } from './types';
-import { getDecorations } from './utils';
+import { getDecorations, isSelectableContainerNode } from './utils';
 
 const handleDocChanged = (
   tr: Transaction,
@@ -34,10 +34,29 @@ const handleDocChanged = (
   }
 };
 
+const handleSelectionChanged = (
+  tr: Transaction,
+  pluginState: SelectionPluginState,
+): SelectionPluginState => {
+  // Reset relative selection pos when user clicks to select a node
+  if (
+    tr.selection instanceof NodeSelection &&
+    isSelectableContainerNode(tr.selection.node) &&
+    !tr.getMeta(selectionPluginKey)
+  ) {
+    return {
+      ...pluginState,
+      selectionRelativeToNode: undefined,
+    };
+  }
+  return pluginState;
+};
+
 export const {
   createCommand,
   getPluginState,
   createPluginState,
 } = pluginFactory(selectionPluginKey, reducer, {
   onDocChanged: handleDocChanged,
+  onSelectionChanged: handleSelectionChanged,
 });

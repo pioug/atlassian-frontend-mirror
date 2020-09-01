@@ -1,10 +1,13 @@
 import React from 'react';
 import { render, unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
+import * as Hooks from '../../user-selection';
 import {
   isRangeInsideOfRendererContainer,
   useUserSelectionRange,
 } from '../../user-selection';
+import { AnnotationsDraftContext } from '../../../context';
+import { Position } from '../../../types';
 
 let container: HTMLElement | null;
 let createRangeMock: jest.SpyInstance;
@@ -18,6 +21,7 @@ beforeEach(() => {
 });
 
 afterEach(() => {
+  jest.restoreAllMocks();
   document.body.removeChild(container!);
   container = null;
   createRangeMock.mockRestore();
@@ -175,18 +179,117 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
       shouldAttachMouseUpEvent: boolean;
       rendererRef: React.RefObject<HTMLDivElement>;
     };
+    let fakeFunction: jest.Mock;
+    let fakeRef: React.RefObject<HTMLDivElement>;
     const DummyComponent = (props: Props) => {
-      useUserSelectionRange(props);
+      const _range = useUserSelectionRange(props);
+      fakeFunction(_range);
 
       return null;
     };
 
     beforeEach(() => {
+      fakeFunction = jest.fn();
       render(<div id="renderer-container"></div>, container);
-
       rendererDOM = document.querySelector(
         '#renderer-container',
       ) as HTMLElement;
+
+      fakeRef = { current: rendererDOM } as React.RefObject<HTMLDivElement>;
+    });
+
+    describe('when the selection changes', () => {
+      function dispatchFakeSelectionChange() {
+        act(() => {
+          const event = new Event('selectionchange', {
+            bubbles: false,
+            cancelable: false,
+          });
+          document.dispatchEvent(event);
+        });
+      }
+
+      function renderDummyComponentWithDraftContext(
+        myFakePosition: Position | null,
+      ) {
+        act(() => {
+          render(
+            <AnnotationsDraftContext.Provider value={myFakePosition}>
+              <DummyComponent
+                shouldAttachMouseUpEvent={true}
+                rendererRef={fakeRef}
+              />
+            </AnnotationsDraftContext.Provider>,
+            rendererDOM,
+          );
+        });
+      }
+
+      let myFakeValidRange: Range;
+      const myFakePosition = { from: 1, to: 10 };
+      beforeEach(() => {
+        myFakeValidRange = new Range();
+        // @ts-ignore
+        const myFakeSelection: Selection = {
+          type: 'Range',
+          rangeCount: 1,
+          getRangeAt: jest.fn().mockReturnValue(myFakeValidRange),
+        };
+        jest.spyOn(document, 'getSelection').mockReturnValue(myFakeSelection);
+        jest
+          .spyOn(Hooks, 'isRangeInsideOfRendererContainer')
+          .mockReturnValue(true);
+      });
+
+      afterEach(() => {
+        act(() => {
+          unmountComponentAtNode(rendererDOM);
+        });
+      });
+
+      describe('and when annotation draft is not happening', () => {
+        it('should change the range value', () => {
+          expect(fakeFunction).toHaveBeenCalledTimes(0);
+          expect(document.getSelection).toHaveBeenCalledTimes(0);
+
+          renderDummyComponentWithDraftContext(myFakePosition);
+
+          expect(fakeFunction).toHaveBeenCalledTimes(1);
+          expect(fakeFunction).toHaveBeenCalledWith([
+            null,
+            expect.any(Function),
+          ]);
+
+          dispatchFakeSelectionChange();
+
+          expect(document.getSelection).toHaveBeenCalledTimes(1);
+          expect(fakeFunction).toHaveBeenCalledTimes(1);
+        });
+      });
+
+      describe('and when there is a annotation draft happening', () => {
+        it('should not change the range value', () => {
+          expect(fakeFunction).toHaveBeenCalledTimes(0);
+          expect(document.getSelection).toHaveBeenCalledTimes(0);
+
+          renderDummyComponentWithDraftContext(null);
+
+          expect(fakeFunction).toHaveBeenCalledTimes(1);
+          expect(fakeFunction).toHaveBeenCalledWith([
+            null,
+            expect.any(Function),
+          ]);
+
+          dispatchFakeSelectionChange();
+
+          expect(document.getSelection).toHaveBeenCalledTimes(1);
+          expect(fakeFunction).toHaveBeenCalledTimes(2);
+          expect(fakeFunction).toHaveBeenCalledWith([
+            myFakeValidRange,
+            expect.any(Function),
+          ]);
+        });
+      });
     });
 
     describe('when a component is render using this hook', () => {

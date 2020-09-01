@@ -1,0 +1,123 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "a"
+        }
+      ]
+    },
+    {
+      "type": "panel",
+      "attrs": {
+        "panelType": "info"
+      },
+      "content": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "b"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "layoutSection",
+      "content": [
+        {
+          "type": "layoutColumn",
+          "attrs": {
+            "width": 50
+          },
+          "content": [
+            {
+              "type": "codeBlock",
+              "attrs": {},
+              "content": [
+                {
+                  "type": "text",
+                  "text": "c"
+                }
+              ]
+            },
+            {
+              "type": "panel",
+              "attrs": {
+                "panelType": "note"
+              },
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": [
+                    {
+                      "type": "date",
+                      "attrs": {
+                        "timestamp": "1588291200000"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "layoutColumn",
+          "attrs": {
+            "width": 50
+          },
+          "content": [
+            {
+              "type": "paragraph",
+              "content": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "decisionList",
+      "attrs": {
+        "localId": "8db833ad-e2c7-4036-9e68-db3d5b478e2f"
+      },
+      "content": [
+        {
+          "type": "decisionItem",
+          "attrs": {
+            "localId": "c1bafe87-9cd1-4ccf-917f-1d93bfe9f0ec",
+            "state": "DECIDED"
+          },
+          "content": [
+            {
+              "type": "text",
+              "text": "d"
+            }
+          ]
+        },
+        {
+          "type": "decisionItem",
+          "attrs": {
+            "localId": "64738aeb-8c66-485a-94fb-de1e1231208f",
+            "state": "DECIDED"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "e"
+        }
+      ]
+    }
+  ]
+}

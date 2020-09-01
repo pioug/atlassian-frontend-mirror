@@ -2,17 +2,19 @@ import {
   ExtensionManifest,
   UpdateContextActions,
 } from '@atlaskit/editor-common/extensions';
+import { LoremParams } from './extension-handler';
 
-const defaultUpdate = (data?: object, actions?: UpdateContextActions) => {
-  return new Promise(() => {
-    actions!.editInContextPanel(
-      (parameters: object) => parameters,
-      (parameters: object) => Promise.resolve(parameters),
-    );
-  });
-};
+async function defaultUpdate(
+  data: LoremParams,
+  actions?: UpdateContextActions<LoremParams>,
+) {
+  actions!.editInContextPanel(
+    (parameters: LoremParams) => parameters,
+    async (parameters: LoremParams) => parameters,
+  );
+}
 
-const manifest: ExtensionManifest = {
+const manifest: ExtensionManifest<LoremParams> = {
   title: 'Lorem ipsum',
   type: 'com.atlassian.connect',
   key: 'fake.lorem.ipsum',

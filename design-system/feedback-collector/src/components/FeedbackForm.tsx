@@ -9,6 +9,18 @@ import TextArea from '@atlaskit/textarea';
 import { FormFields, SelectValue } from '../types';
 
 interface Props {
+  /**  Message which will be shown as the title of the feedback dialog **/
+  feedbackTitle?: React.ReactText;
+  /**  Override to hide the feedback type select drop down for the feedback **/
+  showTypeField?: boolean;
+  /**  Message which will be shown below the title of the feedback dialog **/
+  feedbackTitleDetails?: React.ReactChild;
+  /**  Message which will be shown next to the enrol in research checkbox **/
+  enrolInResearchLabel: React.ReactChild;
+  /**  Message which will be shown next to the can be contacted checkbox **/
+  canBeContactedLabel?: React.ReactChild;
+  /**  Message which will be shown inside the summary text field **/
+  summaryPlaceholder?: string;
   /** Function that will be called to initiate the exit transition. */
   onClose: () => void;
   /** Function that will be called immediately after the submit action  */
@@ -48,6 +60,15 @@ export default class FeedbackForm extends Component<Props, FormFields> {
     enrollInResearchGroup: false,
   };
 
+  static defaultProps = {
+    showTypeField: true,
+    feedbackTitle: 'Share your thoughts',
+    enrolInResearchLabel: "I'd like to participate in product research",
+    canBeContactedLabel: 'Atlassian can contact me about this feedback',
+    onClose: () => {},
+    onSubmit: () => {},
+  };
+
   isTypeSelected = () => this.state.type !== 'empty';
 
   onSubmit = () => {
@@ -67,7 +88,11 @@ export default class FeedbackForm extends Component<Props, FormFields> {
   };
 
   render() {
-    const isDisabled = !this.isTypeSelected() || !this.state.description;
+    const { showTypeField } = this.props;
+    const canShowTextField = this.isTypeSelected() || !showTypeField;
+    const isDisabled = showTypeField
+      ? !this.isTypeSelected() || !this.state.description
+      : !this.state.description;
 
     return (
       <Modal
@@ -85,7 +110,7 @@ export default class FeedbackForm extends Component<Props, FormFields> {
             appearance: 'subtle',
           },
         ]}
-        heading="Share your thoughts"
+        heading={this.props.feedbackTitle}
         onClose={this.props.onClose}
       >
         <Form
@@ -95,29 +120,33 @@ export default class FeedbackForm extends Component<Props, FormFields> {
         >
           {({ formProps }) => (
             <form {...formProps}>
-              <Select<OptionType>
-                onChange={option => {
-                  if (!option || option instanceof Array) {
-                    return;
-                  }
+              {this.props.feedbackTitleDetails}
 
-                  this.setState({ type: (option as OptionType).value });
-                }}
-                menuPortalTarget={document.body}
-                styles={{
-                  menuPortal: base => ({
-                    ...base,
-                    zIndex: 9999,
-                  }),
-                }}
-                defaultValue={defaultSelectValue}
-                options={selectOptions}
-              />
+              {showTypeField ? (
+                <Select<OptionType>
+                  onChange={option => {
+                    if (!option || option instanceof Array) {
+                      return;
+                    }
 
-              {this.isTypeSelected() ? (
+                    this.setState({ type: (option as OptionType).value });
+                  }}
+                  menuPortalTarget={document.body}
+                  styles={{
+                    menuPortal: base => ({
+                      ...base,
+                      zIndex: 9999,
+                    }),
+                  }}
+                  defaultValue={defaultSelectValue}
+                  options={selectOptions}
+                />
+              ) : null}
+
+              {canShowTextField ? (
                 <Fragment>
                   <Field
-                    label={fieldLabel[this.state.type]}
+                    label={showTypeField ? fieldLabel[this.state.type] : null}
                     isRequired
                     name="description"
                   >
@@ -126,6 +155,7 @@ export default class FeedbackForm extends Component<Props, FormFields> {
                         {...fieldProps}
                         name="foo"
                         minimumRows={6}
+                        placeholder={this.props.summaryPlaceholder}
                         onChange={e =>
                           this.setState({
                             description: e.target.value,
@@ -135,12 +165,11 @@ export default class FeedbackForm extends Component<Props, FormFields> {
                       />
                     )}
                   </Field>
-
                   <Field name="can-be-contacted">
                     {({ fieldProps }) => (
                       <Checkbox
                         {...fieldProps}
-                        label="Atlassian can contact me about this feedback"
+                        label={this.props.canBeContactedLabel}
                         onChange={event =>
                           this.setState({
                             canBeContacted: event.target.checked,
@@ -154,7 +183,7 @@ export default class FeedbackForm extends Component<Props, FormFields> {
                     {({ fieldProps }) => (
                       <Checkbox
                         {...fieldProps}
-                        label="I'd like to participate in product research"
+                        label={this.props.enrolInResearchLabel}
                         onChange={event =>
                           this.setState({
                             enrollInResearchGroup: event.target.checked,

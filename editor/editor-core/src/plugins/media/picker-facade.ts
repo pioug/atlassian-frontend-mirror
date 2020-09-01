@@ -10,6 +10,7 @@ import {
 } from '@atlaskit/media-picker/types';
 import { MediaClientConfig } from '@atlaskit/media-core';
 import { ErrorReportingHandler } from '@atlaskit/editor-common';
+import { MediaFeatureFlags } from '@atlaskit/media-common/mediaFeatureFlags';
 
 import {
   MediaState,
@@ -32,6 +33,7 @@ export type ExtendedComponentConfigs = {
 export type PickerFacadeConfig = {
   mediaClientConfig: MediaClientConfig;
   errorReporter: ErrorReportingHandler;
+  featureFlags?: MediaFeatureFlags;
 };
 
 export type MediaStateEvent = MediaState;

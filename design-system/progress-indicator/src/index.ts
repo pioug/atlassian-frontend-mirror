@@ -3,4 +3,4 @@
 // imports when there's a feature release.
 
 // eslint-disable-next-line import/prefer-default-export
-export { default as ProgressDots } from './components/Dots';
+export { default as ProgressIndicator } from './components/Dots';

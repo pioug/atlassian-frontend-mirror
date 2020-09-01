@@ -211,7 +211,7 @@ describe('ArchiveSidebarFolderEntry', () => {
     const el = mountBaseComponent(props);
     el.find(ArchiveDownloadButtonWrapper).simulate('click');
     await sleep(0);
-    expect(onErrorMock).toHaveBeenCalled();
+    expect(onErrorMock).toHaveBeenCalledWith(new Error(), entry);
     expect(MediaCommon.downloadUrl).toHaveBeenCalledTimes(0);
   });
 });

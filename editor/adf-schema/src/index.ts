@@ -215,6 +215,8 @@ export {
   RichMediaAttributes,
   RichMediaLayout,
   unsupportedMark,
+  AnnotationDataAttributes,
+  unsupportedNodeAttribute,
 } from './schema';
 export {
   B100,

@@ -41,6 +41,7 @@ describe('module-helpers', () => {
       nodes: [
         {
           key: 'list',
+          featured: true,
         },
         {
           key: 'item',
@@ -68,6 +69,7 @@ describe('module-helpers', () => {
         },
         {
           key: 'async-node',
+          featured: true,
         },
       ],
     });
@@ -148,6 +150,18 @@ describe('module-helpers', () => {
           default: extension,
         });
       }
+    });
+
+    test('should be able to filter featured items', async () => {
+      const featuredItems = getQuickInsertItemsFromModule(
+        [confluenceAwesomeMacro, forgeAmazingMacro],
+        item => item,
+      ).filter(item => item.featured);
+
+      expect(featuredItems.map(item => item.key)).toEqual([
+        'awesome:list',
+        'amazing:async-node',
+      ]);
     });
   });
 

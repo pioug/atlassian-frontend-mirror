@@ -98,9 +98,9 @@ describe('block-type', () => {
         actionSubject: ACTION_SUBJECT.TEXT,
         eventType: EVENT_TYPE.TRACK,
         actionSubjectId: ACTION_SUBJECT_ID.FORMAT_BLOCK_QUOTE,
-        attributes: {
+        attributes: expect.objectContaining({
           inputMethod,
-        },
+        }),
       };
       const { editorView } = editor(doc(p('te{<>}xt')));
       const { state, dispatch } = editorView;

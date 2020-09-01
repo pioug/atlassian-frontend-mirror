@@ -1,5 +1,11 @@
 # @atlaskit/activity-provider
 
+## 2.2.0
+
+### Minor Changes
+
+- [`d1c666bb6d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d1c666bb6d) - Adds activity analytic events
+
 ## 2.1.1
 
 ### Patch Changes

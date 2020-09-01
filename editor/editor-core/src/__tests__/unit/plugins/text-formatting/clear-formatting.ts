@@ -216,7 +216,7 @@ describe('clear-formatting', () => {
           actionSubject: 'text',
           actionSubjectId: 'clearFormatting',
           eventType: 'track',
-          attributes,
+          attributes: expect.objectContaining(attributes),
         };
       }
       const inputMethodToolbar = INPUT_METHOD.TOOLBAR;

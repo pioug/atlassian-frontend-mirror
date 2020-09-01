@@ -5,7 +5,7 @@ import {
   mountEditor,
 } from '../../../__helpers/testing-example-helpers';
 import * as inlineCardAdf from '../_fixtures_/inline-card.adf.json';
-import { waitForInlineCardSelection } from '../../../__helpers/page-objects/_cards';
+import { waitForInlineCardSelection } from '@atlaskit/media-integration-test-helpers';
 
 type ClientType = Parameters<typeof goToEditorTestingExample>[0];
 

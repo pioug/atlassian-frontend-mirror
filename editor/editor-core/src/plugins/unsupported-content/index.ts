@@ -1,4 +1,4 @@
-import { EditorState, Plugin, PluginKey } from 'prosemirror-state';
+import { Plugin, PluginKey } from 'prosemirror-state';
 
 import {
   confluenceUnsupportedBlock,
@@ -6,6 +6,7 @@ import {
   unsupportedBlock,
   unsupportedInline,
   unsupportedMark,
+  unsupportedNodeAttribute,
 } from '@atlaskit/adf-schema';
 
 import { UnsupportedBlock, UnsupportedInline } from '@atlaskit/editor-common';
@@ -13,29 +14,13 @@ import { UnsupportedBlock, UnsupportedInline } from '@atlaskit/editor-common';
 import { ReactNodeView } from '../../nodeviews';
 import { EditorPlugin, PMPluginFactory } from '../../types';
 
-import { findAndTrackUnsupportedContentNodes } from './utils';
-
 export const pluginKey = new PluginKey('unsupportedContentPlugin');
 
 const createPlugin: PMPluginFactory = ({
-  schema,
   portalProviderAPI,
   eventDispatcher,
-  dispatchAnalyticsEvent,
 }) => {
   return new Plugin({
-    state: {
-      init(_config, state: EditorState) {
-        findAndTrackUnsupportedContentNodes(
-          state.doc,
-          schema,
-          dispatchAnalyticsEvent,
-        );
-      },
-      apply(_tr, pluginState) {
-        return pluginState;
-      },
-    },
     key: pluginKey,
     props: {
       nodeViews: {
@@ -68,7 +53,10 @@ const unsupportedContentPlugin = (): EditorPlugin => ({
   name: 'unsupportedContent',
 
   marks() {
-    return [{ name: 'unsupportedMark', mark: unsupportedMark }];
+    return [
+      { name: 'unsupportedMark', mark: unsupportedMark },
+      { name: 'unsupportedNodeAttribute', mark: unsupportedNodeAttribute },
+    ];
   },
 
   nodes() {

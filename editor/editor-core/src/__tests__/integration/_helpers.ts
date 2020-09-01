@@ -31,6 +31,53 @@ export const expectToMatchDocument = async (page: any, testName: string) => {
   expect(doc).toMatchCustomDocSnapshot(testName);
 };
 
+export const getProsemirrorSelection = async (page: WebDriverPage) => {
+  const selection: Selection | undefined = await page.execute(() => {
+    var view = (window as any).__editorView;
+    if (view) {
+      return view.state.selection;
+    }
+  });
+  return selection;
+};
+
+export type SelectionMatch = {
+  type: string;
+  from: number;
+  [name: string]: string | boolean | number;
+};
+
+export const expectToMatchSelection = async (
+  page: WebDriverPage,
+  { type, ...opts }: SelectionMatch,
+) => {
+  const matchesSelection = await page.execute(
+    (_type, _opts) => {
+      var view = (window as any).__editorView;
+      if (view) {
+        const { selection } = view.state;
+        let isMatch = selection.toJSON().type === _type;
+        for (const key in _opts) {
+          isMatch = isMatch && selection[key] === _opts[key];
+        }
+        return isMatch;
+      }
+      return false;
+    },
+    type,
+    opts,
+  );
+  if (!matchesSelection) {
+    const actual = await getProsemirrorSelection(page);
+    // eslint-disable-next-line no-console
+    console.error('selections did not match:', {
+      actual,
+      expected: { type, ...opts },
+    });
+  }
+  expect(matchesSelection).toBe(true);
+};
+
 export const editable = selectors.editor;
 export const LONG_WAIT_FOR = 5000;
 export const typeAheadPicker = '.fabric-editor-typeahead';
@@ -569,15 +616,12 @@ export const doubleClickResizeHandle = async (
 
   // We need to move the mouse first, giving time to prosemirror catch the event
   // and add the decorations
+  // TODO: fix moveTo for Safari
   await page.moveTo(tableCellSelector, cell.width - 1, 0);
-
-  await animationFrame(page);
-  await page.moveTo(
-    `${tableCellSelector} .${TableCssClassName.RESIZE_HANDLE_DECORATION}`,
-    0,
-    0,
-  );
-  await page.browser.positionDoubleClick();
+  const selector = `${tableCellSelector} .${TableCssClassName.RESIZE_HANDLE_DECORATION}`;
+  await page.waitForSelector(selector);
+  const resizeHandler = await page.browser.$(selector);
+  await resizeHandler.doubleClick();
 };
 
 export const selectColumns = async (page: any, indexes: number[]) => {
@@ -618,4 +662,14 @@ export const insertLongText = async (page: WebDriverPage) => {
       'content',
     ].reduce((acc, text) => acc.concat([text, 'Enter']), [] as string[]),
   );
+};
+
+export const sendKeyNumTimes = async (
+  page: WebDriverPage,
+  key: string,
+  { numTimes = 1 }: { numTimes?: number } = {},
+) => {
+  for (const _i of Array(numTimes).fill(null)) {
+    await page.keys(key);
+  }
 };

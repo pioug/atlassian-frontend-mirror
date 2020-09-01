@@ -126,19 +126,22 @@ const tableSharedStyle = css`
         })};
         text-align: left;
 
-        .code-block {
-          /*
-            Add a background color tint to code blocks inside a table heading since they both
-            share the same background colour. This prevents them visually blending together.
-          */
-          background: ${themed({ light: N20A, dark: DN700A })};
-
-          > span {
+        /* only apply this styling to codeblocks in default background headercells */
+        &:not([style]) {
+          .code-block {
             /*
-              The codeblock inside @atlaskit/code uses inline styles so we disable the default
-              background color because editor/renderer provides it's own background colours.
+              Add a background color tint to code blocks inside a table heading since they both
+              share the same background colour. This prevents them visually blending together.
             */
-            background: transparent !important;
+            background: ${themed({ light: N20A, dark: DN700A })};
+
+            > span {
+              /*
+                The codeblock inside @atlaskit/code uses inline styles so we disable the default
+                background color because editor/renderer provides it's own background colours.
+              */
+              background: transparent !important;
+            }
           }
         }
       }

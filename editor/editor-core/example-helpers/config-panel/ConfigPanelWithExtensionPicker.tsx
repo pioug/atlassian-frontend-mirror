@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { gridSize } from '@atlaskit/theme/constants';
 import { multiply } from '@atlaskit/theme/math';
 import * as colors from '@atlaskit/theme/colors';
-import { AkCodeBlock } from '@atlaskit/code';
+import { CodeBlock } from '@atlaskit/code';
 
 import {
   getExtensionKeyAndNodeKey,
@@ -52,7 +52,7 @@ function ExtensionConfigPanel({
   const [fields] = useStateFromPromise(
     function getFields() {
       if (node && typeof node.getFieldsDefinition === 'function') {
-        return node.getFieldsDefinition();
+        return node.getFieldsDefinition({});
       }
     },
     [node],
@@ -78,7 +78,7 @@ function ExtensionConfigPanel({
       <Column width="500" key="fields-definition">
         <h3>Fields definition:</h3>
         <CodeWrapper>
-          <AkCodeBlock
+          <CodeBlock
             language="json"
             text={JSON.stringify(fields, null, 4)}
             showLineNumbers={false}
@@ -89,7 +89,7 @@ function ExtensionConfigPanel({
         <h3>Parameters:</h3>
         <CodeWrapper>
           {parameters && (
-            <AkCodeBlock
+            <CodeBlock
               language="json"
               text={JSON.stringify(parameters, null, 4)}
               showLineNumbers={false}

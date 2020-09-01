@@ -2,7 +2,7 @@ import React from 'react';
 
 import { AtlaskitThemeProvider } from '@atlaskit/theme/components';
 
-import { AkCodeBlock } from '../src';
+import { CodeBlock } from '../src';
 
 const exampleCodeBlock = `  // React component
   class HelloMessage extends React.Component {
@@ -25,11 +25,11 @@ export default function Component() {
   return (
     <>
       <AtlaskitThemeProvider mode="dark">
-        <AkCodeBlock language="java" text={exampleCodeBlock} />
+        <CodeBlock language="java" text={exampleCodeBlock} />
       </AtlaskitThemeProvider>
 
       <AtlaskitThemeProvider mode="dark">
-        <AkCodeBlock
+        <CodeBlock
           language="java"
           text={exampleCodeBlock}
           highlight="2,5-7,12-15"

@@ -19,13 +19,11 @@ import {
   indentation,
   BuilderContent,
 } from '@atlaskit/editor-test-helpers/schema-builder';
-import { sendKeyToPm } from '@atlaskit/editor-test-helpers';
 import {
   enterKeyCommand,
   backspaceKeyCommand,
   toggleList,
 } from '../../../../../plugins/lists/commands';
-import { GapCursorSelection } from '../../../../../plugins/gap-cursor';
 import { INPUT_METHOD } from '../../../../../plugins/analytics';
 
 describe('lists plugin -> commands', () => {
@@ -71,17 +69,10 @@ describe('lists plugin -> commands', () => {
     describe('when GapCursor is inside a listItem and before the nested codeBlock', () => {
       it('should outdent a list', () => {
         const { editorView } = createEditor({
-          doc: doc(ol(li(code_block()('{<>}text')))),
+          doc: doc(ol(li('{<gap|>}', code_block()('text')))),
         });
 
-        // enable gap cursor
-        sendKeyToPm(editorView, 'ArrowLeft');
-        expect(editorView.state.selection instanceof GapCursorSelection).toBe(
-          true,
-        );
-
         backspaceKeyCommand(editorView.state, editorView.dispatch);
-
         expect(editorView.state.doc).toEqualDocument(doc(code_block()('text')));
       });
     });
@@ -89,17 +80,10 @@ describe('lists plugin -> commands', () => {
     describe('when GapCursor is before a codeBlock and after a list', () => {
       it('should join codeBlock with the list', () => {
         const { editorView } = createEditor({
-          doc: doc(ol(li(p('text'))), code_block()('{<>}code')),
+          doc: doc(ol(li(p('text'))), '{<gap|>}', code_block()('code')),
         });
 
-        // enable gap cursor
-        sendKeyToPm(editorView, 'ArrowLeft');
-        expect(editorView.state.selection instanceof GapCursorSelection).toBe(
-          true,
-        );
-
         backspaceKeyCommand(editorView.state, editorView.dispatch);
-
         expect(editorView.state.doc).toEqualDocument(
           doc(ol(li(p('text')), li(code_block()('code')))),
         );

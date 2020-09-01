@@ -20,8 +20,8 @@ import { PluginConfig } from '../../types';
 import {
   contextualMenuDropdownWidth,
   contextualMenuTriggerSize,
-  tablePopupStyles,
-} from '../styles';
+} from '../consts';
+import { tablePopupStyles } from './styles.css';
 
 import ContextualMenu from './ContextualMenu';
 

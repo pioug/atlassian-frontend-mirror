@@ -449,3 +449,251 @@ export const paragraphWithInlineNodes = {
     },
   ],
 };
+
+export const paragraphWithoutInlineNodes = {
+  version: 1,
+  type: 'doc',
+  content: [
+    {
+      type: 'paragraph',
+      content: [
+        {
+          type: 'text',
+          text: 'Lorem ipsum dolor sit amet, ',
+        },
+        {
+          type: 'text',
+          text: 'consectetur ',
+          marks: [
+            {
+              type: 'strong',
+            },
+          ],
+        },
+        {
+          type: 'text',
+          text: 'adipiscing',
+          marks: [
+            {
+              type: 'em',
+            },
+            {
+              type: 'strong',
+            },
+          ],
+        },
+        {
+          type: 'text',
+          text: ' ',
+          marks: [
+            {
+              type: 'strong',
+            },
+          ],
+        },
+        {
+          type: 'text',
+          text: 'elit',
+          marks: [
+            {
+              type: 'strong',
+            },
+            {
+              type: 'underline',
+            },
+          ],
+        },
+        {
+          type: 'text',
+          text: '. ',
+        },
+        {
+          type: 'text',
+          text: 'Aenean',
+          marks: [
+            {
+              type: 'em',
+            },
+            {
+              type: 'strong',
+            },
+            {
+              type: 'underline',
+            },
+          ],
+        },
+        {
+          type: 'text',
+          text: ' mi nisl, venenatis eget auctor vitae, venenatis quis lorem. ',
+        },
+        {
+          type: 'text',
+          text:
+            ' Suspendisse maximus tortor vel dui tincidunt venenatis eget auctor',
+        },
+      ],
+    },
+    {
+      type: 'paragraph',
+      content: [
+        {
+          type: 'text',
+          text: 'Lorem ipsum dolor sit amet, ',
+        },
+        {
+          type: 'text',
+          text: 'consectetur ',
+          marks: [
+            {
+              type: 'strong',
+            },
+          ],
+        },
+        {
+          type: 'text',
+          text: 'adipiscing',
+          marks: [
+            {
+              type: 'em',
+            },
+            {
+              type: 'strong',
+            },
+          ],
+        },
+        {
+          type: 'text',
+          text: ' ',
+          marks: [
+            {
+              type: 'strong',
+            },
+          ],
+        },
+        {
+          type: 'text',
+          text: 'elit',
+          marks: [
+            {
+              type: 'strong',
+            },
+            {
+              type: 'underline',
+            },
+          ],
+        },
+        {
+          type: 'text',
+          text: '. ',
+        },
+        {
+          type: 'text',
+          text: 'Aenean',
+          marks: [
+            {
+              type: 'em',
+            },
+            {
+              type: 'strong',
+            },
+            {
+              type: 'underline',
+            },
+          ],
+        },
+        {
+          type: 'text',
+          text: ' mi nisl, venenatis eget auctor vitae, venenatis quis lorem. ',
+        },
+        {
+          type: 'text',
+          text:
+            ' Suspendisse maximus tortor vel dui tincidunt venenatis eget auctor',
+        },
+      ],
+    },
+    {
+      type: 'paragraph',
+      content: [
+        {
+          type: 'text',
+          text: 'Lorem ipsum dolor sit amet, ',
+        },
+        {
+          type: 'text',
+          text: 'consectetur ',
+          marks: [
+            {
+              type: 'strong',
+            },
+          ],
+        },
+        {
+          type: 'text',
+          text: 'adipiscing',
+          marks: [
+            {
+              type: 'em',
+            },
+            {
+              type: 'strong',
+            },
+          ],
+        },
+        {
+          type: 'text',
+          text: ' ',
+          marks: [
+            {
+              type: 'strong',
+            },
+          ],
+        },
+        {
+          type: 'text',
+          text: 'elit',
+          marks: [
+            {
+              type: 'strong',
+            },
+            {
+              type: 'underline',
+            },
+          ],
+        },
+        {
+          type: 'text',
+          text: '. ',
+        },
+        {
+          type: 'text',
+          text: 'Aenean',
+          marks: [
+            {
+              type: 'em',
+            },
+            {
+              type: 'strong',
+            },
+            {
+              type: 'underline',
+            },
+          ],
+        },
+        {
+          type: 'text',
+          text: ' mi nisl, venenatis eget auctor vitae, venenatis quis lorem. ',
+        },
+        {
+          type: 'text',
+          text:
+            '  Suspendisse maximus tortor vel dui tincidunt venenatis eget auctor',
+        },
+      ],
+    },
+    {
+      type: 'paragraph',
+      content: [],
+    },
+  ],
+};

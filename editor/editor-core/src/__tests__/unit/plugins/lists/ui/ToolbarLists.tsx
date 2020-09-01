@@ -94,9 +94,9 @@ describe('ToolbarLists', () => {
         actionSubject: 'text',
         eventType: 'track',
         actionSubjectId: 'bulletedList',
-        attributes: {
+        attributes: expect.objectContaining({
           inputMethod: 'toolbar',
-        },
+        }),
       });
     });
 
@@ -108,9 +108,9 @@ describe('ToolbarLists', () => {
         actionSubject: 'text',
         eventType: 'track',
         actionSubjectId: 'numberedList',
-        attributes: {
+        attributes: expect.objectContaining({
           inputMethod: 'toolbar',
-        },
+        }),
       });
     });
   });

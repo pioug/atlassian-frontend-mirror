@@ -82,64 +82,39 @@ describe('Annotations: draft/text', () => {
   });
 
   describe('#splitText', () => {
-    describe('when the offset is at the begin of the string', () => {
-      it('should split the text in two pieces', () => {
-        const offset = {
-          startOffset: 0,
-          endOffset: 6,
-        };
-        const result = splitText(text, offset);
-
-        expect(result).toEqual(['Martin', ' Luther King']);
-      });
-    });
-
-    describe('when the offset is at the end of the string', () => {
-      it('should split the text in two piecs', () => {
-        const offset = {
-          startOffset: 7,
-          endOffset: 18,
-        };
-        const result = splitText(text, offset);
-
-        expect(result).toEqual(['Martin ', 'Luther King']);
-      });
-    });
-
-    describe('when the offset is on the middle of the string', () => {
-      it('should split the text in three pieces', () => {
-        const offset = {
-          startOffset: 7,
-          endOffset: 13,
-        };
-        const result = splitText(text, offset);
-
-        expect(result).toEqual(['Martin ', 'Luther', ' King']);
-      });
-    });
-
-    describe('when the offset is invalid', () => {
-      it('should return null', () => {
-        const offset = {
-          startOffset: 50,
-          endOffset: 13,
-        };
-        const result = splitText(text, offset);
-
-        expect(result).toBeNull();
-      });
-    });
-
-    describe('when the endOffset is big than text size', () => {
-      it('should return null', () => {
-        const offset = {
-          startOffset: 0,
-          endOffset: 19,
-        };
-        const result = splitText(text, offset);
-
-        expect(result).toBeNull();
-      });
+    [
+      {
+        name: 'splits the text in two pieces if offset is at the beginning',
+        offset: { startOffset: 0, endOffset: 6 },
+        expected: ['Martin', ' Luther King'],
+      },
+      {
+        name: 'splits the text in two pieces if offset is at the end',
+        offset: { startOffset: 7, endOffset: 18 },
+        expected: ['Martin ', 'Luther King'],
+      },
+      {
+        name: 'splits the text in three pieces if offset is in the middle',
+        offset: { startOffset: 7, endOffset: 13 },
+        expected: ['Martin ', 'Luther', ' King'],
+      },
+      {
+        name: 'returns null when the startOffset is nigger than endOffset',
+        offset: { startOffset: 50, endOffset: 13 },
+        expected: null,
+      },
+      {
+        name: 'returns null when endOffset is bigger than text size',
+        offset: { startOffset: 0, endOffset: 19 },
+        expected: null,
+      },
+      {
+        name: 'returns null when the endOffset is same as startOffset',
+        offset: { startOffset: 0, endOffset: 0 },
+        expected: null,
+      },
+    ].forEach(({ name, offset, expected }) => {
+      it(name, () => expect(splitText(text, offset)).toEqual(expected));
     });
   });
 });

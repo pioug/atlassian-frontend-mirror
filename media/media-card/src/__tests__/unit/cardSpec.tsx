@@ -60,6 +60,7 @@ import {
   getMediaCardAnalyticsContext,
 } from '../../utils/analytics';
 import * as IntersectionObserverUtils from '../../utils/intersectionObserver';
+import { IntlProvider } from 'react-intl';
 
 type AnalyticsHandlerResultType = ReturnType<
   typeof AnalyticsListener.prototype['props']['onEvent']
@@ -239,6 +240,20 @@ describe('Card', () => {
       occurrenceKey,
     });
     expect(component.find(CardView)).toHaveLength(1);
+  });
+
+  it('should attach default IntlProvider when an ancestor is not found', () => {
+    const component = shallow(<CardBase identifier={identifier} />);
+    expect(component.find(IntlProvider).length).toBe(1);
+  });
+
+  it('should not attach default IntlProvider when an ancestor is found', () => {
+    const component = mount(
+      <IntlProvider locale="es">
+        <CardBase identifier={identifier} />
+      </IntlProvider>,
+    );
+    expect(component.find(IntlProvider).length).toBe(1);
   });
 
   describe('refetching when dimensions has changed logic', () => {
@@ -1341,6 +1356,7 @@ describe('Card', () => {
       const mediaClient = createMediaClientWithGetFile({
         ...defaultFileState,
         mediaType: 'video',
+        mimeType: 'video/mp4',
       });
       const { component } = setup(mediaClient, {
         useInlinePlayer: true,
@@ -1371,6 +1387,26 @@ describe('Card', () => {
 
       expect(component.find(MediaViewer).prop('contextId')).toEqual(
         'some-context-id',
+      );
+    });
+
+    it('should pass featureFlags to MV', async () => {
+      const featureFlags = {} as MediaFeatureFlags;
+
+      const { component } = setup(undefined, {
+        shouldOpenMediaViewer: true,
+        mediaViewerDataSource: { list: [identifier, identifier] },
+        contextId: 'some-context-id',
+        featureFlags,
+      });
+
+      await nextTick();
+      await nextTick();
+
+      component.find(CardView).simulate('click');
+
+      expect(component.find(MediaViewer).prop('featureFlags')).toEqual(
+        featureFlags,
       );
     });
   });

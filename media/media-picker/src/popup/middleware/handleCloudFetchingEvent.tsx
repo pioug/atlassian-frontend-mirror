@@ -1,6 +1,7 @@
 import {
   getFileStreamsCache,
   isPreviewableFileState,
+  isErrorFileState,
   observableToPromise,
 } from '@atlaskit/media-client';
 import { RECENTS_COLLECTION } from '@atlaskit/media-client/constants';
@@ -88,7 +89,14 @@ export const handleCloudFetchingEvent = (store: Store<State>) => (
         ? tenantFileState.preview
         : undefined;
 
-    store.dispatch(finalizeUpload(uploadedFile, tenantFileId, source, preview));
+    const mimeType =
+      tenantFileState && !isErrorFileState(tenantFileState)
+        ? tenantFileState.mimeType
+        : undefined;
+
+    store.dispatch(
+      finalizeUpload(uploadedFile, tenantFileId, source, { preview, mimeType }),
+    );
   };
 
   // Handle cloud upload fail

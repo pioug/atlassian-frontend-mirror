@@ -171,7 +171,7 @@ describe('emojis', () => {
         action: 'invoked',
         actionSubject: 'typeAhead',
         actionSubjectId: 'emojiTypeAhead',
-        attributes: { inputMethod: 'quickInsert' },
+        attributes: expect.objectContaining({ inputMethod: 'quickInsert' }),
         eventType: 'ui',
       });
     });

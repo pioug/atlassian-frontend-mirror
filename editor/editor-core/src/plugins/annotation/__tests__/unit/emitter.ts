@@ -72,9 +72,9 @@ describe('annotation emitter', () => {
         actionSubject: ACTION_SUBJECT.ANNOTATION,
         actionSubjectId: ACTION_SUBJECT_ID.INLINE_COMMENT,
         eventType: EVENT_TYPE.TRACK,
-        attributes: {
+        attributes: expect.objectContaining({
           method: RESOLVE_METHOD.CONSUMER,
-        },
+        }),
       });
     });
   });

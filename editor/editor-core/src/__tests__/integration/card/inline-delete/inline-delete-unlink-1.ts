@@ -6,7 +6,7 @@ import {
   copyToClipboard,
   gotoEditor,
 } from '../../_helpers';
-import { waitForInlineCardSelection } from '../../../__helpers/page-objects/_cards';
+import { waitForInlineCardSelection } from '@atlaskit/media-integration-test-helpers';
 
 BrowserTestCase(
   `card: unlinking an Inline Link should replace it with text corresponding to the title of the previously linked page`,

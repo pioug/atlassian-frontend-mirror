@@ -44,6 +44,7 @@ export {
   QuickInsertProvider,
   QuickInsertItem,
   QuickInsertItemId,
+  QuickInsertActionInsert,
 } from '@atlaskit/editor-common/provider-factory';
 
 // Used in mobile bridge

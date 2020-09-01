@@ -112,13 +112,13 @@ describe('IDE UX plugin', () => {
             actionSubject: ACTION_SUBJECT.TEXT,
             actionSubjectId: ACTION_SUBJECT_ID.FORMAT_INDENT,
             eventType: EVENT_TYPE.TRACK,
-            attributes: {
+            attributes: expect.objectContaining({
               inputMethod: INPUT_METHOD.KEYBOARD,
               direction: INDENT_DIR.INDENT,
               previousIndentationLevel: 0,
               newIndentLevel: 1,
               indentType: INDENT_TYPE.CODE_BLOCK,
-            },
+            }),
           };
           const { editorView } = editor(
             doc(code_block()('top\n{<>}start\nbottom')),
@@ -294,13 +294,13 @@ describe('IDE UX plugin', () => {
               actionSubject: ACTION_SUBJECT.TEXT,
               actionSubjectId: ACTION_SUBJECT_ID.FORMAT_INDENT,
               eventType: EVENT_TYPE.TRACK,
-              attributes: {
+              attributes: expect.objectContaining({
                 inputMethod: INPUT_METHOD.KEYBOARD,
                 direction: INDENT_DIR.OUTDENT,
                 previousIndentationLevel: 1,
                 newIndentLevel: 0,
                 indentType: INDENT_TYPE.CODE_BLOCK,
-              },
+              }),
             };
             const { editorView } = editor(
               doc(code_block()('top\n  {<>}start\nbottom')),

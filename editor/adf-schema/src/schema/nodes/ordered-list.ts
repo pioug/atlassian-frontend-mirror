@@ -24,7 +24,8 @@ export const orderedListSelector = '.ak-ol';
 export const orderedList: NodeSpec = {
   group: 'block',
   content: 'listItem+',
-  marks: 'unsupportedMark',
+  marks: 'unsupportedMark unsupportedNodeAttribute',
+  selectable: false,
   parseDOM: [{ tag: 'ol' }],
   toDOM() {
     const attrs = {

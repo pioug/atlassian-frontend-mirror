@@ -9,7 +9,7 @@ interface State {
   displayFlag: boolean;
 }
 
-export default class DisplayFeedback extends Component<void, State> {
+class DisplayFeedback extends Component<{}, State> {
   state = { isOpen: false, displayFlag: false };
 
   open = () => this.setState({ isOpen: true });
@@ -39,3 +39,5 @@ export default class DisplayFeedback extends Component<void, State> {
     );
   }
 }
+
+export default () => <DisplayFeedback />;

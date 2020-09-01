@@ -1,20 +1,12 @@
 import React from 'react';
-// eslint-disable-next-line no-restricted-imports
-import dateFns from 'date-fns';
-const originalFormat = dateFns.format;
-dateFns.format = jest.fn((date: Date, format: string) =>
-  originalFormat(date, format),
-) as any;
 import { shallow } from 'enzyme';
-import { TitleBox, formatDate } from '../titleBox';
+import { TitleBox } from '../titleBox';
+import { FormattedDate } from '../formattedDate';
 import { Truncate } from '@atlaskit/media-ui/truncateText';
 import { Breakpoint } from '../../common';
 import { TitleBoxWrapper, TitleBoxHeader, TitleBoxFooter } from '../styled';
 
 describe('TitleBox', () => {
-  beforeEach(() => {
-    (dateFns.format as jest.Mock).mockClear();
-  });
   it('should render TitleBox properly', () => {
     const name = 'roberto.jpg';
     const someTimestamp = Date.now();
@@ -29,28 +21,26 @@ describe('TitleBox', () => {
     expect(wrapper).toHaveLength(1);
     expect(wrapper.prop('breakpoint')).toBe(Breakpoint.SMALL);
 
-    const header = component.find(TitleBoxHeader);
-    const truncate = header.find(Truncate);
-    expect(header.find(Truncate)).toHaveLength(1);
+    expect(component.find(TitleBoxHeader)).toHaveLength(1);
+    const truncate = component.find(Truncate);
     expect(truncate).toHaveLength(1);
     expect(truncate.prop('text')).toBe(name);
 
-    const footer = component.find(TitleBoxFooter);
-    expect(footer).toHaveLength(1);
-    expect(footer.prop('children')).toBe(formatDate(someTimestamp));
+    expect(component.find(TitleBoxFooter)).toHaveLength(1);
+    expect(component.find(FormattedDate)).toHaveLength(1);
   });
 
-  it('should format a timestamp as a date', () => {
-    const someTimestamp = 1590634063223;
-    formatDate(someTimestamp);
-    expect(dateFns.format).toBeCalledTimes(1);
-    expect(dateFns.format).toBeCalledWith(
-      expect.any(Date),
-      'DD MMM YYYY, hh:mm A',
+  it('should not render the footer if date is not provided', () => {
+    const name = 'roberto.jpg';
+    const component = shallow(
+      <TitleBox name={name} breakpoint={Breakpoint.SMALL} />,
     );
-  });
 
-  it('should not format an undefined timestamp', () => {
-    expect(formatDate()).toBe('');
+    expect(component.find(TitleBoxHeader)).toHaveLength(1);
+    const truncate = component.find(Truncate);
+    expect(truncate).toHaveLength(1);
+    expect(truncate.prop('text')).toBe(name);
+
+    expect(component.find(TitleBoxFooter)).toHaveLength(0);
   });
 });

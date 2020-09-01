@@ -36,11 +36,10 @@ MobileEditor.displayName = 'MobileEditor';
 const ContentArea = styled(ContentStyles)``;
 ContentArea.displayName = 'ContentArea';
 
-export type MobileAppearanceProps = {
+export type MobileAppearanceProps = React.PropsWithChildren<{
   editorView: EditorView | null;
   maxHeight?: number;
-  children: React.ReactChild;
-};
+}>;
 
 export function MobileAppearance({
   editorView,

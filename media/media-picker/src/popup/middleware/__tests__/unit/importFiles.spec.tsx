@@ -57,6 +57,8 @@ import {
   SendUploadEventActionPayload,
 } from '../../../actions/sendUploadEvent';
 
+import { fakeMediaClient } from '@atlaskit/media-test-helpers';
+
 describe('importFiles middleware', () => {
   const expectUUID = expect.stringMatching(/[a-f0-9\-]+/);
   const todayDate = Date.now();
@@ -328,6 +330,8 @@ describe('importFiles middleware', () => {
   });
 
   describe('when START_IMPORT action supplied', () => {
+    const mockError = new Error('network I guess');
+
     it('should emit uploads-start event back to container for all selected items', async () => {
       const { eventEmitter, mockWsProvider, store } = setup();
       await importFiles(eventEmitter, store, mockWsProvider);
@@ -951,6 +955,77 @@ describe('importFiles middleware', () => {
       // We are verifying that actions above didn't meddle with it's ID.
       expect(userFileState.id).toBe('some-selected-item-id-1');
       return;
+    });
+
+    it('emits upload-error when touch fails', done => {
+      const { eventEmitter, mockWsProvider, store } = setup();
+      const mockClient = fakeMediaClient();
+      const mockError = new Error('network I guess');
+      asMock(mockClient.file.touchFiles).mockRejectedValue(mockError);
+
+      const newStore = mockStore({
+        ...store.getState(),
+        tenantMediaClient: mockClient,
+      });
+
+      eventEmitter.emitUploadError.mockImplementation((fileId, error) => {
+        expect(error).toEqual(mockError);
+        done();
+      });
+
+      importFiles(eventEmitter, newStore, mockWsProvider);
+    });
+
+    it('emits upload-error when ws provider fails', done => {
+      const { eventEmitter, mockWsProvider, store } = setup();
+      asMock(mockWsProvider.getWsConnectionHolder).mockImplementation(() => {
+        throw mockError;
+      });
+
+      eventEmitter.emitUploadError.mockImplementation((fileId, error) => {
+        expect(error).toEqual(mockError);
+        done();
+      });
+
+      importFiles(eventEmitter, store, mockWsProvider);
+    });
+
+    it('emits upload-error when ws openconnection fails', done => {
+      const {
+        eventEmitter,
+        wsConnectionHolder,
+        mockWsProvider,
+        store,
+      } = setup();
+      asMock(wsConnectionHolder.openConnection).mockImplementation(() => {
+        throw mockError;
+      });
+
+      eventEmitter.emitUploadError.mockImplementation((fileId, error) => {
+        expect(error).toEqual(mockError);
+        done();
+      });
+
+      importFiles(eventEmitter, store, mockWsProvider);
+    });
+
+    it('emits upload-error when ws send fails', done => {
+      const {
+        eventEmitter,
+        wsConnectionHolder,
+        mockWsProvider,
+        store,
+      } = setup();
+      asMock(wsConnectionHolder.send).mockImplementation(() => {
+        throw mockError;
+      });
+
+      eventEmitter.emitUploadError.mockImplementation((fileId, error) => {
+        expect(error).toEqual(mockError);
+        done();
+      });
+
+      importFiles(eventEmitter, store, mockWsProvider);
     });
   });
 

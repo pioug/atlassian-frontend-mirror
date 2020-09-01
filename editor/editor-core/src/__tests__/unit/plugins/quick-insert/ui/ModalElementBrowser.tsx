@@ -18,12 +18,12 @@ jest.mock('../../../../../plugins/quick-insert/search', () => ({
   searchQuickInsertItems,
 }));
 
-import { mount } from 'enzyme';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
 import { TypeAheadInsert } from '../../../../../plugins/type-ahead/types';
 import quickInsertPlugin from '../../../../../plugins/quick-insert';
-import { Props } from '../../../../../plugins/quick-insert/ui/ModalElementBrowser/ModalElementBrowser';
+import { Props } from '../../../../../ui/ElementBrowser/ModalElementBrowser';
 
 describe('Quick Insert', () => {
   const createEditor = createEditorFactory();
@@ -59,7 +59,7 @@ describe('Quick Insert', () => {
         editorView,
       } as any);
 
-      const wrapper = mount(component!);
+      const wrapper = mountWithIntl(component!);
 
       return wrapper.find('ModalElementBrowser').props() as Props;
     };
@@ -88,7 +88,7 @@ describe('Quick Insert', () => {
         action: jest.fn(),
       };
 
-      modalProps.onSelectItem(item);
+      modalProps.onInsertItem(item);
 
       expect(insertItem).toHaveBeenCalledWith(item);
       expect(closeElementBrowserModal).toHaveBeenCalledTimes(1);

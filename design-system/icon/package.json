@@ -1,13 +1,13 @@
 {
   "name": "@atlaskit/icon",
-  "version": "21.0.3",
+  "version": "21.1.1",
   "description": "A React package that contains icons",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
   "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
   "author": "Atlassian Pty Ltd",
-  "license": "SEE LICENSE IN LICENSE",
+  "license": "Apache-2.0",
   "main": "cjs/index.js",
   "module": "cjs/index.js",
   "module:es2019": "dist/es2019/index.js",
@@ -50,7 +50,7 @@
     "@atlaskit/section-message": "^5.0.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/textfield": "^4.0.0",
-    "@atlaskit/tooltip": "^16.0.0",
+    "@atlaskit/tooltip": "^17.0.0",
     "@atlaskit/visual-regression": "*",
     "@babel/core": "^7.1.0",
     "classnames": "^2.2.5",

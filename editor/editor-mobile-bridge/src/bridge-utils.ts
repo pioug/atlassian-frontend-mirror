@@ -19,9 +19,9 @@ import { IS_DEV, IS_TEST } from './utils';
  * Props object is spread as args.
  *  window.<bridgeName>.<eventName>(...<props>)
  */
-export function sendToBridge(
-  bridgeName: CombinedBridgeNames,
-  eventName: any,
+export function sendToBridge<K extends CombinedBridgeNames>(
+  bridgeName: K,
+  eventName: BridgeEventName<K>,
   props = {},
 ) {
   if (window.webkit) {

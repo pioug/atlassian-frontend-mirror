@@ -8,12 +8,12 @@ import {
   text,
   li,
   mention,
-  code_block,
   decisionList,
   decisionItem,
   hardBreak,
   mediaSingle,
   media,
+  panel,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 
 import schema from '@atlaskit/editor-test-helpers/schema';
@@ -131,7 +131,7 @@ describe(name, () => {
       { name: 'text', node: text('text', schema) as any },
       {
         name: 'block',
-        node: code_block({ language: 'javascript' })('content')(schema) as any,
+        node: panel({ panelType: 'info' })(p('tcontent'))(schema) as any,
       },
       {
         name: 'inline',
@@ -465,47 +465,6 @@ describe(name, () => {
         expect(result!.toJSON()).toEqual(expected);
       });
 
-      it('should drop a mark which is invalid for node and not wrapped as unsupported ', () => {
-        const entity = {
-          version: 1,
-          type: 'doc',
-          content: [
-            {
-              type: 'paragraph',
-              content: [
-                {
-                  type: 'text',
-                  text: '. What are yours?',
-                  marks: [
-                    {
-                      type: 'indentation',
-                    },
-                  ],
-                },
-              ],
-            },
-          ],
-        };
-
-        const result = processRawValue(schema, entity);
-        const expected = {
-          type: 'doc',
-          content: [
-            {
-              type: 'paragraph',
-              content: [
-                {
-                  type: 'text',
-                  text: '. What are yours?',
-                },
-              ],
-            },
-          ],
-        };
-        expect(result).toBeDefined();
-        expect(result!.toJSON()).toEqual(expected);
-      });
-
       it(
         'should invoke error callback with  erorr code as "REDUNDANT_ATTRIBUTES" ' +
           ' when we apply attribute to a mark which does not support any attributes' +
@@ -585,6 +544,942 @@ describe(name, () => {
           expect(result!.toJSON()).toEqual(expected);
         },
       );
+      it(`should wrap mark with unsupportedMark, when a known not supported mark
+          is applied to a node with single spec`, () => {
+        const intialEntity = {
+          version: 1,
+          type: 'doc',
+          content: [
+            {
+              type: 'layoutSection',
+              content: [
+                {
+                  type: 'layoutColumn',
+                  attrs: {
+                    width: 50,
+                  },
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [],
+                    },
+                  ],
+                },
+                {
+                  type: 'layoutColumn',
+                  attrs: {
+                    width: 50,
+                  },
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [],
+                    },
+                  ],
+                },
+              ],
+              marks: [
+                {
+                  type: 'alignment',
+                },
+              ],
+            },
+          ],
+        };
+        const expected = {
+          type: 'doc',
+          content: [
+            {
+              type: 'layoutSection',
+              content: [
+                {
+                  type: 'layoutColumn',
+                  attrs: { width: 50 },
+                  content: [{ type: 'paragraph' }],
+                },
+                {
+                  type: 'layoutColumn',
+                  attrs: { width: 50 },
+                  content: [{ type: 'paragraph' }],
+                },
+              ],
+              marks: [
+                {
+                  type: 'unsupportedMark',
+                  attrs: { originalValue: { type: 'alignment' } },
+                },
+              ],
+            },
+          ],
+        };
+
+        const result = processRawValue(schema, intialEntity);
+        expect(result).toBeDefined();
+        expect(result!.toJSON()).toEqual(expected);
+      });
+
+      it(
+        'should wrap mark with unsupportedMark and retain valid mark' +
+          ', when a known not supported mark and a valid mark is applied to a node with single spec',
+        () => {
+          const intialEntity = {
+            version: 1,
+            type: 'doc',
+            content: [
+              {
+                type: 'layoutSection',
+                content: [
+                  {
+                    type: 'layoutColumn',
+                    attrs: {
+                      width: 50,
+                    },
+                    content: [
+                      {
+                        type: 'paragraph',
+                        content: [],
+                      },
+                    ],
+                  },
+                  {
+                    type: 'layoutColumn',
+                    attrs: {
+                      width: 50,
+                    },
+                    content: [
+                      {
+                        type: 'paragraph',
+                        content: [],
+                      },
+                    ],
+                  },
+                ],
+                marks: [
+                  {
+                    type: 'alignment',
+                  },
+                  {
+                    type: 'breakout',
+                    attrs: {
+                      mode: 'wide',
+                    },
+                  },
+                ],
+              },
+            ],
+          };
+          const expected = {
+            type: 'doc',
+            content: [
+              {
+                type: 'layoutSection',
+                content: [
+                  {
+                    type: 'layoutColumn',
+                    attrs: { width: 50 },
+                    content: [{ type: 'paragraph' }],
+                  },
+                  {
+                    type: 'layoutColumn',
+                    attrs: { width: 50 },
+                    content: [{ type: 'paragraph' }],
+                  },
+                ],
+                marks: [
+                  { type: 'breakout', attrs: { mode: 'wide' } },
+                  {
+                    type: 'unsupportedMark',
+                    attrs: { originalValue: { type: 'alignment' } },
+                  },
+                ],
+              },
+            ],
+          };
+
+          const result = processRawValue(schema, intialEntity);
+          expect(result).toBeDefined();
+          expect(result!.toJSON()).toEqual(expected);
+        },
+      );
+
+      it(`should wrap mark with unsupportedMark when we apply known and valid marks, and that marks
+          does not support any attributes and the node has multiple validation specs`, () => {
+        const strongMarkWithAttribute = {
+          type: 'strong',
+          attrs: {
+            bgStrong: 'red',
+          },
+        };
+        const strikeMarkWithAttribute = {
+          type: 'strike',
+          attrs: {
+            bg: 'red',
+          },
+        };
+        const initialEntity = {
+          version: 1,
+          type: 'doc',
+          content: [
+            {
+              type: 'paragraph',
+              content: [
+                {
+                  type: 'text',
+                  text: 'Hello',
+                  marks: [strongMarkWithAttribute, strikeMarkWithAttribute],
+                },
+              ],
+            },
+          ],
+        };
+        const expected = {
+          type: 'doc',
+          content: [
+            {
+              type: 'paragraph',
+              content: [
+                {
+                  type: 'text',
+                  text: 'Hello',
+                  marks: [
+                    {
+                      type: 'unsupportedMark',
+                      attrs: {
+                        originalValue: strongMarkWithAttribute,
+                      },
+                    },
+                    {
+                      type: 'unsupportedMark',
+                      attrs: {
+                        originalValue: strikeMarkWithAttribute,
+                      },
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        };
+
+        const result = processRawValue(schema, initialEntity);
+        expect(result).toBeDefined();
+        expect(result!.toJSON()).toEqual(expected);
+      });
+
+      it(`should wrap unknown mark(s) with unsupportedMark's when a known and valid mark(s) are applied along
+          with unknown mark(s) to a node(s) with multple specs.`, () => {
+        const unknownFontSize = {
+          type: 'fontSize',
+          attrs: {
+            mode: 'wide',
+          },
+        };
+        const unknownBackground = {
+          type: 'background',
+          attrs: {
+            mode: 'wide',
+          },
+        };
+        const alignment = {
+          type: 'alignment',
+          attrs: {
+            align: 'center',
+          },
+        };
+
+        const code = {
+          type: 'code',
+        };
+        const unknownTextBackground = {
+          type: 'textBackground',
+        };
+        const unknownTextForeground = {
+          type: 'textForeground',
+        };
+
+        const initialEntity = {
+          version: 1,
+          type: 'doc',
+          content: [
+            {
+              type: 'paragraph',
+              content: [
+                {
+                  type: 'text',
+                  text: 'Some Text',
+                  marks: [code, unknownTextBackground, unknownTextForeground],
+                },
+              ],
+              marks: [alignment, unknownBackground, unknownFontSize],
+            },
+          ],
+        };
+
+        const expected = {
+          type: 'doc',
+          content: [
+            {
+              type: 'paragraph',
+              content: [
+                {
+                  type: 'text',
+                  text: 'Some Text',
+                  marks: [
+                    code,
+                    {
+                      type: 'unsupportedMark',
+                      attrs: { originalValue: unknownTextBackground },
+                    },
+                    {
+                      type: 'unsupportedMark',
+                      attrs: { originalValue: unknownTextForeground },
+                    },
+                  ],
+                },
+              ],
+              marks: [
+                alignment,
+                {
+                  type: 'unsupportedMark',
+                  attrs: { originalValue: unknownBackground },
+                },
+                {
+                  type: 'unsupportedMark',
+                  attrs: { originalValue: unknownFontSize },
+                },
+              ],
+            },
+          ],
+        };
+
+        const result = processRawValue(schema, initialEntity);
+        expect(result).toBeDefined();
+        expect(result!.toJSON()).toEqual(expected);
+      });
+
+      describe('unsupportedNodeAttribute', () => {
+        it.each<[string, object, object]>([
+          [
+            'should wrap a redundant node attribute into unsupportedNodeAttribute mark',
+            {
+              version: 1,
+              type: 'doc',
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [
+                    {
+                      type: 'status',
+                      attrs: {
+                        text: 'Hello',
+                        color: 'neutral',
+                        localId: '156a150d-f02c-4223-a7a2-0592e830be6f',
+                        style: '',
+                        invalid: 'invalidValue',
+                      },
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              type: 'doc',
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [
+                    {
+                      type: 'status',
+                      attrs: {
+                        text: 'Hello',
+                        color: 'neutral',
+                        localId: '156a150d-f02c-4223-a7a2-0592e830be6f',
+                        style: '',
+                      },
+                      marks: [
+                        {
+                          type: 'unsupportedNodeAttribute',
+                          attrs: {
+                            type: {
+                              nodeType: 'status',
+                            },
+                            unsupported: {
+                              invalid: 'invalidValue',
+                            },
+                          },
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+          [
+            'should wrap a node attribute with invalid value into unsupportedNodeAttribute mark',
+            {
+              version: 1,
+              type: 'doc',
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [
+                    {
+                      type: 'mention',
+                      attrs: {
+                        id: '0',
+                        text: '@Carolyn',
+                        accessLevel: 123,
+                        userType: 'DEFAULT',
+                      },
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              type: 'doc',
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [
+                    {
+                      type: 'mention',
+                      attrs: {
+                        id: '0',
+                        text: '@Carolyn',
+                        accessLevel: '',
+                        userType: 'DEFAULT',
+                      },
+                      marks: [
+                        {
+                          type: 'unsupportedNodeAttribute',
+                          attrs: {
+                            type: {
+                              nodeType: 'mention',
+                            },
+                            unsupported: {
+                              accessLevel: 123,
+                            },
+                          },
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+          [
+            `should wrap the invalid value into unsupportedNodeAttribute mark for a required attribute
+          and replace the required with the default value`,
+            {
+              version: 1,
+              type: 'doc',
+              content: [
+                {
+                  type: 'panel',
+                  attrs: {
+                    panelType: 'abc',
+                  },
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'abc',
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              type: 'doc',
+              content: [
+                {
+                  type: 'panel',
+                  attrs: {
+                    panelType: 'info',
+                  },
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'abc',
+                        },
+                      ],
+                    },
+                  ],
+                  marks: [
+                    {
+                      type: 'unsupportedNodeAttribute',
+                      attrs: {
+                        type: {
+                          nodeType: 'panel',
+                        },
+                        unsupported: {
+                          panelType: 'abc',
+                        },
+                      },
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+          [
+            `should wrap the redundant node attribute type into unsupportedNodeAttribute mark
+        and redundant mark type to unsupportedMark`,
+            {
+              version: 1,
+              type: 'doc',
+              content: [
+                {
+                  type: 'panel',
+                  attrs: {
+                    panelType: 'info',
+                    invalid: 'invalidValue',
+                  },
+                  marks: [
+                    {
+                      type: 'someMark',
+                    },
+                  ],
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'abc',
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              type: 'doc',
+              content: [
+                {
+                  type: 'panel',
+                  attrs: {
+                    panelType: 'info',
+                  },
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'abc',
+                        },
+                      ],
+                    },
+                  ],
+                  marks: [
+                    {
+                      type: 'unsupportedMark',
+                      attrs: {
+                        originalValue: {
+                          type: 'someMark',
+                        },
+                      },
+                    },
+                    {
+                      type: 'unsupportedNodeAttribute',
+                      attrs: {
+                        type: {
+                          nodeType: 'panel',
+                        },
+                        unsupported: {
+                          invalid: 'invalidValue',
+                        },
+                      },
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+          [
+            `should wrap the invalid node attribute value into unsupportedNodeAttribute mark
+        and redundant mark type to unsupportedMark`,
+            {
+              version: 1,
+              type: 'doc',
+              content: [
+                {
+                  type: 'panel',
+                  attrs: {
+                    panelType: 'abc',
+                  },
+                  marks: [
+                    {
+                      type: 'someMark',
+                    },
+                  ],
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'abc',
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              type: 'doc',
+              content: [
+                {
+                  type: 'panel',
+                  attrs: {
+                    panelType: 'info',
+                  },
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'abc',
+                        },
+                      ],
+                    },
+                  ],
+                  marks: [
+                    {
+                      type: 'unsupportedMark',
+                      attrs: {
+                        originalValue: {
+                          type: 'someMark',
+                        },
+                      },
+                    },
+                    {
+                      type: 'unsupportedNodeAttribute',
+                      attrs: {
+                        type: {
+                          nodeType: 'panel',
+                        },
+                        unsupported: {
+                          panelType: 'abc',
+                        },
+                      },
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+          [
+            `should wrap an invalid and redundant node attribute into unsupportedNodeAttribute mark`,
+            {
+              version: 1,
+              type: 'doc',
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [
+                    {
+                      type: 'status',
+                      attrs: {
+                        text: 'Hello',
+                        color: 'neutral',
+                        localId: '156a150d-f02c-4223-a7a2-0592e830be6f',
+                        style: 1234,
+                        invalid: 'invalidValue',
+                      },
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              type: 'doc',
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [
+                    {
+                      type: 'status',
+                      attrs: {
+                        text: 'Hello',
+                        color: 'neutral',
+                        localId: '156a150d-f02c-4223-a7a2-0592e830be6f',
+                        style: '',
+                      },
+                      marks: [
+                        {
+                          type: 'unsupportedNodeAttribute',
+                          attrs: {
+                            type: {
+                              nodeType: 'status',
+                            },
+                            unsupported: {
+                              invalid: 'invalidValue',
+                              style: 1234,
+                            },
+                          },
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+          [
+            `should wrap a redundant node attribute into unsupportedNodeAttribute mark
+        for CodeBlock with breakout mark`,
+            {
+              version: 1,
+              type: 'doc',
+              content: [
+                {
+                  type: 'codeBlock',
+                  attrs: {
+                    language: 'javascript',
+                    invalid: 'invalidValue',
+                  },
+                  marks: [
+                    {
+                      type: 'breakout',
+                      attrs: {
+                        mode: 'wide',
+                      },
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              type: 'doc',
+              content: [
+                {
+                  type: 'codeBlock',
+                  attrs: {
+                    language: 'javascript',
+                    uniqueId: null,
+                  },
+                  marks: [
+                    {
+                      type: 'breakout',
+                      attrs: {
+                        mode: 'wide',
+                      },
+                    },
+                    {
+                      type: 'unsupportedNodeAttribute',
+                      attrs: {
+                        type: {
+                          nodeType: 'codeBlock',
+                        },
+                        unsupported: {
+                          invalid: 'invalidValue',
+                        },
+                      },
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+          [
+            `should wrap a redundant node attribute into unsupportedNodeAttribute mark
+        for CodeBlock with an invalid mark`,
+            {
+              version: 1,
+              type: 'doc',
+              content: [
+                {
+                  type: 'codeBlock',
+                  attrs: {
+                    language: 'javascript',
+                    invalid: 'invalidValue',
+                  },
+                  marks: [
+                    {
+                      type: 'breakout123',
+                      attrs: {
+                        mode: 'wide',
+                      },
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              type: 'doc',
+              content: [
+                {
+                  type: 'codeBlock',
+                  attrs: {
+                    language: 'javascript',
+                    uniqueId: null,
+                  },
+                  marks: [
+                    {
+                      type: 'unsupportedMark',
+                      attrs: {
+                        originalValue: {
+                          type: 'breakout123',
+                          attrs: {
+                            mode: 'wide',
+                          },
+                        },
+                      },
+                    },
+                    {
+                      type: 'unsupportedNodeAttribute',
+                      attrs: {
+                        type: {
+                          nodeType: 'codeBlock',
+                        },
+                        unsupported: {
+                          invalid: 'invalidValue',
+                        },
+                      },
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+          [
+            `should wrap redundant and invalid node attributes into unsupportedNodeAttribute mark
+        for CodeBlock with breakout mark`,
+            {
+              version: 1,
+              type: 'doc',
+              content: [
+                {
+                  type: 'codeBlock',
+                  attrs: {
+                    language: 123,
+                    invalid: 'invalidValue',
+                  },
+                  marks: [
+                    {
+                      type: 'breakout',
+                      attrs: {
+                        mode: 'wide',
+                      },
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              type: 'doc',
+              content: [
+                {
+                  type: 'codeBlock',
+                  attrs: {
+                    language: null,
+                    uniqueId: null,
+                  },
+                  marks: [
+                    {
+                      type: 'breakout',
+                      attrs: {
+                        mode: 'wide',
+                      },
+                    },
+                    {
+                      type: 'unsupportedNodeAttribute',
+                      attrs: {
+                        type: { nodeType: 'codeBlock' },
+                        unsupported: {
+                          invalid: 'invalidValue',
+                          language: 123,
+                        },
+                      },
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+          [
+            `should wrap redundant and invalid node attributes into unsupportedNodeAttribute mark
+        for CodeBlock with breakout mark`,
+            {
+              version: 1,
+              type: 'doc',
+              content: [
+                {
+                  type: 'codeBlock',
+                  attrs: {
+                    language: 123,
+                    invalid: 'invalidValue',
+                  },
+                  marks: [
+                    {
+                      type: 'breakoutInvalid',
+                      attrs: {
+                        mode: 'wide',
+                      },
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              type: 'doc',
+              content: [
+                {
+                  type: 'codeBlock',
+                  attrs: {
+                    language: null,
+                    uniqueId: null,
+                  },
+                  marks: [
+                    {
+                      type: 'unsupportedMark',
+                      attrs: {
+                        originalValue: {
+                          type: 'breakoutInvalid',
+                          attrs: {
+                            mode: 'wide',
+                          },
+                        },
+                      },
+                    },
+                    {
+                      type: 'unsupportedNodeAttribute',
+                      attrs: {
+                        type: {
+                          nodeType: 'codeBlock',
+                        },
+                        unsupported: {
+                          invalid: 'invalidValue',
+                          language: 123,
+                        },
+                      },
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        ])('%s', (_, entity, expected) => {
+          const result = processRawValue(schema, entity);
+          expect(result).toBeDefined();
+          expect(result!.toJSON()).toEqual(expected);
+        });
+      });
     });
   });
 });

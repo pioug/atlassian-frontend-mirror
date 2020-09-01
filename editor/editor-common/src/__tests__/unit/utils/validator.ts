@@ -1082,8 +1082,8 @@ describe('Renderer - Validator', () => {
       });
 
       const doc = {
-        type: 'doc' as 'doc',
-        version: 1 as 1,
+        type: 'doc',
+        version: 1,
         content: [
           {
             type: 'rule',

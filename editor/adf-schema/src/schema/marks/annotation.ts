@@ -22,21 +22,21 @@ export enum AnnotationMarkStates {
   ACTIVE = 'active',
 }
 
-type AnnotationMarkState = { state?: AnnotationMarkStates | undefined | null };
-
-type SerializedDataAnnotationAttributes = {
+export type AnnotationDataAttributes = {
   'data-mark-type': string;
   'data-mark-annotation-type': AnnotationTypes;
   'data-id': AnnotationId;
   'data-mark-annotation-state'?: AnnotationMarkStates;
 };
 
-export function buildDataAtributes({
+type BuildDataAttributesProps = AnnotationMarkAttributes & {
+  state?: AnnotationMarkStates | undefined | null;
+};
+export function buildDataAttributes({
   id,
   annotationType,
   state,
-}: AnnotationMarkAttributes &
-  AnnotationMarkState): SerializedDataAnnotationAttributes {
+}: BuildDataAttributesProps): AnnotationDataAttributes {
   const data = {
     'data-mark-type': 'annotation',
     'data-mark-annotation-type': annotationType,
@@ -96,7 +96,7 @@ export const annotation: MarkSpec = {
         // to not add this attribute properly, as its a reserved word.
         // prettier-ignore
         'class': 'fabric-editor-annotation',
-        ...buildDataAtributes({
+        ...buildDataAttributes({
           id: node.attrs.id as AnnotationId,
           annotationType: node.attrs.annotationType as AnnotationTypes,
         }),

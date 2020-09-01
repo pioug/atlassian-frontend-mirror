@@ -2,7 +2,7 @@ import React, { Component, ComponentType } from 'react';
 
 import styled from 'styled-components';
 
-import { AkCodeBlock } from '@atlaskit/code';
+import { CodeBlock } from '@atlaskit/code';
 import Select, { ValueType } from '@atlaskit/select';
 
 import * as Logos from '../src';
@@ -77,7 +77,7 @@ export default class GetPath extends Component<any, any> {
           />
         </SelectWrapper>
         <p>This import statement will render the image below:</p>
-        <AkCodeBlock
+        <CodeBlock
           language="javascript"
           text={`import { ${name} } from '@atlaskit/logo'`}
         />

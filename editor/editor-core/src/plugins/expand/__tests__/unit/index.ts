@@ -96,14 +96,16 @@ describe('expand actions', () => {
         editorView.dispatch,
       );
 
-      expect(createAnalyticsEvent).toBeCalledWith(
-        expect.objectContaining({
-          action: 'toggleExpand',
-          actionSubject: 'expand',
-          attributes: { expanded: false, mode: 'editor', platform: 'web' },
-          eventType: 'track',
+      expect(createAnalyticsEvent).toBeCalledWith({
+        action: 'toggleExpand',
+        actionSubject: 'expand',
+        attributes: expect.objectContaining({
+          expanded: false,
+          mode: 'editor',
+          platform: 'web',
         }),
-      );
+        eventType: 'track',
+      });
     });
 
     it('fires analytics when expanded in editor', () => {
@@ -115,14 +117,16 @@ describe('expand actions', () => {
       toggleExpandExpanded(pos, node.type)(editorView.state, dispatch);
       toggleExpandExpanded(pos, node.type)(editorView.state, dispatch);
 
-      expect(createAnalyticsEvent).toBeCalledWith(
-        expect.objectContaining({
-          action: 'toggleExpand',
-          actionSubject: 'expand',
-          attributes: { expanded: true, mode: 'editor', platform: 'web' },
-          eventType: 'track',
+      expect(createAnalyticsEvent).toBeCalledWith({
+        action: 'toggleExpand',
+        actionSubject: 'expand',
+        attributes: expect.objectContaining({
+          expanded: true,
+          mode: 'editor',
+          platform: 'web',
         }),
-      );
+        eventType: 'track',
+      });
     });
   });
 
@@ -182,14 +186,16 @@ describe('expand actions', () => {
         editorView.dispatch,
       );
 
-      expect(createAnalyticsEvent).toBeCalledWith(
-        expect.objectContaining({
-          action: 'toggleExpand',
-          actionSubject: 'nestedExpand',
-          attributes: { expanded: false, mode: 'editor', platform: 'web' },
-          eventType: 'track',
+      expect(createAnalyticsEvent).toBeCalledWith({
+        action: 'toggleExpand',
+        actionSubject: 'nestedExpand',
+        attributes: expect.objectContaining({
+          expanded: false,
+          mode: 'editor',
+          platform: 'web',
         }),
-      );
+        eventType: 'track',
+      });
     });
 
     it('fires analytics when expanded in editor', () => {
@@ -208,14 +214,16 @@ describe('expand actions', () => {
         dispatch,
       );
 
-      expect(createAnalyticsEvent).toBeCalledWith(
-        expect.objectContaining({
-          action: 'toggleExpand',
-          actionSubject: 'nestedExpand',
-          attributes: { expanded: true, mode: 'editor', platform: 'web' },
-          eventType: 'track',
+      expect(createAnalyticsEvent).toBeCalledWith({
+        action: 'toggleExpand',
+        actionSubject: 'nestedExpand',
+        attributes: expect.objectContaining({
+          expanded: true,
+          mode: 'editor',
+          platform: 'web',
         }),
-      );
+        eventType: 'track',
+      });
     });
   });
 });

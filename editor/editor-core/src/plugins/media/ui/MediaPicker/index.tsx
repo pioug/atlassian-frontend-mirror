@@ -36,14 +36,22 @@ export class MediaPickerComponents extends React.Component<Props, State> {
   render() {
     const { mediaState } = this.props;
     const { isPopupOpened } = this.state;
+    const featureFlags =
+      mediaState.mediaOptions && mediaState.mediaOptions.featureFlags;
+
     return (
       <>
-        <ClipboardWrapper mediaState={mediaState} />
-        <DropzoneWrapper mediaState={mediaState} isActive={!isPopupOpened} />
+        <ClipboardWrapper mediaState={mediaState} featureFlags={featureFlags} />
+        <DropzoneWrapper
+          mediaState={mediaState}
+          isActive={!isPopupOpened}
+          featureFlags={featureFlags}
+        />
         {!mediaState.shouldUseMediaPickerPopup() && (
           <BrowserWrapper
             onBrowseFn={this.onBrowseFn}
             mediaState={mediaState}
+            featureFlags={featureFlags}
           />
         )}
       </>

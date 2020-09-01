@@ -49,6 +49,7 @@ export const EmbedCardUnauthorisedView: FC<EmbedCardUnauthorisedViewProps> = ({
         button={{
           appearance: 'primary',
           text: 'connect_link_account_card',
+          testId: 'connect-account',
         }}
         onClick={onAuthorise}
         testId={testId}

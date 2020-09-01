@@ -4,7 +4,6 @@ import { fixTablesKey } from 'prosemirror-tables';
 import { Dispatch } from '../../event-dispatcher';
 import { sendTransaction } from './events/send-transaction';
 import { initialize } from './events/initialize';
-import { unsubscribeAllEvents } from './events/unsubscribe';
 import { PrivateCollabEditOptions, ProviderCallback } from './types';
 import { CollabEditProvider } from './provider';
 import { PluginState } from './plugin-state';
@@ -78,7 +77,7 @@ export const createPlugin = (
         view.state.tr,
       );
 
-      collabProviderCallback(
+      const cleanup = collabProviderCallback(
         initialize({ view, options, providerFactory }),
         addErrorAnalytics,
       );
@@ -86,8 +85,13 @@ export const createPlugin = (
       return {
         destroy() {
           providerFactory.unsubscribeAll('collabEditProvider');
-
-          collabProviderCallback(unsubscribeAllEvents, addErrorAnalytics);
+          if (cleanup) {
+            cleanup.then(unsubscribe => {
+              if (unsubscribe) {
+                unsubscribe();
+              }
+            });
+          }
         },
       };
     },

@@ -1,5 +1,4 @@
 import { Schema } from 'prosemirror-model';
-import { AnnotationMarkStates } from '@atlaskit/adf-schema';
 import {
   ADFStage,
   ProviderFactory,
@@ -46,7 +45,8 @@ export interface RendererProps {
   stickyHeaders?: StickyHeaderProps;
   media?: MediaOptions;
   allowAnnotations?: boolean;
-  annotationProvider?: AnnotationProviders<AnnotationMarkStates> | null;
+  annotationProvider?: AnnotationProviders | null;
   innerRef?: React.RefObject<HTMLDivElement>;
   useSpecBasedValidator?: boolean;
+  allowCopyToClipboard?: boolean;
 }

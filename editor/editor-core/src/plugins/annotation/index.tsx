@@ -20,6 +20,7 @@ import { UpdateEvent, AnnotationUpdateEmitter } from './update-provider';
 import { getPluginState, inlineCommentPluginKey } from './utils';
 import { buildToolbar } from './toolbar';
 import { InlineCommentView } from './ui/InlineCommentView';
+import { InlineCommentPluginState } from './pm-plugins/types';
 
 const annotationPlugin = (
   annotationProviders?: AnnotationProviders,
@@ -72,10 +73,12 @@ const annotationPlugin = (
         const pluginState = getPluginState(state);
         if (
           pluginState &&
+          pluginState.isVisible &&
           !pluginState.bookmark &&
           !pluginState.mouseData.isSelecting
         ) {
-          return buildToolbar(state, intl);
+          const { isToolbarAbove } = annotationProviders.inlineComment;
+          return buildToolbar(state, intl, isToolbarAbove);
         }
       },
     },
@@ -91,13 +94,22 @@ const annotationPlugin = (
             selectionState: reactPluginKey,
             inlineCommentState: inlineCommentPluginKey,
           }}
-          render={() => (
-            <InlineCommentView
-              providers={annotationProviders}
-              editorView={editorView}
-              dispatchAnalyticsEvent={dispatchAnalyticsEvent}
-            />
-          )}
+          render={(pluginStates: any) => {
+            const pluginState: InlineCommentPluginState =
+              pluginStates.inlineCommentState;
+
+            if (pluginState && !pluginState.isVisible) {
+              return null;
+            }
+
+            return (
+              <InlineCommentView
+                providers={annotationProviders}
+                editorView={editorView}
+                dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+              />
+            );
+          }}
         />
       );
     },

@@ -215,7 +215,7 @@ export default class IosBridge implements NativeBridge {
 
   call<T extends EditorBridgeNames>(
     bridge: T,
-    event: keyof Exclude<EditorBridges[T], undefined>,
+    event: keyof Required<EditorBridges>[T],
     ...args: any[]
   ) {
     sendToBridge(bridge, event, ...args);
@@ -262,5 +262,14 @@ export default class IosBridge implements NativeBridge {
     this.window.webkit.messageHandlers.lifecycleBridge.postMessage({
       name: 'editorReady',
     });
+  }
+
+  onRenderedContentHeightChanged(height: number): void {
+    if (window.webkit && window.webkit.messageHandlers.contentBridge) {
+      window.webkit.messageHandlers.contentBridge.postMessage({
+        name: 'onRenderedContentHeightChanged',
+        height,
+      });
+    }
   }
 }

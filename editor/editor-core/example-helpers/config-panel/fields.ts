@@ -353,6 +353,16 @@ export const customFields: FieldDefinition[] = [
     },
   },
   {
+    name: 'user-lazy',
+    label: 'Custom: User (lazy)',
+    type: 'custom',
+    options: {
+      resolver: {
+        type: 'username',
+      },
+    },
+  },
+  {
     name: 'unsupported',
     label: 'Custom: Missing provider',
     type: 'custom',

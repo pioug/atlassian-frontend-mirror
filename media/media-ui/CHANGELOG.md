@@ -1,5 +1,47 @@
 # @atlaskit/media-ui
 
+## 14.0.0
+
+### Major Changes
+
+- [`863a41adbb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/863a41adbb) - Drop unorthodox 'toolbar' appearance as one of the values in MediaButton's `appearance`. If you used it before just replace it with default (means, remove whole `apperance` prop definition completely)
+
+### Minor Changes
+
+- [`9468594ef9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9468594ef9) - **Ticket:** EDM-1120
+
+  **Changes:**
+
+  - Refactored Card Link `view` tests to separate files to be more maintainable;
+  - Added unit tests to all Card Link actions;
+  - Added unit tests to Card Link PreviewAction;
+  - Added `openPreviewState` and `waitForPreviewState` selectors for VR tests;
+  - Added VR test in Editor for Preview State;
+  - Added VR test in Renderer for Preview State.
+
+- [`c87e8dad69`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c87e8dad69) - CustomMediaPlayer got new optional prop `lastWatchTimeConfig` which value has shape `{contentId: string}` where `contentId` is unique identifier of the media. When this prop provided component will store last played position for that `contentId` and when mounted next time will resume from that place.
+
+### Patch Changes
+
+- [`6e5372dcda`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6e5372dcda) - **Ticket:** EDM-1121
+
+  **Changes:**
+
+  Added integration tests across the board, asserting that a new window is opened to kick off the 3LO flow.
+
+  - Added integration test for account connection and try another account flows for Inline Links;
+  - Added integration test for account connection and try another account flows for Card Links;
+  - Added integration test for account connection and try another account flows for Embed Links;
+  - Aligned `data-testid`s across all buttons for all unauthenticated views for each of the above to be - `button-connect-account` for connecting account, and `button-connect-other-account` for trying with another account.
+
+  Further, added an `AuthorizationWindow` method to the `@atlaskit/media-integration-test-helpers`, with the following methods:
+
+  - `AuthorizationWindow.open()` - to open a window to authorize, dependent on which card state it is being activated from;
+  - `AuthorizationWindow.checkUrl()` - to check if the window URL when redirected is the same as the `MOCK_URL_AUTH_PROVIDER` inside of the package for assertions which ship with our mocks;
+  - `AuthorizationWindow.close()` - to close the window opened for authorization.
+
+- Updated dependencies
+
 ## 13.1.1
 
 ### Patch Changes

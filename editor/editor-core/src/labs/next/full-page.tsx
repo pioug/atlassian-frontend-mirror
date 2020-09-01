@@ -12,7 +12,7 @@ import WidthEmitter from '../../ui/WidthEmitter';
 
 import { ClickAreaBlock } from '../../ui/Addon';
 import { scrollbarStyles } from '../../ui/styles';
-import { tableFullPageEditorStyles } from '../../plugins/table/ui/styles';
+import { tableFullPageEditorStyles } from '../../plugins/table/ui/common-styles.css';
 import AvatarsWithPluginState from '../../plugins/collab-edit/ui';
 import { akEditorToolbarKeylineHeight } from '../../styles';
 import { EditorProps } from '../../types';

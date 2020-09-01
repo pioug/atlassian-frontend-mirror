@@ -24,13 +24,16 @@ const getFieldsDefinitionFn = (
   }
 };
 
+// having the default value in the props instead of a reference will cause excessive rerenders
+const defaultEmptyObject = {};
+
 export default function FieldsLoader({
   extensionType,
   extensionKey,
   nodeKey,
   extensionProvider,
-  extensionParameters = {},
-  parameters = {},
+  extensionParameters = defaultEmptyObject,
+  parameters = defaultEmptyObject,
   autoSave,
   closeOnEsc,
   showHeader,

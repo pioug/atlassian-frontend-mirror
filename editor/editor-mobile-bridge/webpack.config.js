@@ -42,6 +42,8 @@ module.exports = async function createWebpackConfig(_, args) {
         '@atlaskit/select': emptyExportPath,
         'react-select': emptyExportPath, // ~20kb gzip
         'components/picker/EmojiPicker': emptyExportPath,
+        'react-virtualized/dist/commonjs/AutoSizer': emptyExportPath, // Official way of importing these components
+        'react-virtualized/dist/commonjs/Collection': emptyExportPath, // from react-virtualized to avoid treeshaking issues
         'react-virtualized/dist/commonjs/List': emptyExportPath, // ~10kb gzip
         'react-virtualized': emptyExportPath, // ~10kb gzip
       },

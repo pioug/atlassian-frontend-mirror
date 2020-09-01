@@ -7,8 +7,8 @@ export const isImageMimeTypeSupportedByBrowser = (mimeType: string) =>
     'image/x-icon',
     'image/jpeg',
     'image/png',
-    'image/svg+xml',
     'image/webp',
+    //'image/svg+xml', // Removed because of https://product-fabric.atlassian.net/browse/BMPT-625
   ].indexOf(mimeType.toLowerCase()) > -1;
 
 export const isDocumentMimeTypeSupportedByBrowser = (mimeType: string) =>

@@ -10,7 +10,7 @@ export default md`
 
   ## Usage
 
-  ${code`import { ProgressDots } from '@atlaskit/progress-indicator';`}
+  ${code`import { ProgressIndicator } from '@atlaskit/progress-indicator';`}
 
   ${(
     <Example
@@ -23,7 +23,7 @@ export default md`
 
   ${(
     <Props
-      heading="ProgressDots Props"
+      heading="ProgressIndicator Props"
       props={require('!!extract-react-types-loader!../src/components/Dots')}
     />
   )}

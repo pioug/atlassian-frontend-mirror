@@ -438,7 +438,9 @@ describe('mentionTypeahead', () => {
         action: 'invoked',
         actionSubject: 'typeAhead',
         actionSubjectId: 'mentionTypeAhead',
-        attributes: { inputMethod: 'quickInsert' },
+        attributes: expect.objectContaining({
+          inputMethod: 'quickInsert',
+        }),
         eventType: 'ui',
       });
     });

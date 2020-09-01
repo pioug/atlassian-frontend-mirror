@@ -10,7 +10,7 @@ import {
   TableCssClassName as ClassName,
   TablePluginState,
 } from '../../../types';
-import { tableControlsSpacing } from '../../../ui/styles';
+import { tableControlsSpacing } from '../../../ui/consts';
 import { pluginKey as tablePluginKey } from '../../plugin-factory';
 import {
   syncStickyRowToTable,

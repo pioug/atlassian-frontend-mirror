@@ -9,12 +9,13 @@ export interface RenderOptionsPropsT<T> {
   dispatchCommand: (command: T) => void;
 }
 
-export interface SelectOption {
+export interface SelectOption<T = unknown> {
   value: string;
   label: string;
   selected?: boolean;
   disabled?: boolean;
   hidden?: boolean;
+  data?: T;
 }
 
 export interface Props {
@@ -28,6 +29,7 @@ export interface Props {
   placeholder?: string;
   onChange?: (change: ValueType<SelectOption>) => void;
   width?: number;
+  filterOption?: ((option: SelectOption, rawInput: string) => boolean) | null;
 }
 
 export interface State {
@@ -49,6 +51,7 @@ export default class Search extends Component<Props, State> {
       defaultValue,
       placeholder,
       width = 200,
+      filterOption,
     } = this.props;
     return (
       <SelectWrapper width={width}>
@@ -59,6 +62,7 @@ export default class Search extends Component<Props, State> {
           placeholder={placeholder}
           spacing={'compact'}
           menuPlacement="auto"
+          filterOption={filterOption}
         />
       </SelectWrapper>
     );

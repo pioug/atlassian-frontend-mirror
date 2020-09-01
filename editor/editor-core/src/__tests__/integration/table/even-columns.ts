@@ -19,10 +19,10 @@ import {
   mountEditor,
 } from '../../__helpers/testing-example-helpers';
 
-// There is no positionDoubleClick on firefox and edge
+// moveTo in doubleClickResizeHandle does not work for safari
 BrowserTestCase(
   'Should even columns on double click on resize handle when table is selected',
-  { skip: ['safari', 'firefox', 'edge'] },
+  { skip: ['safari', 'edge'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
 
@@ -42,10 +42,10 @@ BrowserTestCase(
   },
 );
 
-// There is no positionDoubleClick on firefox and edge
+// moveTo in doubleClickResizeHandle does not work for safari
 BrowserTestCase(
   'Should even columns and remain overflown on double click on resize handle when table is selected',
-  { skip: ['safari', 'firefox', 'edge'] },
+  { skip: ['safari', 'edge'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
 

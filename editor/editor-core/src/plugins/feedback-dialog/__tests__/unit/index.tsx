@@ -87,9 +87,9 @@ describe('feedbackDialogPlugin', () => {
         action: 'opened',
         actionSubject: 'feedbackDialog',
         eventType: 'ui',
-        attributes: {
+        attributes: expect.objectContaining({
           inputMethod: 'quickInsert',
-        },
+        }),
       });
     });
   });

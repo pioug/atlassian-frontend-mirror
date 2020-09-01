@@ -47,10 +47,11 @@ export type ParagraphWithMarksDefinition =
 
 const pDOM: DOMOutputSpec = ['p', 0];
 export const paragraph: NodeSpec = {
+  selectable: false,
   content: 'inline*',
   group: 'block',
   marks:
-    'strong code em link strike subsup textColor typeAheadQuery underline confluenceInlineComment action annotation unsupportedMark',
+    'strong code em link strike subsup textColor typeAheadQuery underline confluenceInlineComment action annotation unsupportedMark unsupportedNodeAttribute',
   parseDOM: [{ tag: 'p' }],
   toDOM() {
     return pDOM;

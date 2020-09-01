@@ -58,6 +58,7 @@ export class InlineCardForbiddenView extends React.Component<
           appearance="subtle-link"
           onClick={this.handleRetry}
           component={IconStyledButton}
+          testId="button-connect-other-account"
         >
           <FormattedMessage {...messages.invalid_permissions}>
             {formattedMessage => {

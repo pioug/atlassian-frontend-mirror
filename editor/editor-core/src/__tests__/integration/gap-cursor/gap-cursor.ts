@@ -28,7 +28,7 @@ const baseADF = {
   ],
 };
 
-const panelSelector = '.ak-editor-panel__content';
+const panelSelector = '.ak-editor-panel__content p';
 const gapCursorSelector = '.ProseMirror-gapcursor span';
 
 ['comment', 'full-page'].forEach(editor => {
@@ -46,7 +46,8 @@ const gapCursorSelector = '.ProseMirror-gapcursor span';
         });
 
         await page.waitForSelector(panelSelector);
-        await page.keys([`Arrow${direction}`]);
+        await page.click(panelSelector);
+        await page.keys([`Arrow${direction}`, `Arrow${direction}`]);
 
         const gapCursorVisible = await page.isVisible(gapCursorSelector);
         expect(gapCursorVisible).toBe(true);

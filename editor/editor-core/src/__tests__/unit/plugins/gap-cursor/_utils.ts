@@ -29,27 +29,32 @@ const temporaryFileId = `temporary:${randomId()}`;
 const cursorIfSelected = (selected?: boolean) => (selected ? '{<>}' : '');
 
 export const blockNodes = {
+  table: (opts: { selected?: boolean } = {}) =>
+    table()(tr(opts.selected ? tdCursor : tdEmpty)),
+  taskList: (opts: { id?: string; selected?: boolean } = {}) =>
+    taskList({ localId: opts.id })(
+      taskItem({ localId: opts.id })(cursorIfSelected(opts.selected)),
+    ),
+};
+
+export type BlockNodesKeys = Array<keyof typeof blockNodes>;
+
+export const blockContainerNodes = {
   code_block: (opts: { id?: string; selected?: boolean } = {}) =>
     code_block({ language: 'java', uniqueId: opts.id })(
       cursorIfSelected(opts.selected),
     ),
   panel: (opts: { id?: string; selected?: boolean } = {}) =>
     panel({ localId: opts.id })(p(cursorIfSelected(opts.selected))),
-  table: (opts: { selected?: boolean } = {}) =>
-    table()(tr(opts.selected ? tdCursor : tdEmpty)),
   decisionList: (opts: { id?: string; selected?: boolean } = {}) =>
     decisionList({ localId: opts.id })(
       decisionItem({ localId: opts.id })(cursorIfSelected(opts.selected)),
-    ),
-  taskList: (opts: { id?: string; selected?: boolean } = {}) =>
-    taskList({ localId: opts.id })(
-      taskItem({ localId: opts.id })(cursorIfSelected(opts.selected)),
     ),
   bodiedExtension: (opts: { selected?: boolean } = {}) =>
     bodiedExtension(extensionAttrs)(p(cursorIfSelected(opts.selected))),
 };
 
-export type BlockNodesKeys = Array<keyof typeof blockNodes>;
+export type BlockContainerNodesKeys = Array<keyof typeof blockContainerNodes>;
 
 export const leafBlockNodes = {
   hr: hr(),

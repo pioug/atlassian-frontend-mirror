@@ -39,7 +39,7 @@ export default interface RendererBridge
     nodeType: ScrollToContentNode,
     id: string,
     index?: number,
-  ): string /* Object { x: number, y: number } stringified */;
+  ): void;
   getContentNodeScrollOffset(
     nodeType: ScrollToContentNode,
     id: string,
@@ -51,5 +51,4 @@ export default interface RendererBridge
     id: string,
     index?: number,
   ): string /* number as string */;
-  observeRenderedContentHeight(enabled: boolean): void;
 }

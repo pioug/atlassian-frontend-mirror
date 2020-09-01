@@ -1,11 +1,12 @@
 import React, { ErrorInfo } from 'react';
 import ReactDOM from 'react-dom';
+import { IntlProvider, FormattedMessage } from 'react-intl';
 
 import { ModalProps } from '../components/Modal';
 import { ActionProps } from '../components/Action';
 import { IconProps } from '../components/Icon';
 import { MetadataProps } from '../components/Metadata';
-import { IntlProvider } from 'react-intl';
+import { messages } from '../../messages';
 
 export interface PreviewFunctionArg extends ModalProps {
   /* The id of a HTML element that will be used OR created to mount the modal from */
@@ -80,7 +81,7 @@ type PreviewInfo = {
 
 export default ({ details, ...rest }: PreviewInfo): ActionProps => ({
   id: 'preview-content',
-  text: 'Preview',
+  text: <FormattedMessage {...messages.preview} />,
   promise: () =>
     previewFunction({
       popupMountPointId: 'twp-editor-preview-iframe',

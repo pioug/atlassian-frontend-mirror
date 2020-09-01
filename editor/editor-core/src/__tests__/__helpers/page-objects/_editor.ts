@@ -1,4 +1,6 @@
+import { EditorView } from 'prosemirror-view';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import { annotationSelectors } from '../../../plugins/annotation/__tests__/_utils';
 
 export const selectors = {
   editor: '.ProseMirror',
@@ -245,3 +247,46 @@ async function scrollToTopBottom(
     position,
   );
 }
+
+/**
+ * Use `evaluateCoordinates` to compute the DOM coordinates (top, left,
+ * right, bottom) of a specific editor position.
+ */
+export const evaluateCoordinates = async (page: PuppeteerPage, pos: number) => {
+  return await page.evaluate(p => {
+    const editor = (window as any).__editorView as EditorView;
+    const coords = editor.coordsAtPos(p);
+
+    // returning coords immediately causes it to fail
+    return {
+      top: coords.top,
+      left: coords.left,
+      right: coords.right,
+      bottom: coords.bottom,
+    };
+  }, pos);
+};
+
+/**
+ * Use `selectAtPos` to manually select content across
+ * an editor position range, by passing the `startPos`
+ * and `endPos` parameters.
+ */
+export const selectAtPos = async (
+  page: PuppeteerPage,
+  startPos: number,
+  endPos: number,
+  waitForCreateCommentButton = true,
+) => {
+  const start = await evaluateCoordinates(page, startPos);
+  const end = await evaluateCoordinates(page, endPos);
+
+  await page.mouse.click(start.left, start.top);
+  await page.keyboard.down('Shift');
+  await page.mouse.click(end.left, end.top);
+  await page.keyboard.up('Shift');
+
+  if (waitForCreateCommentButton) {
+    await page.waitForSelector(`${annotationSelectors.floatingToolbarCreate}`);
+  }
+};

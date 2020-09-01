@@ -45,6 +45,7 @@ import { injectIntl, InjectedIntlProps } from 'react-intl';
 import { messages } from '../messages';
 import simultaneousPlayManager from './simultaneousPlayManager';
 import { WithShowControlMethodProp } from '../types';
+import { TimeSaver, TimeSaverConfig } from './timeSaver';
 
 export interface CustomMediaPlayerProps extends WithShowControlMethodProp {
   readonly type: 'audio' | 'video';
@@ -54,6 +55,7 @@ export interface CustomMediaPlayerProps extends WithShowControlMethodProp {
   readonly isHDAvailable?: boolean;
   readonly isAutoPlay: boolean;
   readonly isShortcutEnabled?: boolean;
+  readonly lastWatchTimeConfig?: TimeSaverConfig;
   readonly onCanPlay?: () => void;
   readonly onError?: () => void;
   readonly onDownloadClick?: () => void;
@@ -72,7 +74,6 @@ export type CustomMediaPlayerActions = {
   pause: () => void;
 };
 
-const toolbar: any = 'toolbar';
 const SMALL_VIDEO_MAX_WIDTH = 400;
 
 export class CustomMediaPlayer extends Component<
@@ -82,6 +83,7 @@ export class CustomMediaPlayer extends Component<
   videoWrapperRef?: HTMLElement;
   private actions?: CustomMediaPlayerActions;
   private wasPlayedOnce: boolean = false;
+  private readonly timeSaver = new TimeSaver(this.props.lastWatchTimeConfig);
 
   state: CustomMediaPlayerState = {
     isFullScreenEnabled: false,
@@ -135,6 +137,10 @@ export class CustomMediaPlayer extends Component<
   onVolumeChange = (setVolume: SetVolumeFunction) => (value: number) =>
     setVolume(value);
 
+  onCurrentTimeChange = (currentTime: number) => {
+    this.timeSaver.defaultTime = currentTime;
+  };
+
   shortcutHandler = (toggleButtonAction: ToggleButtonAction) => () => {
     const { showControls } = this.props;
 
@@ -164,7 +170,6 @@ export class CustomMediaPlayer extends Component<
 
     return (
       <MediaButton
-        appearance={toolbar}
         onClick={onHDToggleClick}
         iconBefore={
           <HDIcon
@@ -187,7 +192,6 @@ export class CustomMediaPlayer extends Component<
         <VolumeToggleWrapper isMuted={isMuted}>
           <MutedIndicator isMuted={isMuted} />
           <MediaButton
-            appearance={toolbar}
             onClick={actions.toggleMute}
             iconBefore={<SoundIcon label="volume" />}
           />
@@ -235,7 +239,6 @@ export class CustomMediaPlayer extends Component<
     return (
       <MediaButton
         data-testid="custom-media-player-fullscreen-button"
-        appearance={toolbar}
         onClick={this.onFullScreenClick}
         iconBefore={icon}
       />
@@ -251,7 +254,6 @@ export class CustomMediaPlayer extends Component<
     return (
       <MediaButton
         data-testid="custom-media-player-download-button"
-        appearance={toolbar}
         onClick={onDownloadClick}
         iconBefore={<DownloadIcon label="download" />}
       />
@@ -313,6 +315,8 @@ export class CustomMediaPlayer extends Component<
           src={src}
           autoPlay={isAutoPlay}
           onCanPlay={onCanPlay}
+          defaultTime={this.timeSaver.defaultTime}
+          onTimeChange={this.onCurrentTimeChange}
           onError={onError}
         >
           {(video, videoState, actions) => {
@@ -325,6 +329,7 @@ export class CustomMediaPlayer extends Component<
               duration,
               isLoading,
             } = videoState;
+
             const isPlaying = status === 'playing';
             const toggleButtonIcon = isPlaying ? (
               <PauseIcon label={formatMessage(messages.play)} />
@@ -336,7 +341,6 @@ export class CustomMediaPlayer extends Component<
               <MediaButton
                 testId="custom-media-player-play-toggle-button"
                 data-test-is-playing={isPlaying}
-                appearance={toolbar}
                 iconBefore={toggleButtonIcon}
                 onClick={toggleButtonAction}
               />

@@ -1,75 +1,68 @@
 import EventEmitter from 'events';
 
-import { AnnotationId, AnnotationMarkStates } from '@atlaskit/adf-schema';
+import {
+  AnnotationId,
+  AnnotationMarkStates,
+  AnnotationTypes,
+} from '@atlaskit/adf-schema';
 
-export interface AnnotationState<Type, State> {
+export interface AnnotationState<Type> {
   annotationType: Type;
   id: AnnotationId;
-  state: State | null;
+  state: AnnotationMarkStates | null;
 }
 
 export enum AnnotationUpdateEvent {
   SET_ANNOTATION_FOCUS = 'SET_ANNOTATION_FOCUS',
   SET_ANNOTATION_STATE = 'SET_ANNOTATION_STATE',
   REMOVE_ANNOTATION_FOCUS = 'REMOVE_ANNOTATION_FOCUS',
+  ON_ANNOTATION_CLICK = 'ON_ANNOTATION_CLICK',
 }
 
+type SetFocusPayload = Record<'annotationId', AnnotationId>;
+type OnAnnotationClickPayload = Array<AnnotationId>;
+type SetStatePayload = Record<
+  AnnotationId,
+  AnnotationState<AnnotationTypes.INLINE_COMMENT>
+>;
+
 export type AnnotationUpdateEventPayloads = {
-  [AnnotationUpdateEvent.SET_ANNOTATION_FOCUS]: {
-    annotationId: AnnotationId;
-  };
-  [AnnotationUpdateEvent.SET_ANNOTATION_STATE]: {
-    [AnnotationId: string]: AnnotationMarkStates;
-  };
-  ['resolve']: AnnotationId;
-  ['unresolve']: AnnotationId;
+  [AnnotationUpdateEvent.ON_ANNOTATION_CLICK]: OnAnnotationClickPayload;
+  [AnnotationUpdateEvent.SET_ANNOTATION_FOCUS]: SetFocusPayload;
+  [AnnotationUpdateEvent.SET_ANNOTATION_STATE]: SetStatePayload;
 };
 
-type AnnotationUpdateEventPayloadsWithoutPayload = AnnotationUpdateEvent.REMOVE_ANNOTATION_FOCUS;
-
-type EventTypes =
-  | keyof AnnotationUpdateEventPayloads
-  | AnnotationUpdateEventPayloadsWithoutPayload;
+type Callback<T> = T extends keyof AnnotationUpdateEventPayloads
+  ? (payload: AnnotationUpdateEventPayloads[T]) => void
+  : () => void;
 
 export class AnnotationUpdateEmitter {
   private emitter: EventEmitter = new EventEmitter();
 
-  emit<T extends EventTypes>(
+  emit<T extends keyof AnnotationUpdateEventPayloads>(
     event: T,
-    ...payload: T extends keyof AnnotationUpdateEventPayloads
-      ? [AnnotationUpdateEventPayloads[T]]
-      : []
-  ): boolean {
-    if (typeof payload === 'undefined') {
+    params: AnnotationUpdateEventPayloads[T],
+  ): boolean;
+  emit<T extends AnnotationUpdateEvent>(event: T): boolean;
+  emit(event: AnnotationUpdateEvent, params?: never): boolean {
+    if (typeof params === 'undefined') {
       return this.emitter.emit(event);
-    } else {
-      return this.emitter.emit(event, ...payload);
     }
+
+    return this.emitter.emit(event, params);
   }
 
-  on<T extends EventTypes>(
-    event: T,
-    listener: (
-      payload: T extends keyof AnnotationUpdateEventPayloads
-        ? AnnotationUpdateEventPayloads[T]
-        : [],
-    ) => void,
-  ): EventEmitter {
+  on<T extends AnnotationUpdateEvent>(event: T, listener: Callback<T>): void;
+  on(event: string, listener: (payload?: any) => void): EventEmitter {
     return this.emitter.on(event, listener);
   }
 
-  off<T extends EventTypes>(
-    event: T,
-    listener: (
-      payload: T extends keyof AnnotationUpdateEventPayloads
-        ? AnnotationUpdateEventPayloads[T]
-        : [],
-    ) => void,
-  ): EventEmitter {
+  off<T extends AnnotationUpdateEvent>(event: T, listener: Callback<T>): void;
+  off(event: string, listener: (payload?: any) => void): EventEmitter {
     return this.emitter.off(event, listener);
   }
 
-  listeners(event: EventTypes) {
+  listeners(event: AnnotationUpdateEvent) {
     return this.emitter.listeners(event);
   }
 }

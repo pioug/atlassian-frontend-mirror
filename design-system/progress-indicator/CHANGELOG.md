@@ -1,5 +1,11 @@
 # @atlaskit/progress-indicator
 
+## 9.0.0
+
+### Major Changes
+
+- [`2b345b4e66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2b345b4e66) - Renamed default export of @atlaskit/progress-indicator to ProgressIndicator and have added codemod for renaming ProgressDots to ProgressIndicator.
+
 ## 8.0.3
 
 ### Patch Changes

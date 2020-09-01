@@ -8,7 +8,7 @@ import containerADF from './__fixtures__/embed-containers.adf.json';
 import {
   waitForResolvedEmbedCard,
   embedCardSelector,
-} from '../../__helpers/page-objects/_cards';
+} from '@atlaskit/media-integration-test-helpers';
 
 describe('Embed Cards:', () => {
   it('displays embed properly with different layouts', async () => {

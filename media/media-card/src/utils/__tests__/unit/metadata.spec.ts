@@ -50,5 +50,28 @@ describe('metadata utils', () => {
         mimeType: 'foo/bar',
       });
     });
+
+    it('should deduce mediaType from mimeType when "unknown" in a new file state', () => {
+      const state: FileState = {
+        id: '1',
+        status: 'processing',
+        name: 'file-name',
+        size: 10,
+        mediaType: 'unknown',
+        mimeType: 'application/zip',
+        representations: {},
+      };
+      const existingMetadata: FileDetails = {
+        id: '123',
+      };
+
+      expect(extendMetadata(state, existingMetadata)).toEqual({
+        id: '1',
+        name: 'file-name',
+        size: 10,
+        mediaType: 'archive',
+        mimeType: 'application/zip',
+      });
+    });
   });
 });

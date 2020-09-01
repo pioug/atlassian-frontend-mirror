@@ -17,3 +17,16 @@ export const headingAnchorLinkMessages = defineMessages({
     description: 'failed to copy heading link to clipboard',
   },
 });
+
+export const codeBlockCopyButtonMessages = defineMessages({
+  copyCodeToClipboard: {
+    id: 'fabric.editor.codeBlockCopyButton.copyToClipboard',
+    defaultMessage: 'Copy',
+    description: 'Copy the whole content of the element to your clipboard',
+  },
+  copiedCodeToClipboard: {
+    id: 'fabric.editor.codeBlockCopyButton.copyToClipboard',
+    defaultMessage: 'Copied!',
+    description: 'Copied the whole content of the element to clipboard',
+  },
+});

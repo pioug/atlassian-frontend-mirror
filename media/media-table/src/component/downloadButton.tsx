@@ -7,6 +7,7 @@ import Button from '@atlaskit/button';
 import { messages } from '@atlaskit/media-ui';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { ANALYTICS_MEDIA_CHANNEL } from '../util';
 
 interface Props {
   onClick: (event: React.MouseEvent<HTMLElement>) => void;
@@ -31,7 +32,7 @@ const MediaDownloadButton = (props: Props & InjectedIntlProps) => {
             ...payload,
             actionSubjectId: 'mediaTableDownload',
           }))
-          .fire();
+          .fire(ANALYTICS_MEDIA_CHANNEL);
 
         onClick(event);
       }}

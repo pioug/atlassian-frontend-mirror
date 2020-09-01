@@ -38,6 +38,7 @@ export const KitchenSinkRenderer: React.StatelessComponent<KitchenSinkRendererPr
             extensionHandlers={extensionHandlers}
             media={{
               featureFlags: exampleMediaFeatureFlags,
+              allowLinking: true,
             }}
           />
         </SmartCardProvider>

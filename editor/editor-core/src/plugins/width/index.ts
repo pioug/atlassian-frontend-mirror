@@ -58,12 +58,8 @@ const widthPlugin = (): EditorPlugin => ({
   // do this early here, otherwise we have to wait for WidthEmitter to debounce
   // which causes anything dependent on lineLength to jump around
   contentComponent({ editorView, containerElement }) {
-    const pmDom = containerElement
-      ? containerElement.querySelector('.ProseMirror')
-      : undefined;
-
     const newState: Partial<WidthPluginState> = {
-      lineLength: pmDom ? pmDom.clientWidth : undefined,
+      lineLength: editorView.dom.clientWidth,
     };
 
     if (containerElement) {

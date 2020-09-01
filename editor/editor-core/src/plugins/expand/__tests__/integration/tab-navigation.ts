@@ -9,6 +9,7 @@ import {
   goToEditorTestingExample,
   mountEditor,
 } from '../../../../__tests__/__helpers/testing-example-helpers';
+
 import emptyExpandAdf from './__fixtures__/empty-expand.json';
 import closedExpandAdf from './__fixtures__/closed-expand.json';
 
@@ -28,7 +29,7 @@ const startEditor = async (client: any, closedExpand?: boolean) => {
 };
 
 describe('given the gap cursor is on the left of the expand', () => {
-  describe('when tab is pressed twice', () => {
+  describe('when tab is pressed', () => {
     describe('when button is focused', () => {
       describe('and enter is pressed', () => {
         BrowserTestCase(
@@ -36,7 +37,6 @@ describe('given the gap cursor is on the left of the expand', () => {
           { skip: ['edge'] },
           async (client: any, testName: string) => {
             const page = await startEditor(client);
-            await page.keys('Tab');
             await page.keys('Tab');
             await page.keys('Enter');
 
@@ -53,7 +53,6 @@ describe('given the gap cursor is on the left of the expand', () => {
           async (client: any, testName: string) => {
             const page = await startEditor(client);
             await page.keys('Tab');
-            await page.keys('Tab');
             await page.keys('Space');
 
             const doc = await page.$eval(editable, getDocFromElement);
@@ -64,13 +63,12 @@ describe('given the gap cursor is on the left of the expand', () => {
     });
   });
 
-  describe('when tab is pressed tree times', () => {
+  describe('when tab is pressed twice', () => {
     BrowserTestCase(
       'should focus on title',
       { skip: ['edge'] },
       async (client: any, testName: string) => {
         const page = await startEditor(client);
-        await page.keys('Tab');
         await page.keys('Tab');
         await page.keys('Tab');
         await page.keys('I am here'.split(''));
@@ -81,14 +79,13 @@ describe('given the gap cursor is on the left of the expand', () => {
     );
   });
 
-  describe('when tab is pressed four times', () => {
+  describe('when tab is pressed three times', () => {
     describe('when expand is opened', () => {
       BrowserTestCase(
         'should focus on content',
         { skip: ['edge'] },
         async (client: any, testName: string) => {
           const page = await startEditor(client);
-          await page.keys('Tab');
           await page.keys('Tab');
           await page.keys('Tab');
           await page.keys('Tab');
@@ -106,7 +103,6 @@ describe('given the gap cursor is on the left of the expand', () => {
         { skip: ['edge'] },
         async (client: any, testName: string) => {
           const page = await startEditor(client, true);
-          await page.keys('Tab');
           await page.keys('Tab');
           await page.keys('Tab');
           await page.keys('Tab');

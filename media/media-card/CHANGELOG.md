@@ -1,5 +1,26 @@
 # @atlaskit/media-card
 
+## 69.3.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 69.3.0
+
+### Minor Changes
+
+- [`a106c17833`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a106c17833) - Adds support for Intl in Media Card Date
+- [`8fc5fe20df`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8fc5fe20df) - Inline video player as part of the card and video player in media-viewer will now store last viewed position between sessions for given media id
+
+### Patch Changes
+
+- [`0caa7daade`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0caa7daade) - Ensurer MediaCard passes featureFlags to MediaViewer
+- [`a7a0a8ea67`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a7a0a8ea67) - Adds tests for TitleBox component
+- [`21b9d3d336`](https://bitbucket.org/atlassian/atlassian-frontend/commits/21b9d3d336) - Fixed RAR/non-ZIP files not recognised as archives
+- [`e5d5875710`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e5d5875710) - Fixes attach of default IntlProvider
+- Updated dependencies
+
 ## 69.2.1
 
 ### Patch Changes

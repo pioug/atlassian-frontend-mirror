@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { InjectedIntl } from 'react-intl';
 import { EditorView, NodeView, Decoration } from 'prosemirror-view';
-import { Selection } from 'prosemirror-state';
+import { Selection, NodeSelection } from 'prosemirror-state';
 import { ExpandIconButton } from '../ui/ExpandIconButton';
 import { keyName } from 'w3c-keyname';
 import {
@@ -18,6 +18,7 @@ import {
   updateExpandTitle,
   toggleExpandExpanded,
   deleteExpandAtPos,
+  setSelectionInsideExpand,
 } from '../commands';
 import { expandClassNames } from '../ui/class-names';
 import { GapCursorSelection, Side } from '../../../plugins/gap-cursor';
@@ -25,6 +26,9 @@ import { getFeatureFlags } from '../../feature-flags-context';
 import { closestElement } from '../../../utils/dom';
 import { selectNode } from '../../../utils/commands';
 import { createSelectionAwareClickHandler } from '../../../nodeviews/utils';
+import { RelativeSelectionPos } from '../../selection/types';
+import { setSelectionRelativeToNode } from '../../selection/commands';
+import { getPluginState as getSelectionPluginState } from '../../selection/plugin-factory';
 
 function buildExpandClassName(type: string, expanded: boolean) {
   return `${expandClassNames.prefix} ${expandClassNames.type(type)} ${
@@ -159,6 +163,9 @@ export class ExpandNodeView implements NodeView {
 
   private focusTitle = () => {
     if (this.input) {
+      const { state, dispatch } = this.view;
+      setSelectionRelativeToNode(RelativeSelectionPos.Start)(state, dispatch);
+      setSelectionInsideExpand(state, dispatch, this.view);
       this.input.focus();
     }
   };
@@ -199,12 +206,13 @@ export class ExpandNodeView implements NodeView {
 
   private handleClick = (event: Event) => {
     const target = event.target as HTMLElement;
+    const { state, dispatch } = this.view;
+
     if (closestElement(target, `.${expandClassNames.icon}`)) {
       if (!this.isAllowInteractiveExpandEnabled()) {
         return;
       }
       event.stopPropagation();
-      const { state, dispatch } = this.view;
 
       // We blur the editorView, to prevent any keyboard showing on mobile
       // When we're interacting with the expand toggle
@@ -216,9 +224,14 @@ export class ExpandNodeView implements NodeView {
       return;
     }
 
+    if (target === this.input) {
+      event.stopPropagation();
+      this.focusTitle();
+      return;
+    }
+
     if (target === this.dom) {
       event.stopPropagation();
-      const { state, dispatch } = this.view;
       selectNode(this.getPos())(state, dispatch);
       return;
     }
@@ -251,9 +264,11 @@ export class ExpandNodeView implements NodeView {
         this.moveToOutsideOfTitle(event);
         break;
       case 'ArrowRight':
-        this.setRightGapCursor(event);
+        this.handleArrowRightFromTitle(event);
         break;
       case 'ArrowLeft':
+        this.handleArrowLeftFromTitle(event);
+        break;
       case 'ArrowUp':
         this.setLeftGapCursor(event);
         break;
@@ -359,6 +374,51 @@ export class ExpandNodeView implements NodeView {
           new GapCursorSelection(state.doc.resolve(this.getPos()), Side.LEFT),
         ),
       );
+    }
+  };
+
+  private handleArrowRightFromTitle = (event: KeyboardEvent) => {
+    if (!this.input) {
+      return;
+    }
+    const { value, selectionStart, selectionEnd } = this.input;
+    if (selectionStart === selectionEnd && selectionStart === value.length) {
+      event.preventDefault();
+      const { state, dispatch } = this.view;
+      this.view.focus();
+
+      setSelectionRelativeToNode(
+        RelativeSelectionPos.End,
+        NodeSelection.create(state.doc, this.getPos()),
+      )(state, dispatch);
+    }
+  };
+
+  private handleArrowLeftFromTitle = (event: KeyboardEvent) => {
+    if (!this.input) {
+      return;
+    }
+    const { selectionStart, selectionEnd } = this.input;
+    if (selectionStart === selectionEnd && selectionStart === 0) {
+      event.preventDefault();
+      const { state, dispatch } = this.view;
+      this.view.focus();
+
+      // selectionRelativeToNode is undefined when user clicked to select node, then hit left to get focus in title
+      // This is a special case where we want to bypass node selection and jump straight to gap cursor
+      if (
+        getSelectionPluginState(state).selectionRelativeToNode === undefined
+      ) {
+        setSelectionRelativeToNode(
+          undefined,
+          new GapCursorSelection(state.doc.resolve(this.getPos()), Side.LEFT),
+        )(state, dispatch);
+      } else {
+        setSelectionRelativeToNode(
+          RelativeSelectionPos.Start,
+          NodeSelection.create(state.doc, this.getPos()),
+        )(state, dispatch);
+      }
     }
   };
 

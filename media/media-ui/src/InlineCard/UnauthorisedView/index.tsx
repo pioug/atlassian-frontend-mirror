@@ -54,6 +54,7 @@ export class InlineCardUnauthorizedView extends React.Component<
           appearance="subtle-link"
           component={IconStyledButton}
           onClick={this.handleConnectAccount}
+          testId="button-connect-account"
         >
           <FormattedMessage {...messages.connect_link_account} />
         </Button>

@@ -1,6 +1,6 @@
 import { snapshot, initFullPageEditorWithAdf, Device } from '../_utils';
 import adf from './__fixtures__/embeds-wide.adf.json';
-import { waitForResolvedEmbedCard } from '../../__helpers/page-objects/_cards';
+import { waitForResolvedEmbedCard } from '@atlaskit/media-integration-test-helpers';
 
 describe('Embed Cards:', () => {
   it('displays correct sizes for embed layout center', async () => {

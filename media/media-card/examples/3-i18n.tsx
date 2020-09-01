@@ -3,6 +3,8 @@ import {
   I18NWrapper,
   externaBrokenlIdentifier,
   errorFileId,
+  largePdfFileId,
+  imageFileId,
   createStorybookMediaClientConfig,
 } from '@atlaskit/media-test-helpers';
 import { Card } from '../src';
@@ -27,8 +29,12 @@ const cardDimensions = [
   { width: '600px', height: '150px' },
 ];
 
-// externaBrokenlIdentifier is only supported by the new Media Card Experience
-const fileIds = [errorFileId, externaBrokenlIdentifier];
+const fileIds = [
+  errorFileId,
+  externaBrokenlIdentifier,
+  largePdfFileId,
+  imageFileId,
+];
 
 export default () => {
   const [enableNewExp, setEnableNewExp] = useState(true);

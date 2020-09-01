@@ -40,9 +40,12 @@ export {
   AnnotationMarkDefinition,
   AnnotationMarkAttributes,
   AnnotationMarkStates,
-  buildDataAtributes as buildAnnotationMarkDataAttributes,
+  buildDataAttributes as buildAnnotationMarkDataAttributes,
   AnnotationTypes,
   AnnotationId,
+  AnnotationDataAttributes,
 } from './annotation';
 
 export { unsupportedMark } from './unsupported-mark';
+
+export { unsupportedNodeAttribute } from './unsupported-node-attributes';

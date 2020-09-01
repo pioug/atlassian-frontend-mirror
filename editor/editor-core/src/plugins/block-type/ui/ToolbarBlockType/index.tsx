@@ -1,5 +1,5 @@
 import React from 'react';
-import { defineMessages, injectIntl, InjectedIntlProps } from 'react-intl';
+import { injectIntl, InjectedIntlProps } from 'react-intl';
 import { akEditorMenuZIndex } from '@atlaskit/editor-common';
 
 import DropdownMenu from '../../../../ui/DropdownMenu';
@@ -10,15 +10,6 @@ import { BlockTypeMenuItem, KeyboardShortcut } from './styled';
 import { tooltip, findKeymapByDescription } from '../../../../keymaps';
 import { MenuItem } from '../../../../ui/DropdownMenu/types';
 import { BlockTypeButton } from './blocktype-button';
-
-export const messages = defineMessages({
-  textStyles: {
-    id: 'fabric.editor.textStyles',
-    defaultMessage: 'Text styles',
-    description:
-      'Menu provides access to various heading styles or normal text',
-  },
-});
 
 export type DropdownItem = MenuItem & {
   value: BlockType;

@@ -334,25 +334,6 @@ describe('modal-dialog', () => {
 
         expect(spy).toHaveBeenCalledTimes(1);
       });
-
-      it('should close the modal when Escape is pressed in IE11', () => {
-        const spy = jest.fn();
-        const wrapper = mount(
-          <ModalDialog onClose={spy}>
-            <MyContent />
-          </ModalDialog>,
-        );
-
-        // The IE11 escape event
-        const escKeyDownEvent: KeyboardEvent = new KeyboardEvent('keydown', {
-          key: 'Esc',
-        });
-        document.dispatchEvent(escKeyDownEvent);
-        // Make TS happy about using Wrapper
-        wrapper.find(MyContent);
-
-        expect(spy).toHaveBeenCalledTimes(1);
-      });
     });
   });
 

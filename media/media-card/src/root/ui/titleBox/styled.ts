@@ -49,6 +49,7 @@ export const TitleBoxHeader = styled.div`
 TitleBoxHeader.displayName = 'FailedTitleBoxHeader';
 
 export const TitleBoxFooter = styled.div`
+  text-overflow: ellipsis;
   ${infoStyles}
 `;
 

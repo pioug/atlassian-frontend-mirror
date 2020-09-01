@@ -1,5 +1,147 @@
 # @atlaskit/editor-core
 
+## 129.0.1
+
+### Patch Changes
+
+- [`383bdfb201`](https://bitbucket.org/atlassian/atlassian-frontend/commits/383bdfb201) - Updated VR test
+- Updated dependencies
+
+## 129.0.0
+
+### Major Changes
+
+- [`94ac6099e2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/94ac6099e2) - Rename FieldResolver to CustomFieldResolver
+- [`2914e9ec0a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2914e9ec0a) - Change EditorManifest generic to propagate instead of defaulting to any
+
+### Minor Changes
+
+- [`5a14bab0bf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5a14bab0bf) - ED-10112 Add analytics for unwrapped unsupported contents
+- [`920d4514ad`](https://bitbucket.org/atlassian/atlassian-frontend/commits/920d4514ad) - ED-9601 Implement keyboard selection for block container nodes
+
+  Add a node selection state between selection inside node and gap cursor selection when using left/right arrow keys to navigate
+
+  Add special rules if you select a node by clicking on it - left arrow will take you inside node at start, second left will take you to left-side gap cursor; right arrow will take you straight to right-side gap cursor
+
+  This covers nodes: code block, panel, layout, bodied extension, decision item
+
+  This does not cover nodes: expand, table
+
+- [`caae78bb98`](https://bitbucket.org/atlassian/atlassian-frontend/commits/caae78bb98) - Adds support for unsupportedBlock and unsupportedInline content analytics for Hybrid Editor and Hybrid Renderer.
+- [`5ea181aab3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5ea181aab3) - ED-9966: Added copy to clipboard functionality for the code block
+- [`7bd494abdd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7bd494abdd) - WS-2137 Fix editor width plugin to look at editorView.dom geometry instead of the first editor on the page
+- [`3354a3e971`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3354a3e971) - ED-9842: Replace plus menu with element browser
+- [`a66b0a0d44`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a66b0a0d44) - ED-9497 Adds analytics to track unsupported Marks and Mark Attributes in editor and renderer.
+- [`ff2f8eff7b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ff2f8eff7b) - ED-9952 Implement list conversion for siblings in caret selection
+- [`9ae1d20269`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9ae1d20269) - TYPH-239 Capture and update width changes on Mobile Appearance
+- [`aa03ba4b0b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aa03ba4b0b) - ED-9733 Preserve known mark on node which does not support it.
+- [`44d287b640`](https://bitbucket.org/atlassian/atlassian-frontend/commits/44d287b640) - EDM-842: Adding support to the new search provider and activity provider
+- [`d0ad2d8f59`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d0ad2d8f59) - ED-9348 Implement keyboard selection via arrow keys for expand and nestedExpand nodes
+
+  Add a node selection state between selection inside expand title and gap cursor selection when using left/right arrow keys to navigate
+
+  Add special rules if you select expand by clicking on it - left arrow will take you inside expand title, second left will take you to left-side gap cursor; right arrow will take you straight to right-side gap cursor
+
+  Tab key no longer selects expand from left-side gap cursor, however tab still cycles through expand toggle, title and body
+
+- [`7d43faf2a8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7d43faf2a8) - ED-10114 Add support for searching code block languages via aliases
+- [`e4114d7053`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e4114d7053) - ED-9607 - Preserve Unsupported Node attributes
+- [`d1c666bb6d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d1c666bb6d) - Adds activity analytic events
+
+### Patch Changes
+
+- [`98899ff81a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/98899ff81a) - Virtualizing ElementBrowser ElementList
+- [`d28218f099`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d28218f099) - apply danger style for all panel types when nested
+- [`5c5f54cdb5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5c5f54cdb5) - Extract Plugin types
+- [`31daf34b25`](https://bitbucket.org/atlassian/atlassian-frontend/commits/31daf34b25) - ED-9175:Change wordings of cell menu and tooltips
+- [`b2e6b2856b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b2e6b2856b) - Ship ModalElementBrowser as a component within the ElementBrowser extension
+- [`351c595fbb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/351c595fbb) - ED-9999: Fixes an issue where the collab provider would blindly remove all listeners instead of only its local ones.
+- [`c9e96a24dc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c9e96a24dc) - Fixes issue where emoji picker wouldnt open if the current toolbar had less items than the current breakpoint allowed.
+- [`7708d1a7cd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7708d1a7cd) - ED-9861 Internationalize CategoryList
+- [`e485167c47`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e485167c47) - ED-10018: bump prosemirror-tables to fix copy-pasting merged rows
+- [`6e5372dcda`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6e5372dcda) - **Ticket:** EDM-1121
+
+  **Changes:**
+
+  Added integration tests across the board, asserting that a new window is opened to kick off the 3LO flow.
+
+  - Added integration test for account connection and try another account flows for Inline Links;
+  - Added integration test for account connection and try another account flows for Card Links;
+  - Added integration test for account connection and try another account flows for Embed Links;
+  - Aligned `data-testid`s across all buttons for all unauthenticated views for each of the above to be - `button-connect-account` for connecting account, and `button-connect-other-account` for trying with another account.
+
+  Further, added an `AuthorizationWindow` method to the `@atlaskit/media-integration-test-helpers`, with the following methods:
+
+  - `AuthorizationWindow.open()` - to open a window to authorize, dependent on which card state it is being activated from;
+  - `AuthorizationWindow.checkUrl()` - to check if the window URL when redirected is the same as the `MOCK_URL_AUTH_PROVIDER` inside of the package for assertions which ship with our mocks;
+  - `AuthorizationWindow.close()` - to close the window opened for authorization.
+
+- [`250b6247ed`](https://bitbucket.org/atlassian/atlassian-frontend/commits/250b6247ed) - ED-8952: Add analytics events for config and element browser
+- [`be92791065`](https://bitbucket.org/atlassian/atlassian-frontend/commits/be92791065) - ED-9791: open emoji panel when triggered from dropdown
+- [`9468594ef9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9468594ef9) - **Ticket:** EDM-1120
+
+  **Changes:**
+
+  - Refactored Card Link `view` tests to separate files to be more maintainable;
+  - Added unit tests to all Card Link actions;
+  - Added unit tests to Card Link PreviewAction;
+  - Added `openPreviewState` and `waitForPreviewState` selectors for VR tests;
+  - Added VR test in Editor for Preview State;
+  - Added VR test in Renderer for Preview State.
+
+- [`dd8b35e4d0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dd8b35e4d0) - ED-10122: add a flag annotationProviders.inlineComment.isToolbarAbove to position the inline-comments toolbar above selection like renderer does
+- [`7b22bcd5fb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7b22bcd5fb) - ED-9842: Use onInsertItem instead of onSelectItem
+- [`3cef13652c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3cef13652c) - refactor consts to table/ui/consts.ts from table/ui/styles.ts
+- [`267af96c22`](https://bitbucket.org/atlassian/atlassian-frontend/commits/267af96c22) - Element Browser - Hide categories without items
+- [`70e2dfe605`](https://bitbucket.org/atlassian/atlassian-frontend/commits/70e2dfe605) - ED-9989: Fixed doubleClickResizeHandle test helper for firefox and edge
+- [`21131ce6be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/21131ce6be) - [TWISTA-283, TWISTA-282, TWISTA-241] Normalizes and fixes Annotation range validator logic for Renderer and Editor
+
+  @atlaskit/editor-common: It creates canApplyAnnotationOnRange function
+  @atlaskit/editor-core: It moves current hasInvalidNodes logic to editor-common function
+  @atlaskit/renderer: It replaces current logic to use the same as Editor
+
+- [`fae13056e2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fae13056e2) - Fixed an issue where changing the style of a SmartLink would delete a parent panel, or remove the styling of a parent table cell
+- [`e7d589ece8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e7d589ece8) - ED-9702 Add Modal footer actions, introduce onInsertItem prop, and replace existing ElementBrowser usage to use onInsertItem instead of onSelectItem prop.
+- [`96b564def2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/96b564def2) - ED-10066: disable copy button if code block is selected
+- [`5fb111ff42`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5fb111ff42) - ED-10021 ConfigPanel -> CustomSelect's fieldResolver now accepts an optional defaultValue parameter
+- [`8521d53791`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8521d53791) - Fixing ConfigPanel/SwappableContentArea component's overflow issue
+- [`b6aada3ee5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b6aada3ee5) - ED-9980: add toggle for inline-comments
+- [`a606feb37f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a606feb37f) - ED-8979: Ensure selectable nodes are styled selected on TextSelection and AllSelection
+- [`d3720a0080`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3720a0080) - ED-9949 Clone list plugin for predictable lists work (not enabled)
+- [`ccb4d2e6d3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ccb4d2e6d3) - ED-8609 Use styled component's css for all template literals in table/ui/styles.ts
+- [`6089993d2e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6089993d2e) - EDM-1116: centralize Smart Links selector and client utils for Integration, VR tests. Added mega-VR test for Smart Links in Renderer.
+
+  Selectors exported now include:
+
+  - `inlineCardSelector` - for selecting the Inline Link representation, in any of its resolved or unresolved states;
+  - `blockCardSelector` - for selecting the Card Link representation, in any of its resolved or unresolved states;
+  - `embedCardSelector` - for selecting the Embed Link representation, in any of its resolved or unresolved states;
+  - `lazyCardSelector` - for selecting the fallback representation of Smart Links whilst lazy rendering;
+  - `getLazyRenderedCards` - for getting DOM references to all Smart Links currently off the viewport, and rendered with a lazy fallback;
+  - `getCards` - for getting DOM references to all rendered Smart Links;
+  - `waitForLazyRenderedCard` - a predicate for when a fallback Smart Link has been rendered;
+  - `waitForResolvedInlineCard` - a predicate for when an Inline Link has been rendered;
+  - `waitForResolvedBlockCard` - a predicate for when a Block Link has been rendered;
+  - `waitForResolvedEmbedCard` - a predicate for when an Embed Link has been rendered;
+  - `waitForInlineCardSelection` - a predicate for when an Inline Link has been rendered and selected in the Teamwork Platform Editor;
+  - `waitForBlockCardSelection` - a predicate for when a Card Link has been rendered and selected in the Teamwork Platform Editor;
+  - `waitForEmbedCardSelection` - a predicate for when an Embed Link has been rendered and selected in the Teamwork Platform Editor.
+
+  Further, a `cardClient` is now shipped from the same test helpers package, with up-to-date mock responses for a host of test URLs (in the format, `https://<type: 'inline' | 'block' | 'embed'>Card/<status: 'resolved' | 'unauthorised' | 'forbidden' | ...>`). Importantly _all_ selectors are powered by `testId`s part of the implementation of Smart Links in `@atlaskit/smart-card` and `@atlaskit/media-ui`.
+
+- [`cfeee4c017`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cfeee4c017) - Adding context information to formatted text analytics events (parent node + selection info)
+- [`13dda820f6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/13dda820f6) - remove IE11 support from table/ui/styles.ts
+- [`2f83154e42`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2f83154e42) - ED-10124 Remove the redundant flag allowUnsupportedContent from collab edit and default to false
+- [`4834f87d96`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4834f87d96) - EDM-1010: Fix image reszing within list & layout
+- [`4bc106c8c5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4bc106c8c5) - ED-10036 Copy unit and integration tests from old list plugin
+- [`e8b2e867a0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e8b2e867a0) - refactor ui styles and css from table/ui/styles.ts
+- [`a422948149`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a422948149) - ED-10132 Prevent backticks from converting to inline code when inside a code block
+- [`7315203b80`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7315203b80) - Rename `AkCode` and `AkCodeBlock` exports to `Code` and `CodeBlock` for `@atlaskit/code`.
+- [`335cc0e6cd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/335cc0e6cd) - ED-9954 Fixed media link layout
+- [`4c3cc9c1d6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4c3cc9c1d6) - add media feature flags to media-picker
+- [`5c283c56e7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5c283c56e7) - Fix pluginFactory ExtensionState types falling back to any
+- Updated dependencies
+
 ## 128.0.2
 
 ### Patch Changes

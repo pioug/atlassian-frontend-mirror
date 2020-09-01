@@ -1,7 +1,7 @@
 import React from 'react';
 import { ActivityItem } from '@atlaskit/activity-provider';
 import { ProviderFactory, ErrorMessage } from '@atlaskit/editor-common';
-import { activityProviderFactory } from '@atlaskit/editor-test-helpers/activity-provider';
+import { activityProviderFactory } from '@atlaskit/editor-test-helpers/mock-activity-provider';
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
 import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';

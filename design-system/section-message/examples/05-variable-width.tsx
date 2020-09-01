@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { AkCodeBlock } from '@atlaskit/code';
+import { CodeBlock } from '@atlaskit/code';
 import FieldRange from '@atlaskit/field-range';
 
 import SectionMessage from '../src';
@@ -49,7 +49,7 @@ class Example extends React.Component<any, any> {
               in the success of my undertaking.
             </p>
 
-            <AkCodeBlock
+            <CodeBlock
               language="javascript"
               text="const CODE_BLOCK_FULL_PARENT_WIDTH = true;"
               showLineNumbers

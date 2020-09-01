@@ -103,12 +103,12 @@ describe('Analytics Plugin: History Events', () => {
         action: 'undid',
         actionSubject: 'text',
         actionSubjectId: 'formatted',
-        attributes: {
+        attributes: expect.objectContaining({
           actionSubjectId: 'heading',
           inputMethod: 'toolbar',
           previousHeadingLevel: 0,
           newHeadingLevel: 1,
-        },
+        }),
         eventType: 'track',
       });
     });
@@ -133,9 +133,9 @@ describe('Analytics Plugin: History Events', () => {
         action: ACTION.INVOKED,
         actionSubject: ACTION_SUBJECT.TYPEAHEAD,
         actionSubjectId: ACTION_SUBJECT_ID.TYPEAHEAD_EMOJI,
-        attributes: {
+        attributes: expect.objectContaining({
           inputMethod: INPUT_METHOD.QUICK_INSERT,
-        },
+        }),
         eventType: EVENT_TYPE.UI,
       })(setHeading(1))(editorView.state, editorView.dispatch);
       createAnalyticsEvent.mockClear();
@@ -167,12 +167,12 @@ describe('Analytics Plugin: History Events', () => {
         action: 'redid',
         actionSubject: 'text',
         actionSubjectId: 'formatted',
-        attributes: {
+        attributes: expect.objectContaining({
           actionSubjectId: 'heading',
           inputMethod: 'toolbar',
           previousHeadingLevel: 0,
           newHeadingLevel: 1,
-        },
+        }),
         eventType: 'track',
       });
     });
@@ -202,12 +202,12 @@ describe('Analytics Plugin: History Events', () => {
         action: 'redid',
         actionSubject: 'text',
         actionSubjectId: 'formatted',
-        attributes: {
+        attributes: expect.objectContaining({
           actionSubjectId: 'heading',
           inputMethod: 'toolbar',
           previousHeadingLevel: 0,
           newHeadingLevel: 1,
-        },
+        }),
         eventType: 'track',
       });
     });

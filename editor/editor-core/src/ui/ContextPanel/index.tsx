@@ -43,7 +43,7 @@ export const Content = styled.div<StyleProps>`
   padding: 16px 16px 0px;
   width: ${p => p.panelWidth}px;
   height: 100%;
-  overflow-y: scroll;
+  overflow-y: auto;
 `;
 
 type SwappableContentAreaProps = {

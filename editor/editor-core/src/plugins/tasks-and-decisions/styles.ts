@@ -16,7 +16,9 @@ export const taskDecisionStyles = css`
     cursor: pointer;
   }
 
-  .${akEditorSelectedNodeClassName} > [data-decision-wrapper] {
+  .${akEditorSelectedNodeClassName} > [data-decision-wrapper],
+  ol[data-node-type='decisionList'].${akEditorSelectedNodeClassName} {
+    border-radius: 4px;
     ${getSelectionStyles([SelectionStyle.BoxShadow, SelectionStyle.Blanket])}
   }
 

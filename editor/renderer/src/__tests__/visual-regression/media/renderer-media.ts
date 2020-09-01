@@ -14,14 +14,13 @@ import * as wrappedMediaSmallADF from './__fixtures__/wrapped-media-small.adf.js
 import * as layoutAdf from '../../../../examples/helper/media-resize-layout.adf.json';
 import * as mediaImageWidthBiggerThanColumnWidth from './__fixtures__/media-image-width-bigger-than-column-width.adf.json';
 
-import { selectors as mediaSelectors } from '../../__helpers/page-objects/_media';
+import {
+  selectors as mediaSelectors,
+  waitForAllMedia,
+} from '../../__helpers/page-objects/_media';
 import { selectors as rendererSelectors } from '../../__helpers/page-objects/_renderer';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { RendererAppearance } from '../../../ui/Renderer/types';
-import {
-  waitForElementCount,
-  waitForLoadedImageElements,
-} from '@atlaskit/visual-regression/helper';
 
 const devices = [
   Device.LaptopHiDPI,
@@ -52,15 +51,6 @@ const initRenderer = async (
     adf,
     viewport,
   });
-};
-
-const waitForAllMedia = async (page: PuppeteerPage, mediaItemsNum: number) => {
-  await waitForElementCount(
-    page,
-    '[data-testid="media-file-card-view"][data-test-status="complete"]',
-    mediaItemsNum,
-  );
-  await waitForLoadedImageElements(page, 3000);
 };
 
 describe('Snapshot Test: Media', () => {

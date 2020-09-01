@@ -4,6 +4,7 @@ import Lozenge from '@atlaskit/lozenge';
 import { InlineCardResolvedView } from '../../index';
 import { Icon } from '../../../../InlineCard/Icon';
 import { IconAndTitleLayout } from '../../../IconAndTitleLayout';
+import { LozengeProps } from '../../../..';
 
 describe('ResolvedView', () => {
   it('should render the title', () => {
@@ -51,10 +52,10 @@ describe('ResolvedView', () => {
   });
 
   it('should render a lozenge when one is provided', () => {
-    const lozenge = {
+    const lozenge: LozengeProps = {
       text: 'some-lozenge-text',
       isBold: true,
-      appearance: 'inprogress' as 'inprogress',
+      appearance: 'inprogress',
     };
     const element = shallow(
       <InlineCardResolvedView title="some text content" lozenge={lozenge} />,

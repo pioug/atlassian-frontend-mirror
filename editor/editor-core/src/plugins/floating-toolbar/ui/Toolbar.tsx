@@ -204,6 +204,7 @@ export default class Toolbar extends Component<Props> {
                       disabled={item.disabled}
                       tooltipContent={item.tooltipContent}
                       testId={item.testId}
+                      hideTooltipOnClick={item.hideTooltipOnClick}
                     >
                       {item.showTitle && item.title}
                     </Button>
@@ -259,6 +260,7 @@ export default class Toolbar extends Component<Props> {
                       onChange={selected =>
                         dispatchCommand(item.onChange(selected as SelectOption))
                       }
+                      filterOption={item.filterOption}
                     />
                   );
 

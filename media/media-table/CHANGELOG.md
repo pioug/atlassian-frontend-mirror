@@ -1,5 +1,20 @@
 # @atlaskit/media-table
 
+## 5.2.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.2.2
+
+### Patch Changes
+
+- [`a7eb47bc69`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a7eb47bc69) - Add analytic channel to download button analyticsEvent
+- [`92094dd855`](https://bitbucket.org/atlassian/atlassian-frontend/commits/92094dd855) - Remove faulty import in mediaTable
+- [`9254b203f9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9254b203f9) - Removing unused code to be published
+- Updated dependencies
+
 ## 5.2.1
 
 ### Patch Changes

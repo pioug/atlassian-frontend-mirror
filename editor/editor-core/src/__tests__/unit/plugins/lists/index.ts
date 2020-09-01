@@ -36,7 +36,6 @@ import {
   toggleBulletList,
 } from '../../../../plugins/lists/commands';
 import { insertMediaAsMediaSingle } from '../../../../plugins/media/utils/media-single';
-import { GapCursorSelection } from '../../../../plugins/gap-cursor';
 import { INPUT_METHOD } from '../../../../plugins/analytics';
 
 describe('lists', () => {
@@ -95,13 +94,13 @@ describe('lists', () => {
           actionSubject: 'text',
           eventType: 'track',
           actionSubjectId: 'indentation',
-          attributes: {
+          attributes: expect.objectContaining({
             inputMethod: 'keyboard',
             previousIndentationLevel: 1,
             newIndentLevel: 2,
             direction: 'indent',
             indentType: 'list',
-          },
+          }),
         });
       });
     });
@@ -411,13 +410,13 @@ describe('lists', () => {
           actionSubject: 'text',
           eventType: 'track',
           actionSubjectId: 'indentation',
-          attributes: {
+          attributes: expect.objectContaining({
             inputMethod: 'keyboard',
             previousIndentationLevel: 2,
             newIndentLevel: 1,
             direction: 'outdent',
             indentType: 'list',
-          },
+          }),
         });
       });
     });
@@ -441,9 +440,9 @@ describe('lists', () => {
           actionSubject: 'text',
           eventType: 'track',
           actionSubjectId: 'numberedList',
-          attributes: {
+          attributes: expect.objectContaining({
             inputMethod: 'keyboard',
-          },
+          }),
         });
       });
     });
@@ -467,9 +466,9 @@ describe('lists', () => {
           actionSubject: 'text',
           eventType: 'track',
           actionSubjectId: 'bulletedList',
-          attributes: {
+          attributes: expect.objectContaining({
             inputMethod: 'keyboard',
-          },
+          }),
         });
       });
     });
@@ -497,9 +496,9 @@ describe('lists', () => {
           actionSubject: 'text',
           eventType: 'track',
           actionSubjectId: 'numberedList',
-          attributes: {
+          attributes: expect.objectContaining({
             inputMethod: 'quickInsert',
-          },
+          }),
         });
       });
     });
@@ -525,9 +524,9 @@ describe('lists', () => {
           actionSubject: 'text',
           eventType: 'track',
           actionSubjectId: 'bulletedList',
-          attributes: {
+          attributes: expect.objectContaining({
             inputMethod: 'quickInsert',
-          },
+          }),
         });
       });
     });
@@ -1054,17 +1053,17 @@ describe('lists', () => {
       describe('When gap cursor is inside listItem before codeBlock', () => {
         it('should increase the depth of list item when Tab key press', () => {
           const { editorView } = editor(
-            doc(ol(li(p('text')), li(code_block()('{<>}text')), li(p('text')))),
-          );
-          // enable gap cursor
-          sendKeyToPm(editorView, 'ArrowLeft');
-          expect(editorView.state.selection instanceof GapCursorSelection).toBe(
-            true,
+            doc(
+              ol(
+                li(p('text')),
+                li('{<gap|>}', code_block()('text')),
+                li(p('text')),
+              ),
+            ),
           );
           expect(editorView.state.selection.$from.depth).toEqual(2);
 
           sendKeyToPm(editorView, 'Tab');
-
           expect(editorView.state.selection.$from.depth).toEqual(4);
         });
 
@@ -1072,20 +1071,14 @@ describe('lists', () => {
           const { editorView } = editor(
             doc(
               ol(
-                li(p('text'), ol(li(code_block()('{<>}text')))),
+                li(p('text'), ol(li('{<gap|>}', code_block()('text')))),
                 li(p('text')),
               ),
             ),
           );
-          // enable gap cursor
-          sendKeyToPm(editorView, 'ArrowLeft');
-          expect(editorView.state.selection instanceof GapCursorSelection).toBe(
-            true,
-          );
           expect(editorView.state.selection.$from.depth).toEqual(4);
 
           sendKeyToPm(editorView, 'Shift-Tab');
-
           expect(editorView.state.selection.$from.depth).toEqual(2);
         });
       });

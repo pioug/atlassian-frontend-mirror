@@ -1,7 +1,6 @@
 import { HTMLAttributes } from 'react';
 import styled, { css } from 'styled-components';
 import { themed } from '@atlaskit/theme/components';
-import { e400 } from '@atlaskit/theme/elevation';
 import {
   gridSize,
   fontFamily,
@@ -48,7 +47,6 @@ import { RendererAppearance } from './types';
 import {
   HeadingAnchorWrapperClassName,
   HeadingAnchorWrapperLegacyClassName,
-  HeadingAnchorButtonWrapperClassName,
 } from '../../react/nodes/heading-anchor';
 
 export const FullPagePadding = 32;
@@ -86,7 +84,17 @@ export const headingSizes: { [key: string]: { [key: string]: number } } = {
 
 const headingAnchorStyle = (headingTag: string) =>
   css`
-    /* Legacy Styles start */
+    & .${HeadingAnchorWrapperClassName} {
+      width: 0;
+      height: ${headingSizes[headingTag].lineHeight}em;
+
+      & button {
+        opacity: 0;
+        transform: translate(-8px, 0px);
+        transition: opacity 0.2s ease 0s, transform 0.2s ease 0s;
+      }
+    }
+
     & .${HeadingAnchorWrapperLegacyClassName} {
       position: absolute;
       width: 0;
@@ -100,62 +108,11 @@ const headingAnchorStyle = (headingTag: string) =>
     }
 
     &:hover {
+      & .${HeadingAnchorWrapperClassName} button,
       & .${HeadingAnchorWrapperLegacyClassName} button {
         opacity: 1;
         transform: none;
         width: unset;
-      }
-    }
-    /* Legacy Styles end */
-
-    & .${HeadingAnchorWrapperClassName} {
-      position: absolute;
-      width: 0;
-      height: ${headingSizes[headingTag].lineHeight}em;
-      transform: translate(8px, 0px);
-
-      & .${HeadingAnchorButtonWrapperClassName} {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        opacity: 0;
-        border: 1px solid rgb(235, 236, 240);
-        background-color: white;
-        border-radius: 4px;
-        padding: 4px;
-      }
-
-      & button {
-        opacity: 0;
-        transition: opacity 0.2s ease 0s, transform 0.2s ease 0s;
-        background-color: white;
-      }
-    }
-
-    &:hover {
-      &
-        .${HeadingAnchorWrapperClassName}
-        .${HeadingAnchorButtonWrapperClassName}
-        button {
-        opacity: 1;
-        transform: none;
-        width: unset;
-        border-radius: 4px;
-        padding: 2px 3px;
-        ${e400};
-      }
-
-      &
-        .${HeadingAnchorWrapperClassName}
-        .${HeadingAnchorButtonWrapperClassName} {
-        opacity: 1;
-      }
-
-      &
-        .${HeadingAnchorWrapperClassName}
-        .${HeadingAnchorButtonWrapperClassName}
-        button:hover {
-        background-color: ${colors.N50};
       }
     }
   `;
@@ -296,9 +253,9 @@ export const Wrapper = styled.div<RendererWrapperProps & HTMLAttributes<{}>>`
   }
 
   & span.date-node {
-    background: ${colors.N30A};
+    background: ${themed({ light: colors.N30A, dark: colors.DN70 })};
     border-radius: ${borderRadius()}px;
-    color: ${colors.N800};
+    color: ${themed({ light: colors.N800, dark: colors.DN600 })};
     padding: 2px 4px;
     margin: 0 1px;
     transition: background 0.3s;
@@ -511,6 +468,14 @@ export const Wrapper = styled.div<RendererWrapperProps & HTMLAttributes<{}>>`
 
     &:first-child {
       margin-top: 0;
+    }
+
+    &:hover button.copy-to-clipboard{
+      opacity: 1;
+    }
+
+    span code {
+      padding: 12px 8px !important;
     }
   }
 

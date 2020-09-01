@@ -81,7 +81,10 @@ describe('commands', () => {
         actionSubject: ACTION_SUBJECT.ANNOTATION,
         actionSubjectId: ACTION_SUBJECT_ID.INLINE_COMMENT,
         eventType: EVENT_TYPE.TRACK,
-        attributes: { inputMethod: INPUT_METHOD.TOOLBAR, overlap: 0 },
+        attributes: expect.objectContaining({
+          inputMethod: INPUT_METHOD.TOOLBAR,
+          overlap: 0,
+        }),
       });
 
       await nextTick();
@@ -99,7 +102,10 @@ describe('commands', () => {
         actionSubject: ACTION_SUBJECT.ANNOTATION,
         actionSubjectId: ACTION_SUBJECT_ID.INLINE_COMMENT,
         eventType: EVENT_TYPE.TRACK,
-        attributes: { inputMethod: INPUT_METHOD.TOOLBAR, overlap: 0 },
+        attributes: expect.objectContaining({
+          inputMethod: INPUT_METHOD.TOOLBAR,
+          overlap: 0,
+        }),
       });
 
       await nextTick();
@@ -117,7 +123,10 @@ describe('commands', () => {
         actionSubject: ACTION_SUBJECT.ANNOTATION,
         actionSubjectId: ACTION_SUBJECT_ID.INLINE_COMMENT,
         eventType: EVENT_TYPE.TRACK,
-        attributes: { inputMethod: INPUT_METHOD.SHORTCUT, overlap: 0 },
+        attributes: expect.objectContaining({
+          inputMethod: INPUT_METHOD.SHORTCUT,
+          overlap: 0,
+        }),
       });
 
       await nextTick();
@@ -132,7 +141,7 @@ describe('commands', () => {
         actionSubject: ACTION_SUBJECT.ANNOTATION,
         actionSubjectId: ACTION_SUBJECT_ID.INLINE_COMMENT,
         eventType: EVENT_TYPE.TRACK,
-        attributes: {},
+        attributes: expect.objectContaining({}),
       });
 
       await nextTick();
@@ -161,7 +170,10 @@ describe('commands', () => {
           actionSubject: ACTION_SUBJECT.ANNOTATION,
           actionSubjectId: ACTION_SUBJECT_ID.INLINE_COMMENT,
           eventType: EVENT_TYPE.TRACK,
-          attributes: { inputMethod: INPUT_METHOD.TOOLBAR, overlap: 1 },
+          attributes: expect.objectContaining({
+            inputMethod: INPUT_METHOD.TOOLBAR,
+            overlap: 1,
+          }),
         });
       });
 
@@ -191,7 +203,10 @@ describe('commands', () => {
           actionSubject: ACTION_SUBJECT.ANNOTATION,
           actionSubjectId: ACTION_SUBJECT_ID.INLINE_COMMENT,
           eventType: EVENT_TYPE.TRACK,
-          attributes: { inputMethod: INPUT_METHOD.TOOLBAR, overlap: 2 },
+          attributes: expect.objectContaining({
+            inputMethod: INPUT_METHOD.TOOLBAR,
+            overlap: 2,
+          }),
         });
       });
     });
@@ -323,7 +338,7 @@ describe('commands', () => {
           actionSubject: ACTION_SUBJECT.ANNOTATION,
           actionSubjectId: ACTION_SUBJECT_ID.INLINE_COMMENT,
           eventType: EVENT_TYPE.TRACK,
-          attributes: { method: resolveMethod },
+          attributes: expect.objectContaining({ method: resolveMethod }),
         });
         await nextTick();
       });

@@ -10,7 +10,7 @@ import {
   getRowsParams,
   RowParams,
 } from '../../../utils';
-import { tableControlsSpacing, tableToolbarSize } from '../../styles';
+import { tableControlsSpacing, tableToolbarSize } from '../../consts';
 
 export interface Props {
   editorView: EditorView;

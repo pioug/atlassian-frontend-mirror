@@ -6,8 +6,11 @@ import {
 } from '../dispatcher';
 import { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import { getEmptyADF } from '@atlaskit/adf-utils/empty-adf';
+import { Serialized } from '../../types';
 
-function parseContent(content: string | JSONDocNode): JSONDocNode | undefined {
+function parseContent(
+  content: Serialized<JSONDocNode>,
+): JSONDocNode | undefined {
   if (typeof content === 'string') {
     try {
       return JSON.parse(content) as JSONDocNode;

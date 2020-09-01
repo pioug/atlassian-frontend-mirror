@@ -27,8 +27,8 @@ import {
 } from './styles';
 import * as keymaps from '../../../keymaps';
 import ToolbarButton from '../../../ui/ToolbarButton';
-import { messages as textFormattingMessages } from '../../text-formatting/ui/ToolbarTextFormatting';
-import { messages as advancedTextFormattingMessages } from '../../text-formatting/ui/ToolbarAdvancedTextFormatting';
+import { toolbarMessages as textFormattingMessages } from '../../text-formatting/ui/ToolbarTextFormatting/toolbar-messages';
+import { toolbarMessages as advancedTextFormattingMessages } from '../../text-formatting/ui/ToolbarAdvancedTextFormatting/toolbar-messages';
 import { messages as listMessages } from '../../lists/messages';
 import { messages as insertBlockMessages } from '../../insert-block/ui/ToolbarInsertBlock/messages';
 import { messages as blockTypeMessages } from '../../block-type/messages';

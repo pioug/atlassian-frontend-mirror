@@ -263,9 +263,11 @@ const invalidChildContent = (
 const unsupportedMarkContent = (
   errorCode: ValidationError['code'],
   mark: ADFEntityMark,
-  message: string,
   errorCallback?: ErrorCallback,
+  errorMessage?: string,
 ) => {
+  const message =
+    errorMessage || errorMessageFor(mark.type, 'unsupported mark');
   if (!errorCallback) {
     throw new Error(message);
   } else {
@@ -280,6 +282,33 @@ const unsupportedMarkContent = (
         allowUnsupportedBlock: false,
         allowUnsupportedInline: false,
         isMark: true,
+      },
+    ) as ADFEntityMark;
+  }
+};
+
+const unsupportedNodeAttributesContent = (
+  entity: ADFEntity,
+  errorCode: ValidationError['code'],
+  invalidAttributes: ADFEntity['attrs'],
+  message: string,
+  errorCallback?: ErrorCallback,
+) => {
+  if (!errorCallback) {
+    throw new Error(message);
+  } else {
+    return errorCallback(
+      { type: entity.type } as ADFEntity,
+      {
+        code: errorCode,
+        message,
+        meta: invalidAttributes,
+      },
+      {
+        allowUnsupportedBlock: false,
+        allowUnsupportedInline: false,
+        isMark: false,
+        isNodeAttribute: true,
       },
     ) as ADFEntityMark;
   }
@@ -339,7 +368,9 @@ export function validator(
     if (type) {
       const typeOptions = getOptionsForType(type, allowed);
       if (typeOptions === false) {
-        return err('INVALID_TYPE', 'type not allowed here');
+        return isMark
+          ? { valid: false }
+          : err('INVALID_TYPE', 'type not allowed here');
       }
 
       const spec = validatorSpecs[type];
@@ -431,17 +462,42 @@ export function validator(
       ? entity.marks.map(mark => {
           const isAKnownMark = marks ? marks.indexOf(mark.type) > -1 : true;
           if (mode === 'strict' && isAKnownMark) {
-            const finalMark = validateNode(
+            const finalResult = validateNode(
               mark,
               errorCallback,
               marksSet,
               validator,
               true,
-            ).entity;
-            return { valid: true, originalMark: mark, newMark: finalMark };
+            );
+            const finalMark = finalResult.entity;
+            if (finalMark) {
+              return { valid: true, originalMark: mark, newMark: finalMark };
+            }
+            // this checks for mark level attribute errors
+            // and propagates error code and message
+            else if (
+              finalResult.marksValidationOutput &&
+              finalResult.marksValidationOutput.length
+            ) {
+              return {
+                valid: false,
+                originalMark: mark,
+                errorCode: finalResult.marksValidationOutput[0].errorCode,
+                message: finalResult.marksValidationOutput[0].message,
+              };
+            } else {
+              return {
+                valid: false,
+                originalMark: mark,
+                errorCode: 'INVALID_TYPE',
+              };
+            }
           } else {
-            const errorCode = 'INVALID_CONTENT';
-            return { valid: false, originalMark: mark, errorCode: errorCode };
+            return {
+              valid: false,
+              originalMark: mark,
+              errorCode: 'INVALID_CONTENT',
+            };
           }
         })
       : [];
@@ -466,8 +522,12 @@ export function validator(
     const errorCode = 'REDUNDANT_MARKS';
     const currentMarks = prevEntity.marks || [];
     const newMarks = currentMarks.map((mark: ADFEntityMark) => {
-      const message = errorMessageFor(mark.type, 'unsupported mark');
-      return unsupportedMarkContent(errorCode, mark, message, errorCallback);
+      const isUnsupportedNodeAttributeMark =
+        mark.type === 'unsupportedNodeAttribute';
+      if (isUnsupportedNodeAttributeMark) {
+        return mark;
+      }
+      return unsupportedMarkContent(errorCode, mark, errorCallback);
     });
     if (newMarks.length) {
       newEntity.marks = newMarks;
@@ -540,21 +600,14 @@ export function validator(
     return result;
   }
 
-  function attributesValidationFor(
+  function invalidAttributesFor(
     validatorSpec: ValidatorSpec,
     prevEntity: ADFEntity,
-    err: Err,
-    newEntity: ADFEntity,
-    isMark: boolean,
-    errorCallback: ErrorCallback | undefined,
-  ): NodeValidationResult {
+  ) {
+    let invalidAttrs: Array<string> = [];
     let validatorAttrs: Record<string, any> = {};
-    let result: NodeValidationResult = { valid: true, entity: prevEntity };
-    // Attributes Validation
-    if (validatorSpec.props!.attrs && prevEntity.attrs) {
-      const attrOptions = makeArray(validatorSpec.props!.attrs);
-      let invalidAttrs: Array<string> = [];
-
+    if (validatorSpec.props && validatorSpec.props.attrs) {
+      const attrOptions = makeArray(validatorSpec.props.attrs);
       /**
        * Attrs can be union type so try each path
        * attrs: [{ props: { url: { type: 'string' } } }, { props: { data: {} } }],
@@ -562,97 +615,151 @@ export function validator(
        */
       for (let i = 0, length = attrOptions.length; i < length; ++i) {
         const attrOption = attrOptions[i];
-
-        [, invalidAttrs] = partitionObject(attrOption.props, (k, v) => {
-          return validateAttrs(v, (prevEntity.attrs as any)[k]);
-        });
-
+        if (attrOption && attrOption.props) {
+          [, invalidAttrs] = partitionObject(attrOption.props, (k, v) => {
+            return validateAttrs(v, (prevEntity.attrs as any)[k]);
+          });
+        }
+        validatorAttrs = attrOption!;
         if (!invalidAttrs.length) {
-          validatorAttrs = attrOption;
           break;
         }
       }
+    }
 
-      if (invalidAttrs.length) {
-        if (isMark) {
-          const errorCode = 'INVALID_ATTRIBUTES';
-          const message = errorMessageFor(
-            prevEntity.type,
-            `'attrs' validation failed`,
-          );
-          const unsupportedMark = unsupportedMarkContent(
-            errorCode,
-            prevEntity,
-            message,
-            errorCallback,
-          );
-          return {
-            valid: true,
-            entity: unsupportedMark,
-          };
-        }
-        return err('INVALID_ATTRIBUTES', `'attrs' validation failed`, {
-          attrs: invalidAttrs,
-        });
-      }
-    } else if (prevEntity.attrs) {
-      if (isMark) {
-        const errorCode = 'REDUNDANT_ATTRIBUTES';
+    return { invalidAttrs, validatorAttrs };
+  }
+
+  function attributesValidationFor(
+    validatorSpec: ValidatorSpec,
+    prevEntity: ADFEntity,
+    newEntity: ADFEntity,
+    isMark: boolean,
+    errorCallback: ErrorCallback | undefined,
+  ): NodeValidationResult {
+    let validatorAttrs: Record<string, any> = {};
+    let result: NodeValidationResult = { valid: true, entity: prevEntity };
+
+    const hasValidatorSpecAttrs =
+      validatorSpec.props && validatorSpec.props.attrs;
+    if (prevEntity.attrs) {
+      if (isMark && !hasValidatorSpecAttrs) {
         const message = errorMessageFor(
           'redundant attributes found',
           Object.keys(prevEntity.attrs).join(', '),
         );
-        const unsupportedMark = unsupportedMarkContent(
-          errorCode,
-          prevEntity,
-          message,
-          errorCallback,
-        );
-        return {
+        const errorCode: ValidationErrorType = 'REDUNDANT_ATTRIBUTES';
+        const markValidationResult = {
           valid: true,
-          entity: unsupportedMark,
+          originalMark: prevEntity,
+          errorCode: errorCode,
+          message: message,
+        };
+        return {
+          valid: false,
+          marksValidationOutput: [markValidationResult],
         };
       }
-    }
-    if (prevEntity.attrs) {
+
+      let invalidAttributesResult = invalidAttributesFor(
+        validatorSpec,
+        prevEntity,
+      );
+      let { invalidAttrs } = invalidAttributesResult;
+      validatorAttrs = invalidAttributesResult.validatorAttrs;
+
       const attrs = Object.keys(prevEntity.attrs).filter(
         k => !(allowPrivateAttributes && k.startsWith('__')),
       );
-      if (!validatorAttrs || !attrs.every(a => !!validatorAttrs.props[a])) {
-        if (mode === 'loose') {
-          newEntity.attrs = {};
-          attrs
-            .filter(a => !!validatorAttrs.props![a])
-            .reduce(
-              (acc, p) => copy(prevEntity.attrs || {}, acc, p),
-              newEntity.attrs,
-            );
-        } else {
-          const redundantAttrs = attrs.filter(a => !validatorAttrs.props![a]);
-          const errorCode = 'REDUNDANT_ATTRIBUTES';
-          const message = errorMessageFor(
+
+      const hasRedundantAttrs =
+        !validatorAttrs || !attrs.every(a => !!validatorAttrs.props[a]);
+      let hasUnsupportedAttrs = invalidAttrs.length || hasRedundantAttrs;
+
+      if (hasUnsupportedAttrs) {
+        const redundantAttrs = attrs.filter(a => !validatorAttrs.props![a]);
+        let errorCode: ValidationErrorType = 'INVALID_ATTRIBUTES';
+        let message = errorMessageFor(
+          prevEntity.type,
+          `'attrs' validation failed`,
+        );
+        let attr: Array<string> = invalidAttrs;
+
+        if (invalidAttrs.length && hasRedundantAttrs) {
+          attr = attr.concat(redundantAttrs);
+        } else if (hasRedundantAttrs) {
+          errorCode = 'REDUNDANT_ATTRIBUTES';
+          message = errorMessageFor(
             'redundant attributes found',
             redundantAttrs.join(', '),
           );
-          if (isMark) {
-            const unsupportedMark = unsupportedMarkContent(
-              errorCode,
-              prevEntity,
-              message,
-              errorCallback,
-            );
-            const result = {
-              valid: true,
-              entity: unsupportedMark,
-            };
-            return result;
-          } else {
-            return err(errorCode, message, { attrs: redundantAttrs });
-          }
+          attr = redundantAttrs;
+        }
+
+        if (isMark) {
+          const markValidationResult = {
+            valid: true,
+            originalMark: prevEntity,
+            errorCode: errorCode,
+            message: message,
+          };
+          return {
+            valid: false,
+            marksValidationOutput: [markValidationResult],
+          };
+        } else {
+          message = errorMessageFor(
+            prevEntity.type,
+            `'attrs' validation failed`,
+          );
+          errorCode = 'UNSUPPORTED_ATTRIBUTES';
+          newEntity.marks = wrapUnSupportedNodeAttributes(
+            prevEntity,
+            newEntity,
+            attr,
+            errorCode,
+            message,
+            errorCallback,
+          );
+          result = { valid: true, entity: newEntity };
         }
       }
     }
     return result;
+  }
+
+  function wrapUnSupportedNodeAttributes(
+    prevEntity: ADFEntity,
+    newEntity: ADFEntity,
+    invalidAttrs: Array<string>,
+    errorCode: ValidationErrorType,
+    message: string,
+    errorCallback: ErrorCallback | undefined,
+  ) {
+    let invalidValues: ADFEntity['attrs'] = {};
+    for (let invalidAttr in invalidAttrs) {
+      invalidValues[invalidAttrs[invalidAttr]] =
+        prevEntity.attrs && prevEntity.attrs[invalidAttrs[invalidAttr]];
+      if (newEntity.attrs) {
+        delete newEntity.attrs[invalidAttrs[invalidAttr]];
+      }
+    }
+    const unsupportedNodeAttributeValues = unsupportedNodeAttributesContent(
+      prevEntity,
+      errorCode,
+      invalidValues,
+      message,
+      errorCallback,
+    );
+    const finalEntity = { ...newEntity };
+
+    if (finalEntity.marks) {
+      unsupportedNodeAttributeValues &&
+        finalEntity.marks.push(unsupportedNodeAttributeValues);
+      return finalEntity.marks;
+    } else {
+      return [unsupportedNodeAttributeValues] as ADFEntityMark[];
+    }
   }
 
   function extraPropsValidationFor(
@@ -777,12 +884,10 @@ export function validator(
     const attributesValidationResult = attributesValidationFor(
       validatorSpec,
       prevEntity,
-      err,
       newEntity,
       isMark,
       errorCallback,
     );
-
     if (!attributesValidationResult.valid) {
       return {
         hasValidated: true,
@@ -817,9 +922,56 @@ export function validator(
       const contentValidatorSpec = validatorSpec.props.content;
       if (prevEntity.content) {
         const validateChildNode = (child: ADFEntity, index: any) => {
+          const validateChildMarks = (
+            childEntity: ADFEntity | undefined,
+            marksValidationOutput: MarkValidationResult[] | undefined,
+            errorCallback: ErrorCallback | undefined,
+            isLastValidationSpec: boolean,
+            isParentTupleLike: boolean = false,
+          ) => {
+            let marksAreValid = true;
+            if (childEntity && childEntity.marks && marksValidationOutput) {
+              const validMarks = marksValidationOutput.filter(
+                mark => mark.valid,
+              );
+              const finalMarks = marksValidationOutput!
+                .map(mr => {
+                  if (mr.valid) {
+                    return mr.newMark;
+                  } else {
+                    if (
+                      validMarks.length ||
+                      isLastValidationSpec ||
+                      isParentTupleLike ||
+                      mr.errorCode === 'REDUNDANT_ATTRIBUTES' ||
+                      mr.errorCode === 'INVALID_ATTRIBUTES'
+                    ) {
+                      return unsupportedMarkContent(
+                        mr.errorCode!,
+                        mr.originalMark,
+                        errorCallback,
+                        mr.message,
+                      );
+                    }
+                    return;
+                  }
+                })
+                .filter(Boolean) as ADFEntityMark[];
+              if (finalMarks.length) {
+                childEntity.marks = finalMarks;
+              } else {
+                delete childEntity.marks;
+                marksAreValid = false;
+              }
+            }
+            return { valid: marksAreValid, entity: childEntity };
+          };
           const hasMultipleCombinationOfContentAllowed = !!contentValidatorSpec.isTupleLike;
           if (hasMultipleCombinationOfContentAllowed) {
-            return validateNode(
+            const {
+              entity: newChildEntity,
+              marksValidationOutput,
+            } = validateNode(
               child,
               errorCallback,
               makeArray(
@@ -829,7 +981,15 @@ export function validator(
                   ],
               ),
               validatorSpec,
-            ).entity;
+            );
+            const { entity } = validateChildMarks(
+              newChildEntity,
+              marksValidationOutput,
+              errorCallback,
+              false,
+              true,
+            );
+            return entity;
           }
 
           // Only go inside valid branch
@@ -879,37 +1039,16 @@ export function validator(
                   validatorSpec,
                 );
                 if (valid) {
-                  let marksAreValid = true;
-                  if (
-                    newChildEntity &&
-                    newChildEntity.marks &&
-                    marksValidationOutput
-                  ) {
-                    const finalMarks = marksValidationOutput!
-                      .map(mr => {
-                        const message = errorMessageFor(
-                          mr.originalMark.type,
-                          'unsupported mark',
-                        );
-                        return mr.valid
-                          ? mr.newMark
-                          : unsupportedMarkContent(
-                              mr.errorCode!,
-                              mr.originalMark,
-                              message,
-                              errorCallback,
-                            );
-                      })
-                      .filter(Boolean) as ADFEntityMark[];
-                    if (finalMarks.length) {
-                      newChildEntity.marks = finalMarks;
-                    } else {
-                      delete newChildEntity.marks;
-                      marksAreValid = false;
-                    }
-                  }
+                  const isLastValidationSpec =
+                    i === allowedSpecsForChild.length - 1;
+                  const { valid: marksAreValid, entity } = validateChildMarks(
+                    newChildEntity,
+                    marksValidationOutput,
+                    errorCallback,
+                    isLastValidationSpec,
+                  );
                   if (marksAreValid) {
-                    return newChildEntity;
+                    return entity;
                   } else {
                     firstChild = firstChild || newChildEntity;
                   }
@@ -953,7 +1092,6 @@ export function validator(
         ),
       };
     }
-
     return specBasedValidationResult;
   }
 }

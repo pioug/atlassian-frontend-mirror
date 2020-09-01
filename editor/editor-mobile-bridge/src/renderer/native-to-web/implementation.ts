@@ -66,14 +66,27 @@ class RendererBridgeImplementation extends RendererMobileWebBridgeOverride
    * @param id The identifier used for the selector.
    * @param index An optional index in case the identifier isn't unique per instance.
    *
-   * @return A string representation of a boolean.
    */
   scrollToContentNode(
     nodeType: ScrollToContentNode,
     id: string,
     index = -1,
-  ): string {
-    return `${scrollToElement(nodeType, id, index)}`;
+  ): void {
+    if (nodeType === ScrollToContentNode.HEADING) {
+      eventDispatcher.emit(EmitterEvents.SET_ACTIVE_HEADING_ID, id);
+    }
+
+    // eslint-disable-next-line compat/compat
+    if (window.requestIdleCallback) {
+      // eslint-disable-next-line compat/compat
+      return window.requestIdleCallback(() => {
+        scrollToElement(nodeType, id, index);
+      });
+    }
+
+    requestAnimationFrame(() => {
+      scrollToElement(nodeType, id, index);
+    });
   }
 
   /**
@@ -94,6 +107,9 @@ class RendererBridgeImplementation extends RendererMobileWebBridgeOverride
     id: string,
     index = -1,
   ): string {
+    if (nodeType === ScrollToContentNode.HEADING) {
+      eventDispatcher.emit(EmitterEvents.SET_ACTIVE_HEADING_ID, id);
+    }
     return JSON.stringify(
       getElementScrollOffsetByNodeType(nodeType, id, index),
     );
@@ -131,7 +147,10 @@ class RendererBridgeImplementation extends RendererMobileWebBridgeOverride
   }
 
   setAnnotationFocus(annotationFocusPayload?: Serialized<AnnotationPayload>) {
-    if (typeof annotationFocusPayload === 'string') {
+    if (
+      typeof annotationFocusPayload === 'string' &&
+      annotationFocusPayload.trim().length > 0
+    ) {
       const payload = JSON.parse(annotationFocusPayload);
 
       eventDispatcher.emit(EmitterEvents.SET_ANNOTATION_FOCUS, payload);
@@ -165,6 +184,19 @@ class RendererBridgeImplementation extends RendererMobileWebBridgeOverride
 
   cancelHighlight() {
     eventDispatcher.emit(EmitterEvents.REMOVE_DRAFT_ANNOTATION);
+  }
+
+  /**
+   * Used to observe the height of the rendered content and notify the native side when that happens
+   * by calling RenderBridge#onRenderedContentHeightChanged.
+   *
+   * @param enabled whether the height is being observed (and therefore the callback is being called).
+   */
+  observeRenderedContentHeight(enabled: boolean) {
+    eventDispatcher.emit(
+      EmitterEvents.SET_DOCUMENT_REFLOW_DETECTOR_STATUS,
+      enabled,
+    );
   }
 }
 

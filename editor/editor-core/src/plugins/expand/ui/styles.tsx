@@ -84,8 +84,6 @@ export const expandStyles = css`
     }
   }
 
-
-
   .${expandClassNames.prefix}:not(.${expandClassNames.expanded}) {
     .ak-editor-expand__content {
       position: absolute;
@@ -100,7 +98,7 @@ export const expandStyles = css`
       transform: rotate(0deg);
     }
 
-    &:not(.ProseMirror-selectednode):not(.danger) {
+    &:not(.${akEditorSelectedNodeClassName}):not(.danger) {
       background: transparent;
       border-color: transparent;
 

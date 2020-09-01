@@ -11,6 +11,10 @@ import {
 import AnalyticsContext from '../../analytics/analyticsContext';
 import { CopyTextConsumer } from './copy-text-provider';
 import { NodeProps } from '../types';
+import {
+  HeadingAnchorLinksProps,
+  HeadingAnchorLinksConfig,
+} from '../../ui/Renderer/types';
 
 export type HeadingLevels = 1 | 2 | 3 | 4 | 5 | 6;
 
@@ -25,45 +29,53 @@ function Heading(
     level: HeadingLevels;
     headingId?: string;
     showAnchorLink?: boolean;
-    enableNestedHeaderLinks?: boolean;
+    allowHeadingAnchorLinks?: HeadingAnchorLinksProps;
   }>,
 ) {
-  const { headingId, dataAttributes, enableNestedHeaderLinks } = props;
+  const { headingId, dataAttributes, allowHeadingAnchorLinks } = props;
   const HX = `h${props.level}` as 'h1';
+
+  const enableNestedHeaderLinks =
+    allowHeadingAnchorLinks &&
+    (allowHeadingAnchorLinks as HeadingAnchorLinksConfig)
+      .allowNestedHeaderLinks;
 
   return (
     <HX id={headingId} {...dataAttributes}>
-      {!!props.showAnchorLink && (
-        <CopyTextConsumer>
-          {({ copyTextToClipboard }) => {
-            return (
-              headingId && (
-                <AnalyticsContext.Consumer>
-                  {({ fireAnalyticsEvent }) => (
-                    <HeadingAnchor
-                      enableNestedHeaderLinks={enableNestedHeaderLinks}
-                      onCopyText={() => {
-                        fireAnalyticsEvent({
-                          action: ACTION.CLICKED,
-                          actionSubject: ACTION_SUBJECT.BUTTON,
-                          actionSubjectId:
-                            ACTION_SUBJECT_ID.HEADING_ANCHOR_LINK,
-                          eventType: EVENT_TYPE.UI,
-                        });
+      <>
+        {enableNestedHeaderLinks && props.children}
+        {!!props.showAnchorLink && (
+          <CopyTextConsumer>
+            {({ copyTextToClipboard }) => {
+              return (
+                headingId && (
+                  <AnalyticsContext.Consumer>
+                    {({ fireAnalyticsEvent }) => (
+                      <HeadingAnchor
+                        enableNestedHeaderLinks={enableNestedHeaderLinks}
+                        onCopyText={() => {
+                          fireAnalyticsEvent({
+                            action: ACTION.CLICKED,
+                            actionSubject: ACTION_SUBJECT.BUTTON,
+                            actionSubjectId:
+                              ACTION_SUBJECT_ID.HEADING_ANCHOR_LINK,
+                            eventType: EVENT_TYPE.UI,
+                          });
 
-                        return copyTextToClipboard(
-                          getCurrentUrlWithHash(headingId),
-                        );
-                      }}
-                    />
-                  )}
-                </AnalyticsContext.Consumer>
-              )
-            );
-          }}
-        </CopyTextConsumer>
-      )}
-      {props.children}
+                          return copyTextToClipboard(
+                            getCurrentUrlWithHash(headingId),
+                          );
+                        }}
+                      />
+                    )}
+                  </AnalyticsContext.Consumer>
+                )
+              );
+            }}
+          </CopyTextConsumer>
+        )}
+        {!enableNestedHeaderLinks && props.children}
+      </>
     </HX>
   );
 }

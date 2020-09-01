@@ -3,7 +3,7 @@ import AnnotateIcon from '@atlaskit/icon/glyph/media-services/annotate';
 import { MediaClientConfig } from '@atlaskit/media-core';
 import { getMediaClient } from '@atlaskit/media-client';
 import { EditorView } from 'prosemirror-view';
-import { defineMessages, InjectedIntl } from 'react-intl';
+import { InjectedIntl } from 'react-intl';
 
 import { Command } from '../../../types';
 import Button from '../../floating-toolbar/ui/Button';
@@ -20,6 +20,7 @@ import {
   EVENT_TYPE,
 } from '../../../plugins/analytics';
 import { MediaPluginState } from '../pm-plugins/types';
+import { toolbarMessages } from './toolbar-messages';
 
 const annotate: Command = (state, dispatch) => {
   const pluginState: MediaPluginState | undefined = stateKey.getState(state);
@@ -53,15 +54,6 @@ const annotate: Command = (state, dispatch) => {
     }),
   )(state, dispatch);
 };
-
-export const messages = defineMessages({
-  annotate: {
-    id: 'fabric.editor.annotate',
-    defaultMessage: 'Annotate',
-    description:
-      'Annotate an image by drawing arrows, adding text, or scribbles.',
-  },
-});
 
 type AnnotationToolbarProps = {
   viewMediaClientConfig: MediaClientConfig;
@@ -118,7 +110,7 @@ export class AnnotationToolbar extends React.Component<AnnotationToolbarProps> {
 
     const { intl } = this.props;
 
-    const title = intl.formatMessage(messages.annotate);
+    const title = intl.formatMessage(toolbarMessages.annotate);
 
     return (
       <>

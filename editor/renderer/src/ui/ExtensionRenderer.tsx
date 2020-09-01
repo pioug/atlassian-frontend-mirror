@@ -2,11 +2,8 @@ import React from 'react';
 import memoizeOne from 'memoize-one';
 
 import { RendererContext } from '../react/types';
-import { Serializer } from '../index';
 import { ExtensionLayout } from '@atlaskit/adf-schema';
-
 import {
-  ADNode,
   ExtensionHandlers,
   getExtensionRenderer,
   WithProviders,
@@ -17,7 +14,6 @@ import {
 
 export interface Props {
   type: 'extension' | 'inlineExtension' | 'bodiedExtension';
-  serializer: Serializer<any>;
   extensionHandlers?: ExtensionHandlers;
   providers?: ProviderFactory;
   rendererContext: RendererContext;
@@ -27,11 +23,7 @@ export interface Props {
   parameters?: any;
   content?: any;
   layout?: ExtensionLayout;
-  children: ({
-    result,
-  }: {
-    result?: JSX.Element | ADNode[] | null;
-  }) => JSX.Element;
+  children: ({ result }: { result?: JSX.Element | null }) => JSX.Element;
 }
 
 export interface State {

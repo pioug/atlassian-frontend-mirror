@@ -5,8 +5,8 @@ import { AsyncSelect, ValueType } from '@atlaskit/select';
 import { formatOptionLabel } from './SelectItem';
 
 import {
-  getFieldResolver,
-  FieldResolver,
+  getCustomFieldResolver,
+  CustomFieldResolver,
   ExtensionManifest,
   CustomField,
   Option,
@@ -27,9 +27,10 @@ type Props = {
 
 type State = {
   defaultValue?: Option | Option[];
-  fieldResolver?: FieldResolver;
+  resolver?: CustomFieldResolver;
   isMissingResolver?: boolean;
 };
+
 export default class CustomSelect extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
@@ -40,7 +41,7 @@ export default class CustomSelect extends React.Component<Props, State> {
   }
 
   async componentDidMount() {
-    await this.getFieldResolver();
+    await this.getResolver();
     await this.fetchDefaultValues();
   }
 
@@ -51,19 +52,19 @@ export default class CustomSelect extends React.Component<Props, State> {
     }));
   };
 
-  async getFieldResolver() {
+  async getResolver() {
     const { extensionManifest, field } = this.props;
 
     try {
-      const fieldResolver = await getFieldResolver(
+      const resolver = await getCustomFieldResolver(
         extensionManifest,
         field.options.resolver,
       );
 
       this.setState(state => ({
         ...state,
-        fieldResolver,
-        isMissingResolver: !fieldResolver,
+        resolver,
+        isMissingResolver: !resolver,
       }));
     } catch {
       this.setState(state => ({
@@ -75,17 +76,17 @@ export default class CustomSelect extends React.Component<Props, State> {
 
   async fetchDefaultValues() {
     const { field } = this.props;
-    const { fieldResolver } = this.state;
+    const { resolver } = this.state;
 
-    if (!fieldResolver) {
+    if (!resolver) {
       return;
     }
 
-    const options = await fieldResolver();
+    const options = await resolver(undefined, field.defaultValue);
 
     if (field.defaultValue && field.isMultiple) {
       this.setDefaultValue(
-        options.filter(option =>
+        options.filter((option: Option) =>
           (field.defaultValue as string[]).includes(option.value),
         ),
       );
@@ -94,7 +95,7 @@ export default class CustomSelect extends React.Component<Props, State> {
     if (field.defaultValue && !field.isMultiple) {
       this.setDefaultValue(
         options.find(
-          option => (field.defaultValue as string) === option.value,
+          (option: Option) => (field.defaultValue as string) === option.value,
         ) || [],
       );
     }
@@ -115,7 +116,7 @@ export default class CustomSelect extends React.Component<Props, State> {
 
   render() {
     const { field, onBlur, autoFocus, placeholder } = this.props;
-    const { defaultValue, fieldResolver, isMissingResolver } = this.state;
+    const { defaultValue, resolver, isMissingResolver } = this.state;
 
     return (
       <Field<ValueType<Option>>
@@ -129,7 +130,7 @@ export default class CustomSelect extends React.Component<Props, State> {
       >
         {({ fieldProps, error }) => (
           <Fragment>
-            {fieldResolver && (
+            {resolver && (
               <Fragment>
                 <AsyncSelect
                   {...fieldProps}
@@ -142,7 +143,9 @@ export default class CustomSelect extends React.Component<Props, State> {
                   validationState={error ? 'error' : 'default'}
                   defaultOptions={true}
                   formatOptionLabel={formatOptionLabel}
-                  loadOptions={fieldResolver}
+                  loadOptions={(searchTerm: string) =>
+                    resolver(searchTerm, field.defaultValue)
+                  }
                   autoFocus={autoFocus}
                   placeholder={placeholder}
                 />

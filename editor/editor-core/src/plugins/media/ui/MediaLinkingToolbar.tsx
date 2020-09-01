@@ -9,13 +9,13 @@ import Separator from '../../floating-toolbar/ui/Separator';
 import {
   Container,
   UrlInputWrapper,
-} from '../../../ui/RecentSearch/ToolbarComponents';
-import RecentSearch from '../../../ui/RecentSearch';
+} from '../../../ui/LinkSearch/ToolbarComponents';
+import RecentSearch from '../../../ui/LinkSearch';
 import {
   ChildProps,
   RecentSearchSubmitOptions,
   RecentSearchInputTypes,
-} from '../../../ui/RecentSearch/types';
+} from '../../../ui/LinkSearch/types';
 import { linkToolbarMessages } from '../../../messages';
 
 // Common Translations will live here

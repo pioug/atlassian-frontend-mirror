@@ -1,6 +1,7 @@
 import React from 'react';
 
-import styled, { css } from 'styled-components';
+import { css } from '@emotion/core';
+import styled from '@emotion/styled';
 
 import { N20, N40 } from '@atlaskit/theme/colors';
 
@@ -24,7 +25,7 @@ const Parent = styled.div<StyledProps>`
   margin-bottom: 8px;
   height: 64px;
   padding: 8px;
-  ${/* sc-prop */ p => direction[p.scroll]}: scroll;
+  ${p => direction[p.scroll]}: scroll;
 
   &:last-child {
     margin-bottom: 0;

@@ -12,10 +12,7 @@ import Breakout from './breakout';
 import Alignment from './alignment';
 import Indentation from './indentation';
 import UnsupportedMark from './unsupportedMark';
-import Annotation, {
-  Props as AnnotationProps,
-  AnnotationContext,
-} from './annotation';
+import Annotation, { isAnnotationMark } from './annotation';
 
 // Stage0
 import ConfluenceInlineComment from './confluence-inline-comment';
@@ -54,7 +51,6 @@ export {
   Underline,
   Breakout,
   Annotation,
-  AnnotationProps,
-  AnnotationContext,
   UnsupportedMark,
+  isAnnotationMark,
 };

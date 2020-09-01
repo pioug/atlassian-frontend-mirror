@@ -3,22 +3,22 @@ import { defineMessages } from 'react-intl';
 export default defineMessages({
   insertColumn: {
     id: 'fabric.editor.insertColumn',
-    defaultMessage: 'Insert column',
-    description: 'Add a new column to your table.',
+    defaultMessage: 'Insert column right',
+    description: 'Inserts a new column to the right of selected column.',
   },
   removeColumns: {
     id: 'fabric.editor.removeColumns',
-    defaultMessage: 'Remove {0, plural, one {column} other {columns}}',
+    defaultMessage: 'Delete {0, plural, one {column} other {columns}}',
     description: 'Deletes a table column.',
   },
   insertRow: {
     id: 'fabric.editor.insertRow',
-    defaultMessage: 'Insert row',
-    description: 'Add a new row to your table.',
+    defaultMessage: 'Insert row below',
+    description: 'Inserts a new row below the selected row.',
   },
   removeRows: {
     id: 'fabric.editor.removeRows',
-    defaultMessage: 'Remove {0, plural, one {row} other {rows}}',
+    defaultMessage: 'Delete {0, plural, one {row} other {rows}}',
     description: 'Deletes a table row.',
   },
   cellOptions: {

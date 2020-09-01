@@ -36,7 +36,7 @@ import {
   scrollToBottom,
 } from '../../__helpers/page-objects/_editor';
 import { EditorTestCardProvider } from '@atlaskit/editor-test-helpers/card-provider';
-import { waitForResolvedInlineCard } from '../../__helpers/page-objects/_cards';
+import { waitForResolvedInlineCard } from '@atlaskit/media-integration-test-helpers';
 
 describe('Lists', () => {
   let page: PuppeteerPage;

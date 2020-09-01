@@ -1,6 +1,6 @@
 import React from 'react';
 
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 
 import BoldIcon from '@atlaskit/icon/glyph/editor/bold';
 import BulletListIcon from '@atlaskit/icon/glyph/editor/bullet-list';

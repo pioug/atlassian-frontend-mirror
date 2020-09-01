@@ -2,6 +2,7 @@ import { EditorPlugin } from '../../types';
 
 import { createPlugin } from './plugin';
 import { SelectionPluginOptions } from './types';
+import selectionKeymapPlugin from './pm-plugins/keymap';
 
 export const selectionPlugin = (
   options?: SelectionPluginOptions,
@@ -14,6 +15,10 @@ export const selectionPlugin = (
         name: 'selection',
         plugin: ({ dispatch, dispatchAnalyticsEvent }) =>
           createPlugin(dispatch, dispatchAnalyticsEvent, options),
+      },
+      {
+        name: 'selectionKeymap',
+        plugin: selectionKeymapPlugin,
       },
     ];
   },

@@ -14,6 +14,8 @@ import {
   toJSONTableHeader,
 } from '@atlaskit/adf-schema';
 
+import { markOverrideRuleFor } from './markOverrideRules';
+
 interface Transformer<T> {
   encode(node: PMNode): T;
   parse(content: T): PMNode;
@@ -47,6 +49,7 @@ const isTableCell = isType('tableCell');
 const isTableHeader = isType('tableHeader');
 const isLinkMark = isType('link');
 const isUnsupportedMark = isType('unsupportedMark');
+const isUnsupportedNodeAttributeMark = isType('unsupportedNodeAttribute');
 const isExpand = isType('expand');
 const isNestedExpand = isType('nestedExpand');
 const isUnsupportedNode = (node: PMNode) =>
@@ -127,12 +130,22 @@ const toJSON = (node: PMNode): JSONNode => {
   if (node.marks.length) {
     obj.marks = node.marks.reduce((acc: any, mark) => {
       if (isUnsupportedMark(mark)) {
-        if (
-          node.marks.some(e => mark.attrs.originalValue.type === e.type.name)
-        ) {
+        if (canOverrideMark(mark, node.marks)) {
           return acc;
         } else {
           acc.push(mark.attrs.originalValue);
+          return acc;
+        }
+      }
+      if (isUnsupportedNodeAttributeMark(mark)) {
+        if (mark.attrs.type.nodeType === obj.type) {
+          const nodeAttributes = getUnwrappedNodeAttributes(node, mark, obj);
+          obj.attrs = { ...nodeAttributes };
+        }
+
+        if (node.marks.length === 1) {
+          return;
+        } else {
           return acc;
         }
       }
@@ -145,6 +158,39 @@ const toJSON = (node: PMNode): JSONNode => {
     }, []);
   }
   return obj;
+};
+
+const canOverrideMark = (mark: PMMark, existingMarks: PMMark[]): boolean => {
+  if (existingMarks.some(e => mark.attrs.originalValue.type === e.type.name)) {
+    return markOverrideRuleFor(
+      mark.attrs.originalValue.type,
+    ).canOverrideUnsupportedMark();
+  }
+
+  return false;
+};
+
+const getUnwrappedNodeAttributes = (
+  node: PMNode,
+  mark: PMMark,
+  obj: JSONNode,
+): object | null => {
+  const nodeAttributes = node.type.spec.attrs;
+  const attributes = { ...mark.attrs.unsupported, ...obj.attrs };
+  for (var key in obj.attrs) {
+    if (obj.attrs.hasOwnProperty(key)) {
+      const attribute = nodeAttributes ? nodeAttributes[key] : null;
+      if (attribute) {
+        if (
+          attribute.default === node.attrs[key] &&
+          mark.attrs.unsupported[key]
+        ) {
+          return { ...attributes, [key]: mark.attrs.unsupported[key] };
+        }
+      }
+    }
+  }
+  return attributes;
 };
 
 export class JSONTransformer implements Transformer<JSONDocNode> {

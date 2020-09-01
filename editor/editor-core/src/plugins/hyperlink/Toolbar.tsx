@@ -16,7 +16,7 @@ import {
   updateLink,
   insertLinkWithAnalytics,
 } from './commands';
-import RecentList from './ui/HyperlinkAddToolbar';
+import HyperlinkAddToolbar from './ui/HyperlinkAddToolbar';
 import { EditorView } from 'prosemirror-view';
 import { Mark } from 'prosemirror-model';
 import UnlinkIcon from '@atlaskit/icon/glyph/editor/unlink';
@@ -31,7 +31,7 @@ import { isSafeUrl } from '@atlaskit/adf-schema';
 import {
   RECENT_SEARCH_HEIGHT_IN_PX,
   RECENT_SEARCH_WIDTH_IN_PX,
-} from '../../ui/RecentSearch/ToolbarComponents';
+} from '../../ui/LinkSearch/ToolbarComponents';
 
 /* type guard for edit links */
 function isEditLink(
@@ -225,7 +225,7 @@ export const getToolbarConfig: FloatingToolbarHandler = (
                   return null;
                 }
                 return (
-                  <RecentList
+                  <HyperlinkAddToolbar
                     key={idx}
                     displayUrl={link}
                     displayText={displayText || ''}

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/motion",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "description": "Atlassian motion variables, components and more.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -39,7 +39,7 @@
     "@atlaskit/section-message": "^5.0.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/theme": "^10.0.0",
-    "@atlaskit/tooltip": "^16.0.0",
+    "@atlaskit/tooltip": "^17.0.0",
     "@atlaskit/visual-regression": "*",
     "@testing-library/react": "^8.0.1",
     "raf-stub": "^2.0.1",

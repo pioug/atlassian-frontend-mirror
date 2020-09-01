@@ -1,4 +1,4 @@
-import { AnnotationMarkStates } from '@atlaskit/adf-schema';
+import { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import { AnnotationProviders } from '@atlaskit/editor-common';
 
 export enum InsertDraftPosition {
@@ -10,10 +10,8 @@ export enum InsertDraftPosition {
 
 export type Position = { from: number; to: number };
 export type AnnotationsWrapperProps = {
-  annotationProvider:
-    | AnnotationProviders<AnnotationMarkStates>
-    | null
-    | undefined;
+  adfDocument: JSONDocNode;
+  annotationProvider: AnnotationProviders | null | undefined;
   rendererRef: React.RefObject<HTMLDivElement>;
 };
 

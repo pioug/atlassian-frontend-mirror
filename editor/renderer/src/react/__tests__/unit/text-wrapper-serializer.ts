@@ -1,52 +1,23 @@
 import { mount, ReactWrapper } from 'enzyme';
 import { defaultSchema as schema } from '@atlaskit/adf-schema';
+import { Node as PMNode } from 'prosemirror-model';
 import { ReactSerializer } from '../../../index';
 import TextWrapperComponent from '../../nodes/text-wrapper';
-
-const doc = {
-  version: 1,
-  type: 'doc',
-  content: [
-    {
-      type: 'paragraph',
-      content: [
-        {
-          type: 'text',
-          text: 'Some ',
-        },
-      ],
-    },
-    {
-      type: 'bulletList',
-      content: [
-        {
-          type: 'listItem',
-          content: [
-            {
-              type: 'paragraph',
-              content: [
-                {
-                  type: 'text',
-                  text: 'text',
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
-  ],
-};
-
-const docFromSchema = schema.nodeFromJSON(doc);
+import { complexDocument as doc } from './__fixtures__/documents';
 
 describe('Renderer - ReactSerializer - TextWrapperComponent', () => {
+  let docFromSchema: PMNode;
+  beforeAll(() => {
+    docFromSchema = schema.nodeFromJSON(doc);
+  });
+
   describe('when surroundTextNodesWithTextWrapper is true', () => {
     let reactDoc: ReactWrapper;
     beforeAll(() => {
       const reactSerializer = new ReactSerializer({
         surroundTextNodesWithTextWrapper: true,
       });
+
       reactDoc = mount(
         reactSerializer.serializeFragment(docFromSchema.content) as any,
       );
@@ -56,26 +27,28 @@ describe('Renderer - ReactSerializer - TextWrapperComponent', () => {
       reactDoc.unmount();
     });
 
-    it('should create a text wrapper for each text content', () => {
+    it('should match TextWrapper position props with ProseMirror node positions', () => {
       const textWrappers = reactDoc.find(TextWrapperComponent);
 
-      expect(textWrappers.length).toEqual(2);
-    });
+      let index = 0;
+      docFromSchema.nodesBetween(0, docFromSchema.nodeSize - 2, (node, pos) => {
+        if (node.type.name === 'codeBlock') {
+          return false;
+        }
 
-    it('should send the starting position as parameter', () => {
-      const textWrappers = reactDoc.find(TextWrapperComponent);
-      const first = textWrappers.first();
+        if (!node.isText) {
+          return true;
+        }
 
-      expect(first.prop('startPos')).toEqual(1);
-      expect(first.prop('endPos')).toEqual(6);
-    });
+        const elementWrapper = textWrappers.at(index);
+        const elementProps = elementWrapper.props();
 
-    it('should calc the depth node position', () => {
-      const textWrappers = reactDoc.find(TextWrapperComponent);
-      const last = textWrappers.last();
+        index++;
 
-      expect(last.prop('startPos')).toEqual(10);
-      expect(last.prop('endPos')).toEqual(14);
+        expect(node.text).toBe(elementProps.text);
+        expect(pos).toBe(elementProps.startPos);
+        expect(pos + node.nodeSize).toBe(elementProps.endPos);
+      });
     });
   });
 

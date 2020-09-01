@@ -1,4 +1,5 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useContext, useCallback, useEffect, useState } from 'react';
+import { AnnotationsDraftContext } from '../context';
 
 export const isRangeInsideOfRendererContainer = (
   rendererDOM: HTMLElement,
@@ -30,6 +31,8 @@ export const useUserSelectionRange = (
 ): [Range | null, () => void] => {
   const { rendererRef } = props;
   const [range, setRange] = useState<Range | null>(null);
+  const annotationDraftPosition = useContext(AnnotationsDraftContext);
+  const hasAnnotationDraft = !!annotationDraftPosition;
 
   useEffect(() => {
     const { current: rendererDOM } = rendererRef;
@@ -37,30 +40,31 @@ export const useUserSelectionRange = (
       return;
     }
 
-    const onMouseUpEvent = (event: Event) => {
+    const onSelectionChange = (event: Event) => {
       const sel = document.getSelection();
 
-      if (!sel || sel.type !== 'Range' || sel.rangeCount !== 1) {
+      if (
+        !sel ||
+        sel.type !== 'Range' ||
+        sel.rangeCount !== 1 ||
+        hasAnnotationDraft
+      ) {
         return;
       }
 
       const _range = sel.getRangeAt(0);
 
       if (isRangeInsideOfRendererContainer(rendererDOM, _range)) {
-        const clonedRange = document.createRange();
-        clonedRange.setStart(_range.startContainer, _range.startOffset);
-        clonedRange.setEnd(_range.endContainer, _range.endOffset);
-
-        setRange(clonedRange);
+        setRange(_range.cloneRange());
       }
     };
 
-    document.addEventListener('selectionchange', onMouseUpEvent);
+    document.addEventListener('selectionchange', onSelectionChange);
 
     return () => {
-      document.removeEventListener('selectionchange', onMouseUpEvent);
+      document.removeEventListener('selectionchange', onSelectionChange);
     };
-  }, [rendererRef, range]);
+  }, [rendererRef, range, hasAnnotationDraft]);
 
   const clearRange = useCallback(() => {
     setRange(null);

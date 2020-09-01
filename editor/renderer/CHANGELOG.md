@@ -1,5 +1,142 @@
 # @atlaskit/renderer
 
+## 65.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 65.0.0
+
+### Major Changes
+
+- [`78de49291b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/78de49291b) - [TWISTA-130] Implements ViewComponent prop for AnnotationProviders
+
+  # Breaking Change:
+
+  ## WHAT
+
+  AnnotationContext is not export anymore.
+
+  before
+
+  ```
+  import { AnnotationContext } from '@atlaskit/renderer'
+
+  ```
+
+  ## WHY
+
+  This was temporary until we defined the Provider.
+
+  ## HOW
+
+  The Annotation on Renderer was experimental. Probably, you were not using it.
+
+  # Minor Change:
+
+  ## WHAT
+
+  AnnotationProvider can receive a ViewComponent. This component will be mounted when the user clicks into an inline comment.
+
+- [`3711c0a754`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3711c0a754) - remove ADNode support from ExtensionRenderer
+
+### Minor Changes
+
+- [`5a14bab0bf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5a14bab0bf) - ED-10112 Add analytics for unwrapped unsupported contents
+- [`caae78bb98`](https://bitbucket.org/atlassian/atlassian-frontend/commits/caae78bb98) - Adds support for unsupportedBlock and unsupportedInline content analytics for Hybrid Editor and Hybrid Renderer.
+- [`a66b0a0d44`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a66b0a0d44) - ED-9497 Adds analytics to track unsupported Marks and Mark Attributes in editor and renderer.
+- [`c8cf7f9419`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c8cf7f9419) - ED-9623:
+
+  This piece of work includes:
+
+  - Adopting the api changes on `Renderer` to be able to open an expand that wraps a header that the user want to scroll to. This will change the bridge methods in order to have the expand opened beforehand:
+
+    - `getContentNodeScrollOffset` -> Api is unchanged, but if the header is inside an expand, it will open the expand asynchronously.
+    - **BREAKING CHANGE**: `scrollToContentNode` -> will return `void` instead of a boolean value as before, and if the header is inside an expand, it will scroll to the header once the expand is opened in such case.
+
+  - Creating a query param `allowHeadingAnchorLinks` to enable/disable the entire feature on `Renderer`:
+    - `allowHeadingAnchorLinks=false` -> will disable everything regarding headings
+    - `allowHeadingAnchorLinks=true` -> will enable new nested header behaviour but the UI will not be enabled for mobile (see point bellow)
+  - Disable UI for `mobile`/`comment` appearance: we need to enable the new expand behaviour but we don’t want to render the copy link button on those appearances.
+
+- [`e313fc34d3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e313fc34d3) - ED=9648-Update-Header implemeneted the new designs for the Nested Header Anchor Links. It is also backward compatible
+- [`c4b1cbec82`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c4b1cbec82) - ED-8344 Unsupported content type lozenge for block and inline in editor and renderer
+- [`48f6497c39`](https://bitbucket.org/atlassian/atlassian-frontend/commits/48f6497c39) - [TWISTA-343] Fix annotation click event to send only the actived ids
+- [`9096846553`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9096846553) - ED-10006: Added copy to clipboard functionality for the code block in renderer
+
+### Patch Changes
+
+- [`9c25171c24`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9c25171c24) - TWISTA-242 fixed validating full line selection for annotations
+- [`6e5372dcda`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6e5372dcda) - **Ticket:** EDM-1121
+
+  **Changes:**
+
+  Added integration tests across the board, asserting that a new window is opened to kick off the 3LO flow.
+
+  - Added integration test for account connection and try another account flows for Inline Links;
+  - Added integration test for account connection and try another account flows for Card Links;
+  - Added integration test for account connection and try another account flows for Embed Links;
+  - Aligned `data-testid`s across all buttons for all unauthenticated views for each of the above to be - `button-connect-account` for connecting account, and `button-connect-other-account` for trying with another account.
+
+  Further, added an `AuthorizationWindow` method to the `@atlaskit/media-integration-test-helpers`, with the following methods:
+
+  - `AuthorizationWindow.open()` - to open a window to authorize, dependent on which card state it is being activated from;
+  - `AuthorizationWindow.checkUrl()` - to check if the window URL when redirected is the same as the `MOCK_URL_AUTH_PROVIDER` inside of the package for assertions which ship with our mocks;
+  - `AuthorizationWindow.close()` - to close the window opened for authorization.
+
+- [`35bf6c0738`](https://bitbucket.org/atlassian/atlassian-frontend/commits/35bf6c0738) - TWISTA-317 fixed issue with extra text highlighted when commenting on a link
+- [`234df7a24a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/234df7a24a) - Rollback UI changes for Nested Headers + enable NHAL only in expands
+- [`1b971d8e2c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1b971d8e2c) - [TWISTA-346] Fix font color on Annotation Draft mode
+- [`8a2e5225d5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8a2e5225d5) - Added theming and dark mode colors to the Date node
+- [`05350d8f0c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/05350d8f0c) - TWISTA-276 added draft annotation styles in renderer
+- [`9468594ef9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9468594ef9) - **Ticket:** EDM-1120
+
+  **Changes:**
+
+  - Refactored Card Link `view` tests to separate files to be more maintainable;
+  - Added unit tests to all Card Link actions;
+  - Added unit tests to Card Link PreviewAction;
+  - Added `openPreviewState` and `waitForPreviewState` selectors for VR tests;
+  - Added VR test in Editor for Preview State;
+  - Added VR test in Renderer for Preview State.
+
+- [`c4a9fdd4da`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c4a9fdd4da) - TYPH-236 Use innerRef property if passed instead of creating a new one
+- [`11fd2197eb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/11fd2197eb) - ED-9933: Disable header links within tables even when nested header links are enabled via `{ allowHeadingAnchorLinks: { allowNestedHeaderLinks: true }}`
+- [`21131ce6be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/21131ce6be) - [TWISTA-283, TWISTA-282, TWISTA-241] Normalizes and fixes Annotation range validator logic for Renderer and Editor
+
+  @atlaskit/editor-common: It creates canApplyAnnotationOnRange function
+  @atlaskit/editor-core: It moves current hasInvalidNodes logic to editor-common function
+  @atlaskit/renderer: It replaces current logic to use the same as Editor
+
+- [`227581c8f4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/227581c8f4) - [TWISTA-348] Fixes changing user range after a draft annotation starts
+- [`6089993d2e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6089993d2e) - EDM-1116: centralize Smart Links selector and client utils for Integration, VR tests. Added mega-VR test for Smart Links in Renderer.
+
+  Selectors exported now include:
+
+  - `inlineCardSelector` - for selecting the Inline Link representation, in any of its resolved or unresolved states;
+  - `blockCardSelector` - for selecting the Card Link representation, in any of its resolved or unresolved states;
+  - `embedCardSelector` - for selecting the Embed Link representation, in any of its resolved or unresolved states;
+  - `lazyCardSelector` - for selecting the fallback representation of Smart Links whilst lazy rendering;
+  - `getLazyRenderedCards` - for getting DOM references to all Smart Links currently off the viewport, and rendered with a lazy fallback;
+  - `getCards` - for getting DOM references to all rendered Smart Links;
+  - `waitForLazyRenderedCard` - a predicate for when a fallback Smart Link has been rendered;
+  - `waitForResolvedInlineCard` - a predicate for when an Inline Link has been rendered;
+  - `waitForResolvedBlockCard` - a predicate for when a Block Link has been rendered;
+  - `waitForResolvedEmbedCard` - a predicate for when an Embed Link has been rendered;
+  - `waitForInlineCardSelection` - a predicate for when an Inline Link has been rendered and selected in the Teamwork Platform Editor;
+  - `waitForBlockCardSelection` - a predicate for when a Card Link has been rendered and selected in the Teamwork Platform Editor;
+  - `waitForEmbedCardSelection` - a predicate for when an Embed Link has been rendered and selected in the Teamwork Platform Editor.
+
+  Further, a `cardClient` is now shipped from the same test helpers package, with up-to-date mock responses for a host of test URLs (in the format, `https://<type: 'inline' | 'block' | 'embed'>Card/<status: 'resolved' | 'unauthorised' | 'forbidden' | ...>`). Importantly _all_ selectors are powered by `testId`s part of the implementation of Smart Links in `@atlaskit/smart-card` and `@atlaskit/media-ui`.
+
+- [`7315203b80`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7315203b80) - Rename `AkCode` and `AkCodeBlock` exports to `Code` and `CodeBlock` for `@atlaskit/code`.
+- [`fba7eda75d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fba7eda75d) - [TWISTA-344] Fixes remove annotation focus on Renderer
+- [`335cc0e6cd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/335cc0e6cd) - ED-9954 Fixed media link layout
+- [`0100b2c907`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0100b2c907) - [TWISTA-157] changed the reflow detector to use resize observer if available and also refactored where this API lives as it was in the wrong place.
+- [`59a31dbd73`](https://bitbucket.org/atlassian/atlassian-frontend/commits/59a31dbd73) - [TWISTA-349] Fixes creating annotation in nested marks
+- Updated dependencies
+
 ## 64.0.2
 
 ### Patch Changes

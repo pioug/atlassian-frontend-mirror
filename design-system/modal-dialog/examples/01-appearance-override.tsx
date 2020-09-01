@@ -4,7 +4,7 @@ import Lorem from 'react-lorem-component';
 
 import Button from '@atlaskit/button';
 
-import Modal, { ModalTransition } from '../src';
+import Modal, { ActionProps, ModalTransition } from '../src';
 
 interface State {
   isOpen: boolean;
@@ -20,14 +20,14 @@ export default class DefaultModal extends React.PureComponent<{}, State> {
 
   render() {
     const { isOpen } = this.state;
-    const actions = [
+    const actions: ActionProps[] = [
       {
-        appearance: 'default' as 'default',
+        appearance: 'default',
         text: 'Close',
         onClick: this.close,
       },
       {
-        appearance: 'primary' as 'primary',
+        appearance: 'primary',
         text: 'Secondary Action',
         onClick: this.secondaryAction,
       },

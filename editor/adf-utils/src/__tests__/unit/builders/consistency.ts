@@ -56,6 +56,7 @@ const ignoredMarks = [
   'type-ahead-query',
   'unsupported-mark',
   '__tests__',
+  'unsupported-node-attributes',
 ];
 
 const adfSchemaMarksPath = path.join(

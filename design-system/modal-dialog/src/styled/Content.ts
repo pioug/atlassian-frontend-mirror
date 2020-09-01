@@ -7,7 +7,6 @@ import { gridSize } from '@atlaskit/theme/constants';
 import { divide } from '@atlaskit/theme/math';
 
 import { AppearanceType } from '../types';
-import { flexMaxHeightIEFix } from '../utils/flex-max-height-ie-fix';
 
 // Constants
 // ==============================
@@ -22,7 +21,7 @@ export const wrapperStyles = css`
   display: flex;
   flex-direction: column;
   flex: 1 1 auto;
-  ${flexMaxHeightIEFix};
+  max-height: 100%;
 `;
 
 // Header

@@ -1,5 +1,17 @@
 # @atlaskit/icon
 
+## 21.1.1
+
+### Patch Changes
+
+- [`f51e6ff443`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f51e6ff443) - License updated to Apache 2.0 (previously under the ADG license)
+
+## 21.1.0
+
+### Minor Changes
+
+- [`2f414dd083`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2f414dd083) - The new ArchiveIcon is now available to use via `import ArchiveIcon from '@atlaskit/icon/glyph/archive';`
+
 ## 21.0.3
 
 ### Patch Changes

@@ -57,7 +57,7 @@ export interface Props {
 }
 
 export interface State {
-  isOpen: boolean;
+  isPlusMenuOpen: boolean;
   emojiPickerOpen: boolean;
   buttons: BlockMenuItem[];
   dropdownItems: BlockMenuItem[];

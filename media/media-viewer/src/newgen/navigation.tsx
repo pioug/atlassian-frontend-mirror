@@ -4,7 +4,8 @@ import { Identifier } from '@atlaskit/media-client';
 import ArrowLeftCircleIcon from '@atlaskit/icon/glyph/chevron-left-circle';
 import ArrowRightCircleIcon from '@atlaskit/icon/glyph/chevron-right-circle';
 import { N800 } from '@atlaskit/theme/colors';
-import { hideControlsClassName, MediaButton } from '@atlaskit/media-ui';
+import { hideControlsClassName } from '@atlaskit/media-ui';
+import Button from '@atlaskit/button';
 import { Shortcut } from '@atlaskit/media-ui';
 import {
   withAnalyticsEvents,
@@ -78,7 +79,7 @@ export class NavigationBase extends Component<NavigationProps, {}> {
           {isLeftVisible ? (
             <Arrow className={hideControlsClassName}>
               <Shortcut keyCode={37} handler={prev('keyboard')} />
-              <MediaButton
+              <Button
                 testId="media-viewer-navigation-prev"
                 onClick={prev('mouse')}
                 iconBefore={
@@ -97,7 +98,7 @@ export class NavigationBase extends Component<NavigationProps, {}> {
           {isRightVisible ? (
             <Arrow className={hideControlsClassName}>
               <Shortcut keyCode={39} handler={next('keyboard')} />
-              <MediaButton
+              <Button
                 testId="media-viewer-navigation-next"
                 onClick={next('mouse')}
                 iconBefore={

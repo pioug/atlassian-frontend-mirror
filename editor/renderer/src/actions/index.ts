@@ -2,8 +2,9 @@ import {
   JSONTransformer,
   JSONDocNode,
 } from '@atlaskit/editor-json-transformer';
-import { AnnotationTypes } from '@atlaskit/adf-schema';
-import { Node, Schema } from 'prosemirror-model';
+import { canApplyAnnotationOnRange } from '@atlaskit/editor-common';
+import { AnnotationTypes, AnnotationId } from '@atlaskit/adf-schema';
+import { Node, Schema, Mark } from 'prosemirror-model';
 import { Step, RemoveMarkStep } from 'prosemirror-transform';
 import { createAnnotationStep, getPosFromRange } from '../steps';
 
@@ -28,9 +29,11 @@ export type ApplyAnnotation = (
   pos: Position,
   annotation: Annotation,
 ) => ActionResult;
+
 export interface AnnotationsRendererActionsOptions {
   isValidAnnotationPosition: (pos: Position) => boolean;
   applyAnnotation: ApplyAnnotation;
+  getAnnotationMarks: () => Mark[];
 }
 
 export interface PositionRendererActionsOptions {
@@ -86,19 +89,11 @@ export default class RendererActions
    * Validate whether we can create an annotation between two positions
    */
   _privateValidatePositionsForAnnotation(from: number, to: number): boolean {
-    if (!this.doc) {
+    if (!this.doc || !this.schema) {
       return false;
     }
 
-    let isAllowed = true;
-    this.doc.nodesBetween(from, to, node => {
-      // we don't allow annotating inline nodes other than text
-      if (node && node.isInline && !node.isText) {
-        isAllowed = false;
-      }
-    });
-
-    return isAllowed;
+    return canApplyAnnotationOnRange({ from, to }, this.doc, this.schema);
   }
   //#endregion
 
@@ -198,6 +193,42 @@ export default class RendererActions
     }
 
     return getPosFromRange(range);
+  }
+
+  getAnnotationMarks() {
+    const { schema, doc } = this;
+    if (!schema || !doc) {
+      return [];
+    }
+
+    const {
+      marks: { annotation: annotationMarkType },
+    } = schema;
+
+    if (!annotationMarkType) {
+      return [];
+    }
+    const marks: Mark[] = [];
+
+    doc.descendants(node => {
+      const annotationsMark = node.marks.filter(
+        m => m.type === annotationMarkType,
+      );
+      if (!annotationsMark || !annotationsMark.length) {
+        return true;
+      }
+
+      marks.push(...annotationsMark);
+
+      return false;
+    });
+
+    const uniqueMarks: Map<AnnotationId, Mark> = new Map();
+    marks.forEach(m => {
+      uniqueMarks.set(m.attrs.id, m);
+    });
+
+    return Array.from(uniqueMarks.values());
   }
 
   applyAnnotation(pos: Position, annotation: Annotation): ActionResult {

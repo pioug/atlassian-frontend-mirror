@@ -24,8 +24,24 @@ function AnnotationCheckbox(props: {
   );
 }
 
+function EnableAnnotationTypeCheckbox(props: {
+  id: string;
+  checked: boolean;
+  type: string;
+  onChange: (evt: React.ChangeEvent<HTMLInputElement>) => void;
+}) {
+  const { id, checked, onChange, type } = props;
+  return (
+    <label htmlFor={id}>
+      <input onChange={onChange} type="checkbox" id={id} checked={checked} />
+      Enable {type}
+    </label>
+  );
+}
+
 type State = {
   annotationStates: Map<string, boolean>;
+  isInlineCommentsEnabled: boolean;
 };
 
 export default class ExampleAnnotationExperiment extends React.Component<
@@ -33,6 +49,7 @@ export default class ExampleAnnotationExperiment extends React.Component<
   State
 > {
   state = {
+    isInlineCommentsEnabled: true,
     annotationStates: new Map([
       ['12e213d7-badd-4c2a-881e-f5d6b9af3752', false],
       ['9714aedf-5300-43f4-ac10-a2e4326189d2', true],
@@ -72,13 +89,35 @@ export default class ExampleAnnotationExperiment extends React.Component<
     emitter.emit(newState ? 'resolve' : 'unresolve', id);
   };
 
+  handleOnOffChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
+    const { checked } = evt.target;
+
+    this.setState((prevState: State) => {
+      return {
+        isInlineCommentsEnabled: checked,
+      };
+    });
+
+    emitter.emit('setvisibility', checked);
+  };
+
   render() {
+    const { annotationStates, isInlineCommentsEnabled } = this.state;
+
     return (
       <div style={{ display: 'flex', height: '100%' }}>
         <div style={{ flex: '20%', padding: '16px' }}>
           <h3>Annotations</h3>
+          <div>
+            <EnableAnnotationTypeCheckbox
+              id="enable-inline-comments"
+              checked={isInlineCommentsEnabled}
+              onChange={this.handleOnOffChange}
+              type="Inline Comments"
+            />
+          </div>
           Checked == resolved
-          {[...this.state.annotationStates.entries()].map(([key, val]) => (
+          {[...annotationStates.entries()].map(([key, val]) => (
             <AnnotationCheckbox
               id={key}
               key={key}

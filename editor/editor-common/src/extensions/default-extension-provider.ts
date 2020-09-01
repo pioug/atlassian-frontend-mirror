@@ -5,14 +5,16 @@ import {
   ExtensionManifest,
   ExtensionProvider,
   ExtensionType,
+  Parameters,
 } from './types';
 
-export default class DefaultExtensionProvider implements ExtensionProvider {
-  private manifestsPromise: Promise<ExtensionManifest[]>;
+export default class DefaultExtensionProvider<T = Parameters>
+  implements ExtensionProvider<T> {
+  private manifestsPromise: Promise<ExtensionManifest<T>[]>;
   private autoConvertHandlers?: ExtensionAutoConvertHandler[];
 
   constructor(
-    manifests: ExtensionManifest[] | Promise<ExtensionManifest[]>,
+    manifests: ExtensionManifest<T>[] | Promise<ExtensionManifest<T>[]>,
     /**
      * Allows for an optional list of pre compiled auto convert handlers to be passed.
      * Useful for performance improvements or to support legacy converters.

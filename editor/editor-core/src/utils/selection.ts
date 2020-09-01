@@ -6,7 +6,6 @@ import {
   TextSelection,
   AllSelection,
 } from 'prosemirror-state';
-
 import { Mark, Node } from 'prosemirror-model';
 
 import { browser } from '@atlaskit/editor-common';

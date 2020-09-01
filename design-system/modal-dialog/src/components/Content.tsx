@@ -273,11 +273,13 @@ export default class Content extends React.Component<Props, State> {
   handleKeyDown = (event: any) => {
     const { onClose, shouldCloseOnEscapePress, stackIndex = 0 } = this.props;
 
+    const isEscapeKeyPressed = event.key === 'Escape';
+
     // avoid consumers accidentally closing multiple modals if they hold escape.
     if (this.escapeIsHeldDown) {
       return;
     }
-    if (event.key === 'Escape' || event.key === 'Esc') {
+    if (isEscapeKeyPressed) {
       this.escapeIsHeldDown = true;
     }
 
@@ -286,14 +288,8 @@ export default class Content extends React.Component<Props, State> {
       return;
     }
 
-    switch (event.key) {
-      case 'Esc':
-      case 'Escape':
-        if (shouldCloseOnEscapePress) {
-          onClose(event);
-        }
-        break;
-      default:
+    if (isEscapeKeyPressed && shouldCloseOnEscapePress) {
+      onClose(event);
     }
   };
 

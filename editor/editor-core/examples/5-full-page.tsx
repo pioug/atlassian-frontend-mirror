@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import React from 'react';
 import Button, { ButtonGroup } from '@atlaskit/button';
 import { MockActivityResource } from '../example-helpers/activity-provider';
+import { createSearchProvider, Scope } from '@atlassian/search-provider';
 import ExamplesErrorBoundary from '../example-helpers/ExamplesErrorBoundary';
 
 import { AtlassianIcon } from '@atlaskit/logo';
@@ -155,6 +156,12 @@ export type State = {
   warning?: Message;
 };
 
+const searchProvider = createSearchProvider(
+  'DUMMY-a5a01d21-1cc3-4f29-9565-f2bb8cd969f5',
+  Scope.ConfluencePageBlog,
+  'https://api-private.stg.atlassian.com/gateway/api/xpsearch-aggregator',
+);
+
 export const providers: Partial<Providers> = {
   emojiProvider: emoji.storyData.getEmojiResource({
     uploadSupported: true,
@@ -168,6 +175,7 @@ export const providers: Partial<Providers> = {
   ),
   contextIdentifierProvider: storyContextIdentifierProviderFactory(),
   activityProvider: Promise.resolve(new MockActivityResource()),
+  searchProvider: Promise.resolve(searchProvider),
   macroProvider: Promise.resolve(macroProvider),
   autoformattingProvider: Promise.resolve(autoformattingProvider),
 };
@@ -301,6 +309,7 @@ export class ExampleEditorComponent extends React.Component<
                   allowMatchCase: true,
                 }}
                 allowNestedTasks
+                codeBlock={{ allowCopyToClipboard: true }}
                 {...providers}
                 media={{
                   provider: mediaProvider,

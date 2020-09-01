@@ -76,10 +76,10 @@ describe('inputrules', () => {
           actionSubject: 'text',
           eventType: 'track',
           actionSubjectId: 'heading',
-          attributes: {
+          attributes: expect.objectContaining({
             inputMethod,
             newHeadingLevel,
-          },
+          }),
         };
       }
 
@@ -182,10 +182,10 @@ describe('inputrules', () => {
           actionSubject: 'text',
           eventType: 'track',
           actionSubjectId: 'heading',
-          attributes: {
+          attributes: expect.objectContaining({
             inputMethod: 'quickInsert',
             newHeadingLevel: 1,
-          },
+          }),
         };
         expect(createAnalyticsEvent).toHaveBeenCalledWith(expectedPayload);
       });
@@ -201,9 +201,9 @@ describe('inputrules', () => {
           actionSubject: 'text',
           eventType: 'track',
           actionSubjectId: 'blockQuote',
-          attributes: {
+          attributes: expect.objectContaining({
             inputMethod: 'autoformatting',
-          },
+          }),
         };
 
         insertAutoformatRule(greatherThanRule);

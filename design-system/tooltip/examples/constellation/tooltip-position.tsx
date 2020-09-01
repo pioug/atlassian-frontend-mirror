@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import Button from '@atlaskit/button';
 
@@ -13,35 +13,22 @@ const VALID_POSITIONS: PositionType[] = [
   'left',
 ];
 
-interface State {
-  position: number;
-}
+const PositionExample = () => {
+  const [position, setPosition] = useState(0);
+  const positionText = VALID_POSITIONS[position];
 
-export default class PositionExample extends React.Component<{}, State> {
-  // store the direction as an index and pull it from the list above,
-  // just to simplify the `changeDirection` logic
-  state = { position: 0 };
+  return (
+    <div
+      style={{ padding: '40px 40px' }}
+      onClick={() => {
+        setPosition((position + 1) % VALID_POSITIONS.length);
+      }}
+    >
+      <Tooltip content={positionText} position={positionText}>
+        <Button appearance="primary">Target</Button>
+      </Tooltip>
+    </div>
+  );
+};
 
-  static defaultProps = {
-    color: 'blue',
-  };
-
-  changeDirection = () => {
-    this.setState({
-      position: (this.state.position + 1) % VALID_POSITIONS.length,
-    });
-  };
-
-  render() {
-    const position = VALID_POSITIONS[this.state.position];
-
-    return (
-      // eslint-disable-next-line jsx-a11y/no-static-element-interactions , jsx-a11y/click-events-have-key-events
-      <div onClick={this.changeDirection}>
-        <Tooltip content={position} position={position}>
-          <Button appearance="primary">Target</Button>
-        </Tooltip>
-      </div>
-    );
-  }
-}
+export default PositionExample;

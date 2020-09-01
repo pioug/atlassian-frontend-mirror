@@ -740,6 +740,103 @@ describe('FileFetcher', () => {
       expect(copiedFileState.preview).toEqual(copyOptions.preview);
     });
 
+    it('should override mimeType when provided', async () => {
+      const { items, fileFetcher, mockAuthProvider } = setup();
+      const copiedFile: MediaFile = {
+        id: 'copied-file-id',
+        name: 'copied-file-name',
+        processingStatus: 'succeeded',
+        artifacts: {},
+        mediaType: 'unknown',
+        mimeType: 'binary/octet-stream',
+        representations: {},
+        size: 1,
+      };
+      const mediaStore = createMockMediaStore(jest.fn());
+      asMock(mediaStore.copyFileWithToken).mockResolvedValue({
+        data: copiedFile,
+      });
+
+      const source = {
+        id: items[0].id,
+        collection: 'someCollectionName',
+        authProvider: mockAuthProvider,
+      };
+      const destination = {
+        collection: RECENTS_COLLECTION,
+        authProvider: mockAuthProvider,
+        mediaStore,
+      };
+      const copyOptions = {
+        preview: {
+          value: new Blob([], { type: 'image/jpeg' }),
+          origin: 'local',
+        } as FilePreview,
+        mimeType: 'image/jpeg',
+      };
+      await fileFetcher.copyFile(source, destination, copyOptions);
+
+      const copiedFileObservable = getFileStreamsCache().get('copied-file-id');
+      if (!copiedFileObservable) {
+        return expect(copiedFileObservable).toBeDefined();
+      }
+
+      const copiedFileState = await observableToPromise(copiedFileObservable);
+      if (!isPreviewableFileState(copiedFileState)) {
+        return expect(isPreviewableFileState(copiedFileState)).toBeTruthy();
+      }
+
+      expect(copiedFileState.mimeType).toEqual(copyOptions.mimeType);
+    });
+
+    it('should not override mimeType when not provided', async () => {
+      const { items, fileFetcher, mockAuthProvider } = setup();
+      const copiedFile: MediaFile = {
+        id: 'copied-file-id',
+        name: 'copied-file-name',
+        processingStatus: 'succeeded',
+        artifacts: {},
+        mediaType: 'unknown',
+        mimeType: 'binary/octet-stream',
+        representations: {},
+        size: 1,
+      };
+      const mediaStore = createMockMediaStore(jest.fn());
+      asMock(mediaStore.copyFileWithToken).mockResolvedValue({
+        data: copiedFile,
+      });
+
+      const source = {
+        id: items[0].id,
+        collection: 'someCollectionName',
+        authProvider: mockAuthProvider,
+      };
+      const destination = {
+        collection: RECENTS_COLLECTION,
+        authProvider: mockAuthProvider,
+        mediaStore,
+      };
+      const copyOptions = {
+        preview: {
+          value: new Blob([], { type: 'image/jpeg' }),
+          origin: 'local',
+        } as FilePreview,
+      };
+      await fileFetcher.copyFile(source, destination, copyOptions);
+
+      const copiedFileObservable = getFileStreamsCache().get('copied-file-id');
+      if (!copiedFileObservable) {
+        return expect(copiedFileObservable).toBeDefined();
+      }
+
+      const copiedFileState = await observableToPromise(copiedFileObservable);
+      if (!isPreviewableFileState(copiedFileState)) {
+        return expect(isPreviewableFileState(copiedFileState)).toBeTruthy();
+      }
+
+      expect(copiedFileState.mimeType).toEqual(copiedFile.mimeType);
+    });
+
     it('should fetch remote processing states for files requiring remote preview', async () => {
       const { items, fileFetcher, mediaStore, mockAuthProvider } = setup();
       const copiedFile: MediaFile = {

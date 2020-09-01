@@ -1,5 +1,12 @@
 # @atlaskit/calendar
 
+## 10.0.3
+
+### Patch Changes
+
+- [`8598d0bd13`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8598d0bd13) - Remove unnecessary code and tests for IE11.
+- Updated dependencies
+
 ## 10.0.2
 
 ### Patch Changes

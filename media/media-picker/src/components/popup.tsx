@@ -1,4 +1,5 @@
 import { MediaClient } from '@atlaskit/media-client';
+import { MediaFeatureFlags } from '@atlaskit/media-common/mediaFeatureFlags';
 import { Store } from 'redux';
 import React from 'react';
 import { render, unmountComponentAtNode } from 'react-dom';
@@ -32,6 +33,7 @@ export class PopupImpl extends UploadComponent<PopupUploadEventPayloadMap>
   private tenantUploadParams: UploadParams;
   private proxyReactContext?: AppProxyReactContext;
   private useForgePlugins?: boolean;
+  private featureFlags?: MediaFeatureFlags;
 
   constructor(
     readonly tenantMediaClient: MediaClient,
@@ -42,11 +44,13 @@ export class PopupImpl extends UploadComponent<PopupUploadEventPayloadMap>
       singleSelect,
       plugins,
       useForgePlugins = false,
+      featureFlags,
     }: PopupConfig,
   ) {
     super();
     this.proxyReactContext = proxyReactContext;
     this.useForgePlugins = useForgePlugins;
+    this.featureFlags = featureFlags;
 
     const userAuthProvider = createPopupUserAuthProvider(
       tenantMediaClient.stargate,
@@ -144,6 +148,7 @@ export class PopupImpl extends UploadComponent<PopupUploadEventPayloadMap>
         proxyReactContext={this.proxyReactContext}
         tenantUploadParams={this.tenantUploadParams}
         useForgePlugins={this.useForgePlugins}
+        featureFlags={this.featureFlags}
       />,
       container,
     );

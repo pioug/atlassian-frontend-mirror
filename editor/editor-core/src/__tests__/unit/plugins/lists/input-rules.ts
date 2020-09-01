@@ -51,9 +51,9 @@ describe('inputrules', () => {
           actionSubject: 'text',
           eventType: 'track',
           actionSubjectId: 'bulletedList',
-          attributes: {
+          attributes: expect.objectContaining({
             inputMethod: 'autoformatting',
-          },
+          }),
         });
       });
 
@@ -109,9 +109,9 @@ describe('inputrules', () => {
           actionSubject: 'text',
           eventType: 'track',
           actionSubjectId: 'bulletedList',
-          attributes: {
+          attributes: expect.objectContaining({
             inputMethod: 'autoformatting',
-          },
+          }),
         });
       });
     });
@@ -144,9 +144,9 @@ describe('inputrules', () => {
           actionSubject: 'text',
           eventType: 'track',
           actionSubjectId: 'numberedList',
-          attributes: {
+          attributes: expect.objectContaining({
             inputMethod: 'autoformatting',
-          },
+          }),
         };
         expect(createAnalyticsEvent).toHaveBeenCalledWith(expectedPayload);
       });
@@ -192,9 +192,9 @@ describe('inputrules', () => {
           actionSubject: 'text',
           eventType: 'track',
           actionSubjectId: 'numberedList',
-          attributes: {
+          attributes: expect.objectContaining({
             inputMethod: 'autoformatting',
-          },
+          }),
         };
         expect(createAnalyticsEvent).toHaveBeenCalledWith(expectedPayload);
       });

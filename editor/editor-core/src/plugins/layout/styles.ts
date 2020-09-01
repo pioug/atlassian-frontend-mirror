@@ -11,7 +11,7 @@ import {
   akEditorSwoopCubicBezier,
 } from '@atlaskit/editor-common';
 import { TableCssClassName } from '../table/types';
-import { tableMarginFullWidthMode } from '../table/ui/styles';
+import { tableMarginFullWidthMode } from '../table/ui/consts';
 import { akEditorSelectedNodeClassName } from '../../styles';
 import { SelectionStyle } from '../selection/types';
 import { getSelectionStyles } from '../selection/utils';
@@ -66,13 +66,9 @@ export const layoutStyles = css`
           }
 
           /* Prevent first DecisionWrapper's margin-top: 8px from shifting decisions down
-          and shrinking layout's node selectable area (leniency margin).
-          Note: ignore prettier to prevent css breaking */
-          /* prettier-ignore */
-          > [data-node-type='decisionList']:first-child,
-          .ProseMirror-gapcursor.-right:first-child + [data-node-type='decisionList'],
-          .ProseMirror-gapcursor:first-child + span + [data-node-type='decisionList'] {
-            .decisionItemView-content-wrap:first-child [data-decision-wrapper='true'] {
+             and shrinking layout's node selectable area (leniency margin) */
+          > [data-node-type='decisionList'] {
+            li:first-of-type [data-decision-wrapper] {
               margin-top: 0;
             }
           }

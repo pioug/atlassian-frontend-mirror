@@ -1,13 +1,13 @@
 import React from 'react';
-import { ExtensionParams } from '@atlaskit/editor-common/extensions';
+import { ExtensionComponentProps } from '@atlaskit/editor-common/extensions';
 
-type Props = {
-  node: ExtensionParams<{ item?: string; items?: string[] }>;
+export type AwesomeParams = {
+  item?: string;
+  items?: string[];
 };
 
-export default ({ node }: Props) => {
+export default ({ node }: ExtensionComponentProps<AwesomeParams>) => {
   const { parameters, extensionKey } = node;
-
   const [, nodeKey = 'default'] = extensionKey.split(':');
 
   switch (nodeKey) {
@@ -30,4 +30,6 @@ export default ({ node }: Props) => {
         </div>
       );
   }
+
+  return null;
 };

@@ -24,5 +24,6 @@ export const INLINE_SIDEBAR_HEIGHT = '54px';
 export const SEARCH_ITEM_MARGIN = '12px';
 export const SEARCH_ITEM_HEIGHT_WIDTH = '20px';
 
+export const SCROLLBAR_WIDTH = GRID_SIZE;
 export const SCROLLBAR_THUMB_COLOR = '#eeeeee';
 export const SCROLLBAR_TRACK_COLOR = 'rgba(255, 255, 255, 0)';

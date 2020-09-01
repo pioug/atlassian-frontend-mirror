@@ -35,10 +35,12 @@ export const panelStyles = css`
 
     /* Danger when nested node */
     .danger .${PanelSharedCssClassName.prefix} {
-      background-color: ${akEditorDeleteBackgroundWithOpacity};
+      &[data-panel-type] {
+        background-color: ${akEditorDeleteBackgroundWithOpacity};
 
-      .${PanelSharedCssClassName.icon} {
-        color: ${akEditorDeleteIconColor};
+        .${PanelSharedCssClassName.icon} {
+          color: ${akEditorDeleteIconColor};
+        }
       }
     }
 

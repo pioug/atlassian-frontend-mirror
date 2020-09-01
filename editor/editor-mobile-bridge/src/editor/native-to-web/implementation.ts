@@ -150,10 +150,6 @@ export default class WebBridgeImpl extends WebBridge
     }
   }
 
-  sendHeight() {
-    // not implemented yet
-  }
-
   onBoldClicked(
     inputMethod: TextFormattingInputMethodBasic = INPUT_METHOD.TOOLBAR,
   ) {
@@ -726,6 +722,19 @@ export default class WebBridgeImpl extends WebBridge
     this.eventEmitter.emit(
       EventTypes.REMOVE_ALLOWED_INSERT_LIST_ITEM,
       this.allowList,
+    );
+  }
+
+  /**
+   * Used to observe the height of the rendered content and notify the native side when that happens
+   * by calling RendererBridge#onRenderedContentHeightChanged.
+   *
+   * @param enabled whether the height is being observed (and therefore the callback is being called).
+   */
+  observeRenderedContentHeight(enabled: boolean) {
+    this.eventEmitter.emit(
+      EventTypes.SET_DOCUMENT_REFLOW_DETECTOR_STATUS,
+      enabled,
     );
   }
 }

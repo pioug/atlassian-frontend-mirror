@@ -48,11 +48,13 @@ import {
   ul,
   underline,
   unsupportedMark,
+  unsupportedNodeAttribute,
 } from '@atlaskit/editor-test-helpers';
 import { WikiMarkupTransformer } from '@atlaskit/editor-wikimarkup-transformer';
 import { emoji as emojiData } from '@atlaskit/util-data-test';
 
 import { JSONDocNode, JSONTransformer } from '../../index';
+import * as markOverride from '../../markOverrideRules';
 
 const transformer = new JSONTransformer();
 const toJSON = (node: PMNode) => transformer.encode(node);
@@ -500,234 +502,6 @@ describe('JSONTransformer:', () => {
       });
     });
 
-    it('should unwrap an unsupported mark with its originalValue', () => {
-      const { editorView } = editor(
-        doc(
-          p(
-            unsupportedMark({ originalValue: { type: 'em' } })(
-              'Unsupported Text',
-            ),
-          ),
-        ),
-      );
-
-      const expected = {
-        version: 1,
-        type: 'doc',
-        content: [
-          {
-            type: 'paragraph',
-            content: [
-              {
-                type: 'text',
-                text: 'Unsupported Text',
-                marks: [{ type: 'em' }],
-              },
-            ],
-          },
-        ],
-      };
-
-      expect(toJSON(editorView.state.doc)).toEqual(expected);
-    });
-
-    it(
-      'should drop unsupportedMark that has same type ' +
-        'as one of its siblings',
-      () => {
-        const { editorView } = editor(
-          doc(
-            p(
-              textColor({ color: '#ff5630' })(
-                unsupportedMark({
-                  originalValue: {
-                    type: 'textColor',
-                    attrs: {
-                      color: '#00b8d9',
-                    },
-                  },
-                })('Some Text'),
-              ),
-            ),
-          ),
-        );
-
-        const expected = {
-          version: 1,
-          type: 'doc',
-          content: [
-            {
-              type: 'paragraph',
-              content: [
-                {
-                  type: 'text',
-                  text: 'Some Text',
-                  marks: [
-                    {
-                      type: 'textColor',
-                      attrs: {
-                        color: '#ff5630',
-                      },
-                    },
-                  ],
-                },
-              ],
-            },
-          ],
-        };
-        expect(toJSON(editorView.state.doc)).toEqual(expected);
-      },
-    );
-
-    it(
-      'should drop unsupportedMark that has same type as ' +
-        'one of its siblings and has invalid attributes',
-      () => {
-        const { editorView } = editor(
-          doc(
-            p(
-              textColor({ color: '#ff5630' })(
-                unsupportedMark({
-                  originalValue: {
-                    type: 'textColor',
-                    attrs: {
-                      color: 'red',
-                      bgcolor: 'green',
-                    },
-                  },
-                })('Some Text'),
-              ),
-            ),
-          ),
-        );
-
-        const expected = {
-          version: 1,
-          type: 'doc',
-          content: [
-            {
-              type: 'paragraph',
-              content: [
-                {
-                  type: 'text',
-                  text: 'Some Text',
-                  marks: [
-                    {
-                      type: 'textColor',
-                      attrs: {
-                        color: '#ff5630',
-                      },
-                    },
-                  ],
-                },
-              ],
-            },
-          ],
-        };
-        expect(toJSON(editorView.state.doc)).toEqual(expected);
-      },
-    );
-
-    it(
-      'should drop unsupportedMark that has same type as ' +
-        'one of its siblings and retain other marks that are valid',
-      () => {
-        const { editorView } = editor(
-          doc(
-            p(
-              textColor({ color: '#ff5630' })(
-                unsupportedMark({
-                  originalValue: {
-                    type: 'textColor',
-                    attrs: {
-                      color: 'red',
-                      bgcolor: 'green',
-                    },
-                  },
-                })(em('Some Text')),
-              ),
-            ),
-          ),
-        );
-
-        const expected = {
-          version: 1,
-          type: 'doc',
-          content: [
-            {
-              type: 'paragraph',
-              content: [
-                {
-                  type: 'text',
-                  text: 'Some Text',
-                  marks: [
-                    {
-                      type: 'em',
-                    },
-                    {
-                      type: 'textColor',
-                      attrs: {
-                        color: '#ff5630',
-                      },
-                    },
-                  ],
-                },
-              ],
-            },
-          ],
-        };
-        expect(toJSON(editorView.state.doc)).toEqual(expected);
-      },
-    );
-
-    it(
-      'should not drop unsupportedMark when its type is unique among siblings ' +
-        'and should properly unwrap the value',
-      () => {
-        const { editorView } = editor(
-          doc(
-            p(
-              unsupportedMark({
-                originalValue: {
-                  type: 'textColor',
-                  attrs: {
-                    color: 'red',
-                    bgcolor: 'green',
-                  },
-                },
-              })('Some Text'),
-            ),
-          ),
-        );
-
-        const expected = {
-          version: 1,
-          type: 'doc',
-          content: [
-            {
-              type: 'paragraph',
-              content: [
-                {
-                  type: 'text',
-                  text: 'Some Text',
-                  marks: [
-                    {
-                      type: 'textColor',
-                      attrs: {
-                        color: 'red',
-                        bgcolor: 'green',
-                      },
-                    },
-                  ],
-                },
-              ],
-            },
-          ],
-        };
-        expect(toJSON(editorView.state.doc)).toEqual(expected);
-      },
-    );
-
     [
       { nodeName: 'tableCell', schemaBuilder: td },
       { nodeName: 'tableHeader', schemaBuilder: th },
@@ -863,6 +637,998 @@ describe('JSONTransformer:', () => {
             });
           });
         });
+      });
+    });
+
+    describe('unsupported mark', () => {
+      let markOverrideRuleFor: any;
+      beforeEach(() => {
+        markOverrideRuleFor = jest.spyOn(markOverride, 'markOverrideRuleFor');
+      });
+
+      afterEach(() => {
+        markOverrideRuleFor.mockRestore();
+      });
+
+      it('should unwrap an unsupported mark with its originalValue', () => {
+        const { editorView } = editor(
+          doc(
+            p(
+              unsupportedMark({ originalValue: { type: 'em' } })(
+                'Unsupported Text',
+              ),
+            ),
+          ),
+        );
+
+        const expected = {
+          version: 1,
+          type: 'doc',
+          content: [
+            {
+              type: 'paragraph',
+              content: [
+                {
+                  type: 'text',
+                  text: 'Unsupported Text',
+                  marks: [{ type: 'em' }],
+                },
+              ],
+            },
+          ],
+        };
+
+        expect(toJSON(editorView.state.doc)).toEqual(expected);
+      });
+
+      it(
+        'should drop unsupportedMark that has same type ' +
+          'as one of its siblings',
+        () => {
+          const { editorView } = editor(
+            doc(
+              p(
+                textColor({ color: '#ff5630' })(
+                  unsupportedMark({
+                    originalValue: {
+                      type: 'textColor',
+                      attrs: {
+                        color: '#00b8d9',
+                      },
+                    },
+                  })('Some Text'),
+                ),
+              ),
+            ),
+          );
+
+          const expected = {
+            version: 1,
+            type: 'doc',
+            content: [
+              {
+                type: 'paragraph',
+                content: [
+                  {
+                    type: 'text',
+                    text: 'Some Text',
+                    marks: [
+                      {
+                        type: 'textColor',
+                        attrs: {
+                          color: '#ff5630',
+                        },
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          };
+          expect(toJSON(editorView.state.doc)).toEqual(expected);
+        },
+      );
+
+      it(
+        'should drop unsupportedMark that has same type as ' +
+          'one of its siblings and has invalid attributes',
+        () => {
+          const { editorView } = editor(
+            doc(
+              p(
+                textColor({ color: '#ff5630' })(
+                  unsupportedMark({
+                    originalValue: {
+                      type: 'textColor',
+                      attrs: {
+                        color: 'red',
+                        bgcolor: 'green',
+                      },
+                    },
+                  })('Some Text'),
+                ),
+              ),
+            ),
+          );
+
+          const expected = {
+            version: 1,
+            type: 'doc',
+            content: [
+              {
+                type: 'paragraph',
+                content: [
+                  {
+                    type: 'text',
+                    text: 'Some Text',
+                    marks: [
+                      {
+                        type: 'textColor',
+                        attrs: {
+                          color: '#ff5630',
+                        },
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          };
+          expect(toJSON(editorView.state.doc)).toEqual(expected);
+        },
+      );
+
+      it(
+        'should drop unsupportedMark that has same type as ' +
+          'one of its siblings and retain other marks that are valid',
+        () => {
+          const { editorView } = editor(
+            doc(
+              p(
+                textColor({ color: '#ff5630' })(
+                  unsupportedMark({
+                    originalValue: {
+                      type: 'textColor',
+                      attrs: {
+                        color: 'red',
+                        bgcolor: 'green',
+                      },
+                    },
+                  })(em('Some Text')),
+                ),
+              ),
+            ),
+          );
+
+          const expected = {
+            version: 1,
+            type: 'doc',
+            content: [
+              {
+                type: 'paragraph',
+                content: [
+                  {
+                    type: 'text',
+                    text: 'Some Text',
+                    marks: [
+                      {
+                        type: 'em',
+                      },
+                      {
+                        type: 'textColor',
+                        attrs: {
+                          color: '#ff5630',
+                        },
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          };
+          expect(toJSON(editorView.state.doc)).toEqual(expected);
+        },
+      );
+
+      it(
+        'should not drop unsupportedMark when its type is unique among siblings ' +
+          'and should properly unwrap the value',
+        () => {
+          const { editorView } = editor(
+            doc(
+              p(
+                unsupportedMark({
+                  originalValue: {
+                    type: 'textColor',
+                    attrs: {
+                      color: 'red',
+                      bgcolor: 'green',
+                    },
+                  },
+                })('Some Text'),
+              ),
+            ),
+          );
+
+          const expected = {
+            version: 1,
+            type: 'doc',
+            content: [
+              {
+                type: 'paragraph',
+                content: [
+                  {
+                    type: 'text',
+                    text: 'Some Text',
+                    marks: [
+                      {
+                        type: 'textColor',
+                        attrs: {
+                          color: 'red',
+                          bgcolor: 'green',
+                        },
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          };
+          expect(toJSON(editorView.state.doc)).toEqual(expected);
+        },
+      );
+
+      it(
+        'should drop unsupportedMark that has same type ' +
+          'as one of its siblings and original value is allowed to be overriden',
+        () => {
+          markOverrideRuleFor.mockReturnValue({
+            canOverrideUnsupportedMark: () => true,
+          });
+          const { editorView } = editor(
+            doc(
+              p(
+                textColor({ color: '#ff5630' })(
+                  unsupportedMark({
+                    originalValue: {
+                      type: 'textColor',
+                      attrs: {
+                        color: '#00b8d9',
+                      },
+                    },
+                  })('Some Text'),
+                ),
+              ),
+            ),
+          );
+
+          const expected = {
+            version: 1,
+            type: 'doc',
+            content: [
+              {
+                type: 'paragraph',
+                content: [
+                  {
+                    type: 'text',
+                    text: 'Some Text',
+                    marks: [
+                      {
+                        type: 'textColor',
+                        attrs: {
+                          color: '#ff5630',
+                        },
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          };
+
+          expect(toJSON(editorView.state.doc)).toEqual(expected);
+          expect(markOverrideRuleFor).toHaveBeenCalledTimes(1);
+        },
+      );
+
+      it(
+        'should not drop unsupportedMark that has same type ' +
+          'as one of its siblings and original value is not allowed to be overriden',
+        () => {
+          markOverrideRuleFor.mockReturnValue({
+            canOverrideUnsupportedMark: () => false,
+          });
+          const { editorView } = editor(
+            doc(
+              p(
+                textColor({ color: '#ff5630' })(
+                  unsupportedMark({
+                    originalValue: {
+                      type: 'textColor',
+                      attrs: {
+                        color: '#00b8d9',
+                      },
+                    },
+                  })('Some Text'),
+                ),
+              ),
+            ),
+          );
+
+          const expected = {
+            version: 1,
+            type: 'doc',
+            content: [
+              {
+                type: 'paragraph',
+                content: [
+                  {
+                    type: 'text',
+                    text: 'Some Text',
+                    marks: [
+                      {
+                        type: 'textColor',
+                        attrs: {
+                          color: '#ff5630',
+                        },
+                      },
+                      {
+                        type: 'textColor',
+                        attrs: {
+                          color: '#00b8d9',
+                        },
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          };
+
+          expect(toJSON(editorView.state.doc)).toEqual(expected);
+          expect(markOverrideRuleFor).toHaveBeenCalledTimes(1);
+        },
+      );
+
+      it(
+        'should not drop unsupportedMark that has different type ' +
+          'as one of its siblings and original value is allowed to be overriden',
+        () => {
+          markOverrideRuleFor.mockReturnValue({
+            canOverrideUnsupportedMark: () => true,
+          });
+
+          const adf: JSONDocNode = {
+            version: 1,
+            type: 'doc',
+            content: [
+              {
+                type: 'paragraph',
+                content: [
+                  {
+                    type: 'text',
+                    text: 'Some Text',
+                    marks: [
+                      { type: 'textColor', attrs: { color: '#6554c0' } },
+                      {
+                        type: 'unsupportedMark',
+                        attrs: {
+                          originalValue: {
+                            type: 'textColor',
+                            attrs: {
+                              color: '#6554c0',
+                              unknownAttribute: 'unknownValue',
+                            },
+                          },
+                        },
+                      },
+                      {
+                        type: 'unsupportedMark',
+                        attrs: {
+                          originalValue: {
+                            type: 'textColor1',
+                            attrs: {
+                              color: '#6554c0',
+                              unknownAttribute: 'unknownValue',
+                            },
+                          },
+                        },
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          };
+
+          const expected = {
+            version: 1,
+            type: 'doc',
+            content: [
+              {
+                type: 'paragraph',
+                content: [
+                  {
+                    type: 'text',
+                    text: 'Some Text',
+                    marks: [
+                      {
+                        type: 'textColor',
+                        attrs: {
+                          color: '#6554c0',
+                        },
+                      },
+                      {
+                        type: 'textColor1',
+                        attrs: {
+                          color: '#6554c0',
+                          unknownAttribute: 'unknownValue',
+                        },
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          };
+
+          expect(toJSON(parseJSON(adf))).toEqual(expected);
+          expect(markOverrideRuleFor).toHaveBeenCalledTimes(1);
+        },
+      );
+
+      it(
+        'should not drop unsupportedMark when its type is unique among siblings ' +
+          'and should properly unwrap the value and allowed to be overriden',
+        () => {
+          markOverrideRuleFor.mockReturnValue({
+            canOverrideUnsupportedMark: () => true,
+          });
+          const { editorView } = editor(
+            doc(
+              p(
+                unsupportedMark({
+                  originalValue: {
+                    type: 'textColor',
+                    attrs: {
+                      color: 'red',
+                      bgcolor: 'green',
+                    },
+                  },
+                })('Some Text'),
+              ),
+            ),
+          );
+
+          const expected = {
+            version: 1,
+            type: 'doc',
+            content: [
+              {
+                type: 'paragraph',
+                content: [
+                  {
+                    type: 'text',
+                    text: 'Some Text',
+                    marks: [
+                      {
+                        type: 'textColor',
+                        attrs: {
+                          color: 'red',
+                          bgcolor: 'green',
+                        },
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          };
+
+          expect(toJSON(editorView.state.doc)).toEqual(expected);
+          expect(markOverrideRuleFor).not.toHaveBeenCalled();
+        },
+      );
+    });
+
+    describe('unsupported Node Attribute', () => {
+      it(`should unwrap an unsupported node attribute from unsupportedNodeAttribute mark
+      along with no other marks and wrap inside node attributes`, () => {
+        const { editorView } = editor(
+          doc(
+            p(
+              unsupportedNodeAttribute({
+                type: { nodeType: 'mention' },
+                unsupported: { invalid: 'invalidValue' },
+              })(
+                mention({
+                  id: 'id-john',
+                  text: '@John Doe',
+                  accessLevel: '',
+                  userType: 'DEFAULT',
+                })(),
+              ),
+            ),
+          ),
+        );
+
+        const expected = {
+          version: 1,
+          type: 'doc',
+          content: [
+            {
+              type: 'paragraph',
+              content: [
+                {
+                  type: 'mention',
+                  attrs: {
+                    id: 'id-john',
+                    text: '@John Doe',
+                    accessLevel: '',
+                    userType: 'DEFAULT',
+                    invalid: 'invalidValue',
+                  },
+                },
+              ],
+            },
+          ],
+        };
+
+        expect(toJSON(editorView.state.doc)).toEqual(expected);
+      });
+
+      it(`should unwrap the unsupported node attributes from unsupportedNodeAttribute mark
+      when there are more than one unsupported node attributes`, () => {
+        const { editorView } = editor(
+          doc(
+            p(
+              unsupportedNodeAttribute({
+                type: { nodeType: 'mention' },
+                unsupported: { invalid: 'invalidValue', accessLevel: 123 },
+              })(
+                mention({
+                  id: 'id-john',
+                  text: '@John Doe',
+                  accessLevel: '',
+                  userType: 'DEFAULT',
+                })(),
+              ),
+            ),
+          ),
+        );
+
+        const expected = {
+          version: 1,
+          type: 'doc',
+          content: [
+            {
+              type: 'paragraph',
+              content: [
+                {
+                  type: 'mention',
+                  attrs: {
+                    id: 'id-john',
+                    text: '@John Doe',
+                    accessLevel: 123,
+                    userType: 'DEFAULT',
+                    invalid: 'invalidValue',
+                  },
+                },
+              ],
+            },
+          ],
+        };
+
+        expect(toJSON(editorView.state.doc)).toEqual(expected);
+      });
+
+      it(`should unwrap an unsupported node attribute from unsupportedNodeAttribute mark
+        along with other marks and wrap inside node attributes`, () => {
+        const { editorView } = editor(
+          doc(
+            p(
+              unsupportedMark({
+                originalValue: {
+                  type: 'textColor',
+                  attrs: {
+                    color: 'red',
+                    bgcolor: 'green',
+                  },
+                },
+              })(
+                unsupportedNodeAttribute({
+                  type: { nodeType: 'mention' },
+                  unsupported: { invalid: 'invalidValue' },
+                })(
+                  mention({
+                    id: 'id-john',
+                    text: '@John Doe',
+                    accessLevel: '',
+                    userType: 'DEFAULT',
+                  })(),
+                ),
+              ),
+            ),
+          ),
+        );
+
+        const expected = {
+          version: 1,
+          type: 'doc',
+          content: [
+            {
+              type: 'paragraph',
+              content: [
+                {
+                  type: 'mention',
+                  attrs: {
+                    id: 'id-john',
+                    text: '@John Doe',
+                    accessLevel: '',
+                    userType: 'DEFAULT',
+                    invalid: 'invalidValue',
+                  },
+                  marks: [
+                    {
+                      type: 'textColor',
+                      attrs: {
+                        color: 'red',
+                        bgcolor: 'green',
+                      },
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        };
+
+        expect(toJSON(editorView.state.doc)).toEqual(expected);
+      });
+
+      it(`should not unwrap a specific unsupported node attribute from unsupportedNodeAttribute mark
+        when a valid attribute value is present in node`, () => {
+        const { editorView } = editor(
+          doc(
+            p(
+              unsupportedNodeAttribute({
+                type: { nodeType: 'mention' },
+                unsupported: { accessLevel: 'invalidValue' },
+              })(
+                mention({
+                  id: 'id-john',
+                  text: '@John Doe',
+                  accessLevel: 'newValue',
+                  userType: 'DEFAULT',
+                })(),
+              ),
+            ),
+          ),
+        );
+
+        const expected = {
+          version: 1,
+          type: 'doc',
+          content: [
+            {
+              type: 'paragraph',
+              content: [
+                {
+                  type: 'mention',
+                  attrs: {
+                    id: 'id-john',
+                    text: '@John Doe',
+                    accessLevel: 'newValue',
+                    userType: 'DEFAULT',
+                  },
+                },
+              ],
+            },
+          ],
+        };
+
+        expect(toJSON(editorView.state.doc)).toEqual(expected);
+      });
+
+      it(`should not unwrap the required node attribute value from unsupportedNodeAttribute mark
+        when the required node attribute value is not same as default value`, () => {
+        const { editorView } = editor(
+          doc(
+            unsupportedNodeAttribute({
+              type: { nodeType: 'panel' },
+              unsupported: { panelType: 'abc' },
+            })(panelNote(p('hello from note panel'))),
+          ),
+        );
+
+        const expected = {
+          version: 1,
+          type: 'doc',
+          content: [
+            {
+              type: 'panel',
+              attrs: {
+                panelType: 'note',
+              },
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [
+                    {
+                      type: 'text',
+                      text: 'hello from note panel',
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        };
+
+        expect(toJSON(editorView.state.doc)).toEqual(expected);
+      });
+
+      it(`should unwrap the required node attribute value from unsupportedNodeAttribute mark
+        when the required node attribute value is same as default value`, () => {
+        const { editorView } = editor(
+          doc(
+            unsupportedNodeAttribute({
+              type: { nodeType: 'panel' },
+              unsupported: { panelType: 'abc' },
+            })(panel({ panelType: 'info' })(p('hello from info panel'))),
+          ),
+        );
+
+        const expected = {
+          version: 1,
+          type: 'doc',
+          content: [
+            {
+              type: 'panel',
+              attrs: {
+                panelType: 'abc',
+              },
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [
+                    {
+                      type: 'text',
+                      text: 'hello from info panel',
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        };
+
+        expect(toJSON(editorView.state.doc)).toEqual(expected);
+      });
+
+      it(`should unwrap unsupported node attribute mark and should not restore the other attributes
+        with default value`, () => {
+        const { editorView } = editor(
+          doc(
+            p(
+              unsupportedNodeAttribute({
+                type: { nodeType: 'mention' },
+                unsupported: { invalidAttr: 'invalidValue' },
+              })(
+                mention({
+                  id: 'id-john',
+                  text: '@John Doe',
+                  accessLevel: 'newValue',
+                })(),
+              ),
+            ),
+          ),
+        );
+
+        const expected = {
+          version: 1,
+          type: 'doc',
+          content: [
+            {
+              type: 'paragraph',
+              content: [
+                {
+                  type: 'mention',
+                  attrs: {
+                    id: 'id-john',
+                    text: '@John Doe',
+                    accessLevel: 'newValue',
+                    invalidAttr: 'invalidValue',
+                  },
+                },
+              ],
+            },
+          ],
+        };
+
+        expect(toJSON(editorView.state.doc)).toEqual(expected);
+      });
+
+      it(`should unwrap unsupported node attribute mark and should preserve the breakout
+      mark for codeBlock`, () => {
+        const entity: JSONDocNode = {
+          version: 1,
+          type: 'doc',
+          content: [
+            {
+              type: 'codeBlock',
+              attrs: {
+                language: 'javascript',
+              },
+              marks: [
+                {
+                  type: 'breakout',
+                  attrs: {
+                    mode: 'wide',
+                  },
+                },
+                {
+                  type: 'unsupportedNodeAttribute',
+                  attrs: {
+                    type: { nodeType: 'codeBlock' },
+                    unsupported: {
+                      invalidAttr: 'invalidValue',
+                    },
+                  },
+                },
+              ],
+            },
+          ],
+        };
+
+        const expected = {
+          version: 1,
+          type: 'doc',
+          content: [
+            {
+              type: 'codeBlock',
+              attrs: {
+                language: 'javascript',
+                invalidAttr: 'invalidValue',
+              },
+              marks: [
+                {
+                  type: 'breakout',
+                  attrs: {
+                    mode: 'wide',
+                  },
+                },
+              ],
+            },
+          ],
+        };
+
+        let result = parseJSON(entity);
+        expect(toJSON(result)).toEqual(expected);
+      });
+
+      it(`should unwrap unsupported node attribute mark and unsupported mark for codeBlock`, () => {
+        const entity: JSONDocNode = {
+          version: 1,
+          type: 'doc',
+          content: [
+            {
+              type: 'codeBlock',
+              attrs: {
+                language: 'javascript',
+              },
+              marks: [
+                {
+                  type: 'unsupportedMark',
+                  attrs: {
+                    originalValue: {
+                      type: 'breakoutInvalid',
+                      attrs: {
+                        mode: 'wide',
+                      },
+                    },
+                  },
+                },
+                {
+                  type: 'unsupportedNodeAttribute',
+                  attrs: {
+                    type: { nodeType: 'codeBlock' },
+                    unsupported: {
+                      invalidAttr: 'invalidValue',
+                    },
+                  },
+                },
+              ],
+            },
+          ],
+        };
+
+        const expected = {
+          version: 1,
+          type: 'doc',
+          content: [
+            {
+              type: 'codeBlock',
+              attrs: {
+                language: 'javascript',
+                invalidAttr: 'invalidValue',
+              },
+              marks: [
+                {
+                  type: 'breakoutInvalid',
+                  attrs: {
+                    mode: 'wide',
+                  },
+                },
+              ],
+            },
+          ],
+        };
+
+        let result = parseJSON(entity);
+        expect(toJSON(result)).toEqual(expected);
+      });
+
+      it(`should not unwrap unsupported node attribute mark when nodeType in unsupportedNodeAttribute
+       does not match the actual nodeType`, () => {
+        const entity: JSONDocNode = {
+          version: 1,
+          type: 'doc',
+          content: [
+            {
+              type: 'codeBlock',
+              attrs: {
+                language: 'javascript',
+              },
+              marks: [
+                {
+                  type: 'unsupportedMark',
+                  attrs: {
+                    originalValue: {
+                      type: 'breakoutInvalid',
+                      attrs: {
+                        mode: 'wide',
+                      },
+                    },
+                  },
+                },
+                {
+                  type: 'unsupportedNodeAttribute',
+                  attrs: {
+                    type: { nodeType: 'invalid' },
+                    unsupported: {
+                      invalidAttr: 'invalidValue',
+                    },
+                  },
+                },
+              ],
+            },
+          ],
+        };
+
+        const expected = {
+          version: 1,
+          type: 'doc',
+          content: [
+            {
+              type: 'codeBlock',
+              attrs: {
+                language: 'javascript',
+              },
+              marks: [
+                {
+                  type: 'breakoutInvalid',
+                  attrs: {
+                    mode: 'wide',
+                  },
+                },
+              ],
+            },
+          ],
+        };
+
+        let result = parseJSON(entity);
+        expect(toJSON(result)).toEqual(expected);
       });
     });
   });

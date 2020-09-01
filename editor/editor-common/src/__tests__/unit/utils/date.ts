@@ -11,6 +11,20 @@ const UTCPlus10 = 1592179200000;
 const UTCMinus7 = 1592092800000;
 
 describe('@atlaskit/editor-common date utils', () => {
+  describe('Unit test date mock', () => {
+    describe('Date.now()', () => {
+      it('should return 1502841600 seconds', () => {
+        const date = Date.now();
+        expect(date).toEqual(1502841600 * 1000);
+      });
+    });
+    describe('new Date()', () => {
+      it('should create a date object with time of Wed, 16 Aug 2017 00:00:00 GMT', () => {
+        const date = new Date();
+        expect(date.toUTCString()).toEqual('Wed, 16 Aug 2017 00:00:00 GMT');
+      });
+    });
+  });
   describe('timestampToString', () => {
     describe('when there is no intl', () => {
       it('should format date to ISO', () => {
@@ -43,9 +57,9 @@ describe('@atlaskit/editor-common date utils', () => {
   });
 
   describe('isPastDate', () => {
-    // Will be fixed in second PR of ED-9719 once mock reaches develop
-    it.skip('should return true if passed date is before current date', () => {
-      const date = Date.parse('2018-06-18');
+    it('should return true if passed date is before current date', () => {
+      // This date is before the mocked date of Wed Aug 16 00:00:00 2017 +0000.
+      const date = Date.parse('2016-06-18');
       expect(isPastDate(date)).toEqual(true);
     });
 

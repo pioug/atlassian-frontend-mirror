@@ -106,6 +106,7 @@ export enum SELECTION_POSITION {
 
 interface NonRequiredAttributes {
   insertLocation?: string;
+  nodeLocation?: string;
   selectionType?: SELECTION_TYPE;
   selectionPosition?: SELECTION_POSITION;
 }

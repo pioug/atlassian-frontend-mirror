@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import Button from '@atlaskit/button';
 
-import { ProgressDots } from '../../src';
+import { ProgressIndicator } from '../../src';
 
 const Footer = styled.div`
   display: flex;
@@ -51,7 +51,7 @@ export default class extends Component<Props, State> {
         <Button isDisabled={selectedIndex === 0} onClick={this.handlePrev}>
           Prev
         </Button>
-        <ProgressDots
+        <ProgressIndicator
           spacing="compact"
           selectedIndex={selectedIndex}
           values={values}

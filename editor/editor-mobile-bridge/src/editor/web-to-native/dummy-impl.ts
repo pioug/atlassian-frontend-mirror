@@ -86,18 +86,24 @@ export default class DummyBridge implements NativeBridge {
 
   call<T extends EditorBridgeNames>(
     bridge: T,
-    event: keyof Exclude<EditorBridges[T], undefined>,
+    event: keyof Required<EditorBridges>[T],
     ...args: any[]
   ) {
     this.log(`call(${bridge}, ${event}, ${(args || []).join(', ')})`);
     sendToBridge(bridge, event, ...args);
   }
+
   updateTextColor() {}
 
   editorReady() {
     this.call('lifecycleBridge', 'editorReady');
   }
+
   editorDestroyed() {
     this.call('lifecycleBridge', 'editorDestroyed');
+  }
+
+  onRenderedContentHeightChanged(height: number) {
+    this.call('contentBridge', 'onRenderedContentHeightChanged', height);
   }
 }

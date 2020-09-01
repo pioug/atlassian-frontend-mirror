@@ -1,3 +1,4 @@
+import { ActivityProvider } from '@atlaskit/activity-provider';
 import { EmojiProvider } from '@atlaskit/emoji/types';
 import { MentionProvider } from '@atlaskit/mention/types';
 import { TaskDecisionProvider } from '@atlaskit/task-decision/types';
@@ -30,8 +31,8 @@ export interface Providers {
   quickInsertProvider?: Promise<QuickInsertProvider>;
   profilecardProvider?: Promise<ProfilecardProvider>;
   searchProvider?: Promise<SearchProvider>;
+  activityProvider?: Promise<ActivityProvider>;
 
-  activityProvider?: Promise<any>; // TODO: Activity AK component looks deprecated any suggestion?
   presenceProvider?: Promise<any>; // TODO: https://product-fabric.atlassian.net/browse/ED-8592
   reactionsStore?: Promise<any>; // TODO: https://product-fabric.atlassian.net/browse/ED-8593
 }

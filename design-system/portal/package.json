@@ -37,11 +37,11 @@
     "@atlaskit/button": "^14.0.0",
     "@atlaskit/docs": "*",
     "@atlaskit/flag": "^14.0.0",
-    "@atlaskit/icon": "^21.0.0",
+    "@atlaskit/icon": "^21.1.0",
     "@atlaskit/inline-dialog": "^13.0.0",
     "@atlaskit/modal-dialog": "^11.0.0",
     "@atlaskit/onboarding": "^10.1.0",
-    "@atlaskit/tooltip": "^16.0.0",
+    "@atlaskit/tooltip": "^17.0.0",
     "@atlaskit/visual-regression": "*",
     "enzyme": "^3.10.0",
     "styled-components": "^3.2.6"

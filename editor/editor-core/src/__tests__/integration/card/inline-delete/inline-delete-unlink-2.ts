@@ -7,7 +7,7 @@ import {
   linkUrlSelector,
 } from '../../_helpers';
 import { messages } from '../../../../plugins/insert-block/ui/ToolbarInsertBlock/messages';
-import { waitForInlineCardSelection } from '../../../__helpers/page-objects/_cards';
+import { waitForInlineCardSelection } from '@atlaskit/media-integration-test-helpers';
 
 BrowserTestCase(
   `card: unlinking a card created from CMD + K should leave only url text`,
@@ -22,7 +22,7 @@ BrowserTestCase(
     await page.click(`[aria-label="${messages.link.defaultMessage}"]`);
     await page.waitForSelector(linkUrlSelector);
 
-    await page.type(linkUrlSelector, ['home opt-in', 'Return']);
+    await page.type(linkUrlSelector, ['home opt-in', 'ArrowDown', 'Return']);
 
     await waitForInlineCardSelection(page);
     await page.click('button[aria-label="Unlink"]');

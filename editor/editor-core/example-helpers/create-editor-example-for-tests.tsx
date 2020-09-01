@@ -287,6 +287,10 @@ export function mapProvidersToProps(
   }
 
   if (props && props.annotationProviders) {
+    const isToolbarAbove =
+      typeof props.annotationProviders === 'object'
+        ? props.annotationProviders.inlineComment.isToolbarAbove
+        : undefined;
     props.annotationProviders = {
       inlineComment: {
         createComponent: ExampleCreateInlineCommentComponent,
@@ -297,6 +301,7 @@ export function mapProvidersToProps(
             id,
             state: { resolved: false },
           })),
+        isToolbarAbove,
       },
     };
   }

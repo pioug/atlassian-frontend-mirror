@@ -13,32 +13,6 @@ describe('validate', () => {
     expect(run).toThrowError('doc: required prop missing.');
   });
 
-  it('should throw on redundant attributes', () => {
-    const run = () => {
-      validate({
-        type: 'doc',
-        version: 1,
-        content: [
-          { type: 'heading', content: [], attrs: { level: 1, extra: true } },
-        ],
-      });
-    };
-    expect(run).toThrowError('heading: redundant attributes found: extra.');
-  });
-
-  it('should throw on private redundant attributes', () => {
-    const run = () => {
-      validate({
-        type: 'doc',
-        version: 1,
-        content: [
-          { type: 'heading', content: [], attrs: { level: 1, __extra: true } },
-        ],
-      });
-    };
-    expect(run).toThrowError('heading: redundant attributes found: __extra.');
-  });
-
   it('should not throw on private redundant attributes', () => {
     const validate = validator(undefined, undefined, {
       allowPrivateAttributes: true,

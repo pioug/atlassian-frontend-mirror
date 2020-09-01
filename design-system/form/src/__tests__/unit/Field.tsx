@@ -989,11 +989,8 @@ test('should correctly update form state with a nested of object usernames', () 
   );
 });
 
-// unskip as part of https://ecosystem.atlassian.net/browse/AK-5752
-// eslint-disable-next-line jest/no-disabled-tests
-xtest('should always show most recent validation result', done => {
-  let resolveValidation = () => {};
-  const wrapper = mount(
+test('should always show most recent validation result', done => {
+  const { getByTestId, queryByText } = render(
     <Form onSubmit={jest.fn()}>
       {() => (
         <Field
@@ -1005,7 +1002,7 @@ xtest('should always show most recent validation result', done => {
             }
             if (value === 'Joe Bloggs') {
               return new Promise(res => {
-                resolveValidation = () => res('TAKEN_USERNAME');
+                res('TAKEN_USERNAME');
               });
             }
             return undefined;
@@ -1013,7 +1010,7 @@ xtest('should always show most recent validation result', done => {
         >
           {({ fieldProps, error }) => (
             <>
-              <TextField {...fieldProps} />
+              <TextField testId="TextField" {...fieldProps} />
               {error === 'TOO_SHORT' && <ErrorMessage>Too short</ErrorMessage>}
               {error === 'TAKEN_USERNAME' && (
                 <ErrorMessage>Username is in use</ErrorMessage>
@@ -1024,17 +1021,22 @@ xtest('should always show most recent validation result', done => {
       )}
     </Form>,
   );
-  // kick off an async validation that will fail
-  wrapper.find('input').simulate('change', { target: { value: 'Joe Bloggs' } });
-  // causes a sync validation failure
-  wrapper.find('input').simulate('change', { target: { value: 'Jo' } });
-  // now resolve previous async validation
-  resolveValidation();
+
+  const input = getByTestId('TextField');
+
+  act(() => {
+    // kick off an async validation that will fail
+    fireEvent.change(input, { target: { value: 'Joe Bloggs' } });
+  });
+  act(() => {
+    // causes a sync validation failure
+    fireEvent.change(input, { target: { value: 'Jo' } });
+  });
+
   // check that the most recent error message is visible - should be the sync validation error
   setTimeout(() => {
-    wrapper.update();
-    expect(wrapper.find(ErrorMessage)).toHaveLength(1);
-    expect(wrapper.find(ErrorMessage).text()).toBe('Too short');
+    expect(queryByText('Username is in use')).toBeFalsy();
+    expect(queryByText('Too short')).toBeTruthy();
     done();
   });
 });

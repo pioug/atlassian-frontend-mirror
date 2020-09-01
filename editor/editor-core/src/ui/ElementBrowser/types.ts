@@ -11,5 +11,10 @@ export enum Modes {
 export type SelectedItemProps = {
   selectedItemIndex: number;
   focusedItemIndex?: number;
-  setItemsContainerWidth: (width: number) => void;
+};
+
+export type IntlMessage = {
+  id: string;
+  description: string;
+  defaultMessage: string;
 };

@@ -23,7 +23,8 @@
           "accountId": "655362:ae66aaa8-f9ef-44e9-8f11-f7457557fb35",
           "lastAccessedDate": "2016-11-28T01:04:57.608Z"
         }
-      ]
+      ],
+      "viewedTimestamp": "2020-06-24T01:10:44.797Z"
     },
     {
       "accountId": null,
@@ -40,7 +41,8 @@
           "accountId": "655363:ed1e4d32-896e-40bf-be26-fe90b2b203e9",
           "lastAccessedDate": "2016-11-28T01:04:57.608Z"
         }
-      ]
+      ],
+      "viewedTimestamp": "2020-06-24T01:15:39.680Z"
     },
     {
       "accountId": null,
@@ -52,7 +54,8 @@
       "provider": "jira",
       "cloudId": "DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b",
       "lastAccessedDate": "2016-11-24T23:30:54.633Z",
-      "contributors": []
+      "contributors": [],
+      "viewedTimestamp": "2020-06-24T01:10:44.797Z"
     },
     {
       "accountId": null,
@@ -64,7 +67,8 @@
       "provider": "jira",
       "cloudId": "DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b",
       "lastAccessedDate": "2016-11-24T23:29:08.924Z",
-      "contributors": []
+      "contributors": [],
+      "viewedTimestamp": "2020-06-24T01:10:44.797Z"
     },
     {
       "accountId": null,
@@ -76,7 +80,8 @@
       "provider": "jira",
       "cloudId": "DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b",
       "lastAccessedDate": "2016-11-24T05:54:44.729Z",
-      "contributors": []
+      "contributors": [],
+      "viewedTimestamp": "2020-06-24T01:10:44.797Z"
     },
     {
       "accountId": null,
@@ -88,7 +93,8 @@
       "provider": "jira",
       "cloudId": "DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b",
       "lastAccessedDate": "2016-11-24T05:54:39.227Z",
-      "contributors": []
+      "contributors": [],
+      "viewedTimestamp": "2020-06-24T01:10:44.797Z"
     },
     {
       "accountId": null,
@@ -100,7 +106,8 @@
       "provider": "jira",
       "cloudId": "DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b",
       "lastAccessedDate": "2016-11-23T22:43:16.989Z",
-      "contributors": []
+      "contributors": [],
+      "viewedTimestamp": "2020-06-24T01:10:44.797Z"
     },
     {
       "accountId": null,
@@ -112,7 +119,8 @@
       "provider": "jira",
       "cloudId": "DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b",
       "lastAccessedDate": "2016-11-23T22:43:11.836Z",
-      "contributors": []
+      "contributors": [],
+      "viewedTimestamp": "2020-06-24T01:10:44.797Z"
     },
     {
       "accountId": null,
@@ -124,7 +132,8 @@
       "provider": "jira",
       "cloudId": "DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b",
       "lastAccessedDate": "2016-11-22T03:53:03.44Z",
-      "contributors": []
+      "contributors": [],
+      "viewedTimestamp": "2020-06-24T01:10:44.797Z"
     },
     {
       "accountId": null,
@@ -132,7 +141,7 @@
       "url": "https://product-fabric.atlassian.net/wiki/display/E/Atlassian+Editor+Keyboard+Shortcuts",
       "name": "Atlassian Editor Keyboard Shortcuts",
       "container": "Editor",
-      "iconUrl": "https://activity-provider.useast.atlassian.io/images/page-icon-v2.svg",
+      "iconUrl": "https://home-static.us-east-1.prod.public.atl-paas.net/confluence-page-icon.svg",
       "provider": "confluence",
       "cloudId": "DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b",
       "lastAccessedDate": "2016-11-21T04:05:02.823Z",
@@ -141,7 +150,8 @@
           "accountId": "655362:ae66aaa8-f9ef-44e9-8f11-f7457557fb35",
           "lastAccessedDate": "2016-11-28T03:57:19.122Z"
         }
-      ]
+      ],
+      "viewedTimestamp": "2020-06-24T01:10:44.797Z"
     },
     {
       "accountId": null,
@@ -153,7 +163,8 @@
       "provider": "jira",
       "cloudId": "DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b",
       "lastAccessedDate": "2016-11-21T01:18:32.488Z",
-      "contributors": []
+      "contributors": [],
+      "viewedTimestamp": "2020-06-24T01:10:44.797Z"
     },
     {
       "accountId": null,
@@ -165,7 +176,8 @@
       "provider": "jira",
       "cloudId": "DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b",
       "lastAccessedDate": "2016-11-21T01:17:44.873Z",
-      "contributors": []
+      "contributors": [],
+      "viewedTimestamp": "2020-06-24T01:10:44.797Z"
     },
     {
       "accountId": null,
@@ -177,7 +189,8 @@
       "provider": "jira",
       "cloudId": "DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b",
       "lastAccessedDate": "2016-11-21T00:25:08.564Z",
-      "contributors": []
+      "contributors": [],
+      "viewedTimestamp": "2020-06-24T01:10:44.797Z"
     },
     {
       "accountId": null,
@@ -185,11 +198,12 @@
       "url": "https://product-fabric.atlassian.net/wiki/display/PRODUCT/Planning+-+2016-11-18",
       "name": "Planning - 2016-11-18",
       "container": "Fabric team",
-      "iconUrl": "https://activity-provider.useast.atlassian.io/images/page-icon-v2.svg",
+      "iconUrl": "https://home-static.us-east-1.prod.public.atl-paas.net/confluence-page-icon.svg",
       "provider": "confluence",
       "cloudId": "DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b",
       "lastAccessedDate": "2016-11-17T23:06:22.56Z",
-      "contributors": []
+      "contributors": [],
+      "viewedTimestamp": "2020-06-24T01:10:44.797Z"
     },
     {
       "accountId": null,
@@ -197,11 +211,12 @@
       "url": "https://product-fabric.atlassian.net/wiki/display/H/Analytics+Events+Registry",
       "name": "Analytics Events Registry",
       "container": "Home",
-      "iconUrl": "https://activity-provider.useast.atlassian.io/images/page-icon-v2.svg",
+      "iconUrl": "https://home-static.us-east-1.prod.public.atl-paas.net/confluence-page-icon.svg",
       "provider": "confluence",
       "cloudId": "DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b",
       "lastAccessedDate": "2016-11-17T00:02:06.291Z",
-      "contributors": []
+      "contributors": [],
+      "viewedTimestamp": "2020-06-24T01:10:44.797Z"
     },
     {
       "accountId": null,
@@ -213,7 +228,8 @@
       "provider": "jira",
       "cloudId": "DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b",
       "lastAccessedDate": "2016-11-16T00:11:43.139Z",
-      "contributors": []
+      "contributors": [],
+      "viewedTimestamp": "2020-06-24T01:10:44.797Z"
     },
     {
       "accountId": null,
@@ -225,7 +241,8 @@
       "provider": "jira",
       "cloudId": "DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b",
       "lastAccessedDate": "2016-11-15T03:03:24.527Z",
-      "contributors": []
+      "contributors": [],
+      "viewedTimestamp": "2020-06-24T01:10:44.797Z"
     },
     {
       "accountId": null,
@@ -237,7 +254,8 @@
       "provider": "jira",
       "cloudId": "DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b",
       "lastAccessedDate": "2016-11-14T02:26:50.116Z",
-      "contributors": []
+      "contributors": [],
+      "viewedTimestamp": "2020-06-24T01:10:44.797Z"
     },
     {
       "accountId": null,
@@ -249,7 +267,8 @@
       "provider": "jira",
       "cloudId": "DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b",
       "lastAccessedDate": "2016-11-14T02:26:45.814Z",
-      "contributors": []
+      "contributors": [],
+      "viewedTimestamp": "2020-06-24T01:10:44.797Z"
     },
     {
       "accountId": null,
@@ -266,7 +285,8 @@
           "accountId": "655362:2b55bf6d-a477-4092-aa6f-6dffe64cf5f5",
           "lastAccessedDate": "2016-11-28T00:15:01.737Z"
         }
-      ]
+      ],
+      "viewedTimestamp": "2020-06-24T01:10:44.797Z"
     },
     {
       "accountId": null,
@@ -278,7 +298,8 @@
       "provider": "jira",
       "cloudId": "DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b",
       "lastAccessedDate": "2016-11-10T06:35:57.461Z",
-      "contributors": []
+      "contributors": [],
+      "viewedTimestamp": "2020-06-24T01:10:44.797Z"
     },
     {
       "accountId": null,
@@ -286,11 +307,12 @@
       "url": "https://product-fabric.atlassian.net/wiki/display/H/Atlaskit+in+home",
       "name": "Atlaskit in home",
       "container": "Home",
-      "iconUrl": "https://activity-provider.useast.atlassian.io/images/page-icon-v2.svg",
+      "iconUrl": "https://home-static.us-east-1.prod.public.atl-paas.net/confluence-page-icon.svg",
       "provider": "confluence",
       "cloudId": "DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b",
       "lastAccessedDate": "2016-11-09T03:22:01.503Z",
-      "contributors": []
+      "contributors": [],
+      "viewedTimestamp": "2020-06-24T01:10:44.797Z"
     },
     {
       "accountId": null,
@@ -302,7 +324,8 @@
       "provider": "jira",
       "cloudId": "DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b",
       "lastAccessedDate": "2016-11-08T00:54:20.91Z",
-      "contributors": []
+      "contributors": [],
+      "viewedTimestamp": "2020-06-24T01:10:44.797Z"
     },
     {
       "accountId": null,
@@ -314,7 +337,8 @@
       "provider": "jira",
       "cloudId": "DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b",
       "lastAccessedDate": "2016-11-04T02:54:36.237Z",
-      "contributors": []
+      "contributors": [],
+      "viewedTimestamp": "2020-06-24T01:10:44.797Z"
     },
     {
       "accountId": null,
@@ -326,7 +350,8 @@
       "provider": "jira",
       "cloudId": "DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b",
       "lastAccessedDate": "2016-11-04T02:10:53.561Z",
-      "contributors": []
+      "contributors": [],
+      "viewedTimestamp": "2020-06-24T01:10:44.797Z"
     },
     {
       "accountId": null,
@@ -338,7 +363,8 @@
       "provider": "jira",
       "cloudId": "DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b",
       "lastAccessedDate": "2016-11-03T05:36:42.106Z",
-      "contributors": []
+      "contributors": [],
+      "viewedTimestamp": "2020-06-24T01:10:44.797Z"
     },
     {
       "accountId": null,
@@ -350,7 +376,8 @@
       "provider": "jira",
       "cloudId": "DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b",
       "lastAccessedDate": "2016-11-03T02:52:27.715Z",
-      "contributors": []
+      "contributors": [],
+      "viewedTimestamp": "2020-06-24T01:10:44.797Z"
     },
     {
       "accountId": null,
@@ -362,7 +389,8 @@
       "provider": "jira",
       "cloudId": "DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b",
       "lastAccessedDate": "2016-11-03T00:00:22.685Z",
-      "contributors": []
+      "contributors": [],
+      "viewedTimestamp": "2020-06-24T01:10:44.797Z"
     },
     {
       "accountId": null,
@@ -374,7 +402,8 @@
       "provider": "jira",
       "cloudId": "DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b",
       "lastAccessedDate": "2016-11-02T23:52:00.036Z",
-      "contributors": []
+      "contributors": [],
+      "viewedTimestamp": "2020-06-24T01:10:44.797Z"
     },
     {
       "accountId": null,
@@ -386,7 +415,8 @@
       "provider": "jira",
       "cloudId": "DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b",
       "lastAccessedDate": "2016-11-02T05:28:55.195Z",
-      "contributors": []
+      "contributors": [],
+      "viewedTimestamp": "2020-06-24T01:10:44.797Z"
     },
     {
       "accountId": null,
@@ -394,11 +424,12 @@
       "url": "https://product-fabric.atlassian.net/wiki/display/H/View+service+logs+and+metrics",
       "name": "View service logs and metrics",
       "container": "Home",
-      "iconUrl": "https://activity-provider.useast.atlassian.io/images/page-icon-v2.svg",
+      "iconUrl": "https://home-static.us-east-1.prod.public.atl-paas.net/confluence-page-icon.svg",
       "provider": "confluence",
       "cloudId": "DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b",
       "lastAccessedDate": "2016-11-02T03:47:54.642Z",
-      "contributors": []
+      "contributors": [],
+      "viewedTimestamp": "2020-06-24T01:10:44.797Z"
     },
     {
       "accountId": null,
@@ -410,7 +441,8 @@
       "provider": "jira",
       "cloudId": "DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b",
       "lastAccessedDate": "2016-11-02T00:20:24.347Z",
-      "contributors": []
+      "contributors": [],
+      "viewedTimestamp": "2020-06-24T01:10:44.797Z"
     },
     {
       "accountId": null,
@@ -422,7 +454,8 @@
       "provider": "jira",
       "cloudId": "DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b",
       "lastAccessedDate": "2016-10-24T05:17:25.412Z",
-      "contributors": []
+      "contributors": [],
+      "viewedTimestamp": "2020-06-24T01:10:44.797Z"
     },
     {
       "accountId": null,
@@ -434,7 +467,8 @@
       "provider": "jira",
       "cloudId": "DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b",
       "lastAccessedDate": "2016-10-24T01:19:20.482Z",
-      "contributors": []
+      "contributors": [],
+      "viewedTimestamp": "2020-06-24T01:10:44.797Z"
     },
     {
       "accountId": null,
@@ -442,11 +476,12 @@
       "url": "https://product-fabric.atlassian.net/wiki/display/PRODUCT/Planning+-+2016-10-21",
       "name": "Planning - 2016-10-21",
       "container": "Fabric team",
-      "iconUrl": "https://activity-provider.useast.atlassian.io/images/page-icon-v2.svg",
+      "iconUrl": "https://home-static.us-east-1.prod.public.atl-paas.net/confluence-page-icon.svg",
       "provider": "confluence",
       "cloudId": "DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b",
       "lastAccessedDate": "2016-10-21T00:55:49.158Z",
-      "contributors": []
+      "contributors": [],
+      "viewedTimestamp": "2020-06-24T01:10:44.797Z"
     },
     {
       "accountId": null,
@@ -458,7 +493,8 @@
       "provider": "jira",
       "cloudId": "DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b",
       "lastAccessedDate": "2016-10-14T03:12:01.591Z",
-      "contributors": []
+      "contributors": [],
+      "viewedTimestamp": "2020-06-24T01:10:44.797Z"
     },
     {
       "accountId": null,
@@ -470,7 +506,8 @@
       "provider": "jira",
       "cloudId": "DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b",
       "lastAccessedDate": "2016-10-14T02:14:01.567Z",
-      "contributors": []
+      "contributors": [],
+      "viewedTimestamp": "2020-06-24T01:10:44.797Z"
     },
     {
       "accountId": null,
@@ -478,11 +515,12 @@
       "url": "https://product-fabric.atlassian.net/wiki/display/PRODUCT/Planning+-+2016-10-14",
       "name": "Planning - 2016-10-14",
       "container": "Fabric team",
-      "iconUrl": "https://activity-provider.useast.atlassian.io/images/page-icon-v2.svg",
+      "iconUrl": "https://home-static.us-east-1.prod.public.atl-paas.net/confluence-page-icon.svg",
       "provider": "confluence",
       "cloudId": "DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b",
       "lastAccessedDate": "2016-10-13T23:38:28.558Z",
-      "contributors": []
+      "contributors": [],
+      "viewedTimestamp": "2020-06-24T01:10:44.797Z"
     },
     {
       "accountId": null,
@@ -494,7 +532,8 @@
       "provider": "jira",
       "cloudId": "DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b",
       "lastAccessedDate": "2016-10-13T00:51:27.365Z",
-      "contributors": []
+      "contributors": [],
+      "viewedTimestamp": "2020-06-24T01:10:44.797Z"
     },
     {
       "accountId": null,
@@ -502,11 +541,12 @@
       "url": "https://product-fabric.atlassian.net/wiki/display/~drichard/2016/10/11/Trying+out+new+PagerDuty+escalation+policy",
       "name": "Trying out new PagerDuty escalation policy",
       "container": "David Richard",
-      "iconUrl": "https://activity-provider.useast.atlassian.io/images/blog-icon-v2.svg",
+      "iconUrl": "https://home-static.us-east-1.prod.public.atl-paas.net/confluence-blogpost-icon.svg",
       "provider": "confluence",
       "cloudId": "DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b",
       "lastAccessedDate": "2016-10-11T05:04:39.413Z",
-      "contributors": []
+      "contributors": [],
+      "viewedTimestamp": "2020-06-24T01:10:44.797Z"
     },
     {
       "accountId": null,
@@ -514,11 +554,12 @@
       "url": "https://product-fabric.atlassian.net/wiki/display/H/PubNub+Integration+in+Home+and+Activity",
       "name": "PubNub Integration in Home and Activity",
       "container": "Home",
-      "iconUrl": "https://activity-provider.useast.atlassian.io/images/page-icon-v2.svg",
+      "iconUrl": "https://home-static.us-east-1.prod.public.atl-paas.net/confluence-page-icon.svg",
       "provider": "confluence",
       "cloudId": "DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b",
       "lastAccessedDate": "2016-10-11T03:21:51.021Z",
-      "contributors": []
+      "contributors": [],
+      "viewedTimestamp": "2020-06-24T01:10:44.797Z"
     },
     {
       "accountId": null,
@@ -530,7 +571,8 @@
       "provider": "jira",
       "cloudId": "DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b",
       "lastAccessedDate": "2016-10-10T05:08:21.639Z",
-      "contributors": []
+      "contributors": [],
+      "viewedTimestamp": "2020-06-24T01:10:44.797Z"
     },
     {
       "accountId": null,
@@ -542,7 +584,8 @@
       "provider": "jira",
       "cloudId": "DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b",
       "lastAccessedDate": "2016-10-09T23:49:03.872Z",
-      "contributors": []
+      "contributors": [],
+      "viewedTimestamp": "2020-06-24T01:10:44.797Z"
     },
     {
       "accountId": null,
@@ -554,7 +597,8 @@
       "provider": "jira",
       "cloudId": "DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b",
       "lastAccessedDate": "2016-10-05T05:49:14.404Z",
-      "contributors": []
+      "contributors": [],
+      "viewedTimestamp": "2020-06-24T01:10:44.797Z"
     },
     {
       "accountId": null,
@@ -562,11 +606,12 @@
       "url": "https://product-fabric.atlassian.net/wiki/display/H/Home+opt-in+requests",
       "name": "Home opt-in requests",
       "container": "Home",
-      "iconUrl": "https://activity-provider.useast.atlassian.io/images/page-icon-v2.svg",
+      "iconUrl": "https://home-static.us-east-1.prod.public.atl-paas.net/confluence-page-icon.svg",
       "provider": "confluence",
       "cloudId": "DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b",
       "lastAccessedDate": "2016-10-05T05:45:48.571Z",
-      "contributors": []
+      "contributors": [],
+      "viewedTimestamp": "2020-06-24T01:10:44.797Z"
     }
   ]
 }

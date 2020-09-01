@@ -11,6 +11,7 @@ import { gs as gridSize } from '../../BlockCard/utils';
 export interface ButtonProps {
   appearance: ButtonAppearances;
   text: MessageKey;
+  testId?: string;
 }
 
 export interface EmbedCardUnresolvedViewProps {
@@ -71,7 +72,7 @@ export const EmbedCardUnresolvedView: FC<EmbedCardUnresolvedViewProps> = ({
       </span>
       {button && (
         <Button
-          testId={`${testId}-button`}
+          testId={`button-${button.testId || testId}`}
           appearance={button.appearance}
           onClick={onClick}
         >

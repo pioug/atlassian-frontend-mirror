@@ -19,13 +19,13 @@ export function scrollToElement(
   nodeType: ScrollToContentNode,
   id: string,
   index = -1,
-): boolean {
+): void {
   if (!isValidNodeTypeForScroll(nodeType)) {
     /* eslint-disable-next-line no-console */
     console.warn(
       `scrollToContentNode() doesn't support scrolling to content nodes of type '${nodeType}'.`,
     );
-    return false;
+    return;
   }
 
   const selector = getQuerySelectorForNodeType(nodeType, id);
@@ -34,12 +34,10 @@ export function scrollToElement(
     : document.querySelector(selector);
 
   if (!element) {
-    return false;
+    return;
   }
 
   element.scrollIntoView();
-
-  return true;
 }
 
 export function getElementScrollOffset(

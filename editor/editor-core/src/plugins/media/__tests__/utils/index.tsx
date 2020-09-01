@@ -1433,7 +1433,9 @@ describe('Media plugin', () => {
       action: 'opened',
       actionSubject: 'picker',
       actionSubjectId: 'cloudPicker',
-      attributes: { inputMethod: 'quickInsert' },
+      attributes: expect.objectContaining({
+        inputMethod: 'quickInsert',
+      }),
       eventType: 'ui',
     });
   });

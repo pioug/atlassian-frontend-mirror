@@ -24,7 +24,7 @@ import {
 } from '@atlaskit/media-client';
 import { MediaViewer, MediaViewerDataSource } from '@atlaskit/media-viewer';
 import { Subscription } from 'rxjs/Subscription';
-import { IntlProvider } from 'react-intl';
+import { IntlProvider, intlShape } from 'react-intl';
 import {
   CardAction,
   CardDimensions,
@@ -88,6 +88,11 @@ export class CardBase extends Component<
     disableOverlay: false,
     // Media Feature Flag defaults are defined in @atlaskit/media-common
     featureFlags: {},
+  };
+
+  static contextTypes = {
+    // Required to detect a parent IntlProvider
+    intl: intlShape,
   };
 
   constructor(props: CardWithAnalyticsEventsProps) {
@@ -667,6 +672,7 @@ export class CardBase extends Component<
       identifier,
       mediaViewerDataSource,
       contextId,
+      featureFlags,
     } = this.props;
     if (!mediaViewerSelectedItem) {
       return;
@@ -687,6 +693,7 @@ export class CardBase extends Component<
         selectedItem={mediaViewerSelectedItem}
         onClose={this.onMediaViewerClose}
         contextId={contextId}
+        featureFlags={featureFlags}
       />,
       document.body,
     );
@@ -760,26 +767,20 @@ export class CardBase extends Component<
     );
   };
 
-  renderContent() {
-    const { isPlayingFile, mediaViewerSelectedItem } = this.state;
-    const innerContent = isPlayingFile
-      ? this.renderInlinePlayer()
-      : this.renderCard();
+  render() {
+    const { metadata, isPlayingFile, mediaViewerSelectedItem } = this.state;
+    const innerContent = (
+      <>
+        {isPlayingFile ? this.renderInlinePlayer() : this.renderCard()}
+        {mediaViewerSelectedItem ? this.renderMediaViewer() : null}
+      </>
+    );
 
-    return this.context.intl ? (
+    const content = this.context.intl ? (
       innerContent
     ) : (
-      <IntlProvider locale="en">
-        <>
-          {innerContent}
-          {mediaViewerSelectedItem ? this.renderMediaViewer() : null}
-        </>
-      </IntlProvider>
+      <IntlProvider locale="en">{innerContent}</IntlProvider>
     );
-  }
-
-  render() {
-    const { metadata } = this.state;
 
     return (
       <MediaAnalyticsContext
@@ -789,7 +790,7 @@ export class CardBase extends Component<
           this.props.featureFlags,
         )}
       >
-        {this.renderContent()}
+        {content}
       </MediaAnalyticsContext>
     );
   }

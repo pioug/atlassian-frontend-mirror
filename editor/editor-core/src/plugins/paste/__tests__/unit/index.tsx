@@ -863,6 +863,7 @@ describe('paste plugins', () => {
             selectedAnnotations: [],
             mouseData: { isSelecting: false },
             disallowOnWhitespace: false,
+            isVisible: true,
           };
           return jest
             .spyOn(inlineCommentPluginKey, 'getState')

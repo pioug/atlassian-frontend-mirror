@@ -364,6 +364,7 @@ export default class Editor extends React.Component<EditorProps, State> {
       media,
       collabEdit,
       autoformattingProvider,
+      searchProvider,
       UNSAFE_cards,
     } = props;
 
@@ -391,6 +392,7 @@ export default class Editor extends React.Component<EditorProps, State> {
         : collabEditProvider,
     );
     this.providerFactory.setProvider('activityProvider', activityProvider);
+    this.providerFactory.setProvider('searchProvider', searchProvider);
     this.providerFactory.setProvider('presenceProvider', presenceProvider);
     this.providerFactory.setProvider('macroProvider', macroProvider);
 

@@ -6,9 +6,12 @@ import {
   ADNode,
   ADFStage,
 } from '@atlaskit/editor-common/validator';
-
-import { validateADFEntity } from '@atlaskit/editor-common';
+import {
+  validateADFEntity,
+  findAndTrackUnsupportedContentNodes,
+} from '@atlaskit/editor-common';
 import { Node as PMNode, Schema, Fragment } from 'prosemirror-model';
+import { AnalyticsEventPayload } from './analytics/events';
 
 export interface RenderOutput<T> {
   result: T;
@@ -40,18 +43,21 @@ const withStopwatch = <T>(cb: () => T): ResultWithTime<T> => {
   return { output, time };
 };
 
+type DispatchAnalyticsEvent = (event: AnalyticsEventPayload) => void;
+
 export const renderDocument = <T>(
   doc: any,
   serializer: Serializer<T>,
   schema: Schema = defaultSchema,
   adfStage: ADFStage = 'final',
   useSpecBasedValidator: boolean = false,
+  dispatchAnalyticsEvent?: DispatchAnalyticsEvent,
 ): RenderOutput<T | null> => {
   const stat: RenderOutputStat = { sanitizeTime: 0 };
 
   const { output: validDoc, time: sanitizeTime } = withStopwatch(() => {
     if (useSpecBasedValidator) {
-      return validateADFEntity(schema, doc);
+      return validateADFEntity(schema, doc, dispatchAnalyticsEvent);
     }
     return getValidDocument(doc, schema, adfStage);
   });
@@ -61,6 +67,20 @@ export const renderDocument = <T>(
 
   if (!validDoc) {
     return { stat, result: null };
+  }
+
+  // ProseMirror always require a child under doc
+  if (validDoc.type === 'doc' && useSpecBasedValidator) {
+    if (Array.isArray(validDoc.content) && validDoc.content.length === 0) {
+      validDoc.content.push({
+        type: 'paragraph',
+        content: [],
+      });
+    }
+    // Just making sure doc is always valid
+    if (!validDoc.version) {
+      validDoc.version = 1;
+    }
   }
 
   const { output: node, time: buildTreeTime } = withStopwatch<PMNode>(() => {
@@ -78,6 +98,10 @@ export const renderDocument = <T>(
 
   // save serialize tree time to stats
   stat.serializeTime = serializeTime;
+
+  if (dispatchAnalyticsEvent && useSpecBasedValidator) {
+    findAndTrackUnsupportedContentNodes(node, schema, dispatchAnalyticsEvent);
+  }
 
   return { result, stat, pmDoc: node };
 };

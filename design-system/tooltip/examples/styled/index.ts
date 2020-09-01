@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 
 import * as colors from '@atlaskit/theme/colors';
 
@@ -27,28 +27,6 @@ interface StyledProps {
   color: Color | string;
 }
 
-export const Center = styled.div<StyledProps>`
-  box-sizing: border-box;
-  align-items: center;
-  display: flex;
-  height: 100vh;
-  justify-content: center;
-  padding: ${p => (p.pad ? '40px' : '0px')};
-`;
-export const Container = styled.div<StyledProps>`
-  margin: 0 auto;
-  max-width: 600px;
-  padding: ${p => (p.pad ? '40px' : '0px')};
-`;
-export const Box = styled.div<StyledProps>`
-  background-color: ${colors.N30};
-  height: 140px;
-  position: ${p => p.position || 'relative'};
-  width: 140px;
-`;
-export const Spacer = styled.div`
-  margin-bottom: 4em;
-`;
 export const Target = styled.div<StyledProps>`
   background-color: ${p => color[p.color] || colors.primary};
   border-radius: 3px;

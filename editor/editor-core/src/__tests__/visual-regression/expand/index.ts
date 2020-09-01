@@ -29,8 +29,10 @@ import {
 } from '../../__helpers/page-objects/_media';
 import { getBoundingRect } from '../../__helpers/page-objects/_editor';
 import expandAdf from './__fixtures__/expand-breakout.adf.json';
+import nestedExpandAdf from './__fixtures__/nested-expand.adf.json';
 import { waitForFloatingControl } from '../../__helpers/page-objects/_toolbar';
 import { toggleBreakout } from '../../__helpers/page-objects/_layouts';
+import { selectionSelectors } from '../../__helpers/page-objects/_selection';
 
 const hideTooltip = async (page: PuppeteerPage) => {
   // Hide the tooltip
@@ -132,6 +134,7 @@ describe('Expand: full-page', () => {
     await page.mouse.up();
   });
 });
+
 describe('Expand: Selection', () => {
   let page: PuppeteerPage;
   beforeAll(() => {
@@ -158,6 +161,7 @@ describe('Expand: Selection', () => {
     await page.mouse.click(middleTopX, bounds.top);
     await page.waitForSelector(selectors.removeButton);
   });
+
   it('keeps node selection when breakout changed', async () => {
     await page.waitForSelector(selectors.expand);
 
@@ -169,6 +173,20 @@ describe('Expand: Selection', () => {
     await waitForFloatingControl(page, 'Go wide', undefined, false);
     await toggleBreakout(page, 1);
     await page.waitForSelector('div[aria-label="Go full width"]');
+  });
+
+  it('displays nested expand as selected when clicked', async () => {
+    await initFullPageEditorWithAdf(page, nestedExpandAdf, Device.LaptopMDPI);
+    await page.waitForSelector(selectors.nestedExpand);
+    const contentBoundingRect = await getContentBoundingRectTopLeftCoords(
+      page,
+      selectors.nestedExpand,
+    );
+    await page.mouse.click(
+      contentBoundingRect.left + 5,
+      contentBoundingRect.top + 5,
+    );
+    await page.waitForSelector(selectionSelectors.selectedNode);
   });
 });
 

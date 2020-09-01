@@ -1,11 +1,12 @@
 import React, { PureComponent } from 'react';
 
+import { PrismAsync as SyntaxHighlighter } from 'react-syntax-highlighter';
+
 import { ThemeProps } from '@atlaskit/theme/types';
 
 import { normalizeLanguage, SupportedLanguages } from '../supportedLanguages';
-import { applyTheme, Theme } from '../themes/themeBuilder';
-
-import Code from './Code';
+import { applyTheme } from '../themes/themeBuilder';
+import { CodeBlockTheme } from '../themes/types';
 
 export interface CodeBlockProps {
   /** The code to be formatted */
@@ -14,8 +15,8 @@ export interface CodeBlockProps {
   language?: SupportedLanguages | string;
   /** Indicates whether or not to show line numbers */
   showLineNumbers?: boolean;
-  /** A custom theme to be applied, implements the Theme interface */
-  theme?: Theme | ThemeProps;
+  /** A custom theme to be applied, implements the CodeBlockTheme interface */
+  theme?: CodeBlockTheme | ThemeProps;
 
   /**
    * Lines to highlight comma delimited.
@@ -39,6 +40,42 @@ export default class CodeBlock extends PureComponent<CodeBlockProps, {}> {
     theme: {},
     highlight: '',
   };
+
+  getLineOpacity(lineNumber: number) {
+    if (!this.props.highlight) {
+      return 1;
+    }
+
+    const highlight = this.props.highlight
+      .split(',')
+      .map(num => {
+        if (num.indexOf('-') > 0) {
+          // We found a line group, e.g. 1-3
+          const [from, to] = num
+            .split('-')
+            .map(Number)
+            // Sort by lowest value first, highest value last.
+            .sort((a, b) => a - b);
+          return Array(to + 1)
+            .fill(undefined)
+            .map((_, index) => index)
+            .slice(from, to + 1);
+        }
+
+        return Number(num);
+      })
+      .reduce<number[]>((acc, val) => acc.concat(val), []);
+
+    if (highlight.length === 0) {
+      return 1;
+    }
+
+    if (highlight.includes(lineNumber)) {
+      return 1;
+    }
+
+    return 0.3;
+  }
 
   handleCopy = (event: any) => {
     /**
@@ -68,14 +105,32 @@ export default class CodeBlock extends PureComponent<CodeBlockProps, {}> {
 
     const props = {
       language: normalizeLanguage(this.props.language || LANGUAGE_FALLBACK),
-      codeStyle: codeBlockStyle,
+      PreTag: 'span',
+      style: codeBlockStyle,
       showLineNumbers: this.props.showLineNumbers,
       codeTagProps: { style: codeContainerStyle },
       lineNumberContainerStyle,
-      text: this.props.text.toString(),
-      highlight: this.props.highlight,
     };
 
-    return <Code {...props} />;
+    return (
+      <SyntaxHighlighter
+        {...props}
+        // Wrap lines is needed to set styles on the line.
+        // We use this to set opacity if highlight specific lines.
+        wrapLines={this.props.highlight!.length > 0}
+        lineNumberStyle={(lineNumber: number) => ({
+          opacity: this.getLineOpacity(lineNumber),
+        })}
+        // Types are incorrect.
+        // @ts-ignore
+        lineProps={lineNumber => ({
+          style: {
+            opacity: this.getLineOpacity(lineNumber),
+          },
+        })}
+      >
+        {this.props.text}
+      </SyntaxHighlighter>
+    );
   }
 }

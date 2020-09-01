@@ -7,13 +7,12 @@ import {
   Transaction,
 } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
-import { ProviderFactory } from '@atlaskit/editor-common';
 
 import {
   CollabEventInitData,
   CollabEventRemoteData,
   CollabEventConnectionData,
-  CollabeEventPresenceData,
+  CollabEventPresenceData,
   CollabEventTelepointerData,
   CollabSendableSelection,
   PrivateCollabEditOptions,
@@ -25,19 +24,11 @@ export const handleInit = (
   initData: CollabEventInitData,
   view: EditorView,
   options?: PrivateCollabEditOptions,
-  providerFactory?: ProviderFactory,
 ) => {
   const { doc, json, version } = initData;
   if (doc) {
     const { state } = view;
-    const tr = replaceDocument(
-      doc,
-      state,
-      version,
-      options,
-      providerFactory,
-      options && options.sanitizePrivateContent,
-    );
+    const tr = replaceDocument(doc, state, version, options);
     tr.setMeta('isRemote', true);
     view.dispatch(tr);
   } else if (json) {
@@ -56,7 +47,7 @@ export const handleConnection = (
 };
 
 export const handlePresence = (
-  presenceData: CollabeEventPresenceData,
+  presenceData: CollabEventPresenceData,
   view: EditorView,
 ) => {
   const {

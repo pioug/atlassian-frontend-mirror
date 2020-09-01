@@ -34,6 +34,7 @@ export type FloatingToolbarButton<T> = {
   className?: string;
   tooltipContent?: React.ReactNode;
   testId?: string;
+  hideTooltipOnClick?: boolean;
 };
 
 export type FloatingToolbarInput<T> = {
@@ -64,6 +65,7 @@ export type FloatingToolbarSelect<T> = {
   defaultValue?: SelectOption;
   placeholder?: string;
   onChange: (selected: SelectOption) => T;
+  filterOption?: ((option: SelectOption, rawInput: string) => boolean) | null;
 };
 
 export type FloatingToolbarSeparator = {

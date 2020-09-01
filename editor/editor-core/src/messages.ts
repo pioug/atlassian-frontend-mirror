@@ -142,4 +142,29 @@ export default defineMessages({
     defaultMessage: 'a quote',
     description: 'a quote node',
   },
+  timeUpdated: {
+    id: 'fabric.editor.time.updated',
+    defaultMessage: 'Updated',
+    description: 'Time last updated',
+  },
+  timeViewed: {
+    id: 'fabric.editor.time.viewed',
+    defaultMessage: 'Viewed',
+    description: 'Time last viewed',
+  },
+  timeAgo: {
+    id: 'fabric.editor.time.ago',
+    defaultMessage: 'ago',
+    description: 'Some time ago',
+  },
+  copyToClipboard: {
+    id: 'fabric.editor.copyToClipboard',
+    defaultMessage: 'Copy',
+    description: 'Copy the whole content of the element to your clipboard',
+  },
+  copiedToClipboard: {
+    id: 'fabric.editor.copiedToClipboard',
+    defaultMessage: 'Copied!',
+    description: 'Copied the whole content of the element to clipboard',
+  },
 });

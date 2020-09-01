@@ -21,7 +21,10 @@ import {
   setInlineCommentDraftState,
 } from '../../commands';
 import { InlineCommentPluginState } from '../../pm-plugins/types';
-import annotationPlugin from '../..';
+import annotationPlugin, {
+  InlineCommentAnnotationProvider,
+  AnnotationUpdateEmitter,
+} from '../..';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import {
   ACTION,
@@ -42,7 +45,10 @@ describe('annotation', () => {
   let contentComponent: ReactWrapper;
   let createAnalyticsEvent = jest.fn(() => ({ fire() {} } as UIAnalyticsEvent));
 
-  const editor = (doc: any) =>
+  const editor = (
+    doc: any,
+    inlineCommentOptions?: InlineCommentAnnotationProvider,
+  ) =>
     createEditor({
       doc,
       pluginKey: inlineCommentPluginKey,
@@ -50,7 +56,7 @@ describe('annotation', () => {
         allowPanel: true,
         allowAnalyticsGASV3: true,
         annotationProviders: {
-          inlineComment: inlineCommentProvider,
+          inlineComment: inlineCommentOptions || inlineCommentProvider,
         },
       },
       createAnalyticsEvent,
@@ -86,6 +92,7 @@ describe('annotation', () => {
       mouseData: { isSelecting: false },
       bookmark: getBookmark(editorView, refs),
       disallowOnWhitespace: false,
+      isVisible: true,
     };
     jest
       .spyOn(inlineCommentPluginKey, 'getState')
@@ -331,9 +338,9 @@ describe('annotation', () => {
             actionSubject: ACTION_SUBJECT.ANNOTATION,
             actionSubjectId: ACTION_SUBJECT_ID.INLINE_COMMENT,
             eventType: EVENT_TYPE.TRACK,
-            attributes: {
+            attributes: expect.objectContaining({
               method: RESOLVE_METHOD.COMPONENT,
-            },
+            }),
           });
         });
       });
@@ -641,5 +648,61 @@ describe('annotation', () => {
     const mouseupEvent = new MouseEvent('mouseup', {});
     editorView.root.dispatchEvent(mouseupEvent);
     expect(updateMouseStateSpy).not.toHaveBeenCalled();
+  });
+
+  describe('toggle visibility', () => {
+    const updateSubscriber = new AnnotationUpdateEmitter();
+
+    const inlineCommentProviderWithToggle = {
+      ...inlineCommentProvider,
+      updateSubscriber,
+    };
+
+    it('emitter is able to turn it off', () => {
+      const { editorView } = editor(
+        doc(
+          p(
+            'Fluke {start}{<}jib scourge',
+            hardBreak(),
+            ' of the{>}{end} seven seas',
+          ),
+        ),
+        inlineCommentProviderWithToggle,
+      );
+
+      // default is on
+      let pluginState = getPluginState(editorView.state);
+      expect(pluginState.isVisible).toBe(true);
+
+      // turn it off
+      updateSubscriber.emit('setvisibility', false);
+      pluginState = getPluginState(editorView.state);
+      expect(pluginState.isVisible).toBe(false);
+    });
+
+    it('emitter is able to turn it on', () => {
+      const { editorView } = editor(
+        doc(
+          p(
+            'Fluke {start}{<}jib scourge',
+            hardBreak(),
+            ' of the{>}{end} seven seas',
+          ),
+        ),
+        inlineCommentProviderWithToggle,
+      );
+
+      const { dispatch, state } = editorView;
+      commands.setInlineCommentsVisibility(false)(state, dispatch);
+
+      // current state is off
+      let pluginState = getPluginState(editorView.state);
+      expect(pluginState.isVisible).toBe(false);
+
+      // turn it on
+      updateSubscriber.emit('setvisibility', true);
+      pluginState = getPluginState(editorView.state);
+      expect(pluginState.isVisible).toBe(true);
+    });
   });
 });

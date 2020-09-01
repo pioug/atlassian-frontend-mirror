@@ -1,3 +1,4 @@
+export { canApplyAnnotationOnRange } from './annotation';
 export { Params, getExtensionLozengeData } from './macro';
 export {
   ADDoc,
@@ -42,7 +43,12 @@ export {
   breakoutConsts,
 } from './breakout';
 export { default as ADFTraversor } from './traversor';
-export { getAnalyticsAppearance } from './analytics';
+export {
+  getAnalyticsAppearance,
+  analyticsEventKey,
+  UnsupportedContentPayload,
+} from './analytics';
+export { findAndTrackUnsupportedContentNodes } from './track-unsupported-content';
 export { measureRender } from './performance/measure-render';
 export { startMeasure, stopMeasure, clearMeasure } from './performance/measure';
 export { measureTTI } from './performance/measure-tti';

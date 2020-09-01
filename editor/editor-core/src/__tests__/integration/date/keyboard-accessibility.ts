@@ -16,7 +16,7 @@ const backspaceArray = Array(numBackspaces).fill('Backspace');
 
 BrowserTestCase(
   'keyboard-accessibility.ts: Type in date using input',
-  { skip: ['edge'] },
+  { skip: ['safari', 'edge'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
 
@@ -46,7 +46,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'keyboard-accessibility.ts: Type in en-GB date using input',
-  { skip: ['edge'] },
+  { skip: ['safari', 'edge'] },
   async (client: any, testName: string) => {
     const locale = 'en-GB';
     const page = await goToEditorTestingExample(client);
@@ -80,7 +80,7 @@ BrowserTestCase(
 );
 BrowserTestCase(
   'keyboard-accessibility.ts: Type in (slightly) misformatted en-GB date using input',
-  { skip: ['edge'] },
+  { skip: ['safari', 'edge'] },
   async (client: any, testName: string) => {
     const locale = 'en-GB';
     const page = await goToEditorTestingExample(client);
@@ -115,7 +115,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'keyboard-accessibility.ts: Type in hu-HU (Hungarian) date using input',
-  { skip: ['edge'] },
+  { skip: ['safari', 'edge'] },
   async (client: any, testName: string) => {
     const locale = 'hu';
     const page = await goToEditorTestingExample(client);
@@ -153,7 +153,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'keyboard-accessibility.ts: Type in a (slightly) misformatted hu (Hungarian) date using input',
-  { skip: ['edge'] },
+  { skip: ['safari', 'edge'] },
   async (client: any, testName: string) => {
     const locale = 'hu';
     const page = await goToEditorTestingExample(client);
@@ -191,7 +191,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'keyboard-accessibility.ts: Arrow up on year increments year by 1 and keeps same day/month when they exist',
-  { skip: ['edge'] },
+  { skip: ['safari', 'edge'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
     await loadLocale(page, ['en_GB']);
@@ -232,7 +232,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   "keyboard-accessibility.ts: When incrementing year by one, rolls over or back day when day doesn't exist in new year",
-  { skip: ['edge'] },
+  { skip: ['safari', 'edge'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
     await loadLocale(page, ['en_GB']);

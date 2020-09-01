@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 
 import Button from '@atlaskit/button';
 
 import Tooltip from '../src';
 import { PositionTypeBase } from '../src/types';
 
-import { BigTarget, Color } from './styled';
+import { BigTarget } from './styled';
 
 const VALID_POSITIONS: PositionTypeBase[] = ['top', 'right', 'bottom', 'left'];
 
@@ -48,18 +48,7 @@ const ButtonDiv = styled.p`
   text-align: center;
 `;
 
-interface Props {
-  color: Color;
-}
-
-type PositionType = 'standard' | 'mouse';
-
-interface State {
-  position: number;
-  positionType: PositionType;
-  viewportPosition: number;
-  tooltipContent: number;
-}
+type CustomPositionType = 'standard' | 'mouse';
 
 function getTooltipContent(position: PositionTypeBase, index: number) {
   const contentArray = [
@@ -78,41 +67,39 @@ function getTooltipContent(position: PositionTypeBase, index: number) {
 
 const tooltipSize = ['small', 'medium', 'large', 'long words'];
 
-export default class PositionExample extends React.Component<Props, State> {
+const PositionExample = () => {
   // store the direction as an index and pull it from the list above,
   // just to simplify the `changeDirection` logic
-  state = {
+  const [state, setState] = useState({
     position: 0,
-    positionType: 'standard' as PositionType,
+    positionType: 'standard' as CustomPositionType,
     viewportPosition: 0,
     tooltipContent: 0,
-  };
+  });
 
-  static defaultProps = {
-    color: 'blue',
-  };
-
-  changeDirection = () => {
-    this.setState({
-      position: (this.state.position + 1) % VALID_POSITIONS.length,
+  const changeDirection = () => {
+    setState({
+      ...state,
+      position: (state.position + 1) % VALID_POSITIONS.length,
     });
   };
 
-  togglePositionType = () => {
-    this.setState({
-      positionType:
-        this.state.positionType === 'standard' ? 'mouse' : 'standard',
+  const togglePositionType = () => {
+    setState({
+      ...state,
+      positionType: state.positionType === 'standard' ? 'mouse' : 'standard',
     });
   };
 
-  changeViewportPosition = () => {
-    this.setState({
+  const changeViewportPosition = () => {
+    setState({
+      ...state,
       viewportPosition:
-        (this.state.viewportPosition + 1) % VIEWPORT_POSITIONS.length,
+        (state.viewportPosition + 1) % VIEWPORT_POSITIONS.length,
     });
   };
 
-  toggleScrollbars = () => {
+  const toggleScrollbars = () => {
     if (!document.body) {
       throw new Error('Body not found');
     }
@@ -122,73 +109,67 @@ export default class PositionExample extends React.Component<Props, State> {
       document.body.style.width === '1500px' ? '' : '1500px';
   };
 
-  changeTooltipSize = () => {
-    this.setState({
-      tooltipContent: (this.state.tooltipContent + 1) % tooltipSize.length,
+  const changeTooltipSize = () => {
+    setState({
+      ...state,
+      tooltipContent: (state.tooltipContent + 1) % tooltipSize.length,
     });
   };
 
-  render() {
-    const position = VALID_POSITIONS[this.state.position];
-    const viewportStyle = VIEWPORT_POSITIONS[this.state.viewportPosition];
-    const { positionType, tooltipContent } = this.state;
+  const position = VALID_POSITIONS[state.position];
+  const viewportStyle = VIEWPORT_POSITIONS[state.viewportPosition];
 
-    const tooltipPosition = positionType === 'standard' ? position : 'mouse';
-    const mousePosition = positionType === 'mouse' ? position : undefined;
+  const tooltipPosition =
+    state.positionType === 'standard' ? position : 'mouse';
+  const mousePosition = state.positionType === 'mouse' ? position : undefined;
 
-    /* eslint-disable jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */
-    return (
-      <ContainerDiv>
-        <CenterDiv>
-          <ButtonDiv>
-            This example showcases how tooltips behave when rendered near the
-            edge of the viewport.
-            <br />
-            Click the tooltip target itself to change the position of the
-            tooltip and the buttons below to toggle other behaviour.
-          </ButtonDiv>
-          <ButtonDiv>
-            <Button onClick={this.togglePositionType}>
-              Toggle position mouse
-            </Button>
-          </ButtonDiv>
-          <ButtonDiv>
-            <Button onClick={this.changeViewportPosition}>
-              Change viewport position
-            </Button>
-          </ButtonDiv>
-          <ButtonDiv>
-            <Button onClick={this.toggleScrollbars}>
-              Toggle window scrollbars
-            </Button>
-          </ButtonDiv>
-          <ButtonDiv>
-            <Button onClick={this.changeTooltipSize}>
-              Change tooltip content
-            </Button>
-          </ButtonDiv>
-          <ButtonDiv>Content: {tooltipSize[tooltipContent]}</ButtonDiv>
-        </CenterDiv>
-        <div
-          onClick={this.changeDirection}
-          style={{ position: 'absolute', ...viewportStyle }}
+  return (
+    <ContainerDiv>
+      <CenterDiv>
+        <ButtonDiv>
+          This example showcases how tooltips behave when rendered near the edge
+          of the viewport.
+          <br />
+          Click the tooltip target itself to change the position of the tooltip
+          and the buttons below to toggle other behaviour.
+        </ButtonDiv>
+        <ButtonDiv>
+          <Button onClick={togglePositionType}>Toggle position mouse</Button>
+        </ButtonDiv>
+        <ButtonDiv>
+          <Button onClick={changeViewportPosition}>
+            Change viewport position
+          </Button>
+        </ButtonDiv>
+        <ButtonDiv>
+          <Button onClick={toggleScrollbars}>Toggle window scrollbars</Button>
+        </ButtonDiv>
+        <ButtonDiv>
+          <Button onClick={changeTooltipSize}>Change tooltip content</Button>
+        </ButtonDiv>
+        <ButtonDiv>Content: {tooltipSize[state.tooltipContent]}</ButtonDiv>
+      </CenterDiv>
+      <div
+        onClick={changeDirection}
+        style={{ position: 'absolute', ...viewportStyle }}
+      >
+        <Tooltip
+          content={getTooltipContent(position, state.tooltipContent)}
+          position={tooltipPosition}
+          mousePosition={mousePosition}
         >
-          <Tooltip
-            content={getTooltipContent(position, tooltipContent)}
-            position={tooltipPosition}
-            mousePosition={mousePosition}
-          >
-            <BigTarget color={this.props.color}>
-              <span>Target</span>
-              <span>Position: {tooltipPosition}</span>
-              <span>
-                {positionType === 'mouse' &&
-                  `mousePosition: ${String(mousePosition)}`}
-              </span>
-            </BigTarget>
-          </Tooltip>
-        </div>
-      </ContainerDiv>
-    );
-  }
-}
+          <BigTarget color="blue">
+            <span>Target</span>
+            <span>Position: {tooltipPosition}</span>
+            <span>
+              {state.positionType === 'mouse' &&
+                `mousePosition: ${String(mousePosition)}`}
+            </span>
+          </BigTarget>
+        </Tooltip>
+      </div>
+    </ContainerDiv>
+  );
+};
+
+export default PositionExample;

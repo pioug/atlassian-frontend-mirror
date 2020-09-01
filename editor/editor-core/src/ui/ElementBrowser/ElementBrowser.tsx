@@ -1,16 +1,14 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
-import StatelessElementBrowser from './StatelessElementBrowser';
+import StatelessElementBrowser from './components/StatelessElementBrowser';
 import { Category, Modes } from './types';
 
 export interface Props {
   categories?: Category[];
   mode: keyof typeof Modes;
-  getItems: (
-    query?: string,
-    category?: string,
-  ) => QuickInsertItem[] | Promise<QuickInsertItem[]>;
-  onSelectItem: (item: QuickInsertItem) => void;
+  getItems: (query?: string, category?: string) => QuickInsertItem[];
+  onSelectItem?: (item: QuickInsertItem) => void;
+  onInsertItem: (item: QuickInsertItem) => void;
   showSearch: boolean;
   showCategories: boolean;
   defaultCategory?: string;
@@ -18,24 +16,51 @@ export interface Props {
 
 export interface State {
   items: QuickInsertItem[];
+  categories: Category[];
   selectedCategory?: string;
   searchTerm?: string;
 }
 
-export default class ElementBrowser extends Component<Props, State> {
+export default class ElementBrowser extends PureComponent<Props, State> {
+  static defaultProps = {
+    defaultCategory: 'all',
+    onInsertItem: () => {},
+  };
+
   state: State = {
+    categories: [],
     items: [],
     searchTerm: '',
     selectedCategory: this.props.defaultCategory,
   };
 
   componentDidMount() {
-    this.fetchItems();
+    this.setCategories();
   }
 
-  fetchItems = async (query?: string, category?: string) => {
-    const items = await this.props.getItems(query, category);
-    this.setState({ items });
+  setCategories = () => {
+    const items = this.fetchItems();
+    const categories = this.filterCategories(items, this.props.categories);
+    this.setState({ items, categories });
+  };
+
+  filterCategories = (
+    items: QuickInsertItem[],
+    categories: Category[] = [],
+  ): Category[] => {
+    const { showCategories } = this.props;
+    if (!showCategories) {
+      return [];
+    }
+    return categories.filter(
+      category =>
+        category.name === 'all' ||
+        items.some(item => (item.categories || []).includes(category.name)),
+    );
+  };
+
+  fetchItems = (query?: string, category?: string) => {
+    return this.props.getItems(query, category);
   };
 
   componentDidUpdate(prevProps: Props, prevState: State) {
@@ -44,12 +69,14 @@ export default class ElementBrowser extends Component<Props, State> {
       searchTerm !== prevState.searchTerm ||
       selectedCategory !== prevState.selectedCategory
     ) {
-      this.fetchItems(searchTerm, selectedCategory);
+      const items = this.fetchItems(searchTerm, selectedCategory);
+      this.setState({ items });
     }
   }
 
   handleSearch = (searchTerm: string) => {
-    this.setState({ searchTerm });
+    const { defaultCategory } = this.props;
+    this.setState({ searchTerm, selectedCategory: defaultCategory });
   };
 
   handleCategorySelection = (clickedCategory: Category) => {
@@ -64,18 +91,19 @@ export default class ElementBrowser extends Component<Props, State> {
 
     this.setState({
       selectedCategory: clickedCategory.name,
+      searchTerm: '',
     });
   };
 
   render() {
     const {
-      categories,
+      onInsertItem,
       onSelectItem,
       showSearch,
       showCategories,
       mode,
     } = this.props;
-    const { selectedCategory, items } = this.state;
+    const { categories, searchTerm, selectedCategory, items } = this.state;
     return (
       <StatelessElementBrowser
         items={items}
@@ -83,11 +111,12 @@ export default class ElementBrowser extends Component<Props, State> {
         onSearch={this.handleSearch}
         onSelectCategory={this.handleCategorySelection}
         onSelectItem={onSelectItem}
-        onEnterKeyPress={onSelectItem}
+        onInsertItem={onInsertItem}
         selectedCategory={selectedCategory}
         showSearch={showSearch}
         showCategories={showCategories}
         mode={mode}
+        searchTerm={searchTerm}
       />
     );
   }

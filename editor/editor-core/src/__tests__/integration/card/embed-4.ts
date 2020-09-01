@@ -4,7 +4,7 @@ import {
   goToEditorTestingExample,
   mountEditor,
 } from '../../__helpers/testing-example-helpers';
-import { waitForBlockCardSelection } from '../../__helpers/page-objects/_cards';
+import { waitForBlockCardSelection } from '@atlaskit/media-integration-test-helpers';
 import { ConfluenceCardProvider } from '../../../../examples/5-full-page-with-confluence-smart-cards';
 import * as embedCardAdf from './_fixtures_/embed-card.adf.fallback.json';
 

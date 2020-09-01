@@ -7,6 +7,7 @@ import {
 } from '../../__helpers/page-objects/_date';
 import { pressKey } from '../../__helpers/page-objects/_keyboard';
 import { animationFrame } from '../../__helpers/page-objects/_editor';
+import { standardDateMockMillisUnixTime } from '@atlaskit/visual-regression/helper/mock-date';
 
 describe('Date:', () => {
   let page: PuppeteerPage;
@@ -23,7 +24,7 @@ describe('Date:', () => {
     await snapshot(page);
   });
 
-  it.skip('should display as selected', async () => {
+  it('should display as selected', async () => {
     await initEditorWithAdf(page, {
       adf: {
         version: 1,
@@ -73,7 +74,7 @@ describe('Date:', () => {
               {
                 type: 'date',
                 attrs: {
-                  timestamp: '1587513600000',
+                  timestamp: standardDateMockMillisUnixTime.toString(),
                 },
               },
             ],
@@ -83,7 +84,6 @@ describe('Date:', () => {
       appearance: Appearance.fullPage,
       viewport: { width: 600, height: 600 },
     });
-
     await clickOnDate(page);
     await waitForDatePicker(page);
     await snapshot(page);
@@ -117,5 +117,43 @@ describe('Date:', () => {
     await pressKey(page, 'ArrowRight');
     await animationFrame(page);
     await snapshot(page);
+  });
+
+  it('should underline the current (non-selected) day', async () => {
+    const weekInMilliseconds = 7 * 24 * 60 * 60 * 1000;
+    const oneWeekBeforeStandardMillisUnixTime =
+      standardDateMockMillisUnixTime - weekInMilliseconds;
+    /*
+     * The timestamp is roughly a week before the mocked date (Wed Aug 16 00:00:00 2017 +0000).
+     * This ensures the underline shows to make sure the mock is working.
+     */
+    await initEditorWithAdf(page, {
+      adf: {
+        version: 1,
+        type: 'doc',
+        content: [
+          {
+            type: 'paragraph',
+            content: [
+              {
+                type: 'date',
+                attrs: {
+                  // A week before the mocked date
+                  timestamp: oneWeekBeforeStandardMillisUnixTime.toString(),
+                },
+              },
+            ],
+          },
+        ],
+      },
+      appearance: Appearance.fullPage,
+      viewport: { width: 400, height: 500 },
+    });
+
+    await clickOnDate(page);
+    await waitForDatePicker(page);
+
+    // With tolerance of 0.001 it passes even if date not mocked
+    await snapshot(page, { tolerance: 0.0005 });
   });
 });

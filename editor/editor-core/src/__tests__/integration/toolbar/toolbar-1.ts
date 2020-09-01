@@ -1,8 +1,8 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import { getDocFromElement, comment, fullpage, editable } from '../_helpers';
-import { messages as textFormattingMessages } from '../../../plugins/text-formatting/ui/ToolbarTextFormatting';
-import { messages as advancedTextFormattingMessages } from '../../../plugins/text-formatting/ui/ToolbarAdvancedTextFormatting';
-import { messages as blockTypeToolbarMessages } from '../../../plugins/block-type/ui/ToolbarBlockType';
+import { toolbarMessages as textFormattingMessages } from '../../../plugins/text-formatting/ui/ToolbarTextFormatting/toolbar-messages';
+import { toolbarMessages as advancedTextFormattingMessages } from '../../../plugins/text-formatting/ui/ToolbarAdvancedTextFormatting/toolbar-messages';
+import { toolbarMessages as blockTypeToolbarMessages } from '../../../plugins/block-type/ui/ToolbarBlockType/toolbar-messages';
 import {
   goToEditorTestingExample,
   mountEditor,

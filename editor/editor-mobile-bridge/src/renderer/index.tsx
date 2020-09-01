@@ -8,12 +8,18 @@ import {
   createCardClient,
 } from '../providers';
 import { createEmojiProvider } from '../providers/emojiProvider';
-import { getAllowAnnotations } from '../query-param-reader';
+import {
+  getAllowAnnotations,
+  getAllowHeadingAnchorLinks,
+} from '../query-param-reader';
 import { useFetchProxy } from '../utils/fetch-proxy';
+import { getEmptyADF } from '@atlaskit/adf-utils';
 
 interface AppProps {
   document: string;
 }
+
+const initialDocSerialized = JSON.stringify(getEmptyADF());
 
 const App: React.FC<AppProps> = props => {
   const fetchProxy = useFetchProxy();
@@ -26,6 +32,7 @@ const App: React.FC<AppProps> = props => {
       mediaProvider={createMediaProvider()}
       mentionProvider={createMentionProvider()}
       allowAnnotations={getAllowAnnotations()}
+      allowHeadingAnchorLinks={getAllowHeadingAnchorLinks()}
     />
   );
 };
@@ -35,7 +42,8 @@ function main() {
 
   // Read default value from defaultValue query parameter when in development
   const rawDefaultValue = IS_DEV ? params.get('defaultValue') : null;
-  const defaultValue = IS_DEV && rawDefaultValue ? atob(rawDefaultValue) : '';
+  const defaultValue =
+    IS_DEV && rawDefaultValue ? atob(rawDefaultValue) : initialDocSerialized;
 
   ReactDOM.render(
     <App document={defaultValue} />,

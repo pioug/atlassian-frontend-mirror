@@ -9,7 +9,7 @@ exports[`ResizeControlBase should not render GrabArea when \`isGrabAreaDisabled\
   <div
     onMouseOver={[Function]}
   >
-    <WithAnalyticsContext(WithAnalyticsEvents(Tooltip))
+    <Tooltip
       content={
         <div
           css="unknown styles"
@@ -44,7 +44,7 @@ exports[`ResizeControlBase should not render GrabArea when \`isGrabAreaDisabled\
       >
         <ChevronLeftIcon />
       </Button>
-    </WithAnalyticsContext(WithAnalyticsEvents(Tooltip))>
+    </Tooltip>
   </div>
 </Outer>
 `;
@@ -65,7 +65,7 @@ exports[`ResizeControlBase should render correctly 1`] = `
   <div
     onMouseOver={[Function]}
   >
-    <WithAnalyticsContext(WithAnalyticsEvents(Tooltip))
+    <Tooltip
       content={
         <div
           css="unknown styles"
@@ -100,7 +100,7 @@ exports[`ResizeControlBase should render correctly 1`] = `
       >
         <ChevronLeftIcon />
       </Button>
-    </WithAnalyticsContext(WithAnalyticsEvents(Tooltip))>
+    </Tooltip>
   </div>
 </Outer>
 `;

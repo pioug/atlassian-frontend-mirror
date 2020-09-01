@@ -1,23 +1,45 @@
 import React from 'react';
 import { ActivityItem, ActivityProvider } from '@atlaskit/activity-provider';
+import { SearchProvider, QuickSearchResult } from '@atlaskit/editor-common';
 import CrossCircleIcon from '@atlaskit/icon/glyph/cross-circle';
 import EditorAlignLeftIcon from '@atlaskit/icon/glyph/editor/align-left';
 import LinkIcon from '@atlaskit/icon/glyph/link';
 import { N80, N30 } from '@atlaskit/theme/colors';
+import Page16Icon from '@atlaskit/icon-object/glyph/page/16';
 import Tooltip from '@atlaskit/tooltip';
 import { KeyboardEvent, PureComponent } from 'react';
 import { defineMessages, InjectedIntlProps, injectIntl } from 'react-intl';
 import styled from 'styled-components';
+import {
+  withAnalyticsEvents,
+  WithAnalyticsEventsProps,
+} from '@atlaskit/analytics-next';
+import { startMeasure, stopMeasure } from '@atlaskit/editor-common';
+
 import { linkToolbarMessages as linkToolbarCommonMessages } from '../../../../messages';
 import PanelTextInput from '../../../../ui/PanelTextInput';
-import RecentList from '../../../../ui/RecentSearch/RecentList';
+import LinkSearchList from '../../../../ui/LinkSearch/LinkSearchList';
 import {
   Container,
   InputWrapper,
   UrlInputWrapper,
-} from '../../../../ui/RecentSearch/ToolbarComponents';
-import { INPUT_METHOD } from '../../../analytics';
+} from '../../../../ui/LinkSearch/ToolbarComponents';
+import {
+  INPUT_METHOD,
+  fireAnalyticsEvent,
+  FireAnalyticsCallback,
+  ACTION,
+  ACTION_SUBJECT,
+  ACTION_SUBJECT_ID,
+  EVENT_TYPE,
+  LinkToolBarEventPayload,
+} from '../../../analytics';
 import { normalizeUrl } from '../../utils';
+import { LinkSearchListItemData } from '../../../../ui/LinkSearch/types';
+import debounce from 'lodash/debounce';
+import { mapContentTypeToIcon } from './utils';
+
+export const RECENT_SEARCH_LIST_SIZE = 5;
 
 const ClearText = styled.span`
   cursor: pointer;
@@ -26,7 +48,7 @@ const ClearText = styled.span`
 `;
 
 const TextInputWrapper = styled.div`
-  ${InputWrapper}
+  ${InputWrapper};
   border-top: 1px solid ${N30};
   border-bottom: 1px solid ${N30};
 `;
@@ -56,7 +78,7 @@ export const messages = defineMessages({
 });
 
 export type LinkInputType = INPUT_METHOD.MANUAL | INPUT_METHOD.TYPEAHEAD;
-export interface Props {
+interface BaseProps {
   onBlur?: (
     type: string,
     url: string,
@@ -73,21 +95,69 @@ export interface Props {
   popupsMountPoint?: HTMLElement;
   popupsBoundariesElement?: HTMLElement;
   autoFocus?: boolean;
-  provider?: Promise<ActivityProvider>;
-  displayText?: string;
+  activityProvider?: Promise<ActivityProvider>;
+  searchProvider?: Promise<SearchProvider>;
   displayUrl?: string;
 }
 
+interface DefaultProps {
+  displayText: string;
+}
+
+export type Props = InjectedIntlProps &
+  BaseProps &
+  DefaultProps &
+  WithAnalyticsEventsProps;
+type HyperlinkLinkAddToolbarProps = InjectedIntlProps &
+  BaseProps &
+  Partial<DefaultProps> &
+  WithAnalyticsEventsProps;
+
 export interface State {
-  provider?: ActivityProvider;
-  items: Array<ActivityItem>;
+  activityProvider?: ActivityProvider;
+  searchProvider?: SearchProvider;
+  items: LinkSearchListItemData[];
   selectedIndex: number;
-  text: string;
+  displayUrl: string;
   isLoading: boolean;
   displayText: string;
 }
 
-class LinkAddToolbar extends PureComponent<Props & InjectedIntlProps, State> {
+const defaultIcon = <Page16Icon label={'page'} />;
+
+const mapActivityProviderResultToLinkSearchItemData = ({
+  name,
+  container,
+  iconUrl,
+  objectId,
+  url,
+  viewedTimestamp,
+}: ActivityItem): LinkSearchListItemData => ({
+  objectId,
+  name,
+  container,
+  iconUrl,
+  url,
+  lastViewedDate: viewedTimestamp ? new Date(viewedTimestamp) : undefined,
+});
+
+const mapSearchProviderResultToLinkSearchItemData = ({
+  objectId,
+  container,
+  title,
+  contentType,
+  url,
+  updatedTimestamp,
+}: QuickSearchResult): LinkSearchListItemData => ({
+  objectId,
+  container,
+  name: title,
+  url,
+  lastUpdatedDate: updatedTimestamp ? new Date(updatedTimestamp) : undefined,
+  icon: (contentType && mapContentTypeToIcon[contentType]) || defaultIcon,
+});
+
+export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
   /* To not fire on-blur on tab-press */
   private isTabPressed: boolean = false;
 
@@ -100,45 +170,100 @@ class LinkAddToolbar extends PureComponent<Props & InjectedIntlProps, State> {
   private textBlur: () => void;
   private handleClearText: () => void;
   private handleClearDisplayText: () => void;
+  private debouncedQuickSearch: (
+    input: string,
+    items: LinkSearchListItemData[],
+    quickSearchLimit: number,
+  ) => Promise<void>;
+  private fireCustomAnalytics?: FireAnalyticsCallback;
 
-  constructor(props: Props & InjectedIntlProps) {
+  constructor(props: Props) {
     super(props);
 
     this.state = {
       selectedIndex: -1,
       isLoading: false,
-      text: normalizeUrl(props.displayUrl),
-      displayText: props.displayText || '',
+      displayUrl: normalizeUrl(props.displayUrl),
+      displayText: props.displayText,
       items: [],
-    };
+    } as State;
 
     /* Cache functions */
     this.urlBlur = this.handleBlur.bind(this, 'url');
     this.textBlur = this.handleBlur.bind(this, 'text');
 
-    this.handleClearText = this.createClearHandler('text');
+    this.handleClearText = this.createClearHandler('displayUrl');
     this.handleClearDisplayText = this.createClearHandler('displayText');
-  }
+    this.debouncedQuickSearch = debounce(this.quickSearch, 400);
 
-  async resolveProvider(unresolvedProvider: Promise<ActivityProvider>) {
-    const provider = await unresolvedProvider;
-    this.setState({ provider });
-    return provider;
+    this.fireCustomAnalytics = fireAnalyticsEvent(props.createAnalyticsEvent);
   }
 
   async componentDidMount() {
-    if (this.props.provider) {
-      const activityProvider = await this.resolveProvider(this.props.provider);
-      await this.loadRecentItems(activityProvider);
+    const [activityProvider, searchProvider] = await Promise.all([
+      this.props.activityProvider,
+      this.props.searchProvider,
+    ]);
+    this.setState({ activityProvider, searchProvider });
+    await this.loadInitialLinkSearchResult();
+  }
+
+  private async getRecentItems(activityProvider: ActivityProvider) {
+    try {
+      startMeasure('recentActivity');
+      const activityRecentItems = await activityProvider.getRecentItems();
+      const items = activityRecentItems.map(
+        mapActivityProviderResultToLinkSearchItemData,
+      );
+      stopMeasure('recentActivity', (duration, startTime) => {
+        this.fireAnalytics({
+          action: ACTION.INVOKED,
+          actionSubject: ACTION_SUBJECT.SEARCH_RESULT,
+          actionSubjectId: ACTION_SUBJECT_ID.RECENT_ACTIVITIES,
+          attributes: {
+            duration,
+            startTime,
+            count: items.length,
+          },
+          eventType: EVENT_TYPE.OPERATIONAL,
+        });
+      });
+      return items;
+    } catch (err) {
+      stopMeasure('recentActivity', (duration, startTime) => {
+        this.fireAnalytics({
+          action: ACTION.INVOKED,
+          actionSubject: ACTION_SUBJECT.SEARCH_RESULT,
+          actionSubjectId: ACTION_SUBJECT_ID.RECENT_ACTIVITIES,
+          attributes: {
+            duration,
+            startTime,
+            count: -1,
+            error: err.message,
+            errorCode: err.status,
+          },
+          eventType: EVENT_TYPE.OPERATIONAL,
+        });
+      });
+      return [];
     }
   }
 
-  private async loadRecentItems(activityProvider: ActivityProvider) {
+  private fireAnalytics(payload: LinkToolBarEventPayload) {
+    if (this.props.createAnalyticsEvent && this.fireCustomAnalytics) {
+      this.fireCustomAnalytics({ payload });
+    }
+  }
+  private async loadInitialLinkSearchResult() {
+    const { displayUrl, activityProvider } = this.state;
     try {
-      if (!this.state.text) {
+      if (!displayUrl && activityProvider) {
         this.setState({
           isLoading: true,
-          items: limit(await activityProvider.getRecentItems()),
+        });
+        const items = await this.getRecentItems(activityProvider);
+        this.setState({
+          items: limit(items),
         });
       }
     } finally {
@@ -146,38 +271,89 @@ class LinkAddToolbar extends PureComponent<Props & InjectedIntlProps, State> {
     }
   }
 
-  private updateInput = async (input: string) => {
-    this.setState({ text: input });
+  private quickSearch = async (
+    input: string,
+    items: LinkSearchListItemData[],
+    quickSearchLimit: number,
+  ) => {
+    const { searchProvider, displayUrl } = this.state;
+    if (!searchProvider) {
+      return;
+    }
+    const searchProviderResultItems = await searchProvider.quickSearch(
+      input,
+      quickSearchLimit,
+    );
+    items = items.concat(
+      searchProviderResultItems.map(
+        mapSearchProviderResultToLinkSearchItemData,
+      ),
+    );
+    if (displayUrl === input) {
+      this.setState({
+        items,
+        isLoading: false,
+      });
+    }
+  };
 
-    if (this.state.provider) {
+  private updateInput = async (input: string) => {
+    const { activityProvider, searchProvider } = this.state;
+    if (activityProvider) {
       if (input.length === 0) {
         this.setState({
-          items: limit(await this.state.provider.getRecentItems()),
+          items: limit(await this.getRecentItems(activityProvider)),
+          displayUrl: input,
           selectedIndex: -1,
         });
       } else {
+        const activityProviderResultItems = limit(
+          await activityProvider.searchRecent(input),
+        );
+        let items = activityProviderResultItems.map(
+          mapActivityProviderResultToLinkSearchItemData,
+        );
+
+        const shouldQuerySearchProvider =
+          activityProviderResultItems.length < RECENT_SEARCH_LIST_SIZE &&
+          !!searchProvider;
+
         this.setState({
-          items: limit(await this.state.provider.searchRecent(input)),
-          selectedIndex: 0,
+          items,
+          displayUrl: input,
+          isLoading: shouldQuerySearchProvider,
         });
+
+        if (shouldQuerySearchProvider) {
+          const searchProviderLimit =
+            RECENT_SEARCH_LIST_SIZE - activityProviderResultItems.length;
+          this.debouncedQuickSearch(input, items, searchProviderLimit);
+        }
       }
     }
   };
 
-  private createClearHandler = (field: 'text' | 'displayText') => {
-    return () => {
-      this.setState({
-        [field]: '',
-      } as any);
-
+  private createClearHandler = (field: 'displayUrl' | 'displayText') => {
+    return async () => {
+      const { activityProvider } = this.state;
+      if (!activityProvider) {
+        return;
+      }
       switch (field) {
-        case 'text': {
+        case 'displayUrl': {
+          this.setState({
+            [field]: '',
+            items: limit(await activityProvider.getRecentItems()),
+          });
           if (this.urlInputContainer) {
             this.urlInputContainer.focus();
           }
           break;
         }
         case 'displayText': {
+          this.setState({
+            [field]: '',
+          });
           if (this.displayTextInputContainer) {
             this.displayTextInputContainer.focus();
           }
@@ -187,13 +363,19 @@ class LinkAddToolbar extends PureComponent<Props & InjectedIntlProps, State> {
   };
 
   render() {
-    const { items, isLoading, selectedIndex, text, displayText } = this.state;
+    const {
+      items,
+      isLoading,
+      selectedIndex,
+      displayUrl,
+      displayText,
+    } = this.state;
     const {
       intl: { formatMessage },
-      provider,
+      activityProvider,
     } = this.props;
     const placeholder = formatMessage(
-      provider
+      activityProvider
         ? linkToolbarCommonMessages.placeholder
         : linkToolbarCommonMessages.linkPlaceholder,
     );
@@ -206,7 +388,7 @@ class LinkAddToolbar extends PureComponent<Props & InjectedIntlProps, State> {
 
     return (
       <div className="recent-list">
-        <Container provider={!!provider}>
+        <Container provider={!!activityProvider}>
           <UrlInputWrapper>
             <IconWrapper>
               <Tooltip content={formatLinkAddressText}>
@@ -222,10 +404,10 @@ class LinkAddToolbar extends PureComponent<Props & InjectedIntlProps, State> {
               autoFocus={{ preventScroll: true }}
               onCancel={this.urlBlur}
               onBlur={this.urlBlur}
-              defaultValue={text}
+              defaultValue={displayUrl}
               onKeyDown={this.handleKeyDown}
             />
-            {text && (
+            {displayUrl && (
               <Tooltip content={formatClearLinkText}>
                 <ClearText onClick={this.handleClearText}>
                   <CrossCircleIcon label={formatClearLinkText} />
@@ -259,7 +441,7 @@ class LinkAddToolbar extends PureComponent<Props & InjectedIntlProps, State> {
               </Tooltip>
             )}
           </TextInputWrapper>
-          <RecentList
+          <LinkSearchList
             items={items}
             isLoading={isLoading}
             selectedIndex={selectedIndex}
@@ -299,16 +481,16 @@ class LinkAddToolbar extends PureComponent<Props & InjectedIntlProps, State> {
   };
 
   private handleSubmit = () => {
-    const { items, text, selectedIndex } = this.state;
+    const { items, displayUrl, selectedIndex } = this.state;
     // add the link selected in the dropdown if there is one, otherwise submit the value of the input field
     if (items && items.length > 0 && selectedIndex > -1) {
       const item = items[selectedIndex];
       const url = normalizeUrl(item.url);
       this.handleInsert(url, item.name, INPUT_METHOD.TYPEAHEAD, 'keyboard');
-    } else if (text && text.length > 0) {
-      const url = normalizeUrl(text);
+    } else if (displayUrl && displayUrl.length > 0) {
+      const url = normalizeUrl(displayUrl);
       if (url) {
-        this.handleInsert(url, text, INPUT_METHOD.MANUAL, 'notselected');
+        this.handleInsert(url, displayUrl, INPUT_METHOD.MANUAL, 'notselected');
       }
     }
   };
@@ -344,12 +526,12 @@ class LinkAddToolbar extends PureComponent<Props & InjectedIntlProps, State> {
   };
 
   private handleBlur = (type: string) => {
-    const url = normalizeUrl(this.state.text);
+    const url = normalizeUrl(this.state.displayUrl);
     if (this.props.onBlur && !this.submitted && url) {
       this.props.onBlur(
         type,
         url,
-        this.state.text,
+        this.state.displayText || this.state.displayUrl,
         this.state.displayText,
         this.isTabPressed,
       );
@@ -370,8 +552,11 @@ const findIndex = (array: any[], predicate: (item: any) => boolean): number => {
   return index;
 };
 
-const limit = (items: Array<ActivityItem>) => {
-  return items.slice(0, 5);
-};
+function limit<T>(items: Array<T>) {
+  return items.slice(0, RECENT_SEARCH_LIST_SIZE);
+}
 
-export default injectIntl(LinkAddToolbar);
+export const HyperlinkLinkAddToolbarWithIntl = injectIntl(
+  HyperlinkLinkAddToolbar as React.ComponentClass<HyperlinkLinkAddToolbarProps>,
+);
+export default withAnalyticsEvents()(HyperlinkLinkAddToolbarWithIntl);

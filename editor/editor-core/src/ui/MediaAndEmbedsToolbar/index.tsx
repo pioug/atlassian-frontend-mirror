@@ -1,5 +1,5 @@
 import { EditorState, NodeSelection } from 'prosemirror-state';
-import { InjectedIntl, defineMessages } from 'react-intl';
+import { InjectedIntl } from 'react-intl';
 import { hasParentNodeOfType } from 'prosemirror-utils';
 import { Schema, NodeType, Node } from 'prosemirror-model';
 import {
@@ -35,6 +35,7 @@ import {
   EVENT_TYPE,
   ACTION,
 } from '../../plugins/analytics';
+import { toolbarMessages } from './toolbar-messages';
 
 type IconMap = Array<
   { value: string; icon: React.ComponentClass<any> } | { value: 'separator' }
@@ -56,23 +57,10 @@ const breakoutIcons: IconMap = [
   { value: 'full-width', icon: FullWidthIcon },
 ];
 
-export const messages = defineMessages({
-  wrapLeft: {
-    id: 'fabric.editor.wrapLeft',
-    defaultMessage: 'Wrap left',
-    description: 'Aligns your image to the left and wraps text around it.',
-  },
-  wrapRight: {
-    id: 'fabric.editor.wrapRight',
-    defaultMessage: 'Wrap right',
-    description: 'Aligns your image to the right and wraps text around it.',
-  },
-});
-
 const layoutToMessages: Record<string, any> = {
-  'wrap-left': messages.wrapLeft,
+  'wrap-left': toolbarMessages.wrapLeft,
   center: commonMessages.alignImageCenter,
-  'wrap-right': messages.wrapRight,
+  'wrap-right': toolbarMessages.wrapRight,
   wide: commonMessages.layoutWide,
   'full-width': commonMessages.layoutFullWidth,
   'align-end': commonMessages.alignImageRight,

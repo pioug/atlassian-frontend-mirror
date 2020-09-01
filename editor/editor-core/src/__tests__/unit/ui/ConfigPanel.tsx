@@ -1,3 +1,7 @@
+import { mockWithAnalyticsEvent } from '@atlaskit/editor-test-helpers/mock-analytics-next';
+
+const { mockCreateAnalyticsEvent } = mockWithAnalyticsEvent();
+
 import React from 'react';
 import { IntlProvider } from 'react-intl';
 import { act } from 'react-dom/test-utils';
@@ -65,6 +69,9 @@ const createManifest = (
         custom: {
           userpicker: {
             resolver: userPicker,
+          },
+          pickerWithDefaultValue: {
+            resolver: pickerWithDefaultValue,
           },
         },
         fieldset: {
@@ -175,9 +182,9 @@ const selectOption = (inputWrapper: any, option: Option) => {
   });
 };
 
-const createFakeFieldResolver = (items: { label: string; value: string }[]) => (
-  searchTerm?: string,
-) => {
+const createFakeCustomFieldResolver = (
+  items: { label: string; value: string }[],
+) => (searchTerm?: string) => {
   if (searchTerm) {
     return Promise.resolve(
       items.filter(
@@ -191,12 +198,14 @@ const createFakeFieldResolver = (items: { label: string; value: string }[]) => (
   return Promise.resolve(items);
 };
 
-const userPicker = createFakeFieldResolver([
+const userPicker = createFakeCustomFieldResolver([
   { label: 'Leandro', value: 'u123i1431' },
   { label: 'Rifat', value: 'u456y1987' },
   { label: 'Rodrigo', value: 'j78635820' },
   { label: 'Eduard', value: 'h76543890' },
 ]);
+
+const pickerWithDefaultValue = jest.fn(() => Promise.resolve([]));
 
 // there are many warnings due to hooks usage and async code that will be solved with the next react update.
 // this function will keep then silent so we can still read the tests.
@@ -232,6 +241,42 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
 
       afterEach(() => {
         onChange.mockClear();
+      });
+
+      describe('Analytics', () => {
+        let mountResult: MountResult<Props>;
+        beforeEach(async () => {
+          mountResult = await mountWithProviders({
+            ...defaultProps,
+            extensionProvider: createProvider([
+              {
+                label: 'My text field',
+                type: 'string',
+                name: 't',
+              },
+            ]),
+          });
+        });
+
+        it('should fire an "open" event on mount', () => {
+          expect(mockCreateAnalyticsEvent).toHaveBeenCalledWith({
+            action: 'opened',
+            actionSubject: 'configPanel',
+            eventType: 'ui',
+            attributes: {},
+          });
+        });
+
+        it('should fire an "close" event on unmount', () => {
+          mountResult.wrapper.unmount();
+
+          expect(mockCreateAnalyticsEvent).toHaveBeenCalledWith({
+            action: 'closed',
+            actionSubject: 'configPanel',
+            eventType: 'ui',
+            attributes: {},
+          });
+        });
       });
 
       describe('UI States', () => {
@@ -1269,6 +1314,61 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
 
             expect(onChange).toHaveBeenCalledWith({
               user: 'u123i1431',
+            });
+          });
+        });
+        describe('defaultValue', () => {
+          it('should pass defaultValue to the fieldResolver', async () => {
+            await mountWithProviders({
+              ...defaultProps,
+              extensionProvider: createProvider([
+                {
+                  label: 'User',
+                  type: 'custom',
+                  options: {
+                    resolver: {
+                      type: 'pickerWithDefaultValue',
+                    },
+                  },
+                  name: 'user-lazy',
+                },
+              ]),
+              parameters: {
+                'user-lazy': 'akumar',
+              },
+            });
+            expect(pickerWithDefaultValue).toHaveBeenCalledWith(
+              undefined,
+              'akumar',
+            );
+          });
+          describe('prop: isMultiple', () => {
+            it('should pass an array of defaultValues to the fieldResolver', async () => {
+              await mountWithProviders({
+                ...defaultProps,
+                extensionProvider: createProvider([
+                  {
+                    label: 'User',
+                    type: 'custom',
+                    options: {
+                      resolver: {
+                        type: 'pickerWithDefaultValue',
+                      },
+                    },
+                    name: 'user-lazy',
+                    isMultiple: true,
+                  },
+                ]),
+                parameters: {
+                  'user-lazy': ['akumar', 'llemos', 'rnabi', 'jquintana'],
+                },
+              });
+              expect(pickerWithDefaultValue).toHaveBeenCalledWith(undefined, [
+                'akumar',
+                'llemos',
+                'rnabi',
+                'jquintana',
+              ]);
             });
           });
         });

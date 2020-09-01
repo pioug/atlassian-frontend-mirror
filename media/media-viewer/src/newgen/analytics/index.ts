@@ -3,6 +3,8 @@ import {
   name as packageName,
   version as packageVersion,
 } from '../../version.json';
+import { ZipEntry } from 'unzipit';
+import { getMimeTypeFromFilename } from '../utils';
 
 export const channel = 'media';
 
@@ -24,6 +26,13 @@ export interface FileGasPayload {
   fileSize?: number;
 }
 
+export interface ZipEntryGasPayload {
+  size?: number;
+  encrypted?: boolean;
+  compressedSize?: number;
+  mimeType?: string;
+}
+
 export function fileStateToFileGasPayload(state: FileState): FileGasPayload {
   const basePayload = {
     fileId: state.id,
@@ -42,4 +51,13 @@ export function fileStateToFileGasPayload(state: FileState): FileGasPayload {
     case 'error':
       return basePayload;
   }
+}
+
+export function entryToZipEntryGasPayload(entry: ZipEntry): ZipEntryGasPayload {
+  return {
+    size: entry.size,
+    encrypted: entry.encrypted,
+    compressedSize: entry.compressedSize,
+    mimeType: getMimeTypeFromFilename(entry.name),
+  };
 }

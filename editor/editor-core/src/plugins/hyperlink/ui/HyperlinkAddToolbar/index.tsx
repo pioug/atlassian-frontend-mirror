@@ -21,7 +21,7 @@ export interface Props {
   displayUrl?: string;
 }
 
-export default class Toolbar extends React.PureComponent<Props, {}> {
+export default class extends React.PureComponent<Props, {}> {
   render() {
     const {
       onSubmit,
@@ -32,14 +32,15 @@ export default class Toolbar extends React.PureComponent<Props, {}> {
     } = this.props;
     return (
       <WithProviders
-        providers={['activityProvider']}
+        providers={['activityProvider', 'searchProvider']}
         providerFactory={providerFactory}
-        renderNode={({ activityProvider }) => (
+        renderNode={({ activityProvider, searchProvider }) => (
           <HyperlinkAddToolbar
-            provider={activityProvider}
+            activityProvider={activityProvider}
+            searchProvider={searchProvider}
             onSubmit={onSubmit}
             onBlur={onBlur}
-            displayText={displayText || ''}
+            displayText={displayText}
             displayUrl={displayUrl}
           />
         )}

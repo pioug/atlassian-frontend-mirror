@@ -11,6 +11,7 @@ export enum EmitterEvents {
   REMOVE_DRAFT_ANNOTATION = 'REMOVE_DRAFT_ANNOTATION',
   APPLY_DRAFT_ANNOTATION = 'APPLY_DRAFT_ANNOTATION',
   SET_DOCUMENT_REFLOW_DETECTOR_STATUS = 'SET_DOCUMENT_REFLOW_DETECTOR_STATUS',
+  SET_ACTIVE_HEADING_ID = 'SET_ACTIVE_HEADING_ID',
 }
 
 type EmitterEventPayloads = {
@@ -24,6 +25,7 @@ type EmitterEventPayloads = {
   [EmitterEvents.REMOVE_ANNOTATION_FOCUS]: never;
   [EmitterEvents.APPLY_DRAFT_ANNOTATION]: never;
   [EmitterEvents.REMOVE_DRAFT_ANNOTATION]: never;
+  [EmitterEvents.SET_ACTIVE_HEADING_ID]: string;
 };
 
 class MobilleRendererEmitter {

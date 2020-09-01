@@ -1,5 +1,11 @@
 # @atlaskit/motion
 
+## 0.4.3
+
+### Patch Changes
+
+- [`81c95008a4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/81c95008a4) - Remove transform if FadeIn movement is not provided
+
 ## 0.4.2
 
 ### Patch Changes

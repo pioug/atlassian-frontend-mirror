@@ -18,6 +18,8 @@ export {
   AnnotationUpdateEvent,
   AnnotationUpdateEventPayloads,
   InlineCommentSelectionComponentProps,
+  InlineCommentViewComponentProps,
+  InlineCommentAnnotationProvider,
 } from './annotation';
 
 export { TypeAheadItem, TypeAheadItemRenderProps } from './typeAhead';

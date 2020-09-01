@@ -6,7 +6,7 @@ import {
 } from '../_utils';
 import tableIn2ColAdf from './__fixtures__/table-in-2-col-layout.adf.json';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
-import { messages } from '../../../plugins/layout/toolbar';
+import { toolbarMessages } from '../../../plugins/layout/toolbar-messages';
 import { clickFirstCell } from '../../__helpers/page-objects/_table';
 import {
   toggleBreakout,
@@ -20,7 +20,7 @@ import {
 describe('Snapshot Test: Nested table inside layouts', () => {
   let page: PuppeteerPage;
 
-  const { rightSidebar, leftSidebar, threeColumns } = messages;
+  const { rightSidebar, leftSidebar, threeColumns } = toolbarMessages;
   const layoutBtns = [
     rightSidebar.defaultMessage,
     leftSidebar.defaultMessage,

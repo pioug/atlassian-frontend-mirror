@@ -1,7 +1,7 @@
 import { containsClassName } from '../../../utils';
 import { closestElement } from '../../../utils/dom';
 import { TableCssClassName as ClassName } from '../types';
-import { tableToolbarSize } from '../ui/styles';
+import { tableToolbarSize } from '../ui/consts';
 
 export const isCell = (node: HTMLElement | null): boolean => {
   return Boolean(

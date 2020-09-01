@@ -6,6 +6,8 @@ export const FigureWrapper = styled.figure`
   margin: 0;
 `;
 
+FigureWrapper.displayName = 'FigureWrapper';
+
 const AbsoluteDiv = styled.div`
   position: absolute;
   width: 100%;

@@ -1,9 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { ProviderFactory } from '@atlaskit/editor-common';
+import {
+  ProviderFactory,
+  AnnotationUpdateEmitter,
+} from '@atlaskit/editor-common';
 import { taskDecision, emoji } from '@atlaskit/util-data-test';
 import { Provider as SmartCardProvider } from '@atlaskit/smart-card';
-import { cardClient } from '@atlaskit/editor-test-helpers/smart-card';
+import { cardClient } from '@atlaskit/media-integration-test-helpers';
 import {
   MediaMock,
   generateFilesFromTestData,
@@ -18,7 +21,10 @@ import {
   extensionHandlers,
   testMediaPictureFileId,
 } from '@atlaskit/editor-test-helpers';
-import { default as Renderer } from '../src/ui/Renderer';
+import {
+  default as Renderer,
+  Props as RendererProps,
+} from '../src/ui/Renderer';
 import { document as defaultDoc } from './helper/story-data';
 import Sidebar from './helper/NavigationNext';
 import { MentionProvider } from '@atlaskit/mention/types';
@@ -26,6 +32,12 @@ import { MentionProvider } from '@atlaskit/mention/types';
 import { RendererActionsContext as RendererContext } from '../src/ui/RendererActionsContext';
 import { WithRendererActions } from '../src/ui/RendererActionsContext/WithRendererActions';
 import RendererActions from '../src/actions/index';
+import {
+  AnnotationTypes,
+  AnnotationId,
+  AnnotationMarkStates,
+} from '@atlaskit/adf-schema';
+import { ExampleSelectionInlineComponent } from './helper/annotations';
 
 const mediaMockServer = new MediaMock({
   MediaServicesSample: generateFilesFromTestData([
@@ -60,10 +72,11 @@ const taskDecisionProvider = Promise.resolve(
   taskDecision.getMockTaskDecisionResource(),
 );
 
-interface MountProps {
+type MountProps = { [T in keyof RendererProps]?: RendererProps[T] } & {
   showSidebar?: boolean;
   withRendererActions?: boolean;
-}
+  mockInlineComments?: boolean;
+};
 
 interface WindowBindings {
   __mountRenderer?: () => void;
@@ -114,6 +127,10 @@ function createRendererWindowBindings(win: Window & WindowBindings) {
       return;
     }
 
+    if (props && props.mockInlineComments) {
+      mockAnnotationProps(props);
+    }
+
     let render = renderRenderer({ adf, props });
     let content;
     if (props.withRendererActions) {
@@ -132,6 +149,33 @@ function createRendererWindowBindings(win: Window & WindowBindings) {
     ReactDOM.unmountComponentAtNode(target);
     ReactDOM.render(content || render, target);
   };
+}
+
+// helper function to add dummy inline comments related props
+function mockAnnotationProps(props: MountProps) {
+  const annotationInlineCommentProvider = {
+    getState: async (annotationIds: AnnotationId[]) => {
+      return annotationIds.map(id => ({
+        id,
+        annotationType: AnnotationTypes.INLINE_COMMENT,
+        state: AnnotationMarkStates.ACTIVE,
+      }));
+    },
+    allowDraftMode: true,
+    selectionComponent: ExampleSelectionInlineComponent(() => {}),
+    updateSubscriber: new AnnotationUpdateEmitter(),
+  };
+  // extend annotationProvider with dummy inline comment provier settings for testing
+  props.annotationProvider = {
+    ...props.annotationProvider,
+    [AnnotationTypes.INLINE_COMMENT]: {
+      ...(props.annotationProvider &&
+        props.annotationProvider[AnnotationTypes.INLINE_COMMENT]),
+      ...annotationInlineCommentProvider,
+    },
+  };
+
+  return props;
 }
 
 export default function RendererExampleForTests() {

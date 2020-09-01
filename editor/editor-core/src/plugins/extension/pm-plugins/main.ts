@@ -80,7 +80,7 @@ export const updateEditButton = async (
 };
 
 const shouldShowEditButton = (
-  extensionHandler?: Extension<any> | ExtensionHandler<any>,
+  extensionHandler?: Extension | ExtensionHandler,
   extensionProvider?: ExtensionProvider,
 ) => {
   const usesLegacyMacroBrowser =
@@ -100,9 +100,9 @@ const shouldShowEditButton = (
 
 const getUpdateExtensionPromise = async (
   view: EditorView,
-  extensionHandler?: Extension<any> | ExtensionHandler<any>,
+  extensionHandler?: Extension | ExtensionHandler,
   extensionProvider?: ExtensionProvider,
-): Promise<UpdateExtension<object> | void> => {
+): Promise<UpdateExtension | void> => {
   if (extensionHandler && typeof extensionHandler === 'object') {
     // Old API with the `update` function
     return extensionHandler.update;

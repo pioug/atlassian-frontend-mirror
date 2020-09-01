@@ -23,15 +23,31 @@ import {
 } from './styled';
 import ArchiveSidebarRenderer from './archive-sidebar-renderer';
 import { getMediaTypeFromFilename, rejectAfter } from '../../../newgen/utils';
-import { ENCRYPTED_ENTRY_ERROR_MESSAGE } from './consts';
+import { Spinner } from '../../loading';
+import {
+  ENCRYPTED_ENTRY_ERROR_MESSAGE,
+  NO_NAME_OR_SRC_ERROR_MESSAGE,
+} from './consts';
+import {
+  withAnalyticsEvents,
+  WithAnalyticsEventsProps,
+} from '@atlaskit/analytics-next';
+import {
+  GasPayload,
+  GasScreenEventPayload,
+} from '@atlaskit/analytics-gas-types';
+import { channel } from '../../analytics/index';
+import { zipEntryLoadSucceededEvent } from '../../analytics/archive-viewer';
 
 export type Props = {
   mediaClient: MediaClient;
   item: FileState;
   collectionName?: string;
-};
+  onZipFileLoadError: (error: Error) => void;
+  onSuccess: () => void;
+} & WithAnalyticsEventsProps;
 
-type Content = {
+export type Content = {
   src?: string;
   name?: string;
   isDirectory?: boolean;
@@ -39,6 +55,7 @@ type Content = {
   isArchiveEntryLoading?: boolean;
   isErrored?: boolean;
   error?: Error;
+  item?: FileState;
 };
 
 export const getArchiveEntriesFromFileState = async (
@@ -56,13 +73,14 @@ export const getArchiveEntriesFromFileState = async (
   return archive;
 };
 
-export class ArchiveViewer extends BaseViewer<Content, Props> {
+export class ArchiveViewerBase extends BaseViewer<Content, Props> {
   protected async init() {
     const content = Outcome.successful<Content, MediaViewerError>({
       src: '',
       name: '',
       isDirectory: true,
       isErrored: false,
+      item: this.props.item,
     });
 
     this.setState({
@@ -77,6 +95,7 @@ export class ArchiveViewer extends BaseViewer<Content, Props> {
         name: '',
         isDirectory: true,
         isErrored: false,
+        item: this.props.item,
       }),
     };
   }
@@ -101,17 +120,22 @@ export class ArchiveViewer extends BaseViewer<Content, Props> {
     );
   }
 
-  private onError = (error: Error) => {
+  private onError = (error: Error, entry?: ZipEntry) => {
+    !entry && this.props.onZipFileLoadError(error);
+
     this.setState({
       content: Outcome.successful<Content, MediaViewerError>({
+        ...this.state.content.data,
+        isArchiveEntryLoading: false,
         isErrored: true,
+        selectedArchiveEntry: entry,
         error,
       }),
     });
   };
 
   private renderArchiveSideBar() {
-    const { item, mediaClient, collectionName } = this.props;
+    const { item, mediaClient, collectionName, onSuccess } = this.props;
     const isArchiveEntryLoading =
       !this.state.content.data ||
       this.state.content.data.isArchiveEntryLoading === undefined
@@ -126,30 +150,54 @@ export class ArchiveViewer extends BaseViewer<Content, Props> {
         isArchiveEntryLoading={isArchiveEntryLoading}
         collectionName={collectionName}
         onError={this.onError}
+        onSuccess={onSuccess}
       />
     );
   }
 
+  private fireAnalytics = (payload: GasPayload | GasScreenEventPayload) => {
+    const { createAnalyticsEvent } = this.props;
+    if (createAnalyticsEvent) {
+      const ev = createAnalyticsEvent(payload);
+      ev.fire(channel);
+    }
+  };
+
   private onSelectedArchiveEntryChange = async (
     selectedArchiveEntry: ZipEntry,
   ) => {
+    this.setState({
+      content: Outcome.successful<Content, MediaViewerError>({
+        ...this.state.content.data,
+        isArchiveEntryLoading: true,
+      }),
+    });
+    const fileState = this.state.content.data
+      ? this.state.content.data.item
+      : undefined;
     let src = '';
     if (!selectedArchiveEntry.isDirectory) {
       try {
         src = URL.createObjectURL(
           await rejectAfter(() => selectedArchiveEntry.blob()),
         );
+        this.fireAnalytics(
+          zipEntryLoadSucceededEvent(selectedArchiveEntry, fileState),
+        );
       } catch (error) {
-        return this.onError(error);
+        return this.onError(error, selectedArchiveEntry);
       }
     }
+
     this.setState({
       content: Outcome.successful<Content, MediaViewerError>({
+        ...this.state.content.data,
         selectedArchiveEntry,
-        isArchiveEntryLoading: !selectedArchiveEntry.isDirectory,
+        isArchiveEntryLoading: false,
         src,
         name: selectedArchiveEntry.name,
         isDirectory: selectedArchiveEntry.isDirectory,
+        isErrored: false,
       }),
     });
   };
@@ -165,13 +213,30 @@ export class ArchiveViewer extends BaseViewer<Content, Props> {
   };
 
   private renderArchiveItemViewer(content: Content) {
-    const { src, name, isDirectory, isErrored, error } = content;
+    const {
+      src,
+      name,
+      isDirectory,
+      isErrored,
+      error,
+      isArchiveEntryLoading,
+      selectedArchiveEntry,
+      item,
+    } = content;
     let archiveItemViewer;
+
+    if (isArchiveEntryLoading) {
+      return (
+        <ArchiveItemViewerWrapper>
+          <Spinner />
+        </ArchiveItemViewerWrapper>
+      );
+    }
 
     if (isErrored) {
       return (
         <ArchiveItemViewerWrapper>
-          {this.renderPreviewError(error)}
+          {this.renderPreviewError(error, selectedArchiveEntry, item)}
         </ArchiveItemViewerWrapper>
       );
     }
@@ -180,7 +245,11 @@ export class ArchiveViewer extends BaseViewer<Content, Props> {
       if (!name || !src) {
         return (
           <ArchiveItemViewerWrapper>
-            {this.renderPreviewError()}
+            {this.renderPreviewError(
+              new Error(NO_NAME_OR_SRC_ERROR_MESSAGE),
+              selectedArchiveEntry,
+              item,
+            )}
           </ArchiveItemViewerWrapper>
         );
       }
@@ -245,13 +314,16 @@ export class ArchiveViewer extends BaseViewer<Content, Props> {
     return <PDFRenderer src={src} />;
   }
 
-  private renderPreviewError(thrownError: Error | null = null) {
+  private renderPreviewError(
+    thrownError?: Error,
+    entry?: ZipEntry,
+    item?: FileState,
+  ) {
     const errorName =
       thrownError && thrownError.message === ENCRYPTED_ENTRY_ERROR_MESSAGE
         ? 'encryptedEntryPreviewFailed'
         : 'previewFailed';
-    const error = createError(errorName);
-
+    const error = createError(errorName, thrownError, item, entry);
     return (
       <ErrorMessage error={error}>
         <p>
@@ -261,3 +333,5 @@ export class ArchiveViewer extends BaseViewer<Content, Props> {
     );
   }
 }
+
+export const ArchiveViewer = withAnalyticsEvents()(ArchiveViewerBase);

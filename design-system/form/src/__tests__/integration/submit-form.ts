@@ -13,7 +13,7 @@ const submitFormSubmitted = 'div#submitted';
 
 BrowserTestCase(
   'Pressing ctrl + enter in the text area after entering input should submit the form',
-  { skip: ['edge'] },
+  {},
   async (client: any) => {
     const formTest = new Page(client);
     await formTest.goto(urlSubmitForm);

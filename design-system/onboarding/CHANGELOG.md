@@ -1,5 +1,11 @@
 # @atlaskit/onboarding
 
+## 10.1.4
+
+### Patch Changes
+
+- [`6360c46009`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6360c46009) - Reenable integration tests for Edge browser
+
 ## 10.1.3
 
 ### Patch Changes

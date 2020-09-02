@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/icon",
-  "version": "21.1.1",
+  "version": "21.1.2",
   "description": "A React package that contains icons",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -10,7 +10,6 @@
   "license": "Apache-2.0",
   "main": "cjs/index.js",
   "module": "cjs/index.js",
-  "module:es2019": "dist/es2019/index.js",
   "types": "cjs/index.d.ts",
   "sideEffects": false,
   "atlaskit:src": "src/index.ts",

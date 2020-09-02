@@ -1,5 +1,11 @@
 # @atlaskit/progress-bar
 
+## 0.3.3
+
+### Patch Changes
+
+- [`b284fba3d1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b284fba3d1) - Components that had missing names are now fixed - this helps when looking for them using the React Dev Tools.
+
 ## 0.3.2
 
 ### Patch Changes

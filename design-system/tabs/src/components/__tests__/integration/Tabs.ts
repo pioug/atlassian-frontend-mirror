@@ -15,7 +15,7 @@ const tabPanel = '[role="tabpanel"]';
 
 BrowserTestCase(
   'Tabs should be able to be identified and navigated by data-testid',
-  { skip: ['edge'] },
+  {},
   async (client: any) => {
     const page = new Page(client);
     await page.goto(url);

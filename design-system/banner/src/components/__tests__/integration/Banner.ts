@@ -10,7 +10,7 @@ const myBannerTestId = "[data-testid='myBannerTestId']";
 
 BrowserTestCase(
   'Banner should be identified and visible by data-testid',
-  { skip: ['edge'] },
+  {},
   async (client: any) => {
     const bannerTest = new Page(client);
     await bannerTest.goto(urlBanner);

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/textarea",
-  "version": "3.0.2",
+  "version": "3.0.3",
   "description": "Textarea Component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

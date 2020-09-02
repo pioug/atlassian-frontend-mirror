@@ -20,7 +20,7 @@ interface State {
   isActive: boolean;
 }
 
-export default class extends Component<Props, State> {
+export default class Calendar extends Component<Props, State> {
   static defaultProps = {
     disabled: false,
     focused: false,

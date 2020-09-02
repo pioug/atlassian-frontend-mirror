@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/progress-bar",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "A React component that is a progress bar",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

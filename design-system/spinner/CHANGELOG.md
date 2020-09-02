@@ -1,5 +1,11 @@
 # @atlaskit/spinner
 
+## 15.0.3
+
+### Patch Changes
+
+- [`6360c46009`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6360c46009) - Reenable integration tests for Edge browser
+
 ## 15.0.2
 
 ### Patch Changes

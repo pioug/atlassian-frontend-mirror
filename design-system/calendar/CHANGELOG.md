@@ -1,5 +1,17 @@
 # @atlaskit/calendar
 
+## 10.0.5
+
+### Patch Changes
+
+- [`b284fba3d1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b284fba3d1) - Components that had missing names are now fixed - this helps when looking for them using the React Dev Tools.
+
+## 10.0.4
+
+### Patch Changes
+
+- [`6360c46009`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6360c46009) - Reenable integration tests for Edge browser
+
 ## 10.0.3
 
 ### Patch Changes

@@ -1,5 +1,5 @@
 import React from 'react';
-import HyperlinkAddToolbar, { LinkInputType } from './HyperlinkAddToolbar';
+import HyperlinkAddToolbarComp, { LinkInputType } from './HyperlinkAddToolbar';
 import { ProviderFactory, WithProviders } from '@atlaskit/editor-common';
 
 export interface Props {
@@ -21,7 +21,10 @@ export interface Props {
   displayUrl?: string;
 }
 
-export default class extends React.PureComponent<Props, {}> {
+export default class HyperlinkAddToolbar extends React.PureComponent<
+  Props,
+  {}
+> {
   render() {
     const {
       onSubmit,
@@ -35,7 +38,7 @@ export default class extends React.PureComponent<Props, {}> {
         providers={['activityProvider', 'searchProvider']}
         providerFactory={providerFactory}
         renderNode={({ activityProvider, searchProvider }) => (
-          <HyperlinkAddToolbar
+          <HyperlinkAddToolbarComp
             activityProvider={activityProvider}
             searchProvider={searchProvider}
             onSubmit={onSubmit}

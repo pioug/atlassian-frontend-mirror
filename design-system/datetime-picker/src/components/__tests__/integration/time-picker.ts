@@ -11,7 +11,7 @@ const value = `${timePicker} > div > div > div > div:first-child`;
 
 BrowserTestCase(
   'When entering a new time in Timepicker, the time should be updated to the new value',
-  { skip: ['edge'] },
+  {},
   async (client: any) => {
     const page = new Page(client);
 
@@ -38,7 +38,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'Invalid times in TimePicker should be ignored',
-  { skip: ['edge'] },
+  {},
   async (client: any) => {
     const page = new Page(client);
 

@@ -1,5 +1,11 @@
 # @atlaskit/radio
 
+## 4.0.6
+
+### Patch Changes
+
+- [`6360c46009`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6360c46009) - Reenable integration tests for Edge browser
+
 ## 4.0.5
 
 ### Patch Changes

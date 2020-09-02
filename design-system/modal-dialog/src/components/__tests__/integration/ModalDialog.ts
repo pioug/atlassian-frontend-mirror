@@ -13,7 +13,7 @@ const cancelBtn = "[data-testid='cancel']";
 
 BrowserTestCase(
   'Modal should be able to have a testId, be closed and secondary action can be clicked',
-  { skip: ['edge'] },
+  {},
   async (client: any) => {
     const modalTest = new Page(client);
     await modalTest.goto(urlModal);

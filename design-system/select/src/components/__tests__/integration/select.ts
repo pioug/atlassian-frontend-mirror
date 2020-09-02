@@ -13,7 +13,7 @@ const selectCheckboxMenu = '.select__menu';
 
 BrowserTestCase(
   `Single-select should display a menu once clicked and select a menu item`,
-  { skip: ['edge'] },
+  {},
   async (client: any) => {
     const selectTest = new Page(client);
     const urlSelect = getExampleUrl('design-system', 'select', 'single-select');
@@ -36,7 +36,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   `Multi-select should display a menu once clicked and not throwing errors`,
-  { skip: ['edge'] },
+  {},
   async (client: any) => {
     const selectTest = new Page(client);
     const urlSelect = getExampleUrl('design-system', 'select', 'multi-select');
@@ -64,7 +64,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   `Radio-select should display a menu once clicked and not throwing errors`,
-  { skip: ['edge'] },
+  {},
   async (client: any) => {
     const selectTest = new Page(client);
     const urlSelect = getExampleUrl('design-system', 'select', 'radio-select');
@@ -87,7 +87,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   `Async-select should display a menu once clicked and not throwing errors`,
-  { skip: ['edge'] },
+  {},
   async (client: any) => {
     const selectTest = new Page(client);
     const urlSelect = getExampleUrl(
@@ -114,7 +114,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   `Checkbox-select should display a menu once clicked and not throwing errors`,
-  { skip: ['edge'] },
+  {},
   async (client: any) => {
     const selectTest = new Page(client);
     const urlSelect = getExampleUrl(

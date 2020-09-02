@@ -1,5 +1,11 @@
 # @atlaskit/banner
 
+## 11.0.3
+
+### Patch Changes
+
+- [`6360c46009`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6360c46009) - Reenable integration tests for Edge browser
+
 ## 11.0.2
 
 ### Patch Changes

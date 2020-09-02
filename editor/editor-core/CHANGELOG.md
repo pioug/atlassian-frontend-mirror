@@ -1,5 +1,11 @@
 # @atlaskit/editor-core
 
+## 129.0.2
+
+### Patch Changes
+
+- [`b284fba3d1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b284fba3d1) - Components that had missing names are now fixed - this helps when looking for them using the React Dev Tools.
+
 ## 129.0.1
 
 ### Patch Changes

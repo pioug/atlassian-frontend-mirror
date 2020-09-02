@@ -1,5 +1,11 @@
 # @atlaskit/checkbox
 
+## 11.0.5
+
+### Patch Changes
+
+- [`6360c46009`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6360c46009) - Reenable integration tests for Edge browser
+
 ## 11.0.4
 
 ### Patch Changes

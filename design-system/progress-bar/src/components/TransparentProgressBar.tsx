@@ -4,7 +4,9 @@ import { CustomProgressBarProps } from '../types';
 
 import ProgressBar from './ProgressBar';
 
-export default class extends React.PureComponent<CustomProgressBarProps> {
+export default class TransparentProgressBar extends React.PureComponent<
+  CustomProgressBarProps
+> {
   static defaultProps = {
     value: 0,
     isIndeterminate: false,

@@ -12,7 +12,7 @@ const themedLozenge = "[data-testid='themed-lozenge']";
 
 BrowserTestCase(
   'Lozenge should be able to be identified by data-testid',
-  { skip: ['edge'] },
+  {},
   async (client: any) => {
     const lozengeTest = new Page(client);
     await lozengeTest.goto(urlLozenge);

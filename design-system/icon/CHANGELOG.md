@@ -1,5 +1,11 @@
 # @atlaskit/icon
 
+## 21.1.2
+
+### Patch Changes
+
+- [`d6ff4c7dce`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d6ff4c7dce) - Removes unused (and incorrect) es2019 key in package.json
+
 ## 21.1.1
 
 ### Patch Changes

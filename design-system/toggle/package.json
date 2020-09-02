@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/toggle",
-  "version": "10.0.3",
+  "version": "10.0.4",
   "description": "A toggle is used to view or switch between enabled or disabled states.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

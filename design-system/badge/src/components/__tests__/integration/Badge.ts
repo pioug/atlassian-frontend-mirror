@@ -13,7 +13,7 @@ const myBadgePrimary = "[data-testid='myBadgePrimary']";
 
 BrowserTestCase(
   'Badge should be identified and visible by data-testid',
-  { skip: ['edge'] },
+  {},
   async (client: any) => {
     const badgeTest = new Page(client);
     await badgeTest.goto(urlBadge);

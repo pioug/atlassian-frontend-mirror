@@ -15,7 +15,7 @@ const getByKey = key => `[data-webdriver-test-key="${key}"]`;
 
 BrowserTestCase(
   '🌏 Global navigation should render without errors',
-  { skip: ['edge'] },
+  {},
   async client => {
     const page = new Page(client);
     const globalNav = getByKey('global-navigation');
@@ -32,7 +32,7 @@ BrowserTestCase(
 );
 BrowserTestCase(
   '📦 Product navigation should render without errors',
-  { skip: ['edge'] },
+  {},
   async client => {
     const page = new Page(client);
     await page.goto(exampleURL);
@@ -48,7 +48,7 @@ BrowserTestCase(
 );
 BrowserTestCase(
   '🎁 Container navigation should render without errors',
-  { skip: ['edge'] },
+  {},
   async client => {
     const page = new Page(client);
     await page.goto(exampleURL);

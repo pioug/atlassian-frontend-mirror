@@ -1,5 +1,11 @@
 # @atlaskit/modal-dialog
 
+## 11.1.6
+
+### Patch Changes
+
+- [`6360c46009`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6360c46009) - Reenable integration tests for Edge browser
+
 ## 11.1.5
 
 ### Patch Changes

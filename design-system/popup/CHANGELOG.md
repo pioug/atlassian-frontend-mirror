@@ -1,5 +1,11 @@
 # @atlaskit/popup
 
+## 1.0.2
+
+### Patch Changes
+
+- [`fc8f6e61f3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fc8f6e61f3) - Fix codemod utilities being exposed through the codemod cli
+
 ## 1.0.1
 
 ### Patch Changes

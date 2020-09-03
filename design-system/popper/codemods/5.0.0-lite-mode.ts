@@ -14,7 +14,7 @@ import {
   messageForModifierProps,
   messageForUsingExpression,
   messageForUsingVariable,
-} from './constants';
+} from './utils/constants';
 import {
   addCommentToStartOfFile,
   getJSXAttributesByName,
@@ -22,7 +22,7 @@ import {
   hasImportDeclaration,
   isUsingProp,
   updateRenderProps,
-} from './helpers';
+} from './utils/helpers';
 
 const updateOffsetNumbers = (
   value: string,

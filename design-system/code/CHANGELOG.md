@@ -1,5 +1,11 @@
 # @atlaskit/code
 
+## 13.0.1
+
+### Patch Changes
+
+- [`ade5203287`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ade5203287) - Fix codemod utilities being exposed through the codemod cli
+
 ## 13.0.0
 
 ### Major Changes

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/popup",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A portalled popup primitive that is tied to a trigger element.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

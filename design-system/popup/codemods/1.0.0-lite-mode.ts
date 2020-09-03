@@ -17,7 +17,7 @@ import {
   hasImportDeclaration,
   isUsingProp,
   updateRenderProps,
-} from './helpers';
+} from './utils/helpers';
 
 function updateBoundariesProps(
   j: core.JSCodeshift,

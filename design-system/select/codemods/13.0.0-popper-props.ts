@@ -4,7 +4,7 @@ import {
   getSpecifierName,
   hasImportDeclaration,
   isUsingProp,
-} from './helpers';
+} from './utils/helpers';
 
 import core, { API, ASTPath, FileInfo, JSXElement, Options } from 'jscodeshift';
 import { Collection } from 'jscodeshift/src/Collection';

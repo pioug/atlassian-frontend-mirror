@@ -9,7 +9,7 @@ import {
   getJSXSpreadIdentifierAttributesByName,
   getJSXSpreadObjectExpressionAttributesByName,
   hasImportDeclaration,
-} from './helpers';
+} from './utils/helpers';
 
 const importPath = '@atlaskit/code';
 const importName = 'Code';

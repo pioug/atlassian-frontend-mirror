@@ -20,7 +20,7 @@ import {
   isFunctionDeclarationIdentifierPresent,
   isImportDeclarationIdentifierPresent,
   isVariableDeclaratorIdentifierPresent,
-} from './helpers';
+} from './utils/helpers';
 
 const importPath = '@atlaskit/code';
 const importsMapping = {

@@ -6,6 +6,7 @@ export {
   SmartCardProvider as Provider,
   ProviderProps,
   CardType,
+  SmartCardContext,
 } from './state';
 export { EditorCardProvider, editorCardProvider } from './providers/editor';
 export { default as Client } from './client';

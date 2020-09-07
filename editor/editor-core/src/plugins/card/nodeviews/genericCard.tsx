@@ -16,7 +16,7 @@ import { titleUrlPairFromNode } from '../utils';
 import { EventDispatcher } from '../../../event-dispatcher';
 import { DispatchAnalyticsEvent } from '../../../plugins/analytics';
 
-type EditorContext<T> = React.Context<T> & { value: T };
+export type EditorContext<T> = React.Context<T> & { value: T };
 
 export interface CardDerivedProps {
   providerFactory?: ProviderFactory;

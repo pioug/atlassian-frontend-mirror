@@ -1,5 +1,11 @@
 # @atlaskit/media-card
 
+## 69.3.2
+
+### Patch Changes
+
+- [`631412a7f6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/631412a7f6) - Revert usage of flex for media card UI
+
 ## 69.3.1
 
 ### Patch Changes

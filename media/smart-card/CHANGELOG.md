@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 14.3.0
+
+### Minor Changes
+
+- [`bc754bab5f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bc754bab5f) - expose SmartCardContext from @atlaskit/smart-card
+
 ## 14.2.3
 
 ### Patch Changes

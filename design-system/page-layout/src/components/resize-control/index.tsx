@@ -48,7 +48,7 @@ const ResizeControl = ({
     leftSidebarState,
     setLeftSidebarState,
   } = usePageLayoutResize();
-  const { isLeftSidebarCollapsed, isResizing, isFlyoutOpen } = leftSidebarState;
+  const { isLeftSidebarCollapsed, isResizing } = leftSidebarState;
   const x = useRef(leftSidebarState[LEFT_SIDEBAR_WIDTH]);
   // Distance of mouse from left sidebar onMouseDown
   const offset = useRef(0);
@@ -312,7 +312,7 @@ const ResizeControl = ({
         onBlur={onBlur}
         testId={testId && `${testId}-grab-area`}
         isLeftSidebarCollapsed={isLeftSidebarCollapsed}
-        disabled={isLeftSidebarCollapsed && !isFlyoutOpen}
+        disabled={isLeftSidebarCollapsed}
       />
       {resizeButton.render(ResizeButton, {
         isLeftSidebarCollapsed,

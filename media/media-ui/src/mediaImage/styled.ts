@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
 export const ImageComponent = styled.img`
-  align-self: center;
+  position: absolute;
+  left: 50%;
+  top: 50%;
   object-fit: contain;
 `;

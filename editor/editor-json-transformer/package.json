@@ -36,7 +36,7 @@
     "@atlaskit/editor-bitbucket-transformer": "^7.0.0",
     "@atlaskit/editor-common": "^50.0.0",
     "@atlaskit/editor-confluence-transformer": "^8.0.0",
-    "@atlaskit/editor-core": "^129.0.0",
+    "@atlaskit/editor-core": "^130.0.0",
     "@atlaskit/editor-jira-transformer": "^8.0.0",
     "@atlaskit/editor-markdown-transformer": "^4.0.0",
     "@atlaskit/editor-test-helpers": "^12.2.0",

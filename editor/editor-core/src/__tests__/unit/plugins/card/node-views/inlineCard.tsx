@@ -3,6 +3,7 @@ let mockFindOverflowScrollParent = jest.fn();
 let mockRafSchedule = jest.fn().mockImplementation((cb: any) => cb());
 jest.mock('raf-schd', () => (cb: any) => () => mockRafSchedule(cb));
 jest.mock('@atlaskit/smart-card', () => ({
+  ...jest.requireActual('@atlaskit/smart-card'),
   Card: class Card extends React.Component<any> {
     render() {
       this.props.onResolve({
@@ -25,12 +26,17 @@ jest.mock('@atlaskit/editor-common', () => ({
 import { mount } from 'enzyme';
 import { inlineCard } from '@atlaskit/editor-test-helpers/schema-builder';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
-import { Card } from '@atlaskit/smart-card';
+import { Card, SmartCardContext } from '@atlaskit/smart-card';
 
 import { InlineCardComponent } from '../../../../../plugins/card/nodeviews/inlineCard';
+import { EditorContext } from '../../../../../plugins/card/nodeviews/genericCard';
 import { EditorView } from 'prosemirror-view';
 
 describe('inlineCard', () => {
+  const cardContext: EditorContext<any> = {
+    ...SmartCardContext,
+    value: {},
+  };
   let mockEditorView: EditorView;
 
   beforeEach(() => {
@@ -65,6 +71,7 @@ describe('inlineCard', () => {
         node={mockInlinePmNode}
         view={mockEditorView}
         getPos={() => 0}
+        cardContext={cardContext}
       />,
     );
     const wrapper = mockInlineCardNode.find(Card);
@@ -85,6 +92,7 @@ describe('inlineCard', () => {
         node={mockInlinePmNode}
         view={mockEditorView}
         getPos={() => 0}
+        cardContext={cardContext}
       />,
     );
     const wrapper = mockInlineCardNode.find(Card);
@@ -98,11 +106,13 @@ describe('inlineCard', () => {
     const mockInlinePmNode = inlineCard({ url: 'https://some/url' })()(
       defaultSchema,
     );
+
     const mockInlineCardNode = mount(
       <InlineCardComponent
         node={mockInlinePmNode}
         view={mockEditorView}
         getPos={() => 0}
+        cardContext={cardContext}
       />,
     );
 
@@ -120,6 +130,45 @@ describe('inlineCard', () => {
       },
       type: 'REGISTER',
     });
+    mockInlineCardNode.unmount();
+  });
+
+  it('should not render Card when cardContext is not provided', () => {
+    const mockInlinePmNode = inlineCard({ url: 'https://some/url' })()(
+      defaultSchema,
+    );
+
+    const mockInlineCardNode = mount(
+      <InlineCardComponent
+        node={mockInlinePmNode}
+        view={mockEditorView}
+        getPos={() => 0}
+      />,
+    );
+
+    const wrapper = mockInlineCardNode.find(Card);
+    expect(wrapper).toHaveLength(0);
+
+    mockInlineCardNode.unmount();
+  });
+
+  it('should render Card when cardContext is not provided but data is provided', () => {
+    const mockInlinePmNode = inlineCard({
+      url: 'https://some/url',
+      data: {},
+    })()(defaultSchema);
+
+    const mockInlineCardNode = mount(
+      <InlineCardComponent
+        node={mockInlinePmNode}
+        view={mockEditorView}
+        getPos={() => 0}
+      />,
+    );
+
+    const wrapper = mockInlineCardNode.find(Card);
+    expect(wrapper).toHaveLength(1);
+
     mockInlineCardNode.unmount();
   });
 });

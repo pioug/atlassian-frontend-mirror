@@ -48,9 +48,7 @@ export const Wrapper = styled(Root)`
       width: inherit;
       height: inherit;
       overflow: hidden;
-      display: flex;
-      justify-content: center;
-      align-content: center;
+      display: block;
       ${borderRadius}
     }
   }

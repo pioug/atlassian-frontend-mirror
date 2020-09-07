@@ -36,7 +36,9 @@ describe('MediaImage', () => {
       [500, 500],
     ],
   };
-  const defaultTransform = {};
+  const defaultTransform = {
+    transform: 'translate(-50%, -50%)',
+  };
   let onImageLoad: jest.Mock<any>;
   let onImageError: jest.Mock<any>;
 
@@ -358,7 +360,9 @@ describe('MediaImage', () => {
           previewOrientation: 1,
         });
 
-        expect(component.prop('style')!.transform).toBeUndefined();
+        expect(component.prop('style')!.transform).toEqual(
+          defaultTransform.transform,
+        );
       });
 
       it('should rotate the image and revert width and height when image is rotated 90deg', async () => {
@@ -381,7 +385,7 @@ describe('MediaImage', () => {
         expectToEqual(component.find(ImageComponent).prop('style'), {
           ...defaultTransform,
           height: '75%',
-          transform: 'rotate(90deg)',
+          transform: 'translate(-50%, -50%) rotate(90deg)',
         });
       });
 

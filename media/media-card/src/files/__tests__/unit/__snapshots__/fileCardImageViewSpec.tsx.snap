@@ -35,17 +35,7 @@ exports[`FileCardImageView should render correct background based on mediaType" 
   width: inherit;
   height: inherit;
   overflow: hidden;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-content: center;
-  -ms-flex-line-pack: center;
-  align-content: center;
+  display: block;
   border-radius: 3px;
 }
 
@@ -90,17 +80,7 @@ exports[`FileCardImageView should render correct background based on mediaType" 
   width: inherit;
   height: inherit;
   overflow: hidden;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-content: center;
-  -ms-flex-line-pack: center;
-  align-content: center;
+  display: block;
   border-radius: 3px;
 }
 

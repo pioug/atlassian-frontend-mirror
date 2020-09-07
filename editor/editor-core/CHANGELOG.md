@@ -1,5 +1,12 @@
 # @atlaskit/editor-core
 
+## 130.0.0
+
+### Patch Changes
+
+- [`f3698d4c2d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f3698d4c2d) - only render smart-card when react context is ready
+- Updated dependencies
+
 ## 129.0.2
 
 ### Patch Changes

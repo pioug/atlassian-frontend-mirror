@@ -19,12 +19,14 @@ export const resizeControlCSS = (
   bottom: 0,
   position: 'absolute',
 
+  outline: 'none',
+
   [`[${GRAB_AREA_SELECTOR}]:enabled`]: {
     [`&:hover [${GRAB_AREA_LINE_SELECTOR}]`]: {
       backgroundColor: B100,
     },
 
-    [`&:active [${GRAB_AREA_LINE_SELECTOR}]`]: {
+    [`&:active [${GRAB_AREA_LINE_SELECTOR}] , &:focus [${GRAB_AREA_LINE_SELECTOR}]`]: {
       backgroundColor: B200,
     },
 
@@ -34,14 +36,6 @@ export const resizeControlCSS = (
     [`&:hover [${RESIZE_BUTTON_SELECTOR}]`]: {
       opacity: 1,
     },
-    ...(setIsGrabAreaFocused && {
-      [`[${GRAB_AREA_SELECTOR}]`]: {
-        outline: 'none',
-      },
-      [`[${GRAB_AREA_LINE_SELECTOR}]`]: {
-        backgroundColor: B200,
-      },
-    }),
   },
 
   [`[${RESIZE_BUTTON_SELECTOR}]`]: {

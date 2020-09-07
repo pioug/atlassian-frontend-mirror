@@ -48,7 +48,6 @@ export class InlineCardComponent extends React.PureComponent<SmartCardProps> {
   render() {
     const { node, cardContext } = this.props;
     const { url, data } = node.attrs;
-
     const card = (
       <span>
         <span>{ZERO_WIDTH_SPACE}</span>
@@ -65,14 +64,15 @@ export class InlineCardComponent extends React.PureComponent<SmartCardProps> {
         </span>
       </span>
     );
-
-    return cardContext ? (
+    // [WS-2307]: we only render card wrapped into a Provider when the value is ready,
+    // otherwise if we got data, we can render the card directly since it doesn't need the Provider
+    return cardContext && cardContext.value ? (
       <cardContext.Provider value={cardContext.value}>
         {card}
       </cardContext.Provider>
-    ) : (
+    ) : data ? (
       card
-    );
+    ) : null;
   }
 }
 

@@ -321,7 +321,9 @@ export class MediaImage extends Component<MediaImageProps, MediaImageState> {
      */
     const showImage = isImageLoaded || (isFitStrategy && !isImageRotated);
 
-    const style: CSSProperties = {};
+    const style: CSSProperties = {
+      transform: 'translate(-50%, -50%)',
+    };
 
     if (isStretchingAllowed) {
       if (isFitStrategy && isImageMoreLandscapyThanContainer) {
@@ -411,7 +413,9 @@ export class MediaImage extends Component<MediaImageProps, MediaImageState> {
     }
 
     if (previewOrientation && previewOrientation > 1) {
-      style.transform = getCssFromImageOrientation(previewOrientation);
+      const transform = getCssFromImageOrientation(previewOrientation);
+
+      style.transform += ` ${transform}`;
     }
 
     return (

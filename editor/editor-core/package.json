@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-core",
-  "version": "129.0.2",
+  "version": "130.0.0",
   "description": "A package contains Atlassian editor core functionality",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -118,7 +118,7 @@
   },
   "peerDependencies": {
     "@atlaskit/media-core": "^32.0.0",
-    "@atlaskit/smart-card": "^14.2.3",
+    "@atlaskit/smart-card": "^14.3.0",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
     "react-intl": "^2.6.0",
@@ -140,10 +140,10 @@
     "@atlaskit/menu": "^0.6.0",
     "@atlaskit/profilecard": "^13.0.0",
     "@atlaskit/pubsub": "^6.0.0",
-    "@atlaskit/renderer": "^65.0.0",
+    "@atlaskit/renderer": "^66.0.0",
     "@atlaskit/section-message": "^5.0.0",
     "@atlaskit/share": "*",
-    "@atlaskit/smart-card": "^14.2.0",
+    "@atlaskit/smart-card": "^14.3.0",
     "@atlaskit/synchrony-test-helpers": "^2.0.0",
     "@atlaskit/textarea": "^3.0.0",
     "@atlaskit/toggle": "^10.0.0",
@@ -151,7 +151,7 @@
     "@atlaskit/util-data-test": "^14.0.0",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
-    "@atlassian/search-provider": "2.1.0",
+    "@atlassian/search-provider": "2.1.1",
     "@sentry/browser": "^5.11.0",
     "@testing-library/react-hooks": "^1.0.4",
     "@types/lodash": "^4.14.157",

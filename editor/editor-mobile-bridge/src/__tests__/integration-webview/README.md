@@ -16,6 +16,8 @@ Examples:
 
 **These mobile integation tests are designed to compliment the desktop tests and cover the gaps.**
 
+> Read the `@atlaskit/webdriver-runner` [webview docs](../../../../../../build/webdriver-runner/utils/mobile/README.md) to learn more.
+
 ### Spoofed Testing vs Real Testing
 
 Our use of App Automate is new, so for now we have pre-existing integration tests that run in the regular JSDom environment, alongside our new integration tests that run on real mobile devices.
@@ -26,12 +28,41 @@ For now, the legacy tests reside within the `src/__tests__/integration/` and `sr
 
 ### How to run a test
 
-For local testing, you can run the `test:webdriver:browserstack:mobile` script and point it at your desired file ~~or the entire package~~. e.g.
+For local testing, you can run the `test:webdriver:browserstack:mobile` script and point it at your desired file or the entire package. e.g.
 
 - `yarn test:webdriver:browserstack:mobile packages/editor/editor-mobile-bridge/src/__tests__/integration-webview/composition.ts`
-- ~~yarn test:webdriver:browserstack:mobile editor-mobile-bridge~~ _(coming soon)_
+- `yarn test:webdriver:browserstack:mobile editor-mobile-bridge`
 
 > You need to upload the app binaries into your BrowserStack account. See [Troubleshooting](#troubleshooting) to learn how to upload.
+
+### Test Suite Efficiency
+
+**_As you can imagine, testing on handheld devices is significantly slower than testing on desktop browsers!_**
+
+Handhelds typically run slower hardware with less system resources (_particularly older devices_), and we support a wider range of devices in terms of backwards compatibility compared to desktop.
+
+> You can view the supported mobile OS versions [here](https://product-fabric.atlassian.net/wiki/spaces/MK/pages/1261182737/Tech+Stack), which is driven by our analytics OS usage statistics [here](https://analytics.amplitude.com/atlassian/dashboard/aiv9477). These change over time.
+
+A test can skip running on a device based on the platform, operating system version, form factor, or software keyboard it uses. Consult the `MobileTestCaseOptions` to learn the syntax and combinations available.
+
+You're encouraged to run your tests on the least amount of devices suitable to achieve your assertions with confidence.
+This will speed up test suite execution times by skipping surplus devices.
+
+**Example:**
+
+```typescript
+import { MobileTestCase } from '@atlaskit/webdriver-runner/runner';
+import Page from '@atlaskit/webdriver-runner/wd-app-wrapper';
+
+MobileTestCase(
+  'iOS only test',
+  { skipPlatform: ['ios'] }, // MobileTestCaseOptions
+  async (client: any, testName: string) => {
+    const page = new Page(client);
+    expect(page.isAndroid()).toBe(true);
+  },
+);
+```
 
 ### Troubleshooting
 

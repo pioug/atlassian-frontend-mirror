@@ -66,6 +66,7 @@ export {
   PreviewOptions,
   GetFileOptions,
   UploadingFileState,
+  isUploadingFileState,
   ProcessingFileState,
   isProcessingFileState,
   ProcessedFileState,

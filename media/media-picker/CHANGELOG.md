@@ -1,5 +1,12 @@
 # @atlaskit/media-picker
 
+## 55.1.2
+
+### Patch Changes
+
+- [`8687140735`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8687140735) - [ux] Fix for file processing blocking pages and tickets from saving.
+- Updated dependencies
+
 ## 55.1.1
 
 ### Patch Changes

@@ -16,9 +16,7 @@ import {
   isProcessedFileState,
   ErrorFileState,
   NonErrorFileState,
-  isFinalFileState,
-  isMimeTypeSupportedByBrowser,
-  isMimeTypeSupportedByServer,
+  isUploadingFileState,
 } from '@atlaskit/media-client';
 import { RECENTS_COLLECTION } from '@atlaskit/media-client/constants';
 import { Subscriber } from 'rxjs/Subscriber';
@@ -65,18 +63,6 @@ export type SelectedUploadFile = {
   readonly accountId?: string;
 };
 
-interface PendingEvents {
-  'upload-end'?: () => void;
-}
-
-type EventState = 'unsent' | 'sending' | 'sent';
-
-interface PublicEventEmissionState {
-  'upload-preview-update': EventState;
-  'upload-end': EventState;
-  'upload-error': EventState;
-}
-
 const mapSelectedItemToSelectedUploadFile = (
   {
     id,
@@ -120,7 +106,7 @@ export function importFilesMiddleware(
   };
 }
 
-const getRemotePreview = async (
+const getHighResRemotePreview = async (
   store: Store<State>,
   fileId: string,
 ): Promise<FilePreview> => {
@@ -144,7 +130,8 @@ const getPreviewByService = (
   serviceName: ServiceName,
   mediaType: MediaType,
   fileId: string,
-): Promise<FilePreview> | undefined => {
+  userFileState?: FileState,
+): FilePreview | Promise<FilePreview> | undefined => {
   if (serviceName === 'giphy') {
     const { giphy } = store.getState();
     const selectedGiphy = giphy.imageCardModels.find(
@@ -156,72 +143,16 @@ const getPreviewByService = (
         origin: 'remote',
       });
     }
-  } else if (serviceName === 'upload') {
-    const observable = getFileStreamsCache().get(fileId);
-    if (observable) {
-      return new Promise<FilePreview>((resolve, reject) =>
-        observable.subscribe({
-          next(this: Subscriber<FileState>, state) {
-            if (isPreviewableFileState(state)) {
-              // We only want to resolve defined state.preview, even though
-              // TS allows resolve with undefined.
-              this.unsubscribe();
-              return resolve(state.preview);
-            }
-
-            if (
-              !isErrorFileState(state) &&
-              !isMimeTypeSupportedByServer(state.mimeType)
-            ) {
-              // If tenant file isn't supported by server, it won't be processed.
-              // We reject that Promise to render the corresponding card without preview asap.
-              this.unsubscribe();
-              return reject(new Error("File isn't supported by server"));
-            }
-
-            if (isFinalFileState(state)) {
-              this.unsubscribe();
-              return isImageRepresentationReady(state)
-                ? resolve(getRemotePreview(store, fileId))
-                : reject(new Error('File has no image representation'));
-            }
-          },
-        }),
-      );
-    }
-  } else if (serviceName === 'recent_files' && isPreviewableType(mediaType)) {
-    const observable = getFileStreamsCache().get(fileId);
-    if (observable) {
-      return new Promise<FilePreview>(async (resolve, reject) =>
-        observable.subscribe({
-          next(this: Subscriber<FileState>, state) {
-            if (isErrorFileState(state)) {
-              this.unsubscribe();
-              return reject(new Error(state.message || 'An error has occured'));
-            }
-
-            if (!isMimeTypeSupportedByServer(state.mimeType)) {
-              this.unsubscribe();
-              return reject(new Error("File isn't supported by server"));
-            }
-
-            if (isPreviewableFileState(state)) {
-              // if local preview is available, we should use it
-              this.unsubscribe();
-              return resolve(state.preview);
-            }
-
-            if (isImageRepresentationReady(state)) {
-              this.unsubscribe();
-              return resolve(getRemotePreview(store, fileId));
-            }
-
-            // we only take the current state for "Recent Files" and unsubscribe immediately
-            this.unsubscribe();
-            reject(new Error("File preview isn't ready"));
-          },
-        }),
-      );
+  } else if (
+    (serviceName === 'upload' || serviceName === 'recent_files') &&
+    isPreviewableType(mediaType)
+  ) {
+    if (userFileState && !isErrorFileState(userFileState)) {
+      if (isPreviewableFileState(userFileState)) {
+        return userFileState.preview;
+      } else if (isImageRepresentationReady(userFileState)) {
+        return getHighResRemotePreview(store, fileId);
+      }
     }
   }
 
@@ -254,19 +185,19 @@ export const getTenantFileState = async (
   const selectedUserFileId = selectedUserFile.id;
 
   const mediaType = getMediaTypeFromMimeType(selectedUserFile.type);
-  const preview = getPreviewByService(
-    store,
-    serviceName,
-    mediaType,
-    selectedUserFileId,
-  );
 
   const userFileObservable = getFileStreamsCache().get(selectedUserFileId);
   if (userFileObservable) {
     // Even though there is await here we will wait mostly for 1 tick, since
     // observable.next inside observableToPromise will eval synchronously.
     const userFileState = await observableToPromise(userFileObservable);
-
+    const preview = getPreviewByService(
+      store,
+      serviceName,
+      mediaType,
+      selectedUserFileId,
+      userFileState,
+    );
     if (isErrorFileState(userFileState)) {
       return {
         ...userFileState,
@@ -274,17 +205,29 @@ export const getTenantFileState = async (
       };
     }
 
-    if (!isProcessedFileState(userFileState)) {
-      // we don't create the tenant FileState from a "processed" user fileState
-      // to not inherit the user artfifacts that we couldn't access later on
-      return {
-        ...userFileState,
-        id: tenantFileId,
-        mediaType,
-        preview,
-      };
+    // don't copy artifacts from user's file state to tenant's file state as they contain user-specific uris
+    const userFileStateWithNoArtifacts = {
+      ...userFileState,
+    };
+
+    if (!isUploadingFileState(userFileStateWithNoArtifacts)) {
+      delete userFileStateWithNoArtifacts.artifacts;
     }
+
+    return {
+      ...userFileStateWithNoArtifacts,
+      id: tenantFileId,
+      mediaType,
+      preview,
+    };
   }
+
+  const preview = getPreviewByService(
+    store,
+    serviceName,
+    mediaType,
+    selectedUserFileId,
+  );
 
   return {
     id: tenantFileId,
@@ -299,14 +242,7 @@ export const getTenantFileState = async (
   };
 };
 
-/**
- * Add tenant state to the cache and then emit this state to everyone who is listening on
- * 1. mediaClient even-emitter interface (mediaClient.on()).
- *  Note: There shouldn't be anyone listening here atm. This will be removed as soon as we remove Context API.
- * 2. globalMediaEventEmitter even-emitter interface.
- *  Note: This is different from `mediaPicker.on()` event-emitter interface!
- */
-const distributeTenantFileState = async (
+const distributeTenantFileState = (
   tenantFileState: FileState,
   userSelectedFileId: string,
 ) => {
@@ -464,7 +400,7 @@ const fileStateToMediaFile = (
   };
 };
 
-const emitPublicEvents = (
+const emitPublicEvents = async (
   selectedUploadFile: SelectedUploadFile,
   store: Store<State>,
   localUpload: LocalUpload,
@@ -473,14 +409,7 @@ const emitPublicEvents = (
     touchFileDescriptor: { fileId },
   } = selectedUploadFile;
   const { tenantMediaClient } = store.getState();
-  const publicEventEmissionState: PublicEventEmissionState = {
-    'upload-preview-update': 'unsent',
-    'upload-error': 'unsent',
-    'upload-end': 'unsent',
-  };
-  const pendingEvents: PendingEvents = {
-    'upload-end': undefined,
-  };
+
   const dispatchUploadError = (fileState: ErrorFileState) => {
     const { id, message = '' } = fileState;
     const event: UploadEvent = {
@@ -500,24 +429,37 @@ const emitPublicEvents = (
 
   const dispatchUploadPreviewUpdate = async (
     fileState: Exclude<FileState, ErrorFileState>,
-    value?: Blob | string,
   ) => {
     const { mediaType } = fileState;
     const file = fileStateToMediaFile(fileState);
-    const preview: Preview =
-      value instanceof Blob ? await getPreviewFromBlob(value, mediaType) : {};
-    const event: UploadEvent = {
-      name: 'upload-preview-update',
-      data: {
-        file,
-        preview,
-      },
-    };
+    try {
+      const value = isPreviewableFileState(fileState)
+        ? (await fileState.preview).value
+        : undefined;
+      const preview: Preview =
+        value instanceof Blob ? await getPreviewFromBlob(value, mediaType) : {};
 
-    store.dispatch(sendUploadEvent({ event, fileId }));
+      const event: UploadEvent = {
+        name: 'upload-preview-update',
+        data: {
+          file,
+          preview,
+        },
+      };
+      store.dispatch(sendUploadEvent({ event, fileId }));
+    } catch (error) {
+      const event: UploadEvent = {
+        name: 'upload-preview-update',
+        data: {
+          file,
+          preview: {},
+        },
+      };
+      store.dispatch(sendUploadEvent({ event, fileId }));
+    }
   };
 
-  const dispatchUploadEnd = (fileState: NonErrorFileState) => {
+  const dispatchFinalizeUpload = (fileState: NonErrorFileState) => {
     const file = fileStateToMediaFile(fileState);
     // File to copy from
     const source = {
@@ -531,78 +473,21 @@ const emitPublicEvents = (
     store.dispatch(finalizeUpload(file, fileId, source, { preview }));
   };
 
-  const canDispatchUploadPreview = (): boolean =>
-    publicEventEmissionState['upload-preview-update'] === 'unsent';
+  const currentTenantFileState = await tenantMediaClient.file.getCurrentState(
+    fileId,
+  );
 
-  const canDispatchUploadEnd = (fileState: FileState): boolean =>
-    ['processing', 'processed', 'failed-processing'].includes(
-      fileState.status,
-    ) && publicEventEmissionState['upload-end'] === 'unsent';
-
-  const canUnsubscribe = () =>
-    // we can unsubscribe when all events are fired
-    publicEventEmissionState['upload-preview-update'] !== 'unsent' &&
-    publicEventEmissionState['upload-end'] !== 'unsent';
-
-  const dispatchPendingEvents = () => {
-    if (
-      pendingEvents['upload-end'] &&
-      publicEventEmissionState['upload-preview-update'] === 'sent'
-    ) {
-      pendingEvents['upload-end']();
-      delete pendingEvents['upload-end'];
-    }
-  };
+  if (!isErrorFileState(currentTenantFileState)) {
+    await dispatchUploadPreviewUpdate(currentTenantFileState);
+  }
 
   tenantMediaClient.file.getFileState(fileId).subscribe({
-    async next(this: Subscriber<FileState>, fileState: FileState) {
+    next(this: Subscriber<FileState>, fileState: FileState) {
       if (isErrorFileState(fileState)) {
-        if (publicEventEmissionState['upload-error'] !== 'sent') {
-          dispatchUploadError(fileState);
-          publicEventEmissionState['upload-error'] = 'sent';
-        }
-        return;
-      }
-
-      const { preview, mimeType } = fileState;
-
-      // MPT-131: for non-natively supported files, send 'upload-preview-update' event with empty payload
-      // File will be rendered with default dimensions.
-      if (
-        canDispatchUploadPreview() &&
-        !isMimeTypeSupportedByBrowser(mimeType)
-      ) {
-        publicEventEmissionState['upload-preview-update'] = 'sending';
-        await dispatchUploadPreviewUpdate(fileState);
-        publicEventEmissionState['upload-preview-update'] = 'sent';
-      }
-
-      // MPT-131: for natively supported files, awaiting on local preview to send 'upload-preview-update' event
-      // File will be rendered with extracted dimensions.
-      if (preview) {
-        let value: string | Blob | undefined;
-        try {
-          value = (await preview).value;
-        } catch (err) {
-          value = undefined;
-        }
-
-        if (canDispatchUploadPreview()) {
-          publicEventEmissionState['upload-preview-update'] = 'sending';
-          await dispatchUploadPreviewUpdate(fileState, value);
-          publicEventEmissionState['upload-preview-update'] = 'sent';
-        }
-      }
-
-      if (canDispatchUploadEnd(fileState)) {
-        pendingEvents['upload-end'] = () => {
-          dispatchUploadEnd(fileState);
-          publicEventEmissionState['upload-end'] = 'sent';
-        };
-      }
-
-      dispatchPendingEvents();
-      if (canUnsubscribe()) {
+        dispatchUploadError(fileState);
+        this.unsubscribe();
+      } else if (!isUploadingFileState(fileState)) {
+        dispatchFinalizeUpload(fileState);
         this.unsubscribe();
       }
     },
@@ -618,7 +503,7 @@ const importFilesFromLocalUpload = async (
 
   await touchSelectedFile(touchFileDescriptor, store);
 
-  emitPublicEvents(selectedUploadFile, store, localUpload);
+  await emitPublicEvents(selectedUploadFile, store, localUpload);
 };
 
 const importFilesFromRecentFiles = async (

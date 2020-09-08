@@ -100,6 +100,10 @@ export type FileState =
 
 export type NonErrorFileState = Exclude<FileState, ErrorFileState>;
 
+export const isUploadingFileState = (
+  fileState: FileState,
+): fileState is UploadingFileState => fileState.status === 'uploading';
+
 export const isProcessingFileState = (
   fileState: FileState,
 ): fileState is ProcessingFileState => fileState.status === 'processing';

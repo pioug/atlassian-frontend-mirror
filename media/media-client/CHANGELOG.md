@@ -1,5 +1,11 @@
 # @atlaskit/media-client
 
+## 10.1.0
+
+### Minor Changes
+
+- [`8687140735`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8687140735) - [ux] Fix for file processing blocking pages and tickets from saving.
+
 ## 10.0.0
 
 ### Major Changes

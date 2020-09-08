@@ -1,10 +1,11 @@
 import { getExampleUrl } from '@atlaskit/webdriver-runner/utils/example';
+import { Browser } from '@atlaskit/webdriver-runner/runner';
 import RendererBridgeImpl from '../../../renderer/native-to-web/implementation';
 import WebBridgeImpl from '../../../editor/native-to-web';
 
 // FIXME Ideally these would be mobile browsers
 // Safari & Chrome should suffice for now.
-export const skipBrowsers: any = ['firefox', 'edge'];
+export const skipBrowsers: Browser[] = ['firefox', 'edge'];
 
 export const navigateOrClear = async (browser: any, path: string) => {
   const currentUrl = await browser.url();

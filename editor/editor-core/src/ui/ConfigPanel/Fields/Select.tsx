@@ -7,7 +7,7 @@ import FieldMessages from '../FieldMessages';
 import { validate, getOptionFromValue } from '../utils';
 import { OnBlur } from '../types';
 import { formatOptionLabel } from './SelectItem';
-export default function({
+export default function ({
   field,
   onBlur,
   autoFocus,

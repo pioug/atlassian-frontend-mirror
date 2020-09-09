@@ -14,8 +14,9 @@ export default WrappedComponent => {
     </UIControllerSubscriber>
   );
 
-  withNavigationUIController.displayName = `WithNavigationUIController(${WrappedComponent.displayName ||
-    WrappedComponent.name})`;
+  withNavigationUIController.displayName = `WithNavigationUIController(${
+    WrappedComponent.displayName || WrappedComponent.name
+  })`;
 
   return withNavigationUIController;
 };

@@ -12,7 +12,7 @@ if (process.env.NODE_ENV !== 'production' && !process.env.CI) {
   );
 }
 
-export default function(props) {
+export default function (props) {
   return (
     <ThemeProvider theme={emptyTheme}>
       <RadioWithTheme {...props} />

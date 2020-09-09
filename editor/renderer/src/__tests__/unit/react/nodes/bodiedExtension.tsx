@@ -95,12 +95,9 @@ describe('Renderer - React/Nodes/BodiedExtension', () => {
       </BodiedExtension>,
     );
 
-    expect(
-      extension
-        .find('div')
-        .first()
-        .text(),
-    ).toEqual('This is the default content of the extension');
+    expect(extension.find('div').first().text()).toEqual(
+      'This is the default content of the extension',
+    );
     extension.unmount();
   });
 
@@ -116,12 +113,9 @@ describe('Renderer - React/Nodes/BodiedExtension', () => {
       />,
     );
 
-    expect(
-      extension
-        .find('div')
-        .first()
-        .text(),
-    ).toEqual('This is a react element');
+    expect(extension.find('div').first().text()).toEqual(
+      'This is a react element',
+    );
     extension.unmount();
   });
 
@@ -137,12 +131,7 @@ describe('Renderer - React/Nodes/BodiedExtension', () => {
       />,
     );
 
-    expect(
-      extension
-        .find('div')
-        .first()
-        .text(),
-    ).toEqual('This is a ADF node');
+    expect(extension.find('div').first().text()).toEqual('This is a ADF node');
     extension.unmount();
   });
 
@@ -160,12 +149,9 @@ describe('Renderer - React/Nodes/BodiedExtension', () => {
       </BodiedExtension>,
     );
 
-    expect(
-      extension
-        .find('div')
-        .first()
-        .text(),
-    ).toEqual('This is the default content of the extension');
+    expect(extension.find('div').first().text()).toEqual(
+      'This is the default content of the extension',
+    );
     extension.unmount();
   });
 
@@ -195,12 +181,9 @@ describe('Renderer - React/Nodes/BodiedExtension', () => {
       </BodiedExtension>,
     );
 
-    expect(
-      extension
-        .find('div')
-        .first()
-        .text(),
-    ).toEqual('This is the original content');
+    expect(extension.find('div').first().text()).toEqual(
+      'This is the original content',
+    );
     extension.unmount();
   });
 

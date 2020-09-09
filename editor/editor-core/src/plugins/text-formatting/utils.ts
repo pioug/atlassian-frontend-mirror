@@ -21,7 +21,7 @@ export const isBlockNode = (dom: any): boolean => {
   return desc && desc.node && desc.node.isBlock;
 };
 
-export const domIndex = function(node: Node | null): number | undefined {
+export const domIndex = function (node: Node | null): number | undefined {
   if (node) {
     for (let index = 0; ; index++) {
       node = node.previousSibling;

@@ -1,5 +1,11 @@
 # @atlaskit/editor-wikimarkup-transformer
 
+## 8.0.0
+
+### Major Changes
+
+- [`b809a4501a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b809a4501a) - CS-3128 context object for wiki media files is extended with `embed` property to properly round trip non-embeddable media
+
 ## 7.2.0
 
 ### Minor Changes

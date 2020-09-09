@@ -35,10 +35,7 @@ describe('dropdown menu - DropdownItemSelectionManager', () => {
   };
 
   const clickItem = (wrapper: ReactWrapper, idx: number) => {
-    wrapper
-      .find('Item')
-      .at(idx)
-      .simulate('click');
+    wrapper.find('Item').at(idx).simulate('click');
     jest.runOnlyPendingTimers();
   };
 

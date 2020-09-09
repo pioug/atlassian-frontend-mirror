@@ -58,17 +58,11 @@ describe('ToolbarTextFormatting', () => {
     let toolbarOption: ReactWrapper;
 
     function clickItalicButton(wrapper: ReactWrapper): void {
-      wrapper
-        .find(AkButton)
-        .at(1)
-        .simulate('click');
+      wrapper.find(AkButton).at(1).simulate('click');
     }
 
     function clickBoldButton(wrapper: ReactWrapper): void {
-      wrapper
-        .find(AkButton)
-        .first()
-        .simulate('click');
+      wrapper.find(AkButton).first().simulate('click');
     }
 
     beforeEach(() => {

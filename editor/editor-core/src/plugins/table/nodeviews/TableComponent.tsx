@@ -305,10 +305,12 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
           <div
             className={`${ClassName.TABLE_LEFT_SHADOW} ${ClassName.TABLE_STICKY_SHADOW}`}
             style={{
-              top: `${this.state.stickyHeader.top +
+              top: `${
+                this.state.stickyHeader.top +
                 this.state.stickyHeader.padding +
                 shadowPadding +
-                2}px`,
+                2
+              }px`,
             }}
           />
         )}
@@ -335,10 +337,12 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
             <div
               className={`${ClassName.TABLE_RIGHT_SHADOW} ${ClassName.TABLE_STICKY_SHADOW}`}
               style={{
-                top: `${this.state.stickyHeader.top +
+                top: `${
+                  this.state.stickyHeader.top +
                   this.state.stickyHeader.padding +
                   shadowPadding +
-                  2}px`,
+                  2
+                }px`,
               }}
             />
           </div>

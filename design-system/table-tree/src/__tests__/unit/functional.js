@@ -122,10 +122,7 @@ test('expanding and collapsing', async () => {
     'Chapter 3',
   ]);
 
-  tree
-    .collapseChevron(1)
-    .at(0)
-    .simulate('click');
+  tree.collapseChevron(1).at(0).simulate('click');
 
   expect(tree.textOfCellsInColumn(0)).toEqual([
     'Chapter 1',
@@ -209,10 +206,7 @@ test('with isExpanded=true property', async () => {
     'Chapter 3',
   ]);
 
-  tree
-    .collapseChevron(1)
-    .at(0)
-    .simulate('click');
+  tree.collapseChevron(1).at(0).simulate('click');
 
   wrapper.update();
 
@@ -333,42 +327,12 @@ test('headers and column widths', async () => {
   expect(pageHeader.text()).toEqual('Page #');
   expect(pageHeader.find(StyledHeader).props()).toHaveProperty('width', 100);
 
-  expect(
-    tree
-      .cell(0, 0)
-      .find(StyledCell)
-      .props(),
-  ).toHaveProperty('width', 300);
-  expect(
-    tree
-      .cell(0, 1)
-      .find(StyledCell)
-      .props(),
-  ).toHaveProperty('width', 100);
-  expect(
-    tree
-      .cell(1, 0)
-      .find(StyledCell)
-      .props(),
-  ).toHaveProperty('width', 300);
-  expect(
-    tree
-      .cell(1, 1)
-      .find(StyledCell)
-      .props(),
-  ).toHaveProperty('width', 100);
-  expect(
-    tree
-      .cell(2, 0)
-      .find(StyledCell)
-      .props(),
-  ).toHaveProperty('width', 300);
-  expect(
-    tree
-      .cell(2, 1)
-      .find(StyledCell)
-      .props(),
-  ).toHaveProperty('width', 100);
+  expect(tree.cell(0, 0).find(StyledCell).props()).toHaveProperty('width', 300);
+  expect(tree.cell(0, 1).find(StyledCell).props()).toHaveProperty('width', 100);
+  expect(tree.cell(1, 0).find(StyledCell).props()).toHaveProperty('width', 300);
+  expect(tree.cell(1, 1).find(StyledCell).props()).toHaveProperty('width', 100);
+  expect(tree.cell(2, 0).find(StyledCell).props()).toHaveProperty('width', 300);
+  expect(tree.cell(2, 1).find(StyledCell).props()).toHaveProperty('width', 100);
 });
 
 function createTreeHarness(treeWrapper) {
@@ -380,17 +344,12 @@ function createTreeHarness(treeWrapper) {
   const row = index => rows().at(index);
 
   const cell = (rowIndex, cellIndex) =>
-    row(rowIndex)
-      .find('Cell')
-      .at(cellIndex);
+    row(rowIndex).find('Cell').at(cellIndex);
 
   const textOfCellsInColumn = (columnIndex = 0) =>
-    treeWrapper.find('Row').map(rowWrapper =>
-      rowWrapper
-        .find('Cell')
-        .at(columnIndex)
-        .text(),
-    );
+    treeWrapper
+      .find('Row')
+      .map(rowWrapper => rowWrapper.find('Cell').at(columnIndex).text());
 
   const textOfCellsInRow = rowIndex =>
     row(rowIndex)

@@ -31,15 +31,9 @@ test('handleClickNext / handleClickPrev', () => {
     />,
   );
 
-  wrapper
-    .find(Btn)
-    .at(0)
-    .simulate('click');
+  wrapper.find(Btn).at(0).simulate('click');
   expect(mockHandleClickPrev).toHaveBeenCalledTimes(1);
 
-  wrapper
-    .find(Btn)
-    .at(1)
-    .simulate('click');
+  wrapper.find(Btn).at(1).simulate('click');
   expect(mockHandleClickNext).toHaveBeenCalledTimes(1);
 });

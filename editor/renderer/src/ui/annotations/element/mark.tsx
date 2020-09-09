@@ -11,7 +11,7 @@ const MarkStyled = styled.mark`
   color: inherit;
   background-color: unset;
 
-  &[data-mark-annotation-state="${AnnotationMarkStates.ACTIVE}"] {
+  &[data-mark-annotation-state='${AnnotationMarkStates.ACTIVE}'] {
     ${AnnotationSharedCSSByState.blur};
 
     &:focus,

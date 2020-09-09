@@ -6,8 +6,9 @@ import { N300 } from '@atlaskit/theme/colors';
 export interface GridCellProps {
   width: number;
 }
-export const GridCell: ComponentClass<HTMLAttributes<{}> &
-  GridCellProps> = styled.div`
+export const GridCell: ComponentClass<
+  HTMLAttributes<{}> & GridCellProps
+> = styled.div`
   ${({ width }: GridCellProps) => `width: ${width}px;`} margin-top: 5px;
 `;
 

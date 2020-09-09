@@ -48,7 +48,7 @@ function clearNodeFormattingOnSelection(
   nodeName: string,
   formattingCleared: string[],
 ) {
-  return function(node: Node, pos: number) {
+  return function (node: Node, pos: number) {
     if (node.type === formattedNodeType) {
       if (formattedNodeType.isTextblock) {
         tr.setNodeMarkup(pos, state.schema.nodes.paragraph);
@@ -75,7 +75,7 @@ function clearNodeFormattingOnSelection(
 export function clearFormatting(
   inputMethod?: INPUT_METHOD.TOOLBAR | INPUT_METHOD.SHORTCUT,
 ): Command {
-  return function(state, dispatch): boolean {
+  return function (state, dispatch): boolean {
     const { tr } = state;
     const formattingCleared: string[] = [];
 

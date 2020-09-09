@@ -66,7 +66,7 @@ export const skip: any = ['firefox', 'edge', 'chrome', 'safari'];
 BrowserTestCase(
   `scroll-to.ts: call scrollToContentNode() for a Mention on renderer bridge.`,
   { skip },
-  async function(client: any, testName: string) {
+  async function (client: any, testName: string) {
     const browser = await loadExampleDocument(client);
     const mentionId = '0'; // matches @Carolyn
     const { initialScrollY, finalScrollY } = await checkScrollTo(
@@ -88,7 +88,7 @@ BrowserTestCase(
 BrowserTestCase(
   `scroll-to.ts: call scrollToContentNode() for an Action on renderer bridge.`,
   { skip },
-  async function(client: any, testName: string) {
+  async function (client: any, testName: string) {
     const browser = await loadExampleDocument(client);
     const { initialScrollY, finalScrollY } = await checkScrollTo(
       browser,
@@ -109,7 +109,7 @@ BrowserTestCase(
 BrowserTestCase(
   `scroll-to.ts: call scrollToContentNode() for a Decision on renderer bridge.`,
   { skip },
-  async function(client: any, testName: string) {
+  async function (client: any, testName: string) {
     const browser = await loadExampleDocument(client);
     const { initialScrollY, finalScrollY } = await checkScrollTo(
       browser,
@@ -130,7 +130,7 @@ BrowserTestCase(
 BrowserTestCase(
   `scroll-to.ts: call scrollToContentNode() for a Heading on renderer bridge.`,
   { skip },
-  async function(client: any, testName: string) {
+  async function (client: any, testName: string) {
     const browser = await loadExampleDocument(client);
     const { initialScrollY, finalScrollY } = await checkScrollTo(
       browser,
@@ -151,7 +151,7 @@ BrowserTestCase(
 BrowserTestCase(
   `scroll-to.ts: call scrollToContentNode() for a nested Heading inside expand on renderer bridge.`,
   { skip },
-  async function(client: any, testName: string) {
+  async function (client: any, testName: string) {
     const browser = await loadExampleDocument(client);
     const { initialScrollY, finalScrollY } = await checkScrollTo(
       browser,
@@ -179,7 +179,7 @@ BrowserTestCase(
 BrowserTestCase(
   `scroll-to.ts: call scrollToContentNode() multiple times on same nested heading inside expand on renderer bridge.`,
   { skip },
-  async function(client: any, testName: string) {
+  async function (client: any, testName: string) {
     const browser = await loadExampleDocument(client);
     await checkScrollTo(browser, async () => {
       const headingId = 'nested-header';
@@ -226,7 +226,7 @@ BrowserTestCase(
 BrowserTestCase(
   `scroll-to.ts: call getContentNodeScrollOffset() for a Mention on renderer bridge.`,
   { skip },
-  async function(client: any, testName: string) {
+  async function (client: any, testName: string) {
     const browser = await loadExampleDocument(client);
     const mentionId = '0'; // matches @Carolyn
     const scrollOffset = await callRendererBridge(
@@ -244,7 +244,7 @@ BrowserTestCase(
 BrowserTestCase(
   `scroll-to.ts: call getContentNodeScrollOffset() for an Action on renderer bridge.`,
   { skip },
-  async function(client: any, testName: string) {
+  async function (client: any, testName: string) {
     const browser = await loadExampleDocument(client);
     const localId = 'b9ce6302-8e8c-45c2-a2e1-3b1d6c68e059';
     const scrollOffset = await callRendererBridge(
@@ -262,7 +262,7 @@ BrowserTestCase(
 BrowserTestCase(
   `scroll-to.ts: call getContentNodeScrollOffset() for a Decision on renderer bridge.`,
   { skip },
-  async function(client: any, testName: string) {
+  async function (client: any, testName: string) {
     const browser = await loadExampleDocument(client);
     const localId = '695d2be8-528a-4ec0-9eb7-351763af6f94';
     const scrollOffset = await callRendererBridge(
@@ -280,7 +280,7 @@ BrowserTestCase(
 BrowserTestCase(
   `scroll-to.ts: call getContentNodeScrollOffset() for a Heading on renderer bridge.`,
   { skip },
-  async function(client: any, testName: string) {
+  async function (client: any, testName: string) {
     const browser = await loadExampleDocument(client);
     const headingId = 'This-is-a-heading';
     const scrollOffset = await callRendererBridge(
@@ -298,7 +298,7 @@ BrowserTestCase(
 BrowserTestCase(
   `scroll-to.ts: call getContentNodeScrollOffset() for a nested Heading inside expand on renderer bridge.`,
   { skip },
-  async function(client: any, testName: string) {
+  async function (client: any, testName: string) {
     const browser = await loadExampleDocument(client);
     const headingId = 'nested-header';
     const scrollOffset = await callRendererBridge(
@@ -320,7 +320,7 @@ BrowserTestCase(
 BrowserTestCase(
   `scroll-to.ts: call getContentNodeScrollOffset() multiple times on same nested heading inside expand on renderer bridge.`,
   { skip },
-  async function(client: any, testName: string) {
+  async function (client: any, testName: string) {
     const browser = await loadExampleDocument(client);
     const headingId = 'nested-header';
 
@@ -357,7 +357,7 @@ BrowserTestCase(
 BrowserTestCase(
   `scroll-to.ts: call getContentNodeScrollOffset() for a heading with special chars on renderer bridge.`,
   { skip },
-  async function(client: any, testName: string) {
+  async function (client: any, testName: string) {
     const browser = await loadExampleDocument(client);
     const headingId = 'some-heading.2';
     const scrollOffset = await callRendererBridge(
@@ -377,7 +377,7 @@ BrowserTestCase(
 BrowserTestCase(
   `scroll-to.ts: call getContentNodeScrollOffsetY() for a Mention on renderer bridge.`,
   { skip },
-  async function(client: any, testName: string) {
+  async function (client: any, testName: string) {
     const browser = await loadExampleDocument(client);
     const mentionId = '0'; // matches @Carolyn
     const scrollY = await callRendererBridge(
@@ -393,7 +393,7 @@ BrowserTestCase(
 BrowserTestCase(
   `scroll-to.ts: call getContentNodeScrollOffsetY() for an Action on renderer bridge.`,
   { skip },
-  async function(client: any, testName: string) {
+  async function (client: any, testName: string) {
     const browser = await loadExampleDocument(client);
     const localId = 'b9ce6302-8e8c-45c2-a2e1-3b1d6c68e059';
 
@@ -410,7 +410,7 @@ BrowserTestCase(
 BrowserTestCase(
   `scroll-to.ts: call getContentNodeScrollOffsetY() for a Decision on renderer bridge.`,
   { skip },
-  async function(client: any, testName: string) {
+  async function (client: any, testName: string) {
     const browser = await loadExampleDocument(client);
     const localId = '695d2be8-528a-4ec0-9eb7-351763af6f94';
     const scrollY = await callRendererBridge(

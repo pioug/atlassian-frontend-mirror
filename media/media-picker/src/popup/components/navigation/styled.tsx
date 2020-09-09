@@ -48,16 +48,18 @@ export interface BreadCrumbLinkLabelProps {
   isLast: boolean;
 }
 
-export const BreadCrumbLinkLabel: React.ComponentClass<React.HTMLAttributes<{}> &
-  BreadCrumbLinkLabelProps> = styled.span`
+export const BreadCrumbLinkLabel: React.ComponentClass<
+  React.HTMLAttributes<{}> & BreadCrumbLinkLabelProps
+> = styled.span`
   &:hover {
     text-decoration: ${(props: BreadCrumbLinkLabelProps) =>
       props.isLast ? 'none' : 'underline'};
   }
 `;
 
-export const BreadCrumbLinkSeparator: React.ComponentClass<React.HTMLAttributes<{}> &
-  BreadCrumbLinkLabelProps> = styled.span`
+export const BreadCrumbLinkSeparator: React.ComponentClass<
+  React.HTMLAttributes<{}> & BreadCrumbLinkLabelProps
+> = styled.span`
   color: ${N500};
   display: ${(props: BreadCrumbLinkLabelProps) =>
     props.isLast ? 'none' : 'inline'};
@@ -65,8 +67,9 @@ export const BreadCrumbLinkSeparator: React.ComponentClass<React.HTMLAttributes<
   text-decoration: none;
 `;
 
-export const BreadCrumbLink: React.ComponentClass<React.HTMLAttributes<{}> &
-  BreadCrumbLinkLabelProps> = styled.span`
+export const BreadCrumbLink: React.ComponentClass<
+  React.HTMLAttributes<{}> & BreadCrumbLinkLabelProps
+> = styled.span`
   color: ${(props: BreadCrumbLinkLabelProps) => (props.isLast ? N900 : N500)};
   cursor: ${(props: BreadCrumbLinkLabelProps) =>
     props.isLast ? 'default' : 'pointer'};

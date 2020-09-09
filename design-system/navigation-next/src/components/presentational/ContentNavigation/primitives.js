@@ -107,17 +107,17 @@ const ContainerNavigationPrimitiveBase = ({
   return (
     <div
       css={css`
-      ${{
-        ...theme.mode.contentNav().container,
-        animationDuration: transitionDuration,
-        animationFillMode: 'forwards',
-        animationTimingFunction: transitionTimingFunction,
-        transitionProperty: 'boxShadow, transform',
-        transitionDuration,
-        transitionTimingFunction,
-        transform,
-      }}
-      animation-name: ${animationName};
+        ${{
+          ...theme.mode.contentNav().container,
+          animationDuration: transitionDuration,
+          animationFillMode: 'forwards',
+          animationTimingFunction: transitionTimingFunction,
+          transitionProperty: 'boxShadow, transform',
+          transitionDuration,
+          transitionTimingFunction,
+          transform,
+        }}
+        animation-name: ${animationName};
       `}
     >
       <ScrollProvider isVisible={isVisible}>{children}</ScrollProvider>

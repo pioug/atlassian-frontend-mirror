@@ -72,8 +72,9 @@ export interface DragZoneProps {
   showBorder: boolean;
 }
 
-export const DragZone: ComponentClass<HTMLAttributes<{}> &
-  DragZoneProps> = styled.div`
+export const DragZone: ComponentClass<
+  HTMLAttributes<{}> & DragZoneProps
+> = styled.div`
   width: 200px;
   height: 200px;
   display: flex;
@@ -119,8 +120,9 @@ export interface DragZoneTextProps {
   isFullSize: boolean;
 }
 
-export const DragZoneText: ComponentClass<HTMLAttributes<{}> &
-  DragZoneTextProps> = styled.div`
+export const DragZoneText: ComponentClass<
+  HTMLAttributes<{}> & DragZoneTextProps
+> = styled.div`
   text-align: center;
   color: ${N200};
   ${(props: DragZoneTextProps) =>

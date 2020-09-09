@@ -47,12 +47,9 @@ describe('Feedback page', () => {
       const wrapper = shallow(<Feedback {...props} />);
       const desc = wrapper.find(Description);
       expect(desc.exists()).toBe(true);
-      expect(
-        desc
-          .children()
-          .first()
-          .text(),
-      ).toEqual(props.messages.description);
+      expect(desc.children().first().text()).toEqual(
+        props.messages.description,
+      );
     });
 
     it('should render RatingsButtons', () => {
@@ -116,10 +113,7 @@ describe('Feedback page', () => {
 
     it('should render a FieldTextArea', () => {
       const wrapper = shallow(getCommentBox());
-      const el = wrapper
-        .find(Comment)
-        .find(FieldTextArea)
-        .first();
+      const el = wrapper.find(Comment).find(FieldTextArea).first();
       expect(el.exists()).toBe(true);
       expect(el.prop('placeholder')).toBe(placeholder);
       el.prop('onChange')({ target: { value: 2 } });
@@ -146,10 +140,7 @@ describe('Feedback page', () => {
 
     it('should render a Button', () => {
       const wrapper = shallow(getSendButton());
-      const el = wrapper
-        .find(ButtonWrapper)
-        .find(Button)
-        .first();
+      const el = wrapper.find(ButtonWrapper).find(Button).first();
       expect(el.exists()).toBe(true);
       expect(el.prop('onClick')).toBe(onClick);
     });
@@ -183,12 +174,9 @@ describe('Feedback page', () => {
 
     it('should render no selected button if selected is null', () => {
       const wrapper = shallow(getRatingsButtons());
-      expect(
-        wrapper
-          .find(Button)
-          .find('[isSelected=true]')
-          .exists(),
-      ).toBe(false);
+      expect(wrapper.find(Button).find('[isSelected=true]').exists()).toBe(
+        false,
+      );
     });
 
     it('should render one selected button if selected is not null', () => {
@@ -198,10 +186,7 @@ describe('Feedback page', () => {
         }),
       );
       expect(
-        wrapper
-          .find(Button)
-          .find('[isSelected=true]')
-          .getElements().length,
+        wrapper.find(Button).find('[isSelected=true]').getElements().length,
       ).toBe(1);
     });
 

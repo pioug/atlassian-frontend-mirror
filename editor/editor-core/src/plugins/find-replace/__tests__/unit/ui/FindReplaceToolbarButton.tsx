@@ -11,8 +11,9 @@ import FindReplaceToolbarButton, {
 import FindReplace from '../../../ui/FindReplace';
 
 describe('FindReplaceToolbarButton', () => {
-  let findReplaceToolbarButton: ReactWrapper<FindReplaceToolbarButtonProps &
-    InjectedIntlProps>;
+  let findReplaceToolbarButton: ReactWrapper<
+    FindReplaceToolbarButtonProps & InjectedIntlProps
+  >;
   const mountComponent = (props: Partial<FindReplaceToolbarButtonProps> = {}) =>
     mountWithIntl<FindReplaceToolbarButtonProps & InjectedIntlProps, any>(
       <FindReplaceToolbarButton

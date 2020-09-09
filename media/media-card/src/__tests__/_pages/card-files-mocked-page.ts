@@ -33,10 +33,10 @@ export class CardFilesMockedPage {
     return this.page.executeAsync(
       (src: string, done: (result: boolean) => void) => {
         const img = new Image();
-        img.onload = function() {
+        img.onload = function () {
           done(true);
         };
-        img.onerror = function() {
+        img.onerror = function () {
           done(false);
         };
         img.setAttribute('src', src);

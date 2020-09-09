@@ -93,10 +93,7 @@ describe('Renderer - React/Nodes/TaskList', () => {
           </TaskList>
         </FabricAnalyticsListener>,
       );
-      component
-        .find('input')
-        .at(1)
-        .simulate('change');
+      component.find('input').at(1).simulate('change');
       expect(analyticsWebClientMock.sendUIEvent).toHaveBeenCalledTimes(1);
       expect(analyticsWebClientMock.sendUIEvent).toHaveBeenCalledWith(
         expect.objectContaining({

@@ -27,11 +27,6 @@ describe('Thankyou page', () => {
     const wrapper = shallow(<Thankyou {...props} />);
     const desc = wrapper.find(Description);
     expect(desc.exists()).toBe(true);
-    expect(
-      desc
-        .children()
-        .first()
-        .text(),
-    ).toEqual(props.messages.description);
+    expect(desc.children().first().text()).toEqual(props.messages.description);
   });
 });

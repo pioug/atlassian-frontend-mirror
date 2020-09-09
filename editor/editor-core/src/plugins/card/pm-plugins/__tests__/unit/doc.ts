@@ -527,7 +527,7 @@ describe('card', () => {
     });
 
     describe('#updateCard', () => {
-      it('should replace selection with new url', function() {
+      it('should replace selection with new url', function () {
         const { editorView } = editor(
           doc(p('hello', '{<node>}', inlineCard(inlineCardAdf.attrs)())),
         );
@@ -1063,7 +1063,7 @@ describe('card', () => {
     describe('#insertCard', () => {
       const getInlineCardNode = (editorView: EditorView): Node =>
         inlineCard(inlineCardAdf.attrs)()(editorView.state.schema);
-      it('should insert adf node and add a white space', function() {
+      it('should insert adf node and add a white space', function () {
         const { editorView } = editor(doc(p('hello{<>}')));
 
         const { state, dispatch } = editorView;
@@ -1074,7 +1074,7 @@ describe('card', () => {
           doc(p('hello', inlineCard(inlineCardAdf.attrs)(), ' ')),
         );
       });
-      it('should replace selection with inline card and add a white space', function() {
+      it('should replace selection with inline card and add a white space', function () {
         const { editorView } = editor(doc(p('{<}hello{>}')));
 
         const { state, dispatch } = editorView;

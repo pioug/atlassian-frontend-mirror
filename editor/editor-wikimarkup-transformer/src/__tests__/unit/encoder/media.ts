@@ -14,8 +14,8 @@ describe('ADF => WikiMarkup - Media', () => {
   const context: Context = {
     conversion: {
       mediaConversion: {
-        'abc-123': 'file1.txt',
-        'def-456': 'file2.txt',
+        'abc-123': { transform: 'file1.txt', embed: true },
+        'def-456': { transform: 'file2.txt', embed: true },
       },
     },
   };
@@ -36,6 +36,26 @@ describe('ADF => WikiMarkup - Media', () => {
         media({ id: 'abc-123', type: 'file', collection: 'tmp' })(),
       ),
     )(defaultSchema);
+    expect(transformer.encode(node, context)).toMatchSnapshot();
+  });
+
+  test('should convert mediaSingle depending on context', () => {
+    const node = doc(
+      mediaGroup(
+        media({ id: 'embedded', type: 'file', collection: 'tmp' })(),
+        media({ id: 'not-embedded', type: 'file', collection: 'tmp' })(),
+        media({ id: 'default-embedded', type: 'file', collection: 'tmp' })(),
+      ),
+    )(defaultSchema);
+    const context: Context = {
+      conversion: {
+        mediaConversion: {
+          embedded: { transform: 'embedded-output', embed: true },
+          'not-embedded': { transform: 'not-embedded-output', embed: false },
+          'default-embedded': { transform: 'default-embedded-output' },
+        },
+      },
+    };
     expect(transformer.encode(node, context)).toMatchSnapshot();
   });
 

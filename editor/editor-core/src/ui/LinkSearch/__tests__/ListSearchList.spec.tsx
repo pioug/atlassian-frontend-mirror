@@ -42,12 +42,9 @@ describe('ListSearchList', () => {
 
   it('should render iconUrl in an img tag', () => {
     const { component, items } = setup();
-    expect(
-      component
-        .find(LinkSearchListItem)
-        .at(0)
-        .html(),
-    ).toMatch(`<img src="${items[0].iconUrl}">`);
+    expect(component.find(LinkSearchListItem).at(0).html()).toMatch(
+      `<img src="${items[0].iconUrl}">`,
+    );
   });
 
   it('should render a spinner when loading and not items', () => {
@@ -91,17 +88,13 @@ describe('ListSearchList', () => {
       selectedIndex: 1,
     });
 
-    expect(
-      component
-        .find(LinkSearchListItem)
-        .at(0)
-        .props(),
-    ).toHaveProperty('selected', false);
-    expect(
-      component
-        .find(LinkSearchListItem)
-        .at(1)
-        .props(),
-    ).toHaveProperty('selected', true);
+    expect(component.find(LinkSearchListItem).at(0).props()).toHaveProperty(
+      'selected',
+      false,
+    );
+    expect(component.find(LinkSearchListItem).at(1).props()).toHaveProperty(
+      'selected',
+      true,
+    );
   });
 });

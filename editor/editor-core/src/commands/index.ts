@@ -25,13 +25,13 @@ import {
 import { AlignmentState } from '../plugins/alignment/pm-plugins/types';
 
 export function preventDefault(): Command {
-  return function() {
+  return function () {
     return true;
   };
 }
 
 export function insertNewLine(): Command {
-  return function(state, dispatch) {
+  return function (state, dispatch) {
     const { $from } = state.selection;
     const parent = $from.parent;
     const { hardBreak } = state.schema.nodes;
@@ -66,7 +66,7 @@ export const insertNewLineWithAnalytics = withAnalytics({
 })(insertNewLine());
 
 export function insertRule(): Command {
-  return function(state, dispatch) {
+  return function (state, dispatch) {
     const { to } = state.selection;
     const { rule } = state.schema.nodes;
     if (rule) {
@@ -111,7 +111,7 @@ function canCreateParagraphNear(state: EditorState): boolean {
 }
 
 export function createParagraphNear(append: boolean = true): Command {
-  return function(state, dispatch) {
+  return function (state, dispatch) {
     const paragraph = state.schema.nodes.paragraph;
 
     if (!paragraph) {
@@ -188,7 +188,7 @@ function topLevelNodeIsEmptyTextBlock(state: EditorState): boolean {
 }
 
 export function createParagraphAtEnd(): Command {
-  return function(state, dispatch) {
+  return function (state, dispatch) {
     const {
       doc,
       tr,

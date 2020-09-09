@@ -295,9 +295,7 @@ describe('Renderer - ReactSerializer', () => {
           reactDoc.update();
 
           expect(
-            getMediaSingle(reactDoc)
-              .first()
-              .prop('isInsideOfBlockNode'),
+            getMediaSingle(reactDoc).first().prop('isInsideOfBlockNode'),
           ).toBeFalsy();
         });
       });
@@ -449,12 +447,7 @@ describe('Renderer - ReactSerializer', () => {
       const reactDoc = mountWithIntl(
         reactSerializer.serializeFragment(linksDocFromSchema.content) as any,
       );
-      expect(
-        reactDoc
-          .find('Link')
-          .first()
-          .prop('isMediaLink'),
-      ).toEqual(true);
+      expect(reactDoc.find('Link').first().prop('isMediaLink')).toEqual(true);
     });
 
     it('has correct isMediaLink value when link mark is not applied on media', () => {
@@ -462,12 +455,7 @@ describe('Renderer - ReactSerializer', () => {
       const reactDoc = mountWithIntl(
         reactSerializer.serializeFragment(linksDocFromSchema.content)!,
       );
-      expect(
-        reactDoc
-          .find('Link')
-          .last()
-          .prop('isMediaLink'),
-      ).toBeFalsy();
+      expect(reactDoc.find('Link').last().prop('isMediaLink')).toBeFalsy();
     });
 
     it('does not render when allowMediaLinking is undefined', () => {

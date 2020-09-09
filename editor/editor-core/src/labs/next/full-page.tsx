@@ -99,8 +99,9 @@ interface MainToolbarProps {
   showKeyline: boolean;
 }
 
-const MainToolbar: React.ComponentClass<React.HTMLAttributes<{}> &
-  MainToolbarProps> = styled.div`
+const MainToolbar: React.ComponentClass<
+  React.HTMLAttributes<{}> & MainToolbarProps
+> = styled.div`
   position: relative;
   align-items: center;
   box-shadow: ${(props: MainToolbarProps) =>

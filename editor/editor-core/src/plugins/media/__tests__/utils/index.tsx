@@ -162,7 +162,7 @@ describe('Media plugin', () => {
         ({ pluginState: mediaPluginState } = editor(doc(p(''))));
       });
 
-      it('should be false when an image is inserted', function() {
+      it('should be false when an image is inserted', function () {
         mediaPluginState.insertFile(foo, () => {});
         expect(mediaPluginState.allUploadsFinished).toBe(false);
       });
@@ -190,7 +190,7 @@ describe('Media plugin', () => {
           updateAndDispatchSpy.mockRestore();
         });
 
-        it('should invoke it with allUploadsFinished false when an image is inserted', function() {
+        it('should invoke it with allUploadsFinished false when an image is inserted', function () {
           mediaPluginState.insertFile(foo, () => {});
 
           expect(updateAndDispatchSpy).toHaveBeenLastCalledWith({

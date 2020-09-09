@@ -13,13 +13,13 @@ describe('Collab Web Bridge', () => {
     expect(bridge.collabSocket).toBeNull();
   });
 
-  it('should create a collab socket', function() {
+  it('should create a collab socket', function () {
     const socket = bridge.createCollabSocket('http://atlassian.com');
 
     expect(bridge.collabSocket).toBe(socket);
   });
 
-  it('should remove the socket on close', function() {
+  it('should remove the socket on close', function () {
     const socket = bridge.createCollabSocket('http://atlassian.com');
 
     socket.close();
@@ -27,7 +27,7 @@ describe('Collab Web Bridge', () => {
     expect(bridge.collabSocket).toBeNull();
   });
 
-  it('should emit the received event', function(next) {
+  it('should emit the received event', function (next) {
     const originalArgs = { foo: 'bar' };
     const socket = bridge.createCollabSocket('http://atlassian.com');
 
@@ -41,11 +41,11 @@ describe('Collab Web Bridge', () => {
 });
 
 describe('Lifecycle Bridge', () => {
-  it('should create a lifecycle on creation', function() {
+  it('should create a lifecycle on creation', function () {
     expect(bridge.lifecycle).not.toBeUndefined();
   });
 
-  it('should invoke events registered on `save`', function() {
+  it('should invoke events registered on `save`', function () {
     const fn = jest.fn();
     bridge.lifecycle.on('save', fn);
     bridge.saveCollabChanges();
@@ -53,7 +53,7 @@ describe('Lifecycle Bridge', () => {
     expect(fn).toHaveBeenCalled();
   });
 
-  it('should invoke events registered on `restore`', function() {
+  it('should invoke events registered on `restore`', function () {
     const fn = jest.fn();
     bridge.lifecycle.on('restore', fn);
 

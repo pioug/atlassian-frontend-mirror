@@ -45,12 +45,8 @@ describe('Logo component', () => {
     ];
 
     const logoIds = logos.map(l => {
-      return l
-        .find('span')
-        .render()
-        .find('svg')
-        .find('stop')
-        .parent()[0].attribs.id;
+      return l.find('span').render().find('svg').find('stop').parent()[0]
+        .attribs.id;
     });
 
     function hasDuplicates(array: Array<any>) {

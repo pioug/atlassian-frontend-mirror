@@ -68,7 +68,7 @@ export function setBlockTypeWithAnalytics(
 }
 
 export function setNormalText(): Command {
-  return function(state, dispatch) {
+  return function (state, dispatch) {
     const {
       tr,
       selection: { $from, $to },
@@ -128,7 +128,7 @@ export function setNormalTextWithAnalytics(inputMethod: InputMethod): Command {
   );
 }
 export function setHeading(level: HeadingLevelsAndNormalText): Command {
-  return function(state, dispatch) {
+  return function (state, dispatch) {
     const {
       tr,
       selection: { $from, $to },
@@ -163,7 +163,7 @@ export const setHeadingWithAnalytics = (
 };
 
 export function insertBlockType(name: string): Command {
-  return function(state, dispatch) {
+  return function (state, dispatch) {
     const { nodes } = state.schema;
 
     switch (name) {
@@ -234,7 +234,7 @@ export const insertBlockTypesWithAnalytics = (
  *  and set selection on it.
  */
 function wrapSelectionIn(type: NodeType<any>): Command {
-  return function(state: EditorState, dispatch) {
+  return function (state: EditorState, dispatch) {
     let { tr } = state;
     const { $from, $to } = state.selection;
     const { paragraph } = state.schema.nodes;
@@ -268,7 +268,7 @@ function wrapSelectionIn(type: NodeType<any>): Command {
  * Function will insert code block at current selection if block is empty or below current selection and set focus on it.
  */
 function insertCodeBlock(): Command {
-  return function(state: EditorState, dispatch) {
+  return function (state: EditorState, dispatch) {
     const { tr } = state;
     const { $to } = state.selection;
     const { codeBlock } = state.schema.nodes;

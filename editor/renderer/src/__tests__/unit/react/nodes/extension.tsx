@@ -75,12 +75,9 @@ describe('Renderer - React/Nodes/Extension', () => {
       />,
     );
 
-    expect(
-      extension
-        .find('div')
-        .first()
-        .text(),
-    ).toEqual('This is the default text');
+    expect(extension.find('div').first().text()).toEqual(
+      'This is the default text',
+    );
     extension.unmount();
   });
 
@@ -95,12 +92,9 @@ describe('Renderer - React/Nodes/Extension', () => {
       />,
     );
 
-    expect(
-      extension
-        .find('div')
-        .first()
-        .text(),
-    ).toEqual('This is a react element');
+    expect(extension.find('div').first().text()).toEqual(
+      'This is a react element',
+    );
     extension.unmount();
   });
 
@@ -115,12 +109,7 @@ describe('Renderer - React/Nodes/Extension', () => {
       />,
     );
 
-    expect(
-      extension
-        .find('div')
-        .first()
-        .text(),
-    ).toEqual('extension');
+    expect(extension.find('div').first().text()).toEqual('extension');
     extension.unmount();
   });
 

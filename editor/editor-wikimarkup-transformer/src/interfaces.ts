@@ -58,6 +58,14 @@ export interface AddCellArgs extends AddArgs {
 export interface ConversionMap {
   [key: string]: string;
 }
+export interface MediaConversionMap {
+  [key: string]: {
+    // mapping between wiki's filename and media's ID, defaults to key
+    transform?: string;
+    // flag whether ADF media node should be converted to embedded !file! or non-embedded [^file], defaults to embedded
+    embed?: boolean;
+  };
+}
 export type TokenErrCallback = (err: Error, tokenType: string) => void;
 
 export interface Context {
@@ -65,7 +73,7 @@ export interface Context {
   readonly tokenErrCallback?: TokenErrCallback;
   readonly conversion?: {
     readonly inlineCardConversion?: ConversionMap;
-    readonly mediaConversion?: ConversionMap;
+    readonly mediaConversion?: MediaConversionMap;
     mentionConversion?: ConversionMap;
   };
   readonly hydration?: {

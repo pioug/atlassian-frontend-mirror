@@ -10,11 +10,7 @@ export class SimpleHasher implements Hasher {
       reader.readAsArrayBuffer(blob);
 
       reader.onload = () => {
-        resolve(
-          Rusha.createHash()
-            .update(reader.result)
-            .digest('hex'),
-        );
+        resolve(Rusha.createHash().update(reader.result).digest('hex'));
       };
 
       reader.onerror = reject;

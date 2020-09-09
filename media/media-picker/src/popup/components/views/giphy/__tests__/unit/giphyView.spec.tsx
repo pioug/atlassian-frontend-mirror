@@ -157,12 +157,7 @@ describe('<ConnectedGiphyView />', () => {
       );
 
       expect(giphyView.find(Card)).toHaveLength(5);
-      expect(
-        giphyView
-          .find(Card)
-          .first()
-          .props(),
-      ).toEqual(
+      expect(giphyView.find(Card).first().props()).toEqual(
         expect.objectContaining({
           dimensions: { width: 10, height: 10 },
           identifier: expect.objectContaining({
@@ -396,10 +391,7 @@ describe('<ConnectedGiphyView />', () => {
         />,
       );
 
-      giphyView
-        .find(Card)
-        .first()
-        .simulate('click');
+      giphyView.find(Card).first().simulate('click');
 
       expect(onCardClick).toHaveBeenCalledTimes(1);
       expect(onCardClick).toHaveBeenCalledWith({

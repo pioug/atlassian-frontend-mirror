@@ -4,9 +4,11 @@ import { akEditorSubtleAccent } from '../../styles';
 import { borderRadius } from '@atlaskit/theme/constants';
 import { N300, N50 } from '@atlaskit/theme/colors';
 
-export const Input: ComponentClass<InputHTMLAttributes<{}> & {
-  innerRef?: any;
-}> = styled.input`
+export const Input: ComponentClass<
+  InputHTMLAttributes<{}> & {
+    innerRef?: any;
+  }
+> = styled.input`
   /* Normal .className gets overridden by input[type=text] hence this hack to produce input.className */
   input& {
     background-color: white;

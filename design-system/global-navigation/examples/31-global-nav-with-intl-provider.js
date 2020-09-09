@@ -14,8 +14,9 @@ const getGlobalNavigation = () => (
     channel="navigation"
     onEvent={analyticsEvent => {
       const { payload, context } = analyticsEvent;
-      const eventId = `${payload.actionSubject ||
-        payload.name} ${payload.action || payload.eventType}`;
+      const eventId = `${payload.actionSubject || payload.name} ${
+        payload.action || payload.eventType
+      }`;
       console.log(`Received event [${eventId}]: `, {
         payload,
         context,

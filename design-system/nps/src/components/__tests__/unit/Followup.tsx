@@ -42,12 +42,9 @@ describe('Followup page', () => {
       const wrapper = shallow(<Followup {...props} />);
       const desc = wrapper.find(Description);
       expect(desc.exists()).toBe(true);
-      expect(
-        desc
-          .children()
-          .first()
-          .text(),
-      ).toEqual(props.messages.description);
+      expect(desc.children().first().text()).toEqual(
+        props.messages.description,
+      );
     });
 
     it('should render a RoleQuestion', () => {
@@ -117,21 +114,14 @@ describe('Followup page', () => {
       const props = getDefaultProps();
       const wrapper = shallow(<RoleDropdown {...props} />);
       expect(
-        wrapper
-          .find(DropdownMenu)
-          .find(DropdownItem)
-          .getElements().length,
+        wrapper.find(DropdownMenu).find(DropdownItem).getElements().length,
       ).toEqual(3);
     });
 
     it('should call onRoleSelect callback when dropdown item clicked', () => {
       const props = getDefaultProps();
       const wrapper = shallow(<RoleDropdown {...props} />);
-      wrapper
-        .find(DropdownMenu)
-        .find(DropdownItem)
-        .first()
-        .simulate('click');
+      wrapper.find(DropdownMenu).find(DropdownItem).first().simulate('click');
       expect(props.onRoleSelect).toHaveBeenCalledWith('a');
     });
   });

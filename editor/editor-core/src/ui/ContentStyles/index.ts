@@ -44,10 +44,12 @@ import { smartCardStyles } from '../../plugins/card/styles';
 import { dateStyles } from '../../plugins/date/styles';
 import { embedCardStyles } from '../../plugins/card/ui/styled';
 
-const ContentStyles: ComponentClass<HTMLAttributes<{}> & {
-  theme: any;
-  allowAnnotation?: boolean;
-}> = styled.div`
+const ContentStyles: ComponentClass<
+  HTMLAttributes<{}> & {
+    theme: any;
+    allowAnnotation?: boolean;
+  }
+> = styled.div`
   /* Hack for ie11 that is being used in code block.
    * https://bitbucket.org/atlassian/atlaskit/src/ad09f6361109ece1aab316c8cbd8116ffb7963ef/packages/editor-core/src/schema/nodes/code-block.ts?fileviewer=file-view-default#code-block.ts-110
    */
@@ -68,7 +70,7 @@ const ContentStyles: ComponentClass<HTMLAttributes<{}> & {
     ${inlineNodeSharedStyle};
   }
 
-  .ProseMirror[contenteditable=false] .taskItemView-content-wrap {
+  .ProseMirror[contenteditable='false'] .taskItemView-content-wrap {
     pointer-events: none;
     opacity: 0.7;
   }
@@ -148,7 +150,8 @@ const ContentStyles: ComponentClass<HTMLAttributes<{}> & {
     text-align: center;
   }
 
-  .hyperlink-floating-toolbar, .${ClassNames.FLOATING_TOOLBAR_COMPONENT} {
+  .hyperlink-floating-toolbar,
+  .${ClassNames.FLOATING_TOOLBAR_COMPONENT} {
     padding: 0;
   }
 
@@ -163,7 +166,6 @@ const ContentStyles: ComponentClass<HTMLAttributes<{}> & {
       padding: 0 4px;
     }
   }
-
 `;
 
 export default ContentStyles;

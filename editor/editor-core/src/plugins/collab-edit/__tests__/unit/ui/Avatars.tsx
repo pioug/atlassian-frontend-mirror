@@ -116,11 +116,7 @@ describe('collab-edit | Avatars', () => {
               inviteToEditHandler={inviteToEditHandler}
             />,
           );
-          node
-            .find(ToolbarButton)
-            .at(0)
-            .find('button')
-            .simulate('click');
+          node.find(ToolbarButton).at(0).find('button').simulate('click');
           expect(inviteToEditHandler).toHaveBeenCalledTimes(1);
           node.unmount();
         });
@@ -138,12 +134,7 @@ describe('collab-edit | Avatars', () => {
               isInviteToEditButtonSelected={true}
             />,
           );
-          expect(
-            node
-              .find(ToolbarButton)
-              .at(0)
-              .prop('selected'),
-          ).toBe(true);
+          expect(node.find(ToolbarButton).at(0).prop('selected')).toBe(true);
           node.unmount();
         });
       });

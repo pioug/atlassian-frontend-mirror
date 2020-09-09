@@ -136,7 +136,7 @@ const createPlugin = (dispatch: Dispatch) => {
  * Update the scroll values on the plugin props
  * These are used by ProseMirror to determine when and how far it should scroll
  */
-const updateScrollValues = function(
+const updateScrollValues = function (
   this: PluginSpec,
   keyboardHeight: number,
   heightDiff: number,

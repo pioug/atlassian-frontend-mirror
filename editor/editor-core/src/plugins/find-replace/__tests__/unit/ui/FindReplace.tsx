@@ -122,12 +122,9 @@ describe('FindReplace', () => {
       findReplace = mountComponent({
         findText: 'quokka',
       });
-      expect(
-        findReplace
-          .find(Find)
-          .find(Textfield)
-          .prop('defaultValue'),
-      ).toBe('quokka');
+      expect(findReplace.find(Find).find(Textfield).prop('defaultValue')).toBe(
+        'quokka',
+      );
     });
 
     it('should display num results', () => {
@@ -274,10 +271,7 @@ describe('FindReplace', () => {
         findReplace = mountComponent({ count: { index: 0, total: 32 } });
 
         endComposition = compose(
-          findReplace
-            .find(Find)
-            .find(Textfield)
-            .find('input'),
+          findReplace.find(Find).find(Textfield).find('input'),
           ['k', 'か', 'かy', 'かよ', 'かよう', 'かようb', 'かようび'],
         );
       });
@@ -296,10 +290,7 @@ describe('FindReplace', () => {
           endComposition();
           findReplace.setProps({ findText: 'かようび' });
           endComposition = compose(
-            findReplace
-              .find(Find)
-              .find(Textfield)
-              .find('input'),
+            findReplace.find(Find).find(Textfield).find('input'),
             [
               'g',
               'げ',
@@ -370,10 +361,7 @@ describe('FindReplace', () => {
 
     it('should display replace text', () => {
       expect(
-        findReplace
-          .find(Replace)
-          .find(Textfield)
-          .prop('defaultValue'),
+        findReplace.find(Replace).find(Textfield).prop('defaultValue'),
       ).toBe('bilby');
     });
 
@@ -452,10 +440,7 @@ describe('FindReplace', () => {
           count: { index: 0, total: 32 },
         });
         endComposition = compose(
-          findReplace
-            .find(Replace)
-            .find(Textfield)
-            .find('input'),
+          findReplace.find(Replace).find(Textfield).find('input'),
           ['k', 'か', 'かy', 'かよ', 'かよう', 'かようb', 'かようび'],
         );
       });
@@ -493,10 +478,7 @@ describe('FindReplace', () => {
             endComposition();
             findReplace.setProps({ replaceText: 'かようび' });
             endComposition = compose(
-              findReplace
-                .find(Replace)
-                .find(Textfield)
-                .find('input'),
+              findReplace.find(Replace).find(Textfield).find('input'),
               [
                 'g',
                 'げ',
@@ -538,10 +520,7 @@ describe('FindReplace', () => {
             endComposition();
             findReplace.setProps({ replaceText: 'かようび' });
             endComposition = compose(
-              findReplace
-                .find(Replace)
-                .find(Textfield)
-                .find('input'),
+              findReplace.find(Replace).find(Textfield).find('input'),
               [
                 'g',
                 'げ',

@@ -70,7 +70,7 @@ describe('JIRA wiki markup - Issue key (smart card)', () => {
         'ABC-10': 'https://instance.atlassian.net/browse/ABC-10',
         'ABC-20': 'https://instance.atlassian.net/browse/ABC-20',
       },
-      mediaConversion: { 'ABC-10': 'abc-123' },
+      mediaConversion: { 'ABC-10': { transform: 'abc-123', embed: true } },
     },
   };
 

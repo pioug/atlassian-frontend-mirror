@@ -430,12 +430,7 @@ describe('Feedback Collector unit tests', () => {
       Object.keys(fieldLabel).forEach(key => {
         if (key !== 'empty') {
           wrapper.setState({ type: key });
-          expect(
-            wrapper
-              .find(Field)
-              .at(0)
-              .props().label,
-          ).toBe(fieldLabel[key]);
+          expect(wrapper.find(Field).at(0).props().label).toBe(fieldLabel[key]);
         }
       });
     });

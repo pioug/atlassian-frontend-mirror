@@ -81,9 +81,7 @@ export const ResolvedView = ({
         testId={testId ? `${testId}-meta` : undefined}
         items={details}
       />
-    ) : (
-      undefined
-    );
+    ) : undefined;
   const resolvedByline = (
     <Byline testId={testId ? `${testId}-by` : undefined}>{byline}</Byline>
   );

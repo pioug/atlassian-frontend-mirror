@@ -209,10 +209,9 @@ describe('@atlaskit/editor-core', () => {
 
         const expectedTransactionCount = 1;
 
-        const dispatchTransactionSpy: jest.SpyInstance<ReactEditorView['dispatchTransaction']> = jest.spyOn(
-          editor as any,
-          'dispatchTransaction',
-        );
+        const dispatchTransactionSpy: jest.SpyInstance<
+          ReactEditorView['dispatchTransaction']
+        > = jest.spyOn(editor as any, 'dispatchTransaction');
         editor.view!.dispatch(editor.view!.state.tr);
         expect(dispatchTransactionSpy).toHaveBeenCalledTimes(
           expectedTransactionCount,

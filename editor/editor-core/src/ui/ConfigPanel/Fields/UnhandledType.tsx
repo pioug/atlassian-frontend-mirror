@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { HelperMessage } from '@atlaskit/form';
 import { FieldDefinition } from '@atlaskit/editor-common/extensions';
 
-export default function({
+export default function ({
   errorMessage,
 }: {
   field: FieldDefinition;

@@ -194,16 +194,16 @@ abc
   const context = {
     conversion: {
       mediaConversion: {
-        'attached-image.gif': 'abc-attached',
-        'file.pdf': 'abc-0',
-        'file1.pdf': 'abc-1',
-        'file2.pdf': 'abc-2',
-        'file3.pdf': 'abc-3',
-        'file4.pdf': 'abc-4',
-        'file5.pdf': 'abc-5',
-        'file6.pdf': 'abc-6',
-        'file7.pdf': 'abc-7',
-        'file8.pdf': 'abc-8',
+        'attached-image.gif': { transform: 'abc-attached', embed: true },
+        'file.pdf': { transform: 'abc-0', embed: true },
+        'file1.pdf': { transform: 'abc-1', embed: true },
+        'file2.pdf': { transform: 'abc-2', embed: true },
+        'file3.pdf': { transform: 'abc-3', embed: true },
+        'file4.pdf': { transform: 'abc-4', embed: true },
+        'file5.pdf': { transform: 'abc-5', embed: true },
+        'file6.pdf': { transform: 'abc-6', embed: true },
+        'file7.pdf': { transform: 'abc-7', embed: true },
+        'file8.pdf': { transform: 'abc-8', embed: true },
       },
     },
   };

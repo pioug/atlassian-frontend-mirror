@@ -179,10 +179,7 @@ describe(name, () => {
           expect(rUncontrolled.at(1).prop('isChecked')).toBe(false);
           expect(rUncontrolled.at(2).prop('isChecked')).toBe(false);
 
-          radio()
-            .at(2)
-            .find('input')
-            .simulate('change');
+          radio().at(2).find('input').simulate('change');
           expect(wrapper.state('value')).toBe(sampleOptions[2].value);
 
           const rUncontrolledClicked = radio();
@@ -205,10 +202,7 @@ describe(name, () => {
           expect(rUncontrolled.at(1).prop('isChecked')).toBe(false);
           expect(rUncontrolled.at(2).prop('isChecked')).toBe(false);
 
-          radio()
-            .at(1)
-            .find('input')
-            .simulate('change');
+          radio().at(1).find('input').simulate('change');
 
           const rUncontrolledClicked = radio();
           expect(rUncontrolledClicked.at(0).prop('isChecked')).toBe(true);
@@ -255,10 +249,7 @@ describe(name, () => {
           expect(rNeutral.at(1).prop('isChecked')).toBe(false);
           expect(rNeutral.at(2).prop('isChecked')).toBe(false);
 
-          radio()
-            .at(2)
-            .find('input')
-            .simulate('change');
+          radio().at(2).find('input').simulate('change');
 
           expect(wrapper.state('value')).toBe(sampleOptions[2].value);
           const rNew = radio();
@@ -274,11 +265,7 @@ describe(name, () => {
           const wrapper = mount(
             <RadioGroup onChange={spy} options={sampleOptions} />,
           );
-          wrapper
-            .find(Radio)
-            .first()
-            .find('input')
-            .simulate('change');
+          wrapper.find(Radio).first().find('input').simulate('change');
           expect(spy).toHaveBeenCalledTimes(1);
         });
       });

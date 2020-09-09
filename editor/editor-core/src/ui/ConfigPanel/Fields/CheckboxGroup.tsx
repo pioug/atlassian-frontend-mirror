@@ -6,7 +6,7 @@ import { EnumField } from '@atlaskit/editor-common/extensions';
 import { OnBlur } from '../types';
 import FieldMessages from '../FieldMessages';
 
-export default function({
+export default function ({
   field,
   onBlur,
 }: {

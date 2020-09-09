@@ -532,10 +532,7 @@ describe('LayoutManager', () => {
           // to register the spy on the instance
           wrapper.setProps({});
 
-          wrapper
-            .find('Global')
-            .closest('div')
-            .simulate('mouseover');
+          wrapper.find('Global').closest('div').simulate('mouseover');
 
           expect(spy).toHaveBeenCalled();
         });
@@ -609,10 +606,7 @@ describe('LayoutManager', () => {
           const wrapper = mount(<LayoutManager {...defaultProps} />);
 
           wrapper.find(ContainerNavigationMask).simulate('mouseover');
-          wrapper
-            .find('Global')
-            .closest('div')
-            .simulate('mouseover');
+          wrapper.find('Global').closest('div').simulate('mouseover');
 
           expect(wrapper.state('flyoutIsOpen')).toBe(false);
         });
@@ -762,22 +756,16 @@ describe('LayoutManager', () => {
 
     it('should be attached to the Page transition component', () => {
       const wrapper = mount(<LayoutManager {...handlers} {...defaultProps} />);
-      expect(
-        wrapper
-          .find(ResizeTransition)
-          .last()
-          .props(),
-      ).toEqual(expect.objectContaining(handlers));
+      expect(wrapper.find(ResizeTransition).last().props()).toEqual(
+        expect.objectContaining(handlers),
+      );
     });
 
     it('should NOT be attached to the Nav transition component', () => {
       const wrapper = mount(<LayoutManager {...handlers} {...defaultProps} />);
-      expect(
-        wrapper
-          .find(ResizeTransition)
-          .first()
-          .props(),
-      ).not.toEqual(expect.objectContaining(handlers));
+      expect(wrapper.find(ResizeTransition).first().props()).not.toEqual(
+        expect.objectContaining(handlers),
+      );
     });
 
     it('should call onExpandStart when nav starts to permanently expand', () => {

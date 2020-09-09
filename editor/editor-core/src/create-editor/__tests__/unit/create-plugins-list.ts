@@ -299,7 +299,7 @@ describe('createPluginsList', () => {
       mockPlugins.placeholderPlugin.mockClear();
     });
 
-    it('should pass placeholder text from editor props', function() {
+    it('should pass placeholder text from editor props', function () {
       const defaultPlaceholder = 'Hello World!';
       createPluginsList({ placeholder: defaultPlaceholder });
 
@@ -308,7 +308,7 @@ describe('createPluginsList', () => {
       });
     });
 
-    it('should pass placeholder hints from editor props', function() {
+    it('should pass placeholder hints from editor props', function () {
       const placeholderHints = ['Hello World!'];
       createPluginsList({ placeholderHints });
 

@@ -230,7 +230,7 @@ export const deleteKeyCommand: Command = listDelete;
  * Splits the list items, specific implementation take from PM
  */
 function splitListItem(itemType: NodeType): Command {
-  return function(state, dispatch) {
+  return function (state, dispatch) {
     const ref = state.selection as NodeSelection;
     const $from = ref.$from;
     const $to = ref.$to;
@@ -366,7 +366,7 @@ function mergeLists(listItem: NodeType, range: NodeRange) {
 export function outdentList(
   inputMethod: InputMethod = INPUT_METHOD.KEYBOARD,
 ): Command {
-  return function(state, dispatch) {
+  return function (state, dispatch) {
     const { listItem } = state.schema.nodes;
     const { $from, $to } = state.selection;
     if (isInsideListItem(state)) {
@@ -448,7 +448,7 @@ function canSink(initialIndentationLevel: number, state: EditorState): boolean {
 export function indentList(
   inputMethod: InputMethod = INPUT_METHOD.KEYBOARD,
 ): Command {
-  return function(state, dispatch) {
+  return function (state, dispatch) {
     const { listItem } = state.schema.nodes;
     if (isInsideListItem(state)) {
       // Record initial list indentation
@@ -483,7 +483,7 @@ export function indentList(
 }
 
 export function liftListItems(): Command {
-  return function(state, dispatch) {
+  return function (state, dispatch) {
     const { tr } = state;
     const { $from, $to } = state.selection;
 
@@ -665,7 +665,7 @@ function isInsideList(
 export function toggleListCommand(
   listType: 'bulletList' | 'orderedList',
 ): Command {
-  return function(state, dispatch, view) {
+  return function (state, dispatch, view) {
     if (dispatch) {
       dispatch(
         state.tr.setSelection(

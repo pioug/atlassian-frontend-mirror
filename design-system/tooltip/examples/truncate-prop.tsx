@@ -4,9 +4,7 @@ import Tooltip from '../src';
 
 // unique enough id
 function getUEID() {
-  return Math.random()
-    .toString(32)
-    .slice(2);
+  return Math.random().toString(32).slice(2);
 }
 
 interface CheckboxProps {

@@ -15,8 +15,9 @@ interface ContainerProps {
   selected: boolean;
 }
 
-export const Container: ComponentClass<HTMLAttributes<{}> &
-  ContainerProps> = styled.li`
+export const Container: ComponentClass<
+  HTMLAttributes<{}> & ContainerProps
+> = styled.li`
   background-color: ${(props: ContainerProps) =>
     props.selected ? N20 : 'transparent'};
   padding: 8px 12px;

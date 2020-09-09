@@ -10,7 +10,7 @@ function createMarkup(content: string) {
   return { __html: content };
 }
 
-const FieldMessages = function({
+const FieldMessages = function ({
   error,
   description,
   intl,

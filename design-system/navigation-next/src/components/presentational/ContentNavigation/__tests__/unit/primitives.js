@@ -87,12 +87,7 @@ describe('ContentNavigation primitives', () => {
         </ProductNavigation>,
       );
 
-      expect(
-        wrapper
-          .find('ThemeProvider')
-          .props()
-          .theme(),
-      ).toMatchObject({
+      expect(wrapper.find('ThemeProvider').props().theme()).toMatchObject({
         mode: light,
       });
     });
@@ -104,12 +99,9 @@ describe('ContentNavigation primitives', () => {
         </ProductNavigation>,
       );
 
-      expect(
-        wrapper
-          .find('ThemeProvider')
-          .props()
-          .theme().context,
-      ).toBe('product');
+      expect(wrapper.find('ThemeProvider').props().theme().context).toBe(
+        'product',
+      );
     });
 
     it('should have scrollable effect', () => {

@@ -64,19 +64,14 @@ describe(`${name} - stateless`, () => {
       describe('options', () => {
         it('should render options inside optgroups', () => {
           expect(
-            wrapper
-              .find('select')
-              .find('optgroup')
-              .find('option').length,
+            wrapper.find('select').find('optgroup').find('option').length,
           ).toBe(3);
         });
 
         it('should have "disabled" attribute if the option is disabled', () => {
           expect(
-            wrapper
-              .find('select')
-              .find('optgroup')
-              .find('option[disabled]').length,
+            wrapper.find('select').find('optgroup').find('option[disabled]')
+              .length,
           ).toBe(1);
         });
 
@@ -90,12 +85,9 @@ describe(`${name} - stateless`, () => {
         it('should render content inside', () => {
           const firstContent = selectItems[0].items[0].content;
           const optgroup = wrapper.find('select').find('optgroup');
-          expect(
-            optgroup
-              .find('option[value]')
-              .at(0)
-              .text(),
-          ).toBe(firstContent);
+          expect(optgroup.find('option[value]').at(0).text()).toBe(
+            firstContent,
+          );
         });
       });
     });

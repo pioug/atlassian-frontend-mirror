@@ -30,8 +30,9 @@ export interface TransformProps {
   transform?: string;
 }
 
-export const ImagePlacerWrapper: ComponentClass<ColorProps &
-  HTMLAttributes<{}>> = styled.div`
+export const ImagePlacerWrapper: ComponentClass<
+  ColorProps & HTMLAttributes<{}>
+> = styled.div`
   background-color: ${(props: ColorProps) => props.backgroundColor};
   display: inline-block;
 `;

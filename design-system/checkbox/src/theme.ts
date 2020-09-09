@@ -63,7 +63,7 @@ export const componentTokens: ComponentTokens = {
  * i.e. { b: y }
  */
 
-const evaluateMode = function<TargetType, ResultType>(
+const evaluateMode = function <TargetType, ResultType>(
   obj: TargetType,
   mode: string,
 ): ResultType {

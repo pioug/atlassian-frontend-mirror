@@ -931,20 +931,11 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
             const { wrapper, doSubmitForm } = mountResult;
 
             typeInField(
-              wrapper
-                .find('Textfield')
-                .at(0)
-                .find('input'),
+              wrapper.find('Textfield').at(0).find('input'),
               'content',
             );
 
-            typeInField(
-              wrapper
-                .find('Textfield')
-                .at(1)
-                .find('input'),
-              '12',
-            );
+            typeInField(wrapper.find('Textfield').at(1).find('input'), '12');
 
             selectOption(wrapper.find('Select'), {
               label: 'Leandro',
@@ -971,10 +962,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
             });
 
             typeInField(
-              wrapper
-                .find('Textfield')
-                .at(0)
-                .find('input'),
+              wrapper.find('Textfield').at(0).find('input'),
               'content',
             );
 
@@ -1030,10 +1018,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
 
         describe('Dynamic', () => {
           const clickAddFieldButton = (wrapper: Wrapper) => {
-            wrapper
-              .find('Button[testId="add-more"]')
-              .first()
-              .simulate('click');
+            wrapper.find('Button[testId="add-more"]').first().simulate('click');
             wrapper.update();
           };
 

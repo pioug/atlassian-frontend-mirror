@@ -29,7 +29,7 @@ type RegisterField = <FieldValue>(
   config: FieldConfig<FieldValue>,
 ) => Unsubscribe;
 
-export const FormContext = createContext<RegisterField>(function() {
+export const FormContext = createContext<RegisterField>(function () {
   return () => {};
 });
 export const IsDisabledContext = createContext(false);

@@ -113,7 +113,7 @@ describe('AddColumnStep', () => {
       ({ editorState, refs } = setup(threeByOne));
     });
 
-    it('should delete the table when I tried to remove the last column', function() {
+    it('should delete the table when I tried to remove the last column', function () {
       editorState = editorState.apply(
         removeColumnAtFactory('table', 0)(editorState, refs),
       );
@@ -129,7 +129,7 @@ describe('AddColumnStep', () => {
       expect(editorState.doc).toEqualDocument(threeByOne);
     });
 
-    it('should remove the table after undoing the last column ', function() {
+    it('should remove the table after undoing the last column ', function () {
       const editorState = testHistory(
         threeByOne,
         addColumnAtFactory('table', 0),
@@ -139,7 +139,7 @@ describe('AddColumnStep', () => {
       expect(editorState.doc).toEqualDocument(doc(p('')));
     });
 
-    it('should drop add column step when I remove the column', function() {
+    it('should drop add column step when I remove the column', function () {
       const firstTransaction = removeColumnAtFactory('table', 0)(
         editorState,
         refs,
@@ -158,7 +158,7 @@ describe('AddColumnStep', () => {
       expect(addColumnStep).toBe(null);
     });
 
-    it('should remove the column instead of table when I add a column just before', function() {
+    it('should remove the column instead of table when I add a column just before', function () {
       const firstTransaction = addColumnAtFactory('table', 0)(
         editorState,
         refs,
@@ -181,7 +181,7 @@ describe('AddColumnStep', () => {
       );
     });
 
-    it('should parse a json that we just generate', function() {
+    it('should parse a json that we just generate', function () {
       const firstTransaction = removeColumnAtFactory('table', 0)(
         editorState,
         refs,
@@ -397,7 +397,7 @@ describe('AddColumnStep', () => {
     });
 
     describe('history plugin', () => {
-      it('should be able to undo the right column', function() {
+      it('should be able to undo the right column', function () {
         const editorState = testHistory(
           twoBythreeTable,
           addColumnAtFactory('table', 2),

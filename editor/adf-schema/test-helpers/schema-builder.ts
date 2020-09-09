@@ -198,7 +198,7 @@ export function coerce(content: BuilderContent[], schema: Schema) {
  * Create a factory for nodes.
  */
 export function nodeFactory(type: NodeType, attrs = {}) {
-  return function(...content: BuilderContent[]): RefsNode {
+  return function (...content: BuilderContent[]): RefsNode {
     const { nodes, refs } = coerce(content, type.schema);
     const node = type.create(attrs, nodes) as RefsNode;
     node.refs = refs;

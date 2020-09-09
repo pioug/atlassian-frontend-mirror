@@ -19,19 +19,17 @@ const blockUnsupportedSelector = `.${UnsupportedSharedCssClassName.BLOCK_CONTAIN
 
 export const unsupportedStyles = css`
   ${blockUnsupportedSelector},${inlineUnsupportedSelector} {
-      cursor: pointer;
+    cursor: pointer;
   }
 
   .${akEditorSelectedNodeClassName}${blockUnsupportedSelector},
-  .${akEditorSelectedNodeClassName}${inlineUnsupportedSelector}
-   {
+    .${akEditorSelectedNodeClassName}${inlineUnsupportedSelector} {
     ${getSelectionStyles([SelectionStyle.Blanket, SelectionStyle.Border])}
   }
 
   .danger {
     .${akEditorSelectedNodeClassName}${blockUnsupportedSelector},
-    .${akEditorSelectedNodeClassName}${inlineUnsupportedSelector}
-     {
+      .${akEditorSelectedNodeClassName}${inlineUnsupportedSelector} {
       border: ${akEditorSelectedBorderSize}px solid ${akEditorDeleteBorder};
       background-color: ${akEditorDeleteBackgroundWithOpacity};
       &::after {
@@ -39,5 +37,4 @@ export const unsupportedStyles = css`
       }
     }
   }
-
 `;

@@ -152,10 +152,7 @@ describe('CardActions', () => {
       <CardActionsView actions={menuActions} onToggle={onToggle} />,
     );
 
-    card
-      .find(DropdownMenu)
-      .find(CardActionButton)
-      .simulate('click');
+    card.find(DropdownMenu).find(CardActionButton).simulate('click');
 
     expect(onToggle).toHaveBeenCalled();
   });
@@ -207,16 +204,9 @@ describe('CardActions', () => {
 
   describe('Analytics Events', () => {
     const clickIconButton = (card: ReactWrapper, at: number) =>
-      card
-        .find(CardActionIconButton)
-        .at(at)
-        .simulate('click');
+      card.find(CardActionIconButton).at(at).simulate('click');
     const clickDropdownItem = (card: ReactWrapper, at: number) =>
-      card
-        .find(DropdownMenu)
-        .find(DropdownItem)
-        .at(at)
-        .simulate('click');
+      card.find(DropdownMenu).find(DropdownItem).at(at).simulate('click');
 
     const matchingActionEventPayload = (
       actionSubjectId: string,

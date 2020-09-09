@@ -89,26 +89,20 @@ describe('Image navigator', () => {
     });
 
     it('should change scale in state when slider is moved', () => {
-      slider()
-        .props()
-        .onChange(20);
+      slider().props().onChange(20);
 
       component.update();
       expect(component.state().scale).toBe(20);
     });
 
     it('should mark state as is dragging when mouse pressed down', () => {
-      imageCropper()
-        .props()
-        .onDragStarted(0, 0);
+      imageCropper().props().onDragStarted(0, 0);
 
       expect(component.state().isDragging).toBe(true);
     });
 
     it('should mark state as is not dragging when mouse unpressed', () => {
-      imageCropper()
-        .props()
-        .onDragStarted(0, 0);
+      imageCropper().props().onDragStarted(0, 0);
       document.dispatchEvent(createMouseEvent('mouseup'));
       expect(component.state().isDragging).toBe(false);
     });
@@ -117,12 +111,8 @@ describe('Image navigator', () => {
       const imageHeight = CONTAINER_INNER_SIZE * 2;
       const imageWidth = CONTAINER_INNER_SIZE * 2;
       beforeEach(() => {
-        imageCropper()
-          .props()
-          .onImageSize(imageWidth, imageHeight);
-        slider()
-          .props()
-          .onChange(100);
+        imageCropper().props().onImageSize(imageWidth, imageHeight);
+        slider().props().onChange(100);
       });
     });
 

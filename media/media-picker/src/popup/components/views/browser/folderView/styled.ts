@@ -37,8 +37,9 @@ export interface SelectableProps {
   isSelected?: boolean;
 }
 
-export const FolderViewerRow: ComponentClass<LiHTMLAttributes<{}> &
-  SelectableProps> = styled.li`
+export const FolderViewerRow: ComponentClass<
+  LiHTMLAttributes<{}> & SelectableProps
+> = styled.li`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -78,8 +79,9 @@ export const FileIcon: ComponentClass<HTMLAttributes<{}>> = styled.div`
   height: 32px;
 `;
 
-export const FileName: ComponentClass<HTMLAttributes<{}> &
-  SelectableProps> = styled.div`
+export const FileName: ComponentClass<
+  HTMLAttributes<{}> & SelectableProps
+> = styled.div`
   padding-left: 17px;
   vertical-align: middle;
   overflow: hidden;

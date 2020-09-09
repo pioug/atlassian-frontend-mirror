@@ -66,12 +66,9 @@ export default function getMediaSingleNodeView(
 
     return mediaSingle.createChecked(mediaSingleAttrs, externalMediaNode);
   } else {
+    // try to look up media ID from conversion context
     const id =
-      context.conversion &&
-      context.conversion.mediaConversion &&
-      context.conversion.mediaConversion[filename]
-        ? context.conversion.mediaConversion[filename]
-        : filename;
+      context?.conversion?.mediaConversion?.[filename]?.transform ?? filename;
     // try to look up collection from media context
     const collection =
       context.hydration &&

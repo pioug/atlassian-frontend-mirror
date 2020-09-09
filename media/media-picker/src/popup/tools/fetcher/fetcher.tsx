@@ -148,9 +148,7 @@ export class MediaApiFetcher implements Fetcher {
     };
     const url = `${baseUrl}${this.stringifyParams(params)}`;
 
-    return fetch(url)
-      .then(toJson)
-      .then(this.mapGiphyResponseToViewModel);
+    return fetch(url).then(toJson).then(this.mapGiphyResponseToViewModel);
   };
 
   fetchGifsRelevantToSearch = (
@@ -166,9 +164,7 @@ export class MediaApiFetcher implements Fetcher {
     };
     const url = `${baseUrl}${this.stringifyParams(params)}`;
 
-    return fetch(url)
-      .then(toJson)
-      .then(this.mapGiphyResponseToViewModel);
+    return fetch(url).then(toJson).then(this.mapGiphyResponseToViewModel);
   };
 
   private mapGiphyResponseToViewModel = (

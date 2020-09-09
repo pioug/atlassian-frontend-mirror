@@ -5,7 +5,7 @@ import { OnlyButtonProps } from '../../types';
 // complex type that we use for ButtonProps.
 // https://github.com/atlassian/extract-react-types/issues/59
 // @ts-ignore
-export default function(props: OnlyButtonProps) {
+export default function (props: OnlyButtonProps) {
   throw Error(
     'this component should never be rendered. It is for dev purposes only. Please use the default export from `@atlaskit/button`',
   );

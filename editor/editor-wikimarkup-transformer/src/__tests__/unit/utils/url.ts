@@ -29,7 +29,7 @@ describe(`Decoding url`, () => {
     const mockCreateElement = jest.fn();
     const mockCtor = jest.fn();
     // @ts-ignore
-    window.URL = function(...args: any) {
+    window.URL = function (...args: any) {
       mockCtor();
     };
     // @ts-ignore
@@ -46,7 +46,7 @@ describe(`Decoding url`, () => {
     const mockCreateElement = jest.fn();
     const mockCtor = jest.fn();
     // @ts-ignore
-    window.URL = function(...args: any) {
+    window.URL = function (...args: any) {
       mockCtor();
       return new origURL(args);
     };

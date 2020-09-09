@@ -24,12 +24,7 @@ describe('ak-field-base', () => {
       it('should be reflected in the label element', () => {
         const label = 'This is a label';
         const wrapper = mount(<Label label={label} />);
-        expect(
-          wrapper
-            .find(LabelInner)
-            .childAt(0)
-            .text(),
-        ).toBe(label);
+        expect(wrapper.find(LabelInner).childAt(0).text()).toBe(label);
       });
     });
 

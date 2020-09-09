@@ -6,7 +6,7 @@ import { headingSizes } from '@atlaskit/theme/typography';
 
 import Textfield from '../src';
 
-export default function() {
+export default function () {
   return (
     <div>
       <label
@@ -14,8 +14,9 @@ export default function() {
         style={{
           fontSize: `${headingSizes.h200.size / fontSize()}em`,
           fontStyle: 'inherit',
-          lineHeight: `${headingSizes.h200.lineHeight /
-            headingSizes.h200.size}`,
+          lineHeight: `${
+            headingSizes.h200.lineHeight / headingSizes.h200.size
+          }`,
           color: `${subtleHeading()}`,
           fontWeight: 600,
           marginTop: `${gridSize() * 2}px`,

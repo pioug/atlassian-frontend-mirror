@@ -103,11 +103,7 @@ describe(name, () => {
           const wrapper = mount(
             <AkFieldRadioGroup onRadioChange={spy} items={sampleItems} />,
           );
-          wrapper
-            .find(Radio)
-            .first()
-            .find('input')
-            .simulate('change');
+          wrapper.find(Radio).first().find('input').simulate('change');
           expect(spy).toHaveBeenCalledTimes(1);
         });
       });

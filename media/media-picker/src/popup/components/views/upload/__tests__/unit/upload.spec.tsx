@@ -295,10 +295,7 @@ describe('<StatelessUploadView />', () => {
 
     it('should delete requested item when confirmation clicked', async () => {
       const component = await setupAndClickDelete();
-      const confirmButton = component
-        .find(ModalDialog)
-        .find(Button)
-        .at(0);
+      const confirmButton = component.find(ModalDialog).find(Button).at(0);
       confirmButton.simulate('click');
       component.update();
       const modalDialog = component.find(ModalDialog);
@@ -308,10 +305,7 @@ describe('<StatelessUploadView />', () => {
 
     it('should close dialog without deleting file when cancel clicked', async () => {
       const component = await setupAndClickDelete();
-      const confirmButton = component
-        .find(ModalDialog)
-        .find(Button)
-        .at(1);
+      const confirmButton = component.find(ModalDialog).find(Button).at(1);
       confirmButton.simulate('click');
       component.update();
       const modalDialog = component.find(ModalDialog);
@@ -369,10 +363,7 @@ describe('<StatelessUploadView />', () => {
 
     it('should delete requested item when confirmation clicked', async () => {
       const component = await setupAndClickDelete();
-      const confirmButton = component
-        .find(ModalDialog)
-        .find(Button)
-        .at(0);
+      const confirmButton = component.find(ModalDialog).find(Button).at(0);
       confirmButton.simulate('click');
       component.update();
       const modalDialog = component.find(ModalDialog);

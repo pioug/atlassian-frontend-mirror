@@ -43,10 +43,7 @@ function clickToolbarButton(
 function clickTogglePaletteButton(
   toolbarTextColor: ReactWrapper<ToolbarTextColorProps>,
 ) {
-  toolbarTextColor
-    .find(ShowMoreWrapper)
-    .find(Button)
-    .simulate('click');
+  toolbarTextColor.find(ShowMoreWrapper).find(Button).simulate('click');
 }
 
 /**

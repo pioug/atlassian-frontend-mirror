@@ -92,14 +92,9 @@ describe('getButtonProps', () => {
     );
 
     const cmp2 = mount(<Button href="#" target="" isDisabled />);
-    expect(
-      Object.keys(
-        cmp2
-          .find('span')
-          .first()
-          .props(),
-      ),
-    ).not.toEqual(expect.arrayContaining(['href', 'target']));
+    expect(Object.keys(cmp2.find('span').first().props())).not.toEqual(
+      expect.arrayContaining(['href', 'target']),
+    );
   });
 });
 

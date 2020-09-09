@@ -74,12 +74,7 @@ describe(name, () => {
           const wrapper = mount(
             <FieldRadioGroup items={sampleItemsWithDefault} />,
           );
-          expect(
-            wrapper
-              .find(Radio)
-              .at(2)
-              .prop('isSelected'),
-          ).toBe(true);
+          expect(wrapper.find(Radio).at(2).prop('isSelected')).toBe(true);
         });
 
         it('is overridden when an item is selected', () => {
@@ -88,10 +83,7 @@ describe(name, () => {
           );
 
           const radios = () => wrapper.find(Radio);
-          radios()
-            .at(0)
-            .find('input')
-            .simulate('change');
+          radios().at(0).find('input').simulate('change');
 
           expect(wrapper.state('selectedValue')).toBe(
             sampleItemsWithDefault[0].value,
@@ -109,22 +101,14 @@ describe(name, () => {
           const wrapper = mount(
             <FieldRadioGroup items={sampleItems} onRadioChange={spy} />,
           );
-          wrapper
-            .find(Radio)
-            .first()
-            .find('input')
-            .simulate('change');
+          wrapper.find(Radio).first().find('input').simulate('change');
           expect(spy).toHaveBeenCalledTimes(1);
         });
 
         it('updates the selectedValue state when a radio is changed', () => {
           const wrapper = mount(<FieldRadioGroup items={sampleItems} />);
           expect(wrapper.state('selectedValue')).toBe(null);
-          wrapper
-            .find(Radio)
-            .first()
-            .find('input')
-            .simulate('change');
+          wrapper.find(Radio).first().find('input').simulate('change');
           expect(wrapper.state('selectedValue')).toBe(sampleItems[0].value);
         });
       });

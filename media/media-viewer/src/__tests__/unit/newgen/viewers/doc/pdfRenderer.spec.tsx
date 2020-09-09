@@ -68,10 +68,7 @@ describe('PDFRenderer', () => {
 
     expect(el.state('doc').status).toEqual('SUCCESSFUL');
     expect(el.find(ZoomControls)).toHaveLength(1);
-    el.find(ZoomControls)
-      .find(Button)
-      .first()
-      .simulate('click');
+    el.find(ZoomControls).find(Button).first().simulate('click');
     expect(el.state('zoomLevel').value).toBeLessThan(1);
   });
 

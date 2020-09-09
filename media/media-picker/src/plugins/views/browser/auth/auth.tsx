@@ -31,9 +31,7 @@ export const BrowserAuthView = ({
 }: BrowserAuthViewProps) => {
   const authUrl = services[0].url;
   const onClick = useCallback(() => {
-    auth(authUrl)
-      .then(onAuthSucceeded)
-      .catch(onAuthFailed);
+    auth(authUrl).then(onAuthSucceeded).catch(onAuthFailed);
   }, [authUrl, onAuthFailed, onAuthSucceeded]);
   return (
     <ConnectWrapper>

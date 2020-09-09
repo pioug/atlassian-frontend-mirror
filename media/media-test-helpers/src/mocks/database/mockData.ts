@@ -51,7 +51,7 @@ export const getFutureDate = () => {
 };
 
 // This function is taken directly from Faker
-export const mockDataUri = function(width: string, height: string) {
+export const mockDataUri = function (width: string, height: string) {
   const rawPrefix = 'data:image/svg+xml;base64,';
   const svgString = `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" baseProfile="full" width="${width}" height="${height}"> <rect width="100%" height="100%" fill="grey"/>  <text x="0" y="20" font-size="20" text-anchor="start" fill="white">${width}x${height}</text> </svg>`;
   return rawPrefix + btoa(svgString);

@@ -103,13 +103,13 @@ function createEditorWindowBindings<T>(
           onMount(actions: any) {
             const view = actions._privateGetEditorView();
             win.__editorView = view;
-            win.__documentToJSON = function() {
+            win.__documentToJSON = function () {
               const transform = new JSONTransformer();
               const doc = view!.state.doc;
 
               return transform.encode(doc);
             };
-            win.__applyRemoteSteps = function(stepsAsString: string[]) {
+            win.__applyRemoteSteps = function (stepsAsString: string[]) {
               const {
                 state,
                 state: { schema, tr },
@@ -359,8 +359,8 @@ function createLoadReactIntlLocale(win: WindowWithExtensionsForTesting) {
     locales: Array<string>,
     done: (value?: any) => any,
   ) => {
-    const modulesToLoad = locales.map(locale =>
-      import(`react-intl/locale-data/${locale}`),
+    const modulesToLoad = locales.map(
+      locale => import(`react-intl/locale-data/${locale}`),
     );
     Promise.all(modulesToLoad)
       .then(localeData => {

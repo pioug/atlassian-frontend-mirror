@@ -44,7 +44,8 @@ function rebaseSteps(steps: Step[], mapping: Mapping): Step[] {
   return newSteps;
 }
 
-export class Provider extends Emitter<CollabEvent>
+export class Provider
+  extends Emitter<CollabEvent>
   implements Omit<CollabEditProvider, 'on' | 'off' | 'unsubscribeAll'> {
   private participants: Map<
     string,

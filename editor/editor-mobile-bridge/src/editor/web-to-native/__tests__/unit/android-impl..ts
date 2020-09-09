@@ -74,7 +74,7 @@ describe('Web To Native', () => {
     });
 
     describe('Lifecycle bridge', () => {
-      it('should call native editorReady bridge method', function() {
+      it('should call native editorReady bridge method', function () {
         androidBridge.editorReady();
 
         expect(
@@ -82,7 +82,7 @@ describe('Web To Native', () => {
         ).toHaveBeenCalled();
       });
 
-      it('should call native editorDestroyed method', function() {
+      it('should call native editorDestroyed method', function () {
         androidBridge.editorDestroyed();
 
         expect(
@@ -90,7 +90,7 @@ describe('Web To Native', () => {
         ).toHaveBeenCalled();
       });
 
-      it('should call native editorReady only once when method is called a second time', function() {
+      it('should call native editorReady only once when method is called a second time', function () {
         androidBridge.editorReady();
         androidBridge.editorReady();
 
@@ -99,7 +99,7 @@ describe('Web To Native', () => {
         ).toHaveBeenCalledTimes(1);
       });
 
-      it('should send analytics event when editorReady is called twice', function() {
+      it('should send analytics event when editorReady is called twice', function () {
         androidBridge.editorReady();
         androidBridge.editorReady();
 
@@ -114,7 +114,7 @@ describe('Web To Native', () => {
         );
       });
 
-      it('should not throw if lifeCycle bridge does not exist', function() {
+      it('should not throw if lifeCycle bridge does not exist', function () {
         const androidBridge = new AndroidBridge(({
           lifecycleBridge: undefined,
           analyticsBridge: { trackEvent: jest.fn() },
@@ -123,7 +123,7 @@ describe('Web To Native', () => {
         expect(() => androidBridge.editorReady()).not.toThrow();
       });
 
-      it('should send analytics event when lifecycleBridge does not exist', function() {
+      it('should send analytics event when lifecycleBridge does not exist', function () {
         const analyticsBridge = { trackEvent: jest.fn() };
         const androidBridge = new AndroidBridge(({
           lifecycleBridge: undefined,

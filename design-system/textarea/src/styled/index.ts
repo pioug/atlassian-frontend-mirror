@@ -135,13 +135,14 @@ export const TextAreaWrapper = styled.div<StyleProps>`
   word-wrap: break-word;
   ${getBorderAndPadding}
   ${getHoverState}
-  ${props => props.isDisabled && `cursor: not-allowed;`}
+  ${props =>
+    props.isDisabled && `cursor: not-allowed;`}
   font-size: ${fontSize}px;
   max-height: ${props => props.maxHeight};
   max-width: 100%;
   ${getResizeStyles}
   & > textarea {
-    display:block;
+    display: block;
     resize: none;
     background: transparent;
     margin: 0;

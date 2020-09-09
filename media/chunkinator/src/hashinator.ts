@@ -14,7 +14,7 @@ function blobToArrayBuffer(blob: Blob): Promise<ArrayBuffer> {
   const fileReader = new FileReader();
 
   return new Promise<ArrayBuffer>((resolve, reject) => {
-    fileReader.onload = function() {
+    fileReader.onload = function () {
       resolve(this.result as ArrayBuffer);
     };
     fileReader.onerror = reject;

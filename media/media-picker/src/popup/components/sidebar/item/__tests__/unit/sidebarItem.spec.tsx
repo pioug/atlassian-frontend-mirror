@@ -80,12 +80,7 @@ describe('StatelessSidebarItem component', () => {
         />,
       );
 
-      expect(
-        element
-          .find(Wrapper)
-          .first()
-          .prop('isActive'),
-      ).toBe(true);
+      expect(element.find(Wrapper).first().prop('isActive')).toBe(true);
     });
   });
 });

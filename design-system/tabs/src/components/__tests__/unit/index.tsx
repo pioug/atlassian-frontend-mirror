@@ -20,10 +20,7 @@ const tabs = [
 ];
 
 const clickTab = (tabsComponent: ReactWrapper, tabIndex: number) => {
-  tabsComponent
-    .find(TabItem)
-    .at(tabIndex)
-    .simulate('click');
+  tabsComponent.find(TabItem).at(tabIndex).simulate('click');
 };
 
 describe(name, () => {
@@ -211,12 +208,9 @@ describe(name, () => {
           const spy = jest.fn();
           const wrapper = mount(<Tabs onSelect={spy} tabs={tabs} />);
 
-          wrapper
-            .find(TabItem)
-            .at(0)
-            .simulate('keyDown', {
-              key: 'ArrowRight',
-            });
+          wrapper.find(TabItem).at(0).simulate('keyDown', {
+            key: 'ArrowRight',
+          });
           expect(spy).toHaveBeenCalledWith(tabs[1], 1);
         });
       });
@@ -227,10 +221,7 @@ describe(name, () => {
         describe('with 3 tabs, when the 2nd tab is selected', () => {
           let wrapper: ReactWrapper;
           const simulateKeyboardNav = (index: number, key: string) => {
-            wrapper
-              .find(TabItem)
-              .at(index)
-              .simulate('keyDown', { key });
+            wrapper.find(TabItem).at(index).simulate('keyDown', { key });
           };
 
           beforeEach(() => {

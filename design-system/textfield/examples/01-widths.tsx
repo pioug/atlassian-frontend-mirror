@@ -2,7 +2,7 @@ import React from 'react';
 
 import Textfield from '../src';
 
-export default function() {
+export default function () {
   return (
     <div>
       <label htmlFor="xsmall">xsmall</label>

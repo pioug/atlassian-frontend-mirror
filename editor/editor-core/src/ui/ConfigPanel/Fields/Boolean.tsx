@@ -20,7 +20,7 @@ const isChecked = (value?: string | boolean) => {
   return false;
 };
 
-export default function({
+export default function ({
   field,
   onBlur,
 }: {

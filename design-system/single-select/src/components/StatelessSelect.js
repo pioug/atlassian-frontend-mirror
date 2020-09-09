@@ -53,11 +53,7 @@ const isMatched = (item, matchingValue) => {
     );
   }
 
-  return (
-    getTextContent(item)
-      .toLowerCase()
-      .indexOf(matchingValue) > -1
-  );
+  return getTextContent(item).toLowerCase().indexOf(matchingValue) > -1;
 };
 
 if (process.env.NODE_ENV !== 'production' && !process.env.CI) {

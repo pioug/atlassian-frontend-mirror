@@ -2,7 +2,7 @@ import React from 'react';
 
 import { HelperMessage } from '@atlaskit/form';
 
-const FieldDescription = function({
+const FieldDescription = function ({
   error,
   description,
 }: {

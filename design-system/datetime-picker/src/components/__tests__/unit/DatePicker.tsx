@@ -68,10 +68,7 @@ test('DatePicker, supplying a custom parseInputValue prop, produces the expected
     .onSelectInput({ target: { value: 'asdf' } } as React.ChangeEvent<
       HTMLInputElement
     >);
-  datePickerWrapper
-    .find('input')
-    .first()
-    .simulate('keyDown', { key: 'Enter' });
+  datePickerWrapper.find('input').first().simulate('keyDown', { key: 'Enter' });
 
   expect(onChangeSpy).toBeCalledWith(expectedResult);
 });
@@ -107,10 +104,7 @@ test('DatePicker default parseInputValue parses valid dates to the expected valu
     .onSelectInput({ target: { value: '01/02/18' } } as React.ChangeEvent<
       HTMLInputElement
     >);
-  datePickerWrapper
-    .find('input')
-    .first()
-    .simulate('keyDown', { key: 'Enter' });
+  datePickerWrapper.find('input').first().simulate('keyDown', { key: 'Enter' });
 
   expect(onChangeSpy).toBeCalledWith(expectedResult);
 });

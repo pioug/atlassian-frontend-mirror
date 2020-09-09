@@ -66,10 +66,7 @@ describe('Layer', () => {
         </Layer>,
       );
       expect(
-        wrapper
-          .find(ContentContainer)
-          .find('div[style]')
-          .props().style.opacity,
+        wrapper.find(ContentContainer).find('div[style]').props().style.opacity,
       ).toBe(0);
 
       const dummyPopperState = {
@@ -86,10 +83,7 @@ describe('Layer', () => {
       wrapper.update();
 
       expect(
-        wrapper
-          .find(ContentContainer)
-          .find('div[style]')
-          .props().style.opacity,
+        wrapper.find(ContentContainer).find('div[style]').props().style.opacity,
       ).toBe(undefined);
     });
   });

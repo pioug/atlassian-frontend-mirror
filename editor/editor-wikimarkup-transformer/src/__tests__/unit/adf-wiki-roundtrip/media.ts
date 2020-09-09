@@ -12,18 +12,18 @@ import { Context } from '../../../interfaces';
 const wikiContext: Context = {
   conversion: {
     mediaConversion: {
-      'file1.txt': 'abc-1',
-      'file2.txt': 'abc-2',
-      'file3.txt': 'abc-3',
+      'file1.txt': { transform: 'abc-1' },
+      'file2.txt': { transform: 'abc-2' },
+      'file3.txt': { transform: 'abc-3' },
     },
   },
 };
 const adfContext: Context = {
   conversion: {
     mediaConversion: {
-      'abc-1': 'file1.txt',
-      'abc-2': 'file2.txt',
-      'abc-3': 'file3.txt',
+      'abc-1': { transform: 'file1.txt' },
+      'abc-2': { transform: 'file2.txt' },
+      'abc-3': { transform: 'file3.txt' },
     },
   },
 };

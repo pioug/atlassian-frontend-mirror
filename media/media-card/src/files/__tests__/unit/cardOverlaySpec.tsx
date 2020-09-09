@@ -65,12 +65,9 @@ describe('CardOverlay', () => {
         />,
       );
       expect(card.find(TitleWrapper).find(Ellipsify)).toHaveLength(1);
-      expect(
-        card
-          .find(TitleWrapper)
-          .find(Ellipsify)
-          .props().text,
-      ).toEqual('card is lyfe');
+      expect(card.find(TitleWrapper).find(Ellipsify).props().text).toEqual(
+        'card is lyfe',
+      );
     });
 
     it('should not render the title if not selected', () => {

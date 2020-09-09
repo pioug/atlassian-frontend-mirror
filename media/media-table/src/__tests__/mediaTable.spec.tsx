@@ -253,10 +253,7 @@ describe('MediaTable', () => {
   it('should download file if download file is defined and fileState has been processed', async () => {
     const { mediaClient, mediaTable } = await setup(true);
 
-    mediaTable
-      .find(DownloadIcon)
-      .first()
-      .simulate('click');
+    mediaTable.find(DownloadIcon).first().simulate('click');
     expect(mediaClient.file.downloadBinary).toBeCalledTimes(1);
     expectFunctionToHaveBeenCalledWith(mediaClient.file.downloadBinary, [
       audioFileId.id,
@@ -282,10 +279,7 @@ describe('MediaTable', () => {
       getDefaultMediaClient(processingFileSubject),
     );
 
-    mediaTable
-      .find(DownloadIcon)
-      .first()
-      .simulate('click');
+    mediaTable.find(DownloadIcon).first().simulate('click');
 
     expect(mediaClient.file.downloadBinary).toBeCalledTimes(1);
   });

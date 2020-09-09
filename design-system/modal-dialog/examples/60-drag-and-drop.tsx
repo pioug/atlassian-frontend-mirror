@@ -38,13 +38,13 @@ const Card = styled.div<CardProps>`
   padding: ${gridUnit * 2}px ${gridUnit}px;
   border-bottom: 1px solid ${R200};
   ${({ isDraggable }) => !isDraggable} ${({ isHovering }) =>
-  isHovering &&
-  `
+    isHovering &&
+    `
         background: ${R75};
         text-decoration: none;
     `} ${({ isActive }) =>
-  isActive &&
-  `
+    isActive &&
+    `
         background: ${G300};
     `} &:focus {
     border-bottom-color: transparent;

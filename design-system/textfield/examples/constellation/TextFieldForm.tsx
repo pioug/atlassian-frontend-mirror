@@ -5,7 +5,7 @@ import Form, { Field, FormFooter, HelperMessage } from '@atlaskit/form';
 
 import Textfield from '../../src';
 
-export default function() {
+export default function () {
   return (
     <Form
       onSubmit={(formState: unknown) =>

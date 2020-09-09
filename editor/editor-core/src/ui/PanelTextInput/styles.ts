@@ -3,9 +3,11 @@ import { InputHTMLAttributes, ComponentClass } from 'react';
 import { N400, N800 } from '@atlaskit/theme/colors';
 
 // Normal .className gets overridden by input[type=text] hence this hack to produce input.className
-export const Input: ComponentClass<InputHTMLAttributes<{}> & {
-  innerRef?: any;
-}> = styled.input`
+export const Input: ComponentClass<
+  InputHTMLAttributes<{}> & {
+    innerRef?: any;
+  }
+> = styled.input`
   input& {
     background: transparent;
     border: 0;

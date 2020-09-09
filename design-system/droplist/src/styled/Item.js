@@ -52,9 +52,9 @@ const primaryStyles = css`
 const sharedStyles = props => css`
   align-items: center;
   box-sizing: border-box;
-  color: ${
-    props.isDisabled ? disabledPrimaryTextColor : defaultPrimaryTextColor
-  };
+  color: ${props.isDisabled
+    ? disabledPrimaryTextColor
+    : defaultPrimaryTextColor};
   cursor: ${props.isDisabled ? 'not-allowed' : 'pointer'};
   display: ${props.isHidden ? 'none' : 'flex'};
   flex-wrap: nowrap;
@@ -65,9 +65,9 @@ const sharedStyles = props => css`
 
   &:hover {
     background-color: ${!props.isDisabled && hoverBackgroundColor};
-    color: ${
-      props.isDisabled ? disabledPrimaryTextColor : defaultPrimaryTextColor
-    };
+    color: ${props.isDisabled
+      ? disabledPrimaryTextColor
+      : defaultPrimaryTextColor};
     text-decoration: none;
 
     ${props.isPrimary && primaryStyles};

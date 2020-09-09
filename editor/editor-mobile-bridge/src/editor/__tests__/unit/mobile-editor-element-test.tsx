@@ -112,7 +112,7 @@ describe('mobile editor element', () => {
       ).not.toBeUndefined();
     });
 
-    it('should have called editorReady on native bridge', function() {
+    it('should have called editorReady on native bridge', function () {
       initEditor(bridge);
       expect(toNativeBridge.editorReady).toHaveBeenCalled();
     });
@@ -141,7 +141,7 @@ describe('mobile editor element', () => {
       expect(bridge.editorActions._privateGetEventDispatcher()).toBeUndefined();
     });
 
-    it('should have called editorDestroyed on native bridge', function() {
+    it('should have called editorDestroyed on native bridge', function () {
       initEditor(bridge);
       mobileEditor.unmount();
 

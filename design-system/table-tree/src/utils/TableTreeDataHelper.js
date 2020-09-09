@@ -48,8 +48,9 @@ function updateChildItems(
 
   // Update cache
   newitems.forEach((item, index) => {
-    newKeysCache[item[key]] = `${parentLocation}.children[${index +
-      baseChildrenOfObjectToChange.length}]`;
+    newKeysCache[item[key]] = `${parentLocation}.children[${
+      index + baseChildrenOfObjectToChange.length
+    }]`;
   });
 
   return {

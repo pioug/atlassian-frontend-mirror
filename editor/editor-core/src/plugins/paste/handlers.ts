@@ -383,7 +383,7 @@ function isOnlyMediaSingle(state: EditorState, slice: Slice) {
 }
 
 export function handleMediaSingle(inputMethod: InputMethodInsertMedia) {
-  return function(slice: Slice): Command {
+  return function (slice: Slice): Command {
     return (state, dispatch, view) => {
       if (view) {
         if (isOnlyMedia(state, slice)) {

@@ -6,7 +6,7 @@ import { isSendUploadEventAction } from '../actions/sendUploadEvent';
 import { copyMediaFileForUpload } from '../../domain/file';
 import { handleError } from '../../util/handleError';
 
-export default function(eventEmitter: PopupUploadEventEmitter): Middleware {
+export default function (eventEmitter: PopupUploadEventEmitter): Middleware {
   return () => (next: Dispatch<State>) => (action: any) => {
     if (isSendUploadEventAction(action)) {
       const { event, fileId } = action.payload;

@@ -1,6 +1,6 @@
 import React from 'react';
 import prettier from 'prettier/standalone';
-import babylon from 'prettier/parser-babylon';
+import parser from 'prettier/parser-babel';
 
 import TextArea from '@atlaskit/textarea';
 import { defaultSchema as schema } from '@atlaskit/adf-schema';
@@ -226,8 +226,8 @@ const nodeToDocBuilder = (node: any): string => {
 
 const toDocBuilder = (adf: any) => {
   return prettier.format(nodeToDocBuilder(adf), {
-    parser: 'babylon',
-    plugins: [babylon],
+    parser: 'babel',
+    plugins: [parser],
   });
 };
 

@@ -388,7 +388,7 @@ export default function encode(node: PMNode, schema: Schema) {
     const body = doc.createElementNS(AC_XMLNS, 'ac:rich-text-body');
     const fragment = doc.createDocumentFragment();
 
-    node.descendants(function(node, pos) {
+    node.descendants(function (node, pos) {
       // there is at least one top-level paragraph node in the panel body
       // all text nodes will be handled by "encodeNode"
       if (node.isBlock) {

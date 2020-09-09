@@ -313,10 +313,7 @@ describe('<Navigation />', () => {
 
       await nextTick();
 
-      component
-        .find(DropdownItem)
-        .get(1)
-        .props.onClick(); // Find second item (inactive one)
+      component.find(DropdownItem).get(1).props.onClick(); // Find second item (inactive one)
 
       expect(onChangeAccount).toBeCalledWith('dropbox', 'youatdropbox');
     });

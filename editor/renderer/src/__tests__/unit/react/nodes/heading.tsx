@@ -92,10 +92,7 @@ describe('<Heading />', () => {
           ,
         </CopyTextContext.Provider>,
       );
-      heading
-        .find('#This-is-a-Heading-1')
-        .find('button')
-        .simulate('click');
+      heading.find('#This-is-a-Heading-1').find('button').simulate('click');
     });
 
     it('should call "fireAnalyticsEvent" with correct event data', () => {

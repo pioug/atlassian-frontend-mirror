@@ -70,18 +70,8 @@ describe('Progress Indicator', () => {
   describe('selectedIndex property', () => {
     it('should return a "selected" <Indicator* /> at the correct index', () => {
       const wrapper = mount(<StubComponent />);
-      expect(
-        wrapper
-          .find(IndicatorDiv)
-          .at(1)
-          .prop('selected'),
-      ).toBe(false);
-      expect(
-        wrapper
-          .find(IndicatorDiv)
-          .at(0)
-          .prop('selected'),
-      ).toBe(true);
+      expect(wrapper.find(IndicatorDiv).at(1).prop('selected')).toBe(false);
+      expect(wrapper.find(IndicatorDiv).at(0).prop('selected')).toBe(true);
     });
   });
 });

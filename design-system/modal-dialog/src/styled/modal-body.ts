@@ -1,3 +1,3 @@
 import { BodyProps } from './Content';
 
-export default function(_: BodyProps) {}
+export default function (_: BodyProps) {}

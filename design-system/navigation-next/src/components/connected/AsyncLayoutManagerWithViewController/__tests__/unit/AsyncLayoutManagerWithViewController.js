@@ -127,10 +127,7 @@ describe('AsyncLayoutManagerWithViewController', () => {
       ).toBe('container');
 
       expect(
-        containerWrapper
-          .find('SkeletonContainerView')
-          .first()
-          .props().type,
+        containerWrapper.find('SkeletonContainerView').first().props().type,
       ).toEqual('container');
     });
   });

@@ -243,9 +243,7 @@ const ResizeBox = ({ pending, width }) => (
 );
 
 function makeKey() {
-  return Math.random()
-    .toString(36)
-    .substr(2, 9);
+  return Math.random().toString(36).substr(2, 9);
 }
 
 // eslint-disable-next-line react/no-multi-comp

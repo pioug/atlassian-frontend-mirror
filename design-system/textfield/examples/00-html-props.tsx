@@ -6,7 +6,7 @@ import { headingSizes } from '@atlaskit/theme/typography';
 
 import Textfield from '../src';
 
-export default function() {
+export default function () {
   return (
     <div>
       <Label htmlFor="password">Password text field</Label>
@@ -17,7 +17,7 @@ export default function() {
   );
 }
 
-const Label = function(props: { htmlFor: string; children: React.ReactNode }) {
+const Label = function (props: { htmlFor: string; children: React.ReactNode }) {
   return (
     <label
       htmlFor={props.htmlFor}

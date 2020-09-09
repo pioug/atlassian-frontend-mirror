@@ -495,10 +495,7 @@ describe('<Header />', () => {
       );
       el.update();
       expect(
-        (el
-          .find(MediaButton)
-          .at(0)
-          .prop('iconBefore') as any).type,
+        (el.find(MediaButton).at(0).prop('iconBefore') as any).type,
       ).toEqual(EditorPanelIcon);
     });
   });

@@ -28,7 +28,7 @@ export const Wrapper = styled.div<WrapperProps>`
   ${borderRadius}
   max-height: 100%;
   max-width: 100%;
- 
+
   ${props => `
       width: ${props.dimensions.width};
       height: ${props.dimensions.height};

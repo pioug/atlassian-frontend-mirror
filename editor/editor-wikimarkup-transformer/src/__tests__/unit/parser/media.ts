@@ -95,18 +95,32 @@ yep`,
   const context: Context = {
     conversion: {
       mediaConversion: {
-        'file1.txt': 'uuid-file1',
-        'file2.txt': 'uuid-file2',
-        'file3.txt': 'uuid-file3',
-        'image.png': 'uuid-image',
-        'http://www.host.com/image.gif': 'uuid-http://www.host.com/image',
-        'quicktime.mov': 'uuid-quicktime',
-        'image.gif': 'uuid-image',
-        'Kapture 2018-04-04 at 16.36.13.gif': 'uuid-Kapture',
-        'Screen Shot (9db1eca8-8257-4763-92fb-e6417f9e34c9).jpeg':
-          'uuid-ScreenShot',
-        'a-doc (jadsjdasjadsjkdasjk).pdf': 'uuid-a-doc (jadsjdasjadsjkdasjk)',
-        'not-empty (askjsajnkjknads).txt': 'uuid-not-empty (askjsajnkjknads)',
+        'file1.txt': { transform: 'uuid-file1', embed: true },
+        'file2.txt': { transform: 'uuid-file2', embed: true },
+        'file3.txt': { transform: 'uuid-file3', embed: true },
+        'image.png': { transform: 'uuid-image', embed: true },
+        'http://www.host.com/image.gif': {
+          transform: 'uuid-http://www.host.com/image',
+          embed: true,
+        },
+        'quicktime.mov': { transform: 'uuid-quicktime', embed: true },
+        'image.gif': { transform: 'uuid-image', embed: true },
+        'Kapture 2018-04-04 at 16.36.13.gif': {
+          transform: 'uuid-Kapture',
+          embed: true,
+        },
+        'Screen Shot (9db1eca8-8257-4763-92fb-e6417f9e34c9).jpeg': {
+          transform: 'uuid-ScreenShot',
+          embed: true,
+        },
+        'a-doc (jadsjdasjadsjkdasjk).pdf': {
+          transform: 'uuid-a-doc (jadsjdasjadsjkdasjk)',
+          embed: true,
+        },
+        'not-empty (askjsajnkjknads).txt': {
+          transform: 'uuid-not-empty (askjsajnkjknads)',
+          embed: true,
+        },
       },
     },
   };
@@ -123,7 +137,10 @@ yep`,
     const context: Context = {
       conversion: {
         mediaConversion: {
-          'Screen Shot.jpeg': '9db1eca8-8257-4763-92fb-e6417f9e34c9',
+          'Screen Shot.jpeg': {
+            transform: '9db1eca8-8257-4763-92fb-e6417f9e34c9',
+            embed: true,
+          },
         },
       },
       hydration: {

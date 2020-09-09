@@ -432,8 +432,8 @@ describe(name, () => {
   describe('component structure', () => {
     it('should be possible to create the components', async () => {
       const components = await Promise.all(
-        Object.keys(metadata).map(async key =>
-          import(`../../../../glyph/${key}`),
+        Object.keys(metadata).map(
+          async key => import(`../../../../glyph/${key}`),
         ),
       );
 

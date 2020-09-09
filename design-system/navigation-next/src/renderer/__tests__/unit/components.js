@@ -211,12 +211,7 @@ describe('navigation-next view renderer', () => {
 
       // More than 1 ItemsRenderer will render due to SortableGroup existing in items
       expect(wrapper.find(ItemsRenderer).length).toBeGreaterThanOrEqual(1);
-      expect(
-        wrapper
-          .find(ItemsRenderer)
-          .first()
-          .props(),
-      ).toEqual({
+      expect(wrapper.find(ItemsRenderer).first().props()).toEqual({
         customComponents,
         items,
       });

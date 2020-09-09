@@ -19,8 +19,10 @@ export interface LocalUploadComponent<
   setUploadParams(uploadParams: UploadParams): void;
 }
 export class LocalUploadComponent<
-  M extends UploadEventPayloadMap = UploadEventPayloadMap
-> extends UploadComponent<M> implements LocalUploadComponent {
+    M extends UploadEventPayloadMap = UploadEventPayloadMap
+  >
+  extends UploadComponent<M>
+  implements LocalUploadComponent {
   protected readonly uploadService: UploadService;
   protected readonly mediaClient: MediaClient;
   protected config: LocalUploadConfig;

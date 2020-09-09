@@ -53,12 +53,7 @@ describe('<TimeRange />', () => {
   it('should render the current time with the right format', () => {
     const { component } = setup();
 
-    expect(
-      component
-        .find(CurrentTimeTooltip)
-        .dive()
-        .text(),
-    ).toEqual('0:10');
+    expect(component.find(CurrentTimeTooltip).dive().text()).toEqual('0:10');
   });
 
   it('should notify changes when user clicks on the timeline', () => {

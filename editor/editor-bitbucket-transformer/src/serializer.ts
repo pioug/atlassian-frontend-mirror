@@ -22,7 +22,7 @@ const generateOuterBacktickChain: (
     ).length;
   }
 
-  return function(text: string, minLength = 1): string {
+  return function (text: string, minLength = 1): string {
     const length = Math.max(minLength, getMaxLength(text) + 1);
     return stringRepeat('`', length);
   };

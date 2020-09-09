@@ -17,15 +17,17 @@ export const FilmStripViewWrapper: ComponentClass<HTMLAttributes<{}>> = styled.d
   }
 `;
 
-export const FilmStripListWrapper: ComponentClass<HTMLAttributes<{}> &
-  ThemedOuterStyledProps<{}, {}>> = styled.div`
+export const FilmStripListWrapper: ComponentClass<
+  HTMLAttributes<{}> & ThemedOuterStyledProps<{}, {}>
+> = styled.div`
   width: inherit;
   overflow: hidden;
   padding: 2px 0;
 `;
 
-export const FilmStripList: ComponentClass<HTMLAttributes<{}> &
-  ThemedOuterStyledProps<{}, {}>> = styled.ul`
+export const FilmStripList: ComponentClass<
+  HTMLAttributes<{}> & ThemedOuterStyledProps<{}, {}>
+> = styled.ul`
   margin: 0;
   padding: 0;
   transition-property: transform;

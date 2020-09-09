@@ -51,20 +51,14 @@ describe('ToolbarAlignment', () => {
 
   it('should close menu when an option is clicked', () => {
     toolbarAlignment.find('button').simulate('click');
-    toolbarAlignment
-      .find('.align-btn')
-      .at(1)
-      .simulate('click');
+    toolbarAlignment.find('.align-btn').at(1).simulate('click');
 
     expect(toolbarAlignment.state('isOpen')).toBe(false);
   });
 
   it('should close menu when toolbar alignment button is clicked again', () => {
     toolbarAlignment.find('button').simulate('click');
-    toolbarAlignment
-      .find('button')
-      .at(0)
-      .simulate('click');
+    toolbarAlignment.find('button').at(0).simulate('click');
 
     expect(toolbarAlignment.state('isOpen')).toBe(false);
   });

@@ -9,7 +9,7 @@ import FieldMessages from '../FieldMessages';
 import { validate } from '../utils';
 import { OnBlur } from '../types';
 
-const Date = function({
+const Date = function ({
   field,
   onBlur,
   autoFocus,

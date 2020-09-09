@@ -425,12 +425,9 @@ describe('media', () => {
 
         await mockMediaClient.file.getCurrentState('1234');
 
-        expect(
-          toolbar
-            .find(Button)
-            .first()
-            .prop('title'),
-        ).toEqual(annotateMessages.annotate.defaultMessage);
+        expect(toolbar.find(Button).first().prop('title')).toEqual(
+          annotateMessages.annotate.defaultMessage,
+        );
       });
 
       it('fires analytics when the annotate button is clicked', async () => {

@@ -8,7 +8,7 @@ import FieldMessages from '../FieldMessages';
 import { FieldTypeError, OnBlur } from '../types';
 import { validate } from '../utils';
 
-export default function({
+export default function ({
   field,
   onBlur,
 }: {

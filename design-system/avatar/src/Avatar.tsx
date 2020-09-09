@@ -103,50 +103,50 @@ const getStyles = (
     isDisabled?: boolean;
   },
 ) => css`
-    height: ${size}px;
-    width: ${size}px;
-    align-items: stretch;
-    background-color: ${borderColor};
-    border-radius: ${appearance === 'circle' ? '50%' : `${radius}px`};
-    box-sizing: content-box;
-    cursor: inherit;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    outline: none;
-    overflow: hidden;
-    position: static;
-    transform: translateZ(0);
-    transition: transform 200ms, opacity 200ms;
-    box-shadow: 0 0 0 ${BORDER_WIDTH}px ${borderColor};
-    border: none;
-    margin: ${BORDER_WIDTH}px;
+  height: ${size}px;
+  width: ${size}px;
+  align-items: stretch;
+  background-color: ${borderColor};
+  border-radius: ${appearance === 'circle' ? '50%' : `${radius}px`};
+  box-sizing: content-box;
+  cursor: inherit;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  outline: none;
+  overflow: hidden;
+  position: static;
+  transform: translateZ(0);
+  transition: transform 200ms, opacity 200ms;
+  box-shadow: 0 0 0 ${BORDER_WIDTH}px ${borderColor};
+  border: none;
+  margin: ${BORDER_WIDTH}px;
+  padding: 0;
+
+  &::-moz-focus-inner {
+    border: 0;
+    margin: 0;
     padding: 0;
+  }
 
-    &::-moz-focus-inner {
-      border: 0;
-      margin: 0;
-      padding: 0;
-    }
+  &::after {
+    background-color: transparent;
+    bottom: 0px;
+    content: ' ';
+    left: 0px;
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    transition: opacity 200ms;
+    width: 100%;
+  }
 
-    &::after {
-      background-color: transparent;
-      bottom: 0px;
-      content: ' ';
-      left: 0px;
-      opacity: 0;
-      pointer-events: none;
-      position: absolute;
-      right: 0px;
-      top: 0px;
-      transition: opacity 200ms;
-      width: 100%;
-    }
+  ${stackIndex && `position: relative;`}
 
-    ${stackIndex && `position: relative;`}
-
-    ${isInteractive &&
-      `
+  ${isInteractive &&
+  `
       cursor: pointer;
 
       :focus {
@@ -168,7 +168,7 @@ const getStyles = (
     `}
 
     ${isDisabled &&
-      `
+  `
         cursor: not-allowed;
 
         &::after {
@@ -177,7 +177,7 @@ const getStyles = (
           background-color: ${N0};
         }
       `}
-  `;
+`;
 
 const Avatar = forwardRef<HTMLElement, AvatarPropTypes>(
   (

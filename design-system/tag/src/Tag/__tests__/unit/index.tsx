@@ -151,12 +151,7 @@ describe('Tag component', () => {
 
     it('should reflect the href onto the anchor', () => {
       const wrapper = mount(<Tag text="foo" href="#" />);
-      expect(
-        wrapper
-          .find(Content)
-          .find('a')
-          .prop('href'),
-      ).toBe('#');
+      expect(wrapper.find(Content).find('a').prop('href')).toBe('#');
     });
 
     it('should set the isLink prop on Chrome', () => {

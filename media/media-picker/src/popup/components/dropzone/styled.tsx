@@ -3,8 +3,9 @@ import styled, { keyframes } from 'styled-components';
 import { HTMLAttributes, ComponentClass } from 'react';
 import { DropzoneProps } from './dropzone';
 
-export const Wrapper: ComponentClass<HTMLAttributes<{}> &
-  DropzoneProps> = styled.div`
+export const Wrapper: ComponentClass<
+  HTMLAttributes<{}> & DropzoneProps
+> = styled.div`
   position: absolute;
   width: 100%;
   height: 100%;

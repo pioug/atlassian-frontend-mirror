@@ -34,11 +34,11 @@ export default ({ state, traversalDirection }) => {
     const animationName =
       traversalDirection === 'down' ? exitAnimationDown : exitAnimationUp;
     return css`
-    ${{
-      animationDuration: transitionDuration,
-      animationFillMode: 'forwards',
-      animationTimingFunction: transitionTimingFunction,
-    }}
+      ${{
+        animationDuration: transitionDuration,
+        animationFillMode: 'forwards',
+        animationTimingFunction: transitionTimingFunction,
+      }}
       animation-name: ${animationName};
     `;
   }
@@ -47,14 +47,14 @@ export default ({ state, traversalDirection }) => {
     const animationName =
       traversalDirection === 'down' ? enterAnimationDown : enterAnimationUp;
     return css`
-    ${{
-      animationDuration: transitionDuration,
-      animationFillMode: 'forwards',
-      animationTimingFunction: transitionTimingFunction,
-      position: 'absolute',
-      width: '100%',
-      zIndex: 1,
-    }}
+      ${{
+        animationDuration: transitionDuration,
+        animationFillMode: 'forwards',
+        animationTimingFunction: transitionTimingFunction,
+        position: 'absolute',
+        width: '100%',
+        zIndex: 1,
+      }}
       animation-name: ${animationName};
     `;
   }

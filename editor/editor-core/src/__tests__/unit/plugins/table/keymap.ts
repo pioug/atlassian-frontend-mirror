@@ -302,8 +302,9 @@ describe('table keymap', () => {
 
     [0, 1, 2].forEach(index => {
       describe(`when row ${index + 1} is selected`, () => {
-        it(`should empty cells in the row ${index +
-          1} and move cursor to the first selected cell`, () => {
+        it(`should empty cells in the row ${
+          index + 1
+        } and move cursor to the first selected cell`, () => {
           const { editorView } = editor(
             doc(
               table()(
@@ -336,8 +337,9 @@ describe('table keymap', () => {
       });
 
       describe(`when column ${index + 1} is selected`, () => {
-        it(`should empty cells in the column ${index +
-          1} and move cursor to the last selected cell`, () => {
+        it(`should empty cells in the column ${
+          index + 1
+        } and move cursor to the last selected cell`, () => {
           const emptyRow = tr(tdEmpty, tdEmpty, tdEmpty);
           const { editorView } = editor(
             doc(

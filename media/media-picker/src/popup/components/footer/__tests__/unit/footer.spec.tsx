@@ -90,10 +90,7 @@ describe('<Footer />', () => {
         />,
       );
       expect(
-        element
-          .find(CancelButton)
-          .first()
-          .prop('isDisabled'),
+        element.find(CancelButton).first().prop('isDisabled'),
       ).toBeTruthy();
     });
 
@@ -107,12 +104,7 @@ describe('<Footer />', () => {
           onCancel={jest.fn()}
         />,
       );
-      expect(
-        element
-          .find(CancelButton)
-          .first()
-          .prop('isDisabled'),
-      ).toBeFalsy();
+      expect(element.find(CancelButton).first().prop('isDisabled')).toBeFalsy();
     });
 
     it('should hide the insert button when itemCount=0', () => {
@@ -178,10 +170,7 @@ describe('<Footer />', () => {
         />,
       );
       expect(
-        element
-          .find(InsertButton)
-          .find('FormattedMessage')
-          .prop('values'),
+        element.find(InsertButton).find('FormattedMessage').prop('values'),
       ).toEqual({
         0: 1,
       });

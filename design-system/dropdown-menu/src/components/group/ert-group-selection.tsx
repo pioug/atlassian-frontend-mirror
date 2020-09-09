@@ -3,4 +3,4 @@ import { WithDropdownItemSelectionManagerProps } from '../hoc/withItemSelectionM
 
 interface SelectionProps extends Props, WithDropdownItemSelectionManagerProps {}
 
-export default function(_: SelectionProps) {}
+export default function (_: SelectionProps) {}

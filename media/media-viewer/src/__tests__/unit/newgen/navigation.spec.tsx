@@ -124,9 +124,7 @@ describe('Navigation', () => {
         selectedItem={identifier2}
       />,
     );
-    el.find(ArrowLeftCircleIcon)
-      .first()
-      .simulate('click');
+    el.find(ArrowLeftCircleIcon).first().simulate('click');
     expect(onChange).toBeCalledWith(identifier);
   });
 
@@ -139,9 +137,7 @@ describe('Navigation', () => {
         selectedItem={identifier}
       />,
     );
-    el.find(ArrowRightCircleIcon)
-      .first()
-      .simulate('click');
+    el.find(ArrowRightCircleIcon).first().simulate('click');
     expect(onChange).toBeCalledWith(identifier2);
   });
 
@@ -199,17 +195,13 @@ describe('Navigation', () => {
   describe('Analytics', () => {
     it('should fire analytics on right arrow click', () => {
       const { el, createAnalyticsEventSpy } = mountBaseComponent();
-      el.find(ArrowRightCircleIcon)
-        .first()
-        .simulate('click');
+      el.find(ArrowRightCircleIcon).first().simulate('click');
       expect(createAnalyticsEventSpy).toHaveBeenCalled();
     });
 
     it('should fire analytics on left arrow click', () => {
       const { el, createAnalyticsEventSpy } = mountBaseComponent();
-      el.find(ArrowLeftCircleIcon)
-        .first()
-        .simulate('click');
+      el.find(ArrowLeftCircleIcon).first().simulate('click');
       expect(createAnalyticsEventSpy).toHaveBeenCalled();
     });
   });

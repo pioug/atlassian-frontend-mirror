@@ -349,18 +349,12 @@ describe('AltTextEditComponent', () => {
 
         expect(wrapper.state('validationErrors')).toEqual(validationErrors);
         expect(wrapper.find(ErrorMessage).length).toBe(2);
-        expect(
-          wrapper
-            .find(ErrorMessage)
-            .at(0)
-            .text(),
-        ).toBe(validationErrors[0]);
-        expect(
-          wrapper
-            .find(ErrorMessage)
-            .at(1)
-            .text(),
-        ).toBe(validationErrors[1]);
+        expect(wrapper.find(ErrorMessage).at(0).text()).toBe(
+          validationErrors[0],
+        );
+        expect(wrapper.find(ErrorMessage).at(1).text()).toBe(
+          validationErrors[1],
+        );
       });
 
       describe('when the clear text button is clicked', () => {

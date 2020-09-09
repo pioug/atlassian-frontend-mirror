@@ -65,12 +65,7 @@ describe(`${name} - core`, () => {
     });
 
     it('should render dropdown list content with height of maxHeight', () => {
-      expect(
-        wrapper
-          .find(Content)
-          .at(0)
-          .prop('maxHeight'),
-      ).toBe(100);
+      expect(wrapper.find(Content).at(0).prop('maxHeight')).toBe(100);
     });
 
     it('should render droplist content', () => {

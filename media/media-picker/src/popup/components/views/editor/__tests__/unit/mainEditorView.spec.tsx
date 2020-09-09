@@ -109,10 +109,7 @@ describe('MainEditorView', () => {
         },
       },
     });
-    mainView
-      .find(EditorView)
-      .props()
-      .onCancel('button');
+    mainView.find(EditorView).props().onCancel('button');
     expectFunctionToHaveBeenCalledWith(onCloseEditor, ['Close']);
   });
 });

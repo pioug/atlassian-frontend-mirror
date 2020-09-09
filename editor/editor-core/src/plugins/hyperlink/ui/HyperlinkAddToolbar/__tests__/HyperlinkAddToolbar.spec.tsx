@@ -362,10 +362,7 @@ describe('HyperlinkAddToolbar', () => {
     it('should submit with selected activity item when clicked', async () => {
       const { component, onSubmit } = await setup();
 
-      component
-        .find(LinkSearchListItem)
-        .at(1)
-        .simulate('mousedown');
+      component.find(LinkSearchListItem).at(1).simulate('mousedown');
 
       expect(onSubmit).toHaveBeenCalledTimes(1);
       expect(onSubmit).toHaveBeenCalledWith(

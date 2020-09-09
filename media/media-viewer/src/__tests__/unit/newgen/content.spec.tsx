@@ -21,10 +21,7 @@ describe('<Content />', () => {
       </Content>,
     );
     const children = mount(
-      component
-        .find(InactivityDetector)
-        .props()
-        .children(showControls),
+      component.find(InactivityDetector).props().children(showControls),
     );
 
     return {

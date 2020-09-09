@@ -191,9 +191,7 @@ export default class Toolbar extends Component<Props> {
                       icon={
                         item.icon ? (
                           <ButtonIcon label={item.title} />
-                        ) : (
-                          undefined
-                        )
+                        ) : undefined
                       }
                       appearance={item.appearance}
                       target={item.target}

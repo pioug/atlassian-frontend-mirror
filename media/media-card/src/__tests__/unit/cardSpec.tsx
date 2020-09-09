@@ -1440,10 +1440,7 @@ describe('Card', () => {
       card.setState({ metadata });
       card.update();
 
-      const contextData = card
-        .find(MediaAnalyticsContext)
-        .at(0)
-        .props().data;
+      const contextData = card.find(MediaAnalyticsContext).at(0).props().data;
 
       expect(contextData).toMatchObject(
         getMediaCardAnalyticsContext(metadata, undefined, featureFlags),
@@ -1456,10 +1453,7 @@ describe('Card', () => {
         <Card mediaClient={mediaClient} identifier={identifier} />,
       );
 
-      const contextData = card
-        .find(AnalyticsContext)
-        .at(0)
-        .props().data;
+      const contextData = card.find(AnalyticsContext).at(0).props().data;
       expect(contextData).toMatchObject(getBaseAnalyticsContext() || {});
     });
 

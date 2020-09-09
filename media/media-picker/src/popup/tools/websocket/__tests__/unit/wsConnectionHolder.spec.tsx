@@ -219,7 +219,7 @@ describe('WsConnectionHolder', () => {
       off: jest.fn(),
     };
 
-    fakeActivity.on.mockImplementation(function(
+    fakeActivity.on.mockImplementation(function (
       event: keyof WsActivityEvents,
       handler: any,
     ) {

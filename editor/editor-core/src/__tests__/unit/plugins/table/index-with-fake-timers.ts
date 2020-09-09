@@ -41,7 +41,7 @@ describe('TableView', () => {
   // previous regression involved PM trying to render child DOM elements,
   // but the NodeView had an undefined contentDOM after the React render finishes
   // (since render is not synchronous)
-  it('always provides a content DOM', function(this: any) {
+  it('always provides a content DOM', function (this: any) {
     jest.useFakeTimers();
 
     const originalHandleRef = (TableView.prototype as any)._handleRef;

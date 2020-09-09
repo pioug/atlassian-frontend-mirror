@@ -84,10 +84,7 @@ describe('tasks and decisions task', () => {
     );
 
     await contextIdentifierProvider;
-    task
-      .find(TaskItem)
-      .find('input')
-      .simulate('change');
+    task.find(TaskItem).find('input').simulate('change');
     expect(task.find(TaskItem).prop('isDone')).toBe(false);
     task.unmount();
   });

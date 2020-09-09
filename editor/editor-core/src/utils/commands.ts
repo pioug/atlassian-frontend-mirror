@@ -20,7 +20,7 @@ import { Command, HigherOrderCommand } from '../types/command';
 type Predicate = (state: EditorState, view?: EditorView) => boolean;
 
 const filter = (predicates: Predicate[] | Predicate, cmd: Command): Command => {
-  return function(state, dispatch, view): boolean {
+  return function (state, dispatch, view): boolean {
     if (!Array.isArray(predicates)) {
       predicates = [predicates];
     }

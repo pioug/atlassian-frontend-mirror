@@ -237,10 +237,7 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
           buildToolbar(toolbarProps);
           tooltipContent = mount(
             <div>
-              {toolbarOption
-                .find(ToolbarButton)
-                .first()
-                .prop('title')}
+              {toolbarOption.find(ToolbarButton).first().prop('title')}
             </div>,
           );
         });

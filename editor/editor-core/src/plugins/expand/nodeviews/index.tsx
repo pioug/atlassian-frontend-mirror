@@ -61,7 +61,7 @@ const toDOM = (node: PmNode, intl?: InjectedIntl): DOMOutputSpec => [
       'div',
       {
         // prettier-ignore
-        'class': expandClassNames.inputContainer
+        'class': expandClassNames.inputContainer,
       },
       [
         'input',
@@ -495,7 +495,7 @@ export class ExpandNodeView implements NodeView {
   }
 }
 
-export default function(reactContext: ReactContextFn) {
+export default function (reactContext: ReactContextFn) {
   return (node: PmNode, view: EditorView, getPos: getPosHandler): NodeView =>
     new ExpandNodeView(node, view, getPos as getPosHandlerNode, reactContext);
 }

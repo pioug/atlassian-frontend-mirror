@@ -42,7 +42,7 @@ describe('Web To Native', () => {
     });
 
     describe('Lifecycle bridge', () => {
-      it('should call native editorReady bridge method', function() {
+      it('should call native editorReady bridge method', function () {
         iosBridge.editorReady();
 
         expect(
@@ -51,7 +51,7 @@ describe('Web To Native', () => {
         ).toHaveBeenCalledWith({ name: 'editorReady' });
       });
 
-      it('should call native editorDestroyed method', function() {
+      it('should call native editorDestroyed method', function () {
         iosBridge.editorDestroyed();
 
         expect(
@@ -60,7 +60,7 @@ describe('Web To Native', () => {
         ).toHaveBeenCalledWith({ name: 'editorDestroyed' });
       });
 
-      it('should call native editorReady only once when method is called a second time', function() {
+      it('should call native editorReady only once when method is called a second time', function () {
         iosBridge.editorReady();
         iosBridge.editorReady();
 
@@ -70,7 +70,7 @@ describe('Web To Native', () => {
         ).toHaveBeenNthCalledWith(1, { name: 'editorReady' });
       });
 
-      it('should send analytics event when editorReady is called twice', function() {
+      it('should send analytics event when editorReady is called twice', function () {
         iosBridge.editorReady();
         iosBridge.editorReady();
 
@@ -87,7 +87,7 @@ describe('Web To Native', () => {
         });
       });
 
-      it('should not throw if lifeCycle bridge does not exist', function() {
+      it('should not throw if lifeCycle bridge does not exist', function () {
         const iosBridge = new IosBridge(({
           webkit: {
             messageHandlers: {
@@ -100,7 +100,7 @@ describe('Web To Native', () => {
         expect(() => iosBridge.editorReady()).not.toThrow();
       });
 
-      it('should send analytics event when lifecycleBridge does not exist', function() {
+      it('should send analytics event when lifecycleBridge does not exist', function () {
         const analyticsBridge = { postMessage: jest.fn() };
         const iosBridge = new IosBridge(({
           webkit: {

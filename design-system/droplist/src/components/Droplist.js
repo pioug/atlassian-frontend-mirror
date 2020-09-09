@@ -88,8 +88,9 @@ class Droplist extends Component {
     // We need to manually set the content width to match the trigger width
     // if props.shouldFitContainer is true
     if (shouldFitContainer && dropContentRef && triggerRef) {
-      dropContentRef.style.width = `${triggerRef.offsetWidth -
-        halfFocusRing * 2}px`;
+      dropContentRef.style.width = `${
+        triggerRef.offsetWidth - halfFocusRing * 2
+      }px`;
     }
   };
 

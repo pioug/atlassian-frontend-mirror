@@ -110,12 +110,7 @@ describe('ContentNavigation', () => {
     );
     expect(wrapper.find(Container).length).toBe(1);
     expect(componentDidMount).toBeCalled();
-    expect(
-      wrapper
-        .find(Container)
-        .parent()
-        .is('div'),
-    ).toBeFalsy();
+    expect(wrapper.find(Container).parent().is('div')).toBeFalsy();
 
     wrapper.setProps({ isVisible: false });
     expect(wrapper.find(Container).length).toBe(1);

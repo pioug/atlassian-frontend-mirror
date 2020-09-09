@@ -54,20 +54,12 @@ describe('<Filmstrip />', () => {
   it('should use right React key for Cards', () => {
     const { component } = setup();
 
-    expect(
-      component
-        .find(FilmstripView)
-        .find(Card)
-        .at(0)
-        .key(),
-    ).toEqual('id-1');
-    expect(
-      component
-        .find(FilmstripView)
-        .find(Card)
-        .at(1)
-        .key(),
-    ).toEqual('id-2');
+    expect(component.find(FilmstripView).find(Card).at(0).key()).toEqual(
+      'id-1',
+    );
+    expect(component.find(FilmstripView).find(Card).at(1).key()).toEqual(
+      'id-2',
+    );
   });
 
   it('should pass properties down to Cards', () => {
@@ -85,13 +77,7 @@ describe('<Filmstrip />', () => {
       shouldOpenMediaViewer: true,
     });
 
-    expect(
-      component
-        .find(FilmstripView)
-        .find(Card)
-        .first()
-        .props(),
-    ).toEqual(
+    expect(component.find(FilmstripView).find(Card).first().props()).toEqual(
       expect.objectContaining({
         mediaClientConfig,
         selectable: true,
@@ -111,13 +97,7 @@ describe('<Filmstrip />', () => {
       items: [{ identifier: firstIdenfier }, { identifier: secondIdentifier }],
     });
 
-    expect(
-      component
-        .find(FilmstripView)
-        .find(Card)
-        .first()
-        .props(),
-    ).toEqual(
+    expect(component.find(FilmstripView).find(Card).first().props()).toEqual(
       expect.objectContaining({
         shouldOpenMediaViewer: undefined,
         mediaViewerDataSource: undefined,
@@ -131,13 +111,7 @@ describe('<Filmstrip />', () => {
       shouldOpenMediaViewer: false,
     });
 
-    expect(
-      component
-        .find(FilmstripView)
-        .find(Card)
-        .first()
-        .props(),
-    ).toEqual(
+    expect(component.find(FilmstripView).find(Card).first().props()).toEqual(
       expect.objectContaining({
         shouldOpenMediaViewer: false,
         mediaViewerDataSource: undefined,

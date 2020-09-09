@@ -25,7 +25,7 @@ export function isCancelling(state = false, action: Action) {
   }
 }
 
-export default function(state: State, action: Action): State {
+export default function (state: State, action: Action): State {
   const nextState = { ...state, view: { ...state.view } };
   let hasChanged = false;
 

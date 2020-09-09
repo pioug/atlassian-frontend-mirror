@@ -23,10 +23,7 @@ describe.skip('dropdown menu - DropdownItemRadio', () => {
     let wrapper: ReactWrapper;
 
     const clickItem = () => {
-      wrapper
-        .find('Item')
-        .first()
-        .simulate('click');
+      wrapper.find('Item').first().simulate('click');
     };
 
     beforeEach(() => {
@@ -75,10 +72,7 @@ describe.skip('dropdown menu - DropdownItemRadio', () => {
         </DropdownItemGroupRadio>
       </DropdownMenuStateless>,
     );
-    wrapper
-      .find(Item)
-      .first()
-      .simulate('click');
+    wrapper.find(Item).first().simulate('click');
     expect(clickSpy).toHaveBeenCalled();
   });
 
@@ -95,10 +89,7 @@ describe.skip('dropdown menu - DropdownItemRadio', () => {
           </DropdownItemGroupRadio>
         </DropdownMenuStateless>,
       );
-      wrapper
-        .find(Item)
-        .first()
-        .simulate('keydown', { key: triggerKey });
+      wrapper.find(Item).first().simulate('keydown', { key: triggerKey });
       expect(clickSpy).toHaveBeenCalled();
     });
   });
@@ -120,10 +111,7 @@ describe.skip('dropdown menu - DropdownItemRadio', () => {
       expect(isIconSelected(wrapper.find(RadioIcon).at(1))).toBe(false);
 
       // Clicks the DropdownItemRadio to unselect it
-      wrapper
-        .find(Item)
-        .at(1)
-        .simulate('click');
+      wrapper.find(Item).at(1).simulate('click');
       expect(isIconSelected(wrapper.find(RadioIcon).at(0))).toBe(false);
       expect(isIconSelected(wrapper.find(RadioIcon).at(1))).toBe(true);
 
@@ -221,10 +209,7 @@ describe.skip('dropdown menu - DropdownItemRadio', () => {
       expect(isIconSelected(wrapper.find(RadioIcon).at(1))).toBe(false);
 
       // Item is now not selected, and onClick has been called so app can update it's state
-      wrapper
-        .find(Item)
-        .at(1)
-        .simulate('click');
+      wrapper.find(Item).at(1).simulate('click');
       expect(isIconSelected(wrapper.find(RadioIcon).at(0))).toBe(false);
       expect(isIconSelected(wrapper.find(RadioIcon).at(1))).toBe(true);
 

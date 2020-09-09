@@ -268,11 +268,13 @@ export const Theme = createTheme<ThemeTokens, ThemeProps>(props => ({
     fontSize: `${fontSize()}px`,
     minWidth: '0',
     outline: 'none',
-    padding: `${props.isCompact ? gridSize() / 2 : gridSize()}px ${gridSize() -
-      2}px`,
+    padding: `${props.isCompact ? gridSize() / 2 : gridSize()}px ${
+      gridSize() - 2
+    }px`,
     width: '100%',
-    height: `${(props.isCompact ? gridSize() * 3.5 : gridSize() * 4.5) /
-      fontSize()}em`,
+    height: `${
+      (props.isCompact ? gridSize() * 3.5 : gridSize() * 4.5) / fontSize()
+    }em`,
     lineHeight: (gridSize() * 2.5) / fontSize(),
     '&[disabled]': {
       // Safari puts on some difficult to remove styles, mainly for disabled inputs

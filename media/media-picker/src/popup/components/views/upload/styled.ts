@@ -47,9 +47,10 @@ export const DropzoneContentWrapper: ComponentClass<HTMLAttributes<{}>> = styled
   transform: translate(-50%, -50%);
 `;
 
-export const DropzoneContainer: ComponentClass<HTMLAttributes<{}> &
-  IsEmptyProps> = styled.div`
-/* Hardcoded width to avoid difference in how it looks depending on
+export const DropzoneContainer: ComponentClass<
+  HTMLAttributes<{}> & IsEmptyProps
+> = styled.div`
+  /* Hardcoded width to avoid difference in how it looks depending on
    mac scroll bar setting. See https://product-fabric.atlassian.net/browse/EM-168
    for more details */
   width: 668px;

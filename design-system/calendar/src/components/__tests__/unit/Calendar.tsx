@@ -115,10 +115,7 @@ test('handleClickNext()', () => {
   const wrapper = mount(
     <Calendar onChange={mockOnChange} day={1} month={1} year={2000} />,
   );
-  wrapper
-    .find(Btn)
-    .at(1)
-    .simulate('click', createEvent());
+  wrapper.find(Btn).at(1).simulate('click', createEvent());
   expect(mockOnChange).toHaveBeenCalledWith({
     type: 'next',
     ...createEventData('2000-02-01'),
@@ -130,10 +127,7 @@ test('handleClickPrev()', () => {
   const wrapper = mount(
     <Calendar onChange={mockOnChange} day={1} month={1} year={2000} />,
   );
-  wrapper
-    .find(Btn)
-    .at(0)
-    .simulate('click', createEvent());
+  wrapper.find(Btn).at(0).simulate('click', createEvent());
   expect(mockOnChange).toHaveBeenCalledWith({
     type: 'prev',
     ...createEventData('1999-12-01'),
@@ -143,20 +137,14 @@ test('handleClickPrev()', () => {
 test('handleContainerBlur()', () => {
   const mockOnBlur = jest.fn();
   const wrapper = mount(<Calendar onBlur={mockOnBlur} />);
-  wrapper
-    .find('div')
-    .first()
-    .simulate('blur', createEvent());
+  wrapper.find('div').first().simulate('blur', createEvent());
   expect(mockOnBlur).toHaveBeenCalledTimes(1);
 });
 
 test('handleContainerFocus()', () => {
   const mockOnFocus = jest.fn();
   const wrapper = mount(<Calendar onFocus={mockOnFocus} />);
-  wrapper
-    .find('div')
-    .first()
-    .simulate('focus', createEvent());
+  wrapper.find('div').first().simulate('focus', createEvent());
   expect(mockOnFocus).toHaveBeenCalledTimes(1);
 });
 

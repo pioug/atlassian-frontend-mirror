@@ -67,7 +67,7 @@ export const calculateTruncation = (
 };
 
 const fontFaceScaleFactor = (fontSizePX: number) =>
-    (fontSizePX / 11) * 0.46 /* factor for fontSize of 11px */;
+  (fontSizePX / 11) * 0.46; /* factor for fontSize of 11px */
 
 export const Truncate: React.FC<TruncateProps> = ({
   text,

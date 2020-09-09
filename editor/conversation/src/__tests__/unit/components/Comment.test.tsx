@@ -353,10 +353,7 @@ describe('Comment', () => {
         />,
       );
 
-      usernameLink = comment
-        .first()
-        .find(CommentAuthor)
-        .first();
+      usernameLink = comment.first().find(CommentAuthor).first();
     });
 
     afterEach(() => {

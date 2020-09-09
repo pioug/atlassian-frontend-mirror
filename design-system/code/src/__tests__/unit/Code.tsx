@@ -25,11 +25,7 @@ describe('Code', () => {
   const codeLanguageNotSupported = <Code text={jsCode} language="dde" />;
   test('should render with language javascript', () => {
     expect(mount(codeJavascript)).toBeDefined();
-    expect(
-      mount(codeJavascript)
-        .find(Code)
-        .prop('language'),
-    ).not.toBe('');
+    expect(mount(codeJavascript).find(Code).prop('language')).not.toBe('');
   });
   test('should render with language that is not supported', () => {
     expect(mount(codeLanguageNotSupported).find(Code).length).toBe(1);

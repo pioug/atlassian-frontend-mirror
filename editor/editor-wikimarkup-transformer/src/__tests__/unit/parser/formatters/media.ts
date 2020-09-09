@@ -4,7 +4,7 @@ describe('WikiMarkup => ADF Formatters - image media', () => {
   const context = {
     conversion: {
       mediaConversion: {
-        'image.jpg': 'abc-123',
+        'image.jpg': { transform: 'abc-123', embed: true },
       },
     },
   };

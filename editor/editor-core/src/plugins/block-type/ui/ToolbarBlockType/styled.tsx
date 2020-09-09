@@ -22,9 +22,11 @@ export const BlockTypeMenuItem = styled.div<{
   ${props => (props.selected ? `${props.tagName} { color: white }` : '')};
 `;
 
-export const KeyboardShortcut: ComponentClass<HTMLAttributes<{}> & {
-  selected?: boolean;
-}> = styled(Shortcut)`
+export const KeyboardShortcut: ComponentClass<
+  HTMLAttributes<{}> & {
+    selected?: boolean;
+  }
+> = styled(Shortcut)`
   ${props => (props.selected ? `color: ${N400};` : '')}
   margin-left: 16px;
 `;

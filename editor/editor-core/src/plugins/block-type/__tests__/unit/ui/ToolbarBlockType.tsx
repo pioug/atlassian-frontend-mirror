@@ -146,12 +146,9 @@ describe('@atlaskit/editor-core/ui/ToolbarBlockType', () => {
         setBlockType={name => setBlockType(name)(state, dispatch)}
       />,
     );
-    expect(
-      toolbarOption
-        .find(ToolbarButton)
-        .first()
-        .text(),
-    ).toContain(messages.normal.defaultMessage);
+    expect(toolbarOption.find(ToolbarButton).first().text()).toContain(
+      messages.normal.defaultMessage,
+    );
     toolbarOption.unmount();
   });
 

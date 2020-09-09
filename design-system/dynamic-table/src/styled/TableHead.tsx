@@ -33,9 +33,10 @@ interface HeadCellProps extends TruncateStyleProps {
 }
 
 export const HeadCell = styled.th<HeadCellProps>`
-  ${({ onClick }) => onClickStyle({ onClick: Boolean(onClick) })} 
+  ${({ onClick }) => onClickStyle({ onClick: Boolean(onClick) })}
   ${p => truncateStyle(p)} 
-  ${p => arrowsStyle(p)} 
+  ${p =>
+    arrowsStyle(p)} 
   ${cellStyle} 
   border: none;
   color: ${head.textColor};

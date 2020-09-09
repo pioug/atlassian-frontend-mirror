@@ -173,9 +173,7 @@ export default function transformer(file: any, api: any) {
 
       firstImport.comments = path.value.comments;
 
-      j(path)
-        .replaceWith(firstImport)
-        .insertAfter(importsAfter);
+      j(path).replaceWith(firstImport).insertAfter(importsAfter);
     });
 
   return fileSource.toSource();

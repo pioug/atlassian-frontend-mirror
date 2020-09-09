@@ -303,8 +303,9 @@ export default class Editor extends React.Component<EditorProps, State> {
 
         // eslint-disable-next-line no-console
         console.warn(
-          `${property} property is deprecated. ${meta.message ||
-            ''} [Will be ${type} in editor-core@${nextVersion}]`,
+          `${property} property is deprecated. ${
+            meta.message || ''
+          } [Will be ${type} in editor-core@${nextVersion}]`,
         );
       }
     });

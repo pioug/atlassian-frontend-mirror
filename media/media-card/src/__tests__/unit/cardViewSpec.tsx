@@ -65,7 +65,7 @@ describe('CardView', () => {
       expect(fileCard).toHaveLength(1);
     });
 
-    it('should render FileCardImageView with details passed through to props', function() {
+    it('should render FileCardImageView with details passed through to props', function () {
       const filesize = 123456;
 
       const details: FileDetails = {

@@ -17,14 +17,14 @@ const Text: FC<{
       color: ${N900};
 
       ${truncate &&
-        `
+      `
         overflow-x: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
       `}
 
       ${secondary &&
-        `
+      `
           color: ${N200};
           font-size: 0.85em;
       `}

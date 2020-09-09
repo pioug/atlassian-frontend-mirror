@@ -39,10 +39,7 @@ test('should call onClick prop when date is enabled (default scenario)', () => {
 });
 
 test('DateDiv props', () => {
-  const div = (props?: DateProps) =>
-    create(props)
-      .find(DateDiv)
-      .props();
+  const div = (props?: DateProps) => create(props).find(DateDiv).props();
   expect(div()).toMatchObject({ disabled: false });
   expect(div({ disabled: true })).toMatchObject({ disabled: true });
 });

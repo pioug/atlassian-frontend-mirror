@@ -126,8 +126,9 @@ async function attachCursorIndicator(page: PuppeteerPage) {
           break;
         default:
           mouseIndicator.style.top = `${-cursorDiameter / 4}px`;
-          mouseIndicator.style.left = `${-cursorDiameter / 4 +
-            cursorDiameter}px`;
+          mouseIndicator.style.left = `${
+            -cursorDiameter / 4 + cursorDiameter
+          }px`;
       }
     });
 

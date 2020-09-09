@@ -438,10 +438,7 @@ describe('GlobalNavigation', () => {
     navItems.forEach(({ icon, name, defaultTooltip }) => {
       it(`should render default tooltip for "${name}" item`, () => {
         expect(
-          defaultWrapper
-            .find(icon)
-            .parents('Tooltip')
-            .prop('content'),
+          defaultWrapper.find(icon).parents('Tooltip').prop('content'),
         ).toBe(defaultTooltip);
         expect(defaultWrapper.find(icon).prop('label')).toBe(defaultTooltip);
       });
@@ -451,10 +448,7 @@ describe('GlobalNavigation', () => {
       it(`should render a custom tooltip for "${name}" item`, () => {
         const customTooltip = `${name} tooltip`;
         expect(
-          customTooltipWrapper
-            .find(icon)
-            .parents('Tooltip')
-            .prop('content'),
+          customTooltipWrapper.find(icon).parents('Tooltip').prop('content'),
         ).toBe(`${customTooltip}`);
         expect(customTooltipWrapper.find(icon).prop('label')).toBe(
           `${customTooltip}`,
@@ -636,10 +630,7 @@ describe('GlobalNavigation', () => {
       );
 
       expect(
-        wrapper
-          .find(NotificationIcon)
-          .parents('Tooltip')
-          .prop('content'),
+        wrapper.find(NotificationIcon).parents('Tooltip').prop('content'),
       ).toBe('Notification tooltip from product');
       expect(wrapper.find(NotificationIcon).prop('label')).toBe(
         'Notification tooltip from product',
@@ -676,10 +667,7 @@ describe('GlobalNavigation', () => {
 
       expect(wrapper.find(DrawerContents).exists()).toBeTruthy();
       expect(
-        wrapper
-          .find(DrawerContents)
-          .children('iframe')
-          .exists(),
+        wrapper.find(DrawerContents).children('iframe').exists(),
       ).toBeFalsy();
     });
 
@@ -899,10 +887,7 @@ describe('GlobalNavigation', () => {
     });
     it('should render in SecondaryItemsList by default', () => {
       expect(
-        defaultWrapper
-          .find(AppSwitcher)
-          .parents()
-          .exists('SecondaryItemsList'),
+        defaultWrapper.find(AppSwitcher).parents().exists('SecondaryItemsList'),
       ).toBeTruthy();
     });
 

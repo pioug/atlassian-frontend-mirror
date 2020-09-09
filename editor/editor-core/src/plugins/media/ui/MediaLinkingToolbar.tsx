@@ -152,7 +152,7 @@ export class LinkAddToolbar extends React.PureComponent<
     );
     const formatUnlinkText = formatMessage(linkToolbarMessages.unlink);
 
-    const errorsList = this.state.validationErrors.map(function(error, index) {
+    const errorsList = this.state.validationErrors.map(function (error, index) {
       return <ErrorMessage key={index}>{error}</ErrorMessage>;
     });
 

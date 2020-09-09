@@ -41,15 +41,9 @@ describe('Zooming', () => {
       const { component, onChange } = setupBase();
       const zoomLevel = new ZoomLevel(1);
 
-      component
-        .find(Button)
-        .first()
-        .simulate('click');
+      component.find(Button).first().simulate('click');
       expect(onChange).lastCalledWith(zoomLevel.zoomOut());
-      component
-        .find(Button)
-        .last()
-        .simulate('click');
+      component.find(Button).last().simulate('click');
       expect(onChange).lastCalledWith(zoomLevel.zoomIn());
     });
 
@@ -57,10 +51,7 @@ describe('Zooming', () => {
       const { component, onChange } = setupBase({
         zoomLevel: new ZoomLevel(1).fullyZoomIn(),
       });
-      component
-        .find(Button)
-        .last()
-        .simulate('click');
+      component.find(Button).last().simulate('click');
       expect(onChange).not.toBeCalled();
     });
 
@@ -68,10 +59,7 @@ describe('Zooming', () => {
       const { component, onChange } = setupBase({
         zoomLevel: new ZoomLevel(1).fullyZoomOut(),
       });
-      component
-        .find(Button)
-        .first()
-        .simulate('click');
+      component.find(Button).first().simulate('click');
       expect(onChange).not.toBeCalled();
     });
 
@@ -91,10 +79,7 @@ describe('Zooming', () => {
 
       it('triggers analytics events on zoom Out', () => {
         const { component, createAnalyticsEventSpy } = setupBase();
-        component
-          .find(Button)
-          .first()
-          .simulate('click');
+        component.find(Button).first().simulate('click');
 
         expect(createAnalyticsEventSpy).toHaveBeenCalledWith({
           eventType: 'ui',
@@ -110,10 +95,7 @@ describe('Zooming', () => {
 
       it('triggers analytics events on zoom in', () => {
         const { component, createAnalyticsEventSpy } = setupBase();
-        component
-          .find(Button)
-          .last()
-          .simulate('click');
+        component.find(Button).last().simulate('click');
 
         expect(createAnalyticsEventSpy).toHaveBeenCalledWith({
           eventType: 'ui',

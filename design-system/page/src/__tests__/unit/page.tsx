@@ -18,11 +18,7 @@ describe(name, () => {
     const wrapper = shallow(<Page banner={<Banner />} isBannerOpen={false} />);
 
     expect(
-      wrapper
-        .find(Banner)
-        .parents()
-        .at(1)
-        .prop('aria-hidden'),
+      wrapper.find(Banner).parents().at(1).prop('aria-hidden'),
     ).toBeTruthy();
   });
 
@@ -31,11 +27,7 @@ describe(name, () => {
     const wrapper = shallow(<Page banner={<Banner />} isBannerOpen />);
 
     expect(
-      wrapper
-        .find(Banner)
-        .parents()
-        .at(1)
-        .prop('aria-hidden'),
+      wrapper.find(Banner).parents().at(1).prop('aria-hidden'),
     ).toBeFalsy();
   });
 });

@@ -30,12 +30,11 @@ export const media: NodeEncoder = (
     fileName = node.attrs.url;
   } else {
     fileName =
-      context &&
-      context.conversion &&
-      context.conversion.mediaConversion &&
-      context.conversion.mediaConversion[node.attrs.id]
-        ? context.conversion.mediaConversion[node.attrs.id]
-        : node.attrs.id;
+      context?.conversion?.mediaConversion?.[node.attrs.id]?.transform ??
+      node.attrs.id;
+  }
+  if (context?.conversion?.mediaConversion?.[node.attrs.id]?.embed === false) {
+    return `[^${fileName}]`;
   }
   if (wikiAttrs.length) {
     return `!${fileName}|${wikiAttrs.join(',')}!`;

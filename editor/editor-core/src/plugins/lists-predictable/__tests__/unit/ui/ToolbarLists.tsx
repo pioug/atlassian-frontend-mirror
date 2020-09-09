@@ -15,10 +15,7 @@ function clickToolbarOption(toolbarOption: ReactWrapper, title: string) {
   toolbarOption
     .find(ToolbarButton)
     .filterWhere(toolbarButton =>
-      toolbarButton
-        .find('Icon')
-        .prop('label')!
-        .includes(title),
+      toolbarButton.find('Icon').prop('label')!.includes(title),
     )
     .find('button')
     .simulate('click');

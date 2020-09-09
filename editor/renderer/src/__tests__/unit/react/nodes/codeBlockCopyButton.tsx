@@ -36,10 +36,7 @@ describe('CopyButton', () => {
       copyButton.find('button.copy-to-clipboard').props()['aria-label'],
     ).toEqual('Copied!');
 
-    copyButton
-      .find('div')
-      .at(1)
-      .simulate('mouseleave');
+    copyButton.find('div').at(1).simulate('mouseleave');
 
     copyButton.update();
 

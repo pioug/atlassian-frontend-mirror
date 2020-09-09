@@ -107,7 +107,7 @@ function getADF(wiki: string) {
         'ABC-40': 'https://instance.atlassian.net/browse/ABC-40',
       },
       mediaConversion: {
-        'image.jpg': '1234',
+        'image.jpg': { transform: '1234' },
       },
       mentionConversion: {
         'accountId:9999': '9999',

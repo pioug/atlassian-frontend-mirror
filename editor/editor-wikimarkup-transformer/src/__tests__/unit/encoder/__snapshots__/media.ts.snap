@@ -11,6 +11,12 @@ exports[`ADF => WikiMarkup - Media should convert mediaGroup node 1`] = `
 !file2.txt|thumbnail!"
 `;
 
+exports[`ADF => WikiMarkup - Media should convert mediaSingle depending on context 1`] = `
+"!embedded-output|thumbnail!
+[^not-embedded-output]
+!default-embedded-output|thumbnail!"
+`;
+
 exports[`ADF => WikiMarkup - Media should convert mediaSingle node with no width and height to thumbnail 1`] = `"!file1.txt|thumbnail!"`;
 
 exports[`ADF => WikiMarkup - Media should convert mediaSingle node with width and height 1`] = `"!file1.txt|width=100,height=100!"`;

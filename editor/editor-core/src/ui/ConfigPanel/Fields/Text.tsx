@@ -8,7 +8,7 @@ import FieldMessages from '../FieldMessages';
 import { validate } from '../utils';
 import { OnBlur } from '../types';
 
-export default function({
+export default function ({
   field,
   type,
   autoFocus,

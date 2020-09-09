@@ -15,8 +15,9 @@ function getLayoutSelector(columWidthPercentages = [50, 50]) {
   return columWidthPercentages
     .map(
       (p, i) =>
-        `div[data-layout-section="true"] > div:nth-child(${i +
-          1})[data-column-width="${p}"]`,
+        `div[data-layout-section="true"] > div:nth-child(${
+          i + 1
+        })[data-column-width="${p}"]`,
     )
     .join(', ');
 }

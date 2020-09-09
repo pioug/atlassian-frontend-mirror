@@ -112,7 +112,7 @@ export const getAnnotationText = (root: Node, annotationIds: string[] = []) => {
 };
 
 // helper function: return the first selection range for the window
-const getSelectionRange = function(): Range | null {
+const getSelectionRange = function (): Range | null {
   const selection = window.getSelection();
 
   // no selection made in browser

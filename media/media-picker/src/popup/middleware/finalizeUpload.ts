@@ -16,7 +16,7 @@ import { MediaFile } from '../../types';
 import { sendUploadEvent } from '../actions/sendUploadEvent';
 import { resetView } from '../actions';
 
-export default function(): Middleware {
+export default function (): Middleware {
   return store => (next: Dispatch<State>) => (action: any) => {
     if (isFinalizeUploadAction(action)) {
       finalizeUpload(store as any, action);

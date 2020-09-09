@@ -116,20 +116,8 @@ describe(name, () => {
       );
       const bodyRows = wrapper.find('tbody tr');
       expect(bodyRows.length).toBe(2);
-      expect(
-        bodyRows
-          .at(0)
-          .find('td')
-          .at(0)
-          .text(),
-      ).toBe('Donald');
-      expect(
-        bodyRows
-          .at(0)
-          .find('td')
-          .at(1)
-          .text(),
-      ).toBe('Trump');
+      expect(bodyRows.at(0).find('td').at(0).text()).toBe('Donald');
+      expect(bodyRows.at(0).find('td').at(1).text()).toBe('Trump');
     });
 
     const checkSortedData = (isRankable: boolean) => {
@@ -147,48 +135,12 @@ describe(name, () => {
         />,
       );
       const bodyRows = wrapper.find('tbody tr');
-      expect(
-        bodyRows
-          .at(0)
-          .find('td')
-          .at(0)
-          .text(),
-      ).toBe('Barack');
-      expect(
-        bodyRows
-          .at(0)
-          .find('td')
-          .at(1)
-          .text(),
-      ).toBe('Obama');
-      expect(
-        bodyRows
-          .at(1)
-          .find('td')
-          .at(0)
-          .text(),
-      ).toBe('Donald');
-      expect(
-        bodyRows
-          .at(1)
-          .find('td')
-          .at(1)
-          .text(),
-      ).toBe('Trump');
-      expect(
-        bodyRows
-          .at(2)
-          .find('td')
-          .at(0)
-          .text(),
-      ).toBe('hillary');
-      expect(
-        bodyRows
-          .at(2)
-          .find('td')
-          .at(1)
-          .text(),
-      ).toBe('clinton');
+      expect(bodyRows.at(0).find('td').at(0).text()).toBe('Barack');
+      expect(bodyRows.at(0).find('td').at(1).text()).toBe('Obama');
+      expect(bodyRows.at(1).find('td').at(0).text()).toBe('Donald');
+      expect(bodyRows.at(1).find('td').at(1).text()).toBe('Trump');
+      expect(bodyRows.at(2).find('td').at(0).text()).toBe('hillary');
+      expect(bodyRows.at(2).find('td').at(1).text()).toBe('clinton');
     };
 
     it('should display sorted data', () => {
@@ -413,11 +365,7 @@ describe(name, () => {
       });
 
       it('onSetPage', () => {
-        wrapper
-          .find(Pagination)
-          .find('button')
-          .at(1)
-          .simulate('click');
+        wrapper.find(Pagination).find('button').at(1).simulate('click');
         expect(onSetPage).toHaveBeenCalledTimes(1);
         expect(onSetPage).toHaveBeenCalledWith(1, expect.any(UIAnalyticsEvent));
       });
@@ -435,42 +383,14 @@ describe(name, () => {
         />,
       );
 
-      wrapper
-        .find(Pagination)
-        .find('button')
-        .at(0)
-        .simulate('click');
+      wrapper.find(Pagination).find('button').at(0).simulate('click');
 
       const bodyRows = wrapper.find('tbody tr');
       expect(bodyRows.length).toBe(2);
-      expect(
-        bodyRows
-          .at(0)
-          .find('td')
-          .at(0)
-          .text(),
-      ).toBe('Barack');
-      expect(
-        bodyRows
-          .at(0)
-          .find('td')
-          .at(1)
-          .text(),
-      ).toBe('Obama');
-      expect(
-        bodyRows
-          .at(1)
-          .find('td')
-          .at(0)
-          .text(),
-      ).toBe('hillary');
-      expect(
-        bodyRows
-          .at(1)
-          .find('td')
-          .at(1)
-          .text(),
-      ).toBe('clinton');
+      expect(bodyRows.at(0).find('td').at(0).text()).toBe('Barack');
+      expect(bodyRows.at(0).find('td').at(1).text()).toBe('Obama');
+      expect(bodyRows.at(1).find('td').at(0).text()).toBe('hillary');
+      expect(bodyRows.at(1).find('td').at(1).text()).toBe('clinton');
     });
 
     it('should pass i18n info down correctly', () => {
@@ -509,158 +429,47 @@ describe(name, () => {
 
     it('should sort data', () => {
       const wrapper = mount(<DynamicTable head={head} rows={rows} />);
-      wrapper
-        .find('th')
-        .at(0)
-        .simulate('click');
+      wrapper.find('th').at(0).simulate('click');
       wrapper.update();
       const bodyRows = wrapper.find('tbody tr');
-      expect(
-        bodyRows
-          .at(0)
-          .find('td')
-          .at(0)
-          .text(),
-      ).toBe('Barack');
-      expect(
-        bodyRows
-          .at(0)
-          .find('td')
-          .at(1)
-          .text(),
-      ).toBe('Obama');
-      expect(
-        bodyRows
-          .at(1)
-          .find('td')
-          .at(0)
-          .text(),
-      ).toBe('Donald');
-      expect(
-        bodyRows
-          .at(1)
-          .find('td')
-          .at(1)
-          .text(),
-      ).toBe('Trump');
-      expect(
-        bodyRows
-          .at(2)
-          .find('td')
-          .at(0)
-          .text(),
-      ).toBe('hillary');
-      expect(
-        bodyRows
-          .at(2)
-          .find('td')
-          .at(1)
-          .text(),
-      ).toBe('clinton');
+      expect(bodyRows.at(0).find('td').at(0).text()).toBe('Barack');
+      expect(bodyRows.at(0).find('td').at(1).text()).toBe('Obama');
+      expect(bodyRows.at(1).find('td').at(0).text()).toBe('Donald');
+      expect(bodyRows.at(1).find('td').at(1).text()).toBe('Trump');
+      expect(bodyRows.at(2).find('td').at(0).text()).toBe('hillary');
+      expect(bodyRows.at(2).find('td').at(1).text()).toBe('clinton');
     });
 
     it('should sort numeric data correctly, listed before strings or empty values', () => {
       const wrapper = mount(
         <DynamicTable head={headNumeric} rows={rowsNumeric} />,
       );
-      wrapper
-        .find('th')
-        .at(1)
-        .simulate('click');
+      wrapper.find('th').at(1).simulate('click');
       wrapper.update();
 
       const bodyRows = wrapper.find('tbody tr');
 
-      expect(
-        bodyRows
-          .at(0)
-          .find('td')
-          .at(0)
-          .text(),
-      ).toBe('Negative One');
-      expect(
-        bodyRows
-          .at(0)
-          .find('td')
-          .at(1)
-          .text(),
-      ).toBe('-1');
-      expect(
-        bodyRows
-          .at(1)
-          .find('td')
-          .at(1)
-          .text(),
-      ).toBe('0');
-      expect(
-        bodyRows
-          .at(2)
-          .find('td')
-          .at(1)
-          .text(),
-      ).toBe('1');
-      expect(
-        bodyRows
-          .at(3)
-          .find('td')
-          .at(1)
-          .text(),
-      ).toBe('');
-      expect(
-        bodyRows
-          .at(4)
-          .find('td')
-          .at(1)
-          .text(),
-      ).toBe(' ');
-      expect(
-        bodyRows
-          .at(5)
-          .find('td')
-          .at(1)
-          .text(),
-      ).toBe('1');
-      expect(
-        bodyRows
-          .at(8)
-          .find('td')
-          .at(1)
-          .text(),
-      ).toBe('a string');
+      expect(bodyRows.at(0).find('td').at(0).text()).toBe('Negative One');
+      expect(bodyRows.at(0).find('td').at(1).text()).toBe('-1');
+      expect(bodyRows.at(1).find('td').at(1).text()).toBe('0');
+      expect(bodyRows.at(2).find('td').at(1).text()).toBe('1');
+      expect(bodyRows.at(3).find('td').at(1).text()).toBe('');
+      expect(bodyRows.at(4).find('td').at(1).text()).toBe(' ');
+      expect(bodyRows.at(5).find('td').at(1).text()).toBe('1');
+      expect(bodyRows.at(8).find('td').at(1).text()).toBe('a string');
     });
 
     it('should sort grouped numbers in strings', () => {
       const wrapper = mount(
         <DynamicTable head={headNumeric} rows={rowsNumeric} />,
       );
-      wrapper
-        .find('th')
-        .at(1)
-        .simulate('click');
+      wrapper.find('th').at(1).simulate('click');
       wrapper.update();
       const bodyRows = wrapper.find('tbody tr');
 
-      expect(
-        bodyRows
-          .at(5)
-          .find('td')
-          .at(1)
-          .text(),
-      ).toBe('1');
-      expect(
-        bodyRows
-          .at(6)
-          .find('td')
-          .at(1)
-          .text(),
-      ).toBe('5');
-      expect(
-        bodyRows
-          .at(7)
-          .find('td')
-          .at(1)
-          .text(),
-      ).toBe('10');
+      expect(bodyRows.at(5).find('td').at(1).text()).toBe('1');
+      expect(bodyRows.at(6).find('td').at(1).text()).toBe('5');
+      expect(bodyRows.at(7).find('td').at(1).text()).toBe('10');
     });
 
     it('should preserve sorting, even after updating table dynamically', () => {
@@ -679,113 +488,35 @@ describe(name, () => {
       const newRows = [...rows, newData];
       const wrapper = mount(<DynamicTable head={head} rows={rows} />);
 
-      wrapper
-        .find('th')
-        .at(0)
-        .simulate('click');
+      wrapper.find('th').at(0).simulate('click');
       wrapper.update();
 
       const bodyRows = wrapper.find('tbody tr');
-      expect(
-        bodyRows
-          .at(0)
-          .find('td')
-          .at(0)
-          .text(),
-      ).toBe('Barack');
-      expect(
-        bodyRows
-          .at(0)
-          .find('td')
-          .at(1)
-          .text(),
-      ).toBe('Obama');
+      expect(bodyRows.at(0).find('td').at(0).text()).toBe('Barack');
+      expect(bodyRows.at(0).find('td').at(1).text()).toBe('Obama');
 
       wrapper.setProps({ rows: newRows });
-      expect(
-        bodyRows
-          .at(0)
-          .find('td')
-          .at(0)
-          .text(),
-      ).toBe('Abraham');
-      expect(
-        bodyRows
-          .at(0)
-          .find('td')
-          .at(1)
-          .text(),
-      ).toBe('Lincon');
-      expect(
-        bodyRows
-          .at(1)
-          .find('td')
-          .at(0)
-          .text(),
-      ).toBe('Barack');
-      expect(
-        bodyRows
-          .at(1)
-          .find('td')
-          .at(1)
-          .text(),
-      ).toBe('Obama');
+      expect(bodyRows.at(0).find('td').at(0).text()).toBe('Abraham');
+      expect(bodyRows.at(0).find('td').at(1).text()).toBe('Lincon');
+      expect(bodyRows.at(1).find('td').at(0).text()).toBe('Barack');
+      expect(bodyRows.at(1).find('td').at(1).text()).toBe('Obama');
     });
 
     it('should use new sortKey and sortOrder passed as prop for sorting the table', () => {
       const wrapper = mount(<DynamicTable head={head} rows={rows} />);
-      wrapper
-        .find('th')
-        .at(0)
-        .simulate('click');
+      wrapper.find('th').at(0).simulate('click');
       wrapper.update();
       const bodyRows = wrapper.find('tbody tr');
-      expect(
-        bodyRows
-          .at(0)
-          .find('td')
-          .at(0)
-          .text(),
-      ).toBe('Barack');
-      expect(
-        bodyRows
-          .at(0)
-          .find('td')
-          .at(1)
-          .text(),
-      ).toBe('Obama');
+      expect(bodyRows.at(0).find('td').at(0).text()).toBe('Barack');
+      expect(bodyRows.at(0).find('td').at(1).text()).toBe('Obama');
 
       wrapper.setProps({ sortOrder: 'DESC', sortKey: secondSortKey });
       wrapper.update();
 
-      expect(
-        bodyRows
-          .at(0)
-          .find('td')
-          .at(0)
-          .text(),
-      ).toBe('Donald');
-      expect(
-        bodyRows
-          .at(0)
-          .find('td')
-          .at(1)
-          .text(),
-      ).toBe('Trump');
-      expect(
-        bodyRows
-          .at(1)
-          .find('td')
-          .at(0)
-          .text(),
-      ).toBe('Barack');
-      expect(
-        bodyRows
-          .at(1)
-          .find('td')
-          .at(1)
-          .text(),
-      ).toBe('Obama');
+      expect(bodyRows.at(0).find('td').at(0).text()).toBe('Donald');
+      expect(bodyRows.at(0).find('td').at(1).text()).toBe('Trump');
+      expect(bodyRows.at(1).find('td').at(0).text()).toBe('Barack');
+      expect(bodyRows.at(1).find('td').at(1).text()).toBe('Obama');
     });
 
     it('should preserve page after applying sorting and updating table dynamically', () => {
@@ -810,10 +541,7 @@ describe(name, () => {
           defaultPage={2}
         />,
       );
-      wrapper
-        .find('th')
-        .at(0)
-        .simulate('click');
+      wrapper.find('th').at(0).simulate('click');
       expect(wrapper.find(Pagination).prop('value')).toBe(2);
       wrapper.setProps({ rows: newRows });
       expect(wrapper.find(Pagination).prop('value')).toBe(2);
@@ -826,11 +554,7 @@ test('should pass analytics event in setPage callback', () => {
   const wrapper = mount(
     <DynamicTable head={head} rows={rows} rowsPerPage={1} onSetPage={spy} />,
   );
-  wrapper
-    .find(Pagination)
-    .find(Button)
-    .last()
-    .simulate('click');
+  wrapper.find(Pagination).find(Button).last().simulate('click');
   expect(spy).toHaveBeenCalledTimes(1);
   expect(spy).toHaveBeenCalledWith(
     expect.any(Number),

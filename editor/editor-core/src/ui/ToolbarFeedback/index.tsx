@@ -141,9 +141,7 @@ export default class ToolbarFeedback extends PureComponent<Props, State> {
     } = this.props;
     const iconBefore = this.state.jiraIssueCollectorScriptLoading ? (
       <Spinner />
-    ) : (
-      undefined
-    );
+    ) : undefined;
 
     // JIRA issue collector script is using jQuery internally
     return this.hasJquery() ? (

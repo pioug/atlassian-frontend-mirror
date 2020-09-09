@@ -136,7 +136,10 @@ describe('Uploader', () => {
         { content: '' },
         mediaStore as MediaStore,
         uploadableFileUpfrontIds,
-        { onProgress, onUploadFinish: err => (err ? reject(err) : resolve()) },
+        {
+          onProgress,
+          onUploadFinish: err => (err ? reject(err) : resolve()),
+        },
       );
     });
 
@@ -168,7 +171,10 @@ describe('Uploader', () => {
         { content: '' },
         mediaStore as MediaStore,
         uploadableFileUpfrontIds,
-        { onProgress, onUploadFinish: err => (err ? reject(err) : resolve()) },
+        {
+          onProgress,
+          onUploadFinish: err => (err ? reject(err) : resolve()),
+        },
       );
     });
 

@@ -91,7 +91,7 @@ const getStyles = (
   cursor: pointer;
 
   ${isInteractive &&
-    `
+  `
         :hover {
           background-color: ${backgroundHover()};
           text-decoration: none;
@@ -108,7 +108,7 @@ const getStyles = (
       `}
 
   ${isDisabled &&
-    `
+  `
         cursor: not-allowed;
         opacity: 0.75;
         pointer-events: none;

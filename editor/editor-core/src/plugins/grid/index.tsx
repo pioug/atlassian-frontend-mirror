@@ -108,8 +108,9 @@ const gutterGridLines = (
         )}
         style={{
           position: 'absolute',
-          [side]: `-${(editorWidth - editorMaxWidth - akEditorBreakoutPadding) /
-            2}px`,
+          [side]: `-${
+            (editorWidth - editorMaxWidth - akEditorBreakoutPadding) / 2
+          }px`,
         }}
       />,
     );

@@ -54,10 +54,7 @@ describe('Avatar Picker Dialog', () => {
   };
 
   const renderSaveButton = (props: Partial<AvatarPickerDialogProps> = {}) => {
-    return renderWithProps(props)
-      .find(ModalFooter)
-      .find(Button)
-      .first();
+    return renderWithProps(props).find(ModalFooter).find(Button).first();
   };
 
   it('when save button is clicked onImagePicked should be called', () => {
@@ -72,11 +69,7 @@ describe('Avatar Picker Dialog', () => {
     const croppedImgDataURI = 'data:image/meme;based64:w0w';
     component.instance()['exportCroppedImage'] = () => croppedImgDataURI;
 
-    component
-      .find(ModalFooter)
-      .find(Button)
-      .first()
-      .simulate('click');
+    component.find(ModalFooter).find(Button).first().simulate('click');
 
     expect(onImagePicked.mock.calls[0][1]).toEqual(fixedCrop);
   });
@@ -93,11 +86,7 @@ describe('Avatar Picker Dialog', () => {
     const croppedImgDataURI = 'data:image/meme;based64:w0w';
     component.instance()['exportCroppedImage'] = () => croppedImgDataURI;
 
-    component
-      .find(ModalFooter)
-      .find(Button)
-      .first()
-      .simulate('click');
+    component.find(ModalFooter).find(Button).first().simulate('click');
 
     expect(onImagePickedDataURI).toBeCalledWith(croppedImgDataURI);
   });
@@ -111,11 +100,7 @@ describe('Avatar Picker Dialog', () => {
     const { onAvatarSelected } = component.find(PredefinedAvatarList).props();
     onAvatarSelected(selectedAvatar);
 
-    component
-      .find(ModalFooter)
-      .find(Button)
-      .first()
-      .simulate('click');
+    component.find(ModalFooter).find(Button).first().simulate('click');
 
     expect(onAvatarPicked).toBeCalledWith(selectedAvatar);
   });

@@ -43,9 +43,10 @@ export const expandStyles = css`
     }
   }
 
-  .ProseMirror > .${expandClassNames.type('expand')}, .${
-  BreakoutCssClassName.BREAKOUT_MARK_DOM
-} > .${expandClassNames.type('expand')} {
+  .ProseMirror
+    > .${expandClassNames.type('expand')},
+    .${BreakoutCssClassName.BREAKOUT_MARK_DOM}
+    > .${expandClassNames.type('expand')} {
     margin-left: -${akLayoutGutterOffset}px;
     margin-right: -${akLayoutGutterOffset}px;
   }

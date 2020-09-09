@@ -26,7 +26,8 @@ import { PopupUploadEventEmitter } from './types';
 
 import { createPopupUserAuthProvider } from './popup-auth';
 
-export class PopupImpl extends UploadComponent<PopupUploadEventPayloadMap>
+export class PopupImpl
+  extends UploadComponent<PopupUploadEventPayloadMap>
   implements PopupUploadEventEmitter, Popup {
   private readonly container?: HTMLElement;
   private readonly store: Store<State>;

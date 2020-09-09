@@ -7,7 +7,7 @@ export type LoremParams = {
   words?: string;
 };
 
-export default function({ node }: ExtensionComponentProps<LoremParams>) {
+export default function ({ node }: ExtensionComponentProps<LoremParams>) {
   const { parameters, type } = node;
 
   switch (type) {

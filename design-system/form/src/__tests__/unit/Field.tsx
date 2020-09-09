@@ -463,27 +463,15 @@ test('should associate messages with field', () => {
       )}
     </Form>,
   );
-  const labelledBy = wrapper
-    .find(TextField)
-    .prop('aria-labelledby')
-    .split(' ');
+  const labelledBy = wrapper.find(TextField).prop('aria-labelledby').split(' ');
   expect(labelledBy).toContain(
-    wrapper
-      .find(HelperMessage)
-      .find('div')
-      .prop('id'),
+    wrapper.find(HelperMessage).find('div').prop('id'),
   );
   expect(labelledBy).toContain(
-    wrapper
-      .find(ErrorMessage)
-      .find('div')
-      .prop('id'),
+    wrapper.find(ErrorMessage).find('div').prop('id'),
   );
   expect(labelledBy).toContain(
-    wrapper
-      .find(ValidMessage)
-      .find('div')
-      .prop('id'),
+    wrapper.find(ValidMessage).find('div').prop('id'),
   );
 });
 
@@ -497,10 +485,7 @@ test('should associate label with field', () => {
       )}
     </Form>,
   );
-  const labelledBy = wrapper
-    .find(TextField)
-    .prop('aria-labelledby')
-    .split(' ');
+  const labelledBy = wrapper.find(TextField).prop('aria-labelledby').split(' ');
   expect(labelledBy).toContain(wrapper.find(Label).prop('id'));
 });
 

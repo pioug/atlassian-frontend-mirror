@@ -5,7 +5,7 @@ import ErrorIcon from '@atlaskit/icon/glyph/error';
 
 import Textfield from '../src';
 
-export default function() {
+export default function () {
   return (
     <Fragment>
       <label htmlFor="after-input">After input</label>

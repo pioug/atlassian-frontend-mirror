@@ -52,7 +52,8 @@ export const StyledIcon = styled.svg`
   height: 22px;
 `;
 
-export const StyledSvgGroup: ComponentClass<IconProps &
-  SVGProps<SVGGElement>> = styled.g<IconProps>`
+export const StyledSvgGroup: ComponentClass<
+  IconProps & SVGProps<SVGGElement>
+> = styled.g<IconProps>`
   fill: ${({ active }) => (active ? '#0061C5' : '#42526E')};
 `;

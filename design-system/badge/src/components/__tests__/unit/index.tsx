@@ -6,9 +6,7 @@ import Format from '../../Format';
 import Badge from '../../index';
 
 function getFormatProps(badge: React.ReactElement<any>) {
-  return mount(badge)
-    .find(Format)
-    .props();
+  return mount(badge).find(Format).props();
 }
 
 test('snapshot', () => {

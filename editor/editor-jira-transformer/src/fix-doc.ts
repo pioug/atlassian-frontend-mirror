@@ -96,7 +96,7 @@ function repairParagraph(p: HTMLParagraphElement) {
   }
 }
 
-export default function(doc: Document): Document {
+export default function (doc: Document): Document {
   const paragraphs = doc.querySelectorAll('p');
   for (let i = 0, length = paragraphs.length; i < length; i++) {
     repairParagraph(paragraphs[i]);

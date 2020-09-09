@@ -20,13 +20,13 @@ describe('Collab Socket', () => {
     toNativeBridge.trackEvent.mockClear();
   });
 
-  it('should connect to bridge on constructor', function() {
+  it('should connect to bridge on constructor', function () {
     new CollabSocket(path);
 
     expect(toNativeBridge.connectToCollabService).toHaveBeenCalledWith(path);
   });
 
-  it('should disconnect from bridge on close', function() {
+  it('should disconnect from bridge on close', function () {
     const socket = new CollabSocket(path);
 
     socket.close();
@@ -34,7 +34,7 @@ describe('Collab Socket', () => {
     expect(toNativeBridge.disconnectFromCollabService).toHaveBeenCalled();
   });
 
-  it('should emit to bridge on emit', function() {
+  it('should emit to bridge on emit', function () {
     const socket = new CollabSocket(path);
 
     socket.emit('test', 'foo', 'bar');
@@ -45,7 +45,7 @@ describe('Collab Socket', () => {
     );
   });
 
-  it('should stored the session id from connect event', function() {
+  it('should stored the session id from connect event', function () {
     const socket = new CollabSocket(path);
     const id = 'unique-id';
 
@@ -54,7 +54,7 @@ describe('Collab Socket', () => {
     expect(socket.id).toEqual(id);
   });
 
-  it('should parse the arguments and pass it to the connected event', function(next) {
+  it('should parse the arguments and pass it to the connected event', function (next) {
     const socket = new CollabSocket(path);
     const originalArgs = {
       a: 'string',
@@ -73,7 +73,7 @@ describe('Collab Socket', () => {
   });
 
   describe('Error Handling', () => {
-    it('should no throw with invalid payload', function() {
+    it('should no throw with invalid payload', function () {
       const socket = new CollabSocket(path);
 
       expect(() =>
@@ -84,7 +84,7 @@ describe('Collab Socket', () => {
       ).not.toThrow();
     });
 
-    it('should send track event when the socket receive an invalid payload', function() {
+    it('should send track event when the socket receive an invalid payload', function () {
       const socket = new CollabSocket(path);
       socket.received('connect', 'unique-id');
 
@@ -121,7 +121,7 @@ describe('Collab Socket', () => {
       );
     });
 
-    it('should not emit an event received with an invalid payload', function() {
+    it('should not emit an event received with an invalid payload', function () {
       const socket = new CollabSocket(path);
       const emitSpy = jest.spyOn(
         (socket as any).emitter as EventEmitter2,
@@ -137,7 +137,7 @@ describe('Collab Socket', () => {
       expect(emitSpy).not.toHaveBeenCalled();
     });
 
-    it('should send track event when the socket receive an event before `connect` event', function() {
+    it('should send track event when the socket receive an event before `connect` event', function () {
       const socket = new CollabSocket(path);
 
       socket.received('custom-event', '{}');
@@ -158,7 +158,7 @@ describe('Collab Socket', () => {
       );
     });
 
-    it('should send track event when attempt to get the `socket.id` before connect event', function() {
+    it('should send track event when attempt to get the `socket.id` before connect event', function () {
       const socket = new CollabSocket(path);
 
       socket.id;
@@ -174,7 +174,7 @@ describe('Collab Socket', () => {
       );
     });
 
-    it('should not send track event when the socket receive an event after `connect` event', function() {
+    it('should not send track event when the socket receive an event after `connect` event', function () {
       const socket = new CollabSocket(path);
       socket.received('connect', 'unique-id');
 
@@ -183,7 +183,7 @@ describe('Collab Socket', () => {
       expect(toNativeBridge.trackEvent).not.toHaveBeenCalled();
     });
 
-    it('should not send track event when attempt to get the `socket.id` after `connect` event', function() {
+    it('should not send track event when attempt to get the `socket.id` after `connect` event', function () {
       const socket = new CollabSocket(path);
       socket.received('connect', 'unique-id');
       socket.id;

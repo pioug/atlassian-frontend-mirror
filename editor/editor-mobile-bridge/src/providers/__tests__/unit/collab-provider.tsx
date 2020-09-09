@@ -51,7 +51,7 @@ describe('createCollabProvider', () => {
     window.webkit = originalWebkit;
   });
 
-  it('should get collab config', async function() {
+  it('should get collab config', async function () {
     await createCollabProviderFactory(new FetchProxy())(new WebBridgeImpl());
 
     expect(Provider).toHaveBeenCalledWith(
@@ -172,7 +172,7 @@ function setupFactory() {
 describe('useCollabProvider', () => {
   const setup = setupFactory();
 
-  it('should create the collab provider', function() {
+  it('should create the collab provider', function () {
     jest
       .spyOn(window, 'location', 'get')
       .mockImplementation(
@@ -189,7 +189,7 @@ describe('useCollabProvider', () => {
     ).toEqual(1);
   });
 
-  it('should create the collab provider', function() {
+  it('should create the collab provider', function () {
     jest
       .spyOn(window, 'location', 'get')
       .mockImplementation(

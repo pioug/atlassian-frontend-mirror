@@ -61,10 +61,11 @@ const tableSharedStyle = css`
   .${TableSharedCssClassName.TABLE_STICKY_WRAPPER} > table {
     border-collapse: collapse;
     margin: ${tableMarginTop}px ${tableMarginSides}px 0 0;
-    border: ${tableCellBorderWidth}px solid ${themed({
-  light: akEditorTableBorder,
-  dark: akEditorTableBorderDark,
-})};
+    border: ${tableCellBorderWidth}px solid
+      ${themed({
+        light: akEditorTableBorder,
+        dark: akEditorTableBorderDark,
+      })};
     table-layout: fixed;
     font-size: 1em;
     width: 100%;
@@ -92,10 +93,11 @@ const tableSharedStyle = css`
         min-width: ${tableCellMinWidth}px;
         font-weight: normal;
         vertical-align: top;
-        border: 1px solid ${themed({
-          light: akEditorTableBorder,
-          dark: akEditorTableBorderDark,
-        })};
+        border: 1px solid
+          ${themed({
+            light: akEditorTableBorder,
+            dark: akEditorTableBorderDark,
+          })};
         border-right-width: 0;
         border-bottom-width: 0;
         padding: ${tableCellPadding}px;

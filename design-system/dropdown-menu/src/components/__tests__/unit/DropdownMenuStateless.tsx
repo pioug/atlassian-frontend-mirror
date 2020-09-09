@@ -31,10 +31,7 @@ describe('dropdown menu - DropdownMenuStateless', () => {
       jest.useFakeTimers();
       setTimeout(() => {
         expect(
-          wrapper
-            .find(Droplist)
-            .find(DropdownItemFocusManager)
-            .exists(),
+          wrapper.find(Droplist).find(DropdownItemFocusManager).exists(),
         ).toBe(true);
         done();
       }, 10000);

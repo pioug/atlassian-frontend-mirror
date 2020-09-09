@@ -92,11 +92,11 @@ describe('FileCardImageView', () => {
       );
     });
 
-    it('should render empty wrapper when error prop is true', function() {
+    it('should render empty wrapper when error prop is true', function () {
       expect(card.find('.wrapper').children()).toHaveLength(0);
     });
 
-    it('should render card overlay', function() {
+    it('should render card overlay', function () {
       expectToEqual(card.find(CardOverlay).props(), {
         cardStatus: 'error',
         error: errorStr,
@@ -128,7 +128,7 @@ describe('FileCardImageView', () => {
       );
     });
 
-    it('should render empty wrapper when error prop is true', function() {
+    it('should render empty wrapper when error prop is true', function () {
       expect(card.find('.wrapper').children()).toHaveLength(0);
     });
 
@@ -465,7 +465,7 @@ describe('FileCardImageView', () => {
     expect(card.find(VidPlayIcon)).toHaveLength(0);
   });
 
-  it('should render correct background based on mediaType"', function() {
+  it('should render correct background based on mediaType"', function () {
     const wrapperAsImage = shallow(<Wrapper mediaType="image" />);
     const wrapperNotImage = shallow(<Wrapper />);
 

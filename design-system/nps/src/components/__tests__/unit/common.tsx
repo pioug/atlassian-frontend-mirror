@@ -83,12 +83,7 @@ describe('Common Components', () => {
       const wrapper = shallow(<Header {...props} />);
       const title = wrapper.find(Title);
       expect(title.exists()).toBe(true);
-      expect(
-        title
-          .children()
-          .first()
-          .text(),
-      ).toEqual(props.title);
+      expect(title.children().first().text()).toEqual(props.title);
     });
 
     it('should render HeaderButtons', () => {

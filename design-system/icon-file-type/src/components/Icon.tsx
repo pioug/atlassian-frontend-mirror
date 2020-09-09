@@ -21,7 +21,7 @@ interface IconWrapperProps {
 }
 
 const IconWrapper = styled.span<IconWrapperProps>`
-${getSize} color: ${p => p.primaryColor || 'currentColor'};
+  ${getSize} color: ${p => p.primaryColor || 'currentColor'};
   display: inline-block;
   fill: ${p => p.secondaryColor || background};
   flex-shrink: 0;

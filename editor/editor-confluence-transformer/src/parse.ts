@@ -50,7 +50,7 @@ const convertedNodes = new WeakMap<Node, Fragment | PMNode>();
 // This reverted mapping is used to map Unsupported Node back to it's original cxhtml
 const convertedNodesReverted = new WeakMap<Fragment | PMNode, Node>();
 
-export default function(cxhtml: string, schema: Schema) {
+export default function (cxhtml: string, schema: Schema) {
   const dom = parseCxhtml(cxhtml).querySelector('body')!;
   return schema.nodes.doc.createChecked({}, parseDomNode(schema, dom));
 }

@@ -25,7 +25,8 @@ class RendererMobileWebBridgeOverride extends WebBridge {
   }
 }
 
-class RendererBridgeImplementation extends RendererMobileWebBridgeOverride
+class RendererBridgeImplementation
+  extends RendererMobileWebBridgeOverride
   implements RendererBridge {
   taskDecisionProvider?: Promise<TaskDecisionProviderImpl>;
 

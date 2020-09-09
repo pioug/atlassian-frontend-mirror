@@ -12,9 +12,9 @@ const withTheme = defaultTheme => {
       return <WrappedComponent theme={theme} {...rest} />;
     });
 
-    WithTheme.displayName = `WithTheme(${WrappedComponent.displayName ||
-      WrappedComponent.name ||
-      'Component'})`;
+    WithTheme.displayName = `WithTheme(${
+      WrappedComponent.displayName || WrappedComponent.name || 'Component'
+    })`;
 
     return WithTheme;
   };

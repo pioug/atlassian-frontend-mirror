@@ -407,17 +407,11 @@ describe('Media', () => {
         await sleep(0);
         mediaFileCard.update();
 
+        expect(mediaFileCard.find(Card).at(0).props()).toHaveProperty(
+          'mediaViewerDataSource',
+        );
         expect(
-          mediaFileCard
-            .find(Card)
-            .at(0)
-            .props(),
-        ).toHaveProperty('mediaViewerDataSource');
-        expect(
-          mediaFileCard
-            .find(Card)
-            .at(0)
-            .props().mediaViewerDataSource,
+          mediaFileCard.find(Card).at(0).props().mediaViewerDataSource,
         ).toEqual({ list: [fileIdentifier] });
         mediaFileCard.unmount();
       });
@@ -429,17 +423,11 @@ describe('Media', () => {
         await sleep(0);
         mediaExternalCard.update();
 
+        expect(mediaExternalCard.find(Card).at(0).props()).toHaveProperty(
+          'mediaViewerDataSource',
+        );
         expect(
-          mediaExternalCard
-            .find(Card)
-            .at(0)
-            .props(),
-        ).toHaveProperty('mediaViewerDataSource');
-        expect(
-          mediaExternalCard
-            .find(Card)
-            .at(0)
-            .props().mediaViewerDataSource,
+          mediaExternalCard.find(Card).at(0).props().mediaViewerDataSource,
         ).toEqual({ list: [externalIdentifier] });
         mediaExternalCard.unmount();
       });
@@ -455,30 +443,18 @@ describe('Media', () => {
         mediaExternalCard.update();
 
         expect(
-          mediaFileCard
-            .find(Card)
-            .at(0)
-            .props().mediaViewerDataSource,
+          mediaFileCard.find(Card).at(0).props().mediaViewerDataSource,
         ).toEqual({ list: [fileIdentifier] });
         expect(
-          mediaExternalCard
-            .find(Card)
-            .at(0)
-            .props().mediaViewerDataSource,
+          mediaExternalCard.find(Card).at(0).props().mediaViewerDataSource,
         ).toEqual({ list: [fileIdentifier, externalIdentifier] });
 
         mediaFileCard.setProps({});
+        expect(mediaFileCard.find(Card).at(0).props()).toHaveProperty(
+          'mediaViewerDataSource',
+        );
         expect(
-          mediaFileCard
-            .find(Card)
-            .at(0)
-            .props(),
-        ).toHaveProperty('mediaViewerDataSource');
-        expect(
-          mediaFileCard
-            .find(Card)
-            .at(0)
-            .props().mediaViewerDataSource,
+          mediaFileCard.find(Card).at(0).props().mediaViewerDataSource,
         ).toEqual({ list: [fileIdentifier, externalIdentifier] });
         mediaFileCard.unmount();
         mediaExternalCard.unmount();
@@ -507,16 +483,10 @@ describe('Media', () => {
         mediaExternalCard0.setProps({});
 
         expect(
-          mediaFileCard1
-            .find(Card)
-            .at(0)
-            .props().mediaViewerDataSource,
+          mediaFileCard1.find(Card).at(0).props().mediaViewerDataSource,
         ).toEqual({ list: [fileIdentifier1, externalIdentifier0] });
         expect(
-          mediaExternalCard0
-            .find(Card)
-            .at(0)
-            .props().mediaViewerDataSource,
+          mediaExternalCard0.find(Card).at(0).props().mediaViewerDataSource,
         ).toEqual({ list: [fileIdentifier1, externalIdentifier0] });
 
         mediaFileCard1.unmount();

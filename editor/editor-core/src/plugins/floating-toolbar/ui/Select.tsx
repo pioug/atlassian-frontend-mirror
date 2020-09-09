@@ -36,9 +36,11 @@ export interface State {
   isOpen: boolean;
 }
 
-const SelectWrapper: ComponentClass<HTMLAttributes<{}> & {
-  width: number;
-}> = styled.div`
+const SelectWrapper: ComponentClass<
+  HTMLAttributes<{}> & {
+    width: number;
+  }
+> = styled.div`
   width: ${props => props.width}px;
 `;
 

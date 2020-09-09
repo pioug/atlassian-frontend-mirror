@@ -213,10 +213,7 @@ describe('FieldTextStateless', () => {
 
       // The onFocus prop doesn't actualy get fired by enzyme for some reason, so attaching
       // the spy directly to the input.
-      wrapper
-        .find('input')
-        .getDOMNode()
-        .addEventListener('focus', focusSpy);
+      wrapper.find('input').getDOMNode().addEventListener('focus', focusSpy);
 
       expect(focusSpy).toHaveBeenCalledTimes(0);
       wrapper.instance().focus();

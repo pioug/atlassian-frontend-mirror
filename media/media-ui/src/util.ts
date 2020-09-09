@@ -33,10 +33,7 @@ export function dataURItoFile(
   // separate out the mime component
   let mimeString;
   try {
-    mimeString = dataURI
-      .split(',')[0]
-      .split(':')[1]
-      .split(';')[0];
+    mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
   } catch (e) {
     // https://stackoverflow.com/questions/1176022/unknown-file-type-mime
     mimeString = 'application/octet-stream';

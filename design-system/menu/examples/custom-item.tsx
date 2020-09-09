@@ -8,9 +8,11 @@ import { CSSFn, CustomItem, CustomItemComponentProps } from '../src';
 
 import Slack from './icons/slack';
 
-const CustomComponent: React.FC<CustomItemComponentProps & {
-  href: string;
-}> = ({ children, href, ...props }) => {
+const CustomComponent: React.FC<
+  CustomItemComponentProps & {
+    href: string;
+  }
+> = ({ children, href, ...props }) => {
   return (
     <a href={href} {...props}>
       {children}

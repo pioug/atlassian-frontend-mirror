@@ -25,9 +25,7 @@ export const mentionsStyles = css`
   }
 
   .danger {
-    .${
-      MentionSharedCssClassName.MENTION_CONTAINER
-    }.${akEditorSelectedNodeClassName}
+    .${MentionSharedCssClassName.MENTION_CONTAINER}.${akEditorSelectedNodeClassName}
       > span
       > span {
       box-shadow: 0 0 0 ${akEditorSelectedBorderSize}px ${akEditorDeleteBorder};

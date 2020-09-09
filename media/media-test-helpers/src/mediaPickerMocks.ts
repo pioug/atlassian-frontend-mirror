@@ -90,7 +90,9 @@ export const mockEventEmiter = () => ({
   emit: jest.fn(),
 });
 
-export const mockPopupUploadEventEmitter = (): jest.Mocked<PopupUploadEventEmitter> => ({
+export const mockPopupUploadEventEmitter = (): jest.Mocked<
+  PopupUploadEventEmitter
+> => ({
   emitPluginItemsInserted: jest.fn(),
   emitClosed: jest.fn(),
   emitUploadsStart: jest.fn(),

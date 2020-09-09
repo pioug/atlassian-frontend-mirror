@@ -128,15 +128,15 @@ export const EditorContentArea = styled.div`
         .pm-table-container,
         .code-block,
         .extension-container {
-          max-width: ${containerWidth -
-            TOTAL_PADDING -
-            tableMarginFullWidthMode * 2}px;
+          max-width: ${
+            containerWidth - TOTAL_PADDING - tableMarginFullWidthMode * 2
+          }px;
         }
 
         [data-layout-section] {
-          max-width: ${containerWidth -
-            TOTAL_PADDING +
-            akLayoutGutterOffset * 2}px;
+          max-width: ${
+            containerWidth - TOTAL_PADDING + akLayoutGutterOffset * 2
+          }px;
         }
       `;
     }}

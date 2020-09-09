@@ -114,7 +114,8 @@ const insertQueryFromToolbar = (
   insertQueryMethod(INPUT_METHOD.TOOLBAR)(state, dispatch);
 };
 
-export default class WebBridgeImpl extends WebBridge
+export default class WebBridgeImpl
+  extends WebBridge
   implements NativeToWebBridge {
   textFormatBridgeState: TextFormattingState | null = null;
   statusBridgeState: StatusState | null = null;

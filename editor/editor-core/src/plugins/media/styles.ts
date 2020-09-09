@@ -53,7 +53,8 @@ export const mediaStyles = css`
       float: right;
     }
 
-    .mediaSingleView-content-wrap[layout='wrap-right'] + .mediaSingleView-content-wrap[layout='wrap-left']  {
+    .mediaSingleView-content-wrap[layout='wrap-right']
+      + .mediaSingleView-content-wrap[layout='wrap-left'] {
       clear: both;
     }
 

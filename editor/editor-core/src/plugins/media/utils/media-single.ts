@@ -67,7 +67,7 @@ function insertNodesWithOptionalParagraph(
     fileExtension?: string;
   } = {},
 ): Command {
-  return function(state, dispatch) {
+  return function (state, dispatch) {
     const { tr, schema } = state;
     const { paragraph } = schema.nodes;
     const { inputMethod, fileExtension } = analyticsAttributes;

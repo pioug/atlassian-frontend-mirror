@@ -81,19 +81,11 @@ function setup(props?: Partial<Props & ImageSize>) {
 }
 
 function clickZoomIn(component: ReactWrapper<any, any>) {
-  component
-    .find(ZoomControls)
-    .find(Button)
-    .last()
-    .simulate('click');
+  component.find(ZoomControls).find(Button).last().simulate('click');
 }
 
 function clickZoomOut(component: ReactWrapper<any, any>) {
-  component
-    .find(ZoomControls)
-    .find(Button)
-    .first()
-    .simulate('click');
+  component.find(ZoomControls).find(Button).first().simulate('click');
 }
 
 describe('InteractiveImg', () => {

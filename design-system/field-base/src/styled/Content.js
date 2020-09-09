@@ -26,8 +26,9 @@ const getBorderAndPadding = ({ paddingDisabled, compact }) => {
 
   const padding = paddingDisabled
     ? `0`
-    : `${(height - 2 * borderWidth - innerHeight) / 2}px ${horizontalPadding -
-        borderWidth}px`;
+    : `${(height - 2 * borderWidth - innerHeight) / 2}px ${
+        horizontalPadding - borderWidth
+      }px`;
 
   return css`
     border-width: ${borderWidth}px;
@@ -123,18 +124,18 @@ export const ContentWrapper = styled.div`
     `
       cursor: not-allowed;
     `} ${props =>
-  props.grow
-    ? css`
-        flex: 0 0 ${getMaxWidth(props.maxWidth)};
-      `
-    : `
+    props.grow
+      ? css`
+          flex: 0 0 ${getMaxWidth(props.maxWidth)};
+        `
+      : `
           flex: 0 0 auto;
         `} ${props =>
-  props.grow
-    ? `
+    props.grow
+      ? `
           display: block;
         `
-    : `
+      : `
           display: inline-block;
           vertical-align: top;
         `} max-width: ${props => getMaxWidth(props.maxWidth)};

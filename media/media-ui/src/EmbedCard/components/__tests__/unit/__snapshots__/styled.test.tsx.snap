@@ -43,7 +43,7 @@ exports[`LinkWrapper should have hover styles when isInteractive=true 1`] = `
 }
 
 .c0:after {
-  content: "";
+  content: '';
   background: transparent;
   -webkit-transition: background 0.3s,box-shadow 0.3s;
   transition: background 0.3s,box-shadow 0.3s;
@@ -91,7 +91,7 @@ exports[`LinkWrapper should not have hover styles when isInteractive=false 1`] =
 }
 
 .c0:after {
-  content: "";
+  content: '';
   background: transparent;
   -webkit-transition: background 0.3s,box-shadow 0.3s;
   transition: background 0.3s,box-shadow 0.3s;
@@ -156,7 +156,7 @@ exports[`Wrapper should have hover styles when isInteractive=true 1`] = `
 }
 
 .c0:after {
-  content: "";
+  content: '';
   background: transparent;
   -webkit-transition: background 0.3s,box-shadow 0.3s;
   transition: background 0.3s,box-shadow 0.3s;
@@ -200,7 +200,7 @@ exports[`Wrapper should not have hover styles when isInteractive=false 1`] = `
 }
 
 .c0:after {
-  content: "";
+  content: '';
   background: transparent;
   -webkit-transition: background 0.3s,box-shadow 0.3s;
   transition: background 0.3s,box-shadow 0.3s;

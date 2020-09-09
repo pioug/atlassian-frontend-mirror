@@ -573,7 +573,7 @@ describe('table plugin: actions', () => {
 
   describe('#toggleBoldOnHeaderCells', () => {
     describe('when there is no cursor', () => {
-      it('should not add a strong mark on storedMarks', function() {
+      it('should not add a strong mark on storedMarks', function () {
         const { editorView } = editor(
           doc(table()(tr(th()(p('{<}foo bar{>}'))), tr(td()(p(''))))),
         );

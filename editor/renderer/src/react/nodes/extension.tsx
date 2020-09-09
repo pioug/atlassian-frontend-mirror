@@ -38,8 +38,9 @@ export const renderExtension = (
       {({ width }) => (
         <div
           ref={options && options.handleRef}
-          className={`${RendererCssClassName.EXTENSION} ${options &&
-            options.shadowClassNames}`}
+          className={`${RendererCssClassName.EXTENSION} ${
+            options && options.shadowClassNames
+          }`}
           style={{
             width: calcBreakoutWidth(layout, width),
           }}
@@ -52,8 +53,9 @@ export const renderExtension = (
   );
 };
 
-const Extension: React.StatelessComponent<Props &
-  OverflowShadowProps> = props => {
+const Extension: React.StatelessComponent<
+  Props & OverflowShadowProps
+> = props => {
   const { text, layout = 'default', handleRef, shadowClassNames } = props;
   return (
     <ExtensionRenderer {...props} type="extension">

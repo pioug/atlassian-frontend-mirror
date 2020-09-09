@@ -143,12 +143,9 @@ describe('Renderer - React/Nodes/Table', () => {
         );
 
         table.find('tr').forEach((row, index) => {
-          expect(
-            row
-              .find('td')
-              .at(0)
-              .text(),
-          ).toEqual(index === 0 ? '' : `${index}`);
+          expect(row.find('td').at(0).text()).toEqual(
+            index === 0 ? '' : `${index}`,
+          );
         });
       });
     });
@@ -176,12 +173,7 @@ describe('Renderer - React/Nodes/Table', () => {
         );
 
         table.find('tr').forEach((row, index) => {
-          expect(
-            row
-              .find('td')
-              .at(0)
-              .text(),
-          ).toEqual(`${index + 1}`);
+          expect(row.find('td').at(0).text()).toEqual(`${index + 1}`);
         });
       });
     });
@@ -502,10 +494,7 @@ describe('Renderer - React/Nodes/Table', () => {
       });
       wrap.update();
 
-      const firstRowProps = wrap
-        .find(TableRow)
-        .first()
-        .props();
+      const firstRowProps = wrap.find(TableRow).first().props();
       expect(firstRowProps.tableOrderStatus).toEqual({
         columnIndex: 0,
         sortOrdered: SortOrder.ASC,
@@ -545,10 +534,7 @@ describe('Renderer - React/Nodes/Table', () => {
         });
         wrap.update();
 
-        const firstRowProps = wrap
-          .find(TableRow)
-          .first()
-          .props();
+        const firstRowProps = wrap.find(TableRow).first().props();
         expect(firstRowProps.tableOrderStatus).toBeUndefined();
         expect(firstRowProps.onSorting).toBeUndefined();
       });
@@ -585,10 +571,7 @@ describe('Renderer - React/Nodes/Table', () => {
         });
         wrap.update();
 
-        const firstRowProps = wrap
-          .find(TableRow)
-          .first()
-          .props();
+        const firstRowProps = wrap.find(TableRow).first().props();
         expect(firstRowProps.tableOrderStatus).toBeUndefined();
         expect(firstRowProps.onSorting).toBeUndefined();
       });
@@ -623,10 +606,7 @@ describe('Renderer - React/Nodes/Table', () => {
         });
         wrap.update();
 
-        const firstRowProps = wrap
-          .find(TableRow)
-          .first()
-          .props();
+        const firstRowProps = wrap.find(TableRow).first().props();
         expect(firstRowProps.tableOrderStatus).toBeUndefined();
         expect(firstRowProps.onSorting).toBeUndefined();
       });
@@ -670,12 +650,9 @@ describe('Renderer - React/Nodes/Table', () => {
         ),
         attrs: { isNumberColumnEnabled: true },
       };
-      const TableRowWithOriginalPos: React.FunctionComponent<React.ComponentProps<
-        typeof TableRow
-      > & { originalIndex: number }> = ({
-        originalIndex,
-        ...tableRowProps
-      }) => {
+      const TableRowWithOriginalPos: React.FunctionComponent<
+        React.ComponentProps<typeof TableRow> & { originalIndex: number }
+      > = ({ originalIndex, ...tableRowProps }) => {
         return <TableRow {...tableRowProps} />;
       };
 
@@ -726,10 +703,7 @@ describe('Renderer - React/Nodes/Table', () => {
               </Table>
             </SmartCardStorageContext.Provider>,
           );
-          const tableRowProps = wrap
-            .find(TableRow)
-            .first()
-            .props();
+          const tableRowProps = wrap.find(TableRow).first().props();
 
           tableRowProps.onSorting!(0, SortOrder.ASC);
 
@@ -812,49 +786,28 @@ describe('Renderer - React/Nodes/Table', () => {
       </Table>,
     );
     it('should sort table by column A to Z', () => {
-      const tableRowProps = wrap
-        .find(TableRow)
-        .first()
-        .props();
+      const tableRowProps = wrap.find(TableRow).first().props();
       tableRowProps.onSorting!(0, SortOrder.ASC);
       wrap.update();
 
-      const firstCellFromSecondRow = wrap
-        .find(TableRow)
-        .at(1)
-        .find('td')
-        .at(0);
+      const firstCellFromSecondRow = wrap.find(TableRow).at(1).find('td').at(0);
       expect(firstCellFromSecondRow.text()).toEqual('A');
     });
     it('should sort table by column Z to A', () => {
-      const tableRowProps = wrap
-        .find(TableRow)
-        .first()
-        .props();
+      const tableRowProps = wrap.find(TableRow).first().props();
       tableRowProps.onSorting!(0, SortOrder.DESC);
       wrap.update();
 
-      const firstCellFromSecondRow = wrap
-        .find(TableRow)
-        .at(1)
-        .find('td')
-        .at(0);
+      const firstCellFromSecondRow = wrap.find(TableRow).at(1).find('td').at(0);
 
       expect(firstCellFromSecondRow.text()).toEqual('D');
     });
     it('should clear table order', () => {
-      const tableRowProps = wrap
-        .find(TableRow)
-        .first()
-        .props();
+      const tableRowProps = wrap.find(TableRow).first().props();
       tableRowProps.onSorting!(0, SortOrder.NO_ORDER);
       wrap.update();
 
-      const firstCellFromSecondRow = wrap
-        .find(TableRow)
-        .at(1)
-        .find('td')
-        .at(0);
+      const firstCellFromSecondRow = wrap.find(TableRow).at(1).find('td').at(0);
 
       expect(firstCellFromSecondRow.text()).toEqual('B');
     });

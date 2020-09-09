@@ -185,8 +185,9 @@ const RenderFallbackContainer = ({
     : ''}
 `;
 
-export const MediaWrapper: React.ComponentClass<HTMLAttributes<{}> &
-  MediaWrapperProps> = styled.div`
+export const MediaWrapper: React.ComponentClass<
+  HTMLAttributes<{}> & MediaWrapperProps
+> = styled.div`
   position: relative;
 
   ${RenderFallbackContainer}

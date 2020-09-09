@@ -211,24 +211,9 @@ describe(`${name} - stateless`, () => {
         );
 
         expect(select.find(Group).length).toBe(3);
-        expect(
-          select
-            .find(Group)
-            .at(0)
-            .find(Item).length,
-        ).toBe(1);
-        expect(
-          select
-            .find(Group)
-            .at(1)
-            .find(Item).length,
-        ).toBe(1);
-        expect(
-          select
-            .find(Group)
-            .at(2)
-            .find(Item).length,
-        ).toBe(2);
+        expect(select.find(Group).at(0).find(Item).length).toBe(1);
+        expect(select.find(Group).at(1).find(Item).length).toBe(1);
+        expect(select.find(Group).at(2).find(Item).length).toBe(2);
       });
 
       it('should not render a group if all items in the group are selected', () => {
@@ -245,30 +230,10 @@ describe(`${name} - stateless`, () => {
         );
 
         expect(select.find(Group).length).toBe(2);
-        expect(
-          select
-            .find(Group)
-            .at(0)
-            .find(Item).length,
-        ).toBe(2);
-        expect(
-          select
-            .find(Group)
-            .at(0)
-            .props().heading,
-        ).toBe('group 1');
-        expect(
-          select
-            .find(Group)
-            .at(1)
-            .find(Item).length,
-        ).toBe(2);
-        expect(
-          select
-            .find(Group)
-            .at(1)
-            .props().heading,
-        ).toBe('group 3');
+        expect(select.find(Group).at(0).find(Item).length).toBe(2);
+        expect(select.find(Group).at(0).props().heading).toBe('group 1');
+        expect(select.find(Group).at(1).find(Item).length).toBe(2);
+        expect(select.find(Group).at(1).props().heading).toBe('group 3');
       });
 
       it('should render loading state for initial fetching when properties are set and no items', () => {
@@ -351,12 +316,7 @@ describe(`${name} - stateless`, () => {
 
         expect(select.find(Group).length).toBe(1);
         expect(select.find(Group).find(Item).length).toBe(1);
-        expect(
-          select
-            .find(Group)
-            .find(Item)
-            .props().description,
-        ).toBe('item1');
+        expect(select.find(Group).find(Item).props().description).toBe('item1');
       });
     });
 
@@ -451,12 +411,7 @@ describe(`${name} - stateless`, () => {
       );
       const tagGroup = wrapper.find(TagGroup);
       expect(tagGroup.find(Tag).length).toBe(2);
-      expect(
-        tagGroup
-          .find(Tag)
-          .at(0)
-          .prop('appearance'),
-      ).toBe('rounded');
+      expect(tagGroup.find(Tag).at(0).prop('appearance')).toBe('rounded');
     });
   });
 });

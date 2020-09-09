@@ -71,12 +71,9 @@ describe('Renderer - React/Nodes/InlineExtension', () => {
       />,
     );
 
-    expect(
-      extension
-        .find('span')
-        .first()
-        .text(),
-    ).toEqual('This is the default text');
+    expect(extension.find('span').first().text()).toEqual(
+      'This is the default text',
+    );
     extension.unmount();
   });
 
@@ -91,12 +88,9 @@ describe('Renderer - React/Nodes/InlineExtension', () => {
       />,
     );
 
-    expect(
-      extension
-        .find('span')
-        .first()
-        .text(),
-    ).toEqual('This is a react element');
+    expect(extension.find('span').first().text()).toEqual(
+      'This is a react element',
+    );
     extension.unmount();
   });
 
@@ -111,12 +105,7 @@ describe('Renderer - React/Nodes/InlineExtension', () => {
       />,
     );
 
-    expect(
-      extension
-        .find('span')
-        .first()
-        .text(),
-    ).toEqual('inlineExtension');
+    expect(extension.find('span').first().text()).toEqual('inlineExtension');
     extension.unmount();
   });
 

@@ -5,9 +5,11 @@ import { N30, N100 } from '@atlaskit/theme/colors';
 
 const akGridSize = gridSize() + 'px';
 
-export const ButtonGroup: ComponentClass<HTMLAttributes<{}> & {
-  width?: 'small' | 'large';
-}> = styled.span`
+export const ButtonGroup: ComponentClass<
+  HTMLAttributes<{}> & {
+    width?: 'small' | 'large';
+  }
+> = styled.span`
   display: inline-flex;
   align-items: center;
 
@@ -24,9 +26,11 @@ export const Separator: ComponentClass<HTMLAttributes<{}>> = styled.span`
   margin: 0 8px;
 `;
 
-export const Wrapper: ComponentClass<HTMLAttributes<{}> & {
-  isSmall?: boolean;
-}> = styled.span`
+export const Wrapper: ComponentClass<
+  HTMLAttributes<{}> & {
+    isSmall?: boolean;
+  }
+> = styled.span`
   display: flex;
   align-items: center;
 

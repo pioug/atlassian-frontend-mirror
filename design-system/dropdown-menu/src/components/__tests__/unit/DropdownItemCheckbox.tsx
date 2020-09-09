@@ -27,10 +27,7 @@ describe.skip('dropdown menu - DropdownItemCheckbox', () => {
     let wrapper: ReactWrapper;
 
     const clickItem = () => {
-      wrapper
-        .find(Item)
-        .first()
-        .simulate('click');
+      wrapper.find(Item).first().simulate('click');
     };
 
     beforeEach(() => {
@@ -77,10 +74,7 @@ describe.skip('dropdown menu - DropdownItemCheckbox', () => {
         </DropdownItemGroupCheckbox>
       </DropdownMenuStateless>,
     );
-    wrapper
-      .find(Item)
-      .first()
-      .simulate('click');
+    wrapper.find(Item).first().simulate('click');
     expect(clickSpy).toHaveBeenCalled();
   });
 
@@ -96,10 +90,7 @@ describe.skip('dropdown menu - DropdownItemCheckbox', () => {
           </DropdownItemGroupCheckbox>
         </DropdownMenuStateless>,
       );
-      wrapper
-        .find(Item)
-        .first()
-        .simulate('keydown', { key: triggerKey });
+      wrapper.find(Item).first().simulate('keydown', { key: triggerKey });
       expect(clickSpy).toHaveBeenCalled();
     });
   });
@@ -118,10 +109,7 @@ describe.skip('dropdown menu - DropdownItemCheckbox', () => {
       expect(isIconSelected(wrapper.find(CheckboxIcon))).toBe(true);
 
       // Clicks the DropdownItemCheckbox to unselect it
-      wrapper
-        .find(Item)
-        .first()
-        .simulate('click');
+      wrapper.find(Item).first().simulate('click');
       expect(isIconSelected(wrapper.find(CheckboxIcon))).toBe(false);
 
       // Causes the DropdownItemCheckbox to be unmounted and remounted
@@ -229,14 +217,8 @@ describe.skip('dropdown menu - DropdownItemCheckbox', () => {
       expect(isIconSelected(wrapper.find(CheckboxIcon).at(1))).toBe(false);
 
       // Item is now not selected, and onClick has been called so app can update it's state
-      wrapper
-        .find(Item)
-        .at(0)
-        .simulate('click');
-      wrapper
-        .find(Item)
-        .at(1)
-        .simulate('click');
+      wrapper.find(Item).at(0).simulate('click');
+      wrapper.find(Item).at(1).simulate('click');
       expect(isIconSelected(wrapper.find(CheckboxIcon).at(0))).toBe(false);
       expect(isIconSelected(wrapper.find(CheckboxIcon).at(1))).toBe(true);
       expect(clickSpyZero).toHaveBeenCalled();

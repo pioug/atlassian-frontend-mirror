@@ -28,10 +28,7 @@ function simulateClickOnShapePopup(
   component: ReactWrapper<ToolbarProps, ToolbarState>,
   tool: Tool,
 ) {
-  component
-    .find(ShapePopup)
-    .find(Button)
-    .simulate('click');
+  component.find(ShapePopup).find(Button).simulate('click');
 
   component.update();
 
@@ -46,10 +43,7 @@ function simulateClickOnColorPopup(
   component: ReactWrapper<ToolbarProps, ToolbarState>,
   color: string,
 ) {
-  component
-    .find(ColorPopup)
-    .find(Button)
-    .simulate('click');
+  component.find(ColorPopup).find(Button).simulate('click');
 
   component.update();
 
@@ -64,10 +58,7 @@ function simulateChangeOnLineWidthPopup(
   component: ReactWrapper<ToolbarProps, ToolbarState>,
   value: string,
 ) {
-  component
-    .find(LineWidthPopup)
-    .find(Button)
-    .simulate('click');
+  component.find(LineWidthPopup).find(Button).simulate('click');
 
   component.update();
 

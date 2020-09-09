@@ -1185,9 +1185,9 @@ describe('Left sidebar', () => {
       );
     });
 
-    it(`should not change width of navbar on max ${Math.round(
-      window.innerWidth / 2,
-    ) - +getDimension('leftPanelWidth')}px limit`, () => {
+    it(`should not change width of navbar on max ${
+      Math.round(window.innerWidth / 2) - +getDimension('leftPanelWidth')
+    }px limit`, () => {
       const maxWidth =
         Math.round(window.innerWidth / 2) - +getDimension('leftPanelWidth');
       localStorage.setItem(

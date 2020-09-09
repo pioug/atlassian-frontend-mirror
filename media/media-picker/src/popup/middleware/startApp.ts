@@ -5,7 +5,7 @@ import { updatePopupUrls } from '../actions/updatePopupUrls';
 
 import { State } from '../domain';
 
-export default function() {
+export default function () {
   return (store: MiddlewareAPI<State>) => (next: Dispatch<State>) => (
     action: Action,
   ) => {

@@ -106,7 +106,7 @@ export const updateStickyMargins = (table: HTMLElement) => {
 
   const paddingTop =
     parsePx(window.getComputedStyle(row).paddingTop || '') || 0;
-  const firstRowHeight = row.clientHeight - paddingTop - 2 /* border */;
+  const firstRowHeight = row.clientHeight - paddingTop - 2; /* border */
 
   // firefox handles margin and padding differently
   // when applied with tables

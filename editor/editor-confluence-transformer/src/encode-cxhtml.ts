@@ -3,7 +3,7 @@ export const RI_XMLNS = 'http://example.com/ri';
 export const FAB_XMLNS = 'http://example.com/fab';
 export const XHTML_XMLNS = 'http://www.w3.org/1999/xhtml';
 
-export default function(node: Node): string {
+export default function (node: Node): string {
   // The naive approach here is to simply call .outerHTML on a node, however this has an undesirable
   // behaviour of including the xmlns:* attributes on the node. Confluence Storage Format expects that
   // these are *not* included.

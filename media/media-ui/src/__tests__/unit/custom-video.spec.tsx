@@ -101,23 +101,15 @@ describe('<CustomMediaPlayer />', () => {
         duration: 0,
         bufferedTime: 0,
       };
-      expect(
-        component
-          .find(TimeRange)
-          .at(0)
-          .props(),
-      ).toEqual(expect.objectContaining(expectedProps));
+      expect(component.find(TimeRange).at(0).props()).toEqual(
+        expect.objectContaining(expectedProps),
+      );
     });
 
     it('should render the volume controls', () => {
       const { component } = setup();
 
-      expect(
-        component
-          .find(TimeRange)
-          .at(1)
-          .prop('currentTime'),
-      ).toEqual(1);
+      expect(component.find(TimeRange).at(1).prop('currentTime')).toEqual(1);
     });
 
     it('should render the time (current/total) in the right format', () => {
@@ -130,10 +122,7 @@ describe('<CustomMediaPlayer />', () => {
       const { component } = setup();
 
       expect(
-        (component
-          .find(Button)
-          .last()
-          .prop('iconBefore') as any).type,
+        (component.find(Button).last().prop('iconBefore') as any).type,
       ).toEqual(FullScreenIcon);
     });
 
@@ -144,10 +133,7 @@ describe('<CustomMediaPlayer />', () => {
 
       expect(component.find(Button)).toHaveLength(4);
       expect(
-        (component
-          .find(Button)
-          .at(2)
-          .prop('iconBefore') as any).type,
+        (component.find(Button).at(2).prop('iconBefore') as any).type,
       ).toEqual(VidHdCircleIcon);
       component.setProps({
         isHDAvailable: false,
@@ -177,14 +163,8 @@ describe('<CustomMediaPlayer />', () => {
       const showControls = jest.fn();
       const { component } = setup({ showControls, isShortcutEnabled: true });
 
-      component
-        .find(Shortcut)
-        .first()
-        .prop('handler')();
-      component
-        .find(Shortcut)
-        .last()
-        .prop('handler')();
+      component.find(Shortcut).first().prop('handler')();
+      component.find(Shortcut).last().prop('handler')();
 
       expect(component.find(Shortcut)).toHaveLength(2);
       expect(showControls).toHaveBeenCalledTimes(2);
@@ -197,20 +177,14 @@ describe('<CustomMediaPlayer />', () => {
         onHDToggleClick,
       });
 
-      component
-        .find(Button)
-        .at(2)
-        .simulate('click');
+      component.find(Button).at(2).simulate('click');
       expect(onHDToggleClick).toHaveBeenCalledTimes(1);
     });
 
     it('should request full screen when fullscreen button is clicked', () => {
       const { component } = setup();
 
-      component
-        .find(Button)
-        .last()
-        .simulate('click');
+      component.find(Button).last().simulate('click');
       expect(toggleFullscreen).toHaveBeenCalledTimes(1);
     });
 
@@ -223,12 +197,7 @@ describe('<CustomMediaPlayer />', () => {
           buffered: [],
         },
       });
-      expect(
-        component
-          .find(TimeRange)
-          .at(0)
-          .prop('currentTime'),
-      ).toEqual(10);
+      expect(component.find(TimeRange).at(0).prop('currentTime')).toEqual(10);
     });
 
     it('should update buffered time when it changes', () => {
@@ -243,12 +212,7 @@ describe('<CustomMediaPlayer />', () => {
           },
         },
       });
-      expect(
-        component
-          .find(TimeRange)
-          .at(0)
-          .prop('bufferedTime'),
-      ).toEqual(10);
+      expect(component.find(TimeRange).at(0).prop('bufferedTime')).toEqual(10);
     });
 
     it("should update Volume's TimeRange when volume changes", () => {
@@ -259,12 +223,7 @@ describe('<CustomMediaPlayer />', () => {
           volume: 0.3,
         },
       });
-      expect(
-        component
-          .find(TimeRange)
-          .at(1)
-          .prop('currentTime'),
-      ).toEqual(0.3);
+      expect(component.find(TimeRange).at(1).prop('currentTime')).toEqual(0.3);
     });
   });
 
@@ -313,10 +272,7 @@ describe('<CustomMediaPlayer />', () => {
     it('should pause other players when click play button', () => {
       const { component } = setup({ isAutoPlay: false });
 
-      component
-        .find(Button)
-        .at(0)
-        .simulate('click');
+      component.find(Button).at(0).simulate('click');
       expect(simultaneousPlayManager.pauseOthers).toHaveBeenCalledTimes(1);
     });
 

@@ -30,14 +30,16 @@ export const gridStyles = css`
   display: -ms-grid;
   // prettier-ignore
   -ms-grid-columns: var(--${LEFT_PANEL_WIDTH}, 0px) var(--${LEFT_SIDEBAR_WIDTH}, 0px) 1fr var(--${RIGHT_SIDEBAR_WIDTH}, 0px) var(--${RIGHT_PANEL_WIDTH}, 0px);
-  -ms-grid-rows: var(--${BANNER_HEIGHT}, 0px) var(--${TOP_NAVIGATION_HEIGHT}, 0px) 1fr;
+  -ms-grid-rows: var(--${BANNER_HEIGHT}, 0px)
+    var(--${TOP_NAVIGATION_HEIGHT}, 0px) 1fr;
   /* IE11 */
 
   display: grid;
   height: 100%;
   // prettier-ignore
   grid-template-columns: var(--${LEFT_PANEL_WIDTH}, 0px) minmax(0, 1fr) var(--${RIGHT_PANEL_WIDTH}, 0px);
-  grid-template-rows: var(--${BANNER_HEIGHT}, 0px) var(--${TOP_NAVIGATION_HEIGHT}, 0px)
+  grid-template-rows:
+    var(--${BANNER_HEIGHT}, 0px) var(--${TOP_NAVIGATION_HEIGHT}, 0px)
     auto;
   grid-template-areas: ${gridTemplateAreas};
 `;

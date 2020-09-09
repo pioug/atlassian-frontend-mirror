@@ -217,12 +217,7 @@ describe('@atlaskit comments', () => {
               <Comment avatar="" isError errorActions={errorActions} />,
             );
             expect(wrapper.find(WarningIcon).length).toBe(1);
-            expect(
-              wrapper
-                .find(WarningIcon)
-                .at(0)
-                .prop('label'),
-            ).toBe('');
+            expect(wrapper.find(WarningIcon).at(0).prop('label')).toBe('');
           });
 
           it('should render the errorIconLabel text if it is set', () => {
@@ -236,12 +231,7 @@ describe('@atlaskit comments', () => {
               />,
             );
             expect(wrapper.find(WarningIcon).length).toBe(1);
-            expect(
-              wrapper
-                .find(WarningIcon)
-                .at(0)
-                .prop('label'),
-            ).toBe(label);
+            expect(wrapper.find(WarningIcon).at(0).prop('label')).toBe(label);
           });
 
           it('should render the icon and errorActions instead of the actions', () => {
@@ -261,18 +251,8 @@ describe('@atlaskit comments', () => {
             expect(wrapper.find(CommentAction).length).toBe(2);
             const actionItems = wrapper.find(ActionsContainer);
             expect(actionItems.find(WarningIcon).length).toBe(1);
-            expect(
-              actionItems
-                .find(Button)
-                .at(0)
-                .text(),
-            ).toContain('Retry');
-            expect(
-              actionItems
-                .find(Button)
-                .at(1)
-                .text(),
-            ).toBe('Cancel');
+            expect(actionItems.find(Button).at(0).text()).toContain('Retry');
+            expect(actionItems.find(Button).at(1).text()).toBe('Cancel');
           });
 
           it('should apply .optimistic-saving-content styles', () => {

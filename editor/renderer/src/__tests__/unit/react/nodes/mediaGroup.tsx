@@ -112,11 +112,7 @@ describe('MediaGroup', () => {
     await nextTick();
     mediaGroup.update();
 
-    const card = mediaGroup
-      .find(FilmstripView)
-      .find(Media)
-      .first()
-      .find(Card);
+    const card = mediaGroup.find(FilmstripView).find(Media).first().find(Card);
     card.props().onClick!({} as CardEvent);
 
     expect(onClick.callCount).toBe(1);
@@ -177,16 +173,12 @@ describe('MediaGroup', () => {
     );
 
     expect(
-      mediaGroupWithoutHandlers
-        .find(Media)
-        .first()
-        .prop('eventHandlers')!.media!.onClick,
+      mediaGroupWithoutHandlers.find(Media).first().prop('eventHandlers')!
+        .media!.onClick,
     ).toBeUndefined();
     expect(
-      mediaGroupWithHandlers
-        .find(Media)
-        .first()
-        .prop('eventHandlers')!.media!.onClick,
+      mediaGroupWithHandlers.find(Media).first().prop('eventHandlers')!.media!
+        .onClick,
     ).toBeDefined();
   });
 

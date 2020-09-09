@@ -901,7 +901,9 @@ const config: MediaClientConfig = {
 * breaking; Api for DataUriService has changed
 * before:
 * ```typescript
+
   ```
+
 * interface fetchImageDataUri(
   mediaItem: MediaItem,
   width: number,
@@ -914,7 +916,9 @@ const config: MediaClientConfig = {
 
 * after:
 * ```typescript
+
   ```
+
 * interface FetchImageOptions {
 * width: number;
 * height: number;

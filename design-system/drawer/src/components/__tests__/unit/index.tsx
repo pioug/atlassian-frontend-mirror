@@ -245,10 +245,7 @@ describe('Drawer Transitions', () => {
     );
 
     expect(
-      (wrapper
-        .find('Slide')
-        .find('Transition')
-        .props() as any).unmountOnExit,
+      (wrapper.find('Slide').find('Transition').props() as any).unmountOnExit,
     ).toBeTruthy();
   });
 
@@ -262,10 +259,7 @@ describe('Drawer Transitions', () => {
     );
 
     expect(
-      (wrapper
-        .find('Slide')
-        .find('Transition')
-        .props() as any).unmountOnExit,
+      (wrapper.find('Slide').find('Transition').props() as any).unmountOnExit,
     ).toBeFalsy();
   });
 });

@@ -14,8 +14,9 @@ export type AvatarsWithPluginStateProps = {
   eventDispatcher?: EventDispatcher;
 } & CollabInviteToEditProps;
 
-const AvatarsWithPluginState: React.StatelessComponent<AvatarsWithPluginStateProps &
-  InjectedIntlProps> = props => {
+const AvatarsWithPluginState: React.StatelessComponent<
+  AvatarsWithPluginStateProps & InjectedIntlProps
+> = props => {
   const title = props.intl.formatMessage(messages.inviteToEditButtonTitle);
 
   const {

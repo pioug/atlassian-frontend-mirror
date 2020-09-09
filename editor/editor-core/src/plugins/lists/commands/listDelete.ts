@@ -373,7 +373,7 @@ export const calcJoinListScenario = (
     headGrandParent.lastChild &&
     (headGrandParent.lastChild === headParent ||
       (headGrandParent.childCount > 1 &&
-      headGrandParent.child(headGrandParent.childCount - 2) === headParent && //find the second last child if a list item may be the last child
+        headGrandParent.child(headGrandParent.childCount - 2) === headParent && //find the second last child if a list item may be the last child
         (headGrandParent.lastChild.type.name === 'orderedList' ||
           headGrandParent.lastChild.type.name === 'bulletList')));
 

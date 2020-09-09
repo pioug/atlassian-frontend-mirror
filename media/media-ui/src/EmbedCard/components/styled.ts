@@ -97,7 +97,7 @@ const wrapperStyles = css`
   ${selected}
 
   &:after {
-    content: "";
+    content: '';
     background: transparent;
     transition: background 0.3s, box-shadow 0.3s;
     position: absolute;

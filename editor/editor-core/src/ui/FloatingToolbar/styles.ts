@@ -4,10 +4,12 @@ import { borderRadius } from '@atlaskit/theme/constants';
 import { N0 } from '@atlaskit/theme/colors';
 import { dropShadow } from '../styles';
 
-export const Container: ComponentClass<HTMLAttributes<{}> & {
-  height?: number;
-  innerRef?: any;
-}> = styled.div`
+export const Container: ComponentClass<
+  HTMLAttributes<{}> & {
+    height?: number;
+    innerRef?: any;
+  }
+> = styled.div`
   border-radius: ${borderRadius()}px;
   ${dropShadow} display: flex;
   align-items: center;

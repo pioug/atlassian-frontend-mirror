@@ -71,8 +71,9 @@ const isSelected = ({ isSelected }: WrapperProps) => {
 // NB: `padding` consistent with @mentions.
 // NB: `display: inline` required for `box-decoration-break` to work.
 // NB: `box-decoration-break` required for retaining properties (border-radius) on wrap.
-export const Wrapper: ComponentClass<AnchorHTMLAttributes<{}> &
-  WrapperProps> = styled.a`
+export const Wrapper: ComponentClass<
+  AnchorHTMLAttributes<{}> & WrapperProps
+> = styled.a`
   line-height: 16px;
   padding: 1px 0.24em 2px 0.24em;
   display: inline;

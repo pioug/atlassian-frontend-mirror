@@ -1,6 +1,6 @@
 import { ExtensionState, ExtensionAction } from './types';
 
-export default function(
+export default function (
   pluginState: ExtensionState,
   action: ExtensionAction,
 ): ExtensionState {

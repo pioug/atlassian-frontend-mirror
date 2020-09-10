@@ -10,6 +10,7 @@ interface State {
   hasSubmitted: boolean;
 }
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default class extends Component<void, State> {
   state = {
     hasSubmitted: false,

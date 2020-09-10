@@ -34,6 +34,7 @@ const createUser = async (data: FormData) => {
   return errors;
 };
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default class extends Component<{}> {
   handleSubmit = (data: FormData) => {
     return createUser(data);

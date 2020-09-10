@@ -289,6 +289,7 @@ class Wrapper extends React.Component<any, WrapperState> {
 interface State {
   isOpen: boolean;
 }
+// eslint-disable-next-line import/no-anonymous-default-export
 export default class extends React.PureComponent<{}, State> {
   state: State = { isOpen: false };
 

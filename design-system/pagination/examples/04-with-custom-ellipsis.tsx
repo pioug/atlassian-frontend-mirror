@@ -5,6 +5,7 @@ import SectionMessage from '@atlaskit/section-message';
 
 import Pagination from '../src';
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default class extends Component<{}, { max: number }> {
   state = {
     max: 7,

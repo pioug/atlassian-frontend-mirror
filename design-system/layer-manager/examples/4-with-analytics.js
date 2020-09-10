@@ -4,6 +4,7 @@ import Button from '@atlaskit/button';
 import Modal, { ModalTransition } from '@atlaskit/modal-dialog';
 import LayerManager from '../src';
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default class extends Component {
   state = {
     isModalOpen: false,

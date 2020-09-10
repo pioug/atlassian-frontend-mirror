@@ -21,6 +21,7 @@ interface State {
   selectedIndex: number;
 }
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default class extends Component<Props, State> {
   static defaultProps = {
     selectedIndex: 0,

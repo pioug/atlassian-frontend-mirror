@@ -8,6 +8,7 @@ const Div = styled.div`
   max-width: 500px;
 `;
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default class extends React.Component {
   private textareaElement: HTMLTextAreaElement | undefined;
 

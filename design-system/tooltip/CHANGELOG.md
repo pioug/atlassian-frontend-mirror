@@ -1,5 +1,11 @@
 # @atlaskit/tooltip
 
+## 17.0.1
+
+### Patch Changes
+
+- [`18f7ccbbfc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/18f7ccbbfc) - Fixing tooltip prop documentation
+
 ## 17.0.0
 
 ### Major Changes

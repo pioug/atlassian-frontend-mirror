@@ -232,6 +232,7 @@ class GlobalNavWithDrawers extends Component {
 }
 // Need two components because both have state
 // eslint-disable-next-line react/no-multi-comp
+// eslint-disable-next-line import/no-anonymous-default-export
 export default class extends Component {
   state = {
     createItemOpens: 'modal',

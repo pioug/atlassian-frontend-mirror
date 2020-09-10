@@ -37,6 +37,7 @@ const options: OptionType[] = [
   { value: 'dark', label: 'Dark Mode' },
 ];
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default class extends Component {
   state = {
     mode: options[1],

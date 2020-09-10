@@ -4,6 +4,7 @@ import TableTree, { Cell, Header, Headers, Row, Rows } from '../src';
 
 import staticData from './data-cleancode-toc.json';
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default class extends Component {
   state = {
     roots: null,

@@ -17,6 +17,7 @@ function validate(value: unknown) {
   return undefined;
 }
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default class extends Component<{}> {
   handleSubmit = (formState: { command: string }) => {
     // you can now do stuff with the form.

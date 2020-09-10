@@ -13,6 +13,7 @@ import Form, {
 
 const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default class extends Component<{}> {
   getUser = async (value: string) => {
     await sleep(300);

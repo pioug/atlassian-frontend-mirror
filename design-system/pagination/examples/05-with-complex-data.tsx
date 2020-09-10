@@ -14,6 +14,7 @@ type StateType = {
   };
 };
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default class extends Component<{}, StateType> {
   state = {
     onChangeEvent: {

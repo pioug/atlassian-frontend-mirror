@@ -31,6 +31,7 @@ const Wrapper = styled.div`
 interface Props {}
 type State = { themeMode: 'light' | 'dark' };
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default class extends React.Component<Props, State> {
   state: State = { themeMode: 'light' };
 

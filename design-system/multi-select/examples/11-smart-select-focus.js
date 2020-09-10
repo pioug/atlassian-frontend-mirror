@@ -27,6 +27,7 @@ const animals = [
   },
 ];
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default class extends PureComponent {
   state = {
     focusedSelect: 1,

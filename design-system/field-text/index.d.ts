@@ -76,5 +76,6 @@ declare module '@atlaskit/field-text' {
     FieldTextStatelessProps & { innerRef?: (node?: HTMLInputElement) => void },
     {}
   > {}
+  // eslint-disable-next-line import/no-anonymous-default-export
   export default class extends React.Component<FieldTextProps, {}> {}
 }

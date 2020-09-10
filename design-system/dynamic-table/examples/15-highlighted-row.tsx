@@ -21,6 +21,7 @@ const getOppositeTheme = (themeMode: ThemeMode) =>
   themeMode === ThemeMode.LIGHT ? ThemeMode.DARK : ThemeMode.LIGHT;
 const paddingStyle = { padding: '8px 0' };
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default class extends React.Component<{}, State> {
   state = {
     highlightedRow: 3,

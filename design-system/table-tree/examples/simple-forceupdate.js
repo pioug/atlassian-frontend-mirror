@@ -62,6 +62,7 @@ function fetchChildrenOf() {
   return Promise.resolve(CHILDREN);
 }
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default class extends Component {
   state = {
     roots: null,

@@ -10,6 +10,7 @@ const Wrapper = styled.div`
   min-width: 600px;
 `;
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default class extends React.Component<{}, {}> {
   render() {
     return (

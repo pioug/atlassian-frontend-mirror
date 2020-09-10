@@ -4,6 +4,7 @@ import DynamicTable from '../src';
 
 import { caption, head, rows } from './content/sample-data';
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default class extends React.Component<{}, {}> {
   render() {
     return (

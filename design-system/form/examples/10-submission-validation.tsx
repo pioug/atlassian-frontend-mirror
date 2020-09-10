@@ -23,6 +23,7 @@ const createUser = async (data: { username: string; email: string }) => {
   return errors;
 };
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default class extends Component<{}> {
   handleSubmit = (data: { username: string; email: string }) => {
     return createUser(data);

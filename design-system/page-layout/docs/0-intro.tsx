@@ -16,6 +16,7 @@ ${(
 
   Extra documentation can be found in the **sidebar nav links** 👈
   - [Skip Links](page-layout/docs/skip-links)
+  - [CSS variables](page-layout/docs/css-variables)
 
 ## Usage
 

@@ -283,7 +283,6 @@ const BasicGrid = () => {
                 id="left-sidebar"
                 skipLinkTitle="Left sidebar"
                 isFixed={gridState.isLeftSidebarFixed}
-                width={450}
                 onResizeStart={() => console.log('onResizeStart')}
                 onResizeEnd={() => console.log('onResizeEnd')}
                 onFlyoutExpand={() => console.log('onFlyoutExpand')}

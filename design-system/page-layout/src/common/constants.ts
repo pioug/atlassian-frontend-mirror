@@ -1,18 +1,19 @@
 // dimension vars
-export const LEFT_PANEL_WIDTH = 'leftPanelWidth';
-export const LEFT_SIDEBAR_WIDTH = 'leftSidebarWidth';
-export const RIGHT_SIDEBAR_WIDTH = 'rightSidebarWidth';
-export const RIGHT_PANEL_WIDTH = 'rightPanelWidth';
-export const TOP_NAVIGATION_HEIGHT = 'topNavigationHeight';
-export const BANNER_HEIGHT = 'bannerHeight';
-export const LEFT_SIDEBAR_FLYOUT = 'leftSidebarFlyoutWidth';
+export const VAR_LEFT_PANEL_WIDTH = 'leftPanelWidth';
+export const VAR_LEFT_SIDEBAR_WIDTH = 'leftSidebarWidth';
+export const VAR_RIGHT_SIDEBAR_WIDTH = 'rightSidebarWidth';
+export const VAR_RIGHT_PANEL_WIDTH = 'rightPanelWidth';
+export const VAR_TOP_NAVIGATION_HEIGHT = 'topNavigationHeight';
+export const VAR_BANNER_HEIGHT = 'bannerHeight';
+export const VAR_LEFT_SIDEBAR_FLYOUT = 'leftSidebarFlyoutWidth';
+
 export const DIMENSIONS = [
-  LEFT_PANEL_WIDTH,
-  RIGHT_PANEL_WIDTH,
-  BANNER_HEIGHT,
-  TOP_NAVIGATION_HEIGHT,
-  LEFT_SIDEBAR_WIDTH,
-  RIGHT_SIDEBAR_WIDTH,
+  VAR_LEFT_PANEL_WIDTH,
+  VAR_RIGHT_PANEL_WIDTH,
+  VAR_BANNER_HEIGHT,
+  VAR_TOP_NAVIGATION_HEIGHT,
+  VAR_LEFT_SIDEBAR_WIDTH,
+  VAR_RIGHT_SIDEBAR_WIDTH,
 ];
 
 // Grid area names
@@ -36,7 +37,7 @@ export const DEFAULT_LEFT_PANEL_WIDTH = 368;
 // Other constants
 export const COLLAPSED_LEFT_SIDEBAR_WIDTH = 20;
 export const MIN_LEFT_SIDEBAR_WIDTH = 80;
-export const LEFT_SIDEBAR_FLYOUT_WIDTH = 240;
+export const DEFAULT_LEFT_SIDEBAR_FLYOUT_WIDTH = 240;
 export const MIN_LEFT_SIDEBAR_DRAG_THRESHOLD = 200;
 export const TRANSITION_DURATION = 300;
 export const FLYOUT_DELAY = 200;
@@ -56,3 +57,11 @@ export const PAGE_LAYOUT_SLOT_SELECTOR = 'data-ds--page-layout--slot';
 export const DEFAULT_I18N_PROPS_SKIP_LINKS = 'Skip to:';
 
 export const PAGE_LAYOUT_CONTAINER_SELECTOR = 'data-layout-container';
+
+export const LEFT_PANEL_WIDTH = `var(--${VAR_LEFT_PANEL_WIDTH}, 0px)`;
+export const RIGHT_PANEL_WIDTH = `var(--${VAR_RIGHT_PANEL_WIDTH}, 0px)`;
+export const LEFT_SIDEBAR_WIDTH = `var(--${VAR_LEFT_SIDEBAR_WIDTH}, 0px)`;
+export const RIGHT_SIDEBAR_WIDTH = `var(--${VAR_RIGHT_SIDEBAR_WIDTH}, 0px)`;
+export const TOP_NAVIGATION_HEIGHT = `var(--${VAR_TOP_NAVIGATION_HEIGHT}, 0px)`;
+export const BANNER_HEIGHT = `var(--${VAR_BANNER_HEIGHT}, 0px)`;
+export const LEFT_SIDEBAR_FLYOUT_WIDTH = `var(--${VAR_LEFT_SIDEBAR_FLYOUT}, ${DEFAULT_LEFT_SIDEBAR_FLYOUT_WIDTH}px)`;

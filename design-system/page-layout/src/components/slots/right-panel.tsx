@@ -5,7 +5,7 @@ import { jsx } from '@emotion/core';
 
 import {
   DEFAULT_RIGHT_PANEL_WIDTH,
-  RIGHT_PANEL_WIDTH,
+  VAR_RIGHT_PANEL_WIDTH,
 } from '../../common/constants';
 import { SlotWidthProps } from '../../common/types';
 import {
@@ -29,7 +29,7 @@ const RightPanel = (props: SlotWidthProps) => {
   } = props;
 
   const rightPanelWidth = resolveDimension(
-    RIGHT_PANEL_WIDTH,
+    VAR_RIGHT_PANEL_WIDTH,
     width,
     shouldPersistWidth,
   );
@@ -37,9 +37,9 @@ const RightPanel = (props: SlotWidthProps) => {
   const { registerSkipLink, unregisterSkipLink } = useSkipLinks();
 
   useEffect(() => {
-    publishGridState({ [RIGHT_PANEL_WIDTH]: rightPanelWidth });
+    publishGridState({ [VAR_RIGHT_PANEL_WIDTH]: rightPanelWidth });
     return () => {
-      publishGridState({ [RIGHT_PANEL_WIDTH]: 0 });
+      publishGridState({ [VAR_RIGHT_PANEL_WIDTH]: 0 });
       unregisterSkipLink(id);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -57,7 +57,7 @@ const RightPanel = (props: SlotWidthProps) => {
       {...getPageLayoutSlotSelector('right-panel')}
     >
       <SlotDimensions
-        variableName={RIGHT_PANEL_WIDTH}
+        variableName={VAR_RIGHT_PANEL_WIDTH}
         value={rightPanelWidth}
       />
       {children}

@@ -15,10 +15,10 @@ import {
   COLLAPSED_LEFT_SIDEBAR_WIDTH,
   DEFAULT_LEFT_SIDEBAR_WIDTH,
   IS_SIDEBAR_DRAGGING,
-  LEFT_SIDEBAR_WIDTH,
   MIN_LEFT_SIDEBAR_DRAG_THRESHOLD,
   RESIZE_BUTTON_SELECTOR,
   RESIZE_CONTROL_SELECTOR,
+  VAR_LEFT_SIDEBAR_WIDTH,
 } from '../../common/constants';
 import { getLeftPanelWidth } from '../../common/utils';
 import { usePageLayoutResize } from '../../controllers/sidebar-resize-context';
@@ -49,7 +49,7 @@ const ResizeControl = ({
     setLeftSidebarState,
   } = usePageLayoutResize();
   const { isLeftSidebarCollapsed, isResizing } = leftSidebarState;
-  const x = useRef(leftSidebarState[LEFT_SIDEBAR_WIDTH]);
+  const x = useRef(leftSidebarState[VAR_LEFT_SIDEBAR_WIDTH]);
   // Distance of mouse from left sidebar onMouseDown
   const offset = useRef(0);
   const keyboardEventTimeout = useRef<number>();
@@ -85,7 +85,7 @@ const ResizeControl = ({
 
     offset.current =
       event.clientX -
-      leftSidebarState[LEFT_SIDEBAR_WIDTH] -
+      leftSidebarState[VAR_LEFT_SIDEBAR_WIDTH] -
       getLeftPanelWidth();
 
     document.addEventListener('mousemove', onMouseMove);
@@ -135,7 +135,7 @@ const ResizeControl = ({
     );
 
     document.documentElement.style.setProperty(
-      `--${LEFT_SIDEBAR_WIDTH}`,
+      `--${VAR_LEFT_SIDEBAR_WIDTH}`,
       `${x.current}px`,
     );
   });
@@ -158,7 +158,7 @@ const ResizeControl = ({
     // collapse the navigation
     if (x.current < MIN_LEFT_SIDEBAR_DRAG_THRESHOLD) {
       document.documentElement.style.setProperty(
-        `--${LEFT_SIDEBAR_WIDTH}`,
+        `--${VAR_LEFT_SIDEBAR_WIDTH}`,
         `${COLLAPSED_LEFT_SIDEBAR_WIDTH}px`,
       );
       collapseLeftSidebar(undefined, true);
@@ -171,13 +171,13 @@ const ResizeControl = ({
       x.current < DEFAULT_LEFT_SIDEBAR_WIDTH
     ) {
       document.documentElement.style.setProperty(
-        `--${LEFT_SIDEBAR_WIDTH}`,
+        `--${VAR_LEFT_SIDEBAR_WIDTH}`,
         `${DEFAULT_LEFT_SIDEBAR_WIDTH}px`,
       );
       setLeftSidebarState({
         ...leftSidebarState,
         isResizing: false,
-        [LEFT_SIDEBAR_WIDTH]: DEFAULT_LEFT_SIDEBAR_WIDTH,
+        [VAR_LEFT_SIDEBAR_WIDTH]: DEFAULT_LEFT_SIDEBAR_WIDTH,
         lastLeftSidebarWidth: DEFAULT_LEFT_SIDEBAR_WIDTH,
       });
     } else {
@@ -185,7 +185,7 @@ const ResizeControl = ({
       setLeftSidebarState({
         ...leftSidebarState,
         isResizing: false,
-        [LEFT_SIDEBAR_WIDTH]: x.current,
+        [VAR_LEFT_SIDEBAR_WIDTH]: x.current,
         lastLeftSidebarWidth: x.current,
       });
     }
@@ -235,13 +235,13 @@ const ResizeControl = ({
       if (width <= DEFAULT_LEFT_SIDEBAR_WIDTH) {
         width = DEFAULT_LEFT_SIDEBAR_WIDTH;
         document.documentElement.style.setProperty(
-          `--${LEFT_SIDEBAR_WIDTH}`,
+          `--${VAR_LEFT_SIDEBAR_WIDTH}`,
           `${DEFAULT_LEFT_SIDEBAR_WIDTH - 20}px`,
         );
       } else if (width > maxWidth) {
         width = maxWidth;
         document.documentElement.style.setProperty(
-          `--${LEFT_SIDEBAR_WIDTH}`,
+          `--${VAR_LEFT_SIDEBAR_WIDTH}`,
           `${maxWidth + 20}px`,
         );
       } else if (hasModifierKey) {
@@ -256,13 +256,13 @@ const ResizeControl = ({
             clearTimeout(keyboardEventTimeout.current);
 
           document.documentElement.style.setProperty(
-            `--${LEFT_SIDEBAR_WIDTH}`,
+            `--${VAR_LEFT_SIDEBAR_WIDTH}`,
             `${width}px`,
           );
 
           setLeftSidebarState({
             ...leftSidebarState,
-            [LEFT_SIDEBAR_WIDTH]: width,
+            [VAR_LEFT_SIDEBAR_WIDTH]: width,
             lastLeftSidebarWidth: width,
           });
           onResizeEnd && onResizeEnd();

@@ -121,10 +121,10 @@ const Wrapper = ({
 
 const serverRenderedStyles: CSSObject = {
   position: 'absolute',
-  top: `calc(var(--${TOP_NAVIGATION_HEIGHT}, 0px) + var(--${BANNER_HEIGHT}, 0px))`,
-  left: `calc(var(--${LEFT_PANEL_WIDTH}, 0px) + var(--${LEFT_SIDEBAR_WIDTH}, 0px))`,
+  top: `calc(${TOP_NAVIGATION_HEIGHT} + ${BANNER_HEIGHT})`,
+  left: `calc(${LEFT_PANEL_WIDTH} + ${LEFT_SIDEBAR_WIDTH})`,
   bottom: 0,
-  right: `calc(var(--${RIGHT_PANEL_WIDTH}, 0px) + var(--${RIGHT_SIDEBAR_WIDTH}, 0px))`,
+  right: `calc(${RIGHT_PANEL_WIDTH} + ${RIGHT_SIDEBAR_WIDTH})`,
   backgroundColor: 'white',
   transition: 'left 300ms',
   [`[data-is-sidebar-dragging] &`]: {

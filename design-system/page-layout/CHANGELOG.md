@@ -1,5 +1,11 @@
 # @atlaskit/page-layout
 
+## 0.10.0
+
+### Minor Changes
+
+- [`9db4bdaa00`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9db4bdaa00) - **BREAKING** Changes the way css variables were previously exported. They are now exported with proper fallback values. Refer to the [CSS variables](page-layout/docs/css-variables) docs to see how to use them.
+
 ## 0.9.4
 
 ### Patch Changes

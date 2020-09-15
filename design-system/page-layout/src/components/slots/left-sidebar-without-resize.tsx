@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 
 import { jsx } from '@emotion/core';
 
-import { LEFT_SIDEBAR_WIDTH } from '../../common/constants';
+import { VAR_LEFT_SIDEBAR_WIDTH } from '../../common/constants';
 import { SlotWidthProps } from '../../common/types';
 import {
   getPageLayoutSlotSelector,
@@ -29,7 +29,7 @@ const LeftSidebarWithoutResize = (props: SlotWidthProps) => {
   } = props;
 
   const leftSidebarWidth = resolveDimension(
-    LEFT_SIDEBAR_WIDTH,
+    VAR_LEFT_SIDEBAR_WIDTH,
     width,
     shouldPersistWidth,
   );
@@ -37,9 +37,9 @@ const LeftSidebarWithoutResize = (props: SlotWidthProps) => {
   const { registerSkipLink, unregisterSkipLink } = useSkipLinks();
 
   useEffect(() => {
-    publishGridState({ [LEFT_SIDEBAR_WIDTH]: leftSidebarWidth });
+    publishGridState({ [VAR_LEFT_SIDEBAR_WIDTH]: leftSidebarWidth });
     return () => {
-      publishGridState({ [LEFT_SIDEBAR_WIDTH]: 0 });
+      publishGridState({ [VAR_LEFT_SIDEBAR_WIDTH]: 0 });
       unregisterSkipLink(id);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -57,7 +57,7 @@ const LeftSidebarWithoutResize = (props: SlotWidthProps) => {
       {...getPageLayoutSlotSelector('left-sidebar')}
     >
       <SlotDimensions
-        variableName={LEFT_SIDEBAR_WIDTH}
+        variableName={VAR_LEFT_SIDEBAR_WIDTH}
         value={leftSidebarWidth}
       />
       <div css={fixedLeftSidebarInnerStyles(isFixed)}>{children}</div>

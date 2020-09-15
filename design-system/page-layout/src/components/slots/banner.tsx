@@ -3,7 +3,10 @@ import { useEffect } from 'react';
 
 import { jsx } from '@emotion/core';
 
-import { BANNER_HEIGHT, DEFAULT_BANNER_HEIGHT } from '../../common/constants';
+import {
+  DEFAULT_BANNER_HEIGHT,
+  VAR_BANNER_HEIGHT,
+} from '../../common/constants';
 import { SlotHeightProps } from '../../common/types';
 import {
   getPageLayoutSlotSelector,
@@ -26,7 +29,7 @@ const Banner = (props: SlotHeightProps) => {
   } = props;
 
   const bannerHeight = resolveDimension(
-    BANNER_HEIGHT,
+    VAR_BANNER_HEIGHT,
     height,
     shouldPersistHeight,
   );
@@ -34,9 +37,9 @@ const Banner = (props: SlotHeightProps) => {
   const { registerSkipLink, unregisterSkipLink } = useSkipLinks();
 
   useEffect(() => {
-    publishGridState({ [BANNER_HEIGHT]: bannerHeight });
+    publishGridState({ [VAR_BANNER_HEIGHT]: bannerHeight });
     return () => {
-      publishGridState({ [BANNER_HEIGHT]: 0 });
+      publishGridState({ [VAR_BANNER_HEIGHT]: 0 });
       unregisterSkipLink(id);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -53,7 +56,7 @@ const Banner = (props: SlotHeightProps) => {
       id={id}
       {...getPageLayoutSlotSelector('banner')}
     >
-      <SlotDimensions variableName={BANNER_HEIGHT} value={bannerHeight} />
+      <SlotDimensions variableName={VAR_BANNER_HEIGHT} value={bannerHeight} />
       {children}
     </div>
   );

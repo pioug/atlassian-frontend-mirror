@@ -5,7 +5,7 @@ import { jsx } from '@emotion/core';
 
 import {
   DEFAULT_RIGHT_SIDEBAR_WIDTH,
-  RIGHT_SIDEBAR_WIDTH,
+  VAR_RIGHT_SIDEBAR_WIDTH,
 } from '../../common/constants';
 import { SlotWidthProps } from '../../common/types';
 import {
@@ -29,7 +29,7 @@ const RightSidebar = (props: SlotWidthProps) => {
   } = props;
 
   const rightSidebarWidth = resolveDimension(
-    RIGHT_SIDEBAR_WIDTH,
+    VAR_RIGHT_SIDEBAR_WIDTH,
     width,
     shouldPersistWidth,
   );
@@ -37,9 +37,9 @@ const RightSidebar = (props: SlotWidthProps) => {
   const { registerSkipLink, unregisterSkipLink } = useSkipLinks();
 
   useEffect(() => {
-    publishGridState({ [RIGHT_SIDEBAR_WIDTH]: rightSidebarWidth });
+    publishGridState({ [VAR_RIGHT_SIDEBAR_WIDTH]: rightSidebarWidth });
     return () => {
-      publishGridState({ [RIGHT_SIDEBAR_WIDTH]: 0 });
+      publishGridState({ [VAR_RIGHT_SIDEBAR_WIDTH]: 0 });
       unregisterSkipLink(id);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -57,7 +57,7 @@ const RightSidebar = (props: SlotWidthProps) => {
       {...getPageLayoutSlotSelector('right-sidebar')}
     >
       <SlotDimensions
-        variableName={RIGHT_SIDEBAR_WIDTH}
+        variableName={VAR_RIGHT_SIDEBAR_WIDTH}
         value={rightSidebarWidth}
       />
       <div css={fixedRightSidebarInnerStyles(isFixed)}>{children}</div>

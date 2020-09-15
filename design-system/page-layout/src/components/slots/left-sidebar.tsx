@@ -7,9 +7,9 @@ import {
   COLLAPSED_LEFT_SIDEBAR_WIDTH,
   DEFAULT_LEFT_SIDEBAR_WIDTH,
   FLYOUT_DELAY,
-  LEFT_SIDEBAR_FLYOUT,
-  LEFT_SIDEBAR_WIDTH,
   RESIZE_BUTTON_SELECTOR,
+  VAR_LEFT_SIDEBAR_FLYOUT,
+  VAR_LEFT_SIDEBAR_WIDTH,
 } from '../../common/constants';
 import { LeftSidebarProps } from '../../common/types';
 import {
@@ -74,7 +74,7 @@ const LeftSidebar = (props: LeftSidebarProps) => {
 
   if (collapsedStateOverrideOpen) {
     leftSidebarWidthOnMount = resolveDimension(
-      LEFT_SIDEBAR_FLYOUT,
+      VAR_LEFT_SIDEBAR_FLYOUT,
       _width,
       !width,
     );
@@ -82,7 +82,7 @@ const LeftSidebar = (props: LeftSidebarProps) => {
     leftSidebarWidthOnMount = COLLAPSED_LEFT_SIDEBAR_WIDTH;
   } else {
     leftSidebarWidthOnMount = resolveDimension(
-      LEFT_SIDEBAR_WIDTH,
+      VAR_LEFT_SIDEBAR_WIDTH,
       _width,
       !width ||
         (!collapsedStateOverrideOpen &&
@@ -103,17 +103,17 @@ const LeftSidebar = (props: LeftSidebarProps) => {
     const cachedGridState = getGridStateFromStorage('gridState') || {};
 
     let leftSidebarWidth =
-      !width && cachedGridState[LEFT_SIDEBAR_FLYOUT]
+      !width && cachedGridState[VAR_LEFT_SIDEBAR_FLYOUT]
         ? Math.max(
-            cachedGridState[LEFT_SIDEBAR_FLYOUT],
+            cachedGridState[VAR_LEFT_SIDEBAR_FLYOUT],
             DEFAULT_LEFT_SIDEBAR_WIDTH,
           )
         : _width;
 
     const lastLeftSidebarWidth =
-      !width && cachedGridState[LEFT_SIDEBAR_FLYOUT]
+      !width && cachedGridState[VAR_LEFT_SIDEBAR_FLYOUT]
         ? Math.max(
-            cachedGridState[LEFT_SIDEBAR_FLYOUT],
+            cachedGridState[VAR_LEFT_SIDEBAR_FLYOUT],
             DEFAULT_LEFT_SIDEBAR_WIDTH,
           )
         : _width;
@@ -138,8 +138,8 @@ const LeftSidebar = (props: LeftSidebarProps) => {
   useEffect(() => {
     if (notFirstRun.current) {
       publishGridState({
-        [LEFT_SIDEBAR_WIDTH]: leftSidebarWidth || leftSidebarWidthOnMount,
-        [LEFT_SIDEBAR_FLYOUT]: lastLeftSidebarWidth,
+        [VAR_LEFT_SIDEBAR_WIDTH]: leftSidebarWidth || leftSidebarWidthOnMount,
+        [VAR_LEFT_SIDEBAR_FLYOUT]: lastLeftSidebarWidth,
       });
       mergeGridStateIntoStorage(
         'isLeftSidebarCollapsed',
@@ -232,7 +232,7 @@ const LeftSidebar = (props: LeftSidebarProps) => {
       {...getPageLayoutSlotSelector('left-sidebar')}
     >
       <SlotDimensions
-        variableName={LEFT_SIDEBAR_WIDTH}
+        variableName={VAR_LEFT_SIDEBAR_WIDTH}
         value={leftSidebarWidthOnMount}
       />
       <div css={fixedLeftSidebarInnerStyles(isFixed, isFlyoutOpen)}>

@@ -5,8 +5,8 @@ import { act, fireEvent, render } from '@testing-library/react';
 import Tooltip from '@atlaskit/tooltip';
 
 import {
+  DEFAULT_LEFT_SIDEBAR_FLYOUT_WIDTH,
   DEFAULT_LEFT_SIDEBAR_WIDTH,
-  LEFT_SIDEBAR_FLYOUT_WIDTH,
   PAGE_LAYOUT_LS_KEY,
 } from '../../../../common/constants';
 import { ResizeControlledConsumer } from '../../../../controllers/__tests__/sidebar-resize-controller';
@@ -1046,7 +1046,7 @@ describe('Left sidebar', () => {
           <Content>
             <LeftSidebar
               testId="left-sidebar"
-              width={LEFT_SIDEBAR_FLYOUT_WIDTH}
+              width={DEFAULT_LEFT_SIDEBAR_FLYOUT_WIDTH}
             >
               LeftSidebar
             </LeftSidebar>
@@ -1062,28 +1062,28 @@ describe('Left sidebar', () => {
       completeAnimations();
 
       expect(getDimension('leftSidebarWidth')).toEqual(
-        `${LEFT_SIDEBAR_FLYOUT_WIDTH + 10}px`,
+        `${DEFAULT_LEFT_SIDEBAR_FLYOUT_WIDTH + 10}px`,
       );
 
       fireEvent.keyDown(handle, { keyCode: 37 });
       completeAnimations();
 
       expect(getDimension('leftSidebarWidth')).toEqual(
-        `${LEFT_SIDEBAR_FLYOUT_WIDTH}px`,
+        `${DEFAULT_LEFT_SIDEBAR_FLYOUT_WIDTH}px`,
       );
 
       fireEvent.keyDown(handle, { keyCode: 40 });
       completeAnimations();
 
       expect(getDimension('leftSidebarWidth')).toEqual(
-        `${LEFT_SIDEBAR_FLYOUT_WIDTH + 10}px`,
+        `${DEFAULT_LEFT_SIDEBAR_FLYOUT_WIDTH + 10}px`,
       );
 
       fireEvent.keyDown(handle, { keyCode: 38 });
       completeAnimations();
 
       expect(getDimension('leftSidebarWidth')).toEqual(
-        `${LEFT_SIDEBAR_FLYOUT_WIDTH}px`,
+        `${DEFAULT_LEFT_SIDEBAR_FLYOUT_WIDTH}px`,
       );
     });
 
@@ -1093,7 +1093,7 @@ describe('Left sidebar', () => {
           <Content>
             <LeftSidebar
               testId="left-sidebar"
-              width={LEFT_SIDEBAR_FLYOUT_WIDTH}
+              width={DEFAULT_LEFT_SIDEBAR_FLYOUT_WIDTH}
             >
               LeftSidebar
             </LeftSidebar>
@@ -1161,13 +1161,13 @@ describe('Left sidebar', () => {
       );
     });
 
-    it(`should not change width of navbar on min ${LEFT_SIDEBAR_FLYOUT_WIDTH}px limit`, () => {
+    it(`should not change width of navbar on min ${DEFAULT_LEFT_SIDEBAR_FLYOUT_WIDTH}px limit`, () => {
       const { getByTestId } = render(
         <PageLayout testId="grid">
           <Content>
             <LeftSidebar
               testId="left-sidebar"
-              width={LEFT_SIDEBAR_FLYOUT_WIDTH}
+              width={DEFAULT_LEFT_SIDEBAR_FLYOUT_WIDTH}
             >
               LeftSidebar
             </LeftSidebar>
@@ -1181,7 +1181,7 @@ describe('Left sidebar', () => {
       fireEvent.keyDown(handle, { keyCode: 37 });
 
       expect(getDimension('leftSidebarWidth')).toEqual(
-        `${LEFT_SIDEBAR_FLYOUT_WIDTH}px`,
+        `${DEFAULT_LEFT_SIDEBAR_FLYOUT_WIDTH}px`,
       );
     });
 
@@ -1224,7 +1224,7 @@ describe('Left sidebar', () => {
           <Content>
             <LeftSidebar
               testId="left-sidebar"
-              width={LEFT_SIDEBAR_FLYOUT_WIDTH}
+              width={DEFAULT_LEFT_SIDEBAR_FLYOUT_WIDTH}
             >
               LeftSidebar
             </LeftSidebar>
@@ -1255,7 +1255,7 @@ describe('Left sidebar', () => {
           <Content>
             <LeftSidebar
               testId="left-sidebar"
-              width={LEFT_SIDEBAR_FLYOUT_WIDTH}
+              width={DEFAULT_LEFT_SIDEBAR_FLYOUT_WIDTH}
             >
               LeftSidebar
             </LeftSidebar>
@@ -1281,7 +1281,7 @@ describe('Left sidebar', () => {
           <Content>
             <LeftSidebar
               testId="left-sidebar"
-              width={LEFT_SIDEBAR_FLYOUT_WIDTH}
+              width={DEFAULT_LEFT_SIDEBAR_FLYOUT_WIDTH}
             >
               LeftSidebar
             </LeftSidebar>

@@ -6,12 +6,12 @@ import {
   findByText,
   fireEvent,
   getByTestId,
-} from '@testing-library/dom';
+} from '@testing-library/dom'; // eslint-disable-line import/no-extraneous-dependencies
 // eslint-disable-next-line import/no-extraneous-dependencies
 import {
   InteractionTaskArgs,
   PublicInteractionTask,
-} from 'storybook-addon-performance';
+} from 'storybook-addon-performance'; // eslint-disable-line import/no-extraneous-dependencies
 
 import ProductExample from './perf-example';
 

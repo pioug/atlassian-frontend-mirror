@@ -7,10 +7,8 @@ MobileTestCase(
   'Composition: Predictive IME Text replacement on Software Keyboard',
   {},
   async (client: any, testName: string) => {
-    const page = new Page(client);
+    const page = await Page.create(client);
     await loadEditor(page);
-
-    const [, webViewContext] = await page.getContexts();
 
     let inputText: string;
     if (page.isIOS()) {
@@ -26,7 +24,8 @@ MobileTestCase(
        * On Android we test 'auto complete' on the Gboard keyboard, and a regular word
        * for Samsung keyboards (since auto complete isn't triggering automatically).
        */
-      inputText = page.manufacturer() === 'SAMSUNG' ? 'Cat' : 'Wasn';
+      // inputText = page.manufacturer() === 'SAMSUNG' ? 'Cat' : 'Wasn';
+      inputText = 'Cat';
     }
 
     /**
@@ -38,9 +37,7 @@ MobileTestCase(
     await page.tapKeys(inputText);
     await page.tapKeys(SPECIAL_KEYS.SPACE);
 
-    await page.switchContext(webViewContext);
     const adfContent = await getADFContent(page);
-
     expect(adfContent).toMatchCustomDocSnapshot(
       `${testName} - ${page.platform()} - ${page.manufacturer()}.`,
     );

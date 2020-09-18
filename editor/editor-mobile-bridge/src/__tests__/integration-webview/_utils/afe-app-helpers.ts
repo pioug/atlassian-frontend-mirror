@@ -2,12 +2,13 @@ import URL from 'url';
 import Page, {
   BS_LOCAL_PROXY_DOMAIN,
 } from '@atlaskit/webdriver-runner/wd-app-wrapper';
-import { SPECIAL_KEYS } from '@atlaskit/webdriver-runner/utils/mobile/keyboard/common-osk';
 import { ADFEntity } from '@atlaskit/adf-utils';
 import { PORT } from '../../../../build/utils';
 
-const EDITOR_WEB_SELECTOR = '#editor .ProseMirror';
-const RENDERER_WEB_SELECTOR = '#renderer';
+export const SELECTORS_WEB = {
+  EDITOR: '#editor .ProseMirror',
+  RENDERER: '#renderer',
+};
 
 /**
  * Load & start the editor within the WebView
@@ -15,20 +16,21 @@ const RENDERER_WEB_SELECTOR = '#renderer';
  * The WebView loads the URL entered into the TextInput at the top
  * of the screen. Once loaded, we focus the editor.
  *
- * @useNextGen When true targets the Arch V3 release.
+ * This function will leave you in the webview context so that you
+ * can immediately interact with the editor bridge methods.
+ *
+ * @param useNextGen When true targets the Arch V3 release.
  */
 export async function loadEditor(page: Page, useNextGen = false) {
-  const url = `editor${useNextGen ? 'archv3' : ''}.html`;
-  await loadBridgeInWebview(page, url);
-  const [nativeContext, webViewContext] = await page.getContexts();
+  const filename = `editor${useNextGen ? 'archv3' : ''}.html`;
+  const url = URL.resolve(`http://${BS_LOCAL_PROXY_DOMAIN}:${PORT}`, filename);
+  await page.loadUrl(url, SELECTORS_WEB.EDITOR);
 
-  // Wait for the editor to load within the WebView
-  await page.switchContext(webViewContext);
-  await page.waitForSelector(EDITOR_WEB_SELECTOR);
-
-  // tap webview to set focus inside editor and show keyboard
-  await page.switchContext(nativeContext);
+  // Tap the webview to focus the editor and show the onscreen keyboard
   await page.tap(page.getAppWebviewSelector());
+
+  // Leave the context set to web so that immediate editor bridge access is available.
+  await page.switchToWeb();
 }
 
 /**
@@ -36,36 +38,44 @@ export async function loadEditor(page: Page, useNextGen = false) {
  *
  * The WebView loads the URL entered into the TextInput at the top
  * of the screen.
+ *
+ * This function will leave you in the webview context so that you
+ * can immediately interact with the renderer bridge methods.
  */
 export async function loadRenderer(page: Page) {
-  await loadBridgeInWebview(page, 'renderer.html');
-  const [, webViewContext] = await page.getContexts();
-
-  // Wait for the renderer to load within the WebView
-  await page.switchContext(webViewContext);
-  await page.waitForSelector(RENDERER_WEB_SELECTOR);
+  const url = URL.resolve(
+    `http://${BS_LOCAL_PROXY_DOMAIN}:${PORT}`,
+    'renderer.html',
+  );
+  await page.loadUrl(url, SELECTORS_WEB.RENDERER);
 }
 
-async function loadBridgeInWebview(page: Page, filePath: string) {
-  const url = URL.resolve(`http://${BS_LOCAL_PROXY_DOMAIN}:${PORT}`, filePath);
-  // Type the URL into the native input, and hit enter.
-  // This triggers the WebView to load the provided URL.
-  await page.insertText(page.getAppInputSelector(), url);
-  await page.tapKeys(SPECIAL_KEYS.ENTER);
-}
-
+/**
+ * Fetch the ADF document as a JSON object from the editor
+ */
 export async function getADFContent(page: Page): Promise<ADFEntity> {
+  await page.switchToWeb();
   return page.execute<ADFEntity>(() =>
     JSON.parse((window as any).bridge.getContent()),
   );
 }
 
+/**
+ * Load an ADF document into the editor.
+ *
+ * @param adf The JSON representation of the ADF document.
+ */
 export async function setADFContent(page: Page, adf: ADFEntity) {
+  await page.switchToWeb();
   return page.execute(_adf => {
     (window as any).bridge.setContent(_adf);
   }, adf);
 }
 
+/**
+ * Clear all content from the editor back to a blank slate.
+ */
 export async function clearContent(page: Page) {
+  await page.switchToWeb();
   return page.execute<void>(() => (window as any).bridge.clearContent());
 }

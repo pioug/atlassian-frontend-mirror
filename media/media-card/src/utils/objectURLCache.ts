@@ -3,7 +3,7 @@ import { EventEmitter2 } from 'eventemitter2';
 
 import { CardPreview } from '../root/card/getCardPreview';
 
-export const PREVIEW_CACHE_LRU_SIZE = 20;
+export const PREVIEW_CACHE_LRU_SIZE = 50;
 
 class ExtendedLRUCache<K, V> extends LRUCache<K, V> {
   private readonly eventEmitter: EventEmitter2;
@@ -37,7 +37,7 @@ export class ObjectURLCache {
   }
 
   has(key: string) {
-    return !!this.cache.get(key);
+    return !!this.cache.find(key);
   }
 
   get(key: string) {

@@ -1,6 +1,6 @@
 # Integration Testing on iOS and Android
 
-The editor mobile bridge supports testing on real handheld devices (phones & tablets) within BrowserStack's device farm (App Automate).
+The editor mobile bridge supports testing on real handheld devices (phones & tablets) within BrowserStack's device farm (App Automate) using [Appium](http://appium.io/docs/en/about-appium/intro/) and [WebDriverIO](https://webdriver.io/docs/gettingstarted.html).
 
 > We rely on a combination of _unit_, _integration_, and _visual regression_ tests designed for desktop browsers to catch and prevent regressions within the editor related packages.
 >
@@ -17,6 +17,10 @@ Examples:
 **These mobile integation tests are designed to compliment the desktop tests and cover the gaps.**
 
 > Read the `@atlaskit/webdriver-runner` [webview docs](../../../../../../build/webdriver-runner/utils/mobile/README.md) to learn more.
+
+#### Requesting Access
+
+[App Automate](https://app-automate.browserstack.com/) is a separate license from [Automate](https://automate.browserstack.com/). You can request access via Service Desk [here](https://hello.atlassian.net/servicedesk/customer/portal/2/create/3998) and check the box for "Mobile App Testing".
 
 ### Spoofed Testing vs Real Testing
 
@@ -45,8 +49,7 @@ Handhelds typically run slower hardware with less system resources (_particularl
 
 A test can skip running on a device based on the platform, operating system version, form factor, or software keyboard it uses. Consult the `MobileTestCaseOptions` to learn the syntax and combinations available.
 
-You're encouraged to run your tests on the least amount of devices suitable to achieve your assertions with confidence.
-This will speed up test suite execution times by skipping surplus devices.
+Although many tests will need to run on the full device suite, you're encouraged to run your tests on the least amount of devices suitable to achieve your assertions with confidence. This will speed up test suite execution times by skipping surplus devices.
 
 **Example:**
 
@@ -55,11 +58,17 @@ import { MobileTestCase } from '@atlaskit/webdriver-runner/runner';
 import Page from '@atlaskit/webdriver-runner/wd-app-wrapper';
 
 MobileTestCase(
-  'iOS only test',
-  { skipPlatform: ['ios'] }, // MobileTestCaseOptions
+  'This test only runs for iPadOS 13+',
+  // `MobileTestCaseOptions` controls device skipping
+  {
+    skipPlatform: ['android'],
+    skipVersion: [{ platform: 'ios', version: '12' }],
+    skipFormFactor: ['phone'],
+  },
   async (client: any, testName: string) => {
-    const page = new Page(client);
-    expect(page.isAndroid()).toBe(true);
+    const page = await Page.create(client);
+    // Test something specific to iPads...
+    expect(page.isIOS()).toBe(true);
   },
 );
 ```

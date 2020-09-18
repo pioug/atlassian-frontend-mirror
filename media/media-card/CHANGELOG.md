@@ -1,5 +1,11 @@
 # @atlaskit/media-card
 
+## 69.3.3
+
+### Patch Changes
+
+- [`56eff9f60d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56eff9f60d) - Fixed card previews failing in new Jira attachments experience (affects @atlaskit/media-card@69.2.2 onwards)
+
 ## 69.3.2
 
 ### Patch Changes

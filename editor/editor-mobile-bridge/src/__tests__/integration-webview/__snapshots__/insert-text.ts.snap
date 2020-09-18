@@ -1,12 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Composition: Predictive IME Text replacement on Software Keyboard - Android - GOOGLE. 1`] = `
+exports[`Insert Text: Foo Bar - Android. 1`] = `
 Object {
   "content": Array [
     Object {
       "content": Array [
         Object {
-          "text": "Cat ",
+          "text": "Foo Bar",
           "type": "text",
         },
       ],
@@ -18,13 +18,13 @@ Object {
 }
 `;
 
-exports[`Composition: Predictive IME Text replacement on Software Keyboard - Android - SAMSUNG. 1`] = `
+exports[`Insert Text: Foo Bar - Android. 1`] = `
 Object {
   "content": Array [
     Object {
       "content": Array [
         Object {
-          "text": "Cat ",
+          "text": "Foo Bar",
           "type": "text",
         },
       ],
@@ -36,13 +36,31 @@ Object {
 }
 `;
 
-exports[`Composition: Predictive IME Text replacement on Software Keyboard - iOS - APPLE. 1`] = `
+exports[`Insert Text: Hello World - Android. 1`] = `
 Object {
   "content": Array [
     Object {
       "content": Array [
         Object {
-          "text": "On my way! ",
+          "text": "Hello World",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+  "version": 1,
+}
+`;
+
+exports[`Insert Text: Hello World - Android. 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "Hello World",
           "type": "text",
         },
       ],

@@ -39,6 +39,7 @@ describe('#getObjectUrlCache result', () => {
     }
 
     expectToEqual(objectURLCache.has('old-key'), false);
+    expectToEqual(objectURLCache.get('old-key'), undefined);
   });
 
   it('should revoke old objectURLs', () => {

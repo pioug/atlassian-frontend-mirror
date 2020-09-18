@@ -324,14 +324,9 @@ export class CardBase extends Component<
     metadata: FileDetails,
   ): Promise<CardPreview | undefined> => {
     const { dimensions = {}, originalDimensions, resizeMode } = this.props;
-    const { cardPreview: currentCardPreview } = this.state;
     const { id, collectionName } = identifier;
 
-    if (currentCardPreview) {
-      return currentCardPreview;
-    }
-
-    // No cardPreview in state? Let's try to get one from the cache.
+    // We aren't using the component state here, as cardPreviewCache has a shorter lifecycle
     const cacheKey = this.getPreviewCacheKey(id, dimensions);
     if (cardPreviewCache.has(cacheKey)) {
       return cardPreviewCache.get(cacheKey);

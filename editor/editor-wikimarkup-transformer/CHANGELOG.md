@@ -1,5 +1,17 @@
 # @atlaskit/editor-wikimarkup-transformer
 
+## 8.2.0
+
+### Minor Changes
+
+- [`183473232a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/183473232a) - CS-3136 bugfix: media single after media group no longer disappears
+
+## 8.1.0
+
+### Minor Changes
+
+- [`e6001d9b35`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e6001d9b35) - CS-3139 Rewrote query string parser to not escape sensitive characters (querystring parser was used previously)
+
 ## 8.0.0
 
 ### Major Changes

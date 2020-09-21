@@ -172,6 +172,18 @@ linebreaks{noformat}`,
 
       '{color:#6554c0}|{color}',
     ],
+    [
+      '[CS-3139] code macro accepts C++ as language',
+      `{code:C++|title="This is a plus + sign"}const a = 3 + 7{code}`,
+    ],
+    [
+      'Should take only first occurrence of attribute into account',
+      `{code:title="the real title"|title=the ignored title}const a = 3 + 7{code}`,
+    ],
+    [
+      'Should work with multiple equal signs in a single attribute',
+      `{code:title=title with = multiple=equal=signs}const a = 3 + 7{code}`,
+    ],
   ];
 
   const context = {

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-wikimarkup-transformer",
-  "version": "8.0.0",
+  "version": "8.2.0",
   "description": "Wiki markup transformer for JIRA and Confluence",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -27,7 +27,6 @@
     "@atlaskit/adf-schema": "^12.3.0",
     "@atlaskit/editor-json-transformer": "^8.3.0",
     "prosemirror-model": "^1.7.0",
-    "querystring-es3": "1.0.0-0",
     "tslib": "^2.0.0"
   },
   "devDependencies": {

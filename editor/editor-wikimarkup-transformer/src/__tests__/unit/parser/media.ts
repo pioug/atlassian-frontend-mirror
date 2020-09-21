@@ -90,6 +90,12 @@ yep`,
       'should transform attachment next to image',
       '[^document.pdf] !image.png!',
     ],
+    [
+      '[CS-3136] should keep two media after one another',
+      `[^2.png]
+!2.png|thumbnail!
+foo`,
+    ],
   ];
 
   const context: Context = {

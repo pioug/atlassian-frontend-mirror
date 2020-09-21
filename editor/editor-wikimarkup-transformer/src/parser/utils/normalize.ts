@@ -66,6 +66,7 @@ function normalizeMediaGroups(nodes: PMNode[], schema: Schema): PMNode[] {
     if (mediaGroupBuffer.length > 0) {
       if (isSignificantSeparatorNode(n, separatorBuffer)) {
         output.push(createMergedMediaGroup(mediaGroupBuffer, schema));
+        output.push(...separatorBuffer);
         output.push(n);
         mediaGroupBuffer = [];
         separatorBuffer = [];

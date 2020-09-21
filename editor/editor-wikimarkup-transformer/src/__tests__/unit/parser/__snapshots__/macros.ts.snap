@@ -93,6 +93,111 @@ linebreaks",
 }
 `;
 
+exports[`JIRA wiki markup - Macros [CS-3139] code macro accepts C++ as language 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "marks": Array [
+            Object {
+              "type": "strong",
+            },
+          ],
+          "text": "\\"This is a plus + sign\\"",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "attrs": Object {
+        "language": "c++",
+        "uniqueId": null,
+      },
+      "content": Array [
+        Object {
+          "text": "const a = 3 + 7",
+          "type": "text",
+        },
+      ],
+      "type": "codeBlock",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Macros Should take only first occurrence of attribute into account 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "marks": Array [
+            Object {
+              "type": "strong",
+            },
+          ],
+          "text": "\\"the real title\\"",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "attrs": Object {
+        "language": "java",
+        "uniqueId": null,
+      },
+      "content": Array [
+        Object {
+          "text": "const a = 3 + 7",
+          "type": "text",
+        },
+      ],
+      "type": "codeBlock",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Macros Should work with multiple equal signs in a single attribute 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "marks": Array [
+            Object {
+              "type": "strong",
+            },
+          ],
+          "text": "title with = multiple=equal=signs",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "attrs": Object {
+        "language": "java",
+        "uniqueId": null,
+      },
+      "content": Array [
+        Object {
+          "text": "const a = 3 + 7",
+          "type": "text",
+        },
+      ],
+      "type": "codeBlock",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
 exports[`JIRA wiki markup - Macros should allow pipes within colour macro, and not render as a table 1`] = `
 Object {
   "content": Array [

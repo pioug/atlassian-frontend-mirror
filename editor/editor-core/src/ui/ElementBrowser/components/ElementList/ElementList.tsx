@@ -1,14 +1,24 @@
-import React, { memo, useCallback, useEffect, useMemo, useRef } from 'react';
+import React, { memo, useCallback, useEffect, useMemo } from 'react';
 import memoizeOne from 'memoize-one';
-import { FormattedMessage } from 'react-intl';
-import styled, { css, ThemeProvider } from 'styled-components';
+import styled, { ThemeProvider, css } from 'styled-components';
 import { AutoSizer, Size } from 'react-virtualized/dist/commonjs/AutoSizer';
 import { Collection } from 'react-virtualized/dist/commonjs/Collection';
-import { withAnalyticsContext } from '@atlaskit/analytics-next';
 import { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
 import Item from '@atlaskit/item';
-import { N200 } from '@atlaskit/theme/colors';
+import { N20, N200 } from '@atlaskit/theme/colors';
 import Tooltip from '@atlaskit/tooltip';
+
+import {
+  withAnalyticsContext,
+  WithAnalyticsEventsProps,
+} from '@atlaskit/analytics-next';
+import {
+  ACTION,
+  ACTION_SUBJECT,
+  EVENT_TYPE,
+  fireAnalyticsEvent,
+} from '../../../../plugins/analytics';
+
 import IconFallback from '../../../../plugins/quick-insert/assets/fallback';
 import { ItemIcon } from '../../../../plugins/type-ahead/ui/TypeAheadItemsList';
 import { Shortcut } from '../../../styles';
@@ -21,8 +31,8 @@ import {
 import useContainerWidth from '../../hooks/use-container-width';
 import useFocus from '../../hooks/use-focus';
 import { Modes, SelectedItemProps } from '../../types';
-import EmptyState from '../EmptyState';
 import cellSizeAndPositionGetter from './cellSizeAndPositionGetter';
+import EmptyState from './EmptyState';
 import { getColumnCount } from './utils';
 
 export interface Props {
@@ -39,18 +49,10 @@ function ElementList({
   selectedItemIndex,
   focusedItemIndex,
   setColumnCount,
+  createAnalyticsEvent,
   ...props
-}: Props & SelectedItemProps) {
+}: Props & SelectedItemProps & WithAnalyticsEventsProps) {
   const { containerWidth, ContainerWidthMonitor } = useContainerWidth();
-
-  const collectionRef = useRef<null | Collection>(null);
-
-  const recomputeCollection = useCallback(() => {
-    const { current } = collectionRef;
-    if (current && current.recomputeCellSizesAndPositions) {
-      current.recomputeCellSizesAndPositions!();
-    }
-  }, [collectionRef]);
 
   const fullMode = mode === Modes.full;
 
@@ -61,9 +63,19 @@ function ElementList({
      **/
     if (fullMode && containerWidth > 0) {
       setColumnCount(getColumnCount(containerWidth));
-      recomputeCollection();
     }
-  }, [fullMode, containerWidth, setColumnCount, recomputeCollection]);
+    removeCollectionTabIndex();
+  }, [fullMode, containerWidth, setColumnCount]);
+
+  const onExternalLinkClick = useCallback(() => {
+    fireAnalyticsEvent(createAnalyticsEvent)({
+      payload: {
+        action: ACTION.VISITED,
+        actionSubject: ACTION_SUBJECT.SMART_LINK,
+        eventType: EVENT_TYPE.TRACK,
+      },
+    });
+  }, [createAnalyticsEvent]);
 
   const theme = useMemo(
     () => ({
@@ -71,7 +83,6 @@ function ElementList({
     }),
     [mode],
   );
-
   const cellRenderer = useMemo(
     () => ({
       index,
@@ -87,7 +98,7 @@ function ElementList({
       }
 
       return (
-        <div style={style} key={key}>
+        <div style={style} key={key} className="element-item-wrapper">
           <MemoizedElementItem
             inlineMode={!fullMode}
             index={index}
@@ -105,25 +116,9 @@ function ElementList({
     <>
       <ContainerWidthMonitor />
       {!items.length ? (
-        <EmptyStateWrapper>
-          <EmptyState />
-          <EmptyStateHeading>
-            <FormattedMessage
-              id="fabric.editor.elementbrowser.search.empty-state.heading"
-              defaultMessage="Nothing matches your search"
-              description="Empty state heading"
-            />
-          </EmptyStateHeading>
-          <EmptyStateSubHeading>
-            <FormattedMessage
-              id="fabric.editor.elementbrowser.search.empty-state.sub-heading"
-              defaultMessage="Remove any filters, or search for something less specific."
-              description="Empty state sub-heading"
-            />
-          </EmptyStateSubHeading>
-        </EmptyStateWrapper>
+        <EmptyState onExternalLinkClick={onExternalLinkClick} />
       ) : (
-        <ElementItemsWrapper tabIndex={-1}>
+        <ElementItemsWrapper tabIndex={-1} data-testid="ElementItems">
           <ThemeProvider theme={theme}>
             <>
               {containerWidth > 0 && (
@@ -137,7 +132,7 @@ function ElementList({
                       )}
                       height={height}
                       width={containerWidth}
-                      ref={collectionRef}
+                      key={containerWidth} // Refresh Collection on WidthObserver value change.
                       scrollToCell={selectedItemIndex}
                     />
                   )}
@@ -170,6 +165,9 @@ const getStyles = memoizeOne(mode => {
       },
     },
     borderRadius: GRID_SIZE / 2,
+    selected: {
+      background: N20,
+    },
     hover: {
       background: 'rgb(244, 245, 247)',
     },
@@ -260,6 +258,7 @@ function ElementItem({
       aria-describedby={title}
       innerRef={ref}
       onKeyPress={onKeyPress}
+      data-testid={`element-item-${index}`}
     >
       <ItemContent
         title={title}
@@ -316,19 +315,13 @@ const ElementItemsWrapper = styled.div`
   justify-content: flex-start;
   overflow: hidden;
 
-  /**
-   * Styling the scrollbar and removing outline from Collection and List components.
-   *
-   * Internally, the Collection component has a tabIndex of 0 and we don't wanna focus on the entire Collection area,
-   * so removing outline for now until the proposed solution has been approved/merged.
-   * https://product-fabric.atlassian.net/browse/ED-9919
-   * https://github.com/bvaughn/react-virtualized/pull/1555
-   */
-  .ReactVirtualized__Collection,
-  .ReactVirtualized__List {
-    user-focus: ignore;
-    outline: none;
+  .ReactVirtualized__Collection {
     ${scrollbarStyle};
+  }
+  .ReactVirtualized__Collection__innerScrollContainer {
+    div[class='element-item-wrapper']:last-child {
+      padding-bottom: 4px;
+    }
   }
 `;
 
@@ -367,27 +360,21 @@ const StyledItemIcon = styled(ItemIcon)`
   }
 `;
 
-const EmptyStateHeading = styled.div`
-  font-size: 1.42857em;
-  line-height: 1.2;
-  color: rgb(23, 43, 77);
-  font-weight: 500;
-  letter-spacing: -0.008em;
-  margin-top: 28px;
-`;
-
-const EmptyStateSubHeading = styled.p`
-  max-width: 400px;
-  text-align: center;
-`;
-
-const EmptyStateWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-`;
+/**
+ *
+ * Internally, the Collection component has a tabIndex of 0 and we don't wanna focus on the entire Collection area,
+ * so manually removing it until the below PR has been approved/merged.
+ * https://product-fabric.atlassian.net/browse/ED-9919
+ * https://github.com/bvaughn/react-virtualized/pull/1555
+ */
+const removeCollectionTabIndex = () => {
+  const element = document.getElementsByClassName(
+    'ReactVirtualized__Collection',
+  )[0] as HTMLElement;
+  if (element && element.tabIndex !== -1) {
+    element.tabIndex = -1;
+  }
+};
 
 const MemoizedElementListWithAnalytics = memo(
   withAnalyticsContext({ component: 'ElementList' })(ElementList),

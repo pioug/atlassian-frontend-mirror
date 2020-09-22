@@ -1,95 +1,145 @@
-import { EditorState, Transaction, Plugin, PluginKey } from 'prosemirror-state';
+import { Transaction, Plugin, PluginKey, EditorState } from 'prosemirror-state';
+import { DecorationSet, Decoration } from 'prosemirror-view';
+import { Node } from 'prosemirror-model';
 import { findParentNodeOfType } from 'prosemirror-utils';
-import { isWrappingPossible } from '../utils';
+import { isWrappingPossible } from '../utils/selection';
+import { isListNode } from '../utils/node';
 import { Dispatch } from '../../../event-dispatcher';
-import { removeBlockMarks } from '../../../utils/mark';
+import { pluginFactory } from '../../../utils/plugin-state-factory';
+import { ListsPluginState } from '../types';
 
-export const pluginKey = new PluginKey('listsPredictablePlugin');
+const predictableListsPluginKey = new PluginKey('listsPredictablePlugin');
+export const pluginKey = predictableListsPluginKey;
 
-export interface ListsPluginState {
-  bulletListActive: boolean;
-  bulletListDisabled: boolean;
-  orderedListActive: boolean;
-  orderedListDisabled: boolean;
-}
+const initialState: ListsPluginState = {
+  bulletListActive: false,
+  bulletListDisabled: false,
+  orderedListActive: false,
+  orderedListDisabled: false,
+  decorationSet: DecorationSet.empty,
+};
+
+export const getDecorations = (doc: Node) => {
+  const decorations: Decoration[] = [];
+
+  // this stack keeps track of each (nested) list to calculate the indentation level
+  const processedListsStack: { node: Node; startPos: number }[] = [];
+
+  doc.nodesBetween(0, doc.content.size, (node, currentNodeStartPos) => {
+    if (processedListsStack.length > 0) {
+      let isOutsideLastList = true;
+      while (isOutsideLastList && processedListsStack.length > 0) {
+        const lastList = processedListsStack[processedListsStack.length - 1];
+        const lastListEndPos = lastList.startPos + lastList.node.nodeSize;
+        isOutsideLastList = currentNodeStartPos >= lastListEndPos;
+        // once we finish iterating over each innermost list, pop the stack to
+        // decrease the indent level attribute accordingly
+        if (isOutsideLastList) {
+          processedListsStack.pop();
+        }
+      }
+    }
+
+    if (isListNode(node)) {
+      processedListsStack.push({ node, startPos: currentNodeStartPos });
+
+      const from = currentNodeStartPos;
+      const to = currentNodeStartPos + node.nodeSize;
+      const depth = processedListsStack.length;
+
+      decorations.push(
+        Decoration.node(from, to, {
+          'data-indent-level': `${depth}`,
+        }),
+      );
+    }
+  });
+
+  return DecorationSet.empty.add(doc, decorations);
+};
+
+const handleDocChanged = (
+  tr: Transaction,
+  pluginState: ListsPluginState,
+): ListsPluginState => {
+  const nextPluginState = handleSelectionChanged(tr, pluginState);
+  const decorationSet = getDecorations(tr.doc);
+  return {
+    ...nextPluginState,
+    decorationSet,
+  };
+};
+
+const handleSelectionChanged = (
+  tr: Transaction,
+  pluginState: ListsPluginState,
+): ListsPluginState => {
+  const { bulletList, orderedList } = tr.doc.type.schema.nodes;
+  const listParent = findParentNodeOfType([bulletList, orderedList])(
+    tr.selection,
+  );
+
+  const bulletListActive = !!listParent && listParent.node.type === bulletList;
+  const orderedListActive =
+    !!listParent && listParent.node.type === orderedList;
+  const bulletListDisabled = !(
+    bulletListActive ||
+    orderedListActive ||
+    isWrappingPossible(bulletList, tr.selection)
+  );
+  const orderedListDisabled = !(
+    bulletListActive ||
+    orderedListActive ||
+    isWrappingPossible(orderedList, tr.selection)
+  );
+
+  if (
+    bulletListActive !== pluginState.bulletListActive ||
+    orderedListActive !== pluginState.orderedListActive ||
+    bulletListDisabled !== pluginState.bulletListDisabled ||
+    orderedListDisabled !== pluginState.orderedListDisabled
+  ) {
+    const nextPluginState = {
+      ...pluginState,
+      bulletListActive,
+      orderedListActive,
+      bulletListDisabled,
+      orderedListDisabled,
+    };
+    return nextPluginState;
+  }
+
+  return pluginState;
+};
+
+const reducer = () => (state: ListsPluginState): ListsPluginState => {
+  return state;
+};
+
+const { getPluginState, createPluginState } = pluginFactory(
+  predictableListsPluginKey,
+  reducer(),
+  {
+    onDocChanged: handleDocChanged,
+    onSelectionChanged: handleSelectionChanged,
+  },
+);
+
+const createInitialState = (state: EditorState) => {
+  return {
+    ...initialState,
+    decorationSet: getDecorations(state.doc),
+  };
+};
 
 export const createPlugin = (dispatch: Dispatch) =>
   new Plugin({
-    state: {
-      init: () => ({
-        bulletListActive: false,
-        bulletListDisabled: false,
-        orderedListActive: false,
-        orderedListDisabled: false,
-      }),
-
-      apply(
-        tr: Transaction,
-        pluginState: ListsPluginState,
-        _,
-        state: EditorState,
-      ) {
-        const { bulletList, orderedList } = state.schema.nodes;
-        const listParent = findParentNodeOfType([bulletList, orderedList])(
-          tr.selection,
-        );
-
-        const bulletListActive =
-          !!listParent && listParent.node.type === bulletList;
-        const orderedListActive =
-          !!listParent && listParent.node.type === orderedList;
-        const bulletListDisabled = !(
-          bulletListActive ||
-          orderedListActive ||
-          isWrappingPossible(bulletList, state)
-        );
-        const orderedListDisabled = !(
-          bulletListActive ||
-          orderedListActive ||
-          isWrappingPossible(orderedList, state)
-        );
-
-        if (
-          bulletListActive !== pluginState.bulletListActive ||
-          orderedListActive !== pluginState.orderedListActive ||
-          bulletListDisabled !== pluginState.bulletListDisabled ||
-          orderedListDisabled !== pluginState.orderedListDisabled
-        ) {
-          const nextPluginState = {
-            ...pluginState,
-            bulletListActive,
-            orderedListActive,
-            bulletListDisabled,
-            orderedListDisabled,
-          };
-          dispatch(pluginKey, nextPluginState);
-          return nextPluginState;
-        }
-
-        return pluginState;
+    state: createPluginState(dispatch, createInitialState),
+    key: predictableListsPluginKey,
+    props: {
+      decorations(state) {
+        const { decorationSet } = getPluginState(state);
+        return decorationSet;
       },
     },
-
-    view: () => {
-      return {
-        update: ({ state, dispatch }) => {
-          const { bulletList, orderedList } = state.schema.nodes;
-          const { alignment, indentation } = state.schema.marks;
-          const listParent = findParentNodeOfType([bulletList, orderedList])(
-            state.tr.selection,
-          );
-          if (!listParent) {
-            return;
-          }
-
-          /** Block mark if exists should be removed when toggled to list items */
-          const removeMarks = removeBlockMarks(state, [alignment, indentation]);
-          if (removeMarks) {
-            dispatch(removeMarks);
-          }
-        },
-      };
-    },
-
-    key: pluginKey,
   });

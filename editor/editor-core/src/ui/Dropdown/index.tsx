@@ -89,10 +89,10 @@ export class Dropdown extends PureComponent<Props, State> {
     const { trigger, isOpen } = this.props;
 
     return (
-      <div>
+      <>
         <div ref={this.handleRef}>{trigger}</div>
         {isOpen ? this.renderDropdown() : null}
-      </div>
+      </>
     );
   }
 }

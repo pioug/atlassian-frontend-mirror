@@ -13,6 +13,7 @@ import {
   layers,
 } from '@atlaskit/theme/constants';
 import { GlobalThemeTokens, ThemeModes } from '@atlaskit/theme/types';
+import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
 
 import { DEFAULT_APPEARANCE } from './constants';
 import {
@@ -23,7 +24,6 @@ import {
   getFlagTextColor,
 } from './theme';
 import { FlagProps } from './types';
-import useAnalyticsEventHandler from './use-analytics-handler';
 import { name as packageName, version as packageVersion } from './version.json';
 
 import Expander from './expander';
@@ -64,7 +64,7 @@ const Flag = (props: FlagProps) => {
 
   const [isExpanded, setIsExpanded] = useState(false);
 
-  const onDismissedAnalytics = useAnalyticsEventHandler({
+  const onDismissedAnalytics = usePlatformLeafEventHandler({
     fn: onDismissed,
     action: 'dismissed',
     analyticsData: analyticsContext,
@@ -158,14 +158,14 @@ const Flag = (props: FlagProps) => {
     }
   }, [actions.length, description, isBold, isExpanded]);
 
-  const onFocusAnalytics = useAnalyticsEventHandler({
+  const onFocusAnalytics = usePlatformLeafEventHandler({
     fn: onFocus,
     action: 'focused',
     analyticsData: analyticsContext,
     ...analyticsAttributes,
   });
 
-  const onBlurAnalytics = useAnalyticsEventHandler({
+  const onBlurAnalytics = usePlatformLeafEventHandler({
     fn: onBlur,
     action: 'blurred',
     analyticsData: analyticsContext,
@@ -244,6 +244,8 @@ const Flag = (props: FlagProps) => {
                   css={css`
                     color: ${textColour};
                     word-wrap: break-word;
+                    overflow: auto;
+                    max-height: 100px; /* height is defined as 5 lines maximum by design */
                   `}
                   data-testid={testId && `${testId}-description`}
                 >

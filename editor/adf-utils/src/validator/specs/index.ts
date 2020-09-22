@@ -33,7 +33,10 @@ export { default as paragraph_with_alignment } from './paragraph_with_alignment'
 export { default as paragraph_with_indentation } from './paragraph_with_indentation';
 export { default as bulletList } from './bulletList';
 export { default as media } from './media';
+export { default as caption } from './caption';
 export { default as mediaSingle } from './mediaSingle';
+export { default as mediaSingle_full } from './mediaSingle_full';
+export { default as mediaSingle_caption } from './mediaSingle_caption';
 export { default as codeBlock } from './codeBlock';
 export { default as codeBlock_with_no_marks } from './codeBlock_with_no_marks';
 export { default as codeBlock_with_marks } from './codeBlock_with_marks';

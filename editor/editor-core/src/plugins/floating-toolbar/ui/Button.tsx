@@ -1,7 +1,7 @@
 import React from 'react';
 import Tooltip from '@atlaskit/tooltip';
-import Button from '@atlaskit/button';
-import { getButtonStyles, baseStyles } from './styles';
+import Button from '@atlaskit/button/custom-theme-button';
+import { getButtonStyles, iconOnlySpacing } from './styles';
 
 export type ButtonAppearance = 'subtle' | 'danger';
 export interface Props {
@@ -41,6 +41,10 @@ export default ({
   testId,
   hideTooltipOnClick = true,
 }: Props) => {
+  // Check if there's only an icon and add additional styles
+  const iconOnly = (icon || iconAfter) && !children;
+  const customSpacing = iconOnly ? iconOnlySpacing : {};
+
   return (
     <Tooltip
       content={tooltipContent || title}
@@ -55,7 +59,7 @@ export default ({
             return {
               buttonStyles: {
                 ...buttonStyles,
-                ...baseStyles,
+                ...customSpacing,
                 ...(appearance === 'danger' &&
                   getButtonStyles({
                     appearance,
@@ -67,7 +71,7 @@ export default ({
             };
           }}
           aria-label={title}
-          spacing="compact"
+          spacing={'compact'}
           href={href}
           target={target}
           appearance={appearance}

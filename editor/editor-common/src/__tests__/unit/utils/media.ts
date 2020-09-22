@@ -1,4 +1,5 @@
-import { akEditorFullWidthLayoutWidth } from '../../../styles/consts';
+import { akEditorFullWidthLayoutWidth } from '@atlaskit/editor-shared-styles';
+
 import {
   calcLegacyWidth,
   calcResizedWidth,

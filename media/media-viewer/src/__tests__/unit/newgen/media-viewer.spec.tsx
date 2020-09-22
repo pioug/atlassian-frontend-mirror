@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { Subject } from 'rxjs/Subject';
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
 import { Shortcut } from '@atlaskit/media-ui';
 import {
   FileItem,

@@ -3,6 +3,7 @@ import collabEditPlugin from '../../';
 
 import { EditorState } from 'prosemirror-state';
 import { Schema } from 'prosemirror-model';
+import { PMPlugin, PMPluginFactoryParams } from '../../../../types/pm-plugin';
 
 describe('collab-edit: index.ts', () => {
   const schema = new Schema({
@@ -34,40 +35,38 @@ describe('collab-edit: index.ts', () => {
   });
   const dispatch = jest.fn();
 
-  describe('when sendDataOnViewUpdated is true', () => {
-    describe('when onEditorViewStateUpdated is called', () => {
-      it('should call collab send function', done => {
-        const plugin = collabEditPlugin({
-          sendDataOnViewUpdated: true,
-        });
-        // @ts-ignore
-        const pmPlugin = plugin.pmPlugins!()[0].plugin({
-          dispatch,
-          providerFactory,
-        });
+  describe('when onEditorViewStateUpdated is called', () => {
+    it('should call collab send function', done => {
+      const editorPlugin = collabEditPlugin({});
+      const collabFactoryPlugin: PMPlugin = editorPlugin.pmPlugins!()[0];
+      const props: PMPluginFactoryParams = {
+        dispatch,
+        providerFactory,
+      } as any;
 
-        const oldEditorState = EditorState.create({
-          schema,
-          plugins: [pmPlugin!],
-        });
+      const pmPlugin = collabFactoryPlugin.plugin(props);
 
-        const transaction = oldEditorState.tr
-          .insertText('123')
-          .setMeta('collabInitialised', true);
-        const newEditorState = oldEditorState.apply(transaction);
+      const oldEditorState = EditorState.create({
+        schema,
+        plugins: [pmPlugin!],
+      });
 
-        sendMock.mockReset();
+      const transaction = oldEditorState.tr
+        .insertText('123')
+        .setMeta('collabInitialised', true);
+      const newEditorState = oldEditorState.apply(transaction);
 
-        plugin.onEditorViewStateUpdated!({
-          transaction,
-          newEditorState,
-          oldEditorState,
-        });
+      sendMock.mockReset();
 
-        process.nextTick(() => {
-          expect(sendMock).toHaveBeenCalledTimes(1);
-          done();
-        });
+      editorPlugin.onEditorViewStateUpdated!({
+        transaction,
+        newEditorState,
+        oldEditorState,
+      });
+
+      process.nextTick(() => {
+        expect(sendMock).toHaveBeenCalledTimes(1);
+        done();
       });
     });
   });

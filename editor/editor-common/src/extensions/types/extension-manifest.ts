@@ -4,7 +4,7 @@ import { ADFEntity } from '@atlaskit/adf-utils';
 
 import { ExtensionParams, UpdateExtension } from './extension-handler';
 import { Parameters } from './extension-parameters';
-import { FieldDefinition } from './field-definitions';
+import { FieldDefinition, Option } from './field-definitions';
 
 export type ESModule<T> = {
   __esModule?: boolean;
@@ -29,13 +29,6 @@ export type ExtensionComponent<T extends Parameters> = ComponentType<
 export type ExtensionComponentModule<T extends Parameters> = Promise<
   MaybeESModule<ExtensionComponent<T>>
 >;
-
-export type Option = {
-  label: string;
-  value: string;
-  description?: string;
-  icon?: string | React.ReactNode;
-};
 
 export type Serializer<T extends Parameters = Parameters> = (data: T) => string;
 export type Deserializer<T extends Parameters = Parameters> = (
@@ -92,7 +85,7 @@ export type CustomFieldResolver = (
   defaultValue?: string | string[],
 ) => Promise<Option[]>;
 
-export type ExtensionModuleFieldTypeCustom = { resolver?: CustomFieldResolver };
+export type ExtensionModuleFieldTypeCustom = { resolver: CustomFieldResolver };
 
 export type ExtensionModuleFieldTypeFieldset<
   T extends Parameters = Parameters
@@ -131,9 +124,11 @@ export type ExtensionManifest<T extends Parameters = Parameters> = {
   type: ExtensionType;
   key: ExtensionKey;
   title: string;
-  description: string;
+  description?: string;
+  summary?: string;
   categories?: string[];
   keywords?: string[];
+  documentationUrl?: string;
   icons: {
     '48': () => ExtensionIconModule;
     [dimensions: string]: () => ExtensionIconModule;

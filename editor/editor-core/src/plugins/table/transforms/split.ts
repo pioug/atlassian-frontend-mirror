@@ -1,4 +1,3 @@
-// @ts-ignore
 import { Node as ProseMirrorNode } from 'prosemirror-model';
 import { Transaction } from 'prosemirror-state';
 import { TableMap } from 'prosemirror-tables';

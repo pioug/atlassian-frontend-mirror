@@ -1,5 +1,172 @@
 # @atlaskit/editor-core
 
+## 131.0.0
+
+### Major Changes
+
+- [`dd849c6a0c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dd849c6a0c) - [ED-9500] Removes sendDataOnViewUpdated property from EditorProps.
+
+  # BREAKING CHANGE:
+
+  ## WHAT:
+
+  Editor component doesn't need the `sendDataOnViewUpdated` prop anymore.
+
+  ## WHY:
+
+  The test was done and all transaction are using the Public API: `onEditorViewStateUpdated`.
+
+  ## HOW:
+
+  Replace this:
+
+  ```
+  <Editor
+    collabEdit={{
+      sendDataOnViewUpdated: true,
+    }}
+    />
+  ```
+
+  To this:
+
+  ```
+  <Editor
+    collabEdit={{ }}
+    />
+
+  ```
+
+- [`68f7feae92`](https://bitbucket.org/atlassian/atlassian-frontend/commits/68f7feae92) - (major) `isHidden` is only supported for String Field types
+  (patch) Remove duplicate Option type from ExtensionManifest types (now uses FieldDefinition Option type)
+  (patch) Extract FormContent render\* functions to function components
+- [`9a39500244`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9a39500244) - Bump ProseMirror packages
+
+  Read more: https://product-fabric.atlassian.net/wiki/spaces/E/pages/1671956531/2020-08
+
+### Minor Changes
+
+- [`0f55310b9e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0f55310b9e) - ED-10114 Codeblock improvements: implement auto-closing of quote characters and add special case handling for auto-closing of brackets
+- [`12172ca683`](https://bitbucket.org/atlassian/atlassian-frontend/commits/12172ca683) - [ux] ED-10278 Fix indentation of child lists that are of different types
+
+  This fixes an issue where a numbered list could not be indented into a parent bullet list, and vice versa.
+
+- [`01788f87a1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/01788f87a1) - ED-10128 Treat a cell selection that covers the whole table like a node selection
+
+  This means:
+
+  - If a user hits backspace with the table selected it is deleted
+  - If a user types with the table selected, the table node is replaced with the typed text
+  - If a user pastes content with the table selected, the table node is replaced with the pasted content
+
+- [`c81f880916`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c81f880916) - Add style: multiline for string TextArea field type
+- [`eb446e52e7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eb446e52e7) - ED-9385 Disable selecting nodes with a single click/tap on mobile editor
+
+  We want to use a long press gesture to select nodes on mobile instead
+
+- [`ae50a98f18`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ae50a98f18) - ED-9125 ED-8837 Update styles for selected media cards
+
+  - Use editor selection styles from @atlaskit/editor-shared-styles
+  - Update UI for selected items in media group to no longer set blue background and tick in corner
+  - No longer set set text selection over filename, filesize etc. for media group cards when selected with Cmd + A or via a range selection
+
+- [`f40f5aef03`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f40f5aef03) - ED-9953 ED-10154 Implement list conversion for list items in range selection
+- [`903a529a3e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/903a529a3e) - Return types in activity-provider which will be used in analytics
+  Adds in instrumentation metrics for HyperLinkToolBar
+- [`d724695ca4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d724695ca4) - [ux] Change the config field CustomSelect to always be clearable
+- [`a5696d6b4d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a5696d6b4d) - ED-9602 Implement keyboard selection via arrow keys for table node
+
+  Add a full-table cell selection state between selection inside table and gap cursor selection when using left/right arrow keys to navigate
+
+  Add special rules if you select full table via table controls or clicking and dragging to select all cells - left arrow will take you to start of first cell, second left will take you to left-side gap cursor; right arrow will take you straight to right-side gap cursor
+
+- [`8cbb19d0f9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cbb19d0f9) - ED-9957 Improve date picker accessibility
+- [`558a213572`](https://bitbucket.org/atlassian/atlassian-frontend/commits/558a213572) - Add style: toggle as Field Definition option
+- [`47f0c4b221`](https://bitbucket.org/atlassian/atlassian-frontend/commits/47f0c4b221) - Add isCreatable property for CustomSelect field
+
+### Patch Changes
+
+- [`39d658f40c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/39d658f40c) - [ux] ED-9955 Style list items by absolute indentation level
+
+  List items will now be styled according to the total indentation level of the list, instead of relative to their immediate parent list.
+
+- [`2d4bbe5e2e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2d4bbe5e2e) - [ED-10503] Fix prosemirror-view version at 1.15.4 without carret
+- [`0ac3eff13b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0ac3eff13b) - TWISTA-176 Added analytics for inline comments in renderer
+- [`8dbe72950d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8dbe72950d) - EDM-1107: fix media single resize in layout
+- [`57c5a91b35`](https://bitbucket.org/atlassian/atlassian-frontend/commits/57c5a91b35) - ED-10189: Show description at the top of config
+- [`7a0aed8943`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7a0aed8943) - [ux] ED-10042: restrict clear formatting on tables to the cells selected
+- [`9b020378c1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9b020378c1) - ED-9814 Design review changes from 12th Aug for ElementBrowser, replacing ModalElementBrowser's ref usage with state, and removing recomputeCellSizesAndPositions call in ElementList in favor of a key on resize to refresh Collection.
+- [`e639f4a7c9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e639f4a7c9) - fix copy to clipboard button flickering
+- [`0aafd45275`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0aafd45275) - ED-10288: Add tracking for attempted last column resizing on table
+- [`39b57c32e4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/39b57c32e4) - ED-10270 Prevent premature closure of color picker UI when clicking the More Colors button
+- [`8a415b2620`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8a415b2620) - ED-10010 Adding Visual Regression tests for ElementBrowser
+- [`ecc196a701`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ecc196a701) - [ux] ED-10426 LazyLoading InlineElementBrowser
+- [`22105274d2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/22105274d2) - Only render smart-card when context.value is available
+- [`6a93c4ab93`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6a93c4ab93) - [ux] ED-10362: fix styles of table contextual menu button
+- [`a5df678470`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a5df678470) - ED-10231 Prevent users from removing the last visible dynamic fieldset.
+- [`f456a69548`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f456a69548) - ED-10129 Fix annotation highlight staying active after component close
+- [`e50bc4c2c7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e50bc4c2c7) - ED-10074 Prevent mention typeahead from flickering by fixing render condition
+- [`e0876d4a03`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e0876d4a03) - CSS fix to ensure consistency in image wrapping breaking to new line
+- [`c90f346430`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c90f346430) - Remove @ts-ignores/@ts-expect-errors
+- [`2270ba55e6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2270ba55e6) - ED-10378 Add missing options back to applyRemoteSteps
+- [`aae186c21a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aae186c21a) - [ux] ED-9527: convert ColorPalette to functional component and use useMemo()
+- [`a636b2a5b1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a636b2a5b1) - ED-10383: fix table scaling when nodeview's getPos returns position outside the document
+- [`165f252fb8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/165f252fb8) - ED-10246: remove extra margin for center/right aligned top row in tables
+- [`e65fbaa6e6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e65fbaa6e6) - [ED-10434] Implement correct delete forward behaviour for paragraphs before lists
+- [`2396e68471`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2396e68471) - EDM-824: fix floating toolbar order
+- [`6e237a6753`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6e237a6753) - Add optional caption to mediaSingle in adf schema for stage 0
+- [`d72f82bbc8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d72f82bbc8) - fix authoring behaviour of status and date node inside a codeblock
+- [`02ad57c335`](https://bitbucket.org/atlassian/atlassian-frontend/commits/02ad57c335) - Added theming and dark mode colors to the Expand node
+- [`c215f3e46b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c215f3e46b) - ED-8755: remove top margin for center/right aligned header row in tables
+- [`86eb92b441`](https://bitbucket.org/atlassian/atlassian-frontend/commits/86eb92b441) - Limit the set of HTML tags supported in extension field descriptions
+- [`2f72e5901b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2f72e5901b) - Disable media linking for video media
+- [`ea22cf8a31`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ea22cf8a31) - TWISTA-376 Provide node and mark details on mobile selection plugin
+- [`c2e573479c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c2e573479c) - EDM-937: added prefetching to Smart Links rendering path.
+
+  As of this version of `@atlaskit/smart-card`, when a Smart Link is initially rendered, one of two things will take place:
+
+  - The link will be considered as within the viewport, and a `fetch` and `render` path will be taken, or;
+  - The link will be considered as outside of the viewport, and a `prefetch` and `render` later path will be taken.
+
+  In the latter, the approach taken has been to separate the rendering of the UI of Smart Links from the data backing the Smart Link. This is important, as, otherwise, the browser will become extremely busy even though Smart Links are not in the viewport. Thus, instead, the data for Smart Links is fetched in the background, and persisted to the store.
+
+  A few additional points here are:
+
+  - The prefetching logic has been implemented as a hook which can be used in other components, `usePrefetch`;
+  - The prefetching logic is error-safe, in that, if errors take place whilst replacing there should be no repercussions (this has been tested);
+  - The prefetching logic and fetching logic peacefully co-exist, in that, if a link is scrolled into view whilst it is being prefetched, subject to prior logic in the Smart Links reducers, either one or the other is taken as the canonical source of truth for representation of the link's metadata (whichever finishes first, to benefit the customer experience).
+
+  Tests have been added to verify associated functionality, with an integration test added to ensure the number of network requests at two points, (1) on initial page load and, (2) after scrolling to the end of the page are the same.
+
+  **Note**: Prefetching is enabled by default. This is deliberate to minimise the UI reflow and associated 'jank' in the Smart Links experience. If required, opt-out behaviour will be provided in the future.
+
+- [`f418a9b96e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f418a9b96e) - [EDM-956] Fix icon size in link search results
+- [`c5bc98ff03`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c5bc98ff03) - [ux] ED-10459: inline comments - don't show highlights for resolved comments
+- [`7e9ea57baa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7e9ea57baa) - [ux] ED-9527: fix ColorPalette alignment when zoom is less than 100%
+- [`26ff0e5e9a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/26ff0e5e9a) - ED-10353 Added adf schema changes to support emoji panels
+- [`b5a06b9603`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b5a06b9603) - Extend browserFreeze, slowInput and inputPerfSampling events with nodeCount
+- [`b5673eca6b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b5673eca6b) - [ED-10181] Replace an empty indented paragraph with a list after a text formatting
+- [`b9812b8b35`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b9812b8b35) - ED-10004 improved editor toolbar responsiveness
+- [`e9710e2477`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e9710e2477) - [ED-10387] Replace Text Formated events on Predictable List
+- [`a69bad0bf5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a69bad0bf5) - ED-10241 Ensure MainToolbarCustomComponentsSlot is at least the size of its contents, prevent find-replace icon from being overlapped during publish operations
+- [`429c4359f0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/429c4359f0) - ED-9951 Add list conversion analytics
+- [`479aff7be3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/479aff7be3) - ED-10453: Add test ids in preparation for integration tests
+- [`8de373491a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8de373491a) - Strengthen the Typescript rules for Enum fields per design guidelines
+- [`78b192acc9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/78b192acc9) - ED-10169 Update imports for style constants from @atlaskit/editor-common to @atlaskit/editor-shared-styles
+- [`2e5e9bf891`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e5e9bf891) - ED-10123 Export Analytics Step from adf-schema instead of internal editor-core
+- [`9a3be2dd27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9a3be2dd27) - [ux] Force removing tabIndex from virtualized Collection component for ElementBrowser
+- [`b17798ad2e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b17798ad2e) - ED-9840/41 Showing featured element items in full page x extensions along with "view more" to show ModalElementBrowser
+- [`9f21deb3bb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9f21deb3bb) - Adding theming support and dark mode colors to table cell backgrounds
+- [`3ba991acd1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3ba991acd1) - ED-10034 Remove click listener added to extension node when it is destroyed
+- [`f6cd72972e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f6cd72972e) - ED-9763 Fix panel selection when node selected inside
+- [`cd4e6fc7b8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cd4e6fc7b8) - [ED-10247] Bump prosemirror-schema-list package to 1.1.4
+- [`9c8d6ef045`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9c8d6ef045) - [ED-10198] Fix insert event analytics events for Predictable List
+- [`1e27e43442`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1e27e43442) - [ED-10093] Conversion list analytics for predictable lists
+- [`77668bdb34`](https://bitbucket.org/atlassian/atlassian-frontend/commits/77668bdb34) - ED-10183 Add richer analytics for list indentation
+- [`c99904f2c3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c99904f2c3) - [ux] InlineElementBrowser ui changes for design/review from 3rd september 2020 for full page x extensions example
+- [`150788495a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/150788495a) - [ED-10162] Fix join list item analytics events
+- Updated dependencies
+
 ## 130.0.0
 
 ### Patch Changes

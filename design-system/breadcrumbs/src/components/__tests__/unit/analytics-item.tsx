@@ -6,7 +6,7 @@ import {
   createAndFireEvent,
   withAnalyticsEvents,
 } from '@atlaskit/analytics-next';
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
 
 import {
   name as packageName,
@@ -24,6 +24,7 @@ jest.mock('@atlaskit/analytics-next', () => ({
   withAnalyticsEvents: jest.fn(() => jest.fn(() => () => null)),
   withAnalyticsContext: jest.fn(() => jest.fn(() => () => null)),
   createAndFireEvent: jest.fn(() => jest.fn(args => args)),
+  usePlatformLeafEventHandler: jest.fn(),
 }));
 
 describe('BreadcrumbsItem', () => {

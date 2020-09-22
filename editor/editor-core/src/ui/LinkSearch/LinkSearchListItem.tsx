@@ -15,9 +15,7 @@ interface ContainerProps {
   selected: boolean;
 }
 
-export const Container: ComponentClass<
-  HTMLAttributes<{}> & ContainerProps
-> = styled.li`
+export const Container = styled.li`
   background-color: ${(props: ContainerProps) =>
     props.selected ? N20 : 'transparent'};
   padding: 8px 12px;
@@ -48,6 +46,10 @@ const Icon: ComponentClass<HTMLAttributes<{}>> = styled.span`
   min-width: 16px;
   margin-top: 3px;
   margin-right: 12px;
+
+  img {
+    max-width: 16px;
+  }
 `;
 
 export interface Props {
@@ -150,9 +152,10 @@ class LinkSearchListItem extends React.PureComponent<
     const { item, selected } = this.props;
     return (
       <Container
+        data-testid="link-search-list-item"
         selected={selected}
         onMouseMove={this.handleMouseMove}
-        onMouseDown={this.handleSelect}
+        onClick={this.handleSelect}
       >
         {this.renderIcon()}
         <NameWrapper>

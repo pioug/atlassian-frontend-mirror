@@ -79,10 +79,24 @@ export const sanitiseSelectionMarksForWrapping = (
   state: EditorState,
   newParentType?: NodeType,
 ): Transaction | undefined => {
-  let tr: Transaction | undefined;
-  const { from, to } = state.tr.selection;
+  const { tr } = state;
+  sanitiseMarksInSelection(tr, newParentType);
+  return tr;
+};
 
-  state.doc.nodesBetween(from, to, (node, pos, parent) => {
+type NodesSanitized = Array<{
+  node: Node;
+  marksRemoved: Mark[];
+}>;
+
+export const sanitiseMarksInSelection = (
+  tr: Transaction,
+  newParentType?: NodeType,
+): NodesSanitized => {
+  const { from, to } = tr.selection;
+  const nodesSanitized: NodesSanitized = [];
+
+  tr.doc.nodesBetween(from, to, (node, pos, parent) => {
     if (node.isText) {
       return false;
     }
@@ -101,14 +115,16 @@ export const sanitiseSelectionMarksForWrapping = (
       ) {
         const filteredMarks = node.marks.filter(m => m.type !== mark.type);
         const position = pos > 0 ? pos : 0;
-        tr = (tr || state.tr).setNodeMarkup(
-          position,
-          undefined,
-          node.attrs,
-          filteredMarks,
-        );
+
+        const marksRemoved = node.marks.filter(m => m.type === mark.type);
+        nodesSanitized.push({
+          node,
+          marksRemoved,
+        });
+        tr.setNodeMarkup(position, undefined, node.attrs, filteredMarks);
       }
     });
   });
-  return tr;
+
+  return nodesSanitized;
 };

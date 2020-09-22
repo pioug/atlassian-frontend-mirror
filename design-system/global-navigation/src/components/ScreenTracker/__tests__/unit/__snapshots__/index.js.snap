@@ -5,20 +5,10 @@ exports[`ScreenTracker should render correctly 1`] = `
   isVisible={false}
   name="test"
 >
-  <AnalyticsContextConsumer
-    createEventMap={Object {}}
-    wrappedComponentProps={
-      Object {
-        "isVisible": false,
-        "name": "test",
-      }
-    }
-  >
-    <ScreenTrackerBase
-      createAnalyticsEvent={[Function]}
-      isVisible={false}
-      name="test"
-    />
-  </AnalyticsContextConsumer>
+  <ScreenTrackerBase
+    createAnalyticsEvent={[Function]}
+    isVisible={false}
+    name="test"
+  />
 </WithAnalyticsEvents(ScreenTrackerBase)>
 `;

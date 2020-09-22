@@ -7,6 +7,8 @@ export default {
   'fabric.media.drag_and_drop_your_files':
     'Drag and drop your files anywhere or',
   'fabric.media.drop_your_files': 'Drop your files to upload',
+  'fabric.media.drag_and_drop_your_files_and_folders':
+    'Drag and drop your files and folders anywhere or',
   'fabric.media.upload': 'Upload',
   'fabric.media.cancel': 'Cancel',
   'fabric.media.search_all_gifs': 'Search all the GIFs!',

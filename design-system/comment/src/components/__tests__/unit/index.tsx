@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { mount, shallow } from 'enzyme';
 
 import Avatar from '@atlaskit/avatar';
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
 import LockFilledIcon from '@atlaskit/icon/glyph/lock-filled';
 import WarningIcon from '@atlaskit/icon/glyph/warning';
 import Lozenge from '@atlaskit/lozenge';

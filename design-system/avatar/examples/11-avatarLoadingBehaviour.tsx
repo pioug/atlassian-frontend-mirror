@@ -1,12 +1,13 @@
 import React, { ChangeEvent, FC, FormEvent, useState } from 'react';
 
-import Button, { ButtonProps } from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
+import { CustomThemeButtonProps } from '@atlaskit/button/types';
 import { gridSize } from '@atlaskit/theme/constants';
 
 import { Note } from '../examples-util/helpers';
 import Avatar from '../src';
 
-const Btn = (props: ButtonProps) => (
+const Btn = (props: CustomThemeButtonProps) => (
   <span style={{ marginLeft: gridSize() }}>
     <Button type="button" {...props} />
   </span>

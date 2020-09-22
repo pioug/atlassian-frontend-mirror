@@ -11,7 +11,7 @@ import ConfigPanelWithExtensionPicker from '../example-helpers/config-panel/Conf
 const parameters = {
   cql:
     'Q = dddd AND USER = llemos AND SPACE = SD AND contentType in (blogpost, question)',
-  'user-lazy': 'akumar',
+  'custom-user-lazy': 'akumar',
 };
 
 const extensionProvider = combineExtensionProviders([

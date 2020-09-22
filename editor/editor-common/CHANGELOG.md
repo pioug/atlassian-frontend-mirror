@@ -1,5 +1,45 @@
 # @atlaskit/editor-common
 
+## 51.0.0
+
+### Major Changes
+
+- [`8830f4d771`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8830f4d771) - ED-10170 Remove style constants from @atlaskit/editor-common - import these from @atlaskit/editor-shared-styles instead
+- [`225c901919`](https://bitbucket.org/atlassian/atlassian-frontend/commits/225c901919) - ED-10351 add API to delete the annotation
+- [`8de373491a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8de373491a) - Strengthen the Typescript rules for Enum fields per design guidelines
+
+### Minor Changes
+
+- [`79fb301be8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/79fb301be8) - ED_9523 add tooltip for unsupported content
+- [`c81f880916`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c81f880916) - Add style: multiline for string TextArea field type
+- [`68f7feae92`](https://bitbucket.org/atlassian/atlassian-frontend/commits/68f7feae92) - (major) `isHidden` is only supported for String Field types
+  (patch) Remove duplicate Option type from ExtensionManifest types (now uses FieldDefinition Option type)
+  (patch) Extract FormContent render\* functions to function components
+- [`64b147b2f5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/64b147b2f5) - ED-10408 updated image linking style for renderer
+- [`9a39500244`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9a39500244) - Bump ProseMirror packages
+
+  Read more: https://product-fabric.atlassian.net/wiki/spaces/E/pages/1671956531/2020-08
+
+- [`558a213572`](https://bitbucket.org/atlassian/atlassian-frontend/commits/558a213572) - Add style: toggle as Field Definition option
+- [`a5dad98e3f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a5dad98e3f) - ED-10070 Locale based unsupported content/nodeType Lozenge
+- [`47f0c4b221`](https://bitbucket.org/atlassian/atlassian-frontend/commits/47f0c4b221) - Add isCreatable property for CustomSelect field
+
+### Patch Changes
+
+- [`39d658f40c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/39d658f40c) - [ux] ED-9955 Style list items by absolute indentation level
+
+  List items will now be styled according to the total indentation level of the list, instead of relative to their immediate parent list.
+
+- [`2d4bbe5e2e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2d4bbe5e2e) - [ED-10503] Fix prosemirror-view version at 1.15.4 without carret
+- [`0ac3eff13b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0ac3eff13b) - TWISTA-176 Added analytics for inline comments in renderer
+- [`57c5a91b35`](https://bitbucket.org/atlassian/atlassian-frontend/commits/57c5a91b35) - ED-10189: Show description at the top of config
+- [`39b57c32e4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/39b57c32e4) - ED-10270 Prevent premature closure of color picker UI when clicking the More Colors button
+- [`c024edd79d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c024edd79d) - ED-7832: Update Inline comments styling
+- [`6e237a6753`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6e237a6753) - Add optional caption to mediaSingle in adf schema for stage 0
+- [`02ad57c335`](https://bitbucket.org/atlassian/atlassian-frontend/commits/02ad57c335) - Added theming and dark mode colors to the Expand node
+- [`26ff0e5e9a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/26ff0e5e9a) - ED-10353 Added adf schema changes to support emoji panels
+- Updated dependencies
+
 ## 50.0.1
 
 ### Patch Changes

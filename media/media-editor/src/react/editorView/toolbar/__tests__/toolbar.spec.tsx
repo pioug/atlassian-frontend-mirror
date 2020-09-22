@@ -1,6 +1,6 @@
 import React from 'react';
 import { ReactWrapper } from 'enzyme';
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
 import FieldRange from '@atlaskit/field-range';
 import { mountWithIntlContext } from '@atlaskit/media-test-helpers';
 import * as colors from '@atlaskit/theme/colors';

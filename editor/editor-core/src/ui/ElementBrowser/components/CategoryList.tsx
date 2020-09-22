@@ -1,7 +1,7 @@
 import React, { memo, useCallback, Dispatch, SetStateAction } from 'react';
 import styled from 'styled-components';
 import { N800, B400, B50 } from '@atlaskit/theme/colors';
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
 import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import { withAnalyticsContext } from '@atlaskit/analytics-next';
 import { DEVICE_BREAKPOINT_NUMBERS, GRID_SIZE } from '../constants';
@@ -86,7 +86,9 @@ function CategoryListItem({
       return {
         buttonStyles: {
           ...buttonStyles,
-          height: `100%`,
+          textAlign: 'start',
+          marginLeft: '2px',
+          height: '100%',
           width: '100%',
           color: category.name !== selectedCategory ? N800 : B400,
           ...(category.name === selectedCategory && {
@@ -117,7 +119,7 @@ function CategoryListItem({
 
 const ButtonWrapper = styled.div`
   height: ${GRID_SIZE * 4}px;
-  margin: ${GRID_SIZE / 2}px;
+  margin: 4px 4px 4px 0;
 
   @media (min-width: ${DEVICE_BREAKPOINT_NUMBERS.medium}px) {
     :not(:last-child) {

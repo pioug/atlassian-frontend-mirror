@@ -144,7 +144,7 @@ export class StatelessUploadView extends Component<
   }
 
   render() {
-    const { isLoading, browserRef } = this.props;
+    const { isLoading, browserRef, featureFlags } = this.props;
     const cards = this.renderCards();
     const isEmpty = !isLoading && cards.length === 0;
 
@@ -163,7 +163,11 @@ export class StatelessUploadView extends Component<
         onThresholdReached={this.onThresholdReachedListener}
       >
         <Wrapper>
-          <Dropzone isEmpty={isEmpty} browserRef={browserRef} />
+          <Dropzone
+            isEmpty={isEmpty}
+            browserRef={browserRef}
+            featureFlags={featureFlags}
+          />
           {contentPart}
           {confirmationDialog}
         </Wrapper>

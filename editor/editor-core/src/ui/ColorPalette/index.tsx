@@ -1,12 +1,11 @@
 import React from 'react';
-import { PureComponent } from 'react';
 import chromatism from 'chromatism';
 import Color from './Color';
 
 import { ColorPaletteWrapper } from './styles';
 import { PaletteColor } from './Palettes/type';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
-import * as colors from '@atlaskit/theme/colors';
+import { N0, N500 } from '@atlaskit/theme/colors';
 
 export interface Props {
   palette: PaletteColor[];
@@ -29,36 +28,52 @@ export function getContrastColor(color: string, pool: string[]): string {
   )[0];
 }
 
-class ColorPalette extends PureComponent<Props & InjectedIntlProps, any> {
-  render() {
-    const {
-      palette,
-      cols = 7,
-      onClick,
-      selectedColor,
-      className,
-      intl: { formatMessage },
-    } = this.props;
+const ColorPalette = (props: Props & InjectedIntlProps) => {
+  const {
+    palette,
+    cols = 7,
+    onClick,
+    selectedColor,
+    className,
+    intl: { formatMessage },
+  } = props;
 
-    return (
-      <ColorPaletteWrapper
-        className={className}
-        style={{ maxWidth: cols * 32 }}
-      >
-        {palette.map(({ value, label, border, message }) => (
-          <Color
-            key={value}
-            value={value}
-            borderColor={border}
-            label={message ? formatMessage(message) : label}
-            onClick={onClick}
-            isSelected={value === selectedColor}
-            checkMarkColor={getContrastColor(value, [colors.N0, colors.N500])}
-          />
-        ))}
-      </ColorPaletteWrapper>
+  const colorsPerRow = React.useMemo(() => {
+    return palette.reduce(
+      (resultArray: PaletteColor[][], item: PaletteColor, index: number) => {
+        const chunkIndex = Math.floor(index / cols);
+
+        resultArray[chunkIndex] = resultArray[chunkIndex] || []; // start a new chunk
+        resultArray[chunkIndex].push(item);
+
+        return resultArray;
+      },
+      [],
     );
-  }
-}
+  }, [palette, cols]);
+
+  return (
+    <>
+      {colorsPerRow.map(row => (
+        <ColorPaletteWrapper
+          className={className}
+          key={`row-first-color-${row[0].value}`}
+        >
+          {row.map(({ value, label, border, message }) => (
+            <Color
+              key={value}
+              value={value}
+              borderColor={border}
+              label={message ? formatMessage(message) : label}
+              onClick={onClick}
+              isSelected={value === selectedColor}
+              checkMarkColor={getContrastColor(value, [N0, N500])}
+            />
+          ))}
+        </ColorPaletteWrapper>
+      ))}
+    </>
+  );
+};
 
 export default injectIntl(ColorPalette);

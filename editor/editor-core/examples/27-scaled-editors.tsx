@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import Button from '@atlaskit/button';
+import Button, {
+  CustomThemeButtonProps,
+} from '@atlaskit/button/custom-theme-button';
 import { N40, N50A } from '@atlaskit/theme/colors';
 import { default as FullPageExample } from './5-full-page';
 
@@ -35,8 +37,14 @@ const Frame = styled.div`
   box-shadow: 0 8px 16px -4px ${N50A};
 `;
 
-const PaddedButton = styled(Button)`
-  margin: 10px 0px 10px auto;
+function ButtonHack(props: CustomThemeButtonProps) {
+  return <Button {...props} />;
+}
+const PaddedButton = styled(ButtonHack)`
+  /* increase specificity to override default Button styles */
+  && {
+    margin: 10px 0px 10px auto;
+  }
 `;
 
 const EditorWrapper = styled.div`

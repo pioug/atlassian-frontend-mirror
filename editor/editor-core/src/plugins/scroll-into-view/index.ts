@@ -1,4 +1,4 @@
-import { Plugin, PluginKey } from 'prosemirror-state';
+import { Plugin, PluginKey, Transaction } from 'prosemirror-state';
 
 import { EditorPlugin } from '../../types';
 import { typeAheadInputRulesPluginKey } from '../type-ahead/pm-plugins/input-rules';
@@ -15,6 +15,8 @@ import { typeAheadInputRulesPluginKey } from '../type-ahead/pm-plugins/input-rul
 
 export const scrollIntoViewPluginKey = new PluginKey('scrollIntoViewPlugin');
 
+type TransactionWithScroll = Transaction & { scrolledIntoView: boolean };
+
 const createPlugin = () =>
   new Plugin({
     key: scrollIntoViewPluginKey,
@@ -23,10 +25,9 @@ const createPlugin = () =>
         return;
       }
 
-      const [tr] = transactions;
+      const tr = transactions[0] as TransactionWithScroll;
       if (
         (tr.docChanged || tr.storedMarksSet) &&
-        // @ts-ignore type for Transaction is missing this valid property
         !tr.scrolledIntoView &&
         tr.getMeta('scrollIntoView') !== false &&
         // ignore anything we would not want to undo

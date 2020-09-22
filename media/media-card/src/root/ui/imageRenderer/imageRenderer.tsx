@@ -26,7 +26,7 @@ export const resizeModeToMediaImageProps = (resizeMode?: ImageResizeMode) => ({
   stretch: resizeMode === 'stretchy-fit',
 });
 
-export class ImageRendererBase extends React.Component<
+export class ImageRendererWithoutAnalytics extends React.Component<
   ImageRendererProps & WithAnalyticsEventsProps
 > {
   private lastAnalyticsAction?: AnalyticsLoadingAction;
@@ -92,4 +92,6 @@ export class ImageRendererBase extends React.Component<
   }
 }
 
-export const ImageRenderer = withAnalyticsEvents()(ImageRendererBase);
+export const ImageRenderer = withAnalyticsEvents()(
+  ImageRendererWithoutAnalytics,
+);

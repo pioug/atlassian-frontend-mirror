@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
 import Form, { CheckboxField, FormFooter } from '@atlaskit/form';
 
 import { Checkbox } from '../src';

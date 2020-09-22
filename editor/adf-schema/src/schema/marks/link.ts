@@ -1,4 +1,4 @@
-import { MarkSpec, Mark } from 'prosemirror-model';
+import { MarkSpec, Mark, Fragment } from 'prosemirror-model';
 import { LINK, COLOR } from '../groups';
 import { isSafeUrl, normalizeUrl } from '../../utils/url';
 
@@ -74,7 +74,35 @@ export const link: MarkSpec = {
     },
     {
       tag: 'a[href]',
+      context: 'paragraph/|heading/|mediaSingle/',
       getAttrs: getLinkAttrs('href'),
+    },
+    {
+      /**
+       * When links aren't wrapped in a paragraph and due to
+       * the odd nature of how our schema is set up, prosemirror will
+       * add the link to the paragraph node itself where it should be on
+       * the text node, this satisfies our schema because link is allowed
+       * in many places (e.g. listitem)
+       * This change comes through via prosemirror-model@1.9.1
+       */
+      tag: 'a[href]',
+      getAttrs: getLinkAttrs('href'),
+      getContent: (node, schema) => {
+        if (node instanceof HTMLAnchorElement) {
+          const href = node.getAttribute('href');
+          const text = node.innerText;
+
+          return Fragment.from(
+            schema.nodes.paragraph.createChecked(
+              undefined,
+              schema.text(text, [schema.marks.link.create({ href })]),
+            ),
+          );
+        }
+
+        return Fragment.empty;
+      },
     },
   ],
   toDOM(node, isInline) {

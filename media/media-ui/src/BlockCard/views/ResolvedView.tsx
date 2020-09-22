@@ -41,6 +41,8 @@ export interface ResolvedViewProps {
   thumbnail?: string;
   /* Name or title */
   title?: string;
+  /* Color of title text */
+  titleTextColor?: string;
   /* Collaborators of the link */
   users?: Collaborator[];
   /* Actions which can be taken on the URL */
@@ -63,6 +65,7 @@ export const ResolvedView = ({
   thumbnail,
   context = { text: '' },
   title = '',
+  titleTextColor,
   isSelected = false,
   users = [],
   handleAvatarClick = () => {},
@@ -103,7 +106,7 @@ export const ResolvedView = ({
           >
             <ContentHeader onClick={handleClick} link={link}>
               <Icon {...icon} />
-              <Name name={title} />
+              <Name name={title} textColor={titleTextColor} />
               {lozenge && (
                 <LozengeBlockWrapper
                   css={{

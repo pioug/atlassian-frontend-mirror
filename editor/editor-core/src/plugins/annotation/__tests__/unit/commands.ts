@@ -15,10 +15,11 @@ import {
   LightEditorPlugin,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import { RESOLVE_METHOD } from './../../../analytics/types/inline-comment-events';
-import { inlineCommentPluginKey } from '../../utils';
+import { getPluginState, inlineCommentPluginKey } from '../../utils';
 import {
   setInlineCommentDraftState,
   updateInlineCommentResolvedState,
+  closeComponent,
 } from '../../commands';
 import {
   ACTION,
@@ -31,7 +32,7 @@ import analyticsPlugin from '../../../analytics/plugin';
 import textFormatting from '../../../text-formatting';
 import * as pluginFactory from '../../pm-plugins/plugin-factory';
 import { inlineCommentProvider } from '../_utils';
-import annotationPlugin from '../..';
+import annotationPlugin, { AnnotationInfo } from '../..';
 import { ACTIONS } from '../../pm-plugins/types';
 
 describe('commands', () => {
@@ -342,6 +343,33 @@ describe('commands', () => {
         });
         await nextTick();
       });
+    });
+  });
+
+  describe('closeComponent', () => {
+    it('clears annotations in selection', async () => {
+      const annotationInfo: AnnotationInfo = {
+        id: 'annotation-id',
+        type: AnnotationTypes.INLINE_COMMENT,
+      };
+
+      const { editorView } = editor(
+        doc(
+          p(
+            'Hello ',
+            annotation({
+              id: annotationInfo.id,
+              annotationType: annotationInfo.type,
+            })('th{<>}ere'),
+            ' friends',
+          ),
+        ),
+      );
+      expect(getPluginState(editorView.state).selectedAnnotations).toEqual([
+        annotationInfo,
+      ]);
+      closeComponent()(editorView.state, editorView.dispatch);
+      expect(getPluginState(editorView.state).selectedAnnotations).toEqual([]);
     });
   });
 });

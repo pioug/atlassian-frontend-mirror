@@ -1,20 +1,20 @@
 import { css } from 'styled-components';
-import { akEditorSelectedNodeClassName } from '../../styles';
-import { getSelectionStyles } from '../selection/utils';
-import { SelectionStyle } from '../selection/types';
 
 import {
+  SelectionStyle,
+  getSelectionStyles,
   akEditorDeleteBackgroundWithOpacity,
   akEditorSelectedBorderSize,
   akEditorDeleteBorder,
-} from '@atlaskit/editor-common';
+  akEditorSelectedNodeClassName,
+} from '@atlaskit/editor-shared-styles';
 
 export const UnsupportedSharedCssClassName = {
   BLOCK_CONTAINER: 'unsupportedBlockView-content-wrap',
   INLINE_CONTAINER: 'unsupportedInlineView-content-wrap',
 };
 
-const inlineUnsupportedSelector = `.${UnsupportedSharedCssClassName.INLINE_CONTAINER} span span`;
+const inlineUnsupportedSelector = `.${UnsupportedSharedCssClassName.INLINE_CONTAINER} span`;
 const blockUnsupportedSelector = `.${UnsupportedSharedCssClassName.BLOCK_CONTAINER} div`;
 
 export const unsupportedStyles = css`
@@ -22,9 +22,30 @@ export const unsupportedStyles = css`
     cursor: pointer;
   }
 
-  .${akEditorSelectedNodeClassName}${blockUnsupportedSelector},
-    .${akEditorSelectedNodeClassName}${inlineUnsupportedSelector} {
+  .${akEditorSelectedNodeClassName}${blockUnsupportedSelector} {
     ${getSelectionStyles([SelectionStyle.Blanket, SelectionStyle.Border])}
+
+    & > div {
+      ${getSelectionStyles([
+        SelectionStyle.ResetOpacity,
+        SelectionStyle.ResetBorder,
+      ])}
+    }
+  }
+
+  .${akEditorSelectedNodeClassName}${inlineUnsupportedSelector} {
+    ${getSelectionStyles([SelectionStyle.Blanket, SelectionStyle.Border])}
+
+    & div > span {
+      ${getSelectionStyles([
+        SelectionStyle.ResetBorder,
+        SelectionStyle.ResetOpacity,
+      ])}
+    }
+
+    & > div > span > span {
+      ${getSelectionStyles([SelectionStyle.ResetBorder])}
+    }
   }
 
   .danger {
@@ -34,6 +55,12 @@ export const unsupportedStyles = css`
       background-color: ${akEditorDeleteBackgroundWithOpacity};
       &::after {
         content: none; /* reset the Blanket selection style */
+      }
+
+      & > div,
+      & > div > span,
+      & > div > span > span {
+        ${getSelectionStyles([SelectionStyle.ResetBorder])}
       }
     }
   }

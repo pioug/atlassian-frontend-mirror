@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { InputHTMLAttributes, ComponentClass } from 'react';
-import { akEditorSubtleAccent } from '../../styles';
+import { akEditorSubtleAccent } from '@atlaskit/editor-shared-styles';
 import { borderRadius } from '@atlaskit/theme/constants';
 import { N300, N50 } from '@atlaskit/theme/colors';
 

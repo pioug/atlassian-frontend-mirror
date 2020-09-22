@@ -1,5 +1,11 @@
 # @atlaskit/avatar-group
 
+## 8.0.8
+
+### Patch Changes
+
+- [`19d7d96007`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d7d96007) - [ux] Now AvatarGroup wouldn't create non-interactive buttons in case there is no action provided
+
 ## 8.0.7
 
 ### Patch Changes

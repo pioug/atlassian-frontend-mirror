@@ -1,16 +1,18 @@
 import { css } from 'styled-components';
+
 import {
   mediaSingleSharedStyle,
   richMediaClassName,
+} from '@atlaskit/editor-common';
+import {
   akEditorDeleteBorder,
   akEditorDeleteBackground,
   akEditorSelectedBorderBoldSize,
   akEditorMediaResizeHandlerPaddingWide,
   akEditorMediaResizeHandlerPadding,
-} from '@atlaskit/editor-common';
-
+  akEditorSelectedNodeClassName,
+} from '@atlaskit/editor-shared-styles';
 import { N60, B200 } from '@atlaskit/theme/colors';
-import { akEditorSelectedNodeClassName } from '../../styles';
 import { fileCardImageViewSelector } from '@atlaskit/media-card';
 
 export const mediaStyles = css`
@@ -43,6 +45,8 @@ export const mediaStyles = css`
 
     .mediaSingleView-content-wrap[layout^='wrap-'] {
       max-width: 100%;
+      // overwrite default Prosemirror setting making it clear: both
+      clear: inherit;
     }
 
     .mediaSingleView-content-wrap[layout='wrap-left'] {

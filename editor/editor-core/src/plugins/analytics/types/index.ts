@@ -12,7 +12,11 @@ export {
   AnalyticsEventPayloadWithChannel,
   ErrorEventPayload,
 } from './events';
-export { FormatEventPayload, INDENT_DIR, INDENT_TYPE } from './format-events';
+export {
+  FormatEventPayload,
+  INDENT_DIRECTION,
+  INDENT_TYPE,
+} from './format-events';
 export { PUNC, SYMBOL, SubstituteEventPayload } from './substitute-events';
 export {
   FULL_WIDTH_MODE,
@@ -27,7 +31,6 @@ export {
   LINK_REPRESENTATION,
   LINK_RESOURCE,
   LINK_STATUS,
-  PANEL_TYPE,
   USER_CONTEXT,
 } from './insert-events';
 export {
@@ -50,10 +53,11 @@ export { MediaAltTextActionType, MediaEventPayload } from './media-events';
 export { DispatchAnalyticsEvent } from './dispatch-analytics-event';
 export {
   ListEventPayload,
+  CommonListAnalyticsAttributes,
   DELETE_DIRECTION,
   LIST_TEXT_SCENARIOS,
 } from './list-events';
 export {
-  LinkToolBarActionType,
-  LinkToolBarEventPayload,
+  CreateLinkInlineDialogActionType,
+  CreateLinkInlineDialogEventPayload,
 } from './link-tool-bar-events';

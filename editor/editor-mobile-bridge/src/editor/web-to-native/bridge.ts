@@ -115,6 +115,8 @@ export interface CollabBridge {
 export interface LifecycleBridge {
   editorReady(): void;
   editorDestroyed(): void;
+  editorError?(error: string, errorInfo?: string): void;
+  startWebBundle?(): void;
 }
 
 export interface CollabEditNativeBridge {

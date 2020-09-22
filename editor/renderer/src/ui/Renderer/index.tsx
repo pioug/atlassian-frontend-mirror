@@ -14,8 +14,8 @@ import {
   getResponseEndTime,
   startMeasure,
   stopMeasure,
-  akEditorFullPageDefaultFontSize,
 } from '@atlaskit/editor-common';
+import { akEditorFullPageDefaultFontSize } from '@atlaskit/editor-shared-styles';
 import {
   IframeWidthObserverFallbackWrapper,
   IframeWrapperConsumer,

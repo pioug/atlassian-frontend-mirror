@@ -1,4 +1,9 @@
-import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
+import {
+  createProsemirrorEditorFactory,
+  LightEditorPlugin,
+  Preset,
+} from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+import listTypePlugin from '../../../../plugins/lists';
 import {
   code_block,
   doc,
@@ -10,23 +15,30 @@ import {
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import { EditorView } from 'prosemirror-view';
+import analyticsPlugin from '../../../../plugins/analytics';
+import basePlugins from '../../../../plugins/base';
+import blockType from '../../../../plugins/block-type';
+import codeBlockTypePlugin from '../../../../plugins/code-block';
 import {
   CreateUIAnalyticsEvent,
   UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
 
 describe('inputrules', () => {
-  const createEditor = createEditorFactory();
+  const createEditor = createProsemirrorEditorFactory();
   let createAnalyticsEvent: CreateUIAnalyticsEvent;
 
   const editor = (doc: any) => {
     createAnalyticsEvent = jest.fn(() => ({ fire() {} } as UIAnalyticsEvent));
+
     return createEditor({
       doc,
-      editorProps: {
-        allowAnalyticsGASV3: true,
-      },
-      createAnalyticsEvent,
+      preset: new Preset<LightEditorPlugin>()
+        .add(listTypePlugin)
+        .add(basePlugins)
+        .add(blockType)
+        .add(codeBlockTypePlugin)
+        .add([analyticsPlugin, { createAnalyticsEvent }]),
     });
   };
 

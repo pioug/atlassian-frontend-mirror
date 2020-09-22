@@ -9,7 +9,7 @@ import {
   withAnalyticsContext,
   withAnalyticsEvents,
 } from '@atlaskit/analytics-next';
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
 import Droplist, { Group, Item } from '@atlaskit/droplist';
 import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
 

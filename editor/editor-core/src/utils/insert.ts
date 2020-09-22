@@ -4,7 +4,13 @@ import {
   hasParentNodeOfType,
   safeInsert as pmSafeInsert,
 } from 'prosemirror-utils';
-import { Node, Fragment, NodeType, ResolvedPos } from 'prosemirror-model';
+import {
+  Node,
+  Fragment,
+  NodeType,
+  ResolvedPos,
+  Slice,
+} from 'prosemirror-model';
 import {
   Transaction,
   EditorState,
@@ -177,6 +183,12 @@ export const safeInsert = (content: InsertableContent, position?: number) => (
   );
 };
 
+type __ReplaceStep = (ReplaceStep | ReplaceAroundStep) & {
+  // Properties `to` and `slice` are private attributes of ReplaceStep.
+  to: number;
+  slice: Slice;
+};
+
 const finaliseInsert = (tr: Transaction, nodeLength: number) => {
   const lastStep = tr.steps[tr.steps.length - 1];
   if (
@@ -186,9 +198,10 @@ const finaliseInsert = (tr: Transaction, nodeLength: number) => {
   }
 
   // Place gap cursor after the newly inserted node
-  // Properties `to` and `slice` are private attributes of ReplaceStep.
-  // @ts-ignore
-  const gapCursorPos = lastStep.to + lastStep.slice.openStart + nodeLength;
+  const gapCursorPos =
+    (lastStep as __ReplaceStep).to +
+    (lastStep as __ReplaceStep).slice.openStart +
+    nodeLength;
   return tr
     .setSelection(
       new GapCursorSelection(tr.doc.resolve(gapCursorPos), Side.RIGHT),

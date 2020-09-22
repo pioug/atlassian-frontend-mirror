@@ -1,11 +1,10 @@
 import { css } from 'styled-components';
 
-import { gridSize } from '@atlaskit/theme/constants';
-
 import {
   akEditorBlockquoteBorderColor,
   blockNodesVerticalMargin,
-} from '../consts';
+} from '@atlaskit/editor-shared-styles';
+import { gridSize } from '@atlaskit/theme/constants';
 
 export const blockquoteSharedStyles = css`
   & blockquote {

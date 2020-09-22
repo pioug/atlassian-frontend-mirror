@@ -66,6 +66,7 @@ import {
   expand,
   nestedExpand,
   embedCard,
+  caption,
 } from './nodes';
 
 function addItems(
@@ -146,6 +147,7 @@ const nodesInOrder: SchemaBuiltInItem[] = [
   { name: 'rule', spec: rule },
   { name: 'image', spec: image },
   { name: 'mention', spec: mention },
+  { name: 'caption', spec: caption },
   { name: 'media', spec: media },
   { name: 'mediaGroup', spec: mediaGroup },
   { name: 'mediaSingle', spec: mediaSingle },
@@ -203,7 +205,10 @@ const marksInOrder: SchemaBuiltInItem[] = [
 /**
  * Creates a schema preserving order of marks and nodes.
  */
-export function createSchema(config: SchemaConfig): Schema {
+export function createSchema<
+  N extends string = string,
+  M extends string = string
+>(config: SchemaConfig<N, M>): Schema<N, M> {
   const { customNodeSpecs, customMarkSpecs } = config;
   const nodesConfig = Object.keys(customNodeSpecs || {}).concat(config.nodes);
   const marksConfig = Object.keys(customMarkSpecs || {})
@@ -302,10 +307,10 @@ function isContentSupported(
   return false;
 }
 
-export interface SchemaConfig {
-  nodes: string[];
+export interface SchemaConfig<N = string, M = string> {
+  nodes: N[];
   customNodeSpecs?: SchemaCustomNodeSpecs;
-  marks?: string[];
+  marks?: M[];
   customMarkSpecs?: SchemaCustomMarkSpecs;
 }
 

@@ -1,5 +1,36 @@
 # @atlaskit/smart-card
 
+## 14.4.0
+
+### Minor Changes
+
+- [`22105274d2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/22105274d2) - Only render smart-card when context.value is available
+- [`c2e573479c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c2e573479c) - EDM-937: added prefetching to Smart Links rendering path.
+
+  As of this version of `@atlaskit/smart-card`, when a Smart Link is initially rendered, one of two things will take place:
+
+  - The link will be considered as within the viewport, and a `fetch` and `render` path will be taken, or;
+  - The link will be considered as outside of the viewport, and a `prefetch` and `render` later path will be taken.
+
+  In the latter, the approach taken has been to separate the rendering of the UI of Smart Links from the data backing the Smart Link. This is important, as, otherwise, the browser will become extremely busy even though Smart Links are not in the viewport. Thus, instead, the data for Smart Links is fetched in the background, and persisted to the store.
+
+  A few additional points here are:
+
+  - The prefetching logic has been implemented as a hook which can be used in other components, `usePrefetch`;
+  - The prefetching logic is error-safe, in that, if errors take place whilst replacing there should be no repercussions (this has been tested);
+  - The prefetching logic and fetching logic peacefully co-exist, in that, if a link is scrolled into view whilst it is being prefetched, subject to prior logic in the Smart Links reducers, either one or the other is taken as the canonical source of truth for representation of the link's metadata (whichever finishes first, to benefit the customer experience).
+
+  Tests have been added to verify associated functionality, with an integration test added to ensure the number of network requests at two points, (1) on initial page load and, (2) after scrolling to the end of the page are the same.
+
+  **Note**: Prefetching is enabled by default. This is deliberate to minimise the UI reflow and associated 'jank' in the Smart Links experience. If required, opt-out behaviour will be provided in the future.
+
+### Patch Changes
+
+- [`595078d4ea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/595078d4ea) - Fix allowing color of text for card/block view to be changed for undefined links.
+- [`14fd36bb89`](https://bitbucket.org/atlassian/atlassian-frontend/commits/14fd36bb89) - chore: move from `exponential-backoff` to `async-retry` - package already part of mono-repo
+- [`43154333ff`](https://bitbucket.org/atlassian/atlassian-frontend/commits/43154333ff) - Add Extensionkey to Analytics events
+- Updated dependencies
+
 ## 14.3.0
 
 ### Minor Changes

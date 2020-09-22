@@ -1,4 +1,4 @@
-// @ts-ignore
+// @ts-ignore: outdated type definitions
 import { handlePaste as handlePasteTable } from 'prosemirror-tables';
 import { Schema, Slice, Node, Fragment } from 'prosemirror-model';
 import { Plugin, PluginKey, EditorState } from 'prosemirror-state';
@@ -47,6 +47,7 @@ import {
   handleMarkdownWithAnalytics,
   handleRichTextWithAnalytics,
   handleExpandWithAnalytics,
+  handleSelectedTableWithAnalytics,
 } from './analytics';
 import { PasteTypes } from '../../analytics';
 import { insideTable } from '../../../utils';
@@ -254,6 +255,12 @@ export function createPlugin(
             slice,
             isPastedFile ? PasteTypes.binary : PasteTypes.richText,
           )(state, dispatch, view)
+        ) {
+          return true;
+        }
+
+        if (
+          handleSelectedTableWithAnalytics(view, event, slice)(state, dispatch)
         ) {
           return true;
         }

@@ -1,31 +1,21 @@
 import { CollabEditProvider } from '@atlaskit/editor-common';
 import { doc, p } from '@atlaskit/editor-test-helpers/schema-builder';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import { nextTick } from '@atlaskit/editor-test-helpers/next-tick';
 import {
   createProsemirrorEditorFactory,
   LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import { nextTick } from '@atlaskit/editor-test-helpers/next-tick';
-
 // Editor plugins
 import collabEditPlugin from '../../';
 
 describe('collab-edit: plugin', () => {
   const createEditor = createProsemirrorEditorFactory();
-  const editor = (
-    doc: any,
-    providerFactory?: any,
-    sendDataOnViewUpdated?: boolean,
-  ) => {
+  const editor = (doc: any, providerFactory?: any) => {
     return createEditor({
       doc,
-      preset: new Preset<LightEditorPlugin>().add([
-        collabEditPlugin,
-        {
-          sendDataOnViewUpdated,
-        },
-      ]),
+      preset: new Preset<LightEditorPlugin>().add([collabEditPlugin, {}]),
       providerFactory,
     });
   };
@@ -35,12 +25,19 @@ describe('collab-edit: plugin', () => {
     on() {
       return this;
     },
-    initialize() {},
-    unsubscribeAll() {},
+    off() {
+      return this;
+    },
+    initialize() {
+      return this;
+    },
+    unsubscribeAll() {
+      return this;
+    },
+    sendMessage() {},
   };
 
   const collabEditProviderPromise = Promise.resolve(
-    // @ts-ignore
     providerMock as CollabEditProvider,
   );
 
@@ -79,30 +76,21 @@ describe('collab-edit: plugin', () => {
     expect(providerMock.send).toBeCalled();
   });
 
-  describe.each<[boolean, number]>([
-    [false, 1],
-    [true, 0],
-  ])('when sendDataOnViewUpdated is %p', (sendDataOnViewUpdated, times) => {
-    it('should call send function for EditorState apply', async () => {
-      const providerFactory = ProviderFactory.create({
-        collabEditProvider: collabEditProviderPromise,
-      });
-
-      const { editorView } = editor(
-        doc(p('')),
-        providerFactory,
-        sendDataOnViewUpdated,
-      );
-
-      const tr = editorView.state.tr
-        .insertText('123')
-        .setMeta('collabInitialised', true);
-
-      editorView.state.apply(tr);
-      await collabEditProviderPromise;
-      await nextTick();
-
-      expect(providerMock.send).toHaveBeenCalledTimes(times);
+  it('should call send function for EditorState apply', async () => {
+    const providerFactory = ProviderFactory.create({
+      collabEditProvider: collabEditProviderPromise,
     });
+
+    const { editorView } = editor(doc(p('')), providerFactory);
+
+    const tr = editorView.state.tr
+      .insertText('123')
+      .setMeta('collabInitialised', true);
+
+    editorView.state.apply(tr);
+    await collabEditProviderPromise;
+    await nextTick();
+
+    expect(providerMock.send).toHaveBeenCalledTimes(0);
   });
 });

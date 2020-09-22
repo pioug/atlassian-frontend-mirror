@@ -506,22 +506,18 @@ const TableWithShadows = overflowShadow(TableProcessor, {
   overflowSelector: `.${TableSharedCssClassName.TABLE_NODE_WRAPPER}`,
 });
 
-const TableWithWidth: React.FunctionComponent<React.ComponentProps<
-  typeof TableWithShadows
->> = props => (
+const TableWithWidth: React.FunctionComponent<
+  {
+    renderWidth?: number;
+  } & Omit<React.ComponentProps<typeof TableWithShadows>, 'renderWidth'>
+> = props => (
   <WidthConsumer>
     {({ width }) => {
       const renderWidth =
         props.rendererAppearance === 'full-page'
           ? width - FullPagePadding * 2
           : width;
-      return (
-        <TableWithShadows
-          //@ts-expect-error TODO Fix legit TypeScript 3.9.6 improved inference error
-          renderWidth={renderWidth}
-          {...props}
-        />
-      );
+      return <TableWithShadows renderWidth={renderWidth} {...props} />;
     }}
   </WidthConsumer>
 );

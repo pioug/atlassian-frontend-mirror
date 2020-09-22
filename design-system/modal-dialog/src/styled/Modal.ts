@@ -108,7 +108,6 @@ export const PositionerRelative = styled.div<PositionerProps>`
   position: relative;
   width: ${dialogWidth};
   z-index: ${layers.modal};
-  pointer-events: none;
 
   @media (min-width: 320px) and (max-width: 480px) {
     ${positionBaseResponsiveStyles};

@@ -5,6 +5,7 @@ import {
   padToTwo,
   findDateSegmentByPosition,
   adjustDate,
+  isDatePossiblyValid,
 } from '../../utils/internal';
 
 /*
@@ -92,62 +93,84 @@ jest.mock('../../../../plugins/date/utils/formatParse', () => ({
 }));
 
 describe('dates', () => {
+  describe('isDatePossiblyValid()', () => {
+    it('should return false when date has letters in it', () => {
+      const date = '1/1/2020a';
+      const result = isDatePossiblyValid(date);
+      expect(result).toEqual(false);
+    });
+    it('should return true when date contains slashes', () => {
+      const date = '1/1/2020';
+      const result = isDatePossiblyValid(date);
+      expect(result).toEqual(true);
+    });
+    it('should return true when date contains dots or spaces', () => {
+      const date = '1. 1. 2020';
+      const result = isDatePossiblyValid(date);
+      expect(result).toEqual(true);
+    });
+    it('should return true when date contains commas', () => {
+      const date = '1,1,2020';
+      const result = isDatePossiblyValid(date);
+      expect(result).toEqual(true);
+    });
+    it('should return false when string is empty', () => {
+      const date = '';
+      const result = isDatePossiblyValid(date);
+      expect(result).toEqual(true);
+    });
+  });
+
   describe('adjustDate()', () => {
-    describe('en', () => {
-      const locale = 'en';
-      it('should increment year without incrementing day/month where possible', () => {
-        const dateString = '7/15/2020';
-        const activeSegment: DateSegment = 'year';
-        const adjustment = 1;
+    it('should increment year without incrementing day/month where possible', () => {
+      const date: DateType = {
+        year: 2020,
+        month: 7,
+        day: 15,
+      };
 
-        const newDateType = adjustDate(
-          dateString,
-          activeSegment,
-          adjustment,
-          locale,
-        );
-        expect(newDateType).toEqual({ day: 15, month: 7, year: 2021 });
-      });
-      it("should roll over day when incrementing month by 1 when day doesn't exist in that month", () => {
-        const dateString = '10/31/2020';
-        const activeSegment: DateSegment = 'month';
-        const adjustment = 1;
+      const activeSegment: DateSegment = 'year';
+      const adjustment = 1;
 
-        const newDateType = adjustDate(
-          dateString,
-          activeSegment,
-          adjustment,
-          locale,
-        );
-        expect(newDateType).toEqual({ day: 30, month: 11, year: 2020 });
-      });
-      it("should roll over day when incrementing year by 1 when day doesn't exist in that year", () => {
-        const dateString = '2/29/2020';
-        const activeSegment: DateSegment = 'year';
-        const adjustment = 1;
+      const newDateType = adjustDate(date, activeSegment, adjustment);
+      expect(newDateType).toEqual({ day: 15, month: 7, year: 2021 });
+    });
+    it("should roll over day when incrementing month by 1 when day doesn't exist in that month", () => {
+      const date: DateType = {
+        year: 2020,
+        month: 10,
+        day: 31,
+      };
+      const activeSegment: DateSegment = 'month';
+      const adjustment = 1;
 
-        const newDateType = adjustDate(
-          dateString,
-          activeSegment,
-          adjustment,
-          locale,
-        );
-        expect(newDateType).toEqual({ day: 28, month: 2, year: 2021 });
-      });
+      const newDateType = adjustDate(date, activeSegment, adjustment);
+      expect(newDateType).toEqual({ day: 30, month: 11, year: 2020 });
+    });
+    it("should roll over day when incrementing year by 1 when day doesn't exist in that year", () => {
+      const date: DateType = {
+        year: 2020,
+        month: 2,
+        day: 29,
+      };
+      const activeSegment: DateSegment = 'year';
+      const adjustment = 1;
 
-      it('should reduce day by 1 when decrementing day at start of year', () => {
-        const dateString = '01/01/2020';
-        const activeSegment: DateSegment = 'day';
-        const adjustment = -1;
+      const newDateType = adjustDate(date, activeSegment, adjustment);
+      expect(newDateType).toEqual({ day: 28, month: 2, year: 2021 });
+    });
 
-        const newDateType = adjustDate(
-          dateString,
-          activeSegment,
-          adjustment,
-          locale,
-        );
-        expect(newDateType).toEqual({ day: 31, month: 12, year: 2019 });
-      });
+    it('should reduce day by 1 when decrementing day at start of year', () => {
+      const date: DateType = {
+        year: 2020,
+        month: 1,
+        day: 1,
+      };
+      const activeSegment: DateSegment = 'day';
+      const adjustment = -1;
+
+      const newDateType = adjustDate(date, activeSegment, adjustment);
+      expect(newDateType).toEqual({ day: 31, month: 12, year: 2019 });
     });
   });
 

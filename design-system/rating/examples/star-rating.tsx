@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
-import Button, { ButtonGroup } from '@atlaskit/button';
+import ButtonGroup from '@atlaskit/button/button-group';
+import Button from '@atlaskit/button/custom-theme-button';
 import { G300 } from '@atlaskit/theme/colors';
 
 import { RatingGroup, Star } from '../src';

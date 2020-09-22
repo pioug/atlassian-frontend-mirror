@@ -1,9 +1,11 @@
 import { EditorState, Plugin, NodeSelection } from 'prosemirror-state';
 import { codeBlockNodeView } from '../nodeviews/code-block';
-import { CommandDispatch, PMPluginFactoryParams } from '../../../types';
+import { CommandDispatch } from '../../../types';
+import { createSelectionClickHandler } from '../../selection/utils';
 import { pluginKey } from '../plugin-key';
 import { ACTIONS } from './actions';
 import { findCodeBlock } from '../utils';
+import { codeBlockClassNames } from '../ui/class-names';
 
 export type CodeBlockState = {
   pos: number | null;
@@ -30,7 +32,7 @@ export const setPluginState = (stateProps: Object) => (
 
 export type CodeBlockStateSubscriber = (state: CodeBlockState) => any;
 
-export const createPlugin = ({ dispatch }: PMPluginFactoryParams) =>
+export const createPlugin = (useLongPressSelection: boolean = false) =>
   new Plugin({
     state: {
       init(_, state): CodeBlockState {
@@ -75,5 +77,14 @@ export const createPlugin = ({ dispatch }: PMPluginFactoryParams) =>
       nodeViews: {
         codeBlock: codeBlockNodeView(),
       },
+      handleClickOn: createSelectionClickHandler(
+        ['codeBlock'],
+        target =>
+          !!(
+            target.closest(`.${codeBlockClassNames.gutter}`) ||
+            target.classList.contains(codeBlockClassNames.content)
+          ),
+        { useLongPressSelection },
+      ),
     },
   });

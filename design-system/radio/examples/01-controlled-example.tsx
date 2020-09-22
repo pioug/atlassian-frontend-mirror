@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
 import Form, { Field, FormFooter } from '@atlaskit/form';
 
 import { RadioGroup } from '../src';
@@ -17,9 +17,7 @@ export default function ControlledExample() {
   // When we need to know what the current field value is
   // we can intercept the onChange function and duplicate state
   // between Form and state in our own component.
-  const [selectedOption, setSelectedOption] = React.useState<
-    string | undefined
-  >();
+  const [selectedOption, setSelectedOption] = useState<string | undefined>();
 
   return (
     <div>

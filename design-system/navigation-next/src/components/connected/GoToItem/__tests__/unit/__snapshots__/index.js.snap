@@ -256,48 +256,44 @@ exports[`GoToItemBase should render a ConnectedItem 1`] = `
           spinnerDelay={200}
           text="Another View"
         >
-          <AnalyticsContextConsumer
-            createEventMap={
-              Object {
-                "onClick": [Function],
-              }
-            }
-            wrappedComponentProps={
-              Object {
-                "after": [Function],
-                "afterGoTo": "another-view",
-                "id": "another-view-item",
-                "incomingView": undefined,
-                "onClick": [Function],
-                "spinnerDelay": 200,
-                "text": "Another View",
-              }
-            }
+          <Item
+            after={[Function]}
+            afterGoTo="another-view"
+            createAnalyticsEvent={[Function]}
+            id="another-view-item"
+            isSelected={false}
+            onClick={[Function]}
+            spacing="default"
+            spinnerDelay={200}
+            styles={[Function]}
+            text="Another View"
           >
-            <Item
-              after={[Function]}
-              afterGoTo="another-view"
-              createAnalyticsEvent={[Function]}
-              id="another-view-item"
-              isSelected={false}
-              onClick={[Function]}
-              spacing="default"
-              spinnerDelay={200}
-              styles={[Function]}
-              text="Another View"
-            >
-              <InteractionStateManager>
-                <div
-                  className="emotion-5"
-                  onBlur={[Function]}
-                  onFocus={[Function]}
-                  onMouseDown={[Function]}
-                  onMouseEnter={[Function]}
-                  onMouseLeave={[Function]}
-                  onMouseUp={[Function]}
-                  role="presentation"
+            <InteractionStateManager>
+              <div
+                className="emotion-5"
+                onBlur={[Function]}
+                onFocus={[Function]}
+                onMouseDown={[Function]}
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onMouseUp={[Function]}
+                role="presentation"
+              >
+                <WithTheme(ItemPrimitive)
+                  after={[Function]}
+                  afterGoTo="another-view"
+                  id="another-view-item"
+                  isActive={false}
+                  isFocused={false}
+                  isHover={false}
+                  isSelected={false}
+                  onClick={[Function]}
+                  spacing="default"
+                  spinnerDelay={200}
+                  styles={[Function]}
+                  text="Another View"
                 >
-                  <WithTheme(ItemPrimitive)
+                  <Component
                     after={[Function]}
                     afterGoTo="another-view"
                     id="another-view-item"
@@ -310,12 +306,19 @@ exports[`GoToItemBase should render a ConnectedItem 1`] = `
                     spinnerDelay={200}
                     styles={[Function]}
                     text="Another View"
+                    theme={Object {}}
                   >
-                    <Component
+                    <ItemPrimitive
                       after={[Function]}
                       afterGoTo="another-view"
+                      dataset={
+                        Object {
+                          "data-testid": "NavigationItem",
+                        }
+                      }
                       id="another-view-item"
                       isActive={false}
+                      isDragging={false}
                       isFocused={false}
                       isHover={false}
                       isSelected={false}
@@ -324,90 +327,68 @@ exports[`GoToItemBase should render a ConnectedItem 1`] = `
                       spinnerDelay={200}
                       styles={[Function]}
                       text="Another View"
-                      theme={Object {}}
+                      theme={
+                        Object {
+                          "context": "container",
+                          "mode": Object {
+                            "contentNav": [Function],
+                            "globalItem": [Function],
+                            "globalNav": [Function],
+                            "heading": [Function],
+                            "item": [Function],
+                            "section": [Function],
+                            "separator": [Function],
+                            "skeletonItem": [Function],
+                          },
+                        }
+                      }
                     >
-                      <ItemPrimitive
-                        after={[Function]}
-                        afterGoTo="another-view"
+                      <ComponentSwitch
+                        as="button"
+                        className="emotion-3"
                         dataset={
                           Object {
                             "data-testid": "NavigationItem",
                           }
                         }
-                        id="another-view-item"
-                        isActive={false}
-                        isDragging={false}
-                        isFocused={false}
-                        isHover={false}
-                        isSelected={false}
                         onClick={[Function]}
-                        spacing="default"
-                        spinnerDelay={200}
-                        styles={[Function]}
-                        text="Another View"
-                        theme={
-                          Object {
-                            "context": "container",
-                            "mode": Object {
-                              "contentNav": [Function],
-                              "globalItem": [Function],
-                              "globalNav": [Function],
-                              "heading": [Function],
-                              "item": [Function],
-                              "section": [Function],
-                              "separator": [Function],
-                              "skeletonItem": [Function],
-                            },
-                          }
-                        }
                       >
-                        <ComponentSwitch
-                          as="button"
+                        <button
                           className="emotion-3"
-                          dataset={
-                            Object {
-                              "data-testid": "NavigationItem",
-                            }
-                          }
+                          data-testid="NavigationItem"
                           onClick={[Function]}
                         >
-                          <button
-                            className="emotion-3"
-                            data-testid="NavigationItem"
-                            onClick={[Function]}
+                          <div
+                            className="emotion-1"
                           >
                             <div
-                              className="emotion-1"
+                              className="emotion-0"
                             >
-                              <div
-                                className="emotion-0"
-                              >
-                                Another View
-                              </div>
+                              Another View
                             </div>
-                            <div
-                              className="emotion-2"
-                            >
-                              <After
-                                afterGoTo="another-view"
-                                isActive={false}
-                                isDragging={false}
-                                isFocused={false}
-                                isHover={false}
-                                isSelected={false}
-                                spacing="default"
-                                spinnerDelay={200}
-                              />
-                            </div>
-                          </button>
-                        </ComponentSwitch>
-                      </ItemPrimitive>
-                    </Component>
-                  </WithTheme(ItemPrimitive)>
-                </div>
-              </InteractionStateManager>
-            </Item>
-          </AnalyticsContextConsumer>
+                          </div>
+                          <div
+                            className="emotion-2"
+                          >
+                            <After
+                              afterGoTo="another-view"
+                              isActive={false}
+                              isDragging={false}
+                              isFocused={false}
+                              isHover={false}
+                              isSelected={false}
+                              spacing="default"
+                              spinnerDelay={200}
+                            />
+                          </div>
+                        </button>
+                      </ComponentSwitch>
+                    </ItemPrimitive>
+                  </Component>
+                </WithTheme(ItemPrimitive)>
+              </div>
+            </InteractionStateManager>
+          </Item>
         </WithAnalyticsEvents(Item)>
       </AnalyticsContext>
     </WithAnalyticsContext(WithAnalyticsEvents(Item))>

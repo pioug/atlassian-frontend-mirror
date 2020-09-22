@@ -26,17 +26,14 @@ jest.mock('@atlaskit/editor-common', () => ({
 import { mount } from 'enzyme';
 import { inlineCard } from '@atlaskit/editor-test-helpers/schema-builder';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
-import { Card, SmartCardContext } from '@atlaskit/smart-card';
+import { Card } from '@atlaskit/smart-card';
 
 import { InlineCardComponent } from '../../../../../plugins/card/nodeviews/inlineCard';
-import { EditorContext } from '../../../../../plugins/card/nodeviews/genericCard';
+
 import { EditorView } from 'prosemirror-view';
+import { createCardContext } from '../_helpers';
 
 describe('inlineCard', () => {
-  const cardContext: EditorContext<any> = {
-    ...SmartCardContext,
-    value: {},
-  };
   let mockEditorView: EditorView;
 
   beforeEach(() => {
@@ -71,7 +68,7 @@ describe('inlineCard', () => {
         node={mockInlinePmNode}
         view={mockEditorView}
         getPos={() => 0}
-        cardContext={cardContext}
+        cardContext={createCardContext()}
       />,
     );
     const wrapper = mockInlineCardNode.find(Card);
@@ -92,7 +89,7 @@ describe('inlineCard', () => {
         node={mockInlinePmNode}
         view={mockEditorView}
         getPos={() => 0}
-        cardContext={cardContext}
+        cardContext={createCardContext()}
       />,
     );
     const wrapper = mockInlineCardNode.find(Card);
@@ -112,7 +109,7 @@ describe('inlineCard', () => {
         node={mockInlinePmNode}
         view={mockEditorView}
         getPos={() => 0}
-        cardContext={cardContext}
+        cardContext={createCardContext()}
       />,
     );
 

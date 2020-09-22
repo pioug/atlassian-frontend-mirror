@@ -15,7 +15,7 @@ describe('Snapshot Test', () => {
     const { page } = global;
     await loadPage(page, url);
     // Wait for links to render
-    await waitForElementCount(page, 'div > a[type="button"]', 4);
+    await waitForElementCount(page, 'div > a[href]', 4);
     // Wait for link icons
     await waitForElementCount(page, 'a span > svg', 2);
     const image = await page.screenshot();

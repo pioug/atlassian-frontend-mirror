@@ -108,7 +108,7 @@ describe('actions prop', () => {
         actions: [
           {
             content: 'Hello!',
-            href: 'https://atlaskit.atlassian.com/',
+            href: 'https://some-unique-url.org',
             target: '_blank',
           },
         ],
@@ -117,18 +117,13 @@ describe('actions prop', () => {
     );
 
     const buttonText = getByText('Hello!');
-    if (
-      buttonText.parentElement === null ||
-      buttonText.parentElement.parentElement === null
-    ) {
-      throw Error('Missing button');
+    const button: HTMLAnchorElement | null = buttonText.closest('a');
+
+    if (!button) {
+      throw new Error('unable to find button');
     }
 
-    const buttonElement = buttonText.parentElement.parentElement;
-
-    expect(buttonElement.getAttribute('href')).toBe(
-      'https://atlaskit.atlassian.com/',
-    );
-    expect(buttonElement.getAttribute('target')).toBe('_blank');
+    expect(button.getAttribute('href')).toBe('https://some-unique-url.org');
+    expect(button.getAttribute('target')).toBe('_blank');
   });
 });

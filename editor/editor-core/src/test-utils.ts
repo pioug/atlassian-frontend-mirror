@@ -5,6 +5,7 @@ import {
   LightEditorPlugin,
   LightPMPlugin,
   LightPMPluginFactoryParams,
+  OnEditorViewStateUpdated,
 } from './create-editor/get-plugins';
 import { Preset } from './labs/next/presets/preset';
 import { Schema } from 'prosemirror-model';
@@ -20,6 +21,7 @@ export interface LightEditorConfig {
   nodes: NodeConfig[];
   marks: MarkConfig[];
   plugins: Array<LightPMPlugin>;
+  onEditorViewStateUpdatedCallbacks: Array<OnEditorViewStateUpdated>;
 }
 
 function lightProcessPluginsList(
@@ -59,21 +61,32 @@ function lightProcessPluginsList(
       if (editorPlugin.nodes) {
         acc.nodes.push(...editorPlugin.nodes());
       }
+      if (editorPlugin.onEditorViewStateUpdated) {
+        acc.onEditorViewStateUpdatedCallbacks.push(
+          editorPlugin.onEditorViewStateUpdated,
+        );
+      }
       return acc;
     },
     {
       nodes: [],
       marks: [],
       plugins: [],
+      onEditorViewStateUpdatedCallbacks: [],
     } as LightEditorConfig,
   );
 }
 
+type PluginData = {
+  plugins: Plugin[];
+  schema: Schema;
+  onEditorViewStateUpdatedCallbacks: Array<OnEditorViewStateUpdated>;
+};
 export const createPMSchemaAndPlugins = (
   preset: Preset<LightEditorPlugin> = new Preset<LightEditorPlugin>(),
 ) => (
   pluginFactoryParams: Omit<LightPMPluginFactoryParams, 'schema'>,
-): { plugins: Plugin[]; schema: Schema } => {
+): PluginData => {
   let editorPlugins: LightEditorPlugin[] = [];
   if (!preset.has(basePlugin)) {
     preset.add(basePlugin);
@@ -94,6 +107,8 @@ export const createPMSchemaAndPlugins = (
   return {
     plugins,
     schema,
+    onEditorViewStateUpdatedCallbacks:
+      editorConfig.onEditorViewStateUpdatedCallbacks,
   };
 };
 

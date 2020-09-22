@@ -93,9 +93,7 @@ const collabEditPlugin = (options: PrivateCollabEditOptions): EditorPlugin => {
         props.newEditorState.tr,
       );
 
-      if (options.sendDataOnViewUpdated) {
-        executeProviderCode(sendTransaction(props), addErrorAnalytics);
-      }
+      executeProviderCode(sendTransaction(props), addErrorAnalytics);
     },
   };
 };

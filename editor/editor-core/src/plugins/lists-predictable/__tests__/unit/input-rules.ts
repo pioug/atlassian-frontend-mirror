@@ -1,4 +1,3 @@
-import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
 import {
   code_block,
   doc,
@@ -14,42 +13,51 @@ import {
   CreateUIAnalyticsEvent,
   UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
+import {
+  createProsemirrorEditorFactory,
+  LightEditorPlugin,
+  Preset,
+} from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+import listTypePlugin from '../../../../plugins/lists-predictable';
+import analyticsPlugin from '../../../../plugins/analytics';
+import basePlugins from '../../../../plugins/base';
+import blockType from '../../../../plugins/block-type';
+import codeBlockTypePlugin from '../../../../plugins/code-block';
 
 describe('inputrules', () => {
-  const createEditor = createEditorFactory();
   let createAnalyticsEvent: CreateUIAnalyticsEvent;
+  const createEditor = createProsemirrorEditorFactory();
 
+  let editorView: EditorView;
   const editor = (doc: any) => {
     createAnalyticsEvent = jest.fn(() => ({ fire() {} } as UIAnalyticsEvent));
-    return createEditor({
+
+    const fakeEditor = createEditor({
       doc,
-      editorProps: {
-        allowAnalyticsGASV3: true,
-        UNSAFE_predictableLists: true,
-      },
-      createAnalyticsEvent,
+      preset: new Preset<LightEditorPlugin>()
+        .add(listTypePlugin)
+        .add(basePlugins)
+        .add(blockType)
+        .add(codeBlockTypePlugin)
+        .add([analyticsPlugin, { createAnalyticsEvent }]),
     });
+
+    return fakeEditor.editorView;
   };
 
   describe('bullet list rule', () => {
     describe('type "* "', () => {
-      let editorView: EditorView;
-      let sel: number;
-
-      beforeEach(() => {
-        ({ editorView, sel } = editor(doc(p('{<>}'))));
-
-        insertText(editorView, '* ', sel);
-      });
-
       it('should convert to a bullet list item', () => {
+        const editorView = editor(doc(p('{<>}')));
+
+        insertText(editorView, '* ');
         expect(editorView.state.doc).toEqualDocument(doc(ul(li(p()))));
       });
 
       it('should create analytics GAS V3 event', () => {
         expect(createAnalyticsEvent).toHaveBeenCalledWith({
-          action: 'formatted',
-          actionSubject: 'text',
+          action: 'inserted',
+          actionSubject: 'list',
           eventType: 'track',
           actionSubjectId: 'bulletedList',
           attributes: expect.objectContaining({
@@ -58,46 +66,46 @@ describe('inputrules', () => {
         });
       });
 
-      it('should convert to a bullet list item after shift+enter ', () => {
-        const { editorView, sel } = editor(doc(p('test', hardBreak(), '{<>}')));
-        insertText(editorView, '* ', sel);
+      it('should not convert to a bullet list item after shift+enter ', () => {
+        const documentNode = doc(p('test', hardBreak(), '{<>}'));
+        const expectedDocumentNode = doc(p('test', hardBreak(), '* '));
+        const editorView = editor(documentNode);
+        insertText(editorView, '* ');
 
-        expect(editorView.state.doc).toEqualDocument(
-          doc(p('test'), ul(li(p()))),
-        );
+        expect(editorView.state.doc).toEqualDocument(expectedDocumentNode);
       });
 
-      it('should convert to a bullet list item after multiple shift+enter', () => {
-        const { editorView, sel } = editor(
-          doc(p('test', hardBreak(), hardBreak(), '{<>}')),
+      it('should not convert to a bullet list item after multiple shift+enter', () => {
+        const documentNode = doc(p('test', hardBreak(), hardBreak(), '{<>}'));
+        const expectedDocumentNode = doc(
+          p('test', hardBreak(), hardBreak(), '* '),
         );
-        insertText(editorView, '* ', sel);
 
-        expect(editorView.state.doc).toEqualDocument(
-          doc(p('test', hardBreak()), ul(li(p()))),
-        );
+        const editorView = editor(documentNode);
+        insertText(editorView, '* ');
+
+        expect(editorView.state.doc).toEqualDocument(expectedDocumentNode);
       });
 
-      it('should convert to a bullet list item after shift+enter for only current line', () => {
-        const { editorView, sel } = editor(
-          doc(p('test1', hardBreak(), '{<>}test2', hardBreak(), 'test3')),
+      it('should not convert to a bullet list item after shift+enter for only current line', () => {
+        const documentNode = doc(
+          p('test1', hardBreak(), '{<>}test2', hardBreak(), 'test3'),
         );
-        insertText(editorView, '* ', sel);
+        const expectedDocumentNode = doc(
+          p('test1', hardBreak(), '* test2', hardBreak(), 'test3'),
+        );
+        const editorView = editor(documentNode);
+        insertText(editorView, '* ');
 
-        expect(editorView.state.doc).toEqualDocument(
-          doc(p('test1'), ul(li(p('test2'))), p('test3')),
-        );
+        expect(editorView.state.doc).toEqualDocument(expectedDocumentNode);
       });
     });
 
     describe('type "- "', () => {
-      let editorView: EditorView;
-      let sel: number;
-
       beforeEach(() => {
-        ({ editorView, sel } = editor(doc(p('{<>}'))));
+        editorView = editor(doc(p('{<>}')));
 
-        insertText(editorView, '- ', sel);
+        insertText(editorView, '- ');
       });
 
       it('should convert to a bullet list item', () => {
@@ -106,8 +114,8 @@ describe('inputrules', () => {
 
       it('should create analytics GAS V3 event', () => {
         expect(createAnalyticsEvent).toHaveBeenCalledWith({
-          action: 'formatted',
-          actionSubject: 'text',
+          action: 'inserted',
+          actionSubject: 'list',
           eventType: 'track',
           actionSubjectId: 'bulletedList',
           attributes: expect.objectContaining({
@@ -118,21 +126,18 @@ describe('inputrules', () => {
     });
 
     it('should be not be possible to convert a code_clock to a list item', () => {
-      const { editorView, sel } = editor(doc(code_block()('{<>}')));
-      insertText(editorView, '* ', sel);
+      const editorView = editor(doc(code_block()('{<>}')));
+      insertText(editorView, '* ');
       expect(editorView.state.doc).toEqualDocument(doc(code_block()('* ')));
     });
   });
 
   describe('ordered list rule', () => {
     describe('type "1. "', () => {
-      let editorView: EditorView;
-      let sel: number;
-
       beforeEach(() => {
-        ({ editorView, sel } = editor(doc(p('{<>}'))));
+        editorView = editor(doc(p('{<>}')));
 
-        insertText(editorView, '1. ', sel);
+        insertText(editorView, '1. ');
       });
 
       it('should convert to an ordered list item', () => {
@@ -141,8 +146,8 @@ describe('inputrules', () => {
 
       it('should create analytics GAS V3 event', () => {
         const expectedPayload = {
-          action: 'formatted',
-          actionSubject: 'text',
+          action: 'inserted',
+          actionSubject: 'list',
           eventType: 'track',
           actionSubjectId: 'numberedList',
           attributes: expect.objectContaining({
@@ -152,35 +157,32 @@ describe('inputrules', () => {
         expect(createAnalyticsEvent).toHaveBeenCalledWith(expectedPayload);
       });
 
-      it('should convert to a ordered list item after shift+enter', () => {
-        const { editorView, sel } = editor(doc(p('test', hardBreak(), '{<>}')));
-        insertText(editorView, '1. ', sel);
+      it('should not convert to a ordered list item after shift+enter', () => {
+        const documentNode = doc(p('test', hardBreak(), '{<>}'));
+        const expectedDocumentNode = doc(p('test', hardBreak(), '1. '));
+        const editorView = editor(documentNode);
+        insertText(editorView, '1. ');
 
-        expect(editorView.state.doc).toEqualDocument(
-          doc(p('test'), ol(li(p()))),
-        );
+        expect(editorView.state.doc).toEqualDocument(expectedDocumentNode);
       });
 
-      it('should convert to a ordered list item after multiple shift+enter', () => {
-        const { editorView, sel } = editor(
-          doc(p('test', hardBreak(), hardBreak(), '{<>}')),
+      it('should not convert to a ordered list item after multiple shift+enter', () => {
+        const documentNode = doc(p('test', hardBreak(), hardBreak(), '{<>}'));
+        const expectedDocumentNode = doc(
+          p('test', hardBreak(), hardBreak(), '1. '),
         );
-        insertText(editorView, '1. ', sel);
+        const editorView = editor(documentNode);
+        insertText(editorView, '1. ');
 
-        expect(editorView.state.doc).toEqualDocument(
-          doc(p('test', hardBreak()), ol(li(p()))),
-        );
+        expect(editorView.state.doc).toEqualDocument(expectedDocumentNode);
       });
     });
 
     describe('type "1) "', () => {
-      let editorView: EditorView;
-      let sel: number;
-
       beforeEach(() => {
-        ({ editorView, sel } = editor(doc(p('{<>}'))));
+        editorView = editor(doc(p('{<>}')));
 
-        insertText(editorView, '1) ', sel);
+        insertText(editorView, '1) ');
       });
 
       it('should convert to an ordered list item', () => {
@@ -189,8 +191,8 @@ describe('inputrules', () => {
 
       it('should create analytics GAS V3 event', () => {
         const expectedPayload = {
-          action: 'formatted',
-          actionSubject: 'text',
+          action: 'inserted',
+          actionSubject: 'list',
           eventType: 'track',
           actionSubjectId: 'numberedList',
           attributes: expect.objectContaining({
@@ -203,42 +205,42 @@ describe('inputrules', () => {
 
     describe('for numbers other than 1', () => {
       it('should not convert "2. " to a ordered list item', () => {
-        const { editorView, sel } = editor(doc(p('{<>}')));
+        const editorView = editor(doc(p('{<>}')));
 
-        insertText(editorView, '2. ', sel);
+        insertText(editorView, '2. ');
         expect(editorView.state.doc).toEqualDocument(doc(p('2. ')));
       });
 
       it('should not convert "2. " after shift+enter to a ordered list item', () => {
-        const { editorView, sel } = editor(doc(p('test', hardBreak(), '{<>}')));
-        insertText(editorView, '2. ', sel);
+        const editorView = editor(doc(p('test', hardBreak(), '{<>}')));
+        insertText(editorView, '2. ');
         expect(editorView.state.doc).toEqualDocument(
           doc(p('test', hardBreak(), '2. ')),
         );
       });
 
       it('should not convert "2. " after multiple shift+enter to a ordered list item', () => {
-        const { editorView, sel } = editor(
+        const editorView = editor(
           doc(p('test', hardBreak(), hardBreak(), '{<>}')),
         );
-        insertText(editorView, '2. ', sel);
+        insertText(editorView, '2. ');
         expect(editorView.state.doc).toEqualDocument(
           doc(p('test', hardBreak(), hardBreak(), '2. ')),
         );
       });
 
       it('should not convert "2) " to a ordered list item', () => {
-        const { editorView, sel } = editor(doc(p('{<>}')));
+        const editorView = editor(doc(p('{<>}')));
 
-        insertText(editorView, '2) ', sel);
+        insertText(editorView, '2) ');
         expect(editorView.state.doc).toEqualDocument(doc(p('2) ')));
       });
     });
 
     it('should not be possible to convert code block to bullet list item', () => {
-      const { editorView, sel } = editor(doc(code_block()('{<>}')));
+      const editorView = editor(doc(code_block()('{<>}')));
 
-      insertText(editorView, '1. ', sel);
+      insertText(editorView, '1. ');
       expect(editorView.state.doc).toEqualDocument(doc(code_block()('1. ')));
     });
   });

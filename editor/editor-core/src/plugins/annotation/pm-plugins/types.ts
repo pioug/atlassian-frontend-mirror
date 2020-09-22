@@ -11,6 +11,7 @@ export enum ACTIONS {
   INLINE_COMMENT_CLEAR_DIRTY_MARK,
   ADD_INLINE_COMMENT,
   INLINE_COMMENT_SET_VISIBLE,
+  CLOSE_COMPONENT,
 }
 
 export interface InlineCommentPluginOptions {
@@ -42,9 +43,8 @@ export type InlineCommentAction =
         mouseData: InlineCommentMouseData;
       };
     }
-  | {
-      type: ACTIONS.INLINE_COMMENT_CLEAR_DIRTY_MARK;
-    }
+  | { type: ACTIONS.INLINE_COMMENT_CLEAR_DIRTY_MARK }
+  | { type: ACTIONS.CLOSE_COMPONENT }
   | {
       type: ACTIONS.ADD_INLINE_COMMENT;
       data: {

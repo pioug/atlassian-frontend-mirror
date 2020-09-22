@@ -45,6 +45,7 @@ export interface Props {
   macroProvider?: MacroProvider | null;
   insertMenuItems?: MenuItem[];
   showElementBrowserLink?: boolean;
+  showSeparator?: boolean;
   replacePlusMenuWithElementBrowser?: boolean;
   onShowMediaPicker?: () => void;
   onInsertBlockType?: (name: string) => Command;

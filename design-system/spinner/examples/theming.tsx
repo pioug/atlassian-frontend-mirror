@@ -3,7 +3,7 @@ import { useCallback, useState } from 'react';
 
 import { css, jsx } from '@emotion/core';
 
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
 import Lozenge from '@atlaskit/lozenge';
 import { N0, N500 } from '@atlaskit/theme/colors';
 import GlobalTheme from '@atlaskit/theme/components';

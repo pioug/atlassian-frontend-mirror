@@ -6,6 +6,7 @@ import {
   p,
   inlineCard,
   blockCard,
+  embedCard,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { floatingToolbar } from '../../../../plugins/card/toolbar';
 import { pluginKey } from '../../../../plugins/card/pm-plugins/main';
@@ -32,7 +33,11 @@ describe('card', () => {
       doc,
       providerFactory,
       editorProps: {
-        UNSAFE_cards: {},
+        UNSAFE_cards: {
+          allowBlockCards: true,
+          allowEmbeds: true,
+          allowResizing: true,
+        },
       },
       pluginKey,
     });
@@ -45,6 +50,72 @@ describe('card', () => {
     const visitTitle = intl.formatMessage(linkMessages.openLink);
     const unlinkTitle = intl.formatMessage(linkToolbarMessages.unlink);
     const removeTitle = intl.formatMessage(commonMessages.remove);
+
+    it('displays toolbar items in correct order for inlineCard', () => {
+      const { editorView } = editor(
+        doc(
+          p(
+            '{<node>}',
+            inlineCard({
+              url: 'http://www.atlassian.com/',
+            })(),
+          ),
+        ),
+      );
+
+      const toolbar = floatingToolbar({
+        allowBlockCards: true,
+        allowEmbeds: true,
+        allowResizing: true,
+      })(editorView.state, intl, providerFactory);
+      const toolbarItems = getToolbarItems(toolbar!, editorView);
+      expect(toolbar).toBeDefined();
+      expect(toolbarItems).toHaveLength(7);
+      expect(toolbarItems).toMatchSnapshot();
+    });
+
+    it('displays toolbar items in correct order for blockCard', () => {
+      const { editorView } = editor(
+        doc(
+          '{<node>}',
+          blockCard({
+            url: 'http://www.atlassian.com/',
+          })(),
+        ),
+      );
+
+      const toolbar = floatingToolbar({
+        allowBlockCards: true,
+        allowEmbeds: true,
+        allowResizing: true,
+      })(editorView.state, intl, providerFactory);
+      const toolbarItems = getToolbarItems(toolbar!, editorView);
+      expect(toolbar).toBeDefined();
+      expect(toolbarItems).toHaveLength(7);
+      expect(toolbarItems).toMatchSnapshot();
+    });
+
+    it('displays toolbar items in correct order for embedCard', () => {
+      const { editorView } = editor(
+        doc(
+          '{<node>}',
+          embedCard({
+            url: 'http://www.atlassian.com/',
+            layout: 'center',
+          })(),
+        ),
+      );
+
+      const toolbar = floatingToolbar({
+        allowBlockCards: true,
+        allowEmbeds: true,
+        allowResizing: true,
+      })(editorView.state, intl, providerFactory);
+      const toolbarItems = getToolbarItems(toolbar!, editorView);
+      expect(toolbar).toBeDefined();
+      expect(toolbarItems).toHaveLength(14);
+      expect(toolbarItems).toMatchSnapshot();
+    });
 
     it('has an unlink button for inlineCard', () => {
       const { editorView } = editor(
@@ -75,12 +146,41 @@ describe('card', () => {
       });
     });
 
-    it('has an remove button for blockCard', () => {
+    it('has a remove button for blockCard', () => {
       const { editorView } = editor(
         doc(
           '{<node>}',
           blockCard({
             url: 'http://www.atlassian.com/',
+          })(),
+        ),
+      );
+
+      const toolbar = floatingToolbar({})(
+        editorView.state,
+        intl,
+        providerFactory,
+      );
+      expect(toolbar).toBeDefined();
+
+      const removeButton = getToolbarItems(toolbar!, editorView).find(
+        item => item.type === 'button' && item.title === removeTitle,
+      );
+
+      expect(removeButton).toBeDefined();
+      expect(removeButton).toMatchObject({
+        appearance: 'danger',
+        icon: RemoveIcon,
+      });
+    });
+
+    it('has a remove button for embedCard', () => {
+      const { editorView } = editor(
+        doc(
+          '{<node>}',
+          embedCard({
+            url: 'http://www.atlassian.com/',
+            layout: 'center',
           })(),
         ),
       );
@@ -246,6 +346,32 @@ describe('card', () => {
       expect(editorView.state.doc).toEqualDocument(
         doc(p('abWelcome to Atlassian!cd')),
       );
+    });
+
+    it('deletes an embed card', () => {
+      const { editorView } = editor(
+        doc(
+          p('ab'),
+          '{<node>}',
+          embedCard({
+            url: 'http://www.atlassian.com/',
+            layout: 'center',
+          })(),
+          p('cd'),
+        ),
+      );
+
+      const toolbar = floatingToolbar({})(
+        editorView.state,
+        intl,
+        providerFactory,
+      );
+      const removeButton = getToolbarItems(toolbar!, editorView).find(
+        item => item.type === 'button' && item.title === removeTitle,
+      ) as FloatingToolbarButton<Command>;
+
+      removeButton.onClick(editorView.state, editorView.dispatch);
+      expect(editorView.state.doc).toEqualDocument(doc(p('ab'), p('cd')));
     });
 
     it('has no toolbar items when url via url attr is invalid', () => {

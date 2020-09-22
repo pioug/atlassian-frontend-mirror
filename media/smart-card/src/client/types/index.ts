@@ -4,6 +4,7 @@ import { InvokePayload, ServerActionOpts } from '../../model/invoke-opts';
 
 export interface CardClient {
   fetchData(url: string): Promise<JsonLd.Response>;
+  prefetchData(url: string): Promise<JsonLd.Response | undefined>;
   postData(data: InvokePayload<ServerActionOpts>): Promise<JsonLd.Response>;
 }
 

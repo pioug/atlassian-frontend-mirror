@@ -2,7 +2,6 @@ import React from 'react';
 import { AnnotationSharedClassNames } from '@atlaskit/editor-common';
 import { ReactNodeView, ForwardRef } from '../../../nodeviews';
 import WithPluginState from '../../../ui/WithPluginState';
-import { stateKey as reactPluginKey } from '../../../plugins/base/pm-plugins/react-nodeview';
 import { InlineCommentPluginState } from '../pm-plugins/types';
 import { inlineCommentPluginKey } from '../utils';
 
@@ -22,7 +21,6 @@ export class AnnotationNodeView extends ReactNodeView {
       <WithPluginState
         plugins={{
           inlineCommentState: inlineCommentPluginKey,
-          selectionState: reactPluginKey,
         }}
         editorView={this.view}
         render={({
@@ -37,16 +35,17 @@ export class AnnotationNodeView extends ReactNodeView {
             isVisible,
           } = inlineCommentState;
 
+          if (!isVisible) {
+            return <span ref={forwardRef} />;
+          }
+
           const id = this.node.attrs.id;
           const isUnresolved = annotations[id] === false;
           const annotationHasFocus = selectedAnnotations.some(x => x.id === id);
-
-          let className;
-          if (isUnresolved && isVisible) {
-            className = annotationHasFocus
-              ? AnnotationSharedClassNames.focus
-              : AnnotationSharedClassNames.blur;
-          }
+          const className = getAnnotationViewClassname(
+            isUnresolved,
+            annotationHasFocus,
+          );
 
           return <span className={className} ref={forwardRef} />;
         }}
@@ -54,3 +53,16 @@ export class AnnotationNodeView extends ReactNodeView {
     );
   }
 }
+
+export const getAnnotationViewClassname = (
+  isUnresolved: boolean,
+  hasFocus: boolean,
+): string | undefined => {
+  if (!isUnresolved) {
+    return;
+  }
+
+  return hasFocus
+    ? AnnotationSharedClassNames.focus
+    : AnnotationSharedClassNames.blur;
+};

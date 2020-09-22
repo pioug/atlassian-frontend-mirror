@@ -9,6 +9,7 @@ const gapCursorBlink = keyframes`
   }
 `;
 
+export const hideCaretModifier = 'ProseMirror-hide-gapcursor';
 const gapCursor = '.ProseMirror-gapcursor';
 const prosemirrorwidget = '.ProseMirror-widget';
 const wrapLeft = '[layout="wrap-left"]';
@@ -17,6 +18,10 @@ const wrapRight = '[layout="wrap-right"]';
 export const gapCursorStyles = `
   /* =============== GAP CURSOR ================== */
   .ProseMirror {
+    &.${hideCaretModifier} {
+      caret-color: transparent;
+    }
+
     ${gapCursor} {
       display: none;
       pointer-events: none;

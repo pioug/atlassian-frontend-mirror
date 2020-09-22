@@ -6,10 +6,10 @@ import { PluginKey } from 'prosemirror-state';
 import { EditorPlugin } from '../../types';
 import { RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema';
 import {
+  breakoutWideScaleRatio,
   akEditorFullPageMaxWidth,
   akEditorBreakoutPadding,
-  breakoutWideScaleRatio,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-shared-styles';
 
 import { GridPluginState, GridType } from './types';
 import { pluginKey as widthPlugin, WidthPluginState } from '../width/index';

@@ -151,8 +151,11 @@ const toggleMarkInRange = (mark: Mark): Command => (state, dispatch) => {
       const from = cellPos;
       const to = cellPos + cell.nodeSize;
       if (!markInRange) {
-        // @ts-ignore
-        markInRange = state.doc.rangeHasMark(from, to, mark);
+        markInRange = state.doc.rangeHasMark(
+          from,
+          to,
+          (mark as unknown) as MarkType,
+        );
       }
     });
 
@@ -165,12 +168,16 @@ const toggleMarkInRange = (mark: Mark): Command => (state, dispatch) => {
     }
   } else {
     const { $from, $to } = state.selection;
-    // @ts-ignore The type for `rangeHasMark` only accepts a `MarkType` as a third param,
+    // The type for `rangeHasMark` only accepts a `MarkType` as a third param,
     // Yet the internals use a method that exists on both MarkType and Mark (one checks attributes the other doesnt)
-    // For example, with our subsup mark: We use the same mark with different attributes to convery
+    // For example, with our subsup mark: We use the same mark with different attributes to convert
     // different formatting but when using `MarkType.isInSet(marks)` it returns true for both.
     // Calling `Mark.isInSet(marks)` compares attributes as well.
-    const markInRange = state.doc.rangeHasMark($from.pos, $to.pos, mark);
+    const markInRange = state.doc.rangeHasMark(
+      $from.pos,
+      $to.pos,
+      (mark as unknown) as MarkType,
+    );
 
     applyMarkOnRange($from.pos, $to.pos, markInRange, mark, tr);
   }

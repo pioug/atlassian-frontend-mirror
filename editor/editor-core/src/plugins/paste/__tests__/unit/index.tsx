@@ -24,7 +24,6 @@ import {
   code,
   emoji,
   mention,
-  mediaGroup,
   media,
   mediaSingle,
   panel,
@@ -122,7 +121,11 @@ describe('paste plugins', () => {
     extensionProvider?: ExtensionProvider;
   }
 
-  const editor = (doc: any, pluginsOptions?: PluginsOptions) => {
+  const editor = (
+    doc: any,
+    pluginsOptions?: PluginsOptions,
+    attachTo?: HTMLElement,
+  ) => {
     const contextIdentifierProvider = storyContextIdentifierProviderFactory();
     const emojiProvider = emojiData.storyData.getEmojiResourceWithStandardAndAtlassianEmojis() as Promise<
       EmojiProvider
@@ -167,6 +170,7 @@ describe('paste plugins', () => {
     const wrapper = createEditor({
       doc,
       providerFactory,
+      attachTo,
       preset: new Preset<LightEditorPlugin>()
         .add([pastePlugin, pasteOptions])
         .add([
@@ -402,30 +406,6 @@ describe('paste plugins', () => {
                     'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80',
                 })(),
               ),
-            ),
-          );
-        });
-      });
-
-      describe('when message is not a media image node', () => {
-        it('does nothing', () => {
-          const { editorView } = editor(doc(p('text{<>}')));
-          dispatchPasteEvent(editorView, {
-            html: mediaHtml('pdf'),
-          });
-
-          expect(editorView.state.doc).toEqualDocument(
-            doc(
-              p('text'), // Need to add this because nodeview is not created with new helper
-              mediaGroup(
-                media({
-                  id: 'af9310df-fee5-459a-a968-99062ecbb756',
-                  type: 'file',
-                  collection: 'MediaServicesSample',
-                  __fileMimeType: 'pdf',
-                })(),
-              ),
-              p(''),
             ),
           );
         });
@@ -1913,10 +1893,27 @@ describe('paste plugins', () => {
   });
 
   describe('paste link copied from iphone "share" button', () => {
+    /**
+     * We need to define an attachTo here, as of PM-View 1.14.10 when a paste event
+     * contains no html and no text data hes added a 'kludge' which requires the editor
+     * to have a parent element to aid in the pasting non traditional data.
+     */
+    let attachTo = document.createElement('div');
+
+    beforeAll(() => {
+      jest.useFakeTimers();
+    });
+
+    afterAll(() => {
+      jest.useRealTimers();
+    });
+
     it('should paste link', () => {
-      const { editorView } = editor(doc(p('{<>}')));
+      const { editorView } = editor(doc(p('{<>}')), undefined, attachTo);
       const uriList = 'https://google.com.au';
       dispatchPasteEvent(editorView, { 'uri-list': uriList });
+
+      jest.runAllTimers();
 
       expect(editorView.state.doc).toEqualDocument(
         doc(p(link({ href: uriList })(uriList))),
@@ -1924,9 +1921,11 @@ describe('paste plugins', () => {
     });
 
     it('should paste link inline', () => {
-      const { editorView } = editor(doc(p('hello {<>}')));
+      const { editorView } = editor(doc(p('hello {<>}')), undefined, attachTo);
       const uriList = 'https://google.com.au';
       dispatchPasteEvent(editorView, { 'uri-list': uriList });
+
+      jest.runAllTimers();
 
       expect(editorView.state.doc).toEqualDocument(
         doc(p('hello ', link({ href: uriList })(uriList))),
@@ -1940,9 +1939,13 @@ describe('paste plugins', () => {
             taskItem({ localId: 'task-item-id' })('{<>}'),
           ),
         ),
+        undefined,
+        attachTo,
       );
       const uriList = 'https://google.com.au';
       dispatchPasteEvent(editorView, { 'uri-list': uriList });
+
+      jest.runAllTimers();
 
       expect(editorView.state.doc).toEqualDocument(
         doc(
@@ -2099,11 +2102,7 @@ describe('paste plugins', () => {
       dispatchPasteEvent(editorView, { html });
 
       expect(editorView.state.doc).toEqualDocument(
-        doc(
-          p('-13', hardBreak(), '-14', hardBreak(), '-15'),
-          ul(li(p('16'))),
-          p(),
-        ),
+        doc(p('-13', hardBreak(), '-14', hardBreak(), '-15'), ul(li(p('16')))),
       );
     });
 

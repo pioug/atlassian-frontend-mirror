@@ -1449,7 +1449,7 @@ describe('Card', () => {
 
     it('should attach Base Analytics Context', () => {
       const mediaClient = fakeMediaClient();
-      const card = shallow<CardProps>(
+      const card = mount<CardProps>(
         <Card mediaClient={mediaClient} identifier={identifier} />,
       );
 

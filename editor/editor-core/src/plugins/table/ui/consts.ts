@@ -2,25 +2,44 @@ import {
   B100,
   B300,
   B75,
+  N0,
   N20,
-  N50,
   R50,
   R300,
   R75,
+  DN400,
+  N200,
+  DN30,
 } from '@atlaskit/theme/colors';
-
+import { tableCellBorderWidth, tableMarginTop } from '@atlaskit/editor-common';
 import {
+  akEditorTableBorder,
+  akEditorTableBorderDark,
+  akEditorTableToolbar,
+  akEditorTableToolbarDark,
   akEditorTableToolbarSize,
   akEditorUnitZIndex,
   akRichMediaResizeZIndex,
-  tableCellBorderWidth,
-  tableMarginTop,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-shared-styles';
 
 import { RESIZE_HANDLE_AREA_DECORATION_GAP } from '../types';
 
-export const tableToolbarColor = N20;
-export const tableBorderColor = N50;
+import { themed } from '@atlaskit/theme/components';
+
+/**
+ * Basic colors added to prevent content overflow in table cells.
+ */
+export const tableCellBackgroundColor = themed({ light: N0, dark: DN30 });
+
+export const tableToolbarColor = themed({
+  light: akEditorTableToolbar,
+  dark: akEditorTableToolbarDark,
+});
+export const tableTextColor = themed({ light: N200, dark: DN400 });
+export const tableBorderColor = themed({
+  light: akEditorTableBorder,
+  dark: akEditorTableBorderDark,
+});
 export const tableFloatingControlsColor = N20;
 export const tableCellSelectedColor = B75;
 export const tableToolbarSelectedColor = B100;
@@ -53,6 +72,3 @@ export const resizeHandlerZIndex =
 export const contextualMenuTriggerSize = 16;
 export const contextualMenuDropdownWidth = 180;
 export const stickyRowZIndex = resizeHandlerZIndex + 2;
-export const colorsButtonPerLine = 7;
-export const colorsButtonRows = 3;
-export const colorButtonSizeWithPadding = 32;

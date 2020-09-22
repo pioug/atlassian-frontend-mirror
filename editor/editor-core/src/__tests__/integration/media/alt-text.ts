@@ -44,8 +44,6 @@ BrowserTestCase(
   async (client: any, testName: string) => {
     const page = await setupEditorWithMedia(client);
 
-    await page.keys(['ArrowUp']);
-
     await page.waitForSelector(altTextButtonSelector);
     await page.waitForVisible(altTextButtonSelector);
 

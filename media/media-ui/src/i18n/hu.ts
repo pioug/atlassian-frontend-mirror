@@ -35,8 +35,6 @@ export default {
     'Megnyitunk egy új lapot, hogy könnyebben csatlakozhasson {name}-fiókjához',
   'fabric.media.connect_link_account': 'Csatlakozás az előnézethez',
   'fabric.media.connect_link_account_card_view': 'Csatlakoztatás',
-  'fabric.media.connect_link_account_card_view_description':
-    'Információdúsabbá teheted a hivatkozások előnézeteit a(z) {context} és az Atlassian-termékeid összekapcsolásával.',
   'fabric.media.connect_link_account_card_view_name':
     'Kapcsold össze a fiókodat: {context}',
   'fabric.media.connect_to': 'Csatlakozás ehhez: {name}',
@@ -44,8 +42,6 @@ export default {
   'fabric.media.could_not_save_image': 'Nem sikerült betölteni a képet.',
   'fabric.media.couldnt_generate_preview':
     'Ehhez a fájlhoz nem tudtunk előnézetet létrehozni.',
-  'fabric.media.couldnt_load_link':
-    'Valamiért nem sikerült betölteni ezt a linket.',
   'fabric.media.default_avatars': 'Alapértelmezett avatárok',
   'fabric.media.disable_fullscreen': 'teljes képernyős mód letiltása',
   'fabric.media.document': 'dokumentum',
@@ -75,7 +71,6 @@ export default {
     'Nem sikerült feltölteni a képet, mert az URL-cím érvénytelen.',
   'fabric.media.insert_files':
     '{0, plural, one {{0} fájl beillesztése} other {{0} fájl beillesztése}}',
-  'fabric.media.invalid_permissions': 'Nincs hozzáférésed ehhez a linkhez',
   'fabric.media.invalid_permissions_description':
     'Az előnézet megtekintéséhez hozzáférést kell kérned, vagy másik fiókba kell belépned.',
   'fabric.media.item_not_found_in_list':
@@ -90,8 +85,6 @@ export default {
     'Nem találtunk semmit sem a következő kifejezésre: {query}',
   'fabric.media.no_pdf_artifacts':
     'Nem található PDF-műtermék ehhez a fájlhoz.',
-  'fabric.media.not_found_description':
-    'Ellenőrizd az URL-t, és próbáld meg módosítani, vagy másold be újra.',
   'fabric.media.not_found_title': 'Hoppá. Nem találjuk ezt a linket!',
   'fabric.media.or': 'vagy',
   'fabric.media.pause': 'szüneteltetés',

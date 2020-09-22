@@ -7,8 +7,10 @@ import {
   Transaction,
   TextSelection,
 } from 'prosemirror-state';
+import uuid from 'uuid';
 import { Dispatch } from '../../../event-dispatcher';
 import { shallowEqual } from '../../../utils';
+import { INPUT_METHOD } from '../../analytics';
 
 export enum LinkAction {
   SHOW_INSERT_TOOLBAR = 'SHOW_INSERT_TOOLBAR',
@@ -224,7 +226,10 @@ const getActiveText = (selection: Selection): string | undefined => {
 export interface HyperlinkState {
   activeText?: string;
   activeLinkMark?: LinkToolbarState;
+  timesViewed: number;
   canInsertLink: boolean;
+  searchSessionId?: string;
+  inputMethod?: INPUT_METHOD;
 }
 
 export const stateKey = new PluginKey('hyperlinkPlugin');
@@ -240,6 +245,7 @@ export const plugin = (dispatch: Dispatch) =>
         return {
           activeText: getActiveText(state.selection),
           canInsertLink,
+          timesViewed: 0,
           activeLinkMark: toState(
             undefined,
             LinkAction.SELECTION_CHANGE,
@@ -256,6 +262,9 @@ export const plugin = (dispatch: Dispatch) =>
         let state = pluginState;
         const action =
           tr.getMeta(stateKey) && (tr.getMeta(stateKey).type as LinkAction);
+        const inputMethod =
+          tr.getMeta(stateKey) &&
+          (tr.getMeta(stateKey).inputMethod as INPUT_METHOD);
 
         if (tr.docChanged) {
           state = {
@@ -264,15 +273,31 @@ export const plugin = (dispatch: Dispatch) =>
               newState.selection.from,
               newState.selection.to,
             )(newState),
+            timesViewed: state.timesViewed,
+            inputMethod,
             activeLinkMark: mapTransactionToState(state.activeLinkMark, tr),
           };
         }
 
         if (action) {
+          const stateForAnalytics = [
+            LinkAction.SHOW_INSERT_TOOLBAR,
+            LinkAction.EDIT_INSERTED_TOOLBAR,
+          ].includes(action)
+            ? {
+                timesViewed: ++state.timesViewed,
+                searchSessionId: uuid(),
+              }
+            : {
+                timesViewed: state.timesViewed,
+                searchSessionId: state.searchSessionId,
+              };
           state = {
             activeText: state.activeText,
             canInsertLink: state.canInsertLink,
+            inputMethod,
             activeLinkMark: toState(state.activeLinkMark, action, newState),
+            ...stateForAnalytics,
           };
         }
 
@@ -288,6 +313,9 @@ export const plugin = (dispatch: Dispatch) =>
               LinkAction.SELECTION_CHANGE,
               newState,
             ),
+            timesViewed: state.timesViewed,
+            searchSessionId: state.searchSessionId,
+            inputMethod,
           };
         }
 

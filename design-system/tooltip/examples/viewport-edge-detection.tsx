@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import styled from '@emotion/styled';
 
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
 
 import Tooltip from '../src';
 import { PositionTypeBase } from '../src/types';

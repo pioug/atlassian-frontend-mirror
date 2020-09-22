@@ -1,6 +1,9 @@
 import React from 'react';
+
 import Avatar from '@atlaskit/avatar';
-import Tag from '../src';
+
+import RemovableTag from '../src/tag/removable-tag';
+import Tag from '../src/tag/simple-tag';
 
 export default () => (
   <div>
@@ -10,11 +13,11 @@ export default () => (
       text="Avatar Before"
       elemBefore={<Avatar borderColor="transparent" size="xsmall" />}
     />
-    <Tag text="Linked Tag" href="/components/tag" appearance="rounded" />
-    <Tag
-      text="Removable button"
-      removeButtonText="Remove"
+    <RemovableTag
       appearance="rounded"
+      text="Avatar Before"
+      elemBefore={<Avatar borderColor="transparent" size="xsmall" />}
     />
+    <Tag text="Linked Tag" href="/components/tag" appearance="rounded" />
   </div>
 );

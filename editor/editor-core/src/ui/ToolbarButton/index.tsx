@@ -1,8 +1,9 @@
 import React from 'react';
 import Tooltip, { PositionType } from '@atlaskit/tooltip';
-import { ButtonProps } from '@atlaskit/button';
+import { ButtonProps } from '@atlaskit/button/types';
 import Button from './styles';
 import { MenuItem } from '../DropdownMenu/types';
+import styled from 'styled-components';
 
 export type Props = {
   className?: string;
@@ -19,7 +20,12 @@ export type Props = {
   title?: React.ReactNode;
   titlePosition?: PositionType;
   item?: MenuItem;
-} & Pick<ButtonProps, 'theme' | 'aria-label'>;
+} & Pick<ButtonProps, 'aria-label'>;
+
+const ButtonWrapper = styled.div`
+  display: flex;
+  height: 100%;
+`;
 
 export default class ToolbarButton extends React.PureComponent<Props, {}> {
   static defaultProps = {
@@ -54,7 +60,6 @@ export default class ToolbarButton extends React.PureComponent<Props, {}> {
         onClick={this.handleClick}
         spacing={this.props.spacing || 'default'}
         target={this.props.target}
-        theme={this.props.theme}
         shouldFitContainer
       >
         {this.props.children}
@@ -69,7 +74,7 @@ export default class ToolbarButton extends React.PureComponent<Props, {}> {
         hideTooltipOnClick={true}
         position={this.props.titlePosition}
       >
-        {button}
+        <ButtonWrapper>{button}</ButtonWrapper>
       </Tooltip>
     ) : (
       button

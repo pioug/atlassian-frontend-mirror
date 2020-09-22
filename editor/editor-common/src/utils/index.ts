@@ -1,4 +1,7 @@
-export { canApplyAnnotationOnRange } from './annotation';
+export {
+  canApplyAnnotationOnRange,
+  getAnnotationIdsFromRange,
+} from './annotation';
 export { Params, getExtensionLozengeData } from './macro';
 export {
   ADDoc,

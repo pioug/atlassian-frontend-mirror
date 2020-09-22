@@ -4,7 +4,7 @@ import uuid from 'uuid';
 import { CardLinkView } from '@atlaskit/media-ui';
 
 import { CardProps } from '../Card/types';
-import { LazyCardWithUrlContent as CardWithUrlContentType } from './component';
+import { LazyCardWithUrlContent as CardWithUrlContentType } from './component-lazy';
 import { uiRenderFailedEvent, fireSmartLinkEvent } from '../../utils/analytics';
 import { AnalyticsPayload } from '../../utils/types';
 import { clearMarks, clearMeasures } from '../../utils/performance';
@@ -24,7 +24,7 @@ export class CardWithURLRenderer extends React.PureComponent<
 
   static moduleImporter(target: CardWithURLRenderer) {
     import(
-      /* webpackChunkName:"@atlaskit-internal-smartcard-urlcardcontent" */ './component'
+      /* webpackChunkName:"@atlaskit-internal-smartcard-urlcardcontent" */ './component-lazy/index'
     ).then(module => {
       CardWithURLRenderer.CardContent = module.LazyCardWithUrlContent;
       target.forceUpdate();

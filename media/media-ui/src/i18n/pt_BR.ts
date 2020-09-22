@@ -21,6 +21,7 @@ export default {
   'fabric.media.annotate.tool.line.thickness': 'Espessura de borda',
   'fabric.media.annotate.tool.shape': 'Formato',
   'fabric.media.annotate.tool.text': 'Texto',
+  'fabric.media.archive': 'arquivar',
   'fabric.media.audio': 'áudio',
   'fabric.media.cancel': 'Cancelar',
   'fabric.media.cant_preview_file_type':
@@ -36,17 +37,19 @@ export default {
   'fabric.media.connect_link_account': 'Conectar para visualizar',
   'fabric.media.connect_link_account_card_view': 'Conectar',
   'fabric.media.connect_link_account_card_view_description':
-    'Melhore a visualização dos links conectando o {context} aos produtos da Atlassian.',
+    'Para ver uma prévia desse link, conecte a conta {context}.',
   'fabric.media.connect_link_account_card_view_name':
     'Conectar a conta do {context}',
   'fabric.media.connect_to': 'Conectar-se ao {name}',
   'fabric.media.could_not_load_editor':
     'Ops! Não foi possível carregar o editor',
   'fabric.media.could_not_save_image': 'Ops! Não foi possível salvar a imagem',
+  'fabric.media.couldnt_generate_encrypted_entry_preview':
+    'Não é possível exibir arquivos criptografados ou protegidos por senha.',
   'fabric.media.couldnt_generate_preview':
     'Não foi possível gerar uma visualização para este arquivo.',
   'fabric.media.couldnt_load_link':
-    'Não foi possível carregar esse link por algum motivo.',
+    'Não foi possível carregar esse link por um motivo desconhecido.',
   'fabric.media.default_avatars': 'Avatares padrão',
   'fabric.media.disable_fullscreen': 'desativar tela cheia',
   'fabric.media.document': 'documento',
@@ -74,7 +77,7 @@ export default {
     'Não foi possível carregar a imagem. O URL é inválido.',
   'fabric.media.insert_files':
     '{0, plural, one {Inserir {0} arquivo} other {Inserir {0} arquivos}}',
-  'fabric.media.invalid_permissions': 'Você não tem acesso a esse link',
+  'fabric.media.invalid_permissions': 'Link restrito',
   'fabric.media.invalid_permissions_description':
     'Você precisa solicitar o acesso ou tentar usar outra conta para poder visualizar.',
   'fabric.media.item_not_found_in_list':
@@ -89,7 +92,7 @@ export default {
   'fabric.media.no_pdf_artifacts':
     'Nenhum artefato de PDF foi encontrado para este arquivo.',
   'fabric.media.not_found_description':
-    'Verifique a URL e tente editar ou colar de novo.',
+    'Não foi possível encontrar o link. Verifique a URL e tente editar ou colar de novo.',
   'fabric.media.not_found_title': 'Ah, não! Não foi possível encontrar o link.',
   'fabric.media.or': 'ou',
   'fabric.media.pause': 'pausar',

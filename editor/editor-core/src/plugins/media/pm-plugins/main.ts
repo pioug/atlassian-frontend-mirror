@@ -76,7 +76,7 @@ export class MediaPluginStateImplementation implements MediaPluginState {
   private contextIdentifierProvider?: ContextIdentifierProvider;
   private errorReporter: ErrorReporter;
   private popupPicker?: PickerFacade;
-  // @ts-ignore
+  // @ts-ignore: private is OK
   private customPicker?: PickerFacade;
   private removeOnCloseListener: () => void = () => {};
   private openMediaPickerBrowser?: () => void;

@@ -69,11 +69,20 @@ export async function mountRenderer(
   await page.waitForSelector('.ak-renderer-document');
 }
 
+export type ViewPortOptions = {
+  width: number;
+  height: number;
+  hasTouch?: boolean;
+  isMobile?: boolean;
+  isLandscape?: boolean;
+  deviceScaleFactor?: number;
+};
+
 type InitRendererWithADFOptions = {
   appearance: RendererAppearance;
   adf?: Object;
   device?: Device;
-  viewport?: { width: number; height: number };
+  viewport?: ViewPortOptions;
   rendererProps?: RendererPropsOverrides;
   allowSideEffects?: SideEffectOptions;
 };

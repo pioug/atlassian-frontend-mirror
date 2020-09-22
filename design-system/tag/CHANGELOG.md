@@ -1,5 +1,50 @@
 # @atlaskit/tag
 
+## 11.0.0
+
+### Major Changes
+
+- [`661b22b003`](https://bitbucket.org/atlassian/atlassian-frontend/commits/661b22b003) - ### Brief
+
+  The major changes are mainly on performance tunning for tag. As part of the change, we split `Tag` into `RemovableTag` and `SimpleTag`.
+
+  If you just want to display a non-interactive tag, use `SimpleTag`. If you want to display tags that can be removed, use `RemovableTag`. We made this split so that people only need to pay the cost for the functionality they are using.
+
+  ```js
+  import SimpleTag from '@atlaskit/tag/simple-tag';
+  ```
+
+  and use `RemovableTag` for the full-featured version in entry point `removable-tag`:
+
+  ```js
+  import RemovableTag from '@atlaskit/tag/removable-tag';
+  ```
+
+  #### RemovableTag
+
+  `RemovableTag` has the `remove` button so you can remove it from the page. There are a few other enhancements as well in this changeset. By using `remove` icon from `@atlaskit/icon` and animation from `@atlaskit/motion`, we reduced the overall size of the component. In addition, the DOM structure is reduced too.
+
+  #### Other changes
+
+  - Renamed `removeButtonText` to `removeButtonLabel` as it's used as `aria-label`
+  - Added `isRemovable` prop to `RemovableTag` so you can conditionally allow removal
+
+  #### Upgrading with codemod
+
+  ```
+  # You first need to have the latest range installed before you can run the codemod
+  yarn upgrade @atlaskit/tag@^11.0.0
+
+  # Run the codemod cli
+  # Pass in a parser for your codebase
+  npx @atlaskit/codemod-cli /path/to/target/directory --parser [tsx | flow | babel]
+  ```
+
+### Patch Changes
+
+- [`b6d1b68c09`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b6d1b68c09) - Fix exiting animation and adjust paddings for tag content
+- Updated dependencies
+
 ## 10.0.4
 
 ### Patch Changes

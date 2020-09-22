@@ -4,7 +4,8 @@ import { useState } from 'react';
 
 import Item from '@atlaskit/item';
 import DropList from '@atlaskit/droplist';
-import Button, { ButtonGroup } from '@atlaskit/button';
+import ButtonGroup from '@atlaskit/button/button-group';
+import Button from '@atlaskit/button/custom-theme-button';
 import { ActionProps, Action } from './Action';
 import { gs, mq } from '../utils';
 

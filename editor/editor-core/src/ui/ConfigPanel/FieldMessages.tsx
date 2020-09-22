@@ -1,13 +1,34 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { InjectedIntlProps, injectIntl } from 'react-intl';
-
 import { ErrorMessage, HelperMessage } from '@atlaskit/form';
-
 import { ValidationError, FieldTypeError } from './types';
 import { messages } from './messages';
+import DOMPurify from 'dompurify';
 
-function createMarkup(content: string) {
-  return { __html: content };
+type HTMLElementTagNameList = (keyof HTMLElementTagNameMap)[];
+
+function Description({
+  description,
+  tags,
+}: {
+  description: string;
+  tags: HTMLElementTagNameList;
+}) {
+  const cleanedHtml = useMemo(
+    () => ({
+      __html: DOMPurify.sanitize(description, {
+        ALLOWED_ATTR: [],
+        ALLOWED_TAGS: tags,
+      }),
+    }),
+    [description, tags],
+  );
+
+  return (
+    <HelperMessage>
+      <div dangerouslySetInnerHTML={cleanedHtml} />
+    </HelperMessage>
+  );
 }
 
 const FieldMessages = function ({
@@ -17,9 +38,10 @@ const FieldMessages = function ({
 }: { error?: string; description?: string } & InjectedIntlProps) {
   if (!error && description) {
     return (
-      <HelperMessage>
-        <div dangerouslySetInnerHTML={createMarkup(description)} />
-      </HelperMessage>
+      <Description
+        description={description}
+        tags={['b', 'i', 'strong', 'em', 'code']}
+      />
     );
   }
 

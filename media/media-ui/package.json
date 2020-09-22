@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-ui",
-  "version": "14.0.1",
+  "version": "14.1.0",
   "description": "Includes common components and utilities used by other media packages",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -14,9 +14,17 @@
   "types": "dist/cjs/index.d.ts",
   "sideEffects": false,
   "atlaskit:src": "src/index.ts",
+  "af:exports": {
+    "./embeds": "./src/embeds.ts",
+    "./media-type-icon": "./src/media-type-icon.tsx",
+    "./mime-type-icon": "./src/mime-type-icon.tsx",
+    "./truncateText": "./src/truncateText.tsx",
+    "./messages": "./src/messages.ts",
+    "./modalSpinner": "./src/modalSpinner.tsx",
+    "./browser": "./src/browser.tsx"
+  },
   "atlassian": {
     "team": "Media Platform",
-    "deprecatedAutoEntryPoints": true,
     "inPublicMirror": true,
     "releaseModel": "scheduled",
     "website": {
@@ -26,15 +34,15 @@
   "dependencies": {
     "@atlaskit/avatar": "^20.0.0",
     "@atlaskit/avatar-group": "^8.0.0",
-    "@atlaskit/button": "^14.0.0",
+    "@atlaskit/button": "^15.0.0",
     "@atlaskit/droplist": "^11.0.0",
     "@atlaskit/field-base": "^15.0.0",
     "@atlaskit/icon": "^21.1.0",
     "@atlaskit/icon-file-type": "^6.0.0",
     "@atlaskit/item": "^12.0.0",
     "@atlaskit/lozenge": "^10.0.0",
-    "@atlaskit/media-common": "^2.1.0",
-    "@atlaskit/modal-dialog": "^11.0.0",
+    "@atlaskit/media-common": "^2.2.0",
+    "@atlaskit/modal-dialog": "^11.2.0",
     "@atlaskit/page": "^12.0.0",
     "@atlaskit/spinner": "^15.0.0",
     "@atlaskit/textfield": "^4.0.0",
@@ -61,10 +69,10 @@
   },
   "devDependencies": {
     "@atlaskit/build-utils": "*",
-    "@atlaskit/button": "^14.0.0",
+    "@atlaskit/button": "^15.0.0",
     "@atlaskit/checkbox": "^11.0.0",
     "@atlaskit/docs": "*",
-    "@atlaskit/media-test-helpers": "^28.1.0",
+    "@atlaskit/media-test-helpers": "^28.2.0",
     "@atlaskit/ssr": "*",
     "@testing-library/jest-dom": "^4.1.0",
     "@testing-library/react": "^8.0.1",

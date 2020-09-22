@@ -8,6 +8,7 @@ import {
   getByDefinitionId,
   getServices,
   getStatus,
+  getExtensionKey,
 } from '../helpers';
 import {
   ACTION_PENDING,
@@ -159,26 +160,42 @@ export const useSmartCardActions = (
   const authorize = useCallback(
     (appearance: CardAppearance) => {
       const definitionId = getDefinitionId(details);
+      const extensionKey = getExtensionKey(details);
       const services = getServices(details);
       // When authentication is triggered, let GAS know!
       if (status === 'unauthorized') {
-        analytics.ui.authEvent(appearance, definitionId);
+        analytics.ui.authEvent(appearance, definitionId, extensionKey);
       }
       if (status === 'forbidden') {
-        analytics.ui.authAlternateAccountEvent(appearance, definitionId);
+        analytics.ui.authAlternateAccountEvent(
+          appearance,
+          definitionId,
+          extensionKey,
+        );
       }
       if (services.length > 0) {
-        analytics.screen.authPopupEvent(definitionId);
+        analytics.screen.authPopupEvent(definitionId, extensionKey);
         auth(services[0].url).then(
           () => {
-            analytics.track.appAccountConnected(definitionId);
-            analytics.operational.connectSucceededEvent(definitionId);
+            analytics.track.appAccountConnected(definitionId, extensionKey);
+            analytics.operational.connectSucceededEvent(
+              definitionId,
+              extensionKey,
+            );
             reload();
           },
           (err: AuthError) => {
-            analytics.operational.connectFailedEvent(definitionId, err.type);
+            analytics.operational.connectFailedEvent(
+              definitionId,
+              extensionKey,
+              err.type,
+            );
             if (err.type === 'auth_window_closed') {
-              analytics.ui.closedAuthEvent(appearance, definitionId);
+              analytics.ui.closedAuthEvent(
+                appearance,
+                definitionId,
+                extensionKey,
+              );
             }
             reload();
           },

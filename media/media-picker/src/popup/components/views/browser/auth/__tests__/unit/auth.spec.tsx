@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import AkButton from '@atlaskit/button';
+import AkButton from '@atlaskit/button/custom-theme-button';
 
 import { startAuth } from '../../../../../../actions';
 import { ServiceAccountLink } from '../../../../../../domain';

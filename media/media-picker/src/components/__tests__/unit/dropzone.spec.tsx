@@ -6,11 +6,49 @@ import { DropzoneDragEnterEventPayload } from '../../types';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { fakeMediaClient } from '@atlaskit/media-test-helpers';
 
+async function asyncUpdateComponentTick(wrapper: ReactWrapper) {
+  return new Promise(tickFinished => {
+    process.nextTick(() => {
+      wrapper.update();
+      tickFinished();
+    });
+  });
+}
+
+type DataTransferItem = {
+  kind: string;
+  file: File[];
+  webkitGetAsEntry: () => {};
+};
+
+jest.mock('flat-files', () => ({
+  __esModule: true,
+  getFilesFromItems: jest
+    .fn()
+    .mockImplementation((fileArr: DataTransferItem[]) => {
+      const files = fileArr[1].file;
+      return files;
+    }),
+  getFilesFromFileSystemEntries: jest
+    .fn()
+    .mockImplementation((files: File[]) => {
+      return files;
+    }),
+}));
+
+let isWebkitSupportedMock = jest.fn();
+
+jest.mock('@atlaskit/media-ui/browser', () => ({
+  __esModule: true,
+  isWebkitSupported: () => isWebkitSupportedMock(),
+}));
+
 const files = [new File([], '')];
 
 const createDragOverOrDropEvent = (
   eventName: 'dragover' | 'drop' | 'dragleave',
   type?: string,
+  customFiles?: File[],
 ) => {
   const event = document.createEvent('Event') as any;
   event.initEvent(eventName, true, true);
@@ -18,8 +56,23 @@ const createDragOverOrDropEvent = (
   event.dataTransfer = {
     types: [type || 'Files'],
     effectAllowed: 'move',
-    items: [{ kind: 'file' }, { kind: 'string' }],
-    files,
+    items: [
+      {
+        kind: 'file',
+        file: customFiles || files,
+        webkitGetAsEntry: () => {
+          return { isDirectory: true };
+        },
+      },
+      {
+        kind: 'string',
+        file: customFiles || files,
+        webkitGetAsEntry: () => {
+          return { isDirectory: false };
+        },
+      },
+    ],
+    files: customFiles || files,
   };
   return event;
 };
@@ -32,8 +85,8 @@ const createDragLeaveEvent = () => {
   return createDragOverOrDropEvent('dragleave');
 };
 
-const createDropEvent = () => {
-  return createDragOverOrDropEvent('drop');
+const createDropEvent = (files?: File[]) => {
+  return createDragOverOrDropEvent('drop', '', files);
 };
 
 const mediaClient = fakeMediaClient();
@@ -53,8 +106,12 @@ const container = document.createElement('div');
   describe(`Dropzone with config: ${JSON.stringify(data.config)}`, () => {
     let component: ReactWrapper;
     const { config, expectedContainer } = data;
+    beforeEach(() => {
+      isWebkitSupportedMock = jest.fn();
+    });
 
     afterEach(() => {
+      jest.clearAllMocks();
       if (component.exists()) {
         component.unmount();
       }
@@ -148,7 +205,7 @@ const container = document.createElement('div');
       expectedContainer.dispatchEvent(createDragLeaveEvent());
     });
 
-    it('should upload files when files are dropped', () => {
+    it('should upload files when files are dropped', async () => {
       component = mount(
         <DropzoneBase mediaClient={mediaClient} config={config} />,
       );
@@ -158,6 +215,76 @@ const container = document.createElement('div');
 
       expectedContainer.dispatchEvent(createDropEvent());
 
+      expect(componentInstance.uploadService.addFiles).toHaveBeenCalledTimes(1);
+      expect(componentInstance.uploadService.addFiles).toBeCalledWith(files);
+    });
+
+    it('should ensure non-supported browser fallback works (in the context of folder uploads)', async () => {
+      component = mount(
+        <DropzoneBase
+          mediaClient={mediaClient}
+          config={config}
+          featureFlags={{ folderUploads: true }}
+        />,
+      );
+
+      const componentInstance = component.instance() as any;
+      componentInstance.uploadService.addFiles = jest.fn();
+      componentInstance.onDrop = jest.fn();
+
+      expectedContainer.dispatchEvent(createDropEvent());
+
+      //non-supported browser or feature flag off option calls onDrop function
+      expect(componentInstance.onDrop).toHaveBeenCalledTimes(1);
+      expect(componentInstance.uploadService.addFiles).toHaveBeenCalledTimes(1);
+      expect(componentInstance.uploadService.addFiles).toBeCalledWith(files);
+    });
+
+    it('should filter files uploaded against a blocked list (when folder uploading is enabled)', async () => {
+      isWebkitSupportedMock.mockImplementationOnce(() => {
+        return true;
+      });
+
+      component = mount(
+        <DropzoneBase
+          mediaClient={mediaClient}
+          config={config}
+          featureFlags={{ folderUploads: true }}
+        />,
+      );
+
+      const unfilteredFiles: File[] = [
+        new File([], '.DS_Store'),
+        new File([], ''),
+      ];
+      const componentInstance = component.instance() as any;
+      componentInstance.uploadService.addFiles = jest.fn();
+
+      expectedContainer.dispatchEvent(createDropEvent(unfilteredFiles));
+
+      await asyncUpdateComponentTick(component);
+
+      expect(componentInstance.uploadService.addFiles).toHaveBeenCalledTimes(1);
+      expect(componentInstance.uploadService.addFiles).toBeCalledWith(files);
+    });
+
+    it('should ensure fallback works if the feature flag for folders is not enabled', async () => {
+      component = mount(
+        <DropzoneBase
+          mediaClient={mediaClient}
+          config={config}
+          featureFlags={{ folderUploads: false }}
+        />,
+      );
+
+      const componentInstance = component.instance() as any;
+      componentInstance.uploadService.addFiles = jest.fn();
+      componentInstance.onDrop = jest.fn();
+
+      expectedContainer.dispatchEvent(createDropEvent());
+
+      //non-supported browser or feature flag off option calls onDrop function
+      expect(componentInstance.onDrop).toHaveBeenCalledTimes(1);
       expect(componentInstance.uploadService.addFiles).toHaveBeenCalledTimes(1);
       expect(componentInstance.uploadService.addFiles).toBeCalledWith(files);
     });
@@ -307,10 +434,52 @@ const container = document.createElement('div');
 
         expectedContainer.dispatchEvent(createDragOverEvent());
         expectedContainer.dispatchEvent(createDragOverOrDropEvent('drop'));
+        await asyncUpdateComponentTick(component);
 
         expect(handleAnalyticsEvent).toHaveBeenCalledTimes(2);
         expect(handleAnalyticsEvent).toHaveBeenNthCalledWith(
           2,
+          expect.objectContaining({
+            payload: expectedPayload,
+            context: expectedContext,
+          }),
+          expectedChannel,
+        );
+      });
+
+      it('should fire a folderDroppedInto event when a folder is uploaded into the dropzone', async () => {
+        isWebkitSupportedMock.mockImplementationOnce(() => {
+          return true;
+        });
+
+        const expectedPayload = {
+          eventType: 'ui',
+          action: 'folderDroppedInto',
+          actionSubject: 'dropzone',
+          attributes: {
+            packageName: '@atlaskit/media-picker',
+            fileCount: 1,
+          },
+        };
+        const handleAnalyticsEvent = jest.fn();
+
+        component = mount(
+          <AnalyticsListener channel="media" onEvent={handleAnalyticsEvent}>
+            <Dropzone
+              mediaClient={mediaClient}
+              config={config}
+              featureFlags={{ folderUploads: true }}
+            />
+            ,
+          </AnalyticsListener>,
+        );
+
+        expectedContainer.dispatchEvent(createDragOverOrDropEvent('drop'));
+        await asyncUpdateComponentTick(component);
+
+        expect(handleAnalyticsEvent).toHaveBeenCalledTimes(2);
+        expect(handleAnalyticsEvent).toHaveBeenNthCalledWith(
+          1,
           expect.objectContaining({
             payload: expectedPayload,
             context: expectedContext,

@@ -426,7 +426,7 @@ describe('card', () => {
 
         // this test provider replaces links with the ADF of: p('hello world')
         expect(editorView.state.doc).toEqualDocument(
-          doc(p('hello have a link '), p('hello world'), p()),
+          doc(p('hello have a link '), p('hello world')),
         );
       });
 
@@ -461,7 +461,7 @@ describe('card', () => {
         await providerWrapper.waitForRequests();
 
         expect(editorView.state.doc).toEqualDocument(
-          doc(p('hello have a link '), p('hello world'), p()),
+          doc(p('hello have a link '), p('hello world')),
         );
       });
 
@@ -496,7 +496,7 @@ describe('card', () => {
         await providerWrapper.waitForRequests();
 
         expect(editorView.state.doc).toEqualDocument(
-          doc(p('hello have a link '), p('hello world'), p()),
+          doc(p('hello have a link '), p('hello world')),
         );
       });
 
@@ -585,7 +585,7 @@ describe('card', () => {
         setSelectedCardAppearance('block')(editorView.state, dispatch);
 
         expect(dispatch.mock.calls[0][0].steps[0]).toEqual(
-          expect.objectContaining({ from: 7, to: 8 }),
+          expect.objectContaining({ from: 7, to: 9 }),
         );
       });
 
@@ -602,7 +602,7 @@ describe('card', () => {
 
         // The background color of the parent cell should be the same.
         expect(editorView.state.doc).toEqualDocument(
-          doc(panel()(p(), blockCard(cardAdfAttrs)(), p())),
+          doc(panel()(p(), blockCard(cardAdfAttrs)())),
         );
       });
 

@@ -15,7 +15,7 @@ jest.mock('@atlaskit/media-ui', () => ({
 
 import React from 'react';
 import Spinner from '@atlaskit/spinner';
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
 import { Ellipsify } from '@atlaskit/media-ui';
 import ImageNavigator, {
   ImageNavigator as ImageNavigatorView,

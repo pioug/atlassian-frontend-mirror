@@ -1,4 +1,4 @@
-import { EditorState, Plugin } from 'prosemirror-state';
+import { EditorState, Plugin, NodeSelection } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 
 import { browser } from '@atlaskit/editor-common';
@@ -46,9 +46,9 @@ export const createPlugin = (
         const analyticsPayload =
           getNodeSelectionAnalyticsPayload(state.selection) ||
           getAllSelectionAnalyticsPayload(state.selection) ||
-          // We only handle range/cell selection from shift + arrow keys and shift + click here,
-          // click and drag is handled in mouseup handler below
-          ((editorView as EditorView & { shiftKey: boolean }).shiftKey &&
+          // We handle all range/cell selections except click and drag here, which is
+          // handled in mouseup handler below
+          (!(editorView as EditorView & { mouseDown: any | null }).mouseDown &&
             (getRangeSelectionAnalyticsPayload(state.selection, state.doc) ||
               getCellSelectionAnalyticsPayload(state)));
 
@@ -64,12 +64,24 @@ export const createPlugin = (
         setDecorations()(state, dispatch);
       },
     }),
+
+    // Prevent single click selecting atom nodes on mobile (we want to select with long press gesture instead)
+    filterTransaction(tr) {
+      if (
+        options.useLongPressSelection &&
+        tr.selectionSet &&
+        tr.selection instanceof NodeSelection &&
+        !tr.getMeta(selectionPluginKey)
+      ) {
+        return false;
+      }
+      return true;
+    },
+
     props: {
       decorations(state) {
         return getPluginState(state).decorationSet;
       },
-
-      handleClick: options.useLongPressSelection ? () => true : undefined,
 
       handleDOMEvents: {
         // We only want to fire analytics for a click and drag range/cell selection when

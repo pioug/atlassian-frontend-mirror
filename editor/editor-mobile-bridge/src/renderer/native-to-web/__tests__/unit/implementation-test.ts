@@ -2,6 +2,7 @@ import { AnnotationTypes } from '@atlaskit/adf-schema';
 import RendererBridgeImplementation from '../../implementation';
 import { eventDispatcher, EmitterEvents } from '../../../dispatcher';
 import { AnnotationPayload } from '../../../types';
+import { Serialized } from '../../../../types';
 
 describe('RendererBridgeImplementation', () => {
   let emitSpy: jest.SpyInstance;
@@ -68,6 +69,69 @@ describe('RendererBridgeImplementation', () => {
           payload,
         );
       });
+    });
+  });
+
+  describe('deleteAnnotation', () => {
+    it(`should dispatch event to delete annotation when JSON string playload
+        containing annotationID and annotationType is passed`, () => {
+      const bridge = new RendererBridgeImplementation();
+      const annotationId = 'some-id';
+      const annotationType = 'someType';
+      const annotationPayload = {
+        annotationId,
+        annotationType,
+      };
+      bridge.deleteAnnotation(JSON.stringify(annotationPayload));
+      expect(emitSpy).toHaveBeenCalledWith(EmitterEvents.DELETE_ANNOTATION, {
+        annotationId,
+        annotationType,
+      });
+    });
+
+    it(`should dispatch event to delete annotation when non serialized annotation playload
+        containing annotationID and annotationType is passed`, () => {
+      const bridge = new RendererBridgeImplementation();
+      const annotationId = 'some-id';
+      const annotationType = AnnotationTypes.INLINE_COMMENT;
+      const annotationPayload: Serialized<AnnotationPayload> = {
+        annotationId,
+        annotationType,
+      };
+      bridge.deleteAnnotation(annotationPayload);
+      expect(emitSpy).toHaveBeenCalledWith(EmitterEvents.DELETE_ANNOTATION, {
+        annotationId,
+        annotationType,
+      });
+    });
+
+    it(`should not dispatch event to delete annotation when JSON string payload
+        containing only annotationType is passed`, () => {
+      const bridge = new RendererBridgeImplementation();
+      const annotationType = AnnotationTypes.INLINE_COMMENT;
+      const annotationPayload = {
+        annotationType,
+      };
+      bridge.deleteAnnotation(JSON.stringify(annotationPayload));
+      expect(emitSpy).not.toHaveBeenCalled();
+    });
+
+    it(`should not dispatch event to delete annotation when JSON string payload
+        containing only annotationId is passed`, () => {
+      const bridge = new RendererBridgeImplementation();
+      const annotationId = 'some-id';
+      const annotationPayload = {
+        annotationId,
+      };
+      bridge.deleteAnnotation(JSON.stringify(annotationPayload));
+      expect(emitSpy).not.toHaveBeenCalled();
+    });
+
+    it(`should not dispatch event to delete annotation when a random string in passed`, () => {
+      const bridge = new RendererBridgeImplementation();
+
+      bridge.deleteAnnotation('some string');
+      expect(emitSpy).not.toHaveBeenCalled();
     });
   });
 });

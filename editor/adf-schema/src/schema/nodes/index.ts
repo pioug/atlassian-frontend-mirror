@@ -50,9 +50,16 @@ export {
   MentionDefinition,
 } from './mention';
 export { listItem, ListItemArray, ListItemDefinition } from './list-item';
-export { panel, PanelAttributes, PanelDefinition, PanelType } from './panel';
+export {
+  panel,
+  customPanel,
+  PanelAttributes,
+  PanelDefinition,
+  PanelType,
+} from './panel';
 export { text, TextDefinition } from './text';
 export { default as unknownBlock } from './unknown-block';
+export { CaptionDefinition, caption } from './caption';
 export {
   media,
   MediaType,
@@ -68,6 +75,7 @@ export {
 export { mediaGroup, MediaGroupDefinition } from './media-group';
 export {
   mediaSingle,
+  mediaSingleWithCaption,
   MediaSingleDefinition,
   toJSON as mediaSingleToJSON,
 } from './media-single';

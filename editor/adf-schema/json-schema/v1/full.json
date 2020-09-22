@@ -1006,11 +1006,6 @@
     "mediaSingle_node": {
       "type": "object",
       "properties": {
-        "type": {
-          "enum": [
-            "mediaSingle"
-          ]
-        },
         "content": {
           "type": "array",
           "items": {
@@ -1018,6 +1013,11 @@
           },
           "minItems": 1,
           "maxItems": 1
+        },
+        "type": {
+          "enum": [
+            "mediaSingle"
+          ]
         },
         "attrs": {
           "type": "object",
@@ -1052,8 +1052,8 @@
         }
       },
       "required": [
-        "type",
-        "content"
+        "content",
+        "type"
       ],
       "additionalProperties": false
     },
@@ -1557,6 +1557,56 @@
       ],
       "additionalProperties": false
     },
+    "embedCard_node": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "embedCard"
+          ]
+        },
+        "attrs": {
+          "type": "object",
+          "properties": {
+            "originalWidth": {
+              "type": "number"
+            },
+            "originalHeight": {
+              "type": "number"
+            },
+            "url": {
+              "type": "string"
+            },
+            "width": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "layout": {
+              "enum": [
+                "wide",
+                "full-width",
+                "center",
+                "wrap-right",
+                "wrap-left",
+                "align-end",
+                "align-start"
+              ]
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "url",
+            "layout"
+          ]
+        }
+      },
+      "required": [
+        "type",
+        "attrs"
+      ],
+      "additionalProperties": false
+    },
     "nestedExpand_content": {
       "type": "array",
       "items": {
@@ -1744,6 +1794,9 @@
             "$ref": "#/definitions/extension_node"
           },
           {
+            "$ref": "#/definitions/embedCard_node"
+          },
+          {
             "$ref": "#/definitions/nestedExpand_with_no_marks_node"
           }
         ]
@@ -1871,6 +1924,9 @@
         },
         {
           "$ref": "#/definitions/extension_node"
+        },
+        {
+          "$ref": "#/definitions/embedCard_node"
         },
         {
           "$ref": "#/definitions/table_node"
@@ -2054,6 +2110,9 @@
           "$ref": "#/definitions/extension_node"
         },
         {
+          "$ref": "#/definitions/embedCard_node"
+        },
+        {
           "$ref": "#/definitions/table_node"
         },
         {
@@ -2203,6 +2262,9 @@
               },
               {
                 "$ref": "#/definitions/extension_node"
+              },
+              {
+                "$ref": "#/definitions/embedCard_node"
               },
               {
                 "$ref": "#/definitions/table_node"

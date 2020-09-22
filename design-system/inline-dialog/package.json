@@ -24,7 +24,7 @@
     }
   },
   "dependencies": {
-    "@atlaskit/analytics-next": "^7.0.0",
+    "@atlaskit/analytics-next": "^7.1.0",
     "@atlaskit/popper": "^5.0.0",
     "@atlaskit/theme": "^10.0.0",
     "react-node-resolver": "^1.0.1",
@@ -36,7 +36,7 @@
   },
   "devDependencies": {
     "@atlaskit/build-utils": "*",
-    "@atlaskit/button": "^14.0.0",
+    "@atlaskit/button": "^15.0.0",
     "@atlaskit/datetime-picker": "^10.0.0",
     "@atlaskit/docs": "*",
     "@atlaskit/icon": "^21.0.0",

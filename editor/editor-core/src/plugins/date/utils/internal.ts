@@ -1,9 +1,4 @@
-import {
-  formatDateType,
-  parseDateType,
-  dateTypeToDate,
-  dateToDateType,
-} from './formatParse';
+import { formatDateType, dateTypeToDate, dateToDateType } from './formatParse';
 import { DateType } from '../types';
 import addDays from 'date-fns/add_days';
 import addMonths from 'date-fns/add_months';
@@ -66,6 +61,22 @@ function isCursorInLastDateSegment(cursorPos: number, date: string): boolean {
     posCounter += 1;
   }
   return isAdjacent;
+}
+
+/**
+ * Inconclusively check if a date string is valid - a value of false means it is definitely
+ * invalid, a value of true means it might be valid.
+ * @param date Date string to be parsed
+ */
+export function isDatePossiblyValid(date: string): boolean {
+  for (const c of date) {
+    const isNumber = c >= '0' && c <= '9';
+    const isValidPunctuation = '. ,/'.indexOf(c) !== -1;
+    if (!(isNumber || isValidPunctuation)) {
+      return false;
+    }
+  }
+  return true;
 }
 
 /**
@@ -151,20 +162,19 @@ export function getLocaleDatePlaceholder(locale: string): string | undefined {
   return shortDateFormat;
 }
 
+/**
+ * Adjust date segment up or down. Eg. If day is the active segment and adjustment is -1,
+ * reduce the day by one.
+ * @param date Valid datetype
+ * @param activeSegment which part of the date is selected/being adjusted
+ * @param adjustment how many units the segment is being adjusted (can be pos or neg, usually 1 or -1)
+ */
 export function adjustDate(
-  dateString: string,
+  date: DateType,
   activeSegment: DateSegment,
   adjustment: number,
-  locale: string,
-): DateType | undefined {
-  const originalDateType: DateType | undefined = parseDateType(
-    dateString,
-    locale,
-  );
-  if (originalDateType === undefined) {
-    return undefined;
-  }
-  const originalDate: Date = dateTypeToDate(originalDateType);
+): DateType {
+  const originalDate: Date = dateTypeToDate(date);
 
   const newDate: Date =
     activeSegment === 'day'

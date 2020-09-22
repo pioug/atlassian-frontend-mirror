@@ -30,6 +30,8 @@ export default {
     'typeAhead',
     'typeAheadKeymap',
     'typeAheadInputRule',
+    'date', // Needs to be before indentation to handle tab into input field
+    'dateKeymap',
     // This should be always after `typeAheadKeymap` & `emojiKeymap`
     'indentationKeymap',
     'lists',
@@ -49,17 +51,23 @@ export default {
     'textFormattingSmartRule',
     'textFormattingClear',
     'textFormattingKeymap',
+    // task/decisions keymap needs to be above table keymap so can indent actions in a table
+    'tasksAndDecisionsKeyMap',
+    // expand and table keymaps need to be above selection keymap to add their custom selection behaviour:
+    // https://product-fabric.atlassian.net/wiki/spaces/E/pages/1113098008/Selection+Guide#Special-Cases
     'expandKeymap',
+    'tableSelectionKeymap',
+    'tableKeymap',
+    // selection keymap needs to be above gap cursor keymap so it can set node selections from
+    // left/right arrows
     'selectionKeymap',
     'gapCursorKeymap',
     'gapCursor',
     'syncUrlText',
     'fakeCursorToolbarPlugin',
     'hyperLink',
-    'tasksAndDecisionsKeyMap',
     'table',
     'tableDecorations',
-    'tableKeymap',
     'hyperlinkInputRule',
     'tablePMColResizing',
     'hyperlinkKeymap',
@@ -85,8 +93,6 @@ export default {
     'expand',
     'extension',
     'layout',
-    'date',
-    'dateKeymap',
     'contextPanel',
     'floatingToolbar',
     'clearMarksOnChange',
@@ -141,7 +147,6 @@ export default {
     'extension',
     'bodiedExtension',
     'inlineExtension',
-    'date',
     'layoutSection',
     'layoutColumn',
     'inlineCard',

@@ -15,6 +15,5 @@ export interface TextDefinition {
 export const text: NodeSpec & { toDebugString?: () => string } = {
   group: 'inline',
   toDebugString:
-    // @ts-ignore
     process.env.NODE_ENV !== 'production' ? undefined : () => 'text_node',
 };

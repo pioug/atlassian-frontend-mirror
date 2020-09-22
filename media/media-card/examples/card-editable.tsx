@@ -125,7 +125,7 @@ class EditableCard extends Component<{}, EditableCardState> {
             <div>
               Card Width ({width}) | Use percentage:
               <Toggle
-                isDefaultChecked={isWidthPercentage}
+                defaultChecked={isWidthPercentage}
                 onChange={this.onWidthPercentageChange}
               />
               <Slider
@@ -138,7 +138,7 @@ class EditableCard extends Component<{}, EditableCardState> {
             <div>
               Card Height ({height}) | Use percentage:
               <Toggle
-                isDefaultChecked={isHeightPercentage}
+                defaultChecked={isHeightPercentage}
                 onChange={this.onHeightPercentageChange}
               />
               <Slider
@@ -168,15 +168,15 @@ class EditableCard extends Component<{}, EditableCardState> {
             </div>
           </CardDimensionsWrapper>
           isLazy
-          <Toggle isDefaultChecked={isLazy} onChange={this.onIsLazyChange} />
+          <Toggle defaultChecked={isLazy} onChange={this.onIsLazyChange} />
           use dimensions
           <Toggle
-            isDefaultChecked={useDimensions}
+            defaultChecked={useDimensions}
             onChange={this.onUseDimensionsChange}
           />
           use pixels
           <Toggle
-            isDefaultChecked={usePixelUnits}
+            defaultChecked={usePixelUnits}
             onChange={this.onPixelsUnitChange}
           />
         </EditableCardOptions>

@@ -42,7 +42,7 @@ BetaBrowserTestCase(
     await mediaViewer.navigateNext();
     await mediaViewer.validateMediaCard({
       name: 'media-test-file-3.png',
-      size: '88 KB',
+      size: '57 KB',
       type: 'image',
       icon: 'image',
     });

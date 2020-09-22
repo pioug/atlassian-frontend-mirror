@@ -124,6 +124,43 @@ type ExpandAEP = AEP<
   EVENT_TYPE.TRACK
 >;
 
+export type AnnotationActionType =
+  | ACTION.INSERTED
+  | ACTION.CLOSED
+  | ACTION.EDITED
+  | ACTION.DELETED
+  | ACTION.OPENED
+  | ACTION.RESOLVED
+  | ACTION.VIEWED
+  | ACTION.CREATE_NOT_ALLOWED;
+
+export type AnnotationAEPAttributes =
+  | AnnotationDraftAEPAttributes
+  | AnnotationResolvedAEPAttributes;
+
+export type AnnotationDraftAEPAttributes = {
+  //overlap is how many other annotations are within or overlapping with the new selection
+  overlap?: number;
+};
+
+export type AnnotationResolvedAEPAttributes = {
+  method?: RESOLVE_METHOD;
+};
+
+export enum RESOLVE_METHOD {
+  COMPONENT = 'component',
+  CONSUMER = 'consumer',
+  ORPHANED = 'orphaned',
+}
+
+export type AnnotationAEP = AEP<
+  AnnotationActionType,
+  ACTION_SUBJECT.ANNOTATION,
+  ACTION_SUBJECT_ID.INLINE_COMMENT,
+  AnnotationAEPAttributes,
+  undefined
+>;
+
 export type AnalyticsEventPayload =
   | RendererStartAEP
   | RendererRenderedAEP
@@ -134,4 +171,5 @@ export type AnalyticsEventPayload =
   | VisitLinkAEP
   | VisitMediaLinkAEP
   | ExpandAEP
-  | UnsupportedContentPayload;
+  | UnsupportedContentPayload
+  | AnnotationAEP;

@@ -1,13 +1,14 @@
 import { css } from 'styled-components';
+
 import {
   blockNodesVerticalMargin,
   akEditorSelectedBorderSize,
   akEditorDeleteBorder,
   akEditorDeleteBackground,
-} from '@atlaskit/editor-common';
-import { akEditorSelectedNodeClassName } from '../../../styles';
-import { getSelectionStyles } from '../../selection/utils';
-import { SelectionStyle } from '../../selection/types';
+  SelectionStyle,
+  getSelectionStyles,
+  akEditorSelectedNodeClassName,
+} from '@atlaskit/editor-shared-styles';
 
 export const extensionStyles = css`
   .extensionView-content-wrap,

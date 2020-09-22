@@ -5,6 +5,7 @@ import {
   clickFirstCell,
   selectTableOption,
   clickCellOptions,
+  tableSelectors,
 } from '../../__helpers/page-objects/_table';
 
 describe('Table contextual menu: fullpage', () => {
@@ -27,5 +28,10 @@ describe('Table contextual menu: fullpage', () => {
     await snapshot(page);
     await clickCellOptions(page);
     await snapshot(page);
+  });
+
+  it('ensures contextual menu button styles are correct', async () => {
+    await page.mouse.move(0, 0);
+    await snapshot(page, {}, tableSelectors.topLeftCell);
   });
 });

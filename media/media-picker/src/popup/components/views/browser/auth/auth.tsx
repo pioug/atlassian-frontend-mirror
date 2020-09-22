@@ -1,7 +1,7 @@
 import React from 'react';
 import { Component } from 'react';
 import { connect } from 'react-redux';
-import AkButton from '@atlaskit/button';
+import AkButton from '@atlaskit/button/custom-theme-button';
 import DropboxIcon from '@atlaskit/icon/glyph/dropbox';
 import GoogledriveIcon from '@atlaskit/icon/glyph/googledrive';
 import { FormattedMessage } from 'react-intl';

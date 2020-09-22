@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Color as StatusColor } from '@atlaskit/status/element';
 import Form, { Field, FormFooter } from '@atlaskit/form';
-import AkButton from '@atlaskit/button';
+import AkButton from '@atlaskit/button/custom-theme-button';
 import Textfield from '@atlaskit/textfield';
 import AkSelect from '@atlaskit/select';
 import MobileEditor from '../src/editor/mobile-editor-element';

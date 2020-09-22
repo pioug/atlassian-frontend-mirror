@@ -21,6 +21,7 @@ export default {
   'fabric.media.annotate.tool.line.thickness': 'Толщина линии',
   'fabric.media.annotate.tool.shape': 'Форма',
   'fabric.media.annotate.tool.text': 'Текст',
+  'fabric.media.archive': 'архивировать',
   'fabric.media.audio': 'аудио',
   'fabric.media.cancel': 'Отменить',
   'fabric.media.cant_preview_file_type':
@@ -34,16 +35,18 @@ export default {
   'fabric.media.connect_link_account': 'Подключить для просмотра',
   'fabric.media.connect_link_account_card_view': 'Подключить',
   'fabric.media.connect_link_account_card_view_description':
-    'Добавьте возможность предварительного просмотра ссылок, подключив {context} к своим продуктам Atlassian.',
+    'Для предварительного просмотра этой ссылки подключите аккаунт {context}.',
   'fabric.media.connect_link_account_card_view_name':
     'Подключите свой аккаунт {context}',
   'fabric.media.connect_to': 'Подключить к {name}',
   'fabric.media.could_not_load_editor': 'Не удалось загрузить редактор',
   'fabric.media.could_not_save_image': 'Не удалось сохранить изображение',
+  'fabric.media.couldnt_generate_encrypted_entry_preview':
+    'Предварительный просмотр файлов, которые зашифрованы или защищены паролем, невозможен.',
   'fabric.media.couldnt_generate_preview':
     'Не удалось выполнить предварительный просмотр файла.',
   'fabric.media.couldnt_load_link':
-    'По какой-то причине не удалось загрузить эту ссылку.',
+    'По неизвестной причине не удалось загрузить ссылку.',
   'fabric.media.default_avatars': 'Аватары по умолчанию',
   'fabric.media.disable_fullscreen': 'отключить полноэкранный режим',
   'fabric.media.document': 'документ',
@@ -71,7 +74,7 @@ export default {
     'Не удалось загрузить изображение (недействительный URL).',
   'fabric.media.insert_files':
     '{0, plural, one {Вставить {0} файл} few {Вставить {0} файла} many {Вставить {0} файлов} other {Вставить {0} файла}}',
-  'fabric.media.invalid_permissions': 'У вас нет доступа к этой ссылке',
+  'fabric.media.invalid_permissions': 'Ссылка с ограниченным доступом',
   'fabric.media.invalid_permissions_description':
     'Для предварительного просмотра этого элемента запросите право доступа или попробуйте воспользоваться другим аккаунтом.',
   'fabric.media.item_not_found_in_list': 'Выбранного объекта нет в списке.',
@@ -85,7 +88,7 @@ export default {
     'По запросу «{query}» ничего не найдено',
   'fabric.media.no_pdf_artifacts': 'Нет PDF-артефактов для этого файла.',
   'fabric.media.not_found_description':
-    'Проверьте URL-адрес и попробуйте изменить или вставить еще раз.',
+    'Не удалось найти ссылку. Проверьте URL-адрес и попробуйте изменить или вставить еще раз.',
   'fabric.media.not_found_title': 'К сожалению, не удалось найти эту ссылку.',
   'fabric.media.or': 'или',
   'fabric.media.pause': 'поставить на паузу',

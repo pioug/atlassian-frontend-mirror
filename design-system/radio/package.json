@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/radio",
-  "version": "4.0.6",
+  "version": "5.0.0",
   "description": "A radio input allows people to select only one option from a number of choices. Radio is generally displayed in a radio group.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -16,26 +16,29 @@
   "atlaskit:src": "src/index.ts",
   "atlassian": {
     "team": "Design System Team",
-    "deprecatedAutoEntryPoints": true,
     "inPublicMirror": true,
     "releaseModel": "scheduled",
     "website": {
       "name": "Radio"
     }
   },
+  "af:exports": {
+    "./Radio": "./src/Radio.tsx",
+    "./RadioGroup": "./src/RadioGroup.tsx",
+    "./types": "./src/types.ts"
+  },
   "dependencies": {
-    "@atlaskit/analytics-next": "^7.0.0",
-    "@atlaskit/icon": "^21.0.0",
+    "@atlaskit/analytics-next": "^7.1.0",
     "@atlaskit/theme": "^10.0.0",
+    "@emotion/core": "^10.0.9",
     "tslib": "^2.0.0"
   },
   "peerDependencies": {
-    "react": "^16.8.0",
-    "styled-components": "^3.2.6"
+    "react": "^16.8.0"
   },
   "devDependencies": {
     "@atlaskit/build-utils": "*",
-    "@atlaskit/button": "^14.0.0",
+    "@atlaskit/button": "^15.0.0",
     "@atlaskit/checkbox": "^11.0.0",
     "@atlaskit/docs": "^9.0.0",
     "@atlaskit/form": "^8.1.0",
@@ -43,8 +46,8 @@
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
     "@testing-library/react": "^8.0.1",
-    "enzyme": "^3.10.0",
-    "react-dom": "^16.8.0"
+    "react-dom": "^16.8.0",
+    "storybook-addon-performance": "0.12.0"
   },
   "keywords": [
     "atlaskit",
@@ -54,6 +57,20 @@
   "techstack": {
     "@atlassian/frontend": {
       "import-structure": "atlassian-conventions"
+    },
+    "@repo/internal": {
+      "ui-components": [
+        "lite-mode"
+      ],
+      "analytics": [
+        "analytics-next"
+      ],
+      "theming": [
+        "new-theming-api"
+      ],
+      "deprecation": [
+        "no-deprecated-imports"
+      ]
     }
   },
   "homepage": "https://atlassian.design/components/radio/"

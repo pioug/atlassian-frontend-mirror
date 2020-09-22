@@ -1,7 +1,7 @@
 import { KeyboardEvent, MouseEvent, ReactNode } from 'react';
 
 import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
-import { ButtonProps } from '@atlaskit/button';
+import { CustomThemeButtonProps } from '@atlaskit/button/types';
 
 export type ItemId = string;
 export type GroupId = string;
@@ -81,7 +81,7 @@ interface DropdownMenuBaseProps {
    * to easily get a button trigger. */
   trigger?: ReactNode;
   /** Props to pass through to the trigger button. See @atlaskit/button for allowed props. */
-  triggerButtonProps?: ButtonProps;
+  triggerButtonProps?: CustomThemeButtonProps;
   /** Controls the interface of trigger to be used for the dropdown menu. The default trigger allows
    * you to supply your own trigger component. Setting this prop to `button` will render a
    * Button component with an 'expand' icon, and the `trigger` prop contents inside the

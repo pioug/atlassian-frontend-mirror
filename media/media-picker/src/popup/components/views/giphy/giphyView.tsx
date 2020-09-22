@@ -5,7 +5,7 @@ import debounce from 'lodash/debounce';
 import { FormattedMessage, injectIntl, InjectedIntlProps } from 'react-intl';
 import { messages } from '@atlaskit/media-ui';
 import TextField from '@atlaskit/textfield';
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
 import Spinner from '@atlaskit/spinner';
 import { Card } from '@atlaskit/media-card';
 import { ExternalImageIdentifier } from '@atlaskit/media-client';

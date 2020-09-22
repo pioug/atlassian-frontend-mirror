@@ -5,8 +5,18 @@ export default {
       props: {
         panelType: {
           type: 'enum',
-          values: ['info', 'note', 'tip', 'warning', 'error', 'success'],
+          values: [
+            'info',
+            'note',
+            'tip',
+            'warning',
+            'error',
+            'success',
+            'custom',
+          ],
         },
+        panelIcon: { type: 'string', optional: true },
+        panelColor: { type: 'string', optional: true },
       },
     },
     content: {

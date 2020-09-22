@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { BreadcrumbsItem, BreadcrumbsStateless } from '@atlaskit/breadcrumbs';
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
 
 import PageHeader from '../src';
 

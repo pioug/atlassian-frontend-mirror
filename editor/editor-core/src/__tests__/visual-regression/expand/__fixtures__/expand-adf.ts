@@ -673,11 +673,11 @@ export const mediaInExpandADF = {
             {
               type: 'media',
               attrs: {
-                type: 'external',
                 width: 320,
                 height: 320,
-                url:
-                  'data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==',
+                id: 'a559980d-cd47-43e2-8377-27359fcb905f',
+                type: 'file',
+                collection: 'MediaServicesSample',
               },
             },
           ],
@@ -718,11 +718,11 @@ export const mediaInNestedExpandADF = {
                         {
                           type: 'media',
                           attrs: {
-                            type: 'external',
                             width: 320,
                             height: 320,
-                            url:
-                              'data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==',
+                            id: 'a559980d-cd47-43e2-8377-27359fcb905f',
+                            type: 'file',
+                            collection: 'MediaServicesSample',
                           },
                         },
                       ],

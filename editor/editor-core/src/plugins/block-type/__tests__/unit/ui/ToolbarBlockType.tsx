@@ -1,6 +1,6 @@
 import React from 'react';
 import Item from '@atlaskit/item';
-import AkButton from '@atlaskit/button';
+import AkButton from '@atlaskit/button/standard-button';
 import {
   doc,
   p,

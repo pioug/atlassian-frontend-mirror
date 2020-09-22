@@ -483,3 +483,65 @@ export const mediaToFullyLoad = async (page: PuppeteerPage) => {
     '[data-testid="media-file-card-view"][data-test-status="complete"]',
   );
 };
+
+/**
+ * Source: https://github.com/puppeteer/puppeteer/issues/1313#issuecomment-480052880
+ * Emulates a Ctrl+A SelectAll key combination by dispatching custom keyboard
+ * events and using the results of those events to determine whether to call
+ * `document.execCommand( 'selectall' );`. This is necessary because Puppeteer
+ * does not emulate Ctrl+A SelectAll in macOS. Events are dispatched to ensure
+ * that any `Event#preventDefault` which would have normally occurred in the
+ * application as a result of Ctrl+A is respected.
+ *
+ * @link https://github.com/GoogleChrome/puppeteer/issues/1313
+ * @link https://w3c.github.io/uievents/tools/key-event-viewer.html
+ *
+ * @return {Promise} Promise resolving once the SelectAll emulation completes.
+ */
+export async function emulateSelectAll(page: PuppeteerPage) {
+  await page.evaluate(() => {
+    if (document.activeElement) {
+      const isMac = /Mac|iPod|iPhone|iPad/.test(window.navigator.platform);
+
+      document.activeElement.dispatchEvent(
+        new KeyboardEvent('keydown', {
+          bubbles: true,
+          cancelable: true,
+          key: isMac ? 'Meta' : 'Control',
+          code: isMac ? 'MetaLeft' : 'ControlLeft',
+          location: window.KeyboardEvent.DOM_KEY_LOCATION_LEFT,
+          ctrlKey: !isMac,
+          metaKey: isMac,
+        }),
+      );
+
+      const preventableEvent = new KeyboardEvent('keydown', {
+        bubbles: true,
+        cancelable: true,
+        key: 'a',
+        code: 'KeyA',
+        location: window.KeyboardEvent.DOM_KEY_LOCATION_STANDARD,
+        ctrlKey: !isMac,
+        metaKey: isMac,
+      });
+
+      const wasPrevented =
+        !document.activeElement.dispatchEvent(preventableEvent) ||
+        preventableEvent.defaultPrevented;
+
+      if (!wasPrevented) {
+        document.execCommand('selectall');
+      }
+
+      document.activeElement.dispatchEvent(
+        new KeyboardEvent('keyup', {
+          bubbles: true,
+          cancelable: true,
+          key: isMac ? 'Meta' : 'Control',
+          code: isMac ? 'MetaLeft' : 'ControlLeft',
+          location: window.KeyboardEvent.DOM_KEY_LOCATION_LEFT,
+        }),
+      );
+    }
+  });
+}

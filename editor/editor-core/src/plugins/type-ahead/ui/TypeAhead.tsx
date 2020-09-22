@@ -3,7 +3,8 @@ import React from 'react';
 import { EditorView } from 'prosemirror-view';
 import styled from 'styled-components';
 
-import { akEditorFloatingDialogZIndex, Popup } from '@atlaskit/editor-common';
+import { Popup } from '@atlaskit/editor-common';
+import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles';
 import { borderRadius, gridSize } from '@atlaskit/theme/constants';
 import { N0, N60A, N50A } from '@atlaskit/theme/colors';
 import { divide } from '@atlaskit/theme/math';

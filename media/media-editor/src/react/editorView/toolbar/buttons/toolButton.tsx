@@ -1,7 +1,7 @@
 import React from 'react';
 import { Component } from 'react';
 
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
 import { N0 } from '@atlaskit/theme/colors';
 import ArrowIcon from '@atlaskit/icon/glyph/media-services/arrow';
 import BrushIcon from '@atlaskit/icon/glyph/media-services/brush';

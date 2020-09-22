@@ -10,8 +10,5 @@ export default function Example() {
   return FullPageExample({
     defaultValue: exampleDocument,
     collabEditProvider: collabProvider,
-    collabEdit: {
-      sendDataOnViewUpdated: true,
-    },
   });
 }

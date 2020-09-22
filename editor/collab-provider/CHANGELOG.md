@@ -1,5 +1,20 @@
 # @atlaskit/collab-provider
 
+## 3.3.0
+
+### Minor Changes
+
+- [`9a39500244`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9a39500244) - Bump ProseMirror packages
+
+  Read more: https://product-fabric.atlassian.net/wiki/spaces/E/pages/1671956531/2020-08
+
+- [`4ea3c66256`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ea3c66256) - optimize-title-sync
+
+### Patch Changes
+
+- [`3e9f1f6b57`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3e9f1f6b57) - CS-3100: Fix for fast keystrokes issue on collab-provider
+- Updated dependencies
+
 ## 3.2.3
 
 ### Patch Changes

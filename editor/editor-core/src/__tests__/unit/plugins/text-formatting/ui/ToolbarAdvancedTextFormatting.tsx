@@ -11,7 +11,7 @@ import {
   code,
   em,
   subsup,
-  code_block,
+  code_block as codeBlock,
   underline,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { InjectedIntlProps } from 'react-intl';
@@ -30,6 +30,8 @@ import ToolbarButton from '../../../../../ui/ToolbarButton';
 import DropdownMenuWrapper from '../../../../../ui/DropdownMenu';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { EditorView } from 'prosemirror-view';
+import { pluginKey as widthPluginKey } from '../../../../../plugins/width';
+import { VIEWPORT_SIZES } from '@atlaskit/editor-shared-styles';
 
 describe('@atlaskit/editor-core/ui/ToolbarAdvancedTextFormatting', () => {
   const createEditor = createEditorFactory();
@@ -47,6 +49,19 @@ describe('@atlaskit/editor-core/ui/ToolbarAdvancedTextFormatting', () => {
       createAnalyticsEvent: createAnalyticsEvent as any,
     });
   };
+
+  let widthPluginGetStateMock: jest.SpyInstance;
+  beforeEach(() => {
+    widthPluginGetStateMock = jest
+      .spyOn(widthPluginKey, 'getState')
+      .mockReturnValue({
+        width: VIEWPORT_SIZES.laptopMDPI.width,
+      });
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
 
   it('should render disabled ToolbarButton if both pluginStateTextFormatting and pluginStateClearFormatting are undefined', () => {
     const { editorView } = editor(doc(p('text')));
@@ -94,6 +109,27 @@ describe('@atlaskit/editor-core/ui/ToolbarAdvancedTextFormatting', () => {
     );
     toolbarOption.find('button').simulate('click');
     expect(toolbarOption.find(DropList).find(Item).length).toEqual(6);
+    toolbarOption.unmount();
+  });
+
+  it('should have 8 items for mobile view', () => {
+    const { editorView, pluginState } = editor(doc(p('text')));
+    const clearFormattingState = clearFormattingPluginKey.getState(
+      editorView.state,
+    );
+    widthPluginGetStateMock.mockReturnValue({
+      width: VIEWPORT_SIZES.mobileM.width,
+    });
+    const toolbarOption = mountWithIntl(
+      <ToolbarAdvancedTextFormatting
+        textFormattingState={pluginState}
+        clearFormattingState={clearFormattingState}
+        editorView={editorView}
+      />,
+    );
+    toolbarOption.find('button').simulate('click');
+    const items = toolbarOption.find(DropList).find(Item);
+    expect(items.length).toEqual(8);
     toolbarOption.unmount();
   });
 
@@ -329,7 +365,7 @@ describe('@atlaskit/editor-core/ui/ToolbarAdvancedTextFormatting', () => {
 
     beforeEach(() => {
       const { editorView, pluginState } = editor(
-        doc(code_block({ language: 'js' })('Hello {<>}world')),
+        doc(codeBlock({ language: 'js' })('Hello {<>}world')),
       );
       const clearFormattingState = clearFormattingPluginKey.getState(
         editorView.state,

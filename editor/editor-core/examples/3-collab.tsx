@@ -2,9 +2,14 @@
 
 import styled from 'styled-components';
 import React from 'react';
-import Button, { ButtonGroup } from '@atlaskit/button';
+import ButtonGroup from '@atlaskit/button/button-group';
+import Button from '@atlaskit/button/custom-theme-button';
 import { borderRadius } from '@atlaskit/theme/constants';
-import { ShareDialogContainer } from '@atlaskit/share';
+import {
+  ShareDialogContainer,
+  ShareResponse,
+  ConfigResponse,
+} from '@atlaskit/share';
 
 import {
   emoji,
@@ -20,16 +25,15 @@ import quickInsertProviderFactory from '../example-helpers/quick-insert-provider
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 import { customInsertMenuItems } from '@atlaskit/editor-test-helpers/mock-insert-menu';
-
-import Editor, { EditorProps } from './../src/editor';
-import EditorContext from './../src/ui/EditorContext';
-import WithEditorActions from './../src/ui/WithEditorActions';
-
 import {
   akEditorCodeBackground,
   akEditorCodeBlockPadding,
   akEditorCodeFontFamily,
-} from '../src/styles';
+} from '@atlaskit/editor-shared-styles';
+
+import Editor, { EditorProps } from './../src/editor';
+import EditorContext from './../src/ui/EditorContext';
+import WithEditorActions from './../src/ui/WithEditorActions';
 
 import { createCollabEditProvider } from '@atlaskit/synchrony-test-helpers';
 import { TitleInput } from '../example-helpers/PageElements';
@@ -87,7 +91,7 @@ const SaveAndCancelButtons = (props: { editorActions: EditorActions }) => (
 
 const shareClient = {
   getConfig: () =>
-    new Promise(resolve => {
+    new Promise<ConfigResponse>(resolve => {
       setTimeout(() => {
         resolve({
           allowComment: true,
@@ -97,7 +101,7 @@ const shareClient = {
       }, 1000);
     }),
   share: () =>
-    new Promise(resolve => {
+    new Promise<ShareResponse>(resolve => {
       setTimeout(
         () =>
           resolve({
@@ -145,7 +149,6 @@ export const InviteToEditButton = (props: InviteToEditComponentProps) => {
   return (
     <ShareDialogContainer
       cloudId="cloudId"
-      // @ts-ignore
       shareClient={shareClient}
       loadUserOptions={loadUserOptions}
       originTracingFactory={() => mockOriginTracing}
@@ -259,7 +262,6 @@ const editorProps = ({
     provider: createCollabEditProvider({ userId: sessionId }),
     inviteToEditHandler: inviteHandler,
     inviteToEditComponent,
-    sendDataOnViewUpdated: true,
   },
   sanitizePrivateContent: true,
   placeholder: 'Write something...',

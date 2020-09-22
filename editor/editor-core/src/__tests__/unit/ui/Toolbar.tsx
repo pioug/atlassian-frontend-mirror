@@ -64,7 +64,7 @@ describe('Toolbar', () => {
   });
 
   it('should re-render with different toolbar size when toolbar width changes', async () => {
-    setElementWidth(451);
+    setElementWidth(501);
 
     const toolbarItem = getMockedToolbarItem();
     const toolbar = mount(

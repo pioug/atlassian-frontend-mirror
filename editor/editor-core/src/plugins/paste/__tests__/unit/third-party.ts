@@ -20,8 +20,7 @@ import {
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import dispatchPasteEvent from '@atlaskit/editor-test-helpers/dispatch-paste-event';
 import { doc, p } from '@atlaskit/editor-test-helpers/schema-builder';
-import { smallImage } from '@atlaskit/media-test-helpers';
-import { dataURItoBlob } from '@atlaskit/media-test-helpers/src/mockData/utils';
+import { smallImage, dataURItoBlob } from '@atlaskit/media-test-helpers';
 import pastePlugin from '../../index';
 import textColorPlugin from '../../../text-color';
 import tablesPlugin from '../../../table';

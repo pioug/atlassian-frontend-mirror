@@ -15,7 +15,7 @@ import {
 import { liftTarget, ReplaceAroundStep } from 'prosemirror-transform';
 import { autoJoin } from 'prosemirror-commands';
 import { mapSlice, mapChildren } from '../../utils/slice';
-import { getListLiftTarget } from './utils';
+import { getListLiftTarget } from './utils/indentation';
 
 function liftListItem(
   state: EditorState,
@@ -121,7 +121,7 @@ export function liftSelectionList(
       }
       const range = start.blockRange(end);
       if (range) {
-        tr.lift(range, getListLiftTarget(state.schema, start));
+        tr.lift(range, getListLiftTarget(start));
       }
     }
   }

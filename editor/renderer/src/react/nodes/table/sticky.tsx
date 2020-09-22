@@ -3,9 +3,9 @@ import styled from 'styled-components';
 
 import {
   TableSharedCssClassName,
-  akEditorStickyHeaderZIndex,
   OverflowShadowProps,
 } from '@atlaskit/editor-common';
+import { akEditorStickyHeaderZIndex } from '@atlaskit/editor-shared-styles';
 import { TableLayout } from '@atlaskit/adf-schema';
 import * as colors from '@atlaskit/theme/colors';
 const { N40A } = colors;
@@ -61,6 +61,7 @@ export const FixedTableDiv = styled.div.attrs<FixedProps>({
   }
 
   border-top: ${tableStickyPadding}px solid white;
+  background: white;
   box-shadow: 0 6px 4px -4px ${N40A};
 
   div[data-expanded='false'] & {

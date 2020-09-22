@@ -1,5 +1,17 @@
 # @atlaskit/editor-markdown-transformer
 
+## 4.1.0
+
+### Minor Changes
+
+- [`9a39500244`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9a39500244) - Bump ProseMirror packages
+
+  Read more: https://product-fabric.atlassian.net/wiki/spaces/E/pages/1671956531/2020-08
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.0.4
 
 ### Patch Changes

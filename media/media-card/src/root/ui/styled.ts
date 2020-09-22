@@ -4,7 +4,9 @@ import { getCSSUnitValue } from '../../utils/getCSSUnitValue';
 import { getDefaultCardDimensions } from '../../utils/cardDimensions';
 import { fontFamily } from '@atlaskit/theme/constants';
 import { borderRadius } from '@atlaskit/media-ui';
-import { N20, B300, N60A } from '@atlaskit/theme/colors';
+import { N20, N60A } from '@atlaskit/theme/colors';
+import { akEditorSelectedBoxShadow } from '@atlaskit/editor-shared-styles/consts';
+import { hideNativeBrowserTextSelectionStyles } from '@atlaskit/editor-shared-styles/selection';
 import { transition } from '../../styles';
 import { tickBoxClassName, tickboxFixedStyles } from './tickBox/styled';
 import { fixedBlanketStyles, blanketClassName } from './blanket/styled';
@@ -63,7 +65,7 @@ const getWrapperShadow = (disableOverlay: boolean, selected: boolean) => {
   const withOverlayShadow = !disableOverlay
     ? `0 1px 1px ${N60A}, 0 0 1px 0 ${N60A}`
     : '';
-  const selectedShadow = selected ? `0px 0px 0px 1px ${B300}` : '';
+  const selectedShadow = selected ? akEditorSelectedBoxShadow : '';
   const shadow = [selectedShadow, withOverlayShadow].filter(Boolean).join(', ');
   return shadow ? `box-shadow: ${shadow};` : '';
 };
@@ -133,6 +135,7 @@ export const NewFileExperienceWrapper = styled.div`
     ${getCursorStyle(shouldUsePointerCursor)}
     ${getWrapperShadow(disableOverlay, selected)}
     ${generateResponsiveStyles(breakpoint)}
+    ${hideNativeBrowserTextSelectionStyles}
 
     /* We use classnames from here exceptionally to be able to handle styles when the Card is on hover */
     ${getClickablePlayButtonStyles(isPlayButtonClickable)}

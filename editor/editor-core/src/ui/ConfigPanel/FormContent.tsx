@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import styled from 'styled-components';
 
 import { gridSize } from '@atlaskit/theme/constants';
@@ -7,25 +7,18 @@ import { ExtensionManifest } from '@atlaskit/editor-common';
 
 import {
   FieldDefinition,
-  EnumField,
-  StringField,
-  NumberField,
-  BooleanField,
-  DateField,
-  Fieldset as FieldsetType,
   isFieldset,
   Parameters,
 } from '@atlaskit/editor-common/extensions';
 
 import Boolean from './Fields/Boolean';
-import CheckboxGroup from './Fields/CheckboxGroup';
 import CustomSelect from './Fields/CustomSelect';
 import Date from './Fields/Date';
+import Enum from './Fields/Enum';
 // eslint-disable-next-line import/no-cycle
 import Fieldset from './Fields/Fieldset';
-import RadioGroup from './Fields/RadioGroup';
-import Select from './Fields/Select';
-import Text from './Fields/Text';
+import Number from './Fields/Number';
+import String from './Fields/String';
 import UnhandledType from './Fields/UnhandledType';
 
 import RemovableField from './NestedForms/RemovableField';
@@ -48,178 +41,158 @@ const pickUsedParameters = (
   }, {});
 };
 
-type Props = {
-  extensionManifest: ExtensionManifest;
+type FormProps = {
   fields: FieldDefinition[];
   parameters?: Parameters;
+  extensionManifest: ExtensionManifest;
   canRemoveFields?: boolean;
   onClickRemove?: (fieldName: string) => void;
   onFieldBlur: OnBlur;
   firstVisibleFieldName?: string;
 };
 
-class FormContent extends React.Component<Props> {
-  renderEnumField(field: EnumField) {
-    const { firstVisibleFieldName } = this.props;
-    switch (field.style) {
-      case 'checkbox':
-        return (
-          <CheckboxGroup
-            key={field.name}
-            onBlur={this.props.onFieldBlur}
-            field={field}
-          />
-        );
+type FieldProps = {
+  field: FieldDefinition;
+  parameters?: Parameters;
+  extensionManifest: ExtensionManifest;
+  firstVisibleFieldName?: string;
+  onBlur: OnBlur;
+};
 
-      case 'radio':
-        return (
-          <RadioGroup
-            key={field.name}
-            onBlur={this.props.onFieldBlur}
-            field={field}
-          />
-        );
+function FieldComponent({
+  field,
+  parameters,
+  extensionManifest,
+  firstVisibleFieldName,
+  onBlur,
+}: FieldProps) {
+  const { name } = field;
+  const autoFocus = name === firstVisibleFieldName;
 
-      case 'select':
-      default:
-        return (
-          <Select
-            key={field.name}
-            onBlur={this.props.onFieldBlur}
-            field={field}
-            placeholder={field.placeholder}
-            autoFocus={field.name === firstVisibleFieldName}
-          />
-        );
-    }
+  if (!isFieldset(field)) {
+    field.defaultValue = (parameters && parameters[name]) || field.defaultValue;
   }
 
-  renderUnhandledField(field: FieldDefinition) {
-    return (
-      <UnhandledType
-        key={field.name}
-        field={field}
-        errorMessage={`Field "${field.name}" of type "${field.type}" not supported`}
-      />
-    );
-  }
+  switch (field.type) {
+    case 'string':
+      return (
+        <String
+          field={field}
+          autoFocus={autoFocus}
+          onBlur={onBlur}
+          placeholder={field.placeholder}
+        />
+      );
 
-  renderField(field: FieldDefinition, index: number) {
-    const { parameters, extensionManifest, firstVisibleFieldName } = this.props;
+    case 'number':
+      return (
+        <Number
+          field={field}
+          autoFocus={autoFocus}
+          onBlur={onBlur}
+          placeholder={field.placeholder}
+        />
+      );
 
-    if (!isFieldset(field)) {
-      field.defaultValue =
-        (parameters && parameters[field.name]) || field.defaultValue;
-    }
+    case 'boolean':
+      return <Boolean field={field} onBlur={onBlur} />;
 
-    switch (field.type) {
-      case 'string':
-        return (
-          <Text
-            autoFocus={field.name === firstVisibleFieldName}
-            key={field.name}
-            onBlur={this.props.onFieldBlur}
-            placeholder={field.placeholder}
-            field={field as StringField}
-            type="text"
-          />
-        );
+    case 'date':
+      return (
+        <Date
+          field={field}
+          autoFocus={autoFocus}
+          onBlur={onBlur}
+          placeholder={field.placeholder}
+        />
+      );
 
-      case 'number':
-        return (
-          <Text
-            autoFocus={field.name === firstVisibleFieldName}
-            key={field.name}
-            onBlur={this.props.onFieldBlur}
-            placeholder={field.placeholder}
-            field={field as NumberField}
-            type="number"
-          />
-        );
+    case 'enum':
+      return <Enum field={field} autoFocus={autoFocus} onBlur={onBlur} />;
 
-      case 'boolean':
-        return (
-          <Boolean
-            key={field.name}
-            onBlur={this.props.onFieldBlur}
-            field={field as BooleanField}
-          />
-        );
+    case 'custom':
+      return (
+        <CustomSelect
+          field={field}
+          extensionManifest={extensionManifest}
+          placeholder={field.placeholder}
+          autoFocus={autoFocus}
+          onBlur={onBlur}
+        />
+      );
 
-      case 'date':
-        return (
-          <Date
-            autoFocus={field.name === firstVisibleFieldName}
-            key={field.name}
-            onBlur={this.props.onFieldBlur}
-            placeholder={field.placeholder}
-            field={field as DateField}
-          />
-        );
+    case 'fieldset':
+      return (
+        <Fieldset
+          firstVisibleFieldName={firstVisibleFieldName}
+          onFieldBlur={onBlur}
+          field={field}
+          extensionManifest={extensionManifest}
+          parameters={pickUsedParameters(parameters, field.fields)}
+        />
+      );
 
-      case 'enum':
-        return this.renderEnumField(field as EnumField);
-
-      case 'custom':
-        return (
-          <CustomSelect
-            autoFocus={field.name === firstVisibleFieldName}
-            key={field.name}
-            onBlur={this.props.onFieldBlur}
-            placeholder={field.placeholder}
-            field={field}
-            extensionManifest={extensionManifest}
-          />
-        );
-
-      case 'fieldset':
-        return (
-          <Fieldset
-            firstVisibleFieldName={firstVisibleFieldName}
-            key={field.name}
-            onFieldBlur={this.props.onFieldBlur}
-            field={field as FieldsetType}
-            extensionManifest={extensionManifest}
-            parameters={pickUsedParameters(parameters, field.fields)}
-          />
-        );
-
-      default:
-        return this.renderUnhandledField(field);
-    }
-  }
-
-  renderRemovableField(field: FieldDefinition, index: number) {
-    const { onClickRemove } = this.props;
-
-    if (!onClickRemove) {
-      return this.renderField(field, index);
-    }
-
-    return (
-      <RemovableField
-        key={field.name}
-        name={field.name}
-        onClickRemove={() => onClickRemove!(field.name)}
-      >
-        {this.renderField(field, index)}
-      </RemovableField>
-    );
-  }
-
-  render() {
-    const { fields, canRemoveFields } = this.props;
-
-    return fields.map((field, index) =>
-      canRemoveFields ? (
-        this.renderRemovableField(field, index)
-      ) : (
-        <FieldWrapper key={field.name}>
-          {this.renderField(field, index)}
-        </FieldWrapper>
-      ),
-    );
+    default:
+      return (
+        <UnhandledType
+          field={field}
+          // @ts-ignore, not possible, but maybe Typescript is wrong
+          errorMessage={`Field "${name}" of type "${field.type}" not supported`}
+        />
+      );
   }
 }
 
-export default FormContent;
+function Hidden({ children }: { children: React.ReactNode }) {
+  return <div style={{ display: 'none' }}>{children}</div>;
+}
+
+export default function FormContent({
+  fields,
+  parameters,
+  extensionManifest,
+  canRemoveFields,
+  onClickRemove,
+  onFieldBlur,
+  firstVisibleFieldName,
+}: FormProps) {
+  return (
+    <Fragment>
+      {fields.map((field: FieldDefinition) => {
+        const { name } = field;
+        let fieldElement = (
+          <FieldComponent
+            field={field}
+            parameters={parameters}
+            extensionManifest={extensionManifest}
+            firstVisibleFieldName={firstVisibleFieldName}
+            onBlur={onFieldBlur}
+          />
+        );
+
+        // only to be supported by String fields at this time
+        if ('isHidden' in field && field.isHidden) {
+          fieldElement = <Hidden>{fieldElement}</Hidden>;
+        }
+
+        if (canRemoveFields) {
+          if (!onClickRemove) {
+            return <Fragment key={name}>{fieldElement}</Fragment>;
+          }
+
+          return (
+            <RemovableField
+              key={name}
+              name={name}
+              onClickRemove={() => onClickRemove(name)}
+            >
+              {fieldElement}
+            </RemovableField>
+          );
+        }
+
+        return <FieldWrapper key={name}>{fieldElement}</FieldWrapper>;
+      })}
+    </Fragment>
+  );
+}

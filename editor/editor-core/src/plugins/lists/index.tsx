@@ -6,7 +6,7 @@ import { createPlugin, pluginKey } from './pm-plugins/main';
 import inputRulePlugin from './pm-plugins/input-rule';
 import keymapPlugin from './pm-plugins/keymap';
 import WithPluginState from '../../ui/WithPluginState';
-import { messages } from '../lists/messages';
+import { messages } from './messages';
 import {
   addAnalytics,
   ACTION,
@@ -118,15 +118,13 @@ const listPlugin = (): EditorPlugin => ({
     isToolbarReducedSpacing,
   }) {
     const isSmall = toolbarSize < ToolbarSize.L;
-    const isSeparator = toolbarSize >= ToolbarSize.S;
-
     return (
       <WithPluginState
         plugins={{ listsState: pluginKey }}
         render={({ listsState }) => (
           <ToolbarLists
             isSmall={isSmall}
-            isSeparator={isSeparator}
+            isSeparator={true}
             isReducedSpacing={isToolbarReducedSpacing}
             disabled={disabled}
             editorView={editorView}

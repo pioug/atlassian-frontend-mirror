@@ -401,8 +401,8 @@ export const listBackspace: Command = (state, dispatch) => {
   }
 
   addAnalytics(state, tr, {
-    action: ACTION.DELETED,
-    actionSubject: ACTION_SUBJECT.TEXT,
+    action: ACTION.LIST_ITEM_JOINED,
+    actionSubject: ACTION_SUBJECT.LIST,
     actionSubjectId,
     eventType: EVENT_TYPE.TRACK,
     attributes: {

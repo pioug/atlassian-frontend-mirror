@@ -4,7 +4,8 @@ import {
   akEditorFullWidthLayoutWidth,
   akEditorWideLayoutWidth,
   breakoutWideScaleRatio,
-} from '../styles/consts';
+} from '@atlaskit/editor-shared-styles';
+
 import { mapBreakpointToLayoutMaxWidth as mapBreakpointToLayoutMaxWidthExported } from '../ui/BaseTheme';
 import { getBreakpoint as getBreakpointExported } from '../ui/WidthProvider';
 

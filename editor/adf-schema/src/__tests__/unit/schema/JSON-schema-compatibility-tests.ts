@@ -52,6 +52,7 @@ const unsupportedMarks = [
   'annotation',
   'unsupportedMark',
   'unsupportedNodeAttribute',
+  'typeAheadQuery',
 ];
 
 /**

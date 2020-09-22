@@ -1,7 +1,6 @@
 import {
   getAutoClosingBracketInfo,
-  isCursorBeforeClosingBracket,
-  isClosingBracket,
+  shouldAutoCloseBracket,
 } from '../../../ide-ux/bracket-handling';
 
 describe('IDE UX - Bracket handling', () => {
@@ -60,25 +59,20 @@ describe('IDE UX - Bracket handling', () => {
     });
   });
 
-  describe('#isCursorBeforeClosingBracket', () => {
-    forEachBracketPair((_, right) => {
-      it(`should return true if afterText starts with a bracket '${right}'`, () => {
-        expect(isCursorBeforeClosingBracket(`${right} end`)).toBe(true);
-      });
+  describe('#shouldAutoCloseBracket', () => {
+    it('should return true when directly before a closing bracket', () => {
+      expect(shouldAutoCloseBracket(' ', '}')).toBeTruthy();
+      expect(shouldAutoCloseBracket(' ', ']')).toBeTruthy();
+      expect(shouldAutoCloseBracket(' ', ')')).toBeTruthy();
     });
-    it('should return false if afterText does not start with a bracket', () => {
-      expect(isCursorBeforeClosingBracket('end')).toBe(false);
-    });
-  });
 
-  describe('#isClosingBracket', () => {
-    forEachBracketPair((_, right) => {
-      it(`should return true if text is '${right}'`, () => {
-        expect(isClosingBracket(right)).toBe(true);
-      });
+    it('should return false when directly before a non-whitespace character', () => {
+      expect(shouldAutoCloseBracket(' ', 'end')).toBeFalsy();
     });
-    it('should return false if text is not a bracket', () => {
-      expect(isClosingBracket('notABracket')).toBe(false);
+
+    it('should return true otherwise', () => {
+      expect(shouldAutoCloseBracket('start ', '')).toBeTruthy();
+      expect(shouldAutoCloseBracket('', ' end')).toBeTruthy();
     });
   });
 });

@@ -3,7 +3,13 @@ import {
   waitForTooltip,
   waitForLoadedImageElements,
 } from '@atlaskit/visual-regression/helper';
-import { snapshot, initEditorWithAdf, Appearance, pmSelector } from '../_utils';
+import {
+  snapshot,
+  initEditorWithAdf,
+  Appearance,
+  pmSelector,
+  emulateSelectAll,
+} from '../_utils';
 import adf from './__fixtures__/nested-elements.adf.json';
 import {
   tableSelectors,
@@ -31,13 +37,6 @@ import {
   mediaToolbarRemoveSelector,
   mediaDangerSelector,
 } from '../../__helpers/page-objects/_media';
-
-const selectAll = async (page: PuppeteerPage) => {
-  await page.keyboard.down('Control');
-  await page.keyboard.down('A');
-  await page.keyboard.up('Control');
-  await page.keyboard.up('A');
-};
 
 /*
 When importing this ADF from a file using
@@ -662,7 +661,12 @@ const selectionKitchenSink2Adf = {
   content: [
     {
       type: 'paragraph',
-      content: [],
+      content: [
+        {
+          type: 'text',
+          text: ' ',
+        },
+      ],
     },
     {
       type: 'layoutSection',
@@ -1216,7 +1220,7 @@ describe('Selection:', () => {
       await initEditorWithAdf(page, {
         appearance: Appearance.fullPage,
         adf: selectionPanelAdf,
-        viewport: { width: 400, height: 320 },
+        viewport: { width: 800, height: 320 },
       });
     });
 
@@ -1300,6 +1304,7 @@ describe('Selection:', () => {
       await page.click(mentionSelectors.mention);
     });
   });
+
   describe('Unsupported block', () => {
     beforeAll(() => {
       page = global.page;
@@ -1332,6 +1337,7 @@ describe('Selection:', () => {
       await page.keyboard.type('replaced');
     });
   });
+
   describe('Unsupported Inline', () => {
     beforeAll(() => {
       page = global.page;
@@ -1364,6 +1370,7 @@ describe('Selection:', () => {
       await page.keyboard.type('replaced');
     });
   });
+
   describe('Unsupported Inline inside Panel', () => {
     beforeAll(() => {
       page = global.page;
@@ -1396,6 +1403,7 @@ describe('Selection:', () => {
       await page.hover(PanelSharedSelectors.removeButton);
     });
   });
+
   describe('Unsupported Block inside Expand', () => {
     beforeAll(() => {
       page = global.page;
@@ -1427,89 +1435,130 @@ describe('Selection:', () => {
       await page.hover(`button[aria-label="Remove"]`);
     });
   });
-  describe('TextSelection (mouse click/drag)', () => {
-    beforeAll(() => {
-      page = global.page;
-    });
-    const tests = [
+
+  describe.each([
+    [
+      'kitchen-sink-1:should display top-level selectable nodes as selected, and hide native browser text selection on content inside those nodes',
       {
         adf: selectionKitchenSink1Adf,
         selection: { start: 0, end: 325 },
-        name:
-          'kitchen-sink-1:should display top-level selectable nodes as selected, and hide native browser text selection on content inside those nodes',
       },
+    ],
+    [
+      'kitchen-sink-1:should not apply selection styles to partially selected top-level nodes (expand)',
       {
         adf: selectionKitchenSink1Adf,
         selection: { start: 0, end: 72 },
-        name:
-          'kitchen-sink-1:should not apply selection styles to partially selected top-level nodes (expand)',
       },
-      {
-        adf: selectionKitchenSink1Adf,
-        selection: { start: 83, end: 156 },
-        name:
-          'kitchen-sink-1:should not apply selection styles to partially selected top-level nodes (panel)',
-      },
-      {
-        adf: selectionKitchenSink1Adf,
-        selection: { start: 106, end: 283 },
-        name:
-          'kitchen-sink-1:should not apply selection styles to partially selected top-level nodes (table)',
-      },
+    ],
+    // TODO: Need to investigate the flaky test
+    // [
+    //   'kitchen-sink-1:should not apply selection styles to partially selected top-level nodes (panel)',
+    //   {
+    //     adf: selectionKitchenSink1Adf,
+    //     selection: { start: 83, end: 156 },
+    //     beforeSelection: async (page: PuppeteerPage) => {
+    //       // Wait for the expand to render
+    //       await page.waitForSelector('.ak-editor-expand__content');
+    //     },
+    //   },
+    // ],
+    // TODO: Need to investigate the flaky test
+    // [
+    //   'kitchen-sink-1:should not apply selection styles to partially selected top-level nodes (table)',
+    //   {
+    //     adf: selectionKitchenSink1Adf,
+    //     selection: { start: 106, end: 283 },
+    //     beforeSelection: async (page: PuppeteerPage) => {
+    //       // Wait for the expand to render
+    //       await page.waitForSelector('.ak-editor-expand__content');
+    //     },
+    //   },
+    // ],
+    [
+      'kitchen-sink-2:should display top-level selectable nodes as selected, and hide native browser text selection on content inside those nodes',
       {
         adf: selectionKitchenSink2Adf,
         selection: { start: 0, end: 473 },
-        name:
-          'kitchen-sink-2:should display top-level selectable nodes as selected, and hide native browser text selection on content inside those nodes',
       },
+    ],
+    [
+      'kitchen-sink-2:should not apply selection styles to partially selected top-level nodes (layout)',
       {
         adf: selectionKitchenSink2Adf,
         selection: { start: 1, end: 46 },
-        name:
-          'kitchen-sink-2:should not apply selection styles to partially selected top-level nodes (layout)',
       },
+    ],
+    [
+      'kitchen-sink-2:should not apply selection styles to partially selected top-level nodes (codeblock)',
       {
         adf: selectionKitchenSink2Adf,
         selection: { start: 1, end: 212 },
-        name:
-          'kitchen-sink-2:should not apply selection styles to partially selected top-level nodes (codeblock)',
       },
+    ],
+    [
+      'kitchen-sink-2:should not apply selection styles to partially selected top-level nodes (decisions)',
       {
         adf: selectionKitchenSink2Adf,
         selection: { start: 1, end: 229 },
-        name:
-          'kitchen-sink-2:should not apply selection styles to partially selected top-level nodes (decisions)',
       },
+    ],
+    [
+      'kitchen-sink-3:should display top-level selectable nodes as selected, and hide native browser text selection on content inside those nodes',
       {
         adf: selectionKitchenSink3Adf,
         selection: { start: 0, end: 30 },
-        name:
-          'kitchen-sink-3:should display top-level selectable nodes as selected, and hide native browser text selection on content inside those nodes',
         beforeSnapshot: async (page: PuppeteerPage) => {
           // Need to wait for min-width to be calculated
           // and applied on inline-extension
           await page.waitFor(1000);
         },
       },
-    ];
-    tests.forEach(({ selection, name, adf, beforeSnapshot }) => {
+    ],
+  ])(
+    'TextSelection (mouse click/drag)',
+    (
+      name,
+      {
+        adf,
+        selection,
+        beforeSnapshot,
+        beforeSelection,
+      }: {
+        adf: object;
+        selection: { start: number; end: number };
+        beforeSnapshot?: (page: PuppeteerPage) => Promise<void>;
+        beforeSelection?: (page: PuppeteerPage) => Promise<void>;
+      },
+    ) => {
+      beforeAll(() => {
+        page = global.page;
+      });
+
       it(name, async () => {
         await initEditorWithAdf(page, {
           appearance: Appearance.fullPage,
           adf,
           viewport: { width: 1040, height: 1200 },
         });
-        await page.waitForSelector(pmSelector);
-        await page.click(pmSelector);
+        await page.focus(pmSelector);
+
+        if (beforeSelection) {
+          await beforeSelection(page);
+        }
         await selectAtPos(page, selection.start, selection.end, false);
         // Unfortunately need to wait not just for decoration classes to apply,
+
         // but also for the selection styles to paint
         await page.waitFor(1000);
-        beforeSnapshot && (await beforeSnapshot(page));
+
+        if (beforeSnapshot) {
+          await beforeSnapshot(page);
+        }
         await snapshot(page);
       });
-    });
-  });
+    },
+  );
   describe('AllSelection (Cmd + A)', () => {
     const tests = [
       {
@@ -1538,6 +1587,7 @@ describe('Selection:', () => {
         },
       },
     ];
+
     tests.forEach(({ name, adf, beforeSnapshot, beforeSelect }) => {
       it(name, async () => {
         await initEditorWithAdf(page, {
@@ -1545,10 +1595,10 @@ describe('Selection:', () => {
           adf,
           viewport: { width: 1040, height: 1200 },
         });
-        await page.waitForSelector(pmSelector);
-        await page.click(pmSelector);
+        await page.focus(pmSelector);
+
         beforeSelect && (await beforeSelect(page));
-        await selectAll(page);
+        await emulateSelectAll(page);
         // Unfortunately need to wait not just for decoration classes to apply,
         // but also for the selection styles to paint
         await page.waitFor(1000);

@@ -31,7 +31,6 @@ export type CollabEditOptions = {
   provider?: Providers['collabEditProvider'];
   userId?: string;
   useNativePlugin?: boolean;
-  sendDataOnViewUpdated?: boolean;
 } & CollabInviteToEditProps;
 
 export type PrivateCollabEditOptions = CollabEditOptions & {

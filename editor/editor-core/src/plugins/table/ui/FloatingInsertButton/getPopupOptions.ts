@@ -1,7 +1,5 @@
-import {
-  akEditorTableNumberColumnWidth,
-  PopupProps,
-} from '@atlaskit/editor-common';
+import { PopupProps } from '@atlaskit/editor-common';
+import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
 
 import {
   tableInsertColumnButtonOffset,

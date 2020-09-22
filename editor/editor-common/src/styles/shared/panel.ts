@@ -1,11 +1,13 @@
 import { css } from 'styled-components';
 
 import { hexToRgba, PanelType } from '@atlaskit/adf-schema';
+import {
+  akEditorTableCellMinWidth,
+  blockNodesVerticalMargin,
+} from '@atlaskit/editor-shared-styles';
 import * as colors from '@atlaskit/theme/colors';
 import { themed } from '@atlaskit/theme/components';
 import { borderRadius, gridSize } from '@atlaskit/theme/constants';
-
-import { akEditorTableCellMinWidth, blockNodesVerticalMargin } from '../consts';
 
 const lightPanelColor = {
   info: colors.B50,
@@ -68,12 +70,14 @@ export const PanelSharedCssClassName = {
 };
 
 export const PanelSharedSelectors = {
-  infoPanel: `.${prefix}[data-panel-type=info]`,
+  infoPanel: `.${prefix}[data-panel-type=${PanelType.INFO}]`,
   noteButton: `button[aria-label="Note"]`,
   removeButton: `button[aria-label="Remove"]`,
 };
 
-const iconDynamicStyles = (panelType: PanelType) => (props: any) => {
+const iconDynamicStyles = (panelType: Exclude<PanelType, PanelType.CUSTOM>) => (
+  props: any,
+) => {
   const light = lightIconColor[panelType];
   const dark = darkIconColor[panelType];
   const color = themed({ light, dark })(props);
@@ -82,7 +86,9 @@ const iconDynamicStyles = (panelType: PanelType) => (props: any) => {
   `;
 };
 
-const mainDynamicStyles = (panelType: PanelType) => (props: any) => {
+const mainDynamicStyles = (panelType: Exclude<PanelType, PanelType.CUSTOM>) => (
+  props: any,
+) => {
   const light = lightPanelColor[panelType];
   const dark = hexToRgba(darkPanelColor[panelType], darkPanelOpacity);
   const darkText = darkTextColor[panelType];
@@ -107,7 +113,7 @@ export const panelSharedStyles = css`
     align-items: baseline;
     word-break: break-word;
 
-    ${mainDynamicStyles('info')}
+    ${mainDynamicStyles(PanelType.INFO)}
 
     .${PanelSharedCssClassName.icon} {
       display: block;
@@ -116,7 +122,7 @@ export const panelSharedStyles = css`
       width: ${gridSize() * 3}px;
       box-sizing: content-box;
       padding-right: ${gridSize()}px;
-      ${iconDynamicStyles('info')}
+      ${iconDynamicStyles(PanelType.INFO)}
 
       > span {
         vertical-align: middle;
@@ -129,43 +135,43 @@ export const panelSharedStyles = css`
       flex: 1 0 0;
     }
 
-    &[data-panel-type='note'] {
-      ${mainDynamicStyles('note')}
+    &[data-panel-type='${PanelType.NOTE}'] {
+      ${mainDynamicStyles(PanelType.NOTE)}
 
       .${PanelSharedCssClassName.icon} {
-        ${iconDynamicStyles('note')}
+        ${iconDynamicStyles(PanelType.NOTE)}
       }
     }
 
-    &[data-panel-type='tip'] {
-      ${mainDynamicStyles('tip')}
+    &[data-panel-type='${PanelType.TIP}'] {
+      ${mainDynamicStyles(PanelType.TIP)}
 
       .${PanelSharedCssClassName.icon} {
-        ${iconDynamicStyles('tip')}
+        ${iconDynamicStyles(PanelType.TIP)}
       }
     }
 
-    &[data-panel-type='warning'] {
-      ${mainDynamicStyles('warning')}
+    &[data-panel-type='${PanelType.WARNING}'] {
+      ${mainDynamicStyles(PanelType.WARNING)}
 
       .${PanelSharedCssClassName.icon} {
-        ${iconDynamicStyles('warning')}
+        ${iconDynamicStyles(PanelType.WARNING)}
       }
     }
 
-    &[data-panel-type='error'] {
-      ${mainDynamicStyles('error')}
+    &[data-panel-type='${PanelType.ERROR}'] {
+      ${mainDynamicStyles(PanelType.ERROR)}
 
       .${PanelSharedCssClassName.icon} {
-        ${iconDynamicStyles('error')}
+        ${iconDynamicStyles(PanelType.ERROR)}
       }
     }
 
-    &[data-panel-type='success'] {
-      ${mainDynamicStyles('success')}
+    &[data-panel-type='${PanelType.SUCCESS}'] {
+      ${mainDynamicStyles(PanelType.SUCCESS)}
 
       .${PanelSharedCssClassName.icon} {
-        ${iconDynamicStyles('success')}
+        ${iconDynamicStyles(PanelType.SUCCESS)}
       }
     }
   }

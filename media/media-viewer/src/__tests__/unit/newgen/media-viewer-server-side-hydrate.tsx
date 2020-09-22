@@ -1,18 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { getExamplesFor } from '@atlaskit/build-utils/getExamples';
-import { ssr, mockConsole } from '@atlaskit/ssr';
-import waitForExpect from 'wait-for-expect';
+import { ssr } from '@atlaskit/ssr';
 
-let getConsoleMockCalls: any;
-
-beforeAll(() => {
-  getConsoleMockCalls = mockConsole(console);
-});
+jest.spyOn(global.console, 'error').mockImplementation(() => {});
 
 afterEach(() => {
   jest.resetAllMocks();
-  jest.restoreAllMocks();
 });
 
 test('should ssr then hydrate media-viewer correctly', async () => {
@@ -22,8 +16,15 @@ test('should ssr then hydrate media-viewer correctly', async () => {
   elem.innerHTML = await ssr(example.filePath);
 
   ReactDOM.hydrate(<Example />, elem);
-  await waitForExpect(() => {
-    const mockCalls = getConsoleMockCalls();
-    expect(mockCalls.length).toBe(0);
-  });
+
+  // eslint-disable-next-line no-console
+  const mockCalls = (console.error as jest.Mock).mock.calls.filter(
+    ([f, s]) =>
+      !(
+        f ===
+          'Warning: Did not expect server HTML to contain a <%s> in <%s>.' &&
+        s === 'style'
+      ),
+  );
+  expect(mockCalls.length).toBe(0);
 });

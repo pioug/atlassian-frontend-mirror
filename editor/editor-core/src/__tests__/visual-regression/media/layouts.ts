@@ -171,7 +171,7 @@ describe('Snapshot Test: Media', () => {
       await clickEditableContent(page);
 
       // Media one : left wrapped
-      await insertMedia(page);
+      await insertMedia(page, ['recents_tall_image.jpeg']);
       await waitForMediaToBeLoaded(page);
       await clickMediaInPosition(page, 0);
       await changeMediaLayout(page, MediaLayout.wrapLeft);
@@ -179,7 +179,7 @@ describe('Snapshot Test: Media', () => {
       await pressKey(page, 'ArrowRight');
 
       // Media two : center aligned
-      await insertMedia(page);
+      await insertMedia(page, ['recents_tall_image.jpeg']);
       await waitForMediaToBeLoaded(page);
       await clickMediaInPosition(page, 0);
 

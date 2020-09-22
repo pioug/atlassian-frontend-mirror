@@ -21,6 +21,7 @@ export default {
   'fabric.media.annotate.tool.line.thickness': 'Lijndikte',
   'fabric.media.annotate.tool.shape': 'Vorm',
   'fabric.media.annotate.tool.text': 'Tekst',
+  'fabric.media.archive': 'archiveren',
   'fabric.media.audio': 'audio',
   'fabric.media.cancel': 'Annuleren',
   'fabric.media.cant_preview_file_type':
@@ -34,7 +35,7 @@ export default {
   'fabric.media.connect_link_account': 'Maak verbinding voor voorbeeld',
   'fabric.media.connect_link_account_card_view': 'Koppelen',
   'fabric.media.connect_link_account_card_view_description':
-    'Verbeter de voorvertoning van je links door {context} te koppelen aan je Atlassian-producten.',
+    'Koppel je {context}-account om een voorbeeld van deze link weer te geven.',
   'fabric.media.connect_link_account_card_view_name':
     'Koppel je {context}-account',
   'fabric.media.connect_to': 'Met {name} verbinden',
@@ -42,10 +43,12 @@ export default {
     'Oei! De editor kon niet geladen worden',
   'fabric.media.could_not_save_image':
     'Oei! De afbeelding kon niet opgeslagen worden',
+  'fabric.media.couldnt_generate_encrypted_entry_preview':
+    'We kunnen geen voorbeeld weergeven van gecodeerde bestanden of bestanden die beveiligd zijn met een wachtwoord.',
   'fabric.media.couldnt_generate_preview':
     'Dit bestandstype kunnen we niet voorvertonen.',
   'fabric.media.couldnt_load_link':
-    'We kunnen deze link om onbekende reden niet laden.',
+    'Om een onbekende reden konden we deze link niet laden.',
   'fabric.media.default_avatars': "Standaardavatar's",
   'fabric.media.disable_fullscreen': 'volledig scherm uitschakelen',
   'fabric.media.document': 'document',
@@ -75,7 +78,7 @@ export default {
     'De afbeelding kon niet geladen worden omdat de URL ongeldig is.',
   'fabric.media.insert_files':
     '{0, plural, one {Voer {0} bestanden in} other {Voer {0} bestanden in}}',
-  'fabric.media.invalid_permissions': 'Je hebt geen toegang tot deze link',
+  'fabric.media.invalid_permissions': 'Afgeschermde link',
   'fabric.media.invalid_permissions_description':
     'Je moet om toegang vragen of een ander account proberen om deze voorvertoning te bekijken.',
   'fabric.media.item_not_found_in_list':
@@ -91,7 +94,7 @@ export default {
   'fabric.media.no_pdf_artifacts':
     'Geen PDF-artefacten gevonden voor dit bestand.',
   'fabric.media.not_found_description':
-    'Controleer de URL en probeer nogmaals te bewerken of plakken.',
+    'We konden de link niet vinden. Controleer de URL en probeer nogmaals te bewerken of plakken.',
   'fabric.media.not_found_title': 'Oh-oh. We kunnen deze link niet vinden.',
   'fabric.media.or': 'of',
   'fabric.media.pause': 'pauzeren',

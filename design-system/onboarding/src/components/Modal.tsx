@@ -1,6 +1,8 @@
 import React, { Component, ElementType, ReactNode } from 'react';
 
-import Button, { Theme as ButtonTheme } from '@atlaskit/button';
+import Button, {
+  Theme as ButtonTheme,
+} from '@atlaskit/button/custom-theme-button';
 import Modal, {
   FooterComponentProps,
   HeaderComponentProps,

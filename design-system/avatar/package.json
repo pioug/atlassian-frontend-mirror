@@ -24,7 +24,7 @@
     }
   },
   "dependencies": {
-    "@atlaskit/analytics-next": "^7.0.0",
+    "@atlaskit/analytics-next": "^7.1.0",
     "@atlaskit/icon": "^21.1.0",
     "@atlaskit/theme": "^10.0.0",
     "@atlaskit/tooltip": "^17.0.0",
@@ -36,13 +36,13 @@
   },
   "devDependencies": {
     "@atlaskit/build-utils": "*",
-    "@atlaskit/button": "^14.0.0",
+    "@atlaskit/button": "^15.0.0",
     "@atlaskit/docs": "*",
     "@atlaskit/field-base": "^15.0.0",
     "@atlaskit/icon": "^21.1.0",
     "@atlaskit/section-message": "^5.0.0",
     "@atlaskit/ssr": "*",
-    "@atlaskit/toggle": "^10.0.0",
+    "@atlaskit/toggle": "^11.0.0",
     "@atlaskit/tooltip": "^17.0.0",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",

@@ -1,7 +1,8 @@
 import { State } from '@atlaskit/media-picker/src/popup/domain';
+import { PopupUploadEventEmitter } from '@atlaskit/media-picker/src/components/types';
+//TODO: Remove access to src directly. Can move these to media-picker or add special "internal" entrypoint
 import { Store } from 'react-redux';
 import { fakeMediaClient } from './fakeMediaClient';
-import { PopupUploadEventEmitter } from '@atlaskit/media-picker/src/components/types';
 
 export const mockState: State = {
   redirectUrl: 'some-redirect-url',

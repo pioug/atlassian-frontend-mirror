@@ -1,5 +1,6 @@
 import { Transaction, NodeSelection } from 'prosemirror-state';
 import { DecorationSet } from 'prosemirror-view';
+import { CellSelection } from 'prosemirror-tables';
 
 import { pluginFactory } from '../../utils/plugin-state-factory';
 
@@ -40,8 +41,9 @@ const handleSelectionChanged = (
 ): SelectionPluginState => {
   // Reset relative selection pos when user clicks to select a node
   if (
-    tr.selection instanceof NodeSelection &&
-    isSelectableContainerNode(tr.selection.node) &&
+    ((tr.selection instanceof NodeSelection &&
+      isSelectableContainerNode(tr.selection.node)) ||
+      tr.selection instanceof CellSelection) &&
     !tr.getMeta(selectionPluginKey)
   ) {
     return {

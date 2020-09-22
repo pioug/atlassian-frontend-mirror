@@ -1,10 +1,11 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
-import { testMediaGroupFileId } from '@atlaskit/editor-test-helpers';
+import { testMediaGroup } from '@atlaskit/editor-test-helpers';
 import { editable, getDocFromElement, fullpage } from '../_helpers';
 import {
   goToEditorTestingExample,
   mountEditor,
 } from '../../__helpers/testing-example-helpers';
+import { waitForNumImages } from './_utils';
 
 const baseADF = {
   version: 1,
@@ -16,7 +17,7 @@ const baseADF = {
         {
           type: 'media',
           attrs: {
-            id: testMediaGroupFileId,
+            id: testMediaGroup.id,
             type: 'file',
             collection: 'MediaServicesSample',
           },
@@ -54,6 +55,8 @@ BrowserTestCase(
     await page.type(editable, 'pasting');
 
     await page.paste();
+
+    await waitForNumImages(page, 2);
 
     const doc = await page.$eval(editable, getDocFromElement);
     expect(doc).toMatchCustomDocSnapshot(testCase);

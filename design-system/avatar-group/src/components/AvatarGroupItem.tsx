@@ -1,7 +1,12 @@
 import React, { FC } from 'react';
 
 import Avatar from '@atlaskit/avatar';
-import { ButtonItem, LinkItem } from '@atlaskit/menu';
+import {
+  ButtonItem,
+  CustomItem,
+  CustomItemComponentProps,
+  LinkItem,
+} from '@atlaskit/menu';
 
 import { AvatarProps, onAvatarClickHandler } from './types';
 
@@ -22,6 +27,13 @@ const AvatarGroupItem: FC<AvatarGroupItemProps> = ({
 }) => {
   const { href, onClick, ...rest } = avatar;
 
+  const CustomComponent: React.FC<CustomItemComponentProps> = ({
+    children,
+    ...props
+  }) => {
+    return <span {...props}>{children}</span>;
+  };
+
   const AvatarIcon = (
     <Avatar
       {...rest}
@@ -31,33 +43,41 @@ const AvatarGroupItem: FC<AvatarGroupItemProps> = ({
     />
   );
 
-  return href ? (
-    <LinkItem
-      href={href}
-      target={avatar.target}
-      rel={avatar.target === '_blank' ? 'noopener noreferrer' : undefined}
+  if (href) {
+    return (
+      <LinkItem
+        href={href}
+        target={avatar.target}
+        rel={avatar.target === '_blank' ? 'noopener noreferrer' : undefined}
+        iconBefore={AvatarIcon}
+        testId={testId}
+      >
+        {avatar.name}
+      </LinkItem>
+    );
+  }
+  if (typeof onAvatarClick === 'function') {
+    return (
+      <ButtonItem
+        onClick={event =>
+          onAvatarClick &&
+          onAvatarClick(event as React.MouseEvent<Element>, undefined, index)
+        }
+        iconBefore={AvatarIcon}
+        testId={testId}
+      >
+        {avatar.name}
+      </ButtonItem>
+    );
+  }
+  return (
+    <CustomItem
       iconBefore={AvatarIcon}
+      component={CustomComponent}
       testId={testId}
     >
       {avatar.name}
-    </LinkItem>
-  ) : (
-    <ButtonItem
-      onClick={
-        typeof onAvatarClick === 'function'
-          ? event =>
-              onAvatarClick(
-                event as React.MouseEvent<Element>,
-                undefined,
-                index,
-              )
-          : undefined
-      }
-      iconBefore={AvatarIcon}
-      testId={testId}
-    >
-      {avatar.name}
-    </ButtonItem>
+    </CustomItem>
   );
 };
 

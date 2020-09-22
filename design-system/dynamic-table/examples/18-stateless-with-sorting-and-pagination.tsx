@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 
 import styled from 'styled-components';
 
-import Button, { ButtonGroup } from '@atlaskit/button';
+import ButtonGroup from '@atlaskit/button/button-group';
+import Button from '@atlaskit/button/custom-theme-button';
 
 import { DynamicTableStateless } from '../src';
 import { SortOrderType } from '../src/types';

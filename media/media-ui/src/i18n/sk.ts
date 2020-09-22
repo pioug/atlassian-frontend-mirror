@@ -36,8 +36,6 @@ export default {
   'fabric.media.connect_link_account':
     'Ak chcete zobraziť náhľad, pripojte svoj účet',
   'fabric.media.connect_link_account_card_view': 'Pripojiť',
-  'fabric.media.connect_link_account_card_view_description':
-    'Rozšírte ukážky prepojení pripojením účtu {context} k vašim produktom Atlassian.',
   'fabric.media.connect_link_account_card_view_name':
     'Pripojte svoj účet {context}',
   'fabric.media.connect_to': 'Pripojiť k {name}',
@@ -46,8 +44,6 @@ export default {
   'fabric.media.could_not_save_image': 'Ľutujeme, nepodarilo sa uložiť obrázok',
   'fabric.media.couldnt_generate_preview':
     'Nepodarilo sa vytvoriť náhľad tohto súboru.',
-  'fabric.media.couldnt_load_link':
-    'Toto prepojenie sa z nejakého dôvodu nepodarilo načítať.',
   'fabric.media.default_avatars': 'Predvolené avatary',
   'fabric.media.disable_fullscreen': 'deaktivovať zobrazenie na celú obrazovku',
   'fabric.media.document': 'dokument',
@@ -77,7 +73,6 @@ export default {
     'Nepodarilo sa načítať obrázok, adresa url je neplatná.',
   'fabric.media.insert_files':
     '{0, plural, one {Vložiť {0} súbor} few {Vložiť {0} súbory} many {Vložiť {0} súboru} other {Vložiť {0} súborov}}',
-  'fabric.media.invalid_permissions': 'K tomuto prepojeniu nemáte prístup',
   'fabric.media.invalid_permissions_description':
     'Ak si chcete zobraziť tento náhľad, požiadajte o prístup alebo vyskúšajte iný účet.',
   'fabric.media.item_not_found_in_list':
@@ -92,8 +87,6 @@ export default {
     'Nič sa nám nepodarilo nájsť pre "{query}"',
   'fabric.media.no_pdf_artifacts':
     'Pre tento súbor sa nenašli žiadne časti PDF.',
-  'fabric.media.not_found_description':
-    'Skontrolujte adresu URL a skúste ju upraviť alebo vložiť znova.',
   'fabric.media.not_found_title': 'Ejha. Toto prepojenie sa nepodarilo nájsť.',
   'fabric.media.or': 'alebo',
   'fabric.media.pause': 'pozastaviť',

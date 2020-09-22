@@ -1,6 +1,6 @@
 import React, { ComponentType, ReactNode, Ref } from 'react';
 
-import { Theme as ButtonTheme } from '@atlaskit/button';
+import { Theme as ButtonTheme } from '@atlaskit/button/custom-theme-button';
 import { N0, N50A, N60A, P300 } from '@atlaskit/theme/colors';
 import { ThemeProp } from '@atlaskit/theme/components';
 

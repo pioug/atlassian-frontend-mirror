@@ -1,12 +1,8 @@
 import React, { useCallback, forwardRef } from 'react';
-import Button from '@atlaskit/button';
-import {
-  akEditorSwoopCubicBezier,
-  expandMessages,
-  ExpandLayoutWrapper,
-} from '@atlaskit/editor-common';
+import Button from '@atlaskit/button/custom-theme-button';
+import { expandMessages, ExpandLayoutWrapper } from '@atlaskit/editor-common';
+import { akEditorSwoopCubicBezier } from '@atlaskit/editor-shared-styles';
 import ChevronRightIcon from '@atlaskit/icon/glyph/chevron-right';
-import { N80A } from '@atlaskit/theme/colors';
 import Tooltip from '@atlaskit/tooltip';
 import { InjectedIntl } from 'react-intl';
 import { expandClassNames } from './class-names';
@@ -79,7 +75,7 @@ export const CustomButton = (props: ExpandIconButtonWithLabelProps) => {
     <Button
       appearance="subtle"
       className={expandClassNames.iconContainer}
-      iconBefore={<ChevronRightIcon label={label} primaryColor={N80A} />}
+      iconBefore={<ChevronRightIcon label={label} />}
       shouldFitContainer
       theme={useTheme}
       isDisabled={!allowInteractiveExpand}

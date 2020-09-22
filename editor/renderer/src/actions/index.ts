@@ -2,7 +2,10 @@ import {
   JSONTransformer,
   JSONDocNode,
 } from '@atlaskit/editor-json-transformer';
-import { canApplyAnnotationOnRange } from '@atlaskit/editor-common';
+import {
+  canApplyAnnotationOnRange,
+  getAnnotationIdsFromRange,
+} from '@atlaskit/editor-common';
 import { AnnotationTypes, AnnotationId } from '@atlaskit/adf-schema';
 import { Node, Schema, Mark } from 'prosemirror-model';
 import { Step, RemoveMarkStep } from 'prosemirror-transform';
@@ -229,6 +232,18 @@ export default class RendererActions
     });
 
     return Array.from(uniqueMarks.values());
+  }
+
+  getAnnotationsByPosition(range: Range): string[] {
+    if (!this.doc || !this.schema) {
+      return [];
+    }
+
+    const pos = getPosFromRange(range);
+    if (!pos || !this.doc) {
+      return [];
+    }
+    return getAnnotationIdsFromRange(pos, this.doc, this.schema);
   }
 
   applyAnnotation(pos: Position, annotation: Annotation): ActionResult {

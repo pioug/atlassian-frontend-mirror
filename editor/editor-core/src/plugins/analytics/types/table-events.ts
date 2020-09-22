@@ -1,5 +1,5 @@
-import { TableAEP } from './utils';
-import { INPUT_METHOD } from './enums';
+import { TableAEP, UIAEP } from './utils';
+import { INPUT_METHOD, ACTION_SUBJECT } from './enums';
 import { SortOrder } from '../../table/types';
 
 //#region Constants
@@ -20,6 +20,8 @@ export enum TABLE_ACTION {
   DELETED_ROW = 'deletedRow',
   DELETED_COLUMN = 'deletedColumn',
   SORTED_COLUMN = 'sortedColumn',
+  REPLACED = 'replaced',
+  ATTEMPTED_TABLE_WIDTH_CHANGE = 'attemptedTableWidthChange',
 }
 
 export enum TABLE_BREAKOUT {
@@ -51,12 +53,19 @@ type AllCellInfo = TotalRowAndColCount &
   };
 //#endregion
 
+type AttemptedResizeInfo = {
+  type: string;
+  position: string;
+  duration: number;
+  delta: number;
+};
+
 //#region Analytic Event Payloads
 type TableDeleteAEP = TableAEP<
   TABLE_ACTION.DELETED,
   {
     inputMethod: INPUT_METHOD.KEYBOARD | INPUT_METHOD.FLOATING_TB;
-  },
+  } & TotalRowAndColCount,
   undefined
 >;
 
@@ -142,6 +151,22 @@ type TableSortColumnAEP = TableAEP<
   undefined
 >;
 
+type TableReplaceAEP = TableAEP<
+  TABLE_ACTION.REPLACED,
+  {
+    inputMethod: INPUT_METHOD.KEYBOARD | INPUT_METHOD.CLIPBOARD;
+  } & TotalRowAndColCount,
+  undefined
+>;
+
+type TableAttemptedResizeAEP = UIAEP<
+  TABLE_ACTION.ATTEMPTED_TABLE_WIDTH_CHANGE,
+  ACTION_SUBJECT.TABLE,
+  null,
+  AttemptedResizeInfo,
+  undefined
+>;
+
 //#endregion
 
 export type TableEventPayload =
@@ -154,4 +179,6 @@ export type TableEventPayload =
   | TableCopyAndCutAEP
   | TableAddRowOrColumnAEP
   | TableSortColumnAEP
-  | TableDeleteRowOrColumnAEP;
+  | TableDeleteRowOrColumnAEP
+  | TableReplaceAEP
+  | TableAttemptedResizeAEP;

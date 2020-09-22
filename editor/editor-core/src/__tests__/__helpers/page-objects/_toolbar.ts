@@ -101,7 +101,7 @@ export const retryUntilStablePosition = async (
   stablePosTargetSelector: string,
   stableDuration: number,
 ) => {
-  return new Promise(async res => {
+  return new Promise(async resolve => {
     let [prevLeft, prevTop] = [0, 0];
     const intervalId = setInterval(async () => {
       await callback();
@@ -111,7 +111,7 @@ export const retryUntilStablePosition = async (
       );
       if (left === prevLeft && top === prevTop) {
         clearInterval(intervalId);
-        res();
+        resolve();
       } else {
         prevLeft = left;
         prevTop = top;

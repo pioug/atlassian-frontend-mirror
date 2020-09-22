@@ -8,7 +8,7 @@ import {
 import { messages } from '@atlaskit/media-ui/messages';
 import { FormattedMessage } from 'react-intl';
 import { errorIcon } from '../../../../icons';
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
 
 interface NetworkErrorWarningProps {
   action: () => void;

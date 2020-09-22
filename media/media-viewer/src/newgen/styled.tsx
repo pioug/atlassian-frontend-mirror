@@ -149,7 +149,7 @@ export const PDFWrapper = styled.div`
 
 export const Arrow = styled.span`
   cursor: pointer;
-  button {
+  && button {
     height: inherit;
   }
   > span {

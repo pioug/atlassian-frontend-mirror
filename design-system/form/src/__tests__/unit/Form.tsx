@@ -2,7 +2,7 @@ import React from 'react';
 
 import { act, fireEvent, render } from '@testing-library/react';
 
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
 import TextField from '@atlaskit/textfield';
 
 import Field from '../../Field';

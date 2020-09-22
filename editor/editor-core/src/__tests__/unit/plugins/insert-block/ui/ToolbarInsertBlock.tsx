@@ -17,7 +17,7 @@ import { EditorView } from 'prosemirror-view';
 import Item from '@atlaskit/item';
 import { EmojiPicker as AkEmojiPicker } from '@atlaskit/emoji';
 import { emoji as emojiData } from '@atlaskit/util-data-test';
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/standard-button';
 import {
   CreateUIAnalyticsEvent,
   UIAnalyticsEvent,
@@ -39,7 +39,6 @@ import {
 import { taskDecision } from '@atlaskit/util-data-test';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { uuid } from '@atlaskit/adf-schema';
-
 import layoutPlugin from '../../../../../plugins/layout';
 import featureFlagsPlugin from '../../../../../plugins/feature-flags-context';
 import blockTypePlugin from '../../../../../plugins/block-type';

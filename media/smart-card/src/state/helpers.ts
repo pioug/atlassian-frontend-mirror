@@ -36,6 +36,9 @@ export const getClickUrl = (url: string, jsonLd?: JsonLd.Response): string => {
 export const getDefinitionId = (details?: JsonLd.Response) =>
   details && details.meta && details.meta.definitionId;
 
+export const getExtensionKey = (details?: JsonLd.Response) =>
+  details && details.meta && details.meta.key;
+
 export const getResourceType = (
   details?: JsonLd.Response,
 ): string | undefined => details && details.meta && details.meta.resourceType;

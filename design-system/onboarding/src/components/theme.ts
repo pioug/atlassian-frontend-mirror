@@ -139,6 +139,7 @@ export const spotlightButtonTheme = (
   themeProps: Record<string, any>,
 ) => {
   const { buttonStyles, ...rest } = current(themeProps);
+
   return {
     buttonStyles: {
       ...buttonStyles,

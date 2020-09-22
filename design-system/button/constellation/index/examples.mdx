@@ -10,6 +10,7 @@ import ButtonSubtleLink from '../../examples/constellation/button-subtle-link';
 import ButtonWarning from '../../examples/constellation/button-warning';
 import ButtonDanger from '../../examples/constellation/button-danger';
 import ButtonDisabled from '../../examples/constellation/button-disabled';
+import ButtonDisabledBehaviour from '../../examples/constellation/button-disabled-behavior';
 import ButtonSelected from '../../examples/constellation/button-selected';
 import ButtonLoading from '../../examples/constellation/button-loading';
 import ButtonPadding from '../../examples/constellation/button-padding';
@@ -22,6 +23,50 @@ import ButtonWithIconAfter from '../../examples/constellation/button-with-icon-a
 The default form of a button, used for most cases. They are not impactful enough to represent the primary action in a container.
 
 <Example Component={ButtonDefault} packageName="@atlaskit/button" />
+
+## Variants
+
+### Button (standard button)
+
+The most commonly used button component. This button has different appearances, as well as supported the existing dark mode solution.
+
+It does not support the discouraged theming approach.
+
+```js
+// from named entry point (to ensure minimum code is brought in)
+import Button from '@atlaskit/button/standard-button';   
+
+// from main entry point
+import Button from '@atlaskit/button';
+```
+
+### Loading button
+
+A small wrapper around `Button` that allows you to show an `@atlaskit/spinner` as an overlay on the button when you set an isLoading prop to true.
+
+`LoadingButton` takes care of applying a spinner with the correct size and color based on the button spacing and appearance props.
+
+```js
+// from named entry point (to ensure minimum code is brought in)
+import LoadingButton from '@atlaskit/button/loading-button';   
+
+// from main entry point
+import { LoadingButton } from '@atlaskit/button';
+```
+
+### Custom theme button
+
+Avoid using this component. It exists for those already using custom theming, which is hard to use and has performance issues.
+
+This theming approach will be improved in future.
+
+```js
+// from named entry point (to ensure minimum code is brought in)
+import CustomThemeButton from '@atlaskit/button/custom-theme-button';   
+
+// from main entry point
+import { CustomThemeButton } from '@atlaskit/button';
+```
 
 ## Appearance
 

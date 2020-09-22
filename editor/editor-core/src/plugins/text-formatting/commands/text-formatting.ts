@@ -225,11 +225,36 @@ export const toggleStrongWithAnalytics = ({
     },
   })(toggleStrong());
 
+export const toggleItalicWithAnalytics = ({
+  inputMethod,
+}: {
+  inputMethod: InputMethodBasic;
+}): Command =>
+  withAnalytics({
+    action: ACTION.FORMATTED,
+    actionSubject: ACTION_SUBJECT.TEXT,
+    eventType: EVENT_TYPE.TRACK,
+    actionSubjectId: ACTION_SUBJECT_ID.FORMAT_ITALIC,
+    attributes: {
+      inputMethod,
+    },
+  })(toggleItalic());
+
 export const toggleUnderline = (): Command => {
   return (state, dispatch) => {
     const { underline } = state.schema.marks;
     if (underline) {
       return toggleMark(underline)(state, dispatch);
+    }
+    return false;
+  };
+};
+
+export const toggleItalic = (): Command => {
+  return (state, dispatch) => {
+    const { italic } = state.schema.marks;
+    if (italic) {
+      return toggleMark(italic)(state, dispatch);
     }
     return false;
   };

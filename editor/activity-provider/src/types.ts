@@ -4,6 +4,7 @@ export interface ActivityItem {
   container: string;
   url: string;
   iconUrl: string;
+  type?: string;
   viewedTimestamp?: string;
 }
 

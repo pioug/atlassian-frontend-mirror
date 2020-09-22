@@ -11,7 +11,7 @@ describe('Snapshot Test', () => {
 
     const { page } = global;
     await loadPage(page, url);
-    await page.waitForSelector('a[href="#"][type="button"]');
+    await page.waitForSelector('a[href="#"]');
     const image = await page.screenshot();
     expect(image).toMatchProdImageSnapshot();
   });

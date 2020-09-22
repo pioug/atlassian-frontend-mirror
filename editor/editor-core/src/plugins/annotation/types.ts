@@ -90,4 +90,5 @@ export const AnnotationTestIds = {
   floatingComponent: `${prefix}-floating-component`,
   floatingToolbarCreateButton: `${prefix}-toolbar-create-button`,
   componentSave: `${prefix}-dummy-save-button`,
+  componentClose: `${prefix}-dummy-close-button`,
 };

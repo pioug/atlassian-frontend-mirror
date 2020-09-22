@@ -1,13 +1,30 @@
 import { setSelection } from './../__helpers/page-objects/_renderer';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
-import { snapshot, initRendererWithADF, Device } from './_utils';
+import {
+  snapshot,
+  initRendererWithADF,
+  Device,
+  deviceViewPorts,
+  ViewPortOptions,
+} from './_utils';
 import { selectors } from '../__helpers/page-objects/_annotation';
 import * as annotationAdf from '../__fixtures__/annotation-adf.json';
 
-const initRenderer = async (page: PuppeteerPage, adf: any) => {
+const initRenderer = async (
+  page: PuppeteerPage,
+  adf: any,
+  isMobile = false,
+) => {
+  let device = Device.LaptopMDPI;
+  let viewport: ViewPortOptions = deviceViewPorts[device];
+  if (isMobile) {
+    device = Device.iPhonePlus;
+    viewport = { ...deviceViewPorts[device], hasTouch: true, isMobile: true };
+  }
   await initRendererWithADF(page, {
     appearance: 'full-page',
-    device: Device.LaptopMDPI,
+    device: device,
+    viewport: viewport,
     rendererProps: {
       allowAnnotations: true,
       withRendererActions: true,
@@ -44,6 +61,14 @@ describe('Snapshot Test: Annotation in renderer', () => {
     await textarea.click();
 
     await snapshot(page, undefined, selectors.draftAnnotation);
+  });
+
+  test(`does not display touch feedback for annotation when its touched in mobile`, async () => {
+    await initRenderer(page, annotationAdf, true);
+    await page.waitForSelector(selectors.annotation);
+
+    await page.tap(selectors.annotation);
+    await snapshot(page, undefined, selectors.annotation);
   });
 
   async function selectTextToAnnotate(page: PuppeteerPage) {

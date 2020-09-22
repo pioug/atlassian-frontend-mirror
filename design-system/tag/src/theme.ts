@@ -1,7 +1,9 @@
-import { themed } from '@atlaskit/theme/components';
 import * as colors from '@atlaskit/theme/colors';
+import { ThemeModes } from '@atlaskit/theme/types';
 
-const textColors = themed('color', {
+import { ChromeColors, ChromeLinkColors, TagColor } from './types';
+
+const textColors = {
   standard: { light: colors.N700, dark: colors.DN600 },
   green: { light: colors.N800, dark: colors.N800 },
   purple: { light: colors.N800, dark: colors.N800 },
@@ -17,9 +19,9 @@ const textColors = themed('color', {
   redLight: { light: colors.N500, dark: colors.N500 },
   yellowLight: { light: colors.N500, dark: colors.N500 },
   greyLight: { light: colors.N500, dark: colors.N500 },
-});
+};
 
-const backgroundColors = themed('color', {
+const backgroundColors = {
   standard: { light: colors.N20, dark: colors.DN100A },
   green: { light: colors.G200, dark: colors.G200 },
   purple: { light: colors.P100, dark: colors.P100 },
@@ -35,43 +37,115 @@ const backgroundColors = themed('color', {
   redLight: { light: colors.R75, dark: colors.R75 },
   yellowLight: { light: colors.Y100, dark: colors.Y100 },
   greyLight: { light: colors.N30, dark: colors.N30 },
-});
+};
 
-export const textColor = textColors;
-export const backgroundColor = backgroundColors;
+const focusRingColorObj = { light: colors.B100, dark: colors.B75 };
+const hoverBoxShadowColorObj = { light: colors.R300, dark: colors.R200 };
+const focusBoxShadowColorObj = { light: colors.B100, dark: colors.B75 };
+const linkTextColorObj = { light: colors.B300, dark: colors.B200 };
 
-export const textColorHover = themed('color', {
-  standard: { light: colors.N700, dark: colors.B75 },
-  green: { light: colors.B400, dark: colors.B100 },
-  purple: { light: colors.B400, dark: colors.B100 },
-  red: { light: colors.B400, dark: colors.B100 },
-  yellow: { light: colors.B400, dark: colors.B100 },
-  grey: { light: colors.B400, dark: colors.B100 },
-  teal: { light: colors.B400, dark: colors.B100 },
-  blue: { light: colors.B400, dark: colors.B100 },
-  tealLight: { light: colors.B400, dark: colors.B100 },
-  blueLight: { light: colors.B400, dark: colors.B100 },
-  greenLight: { light: colors.B400, dark: colors.B100 },
-  purpleLight: { light: colors.B400, dark: colors.B100 },
-  redLight: { light: colors.B400, dark: colors.B100 },
-  yellowLight: { light: colors.B400, dark: colors.B100 },
-  greyLight: { light: colors.B400, dark: colors.B100 },
-});
+const textColorsForRemoval = {
+  ...textColors,
+  standard: { light: colors.R500, dark: colors.DN30 },
+};
 
-export const backgroundColorHover = themed('color', {
-  standard: { light: colors.N30, dark: colors.DN60 },
-  green: { light: colors.G100, dark: colors.DN60 },
-  purple: { light: colors.P75, dark: colors.DN60 },
-  red: { light: colors.R75, dark: colors.DN60 },
-  yellow: { light: colors.Y100, dark: colors.DN60 },
-  grey: { light: colors.N50, dark: colors.DN60 },
-  teal: { light: colors.T100, dark: colors.DN60 },
-  blue: { light: colors.B75, dark: colors.DN60 },
-  tealLight: { light: colors.T75, dark: colors.DN60 },
-  blueLight: { light: colors.B50, dark: colors.DN60 },
-  greenLight: { light: colors.G75, dark: colors.DN60 },
-  purpleLight: { light: colors.P50, dark: colors.DN60 },
-  redLight: { light: colors.R50, dark: colors.DN60 },
-  yellowLight: { light: colors.Y75, dark: colors.DN60 },
-  greyLight: { light: colors.N30, dark: colors.DN60 },
-});
+const backgroundColorsRemoval = {
+  ...backgroundColors,
+  standard: { light: colors.R50, dark: colors.R100 },
+};
+
+const getTextColor = (tagColor: TagColor, mode: ThemeModes): string => {
+  const color = tagColor ? tagColor : 'standard';
+  return textColors[color][mode];
+};
+
+const getLinkTextColorHover = (
+  tagColor: TagColor,
+  mode: ThemeModes,
+): string => {
+  if (tagColor !== 'standard') {
+    return 'inherit';
+  }
+
+  return linkTextColorObj[mode];
+};
+
+const getBackgroundColor = (tagColor: TagColor, mode: ThemeModes): string => {
+  const color = tagColor ? tagColor : 'standard';
+  return backgroundColors[color][mode];
+};
+
+const getTextColorForRemoval = (
+  tagColor: TagColor,
+  mode: ThemeModes,
+): string => {
+  const color = tagColor ? tagColor : 'standard';
+  return textColorsForRemoval[color][mode];
+};
+
+const getBackgroundColorForRemoval = (
+  tagColor: TagColor,
+  mode: ThemeModes,
+): string => {
+  const color = tagColor ? tagColor : 'standard';
+  return backgroundColorsRemoval[color][mode];
+};
+
+const getChromeColors = (color: TagColor, mode: ThemeModes): ChromeColors => {
+  const backgroundColor = getBackgroundColor(color, mode);
+  const backgroundColorHover = getBackgroundColorForRemoval(color, mode);
+
+  const textColor = getTextColor(color, mode);
+  const textColorHover = getTextColorForRemoval(color, mode);
+
+  return {
+    backgroundColor,
+    backgroundColorHover,
+    textColor,
+    textColorHover,
+  };
+};
+
+const getChromeLinkColors = (
+  color: TagColor,
+  mode: ThemeModes,
+): ChromeLinkColors => {
+  const hoverBackgroundColorRemoval = getBackgroundColorForRemoval(color, mode);
+  const hoverTextColorRemoval = getTextColorForRemoval(color, mode);
+  const focusRingColor = focusRingColorObj[mode];
+
+  return {
+    hoverBackgroundColorRemoval,
+    hoverTextColorRemoval,
+    focusRingColor,
+  };
+};
+
+const getButtonColors = (color: TagColor, mode: ThemeModes) => {
+  const backgroundColor = getBackgroundColor(color, mode);
+  const backgroundColorHover = getBackgroundColorForRemoval(color, mode);
+
+  const focusBoxShadowColor = focusBoxShadowColorObj[mode];
+  const hoverBoxShadowColor = hoverBoxShadowColorObj[mode];
+
+  return {
+    backgroundColor,
+    backgroundColorHover,
+    focusBoxShadowColor,
+    hoverBoxShadowColor,
+  };
+};
+
+export const getThemeColors = (color: TagColor, mode: ThemeModes) => {
+  const chromeColors = getChromeColors(color, mode);
+  const chromeLinkColors = getChromeLinkColors(color, mode);
+  const buttonColors = getButtonColors(color, mode);
+  const linkHoverColor = getLinkTextColorHover(color, mode);
+
+  return {
+    chromeColors,
+    chromeLinkColors,
+    buttonColors,
+    linkHoverColor,
+  };
+};

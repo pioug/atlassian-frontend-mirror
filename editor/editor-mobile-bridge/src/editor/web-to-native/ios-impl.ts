@@ -8,7 +8,8 @@ import {
 import { ActionSubject, EventType } from '../../analytics/enums';
 
 export default class IosBridge implements NativeBridge {
-  private _editorReady = false;
+  private _editorReady: boolean = false;
+  private _startWebBundle: boolean = false;
   private window: Window;
 
   constructor(win: Window = window) {
@@ -232,6 +233,64 @@ export default class IosBridge implements NativeBridge {
         name: 'editorDestroyed',
       });
     }
+  }
+
+  editorError(error: string, errorInfo?: string): void {
+    const editorError: EditorLifecycleAnalyticsEvents = {
+      action: EditorLifecycleActions.EDITOR_ERROR,
+      actionSubject: ActionSubject.EDITOR,
+      eventType: EventType.OPERATIONAL,
+      attributes: {
+        isBridgeSetup: !!(
+          this.window.webkit &&
+          this.window.webkit.messageHandlers.lifecycleBridge
+        ),
+        errorMessage: error,
+      },
+    };
+    this.trackEvent(JSON.stringify(editorError));
+
+    if (
+      this.window.webkit &&
+      this.window.webkit.messageHandlers.lifecycleBridge
+    ) {
+      this.window.webkit.messageHandlers.lifecycleBridge.postMessage({
+        name: 'editorError',
+        error,
+        errorInfo,
+      });
+    }
+  }
+
+  startWebBundle(): void {
+    if (
+      !this.window.webkit ||
+      !this.window.webkit.messageHandlers.lifecycleBridge
+    ) {
+      const webBundleStartTwice: EditorLifecycleAnalyticsEvents = {
+        action:
+          EditorLifecycleActions.START_WEB_BUNDLE_CALLED_BEFORE_LIFECYCLE_BRIDGE_SETUP,
+        actionSubject: ActionSubject.EDITOR,
+        eventType: EventType.TRACK,
+      };
+      this.trackEvent(JSON.stringify(webBundleStartTwice));
+      return;
+    }
+
+    if (this._startWebBundle) {
+      const webBundleStartTwice: EditorLifecycleAnalyticsEvents = {
+        action: EditorLifecycleActions.START_WEB_BUNDLE_CALLED_TWICE,
+        actionSubject: ActionSubject.EDITOR,
+        eventType: EventType.OPERATIONAL,
+      };
+      this.trackEvent(JSON.stringify(webBundleStartTwice));
+      return;
+    }
+
+    this._startWebBundle = true;
+    this.window.webkit.messageHandlers.lifecycleBridge.postMessage({
+      name: 'startWebBundle',
+    });
   }
 
   editorReady(): void {

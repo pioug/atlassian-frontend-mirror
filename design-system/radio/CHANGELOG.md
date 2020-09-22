@@ -1,5 +1,30 @@
 # @atlaskit/radio
 
+## 5.0.0
+
+### Major Changes
+
+- [`44ef6437cd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/44ef6437cd) - In this version, we made radio dramatically faster and lighter 😍
+
+  ### Changes
+
+  In `5.0.0` we improved the performance of radio by making it more similar to a native radio input.
+
+  - Previously we rendered a hidden input and an svg for the radio icon. This way we could get all the accessibility benefits of using a native radio input while being able to style the svg. We now use `appearance: none` on the input, enabling us to style the input and the `after` pseudo-element. This removes the need for an svg.
+  - Previously all interaction styles were generated in JS using events, causing unnecessary and slow rerenders. Now all styles for the radio are applied using css selectors.
+  - Because the input is now visible, we have changed the test id from `${testId}--hidden-radio` to `${testId}--radio-input` to provide less usage friction. We looked into product usage of the `testId` and we have reached out to the owners of any code that would be effected (there was only one).
+  - Dropped the `peerDependency` on `styled-components@3` in favour of using `@emotion/core`.
+  - Converted to function components.
+  - Added the ability to forward a `ref` to a radio input.
+  - Remove the `RadioIcon` export, you should just use the `Radio` without a label if you want this functionality.
+  - Restricted types for `Radio` and `RadioGroup`. `RadioGroup` previously allowed you to pass any props so this has been restricted to only those used. The `isChecked` prop in the`options` prop for `RadioGroup` has been removed. You can only set a `Radio` as checked if the value of the `Radio` is the selected value in the `RadioGroup`. `Radio` used to explicitly define input attributes as props and now it extends `InputHTMLAttributes` allowing you to pass any input attribute as a prop.
+  - There was a bug where all `onMouse` events were passed onto both the input element and the `Radio`, which means they would be called multiple times. Now they are only passed to the input element.
+  - As `Radio` acts as a native radio input, the `name` prop on each `RadioGroup` needs to be unique or each `RadioGroup` with the same name needs to be inside a form element. This is because the `name` attribute on radio inputs is used to link the inputs so if you have two separate `RadioGroup`'s with the same name, the browser views them as one radio group.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.0.6
 
 ### Patch Changes

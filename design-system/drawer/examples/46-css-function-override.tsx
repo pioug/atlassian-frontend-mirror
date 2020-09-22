@@ -4,7 +4,7 @@ import { Component, SyntheticEvent } from 'react';
 
 import { CSSObject, jsx } from '@emotion/core';
 
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
 import { B400, G400, N0, P400, R400, T400, Y400 } from '@atlaskit/theme/colors';
 
 import Drawer from '../src';

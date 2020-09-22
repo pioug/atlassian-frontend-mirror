@@ -1,13 +1,8 @@
 import React from 'react';
 
-import { InterpolationWithTheme } from '@emotion/core';
+import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
-import {
-  UIAnalyticsEvent,
-  WithAnalyticsEventsProps,
-} from '@atlaskit/analytics-next';
-
-export type ButtonAppearances =
+export type Appearance =
   | 'default'
   | 'danger'
   | 'link'
@@ -16,28 +11,23 @@ export type ButtonAppearances =
   | 'subtle-link'
   | 'warning';
 
-// HtmlAttributes = AllHTMLAttributes - OnlyButtonProps
-// We do this so onClick, and other props that overlap with html attributes,
-// have the type defined in OnlyButtonProps.
-type HtmlAttributes = Pick<
-  React.AllHTMLAttributes<HTMLElement>,
-  Exclude<
-    keyof React.AllHTMLAttributes<HTMLElement>,
-    keyof OnlyButtonProps | 'css'
-  >
-> & { css?: InterpolationWithTheme<any> };
+export type Spacing = 'compact' | 'default' | 'none';
 
-export type OnlyButtonProps = {
+// Similar to {...A, ...B}
+// 1. Remove all overlapping types from First
+// 2. Add properties from Second
+// https://codesandbox.io/s/native-button-with-nested-elementsclick-bnpjg?file=/src/index.ts
+export type Combine<First, Second> = Omit<First, keyof Second> & Second;
+
+export type BaseOwnProps = {
   /** The base styling to apply to the button */
-  appearance?: ButtonAppearances;
+  appearance?: Appearance;
   /** Set the button to autofocus on mount */
   autoFocus?: boolean;
   /** Add a classname to the button */
   className?: string;
-  /** A custom component to use instead of the default button */
-  component?: React.ElementType<any>;
-  /** Internal use only. Please use `ref` to forward refs */
-  consumerRef?: React.Ref<HTMLElement>;
+  /** Used to 'overlay' something over a button. This is commonly used to display a loading spinner */
+  overlay?: React.ReactNode;
   /** Provides a url for buttons being used as a link */
   href?: string;
   /** Places an icon within the button, after the button's text */
@@ -46,12 +36,6 @@ export type OnlyButtonProps = {
   iconBefore?: React.ReactChild;
   /** Set if the button is disabled */
   isDisabled?: boolean;
-  /**
-   * Set if the button is loading. When isLoading is true, text is hidden, and
-   * a spinner is shown in its place. The button maintains the width that it
-   * would have if the text were visible.
-   */
-  isLoading?: boolean;
   /** Change the style to indicate the button is selected */
   isSelected?: boolean;
   /** Handler to be called on blur */
@@ -61,58 +45,35 @@ export type OnlyButtonProps = {
     e: React.MouseEvent<HTMLElement>,
     analyticsEvent: UIAnalyticsEvent,
   ) => void;
-  onMouseDown?: React.MouseEventHandler<HTMLElement>;
-  onMouseEnter?: React.MouseEventHandler<HTMLElement>;
-  onMouseLeave?: React.MouseEventHandler<HTMLElement>;
-  onMouseUp?: React.MouseEventHandler<HTMLElement>;
   /** Handler to be called on focus */
   onFocus?: React.FocusEventHandler<HTMLElement>;
   /** Set the amount of padding in the button */
   spacing?: Spacing;
   /** Pass target down to a link within the button component, if a href is provided */
-  target?: string;
+  target?: React.AnchorHTMLAttributes<HTMLAnchorElement>['target'];
+  /** Pass type down to a button */
+  type?: React.ButtonHTMLAttributes<HTMLButtonElement>['type'];
   /** Option to fit button width to its parent width */
   shouldFitContainer?: boolean;
-  /** Pass in a custom theme */
-  theme?: (
-    current: (props: ThemeProps) => ThemeTokens,
-    props: ThemeProps,
-  ) => ThemeTokens;
-
+  /** Text content to be rendered in the button */
   children?: React.ReactNode;
   /** A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests */
   testId?: string;
+
+  /* An optional way of changing what button renders
+    - `React.ElementType`: force the button to render whatever html element you want (eg "div")
+    - `React.ComponentType<React.AllHTMLAttributes<HTMLElement>>`: pass in a component that can accept any HTMLAttribute as a prop and render whatever you would like to
+  */
+  component?:
+    | React.ComponentType<React.AllHTMLAttributes<HTMLElement>>
+    | React.ElementType;
+
+  /** Additional information to be included in the `context` of analytics events that come from button */
+  analyticsContext?: Record<string, any>;
 };
 
-export interface ButtonProps
-  extends HtmlAttributes,
-    OnlyButtonProps,
-    WithAnalyticsEventsProps {}
-
-export type Spacing = 'compact' | 'default' | 'none';
-
-export type ThemeMode = 'dark' | 'light';
-
-export type ThemeTokens = {
-  buttonStyles: Object;
-  spinnerStyles: Object;
-};
-
-export interface ThemeProps extends Partial<ButtonProps> {
-  state: string;
-  iconIsOnlyChild?: boolean;
-  mode?: ThemeMode;
-}
-
-export type ThemeFallbacks = {
-  [index: string]: { [index: string]: string };
-};
-
-export type AppearanceStates = {
-  default: { light: string; dark?: string };
-  hover?: { light: string; dark?: string };
-  active?: { light: string; dark?: string };
-  disabled?: { light: string; dark?: string };
-  selected?: { light: string; dark?: string };
-  focusSelected?: { light: string; dark?: string };
-};
+export type BaseProps = Combine<
+  // Not allowing 'disabled' as a prop, as we control disabled through isDisabled
+  Omit<React.AllHTMLAttributes<HTMLElement>, 'disabled'>,
+  BaseOwnProps
+>;

@@ -13,6 +13,7 @@ export enum ToolbarSize {
 export type ToolbarUiComponentFactoryParams = UiComponentFactoryParams & {
   toolbarSize: ToolbarSize;
   isToolbarReducedSpacing: boolean;
+  isLastItem?: boolean;
 };
 export type ToolbarUIComponentFactory = (
   params: ToolbarUiComponentFactoryParams,

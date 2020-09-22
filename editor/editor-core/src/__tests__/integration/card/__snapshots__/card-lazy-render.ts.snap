@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`card: should lazy render cards after scrolling down 1`] = `
+exports[`card: should lazy render cards after scrolling down, requesting data in the background (with prefetching) 1`] = `
 Object {
   "content": Array [
     Object {
@@ -421,7 +421,7 @@ Object {
                             Object {
                               "attrs": Object {
                                 "data": null,
-                                "url": "https://inlineCardTestUrl",
+                                "url": "https://inlineCardTestUrl/1",
                               },
                               "type": "inlineCard",
                             },
@@ -438,7 +438,7 @@ Object {
                             Object {
                               "attrs": Object {
                                 "data": null,
-                                "url": "https://inlineCardTestUrl",
+                                "url": "https://inlineCardTestUrl/2",
                               },
                               "type": "inlineCard",
                             },
@@ -467,7 +467,7 @@ Object {
                     Object {
                       "attrs": Object {
                         "data": null,
-                        "url": "https://inlineCardTestUrl",
+                        "url": "https://inlineCardTestUrl/3",
                       },
                       "type": "inlineCard",
                     },
@@ -490,7 +490,7 @@ Object {
                     Object {
                       "attrs": Object {
                         "data": null,
-                        "url": "https://inlineCardTestUrl",
+                        "url": "https://inlineCardTestUrl/4",
                       },
                       "type": "inlineCard",
                     },
@@ -513,7 +513,7 @@ Object {
                     Object {
                       "attrs": Object {
                         "data": null,
-                        "url": "https://inlineCardTestUrl",
+                        "url": "https://inlineCardTestUrl/5",
                       },
                       "type": "inlineCard",
                     },
@@ -534,7 +534,7 @@ Object {
         Object {
           "attrs": Object {
             "data": null,
-            "url": "https://inlineCardTestUrl",
+            "url": "https://inlineCardTestUrl/6",
           },
           "type": "inlineCard",
         },

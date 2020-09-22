@@ -1,34 +1,52 @@
-import React from 'react';
-import { FormattedMessage } from 'react-intl';
-import { messages } from '@atlaskit/media-ui';
+import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import DownloadIcon from '@atlaskit/icon/glyph/download';
 import {
-  MediaClient,
   FileState,
-  isErrorFileState,
   Identifier,
+  isErrorFileState,
   isExternalImageIdentifier,
+  MediaClient,
 } from '@atlaskit/media-client';
-import { DownloadButtonWrapper } from './styled';
-import { MediaButton } from '@atlaskit/media-ui';
-import { withAnalyticsEvents } from '@atlaskit/analytics-next';
+import { MediaButton, messages } from '@atlaskit/media-ui';
+import React, { useCallback } from 'react';
+import { FormattedMessage } from 'react-intl';
+import { channel } from './analytics';
 import {
   downloadButtonEvent,
   downloadErrorButtonEvent,
 } from './analytics/download';
-import { channel } from './analytics';
-import DownloadIcon from '@atlaskit/icon/glyph/download';
-import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { MediaViewerError } from './error';
+import { DownloadButtonWrapper } from './styled';
 
 const downloadIcon = <DownloadIcon label="Download" />;
 
-// TODO: MS-1556
-export const DownloadButton: any = withAnalyticsEvents({
-  onClick: (createEvent: CreateUIAnalyticsEvent, props: any) => {
-    const ev = createEvent(props.analyticspayload);
-    ev.fire(channel);
-  },
-})(MediaButton);
+type DownloadButtonProps = React.ComponentProps<typeof MediaButton> & {
+  analyticspayload: Record<string, any>;
+};
+function noop() {}
+
+export function DownloadButton({
+  analyticspayload,
+  onClick: providedOnClick = noop,
+  ...rest
+}: DownloadButtonProps) {
+  const onClick = useCallback(
+    (
+      event: React.MouseEvent<HTMLElement>,
+      analyticsEvent: UIAnalyticsEvent,
+    ) => {
+      const clone = analyticsEvent.clone();
+      if (clone) {
+        clone.update(analyticspayload);
+        clone.fire(channel);
+      }
+      providedOnClick(event, analyticsEvent);
+    },
+    [analyticspayload, providedOnClick],
+  );
+
+  return <MediaButton {...rest} onClick={onClick} />;
+}
 
 export const createItemDownloader = (
   file: FileState,

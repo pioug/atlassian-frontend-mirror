@@ -14,6 +14,7 @@ const nodes = [
   'mediaGroup',
   'mediaSingle',
   'media',
+  'caption',
   'confluenceUnsupportedBlock',
   'confluenceJiraIssue',
   'expand',

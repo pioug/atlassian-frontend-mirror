@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
 import TextField from '@atlaskit/textfield';
 
 import Form, { ErrorMessage, Field, FormFooter, HelperMessage } from '../src';

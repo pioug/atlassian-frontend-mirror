@@ -28,7 +28,7 @@ import {
 import { valueOf as valueOfListState } from '../web-to-native/listState';
 import { valueOf as valueOfMarkState } from '../web-to-native/markState';
 import WebBridgeImpl from '../native-to-web';
-import { toNativeBridge, EditorPluginBridges } from '../web-to-native';
+import { toNativeBridge, EditorBridgeNames } from '../web-to-native';
 import { hasValue } from '../../utils';
 import {
   getEnableQuickInsertValue,
@@ -37,7 +37,7 @@ import {
 import { createPromise } from '../../cross-platform-promise';
 
 interface BridgePluginListener<T> {
-  bridge: EditorPluginBridges;
+  bridge: EditorBridgeNames;
   pluginKey: PluginKey;
   updater: (pluginState: T, view?: EditorView, initialPass?: boolean) => void;
   sendInitialState?: boolean;

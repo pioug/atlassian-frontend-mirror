@@ -1,7 +1,7 @@
 import React from 'react';
 import { Component } from 'react';
 import { FormattedMessage, InjectedIntlProps, injectIntl } from 'react-intl';
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
 import ImageCropper from '../image-cropper';
 import Spinner from '@atlaskit/spinner';
 import {

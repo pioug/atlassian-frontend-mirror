@@ -35,13 +35,16 @@ BrowserTestCase(
     // Copy the current link.
     await page.copy();
     // Type some text.
-    await page.keys(['ArrowRight']);
-    await page.type(editable, '\nhave another one\n');
+    await page.keys(['ArrowRight', 'Enter']);
+    await page.type(editable, 'have another one');
+    await page.keys(['Enter']);
+
     // Paste into same session - there should be two now.
     await page.paste();
+
     // Type some more text.
-    await page.keys(['ArrowRight']);
-    await page.type(editable, '\nnow you have two!');
+    await page.keys(['ArrowRight', 'Enter']);
+    await page.type(editable, 'now you have two!');
 
     expect(
       await page.$eval(editable, getDocFromElement),

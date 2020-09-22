@@ -2,11 +2,35 @@ import { FieldDefinition } from '@atlaskit/editor-common/extensions';
 
 export const nativeFields: FieldDefinition[] = [
   {
-    name: 'free-text-field',
+    type: 'string',
+    name: 'text-field',
     label: 'Free text',
     isRequired: true,
     description: 'Add any text',
-    defaultValue: 'hey',
+    defaultValue: 'I am the default text',
+  },
+  {
+    name: 'text-field-multiline',
+    label: 'Free text',
+    isRequired: true,
+    description: 'Add any text across multiple lines',
+    defaultValue: 'I am the default multiline text',
+    style: 'multiline',
+    type: 'string',
+  },
+  {
+    name: 'text-field-optional',
+    label: 'Text',
+    isRequired: false,
+    description: 'Leave it empty',
+    placeholder: 'Text goes here',
+    type: 'string',
+  },
+  {
+    name: 'text-field-hidden',
+    label: 'Hidden text field',
+    defaultValue: 'this is a hidden value passed to the extension',
+    isHidden: true,
     type: 'string',
   },
   {
@@ -17,42 +41,34 @@ export const nativeFields: FieldDefinition[] = [
     type: 'number',
   },
   {
-    name: 'bool-field',
-    label: 'Boolean',
+    name: 'boolean-field-required',
+    label: 'Needs to be checked',
     isRequired: true,
     type: 'boolean',
   },
   {
-    name: 'text-non-required',
-    label: 'Text',
-    isRequired: false,
-    description: 'Leave it empty',
-    placeholder: 'Text goes here',
-    type: 'string',
+    name: 'boolean-field-optional',
+    label: 'Do you want free shipping?',
+    description: 'True or <b>FALSE</b> (should be bolded)',
+    type: 'boolean',
   },
   {
-    name: 'hidden-text-field',
-    label: 'Hidden text field',
-    defaultValue: 'this is a hidden value passed to the extension',
-    isHidden: true,
-    type: 'string',
+    name: 'boolean-field-toggle',
+    label: 'Turn on the Wi-Fi?',
+    description: 'On or Off',
+    type: 'boolean',
+    style: 'toggle',
   },
   {
-    name: 'hidden-date-field',
-    label: '',
-    defaultValue: '02/02/2020',
-    isHidden: true,
-    type: 'date',
-  },
-  {
-    name: 'start-date',
+    name: 'date-start',
     label: 'Date',
+    description: `Nothing of <a onclick="alert('something is wrong')">interest</a>`,
     placeholder: 'Date goes here',
     type: 'date',
   },
   {
-    name: 'multiple-options-select-single-choice',
-    label: 'Select single choice',
+    name: 'enum-select',
+    label: 'Select one',
     isRequired: true,
     description: 'Pick one',
     type: 'enum',
@@ -65,7 +81,7 @@ export const nativeFields: FieldDefinition[] = [
     ],
   },
   {
-    name: 'enum-with-icon',
+    name: 'enum-select-icon',
     label: 'Select with icons',
     description: 'Pick one',
     type: 'enum',
@@ -87,7 +103,7 @@ export const nativeFields: FieldDefinition[] = [
     ],
   },
   {
-    name: 'enum-with-icon-multiple',
+    name: 'enum-select-icon-multiple',
     label: 'Select with icons (multiple)',
     description: 'Pick many',
     type: 'enum',
@@ -111,13 +127,7 @@ export const nativeFields: FieldDefinition[] = [
     ],
   },
   {
-    name: 'boolean-field',
-    label: 'Will you confirm it?',
-    description: 'True or False',
-    type: 'boolean',
-  },
-  {
-    name: 'multiple-options-select-multiple-choice',
+    name: 'enum-select-multiple',
     label: 'Select multiple choice',
     isRequired: true,
     description: 'Pick one',
@@ -133,8 +143,9 @@ export const nativeFields: FieldDefinition[] = [
     ],
   },
   {
-    name: 'multiple-options-checkbox-single-choice',
-    label: 'Multiple options - Checkbox - Single choice',
+    name: 'enum-radio-required',
+    label: 'Radio - select one',
+    description: 'One is always required',
     type: 'enum',
     style: 'radio',
     isRequired: true,
@@ -148,12 +159,28 @@ export const nativeFields: FieldDefinition[] = [
     ],
   },
   {
-    name: 'multiple-options-checkbox-multiple-choice',
-    label: 'Multiple options - Checkbox - Multiple choice',
+    name: 'enum-radio-defaulted',
+    label: 'Radio - select one (defaulted)',
+    description: 'One is always required, but we default it',
+    type: 'enum',
+    style: 'radio',
     isRequired: false,
-    description: 'Pick one',
+    defaultValue: 'a',
+    items: [
+      { label: 'Option A', value: 'a' },
+      { label: 'Option B', value: 'b' },
+      { label: 'Option C', value: 'c' },
+      { label: 'Option D', value: 'd' },
+      { label: 'Option E', value: 'e' },
+    ],
+  },
+  {
+    name: 'enum-checkbox-multiple',
+    label: 'Checkbox - select many',
+    description: 'Pick multiple',
     type: 'enum',
     style: 'checkbox',
+    isRequired: false,
     isMultiple: true,
     items: [
       {
@@ -308,7 +335,44 @@ export const nativeFields: FieldDefinition[] = [
 
 export const customFields: FieldDefinition[] = [
   {
-    name: 'space-key',
+    name: 'custom-label',
+    label: 'Custom: Label',
+    description: 'Select the label',
+    type: 'custom',
+    options: {
+      resolver: {
+        type: 'label',
+      },
+    },
+  },
+  {
+    name: 'custom-label-create',
+    label: 'Custom: Create a Label',
+    description: 'Select or create a label',
+    type: 'custom',
+    isRequired: true,
+    options: {
+      isCreatable: true,
+      resolver: {
+        type: 'label',
+      },
+    },
+  },
+  {
+    name: 'custom-label-create-multi',
+    label: 'Custom: Create Label(s)',
+    description: 'Select or create label(s)',
+    type: 'custom',
+    isMultiple: true,
+    options: {
+      isCreatable: true,
+      resolver: {
+        type: 'label',
+      },
+    },
+  },
+  {
+    name: 'custom-space-key',
     label: 'Custom: Space',
     isRequired: true,
     type: 'custom',
@@ -320,8 +384,8 @@ export const customFields: FieldDefinition[] = [
     },
   },
   {
-    name: 'spaces',
-    label: 'Custom: Spaces',
+    name: 'custom-space-key-multi',
+    label: 'Custom: Space(s)',
     isRequired: true,
     isMultiple: true,
     type: 'custom',
@@ -332,18 +396,7 @@ export const customFields: FieldDefinition[] = [
     },
   },
   {
-    name: 'label',
-    label: 'Custom: Label',
-    description: 'Select the label',
-    type: 'custom',
-    options: {
-      resolver: {
-        type: 'label',
-      },
-    },
-  },
-  {
-    name: 'user',
+    name: 'custom-user',
     label: 'Custom: User',
     type: 'custom',
     options: {
@@ -353,7 +406,7 @@ export const customFields: FieldDefinition[] = [
     },
   },
   {
-    name: 'user-lazy',
+    name: 'custom-user-lazy',
     label: 'Custom: User (lazy)',
     type: 'custom',
     options: {

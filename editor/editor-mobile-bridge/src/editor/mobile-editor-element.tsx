@@ -27,6 +27,7 @@ import { useTaskAndDecision } from './hooks/use-task-decision';
 import { useEditorReady } from './hooks/use-editor-ready';
 import { useEditorDestroyed } from './hooks/use-editor-destroyed';
 import { useReflowDectector } from './hooks/use-reflow-detector';
+import throttle from 'lodash/throttle';
 
 const MOBILE_SAMPLING_LIMIT = 10;
 
@@ -68,9 +69,16 @@ export function MobileEditor(props: MobileEditorProps) {
   const taskDecisionProvider = useTaskAndDecision();
 
   // Create the handle change only once
-  const handleChange = React.useCallback(() => {
-    toNativeBridge.updateText(bridge.getContent());
-  }, [bridge]);
+  const handleChange = React.useCallback(
+    throttle(
+      () => {
+        toNativeBridge.updateText(bridge.getContent());
+      },
+      100,
+      { leading: false, trailing: true },
+    ),
+    [bridge],
+  );
 
   const handleEditorReady = useEditorReady(bridge, mediaOptions);
   const handleEditorDestroyed = useEditorDestroyed(bridge);
@@ -92,10 +100,6 @@ export function MobileEditor(props: MobileEditorProps) {
             appearance="mobile"
             onEditorReady={handleEditorReady}
             onDestroy={handleEditorDestroyed}
-            //@ts-expect-error TODO Fix legit TypeScript 3.9.6 improved inference error
-            mentionProvider={props.mentionProvider}
-            //@ts-expect-error TODO Fix legit TypeScript 3.9.6 improved inference error
-            emojiProvider={props.emojiProvider}
             media={mediaOptions}
             allowConfluenceInlineComment={true}
             onChange={handleChange}
@@ -116,6 +120,8 @@ export function MobileEditor(props: MobileEditorProps) {
             collabEdit={collabEdit}
             inputSamplingLimit={MOBILE_SAMPLING_LIMIT}
             {...props}
+            mentionProvider={props.mentionProvider}
+            emojiProvider={props.emojiProvider}
           />
         </AtlaskitThemeProvider>
       </SmartCardProvider>

@@ -7,7 +7,7 @@ import {
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Component } from 'react';
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
 
 import { MediaPicker } from '../src';
 import { Popup } from '../src/types';

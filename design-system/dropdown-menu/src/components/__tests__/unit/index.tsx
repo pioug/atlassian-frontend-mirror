@@ -3,7 +3,11 @@ import React from 'react';
 
 import { mount, ReactWrapper, shallow } from 'enzyme';
 
-import Button, { ButtonAppearances, ButtonProps } from '@atlaskit/button';
+import {
+  Appearance,
+  CustomThemeButton as Button,
+  CustomThemeButtonProps,
+} from '@atlaskit/button';
 import Droplist from '@atlaskit/droplist';
 import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
 import MoreIcon from '@atlaskit/icon/glyph/more';
@@ -103,10 +107,10 @@ describe('dropdown menu', () => {
 
     test('should pass through triggerButtonProps to the trigger for triggerType=button', () => {
       const triggerProps = {
-        appearance: 'subtle' as ButtonAppearances,
+        appearance: 'subtle' as Appearance,
         id: 'button-123',
         theme: (c, p) => c({ ...p, mode: 'dark' }),
-      } as ButtonProps;
+      } as CustomThemeButtonProps;
       const menu = mount(
         <Menu triggerType="button" triggerButtonProps={triggerProps}>
           {itemsList}

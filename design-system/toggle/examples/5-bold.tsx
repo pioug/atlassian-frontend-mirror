@@ -5,6 +5,6 @@ import Toggle from '../src';
 export default () => (
   <div>
     <Toggle size="large" />
-    <Toggle size="large" isDefaultChecked />
+    <Toggle size="large" defaultChecked />
   </div>
 );

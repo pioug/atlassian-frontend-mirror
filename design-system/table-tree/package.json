@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/table-tree",
-  "version": "9.0.4",
+  "version": "9.0.5",
   "description": "A React Component for displaying expandable tables with tree-like hierarchies",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -23,8 +23,8 @@
     }
   },
   "dependencies": {
-    "@atlaskit/analytics-next": "^7.0.0",
-    "@atlaskit/button": "^14.0.0",
+    "@atlaskit/analytics-next": "^7.1.0",
+    "@atlaskit/button": "^15.0.0",
     "@atlaskit/icon": "^21.0.0",
     "@atlaskit/spinner": "^15.0.0",
     "@atlaskit/theme": "^10.0.0",

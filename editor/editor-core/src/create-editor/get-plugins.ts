@@ -1,5 +1,5 @@
 import { Schema } from 'prosemirror-model';
-import { Plugin } from 'prosemirror-state';
+import { Plugin, Transaction, EditorState } from 'prosemirror-state';
 
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { EventDispatcher, Dispatch } from '../event-dispatcher';
@@ -27,10 +27,17 @@ export type LightPMPlugin = {
   plugin: LightPMPluginFactory;
 };
 
+export type OnEditorViewStateUpdated = (props: {
+  readonly transaction: Readonly<Transaction>;
+  readonly oldEditorState: Readonly<EditorState>;
+  readonly newEditorState: Readonly<EditorState>;
+}) => void;
+
 export interface LightEditorPlugin {
   name: string;
   marks?: () => MarkConfig[];
   nodes?: () => NodeConfig[];
   pmPlugins?: (pluginOptions?: any) => Array<LightPMPlugin>;
   pluginsOptions?: Record<string, any>;
+  onEditorViewStateUpdated?: OnEditorViewStateUpdated;
 }

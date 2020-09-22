@@ -17,3 +17,16 @@ export type TagColor =
   | undefined;
 
 export type AppearanceType = 'default' | 'rounded';
+
+export type ChromeColors = {
+  backgroundColor: string;
+  backgroundColorHover: string;
+  textColor: string;
+  textColorHover: string;
+};
+
+export type ChromeLinkColors = {
+  hoverBackgroundColorRemoval: string;
+  hoverTextColorRemoval: string;
+  focusRingColor: string;
+};

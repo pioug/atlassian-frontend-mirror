@@ -21,6 +21,7 @@ export default {
   'fabric.media.annotate.tool.line.thickness': 'Linjetjocklek',
   'fabric.media.annotate.tool.shape': 'Form',
   'fabric.media.annotate.tool.text': 'Text',
+  'fabric.media.archive': 'arkiv',
   'fabric.media.audio': 'ljud',
   'fabric.media.cancel': 'Avbryt',
   'fabric.media.cant_preview_file_type':
@@ -34,17 +35,19 @@ export default {
   'fabric.media.connect_link_account': 'Anslut till förhandsgranskning',
   'fabric.media.connect_link_account_card_view': 'Anslut',
   'fabric.media.connect_link_account_card_view_description':
-    'Förbättra dina förhandsgranskningar av länkar genom att ansluta {context} till dina Atlassian-produkter.',
+    'Anslut ditt {context}-konto om du vill visa en förhandsgranskning av den här länken.',
   'fabric.media.connect_link_account_card_view_name':
     'Anslut ditt {context}-konto',
   'fabric.media.connect_to': 'Anslut till {name}',
   'fabric.media.could_not_load_editor':
     'Oj då! Vi kunde inte läsa in redigeringsprogrammet.',
   'fabric.media.could_not_save_image': 'Oj då! Vi kunde inte spara bilden',
+  'fabric.media.couldnt_generate_encrypted_entry_preview':
+    'Du kan inte förhandsgranska krypterade eller lösenordsskyddade filer.',
   'fabric.media.couldnt_generate_preview':
     'Vi kunde inte generera en förhandsgranskning av den här filen.',
   'fabric.media.couldnt_load_link':
-    'Vi kunde inte läsa in den här länken av någon anledning.',
+    'Vi kunde inte läsa in den här länken av okänd anledning.',
   'fabric.media.default_avatars': 'Standardavatarer',
   'fabric.media.disable_fullscreen': 'inaktivera helskärm',
   'fabric.media.document': 'dokument',
@@ -73,8 +76,7 @@ export default {
     'Kunde inte läsa in bild på grund av felaktig URL.',
   'fabric.media.insert_files':
     '{0, plural, one {Infoga {0} fil} other {Infoga {0} filer}}',
-  'fabric.media.invalid_permissions':
-    'Du har inte behörighet att använda den här länken',
+  'fabric.media.invalid_permissions': 'Begränsad länk',
   'fabric.media.invalid_permissions_description':
     'Du måste begära åtkomst eller försöka med ett annat konto för att visa förhandsgranskningen.',
   'fabric.media.item_not_found_in_list':
@@ -89,7 +91,7 @@ export default {
   'fabric.media.no_pdf_artifacts':
     'Inga PDF-artefakter hittades för den här filen.',
   'fabric.media.not_found_description':
-    'Kontrollera URL-adressen och försök att redigera eller klistra in igen.',
+    'Vi kunde inte hitta länken. Kontrollera URL-adressen och försök att redigera eller klistra in igen.',
   'fabric.media.not_found_title': 'Oj då. Vi kan inte hitta den här länken!',
   'fabric.media.or': 'eller',
   'fabric.media.pause': 'pausa',

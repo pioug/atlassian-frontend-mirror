@@ -21,6 +21,7 @@ export default {
   'fabric.media.annotate.tool.line.thickness': 'Товщина ліній',
   'fabric.media.annotate.tool.shape': 'Форма',
   'fabric.media.annotate.tool.text': 'Текст',
+  'fabric.media.archive': 'архівувати',
   'fabric.media.audio': 'звук',
   'fabric.media.cancel': 'Скасувати',
   'fabric.media.cant_preview_file_type':
@@ -34,12 +35,14 @@ export default {
   'fabric.media.connect_link_account': 'Для перегляду потрібно підключитись',
   'fabric.media.connect_link_account_card_view': 'Підключення',
   'fabric.media.connect_link_account_card_view_description':
-    'Підключіть {context} до продуктів Atlassian для попереднього перегляду посилань.',
+    'Щоб відкрити попередній перегляд цього посилання, підключіть свій обліковий запис {context}.',
   'fabric.media.connect_link_account_card_view_name':
     'Підключіть обліковий запис {context}',
   'fabric.media.connect_to': 'Підключення до {name}',
   'fabric.media.could_not_load_editor': 'Ой! Не вдалося завантажити редактор.',
   'fabric.media.could_not_save_image': 'Ой! Не вдалося зберегти зображення.',
+  'fabric.media.couldnt_generate_encrypted_entry_preview':
+    'Для зашифрованих або захищених паролем файлів попередній перегляд недоступний.',
   'fabric.media.couldnt_generate_preview':
     'Не вдалося створити попередній перегляд для цього файлу.',
   'fabric.media.couldnt_load_link': 'Не вдалося завантажити це посилання.',
@@ -70,7 +73,7 @@ export default {
     'Не вдалося завантажити зображення. Неправильна URL-адреса.',
   'fabric.media.insert_files':
     '{0, plural, one {Вставити {0} файл} few {Вставити {0} файли} many {Вставити {0} файлів} other {Вставити {0} файлів}}',
-  'fabric.media.invalid_permissions': 'Ви не маєте доступу до цього посилання',
+  'fabric.media.invalid_permissions': 'Посилання з обмеженим доступом',
   'fabric.media.invalid_permissions_description':
     'Надішліть запит на доступ або ввійдіть в інший обліковий запис для попереднього перегляду.',
   'fabric.media.item_not_found_in_list':
@@ -85,7 +88,7 @@ export default {
   'fabric.media.no_pdf_artifacts':
     'Не знайдено артефактів PDF для цього файлу.',
   'fabric.media.not_found_description':
-    'Перевірте URL-адресу й спробуйте її відредагувати або вставити знову.',
+    'Не вдалося знайти посилання. Перевірте URL-адресу й спробуйте її відредагувати або вставити знову.',
   'fabric.media.not_found_title': 'Ой! Не вдається знайти це посилання.',
   'fabric.media.or': 'або',
   'fabric.media.pause': 'пауза',

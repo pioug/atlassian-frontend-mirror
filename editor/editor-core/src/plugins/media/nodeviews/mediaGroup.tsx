@@ -231,7 +231,6 @@ export default class MediaGroup extends React.Component<
       };
       return {
         identifier: this.getIdentifier(item),
-        selectable: true,
         isLazy: allowLazyLoading,
         selected: this.isNodeSelected(getNodePos()),
         onClick: () => {

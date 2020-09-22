@@ -115,10 +115,7 @@ export const toggleExpandExpanded = (
     // it will insert below rather than inside (which will be invisible).
     if (isExpandedNext === false && findExpand(state)) {
       tr.setSelection(
-        new GapCursorSelection(
-          state.doc.resolve(pos + node.nodeSize),
-          Side.RIGHT,
-        ),
+        new GapCursorSelection(tr.doc.resolve(pos + node.nodeSize), Side.RIGHT),
       );
     }
 

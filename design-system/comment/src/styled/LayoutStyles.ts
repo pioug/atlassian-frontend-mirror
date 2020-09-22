@@ -12,19 +12,8 @@ const ThemeColor = {
 };
 
 export const AvatarSectionDiv = styled.div`
-  /* -ms- properties are necessary until MS supports the latest version of the grid spec */
-  /* stylelint-disable value-no-vendor-prefix */
-  -ms-grid-row: 1;
-  -ms-grid-column: 1;
   /* stylelint-enable */
   grid-area: avatar-area;
-  /* Unfortunately it's still easier to use a margin here until MS supports grid-gap */
-  margin-right: ${gridSize()}px;
-
-  [dir='rtl'] & {
-    margin-left: ${gridSize()}px;
-    margin-right: 0;
-  }
 `;
 
 const renderContainerGridTemplate = (props: {
@@ -33,9 +22,8 @@ const renderContainerGridTemplate = (props: {
 
 export const Container = styled.div`
   /* stylelint-disable value-no-vendor-prefix, declaration-block-no-duplicate-properties */
-  display: -ms-grid;
   display: grid;
-  -ms-grid-columns: auto 1fr;
+  gap: ${gridSize()}px;
   /* stylelint-enable */
   grid-template:
     'avatar-area comment-area'
@@ -53,8 +41,6 @@ export const Container = styled.div`
 `;
 
 export const ContentSectionDiv = styled.div`
-  -ms-grid-row: 1;
-  -ms-grid-column: 2;
   grid-area: comment-area;
   margin-top: ${gridSize() * 0.25}px;
   /* Required for word-wrap: break-word to work in a grid */
@@ -64,9 +50,6 @@ export const ContentSectionDiv = styled.div`
 
 export const Highlight = styled.div`
   background: ${ThemeColor.Highlight.background};
-  -ms-grid-row: 1;
-  -ms-grid-column: 1;
-  -ms-grid-column-span: 2;
   grid-area: 1 / 1 / 2 / 3;
   height: 100%;
   padding: ${gridSize()}px ${gridSize()}px ${gridSize() / 2}px;
@@ -80,8 +63,6 @@ export const Highlight = styled.div`
 `;
 
 export const NestedCommentsDiv = styled.div`
-  -ms-grid-row: 2;
-  -ms-grid-column: 2;
   grid-area: nested-comments-area;
   margin-top: ${verticalPadding}px;
 `;

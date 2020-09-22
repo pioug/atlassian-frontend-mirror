@@ -1,5 +1,5 @@
 import { InputRule } from 'prosemirror-inputrules';
-import { Fragment, Schema } from 'prosemirror-model';
+import { Fragment, Schema, Slice } from 'prosemirror-model';
 import { EditorState, Plugin, Transaction } from 'prosemirror-state';
 
 import {
@@ -50,20 +50,10 @@ export const createHorizontalRule = (
   }
 
   if (!tr) {
-    const { $from } = state.selection;
-    const $afterRule = state.doc.resolve($from.after());
-    const { paragraph } = state.schema.nodes;
-
-    if ($afterRule.nodeAfter && $afterRule.nodeAfter.type === paragraph) {
-      // if there's already a paragraph after, just insert the rule into
-      // the current paragraph
-      end = end + 1;
-    }
-
-    tr = state.tr.replaceWith(
+    tr = state.tr.replaceRange(
       start,
       end,
-      Fragment.from(state.schema.nodes.rule.createChecked()),
+      new Slice(Fragment.from(state.schema.nodes.rule.createChecked()), 0, 0),
     );
   }
 
@@ -90,11 +80,10 @@ export function inputRulePlugin(schema: Schema): Plugin | undefined {
   if (schema.nodes.rule) {
     // '---' and '***' for hr
     rules.push(
-      // -1, so that it also replaces the container paragraph
       createInputRule(
         /^(\-\-\-|\*\*\*)$/,
         (state, _match, start, end) =>
-          createHorizontalRuleAutoformat(state, start - 1, end),
+          createHorizontalRuleAutoformat(state, start, end),
         true,
       ),
     );

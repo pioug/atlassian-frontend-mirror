@@ -34,7 +34,7 @@
   "devDependencies": {
     "@atlaskit/avatar": "^20.0.0",
     "@atlaskit/build-utils": "*",
-    "@atlaskit/button": "^14.0.0",
+    "@atlaskit/button": "^15.0.0",
     "@atlaskit/docs": "*",
     "@atlaskit/lozenge": "^10.0.0",
     "@atlaskit/motion": "^0.4.0",

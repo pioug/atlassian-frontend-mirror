@@ -1,9 +1,9 @@
 import { css } from 'styled-components';
 
+import { akEditorShadowZIndex } from '@atlaskit/editor-shared-styles';
 import { N40A } from '@atlaskit/theme/colors';
 
 import { shadowClassNames } from '../../ui/OverflowShadow';
-import { akEditorShadowZIndex } from '../consts';
 
 const shadowWidth = 8;
 

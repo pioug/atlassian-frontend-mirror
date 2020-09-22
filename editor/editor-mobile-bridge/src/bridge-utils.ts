@@ -33,11 +33,14 @@ export function sendToBridge<K extends CombinedBridgeNames>(
   } else {
     // Android implementation
     const bridge = window[bridgeName];
-    if (bridge && bridge.hasOwnProperty(eventName)) {
-      const args = Object.keys(props).map(key => (props as any)[key]);
+    if (bridge && eventName in bridge) {
+      const args = Object.values(props);
+
+      // @ts-ignore: expression produces a union type that is too complex to represent.
+      const bridgeEventFn = bridge[eventName];
+
       try {
-        // @ts-ignore
-        bridge[eventName](...args);
+        bridgeEventFn(...args);
       } catch (err) {
         // eslint-disable-next-line no-console
         console.error(

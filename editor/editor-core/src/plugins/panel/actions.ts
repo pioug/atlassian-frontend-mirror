@@ -16,7 +16,6 @@ import {
   addAnalytics,
 } from '../analytics';
 import { pluginKey } from './types';
-import { PANEL_TYPE } from '../analytics/types/node-events';
 import { findPanel } from './utils';
 
 export type DomAtPos = (pos: number) => { node: HTMLElement; offset: number };
@@ -59,12 +58,12 @@ export const changePanelType = (panelType: PanelType): Command => (
     tr,
   } = state;
 
-  let previousType: PANEL_TYPE = pluginKey.getState(state).activePanelType;
+  let previousType: PanelType = pluginKey.getState(state).activePanelType;
   const payload: AnalyticsEventPayload = {
     action: ACTION.CHANGED_TYPE,
     actionSubject: ACTION_SUBJECT.PANEL,
     attributes: {
-      newType: panelType as PANEL_TYPE,
+      newType: panelType,
       previousType: previousType,
     },
     eventType: EVENT_TYPE.TRACK,
@@ -79,10 +78,11 @@ export const changePanelType = (panelType: PanelType): Command => (
     .setNodeMarkup(panelNode.pos, nodes.panel, { panelType })
     .setMeta(pluginKey, { activePanelType: panelType });
 
-  // Make the panel node selected when changing the type of a panel (if the panel was selected)
+  // Select the panel if it was previously selected
   const newTrWithSelection =
-    state.selection instanceof NodeSelection
-      ? newTr.setSelection(new NodeSelection(state.doc.resolve(panelNode.pos)))
+    state.selection instanceof NodeSelection &&
+    state.selection.node.type.name === 'panel'
+      ? newTr.setSelection(new NodeSelection(tr.doc.resolve(panelNode.pos)))
       : newTr;
 
   const changePanelTypeTr = addAnalytics(state, newTrWithSelection, payload);

@@ -13,7 +13,7 @@ import {
   fakeMediaClient,
 } from '@atlaskit/media-test-helpers';
 import ModalDialog from '@atlaskit/modal-dialog';
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
 import { InfiniteScroll } from '@atlaskit/media-ui';
 import {
   MediaClient,
@@ -53,6 +53,7 @@ import { LocalBrowserButton } from '../../../../views/upload/uploadButton';
 import { menuDelete } from '../../../editor/phrases';
 import { LocalUploadFileMetadata } from '../../../../../domain/local-upload';
 import { BrowserBase } from '../../../../../../components/browser/browser';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 
 const ConnectedUploadViewWithStore = getComponentClassWithStore(
   ConnectedUploadView,
@@ -74,11 +75,13 @@ const createConnectedComponent = (
   const root = mount(
     <IntlProvider locale="en">
       <Provider store={store}>
-        <ConnectedUploadViewWithStore
-          browserRef={createBrowserRef(mediaClient)}
-          mediaClient={mediaClient}
-          recentsCollection="some-collection-name"
-        />
+        <AnalyticsListener onEvent={() => {}}>
+          <ConnectedUploadViewWithStore
+            browserRef={createBrowserRef(mediaClient)}
+            mediaClient={mediaClient}
+            recentsCollection="some-collection-name"
+          />
+        </AnalyticsListener>
       </Provider>
     </IntlProvider>,
     {

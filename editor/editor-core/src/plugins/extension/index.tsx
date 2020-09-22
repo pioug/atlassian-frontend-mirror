@@ -8,13 +8,14 @@ import {
 } from '@atlaskit/adf-schema';
 import { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
 import { EditorPlugin } from '../../types';
+import { LongPressSelectionPluginOptions } from '../selection/types';
 import { createPlugin } from './pm-plugins/main';
 import keymapPlugin from './pm-plugins/keymap';
 import { createPlugin as createUniqueIdPlugin } from './pm-plugins/unique-id';
 import { getToolbarConfig } from './toolbar';
 import { getContextPanel } from './context-panel';
 
-interface ExtensionPluginOptions {
+interface ExtensionPluginOptions extends LongPressSelectionPluginOptions {
   allowAutoSave?: boolean;
   allowLocalIdGeneration?: boolean;
   breakoutEnabled?: boolean;
@@ -67,6 +68,7 @@ const extensionPlugin = (
             extensionHandlers,
             portalProviderAPI,
             eventDispatcher,
+            options.useLongPressSelection,
           );
         },
       },

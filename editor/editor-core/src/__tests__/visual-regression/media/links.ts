@@ -1,6 +1,8 @@
-import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import {
+  PuppeteerPage,
+  waitForLoadedImageElements,
+} from '@atlaskit/visual-regression/helper';
 import { Appearance, initEditorWithAdf, snapshot } from '../_utils';
-import { MockActivityResource } from '@atlaskit/activity/dist/es5/support';
 
 describe('Snapshot Test: Media', () => {
   let page: PuppeteerPage;
@@ -8,9 +10,6 @@ describe('Snapshot Test: Media', () => {
     page = global.page;
     await initEditorWithAdf(page, {
       appearance: Appearance.fullPage,
-      editorProps: {
-        activityProvider: Promise.resolve(new MockActivityResource()),
-      },
     });
   });
 
@@ -24,7 +23,7 @@ describe('Snapshot Test: Media', () => {
         await page.keyboard.press('KeyK');
         await page.keyboard.up('Control');
 
-        await page.waitFor(1000);
+        await waitForLoadedImageElements(page, 5000);
 
         await snapshot(page);
       });

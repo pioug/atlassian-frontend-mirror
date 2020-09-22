@@ -1,6 +1,6 @@
 import React from 'react';
 import InlineMessage from '@atlaskit/inline-message';
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
 import Page, { Grid, GridColumn } from '@atlaskit/page';
 import 'brace';
 import 'brace/mode/json';

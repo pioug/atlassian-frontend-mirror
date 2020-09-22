@@ -1,5 +1,12 @@
 # @atlaskit/activity-provider
 
+## 2.3.0
+
+### Minor Changes
+
+- [`903a529a3e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/903a529a3e) - Return types in activity-provider which will be used in analytics
+  Adds in instrumentation metrics for HyperLinkToolBar
+
 ## 2.2.0
 
 ### Minor Changes

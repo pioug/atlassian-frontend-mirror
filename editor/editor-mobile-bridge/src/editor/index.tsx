@@ -13,6 +13,8 @@ import {
 import { getModeValue, getQueryParams } from '../query-param-reader';
 import { useFetchProxy } from '../utils/fetch-proxy';
 import { createCollabProviderFactory } from '../providers/collab-provider';
+import { ErrorBoundary } from './error-boundary';
+import { toNativeBridge } from './web-to-native';
 
 interface AppProps {
   defaultValue?: Node | string | Object;
@@ -22,16 +24,18 @@ const App: React.FC<AppProps> = props => {
   const fetchProxy = useFetchProxy();
 
   return (
-    <MobileEditor
-      mode={getModeValue()}
-      createCollabProvider={createCollabProviderFactory(fetchProxy)}
-      cardClient={createCardClient()}
-      cardProvider={createCardProvider()}
-      defaultValue={props.defaultValue}
-      emojiProvider={createEmojiProvider(fetchProxy)}
-      mediaProvider={createMediaProvider()}
-      mentionProvider={createMentionProvider()}
-    />
+    <ErrorBoundary>
+      <MobileEditor
+        mode={getModeValue()}
+        createCollabProvider={createCollabProviderFactory(fetchProxy)}
+        cardClient={createCardClient()}
+        cardProvider={createCardProvider()}
+        defaultValue={props.defaultValue}
+        emojiProvider={createEmojiProvider(fetchProxy)}
+        mediaProvider={createMediaProvider()}
+        mentionProvider={createMentionProvider()}
+      />
+    </ErrorBoundary>
   );
 };
 
@@ -40,6 +44,10 @@ function main() {
   const rawDefaultValue = IS_DEV ? getQueryParams().get('defaultValue') : null;
   const defaultValue =
     IS_DEV && rawDefaultValue ? atob(rawDefaultValue) : undefined;
+
+  if (toNativeBridge.startWebBundle) {
+    toNativeBridge.startWebBundle();
+  }
 
   ReactDOM.render(
     <App defaultValue={defaultValue} />,

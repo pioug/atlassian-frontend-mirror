@@ -350,6 +350,13 @@ export const insertMedia = async (
   await insertMediaFromMediaPicker(page, filenames, fileSelector);
 };
 
+export const removeMedia = async (page: WebDriverPage) => {
+  await page.waitForSelector('[data-testid="media-card-view"]');
+  await page.click('[data-testid="media-card-view"]');
+  await page.waitForSelector('[data-testid="media-toolbar-remove-button"]');
+  await page.click('[data-testid="media-toolbar-remove-button"]');
+};
+
 /**
  * We use $$ in the context of selenium and puppeteer, which return different results.
  */

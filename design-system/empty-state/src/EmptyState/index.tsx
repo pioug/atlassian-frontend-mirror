@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 
-import { ButtonGroup } from '@atlaskit/button';
+import ButtonGroup from '@atlaskit/button/button-group';
 import Spinner from '@atlaskit/spinner';
 
 import {

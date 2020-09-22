@@ -28,7 +28,7 @@ describe('ListSearchListItem', () => {
     const component = mountWithIntl(<LinkSearchListItem {...options} />);
 
     return {
-      component,
+      component: component.find(Container),
       item: options.item,
       onMouseMove: options.onMouseMove,
       onSelect: options.onSelect,
@@ -59,7 +59,7 @@ describe('ListSearchListItem', () => {
     const event: Partial<React.MouseEvent> = {
       preventDefault: jest.fn(),
     };
-    component.simulate('mousedown', event);
+    component.simulate('click', event);
     expectFunctionToHaveBeenCalledWith(onSelect, [item.url, item.name]);
     expect(event.preventDefault).toHaveBeenCalled();
   });

@@ -11,8 +11,6 @@ import TipIcon from '@atlaskit/icon/glyph/editor/hint';
 import { PanelType } from '@atlaskit/adf-schema';
 import { getPosHandlerNode, getPosHandler } from '../../../nodeviews/';
 import { PanelSharedCssClassName } from '@atlaskit/editor-common';
-import { selectNode } from '../../../utils/commands';
-import { createSelectionAwareClickHandler } from '../../../nodeviews/utils';
 
 const panelIcons = {
   info: InfoIcon,
@@ -41,16 +39,8 @@ class PanelNodeView {
   icon: HTMLElement;
   getPos: getPosHandlerNode;
   view: EditorView;
-  allowSelection?: boolean;
-  clickHandler?: (event: Event) => false | void;
-  clickCleanup?: () => void;
 
-  constructor(
-    node: Node,
-    view: EditorView,
-    getPos: getPosHandlerNode,
-    allowSelection?: boolean,
-  ) {
+  constructor(node: Node, view: EditorView, getPos: getPosHandlerNode) {
     const { dom, contentDOM } = DOMSerializer.renderSpec(document, toDOM(node));
     this.getPos = getPos;
     this.view = view;
@@ -60,64 +50,21 @@ class PanelNodeView {
     this.icon = this.dom.querySelector(
       `.${PanelSharedCssClassName.icon}`,
     ) as HTMLElement;
-    this.renderIcon(node.attrs.panelType as PanelType);
-    this.allowSelection = allowSelection;
-
-    this.initHandlers();
+    this.renderIcon(
+      node.attrs.panelType as Exclude<PanelType, PanelType.CUSTOM>,
+    );
   }
 
-  private initHandlers() {
-    if (this.dom && this.allowSelection) {
-      const { handler, cleanup } = createSelectionAwareClickHandler(
-        this.dom,
-        this.handleClick,
-      );
-      this.clickHandler = handler;
-      this.clickCleanup = cleanup;
-      this.dom.addEventListener('click', this.clickHandler);
-    }
-  }
-
-  private renderIcon(panelType: PanelType) {
-    const Icon = panelIcons[panelType];
+  private renderIcon(panelType: Exclude<PanelType, PanelType.CUSTOM>) {
+    const Icon = panelIcons[panelType] || InfoIcon;
     ReactDOM.render(<Icon label={`Panel ${panelType}`} />, this.icon);
-  }
-
-  private handleClick = (event: Event) => {
-    const target = event.target as HTMLElement;
-
-    // If clicking on the border of the panel
-    const targetIsBorder = target === this.dom;
-
-    // If clicking in the left margin or icon of panel
-    const targetIsGutter = target.closest(`.${PanelSharedCssClassName.icon}`);
-
-    if (targetIsBorder || targetIsGutter) {
-      event.stopPropagation();
-      const { state, dispatch } = this.view;
-      selectNode(this.getPos())(state, dispatch);
-      return;
-    }
-  };
-
-  destroy() {
-    if (this.dom) {
-      this.clickHandler &&
-        this.dom.removeEventListener('click', this.clickHandler);
-      this.clickCleanup && this.clickCleanup();
-    }
   }
 }
 
-export const panelNodeView = (allowSelection?: boolean) => (
+export const panelNodeView = (
   node: any,
   view: EditorView,
   getPos: getPosHandler,
 ): NodeView => {
-  return new PanelNodeView(
-    node,
-    view,
-    getPos as getPosHandlerNode,
-    allowSelection,
-  );
+  return new PanelNodeView(node, view, getPos as getPosHandlerNode);
 };

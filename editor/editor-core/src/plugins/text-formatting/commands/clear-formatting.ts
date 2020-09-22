@@ -83,21 +83,34 @@ export function clearFormatting(
       const { from, to } = tr.selection;
       const markType = state.schema.marks[mark];
 
+      if (!markType) {
+        return;
+      }
+
       if (tr.selection instanceof CellSelection) {
-        cellSelectionNodesBetween(tr.selection, tr.doc, (node, pos) => {
-          if (
-            markType &&
-            state.doc.rangeHasMark(pos, pos + node.nodeSize, markType)
-          ) {
-            formattingCleared.push(formatTypes[mark]);
-            tr.removeMark(pos, pos + node.nodeSize, markType);
-          }
-        });
-      } else {
-        if (markType && state.doc.rangeHasMark(from, to, markType)) {
-          formattingCleared.push(formatTypes[mark]);
-          tr.removeMark(from, to, markType);
-        }
+        cellSelectionNodesBetween(
+          tr.selection,
+          tr.doc,
+          (node, pos): boolean => {
+            const isTableCell =
+              node.type === state.schema.nodes.tableCell ||
+              node.type === state.schema.nodes.tableHeader;
+
+            if (!isTableCell) {
+              return true;
+            }
+
+            if (tr.doc.rangeHasMark(pos, pos + node.nodeSize, markType)) {
+              formattingCleared.push(formatTypes[mark]);
+              tr.removeMark(pos, pos + node.nodeSize, markType);
+            }
+
+            return false;
+          },
+        );
+      } else if (tr.doc.rangeHasMark(from, to, markType)) {
+        formattingCleared.push(formatTypes[mark]);
+        tr.removeMark(from, to, markType);
       }
     });
 

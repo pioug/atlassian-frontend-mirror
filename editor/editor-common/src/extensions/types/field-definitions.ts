@@ -16,7 +16,6 @@ interface BaseFieldDefinition {
   label: string;
   name: string;
   isRequired?: boolean;
-  isHidden?: boolean;
 }
 
 interface BaseEnumField extends BaseFieldDefinition {
@@ -25,42 +24,69 @@ interface BaseEnumField extends BaseFieldDefinition {
 }
 
 export interface EnumSingleSelectField extends BaseEnumField {
-  isMultiple?: false;
   style: 'select';
+  isMultiple?: false;
   defaultValue?: string;
   placeholder?: string;
 }
 
-export interface EnumRadioField extends BaseEnumField {
-  isMultiple?: false;
+export interface EnumRadioFieldBase extends BaseEnumField {
   style: 'radio';
+  isMultiple?: false;
+}
+
+// Radio fields are different, they cannot be deselected by a user
+//   Thereby they _always_ need a value for submission
+//
+// You can do that through `defaultValue`, or `isRequired: true`
+export interface EnumRadioFieldDefaulted extends EnumRadioFieldBase {
+  isRequired?: false;
+  defaultValue: string;
+}
+
+export interface EnumRadioFieldRequired extends EnumRadioFieldBase {
+  isRequired: true;
   defaultValue?: string;
 }
 
+export type EnumRadioField = EnumRadioFieldDefaulted | EnumRadioFieldRequired;
+
 export interface EnumMultipleSelectField extends BaseEnumField {
-  isMultiple: true;
   style: 'select';
+  isMultiple: true;
   defaultValue?: string[];
   placeholder?: string;
 }
 
 export interface EnumCheckboxField extends BaseEnumField {
-  isMultiple: true;
   style: 'checkbox';
+  isMultiple: true;
   defaultValue?: string[];
 }
 
-export type EnumField =
-  | EnumSingleSelectField
-  | EnumMultipleSelectField
-  | EnumRadioField
-  | EnumCheckboxField;
+export type EnumSelectField = EnumSingleSelectField | EnumMultipleSelectField;
+export type EnumField = EnumSelectField | EnumRadioField | EnumCheckboxField;
 
-export interface StringField extends BaseFieldDefinition {
+export interface StringOneLineField extends BaseFieldDefinition {
   type: 'string';
+  style?: 'oneline';
   defaultValue?: string;
   placeholder?: string;
+  isHidden?: boolean;
 }
+
+export interface StringMultilineField extends BaseFieldDefinition {
+  type: 'string';
+  style: 'multiline';
+  defaultValue?: string;
+  placeholder?: string;
+  isHidden?: boolean;
+  options?: {
+    minimumRows: number;
+  };
+}
+
+export type StringField = StringOneLineField | StringMultilineField;
 
 export interface NumberField extends BaseFieldDefinition {
   type: 'number';
@@ -71,6 +97,7 @@ export interface NumberField extends BaseFieldDefinition {
 export interface BooleanField extends BaseFieldDefinition {
   type: 'boolean';
   defaultValue?: boolean;
+  style?: 'checkbox' | 'toggle';
 }
 
 export interface DateField extends BaseFieldDefinition {
@@ -87,6 +114,7 @@ interface BaseCustomField extends BaseFieldDefinition {
   type: 'custom';
   style?: 'select';
   options: {
+    isCreatable?: boolean;
     resolver: FieldHandlerLink;
   };
   placeholder?: string;
@@ -98,7 +126,7 @@ export interface CustomSingleField extends BaseCustomField {
 }
 
 export interface CustomMultipleField extends BaseCustomField {
-  isMultiple: boolean;
+  isMultiple: true;
   defaultValue?: string[];
 }
 

@@ -1,52 +1,55 @@
+import * as baseCommand from 'prosemirror-commands';
 import {
-  ResolvedPos,
   Fragment,
-  Slice,
+  Node,
   NodeRange,
   NodeType,
-  Node,
+  ResolvedPos,
+  Slice,
 } from 'prosemirror-model';
-import {
-  EditorState,
-  Transaction,
-  TextSelection,
-  NodeSelection,
-} from 'prosemirror-state';
-import { liftTarget, ReplaceAroundStep } from 'prosemirror-transform';
-import { EditorView } from 'prosemirror-view';
-import * as baseCommand from 'prosemirror-commands';
 import * as baseListCommand from 'prosemirror-schema-list';
 import {
-  hasParentNodeOfType,
-  findPositionOfNodeBefore,
-  findParentNodeOfTypeClosestToPos,
-} from 'prosemirror-utils';
-import { hasVisibleContent, isNodeEmpty } from '../../../utils/document';
+  EditorState,
+  NodeSelection,
+  TextSelection,
+  Transaction,
+} from 'prosemirror-state';
+import { liftTarget, ReplaceAroundStep } from 'prosemirror-transform';
 import {
+  findParentNodeOfTypeClosestToPos,
+  findPositionOfNodeBefore,
+  hasParentNodeOfType,
+  ContentNodeWithPos,
+  findParentNodeClosestToPos,
+} from 'prosemirror-utils';
+import { EditorView } from 'prosemirror-view';
+import { Command } from '../../../types';
+import { compose, sanitiseSelectionMarksForWrapping } from '../../../utils';
+import {
+  filter,
   findCutBefore,
   isEmptySelectionAtStart,
   isFirstChildOfParent,
-  filter,
 } from '../../../utils/commands';
-import { compose, sanitiseSelectionMarksForWrapping } from '../../../utils';
-import { liftFollowingList, liftSelectionList } from '../transforms';
-import { Command } from '../../../types';
-import { GapCursorSelection } from '../../gap-cursor';
+import { hasVisibleContent, isNodeEmpty } from '../../../utils/document';
 import {
-  withAnalytics,
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
-  EVENT_TYPE,
-  INPUT_METHOD,
-  INDENT_DIR,
-  INDENT_TYPE,
   addAnalytics,
+  CommonListAnalyticsAttributes,
+  EVENT_TYPE,
+  INDENT_DIRECTION,
+  INDENT_TYPE,
+  INPUT_METHOD,
+  withAnalytics,
 } from '../../analytics';
+import { GapCursorSelection } from '../../gap-cursor';
+import { liftFollowingList, liftSelectionList } from '../transforms';
 import {
-  isInsideListItem,
-  canOutdent,
   canJoinToPreviousListItem,
+  canOutdent,
+  isInsideListItem,
 } from '../utils';
 import { listBackspace } from './listBackspace';
 import { listDelete } from './listDelete';
@@ -225,7 +228,7 @@ export const backspaceKeyCommand: Command = (state, dispatch) => {
 export const deleteKeyCommand: Command = listDelete;
 
 /**
- * Implemetation taken and modified for our needs from PM
+ * Implementation taken and modified for our needs from PM
  * @param itemType Node
  * Splits the list items, specific implementation take from PM
  */
@@ -389,7 +392,27 @@ export function outdentList(
         state.schema.nodes,
       );
 
+      const parentAtStart = findParentNodeOfTypeClosestToPos(
+        state.selection.$from,
+        [state.schema.nodes.bulletList, state.schema.nodes.orderedList],
+      );
+
       return compose(
+        // 4. Richer indentation analytics to compare against new predictable lists
+        withAnalytics({
+          action: ACTION.INDENTED,
+          actionSubject: ACTION_SUBJECT.LIST,
+          actionSubjectId: schemaTypeToAnalyticsType(
+            // ! - It's guaranteed that if we've gotten to this point that there is a listType parent. We just don't know which one.
+            parentAtStart!.node.type.name,
+          ),
+          eventType: EVENT_TYPE.TRACK,
+          attributes: {
+            ...getCommonListAnalyticsAttributes(state),
+            inputMethod,
+            indentDirection: INDENT_DIRECTION.OUTDENT,
+          },
+        }),
         withAnalytics({
           action: ACTION.FORMATTED,
           actionSubject: ACTION_SUBJECT.TEXT,
@@ -399,7 +422,7 @@ export function outdentList(
             inputMethod,
             previousIndentationLevel: initialIndentationLevel,
             newIndentLevel: initialIndentationLevel - 1,
-            direction: INDENT_DIR.OUTDENT,
+            direction: INDENT_DIRECTION.OUTDENT,
             indentType: INDENT_TYPE.LIST,
           },
         }), // 3. Send analytics event
@@ -457,7 +480,14 @@ export function indentList(
         state.schema.nodes,
       );
 
-      if (canSink(initialIndentationLevel, state)) {
+      const sinkable = canSink(initialIndentationLevel, state);
+
+      let customTr = state.tr;
+      const fakeDispatch = (tr: Transaction) => {
+        customTr = tr;
+      };
+
+      if (sinkable) {
         // Analytics command wrapper should be here because we need to get indentation level
         compose(
           withAnalytics({
@@ -469,15 +499,37 @@ export function indentList(
               inputMethod,
               previousIndentationLevel: initialIndentationLevel,
               newIndentLevel: initialIndentationLevel + 1,
-              direction: INDENT_DIR.INDENT,
+              direction: INDENT_DIRECTION.INDENT,
               indentType: INDENT_TYPE.LIST,
             },
           }),
           baseListCommand.sinkListItem,
-        )(listItem)(state, dispatch);
+        )(listItem)(state, fakeDispatch);
       }
+
+      // Richer indentation analytics to compare against new predictable lists
+      // Should always fire, even if can't sink.
+      // Amends to the current tr before dispatching
+      addAnalytics(state, customTr, {
+        action: ACTION.INDENTED,
+        actionSubject: ACTION_SUBJECT.LIST,
+        actionSubjectId: schemaTypeToAnalyticsType('bulletList'),
+        eventType: EVENT_TYPE.TRACK,
+        attributes: {
+          ...getCommonListAnalyticsAttributes(state),
+          inputMethod,
+          canSink: customTr.docChanged,
+          indentDirection: INDENT_DIRECTION.INDENT,
+        },
+      });
+
+      if (dispatch) {
+        dispatch(customTr);
+      }
+
       return true;
     }
+
     return false;
   };
 }
@@ -629,10 +681,7 @@ export const toggleList = (
     tr = addAnalytics(state, tr, {
       action: ACTION.FORMATTED,
       actionSubject: ACTION_SUBJECT.TEXT,
-      actionSubjectId:
-        listType === 'bulletList'
-          ? ACTION_SUBJECT_ID.FORMAT_LIST_BULLET
-          : ACTION_SUBJECT_ID.FORMAT_LIST_NUMBER,
+      actionSubjectId: schemaTypeToAnalyticsType(listType),
       eventType: EVENT_TYPE.TRACK,
       attributes: {
         inputMethod,
@@ -712,11 +761,106 @@ export function toggleListCommand(
         dispatch(tr);
         state = view.state;
       }
+
       // Wraps selection in list
       return wrapInList(listNodeType)(state, dispatch);
     }
   };
 }
+
+const getItemAttributes = (state: EditorState, $pos: ResolvedPos) => {
+  const indentLevel = numberNestedLists($pos, state.schema.nodes) - 1;
+  const itemAtPos = findParentNodeOfTypeClosestToPos(
+    $pos,
+    state.schema.nodes.listItem,
+  );
+
+  // Get the index of the current item relative to parent (parent is at item depth - 1)
+  const itemIndex = $pos.index(itemAtPos ? itemAtPos.depth - 1 : undefined);
+  return { indentLevel, itemIndex };
+};
+
+const countListItemsInSelection = (editorState: EditorState): number => {
+  const { tr, schema } = editorState;
+  const {
+    selection,
+    doc,
+    selection: { from, to, empty },
+  } = tr;
+
+  if (empty) {
+    return 1;
+  }
+
+  // get the positions of all the leaf nodes within the selection
+  const nodePositions = [];
+  if (selection instanceof TextSelection && selection.$cursor) {
+    nodePositions.push(from);
+  } else {
+    // nodesBetween doesn't return leaf nodes that are outside of from and to
+    doc.nodesBetween(from, to, (node, pos) => {
+      if (!node.isLeaf) {
+        return true;
+      }
+      nodePositions.push(pos);
+    });
+  }
+
+  // use those positions to get the closest parent list nodes
+  nodePositions.reduce((acc: ContentNodeWithPos[], pos: number) => {
+    const closestParentListNode = findParentNodeClosestToPos(
+      doc.resolve(pos),
+      node => node.type === schema.nodes.listItem,
+    );
+    if (!closestParentListNode) {
+      return acc;
+    }
+
+    // don't add duplicates if the parent has already been added into the array
+    const existingParent = acc.find((node: ContentNodeWithPos) => {
+      return (
+        node.pos === closestParentListNode.pos &&
+        node.start === closestParentListNode.start &&
+        node.depth === closestParentListNode.depth
+      );
+    });
+
+    if (!existingParent) {
+      acc.push(closestParentListNode);
+    }
+
+    return acc;
+  }, []);
+
+  return nodePositions.length;
+};
+
+const getCommonListAnalyticsAttributes = (
+  state: EditorState,
+): CommonListAnalyticsAttributes => {
+  const {
+    selection: { $from, $to },
+  } = state.tr;
+  const fromAttrs = getItemAttributes(state, $from);
+  const toAttrs = getItemAttributes(state, $to);
+
+  return {
+    itemIndexAtSelectionStart: fromAttrs.itemIndex,
+    itemIndexAtSelectionEnd: toAttrs.itemIndex,
+    indentLevelAtSelectionStart: fromAttrs.indentLevel,
+    indentLevelAtSelectionEnd: toAttrs.indentLevel,
+    itemsInSelection: countListItemsInSelection(state),
+  };
+};
+
+const schemaTypeToAnalyticsType = (
+  type: string,
+):
+  | ACTION_SUBJECT_ID.FORMAT_LIST_BULLET
+  | ACTION_SUBJECT_ID.FORMAT_LIST_NUMBER =>
+  type === 'bulletList'
+    ? ACTION_SUBJECT_ID.FORMAT_LIST_BULLET
+    : ACTION_SUBJECT_ID.FORMAT_LIST_NUMBER;
 
 // TODO: Toggle list command dispatch more than one time, so commandWithAnalytics doesn't work as expected.
 // This is a helper to fix that.
@@ -724,20 +868,38 @@ export const toggleListCommandWithAnalytics = (
   inputMethod: InputMethod,
   listType: 'bulletList' | 'orderedList',
 ): Command => {
-  const listTypeActionSubjectId = {
-    bulletList: ACTION_SUBJECT_ID.FORMAT_LIST_BULLET,
-    orderedList: ACTION_SUBJECT_ID.FORMAT_LIST_NUMBER,
-  };
   return (state, dispatch, view) => {
-    if (toggleListCommand(listType)(state, dispatch, view)) {
-      if (view && dispatch) {
+    if (view && dispatch) {
+      // Richer conversion analytics to compare against new predictable lists
+      const parentAtStart = findParentNodeOfTypeClosestToPos(
+        state.selection.$from,
+        [state.schema.nodes.bulletList, state.schema.nodes.orderedList],
+      );
+
+      if (parentAtStart) {
+        dispatch(
+          addAnalytics(state, view.state.tr, {
+            action: ACTION.CONVERTED,
+            actionSubject: ACTION_SUBJECT.LIST,
+            eventType: EVENT_TYPE.TRACK,
+            actionSubjectId: schemaTypeToAnalyticsType(listType),
+            attributes: {
+              ...getCommonListAnalyticsAttributes(state),
+              transformedFrom: schemaTypeToAnalyticsType(
+                parentAtStart.node.type.name,
+              ),
+              inputMethod,
+            },
+          }),
+        );
+      }
+
+      if (toggleListCommand(listType)(state, dispatch, view)) {
         dispatch(
           addAnalytics(state, view.state.tr, {
             action: ACTION.FORMATTED,
             actionSubject: ACTION_SUBJECT.TEXT,
-            actionSubjectId: listTypeActionSubjectId[listType] as
-              | ACTION_SUBJECT_ID.FORMAT_LIST_BULLET
-              | ACTION_SUBJECT_ID.FORMAT_LIST_NUMBER,
+            actionSubjectId: schemaTypeToAnalyticsType(listType),
             eventType: EVENT_TYPE.TRACK,
             attributes: {
               inputMethod,
@@ -745,8 +907,10 @@ export const toggleListCommandWithAnalytics = (
           }),
         );
       }
+
       return true;
     }
+
     return false;
   };
 };

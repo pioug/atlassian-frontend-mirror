@@ -36,10 +36,16 @@ const getStyles = (
   return property[appearance][state][mode];
 };
 
-export const baseStyles = {
-  padding: '0 2px',
-  '&[href]': {
-    padding: '0 2px',
+export const iconOnlySpacing = {
+  '&&': {
+    padding: '0px',
+
+    '&[href]': {
+      padding: '0 2px',
+    },
+  },
+  '& > span': {
+    margin: '0px',
   },
 };
 

@@ -5,7 +5,7 @@ import {
   mediaPickerAuthProvider,
   defaultMediaPickerCollectionName,
 } from '@atlaskit/media-test-helpers';
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
 import { Browser } from '../src';
 import { BrowserConfig, UploadPreviewUpdateEventPayload } from '../src/types';
 import {

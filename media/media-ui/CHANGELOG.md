@@ -1,5 +1,19 @@
 # @atlaskit/media-ui
 
+## 14.1.0
+
+### Minor Changes
+
+- [`df3bf7f77f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/df3bf7f77f) - Added support for uploading files from MediaPicker. Additionally, added support for browser detection.
+- [`96ab8c45fc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/96ab8c45fc) - Changing the text in the picker in the UI so that users now know they can drag&drop folders
+- [`7d831363d9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7d831363d9) - Migrated to declarative entry points
+
+### Patch Changes
+
+- [`595078d4ea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/595078d4ea) - Fix allowing color of text for card/block view to be changed for undefined links.
+- [`c2da663f7b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c2da663f7b) - EDM-932: fix double scroll in embeds
+- Updated dependencies
+
 ## 14.0.1
 
 ### Patch Changes

@@ -194,30 +194,35 @@ const generateToolbarItems = (
       { type: 'separator' },
       generateDeleteButton(node, state, intl),
     ];
-    const { allowBlockCards, allowEmbeds } = cardOptions;
-
-    if ((allowBlockCards || allowEmbeds) && currentAppearance) {
-      toolbarItems.unshift({
-        type: 'custom',
-        render: editorView => (
-          <LinkToolbarAppearance
-            key="link-appearance"
-            url={url}
-            intl={intl}
-            currentAppearance={currentAppearance}
-            editorView={editorView}
-            editorState={state}
-            allowEmbeds={allowEmbeds}
-            platform={platform}
-          />
-        ),
-      });
-    }
 
     if (currentAppearance === 'embed') {
       toolbarItems.unshift(...buildAlignmentOptions(state, intl), {
         type: 'separator',
       });
+    }
+    const { allowBlockCards, allowEmbeds } = cardOptions;
+
+    if ((allowBlockCards || allowEmbeds) && currentAppearance) {
+      toolbarItems.unshift(
+        {
+          type: 'custom',
+          render: editorView => (
+            <LinkToolbarAppearance
+              key="link-appearance"
+              url={url}
+              intl={intl}
+              currentAppearance={currentAppearance}
+              editorView={editorView}
+              editorState={state}
+              allowEmbeds={allowEmbeds}
+              platform={platform}
+            />
+          ),
+        },
+        {
+          type: 'separator',
+        },
+      );
     }
 
     return toolbarItems;

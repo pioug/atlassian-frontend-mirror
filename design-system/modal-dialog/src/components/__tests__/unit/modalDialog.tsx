@@ -376,6 +376,11 @@ describe('modal-dialog', () => {
     });
   });
 
+  it('set blanket as hidden', () => {
+    const wrapper = mount(<ModalDialog isBlanketHidden onClose={noop} />);
+    expect(wrapper.find(Blanket).prop('isTinted')).toBe(false);
+  });
+
   describe('chromeless', () => {
     it('header should not render if dialog is chromeless', () => {
       const HeaderSpan = <span>My header</span>;

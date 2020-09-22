@@ -15,7 +15,7 @@ import {
   AnnotationProviders,
 } from '@atlaskit/editor-common';
 import { IframeWidthObserverFallbackWrapper } from '@atlaskit/width-detector';
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
 import {
   storyMediaProviderFactory,
   storyContextIdentifierProviderFactory,

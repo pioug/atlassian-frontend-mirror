@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 
 import { jsx } from '@emotion/core';
 
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
 
 export const Centered = ({
   as: As = 'div',

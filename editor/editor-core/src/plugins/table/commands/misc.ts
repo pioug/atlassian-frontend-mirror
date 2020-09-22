@@ -14,6 +14,7 @@ import {
   selectColumn as selectColumnTransform,
   selectRow as selectRowTransform,
   setCellAttrs,
+  isTableSelected,
 } from 'prosemirror-utils';
 import { EditorView } from 'prosemirror-view';
 
@@ -228,6 +229,13 @@ export const deleteTable: Command = (state, dispatch) => {
     dispatch(removeTable(state.tr));
   }
   return true;
+};
+
+export const deleteTableIfSelected: Command = (state, dispatch) => {
+  if (isTableSelected(state.selection)) {
+    return deleteTable(state, dispatch);
+  }
+  return false;
 };
 
 export const convertFirstRowToHeader = (schema: Schema) => (

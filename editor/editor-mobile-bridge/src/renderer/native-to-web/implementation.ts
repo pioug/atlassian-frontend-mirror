@@ -199,6 +199,21 @@ class RendererBridgeImplementation
       enabled,
     );
   }
+
+  deleteAnnotation(annotation: Serialized<AnnotationPayload>) {
+    if (typeof annotation === 'string') {
+      try {
+        const payload = JSON.parse(annotation) as AnnotationPayload;
+        if (payload.annotationId && payload.annotationType) {
+          eventDispatcher.emit(EmitterEvents.DELETE_ANNOTATION, payload);
+        }
+      } catch {
+        return;
+      }
+    } else {
+      eventDispatcher.emit(EmitterEvents.DELETE_ANNOTATION, annotation);
+    }
+  }
 }
 
 export default RendererBridgeImplementation;

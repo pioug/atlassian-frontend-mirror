@@ -4,7 +4,7 @@ import {
   UIAnalyticsEvent,
   WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
-import { ButtonProps } from '@atlaskit/button/types';
+import { CustomThemeButtonProps } from '@atlaskit/button/types';
 
 export type ActionType = {
   content: ReactNode;
@@ -60,7 +60,7 @@ export type AutoDismissFlagProps = {
   to allow custom routers to be used. See the
   [button with router](https://atlaskit.atlassian.com/packages/design-system/button/example/ButtonWithRouter)
   example of what this component should look like. */
-  linkComponent?: ComponentType<ButtonProps>;
+  linkComponent?: ComponentType<CustomThemeButtonProps>;
   /** A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests */
   testId?: string;
   /** Additional information to be included in the `context` of analytics events that come from flag */

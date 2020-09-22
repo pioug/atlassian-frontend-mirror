@@ -1461,7 +1461,6 @@ describe('lists', () => {
                     __fileMimeType: 'image/png',
                   })(),
                 ),
-                p(),
               ),
             ),
           ),

@@ -1,5 +1,12 @@
 # @atlaskit/textfield
 
+## 4.0.6
+
+### Patch Changes
+
+- [`6529a49064`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6529a49064) - Removed IE11 and outdated browser-prefixed styles targeting the placeholder attribute
+- Updated dependencies
+
 ## 4.0.5
 
 ### Patch Changes

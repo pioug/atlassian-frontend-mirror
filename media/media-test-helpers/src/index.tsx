@@ -156,3 +156,4 @@ export {
 } from './MockGlobalImage';
 
 export { exampleMediaFeatureFlags } from './example-mediaFeatureFlags';
+export { dataURItoBlob } from './mockData/utils';

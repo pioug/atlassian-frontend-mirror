@@ -6,7 +6,7 @@ import {
   AllSelection,
   EditorState,
 } from 'prosemirror-state';
-import { Decoration, DecorationSet } from 'prosemirror-view';
+import { Decoration, DecorationSet, EditorView } from 'prosemirror-view';
 import { Node as PmNode, ResolvedPos } from 'prosemirror-model';
 import { CellSelection, selectedRect } from 'prosemirror-tables';
 import {
@@ -16,16 +16,14 @@ import {
   findParentNode,
 } from 'prosemirror-utils';
 
-import {
-  akEditorSelectedBgColor,
-  akEditorSelectedBlanketColor,
-  akEditorSelectedBlanketOpacity,
-  akEditorSelectedBorder,
-  akEditorSelectedBorderSize,
-} from '@atlaskit/editor-common';
+import { akEditorSelectedNodeClassName } from '@atlaskit/editor-shared-styles';
 
-import { akEditorSelectedNodeClassName } from '../../styles';
+import { selectNode } from '../../utils/commands';
 import { isEmptyParagraph } from '../../utils/document';
+import {
+  isSelectionAtStartOfNode,
+  isSelectionAtEndOfNode,
+} from '../../utils/selection';
 import {
   AnalyticsEventPayload,
   ACTION,
@@ -35,7 +33,42 @@ import {
 } from '../analytics';
 import { isIgnored as isIgnoredByGapCursor } from '../gap-cursor/utils/is-ignored';
 
-import { SelectionStyle, SelectionPluginState } from './types';
+import { SelectionPluginState } from './types';
+
+export function createSelectionClickHandler(
+  nodes: string[],
+  isValidTarget: (target: HTMLElement) => boolean,
+  options: {
+    useLongPressSelection: boolean;
+    getNodeSelectionPos?: (state: EditorState, nodePos: number) => number;
+  },
+) {
+  return function handleClickOn(
+    view: EditorView,
+    pos: number,
+    node: PmNode,
+    nodePos: number,
+    event: MouseEvent,
+    direct: boolean,
+  ) {
+    if (options.useLongPressSelection) {
+      return false;
+    }
+    if (direct && nodes.indexOf(node.type.name) !== -1) {
+      if (event.target) {
+        const target = event.target as HTMLElement;
+        if (isValidTarget(target)) {
+          const selectionPos = options.getNodeSelectionPos
+            ? options.getNodeSelectionPos(view.state, nodePos)
+            : nodePos;
+          selectNode(selectionPos)(view.state, view.dispatch);
+          return true;
+        }
+      }
+    }
+    return false;
+  };
+}
 
 export const getDecorations = (tr: Transaction): DecorationSet => {
   if (tr.selection instanceof NodeSelection) {
@@ -59,67 +92,6 @@ export const getDecorations = (tr: Transaction): DecorationSet => {
     return DecorationSet.create(tr.doc, decorations);
   }
   return DecorationSet.empty;
-};
-
-/**
- * Adds correct selection styling for a node
- * Pass in which selection style properties you want and it will return css string of necessary styles
- *
- * eg.
- *  .expand.ak-editor-selected-node {
- *    ${getSelectionStyles([SelectionStyle.BoxShadow, SelectionStyle.Blanket])}
- *  }
- *
- */
-export const getSelectionStyles = (
-  selectionStyles: Array<SelectionStyle>,
-): string =>
-  selectionStyles
-    .map(selectionStyle => getSelectionStyle(selectionStyle))
-    .concat(hideNativeBrowserTextSelectionStyles)
-    .join('\n');
-
-const hideNativeBrowserTextSelectionStyles = `
-  ::selection,*::selection {
-    background-color: transparent;
-  }
-  ::-moz-selection,*::-moz-selection {
-    background-color: transparent;
-  }
-`;
-
-const getSelectionStyle = (style: SelectionStyle): string => {
-  switch (style) {
-    case SelectionStyle.Border:
-      return `border: ${akEditorSelectedBorderSize}px solid ${akEditorSelectedBorder};`;
-    case SelectionStyle.BoxShadow:
-      return `
-        box-shadow: 0 0 0 ${akEditorSelectedBorderSize}px ${akEditorSelectedBorder};
-        border-color: transparent;`;
-    case SelectionStyle.Background:
-      return `background-color: ${akEditorSelectedBgColor};`;
-    case SelectionStyle.Blanket:
-      return `
-        position: relative;
-
-        // Fixes ED-9263, where emoji or inline card in panel makes selection go outside the panel
-        // in Safari. Looks like it's caused by user-select: all in the emoji element
-        -webkit-user-select: text;
-
-        ::after {
-          position: absolute;
-          content: '';
-          left: 0;
-          right: 0;
-          top: 0;
-          bottom: 0;
-          opacity: ${akEditorSelectedBlanketOpacity};
-          pointer-events: none;
-          background-color: ${akEditorSelectedBlanketColor}
-        }`;
-    default:
-      return '';
-  }
 };
 
 export function getNodeSelectionAnalyticsPayload(
@@ -409,45 +381,9 @@ export const findLastChildNodeToSelect = (
 export const isSelectionAtStartOfParentNode = (
   $pos: ResolvedPos,
   selection: Selection,
-): boolean => {
-  const parentNode = findSelectableContainerParent(selection);
-  if (!parentNode || parentNode.depth === 0) {
-    return false;
-  }
-
-  for (let i = $pos.depth + 1; i > 0; i--) {
-    const node = $pos.node(i);
-    if (node && node.eq(parentNode.node)) {
-      break;
-    }
-
-    if (i > 1 && $pos.before(i) !== $pos.before(i - 1) + 1) {
-      return false;
-    }
-  }
-
-  return true;
-};
+) => isSelectionAtStartOfNode($pos, findSelectableContainerParent(selection));
 
 export const isSelectionAtEndOfParentNode = (
   $pos: ResolvedPos,
   selection: Selection,
-): boolean => {
-  const parentNode = findSelectableContainerParent(selection);
-  if (!parentNode) {
-    return false;
-  }
-
-  for (let i = $pos.depth + 1; i > 0; i--) {
-    const node = $pos.node(i);
-    if (node && node.eq(parentNode.node)) {
-      break;
-    }
-
-    if (i > 1 && $pos.after(i) !== $pos.after(i - 1) - 1) {
-      return false;
-    }
-  }
-
-  return true;
-};
+) => isSelectionAtEndOfNode($pos, findSelectableContainerParent(selection));

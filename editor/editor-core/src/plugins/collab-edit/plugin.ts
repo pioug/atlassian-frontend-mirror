@@ -1,8 +1,6 @@
 import { Plugin } from 'prosemirror-state';
 import { ProviderFactory } from '@atlaskit/editor-common';
-import { fixTablesKey } from 'prosemirror-tables';
 import { Dispatch } from '../../event-dispatcher';
-import { sendTransaction } from './events/send-transaction';
 import { initialize } from './events/initialize';
 import { PrivateCollabEditOptions, ProviderCallback } from './types';
 import { CollabEditProvider } from './provider';
@@ -31,21 +29,6 @@ export const createPlugin = (
         newEditorState,
       ) {
         const pluginState = prevPluginState.apply(transaction);
-        const pmTablesMeta = transaction.getMeta(fixTablesKey);
-
-        if (
-          !options.sendDataOnViewUpdated &&
-          !(pmTablesMeta && pmTablesMeta.fixTables)
-        ) {
-          collabProviderCallback(
-            sendTransaction({
-              transaction,
-              oldEditorState,
-              newEditorState,
-            }),
-          );
-        }
-
         dispatch(pluginKey, pluginState);
         return pluginState;
       },

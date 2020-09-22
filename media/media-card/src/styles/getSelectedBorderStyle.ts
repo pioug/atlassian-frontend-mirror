@@ -1,5 +1,10 @@
-import { B300 } from '@atlaskit/theme/colors';
 import { borderRadius } from '@atlaskit/media-ui';
+import {
+  getSelectionStyles,
+  SelectionStyle,
+  hideNativeBrowserTextSelectionStyles,
+} from '@atlaskit/editor-shared-styles/selection';
+
 /*
  * Used to display the blue border around a selected card without
  * shrinking the image OR growing the card size
@@ -8,10 +13,9 @@ export const getSelectedBorderStyle = ({
   selected,
 }: {
   selected?: boolean;
-}) => {
-  const border = `border: 1px solid ${selected ? B300 : 'transparent'};`;
+}) => `
+    ${hideNativeBrowserTextSelectionStyles}
 
-  return `
     &::after {
       content: '';
       width: 100%;
@@ -20,8 +24,7 @@ export const getSelectedBorderStyle = ({
       top: 0;
       box-sizing: border-box;
       pointer-events: none;
-      ${borderRadius} 
-      ${border};
+      ${borderRadius}
+      ${selected ? getSelectionStyles([SelectionStyle.Border]) : ''}
     }
   `;
-};

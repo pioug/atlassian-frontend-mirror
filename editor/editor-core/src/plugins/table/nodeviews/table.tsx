@@ -37,8 +37,7 @@ const toDOM = (node: PmNode, props: Props) => {
   let colgroup: DOMOutputSpec = '';
 
   if (props.allowColumnResizing) {
-    // @ts-ignore
-    colgroup = ['colgroup', {}].concat(generateColgroup(node));
+    colgroup = ['colgroup', {}, ...generateColgroup(node)];
   }
 
   return [

@@ -54,3 +54,17 @@ export const searchQuickInsertItems = (
         ),
   );
 };
+
+export const getFeaturedQuickInsertItems = (
+  { providedItems, lazyDefaultItems }: QuickInsertPluginState,
+  options?: QuickInsertPluginOptions,
+) => (): QuickInsertItem[] => {
+  const defaultItems =
+    options && options.disableDefaultItems ? [] : lazyDefaultItems();
+
+  const items = providedItems
+    ? dedupe([...defaultItems, ...providedItems], item => item.title)
+    : defaultItems;
+
+  return items.filter(item => item.featured);
+};

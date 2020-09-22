@@ -23,12 +23,14 @@ import { ActivityProvider, ActivityError } from '@atlaskit/activity-provider';
 import {
   expectToEqual,
   expectFunctionToHaveBeenCalledWith,
-  nextTick,
+  flushPromises,
 } from '@atlaskit/media-test-helpers';
 import { SearchProvider } from '@atlaskit/editor-common';
 import { INPUT_METHOD } from '../../../../analytics';
 import { shallow } from 'enzyme';
 import { LinkSearchListItemData } from '../../../../../ui/LinkSearch/types';
+import { HyperlinkState } from '../../../pm-plugins/main';
+import { sha1 } from '../utils';
 import sinon from 'sinon';
 
 interface SetupArgumentObject {
@@ -39,13 +41,26 @@ interface SetupArgumentObject {
   waitForResolves?: boolean;
   provideActivityProvider?: boolean;
   provideSearchProvider?: boolean;
+  pluginState?: HyperlinkState;
 }
 
 interface Props {
   child: React.ReactChild;
 }
 
-const clock = sinon.useFakeTimers();
+/**
+ * The version of sinon we using is mocking setImmediate
+ * which is unneccessary and will make flushPromise fail
+ * to work
+ * Can replace this with Jest timer when Jest is upgrade to 26
+ */
+const clock = sinon.useFakeTimers(
+  'setTimeout',
+  'clearTimeout',
+  'setInterval',
+  'clearInterval',
+  'Date',
+);
 jest.unmock('lodash/debounce');
 
 jest.mock('date-fns/difference_in_calendar_days', () => {
@@ -55,14 +70,6 @@ jest.mock('date-fns/difference_in_calendar_days', () => {
 jest.mock('date-fns/distance_in_words_to_now', () => ({
   __esModule: true,
   default: () => 'just a minute',
-}));
-
-jest.mock('@atlaskit/editor-common', () => ({
-  startMeasure: () => {},
-  stopMeasure: (
-    _name: string,
-    cb: (duration: number, startTime: number) => void,
-  ) => cb(1, 1),
 }));
 
 class TestingWrapper extends React.Component<Props, {}> {
@@ -98,6 +105,12 @@ describe('HyperlinkAddToolbar', () => {
       recentItemsPromise = Promise.resolve(activityProviderMockResults),
       searchRecentPromise = Promise.resolve(activityProviderMockResults),
       quickSearchPromise = Promise.resolve(searchProviderMockResults),
+      pluginState = {
+        timesViewed: 0,
+        canInsertLink: true,
+        searchSessionId: 'a-unique-id',
+        inputMethod: INPUT_METHOD.SHORTCUT,
+      },
     } = options;
     const createAnalyticsEvent: CreateUIAnalyticsEvent = jest
       .fn()
@@ -150,6 +163,7 @@ describe('HyperlinkAddToolbar', () => {
         activityProvider={activityProviderPromise}
         searchProvider={searchProviderPromise}
         createAnalyticsEvent={createAnalyticsEvent}
+        pluginState={pluginState}
       />,
     );
 
@@ -157,7 +171,7 @@ describe('HyperlinkAddToolbar', () => {
       await activityProviderPromise;
       await searchProviderPromise;
       await recentItemsPromise;
-      await nextTick();
+      await flushPromises();
       component.update();
     }
 
@@ -167,6 +181,14 @@ describe('HyperlinkAddToolbar', () => {
       linkUrlInput.simulate('change', {
         target: { name: undefined, value },
       });
+    };
+
+    const updateInputFieldWithStateUpdated = async (
+      testId: string,
+      value: string,
+    ) => {
+      updateInputField(testId, value);
+      await flushPromises();
     };
 
     const pressReturnInputField = (testId: string) => {
@@ -192,6 +214,7 @@ describe('HyperlinkAddToolbar', () => {
       searchRecentPromise,
       quickSearchPromise,
       updateInputField,
+      updateInputFieldWithStateUpdated,
       pressReturnInputField,
       pressDownArrowInputField,
       createAnalyticsEvent,
@@ -362,7 +385,7 @@ describe('HyperlinkAddToolbar', () => {
     it('should submit with selected activity item when clicked', async () => {
       const { component, onSubmit } = await setup();
 
-      component.find(LinkSearchListItem).at(1).simulate('mousedown');
+      component.find(LinkSearchListItem).at(1).simulate('click');
 
       expect(onSubmit).toHaveBeenCalledTimes(1);
       expect(onSubmit).toHaveBeenCalledWith(
@@ -446,14 +469,13 @@ describe('HyperlinkAddToolbar', () => {
         component,
         onSubmit,
         searchRecentPromise,
-        updateInputField,
+        updateInputFieldWithStateUpdated,
         pressReturnInputField,
       } = await setup({
         searchRecentPromise: Promise.resolve([]),
       });
 
-      updateInputField('link-url', 'example.com');
-
+      await updateInputFieldWithStateUpdated('link-url', 'example.com');
       await searchRecentPromise;
 
       pressReturnInputField('link-url');
@@ -535,9 +557,13 @@ describe('HyperlinkAddToolbar', () => {
         ),
         ...config,
       });
-      const { component, searchRecentPromise, updateInputField } = results;
+      const {
+        component,
+        searchRecentPromise,
+        updateInputFieldWithStateUpdated,
+      } = results;
 
-      updateInputField('link-url', 'some-value');
+      await updateInputFieldWithStateUpdated('link-url', 'some-value');
 
       await searchRecentPromise;
       component.update();
@@ -546,7 +572,13 @@ describe('HyperlinkAddToolbar', () => {
     };
 
     it('should show loading for the search part of the list', async () => {
-      const { component } = await setup2();
+      const { component } = await setup2({
+        quickSearchPromise: new Promise(() => {
+          // We don't want quick search promise to resolve
+          // so that we can stop at the screen where the result
+          // is returned from remote.
+        }),
+      });
 
       expectToEqual(component.find(LinkSearchList).props().isLoading, true);
       expect(component.find(LinkSearchList).props().items).toHaveLength(2);
@@ -825,7 +857,7 @@ describe('HyperlinkAddToolbar', () => {
         searchRecentItems.length,
       );
 
-      firstQuickSearchItem.simulate('mousedown');
+      firstQuickSearchItem.simulate('click');
 
       expectFunctionToHaveBeenCalledWith(onSubmit, [
         quickSearchItems[0].url,
@@ -837,6 +869,334 @@ describe('HyperlinkAddToolbar', () => {
   });
 
   describe('analytics', () => {
+    it('should trigger the Screen Event of "viewed CreateLinkInlineDialog" when HyperLinkToolBar is shown', async () => {
+      const { component, createAnalyticsEvent } = await setup({
+        waitForResolves: false,
+        pluginState: {
+          timesViewed: 5,
+          searchSessionId: 'an-unique-id',
+          canInsertLink: true,
+          inputMethod: INPUT_METHOD.SHORTCUT,
+        },
+      });
+      component.update();
+      expect(createAnalyticsEvent).toBeCalledWith({
+        action: 'viewed',
+        actionSubject: 'createLinkInlineDialog',
+        attributes: {
+          timesViewed: 5,
+          searchSessionId: 'an-unique-id',
+          trigger: 'shortcut',
+        },
+        eventType: 'screen',
+      });
+    });
+
+    it('sould trigger the UI Event of "entered text" when user types in the search bar', async () => {
+      const {
+        component,
+        searchRecentPromise,
+        quickSearchPromise,
+        updateInputFieldWithStateUpdated,
+        createAnalyticsEvent,
+      } = await setup({
+        waitForResolves: true,
+        searchRecentPromise: Promise.resolve(
+          activityProviderMockResults.slice(0, 2),
+        ),
+        quickSearchPromise: Promise.resolve(
+          searchProviderMockResults.slice(0, 3),
+        ),
+      });
+      const query = 'some value';
+      await searchRecentPromise;
+      component.update();
+
+      await updateInputFieldWithStateUpdated('link-url', query);
+      clock.tick(500);
+
+      await quickSearchPromise;
+      component.update();
+
+      expect(createAnalyticsEvent).toBeCalledWith({
+        action: 'entered',
+        actionSubject: 'text',
+        actionSubjectId: 'linkSearchInput',
+        attributes: {
+          source: 'createLinkInlineDialog',
+          queryLength: query.length,
+          queryVersion: 0,
+          queryHash: sha1(query),
+          searchSessionId: 'a-unique-id',
+          wordCount: 2,
+        },
+        nonPrivacySafeAttributes: {
+          query,
+        },
+        eventType: 'ui',
+      });
+    });
+
+    it('sould trigger the UI Event of "entered text" with incremental query version', async () => {
+      const {
+        component,
+        searchRecentPromise,
+        quickSearchPromise,
+        updateInputFieldWithStateUpdated,
+        createAnalyticsEvent,
+      } = await setup({
+        waitForResolves: true,
+        searchRecentPromise: Promise.resolve(
+          activityProviderMockResults.slice(0, 2),
+        ),
+        quickSearchPromise: Promise.resolve(
+          searchProviderMockResults.slice(0, 3),
+        ),
+      });
+      const query = 'some value';
+      await searchRecentPromise;
+      component.update();
+
+      await updateInputFieldWithStateUpdated('link-url', 'first query');
+      clock.tick(500);
+      await quickSearchPromise;
+      component.update();
+
+      // Trigger the search second time should increase
+      // the query version from 0 to 1
+      await updateInputFieldWithStateUpdated('link-url', query);
+      clock.tick(500);
+      await quickSearchPromise;
+      component.update();
+
+      expect(createAnalyticsEvent).toBeCalledWith({
+        action: 'entered',
+        actionSubject: 'text',
+        actionSubjectId: 'linkSearchInput',
+        attributes: {
+          source: 'createLinkInlineDialog',
+          queryLength: query.length,
+          queryVersion: 1,
+          queryHash: sha1(query),
+          searchSessionId: 'a-unique-id',
+          wordCount: 2,
+        },
+        nonPrivacySafeAttributes: {
+          query,
+        },
+        eventType: 'ui',
+      });
+    });
+
+    it('should trigger the UI Event of "show searchResult" (pre-query) when recent activity items are returned', async () => {
+      const {
+        component,
+        createAnalyticsEvent,
+        recentItemsPromise,
+      } = await setup({
+        waitForResolves: true,
+        recentItemsPromise: Promise.resolve(
+          activityProviderMockResults.slice(0, 2),
+        ),
+      });
+      await recentItemsPromise;
+      component.update();
+
+      expect(createAnalyticsEvent).toBeCalledWith({
+        action: 'shown',
+        actionSubject: 'searchResult',
+        actionSubjectId: 'preQuerySearchResults',
+        attributes: {
+          source: 'createLinkInlineDialog',
+          preQueryRequestDurationMs: expect.any(Number),
+          searchSessionId: 'a-unique-id',
+          resultCount: 2,
+          results: [
+            {
+              resultContentId: 'some-activity-id-1',
+              resultType: 'ISSUE',
+            },
+            {
+              resultContentId: 'some-activity-id-2',
+              resultType: 'ISSUE',
+            },
+          ],
+        },
+        eventType: 'ui',
+      });
+    });
+
+    it('should trigger the UI Event of "show searchResult" (post-query) when quick search items are returned', async () => {
+      const {
+        component,
+        createAnalyticsEvent,
+        searchRecentPromise,
+        quickSearchPromise,
+        updateInputFieldWithStateUpdated,
+      } = await setup({
+        waitForResolves: true,
+        searchRecentPromise: Promise.resolve(
+          activityProviderMockResults.slice(0, 2),
+        ),
+        quickSearchPromise: Promise.resolve(
+          searchProviderMockResults.slice(0, 3),
+        ),
+      });
+      const query = 'some value';
+      await searchRecentPromise;
+      component.update();
+
+      await updateInputFieldWithStateUpdated('link-url', query);
+      clock.tick(500);
+
+      await quickSearchPromise;
+      component.update();
+
+      expect(createAnalyticsEvent).toBeCalledWith({
+        action: 'shown',
+        actionSubject: 'searchResult',
+        actionSubjectId: 'postQuerySearchResults',
+        attributes: {
+          source: 'createLinkInlineDialog',
+          postQueryRequestDurationMs: expect.any(Number),
+          searchSessionId: 'a-unique-id',
+          resultCount: 3,
+          results: [
+            {
+              resultContentId: 'some-quick-search-id-1',
+              resultType: 'jira.issue',
+            },
+            {
+              resultContentId: 'some-quick-search-id-2',
+              resultType: 'confluence.page',
+            },
+            {
+              resultContentId: 'some-quick-search-id-3',
+              resultType: 'confluence.blogpost',
+            },
+          ],
+        },
+        eventType: 'ui',
+      });
+    });
+
+    it('should trigger the UI Event of "highlighted searchResult" when items are highlighted using arrow key', async () => {
+      const {
+        component,
+        createAnalyticsEvent,
+        recentItemsPromise,
+        pressDownArrowInputField,
+      } = await setup({
+        waitForResolves: true,
+        recentItemsPromise: Promise.resolve(
+          activityProviderMockResults.slice(0, 2),
+        ),
+      });
+      await recentItemsPromise;
+      component.update();
+
+      pressDownArrowInputField('link-url');
+      await flushPromises();
+
+      expect(createAnalyticsEvent).toBeCalledWith({
+        action: 'highlighted',
+        actionSubject: 'searchResult',
+        attributes: {
+          source: 'createLinkInlineDialog',
+          searchSessionId: 'a-unique-id',
+          selectedResultId: 'some-activity-id-1',
+          selectedRelativePosition: 0,
+        },
+        eventType: 'ui',
+      });
+    });
+
+    it('should trigger the UI Event of "selected searchResult" when an item is selected to insert', async () => {
+      const {
+        component,
+        searchRecentPromise,
+        pressDownArrowInputField,
+        pressReturnInputField,
+        createAnalyticsEvent,
+      } = await setup({
+        waitForResolves: true,
+      });
+
+      await searchRecentPromise;
+      component.update();
+      pressDownArrowInputField('link-url');
+      pressReturnInputField('link-url');
+
+      expect(createAnalyticsEvent).toHaveBeenCalledWith({
+        action: 'selected',
+        actionSubject: 'searchResult',
+        attributes: {
+          source: 'createLinkInlineDialog',
+          searchSessionId: 'a-unique-id',
+          trigger: 'keyboard',
+          resultCount: 5,
+          selectedResultId: 'some-activity-id-1',
+          selectedRelativePosition: 0,
+        },
+        eventType: 'ui',
+      });
+    });
+
+    it('should trigger the UI Event of "dismissed searchResult" when it unmounts', async () => {
+      const {
+        component,
+        searchRecentPromise,
+        createAnalyticsEvent,
+      } = await setup({
+        waitForResolves: true,
+      });
+
+      await searchRecentPromise;
+      component.update();
+      component.unmount();
+
+      expect(createAnalyticsEvent).toHaveBeenCalledWith({
+        action: 'dismissed',
+        actionSubject: 'createLinkInlineDialog',
+        attributes: {
+          source: 'createLinkInlineDialog',
+          searchSessionId: 'a-unique-id',
+          trigger: 'blur',
+        },
+        eventType: 'ui',
+      });
+    });
+
+    it('should NOT trigger the UI Event of "dismissed searchResult" when have item selected', async () => {
+      const {
+        component,
+        searchRecentPromise,
+        pressDownArrowInputField,
+        pressReturnInputField,
+        createAnalyticsEvent,
+      } = await setup({
+        waitForResolves: true,
+      });
+
+      await searchRecentPromise;
+      component.update();
+
+      pressDownArrowInputField('link-url');
+      pressReturnInputField('link-url');
+      component.unmount();
+
+      expect(createAnalyticsEvent).not.toHaveBeenCalledWith({
+        action: 'dismissed',
+        actionSubject: 'createLinkInlineDialog',
+        attributes: {
+          source: 'createLinkInlineDialog',
+          searchSessionId: 'a-unique-id',
+          trigger: 'blur',
+        },
+        eventType: 'ui',
+      });
+    });
+
     it('should trigger the Operational Event of "invoked searchResult" when activityProvider is called', async () => {
       const { component, createAnalyticsEvent } = await setup();
       component.update();
@@ -846,8 +1206,7 @@ describe('HyperlinkAddToolbar', () => {
         actionSubjectId: 'recentActivities',
         attributes: {
           count: 5,
-          duration: 1,
-          startTime: 1,
+          duration: expect.any(Number),
         },
         eventType: 'operational',
       });
@@ -877,10 +1236,99 @@ describe('HyperlinkAddToolbar', () => {
         actionSubjectId: 'recentActivities',
         attributes: {
           count: -1,
-          duration: 1,
-          startTime: 1,
-          error: 'Internal Server Error',
+          duration: expect.any(Number),
           errorCode: 500,
+        },
+        nonPrivacySafeAttributes: {
+          error: 'Internal Server Error',
+        },
+        eventType: 'operational',
+      });
+    });
+
+    it('should trigger the Operational Event of "invoked searchResult" when quickSearch is called', async () => {
+      const {
+        component,
+        searchRecentPromise,
+        quickSearchPromise,
+        updateInputFieldWithStateUpdated,
+        createAnalyticsEvent,
+      } = await setup({
+        waitForResolves: true,
+        searchRecentPromise: Promise.resolve(
+          activityProviderMockResults.slice(0, 2),
+        ),
+        quickSearchPromise: Promise.resolve(
+          searchProviderMockResults.slice(0, 3),
+        ),
+      });
+
+      const query = 'some value';
+      await searchRecentPromise;
+      component.update();
+
+      await updateInputFieldWithStateUpdated('link-url', query);
+      clock.tick(500);
+      await quickSearchPromise;
+      component.update();
+
+      component.update();
+      expect(createAnalyticsEvent).toBeCalledWith({
+        action: 'invoked',
+        actionSubject: 'searchResult',
+        actionSubjectId: 'quickSearch',
+        attributes: {
+          count: 5,
+          duration: expect.any(Number),
+        },
+        eventType: 'operational',
+      });
+    });
+
+    it('should trigger the Operational Event with error message if quick search request fails', async () => {
+      let rejectQuickSearch: any = () => {
+        throw new Error('rejectQuickSearch is not assigned with a value');
+      };
+      const {
+        component,
+        searchRecentPromise,
+        quickSearchPromise,
+        updateInputFieldWithStateUpdated,
+        createAnalyticsEvent,
+      } = await setup({
+        waitForResolves: true,
+        searchRecentPromise: Promise.resolve(
+          activityProviderMockResults.slice(0, 2),
+        ),
+        quickSearchPromise: new Promise((_, reject) => {
+          rejectQuickSearch = () => {
+            reject(new Error('Internal Server Error'));
+          };
+        }),
+      });
+
+      const query = 'some value';
+      await searchRecentPromise;
+      component.update();
+
+      await updateInputFieldWithStateUpdated('link-url', query);
+      clock.tick(500);
+      rejectQuickSearch();
+      try {
+        await quickSearchPromise;
+        component.update();
+      } catch (e) {}
+
+      expect(createAnalyticsEvent).toBeCalledWith({
+        action: 'invoked',
+        actionSubject: 'searchResult',
+        actionSubjectId: 'quickSearch',
+        attributes: {
+          count: -1,
+          duration: expect.any(Number),
+        },
+        nonPrivacySafeAttributes: {
+          error: 'Internal Server Error',
         },
         eventType: 'operational',
       });

@@ -1,8 +1,11 @@
 import { css } from 'styled-components';
+
 import { EmojiSharedCssClassName } from '@atlaskit/editor-common';
-import { akEditorSelectedNodeClassName } from '../../styles';
-import { getSelectionStyles } from '../selection/utils';
-import { SelectionStyle } from '../selection/types';
+import {
+  SelectionStyle,
+  getSelectionStyles,
+  akEditorSelectedNodeClassName,
+} from '@atlaskit/editor-shared-styles';
 
 export const emojiStyles = css`
   .${EmojiSharedCssClassName.EMOJI_CONTAINER} {

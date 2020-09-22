@@ -3,7 +3,8 @@ import { useEffect, useState } from 'react';
 
 import { jsx } from '@emotion/core';
 
-import Button, { ButtonGroup } from '@atlaskit/button';
+import ButtonGroup from '@atlaskit/button/button-group';
+import Button from '@atlaskit/button/custom-theme-button';
 
 import Popup from '../src';
 

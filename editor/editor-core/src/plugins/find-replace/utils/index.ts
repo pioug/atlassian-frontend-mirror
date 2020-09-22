@@ -1,6 +1,6 @@
 import { Fragment, Node as PmNode, Slice } from 'prosemirror-model';
 import { Decoration, DecorationSet } from 'prosemirror-view';
-import { TextSelection, EditorState, Transaction } from 'prosemirror-state';
+import { TextSelection, Transaction, Selection } from 'prosemirror-state';
 import { Step } from 'prosemirror-transform';
 import { Match, TextGrouping } from '../types';
 import { selectedSearchMatchClass, searchMatchClass } from '../styles';
@@ -122,15 +122,16 @@ export const prevIndex = (currentIndex: number, total: number) =>
   (currentIndex - 1 + total) % total;
 
 export const getSelectionForMatch = (
-  state: EditorState,
+  selection: Selection,
+  doc: PmNode,
   index: number,
   matches: Match[],
   offset = 0,
 ): TextSelection => {
   if (matches[index]) {
-    return TextSelection.create(state.doc, matches[index].start + offset);
+    return TextSelection.create(doc, matches[index].start + offset);
   }
-  return state.tr.selection;
+  return selection;
 };
 
 export const findDecorationFromMatch = (

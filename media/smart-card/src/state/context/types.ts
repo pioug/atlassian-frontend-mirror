@@ -12,6 +12,7 @@ export interface CardAuthFlowOpts {
 
 export interface CardContext {
   store: Store<CardStore>;
+  prefetchStore: Record<string, boolean>;
   connections: CardConnections;
   config: CardProviderCacheOpts & CardAuthFlowOpts;
   extractors: {

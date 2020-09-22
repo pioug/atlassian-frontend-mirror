@@ -1,5 +1,15 @@
 # @atlaskit/media-image
 
+## 17.1.0
+
+### Minor Changes
+
+- [`7d831363d9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7d831363d9) - Migrated to declarative entry points
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 17.0.4
 
 ### Patch Changes

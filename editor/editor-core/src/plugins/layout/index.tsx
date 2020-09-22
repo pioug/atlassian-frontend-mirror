@@ -17,13 +17,11 @@ import {
 import { messages } from '../insert-block/ui/ToolbarInsertBlock/messages';
 import { pluginKey } from './pm-plugins/plugin-key';
 import { LayoutState } from './pm-plugins/types';
+import { LayoutPluginOptions } from './types';
 
 export { pluginKey };
 
-const layoutPlugin = (layoutsConfig?: {
-  allowBreakout: boolean;
-  UNSAFE_addSidebarLayouts?: boolean;
-}): EditorPlugin => ({
+const layoutPlugin = (options: LayoutPluginOptions = {}): EditorPlugin => ({
   name: 'layout',
 
   nodes() {
@@ -37,7 +35,7 @@ const layoutPlugin = (layoutsConfig?: {
     return [
       {
         name: 'layout',
-        plugin: () => createLayoutPlugin(layoutsConfig),
+        plugin: () => createLayoutPlugin(options),
       },
     ];
   },

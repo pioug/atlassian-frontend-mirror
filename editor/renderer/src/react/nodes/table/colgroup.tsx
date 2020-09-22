@@ -2,13 +2,15 @@ import React from 'react';
 import { TableLayout } from '@atlaskit/adf-schema';
 
 import {
+  tableCellBorderWidth,
+  tableCellMinWidth,
+} from '@atlaskit/editor-common';
+import {
   akEditorTableNumberColumnWidth,
   akEditorWideLayoutWidth,
   akEditorFullWidthLayoutWidth,
   akEditorTableLegacyCellMinWidth,
-  tableCellBorderWidth,
-  tableCellMinWidth,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-shared-styles';
 
 import { calcLineLength } from '../../../ui/Renderer/breakout-ssr';
 import { SharedTableProps } from './types';

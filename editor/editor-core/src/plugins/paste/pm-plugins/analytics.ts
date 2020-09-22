@@ -26,6 +26,7 @@ import {
   handleMarkdown,
   handleRichText,
   handleExpand,
+  handleSelectedTable,
 } from '../handlers';
 import { Command } from '../../../types';
 import { pipe } from '../../../utils';
@@ -381,6 +382,18 @@ export const handleExpandWithAnalytics = (
 ): Command =>
   pipe(
     handleExpand,
+    pasteCommandWithAnalytics(view, event, slice, {
+      type: PasteTypes.richText,
+    }),
+  )(slice);
+
+export const handleSelectedTableWithAnalytics = (
+  view: EditorView,
+  event: ClipboardEvent,
+  slice: Slice,
+): Command =>
+  pipe(
+    handleSelectedTable,
     pasteCommandWithAnalytics(view, event, slice, {
       type: PasteTypes.richText,
     }),

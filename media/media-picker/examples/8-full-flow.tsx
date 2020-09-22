@@ -12,7 +12,7 @@ import {
   FileIdentifier,
   ExternalImageIdentifier,
 } from '@atlaskit/media-client';
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
 import Select, { ValueType } from '@atlaskit/select';
 import { SelectWrapper, OptionsWrapper } from '../example-helpers/styled';
 import { MediaPicker } from '../src';

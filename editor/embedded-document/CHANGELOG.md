@@ -1,5 +1,12 @@
 # @atlaskit/embedded-document
 
+## 0.7.6
+
+### Patch Changes
+
+- [`78b192acc9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/78b192acc9) - ED-10169 Update imports for style constants from @atlaskit/editor-common to @atlaskit/editor-shared-styles
+- Updated dependencies
+
 ## 0.7.5
 
 ### Patch Changes

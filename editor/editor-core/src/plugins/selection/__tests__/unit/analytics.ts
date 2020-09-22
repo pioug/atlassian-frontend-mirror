@@ -169,6 +169,8 @@ describe('selection analytics', () => {
 
     describe('via click and drag', () => {
       rangeSelectionTests((from: number, to: number) => {
+        // this will be set in EditorView when a real mousedown event is fired
+        (editorView as any).mouseDown = true;
         setTextSelection(editorView, from, to);
         plugin.props.handleDOMEvents!.mouseup(
           editorView,
@@ -216,6 +218,8 @@ describe('selection analytics', () => {
 
     describe('via click and drag', () => {
       cellSelectionTests((from: number, to: number) => {
+        // this will be set in EditorView when a real mousedown event is fired
+        (editorView as any).mouseDown = true;
         setCellSelection(editorView, from, to);
         plugin.props.handleDOMEvents!.mouseup(
           editorView,
@@ -224,9 +228,8 @@ describe('selection analytics', () => {
       });
     });
 
-    describe('via shift + arrow keys/shift + click', () => {
+    describe('via arrow keys/clicking table controls/shift + arrow keys/shift + click', () => {
       cellSelectionTests((from: number, to: number) => {
-        (editorView as any).shiftKey = true;
         setCellSelection(editorView, from, to);
       });
     });

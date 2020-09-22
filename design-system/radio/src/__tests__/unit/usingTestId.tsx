@@ -15,10 +15,8 @@ describe('Radio should be found by data-testid', () => {
     const { getByTestId } = render(<RadioGroup options={options} />);
 
     options.forEach(({ testId }) => {
-      const radio = getByTestId(
-        (testId as string) + '--hidden-radio',
-      ) as HTMLInputElement;
-      const label = getByTestId((testId as string) + '--radio-label');
+      const radio = getByTestId(testId + '--radio-input') as HTMLInputElement;
+      const label = getByTestId(testId + '--radio-label');
       expect(radio.checked).toBeFalsy();
       label.click();
       expect(radio.checked).toBeTruthy();

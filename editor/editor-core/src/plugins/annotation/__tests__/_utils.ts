@@ -5,6 +5,7 @@ export const annotationSelectors = {
   floatingToolbarCreate: `[data-testid="${AnnotationTestIds.floatingToolbarCreateButton}"]`,
   component: `[data-testid="${AnnotationTestIds.floatingComponent}"]`,
   componentSave: `[data-testid="${AnnotationTestIds.componentSave}"]`,
+  componentClose: `[data-testid="${AnnotationTestIds.componentClose}"]`,
 };
 
 export const selectorById = (id: string) => `[data-testid="${id}"]`;

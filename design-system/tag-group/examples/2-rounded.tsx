@@ -64,7 +64,7 @@ export default () => (
         href="http://www.cupcakeipsum.com/"
         key={sweet}
         text={sweet}
-        removeButtonText="remove"
+        removeButtonLabel="remove"
       />
     ))}
   </TagGroup>

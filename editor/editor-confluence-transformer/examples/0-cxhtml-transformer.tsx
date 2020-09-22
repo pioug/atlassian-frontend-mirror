@@ -2,7 +2,8 @@ import styled from 'styled-components';
 import React from 'react';
 import { Component } from 'react';
 import { pd } from 'pretty-data';
-import Button, { ButtonGroup } from '@atlaskit/button';
+import ButtonGroup from '@atlaskit/button/button-group';
+import Button from '@atlaskit/button/custom-theme-button';
 import {
   Editor,
   EditorContext,

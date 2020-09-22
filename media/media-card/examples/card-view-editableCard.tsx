@@ -262,7 +262,7 @@ export const generateStoriesForEditableCards = () => {
                 <div>
                   Width ({width}) | Percentage
                   <Toggle
-                    isDefaultChecked={isWidthPercentage}
+                    defaultChecked={isWidthPercentage}
                     onChange={this.onWidthPercentageChange}
                   />
                   <Slider
@@ -275,7 +275,7 @@ export const generateStoriesForEditableCards = () => {
                 <div>
                   Height ({height}) | Percentage
                   <Toggle
-                    isDefaultChecked={isHeightPercentage}
+                    defaultChecked={isHeightPercentage}
                     onChange={this.onHeightPercentageChange}
                   />
                   <Slider
@@ -291,7 +291,7 @@ export const generateStoriesForEditableCards = () => {
                 <div>
                   Has width
                   <Toggle
-                    isDefaultChecked={doesParentHasWidth}
+                    defaultChecked={doesParentHasWidth}
                     onChange={this.onDoesParentHasWidthChange}
                   />
                 </div>
@@ -318,7 +318,7 @@ export const generateStoriesForEditableCards = () => {
                 <div>
                   Is inline-block
                   <Toggle
-                    isDefaultChecked={isParentInlineBlock}
+                    defaultChecked={isParentInlineBlock}
                     onChange={this.onIsParentInlineBlockChange}
                   />
                 </div>
@@ -362,32 +362,32 @@ export const generateStoriesForEditableCards = () => {
               <div>
                 Selectable
                 <Toggle
-                  isDefaultChecked={selectable}
+                  defaultChecked={selectable}
                   onChange={this.onSelectableChange}
                 />
                 <hr />
                 Selected
                 <Toggle
-                  isDefaultChecked={selected}
+                  defaultChecked={selected}
                   onChange={this.onSelectedChange}
                 />
               </div>
               <div>
                 On click
                 <Toggle
-                  isDefaultChecked={isClickHandlerActive}
+                  defaultChecked={isClickHandlerActive}
                   onChange={this.onClickChange}
                 />
                 <hr />
                 On mouse enter
                 <Toggle
-                  isDefaultChecked={isMouseEnterHandlerActive}
+                  defaultChecked={isMouseEnterHandlerActive}
                   onChange={this.onMouseEnterChange}
                 />
                 <hr />
                 use dimensions
                 <Toggle
-                  isDefaultChecked={useDimensions}
+                  defaultChecked={useDimensions}
                   onChange={this.onUseDimensionsChange}
                 />
               </div>

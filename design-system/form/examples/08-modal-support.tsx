@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
 import { Checkbox } from '@atlaskit/checkbox';
 import RadioGroup, { AkRadio } from '@atlaskit/field-radio-group';
 import ModalDialog, {

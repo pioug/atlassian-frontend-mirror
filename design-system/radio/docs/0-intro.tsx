@@ -73,15 +73,8 @@ export default md`
 
   ${(
     <Props
-      props={require('!!extract-react-types-loader!../src/Radio')}
+      props={require('!!extract-react-types-loader!../extract-react-types/radio-props')}
       heading="Radio Props"
-    />
-  )}
-
-  ${(
-    <Props
-      props={require('!!extract-react-types-loader!../src/RadioIcon')}
-      heading="RadioIcon Props"
     />
   )}
 `;

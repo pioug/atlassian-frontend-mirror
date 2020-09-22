@@ -6,12 +6,11 @@ import {
 } from 'prosemirror-utils';
 import { EditorState, Selection, Transaction } from 'prosemirror-state';
 import { RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema';
+import { calcPxFromPct, wrappedLayouts } from '@atlaskit/editor-common';
 import {
-  calcPxFromPct,
-  breakoutWideScaleRatio,
   akEditorBreakoutPadding,
-  wrappedLayouts,
-} from '@atlaskit/editor-common';
+  breakoutWideScaleRatio,
+} from '@atlaskit/editor-shared-styles';
 import { checkNodeDown, isEmptyParagraph } from '../../../utils';
 import { copyOptionalAttrsFromMediaState } from '../utils/media-common';
 import { MediaState } from '../types';

@@ -8,6 +8,7 @@ export const mocks = {
       access: 'granted',
       auth: [],
       definitionId: 'd1',
+      key: 'object-provider',
     },
     data: {
       '@context': {
@@ -36,6 +37,7 @@ export const mocks = {
       access: 'forbidden',
       auth: [],
       definitionId: 'd1',
+      key: 'object-provider',
     },
     data: {
       '@context': {
@@ -60,6 +62,7 @@ export const mocks = {
         },
       ],
       definitionId: 'd1',
+      key: 'object-provider',
     },
     data: {
       '@context': {
@@ -84,6 +87,7 @@ export const mocks = {
         },
       ],
       definitionId: 'd1',
+      key: 'object-provider',
     },
     data: {
       '@context': {
@@ -113,6 +117,7 @@ export const fakeResponse = () => Promise.resolve(mocks.success);
 export const fakeFactory: any = (
   implementation: () => Promise<JsonLd.Response>,
   implementationPost: () => Promise<JsonLd.Response>,
+  implementationPrefetch: () => Promise<JsonLd.Response | undefined>,
 ) =>
   class CustomClient extends CardClient {
     async fetchData() {
@@ -121,6 +126,10 @@ export const fakeFactory: any = (
 
     async postData() {
       return await implementationPost();
+    }
+
+    async prefetchData() {
+      return await implementationPrefetch();
     }
   };
 

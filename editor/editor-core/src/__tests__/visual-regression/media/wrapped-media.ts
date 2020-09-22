@@ -3,6 +3,10 @@ import { snapshot, initFullPageEditorWithAdf } from '../_utils';
 import * as wrappedMediaAdf from './__fixtures__/wrapped-media.adf.json';
 import * as wrappedInBlockMedia from './__fixtures__/wrapped-in-block-media.adf.json';
 import * as singleWrappedMedia from './__fixtures__/single-wrapped-media.adf.json';
+import * as wrappedMediaTextAdf from './__fixtures__/wrapped-media-text.adf.json';
+import * as wrappedMediaTextSplitAdf from './__fixtures__/wrapped-media-text-split.adf.json';
+import * as wrappedMediaTextLayoutAdf from './__fixtures__/wrapped-media-text-layout.adf.json';
+import * as wrappedMediaTextLayoutSplitAdf from './__fixtures__/wrapped-media-text-layout-split.adf.json';
 import { waitForMediaToBeLoaded } from '../../__helpers/page-objects/_media';
 import * as nonResizableMedia from './__fixtures__/non-resizable-media.adf.json';
 import { pressKey } from '../../__helpers/page-objects/_keyboard';
@@ -70,6 +74,42 @@ describe('Snapshot Test: Wrapped media', () => {
     await snapshot(page);
   });
 
+  it('should render 2 media items in 1 line when wrapped with text in between', async () => {
+    await initFullPageEditorWithAdf(
+      page,
+      wrappedMediaTextAdf,
+      undefined,
+      viewport,
+      {
+        media: {
+          allowMediaSingle: true,
+          allowResizing: true,
+          allowMediaGroup: true,
+        },
+      },
+    );
+    await waitForMediaToBeLoaded(page);
+    await snapshot(page);
+  });
+
+  it('should render 2 media items in 2 lines when wrapped with a large enough width', async () => {
+    await initFullPageEditorWithAdf(
+      page,
+      wrappedMediaTextSplitAdf,
+      undefined,
+      viewport,
+      {
+        media: {
+          allowMediaSingle: true,
+          allowResizing: true,
+          allowMediaGroup: true,
+        },
+      },
+    );
+    await waitForMediaToBeLoaded(page);
+    await snapshot(page);
+  });
+
   it('should render wrapping as alignment when viewport is less than 410px', async () => {
     await initFullPageEditorWithAdf(page, singleWrappedMedia, undefined, {
       width: 390,
@@ -77,5 +117,43 @@ describe('Snapshot Test: Wrapped media', () => {
     });
     await waitForMediaToBeLoaded(page);
     await snapshot(page);
+  });
+
+  describe('layout', () => {
+    it('should render 2 media items in 1 line when wrapped with text in between', async () => {
+      await initFullPageEditorWithAdf(
+        page,
+        wrappedMediaTextLayoutAdf,
+        undefined,
+        viewport,
+        {
+          media: {
+            allowMediaSingle: true,
+            allowResizing: true,
+            allowMediaGroup: true,
+          },
+        },
+      );
+      await waitForMediaToBeLoaded(page);
+      await snapshot(page);
+    });
+
+    it('should render 2 media items in 2 lines when wrapped with a large enough width', async () => {
+      await initFullPageEditorWithAdf(
+        page,
+        wrappedMediaTextLayoutSplitAdf,
+        undefined,
+        viewport,
+        {
+          media: {
+            allowMediaSingle: true,
+            allowResizing: true,
+            allowMediaGroup: true,
+          },
+        },
+      );
+      await waitForMediaToBeLoaded(page);
+      await snapshot(page);
+    });
   });
 });

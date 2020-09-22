@@ -1,14 +1,15 @@
 import React, {
-  Component,
+  ChangeEvent,
   Fragment,
-  ReactComponentElement,
   SyntheticEvent,
+  useCallback,
+  useState,
 } from 'react';
+
+import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 import Radio from './Radio';
 import { OptionPropType, OptionsPropType, RadioValue } from './types';
-
-/* eslint-disable react/no-array-index-key */
 
 export interface RadioGroupProps {
   /** Once set, controls the selected value on the `RadioGroup` */
@@ -19,84 +20,74 @@ export interface RadioGroupProps {
   isDisabled?: boolean;
   /** Sets the required state of all `Radio` elements in the group */
   isRequired?: boolean;
-  /** An array of objects, each object is mapped onto a `Radio` element within the group */
+  /** An array of objects, each object is mapped onto a `Radio` element within the group. Name must be unique to the group. */
   options: OptionsPropType;
   /** Function that gets fired after each invalid event */
   onInvalid?: (event: SyntheticEvent<any>) => void;
   /** Function that gets after each change event */
-  onChange?: React.ChangeEventHandler<HTMLInputElement>;
+  onChange?: (
+    e: React.ChangeEvent<HTMLInputElement>,
+    analyticsEvent: UIAnalyticsEvent,
+  ) => void;
   /** Sets the `name` prop on each of the `Radio` elements in the group */
   name?: string;
-  [key: string]: any;
+  /** Additional information to be included in the `context` of analytics events that come from radio */
+  analyticsContext?: Record<string, any>;
 }
 
-type RadioElementArray = Array<ReactComponentElement<typeof Radio>>;
+const noop = () => {};
+const noOptions: OptionsPropType = [];
 
-interface State {
-  value?: RadioValue | null;
-  [key: string]: RadioValue | null | undefined;
-}
+export default function RadioGroup(props: RadioGroupProps) {
+  const {
+    onChange,
+    options = noOptions,
+    value: propValue,
+    defaultValue,
+    isDisabled,
+    isRequired,
+    onInvalid = noop,
+    name,
+    analyticsContext,
+  } = props;
 
-export default class RadioGroup extends Component<RadioGroupProps, State> {
-  static defaultProps = {
-    onChange: () => {},
-    options: [],
-  };
+  const [selectedValue, setSelectedValue] = useState<
+    RadioValue | undefined | null
+  >(propValue !== undefined ? propValue : defaultValue);
 
-  constructor(props: RadioGroupProps) {
-    super(props);
-    this.state = {
-      value:
-        this.props.value !== undefined
-          ? this.props.value
-          : this.props.defaultValue,
-    };
-  }
+  const onRadioChange = useCallback(
+    (e: ChangeEvent<HTMLInputElement>, analyticsEvent: UIAnalyticsEvent) => {
+      setSelectedValue(e.currentTarget.value);
+      if (onChange) {
+        onChange(e, analyticsEvent);
+      }
+    },
+    [onChange],
+  );
 
-  getProp = (key: string) => {
-    return this.props[key] ? this.props[key] : this.state[key];
-  };
-
-  onChange: React.ChangeEventHandler<HTMLInputElement> = event => {
-    this.setState({
-      value: event.currentTarget.value,
-    });
-
-    this.props.onChange!(event);
-  };
-
-  buildOptions = (): RadioElementArray => {
-    const { options, isDisabled, isRequired, onInvalid, name } = this.props;
-    const value = this.getProp('value');
-    if (!options.length) {
-      return [];
-    }
-
-    return options.map(
-      ({ testId, ...optionProps }: OptionPropType, index: number) => {
+  // If propValue is provided than act as a controlled component
+  // If not then act as an uncontrolled component using the value from state
+  const value = typeof propValue !== 'undefined' ? propValue : selectedValue;
+  return (
+    <Fragment>
+      {options.map(({ ...optionProps }: OptionPropType, index: number) => {
         if (typeof isDisabled !== 'undefined') {
           optionProps.isDisabled = isDisabled;
         }
-        if (value !== null && optionProps.value === value) {
-          optionProps.isChecked = true;
-        }
+        const isChecked = value != null && optionProps.value === value;
         return (
           <Radio
             {...optionProps}
             name={name || optionProps.name}
             key={index}
-            onChange={this.onChange}
+            onChange={onRadioChange}
             onInvalid={onInvalid}
+            isChecked={isChecked}
             isRequired={isRequired}
-            testId={testId}
+            analyticsContext={analyticsContext}
           />
         );
-      },
-    );
-  };
-
-  render() {
-    const options = this.buildOptions();
-    return <Fragment>{options}</Fragment>;
-  }
+      })}
+    </Fragment>
+  );
 }

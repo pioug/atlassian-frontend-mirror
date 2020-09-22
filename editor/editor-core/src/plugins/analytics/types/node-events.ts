@@ -5,14 +5,7 @@ import {
   ACTION,
   ACTION_SUBJECT_ID,
 } from './enums';
-
-export enum PANEL_TYPE {
-  INFO = 'info',
-  SUCCESS = 'success',
-  NOTE = 'note',
-  WARNING = 'warning',
-  ERROR = 'error',
-}
+import { PanelType } from '@atlaskit/adf-schema';
 
 export enum LAYOUT_TYPE {
   TWO_COLS_EQUAL = 'twoColumnsEqual',
@@ -39,7 +32,7 @@ type ChangePanelAEP = TrackAEP<
   ACTION.CHANGED_TYPE,
   ACTION_SUBJECT.PANEL,
   undefined,
-  { newType: PANEL_TYPE; previousType: PANEL_TYPE },
+  { newType: PanelType; previousType: PanelType },
   undefined
 >;
 

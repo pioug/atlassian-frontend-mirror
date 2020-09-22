@@ -5,13 +5,15 @@ import {
 } from 'prosemirror-utils';
 import { RichMediaLayout } from '@atlaskit/adf-schema';
 import {
-  akEditorWideLayoutWidth,
   calcPxFromColumns,
   calcPctFromPx,
-  akEditorBreakoutPadding,
   calcColumnsFromPx,
   wrappedLayouts,
 } from '@atlaskit/editor-common';
+import {
+  akEditorWideLayoutWidth,
+  akEditorBreakoutPadding,
+} from '@atlaskit/editor-shared-styles';
 
 import { Wrapper } from '../../../ui/Resizer/styled';
 import { Props, EnabledHandles } from '../../../ui/Resizer/types';

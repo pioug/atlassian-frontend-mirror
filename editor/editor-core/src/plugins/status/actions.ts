@@ -21,6 +21,7 @@ import { TOOLBAR_MENU_TYPE } from '../insert-block/ui/ToolbarInsertBlock/types';
 
 import { pluginKey } from './plugin-key';
 import { StatusType } from './types';
+import { findParentNodeOfType } from 'prosemirror-utils';
 
 export const DEFAULT_STATUS: StatusType = {
   text: '',
@@ -72,15 +73,25 @@ export const updateStatus = (status?: StatusType): Command => (
     const statusNode = schema.nodes.status.createChecked(statusProps);
     const fragment = Fragment.fromArray([statusNode, state.schema.text(' ')]);
 
-    const newShowStatusPickerAt = tr.selection.from;
-    tr = tr.replaceWith(newShowStatusPickerAt, newShowStatusPickerAt, fragment);
-    tr = tr.setSelection(NodeSelection.create(tr.doc, newShowStatusPickerAt));
-    tr = tr
-      .setMeta(pluginKey, {
-        showStatusPickerAt: newShowStatusPickerAt,
-        isNew: true,
-      })
-      .scrollIntoView();
+    // if cursor is inside codeBlock, create status after codeBlock in a new paragraph
+    let newStatusPos;
+    const codeBlock = findParentNodeOfType(state.schema.nodes.codeBlock)(
+      tr.selection,
+    );
+    if (codeBlock) {
+      newStatusPos = tr.doc.resolve(codeBlock.start).end() + 1;
+    } else {
+      newStatusPos = tr.selection.from;
+    }
+    tr.insert(newStatusPos, fragment);
+    if (codeBlock) {
+      newStatusPos += 1;
+    }
+    tr.setSelection(NodeSelection.create(tr.doc, newStatusPos));
+    tr.setMeta(pluginKey, {
+      showStatusPickerAt: newStatusPos,
+      isNew: true,
+    }).scrollIntoView();
     if (dispatch) {
       dispatch(tr);
     }
@@ -88,9 +99,10 @@ export const updateStatus = (status?: StatusType): Command => (
   }
 
   if (state.doc.nodeAt(showStatusPickerAt)) {
-    tr = tr.setNodeMarkup(showStatusPickerAt, schema.nodes.status, statusProps);
-    tr = tr.setSelection(NodeSelection.create(tr.doc, showStatusPickerAt));
-    tr = tr.setMeta(pluginKey, { showStatusPickerAt }).scrollIntoView();
+    tr.setNodeMarkup(showStatusPickerAt, schema.nodes.status, statusProps)
+      .setSelection(NodeSelection.create(tr.doc, showStatusPickerAt))
+      .setMeta(pluginKey, { showStatusPickerAt })
+      .scrollIntoView();
 
     if (dispatch) {
       dispatch(tr);

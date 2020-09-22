@@ -29,25 +29,29 @@ import {
 } from '../types/validatorTypes';
 
 function mapMarksItems(spec: ValidatorSpec, fn = (x: any) => x) {
-  const { items, ...rest } = spec.props!.marks!;
-  return {
-    ...spec,
-    props: {
-      ...spec.props,
-      marks: {
-        ...rest,
-        /**
-         * `Text & MarksObject<Mark-1>` produces `items: ['mark-1']`
-         * `Text & MarksObject<Mark-1 | Mark-2>` produces `items: [['mark-1', 'mark-2']]`
-         */
-        items: items.length
-          ? Array.isArray(items[0])
-            ? items.map(fn)
-            : [fn(items)]
-          : [[]],
+  if (spec.props && spec.props.marks) {
+    const { items, ...rest } = spec.props!.marks!;
+    return {
+      ...spec,
+      props: {
+        ...spec.props,
+        marks: {
+          ...rest,
+          /**
+           * `Text & MarksObject<Mark-1>` produces `items: ['mark-1']`
+           * `Text & MarksObject<Mark-1 | Mark-2>` produces `items: [['mark-1', 'mark-2']]`
+           */
+          items: items.length
+            ? Array.isArray(items[0])
+              ? items.map(fn)
+              : [fn(items)]
+            : [[]],
+        },
       },
-    },
-  };
+    };
+  } else {
+    return spec;
+  }
 }
 
 const partitionObject = <T extends { [key: string]: any }>(
@@ -921,7 +925,13 @@ export function validator(
     if (validatorSpec.props.content) {
       const contentValidatorSpec = validatorSpec.props.content;
       if (prevEntity.content) {
-        const validateChildNode = (child: ADFEntity, index: any) => {
+        const validateChildNode = (
+          child: ADFEntity | undefined,
+          index: any,
+        ) => {
+          if (child === undefined) {
+            return child;
+          }
           const validateChildMarks = (
             childEntity: ADFEntity | undefined,
             marksValidationOutput: MarkValidationResult[] | undefined,

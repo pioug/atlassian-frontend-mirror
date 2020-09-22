@@ -6,7 +6,8 @@ import { getSelectionRect, isTableSelected } from 'prosemirror-utils';
 import { EditorView } from 'prosemirror-view';
 import { createPortal } from 'react-dom';
 
-import { akEditorTableNumberColumnWidth, Popup } from '@atlaskit/editor-common';
+import { Popup } from '@atlaskit/editor-common';
+import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
 
 import { closestElement } from '../../../../utils/dom';
 import { INPUT_METHOD } from '../../../analytics';

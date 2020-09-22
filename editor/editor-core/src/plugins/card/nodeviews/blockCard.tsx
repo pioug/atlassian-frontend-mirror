@@ -85,16 +85,17 @@ export class BlockCardComponent extends React.PureComponent<SmartCardProps> {
         {this.gapCursorSpan()}
       </>
     );
-
+    // [WS-2307]: we only render card wrapped into a Provider when the value is ready,
+    // otherwise if we got data, we can render the card directly since it doesn't need the Provider
     return (
       <div>
-        {cardContext ? (
+        {cardContext && cardContext.value ? (
           <cardContext.Provider value={cardContext.value}>
             {cardInner}
           </cardContext.Provider>
-        ) : (
+        ) : data ? (
           cardInner
-        )}
+        ) : null}
       </div>
     );
   }

@@ -3,13 +3,6 @@ import { DecorationSet } from 'prosemirror-view';
 
 export const selectionPluginKey = new PluginKey('selection');
 
-export enum SelectionStyle {
-  Border,
-  BoxShadow,
-  Background,
-  Blanket,
-}
-
 export enum RelativeSelectionPos {
   Before = 'Before',
   Start = 'Start',
@@ -34,6 +27,9 @@ export interface SelectionPluginState {
   selectionRelativeToNode?: RelativeSelectionPos;
 }
 
-export interface SelectionPluginOptions {
+export interface LongPressSelectionPluginOptions {
   useLongPressSelection?: boolean;
 }
+
+export interface SelectionPluginOptions
+  extends LongPressSelectionPluginOptions {}

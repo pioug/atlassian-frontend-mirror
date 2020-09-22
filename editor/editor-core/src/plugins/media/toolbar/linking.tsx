@@ -1,36 +1,18 @@
 import React from 'react';
-import LinkIcon from '@atlaskit/icon/glyph/editor/link';
-import OpenIcon from '@atlaskit/icon/glyph/shortcut';
 import { EditorState } from 'prosemirror-state';
 import { InjectedIntl } from 'react-intl';
 import { ProviderFactory } from '@atlaskit/editor-common';
-import { isSafeUrl } from '@atlaskit/adf-schema';
-import { Command } from '../../../types';
-import {
-  ACTION,
-  ACTION_SUBJECT,
-  ACTION_SUBJECT_ID,
-  addAnalytics,
-  EVENT_TYPE,
-} from '../../analytics';
-import {
-  FloatingToolbarConfig,
-  FloatingToolbarItem,
-} from '../../floating-toolbar/types';
-import {
-  hideLinkingToolbar,
-  setUrlToMedia,
-  showLinkingToolbar,
-  unlink,
-} from '../commands/linking';
+
+import { FloatingToolbarConfig } from '../../floating-toolbar/types';
+import { hideLinkingToolbar, setUrlToMedia, unlink } from '../commands/linking';
 import { getMediaLinkingState, MediaLinkingState } from '../pm-plugins/linking';
-import { linkToolbarMessages, linkMessages } from '../../../messages';
+
 import MediaLinkingToolbar from '../ui/MediaLinkingToolbar';
 import {
   RECENT_SEARCH_HEIGHT_IN_PX,
   RECENT_SEARCH_WIDTH_IN_PX,
 } from '../../../ui/LinkSearch/ToolbarComponents';
-import { ToolTipContent, addLink } from '../../../keymaps';
+
 import { MediaToolbarBaseConfig } from '../types';
 
 export function shouldShowMediaLinkToolbar(editorState: EditorState): boolean {
@@ -52,71 +34,6 @@ export function shouldShowMediaLinkToolbar(editorState: EditorState): boolean {
 
   return parent && parent.type.allowsMarkType(link);
 }
-
-export const buildLinkingButtons = (
-  state: EditorState,
-  intl: InjectedIntl,
-): Array<FloatingToolbarItem<Command>> => {
-  const mediaLinkingState = getMediaLinkingState(state);
-  const isValidUrl = isSafeUrl(mediaLinkingState.link);
-  let title;
-
-  if (mediaLinkingState.editable) {
-    title = intl.formatMessage(linkToolbarMessages.editLink);
-
-    return [
-      {
-        type: 'button',
-        onClick: showLinkingToolbar,
-        selected: false,
-        title,
-        showTitle: true,
-        tooltipContent: <ToolTipContent description={title} keymap={addLink} />,
-      },
-      { type: 'separator' },
-      {
-        type: 'button',
-        target: '_blank',
-        href: isValidUrl ? mediaLinkingState.link : undefined,
-        disabled: !isValidUrl,
-        onClick: (state, dispatch) => {
-          // Track if is visited
-          if (dispatch) {
-            dispatch(
-              addAnalytics(state, state.tr, {
-                eventType: EVENT_TYPE.TRACK,
-                action: ACTION.VISITED,
-                actionSubject: ACTION_SUBJECT.MEDIA_SINGLE,
-                actionSubjectId: ACTION_SUBJECT_ID.MEDIA_LINK,
-              }),
-            );
-          }
-          return true;
-        },
-        selected: false,
-        title: intl.formatMessage(
-          isValidUrl
-            ? linkMessages.openLink
-            : linkToolbarMessages.unableToOpenLink,
-        ),
-        icon: OpenIcon,
-        className: 'hyperlink-open-link',
-      },
-    ];
-  }
-
-  title = intl.formatMessage(linkToolbarMessages.addLink);
-
-  return [
-    {
-      type: 'button',
-      icon: LinkIcon,
-      title,
-      onClick: showLinkingToolbar,
-      tooltipContent: <ToolTipContent description={title} keymap={addLink} />,
-    },
-  ];
-};
 
 export const getLinkingToolbar = (
   toolbarBaseConfig: MediaToolbarBaseConfig,

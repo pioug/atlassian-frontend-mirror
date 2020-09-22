@@ -34,7 +34,7 @@ export interface StatefulProps extends BaseProps {
   /** Whether the toggle is initially checked or not
    * After initial mount whether the component is checked or not is
    * controlled by the component */
-  isDefaultChecked: boolean;
+  defaultChecked: boolean;
 }
 
 export interface StatelessProps extends BaseProps {

@@ -246,6 +246,7 @@ const AvatarGroup = ({
   return (
     <Group testId={testId && `${testId}--avatar-group`}>
       {data.slice(0, maxAvatar).map((avatarData, idx) => {
+        const callback = avatarData.onClick || onAvatarClick;
         const finalAvatar = getOverrides(overrides).Avatar.render(
           avatar,
           {
@@ -253,13 +254,11 @@ const AvatarGroup = ({
             size,
             borderColor,
             testId: testId && `${testId}--avatar-${idx}`,
-            onClick: (event, analyticsEvent) => {
-              const callback = avatarData.onClick || onAvatarClick;
-
-              if (callback) {
-                callback(event, analyticsEvent, idx);
-              }
-            },
+            onClick: callback
+              ? (event, analyticsEvent) => {
+                  callback(event, analyticsEvent, idx);
+                }
+              : undefined,
             stackIndex: max - idx,
           },
           idx,

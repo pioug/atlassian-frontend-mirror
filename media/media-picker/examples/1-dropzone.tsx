@@ -8,7 +8,7 @@ import {
   createStorybookMediaClientConfig,
   fakeMediaClient,
 } from '@atlaskit/media-test-helpers';
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
 import Toggle from '@atlaskit/toggle';
 import Spinner from '@atlaskit/spinner';
 import { FileState } from '@atlaskit/media-client';
@@ -172,11 +172,11 @@ class DropzoneWrapper extends Component<{}, DropzoneWrapperState> {
           <Button appearance="danger">Cancel uploads</Button>
           Connected to users collection
           <Toggle
-            isDefaultChecked={isConnectedToUsersCollection}
+            defaultChecked={isConnectedToUsersCollection}
             onChange={this.onConnectionChange}
           />
           Active
-          <Toggle isDefaultChecked={isActive} onChange={this.onActiveChange} />
+          <Toggle defaultChecked={isActive} onChange={this.onActiveChange} />
         </PopupHeader>
         <DropzoneContentWrapper>
           <DropzoneContainer

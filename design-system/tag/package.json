@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/tag",
-  "version": "10.0.4",
+  "version": "11.0.0",
   "description": "A tag labels UI objects for quick recognition and navigation.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -16,21 +16,26 @@
   "atlaskit:src": "src/index.ts",
   "atlassian": {
     "team": "Design System Team",
-    "deprecatedAutoEntryPoints": true,
     "inPublicMirror": true,
     "releaseModel": "scheduled",
     "website": {
       "name": "Tag"
     }
   },
+  "af:exports": {
+    "./simple-tag": "./src/tag/simple-tag.tsx",
+    "./removable-tag": "./src/tag/removable-tag.tsx"
+  },
   "dependencies": {
-    "@atlaskit/analytics-next": "^7.0.0",
+    "@atlaskit/analytics-next": "^7.1.0",
+    "@atlaskit/icon": "^21.0.1",
+    "@atlaskit/motion": "^0.4.3",
     "@atlaskit/theme": "^10.0.0",
+    "@emotion/core": "^10.0.9",
     "tslib": "^2.0.0"
   },
   "peerDependencies": {
-    "react": "^16.8.0",
-    "styled-components": "^3.2.6"
+    "react": "^16.8.0"
   },
   "devDependencies": {
     "@atlaskit/avatar": "^20.0.0",
@@ -39,12 +44,36 @@
     "@atlaskit/section-message": "^5.0.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
+    "@emotion/styled": "^10.0.7",
+    "@testing-library/dom": "^7.7.3",
     "@testing-library/react": "^8.0.1",
+    "@types/jscodeshift": "^0.6.3",
     "enzyme": "^3.10.0",
     "exenv": "^1.2.2",
+    "jscodeshift": "^0.7.0",
     "react-dom": "^16.8.0",
     "react-test-renderer": "^16.8.0",
+    "storybook-addon-performance": "0.12.0",
     "wait-for-expect": "^1.2.0"
   },
-  "website": "https://atlassian.design/components/tag/"
+  "website": "https://atlassian.design/components/tag/",
+  "techstack": {
+    "@atlassian/frontend": {
+      "import-structure": "atlassian-conventions"
+    },
+    "@repo/internal": {
+      "ui-components": [
+        "lite-mode"
+      ],
+      "analytics": [
+        "analytics-next"
+      ],
+      "theming": [
+        "new-theming-api"
+      ],
+      "deprecation": [
+        "no-deprecated-imports"
+      ]
+    }
+  }
 }

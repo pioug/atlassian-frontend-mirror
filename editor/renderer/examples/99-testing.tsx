@@ -8,18 +8,10 @@ import { taskDecision, emoji } from '@atlaskit/util-data-test';
 import { Provider as SmartCardProvider } from '@atlaskit/smart-card';
 import { cardClient } from '@atlaskit/media-integration-test-helpers';
 import {
-  MediaMock,
-  generateFilesFromTestData,
-  fakeImage,
-  wideImage,
-} from '@atlaskit/media-test-helpers';
-import {
-  testMediaFileId,
-  testMediaGroupFileId,
   storyMediaProviderFactory,
   storyContextIdentifierProviderFactory,
   extensionHandlers,
-  testMediaPictureFileId,
+  createEditorMediaMock,
 } from '@atlaskit/editor-test-helpers';
 import {
   default as Renderer,
@@ -39,26 +31,7 @@ import {
 } from '@atlaskit/adf-schema';
 import { ExampleSelectionInlineComponent } from './helper/annotations';
 
-const mediaMockServer = new MediaMock({
-  MediaServicesSample: generateFilesFromTestData([
-    {
-      id: testMediaFileId,
-      name: 'one.svg',
-      dataUri: fakeImage,
-    },
-    {
-      id: testMediaGroupFileId,
-      name: 'text_file.txt',
-      mediaType: 'doc',
-    },
-    {
-      id: testMediaPictureFileId,
-      name: 'wide_image.png',
-      mediaType: 'image',
-      dataUri: wideImage,
-    },
-  ]),
-});
+const mediaMockServer = createEditorMediaMock();
 const mediaProvider = storyMediaProviderFactory({
   useMediaPickerAuthProvider: false,
 });

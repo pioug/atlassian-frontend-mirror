@@ -12,7 +12,7 @@ describe('Panel - NodeView', () => {
 
     const node = panel()(p('this is the decision'))(defaultSchema);
 
-    const nodeView = panelNodeView()(node, editorView, () => -1);
+    const nodeView = panelNodeView(node, editorView, () => -1);
 
     const contentDOM = nodeView!.contentDOM as HTMLElement;
 

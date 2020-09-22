@@ -21,6 +21,7 @@ export default {
   'fabric.media.annotate.tool.line.thickness': 'Épaisseur de ligne',
   'fabric.media.annotate.tool.shape': 'Forme',
   'fabric.media.annotate.tool.text': 'Texte',
+  'fabric.media.archive': 'archiver',
   'fabric.media.audio': 'audio',
   'fabric.media.cancel': 'Annuler',
   'fabric.media.cant_preview_file_type':
@@ -36,7 +37,7 @@ export default {
   'fabric.media.connect_link_account': "Connecter à l'aperçu",
   'fabric.media.connect_link_account_card_view': 'Connecter',
   'fabric.media.connect_link_account_card_view_description':
-    'Enrichissez vos aperçus de lien en connectant {context} à vos produits Atlassian.',
+    'Pour afficher un aperçu de ce lien, connectez votre compte {context}.',
   'fabric.media.connect_link_account_card_view_name':
     'Connectez votre compte {context}',
   'fabric.media.connect_to': 'Se connecter à {name}',
@@ -44,10 +45,12 @@ export default {
     "Désolés, nous n'avons pas pu charger l'éditeur",
   'fabric.media.could_not_save_image':
     "Désolés, nous n'avons pas pu enregistrer l'image",
+  'fabric.media.couldnt_generate_encrypted_entry_preview':
+    'Impossible de prévisualiser les fichiers chiffrés ou protégés par un mot de passe.',
   'fabric.media.couldnt_generate_preview':
     "Impossible de générer l'aperçu de ce fichier.",
   'fabric.media.couldnt_load_link':
-    'Impossible de charger ce lien pour une raison quelconque.',
+    'Impossible de charger ce lien pour une raison inconnue.',
   'fabric.media.default_avatars': 'Avatars par défaut',
   'fabric.media.disable_fullscreen': 'désactiver le mode plein écran',
   'fabric.media.document': 'document',
@@ -75,7 +78,7 @@ export default {
     "Impossible de charger l'image, l'URL n'est pas valide.",
   'fabric.media.insert_files':
     '{0, plural, one {Insérer {0} fichier} other {Insérer {0} fichiers}}',
-  'fabric.media.invalid_permissions': "Vous n'avez pas accès à ce lien",
+  'fabric.media.invalid_permissions': 'Lien restreint',
   'fabric.media.invalid_permissions_description':
     "Vous devrez demander l'accès ou essayer un autre compte pour afficher cet aperçu.",
   'fabric.media.item_not_found_in_list':
@@ -89,7 +92,7 @@ export default {
     "Nous n'avons trouvé aucun résultat pour « {query} »",
   'fabric.media.no_pdf_artifacts': 'Aucun artefact PDF trouvé pour ce fichier.',
   'fabric.media.not_found_description':
-    "Cliquez sur l'URL et essayez de la modifier, ou collez-la de nouveau.",
+    "Lien introuvable. Cliquez sur l'URL et essayez de la modifier, ou collez-la de nouveau.",
   'fabric.media.not_found_title': 'Oups, ce lien est introuvable !',
   'fabric.media.or': 'ou',
   'fabric.media.pause': 'mettre en pause',

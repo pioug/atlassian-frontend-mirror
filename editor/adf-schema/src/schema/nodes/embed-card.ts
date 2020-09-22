@@ -2,9 +2,6 @@ import { NodeSpec, Node as PMNode } from 'prosemirror-model';
 import { RichMediaAttributes } from './types/rich-media-common';
 
 export interface EmbedCardAttributes extends RichMediaAttributes {
-  /**
-   * @stage 0
-   */
   originalWidth?: number;
   originalHeight?: number;
   url: string;
@@ -12,7 +9,6 @@ export interface EmbedCardAttributes extends RichMediaAttributes {
 
 /**
  * @name embedCard_node
- * @stage 0
  */
 export interface EmbedCardDefinition {
   type: 'embedCard';

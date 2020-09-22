@@ -108,7 +108,6 @@ describe('@atlaskit/editor-core/utils insert', () => {
             doc(
               p('onetwo'),
               mediaSingle({ layout: 'center' })(temporaryMediaWithDimensions()),
-              p(),
             ),
           );
         });
@@ -244,7 +243,7 @@ describe('@atlaskit/editor-core/utils insert', () => {
               );
               insertText(editorView, '---', sel);
               expect(editorView.state).toEqualDocumentAndSelection(
-                doc(panel()(p('onetwo'), p('three'), p()), hr(), '{<|gap>}'),
+                doc(panel()(p('onetwo'), p('three'), p()), hr()),
               );
             });
           });
@@ -291,7 +290,11 @@ describe('@atlaskit/editor-core/utils insert', () => {
               expect(
                 editorInstance.editorView.state,
               ).toEqualDocumentAndSelection(
-                doc(panel()(p('one{<>}')), hr(), panel()(p('two'), p('three'))),
+                doc(
+                  panel()(p('one')),
+                  hr(),
+                  panel()(p('{<>} two'), p('three')),
+                ),
               );
             });
 

@@ -3,12 +3,16 @@ import styled from 'styled-components';
 import DropList from '@atlaskit/droplist';
 import Item, { ItemGroup } from '@atlaskit/item';
 import Tooltip from '@atlaskit/tooltip';
-import { akEditorFloatingPanelZIndex, Popup } from '@atlaskit/editor-common';
+import { Popup } from '@atlaskit/editor-common';
+import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
 import withOuterListeners from '../with-outer-listeners';
 import { Props, State } from './types';
 
 const Wrapper = styled.div`
-  line-height: 0;
+  /* tooltip in ToolbarButton is display:block */
+  & > div > div {
+    display: flex;
+  }
 `;
 
 const DropListWithOutsideListeners: any = withOuterListeners(DropList);

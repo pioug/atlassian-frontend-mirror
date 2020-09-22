@@ -18,8 +18,8 @@ import {
   ExtensionProvider,
   combineExtensionProviders,
   WidthProvider,
-  akEditorFullPageDefaultFontSize,
 } from '@atlaskit/editor-common';
+import { akEditorFullPageDefaultFontSize } from '@atlaskit/editor-shared-styles';
 import { Context as CardContext } from '@atlaskit/smart-card';
 import { FabricEditorAnalyticsContext } from '@atlaskit/analytics-namespaced-context';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
@@ -431,19 +431,6 @@ export default class Editor extends React.Component<EditorProps, State> {
   handleSave = (view: EditorView): void => {
     if (!this.props.onSave) {
       return;
-    }
-
-    // ED-4021: if you type a short amount of content
-    // inside a content-editable on Android, Chrome only sends a
-    // compositionend when it feels like it.
-    //
-    // to work around the PM editable being out of sync with
-    // the document, force a DOM sync before calling onSave
-    // if we've already started typing
-    // @ts-ignore
-    if (view['inDOMChange']) {
-      // @ts-ignore
-      view['inDOMChange'].finish(true);
     }
 
     return this.props.onSave(view);

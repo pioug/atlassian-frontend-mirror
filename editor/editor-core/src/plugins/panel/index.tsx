@@ -1,5 +1,5 @@
 import React from 'react';
-import { panel, PanelType } from '@atlaskit/adf-schema';
+import { panel, customPanel, PanelType } from '@atlaskit/adf-schema';
 import { QuickInsertActionInsert } from '@atlaskit/editor-common/provider-factory';
 import { EditorState } from 'prosemirror-state';
 import { EditorPlugin } from '../../types';
@@ -13,7 +13,6 @@ import {
   ACTION_SUBJECT_ID,
   INPUT_METHOD,
   EVENT_TYPE,
-  PANEL_TYPE,
 } from '../analytics';
 import {
   IconPanel,
@@ -26,7 +25,7 @@ import { messages } from '../block-type/messages';
 import { PanelPluginOptions } from './types';
 
 const insertPanelTypeWithAnalytics = (
-  panelType: PANEL_TYPE,
+  panelType: PanelType,
   state: EditorState,
   insert: QuickInsertActionInsert,
 ) => {
@@ -52,18 +51,21 @@ const insertPanelType = (panelType: PanelType, state: EditorState) =>
     state.schema.nodes.paragraph.createChecked(),
   );
 
-const panelPlugin = (options?: PanelPluginOptions): EditorPlugin => ({
+const panelPlugin = (options: PanelPluginOptions = {}): EditorPlugin => ({
   name: 'panel',
 
   nodes() {
-    return [{ name: 'panel', node: panel }];
+    //TODO: ED-10445 remove this check after emoji panels moved to full schema
+    const panelNode = options.UNSAFE_allowCustomPanel ? customPanel : panel;
+    return [{ name: 'panel', node: panelNode }];
   },
 
   pmPlugins() {
     return [
       {
         name: 'panel',
-        plugin: ({ dispatch }) => createPlugin(dispatch, options),
+        plugin: ({ dispatch }) =>
+          createPlugin(dispatch, options.useLongPressSelection),
       },
       {
         name: 'panelKeyMap',
@@ -82,7 +84,7 @@ const panelPlugin = (options?: PanelPluginOptions): EditorPlugin => ({
         priority: 800,
         icon: () => <IconPanel label={formatMessage(messages.infoPanel)} />,
         action(insert, state) {
-          return insertPanelTypeWithAnalytics(PANEL_TYPE.INFO, state, insert);
+          return insertPanelTypeWithAnalytics(PanelType.INFO, state, insert);
         },
       },
       {
@@ -92,7 +94,7 @@ const panelPlugin = (options?: PanelPluginOptions): EditorPlugin => ({
         priority: 1000,
         icon: () => <IconPanelNote label={formatMessage(messages.notePanel)} />,
         action(insert, state) {
-          return insertPanelTypeWithAnalytics(PANEL_TYPE.NOTE, state, insert);
+          return insertPanelTypeWithAnalytics(PanelType.NOTE, state, insert);
         },
       },
       {
@@ -105,11 +107,7 @@ const panelPlugin = (options?: PanelPluginOptions): EditorPlugin => ({
           <IconPanelSuccess label={formatMessage(messages.successPanel)} />
         ),
         action(insert, state) {
-          return insertPanelTypeWithAnalytics(
-            PANEL_TYPE.SUCCESS,
-            state,
-            insert,
-          );
+          return insertPanelTypeWithAnalytics(PanelType.SUCCESS, state, insert);
         },
       },
       {
@@ -121,11 +119,7 @@ const panelPlugin = (options?: PanelPluginOptions): EditorPlugin => ({
           <IconPanelWarning label={formatMessage(messages.warningPanel)} />
         ),
         action(insert, state) {
-          return insertPanelTypeWithAnalytics(
-            PANEL_TYPE.WARNING,
-            state,
-            insert,
-          );
+          return insertPanelTypeWithAnalytics(PanelType.WARNING, state, insert);
         },
       },
       {
@@ -137,11 +131,11 @@ const panelPlugin = (options?: PanelPluginOptions): EditorPlugin => ({
           <IconPanelError label={formatMessage(messages.errorPanel)} />
         ),
         action(insert, state) {
-          return insertPanelTypeWithAnalytics(PANEL_TYPE.ERROR, state, insert);
+          return insertPanelTypeWithAnalytics(PanelType.ERROR, state, insert);
         },
       },
     ],
-    floatingToolbar: getToolbarConfig,
+    floatingToolbar: (state, intl) => getToolbarConfig(state, intl, options),
   },
 });
 

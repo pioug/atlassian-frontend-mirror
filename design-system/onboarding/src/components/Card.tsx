@@ -2,7 +2,7 @@ import React, { ComponentType, FC, ReactNode } from 'react';
 
 import styled from 'styled-components';
 
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
 import { createTheme, ThemeProp } from '@atlaskit/theme/components';
 import { borderRadius, gridSize, layers } from '@atlaskit/theme/constants';
 import { multiply } from '@atlaskit/theme/math';

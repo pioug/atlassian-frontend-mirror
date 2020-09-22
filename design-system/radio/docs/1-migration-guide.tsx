@@ -19,8 +19,6 @@ Previously in **@atlaskit/field-radio-group** the following components were expo
 
 - RadioGroup
 - Radio
-- RadioInput
-- RadioIcon
 
 ## RadioGroup:
 
@@ -43,16 +41,4 @@ Additionally, while \`defaultChecked\` use to be a valid property within the pas
 The \`isChecked\` prop in field-radio-group has been replaced with the \`isChecked\` prop in @atlaskit/radio, to inline it with conventions established both in native radio elements and within the context of React.
 
 \`value\`: this used to accept a string in field-radio-base, this has now been expanded to accept both number and string values.
-
-## RadioInput:
-
-@atlaskit/radio exports a RadioInput component, to enable usecase where serialisation of the checked value is necessary, and / or event handling is desired but label content is managed and displayed elsewhere.
-
-For a more detailed description around the props of this component, please see the intro docs.
-
-## RadioIcon:
-
-@atlaskit/radio exports a RadioIcon component, to enable usecases where displaying a checked or unchecked Radio is important, but event handling and label content is generally triggered / managed elsewhere (for example in the RadioSelect component from @atlaskit/select).
-
-This is a light wrapper around the radio glyph exported from @atlaskit/icons, which provides stylistic wrapprs that are inline with ADG3 as well as light functionality around active, hover, checked and focused state. Please see the intro docs for more detailed prop information.
 `;

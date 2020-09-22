@@ -2,7 +2,7 @@
 import { jsx, css } from '@emotion/core';
 import { IntlProvider } from 'react-intl';
 
-import { ButtonAppearances } from '@atlaskit/button';
+import { Appearance } from '@atlaskit/button/types';
 import Page from '@atlaskit/page';
 import AttachmentIcon from '@atlaskit/icon/glyph/attachment';
 import CommentIcon from '@atlaskit/icon/glyph/comment';
@@ -134,7 +134,7 @@ const unauthorisedActionListProps = {
     {
       id: 'connect',
       text: 'Connect',
-      buttonAppearance: 'default' as ButtonAppearances,
+      buttonAppearance: 'default' as Appearance,
       promise: () => new Promise(resolve => setTimeout(() => resolve(), 2000)),
     },
   ],

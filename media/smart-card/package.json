@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/smart-card",
-  "version": "14.3.0",
+  "version": "14.4.0",
   "description": "Smart card component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -23,15 +23,16 @@
   },
   "dependencies": {
     "@atlaskit/analytics-gas-types": "^5.0.0",
-    "@atlaskit/analytics-next": "^7.0.0",
-    "@atlaskit/button": "^14.0.0",
+    "@atlaskit/analytics-next": "^7.1.0",
+    "@atlaskit/button": "^15.0.0",
     "@atlaskit/icon": "^21.1.0",
     "@atlaskit/icon-file-type": "^6.0.0",
     "@atlaskit/icon-object": "^6.0.0",
     "@atlaskit/logo": "^13.0.0",
-    "@atlaskit/media-ui": "^14.0.0",
+    "@atlaskit/media-ui": "^14.1.0",
     "@atlaskit/outbound-auth-flow-client": "^3.1.0",
     "@atlaskit/theme": "^10.0.0",
+    "async-retry": "^1.2.3",
     "bottleneck": "^2.19.5",
     "dataloader": "^1.4.0",
     "json-ld-types": "^2.1.7",
@@ -46,17 +47,18 @@
     "styled-components": "^3.2.6"
   },
   "devDependencies": {
-    "@atlaskit/button": "^14.0.0",
+    "@atlaskit/button": "^15.0.0",
     "@atlaskit/checkbox": "^11.0.0",
     "@atlaskit/docs": "*",
     "@atlaskit/form": "^8.1.0",
     "@atlaskit/inline-message": "^11.0.0",
     "@atlaskit/page": "^12.0.0",
-    "@atlaskit/radio": "^4.0.0",
+    "@atlaskit/radio": "^5.0.0",
     "@atlaskit/table-tree": "^9.0.0",
     "@atlaskit/textarea": "^3.0.0",
     "@atlaskit/textfield": "^4.0.0",
     "@testing-library/react": "^8.0.1",
+    "@types/async-retry": "^1.4.1",
     "@types/enzyme": "^3.1.15",
     "@types/lodash": "^4.14.157",
     "@types/lorem-ipsum": "^1.0.2",

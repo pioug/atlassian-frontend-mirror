@@ -1,7 +1,8 @@
 import React from 'react';
 import rafSchedule from 'raf-schd';
 
-import { akEditorToolbarKeylineHeight } from '../../../styles';
+import { akEditorToolbarKeylineHeight } from '@atlaskit/editor-shared-styles';
+
 import { EditorAppearanceComponentProps } from '../../../types';
 import { FullPageEditorWrapper } from './StyledComponents';
 import { ContextPanelWidthProvider } from '../../ContextPanel/context';

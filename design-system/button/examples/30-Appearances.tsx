@@ -1,13 +1,13 @@
 /** @jsx jsx */
-import React from 'react';
+import React, { useState } from 'react';
 
 import { jsx } from '@emotion/core';
 
 import { Checkbox } from '@atlaskit/checkbox';
 
-import Button, { ButtonAppearances } from '../src';
+import { Appearance, LoadingButton as Button } from '../src';
 
-const appearances: ButtonAppearances[] = [
+const appearances: Appearance[] = [
   'default',
   'primary',
   'link',
@@ -31,58 +31,37 @@ function capitalize(str: string) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
-export type State = {
-  showLoadingState: boolean;
-};
+export default function Example() {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
-export default class ButtonAppearance extends React.Component<{}, State> {
-  state = { showLoadingState: false };
-
-  render() {
-    const { showLoadingState } = this.state;
-
-    return (
-      <React.Fragment>
-        <Checkbox
-          value="showLoading"
-          label="Show Loading State"
-          onChange={({ target }: React.SyntheticEvent<HTMLInputElement>) =>
-            this.setState({
-              showLoadingState: (target as HTMLInputElement).checked,
-            })
-          }
-          name="show-loading"
-        />
-        <Table>
-          {appearances.map(a => (
-            <Row key={a}>
-              <Cell>
-                <Button isLoading={showLoadingState} appearance={a}>
-                  {capitalize(a)}
-                </Button>
-              </Cell>
-              <Cell>
-                <Button
-                  isLoading={showLoadingState}
-                  appearance={a}
-                  isDisabled={true}
-                >
-                  Disabled
-                </Button>
-              </Cell>
-              <Cell>
-                <Button
-                  isLoading={showLoadingState}
-                  appearance={a}
-                  isSelected={true}
-                >
-                  Selected
-                </Button>
-              </Cell>
-            </Row>
-          ))}
-        </Table>
-      </React.Fragment>
-    );
-  }
+  return (
+    <React.Fragment>
+      <Checkbox
+        label="Show Loading State"
+        isChecked={isLoading}
+        onChange={() => setIsLoading(value => !value)}
+      />
+      <Table>
+        {appearances.map(a => (
+          <Row key={a}>
+            <Cell>
+              <Button isLoading={isLoading} appearance={a}>
+                {capitalize(a)}
+              </Button>
+            </Cell>
+            <Cell>
+              <Button isLoading={isLoading} appearance={a} isDisabled={true}>
+                Disabled
+              </Button>
+            </Cell>
+            <Cell>
+              <Button isLoading={isLoading} appearance={a} isSelected={true}>
+                Selected
+              </Button>
+            </Cell>
+          </Row>
+        ))}
+      </Table>
+    </React.Fragment>
+  );
 }

@@ -86,6 +86,7 @@ export default class ActivityResource implements ActivityProvider {
         container: this.getContainerName(node.object.containers),
         url: node.object.url,
         iconUrl: node.object.iconUrl,
+        type: node.object.type,
         viewedTimestamp: node.timestamp,
       }));
     } catch (err) {

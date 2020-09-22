@@ -42,11 +42,14 @@ export class PlaceholderTextNodeView implements NodeView {
       const end = start + this.node.nodeSize;
       const stripped = content.replace(text, '');
 
-      view.dispatch(
-        view.state.tr
-          .replaceRangeWith(start, end, view.state.schema.text(stripped))
-          .setSelection(TextSelection.create(view.state.doc, end, end)),
+      let tr = view.state.tr.replaceRangeWith(
+        start,
+        end,
+        view.state.schema.text(stripped),
       );
+      tr = tr.setSelection(TextSelection.create(tr.doc, end, end));
+
+      view.dispatch(tr);
     }
 
     return record.type !== 'selection';

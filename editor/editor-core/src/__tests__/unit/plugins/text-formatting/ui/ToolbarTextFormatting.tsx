@@ -1,5 +1,5 @@
 import React from 'react';
-import AkButton from '@atlaskit/button';
+import AkButton from '@atlaskit/button/standard-button';
 import { ReactWrapper } from 'enzyme';
 import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';

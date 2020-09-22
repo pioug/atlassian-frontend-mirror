@@ -19,7 +19,7 @@ import analyticsPlugin, {
   ACTION_SUBJECT_ID,
   EVENT_TYPE,
   INPUT_METHOD,
-  INDENT_DIR,
+  INDENT_DIRECTION,
   INDENT_TYPE,
 } from '../../../analytics';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
@@ -114,7 +114,7 @@ describe('IDE UX plugin', () => {
             eventType: EVENT_TYPE.TRACK,
             attributes: expect.objectContaining({
               inputMethod: INPUT_METHOD.KEYBOARD,
-              direction: INDENT_DIR.INDENT,
+              direction: INDENT_DIRECTION.INDENT,
               previousIndentationLevel: 0,
               newIndentLevel: 1,
               indentType: INDENT_TYPE.CODE_BLOCK,
@@ -296,7 +296,7 @@ describe('IDE UX plugin', () => {
               eventType: EVENT_TYPE.TRACK,
               attributes: expect.objectContaining({
                 inputMethod: INPUT_METHOD.KEYBOARD,
-                direction: INDENT_DIR.OUTDENT,
+                direction: INDENT_DIRECTION.OUTDENT,
                 previousIndentationLevel: 1,
                 newIndentLevel: 0,
                 indentType: INDENT_TYPE.CODE_BLOCK,

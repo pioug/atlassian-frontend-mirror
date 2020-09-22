@@ -1,12 +1,13 @@
 import { TableMap, CellSelection } from 'prosemirror-tables';
 import { EditorView } from 'prosemirror-view';
+import { selectRow, selectColumn, findTable } from 'prosemirror-utils';
+import { PluginKey } from 'prosemirror-state';
+
 import {
-  selectRow,
-  selectColumn,
-  selectTable,
-  findTable,
-} from 'prosemirror-utils';
-import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
+  createProsemirrorEditorFactory,
+  LightEditorPlugin,
+  Preset,
+} from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   doc,
   table,
@@ -21,47 +22,68 @@ import {
 import { pmNodeBuilder } from '@atlaskit/editor-test-helpers/schema-element-builder';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
-
-import { TablePluginState } from '../../../../plugins/table/types';
 import {
   CreateUIAnalyticsEvent,
   UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
+
+import panelPlugin from '../../../../plugins/panel';
+import expandPlugin from '../../../../plugins/expand';
+import gapCursorPlugin from '../../../../plugins/gap-cursor';
+import tasksDecisionsPlugin from '../../../../plugins/tasks-and-decisions';
+import selectionPlugin from '../../../../plugins/selection';
+import mediaPlugin from '../../../../plugins/media';
+import analyticsPlugin from '../../../../plugins/analytics';
+import listsPlugin from '../../../../plugins/lists';
+import blockTypePlugin from '../../../../plugins/block-type';
+import codeBlockPlugin from '../../../../plugins/code-block';
+import rulePlugin from '../../../../plugins/rule';
+import mentionsPlugin from '../../../../plugins/mentions';
+import emojiPlugin from '../../../../plugins/emoji';
+import jiraIssuePlugin from '../../../../plugins/jira-issue';
+import extensionPlugin from '../../../../plugins/extension';
+import datePlugin from '../../../../plugins/date';
+import layoutPlugin from '../../../../plugins/layout';
+import statusPlugin from '../../../../plugins/status';
+import tablePlugin from '../../../../plugins/table';
+import { TablePluginState } from '../../../../plugins/table/types';
 import { pluginKey } from '../../../../plugins/table/pm-plugins/plugin-factory';
 
 describe('table keymap', () => {
-  const createEditor = createEditorFactory<TablePluginState>();
+  const createAnalyticsEvent: CreateUIAnalyticsEvent = jest.fn(
+    () => ({ fire() {} } as UIAnalyticsEvent),
+  );
 
-  let createAnalyticsEvent: CreateUIAnalyticsEvent;
+  const createEditor = createProsemirrorEditorFactory();
+  const preset = new Preset<LightEditorPlugin>()
+    .add(selectionPlugin)
+    .add(gapCursorPlugin)
+    .add(tablePlugin)
+    .add(expandPlugin)
+    .add(tasksDecisionsPlugin)
+    .add(panelPlugin)
+    .add(listsPlugin)
+    .add(blockTypePlugin)
+    .add(codeBlockPlugin)
+    .add(rulePlugin)
+    .add(mentionsPlugin)
+    .add(emojiPlugin)
+    .add(jiraIssuePlugin)
+    .add(extensionPlugin)
+    .add(datePlugin)
+    .add(layoutPlugin)
+    .add([statusPlugin, { menuDisabled: false }])
+    .add([mediaPlugin, { allowMediaSingle: true }])
+    .add([analyticsPlugin, { createAnalyticsEvent }]);
+
+  const editor = (doc: any) =>
+    createEditor<TablePluginState, PluginKey>({
+      doc,
+      preset,
+      pluginKey,
+    });
+
   let editorView: EditorView;
-
-  const editor = (doc: any) => {
-    createAnalyticsEvent = jest.fn(() => ({ fire() {} } as UIAnalyticsEvent));
-    return createEditor({
-      doc,
-      editorProps: {
-        allowAnalyticsGASV3: true,
-        allowTables: true,
-      },
-      pluginKey,
-      createAnalyticsEvent,
-    });
-  };
-
-  const editorWithPlugins = (doc: any) =>
-    createEditor({
-      doc,
-      editorProps: {
-        allowExtension: true,
-        allowTables: true,
-        allowRule: true,
-        allowPanel: true,
-        allowTasksAndDecisions: true,
-        allowExpand: true,
-        media: { allowMediaSingle: true },
-      },
-      pluginKey,
-    });
 
   describe('Tab keypress', () => {
     describe('when the whole row is selected', () => {
@@ -236,7 +258,7 @@ describe('table keymap', () => {
         }
 
         it(`should remove a ${nodeName}, and place the cursor into the last cell`, () => {
-          const { editorView, refs } = editorWithPlugins(
+          const { editorView, refs } = editor(
             doc(
               table()(tr(tdEmpty, td({})(p('hello{nextPos}')))),
               (pmNodeBuilder as Record<string, any>)[nodeName],
@@ -274,29 +296,20 @@ describe('table keymap', () => {
       });
     });
 
-    describe('when table is selected', () => {
-      it('should empty table cells and move cursor to the first selected cell', () => {
+    describe('when whole table is selected', () => {
+      it('should delete table node', () => {
         const { editorView } = editor(
           doc(
             table()(
-              tr(
-                tdCursor,
-                td({})(p('text text text')),
-                td({})(p('more text text text')),
-              ),
+              tr(td()(p('{<cell}1')), td()(p('2')), td()(p('3'))),
+              tr(td()(p('1')), td()(p('2')), td()(p('3{cell>}'))),
             ),
+            p(''),
           ),
         );
 
-        editorView.dispatch(selectTable(editorView.state.tr));
-        expect(editorView.state.selection instanceof CellSelection).toEqual(
-          true,
-        );
         sendKeyToPm(editorView, 'Backspace');
-        expect(editorView.state.doc).toEqualDocument(
-          doc(table()(tr(tdEmpty, tdEmpty, tdEmpty))),
-        );
-        expect(editorView.state.selection.$from.pos).toEqual(4);
+        expect(editorView.state).toEqualDocumentAndSelection(doc(p('{<>}')));
       });
     });
 

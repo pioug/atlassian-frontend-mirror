@@ -7,7 +7,7 @@ import {
 } from '@atlaskit/analytics-next';
 import { combineExtensionProviders } from '@atlaskit/editor-common/extensions';
 import { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
 import InlineDialog from '@atlaskit/inline-dialog/src/InlineDialog';
 import { useStateFromPromise } from '../src/utils/react-hooks/use-state-from-promise';
 import ElementBrowser from '../src/ui/ElementBrowser';
@@ -67,7 +67,10 @@ export default () => {
   return (
     <ModalExampleWrapper>
       <AnalyticsListener channel="editor" onEvent={handleAnalytics}>
-        <Button onClick={() => setModalVisibility(true)}>
+        <Button
+          onClick={() => setModalVisibility(true)}
+          testId="ModalElementBrowser__example__open_button"
+        >
           Open Modal Dialog
         </Button>
         <IntlProvider locale="en">
@@ -98,6 +101,7 @@ export default () => {
                 <Button
                   isSelected={showInlineModal}
                   onClick={() => setInlineModalVisibility(show => !show)}
+                  testId="InlineElementBrowser__example__open_button"
                 >
                   {showInlineModal ? 'Close' : 'Open'} Inline Browser
                 </Button>
@@ -127,5 +131,5 @@ const InlineBrowserWrapper = styled.div`
   max-height: inherit;
   width: 320px;
   height: 480px; // The internal AutoSizer component for react-virtualized needs a fixed height from parent level.
-  margin: -8px -16px;
+  margin: -16px -24px;
 `;

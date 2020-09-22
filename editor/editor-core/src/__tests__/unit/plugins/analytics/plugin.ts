@@ -13,7 +13,7 @@ import { EditorState, Transaction } from 'prosemirror-state';
 import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
 import { doc, p } from '@atlaskit/editor-test-helpers/schema-builder';
 import { CommandDispatch } from '../../../../types';
-import { AnalyticsStep } from '../../../../plugins/analytics/analytics-step';
+import { AnalyticsStep } from '@atlaskit/adf-schema/steps';
 
 describe('analytics', () => {
   const createEditor = createEditorFactory();
@@ -57,7 +57,9 @@ describe('analytics', () => {
       tr = addAnalytics(state, tr, payload);
 
       const pos = tr.selection.$from.pos;
-      const analyticsStep = tr.steps[tr.steps.length - 1] as AnalyticsStep;
+      const analyticsStep = tr.steps[tr.steps.length - 1] as AnalyticsStep<
+        AnalyticsEventPayload
+      >;
 
       expect(pos).toEqual(analyticsStep.pos);
     });

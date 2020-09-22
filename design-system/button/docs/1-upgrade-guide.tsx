@@ -2,6 +2,10 @@ import { code, md } from '@atlaskit/docs';
 
 export default md`
 
+## See changelog
+
+We are now including upgrade notes in the changelog
+
 ## v11 to v12
 
 ### ⚡️ Highlights

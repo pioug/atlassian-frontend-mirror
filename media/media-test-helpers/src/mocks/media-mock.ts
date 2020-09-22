@@ -9,6 +9,15 @@ import { createDatabase, MediaDatabaseSchema } from './database';
 import { mapDataUriToBlob } from '../utils';
 import { dataURItoFile } from '@atlaskit/media-ui';
 import { smallImage } from '../dataURIs/smallImageURI';
+import {
+  createDropEventWithFiles,
+  createFileSystemDirectoryEntry,
+  createFileSystemFileEntry,
+} from './fileAndDirectoriesUtils';
+
+const blob = dataURItoFile(smallImage);
+const imageFile = new File([blob], 'image.png', { type: 'image/png' });
+const fileName = 'image.png';
 
 export type MockCollections = {
   [key: string]: Array<MediaFile & { blob?: Blob }>;
@@ -98,6 +107,8 @@ export interface MediaMockControlsBackdoor {
   resetMediaMock: (config?: MediaMockConfig) => void;
   shouldWaitUpload?: boolean;
   uploadImageFromDrag: () => void;
+  uploadFolderFromDrag: () => void;
+  uploadFolderContainingFolderFromDrag: () => void;
 }
 
 const mediaMockControlsBackdoor: MediaMockControlsBackdoor = {
@@ -109,19 +120,80 @@ const mediaMockControlsBackdoor: MediaMockControlsBackdoor = {
   },
 
   /**
+   * Used to simulate the dragging of a folder (which contains a singular image) into the editor
+   * Library used for folder uploads: https://github.com/zzarcon/flat-files
+   */
+  uploadFolderFromDrag: () => {
+    const fileSystemFileEntry = createFileSystemFileEntry(
+      fileName,
+      `folder_one/folder_two/${fileName}`,
+      imageFile,
+    );
+
+    // Represents a folder that contains a file
+    const directoryEntryContainingFile = createFileSystemDirectoryEntry(
+      fileName,
+      `folder_one/folder_two/`,
+      [fileSystemFileEntry],
+    );
+
+    const event = createDropEventWithFiles(directoryEntryContainingFile, [
+      imageFile,
+    ]);
+    document.body.dispatchEvent(event);
+  },
+
+  /**
+   * Used to simulate the dragging of a folder, which contains a folder (which contains multiple images)
+   **/
+  uploadFolderContainingFolderFromDrag: () => {
+    const fileSystemFileEntry = createFileSystemFileEntry(
+      fileName,
+      `folder_one/folder_two/${fileName}`,
+      imageFile,
+    );
+
+    const directoryEntryContainingFiles = createFileSystemDirectoryEntry(
+      fileName,
+      `folder_one/folder_two/`,
+      [
+        fileSystemFileEntry,
+        fileSystemFileEntry,
+        fileSystemFileEntry,
+        fileSystemFileEntry,
+      ],
+    );
+
+    // Represents a folder that contains a folder
+    const directoryEntry = createFileSystemDirectoryEntry(
+      fileName,
+      `folder_one/`,
+      [directoryEntryContainingFiles],
+    );
+
+    const event = createDropEventWithFiles(directoryEntry, [
+      imageFile,
+      imageFile,
+      imageFile,
+      imageFile,
+    ]);
+
+    document.body.dispatchEvent(event);
+  },
+
+  /**
    * Used to simulate the dragging of an image into the editor
    * In the future we should consider using a general approach to uploading files as mentioned here:
    * https://sqa.stackexchange.com/questions/22191/is-it-possible-to-automate-drag-and-drop-from-a-file-in-system-to-a-website-in-s
    */
   uploadImageFromDrag: () => {
-    const blob = dataURItoFile(smallImage);
-    const imageFile = new File([blob], 'image.png', { type: 'image/png' });
-    const dataTransfer: any = {
-      files: [imageFile],
-      types: ['Files'],
-    };
-    const event: any = new Event('drop', dataTransfer);
-    event.dataTransfer = dataTransfer;
+    const fileSystemFileEntry = createFileSystemFileEntry(
+      fileName,
+      `folder_one/folder_two/${fileName}`,
+      imageFile,
+    );
+    const event = createDropEventWithFiles(fileSystemFileEntry, [imageFile]);
+
     document.body.dispatchEvent(event);
   },
 };

@@ -2,7 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import { defineMessages, InjectedIntlProps, injectIntl } from 'react-intl';
 import EditorSearchIcon from '@atlaskit/icon/glyph/editor/search';
-import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-common';
+import {
+  akEditorFloatingPanelZIndex,
+  akEditorMobileMaxWidth,
+} from '@atlaskit/editor-shared-styles';
 import ToolbarButton from '../../../ui/ToolbarButton';
 import Dropdown from '../../../ui/Dropdown';
 import FindReplace, { FindReplaceProps } from './FindReplace';
@@ -14,6 +17,10 @@ const ToolbarButtonWrapper = styled.div`
   flex: 1 1 auto;
   justify-content: flex-end;
   padding: 0 8px;
+  @media (max-width: ${akEditorMobileMaxWidth}px) {
+    justify-content: center;
+    padding: 0;
+  }
 `;
 
 const Wrapper = styled.div`

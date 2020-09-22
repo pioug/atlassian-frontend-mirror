@@ -1,10 +1,9 @@
-import { gridSize } from '@atlaskit/theme/constants';
-
 import {
   akEditorDeleteBackground,
   akEditorDeleteBorder,
   blockNodesVerticalMargin,
-} from '../consts';
+} from '@atlaskit/editor-shared-styles';
+import { gridSize } from '@atlaskit/theme/constants';
 
 export const SmartCardSharedCssClassName = {
   INLINE_CARD_CONTAINER: 'inlineCardView-content-wrap',

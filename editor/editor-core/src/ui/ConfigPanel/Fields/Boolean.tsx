@@ -1,8 +1,10 @@
 import React, { Fragment } from 'react';
+import styled from 'styled-components';
 
 import { Checkbox } from '@atlaskit/checkbox';
-import { CheckboxField } from '@atlaskit/form';
+import { CheckboxField, FieldProps } from '@atlaskit/form';
 import { BooleanField } from '@atlaskit/editor-common/extensions';
+import Toggle from '@atlaskit/toggle';
 
 import { OnBlur } from '../types';
 
@@ -20,32 +22,74 @@ const isChecked = (value?: string | boolean) => {
   return false;
 };
 
-export default function ({
+type Props = {
+  label: string;
+} & FieldProps<string>;
+
+const ToggleFieldWrapper = styled.div`
+  display: flex;
+`;
+const ToggleLabel = styled.label`
+  display: flex;
+  padding: 3px 3px 3px 0px;
+  flex-grow: 1;
+`;
+const RequiredIndicator = styled.span`
+  color: #bf2600;
+`;
+
+function BooleanToggle({ label, ...fieldProps }: Props) {
+  const { id, isRequired } = fieldProps;
+  return (
+    <ToggleFieldWrapper>
+      <ToggleLabel id={id} htmlFor={id}>
+        {label}
+        {isRequired ? (
+          <RequiredIndicator aria-hidden="true">*</RequiredIndicator>
+        ) : null}
+      </ToggleLabel>
+      <Toggle {...fieldProps} />
+    </ToggleFieldWrapper>
+  );
+}
+
+export default function Boolean({
   field,
   onBlur,
 }: {
   field: BooleanField;
   onBlur: OnBlur;
 }) {
+  const { name, label, description, isRequired, defaultValue } = field;
+  const showToggle = field.style === 'toggle';
+
   return (
     <CheckboxField
-      key={field.name}
-      name={field.name}
-      isRequired={field.isRequired}
-      defaultIsChecked={isChecked(field.defaultValue)}
+      key={name}
+      name={name}
+      isRequired={isRequired}
+      defaultIsChecked={isChecked(defaultValue)}
     >
       {({ fieldProps, error }) => {
-        const onChange = (
-          value?: string | React.FormEvent<HTMLInputElement>,
-        ) => {
-          fieldProps.onChange(value);
-          onBlur(field.name);
+        const { value = '' } = fieldProps;
+        const props = {
+          ...fieldProps,
+          label,
+          onChange: (value?: string | React.FormEvent<HTMLInputElement>) => {
+            fieldProps.onChange(value);
+            onBlur(name);
+          },
+          value,
         };
 
         return (
           <Fragment>
-            <Checkbox {...fieldProps} onChange={onChange} label={field.label} />
-            <FieldMessages error={error} description={field.description} />
+            {showToggle ? (
+              <BooleanToggle {...props} />
+            ) : (
+              <Checkbox {...props} />
+            )}
+            <FieldMessages error={error} description={description} />
           </Fragment>
         );
       }}

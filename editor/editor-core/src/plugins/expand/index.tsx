@@ -15,12 +15,13 @@ import {
 import { getToolbarConfig } from './toolbar';
 import { createExpandNode } from './commands';
 import { messages } from '../insert-block/ui/ToolbarInsertBlock/messages';
+import { LongPressSelectionPluginOptions } from '../selection/types';
 
-interface ExpandPluginOptions {
+interface ExpandPluginOptions extends LongPressSelectionPluginOptions {
   allowInsertion?: boolean;
 }
 
-const expandPlugin = (options?: ExpandPluginOptions): EditorPlugin => ({
+const expandPlugin = (options: ExpandPluginOptions = {}): EditorPlugin => ({
   name: 'expand',
 
   nodes() {
@@ -35,7 +36,11 @@ const expandPlugin = (options?: ExpandPluginOptions): EditorPlugin => ({
       {
         name: 'expand',
         plugin: ({ dispatch, reactContext }) => {
-          return createPlugin(dispatch, reactContext);
+          return createPlugin(
+            dispatch,
+            reactContext,
+            options.useLongPressSelection,
+          );
         },
       },
       {

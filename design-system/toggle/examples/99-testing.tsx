@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
 import { gridSize } from '@atlaskit/theme/constants';
 
 import Toggle, { ToggleStateless } from '../src';
@@ -41,11 +41,7 @@ export default class StatelessExample extends Component<any, State> {
         <p>Regular</p>
         <Toggle testId="my-regular-stateful-toggle" />
         <p>Large (checked by default)</p>
-        <Toggle
-          size="large"
-          isDefaultChecked
-          testId="my-large-stateful-toggle"
-        />
+        <Toggle size="large" defaultChecked testId="my-large-stateful-toggle" />
       </div>
     );
   }

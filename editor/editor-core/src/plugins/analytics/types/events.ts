@@ -19,7 +19,7 @@ import { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID } from './enums';
 import { SimplifiedNode } from '../../../utils/document-logger';
 import { DateEventPayload } from './date-events';
 import { SelectionEventPayload } from './selection-events';
-import { LinkToolBarEventPayload } from './link-tool-bar-events';
+import { CreateLinkInlineDialogEventPayload } from './link-tool-bar-events';
 import { UnsupportedContentPayload } from '@atlaskit/editor-common';
 
 export type AnalyticsEventPayload =
@@ -41,7 +41,7 @@ export type AnalyticsEventPayload =
   | ListEventPayload
   | ConfigPanelEventPayload
   | ElementBrowserEventPayload
-  | LinkToolBarEventPayload
+  | CreateLinkInlineDialogEventPayload
   | UnsupportedContentPayload;
 
 export type AnalyticsEventPayloadWithChannel = {

@@ -1,5 +1,26 @@
 # @atlaskit/adf-schema
 
+## 13.0.0
+
+### Major Changes
+
+- [`26ff0e5e9a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/26ff0e5e9a) - ED-10353 Added adf schema changes to support emoji panels
+
+### Minor Changes
+
+- [`db7170dc53`](https://bitbucket.org/atlassian/atlassian-frontend/commits/db7170dc53) - Promote EmbedCard to full schema
+- [`c536839013`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c536839013) - ED-10214 Add typeAheadQuery to default schema
+- [`6e237a6753`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6e237a6753) - Add optional caption to mediaSingle in adf schema for stage 0
+- [`9a39500244`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9a39500244) - Bump ProseMirror packages
+
+  Read more: https://product-fabric.atlassian.net/wiki/spaces/E/pages/1671956531/2020-08
+
+- [`2e5e9bf891`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e5e9bf891) - ED-10123 Export Analytics Step from adf-schema instead of internal editor-core
+
+### Patch Changes
+
+- [`c90f346430`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c90f346430) - Remove @ts-ignores/@ts-expect-errors
+
 ## 12.3.0
 
 ### Minor Changes

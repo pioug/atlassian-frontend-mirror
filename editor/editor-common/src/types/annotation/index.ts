@@ -63,6 +63,8 @@ export type InlineCommentViewComponentProps = {
    * These are provided in order, inner-most first.
    */
   annotations: Array<AnnotationInfo>;
+
+  deleteAnnotation: (annotationInfo: AnnotationInfo) => ActionResult;
 };
 
 interface AnnotationTypeProvider<Type> {

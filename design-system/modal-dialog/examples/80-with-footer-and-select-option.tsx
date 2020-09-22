@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
 import Select from '@atlaskit/select';
 
 import Modal, { ModalFooter, ModalTransition } from '../src';

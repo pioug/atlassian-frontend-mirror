@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
 import {
   AtlaskitThemeProvider,
   elevation as AkElevations,

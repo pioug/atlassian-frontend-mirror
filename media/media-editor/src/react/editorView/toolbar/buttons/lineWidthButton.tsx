@@ -1,7 +1,7 @@
 import React from 'react';
 import { Component } from 'react';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
 import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
 import Tooltip from '@atlaskit/tooltip';
 import { messages } from '@atlaskit/media-ui';

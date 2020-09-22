@@ -1,12 +1,12 @@
 import { EditorState } from 'prosemirror-state';
 import { Node as PMNode } from 'prosemirror-model';
 import { findParentNodeOfTypeClosestToPos } from 'prosemirror-utils';
+import { absoluteBreakoutWidth } from '@atlaskit/editor-common';
 import {
   akEditorFullWidthLayoutWidth,
-  absoluteBreakoutWidth,
-  gridMediumMaxWidth,
   akLayoutGutterOffset,
-} from '@atlaskit/editor-common';
+  gridMediumMaxWidth,
+} from '@atlaskit/editor-shared-styles';
 import { WidthPluginState } from '../plugins/width';
 import {
   LAYOUT_SECTION_MARGIN,

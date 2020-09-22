@@ -1,6 +1,6 @@
 import { css } from 'styled-components';
 
-import { akEditorTableCellMinWidth } from '../consts';
+import { akEditorTableCellMinWidth } from '@atlaskit/editor-shared-styles';
 
 export const TaskDecisionSharedCssClassName = {
   DECISION_CONTAINER: 'decisionItemView-content-wrap',

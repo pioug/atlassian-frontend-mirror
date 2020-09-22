@@ -4,7 +4,7 @@ import {
   akEditorGutterPadding,
   akEditorSwoopCubicBezier,
   akLayoutGutterOffset,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-shared-styles';
 import { taskListSelector, decisionListSelector } from '@atlaskit/adf-schema';
 import ContentStyles from '../../ContentStyles';
 import { tableFullPageEditorStyles } from '../../../plugins/table/ui/common-styles.css';

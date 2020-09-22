@@ -1,6 +1,11 @@
 import React from 'react';
 import { MediaProvider } from '@atlaskit/editor-common/provider-factory';
-import { media, mediaGroup, mediaSingle } from '@atlaskit/adf-schema';
+import {
+  media,
+  mediaGroup,
+  mediaSingle,
+  mediaSingleWithCaption,
+} from '@atlaskit/adf-schema';
 import { EditorPlugin, PMPluginFactoryParams } from '../../types';
 import {
   stateKey as pluginKey,
@@ -43,11 +48,19 @@ const mediaPlugin = (options?: MediaOptions): EditorPlugin => ({
   name: 'media',
 
   nodes() {
-    const { allowMediaGroup = true, allowMediaSingle = false } = options || {};
+    const {
+      allowMediaGroup = true,
+      allowMediaSingle = false,
+      UNSAFE_allowImageCaptions = false,
+    } = options || {};
+
+    const mediaSingleNode = UNSAFE_allowImageCaptions
+      ? mediaSingleWithCaption
+      : mediaSingle;
 
     return [
       { name: 'mediaGroup', node: mediaGroup },
-      { name: 'mediaSingle', node: mediaSingle },
+      { name: 'mediaSingle', node: mediaSingleNode },
       { name: 'media', node: media },
     ].filter(node => {
       if (node.name === 'mediaGroup') {

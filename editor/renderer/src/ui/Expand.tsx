@@ -1,7 +1,6 @@
 import React, { forwardRef } from 'react';
 import styled from 'styled-components';
 import { gridSize, fontSize } from '@atlaskit/theme/constants';
-import { N80A } from '@atlaskit/theme/colors';
 import ChevronRightIcon from '@atlaskit/icon/glyph/chevron-right';
 import Tooltip from '@atlaskit/tooltip';
 import {
@@ -11,8 +10,8 @@ import {
   ExpandIconWrapper,
   ExpandLayoutWrapper,
   ClearNextSiblingMarginTop,
-  akEditorLineHeight,
 } from '@atlaskit/editor-common';
+import { akEditorLineHeight } from '@atlaskit/editor-shared-styles';
 import { AnalyticsEventPayload, PLATFORM, MODE } from '../analytics/events';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../analytics/enums';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
@@ -139,7 +138,7 @@ function Expand({
           tag={ExpandLayoutWrapperWithRef}
         >
           <ExpandIconWrapper expanded={expanded}>
-            <ChevronRightIcon label={label} primaryColor={N80A} />
+            <ChevronRightIcon label={label} />
           </ExpandIconWrapper>
         </Tooltip>
         <Title>

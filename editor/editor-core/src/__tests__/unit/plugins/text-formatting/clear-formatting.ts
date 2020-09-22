@@ -26,6 +26,7 @@ import {
   table,
   tr,
   td,
+  th,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
@@ -325,7 +326,7 @@ describe('clear-formatting', () => {
   });
 
   describe('CellSelection', () => {
-    it('should clear formatting', () => {
+    it('should clear formatting for table', () => {
       const { editorView } = editor(
         doc(
           table()(
@@ -343,6 +344,25 @@ describe('clear-formatting', () => {
           ),
         ),
       );
+    });
+
+    it('should clear formatting for just the cells selected', () => {
+      const input = doc(
+        table()(
+          tr(td()('{<cell}', h1('One')), th()(p(strong('two'), '{cell>}'))),
+          tr(td()(h3(em('Three'))), td()(h4(strong('Four')))),
+        ),
+      );
+      const result = doc(
+        table()(
+          tr(td()(p('{<cell}One')), th()(p('two{cell>}'))),
+          tr(td()(h3(em('Three'))), td()(h4(strong('Four')))),
+        ),
+      );
+
+      const { editorView } = editor(input);
+      clearFormatting()(editorView.state, editorView.dispatch);
+      expect(editorView.state.doc).toEqualDocument(result);
     });
   });
 });

@@ -7,14 +7,17 @@ import { EditorView } from 'prosemirror-view';
 import rafSchedule from 'raf-schd';
 
 import {
-  akEditorMobileBreakoutPoint,
   browser,
   calcTableWidth,
   tableMarginSides,
-  akEditorTableToolbarSize as tableToolbarSize,
 } from '@atlaskit/editor-common';
+import {
+  akEditorMobileBreakoutPoint,
+  akEditorTableToolbarSize as tableToolbarSize,
+} from '@atlaskit/editor-shared-styles';
 
 import { parsePx } from '../../../utils/dom';
+import { isValidPosition } from '../../../utils';
 import { getParentNodeWidth } from '../../../utils/node-width';
 import { WidthPluginState } from '../../width';
 import { autoSizeTable } from '../commands';
@@ -224,7 +227,11 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
   }
 
   onStickyState = (state: StickyPluginState) => {
-    const stickyHeader = findStickyHeaderForTable(state, this.props.getPos());
+    const pos = this.props.getPos();
+    if (!isValidPosition(pos, this.props.view.state)) {
+      return;
+    }
+    const stickyHeader = findStickyHeaderForTable(state, pos);
     if (stickyHeader !== this.state.stickyHeader) {
       this.setState({ stickyHeader });
     }
@@ -434,6 +441,10 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
   }) => {
     const { view, node, getPos, containerWidth, options } = this.props;
     const { state, dispatch } = view;
+    const pos = getPos();
+    if (!isValidPosition(pos, state)) {
+      return;
+    }
     const domAtPos = view.domAtPos.bind(view);
     const { width } = containerWidth;
 
@@ -447,7 +458,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
         ...scaleOptions,
         node,
         prevNode: this.node || node,
-        start: getPos() + 1,
+        start: pos + 1,
         containerWidth: width,
         previousContainerWidth: this.containerWidth!.width || width,
         ...options,
@@ -459,8 +470,11 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
   private handleAutoSize = () => {
     if (this.table) {
       const { view, node, getPos, options, containerWidth } = this.props;
-
-      autoSizeTable(view, node, this.table, getPos(), {
+      const pos = getPos();
+      if (!isValidPosition(pos, view.state)) {
+        return;
+      }
+      autoSizeTable(view, node, this.table, pos, {
         dynamicTextSizing: (options && options.dynamicTextSizing) || false,
         containerWidth: containerWidth.width,
       });
@@ -510,13 +524,24 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
     });
   };
 
-  private getParentNodeWidth = () =>
-    getParentNodeWidth(
-      this.props.getPos(),
-      this.props.view.state,
-      this.props.containerWidth,
-      this.props.options && this.props.options.isFullWidthModeEnabled,
+  private getParentNodeWidth = () => {
+    const {
+      getPos,
+      containerWidth,
+      options,
+      view: { state },
+    } = this.props;
+    const pos = getPos();
+    if (!isValidPosition(pos, state)) {
+      return;
+    }
+    return getParentNodeWidth(
+      pos,
+      state,
+      containerWidth,
+      options && options.isFullWidthModeEnabled,
     );
+  };
 
   private updateParentWidth = (width?: number) => {
     this.setState({ parentWidth: width });

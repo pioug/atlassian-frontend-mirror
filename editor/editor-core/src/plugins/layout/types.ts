@@ -1,9 +1,11 @@
 import { Slice } from 'prosemirror-model';
+import { LongPressSelectionPluginOptions } from '../selection/types';
 
-export type LayoutsConfig = {
-  allowBreakout: boolean;
+export interface LayoutPluginOptions extends LongPressSelectionPluginOptions {
+  allowBreakout?: boolean;
   UNSAFE_addSidebarLayouts?: boolean;
-};
+}
+
 export type PresetLayout =
   | 'two_equal'
   | 'three_equal'

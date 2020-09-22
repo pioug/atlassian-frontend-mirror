@@ -5,6 +5,7 @@ let mockFindOverflowScrollParent = jest.fn();
 let mockRafSchedule = jest.fn().mockImplementation((cb: any) => cb());
 jest.mock('raf-schd', () => (cb: any) => () => mockRafSchedule(cb));
 jest.mock('@atlaskit/smart-card', () => ({
+  ...jest.requireActual('@atlaskit/smart-card'),
   Card: class Card extends React.Component<any> {
     render() {
       this.props.onResolve({
@@ -34,7 +35,7 @@ import { Card } from '@atlaskit/smart-card';
 
 import { BlockCardComponent } from '../../../../../plugins/card/nodeviews/blockCard';
 import { EditorView } from 'prosemirror-view';
-
+import { createCardContext } from '../_helpers';
 describe('blockCard', () => {
   let mockEditorView: EditorView;
 
@@ -70,6 +71,7 @@ describe('blockCard', () => {
         node={mockBlockCardPmNode}
         view={mockEditorView}
         getPos={() => 0}
+        cardContext={createCardContext()}
       />,
     );
     const wrapper = mockBlockCardNode.find(Card);
@@ -89,6 +91,7 @@ describe('blockCard', () => {
         node={mockBlockCardPmNode}
         view={mockEditorView}
         getPos={() => 0}
+        cardContext={createCardContext()}
       />,
     );
     const wrapper = mockBlockCardNode.find(Card);
@@ -106,6 +109,7 @@ describe('blockCard', () => {
         node={mockBlockPmNode}
         view={mockEditorView}
         getPos={() => 0}
+        cardContext={createCardContext()}
       />,
     );
 
@@ -137,6 +141,7 @@ describe('blockCard', () => {
           node={mockBlockCardPmNode}
           view={mockEditorView}
           getPos={() => 0}
+          cardContext={createCardContext()}
         />,
       );
 
@@ -158,6 +163,7 @@ describe('blockCard', () => {
           node={mockBlockCardPmNode}
           view={mockEditorView}
           getPos={() => 0}
+          cardContext={createCardContext()}
         />,
       );
 

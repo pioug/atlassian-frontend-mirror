@@ -32,7 +32,12 @@ describe('fireSmartLinkEvent', () => {
 
 describe('resolvedEvent', () => {
   test('returns resolved events with definition id and resource type', () => {
-    const event = resolvedEvent('id', 'definition-id', 'file-type');
+    const event = resolvedEvent(
+      'id',
+      'definition-id',
+      'extension-key',
+      'file-type',
+    );
 
     expect(event).toMatchInlineSnapshot(`
       Object {
@@ -41,6 +46,7 @@ describe('resolvedEvent', () => {
         "attributes": Object {
           "componentName": "smart-cards",
           "definitionId": "definition-id",
+          "extensionKey": "extension-key",
           "id": "id",
           "packageName": "@atlaskit/smart-card",
           "packageVersion": "999.9.9",
@@ -64,6 +70,7 @@ describe('unresolvedEvent', () => {
       'id',
       'fail',
       'definition-id',
+      'extension-key',
       'file-type',
       error,
     );
@@ -80,6 +87,7 @@ describe('unresolvedEvent', () => {
             "message": "something wrong",
             "type": "ResolveFailedError",
           },
+          "extensionKey": "extension-key",
           "id": "id",
           "packageName": "@atlaskit/smart-card",
           "packageVersion": "999.9.9",

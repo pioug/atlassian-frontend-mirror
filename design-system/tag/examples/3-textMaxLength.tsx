@@ -1,6 +1,8 @@
 import React, { ReactNode } from 'react';
-import styled from 'styled-components';
-import Tag from '../src';
+
+import styled from '@emotion/styled';
+
+import Tag from '../src/tag/removable-tag';
 
 const cupcakeipsum =
   'Croissant topping tiramisu gummi bears. Bonbon chocolate bar danish soufflé';
@@ -29,18 +31,22 @@ export default function Table() {
       <tbody>
         <Row name="Full text">{cupcakeipsum}</Row>
         <Row name="Text">
-          <Tag text={cupcakeipsum} />
+          <Tag text={cupcakeipsum} isRemovable={false} />
         </Row>
         <Row name="Linked">
-          <Tag text={cupcakeipsum} href="http://www.cupcakeipsum.com/" />
+          <Tag
+            text={cupcakeipsum}
+            href="http://www.cupcakeipsum.com/"
+            isRemovable={false}
+          />
         </Row>
         <Row name="Removable">
-          <Tag text={cupcakeipsum} removeButtonText="No sweets for you!" />
+          <Tag text={cupcakeipsum} removeButtonLabel="No sweets for you!" />
         </Row>
         <Row name="Removable & linked">
           <Tag
             text={cupcakeipsum}
-            removeButtonText="No sweets for you!"
+            removeButtonLabel="No sweets for you!"
             href="http://www.cupcakeipsum.com/"
           />
         </Row>

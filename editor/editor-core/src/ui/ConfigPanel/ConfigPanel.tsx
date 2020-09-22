@@ -1,5 +1,4 @@
 import React from 'react';
-import { InjectedIntlProps, injectIntl } from 'react-intl';
 import memoizeOne from 'memoize-one';
 import {
   withAnalyticsContext,
@@ -39,8 +38,7 @@ type Props = {
   onCancel: () => void;
   errorMessage: string | null;
   isLoading?: boolean;
-} & InjectedIntlProps &
-  WithAnalyticsEventsProps;
+} & WithAnalyticsEventsProps;
 
 type State = {
   hasParsedParameters: boolean;
@@ -174,6 +172,8 @@ class ConfigPanel extends React.Component<Props, State> {
         icon={extensionManifest.icons['48']}
         title={extensionManifest.title}
         description={extensionManifest.description}
+        summary={extensionManifest.summary}
+        documentationUrl={extensionManifest.documentationUrl}
         onClose={onCancel}
       />
     );
@@ -208,21 +208,22 @@ class ConfigPanel extends React.Component<Props, State> {
   };
 
   getFirstVisibleFieldName = memoizeOne((fields: FieldDefinition[]) => {
-    // finds the first visible field. Returns true for fieldsets too.
-    const firstVisibleField = fields.find(field => {
-      if (field.type === 'fieldset') {
-        return true;
+    function nonHidden(field: FieldDefinition) {
+      if ('isHidden' in field) {
+        return !field.isHidden;
       }
-      return !field.isHidden;
-    });
+      return true;
+    }
 
+    // finds the first visible field, true for FieldSets too
+    const firstVisibleField = fields.find(nonHidden);
     let newFirstVisibleFieldName;
 
     if (firstVisibleField) {
       // if it was a fieldset, go deeper trying to locate the field
       if (firstVisibleField.type === 'fieldset') {
         const firstVisibleFieldWithinFieldset = firstVisibleField.fields.find(
-          fieldsetField => !fieldsetField.isHidden,
+          nonHidden,
         );
 
         newFirstVisibleFieldName =
@@ -256,7 +257,12 @@ class ConfigPanel extends React.Component<Props, State> {
       <Form onSubmit={this.handleSubmit}>
         {({ formProps, submitting }) => {
           return (
-            <form {...formProps} noValidate onKeyDown={this.handleKeyDown}>
+            <form
+              {...formProps}
+              noValidate
+              onKeyDown={this.handleKeyDown}
+              data-testid="extension-config-panel"
+            >
               {this.renderHeader(extensionManifest)}
               {this.renderBody(extensionManifest, submitting)}
             </form>
@@ -268,5 +274,5 @@ class ConfigPanel extends React.Component<Props, State> {
 }
 
 export default withAnalyticsContext({ source: 'ConfigPanel' })(
-  withAnalyticsEvents()(injectIntl(ConfigPanel)),
+  withAnalyticsEvents()(ConfigPanel),
 );

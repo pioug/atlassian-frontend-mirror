@@ -1,0 +1,259 @@
+import AndroidBridge from '../../android-impl';
+
+function createAndroidMockBridge(): [AndroidBridge, Window] {
+  const mockWindow = ({
+    lifecycleBridge: {
+      editorReady: jest.fn(),
+      editorDestroyed: jest.fn(),
+      startWebBundle: jest.fn(),
+      editorError: jest.fn(),
+    },
+    analyticsBridge: { trackEvent: jest.fn() },
+    blockFormatBridge: {
+      updateBlockState: jest.fn(),
+      updateText: jest.fn(),
+      updateTextColor: jest.fn(),
+      updateTextFormat: jest.fn(),
+    },
+    collabBridge: {
+      emit: jest.fn(),
+      disconnect: jest.fn(),
+      connect: jest.fn(),
+    },
+    linkBridge: {
+      currentSelection: jest.fn(),
+    },
+    listBridge: {
+      updateListState: jest.fn(),
+    },
+    mediaBridge: {
+      getCollection: jest.fn(),
+      getServiceHost: jest.fn(),
+    },
+    mentionBridge: {
+      dismissMentions: jest.fn(),
+      showMentions: jest.fn(),
+    },
+    mentionsBridge: {
+      dismissMentions: jest.fn(),
+      showMentions: jest.fn(),
+    },
+    promiseBridge: {
+      submitPromise: jest.fn(),
+    },
+    selectionBridge: {},
+    statusBridge: {
+      dismissStatusPicker: jest.fn(),
+      showStatusPicker: jest.fn(),
+    },
+    textFormatBridge: {
+      updateBlockState: jest.fn(),
+      updateText: jest.fn(),
+      updateTextColor: jest.fn(),
+      updateTextFormat: jest.fn(),
+    },
+    typeAheadBridge: {
+      dismissTypeAhead: jest.fn(),
+      typeAheadDisplayItems: jest.fn(),
+      typeAheadQuery: jest.fn(),
+    },
+    undoRedoBridge: {
+      stateChanged: jest.fn(),
+    },
+  } as any) as Window;
+  return [new AndroidBridge(mockWindow), mockWindow];
+}
+describe('Web To Native', () => {
+  describe('Android', () => {
+    let androidBridge: AndroidBridge;
+    let windowWithMockBridges: Window;
+    beforeEach(() => {
+      [androidBridge, windowWithMockBridges] = createAndroidMockBridge();
+    });
+
+    afterEach(() => {
+      jest.clearAllMocks();
+    });
+
+    describe('Lifecycle bridge', () => {
+      describe('editorReady', () => {
+        it('should call native', function () {
+          androidBridge.editorReady();
+          expect(
+            windowWithMockBridges.lifecycleBridge!.editorReady,
+          ).toHaveBeenCalled();
+        });
+
+        it('should call native only once when method is called a second time', function () {
+          androidBridge.editorReady();
+          androidBridge.editorReady();
+
+          expect(
+            windowWithMockBridges.lifecycleBridge!.editorReady,
+          ).toHaveBeenCalledTimes(1);
+        });
+
+        it('should send analytics event called twice', function () {
+          androidBridge.editorReady();
+          androidBridge.editorReady();
+
+          expect(
+            windowWithMockBridges.analyticsBridge!.trackEvent,
+          ).toHaveBeenCalledWith(
+            JSON.stringify({
+              action: 'editorReadyCalledTwice',
+              actionSubject: 'editor',
+              eventType: 'operational',
+            }),
+          );
+        });
+
+        it('should not throw if lifeCycle bridge does not exist', function () {
+          const androidBridge = new AndroidBridge(({
+            lifecycleBridge: undefined,
+            analyticsBridge: { trackEvent: jest.fn() },
+          } as any) as Window);
+
+          expect(() => androidBridge.editorReady()).not.toThrow();
+        });
+
+        it('should send analytics event when lifecycleBridge does not exist', function () {
+          const analyticsBridge = { trackEvent: jest.fn() };
+          const androidBridge = new AndroidBridge(({
+            lifecycleBridge: undefined,
+            analyticsBridge,
+          } as any) as Window);
+
+          androidBridge.editorReady();
+
+          expect(analyticsBridge.trackEvent).toHaveBeenCalledWith(
+            JSON.stringify({
+              action: 'editorReadyCalledBeforeLifecycleBridgeSetup',
+              actionSubject: 'editor',
+              eventType: 'track',
+            }),
+          );
+        });
+      });
+
+      describe('startWebBundle', () => {
+        it('should call native', function () {
+          androidBridge.startWebBundle();
+          expect(
+            windowWithMockBridges.lifecycleBridge!.startWebBundle,
+          ).toHaveBeenCalled();
+        });
+
+        it('should call native only once when method is called a second time', function () {
+          androidBridge.startWebBundle();
+          androidBridge.startWebBundle();
+
+          expect(
+            windowWithMockBridges.lifecycleBridge!.startWebBundle,
+          ).toHaveBeenCalledTimes(1);
+        });
+
+        it('should send analytics event called twice', function () {
+          androidBridge.startWebBundle();
+          androidBridge.startWebBundle();
+
+          expect(
+            windowWithMockBridges.analyticsBridge!.trackEvent,
+          ).toHaveBeenCalledWith(
+            JSON.stringify({
+              action: 'startWebBundleCalledTwice',
+              actionSubject: 'editor',
+              eventType: 'operational',
+            }),
+          );
+        });
+
+        it('should not throw if lifeCycle bridge does not exist', function () {
+          const androidBridge = new AndroidBridge(({
+            lifecycleBridge: undefined,
+            analyticsBridge: { trackEvent: jest.fn() },
+          } as any) as Window);
+
+          expect(() => androidBridge.startWebBundle()).not.toThrow();
+        });
+
+        it('should send analytics event when lifecycleBridge does not exist', function () {
+          const analyticsBridge = { trackEvent: jest.fn() };
+          const androidBridge = new AndroidBridge(({
+            lifecycleBridge: undefined,
+            analyticsBridge,
+          } as any) as Window);
+
+          androidBridge.startWebBundle();
+
+          expect(analyticsBridge.trackEvent).toHaveBeenCalledWith(
+            JSON.stringify({
+              action: 'startWebBundleCalledBeforeLifecycleBridgeSetup',
+              actionSubject: 'editor',
+              eventType: 'track',
+            }),
+          );
+        });
+      });
+
+      describe('editorError', () => {
+        const errorString = new Error('TestError').toString();
+        it('should call native', () => {
+          androidBridge.editorError(errorString);
+
+          expect(
+            windowWithMockBridges.lifecycleBridge!.editorError,
+          ).toHaveBeenCalledWith(errorString, undefined);
+        });
+
+        it('should send analytics on error with bridge', () => {
+          androidBridge.editorError(errorString);
+
+          expect(
+            windowWithMockBridges.analyticsBridge!.trackEvent,
+          ).toHaveBeenCalledWith(
+            JSON.stringify({
+              action: 'editorError',
+              actionSubject: 'editor',
+              eventType: 'operational',
+              attributes: {
+                isBridgeSetup: true,
+                errorMessage: 'Error: TestError',
+              },
+            }),
+          );
+        });
+
+        it('should send analytics on error without bridge', () => {
+          const analyticsBridge = { trackEvent: jest.fn() };
+          const androidBridge = new AndroidBridge(({
+            lifecycleBridge: undefined,
+            analyticsBridge,
+          } as any) as Window);
+
+          androidBridge.editorError(errorString);
+
+          expect(analyticsBridge.trackEvent).toHaveBeenCalledWith(
+            JSON.stringify({
+              action: 'editorError',
+              actionSubject: 'editor',
+              eventType: 'operational',
+              attributes: {
+                isBridgeSetup: false,
+                errorMessage: 'Error: TestError',
+              },
+            }),
+          );
+        });
+      });
+
+      it('should call native editorDestroyed method', function () {
+        androidBridge.editorDestroyed();
+
+        expect(
+          windowWithMockBridges.lifecycleBridge!.editorDestroyed,
+        ).toHaveBeenCalled();
+      });
+    });
+  });
+});

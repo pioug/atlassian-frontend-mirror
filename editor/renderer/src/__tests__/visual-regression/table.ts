@@ -25,7 +25,6 @@ const initRenderer = async (
     appearance,
     viewport: { width: 1485, height: 1175 },
     adf,
-    rendererProps: { showSidebar: true },
   });
 };
 
@@ -67,7 +66,7 @@ describe('Snapshot Test: Table scaling', () => {
     const css = `
     .__fake_inline_comment__ {
       position: absolute;
-      right: 50px;
+      right: 300px;
       top: 300px;
       width: 300px;
       height: 200px;
@@ -79,11 +78,7 @@ describe('Snapshot Test: Table scaling', () => {
   });
 
   it('should render table content correctly in mobile appearance', async () => {
-    await initRendererWithADF(page, {
-      appearance: 'mobile',
-      viewport: { width: 1485, height: 1175 },
-      adf: wideTableResized,
-    });
+    await initRenderer(page, wideTableResized, 'mobile');
     await page.waitForSelector(tableContainerSelector);
     await page.waitFor(
       '#renderer-container [data-testid="inline-card-resolved-view"]',

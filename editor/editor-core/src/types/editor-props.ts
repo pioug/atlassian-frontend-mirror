@@ -28,7 +28,7 @@ import { TextFormattingOptions } from '../plugins/text-formatting/types';
 import { PlaceholderTextOptions } from '../plugins/placeholder-text/types';
 import { BlockTypePluginOptions } from '../plugins/block-type/types';
 import { CodeBlockOptions } from '../plugins/code-block/types';
-import { LayoutsConfig } from '../plugins/layout/types';
+import { LayoutPluginOptions } from '../plugins/layout/types';
 import { FindReplaceOptions } from '../plugins/find-replace/types';
 import { ExtensionConfig } from './extension-config';
 import { EditorAppearance } from './editor-appearance';
@@ -36,9 +36,9 @@ import { MenuItem } from '../ui/DropdownMenu/types';
 import { EditorOnChangeHandler } from './editor-onchange';
 import {
   TransactionTracking,
-  UITracking,
-  NodeViewTracking,
+  PerformanceTracking,
 } from './performance-tracking';
+import { PanelPluginConfig } from './../plugins/panel/types';
 
 export type ReactComponents = ReactElement<any> | ReactElement<any>[];
 
@@ -109,7 +109,7 @@ export interface EditorProps {
 
   // Enable panel blocks, the thing that displays a coloured box with icons aka info, warning macros.
   // You will most likely need backend ADF storage for this feature.
-  allowPanel?: boolean;
+  allowPanel?: boolean | PanelPluginConfig;
 
   // Enable extensions. Extensions let products and the ecosystem extend ADF and render their own things.
   // Similar to macros in Confluence. You will most likely need backend ADF storage for this feature.
@@ -128,7 +128,7 @@ export interface EditorProps {
 
   // Temporary flag to enable layouts while it's under development
   // Use object form to enable breakout for layouts, and to enable the newer layouts - left sidebar & right sidebar
-  allowLayouts?: boolean | LayoutsConfig;
+  allowLayouts?: boolean | LayoutPluginOptions;
 
   // Enable status, if menuDisabled is passed then plugin is enabled by default
   allowStatus?:
@@ -283,8 +283,11 @@ export interface EditorProps {
   // default: false, which inserts the nick name
   mentionInsertDisplayName?: boolean;
 
-  // The nth keystroke after which an input time taken event is sent, 0 to disable it
-  // default: 100
+  /**
+   * @description The nth keystroke after which an input time taken event is sent, 0 to disable it
+   * @default 100
+   * @deprecated Use performanceTracking.inputSampling instead https://product-fabric.atlassian.net/browse/ED-10260
+   */
   inputSamplingLimit?: number;
 
   // New extension API
@@ -296,41 +299,16 @@ export interface EditorProps {
   // default: false, which falls back on the current list behaviour
   UNSAFE_predictableLists?: boolean;
 
-  // ⚠️ This API will be deprecated in the future
+  /**
+   * @default 100
+   * @deprecated Use performanceTracking.transactionTracking instead https://product-fabric.atlassian.net/browse/ED-8985
+   */
   transactionTracking?: TransactionTracking;
 
-  performanceTracking?: {
-    ttiTracking?: {
-      // Wether ttiTracking should be enabled
-      // default: false
-      enabled: boolean;
-
-      // Time between long tasks that tti measurement considers
-      // long enough to treat page as interactive, default: 1000ms
-      ttiIdleThreshold?: number;
-
-      // Time in [seconds] after which to stop tti measurements,
-      // used to prevent issues when page never becomes responisve,
-      // e.g. infinite loops in rendering / etc...
-      // default: 60s
-      ttiCancelTimeout?: number;
-    };
-
-    // Control transaction tracking
-    // default:
-    // {
-    //   enabled: false,
-    //   countNodes: true,
-    //   samplingRate: 100,
-    //   slowThreshold: 300,
-    //   slowOutlierThreshold: 3,
-    //   pluginMethodThreshold: 1,
-    //   outlierFactor: 3
-    // }
-    transactionTracking?: TransactionTracking;
-    uiTracking?: UITracking;
-    nodeViewTracking?: NodeViewTracking;
-  };
+  /**
+   * @description Control performance metric measurements and tracking
+   */
+  performanceTracking?: PerformanceTracking;
 
   elementBrowser?: {
     showModal?: boolean;

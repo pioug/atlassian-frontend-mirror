@@ -48,11 +48,11 @@ export const hasTableBeenResized = (table: PmNode) => {
 };
 
 function renderColgroupFromNode(table: PmNode): HTMLElement {
-  const rendered = DOMSerializer.renderSpec(
-    document,
-    // @ts-ignore
-    ['colgroup', {}].concat(generateColgroup(table)),
-  );
+  const rendered = DOMSerializer.renderSpec(document, [
+    'colgroup',
+    {},
+    ...generateColgroup(table),
+  ]);
 
   return rendered.dom as HTMLElement;
 }

@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
 
-import Button, { ButtonAppearances, ButtonProps } from '@atlaskit/button';
+import {
+  Appearance,
+  CustomThemeButton,
+  CustomThemeButtonProps,
+} from '@atlaskit/button';
 
 type Diff<T, U> = T extends U ? never : T;
 
 type PagePropsType = Diff<
-  ButtonProps,
+  CustomThemeButtonProps,
   {
-    appearance?: ButtonAppearances;
+    appearance?: Appearance;
     autoFocus: boolean;
     isDisabled: boolean;
     isLoading: boolean;
@@ -19,6 +23,6 @@ type PagePropsType = Diff<
 
 export default class Page extends Component<PagePropsType> {
   render() {
-    return <Button {...this.props} appearance="subtle" />;
+    return <CustomThemeButton {...this.props} appearance="subtle" />;
   }
 }

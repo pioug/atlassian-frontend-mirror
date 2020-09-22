@@ -175,28 +175,6 @@ const getPlaceholderColor = ({ isDisabled, mode }: ThemeProps) => {
     : componentTokens.placeholderTextColor[mode];
 };
 
-// can't group these placeholder styles into one block because browsers drop
-// entire style blocks when any single selector fails to parse
-const getPlaceholderStyle = (props: ThemeProps) => ({
-  '&::-webkit-input-placeholder': {
-    /* WebKit, Blink, Edge */
-    color: getPlaceholderColor(props),
-  },
-  '&::-moz-placeholder': {
-    /* Mozilla Firefox 19+ */
-    color: getPlaceholderColor(props),
-    opacity: 1,
-  },
-  '&::-ms-input-placeholder': {
-    /* Microsoft Edge */
-    color: getPlaceholderColor(props),
-  },
-  '&:-ms-input-placeholder': {
-    /* Internet Explorer 10-11 */
-    color: getPlaceholderColor(props),
-  },
-});
-
 const getMaxWidth = ({ width }: ThemeProps) => {
   if (!width) {
     return `100%`;
@@ -282,13 +260,16 @@ export const Theme = createTheme<ThemeTokens, ThemeProps>(props => ({
       WebkitTextFillColor: 'unset',
       WebkitOpacity: 1,
     },
+    // Hide the clear indicator on Edge (Windows only)
     '&::-ms-clear': {
       display: 'none',
     },
     '&:invalid': {
       boxShadow: 'none',
     },
-    ...getPlaceholderStyle(props),
+    '&::placeholder': {
+      color: getPlaceholderColor(props),
+    },
   },
 }));
 

@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { useRef } from 'react';
 
 import { Node as PMNode } from 'prosemirror-model';
+import { InjectedIntlProps, injectIntl } from 'react-intl';
 import styled from 'styled-components';
 
+import QuestionsIcon from '@atlaskit/icon/glyph/question-circle';
 import { N30, N50 } from '@atlaskit/theme/colors';
 import { borderRadius, fontSize } from '@atlaskit/theme/constants';
+import Tooltip from '@atlaskit/tooltip';
 
-import { ZERO_WIDTH_SPACE } from '../../utils';
-import { useNodeData } from '../hooks';
+import { unsupportedContentMessages } from '../../messages/unsupportedContent';
+import { getUnsupportedContent } from '../unsupported-content-helper';
 
 const InlineNode = styled.span`
   align-items: center;
@@ -36,16 +39,37 @@ export interface Props {
   children?: React.ReactNode;
 }
 
-export default function UnsupportedInlineNode(props: Props) {
-  let node;
-  if (props) {
-    node = props.node;
-  }
-  const text = useNodeData(node);
-  return (
-    <span>
-      <InlineNode>{text}</InlineNode>
-      {ZERO_WIDTH_SPACE}
-    </span>
+const UnsupportedInlineNode: React.FC<Props & InjectedIntlProps> = ({
+  node,
+  intl,
+}) => {
+  const message = getUnsupportedContent(
+    unsupportedContentMessages.unsupportedInlineContent,
+    'Unsupported',
+    node,
+    intl,
   );
-}
+
+  const tooltipContent = intl.formatMessage(
+    unsupportedContentMessages.unsupportedContentTooltip,
+  );
+
+  const { current: style } = useRef({ padding: '4px' });
+
+  return (
+    <InlineNode>
+      {message}
+      <Tooltip
+        content={tooltipContent}
+        hideTooltipOnClick={false}
+        position="bottom"
+      >
+        <span style={style}>
+          <QuestionsIcon label="?" size="small" />
+        </span>
+      </Tooltip>
+    </InlineNode>
+  );
+};
+
+export default injectIntl(UnsupportedInlineNode);

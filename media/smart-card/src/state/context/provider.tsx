@@ -44,6 +44,7 @@ export function SmartCardProvider({
 
     return {
       store,
+      prefetchStore: {},
       connections: {
         client,
       },

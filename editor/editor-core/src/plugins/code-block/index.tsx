@@ -26,7 +26,10 @@ const codeBlockPlugin = (options: CodeBlockOptions = {}): EditorPlugin => ({
 
   pmPlugins() {
     return [
-      { name: 'codeBlock', plugin: createPlugin },
+      {
+        name: 'codeBlock',
+        plugin: () => createPlugin(options.useLongPressSelection),
+      },
       {
         name: 'codeBlockIDEKeyBindings',
         plugin: () => ideUX,

@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import {
   ImageRenderer,
-  ImageRendererBase,
+  ImageRendererWithoutAnalytics,
   resizeModeToMediaImageProps,
 } from '../imageRenderer';
 import { MediaType } from '@atlaskit/media-client';
@@ -32,7 +32,7 @@ describe('ImageRenderer', () => {
       />,
     );
 
-    expect(component.find(ImageRendererBase)).toHaveLength(1);
+    expect(component.find(ImageRendererWithoutAnalytics)).toHaveLength(1);
     const mediaImage = component.find(MediaImage);
     expect(mediaImage).toHaveLength(1);
     expect(mediaImage.props()).toMatchObject({
@@ -60,7 +60,7 @@ describe('ImageRenderer', () => {
     const fire = jest.fn();
     const createAnalyticsEvent = jest.fn().mockReturnValue({ fire });
     const component = shallow(
-      <ImageRendererBase
+      <ImageRendererWithoutAnalytics
         mediaType="image"
         dataURI="some-data"
         resizeMode="stretchy-fit"
@@ -86,7 +86,7 @@ describe('ImageRenderer', () => {
     const fire = jest.fn();
     const createAnalyticsEvent = jest.fn().mockReturnValue({ fire });
     const component = shallow(
-      <ImageRendererBase
+      <ImageRendererWithoutAnalytics
         mediaType="image"
         dataURI="some-data"
         resizeMode="stretchy-fit"
@@ -125,7 +125,7 @@ describe('ImageRenderer', () => {
   nonImageMediaTypes.forEach(mediaType => {
     it(`should not call onDisplayImage when mediaType is ${mediaType}`, () => {
       shallow(
-        <ImageRenderer
+        <ImageRendererWithoutAnalytics
           mediaType={mediaType}
           dataURI="some-data"
           onDisplayImage={onDisplayImage}

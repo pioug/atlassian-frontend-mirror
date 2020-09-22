@@ -1,3 +1,4 @@
+import { PanelType } from '@atlaskit/adf-schema';
 import { name } from '../../../version.json';
 
 import {
@@ -131,7 +132,9 @@ describe(name, () => {
       { name: 'text', node: text('text', schema) as any },
       {
         name: 'block',
-        node: panel({ panelType: 'info' })(p('tcontent'))(schema) as any,
+        node: panel({ panelType: PanelType.INFO })(p('tcontent'))(
+          schema,
+        ) as any,
       },
       {
         name: 'inline',
@@ -1002,7 +1005,7 @@ describe(name, () => {
                 {
                   type: 'panel',
                   attrs: {
-                    panelType: 'info',
+                    panelType: PanelType.INFO,
                   },
                   content: [
                     {
@@ -1042,7 +1045,7 @@ describe(name, () => {
                 {
                   type: 'panel',
                   attrs: {
-                    panelType: 'info',
+                    panelType: PanelType.INFO,
                     invalid: 'invalidValue',
                   },
                   marks: [
@@ -1070,7 +1073,7 @@ describe(name, () => {
                 {
                   type: 'panel',
                   attrs: {
-                    panelType: 'info',
+                    panelType: PanelType.INFO,
                   },
                   content: [
                     {
@@ -1145,7 +1148,7 @@ describe(name, () => {
                 {
                   type: 'panel',
                   attrs: {
-                    panelType: 'info',
+                    panelType: PanelType.INFO,
                   },
                   content: [
                     {

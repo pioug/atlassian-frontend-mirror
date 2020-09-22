@@ -22,7 +22,7 @@ export {
   snapToGrid,
 } from './MediaSingle/grid';
 
-export { MediaLink, MediaLinkWrapper } from './MediaSingle/link';
+export { MediaLink } from './MediaSingle/link';
 
 export { default as Mention } from './Mention';
 export {

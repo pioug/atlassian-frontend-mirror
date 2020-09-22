@@ -39,6 +39,8 @@ export function buildMenuItem<T>(
     featured: extensionModule.featured || false,
     categories: extensionModule.categories || manifest.categories || [],
     description: extensionModule.description || manifest.description,
+    summary: manifest.summary,
+    documentationUrl: manifest.documentationUrl,
     icon: extensionModule.icon || manifest.icons['48'],
     node,
   };

@@ -4,7 +4,7 @@ import { PureComponent } from 'react';
 import { AvatarList, Avatar } from '../avatar-list';
 
 import EditorMoreIcon from '@atlaskit/icon/glyph/editor/more';
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
 import { PredefinedAvatarsWrapper } from './styled';
 
 interface ShowMoreButtonProps {

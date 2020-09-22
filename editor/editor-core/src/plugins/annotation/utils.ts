@@ -10,6 +10,7 @@ import { Decoration } from 'prosemirror-view';
 import {
   AnnotationSharedClassNames,
   canApplyAnnotationOnRange,
+  getAnnotationIdsFromRange,
 } from '@atlaskit/editor-common';
 import { AnnotationInfo, AnnotationSelectionType } from './types';
 import { sum } from '../../utils';
@@ -91,24 +92,6 @@ export const getAllAnnotations = (doc: Node): string[] => {
   });
 
   return Array.from(allAnnotationIds);
-};
-
-export const getAnnotationText = (root: Node, annotationIds: string[] = []) => {
-  let result = '';
-  root.descendants(node => {
-    if (
-      node.marks.length &&
-      node.marks.some(
-        mark =>
-          mark.type.name === 'annotation' &&
-          annotationIds.includes(mark.attrs.id),
-      )
-    ) {
-      result += node.textContent;
-    }
-    return true;
-  });
-  return result;
 };
 
 // helper function: return the first selection range for the window
@@ -227,20 +210,13 @@ export const getPluginState = (
  * get number of unique annotations within current selection
  */
 const getAnnotationsInSelectionCount = (state: EditorState): number => {
-  const { annotation } = state.schema.marks;
   const { from, to } = state.selection;
-  const annotations = new Set<string>();
-
-  state.doc.nodesBetween(from, to, node => {
-    node.marks.forEach((mark: Mark<any>) => {
-      if (mark.type === annotation) {
-        annotations.add(mark.attrs.id);
-      }
-    });
-    return true; // be thorough, go through all children
-  });
-
-  return annotations.size;
+  const annotations = getAnnotationIdsFromRange(
+    { from, to },
+    state.doc,
+    state.schema,
+  );
+  return annotations.length;
 };
 
 /**

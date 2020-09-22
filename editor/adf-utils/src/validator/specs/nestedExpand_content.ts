@@ -3,7 +3,8 @@ export default {
   items: [
     [
       'paragraph_with_no_marks',
-      'mediaSingle',
+      'mediaSingle_full',
+      'mediaSingle_caption',
       'heading_with_no_marks',
       'mediaGroup',
     ],

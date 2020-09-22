@@ -4,7 +4,7 @@ import { css, Global } from '@emotion/core';
 import styled from '@emotion/styled';
 import Lorem from 'react-lorem-component';
 
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
 import FieldRadioGroup from '@atlaskit/field-radio-group';
 
 import Modal, { ModalTransition } from '../src';

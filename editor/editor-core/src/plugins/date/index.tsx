@@ -2,13 +2,14 @@ import React from 'react';
 import { findDomRefAtPos } from 'prosemirror-utils';
 import Loadable from 'react-loadable';
 import { date } from '@atlaskit/adf-schema';
-import { todayTimestampInUTC } from '@atlaskit/editor-common';
 import { EditorPlugin } from '../../types';
 import WithPluginState from '../../ui/WithPluginState';
 import {
   insertDate,
   closeDatePicker,
   closeDatePickerWithAnalytics,
+  createDate,
+  deleteDate,
 } from './actions';
 import createDatePlugin from './pm-plugins/main';
 import keymap from './pm-plugins/keymap';
@@ -89,7 +90,7 @@ const datePlugin = (): EditorPlugin => ({
           editorDisabledPlugin: EditorDisabledPluginState;
           datePlugin: DatePluginState;
         }) => {
-          const { showDatePickerAt } = datePlugin;
+          const { showDatePickerAt, isNew, focusDateInput } = datePlugin;
           if (
             !showDatePickerAt ||
             (editorDisabledPlugin || {}).editorDisabled
@@ -113,10 +114,21 @@ const datePlugin = (): EditorPlugin => ({
               key={showDatePickerAt}
               showTextField={keyboardAccessibleDatepicker}
               element={element}
+              isNew={isNew}
+              autoFocus={focusDateInput}
+              onDelete={() => {
+                deleteDate()(editorView.state, dispatch);
+                editorView.focus();
+                return;
+              }}
               onSelect={(
-                date?: DateType,
+                date: DateType | null,
                 commitMethod?: INPUT_METHOD.PICKER | INPUT_METHOD.KEYBOARD,
               ) => {
+                // Undefined means couldn't parse date, null means invalid (out of bounds) date
+                if (date === undefined || date === null) {
+                  return;
+                }
                 insertDate(
                   date,
                   undefined,
@@ -150,7 +162,6 @@ const datePlugin = (): EditorPlugin => ({
       />
     );
   },
-
   pluginsOptions: {
     quickInsert: ({ formatMessage }) => [
       {
@@ -162,11 +173,8 @@ const datePlugin = (): EditorPlugin => ({
         keyshortcut: '//',
         icon: () => <IconDate label={formatMessage(messages.date)} />,
         action(insert, state) {
-          const dateNode = state.schema.nodes.date.createChecked({
-            timestamp: todayTimestampInUTC(),
-          });
+          const tr = createDate()(insert, state);
 
-          const tr = insert(dateNode, { selectInlineNode: true });
           addAnalytics(state, tr, {
             action: ACTION.INSERTED,
             actionSubject: ACTION_SUBJECT.DOCUMENT,
@@ -174,9 +182,7 @@ const datePlugin = (): EditorPlugin => ({
             eventType: EVENT_TYPE.TRACK,
             attributes: { inputMethod: INPUT_METHOD.QUICK_INSERT },
           });
-          return tr.setMeta(datePluginKey, {
-            showDatePickerAt: tr.selection.from,
-          });
+          return tr;
         },
       },
     ],

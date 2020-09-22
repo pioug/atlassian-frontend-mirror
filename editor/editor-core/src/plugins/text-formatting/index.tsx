@@ -29,6 +29,8 @@ import textFormattingSmartInputRulePlugin from './pm-plugins/smart-input-rule';
 import { TextFormattingOptions } from './types';
 import ToolbarAdvancedTextFormatting from './ui/ToolbarAdvancedTextFormatting';
 import ToolbarTextFormatting from './ui/ToolbarTextFormatting';
+import { akEditorMobileMaxWidth } from '@atlaskit/editor-shared-styles';
+import { pluginKey as widthPluginKey } from '../../plugins/width/index';
 
 const textFormatting = (options: TextFormattingOptions = {}): EditorPlugin => ({
   name: 'textFormatting',
@@ -98,16 +100,24 @@ const textFormatting = (options: TextFormattingOptions = {}): EditorPlugin => ({
         plugins={{
           textFormattingState: textFormattingPluginKey,
           clearFormattingState: clearFormattingPluginKey,
+          widthState: widthPluginKey,
         }}
-        render={({ textFormattingState, clearFormattingState }): any => {
+        render={({
+          textFormattingState,
+          clearFormattingState,
+          widthState,
+        }): any => {
           return (
             <ButtonGroup width={isToolbarReducedSpacing ? 'small' : 'large'}>
-              <ToolbarTextFormatting
-                disabled={disabled}
-                editorView={editorView}
-                textFormattingState={textFormattingState}
-                isReducedSpacing={isToolbarReducedSpacing}
-              />
+              {/* render toolbar buttons for non-mobile views */}
+              {widthState.width > akEditorMobileMaxWidth && (
+                <ToolbarTextFormatting
+                  disabled={disabled}
+                  editorView={editorView}
+                  textFormattingState={textFormattingState}
+                  isReducedSpacing={isToolbarReducedSpacing}
+                />
+              )}
               <ToolbarAdvancedTextFormatting
                 editorView={editorView}
                 isDisabled={disabled}

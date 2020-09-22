@@ -3,7 +3,12 @@ import {
   Preset,
   LightEditorPlugin,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import { doc, panel, p } from '@atlaskit/editor-test-helpers/schema-builder';
+import {
+  doc,
+  panel,
+  p,
+  emoji,
+} from '@atlaskit/editor-test-helpers/schema-builder';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { PanelType } from '@atlaskit/adf-schema';
 import {
@@ -11,6 +16,7 @@ import {
   changePanelType,
 } from '../../../../plugins/panel/actions';
 import panelPlugin from '../../../../plugins/panel';
+import emojiPlugin from '../../../../plugins/emoji';
 import analyticsPlugin from '../../../../plugins/analytics';
 import { selectNode } from '../../../../utils/commands';
 
@@ -22,6 +28,7 @@ describe('panel actions', () => {
     createAnalyticsEvent = jest.fn().mockReturnValue({ fire() {} });
     const preset = new Preset<LightEditorPlugin>()
       .add(panelPlugin)
+      .add(emojiPlugin)
       .add([analyticsPlugin, { createAnalyticsEvent }]);
 
     return createEditor({ doc, preset });
@@ -62,18 +69,30 @@ describe('panel actions', () => {
   });
 
   describe('change panel type', () => {
-    const panelTypes: PanelType[] = [
-      'info',
-      'note',
-      'tip',
-      'warning',
-      'error',
-      'success',
-    ];
+    it('preserves node selection inside panel when changing panel type', () => {
+      const grinningEmoji = emoji({ shortName: ':grinning:', text: '😀' });
+      const initialDoc = doc(
+        panel({ panelType: PanelType.INFO })(
+          p('beforeEmoji', '{<node>}', grinningEmoji(), 'afterEmoji'),
+        ),
+      );
+      const { editorView } = editor(initialDoc);
+      changePanelType(PanelType.ERROR)(editorView.state, editorView.dispatch);
+
+      const expectedDoc = doc(
+        panel({ panelType: 'error' })(
+          p('beforeEmoji', '{<node>}', grinningEmoji(), 'afterEmoji'),
+        ),
+      );
+      expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
+    });
+
+    const panelTypes: PanelType[] = Object.values(PanelType);
 
     panelTypes.forEach(type => {
       it(`trigger GAS3 analytics when changing panel type to ${type}`, () => {
-        let startType = type === 'info' ? 'note' : 'info';
+        let startType =
+          type === PanelType.INFO ? PanelType.NOTE : PanelType.INFO;
         const { editorView } = editor(
           doc(panel({ panelType: startType })(p('text{<>}'))),
         );
@@ -95,7 +114,7 @@ describe('panel actions', () => {
   describe('select panel', () => {
     it('should select node', () => {
       const { editorView, refs } = editor(
-        doc('{nodeStart}', panel({ panelType: 'info' })(p('text{<>}'))),
+        doc('{nodeStart}', panel({ panelType: PanelType.INFO })(p('text{<>}'))),
       );
       selectNode(refs['nodeStart'])(editorView.state, editorView.dispatch);
       const expectedDoc = doc(

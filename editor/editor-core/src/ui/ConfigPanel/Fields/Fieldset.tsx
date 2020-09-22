@@ -1,7 +1,7 @@
 import React from 'react';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
 
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
 import Select from '@atlaskit/select';
 import AddCircleIcon from '@atlaskit/icon/glyph/add-circle';
 
@@ -216,11 +216,10 @@ class FieldsetField extends React.Component<Props, State> {
       firstVisibleFieldName,
     } = this.props;
 
-    const { selectedFields, currentParameters } = this.state;
-
+    const { selectedFields, currentParameters, visibleFields } = this.state;
     return (
       <FormWrapper
-        canRemoveFields={field.options.isDynamic}
+        canRemoveFields={field.options.isDynamic && visibleFields.size > 1}
         extensionManifest={extensionManifest}
         fields={selectedFields}
         label={field.label}

@@ -14,6 +14,13 @@ export enum ACTION {
   SORT_COLUMN = 'sortedColumn',
   SORT_COLUMN_NOT_ALLOWED = 'sortColumnNotAllowed',
   TOGGLE_EXPAND = 'toggleExpand',
+  INSERTED = 'inserted',
+  OPENED = 'opened',
+  CLOSED = 'closed',
+  DELETED = 'deleted',
+  EDITED = 'edited',
+  RESOLVED = 'resolved',
+  CREATE_NOT_ALLOWED = 'createNotAllowed',
 }
 
 export enum ACTION_SUBJECT {
@@ -25,11 +32,13 @@ export enum ACTION_SUBJECT {
   NESTED_EXPAND = 'nestedExpand',
   MEDIA_SINGLE = 'mediaSingle',
   LINK = 'link',
+  ANNOTATION = 'annotation',
 }
 
 export enum ACTION_SUBJECT_ID {
   HEADING_ANCHOR_LINK = 'headingAnchorLink',
   MEDIA_LINK = 'mediaLink',
+  INLINE_COMMENT = 'inlineComment',
 }
 
 export type AEP<

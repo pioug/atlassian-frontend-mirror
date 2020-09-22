@@ -21,6 +21,7 @@ export default {
   'fabric.media.annotate.tool.line.thickness': '線の太さ',
   'fabric.media.annotate.tool.shape': '図形',
   'fabric.media.annotate.tool.text': 'テキスト',
+  'fabric.media.archive': 'アーカイブ',
   'fabric.media.audio': '音声',
   'fabric.media.cancel': 'キャンセル',
   'fabric.media.cant_preview_file_type':
@@ -35,16 +36,18 @@ export default {
   'fabric.media.connect_link_account': '接続してプレビュー',
   'fabric.media.connect_link_account_card_view': '接続',
   'fabric.media.connect_link_account_card_view_description':
-    '{context} をご使用のアトラシアン製品に接続して、リンクのプレビューを強化します。',
+    'このリンクのプレビューを表示するには {context} アカウントを接続してください。',
   'fabric.media.connect_link_account_card_view_name':
     'ご使用の {context} アカウントを接続',
   'fabric.media.connect_to': '{name} に接続',
   'fabric.media.could_not_load_editor': 'エディターを読み込めませんでした',
   'fabric.media.could_not_save_image': '画像を保存できませんでした',
+  'fabric.media.couldnt_generate_encrypted_entry_preview':
+    '暗号化されたファイルやパスワードで保護されたファイルはプレビューできません。',
   'fabric.media.couldnt_generate_preview':
     'このファイル形式はプレビュー表示できません。',
   'fabric.media.couldnt_load_link':
-    '何らかの理由によって、このリンクを読み込めませんでした。',
+    '不明な理由によって、このリンクを読み込めませんでした。',
   'fabric.media.default_avatars': 'デフォルトのアバター',
   'fabric.media.disable_fullscreen': '全画面表示を無効化',
   'fabric.media.document': 'ドキュメント',
@@ -73,7 +76,7 @@ export default {
   'fabric.media.image_url_invalid_error':
     '画像を読み込めませんでした。URL が無効です。',
   'fabric.media.insert_files': '{0, plural, other {{0} 件のファイルを挿入}}',
-  'fabric.media.invalid_permissions': 'このリンクにアクセスできません。',
+  'fabric.media.invalid_permissions': '制限されたリンク',
   'fabric.media.invalid_permissions_description':
     'このプレビューを表示するには、アクセスをリクエストするか別のアカウントで試してください。',
   'fabric.media.item_not_found_in_list':
@@ -89,7 +92,7 @@ export default {
   'fabric.media.no_pdf_artifacts':
     'このファイルの PDF アーティファクトが見つかりません。',
   'fabric.media.not_found_description':
-    'URL を確認して編集するか、もう一度貼り付けてください。',
+    'リンクが見つかりませんでした。URL を確認して編集するか、もう一度貼り付けてください。',
   'fabric.media.not_found_title': '申し訳ありません。リンクが見つかりません。',
   'fabric.media.or': 'または',
   'fabric.media.pause': '一時停止',

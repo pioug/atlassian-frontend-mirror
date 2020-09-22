@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import Button, { ButtonGroup } from '@atlaskit/button';
+import ButtonGroup from '@atlaskit/button/button-group';
+import Button from '@atlaskit/button/custom-theme-button';
 import { borderRadius, gridSize } from '@atlaskit/theme/constants';
 import { N40 } from '@atlaskit/theme/colors';
 import Toolbar from '../Toolbar';
@@ -16,10 +17,8 @@ import { stateKey as mediaPluginKey } from '../../plugins/media/pm-plugins/plugi
 import { ClickAreaBlock } from '../Addon';
 import { tableCommentEditorStyles } from '../../plugins/table/ui/common-styles.css';
 import WithFlash from '../WithFlash';
-import {
-  WidthConsumer,
-  akEditorMobileBreakoutPoint,
-} from '@atlaskit/editor-common';
+import { WidthConsumer } from '@atlaskit/editor-common';
+import { akEditorMobileBreakoutPoint } from '@atlaskit/editor-shared-styles';
 import WidthEmitter from '../WidthEmitter';
 import { GRID_GUTTER } from '../../plugins/grid';
 import classnames from 'classnames';

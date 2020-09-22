@@ -7,6 +7,6 @@ export default () => (
     <p>Regular</p>
     <Toggle />
     <p>Large (checked by default)</p>
-    <Toggle size="large" isDefaultChecked />
+    <Toggle size="large" defaultChecked />
   </div>
 );

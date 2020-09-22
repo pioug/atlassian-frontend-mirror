@@ -59,7 +59,9 @@ export const changeLanguage = (language: string): Command => (
   changeLanguageTr = tr.setNodeMarkup(pos, codeBlock, attrs);
 
   if (shouldRestoreNodeSelection) {
-    changeLanguageTr = tr.setSelection(NodeSelection.create(state.doc, pos));
+    changeLanguageTr = changeLanguageTr.setSelection(
+      NodeSelection.create(changeLanguageTr.doc, pos),
+    );
   }
 
   changeLanguageTr.setMeta('scrollIntoView', false);

@@ -1,10 +1,10 @@
 import React, { useCallback, useEffect, useRef } from 'react';
+import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
 
 import { AutoDismissFlagProps } from './types';
 
 import Flag from './flag';
 import { useFlagGroup } from './flag-group';
-import useAnalyticsEventHandler from './use-analytics-handler';
 import { name as packageName, version as packageVersion } from './version.json';
 
 export const AUTO_DISMISS_SECONDS = 8;
@@ -20,7 +20,7 @@ const AutoDismissFlag = (props: AutoDismissFlagProps) => {
 
   const isAutoDismissAllowed = isDismissAllowed && onDismissed;
 
-  const onDismissedAnalytics = useAnalyticsEventHandler({
+  const onDismissedAnalytics = usePlatformLeafEventHandler({
     fn: onDismissed,
     action: 'dismissed',
     analyticsData: analyticsContext,

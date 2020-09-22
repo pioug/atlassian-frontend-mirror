@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
 import ModalDialog, { ModalTransition } from '@atlaskit/modal-dialog';
 
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../src';

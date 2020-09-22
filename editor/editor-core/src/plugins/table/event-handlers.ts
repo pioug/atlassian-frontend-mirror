@@ -79,39 +79,49 @@ export const handleFocus = (view: EditorView, event: Event): boolean => {
   return false;
 };
 
+type HTMLElementIE9 = Omit<HTMLElement, 'matches'> & {
+  matches?: HTMLElement['matches']; // WARNING: 'matches' is optional in IE9
+  msMatchesSelector?: (selectors: string) => boolean;
+};
+
 export const handleClick = (view: EditorView, event: Event): boolean => {
   if (!(event.target instanceof HTMLElement)) {
     return false;
   }
-  const element = event.target;
+  const element = event.target as HTMLElementIE9;
   const table = findTable(view.state.selection)!;
 
-  if (event instanceof MouseEvent && isColumnControlsDecorations(element)) {
-    const [startIndex] = getColumnOrRowIndex(element);
+  if (
+    event instanceof MouseEvent &&
+    isColumnControlsDecorations(element as HTMLElement)
+  ) {
+    const [startIndex] = getColumnOrRowIndex(element as HTMLElement);
     const { state, dispatch } = view;
 
     return selectColumn(startIndex, event.shiftKey)(state, dispatch);
   }
-  /**
-   * Check if the table cell with an image is clicked
-   * and its not the image itself
-   */
-  //@ts-expect-error TODO Fix legit TypeScript 3.9.6 improved inference error
-  const matches = element.matches ? 'matches' : 'msMatchesSelector';
+
+  const matchfn = element.matches ? element.matches : element.msMatchesSelector;
+
+  // check if the table cell with an image is clicked and its not the image itself
   if (
     !table ||
-    !isElementInTableCell(element) ||
-    element[matches as 'matches']('table .image, table p, table .image div')
+    !isElementInTableCell(element as HTMLElement) ||
+    !matchfn ||
+    matchfn.call(element, 'table .image, table p, table .image div')
   ) {
     return false;
   }
   const map = TableMap.get(table.node);
 
   /** Getting the offset of current item clicked */
-  const colElement = (closestElement(element, 'td') ||
-    closestElement(element, 'th')) as HTMLTableDataCellElement;
+  const colElement = (closestElement(element as HTMLElement, 'td') ||
+    closestElement(element as HTMLElement, 'th')) as HTMLTableDataCellElement;
   const colIndex = colElement && colElement.cellIndex;
-  const rowElement = closestElement(element, 'tr') as HTMLTableRowElement;
+  const rowElement = closestElement(
+    element as HTMLElement,
+    'tr',
+  ) as HTMLTableRowElement;
   const rowIndex = rowElement && rowElement.rowIndex;
   const cellIndex = map.width * rowIndex + colIndex;
   const posInTable = map.map[cellIndex + 1];

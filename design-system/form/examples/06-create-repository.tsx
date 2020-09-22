@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 
-import Button, { ButtonGroup } from '@atlaskit/button';
+import ButtonGroup from '@atlaskit/button/button-group';
+import Button from '@atlaskit/button/custom-theme-button';
 import { Checkbox } from '@atlaskit/checkbox';
 import { RadioGroup } from '@atlaskit/radio';
 import Select, { OptionType, ValueType } from '@atlaskit/select';
@@ -145,7 +146,7 @@ export default class LayoutExample extends PureComponent<void, State> {
                         { name: 'color', value: 'yellow', label: 'Yellow' },
                         { name: 'color', value: 'green', label: 'Green' },
                       ]}
-                      checkedValue={value}
+                      value={value}
                       {...others}
                     />
                   )}

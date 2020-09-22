@@ -1,5 +1,28 @@
 # @atlaskit/editor-mobile-bridge
 
+## 19.0.0
+
+### Major Changes
+
+- [`225c901919`](https://bitbucket.org/atlassian/atlassian-frontend/commits/225c901919) - ED-10351 add API to delete the annotation
+- [`9a39500244`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9a39500244) - Bump ProseMirror packages
+
+  Read more: https://product-fabric.atlassian.net/wiki/spaces/E/pages/1671956531/2020-08
+
+### Minor Changes
+
+- [`8fec06060e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8fec06060e) - ED-10350 add delete annotation api in editor mobile bridge
+- [`9ce8981d27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9ce8981d27) - TWISTA-322 Add startWebBundle and editorError lifecycle events to mobile bridge
+- [`21b56a787d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/21b56a787d) - ED-10475 Throttling change event on mobile editor
+
+### Patch Changes
+
+- [`2d4bbe5e2e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2d4bbe5e2e) - [ED-10503] Fix prosemirror-view version at 1.15.4 without carret
+- [`5d7d34025a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5d7d34025a) - TWISTA-413 Change editorError lifecycle event to send string error messages to match Android compatibility
+- [`c90f346430`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c90f346430) - Remove @ts-ignores/@ts-expect-errors
+- [`ea22cf8a31`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ea22cf8a31) - TWISTA-376 Provide node and mark details on mobile selection plugin
+- Updated dependencies
+
 ## 18.0.4
 
 ### Patch Changes

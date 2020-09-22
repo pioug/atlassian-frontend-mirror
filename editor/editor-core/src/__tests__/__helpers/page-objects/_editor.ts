@@ -257,7 +257,11 @@ export const evaluateCoordinates = async (page: PuppeteerPage, pos: number) => {
     const editor = (window as any).__editorView as EditorView;
     const coords = editor.coordsAtPos(p);
 
-    // returning coords immediately causes it to fail
+    /**
+     * Returning coords immediately causes it to fail
+     * If the position contains a DOM element, `coordsAtPos` return `DOMRect`
+     * DOMRect - { bottom, height, left, right, top, width, x, y }
+     */
     return {
       top: coords.top,
       left: coords.left,
@@ -281,12 +285,40 @@ export const selectAtPos = async (
   const start = await evaluateCoordinates(page, startPos);
   const end = await evaluateCoordinates(page, endPos);
 
-  await page.mouse.click(start.left, start.top);
-  await page.keyboard.down('Shift');
-  await page.mouse.click(end.left, end.top);
-  await page.keyboard.up('Shift');
+  await page.mouse.move(
+    (start.left + start.right) / 2,
+    (start.top + start.bottom) / 2,
+  );
+  await page.mouse.down();
+  await page.mouse.move((end.left + end.right) / 2, (end.top + end.bottom) / 2);
+  await page.mouse.up();
 
   if (waitForCreateCommentButton) {
     await page.waitForSelector(`${annotationSelectors.floatingToolbarCreate}`);
   }
+};
+
+export const selectAtPosWithProseMirror = async (
+  page: PuppeteerPage,
+  startPos: number,
+  endPos: number,
+) => {
+  return await page.evaluate(
+    (startPos, endPos) => {
+      const view = (window as any).__editorView as any;
+      view.dispatch(
+        view.state.tr.setSelection(
+          // Re-use the current selection (presumed TextSelection) to use our new positions.
+          view.state.selection.constructor.create(
+            view.state.doc,
+            startPos,
+            endPos,
+          ),
+        ),
+      );
+      view.focus();
+    },
+    startPos,
+    endPos,
+  );
 };

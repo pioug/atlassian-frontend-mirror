@@ -17,7 +17,7 @@ describe('HeadingAnchor', () => {
   });
 
   it('render tooltip with correct message initially', () => {
-    subject = mountWithIntl(<HeadingAnchor onCopyText={onClick} />);
+    subject = mountWithIntl(<HeadingAnchor onCopyText={onClick} level={1} />);
     expect(subject.find(Tooltip).exists()).toBeTruthy();
     expect(subject.find(Tooltip).props().content).toEqual(
       'Copy link to heading',
@@ -30,7 +30,9 @@ describe('HeadingAnchor', () => {
       promise = Promise.resolve();
       return promise;
     };
-    subject = mountWithIntl(<HeadingAnchor onCopyText={onClickCopyButton} />);
+    subject = mountWithIntl(
+      <HeadingAnchor onCopyText={onClickCopyButton} level={1} />,
+    );
     subject.find('button').simulate('click');
 
     await promise;

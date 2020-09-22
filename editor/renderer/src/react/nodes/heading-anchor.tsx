@@ -50,6 +50,7 @@ const CopyAnchorLegacy = styled.button`
 type Props = {
   onCopyText: () => Promise<void>;
   enableNestedHeaderLinks?: boolean;
+  level: number;
 };
 
 type HeadingAnchorProps = Props & React.Props<any> & InjectedIntlProps;
@@ -75,11 +76,12 @@ class HeadingAnchor extends React.PureComponent<
     });
   };
 
-  copyToClipboard = async () => {
+  copyToClipboard = async (event: React.SyntheticEvent<HTMLElement>) => {
     const {
       copiedHeadingLinkToClipboard,
       failedToCopyHeadingLink,
     } = headingAnchorLinkMessages;
+    event.stopPropagation();
     try {
       await this.props.onCopyText();
       this.setTooltipState(copiedHeadingLinkToClipboard, true);
@@ -100,7 +102,7 @@ class HeadingAnchor extends React.PureComponent<
       >
         <LinkIcon
           label="copy"
-          size="medium"
+          size={this.props.level > 3 ? 'small' : 'medium'}
           primaryColor={this.state.isClicked ? B400 : N200}
         />
       </CopyAnchorButton>

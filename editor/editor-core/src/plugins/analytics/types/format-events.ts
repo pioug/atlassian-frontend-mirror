@@ -7,7 +7,7 @@ import {
 } from './enums';
 import { HeadingLevelsAndNormalText } from '../../block-type/types';
 
-export enum INDENT_DIR {
+export enum INDENT_DIRECTION {
   INDENT = 'indent',
   OUTDENT = 'outdent',
 }
@@ -57,7 +57,7 @@ type FormatIndentationAEP = FormatAEP<
   ACTION_SUBJECT_ID.FORMAT_INDENT,
   {
     inputMethod: INPUT_METHOD.TOOLBAR | INPUT_METHOD.KEYBOARD;
-    direction: INDENT_DIR.INDENT | INDENT_DIR.OUTDENT;
+    direction: INDENT_DIRECTION.INDENT | INDENT_DIRECTION.OUTDENT;
     previousIndentationLevel: number;
     newIndentLevel: number;
     indentType:

@@ -3,14 +3,16 @@ import { EditorView } from 'prosemirror-view';
 
 import { CellAttributes, TableLayout } from '@atlaskit/adf-schema';
 import {
-  akEditorDefaultLayoutWidth,
-  akEditorFullWidthLayoutWidth,
-  akEditorGutterPadding,
-  akEditorWideLayoutWidth,
   calcTableWidth,
   getBreakpoint,
   mapBreakpointToLayoutMaxWidth,
 } from '@atlaskit/editor-common';
+import {
+  akEditorDefaultLayoutWidth,
+  akEditorFullWidthLayoutWidth,
+  akEditorGutterPadding,
+  akEditorWideLayoutWidth,
+} from '@atlaskit/editor-shared-styles';
 
 import { containsClassName } from '../../../../../utils';
 import { TableOptions } from '../../../nodeviews/types';

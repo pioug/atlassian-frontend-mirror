@@ -3,7 +3,7 @@ import React from 'react';
 import rafSchedule from 'raf-schd';
 import { createPortal } from 'react-dom';
 
-import { akEditorFloatingPanelZIndex } from '../../styles/consts';
+import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
 
 import {
   calculatePlacement,

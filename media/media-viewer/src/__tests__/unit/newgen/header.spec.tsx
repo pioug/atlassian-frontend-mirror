@@ -23,6 +23,7 @@ import {
   Header as HeaderWrapper,
 } from '../../../newgen/styled';
 import { LeftHeader } from '../../../newgen/styled';
+import Button from '@atlaskit/button/custom-theme-button';
 
 const identifier: Identifier = {
   id: 'some-id',
@@ -418,8 +419,12 @@ describe('<Header />', () => {
       el: ReactWrapper<any, any>,
       enabled: boolean,
     ) => {
-      expect(el.find({ isDisabled: !enabled }).find('button')).toHaveLength(1);
       expect(el.find(DownloadIcon)).toHaveLength(1);
+      expect(
+        el.find(DownloadIcon).closest(Button).props().isDisabled,
+        // when disabled the disabled value will be true
+        // when enabled the disabled value can be false or undefined
+      ).toBe(enabled ? false || undefined : true);
     };
 
     it('should show the download button disabled while the item metadata is loading', () => {

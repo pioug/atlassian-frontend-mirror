@@ -1,6 +1,6 @@
 import React from 'react';
 import { customInsertMenuItems } from '@atlaskit/editor-test-helpers/mock-insert-menu';
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
 import { AtlassianIcon } from '@atlaskit/logo';
 import { Provider as SmartCardProvider } from '@atlaskit/smart-card';
 
@@ -72,7 +72,6 @@ export default function EditorExampleForIntegrationTests({ clipboard = true }) {
       const createCollabEdit = (userId: string): CollabEditOptions => {
         return {
           provider: createCollabEditProvider({ userId }),
-          sendDataOnViewUpdated: true,
         };
       };
       const createEditor = (sessionId?: string) => {

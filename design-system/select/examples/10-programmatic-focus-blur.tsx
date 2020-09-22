@@ -1,5 +1,5 @@
 import React, { FC, Fragment, ReactNode, useRef } from 'react';
-import Btn from '@atlaskit/button';
+import Btn from '@atlaskit/button/custom-theme-button';
 
 import Select from '../src';
 

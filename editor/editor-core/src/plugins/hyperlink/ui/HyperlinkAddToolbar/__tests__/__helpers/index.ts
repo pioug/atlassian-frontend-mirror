@@ -52,6 +52,7 @@ export const generateActivityProviderMockResults = (numberOfItems: number) =>
         iconUrl: `some-activity-icon-url-${i + 1}.com`,
         url: `some-activity-url-${i + 1}.com`,
         viewedTimestamp: `2020-04-16T${padZero(i)}:00:00+00:00`,
+        type: 'ISSUE',
       }),
     );
 

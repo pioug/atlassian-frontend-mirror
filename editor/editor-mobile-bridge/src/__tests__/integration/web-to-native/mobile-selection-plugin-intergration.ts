@@ -1,3 +1,4 @@
+import { SelectionDataState } from '@atlaskit/editor-core';
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 import {
@@ -23,7 +24,9 @@ BrowserTestCase(
       return callsFromDummy.get('submitPromise');
     });
 
-    const expected = {
+    const expected: SelectionDataState = {
+      markTypes: [],
+      nodeTypes: ['paragraph'],
       rect: { top: 32, left: 16 },
       selection: { type: 'text', anchor: 2, head: 2 },
     };

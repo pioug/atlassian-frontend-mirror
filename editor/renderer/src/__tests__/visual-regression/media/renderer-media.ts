@@ -9,18 +9,20 @@ import * as commentRendererAdf from './__fixtures__/comment-renderer-media-adf.j
 import * as captionRendererAdf from './__fixtures__/caption-renderer-media-adf.json';
 import * as longCaptionRendererAdf from './__fixtures__/caption-long-renderer-media-adf.json';
 import * as wrappedCommentRendererAdf from './__fixtures__/comment-renderer-wrapped-media.adf.json';
-import * as wrappedMediaADf from './__fixtures__/wrapped-media.adf.json';
-import * as wrappedMediaSmallADF from './__fixtures__/wrapped-media-small.adf.json';
+import * as wrappedMediaAdf from './__fixtures__/wrapped-media.adf.json';
+import * as wrappedMediaTextAdf from './__fixtures__/wrapped-media-text.adf.json';
+import * as wrappedMediaTextSplitAdf from './__fixtures__/wrapped-media-text-split.adf.json';
+import * as wrappedMediaTextLayoutAdf from './__fixtures__/wrapped-media-text-layout.adf.json';
+import * as wrappedMediaTextLayoutSplitAdf from './__fixtures__/wrapped-media-text-layout-split.adf.json';
+import * as wrappedMediaSmallAdf from './__fixtures__/wrapped-media-small.adf.json';
 import * as layoutAdf from '../../../../examples/helper/media-resize-layout.adf.json';
 import * as mediaImageWidthBiggerThanColumnWidth from './__fixtures__/media-image-width-bigger-than-column-width.adf.json';
 
-import {
-  selectors as mediaSelectors,
-  waitForAllMedia,
-} from '../../__helpers/page-objects/_media';
+import { waitForAllMedia } from '../../__helpers/page-objects/_media';
 import { selectors as rendererSelectors } from '../../__helpers/page-objects/_renderer';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { RendererAppearance } from '../../../ui/Renderer/types';
+import { BoundingBox } from 'puppeteer';
 
 const devices = [
   Device.LaptopHiDPI,
@@ -55,19 +57,19 @@ const initRenderer = async (
 
 describe('Snapshot Test: Media', () => {
   let page: PuppeteerPage;
-  let snapshotRenderer = async (device: Device = Device.Default) => {
-    await page.waitForSelector(mediaSelectors.errorLoading); // In test should show overlay error
+  let snapshotRenderer = async (clip?: BoundingBox) => {
+    await page.waitForSelector(
+      '[data-testid="media-file-card-view"][data-test-status="complete"]',
+    );
     await page.waitForSelector(rendererSelectors.document);
-    await page.setViewport({
-      ...deviceViewPorts[device],
-      // We going to take a screenshot of whole page anyway in the next step
-      // So we make viewport smaller now so "fullPage" would contain page content only
-      // and no extra padding bellow.
-      height: 200,
-    });
-    await snapshot(page, {}, undefined, {
-      fullPage: true,
-    });
+    await snapshot(
+      page,
+      {},
+      rendererSelectors.container,
+      clip && {
+        clip,
+      },
+    );
   };
 
   beforeEach(() => {
@@ -79,7 +81,7 @@ describe('Snapshot Test: Media', () => {
       it(`should correctly render for ${device}`, async () => {
         await initRenderer(page, resizeAdf, device);
         await waitForAllMedia(page, 17);
-        await snapshotRenderer(device);
+        await snapshotRenderer();
       });
     });
   });
@@ -89,7 +91,7 @@ describe('Snapshot Test: Media', () => {
       it(`should correctly render for ${device}`, async () => {
         await initRenderer(page, layoutAdf, device);
         await waitForAllMedia(page, 16);
-        await snapshotRenderer(device);
+        await snapshotRenderer();
       });
     });
   });
@@ -119,21 +121,52 @@ describe('Snapshot Test: Media', () => {
 
   describe('wrapped media', () => {
     it('should render 2 media items in 1 line when wrapped', async () => {
-      await initRenderer(page, wrappedMediaADf);
+      await initRenderer(page, wrappedMediaAdf);
       await waitForAllMedia(page, 6);
       await snapshotRenderer();
+    });
+
+    it('should render 2 media items in 1 line when wrapped with text in between', async () => {
+      await initRenderer(page, wrappedMediaTextAdf);
+      await waitForAllMedia(page, 2);
+      await snapshotRenderer();
+    });
+
+    it('should render 2 media items in 2 lines when wrapped with a large enough width', async () => {
+      await initRenderer(page, wrappedMediaTextSplitAdf);
+      await waitForAllMedia(page, 2);
+      await snapshotRenderer({
+        height: 1000,
+        width: 1000,
+        x: 0,
+        y: 0,
+      });
     });
 
     it('should render 2 media items in 1 line when wrapped without dynamic text sizing', async () => {
       await initRenderer(
         page,
-        wrappedMediaSmallADF,
+        wrappedMediaSmallAdf,
         Device.LaptopHiDPI,
         'full-page',
         false,
       );
       await waitForAllMedia(page, 2);
-      await snapshotRenderer(Device.LaptopHiDPI);
+      await snapshotRenderer();
+    });
+  });
+
+  describe('layout', () => {
+    it('should render 2 media items in 1 line when wrapped with text in between', async () => {
+      await initRenderer(page, wrappedMediaTextLayoutAdf);
+      await waitForAllMedia(page, 2);
+      await snapshotRenderer();
+    });
+
+    it('should render 2 media items in 2 lines when wrapped with a large enough width', async () => {
+      await initRenderer(page, wrappedMediaTextLayoutSplitAdf);
+      await waitForAllMedia(page, 2);
+      await snapshotRenderer();
     });
   });
 

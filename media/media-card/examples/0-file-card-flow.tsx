@@ -16,7 +16,7 @@ import {
   noMetadataFileId,
   createUploadMediaClientConfig,
 } from '@atlaskit/media-test-helpers';
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
 import { Card } from '../src';
 import {
   UploadController,

@@ -34,12 +34,12 @@
     "react-dom": "^16.8.0"
   },
   "devDependencies": {
-    "@atlaskit/button": "^14.0.0",
+    "@atlaskit/button": "^15.0.0",
     "@atlaskit/docs": "*",
     "@atlaskit/flag": "^14.0.0",
     "@atlaskit/icon": "^21.1.0",
     "@atlaskit/inline-dialog": "^13.0.0",
-    "@atlaskit/modal-dialog": "^11.0.0",
+    "@atlaskit/modal-dialog": "^11.2.0",
     "@atlaskit/onboarding": "^10.1.0",
     "@atlaskit/tooltip": "^17.0.0",
     "@atlaskit/visual-regression": "*",

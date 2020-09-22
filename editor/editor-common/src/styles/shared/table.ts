@@ -5,10 +5,6 @@ import {
   TableLayout,
   tablePrefixSelector,
 } from '@atlaskit/adf-schema';
-import { DN700A, N20A } from '@atlaskit/theme/colors';
-import { themed } from '@atlaskit/theme/components';
-
-import browser from '../../utils/browser';
 import {
   akEditorBreakoutPadding,
   akEditorFullWidthLayoutWidth,
@@ -18,7 +14,11 @@ import {
   akEditorTableToolbar,
   akEditorTableToolbarDark,
   akEditorWideLayoutWidth,
-} from '../consts';
+} from '@atlaskit/editor-shared-styles';
+import { DN700A, N20A } from '@atlaskit/theme/colors';
+import { themed } from '@atlaskit/theme/components';
+
+import browser from '../../utils/browser';
 
 export const tableMarginTop = 24;
 export const tableMarginBottom = 16;

@@ -1,27 +1,25 @@
 import {
+  LinkDefinition,
   MediaADFAttrs,
   RichMediaLayout as MediaSingleLayout,
 } from '@atlaskit/adf-schema';
 import {
-  akEditorFullWidthLayoutWidth,
   EventHandlers,
-  getAkEditorFullPageMaxWidth,
   ImageLoaderProps,
-  linkMessages,
   mapBreakpointToLayoutMaxWidth,
   MediaLink,
-  MediaLinkWrapper,
   WidthConsumer,
 } from '@atlaskit/editor-common';
-import ShortcutIcon from '@atlaskit/icon/glyph/shortcut';
-import Tooltip from '@atlaskit/tooltip';
-import { Mark } from 'prosemirror-model';
+import {
+  akEditorFullWidthLayoutWidth,
+  getAkEditorFullPageMaxWidth,
+} from '@atlaskit/editor-shared-styles';
+
 import {
   Component,
   default as React,
   ReactElement,
   SyntheticEvent,
-  forwardRef,
 } from 'react';
 import { InjectedIntlProps, injectIntl } from 'react-intl';
 import {
@@ -50,7 +48,7 @@ export interface Props {
   allowDynamicTextSizing?: boolean;
   isInsideOfBlockNode?: boolean;
   rendererAppearance: RendererAppearance;
-  marks: Mark[];
+  marks: Array<LinkDefinition>;
   isLinkMark: () => boolean;
   fireAnalyticsEvent?: (event: AnalyticsEventPayload) => void;
   featureFlags?: MediaFeatureFlags;
@@ -64,15 +62,21 @@ export interface State {
 const DEFAULT_WIDTH = 250;
 const DEFAULT_HEIGHT = 200;
 
-const AkEditorMediaLinkClassName = 'ak-editor-media-link';
+const isMediaElement = (
+  media: React.ReactNode,
+): media is ReactElement<MediaProps & MediaADFAttrs> => {
+  if (!media) {
+    return false;
+  }
 
-const MediaLinkWrapperWithRef = forwardRef<
-  HTMLElement,
-  React.ComponentProps<typeof MediaLinkWrapper>
->(function WithRef(props, ref) {
-  // @ts-ignore: incorrect innerRef typing
-  return <MediaLinkWrapper {...props} innerRef={ref} />;
-});
+  const { nodeType, type } = (media as any).props || {};
+
+  // Use this to perform a rough check
+  // better than assume the first item in children is media
+  return (
+    nodeType === 'media' || ['external', 'file', 'link'].indexOf(type) >= 0
+  );
+};
 
 class MediaSingle extends Component<Props & InjectedIntlProps, State> {
   constructor(props: Props & InjectedIntlProps) {
@@ -125,15 +129,11 @@ class MediaSingle extends Component<Props & InjectedIntlProps, State> {
 
     const [media, caption] = React.Children.toArray(props.children);
 
-    if (!media) {
+    if (!isMediaElement(media)) {
       return null;
     }
 
-    let {
-      width = DEFAULT_WIDTH,
-      height = DEFAULT_HEIGHT,
-      type,
-    } = (media as ReactElement).props as MediaADFAttrs;
+    let { width = DEFAULT_WIDTH, height = DEFAULT_HEIGHT, type } = media.props;
 
     if (type === 'external') {
       const { width: stateWidth, height: stateHeight } = this.state;
@@ -151,10 +151,9 @@ class MediaSingle extends Component<Props & InjectedIntlProps, State> {
     }
 
     const linkMark = props.marks.find(props.isLinkMark);
-    const openLinkMessage = props.intl.formatMessage(linkMessages.openLink);
 
     // TODO: put appearance-based padding into theme instead
-    const { rendererAppearance } = this.props;
+    const { rendererAppearance, featureFlags } = this.props;
 
     const padding =
       rendererAppearance === 'full-page' ? FullPagePadding * 2 : 0;
@@ -200,6 +199,27 @@ class MediaSingle extends Component<Props & InjectedIntlProps, State> {
             width,
           };
 
+          const linkHref = linkMark?.attrs.href;
+          // We ignore all the event handlers when a link exists
+          const eventHandlers = linkHref
+            ? undefined
+            : media.props.eventHandlers;
+
+          // We should not open media viewer when there is a link
+          const shouldOpenMediaViewer =
+            !linkHref && media.props.shouldOpenMediaViewer;
+
+          const mediaComponent = React.cloneElement(media, {
+            resizeMode: 'stretchy-fit',
+            cardDimensions,
+            originalDimensions,
+            onExternalImageLoaded: this.onExternalImageLoaded,
+            disableOverlay: true,
+            featureFlags: featureFlags,
+            shouldOpenMediaViewer,
+            eventHandlers,
+          } as MediaProps & ImageLoaderProps);
+
           return (
             <ExtendedUIMediaSingle
               layout={props.layout}
@@ -209,37 +229,20 @@ class MediaSingle extends Component<Props & InjectedIntlProps, State> {
               containerWidth={containerWidth}
               pctWidth={props.width}
               fullWidthMode={isFullWidth}
-              blockLink={linkMark && linkMark.attrs.href}
+              blockLink={linkHref}
             >
               <>
-                {linkMark && linkMark.attrs.href ? (
-                  <Tooltip
-                    content={openLinkMessage}
-                    position="top"
-                    tag={MediaLinkWrapperWithRef}
-                    delay={0}
+                {linkHref ? (
+                  <MediaLink
+                    href={linkHref}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    onClick={this.handleMediaLinkClick}
                   >
-                    <MediaLink
-                      href={linkMark.attrs.href}
-                      target="_blank"
-                      rel="noreferrer noopener"
-                      className={AkEditorMediaLinkClassName}
-                      onClick={this.handleMediaLinkClick}
-                    >
-                      <ShortcutIcon label={linkMark.attrs.href} size="large" />
-                    </MediaLink>
-                  </Tooltip>
-                ) : null}
-                {React.cloneElement(
-                  media as ReactElement,
-                  {
-                    resizeMode: 'stretchy-fit',
-                    cardDimensions,
-                    originalDimensions,
-                    onExternalImageLoaded: this.onExternalImageLoaded,
-                    disableOverlay: true,
-                    featureFlags: this.props.featureFlags,
-                  } as MediaProps & ImageLoaderProps,
+                    <>{mediaComponent}</>
+                  </MediaLink>
+                ) : (
+                  <>{mediaComponent}</>
                 )}
                 {this.isCaptionsFlaggedOn && caption}
               </>

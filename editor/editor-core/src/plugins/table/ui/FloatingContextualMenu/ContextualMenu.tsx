@@ -13,7 +13,7 @@ import {
 import ColorPalette from '../../../../ui/ColorPalette';
 import cellBackgroundColorPalette from '../../../../ui/ColorPalette/Palettes/cellBackgroundColorPalette';
 import DropdownMenu from '../../../../ui/DropdownMenu';
-import { Shortcut } from '../../../../ui/styles';
+import { Shortcut, CellColourPreview } from '../../../../ui/styles';
 import { closestElement } from '../../../../utils/dom';
 import { INPUT_METHOD } from '../../../analytics';
 import { DropdownItem } from '../../../block-type/ui/ToolbarBlockType';
@@ -172,16 +172,15 @@ class ContextualMenu extends Component<Props & InjectedIntlProps, State> {
         isOpen && targetCellPosition
           ? state.doc.nodeAt(targetCellPosition)
           : null;
-      const background =
-        node && node.attrs.background ? node.attrs.background : '#ffffff';
+      const background = node?.attrs?.background || '#ffffff';
       items.push({
         content: formatMessage(messages.cellBackground),
         value: { name: 'background' },
         elemAfter: (
           <div>
-            <div
+            <CellColourPreview
+              selectedColor={background}
               className={ClassName.CONTEXTUAL_MENU_ICON}
-              style={{ background }}
             />
             {isSubmenuOpen && (
               <div

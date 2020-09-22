@@ -3,12 +3,12 @@ import { Plugin } from 'prosemirror-state';
 import * as keymaps from '../../../keymaps';
 import {
   indentList,
-  outdentList,
   enterKeyCommand,
   toggleListCommandWithAnalytics,
   backspaceKeyCommand,
   deleteKeyCommand,
 } from '../commands';
+import { outdentList } from '../commands/outdent-list';
 import { INPUT_METHOD } from '../../analytics';
 
 export function keymapPlugin(): Plugin | undefined {

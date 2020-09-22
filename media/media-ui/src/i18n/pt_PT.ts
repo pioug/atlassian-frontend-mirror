@@ -34,8 +34,6 @@ export default {
     'Será aberta uma nova página para o ajudar a ligar a sua conta {name}',
   'fabric.media.connect_link_account': 'Ligar para pré-visualizar',
   'fabric.media.connect_link_account_card_view': 'Ligar',
-  'fabric.media.connect_link_account_card_view_description':
-    'Otimize as pré-visualizações de links ao associar {context} aos seus produtos Atlassian.',
   'fabric.media.connect_link_account_card_view_name':
     'Associe a sua conta {context}',
   'fabric.media.connect_to': 'Ligar a {name}',
@@ -44,8 +42,6 @@ export default {
   'fabric.media.could_not_save_image': 'Ups! Não foi possível guardar a imagem',
   'fabric.media.couldnt_generate_preview':
     'Não foi possível gerar uma pré-visualização para este ficheiro.',
-  'fabric.media.couldnt_load_link':
-    'Por algum motivo, não foi possível carregar este link.',
   'fabric.media.default_avatars': 'Avatares predefinidos',
   'fabric.media.disable_fullscreen': 'desativar ecrã inteiro',
   'fabric.media.document': 'documento',
@@ -74,7 +70,6 @@ export default {
     'Não foi possível carregar a imagem, o url não é válido.',
   'fabric.media.insert_files':
     '{0, plural, one {Inserir {0} ficheiro} other {Inserir {0} ficheiros}}',
-  'fabric.media.invalid_permissions': 'Não tem acesso a este link',
   'fabric.media.invalid_permissions_description':
     'Terá de solicitar o acesso ou experimentar ver esta pré-visualização com outra conta.',
   'fabric.media.item_not_found_in_list':
@@ -88,8 +83,6 @@ export default {
     'Não conseguimos encontrar nada para "{query}"',
   'fabric.media.no_pdf_artifacts':
     'Não foram encontrados artefactos em PDF para este ficheiro.',
-  'fabric.media.not_found_description':
-    'Verifique o URL e experimente editar ou colar novamente.',
   'fabric.media.not_found_title':
     'Oh, não. Não conseguimos encontrar este link!',
   'fabric.media.or': 'ou',

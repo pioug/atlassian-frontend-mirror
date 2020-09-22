@@ -37,6 +37,8 @@ import {
   pluginKey as textFormattingPluginKey,
   TextFormattingState,
 } from '../text-formatting/pm-plugins/main';
+import { replaceSelectedTable } from '../table/transforms/replace-table';
+
 import { applyTextMarksToSlice, hasOnlyNodesOfType } from './util';
 
 // remove text attribute from mention for copy/paste (GDPR)
@@ -128,12 +130,18 @@ export function handlePasteAsPlainText(
     // @see prosemirror-view/src/clipboard.js:parseFromClipboard()).
     // @see prosemirror-view/src/input.js:doPaste().
     if (view && (view as any).shiftKey) {
-      const tr = closeHistory(state.tr);
+      let tr = closeHistory(state.tr);
+      const { selection } = tr;
 
       // <- using the same internal flag that prosemirror-view is using
 
-      const { selection } = tr;
-      tr.replaceSelection(slice);
+      // if user has selected table we need custom logic to replace the table
+      tr = replaceSelectedTable(state, slice, INPUT_METHOD.CLIPBOARD);
+      // otherwise just replace the selection
+      if (!tr.docChanged) {
+        tr.replaceSelection(slice);
+      }
+
       (state.storedMarks || []).forEach(mark => {
         tr.addMark(selection.from, selection.from + slice.size, mark);
       });
@@ -593,3 +601,17 @@ export function handleRichText(slice: Slice): Command {
     return true;
   };
 }
+
+export const handleSelectedTable = (slice: Slice): Command => (
+  state,
+  dispatch,
+) => {
+  const tr = replaceSelectedTable(state, slice, INPUT_METHOD.CLIPBOARD);
+  if (tr.docChanged) {
+    if (dispatch) {
+      dispatch(tr);
+    }
+    return true;
+  }
+  return false;
+};

@@ -6,10 +6,8 @@ import { RichMediaLayout } from '@atlaskit/adf-schema';
 import { gridTypeForLayout } from '../../plugins/grid';
 import { snapTo, handleSides } from './utils';
 import { Props as ResizableMediaSingleProps, EnabledHandles } from './types';
-import {
-  akRichMediaResizeZIndex,
-  richMediaClassName,
-} from '@atlaskit/editor-common';
+import { richMediaClassName } from '@atlaskit/editor-common';
+import { akRichMediaResizeZIndex } from '@atlaskit/editor-shared-styles';
 import {
   DispatchAnalyticsEvent,
   MediaEventPayload,

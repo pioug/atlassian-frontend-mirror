@@ -1,5 +1,5 @@
 jest.mock('../../customMediaPlayer/fullscreen');
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
 import DownloadIcon from '@atlaskit/icon/glyph/download';
 import FullScreenIcon from '@atlaskit/icon/glyph/vid-full-screen-on';
 import VidHdCircleIcon from '@atlaskit/icon/glyph/vid-hd-circle';

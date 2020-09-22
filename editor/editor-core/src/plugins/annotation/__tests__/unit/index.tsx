@@ -37,6 +37,7 @@ import { AnnotationTestIds } from '../../types';
 import { RESOLVE_METHOD } from '../../../analytics/types/inline-comment-events';
 import * as commands from '../../commands/index';
 import { inlineCommentPluginKey, getPluginState } from '../../utils';
+import { getAnnotationViewClassname } from '../../nodeviews';
 
 describe('annotation', () => {
   const createEditor = createEditorFactory();
@@ -343,6 +344,28 @@ describe('annotation', () => {
             }),
           });
         });
+      });
+    });
+
+    describe('getAnnotationViewClassname', () => {
+      it('should show unresolved and focused', () => {
+        const result = getAnnotationViewClassname(true, true);
+        expect(result).toEqual('ak-editor-annotation-focus');
+      });
+
+      it('should show unresolved and unfocused', () => {
+        const result = getAnnotationViewClassname(true, false);
+        expect(result).toEqual('ak-editor-annotation-blur');
+      });
+
+      it('should not show resolved and focused', () => {
+        const result = getAnnotationViewClassname(false, true);
+        expect(result).toBeUndefined();
+      });
+
+      it('should not show resolved and unfocused', () => {
+        const result = getAnnotationViewClassname(false, false);
+        expect(result).toBeUndefined();
       });
     });
 

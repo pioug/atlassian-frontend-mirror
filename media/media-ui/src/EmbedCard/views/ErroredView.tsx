@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
 import ErrorIcon from '@atlaskit/icon/glyph/error';
 import { fontSize } from '@atlaskit/theme/constants';
 import { R300 } from '@atlaskit/theme/colors';

@@ -5,18 +5,19 @@ import { jsx } from '@emotion/core';
 
 import Switcher from '@atlaskit/icon/glyph/app-switcher';
 
-import Button from '../src';
+import Button, { ButtonProps } from '../src';
+
+const Component = React.forwardRef<HTMLElement, ButtonProps>((props, ref) => (
+  // TODO: fix
+  // @ts-ignore
+  <header {...props} ref={ref} css={{ backgroundColor: 'pink' }} />
+));
 
 export default () => (
   <div className="sample">
     <Button
       iconBefore={<Switcher label="app switcher" />}
-      component={React.forwardRef<
-        HTMLElement,
-        React.AllHTMLAttributes<HTMLElement>
-      >((props, ref) => (
-        <header {...props} ref={ref} css={{ backgroundColor: 'pink' }} />
-      ))}
+      component={Component}
     >
       App Switcher custom component
     </Button>

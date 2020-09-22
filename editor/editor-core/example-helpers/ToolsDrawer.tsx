@@ -1,7 +1,7 @@
 import React from 'react';
 import { EditorView } from 'prosemirror-view';
 import { mention, emoji, taskDecision } from '@atlaskit/util-data-test';
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
 import Tooltip from '@atlaskit/tooltip';
 
 import { MockActivityResource } from './activity-provider';
@@ -13,11 +13,12 @@ import { toJSON } from '../src/utils';
 import {
   storyContextIdentifierProviderFactory,
   storyMediaProviderFactory,
+  createEditorMediaMock,
 } from '@atlaskit/editor-test-helpers';
 
-import mediaMock from './media-mock';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 
+const mediaMock = createEditorMediaMock();
 const rejectedPromise = Promise.reject(
   new Error('Simulated provider rejection'),
 );

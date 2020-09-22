@@ -6,11 +6,11 @@ import { InjectedIntlProps, injectIntl } from 'react-intl';
 import styled from 'styled-components';
 
 import { TableLayout } from '@atlaskit/adf-schema';
+import { Popup } from '@atlaskit/editor-common';
 import {
   akEditorFloatingOverlapPanelZIndex,
   akEditorSmallZIndex,
-  Popup,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-shared-styles';
 import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
 
 import ToolbarButton from '../../../../ui/ToolbarButton';

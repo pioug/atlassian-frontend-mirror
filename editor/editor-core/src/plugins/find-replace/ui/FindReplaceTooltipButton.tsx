@@ -1,7 +1,7 @@
 import React from 'react';
 import Tooltip from '@atlaskit/tooltip';
 import { ToolTipContent, findKeymapByDescription } from '../../../keymaps';
-import { FindSectionButton } from './styles';
+import Button from '@atlaskit/button/standard-button';
 
 interface Props {
   title: string;
@@ -39,13 +39,12 @@ export class FindReplaceTooltipButton extends React.PureComponent<Props> {
         hideTooltipOnClick={true}
         position={'top'}
       >
-        <FindSectionButton
+        <Button
           label={title}
           appearance="subtle"
           testId={title}
-          innerRef={this.buttonRef}
+          ref={this.buttonRef}
           iconBefore={icon}
-          spacing="none"
           isDisabled={disabled}
           onClick={this.handleClick}
           isSelected={isPressed}

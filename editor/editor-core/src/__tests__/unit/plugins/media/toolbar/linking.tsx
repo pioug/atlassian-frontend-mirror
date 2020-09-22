@@ -1,4 +1,10 @@
 import React from 'react';
+
+import { checkMediaType } from '../../../../../plugins/media/utils/check-media-type';
+jest.mock('../../../../../plugins/media/utils/check-media-type', () => ({
+  checkMediaType: jest.fn(),
+}));
+
 import { ActivityItem } from '@atlaskit/activity-provider';
 import { ProviderFactory, ErrorMessage } from '@atlaskit/editor-common';
 import { activityProviderFactory } from '@atlaskit/editor-test-helpers/mock-activity-provider';
@@ -30,7 +36,6 @@ import { IntlProvider } from 'react-intl';
 import { linkToolbarMessages, linkMessages } from '../../../../../messages';
 import { INPUT_METHOD } from '../../../../../plugins/analytics';
 import {
-  FloatingToolbarButton,
   FloatingToolbarConfig,
   FloatingToolbarCustom,
   FloatingToolbarItem,
@@ -42,6 +47,8 @@ import {
 } from '../../../../../plugins/media/pm-plugins/linking';
 import { stateKey } from '../../../../../plugins/media/pm-plugins/main';
 import { floatingToolbar } from '../../../../../plugins/media/toolbar';
+import { LinkingToolbarProps } from '../../../../../plugins/media/toolbar/linking-toolbar-appearance';
+
 import {
   LinkAddToolbar,
   Props as LinkAddToolbarProps,
@@ -54,22 +61,19 @@ import {
   testCollectionName,
 } from '../_utils';
 import safeUnmount from '../../../../__helpers/safeUnmount';
-import {
-  findToolbarBtn,
-  getToolbarItems,
-} from '../../floating-toolbar/_helpers';
+import { getToolbarItems } from '../../floating-toolbar/_helpers';
 import { MediaFloatingToolbarOptions } from '../../../../../plugins/media/types';
 import PanelTextInput from '../../../../../ui/PanelTextInput';
 import { MediaPluginState } from '../../../../../plugins/media/pm-plugins/types';
 
+interface LinkingActions {
+  [key: string]: React.MouseEventHandler | undefined;
+}
 interface ToolbarWrapper {
   editorView: EditorView;
   toolbar: FloatingToolbarConfig | undefined;
-  buttons: {
-    addLink: FloatingToolbarButton<Command> | undefined;
-    editLink: FloatingToolbarButton<Command> | undefined;
-    openLink: FloatingToolbarButton<Command> | undefined;
-  };
+  actions: LinkingActions;
+  linkToolbarAppearance: ReactElement<LinkingToolbarProps> | undefined;
 }
 
 const recentItem1: ActivityItem = {
@@ -79,6 +83,10 @@ const recentItem1: ActivityItem = {
   iconUrl:
     'https://wac-cdn.atlassian.com/assets/img/favicons/atlassian/favicon.png',
   url: 'recent1-url.com',
+};
+
+const waitForStateUpdate = async () => {
+  await Promise.resolve({});
 };
 
 describe('media', () => {
@@ -134,6 +142,14 @@ describe('media', () => {
   const googleUrl = 'http://google.com';
   const yahooUrl = 'http://yahoo.com';
   const invalidUrl = 'javascript://alert(233)';
+
+  const selectors = {
+    OPEN_LINK: `[title="${linkMessages.openLink.defaultMessage}"]`,
+    ADD_LINK: `button[aria-label="${linkToolbarMessages.addLink.defaultMessage}"]`,
+    EDIT_LINK: `button[aria-label="${linkToolbarMessages.editLink.defaultMessage}"]`,
+    BAD_LINK: `button[aria-label="${linkToolbarMessages.unableToOpenLink.defaultMessage}"]`,
+  };
+
   const docWithMediaSingle = doc(temporaryMediaSingle);
   const docWithMediaSingleLinked = doc(
     a({ href: googleUrl })(temporaryMediaSingle),
@@ -156,22 +172,33 @@ describe('media', () => {
     setNodeSelection(editorView, pos);
 
     const toolbar = floatingToolbar(editorView.state, intl, options);
-    const items = getToolbarItems(toolbar!, editorView);
+
+    let linkToolbarAppearance: ReactElement<LinkingToolbarProps> | undefined;
+
+    if (toolbar?.items) {
+      const customLinkingToolbar = (toolbar.items as FloatingToolbarItem<
+        Command
+      >[]).find(item => item.type === 'custom') as FloatingToolbarCustom;
+
+      linkToolbarAppearance = customLinkingToolbar
+        ? (customLinkingToolbar.render(editorView, 1) as ReactElement<
+            LinkingToolbarProps
+          >)
+        : undefined;
+    }
+
+    const { onAddLink, onEditLink, onOpenLink } =
+      linkToolbarAppearance?.props || {};
 
     return {
       editorView,
       toolbar,
-      buttons: {
-        addLink: findToolbarBtn(items, formattedMessages.addLink) as
-          | FloatingToolbarButton<Command>
-          | undefined,
-        editLink: findToolbarBtn(items, formattedMessages.editLink) as
-          | FloatingToolbarButton<Command>
-          | undefined,
-        openLink: findToolbarBtn(items, formattedMessages.openLink) as
-          | FloatingToolbarButton<Command>
-          | undefined,
+      actions: {
+        addLink: onAddLink,
+        editLink: onEditLink,
+        openLink: onOpenLink,
       },
+      linkToolbarAppearance,
     };
   }
 
@@ -180,10 +207,11 @@ describe('media', () => {
     type: 'edit' | 'add',
     items: Array<ActivityItem>,
   ) {
-    const { editorView, buttons } = wrapper;
-    const button = type === 'edit' ? buttons.editLink : buttons.addLink;
-    if (button) {
-      button.onClick(editorView.state, editorView.dispatch, editorView);
+    const mouseEvent = new MouseEvent('click', { bubbles: true });
+    const { editorView, actions } = wrapper;
+    const action = type === 'edit' ? actions.editLink : actions.addLink;
+    if (action) {
+      action(mouseEvent as any);
     }
 
     const toolbar = floatingToolbar(editorView.state, intl, {
@@ -215,6 +243,7 @@ describe('media', () => {
 
   let formattedMessages: { [key: string]: string } = {};
   beforeAll(() => {
+    (checkMediaType as jest.Mock).mockReturnValue(Promise.resolve('image'));
     formattedMessages = {
       addLink: intl.formatMessage(linkToolbarMessages.addLink),
       editLink: intl.formatMessage(linkToolbarMessages.editLink),
@@ -226,35 +255,102 @@ describe('media', () => {
     describe('Media Linking', () => {
       let toolbarWrapper: ToolbarWrapper;
       let editorView: EditorView;
-      let buttons: { [key: string]: FloatingToolbarItem<any> | undefined };
+      let linkToolbarAppearance: ReactElement<LinkingToolbarProps> | undefined;
 
       it('should hide buttons when feature flag is off', async () => {
-        ({ buttons } = await setupToolbar(docWithMediaSingle, {
+        ({ linkToolbarAppearance } = await setupToolbar(docWithMediaSingle, {
           allowLinking: false,
           allowAdvancedToolBarOptions: true,
         }));
 
-        expect(buttons.addLink).toBeUndefined();
-        expect(buttons.editLink).toBeUndefined();
-        expect(buttons.openLink).toBeUndefined();
+        expect(linkToolbarAppearance).toBeUndefined();
       });
 
       describe('Media Without link', () => {
+        let linkingToolbarAppearanceWrapper: ReactWrapper<any>;
+
         beforeEach(async () => {
+          (checkMediaType as jest.Mock).mockReturnValue(
+            Promise.resolve('image'),
+          );
           toolbarWrapper = await setupToolbar(docWithMediaSingle, {
             allowLinking: true,
             allowAdvancedToolBarOptions: true,
           });
-          ({ editorView, buttons } = toolbarWrapper);
+          ({ editorView, linkToolbarAppearance } = toolbarWrapper);
+
+          linkingToolbarAppearanceWrapper = mountWithIntl(
+            linkToolbarAppearance!,
+          );
+
+          await waitForStateUpdate();
+
+          linkingToolbarAppearanceWrapper.update();
         });
 
-        it('should show add link button', async () => {
-          expect(buttons.addLink).not.toBeUndefined();
+        afterEach(() => {
+          safeUnmount(linkingToolbarAppearanceWrapper);
+        });
+
+        it('should show add link button', () => {
+          expect(
+            linkingToolbarAppearanceWrapper
+              .find(`[label="${formattedMessages.addLink}"]`)
+              .exists(),
+          ).toBe(true);
         });
 
         it('should hide edit and open link buttons', async () => {
-          expect(buttons.editLink).toBeUndefined();
-          expect(buttons.openLink).toBeUndefined();
+          expect(
+            linkingToolbarAppearanceWrapper
+              .text()
+              .includes(formattedMessages.editLink),
+          ).toBe(false);
+          expect(
+            linkingToolbarAppearanceWrapper
+              .find('.hyperlink-open-link')
+              .exists(),
+          ).toBe(false);
+        });
+
+        describe('video media', () => {
+          beforeEach(async () => {
+            (checkMediaType as jest.Mock).mockReturnValue(
+              Promise.resolve('video'),
+            );
+            toolbarWrapper = await setupToolbar(docWithMediaSingle, {
+              allowLinking: true,
+              allowAdvancedToolBarOptions: true,
+            });
+            ({ linkToolbarAppearance } = toolbarWrapper);
+
+            linkingToolbarAppearanceWrapper = mountWithIntl(
+              linkToolbarAppearance!,
+            );
+            await waitForStateUpdate();
+            linkingToolbarAppearanceWrapper.update();
+          });
+
+          it('should not show media link controls', () => {
+            linkingToolbarAppearanceWrapper.update();
+
+            expect(
+              linkingToolbarAppearanceWrapper
+                .find(`[label="${formattedMessages.addLink}"]`)
+                .exists(),
+            ).toBe(false);
+
+            expect(
+              linkingToolbarAppearanceWrapper
+                .text()
+                .includes(formattedMessages.editLink),
+            ).toBe(false);
+            expect(
+              linkingToolbarAppearanceWrapper
+                .find('.hyperlink-open-link')
+                .exists(),
+            ).toBe(false);
+          });
         });
 
         describe('Linking Toolbar', () => {
@@ -415,29 +511,48 @@ describe('media', () => {
       });
 
       describe('Media With Link', () => {
+        let linkingToolbarAppearanceWrapper: any;
         beforeEach(async () => {
+          (checkMediaType as jest.Mock).mockReturnValue(
+            Promise.resolve('image'),
+          );
           toolbarWrapper = await setupToolbar(docWithMediaSingleLinked, {
             allowLinking: true,
             allowAdvancedToolBarOptions: true,
           });
-          ({ editorView, buttons } = toolbarWrapper);
+          ({ editorView } = toolbarWrapper);
+
+          ({ editorView, linkToolbarAppearance } = toolbarWrapper);
+
+          linkingToolbarAppearanceWrapper = mountWithIntl(
+            linkToolbarAppearance!,
+          );
+
+          await waitForStateUpdate();
+          linkingToolbarAppearanceWrapper.update();
         });
 
         it('should show edit link toolbar button', () => {
-          expect(buttons.editLink).toBeDefined();
+          expect(
+            linkingToolbarAppearanceWrapper.find(selectors.EDIT_LINK),
+          ).toBeDefined();
         });
 
         describe('Open Link', () => {
+          beforeEach(() => {
+            createAnalyticsEvent.mockClear();
+          });
           it('should show open link toolbar button ', () => {
-            expect(buttons.openLink).toBeDefined();
+            expect(
+              linkingToolbarAppearanceWrapper.find(selectors.OPEN_LINK).length,
+            ).toEqual(1);
           });
 
           it('should create analytics event', () => {
-            (buttons.openLink! as FloatingToolbarButton<Command>).onClick(
-              editorView.state,
-              editorView.dispatch,
-              editorView,
-            );
+            linkingToolbarAppearanceWrapper
+              .find(selectors.OPEN_LINK)
+              .props()
+              .onClick();
 
             expect(createAnalyticsEvent).toBeCalledWith({
               eventType: 'track',
@@ -578,18 +693,6 @@ describe('media', () => {
           );
 
           expect(mediaLinkingState.mediaPos).toEqual(expect.any(Number));
-        });
-
-        test('should hide add link button from media toolbar', () => {
-          expect(toolbarWrapper.buttons.addLink).toBeUndefined();
-        });
-
-        test('should hide open link button from media toolbar', () => {
-          expect(toolbarWrapper.buttons.openLink).toBeUndefined();
-        });
-
-        test('should hide edit link button from media toolbar', () => {
-          expect(toolbarWrapper.buttons.editLink).toBeUndefined();
         });
       });
     });

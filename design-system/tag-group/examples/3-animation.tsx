@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import Tag from '@atlaskit/tag';
 
@@ -8,39 +8,34 @@ interface Props {
   alignment: 'start' | 'end';
 }
 
-interface State {
-  tags: Array<string>;
-}
+export function MyTagGroup({ alignment }: Props) {
+  const [tags, setTags] = useState([
+    'Candy canes',
+    'Tiramisu',
+    'Gummi bears',
+    'Wagon Wheels',
+  ]);
 
-class MyTagGroup extends React.Component<Props, State> {
-  state = {
-    tags: ['Candy canes', 'Tiramisu', 'Gummi bears', 'Wagon Wheels'],
-  };
+  const handleRemoveRequest = () => true;
 
-  handleRemoveRequest = () => true;
-
-  handleRemoveComplete = (text: string) => {
-    this.setState({
-      tags: this.state.tags.filter(str => str !== text),
-    });
+  const handleRemoveComplete = (text: string) => {
+    setTags(tags.filter(str => str !== text));
     console.log(`Removed ${text}.`);
   };
 
-  render() {
-    return (
-      <TagGroup alignment={this.props.alignment}>
-        {this.state.tags.map(text => (
-          <Tag
-            key={text}
-            onAfterRemoveAction={this.handleRemoveComplete}
-            onBeforeRemoveAction={this.handleRemoveRequest}
-            removeButtonText="Remove me"
-            text={text}
-          />
-        ))}
-      </TagGroup>
-    );
-  }
+  return (
+    <TagGroup alignment={alignment}>
+      {tags.map(text => (
+        <Tag
+          key={text}
+          onAfterRemoveAction={handleRemoveComplete}
+          onBeforeRemoveAction={handleRemoveRequest}
+          removeButtonLabel="Remove me"
+          text={text}
+        />
+      ))}
+    </TagGroup>
+  );
 }
 
 export default () => (

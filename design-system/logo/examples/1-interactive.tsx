@@ -3,7 +3,8 @@ import React, { Component, ComponentType } from 'react';
 
 import styled from 'styled-components';
 
-import Button, { ButtonGroup } from '@atlaskit/button';
+import ButtonGroup from '@atlaskit/button/button-group';
+import Button from '@atlaskit/button/custom-theme-button';
 import RadioGroup from '@atlaskit/field-radio-group';
 import * as colors from '@atlaskit/theme/colors';
 

@@ -1,5 +1,10 @@
 import { Node } from 'prosemirror-model';
-import { EditorState, Plugin, TextSelection } from 'prosemirror-state';
+import {
+  EditorState,
+  Plugin,
+  TextSelection,
+  Selection,
+} from 'prosemirror-state';
 import { Decoration, DecorationSet } from 'prosemirror-view';
 import { keydownHandler } from 'prosemirror-keymap';
 import {
@@ -8,6 +13,7 @@ import {
 } from 'prosemirror-utils';
 import { filter } from '../../../utils/commands';
 import { Command } from '../../../types/command';
+import { createSelectionClickHandler } from '../../selection/utils';
 import {
   fixColumnSizes,
   fixColumnStructure,
@@ -15,7 +21,7 @@ import {
 } from '../actions';
 import { pluginKey } from './plugin-key';
 import { Change, LayoutState } from './types';
-import layoutSectionNodeView from './../nodeviews';
+import { LayoutPluginOptions } from '../types';
 
 export const DEFAULT_LAYOUT = 'two_equal';
 
@@ -59,22 +65,15 @@ const getNodeDecoration = (pos: number, node: Node) => [
 ];
 
 const getInitialPluginState = (
-  pluginConfig:
-    | { allowBreakout?: boolean; UNSAFE_addSidebarLayouts?: boolean }
-    | undefined
-    | boolean,
+  options: LayoutPluginOptions,
   state: EditorState,
 ): LayoutState => {
   const maybeLayoutSection = findParentNodeOfType(
     state.schema.nodes.layoutSection,
   )(state.selection);
 
-  const allowBreakout =
-    typeof pluginConfig === 'object' ? !!pluginConfig.allowBreakout : false;
-  const addSidebarLayouts =
-    typeof pluginConfig === 'object'
-      ? !!pluginConfig.UNSAFE_addSidebarLayouts
-      : false;
+  const allowBreakout = options.allowBreakout || false;
+  const addSidebarLayouts = options.UNSAFE_addSidebarLayouts || false;
   const pos = maybeLayoutSection ? maybeLayoutSection.pos : null;
   const selectedLayout = getSelectedLayout(
     maybeLayoutSection && maybeLayoutSection.node,
@@ -83,16 +82,11 @@ const getInitialPluginState = (
   return { pos, allowBreakout, addSidebarLayouts, selectedLayout };
 };
 
-export default (
-  pluginConfig?:
-    | { allowBreakout: boolean; UNSAFE_addSidebarLayouts?: boolean }
-    | boolean,
-) =>
+export default (options: LayoutPluginOptions) =>
   new Plugin({
     key: pluginKey,
     state: {
-      init: (_, state): LayoutState =>
-        getInitialPluginState(pluginConfig, state),
+      init: (_, state): LayoutState => getInitialPluginState(options, state),
 
       apply: (tr, pluginState, _oldState, newState) => {
         if (tr.docChanged || tr.selectionSet) {
@@ -120,9 +114,6 @@ export default (
       },
     },
     props: {
-      nodeViews: {
-        layoutSection: layoutSectionNodeView(),
-      },
       decorations(state) {
         const layoutState = pluginKey.getState(state) as LayoutState;
         if (layoutState.pos !== null) {
@@ -139,6 +130,17 @@ export default (
       handleKeyDown: keydownHandler({
         Tab: filter(isWholeSelectionInsideLayoutColumn, moveCursorToNextColumn),
       }),
+      handleClickOn: createSelectionClickHandler(
+        ['layoutColumn'],
+        target =>
+          target.hasAttribute('data-layout-section') ||
+          target.hasAttribute('data-layout-column'),
+        {
+          useLongPressSelection: options.useLongPressSelection || false,
+          getNodeSelectionPos: (state, nodePos) =>
+            state.doc.resolve(nodePos).before(),
+        },
+      ),
     },
     appendTransaction: (transactions, _oldState, newState) => {
       let changes: Change[] = [];
@@ -165,7 +167,7 @@ export default (
 
       if (changes.length) {
         let tr = newState.tr;
-        const selection = newState.selection;
+        const selection = newState.selection.toJSON();
 
         changes.forEach(change => {
           tr.replaceRange(change.from, change.to, change.slice);
@@ -176,7 +178,7 @@ export default (
         tr = fixColumnStructure(newState) || tr;
 
         if (tr.docChanged) {
-          tr.setSelection(selection);
+          tr.setSelection(Selection.fromJSON(tr.doc, selection));
           tr.setMeta('addToHistory', false);
           return tr;
         }

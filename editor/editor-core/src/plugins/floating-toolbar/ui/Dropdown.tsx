@@ -8,7 +8,7 @@ import DropdownMenu, { itemSpacing, menuItemDimensions } from './DropdownMenu';
 import { DropdownOptions, DropdownOptionT } from './types';
 
 const DropdownExpandContainer = styled.span`
-  margin-left: -8px;
+  margin: 0px -4px;
 `;
 
 const IconGroup = styled.div`

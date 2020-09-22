@@ -1,0 +1,215 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ElementList should match snapshot 1`] = `
+.c0 {
+  position: relative;
+}
+
+.c1 {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  -webkit-flex-flow: row wrap;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
+  -webkit-align-items: flex-start;
+  -webkit-box-align: flex-start;
+  -ms-flex-align: flex-start;
+  align-items: flex-start;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  overflow: hidden;
+}
+
+.c1 .ReactVirtualized__Collection {
+  -webkit-scrollbar-color: #eeeeee rgba(255,255,255,0);
+  -moz-scrollbar-color: #eeeeee rgba(255,255,255,0);
+  -ms-scrollbar-color: #eeeeee rgba(255,255,255,0);
+  scrollbar-color: #eeeeee rgba(255,255,255,0);
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+}
+
+.c1 .ReactVirtualized__Collection::-webkit-scrollbar {
+  width: 8px;
+}
+
+.c1 .ReactVirtualized__Collection::-webkit-scrollbar-track-piece {
+  background: rgba(255,255,255,0);
+}
+
+.c1 .ReactVirtualized__Collection::-webkit-scrollbar-thumb {
+  background: #eeeeee;
+}
+
+.c1 .ReactVirtualized__Collection__innerScrollContainer div[class='element-item-wrapper']:last-child {
+  padding-bottom: 4px;
+}
+
+<WithAnalyticsContext(ElementList)
+  items={
+    Array [
+      Object {
+        "action": [MockFunction],
+        "name": "item-1",
+        "title": "Item 1",
+      },
+      Object {
+        "action": [MockFunction],
+        "name": "item-2",
+        "title": "Item 2",
+      },
+      Object {
+        "action": [MockFunction],
+        "name": "item-3",
+        "title": "Item 3",
+      },
+      Object {
+        "action": [MockFunction],
+        "name": "item-4",
+        "title": "Item 4",
+      },
+      Object {
+        "action": [MockFunction],
+        "name": "item-5",
+        "title": "Item 5",
+      },
+    ]
+  }
+  mode="full"
+  onEnterKeyPress={[MockFunction]}
+  onInsertItem={[MockFunction]}
+  selectedItemIndex={1}
+  setColumnCount={[MockFunction]}
+  setFocusedItemIndex={[MockFunction]}
+  setSelectedItemIndex={[MockFunction]}
+>
+  <AnalyticsContext
+    data={
+      Object {
+        "component": "ElementList",
+      }
+    }
+  >
+    <ElementList
+      items={
+        Array [
+          Object {
+            "action": [MockFunction],
+            "name": "item-1",
+            "title": "Item 1",
+          },
+          Object {
+            "action": [MockFunction],
+            "name": "item-2",
+            "title": "Item 2",
+          },
+          Object {
+            "action": [MockFunction],
+            "name": "item-3",
+            "title": "Item 3",
+          },
+          Object {
+            "action": [MockFunction],
+            "name": "item-4",
+            "title": "Item 4",
+          },
+          Object {
+            "action": [MockFunction],
+            "name": "item-5",
+            "title": "Item 5",
+          },
+        ]
+      }
+      mode="full"
+      onEnterKeyPress={[MockFunction]}
+      onInsertItem={[MockFunction]}
+      selectedItemIndex={1}
+      setColumnCount={[MockFunction]}
+      setFocusedItemIndex={[MockFunction]}
+      setSelectedItemIndex={[MockFunction]}
+    >
+      <Memo()>
+        <WidthObserverWrapper
+          innerRef={
+            Object {
+              "current": <div
+                class="c0"
+                tabindex="-1"
+              >
+                <div />
+              </div>,
+            }
+          }
+          tabIndex={-1}
+        >
+          <div
+            className="c0"
+            tabIndex={-1}
+          >
+            <Memo()
+              setWidth={[Function]}
+            >
+              <Memo()
+                setWidth={[Function]}
+                useIntersectionObserver={false}
+              >
+                <Memo()
+                  setWidth={[Function]}
+                  subscribe={[Function]}
+                >
+                  <div />
+                </Memo()>
+              </Memo()>
+            </Memo()>
+          </div>
+        </WidthObserverWrapper>
+      </Memo()>
+      <styled.div
+        data-testid="ElementItems"
+        tabIndex={-1}
+      >
+        <div
+          className="c1"
+          data-testid="ElementItems"
+          tabIndex={-1}
+        >
+          <ThemeProvider
+            theme={
+              Object {
+                "@atlaskit-shared-theme/item": Object {
+                  "-ms-flex": "auto",
+                  "beforeItemSpacing": Object {
+                    "default": 12,
+                  },
+                  "borderRadius": 4,
+                  "boxSizing": "border-box",
+                  "height": Object {
+                    "default": 64,
+                  },
+                  "hover": Object {
+                    "background": "rgb(244, 245, 247)",
+                  },
+                  "padding": Object {
+                    "default": Object {
+                      "bottom": 12,
+                      "left": 12,
+                      "right": 12,
+                      "top": 12,
+                    },
+                  },
+                  "position": "relative",
+                  "selected": Object {
+                    "background": "#F4F5F7",
+                  },
+                },
+              }
+            }
+          />
+        </div>
+      </styled.div>
+    </ElementList>
+  </AnalyticsContext>
+</WithAnalyticsContext(ElementList)>
+`;

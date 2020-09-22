@@ -1,7 +1,13 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { N30 } from '@atlaskit/theme/colors';
-import { Wrapper, LinkWrapper, IconWrapper, TextWrapper } from '../../styled';
+import {
+  Wrapper,
+  LinkWrapper,
+  IconWrapper,
+  TextWrapper,
+  Content,
+} from '../../styled';
 
 describe('Wrapper', () => {
   it('should render with minWidth when there is a minWidth', () => {
@@ -64,6 +70,18 @@ describe('LinkWrapper', () => {
   it('should not have hover styles when isInteractive=false', () => {
     const element = shallow(<LinkWrapper isInteractive={false} />);
     expect(element).toMatchSnapshot();
+  });
+});
+
+describe('Content', () => {
+  it('should not allow overflow content to be visible (iframe contents should handle scrolling)', () => {
+    const element = shallow(<Content isInteractive={false} />);
+    expect(element).toHaveStyleRule('overflow', 'hidden');
+  });
+
+  it('should not allow overflow content to be visible (on hover as well)', () => {
+    const element = shallow(<Content isInteractive={true} />);
+    expect(element).toHaveStyleRule('overflow', 'hidden');
   });
 });
 

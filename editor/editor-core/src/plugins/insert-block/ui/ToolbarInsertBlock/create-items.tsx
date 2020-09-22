@@ -7,6 +7,8 @@ import { Schema } from 'prosemirror-model';
 import { EmojiProvider } from '@atlaskit/emoji/resource';
 
 import { messages } from './messages';
+import { messages as blockTypeMessages } from '../../../block-type/messages';
+
 import { BlockType } from '../../../block-type/types';
 import { ToolTipContent } from '../../../../keymaps';
 import { MenuItem } from '../../../../ui/DropdownMenu/types';
@@ -127,6 +129,7 @@ const createInsertBlockItems = (
     items.push(
       action({
         content: formatMessage(messages.action),
+        tooltipDescription: formatMessage(messages.actionDescription),
         disabled: false,
       }),
     );
@@ -136,6 +139,7 @@ const createInsertBlockItems = (
     items.push(
       link({
         content: formatMessage(messages.link),
+        tooltipDescription: formatMessage(messages.linkDescription),
         disabled: !!linkDisabled,
       }),
     );
@@ -145,6 +149,7 @@ const createInsertBlockItems = (
     items.push(
       media({
         content: formatMessage(messages.filesAndImages),
+        tooltipDescription: formatMessage(messages.filesAndImagesDescription),
         disabled: false,
       }),
     );
@@ -163,6 +168,7 @@ const createInsertBlockItems = (
     items.push(
       mention({
         content: formatMessage(messages.mention),
+        tooltipDescription: formatMessage(messages.mentionDescription),
         disabled: !isTypeAheadAllowed,
       }),
     );
@@ -172,6 +178,7 @@ const createInsertBlockItems = (
     items.push(
       emoji({
         content: formatMessage(messages.emoji),
+        tooltipDescription: formatMessage(messages.emojiDescription),
         disabled: emojiDisabled || !isTypeAheadAllowed,
       }),
     );
@@ -181,6 +188,7 @@ const createInsertBlockItems = (
     items.push(
       table({
         content: formatMessage(messages.table),
+        tooltipDescription: formatMessage(messages.tableDescription),
         disabled: false,
       }),
     );
@@ -191,6 +199,7 @@ const createInsertBlockItems = (
     items.push(
       layout({
         content: labelColumns,
+        tooltipDescription: formatMessage(messages.columnsDescription),
         disabled: false,
       }),
     );
@@ -205,6 +214,9 @@ const createInsertBlockItems = (
     items.push(
       codeblock({
         content: formatMessage(codeblockData.title),
+        tooltipDescription: formatMessage(
+          blockTypeMessages.codeblockDescription,
+        ),
         disabled: false,
         shortcut: '```',
       }),
@@ -215,6 +227,9 @@ const createInsertBlockItems = (
     items.push(
       panel({
         content: formatMessage(panelData.title),
+        tooltipDescription: formatMessage(
+          blockTypeMessages.infoPanelDescription,
+        ),
         disabled: false,
       }),
     );
@@ -224,6 +239,9 @@ const createInsertBlockItems = (
     items.push(
       blockquote({
         content: formatMessage(blockquoteData.title),
+        tooltipDescription: formatMessage(
+          blockTypeMessages.blockquoteDescription,
+        ),
         disabled: false,
         shortcut: '>',
       }),
@@ -234,6 +252,7 @@ const createInsertBlockItems = (
     items.push(
       decision({
         content: formatMessage(messages.decision),
+        tooltipDescription: formatMessage(messages.decisionDescription),
         disabled: false,
       }),
     );
@@ -243,6 +262,7 @@ const createInsertBlockItems = (
     items.push(
       horizontalrule({
         content: formatMessage(messages.horizontalRule),
+        tooltipDescription: formatMessage(messages.horizontalRuleDescription),
         disabled: false,
       }),
     );
@@ -252,6 +272,7 @@ const createInsertBlockItems = (
     items.push(
       expand({
         content: formatMessage(messages.expand),
+        tooltipDescription: formatMessage(messages.expandDescription),
         disabled: false,
       }),
     );
@@ -262,6 +283,7 @@ const createInsertBlockItems = (
     items.push(
       date({
         content: labelDate,
+        tooltipDescription: formatMessage(messages.dateDescription),
         disabled: false,
       }),
     );
@@ -281,6 +303,7 @@ const createInsertBlockItems = (
     items.push(
       status({
         content: labelStatus,
+        tooltipDescription: formatMessage(messages.statusDescription),
         disabled: false,
       }),
     );

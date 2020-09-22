@@ -1,4 +1,4 @@
-import AkButton from '@atlaskit/button';
+import AkButton from '@atlaskit/button/custom-theme-button';
 import { ShallowWrapper, shallow } from 'enzyme';
 import React from 'react';
 

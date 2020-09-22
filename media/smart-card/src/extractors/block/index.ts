@@ -3,6 +3,7 @@ import { BlockCardResolvedViewProps, ActionProps } from '@atlaskit/media-ui';
 import {
   extractLink,
   extractTitle,
+  extractTitleTextColor,
   extractSummary,
 } from '../common/primitives';
 import { extractLozenge } from '../common/lozenge';
@@ -75,6 +76,7 @@ export const extractBlockProps = (
   const props = {
     link: extractLink(jsonLd),
     title: extractTitle(jsonLd),
+    titleTextColor: extractTitleTextColor(jsonLd),
     lozenge: extractLozenge(jsonLd),
     icon: extractBlockIcon(jsonLd),
     context: extractProvider(jsonLd),

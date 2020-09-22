@@ -1,11 +1,14 @@
+import { SnapPointsProps } from './../plugins/media/ui/ResizableMediaSingle/types';
 import { RichMediaAttributes, RichMediaLayout } from '@atlaskit/adf-schema';
 import {
   wrappedLayouts,
   shouldAddDefaultWrappedWidth,
+  calcPxFromColumns,
 } from '@atlaskit/editor-common';
 
 import { findParentNodeOfTypeClosestToPos } from 'prosemirror-utils';
 import { EditorView } from 'prosemirror-view';
+import { akEditorBreakoutPadding } from '@atlaskit/editor-shared-styles';
 
 export const nonWrappedLayouts: RichMediaLayout[] = [
   'center',
@@ -101,3 +104,53 @@ export const alignAttributes = (
     width,
   };
 };
+
+export function calculateSnapPoints({
+  $pos,
+  akEditorWideLayoutWidth,
+  allowBreakoutSnapPoints,
+  containerWidth,
+  gridSize,
+  gridWidth,
+  insideInlineLike,
+  insideLayout,
+  isVideoFile,
+  lineLength,
+  offsetLeft,
+  wrappedLayout,
+}: SnapPointsProps) {
+  const snapTargets: number[] = [];
+
+  for (let i = 0; i < gridWidth; i++) {
+    const pxFromColumns = calcPxFromColumns(i, lineLength, gridWidth);
+
+    snapTargets.push(insideLayout ? pxFromColumns : pxFromColumns - offsetLeft);
+  }
+  // full width
+  snapTargets.push(lineLength - offsetLeft);
+  const columns = wrappedLayout || insideInlineLike ? 1 : 2;
+  const minimumWidth = calcPxFromColumns(columns, lineLength, gridSize);
+
+  let snapPoints = snapTargets.filter(width => width >= minimumWidth);
+  if (!$pos) {
+    return snapPoints;
+  }
+
+  snapPoints = isVideoFile
+    ? snapPoints.filter(width => width > 320)
+    : snapPoints;
+
+  const isTopLevel = $pos.parent.type.name === 'doc';
+  if (isTopLevel && allowBreakoutSnapPoints) {
+    snapPoints.push(akEditorWideLayoutWidth);
+    const fullWidthPoint = containerWidth - akEditorBreakoutPadding;
+    if (fullWidthPoint > akEditorWideLayoutWidth) {
+      snapPoints.push(fullWidthPoint);
+    }
+  }
+
+  // EDM-1107: Ensure new snapPoints are sorted with existing points
+  snapPoints = snapPoints.sort((a, b) => a - b);
+
+  return snapPoints;
+}

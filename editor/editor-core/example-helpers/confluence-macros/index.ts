@@ -206,6 +206,14 @@ const transformLegacyMacrosToExtensionManifest = (
     action = asyncAction;
   }
 
+  const featuredList = [
+    'viewxls',
+    'pagetree',
+    'livesearch',
+    'data-driven-roadmap',
+    'macro',
+  ];
+
   // hidden macros can still exist so they can be rendered but shouldn't appear in any menu
   const quickInsert: ExtensionModule[] = macro.hidden
     ? []
@@ -214,6 +222,7 @@ const transformLegacyMacrosToExtensionManifest = (
           key: 'default',
           title: macro.title,
           description: macro.description,
+          featured: featuredList.includes(macro.macroName),
           keywords: [...macro.aliases, macro.macroName],
           categories: macro.categories || [],
           icon: () => getIcon(macro),
@@ -286,7 +295,10 @@ const transformLegacyMacrosToExtensionManifest = (
     key: extensionKey,
     title: macro.title,
     description: macro.description,
+    summary:
+      macro.macroName === 'toc-zone' ? 'summary for toc zone' : undefined,
     icons: buildIconObject(macro),
+    documentationUrl: macro.formDetails.documentationUrl || undefined,
     modules: {
       quickInsert,
       autoConvert: {
@@ -471,6 +483,7 @@ const cqlFields: FieldDefinition[] = [
     label: 'Created',
     type: 'enum',
     style: 'radio',
+    defaultValue: 'any date',
     items: [
       {
         label: 'Any date',

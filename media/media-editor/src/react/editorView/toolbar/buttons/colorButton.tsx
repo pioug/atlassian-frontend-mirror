@@ -2,7 +2,7 @@ import React from 'react';
 import { Component } from 'react';
 import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
 import Tooltip from '@atlaskit/tooltip';
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
 import { N0 } from '@atlaskit/theme/colors';
 import {
   ColorSample,

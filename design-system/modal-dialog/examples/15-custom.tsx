@@ -4,7 +4,8 @@ import styled from '@emotion/styled';
 import Lorem from 'react-lorem-component';
 
 import Avatar from '@atlaskit/avatar';
-import Button, { ButtonGroup } from '@atlaskit/button';
+import ButtonGroup from '@atlaskit/button/button-group';
+import Button from '@atlaskit/button/custom-theme-button';
 import CrossIcon from '@atlaskit/icon/glyph/cross';
 import InlineDialog from '@atlaskit/inline-dialog';
 import { N30, R400, subtleText } from '@atlaskit/theme/colors';

@@ -1,6 +1,8 @@
 export interface SelectionDataState {
   rect: RectData;
   selection: SelectionData;
+  nodeTypes: string[];
+  markTypes: string[];
 }
 
 export type SelectionData =

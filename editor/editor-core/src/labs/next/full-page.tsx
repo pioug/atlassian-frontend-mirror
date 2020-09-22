@@ -6,7 +6,11 @@ import {
   withAnalyticsEvents,
   WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
-import { BaseTheme, akEditorMenuZIndex } from '@atlaskit/editor-common';
+import { BaseTheme } from '@atlaskit/editor-common';
+import {
+  akEditorMenuZIndex,
+  akEditorToolbarKeylineHeight,
+} from '@atlaskit/editor-shared-styles';
 import ContentStyles from '../../ui/ContentStyles';
 import WidthEmitter from '../../ui/WidthEmitter';
 
@@ -14,7 +18,6 @@ import { ClickAreaBlock } from '../../ui/Addon';
 import { scrollbarStyles } from '../../ui/styles';
 import { tableFullPageEditorStyles } from '../../plugins/table/ui/common-styles.css';
 import AvatarsWithPluginState from '../../plugins/collab-edit/ui';
-import { akEditorToolbarKeylineHeight } from '../../styles';
 import { EditorProps } from '../../types';
 import EditorActions from '../../actions';
 import {

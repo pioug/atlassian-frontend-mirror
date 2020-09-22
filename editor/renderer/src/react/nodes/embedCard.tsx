@@ -3,15 +3,17 @@ import { Card, Context as CardContext } from '@atlaskit/smart-card';
 import {
   EventHandlers,
   WidthConsumer,
-  akEditorDefaultLayoutWidth,
   mapBreakpointToLayoutMaxWidth,
-  akEditorFullWidthLayoutWidth,
   UnsupportedBlock,
   MediaSingle as UIMediaSingle,
+} from '@atlaskit/editor-common';
+import {
+  akEditorDefaultLayoutWidth,
+  akEditorFullWidthLayoutWidth,
   DEFAULT_EMBED_CARD_HEIGHT,
   DEFAULT_EMBED_CARD_WIDTH,
   getAkEditorFullPageMaxWidth,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-shared-styles';
 import { RichMediaLayout } from '@atlaskit/adf-schema';
 
 import { getEventHandler, getPlatform } from '../../utils';

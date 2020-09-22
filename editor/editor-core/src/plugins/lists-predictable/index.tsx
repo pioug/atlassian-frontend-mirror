@@ -3,7 +3,7 @@ import { orderedList, bulletList, listItem } from '@atlaskit/adf-schema';
 import { EditorPlugin } from '../../types';
 import ToolbarLists from './ui/ToolbarLists';
 import { createPlugin, pluginKey } from './pm-plugins/main';
-import inputRulePlugin from './pm-plugins/input-rule';
+import inputRulePlugin from './pm-plugins/input-rules';
 import keymapPlugin from './pm-plugins/keymap';
 import WithPluginState from '../../ui/WithPluginState';
 import { messages } from '../lists/messages';
@@ -66,8 +66,8 @@ const listPlugin = (): EditorPlugin => ({
           );
 
           return addAnalytics(state, tr, {
-            action: ACTION.FORMATTED,
-            actionSubject: ACTION_SUBJECT.TEXT,
+            action: ACTION.INSERTED,
+            actionSubject: ACTION_SUBJECT.LIST,
             actionSubjectId: ACTION_SUBJECT_ID.FORMAT_LIST_BULLET,
             eventType: EVENT_TYPE.TRACK,
             attributes: {
@@ -98,8 +98,8 @@ const listPlugin = (): EditorPlugin => ({
           );
 
           return addAnalytics(state, tr, {
-            action: ACTION.FORMATTED,
-            actionSubject: ACTION_SUBJECT.TEXT,
+            action: ACTION.INSERTED,
+            actionSubject: ACTION_SUBJECT.LIST,
             actionSubjectId: ACTION_SUBJECT_ID.FORMAT_LIST_NUMBER,
             eventType: EVENT_TYPE.TRACK,
             attributes: {

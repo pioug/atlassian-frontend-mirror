@@ -49,10 +49,10 @@ BrowserTestCase(
 
     const bounds = await page.getBoundingRect(editable + ' > p');
     await page.simulateUserDragAndDrop(
-      Math.floor(bounds.left + bounds.width - 4),
-      Math.floor(bounds.top + bounds.height - 4),
-      Math.floor(bounds.left - 4),
-      Math.floor(bounds.top),
+      bounds.left + bounds.width - 4,
+      bounds.top + bounds.height - 4,
+      bounds.left - 4,
+      bounds.top,
     );
     const buttonExists = await page.waitFor(
       annotationSelectors.floatingToolbarCreate,

@@ -25,7 +25,7 @@
     }
   },
   "dependencies": {
-    "@atlaskit/analytics-next": "^7.0.0",
+    "@atlaskit/analytics-next": "^7.1.0",
     "@atlaskit/theme": "^10.0.0",
     "tslib": "^2.0.0"
   },
@@ -35,7 +35,7 @@
   },
   "devDependencies": {
     "@atlaskit/build-utils": "*",
-    "@atlaskit/button": "^14.0.0",
+    "@atlaskit/button": "^15.0.0",
     "@atlaskit/docs": "*",
     "@atlaskit/ssr": "*",
     "enzyme": "^3.10.0",

@@ -30,6 +30,61 @@ import { messages } from '../insert-block/ui/ToolbarInsertBlock/messages';
 import { EmojiPluginOptions, EmojiPluginState } from './types';
 import { EventDispatcher } from '../../event-dispatcher';
 
+export const emojiToTypeaheadItem = (
+  emoji: EmojiDescription,
+  emojiProvider?: EmojiProvider,
+): TypeAheadItem => ({
+  title: emoji.shortName || '',
+  key: emoji.id || emoji.shortName,
+  render({ isSelected, onClick, onHover }) {
+    return (
+      // It's required to pass emojiProvider through the context for custom emojis to work
+      <EmojiContextProvider emojiProvider={emojiProvider}>
+        <EmojiTypeAheadItem
+          emoji={emoji}
+          selected={isSelected}
+          onMouseMove={onHover}
+          onSelection={onClick}
+        />
+      </EmojiContextProvider>
+    );
+  },
+  emoji,
+});
+
+export function memoize<
+  ResultFn extends (
+    emoji: EmojiDescription,
+    emojiProvider?: EmojiProvider,
+  ) => TypeAheadItem
+>(fn: ResultFn): { call: ResultFn; clear(): void } {
+  // Cache results here
+  const seen = new Map<string, TypeAheadItem>();
+
+  function memoized(
+    emoji: EmojiDescription,
+    emojiProvider?: EmojiProvider,
+  ): TypeAheadItem {
+    // Check cache for hits
+    const hit = seen.get(emoji.id || emoji.shortName);
+
+    if (hit) {
+      return hit;
+    }
+
+    // Generate new result and cache it
+    const result = fn(emoji, emojiProvider);
+    seen.set(emoji.id || emoji.shortName, result);
+    return result;
+  }
+
+  return {
+    call: memoized as ResultFn,
+    clear: seen.clear.bind(seen),
+  };
+}
+const memoizedToItem = memoize(emojiToTypeaheadItem);
+
 export const defaultListLimit = 50;
 const isFullShortName = (query?: string) =>
   query &&
@@ -103,37 +158,21 @@ const emojiPlugin = (options?: EmojiPluginOptions): EditorPlugin => ({
       headless: options ? options.headless : undefined,
       getItems(query, state, _intl, { prevActive, queryChanged }) {
         const pluginState = getEmojiPluginState(state);
-        const emojis =
-          !prevActive && queryChanged ? [] : pluginState.emojis || [];
+        const { emojiProvider, emojis: pluginEmojis } = pluginState;
+        const emojis = !prevActive && queryChanged ? [] : pluginEmojis || [];
 
-        if (queryChanged && pluginState.emojiProvider) {
-          pluginState.emojiProvider.filter(query ? `:${query}` : '', {
+        if (queryChanged && emojiProvider) {
+          memoizedToItem.clear();
+          emojiProvider.filter(query ? `:${query}` : '', {
             limit: defaultListLimit,
-            skinTone: pluginState.emojiProvider.getSelectedTone(),
+            skinTone: emojiProvider.getSelectedTone(),
             sort: !query.length
               ? SearchSort.UsageFrequency
               : SearchSort.Default,
           });
         }
 
-        return emojis.map<TypeAheadItem>(emoji => ({
-          title: emoji.shortName || '',
-          key: emoji.id || emoji.shortName,
-          render({ isSelected, onClick, onHover }) {
-            return (
-              // It's required to pass emojiProvider through the context for custom emojis to work
-              <EmojiContextProvider emojiProvider={pluginState.emojiProvider}>
-                <EmojiTypeAheadItem
-                  emoji={emoji}
-                  selected={isSelected}
-                  onMouseMove={onHover}
-                  onSelection={onClick}
-                />
-              </EmojiContextProvider>
-            );
-          },
-          emoji,
-        }));
+        return emojis.map(emoji => memoizedToItem.call(emoji, emojiProvider));
       },
       forceSelect(query: string, items: Array<TypeAheadItem>) {
         const normalizedQuery = ':' + query;

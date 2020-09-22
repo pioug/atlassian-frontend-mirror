@@ -2,7 +2,8 @@ import React from 'react';
 import { InjectedIntlProps, injectIntl } from 'react-intl';
 
 import { ExtensionManifest } from '@atlaskit/editor-common';
-import Button, { ButtonGroup } from '@atlaskit/button';
+import ButtonGroup from '@atlaskit/button/button-group';
+import Button from '@atlaskit/button/custom-theme-button';
 import { FormFooter } from '@atlaskit/form';
 
 import {
@@ -54,9 +55,9 @@ class Form extends React.Component<Props> {
     return (
       <React.Fragment>
         <FormContent
-          extensionManifest={extensionManifest}
           fields={fields}
           parameters={parameters}
+          extensionManifest={extensionManifest}
           onFieldBlur={this.onFieldBlur}
           firstVisibleFieldName={firstVisibleFieldName}
         />

@@ -7,13 +7,15 @@ import rafSchedule from 'raf-schd';
 import { SmartCardProps, Card } from './genericCard';
 import {
   UnsupportedBlock,
-  DEFAULT_EMBED_CARD_HEIGHT,
-  DEFAULT_EMBED_CARD_WIDTH,
   MediaSingle as RichMediaWrapper,
   ProviderFactory,
   browser,
   findOverflowScrollParent,
 } from '@atlaskit/editor-common';
+import {
+  DEFAULT_EMBED_CARD_HEIGHT,
+  DEFAULT_EMBED_CARD_WIDTH,
+} from '@atlaskit/editor-shared-styles';
 import { RichMediaLayout } from '@atlaskit/adf-schema';
 import { SelectionBasedNodeView } from '../../../nodeviews/';
 import { registerCard } from '../pm-plugins/actions';
@@ -234,15 +236,14 @@ export class EmbedCardComponent extends React.PureComponent<
       </>
     );
 
+    // [WS-2307]: we only render card wrapped into a Provider when the value is ready
     return (
       <>
-        {cardContext ? (
+        {cardContext && cardContext.value ? (
           <cardContext.Provider value={cardContext.value}>
             {cardInner}
           </cardContext.Provider>
-        ) : (
-          cardInner
-        )}
+        ) : null}
       </>
     );
   }

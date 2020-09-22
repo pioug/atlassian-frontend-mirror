@@ -38,6 +38,8 @@ export const listsSharedStyles = css`
         We support nested lists up to six levels deep.
     **/
 
+  /* LEGACY LISTS */
+
   ul,
   ul ul ul ul {
     list-style-type: disc;
@@ -64,5 +66,37 @@ export const listsSharedStyles = css`
   ol ol ol,
   ol ol ol ol ol ol {
     list-style-type: lower-roman;
+  }
+
+  /* PREDICTABLE LISTS */
+
+  ol[data-indent-level='1'],
+  ol[data-indent-level='4'] {
+    list-style-type: decimal;
+  }
+
+  ol[data-indent-level='2'],
+  ol[data-indent-level='5'] {
+    list-style-type: lower-alpha;
+  }
+
+  ol[data-indent-level='3'],
+  ol[data-indent-level='6'] {
+    list-style-type: lower-roman;
+  }
+
+  ul[data-indent-level='1'],
+  ul[data-indent-level='4'] {
+    list-style-type: disc;
+  }
+
+  ul[data-indent-level='2'],
+  ul[data-indent-level='5'] {
+    list-style-type: circle;
+  }
+
+  ul[data-indent-level='3'],
+  ul[data-indent-level='6'] {
+    list-style-type: square;
   }
 `;

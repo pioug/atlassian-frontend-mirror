@@ -23,7 +23,7 @@ import {
   ACTION_SUBJECT_ID,
   AnalyticsEventPayload,
   EVENT_TYPE,
-  INDENT_DIR,
+  INDENT_DIRECTION,
   INDENT_TYPE,
   INPUT_METHOD,
   withAnalytics,
@@ -48,7 +48,7 @@ import {
 
 const indentationAnalytics = (
   curIndentLevel: number,
-  direction: INDENT_DIR,
+  direction: INDENT_DIRECTION,
 ): AnalyticsEventPayload => ({
   action: ACTION.FORMATTED,
   actionSubject: ACTION_SUBJECT.TEXT,
@@ -58,7 +58,7 @@ const indentationAnalytics = (
     inputMethod: INPUT_METHOD.KEYBOARD,
     previousIndentationLevel: curIndentLevel,
     newIndentLevel:
-      direction === INDENT_DIR.OUTDENT
+      direction === INDENT_DIRECTION.OUTDENT
         ? curIndentLevel - 1
         : curIndentLevel + 1,
     direction,
@@ -142,7 +142,7 @@ const unindent = filter(isInsideTask, (state, dispatch) => {
   }
 
   return withAnalytics(
-    indentationAnalytics(curIndentLevel, INDENT_DIR.OUTDENT),
+    indentationAnalytics(curIndentLevel, INDENT_DIRECTION.OUTDENT),
   )(autoJoin(liftSelection, ['taskList']))(state, dispatch);
 });
 
@@ -160,9 +160,9 @@ const indent = filter(isInsideTask, (state, dispatch) => {
     return true;
   }
 
-  return withAnalytics(indentationAnalytics(curIndentLevel, INDENT_DIR.INDENT))(
-    autoJoin(wrapSelectionInTaskList, ['taskList']),
-  )(state, dispatch);
+  return withAnalytics(
+    indentationAnalytics(curIndentLevel, INDENT_DIRECTION.INDENT),
+  )(autoJoin(wrapSelectionInTaskList, ['taskList']))(state, dispatch);
 });
 
 const backspaceFrom = ($from: ResolvedPos): Command => (state, dispatch) => {

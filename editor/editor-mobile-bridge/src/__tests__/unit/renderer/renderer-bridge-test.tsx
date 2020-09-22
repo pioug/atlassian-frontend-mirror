@@ -1,7 +1,8 @@
-import { mount, ReactWrapper } from 'enzyme';
+import { ReactWrapper } from 'enzyme';
 import React from 'react';
 import MobileRenderer from '../../../renderer/mobile-renderer-element';
 import WebBridgeImpl from '../../../renderer/native-to-web/implementation';
+import { mountWithIntl } from 'enzyme-react-intl';
 import {
   createCardClient,
   createEmojiProvider,
@@ -60,7 +61,7 @@ describe('renderer bridge', () => {
   let mobileRenderer: ReactWrapper;
 
   const initRenderer = (adf: string): ReactWrapper =>
-    mount(
+    mountWithIntl(
       <MobileRenderer
         document={adf}
         cardClient={createCardClient()}

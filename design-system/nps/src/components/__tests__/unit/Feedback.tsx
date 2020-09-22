@@ -2,7 +2,8 @@ import React from 'react';
 
 import { shallow } from 'enzyme';
 
-import Button, { ButtonGroup } from '@atlaskit/button';
+import ButtonGroup from '@atlaskit/button/button-group';
+import Button from '@atlaskit/button/custom-theme-button';
 import FieldTextArea from '@atlaskit/field-text-area';
 
 import { Description, Header } from '../../common';

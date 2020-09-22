@@ -1,5 +1,11 @@
 # @atlaskit/media-core
 
+## 32.1.0
+
+### Minor Changes
+
+- [`7d831363d9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7d831363d9) - Migrated to declarative entry points
+
 ## 32.0.3
 
 ### Patch Changes
@@ -901,7 +907,6 @@ const config: MediaClientConfig = {
 * breaking; Api for DataUriService has changed
 * before:
 * ```typescript
-
   ```
 
 * interface fetchImageDataUri(
@@ -916,7 +921,6 @@ const config: MediaClientConfig = {
 
 * after:
 * ```typescript
-
   ```
 
 * interface FetchImageOptions {

@@ -151,7 +151,12 @@ describe('Mobile MediaProvider', () => {
   describe('rendering mediaSingle', () => {
     describe('having collection name', () => {
       it("should call media's AuthProvider", async () => {
-        const { editorView } = editor(doc(p('text{<>}')), {
+        /**
+         * NOTE: Due to a change in ProseMirror it's not possible render media as a last item
+         * without rendering the Media NodeView. If we require such test, they need to be
+         * rewritten as integration test.
+         */
+        const { editorView } = editor(doc(p('text{<>}'), p()), {
           allowMediaSingle: true,
           provider: promisedMediaProvider,
         });
@@ -189,7 +194,12 @@ describe('Mobile MediaProvider', () => {
 
     describe('having empty collection name', () => {
       it("should call media's AuthProvider", async () => {
-        const { editorView } = editor(doc(p('text{<>}')), {
+        /**
+         * NOTE: Due to a change in ProseMirror it's not possible render media as a last item
+         * without rendering the Media NodeView. If we require such test, they need to be
+         * rewritten as integration test.
+         */
+        const { editorView } = editor(doc(p('text{<>}'), p()), {
           allowMediaSingle: true,
           provider: promisedMediaProvider,
         });

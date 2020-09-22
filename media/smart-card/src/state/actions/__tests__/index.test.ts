@@ -5,7 +5,7 @@ const mockMemo = {
   useMemo: jest.fn().mockImplementation(fn => fn()),
   useCallback: jest.fn().mockImplementation(fn => fn),
 };
-import { mockEvents } from '../../../view/__tests__/_mocks';
+import { mockEvents } from '../../../view/__mocks__/events';
 
 // eslint-disable-next-line no-global-assign
 performance = ({
@@ -23,6 +23,7 @@ const getMockContext = (): CardContext => ({
   config: { maxAge: 100, maxLoadingDelay: 100 },
   connections: {
     client: {
+      prefetchData: jest.fn(),
       fetchData: jest.fn(),
       postData: jest.fn(),
     },
@@ -33,6 +34,7 @@ const getMockContext = (): CardContext => ({
     subscribe: jest.fn(),
     replaceReducer: jest.fn(),
   },
+  prefetchStore: {},
   extractors: {
     getPreview: jest.fn(),
   },

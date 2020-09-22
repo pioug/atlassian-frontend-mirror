@@ -32,16 +32,12 @@ export default {
     '{name} konto ühendamisel abi pakkumiseks avame uue lehekülje',
   'fabric.media.connect_link_account': 'Eelvaatega ühenduse loomine',
   'fabric.media.connect_link_account_card_view': 'Ühenda',
-  'fabric.media.connect_link_account_card_view_description':
-    'Saate rikastada linkide eelvaateid, kui ühendate Atlassiani toodetega konto {context}.',
   'fabric.media.connect_link_account_card_view_name':
     'Ühendage konto {context}',
   'fabric.media.connect_to': 'Ühendu teenusega {name}',
   'fabric.media.could_not_load_editor': 'Ups! Muutja laadimine nurjus',
   'fabric.media.could_not_save_image': 'Ups! Pildi salvestamine nurjus',
   'fabric.media.couldnt_generate_preview': 'Selle faili eelvaadet ei saa luua.',
-  'fabric.media.couldnt_load_link':
-    'Mingil põhjusel ei saanud me seda linki laadida.',
   'fabric.media.default_avatars': 'Vaikimisi avatarid',
   'fabric.media.disable_fullscreen': 'keela täisekraan',
   'fabric.media.document': 'dokument',
@@ -69,7 +65,6 @@ export default {
     'Pilt ei õnnestunud laadida, URL ei kehti.',
   'fabric.media.insert_files':
     '{0, plural, one {Sisestage {0} fail} other {Sisestage {0} faili}}',
-  'fabric.media.invalid_permissions': 'Teil puudub lingile ligipääs',
   'fabric.media.invalid_permissions_description':
     'Eelvaate kuvamiseks peate taotlema ligipääsu või proovima mõnda muud kontot.',
   'fabric.media.item_not_found_in_list': 'Valitut ei leitud loendist.',
@@ -82,8 +77,6 @@ export default {
     'Me ei leidnud seoses päringuga „{query}“ midagi',
   'fabric.media.no_pdf_artifacts':
     'Ühtki PDF järeletehtud objekti ei leitud selle faili jaoks.',
-  'fabric.media.not_found_description':
-    'Kontrollige URL-i ja proovige seda muuta või kleepige uuesti.',
   'fabric.media.not_found_title': 'Oijah. Me ei leia seda linki!',
   'fabric.media.or': 'või',
   'fabric.media.pause': 'pausi',

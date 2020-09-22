@@ -2,9 +2,14 @@ import React from 'react';
 import styled from 'styled-components';
 import EditorActions from '../../actions';
 import { ToolbarInnerProps } from './toolbar-types';
+import { akEditorMobileMaxWidth } from '@atlaskit/editor-shared-styles';
 
 const ToolbarComponentsWrapper = styled.div`
   display: flex;
+
+  @media (max-width: ${akEditorMobileMaxWidth}px) {
+    justify-content: space-between;
+  }
 `;
 
 export class ToolbarInner extends React.Component<ToolbarInnerProps> {
@@ -60,6 +65,7 @@ export class ToolbarInner extends React.Component<ToolbarInnerProps> {
             toolbarSize,
             isToolbarReducedSpacing,
             containerElement,
+            isLastItem: key === items.length - 1,
             dispatchAnalyticsEvent,
           });
           return element && React.cloneElement(element, props);

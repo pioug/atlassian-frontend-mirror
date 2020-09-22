@@ -13,6 +13,7 @@ import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 
 import { Dispatch, EventDispatcher } from '../../../event-dispatcher';
 import { PortalProviderAPI } from '../../../ui/PortalProvider';
+import { createSelectionClickHandler } from '../../selection/utils';
 import ExtensionNodeView from '../nodeviews/extension';
 import { updateState, clearEditingContext } from '../commands';
 import {
@@ -138,6 +139,7 @@ const createPlugin = (
   extensionHandlers: ExtensionHandlers,
   portalProviderAPI: PortalProviderAPI,
   eventDispatcher: EventDispatcher,
+  useLongPressSelection: boolean = false,
 ) => {
   const state = createPluginState(dispatch, {
     layout: 'default',
@@ -244,6 +246,11 @@ const createPlugin = (
           extensionHandlers,
         ),
       },
+      handleClickOn: createSelectionClickHandler(
+        ['extension', 'bodiedExtension'],
+        target => !target.closest('.extension-content'),
+        { useLongPressSelection },
+      ),
     },
   });
 };

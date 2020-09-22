@@ -20,7 +20,7 @@ import {
   INPUT_METHOD,
 } from '../../analytics';
 import { filterChildrenBetween } from '../../../utils';
-import { PANEL_TYPE } from '../../analytics';
+import { PanelType } from '@atlaskit/adf-schema';
 
 export type InputMethod =
   | INPUT_METHOD.TOOLBAR
@@ -218,7 +218,7 @@ export const insertBlockTypesWithAnalytics = (
         actionSubjectId: ACTION_SUBJECT_ID.PANEL,
         attributes: {
           inputMethod: inputMethod as INPUT_METHOD.TOOLBAR,
-          panelType: PANEL_TYPE.INFO, // only info panels can be inserted from toolbar
+          panelType: PanelType.INFO, // only info panels can be inserted from toolbar
         },
         eventType: EVENT_TYPE.TRACK,
       })(insertBlockType(name));

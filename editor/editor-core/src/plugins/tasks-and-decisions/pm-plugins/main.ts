@@ -12,6 +12,7 @@ import { Dispatch, EventDispatcher } from '../../../event-dispatcher';
 import { Command } from '../../../types';
 import { PortalProviderAPI } from '../../../ui/PortalProvider';
 import { nodesBetweenChanged } from '../../../utils';
+import { createSelectionClickHandler } from '../../selection/utils';
 import { decisionItemNodeView } from '../nodeviews/decisionItem';
 import { taskItemNodeViewFactory } from '../nodeviews/taskItem';
 
@@ -45,6 +46,7 @@ export function createPlugin(
   eventDispatcher: EventDispatcher,
   providerFactory: ProviderFactory,
   dispatch: Dispatch,
+  useLongPressSelection: boolean = false,
 ) {
   return new Plugin({
     props: {
@@ -85,6 +87,13 @@ export function createPlugin(
         }
         return false;
       },
+      handleClickOn: createSelectionClickHandler(
+        ['decisionItem'],
+        target =>
+          target.hasAttribute('data-decision-wrapper') ||
+          target.getAttribute('aria-label') === 'Decision',
+        { useLongPressSelection },
+      ),
     },
     state: {
       init() {

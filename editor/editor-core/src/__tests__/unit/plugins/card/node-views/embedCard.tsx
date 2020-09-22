@@ -7,6 +7,7 @@ import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
 import { CardOptions } from '../../../../../plugins/card';
 import ResizableEmbedCard from '../../../../../plugins/card/ui/ResizableEmbedCard';
 import { DispatchAnalyticsEvent } from '../../../../../plugins/analytics';
+import { createCardContext } from '../_helpers';
 
 describe('EmbedCard', () => {
   const createEditor = createEditorFactory();
@@ -45,6 +46,7 @@ describe('EmbedCard', () => {
         view={editorView}
         getPos={() => 0}
         dispatchAnalyticsEvent={mockDispatchAnalytics}
+        cardContext={createCardContext()}
       />,
     );
     const wrapper = mockInlineCardNode.find(Card);
@@ -70,6 +72,7 @@ describe('EmbedCard', () => {
         getPos={() => 0}
         allowResizing={false}
         dispatchAnalyticsEvent={mockDispatchAnalytics}
+        cardContext={createCardContext()}
       />,
     );
     const wrapper = mockInlineCardNode.find(ResizableEmbedCard);

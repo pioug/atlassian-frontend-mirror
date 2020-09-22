@@ -9,7 +9,7 @@ import {
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { ReactWrapper } from 'enzyme';
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
 
 import {
   TextColorPluginState,
@@ -43,7 +43,12 @@ function clickToolbarButton(
 function clickTogglePaletteButton(
   toolbarTextColor: ReactWrapper<ToolbarTextColorProps>,
 ) {
-  toolbarTextColor.find(ShowMoreWrapper).find(Button).simulate('click');
+  toolbarTextColor
+    .find(ShowMoreWrapper)
+    .find(Button)
+    .simulate('click', {
+      nativeEvent: { stopImmediatePropagation: function () {} },
+    });
 }
 
 /**

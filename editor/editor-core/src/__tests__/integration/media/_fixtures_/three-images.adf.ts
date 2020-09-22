@@ -1,4 +1,4 @@
-import { testMediaFileId } from '@atlaskit/editor-test-helpers';
+import { testMediaSingle } from '@atlaskit/editor-test-helpers';
 
 export default {
   version: 1,
@@ -14,7 +14,7 @@ export default {
         {
           type: 'media',
           attrs: {
-            id: testMediaFileId,
+            id: testMediaSingle.id,
             type: 'file',
             collection: 'MediaServicesSample',
             width: 2378,
@@ -33,7 +33,7 @@ export default {
         {
           type: 'media',
           attrs: {
-            id: testMediaFileId,
+            id: testMediaSingle.id,
             type: 'file',
             collection: 'MediaServicesSample',
             width: 2378,
@@ -52,7 +52,7 @@ export default {
         {
           type: 'media',
           attrs: {
-            id: testMediaFileId,
+            id: testMediaSingle.id,
             type: 'file',
             collection: 'MediaServicesSample',
             width: 2378,

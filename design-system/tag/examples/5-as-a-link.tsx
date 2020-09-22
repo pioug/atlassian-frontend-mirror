@@ -1,8 +1,12 @@
 import React, { Fragment, HTMLAttributes } from 'react';
-import styled from 'styled-components';
-import Tag from '../src';
 
-const A = styled.a``;
+import styled from '@emotion/styled';
+
+import Tag from '../src/tag/simple-tag';
+
+const A = styled.a`
+  color: red;
+`;
 
 const StyledExample = (props: HTMLAttributes<HTMLAnchorElement>) => {
   return <A {...props} target="_blank" />;

@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
 import AddCommentIcon from '@atlaskit/icon/glyph/comment';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import uuid from 'uuid/v4';
@@ -40,8 +40,7 @@ const Component = (
   const onPopupClose = React.useCallback(() => {
     setShowCreateComponent(false);
     onClose();
-    removeDraftMode();
-  }, [onClose, removeDraftMode]);
+  }, [onClose]);
 
   const onPopupCreate = React.useCallback(() => {
     removeDraftMode();

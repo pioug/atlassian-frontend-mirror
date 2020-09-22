@@ -21,6 +21,7 @@ export default {
   'fabric.media.annotate.tool.line.thickness': 'Grubość linii',
   'fabric.media.annotate.tool.shape': 'Kształt',
   'fabric.media.annotate.tool.text': 'Tekst',
+  'fabric.media.archive': 'archiwizuj',
   'fabric.media.audio': 'dźwięk',
   'fabric.media.cancel': 'Anuluj',
   'fabric.media.cant_preview_file_type':
@@ -35,15 +36,17 @@ export default {
   'fabric.media.connect_link_account': 'Połącz podgląd',
   'fabric.media.connect_link_account_card_view': 'Połącz',
   'fabric.media.connect_link_account_card_view_description':
-    'Łącząc {context} z produktami Atlassian, uatrakcyjnisz podgląd łączy.',
+    'Aby wyświetlić podgląd tego łącza, połącz swoje konto {context}.',
   'fabric.media.connect_link_account_card_view_name': 'Połącz konto {context}',
   'fabric.media.connect_to': 'Połącz z {name}',
   'fabric.media.could_not_load_editor': 'Oj! Nie można załadować edytora',
   'fabric.media.could_not_save_image': 'Oj! Nie można zapisać obrazu',
+  'fabric.media.couldnt_generate_encrypted_entry_preview':
+    'Nie można wyświetlać podglądu plików zaszyfrowanych lub chronionych hasłem.',
   'fabric.media.couldnt_generate_preview':
     'Nie można wygenerować podglądu tego pliku.',
   'fabric.media.couldnt_load_link':
-    'Z jakiegoś powodu nie udało się wczytać tego łącza.',
+    'Z nieznanego powodu nie udało się wczytać tego łącza.',
   'fabric.media.default_avatars': 'Domyślne awatary',
   'fabric.media.disable_fullscreen': 'wyłącz tryb pełnoekranowy',
   'fabric.media.document': 'dokument',
@@ -71,7 +74,7 @@ export default {
     'Nie można załadować obrazu. Adres URL jest niepoprawny.',
   'fabric.media.insert_files':
     '{0, plural, one {Wstaw {0} plik} few {Wstaw {0} pliki} many {Wstaw {0} plików} other {Wstaw {0} pliku}}',
-  'fabric.media.invalid_permissions': 'Nie masz dostępu do tego łącza',
+  'fabric.media.invalid_permissions': 'Łącze z ograniczeniami',
   'fabric.media.invalid_permissions_description':
     'Musisz poprosić o dostęp lub spróbować innego konta, aby zobaczyć ten podgląd.',
   'fabric.media.item_not_found_in_list':
@@ -85,7 +88,7 @@ export default {
     'Nie można znaleźć wyników pasujących do zapytania „{query}”',
   'fabric.media.no_pdf_artifacts': 'Nie znaleziono artefaktów PDF w tym pliku.',
   'fabric.media.not_found_description':
-    'Sprawdź adres url i spróbuj go edytować lub wkleić ponownie.',
+    'Nie udało się znaleźć łącza. Sprawdź adres url i spróbuj go edytować lub wkleić ponownie.',
   'fabric.media.not_found_title': 'Niestety. Nie można znaleźć tego łącza!',
   'fabric.media.or': 'lub',
   'fabric.media.pause': 'wstrzymaj',

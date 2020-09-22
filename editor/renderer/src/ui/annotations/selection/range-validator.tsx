@@ -4,12 +4,14 @@ import { useUserSelectionRange } from '../hooks/user-selection';
 import { SelectionInlineCommentMounter } from './mounter';
 import { InlineCommentSelectionComponentProps } from '@atlaskit/editor-common';
 import { RendererContext as ActionsContext } from '../../RendererActionsContext';
+import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 type Props = {
   selectionComponent: React.ComponentType<InlineCommentSelectionComponentProps>;
   rendererRef: React.RefObject<HTMLDivElement>;
   applyAnnotationDraftAt: (position: Position) => void;
   clearAnnotationDraft: () => void;
+  createAnalyticsEvent?: CreateUIAnalyticsEvent;
 };
 
 export const SelectionRangeValidator: React.FC<Props> = props => {
@@ -18,6 +20,7 @@ export const SelectionRangeValidator: React.FC<Props> = props => {
     rendererRef,
     applyAnnotationDraftAt,
     clearAnnotationDraft,
+    createAnalyticsEvent,
   } = props;
   const actions = useContext(ActionsContext);
   const [range, clearRange] = useUserSelectionRange({
@@ -42,6 +45,7 @@ export const SelectionRangeValidator: React.FC<Props> = props => {
       applyAnnotation={actions.applyAnnotation.bind(actions)}
       applyAnnotationDraftAt={applyAnnotationDraftAt}
       clearAnnotationDraft={clearAnnotationDraft}
+      createAnalyticsEvent={createAnalyticsEvent}
     />
   );
 };

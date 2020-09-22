@@ -5,6 +5,7 @@ import {
   KakapoRequest,
   RouterHandler,
   Database,
+  DataRecord,
 } from 'kakapo';
 import uuid from 'uuid/v4';
 
@@ -22,6 +23,7 @@ import {
   createCollection,
   createCollectionItem,
   createEmptyCollectionItem,
+  CollectionItem,
 } from '../database';
 import { defaultBaseUrl } from '../..';
 import { createUpload } from '../database/upload';
@@ -146,16 +148,16 @@ export function createApiRouter(
     },
   );
 
+  const isSvgFile = (record: DataRecord<CollectionItem>): boolean => {
+    return !!(record.data.blob && record.data.blob.type === 'image/svg+xml');
+  };
+
   router.get('/file/:fileId/image', ({ params, query }, database) => {
     const { fileId } = params;
     const { width, height, 'max-age': maxAge = 3600 } = query;
     const record = database.findOne('collectionItem', { id: fileId });
     let blob: Blob;
-    if (
-      !record ||
-      !record.data.blob ||
-      record.data.blob.type === 'image/svg+xml'
-    ) {
+    if (!record || !record.data.blob || isSvgFile(record)) {
       const dataUri = mockDataUri(width, height);
 
       blob = mapDataUriToBlob(dataUri);
@@ -170,15 +172,29 @@ export function createApiRouter(
     });
   });
 
-  router.get('/file/:fileId/image/metadata', () => {
+  router.get('/file/:fileId/image/metadata', async ({ params }, database) => {
+    const { fileId } = params;
+    const record = database.findOne('collectionItem', { id: fileId });
+    const defaultDimensions = {
+      height: 4096,
+      width: 4096,
+    };
+    let dimensions = Promise.resolve(defaultDimensions);
+
+    if (record && record.data.blob && !isSvgFile(record)) {
+      dimensions = new Promise(resolve => {
+        const image = new Image();
+        image.src = URL.createObjectURL(record.data.blob);
+        image.onload = () =>
+          resolve({ height: image.height, width: image.width });
+      });
+    }
+
     return {
       metadata: {
         pending: false,
         preview: {},
-        original: {
-          height: 4096,
-          width: 4096,
-        },
+        original: await dimensions,
       },
     };
   });

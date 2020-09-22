@@ -109,7 +109,7 @@ export const sortByColumn = (
         order,
       };
 
-      tr.steps.push(new TableSortStep(table.pos, prev, next));
+      tr.step(new TableSortStep(table.pos, prev, next));
       return tr.setSelection(Selection.near(tr.doc.resolve(table.start + pos)));
     },
   );

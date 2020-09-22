@@ -8,8 +8,8 @@ import {
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import { doc, hr, p } from '@atlaskit/editor-test-helpers/schema-builder';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
+import { akEditorSelectedNodeClassName } from '@atlaskit/editor-shared-styles';
 
-import { akEditorSelectedNodeClassName } from '../../../../styles';
 import rulePlugin from '../../../rule';
 import selectionPlugin from '../../index';
 import { getPluginState } from '../../plugin-factory';

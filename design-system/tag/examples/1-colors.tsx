@@ -1,12 +1,14 @@
 import React from 'react';
-import Tag, { TagColor } from '../src';
+
+import { TagColor } from '../src';
+import Tag from '../src/tag/simple-tag';
 
 const tagColors = { blue: 'blue' as TagColor };
 
 export default () => (
   <div>
-    <Tag text="standard Tag" color="standard" />
-    <Tag text="blue Tag" color={tagColors.blue} />
+    <Tag text="standard Tag" color="standard" testId="standard" />
+    <Tag text="blue Tag" color={tagColors.blue} testId="blue" />
     <Tag text="green Tag" color="green" />
     <Tag text="teal Tag" color="teal" />
     <Tag text="purple Tag" color="purple" />

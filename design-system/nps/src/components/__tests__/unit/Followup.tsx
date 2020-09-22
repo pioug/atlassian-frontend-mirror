@@ -2,7 +2,7 @@ import React from 'react';
 
 import { shallow } from 'enzyme';
 
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
 import { Checkbox } from '@atlaskit/checkbox';
 import DropdownMenu, { DropdownItem } from '@atlaskit/dropdown-menu';
 

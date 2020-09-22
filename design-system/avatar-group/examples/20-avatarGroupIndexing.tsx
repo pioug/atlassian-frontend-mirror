@@ -4,7 +4,8 @@ import React, { FC, useState } from 'react';
 import shuffle from 'lodash/shuffle';
 
 import { AppearanceType, SizeType } from '@atlaskit/avatar';
-import Button, { ButtonGroup } from '@atlaskit/button';
+import ButtonGroup from '@atlaskit/button/button-group';
+import Button from '@atlaskit/button/custom-theme-button';
 
 import { RANDOM_USERS } from '../examples-util/data';
 import { Note } from '../examples-util/helpers';

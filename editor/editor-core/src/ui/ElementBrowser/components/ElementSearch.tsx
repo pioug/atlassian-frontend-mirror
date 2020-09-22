@@ -6,11 +6,7 @@ import SearchIcon from '@atlaskit/icon/glyph/search';
 import { withAnalyticsContext } from '@atlaskit/analytics-next';
 import { N200 } from '@atlaskit/theme/colors';
 import { Shortcut } from '../../styles';
-import {
-  GRID_SIZE,
-  SEARCH_ITEM_HEIGHT_WIDTH,
-  SEARCH_ITEM_MARGIN,
-} from '../constants';
+import { GRID_SIZE, SEARCH_ITEM_HEIGHT_WIDTH } from '../constants';
 import useFocus from '../hooks/use-focus';
 import { Modes } from '../types';
 
@@ -69,7 +65,7 @@ function ElementSearch({
       onFocus={onFocus}
       onBlur={onBlur}
       elemBeforeInput={
-        <ElementBeforeInput>
+        <ElementBeforeInput data-testid="element_search__element_before_input">
           <SearchIcon
             size="medium"
             label="Advanced search"
@@ -78,7 +74,7 @@ function ElementSearch({
         </ElementBeforeInput>
       }
       elemAfterInput={
-        <ElementAfterInput>
+        <ElementAfterInput data-testid="element_search__element_after_input">
           <StyledShortcut>
             &#9166; {formatMessage(elementAfterInputMessage)}
           </StyledShortcut>
@@ -110,12 +106,19 @@ const StyledShortcut = styled(Shortcut)`
 `;
 
 const ElementBeforeInput = styled.div`
-  margin: 1px ${SEARCH_ITEM_MARGIN} 0 ${SEARCH_ITEM_MARGIN};
+  margin: 1px 6px 0 8px;
   color: ${N200};
+
+  // Custom SearchIcon style
+  span,
+  svg {
+    height: 20px;
+    width: 20px;
+  }
 `;
 
 const ElementAfterInput = styled.div`
-  margin: 0 ${SEARCH_ITEM_MARGIN};
+  margin: 0 8px;
   height: ${SEARCH_ITEM_HEIGHT_WIDTH};
   text-align: center;
 `;

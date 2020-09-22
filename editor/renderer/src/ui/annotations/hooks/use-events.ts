@@ -9,10 +9,19 @@ import {
   AnnotationId,
   AnnotationTypes,
 } from '@atlaskit/adf-schema';
+import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import {
+  ACTION,
+  ACTION_SUBJECT,
+  EVENT_TYPE,
+  ACTION_SUBJECT_ID,
+} from '../../../analytics/enums';
+import { FabricChannel } from '@atlaskit/analytics-listeners';
 
 type ListenEventProps = {
   id: AnnotationId;
   updateSubscriber: AnnotationUpdateEmitter | null;
+  createAnalyticsEvent?: CreateUIAnalyticsEvent;
 };
 
 type UseAnnotationUpdateSatteByEventProps = {
@@ -110,10 +119,10 @@ type AnnotationInfo = {
 };
 
 export const useAnnotationClickEvent = (
-  props: Pick<ListenEventProps, 'updateSubscriber'>,
+  props: Pick<ListenEventProps, 'updateSubscriber' | 'createAnalyticsEvent'>,
 ) => {
   const [annotations, setAnnotations] = useState<AnnotationInfo[] | null>(null);
-  const { updateSubscriber } = props;
+  const { updateSubscriber, createAnalyticsEvent } = props;
 
   useLayoutEffect(() => {
     if (!updateSubscriber) {
@@ -126,6 +135,17 @@ export const useAnnotationClickEvent = (
         type: AnnotationTypes.INLINE_COMMENT,
       }));
 
+      if (createAnalyticsEvent) {
+        createAnalyticsEvent({
+          action: ACTION.VIEWED,
+          actionSubject: ACTION_SUBJECT.ANNOTATION,
+          actionSubjectId: ACTION_SUBJECT_ID.INLINE_COMMENT,
+          eventType: EVENT_TYPE.TRACK,
+          attributes: {
+            overlap: annotationsByType.length || 0,
+          },
+        }).fire(FabricChannel.editor);
+      }
       setAnnotations(annotationsByType);
     };
 
@@ -134,7 +154,7 @@ export const useAnnotationClickEvent = (
     return () => {
       updateSubscriber.off(AnnotationUpdateEvent.ON_ANNOTATION_CLICK, cb);
     };
-  }, [updateSubscriber]);
+  }, [updateSubscriber, createAnalyticsEvent]);
 
   return annotations;
 };

@@ -19,6 +19,7 @@ export enum ACTION {
   CLOSED = 'closed',
   COPIED = 'copied',
   COMMITTED = 'committed',
+  CONVERTED = 'converted',
   CUT = 'cut',
   DEACTIVATED = 'deactivated',
   DECREMENTED = 'decremented',
@@ -65,6 +66,14 @@ export enum ACTION {
   VISITED = 'visited',
   WITH_PLUGIN_STATE_CALLED = 'withPluginStateCalled',
   SYNCHRONY_ERROR = 'synchronyError',
+  LIST_ITEM_JOINED = 'listItemJoined',
+  INDENTED = 'indented',
+  OUTDENTED = 'outdented',
+  NODE_CONTENT_SANITIZED = 'nodeContentSanitized',
+  ENTERED = 'entered',
+  SHOWN = 'shown',
+  HIGHLIGHTED = 'highlighted',
+  DISMISSED = 'dismissed',
 }
 
 export enum INPUT_METHOD {
@@ -113,11 +122,13 @@ export enum ACTION_SUBJECT {
   FIND_REPLACE_DIALOG = 'findReplaceDialog',
   HELP = 'help',
   LAYOUT = 'layout',
+  LIST = 'list',
   MEDIA = 'media',
   MEDIA_SINGLE = 'mediaSingle',
   NESTED_EXPAND = 'nestedExpand',
   PANEL = 'panel',
   PICKER = 'picker',
+  PLUS_MENU = 'plusMenu',
   SMART_LINK = 'smartLink',
   TABLE = 'table',
   TEXT = 'text',
@@ -125,6 +136,7 @@ export enum ACTION_SUBJECT {
   TYPEAHEAD = 'typeAhead',
   ANNOTATION = 'annotation',
   SEARCH_RESULT = 'searchResult',
+  CREATE_LINK_INLINE_DIALOG = 'createLinkInlineDialog',
 }
 
 export enum ACTION_SUBJECT_ID {
@@ -220,4 +232,8 @@ export enum ACTION_SUBJECT_ID {
   UNSUPPORTED_INLINE = 'unsupportedInline',
   UNSUPPORTED_MARK = 'unsupportedMark',
   RECENT_ACTIVITIES = 'recentActivities',
+  QUICK_SEARCH = 'quickSearch',
+  LINK_SEARCH_INPUT = 'linkSearchInput',
+  PRE_QUERY_SEARCH_RESULTS = 'preQuerySearchResults',
+  POST_QUERY_SEARCH_RESULTS = 'postQuerySearchResults',
 }

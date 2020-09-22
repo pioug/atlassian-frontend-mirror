@@ -10,6 +10,7 @@ import styled from 'styled-components';
 const MarkStyled = styled.mark`
   color: inherit;
   background-color: unset;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
   &[data-mark-annotation-state='${AnnotationMarkStates.ACTIVE}'] {
     ${AnnotationSharedCSSByState.blur};

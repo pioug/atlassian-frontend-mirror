@@ -1,12 +1,12 @@
 import { css } from 'styled-components';
+import { DateSharedCssClassName } from '@atlaskit/editor-common';
 import {
-  DateSharedCssClassName,
+  SelectionStyle,
+  getSelectionStyles,
   akEditorSelectedBorderSize,
   akEditorDeleteBorder,
-} from '@atlaskit/editor-common';
-import { akEditorSelectedNodeClassName } from '../../styles';
-import { getSelectionStyles } from '../selection/utils';
-import { SelectionStyle } from '../selection/types';
+  akEditorSelectedNodeClassName,
+} from '@atlaskit/editor-shared-styles';
 
 export const dateStyles = css`
   .${DateSharedCssClassName.DATE_CONTAINER} {

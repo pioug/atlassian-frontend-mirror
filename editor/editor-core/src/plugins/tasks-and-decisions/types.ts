@@ -2,6 +2,7 @@ import { NodeType } from 'prosemirror-model';
 import { EditorState, Transaction } from 'prosemirror-state';
 
 import { INPUT_METHOD, USER_CONTEXT } from '../analytics';
+import { LongPressSelectionPluginOptions } from '../selection/types';
 
 export type TaskDecisionListType = 'taskList' | 'decisionList';
 
@@ -26,3 +27,9 @@ export type AddItemTransactionCreator = (opts: {
   listLocalId: string;
   itemLocalId: string;
 }) => Transaction | null;
+
+export interface TaskDecisionPluginOptions
+  extends LongPressSelectionPluginOptions {
+  allowNestedTasks?: boolean;
+  consumeTabs?: boolean;
+}

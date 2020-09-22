@@ -1,20 +1,22 @@
 import { css } from 'styled-components';
+
 import { gridSize } from '@atlaskit/theme/constants';
 import { N40A, N50A } from '@atlaskit/theme/colors';
+import { columnLayoutSharedStyle } from '@atlaskit/editor-common';
 import {
-  columnLayoutSharedStyle,
   gridMediumMaxWidth,
   akEditorDeleteBackground,
   akEditorDeleteBorder,
   akEditorSelectedBorderSize,
   akLayoutGutterOffset,
   akEditorSwoopCubicBezier,
-} from '@atlaskit/editor-common';
+  SelectionStyle,
+  getSelectionStyles,
+  akEditorSelectedNodeClassName,
+} from '@atlaskit/editor-shared-styles';
+
 import { TableCssClassName } from '../table/types';
 import { tableMarginFullWidthMode } from '../table/ui/consts';
-import { akEditorSelectedNodeClassName } from '../../styles';
-import { SelectionStyle } from '../selection/types';
-import { getSelectionStyles } from '../selection/utils';
 
 export const LAYOUT_SECTION_MARGIN = gridSize();
 export const LAYOUT_COLUMN_PADDING = gridSize() * 1.5;

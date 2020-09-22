@@ -3,7 +3,7 @@ jest.mock('../../../../../tools/gridCellScaler');
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
 import Spinner from '@atlaskit/spinner';
 import TextField from '@atlaskit/textfield';
 import { Card } from '@atlaskit/media-card';

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { shallow } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 
 import { AtlassianIcon } from '@atlaskit/logo';
 
@@ -33,7 +33,7 @@ describe('GlobalItem', () => {
   });
 
   it('should render correctly', () => {
-    const wrapper = shallow(<GlobalItem icon={() => <AtlassianIcon />} />);
+    const wrapper = mount(<GlobalItem icon={() => <AtlassianIcon />} />);
 
     expect(wrapper).toMatchSnapshot();
   });

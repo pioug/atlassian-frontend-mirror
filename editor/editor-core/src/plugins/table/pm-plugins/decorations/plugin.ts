@@ -17,6 +17,7 @@ export const getDecorations = (state: EditorState): DecorationSet =>
 export const handleDocOrSelectionChanged = (
   tr: Transaction,
   decorationSet: DecorationSet,
+  oldState: EditorState,
 ): DecorationSet => {
   if (tr.docChanged || tr.selection instanceof CellSelection) {
     return buildColumnControlsDecorations({
@@ -24,10 +25,17 @@ export const handleDocOrSelectionChanged = (
       tr,
     });
   } else if (tr.selectionSet) {
-    return maybeUpdateColumnControlsSelectedDecoration({
-      decorationSet,
-      tr,
-    });
+    const isTransactionFromMouseClick =
+      !tr.docChanged && tr.selectionSet && tr.getMeta('pointer');
+    if (
+      isTransactionFromMouseClick ||
+      oldState.selection instanceof CellSelection
+    ) {
+      return maybeUpdateColumnControlsSelectedDecoration({
+        decorationSet,
+        tr,
+      });
+    }
   }
 
   return decorationSet;
@@ -38,7 +46,7 @@ export const createPlugin = () => {
     state: {
       init: () => DecorationSet.empty,
 
-      apply: (tr, decorationSet) => {
+      apply: (tr, decorationSet, oldState) => {
         let pluginState = decorationSet;
         const meta = tr.getMeta(tablePluginKey);
         if (meta && meta.data && meta.data.decorationSet) {
@@ -46,7 +54,7 @@ export const createPlugin = () => {
         }
 
         if (tr.docChanged || tr.selectionSet) {
-          return handleDocOrSelectionChanged(tr, pluginState);
+          return handleDocOrSelectionChanged(tr, pluginState, oldState);
         }
 
         return pluginState;

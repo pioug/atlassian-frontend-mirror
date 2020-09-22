@@ -21,6 +21,60 @@ import {
   INPUT_METHOD,
 } from '../analytics';
 import { isToday } from './utils/internal';
+import { DatePluginState } from './pm-plugins/types';
+import { findParentNodeOfType } from 'prosemirror-utils';
+
+export const createDate = () => (
+  insert: (node: Node | Object | string, opts?: any) => Transaction,
+  state: EditorState,
+): Transaction => {
+  const dateNode = state.schema.nodes.date.createChecked({
+    timestamp: todayTimestampInUTC(),
+  });
+
+  const tr = insert(dateNode, { selectInlineNode: true });
+  const newPluginState: DatePluginState = {
+    showDatePickerAt: tr.selection.from,
+    isNew: true,
+    isDateEmpty: false,
+    focusDateInput: false,
+  };
+  return tr.setMeta(pluginKey, newPluginState);
+};
+
+/** Delete the date and close the datepicker */
+export const deleteDate = () => (
+  state: EditorState,
+  dispatch: (tr: Transaction) => void,
+): boolean => {
+  const { showDatePickerAt }: DatePluginState = pluginKey.getState(state);
+  if (showDatePickerAt === null) {
+    return false;
+  }
+  const tr = state.tr
+    .delete(showDatePickerAt, showDatePickerAt + 1)
+    .setMeta(pluginKey, { showDatePickerAt: null, isNew: false });
+  dispatch(tr);
+  return true;
+};
+
+/** Focus input */
+export const focusDateInput = () => (
+  state: EditorState,
+  dispatch: CommandDispatch | undefined,
+): boolean => {
+  const { showDatePickerAt }: DatePluginState = pluginKey.getState(state);
+  if (showDatePickerAt === null) {
+    return false;
+  }
+  if (!dispatch) {
+    return false;
+  }
+
+  const tr = state.tr.setMeta(pluginKey, { focusDateInput: true });
+  dispatch(tr);
+  return true;
+};
 
 export const insertDate = (
   date?: DateType,
@@ -60,18 +114,32 @@ export const insertDate = (
     });
   }
 
-  const { showDatePickerAt } = pluginKey.getState(state);
+  const { showDatePickerAt }: DatePluginState = pluginKey.getState(state);
 
   if (!showDatePickerAt) {
     const dateNode = schema.nodes.date.createChecked({ timestamp });
     const textNode = state.schema.text(' ');
     const fragment = Fragment.fromArray([dateNode, textNode]);
     const { from, to } = state.selection;
+
+    // if cursor is inside codeBlock, create date after codeBlock in a new paragraph
+    const codeBlock = findParentNodeOfType(state.schema.nodes.codeBlock)(
+      tr.selection,
+    );
+    if (codeBlock) {
+      const nodeSelectionPos = tr.doc.resolve(codeBlock.start).end() + 1;
+      tr.insert(nodeSelectionPos, fragment).setSelection(
+        NodeSelection.create(tr.doc, nodeSelectionPos + 1),
+      );
+    } else {
+      tr.replaceWith(from, to, fragment).setSelection(
+        NodeSelection.create(tr.doc, from),
+      );
+    }
     dispatch(
-      tr
-        .replaceWith(from, to, fragment)
-        .setSelection(NodeSelection.create(tr.doc, state.selection.$from.pos))
-        .scrollIntoView(),
+      tr.scrollIntoView().setMeta(pluginKey, {
+        isNew: true,
+      }),
     );
     return true;
   }
@@ -86,12 +154,14 @@ export const insertDate = (
         Selection.near(tr.doc.resolve(showDatePickerAt + 2)),
       );
     }
+
     tr = tr
       .setNodeMarkup(showDatePickerAt, schema.nodes.date, {
         timestamp,
       })
       .setMeta(pluginKey, {
         showDatePickerAt,
+        isNew: false,
       })
       .scrollIntoView();
     dispatch(tr);
@@ -113,18 +183,19 @@ export const closeDatePicker = (): Command => (
   state: EditorState,
   dispatch: CommandDispatch | undefined,
 ) => {
-  const { showDatePickerAt } = pluginKey.getState(state);
-
-  if (showDatePickerAt && dispatch) {
-    dispatch(
-      state.tr
-        .setMeta(pluginKey, { showDatePickerAt: null })
+  const { showDatePickerAt }: DatePluginState = pluginKey.getState(state);
+  if (!dispatch) {
+    return false;
+  }
+  const tr = showDatePickerAt
+    ? state.tr
+        .setMeta(pluginKey, { showDatePickerAt: null, isNew: false })
         .setSelection(
           Selection.near(state.tr.doc.resolve(showDatePickerAt + 2)),
-        ),
-    );
-  }
+        )
+    : state.tr.setMeta(pluginKey, { isNew: false });
 
+  dispatch(tr);
   return false;
 };
 

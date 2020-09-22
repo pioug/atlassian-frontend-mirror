@@ -1,5 +1,21 @@
 # @atlaskit/media-card
 
+## 69.4.0
+
+### Minor Changes
+
+- [`ae50a98f18`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ae50a98f18) - ED-9125 ED-8837 Update styles for selected media cards
+
+  - Use editor selection styles from @atlaskit/editor-shared-styles
+  - Update UI for selected items in media group to no longer set blue background and tick in corner
+  - No longer set set text selection over filename, filesize etc. for media group cards when selected with Cmd + A or via a range selection
+
+- [`7d831363d9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7d831363d9) - Migrated to declarative entry points
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 69.3.3
 
 ### Patch Changes

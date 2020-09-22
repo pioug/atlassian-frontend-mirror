@@ -21,6 +21,7 @@ export default {
   'fabric.media.annotate.tool.line.thickness': 'Çizgi kalınlığı',
   'fabric.media.annotate.tool.shape': 'Şekil',
   'fabric.media.annotate.tool.text': 'Metin',
+  'fabric.media.archive': 'arşiv',
   'fabric.media.audio': 'ses',
   'fabric.media.cancel': 'İptal',
   'fabric.media.cant_preview_file_type':
@@ -36,7 +37,7 @@ export default {
   'fabric.media.connect_link_account': 'Önizlemeye bağlanın',
   'fabric.media.connect_link_account_card_view': 'Bağla',
   'fabric.media.connect_link_account_card_view_description':
-    '{context} hesabınızı Atlassian ürünlerinize bağlayarak bağlantı önizlemelerinizi zenginleştirin.',
+    'Bu bağlantının bir önizlemesini görmek için {context} hesabınızı bağlayın.',
   'fabric.media.connect_link_account_card_view_name':
     '{context} hesabınızı bağlayın',
   'fabric.media.connect_to': '{name} hesabını bağlan',
@@ -44,6 +45,8 @@ export default {
     'Bir sorunla karşılaştık! Düzenleyiciyi yükleyemedik',
   'fabric.media.could_not_save_image':
     'Bir sorunla karşılaştık! Görseli kaydedemedik',
+  'fabric.media.couldnt_generate_encrypted_entry_preview':
+    'Şifrelenmiş veya parola korumalı dosyaların önizlemesini gösteremiyoruz.',
   'fabric.media.couldnt_generate_preview':
     'Bu dosya için önizleme oluşturamadık.',
   'fabric.media.couldnt_load_link':
@@ -76,7 +79,7 @@ export default {
   'fabric.media.image_url_invalid_error': 'Görsel yüklenemedi, URL geçersiz.',
   'fabric.media.insert_files':
     '{0, plural, one {{0} dosya girin} other {{0} dosya girin}}',
-  'fabric.media.invalid_permissions': 'Bu bağlantıya erişiminiz yok',
+  'fabric.media.invalid_permissions': 'Kısıtlanmış bağlantı',
   'fabric.media.invalid_permissions_description':
     'Bu önizlemeyi görüntülemek için erişim izni talep etmeniz veya farklı bir hesap kullanmanız gerekir.',
   'fabric.media.item_not_found_in_list': 'Seçilen öğe listede bulunamadı.',
@@ -90,7 +93,7 @@ export default {
   'fabric.media.no_pdf_artifacts':
     'Bu dosya için PDF grafik öğeleri bulunamadı.',
   'fabric.media.not_found_description':
-    "URL'yi kontrol edin ve düzenlemeyi veya yeniden yapıştırmayı deneyin.",
+    "Bağlantıyı bulamadık. URL'yi kontrol edin ve düzenlemeyi veya yeniden yapıştırmayı deneyin.",
   'fabric.media.not_found_title': 'Hay aksi! Bu bağlantıyı bulamadık!',
   'fabric.media.or': 'veya',
   'fabric.media.pause': 'durdur',

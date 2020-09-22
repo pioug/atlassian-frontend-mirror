@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-common",
-  "version": "2.1.1",
+  "version": "2.2.0",
   "description": "Includes common utilities used by other media packages",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -14,9 +14,12 @@
   "types": "dist/cjs/index.d.ts",
   "sideEffects": false,
   "atlaskit:src": "src/index.ts",
+  "af:exports": {
+    "./downloadUrl": "./src/downloadUrl.ts",
+    "./mediaFeatureFlags": "./src/mediaFeatureFlags.ts"
+  },
   "atlassian": {
     "team": "Media Platform",
-    "deprecatedAutoEntryPoints": true,
     "inPublicMirror": true,
     "releaseModel": "scheduled",
     "website": {

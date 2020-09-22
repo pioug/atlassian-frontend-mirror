@@ -1,7 +1,8 @@
 import React, { FC, useState } from 'react';
 
 import { AVATAR_SIZES, SizeType } from '@atlaskit/avatar';
-import Button, { ButtonGroup } from '@atlaskit/button';
+import ButtonGroup from '@atlaskit/button/button-group';
+import Button from '@atlaskit/button/custom-theme-button';
 // eslint-disable-next-line
 import { Label } from '@atlaskit/field-base';
 import ArrowDown from '@atlaskit/icon/glyph/arrow-down';

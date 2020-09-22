@@ -1073,3 +1073,363 @@ export const complexDocument = {
     { type: 'paragraph' },
   ],
 };
+
+export const nestedBulletList = {
+  type: 'doc',
+  content: [
+    {
+      type: 'bulletList',
+      content: [
+        {
+          type: 'listItem',
+          content: [
+            {
+              type: 'paragraph',
+              content: [
+                {
+                  type: 'text',
+                  text: 'a1',
+                },
+              ],
+            },
+            {
+              type: 'bulletList',
+              content: [
+                {
+                  type: 'listItem',
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'b1',
+                        },
+                      ],
+                    },
+                    {
+                      type: 'bulletList',
+                      content: [
+                        {
+                          type: 'listItem',
+                          content: [
+                            {
+                              type: 'paragraph',
+                              content: [
+                                {
+                                  type: 'text',
+                                  text: 'c1',
+                                },
+                              ],
+                            },
+                            {
+                              type: 'bulletList',
+                              content: [
+                                {
+                                  type: 'listItem',
+                                  content: [
+                                    {
+                                      type: 'paragraph',
+                                      content: [
+                                        {
+                                          type: 'text',
+                                          text: 'd1',
+                                        },
+                                      ],
+                                    },
+                                    {
+                                      type: 'bulletList',
+                                      content: [
+                                        {
+                                          type: 'listItem',
+                                          content: [
+                                            {
+                                              type: 'paragraph',
+                                              content: [
+                                                {
+                                                  type: 'text',
+                                                  text: 'e1',
+                                                },
+                                              ],
+                                            },
+                                            {
+                                              type: 'bulletList',
+                                              content: [
+                                                {
+                                                  type: 'listItem',
+                                                  content: [
+                                                    {
+                                                      type: 'paragraph',
+                                                      content: [
+                                                        {
+                                                          type: 'text',
+                                                          text: 'f1',
+                                                        },
+                                                      ],
+                                                    },
+                                                  ],
+                                                },
+                                              ],
+                                            },
+                                          ],
+                                        },
+                                      ],
+                                    },
+                                  ],
+                                },
+                              ],
+                            },
+                          ],
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+  ],
+};
+
+export const nestedOrderedList = {
+  type: 'doc',
+  content: [
+    {
+      type: 'orderedList',
+      content: [
+        {
+          type: 'listItem',
+          content: [
+            {
+              type: 'paragraph',
+              content: [
+                {
+                  type: 'text',
+                  text: 'a1',
+                },
+              ],
+            },
+            {
+              type: 'orderedList',
+              content: [
+                {
+                  type: 'listItem',
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'b1',
+                        },
+                      ],
+                    },
+                    {
+                      type: 'orderedList',
+                      content: [
+                        {
+                          type: 'listItem',
+                          content: [
+                            {
+                              type: 'paragraph',
+                              content: [
+                                {
+                                  type: 'text',
+                                  text: 'c1',
+                                },
+                              ],
+                            },
+                            {
+                              type: 'orderedList',
+                              content: [
+                                {
+                                  type: 'listItem',
+                                  content: [
+                                    {
+                                      type: 'paragraph',
+                                      content: [
+                                        {
+                                          type: 'text',
+                                          text: 'd1',
+                                        },
+                                      ],
+                                    },
+                                    {
+                                      type: 'orderedList',
+                                      content: [
+                                        {
+                                          type: 'listItem',
+                                          content: [
+                                            {
+                                              type: 'paragraph',
+                                              content: [
+                                                {
+                                                  type: 'text',
+                                                  text: 'e1',
+                                                },
+                                              ],
+                                            },
+                                            {
+                                              type: 'orderedList',
+                                              content: [
+                                                {
+                                                  type: 'listItem',
+                                                  content: [
+                                                    {
+                                                      type: 'paragraph',
+                                                      content: [
+                                                        {
+                                                          type: 'text',
+                                                          text: 'f1',
+                                                        },
+                                                      ],
+                                                    },
+                                                  ],
+                                                },
+                                              ],
+                                            },
+                                          ],
+                                        },
+                                      ],
+                                    },
+                                  ],
+                                },
+                              ],
+                            },
+                          ],
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+  ],
+};
+
+export const nestedBulletAndOrderedList = {
+  type: 'doc',
+  content: [
+    {
+      type: 'bulletList',
+      content: [
+        {
+          type: 'listItem',
+          content: [
+            {
+              type: 'paragraph',
+              content: [
+                {
+                  type: 'text',
+                  text: 'a1',
+                },
+              ],
+            },
+            {
+              type: 'orderedList',
+              content: [
+                {
+                  type: 'listItem',
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'b1',
+                        },
+                      ],
+                    },
+                    {
+                      type: 'bulletList',
+                      content: [
+                        {
+                          type: 'listItem',
+                          content: [
+                            {
+                              type: 'paragraph',
+                              content: [
+                                {
+                                  type: 'text',
+                                  text: 'c1',
+                                },
+                              ],
+                            },
+                            {
+                              type: 'orderedList',
+                              content: [
+                                {
+                                  type: 'listItem',
+                                  content: [
+                                    {
+                                      type: 'paragraph',
+                                      content: [
+                                        {
+                                          type: 'text',
+                                          text: 'd1',
+                                        },
+                                      ],
+                                    },
+                                    {
+                                      type: 'bulletList',
+                                      content: [
+                                        {
+                                          type: 'listItem',
+                                          content: [
+                                            {
+                                              type: 'paragraph',
+                                              content: [
+                                                {
+                                                  type: 'text',
+                                                  text: 'e1',
+                                                },
+                                              ],
+                                            },
+                                            {
+                                              type: 'orderedList',
+                                              content: [
+                                                {
+                                                  type: 'listItem',
+                                                  content: [
+                                                    {
+                                                      type: 'paragraph',
+                                                      content: [
+                                                        {
+                                                          type: 'text',
+                                                          text: 'f1',
+                                                        },
+                                                      ],
+                                                    },
+                                                  ],
+                                                },
+                                              ],
+                                            },
+                                          ],
+                                        },
+                                      ],
+                                    },
+                                  ],
+                                },
+                              ],
+                            },
+                          ],
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+  ],
+};

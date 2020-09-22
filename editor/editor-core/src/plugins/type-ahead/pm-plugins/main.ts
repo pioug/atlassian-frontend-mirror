@@ -351,6 +351,7 @@ export function defaultActionHandler({
     .replace(trigger, '');
 
   const typeAheadHandler = typeAhead.find(t => t.trigger === trigger)!;
+
   let typeAheadItems: Array<TypeAheadItem> | Promise<Array<TypeAheadItem>> = [];
   let itemsLoader: TypeAheadItemsLoader = null;
   let highlight: JSX.Element | null = null;
@@ -377,11 +378,9 @@ export function defaultActionHandler({
     if (pluginState.itemsLoader) {
       pluginState.itemsLoader.cancel();
     }
-    //@ts-expect-error TODO Fix legit TypeScript 3.9.6 improved inference error
-    if ((typeAheadItems as Promise<Array<TypeAheadItem>>).then) {
-      itemsLoader = createItemsLoader(
-        typeAheadItems as Promise<Array<TypeAheadItem>>,
-      );
+
+    if (!Array.isArray(typeAheadItems)) {
+      itemsLoader = createItemsLoader(typeAheadItems);
       typeAheadItems = pluginState.items;
     }
   } catch (e) {}

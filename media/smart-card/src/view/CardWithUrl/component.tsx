@@ -1,10 +1,5 @@
-import React, { useEffect, useCallback, useState, FC } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { MouseEvent, KeyboardEvent } from 'react';
-import LazilyRender from 'react-lazily-render';
-import {
-  CardLinkView,
-  isIntersectionObserverSupported,
-} from '@atlaskit/media-ui';
 
 import { CardWithUrlContentProps } from './types';
 import { isSpecialEvent } from '../../utils';
@@ -15,74 +10,13 @@ import {
   isFinalState,
   getClickUrl,
   getResourceType,
+  getExtensionKey,
 } from '../../state/helpers';
 import { useSmartLink } from '../../state';
 import { BlockCard } from '../BlockCard';
 import { InlineCard } from '../InlineCard';
 import { InvokeClientOpts, InvokeServerOpts } from '../../model/invoke-opts';
 import { EmbedCard } from '../EmbedCard';
-
-export function LazyCardWithUrlContent(props: CardWithUrlContentProps) {
-  const { appearance, container, showActions } = props;
-  const offset = Math.ceil(window.innerHeight / 4);
-  if (isIntersectionObserverSupported()) {
-    return <LazyIntersectionObserverCard {...props} />;
-  } else {
-    return (
-      <LazilyRender
-        offset={offset}
-        component={appearance === 'inline' ? 'span' : 'div'}
-        className="loader-wrapper"
-        placeholder={<LoadingCardLink {...props} />}
-        scrollContainer={container}
-        content={<CardWithUrlContent {...props} showActions={showActions} />}
-      />
-    );
-  }
-}
-
-const LoadingCardLink: FC<CardWithUrlContentProps> = ({ isSelected, url }) => (
-  <CardLinkView
-    key={'lazy-render-key'}
-    testId={'lazy-render-placeholder'}
-    isSelected={isSelected}
-    link={url}
-  />
-);
-
-export function LazyIntersectionObserverCard(props: CardWithUrlContentProps) {
-  const [isIntersecting, setIsIntersecting] = useState(false);
-  const { showActions, appearance } = props;
-
-  const Component = appearance === 'inline' ? 'span' : 'div';
-  const ComponentObserver = Component;
-
-  const onIntersection: IntersectionObserverCallback = (entries, observer) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        setIsIntersecting(true);
-        observer.disconnect();
-      }
-    });
-  };
-  const onRef = useCallback((element: HTMLElement | null) => {
-    if (!element) {
-      return;
-    }
-    const intersectionObserver = new IntersectionObserver(onIntersection);
-    intersectionObserver.observe(element);
-    return () => intersectionObserver.disconnect();
-  }, []);
-
-  const content = isIntersecting ? (
-    <CardWithUrlContent {...props} showActions={showActions} />
-  ) : (
-    <ComponentObserver ref={onRef}>
-      <LoadingCardLink {...props} />
-    </ComponentObserver>
-  );
-  return <Component className="loader-wrapper">{content}</Component>;
-}
 
 export function CardWithUrlContent({
   id,
@@ -105,6 +39,7 @@ export function CardWithUrlContent({
     dispatchAnalytics,
   );
   const definitionId = getDefinitionId(state.details);
+  const extensionKey = getExtensionKey(state.details);
   const resourceType = getResourceType(state.details);
   const services = getServices(state.details);
 
@@ -121,7 +56,7 @@ export function CardWithUrlContent({
   const handleClickWrapper = useCallback(
     (event: MouseEvent | KeyboardEvent) => {
       if (state.status === 'resolved') {
-        analytics.ui.cardClickedEvent(appearance, definitionId);
+        analytics.ui.cardClickedEvent(appearance, definitionId, extensionKey);
       }
       onClick ? onClick(event) : handleClick(event);
     },
@@ -130,6 +65,7 @@ export function CardWithUrlContent({
       analytics.ui,
       appearance,
       definitionId,
+      extensionKey,
       onClick,
       handleClick,
     ],
@@ -157,6 +93,7 @@ export function CardWithUrlContent({
         id,
         state.status,
         definitionId,
+        extensionKey,
         resourceType,
         state.error,
       );
@@ -167,6 +104,7 @@ export function CardWithUrlContent({
     state.status,
     state.error,
     definitionId,
+    extensionKey,
     resourceType,
     analytics.operational,
   ]);
@@ -177,7 +115,7 @@ export function CardWithUrlContent({
   // - the unresolved states: viz. forbidden, not_found, unauthorized, errored.
   useEffect(() => {
     if (isFinalState(state.status)) {
-      analytics.ui.renderSuccessEvent(appearance, definitionId);
+      analytics.ui.renderSuccessEvent(appearance, definitionId, extensionKey);
     }
   }, [
     appearance,
@@ -185,6 +123,7 @@ export function CardWithUrlContent({
     state.status,
     url,
     definitionId,
+    extensionKey,
     analytics.ui,
   ]);
 

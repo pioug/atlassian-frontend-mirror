@@ -28,7 +28,7 @@ describe('inputrules', () => {
 
       insertText(editorView, '![text](url)', sel);
       expect(editorView.state.doc).toEqualDocument(
-        doc(p(), mediaSingle()(media({ type: 'external', url: 'url' })()), p()),
+        doc(p(), mediaSingle()(media({ type: 'external', url: 'url' })())),
       );
     });
 
@@ -37,7 +37,7 @@ describe('inputrules', () => {
 
       insertText(editorView, '![](url)', sel);
       expect(editorView.state.doc).toEqualDocument(
-        doc(p(), mediaSingle()(media({ type: 'external', url: 'url' })()), p()),
+        doc(p(), mediaSingle()(media({ type: 'external', url: 'url' })())),
       );
     });
 

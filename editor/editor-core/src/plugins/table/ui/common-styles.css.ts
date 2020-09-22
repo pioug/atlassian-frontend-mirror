@@ -1,25 +1,27 @@
 import { css } from 'styled-components';
 
 import {
-  akEditorSmallZIndex,
-  akEditorTableNumberColumnWidth,
-  akEditorStickyHeaderZIndex,
-  akEditorTableBorder,
-  akEditorTableToolbarSize,
-  akEditorUnitZIndex,
   tableMarginTop,
   tableSharedStyle,
 } from '@atlaskit/editor-common';
 import { fontSize } from '@atlaskit/theme/constants';
-import { N40A, B300, N300, N20A, N200, N0, R500 } from '@atlaskit/theme/colors';
+import { N40A, B300, N300, N20A, N0, R500 } from '@atlaskit/theme/colors';
+import {
+  SelectionStyle,
+  getSelectionStyles,
+  akEditorSmallZIndex,
+  akEditorTableNumberColumnWidth,
+  akEditorStickyHeaderZIndex,
+  akEditorTableToolbarSize,
+  akEditorUnitZIndex,
+  akEditorSelectedNodeClassName
+} from '@atlaskit/editor-shared-styles';
 
 import { scrollbarStyles } from '../../../ui/styles';
 import { TableCssClassName as ClassName } from '../types';
-import { akEditorSelectedNodeClassName } from '../../../styles';
-import { getSelectionStyles } from '../../selection/utils';
-import { SelectionStyle } from '../../selection/types';
 
 import {
+  tableCellBackgroundColor,
   tableToolbarColor,
   tableBorderColor,
   tableCellSelectedColor,
@@ -36,6 +38,7 @@ import {
   tableToolbarSize,
   tableInsertColumnButtonSize,
   tableControlsSpacing,
+  tableTextColor,
   stickyRowZIndex,
 } from './consts';
 
@@ -99,7 +102,7 @@ export const tableStyles = css`
       }
 
       td.${ClassName.TABLE_CELL} {
-        background-color: #ffffff; // basic color to avoid overflow content on cell
+        background-color: ${tableCellBackgroundColor};
       }
     }
 
@@ -426,7 +429,7 @@ export const tableStyles = css`
       box-sizing: border-box;
     }
     .${ClassName.NUMBERED_COLUMN_BUTTON} {
-      border: 1px solid ${akEditorTableBorder};
+      border: 1px solid ${tableBorderColor};
       box-sizing: border-box;
       margin-top: -1px;
       padding-bottom: 2px;
@@ -434,14 +437,14 @@ export const tableStyles = css`
       text-align: center;
       font-size: ${fontSize()}px;
       background-color: ${tableToolbarColor};
-      color: ${N200};
-      border-color: ${akEditorTableBorder};
+      color: ${tableTextColor};
+      border-color: ${tableBorderColor};
 
       :first-child {
         margin-top: 0;
       }
       :last-child {
-        border-bottom: 1px solid ${akEditorTableBorder};
+        border-bottom: 1px solid ${tableBorderColor};
       }
     }
     .${ClassName.WITH_CONTROLS} {

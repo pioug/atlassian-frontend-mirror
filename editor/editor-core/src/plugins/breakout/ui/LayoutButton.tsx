@@ -24,7 +24,7 @@ import { isSupportedNodeForBreakout } from '../utils/is-supported-node';
 const { B300, N300, N20A } = colors;
 
 const Wrapper = styled.div`
-  button {
+  && button {
     background: ${N20A};
     color: ${N300};
     :hover {

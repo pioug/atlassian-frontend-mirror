@@ -2,9 +2,14 @@ import { code, md } from '@atlaskit/docs';
 
 export default md`
 
-## Theming
+## ⚠️ This theming approach has performance issues
 
-Button now supports the updated Theming API. With this API, components can be passed a custom theming function which has access to all of Button's props, as well as the to the original ADG theme.
+If possible, don’t use this theming approach. It has performance problems that we are working to improve in future.
+If you need to do some minor customization to button we recommend using inline styles. \`CustomThemeButton\` supports the theming approach outlined on this page.
+
+## Guide
+
+With the theme API, components can be passed a custom theming function which has access to all of Button's props, as well as the to the original ADG theme.
 
 This means that the custom theme can change appearance based on different props, and even ignore the ADG styling completely. Custom
 themes can modify any CSS prop on the button body or the loading spinner.

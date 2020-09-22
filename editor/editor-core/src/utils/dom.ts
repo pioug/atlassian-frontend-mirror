@@ -69,15 +69,20 @@ export const containsClassName = (
   return classNames.split(' ').indexOf(className) !== -1;
 };
 
+type HTMLElementIE9 = Omit<HTMLElement, 'matches'> & {
+  matches?: HTMLElement['matches']; // WARNING: 'matches' is optional in IE9
+  msMatchesSelector?: (selectors: string) => boolean;
+};
+
 export function closest(
   node: HTMLElement | null | undefined,
   s: string,
 ): HTMLElement | null {
-  let el = node as HTMLElement;
-
-  if (!el) {
+  if (!node) {
     return null;
   }
+
+  let el = node as HTMLElementIE9;
   if (!document.documentElement || !document.documentElement.contains(el)) {
     return null;
   }
@@ -86,15 +91,13 @@ export function closest(
     return el.closest(s);
   }
 
-  //@ts-expect-error TODO Fix legit TypeScript 3.9.6 improved inference error
-  const matches = el.matches ? 'matches' : 'msMatchesSelector';
-
   do {
-    // @ts-ignore
-    if (el[matches] && el[matches](s)) {
-      return el;
+    const matchfn = el.matches ? el.matches : el.msMatchesSelector;
+    if (matchfn && matchfn.call(el, s)) {
+      return el as HTMLElement;
     }
-    el = (el.parentElement || el.parentNode) as HTMLElement;
+
+    el = (el.parentElement || el.parentNode) as HTMLElementIE9;
   } while (el !== null && el.nodeType === 1);
   return null;
 }

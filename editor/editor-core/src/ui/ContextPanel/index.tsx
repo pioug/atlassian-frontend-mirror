@@ -2,7 +2,7 @@ import React from 'react';
 import Transition from 'react-transition-group/Transition';
 import styled from 'styled-components';
 import { N30 } from '@atlaskit/theme/colors';
-import { akEditorSwoopCubicBezier } from '@atlaskit/editor-common';
+import { akEditorSwoopCubicBezier } from '@atlaskit/editor-shared-styles';
 import { ContextPanelConsumer } from './context';
 import WithPluginState from '../WithPluginState';
 import {

@@ -24,8 +24,6 @@ import { expandClassNames } from '../ui/class-names';
 import { GapCursorSelection, Side } from '../../../plugins/gap-cursor';
 import { getFeatureFlags } from '../../feature-flags-context';
 import { closestElement } from '../../../utils/dom';
-import { selectNode } from '../../../utils/commands';
-import { createSelectionAwareClickHandler } from '../../../nodeviews/utils';
 import { RelativeSelectionPos } from '../../selection/types';
 import { setSelectionRelativeToNode } from '../../selection/commands';
 import { getPluginState as getSelectionPluginState } from '../../selection/plugin-factory';
@@ -98,8 +96,6 @@ export class ExpandNodeView implements NodeView {
   pos: number;
   reactContext: ReactContext;
   allowInteractiveExpand: boolean = true;
-  clickHandler?: (event: Event) => false | void;
-  clickCleanup?: () => void;
 
   constructor(
     node: PmNode,
@@ -137,13 +133,7 @@ export class ExpandNodeView implements NodeView {
 
   private initHandlers() {
     if (this.dom) {
-      const { handler, cleanup } = createSelectionAwareClickHandler(
-        this.dom,
-        this.handleClick,
-      );
-      this.clickHandler = handler;
-      this.clickCleanup = cleanup;
-      this.dom.addEventListener('click', this.clickHandler);
+      this.dom.addEventListener('click', this.handleClick);
       this.dom.addEventListener('input', this.handleInput);
     }
 
@@ -227,12 +217,6 @@ export class ExpandNodeView implements NodeView {
     if (target === this.input) {
       event.stopPropagation();
       this.focusTitle();
-      return;
-    }
-
-    if (target === this.dom) {
-      event.stopPropagation();
-      selectNode(this.getPos())(state, dispatch);
       return;
     }
   };
@@ -468,9 +452,7 @@ export class ExpandNodeView implements NodeView {
 
   destroy() {
     if (this.dom) {
-      this.clickHandler &&
-        this.dom.removeEventListener('click', this.clickHandler);
-      this.clickCleanup && this.clickCleanup();
+      this.dom.removeEventListener('click', this.handleClick);
       this.dom.removeEventListener('input', this.handleInput);
     }
     if (this.input) {

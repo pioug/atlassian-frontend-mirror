@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
 
 import { baseAppearanceObj } from '../theme';
 import { Appearance } from '../types';

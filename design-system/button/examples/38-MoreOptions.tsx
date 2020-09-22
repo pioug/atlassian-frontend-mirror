@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React from 'react';
+import React, { useState } from 'react';
 
 import { jsx } from '@emotion/core';
 
@@ -10,7 +10,8 @@ import Unlink from '@atlaskit/icon/glyph/editor/unlink';
 import Page from '@atlaskit/icon/glyph/page';
 import Question from '@atlaskit/icon/glyph/question';
 
-import Button, { ButtonAppearances } from '../src';
+import { Appearance } from '../src';
+import Button, { ButtonProps } from '../src/button';
 
 const styles = {
   sample: {
@@ -53,7 +54,7 @@ const CustomComponent = React.forwardRef<HTMLDivElement, {}>((props, ref) => (
   </div>
 ));
 
-const BuildStory = (props: any) => (
+const BuildStory = (props: ButtonProps) => (
   <div css={{ padding: '10px' }}>
     <div
       css={{
@@ -120,9 +121,12 @@ const BuildStory = (props: any) => (
       </div>
 
       <div css={styles.sample}>
-        <Button {...props} component={CustomComponent} to="/custom-link">
-          With a custom component
-        </Button>
+        {
+          // @ts-ignore
+          <Button {...props} component={CustomComponent} to="/custom-link">
+            With a custom component
+          </Button>
+        }
       </div>
 
       <div css={styles.sample}>
@@ -231,6 +235,19 @@ const BuildStory = (props: any) => (
 
       <div css={styles.sample}>
         <div css={styles.buttonContainer}>
+          <Button {...props} spacing="none">
+            1
+          </Button>
+          <Button {...props} spacing="compact">
+            1
+          </Button>
+          <Button {...props}>1</Button>
+        </div>
+        <span>Button with small text</span>
+      </div>
+
+      <div css={styles.sample}>
+        <div css={styles.buttonContainer}>
           <Button
             {...props}
             spacing="none"
@@ -259,6 +276,13 @@ const BuildStory = (props: any) => (
 
       <div css={styles.sample}>
         <Button {...props} spacing="compact">
+          Create Issue
+        </Button>
+        <Button
+          {...props}
+          spacing="compact"
+          iconBefore={<Page label="page icon">create issue</Page>}
+        >
           Create Issue
         </Button>
         <span>compact</span>
@@ -300,11 +324,19 @@ const BuildStory = (props: any) => (
         </Button>
         <span>shouldFitContainer with page icon</span>
       </div>
+      <div css={styles.sample}>
+        <Button
+          {...props}
+          iconBefore={<Page label="page icon" />}
+          shouldFitContainer
+        />
+        <span>shouldFitContainer icon only</span>
+      </div>
     </div>
   </div>
 );
 
-const appearances: ButtonAppearances[] = [
+const appearances: Appearance[] = [
   'default',
   'danger',
   'link',
@@ -314,34 +346,25 @@ const appearances: ButtonAppearances[] = [
   'warning',
 ];
 
-type State = {
-  appearance: ButtonAppearances;
-};
-
 /* eslint-disable react/no-multi-comp */
-// eslint-disable-next-line import/no-anonymous-default-export
-export default class extends React.Component<{}, State> {
-  state: State = {
-    appearance: 'default',
+export default function Example() {
+  const [appearance, setAppearance] = useState<Appearance>('default');
+
+  const onChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setAppearance(event.target.value as Appearance);
   };
 
-  setAppearance = (e: { target: { value: string } }) => {
-    this.setState({ appearance: e.target.value as ButtonAppearances });
-  };
-
-  render() {
-    return (
-      <div>
-        <h3>Select an apperance option to see its effects in contexts</h3>
-        <select onChange={this.setAppearance} value={this.state.appearance}>
-          {appearances.map(a => (
-            <option key={a} value={a}>
-              {a}
-            </option>
-          ))}
-        </select>
-        <BuildStory appearance={this.state.appearance} />
-      </div>
-    );
-  }
+  return (
+    <div>
+      <h3>Select an apperance option to see its effects in contexts</h3>
+      <select onChange={onChange} value={appearance}>
+        {appearances.map(a => (
+          <option key={a} value={a}>
+            {a}
+          </option>
+        ))}
+      </select>
+      <BuildStory appearance={appearance} />
+    </div>
+  );
 }

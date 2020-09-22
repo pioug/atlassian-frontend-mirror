@@ -25,15 +25,27 @@ import { APIError } from '../../client/errors';
 export const useSmartLinkAnalytics = (dispatchAnalytics: AnalyticsHandler) => {
   const ui = useMemo(
     () => ({
-      authEvent: (display: CardInnerAppearance, definitionId?: string) =>
-        dispatchAnalytics(uiAuthEvent(display, definitionId)),
+      authEvent: (
+        display: CardInnerAppearance,
+        definitionId?: string,
+        extensionKey?: string,
+      ) => dispatchAnalytics(uiAuthEvent(display, definitionId, extensionKey)),
       authAlternateAccountEvent: (
         display: CardInnerAppearance,
         definitionId?: string,
+        extensionKey?: string,
       ) =>
-        dispatchAnalytics(uiAuthAlternateAccountEvent(display, definitionId)),
-      cardClickedEvent: (display: CardInnerAppearance, definitionId?: string) =>
-        dispatchAnalytics(uiCardClickedEvent(display, definitionId)),
+        dispatchAnalytics(
+          uiAuthAlternateAccountEvent(display, definitionId, extensionKey),
+        ),
+      cardClickedEvent: (
+        display: CardInnerAppearance,
+        definitionId?: string,
+        extensionKey?: string,
+      ) =>
+        dispatchAnalytics(
+          uiCardClickedEvent(display, definitionId, extensionKey),
+        ),
       actionClickedEvent: (
         providerKey: string,
         actionType: string,
@@ -42,12 +54,22 @@ export const useSmartLinkAnalytics = (dispatchAnalytics: AnalyticsHandler) => {
         dispatchAnalytics(
           uiActionClickedEvent(providerKey, actionType, display),
         ),
-      closedAuthEvent: (display: CardInnerAppearance, definitionId?: string) =>
-        dispatchAnalytics(uiClosedAuthEvent(display, definitionId)),
+      closedAuthEvent: (
+        display: CardInnerAppearance,
+        definitionId?: string,
+        extensionKey?: string,
+      ) =>
+        dispatchAnalytics(
+          uiClosedAuthEvent(display, definitionId, extensionKey),
+        ),
       renderSuccessEvent: (
         display: CardInnerAppearance,
         definitionId?: string,
-      ) => dispatchAnalytics(uiRenderSuccessEvent(display, definitionId)),
+        extensionKey?: string,
+      ) =>
+        dispatchAnalytics(
+          uiRenderSuccessEvent(display, definitionId, extensionKey),
+        ),
       renderFailedEvent: (
         display: CardInnerAppearance,
         error: Error,
@@ -62,16 +84,21 @@ export const useSmartLinkAnalytics = (dispatchAnalytics: AnalyticsHandler) => {
       resolvedEvent: (
         id: string,
         definitionId?: string,
+        extensionKey?: string,
         resourceType?: string,
-      ) => dispatchAnalytics(resolvedEvent(id, definitionId, resourceType)),
+      ) =>
+        dispatchAnalytics(
+          resolvedEvent(id, definitionId, extensionKey, resourceType),
+        ),
       unresolvedEvent: (
         id: string,
         status: string,
         definitionId?: string,
+        extensionKey?: string,
         resourceType?: string,
       ) =>
         dispatchAnalytics(
-          unresolvedEvent(id, status, definitionId, resourceType),
+          unresolvedEvent(id, status, definitionId, extensionKey, resourceType),
         ),
       invokeSucceededEvent: (
         id: string,
@@ -92,19 +119,33 @@ export const useSmartLinkAnalytics = (dispatchAnalytics: AnalyticsHandler) => {
         dispatchAnalytics(
           invokeFailedEvent(id, providerKey, actionType, display, reason),
         ),
-      connectSucceededEvent: (definitionId?: string) =>
-        dispatchAnalytics(connectSucceededEvent(definitionId)),
-      connectFailedEvent: (definitionId?: string, reason?: string) =>
-        dispatchAnalytics(connectFailedEvent(definitionId, reason)),
+      connectSucceededEvent: (definitionId?: string, extensionKey?: string) =>
+        dispatchAnalytics(connectSucceededEvent(definitionId, extensionKey)),
+      connectFailedEvent: (
+        definitionId?: string,
+        extensionKey?: string,
+        reason?: string,
+      ) =>
+        dispatchAnalytics(
+          connectFailedEvent(definitionId, extensionKey, reason),
+        ),
       instrument: (
         id: string,
         status: CardType,
         definitionId?: string,
+        extensionKey?: string,
         resourceType?: string,
         error?: APIError,
       ) =>
         dispatchAnalytics(
-          instrumentEvent(id, status, definitionId, resourceType, error),
+          instrumentEvent(
+            id,
+            status,
+            definitionId,
+            extensionKey,
+            resourceType,
+            error,
+          ),
         ),
     }),
     [dispatchAnalytics],
@@ -112,16 +153,16 @@ export const useSmartLinkAnalytics = (dispatchAnalytics: AnalyticsHandler) => {
 
   const track = useMemo(
     () => ({
-      appAccountConnected: (definitionId?: string) =>
-        dispatchAnalytics(trackAppAccountConnected(definitionId)),
+      appAccountConnected: (definitionId?: string, extensionKey?: string) =>
+        dispatchAnalytics(trackAppAccountConnected(definitionId, extensionKey)),
     }),
     [dispatchAnalytics],
   );
 
   const screen = useMemo(
     () => ({
-      authPopupEvent: (definitionId?: string) =>
-        dispatchAnalytics(screenAuthPopupEvent(definitionId)),
+      authPopupEvent: (definitionId?: string, extensionKey?: string) =>
+        dispatchAnalytics(screenAuthPopupEvent(definitionId, extensionKey)),
     }),
     [dispatchAnalytics],
   );

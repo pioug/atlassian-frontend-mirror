@@ -17,6 +17,27 @@ describe('Snapshot Test', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 
+  it('shows up the focus ring', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'flag',
+      'flag-without-flagGroup',
+      global.__BASEURL__,
+    );
+
+    const { page } = global;
+    await loadPage(page, url);
+    await page.waitForSelector('span[aria-label="Info"]');
+
+    // navigate to button
+    await page.keyboard.press('Tab');
+    await page.keyboard.press('Tab');
+
+    const image = await page.screenshot();
+
+    expect(image).toMatchProdImageSnapshot();
+  });
+
   it('should match flags snapshot', async () => {
     const url = getExampleUrl(
       'design-system',

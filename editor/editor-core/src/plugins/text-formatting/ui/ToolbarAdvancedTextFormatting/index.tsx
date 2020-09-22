@@ -3,7 +3,7 @@ import React, { PureComponent } from 'react';
 import { EditorView } from 'prosemirror-view';
 import { InjectedIntlProps, injectIntl } from 'react-intl';
 
-import { akEditorMenuZIndex } from '@atlaskit/editor-common';
+import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles';
 import MoreIcon from '@atlaskit/icon/glyph/editor/more';
 
 import {
@@ -12,6 +12,8 @@ import {
   toggleStrikethrough,
   toggleUnderline,
   tooltip,
+  toggleBold,
+  toggleItalic,
 } from '../../../../keymaps';
 import DropdownMenu from '../../../../ui/DropdownMenu';
 import { MenuItem } from '../../../../ui/DropdownMenu/types';
@@ -28,6 +30,12 @@ import * as commands from '../../commands/text-formatting';
 import { ClearFormattingState } from '../../pm-plugins/clear-formatting';
 import { TextFormattingState } from '../../pm-plugins/main';
 import { toolbarMessages } from './toolbar-messages';
+import { toolbarMessages as textFormattingMessages } from '../ToolbarTextFormatting/toolbar-messages';
+import {
+  pluginKey as widthPluginKey,
+  WidthPluginState,
+} from '../../../width/index';
+import { akEditorMobileMaxWidth } from '@atlaskit/editor-shared-styles';
 
 export interface Props {
   isDisabled?: boolean;
@@ -170,6 +178,28 @@ class ToolbarAdvancedTextFormatting extends PureComponent<
         subscriptHidden,
         superscriptHidden,
       } = textFormattingState;
+
+      const widthState = widthPluginKey.getState(
+        editorView.state,
+      ) as WidthPluginState;
+
+      // add bold and italic for small viewports only
+      if (widthState.width < akEditorMobileMaxWidth) {
+        this.addRecordToItems(
+          items,
+          formatMessage(textFormattingMessages.bold),
+          'strong',
+          tooltip(toggleBold),
+        );
+
+        this.addRecordToItems(
+          items,
+          formatMessage(textFormattingMessages.italic),
+          'em',
+          tooltip(toggleItalic),
+        );
+      }
+
       if (!underlineHidden && underline) {
         this.addRecordToItems(
           items,
@@ -209,6 +239,7 @@ class ToolbarAdvancedTextFormatting extends PureComponent<
         );
       }
     }
+
     if (clearFormattingState) {
       this.addRecordToItems(
         items,
@@ -218,6 +249,7 @@ class ToolbarAdvancedTextFormatting extends PureComponent<
         !clearFormattingState.formattingIsPresent,
       );
     }
+
     return [{ items }];
   };
 
@@ -280,6 +312,16 @@ class ToolbarAdvancedTextFormatting extends PureComponent<
         break;
       case 'superscript':
         commands.toggleSuperscriptWithAnalytics({
+          inputMethod: INPUT_METHOD.TOOLBAR,
+        })(state, dispatch);
+        break;
+      case 'strong':
+        commands.toggleStrongWithAnalytics({
+          inputMethod: INPUT_METHOD.TOOLBAR,
+        })(state, dispatch);
+        break;
+      case 'em':
+        commands.toggleItalicWithAnalytics({
           inputMethod: INPUT_METHOD.TOOLBAR,
         })(state, dispatch);
         break;

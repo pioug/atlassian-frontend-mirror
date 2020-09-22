@@ -1,5 +1,5 @@
 import { ProviderFactory } from '@atlaskit/editor-common';
-import { testMediaFileId } from '@atlaskit/editor-test-helpers';
+import { testMediaSingle } from '@atlaskit/editor-test-helpers';
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
 import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
 import {
@@ -52,7 +52,7 @@ describe('Media plugin commands', () => {
   describe('Update Media Node Attributes', () => {
     const createMediaNode = (attrs: Partial<MediaAttributes>) =>
       media({
-        id: testMediaFileId,
+        id: testMediaSingle.id,
         type: 'file',
         collection: testCollectionName,
         __fileName: 'foo.jpg',
@@ -79,7 +79,7 @@ describe('Media plugin commands', () => {
       );
 
       updateMediaNodeAttrs(
-        testMediaFileId,
+        testMediaSingle.id,
         newDimensions,
         true,
       )(editorView.state, editorView.dispatch);
@@ -109,7 +109,7 @@ describe('Media plugin commands', () => {
       );
 
       updateAllMediaNodesAttrs(
-        testMediaFileId,
+        testMediaSingle.id,
         {
           height: 200,
           width: 200,

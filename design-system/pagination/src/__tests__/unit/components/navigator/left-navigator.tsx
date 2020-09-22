@@ -2,7 +2,7 @@ import React from 'react';
 
 import { mount } from 'enzyme';
 
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
 import ChevronLeftLargeIcon from '@atlaskit/icon/glyph/chevron-left-large';
 
 import LeftNavigator from '../../../../components/Navigators/LeftNavigator';

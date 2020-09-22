@@ -12,7 +12,7 @@ describe('Quick Insert:', () => {
     page = global.page;
     await initEditorWithAdf(page, {
       appearance: Appearance.fullPage,
-      viewport: { width: 600, height: 700 },
+      viewport: { width: 800, height: 800 },
     });
   });
 

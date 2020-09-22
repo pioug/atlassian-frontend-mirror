@@ -1,9 +1,32 @@
 import React from 'react';
+import { renderToStaticMarkup } from 'react-dom/server';
+
 import styled from 'styled-components';
 import { SortOrder } from '@atlaskit/editor-common';
 import Tooltip from '@atlaskit/tooltip';
 import { gridSize } from '@atlaskit/theme/constants';
 import { N20, N30 } from '@atlaskit/theme/colors';
+
+const TableSortIconSVG = () => (
+  <svg xmlns="http://www.w3.org/2000/svg">
+    <g fill="none" fillRule="evenodd">
+      <path d="M-8-6h24v24H-8z" />
+      <path
+        d="M3 8.509V1c0-.552.449-1 1-1 .552 0 1 .448 1 1V8.51l1.217-1.206a1.05 1.05 0 011.477 0 1.03 1.03 0 01.004 1.463l-.003.002-2.956 2.93a1.053 1.053 0 01-1.478 0L.305 8.767a1.03 1.03 0 01.001-1.464 1.05 1.05 0 011.477 0L3 8.508z"
+        fill="#42526E"
+      />
+    </g>
+  </svg>
+);
+
+// We use data url here because of this issue:
+// https://product-fabric.atlassian.net/browse/ED-8001
+// Remove this workaround if Firefox has fixed: https://bugzilla.mozilla.org/show_bug.cgi?id=1664350
+const TableSortIconDataUrl = `data:image/svg+xml;utf8,${encodeURIComponent(
+  renderToStaticMarkup(<TableSortIconSVG />),
+)}`;
+
+const TABLE_SORTING_ICON_CLASS = 'table-sorting-icon';
 
 export enum StatusClassNames {
   ASC = 'sorting-icon-svg__asc',
@@ -11,6 +34,7 @@ export enum StatusClassNames {
   NO_ORDER = 'sorting-icon-svg__no_order',
   SORTING_NOT_ALLOWED = 'sorting-icon-svg__not-allowed',
 }
+
 const Wrapper = styled.figure`
   position: absolute;
   display: flex;
@@ -32,14 +56,21 @@ const Wrapper = styled.figure`
   &.${StatusClassNames.SORTING_NOT_ALLOWED} {
     cursor: not-allowed;
   }
+`;
 
-  svg {
-    transition: transform 0.3s cubic-bezier(0.15, 1, 0.3, 1);
-    transform-origin: 50% 50%;
+const TableSortingIcon = styled.div`
+  width: 8px;
+  height: 12px;
+  transition: transform 0.3s cubic-bezier(0.15, 1, 0.3, 1);
+  transform-origin: 50% 50%;
+  background-image: url(${TableSortIconDataUrl});
+
+  &.${StatusClassNames.DESC} {
+    transform: rotate(-180deg);
   }
 
-  svg.${StatusClassNames.DESC} {
-    transform: rotate(-180deg);
+  &.${TABLE_SORTING_ICON_CLASS}-inactive {
+    opacity: 0.5;
   }
 `;
 
@@ -86,20 +117,11 @@ const SortingIcon = ({ isSortingAllowed, sortOrdered }: Props) => {
   return (
     <Tooltip delay={0} content={content} position="top">
       <Wrapper className={wrapperClassName}>
-        <svg
-          width={8}
-          height={12}
-          className={getClassName(sortOrdered)}
-          fillOpacity={activated ? 1 : 0.5}
-        >
-          <g fill="none" fillRule="evenodd">
-            <path d="M-8-6h24v24H-8z" />
-            <path
-              d="M3 8.509V1c0-.552.449-1 1-1 .552 0 1 .448 1 1V8.51l1.217-1.206a1.05 1.05 0 011.477 0 1.03 1.03 0 01.004 1.463l-.003.002-2.956 2.93a1.053 1.053 0 01-1.478 0L.305 8.767a1.03 1.03 0 01.001-1.464 1.05 1.05 0 011.477 0L3 8.508z"
-              fill="#42526E"
-            />
-          </g>
-        </svg>
+        <TableSortingIcon
+          className={`${getClassName(
+            sortOrdered,
+          )} ${TABLE_SORTING_ICON_CLASS}-${activated ? 'active' : 'inactive'}`}
+        />
       </Wrapper>
     </Tooltip>
   );

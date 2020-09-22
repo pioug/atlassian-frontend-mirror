@@ -65,11 +65,13 @@ describe('decorations plugin', () => {
       const oldState = handleDocOrSelectionChanged(
         editorView.state.tr,
         pluginState,
+        editorView.state,
       );
 
       const newState = handleDocOrSelectionChanged(
         editorView.state.tr,
         oldState,
+        editorView.state,
       );
 
       expect(newState).toEqual(oldState);
@@ -86,6 +88,7 @@ describe('decorations plugin', () => {
       const nextPluginState = handleDocOrSelectionChanged(
         editorView.state.tr,
         DecorationSet.empty,
+        editorView.state,
       );
 
       const { tr: transaction } = state;
@@ -94,6 +97,7 @@ describe('decorations plugin', () => {
       const newState = handleDocOrSelectionChanged(
         transaction,
         nextPluginState,
+        editorView.state,
       );
       const expectedDecorationSet = newState;
       const decorations = expectedDecorationSet.find(
@@ -115,11 +119,13 @@ describe('decorations plugin', () => {
       const oldPluginState = handleDocOrSelectionChanged(
         editorView.state.tr,
         DecorationSet.empty,
+        editorView.state,
       );
 
       const newPluginState = handleDocOrSelectionChanged(
         editorView.state.tr,
         oldPluginState,
+        editorView.state,
       );
       expect(oldPluginState).toEqual(newPluginState);
     });

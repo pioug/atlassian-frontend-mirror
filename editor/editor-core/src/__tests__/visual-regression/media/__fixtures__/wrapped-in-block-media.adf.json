@@ -64,8 +64,8 @@
                         "id": "a559980d-cd47-43e2-8377-27359fcb905f",
                         "type": "file",
                         "collection": "MediaServicesSample",
-                        "width": 520,
-                        "height": 520
+                        "width": 500,
+                        "height": 375
                       }
                     }
                   ]

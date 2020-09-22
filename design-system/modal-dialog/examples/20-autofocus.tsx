@@ -2,7 +2,8 @@ import React from 'react';
 
 import styled from '@emotion/styled';
 
-import Button, { ButtonGroup } from '@atlaskit/button';
+import ButtonGroup from '@atlaskit/button/button-group';
+import Button from '@atlaskit/button/custom-theme-button';
 
 import ModalDialog, { ModalTransition } from '../src';
 

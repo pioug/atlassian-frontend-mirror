@@ -4,7 +4,7 @@ import { Fragment as F } from 'react';
 import { HeaderComponentProps } from '@atlaskit/modal-dialog';
 import EditorCloseIcon from '@atlaskit/icon/glyph/editor/close';
 import ShortcutIcon from '@atlaskit/icon/glyph/shortcut';
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
 import { N100, N30A } from '@atlaskit/theme/colors';
 import { FormattedMessage } from 'react-intl';
 import { gs } from '../utils';

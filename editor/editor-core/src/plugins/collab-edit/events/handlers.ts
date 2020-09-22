@@ -50,7 +50,7 @@ const effect = <TArgs extends any[]>(fn: Setup<TArgs>, eq: Eq<TArgs>) => {
 };
 
 export const subscribe = effect<
-  [EditorView, CollabEditProvider, PrivateCollabEditOptions?, ProviderFactory?]
+  [EditorView, CollabEditProvider, PrivateCollabEditOptions, ProviderFactory?]
 >(
   (view, provider, options, providerFactory) => {
     const handlers: CollabHandlers = {
@@ -59,7 +59,7 @@ export const subscribe = effect<
         handleInit(data, view, options);
       },
       connectedHandler: data => handleConnection(data, view),
-      dataHandler: data => applyRemoteData(data, view),
+      dataHandler: data => applyRemoteData(data, view, options),
       presenceHandler: data => handlePresence(data, view),
       telepointerHandler: data => handleTelePointer(data, view),
       localStepsHandler: data => {

@@ -1,6 +1,7 @@
 import {
   find,
   searchQuickInsertItems,
+  getFeaturedQuickInsertItems,
 } from '../../../../plugins/quick-insert/search';
 import { QuickInsertItem } from '../../../../plugins/quick-insert/types';
 
@@ -10,15 +11,33 @@ describe('Quick Insert Search', () => {
   const getTitles = (item: { title: string }) => item.title;
 
   const items: QuickInsertItem[] = [
-    { priority: 1, title: 'Table', categories: ['formatting'], action },
+    {
+      priority: 1,
+      title: 'Table',
+      categories: ['formatting'],
+      action,
+      featured: true,
+    },
     { priority: 9, title: 'Panel', categories: ['formatting'], action },
-    { priority: 8, title: 'Code snippet', categories: ['formatting'], action },
+    {
+      priority: 8,
+      title: 'Code snippet',
+      categories: ['formatting'],
+      action,
+      featured: true,
+    },
     { priority: 7, title: 'Date', categories: ['elements'], action },
-    { priority: 6, title: 'Quote', categories: ['elements'], action },
+    {
+      priority: 6,
+      title: 'Quote',
+      categories: ['elements'],
+      action,
+      featured: true,
+    },
     { priority: 2, title: 'Files and Images', action },
     { priority: 3, title: 'Horizontal rule', action },
     { priority: 4, title: 'Action', action },
-    { priority: 5, title: 'Decision', action },
+    { priority: 5, title: 'Decision', action, featured: true },
   ];
 
   it('should find exact match', () => {
@@ -86,6 +105,53 @@ describe('Quick Insert Search', () => {
         { priority: 9, title: 'Block extensions', action },
       ]).map(getTitles),
     ).toEqual(['Quote']);
+  });
+
+  describe('getFeaturedQuickInsertItems', () => {
+    const featuredItems = getFeaturedQuickInsertItems({
+      isElementBrowserModalOpen: false,
+      lazyDefaultItems: () => items,
+      providedItems: [
+        {
+          priority: 9,
+          title: 'Code inline',
+          categories: ['formatting'],
+          action,
+        },
+        {
+          priority: 9,
+          title: 'Page builder',
+          categories: ['advanced'],
+          action,
+        },
+      ],
+    })();
+    it('should get featured items from quickInsertItems', () => {
+      expect(featuredItems).toStrictEqual([
+        {
+          priority: 1,
+          title: 'Table',
+          categories: ['formatting'],
+          action,
+          featured: true,
+        },
+        {
+          priority: 8,
+          title: 'Code snippet',
+          categories: ['formatting'],
+          action,
+          featured: true,
+        },
+        {
+          priority: 6,
+          title: 'Quote',
+          categories: ['elements'],
+          action,
+          featured: true,
+        },
+        { priority: 5, title: 'Decision', action, featured: true },
+      ]);
+    });
   });
 
   describe('searchQuickInsertItems', () => {

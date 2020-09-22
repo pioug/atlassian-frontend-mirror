@@ -49,6 +49,7 @@ export {
   isMarkExcluded,
   removeBlockMarks,
   sanitiseSelectionMarksForWrapping,
+  sanitiseMarksInSelection,
 } from './mark';
 export { isNodeTypeParagraph } from './nodes';
 export {
@@ -59,6 +60,7 @@ export {
   setGapCursorSelection,
   setCellSelection,
   setTextSelection,
+  isValidPosition,
 } from './selection';
 
 export { JSONDocNode, JSONNode };

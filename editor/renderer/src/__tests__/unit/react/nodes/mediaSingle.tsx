@@ -9,6 +9,8 @@ import Caption from '../../../../react/nodes/caption';
 import { MediaCardInternal } from '../../../../ui/MediaCard';
 import { WidthProvider } from '@atlaskit/editor-common';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers';
+import { ReactWrapper } from 'enzyme';
+import { InjectedIntlProps } from 'react-intl';
 
 describe('MediaSingle', () => {
   const editorWidth = 123;
@@ -17,7 +19,7 @@ describe('MediaSingle', () => {
     mediaSingleProps: Partial<MediaSingleProps> = {},
     mediaProps: Partial<MediaProps & { width: number; heigth: number }> = {},
     showCaption: boolean = true,
-  ) => {
+  ): ReactWrapper<InjectedIntlProps, any> => {
     return mountWithIntl(
       <WidthProvider>
         <MediaSingle
@@ -70,28 +72,85 @@ describe('MediaSingle', () => {
     mediaSingle.unmount();
   });
 
-  it('fires analytics on linked media', () => {
+  describe('with link mark', () => {
+    let mediaSingle: ReactWrapper<InjectedIntlProps, any>;
     const fireAnalyticsEvent = jest.fn();
+    const mediaOnClick = jest.fn();
 
-    const mediaSingle = mountMediaSingle({
-      fireAnalyticsEvent,
-      marks: [{ attrs: { href: 'http://atlassian.com' } } as any],
-      isLinkMark: () => true,
+    beforeAll(() => {
+      mediaSingle = mountMediaSingle(
+        {
+          fireAnalyticsEvent,
+
+          marks: [{ attrs: { href: 'http://atlassian.com' } } as any],
+          isLinkMark: () => true,
+        },
+        {
+          shouldOpenMediaViewer: true,
+          eventHandlers: { media: { onClick: mediaOnClick } },
+        },
+      );
     });
 
-    mediaSingle.find('a').simulate('click');
+    afterAll(() => {
+      if (mediaSingle) {
+        mediaSingle.unmount();
+      }
+    });
 
-    expect(fireAnalyticsEvent).toHaveBeenCalledWith({
-      action: 'visited',
-      actionSubject: 'mediaSingle',
-      actionSubjectId: 'mediaLink',
-      attributes: {
-        platform: 'web',
-        mode: 'renderer',
+    it('renders media with link correctly', () => {
+      expect(
+        mediaSingle.find(
+          'MediaLink[href="http://atlassian.com"][target="_blank"]',
+        ),
+      ).toHaveLength(1);
+    });
+
+    it('override eventHandlers to undefined', () => {
+      const mediaProps = mediaSingle.find('Media').props() as MediaProps;
+      expect(mediaProps.eventHandlers).toBeUndefined();
+    });
+
+    it('override shouldOpenMediaViewer to be falsy', () => {
+      const mediaProps = mediaSingle.find('Media').props() as MediaProps;
+      expect(mediaProps.shouldOpenMediaViewer).toBeFalsy();
+    });
+
+    it('fires analytics on linked media', () => {
+      mediaSingle.find('Media').simulate('click');
+
+      expect(fireAnalyticsEvent).toHaveBeenCalledWith({
+        action: 'visited',
+        actionSubject: 'mediaSingle',
+        actionSubjectId: 'mediaLink',
+        attributes: {
+          platform: 'web',
+          mode: 'renderer',
+        },
+        eventType: 'track',
+      });
+
+      expect(mediaOnClick).not.toHaveBeenCalled();
+    });
+  });
+
+  it('does not override media props when there is not link', () => {
+    const mediaOnClick = jest.fn();
+    const mediaSingle = mountMediaSingle(
+      {
+        marks: [],
       },
-      eventType: 'track',
-    });
+      {
+        shouldOpenMediaViewer: true,
+        eventHandlers: { media: { onClick: mediaOnClick } },
+      },
+    );
 
+    const mediaProps = mediaSingle.find('Media').props() as MediaProps;
+    expect(mediaProps.eventHandlers).toEqual({
+      media: { onClick: mediaOnClick },
+    });
+    expect(mediaProps.shouldOpenMediaViewer).toEqual(true);
     mediaSingle.unmount();
   });
 

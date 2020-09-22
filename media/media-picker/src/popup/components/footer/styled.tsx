@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import Button, { ButtonProps } from '@atlaskit/button';
+import { CustomThemeButtonProps } from '@atlaskit/button/types';
+import Button from '@atlaskit/button/custom-theme-button';
 
 export const Wrapper: React.ComponentClass<React.HTMLAttributes<{}>> = styled.div`
   box-sizing: border-box;
@@ -11,7 +12,7 @@ export const Wrapper: React.ComponentClass<React.HTMLAttributes<{}>> = styled.di
   padding: 26px 15px 23px 18px;
 `;
 
-export const InsertButton = (props: ButtonProps) => (
+export const InsertButton = (props: CustomThemeButtonProps) => (
   <Button
     {...props}
     theme={(currentTheme: any, themeProps: any) => {
@@ -27,4 +28,6 @@ export const InsertButton = (props: ButtonProps) => (
   />
 );
 
-export const CancelButton = (props: ButtonProps) => <Button {...props} />;
+export const CancelButton = (props: CustomThemeButtonProps) => (
+  <Button {...props} />
+);

@@ -6,6 +6,7 @@ import { pluginFactory } from '../../../utils/plugin-state-factory';
 
 import { reducer, mapping, onSelectionChanged } from './utils';
 import { pluginKey } from './plugin-key';
+import { DatePluginState } from './types';
 
 const { createPluginState, getPluginState } = pluginFactory(
   pluginKey,
@@ -20,9 +21,15 @@ const createPlugin: PMPluginFactory = ({
   dispatch,
   portalProviderAPI,
   eventDispatcher,
-}) =>
-  new Plugin({
-    state: createPluginState(dispatch, { showDatePickerAt: null }),
+}) => {
+  const newPluginState: DatePluginState = {
+    showDatePickerAt: null,
+    isNew: false,
+    isDateEmpty: false,
+    focusDateInput: false,
+  };
+  return new Plugin({
+    state: createPluginState(dispatch, newPluginState),
     key: pluginKey,
     props: {
       nodeViews: {
@@ -34,6 +41,7 @@ const createPlugin: PMPluginFactory = ({
       },
     },
   });
+};
 
 export { getPluginState };
 export default createPlugin;

@@ -93,9 +93,6 @@ Object {
       ],
       "type": "mediaSingle",
     },
-    Object {
-      "type": "paragraph",
-    },
   ],
   "type": "doc",
 }

@@ -53,6 +53,7 @@ function Heading(
                     {({ fireAnalyticsEvent }) => (
                       <HeadingAnchor
                         enableNestedHeaderLinks={enableNestedHeaderLinks}
+                        level={props.level}
                         onCopyText={() => {
                           fireAnalyticsEvent({
                             action: ACTION.CLICKED,

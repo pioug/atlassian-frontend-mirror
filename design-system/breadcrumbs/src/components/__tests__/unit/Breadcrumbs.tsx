@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { mount, ReactWrapper, shallow } from 'enzyme';
 import cases from 'jest-in-case';
 
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
 
 declare var global: any;
 

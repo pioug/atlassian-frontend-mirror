@@ -32,16 +32,12 @@ export default {
     'Vi åbner en ny side for at hjælpe dig til at forbinde din {name}-konto',
   'fabric.media.connect_link_account': 'Forbind til forhåndsvisning',
   'fabric.media.connect_link_account_card_view': 'Forbind',
-  'fabric.media.connect_link_account_card_view_description':
-    'Gør forhåndsvisning af dine links bedre ved at forbinde {context} med dine Atlassian-produkter.',
   'fabric.media.connect_link_account_card_view_name':
     'Forbind din {context}-konto',
   'fabric.media.connect_to': 'Forbind til {name}',
   'fabric.media.could_not_load_editor': 'Ups! Vi kunne ikke indlæse editoren',
   'fabric.media.could_not_save_image': 'Ups! Vi kunne ikke gemme billedet',
   'fabric.media.couldnt_generate_preview': 'Vi kunne ikke vise denne fil.',
-  'fabric.media.couldnt_load_link':
-    'Af en eller anden grund kunne vi ikke indlæse dette link.',
   'fabric.media.default_avatars': 'Standard-avatarer',
   'fabric.media.disable_fullscreen': 'slå fuldskærmsvisning fra',
   'fabric.media.document': 'dokument',
@@ -71,7 +67,6 @@ export default {
     'Billedet kunne ikke indlæses; ugyldig URL.',
   'fabric.media.insert_files':
     '{0, plural, one {Indsæt {0} fil} other {Indsæt {0} filer}}',
-  'fabric.media.invalid_permissions': 'Du har ikke adgang til dette link',
   'fabric.media.invalid_permissions_description':
     'Anmod om adgang, eller prøv med en anden konto for at se denne forhåndsvisning.',
   'fabric.media.item_not_found_in_list':
@@ -84,8 +79,6 @@ export default {
   'fabric.media.no_gifs_found_suggestion':
     'Vi kunne ikke finde noget for "{query}"',
   'fabric.media.no_pdf_artifacts': 'Ingen PDF-artefakter for denne fil fundet.',
-  'fabric.media.not_found_description':
-    'Kontrollér og rediger URL-adressen, eller indsæt den igen.',
   'fabric.media.not_found_title': 'Ups. Vi kan ikke finde dette link!',
   'fabric.media.or': 'eller',
   'fabric.media.pause': 'pause',

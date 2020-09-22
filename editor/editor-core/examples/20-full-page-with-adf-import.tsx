@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
 import {
   ExampleEditor as FullPageEditor,
   LOCALSTORAGE_defaultDocKey,
@@ -50,7 +50,7 @@ const FullPageWithAdfImport: React.FC = function FullPageWithAdfImport() {
                 return (
                   <>
                     <Button
-                      disabled={!actions}
+                      isDisabled={!actions}
                       onClick={async () => {
                         const value = await actions.getValue();
                         setAdfValue(value);

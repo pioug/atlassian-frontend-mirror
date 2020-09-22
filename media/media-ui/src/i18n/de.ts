@@ -21,6 +21,7 @@ export default {
   'fabric.media.annotate.tool.line.thickness': 'Strichstärke',
   'fabric.media.annotate.tool.shape': 'Form',
   'fabric.media.annotate.tool.text': 'Text',
+  'fabric.media.archive': 'archivieren',
   'fabric.media.audio': 'Audio',
   'fabric.media.cancel': 'Abbrechen',
   'fabric.media.cant_preview_file_type':
@@ -36,7 +37,7 @@ export default {
   'fabric.media.connect_link_account': 'Verknüpfen und Vorschau ansehen',
   'fabric.media.connect_link_account_card_view': 'Verbinden',
   'fabric.media.connect_link_account_card_view_description':
-    'Verbessern Sie Ihre Verknüpfungsvorschau durch die Verbindung von {context} mit Ihren Atlassian-Produkten.',
+    'Verbinden Sie Ihr {context}-Konto, um eine Vorschau dieses Links anzuzeigen.',
   'fabric.media.connect_link_account_card_view_name':
     'Verbinden Sie Ihr {context}-Konto',
   'fabric.media.connect_to': 'Mit {name} verbinden',
@@ -44,10 +45,12 @@ export default {
     'Hoppla, der Editor konnte nicht abgerufen werden.',
   'fabric.media.could_not_save_image':
     'Hoppla, das Bild konnte nicht gespeichert werden.',
+  'fabric.media.couldnt_generate_encrypted_entry_preview':
+    'Es kann keine Vorschau für verschlüsselte oder passwortgeschützte Dateien erstellt werden.',
   'fabric.media.couldnt_generate_preview':
     'Für diese Datei kann keine Vorschau generiert werden.',
   'fabric.media.couldnt_load_link':
-    'Leider konnte diese Verknüpfung nicht geladen werden.',
+    'Dieser Link konnte aus unbekannten Gründen nicht geladen werden.',
   'fabric.media.default_avatars': 'Standard-Profilbilder',
   'fabric.media.disable_fullscreen': 'Vollbildmodus deaktivieren',
   'fabric.media.document': 'Dokument',
@@ -76,8 +79,7 @@ export default {
     'Das Bild konnte nicht geladen werden. Die URL ist ungültig.',
   'fabric.media.insert_files':
     '{0, plural, one {{0} Datei einfügen} other {{0} Dateien einfügen}}',
-  'fabric.media.invalid_permissions':
-    'Sie haben keinen Zugriff auf diese Verknüpfung.',
+  'fabric.media.invalid_permissions': 'Eingeschränkter Link',
   'fabric.media.invalid_permissions_description':
     'Bitte senden Sie eine Zugriffsanfrage oder versuchen Sie, die Vorschau über ein anderes Konto anzusehen.',
   'fabric.media.item_not_found_in_list':
@@ -93,7 +95,7 @@ export default {
   'fabric.media.no_pdf_artifacts':
     'Keine PDF-Artifakte für diese Datei gefunden.',
   'fabric.media.not_found_description':
-    'Überprüfen Sie die URL und versuchen Sie die Bearbeitung oder das Einfügen erneut.',
+    'Der Link konnte nicht gefunden werden. Überprüfen Sie die URL und versuchen Sie die Bearbeitung oder das Einfügen erneut.',
   'fabric.media.not_found_title':
     'Oh! Diese Verknüpfung konnte nicht gefunden werden!',
   'fabric.media.or': 'oder',

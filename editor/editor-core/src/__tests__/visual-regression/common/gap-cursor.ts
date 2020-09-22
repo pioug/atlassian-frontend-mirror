@@ -66,7 +66,7 @@ describe('Gap cursor: layout', () => {
 
   it('should render gap cursor on action inside a layout on ArrowRight', async () => {
     await clickOnStatus(page);
-    await pressKey(page, ['ArrowRight']);
+    await pressKey(page, ['ArrowRight', 'ArrowRight']);
     await page.waitForSelector(selectors.gapCursor);
     await snapshot(page, undefined, '[data-layout-section]');
   });

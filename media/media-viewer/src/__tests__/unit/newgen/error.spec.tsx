@@ -22,7 +22,7 @@ jest.mock('../../../newgen/analytics/archive-viewer', () => mockArchiveViewer);
 import React from 'react';
 import { mount } from 'enzyme';
 import { ErrorMessage, createError } from '../../../newgen/error';
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
 import { fakeIntl } from '@atlaskit/media-test-helpers';
 import { FileState } from '@atlaskit/media-client';
 import { ZipEntry } from 'unzipit';

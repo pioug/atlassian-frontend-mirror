@@ -6,7 +6,7 @@ import { PredefinedAvatarViewWrapper, LargeAvatarImage } from './styled';
 import { Avatar } from '../avatar-list';
 
 import ArrowLeftIcon from '@atlaskit/icon/glyph/arrow-left';
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
 
 export interface BackBtnProps {
   onClick?: () => void;

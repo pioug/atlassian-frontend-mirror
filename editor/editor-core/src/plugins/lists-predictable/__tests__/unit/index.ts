@@ -85,22 +85,6 @@ describe('lists', () => {
           doc(ol(li(p('text'), ol(li(p('text{<>}')))))),
         );
       });
-
-      it('should call indent analytics V3 event', () => {
-        expect(createAnalyticsEvent).toHaveBeenCalledWith({
-          action: 'formatted',
-          actionSubject: 'text',
-          eventType: 'track',
-          actionSubjectId: 'indentation',
-          attributes: expect.objectContaining({
-            inputMethod: 'keyboard',
-            previousIndentationLevel: 1,
-            newIndentLevel: 2,
-            direction: 'indent',
-            indentType: 'list',
-          }),
-        });
-      });
     });
 
     describe('when hit Backspace', () => {
@@ -401,22 +385,6 @@ describe('lists', () => {
           doc(ol(li(p('One')), li(p('Two{<>}')))),
         );
       });
-
-      it('should call outdent analytics V3 event', () => {
-        expect(createAnalyticsEvent).toHaveBeenCalledWith({
-          action: 'formatted',
-          actionSubject: 'text',
-          eventType: 'track',
-          actionSubjectId: 'indentation',
-          attributes: expect.objectContaining({
-            inputMethod: 'keyboard',
-            previousIndentationLevel: 2,
-            newIndentLevel: 1,
-            direction: 'outdent',
-            indentType: 'list',
-          }),
-        });
-      });
     });
 
     describe('when hit Cmd-Shift-7', () => {
@@ -434,8 +402,8 @@ describe('lists', () => {
 
       it('should call numbered list analytics V3 event', () => {
         expect(createAnalyticsEvent).toHaveBeenCalledWith({
-          action: 'formatted',
-          actionSubject: 'text',
+          action: 'inserted',
+          actionSubject: 'list',
           eventType: 'track',
           actionSubjectId: 'numberedList',
           attributes: expect.objectContaining({
@@ -460,8 +428,8 @@ describe('lists', () => {
 
       it('should call numbered list analytics V3 event', () => {
         expect(createAnalyticsEvent).toHaveBeenCalledWith({
-          action: 'formatted',
-          actionSubject: 'text',
+          action: 'inserted',
+          actionSubject: 'list',
           eventType: 'track',
           actionSubjectId: 'bulletedList',
           attributes: expect.objectContaining({
@@ -490,8 +458,8 @@ describe('lists', () => {
 
       it('should fire Analytics GAS V3 events', () => {
         expect(createAnalyticsEvent).toHaveBeenCalledWith({
-          action: 'formatted',
-          actionSubject: 'text',
+          action: 'inserted',
+          actionSubject: 'list',
           eventType: 'track',
           actionSubjectId: 'numberedList',
           attributes: expect.objectContaining({
@@ -518,8 +486,8 @@ describe('lists', () => {
 
       it('should fire Analytics GAS V3 events when inserting a unordered list', () => {
         expect(createAnalyticsEvent).toHaveBeenCalledWith({
-          action: 'formatted',
-          actionSubject: 'text',
+          action: 'inserted',
+          actionSubject: 'list',
           eventType: 'track',
           actionSubjectId: 'bulletedList',
           attributes: expect.objectContaining({
@@ -807,7 +775,8 @@ describe('lists', () => {
       });
     });
 
-    describe('joining lists', () => {
+    // TODO: to be fixed in https://product-fabric.atlassian.net/browse/ED-10243
+    describe.skip('joining lists', () => {
       const expectedOutputForPreviousList = doc(
         ol(
           li(p('One')),
@@ -1464,7 +1433,6 @@ describe('lists', () => {
                     __fileMimeType: 'image/png',
                   })(),
                 ),
-                p(),
               ),
             ),
           ),

@@ -5,7 +5,7 @@ import toJson from 'enzyme-to-json';
 import cases from 'jest-in-case';
 import styled from 'styled-components';
 
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
 import CheckCircleIcon from '@atlaskit/icon/glyph/check-circle';
 import ErrorIcon from '@atlaskit/icon/glyph/error';
 import InfoIcon from '@atlaskit/icon/glyph/info';

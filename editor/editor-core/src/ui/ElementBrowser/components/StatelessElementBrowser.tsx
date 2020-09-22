@@ -110,7 +110,7 @@ function StatelessElementBrowser(props: StatelessElementBrowserProps) {
   }, [onSelectItem, selectedItem]);
 
   return (
-    <Wrapper>
+    <Wrapper data-testid="ElementBrowser">
       <ContainerWidthMonitor />
       {containerWidth < DEVICE_BREAKPOINT_NUMBERS.medium ? (
         <MobileBrowser
@@ -169,6 +169,7 @@ function MobileBrowser({
   onKeyPress,
   onKeyDown,
   searchTerm,
+  createAnalyticsEvent,
 }: StatelessElementBrowserProps &
   SelectedItemProps & {
     focusOnSearch: boolean;
@@ -182,6 +183,7 @@ function MobileBrowser({
     <MobileElementBrowserContainer
       onKeyPress={onKeyPress}
       onKeyDown={onKeyDown}
+      data-testid="mobile__element-browser"
     >
       <MobileSideBar showCategories={showCategories}>
         {showSearch && (
@@ -212,6 +214,7 @@ function MobileBrowser({
           focusedItemIndex={focusedItemIndex}
           setFocusedItemIndex={setFocusedItemIndex}
           setColumnCount={setColumnCount}
+          createAnalyticsEvent={createAnalyticsEvent}
         />
       </MobileMainContent>
     </MobileElementBrowserContainer>
@@ -237,6 +240,7 @@ function DesktopBrowser({
   onKeyPress,
   onKeyDown,
   searchTerm,
+  createAnalyticsEvent,
 }: StatelessElementBrowserProps &
   SelectedItemProps & {
     focusOnSearch: boolean;
@@ -247,7 +251,7 @@ function DesktopBrowser({
     setColumnCount: (columnCount: number) => void;
   }) {
   return (
-    <ElementBrowserContainer>
+    <ElementBrowserContainer data-testid="desktop__element-browser">
       {showCategories && (
         <SideBar showCategories>
           <SidebarHeading>
@@ -286,6 +290,7 @@ function DesktopBrowser({
           focusedItemIndex={focusedItemIndex}
           setFocusedItemIndex={setFocusedItemIndex}
           setColumnCount={setColumnCount}
+          createAnalyticsEvent={createAnalyticsEvent}
         />
       </MainContent>
     </ElementBrowserContainer>
@@ -331,6 +336,7 @@ const MobileSideBar = styled.div`
   flex: 0 0
     ${({ showCategories }: SideBarType) =>
       showCategories ? 'auto' : INLINE_SIDEBAR_HEIGHT};
+  padding: 12px 12px 0 12px;
 `;
 
 const SideBar = styled.div`
@@ -374,14 +380,14 @@ const MainContent = styled(MobileMainContent)`
 MainContent.displayName = 'MainContent';
 
 const SearchContainer = styled.div`
-  padding-bottom: ${GRID_SIZE * 3}px;
+  padding-bottom: ${GRID_SIZE * 2}px;
 `;
 
 const MobileCategoryListWrapper = styled.nav`
   display: flex;
   overflow-x: auto;
 
-  padding: ${GRID_SIZE * 2}px 0 ${GRID_SIZE}px 0;
+  padding: ${GRID_SIZE}px 0 ${GRID_SIZE * 2}px 0;
   min-height: ${GRID_SIZE * 4}px;
 
   overflow: -moz-scrollbars-none;
@@ -394,7 +400,7 @@ const MobileCategoryListWrapper = styled.nav`
 
 const CategoryListWrapper = styled(MobileCategoryListWrapper)`
   padding: 0;
-  margin-top: ${GRID_SIZE * 4}px;
+  margin-top: ${GRID_SIZE * 3}px;
   flex-direction: column;
 `;
 

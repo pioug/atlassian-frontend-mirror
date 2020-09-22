@@ -99,6 +99,14 @@ export default class DummyBridge implements NativeBridge {
     this.call('lifecycleBridge', 'editorReady');
   }
 
+  editorError(error: string, errorInfo: string): void {
+    this.call('lifecycleBridge', 'editorError', error, errorInfo);
+  }
+
+  startWebBundle(): void {
+    this.call('lifecycleBridge', 'startWebBundle');
+  }
+
   editorDestroyed() {
     this.call('lifecycleBridge', 'editorDestroyed');
   }

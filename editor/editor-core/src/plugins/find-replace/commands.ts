@@ -87,7 +87,9 @@ export const find = (
             : [];
         if (matches.length > 0) {
           const index = findSearchIndex(selection.from, matches);
-          return tr.setSelection(getSelectionForMatch(state, index, matches));
+          return tr.setSelection(
+            getSelectionForMatch(tr.selection, tr.doc, index, matches),
+          );
         }
         return tr;
       },
@@ -109,7 +111,7 @@ export const findNext = () =>
           searchIndex = nextIndex(searchIndex, matches.length);
         }
         return tr.setSelection(
-          getSelectionForMatch(state, searchIndex, matches),
+          getSelectionForMatch(tr.selection, tr.doc, searchIndex, matches),
         );
       },
     ),
@@ -130,7 +132,7 @@ export const findPrevious = () =>
           true,
         );
         return tr.setSelection(
-          getSelectionForMatch(state, searchIndex, matches),
+          getSelectionForMatch(tr.selection, tr.doc, searchIndex, matches),
         );
       },
     ),
@@ -215,7 +217,8 @@ export const replace = (replaceText: string) =>
           const newIndex = nextIndex(index, matches.length);
           tr.insertText(replaceText, start, end).setSelection(
             getSelectionForMatch(
-              state,
+              tr.selection,
+              tr.doc,
               newIndex,
               matches,
               newIndex === 0 ? 0 : replaceText.length - findText.length,

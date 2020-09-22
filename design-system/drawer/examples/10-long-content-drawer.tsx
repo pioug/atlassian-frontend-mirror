@@ -5,7 +5,7 @@ import { Component } from 'react';
 import { jsx } from '@emotion/core';
 import Lorem from 'react-lorem-component';
 
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
 
 import Drawer from '../src';
 

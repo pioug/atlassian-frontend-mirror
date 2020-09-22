@@ -18,11 +18,11 @@ export default class Toggle extends Component<StatefulProps, State> {
     size: 'regular',
     name: '',
     value: '',
-    isDefaultChecked: false,
+    defaultChecked: false,
   };
 
   state: State = {
-    isChecked: this.props.isDefaultChecked,
+    isChecked: this.props.defaultChecked,
   };
 
   onChange = (event: React.ChangeEvent<HTMLInputElement>) => {

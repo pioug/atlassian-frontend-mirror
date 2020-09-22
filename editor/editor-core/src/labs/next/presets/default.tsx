@@ -34,6 +34,7 @@ import quickInsertPlugin, {
 import selectionPlugin from '../../../plugins/selection';
 import codeBlockPlugin from '../../../plugins/code-block';
 import { CodeBlockOptions } from '../../../plugins/code-block/types';
+import { SelectionPluginOptions } from '../../../plugins/selection/types';
 // #endregion
 
 interface EditorPresetDefaultProps {
@@ -50,6 +51,7 @@ export type DefaultPresetPluginOptions = {
   annotationProviders?: AnnotationProviders;
   quickInsert?: QuickInsertPluginOptions;
   codeBlock?: CodeBlockOptions;
+  selection?: SelectionPluginOptions;
 };
 
 export function createDefaultPreset(
@@ -79,8 +81,8 @@ export function createDefaultPreset(
   preset.add(fakeTextCursorPlugin);
   preset.add(floatingToolbarPlugin);
   preset.add([featureFlagsContextPlugin, options.featureFlags || {}]);
-  preset.add(selectionPlugin);
-  preset.add([codeBlockPlugin, options.codeBlock || {}]);
+  preset.add([selectionPlugin, options.selection]);
+  preset.add([codeBlockPlugin, options.codeBlock]);
   return preset;
 }
 

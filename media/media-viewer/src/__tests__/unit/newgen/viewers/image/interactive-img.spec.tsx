@@ -1,7 +1,7 @@
 import React from 'react';
 import { ReactWrapper } from 'enzyme';
 import * as jsverify from 'jsverify';
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
 import {
   createMouseEvent,
   mountWithIntlContext,

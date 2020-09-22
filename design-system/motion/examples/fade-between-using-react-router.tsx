@@ -2,7 +2,7 @@
 import { jsx } from '@emotion/core';
 import { MemoryRouter, Route, Switch } from 'react-router-dom';
 
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
 import { ConfluenceIcon, JiraServiceDeskIcon } from '@atlaskit/logo';
 
 import { Block, Centered, RetryContainer } from '../examples-utils';

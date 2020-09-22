@@ -5,17 +5,19 @@ import { EditorState, NodeSelection, Transaction } from 'prosemirror-state';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { InputRuleWithHandler } from '../../utils/input-rules';
 import { GapCursorSelection, Side } from '../gap-cursor/selection';
-import { AnalyticsStep } from './analytics-step';
+import { AnalyticsStep } from '@atlaskit/adf-schema/steps';
 import { editorAnalyticsChannel } from './consts';
 import {
   AnalyticsEventPayloadWithChannel,
   AnalyticsEventPayload,
   ACTION,
   ACTION_SUBJECT,
+  TABLE_ACTION,
 } from './types';
 import { SELECTION_TYPE, SELECTION_POSITION } from './types/utils';
 import { analyticsPluginKey } from './plugin-key';
 import { HigherOrderCommand } from '../../types/command';
+import { fireAnalyticsEvent } from './fire-analytics-event';
 
 function getCreateUIAnalyticsEvent(
   editorState: EditorState,
@@ -112,6 +114,11 @@ export function findInsertLocation(state: EditorState): string {
   return parentNodeInfo ? parentNodeInfo.node.type.name : state.doc.type.name;
 }
 
+const actionsToIgnore: (ACTION | TABLE_ACTION)[] = [
+  ACTION.INVOKED,
+  ACTION.OPENED,
+];
+
 export function addAnalytics(
   state: EditorState,
   tr: Transaction,
@@ -125,13 +132,16 @@ export function addAnalytics(
     const { storedMarks } = tr;
     tr.step(
       new AnalyticsStep(
-        createAnalyticsEvent,
+        (payload: AnalyticsEventPayload, channel: string) => {
+          fireAnalyticsEvent(createAnalyticsEvent)({ payload, channel });
+        },
         [
           {
             payload,
             channel,
           },
         ],
+        actionsToIgnore,
         tr.selection.$from.pos, // We need to create the step based on a position, this prevent split history for relative changes.
       ),
     );
@@ -205,8 +215,9 @@ export function getAnalyticsEventsFromTransaction(
   tr: Transaction,
 ): AnalyticsEventPayloadWithChannel[] {
   return (tr.steps as Step[])
-    .filter<AnalyticsStep>(
-      (step: Step): step is AnalyticsStep => step instanceof AnalyticsStep,
+    .filter<AnalyticsStep<AnalyticsEventPayload>>(
+      (step: Step): step is AnalyticsStep<AnalyticsEventPayload> =>
+        step instanceof AnalyticsStep,
     )
     .reduce<AnalyticsEventPayloadWithChannel[]>(
       (acc, step) => [...acc, ...step.analyticsEvents],

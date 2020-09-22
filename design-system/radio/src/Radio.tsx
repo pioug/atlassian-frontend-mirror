@@ -1,160 +1,116 @@
-import React, { Component } from 'react';
+/** @jsx jsx */
+import { forwardRef, memo, Ref, useMemo } from 'react';
 
-import {
-  createAndFireEvent,
-  withAnalyticsContext,
-  withAnalyticsEvents,
-} from '@atlaskit/analytics-next';
+import { css, jsx } from '@emotion/core';
 
-import RadioIcon from './RadioIcon';
-import { Label, LabelText } from './styled/Radio';
-import { HiddenInput, RadioInputWrapper } from './styled/RadioInput';
+import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
+import { DN600, N80, N900 } from '@atlaskit/theme/colors';
+import GlobalTheme from '@atlaskit/theme/components';
+import { fontFamily as getFontFamily } from '@atlaskit/theme/constants';
+import { ThemeModes } from '@atlaskit/theme/types';
+
+import getRadioStyles from './styles';
 import { RadioProps } from './types';
 import { name as packageName, version as packageVersion } from './version.json';
 
-interface State {
-  isHovered: boolean;
-  isFocused: boolean;
-  isActive: boolean;
-  isMouseDown: boolean;
-}
+const fontFamily = getFontFamily();
 
-class Radio extends Component<RadioProps, State> {
-  static defaultProps = {
-    isDisabled: false,
-    isInvalid: false,
-    isChecked: false,
-  };
+const noop = () => {};
 
-  state: State = {
-    isHovered: false,
-    isFocused: false,
-    isActive: false,
-    isMouseDown: false,
-  };
+type InnerProps = RadioProps & {
+  mode: ThemeModes;
+};
 
-  onBlur: React.FocusEventHandler<HTMLInputElement> = event => {
-    this.setState({
-      // onBlur is called after onMouseDown if the checkbox was focused, however
-      // in this case on blur is called immediately after, and we need to check
-      // whether the mouse is down.
-      isActive: this.state.isMouseDown && this.state.isActive,
-      isFocused: false,
-    });
-    if (this.props.onBlur) {
-      this.props.onBlur(event);
-    }
-  };
+const RadioWithMode = forwardRef(function Radio(
+  props: InnerProps,
+  ref: Ref<HTMLInputElement>,
+) {
+  const {
+    ariaLabel,
+    isDisabled = false,
+    isRequired,
+    isInvalid = false,
+    isChecked = false,
+    label,
+    mode,
+    name,
+    onChange = noop,
+    value,
+    testId,
+    analyticsContext,
+    // events and all other input props
+    ...rest
+  } = props;
 
-  onFocus: React.FocusEventHandler<HTMLInputElement> = event => {
-    this.setState({ isFocused: true });
-    if (this.props.onFocus) {
-      this.props.onFocus(event);
-    }
-  };
+  const onChangeAnalytics = usePlatformLeafEventHandler({
+    fn: onChange,
+    action: 'changed',
+    analyticsData: analyticsContext,
+    componentName: 'radio',
+    packageName,
+    packageVersion,
+  });
 
-  onMouseLeave: React.MouseEventHandler = event => {
-    this.setState({ isActive: false, isHovered: false });
-    if (this.props.onMouseLeave) {
-      this.props.onMouseLeave(event);
-    }
-  };
+  const styles = useMemo(() => getRadioStyles(mode), [mode]);
 
-  onMouseEnter: React.MouseEventHandler = event => {
-    this.setState({ isHovered: true });
-    if (this.props.onMouseEnter) {
-      this.props.onMouseEnter(event);
-    }
-  };
+  return (
+    <label
+      data-testid={testId && `${testId}--radio-label`}
+      data-disabled={isDisabled ? 'true' : undefined}
+      css={css`
+        align-items: flex-start;
+        font-family: ${fontFamily};
+        color: ${mode === 'light' ? N900 : DN600};
+        display: flex;
+        position: relative;
+        /* Content box changes intended size of the input */
+        box-sizing: border-box;
+        &[data-disabled] {
+          color: ${N80};
+          cursor: not-allowed;
+        }
+      `}
+    >
+      <input
+        {...rest}
+        aria-label={ariaLabel}
+        checked={isChecked}
+        disabled={isDisabled}
+        name={name}
+        onChange={onChangeAnalytics}
+        required={isRequired}
+        type="radio"
+        value={value}
+        data-testid={testId && `${testId}--radio-input`}
+        // isInvalid is used in a nonstandard way so cannot
+        // use :invalid selector
+        data-invalid={isInvalid ? 'true' : undefined}
+        css={styles}
+        ref={ref}
+      />
+      {label ? (
+        <span
+          css={css`
+            padding: 2px 4px;
+          `}
+        >
+          {label}
+        </span>
+      ) : null}
+    </label>
+  );
+});
 
-  onMouseUp: React.MouseEventHandler = event => {
-    this.setState({ isActive: false, isMouseDown: false });
-    if (this.props.onMouseUp) {
-      this.props.onMouseUp(event);
-    }
-  };
-
-  onMouseDown: React.MouseEventHandler = event => {
-    this.setState({ isActive: true, isMouseDown: true });
-    if (this.props.onMouseDown) {
-      this.props.onMouseDown(event);
-    }
-  };
-
-  render() {
-    const {
-      ariaLabel,
-      isDisabled,
-      isRequired,
-      isInvalid,
-      isChecked,
-      label,
-      name,
-      onChange,
-      onInvalid,
-      value,
-      testId,
-      ...rest
-    } = this.props;
-    const { isFocused, isHovered, isActive } = this.state;
-
+const Radio = memo(
+  forwardRef(function Radio(props: RadioProps, ref: Ref<HTMLInputElement>) {
     return (
-      <Label
-        isDisabled={isDisabled}
-        onMouseDown={this.onMouseDown}
-        onMouseEnter={this.onMouseEnter}
-        onMouseLeave={this.onMouseLeave}
-        onMouseUp={this.onMouseUp}
-        data-testid={testId && `${testId}--radio-label`}
-      >
-        <RadioInputWrapper>
-          <HiddenInput
-            aria-label={ariaLabel}
-            checked={isChecked}
-            disabled={isDisabled}
-            name={name}
-            onChange={onChange}
-            onBlur={this.onBlur}
-            onInvalid={onInvalid}
-            onFocus={this.onFocus}
-            required={isRequired}
-            type="radio"
-            value={value}
-            {...rest}
-            data-testid={testId && `${testId}--hidden-radio`}
-          />
-          <RadioIcon
-            isActive={isActive}
-            isChecked={isChecked}
-            isDisabled={isDisabled}
-            isFocused={isFocused}
-            isHovered={isHovered}
-            isInvalid={isInvalid}
-          />
-        </RadioInputWrapper>
-        {label ? <LabelText>{label}</LabelText> : null}
-      </Label>
+      <GlobalTheme.Consumer>
+        {({ mode }: { mode: ThemeModes }) => (
+          <RadioWithMode {...props} ref={ref} mode={mode} />
+        )}
+      </GlobalTheme.Consumer>
     );
-  }
-}
-
-const createAndFireEventOnAtlaskit = createAndFireEvent('atlaskit');
-export { Radio as RadioWithoutAnalytics };
-
-export default withAnalyticsContext({
-  componentName: 'radio',
-  packageName,
-  packageVersion,
-})(
-  withAnalyticsEvents({
-    onChange: createAndFireEventOnAtlaskit({
-      action: 'changed',
-      actionSubject: 'radio',
-      attributes: {
-        componentName: 'radio',
-        packageName,
-        packageVersion,
-      },
-    }),
-  })(Radio),
+  }),
 );
+
+export default Radio;

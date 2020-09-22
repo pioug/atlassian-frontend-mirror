@@ -46,6 +46,9 @@ function traverseNode(
   if (newNode.content) {
     newNode.content = newNode.content.reduce<Array<ADFEntity>>(
       (acc, node, idx) => {
+        if (!node) {
+          return acc;
+        }
         const processedNode = traverseNode(
           node,
           { node: newNode, parent },

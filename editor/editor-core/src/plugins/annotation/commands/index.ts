@@ -33,6 +33,11 @@ export const updateInlineCommentResolvedState = (
   return createCommand(command);
 };
 
+export const closeComponent = (): Command =>
+  createCommand({
+    type: ACTIONS.CLOSE_COMPONENT,
+  });
+
 export const clearDirtyMark = (): Command =>
   createCommand({
     type: ACTIONS.INLINE_COMMENT_CLEAR_DIRTY_MARK,

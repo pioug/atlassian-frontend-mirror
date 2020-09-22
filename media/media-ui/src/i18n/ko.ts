@@ -21,6 +21,7 @@ export default {
   'fabric.media.annotate.tool.line.thickness': '선 두께',
   'fabric.media.annotate.tool.shape': '도형',
   'fabric.media.annotate.tool.text': '텍스트',
+  'fabric.media.archive': '보관',
   'fabric.media.audio': '오디오',
   'fabric.media.cancel': '취소',
   'fabric.media.cant_preview_file_type': '이 파일 유형은 미리 볼 수 없습니다.',
@@ -33,14 +34,17 @@ export default {
   'fabric.media.connect_link_account': '미리 보기에 연결',
   'fabric.media.connect_link_account_card_view': '연결',
   'fabric.media.connect_link_account_card_view_description':
-    'Atlassian 제품에 {context}을(를) 연결하여 링크 미리 보기를 향상하세요.',
+    '이 링크의 미리 보기를 표시하려면 {context} 계정을 연결하세요.',
   'fabric.media.connect_link_account_card_view_name': '{context} 계정 연결',
   'fabric.media.connect_to': '{name}에 연결',
   'fabric.media.could_not_load_editor': '이런! 편집기를 로드하지 못했습니다.',
   'fabric.media.could_not_save_image': '이런! 이미지를 저장하지 못했습니다',
+  'fabric.media.couldnt_generate_encrypted_entry_preview':
+    '암호화되었거나 비밀번호로 보호되는 파일은 미리 볼 수 없습니다.',
   'fabric.media.couldnt_generate_preview':
     '이 파일에 대한 미리보기를 생성할 수 없습니다.',
-  'fabric.media.couldnt_load_link': '문제가 있어 이 링크를 로드할 수 없습니다.',
+  'fabric.media.couldnt_load_link':
+    '알 수 없는 이유로 인해 이 링크를 로드할 수 없습니다.',
   'fabric.media.default_avatars': '기본 아바타',
   'fabric.media.disable_fullscreen': '전체 화면 비활성화',
   'fabric.media.document': '문서',
@@ -66,7 +70,7 @@ export default {
   'fabric.media.image_url_invalid_error':
     '이미지를 로드할 수 없습니다. URL이 유효하지 않습니다.',
   'fabric.media.insert_files': '{0, plural, other {파일 {0}개 삽입}}',
-  'fabric.media.invalid_permissions': '이 링크에 액세스할 수 없습니다.',
+  'fabric.media.invalid_permissions': '제한된 링크',
   'fabric.media.invalid_permissions_description':
     '이 미리 보기를 확인하려면 액세스를 요청하거나 다른 계정으로 시도해야 합니다.',
   'fabric.media.item_not_found_in_list':
@@ -80,7 +84,7 @@ export default {
     '"{query}"에 대한 검색 결과가 없습니다.',
   'fabric.media.no_pdf_artifacts': '이 파일에 대한 PDF 파일을 찾지 못했습니다.',
   'fabric.media.not_found_description':
-    'URL을 확인하고 편집해 보거나 다시 붙여넣으세요.',
+    '링크를 찾을 수 없습니다. URL을 확인하고 편집하거나 다시 붙여넣으세요.',
   'fabric.media.not_found_title': '죄송합니다. 이 링크를 찾을 수 없습니다.',
   'fabric.media.or': '또는',
   'fabric.media.pause': '일시 정지',

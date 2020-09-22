@@ -14,7 +14,6 @@ export const strong: MarkSpec = {
   group: FONT_STYLE,
   parseDOM: [
     { tag: 'strong' },
-
     // This works around a Google Docs misbehavior where
     // pasted content will be inexplicably wrapped in `<b>`
     // tags with a font-weight normal.
@@ -26,11 +25,15 @@ export const strong: MarkSpec = {
       },
     },
     {
-      style: 'font-weight',
-      getAttrs(value) {
+      tag: 'span',
+      getAttrs(node) {
+        const element = node as HTMLElement;
+        const { fontWeight } = element.style;
         return (
-          typeof value === 'string' &&
-          /^(bold(er)?|[5-9]\d{2,})$/.test(value) &&
+          typeof fontWeight === 'string' &&
+          (fontWeight === 'bold' ||
+            fontWeight === 'bolder' ||
+            /^(bold(er)?|[5-9]\d{2,})$/.test(fontWeight)) &&
           null
         );
       },

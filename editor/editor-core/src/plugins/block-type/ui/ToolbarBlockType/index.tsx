@@ -1,6 +1,6 @@
 import React from 'react';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
-import { akEditorMenuZIndex } from '@atlaskit/editor-common';
+import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles';
 
 import DropdownMenu from '../../../../ui/DropdownMenu';
 import { Separator, Wrapper, MenuWrapper } from '../../../../ui/styles';
@@ -139,30 +139,29 @@ class ToolbarBlockType extends React.PureComponent<
     } = this.props;
     const { currentBlockType, availableBlockTypes } = this.props.pluginState;
 
+    const items: MenuItem[] = availableBlockTypes.map((blockType, index) => {
+      const isActive = currentBlockType === blockType;
+      const Tag = (blockType.tagName || 'p') as keyof React.ReactHTML;
+
+      return {
+        content: (
+          <BlockTypeMenuItem tagName={Tag} selected={isActive}>
+            <Tag>{formatMessage(blockType.title)}</Tag>
+          </BlockTypeMenuItem>
+        ),
+        value: blockType,
+        key: `${blockType.name}-${index}`,
+        elemAfter: (
+          <KeyboardShortcut selected={isActive}>
+            {tooltip(findKeymapByDescription(blockType.title.defaultMessage))}
+          </KeyboardShortcut>
+        ),
+        isActive,
+      };
+    });
     return [
       {
-        items: availableBlockTypes.map((blockType, index) => {
-          const isActive = currentBlockType === blockType;
-          const Tag = (blockType.tagName || 'p') as keyof React.ReactHTML;
-
-          return {
-            content: (
-              <BlockTypeMenuItem tagName={Tag} selected={isActive}>
-                <Tag>{formatMessage(blockType.title)}</Tag>
-              </BlockTypeMenuItem>
-            ),
-            value: blockType,
-            key: `${blockType.name}-${index}`,
-            elemAfter: (
-              <KeyboardShortcut selected={isActive}>
-                {tooltip(
-                  findKeymapByDescription(blockType.title.defaultMessage),
-                )}
-              </KeyboardShortcut>
-            ),
-            isActive,
-          };
-        }),
+        items,
       },
     ];
   };

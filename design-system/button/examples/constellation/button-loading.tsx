@@ -1,9 +1,9 @@
 import React from 'react';
 
-import Button from '../../src';
+import { LoadingButton } from '../../src';
 
 export default () => (
-  <Button appearance="primary" isLoading>
+  <LoadingButton appearance="primary" isLoading>
     Loading button
-  </Button>
+  </LoadingButton>
 );

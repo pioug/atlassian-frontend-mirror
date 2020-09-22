@@ -72,15 +72,14 @@ const addItem = (start: number, end: number): AddItemTransactionCreator => ({
     return null;
   }
 
-  const where = $from.before($from.depth);
-
   if (!shouldBreakNode) {
-    tr.delete(where, $from.end($from.depth))
-      .replaceSelectionWith(
-        list.create({ localId: listLocalId }, [
-          item.create({ localId: itemLocalId }, content),
-        ]),
-      )
+    tr.replaceRangeWith(
+      $from.before(),
+      $from.after(),
+      list.create({ localId: listLocalId }, [
+        item.create({ localId: itemLocalId }, content),
+      ]),
+    )
       .delete(start + 1, end + 1)
       .setSelection(new TextSelection(tr.doc.resolve(start + 1)));
   } else {

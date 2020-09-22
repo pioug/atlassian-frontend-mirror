@@ -102,6 +102,7 @@ type BrowserFreezePayload = OperationalAEP<
     freezeTime: number;
     nodeSize: number;
     participants: number;
+    nodeCount?: Record<string, number>;
   },
   undefined
 >;
@@ -114,6 +115,7 @@ type SlowInputAEP = OperationalAEP<
     time: number;
     nodeSize: number;
     participants: number;
+    nodeCount?: Record<string, number>;
   },
   undefined
 >;
@@ -126,6 +128,7 @@ type InputPerfSamlingAEP = OperationalAEP<
     time: number;
     nodeSize: number;
     participants: number;
+    nodeCount?: Record<string, number>;
   },
   undefined
 >;

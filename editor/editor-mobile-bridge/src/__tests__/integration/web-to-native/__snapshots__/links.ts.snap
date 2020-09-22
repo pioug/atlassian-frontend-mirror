@@ -3,6 +3,14 @@
 exports[`currentSelection when cursor is on link 1`] = `
 Array [
   Object {
+    "bottom": -1,
+    "left": -1,
+    "right": -1,
+    "text": "",
+    "top": -1,
+    "url": "",
+  },
+  Object {
     "bottom": 53,
     "left": 16,
     "right": 16,
@@ -15,6 +23,14 @@ Array [
 
 exports[`currentSelection when cursor is selecting a link 1`] = `
 Array [
+  Object {
+    "bottom": -1,
+    "left": -1,
+    "right": -1,
+    "text": "",
+    "top": -1,
+    "url": "",
+  },
   Object {
     "bottom": 53,
     "left": 16,
@@ -108,6 +124,14 @@ Array [
 
 exports[`currentSelection when cursor is selecting text and link 1`] = `
 Array [
+  Object {
+    "bottom": -1,
+    "left": -1,
+    "right": -1,
+    "text": "",
+    "top": -1,
+    "url": "",
+  },
   Object {
     "bottom": 53,
     "left": 67.84375,
@@ -207,10 +231,29 @@ Array [
 ]
 `;
 
-exports[`currentSelection when no selection 1`] = `Array []`;
+exports[`currentSelection when no selection 1`] = `
+Array [
+  Object {
+    "bottom": -1,
+    "left": -1,
+    "right": -1,
+    "text": "",
+    "top": -1,
+    "url": "",
+  },
+]
+`;
 
 exports[`currentSelection when selection 1`] = `
 Array [
+  Object {
+    "bottom": -1,
+    "left": -1,
+    "right": -1,
+    "text": "",
+    "top": -1,
+    "url": "",
+  },
   Object {
     "bottom": -1,
     "left": -1,

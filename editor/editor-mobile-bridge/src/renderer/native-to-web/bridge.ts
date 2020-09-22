@@ -19,6 +19,7 @@ export interface AnnotationBridge {
   createAnnotationOnSelection(annotation: Serialized<AnnotationPayload>): void;
   highlightSelection(): void;
   cancelHighlight(): void;
+  deleteAnnotation(annotation: Serialized<AnnotationPayload>): void;
 }
 
 export interface TaskDecisionBridge {

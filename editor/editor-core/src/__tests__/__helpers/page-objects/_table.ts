@@ -20,6 +20,7 @@ import { animationFrame } from '../../__helpers/page-objects/_editor';
 import { retryUntilStablePosition } from '../../__helpers/page-objects/_toolbar';
 import { isVisualRegression } from '../utils';
 import { RESIZE_HANDLE_AREA_DECORATION_GAP } from '../../../plugins/table/types';
+import { TestPage, isPuppeteer } from './_types';
 
 export const tableSelectors = {
   contextualMenu: `.${ClassName.CONTEXTUAL_MENU_BUTTON}`,
@@ -56,7 +57,7 @@ export const tableSelectors = {
   topLeftCell: `table > tbody > tr:nth-child(2) > td:nth-child(1)`,
   wideState: `.ProseMirror table[data-layout="wide"]`,
   fullWidthState: `.ProseMirror table[data-layout="full-width"]`,
-  defaultState: `.ProseMirror table[data-layout="center"]`,
+  defaultState: `.ProseMirror table[data-layout="default"]`,
   fullWidthSelector: `div[aria-label="${messages.layoutFullWidth.defaultMessage}"]`,
   wideSelector: `div[aria-label="${messages.layoutWide.defaultMessage}"]`,
   defaultSelector: `div[aria-label="${messages.layoutFixedWidth.defaultMessage}"]`,
@@ -65,6 +66,7 @@ export const tableSelectors = {
   cellBackgroundText: 'Cell background',
   cellBackgroundSubmenuSelector: `.${ClassName.CONTEXTUAL_SUBMENU}`,
   floatingToolbar: '[aria-label*="Table floating controls"]',
+  tableColSelected: '.pm-table-column__selected',
 };
 // insert table from menu
 export const insertTable = async (page: any) => {
@@ -89,6 +91,15 @@ export const clickFirstCell = async (
       tableSelectors.floatingToolbar,
       1000,
     );
+    // Repeated clicks while waiting for stabilisation may result in a text
+    // selection if the click is above text.
+    // Here we remove the selection to avoid it impacting the VR snapshot.
+    await page.evaluate(() => {
+      const selection = window.getSelection();
+      if (selection && selection.type === 'Range') {
+        selection.removeAllRanges();
+      }
+    });
   } else {
     await page.waitForSelector(tableSelectors.topLeftCell);
     await page.click(tableSelectors.topLeftCell);
@@ -156,12 +167,17 @@ export const selectCellBackground = async ({
   await pressKeyDown(page, 'Shift');
   await page.click(lastCell);
   await pressKeyUp(page, 'Shift');
-  await page.waitForSelector(tableSelectors.selectedCell);
+  if (firstCell !== lastCell) {
+    await page.waitForSelector(tableSelectors.selectedCell);
+  }
   await animationFrame(page);
 
+  const rowIndex = Math.floor(colorIndex / 7) + 1;
+  const rowColorIndex = colorIndex % 7;
   const colorButtonSelector =
     tableSelectors.cellBackgroundSubmenuSelector +
-    ` div:nth-child(${colorIndex}) button`;
+    ` div:nth-child(${rowIndex})` +
+    ` div:nth-child(${rowColorIndex}) button`;
 
   await selectCellOption(page, tableSelectors.cellBackgroundText);
   await page.waitForSelector(colorButtonSelector);
@@ -498,3 +514,11 @@ export const selectColumn = select('column');
  * @param n This has `1` based index.
  */
 export const selectNumberedColumnRow = select('numbered');
+
+export const waitForNoTable = async (page: TestPage) => {
+  if (isPuppeteer(page)) {
+    await page.waitForSelector(tableSelectors.tableWrapper, { hidden: true });
+  } else {
+    await page.waitForSelector(tableSelectors.tableWrapper, undefined, true);
+  }
+};

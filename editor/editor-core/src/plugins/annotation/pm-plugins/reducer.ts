@@ -40,6 +40,11 @@ export default (
         dirtyAnnotations: false,
         annotations: {},
       };
+    case ACTIONS.CLOSE_COMPONENT:
+      return {
+        ...pluginState,
+        selectedAnnotations: [],
+      };
     case ACTIONS.ADD_INLINE_COMMENT:
       const updatedPluginState = getNewDraftState(
         pluginState,

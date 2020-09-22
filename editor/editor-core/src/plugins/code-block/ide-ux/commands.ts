@@ -12,7 +12,7 @@ import {
   ACTION_SUBJECT_ID,
   EVENT_TYPE,
   INPUT_METHOD,
-  INDENT_DIR,
+  INDENT_DIRECTION,
   INDENT_TYPE,
   ACTION_SUBJECT,
 } from '../../analytics';
@@ -53,7 +53,7 @@ export function indent(state: EditorState, dispatch?: CommandDispatch) {
         inputMethod: INPUT_METHOD.KEYBOARD,
         previousIndentationLevel: indentLevel,
         newIndentLevel: indentLevel + 1,
-        direction: INDENT_DIR.INDENT,
+        direction: INDENT_DIRECTION.INDENT,
         indentType: INDENT_TYPE.CODE_BLOCK,
       },
     });
@@ -98,7 +98,7 @@ export function outdent(state: EditorState, dispatch?: CommandDispatch) {
           inputMethod: INPUT_METHOD.KEYBOARD,
           previousIndentationLevel: indentLevel,
           newIndentLevel: indentLevel - 1,
-          direction: INDENT_DIR.OUTDENT,
+          direction: INDENT_DIRECTION.OUTDENT,
           indentType: INDENT_TYPE.CODE_BLOCK,
         },
       });

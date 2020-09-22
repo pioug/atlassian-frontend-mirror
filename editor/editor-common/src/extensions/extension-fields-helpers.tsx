@@ -43,7 +43,7 @@ async function getExtensionModuleField<K extends keyof ExtensionModuleFields>(
 export async function getCustomFieldResolver(
   manifest: ExtensionManifest,
   handlerLink: FieldHandlerLink,
-): Promise<CustomFieldResolver | undefined> {
+): Promise<CustomFieldResolver> {
   const handler = await getExtensionModuleField(
     manifest,
     'custom',

@@ -62,6 +62,53 @@ import {
 import { analyticsEventKey } from '../analytics/consts';
 import { EventDispatcher } from '../../event-dispatcher';
 
+const EMPTY: MentionDescription[] = [];
+
+export const mentionToTypeaheadItem = (
+  mention: MentionDescription,
+): TypeAheadItem => {
+  return {
+    title: mention.id,
+    render: ({ isSelected, onClick, onHover }) => (
+      <MentionItem
+        mention={mention}
+        selected={isSelected}
+        onMouseEnter={onHover}
+        onSelection={onClick}
+      />
+    ),
+    mention,
+  };
+};
+
+export function memoize<
+  ResultFn extends (mention: MentionDescription) => TypeAheadItem
+>(fn: ResultFn): { call: ResultFn; clear(): void } {
+  // Cache results here
+  const seen = new Map<string, TypeAheadItem>();
+
+  function memoized(mention: MentionDescription): TypeAheadItem {
+    // Check cache for hits
+    const hit = seen.get(mention.id);
+
+    if (hit) {
+      return hit;
+    }
+
+    // Generate new result and cache it
+    const result = fn(mention);
+    seen.set(mention.id, result);
+    return result;
+  }
+
+  return {
+    call: memoized as ResultFn,
+    clear: seen.clear.bind(seen),
+  };
+}
+
+const memoizedToItem = memoize(mentionToTypeaheadItem);
+
 const mentionsPlugin = (options?: MentionPluginOptions): EditorPlugin => {
   let sessionId = uuid();
   const fireEvent = <T extends AnalyticsEventPayload>(payload: T): void => {
@@ -189,6 +236,9 @@ const mentionsPlugin = (options?: MentionPluginOptions): EditorPlugin => {
           dispatch,
         ) {
           if (!prevActive && queryChanged && !tr.getMeta(analyticsPluginKey)) {
+            // Clear cache on first invoke to reduce memory leaks
+            memoizedToItem.clear();
+
             (dispatch as AnalyticsDispatch)(analyticsEventKey, {
               payload: {
                 action: ACTION.INVOKED,
@@ -202,7 +252,7 @@ const mentionsPlugin = (options?: MentionPluginOptions): EditorPlugin => {
 
           const pluginState = getMentionPluginState(state);
           const mentions =
-            !prevActive && queryChanged ? [] : pluginState.mentions || [];
+            !prevActive && queryChanged ? EMPTY : pluginState.mentions || EMPTY;
 
           const mentionContext = {
             ...pluginState.contextIdentifierProvider,
@@ -212,20 +262,7 @@ const mentionsPlugin = (options?: MentionPluginOptions): EditorPlugin => {
             pluginState.mentionProvider.filter(query || '', mentionContext);
           }
 
-          return mentions.map(
-            (mention: MentionDescription): TypeAheadItem => ({
-              title: mention.id,
-              render: ({ isSelected, onClick, onHover }) => (
-                <MentionItem
-                  mention={mention}
-                  selected={isSelected}
-                  onMouseEnter={onHover}
-                  onSelection={onClick}
-                />
-              ),
-              mention,
-            }),
-          );
+          return mentions.map(mention => memoizedToItem.call(mention));
         },
         selectItem(state, item, insert, { mode }) {
           const sanitizePrivateContent =

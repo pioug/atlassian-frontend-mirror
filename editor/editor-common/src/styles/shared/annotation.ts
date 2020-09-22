@@ -1,6 +1,6 @@
 import { css } from 'styled-components';
 
-import { Y200, Y75 } from '@atlaskit/theme/colors';
+import { Y300, Y75 } from '@atlaskit/theme/colors';
 
 export const annotationPrefix = 'ak-editor-annotation';
 export const AnnotationSharedClassNames = {
@@ -12,12 +12,12 @@ export const AnnotationSharedClassNames = {
 export const AnnotationSharedCSSByState = {
   focus: css`
     background: ${Y75};
-    border-bottom: 2px solid ${Y200};
+    border-bottom: 2px solid ${Y300};
     cursor: pointer;
   `,
   blur: css`
     background: rgba(255, 240, 179, 0.5); // Y75
-    border-bottom: 2px solid rgba(255, 196, 0, 0.5); // Y200
+    border-bottom: 2px solid rgba(255, 196, 0, 0.82); // Y200
     cursor: pointer;
   `,
 };

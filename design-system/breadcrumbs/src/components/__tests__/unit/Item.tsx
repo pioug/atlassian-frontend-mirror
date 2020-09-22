@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { mount, shallow } from 'enzyme';
 import ReactDOM from 'react-dom';
 
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
 import { AtlassianIcon } from '@atlaskit/logo';
 
 declare var global: any;

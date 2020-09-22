@@ -17,6 +17,7 @@ import {
   extensionHandlers as exampleExtensionHandlers,
   ExampleCreateInlineCommentComponent,
   ExampleViewInlineCommentComponent,
+  createEditorMediaMock,
 } from '@atlaskit/editor-test-helpers';
 import {
   JSONTransformer,
@@ -27,9 +28,10 @@ import ClipboardHelper from '../examples/1-clipboard-helper';
 import EditorActions from '../src/actions';
 import { withSidebarContainer } from './SidebarContainer';
 import quickInsertProviderFactory from './quick-insert-provider';
-import mediaMockServer from './media-mock';
+
 import { EditorProps } from '../src';
 
+const mediaMockServer = createEditorMediaMock();
 /**
  * Creates an example editor for VR or Integration tests.
  */

@@ -3,8 +3,8 @@ import { ComponentType } from 'react';
 
 import { css, jsx } from '@emotion/core';
 
-import Button, { ButtonAppearances } from '@atlaskit/button';
-import { ButtonProps } from '@atlaskit/button/types';
+import Button from '@atlaskit/button/custom-theme-button';
+import { CustomThemeButtonProps } from '@atlaskit/button/types';
 import { gridSize as getGridSize } from '@atlaskit/theme/constants';
 import { ThemeModes } from '@atlaskit/theme/types';
 
@@ -19,14 +19,14 @@ import { ActionsType, AppearanceTypes } from './types';
 type Props = {
   appearance: AppearanceTypes;
   actions: ActionsType;
-  linkComponent?: ComponentType<ButtonProps>;
+  linkComponent?: ComponentType<CustomThemeButtonProps>;
   mode: ThemeModes;
   testId?: string;
 };
 
 const gridSize = getGridSize();
 const separatorWidth = gridSize * 2;
-const defaultAppearanceTranslate = gridSize / 2;
+const defaultAppearanceTranslate = gridSize / 4;
 
 const FlagActions = (props: Props) => {
   const {
@@ -74,28 +74,28 @@ const FlagActions = (props: Props) => {
           onClick={action.onClick}
           href={action.href}
           target={action.target}
-          appearance={isBold ? (appearance as ButtonAppearances) : 'link'}
+          appearance={isBold ? 'default' : 'link'}
           component={linkComponent}
           spacing="compact"
           testId={action.testId}
           key={index}
           css={css`
-            &,
-            a& {
+            &&,
+            a&& {
               margin-left: ${index && isBold ? gridSize : 0}px;
               font-weight: 500;
               padding: 0 ${appearance === 'normal' ? 0 : gridSize}px !important;
               background: ${getActionBackground(appearance, mode)};
               color: ${getActionColor(appearance, mode)} !important;
             }
-            &:focus,
-            a&:focus {
+            &&:focus,
+            a&&:focus {
               box-shadow: 0 0 0 2px ${getFlagFocusRingColor(appearance, mode)};
             }
-            &:hover,
-            &:active,
-            a&:hover,
-            a&:active {
+            &&:hover,
+            &&:active,
+            a&&:hover,
+            a&&:active {
               text-decoration: underline;
             }
           `}

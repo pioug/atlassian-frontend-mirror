@@ -1,11 +1,12 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import Panel from '../../../../react/nodes/panel';
+import { PanelType } from '@atlaskit/adf-schema';
 
 describe('Renderer - React/Nodes/Panel', () => {
   describe('info', () => {
     const infoPanel = shallow(
-      <Panel panelType="info">This is a info panel</Panel>,
+      <Panel panelType={PanelType.INFO}>This is a info panel</Panel>,
     );
 
     it('should wrap content with <div>-tag', () => {
@@ -19,7 +20,7 @@ describe('Renderer - React/Nodes/Panel', () => {
 
   describe('note', () => {
     const notePanel = shallow(
-      <Panel panelType="note">This is a note panel</Panel>,
+      <Panel panelType={PanelType.NOTE}>This is a note panel</Panel>,
     );
 
     it('should wrap content with <div>-tag', () => {
@@ -33,7 +34,7 @@ describe('Renderer - React/Nodes/Panel', () => {
 
   describe('tip', () => {
     const tipPanel = shallow(
-      <Panel panelType="tip">This is a tip panel</Panel>,
+      <Panel panelType={PanelType.TIP}>This is a tip panel</Panel>,
     );
 
     it('should wrap content with <div>-tag', () => {
@@ -47,7 +48,7 @@ describe('Renderer - React/Nodes/Panel', () => {
 
   describe('warning', () => {
     const warningPanel = shallow(
-      <Panel panelType="warning">This is a warning panel</Panel>,
+      <Panel panelType={PanelType.WARNING}>This is a warning panel</Panel>,
     );
 
     it('should wrap content with <div>-tag', () => {

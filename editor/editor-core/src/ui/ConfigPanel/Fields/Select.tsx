@@ -1,19 +1,20 @@
 import React, { Fragment } from 'react';
 import { Field } from '@atlaskit/form';
 import Select, { ValueType } from '@atlaskit/select';
-import { EnumField, Option } from '@atlaskit/editor-common/extensions';
+import { EnumSelectField, Option } from '@atlaskit/editor-common/extensions';
 
 import FieldMessages from '../FieldMessages';
 import { validate, getOptionFromValue } from '../utils';
 import { OnBlur } from '../types';
 import { formatOptionLabel } from './SelectItem';
-export default function ({
+
+export default function SelectField({
   field,
   onBlur,
   autoFocus,
   placeholder,
 }: {
-  field: EnumField;
+  field: EnumSelectField;
   onBlur: OnBlur;
   autoFocus?: boolean;
   placeholder?: string;

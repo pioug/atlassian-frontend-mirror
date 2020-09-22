@@ -226,6 +226,7 @@ export const getToolbarConfig: FloatingToolbarHandler = (
                 }
                 return (
                   <HyperlinkAddToolbar
+                    view={view}
                     key={idx}
                     displayUrl={link}
                     displayText={displayText || ''}

@@ -1,5 +1,15 @@
 # @atlaskit/toggle
 
+## 11.0.0
+
+### Major Changes
+
+- [`6a46a07705`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6a46a07705) - isDefaultChecked prop renamed to defaultChecked in @atlaskit/toggle.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.0.4
 
 ### Patch Changes

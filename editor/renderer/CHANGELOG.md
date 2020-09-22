@@ -1,5 +1,43 @@
 # @atlaskit/renderer
 
+## 67.0.0
+
+### Major Changes
+
+- [`225c901919`](https://bitbucket.org/atlassian/atlassian-frontend/commits/225c901919) - ED-10351 add API to delete the annotation
+
+### Minor Changes
+
+- [`79fb301be8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/79fb301be8) - ED_9523 add tooltip for unsupported content
+- [`88922bed79`](https://bitbucket.org/atlassian/atlassian-frontend/commits/88922bed79) - ED-10173 added support of unsupportedNodeAttribute to renderer
+- [`0d610ee228`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0d610ee228) - Adjust copy link icon size depending on the Header size
+- [`c87260e582`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c87260e582) - ED-10071 localization support for renderer
+- [`64b147b2f5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/64b147b2f5) - ED-10408 updated image linking style for renderer
+- [`9a39500244`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9a39500244) - Bump ProseMirror packages
+
+  Read more: https://product-fabric.atlassian.net/wiki/spaces/E/pages/1671956531/2020-08
+
+### Patch Changes
+
+- [`0ac3eff13b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0ac3eff13b) - TWISTA-176 Added analytics for inline comments in renderer
+- [`e639f4a7c9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e639f4a7c9) - fix copy to clipboard button flickering
+- [`3e2b7316c8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3e2b7316c8) - Fix bug for Nested Header Links, inside a table header it does a table sort whenever you click the copy link
+- [`e0876d4a03`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e0876d4a03) - CSS fix to ensure consistency in image wrapping breaking to new line
+- [`29125844ca`](https://bitbucket.org/atlassian/atlassian-frontend/commits/29125844ca) - CEMS-1173: fix content clipping behind sticky header on 90% zoom
+- [`02ad57c335`](https://bitbucket.org/atlassian/atlassian-frontend/commits/02ad57c335) - Added theming and dark mode colors to the Expand node
+- [`a0a287e01f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a0a287e01f) - ED-8001 fix copy table in renderer on firefox.
+- [`d63f13033a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d63f13033a) - [ux] ED-10055 Enable visually persistent Heading Anchor Links for the mobile renderer.
+
+  - Refactors the `headingAnchorStyle` CSS styles relating to heading anchor links to remove hover effects by default.
+  - It now uses feature detection to apply the hover effects to systems which support hover (e.g. Desktop)
+  - Mobile uses the default styling resulting in always displays the link buttons.
+
+- [`78b192acc9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/78b192acc9) - ED-10169 Update imports for style constants from @atlaskit/editor-common to @atlaskit/editor-shared-styles
+- [`686aea926c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/686aea926c) - [ED-10294] Renderer: Style list items by absolute indentation level
+- [`9f21deb3bb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9f21deb3bb) - Adding theming support and dark mode colors to table cell backgrounds
+- [`efed95f82e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/efed95f82e) - [ux] TWISTA-366 disabled touch feedback on annotations
+- Updated dependencies
+
 ## 66.0.0
 
 ### Patch Changes

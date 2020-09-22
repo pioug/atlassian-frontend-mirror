@@ -3,10 +3,8 @@ import { getSelectionRect } from 'prosemirror-utils';
 import { EditorView } from 'prosemirror-view';
 
 import { CellAttributes, TableLayout } from '@atlaskit/adf-schema';
-import {
-  akEditorTableNumberColumnWidth,
-  tableCellMinWidth,
-} from '@atlaskit/editor-common';
+import { tableCellMinWidth } from '@atlaskit/editor-common';
+import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
 
 import { getParentNodeWidth } from '../../../../utils/node-width';
 import { pluginKey as editorDisabledPluginKey } from '../../../editor-disabled';
@@ -24,6 +22,13 @@ import {
   resizeColumn,
   updateControls,
 } from './utils';
+
+import {
+  ACTION_SUBJECT,
+  addAnalytics,
+  EVENT_TYPE,
+  TABLE_ACTION,
+} from '../../../analytics';
 
 export const handleMouseDown = (
   view: EditorView,
@@ -43,6 +48,8 @@ export const handleMouseDown = (
     return false;
   }
   event.preventDefault();
+
+  const mouseDownTime = event.timeStamp;
   const cell = state.doc.nodeAt(localResizeHandlePos);
   const $cell = state.doc.resolve(localResizeHandlePos);
   const originalTable = $cell.node(-1);
@@ -153,6 +160,22 @@ export const handleMouseDown = (
           resizingSelectedColumns ? selectedColumns : undefined,
         );
         tr = updateColumnWidths(newResizeState, table, start)(tr);
+        if (colIndex === map.width - 1) {
+          const mouseUpTime = event.timeStamp;
+
+          tr = addAnalytics(state, tr, {
+            action: TABLE_ACTION.ATTEMPTED_TABLE_WIDTH_CHANGE,
+            actionSubject: ACTION_SUBJECT.TABLE,
+            actionSubjectId: null,
+            attributes: {
+              type: 'table-border',
+              position: 'right',
+              duration: mouseUpTime - mouseDownTime,
+              delta: Math.abs(clientX - dragging.startX),
+            },
+            eventType: EVENT_TYPE.UI,
+          });
+        }
       }
 
       return stopResizing(tr)(state, dispatch);

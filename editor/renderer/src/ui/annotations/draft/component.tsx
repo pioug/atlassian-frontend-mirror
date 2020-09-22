@@ -10,6 +10,7 @@ import { AnnotationSharedCSSByState } from '@atlaskit/editor-common';
 const DraftAnnotation = styled.mark`
   color: inherit;
   background-color: unset;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
   ${AnnotationSharedCSSByState.focus};
 `;

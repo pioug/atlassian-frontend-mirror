@@ -18,7 +18,7 @@ import { nativeBridgeAPI as webToNativeBridgeAPI } from '../web-to-native/implem
 
 const updateEmitter = new AnnotationUpdateEmitter();
 const nativeToWebAPI = new RendererBridgeImplementation();
-const ViewComponent = createViewComponent();
+const ViewComponent = createViewComponent(nativeToWebAPI);
 const SelectionComponent = createSelectionComponent(nativeToWebAPI);
 
 const setAnnotationStateCallback = (payload?: AnnotationStatePayload[]) => {

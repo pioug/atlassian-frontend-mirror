@@ -3,11 +3,11 @@ import React, { HTMLAttributes } from 'react';
 import styled, { css } from 'styled-components';
 
 import { RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema';
-
 import {
   akEditorFullPageMaxWidth,
   akEditorFullWidthLayoutWidth,
-} from '../../styles';
+} from '@atlaskit/editor-shared-styles';
+
 import { calcBreakoutWidth, calcWideWidth } from '../../utils/breakout';
 
 function float(layout: MediaSingleLayout): string {

@@ -198,7 +198,6 @@ describe('LinkToolbarAppearance', () => {
         blockCard({
           url: 'http://www.atlassian.com/',
         })(),
-        p(),
       ),
     );
   });
@@ -239,7 +238,6 @@ describe('LinkToolbarAppearance', () => {
           blockCard({
             url: 'http://www.atlassian.com/',
           })(),
-          p(),
         ),
       ),
     );

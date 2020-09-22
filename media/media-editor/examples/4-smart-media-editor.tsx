@@ -1,5 +1,6 @@
 import React from 'react';
-import Button, { ButtonGroup } from '@atlaskit/button';
+import ButtonGroup from '@atlaskit/button/button-group';
+import Button from '@atlaskit/button/custom-theme-button';
 import { Card } from '@atlaskit/media-card';
 import {
   imageFileId,

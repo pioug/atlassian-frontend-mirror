@@ -1,6 +1,6 @@
 import { css } from 'styled-components';
 
-import { gridMediumMaxWidth } from '../consts';
+import { gridMediumMaxWidth } from '@atlaskit/editor-shared-styles';
 
 const columnLayoutSharedStyle = css`
   [data-layout-section] {

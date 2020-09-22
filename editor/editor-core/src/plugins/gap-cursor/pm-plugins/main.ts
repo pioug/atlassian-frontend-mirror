@@ -3,6 +3,7 @@ import { Decoration, DecorationSet, EditorView } from 'prosemirror-view';
 import { ResolvedPos } from 'prosemirror-model';
 import { findPositionOfNodeBefore } from 'prosemirror-utils';
 import { CellSelection } from 'prosemirror-tables';
+import { hideCaretModifier } from '../styles';
 import { GapCursorSelection, JSON_ID, Side } from '../selection';
 import { getBreakoutModeFromTargetNode, isIgnoredClick } from '../utils';
 import { toDOM } from '../utils/place-gap-cursor';
@@ -12,6 +13,31 @@ import { pluginKey } from './plugin-key';
 
 const plugin = new Plugin({
   key: pluginKey,
+  state: {
+    init: () => false,
+    apply: (_tr, _pluginState, _oldState, newState) => {
+      return newState.selection instanceof GapCursorSelection;
+    },
+  },
+  view: () => {
+    return {
+      update(view, state) {
+        const pluginState = pluginKey.getState(state);
+        /**
+         * Starting with prosemirror-view 1.19.4, cursor wrapper that previousely was hiding cursor doesn't exist:
+         * https://github.com/ProseMirror/prosemirror-view/commit/4a56bc7b7e61e96ef879d1dae1014ede0fc09e43
+         *
+         * Because it was causing issues with RTL: https://github.com/ProseMirror/prosemirror/issues/948
+         *
+         * This is the work around which uses `caret-color: transparent` in order to hide regular caret,
+         * when gap cursor is visible.
+         *
+         * Browser support is pretty good: https://caniuse.com/#feat=css-caret-color
+         */
+        view.dom.classList.toggle(hideCaretModifier, pluginState);
+      },
+    };
+  },
   props: {
     decorations: ({ doc, selection }: EditorState) => {
       if (selection instanceof GapCursorSelection) {

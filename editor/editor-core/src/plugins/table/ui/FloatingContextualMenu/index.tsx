@@ -10,10 +10,8 @@ import {
 import { EditorView } from 'prosemirror-view';
 import styled from 'styled-components';
 
-import {
-  akEditorFloatingOverlapPanelZIndex,
-  Popup,
-} from '@atlaskit/editor-common';
+import { Popup } from '@atlaskit/editor-common';
+import { akEditorFloatingOverlapPanelZIndex } from '@atlaskit/editor-shared-styles';
 
 import { getPluginState, pluginKey } from '../../pm-plugins/plugin-factory';
 import { PluginConfig } from '../../types';

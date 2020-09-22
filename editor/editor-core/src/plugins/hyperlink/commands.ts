@@ -224,6 +224,7 @@ export function editInsertedLink(): Command {
       dispatch(
         state.tr.setMeta(stateKey, {
           type: LinkAction.EDIT_INSERTED_TOOLBAR,
+          inputMethod: INPUT_METHOD.FLOATING_TB,
         }),
       );
     }
@@ -242,6 +243,7 @@ export function showLinkToolbar(
     if (dispatch) {
       let tr = state.tr.setMeta(stateKey, {
         type: LinkAction.SHOW_INSERT_TOOLBAR,
+        inputMethod,
       });
       tr = addAnalytics(state, tr, {
         action: ACTION.INVOKED,

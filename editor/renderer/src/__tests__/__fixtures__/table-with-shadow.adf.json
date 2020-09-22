@@ -5,7 +5,8 @@
     {
       "type": "table",
       "attrs": {
-        "isNumberColumnEnabled": false
+        "isNumberColumnEnabled": false,
+        "layout": "default"
       },
       "content": [
         {

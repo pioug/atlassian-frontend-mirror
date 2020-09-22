@@ -6,6 +6,7 @@ import { getVersion, sendableSteps } from 'prosemirror-collab';
 import { EditorState, Transaction } from 'prosemirror-state';
 import { Step, StepMap, Mapping } from 'prosemirror-transform';
 import throttle from 'lodash/throttle';
+import debounce from 'lodash/debounce';
 
 import { Emitter } from './emitter';
 import { Channel } from './channel';
@@ -16,6 +17,7 @@ import {
   StepsPayload,
   StepJson,
   TelepointerPayload,
+  TitlePayload,
 } from './types';
 
 import { createLogger, getParticipant } from './utils';
@@ -25,7 +27,9 @@ const logger = createLogger('Provider', 'yellow');
 const PARTICIPANT_UPDATE_INTERVAL = 300; // seconds
 const SEND_PRESENCE_INTERVAL = 150; // seconds
 const SEND_STEPS_THROTTLE = 0.1; // seconds
+const SEND_STEPS_DEBOUNCE = 0.2; // seconds
 const CATCHUP_THROTTLE = 1; // seconds
+const MAX_WAIT = 1000; // seconds
 
 /**
  * Rebase the steps based on the mapping pipeline.
@@ -102,10 +106,7 @@ export class Provider
       .on('participant:joined', this.onParticipantJoined)
       .on('participant:left', this.onParticipantLeft)
       .on('participant:updated', this.onParticipantUpdated)
-      .on('title:changed', ({ title }) => {
-        this.title = title;
-        this.emit('title:changed', { title });
-      })
+      .on('title:changed', this.onTitleChanged)
       .on('disconnect', this.onDisconnected)
       .connect();
 
@@ -122,14 +123,22 @@ export class Provider
     if (!tr.steps || !tr.steps.length) {
       return;
     }
-
-    this.throttledSend();
+    this.debouncedSend();
   }
 
   private throttledSend = throttle(
     () => this.sendSteps(this.getState!()),
     SEND_STEPS_THROTTLE * 1000,
     { leading: false, trailing: true },
+  );
+
+  /**
+   *  Introduced as a temp fix for CS-3100
+   */
+  private debouncedSend = debounce(
+    () => this.sendSteps(this.getState!()),
+    SEND_STEPS_DEBOUNCE * MAX_WAIT,
+    { leading: true, trailing: true, maxWait: MAX_WAIT },
   );
 
   private throttledCatchup = throttle(
@@ -146,14 +155,14 @@ export class Provider
       return;
     }
 
-    const { steps, version } = sendable;
+    const { steps } = sendable;
     this.channel.broadcast('steps:commit', {
       steps: steps.map(step => ({
         ...step.toJSON(),
         clientId: this.clientId!,
         userId: this.userId!,
       })),
-      version,
+      version: getVersion(state),
       userId: this.userId!,
     });
   }
@@ -183,7 +192,6 @@ export class Provider
       this.queueSteps(data);
       this.throttledCatchup();
     }
-
     this.updateParticipants(
       [],
       data.steps.map(({ userId }) => userId),
@@ -371,6 +379,17 @@ export class Provider
   };
 
   /**
+   * Call when editing in the title
+   * Don't emit events to the user who makes the modification
+   */
+  private onTitleChanged = ({ title, clientId }: TitlePayload) => {
+    if (title && this.title !== title && this.clientId !== clientId) {
+      this.title = title;
+      this.emit('title:changed', { title, clientId });
+    }
+  };
+
+  /**
    * Called when a participant leaves the session.
    *
    * We emit the `presence` event to update the active avatars in the editor.
@@ -536,7 +555,10 @@ export class Provider
     this.title = title;
 
     if (broadcast) {
-      this.channel.broadcast('title:changed', { title });
+      this.channel.broadcast('title:changed', {
+        title,
+        clientId: this.clientId!,
+      });
     }
   }
 

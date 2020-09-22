@@ -104,7 +104,6 @@ const ConnectionDemo = () => {
       <p>This story shows the transition between various flag appearances.</p>
       <RadioGroup
         options={boldAppearanceItems}
-        label="Pick your new flag appearance:"
         onChange={(e: SyntheticEvent<HTMLInputElement>) => {
           setAppearance(e.currentTarget.value as AppearanceTypes);
         }}

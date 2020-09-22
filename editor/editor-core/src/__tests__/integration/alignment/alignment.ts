@@ -8,7 +8,7 @@ import {
 import { messages } from '../../../plugins/block-type/messages';
 
 const alignButton = 'button[aria-label="Text alignment"]';
-const alignRightButton = 'span[aria-label="Align right"]';
+const alignRightButton = 'button[aria-label="Align right"]';
 const headingButton = 'button[aria-label="Font style"]';
 const headingh1 = 'div[role="group"] h1';
 
@@ -125,7 +125,8 @@ BrowserTestCase(
 
 BrowserTestCase(
   'alignment: should be able to add alignment to selected cells',
-  { skip: ['edge'] },
+  // @see ED-10292
+  { skip: ['edge', 'safari'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
     const CELL = 'tbody td:first-child';

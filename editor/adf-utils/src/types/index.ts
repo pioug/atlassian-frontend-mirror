@@ -6,7 +6,7 @@ export interface ADFEntityMark {
 export interface ADFEntity {
   type: string;
   attrs?: { [name: string]: any };
-  content?: Array<ADFEntity>;
+  content?: Array<ADFEntity | undefined>;
   marks?: Array<ADFEntityMark>;
   text?: string;
   [key: string]: any;

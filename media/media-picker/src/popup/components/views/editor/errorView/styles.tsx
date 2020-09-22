@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { N0, N900, N70 } from '@atlaskit/theme/colors';
-import Button, { ButtonProps } from '@atlaskit/button';
+import { CustomThemeButtonProps } from '@atlaskit/button/types';
+import Button from '@atlaskit/button/custom-theme-button';
 
 export const ErrorPopup: React.ComponentClass<React.HTMLAttributes<{}>> = styled.div`
   width: 290px;
@@ -35,7 +36,7 @@ export const ErrorHint: React.ComponentClass<React.HTMLAttributes<{}>> = styled.
   text-align: center;
 `;
 
-export const ErrorButton = (props: ButtonProps) => (
+export const ErrorButton = (props: CustomThemeButtonProps) => (
   <Button
     {...props}
     theme={(currentTheme: any, themeProps: any) => {

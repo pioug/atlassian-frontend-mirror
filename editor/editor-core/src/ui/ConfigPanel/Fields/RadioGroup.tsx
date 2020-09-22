@@ -2,17 +2,17 @@ import React, { Fragment } from 'react';
 
 import { Field } from '@atlaskit/form';
 import { RadioGroup } from '@atlaskit/radio';
-import { EnumField } from '@atlaskit/editor-common/extensions';
+import { EnumRadioField } from '@atlaskit/editor-common/extensions';
 
 import FieldMessages from '../FieldMessages';
 import { FieldTypeError, OnBlur } from '../types';
 import { validate } from '../utils';
 
-export default function ({
+export default function RadioField({
   field,
   onBlur,
 }: {
-  field: EnumField;
+  field: EnumRadioField;
   onBlur: OnBlur;
 }) {
   if (field.isMultiple) {

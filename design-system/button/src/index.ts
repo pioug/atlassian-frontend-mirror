@@ -1,4 +1,21 @@
-export { default } from './components/Button';
-export { ButtonAppearances, ButtonProps } from './types';
-export { default as ButtonGroup } from './components/ButtonGroup';
-export { Theme } from './theme';
+// Ideally this file is not used directly. But rather, you go through the entry points
+
+export { Appearance, Spacing } from './entry-points/types';
+export {
+  // default export is Button
+  default,
+  ButtonProps,
+} from './entry-points/standard-button';
+export {
+  default as LoadingButton,
+  LoadingButtonProps,
+} from './entry-points/loading-button';
+export {
+  ThemeTokens,
+  ThemeProps,
+  InteractionState,
+  CustomThemeButtonProps,
+  default as CustomThemeButton,
+  Theme,
+} from './entry-points/custom-theme-button';
+export { default as ButtonGroup } from './entry-points/button-group';

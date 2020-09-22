@@ -5,7 +5,8 @@ import { Component } from 'react';
 import styled from 'styled-components';
 
 import { R500, Y500, G500 } from '@atlaskit/theme/colors';
-import Button, { ButtonGroup } from '@atlaskit/button';
+import ButtonGroup from '@atlaskit/button/button-group';
+import Button from '@atlaskit/button/custom-theme-button';
 import { Skeleton } from '@atlaskit/icon';
 
 import Toolbar from '../src/plugins/floating-toolbar/ui/Toolbar';

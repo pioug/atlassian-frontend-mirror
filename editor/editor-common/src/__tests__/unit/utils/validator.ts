@@ -178,6 +178,21 @@ describe('Renderer - Validator', () => {
       });
     });
 
+    describe('panel', () => {
+      it('should pass through attrs', () => {
+        const attributes = {
+          panelType: 'info',
+        };
+        const { type, attrs } = getValidNode({
+          type: 'panel',
+          attrs: attributes,
+          content: [],
+        });
+        expect(type).toBe('panel');
+        expect(attrs).toStrictEqual(attributes);
+      });
+    });
+
     describe('status', () => {
       it('should pass through attrs', () => {
         const attributes = {

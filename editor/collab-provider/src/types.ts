@@ -38,6 +38,11 @@ export type StepsPayload = {
   steps: StepJson[];
 };
 
+export type TitlePayload = {
+  title: string;
+  clientId: string;
+};
+
 export type ChannelEvent = {
   connected: ConnectedPayload;
   init: InitPayload;
@@ -47,7 +52,7 @@ export type ChannelEvent = {
   'participant:updated': ParticipantPayload;
   'steps:commit': StepsPayload & { userId: string };
   'steps:added': StepsPayload;
-  'title:changed': { title: string };
+  'title:changed': TitlePayload;
   disconnect: { reason: string };
 };
 
@@ -65,7 +70,7 @@ export type CollabEvent = {
     userIds: string[];
   };
   'local-steps': { steps: Step[] };
-  'title:changed': { title: string };
+  'title:changed': TitlePayload;
 };
 
 export interface Storage {

@@ -4,10 +4,17 @@ import { setTextSelection } from 'prosemirror-utils';
 import { getCursor } from '../../../utils';
 import { filter } from '../../../utils/commands';
 import {
+  isCursorBeforeClosingCharacter,
+  isClosingCharacter,
+} from '../ide-ux/paired-character-handling';
+import {
   getAutoClosingBracketInfo,
-  isCursorBeforeClosingBracket,
-  isClosingBracket,
+  shouldAutoCloseBracket,
 } from '../ide-ux/bracket-handling';
+import {
+  getAutoClosingQuoteInfo,
+  shouldAutoCloseQuote,
+} from '../ide-ux/quote-handling';
 import {
   getEndOfCurrentLine,
   getStartOfCurrentLine,
@@ -31,10 +38,10 @@ export default new Plugin({
         const beforeText = getStartOfCurrentLine(state).text;
         const afterText = getEndOfCurrentLine(state).text;
 
-        // If text is a closing bracket and we've already inserted it, move the selection after.
+        // If text is a closing bracket/quote and we've already inserted it, move the selection after
         if (
-          isCursorBeforeClosingBracket(afterText) &&
-          isClosingBracket(text) &&
+          isCursorBeforeClosingCharacter(afterText) &&
+          isClosingCharacter(text) &&
           afterText.startsWith(text)
         ) {
           dispatch(setTextSelection(to + text.length)(state.tr));
@@ -42,15 +49,31 @@ export default new Plugin({
         }
 
         // Automatically add right-hand side bracket when user types the left bracket
-        const { left, right } = getAutoClosingBracketInfo(
-          beforeText + text,
-          afterText,
-        );
-        if (left && right) {
-          const bracketPair = state.schema.text(text + right);
-          let tr = state.tr.replaceWith(from, to, bracketPair);
-          dispatch(setTextSelection(from + text.length)(tr));
-          return true;
+        if (shouldAutoCloseBracket(beforeText, afterText)) {
+          const { left, right } = getAutoClosingBracketInfo(
+            beforeText + text,
+            afterText,
+          );
+          if (left && right) {
+            const bracketPair = state.schema.text(text + right);
+            let tr = state.tr.replaceWith(from, to, bracketPair);
+            dispatch(setTextSelection(from + text.length)(tr));
+            return true;
+          }
+        }
+
+        // Automatically add closing quote when user types a starting quote
+        if (shouldAutoCloseQuote(beforeText, afterText)) {
+          const {
+            left: leftQuote,
+            right: rightQuote,
+          } = getAutoClosingQuoteInfo(beforeText + text, afterText);
+          if (leftQuote && rightQuote) {
+            const quotePair = state.schema.text(text + rightQuote);
+            let tr = state.tr.replaceWith(from, to, quotePair);
+            dispatch(setTextSelection(from + text.length)(tr));
+            return true;
+          }
         }
       }
       return false;
@@ -63,19 +86,40 @@ export default new Plugin({
           const afterText = getEndOfCurrentLine(state).text;
 
           const {
-            left,
-            right,
+            left: leftBracket,
+            right: rightBracket,
             hasTrailingMatchingBracket,
           } = getAutoClosingBracketInfo(beforeText, afterText);
-          if (left && right && hasTrailingMatchingBracket && dispatch) {
+          if (
+            leftBracket &&
+            rightBracket &&
+            hasTrailingMatchingBracket &&
+            dispatch
+          ) {
             dispatch(
               state.tr.delete(
-                $cursor.pos - left.length,
-                $cursor.pos + right.length,
+                $cursor.pos - leftBracket.length,
+                $cursor.pos + rightBracket.length,
               ),
             );
             return true;
           }
+
+          const {
+            left: leftQuote,
+            right: rightQuote,
+            hasTrailingMatchingQuote,
+          } = getAutoClosingQuoteInfo(beforeText, afterText);
+          if (leftQuote && rightQuote && hasTrailingMatchingQuote && dispatch) {
+            dispatch(
+              state.tr.delete(
+                $cursor.pos - leftQuote.length,
+                $cursor.pos + rightQuote.length,
+              ),
+            );
+            return true;
+          }
+
           const {
             indentToken: { size, token },
             indentText,

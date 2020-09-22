@@ -1,5 +1,12 @@
 # @atlaskit/theme
 
+## 10.0.5
+
+### Patch Changes
+
+- [`e45be534ce`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e45be534ce) - [ux] Unwinding anchor style change in AltaskitThemeProvider. Restoring color: !important to button to deal with specificity wars
+- [`642a8a7735`](https://bitbucket.org/atlassian/atlassian-frontend/commits/642a8a7735) - [ux] `AtlaskitThemeProvider` (deprecated) applies a colour reset to anchor tags. This was impacting the colouring of `@atlaskit/button`. To go around specificity issues caused by `AtlaskitThemeProvider` in the past `@atlaskit/button` would apply a `!important` to it's `color` values. We have changed `AtlaskitThemeProvider` so that it will no longer impact the `color` values of `@atlaskit/button`
+
 ## 10.0.4
 
 ### Patch Changes

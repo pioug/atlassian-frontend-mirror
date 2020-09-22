@@ -4,6 +4,7 @@ import { createSchema } from './create-schema';
 export const bitbucketSchema: Schema = createSchema({
   nodes: [
     'doc',
+    'caption',
     'paragraph',
     'text',
     'bulletList',

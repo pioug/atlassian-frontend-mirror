@@ -6,6 +6,7 @@ export type MessageKey =
   | 'recent_uploads'
   | 'upload_file'
   | 'drag_and_drop_your_files'
+  | 'drag_and_drop_your_files_and_folders'
   | 'drop_your_files'
   | 'upload'
   | 'cancel'
@@ -127,6 +128,12 @@ export const messages = defineMessages<Messages>({
     defaultMessage: 'Drag and drop your files anywhere or',
     description:
       'Used to describe the area where the user can drag and drop files to upload',
+  },
+  drag_and_drop_your_files_and_folders: {
+    id: 'fabric.media.drag_and_drop_your_files',
+    defaultMessage: 'Drag and drop your files and folders anywhere or',
+    description:
+      'Used to describe the area where the user can drag and drop files AND folders to upload',
   },
   drop_your_files: {
     id: 'fabric.media.drop_your_files',

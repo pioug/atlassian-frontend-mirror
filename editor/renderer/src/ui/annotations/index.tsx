@@ -7,6 +7,7 @@ import { AnnotationsWrapperProps } from './types';
 import { ProvidersContext, InlineCommentsStateContext } from './context';
 import { useLoadAnnotations } from './hooks/use-load-annotations';
 import { useAnnotationStateByTypeEvent } from './hooks/use-events';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 
 const LoadAnnotations: React.FC<Record<
   'adfDocument',
@@ -27,15 +28,19 @@ export const AnnotationsWrapper: React.FC<AnnotationsWrapperProps> = props => {
     type: AnnotationTypes.INLINE_COMMENT,
     updateSubscriber: updateSubscriber || null,
   });
+  const { createAnalyticsEvent } = useAnalyticsEvents();
 
   return (
     <ProvidersContext.Provider value={annotationProvider}>
       <InlineCommentsStateContext.Provider
         value={inlineCommentAnnotationsState}
       >
-        <SelectionComponentWrapper rendererRef={rendererRef}>
+        <SelectionComponentWrapper
+          createAnalyticsEvent={createAnalyticsEvent}
+          rendererRef={rendererRef}
+        >
           <LoadAnnotations adfDocument={adfDocument} />
-          <AnnotationView />
+          <AnnotationView createAnalyticsEvent={createAnalyticsEvent} />
           {children}
         </SelectionComponentWrapper>
       </InlineCommentsStateContext.Provider>

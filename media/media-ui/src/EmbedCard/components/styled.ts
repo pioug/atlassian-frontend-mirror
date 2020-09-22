@@ -185,6 +185,9 @@ export interface ContentProps {
   isInteractive: boolean;
 }
 
+// NB: `overflow` is kept as `hidden` since
+// the internal contents of the `iframe` should
+// manage scrolling behaviour.
 export const Content = styled.div`
   position: relative;
 
@@ -195,7 +198,7 @@ export const Content = styled.div`
   z-index: 1;
   width: 100%;
   top: ${gridSize(4)};
-  overflow: auto;
+  overflow: hidden;
   height: calc(100% - ${gridSize(4)});
   transition: box-shadow 0.3s;
 

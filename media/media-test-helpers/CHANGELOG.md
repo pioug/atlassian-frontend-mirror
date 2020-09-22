@@ -1,5 +1,17 @@
 # @atlaskit/media-test-helpers
 
+## 28.2.0
+
+### Minor Changes
+
+- [`821e8edaf8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/821e8edaf8) - Make MediaMock ApiRouter more realistic + replace tall image testing
+- [`9c50fe8fd0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9c50fe8fd0) - Adding Browser integration tests that simulate a using dragging and dropping a folder
+- [`7d831363d9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7d831363d9) - Migrated to declarative entry points
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 28.1.4
 
 ### Patch Changes

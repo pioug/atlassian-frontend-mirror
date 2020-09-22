@@ -22,6 +22,7 @@ export default {
   'fabric.media.annotate.tool.line.thickness': 'ความหนาของเส้น',
   'fabric.media.annotate.tool.shape': 'รูปร่าง',
   'fabric.media.annotate.tool.text': 'ข้อความ',
+  'fabric.media.archive': 'เก็บ',
   'fabric.media.audio': 'เสียง',
   'fabric.media.cancel': 'ยกเลิก',
   'fabric.media.cant_preview_file_type':
@@ -36,16 +37,18 @@ export default {
   'fabric.media.connect_link_account': 'เชื่อมต่อเพื่อดูตัวอย่าง',
   'fabric.media.connect_link_account_card_view': 'เชื่อมต่อ',
   'fabric.media.connect_link_account_card_view_description':
-    'ปรับปรุงการแสดงตัวอย่างลิงก์ของคุณให้ดียิ่งขึ้นโดยการเชื่อมต่อ {context} ไปยังผลิตภัณฑ์ Atlassian ของคุณ',
+    'เพื่อแสดงตัวอย่างของลิงก์นี้ โปรดติดต่อบัญชี {context} ของคุณ',
   'fabric.media.connect_link_account_card_view_name':
     'เชื่อมต่อบัญชี {context} ของคุณ',
   'fabric.media.connect_to': 'เชื่อมต่อกับ {name}',
   'fabric.media.could_not_load_editor': 'โอ๊ะ! เราไม่สามารถโหลดโปรแกรมแก้ไขได้',
   'fabric.media.could_not_save_image': 'โอ๊ะ! เราไม่สามารถบันทึกรูปภาพได้',
+  'fabric.media.couldnt_generate_encrypted_entry_preview':
+    'เราไม่สามารถแสดงตัวอย่างไฟล์ที่เข้ารหัสหรือไฟล์ที่มีรหัสป้องกันไว้ได้',
   'fabric.media.couldnt_generate_preview':
     'เราไม่สามารถสร้างการแสดงตัวอย่างสำหรับไฟล์นี้ได้',
   'fabric.media.couldnt_load_link':
-    'เราไม่สามารถโหลดลิงก์นี้ได้ด้วยเหตุผลบางประการ',
+    'เราไม่สามารถโหลดลิงก์นี้ได้ด้วยเหตุผลที่ไม่อาจทราบได้',
   'fabric.media.default_avatars': 'รูปแทนตัวเริ่มต้น',
   'fabric.media.disable_fullscreen': 'ปิดใช้งานการแสดงเต็มหน้าจอ',
   'fabric.media.document': 'เอกสาร',
@@ -73,7 +76,7 @@ export default {
   'fabric.media.image_url_invalid_error':
     'ไม่สามารถโหลดรูปภาพได้ URL ไม่ถูกต้อง',
   'fabric.media.insert_files': '{0, plural, other {แทรกไฟล์ {0} ไฟล์}}',
-  'fabric.media.invalid_permissions': 'คุณไม่มีสิทธิ์การเข้าถึงลิงก์นี้',
+  'fabric.media.invalid_permissions': 'ลิงก์ที่จำกัด',
   'fabric.media.invalid_permissions_description':
     'คุณอาจจำเป็นต้องร้องขอสิทธิ์การเข้าถึงหรือลองบัญชีอื่นเพื่อดูการแสดงตัวอย่างนี้',
   'fabric.media.item_not_found_in_list': 'ไม่พบรายการที่เลือกในรายการ',
@@ -86,7 +89,7 @@ export default {
     'เราไม่พบผลลัพธ์ใด ๆ สำหรับ "{query}"',
   'fabric.media.no_pdf_artifacts': 'ไม่พบสิ่งที่สร้างขึ้นจาก PDF สำหรับไฟล์นี้',
   'fabric.media.not_found_description':
-    'ตรวจสอบ URL และลองแก้ไขหรือวางอีกครั้ง',
+    'เราไม่พบลิงก์ ตรวจสอบ URL และลองแก้ไขหรือวางอีกครั้ง',
   'fabric.media.not_found_title': 'โอ๊ะ โอ เราไม่พบลิงก์นี้!',
   'fabric.media.or': 'หรือ',
   'fabric.media.pause': 'หยุดชั่วคราว',

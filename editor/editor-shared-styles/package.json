@@ -1,0 +1,39 @@
+{
+  "name": "@atlaskit/editor-shared-styles",
+  "version": "1.1.0",
+  "description": "Style values used in the editor/renderer",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "author": "Atlassian Pty Ltd",
+  "license": "Apache-2.0",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "module:es2019": "dist/es2019/index.js",
+  "types": "dist/cjs/index.d.ts",
+  "sideEffects": false,
+  "atlaskit:src": "src/index.ts",
+  "atlassian": {
+    "team": "Editor",
+    "inPublicMirror": true,
+    "releaseModel": "scheduled"
+  },
+  "af:exports": {
+    "./consts": "./src/consts/index.ts",
+    "./selection": "./src/selection/index.ts"
+  },
+  "dependencies": {
+    "@atlaskit/theme": "^10.0.0"
+  },
+  "peerDependencies": {},
+  "devDependencies": {},
+  "techstack": {
+    "@atlassian/frontend": {
+      "circular-dependencies": [
+        "file-level"
+      ],
+      "import-structure": "atlassian-conventions"
+    }
+  }
+}

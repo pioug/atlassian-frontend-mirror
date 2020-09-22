@@ -1,5 +1,11 @@
 # @atlaskit/motion
 
+## 0.4.4
+
+### Patch Changes
+
+- [`02df8cde1d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/02df8cde1d) - Readme now points to the correct docs URL.
+
 ## 0.4.3
 
 ### Patch Changes

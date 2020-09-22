@@ -2,7 +2,8 @@
 import { jsx } from '@emotion/core';
 import { useState } from 'react';
 
-import Button, { ButtonAppearances } from '@atlaskit/button';
+import { Appearance } from '@atlaskit/button/types';
+import Button from '@atlaskit/button/custom-theme-button';
 import { ActionIcon } from './ActionIcon';
 
 export interface ActionProps {
@@ -13,7 +14,7 @@ export interface ActionProps {
   /* The function to be called on clicking the action. This is a promise so the state can transition correctly after the action finishes */
   promise: () => Promise<any>;
   /* The atlaskit button style to use in showing the action. This is the only button prop you have access to. */
-  buttonAppearance?: ButtonAppearances;
+  buttonAppearance?: Appearance;
 }
 
 export type ActionState = 'init' | 'loading' | 'success' | 'failure';

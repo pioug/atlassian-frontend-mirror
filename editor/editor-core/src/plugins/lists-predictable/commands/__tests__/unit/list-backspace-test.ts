@@ -123,8 +123,8 @@ describe('list-predictable-backspace', () => {
           expect.anything(),
           expect.anything(),
           {
-            action: ACTION.DELETED,
-            actionSubject: ACTION_SUBJECT.TEXT,
+            action: ACTION.LIST_ITEM_JOINED,
+            actionSubject: ACTION_SUBJECT.LIST,
             actionSubjectId: ACTION_SUBJECT_ID.FORMAT_LIST_BULLET,
             eventType: EVENT_TYPE.TRACK,
             attributes: {

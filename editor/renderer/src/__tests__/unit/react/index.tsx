@@ -10,10 +10,14 @@ import {
 import { Heading } from '../../../react/nodes';
 import { Expand } from '../../../react/nodes';
 import { Emoji } from '../../../react/nodes';
+import { LayoutColumn } from '../../../react/nodes';
+import { Panel } from '../../../react/nodes';
+import { Table } from '../../../react/nodes';
 
 import * as doc from '../../__fixtures__/hello-world.adf.json';
 import * as headingDoc from '../../__fixtures__/heading-doc.adf.json';
 import * as nestedHeadingsDoc from '../../__fixtures__/nested-headings-adf.json';
+import * as nestedHeadingsWithPanelLayoutTableDoc from '../../__fixtures__/nested-headings-adf-panel-layout-table.json';
 import * as mediaFragment from '../../__fixtures__/media-fragment.json';
 import * as mediaGroupFragment from '../../__fixtures__/media-group-fragment.json';
 import * as linkDoc from '../../__fixtures__/links.adf.json';
@@ -25,6 +29,9 @@ import { Node as PMNode } from 'prosemirror-model';
 const docFromSchema = schema.nodeFromJSON(doc);
 const headingDocFromSchema = schema.nodeFromJSON(headingDoc);
 const nestedHeadingsDocFromSchema = schema.nodeFromJSON(nestedHeadingsDoc);
+const nestedHeadingsWithPanelLayoutTableDocFromSchema = schema.nodeFromJSON(
+  nestedHeadingsWithPanelLayoutTableDoc,
+);
 const linksDocFromSchema = schema.nodeFromJSON(linkDoc);
 
 const getMedia = (wrapper: ReactWrapper<any, any, any>) => {
@@ -101,7 +108,7 @@ describe('Renderer - ReactSerializer', () => {
         };
         const unsupportBlockNode = schema.nodeFromJSON(unsupportedBlockJSON);
         const reactSerializer = new ReactSerializer({});
-        const reactDoc = mount(
+        const reactDoc = mountWithIntl(
           reactSerializer.serializeFragment(unsupportBlockNode.content) as any,
         );
         const unsupportedBlock = reactDoc.find('UnsupportedBlockNode');
@@ -127,7 +134,7 @@ describe('Renderer - ReactSerializer', () => {
         };
         const unsupportInlineNode = schema.nodeFromJSON(unsupportedInlineJSON);
         const reactSerializer = new ReactSerializer({});
-        const reactDoc = mount(
+        const reactDoc = mountWithIntl(
           reactSerializer.serializeFragment(unsupportInlineNode.content) as any,
         );
         const unsupportedInline = reactDoc.find('UnsupportedInlineNode');
@@ -577,6 +584,74 @@ describe('Renderer - ReactSerializer', () => {
         expect(expands.at(0).prop('nestedHeaderIds')).toBeUndefined();
         expect(expands.at(1).prop('nestedHeaderIds')).toBeUndefined();
         expect(expands.at(2).prop('nestedHeaderIds')).toBeUndefined();
+      });
+    });
+
+    describe('NHAL: Inside a table, layout, or panel', () => {
+      const reactSerializer = new ReactSerializer({
+        allowHeadingAnchorLinks: {
+          allowNestedHeaderLinks: true,
+        },
+      });
+      const reactDoc = mountWithIntl(
+        reactSerializer.serializeFragment(
+          nestedHeadingsWithPanelLayoutTableDocFromSchema.content,
+        ) as any,
+      );
+
+      it('should have a heading anchor within a table', () => {
+        const tableWithHeadingAnchor = reactDoc
+          .find(Table)
+          .find('HeadingAnchor');
+        expect(tableWithHeadingAnchor).toBeDefined();
+      });
+
+      it('should have heading anchor within a layout', () => {
+        const layoutWithHeadingAnchor = reactDoc
+          .find(LayoutColumn)
+          .find('HeadingAnchor');
+        expect(layoutWithHeadingAnchor).toBeDefined();
+      });
+
+      it('should have heading anchor within a panel', () => {
+        const panelWithHeadingAnchor = reactDoc
+          .find(Panel)
+          .find('HeadingAnchor');
+        expect(panelWithHeadingAnchor).toBeDefined();
+      });
+    });
+
+    describe('Legacy: Inside a table, layout, or panel', () => {
+      const reactSerializer = new ReactSerializer({
+        allowHeadingAnchorLinks: {
+          allowNestedHeaderLinks: false,
+        },
+      });
+      const reactDoc = mountWithIntl(
+        reactSerializer.serializeFragment(
+          nestedHeadingsWithPanelLayoutTableDocFromSchema.content,
+        ) as any,
+      );
+
+      it('should not have a heading anchor within a table', () => {
+        const tableWithHeadingAnchor = reactDoc
+          .find(Table)
+          .find('HeadingAnchor');
+        expect(tableWithHeadingAnchor.length).toBe(0);
+      });
+
+      it('should have heading anchor within a layout', () => {
+        const layoutWithHeadingAnchor = reactDoc
+          .find(LayoutColumn)
+          .find('HeadingAnchor');
+        expect(layoutWithHeadingAnchor.length).toBe(2); // we've got the legacy support this already
+      });
+
+      it('should not have heading anchor within a panel', () => {
+        const panelWithHeadingAnchor = reactDoc
+          .find(Panel)
+          .find('HeadingAnchor');
+        expect(panelWithHeadingAnchor.length).toBe(0);
       });
     });
   });

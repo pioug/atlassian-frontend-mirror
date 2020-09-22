@@ -7,30 +7,27 @@ import { SelectionInlineCommentMounter } from '../../mounter';
 import { Position } from '../../../types';
 import { ApplyAnnotation } from '../../../../../actions/index';
 import * as DraftMock from '../../../draft';
+import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
+import {
+  ACTION,
+  ACTION_SUBJECT,
+  EVENT_TYPE,
+  ACTION_SUBJECT_ID,
+} from '../../../../../analytics/enums';
 jest.mock('../../../draft');
-
-let container: HTMLElement | null;
-let createRangeMock: jest.SpyInstance;
-beforeEach(() => {
-  container = document.createElement('div');
-  document.body.appendChild(container);
-  createRangeMock = jest.spyOn(document, 'createRange');
-  createRangeMock.mockImplementation(() => {
-    return new Range();
-  });
-});
-
-afterEach(() => {
-  document.body.removeChild(container!);
-  container = null;
-  createRangeMock.mockRestore();
-});
 
 describe('Annotations: SelectionInlineCommentMounter', () => {
   const fakeApplyAnotation: jest.Mock = jest.fn();
+  const fakeOnCloseProp: jest.Mock = jest.fn();
+  const fakeClearAnnotationDraft: jest.Mock = jest.fn();
+  const fakeCreateAnalyticsEvent = createAnalyticsEventMock();
+  let container: HTMLElement | null;
+  let createRangeMock: jest.SpyInstance;
+  let onCloseCallback: Function = () => {};
 
   const renderMounter = (
     fakeDocumentPosition: Position = { from: 0, to: 10 },
+    isAnnotationAllowed = true,
   ) => {
     const wrapperDOM = { current: container } as React.RefObject<
       HTMLDivElement
@@ -40,6 +37,7 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
 
     const DummyComponent = (props: InlineCommentSelectionComponentProps) => {
       onCreateCallback = props.onCreate;
+      onCloseCallback = props.onClose;
       applyDraftModeCallback = props.applyDraftMode;
       return <span data-dummy>dummy</span>;
     };
@@ -48,22 +46,33 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
       <SelectionInlineCommentMounter
         range={document.createRange()}
         wrapperDOM={wrapperDOM}
-        onClose={jest.fn()}
+        onClose={fakeOnCloseProp}
         component={DummyComponent}
         documentPosition={fakeDocumentPosition}
-        isAnnotationAllowed={true}
+        isAnnotationAllowed={isAnnotationAllowed}
         applyAnnotation={fakeApplyAnotation as ApplyAnnotation}
         applyAnnotationDraftAt={jest.fn()}
-        clearAnnotationDraft={jest.fn()}
+        createAnalyticsEvent={fakeCreateAnalyticsEvent}
+        clearAnnotationDraft={fakeClearAnnotationDraft}
       />,
       container,
     );
-
-    return [onCreateCallback, applyDraftModeCallback];
+    return { onCreateCallback, applyDraftModeCallback, onCloseCallback };
   };
 
   beforeEach(() => {
-    fakeApplyAnotation.mockReset();
+    container = document.createElement('div');
+    document.body.appendChild(container);
+    createRangeMock = jest.spyOn(document, 'createRange');
+    createRangeMock.mockImplementation(() => {
+      return new Range();
+    });
+  });
+
+  afterEach(() => {
+    document.body.removeChild(container!);
+    container = null;
+    jest.clearAllMocks();
   });
 
   describe('on mounting', () => {
@@ -85,8 +94,8 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
     });
 
     describe('when keepNativeSelection is true', () => {
-      it('should remove the native selection in the next animation frame', done => {
-        const [, applyDraftModeCallback] = renderMounter();
+      it('should update the native selection in the next animation frame', done => {
+        const { applyDraftModeCallback } = renderMounter();
 
         expect(
           DraftMock.updateWindowSelectionAroundDraft,
@@ -112,7 +121,7 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
           removeAllRanges: removeAllRangesMock,
         });
 
-        const [, applyDraftModeCallback] = renderMounter();
+        const { applyDraftModeCallback } = renderMounter();
 
         act(() => {
           applyDraftModeCallback(false);
@@ -130,7 +139,7 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
     describe('and when the document position changes', () => {
       it('should create the annotation in the previous draft position', () => {
         const fakeDocumentPosition = { from: 0, to: 10 };
-        const [onCreateCallback, applyDraftModeCallback] = renderMounter(
+        const { onCreateCallback, applyDraftModeCallback } = renderMounter(
           fakeDocumentPosition,
         );
 
@@ -153,13 +162,43 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
         );
       });
     });
+
+    it('sends annotation opened analytics event', () => {
+      const { applyDraftModeCallback } = renderMounter();
+      act(() => {
+        applyDraftModeCallback(true);
+      });
+      expect(fakeCreateAnalyticsEvent).toHaveBeenCalledWith({
+        action: ACTION.OPENED,
+        actionSubject: ACTION_SUBJECT.ANNOTATION,
+        actionSubjectId: ACTION_SUBJECT_ID.INLINE_COMMENT,
+        eventType: EVENT_TYPE.TRACK,
+        attributes: {
+          overlap: 0,
+        },
+      });
+    });
+
+    it('sends create not allowed analytics event when annotation is not allowed', () => {
+      const { applyDraftModeCallback } = renderMounter(undefined, false);
+      act(() => {
+        applyDraftModeCallback(true);
+      });
+      expect(fakeCreateAnalyticsEvent).toHaveBeenCalledWith({
+        action: ACTION.CREATE_NOT_ALLOWED,
+        actionSubject: ACTION_SUBJECT.ANNOTATION,
+        actionSubjectId: ACTION_SUBJECT_ID.INLINE_COMMENT,
+        attributes: {},
+        eventType: EVENT_TYPE.TRACK,
+      });
+    });
   });
 
   describe('onCreate', () => {
     describe('when the position is valid', () => {
       it('should call applyAnnotation method', () => {
         const fakeDocumentPosition = { from: 0, to: 10 };
-        const [onCreateCallback] = renderMounter(fakeDocumentPosition);
+        const { onCreateCallback } = renderMounter(fakeDocumentPosition);
 
         const fakeAnnotation = {
           annotationId: 'annotationId',
@@ -172,6 +211,47 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
           fakeDocumentPosition,
           fakeAnnotation,
         );
+      });
+
+      it('sends insert analytics event', () => {
+        const fakeDocumentPosition = { from: 0, to: 10 };
+        const { onCreateCallback } = renderMounter(fakeDocumentPosition);
+        onCreateCallback('annotationId');
+
+        expect(fakeCreateAnalyticsEvent).toHaveBeenCalledWith({
+          action: ACTION.INSERTED,
+          actionSubject: ACTION_SUBJECT.ANNOTATION,
+          actionSubjectId: ACTION_SUBJECT_ID.INLINE_COMMENT,
+          attributes: {},
+          eventType: EVENT_TYPE.TRACK,
+        });
+      });
+    });
+  });
+
+  describe('onClose', () => {
+    let onCloseCallback: Function;
+    beforeEach(() => {
+      const fakeDocumentPosition = { from: 0, to: 10 };
+      onCloseCallback = renderMounter(fakeDocumentPosition).onCloseCallback;
+
+      act(() => {
+        onCloseCallback();
+      });
+    });
+
+    it('clears draft annotation', () => {
+      expect(fakeOnCloseProp).toHaveBeenCalled();
+      expect(fakeClearAnnotationDraft).toHaveBeenCalled();
+    });
+
+    it('calls on annotation close analytics event', () => {
+      expect(fakeCreateAnalyticsEvent).toHaveBeenCalledWith({
+        action: ACTION.CLOSED,
+        actionSubject: ACTION_SUBJECT.ANNOTATION,
+        actionSubjectId: ACTION_SUBJECT_ID.INLINE_COMMENT,
+        eventType: EVENT_TYPE.TRACK,
+        attributes: {},
       });
     });
   });

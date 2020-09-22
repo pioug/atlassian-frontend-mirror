@@ -1,5 +1,6 @@
 import React from 'react';
-import Tag from '../src';
+
+import Tag from '../src/tag/removable-tag';
 
 const cupcakeipsum =
   'Croissant topping tiramisu gummi bears. Bonbon chocolate bar danish soufflé';
@@ -7,7 +8,7 @@ const cupcakeipsum =
 export default () => (
   <Tag
     text={cupcakeipsum}
-    removeButtonText="No sweets for you!"
+    removeButtonLabel="No sweets for you!"
     href="http://www.cupcakeipsum.com/"
   />
 );

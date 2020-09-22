@@ -9,7 +9,7 @@ import ModalDialog, {
 } from '@atlaskit/modal-dialog';
 
 import EditorCloseIcon from '@atlaskit/icon/glyph/editor/close';
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
 import { gridSize as gridSizeFn } from '@atlaskit/theme/constants';
 import { N40A, N30A, N900 } from '@atlaskit/theme/colors';
 

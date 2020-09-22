@@ -1,7 +1,9 @@
 import { EditorState } from 'prosemirror-state';
 
+import { AnnotationTypes } from '@atlaskit/adf-schema';
 import sampleSchema from '@atlaskit/editor-test-helpers/schema';
 import {
+  annotation,
   code_block,
   doc,
   emoji,
@@ -15,7 +17,10 @@ import {
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { setSelectionTransform } from '@atlaskit/editor-test-helpers/set-selection-transform';
 
-import { canApplyAnnotationOnRange } from '../../index';
+import {
+  canApplyAnnotationOnRange,
+  getAnnotationIdsFromRange,
+} from '../../index';
 
 function createEditorState(documentNode: RefsNode) {
   const myState = EditorState.create({
@@ -180,6 +185,74 @@ describe('annotation', () => {
             schema,
           ),
         ).toBe(expected);
+      });
+    });
+  });
+
+  describe('#getAnnotationIdsFromRange', () => {
+    [
+      {
+        test: 'returns all nested ids when cursor is inside nested annotations',
+        doc: doc(
+          p(
+            'hello ',
+            annotation({
+              annotationType: AnnotationTypes.INLINE_COMMENT,
+              id: 'second',
+            })(
+              annotation({
+                annotationType: AnnotationTypes.INLINE_COMMENT,
+                id: 'first',
+              })('dou{<>}ble'),
+            ),
+            annotation({
+              annotationType: AnnotationTypes.INLINE_COMMENT,
+              id: 'first',
+            })('single'),
+            'world',
+          ),
+        ),
+        expected: ['first', 'second'],
+      },
+      {
+        test: 'returns annotation ids when selection is across it',
+        doc: doc(
+          p(
+            'hello ',
+            annotation({
+              annotationType: AnnotationTypes.INLINE_COMMENT,
+              id: 'first',
+            })('si{<}ngle'),
+            'world{>}',
+          ),
+        ),
+        expected: ['first'],
+      },
+      {
+        test: 'returns empty array when no annotations in selection',
+        doc: doc(p('{<}hello{>}')),
+        expected: [],
+      },
+      {
+        test: 'returns empty array there is no selection',
+        doc: doc(p('hello')),
+        expected: [],
+      },
+    ].forEach(({ test, doc: testDoc, expected }) => {
+      it(test, () => {
+        const { selection, doc: docNode, schema } = createEditorState(
+          testDoc(sampleSchema),
+        );
+        expect(
+          getAnnotationIdsFromRange(
+            {
+              from: selection.from,
+              to: selection.to,
+            },
+            docNode,
+            schema,
+          ),
+        ).toStrictEqual(expected);
       });
     });
   });

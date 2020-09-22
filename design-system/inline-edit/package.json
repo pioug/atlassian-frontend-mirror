@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/inline-edit",
-  "version": "11.0.3",
+  "version": "11.0.4",
   "description": "A base component used to build inline-editable components that match the Atlassian Design Guidelines",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -25,8 +25,8 @@
     }
   },
   "dependencies": {
-    "@atlaskit/analytics-next": "^7.0.0",
-    "@atlaskit/button": "^14.0.0",
+    "@atlaskit/analytics-next": "^7.1.0",
+    "@atlaskit/button": "^15.0.0",
     "@atlaskit/form": "^8.1.0",
     "@atlaskit/icon": "^21.0.0",
     "@atlaskit/inline-dialog": "^13.0.0",
@@ -44,7 +44,7 @@
     "@atlaskit/docs": "*",
     "@atlaskit/select": "^13.0.0",
     "@atlaskit/ssr": "*",
-    "@atlaskit/tag": "^10.0.0",
+    "@atlaskit/tag": "^11.0.0",
     "@atlaskit/tag-group": "^10.0.0",
     "@atlaskit/textarea": "^3.0.0",
     "@atlaskit/visual-regression": "*",

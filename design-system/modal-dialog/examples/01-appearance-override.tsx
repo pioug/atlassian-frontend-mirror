@@ -2,7 +2,7 @@ import React from 'react';
 
 import Lorem from 'react-lorem-component';
 
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
 
 import Modal, { ActionProps, ModalTransition } from '../src';
 

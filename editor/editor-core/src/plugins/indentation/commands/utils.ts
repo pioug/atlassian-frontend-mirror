@@ -2,7 +2,7 @@ import { IndentationMarkAttributes } from '@atlaskit/adf-schema';
 import {
   addAnalytics,
   INDENT_TYPE,
-  INDENT_DIR,
+  INDENT_DIRECTION,
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
@@ -17,7 +17,7 @@ import { GetAttrsChange } from '../../../utils/getAttrsWithChangesRecorder';
 export type PrevAttributes = IndentationMarkAttributes | undefined;
 export type NewAttributes = IndentationMarkAttributes | undefined | false;
 export type IndentationChangesOptions = {
-  direction: INDENT_DIR;
+  direction: INDENT_DIRECTION;
 };
 
 const indentTypes: Record<string, string> = {

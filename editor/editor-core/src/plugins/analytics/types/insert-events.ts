@@ -6,14 +6,7 @@ import {
   INPUT_METHOD,
 } from './enums';
 import { InsertSmartLinkAEP } from './smart-links';
-
-export enum PANEL_TYPE {
-  INFO = 'info',
-  SUCCESS = 'success',
-  NOTE = 'note',
-  WARNING = 'warning',
-  ERROR = 'error',
-}
+import { PanelType } from '@atlaskit/adf-schema';
 
 export enum USER_CONTEXT {
   EDIT = 'edit',
@@ -77,12 +70,7 @@ type InsertPanelAEP = InsertAEP<
       | INPUT_METHOD.QUICK_INSERT
       | INPUT_METHOD.TOOLBAR
       | INPUT_METHOD.INSERT_MENU;
-    panelType:
-      | PANEL_TYPE.ERROR
-      | PANEL_TYPE.INFO
-      | PANEL_TYPE.NOTE
-      | PANEL_TYPE.SUCCESS
-      | PANEL_TYPE.WARNING;
+    panelType: PanelType;
   },
   undefined
 >;

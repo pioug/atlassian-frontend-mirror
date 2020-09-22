@@ -6,7 +6,7 @@ import {
   defaultMediaPickerCollectionName,
   mediaPickerAuthProvider,
 } from '@atlaskit/media-test-helpers';
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
 import DropdownMenu, { DropdownItem } from '@atlaskit/dropdown-menu';
 import { PopupHeader, PopupContainer } from '../example-helpers/styled';
 import { UploadPreviews } from '../example-helpers/upload-previews';

@@ -59,7 +59,7 @@ export const handlePresence = (
 export const applyRemoteData = (
   remoteData: CollabEventRemoteData,
   view: EditorView,
-  options?: PrivateCollabEditOptions,
+  options: PrivateCollabEditOptions,
 ) => {
   const { json, userIds = [] } = remoteData;
   if (json) {

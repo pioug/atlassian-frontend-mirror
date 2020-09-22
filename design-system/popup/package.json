@@ -38,11 +38,11 @@
   },
   "devDependencies": {
     "@atlaskit/build-utils": "*",
-    "@atlaskit/button": "^14.0.0",
+    "@atlaskit/button": "^15.0.0",
     "@atlaskit/docs": "*",
     "@atlaskit/icon": "^21.0.0",
     "@atlaskit/menu": "^0.6.0",
-    "@atlaskit/radio": "^4.0.0",
+    "@atlaskit/radio": "^5.0.0",
     "@atlaskit/select": "^13.0.0",
     "@atlaskit/spinner": "^15.0.0",
     "@atlaskit/ssr": "*",

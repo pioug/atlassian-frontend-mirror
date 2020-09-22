@@ -1,6 +1,7 @@
 import React, { FC, SyntheticEvent } from 'react';
 
-import Button, { ButtonProps } from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
+import { CustomThemeButtonProps } from '@atlaskit/button/types';
 import { gridSize } from '@atlaskit/theme/constants';
 
 export type NavigatorPropsType = {
@@ -19,7 +20,7 @@ export type NavigatorPropsType = {
   component?: React.ElementType<any>;
 };
 
-const Navigator: FC<ButtonProps> = props => (
+const Navigator: FC<CustomThemeButtonProps> = props => (
   <Button
     {...props}
     appearance="subtle"

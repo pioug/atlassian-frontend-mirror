@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
 import styled from 'styled-components';
 import { MediaStore } from '../src';
 import { createUploadMediaClient } from '@atlaskit/media-test-helpers';

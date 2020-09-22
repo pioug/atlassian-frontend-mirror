@@ -9,9 +9,15 @@ export interface NameProps {
   isLeftPadded?: boolean;
   testId?: string;
   children?: React.ReactNode;
+  textColor?: string;
 }
 
-export const Name = ({ name, isLeftPadded = true, testId }: NameProps) => (
+export const Name = ({
+  name,
+  isLeftPadded = true,
+  testId,
+  textColor,
+}: NameProps) => (
   <span
     css={{
       fontSize: `${fontSize()}px`,
@@ -25,6 +31,7 @@ export const Name = ({ name, isLeftPadded = true, testId }: NameProps) => (
       wordBreak: 'break-word',
       WebkitLineClamp: 2,
       WebkitBoxOrient: 'vertical',
+      color: textColor ? textColor : 'inherit',
       // Fallback options.
       maxHeight: gs(6),
     }}

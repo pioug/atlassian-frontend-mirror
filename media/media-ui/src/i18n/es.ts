@@ -21,6 +21,7 @@ export default {
   'fabric.media.annotate.tool.line.thickness': 'Grosor de la línea',
   'fabric.media.annotate.tool.shape': 'Forma',
   'fabric.media.annotate.tool.text': 'Texto',
+  'fabric.media.archive': 'archivar',
   'fabric.media.audio': 'audio',
   'fabric.media.cancel': 'Cancelar',
   'fabric.media.cant_preview_file_type':
@@ -36,7 +37,7 @@ export default {
   'fabric.media.connect_link_account': 'Conectar para obtener vista previa',
   'fabric.media.connect_link_account_card_view': 'Conectar',
   'fabric.media.connect_link_account_card_view_description':
-    'Enriquece la vista previa de tus enlaces conectando {context} a tus productos de Atlassian.',
+    'Para mostrar una vista previa de este enlace, conecta tu cuenta de {context}.',
   'fabric.media.connect_link_account_card_view_name':
     'Conecta tu cuenta de {context}',
   'fabric.media.connect_to': 'Conectarse a {name}',
@@ -44,10 +45,12 @@ export default {
     '¡Qué pena! No hemos podido cargar el editor',
   'fabric.media.could_not_save_image':
     '¡Qué pena! No hemos podido guardar la imagen',
+  'fabric.media.couldnt_generate_encrypted_entry_preview':
+    'No podemos mostrar vistas previas de archivos cifrados o protegidos con contraseña.',
   'fabric.media.couldnt_generate_preview':
     'No hemos podido generar la previsualización de este archivo.',
   'fabric.media.couldnt_load_link':
-    'Por algún motivo, no se ha podido cargar este enlace.',
+    'Por algún motivo que desconocemos, no hemos podido cargar este enlace.',
   'fabric.media.default_avatars': 'Avatares predeterminados',
   'fabric.media.disable_fullscreen': 'desactivar pantalla completa',
   'fabric.media.document': 'documento',
@@ -77,7 +80,7 @@ export default {
     'No se pudo cargar la imagen porque la URL no es válida.',
   'fabric.media.insert_files':
     '{0, plural, one {Insertar {0} archivo} other {Insertar {0} archivos}}',
-  'fabric.media.invalid_permissions': 'No tienes acceso a este enlace',
+  'fabric.media.invalid_permissions': 'Enlace restringido',
   'fabric.media.invalid_permissions_description':
     'Deberás solicitar el acceso o probar con otra cuenta para obtener esta vista previa.',
   'fabric.media.item_not_found_in_list':
@@ -92,7 +95,7 @@ export default {
   'fabric.media.no_pdf_artifacts':
     'No se han encontrado artefactos de PDF en este archivo.',
   'fabric.media.not_found_description':
-    'Comprueba la URL y prueba a editarla, o pégala de nuevo.',
+    'No hemos encontrado el enlace. Comprueba la URL y prueba a editarla, o pégala de nuevo.',
   'fabric.media.not_found_title': '¡Vaya! No encontramos este enlace',
   'fabric.media.or': 'o',
   'fabric.media.pause': 'pausar',

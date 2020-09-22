@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { EditorView } from 'prosemirror-view';
 import { Node } from 'prosemirror-model';
 
-import { ButtonGroup } from '@atlaskit/button';
+import ButtonGroup from '@atlaskit/button/button-group';
 import { ProviderFactory } from '@atlaskit/editor-common';
 import { themed } from '@atlaskit/theme/components';
 import { borderRadius, gridSize } from '@atlaskit/theme/constants';

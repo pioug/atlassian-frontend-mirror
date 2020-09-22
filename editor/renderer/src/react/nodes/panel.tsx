@@ -8,6 +8,7 @@ import NoteIcon from '@atlaskit/icon/glyph/editor/note';
 import WarningIcon from '@atlaskit/icon/glyph/warning';
 import { PanelType } from '@atlaskit/adf-schema';
 import { PanelSharedCssClassName } from '@atlaskit/editor-common';
+import EmojiIcon from '@atlaskit/icon/glyph/editor/emoji';
 
 export interface Props {
   panelType: PanelType;
@@ -20,6 +21,7 @@ const panelIcons = {
   tip: TipIcon,
   warning: WarningIcon,
   error: ErrorIcon,
+  custom: EmojiIcon,
 };
 
 export default class Panel extends PureComponent<Props, {}> {

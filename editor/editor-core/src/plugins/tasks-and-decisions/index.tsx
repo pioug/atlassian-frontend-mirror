@@ -20,7 +20,7 @@ import { getListTypes, insertTaskDecisionWithAnalytics } from './commands';
 import inputRulePlugin from './pm-plugins/input-rules';
 import keymap from './pm-plugins/keymaps';
 import { createPlugin } from './pm-plugins/main';
-import { TaskDecisionListType } from './types';
+import { TaskDecisionListType, TaskDecisionPluginOptions } from './types';
 import ToolbarDecision from './ui/ToolbarDecision';
 import ToolbarTask from './ui/ToolbarTask';
 
@@ -60,10 +60,8 @@ const quickInsertItem = (
 const tasksAndDecisionsPlugin = ({
   allowNestedTasks,
   consumeTabs,
-}: {
-  allowNestedTasks?: boolean;
-  consumeTabs?: boolean;
-} = {}): EditorPlugin => ({
+  useLongPressSelection,
+}: TaskDecisionPluginOptions = {}): EditorPlugin => ({
   name: 'taskDecision',
   nodes() {
     return [
@@ -92,6 +90,7 @@ const tasksAndDecisionsPlugin = ({
             eventDispatcher,
             providerFactory,
             dispatch,
+            useLongPressSelection,
           );
         },
       },

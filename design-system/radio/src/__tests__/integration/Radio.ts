@@ -7,7 +7,7 @@ const exampleUrl = getExampleUrl('design-system', 'radio', 'testing');
 
 /* Css selectors used for the test */
 const labelQuery = "[data-testid='red--radio-label']";
-const inputQuery = "[data-testid='red--hidden-radio']";
+const inputQuery = "[data-testid='red--radio-input']";
 
 BrowserTestCase(
   'Radio should be able to be clicked by data-testid',

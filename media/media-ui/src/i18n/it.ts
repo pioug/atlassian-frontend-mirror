@@ -21,6 +21,7 @@ export default {
   'fabric.media.annotate.tool.line.thickness': 'Spessore linea',
   'fabric.media.annotate.tool.shape': 'Forma',
   'fabric.media.annotate.tool.text': 'Testo',
+  'fabric.media.archive': 'archivia',
   'fabric.media.audio': 'audio',
   'fabric.media.cancel': 'Annulla',
   'fabric.media.cant_preview_file_type':
@@ -36,7 +37,7 @@ export default {
   'fabric.media.connect_link_account': 'Connetti ad anteprima',
   'fabric.media.connect_link_account_card_view': 'Collega',
   'fabric.media.connect_link_account_card_view_description':
-    'Arricchisci le anteprime dei tuoi link collegando {context} ai tuoi prodotti Atlassian.',
+    "Per visualizzare un'anteprima di questo link, connetti il tuo account {context}.",
   'fabric.media.connect_link_account_card_view_name':
     'Connetti il tuo account {context}',
   'fabric.media.connect_to': 'Collegati a {name}',
@@ -44,10 +45,12 @@ export default {
     'Ahi, non siamo riusciti a caricare l’editor',
   'fabric.media.could_not_save_image':
     'Ahi, non siamo riusciti a salvare l’immagine',
+  'fabric.media.couldnt_generate_encrypted_entry_preview':
+    'Non possiamo visualizzare in anteprima file crittografati o protetti da password.',
   'fabric.media.couldnt_generate_preview':
     'Non siamo riusciti a generare un’anteprima per questo file.',
   'fabric.media.couldnt_load_link':
-    'Per qualche motivo non è stato possibile caricare questo link.',
+    'Non è stato possibile caricare questo link per un motivo sconosciuto.',
   'fabric.media.default_avatars': 'Avatar predefiniti',
   'fabric.media.disable_fullscreen': 'disattiva schermo intero',
   'fabric.media.document': 'documento',
@@ -75,7 +78,7 @@ export default {
     "Non è stato possibile caricare l'immagine, l'url non è valido.",
   'fabric.media.insert_files':
     '{0, plural, one {Inserisci {0} file} other {Inserisci {0} file}}',
-  'fabric.media.invalid_permissions': 'Non hai accesso a questo link',
+  'fabric.media.invalid_permissions': 'Link con restrizioni',
   'fabric.media.invalid_permissions_description':
     "Per visualizzare quest'anteprima devi richiedere l'accesso o provare con un altro account.",
   'fabric.media.item_not_found_in_list':
@@ -89,7 +92,7 @@ export default {
     'Non sono stati trovati risultati per “{query}”',
   'fabric.media.no_pdf_artifacts': 'Nessun PDF trovato per questo file.',
   'fabric.media.not_found_description':
-    "Controlla l'URL e prova a modificarlo o a incollarlo di nuovo.",
+    "Non è stato possibile trovare il link. Controlla l'URL e prova a modificarlo o a incollarlo di nuovo.",
   'fabric.media.not_found_title': 'Errore. Impossibile trovare questo link.',
   'fabric.media.or': 'o',
   'fabric.media.pause': 'pausa',

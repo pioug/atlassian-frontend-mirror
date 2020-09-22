@@ -1,8 +1,8 @@
 import { ReactNode } from 'react';
 
-import { ButtonProps } from '@atlaskit/button';
+import { CustomThemeButtonProps } from '@atlaskit/button/types';
 
-interface Action extends Omit<ButtonProps, 'children'> {
+interface Action extends Omit<CustomThemeButtonProps, 'children'> {
   key?: string;
   text?: ReactNode;
 }

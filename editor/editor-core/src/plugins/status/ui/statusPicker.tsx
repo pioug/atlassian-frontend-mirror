@@ -6,7 +6,8 @@ import {
   CreateUIAnalyticsEvent,
   withAnalyticsEvents,
 } from '@atlaskit/analytics-next';
-import { akEditorFloatingDialogZIndex, Popup } from '@atlaskit/editor-common';
+import { Popup } from '@atlaskit/editor-common';
+import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles';
 import {
   StatusPicker as AkStatusPicker,
   ColorType as Color,

@@ -496,7 +496,7 @@
                             {
                               "type": "inlineCard",
                               "attrs": {
-                                "url": "https://inlineCardTestUrl"
+                                "url": "https://inlineCardTestUrl/1"
                               }
                             }
                           ]
@@ -512,7 +512,7 @@
                             {
                               "type": "inlineCard",
                               "attrs": {
-                                "url": "https://inlineCardTestUrl"
+                                "url": "https://inlineCardTestUrl/2"
                               }
                             }
                           ]
@@ -533,7 +533,7 @@
                     {
                       "type": "inlineCard",
                       "attrs": {
-                        "url": "https://inlineCardTestUrl"
+                        "url": "https://inlineCardTestUrl/3"
                       }
                     }
                   ]
@@ -550,7 +550,7 @@
                     {
                       "type": "inlineCard",
                       "attrs": {
-                        "url": "https://inlineCardTestUrl"
+                        "url": "https://inlineCardTestUrl/4"
                       }
                     }
                   ]
@@ -567,7 +567,7 @@
                     {
                       "type": "inlineCard",
                       "attrs": {
-                        "url": "https://inlineCardTestUrl"
+                        "url": "https://inlineCardTestUrl/5"
                       }
                     }
                   ]
@@ -584,7 +584,7 @@
         {
           "type": "inlineCard",
           "attrs": {
-            "url": "https://inlineCardTestUrl"
+            "url": "https://inlineCardTestUrl/6"
           }
         },
         {

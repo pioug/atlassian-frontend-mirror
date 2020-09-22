@@ -60,9 +60,6 @@ Object {
       ],
       "type": "mediaGroup",
     },
-    Object {
-      "type": "paragraph",
-    },
   ],
   "type": "doc",
 }

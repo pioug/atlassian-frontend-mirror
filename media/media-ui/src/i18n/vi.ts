@@ -21,6 +21,7 @@ export default {
   'fabric.media.annotate.tool.line.thickness': 'Độ dày đường nét',
   'fabric.media.annotate.tool.shape': 'Hình dạng',
   'fabric.media.annotate.tool.text': 'Văn bản',
+  'fabric.media.archive': 'lưu trữ',
   'fabric.media.audio': 'âm thanh',
   'fabric.media.cancel': 'Hủy',
   'fabric.media.cant_preview_file_type':
@@ -36,17 +37,19 @@ export default {
   'fabric.media.connect_link_account': 'Kết nối để xem trước',
   'fabric.media.connect_link_account_card_view': 'Kết nối',
   'fabric.media.connect_link_account_card_view_description':
-    'Làm phong phú các bản xem trước liên kết của bạn bằng cách kết nối {context} với sản phẩm Atlassian của bạn.',
+    'Để hiển thị bản xem trước của đường liên kết này, hãy kết nối tài khoản {context} của bạn.',
   'fabric.media.connect_link_account_card_view_name':
     'Kết nối tài khoản {context} của bạn',
   'fabric.media.connect_to': 'Kết nối với {name}',
   'fabric.media.could_not_load_editor':
     'Ối! Chúng tôi không thể tải trình chỉnh sửa',
   'fabric.media.could_not_save_image': 'Ối! Chúng tôi không thể lưu hình ảnh',
+  'fabric.media.couldnt_generate_encrypted_entry_preview':
+    'Chúng tôi không thể xem trước các tệp được mã hóa hoặc được bảo vệ bằng mật khẩu.',
   'fabric.media.couldnt_generate_preview':
     'Chúng tôi không thể tạo bản xem trước cho tệp này.',
   'fabric.media.couldnt_load_link':
-    'Chúng tôi không thể tải liên kết này vì một số lý do.',
+    'Chúng tôi không thể tải đường liên kết này vì một lý do không xác định.',
   'fabric.media.default_avatars': 'Ảnh đại diện mặc định',
   'fabric.media.disable_fullscreen': 'tắt chức năng toàn màn hình',
   'fabric.media.document': 'tài liệu',
@@ -74,8 +77,7 @@ export default {
   'fabric.media.image_url_invalid_error':
     'Không thể tải hình ảnh, url không hợp lệ.',
   'fabric.media.insert_files': '{0, plural, other {Chèn {0} tệp}}',
-  'fabric.media.invalid_permissions':
-    'Bạn không có quyền truy cập vào liên kết này',
+  'fabric.media.invalid_permissions': 'Đường liên kết bị hạn chế',
   'fabric.media.invalid_permissions_description':
     'Bạn cần có quyền truy cập hoặc thử một tài khoản khác để xem bản xem trước này.',
   'fabric.media.item_not_found_in_list':
@@ -89,7 +91,7 @@ export default {
     'Chúng tôi không thể tìm thấy bất kỳ thứ gì cho "{query}"',
   'fabric.media.no_pdf_artifacts': 'Không tìm thấy bản PDF cho tệp này.',
   'fabric.media.not_found_description':
-    'Kiểm tra url và thử chỉnh sửa hoặc dán lại.',
+    'Chúng tôi không thể tìm thấy đường liên kết này. Hãy kiểm tra url và thử chỉnh sửa hoặc dán lại.',
   'fabric.media.not_found_title':
     'Ôi! Chúng tôi không thể tìm thấy liên kết này!',
   'fabric.media.or': 'hoặc',

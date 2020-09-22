@@ -5,6 +5,7 @@ export interface MediaFeatureFlags {
   newCardExperience?: boolean;
   zipPreviews?: boolean;
   captions?: boolean;
+  folderUploads?: boolean;
 }
 
 // default values defined here, not necessary for components to know directly as they should use the function below
@@ -12,6 +13,7 @@ export const defaultMediaFeatureFlags: MediaFeatureFlags = {
   newCardExperience: false,
   zipPreviews: false,
   captions: false,
+  folderUploads: false,
 };
 
 /**

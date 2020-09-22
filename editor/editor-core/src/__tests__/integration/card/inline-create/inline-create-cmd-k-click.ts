@@ -5,7 +5,6 @@ import {
   editable,
   gotoEditor,
   linkUrlSelector,
-  linkRecentList,
   insertLongText,
 } from '../../_helpers';
 import { messages } from '../../../../plugins/insert-block/ui/ToolbarInsertBlock/messages';
@@ -14,8 +13,7 @@ import { messages } from '../../../../plugins/insert-block/ui/ToolbarInsertBlock
 BrowserTestCase(
   `card: selecting a link from CMD + K menu should create an inline card with click`,
   {
-    // to fix safari skip: https://product-fabric.atlassian.net/browse/EDM-1160
-    skip: ['edge', 'safari'],
+    skip: ['edge'],
   },
   async (client: ConstructorParameters<typeof Page>[0], testName: string) => {
     const page = new Page(client);
@@ -27,7 +25,7 @@ BrowserTestCase(
     await page.waitForSelector(linkUrlSelector);
 
     await page.type(linkUrlSelector, ['home opt-in']);
-    await page.click(`${linkRecentList} ul li`);
+    await page.remoteDOMClick('[data-testid="link-search-list-item"]');
     await page.waitForSelector('[data-testid="inline-card-resolved-view"]');
 
     const doc = await page.$eval(editable, getDocFromElement);

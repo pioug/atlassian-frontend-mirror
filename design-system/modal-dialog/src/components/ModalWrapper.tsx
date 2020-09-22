@@ -135,6 +135,11 @@ export interface WrapperProps extends WithAnalyticsEventsProps {
   shouldCloseOnEscapePress?: boolean;
 
   /**
+   * Will remove the blanket tinted background color.
+   */
+  isBlanketHidden?: boolean;
+
+  /**
    * Will remove all styling from the modal dialog container allowing you to define your own styles,
    * heading,
    * and footer with actions.

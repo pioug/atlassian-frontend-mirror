@@ -1,5 +1,5 @@
 import { Node } from 'prosemirror-model';
-import { EditorState, Transaction } from 'prosemirror-state';
+import { EditorState, Transaction, Selection } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 
 import { stateKey as mediaStateKey } from '../plugins/media/pm-plugins/plugin-key';
@@ -35,7 +35,8 @@ export function cascadeCommands(cmds: Command[]): Command {
     let shouldDispatch = false;
 
     const onDispatchAction = (tr: Transaction) => {
-      baseTr.setSelection(tr.selection);
+      const selectionJSON = tr.selection.toJSON();
+      baseTr.setSelection(Selection.fromJSON(baseTr.doc, selectionJSON));
       tr.steps.forEach(st => {
         baseTr.step(st);
       });

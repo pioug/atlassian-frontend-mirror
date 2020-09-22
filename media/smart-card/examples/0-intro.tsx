@@ -4,7 +4,7 @@ import { IntlProvider } from 'react-intl';
 import Page, { Grid, GridColumn } from '@atlaskit/page';
 import Form, { Field, FormHeader } from '@atlaskit/form';
 import Textfield from '@atlaskit/textfield';
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
 import { Provider, Card } from '../src';
 import { CardAppearance } from '../src/view/Card/types';
 import { Checkbox } from '@atlaskit/checkbox';

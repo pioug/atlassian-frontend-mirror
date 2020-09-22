@@ -5,6 +5,8 @@ import {
   defaultSchema,
   inlineNodes,
   isSafeUrl,
+  PanelAttributes,
+  PanelType,
   generateUuid as uuid,
 } from '@atlaskit/adf-schema';
 
@@ -346,6 +348,15 @@ export const getValidNode = (
           type,
         };
       }
+      case 'caption': {
+        if (content && adfStage === 'stage0') {
+          return {
+            type,
+            content,
+          };
+        }
+        break;
+      }
       case 'media': {
         let mediaId = '';
         let mediaType = '';
@@ -551,13 +562,17 @@ export const getValidNode = (
         break;
       }
       case 'panel': {
-        const types = ['info', 'note', 'tip', 'success', 'warning', 'error'];
         if (attrs && content) {
-          const { panelType } = attrs;
-          if (types.indexOf(panelType) > -1) {
+          const { panelType, panelIcon, panelColor } = attrs;
+          if (Object.values(PanelType).includes(panelType)) {
+            // TODO: ED-10445 remove stage0 check
+            let attrs: PanelAttributes =
+              adfStage === 'stage0'
+                ? { panelType, panelIcon, panelColor }
+                : { panelType };
             return {
               type,
-              attrs: { panelType },
+              attrs,
               content,
             };
           }

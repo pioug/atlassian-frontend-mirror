@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import React from 'react';
-import Button, { ButtonGroup } from '@atlaskit/button';
+import ButtonGroup from '@atlaskit/button/button-group';
+import Button from '@atlaskit/button/custom-theme-button';
 import { MockActivityResource } from '../example-helpers/activity-provider';
 import { createSearchProvider, Scope } from '@atlassian/search-provider';
 import ExamplesErrorBoundary from '../example-helpers/ExamplesErrorBoundary';
@@ -268,6 +269,7 @@ export class ExampleEditorComponent extends React.Component<
           <Content>
             <SmartCardProvider client={smartCardClient}>
               <Editor
+                UNSAFE_predictableLists={true}
                 allowAnalyticsGASV3={true}
                 quickInsert={{ provider: Promise.resolve(quickInsertProvider) }}
                 allowTextColor={{
@@ -280,7 +282,9 @@ export class ExampleEditorComponent extends React.Component<
                 }}
                 allowBreakout={true}
                 allowJiraIssue={true}
-                allowPanel={true}
+                allowPanel={{
+                  UNSAFE_allowCustomPanel: true,
+                }}
                 allowExtension={{
                   allowBreakout: true,
                 }}
@@ -384,7 +388,7 @@ export class ExampleEditorComponent extends React.Component<
                         <>
                           {this.props.customPrimaryToolbarComponents}
                           <Button
-                            disabled={!actions}
+                            isDisabled={!actions}
                             onClick={this.onCopyLinkWithContent}
                             style={{ marginRight: 5 }}
                           >
@@ -415,6 +419,7 @@ export class ExampleEditorComponent extends React.Component<
                   transactionTracking: { enabled: true },
                   uiTracking: { enabled: true },
                   nodeViewTracking: { enabled: true },
+                  inputTracking: { enabled: true, countNodes: true },
                 }}
                 {...this.props}
                 appearance={this.state.appearance}

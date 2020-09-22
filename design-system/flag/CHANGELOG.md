@@ -1,5 +1,13 @@
 # @atlaskit/flag
 
+## 14.0.5
+
+### Patch Changes
+
+- [`83e32fa998`](https://bitbucket.org/atlassian/atlassian-frontend/commits/83e32fa998) - Now uses `useAnalyticsEventHandler` in @atlaskit/analytics-next rather than its own version of the hook
+- [`93b04d1161`](https://bitbucket.org/atlassian/atlassian-frontend/commits/93b04d1161) - Fixed focus ring cut off issue on flag
+- Updated dependencies
+
 ## 14.0.4
 
 ### Patch Changes

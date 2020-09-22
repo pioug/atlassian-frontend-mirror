@@ -19,7 +19,11 @@ import {
   version as packageVersion,
 } from '../../version.json';
 
+import { getFilesFromItems, getFilesFromFileSystemEntries } from 'flat-files';
+
 import { ANALYTICS_MEDIA_CHANNEL } from '../media-picker-analytics-error-boundary';
+import { isWebkitSupported } from '@atlaskit/media-ui/browser';
+import { getMediaFeatureFlag, MediaFeatureFlags } from '@atlaskit/media-common';
 
 export type DropzoneProps = LocalUploadComponentBaseProps & {
   config: DropzoneConfig;
@@ -27,6 +31,7 @@ export type DropzoneProps = LocalUploadComponentBaseProps & {
   onDragEnter?: (payload: DropzoneDragEnterEventPayload) => void;
   onDragLeave?: (payload: DropzoneDragLeaveEventPayload) => void;
   onCancelFn?: (cancel: (uniqueIdentifier: string) => void) => void;
+  featureFlags?: MediaFeatureFlags;
 };
 
 function dragContainsFiles(event: DragEvent): boolean {
@@ -127,18 +132,83 @@ export class DropzoneBase extends LocalUploadComponentReact<
     }
   };
 
-  private readonly onFileDropped = (dragEvent: DragEvent) => {
+  private readonly onFileDropped = async (dragEvent: DragEvent) => {
     if (!dragEvent.dataTransfer) {
       return;
     }
 
     dragEvent.preventDefault();
     dragEvent.stopPropagation();
-    this.onDrop(dragEvent);
 
-    const files = Array.from(dragEvent.dataTransfer.files);
+    /*
+     * Only enable support for folders if (1) the browser is supported (2) feature flag is enabled
+     * The file flattening library used to add support for Folders uses a function called webkitEntry.
+     * Some browser types are not supported https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement/webkitEntries
+     */
+    if (
+      isWebkitSupported() &&
+      getMediaFeatureFlag('folderUploads', this.props.featureFlags)
+    ) {
+      this.fireAnalyticsForFolders(dragEvent.dataTransfer.items);
+      const flattenedDirectoryFiles = await this.getFilesFromDragEvent(
+        dragEvent.dataTransfer.items,
+      );
 
-    this.uploadService.addFiles(files);
+      this.onDropFolders(flattenedDirectoryFiles.length);
+      this.uploadService.addFiles(flattenedDirectoryFiles);
+    } else {
+      this.onDrop(dragEvent);
+
+      const files = Array.from(dragEvent.dataTransfer.files);
+
+      this.uploadService.addFiles(files);
+    }
+  };
+
+  /*
+   * Checks how many folders are uploaded in a single drag and drop. Then, fires an analytic event in accordance to this.
+   */
+  private fireAnalyticsForFolders = (items: DataTransferItemList): void => {
+    //convert DataTransferItemList into an array of DataTransferItem(s)
+    const toArray = Array.from(items);
+
+    //function to check if a file entry is a folder
+    const hasFolder = (item: DataTransferItem) =>
+      item.webkitGetAsEntry().isDirectory;
+
+    //how many folders are in a single drag and drop event
+    var folderCount = toArray.filter(item => hasFolder(item)).length;
+
+    // fires analytic events if number of folders is more than 0
+    if (folderCount > 0) {
+      this.fireAnalyticsEvent('folderDroppedInto', folderCount);
+    }
+  };
+
+  /*
+   * Files dropped contains a directory. Thus, flatten the directory to return an array of Files.
+   */
+  private getFilesFromDragEvent = async (
+    dragEventItemList: DataTransferItemList,
+  ): Promise<File[]> => {
+    const items: DataTransferItemList = dragEventItemList;
+
+    //If items consist of directory or directories, flatten it to grab the files only. Else, just get the files
+    const fileSystemEntries = await getFilesFromItems(items);
+
+    //files are of filetype 'fileSystemEntry'. We convert the files to be of the 'File' type format.
+    const files = await getFilesFromFileSystemEntries(fileSystemEntries);
+
+    // Return all the files we will upload
+    return this.filterFilesAgainstBlacklist(files);
+  };
+
+  private filterFilesAgainstBlacklist = (files: File[]) => {
+    // We don't want these files in our final File list
+    const blacklist = ['.DS_Store', 'thumbs.db', 'desktop.ini'];
+
+    // Filter Files using our defined blacklist
+    return files.filter((file: File) => !blacklist.includes(file.name));
   };
 
   // Cross-browser way of getting dragged items length, we prioritize "items" if present
@@ -155,18 +225,29 @@ export class DropzoneBase extends LocalUploadComponentReact<
     return dataTransfer.files.length;
   }
 
+  // Similar to the onDrop event, but for folders.
+  private onDropFolders = (fileCount: number) => {
+    if (fileCount > 0) {
+      this.sendAnalyticsAndEmitDragLeave(fileCount);
+    }
+  };
+
   private onDrop = (e: DragEvent): void => {
     if (e.dataTransfer && dragContainsFiles(e)) {
       const dataTransfer = e.dataTransfer;
       const fileCount = this.getDraggedItemsLength(dataTransfer);
 
-      this.fireAnalyticsEvent('droppedInto', fileCount);
-
-      if (this.props.onDrop) {
-        this.props.onDrop();
-      }
-      this.emitDragLeave({ length: fileCount });
+      this.sendAnalyticsAndEmitDragLeave(fileCount);
     }
+  };
+
+  private sendAnalyticsAndEmitDragLeave = (fileCount: number): void => {
+    this.fireAnalyticsEvent('droppedInto', fileCount);
+
+    if (this.props.onDrop) {
+      this.props.onDrop();
+    }
+    this.emitDragLeave({ length: fileCount });
   };
 
   private emitDragOver(payload: DropzoneDragEnterEventPayload): void {

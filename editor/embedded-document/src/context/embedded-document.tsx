@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { Actions, Context, Mode, State } from './context';
 import { getProvider, Provider, ProviderProps } from '../provider';
 import { Document } from '../model';
-import { akEditorGutterPadding } from '@atlaskit/editor-common';
+import { akEditorGutterPadding } from '@atlaskit/editor-shared-styles';
 
 export const akEditorFullPageMaxWidth = 680;
 const Content = styled.div`

@@ -26,7 +26,7 @@ import {
   WidthPluginState,
   pluginKey as widthPluginKey,
 } from '../../plugins/width';
-import { DEFAULT_EMBED_CARD_WIDTH } from '@atlaskit/editor-common';
+import { DEFAULT_EMBED_CARD_WIDTH } from '@atlaskit/editor-shared-styles';
 
 import { addAnalytics } from '../../plugins/analytics/utils';
 import {

@@ -24,7 +24,7 @@ interface Transformer<T> {
 export type JSONNode = {
   type: string;
   attrs?: object;
-  content?: JSONNode[];
+  content?: Array<JSONNode | undefined>;
   marks?: any[];
   text?: string;
 };

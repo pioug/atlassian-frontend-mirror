@@ -1,5 +1,13 @@
 import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
-import { doc, p, status } from '@atlaskit/editor-test-helpers/schema-builder';
+import {
+  doc,
+  p,
+  status,
+  code_block,
+  table,
+  tr,
+  td,
+} from '@atlaskit/editor-test-helpers/schema-builder';
 import {
   CreateUIAnalyticsEvent,
   UIAnalyticsEvent,
@@ -27,6 +35,7 @@ describe('status plugin: actions', () => {
         allowStatus: {
           menuDisabled: false,
         },
+        allowTables: true,
         allowAnalyticsGASV3: true,
       },
       createAnalyticsEvent,
@@ -148,6 +157,172 @@ describe('status plugin: actions', () => {
           ),
         ),
       );
+    });
+
+    describe('if inserted in codeBlock', () => {
+      it('should insert status outside of codeBlock', () => {
+        const { editorView } = editor(doc(code_block()('I am{<>} codeblock')));
+
+        updateStatus({
+          color: 'blue',
+          text: 'In progress',
+          localId: '777',
+        })(editorView.state, editorView.dispatch);
+
+        expect(editorView.state.tr.doc).toEqualDocument(
+          doc(
+            code_block()('I am codeblock'),
+            p(
+              '',
+              status({
+                text: 'In progress',
+                color: 'blue',
+                localId: '777',
+              }),
+              ' ',
+            ),
+          ),
+        );
+      });
+      it('should insert status outside of codeBlock with range selection', () => {
+        const { editorView } = editor(
+          doc(code_block()('I {<}am{>} codeblock'), p('hello')),
+        );
+
+        updateStatus({
+          color: 'blue',
+          text: 'In progress',
+          localId: '777',
+        })(editorView.state, editorView.dispatch);
+
+        expect(editorView.state.tr.doc).toEqualDocument(
+          doc(
+            code_block()('I am codeblock'),
+            p(
+              '',
+              status({
+                text: 'In progress',
+                color: 'blue',
+                localId: '777',
+              }),
+              ' ',
+            ),
+            p('hello'),
+          ),
+        );
+      });
+      it('should insert status outside of codeBlock with range selection starts outside', () => {
+        const { editorView } = editor(
+          doc(p('he{<}llo'), code_block()('I {>}am codeblock')),
+        );
+
+        updateStatus({
+          color: 'blue',
+          text: 'In progress',
+          localId: '777',
+        })(editorView.state, editorView.dispatch);
+
+        expect(editorView.state.tr.doc).toEqualDocument(
+          doc(
+            p(
+              'he',
+              status({
+                text: 'In progress',
+                color: 'blue',
+                localId: '777',
+              }),
+              ' llo',
+            ),
+            code_block()('I am codeblock'),
+          ),
+        );
+      });
+      it('should insert status outside of codeBlock with range selection ending outside', () => {
+        const { editorView } = editor(
+          doc(code_block()('I {<}am codeblock'), p('he{>}llo')),
+        );
+
+        updateStatus({
+          color: 'blue',
+          text: 'In progress',
+          localId: '777',
+        })(editorView.state, editorView.dispatch);
+
+        expect(editorView.state.tr.doc).toEqualDocument(
+          doc(
+            code_block()('I am codeblock'),
+            p(
+              '',
+              status({
+                text: 'In progress',
+                color: 'blue',
+                localId: '777',
+              }),
+              ' ',
+            ),
+            p('hello'),
+          ),
+        );
+      });
+      it('should insert status in between codeBlock and other block node', () => {
+        const { editorView } = editor(
+          doc(code_block()('I am{<>} codeblock'), p('hello')),
+        );
+
+        updateStatus({
+          color: 'blue',
+          text: 'In progress',
+          localId: '777',
+        })(editorView.state, editorView.dispatch);
+
+        expect(editorView.state.tr.doc).toEqualDocument(
+          doc(
+            code_block()('I am codeblock'),
+            p(
+              '',
+              status({
+                text: 'In progress',
+                color: 'blue',
+                localId: '777',
+              }),
+              ' ',
+            ),
+            p('hello'),
+          ),
+        );
+      });
+      it('should insert status outside of codeblock inside same table cell', () => {
+        const { editorView } = editor(
+          doc(table()(tr(td({})(code_block()('I am{<>} codeblock'))))),
+        );
+
+        updateStatus({
+          color: 'blue',
+          text: 'In progress',
+          localId: '777',
+        })(editorView.state, editorView.dispatch);
+
+        expect(editorView.state.tr.doc).toEqualDocument(
+          doc(
+            table()(
+              tr(
+                td()(
+                  code_block()('I am codeblock'),
+                  p(
+                    '',
+                    status({
+                      color: 'blue',
+                      text: 'In progress',
+                      localId: '777',
+                    }),
+                    ' ',
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+      });
     });
   });
 

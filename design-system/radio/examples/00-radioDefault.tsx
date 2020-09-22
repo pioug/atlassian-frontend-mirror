@@ -1,4 +1,4 @@
-import React, { PureComponent, SyntheticEvent } from 'react';
+import React, { SyntheticEvent, useCallback, useState } from 'react';
 
 import { Checkbox } from '@atlaskit/checkbox';
 
@@ -13,58 +13,50 @@ const options: OptionsPropType = [
   { name: 'color', value: 'black', label: 'Black' },
 ];
 
-interface State {
-  currentValue: string | null;
-  isDisabled?: boolean;
-  onChangeResult: string;
-}
+export default function BasicExample() {
+  const [isDisabled, setIsDisabled] = useState<boolean>();
+  const [onChangeResult, setOnChangeResult] = useState<string>(
+    'Click on a radio field to trigger onChange',
+  );
 
-export default class BasicExample extends PureComponent<{}, State> {
-  state = {
-    currentValue: null,
-    isDisabled: undefined,
-    onChangeResult: 'Click on a radio field to trigger onChange',
-  };
-
-  onChange = (event: SyntheticEvent<HTMLInputElement>) => {
-    this.setState({
-      onChangeResult: `onChange called with value: ${event.currentTarget.value}`,
-    });
-  };
-
-  toggleCheckbox = (event: SyntheticEvent<HTMLInputElement>) => {
-    this.setState({
-      isDisabled: event.currentTarget.checked,
-    });
-  };
-
-  render() {
-    return (
-      <div>
-        <h4>Choose a color:</h4>
-        <RadioGroup
-          isDisabled={this.state.isDisabled}
-          options={options}
-          onChange={this.onChange}
-        />
-        <div
-          style={{
-            borderStyle: 'dashed',
-            borderWidth: '1px',
-            borderColor: '#ccc',
-            padding: '0.5em',
-            color: '#ccc',
-            margin: '0.5em',
-          }}
-        >
-          {this.state.onChangeResult}
-        </div>
-        <Checkbox
-          value="isDisabled"
-          label="is disabled"
-          onChange={this.toggleCheckbox}
-        />
-      </div>
+  const onChange = useCallback((event: SyntheticEvent<HTMLInputElement>) => {
+    setOnChangeResult(
+      `onChange called with value: ${event.currentTarget.value}`,
     );
-  }
+  }, []);
+
+  const toggleCheckbox = useCallback(
+    (event: SyntheticEvent<HTMLInputElement>) => {
+      setIsDisabled(event.currentTarget.checked);
+    },
+    [],
+  );
+
+  return (
+    <div>
+      <h4>Choose a color:</h4>
+      <RadioGroup
+        isDisabled={isDisabled}
+        options={options}
+        onChange={onChange}
+      />
+      <div
+        style={{
+          borderStyle: 'dashed',
+          borderWidth: '1px',
+          borderColor: '#ccc',
+          padding: '0.5em',
+          color: '#ccc',
+          margin: '0.5em',
+        }}
+      >
+        {onChangeResult}
+      </div>
+      <Checkbox
+        value="isDisabled"
+        label="is disabled"
+        onChange={toggleCheckbox}
+      />
+    </div>
+  );
 }

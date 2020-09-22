@@ -10,4 +10,4 @@ yarn add @atlaskit/motion
 
 ## Usage
 
-Detailed docs and example usage can be found [here](https://atlaskit.atlassian.com/packages/utils/motion).
+Detailed docs and example usage can be found [here](https://atlaskit.atlassian.com/packages/design-system/motion).

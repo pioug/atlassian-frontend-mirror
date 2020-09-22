@@ -4,7 +4,8 @@ import { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import Spinner from '@atlaskit/spinner';
 import { Popup } from '@atlaskit/editor-common';
-import Button, { ButtonGroup } from '@atlaskit/button';
+import ButtonGroup from '@atlaskit/button/button-group';
+import Button from '@atlaskit/button/custom-theme-button';
 
 import ToolbarButton from '../ToolbarButton';
 import withOuterListeners from '../with-outer-listeners';

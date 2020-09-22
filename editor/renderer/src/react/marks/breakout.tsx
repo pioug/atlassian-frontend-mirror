@@ -1,11 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { BreakoutMarkAttrs } from '@atlaskit/adf-schema';
-import {
-  blockNodesVerticalMargin,
-  calcBreakoutWidth,
-  WidthConsumer,
-} from '@atlaskit/editor-common';
+import { calcBreakoutWidth, WidthConsumer } from '@atlaskit/editor-common';
+import { blockNodesVerticalMargin } from '@atlaskit/editor-shared-styles';
 import { MarkProps } from '../types';
 
 export const Wrapper = styled.div`

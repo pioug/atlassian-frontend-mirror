@@ -2,12 +2,12 @@ import React from 'react';
 import { ComponentClass, StatelessComponent, PureComponent } from 'react';
 import ReactDOM from 'react-dom';
 
-export type SimpleEventHandler = (event: Event) => void;
+type SimpleEventHandler<T> = (event: T) => void;
 
 export interface WithOutsideClickProps {
-  handleClickOutside?: SimpleEventHandler;
-  handleEscapeKeydown?: SimpleEventHandler;
-  handleEnterKeydown?: SimpleEventHandler;
+  handleClickOutside?: SimpleEventHandler<MouseEvent>;
+  handleEscapeKeydown?: SimpleEventHandler<KeyboardEvent>;
+  handleEnterKeydown?: SimpleEventHandler<KeyboardEvent>;
 }
 
 export default function withOuterListeners<P>(
@@ -37,26 +37,28 @@ export default function withOuterListeners<P>(
       }
     }
 
-    handleClick = (evt: Event) => {
+    handleClick = (evt: MouseEvent) => {
       const domNode = ReactDOM.findDOMNode(this); // eslint-disable-line react/no-find-dom-node
       if (
         !domNode ||
         (evt.target instanceof Node && !domNode.contains(evt.target))
       ) {
-        (this.props.handleClickOutside as SimpleEventHandler)(evt);
+        if (this.props.handleClickOutside) {
+          this.props.handleClickOutside(evt);
+        }
       }
     };
 
     handleKeydown = (evt: KeyboardEvent) => {
       if (evt.code === 'Escape' && this.props.handleEscapeKeydown) {
-        (this.props.handleEscapeKeydown as SimpleEventHandler)(evt);
+        this.props.handleEscapeKeydown(evt);
       } else if (evt.code === 'Enter' && this.props.handleEnterKeydown) {
-        (this.props.handleEnterKeydown as SimpleEventHandler)(evt);
+        this.props.handleEnterKeydown(evt);
       }
     };
 
     render() {
-      return <Component {...(this.props as any)} />;
+      return <Component {...this.props} />;
     }
   };
 }

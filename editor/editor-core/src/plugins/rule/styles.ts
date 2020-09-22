@@ -1,12 +1,11 @@
 import { css } from 'styled-components';
 
+import { ruleSharedStyles } from '@atlaskit/editor-common';
 import {
   akEditorLineHeight,
-  akEditorSelectedBorder,
-  ruleSharedStyles,
-} from '@atlaskit/editor-common';
-
-import { akEditorSelectedNodeClassName } from '../../styles';
+  akEditorSelectedBorderColor,
+  akEditorSelectedNodeClassName,
+} from '@atlaskit/editor-shared-styles';
 
 export const ruleStyles = css`
   .ProseMirror {
@@ -20,7 +19,7 @@ export const ruleStyles = css`
 
       &.${akEditorSelectedNodeClassName} {
         outline: none;
-        background-color: ${akEditorSelectedBorder};
+        background-color: ${akEditorSelectedBorderColor};
       }
     }
   }

@@ -2,19 +2,41 @@ import { NodeSpec, Node } from 'prosemirror-model';
 import { MediaDefinition as Media } from './media';
 import { LinkDefinition } from '../marks/link';
 import { RichMediaAttributes } from './types/rich-media-common';
+import { CaptionDefinition as Caption } from './caption';
 
+export type MediaSingleDefinition =
+  | MediaSingleFullDefinition
+  | MediaSingleWithCaptionDefinition;
+
+/**
+ * @name mediaSingle_base_node
+ */
+export interface MediaSingleBaseDefinition {
+  type: 'mediaSingle';
+  attrs?: RichMediaAttributes;
+  marks?: Array<LinkDefinition>;
+}
 /**
  * @name mediaSingle_node
  */
-export interface MediaSingleDefinition {
-  type: 'mediaSingle';
+export interface MediaSingleFullDefinition extends MediaSingleBaseDefinition {
   /**
    * @minItems 1
    * @maxItems 1
    */
   content: Array<Media>;
-  attrs?: RichMediaAttributes;
-  marks?: Array<LinkDefinition>;
+}
+/**
+ * @name mediaSingle_caption_node
+ * @stage 0
+ */
+export interface MediaSingleWithCaptionDefinition
+  extends MediaSingleBaseDefinition {
+  /**
+   * @minItems 1
+   * @maxItems 2
+   */
+  content: [Media, Caption?];
 }
 
 export const defaultAttrs = {
@@ -56,6 +78,12 @@ export const mediaSingle: NodeSpec = {
 
     return ['div', attrs, 0];
   },
+};
+
+export const mediaSingleWithCaption: NodeSpec = {
+  ...mediaSingle,
+  content: 'media caption?',
+  atom: false,
 };
 
 export const toJSON = (node: Node) => ({

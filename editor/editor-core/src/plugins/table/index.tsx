@@ -22,6 +22,7 @@ import { IconTable } from '../quick-insert/assets';
 import { pluginConfig } from './create-plugin-config';
 import { createPlugin as createDecorationsPlugin } from './pm-plugins/decorations/plugin';
 import { keymapPlugin } from './pm-plugins/keymap';
+import { tableSelectionKeymapPlugin } from './pm-plugins/table-selection-keymap';
 import { createPlugin } from './pm-plugins/main';
 import { getPluginState, pluginKey } from './pm-plugins/plugin-factory';
 import {
@@ -107,6 +108,10 @@ const tablesPlugin = (options?: TablePluginOptions): EditorPlugin => ({
       // Needs to be lower priority than prosemirror-tables.tableEditing
       // plugin as it is currently swallowing backspace events inside tables
       { name: 'tableKeymap', plugin: () => keymapPlugin() },
+      {
+        name: 'tableSelectionKeymap',
+        plugin: () => tableSelectionKeymapPlugin(),
+      },
       { name: 'tableEditing', plugin: () => tableEditing() },
 
       {

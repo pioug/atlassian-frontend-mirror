@@ -1,6 +1,7 @@
 import React, { Component, ReactNode } from 'react';
 import styled from 'styled-components';
-import Button, { ButtonGroup } from '@atlaskit/button';
+import ButtonGroup from '@atlaskit/button/button-group';
+import Button from '@atlaskit/button/custom-theme-button';
 
 import PriorityTrivial from '../glyph/priority-trivial';
 import PriorityLowest from '../glyph/priority-lowest';

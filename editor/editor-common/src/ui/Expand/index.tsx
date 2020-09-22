@@ -1,14 +1,14 @@
 import { defineMessages } from 'react-intl';
 import styled, { css } from 'styled-components';
 
-import * as colors from '@atlaskit/theme/colors';
-import { fontSize, gridSize } from '@atlaskit/theme/constants';
-
 import {
   akEditorLineHeight,
   akEditorSwoopCubicBezier,
   akLayoutGutterOffset,
-} from '../../styles/consts';
+} from '@atlaskit/editor-shared-styles';
+import * as colors from '@atlaskit/theme/colors';
+import { themed } from '@atlaskit/theme/components';
+import { fontSize, gridSize } from '@atlaskit/theme/constants';
 
 export const messages = defineMessages({
   collapseNode: {
@@ -34,7 +34,18 @@ export const messages = defineMessages({
 });
 
 const BORDER_RADIUS = gridSize() / 2;
-const EXPAND_SELECTED_BACKGROUND = 'rgba(255, 255, 255, 0.6)';
+
+const EXPAND_COLLAPSED_BACKGROUND = 'transparent';
+const EXPAND_SELECTED_BACKGROUND = themed({
+  light: 'rgba(255, 255, 255, 0.6)',
+  dark: 'rgba(9, 10, 11, 0.29)',
+});
+
+const EXPAND_COLLAPSED_BORDER_COLOR = 'transparent';
+const EXPAND_EXPANDED_BORDER_COLOR = themed({
+  light: colors.N40A,
+  dark: colors.DN50,
+});
 
 export interface StyleProps {
   expanded?: boolean;
@@ -45,7 +56,7 @@ export interface StyleProps {
 export const ExpandIconWrapper = styled.div<{ expanded: boolean }>`
   cursor: pointer;
   display: flex;
-  color: ${colors.N90};
+  color: ${themed({ light: colors.N90, dark: '#d9dde3' })};
   border-radius: ${gridSize() / 2}px;
   width: 24px;
   height: 24px;
@@ -68,11 +79,12 @@ export const ExpandLayoutWrapper = styled.div`
 const ContainerStyles = css<StyleProps>`
   border-width: 1px;
   border-style: solid;
-  border-color: ${({ expanded }) => (!expanded ? 'transparent' : colors.N40A)};
+  border-color: ${({ expanded }) =>
+    !expanded ? EXPAND_COLLAPSED_BORDER_COLOR : EXPAND_EXPANDED_BORDER_COLOR};
   border-radius: ${BORDER_RADIUS}px;
   min-height: 25px;
   background: ${({ expanded }) =>
-    !expanded ? 'transparent' : EXPAND_SELECTED_BACKGROUND};
+    !expanded ? EXPAND_COLLAPSED_BACKGROUND : EXPAND_SELECTED_BACKGROUND};
   margin: ${props =>
     `${gridSize() / 2 / fontSize()}rem ${
       // Only only these margins if the expand isn't editable
@@ -85,7 +97,7 @@ const ContainerStyles = css<StyleProps>`
   padding: ${gridSize}px;
 
   &:hover {
-    border: 1px solid ${colors.N50A};
+    border: 1px solid ${themed({ light: colors.N50A, dark: colors.DN50 })};
     background: ${EXPAND_SELECTED_BACKGROUND};
   }
 
@@ -135,7 +147,7 @@ const TitleInputStyles = css`
   font-size: ${fontSize()}px;
   line-height: ${akEditorLineHeight};
   font-weight: normal;
-  color: ${colors.N200A};
+  color: ${themed({ light: colors.N200A, dark: colors.DN600 })};
   background: transparent;
   display: flex;
   flex: 1;
@@ -144,7 +156,7 @@ const TitleInputStyles = css`
 
   &::placeholder {
     opacity: 0.6;
-    color: ${colors.N200A};
+    color: ${themed({ light: colors.N200A, dark: colors.DN600 })};
   }
 `;
 
@@ -156,7 +168,7 @@ const TitleContainerStyles = css`
   border: none;
   font-size: ${fontSize()}px;
   width: 100%;
-  color: ${colors.N300A};
+  color: ${themed({ light: colors.N300A, dark: colors.DN600 })};
   overflow: hidden;
   cursor: pointer;
   // Prevent browser selection being inside the title container

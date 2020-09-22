@@ -3,8 +3,8 @@ import React from 'react';
 import { EditorView } from 'prosemirror-view';
 import { defineMessages, InjectedIntlProps, injectIntl } from 'react-intl';
 
-import Button from '@atlaskit/button';
-import { akEditorMenuZIndex } from '@atlaskit/editor-common';
+import Button from '@atlaskit/button/custom-theme-button';
+import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles';
 import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
 import EditorBackgroundColorIcon from '@atlaskit/icon/glyph/editor/background-color';
 
@@ -126,6 +126,15 @@ class ToolbarTextColor extends React.Component<
         ? paletteExpanded
         : pluginState.palette;
 
+    let fitWidth: number | undefined;
+    if (document.body.clientWidth <= 740) {
+      // This was originally hard-coded, but moved here to a const
+      // My guess is it's based off (width of button * columns) + left/right padding
+      // 240 = (32 * 7) + (8 + 8)
+      // Not sure where the extra 2px comes from
+      fitWidth = 242;
+    }
+
     return (
       <MenuWrapper>
         <Dropdown
@@ -135,9 +144,8 @@ class ToolbarTextColor extends React.Component<
           isOpen={isOpen && !pluginState.disabled}
           handleClickOutside={this.hide}
           handleEscapeKeydown={this.hide}
-          fitWidth={242}
-          fitHeight={80}
           zIndex={akEditorMenuZIndex}
+          fitWidth={fitWidth}
           trigger={
             <ToolbarButton
               spacing={isReducedSpacing ? 'none' : 'default'}
@@ -264,9 +272,14 @@ class ToolbarTextColor extends React.Component<
     }
   };
 
-  private hide = () => {
+  private hide = (e: MouseEvent | KeyboardEvent) => {
     const { isOpen, isShowingMoreColors } = this.state;
 
+    if (e.defaultPrevented) {
+      // This should be handled by stopping propogation, but as an additional safety net
+      // we ignore handled events for the purpose of hiding the popup.
+      return;
+    }
     if (isOpen === true) {
       this.dispatchAnalyticsEvent(
         this.buildExperimentalAnalyticsPalette(ACTION.CLOSED, {
@@ -279,7 +292,12 @@ class ToolbarTextColor extends React.Component<
     }
   };
 
-  private handleShowMoreToggle = () => {
+  private handleShowMoreToggle = (e: React.MouseEvent<HTMLElement>) => {
+    // Prevent the event from bubbling up and triggering the hide handler.
+    e.preventDefault();
+    e.stopPropagation();
+    e.nativeEvent.stopImmediatePropagation();
+
     this.setState(state => {
       this.dispatchAnalyticsEvent(
         this.buildExperimentalAnalyticsShowMore(

@@ -3,15 +3,10 @@ import { EditorView } from 'prosemirror-view';
 import { Node, DOMSerializer, DOMOutputSpec } from 'prosemirror-model';
 import { browser } from '@atlaskit/editor-common';
 import { getPosHandlerNode, getPosHandler } from '../../../nodeviews/';
-import { selectNode } from '../../../utils/commands';
 import { codeBlockClassNames } from '../ui/class-names';
-import { createSelectionAwareClickHandler } from '../../../nodeviews/utils';
 
 const MATCH_NEWLINES = new RegExp('\n', 'g');
 
-function isHtmlElement(n: EventTarget): n is HTMLElement {
-  return (n as HTMLElement).nodeType === 1;
-}
 // For browsers <= IE11, we apply style overrides to render a basic code box
 const isIE11 = browser.ie && browser.ie_version <= 11;
 const toDOM = (node: Node) =>
@@ -40,8 +35,6 @@ export class CodeBlockView {
   lineNumberGutter: HTMLElement;
   getPos: getPosHandlerNode;
   view: EditorView;
-  clickHandler?: (event: Event) => false | void;
-  clickCleanup?: () => void;
 
   constructor(node: Node, view: EditorView, getPos: getPosHandlerNode) {
     const { dom, contentDOM } = DOMSerializer.renderSpec(document, toDOM(node));
@@ -55,19 +48,6 @@ export class CodeBlockView {
     ) as HTMLElement;
 
     this.ensureLineNumbers();
-    this.initHandlers();
-  }
-
-  private initHandlers() {
-    if (this.dom) {
-      const { handler, cleanup } = createSelectionAwareClickHandler(
-        this.dom,
-        this.handleClick,
-      );
-      this.clickHandler = handler;
-      this.clickCleanup = cleanup;
-      this.dom.addEventListener('click', this.clickHandler);
-    }
   }
 
   private ensureLineNumbers = rafSchedule(() => {
@@ -112,39 +92,6 @@ export class CodeBlockView {
       record.target === this.lineNumberGutter ||
       record.target.parentNode === this.lineNumberGutter
     );
-  }
-
-  private handleClick = (event: Event) => {
-    // Make sure event.target is an HTMLElement
-    if (event.target === null || !isHtmlElement(event.target)) {
-      return;
-    }
-    const target = event.target;
-
-    // If clicking on the border of the code block
-    const targetIsBorder = target === this.dom;
-
-    // If clicking in the left gutter of the code block
-    const targetIsGutter = target.closest(`.${codeBlockClassNames.gutter}`);
-
-    // This gives us click leniency
-    const targetIsContent = target.classList.contains(
-      codeBlockClassNames.content,
-    );
-
-    if (targetIsBorder || targetIsGutter || targetIsContent) {
-      event.stopPropagation();
-      const { state, dispatch } = this.view;
-      selectNode(this.getPos())(state, dispatch);
-    }
-  };
-
-  destroy() {
-    if (this.dom) {
-      this.clickHandler &&
-        this.dom.removeEventListener('click', this.clickHandler);
-      this.clickCleanup && this.clickCleanup();
-    }
   }
 }
 

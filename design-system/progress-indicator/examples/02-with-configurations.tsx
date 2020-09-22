@@ -3,7 +3,9 @@ import React, { ChangeEvent, Component } from 'react';
 import Lorem from 'react-lorem-component';
 import styled from 'styled-components';
 
-import Button, { ButtonAppearances, ButtonGroup } from '@atlaskit/button';
+import ButtonGroup from '@atlaskit/button/button-group';
+import Button from '@atlaskit/button/custom-theme-button';
+import { Appearance as ButtonAppearance } from '@atlaskit/button/types';
 import { DN30, N0, subtleText } from '@atlaskit/theme/colors';
 import { AtlaskitThemeProvider, themed } from '@atlaskit/theme/components';
 import { ThemeModes } from '@atlaskit/theme/types';
@@ -209,7 +211,7 @@ export default class ProgressIndicatorDots extends Component<{}, State> {
           <Footer appearance={selectedAppearance}>
             <Button
               isDisabled={selectedIndex === 0}
-              appearance={buttonAppearance as ButtonAppearances}
+              appearance={buttonAppearance as ButtonAppearance}
               onClick={this.handlePrev}
             >
               Prev
@@ -224,7 +226,7 @@ export default class ProgressIndicatorDots extends Component<{}, State> {
             />
             <Button
               isDisabled={selectedIndex === values.length - 1}
-              appearance={buttonAppearance as ButtonAppearances}
+              appearance={buttonAppearance as ButtonAppearance}
               onClick={this.handleNext}
             >
               Next

@@ -22,12 +22,43 @@ import {
 import {
   enterKeyCommand,
   backspaceKeyCommand,
+  indentList,
   toggleList,
 } from '../../../commands';
-import { INPUT_METHOD } from '../../../../../plugins/analytics';
+import analyticsPlugin, {
+  ACTION,
+  ACTION_SUBJECT,
+  ACTION_SUBJECT_ID,
+  EVENT_TYPE,
+  INPUT_METHOD,
+} from '../../../../../plugins/analytics';
+import {
+  CreateUIAnalyticsEvent,
+  UIAnalyticsEvent,
+} from '@atlaskit/analytics-next';
+import {
+  createProsemirrorEditorFactory,
+  LightEditorPlugin,
+  Preset,
+} from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+import listPredictablePlugin from '../../..';
 
 describe('lists plugin -> commands', () => {
   const createEditor = createEditorFactory();
+
+  const createProseMirrorEditor = createProsemirrorEditorFactory();
+  let createAnalyticsEvent: CreateUIAnalyticsEvent;
+
+  const editor = (doc: any) => {
+    const preset = new Preset<LightEditorPlugin>()
+      .add(listPredictablePlugin)
+      .add([analyticsPlugin, { createAnalyticsEvent }]);
+
+    return createProseMirrorEditor({
+      doc,
+      preset,
+    });
+  };
 
   describe('enterKeyCommand', () => {
     it('should not outdent a list when list item has visible content', () => {
@@ -90,6 +121,85 @@ describe('lists plugin -> commands', () => {
         expect(editorView.state.doc).toEqualDocument(
           doc(ol(li(p('text')), li(code_block()('code')))),
         );
+      });
+    });
+  });
+
+  describe('indentList', () => {
+    it('should not indent if selection is not inside a list', () => {
+      // prettier-ignore
+      const { editorView: { state, dispatch } } = editor(
+        doc(
+          p('{<>}text'),
+          ol(
+            li(p('A')),
+            li(p('B'))
+          ),
+        ),
+      );
+
+      expect(indentList(INPUT_METHOD.KEYBOARD)(state, dispatch)).toBeFalsy();
+    });
+
+    it('should not apply the change it it causes the indentation to go past the maximum', () => {
+      // prettier-ignore
+      const { editorView: { state, dispatch } } = editor(
+        doc(
+          ol(
+            li(p('A'),
+            ol(
+              li(p('B'),
+              ol(
+                li(p('C'),
+                ol(
+                  li(p('D'),
+                  ol(
+                    li(p('E'),
+                    ol(
+                      li(p('F1')),
+                      li(p('{<>}F2')),
+                    )),
+                  )),
+                )),
+              )),
+            )),
+          ),
+        ),
+      );
+
+      expect(indentList(INPUT_METHOD.KEYBOARD)(state, dispatch)).toBeTruthy();
+    });
+
+    it('should indent otherwise', () => {
+      // prettier-ignore
+      const { editorView: { state, dispatch } } = editor(
+        doc(
+          ol(
+            li(p('A')),
+            li(p('B'))
+          ),
+        ),
+      );
+
+      expect(indentList(INPUT_METHOD.KEYBOARD)(state, dispatch)).toBeTruthy();
+    });
+
+    it('should add analytics', () => {
+      createAnalyticsEvent = jest.fn(() => ({ fire() {} } as UIAnalyticsEvent));
+      const {
+        editorView: { state, dispatch },
+      } = editor(doc(ol(li(p('A')), li(p('B')))));
+
+      indentList(INPUT_METHOD.KEYBOARD)(state, dispatch);
+
+      expect(createAnalyticsEvent).toHaveBeenCalledWith({
+        action: ACTION.INDENTED,
+        actionSubject: ACTION_SUBJECT.LIST,
+        actionSubjectId: ACTION_SUBJECT_ID.FORMAT_LIST_NUMBER,
+        eventType: EVENT_TYPE.TRACK,
+        attributes: expect.objectContaining({
+          inputMethod: INPUT_METHOD.KEYBOARD,
+        }),
       });
     });
   });

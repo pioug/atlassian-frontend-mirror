@@ -31,6 +31,7 @@ export const fireSmartLinkEvent = (
 export const resolvedEvent = (
   id: string,
   definitionId?: string,
+  extensionKey?: string,
   resourceType?: string,
 ): AnalyticsPayload => ({
   action: 'resolved',
@@ -39,7 +40,8 @@ export const resolvedEvent = (
   attributes: {
     id,
     ...context,
-    ...(definitionId ? { definitionId: definitionId } : {}),
+    ...(definitionId ? { definitionId } : {}),
+    ...(extensionKey ? { extensionKey } : {}),
     ...(resourceType ? { resourceType } : {}),
   },
 });
@@ -48,6 +50,7 @@ export const unresolvedEvent = (
   id: string,
   status: string,
   definitionId?: string,
+  extensionKey?: string,
   resourceType?: string,
   error?: APIError,
 ): AnalyticsPayload => ({
@@ -57,7 +60,8 @@ export const unresolvedEvent = (
   attributes: {
     id,
     ...context,
-    ...(definitionId ? { definitionId: definitionId } : {}),
+    ...(definitionId ? { definitionId } : {}),
+    ...(extensionKey ? { extensionKey } : {}),
     ...(resourceType ? { resourceType } : {}),
     reason: status,
     error: error
@@ -118,18 +122,21 @@ export const invokeFailedEvent = (
 
 export const connectSucceededEvent = (
   definitionId?: string,
+  extensionKey?: string,
 ): AnalyticsPayload => ({
   action: 'connectSucceeded',
   actionSubject: 'smartLink',
   eventType: 'operational',
   attributes: {
     ...context,
-    ...(definitionId ? { definitionId: definitionId } : {}),
+    ...(definitionId ? { definitionId } : {}),
+    ...(extensionKey ? { extensionKey } : {}),
   },
 });
 
 export const connectFailedEvent = (
   definitionId?: string,
+  extensionKey?: string,
   reason?: string,
 ): AnalyticsPayload => ({
   action: 'connectFailed',
@@ -139,25 +146,29 @@ export const connectFailedEvent = (
   attributes: {
     ...context,
     ...(reason ? { reason: reason } : {}),
-    ...(definitionId ? { definitionId: definitionId } : {}),
+    ...(definitionId ? { definitionId } : {}),
+    ...(extensionKey ? { extensionKey } : {}),
   },
 });
 
 export const trackAppAccountConnected = (
   definitionId?: string,
+  extensionKey?: string,
 ): AnalyticsPayload => ({
   action: 'connected',
   actionSubject: 'applicationAccount',
   eventType: 'track',
   attributes: {
     ...context,
-    ...(definitionId ? { definitionId: definitionId } : {}),
+    ...(definitionId ? { definitionId } : {}),
+    ...(extensionKey ? { extensionKey } : {}),
   },
 });
 
 export const uiAuthEvent = (
   display: CardInnerAppearance,
   definitionId?: string,
+  extensionKey?: string,
 ): AnalyticsPayload => ({
   action: 'clicked',
   actionSubject: 'button',
@@ -166,6 +177,7 @@ export const uiAuthEvent = (
   attributes: {
     ...context,
     definitionId: definitionId || '',
+    extensionKey: extensionKey || '',
     display,
   },
 });
@@ -173,6 +185,7 @@ export const uiAuthEvent = (
 export const uiAuthAlternateAccountEvent = (
   display: CardInnerAppearance,
   definitionId?: string,
+  extensionKey?: string,
 ): AnalyticsPayload => ({
   action: 'clicked',
   actionSubject: 'smartLink',
@@ -181,6 +194,7 @@ export const uiAuthAlternateAccountEvent = (
   attributes: {
     ...context,
     definitionId: definitionId || '',
+    extensionKey: extensionKey || '',
     display,
   },
 });
@@ -188,6 +202,7 @@ export const uiAuthAlternateAccountEvent = (
 export const uiCardClickedEvent = (
   display: CardInnerAppearance,
   definitionId?: string,
+  extensionKey?: string,
 ): AnalyticsPayload => ({
   action: 'clicked',
   actionSubject: 'smartLink',
@@ -195,6 +210,7 @@ export const uiCardClickedEvent = (
   attributes: {
     ...context,
     definitionId: definitionId || '',
+    extensionKey: extensionKey || '',
     display,
   },
 });
@@ -218,6 +234,7 @@ export const uiActionClickedEvent = (
 export const uiClosedAuthEvent = (
   display: CardInnerAppearance,
   definitionId?: string,
+  extensionKey?: string,
 ): AnalyticsPayload => ({
   action: 'closed',
   actionSubject: 'consentModal',
@@ -225,24 +242,28 @@ export const uiClosedAuthEvent = (
   attributes: {
     ...context,
     definitionId: definitionId || '',
+    extensionKey: extensionKey || '',
     display,
   },
 });
 
 export const screenAuthPopupEvent = (
   definitionId?: string,
+  extensionKey?: string,
 ): AnalyticsPayload => ({
   actionSubject: 'consentModal',
   eventType: 'screen',
   attributes: {
     ...context,
     definitionId: definitionId || '',
+    extensionKey: extensionKey || '',
   },
 });
 
 export const uiRenderSuccessEvent = (
   display: CardInnerAppearance,
   definitionId?: string,
+  extensionKey?: string,
 ): AnalyticsPayload => ({
   action: 'renderSuccess',
   actionSubject: 'smartLink',
@@ -250,6 +271,7 @@ export const uiRenderSuccessEvent = (
   attributes: {
     ...context,
     definitionId: definitionId || '',
+    extensionKey: extensionKey || '',
     display,
   },
 });
@@ -273,12 +295,13 @@ export const instrumentEvent = (
   id: string,
   status: CardType,
   definitionId?: string,
+  extensionKey?: string,
   resourceType?: string,
   error?: APIError,
 ): AnalyticsPayload => {
   const measure = getMeasure(id, status) || { duration: undefined };
   if (status === 'resolved') {
-    const event = resolvedEvent(id, definitionId, resourceType);
+    const event = resolvedEvent(id, definitionId, extensionKey, resourceType);
     return {
       ...event,
       attributes: {
@@ -291,6 +314,7 @@ export const instrumentEvent = (
       id,
       status,
       definitionId,
+      extensionKey,
       resourceType,
       error,
     );

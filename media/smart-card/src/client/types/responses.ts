@@ -28,3 +28,19 @@ export type ServerErrorType =
 
 // Used to catch any other errors - not server-side.
 export type ErrorType = ServerErrorType | 'UnexpectedError';
+
+export const isSuccessfulResponse = (
+  response: SuccessResponse | ErrorResponse,
+): response is SuccessResponse => {
+  const hasSuccessfulStatus = response.status === 200;
+  const hasSuccessBody = 'body' in response;
+  return hasSuccessfulStatus && hasSuccessBody;
+};
+
+export const isErrorResponse = (
+  response: SuccessResponse | ErrorResponse,
+): response is ErrorResponse => {
+  const hasStatus = response.status >= 200;
+  const hasErrorBody = 'error' in response;
+  return hasStatus && hasErrorBody;
+};

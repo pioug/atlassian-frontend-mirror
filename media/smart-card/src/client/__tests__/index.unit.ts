@@ -6,6 +6,18 @@ jest.mock('../api', () => ({
 import { mocks } from '../../utils/mocks';
 import SmartCardClient from '..';
 
+// Mock response quick-references:
+const errorResponse = {
+  status: 500,
+  error: {
+    type: 'ResolveFailedError',
+    message: 'received failure error',
+  },
+};
+const successfulResponse = { status: 200, body: mocks.success };
+const notFoundResponse = { status: 200, body: mocks.notFound };
+const unauthorizedResponse = { status: 200, body: mocks.unauthorized };
+
 describe('Smart Card: Client', () => {
   beforeEach(() => {
     mockRequest = jest.fn();
@@ -16,9 +28,7 @@ describe('Smart Card: Client', () => {
   });
 
   it('successfully sets up client with passed environment', async () => {
-    mockRequest.mockImplementationOnce(async () => [
-      { status: 200, body: mocks.success },
-    ]);
+    mockRequest.mockImplementationOnce(async () => [successfulResponse]);
     const client = new SmartCardClient('stg');
     const resourceUrl = 'https://i.love.cheese';
     const response = await client.fetchData('https://i.love.cheese');
@@ -77,9 +87,9 @@ describe('Smart Card: Client', () => {
 
   it('successfully batches requests in same execution frame', async () => {
     mockRequest.mockImplementationOnce(async () => [
-      { status: 200, body: mocks.success },
-      { status: 200, body: mocks.unauthorized },
-      { status: 200, body: mocks.notFound },
+      successfulResponse,
+      unauthorizedResponse,
+      notFoundResponse,
     ]);
     const client = new SmartCardClient('stg');
     const hostname = 'https://www.google.com';
@@ -137,5 +147,145 @@ describe('Smart Card: Client', () => {
         context: '',
       },
     );
+  });
+
+  describe('prefetchData', () => {
+    it('successfully triggers prefetching of data for multiple URLs', async () => {
+      mockRequest.mockImplementationOnce(async () => [
+        successfulResponse,
+        unauthorizedResponse,
+        notFoundResponse,
+      ]);
+
+      const hostname = 'https://www.google.com';
+      const client = new SmartCardClient('stg');
+
+      const responses = await Promise.all([
+        client.prefetchData(`${hostname}/1`),
+        client.prefetchData(`${hostname}/2`),
+        client.prefetchData(`${hostname}/3`),
+      ]);
+
+      expect(responses).toEqual([
+        mocks.success,
+        mocks.unauthorized,
+        mocks.notFound,
+      ]);
+      expect(mockRequest).toHaveBeenCalledTimes(1);
+      expect(mockRequest.mock.calls.shift()).toMatchSnapshot('initial request');
+    });
+
+    it('successfully triggers prefetching of data with exponential backoff for an errored URL which recovers', async () => {
+      mockRequest.mockImplementationOnce(async () => [
+        successfulResponse,
+        unauthorizedResponse,
+        errorResponse,
+      ]);
+      // Fail on 1st retry attempt.
+      mockRequest.mockImplementationOnce(async () => [errorResponse]);
+      // Succeed on 2nd retry attempt.
+      mockRequest.mockImplementationOnce(async () => [successfulResponse]);
+
+      const hostname = 'https://www.google.com';
+      const client = new SmartCardClient('stg');
+
+      const responses = await Promise.all([
+        client.prefetchData(`${hostname}/1`),
+        client.prefetchData(`${hostname}/2`),
+        client.prefetchData(`${hostname}/3`),
+      ]);
+
+      expect(responses).toEqual([
+        mocks.success,
+        mocks.unauthorized,
+        mocks.success,
+      ]);
+      expect(mockRequest).toHaveBeenCalledTimes(3);
+      expect(mockRequest.mock.calls.shift()).toMatchSnapshot('initial request');
+      expect(mockRequest.mock.calls.shift()).toMatchSnapshot('retry attempt 1');
+      expect(mockRequest.mock.calls.shift()).toMatchSnapshot('retry attempt 2');
+    });
+
+    it('fails silently when prefetching data with exponential backoff for an errored URL which does not recover', async () => {
+      mockRequest.mockImplementationOnce(async () => [
+        successfulResponse,
+        unauthorizedResponse,
+        errorResponse,
+      ]);
+      // Fail on 1st, 2nd, 3rd retry attempts as well.
+      mockRequest.mockImplementationOnce(async () => [errorResponse]);
+      mockRequest.mockImplementationOnce(async () => [errorResponse]);
+      mockRequest.mockImplementationOnce(async () => [errorResponse]);
+
+      const hostname = 'https://www.google.com';
+      const client = new SmartCardClient('stg');
+
+      const responses = await Promise.all([
+        client.prefetchData(`${hostname}/1`),
+        client.prefetchData(`${hostname}/2`),
+        client.prefetchData(`${hostname}/3`),
+      ]);
+
+      expect(responses).toEqual([
+        mocks.success,
+        mocks.unauthorized,
+        // Since errors fail silently, the response in the case of an irrecoverable error
+        // is set to `undefined`. This is handled accordingly upstream.
+        undefined,
+      ]);
+
+      expect(mockRequest).toHaveBeenCalledTimes(4);
+      expect(mockRequest.mock.calls.shift()).toMatchSnapshot('initial request');
+      expect(mockRequest.mock.calls.shift()).toMatchSnapshot('retry attempt 1');
+      expect(mockRequest.mock.calls.shift()).toMatchSnapshot('retry attempt 2');
+      expect(mockRequest.mock.calls.shift()).toMatchSnapshot('retry attempt 3');
+    });
+
+    it('fails silently when prefetching data (stops prefetching) with exponential backoff for an errored URL which recovers with fetch flow', async () => {
+      // We place one successful mock at the start to represent the calling
+      // of `client.fetchData()` and it succeeding.
+      mockRequest.mockImplementationOnce(async () => [successfulResponse]);
+      // Then, we setup our prefetchers, with the last link failing to resolve,
+      // even after retrying with backoff.
+      mockRequest.mockImplementationOnce(async () => [
+        successfulResponse,
+        unauthorizedResponse,
+        errorResponse,
+      ]);
+      // Fail on 1st, 2nd, 3rd retry attempts as well (none of these should be
+      // called, but adding the rest for clarity, asserted below).
+      mockRequest.mockImplementationOnce(async () => [errorResponse]);
+      mockRequest.mockImplementationOnce(async () => [errorResponse]);
+      mockRequest.mockImplementationOnce(async () => [errorResponse]);
+
+      const hostname = 'https://www.google.com';
+      const client = new SmartCardClient('stg');
+
+      // Kickoff a proper fetch of the URL.
+      const fetchResponse = await client.fetchData(`${hostname}/3`);
+      expect(fetchResponse).toEqual(mocks.success);
+
+      // Then, start prefetching - we should only prefetch once (simulating a user scrolling
+      // through a page very quickly) - after which we should stop trying to prefetch with
+      // exponential backoff (since we are seeing errors).
+      const responses = await Promise.all([
+        client.prefetchData(`${hostname}/1`),
+        client.prefetchData(`${hostname}/2`),
+        client.prefetchData(`${hostname}/3`),
+      ]);
+
+      expect(responses).toEqual([
+        mocks.success,
+        mocks.unauthorized,
+        // Since errors fail silently, the response in the case of an irrecoverable error
+        // is set to `undefined`. This is handled accordingly upstream.
+        undefined,
+      ]);
+
+      expect(mockRequest).toHaveBeenCalledTimes(2);
+      expect(mockRequest.mock.calls.shift()).toMatchSnapshot('fetch request');
+      expect(mockRequest.mock.calls.shift()).toMatchSnapshot('initial request');
+      expect(mockRequest.mock.calls.shift()).toMatchSnapshot('retry attempt 1');
+    });
   });
 });

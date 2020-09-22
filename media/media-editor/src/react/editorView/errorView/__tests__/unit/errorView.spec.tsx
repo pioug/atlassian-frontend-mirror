@@ -1,5 +1,5 @@
 import React from 'react'; // eslint-disable-line
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
 import { messages } from '@atlaskit/media-ui';
 import {
   expectToEqual,

@@ -119,6 +119,9 @@ export const arrow = (
   }
 
   if (selection instanceof NodeSelection) {
+    if (selection.node.isInline) {
+      return false;
+    }
     if (dir === Direction.UP || dir === Direction.DOWN) {
       // We dont add gap cursor on node selections going up and down
       return false;

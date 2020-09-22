@@ -10,7 +10,9 @@ export type MenuItem = {
   key: string;
   extensionType: ExtensionType;
   title: string;
-  description: string;
+  description?: string;
+  summary?: string;
+  documentationUrl?: string;
   featured: boolean;
   keywords: string[];
   categories: string[];

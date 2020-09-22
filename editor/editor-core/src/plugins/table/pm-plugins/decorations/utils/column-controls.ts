@@ -69,13 +69,7 @@ export const maybeUpdateColumnControlsSelectedDecoration: DecorationTransformer 
   decorationSet,
   tr,
 }): DecorationSet => {
-  const isTransactionFromMouseClick =
-    !tr.docChanged && tr.selectionSet && tr.getMeta('pointer');
-
-  if (
-    !isTransactionFromMouseClick ||
-    !hasColumnSelectedDecorations(decorationSet)
-  ) {
+  if (!hasColumnSelectedDecorations(decorationSet)) {
     return decorationSet;
   }
 

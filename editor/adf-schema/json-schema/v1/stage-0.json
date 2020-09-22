@@ -1024,14 +1024,59 @@
       ],
       "additionalProperties": false
     },
-    "mediaSingle_node": {
+    "caption_node": {
       "type": "object",
       "properties": {
         "type": {
           "enum": [
-            "mediaSingle"
+            "caption"
           ]
         },
+        "content": {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "#/definitions/hardBreak_node"
+              },
+              {
+                "$ref": "#/definitions/mention_node"
+              },
+              {
+                "$ref": "#/definitions/emoji_node"
+              },
+              {
+                "$ref": "#/definitions/date_node"
+              },
+              {
+                "$ref": "#/definitions/placeholder_node"
+              },
+              {
+                "$ref": "#/definitions/inlineCard_node"
+              },
+              {
+                "$ref": "#/definitions/status_node"
+              },
+              {
+                "$ref": "#/definitions/formatted_text_inline_node"
+              },
+              {
+                "$ref": "#/definitions/code_inline_node"
+              }
+            ]
+          },
+          "minItems": 0
+        }
+      },
+      "required": [
+        "type",
+        "content"
+      ],
+      "additionalProperties": false
+    },
+    "mediaSingle_node": {
+      "type": "object",
+      "properties": {
         "content": {
           "type": "array",
           "items": {
@@ -1039,6 +1084,11 @@
           },
           "minItems": 1,
           "maxItems": 1
+        },
+        "type": {
+          "enum": [
+            "mediaSingle"
+          ]
         },
         "attrs": {
           "type": "object",
@@ -1073,8 +1123,67 @@
         }
       },
       "required": [
-        "type",
-        "content"
+        "content",
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "mediaSingle_caption_node": {
+      "type": "object",
+      "properties": {
+        "content": {
+          "type": "array",
+          "items": [
+            {
+              "$ref": "#/definitions/media_node"
+            },
+            {
+              "$ref": "#/definitions/caption_node"
+            }
+          ],
+          "minItems": 1,
+          "maxItems": 2
+        },
+        "type": {
+          "enum": [
+            "mediaSingle"
+          ]
+        },
+        "attrs": {
+          "type": "object",
+          "properties": {
+            "width": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "layout": {
+              "enum": [
+                "wide",
+                "full-width",
+                "center",
+                "wrap-right",
+                "wrap-left",
+                "align-end",
+                "align-start"
+              ]
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "layout"
+          ]
+        },
+        "marks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/link_mark"
+          }
+        }
+      },
+      "required": [
+        "content",
+        "type"
       ],
       "additionalProperties": false
     },
@@ -1099,6 +1208,9 @@
                 },
                 {
                   "$ref": "#/definitions/mediaSingle_node"
+                },
+                {
+                  "$ref": "#/definitions/mediaSingle_caption_node"
                 }
               ]
             },
@@ -1115,6 +1227,9 @@
                 },
                 {
                   "$ref": "#/definitions/mediaSingle_node"
+                },
+                {
+                  "$ref": "#/definitions/mediaSingle_caption_node"
                 },
                 {
                   "$ref": "#/definitions/orderedList_node"
@@ -1277,8 +1392,15 @@
                 "tip",
                 "warning",
                 "error",
-                "success"
+                "success",
+                "custom"
               ]
+            },
+            "panelIcon": {
+              "type": "string"
+            },
+            "panelColor": {
+              "type": "string"
             }
           },
           "required": [
@@ -1643,6 +1765,9 @@
             "$ref": "#/definitions/mediaSingle_node"
           },
           {
+            "$ref": "#/definitions/mediaSingle_caption_node"
+          },
+          {
             "$ref": "#/definitions/heading_with_no_marks_node"
           },
           {
@@ -1786,6 +1911,9 @@
             "$ref": "#/definitions/mediaSingle_node"
           },
           {
+            "$ref": "#/definitions/mediaSingle_caption_node"
+          },
+          {
             "$ref": "#/definitions/orderedList_node"
           },
           {
@@ -1922,6 +2050,9 @@
         },
         {
           "$ref": "#/definitions/mediaSingle_node"
+        },
+        {
+          "$ref": "#/definitions/mediaSingle_caption_node"
         },
         {
           "$ref": "#/definitions/orderedList_node"
@@ -2106,6 +2237,9 @@
           "$ref": "#/definitions/mediaSingle_node"
         },
         {
+          "$ref": "#/definitions/mediaSingle_caption_node"
+        },
+        {
           "$ref": "#/definitions/orderedList_node"
         },
         {
@@ -2258,6 +2392,9 @@
               },
               {
                 "$ref": "#/definitions/mediaSingle_node"
+              },
+              {
+                "$ref": "#/definitions/mediaSingle_caption_node"
               },
               {
                 "$ref": "#/definitions/orderedList_node"

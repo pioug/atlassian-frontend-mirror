@@ -11,6 +11,16 @@ exports[`FileCardImageView should render correct background based on mediaType" 
   height: 100%;
 }
 
+.c0::selection,
+.c0 *::selection {
+  background-color: transparent;
+}
+
+.c0::-moz-selection,
+.c0 *::-moz-selection {
+  background-color: transparent;
+}
+
 .c0::after {
   content: '';
   width: 100%;
@@ -20,7 +30,6 @@ exports[`FileCardImageView should render correct background based on mediaType" 
   box-sizing: border-box;
   pointer-events: none;
   border-radius: 3px;
-  border: 1px solid transparent;
 }
 
 .c0 .wrapper {
@@ -56,6 +65,16 @@ exports[`FileCardImageView should render correct background based on mediaType" 
   height: 100%;
 }
 
+.c0::selection,
+.c0 *::selection {
+  background-color: transparent;
+}
+
+.c0::-moz-selection,
+.c0 *::-moz-selection {
+  background-color: transparent;
+}
+
 .c0::after {
   content: '';
   width: 100%;
@@ -65,7 +84,6 @@ exports[`FileCardImageView should render correct background based on mediaType" 
   box-sizing: border-box;
   pointer-events: none;
   border-radius: 3px;
-  border: 1px solid transparent;
 }
 
 .c0 .wrapper {

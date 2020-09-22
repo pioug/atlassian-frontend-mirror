@@ -18,17 +18,22 @@ BrowserTestCase(
       '[data-testid="media-file-card-view"][data-test-status="complete"]';
     const editorScrollParentSelector = '.fabric-editor-popup-scroll-parent';
 
-    await mountEditor(page, {
-      appearance: 'full-page',
-      allowTextAlignment: true,
-      defaultValue: JSON.stringify(mediaCardLazyAdf),
-      media: {
-        allowMediaSingle: true,
+    await mountEditor(
+      page,
+      {
+        appearance: 'full-page',
+        allowTextAlignment: true,
+        defaultValue: JSON.stringify(mediaCardLazyAdf),
+        media: {
+          allowMediaSingle: true,
+        },
+        allowTables: {
+          advanced: true,
+        },
       },
-      allowTables: {
-        advanced: true,
-      },
-    });
+      undefined,
+      { clickInEditor: false },
+    );
 
     // First, we expect cards to be in loading state
     await page.waitForSelector(lazySelector);

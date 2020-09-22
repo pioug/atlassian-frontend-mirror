@@ -1,0 +1,162 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`card toolbar displays toolbar items in correct order for blockCard 1`] = `
+Array [
+  Object {
+    "render": [Function],
+    "type": "custom",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "onClick": [Function],
+    "selected": false,
+    "showTitle": true,
+    "title": "Edit link",
+    "type": "button",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "className": "hyperlink-open-link",
+    "icon": [Function],
+    "onClick": [Function],
+    "title": "Open link in a new tab",
+    "type": "button",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "appearance": "danger",
+    "icon": [Function],
+    "onClick": [Function],
+    "onMouseEnter": [Function],
+    "onMouseLeave": [Function],
+    "title": "Remove",
+    "type": "button",
+  },
+]
+`;
+
+exports[`card toolbar displays toolbar items in correct order for embedCard 1`] = `
+Array [
+  Object {
+    "render": [Function],
+    "type": "custom",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "icon": [Function],
+    "onClick": [Function],
+    "selected": false,
+    "title": "Align left",
+    "type": "button",
+  },
+  Object {
+    "icon": [Function],
+    "onClick": [Function],
+    "selected": true,
+    "title": "Align center",
+    "type": "button",
+  },
+  Object {
+    "icon": [Function],
+    "onClick": [Function],
+    "selected": false,
+    "title": "Align right",
+    "type": "button",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "icon": [Function],
+    "onClick": [Function],
+    "selected": false,
+    "title": "Wrap left",
+    "type": "button",
+  },
+  Object {
+    "icon": [Function],
+    "onClick": [Function],
+    "selected": false,
+    "title": "Wrap right",
+    "type": "button",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "onClick": [Function],
+    "selected": false,
+    "showTitle": true,
+    "title": "Edit link",
+    "type": "button",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "className": "hyperlink-open-link",
+    "icon": [Function],
+    "onClick": [Function],
+    "title": "Open link in a new tab",
+    "type": "button",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "appearance": "danger",
+    "icon": [Function],
+    "onClick": [Function],
+    "onMouseEnter": [Function],
+    "onMouseLeave": [Function],
+    "title": "Remove",
+    "type": "button",
+  },
+]
+`;
+
+exports[`card toolbar displays toolbar items in correct order for inlineCard 1`] = `
+Array [
+  Object {
+    "render": [Function],
+    "type": "custom",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "onClick": [Function],
+    "selected": false,
+    "showTitle": true,
+    "title": "Edit link",
+    "type": "button",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "className": "hyperlink-open-link",
+    "icon": [Function],
+    "onClick": [Function],
+    "title": "Open link in a new tab",
+    "type": "button",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "icon": [Function],
+    "onClick": [Function],
+    "title": "Unlink",
+    "type": "button",
+  },
+]
+`;

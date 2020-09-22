@@ -109,25 +109,27 @@ describe('gap-cursor', () => {
     ['ArrowLeft', 'ArrowRight'].forEach(direction => {
       describe(`when pressing ${direction}`, () => {
         describe('when cursor is inside of a content block node', () => {
-          (Object.keys(blockNodes) as BlockNodesKeys).forEach(nodeName => {
-            describe(nodeName, () => {
-              it('should set GapCursorSelection', () => {
-                const { editorView } = editor(
-                  doc((blockNodes[nodeName] as any)()),
-                );
-                sendKeyToPm(editorView, direction);
-                expect(
-                  editorView.state.selection instanceof GapCursorSelection,
-                ).toBe(true);
+          (Object.keys(blockNodes) as BlockNodesKeys)
+            .filter(blockNode => blockNode !== 'table') // table has custom behaviour to set a cell selection in this case
+            .forEach(nodeName => {
+              describe(nodeName, () => {
+                it('should set GapCursorSelection', () => {
+                  const { editorView } = editor(
+                    doc((blockNodes[nodeName] as any)()),
+                  );
+                  sendKeyToPm(editorView, direction);
+                  expect(
+                    editorView.state.selection instanceof GapCursorSelection,
+                  ).toBe(true);
 
-                const expectedSide =
-                  direction === 'ArrowLeft' ? Side.LEFT : Side.RIGHT;
-                expect(
-                  (editorView.state.selection as GapCursorSelection).side,
-                ).toEqual(expectedSide);
+                  const expectedSide =
+                    direction === 'ArrowLeft' ? Side.LEFT : Side.RIGHT;
+                  expect(
+                    (editorView.state.selection as GapCursorSelection).side,
+                  ).toEqual(expectedSide);
+                });
               });
             });
-          });
 
           (Object.keys(blockContainerNodes) as BlockContainerNodesKeys).forEach(
             nodeName => {
@@ -260,16 +262,38 @@ describe('gap-cursor', () => {
       });
     });
 
-    ['ArrowLeft', 'ArrowUp'].forEach(direction => {
-      describe(`when pressing ${direction}`, () => {
-        describe('when cursor is inside first content block node of document', () => {
-          (Object.keys(blockNodes) as BlockNodesKeys).forEach(nodeName => {
+    describe('when pressing ArrowUp', () => {
+      describe('when cursor is inside first content block node of document', () => {
+        (Object.keys(blockNodes) as BlockNodesKeys).forEach(nodeName => {
+          describe(nodeName, () => {
+            it('should set GapCursorSelection', () => {
+              const { editorView } = editor(
+                doc((blockNodes[nodeName] as any)()),
+              );
+              sendKeyToPm(editorView, 'ArrowUp');
+              expect(
+                editorView.state.selection instanceof GapCursorSelection,
+              ).toBe(true);
+              expect(
+                (editorView.state.selection as GapCursorSelection).side,
+              ).toEqual(Side.LEFT);
+            });
+          });
+        });
+      });
+    });
+
+    describe('when pressing ArrowLeft', () => {
+      describe('when cursor is inside first content block node of document', () => {
+        (Object.keys(blockNodes) as BlockNodesKeys)
+          .filter(blockNode => blockNode !== 'table') // table has custom behaviour to set a cell selection in this case
+          .forEach(nodeName => {
             describe(nodeName, () => {
               it('should set GapCursorSelection', () => {
                 const { editorView } = editor(
                   doc((blockNodes[nodeName] as any)()),
                 );
-                sendKeyToPm(editorView, direction);
+                sendKeyToPm(editorView, 'ArrowLeft');
                 expect(
                   editorView.state.selection instanceof GapCursorSelection,
                 ).toBe(true);
@@ -279,7 +303,6 @@ describe('gap-cursor', () => {
               });
             });
           });
-        });
       });
     });
   });

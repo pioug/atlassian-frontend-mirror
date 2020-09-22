@@ -1,8 +1,8 @@
 import { Plugin, PluginKey } from 'prosemirror-state';
-import { EditorPlugin } from '../../types';
+import { findDomRefAtPos } from 'prosemirror-utils';
 import { Dispatch } from '../../event-dispatcher';
-import { findSelectionRef } from './find-selection-ref';
-import { SelectionData } from './types';
+import { EditorPlugin } from '../../types';
+import { contentInSelection } from './content-in-selection';
 
 export const selectionPluginKey = new PluginKey('mobile-selection');
 
@@ -12,25 +12,31 @@ export const createProseMirrorPlugin = (dispatch: Dispatch): Plugin => {
       const domAtPos = editorView.domAtPos.bind(editorView);
       return {
         update: (view, previousState) => {
+          const {
+            state,
+            state: { selection, doc },
+          } = view;
+
           if (
-            previousState.doc.eq(view.state.doc) &&
-            previousState.selection.eq(view.state.selection)
+            previousState.doc.eq(doc) &&
+            previousState.selection.eq(selection)
           ) {
             return;
           }
 
-          const selection = view.state.selection.toJSON() as SelectionData;
-          const ref = findSelectionRef(view.state.selection, domAtPos);
-
-          if (!ref) {
-            return;
-          }
+          const ref = findDomRefAtPos(
+            selection.$anchor.pos,
+            domAtPos,
+          ) as HTMLElement;
 
           const { top, left } = ref.getBoundingClientRect();
+          const { nodeTypes, markTypes } = contentInSelection(state);
 
           dispatch(selectionPluginKey, {
             rect: { top: Math.round(top), left: Math.round(left) },
-            selection,
+            selection: state.selection.toJSON(),
+            nodeTypes,
+            markTypes,
           });
         },
       };

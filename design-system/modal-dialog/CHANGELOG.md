@@ -1,5 +1,16 @@
 # @atlaskit/modal-dialog
 
+## 11.2.0
+
+### Minor Changes
+
+- [`9d5d1ab37f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d5d1ab37f) - Allow for non tinted blanket background
+
+### Patch Changes
+
+- [`c48024293c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c48024293c) - Fixed an issue when using `scrollBehavior="outside"` would cause Firefox to not allow scrolling of modal
+- Updated dependencies
+
 ## 11.1.6
 
 ### Patch Changes

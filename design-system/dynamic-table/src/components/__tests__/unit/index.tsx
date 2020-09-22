@@ -3,7 +3,7 @@ import React from 'react';
 import { mount, ReactWrapper } from 'enzyme';
 
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
 
 import DynamicTable, { DynamicTableStateless } from '../../../index';
 import { Caption } from '../../../styled/DynamicTable';

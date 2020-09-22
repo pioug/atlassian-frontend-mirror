@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import Button, { ButtonAppearances } from '@atlaskit/button';
+import { Appearance } from '@atlaskit/button/types';
+import Button from '@atlaskit/button/custom-theme-button';
 import { fontSize } from '@atlaskit/theme/constants';
 import { FormattedMessage } from 'react-intl';
 import { FC } from 'react';
@@ -9,7 +10,7 @@ import { messages, MessageKey } from '../../messages';
 import { gs as gridSize } from '../../BlockCard/utils';
 
 export interface ButtonProps {
-  appearance: ButtonAppearances;
+  appearance: Appearance;
   text: MessageKey;
   testId?: string;
 }

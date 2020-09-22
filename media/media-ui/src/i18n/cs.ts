@@ -21,6 +21,7 @@ export default {
   'fabric.media.annotate.tool.line.thickness': 'Tloušťka čáry',
   'fabric.media.annotate.tool.shape': 'Tvar',
   'fabric.media.annotate.tool.text': 'Text',
+  'fabric.media.archive': 'archivovat',
   'fabric.media.audio': 'zvuk',
   'fabric.media.cancel': 'Zrušit',
   'fabric.media.cant_preview_file_type':
@@ -36,16 +37,18 @@ export default {
     'Pokud chcete zobrazit náhled, připojte svůj účet',
   'fabric.media.connect_link_account_card_view': 'Připojit',
   'fabric.media.connect_link_account_card_view_description':
-    'Obohaťte si náhledy odkazů díky propojení účtu {context} s vašimi produkty Atlassian.',
+    'Pokud chcete zobrazit náhled tohoto odkazu, připojte svůj účet {context}.',
   'fabric.media.connect_link_account_card_view_name':
     'Připojte svůj účet {context}',
   'fabric.media.connect_to': 'Připojit k {name}',
   'fabric.media.could_not_load_editor': 'Editor se nepodařilo načíst.',
   'fabric.media.could_not_save_image': 'Obrázek se nepodařilo uložit.',
+  'fabric.media.couldnt_generate_encrypted_entry_preview':
+    'Náhled souborů chráněných šifrováním nebo heslem nelze zobrazit.',
   'fabric.media.couldnt_generate_preview':
     'Náhled tohoto souboru se nepodařilo vytvořit.',
   'fabric.media.couldnt_load_link':
-    'Tento odkaz se z nějakého důvodu nepodařilo načíst.',
+    'Tento odkaz se z neznámého důvodu nepodařilo načíst.',
   'fabric.media.default_avatars': 'Výchozí avatary',
   'fabric.media.disable_fullscreen': 'zakázat zobrazení na celou obrazovku',
   'fabric.media.document': 'dokument',
@@ -74,7 +77,7 @@ export default {
     'Nepodařilo se nahrát obrázek, adresa URL je neplatná.',
   'fabric.media.insert_files':
     '{0, plural, one {Vložit {0} soubor} few {Vložit {0} soubory} many {Vložit {0} souboru} other {Vložit {0} souborů}}',
-  'fabric.media.invalid_permissions': 'K tomuto odkazu nemáte přístup',
+  'fabric.media.invalid_permissions': 'Omezený odkaz',
   'fabric.media.invalid_permissions_description':
     'Pokud si chcete zobrazit tento náhled, požádejte o přístup nebo vyzkoušejte jiný účet.',
   'fabric.media.item_not_found_in_list':
@@ -89,7 +92,7 @@ export default {
   'fabric.media.no_pdf_artifacts':
     'Pro tento soubor nebyly nalezeny žádné PDF artefakty.',
   'fabric.media.not_found_description':
-    'Zkontrolujte adresu URL a zkuste ji upravit nebo vložit znovu.',
+    'Odkaz se nepodařilo najít. Zkontrolujte adresu URL a zkuste ji upravit nebo vložit znovu.',
   'fabric.media.not_found_title': 'Jejda. Tento odkaz se nepodařilo najít.',
   'fabric.media.or': 'nebo',
   'fabric.media.pause': 'pozastavit',

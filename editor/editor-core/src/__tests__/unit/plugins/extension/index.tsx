@@ -54,6 +54,17 @@ const macroProviderPromise = Promise.resolve(macroProvider);
 const testCollectionName = `media-plugin-mock-collection-${randomId()}`;
 const temporaryFileId = `temporary:${randomId()}`;
 
+const bodiedExtensionAttrs = bodiedExtensionData[1].attrs;
+const extensionAttrs = {
+  extensionType: 'com.atlassian.confluence.macro.core',
+  extensionKey: 'dummy',
+  parameters: {
+    macroParams: {
+      a: 2,
+    },
+  },
+};
+
 describe('extension', () => {
   const createEditor = createEditorFactory();
   const providerFactory = ProviderFactory.create({
@@ -86,7 +97,9 @@ describe('extension', () => {
     });
   };
 
-  const extensionAttrs = bodiedExtensionData[1].attrs;
+  afterEach(async () => {
+    await flushPromises();
+  });
 
   describe('initial load', () => {
     it('should set the updateExtension properly when used with extensionProvider', async () => {
@@ -124,7 +137,7 @@ describe('extension', () => {
   describe('when extension is selected', () => {
     it('should delete the bodied extension', () => {
       const { editorView } = editor(
-        doc(bodiedExtension(extensionAttrs)(paragraph('a{<>}'))),
+        doc(bodiedExtension(bodiedExtensionAttrs)(paragraph('a{<>}'))),
       );
 
       const nodeSelection = new NodeSelection(editorView.state.doc.resolve(0));
@@ -141,7 +154,7 @@ describe('extension', () => {
     it("shouldn't create a new extension node on Enter", () => {
       const { editorView } = editor(
         doc(
-          bodiedExtension(extensionAttrs)(
+          bodiedExtension(bodiedExtensionAttrs)(
             paragraph('paragraph 1'),
             paragraph('{<>}'),
             paragraph('paragraph 2'),
@@ -153,7 +166,7 @@ describe('extension', () => {
 
       expect(editorView.state.doc).toEqualDocument(
         doc(
-          bodiedExtension(extensionAttrs)(
+          bodiedExtension(bodiedExtensionAttrs)(
             paragraph('paragraph 1'),
             paragraph(''),
             paragraph('{<>}'),
@@ -183,13 +196,19 @@ describe('extension', () => {
 
     it("doesn't re-create extension nodeview when coming from left gap cursor", () => {
       gapCursorTest(
-        doc('{<gap|>}', bodiedExtension(extensionAttrs)(paragraph('hello'))),
+        doc(
+          '{<gap|>}',
+          bodiedExtension(bodiedExtensionAttrs)(paragraph('hello')),
+        ),
       );
     });
 
     it("doesn't re-create extension nodeview when coming from right gap cursor", () => {
       gapCursorTest(
-        doc(bodiedExtension(extensionAttrs)(paragraph('hello')), '{<|gap>}'),
+        doc(
+          bodiedExtension(bodiedExtensionAttrs)(paragraph('hello')),
+          '{<|gap>}',
+        ),
       );
     });
   });
@@ -198,7 +217,7 @@ describe('extension', () => {
     describe('editExtension', () => {
       it('should return false if both extensionHandlers and macroProvider are not available', () => {
         const { editorView } = editor(
-          doc(bodiedExtension(extensionAttrs)(paragraph('te{<>}xt'))),
+          doc(bodiedExtension(bodiedExtensionAttrs)(paragraph('te{<>}xt'))),
         );
         expect(editExtension(null)(editorView.state, editorView.dispatch)).toBe(
           false,
@@ -213,7 +232,7 @@ describe('extension', () => {
         };
         it('should return true if macroProvider is available and cursor is inside extension node', async () => {
           const { editorView } = editor(
-            doc(bodiedExtension(extensionAttrs)(paragraph('te{<>}xt'))),
+            doc(bodiedExtension(bodiedExtensionAttrs)(paragraph('te{<>}xt'))),
           );
           const provider = await macroProviderPromise;
           expect(
@@ -231,7 +250,7 @@ describe('extension', () => {
 
         it('should replace selected bodiedExtension node with a new bodiedExtension node', async () => {
           const { editorView } = editor(
-            doc(bodiedExtension(extensionAttrs)(paragraph('{<>}'))),
+            doc(bodiedExtension(bodiedExtensionAttrs)(paragraph('{<>}'))),
           );
           const provider = await macroProviderPromise;
           editExtension(provider)(editorView.state, editorView.dispatch);
@@ -283,7 +302,7 @@ describe('extension', () => {
           it('should replace selected inlineExtension node with a new inlineExtension node', async () => {
             const { editorView } = editor(
               doc(
-                bodiedExtension(extensionAttrs)(
+                bodiedExtension(bodiedExtensionAttrs)(
                   paragraph(
                     inlineExtension(inlineExtensionData[0].attrs)(),
                     'two',
@@ -305,7 +324,7 @@ describe('extension', () => {
             await sleep(0);
             expect(editorView.state.doc).toEqualDocument(
               doc(
-                bodiedExtension(extensionAttrs)(
+                bodiedExtension(bodiedExtensionAttrs)(
                   paragraph(
                     inlineExtension(inlineExtensionData[1].attrs)(),
                     'two',
@@ -319,9 +338,10 @@ describe('extension', () => {
         it('should preserve the extension breakout mode on edit', async () => {
           const { editorView } = editor(
             doc(
-              bodiedExtension({ ...extensionAttrs, layout: 'full-width' })(
-                paragraph('te{<>}xt'),
-              ),
+              bodiedExtension({
+                ...bodiedExtensionAttrs,
+                layout: 'full-width',
+              })(paragraph('te{<>}xt')),
             ),
           );
 
@@ -424,20 +444,10 @@ describe('extension', () => {
       });
 
       describe('defining how to update an extension', () => {
-        const dummyExtension = {
-          extensionType: 'com.atlassian.confluence.macro.core',
-          extensionKey: 'dummy',
-          parameters: {
-            macroParams: {
-              a: 2,
-            },
-          },
-        };
-
         const newMacroParams = { macroParams: { a: 1 } };
 
         const updatedExtension = {
-          ...dummyExtension,
+          ...extensionAttrs,
           parameters: newMacroParams,
         };
 
@@ -449,7 +459,7 @@ describe('extension', () => {
           );
 
           const { editorView } = editor(
-            doc(extension(dummyExtension)()),
+            doc(extension(extensionAttrs)()),
             undefined,
             [extensionProvider],
           );
@@ -527,7 +537,7 @@ describe('extension', () => {
     describe('removeExtension', () => {
       it('should set "element" prop in plugin state to undefined and remove the node, if it is an bodied extension', () => {
         const { editorView } = editor(
-          doc(bodiedExtension(extensionAttrs)(paragraph('te{<>}xt'))),
+          doc(bodiedExtension(bodiedExtensionAttrs)(paragraph('te{<>}xt'))),
         );
 
         expect(removeExtension()(editorView.state, editorView.dispatch)).toBe(
@@ -540,7 +550,17 @@ describe('extension', () => {
       });
 
       it('should set "element" prop in plugin state to undefined and remove the node, if it is an extension', () => {
-        const { editorView } = editor(doc(extension(extensionAttrs)()));
+        const extensionProvider = createFakeExtensionProvider(
+          extensionAttrs.extensionType,
+          extensionAttrs.extensionKey,
+          ExtensionHandlerComponent,
+        );
+
+        const { editorView } = editor(
+          doc(extension(extensionAttrs)()),
+          undefined,
+          [extensionProvider],
+        );
 
         expect(removeExtension()(editorView.state, editorView.dispatch)).toBe(
           true,
@@ -555,7 +575,7 @@ describe('extension', () => {
     it('should remove the extension node even if other nodes like media is selected', () => {
       const { editorView } = editor(
         doc(
-          bodiedExtension(extensionAttrs)(
+          bodiedExtension(bodiedExtensionAttrs)(
             mediaSingle({ layout: 'center' })(
               media({
                 id: temporaryFileId,
@@ -583,7 +603,7 @@ describe('extension', () => {
   describe('show extension options', () => {
     it('should show options when the cursor is inside the extension', () => {
       const { editorView } = editor(
-        doc(bodiedExtension(extensionAttrs)(paragraph('te{<>}xt'))),
+        doc(bodiedExtension(bodiedExtensionAttrs)(paragraph('te{<>}xt'))),
       );
       const pluginState = getPluginState(editorView.state);
       expect(pluginState.element).not.toEqual(null);
@@ -593,7 +613,7 @@ describe('extension', () => {
   describe('extension layouts', () => {
     it('should update the extension node layout attribute', () => {
       const { editorView } = editor(
-        doc(bodiedExtension(extensionAttrs)(paragraph('te{<>}xt'))),
+        doc(bodiedExtension(bodiedExtensionAttrs)(paragraph('te{<>}xt'))),
       );
       const {
         state: { schema, selection },
@@ -617,7 +637,7 @@ describe('extension', () => {
     it('respects the layout attribute', () => {
       const { editorView } = editor(
         doc(
-          bodiedExtension({ ...extensionAttrs, layout: 'full-width' })(
+          bodiedExtension({ ...bodiedExtensionAttrs, layout: 'full-width' })(
             paragraph('te{<>}xt'),
           ),
         ),
@@ -636,7 +656,7 @@ describe('extension', () => {
 
     it('sets the data-layout attribute on the extension DOM element', () => {
       const { editorView } = editor(
-        doc(bodiedExtension(extensionAttrs)(paragraph('te{<>}xt'))),
+        doc(bodiedExtension(bodiedExtensionAttrs)(paragraph('te{<>}xt'))),
       );
 
       const getExtension = editorView.dom.getElementsByClassName(
@@ -659,9 +679,9 @@ describe('extension', () => {
     it('sets layout attributes uniquely on extension elements', () => {
       const { editorView } = editor(
         doc(
-          bodiedExtension(extensionAttrs)(paragraph('text')),
+          bodiedExtension(bodiedExtensionAttrs)(paragraph('text')),
           paragraph('hello'),
-          bodiedExtension(extensionAttrs)(paragraph('te{<>}xt')),
+          bodiedExtension(bodiedExtensionAttrs)(paragraph('te{<>}xt')),
         ),
       );
 
@@ -711,10 +731,10 @@ describe('extension', () => {
       const { editorView, refs } = editor(
         doc(
           '{firstExtension}',
-          bodiedExtension(extensionAttrs)(paragraph('{<>}text')),
+          bodiedExtension(bodiedExtensionAttrs)(paragraph('{<>}text')),
           paragraph('hello'),
           '{secondExtension}',
-          bodiedExtension(extensionAttrs)(paragraph('text')),
+          bodiedExtension(bodiedExtensionAttrs)(paragraph('text')),
         ),
       );
 

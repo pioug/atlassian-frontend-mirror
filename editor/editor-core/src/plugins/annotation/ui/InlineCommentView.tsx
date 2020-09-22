@@ -6,7 +6,6 @@ import { AnnotationViewWrapper } from './AnnotationViewWrapper';
 import { AnnotationProviders, AnnotationTestIds } from '../types';
 import {
   getAnnotationViewKey,
-  getAnnotationText,
   getSelectionPositions,
   getPluginState,
 } from '../utils';
@@ -15,6 +14,7 @@ import {
   updateInlineCommentResolvedState,
   setInlineCommentDraftState,
   createAnnotation,
+  closeComponent,
 } from '../commands';
 
 import {
@@ -69,6 +69,7 @@ export function InlineCommentView({
     viewComponent: ViewComponent,
   } = inlineCommentProvider;
   const inlineCommentState = getPluginState(state);
+  const { bookmark, selectedAnnotations, annotations } = inlineCommentState;
 
   const selection = getSelectionPositions(state, inlineCommentState);
   const dom = findDomRefAtPos(
@@ -77,24 +78,27 @@ export function InlineCommentView({
   ) as HTMLElement;
 
   // Create Component
-  if (inlineCommentState.bookmark) {
+  if (bookmark) {
     if (!CreateComponent) {
       return null;
     }
 
     //getting all text between bookmarked positions
-    const textselection = state.doc.textBetween(selection.from, selection.to);
+    const textSelection = state.doc.textBetween(selection.from, selection.to);
     return (
       <div data-testid={AnnotationTestIds.floatingComponent}>
         <CreateComponent
           dom={dom}
-          textSelection={textselection}
+          textSelection={textSelection}
           onCreate={id => {
-            createAnnotation(id)(state, dispatch);
+            createAnnotation(id)(editorView.state, editorView.dispatch);
             !editorView.hasFocus() && editorView.focus();
           }}
           onClose={() => {
-            setInlineCommentDraftState(false)(state, dispatch);
+            setInlineCommentDraftState(false)(
+              editorView.state,
+              editorView.dispatch,
+            );
             !editorView.hasFocus() && editorView.focus();
           }}
         />
@@ -103,10 +107,10 @@ export function InlineCommentView({
   }
 
   // View Component
-  const annotations = inlineCommentState.selectedAnnotations.filter(
-    mark => inlineCommentState.annotations[mark.id] === false,
+  const activeAnnotations = selectedAnnotations.filter(
+    mark => annotations[mark.id] === false,
   );
-  if (!ViewComponent || annotations.length === 0) {
+  if (!ViewComponent || activeAnnotations.length === 0) {
     return null;
   }
 
@@ -121,40 +125,36 @@ export function InlineCommentView({
       actionSubjectId: ACTION_SUBJECT_ID.INLINE_COMMENT,
       eventType: EVENT_TYPE.TRACK,
       attributes: {
-        overlap: annotations.length ? annotations.length - 1 : 0,
+        overlap: activeAnnotations.length ? activeAnnotations.length - 1 : 0,
       },
     };
     dispatchAnalyticsEvent(payload);
   };
 
-  // can not use dom.innerText here
-  // because annotation can be split into multiple dom elements
-  const annotationText = getAnnotationText(
-    state.doc,
-    annotations.map(annotation => annotation.id),
-  );
+  if (!selectedAnnotations) {
+    return null;
+  }
 
   return (
     <AnnotationViewWrapper
-      annotationText={annotationText}
       data-testid={AnnotationTestIds.floatingComponent}
-      key={getAnnotationViewKey(annotations)}
+      key={getAnnotationViewKey(activeAnnotations)}
       onViewed={onAnnotationViewed}
     >
-      {(dismissCallback: () => void) => (
-        <ViewComponent
-          annotations={annotations}
-          dom={dom}
-          onDelete={id => removeInlineCommentNearSelection(id)(state, dispatch)}
-          onResolve={id =>
-            updateInlineCommentResolvedState(
-              { [id]: true },
-              RESOLVE_METHOD.COMPONENT,
-            )(state, dispatch)
-          }
-          onClose={dismissCallback}
-        />
-      )}
+      <ViewComponent
+        annotations={activeAnnotations}
+        dom={dom}
+        onDelete={id => removeInlineCommentNearSelection(id)(state, dispatch)}
+        onResolve={id =>
+          updateInlineCommentResolvedState(
+            { [id]: true },
+            RESOLVE_METHOD.COMPONENT,
+          )(editorView.state, editorView.dispatch)
+        }
+        onClose={() => {
+          closeComponent()(editorView.state, editorView.dispatch);
+        }}
+      />
     </AnnotationViewWrapper>
   );
 }

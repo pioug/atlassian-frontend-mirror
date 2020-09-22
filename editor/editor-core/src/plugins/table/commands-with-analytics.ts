@@ -4,6 +4,7 @@ import {
   findCellRectClosestToPos,
   getSelectionRect,
 } from 'prosemirror-utils';
+import { Selection } from 'prosemirror-state';
 
 import { tableBackgroundColorPalette, TableLayout } from '@atlaskit/adf-schema';
 
@@ -15,11 +16,16 @@ import {
   TABLE_ACTION,
   TABLE_BREAKOUT,
   withAnalytics,
+  AnalyticsEventPayload,
 } from '../analytics';
 
 import { clearMultipleCells } from './commands/clear';
 import { insertColumn, insertRow } from './commands/insert';
-import { deleteTable, setMultipleCellAttrs } from './commands/misc';
+import {
+  deleteTable,
+  setMultipleCellAttrs,
+  deleteTableIfSelected,
+} from './commands/misc';
 import { sortByColumn } from './commands/sort';
 import { splitCell } from './commands/split-cell';
 import {
@@ -294,21 +300,34 @@ export const deleteColumnsWithAnalytics = (
     return true;
   });
 
+const getTableDeletedAnalytics = (
+  selection: Selection,
+  inputMethod: INPUT_METHOD.FLOATING_TB | INPUT_METHOD.KEYBOARD,
+): AnalyticsEventPayload => {
+  const { totalRowCount, totalColumnCount } = getSelectedTableInfo(selection);
+  return {
+    action: TABLE_ACTION.DELETED,
+    actionSubject: ACTION_SUBJECT.TABLE,
+    attributes: {
+      inputMethod,
+      totalRowCount,
+      totalColumnCount,
+    },
+    eventType: EVENT_TYPE.TRACK,
+  };
+};
+
 export const deleteTableWithAnalytics = () =>
-  withAnalytics(({ selection }) => {
-    const { totalRowCount, totalColumnCount } = getSelectedTableInfo(selection);
-    return {
-      action: TABLE_ACTION.DELETED,
-      actionSubject: ACTION_SUBJECT.TABLE,
-      actionSubjectId: null,
-      attributes: {
-        inputMethod: INPUT_METHOD.FLOATING_TB,
-        totalRowCount,
-        totalColumnCount,
-      },
-      eventType: EVENT_TYPE.TRACK,
-    };
-  })(deleteTable);
+  withAnalytics(({ selection }) =>
+    getTableDeletedAnalytics(selection, INPUT_METHOD.FLOATING_TB),
+  )(deleteTable);
+
+export const deleteTableIfSelectedWithAnalytics = (
+  inputMethod: INPUT_METHOD.FLOATING_TB | INPUT_METHOD.KEYBOARD,
+) =>
+  withAnalytics(({ selection }) =>
+    getTableDeletedAnalytics(selection, inputMethod),
+  )(deleteTableIfSelected);
 
 export const toggleHeaderRowWithAnalytics = () =>
   withAnalytics(state => {

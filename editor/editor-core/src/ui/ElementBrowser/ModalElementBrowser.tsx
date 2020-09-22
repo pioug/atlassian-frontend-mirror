@@ -1,4 +1,4 @@
-import React, { useRef, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import styled from 'styled-components';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
 
@@ -7,7 +7,7 @@ import { themed } from '@atlaskit/theme/components';
 import { borderRadius } from '@atlaskit/theme/constants';
 import { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
 
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
 import Modal, {
   ModalFooter,
   ModalTransition,
@@ -16,7 +16,7 @@ import Modal, {
 
 import ElementBrowser from './components/ElementBrowserLoader';
 import { getCategories } from './categories';
-import { GRID_SIZE } from './constants';
+import { MODAL_WRAPPER_PADDING } from './constants';
 
 export interface State {
   isOpen: boolean;
@@ -30,13 +30,13 @@ export interface Props {
 }
 
 const ModalElementBrowser = (props: Props & InjectedIntlProps) => {
-  let selectedItemRef = useRef<QuickInsertItem>();
+  const [selectedItem, setSelectedItem] = useState<QuickInsertItem>();
 
   const onSelectItem = useCallback(
     (item: QuickInsertItem) => {
-      selectedItemRef.current = item;
+      setSelectedItem(item);
     },
-    [selectedItemRef],
+    [setSelectedItem],
   );
 
   const onInsertItem = useCallback(
@@ -45,6 +45,44 @@ const ModalElementBrowser = (props: Props & InjectedIntlProps) => {
     },
     [props],
   );
+
+  const RenderFooter = useCallback(
+    (footerProps: FooterComponentProps) => (
+      <Footer {...footerProps} onInsert={() => onInsertItem(selectedItem!)} />
+    ),
+    [onInsertItem, selectedItem],
+  );
+
+  const onKeyDown = useCallback(
+    (e: React.KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        props.onClose();
+      }
+    },
+    [props],
+  );
+
+  const RenderBody = useCallback(
+    () => (
+      <Wrapper onKeyDown={onKeyDown}>
+        <ElementBrowser
+          categories={getCategories(props.intl)}
+          getItems={props.getItems}
+          showSearch={true}
+          showCategories
+          mode="full"
+          onSelectItem={onSelectItem}
+          onInsertItem={onInsertItem}
+        />
+      </Wrapper>
+    ),
+    [onKeyDown, props.intl, props.getItems, onSelectItem, onInsertItem],
+  );
+
+  const components = {
+    Body: RenderBody,
+    Footer: RenderFooter,
+  };
 
   return (
     <ModalTransition>
@@ -55,30 +93,10 @@ const ModalElementBrowser = (props: Props & InjectedIntlProps) => {
           }
           key="element-browser-modal"
           onClose={props.onClose}
-          height="720px"
+          height="692px"
           width="x-large"
           autoFocus={false}
-          components={{
-            Body: () => (
-              <Wrapper>
-                <ElementBrowser
-                  categories={getCategories(props.intl)}
-                  getItems={props.getItems}
-                  showSearch={true}
-                  showCategories
-                  mode="full"
-                  onSelectItem={onSelectItem}
-                  onInsertItem={onInsertItem}
-                />
-              </Wrapper>
-            ),
-            Footer: footerProps => (
-              <Footer
-                {...footerProps}
-                onInsert={() => onInsertItem(selectedItemRef.current!)}
-              />
-            ),
-          }}
+          components={components}
         />
       )}
     </ModalTransition>
@@ -93,14 +111,17 @@ const Footer = ({
   showKeyline,
 }: FooterComponentProps & { onInsert: () => void }) => {
   return (
-    <ModalFooter showKeyline={showKeyline}>
+    <ModalFooter
+      showKeyline={showKeyline}
+      style={{ padding: MODAL_WRAPPER_PADDING }}
+    >
       <span />
       <Actions>
         <ActionItem>
           <Button
             appearance="primary"
             onClick={onInsert}
-            data-testid="ModalElementBrowser__insert-button"
+            testId="ModalElementBrowser__insert-button"
           >
             Insert
           </Button>
@@ -109,7 +130,7 @@ const Footer = ({
           <Button
             appearance="subtle"
             onClick={onClose}
-            data-testid="ModalElementBrowser__cancel-button"
+            testId="ModalElementBrowser__close-button"
           >
             Close
           </Button>
@@ -121,18 +142,18 @@ const Footer = ({
 
 const Actions = styled.div`
   display: inline-flex;
-  margin: 0 -${GRID_SIZE / 2}px;
+  margin: 0 -4px;
 `;
 
 const ActionItem = styled.div`
   flex: 1 0 auto;
-  margin: 0 ${GRID_SIZE / 2}px;
+  margin: 0 4px;
 `;
 
 const Wrapper = styled.div`
   flex: 1 1 auto;
   height: 100%;
-  padding: 24px 24px 0 24px;
+  padding: ${MODAL_WRAPPER_PADDING}px ${MODAL_WRAPPER_PADDING}px 0 10px;
   overflow: hidden;
   background-color: ${themed({ light: N0, dark: DN50 })()};
   border-radius: ${borderRadius()}px;

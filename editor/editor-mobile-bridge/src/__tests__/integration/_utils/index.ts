@@ -114,7 +114,6 @@ export const getBridgeOutput = async (
     bridge,
     bridgeFn,
   );
-
   return logs;
 };
 

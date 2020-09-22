@@ -2,9 +2,18 @@
 order: 4
 ---
 
+import SectionMessage from '@atlaskit/section-message';
+import Snippet from '@atlaskit/gatsby-theme-brisk/src/components/snippet';
+
 ## Theming
 
-Button now supports the updated Theming API. With this API, components can be passed a custom theming function which has access to all of Button's props, as well as the to the original ADG theme.
+<SectionMessage title="This theming approach has performance issues" appearance="warning">
+  If possible, don’t use this theming approach. It has performance problems that we are working to improve in future.
+  If you need to do some minor customization to button we recommend using inline styles. <Snippet>CustomThemeButton</Snippet> supports the theming approach outlined on this page.
+</SectionMessage>
+
+
+With the theme API, components can be passed a custom theming function which has access to all of Button's props, as well as the to the original ADG theme.
 
 This means that the custom theme can change appearance based on different props, and even ignore the ADG styling completely. Custom
 themes can modify any CSS prop on the button body or the loading spinner.
@@ -20,7 +29,7 @@ themes can modify any CSS prop on the button body or the loading spinner.
 
 There are two approaches to defining a custom button. The first is to wrap buttons in a ThemeProvider:
 
-```
+```js
 // CustomButton.js
 import React from 'react';
 import Button, { Theme as ButtonTheme } from '@atlaskit/button';
@@ -33,7 +42,7 @@ import Button, { Theme as ButtonTheme } from '@atlaskit/button';
 
 The second approach is to create a wrapped Button component that passes in all existing props, as well as a custom `theme` prop:
 
-```
+```js
 // CustomButton.js
 import React from 'react';
 import Button from '@atlaskit/button';
@@ -51,7 +60,7 @@ export default (props) => (
 
 In both cases, Button's `theme` prop expects a **theming function**, which is called by the theming API to style Button. `theme` should have the following footprint:
 
-```
+```js
 customTheme = (adgTheme, props) => styling
 ```
 
@@ -64,7 +73,7 @@ Button applies these styles directly using Emotion's `css` prop - so you have co
 
 An example of how the theming function can be implemented is below:
 
-```
+```js
 customTheme = (currentTheme, themeProps) => {
   const { buttonStyles, spinnerStyles } = currentTheme(themeProps);
   return {
@@ -86,7 +95,7 @@ How the custom styles are determined based on Button's props can vary - for simp
 
 When programmatically defining the styling, a common approach is to use an object structure similar to that listed below:
 
-```
+```js
 import { colors } from '@atlaskit/theme';
 
 const buttonTheme = {
@@ -127,7 +136,7 @@ const buttonTheme = {
 
 An example of how this structure can be traversed to get the styles for the current combination of props is shown below:
 
-```
+```js
 function extract(newTheme, appearance, state, mode) {
   if (!newTheme[appearance]) return;
   const root = newTheme[appearance];
@@ -155,7 +164,7 @@ This example function will explore the tree, and return all styling props with t
 
 Dark mode support can be added using the API as follows:
 
-```
+```js
 <Button theme={(theme, props) => theme({ ...props, mode: 'dark' })}
   Dark Button
 </Button>

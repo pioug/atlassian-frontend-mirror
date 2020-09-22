@@ -1,5 +1,5 @@
 import { EditorView } from 'prosemirror-view';
-import { CardAppearance } from '@atlaskit/smart-card';
+import { CardAppearance, SmartCardContext } from '@atlaskit/smart-card';
 import { INPUT_METHOD } from '../../../../plugins/analytics';
 import { setProvider } from '../../../../plugins/card/pm-plugins/actions';
 import {
@@ -7,6 +7,7 @@ import {
   Request,
 } from '../../../../plugins/card/types';
 import { CardProvider } from '@atlaskit/editor-common/provider-factory';
+import { EditorContext } from '../../../../plugins/card/nodeviews/genericCard';
 
 export function createCardRequest(
   url: string,
@@ -65,3 +66,10 @@ export function setupProvider(cardAdf: object = paragraphAdf): ProviderWrapper {
     },
   };
 }
+
+export const createCardContext = (): EditorContext<any> => {
+  return {
+    ...SmartCardContext,
+    value: {},
+  };
+};

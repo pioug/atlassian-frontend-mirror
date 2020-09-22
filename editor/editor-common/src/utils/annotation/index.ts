@@ -1,4 +1,4 @@
-import { Node as PMNode, Schema } from 'prosemirror-model';
+import { Mark, Node as PMNode, Schema } from 'prosemirror-model';
 
 type Range = {
   from: number;
@@ -43,4 +43,27 @@ export const canApplyAnnotationOnRange = (
   );
 
   return !foundInvalid;
+};
+
+export const getAnnotationIdsFromRange = (
+  rangeSelection: Range,
+  doc: PMNode,
+  schema: Schema,
+): string[] => {
+  const { from, to } = rangeSelection;
+  let annotations = new Set<string>();
+
+  doc.nodesBetween(from, to, node => {
+    if (!node.marks) {
+      return true;
+    }
+    node.marks.forEach((mark: Mark<any>) => {
+      if (mark.type === schema.marks.annotation && mark.attrs) {
+        annotations.add(mark.attrs.id);
+      }
+    });
+    return true;
+  });
+
+  return Array.from(annotations);
 };

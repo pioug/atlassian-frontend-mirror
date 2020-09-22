@@ -1,5 +1,12 @@
 # @atlaskit/comment
 
+## 10.0.2
+
+### Patch Changes
+
+- [`08306f5108`](https://bitbucket.org/atlassian/atlassian-frontend/commits/08306f5108) - Removed unneeded ms-grid CSS rules
+- Updated dependencies
+
 ## 10.0.1
 
 ### Patch Changes

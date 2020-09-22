@@ -2,6 +2,7 @@ import { Plugin } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import { findDomRefAtPos } from 'prosemirror-utils';
 import { Dispatch } from '../../../event-dispatcher';
+import { createSelectionClickHandler } from '../../selection/utils';
 import ExpandNodeView from '../nodeviews';
 import { setExpandRef } from '../commands';
 import { findExpand } from '../utils';
@@ -18,6 +19,7 @@ function containsClass(
 export const createPlugin = (
   dispatch: Dispatch,
   reactContext: () => { [key: string]: any },
+  useLongPressSelection: boolean = false,
 ) => {
   const state = createPluginState(dispatch, {});
 
@@ -41,13 +43,17 @@ export const createPlugin = (
           expandClassNames.titleContainer,
         );
       },
-
       handleScrollToSelection() {
         return containsClass(
           document.activeElement,
           expandClassNames.titleInput,
         );
       },
+      handleClickOn: createSelectionClickHandler(
+        ['expand', 'nestedExpand'],
+        target => target.classList.contains(expandClassNames.prefix),
+        { useLongPressSelection },
+      ),
     },
     // @see ED-8027 to follow up on this work-around
     filterTransaction(tr) {

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/button",
-  "version": "14.0.4",
+  "version": "15.0.0",
   "description": "A button triggers an event or action. They let users know what will happen next.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -16,19 +16,24 @@
   "atlaskit:src": "src/index.ts",
   "atlassian": {
     "team": "Design System Team",
-    "deprecatedAutoEntryPoints": true,
     "inPublicMirror": true,
     "releaseModel": "scheduled",
     "website": {
       "name": "Button"
     }
   },
+  "af:exports": {
+    "./button-group": "./src/entry-points/button-group.ts",
+    "./custom-theme-button": "./src/entry-points/custom-theme-button.ts",
+    "./loading-button": "./src/entry-points/loading-button.ts",
+    "./standard-button": "./src/entry-points/standard-button.ts",
+    "./types": "./src/entry-points/types.ts"
+  },
   "dependencies": {
-    "@atlaskit/analytics-next": "^7.0.0",
+    "@atlaskit/analytics-next": "^7.1.0",
     "@atlaskit/spinner": "^15.0.0",
     "@atlaskit/theme": "^10.0.0",
     "@emotion/core": "^10.0.9",
-    "memoize-one": "^5.1.0",
     "tslib": "^2.0.0"
   },
   "peerDependencies": {
@@ -46,17 +51,34 @@
     "@atlaskit/webdriver-runner": "*",
     "@testing-library/react": "^8.0.1",
     "@types/react-router-dom": "^4.3.1",
+    "ast-types": "^0.13.3",
     "enzyme": "^3.10.0",
     "jest-emotion": "^10.0.32",
     "jest-in-case": "^1.0.2",
+    "jscodeshift": "^0.7.0",
     "react-dom": "^16.8.0",
     "react-router-dom": "^4.2.2",
     "react-test-renderer": "^16.8.0",
+    "storybook-addon-performance": "0.12.0",
     "wait-for-expect": "^1.2.0"
   },
   "techstack": {
     "@atlassian/frontend": {
       "import-structure": "atlassian-conventions"
+    },
+    "@repo/internal": {
+      "ui-components": [
+        "lite-mode"
+      ],
+      "analytics": [
+        "analytics-next"
+      ],
+      "theming": [
+        "new-theming-api"
+      ],
+      "deprecation": [
+        "no-deprecated-imports"
+      ]
     }
   },
   "homepage": "https://atlassian.design/components/button/"

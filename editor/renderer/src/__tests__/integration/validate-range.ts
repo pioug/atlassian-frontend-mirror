@@ -120,10 +120,10 @@ BrowserTestCase(
     // select exactly one line while releasing mouse on the same x level
     // so that start and end of the selection range would both be 0
     await page.simulateUserDragAndDrop(
-      Math.floor(bounds.left + 1),
-      Math.floor(bounds.top + 1),
-      Math.floor(bounds.left + 1),
-      Math.floor(bounds.height + 1),
+      bounds.left + 1,
+      bounds.top + 1,
+      bounds.left + 1,
+      bounds.height + 1,
     );
 
     const result = await validateRange(page);
@@ -150,10 +150,10 @@ BrowserTestCase(
     // select exactly one line while releasing mouse on the same x level
     // so that start and end of the selection range would both be 0
     await page.simulateUserDragAndDrop(
-      Math.floor(bounds.left + 1),
-      Math.floor(bounds.top + 1),
-      Math.floor(bounds.left + 1),
-      Math.floor(bounds.height + 1),
+      bounds.left + 1,
+      bounds.top + 1,
+      bounds.left + 1,
+      bounds.height + 1,
     );
 
     const result = await validateRange(page);

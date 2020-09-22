@@ -1,7 +1,7 @@
 import React from 'react';
 import { R400, N500 } from '@atlaskit/theme/colors';
 import LockIcon from '@atlaskit/icon/glyph/lock-filled';
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
 import { Frame } from '../Frame';
 import { IconAndTitleLayout } from '../IconAndTitleLayout';
 import { AKIconWrapper } from '../Icon';

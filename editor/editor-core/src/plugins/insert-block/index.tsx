@@ -82,6 +82,7 @@ const insertBlockPlugin = (options: InsertBlockOptions = {}): EditorPlugin => ({
     toolbarSize,
     disabled,
     isToolbarReducedSpacing,
+    isLastItem,
   }) {
     const buttons = toolbarSizeToButtons(toolbarSize);
     const renderNode = (providers: Providers) => {
@@ -175,6 +176,7 @@ const insertBlockPlugin = (options: InsertBlockOptions = {}): EditorPlugin => ({
                 options.replacePlusMenuWithElementBrowser
               }
               showElementBrowserLink={options.showElementBrowserLink}
+              showSeparator={!isLastItem && toolbarSize <= ToolbarSize.S}
             />
           )}
         />

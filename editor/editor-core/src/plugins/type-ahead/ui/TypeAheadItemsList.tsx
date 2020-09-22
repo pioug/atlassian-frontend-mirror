@@ -11,6 +11,8 @@ import { Shortcut } from '../../../ui/styles';
 import IconFallback from '../../quick-insert/assets/fallback';
 import { TypeAheadItem } from '../types';
 
+const hidden = { overflow: 'hidden' };
+
 const itemTheme = {
   [itemThemeNamespace]: {
     padding: {
@@ -154,10 +156,7 @@ export class TypeAheadItemComponent extends React.Component<
   state = { ref: null };
 
   shouldComponentUpdate(nextProps: TypeAheadItemComponentProps) {
-    return (
-      nextProps.item !== this.props.item ||
-      this.isSelected(this.props) !== this.isSelected(nextProps)
-    );
+    return this.isSelected(this.props) !== this.isSelected(nextProps);
   }
 
   isSelected(props: TypeAheadItemComponentProps) {
@@ -192,7 +191,7 @@ export class TypeAheadItemComponent extends React.Component<
       <div
         onMouseMove={this.setCurrentIndex}
         ref={this.handleRef}
-        style={{ overflow: 'hidden' }}
+        style={hidden}
       >
         <item.render
           onClick={this.insertByIndex}

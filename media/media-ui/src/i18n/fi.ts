@@ -21,6 +21,7 @@ export default {
   'fabric.media.annotate.tool.line.thickness': 'Viivan paksuus',
   'fabric.media.annotate.tool.shape': 'Muoto',
   'fabric.media.annotate.tool.text': 'Teksti',
+  'fabric.media.archive': 'arkistoi',
   'fabric.media.audio': 'ääni',
   'fabric.media.cancel': 'Peruuta',
   'fabric.media.cant_preview_file_type':
@@ -35,16 +36,18 @@ export default {
   'fabric.media.connect_link_account': 'Yhdistä esikatseluun',
   'fabric.media.connect_link_account_card_view': 'Yhdistä',
   'fabric.media.connect_link_account_card_view_description':
-    'Täydennä linkkiesi esikatseluja yhdistämällä {context} Atlassian-tuotteisiisi.',
+    'Jotta voit esikatsella tätä linkkiä, yhdistä {context}-tilisi.',
   'fabric.media.connect_link_account_card_view_name':
     'Yhdistä {context}-tilisi',
   'fabric.media.connect_to': 'Yhdistä kohteeseen {name}',
   'fabric.media.could_not_load_editor': 'Voi ei! Muokkainta ei voitu ladata',
   'fabric.media.could_not_save_image': 'Voi ei! Kuvaa ei voitu tallentaa',
+  'fabric.media.couldnt_generate_encrypted_entry_preview':
+    'Salattuja tai salasanalla suojattuja tiedostoja ei voi esikatsella.',
   'fabric.media.couldnt_generate_preview':
     'Tälle tiedostolle ei voitu luoda esikatselua.',
   'fabric.media.couldnt_load_link':
-    'Tätä linkkiä ei voitu ladata jostain syystä.',
+    'Tämän linkin lataaminen epäonnistui tuntemattomasta syystä.',
   'fabric.media.default_avatars': 'Oletusavatarit',
   'fabric.media.disable_fullscreen': 'poista kokoruututila käytöstä',
   'fabric.media.document': 'asiakirja',
@@ -73,8 +76,7 @@ export default {
     'Kuvaa ei voitu ladata, url-osoite on virheellinen.',
   'fabric.media.insert_files':
     '{0, plural, one {Lisää {0} tiedosto} other {Lisää {0} tiedostoa}}',
-  'fabric.media.invalid_permissions':
-    'Sinulla ei ole tämän linkin käyttöoikeutta',
+  'fabric.media.invalid_permissions': 'Rajoitettu linkki',
   'fabric.media.invalid_permissions_description':
     'Pyydä käyttöoikeus tai käytä toista tiliä, jos haluat nähdä tämän esikatselun.',
   'fabric.media.item_not_found_in_list':
@@ -89,7 +91,7 @@ export default {
   'fabric.media.no_pdf_artifacts':
     'PDF-artefaktoja ei löytynyt tälle tiedostolle.',
   'fabric.media.not_found_description':
-    'Tarkista URL-osoite ja muokkaa tai liitä uudelleen.',
+    'Linkkiä ei löytynyt. Tarkista URL-osoite ja muokkaa tai liitä uudelleen.',
   'fabric.media.not_found_title': 'Oho. Emme löydä tätä linkkiä!',
   'fabric.media.or': 'tai',
   'fabric.media.pause': 'keskeytä',

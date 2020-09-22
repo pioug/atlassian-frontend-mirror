@@ -37,7 +37,7 @@
   },
   "devDependencies": {
     "@atlaskit/build-utils": "*",
-    "@atlaskit/button": "^14.0.0",
+    "@atlaskit/button": "^15.0.0",
     "@atlaskit/docs": "*",
     "@atlaskit/dynamic-table": "^14.1.0",
     "@atlaskit/icon-build-process": "^0.2.0",
@@ -45,7 +45,7 @@
     "@atlaskit/icon-object": "^6.0.0",
     "@atlaskit/icon-priority": "^6.0.0",
     "@atlaskit/logo": "^13.0.0",
-    "@atlaskit/modal-dialog": "^11.0.0",
+    "@atlaskit/modal-dialog": "^11.2.0",
     "@atlaskit/section-message": "^5.0.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/textfield": "^4.0.0",

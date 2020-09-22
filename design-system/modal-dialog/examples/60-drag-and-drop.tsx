@@ -10,7 +10,7 @@ import {
   DropResult,
 } from 'react-beautiful-dnd';
 
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
 import { G300, R200, R75, Y75 } from '@atlaskit/theme/colors';
 
 import Modal, { ModalTransition } from '../src';

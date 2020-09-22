@@ -30,7 +30,7 @@ export const setDecorations = () =>
 
 export const setSelectionRelativeToNode = (
   selectionRelativeToNode?: RelativeSelectionPos,
-  selection?: Selection,
+  selection?: Selection | null,
 ) =>
   createCommand(
     {

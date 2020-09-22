@@ -5,21 +5,18 @@ import * as colors from '@atlaskit/theme/colors';
 import {
   blockNodesVerticalMargin,
   akEditorTableCellMinWidth,
-} from '@atlaskit/editor-common';
-import {
-  akEditorCodeFontFamily,
-  akEditorCodeBlockPadding,
-  akEditorSelectedNodeClassName,
-} from '../../styles';
-import {
   akEditorDeleteBackground,
   akEditorDeleteBorder,
   akEditorSelectedBorderSize,
   akEditorDeleteIconColor,
-} from '@atlaskit/editor-common';
+  SelectionStyle,
+  getSelectionStyles,
+  akEditorCodeFontFamily,
+  akEditorCodeBlockPadding,
+  akEditorSelectedNodeClassName,
+} from '@atlaskit/editor-shared-styles';
+
 import { codeBlockClassNames } from './ui/class-names';
-import { getSelectionStyles } from '../selection/utils';
-import { SelectionStyle } from '../selection/types';
 
 export const codeBlockStyles = css`
   .ProseMirror .code-block {

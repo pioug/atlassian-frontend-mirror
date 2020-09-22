@@ -3,7 +3,8 @@ import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analy
 import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { doc, p } from '@atlaskit/editor-test-helpers/schema-builder';
-import { ListsPluginState, pluginKey } from '../../../pm-plugins/main';
+import { pluginKey } from '../../../pm-plugins/main';
+import { ListsPluginState } from '../../../types';
 import { messages } from '../../../../../plugins/lists/messages';
 import ToolbarButton from '../../../../../ui/ToolbarButton';
 import DropdownMenu from '../../../../../ui/DropdownMenu';
@@ -85,8 +86,8 @@ describe('ToolbarLists', () => {
       clickToolbarOption(toolbarLists, messages.unorderedList.defaultMessage);
 
       expect(createAnalyticsEvent).toHaveBeenCalledWith({
-        action: 'formatted',
-        actionSubject: 'text',
+        action: 'inserted',
+        actionSubject: 'list',
         eventType: 'track',
         actionSubjectId: 'bulletedList',
         attributes: expect.objectContaining({
@@ -99,8 +100,8 @@ describe('ToolbarLists', () => {
       clickToolbarOption(toolbarLists, messages.orderedList.defaultMessage);
 
       expect(createAnalyticsEvent).toHaveBeenCalledWith({
-        action: 'formatted',
-        actionSubject: 'text',
+        action: 'inserted',
+        actionSubject: 'list',
         eventType: 'track',
         actionSubjectId: 'numberedList',
         attributes: expect.objectContaining({

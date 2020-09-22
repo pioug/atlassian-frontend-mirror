@@ -19,7 +19,8 @@ import { ResolvedPos } from 'prosemirror-model';
 import { Transaction } from 'prosemirror-state';
 import { findParentNodeOfType } from 'prosemirror-utils';
 import { CommandDispatch } from '../../../../src/types';
-import { isPosInsideList, isPosInsideParagraph } from '../utils';
+import { isListNode, isParagraphNode } from '../utils/node';
+import { isPosInsideList, isPosInsideParagraph } from '../utils/selection';
 
 type BackspaceCommand = (
   tr: Transaction,
@@ -144,9 +145,7 @@ const listBackspaceCase3: BackspaceCommand = (tr, dispatch, $prev, $head) => {
 
   const startListE = $head.start(-2);
 
-  const containsChildrenJ =
-    listItemF.lastChild.type.name === 'bulletList' ||
-    listItemF.lastChild.type.name === 'orderedList';
+  const containsChildrenJ = isListNode(listItemF.lastChild);
   const shouldRemoveListE = listE.childCount === 1 && !containsChildrenJ; //Assures no Children J and K
   const textInsertPos = $prev.pos;
   const childrenHInsertPos = afterParagraphD;
@@ -264,9 +263,7 @@ const listBackspaceCase4: BackspaceCommand = (
   const afterParagraphJ = $last.after();
   const afterListItemK = $head.after(-1);
 
-  const containsChildrenO =
-    listItemK.lastChild.type.name === 'bulletList' ||
-    listItemK.lastChild.type.name === 'orderedList';
+  const containsChildrenO = isListNode(listItemK.lastChild);
 
   const textInsertPos = $last.pos;
   const childrenMInsertPos = afterParagraphJ;
@@ -345,11 +342,10 @@ export const calcJoinListScenario = (
   }
 
   const prevParentLastChildIsList =
-    $prev.parent.lastChild &&
-    ($prev.parent.lastChild.type.name === 'orderedList' ||
-      $prev.parent.lastChild.type.name === 'bulletList');
-  const prevParentLastChildIsParagraph =
-    $prev.parent.lastChild && $prev.parent.lastChild.type.name === 'paragraph';
+    $prev.parent.lastChild && isListNode($prev.parent.lastChild);
+  const prevParentLastChildIsParagraph = isParagraphNode(
+    $prev.parent.lastChild,
+  );
 
   // Will search for the possible last node for case 4 (where the list could be indented multiple times)
   // $last is required to determine whether we are in case 2 or 4
@@ -401,8 +397,8 @@ export const listBackspace: Command = (state, dispatch) => {
   }
 
   addAnalytics(state, tr, {
-    action: ACTION.DELETED,
-    actionSubject: ACTION_SUBJECT.TEXT,
+    action: ACTION.LIST_ITEM_JOINED,
+    actionSubject: ACTION_SUBJECT.LIST,
     actionSubjectId,
     eventType: EVENT_TYPE.TRACK,
     attributes: {

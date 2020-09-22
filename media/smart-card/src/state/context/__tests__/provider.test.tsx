@@ -21,7 +21,7 @@ describe('Provider', () => {
     expect(render).toBeCalledWith(
       expect.objectContaining({
         config: {
-          maxAge: 15000,
+          maxAge: 60000,
           maxLoadingDelay: 1200,
           authFlow: 'oauth2',
         },

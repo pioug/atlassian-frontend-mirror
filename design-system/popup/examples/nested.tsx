@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 import { jsx } from '@emotion/core';
 
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
 import ArrowRight from '@atlaskit/icon/glyph/arrow-right';
 import MenuIcon from '@atlaskit/icon/glyph/menu';
 import { ButtonItem, PopupMenuGroup, Section } from '@atlaskit/menu';

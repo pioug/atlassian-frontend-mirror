@@ -1,7 +1,7 @@
 import { mount, ReactWrapper } from 'enzyme';
 import React from 'react';
 import PropTypes from 'prop-types';
-import AkButton from '@atlaskit/button';
+import AkButton from '@atlaskit/button/standard-button';
 import { Popup } from '@atlaskit/editor-common';
 import ToolbarFeedback from '../../../ui/ToolbarFeedback';
 import { openFeedbackDialog } from '../../../plugins/feedback-dialog';

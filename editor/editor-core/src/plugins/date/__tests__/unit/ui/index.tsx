@@ -5,6 +5,7 @@ import DatePicker from '../../../ui/DatePicker';
 
 describe('DatePicker', () => {
   const onTextChanged = jest.fn();
+  const onDelete = jest.fn();
   const onSelect = jest.fn();
   const closeDatePicker = jest.fn();
   const closeDatePickerWithAnalytics = jest.fn();
@@ -19,10 +20,12 @@ describe('DatePicker', () => {
     return mountWithIntl(
       // This is the actual date picker, not the lozenge
       <DatePicker
+        isNew={true}
         element={element}
         showTextField={true}
         onSelect={onSelect}
         onTextChanged={onTextChanged}
+        onDelete={onDelete}
         closeDatePicker={closeDatePicker}
         closeDatePickerWithAnalytics={closeDatePickerWithAnalytics}
         dispatchAnalyticsEvent={dispatchAnalyticsEvent}
@@ -129,6 +132,24 @@ describe('DatePicker', () => {
           dateSegment: 'year',
         }),
       });
+    });
+  });
+
+  describe('callbacks', () => {
+    it('should fire props.onSelect callback when Enter is pressed in the input field', () => {
+      input.simulate('keypress', { which: 'enter', key: 'Enter', keyCode: 13 });
+      expect(onSelect).toHaveBeenCalled();
+      expect(onDelete).toHaveBeenCalledTimes(0);
+    });
+    it('should fire onDelete when Enter pressed in empty input field', () => {
+      // Set the text field to be empty
+      (input.getDOMNode() as HTMLInputElement).value = '';
+
+      // Press enter
+      input.simulate('keypress', { which: 'enter', key: 'Enter', keyCode: 13 });
+
+      // Date is removed
+      expect(onDelete).toHaveBeenCalled();
     });
   });
 });

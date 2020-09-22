@@ -799,7 +799,6 @@ describe('table plugin', () => {
                         __fileMimeType: 'image/png',
                       })(),
                     ),
-                    p(''),
                   ),
                 ),
               ),

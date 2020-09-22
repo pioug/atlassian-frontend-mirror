@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { InjectedIntlProps, injectIntl } from 'react-intl';
 import styled from 'styled-components';
 import Tooltip from '@atlaskit/tooltip';
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
 import CopyIcon from '@atlaskit/icon/glyph/copy';
 import { N20, N30, N700 } from '@atlaskit/theme/colors';
 import { CopyTextConsumer } from './copy-text-provider';

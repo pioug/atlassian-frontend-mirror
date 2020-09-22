@@ -9,23 +9,24 @@ import exampleManifest from '../example-helpers/config-panel/example-manifest-al
 import ConfigPanelWithExtensionPicker from '../example-helpers/config-panel/ConfigPanelWithExtensionPicker';
 
 const parameters = {
-  'free-text-field': 'Hi',
+  'text-field': 'Hi',
+  'text-field-multiline': 'Hello\nWorld',
+  'text-field-optional': '',
+  'text-field-hidden': 'this is a hidden value passed to the extension',
   'number-field': '1234567',
-  'text-non-required': '',
-  'hidden-text-field': 'this is a hidden value passed to the extension',
   'start-date': '2020-01-18',
-  'multiple-options-select-single-choice': 'a',
-  'multiple-options-select-multiple-choice': ['b', 'c', 'd'],
-  'multiple-options-checkbox-single-choice': 'b',
-  'multiple-options-checkbox-multiple-choice': ['a', 'b'],
-  label: 'meeting-notes',
-  user: 'llemos',
-  'space-key': 'XR',
-  spaces: ['XR', 'FF'],
+  'enum-select': 'a',
+  'enum-select-icon': ['b', 'c', 'd'],
+  'enum-select-icon-multiple': 'b',
+  'enum-checkbox-multiple': ['a', 'b'],
   cql: 'Q = editor AND USER = llemos AND SPACE = FF',
   'jira-filter':
     'keywords = editor AND project = editor-platform AND status = to-do',
-  'user-lazy': 'akumar',
+  'custom-label': 'meeting-notes',
+  'custom-space-key': 'XR',
+  'custom-space-key-multi': ['XR', 'FF'],
+  'custom-user': 'llemos',
+  'custom-user-lazy': 'akumar',
 };
 
 const extensionProvider = combineExtensionProviders([

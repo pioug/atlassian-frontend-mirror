@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { ReactElement, ComponentClass } from 'react';
 import memoizeOne from 'memoize-one';
+import { Transaction } from 'prosemirror-state';
 
+import DecisionIcon from '@atlaskit/icon/glyph/editor/decision';
 import TaskIcon from '@atlaskit/icon/glyph/editor/task';
 import TableIcon from '@atlaskit/icon/glyph/editor/table';
 import EditorImageIcon from '@atlaskit/icon/glyph/editor/image';
 import MentionIcon from '@atlaskit/icon/glyph/editor/mention';
-import DecisionIcon from '@atlaskit/icon/glyph/editor/decision';
 import EditorMoreIcon from '@atlaskit/icon/glyph/editor/more';
 import LinkIcon from '@atlaskit/icon/glyph/editor/link';
 import EmojiIcon from '@atlaskit/icon/glyph/editor/emoji';
@@ -18,6 +19,18 @@ import HorizontalRuleIcon from '@atlaskit/icon/glyph/editor/horizontal-rule';
 import CodeIcon from '@atlaskit/icon/glyph/editor/code';
 import InfoIcon from '@atlaskit/icon/glyph/editor/info';
 import QuoteIcon from '@atlaskit/icon/glyph/quote';
+import { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
+
+import {
+  IconCode,
+  IconDate,
+  IconDecision,
+  IconDivider,
+  IconExpand,
+  IconPanel,
+  IconQuote,
+  IconStatus,
+} from '../../../quick-insert/assets';
 
 import { Shortcut } from '../../../../ui/styles';
 import { MenuItem } from '../../../../ui/DropdownMenu/types';
@@ -26,6 +39,7 @@ import { shallowEquals } from './shallow-equals';
 
 interface ItemInit {
   content: string;
+  tooltipDescription?: string;
   disabled: boolean;
   name: string;
   shortcut?: string;
@@ -34,6 +48,7 @@ interface ItemInit {
 
 const from = (init: ItemInit): MenuItem => ({
   content: init.content,
+  tooltipDescription: init.tooltipDescription,
   value: { name: init.name },
   elemBefore: <init.Icon label={init.content} />,
   elemAfter: init.shortcut ? <Shortcut>{init.shortcut}</Shortcut> : undefined,
@@ -44,6 +59,7 @@ const from = (init: ItemInit): MenuItem => ({
 export interface CreateInit {
   content: string;
   disabled: boolean;
+  tooltipDescription?: string;
 }
 
 const mem = <T extends Function>(fn: T): T =>
@@ -52,6 +68,7 @@ const mem = <T extends Function>(fn: T): T =>
 export const action = mem((init: CreateInit) => {
   return from({
     content: init.content,
+    tooltipDescription: init.tooltipDescription,
     disabled: init.disabled,
     name: 'action',
     shortcut: '[]',
@@ -62,6 +79,7 @@ export const action = mem((init: CreateInit) => {
 export const link = mem((init: CreateInit) =>
   from({
     content: init.content,
+    tooltipDescription: init.tooltipDescription,
     disabled: init.disabled,
     name: 'link',
     shortcut: tooltip(addLink),
@@ -72,6 +90,7 @@ export const link = mem((init: CreateInit) =>
 export const media = mem((init: CreateInit) =>
   from({
     content: init.content,
+    tooltipDescription: init.tooltipDescription,
     disabled: init.disabled,
     name: 'media',
     Icon: EditorImageIcon,
@@ -81,6 +100,7 @@ export const media = mem((init: CreateInit) =>
 export const imageUpload = mem((init: CreateInit) =>
   from({
     content: init.content,
+    tooltipDescription: init.tooltipDescription,
     disabled: init.disabled,
     name: 'image upload',
     Icon: EditorImageIcon,
@@ -90,6 +110,7 @@ export const imageUpload = mem((init: CreateInit) =>
 export const mention = mem((init: CreateInit) =>
   from({
     content: init.content,
+    tooltipDescription: init.tooltipDescription,
     disabled: init.disabled,
     name: 'mention',
     Icon: MentionIcon,
@@ -100,6 +121,7 @@ export const mention = mem((init: CreateInit) =>
 export const emoji = mem((init: CreateInit) =>
   from({
     content: init.content,
+    tooltipDescription: init.tooltipDescription,
     disabled: init.disabled,
     name: 'emoji',
     Icon: EmojiIcon,
@@ -110,6 +132,7 @@ export const emoji = mem((init: CreateInit) =>
 export const table = mem((init: CreateInit) =>
   from({
     content: init.content,
+    tooltipDescription: init.tooltipDescription,
     disabled: init.disabled,
     name: 'table',
     Icon: TableIcon,
@@ -120,6 +143,7 @@ export const table = mem((init: CreateInit) =>
 export const layout = mem((init: CreateInit) =>
   from({
     content: init.content,
+    tooltipDescription: init.tooltipDescription,
     disabled: init.disabled,
     name: 'layout',
     Icon: LayoutTwoEqualIcon,
@@ -129,6 +153,7 @@ export const layout = mem((init: CreateInit) =>
 export const codeblock = mem((init: CreateInit & { shortcut?: string }) =>
   from({
     content: init.content,
+    tooltipDescription: init.tooltipDescription,
     disabled: init.disabled,
     name: 'codeblock',
     Icon: CodeIcon,
@@ -139,6 +164,7 @@ export const codeblock = mem((init: CreateInit & { shortcut?: string }) =>
 export const panel = mem((init: CreateInit & { shortcut?: string }) =>
   from({
     content: init.content,
+    tooltipDescription: init.tooltipDescription,
     disabled: init.disabled,
     name: 'panel',
     Icon: InfoIcon,
@@ -149,6 +175,7 @@ export const panel = mem((init: CreateInit & { shortcut?: string }) =>
 export const blockquote = mem((init: CreateInit & { shortcut?: string }) =>
   from({
     content: init.content,
+    tooltipDescription: init.tooltipDescription,
     disabled: init.disabled,
     name: 'blockquote',
     Icon: QuoteIcon,
@@ -159,6 +186,7 @@ export const blockquote = mem((init: CreateInit & { shortcut?: string }) =>
 export const decision = mem((init: CreateInit) =>
   from({
     content: init.content,
+    tooltipDescription: init.tooltipDescription,
     disabled: init.disabled,
     name: 'decision',
     Icon: DecisionIcon,
@@ -169,6 +197,7 @@ export const decision = mem((init: CreateInit) =>
 export const horizontalrule = mem((init: CreateInit) =>
   from({
     content: init.content,
+    tooltipDescription: init.tooltipDescription,
     disabled: init.disabled,
     name: 'horizontalrule',
     Icon: HorizontalRuleIcon,
@@ -179,6 +208,7 @@ export const horizontalrule = mem((init: CreateInit) =>
 export const expand = mem((init: CreateInit) =>
   from({
     content: init.content,
+    tooltipDescription: init.tooltipDescription,
     disabled: init.disabled,
     name: 'expand',
     Icon: ExpandNodeIcon,
@@ -188,6 +218,7 @@ export const expand = mem((init: CreateInit) =>
 export const date = mem((init: CreateInit) =>
   from({
     content: init.content,
+    tooltipDescription: init.tooltipDescription,
     disabled: init.disabled,
     name: 'date',
     Icon: DateIcon,
@@ -198,6 +229,7 @@ export const date = mem((init: CreateInit) =>
 export const placeholder = mem((init: CreateInit) =>
   from({
     content: init.content,
+    tooltipDescription: init.tooltipDescription,
     disabled: init.disabled,
     name: 'placeholder text',
     Icon: PlaceholderTextIcon,
@@ -207,6 +239,7 @@ export const placeholder = mem((init: CreateInit) =>
 export const status = mem((init: CreateInit) =>
   from({
     content: init.content,
+    tooltipDescription: init.tooltipDescription,
     disabled: init.disabled,
     name: 'status',
     Icon: StatusIcon,
@@ -216,8 +249,58 @@ export const status = mem((init: CreateInit) =>
 export const more = mem((init: CreateInit) =>
   from({
     content: init.content,
+    tooltipDescription: init.tooltipDescription,
     disabled: init.disabled,
     name: 'macro',
     Icon: EditorMoreIcon,
   }),
 );
+
+export type OnInsert = ({ item }: { item: MenuItem }) => Transaction;
+
+export const convertMenuToQuickInsertItem = mem(
+  (onInsert: OnInsert) => (item: MenuItem): QuickInsertItem => {
+    return {
+      title: item.content as string,
+      description: item.tooltipDescription,
+      keyshortcut: item.shortcut,
+      icon: () =>
+        getSvgIconForItem({
+          name: item.value.name,
+          content: item.content as string,
+        }) || (item.elemBefore as ReactElement),
+      action: () => onInsert({ item }),
+      // "insertInsertMenuItem" function in insert-block/ui/ToolbarInsertBlock/index.tsx expects these 2 properties.
+      onClick: item.onClick,
+      value: item.value,
+    };
+  },
+);
+
+type SvgGetterParams = {
+  name: string;
+  content: string;
+};
+
+/**
+ * we only get the updated svg icons for InlineElementBrowser
+ */
+const getSvgIconForItem = ({
+  name,
+  content,
+}: SvgGetterParams): ReactElement | undefined => {
+  type IconType = { [key: string]: ComponentClass<{ label: string }> };
+
+  const Icon = ({
+    codeblock: IconCode,
+    panel: IconPanel,
+    blockquote: IconQuote,
+    decision: IconDecision,
+    horizontalrule: IconDivider,
+    expand: IconExpand,
+    date: IconDate,
+    status: IconStatus,
+  } as IconType)[name];
+
+  return Icon ? <Icon label={content} /> : undefined;
+};

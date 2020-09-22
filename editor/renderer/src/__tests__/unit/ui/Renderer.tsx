@@ -16,6 +16,8 @@ import { initialDoc } from '../../__fixtures__/initial-doc';
 import { invalidDoc } from '../../__fixtures__/invalid-doc';
 import * as linkDoc from '../../__fixtures__/links.adf.json';
 import { MediaSingle } from '../../../react/nodes';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/src';
+import { IntlProvider } from 'react-intl';
 
 const validDoc = doc(
   heading({ level: 1 })(text('test')),
@@ -30,6 +32,18 @@ describe('@atlaskit/renderer/ui/Renderer', () => {
 
   const initRenderer = (doc: any = initialDoc, props: Partial<Props> = {}) =>
     mount(<Renderer document={doc} {...props} />);
+
+  const initRendererWithIntl = (
+    doc: any = initialDoc,
+    props: Partial<Props> = {},
+    locale: string = 'en',
+    messages = {},
+  ) =>
+    mountWithIntl(
+      <IntlProvider locale={locale} messages={messages}>
+        <Renderer document={doc} {...props} />
+      </IntlProvider>,
+    );
 
   afterEach(() => {
     if (renderer && renderer.length) {
@@ -49,14 +63,21 @@ describe('@atlaskit/renderer/ui/Renderer', () => {
   });
 
   it('should catch errors and render unsupported content text', () => {
-    renderer = initRenderer(invalidDoc);
-    expect(renderer.find('UnsupportedBlockNode')).toHaveLength(1);
+    const wrapper = initRendererWithIntl(invalidDoc, {
+      useSpecBasedValidator: true,
+    });
+    expect(wrapper.find('UnsupportedBlockNode')).toHaveLength(1);
+    wrapper.unmount();
   });
 
   it('should call onError callback when catch error', () => {
     const onError = jest.fn();
-    renderer = initRenderer(invalidDoc, { onError });
+    const wrapper = initRendererWithIntl(invalidDoc, {
+      useSpecBasedValidator: true,
+      onError,
+    });
     expect(onError).toHaveBeenCalled();
+    wrapper.unmount();
   });
 
   describe('Stage0', () => {

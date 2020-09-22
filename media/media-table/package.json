@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-table",
-  "version": "5.2.3",
+  "version": "6.0.0",
   "description": "Table UI component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -14,9 +14,9 @@
   "types": "dist/cjs/index.d.ts",
   "sideEffects": false,
   "atlaskit:src": "src/index.ts",
+  "af:exports": {},
   "atlassian": {
     "team": "Media Platform",
-    "deprecatedAutoEntryPoints": true,
     "inPublicMirror": true,
     "releaseModel": "scheduled",
     "website": {
@@ -24,20 +24,20 @@
     }
   },
   "dependencies": {
-    "@atlaskit/analytics-next": "^7.0.1",
-    "@atlaskit/button": "^14.0.0",
+    "@atlaskit/analytics-next": "^7.1.0",
+    "@atlaskit/button": "^15.0.0",
     "@atlaskit/dynamic-table": "^14.1.0",
     "@atlaskit/icon": "^21.1.0",
-    "@atlaskit/media-client": "^10.0.0",
-    "@atlaskit/media-ui": "^14.0.0",
-    "@atlaskit/media-viewer": "^45.2.0",
+    "@atlaskit/media-client": "^11.0.0",
+    "@atlaskit/media-ui": "^14.1.0",
+    "@atlaskit/media-viewer": "^45.3.0",
     "@atlaskit/theme": "^10.0.0",
     "@atlaskit/tooltip": "^17.0.0",
     "dateformat": "^1.0.12",
     "memoize-one": "^5.1.0"
   },
   "peerDependencies": {
-    "@atlaskit/media-core": "^32.0.0",
+    "@atlaskit/media-core": "^32.1.0",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
     "rxjs": "^5.5.0",
@@ -46,8 +46,8 @@
   "devDependencies": {
     "@atlaskit/docs": "^9.0.0",
     "@atlaskit/field-range": "^9.0.0",
-    "@atlaskit/media-core": "^32.0.0",
-    "@atlaskit/media-test-helpers": "^28.1.0",
+    "@atlaskit/media-core": "^32.1.0",
+    "@atlaskit/media-test-helpers": "^28.2.0",
     "@atlaskit/ssr": "^0.2.0",
     "enzyme": "^3.10.0",
     "react": "^16.8.0",

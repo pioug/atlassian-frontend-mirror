@@ -22,6 +22,6 @@ export const ButtonWrapper: ComponentClass<HTMLAttributes<{}>> = styled.span`
   padding: 1px;
   border-radius: 6px;
   &:hover {
-    border: 1px solid ${N50};
+    border-color: ${N50};
   }
 `;

@@ -528,6 +528,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
         // but depth doesnt increment the pos, only accounted for.
         'data-renderer-start-pos': this.startPos + path.length,
       },
+      path,
       ...node.attrs,
     };
   }
@@ -553,7 +554,6 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
       content: node.content ? node.content.toJSON() : undefined,
       headingId: this.getHeadingId(node, this.headingIds),
       showAnchorLink:
-        this.appearance !== 'mobile' &&
         this.appearance !== 'comment' &&
         this.allowHeadingAnchorLinks &&
         !this.disableHeadingIDs &&

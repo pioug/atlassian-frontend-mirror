@@ -2,7 +2,7 @@ import {
   CollectionCellSizeAndPosition,
   CollectionCellSizeAndPositionGetter,
 } from 'react-virtualized/dist/commonjs/Collection';
-import { GRID_SIZE, SCROLLBAR_WIDTH } from '../../constants';
+import { ELEMENT_ITEM_HEIGHT, SCROLLBAR_WIDTH } from '../../constants';
 import { generateVirtualizedContainerDatum } from './utils';
 
 /**
@@ -30,14 +30,14 @@ export default function cellSizeAndPositionGetter(
 
     const width = Math.floor(availableWidth / columnCount);
 
-    const height = GRID_SIZE * GRID_SIZE;
+    const height = ELEMENT_ITEM_HEIGHT;
 
     const columnPosition = index % (columnCount || 1);
 
     const x = columnPosition * (GUTTER_SIZE + width);
     const y = columnYMap[columnPosition] || 0;
 
-    columnYMap[columnPosition] = y + height + GUTTER_SIZE;
+    columnYMap[columnPosition] = y + height;
 
     return {
       height,

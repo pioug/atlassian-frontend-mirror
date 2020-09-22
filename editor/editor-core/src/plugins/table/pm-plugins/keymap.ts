@@ -1,5 +1,6 @@
 import { keymap } from 'prosemirror-keymap';
 import { Plugin } from 'prosemirror-state';
+import { chainCommands } from 'prosemirror-commands';
 
 import * as keymaps from '../../../keymaps';
 import {
@@ -19,6 +20,7 @@ import {
 import {
   addRowAroundSelection,
   emptyMultipleCellsWithAnalytics,
+  deleteTableIfSelectedWithAnalytics,
 } from '../commands-with-analytics';
 import { addColumnAfter, addColumnBefore } from '../commands/insert';
 
@@ -51,7 +53,10 @@ export function keymapPlugin(): Plugin {
   );
   keymaps.bindKeymapWithCommand(
     keymaps.backspace.common!,
-    emptyMultipleCellsWithAnalytics(INPUT_METHOD.KEYBOARD),
+    chainCommands(
+      deleteTableIfSelectedWithAnalytics(INPUT_METHOD.KEYBOARD),
+      emptyMultipleCellsWithAnalytics(INPUT_METHOD.KEYBOARD),
+    ),
     list,
   );
   keymaps.bindKeymapWithCommand(

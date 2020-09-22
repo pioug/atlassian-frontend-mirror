@@ -1,12 +1,15 @@
 import { EditorState, Plugin } from 'prosemirror-state';
 import { findDomRefAtPos } from 'prosemirror-utils';
+import { EditorView } from 'prosemirror-view';
+
+import { PanelSharedCssClassName } from '@atlaskit/editor-common';
+
 import { panelNodeView } from '../nodeviews/panel';
 import { Command } from '../../../types';
 import { pluginKey } from '../types';
 import { findPanel } from '../utils';
-import { EditorView } from 'prosemirror-view';
 import { Dispatch } from '../../../event-dispatcher';
-import { PanelPluginOptions } from '../types';
+import { createSelectionClickHandler } from '../../selection/utils';
 
 export type PanelState = {
   element?: HTMLElement;
@@ -38,7 +41,7 @@ export type PanelStateSubscriber = (state: PanelState) => any;
 
 export const createPlugin = (
   dispatch: Dispatch,
-  options: PanelPluginOptions = {},
+  useLongPressSelection: boolean = false,
 ) =>
   new Plugin({
     state: {
@@ -91,8 +94,13 @@ export const createPlugin = (
     },
     props: {
       nodeViews: {
-        panel: panelNodeView(options.allowSelection),
+        panel: panelNodeView,
       },
+      handleClickOn: createSelectionClickHandler(
+        ['panel'],
+        target => !!target.closest(`.${PanelSharedCssClassName.prefix}`),
+        { useLongPressSelection },
+      ),
       handleDOMEvents: {
         blur(view) {
           const pluginState = getPluginState(view.state);

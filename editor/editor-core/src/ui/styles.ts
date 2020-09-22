@@ -2,6 +2,7 @@ import { HTMLAttributes, ComponentClass } from 'react';
 import styled, { css } from 'styled-components';
 import { gridSize, borderRadius } from '@atlaskit/theme/constants';
 import { N30, N100 } from '@atlaskit/theme/colors';
+import { akEditorMobileMaxWidth } from '@atlaskit/editor-shared-styles';
 
 const akGridSize = gridSize() + 'px';
 
@@ -57,14 +58,18 @@ export const TriggerWrapper: ComponentClass<HTMLAttributes<{}>> = styled.div`
 
 export const MenuWrapper: ComponentClass<HTMLAttributes<{}>> = Wrapper;
 
-export const ButtonContent: ComponentClass = styled.span`
+export const ButtonContent: ComponentClass<
+  HTMLAttributes<{}> & {
+    spacing: string;
+  }
+> = styled.span`
   display: flex;
   min-width: 80px;
-  height: 24px;
-  line-height: 24px;
   align-items: center;
-  padding: ${(props: any) => (props.width ? 0 : '0 8px')};
+  overflow: hidden;
+  justify-content: center;
   flex-direction: column;
+  padding: 0 ${(props: any) => (props.spacing === 'none' ? '8px' : '6px')};
 `;
 
 // Taken from the style of inline dialog components
@@ -107,8 +112,21 @@ export const Shortcut = styled.div`
   line-height: 12px;
   font-size: 11.67px;
   align-self: flex-end;
+  @media (max-width: ${akEditorMobileMaxWidth}px) {
+    display: none;
+  }
 `;
 
 export const ClickSelectWrapper: React.ComponentClass<React.HTMLAttributes<{}>> = styled.span`
   user-select: all;
+`;
+
+type CellColourPreviewProps = {
+  selectedColor: string;
+};
+
+export const CellColourPreview = styled.div<CellColourPreviewProps>`
+  &::before {
+    background: ${props => props.selectedColor};
+  }
 `;

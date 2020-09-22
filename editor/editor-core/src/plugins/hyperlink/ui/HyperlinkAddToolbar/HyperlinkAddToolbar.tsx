@@ -14,7 +14,6 @@ import {
   withAnalyticsEvents,
   WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
-import { startMeasure, stopMeasure } from '@atlaskit/editor-common';
 
 import { linkToolbarMessages as linkToolbarCommonMessages } from '../../../../messages';
 import PanelTextInput from '../../../../ui/PanelTextInput';
@@ -32,12 +31,13 @@ import {
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
   EVENT_TYPE,
-  LinkToolBarEventPayload,
+  CreateLinkInlineDialogEventPayload,
 } from '../../../analytics';
 import { normalizeUrl } from '../../utils';
 import { LinkSearchListItemData } from '../../../../ui/LinkSearch/types';
 import debounce from 'lodash/debounce';
-import { mapContentTypeToIcon } from './utils';
+import { mapContentTypeToIcon, sha1, wordCount } from './utils';
+import { HyperlinkState } from '../../pm-plugins/main';
 
 export const RECENT_SEARCH_LIST_SIZE = 5;
 
@@ -98,6 +98,7 @@ interface BaseProps {
   activityProvider?: Promise<ActivityProvider>;
   searchProvider?: Promise<SearchProvider>;
   displayUrl?: string;
+  pluginState: HyperlinkState;
 }
 
 interface DefaultProps {
@@ -176,6 +177,8 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
     quickSearchLimit: number,
   ) => Promise<void>;
   private fireCustomAnalytics?: FireAnalyticsCallback;
+  private quickSearchQueryVersion: number = 0;
+  private analyticSource: string = 'createLinkInlineDialog';
 
   constructor(props: Props) {
     super(props);
@@ -200,6 +203,17 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
   }
 
   async componentDidMount() {
+    const { pluginState } = this.props;
+    this.fireAnalytics({
+      action: ACTION.VIEWED,
+      actionSubject: ACTION_SUBJECT.CREATE_LINK_INLINE_DIALOG,
+      attributes: {
+        timesViewed: pluginState.timesViewed,
+        searchSessionId: pluginState.searchSessionId ?? '',
+        trigger: pluginState.inputMethod ?? '',
+      },
+      eventType: EVENT_TYPE.SCREEN,
+    });
     const [activityProvider, searchProvider] = await Promise.all([
       this.props.activityProvider,
       this.props.searchProvider,
@@ -208,48 +222,90 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
     await this.loadInitialLinkSearchResult();
   }
 
-  private async getRecentItems(activityProvider: ActivityProvider) {
+  componentWillUnmount() {
+    const { pluginState } = this.props;
+    if (!this.submitted) {
+      this.fireAnalytics({
+        action: ACTION.DISMISSED,
+        actionSubject: ACTION_SUBJECT.CREATE_LINK_INLINE_DIALOG,
+        attributes: {
+          source: this.analyticSource,
+          searchSessionId: pluginState.searchSessionId ?? '',
+          trigger: 'blur',
+        },
+        eventType: EVENT_TYPE.UI,
+      });
+    }
+  }
+
+  private async getRecentItems(
+    activityProvider: ActivityProvider,
+    query?: string,
+  ) {
+    const { pluginState } = this.props;
+    const perfStart = performance.now();
     try {
-      startMeasure('recentActivity');
-      const activityRecentItems = await activityProvider.getRecentItems();
+      const activityRecentItems = limit(
+        query
+          ? await activityProvider.searchRecent(query)
+          : await activityProvider.getRecentItems(),
+      );
       const items = activityRecentItems.map(
         mapActivityProviderResultToLinkSearchItemData,
       );
-      stopMeasure('recentActivity', (duration, startTime) => {
-        this.fireAnalytics({
-          action: ACTION.INVOKED,
-          actionSubject: ACTION_SUBJECT.SEARCH_RESULT,
-          actionSubjectId: ACTION_SUBJECT_ID.RECENT_ACTIVITIES,
-          attributes: {
-            duration,
-            startTime,
-            count: items.length,
-          },
-          eventType: EVENT_TYPE.OPERATIONAL,
-        });
+      const perfStop = performance.now();
+      const duration = perfStop - perfStart;
+
+      this.fireAnalytics({
+        action: ACTION.INVOKED,
+        actionSubject: ACTION_SUBJECT.SEARCH_RESULT,
+        actionSubjectId: ACTION_SUBJECT_ID.RECENT_ACTIVITIES,
+        attributes: {
+          duration,
+          count: items.length,
+        },
+        eventType: EVENT_TYPE.OPERATIONAL,
+      });
+
+      this.fireAnalytics({
+        action: ACTION.SHOWN,
+        actionSubject: ACTION_SUBJECT.SEARCH_RESULT,
+        actionSubjectId: ACTION_SUBJECT_ID.PRE_QUERY_SEARCH_RESULTS,
+        attributes: {
+          source: this.analyticSource,
+          preQueryRequestDurationMs: duration,
+          searchSessionId: pluginState.searchSessionId ?? '',
+          resultCount: items.length,
+          results: activityRecentItems.map(item => ({
+            resultContentId: item.objectId,
+            resultType: item.type ?? '',
+          })),
+        },
+        eventType: EVENT_TYPE.UI,
       });
       return items;
     } catch (err) {
-      stopMeasure('recentActivity', (duration, startTime) => {
-        this.fireAnalytics({
-          action: ACTION.INVOKED,
-          actionSubject: ACTION_SUBJECT.SEARCH_RESULT,
-          actionSubjectId: ACTION_SUBJECT_ID.RECENT_ACTIVITIES,
-          attributes: {
-            duration,
-            startTime,
-            count: -1,
-            error: err.message,
-            errorCode: err.status,
-          },
-          eventType: EVENT_TYPE.OPERATIONAL,
-        });
+      const perfStop = performance.now();
+      const duration = perfStop - perfStart;
+      this.fireAnalytics({
+        action: ACTION.INVOKED,
+        actionSubject: ACTION_SUBJECT.SEARCH_RESULT,
+        actionSubjectId: ACTION_SUBJECT_ID.RECENT_ACTIVITIES,
+        attributes: {
+          duration,
+          count: -1,
+          errorCode: err.status,
+        },
+        nonPrivacySafeAttributes: {
+          error: err.message,
+        },
+        eventType: EVENT_TYPE.OPERATIONAL,
       });
       return [];
     }
   }
 
-  private fireAnalytics(payload: LinkToolBarEventPayload) {
+  private fireAnalytics(payload: CreateLinkInlineDialogEventPayload) {
     if (this.props.createAnalyticsEvent && this.fireCustomAnalytics) {
       this.fireCustomAnalytics({ payload });
     }
@@ -263,7 +319,7 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
         });
         const items = await this.getRecentItems(activityProvider);
         this.setState({
-          items: limit(items),
+          items,
         });
       }
     } finally {
@@ -277,22 +333,94 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
     quickSearchLimit: number,
   ) => {
     const { searchProvider, displayUrl } = this.state;
+    const { pluginState } = this.props;
     if (!searchProvider) {
       return;
     }
-    const searchProviderResultItems = await searchProvider.quickSearch(
-      input,
-      quickSearchLimit,
-    );
-    items = items.concat(
-      searchProviderResultItems.map(
-        mapSearchProviderResultToLinkSearchItemData,
-      ),
-    );
-    if (displayUrl === input) {
-      this.setState({
-        items,
-        isLoading: false,
+
+    this.fireAnalytics({
+      action: ACTION.ENTERED,
+      actionSubject: ACTION_SUBJECT.TEXT,
+      actionSubjectId: ACTION_SUBJECT_ID.LINK_SEARCH_INPUT,
+      attributes: {
+        queryLength: input.length,
+        queryVersion: this.quickSearchQueryVersion++,
+        queryHash: sha1(input),
+        searchSessionId: pluginState.searchSessionId ?? '',
+        wordCount: wordCount(input),
+        source: this.analyticSource,
+      },
+      nonPrivacySafeAttributes: {
+        query: input,
+      },
+      eventType: EVENT_TYPE.UI,
+    });
+
+    const perfStart = performance.now();
+    try {
+      const searchProviderResultItems = await searchProvider.quickSearch(
+        input,
+        quickSearchLimit,
+      );
+      const searchItems = [
+        ...items,
+        ...searchProviderResultItems.map(
+          mapSearchProviderResultToLinkSearchItemData,
+        ),
+      ];
+      if (displayUrl === input) {
+        this.setState({
+          items: searchItems,
+          isLoading: false,
+        });
+      }
+
+      const perfStop = performance.now();
+      const duration = perfStop - perfStart;
+
+      this.fireAnalytics({
+        action: ACTION.INVOKED,
+        actionSubject: ACTION_SUBJECT.SEARCH_RESULT,
+        actionSubjectId: ACTION_SUBJECT_ID.QUICK_SEARCH,
+        attributes: {
+          duration,
+          count: searchItems.length,
+        },
+        eventType: EVENT_TYPE.OPERATIONAL,
+      });
+
+      this.fireAnalytics({
+        action: ACTION.SHOWN,
+        actionSubject: ACTION_SUBJECT.SEARCH_RESULT,
+        actionSubjectId: ACTION_SUBJECT_ID.POST_QUERY_SEARCH_RESULTS,
+        attributes: {
+          source: this.analyticSource,
+          postQueryRequestDurationMs: duration,
+          searchSessionId: pluginState.searchSessionId ?? '',
+          resultCount: searchProviderResultItems.length,
+          results: searchProviderResultItems.map(item => ({
+            resultContentId: item.objectId,
+            resultType: item.contentType,
+          })),
+        },
+        eventType: EVENT_TYPE.UI,
+      });
+    } catch (err) {
+      const perfStop = performance.now();
+      const duration = perfStop - perfStart;
+      this.fireAnalytics({
+        action: ACTION.INVOKED,
+        actionSubject: ACTION_SUBJECT.SEARCH_RESULT,
+        actionSubjectId: ACTION_SUBJECT_ID.QUICK_SEARCH,
+        attributes: {
+          duration,
+          count: -1,
+          errorCode: err.status,
+        },
+        nonPrivacySafeAttributes: {
+          error: err.message,
+        },
+        eventType: EVENT_TYPE.OPERATIONAL,
       });
     }
   };
@@ -302,21 +430,15 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
     if (activityProvider) {
       if (input.length === 0) {
         this.setState({
-          items: limit(await this.getRecentItems(activityProvider)),
+          items: await this.getRecentItems(activityProvider),
           displayUrl: input,
           selectedIndex: -1,
         });
       } else {
-        const activityProviderResultItems = limit(
-          await activityProvider.searchRecent(input),
-        );
-        let items = activityProviderResultItems.map(
-          mapActivityProviderResultToLinkSearchItemData,
-        );
+        const items = await this.getRecentItems(activityProvider, input);
 
         const shouldQuerySearchProvider =
-          activityProviderResultItems.length < RECENT_SEARCH_LIST_SIZE &&
-          !!searchProvider;
+          items.length < RECENT_SEARCH_LIST_SIZE && !!searchProvider;
 
         this.setState({
           items,
@@ -325,8 +447,7 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
         });
 
         if (shouldQuerySearchProvider) {
-          const searchProviderLimit =
-            RECENT_SEARCH_LIST_SIZE - activityProviderResultItems.length;
+          const searchProviderLimit = RECENT_SEARCH_LIST_SIZE - items.length;
           this.debouncedQuickSearch(input, items, searchProviderLimit);
         }
       }
@@ -463,10 +584,35 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
     inputType: LinkInputType,
     interaction: 'click' | 'keyboard' | 'notselected',
   ) => {
+    const { pluginState } = this.props;
+    const { items, selectedIndex } = this.state;
     if (this.props.onSubmit) {
       this.submitted = true;
       this.props.onSubmit(href, title, this.state.displayText, inputType);
     }
+
+    const selectedItem = items[selectedIndex];
+    if (typeof selectedItem === 'undefined') {
+      /**
+       * No item has been selected. This could happen when user
+       * types in the URL by themselves or when editing the URL.
+       */
+      return;
+    }
+
+    this.fireAnalytics({
+      action: ACTION.SELECTED,
+      actionSubject: ACTION_SUBJECT.SEARCH_RESULT,
+      attributes: {
+        source: this.analyticSource,
+        searchSessionId: pluginState.searchSessionId ?? '',
+        trigger: interaction,
+        resultCount: items.length,
+        selectedResultId: selectedItem.objectId,
+        selectedRelativePosition: selectedIndex,
+      },
+      eventType: EVENT_TYPE.UI,
+    });
   };
 
   private handleMouseMove = (objectId: string) => {
@@ -497,24 +643,39 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
 
   private handleKeyDown = (e: KeyboardEvent<any>) => {
     const { items, selectedIndex } = this.state;
-    this.submitted = false;
+    const { pluginState } = this.props;
     this.isTabPressed = e.keyCode === 9;
 
     if (!items || !items.length) {
       return;
     }
 
+    let updatedIndex = selectedIndex;
+
     if (e.keyCode === 40) {
       // down
       e.preventDefault();
-      this.setState({
-        selectedIndex: (selectedIndex + 1) % items.length,
-      });
+      updatedIndex = (selectedIndex + 1) % items.length;
     } else if (e.keyCode === 38) {
       // up
       e.preventDefault();
-      this.setState({
-        selectedIndex: selectedIndex > 0 ? selectedIndex - 1 : items.length - 1,
+      updatedIndex = selectedIndex > 0 ? selectedIndex - 1 : items.length - 1;
+    }
+    this.setState({
+      selectedIndex: updatedIndex,
+    });
+
+    if (items[updatedIndex]) {
+      this.fireAnalytics({
+        action: ACTION.HIGHLIGHTED,
+        actionSubject: ACTION_SUBJECT.SEARCH_RESULT,
+        attributes: {
+          source: this.analyticSource,
+          searchSessionId: pluginState.searchSessionId ?? '',
+          selectedResultId: items[updatedIndex].objectId,
+          selectedRelativePosition: updatedIndex,
+        },
+        eventType: EVENT_TYPE.UI,
       });
     }
   };

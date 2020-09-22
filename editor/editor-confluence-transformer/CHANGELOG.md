@@ -1,5 +1,18 @@
 # @atlaskit/editor-cq-transformer
 
+## 8.1.0
+
+### Minor Changes
+
+- [`9a39500244`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9a39500244) - Bump ProseMirror packages
+
+  Read more: https://product-fabric.atlassian.net/wiki/spaces/E/pages/1671956531/2020-08
+
+### Patch Changes
+
+- [`78b192acc9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/78b192acc9) - ED-10169 Update imports for style constants from @atlaskit/editor-common to @atlaskit/editor-shared-styles
+- Updated dependencies
+
 ## 8.0.5
 
 ### Patch Changes

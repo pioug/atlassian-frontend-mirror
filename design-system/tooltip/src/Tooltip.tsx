@@ -5,6 +5,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { jsx } from '@emotion/core';
 import { bind } from 'bind-event-listener';
 
+import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
 import { ExitingPersistence, FadeIn, Transition } from '@atlaskit/motion';
 import { Popper, PopperProps } from '@atlaskit/popper';
 import Portal from '@atlaskit/portal';
@@ -13,7 +14,6 @@ import { layers } from '@atlaskit/theme/constants';
 import { API, Entry, show, Source } from './internal/tooltip-manager';
 import TooltipContainer from './TooltipContainer';
 import { TooltipProps } from './types';
-import useAnalyticsEventHandler from './useAnalyticsEventHandler';
 import { FakeMouseElement, getMousePosition } from './utilities';
 import { name as packageName, version as packageVersion } from './version.json';
 
@@ -44,13 +44,13 @@ function Tooltip({
   analyticsContext,
 }: TooltipProps) {
   const tooltipPosition = position === 'mouse' ? mousePosition : position;
-  const onShowHandler = useAnalyticsEventHandler<void>({
+  const onShowHandler = usePlatformLeafEventHandler<void>({
     fn: onShow,
     action: 'displayed',
     analyticsData: analyticsContext,
     ...analyticsAttributes,
   });
-  const onHideHandler = useAnalyticsEventHandler<void>({
+  const onHideHandler = usePlatformLeafEventHandler<void>({
     fn: onHide,
     action: 'hidden',
     analyticsData: analyticsContext,

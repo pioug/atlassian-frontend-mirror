@@ -58,6 +58,7 @@ class Modal extends React.Component<Props, State> {
     scrollBehavior: 'inside' as ScrollBehavior,
     shouldCloseOnEscapePress: true,
     shouldCloseOnOverlayClick: true,
+    isBlanketHidden: false,
     isChromeless: false,
     isOpen: true,
     stackIndex: 0,
@@ -111,6 +112,7 @@ class Modal extends React.Component<Props, State> {
       footer,
       header,
       height,
+      isBlanketHidden,
       isChromeless,
       isHeadingMultiline,
       isOpen,
@@ -156,7 +158,10 @@ class Modal extends React.Component<Props, State> {
               isEnabled={stackIndex === 0 && isOpen}
               autoFocus={autoFocus}
             >
-              <Blanket isTinted onBlanketClicked={this.handleOverlayClick} />
+              <Blanket
+                isTinted={!isBlanketHidden}
+                onBlanketClicked={this.handleOverlayClick}
+              />
               <Positioner
                 style={slide}
                 scrollBehavior={scrollBehavior}

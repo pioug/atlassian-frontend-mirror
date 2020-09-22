@@ -13,12 +13,12 @@ import scrollGutter, {
 } from './pm-plugins/scroll-gutter';
 import { keymap } from '../../utils/keymap';
 import frozenEditor from './pm-plugins/frozen-editor';
+import { InputTracking } from '../../types/performance-tracking';
 
 export interface BasePluginOptions {
   allowScrollGutter?: ScrollGutterPluginOptions;
   allowInlineCursorTarget?: boolean;
-  addRunTimePerformanceCheck?: boolean;
-  inputSamplingLimit?: number;
+  inputTracking?: InputTracking;
 }
 
 const basePlugin = (options?: BasePluginOptions): EditorPlugin => ({
@@ -50,8 +50,8 @@ const basePlugin = (options?: BasePluginOptions): EditorPlugin => ({
       {
         name: 'frozenEditor',
         plugin: ({ dispatchAnalyticsEvent }) =>
-          options && options.addRunTimePerformanceCheck
-            ? frozenEditor(dispatchAnalyticsEvent, options.inputSamplingLimit)
+          options && options.inputTracking && options.inputTracking.enabled
+            ? frozenEditor(dispatchAnalyticsEvent, options.inputTracking)
             : undefined,
       },
       { name: 'decorationPlugin', plugin: () => decorationPlugin() },

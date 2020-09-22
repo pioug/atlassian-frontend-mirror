@@ -12,7 +12,6 @@ import { headingSizes as headingSizesImport } from '@atlaskit/theme/typography';
 import {
   tableSharedStyle,
   columnLayoutSharedStyle,
-  editorFontSize,
   blockquoteSharedStyles,
   headingsSharedStyles,
   panelSharedStyles,
@@ -23,25 +22,28 @@ import {
   indentationSharedStyles,
   blockMarksSharedStyles,
   mediaSingleSharedStyle,
+  TableSharedCssClassName,
+  tableMarginTop,
+  codeMarkSharedStyles,
+  shadowSharedStyle,
+  shadowClassNames,
+  dateSharedStyle,
+  richMediaClassName,
+  tasksAndDecisionsStyles,
+  smartCardSharedStyles,
+} from '@atlaskit/editor-common';
+import {
+  editorFontSize,
   blockNodesVerticalMargin,
   akEditorTableToolbar,
   akEditorTableToolbarDark,
   akEditorTableBorder,
   akEditorTableBorderDark,
   akEditorTableNumberColumnWidth,
-  TableSharedCssClassName,
-  tableMarginTop,
   gridMediumMaxWidth,
-  codeMarkSharedStyles,
-  shadowSharedStyle,
-  shadowClassNames,
-  dateSharedStyle,
   akEditorFullWidthLayoutWidth,
-  richMediaClassName,
-  tasksAndDecisionsStyles,
   akEditorStickyHeaderZIndex,
-  smartCardSharedStyles,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-shared-styles';
 import { RendererCssClassName } from '../../consts';
 import { RendererAppearance } from './types';
 import {
@@ -85,22 +87,15 @@ export const headingSizes: { [key: string]: { [key: string]: number } } = {
 const headingAnchorStyle = (headingTag: string) =>
   css`
     & .${HeadingAnchorWrapperClassName} {
-      width: 0;
       height: ${headingSizes[headingTag].lineHeight}em;
-
-      & button {
-        opacity: 0;
-        transform: translate(-8px, 0px);
-        transition: opacity 0.2s ease 0s, transform 0.2s ease 0s;
-      }
     }
 
-    & .${HeadingAnchorWrapperLegacyClassName} {
+    .${HeadingAnchorWrapperLegacyClassName} {
       position: absolute;
       width: 0;
       height: ${headingSizes[headingTag].lineHeight}em;
 
-      & button {
+      button {
         opacity: 0;
         transform: translate(8px, 0px);
         transition: opacity 0.2s ease 0s, transform 0.2s ease 0s;
@@ -108,11 +103,36 @@ const headingAnchorStyle = (headingTag: string) =>
     }
 
     &:hover {
-      & .${HeadingAnchorWrapperClassName} button,
-      & .${HeadingAnchorWrapperLegacyClassName} button {
+      .${HeadingAnchorWrapperLegacyClassName} button {
         opacity: 1;
         transform: none;
         width: unset;
+      }
+    }
+
+    /**
+     * Applies hover effects to the heading anchor link button
+     * to fade in when the user rolls over the heading.
+     * 
+     * The link is persistent on mobile, so we use feature detection
+     * to enable hover effects for systems that support it (desktop).
+     * 
+     * @see https://caniuse.com/mdn-css_at-rules_media_hover
+     */
+    @media (hover: hover) and (pointer: fine) {
+      .${HeadingAnchorWrapperClassName} {
+        & button {
+          opacity: 0;
+          transform: translate(-8px, 0px);
+          transition: opacity 0.2s ease 0s, transform 0.2s ease 0s;
+        }
+      }
+
+      &:hover {
+        .${HeadingAnchorWrapperClassName} button {
+          opacity: 1;
+          transform: none;
+        }
       }
     }
   `;
@@ -120,6 +140,7 @@ const headingAnchorStyle = (headingTag: string) =>
 const tableSortableColumnStyle = `
   .${RendererCssClassName.SORTABLE_COLUMN} {
     cursor: pointer;
+    padding-right: 18px;
 
     &.${RendererCssClassName.SORTABLE_COLUMN_NOT_ALLOWED} {
       cursor: default;
@@ -281,7 +302,10 @@ export const Wrapper = styled.div<RendererWrapperProps & HTMLAttributes<{}>>`
   & hr,
   & > div > div:not(.rich-media-wrapped),
   .${richMediaClassName}.rich-media-wrapped + .rich-media-wrapped + *:not(.rich-media-wrapped),
-  .${richMediaClassName}.rich-media-wrapped + div:not(.rich-media-wrapped) {
+  .${richMediaClassName}.rich-media-wrapped + div:not(.rich-media-wrapped),
+  .${richMediaClassName}.image-align-start,
+  .${richMediaClassName}.image-center,
+  .${richMediaClassName}.image-align-end {
     clear: both;
   }
 
@@ -368,11 +392,20 @@ export const Wrapper = styled.div<RendererWrapperProps & HTMLAttributes<{}>>`
 
     table[data-number-column='true'] {
       .${RendererCssClassName.NUMBER_COLUMN} {
-        background-color: ${akEditorTableToolbar};
-        border-right: 1px solid ${akEditorTableBorder};
+        background-color: ${themed({
+          light: akEditorTableToolbar,
+          dark: akEditorTableToolbarDark,
+        })};
+        border-right: 1px solid ${themed({
+          light: akEditorTableBorder,
+          dark: akEditorTableBorderDark,
+        })};
         width: ${akEditorTableNumberColumnWidth}px;
         text-align: center;
-        color: ${colors.N200};
+        color: ${themed({
+          light: colors.N200,
+          dark: colors.DN400
+        })};
         font-size: ${fontSize()}px;
       }
 
@@ -388,8 +421,14 @@ export const Wrapper = styled.div<RendererWrapperProps & HTMLAttributes<{}>>`
     overflow: hidden;
     z-index: ${akEditorStickyHeaderZIndex};
 
-    border-right: 1px solid ${akEditorTableBorder};
-    border-bottom: 1px solid ${akEditorTableBorder};
+    border-right: 1px solid ${themed({
+      light: akEditorTableBorder,
+      dark: akEditorTableBorderDark,
+    })};
+    border-bottom: 1px solid ${themed({
+      light: akEditorTableBorder,
+      dark: akEditorTableBorderDark,
+    })};
 
     /* this is to compensate for the table border */
     transform: translateX(-1px);
@@ -415,15 +454,15 @@ export const Wrapper = styled.div<RendererWrapperProps & HTMLAttributes<{}>>`
       light: akEditorTableBorder,
       dark: akEditorTableBorderDark,
     })}, 0px -0.5px ${themed({
-      light: akEditorTableBorder,
-      dark: akEditorTableBorderDark,
-    })}, inset -1px 0px ${themed({
-      light: akEditorTableToolbar,
-      dark: akEditorTableToolbarDark,
-    })}, 0px -1px ${themed({
-      light: akEditorTableToolbar,
-      dark: akEditorTableToolbarDark,
-    })};
+         light: akEditorTableBorder,
+         dark: akEditorTableBorderDark,
+       })}, inset -1px 0px ${themed({
+         light: akEditorTableToolbar,
+         dark: akEditorTableToolbarDark,
+       })}, 0px -1px ${themed({
+         light: akEditorTableToolbar,
+         dark: akEditorTableToolbarDark,
+       })};
   }
 
    /* this will remove jumpiness caused in Chrome for sticky headers */
@@ -472,6 +511,12 @@ export const Wrapper = styled.div<RendererWrapperProps & HTMLAttributes<{}>>`
 
     &:hover button.copy-to-clipboard{
       opacity: 1;
+      position: absolute;
+      height: 32px;
+      width: 32px;
+      right: 6px;
+      top: 6px;
+      padding: 2px;
     }
 
     span code {

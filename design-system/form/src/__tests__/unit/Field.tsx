@@ -9,7 +9,7 @@ import {
 } from '@testing-library/react';
 import { mount, ReactWrapper } from 'enzyme';
 
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
 import Select, { ValueType } from '@atlaskit/select';
 import TextField from '@atlaskit/textfield';
 

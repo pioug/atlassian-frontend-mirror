@@ -1,16 +1,16 @@
 import React, { Fragment } from 'react';
 import { Checkbox } from '@atlaskit/checkbox';
 import { CheckboxField, Fieldset } from '@atlaskit/form';
-import { EnumField } from '@atlaskit/editor-common/extensions';
+import { EnumCheckboxField } from '@atlaskit/editor-common/extensions';
 
 import { OnBlur } from '../types';
 import FieldMessages from '../FieldMessages';
 
-export default function ({
+export default function CheckboxGroup({
   field,
   onBlur,
 }: {
-  field: EnumField;
+  field: EnumCheckboxField;
   onBlur: OnBlur;
 }) {
   return (

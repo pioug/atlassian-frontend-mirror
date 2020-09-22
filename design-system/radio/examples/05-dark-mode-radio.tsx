@@ -1,4 +1,4 @@
-import React, { Component, SyntheticEvent } from 'react';
+import React, { SyntheticEvent, useState } from 'react';
 
 import { AtlaskitThemeProvider } from '@atlaskit/theme/components';
 
@@ -10,30 +10,22 @@ const options = [
 ];
 
 type ThemeType = 'light' | 'dark';
-export default class ThemedRadio extends Component<
-  any,
-  { themeMode: ThemeType }
-> {
-  state = {
-    themeMode: 'dark' as ThemeType,
+export default function ThemedRadio() {
+  const [themeMode, setThemeMode] = useState<ThemeType>('dark');
+
+  const switchTheme = ({
+    currentTarget: { value },
+  }: SyntheticEvent<HTMLInputElement>) => {
+    setThemeMode(value as ThemeType);
   };
 
-  switchTheme = ({ currentTarget: { value } }: SyntheticEvent<any>) => {
-    this.setState({
-      themeMode: value,
-    });
-  };
-
-  render() {
-    const { themeMode } = this.state;
-    return (
-      <AtlaskitThemeProvider mode={themeMode}>
-        <RadioGroup
-          defaultValue={this.state.themeMode}
-          options={options}
-          onChange={this.switchTheme}
-        />
-      </AtlaskitThemeProvider>
-    );
-  }
+  return (
+    <AtlaskitThemeProvider mode={themeMode}>
+      <RadioGroup
+        defaultValue={themeMode}
+        options={options}
+        onChange={switchTheme}
+      />
+    </AtlaskitThemeProvider>
+  );
 }

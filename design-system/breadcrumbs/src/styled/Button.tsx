@@ -1,8 +1,9 @@
 import React from 'react';
 
-import Button, { ButtonProps } from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
+import { CustomThemeButtonProps } from '@atlaskit/button/types';
 
-interface Props extends ButtonProps {
+interface Props extends CustomThemeButtonProps {
   truncationWidth?: number;
 }
 

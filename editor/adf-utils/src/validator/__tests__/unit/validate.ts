@@ -71,6 +71,7 @@ describe('validate', () => {
           'codeBlock-with-unknown-attribute.json',
           'mention-with-invalid-user-type.json',
           'hardBreak-with-wrong-text.json',
+          'mediaSingle-with-caption.json',
         ];
         expect(true).toBe(true);
         if (!ignoreList.includes(file.name)) {

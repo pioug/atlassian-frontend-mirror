@@ -1,3 +1,4 @@
+import { PanelPluginConfig } from './../plugins/panel/types';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { EditorPlugin, EditorProps } from '../types';
 import {
@@ -91,6 +92,37 @@ export function getDefaultPresetOptionsFromEditorProps(
   const appearance = props.appearance;
   const isMobile = appearance === 'mobile';
   const isFullPage = fullPageCheck(appearance);
+
+  // TODO: https://product-fabric.atlassian.net/browse/ED-10260
+  const inputTracking =
+    props.performanceTracking && props.performanceTracking.inputTracking
+      ? props.performanceTracking.inputTracking
+      : {
+          enabled:
+            isFullPage ||
+            (typeof props.inputSamplingLimit !== 'undefined' &&
+              props.inputSamplingLimit > 0),
+          samplingRate: props.inputSamplingLimit,
+        };
+
+  // If the feature prop is not explicitly defined AND we are on a product-fabric branch deploy we force-enable node counting
+  // START: temporary code https://product-fabric.atlassian.net/browse/ED-10260
+  if (!(props.performanceTracking && props.performanceTracking.inputTracking)) {
+    try {
+      const { FRONTEND_VERSION = '' } = (window as any).__buildInfo || {
+        FRONTEND_VERSION: '',
+      };
+
+      inputTracking.countNodes =
+        window.location.hostname === 'product-fabric.atlassian.net' &&
+        FRONTEND_VERSION.includes('branch-deploy');
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.warn(err);
+    }
+  }
+  // END:  temporary code  https://product-fabric.atlassian.net/browse/ED-10260
+
   return {
     featureFlags: createFeatureFlagsFromProps(props),
     paste: {
@@ -100,8 +132,7 @@ export function getDefaultPresetOptionsFromEditorProps(
     base: {
       allowInlineCursorTarget: !isMobile,
       allowScrollGutter: getScrollGutterOptions(props),
-      addRunTimePerformanceCheck: isFullPage,
-      inputSamplingLimit: props.inputSamplingLimit,
+      inputTracking,
     },
     blockType: {
       lastNodeMustBeParagraph:
@@ -122,7 +153,8 @@ export function getDefaultPresetOptionsFromEditorProps(
       disableDefaultItems: isMobile,
       headless: isMobile,
     },
-    codeBlock: props.codeBlock,
+    codeBlock: { ...props.codeBlock, useLongPressSelection: isMobile },
+    selection: { useLongPressSelection: isMobile },
   };
 }
 
@@ -191,7 +223,10 @@ export default function createPluginsList(
   if (props.allowExpand) {
     preset.add([
       expandPlugin,
-      { allowInsertion: isExpandInsertionEnabled(props) },
+      {
+        allowInsertion: isExpandInsertionEnabled(props),
+        useLongPressSelection: isMobile,
+      },
     ]);
   }
 
@@ -274,7 +309,11 @@ export default function createPluginsList(
   if (props.allowTasksAndDecisions || props.taskDecisionProvider) {
     preset.add([
       tasksAndDecisionsPlugin,
-      { allowNestedTasks: props.allowNestedTasks, consumeTabs: isFullPage },
+      {
+        allowNestedTasks: props.allowNestedTasks,
+        consumeTabs: isFullPage,
+        useLongPressSelection: isMobile,
+      },
     ]);
   }
 
@@ -327,7 +366,14 @@ export default function createPluginsList(
   }
 
   if (props.allowPanel) {
-    preset.add([panelPlugin, { allowSelection: !isMobile }]);
+    preset.add([
+      panelPlugin,
+      {
+        useLongPressSelection: isMobile,
+        UNSAFE_allowCustomPanel: (<PanelPluginConfig>props.allowPanel)
+          .UNSAFE_allowCustomPanel,
+      },
+    ]);
   }
 
   if (props.allowExtension) {
@@ -343,6 +389,7 @@ export default function createPluginsList(
         allowAutoSave: extensionConfig.allowAutoSave,
         allowLocalIdGeneration: extensionConfig.allowLocalIdGeneration,
         extensionHandlers: props.extensionHandlers,
+        useLongPressSelection: isMobile,
       },
     ]);
   }
@@ -371,7 +418,10 @@ export default function createPluginsList(
   if (props.allowLayouts) {
     preset.add([
       layoutPlugin,
-      typeof props.allowLayouts === 'boolean' ? undefined : props.allowLayouts,
+      {
+        ...(typeof props.allowLayouts === 'boolean' ? {} : props.allowLayouts),
+        useLongPressSelection: isMobile,
+      },
     ]);
   }
 

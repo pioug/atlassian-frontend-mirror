@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
 import AkSpinner from '@atlaskit/spinner';
 import DetailViewIcon from '@atlaskit/icon/glyph/detail-view';
 import ArrowRightIcon from '@atlaskit/icon/glyph/arrow-right';

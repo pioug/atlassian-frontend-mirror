@@ -1,5 +1,18 @@
 # @atlaskit/media-picker
 
+## 56.0.0
+
+### Minor Changes
+
+- [`df3bf7f77f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/df3bf7f77f) - Added support for uploading files from MediaPicker. Additionally, added support for browser detection.
+- [`96ab8c45fc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/96ab8c45fc) - Changing the text in the picker in the UI so that users now know they can drag&drop folders
+- [`7d831363d9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7d831363d9) - Migrated to declarative entry points
+- [`b3e730ddde`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b3e730ddde) - When a folder is uploaded, we are now tracking this and firing analytics for this event
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 55.1.2
 
 ### Patch Changes

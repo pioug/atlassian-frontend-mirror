@@ -33,10 +33,12 @@ import {
   insertColumnWithAnalytics,
   deleteRowsWithAnalytics,
   deleteColumnsWithAnalytics,
+  deleteTableIfSelectedWithAnalytics,
 } from '../../../../plugins/table/commands-with-analytics';
 import { INPUT_METHOD } from '../../../../plugins/analytics';
 import { handleCut } from '../../../../plugins/table/event-handlers';
 import { pluginKey } from '../../../../plugins/table/pm-plugins/plugin-factory';
+import { replaceSelectedTable } from '../../../../plugins/table/transforms';
 
 const defaultTable = table()(
   tr(thEmpty, thEmpty, thEmpty),
@@ -108,11 +110,40 @@ describe('Table analytic events', () => {
       expect(createAnalyticsEvent).toHaveBeenCalledWith({
         action: 'deleted',
         actionSubject: 'table',
-        actionSubjectId: null,
         attributes: expect.objectContaining({
           inputMethod: 'floatingToolbar',
           totalRowCount: 3,
           totalColumnCount: 3,
+        }),
+        eventType: 'track',
+      });
+    });
+  });
+
+  describe('table deleted if selected', () => {
+    beforeEach(() => {
+      const { editorView } = editor(
+        doc(
+          table()(
+            tr(td()(p('{<cell}1')), td()(p('2'))),
+            tr(td()(p('3')), td()(p('4{cell>}'))),
+          ),
+        ),
+      );
+      deleteTableIfSelectedWithAnalytics(INPUT_METHOD.KEYBOARD)(
+        editorView.state,
+        editorView.dispatch,
+      );
+    });
+
+    it('should fire v3 analytics', () => {
+      expect(createAnalyticsEvent).toHaveBeenCalledWith({
+        action: 'deleted',
+        actionSubject: 'table',
+        attributes: expect.objectContaining({
+          inputMethod: 'keyboard',
+          totalRowCount: 2,
+          totalColumnCount: 2,
         }),
         eventType: 'track',
       });
@@ -616,6 +647,33 @@ describe('Table analytic events', () => {
           count: 1,
           totalRowCount: 3,
           totalColumnCount: 3,
+        }),
+        eventType: 'track',
+      });
+    });
+  });
+
+  describe('table replaced', () => {
+    it('should fire v3 analytics', () => {
+      const { editorView } = editor(
+        doc(
+          table()(
+            tr(td()(p('{<cell}1')), td()(p('2'))),
+            tr(td()(p('3')), td()(p('4{cell>}'))),
+          ),
+        ),
+      );
+      editorView.dispatch(
+        replaceSelectedTable(editorView.state, 'text', INPUT_METHOD.KEYBOARD),
+      );
+
+      expect(createAnalyticsEvent).toHaveBeenCalledWith({
+        action: 'replaced',
+        actionSubject: 'table',
+        attributes: expect.objectContaining({
+          totalRowCount: 2,
+          totalColumnCount: 2,
+          inputMethod: 'keyboard',
         }),
         eventType: 'track',
       });

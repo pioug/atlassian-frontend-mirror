@@ -24,6 +24,7 @@ import {
 } from '../../../../plugins/panel/actions';
 import { Selection } from 'prosemirror-state';
 import { selectNode } from '../../../../utils/commands';
+import { PanelType } from '@atlaskit/adf-schema';
 
 describe('@atlaskit/editor-core ui/PanelPlugin', () => {
   const createEditor = createEditorFactory<PanelState>();
@@ -58,17 +59,17 @@ describe('@atlaskit/editor-core ui/PanelPlugin', () => {
 
     it('should be able to change panel type using function changeType', async () => {
       const { pluginState, editorView } = editor(doc(panel()(p('te{<>}xt'))));
-      expect(pluginState.activePanelType).toEqual('info');
+      expect(pluginState.activePanelType).toEqual(PanelType.INFO);
       expect(pluginState.element).not.toBe(undefined);
       expect(pluginState.activePanelType).not.toBe(undefined);
-      changePanelType('note')(editorView.state, editorView.dispatch);
+      changePanelType(PanelType.NOTE)(editorView.state, editorView.dispatch);
       const newPluginState = pluginKey.getState(editorView!.state);
-      expect(newPluginState.activePanelType).toEqual('note');
+      expect(newPluginState.activePanelType).toEqual(PanelType.NOTE);
     });
 
     it('should be able to change panel type using function changeType for panel with multiple blocks', () => {
       const { editorView } = editor(doc(panel()(p('te{<>}xt'), p('text'))));
-      changePanelType('note')(editorView.state, editorView.dispatch);
+      changePanelType(PanelType.NOTE)(editorView.state, editorView.dispatch);
       expect(editorView.state.doc).toEqualDocument(
         doc(panelNote(p('text'), p('text'))),
       );
@@ -76,7 +77,7 @@ describe('@atlaskit/editor-core ui/PanelPlugin', () => {
 
     it('should be able to remove panel type using function removePanel', () => {
       const { pluginState, editorView } = editor(doc(panel()(p('te{<>}xt'))));
-      expect(pluginState.activePanelType).toEqual('info');
+      expect(pluginState.activePanelType).toEqual(PanelType.INFO);
       removePanel()(editorView.state, editorView.dispatch);
       expect(editorView.state.doc).toEqualDocument(doc(p()));
     });
@@ -85,7 +86,7 @@ describe('@atlaskit/editor-core ui/PanelPlugin', () => {
       const { pluginState, editorView } = editor(
         doc(panel()(p('te{<>}xt'), p('te{<>}xt'), p('te{<>}xt'))),
       );
-      expect(pluginState.activePanelType).toEqual('info');
+      expect(pluginState.activePanelType).toEqual(PanelType.INFO);
       removePanel()(editorView.state, editorView.dispatch);
       expect(editorView.state.doc).toEqualDocument(doc(p()));
     });
@@ -94,7 +95,7 @@ describe('@atlaskit/editor-core ui/PanelPlugin', () => {
       const { pluginState, editorView } = editor(
         doc(table()(tr(td({})(panel()(p('text{<>}')))))),
       );
-      expect(pluginState.activePanelType).toEqual('info');
+      expect(pluginState.activePanelType).toEqual(PanelType.INFO);
       removePanel()(editorView.state, editorView.dispatch);
       expect(editorView.state.doc).toEqualDocument(
         doc(table()(tr(td({})(p())))),
@@ -105,7 +106,7 @@ describe('@atlaskit/editor-core ui/PanelPlugin', () => {
       const { pluginState, editorView } = editor(
         doc(table()(tr(td({})(panel()(p('{<>}')))))),
       );
-      expect(pluginState.activePanelType).toEqual('info');
+      expect(pluginState.activePanelType).toEqual(PanelType.INFO);
       removePanel()(editorView.state, editorView.dispatch);
       expect(editorView.state.doc).toEqualDocument(
         doc(table()(tr(td({})(p())))),
@@ -114,7 +115,7 @@ describe('@atlaskit/editor-core ui/PanelPlugin', () => {
 
     it('should be able to remove panel type using function removePanel even if panel has no text content', () => {
       const { pluginState, editorView } = editor(doc(panel()(p('{<>}'))));
-      expect(pluginState.activePanelType).toEqual('info');
+      expect(pluginState.activePanelType).toEqual(PanelType.INFO);
       removePanel()(editorView.state, editorView.dispatch);
       expect(editorView.state.doc).toEqualDocument(doc(p()));
     });
@@ -123,7 +124,7 @@ describe('@atlaskit/editor-core ui/PanelPlugin', () => {
       const { pluginState, editorView } = editor(
         doc(panel()(p('te{<>}xt'), p('text'))),
       );
-      expect(pluginState.activePanelType).toEqual('info');
+      expect(pluginState.activePanelType).toEqual(PanelType.INFO);
       removePanel()(editorView.state, editorView.dispatch);
       expect(editorView.state.doc).toEqualDocument(doc(p()));
     });
@@ -132,7 +133,7 @@ describe('@atlaskit/editor-core ui/PanelPlugin', () => {
       const { pluginState, editorView } = editor(
         doc(p('testing'), panel()(p('te{<>}xt'), p('text')), p('testing')),
       );
-      expect(pluginState.activePanelType).toEqual('info');
+      expect(pluginState.activePanelType).toEqual(PanelType.INFO);
       removePanel()(editorView.state, editorView.dispatch);
       expect(editorView.state.doc).toEqualDocument(
         doc(p('testing'), p('testing')),
@@ -151,10 +152,10 @@ describe('@atlaskit/editor-core ui/PanelPlugin', () => {
       const { pluginState, editorView } = editor(
         doc(panel()(p('text'), ol(li(p('te{<>}xt'))))),
       );
-      expect(pluginState.activePanelType).toEqual('info');
-      changePanelType('note')(editorView.state, editorView.dispatch);
+      expect(pluginState.activePanelType).toEqual(PanelType.INFO);
+      changePanelType(PanelType.NOTE)(editorView.state, editorView.dispatch);
       const newPluginState = pluginKey.getState(editorView!.state);
-      expect(newPluginState.activePanelType).toEqual('note');
+      expect(newPluginState.activePanelType).toEqual(PanelType.NOTE);
     });
 
     it('should select node', () => {
@@ -216,7 +217,14 @@ describe('@atlaskit/editor-core ui/PanelPlugin', () => {
   });
 
   describe('quick insert', () => {
-    ['info', 'success', 'error', 'warning', 'note'].forEach(panelType => {
+    // we dont have all panel types in quickinsert, so listing them explicitly
+    [
+      PanelType.INFO,
+      PanelType.SUCCESS,
+      PanelType.ERROR,
+      PanelType.WARNING,
+      PanelType.NOTE,
+    ].forEach(panelType => {
       it(`should fire analytics event when ${panelType} panel inserted`, () => {
         const { editorView, sel } = editor(doc(p('{<>}')));
         insertText(editorView, `/${panelType}`, sel);

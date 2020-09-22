@@ -12,13 +12,16 @@ export const tableFloatingCellButtonStyles = css`
     height: ${contextualMenuTriggerSize - 2}px;
     flex-direction: column;
   }
-  button {
+  && button {
     flex-direction: column;
     padding: 0;
     height: 100%;
     display: flex;
   }
-  span {
+  && button > span {
+    margin: 0px -4px;
+  }
+  && span {
     pointer-events: none;
   }
 `;

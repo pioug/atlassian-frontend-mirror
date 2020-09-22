@@ -1,11 +1,11 @@
 import React from 'react';
 import { mount } from 'enzyme';
+import { SortOrder } from '@atlaskit/editor-common';
 import {
   akEditorTableNumberColumnWidth,
   akEditorDefaultLayoutWidth,
   akEditorTableLegacyCellMinWidth as tableCellMinWidth,
-  SortOrder,
-} from '@atlaskit/editor-common';
+} from '@atlaskit/editor-shared-styles';
 import { defaultSchema as schema } from '@atlaskit/adf-schema';
 import { table, tr, th, td, p, inlineCard } from '@atlaskit/adf-utils';
 import Table, { TableProcessor } from '../../../../react/nodes/table';

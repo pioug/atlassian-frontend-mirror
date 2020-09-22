@@ -40,6 +40,7 @@ export const KitchenSinkRenderer: React.StatelessComponent<KitchenSinkRendererPr
               featureFlags: exampleMediaFeatureFlags,
               allowLinking: true,
             }}
+            allowCopyToClipboard={true}
           />
         </SmartCardProvider>
       </RendererPadding>

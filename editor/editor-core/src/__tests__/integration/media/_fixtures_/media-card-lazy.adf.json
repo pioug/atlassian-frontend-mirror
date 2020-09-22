@@ -11,11 +11,11 @@
         {
           "type": "media",
           "attrs": {
-            "id": "a559980d-cd47-43e2-8377-27359fcb905f",
+            "id": "8550f88e-6be9-4141-9a36-30e74aaec3ab",
             "type": "file",
             "collection": "MediaServicesSample",
-            "width": 200,
-            "height": 298
+            "width": 500,
+            "height": 375
           }
         }
       ]
@@ -502,11 +502,11 @@
                             {
                               "type": "media",
                               "attrs": {
-                                "id": "a559980d-cd47-43e2-8377-27359fcb905f",
+                                "id": "8550f88e-6be9-4141-9a36-30e74aaec3ab",
                                 "type": "file",
                                 "collection": "MediaServicesSample",
-                                "width": 200,
-                                "height": 298
+                                "width": 500,
+                                "height": 375
                               }
                             }
                           ]
@@ -525,11 +525,11 @@
                             {
                               "type": "media",
                               "attrs": {
-                                "id": "a559980d-cd47-43e2-8377-27359fcb905f",
+                                "id": "8550f88e-6be9-4141-9a36-30e74aaec3ab",
                                 "type": "file",
                                 "collection": "MediaServicesSample",
-                                "width": 200,
-                                "height": 298
+                                "width": 500,
+                                "height": 375
                               }
                             }
                           ]
@@ -553,11 +553,11 @@
                     {
                       "type": "media",
                       "attrs": {
-                        "id": "a559980d-cd47-43e2-8377-27359fcb905f",
+                        "id": "8550f88e-6be9-4141-9a36-30e74aaec3ab",
                         "type": "file",
                         "collection": "MediaServicesSample",
-                        "width": 200,
-                        "height": 298
+                        "width": 500,
+                        "height": 375
                       }
                     }
                   ]
@@ -577,11 +577,11 @@
                     {
                       "type": "media",
                       "attrs": {
-                        "id": "a559980d-cd47-43e2-8377-27359fcb905f",
+                        "id": "8550f88e-6be9-4141-9a36-30e74aaec3ab",
                         "type": "file",
                         "collection": "MediaServicesSample",
-                        "width": 200,
-                        "height": 298
+                        "width": 500,
+                        "height": 375
                       }
                     }
                   ]
@@ -601,11 +601,11 @@
                     {
                       "type": "media",
                       "attrs": {
-                        "id": "a559980d-cd47-43e2-8377-27359fcb905f",
+                        "id": "8550f88e-6be9-4141-9a36-30e74aaec3ab",
                         "type": "file",
                         "collection": "MediaServicesSample",
-                        "width": 200,
-                        "height": 298
+                        "width": 500,
+                        "height": 375
                       }
                     }
                   ]
@@ -625,11 +625,11 @@
         {
           "type": "media",
           "attrs": {
-            "id": "a559980d-cd47-43e2-8377-27359fcb905f",
+            "id": "8550f88e-6be9-4141-9a36-30e74aaec3ab",
             "type": "file",
             "collection": "MediaServicesSample",
-            "width": 200,
-            "height": 298
+            "width": 500,
+            "height": 375
           }
         }
       ]

@@ -4,7 +4,7 @@ import { Component, FC, SyntheticEvent } from 'react';
 
 import { jsx } from '@emotion/core';
 
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
 import AppSwitcherIcon from '@atlaskit/icon/glyph/app-switcher';
 import { B50, N30A, N500 } from '@atlaskit/theme/colors';
 

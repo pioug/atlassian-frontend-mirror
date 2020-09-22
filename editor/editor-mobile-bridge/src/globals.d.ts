@@ -1,14 +1,7 @@
 import RendererBridgeImpl from './renderer/native-to-web/implementation';
 import WebBridgeImpl from './editor/native-to-web/implementation';
-import {
-  EditorBridges,
-  EditorPluginBridges,
-  PromiseBridge,
-} from './editor/web-to-native/';
-import {
-  RendererBridges,
-  RendererPluginBridges,
-} from './renderer/web-to-native/bridge';
+import { EditorBridges } from './editor/web-to-native/';
+import { RendererBridges } from './renderer/web-to-native/bridge';
 import { ErrorBridge, RuntimeBridges } from './error-reporter';
 
 type RequestIdleCallbackHandle = any;
@@ -21,10 +14,10 @@ type RequestIdleCallbackDeadline = {
 };
 
 declare global {
-  // Automatically de-duplicated set of editor/renderer bridges
+  // Automatically de-duplicated set of editor/renderer bridge keys
   type CombinedBridgeNames =
-    | EditorPluginBridges
-    | RendererPluginBridges
+    | keyof EditorBridges
+    | keyof RendererBridges
     | keyof RuntimeBridges;
 
   type BridgeEventName<K extends CombinedBridgeNames> =

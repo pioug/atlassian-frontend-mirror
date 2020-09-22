@@ -42,13 +42,215 @@ describe('Web To Native', () => {
     });
 
     describe('Lifecycle bridge', () => {
-      it('should call native editorReady bridge method', function () {
-        iosBridge.editorReady();
+      describe('editorReady', () => {
+        it('should call native', function () {
+          iosBridge.editorReady();
 
-        expect(
-          windowWithMockBridges.webkit!.messageHandlers.lifecycleBridge!
-            .postMessage,
-        ).toHaveBeenCalledWith({ name: 'editorReady' });
+          expect(
+            windowWithMockBridges.webkit!.messageHandlers.lifecycleBridge!
+              .postMessage,
+          ).toHaveBeenCalledWith({ name: 'editorReady' });
+        });
+
+        it('should call native only once when method is called a second time', function () {
+          iosBridge.editorReady();
+          iosBridge.editorReady();
+
+          expect(
+            windowWithMockBridges.webkit!.messageHandlers.lifecycleBridge!
+              .postMessage,
+          ).toHaveBeenNthCalledWith(1, { name: 'editorReady' });
+        });
+
+        it('should send analytics event called twice', function () {
+          iosBridge.editorReady();
+          iosBridge.editorReady();
+
+          expect(
+            windowWithMockBridges.webkit!.messageHandlers.analyticsBridge!
+              .postMessage,
+          ).toHaveBeenCalledWith({
+            name: 'trackEvent',
+            event: JSON.stringify({
+              action: 'editorReadyCalledTwice',
+              actionSubject: 'editor',
+              eventType: 'operational',
+            }),
+          });
+        });
+
+        it('should not throw if lifeCycle bridge does not exist', function () {
+          const iosBridge = new IosBridge(({
+            webkit: {
+              messageHandlers: {
+                lifecycleBridge: undefined,
+                analyticsBridge: { postMessage: jest.fn() },
+              },
+            },
+          } as any) as Window);
+
+          expect(() => iosBridge.editorReady()).not.toThrow();
+        });
+
+        it('should send analytics event when lifecycleBridge does not exist', function () {
+          const analyticsBridge = { postMessage: jest.fn() };
+          const iosBridge = new IosBridge(({
+            webkit: {
+              messageHandlers: {
+                lifecycleBridge: undefined,
+                analyticsBridge,
+              },
+            },
+          } as any) as Window);
+
+          iosBridge.editorReady();
+
+          expect(analyticsBridge.postMessage).toHaveBeenCalledWith({
+            name: 'trackEvent',
+            event: JSON.stringify({
+              action: 'editorReadyCalledBeforeLifecycleBridgeSetup',
+              actionSubject: 'editor',
+              eventType: 'track',
+            }),
+          });
+        });
+      });
+
+      describe('startWebBundle', () => {
+        it('should call native', function () {
+          iosBridge.startWebBundle();
+
+          expect(
+            windowWithMockBridges.webkit!.messageHandlers.lifecycleBridge!
+              .postMessage,
+          ).toHaveBeenCalledWith({ name: 'startWebBundle' });
+        });
+
+        it('should call native only once when method is called a second time', function () {
+          iosBridge.startWebBundle();
+          iosBridge.startWebBundle();
+
+          expect(
+            windowWithMockBridges.webkit!.messageHandlers.lifecycleBridge!
+              .postMessage,
+          ).toHaveBeenNthCalledWith(1, { name: 'startWebBundle' });
+        });
+
+        it('should send analytics event called twice', function () {
+          iosBridge.startWebBundle();
+          iosBridge.startWebBundle();
+
+          expect(
+            windowWithMockBridges.webkit!.messageHandlers.analyticsBridge!
+              .postMessage,
+          ).toHaveBeenCalledWith({
+            name: 'trackEvent',
+            event: JSON.stringify({
+              action: 'startWebBundleCalledTwice',
+              actionSubject: 'editor',
+              eventType: 'operational',
+            }),
+          });
+        });
+
+        it('should not throw if lifeCycle bridge does not exist', function () {
+          const iosBridge = new IosBridge(({
+            webkit: {
+              messageHandlers: {
+                lifecycleBridge: undefined,
+                analyticsBridge: { postMessage: jest.fn() },
+              },
+            },
+          } as any) as Window);
+
+          expect(() => iosBridge.startWebBundle()).not.toThrow();
+        });
+
+        it('should send analytics event when lifecycleBridge does not exist', function () {
+          const analyticsBridge = { postMessage: jest.fn() };
+          const iosBridge = new IosBridge(({
+            webkit: {
+              messageHandlers: {
+                lifecycleBridge: undefined,
+                analyticsBridge,
+              },
+            },
+          } as any) as Window);
+
+          iosBridge.startWebBundle();
+
+          expect(analyticsBridge.postMessage).toHaveBeenCalledWith({
+            name: 'trackEvent',
+            event: JSON.stringify({
+              action: 'startWebBundleCalledBeforeLifecycleBridgeSetup',
+              actionSubject: 'editor',
+              eventType: 'track',
+            }),
+          });
+        });
+      });
+
+      describe('editorError', () => {
+        const errorString = new Error('TestError').toString();
+        it('should call native', () => {
+          iosBridge.editorError(errorString);
+
+          expect(
+            windowWithMockBridges.webkit!.messageHandlers.lifecycleBridge!
+              .postMessage,
+          ).toHaveBeenCalledWith({
+            name: 'editorError',
+            error: errorString,
+            errorInfo: undefined,
+          });
+        });
+
+        it('should send analytics on error with bridge', () => {
+          iosBridge.editorError(errorString);
+
+          expect(
+            windowWithMockBridges.webkit!.messageHandlers.analyticsBridge!
+              .postMessage,
+          ).toHaveBeenCalledWith({
+            name: 'trackEvent',
+            event: JSON.stringify({
+              action: 'editorError',
+              actionSubject: 'editor',
+              eventType: 'operational',
+              attributes: {
+                isBridgeSetup: true,
+                errorMessage: 'Error: TestError',
+              },
+            }),
+          });
+        });
+
+        it('should send analytics on error without bridge', () => {
+          const analyticsBridge = { postMessage: jest.fn() };
+          const iosBridge = new IosBridge(({
+            webkit: {
+              messageHandlers: {
+                lifecycleBridge: undefined,
+                analyticsBridge,
+              },
+            },
+          } as any) as Window);
+
+          iosBridge.editorError(errorString);
+
+          expect(analyticsBridge.postMessage).toHaveBeenCalledWith({
+            name: 'trackEvent',
+            event: JSON.stringify({
+              action: 'editorError',
+              actionSubject: 'editor',
+              eventType: 'operational',
+              attributes: {
+                isBridgeSetup: false,
+                errorMessage: 'Error: TestError',
+              },
+            }),
+          });
+        });
       });
 
       it('should call native editorDestroyed method', function () {
@@ -58,69 +260,6 @@ describe('Web To Native', () => {
           windowWithMockBridges.webkit!.messageHandlers.lifecycleBridge!
             .postMessage,
         ).toHaveBeenCalledWith({ name: 'editorDestroyed' });
-      });
-
-      it('should call native editorReady only once when method is called a second time', function () {
-        iosBridge.editorReady();
-        iosBridge.editorReady();
-
-        expect(
-          windowWithMockBridges.webkit!.messageHandlers.lifecycleBridge!
-            .postMessage,
-        ).toHaveBeenNthCalledWith(1, { name: 'editorReady' });
-      });
-
-      it('should send analytics event when editorReady is called twice', function () {
-        iosBridge.editorReady();
-        iosBridge.editorReady();
-
-        expect(
-          windowWithMockBridges.webkit!.messageHandlers.analyticsBridge!
-            .postMessage,
-        ).toHaveBeenCalledWith({
-          name: 'trackEvent',
-          event: JSON.stringify({
-            action: 'editorReadyCalledTwice',
-            actionSubject: 'editor',
-            eventType: 'operational',
-          }),
-        });
-      });
-
-      it('should not throw if lifeCycle bridge does not exist', function () {
-        const iosBridge = new IosBridge(({
-          webkit: {
-            messageHandlers: {
-              lifecycleBridge: undefined,
-              analyticsBridge: { postMessage: jest.fn() },
-            },
-          },
-        } as any) as Window);
-
-        expect(() => iosBridge.editorReady()).not.toThrow();
-      });
-
-      it('should send analytics event when lifecycleBridge does not exist', function () {
-        const analyticsBridge = { postMessage: jest.fn() };
-        const iosBridge = new IosBridge(({
-          webkit: {
-            messageHandlers: {
-              lifecycleBridge: undefined,
-              analyticsBridge,
-            },
-          },
-        } as any) as Window);
-
-        iosBridge.editorReady();
-
-        expect(analyticsBridge.postMessage).toHaveBeenCalledWith({
-          name: 'trackEvent',
-          event: JSON.stringify({
-            action: 'editorReadyCalledBeforeLifecycleBridgeSetup',
-            actionSubject: 'editor',
-            eventType: 'track',
-          }),
-        });
       });
     });
   });

@@ -6,7 +6,7 @@ import filesize from 'filesize'; // ToDo: FIL-3208 | replace filesize library wi
 import CheckCircleIcon from '@atlaskit/icon/glyph/check-circle';
 import { changeCloudAccountFolder } from '../../../../actions/changeCloudAccountFolder';
 import { fetchNextCloudFilesPage } from '../../../../actions/fetchNextCloudFilesPage';
-import AkButton from '@atlaskit/button';
+import AkButton from '@atlaskit/button/custom-theme-button';
 import Spinner from '@atlaskit/spinner';
 
 /* Actions */

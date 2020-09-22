@@ -292,6 +292,54 @@ BrowserTestCase(
 );
 
 BrowserTestCase(
+  'full-flow-insert-and-publish.ts: Drag folder that contains a folder (which has multiple images), verify, wait, check recents',
+  skipVersions,
+  async (client: ClientType) => {
+    const page = await goToFullPage(client);
+
+    await page.execute(() => {
+      localStorage['folderUploads'] = true;
+      ((window as any)
+        .mediaMockControlsBackdoor as MediaMockControlsBackdoor).uploadFolderContainingFolderFromDrag();
+    });
+
+    expect(
+      await page.isVisible(
+        '[data-testid="media-file-card-view"][data-test-status="complete"]',
+      ),
+    ).toBe(true);
+
+    await page.openMediaPicker();
+
+    expect(await page.mediaPicker.getAllRecentUploadCards()).toHaveLength(4);
+  },
+);
+
+BrowserTestCase(
+  'full-flow-insert-and-publish.ts: Drag folder (contains an image), verify, wait, check recents',
+  skipVersions,
+  async (client: ClientType) => {
+    const page = await goToFullPage(client);
+
+    await page.execute(() => {
+      localStorage['folderUploads'] = true;
+      ((window as any)
+        .mediaMockControlsBackdoor as MediaMockControlsBackdoor).uploadFolderFromDrag();
+    });
+
+    expect(
+      await page.isVisible(
+        '[data-testid="media-file-card-view"][data-test-status="complete"]',
+      ),
+    ).toBe(true);
+
+    await page.openMediaPicker();
+
+    expect(await page.mediaPicker.getAllRecentUploadCards()).toHaveLength(1);
+  },
+);
+
+BrowserTestCase(
   'full-flow-insert-and-publish.ts: Drag image, verify, wait, check recents',
   skipVersions,
   async (client: ClientType) => {

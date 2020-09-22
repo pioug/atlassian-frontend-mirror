@@ -1,12 +1,15 @@
 import React from 'react';
+import { InjectedIntlProps, injectIntl } from 'react-intl';
 import styled from 'styled-components';
 import Loadable from 'react-loadable';
 
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
 import CrossIcon from '@atlaskit/icon/glyph/cross';
 import { borderRadius } from '@atlaskit/theme/constants';
 import { N200 } from '@atlaskit/theme/colors';
 import { Icon } from '@atlaskit/editor-common/extensions';
+
+import { messages } from './messages';
 
 const iconWidth = 40;
 const buttonWidth = 40;
@@ -47,10 +50,18 @@ const ItemBody = styled.div`
   max-width: calc(100% - ${gapSizeForEllipsis}px);
 `;
 
+const CenteredItemTitle = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
+
+CenteredItemTitle.displayName = 'CenteredItemTitle';
+
 const ItemText = styled.div`
   max-width: 100%;
   white-space: initial;
-  .item-description {
+  .item-summary {
     font-size: 11.67px;
     color: ${N200};
     margin-top: 4px;
@@ -61,6 +72,14 @@ const ItemText = styled.div`
   }
 `;
 
+ItemText.displayName = 'ItemText';
+
+const Description = styled.p`
+  margin-bottom: 24px;
+`;
+
+Description.displayName = 'Description';
+
 const CloseButtonWrapper = styled.div`
   width: ${buttonWidth}px;
   text-align: right;
@@ -68,37 +87,69 @@ const CloseButtonWrapper = styled.div`
 
 type Props = {
   title: string;
-  description: string;
+  description?: string;
+  summary?: string;
+  documentationUrl?: string;
   icon: Icon;
   onClose: () => void;
-};
+} & InjectedIntlProps;
 
-const Header = ({ icon, title, description, onClose }: Props) => {
+const Header = ({
+  icon,
+  title,
+  description,
+  summary,
+  documentationUrl,
+  onClose,
+  intl,
+}: Props) => {
   const ResolvedIcon = Loadable<{ label: string }, any>({
     loader: icon,
     loading: () => null,
   });
 
   return (
-    <Item>
-      <ItemIcon>
-        <ResolvedIcon label={title} />
-      </ItemIcon>
-      <ItemBody>
-        <ItemText>
-          <div className="item-title">{title}</div>
-          {description && <div className="item-description">{description}</div>}
-        </ItemText>
-      </ItemBody>
-      <CloseButtonWrapper>
-        <Button
-          appearance="subtle"
-          iconBefore={<CrossIcon label="" />}
-          onClick={onClose}
-        />
-      </CloseButtonWrapper>
-    </Item>
+    <>
+      <Item>
+        <ItemIcon>
+          <ResolvedIcon label={title} />
+        </ItemIcon>
+        <ItemBody>
+          {summary ? (
+            <ItemText>
+              <div className="item-title">{title}</div>
+              <div className="item-summary">{summary}</div>
+            </ItemText>
+          ) : (
+            <CenteredItemTitle>{title}</CenteredItemTitle>
+          )}
+        </ItemBody>
+        <CloseButtonWrapper>
+          <Button
+            appearance="subtle"
+            iconBefore={
+              <CrossIcon label={intl.formatMessage(messages.close)} />
+            }
+            onClick={onClose}
+          />
+        </CloseButtonWrapper>
+      </Item>
+      {(description || documentationUrl) && (
+        <Description>
+          {description && <>{description.replace(/([^.])$/, '$1.')} </>}
+          {documentationUrl && (
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href={documentationUrl}
+            >
+              {intl.formatMessage(messages.documentation)}
+            </a>
+          )}
+        </Description>
+      )}
+    </>
   );
 };
 
-export default Header;
+export default injectIntl(Header);

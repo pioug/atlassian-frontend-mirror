@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 
 import Banner from '@atlaskit/banner';
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
 import { AtlassianIcon } from '@atlaskit/logo';
 import Navigation, { AkNavigationItem } from '@atlaskit/navigation';
 

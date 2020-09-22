@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { gridSize } from '@atlaskit/theme/constants';
 import { N20 } from '@atlaskit/theme/colors';
-import { akEditorSmallZIndex } from '@atlaskit/editor-common';
+import { akEditorSmallZIndex } from '@atlaskit/editor-shared-styles';
 
 export const InviteTeamWrapper = styled.div`
   background: ${N20};

@@ -3,7 +3,7 @@ import React, { Fragment } from 'react';
 import styled from '@emotion/styled';
 
 import { AppearanceType, SizeType } from '@atlaskit/avatar';
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
 
 import { RANDOM_USERS } from '../examples-util/data';
 import AvatarGroup from '../src';

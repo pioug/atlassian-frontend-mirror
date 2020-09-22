@@ -34,8 +34,6 @@ export default {
     'Vi vil åpne en ny side for å hjelpe deg med å koble til {name}-kontoen din',
   'fabric.media.connect_link_account': 'Koble til for forhåndsvisning',
   'fabric.media.connect_link_account_card_view': 'Koble til',
-  'fabric.media.connect_link_account_card_view_description':
-    'Gjør forhåndsvisningen av koblingene dine bedre ved å koble {context} til Atlassian-produktene dine.',
   'fabric.media.connect_link_account_card_view_name':
     'Koble til {context}-kontoen din',
   'fabric.media.connect_to': 'Koble til {name}',
@@ -44,8 +42,6 @@ export default {
   'fabric.media.could_not_save_image': 'Beklager. Vi kunne ikke lagre bildet',
   'fabric.media.couldnt_generate_preview':
     'Vi kan ikke forhåndsvise denne filen.',
-  'fabric.media.couldnt_load_link':
-    'Vi kunne ikke laste inn denne koblingen av en eller annen grunn.',
   'fabric.media.default_avatars': 'Standardavatarer',
   'fabric.media.disable_fullscreen': 'deaktiver fullskjerm',
   'fabric.media.document': 'dokument',
@@ -74,7 +70,6 @@ export default {
     'Nettadressen er feil. Bildet kan derfor ikke lastes inn.',
   'fabric.media.insert_files':
     '{0, plural, one {Legg inn {0} fil} other {Legg inn {0} filer}}',
-  'fabric.media.invalid_permissions': 'Du har ikke tilgang til denne koblingen',
   'fabric.media.invalid_permissions_description':
     'Du må be om tilgang eller prøve en annen konto for kunne se denne forhåndsvisningen.',
   'fabric.media.item_not_found_in_list':
@@ -88,8 +83,6 @@ export default {
     'Vi kunne ikke finne noe for «{query}»',
   'fabric.media.no_pdf_artifacts':
     'Kunne ikke finne noen PDF-artefakter for denne filen.',
-  'fabric.media.not_found_description':
-    'Sjekk URL-en og prøv å redigere den, eller lim inn på nytt.',
   'fabric.media.not_found_title': 'Oi sann. VI finner ikke denne koblingen.',
   'fabric.media.or': 'eller',
   'fabric.media.pause': 'Sett på pause',

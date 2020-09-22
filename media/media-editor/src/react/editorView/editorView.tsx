@@ -13,7 +13,7 @@ import {
 import Toolbar, { tools } from './toolbar/toolbar';
 import { EditorContainer } from './styles';
 import { R300 } from '@atlaskit/theme/colors';
-import { Theme as ButtonTheme } from '@atlaskit/button';
+import { Theme as ButtonTheme } from '@atlaskit/button/custom-theme-button';
 import { rgbToHex } from '../../util';
 import { DEFAULT_COLOR } from './toolbar/popups/colorPopup';
 

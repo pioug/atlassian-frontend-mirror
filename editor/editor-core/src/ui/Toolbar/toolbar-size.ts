@@ -7,9 +7,9 @@ import { ToolbarSize } from './types';
 const toolbarSizesFullPage: ToolbarBreakPoint[] = [
   { width: 650, size: ToolbarSize.XXL },
   { width: 580, size: ToolbarSize.XL },
-  { width: 500, size: ToolbarSize.L },
-  { width: 450, size: ToolbarSize.M },
-  { width: 370, size: ToolbarSize.S },
+  { width: 540, size: ToolbarSize.L },
+  { width: 490, size: ToolbarSize.M },
+  { width: 410, size: ToolbarSize.S },
 ];
 
 const toolbarSizes: ToolbarBreakPoint[] = [

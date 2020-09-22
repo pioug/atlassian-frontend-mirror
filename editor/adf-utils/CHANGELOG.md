@@ -1,5 +1,16 @@
 # @atlaskit/adf-utils
 
+## 10.4.0
+
+### Minor Changes
+
+- [`6e237a6753`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6e237a6753) - Add optional caption to mediaSingle in adf schema for stage 0
+
+### Patch Changes
+
+- [`26ff0e5e9a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/26ff0e5e9a) - ED-10353 Added adf schema changes to support emoji panels
+- Updated dependencies
+
 ## 10.3.0
 
 ### Minor Changes

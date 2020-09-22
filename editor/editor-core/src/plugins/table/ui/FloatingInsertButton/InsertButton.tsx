@@ -2,10 +2,8 @@ import React, { SyntheticEvent } from 'react';
 
 import { InjectedIntlProps, injectIntl } from 'react-intl';
 
-import {
-  akEditorTableNumberColumnWidth,
-  tableMarginTop,
-} from '@atlaskit/editor-common';
+import { tableMarginTop } from '@atlaskit/editor-common';
+import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
 import Tooltip from '@atlaskit/tooltip';
 
 import * as keymaps from '../../../../keymaps';

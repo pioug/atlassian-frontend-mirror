@@ -11,6 +11,11 @@ export const messages = defineMessages({
     defaultMessage: 'Cancel',
     description: 'Cancel button label',
   },
+  close: {
+    id: 'fabric.editor.configPanel.close',
+    defaultMessage: 'Close',
+    description: 'Close button label',
+  },
   required: {
     id: 'fabric.editor.configPanel.required',
     defaultMessage: 'Required field',
@@ -30,5 +35,15 @@ export const messages = defineMessages({
     id: 'fabric.editor.configPanel.formType.removeField',
     defaultMessage: 'Remove field',
     description: 'Button to remove a field in nested forms',
+  },
+  createOption: {
+    id: 'fabric.editor.configPanel.customSelect.createOption',
+    defaultMessage: 'Create',
+    description: 'Create a new option for a select field',
+  },
+  documentation: {
+    id: 'fabric.editor.configPanel.documentation',
+    defaultMessage: 'Documentation',
+    description: 'Label for the documentation link',
   },
 });

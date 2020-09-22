@@ -20,7 +20,7 @@ jest.mock('unzipit', () => ({
 import React from 'react';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 import Spinner from '@atlaskit/spinner';
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
 import {
   ProcessedFileState,
   FileIdentifier,

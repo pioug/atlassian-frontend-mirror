@@ -1,51 +1,78 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { EditorView } from 'prosemirror-view';
+import { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
 
 import WithPluginState from '../WithPluginState';
 import { pluginKey } from '../../plugins/quick-insert/plugin-key';
 import { QuickInsertPluginState } from '../../plugins/quick-insert/types';
-import { searchQuickInsertItems } from '../../plugins/quick-insert/search';
+import {
+  getFeaturedQuickInsertItems,
+  searchQuickInsertItems,
+} from '../../plugins/quick-insert/search';
 
-import { BlockMenuItem } from '../../plugins/insert-block/ui/ToolbarInsertBlock/create-items';
 import { insertItem } from '../../plugins/quick-insert/commands';
+import { ELEMENT_ITEM_HEIGHT } from './constants';
 
-import ElementBrowser from './ElementBrowser';
+import ElementBrowser from './components/ElementBrowserLoader';
 
 import styled from 'styled-components';
 
-import { DN50, N0, N30A, N60A } from '@atlaskit/theme/colors';
-import { themed } from '@atlaskit/theme/components';
-import { borderRadius } from '@atlaskit/theme/constants';
+const getWrapperHeight = ({ itemCount }: { itemCount: number }) => {
+  /* Figure based on visuals,
+   * to exclude the searchbar and padding/margin above ElementList.
+   */
+  const EXTRA_SPACE_EXCLUDING_ELEMENTLIST = 92;
+  if (itemCount > 0 && itemCount < 10) {
+    return itemCount * ELEMENT_ITEM_HEIGHT + EXTRA_SPACE_EXCLUDING_ELEMENTLIST;
+  }
+  return 600;
+};
 
 const ElementBrowserWrapper = styled.div`
-  flex: 1 1 auto;
-  height: 600px;
-  padding: 8px;
+  flex: 1;
+  box-sizing: border-box;
+  height: ${getWrapperHeight}px;
+
   overflow: hidden;
-  background-color: ${themed({ light: N0, dark: DN50 })()};
-  border-radius: ${borderRadius()}px;
-  box-shadow: 0 0 0 1px ${N30A}, 0 2px 1px ${N30A}, 0 0 20px -6px ${N60A};
 `;
 
 type Props = {
   editorView: EditorView;
-  dropdownItems: BlockMenuItem[];
+  quickInsertDropdownItems: QuickInsertItem[];
   onClose: () => void;
 };
 
-const InlineElementBrowser = ({
+export const InlineElementBrowser = ({
   quickInsertState,
+  quickInsertDropdownItems,
   editorView,
   onClose,
 }: {
   editorView: EditorView;
   quickInsertState: QuickInsertPluginState;
+  quickInsertDropdownItems: QuickInsertItem[];
   onClose: () => void;
 }) => {
+  const [itemCount, setItemCount] = useState(0);
+
   const getItems = useCallback(
-    (query?: string, category?: string) =>
-      searchQuickInsertItems(quickInsertState, {})(query, category),
-    [quickInsertState],
+    (query?: string, category?: string) => {
+      if (query) {
+        const res = searchQuickInsertItems(quickInsertState, {})(
+          query,
+          category,
+        );
+        setItemCount(res.length);
+        return res;
+      }
+
+      const res = quickInsertDropdownItems.concat(
+        getFeaturedQuickInsertItems(quickInsertState, {})(),
+      ) as QuickInsertItem[];
+      setItemCount(res.length);
+      return res;
+    },
+    [quickInsertState, quickInsertDropdownItems],
   );
 
   const onInsertItem = useCallback(
@@ -58,30 +85,36 @@ const InlineElementBrowser = ({
     },
     [editorView, onClose],
   );
-
   return (
-    <ElementBrowserWrapper>
+    <ElementBrowserWrapper itemCount={itemCount}>
       <ElementBrowser
         mode="inline"
         getItems={getItems}
         onInsertItem={onInsertItem}
         showSearch
         showCategories={false}
+        // On page resize we want the InlineElementBrowser to show updated tools
+        key={quickInsertDropdownItems.length}
       />
     </ElementBrowserWrapper>
   );
 };
 
-export default ({ editorView, dropdownItems, onClose }: Props) => {
+export default function InsertMenu({
+  editorView,
+  onClose,
+  quickInsertDropdownItems,
+}: Props) {
   const render = useCallback(
     ({ quickInsertState }) => (
       <InlineElementBrowser
         quickInsertState={quickInsertState}
         editorView={editorView}
+        quickInsertDropdownItems={quickInsertDropdownItems}
         onClose={onClose}
       />
     ),
-    [editorView, onClose],
+    [editorView, onClose, quickInsertDropdownItems],
   );
 
   return (
@@ -90,4 +123,4 @@ export default ({ editorView, dropdownItems, onClose }: Props) => {
       render={render}
     />
   );
-};
+}

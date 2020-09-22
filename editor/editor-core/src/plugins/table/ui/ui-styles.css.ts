@@ -1,12 +1,14 @@
 import { css } from 'styled-components';
 import {
-  akEditorShadowZIndex,
-  akEditorTableNumberColumnWidth,
-  akEditorUnitZIndex,
   tableCellBorderWidth,
   tableMarginBottom,
   tableMarginTop,
 } from '@atlaskit/editor-common';
+import {
+  akEditorShadowZIndex,
+  akEditorTableNumberColumnWidth,
+  akEditorUnitZIndex,
+} from '@atlaskit/editor-shared-styles';
 import {
   N40A,
   B300,
@@ -93,8 +95,7 @@ const Button = (cssString?: string) => css`
 export const HeaderButton = (cssString?: string) => css`
   .${ClassName.CONTROLS_BUTTON} {
     background: ${tableToolbarColor};
-    border-top: 1px solid ${tableBorderColor};
-    border-left: 1px solid ${tableBorderColor};
+    border: 1px solid ${tableBorderColor};
     display: block;
     box-sizing: border-box;
     padding: 0;
@@ -281,8 +282,7 @@ export const OverflowShadow = css`
 
 const columnHeaderButton = (cssString?: string) => css`
   background: ${tableToolbarColor};
-  border-top: 1px solid ${tableBorderColor};
-  border-left: 1px solid ${tableBorderColor};
+  border: 1px solid ${tableBorderColor};
   display: block;
   box-sizing: border-box;
   padding: 0;

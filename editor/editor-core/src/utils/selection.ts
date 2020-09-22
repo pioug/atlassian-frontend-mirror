@@ -6,7 +6,8 @@ import {
   TextSelection,
   AllSelection,
 } from 'prosemirror-state';
-import { Mark, Node } from 'prosemirror-model';
+import { Mark, Node, ResolvedPos } from 'prosemirror-model';
+import { ContentNodeWithPos } from 'prosemirror-utils';
 
 import { browser } from '@atlaskit/editor-common';
 
@@ -93,3 +94,56 @@ export const normaliseNestedLayout = (state: EditorState, node: Node) => {
 // Chrome >= 58 (desktop only)
 export const isChromeWithSelectionBug =
   browser.chrome && !browser.android && browser.chrome_version >= 58;
+
+export const isSelectionAtStartOfNode = (
+  $pos: ResolvedPos,
+  parentNode?: ContentNodeWithPos,
+): boolean => {
+  if (!parentNode) {
+    return false;
+  }
+
+  for (let i = $pos.depth + 1; i > 0; i--) {
+    const node = $pos.node(i);
+    if (node && node.eq(parentNode.node)) {
+      break;
+    }
+
+    if (i > 1 && $pos.before(i) !== $pos.before(i - 1) + 1) {
+      return false;
+    }
+  }
+
+  return true;
+};
+
+export const isSelectionAtEndOfNode = (
+  $pos: ResolvedPos,
+  parentNode?: ContentNodeWithPos,
+): boolean => {
+  if (!parentNode) {
+    return false;
+  }
+
+  for (let i = $pos.depth + 1; i > 0; i--) {
+    const node = $pos.node(i);
+    if (node && node.eq(parentNode.node)) {
+      break;
+    }
+
+    if (i > 1 && $pos.after(i) !== $pos.after(i - 1) - 1) {
+      return false;
+    }
+  }
+
+  return true;
+};
+
+// checks if the given position is within the ProseMirror document
+export const isValidPosition = (pos: number, state: EditorState): boolean => {
+  if (pos >= 0 && pos <= state.doc.resolve(0).end()) {
+    return true;
+  }
+
+  return false;
+};

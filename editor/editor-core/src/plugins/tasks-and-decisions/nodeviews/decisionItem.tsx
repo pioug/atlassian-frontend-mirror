@@ -6,46 +6,9 @@ import { Decoration, NodeView } from 'prosemirror-view';
 import { EventDispatcher } from '../../../event-dispatcher';
 import { ForwardRef, getPosHandler, ReactNodeView } from '../../../nodeviews';
 import { PortalProviderAPI } from '../../../ui/PortalProvider';
-import { selectNode } from '../../../utils/commands';
 import DecisionItem from '../ui/Decision';
-import { createSelectionAwareClickHandler } from '../../../nodeviews/utils';
 
 class Decision extends ReactNodeView {
-  clickHandler?: (event: Event) => false | void;
-  clickCleanup?: () => void;
-
-  init() {
-    super.init();
-    if (this.dom) {
-      const { handler, cleanup } = createSelectionAwareClickHandler(
-        this.dom,
-        this.handleClick,
-      );
-      this.clickHandler = handler;
-      this.clickCleanup = cleanup;
-      this.dom.addEventListener('click', this.clickHandler);
-    }
-    return this;
-  }
-
-  private handleClick = (event: Event) => {
-    const target = event.target as HTMLElement;
-    // only set node selection if click was on item boundary or on
-    // decision icon (the icon is included as it extends into the
-    // node's leniency margin)
-    if (
-      target.hasAttribute('data-decision-wrapper') ||
-      target.getAttribute('aria-label') === 'Decision'
-    ) {
-      event.preventDefault();
-      const { state, dispatch } = this.view;
-      // getPos can also be a boolean
-      if (typeof this.getPos === 'function') {
-        selectNode(this.getPos())(state, dispatch);
-      }
-    }
-  };
-
   private isContentEmpty(node: PMNode) {
     return node.content.childCount === 0;
   }
@@ -89,15 +52,6 @@ class Decision extends ReactNodeView {
       // Toggle the placeholder based on whether user input exists.
       (_currentNode, _newNode) => !this.isContentEmpty(_newNode),
     );
-  }
-
-  destroy() {
-    if (this.dom) {
-      this.clickHandler &&
-        this.dom.removeEventListener('click', this.clickHandler);
-      this.clickCleanup && this.clickCleanup();
-    }
-    super.destroy();
   }
 }
 

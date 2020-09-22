@@ -7,16 +7,13 @@ import { RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema';
 import { MediaClientConfig } from '@atlaskit/media-core';
 import { getMediaClient } from '@atlaskit/media-client';
 import {
-  akEditorWideLayoutWidth,
-  calcPxFromColumns,
   calcPctFromPx,
-  akEditorBreakoutPadding,
   calcColumnsFromPx,
   wrappedLayouts,
 } from '@atlaskit/editor-common';
-
+import { akEditorWideLayoutWidth } from '@atlaskit/editor-shared-styles';
 import { Wrapper } from './styled';
-import { Props, EnabledHandles } from './types';
+import { Props, EnabledHandles, SnapPointsProps } from './types';
 import Resizer from '../../../../ui/Resizer';
 import {
   snapTo,
@@ -26,6 +23,7 @@ import {
 import { calcMediaPxWidth } from '../../utils/media-single';
 import { getPluginState } from '../../../table/pm-plugins/table-resizing/plugin-factory';
 import { ColumnResizingPluginState } from '../../../table/types';
+import { calculateSnapPoints } from '../../../../utils/rich-media-utils';
 
 type State = {
   offsetLeft: number;
@@ -207,49 +205,6 @@ export default class ResizableMediaSingle extends React.Component<
   };
 
   wrapper?: HTMLElement;
-  calculateSnapPoints(): number[] {
-    const { offsetLeft, isVideoFile } = this.state;
-    const {
-      containerWidth,
-      lineLength,
-      allowBreakoutSnapPoints,
-      gridSize,
-    } = this.props;
-    const snapTargets: number[] = [];
-    const isInsideLayout = this.insideLayout;
-
-    for (let i = 0; i < this.gridWidth; i++) {
-      const pxFromColumns = calcPxFromColumns(i, lineLength, this.gridWidth);
-
-      snapTargets.push(
-        isInsideLayout ? pxFromColumns : pxFromColumns - offsetLeft,
-      );
-    }
-    // full width
-    snapTargets.push(lineLength - offsetLeft);
-    const columns = this.wrappedLayout || this.insideInlineLike ? 1 : 2;
-    const minimumWidth = calcPxFromColumns(columns, lineLength, gridSize);
-
-    let snapPoints = snapTargets.filter(width => width >= minimumWidth);
-    const $pos = this.$pos;
-    if (!$pos) {
-      return snapPoints;
-    }
-
-    snapPoints = isVideoFile
-      ? snapPoints.filter(width => width > 320)
-      : snapPoints;
-
-    const isTopLevel = $pos.parent.type.name === 'doc';
-    if (isTopLevel && allowBreakoutSnapPoints) {
-      snapPoints.push(akEditorWideLayoutWidth);
-      const fullWidthPoint = containerWidth - akEditorBreakoutPadding;
-      if (fullWidthPoint > akEditorWideLayoutWidth) {
-        snapPoints.push(fullWidthPoint);
-      }
-    }
-    return snapPoints;
-  }
 
   calcPxWidth = (useLayout?: MediaSingleLayout): number => {
     const {
@@ -382,6 +337,21 @@ export default class ResizableMediaSingle extends React.Component<
       }
     });
 
+    const snapPointsProps: SnapPointsProps = {
+      $pos: this.$pos,
+      akEditorWideLayoutWidth: akEditorWideLayoutWidth,
+      allowBreakoutSnapPoints: this.props.allowBreakoutSnapPoints,
+      containerWidth: this.props.containerWidth,
+      gridSize: this.props.gridSize,
+      gridWidth: this.gridWidth,
+      insideInlineLike: this.insideInlineLike,
+      insideLayout: this.insideLayout,
+      isVideoFile: this.state.isVideoFile,
+      lineLength: this.props.lineLength,
+      offsetLeft: this.state.offsetLeft,
+      wrappedLayout: this.wrappedLayout,
+    };
+
     return (
       <Wrapper
         ratio={((height / width) * 100).toFixed(3)}
@@ -398,7 +368,7 @@ export default class ResizableMediaSingle extends React.Component<
           selected={selected}
           enable={enable}
           calcNewSize={this.calcNewSize}
-          snapPoints={this.calculateSnapPoints()}
+          snapPoints={calculateSnapPoints(snapPointsProps)}
           scaleFactor={!this.wrappedLayout && !this.insideInlineLike ? 2 : 1}
           highlights={this.highlights}
           handleResizeStart={() => {

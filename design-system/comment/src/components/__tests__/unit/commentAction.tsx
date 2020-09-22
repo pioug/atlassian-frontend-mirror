@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import { mount, shallow } from 'enzyme';
 
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
 
 import CommentActionWithAnalytics, {
   CommentActionWithoutAnalytics as CommentAction,

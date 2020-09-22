@@ -39,6 +39,7 @@ export default class AndroidBridge implements NativeBridge {
   contentBridge: ContentBridge;
 
   private _editorReady: boolean = false;
+  private _startWebBundle: boolean = false;
 
   constructor(win: Window = window as Window) {
     this.mentionBridge = win.mentionsBridge!;
@@ -152,6 +153,51 @@ export default class AndroidBridge implements NativeBridge {
   editorDestroyed(): void {
     if (this.lifecycleBridge) {
       this.lifecycleBridge.editorDestroyed();
+    }
+  }
+
+  editorError(error: string, errorInfo?: string): void {
+    const editorError: EditorLifecycleAnalyticsEvents = {
+      action: EditorLifecycleActions.EDITOR_ERROR,
+      actionSubject: ActionSubject.EDITOR,
+      eventType: EventType.OPERATIONAL,
+      attributes: {
+        isBridgeSetup: !!this.lifecycleBridge,
+        errorMessage: error,
+      },
+    };
+    this.trackEvent(JSON.stringify(editorError));
+
+    if (this.lifecycleBridge && this.lifecycleBridge.editorError) {
+      this.lifecycleBridge.editorError(error, errorInfo);
+    }
+  }
+
+  startWebBundle(): void {
+    if (!this.lifecycleBridge) {
+      const webBundleStartTwice: EditorLifecycleAnalyticsEvents = {
+        action:
+          EditorLifecycleActions.START_WEB_BUNDLE_CALLED_BEFORE_LIFECYCLE_BRIDGE_SETUP,
+        actionSubject: ActionSubject.EDITOR,
+        eventType: EventType.TRACK,
+      };
+      this.trackEvent(JSON.stringify(webBundleStartTwice));
+      return;
+    }
+
+    if (this._startWebBundle) {
+      const webBundleStartTwice: EditorLifecycleAnalyticsEvents = {
+        action: EditorLifecycleActions.START_WEB_BUNDLE_CALLED_TWICE,
+        actionSubject: ActionSubject.EDITOR,
+        eventType: EventType.OPERATIONAL,
+      };
+      this.trackEvent(JSON.stringify(webBundleStartTwice));
+      return;
+    }
+
+    this._startWebBundle = true;
+    if (this.lifecycleBridge.startWebBundle) {
+      this.lifecycleBridge.startWebBundle();
     }
   }
 

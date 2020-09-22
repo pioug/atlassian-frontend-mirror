@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/nps",
-  "version": "8.0.1",
+  "version": "8.0.2",
   "description": "React component for displaying an NPS survey dialog",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -24,7 +24,7 @@
     }
   },
   "dependencies": {
-    "@atlaskit/button": "^14.0.0",
+    "@atlaskit/button": "^15.0.0",
     "@atlaskit/checkbox": "^11.0.0",
     "@atlaskit/dropdown-menu": "^10.0.0",
     "@atlaskit/field-text-area": "^8.0.0",

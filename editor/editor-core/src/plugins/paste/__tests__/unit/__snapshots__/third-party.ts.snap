@@ -6,7 +6,7 @@ Object {
     Object {
       "content": Array [
         Object {
-          "text": "Heading 1",
+          "text": "Heading 1 ",
           "type": "text",
         },
       ],
@@ -15,7 +15,7 @@ Object {
     Object {
       "content": Array [
         Object {
-          "text": "Heading 2",
+          "text": "Heading 2 ",
           "type": "text",
         },
       ],
@@ -24,7 +24,7 @@ Object {
     Object {
       "content": Array [
         Object {
-          "text": "· Unordered list item",
+          "text": "·       Unordered list item ",
           "type": "text",
         },
       ],
@@ -33,7 +33,7 @@ Object {
     Object {
       "content": Array [
         Object {
-          "text": "o Nested unordered list item",
+          "text": "o   Nested unordered list item ",
           "type": "text",
         },
       ],
@@ -42,7 +42,7 @@ Object {
     Object {
       "content": Array [
         Object {
-          "text": "· Unordered list item",
+          "text": "·       Unordered list item ",
           "type": "text",
         },
       ],
@@ -55,7 +55,7 @@ Object {
             Object {
               "content": Array [
                 Object {
-                  "text": "Ordered list item",
+                  "text": "Ordered list item ",
                   "type": "text",
                 },
               ],
@@ -74,7 +74,7 @@ Object {
             Object {
               "content": Array [
                 Object {
-                  "text": "Ordered list item",
+                  "text": "Ordered list item ",
                   "type": "text",
                 },
               ],
@@ -89,7 +89,7 @@ Object {
     Object {
       "content": Array [
         Object {
-          "text": "a. Nested ordered list item",
+          "text": "a.     Nested ordered list item ",
           "type": "text",
         },
       ],
@@ -107,7 +107,7 @@ Object {
           "type": "text",
         },
         Object {
-          "text": " ",
+          "text": " ",
           "type": "text",
         },
         Object {
@@ -123,7 +123,7 @@ Object {
           "type": "text",
         },
         Object {
-          "text": " ",
+          "text": " ",
           "type": "text",
         },
         Object {
@@ -136,7 +136,7 @@ Object {
           "type": "text",
         },
         Object {
-          "text": " ",
+          "text": " ",
           "type": "text",
         },
         Object {
@@ -148,13 +148,8 @@ Object {
           "text": "Emphasis",
           "type": "text",
         },
-      ],
-      "type": "paragraph",
-    },
-    Object {
-      "content": Array [
         Object {
-          "text": "RED TEXT",
+          "text": " ",
           "type": "text",
         },
       ],
@@ -163,7 +158,16 @@ Object {
     Object {
       "content": Array [
         Object {
-          "text": "Link to: ",
+          "text": "RED TEXT ",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "text": "Link to: ",
           "type": "text",
         },
         Object {
@@ -176,6 +180,10 @@ Object {
             },
           ],
           "text": "GoogleLink",
+          "type": "text",
+        },
+        Object {
+          "text": " ",
           "type": "text",
         },
       ],
@@ -200,6 +208,15 @@ Object {
                       "text": "Left Heading",
                       "type": "text",
                     },
+                    Object {
+                      "marks": Array [
+                        Object {
+                          "type": "strong",
+                        },
+                      ],
+                      "text": " ",
+                      "type": "text",
+                    },
                   ],
                   "type": "paragraph",
                 },
@@ -217,6 +234,15 @@ Object {
                       "text": "Middle Heading",
                       "type": "text",
                     },
+                    Object {
+                      "marks": Array [
+                        Object {
+                          "type": "strong",
+                        },
+                      ],
+                      "text": " ",
+                      "type": "text",
+                    },
                   ],
                   "type": "paragraph",
                 },
@@ -232,6 +258,15 @@ Object {
                   "content": Array [
                     Object {
                       "text": "Right Heading",
+                      "type": "text",
+                    },
+                    Object {
+                      "marks": Array [
+                        Object {
+                          "type": "strong",
+                        },
+                      ],
+                      "text": " ",
                       "type": "text",
                     },
                   ],
@@ -254,19 +289,13 @@ Object {
                       "text": "Left Middle",
                       "type": "text",
                     },
-                  ],
-                  "type": "paragraph",
-                },
-              ],
-              "type": "tableCell",
-            },
-            Object {
-              "attrs": Object {},
-              "content": Array [
-                Object {
-                  "content": Array [
                     Object {
-                      "text": "Middle Middle",
+                      "marks": Array [
+                        Object {
+                          "type": "strong",
+                        },
+                      ],
+                      "text": " ",
                       "type": "text",
                     },
                   ],
@@ -281,7 +310,22 @@ Object {
                 Object {
                   "content": Array [
                     Object {
-                      "text": "Right Middle",
+                      "text": "Middle Middle ",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+            Object {
+              "attrs": Object {},
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "text": "Right Middle ",
                       "type": "text",
                     },
                   ],
@@ -304,19 +348,13 @@ Object {
                       "text": "Bottom Left",
                       "type": "text",
                     },
-                  ],
-                  "type": "paragraph",
-                },
-              ],
-              "type": "tableCell",
-            },
-            Object {
-              "attrs": Object {},
-              "content": Array [
-                Object {
-                  "content": Array [
                     Object {
-                      "text": "Bottom Middle",
+                      "marks": Array [
+                        Object {
+                          "type": "strong",
+                        },
+                      ],
+                      "text": " ",
                       "type": "text",
                     },
                   ],
@@ -331,7 +369,22 @@ Object {
                 Object {
                   "content": Array [
                     Object {
-                      "text": "Bottom Right",
+                      "text": "Bottom Middle ",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+            Object {
+              "attrs": Object {},
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "text": "Bottom Right ",
                       "type": "text",
                     },
                   ],
@@ -347,9 +400,21 @@ Object {
       "type": "table",
     },
     Object {
+      "content": Array [
+        Object {
+          "text": " ",
+          "type": "text",
+        },
+      ],
       "type": "paragraph",
     },
     Object {
+      "content": Array [
+        Object {
+          "text": " ",
+          "type": "text",
+        },
+      ],
       "type": "paragraph",
     },
   ],
@@ -824,9 +889,6 @@ Object {
       ],
       "type": "table",
     },
-    Object {
-      "type": "paragraph",
-    },
   ],
   "type": "doc",
   "version": 1,
@@ -984,7 +1046,7 @@ Object {
           "type": "text",
         },
         Object {
-          "text": " ",
+          "text": "  ",
           "type": "text",
         },
         Object {
@@ -997,7 +1059,7 @@ Object {
           "type": "text",
         },
         Object {
-          "text": " ",
+          "text": "  ",
           "type": "text",
         },
         Object {
@@ -1010,7 +1072,7 @@ Object {
           "type": "text",
         },
         Object {
-          "text": " ",
+          "text": "  ",
           "type": "text",
         },
         Object {
@@ -1037,7 +1099,7 @@ Object {
     Object {
       "content": Array [
         Object {
-          "text": "Link to: ",
+          "text": "Link to:  ",
           "type": "text",
         },
         Object {

@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { css, jsx } from '@emotion/core';
 
 import Avatar from '@atlaskit/avatar';
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
 import { ExitingPersistence, FadeIn } from '@atlaskit/motion';
 import { gridSize } from '@atlaskit/theme/constants';
 

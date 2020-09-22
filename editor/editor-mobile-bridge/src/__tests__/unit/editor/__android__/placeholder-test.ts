@@ -27,10 +27,10 @@ describe('placeholder on mobile', () => {
     return editorView as EditorViewWithComposition;
   };
 
-  // FIXME: ED-7102: PM adds a ZWSP next to our placeholder after content has been renderer and removed. Need to figure out what's causing this...
-  const optionalZWSP = `(<span>.<\/span>)?`;
+  // https://github.com/ProseMirror/prosemirror-view/commit/00c3dc9c3e7f5edcd71f24f4a8a8cf3fda4b2ac7
+  const cursorWrapper = `(<img mark-placeholder="true">)?`;
   const placeholderHtmlRegex = new RegExp(
-    `<p><span class="placeholder-decoration ProseMirror-widget"><span>potato<\/span><\/span>${optionalZWSP}?<br><\/p>`,
+    `<p><span class="placeholder-decoration ProseMirror-widget"><span>potato<\/span><\/span>${cursorWrapper}<br><\/p>`,
   );
 
   beforeEach(() => jest.useFakeTimers());
@@ -42,7 +42,6 @@ describe('placeholder on mobile', () => {
 
   it('disappears when content is added to document', () => {
     const editorView = editor(doc(p()));
-    expect(editorView.dom.innerHTML).toMatch(placeholderHtmlRegex);
 
     insertText(editorView, 'a', 0);
     expect(editorView.dom.innerHTML).toEqual('<p>a</p><p><br></p>');
@@ -51,7 +50,6 @@ describe('placeholder on mobile', () => {
   // Ensure the placeholder value is removed as soon as input (via composition) begins
   it('disappears when a compositionstart event occurs', () => {
     const editorView = editor(doc(p()));
-    expect(editorView.dom.innerHTML).toMatch(placeholderHtmlRegex);
 
     // start composition
     androidComposeStart(editorView, 'hello');
@@ -62,7 +60,6 @@ describe('placeholder on mobile', () => {
 
   it('stays hidden and keeps content after a full composition completes', () => {
     const editorView = editor(doc(p()));
-    expect(editorView.dom.innerHTML).toMatch(placeholderHtmlRegex);
 
     // start composition
     androidComposeStart(editorView, 'a');

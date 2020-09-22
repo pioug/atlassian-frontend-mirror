@@ -1,21 +1,46 @@
-import React, { useContext } from 'react';
+import React, { useContext, useMemo } from 'react';
 import { ProvidersContext } from '../context';
 import { useAnnotationClickEvent } from '../hooks';
+import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { RendererContext } from '../../../ui/RendererActionsContext';
+import { AnnotationTypes } from '@atlaskit/adf-schema';
 
-const AnnotationView: React.FC = () => {
+type Props = {
+  createAnalyticsEvent?: CreateUIAnalyticsEvent;
+};
+
+type AnnotationInfo = {
+  id: string;
+  type: AnnotationTypes.INLINE_COMMENT;
+};
+
+const AnnotationView: React.FC<Props> = props => {
   const providers = useContext(ProvidersContext);
+  const actionContext = useContext(RendererContext);
   const inlineCommentProvider = providers && providers.inlineComment;
 
-  const updateSubscriberInlineComment =
+  const updateSubscriber =
     (inlineCommentProvider && inlineCommentProvider.updateSubscriber) || null;
   const annotationsByType = useAnnotationClickEvent({
-    updateSubscriber: updateSubscriberInlineComment,
+    updateSubscriber,
+    createAnalyticsEvent: props.createAnalyticsEvent,
   });
   const ViewComponent =
     inlineCommentProvider && inlineCommentProvider.viewComponent;
 
+  const deleteAnnotation = useMemo(
+    () => (annotationInfo: AnnotationInfo) =>
+      actionContext.deleteAnnotation(annotationInfo.id, annotationInfo.type),
+    [actionContext],
+  );
+
   if (ViewComponent && annotationsByType) {
-    return <ViewComponent annotations={annotationsByType} />;
+    return (
+      <ViewComponent
+        annotations={annotationsByType}
+        deleteAnnotation={deleteAnnotation}
+      />
+    );
   }
 
   return null;

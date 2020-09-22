@@ -24,7 +24,6 @@ const Expander = ({ children, isExpanded, testId }: Props) => {
       aria-hidden={!isExpanded}
       css={css`
         max-height: ${isExpanded ? 150 : 0}px;
-        overflow: hidden;
         transition: max-height 0.3s;
         display: flex;
         flex: 1 1 100%;

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-picker",
-  "version": "55.1.2",
+  "version": "56.0.0",
   "description": "Library for handling file uploads",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -13,9 +13,11 @@
   "module:es2019": "dist/es2019/index.js",
   "types": "dist/cjs/index.d.ts",
   "atlaskit:src": "src/index.ts",
+  "af:exports": {
+    "./types": "./src/types.ts"
+  },
   "atlassian": {
     "team": "Media Platform",
-    "deprecatedAutoEntryPoints": true,
     "inPublicMirror": true,
     "releaseModel": "scheduled",
     "website": {
@@ -24,17 +26,17 @@
   },
   "dependencies": {
     "@atlaskit/analytics-gas-types": "^5.0.0",
-    "@atlaskit/analytics-next": "^7.0.0",
-    "@atlaskit/button": "^14.0.0",
+    "@atlaskit/analytics-next": "^7.1.0",
+    "@atlaskit/button": "^15.0.0",
     "@atlaskit/dropdown-menu": "^10.0.0",
     "@atlaskit/flag": "^14.0.0",
     "@atlaskit/icon": "^21.1.0",
-    "@atlaskit/media-card": "^69.3.0",
-    "@atlaskit/media-client": "^10.1.0",
-    "@atlaskit/media-common": "^2.1.1",
-    "@atlaskit/media-editor": "^38.0.0",
-    "@atlaskit/media-ui": "^14.0.0",
-    "@atlaskit/modal-dialog": "^11.0.0",
+    "@atlaskit/media-card": "^69.4.0",
+    "@atlaskit/media-client": "^11.0.0",
+    "@atlaskit/media-common": "^2.2.0",
+    "@atlaskit/media-editor": "^38.1.0",
+    "@atlaskit/media-ui": "^14.1.0",
+    "@atlaskit/modal-dialog": "^11.2.0",
     "@atlaskit/outbound-auth-flow-client": "^3.1.0",
     "@atlaskit/spinner": "^15.0.0",
     "@atlaskit/textfield": "^4.0.0",
@@ -44,6 +46,7 @@
     "eventemitter2": "^4.1.0",
     "exenv": "^1.2.2",
     "filesize": "^3.2.1",
+    "flat-files": "^1.0.6",
     "json-ld-types": "^2.1.7",
     "jwt-decode": "^2.2.0",
     "lodash": "^4.17.15",
@@ -57,7 +60,7 @@
     "video-snapshot": "^1.0.3"
   },
   "peerDependencies": {
-    "@atlaskit/media-core": "^32.0.0",
+    "@atlaskit/media-core": "^32.1.0",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
     "react-intl": "^2.6.0",
@@ -71,13 +74,13 @@
     "@atlaskit/checkbox": "^11.0.0",
     "@atlaskit/docs": "*",
     "@atlaskit/field-text": "^11.0.0",
-    "@atlaskit/media-core": "^32.0.0",
-    "@atlaskit/media-integration-test-helpers": "^2.1.0",
-    "@atlaskit/media-test-helpers": "^28.1.0",
-    "@atlaskit/media-viewer": "^45.2.0",
+    "@atlaskit/media-core": "^32.1.0",
+    "@atlaskit/media-integration-test-helpers": "^2.2.0",
+    "@atlaskit/media-test-helpers": "^28.2.0",
+    "@atlaskit/media-viewer": "^45.3.0",
     "@atlaskit/select": "^13.0.0",
     "@atlaskit/ssr": "*",
-    "@atlaskit/toggle": "^10.0.0",
+    "@atlaskit/toggle": "^11.0.0",
     "@atlaskit/webdriver-runner": "*",
     "@types/bricks.js": "^1.8.0",
     "@types/dateformat": "^1.0.1",

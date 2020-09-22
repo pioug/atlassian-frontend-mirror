@@ -3,7 +3,7 @@ import { mount, shallow } from 'enzyme';
 import React from 'react';
 import Editor from '../../editor';
 import { EditorView } from 'prosemirror-view';
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/custom-theme-button';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { analyticsClient } from '@atlaskit/editor-test-helpers/analytics-client-mock';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';

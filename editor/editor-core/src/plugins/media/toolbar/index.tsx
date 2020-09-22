@@ -1,3 +1,4 @@
+import React from 'react';
 import { InjectedIntl } from 'react-intl';
 import { EditorState } from 'prosemirror-state';
 import { removeSelectedNode } from 'prosemirror-utils';
@@ -11,17 +12,22 @@ import {
 import { stateKey } from '../pm-plugins/plugin-key';
 import { hoverDecoration } from '../../base/pm-plugins/decoration';
 import { renderAnnotationButton } from './annotation';
-import {
-  getLinkingToolbar,
-  buildLinkingButtons,
-  shouldShowMediaLinkToolbar,
-} from './linking';
+import { getLinkingToolbar, shouldShowMediaLinkToolbar } from './linking';
 import buildLayoutButtons from '../../../ui/MediaAndEmbedsToolbar';
 import { MediaLinkingState, getMediaLinkingState } from '../pm-plugins/linking';
 import { getPluginState as getMediaAltTextPluginState } from '../pm-plugins/alt-text';
 import { altTextButton, getAltTextToolbar } from './alt-text';
 import { MediaFloatingToolbarOptions } from '../types';
 import { MediaPluginState } from '../pm-plugins/types';
+import { showLinkingToolbar } from '../commands/linking';
+import { LinkToolbarAppearance } from './linking-toolbar-appearance';
+import {
+  ACTION,
+  ACTION_SUBJECT,
+  ACTION_SUBJECT_ID,
+  addAnalytics,
+  EVENT_TYPE,
+} from '../../analytics';
 
 const remove: Command = (state, dispatch) => {
   if (dispatch) {
@@ -95,12 +101,50 @@ export const floatingToolbar = (
     }
 
     if (allowLinking && shouldShowMediaLinkToolbar(state)) {
-      if (toolbarButtons.length) {
-        toolbarButtons.push({ type: 'separator' });
-      }
+      const showSeparatorLeft = toolbarButtons.length > 0;
 
-      const linkingButtons = buildLinkingButtons(state, intl);
-      toolbarButtons.push(...linkingButtons);
+      toolbarButtons.push({
+        type: 'custom',
+        render: (editorView, idx) => {
+          if (editorView?.state) {
+            const editLink = () => {
+              if (editorView) {
+                const { state, dispatch } = editorView;
+                showLinkingToolbar(state, dispatch);
+              }
+            };
+
+            const openLink = () => {
+              if (editorView) {
+                const { state, dispatch } = editorView;
+                dispatch(
+                  addAnalytics(state, state.tr, {
+                    eventType: EVENT_TYPE.TRACK,
+                    action: ACTION.VISITED,
+                    actionSubject: ACTION_SUBJECT.MEDIA_SINGLE,
+                    actionSubjectId: ACTION_SUBJECT_ID.MEDIA_LINK,
+                  }),
+                );
+                return true;
+              }
+            };
+
+            return (
+              <LinkToolbarAppearance
+                key={idx}
+                editorState={editorView.state}
+                intl={intl}
+                mediaLinkingState={mediaLinkingState}
+                onAddLink={editLink}
+                onEditLink={editLink}
+                onOpenLink={openLink}
+                showSeparatorLeft={showSeparatorLeft}
+              />
+            );
+          }
+          return null;
+        },
+      });
     }
 
     if (toolbarButtons.length) {

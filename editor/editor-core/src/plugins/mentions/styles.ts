@@ -1,13 +1,14 @@
 import { css } from 'styled-components';
+
+import { MentionSharedCssClassName } from '@atlaskit/editor-common';
 import {
-  MentionSharedCssClassName,
+  SelectionStyle,
+  getSelectionStyles,
   akEditorSelectedBorderSize,
   akEditorDeleteBorder,
   akEditorDeleteBackgroundWithOpacity,
-} from '@atlaskit/editor-common';
-import { akEditorSelectedNodeClassName } from '../../styles';
-import { getSelectionStyles } from '../selection/utils';
-import { SelectionStyle } from '../selection/types';
+  akEditorSelectedNodeClassName,
+} from '@atlaskit/editor-shared-styles';
 import { N500, N30A } from '@atlaskit/theme/colors';
 
 export const mentionsStyles = css`

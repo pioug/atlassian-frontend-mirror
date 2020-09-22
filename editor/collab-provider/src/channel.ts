@@ -7,6 +7,7 @@ import {
   TelepointerPayload,
   ParticipantPayload,
   StepsPayload,
+  TitlePayload,
   Socket,
 } from './types';
 
@@ -71,7 +72,7 @@ export class Channel extends Emitter<ChannelEvent> {
         });
       },
     );
-    this.socket.on('title:changed', (payload: { data: { title: string } }) => {
+    this.socket.on('title:changed', (payload: { data: TitlePayload }) => {
       this.emit('title:changed', payload.data);
     });
     this.socket.on('disconnect', (reason: string) => {

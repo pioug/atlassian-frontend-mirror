@@ -1,8 +1,13 @@
 import React from 'react';
-import HyperlinkAddToolbarComp, { LinkInputType } from './HyperlinkAddToolbar';
+import { EditorView } from 'prosemirror-view';
 import { ProviderFactory, WithProviders } from '@atlaskit/editor-common';
 
+import HyperlinkAddToolbarComp, { LinkInputType } from './HyperlinkAddToolbar';
+import { stateKey as pluginKey } from '../../pm-plugins/main';
+import WithPluginState from '../../../../ui/WithPluginState';
+
 export interface Props {
+  view: EditorView;
   providerFactory: ProviderFactory;
   onBlur?: (
     type: string,
@@ -32,19 +37,29 @@ export default class HyperlinkAddToolbar extends React.PureComponent<
       displayText,
       displayUrl,
       providerFactory,
+      view,
     } = this.props;
     return (
       <WithProviders
         providers={['activityProvider', 'searchProvider']}
         providerFactory={providerFactory}
         renderNode={({ activityProvider, searchProvider }) => (
-          <HyperlinkAddToolbarComp
-            activityProvider={activityProvider}
-            searchProvider={searchProvider}
-            onSubmit={onSubmit}
-            onBlur={onBlur}
-            displayText={displayText}
-            displayUrl={displayUrl}
+          <WithPluginState
+            editorView={view}
+            plugins={{
+              hyperlinkPluginState: pluginKey,
+            }}
+            render={({ hyperlinkPluginState }) => (
+              <HyperlinkAddToolbarComp
+                activityProvider={activityProvider}
+                searchProvider={searchProvider}
+                onSubmit={onSubmit}
+                onBlur={onBlur}
+                displayText={displayText}
+                displayUrl={displayUrl}
+                pluginState={hyperlinkPluginState}
+              />
+            )}
           />
         )}
       />

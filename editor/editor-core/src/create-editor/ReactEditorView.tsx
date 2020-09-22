@@ -62,6 +62,7 @@ import { createSchema } from './create-schema';
 import { PluginPerformanceObserver } from '../utils/performance/plugin-performance-observer';
 import { PluginPerformanceReportData } from '../utils/performance/plugin-performance-report';
 import { getParticipantsCount } from '../plugins/collab-edit/get-participants-count';
+import { countNodes } from '../utils/count-nodes';
 
 export interface EditorViewProps {
   editorProps: EditorProps;
@@ -170,18 +171,7 @@ export default class ReactEditorView<T = {}> extends React.Component<
   }
 
   private countNodes() {
-    const nodes: { [name: string]: number } = {};
-
-    this.editorState.doc.descendants(node => {
-      if (node.type.name in nodes) {
-        nodes[node.type.name]++;
-      } else {
-        nodes[node.type.name] = 1;
-      }
-      return true;
-    });
-
-    return nodes;
+    return countNodes(this.editorState);
   }
 
   constructor(props: EditorViewProps & T, context: EditorReactContext) {
@@ -529,6 +519,10 @@ export default class ReactEditorView<T = {}> extends React.Component<
       trackinEnabled && startMeasure(`🦉 EditorView::state::apply`);
       const editorState = this.view.state.apply(transaction);
       trackinEnabled && stopMeasure(`🦉 EditorView::state::apply`);
+
+      if (editorState === oldEditorState) {
+        return;
+      }
 
       trackinEnabled && startMeasure(`🦉 EditorView::updateState`);
       this.view.updateState(editorState);

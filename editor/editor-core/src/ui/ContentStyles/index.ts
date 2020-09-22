@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import { HTMLAttributes, ComponentClass } from 'react';
 import {
-  editorFontSize,
   whitespaceSharedStyles,
   paragraphSharedStyles,
   listsSharedStyles,
@@ -14,6 +13,7 @@ import {
   annotationSharedStyles,
   smartCardSharedStyles,
 } from '@atlaskit/editor-common';
+import { editorFontSize } from '@atlaskit/editor-shared-styles';
 
 import { unsupportedStyles } from '../../plugins/unsupported-content/styles';
 import { telepointerStyle } from '../../plugins/collab-edit/styles';
@@ -148,6 +148,13 @@ const ContentStyles: ComponentClass<
 
   .fabric-editor-align-center {
     text-align: center;
+  }
+
+  .pm-table-header-content-wrap,
+  .pm-table-cell-content-wrap div.fabric-editor-block-mark {
+    p {
+      margin-top: 0;
+    }
   }
 
   .hyperlink-floating-toolbar,

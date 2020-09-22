@@ -36,9 +36,10 @@ import {
 } from '../event-handlers';
 import { createTableView } from '../nodeviews/table';
 import { pluginKey as decorationsPluginKey } from '../pm-plugins/decorations/plugin';
-import { fixTables } from '../transforms';
+import { fixTables, replaceSelectedTable } from '../transforms';
 import { TableCssClassName as ClassName, PluginConfig } from '../types';
 import { findControlsHoverDecoration, updateResizeHandles } from '../utils';
+import { INPUT_METHOD } from '../../analytics';
 
 import { defaultTableSelection } from './default-table-selection';
 import { createPluginState, getPluginState, pluginKey } from './plugin-factory';
@@ -170,6 +171,14 @@ export const createPlugin = (
 
         const maybeTr = closestElement(domRef as HTMLElement | undefined, 'tr');
         return maybeTr ? maybeTr.classList.contains('sticky') : false;
+      },
+      handleTextInput: ({ state, dispatch }, from, to, text) => {
+        const tr = replaceSelectedTable(state, text, INPUT_METHOD.KEYBOARD);
+        if (tr.selectionSet) {
+          dispatch(tr);
+          return true;
+        }
+        return false;
       },
 
       nodeViews: {

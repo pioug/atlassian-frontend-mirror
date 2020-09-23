@@ -1,5 +1,11 @@
 # @atlaskit/dropdown-menu
 
+## 10.0.6
+
+### Patch Changes
+
+- [`2ac834240e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2ac834240e) - Undo analytics-next file restructure to allow external ts definitions to continue working
+
 ## 10.0.5
 
 ### Patch Changes

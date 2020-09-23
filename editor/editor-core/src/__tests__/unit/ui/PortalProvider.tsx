@@ -1,5 +1,5 @@
 const mockReactDom = {
-  ...jest.requireActual('react-dom'),
+  ...jest.requireActual<Object>('react-dom'),
   unmountComponentAtNode: () => {},
 };
 jest.mock('react-dom', () => mockReactDom);

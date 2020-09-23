@@ -25,7 +25,7 @@ import * as mediaUi from '@atlaskit/media-ui';
 
 const humanReadableMediaSize = 'some KB';
 jest.mock('@atlaskit/media-ui', () => ({
-  ...jest.requireActual('@atlaskit/media-ui'),
+  ...jest.requireActual<Object>('@atlaskit/media-ui'),
   toHumanReadableMediaSize: jest.fn(() => humanReadableMediaSize),
 }));
 

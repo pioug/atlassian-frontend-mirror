@@ -17,7 +17,7 @@ interface SetupParams {
 let isRotatedMock: jest.Mock | typeof isRotated = jest.fn();
 
 jest.mock('../../imageMetaData/imageOrientationUtil', () => ({
-  ...jest.requireActual('../../imageMetaData/imageOrientationUtil'),
+  ...jest.requireActual<Object>('../../imageMetaData/imageOrientationUtil'),
   isRotated: jest.fn<
     ReturnType<typeof isRotated>,
     Parameters<typeof isRotated>

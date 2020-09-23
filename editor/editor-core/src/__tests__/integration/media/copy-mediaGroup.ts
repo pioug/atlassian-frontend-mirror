@@ -50,12 +50,8 @@ BrowserTestCase(
     await page.waitForSelector(fileCardSelector);
     await page.click(fileCardSelector);
     await page.copy();
-
-    await page.click(editable);
-    await page.type(editable, 'pasting');
-
+    await page.keys(['ArrowDown']);
     await page.paste();
-
     await waitForNumImages(page, 2);
 
     const doc = await page.$eval(editable, getDocFromElement);

@@ -7,7 +7,7 @@ Array [
     "iconUrl": "some-activity-icon-url-1.com",
     "lastViewedDate": 2020-04-16T00:00:00.000Z,
     "name": "some-activity-name-1",
-    "objectId": "some-activity-id-1",
+    "objectId": "object-id-1",
     "url": "some-activity-url-1.com",
   },
   Object {
@@ -15,7 +15,7 @@ Array [
     "iconUrl": "some-activity-icon-url-2.com",
     "lastViewedDate": 2020-04-16T01:00:00.000Z,
     "name": "some-activity-name-2",
-    "objectId": "some-activity-id-2",
+    "objectId": "object-id-2",
     "url": "some-activity-url-2.com",
   },
   Object {
@@ -23,7 +23,7 @@ Array [
     "iconUrl": "some-activity-icon-url-3.com",
     "lastViewedDate": 2020-04-16T02:00:00.000Z,
     "name": "some-activity-name-3",
-    "objectId": "some-activity-id-3",
+    "objectId": "object-id-3",
     "url": "some-activity-url-3.com",
   },
   Object {
@@ -31,7 +31,7 @@ Array [
     "iconUrl": "some-activity-icon-url-4.com",
     "lastViewedDate": 2020-04-16T03:00:00.000Z,
     "name": "some-activity-name-4",
-    "objectId": "some-activity-id-4",
+    "objectId": "object-id-4",
     "url": "some-activity-url-4.com",
   },
   Object {
@@ -39,8 +39,110 @@ Array [
     "iconUrl": "some-activity-icon-url-5.com",
     "lastViewedDate": 2020-04-16T04:00:00.000Z,
     "name": "some-activity-name-5",
-    "objectId": "some-activity-id-5",
+    "objectId": "object-id-5",
     "url": "some-activity-url-5.com",
+  },
+]
+`;
+
+exports[`HyperlinkAddToolbar when activity provider returns less then 5 results after user input should deduplicate search results 1`] = `
+Array [
+  Object {
+    "container": "some-activity-container-1",
+    "iconUrl": "some-activity-icon-url-1.com",
+    "lastViewedDate": 2020-04-16T00:00:00.000Z,
+    "name": "some-activity-name-1",
+    "objectId": "object-id-1",
+    "url": "some-activity-url-1.com",
+  },
+  Object {
+    "container": "some-activity-container-2",
+    "iconUrl": "some-activity-icon-url-2.com",
+    "lastViewedDate": 2020-04-16T01:00:00.000Z,
+    "name": "some-activity-name-2",
+    "objectId": "object-id-2",
+    "url": "some-activity-url-2.com",
+  },
+  Object {
+    "container": "some-quick-search-container-3",
+    "icon": <Blog16Icon
+      label="Blog"
+    />,
+    "lastUpdatedDate": 2020-04-15T02:00:00.000Z,
+    "name": "some-quick-search-title-3",
+    "objectId": "object-id-3",
+    "url": "some-quick-search-url-3.com",
+  },
+  Object {
+    "container": "some-quick-search-container-4",
+    "icon": <Page16Icon
+      label="page"
+    />,
+    "lastUpdatedDate": 2020-04-15T03:00:00.000Z,
+    "name": "some-quick-search-title-4",
+    "objectId": "object-id-4",
+    "url": "some-quick-search-url-4.com",
+  },
+  Object {
+    "container": "some-quick-search-container-5",
+    "icon": <Issue16Icon
+      label="Issue"
+    />,
+    "lastUpdatedDate": 2020-04-15T04:00:00.000Z,
+    "name": "some-quick-search-title-5",
+    "objectId": "object-id-5",
+    "url": "some-quick-search-url-5.com",
+  },
+]
+`;
+
+exports[`HyperlinkAddToolbar when activity provider returns less then 5 results after user input should still take the result of latest query if two quick search are triggered 1`] = `
+Array [
+  Object {
+    "container": "some-activity-container-1",
+    "iconUrl": "some-activity-icon-url-1.com",
+    "lastViewedDate": 2020-04-16T00:00:00.000Z,
+    "name": "some-activity-name-1",
+    "objectId": "object-id-1",
+    "url": "some-activity-url-1.com",
+  },
+  Object {
+    "container": "some-activity-container-2",
+    "iconUrl": "some-activity-icon-url-2.com",
+    "lastViewedDate": 2020-04-16T01:00:00.000Z,
+    "name": "some-activity-name-2",
+    "objectId": "object-id-2",
+    "url": "some-activity-url-2.com",
+  },
+  Object {
+    "container": "some-quick-search-container-3",
+    "icon": <Blog16Icon
+      label="Blog"
+    />,
+    "lastUpdatedDate": 2020-04-15T02:00:00.000Z,
+    "name": "some-quick-search-title-3",
+    "objectId": "object-id-3",
+    "url": "some-quick-search-url-3.com",
+  },
+  Object {
+    "container": "some-quick-search-container-4",
+    "icon": <Page16Icon
+      label="page"
+    />,
+    "lastUpdatedDate": 2020-04-15T03:00:00.000Z,
+    "name": "some-quick-search-title-4",
+    "objectId": "object-id-4",
+    "url": "some-quick-search-url-4.com",
+  },
+  Object {
+    "container": "some-quick-search-container-5",
+    "icon": <Issue16Icon
+      label="Issue"
+    />,
+    "lastUpdatedDate": 2020-04-15T04:00:00.000Z,
+    "name": "some-quick-search-title-5",
+    "objectId": "object-id-5",
+    "url": "some-quick-search-url-5.com",
   },
 ]
 `;

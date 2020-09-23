@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { cleanup, render } from '@testing-library/react';
-import { axe, toHaveNoViolations } from 'jest-axe';
+import { axe, JestAxeConfigureOptions, toHaveNoViolations } from 'jest-axe';
 
 import PopupExample from '../../../examples/10-popup';
 
@@ -9,7 +9,7 @@ expect.extend(toHaveNoViolations);
 
 // As we're testing on the JSDOM, color-contrast testing can't run.
 // The types of results fetched are limited for performance reasons
-const axeRules = {
+const axeRules: JestAxeConfigureOptions = {
   rules: {
     'color-contrast': { enabled: false },
   },

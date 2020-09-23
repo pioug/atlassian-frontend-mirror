@@ -35,7 +35,7 @@ import { NameCell } from '../component/nameCell';
 let mediaClientMock: MediaClient;
 
 jest.mock('@atlaskit/media-client', () => ({
-  ...jest.requireActual('@atlaskit/media-client'),
+  ...jest.requireActual<Object>('@atlaskit/media-client'),
   getMediaClient: jest.fn(() => mediaClientMock),
 }));
 

@@ -7,7 +7,7 @@ import { getExamplesFor } from '@atlaskit/build-utils/getExamples';
 import { ssr } from '@atlaskit/ssr';
 
 jest.mock('popper.js', () => {
-  const PopperJS = require.requireActual('popper.js');
+  const PopperJS = jest.requireActual('popper.js');
 
   return class Popper {
     static placements = PopperJS.placements;

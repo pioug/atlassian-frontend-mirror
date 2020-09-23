@@ -10,7 +10,7 @@ import { fakeMediaClient, asMockFunction } from '@atlaskit/media-test-helpers';
 import { Node as PMNode } from 'prosemirror-model';
 
 jest.mock('../../../pm-plugins/plugin-key', () => ({
-  ...jest.requireActual('../../../pm-plugins/plugin-key'),
+  ...jest.requireActual<Object>('../../../pm-plugins/plugin-key'),
   stateKey: {
     getState: jest.fn(() => ({
       mediaClientConfig: getDefaultMediaClientConfig(),
@@ -35,7 +35,7 @@ const mediaClient = fakeMediaClient();
 let mediaClientMock: MediaClient = mediaClient;
 
 jest.mock('@atlaskit/media-client', () => ({
-  ...jest.requireActual('@atlaskit/media-client'),
+  ...jest.requireActual<Object>('@atlaskit/media-client'),
   getMediaClient: jest.fn(() => mediaClientMock),
 }));
 

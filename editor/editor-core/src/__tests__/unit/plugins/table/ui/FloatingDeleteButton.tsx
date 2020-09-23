@@ -34,7 +34,7 @@ import tableMessages from '../../../../../plugins/table/ui/messages';
  */
 jest.mock('../../../../../plugins/table/utils', () => ({
   __esModule: true,
-  ...jest.requireActual('../../../../../plugins/table/utils'),
+  ...jest.requireActual<Object>('../../../../../plugins/table/utils'),
 }));
 import * as tableUtils from '../../../../../plugins/table/utils';
 import { pluginKey } from '../../../../../plugins/table/pm-plugins/plugin-factory';

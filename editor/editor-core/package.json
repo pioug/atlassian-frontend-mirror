@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-core",
-  "version": "131.0.0",
+  "version": "131.0.2",
   "description": "A package contains Atlassian editor core functionality",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -123,7 +123,7 @@
   },
   "peerDependencies": {
     "@atlaskit/media-core": "^32.1.0",
-    "@atlaskit/smart-card": "^14.4.0",
+    "@atlaskit/smart-card": "^14.4.1",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
     "react-intl": "^2.6.0",
@@ -170,7 +170,6 @@
     "diff": "^4.0.1",
     "enzyme": "^3.10.0",
     "fetch-mock": "^8.0.0",
-    "jest-sandbox": "^1.1.1",
     "lz-string": "^1.4.4",
     "prettier": "^2.1.1",
     "prosemirror-dev-tools": "^3.0.0",

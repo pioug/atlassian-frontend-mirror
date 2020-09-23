@@ -20,7 +20,7 @@ import {
 
 const fileFromDataURI = new File([], 'some-file-name');
 jest.mock('@atlaskit/media-ui', () => ({
-  ...jest.requireActual('@atlaskit/media-ui'),
+  ...jest.requireActual<Object>('@atlaskit/media-ui'),
   dataURItoFile: jest.fn(() => fileFromDataURI),
 }));
 

@@ -34,6 +34,7 @@ import {
   CreateLinkInlineDialogEventPayload,
 } from '../../../analytics';
 import { normalizeUrl } from '../../utils';
+import { filterUniqueItems } from '../../../../utils/array';
 import { LinkSearchListItemData } from '../../../../ui/LinkSearch/types';
 import debounce from 'lodash/debounce';
 import { mapContentTypeToIcon, sha1, wordCount } from './utils';
@@ -338,13 +339,14 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
       return;
     }
 
+    const queryVersion = ++this.quickSearchQueryVersion;
     this.fireAnalytics({
       action: ACTION.ENTERED,
       actionSubject: ACTION_SUBJECT.TEXT,
       actionSubjectId: ACTION_SUBJECT_ID.LINK_SEARCH_INPUT,
       attributes: {
         queryLength: input.length,
-        queryVersion: this.quickSearchQueryVersion++,
+        queryVersion,
         queryHash: sha1(input),
         searchSessionId: pluginState.searchSessionId ?? '',
         wordCount: wordCount(input),
@@ -362,13 +364,21 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
         input,
         quickSearchLimit,
       );
-      const searchItems = [
-        ...items,
-        ...searchProviderResultItems.map(
-          mapSearchProviderResultToLinkSearchItemData,
+      const searchItems = limit(
+        filterUniqueItems<LinkSearchListItemData>(
+          [
+            ...items,
+            ...searchProviderResultItems.map(
+              mapSearchProviderResultToLinkSearchItemData,
+            ),
+          ],
+          (firstItem, secondItem) => firstItem.objectId === secondItem.objectId,
         ),
-      ];
-      if (displayUrl === input) {
+      );
+      if (
+        displayUrl === input &&
+        queryVersion === this.quickSearchQueryVersion
+      ) {
         this.setState({
           items: searchItems,
           isLoading: false,
@@ -384,7 +394,7 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
         actionSubjectId: ACTION_SUBJECT_ID.QUICK_SEARCH,
         attributes: {
           duration,
-          count: searchItems.length,
+          count: searchProviderResultItems.length,
         },
         eventType: EVENT_TYPE.OPERATIONAL,
       });
@@ -447,8 +457,7 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
         });
 
         if (shouldQuerySearchProvider) {
-          const searchProviderLimit = RECENT_SEARCH_LIST_SIZE - items.length;
-          this.debouncedQuickSearch(input, items, searchProviderLimit);
+          this.debouncedQuickSearch(input, items, RECENT_SEARCH_LIST_SIZE);
         }
       }
     }

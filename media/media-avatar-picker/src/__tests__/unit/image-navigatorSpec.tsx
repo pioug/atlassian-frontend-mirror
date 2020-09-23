@@ -1,6 +1,6 @@
 declare var global: any; // we need define an interface for the Node global object when overwriting global objects, in this case FileReader
 jest.mock('../../util', () => ({
-  ...jest.requireActual('../../util'),
+  ...jest.requireActual<Object>('../../util'),
   fileSizeMb: jest.fn().mockReturnValue(11),
 }));
 
@@ -8,7 +8,7 @@ const fileToDataURIPromise = Promise.resolve('some-data-uri');
 const getOrientationPromise = Promise.resolve(7);
 
 jest.mock('@atlaskit/media-ui', () => ({
-  ...jest.requireActual('@atlaskit/media-ui'),
+  ...jest.requireActual<Object>('@atlaskit/media-ui'),
   fileToDataURI: jest.fn(() => fileToDataURIPromise),
   getOrientation: jest.fn(() => getOrientationPromise),
 }));

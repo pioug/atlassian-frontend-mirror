@@ -1,5 +1,18 @@
 # @atlaskit/editor-core
 
+## 131.0.2
+
+### Patch Changes
+
+- [`a1969c1be1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a1969c1be1) - [ux] Deduplicate items from the Cmd+k search result
+
+## 131.0.1
+
+### Patch Changes
+
+- [`2ac834240e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2ac834240e) - Undo analytics-next file restructure to allow external ts definitions to continue working
+- Updated dependencies
+
 ## 131.0.0
 
 ### Major Changes

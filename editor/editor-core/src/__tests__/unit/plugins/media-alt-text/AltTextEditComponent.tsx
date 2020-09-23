@@ -34,7 +34,7 @@ import { ErrorMessage } from '@atlaskit/editor-common';
 
 const undoInputRuleMock = jest.fn();
 jest.mock('prosemirror-inputrules', () => ({
-  ...jest.requireActual('prosemirror-inputrules'),
+  ...jest.requireActual<Object>('prosemirror-inputrules'),
   undoInputRule: (state: any, dispatch: any) =>
     undoInputRuleMock(state, dispatch),
 }));

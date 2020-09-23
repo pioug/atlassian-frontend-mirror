@@ -20,7 +20,7 @@ export const generateSearchproviderMockResults = (
     .fill(null)
     .map(
       (_, i): QuickSearchResult => ({
-        objectId: `some-quick-search-id-${i + 1}`,
+        objectId: `object-id-${i + 1}`,
         title: `some-quick-search-title-${i + 1}`,
         container: `some-quick-search-container-${i + 1}`,
         url: `some-quick-search-url-${i + 1}.com`,
@@ -46,7 +46,7 @@ export const generateActivityProviderMockResults = (numberOfItems: number) =>
     .fill(null)
     .map(
       (_, i): ActivityItem => ({
-        objectId: `some-activity-id-${i + 1}`,
+        objectId: `object-id-${i + 1}`,
         name: `some-activity-name-${i + 1}`,
         container: `some-activity-container-${i + 1}`,
         iconUrl: `some-activity-icon-url-${i + 1}.com`,

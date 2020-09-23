@@ -43,7 +43,7 @@
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
     "@testing-library/react": "^8.0.1",
-    "jest-axe": "^3.4.0",
+    "jest-axe": "^4.0.0",
     "jest-emotion": "^10.0.32",
     "react-router-dom": "^4.2.2"
   },

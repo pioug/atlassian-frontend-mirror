@@ -30,7 +30,7 @@ import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
  */
 jest.mock('@atlaskit/media-client', () => ({
   __esModule: true,
-  ...jest.requireActual('@atlaskit/media-client'),
+  ...jest.requireActual<Object>('@atlaskit/media-client'),
 }));
 import * as MediaClientModule from '@atlaskit/media-client';
 import { FileState, MediaClient } from '@atlaskit/media-client';

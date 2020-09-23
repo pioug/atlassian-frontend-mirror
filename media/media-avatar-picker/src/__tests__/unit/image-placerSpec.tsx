@@ -14,7 +14,7 @@ loadImageMockSetup(); // setup calls jest.mock('@atlaskit/media-ui') that hoists
 import { Vector2, Rectangle, FileInfo } from '@atlaskit/media-ui';
 
 jest.mock('../../util', () => ({
-  ...jest.requireActual('../../util'),
+  ...jest.requireActual<Object>('../../util'),
   getCanvas: mockCanvas,
 }));
 

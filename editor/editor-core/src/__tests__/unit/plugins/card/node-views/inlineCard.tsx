@@ -3,7 +3,7 @@ let mockFindOverflowScrollParent = jest.fn();
 let mockRafSchedule = jest.fn().mockImplementation((cb: any) => cb());
 jest.mock('raf-schd', () => (cb: any) => () => mockRafSchedule(cb));
 jest.mock('@atlaskit/smart-card', () => ({
-  ...jest.requireActual('@atlaskit/smart-card'),
+  ...jest.requireActual<Object>('@atlaskit/smart-card'),
   Card: class Card extends React.Component<any> {
     render() {
       this.props.onResolve({

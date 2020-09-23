@@ -1,7 +1,7 @@
-const itemViewerModule = require.requireActual(
+const itemViewerModule = jest.requireActual(
   '../../../newgen/analytics/item-viewer',
 );
-const archiveViewerModule = require.requireActual(
+const archiveViewerModule = jest.requireActual(
   '../../../newgen/analytics/archive-viewer',
 );
 const mediaPreviewFailedEventSpy = jest.fn();

@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 14.4.1
+
+### Patch Changes
+
+- [`2ac834240e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2ac834240e) - Undo analytics-next file restructure to allow external ts definitions to continue working
+
 ## 14.4.0
 
 ### Minor Changes

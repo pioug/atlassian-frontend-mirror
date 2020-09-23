@@ -1,5 +1,11 @@
 # @atlaskit/tag-group
 
+## 10.0.2
+
+### Patch Changes
+
+- [`e8bd7e3a2a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e8bd7e3a2a) - The changes are mainly on performance tunning for tag-group. As part of the change, we rewrote `TagGroup` with function component.
+
 ## 10.0.1
 
 ### Patch Changes

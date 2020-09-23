@@ -36,7 +36,7 @@ import sinon from 'sinon';
 interface SetupArgumentObject {
   recentItemsPromise?: ReturnType<ActivityProvider['getRecentItems']>;
   searchRecentPromise?: ReturnType<ActivityProvider['searchRecent']>;
-  quickSearchPromise?: ReturnType<SearchProvider['quickSearch']>;
+  quickSearchPromises?: ReturnType<SearchProvider['quickSearch']>[];
   displayUrl?: string;
   waitForResolves?: boolean;
   provideActivityProvider?: boolean;
@@ -104,7 +104,7 @@ describe('HyperlinkAddToolbar', () => {
       displayUrl,
       recentItemsPromise = Promise.resolve(activityProviderMockResults),
       searchRecentPromise = Promise.resolve(activityProviderMockResults),
-      quickSearchPromise = Promise.resolve(searchProviderMockResults),
+      quickSearchPromises = [Promise.resolve(searchProviderMockResults)],
       pluginState = {
         timesViewed: 0,
         canInsertLink: true,
@@ -131,11 +131,18 @@ describe('HyperlinkAddToolbar', () => {
     };
 
     const searchProvider: SearchProvider = {
-      quickSearch: jest.fn<
-        ReturnType<SearchProvider['quickSearch']>,
-        Parameters<SearchProvider['quickSearch']>
-      >(() => quickSearchPromise),
+      quickSearch: jest
+        .fn<
+          ReturnType<SearchProvider['quickSearch']>,
+          Parameters<SearchProvider['quickSearch']>
+        >()
+        .mockReturnValueOnce(quickSearchPromises[0]),
     };
+    for (let i = 1; i < quickSearchPromises.length; i++) {
+      (searchProvider.quickSearch as jest.Mock).mockReturnValueOnce(
+        quickSearchPromises[i],
+      );
+    }
 
     let activityProviderPromise: HyperlinkAddToolbarProps['activityProvider'] = Promise.resolve(
       activityProvider,
@@ -212,7 +219,7 @@ describe('HyperlinkAddToolbar', () => {
       searchProviderPromise,
       recentItemsPromise,
       searchRecentPromise,
-      quickSearchPromise,
+      quickSearchPromises,
       updateInputField,
       updateInputFieldWithStateUpdated,
       pressReturnInputField,
@@ -285,7 +292,7 @@ describe('HyperlinkAddToolbar', () => {
       }
       expect(items).toHaveLength(5);
       expectToEqual(items[0], {
-        objectId: 'some-activity-id-1',
+        objectId: 'object-id-1',
         name: 'some-activity-name-1',
         url: 'some-activity-url-1.com',
         container: 'some-activity-container-1',
@@ -324,7 +331,7 @@ describe('HyperlinkAddToolbar', () => {
       }
       expect(items).toHaveLength(5);
       expectToEqual(items[0], {
-        objectId: 'some-activity-id-1',
+        objectId: 'object-id-1',
         name: 'some-activity-name-1',
         url: 'some-activity-url-1.com',
         container: 'some-activity-container-1',
@@ -552,9 +559,9 @@ describe('HyperlinkAddToolbar', () => {
         searchRecentPromise: Promise.resolve(
           activityProviderMockResults.slice(0, 2),
         ),
-        quickSearchPromise: Promise.resolve(
-          searchProviderMockResults.slice(0, 3),
-        ),
+        quickSearchPromises: [
+          Promise.resolve(searchProviderMockResults.slice(2, 5)),
+        ],
         ...config,
       });
       const {
@@ -573,11 +580,13 @@ describe('HyperlinkAddToolbar', () => {
 
     it('should show loading for the search part of the list', async () => {
       const { component } = await setup2({
-        quickSearchPromise: new Promise(() => {
-          // We don't want quick search promise to resolve
-          // so that we can stop at the screen where the result
-          // is returned from remote.
-        }),
+        quickSearchPromises: [
+          new Promise(() => {
+            // We don't want quick search promise to resolve
+            // so that we can stop at the screen where the result
+            // is returned from remote.
+          }),
+        ],
       });
 
       expectToEqual(component.find(LinkSearchList).props().isLoading, true);
@@ -596,7 +605,7 @@ describe('HyperlinkAddToolbar', () => {
     it('should call searchProvider', async () => {
       const {
         component,
-        quickSearchPromise,
+        quickSearchPromises,
         searchProviderPromise,
       } = await setup2();
 
@@ -605,13 +614,13 @@ describe('HyperlinkAddToolbar', () => {
       }
       const searchProvider = await searchProviderPromise;
 
-      await quickSearchPromise;
+      await quickSearchPromises[0];
 
       component.update();
       clock.tick(500);
       expectFunctionToHaveBeenCalledWith(searchProvider.quickSearch, [
         'some-value',
-        3,
+        5,
       ]);
     });
 
@@ -619,12 +628,12 @@ describe('HyperlinkAddToolbar', () => {
       const {
         component,
         searchRecentPromise,
-        quickSearchPromise,
+        quickSearchPromises,
       } = await setup2();
 
       const searchRecentItems = await searchRecentPromise;
       clock.tick(500);
-      const quickSearchItems = await quickSearchPromise;
+      const quickSearchItems = await quickSearchPromises[0];
 
       component.update();
 
@@ -647,25 +656,89 @@ describe('HyperlinkAddToolbar', () => {
       // Then assert that next result item after all activity providers is the one from
       // quick search results.
       expectToEqual(items[searchRecentItems.length], {
-        objectId: 'some-quick-search-id-1',
-        name: 'some-quick-search-title-1',
-        container: 'some-quick-search-container-1',
-        url: 'some-quick-search-url-1.com',
-        lastUpdatedDate: new Date('2020-04-15T00:00:00+00:00'),
+        objectId: 'object-id-3',
+        name: 'some-quick-search-title-3',
+        container: 'some-quick-search-container-3',
+        url: 'some-quick-search-url-3.com',
+        lastUpdatedDate: new Date('2020-04-15T02:00:00+00:00'),
         icon: expect.anything(),
       });
+    });
+
+    it('should still take the result of latest query if two quick search are triggered', async () => {
+      const {
+        component,
+        searchRecentPromise,
+        updateInputFieldWithStateUpdated,
+        quickSearchPromises,
+      } = await setup2({
+        searchRecentPromise: Promise.resolve(
+          activityProviderMockResults.slice(0, 2),
+        ),
+        quickSearchPromises: [
+          Promise.resolve(searchProviderMockResults.slice(0, 2)),
+          Promise.resolve(searchProviderMockResults.slice(2, 5)),
+        ],
+      });
+
+      await searchRecentPromise;
+      component.update();
+      await updateInputFieldWithStateUpdated('link-url', 'first query');
+      clock.tick(500);
+      component.update();
+
+      // Trigger the search second time should increase
+      // the query version from 0 to 1
+      await updateInputFieldWithStateUpdated('link-url', 'second query');
+      clock.tick(500);
+      await quickSearchPromises[0];
+      await quickSearchPromises[1];
+      component.update();
+
+      const items = component.find(LinkSearchList).props().items;
+      if (!items) {
+        return expect(items).toBeDefined();
+      }
+      expect(items).toMatchSnapshot();
+    });
+
+    it('should deduplicate search results', async () => {
+      const {
+        component,
+        searchRecentPromise,
+        quickSearchPromises,
+      } = await setup2({
+        searchRecentPromise: Promise.resolve(
+          activityProviderMockResults.slice(0, 2),
+        ),
+        quickSearchPromises: [
+          Promise.resolve(searchProviderMockResults.slice(0, 5)),
+        ],
+      });
+
+      await searchRecentPromise;
+      clock.tick(500);
+      await quickSearchPromises[0];
+
+      component.update();
+
+      const items = component.find(LinkSearchList).props().items;
+      if (!items) {
+        return expect(items).toBeDefined();
+      }
+      expect(items).toMatchSnapshot();
     });
 
     it('should not show loading when quick search results are in', async () => {
       const {
         component,
         searchRecentPromise,
-        quickSearchPromise,
+        quickSearchPromises,
       } = await setup2();
 
       await searchRecentPromise;
       clock.tick(500);
-      await quickSearchPromise;
+      await quickSearchPromises[0];
 
       component.update();
 
@@ -677,17 +750,17 @@ describe('HyperlinkAddToolbar', () => {
       const {
         component,
         searchRecentPromise,
-        quickSearchPromise,
+        quickSearchPromises,
       } = await setup2({
         searchRecentPromise: Promise.resolve([]),
-        quickSearchPromise: Promise.resolve(
-          generateSearchproviderMockResults(1, 'jira.issue'),
-        ),
+        quickSearchPromises: [
+          Promise.resolve(generateSearchproviderMockResults(1, 'jira.issue')),
+        ],
       });
 
       await searchRecentPromise;
       clock.tick(500);
-      await quickSearchPromise;
+      await quickSearchPromises[0];
 
       component.update();
       const { items } = component.find(LinkSearchList).props();
@@ -701,17 +774,19 @@ describe('HyperlinkAddToolbar', () => {
       const {
         component,
         searchRecentPromise,
-        quickSearchPromise,
+        quickSearchPromises,
       } = await setup2({
         searchRecentPromise: Promise.resolve([]),
-        quickSearchPromise: Promise.resolve(
-          generateSearchproviderMockResults(1, 'jira.issue.bug'),
-        ),
+        quickSearchPromises: [
+          Promise.resolve(
+            generateSearchproviderMockResults(1, 'jira.issue.bug'),
+          ),
+        ],
       });
 
       await searchRecentPromise;
       clock.tick(500);
-      await quickSearchPromise;
+      await quickSearchPromises[0];
 
       component.update();
       const { items } = component.find(LinkSearchList).props();
@@ -725,17 +800,19 @@ describe('HyperlinkAddToolbar', () => {
       const {
         component,
         searchRecentPromise,
-        quickSearchPromise,
+        quickSearchPromises,
       } = await setup2({
         searchRecentPromise: Promise.resolve([]),
-        quickSearchPromise: Promise.resolve(
-          generateSearchproviderMockResults(1, 'jira.issue.story'),
-        ),
+        quickSearchPromises: [
+          Promise.resolve(
+            generateSearchproviderMockResults(1, 'jira.issue.story'),
+          ),
+        ],
       });
 
       await searchRecentPromise;
       clock.tick(500);
-      await quickSearchPromise;
+      await quickSearchPromises[0];
 
       component.update();
       const { items } = component.find(LinkSearchList).props();
@@ -749,17 +826,19 @@ describe('HyperlinkAddToolbar', () => {
       const {
         component,
         searchRecentPromise,
-        quickSearchPromise,
+        quickSearchPromises,
       } = await setup2({
         searchRecentPromise: Promise.resolve([]),
-        quickSearchPromise: Promise.resolve(
-          generateSearchproviderMockResults(1, 'jira.issue.task'),
-        ),
+        quickSearchPromises: [
+          Promise.resolve(
+            generateSearchproviderMockResults(1, 'jira.issue.task'),
+          ),
+        ],
       });
 
       await searchRecentPromise;
       clock.tick(500);
-      await quickSearchPromise;
+      await quickSearchPromises[0];
 
       component.update();
       const { items } = component.find(LinkSearchList).props();
@@ -773,17 +852,19 @@ describe('HyperlinkAddToolbar', () => {
       const {
         component,
         searchRecentPromise,
-        quickSearchPromise,
+        quickSearchPromises,
       } = await setup2({
         searchRecentPromise: Promise.resolve([]),
-        quickSearchPromise: Promise.resolve(
-          generateSearchproviderMockResults(1, 'confluence.page'),
-        ),
+        quickSearchPromises: [
+          Promise.resolve(
+            generateSearchproviderMockResults(1, 'confluence.page'),
+          ),
+        ],
       });
 
       await searchRecentPromise;
       clock.tick(500);
-      await quickSearchPromise;
+      await quickSearchPromises[0];
 
       component.update();
       const { items } = component.find(LinkSearchList).props();
@@ -797,17 +878,19 @@ describe('HyperlinkAddToolbar', () => {
       const {
         component,
         searchRecentPromise,
-        quickSearchPromise,
+        quickSearchPromises,
       } = await setup2({
         searchRecentPromise: Promise.resolve([]),
-        quickSearchPromise: Promise.resolve(
-          generateSearchproviderMockResults(1, 'confluence.blogpost'),
-        ),
+        quickSearchPromises: [
+          Promise.resolve(
+            generateSearchproviderMockResults(1, 'confluence.blogpost'),
+          ),
+        ],
       });
 
       await searchRecentPromise;
       clock.tick(500);
-      await quickSearchPromise;
+      await quickSearchPromises[0];
 
       component.update();
       const { items } = component.find(LinkSearchList).props();
@@ -822,7 +905,7 @@ describe('HyperlinkAddToolbar', () => {
         component,
         updateInputField,
         searchProviderPromise,
-        quickSearchPromise,
+        quickSearchPromises,
       } = await setup2();
       const searchProvider = await searchProviderPromise;
       const quickSearchSpy = jest.spyOn(
@@ -833,7 +916,7 @@ describe('HyperlinkAddToolbar', () => {
       updateInputField('link-url', 'b');
       updateInputField('link-url', 'c');
       component.update();
-      await quickSearchPromise;
+      await quickSearchPromises[0];
       clock.tick(500);
       expect(quickSearchSpy).toHaveBeenCalledTimes(1);
     });
@@ -842,13 +925,13 @@ describe('HyperlinkAddToolbar', () => {
       const {
         component,
         searchRecentPromise,
-        quickSearchPromise,
+        quickSearchPromises,
         onSubmit,
       } = await setup2();
 
       const searchRecentItems = await searchRecentPromise;
       clock.tick(500);
-      const quickSearchItems = await quickSearchPromise;
+      const quickSearchItems = await quickSearchPromises[0];
 
       component.update();
 
@@ -896,7 +979,7 @@ describe('HyperlinkAddToolbar', () => {
       const {
         component,
         searchRecentPromise,
-        quickSearchPromise,
+        quickSearchPromises,
         updateInputFieldWithStateUpdated,
         createAnalyticsEvent,
       } = await setup({
@@ -904,9 +987,9 @@ describe('HyperlinkAddToolbar', () => {
         searchRecentPromise: Promise.resolve(
           activityProviderMockResults.slice(0, 2),
         ),
-        quickSearchPromise: Promise.resolve(
-          searchProviderMockResults.slice(0, 3),
-        ),
+        quickSearchPromises: [
+          Promise.resolve(searchProviderMockResults.slice(0, 3)),
+        ],
       });
       const query = 'some value';
       await searchRecentPromise;
@@ -915,7 +998,7 @@ describe('HyperlinkAddToolbar', () => {
       await updateInputFieldWithStateUpdated('link-url', query);
       clock.tick(500);
 
-      await quickSearchPromise;
+      await quickSearchPromises[0];
       component.update();
 
       expect(createAnalyticsEvent).toBeCalledWith({
@@ -925,7 +1008,7 @@ describe('HyperlinkAddToolbar', () => {
         attributes: {
           source: 'createLinkInlineDialog',
           queryLength: query.length,
-          queryVersion: 0,
+          queryVersion: 1,
           queryHash: sha1(query),
           searchSessionId: 'a-unique-id',
           wordCount: 2,
@@ -941,7 +1024,7 @@ describe('HyperlinkAddToolbar', () => {
       const {
         component,
         searchRecentPromise,
-        quickSearchPromise,
+        quickSearchPromises,
         updateInputFieldWithStateUpdated,
         createAnalyticsEvent,
       } = await setup({
@@ -949,9 +1032,9 @@ describe('HyperlinkAddToolbar', () => {
         searchRecentPromise: Promise.resolve(
           activityProviderMockResults.slice(0, 2),
         ),
-        quickSearchPromise: Promise.resolve(
-          searchProviderMockResults.slice(0, 3),
-        ),
+        quickSearchPromises: [
+          Promise.resolve(searchProviderMockResults.slice(0, 3)),
+        ],
       });
       const query = 'some value';
       await searchRecentPromise;
@@ -959,14 +1042,14 @@ describe('HyperlinkAddToolbar', () => {
 
       await updateInputFieldWithStateUpdated('link-url', 'first query');
       clock.tick(500);
-      await quickSearchPromise;
+      await quickSearchPromises[0];
       component.update();
 
       // Trigger the search second time should increase
       // the query version from 0 to 1
       await updateInputFieldWithStateUpdated('link-url', query);
       clock.tick(500);
-      await quickSearchPromise;
+      await quickSearchPromises[0];
       component.update();
 
       expect(createAnalyticsEvent).toBeCalledWith({
@@ -976,7 +1059,7 @@ describe('HyperlinkAddToolbar', () => {
         attributes: {
           source: 'createLinkInlineDialog',
           queryLength: query.length,
-          queryVersion: 1,
+          queryVersion: 2,
           queryHash: sha1(query),
           searchSessionId: 'a-unique-id',
           wordCount: 2,
@@ -1013,11 +1096,11 @@ describe('HyperlinkAddToolbar', () => {
           resultCount: 2,
           results: [
             {
-              resultContentId: 'some-activity-id-1',
+              resultContentId: 'object-id-1',
               resultType: 'ISSUE',
             },
             {
-              resultContentId: 'some-activity-id-2',
+              resultContentId: 'object-id-2',
               resultType: 'ISSUE',
             },
           ],
@@ -1031,16 +1114,16 @@ describe('HyperlinkAddToolbar', () => {
         component,
         createAnalyticsEvent,
         searchRecentPromise,
-        quickSearchPromise,
+        quickSearchPromises,
         updateInputFieldWithStateUpdated,
       } = await setup({
         waitForResolves: true,
         searchRecentPromise: Promise.resolve(
           activityProviderMockResults.slice(0, 2),
         ),
-        quickSearchPromise: Promise.resolve(
-          searchProviderMockResults.slice(0, 3),
-        ),
+        quickSearchPromises: [
+          Promise.resolve(searchProviderMockResults.slice(0, 3)),
+        ],
       });
       const query = 'some value';
       await searchRecentPromise;
@@ -1049,7 +1132,7 @@ describe('HyperlinkAddToolbar', () => {
       await updateInputFieldWithStateUpdated('link-url', query);
       clock.tick(500);
 
-      await quickSearchPromise;
+      await quickSearchPromises[0];
       component.update();
 
       expect(createAnalyticsEvent).toBeCalledWith({
@@ -1063,15 +1146,15 @@ describe('HyperlinkAddToolbar', () => {
           resultCount: 3,
           results: [
             {
-              resultContentId: 'some-quick-search-id-1',
+              resultContentId: 'object-id-1',
               resultType: 'jira.issue',
             },
             {
-              resultContentId: 'some-quick-search-id-2',
+              resultContentId: 'object-id-2',
               resultType: 'confluence.page',
             },
             {
-              resultContentId: 'some-quick-search-id-3',
+              resultContentId: 'object-id-3',
               resultType: 'confluence.blogpost',
             },
           ],
@@ -1104,7 +1187,7 @@ describe('HyperlinkAddToolbar', () => {
         attributes: {
           source: 'createLinkInlineDialog',
           searchSessionId: 'a-unique-id',
-          selectedResultId: 'some-activity-id-1',
+          selectedResultId: 'object-id-1',
           selectedRelativePosition: 0,
         },
         eventType: 'ui',
@@ -1135,7 +1218,7 @@ describe('HyperlinkAddToolbar', () => {
           searchSessionId: 'a-unique-id',
           trigger: 'keyboard',
           resultCount: 5,
-          selectedResultId: 'some-activity-id-1',
+          selectedResultId: 'object-id-1',
           selectedRelativePosition: 0,
         },
         eventType: 'ui',
@@ -1250,7 +1333,7 @@ describe('HyperlinkAddToolbar', () => {
       const {
         component,
         searchRecentPromise,
-        quickSearchPromise,
+        quickSearchPromises,
         updateInputFieldWithStateUpdated,
         createAnalyticsEvent,
       } = await setup({
@@ -1258,9 +1341,9 @@ describe('HyperlinkAddToolbar', () => {
         searchRecentPromise: Promise.resolve(
           activityProviderMockResults.slice(0, 2),
         ),
-        quickSearchPromise: Promise.resolve(
-          searchProviderMockResults.slice(0, 3),
-        ),
+        quickSearchPromises: [
+          Promise.resolve(searchProviderMockResults.slice(2, 5)),
+        ],
       });
 
       const query = 'some value';
@@ -1269,16 +1352,16 @@ describe('HyperlinkAddToolbar', () => {
 
       await updateInputFieldWithStateUpdated('link-url', query);
       clock.tick(500);
-      await quickSearchPromise;
+      await quickSearchPromises[0];
       component.update();
 
       component.update();
-      expect(createAnalyticsEvent).toBeCalledWith({
+      expect(createAnalyticsEvent).toHaveBeenCalledWith({
         action: 'invoked',
         actionSubject: 'searchResult',
         actionSubjectId: 'quickSearch',
         attributes: {
-          count: 5,
+          count: 3,
           duration: expect.any(Number),
         },
         eventType: 'operational',
@@ -1292,7 +1375,7 @@ describe('HyperlinkAddToolbar', () => {
       const {
         component,
         searchRecentPromise,
-        quickSearchPromise,
+        quickSearchPromises,
         updateInputFieldWithStateUpdated,
         createAnalyticsEvent,
       } = await setup({
@@ -1300,11 +1383,13 @@ describe('HyperlinkAddToolbar', () => {
         searchRecentPromise: Promise.resolve(
           activityProviderMockResults.slice(0, 2),
         ),
-        quickSearchPromise: new Promise((_, reject) => {
-          rejectQuickSearch = () => {
-            reject(new Error('Internal Server Error'));
-          };
-        }),
+        quickSearchPromises: [
+          new Promise((_, reject) => {
+            rejectQuickSearch = () => {
+              reject(new Error('Internal Server Error'));
+            };
+          }),
+        ],
       });
 
       const query = 'some value';
@@ -1315,7 +1400,7 @@ describe('HyperlinkAddToolbar', () => {
       clock.tick(500);
       rejectQuickSearch();
       try {
-        await quickSearchPromise;
+        await quickSearchPromises[0];
         component.update();
       } catch (e) {}
 

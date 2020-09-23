@@ -4,7 +4,7 @@ import {
   takeElementScreenShot,
 } from '@atlaskit/visual-regression/helper';
 
-describe.skip('<LeftSidebar />', () => {
+describe('<LeftSidebar />', () => {
   const controlSidebar = async (sidebarState: 'expand' | 'collapse') => {
     const resizeControl = "[data-resize-button='true']";
     const { page } = global;
@@ -51,7 +51,7 @@ describe.skip('<LeftSidebar />', () => {
     await page.waitForSelector(selector);
   };
 
-  it.skip('should match the snapshot when it is expanded and resize button is hovered', async () => {
+  it('should match the snapshot when it is expanded and resize button is hovered', async () => {
     const { page } = global;
     const resizeControl = "[data-testid='left-sidebar-resize-button']";
     const content = "[data-testid='content']";
@@ -152,7 +152,7 @@ describe.skip('<LeftSidebar />', () => {
   it('should match the snapshot when it is collapsed', async () => {
     const content = "[data-testid='content']";
 
-    await openExamplesAndWaitFor('resize-sidebar', content);
+    await openExamplesAndWaitFor('controlled-left-sidebar', content);
     await controlSidebar('collapse');
 
     const screenshot = await takeElementScreenShot(global.page, content);
@@ -161,17 +161,9 @@ describe.skip('<LeftSidebar />', () => {
   });
 
   it('should match the snapshot to show contents are hidden on collapse', async () => {
-    const { page } = global;
-    const scrollableContent =
-      "[data-testid='left-sidebar'] [data-toggle-scrollable]";
     const content = "[data-testid='content']";
 
-    await openExamplesAndWaitFor('resize-sidebar', content);
-    await controlSidebar('expand');
-
-    await page.click(scrollableContent);
-
-    await controlSidebar('collapse');
+    await openExamplesAndWaitFor('controlled-left-sidebar', content);
 
     const screenshot = await takeElementScreenShot(global.page, content);
     expect(screenshot).toMatchProdImageSnapshot();
@@ -199,11 +191,8 @@ describe.skip('<LeftSidebar />', () => {
   it('should match the snapshot before and after closing flyout by moving mouse out of the left-sidebar', async () => {
     const { page } = global;
     const content = "[data-testid='content']";
-    const grabArea = "[data-testid='left-sidebar-grab-area']";
-    await openExamplesAndWaitFor('resize-sidebar', content);
-
-    // collapse sidebar
-    await controlSidebar('collapse');
+    const grabArea = "[data-testid='leftSidebar-grab-area']";
+    await openExamplesAndWaitFor('controlled-left-sidebar', content);
 
     // open flyout
     const grabAreaElement = await page.$(grabArea);
@@ -227,20 +216,22 @@ describe.skip('<LeftSidebar />', () => {
   });
 
   it('should match the snapshot of left sidebar content height 100%', async () => {
+    const { page } = global;
     const content = "[data-testid='content']";
+    const leftSidebar = "[data-testid='side-navigation']";
     await openExamplesAndWaitFor('integration-example', content);
     await controlSidebar('expand');
+    await page.hover(leftSidebar);
     const screenshot = await takeElementScreenShot(global.page, content);
     expect(screenshot).toMatchProdImageSnapshot();
   });
 
-  it.skip('should match the snapshot when it is collapsed and resize button is hovered', async () => {
+  it('should match the snapshot when it is collapsed and resize button is hovered', async () => {
     const { page } = global;
-    const resizeControl = "[data-testid='left-sidebar-resize-button']";
+    const resizeControl = "[data-testid='leftSidebar-resize-button']";
     const content = "[data-testid='content']";
 
-    await openExamplesAndWaitFor('resize-sidebar', content);
-    await controlSidebar('collapse');
+    await openExamplesAndWaitFor('controlled-left-sidebar', content);
 
     await page.hover(resizeControl);
     await page.waitFor(1000);
@@ -252,11 +243,10 @@ describe.skip('<LeftSidebar />', () => {
 
   it('should match the snapshot when it is collapsed and grab area is hovered', async () => {
     const { page } = global;
-    const grabArea = "[data-testid='left-sidebar-grab-area']";
+    const grabArea = "[data-testid='leftSidebar-grab-area']";
     const content = "[data-testid='content']";
 
-    await openExamplesAndWaitFor('resize-sidebar', content);
-    await controlSidebar('collapse');
+    await openExamplesAndWaitFor('controlled-left-sidebar', content);
 
     await page.hover(grabArea);
     await page.waitFor(500);

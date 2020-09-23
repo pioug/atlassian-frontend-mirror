@@ -30,15 +30,6 @@ Object {
     Object {
       "content": Array [
         Object {
-          "text": "pasting",
-          "type": "text",
-        },
-      ],
-      "type": "paragraph",
-    },
-    Object {
-      "content": Array [
-        Object {
           "attrs": Object {
             "__contextId": "DUMMY-OBJECT-ID",
             "__displayType": null,

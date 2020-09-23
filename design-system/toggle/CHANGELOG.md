@@ -1,5 +1,11 @@
 # @atlaskit/toggle
 
+## 11.0.1
+
+### Patch Changes
+
+- [`2ac834240e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2ac834240e) - Undo analytics-next file restructure to allow external ts definitions to continue working
+
 ## 11.0.0
 
 ### Major Changes

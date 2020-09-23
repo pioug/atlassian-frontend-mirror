@@ -12,7 +12,7 @@ import { EditorView } from 'prosemirror-view';
  */
 jest.mock('@atlaskit/media-client', () => ({
   __esModule: true,
-  ...jest.requireActual('@atlaskit/media-client'),
+  ...jest.requireActual<Object>('@atlaskit/media-client'),
 }));
 import * as MediaClientModule from '@atlaskit/media-client';
 import { FileState, getMediaClient } from '@atlaskit/media-client';

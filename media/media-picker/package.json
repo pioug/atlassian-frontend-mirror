@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-picker",
-  "version": "56.0.0",
+  "version": "56.0.1",
   "description": "Library for handling file uploads",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

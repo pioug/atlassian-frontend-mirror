@@ -603,7 +603,7 @@ export const messages = defineMessages<Messages>({
     description: '',
   },
   search: {
-    id: 'fabric.media.image',
+    id: 'fabric.media.search',
     defaultMessage: 'search',
     description: '',
   },

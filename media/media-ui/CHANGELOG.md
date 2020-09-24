@@ -1,5 +1,11 @@
 # @atlaskit/media-ui
 
+## 14.1.1
+
+### Patch Changes
+
+- [`da5bff8404`](https://bitbucket.org/atlassian/atlassian-frontend/commits/da5bff8404) - fix duplicated media locale
+
 ## 14.1.0
 
 ### Minor Changes

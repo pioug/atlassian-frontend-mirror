@@ -453,12 +453,12 @@ BrowserTestCase(
     await page.waitForSelector(dateInput);
 
     // Input of existing date isn't focused
-    expect(page.hasFocus(dateInput)).resolves.toBe(false);
+    expect(await page.hasFocus(dateInput)).toBe(false);
 
     // Tab into textfield
     await page.keys('Tab');
 
     // Input should now be focused
-    expect(page.hasFocus(dateInput)).resolves.toBe(true);
+    expect(await page.hasFocus(dateInput)).toBe(true);
   },
 );

@@ -3,7 +3,7 @@ let loadImageMock: jest.Mock | Promise<{}>;
 
 // so that jest doesn't hoist mock of media-ui and replaces actual module on every import of media-test-helpers
 export const loadImageMockSetup = () => {
-  jest.mock('@atlaskit/media-ui', () => ({
+  jest.doMock('@atlaskit/media-ui', () => ({
     ...jest.requireActual<Object>('@atlaskit/media-ui'),
     getOrientation: jest.fn(() => getOrientationMock),
     loadImage: jest.fn(() => loadImageMock),

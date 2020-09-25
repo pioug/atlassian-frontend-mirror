@@ -36,11 +36,9 @@ export function sendToBridge<K extends CombinedBridgeNames>(
     if (bridge && eventName in bridge) {
       const args = Object.values(props);
 
-      // @ts-ignore: expression produces a union type that is too complex to represent.
-      const bridgeEventFn = bridge[eventName];
-
       try {
-        bridgeEventFn(...args);
+        // @ts-ignore
+        bridge[eventName](...args);
       } catch (err) {
         // eslint-disable-next-line no-console
         console.error(

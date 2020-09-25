@@ -1,5 +1,11 @@
 # @atlaskit/media-test-helpers
 
+## 28.2.1
+
+### Patch Changes
+
+- [`b4cf0f9326`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b4cf0f9326) - ED-10439 - Modify loadImageMockSetup to ensure media-ui mock is not hoisted
+
 ## 28.2.0
 
 ### Minor Changes

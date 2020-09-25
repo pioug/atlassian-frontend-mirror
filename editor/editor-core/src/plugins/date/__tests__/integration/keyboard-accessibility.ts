@@ -47,7 +47,7 @@ BrowserTestCase(
     await page.keys('Enter', true);
 
     await page.waitForSelector(dateLozenge);
-    expect(page.getText(dateLozenge)).resolves.toBe('Feb 29, 2020');
+    expect(await page.getText(dateLozenge)).toBe('Feb 29, 2020');
 
     const doc = await page.$eval(editable, getDocFromElement);
     expect(doc).toMatchCustomDocSnapshot(testName);
@@ -82,7 +82,7 @@ BrowserTestCase(
     await page.keys('Escape', true);
 
     await page.waitForSelector(dateLozenge);
-    expect(page.getText(dateLozenge)).resolves.toBe('29 Feb 2020');
+    expect(await page.getText(dateLozenge)).toBe('29 Feb 2020');
 
     const doc = await page.$eval(editable, getDocFromElement);
     expect(doc).toMatchCustomDocSnapshot(testName);
@@ -116,7 +116,7 @@ BrowserTestCase(
     await page.keys('Escape', true);
 
     await page.waitForSelector(dateLozenge);
-    expect(page.getText(dateLozenge)).resolves.toBe('29 Feb 2020');
+    expect(await page.getText(dateLozenge)).toBe('29 Feb 2020');
 
     const doc = await page.$eval(editable, getDocFromElement);
     expect(doc).toMatchCustomDocSnapshot(testName);
@@ -154,7 +154,7 @@ BrowserTestCase(
     await page.keys('Escape', true);
 
     await page.waitForSelector(dateLozenge);
-    expect(page.getText(dateLozenge)).resolves.toBe('2020. febr. 29.');
+    expect(await page.getText(dateLozenge)).toBe('2020. febr. 29.');
 
     const doc = await page.$eval(editable, getDocFromElement);
     expect(doc).toMatchCustomDocSnapshot(testName);
@@ -192,7 +192,7 @@ BrowserTestCase(
     await page.keys('Escape', true);
 
     await page.waitForSelector(dateLozenge);
-    expect(page.getText(dateLozenge)).resolves.toBe('2020. febr. 29.');
+    expect(await page.getText(dateLozenge)).toBe('2020. febr. 29.');
 
     const doc = await page.$eval(editable, getDocFromElement);
     expect(doc).toMatchCustomDocSnapshot(testName);
@@ -270,7 +270,7 @@ BrowserTestCase(
 
     await page.waitForSelector(dateLozenge);
 
-    expect(page.getText(dateLozenge)).resolves.toBe('28 Feb 2021');
+    expect(await page.getText(dateLozenge)).toBe('28 Feb 2021');
 
     const doc = await page.$eval(editable, getDocFromElement);
 
@@ -330,7 +330,7 @@ BrowserTestCase(
     await page.waitForSelector(dateInput);
 
     // Replace existing date
-    expect(page.hasFocus(dateInput)).resolves.toBe(true);
+    expect(await page.hasFocus(dateInput)).toBe(true);
     await page.keys(backspaceArray);
     await page.type(dateInput, '15/7/2020');
 
@@ -343,7 +343,7 @@ BrowserTestCase(
 
     // Make textfield active
     await page.click(dateInput);
-    expect(page.hasFocus(dateInput)).resolves.toBe(true);
+    expect(await page.hasFocus(dateInput)).toBe(true);
 
     // Increment the date using arrow key
     await page.keys(rightArrowArray);
@@ -383,7 +383,7 @@ BrowserTestCase(
     await page.waitForSelector(dateInput);
 
     // Replace existing date
-    expect(page.hasFocus(dateInput)).resolves.toBe(true);
+    expect(await page.hasFocus(dateInput)).toBe(true);
     await page.keys(backspaceArray);
     await page.type(dateInput, '17/2/2020');
 
@@ -441,7 +441,7 @@ BrowserTestCase(
     await page.waitForSelector(dateInput);
 
     // Replace existing date
-    expect(page.hasFocus(dateInput)).resolves.toBe(true);
+    expect(await page.hasFocus(dateInput)).toBe(true);
     await page.keys(backspaceArray);
     await page.type(dateInput, '17/2/2020');
 

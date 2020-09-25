@@ -1,5 +1,11 @@
 # @atlaskit/editor-mobile-bridge
 
+## 19.0.3
+
+### Patch Changes
+
+- [`295377267b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/295377267b) - TWISTA-434 Fix bridge not being called correctly
+
 ## 19.0.2
 
 ### Patch Changes

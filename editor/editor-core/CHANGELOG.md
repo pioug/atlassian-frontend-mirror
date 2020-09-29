@@ -1,5 +1,11 @@
 # @atlaskit/editor-core
 
+## 131.0.3
+
+### Patch Changes
+
+- [`e27286a0f1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e27286a0f1) - Fix unable to change a date inside a table
+
 ## 131.0.2
 
 ### Patch Changes

@@ -62,10 +62,16 @@ import {
 } from './utils';
 import { getAllowAddColumnCustomStep } from './utils/get-allow-add-column-custom-step';
 
+const isFocusingCalendar = (event: Event) =>
+  event instanceof FocusEvent &&
+  event.relatedTarget instanceof HTMLElement &&
+  event.relatedTarget.getAttribute('aria-label') === 'calendar';
+
 export const handleBlur = (view: EditorView, event: Event): boolean => {
   const { state, dispatch } = view;
-  // fix for issue ED-4665
-  if (browser.ie_version !== 11) {
+  // IE version check for ED-4665
+  // Calendar focus check for ED-10466
+  if (browser.ie_version !== 11 && !isFocusingCalendar(event)) {
     setEditorFocus(false)(state, dispatch);
   }
   event.preventDefault();

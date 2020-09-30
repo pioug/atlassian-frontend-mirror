@@ -21,7 +21,10 @@ import {
   VAR_LEFT_SIDEBAR_WIDTH,
 } from '../../common/constants';
 import { getLeftPanelWidth } from '../../common/utils';
-import { usePageLayoutResize } from '../../controllers/sidebar-resize-context';
+import {
+  LeftSidebarState,
+  usePageLayoutResize,
+} from '../../controllers/sidebar-resize-context';
 /* import useUpdateCssVar from '../../controllers/use-update-css-vars'; */
 
 import GrabArea from './grab-area';
@@ -92,12 +95,13 @@ const ResizeControl = ({
     document.addEventListener('mouseup', onMouseUp);
     document.documentElement.setAttribute(IS_SIDEBAR_DRAGGING, 'true');
 
-    setLeftSidebarState({
+    const newLeftbarState = {
       ...leftSidebarState,
       isResizing: true,
-    });
+    };
 
-    onResizeStart && onResizeStart();
+    setLeftSidebarState(newLeftbarState);
+    onResizeStart && onResizeStart(newLeftbarState);
   };
 
   const cancelDrag = (shouldCollapse?: boolean) => {
@@ -146,6 +150,7 @@ const ResizeControl = ({
     document.removeEventListener('mousemove', onMouseMove);
     document.removeEventListener('mouseup', onMouseUp);
   };
+  let updatedLeftSidebarState = {} as LeftSidebarState;
 
   const onMouseUp = (event: MouseEvent) => {
     if (isLeftSidebarCollapsed) {
@@ -174,26 +179,28 @@ const ResizeControl = ({
         `--${VAR_LEFT_SIDEBAR_WIDTH}`,
         `${DEFAULT_LEFT_SIDEBAR_WIDTH}px`,
       );
-      setLeftSidebarState({
+      updatedLeftSidebarState = {
         ...leftSidebarState,
         isResizing: false,
         [VAR_LEFT_SIDEBAR_WIDTH]: DEFAULT_LEFT_SIDEBAR_WIDTH,
         lastLeftSidebarWidth: DEFAULT_LEFT_SIDEBAR_WIDTH,
-      });
+      };
+      setLeftSidebarState(updatedLeftSidebarState);
     } else {
       // otherwise resize it to the desired width
-      setLeftSidebarState({
+      updatedLeftSidebarState = {
         ...leftSidebarState,
         isResizing: false,
         [VAR_LEFT_SIDEBAR_WIDTH]: x.current,
         lastLeftSidebarWidth: x.current,
-      });
+      };
+      setLeftSidebarState(updatedLeftSidebarState);
     }
 
     requestAnimationFrame(() => {
       onMouseMove.cancel();
       setIsGrabAreaFocused(false);
-      onResizeEnd && onResizeEnd();
+      onResizeEnd && onResizeEnd(updatedLeftSidebarState);
       cleanupAfterResize();
     });
   };
@@ -222,7 +229,7 @@ const ResizeControl = ({
 
     if (isLeftOrTopArrow || isRightOrBottomArrow) {
       event.preventDefault(); // prevent content scroll
-      onResizeStart && onResizeStart();
+      onResizeStart && onResizeStart(leftSidebarState);
 
       const step = 10;
       const stepValue = isLeftOrTopArrow ? -step : step;
@@ -260,12 +267,13 @@ const ResizeControl = ({
             `${width}px`,
           );
 
-          setLeftSidebarState({
+          const updatedLeftSidebarState = {
             ...leftSidebarState,
             [VAR_LEFT_SIDEBAR_WIDTH]: width,
             lastLeftSidebarWidth: width,
-          });
-          onResizeEnd && onResizeEnd();
+          };
+          setLeftSidebarState(updatedLeftSidebarState);
+          onResizeEnd && onResizeEnd(updatedLeftSidebarState);
         }, 50);
       });
     }

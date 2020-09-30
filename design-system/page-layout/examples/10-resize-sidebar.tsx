@@ -10,6 +10,7 @@ import {
   Content,
   LeftPanel,
   LeftSidebar,
+  LeftSidebarState,
   Main,
   PageLayout,
   RightPanel,
@@ -236,8 +237,12 @@ const BasicGrid = () => {
     <Fragment>
       {gridState.isPageLayoutShown && (
         <PageLayout
-          onLeftSidebarExpand={() => console.log('onExpand')}
-          onLeftSidebarCollapse={() => console.log('onCollapse')}
+          onLeftSidebarExpand={(state: LeftSidebarState) =>
+            console.log('onExpand', state)
+          }
+          onLeftSidebarCollapse={(state: LeftSidebarState) =>
+            console.log('onCollapse', state)
+          }
         >
           {gridState.isBannerShown && (
             <Banner height={60} isFixed={gridState.isBannerFixed}>
@@ -283,8 +288,12 @@ const BasicGrid = () => {
                 id="left-sidebar"
                 skipLinkTitle="Left sidebar"
                 isFixed={gridState.isLeftSidebarFixed}
-                onResizeStart={() => console.log('onResizeStart')}
-                onResizeEnd={() => console.log('onResizeEnd')}
+                onResizeStart={(state: LeftSidebarState) =>
+                  console.log('onResizeStart', state)
+                }
+                onResizeEnd={(state: LeftSidebarState) =>
+                  console.log('onResizeEnd', state)
+                }
                 onFlyoutExpand={() => console.log('onFlyoutExpand')}
                 onFlyoutCollapse={() => console.log('onFlyoutCollapse')}
                 overrides={{

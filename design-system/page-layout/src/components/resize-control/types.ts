@@ -20,10 +20,10 @@ export type ResizeControlProps = {
   };
   resizeGrabAreaLabel?: string;
   resizeButtonLabel?: string;
-  onCollapse?: () => void;
-  onExpand?: () => void;
-  onResizeStart?: () => void;
-  onResizeEnd?: () => void;
+  onCollapse?: (leftSidebarState: LeftSidebarState) => void;
+  onExpand?: (leftSidebarState: LeftSidebarState) => void;
+  onResizeStart?: (leftSidebarState: LeftSidebarState) => void;
+  onResizeEnd?: (leftSidebarState: LeftSidebarState) => void;
   onFlyoutCollapse?: () => void;
   onFlyoutExpand?: () => void;
   leftSidebarState: LeftSidebarState;

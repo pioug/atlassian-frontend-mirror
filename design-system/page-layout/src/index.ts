@@ -22,4 +22,9 @@ export {
 
 export { usePageLayoutResize } from './controllers';
 
-export { SlotHeightProps, SlotWidthProps, Dimensions } from './common/types';
+export {
+  SlotHeightProps,
+  SlotWidthProps,
+  Dimensions,
+  LeftSidebarState,
+} from './common/types';

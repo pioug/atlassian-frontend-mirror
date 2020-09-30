@@ -21,18 +21,20 @@ import { SidebarResizeControllerProps } from '../common/types';
 import { getPageLayoutSlotCSSSelector } from '../common/utils';
 
 import {
+  LeftSidebarState,
   SidebarResizeContext,
   SidebarResizeContextValue,
 } from './sidebar-resize-context';
 
-type Callback = () => void;
+type Callback = (leftSidebarState: LeftSidebarState) => void;
 const noop = () => {};
 const handleDataAttributesAndCb = (
   callback: Callback = noop,
   isLeftSidebarCollapsed: boolean,
+  leftSidebarState: LeftSidebarState,
 ) => {
   document.documentElement.removeAttribute(IS_SIDEBAR_COLLAPSING);
-  callback();
+  callback(leftSidebarState);
 };
 
 export const SidebarResizeController: FC<SidebarResizeControllerProps> = ({
@@ -70,6 +72,7 @@ export const SidebarResizeController: FC<SidebarResizeControllerProps> = ({
             handleDataAttributesAndCb(
               isLeftSidebarCollapsed ? onCollapse : onExpand,
               isLeftSidebarCollapsed,
+              leftSidebarState,
             );
             // Make sure multiple event handlers do not get attached
             document
@@ -83,7 +86,7 @@ export const SidebarResizeController: FC<SidebarResizeControllerProps> = ({
     if (!firstRun.current) {
       firstRun.current = true;
     }
-  }, [isLeftSidebarCollapsed, onCollapse, onExpand]);
+  }, [isLeftSidebarCollapsed, leftSidebarState, onCollapse, onExpand]);
 
   const context: SidebarResizeContextValue = useMemo(
     () => ({
@@ -101,17 +104,18 @@ export const SidebarResizeController: FC<SidebarResizeControllerProps> = ({
           DEFAULT_LEFT_SIDEBAR_WIDTH,
         );
 
-        setLeftSidebarState({
+        const updatedLeftSidebarState = {
           isLeftSidebarCollapsed: false,
           isFlyoutOpen: false,
           leftSidebarWidth: width,
           lastLeftSidebarWidth,
           isResizing,
-        });
+        };
+        setLeftSidebarState(updatedLeftSidebarState);
 
         // onTransitionEnd isn't triggered when a user prefers reduced motion
         if (isReducedMotion()) {
-          handleDataAttributesAndCb(onExpand, false);
+          handleDataAttributesAndCb(onExpand, false, updatedLeftSidebarState);
         }
       }, 200),
 
@@ -127,17 +131,22 @@ export const SidebarResizeController: FC<SidebarResizeControllerProps> = ({
           // data-attribute is used as a CSS selector to sync the hiding/showing
           // of the nav contents with expand/collapse animation
           document.documentElement.setAttribute(IS_SIDEBAR_COLLAPSING, 'true');
-          setLeftSidebarState({
+          const updatedLeftSidebarState = {
             isLeftSidebarCollapsed: true,
             isFlyoutOpen: false,
             leftSidebarWidth: COLLAPSED_LEFT_SIDEBAR_WIDTH,
             lastLeftSidebarWidth: leftSidebarWidth,
             isResizing,
-          });
+          };
+          setLeftSidebarState(updatedLeftSidebarState);
 
           // onTransitionEnd isn't triggered when a user prefers reduced motion
           if (collapseWithoutTransition || isReducedMotion()) {
-            handleDataAttributesAndCb(onCollapse, true);
+            handleDataAttributesAndCb(
+              onCollapse,
+              true,
+              updatedLeftSidebarState,
+            );
           }
         },
         200,

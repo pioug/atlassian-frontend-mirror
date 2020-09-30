@@ -1,5 +1,11 @@
 # @atlaskit/page-layout
 
+## 0.10.1
+
+### Patch Changes
+
+- [`ec3df667ed`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ec3df667ed) - Pass left sidebar state to onResizeStart, onResizeEnd, onLeftSidebarExpand nd onLeftSidebarCollapse
+
 ## 0.10.0
 
 ### Minor Changes

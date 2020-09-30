@@ -1,6 +1,7 @@
 import { ElementType, ReactElement, ReactNode } from 'react';
 
 import { ResizeButtonProps } from '../components/resize-control/types';
+import { LeftSidebarState } from '../controllers/sidebar-resize-context';
 
 interface SlotProps {
   /** Sets positon to fixed. */
@@ -54,9 +55,9 @@ export interface LeftSidebarProps extends SlotWidthProps {
   /** Called when left-sidebar is expanded. */
   onExpand?: () => void;
   /** Called when left-sidebar resize starts using mouse or touch. */
-  onResizeStart?: () => void;
+  onResizeStart?: (leftSidebarState: LeftSidebarState) => void;
   /** Called when left-sidebar resize ends using mouse or touch. */
-  onResizeEnd?: () => void;
+  onResizeEnd?: (leftSidebarState: LeftSidebarState) => void;
   /** Called when left-sidebar is collapsed and mouse leaves the area. */
   onFlyoutCollapse?: () => void;
   /** Called after flyout delay when left-sidebar is collapsed and mouse enters the area. */
@@ -69,9 +70,9 @@ export interface LeftSidebarProps extends SlotWidthProps {
 
 export type SidebarResizeControllerProps = {
   /** Called when left-sidebar expanded. */
-  onLeftSidebarExpand?: () => void;
+  onLeftSidebarExpand?: (leftSidebarState: LeftSidebarState) => void;
   /** Called when left-sidebar collapsed. */
-  onLeftSidebarCollapse?: () => void;
+  onLeftSidebarCollapse?: (leftSidebarState: LeftSidebarState) => void;
 };
 
 export type DimensionNames =
@@ -95,3 +96,5 @@ export interface PageLayoutProps extends SidebarResizeControllerProps {
    **/
   testId?: string;
 }
+
+export { LeftSidebarState } from '../controllers/sidebar-resize-context';

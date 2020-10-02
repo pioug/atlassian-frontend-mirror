@@ -1,5 +1,16 @@
 # @atlaskit/editor-common
 
+## 51.1.0
+
+### Minor Changes
+
+- [`1c6b85ea41`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1c6b85ea41) - Export OverflowShadowState and ExpandStyleProps types to prevent deep import path references in dependent TS declaration files
+- [`825273198f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/825273198f) - Migrate to declarative entry points
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 51.0.0
 
 ### Major Changes

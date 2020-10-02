@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useState } from 'react';
+import React, { FC, useState } from 'react';
 
 import { SkipLinksContext } from './skip-link-context';
 import { SkipLinkData } from './types';
@@ -7,22 +7,16 @@ export const SkipLinksController: FC = ({ children }) => {
   const [links, setLinks] = useState<SkipLinkData[]>([]);
 
   const context = {
-    registerSkipLink: useCallback(
-      (skipLinkData: SkipLinkData) => {
-        if (!links.map(link => link.id).includes(skipLinkData.id)) {
-          setLinks([skipLinkData, ...links]);
-        }
-      },
-      [links],
-    ),
+    registerSkipLink: (skipLinkData: SkipLinkData) => {
+      // Don't add duplicate SkipLinks
+      if (!links.map(link => link.id).includes(skipLinkData.id)) {
+        setLinks([skipLinkData, ...links]);
+      }
+    },
     skipLinksData: links,
-    unregisterSkipLink: useCallback(
-      (id: string | undefined) => {
-        const filtered = links.filter(link => link.id !== id);
-        setLinks(filtered);
-      },
-      [links],
-    ),
+    unregisterSkipLink: (id: string | undefined) => {
+      setLinks(links => links.filter(link => link.id !== id));
+    },
   };
 
   return (

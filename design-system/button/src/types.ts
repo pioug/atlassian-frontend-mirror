@@ -17,7 +17,9 @@ export type Spacing = 'compact' | 'default' | 'none';
 // 1. Remove all overlapping types from First
 // 2. Add properties from Second
 // https://codesandbox.io/s/native-button-with-nested-elementsclick-bnpjg?file=/src/index.ts
-export type Combine<First, Second> = Omit<First, keyof Second> & Second;
+/* This type is intentionally not exported to prevent it from being explicitly referenced in the resulting button types. The alternative would
+ * be making this public API and re-exporting from the root */
+type Combine<First, Second> = Omit<First, keyof Second> & Second;
 
 export type BaseOwnProps = {
   /** The base styling to apply to the button */

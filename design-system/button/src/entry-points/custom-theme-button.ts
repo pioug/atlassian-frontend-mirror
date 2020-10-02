@@ -4,4 +4,5 @@ export {
   ThemeProps,
   InteractionState,
   CustomThemeButtonProps,
+  CustomThemeButtonOwnProps,
 } from '../custom-theme-button/custom-theme-button-types';

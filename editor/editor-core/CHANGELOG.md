@@ -1,5 +1,12 @@
 # @atlaskit/editor-core
 
+## 131.0.4
+
+### Patch Changes
+
+- [`9798ad1405`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9798ad1405) - Remove deep import paths of dependencies in TS declaration files
+- Updated dependencies
+
 ## 131.0.3
 
 ### Patch Changes

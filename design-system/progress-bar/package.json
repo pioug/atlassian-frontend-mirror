@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/progress-bar",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "description": "A React component that is a progress bar",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -24,7 +24,7 @@
     }
   },
   "dependencies": {
-    "@atlaskit/theme": "^10.0.0",
+    "@atlaskit/theme": "^11.0.0",
     "@emotion/core": "^10.0.9",
     "tslib": "^2.0.0"
   },
@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "@atlaskit/build-utils": "*",
-    "@atlaskit/button": "^15.0.0",
+    "@atlaskit/button": "^15.1.0",
     "@atlaskit/docs": "*",
     "enzyme": "^3.10.0",
     "react-dom": "^16.8.0"

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/drawer",
-  "version": "6.0.4",
+  "version": "6.0.5",
   "description": "React component the renders a Drawer from the left of the screen",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -24,13 +24,13 @@
     }
   },
   "dependencies": {
-    "@atlaskit/analytics-next": "^7.1.0",
+    "@atlaskit/analytics-next": "^8.0.0",
     "@atlaskit/avatar": "^20.0.0",
     "@atlaskit/blanket": "^11.0.0",
     "@atlaskit/icon": "^21.0.0",
     "@atlaskit/item": "^12.0.0",
     "@atlaskit/portal": "^4.0.0",
-    "@atlaskit/theme": "^10.0.0",
+    "@atlaskit/theme": "^11.0.0",
     "@emotion/core": "^10.0.9",
     "chromatism": "^2.6.0",
     "exenv": "^1.2.2",
@@ -45,9 +45,9 @@
   },
   "devDependencies": {
     "@atlaskit/build-utils": "*",
-    "@atlaskit/button": "^15.0.0",
+    "@atlaskit/button": "^15.1.0",
     "@atlaskit/docs": "*",
-    "@atlaskit/dropdown-menu": "^10.0.0",
+    "@atlaskit/dropdown-menu": "^10.1.0",
     "@atlaskit/quick-search": "^8.0.0",
     "@atlaskit/section-message": "^5.0.0",
     "@atlaskit/ssr": "*",

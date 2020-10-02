@@ -1,5 +1,12 @@
 # @atlaskit/renderer
 
+## 67.0.1
+
+### Patch Changes
+
+- [`9798ad1405`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9798ad1405) - Remove deep import paths of dependencies in TS declaration files
+- Updated dependencies
+
 ## 67.0.0
 
 ### Major Changes

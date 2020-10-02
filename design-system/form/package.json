@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/form",
-  "version": "8.1.4",
+  "version": "8.1.5",
   "description": "Form package provides layout & validation for form fields",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -26,7 +26,7 @@
   },
   "dependencies": {
     "@atlaskit/icon": "^21.1.0",
-    "@atlaskit/theme": "^10.0.0",
+    "@atlaskit/theme": "^11.0.0",
     "final-form": "^4.20.1",
     "final-form-focus": "^1.1.2",
     "lodash": "^4.17.15",
@@ -40,12 +40,12 @@
   },
   "devDependencies": {
     "@atlaskit/build-utils": "*",
-    "@atlaskit/button": "^15.0.0",
+    "@atlaskit/button": "^15.1.0",
     "@atlaskit/calendar": "^10.0.0",
     "@atlaskit/checkbox": "^11.0.0",
     "@atlaskit/datetime-picker": "^10.0.0",
     "@atlaskit/docs": "^9.0.0",
-    "@atlaskit/dropdown-menu": "^10.0.0",
+    "@atlaskit/dropdown-menu": "^10.1.0",
     "@atlaskit/droplist": "^11.0.0",
     "@atlaskit/field-radio-group": "^8.0.0",
     "@atlaskit/field-range": "^9.0.0",

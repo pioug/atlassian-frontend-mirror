@@ -1,5 +1,13 @@
 # @atlaskit/theme
 
+## 11.0.0
+
+### Major Changes
+
+- [`42803d6708`](https://bitbucket.org/atlassian/atlassian-frontend/commits/42803d6708) - Remove references to deep import paths in TS declaration files.
+
+  Released as a major to force dependents with deep import paths to no longer be able to reference newer versions of theme
+
 ## 10.0.5
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/code",
-  "version": "13.0.1",
+  "version": "13.0.2",
   "description": "Code highlights short strings of code snippets inline with body text.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -27,7 +27,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@atlaskit/theme": "^10.0.0",
+    "@atlaskit/theme": "^11.0.0",
     "memoize-one": "^5.1.0",
     "react-syntax-highlighter": "^10.0.1",
     "tslib": "^2.0.0"

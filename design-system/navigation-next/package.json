@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/navigation-next",
-  "version": "9.0.7",
+  "version": "9.0.8",
   "description": "The Atlassian navigation component.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -25,12 +25,12 @@
   },
   "dependencies": {
     "@atlaskit/analytics-namespaced-context": "^5.1.0",
-    "@atlaskit/analytics-next": "^7.1.0",
+    "@atlaskit/analytics-next": "^8.0.0",
     "@atlaskit/avatar": "^20.0.0",
     "@atlaskit/icon": "^21.1.0",
     "@atlaskit/select": "^13.0.0",
     "@atlaskit/spinner": "^15.0.0",
-    "@atlaskit/theme": "^10.0.0",
+    "@atlaskit/theme": "^11.0.0",
     "@atlaskit/tooltip": "^17.0.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/core": "^10.0.9",
@@ -56,10 +56,10 @@
     "@atlaskit/badge": "^14.0.0",
     "@atlaskit/banner": "^11.0.0",
     "@atlaskit/build-utils": "*",
-    "@atlaskit/button": "^15.0.0",
+    "@atlaskit/button": "^15.1.0",
     "@atlaskit/docs": "^9.0.0",
     "@atlaskit/drawer": "^6.0.0",
-    "@atlaskit/dropdown-menu": "^10.0.0",
+    "@atlaskit/dropdown-menu": "^10.1.0",
     "@atlaskit/field-base": "^15.0.0",
     "@atlaskit/global-navigation": "^10.0.0",
     "@atlaskit/icon-object": "^6.0.0",

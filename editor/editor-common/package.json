@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-common",
-  "version": "51.0.0",
+  "version": "51.1.0",
   "description": "A package that contains common classes and components for editor and renderer",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -16,16 +16,21 @@
   "atlaskit:src": "src/index.ts",
   "atlassian": {
     "team": "Editor",
-    "deprecatedAutoEntryPoints": true,
     "inPublicMirror": true,
     "releaseModel": "scheduled"
+  },
+  "af:exports": {
+    "./collab": "./src/collab.ts",
+    "./extensions": "./src/extensions.ts",
+    "./provider-factory": "./src/provider-factory.ts",
+    "./validator": "./src/validator.ts"
   },
   "dependencies": {
     "@atlaskit/activity-provider": "^2.3.0",
     "@atlaskit/adf-schema": "^13.0.0",
     "@atlaskit/adf-utils": "^10.4.0",
     "@atlaskit/analytics-namespaced-context": "^5.1.0",
-    "@atlaskit/analytics-next": "^7.1.0",
+    "@atlaskit/analytics-next": "^8.0.0",
     "@atlaskit/editor-shared-styles": "^1.1.0",
     "@atlaskit/emoji": "^63.0.0",
     "@atlaskit/icon": "^21.1.0",
@@ -35,7 +40,7 @@
     "@atlaskit/mention": "^19.0.0",
     "@atlaskit/profilecard": "^13.0.0",
     "@atlaskit/task-decision": "^17.0.0",
-    "@atlaskit/theme": "^10.0.0",
+    "@atlaskit/theme": "^11.0.0",
     "@atlaskit/tooltip": "^17.0.0",
     "@atlaskit/width-detector": "^3.0.0",
     "@types/prosemirror-model": "^1.7.2",

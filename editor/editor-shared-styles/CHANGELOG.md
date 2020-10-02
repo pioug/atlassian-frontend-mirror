@@ -1,6 +1,13 @@
 # @atlaskit/editor-shared-styles
 
+## 1.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.1.0
+
 ### Minor Changes
 
 - [`fbc358206c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fbc358206c) - ED-9125 ED-8837 Export values for selected border and selected box shadow, and util to disable browser text selection

@@ -18,7 +18,7 @@ export type InteractionState =
   | 'focus'
   | 'default';
 
-export type OwnProps = {
+export type CustomThemeButtonOwnProps = {
   /* Conditionally show a spinner over the top of a button */
   isLoading?: boolean;
   /** Slow + discouraged custom theme API
@@ -30,7 +30,8 @@ export type OwnProps = {
   ) => ThemeTokens;
 };
 
-export type CustomThemeButtonProps = Omit<BaseProps, 'overlay'> & OwnProps;
+export type CustomThemeButtonProps = Omit<BaseProps, 'overlay'> &
+  CustomThemeButtonOwnProps;
 
 export type ThemeProps = Partial<CustomThemeButtonProps> & {
   // state: string;

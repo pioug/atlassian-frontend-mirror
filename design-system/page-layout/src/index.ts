@@ -9,6 +9,7 @@ export {
   LeftPanel,
   Banner,
   TopNavigation,
+  useCustomSkipLink,
 } from './components';
 
 export {

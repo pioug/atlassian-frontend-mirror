@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/calendar",
-  "version": "10.0.7",
+  "version": "10.0.8",
   "description": "A React component for displaying a calendar.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -25,11 +25,11 @@
     }
   },
   "dependencies": {
-    "@atlaskit/analytics-next": "^7.1.0",
-    "@atlaskit/button": "^15.0.0",
+    "@atlaskit/analytics-next": "^8.0.0",
+    "@atlaskit/button": "^15.1.0",
     "@atlaskit/icon": "^21.1.0",
     "@atlaskit/locale": "^2.1.0",
-    "@atlaskit/theme": "^10.0.0",
+    "@atlaskit/theme": "^11.0.0",
     "calendar-base": "^0.3.0",
     "lodash": "^4.17.15",
     "react-uid": "^2.2.0",

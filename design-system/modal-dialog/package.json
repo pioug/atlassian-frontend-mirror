@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/modal-dialog",
-  "version": "11.2.1",
+  "version": "11.2.2",
   "description": "A modal dialog displays content that requires user interaction, in a layer above the page.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -27,12 +27,12 @@
     "watch": "tsc --watch --noEmit --project './tsconfig.json'"
   },
   "dependencies": {
-    "@atlaskit/analytics-next": "^7.1.0",
+    "@atlaskit/analytics-next": "^8.0.0",
     "@atlaskit/blanket": "^11.0.0",
-    "@atlaskit/button": "^15.0.0",
+    "@atlaskit/button": "^15.1.0",
     "@atlaskit/icon": "^21.1.0",
     "@atlaskit/portal": "^4.0.0",
-    "@atlaskit/theme": "^10.0.0",
+    "@atlaskit/theme": "^11.0.0",
     "@emotion/core": "^10.0.9",
     "@emotion/styled": "^10.0.7",
     "exenv": "^1.2.2",
@@ -50,7 +50,7 @@
   "devDependencies": {
     "@atlaskit/avatar": "^20.0.0",
     "@atlaskit/build-utils": "*",
-    "@atlaskit/button": "^15.0.0",
+    "@atlaskit/button": "^15.1.0",
     "@atlaskit/checkbox": "^11.0.0",
     "@atlaskit/docs": "*",
     "@atlaskit/field-radio-group": "^8.0.0",

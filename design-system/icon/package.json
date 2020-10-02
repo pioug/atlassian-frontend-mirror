@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/icon",
-  "version": "21.1.2",
+  "version": "21.1.3",
   "description": "A React package that contains icons",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -27,7 +27,7 @@
     "build:typescript:cjs": "NODE_ENV=production tsc --project build/cjs/tsconfig.json"
   },
   "dependencies": {
-    "@atlaskit/theme": "^10.0.0",
+    "@atlaskit/theme": "^11.0.0",
     "tslib": "^2.0.0",
     "uuid": "^3.1.0"
   },
@@ -37,7 +37,7 @@
   },
   "devDependencies": {
     "@atlaskit/build-utils": "*",
-    "@atlaskit/button": "^15.0.0",
+    "@atlaskit/button": "^15.1.0",
     "@atlaskit/docs": "*",
     "@atlaskit/dynamic-table": "^14.1.0",
     "@atlaskit/icon-build-process": "^0.2.0",

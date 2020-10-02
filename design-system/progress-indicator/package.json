@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/progress-indicator",
-  "version": "9.0.0",
+  "version": "9.0.1",
   "description": "A progress indicator shows the user where they are along the steps of a journey.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -24,8 +24,8 @@
     }
   },
   "dependencies": {
-    "@atlaskit/analytics-next": "^7.1.0",
-    "@atlaskit/theme": "^10.0.0",
+    "@atlaskit/analytics-next": "^8.0.0",
+    "@atlaskit/theme": "^11.0.0",
     "tslib": "^2.0.0"
   },
   "peerDependencies": {
@@ -34,7 +34,7 @@
   },
   "devDependencies": {
     "@atlaskit/build-utils": "*",
-    "@atlaskit/button": "^15.0.0",
+    "@atlaskit/button": "^15.1.0",
     "@atlaskit/docs": "*",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",

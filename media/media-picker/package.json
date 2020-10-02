@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-picker",
-  "version": "56.0.1",
+  "version": "56.0.2",
   "description": "Library for handling file uploads",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -26,9 +26,9 @@
   },
   "dependencies": {
     "@atlaskit/analytics-gas-types": "^5.0.0",
-    "@atlaskit/analytics-next": "^7.1.0",
-    "@atlaskit/button": "^15.0.0",
-    "@atlaskit/dropdown-menu": "^10.0.0",
+    "@atlaskit/analytics-next": "^8.0.0",
+    "@atlaskit/button": "^15.1.0",
+    "@atlaskit/dropdown-menu": "^10.1.0",
     "@atlaskit/flag": "^14.0.0",
     "@atlaskit/icon": "^21.1.0",
     "@atlaskit/media-card": "^69.4.0",
@@ -40,7 +40,7 @@
     "@atlaskit/outbound-auth-flow-client": "^3.1.0",
     "@atlaskit/spinner": "^15.0.0",
     "@atlaskit/textfield": "^4.0.0",
-    "@atlaskit/theme": "^10.0.0",
+    "@atlaskit/theme": "^11.0.0",
     "bricks.js": "^1.8.0",
     "dateformat": "^1.0.12",
     "eventemitter2": "^4.1.0",

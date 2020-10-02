@@ -10,3 +10,4 @@ export { default as TopNavigation } from './slots/top-navigation';
 export { default as Content } from './slots/content';
 
 export { default as ResizeControl } from './resize-control';
+export { useCustomSkipLink } from './skip-links';

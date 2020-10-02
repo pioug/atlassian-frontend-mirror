@@ -56,6 +56,7 @@ export {
   default as overflowShadow,
   OverflowShadowOptions,
   OverflowShadowProps,
+  OverflowShadowState,
   shadowClassNames,
 } from './OverflowShadow';
 
@@ -66,6 +67,7 @@ export {
   sharedExpandStyles,
   ExpandIconWrapper,
   ExpandLayoutWrapper,
+  StyleProps as ExpandStyleProps,
 } from './Expand';
 
 export { ErrorMessage, HelperMessage, ValidMessage } from './Messages';

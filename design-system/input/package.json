@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/input",
-  "version": "8.0.2",
+  "version": "8.0.3",
   "description": "Internal component used by field-base to create field-text. DO NOT USE DIRECTLY",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -24,7 +24,7 @@
     }
   },
   "dependencies": {
-    "@atlaskit/theme": "^10.0.0",
+    "@atlaskit/theme": "^11.0.0",
     "@babel/runtime": "^7.0.0",
     "keycode": "^2.1.7"
   },

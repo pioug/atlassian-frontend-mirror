@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/portal",
-  "version": "4.0.2",
+  "version": "4.0.3",
   "description": "Atlaskit wrapper for rendering components in React portals",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -24,7 +24,7 @@
     }
   },
   "dependencies": {
-    "@atlaskit/theme": "^10.0.0",
+    "@atlaskit/theme": "^11.0.0",
     "exenv": "^1.2.2",
     "tiny-invariant": "^0.0.3",
     "tslib": "^2.0.0"
@@ -34,7 +34,7 @@
     "react-dom": "^16.8.0"
   },
   "devDependencies": {
-    "@atlaskit/button": "^15.0.0",
+    "@atlaskit/button": "^15.1.0",
     "@atlaskit/docs": "*",
     "@atlaskit/flag": "^14.0.0",
     "@atlaskit/icon": "^21.1.0",

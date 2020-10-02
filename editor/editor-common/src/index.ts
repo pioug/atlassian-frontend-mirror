@@ -199,6 +199,7 @@ export {
   MentionEventHandlers,
   OverflowShadowOptions,
   OverflowShadowProps,
+  OverflowShadowState,
   Popup,
   PopupPosition,
   PopupProps,
@@ -227,6 +228,7 @@ export {
   MediaLink,
   wrappedLayouts,
   shouldAddDefaultWrappedWidth,
+  ExpandStyleProps,
 } from './ui';
 
 export { linkMessages } from './messages/link';

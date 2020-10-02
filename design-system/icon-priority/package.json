@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/icon-priority",
-  "version": "6.0.4",
+  "version": "6.0.5",
   "description": "A React package that contains priority icons",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -27,7 +27,7 @@
     "build:typescript:cjs": "NODE_ENV=production tsc --project build/cjs/tsconfig.json"
   },
   "dependencies": {
-    "@atlaskit/theme": "^10.0.0",
+    "@atlaskit/theme": "^11.0.0",
     "tslib": "^2.0.0"
   },
   "peerDependencies": {
@@ -36,7 +36,7 @@
   },
   "devDependencies": {
     "@atlaskit/build-utils": "*",
-    "@atlaskit/button": "^15.0.0",
+    "@atlaskit/button": "^15.1.0",
     "@atlaskit/docs": "*",
     "@atlaskit/icon-build-process": "^0.2.0",
     "@atlaskit/modal-dialog": "^11.2.0",

@@ -14,3 +14,4 @@ export { default as DropdownItemGroupCheckbox } from './components/group/Dropdow
 
 // Types
 export { DropdownMenuStatefulProps } from './types';
+export { Props as WithToggleInteractionProps } from './components/hoc/withToggleInteraction';

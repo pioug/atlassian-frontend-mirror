@@ -1,6 +1,6 @@
 // Ideally this file is not used directly. But rather, you go through the entry points
 
-export { Appearance, Spacing } from './entry-points/types';
+export { Appearance, Spacing, BaseOwnProps } from './entry-points/types';
 export {
   // default export is Button
   default,
@@ -15,6 +15,7 @@ export {
   ThemeProps,
   InteractionState,
   CustomThemeButtonProps,
+  CustomThemeButtonOwnProps,
   default as CustomThemeButton,
   Theme,
 } from './entry-points/custom-theme-button';

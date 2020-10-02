@@ -1,5 +1,15 @@
 # @atlaskit/dropdown-menu
 
+## 10.1.0
+
+### Minor Changes
+
+- [`50c2ca9269`](https://bitbucket.org/atlassian/atlassian-frontend/commits/50c2ca9269) - Export WithToggleInteractionProps type to prevent it from being referenced via deep import path in dependent declaration files
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.0.6
 
 ### Patch Changes

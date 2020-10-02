@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-shared-styles",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Style values used in the editor/renderer",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -24,7 +24,7 @@
     "./selection": "./src/selection/index.ts"
   },
   "dependencies": {
-    "@atlaskit/theme": "^10.0.0"
+    "@atlaskit/theme": "^11.0.0"
   },
   "peerDependencies": {},
   "devDependencies": {},

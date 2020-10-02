@@ -1,5 +1,15 @@
 # @atlaskit/button
 
+## 15.1.0
+
+### Minor Changes
+
+- [`1944b0b626`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1944b0b626) - Export BaseOwnProps type to prevent it being referenced via deep import path in declaration files of dependendents
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 15.0.0
 
 ### Major Changes

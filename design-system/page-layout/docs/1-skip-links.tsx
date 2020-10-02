@@ -21,6 +21,7 @@ The skip links menu:
 - appears on keyboard focus and is the first focusable item on the page
 - can be closed by pressing escape, which brings focus to the first element after the skip link menu
 - lists all PageLayout sections that have \`skipLinkTitle\` and \`id\` props set
+- allows registering of custom skip links through the \`CustomSkipLink\` comoponent
 - uses a focus ring when a link is selected to highlight the selection
 
 To modify the "Skip to:" text, set the \`skipLinksI18n\` prop in \`PageLayout\`.
@@ -33,6 +34,21 @@ ${(
     Component={require('../examples/01-basic-page-layout').default}
     title="Basic page layout with skip link menu"
     source={require('!!raw-loader!../examples/01-basic-page-layout')}
+  />
+)}
+
+### Custom skip links
+Sometimes it may be required to add a skip link to a section of the page which is not one of the slots provided by PageLayout. This is where the \`useCustomSkipLink\` hook comes in handy.
+Here's an example of using the  \`useCustomSkipLink\` to set up skip links to elements that are not direct children of a PageLayout slot.
+
+**Note:** Although \`useCustomSkipLink\` can link to DOM elements outside of PageLayout using the HTML id, it needs to be called from within PageLayout, since it relies on the context provider that wraps PageLayout.
+
+${(
+  <Example
+    packageName="@atlaskit/page-layout"
+    Component={require('../examples/30-custom-skip-links').default}
+    title="Page layout using the customSkipLinks prop"
+    source={require('!!raw-loader!../examples/30-custom-skip-links')}
   />
 )}
 
@@ -53,4 +69,6 @@ descriptive.
 
 All skip link text needs to be **translated** for different locales. This includes section skip link labels, as
 well as the 'skip to:' text at the top of the panel.
+
+
 `;

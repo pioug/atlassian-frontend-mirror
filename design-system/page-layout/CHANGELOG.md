@@ -1,5 +1,19 @@
 # @atlaskit/page-layout
 
+## 0.10.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.10.2
+
+### Patch Changes
+
+- [`4cf354b500`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4cf354b500) - Adds the ability to register custom skip links to be displayed in the `PageLayout` skip link menu. Now if you have an element that isn't a slot of the `PageLayout` component, you can still provide a helpful and accessible way to jump straight to it!
+
+  Import the new `useCustomSkipLink` hook and pass in the taget `id` and a `skipLinkTitle` and it will add a new link to the element with a matching `id`, no matter where it is in the document. You can also choose what position the link will show up in the menu by using the optional `listIndex` prop.
+
 ## 0.10.1
 
 ### Patch Changes

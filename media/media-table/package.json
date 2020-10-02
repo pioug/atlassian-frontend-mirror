@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-table",
-  "version": "6.0.0",
+  "version": "6.0.1",
   "description": "Table UI component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -24,14 +24,14 @@
     }
   },
   "dependencies": {
-    "@atlaskit/analytics-next": "^7.1.0",
-    "@atlaskit/button": "^15.0.0",
+    "@atlaskit/analytics-next": "^8.0.0",
+    "@atlaskit/button": "^15.1.0",
     "@atlaskit/dynamic-table": "^14.1.0",
     "@atlaskit/icon": "^21.1.0",
     "@atlaskit/media-client": "^11.0.0",
     "@atlaskit/media-ui": "^14.1.0",
     "@atlaskit/media-viewer": "^45.3.0",
-    "@atlaskit/theme": "^10.0.0",
+    "@atlaskit/theme": "^11.0.0",
     "@atlaskit/tooltip": "^17.0.0",
     "dateformat": "^1.0.12",
     "memoize-one": "^5.1.0"

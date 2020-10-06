@@ -91,9 +91,8 @@ BrowserTestCase(
     });
 
     await collapseExpandThenFocusTitle(page);
-    await page.keys('ArrowDown');
-    await page.keys('Backspace');
-    await page.type(editable, 'title');
+    await page.keys(['ArrowDown', 'Backspace']);
+    await page.keys('title'); // type into the open, not targeted at a field
 
     const doc = await page.$eval(editable, getDocFromElement);
     expect(doc).toMatchCustomDocSnapshot(testName);
@@ -113,9 +112,8 @@ BrowserTestCase(
     });
 
     await page.click('.ak-editor-expand__title-input[value="Second title"]');
-    await page.keys('ArrowDown');
-    await page.keys('Backspace');
-    await page.type(editable, 'hello');
+    await page.keys(['ArrowDown', 'Backspace']);
+    await page.keys('hello'); // type into the open, not targeted at a field
 
     const doc = await page.$eval(editable, getDocFromElement);
     expect(doc).toMatchCustomDocSnapshot(testName);

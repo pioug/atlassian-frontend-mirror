@@ -13,6 +13,7 @@ export const selectors = {
   dropList: 'div[data-role="droplistContent"]',
   emojiPicker: 'div[data-emoji-picker-container="true"]',
   mentionQuery: 'span[data-type-ahead-query]',
+  quickInsert: 'span[data-trigger="/"][data-type-ahead-query]',
   gapCursor: '.ProseMirror-gapcursor',
   layoutDataSection: '[data-layout-section="true"]',
   panelContent: '.ak-editor-panel__content',
@@ -34,6 +35,15 @@ export async function clickFirstParagraph(page: PuppeteerPage) {
   await page.waitForSelector(selectors.firstEditorParagraph);
   await page.click(selectors.firstEditorParagraph);
 }
+
+/**
+ * This function needs to be called in the browser context.
+ * Make sure you call `toJSON` otherwise you will get:
+ *   Unknown error: Maximum call stack size exceeded
+ *
+ * Don't get too fancy with it ;)
+ */
+export const getDocFromElement = (el: any) => el.pmViewDesc.node.toJSON();
 
 const replaceInputStr = (str: string) => {
   return `concat('${str.replace(/'/g, `', "'", '`)}', '')`;

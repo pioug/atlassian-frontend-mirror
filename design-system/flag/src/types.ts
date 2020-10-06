@@ -34,7 +34,13 @@ export const AppearanceArray: AppearanceTypes[] = [
   'warning',
 ];
 
-export type AutoDismissFlagProps = {
+// CreateFlagsArg makes id optional so define this prop separately
+type FlagPropsId = {
+  /** A unique identifier used for rendering and onDismissed callbacks. */
+  id: number | string;
+};
+
+type AutoDismissFlagPropsWithoutId = {
   /** Array of clickable actions to be shown at the bottom of the flag. For flags where appearance
    * is 'normal', actions will be shown as links. For all other appearance values, actions will
    * shown as buttons.
@@ -52,8 +58,6 @@ export type AutoDismissFlagProps = {
    * icon in a containing element with CSS `color` set to your preferred icon color.
    */
   icon: ReactNode;
-  /** A unique identifier used for rendering and onDismissed callbacks. */
-  id: number | string;
   /** The bold text shown at the top of the flag. */
   title: ReactNode;
   /** A link component that is passed down to the `@atlaskit/button` used by actions,
@@ -67,8 +71,14 @@ export type AutoDismissFlagProps = {
   analyticsContext?: Record<string, any>;
 };
 
-export interface FlagProps
-  extends AutoDismissFlagProps,
+// Normal AutoDismissFlagProps should include the id
+export interface AutoDismissFlagProps
+  extends AutoDismissFlagPropsWithoutId,
+    FlagPropsId {}
+
+// This is extended by CreateFlagArgs
+export interface FlagPropsWithoutId
+  extends AutoDismissFlagPropsWithoutId,
     WithAnalyticsEventsProps {
   /** Standard onBlur event, applied to Flag by AutoDismissFlag */
   onBlur?: (
@@ -85,3 +95,6 @@ export interface FlagProps
   /** Standard onMouseOver event, applied to Flag by AutoDismissFlag */
   onMouseOver?: MouseEventHandler;
 }
+
+// Normal FlagProps should include the id
+export interface FlagProps extends FlagPropsWithoutId, FlagPropsId {}

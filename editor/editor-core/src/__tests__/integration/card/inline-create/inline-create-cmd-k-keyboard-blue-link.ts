@@ -29,7 +29,8 @@ BrowserTestCase(
     await page.waitForSelector(linkLabelSelector);
 
     // Type an arbitrary link we want to insert.
-    await page.type(linkUrlSelector, [mockUrl, 'Return']);
+    await page.type(linkUrlSelector, mockUrl);
+    await page.keys(['Return']);
     // Ensure a link has been inserted.
     await page.waitForSelector(`a[href="${mockUrl}"]`);
 

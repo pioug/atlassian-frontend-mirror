@@ -12,7 +12,8 @@ BrowserTestCase(
 
     await gotoEditor(page);
 
-    await page.type(editable, ['www.atlassian.com', 'Return']);
+    await page.type(editable, 'www.atlassian.com');
+    await page.keys(['Return']);
 
     const doc = await page.$eval(editable, getDocFromElement);
     expect(doc).toMatchCustomDocSnapshot(testName);

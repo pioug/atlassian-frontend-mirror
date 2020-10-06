@@ -32,9 +32,7 @@ describe('Editor Actions', () => {
 
       const view: EditorView = editorActions._privateGetEditorView()!;
 
-      /**
-       * Populate the document with content that isnt valid ADF without sanitization.
-       */
+      // populate the document with content that isnt valid ADF without sanitization.
       const content = view.state.schema.nodeFromJSON({
         type: 'paragraph',
         content: [

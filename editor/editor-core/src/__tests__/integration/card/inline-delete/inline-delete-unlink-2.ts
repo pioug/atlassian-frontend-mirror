@@ -22,7 +22,8 @@ BrowserTestCase(
     await page.click(`[aria-label="${messages.link.defaultMessage}"]`);
     await page.waitForSelector(linkUrlSelector);
 
-    await page.type(linkUrlSelector, ['home opt-in', 'ArrowDown', 'Return']);
+    await page.type(linkUrlSelector, 'home opt-in');
+    await page.keys(['ArrowDown', 'Return']);
 
     await waitForInlineCardSelection(page);
     await page.click('button[aria-label="Unlink"]');

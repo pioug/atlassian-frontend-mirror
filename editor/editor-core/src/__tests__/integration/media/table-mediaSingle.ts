@@ -35,7 +35,7 @@ BrowserTestCase(
     );
 
     // second cell
-    await page.type(editable, 'ArrowDown');
+    await page.keys(['ArrowDown']);
 
     // now we can insert media as necessary
     await insertMedia(page);

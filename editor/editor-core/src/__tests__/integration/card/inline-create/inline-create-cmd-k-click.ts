@@ -24,7 +24,7 @@ BrowserTestCase(
     await page.click(`[aria-label="${messages.link.defaultMessage}"]`);
     await page.waitForSelector(linkUrlSelector);
 
-    await page.type(linkUrlSelector, ['home opt-in']);
+    await page.type(linkUrlSelector, 'home opt-in');
     await page.remoteDOMClick('[data-testid="link-search-list-item"]');
     await page.waitForSelector('[data-testid="inline-card-resolved-view"]');
 

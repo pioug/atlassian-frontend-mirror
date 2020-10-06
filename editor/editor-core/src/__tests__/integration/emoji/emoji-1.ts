@@ -112,7 +112,7 @@ BrowserTestCase(
     await insertEmoji(page, 'a');
     await insertEmoji(page, 'light_bulb_on');
     await page.waitForSelector(emojiItem('a'), { timeout: 1000 });
-    await page.type(editable, ['ArrowLeft', 'ArrowLeft', 'ArrowLeft']);
+    await page.keys(['ArrowLeft', 'ArrowLeft', 'ArrowLeft']);
     await page.type(editable, ' that ');
     const doc = await page.$eval(editable, getDocFromElement);
     // Below is a workaround related to https://product-fabric.atlassian.net/browse/ED-10238

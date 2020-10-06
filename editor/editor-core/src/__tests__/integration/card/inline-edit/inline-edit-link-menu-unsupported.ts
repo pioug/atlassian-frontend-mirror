@@ -34,7 +34,8 @@ BrowserTestCase(
     await manuallyEmptyLinkToolbar(page);
 
     // Choosing an unsupported link
-    await page.type(linkUrlSelector, ['FAB-1166', 'ArrowDown', 'Return']);
+    await page.type(linkUrlSelector, 'FAB-1166');
+    await page.keys(['ArrowDown', 'Return']);
     await page.waitForSelector('a');
 
     const doc = await page.$eval(editable, getDocFromElement);

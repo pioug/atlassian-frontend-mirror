@@ -16,12 +16,10 @@ import {
 import { selectors } from '../__helpers/page-objects/_editor';
 import { TableCssClassName } from '../../plugins/table/types';
 import { messages as insertBlockMessages } from '../../plugins/insert-block/ui/ToolbarInsertBlock/messages';
-/**
- * This function will in browser context. Make sure you call `toJSON` otherwise you will get:
- * unknown error: Maximum call stack size exceeded
- * And, don't get too fancy with it ;)
- */
-export const getDocFromElement = (el: any) => el.pmViewDesc.node.toJSON();
+
+export { quickInsert } from '../__helpers/page-objects/_extensions';
+
+export { getDocFromElement } from '../__helpers/page-objects/_editor';
 
 export const expectToMatchDocument = async (page: any, testName: string) => {
   const doc = await page.browser.execute(() => {
@@ -424,21 +422,6 @@ export const toggleBreakout = async (page: any, times: number) => {
     await page.click(breakoutSelector);
     await animationFrame(page);
   }
-};
-
-export const quickInsert = async (browser: any, insertTitle: string) => {
-  const firstWord = `/${insertTitle.split(' ')[0]}`;
-  // Investigate why string based input (without an array) fails in firefox
-  // https://product-fabric.atlassian.net/browse/ED-7044
-  const inputText = firstWord.split('');
-  await browser.type(editable, inputText);
-
-  await browser.waitForSelector('div[aria-label="Popup"]');
-  await browser.waitForSelector(
-    `[aria-label="Popup"] [role="button"][aria-describedby="${insertTitle}"]`,
-  );
-
-  await browser.click(`[aria-label="Popup"] [role="button"]`);
 };
 
 export const forEach = async (

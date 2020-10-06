@@ -163,7 +163,7 @@ const floatingToolbarLanguageSelector = 'div[aria-label="Floating Toolbar"]';
       await insertBlockMenuItem(page, messages.codeblock.defaultMessage);
       await page.waitForSelector(codeBlockSelectors.languageSelectInput);
       // Move out of code block
-      await page.type(editor.placeholder, ['ArrowDown']);
+      await page.keys(['ArrowDown']);
       // Insert a second code block
       await insertBlockMenuItem(page, messages.codeblock.defaultMessage);
       // Make sure the second code block doesn't have a language set.
@@ -173,7 +173,8 @@ const floatingToolbarLanguageSelector = 'div[aria-label="Floating Toolbar"]';
       );
       expect(secondCodeblockInitialLanguage.trim()).toEqual('Select language');
       // Set a language on the second code block
-      await page.type(codeBlockSelectors.languageSelectInput, ['C', 'Return']);
+      await page.type(codeBlockSelectors.languageSelectInput, ['C'])
+      await page.keys(['Return']);
 
       // Check that the language on the first code block is still the same
       await page.click('code');

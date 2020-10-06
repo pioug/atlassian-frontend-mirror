@@ -37,16 +37,14 @@ const linkText2 = 'FAB-983';
 
       await browser.click(`[aria-label="${messages.link.defaultMessage}"]`);
       await browser.waitForSelector(linkToolbar);
-      await browser.type(linkToolbar, [linkText2, 'ArrowDown', 'Return']);
+      await browser.type(linkToolbar, linkText2);
+      await browser.keys(['ArrowDown', 'Return']);
       await browser.waitForSelector('a');
 
       // unlink
-      await browser.type(editable, [
-        'Return',
-        linkText1,
-        'ArrowLeft',
-        'ArrowLeft',
-      ]);
+      await browser.keys(['Return']);
+      await browser.type(editable, linkText1);
+      await browser.keys(['ArrowLeft', 'ArrowLeft']);
       await browser.waitForSelector('[aria-label=Unlink]');
       await browser.click('[aria-label=Unlink]');
 

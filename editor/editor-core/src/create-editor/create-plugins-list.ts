@@ -153,8 +153,8 @@ export function getDefaultPresetOptionsFromEditorProps(
       disableDefaultItems: isMobile,
       headless: isMobile,
     },
-    codeBlock: { ...props.codeBlock, useLongPressSelection: isMobile },
-    selection: { useLongPressSelection: isMobile },
+    codeBlock: { ...props.codeBlock, useLongPressSelection: false },
+    selection: { useLongPressSelection: false },
   };
 }
 
@@ -225,7 +225,7 @@ export default function createPluginsList(
       expandPlugin,
       {
         allowInsertion: isExpandInsertionEnabled(props),
-        useLongPressSelection: isMobile,
+        useLongPressSelection: false,
       },
     ]);
   }
@@ -312,7 +312,7 @@ export default function createPluginsList(
       {
         allowNestedTasks: props.allowNestedTasks,
         consumeTabs: isFullPage,
-        useLongPressSelection: isMobile,
+        useLongPressSelection: false,
       },
     ]);
   }
@@ -369,7 +369,7 @@ export default function createPluginsList(
     preset.add([
       panelPlugin,
       {
-        useLongPressSelection: isMobile,
+        useLongPressSelection: false,
         UNSAFE_allowCustomPanel: (<PanelPluginConfig>props.allowPanel)
           .UNSAFE_allowCustomPanel,
       },
@@ -389,7 +389,7 @@ export default function createPluginsList(
         allowAutoSave: extensionConfig.allowAutoSave,
         allowLocalIdGeneration: extensionConfig.allowLocalIdGeneration,
         extensionHandlers: props.extensionHandlers,
-        useLongPressSelection: isMobile,
+        useLongPressSelection: false,
       },
     ]);
   }
@@ -420,7 +420,7 @@ export default function createPluginsList(
       layoutPlugin,
       {
         ...(typeof props.allowLayouts === 'boolean' ? {} : props.allowLayouts),
-        useLongPressSelection: isMobile,
+        useLongPressSelection: false,
       },
     ]);
   }

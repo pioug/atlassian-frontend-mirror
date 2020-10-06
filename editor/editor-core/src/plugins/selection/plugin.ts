@@ -1,4 +1,9 @@
-import { EditorState, Plugin, NodeSelection } from 'prosemirror-state';
+import {
+  EditorState,
+  Plugin,
+  NodeSelection,
+  TextSelection,
+} from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 
 import { browser } from '@atlaskit/editor-common';
@@ -65,8 +70,8 @@ export const createPlugin = (
       },
     }),
 
-    // Prevent single click selecting atom nodes on mobile (we want to select with long press gesture instead)
-    filterTransaction(tr) {
+    filterTransaction(tr, state) {
+      // Prevent single click selecting atom nodes on mobile (we want to select with long press gesture instead)
       if (
         options.useLongPressSelection &&
         tr.selectionSet &&
@@ -75,6 +80,19 @@ export const createPlugin = (
       ) {
         return false;
       }
+
+      // Prevent prosemirror's mutation observer overriding a node selection with a text selection
+      // for exact same range - this was cause of being unable to change dates in collab:
+      // https://product-fabric.atlassian.net/browse/ED-10645
+      if (
+        state.selection instanceof NodeSelection &&
+        tr.selection instanceof TextSelection &&
+        state.selection.from === tr.selection.from &&
+        state.selection.to === tr.selection.to
+      ) {
+        return false;
+      }
+
       return true;
     },
 

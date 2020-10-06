@@ -1,6 +1,6 @@
 # Flag
 
-A flag is used for confirmations, alerts, and acknowledgments that require minimal user interaction.
+A flag is used for confirmations, alerts, and acknowledgments that require minimal user interaction, often displayed using a flag group.
 
 ## Installation
 

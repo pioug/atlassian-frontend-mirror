@@ -34,7 +34,8 @@ BrowserTestCase(
     await manuallyEmptyLinkToolbar(page);
 
     // Choosing a supported link
-    await page.type(linkUrlSelector, ['home opt-in', 'ArrowDown', 'Return']);
+    await page.type(linkUrlSelector, 'home opt-in');
+    await page.keys(['ArrowDown', 'Return']);
 
     await waitForInlineCardSelection(page);
 

@@ -80,7 +80,7 @@ export function useMobilePreset({
   preset.add([placeholderPlugin, { placeholder }]);
   preset.add(mobileScrollPlugin);
   preset.add(expandPlugin);
-  preset.add([selectionPlugin, { useLongPressSelection: true }]);
+  preset.add([selectionPlugin, { useLongPressSelection: false }]);
   // Begin -> This would be exclude if the provider doesnt exist in the factory
   preset.add(tasksAndDecisionsPlugin);
   preset.add([cardPlugin, { allowBlockCards: true, platform: 'mobile' }]);

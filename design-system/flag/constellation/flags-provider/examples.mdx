@@ -1,0 +1,29 @@
+---
+title: Flags provider
+description: Flags provider creates a flag group and manages the state of flags.
+---
+
+import { FlagsProvider } from '../../src/index';
+import FlagsProviderExample from '../../examples/constellation/flags-provider';
+import FlagsProviderShowFlag from '../../examples/constellation/flags-provider-show-flag';
+import ShowFlagArgs from '!!extract-react-types-loader!../../extract-react-types/show-flag-args';
+
+## Default
+
+To show flags without managing a `FlagGroup`, wrap your application in a `FlagsProvider`,
+which provides context to its children.
+
+<Example Component={FlagsProviderExample} packageName="@atlaskit/flag" />
+
+### Using showFlags
+
+Any components within your application can now access the function `showFlags` from
+the context by calling `useFlags`. Call `showFlags` with an object of type `CreateFlagArgs`
+and a `Flag` will be displayed. `CreateFlagArgs` is defined as follows:
+
+<!-- We are using PropsTable to display CreateFlagArgs which is a type -->
+<PropsTable heading="" props={ShowFlagArgs} />
+
+The return value of `showFlags` is a function that dismisses the flag that was just created.
+
+<Example Component={FlagsProviderShowFlag} packageName="@atlaskit/flag" />

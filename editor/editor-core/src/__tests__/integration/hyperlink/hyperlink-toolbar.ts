@@ -23,8 +23,9 @@ const textDisplaySelector = 'input[data-testid="link-label"]';
       await browser.click(`[aria-label="${messages.link.defaultMessage}"]`);
       await browser.waitForSelector(linkToolbar);
 
-      await browser.type(linkToolbar, [linkText, 'Return']);
-      await browser.type(editable, ['ArrowLeft', 'ArrowLeft', 'ArrowLeft']);
+      await browser.type(linkToolbar, linkText);
+      await browser.keys(['Return']);
+      await browser.keys(['ArrowLeft', 'ArrowLeft', 'ArrowLeft']);
 
       await browser.waitForSelector(editLinkSelector);
       await browser.click(editLinkSelector);

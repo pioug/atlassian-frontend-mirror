@@ -1,5 +1,21 @@
 # @atlaskit/editor-mobile-bridge
 
+## 19.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.6
+
+### Patch Changes
+
+- [`9a055964a3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9a055964a3) - ED-10628 Re-enable single click selection on mobile
+
+  Long press selection is temporarily blocked, so we will re-enable single click selection for now
+
+- Updated dependencies
+
 ## 19.0.5
 
 ### Patch Changes

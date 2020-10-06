@@ -33,22 +33,21 @@ const linkText2 = 'FAB-983';
 
       await browser.click(`[aria-label="${messages.link.defaultMessage}"]`);
       await browser.waitForSelector(linkToolbar);
-      await browser.type(linkToolbar, [linkText2, 'ArrowDown', 'Return']);
+      await browser.type(linkToolbar, linkText2);
+      await browser.keys(['ArrowDown', 'Return']);
       await browser.waitForSelector('a');
 
       // unlink
-      await browser.type(editable, [
-        'Return',
-        linkText1,
-        'ArrowLeft',
-        'ArrowLeft',
-      ]);
+      await browser.keys(['Return']);
+      await browser.type(editable, linkText1);
+      await browser.keys(['ArrowLeft', 'ArrowLeft']);
+
       await browser.waitForSelector('[aria-label="Edit link"]');
       await browser.click('[aria-label="Edit link"]');
 
       await browser.waitForSelector(textToDisplayInput);
       await browser.type(textToDisplayInput, 'mmm');
-      await browser.type(textToDisplayInput, 'Return');
+      await browser.keys('Return');
       const doc = await browser.$eval(editable, getDocFromElement);
       expect(doc).toMatchCustomDocSnapshot(testName);
     },
@@ -68,17 +67,17 @@ const linkText2 = 'FAB-983';
       await browser.waitForSelector(editable);
 
       await browser.click(`[aria-label="${messages.link.defaultMessage}"]`);
-      await browser.waitForSelector(linkToolbar);
-      await browser.type(linkToolbar, [linkText2, 'ArrowDown', 'Return']);
+      await browser.type(linkToolbar, linkText2);
+      await browser.keys(['ArrowDown', 'Return']);
       await browser.waitForSelector('a');
 
-      await browser.type(editable, ['ArrowLeft', 'ArrowLeft']);
+      await browser.keys(['ArrowLeft', 'ArrowLeft']);
       await browser.waitForSelector('[aria-label="Edit link"]');
       await browser.click('[aria-label="Edit link"]');
 
       await browser.waitForSelector(textToDisplayInput);
       await browser.type(textToDisplayInput, 'mmm');
-      await browser.type(textToDisplayInput, 'Return');
+      await browser.keys('Return');
       const doc = await browser.$eval(editable, getDocFromElement);
       expect(doc).toMatchCustomDocSnapshot(testName);
     },
@@ -99,22 +98,20 @@ const linkText2 = 'FAB-983';
 
       await browser.click(`[aria-label="${messages.link.defaultMessage}"]`);
       await browser.waitForSelector(linkToolbar);
-      await browser.type(linkToolbar, [linkText2, 'ArrowDown', 'Return']);
+      await browser.type(linkToolbar, linkText2);
+      await browser.keys(['ArrowDown', 'Return']);
       await browser.waitForSelector('a');
 
       // unlink
-      await browser.type(editable, [
-        'Return',
-        linkText1,
-        'ArrowLeft',
-        'ArrowLeft',
-      ]);
+      await browser.keys(['Return']);
+      await browser.type(editable, linkText1);
+      await browser.keys(['ArrowLeft', 'ArrowLeft']);
       await browser.waitForSelector('[aria-label="Edit link"]');
       await browser.click('[aria-label="Edit link"]');
 
       await browser.waitForSelector(textToDisplayInput);
       await browser.type(textToDisplayInput, 'mmm');
-      await browser.type(textToDisplayInput, 'Escape');
+      await browser.keys('Escape');
       const doc = await browser.$eval(editable, getDocFromElement);
       expect(doc).toMatchCustomDocSnapshot(testName);
     },

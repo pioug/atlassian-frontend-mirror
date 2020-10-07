@@ -240,6 +240,7 @@ const LeftSidebar = (props: LeftSidebarProps) => {
           css={resizeableChildrenWrapperStyle(
             isFlyoutOpen,
             isLeftSidebarCollapsed,
+            !notFirstRun.current && collapsedState === 'collapsed',
           )}
         >
           <div css={fixedChildrenWrapperStyle}>{children}</div>

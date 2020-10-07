@@ -113,6 +113,7 @@ export const leftSidebarStyles = (
 export const resizeableChildrenWrapperStyle = (
   isFlyoutOpen?: boolean,
   isLeftSidebarCollapsed?: boolean,
+  collapsedState?: boolean,
 ): CSSObject => ({
   visibility: 'visible',
   transition: 'none',
@@ -120,7 +121,9 @@ export const resizeableChildrenWrapperStyle = (
   overflow: 'hidden auto',
   height: '100%',
   [`[${IS_SIDEBAR_COLLAPSING}] &`]: hideLeftSidebarContents,
-  ...(isLeftSidebarCollapsed && !isFlyoutOpen && hideLeftSidebarContents),
+  ...((isLeftSidebarCollapsed || collapsedState) &&
+    !isFlyoutOpen &&
+    hideLeftSidebarContents),
 });
 const hideLeftSidebarContents: CSSObject = {
   // the transition duration is intentionally set to 0ms

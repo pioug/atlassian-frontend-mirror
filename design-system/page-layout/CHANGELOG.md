@@ -1,5 +1,11 @@
 # @atlaskit/page-layout
 
+## 0.10.4
+
+### Patch Changes
+
+- [`b4fd71e4a2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b4fd71e4a2) - Fixes the visiblity of left sidebar contents when rendered in SSR mode
+
 ## 0.10.3
 
 ### Patch Changes

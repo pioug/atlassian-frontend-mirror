@@ -1,3 +1,5 @@
+import debounce from 'lodash/debounce';
+
 interface DocumentReflowDetectorInit {
   onReflow(height: number): void;
 }
@@ -28,6 +30,7 @@ export class DocumentReflowDetector {
   private onReflowCallback: DocumentReflowDetectorInit['onReflow'];
   private observer: ResizeObserver | MutationObserver;
   private isResizeObserverAvailable: boolean = !!(window as any).ResizeObserver;
+  private resizeEventDebounced: (() => void) | undefined;
 
   constructor(init: DocumentReflowDetectorInit) {
     this.onReflowCallback = init.onReflow;
@@ -143,7 +146,8 @@ export class DocumentReflowDetector {
       }
 
       // Listen for changes that may impact the page height
-      window.addEventListener('resize', this.onResize);
+      this.resizeEventDebounced = debounce(this.onResize, 100);
+      window.addEventListener('resize', this.resizeEventDebounced);
 
       if (this.isResizeObserverAvailable) {
         this.observer.observe(rootElement!);
@@ -167,7 +171,9 @@ export class DocumentReflowDetector {
   };
 
   public disable = () => {
-    window.removeEventListener('resize', this.onResize);
+    if (this.resizeEventDebounced) {
+      window.removeEventListener('resize', this.resizeEventDebounced);
+    }
 
     if (!this.isResizeObserverAvailable) {
       document.querySelectorAll('img').forEach(this.unregisterImage);

@@ -1,5 +1,11 @@
 # @atlaskit/editor-mobile-bridge
 
+## 19.0.8
+
+### Patch Changes
+
+- [`f990181fb2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f990181fb2) - TWISTA-430 Add debounce to webview page resize to prevent renderer sometimes being cut off
+
 ## 19.0.7
 
 ### Patch Changes

@@ -2,9 +2,9 @@ import React, {
   FC,
   KeyboardEvent,
   MouseEvent,
+  useCallback,
   useEffect,
   useMemo,
-  useRef,
   useState,
 } from 'react';
 
@@ -15,6 +15,7 @@ import { isReducedMotion } from '@atlaskit/motion';
 import {
   COLLAPSED_LEFT_SIDEBAR_WIDTH,
   DEFAULT_LEFT_SIDEBAR_WIDTH,
+  GRAB_AREA_SELECTOR,
   IS_SIDEBAR_COLLAPSING,
 } from '../common/constants';
 import { SidebarResizeControllerProps } from '../common/types';
@@ -51,42 +52,48 @@ export const SidebarResizeController: FC<SidebarResizeControllerProps> = ({
   });
 
   const { isLeftSidebarCollapsed } = leftSidebarState;
+  const leftSidebarSelector = getPageLayoutSlotCSSSelector('left-sidebar');
 
-  const firstRun = useRef(false);
-  useEffect(() => {
-    const $leftSidebar = document.querySelector(
-      `${getPageLayoutSlotCSSSelector('left-sidebar')}`,
-    );
-    // Don't attach event listener on first run
-    if ($leftSidebar && firstRun.current && !isReducedMotion()) {
-      $leftSidebar.addEventListener(
-        'transitionend',
-        function transitionEventHandler(event) {
-          if (
-            (event as TransitionEvent).propertyName === 'width' &&
-            event.target &&
-            (event.target as HTMLDivElement).matches(
-              `${getPageLayoutSlotCSSSelector('left-sidebar')}`,
-            )
-          ) {
-            handleDataAttributesAndCb(
-              isLeftSidebarCollapsed ? onCollapse : onExpand,
-              isLeftSidebarCollapsed,
-              leftSidebarState,
-            );
-            // Make sure multiple event handlers do not get attached
-            document
-              .querySelector(`${getPageLayoutSlotCSSSelector('left-sidebar')}`)!
-              .removeEventListener('transitionend', transitionEventHandler);
-          }
-        },
+  const transitionEventHandler = useCallback(event => {
+    if (
+      (event as TransitionEvent).propertyName === 'width' &&
+      event.target &&
+      (event.target as HTMLDivElement).matches(leftSidebarSelector)
+    ) {
+      const $leftSidebarResizeController = document.querySelector(
+        `[${GRAB_AREA_SELECTOR}]`,
       );
-    }
+      const isCollapsed =
+        !!$leftSidebarResizeController &&
+        $leftSidebarResizeController.hasAttribute('disabled');
 
-    if (!firstRun.current) {
-      firstRun.current = true;
+      handleDataAttributesAndCb(
+        isCollapsed ? onCollapse : onExpand,
+        isCollapsed,
+        leftSidebarState,
+      );
+
+      // Make sure multiple event handlers do not get attached
+      document
+        .querySelector(leftSidebarSelector)!
+        .removeEventListener('transitionend', transitionEventHandler);
     }
-  }, [isLeftSidebarCollapsed, leftSidebarState, onCollapse, onExpand]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    const $leftSidebar = document.querySelector(leftSidebarSelector);
+    if ($leftSidebar && !isReducedMotion()) {
+      $leftSidebar.addEventListener('transitionend', transitionEventHandler);
+    }
+  }, [
+    isLeftSidebarCollapsed,
+    leftSidebarSelector,
+    leftSidebarState,
+    onCollapse,
+    onExpand,
+    transitionEventHandler,
+  ]);
 
   const context: SidebarResizeContextValue = useMemo(
     () => ({

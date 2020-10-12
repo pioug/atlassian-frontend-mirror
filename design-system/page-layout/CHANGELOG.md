@@ -1,5 +1,11 @@
 # @atlaskit/page-layout
 
+## 0.10.5
+
+### Patch Changes
+
+- [`2c735227f9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2c735227f9) - Fix resize callback events from being called more than once on mount
+
 ## 0.10.4
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-mobile-bridge",
-  "version": "19.0.8",
+  "version": "19.0.9",
   "description": "Mobile distribution of the Editor",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -11,7 +11,7 @@
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "module:es2019": "dist/es2019/index.js",
-  "types": "dist/cjs/index.d.ts",
+  "types": "dist/types/index.d.ts",
   "atlaskit:src": "src/index.ts",
   "atlassian": {
     "team": "Editor",
@@ -43,7 +43,7 @@
     "@atlaskit/mention": "19.0.7",
     "@atlaskit/renderer": "67.0.1",
     "@atlaskit/smart-card": "14.4.2",
-    "@atlaskit/status": "0.10.3",
+    "@atlaskit/status": "0.10.4",
     "@atlaskit/task-decision": "17.0.7",
     "@atlaskit/theme": "11.0.0",
     "@babel/polyfill": "^7.0.0",

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { act, fireEvent, render } from '@testing-library/react';
+import { act, cleanup, fireEvent, render } from '@testing-library/react';
 
 import {
   IS_SIDEBAR_COLLAPSING,
@@ -59,6 +59,7 @@ describe('SidebarResizeController', () => {
   afterEach(() => {
     jest.useRealTimers();
     localStorage.clear();
+    cleanup();
   });
 
   it('should return the correct "isLeftSidebarCollapsed" state', () => {
@@ -126,6 +127,60 @@ describe('SidebarResizeController', () => {
     expect(
       document.documentElement.getAttribute(IS_SIDEBAR_COLLAPSING),
     ).toEqual(null);
+  });
+
+  it('should call correct callback for collapse after initial render', () => {
+    const collapseFn = jest.fn();
+    const expandFn = jest.fn();
+    const { getByTestId } = render(
+      <PageLayout
+        testId="grid"
+        onLeftSidebarCollapse={collapseFn}
+        onLeftSidebarExpand={expandFn}
+      >
+        <Content>
+          <LeftSidebar testId="left-sidebar" width={200}>
+            LeftSidebar
+            <ResizeControlledConsumer />
+          </LeftSidebar>
+          <Main testId="content">Main</Main>
+        </Content>
+      </PageLayout>,
+    );
+
+    act(() => {
+      fireEvent.click(getByTestId('collapse'));
+    });
+    triggerTransitionEnd(getByTestId('left-sidebar'));
+    expect(collapseFn).toBeCalledTimes(1);
+    expect(expandFn).toBeCalledTimes(0);
+  });
+
+  it('should call correct callback for expand after initial render', () => {
+    const collapseFn = jest.fn();
+    const expandFn = jest.fn();
+    const { getByTestId } = render(
+      <PageLayout
+        testId="grid"
+        onLeftSidebarCollapse={collapseFn}
+        onLeftSidebarExpand={expandFn}
+      >
+        <Content>
+          <LeftSidebar testId="left-sidebar" width={200}>
+            LeftSidebar
+            <ResizeControlledConsumer />
+          </LeftSidebar>
+          <Main testId="content">Main</Main>
+        </Content>
+      </PageLayout>,
+    );
+
+    act(() => {
+      fireEvent.click(getByTestId('expand'));
+    });
+    triggerTransitionEnd(getByTestId('left-sidebar'));
+    expect(collapseFn).toBeCalledTimes(0);
+    expect(expandFn).toBeCalledTimes(1);
   });
 
   it('should add the correct data attributes while expanding and collapsing', () => {
@@ -427,6 +482,13 @@ describe('SidebarResizeController', () => {
       completeAnimations();
 
       expect(fn).toHaveBeenCalledTimes(1);
+      expect(fn).toHaveBeenCalledWith({
+        isFlyoutOpen: false,
+        isLeftSidebarCollapsed: false,
+        isResizing: false,
+        lastLeftSidebarWidth: 240,
+        leftSidebarWidth: 240,
+      });
     });
 
     it('should call onCollapse callback when LeftSidebar is collapsed', () => {
@@ -448,6 +510,13 @@ describe('SidebarResizeController', () => {
       });
 
       expect(fn).toHaveBeenCalledTimes(1);
+      expect(fn).toHaveBeenCalledWith({
+        isFlyoutOpen: false,
+        isLeftSidebarCollapsed: true,
+        isResizing: false,
+        lastLeftSidebarWidth: 240,
+        leftSidebarWidth: 20,
+      });
     });
   });
 });

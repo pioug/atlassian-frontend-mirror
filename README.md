@@ -56,7 +56,7 @@ Atlassian Frontend supports all [supported browsers for Atlassian cloud products
 
 |          ![chrome](imgs/chrome.png)          |        ![safari](imgs/safari.png)        | ![firefox](imgs/firefox.png) | ![edge](imgs/edge.png) |
 |:--------------------------------------------:|:----------------------------------------:|:----------------------------:|:----------------------:|
-| Latest ✔<br>Latest Android ✔<br>Latest iOS ✔ | Latest on latest macOS ✔<br>Latest iOS ✔ |           Latest ✔           |        Latest ✔        |
+| Latest ✔ Latest Android ✔ Latest iOS ✔ | Latest on latest macOS ✔ Latest iOS ✔ |           Latest ✔           |        Latest ✔        |
 
 ### Contributing
 

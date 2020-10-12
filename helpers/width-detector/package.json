@@ -1,0 +1,51 @@
+{
+  "name": "@atlaskit/width-detector",
+  "version": "3.0.3",
+  "description": "Wrapper for components that need to respond to width changes",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "author": "Atlassian Pty Ltd",
+  "license": "Apache-2.0",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "module:es2019": "dist/es2019/index.js",
+  "types": "dist/types/index.d.ts",
+  "sideEffects": false,
+  "atlaskit:src": "src/index.ts",
+  "atlassian": {
+    "team": "Design System Team",
+    "deprecatedAutoEntryPoints": true,
+    "releaseModel": "scheduled",
+    "website": {
+      "name": "Width Detector"
+    }
+  },
+  "dependencies": {
+    "raf-schd": "^2.1.0",
+    "tslib": "^2.0.0"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0",
+    "styled-components": "^3.2.6"
+  },
+  "devDependencies": {
+    "@atlaskit/build-utils": "*",
+    "@atlaskit/button": "^15.0.0",
+    "@atlaskit/docs": "*",
+    "@atlaskit/section-message": "^5.0.0",
+    "@atlaskit/ssr": "*",
+    "@atlaskit/visual-regression": "*",
+    "@atlaskit/webdriver-runner": "*",
+    "enzyme": "^3.10.0",
+    "lodash": "^4.17.15",
+    "react-dom": "^16.8.0",
+    "wait-for-expect": "^1.2.0"
+  },
+  "keywords": [
+    "atlaskit",
+    "react",
+    "ui"
+  ]
+}

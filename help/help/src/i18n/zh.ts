@@ -1,0 +1,2 @@
+// Chinese
+export default {};

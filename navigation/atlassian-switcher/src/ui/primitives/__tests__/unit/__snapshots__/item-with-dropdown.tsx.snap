@@ -1,0 +1,3990 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Atlassian Switcher - ItemWithDropdown renders Bitbucket snapshot correctly 1`] = `
+.c8 {
+  color: #FFFFFF;
+  display: inline-block;
+  fill: currentColor;
+  height: 24px;
+  position: relative;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.c8 > svg {
+  fill: inherit;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+.c8 > canvas {
+  display: block;
+  height: 100%;
+  visibility: hidden;
+}
+
+.c8 stop {
+  stop-color: currentColor;
+}
+
+.c6 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  padding-bottom: 1px;
+}
+
+.c5 {
+  margin-right: 8px;
+}
+
+.c9 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  margin: 0;
+  overflow: hidden;
+}
+
+.c9:first-child {
+  margin: 0;
+}
+
+.c10 {
+  display: block;
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 1.1428571428571428;
+  padding-bottom: 1px;
+}
+
+.c0 {
+  -webkit-animation: ljGnjM 500ms ease forwards;
+  animation: ljGnjM 500ms ease forwards;
+  opacity: 0;
+}
+
+.c3 {
+  border-radius: 3px;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+}
+
+.c2 {
+  width: 100%;
+  overflow: hidden;
+}
+
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  box-sizing: border-box;
+  border-radius: 3px;
+}
+
+.c7 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  box-shadow: 0 1px 1px rgba(9,30,66,0.25),0 0 1px 1px rgba(9,30,66,0.13);
+  background-color: #0052CC;
+  overflow: hidden;
+}
+
+.c4.c4 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 3px;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: none;
+  -ms-flex: none;
+  flex: none;
+  background-color: transparent;
+  color: #091E42;
+  fill: transparent;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  padding: 8px 8px 7px 8px;
+  width: 100%;
+}
+
+.c4.c4:focus {
+  color: #091E42;
+}
+
+.c4.c4:hover {
+  background-color: #EBECF0;
+  fill: #EBECF0;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4.c4:active {
+  background-color: transparent;
+  fill: transparent;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4.c4:focus {
+  box-shadow: 0 0 0 2px #4C9AFF inset;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4.c4:focus {
+  outline: none;
+  position: relative;
+}
+
+<WithAnalyticsEvents(SwitcherItemWithDropDown)
+  childIcon={
+    <Unknown
+      theme="subtle"
+    />
+  }
+  childItems={Array []}
+  description={null}
+  href="https://bitbucket.org"
+  icon={
+    <Unknown
+      theme="product"
+    />
+  }
+  tooltipContent={
+    <span>
+      Show more sites
+    </span>
+  }
+>
+  <SwitcherItemWithDropDown
+    childIcon={
+      <Unknown
+        theme="subtle"
+      />
+    }
+    childItems={Array []}
+    createAnalyticsEvent={[Function]}
+    description={null}
+    href="https://bitbucket.org"
+    icon={
+      <Unknown
+        theme="product"
+      />
+    }
+    onChildItemClick={[Function]}
+    onExpandClick={[Function]}
+    onItemClick={[Function]}
+    tooltipContent={
+      <span>
+        Show more sites
+      </span>
+    }
+  >
+    <styled.div>
+      <div
+        className="c0"
+      >
+        <styled.div
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+        >
+          <div
+            className="c1"
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+          >
+            <Component
+              isParentHovered={false}
+            >
+              <Consumer>
+                <Styled(styled.div)
+                  isParentHovered={false}
+                  tokens={
+                    Object {
+                      "hover": Object {
+                        "background": "#F4F5F7",
+                      },
+                    }
+                  }
+                >
+                  <styled.div
+                    className="c2"
+                    isParentHovered={false}
+                    tokens={
+                      Object {
+                        "hover": Object {
+                          "background": "#F4F5F7",
+                        },
+                      }
+                    }
+                  >
+                    <div
+                      className="c2 c3"
+                    >
+                      <Component
+                        createAnalyticsEvent={[Function]}
+                        description={null}
+                        href="https://bitbucket.org"
+                        icon={
+                          <Unknown
+                            theme="product"
+                          />
+                        }
+                        onClick={[Function]}
+                        onExpandClick={[Function]}
+                        tooltipContent={
+                          <span>
+                            Show more sites
+                          </span>
+                        }
+                      >
+                        <Consumer>
+                          <ThemeProvider
+                            theme={
+                              Object {
+                                "@atlaskit-shared-theme/item": Object {
+                                  "active": Object {
+                                    "background": "transparent",
+                                  },
+                                  "default": Object {
+                                    "background": "transparent",
+                                    "secondaryText": "#6B778C",
+                                    "text": "#091E42",
+                                  },
+                                  "display": "block",
+                                  "hover": Object {
+                                    "background": "#EBECF0",
+                                  },
+                                  "padding": Object {
+                                    "default": Object {
+                                      "bottom": 8,
+                                      "left": 8,
+                                      "right": 8,
+                                      "top": 8,
+                                    },
+                                  },
+                                  "width": Object {
+                                    "default": "100%",
+                                  },
+                                },
+                              }
+                            }
+                          >
+                            <SwitcherItem
+                              createAnalyticsEvent={[Function]}
+                              description={null}
+                              href="https://bitbucket.org"
+                              icon={
+                                <Unknown
+                                  theme="product"
+                                />
+                              }
+                              onClick={[Function]}
+                              onExpandClick={[Function]}
+                              tooltipContent={
+                                <span>
+                                  Show more sites
+                                </span>
+                              }
+                            >
+                              <styled.div>
+                                <div
+                                  className="c0"
+                                >
+                                  <Item
+                                    autoFocus={false}
+                                    createAnalyticsEvent={[Function]}
+                                    description={null}
+                                    elemBefore={
+                                      <Unknown
+                                        theme="product"
+                                      />
+                                    }
+                                    href="https://bitbucket.org"
+                                    isCompact={false}
+                                    isDisabled={false}
+                                    isHidden={false}
+                                    onClick={[Function]}
+                                    onExpandClick={[Function]}
+                                    role="button"
+                                    shouldAllowMultiline={false}
+                                    tooltipContent={
+                                      <span>
+                                        Show more sites
+                                      </span>
+                                    }
+                                  >
+                                    <styled.a
+                                      aria-disabled={false}
+                                      autoFocus={false}
+                                      createAnalyticsEvent={[Function]}
+                                      description={null}
+                                      elemBefore={
+                                        <Unknown
+                                          theme="product"
+                                        />
+                                      }
+                                      href="https://bitbucket.org"
+                                      innerRef={[Function]}
+                                      isCompact={false}
+                                      isDisabled={false}
+                                      isHidden={false}
+                                      onClick={[Function]}
+                                      onExpandClick={[Function]}
+                                      onKeyDown={[Function]}
+                                      onMouseDown={[Function]}
+                                      role="button"
+                                      shouldAllowMultiline={false}
+                                      tabIndex={null}
+                                      tooltipContent={
+                                        <span>
+                                          Show more sites
+                                        </span>
+                                      }
+                                    >
+                                      <a
+                                        aria-disabled={false}
+                                        autoFocus={false}
+                                        className="c4"
+                                        href="https://bitbucket.org"
+                                        onClick={[Function]}
+                                        onKeyDown={[Function]}
+                                        onMouseDown={[Function]}
+                                        role="button"
+                                        tabIndex={null}
+                                      >
+                                        <Styled(styled.span)
+                                          isCompact={false}
+                                        >
+                                          <styled.span
+                                            className="c5"
+                                            isCompact={false}
+                                          >
+                                            <span
+                                              className="c5 c6"
+                                            >
+                                              <Component
+                                                theme="product"
+                                              >
+                                                <styled.div
+                                                  bgColor="#0052CC"
+                                                  iconElevation={[Function]}
+                                                >
+                                                  <div
+                                                    className="c7"
+                                                  >
+                                                    <BitbucketIcon
+                                                      iconColor="#FFFFFF"
+                                                      iconGradientStart="inherit"
+                                                      iconGradientStop="inherit"
+                                                      label=""
+                                                      primaryColor="#FFFFFF"
+                                                      size="small"
+                                                      textColor="currentColor"
+                                                    >
+                                                      <Wrapper
+                                                        iconColor="#FFFFFF"
+                                                        iconGradientStart="inherit"
+                                                        iconGradientStop="inherit"
+                                                        label=""
+                                                        primaryColor="#FFFFFF"
+                                                        size="small"
+                                                        svg={[Function]}
+                                                        textColor="currentColor"
+                                                      >
+                                                        <styled.span
+                                                          dangerouslySetInnerHTML={
+                                                            Object {
+                                                              "__html": "<canvas height=\\"32\\" width=\\"32\\" aria-hidden=\\"true\\"></canvas>
+  <svg viewBox=\\"0 0 32 32\\" xmlns=\\"http://www.w3.org/2000/svg\\" focusable=\\"false\\" aria-hidden=\\"true\\">
+    <defs>
+      <linearGradient x1=\\"100%\\" x2=\\"45.339%\\" y1=\\"29.23%\\" y2=\\"75.038%\\" id=\\"uid1\\">
+        <stop stop-color=\\"inherit\\" stop-opacity=\\"0.4\\" offset=\\"0%\\"></stop>
+        <stop stop-color=\\"inherit\\" offset=\\"100%\\"></stop>
+      </linearGradient>
+    </defs>
+    <g stroke=\\"none\\" stroke-width=\\"1\\" fill-rule=\\"nonzero\\">
+      <path d=\\"M4.78580435,5 C4.55423538,4.99701333 4.33319771,5.09657765 4.18198458,5.27198488 C4.03077145,5.44739211 3.96486141,5.68068714 4.00193478,5.9092887 L7.32946109,26.1096074 C7.3703589,26.355373 7.49665951,26.578828 7.68612174,26.7406224 C7.87680866,26.9055104 8.11992598,26.9972003 8.37200761,26.9992993 L14.5488998,19.5995707 L13.6827239,19.5995707 L12.3227102,12.3958093 L27.3886833,12.3958093 L28.4469072,5.91712739 C28.4862006,5.68935393 28.4229655,5.45584955 28.2741046,5.27903 C28.1252437,5.10221045 27.9059335,5.00010264 27.6747957,5 L4.78580435,5 Z\\" fill=\\"currentColor\\"/>
+      <path fill=\\"url(#uid1)\\" d=\\"M27.3886833,12.3958093 L20.0320674,12.3958093 L18.7974728,19.5995707 L13.7023207,19.5995707 L7.68612174,26.7445417 C7.87680866,26.9094297 8.11992598,27.0011197 8.37200761,27.0032187 L24.3394307,27.0032187 C24.727754,27.0082167 25.0611955,26.7281258 25.1233002,26.3447683 L27.3886833,12.3958093 Z\\"/>
+    </g>
+  </svg>",
+                                                            }
+                                                          }
+                                                          iconColor="#FFFFFF"
+                                                          iconGradientStart="inherit"
+                                                          iconGradientStop="inherit"
+                                                          primaryColor="#FFFFFF"
+                                                          role="presentation"
+                                                          size="small"
+                                                          textColor="currentColor"
+                                                        >
+                                                          <span
+                                                            className="c8"
+                                                            dangerouslySetInnerHTML={
+                                                              Object {
+                                                                "__html": "<canvas height=\\"32\\" width=\\"32\\" aria-hidden=\\"true\\"></canvas>
+  <svg viewBox=\\"0 0 32 32\\" xmlns=\\"http://www.w3.org/2000/svg\\" focusable=\\"false\\" aria-hidden=\\"true\\">
+    <defs>
+      <linearGradient x1=\\"100%\\" x2=\\"45.339%\\" y1=\\"29.23%\\" y2=\\"75.038%\\" id=\\"uid1\\">
+        <stop stop-color=\\"inherit\\" stop-opacity=\\"0.4\\" offset=\\"0%\\"></stop>
+        <stop stop-color=\\"inherit\\" offset=\\"100%\\"></stop>
+      </linearGradient>
+    </defs>
+    <g stroke=\\"none\\" stroke-width=\\"1\\" fill-rule=\\"nonzero\\">
+      <path d=\\"M4.78580435,5 C4.55423538,4.99701333 4.33319771,5.09657765 4.18198458,5.27198488 C4.03077145,5.44739211 3.96486141,5.68068714 4.00193478,5.9092887 L7.32946109,26.1096074 C7.3703589,26.355373 7.49665951,26.578828 7.68612174,26.7406224 C7.87680866,26.9055104 8.11992598,26.9972003 8.37200761,26.9992993 L14.5488998,19.5995707 L13.6827239,19.5995707 L12.3227102,12.3958093 L27.3886833,12.3958093 L28.4469072,5.91712739 C28.4862006,5.68935393 28.4229655,5.45584955 28.2741046,5.27903 C28.1252437,5.10221045 27.9059335,5.00010264 27.6747957,5 L4.78580435,5 Z\\" fill=\\"currentColor\\"/>
+      <path fill=\\"url(#uid1)\\" d=\\"M27.3886833,12.3958093 L20.0320674,12.3958093 L18.7974728,19.5995707 L13.7023207,19.5995707 L7.68612174,26.7445417 C7.87680866,26.9094297 8.11992598,27.0011197 8.37200761,27.0032187 L24.3394307,27.0032187 C24.727754,27.0082167 25.0611955,26.7281258 25.1233002,26.3447683 L27.3886833,12.3958093 Z\\"/>
+    </g>
+  </svg>",
+                                                              }
+                                                            }
+                                                            role="presentation"
+                                                            size="small"
+                                                          />
+                                                        </styled.span>
+                                                      </Wrapper>
+                                                    </BitbucketIcon>
+                                                  </div>
+                                                </styled.div>
+                                              </Component>
+                                            </span>
+                                          </styled.span>
+                                        </Styled(styled.span)>
+                                        <styled.span>
+                                          <span
+                                            className="c9"
+                                          >
+                                            <styled.span
+                                              allowMultiline={false}
+                                            >
+                                              <span
+                                                className="c10"
+                                              >
+                                                Bitbucket
+                                              </span>
+                                            </styled.span>
+                                          </span>
+                                        </styled.span>
+                                      </a>
+                                    </styled.a>
+                                  </Item>
+                                </div>
+                              </styled.div>
+                            </SwitcherItem>
+                          </ThemeProvider>
+                        </Consumer>
+                      </Component>
+                    </div>
+                  </styled.div>
+                </Styled(styled.div)>
+              </Consumer>
+            </Component>
+          </div>
+        </styled.div>
+      </div>
+    </styled.div>
+  </SwitcherItemWithDropDown>
+</WithAnalyticsEvents(SwitcherItemWithDropDown)>
+`;
+
+exports[`Atlassian Switcher - ItemWithDropdown renders an item with multiple sites correctly and clicking expand shows children sites 1`] = `
+.c8 {
+  color: #FFFFFF;
+  display: inline-block;
+  fill: currentColor;
+  height: 24px;
+  position: relative;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.c8 > svg {
+  fill: inherit;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+.c8 > canvas {
+  display: block;
+  height: 100%;
+  visibility: hidden;
+}
+
+.c8 stop {
+  stop-color: currentColor;
+}
+
+.c6 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  padding-bottom: 1px;
+}
+
+.c5 {
+  margin-right: 8px;
+}
+
+.c9 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  margin: 0;
+  overflow: hidden;
+}
+
+.c9:first-child {
+  margin: 0;
+}
+
+.c10 {
+  display: block;
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 1.1428571428571428;
+  padding-bottom: 1px;
+}
+
+.c11 {
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #6B778C;
+  font-size: 11px;
+  line-height: 1.2727272727272727;
+  padding-bottom: 1px;
+}
+
+*:hover > * > .c11 {
+  color: #6B778C;
+}
+
+*:active > * > .c11 {
+  color: #6B778C;
+}
+
+.c0 {
+  -webkit-animation: ljGnjM 500ms ease forwards;
+  animation: ljGnjM 500ms ease forwards;
+  opacity: 0;
+}
+
+.c15 {
+  color: currentColor;
+  display: inline-block;
+  fill: #FFFFFF;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.c15 > svg {
+  max-height: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  vertical-align: bottom;
+}
+
+.c15 stop {
+  stop-color: currentColor;
+}
+
+.c3 {
+  border-radius: 3px;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+}
+
+.c2 {
+  width: 100%;
+  overflow: hidden;
+}
+
+.c12 {
+  max-height: 47px;
+  cursor: pointer;
+  margin-left: 2px;
+}
+
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  box-sizing: border-box;
+  border-radius: 3px;
+}
+
+.c14 {
+  width: 32px;
+  height: 32px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  margin-right: -8px;
+  margin-bottom: -1px;
+}
+
+.c7 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  box-shadow: 0 1px 1px rgba(9,30,66,0.25),0 0 1px 1px rgba(9,30,66,0.13);
+  background-color: #0052CC;
+  overflow: hidden;
+}
+
+.c4.c4 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 3px;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: none;
+  -ms-flex: none;
+  flex: none;
+  background-color: transparent;
+  color: #091E42;
+  fill: transparent;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  padding: 7px 8px 7px 8px;
+  width: 100%;
+}
+
+.c4.c4:focus {
+  color: #091E42;
+}
+
+.c4.c4:hover {
+  background-color: #EBECF0;
+  fill: #EBECF0;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4.c4:active {
+  background-color: transparent;
+  fill: transparent;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4.c4:focus {
+  box-shadow: 0 0 0 2px #4C9AFF inset;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4.c4:focus {
+  outline: none;
+  position: relative;
+}
+
+.c13.c13 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 3px;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: none;
+  -ms-flex: none;
+  flex: none;
+  background-color: transparent;
+  color: #091E42;
+  fill: transparent;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  padding: 8px 8px 7px 8px;
+  width: 100%;
+}
+
+.c13.c13:focus {
+  color: #091E42;
+}
+
+.c13.c13:hover {
+  background-color: #EBECF0;
+  fill: #EBECF0;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c13.c13:active {
+  background-color: transparent;
+  fill: transparent;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c13.c13:focus {
+  box-shadow: 0 0 0 2px #4C9AFF inset;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c13.c13:focus {
+  outline: none;
+  position: relative;
+}
+
+<WithAnalyticsEvents(SwitcherItemWithDropDown)
+  childIcon={
+    <Unknown
+      theme="subtle"
+    />
+  }
+  childItems={
+    Array [
+      Object {
+        "avatar": "https://site-admin-avatar-cdn.staging.public.atl-paas.net/avatars/240/rocket.png",
+        "href": "https://site00.atlassian.net/secure/BrowseProjects.jspa?selectedProjectType=software",
+        "label": "site00",
+      },
+      Object {
+        "avatar": "https://site-admin-avatar-cdn.stg.public.atl-paas.net/avatars/240/rocket.png",
+        "href": "https://site10.atlassian.net/secure/BrowseProjects.jspa?selectedProjectType=software",
+        "label": "site10",
+      },
+      Object {
+        "avatar": null,
+        "href": "https://site30.atlassian.net/secure/BrowseProjects.jspa?selectedProjectType=software",
+        "label": "site30",
+      },
+    ]
+  }
+  description="some-instance"
+  href="https://app.opsgenie.com"
+  icon={
+    <Unknown
+      theme="product"
+    />
+  }
+  tooltipContent={
+    <span>
+      Show more sites
+    </span>
+  }
+>
+  <SwitcherItemWithDropDown
+    childIcon={
+      <Unknown
+        theme="subtle"
+      />
+    }
+    childItems={
+      Array [
+        Object {
+          "avatar": "https://site-admin-avatar-cdn.staging.public.atl-paas.net/avatars/240/rocket.png",
+          "href": "https://site00.atlassian.net/secure/BrowseProjects.jspa?selectedProjectType=software",
+          "label": "site00",
+        },
+        Object {
+          "avatar": "https://site-admin-avatar-cdn.stg.public.atl-paas.net/avatars/240/rocket.png",
+          "href": "https://site10.atlassian.net/secure/BrowseProjects.jspa?selectedProjectType=software",
+          "label": "site10",
+        },
+        Object {
+          "avatar": null,
+          "href": "https://site30.atlassian.net/secure/BrowseProjects.jspa?selectedProjectType=software",
+          "label": "site30",
+        },
+      ]
+    }
+    createAnalyticsEvent={[Function]}
+    description="some-instance"
+    href="https://app.opsgenie.com"
+    icon={
+      <Unknown
+        theme="product"
+      />
+    }
+    onChildItemClick={[Function]}
+    onExpandClick={[Function]}
+    onItemClick={[Function]}
+    tooltipContent={
+      <span>
+        Show more sites
+      </span>
+    }
+  >
+    <styled.div>
+      <div
+        className="c0"
+      >
+        <styled.div
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+        >
+          <div
+            className="c1"
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+          >
+            <Component
+              isParentHovered={false}
+            >
+              <Consumer>
+                <Styled(styled.div)
+                  isParentHovered={false}
+                  tokens={
+                    Object {
+                      "hover": Object {
+                        "background": "#F4F5F7",
+                      },
+                    }
+                  }
+                >
+                  <styled.div
+                    className="c2"
+                    isParentHovered={false}
+                    tokens={
+                      Object {
+                        "hover": Object {
+                          "background": "#F4F5F7",
+                        },
+                      }
+                    }
+                  >
+                    <div
+                      className="c2 c3"
+                    >
+                      <Component
+                        createAnalyticsEvent={[Function]}
+                        description="some-instance"
+                        href="https://app.opsgenie.com"
+                        icon={
+                          <Unknown
+                            theme="product"
+                          />
+                        }
+                        onClick={[Function]}
+                        onExpandClick={[Function]}
+                        tooltipContent={
+                          <span>
+                            Show more sites
+                          </span>
+                        }
+                      >
+                        <Consumer>
+                          <ThemeProvider
+                            theme={
+                              Object {
+                                "@atlaskit-shared-theme/item": Object {
+                                  "active": Object {
+                                    "background": "transparent",
+                                  },
+                                  "default": Object {
+                                    "background": "transparent",
+                                    "secondaryText": "#6B778C",
+                                    "text": "#091E42",
+                                  },
+                                  "display": "block",
+                                  "hover": Object {
+                                    "background": "#EBECF0",
+                                  },
+                                  "padding": Object {
+                                    "default": Object {
+                                      "bottom": 8,
+                                      "left": 8,
+                                      "right": 8,
+                                      "top": 8,
+                                    },
+                                  },
+                                  "width": Object {
+                                    "default": "100%",
+                                  },
+                                },
+                              }
+                            }
+                          >
+                            <SwitcherItem
+                              createAnalyticsEvent={[Function]}
+                              description="some-instance"
+                              href="https://app.opsgenie.com"
+                              icon={
+                                <Unknown
+                                  theme="product"
+                                />
+                              }
+                              onClick={[Function]}
+                              onExpandClick={[Function]}
+                              tooltipContent={
+                                <span>
+                                  Show more sites
+                                </span>
+                              }
+                            >
+                              <styled.div>
+                                <div
+                                  className="c0"
+                                >
+                                  <Item
+                                    autoFocus={false}
+                                    createAnalyticsEvent={[Function]}
+                                    description="some-instance"
+                                    elemBefore={
+                                      <Unknown
+                                        theme="product"
+                                      />
+                                    }
+                                    href="https://app.opsgenie.com"
+                                    isCompact={false}
+                                    isDisabled={false}
+                                    isHidden={false}
+                                    onClick={[Function]}
+                                    onExpandClick={[Function]}
+                                    role="button"
+                                    shouldAllowMultiline={false}
+                                    tooltipContent={
+                                      <span>
+                                        Show more sites
+                                      </span>
+                                    }
+                                  >
+                                    <styled.a
+                                      aria-disabled={false}
+                                      autoFocus={false}
+                                      createAnalyticsEvent={[Function]}
+                                      description="some-instance"
+                                      elemBefore={
+                                        <Unknown
+                                          theme="product"
+                                        />
+                                      }
+                                      href="https://app.opsgenie.com"
+                                      innerRef={[Function]}
+                                      isCompact={false}
+                                      isDisabled={false}
+                                      isHidden={false}
+                                      onClick={[Function]}
+                                      onExpandClick={[Function]}
+                                      onKeyDown={[Function]}
+                                      onMouseDown={[Function]}
+                                      role="button"
+                                      shouldAllowMultiline={false}
+                                      tabIndex={null}
+                                      tooltipContent={
+                                        <span>
+                                          Show more sites
+                                        </span>
+                                      }
+                                    >
+                                      <a
+                                        aria-disabled={false}
+                                        autoFocus={false}
+                                        className="c4"
+                                        href="https://app.opsgenie.com"
+                                        onClick={[Function]}
+                                        onKeyDown={[Function]}
+                                        onMouseDown={[Function]}
+                                        role="button"
+                                        tabIndex={null}
+                                      >
+                                        <Styled(styled.span)
+                                          isCompact={false}
+                                        >
+                                          <styled.span
+                                            className="c5"
+                                            isCompact={false}
+                                          >
+                                            <span
+                                              className="c5 c6"
+                                            >
+                                              <Component
+                                                theme="product"
+                                              >
+                                                <styled.div
+                                                  bgColor="#0052CC"
+                                                  iconElevation={[Function]}
+                                                >
+                                                  <div
+                                                    className="c7"
+                                                  >
+                                                    <JiraSoftwareIcon
+                                                      iconColor="#FFFFFF"
+                                                      iconGradientStart="inherit"
+                                                      iconGradientStop="inherit"
+                                                      label=""
+                                                      primaryColor="#FFFFFF"
+                                                      size="small"
+                                                      textColor="currentColor"
+                                                    >
+                                                      <Wrapper
+                                                        iconColor="#FFFFFF"
+                                                        iconGradientStart="inherit"
+                                                        iconGradientStop="inherit"
+                                                        label=""
+                                                        primaryColor="#FFFFFF"
+                                                        size="small"
+                                                        svg={[Function]}
+                                                        textColor="currentColor"
+                                                      >
+                                                        <styled.span
+                                                          dangerouslySetInnerHTML={
+                                                            Object {
+                                                              "__html": "<canvas height=\\"32\\" width=\\"32\\" aria-hidden=\\"true\\"></canvas>
+  <svg viewBox=\\"0 0 32 32\\" xmlns=\\"http://www.w3.org/2000/svg\\" focusable=\\"false\\" aria-hidden=\\"true\\">
+    <defs>
+      <linearGradient x1=\\"108.695%\\" x2=\\"12.439%\\" y1=\\"-14.936%\\" y2=\\"45.215%\\" id=\\"uid3-1\\">
+        <stop stop-color=\\"inherit\\" stop-opacity=\\"0.4\\" offset=\\"0%\\"></stop>
+        <stop stop-color=\\"inherit\\" offset=\\"100%\\"></stop>
+      </linearGradient>
+      <linearGradient x1=\\"0%\\" x2=\\"91.029%\\" y1=\\"118.55%\\" y2=\\"63.971%\\" id=\\"uid3-2\\">
+        <stop stop-color=\\"inherit\\" stop-opacity=\\"0.4\\" offset=\\"0%\\"></stop>
+        <stop stop-color=\\"inherit\\" offset=\\"100%\\"></stop>
+      </linearGradient>
+    </defs>
+    <g stroke=\\"none\\" stroke-width=\\"1\\" fill-rule=\\"nonzero\\">
+      <path d=\\"M15.9669691 29.3616152C17.2195568 28.1097726 17.9233158 26.4114623 17.9233158 24.6405626 17.9233158 22.8696629 17.2195568 21.1713527 15.9669691 19.91951L7.26805808 11.2489111 3.31143376 15.2055354C2.89743442 15.6200502 2.89743442 16.291565 3.31143376 16.7060799L15.9669691 29.3616152zM28.6225045 15.2055354L15.9669691 2.55 15.9280399 2.58892922C13.3485687 5.19994003 13.3612164 9.40374108 15.9563521 11.9991833L24.6623412 20.6662432 28.6225045 16.7060799C29.0365039 16.291565 29.0365039 15.6200502 28.6225045 15.2055354z\\" fill=\\"currentColor\\"/>
+      <path d=\\"M15.9669691,11.9921053 C13.3718335,9.39666304 13.3591857,5.19286199 15.938657,2.58185118 L6.91061706,11.6063521 L11.6316697,16.3274047 L15.9669691,11.9921053 Z\\" fill=\\"url(#uid3-1\\"/>
+      <path d=\\"M20.2951906,15.5912886 L15.9669691,19.91951 C17.2195568,21.1713527 17.9233158,22.8696629 17.9233158,24.6405626 C17.9233158,26.4114623 17.2195568,28.1097726 15.9669691,29.3616152 L25.0162432,20.3123412 L20.2951906,15.5912886 Z\\" fill=\\"url(#uid3-2\\"/>
+    </g>
+  </svg>",
+                                                            }
+                                                          }
+                                                          iconColor="#FFFFFF"
+                                                          iconGradientStart="inherit"
+                                                          iconGradientStop="inherit"
+                                                          primaryColor="#FFFFFF"
+                                                          role="presentation"
+                                                          size="small"
+                                                          textColor="currentColor"
+                                                        >
+                                                          <span
+                                                            className="c8"
+                                                            dangerouslySetInnerHTML={
+                                                              Object {
+                                                                "__html": "<canvas height=\\"32\\" width=\\"32\\" aria-hidden=\\"true\\"></canvas>
+  <svg viewBox=\\"0 0 32 32\\" xmlns=\\"http://www.w3.org/2000/svg\\" focusable=\\"false\\" aria-hidden=\\"true\\">
+    <defs>
+      <linearGradient x1=\\"108.695%\\" x2=\\"12.439%\\" y1=\\"-14.936%\\" y2=\\"45.215%\\" id=\\"uid3-1\\">
+        <stop stop-color=\\"inherit\\" stop-opacity=\\"0.4\\" offset=\\"0%\\"></stop>
+        <stop stop-color=\\"inherit\\" offset=\\"100%\\"></stop>
+      </linearGradient>
+      <linearGradient x1=\\"0%\\" x2=\\"91.029%\\" y1=\\"118.55%\\" y2=\\"63.971%\\" id=\\"uid3-2\\">
+        <stop stop-color=\\"inherit\\" stop-opacity=\\"0.4\\" offset=\\"0%\\"></stop>
+        <stop stop-color=\\"inherit\\" offset=\\"100%\\"></stop>
+      </linearGradient>
+    </defs>
+    <g stroke=\\"none\\" stroke-width=\\"1\\" fill-rule=\\"nonzero\\">
+      <path d=\\"M15.9669691 29.3616152C17.2195568 28.1097726 17.9233158 26.4114623 17.9233158 24.6405626 17.9233158 22.8696629 17.2195568 21.1713527 15.9669691 19.91951L7.26805808 11.2489111 3.31143376 15.2055354C2.89743442 15.6200502 2.89743442 16.291565 3.31143376 16.7060799L15.9669691 29.3616152zM28.6225045 15.2055354L15.9669691 2.55 15.9280399 2.58892922C13.3485687 5.19994003 13.3612164 9.40374108 15.9563521 11.9991833L24.6623412 20.6662432 28.6225045 16.7060799C29.0365039 16.291565 29.0365039 15.6200502 28.6225045 15.2055354z\\" fill=\\"currentColor\\"/>
+      <path d=\\"M15.9669691,11.9921053 C13.3718335,9.39666304 13.3591857,5.19286199 15.938657,2.58185118 L6.91061706,11.6063521 L11.6316697,16.3274047 L15.9669691,11.9921053 Z\\" fill=\\"url(#uid3-1\\"/>
+      <path d=\\"M20.2951906,15.5912886 L15.9669691,19.91951 C17.2195568,21.1713527 17.9233158,22.8696629 17.9233158,24.6405626 C17.9233158,26.4114623 17.2195568,28.1097726 15.9669691,29.3616152 L25.0162432,20.3123412 L20.2951906,15.5912886 Z\\" fill=\\"url(#uid3-2\\"/>
+    </g>
+  </svg>",
+                                                              }
+                                                            }
+                                                            role="presentation"
+                                                            size="small"
+                                                          />
+                                                        </styled.span>
+                                                      </Wrapper>
+                                                    </JiraSoftwareIcon>
+                                                  </div>
+                                                </styled.div>
+                                              </Component>
+                                            </span>
+                                          </styled.span>
+                                        </Styled(styled.span)>
+                                        <styled.span>
+                                          <span
+                                            className="c9"
+                                          >
+                                            <styled.span
+                                              allowMultiline={false}
+                                            >
+                                              <span
+                                                className="c10"
+                                              >
+                                                Jira Software
+                                              </span>
+                                            </styled.span>
+                                            <styled.span
+                                              isCompact={false}
+                                              isDisabled={false}
+                                            >
+                                              <span
+                                                className="c11"
+                                              >
+                                                some-instance
+                                              </span>
+                                            </styled.span>
+                                          </span>
+                                        </styled.span>
+                                      </a>
+                                    </styled.a>
+                                  </Item>
+                                </div>
+                              </styled.div>
+                            </SwitcherItem>
+                          </ThemeProvider>
+                        </Consumer>
+                      </Component>
+                    </div>
+                  </styled.div>
+                </Styled(styled.div)>
+              </Consumer>
+            </Component>
+            <Tooltip
+              content={
+                <span>
+                  Show more sites
+                </span>
+              }
+              hideTooltipOnMouseDown={true}
+              position="top"
+            >
+              <div
+                onBlur={[Function]}
+                onClick={[Function]}
+                onFocus={[Function]}
+                onMouseDown={[Function]}
+                onMouseOut={[Function]}
+                onMouseOver={[Function]}
+              >
+                <Component
+                  isParentHovered={false}
+                >
+                  <Consumer>
+                    <Styled(styled.div)
+                      isParentHovered={false}
+                      tokens={
+                        Object {
+                          "hover": Object {
+                            "background": "#F4F5F7",
+                          },
+                        }
+                      }
+                    >
+                      <styled.div
+                        className="c12"
+                        isParentHovered={false}
+                        tokens={
+                          Object {
+                            "hover": Object {
+                              "background": "#F4F5F7",
+                            },
+                          }
+                        }
+                      >
+                        <div
+                          className="c12 c3"
+                        >
+                          <Component
+                            data-test-id="switcher-expand-toggle"
+                            icon={
+                              <styled.div>
+                                <ChevronDownIcon
+                                  label="Expand"
+                                />
+                              </styled.div>
+                            }
+                            onClick={[Function]}
+                            onKeyDown={[Function]}
+                          >
+                            <Consumer>
+                              <ThemeProvider
+                                theme={
+                                  Object {
+                                    "@atlaskit-shared-theme/item": Object {
+                                      "active": Object {
+                                        "background": "transparent",
+                                      },
+                                      "default": Object {
+                                        "background": "transparent",
+                                        "secondaryText": "#6B778C",
+                                        "text": "#091E42",
+                                      },
+                                      "display": "block",
+                                      "hover": Object {
+                                        "background": "#EBECF0",
+                                      },
+                                      "padding": Object {
+                                        "default": Object {
+                                          "bottom": 8,
+                                          "left": 8,
+                                          "right": 8,
+                                          "top": 8,
+                                        },
+                                      },
+                                      "width": Object {
+                                        "default": "100%",
+                                      },
+                                    },
+                                  }
+                                }
+                              >
+                                <SwitcherItem
+                                  data-test-id="switcher-expand-toggle"
+                                  icon={
+                                    <styled.div>
+                                      <ChevronDownIcon
+                                        label="Expand"
+                                      />
+                                    </styled.div>
+                                  }
+                                  onClick={[Function]}
+                                  onKeyDown={[Function]}
+                                >
+                                  <styled.div>
+                                    <div
+                                      className="c0"
+                                    >
+                                      <Item
+                                        autoFocus={false}
+                                        data-test-id="switcher-expand-toggle"
+                                        description=""
+                                        elemBefore={
+                                          <styled.div>
+                                            <ChevronDownIcon
+                                              label="Expand"
+                                            />
+                                          </styled.div>
+                                        }
+                                        isCompact={false}
+                                        isDisabled={false}
+                                        isHidden={false}
+                                        onClick={[Function]}
+                                        onKeyDown={[Function]}
+                                        role="button"
+                                        shouldAllowMultiline={false}
+                                      >
+                                        <styled.span
+                                          aria-disabled={false}
+                                          autoFocus={false}
+                                          data-test-id="switcher-expand-toggle"
+                                          description=""
+                                          elemBefore={
+                                            <styled.div>
+                                              <ChevronDownIcon
+                                                label="Expand"
+                                              />
+                                            </styled.div>
+                                          }
+                                          innerRef={[Function]}
+                                          isCompact={false}
+                                          isDisabled={false}
+                                          isHidden={false}
+                                          onClick={[Function]}
+                                          onKeyDown={[Function]}
+                                          onMouseDown={[Function]}
+                                          role="button"
+                                          shouldAllowMultiline={false}
+                                          tabIndex={0}
+                                        >
+                                          <span
+                                            aria-disabled={false}
+                                            autoFocus={false}
+                                            className="c13"
+                                            data-test-id="switcher-expand-toggle"
+                                            onClick={[Function]}
+                                            onKeyDown={[Function]}
+                                            onMouseDown={[Function]}
+                                            role="button"
+                                            tabIndex={0}
+                                          >
+                                            <Styled(styled.span)
+                                              isCompact={false}
+                                            >
+                                              <styled.span
+                                                className="c5"
+                                                isCompact={false}
+                                              >
+                                                <span
+                                                  className="c5 c6"
+                                                >
+                                                  <styled.div>
+                                                    <div
+                                                      className="c14"
+                                                    >
+                                                      <ChevronDownIcon
+                                                        label="Expand"
+                                                      >
+                                                        <Icon
+                                                          dangerouslySetGlyph="<svg width=\\"24\\" height=\\"24\\" viewBox=\\"0 0 24 24\\" focusable=\\"false\\" role=\\"presentation\\"><path d=\\"M8.292 10.293a1.009 1.009 0 0 0 0 1.419l2.939 2.965c.218.215.5.322.779.322s.556-.107.769-.322l2.93-2.955a1.01 1.01 0 0 0 0-1.419.987.987 0 0 0-1.406 0l-2.298 2.317-2.307-2.327a.99.99 0 0 0-1.406 0z\\" fill=\\"currentColor\\" fill-rule=\\"evenodd\\"/></svg>"
+                                                          label="Expand"
+                                                        >
+                                                          <styled.span
+                                                            aria-label="Expand"
+                                                            dangerouslySetInnerHTML={
+                                                              Object {
+                                                                "__html": "<svg width=\\"24\\" height=\\"24\\" viewBox=\\"0 0 24 24\\" focusable=\\"false\\" role=\\"presentation\\"><path d=\\"M8.292 10.293a1.009 1.009 0 0 0 0 1.419l2.939 2.965c.218.215.5.322.779.322s.556-.107.769-.322l2.93-2.955a1.01 1.01 0 0 0 0-1.419.987.987 0 0 0-1.406 0l-2.298 2.317-2.307-2.327a.99.99 0 0 0-1.406 0z\\" fill=\\"currentColor\\" fill-rule=\\"evenodd\\"/></svg>",
+                                                              }
+                                                            }
+                                                            role="img"
+                                                          >
+                                                            <span
+                                                              aria-label="Expand"
+                                                              className="c15"
+                                                              dangerouslySetInnerHTML={
+                                                                Object {
+                                                                  "__html": "<svg width=\\"24\\" height=\\"24\\" viewBox=\\"0 0 24 24\\" focusable=\\"false\\" role=\\"presentation\\"><path d=\\"M8.292 10.293a1.009 1.009 0 0 0 0 1.419l2.939 2.965c.218.215.5.322.779.322s.556-.107.769-.322l2.93-2.955a1.01 1.01 0 0 0 0-1.419.987.987 0 0 0-1.406 0l-2.298 2.317-2.307-2.327a.99.99 0 0 0-1.406 0z\\" fill=\\"currentColor\\" fill-rule=\\"evenodd\\"/></svg>",
+                                                                }
+                                                              }
+                                                              role="img"
+                                                            />
+                                                          </styled.span>
+                                                        </Icon>
+                                                      </ChevronDownIcon>
+                                                    </div>
+                                                  </styled.div>
+                                                </span>
+                                              </styled.span>
+                                            </Styled(styled.span)>
+                                            <styled.span>
+                                              <span
+                                                className="c9"
+                                              >
+                                                <styled.span
+                                                  allowMultiline={false}
+                                                >
+                                                  <span
+                                                    className="c10"
+                                                  />
+                                                </styled.span>
+                                              </span>
+                                            </styled.span>
+                                          </span>
+                                        </styled.span>
+                                      </Item>
+                                    </div>
+                                  </styled.div>
+                                </SwitcherItem>
+                              </ThemeProvider>
+                            </Consumer>
+                          </Component>
+                        </div>
+                      </styled.div>
+                    </Styled(styled.div)>
+                  </Consumer>
+                </Component>
+              </div>
+            </Tooltip>
+          </div>
+        </styled.div>
+      </div>
+    </styled.div>
+  </SwitcherItemWithDropDown>
+</WithAnalyticsEvents(SwitcherItemWithDropDown)>
+`;
+
+exports[`Atlassian Switcher - ItemWithDropdown renders an item with multiple sites correctly and clicking expand shows children sites 2`] = `
+.c8 {
+  color: #FFFFFF;
+  display: inline-block;
+  fill: currentColor;
+  height: 24px;
+  position: relative;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.c8 > svg {
+  fill: inherit;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+.c8 > canvas {
+  display: block;
+  height: 100%;
+  visibility: hidden;
+}
+
+.c8 stop {
+  stop-color: currentColor;
+}
+
+.c6 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  padding-bottom: 1px;
+}
+
+.c5 {
+  margin-right: 8px;
+}
+
+.c9 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  margin: 0;
+  overflow: hidden;
+}
+
+.c9:first-child {
+  margin: 0;
+}
+
+.c10 {
+  display: block;
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 1.1428571428571428;
+  padding-bottom: 1px;
+}
+
+.c11 {
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #6B778C;
+  font-size: 11px;
+  line-height: 1.2727272727272727;
+  padding-bottom: 1px;
+}
+
+*:hover > * > .c11 {
+  color: #6B778C;
+}
+
+*:active > * > .c11 {
+  color: #6B778C;
+}
+
+.c0 {
+  -webkit-animation: ljGnjM 500ms ease forwards;
+  animation: ljGnjM 500ms ease forwards;
+  opacity: 0;
+}
+
+.c15 {
+  color: currentColor;
+  display: inline-block;
+  fill: #FFFFFF;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.c15 > svg {
+  max-height: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  vertical-align: bottom;
+}
+
+.c15 stop {
+  stop-color: currentColor;
+}
+
+.c3 {
+  border-radius: 3px;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+}
+
+.c2 {
+  width: 100%;
+  overflow: hidden;
+}
+
+.c12 {
+  max-height: 47px;
+  cursor: pointer;
+  margin-left: 2px;
+}
+
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  box-sizing: border-box;
+  border-radius: 3px;
+}
+
+.c14 {
+  width: 32px;
+  height: 32px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  margin-right: -8px;
+  margin-bottom: -1px;
+}
+
+.c7 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  box-shadow: 0 1px 1px rgba(9,30,66,0.25),0 0 1px 1px rgba(9,30,66,0.13);
+  background-color: #0052CC;
+  overflow: hidden;
+}
+
+.c4.c4 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 3px;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: none;
+  -ms-flex: none;
+  flex: none;
+  background-color: transparent;
+  color: #091E42;
+  fill: transparent;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  padding: 7px 8px 7px 8px;
+  width: 100%;
+}
+
+.c4.c4:focus {
+  color: #091E42;
+}
+
+.c4.c4:hover {
+  background-color: #EBECF0;
+  fill: #EBECF0;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4.c4:active {
+  background-color: transparent;
+  fill: transparent;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4.c4:focus {
+  box-shadow: 0 0 0 2px #4C9AFF inset;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4.c4:focus {
+  outline: none;
+  position: relative;
+}
+
+.c13.c13 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 3px;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: none;
+  -ms-flex: none;
+  flex: none;
+  background-color: transparent;
+  color: #091E42;
+  fill: transparent;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  padding: 8px 8px 7px 8px;
+  width: 100%;
+}
+
+.c13.c13:focus {
+  color: #091E42;
+}
+
+.c13.c13:hover {
+  background-color: #EBECF0;
+  fill: #EBECF0;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c13.c13:active {
+  background-color: transparent;
+  fill: transparent;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c13.c13:focus {
+  box-shadow: 0 0 0 2px #4C9AFF inset;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c13.c13:focus {
+  outline: none;
+  position: relative;
+}
+
+<WithAnalyticsEvents(SwitcherItemWithDropDown)
+  childIcon={
+    <Unknown
+      theme="subtle"
+    />
+  }
+  childItems={
+    Array [
+      Object {
+        "avatar": "https://site-admin-avatar-cdn.staging.public.atl-paas.net/avatars/240/rocket.png",
+        "href": "https://site00.atlassian.net/secure/BrowseProjects.jspa?selectedProjectType=software",
+        "label": "site00",
+      },
+      Object {
+        "avatar": "https://site-admin-avatar-cdn.stg.public.atl-paas.net/avatars/240/rocket.png",
+        "href": "https://site10.atlassian.net/secure/BrowseProjects.jspa?selectedProjectType=software",
+        "label": "site10",
+      },
+      Object {
+        "avatar": null,
+        "href": "https://site30.atlassian.net/secure/BrowseProjects.jspa?selectedProjectType=software",
+        "label": "site30",
+      },
+    ]
+  }
+  description="some-instance"
+  href="https://app.opsgenie.com"
+  icon={
+    <Unknown
+      theme="product"
+    />
+  }
+  tooltipContent={
+    <span>
+      Show more sites
+    </span>
+  }
+>
+  <SwitcherItemWithDropDown
+    childIcon={
+      <Unknown
+        theme="subtle"
+      />
+    }
+    childItems={
+      Array [
+        Object {
+          "avatar": "https://site-admin-avatar-cdn.staging.public.atl-paas.net/avatars/240/rocket.png",
+          "href": "https://site00.atlassian.net/secure/BrowseProjects.jspa?selectedProjectType=software",
+          "label": "site00",
+        },
+        Object {
+          "avatar": "https://site-admin-avatar-cdn.stg.public.atl-paas.net/avatars/240/rocket.png",
+          "href": "https://site10.atlassian.net/secure/BrowseProjects.jspa?selectedProjectType=software",
+          "label": "site10",
+        },
+        Object {
+          "avatar": null,
+          "href": "https://site30.atlassian.net/secure/BrowseProjects.jspa?selectedProjectType=software",
+          "label": "site30",
+        },
+      ]
+    }
+    createAnalyticsEvent={[Function]}
+    description="some-instance"
+    href="https://app.opsgenie.com"
+    icon={
+      <Unknown
+        theme="product"
+      />
+    }
+    onChildItemClick={[Function]}
+    onExpandClick={[Function]}
+    onItemClick={[Function]}
+    tooltipContent={
+      <span>
+        Show more sites
+      </span>
+    }
+  >
+    <styled.div>
+      <div
+        className="c0"
+      >
+        <styled.div
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+        >
+          <div
+            className="c1"
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+          >
+            <Component
+              isParentHovered={false}
+            >
+              <Consumer>
+                <Styled(styled.div)
+                  isParentHovered={false}
+                  tokens={
+                    Object {
+                      "hover": Object {
+                        "background": "#F4F5F7",
+                      },
+                    }
+                  }
+                >
+                  <styled.div
+                    className="c2"
+                    isParentHovered={false}
+                    tokens={
+                      Object {
+                        "hover": Object {
+                          "background": "#F4F5F7",
+                        },
+                      }
+                    }
+                  >
+                    <div
+                      className="c2 c3"
+                    >
+                      <Component
+                        createAnalyticsEvent={[Function]}
+                        description="some-instance"
+                        href="https://app.opsgenie.com"
+                        icon={
+                          <Unknown
+                            theme="product"
+                          />
+                        }
+                        onClick={[Function]}
+                        onExpandClick={[Function]}
+                        tooltipContent={
+                          <span>
+                            Show more sites
+                          </span>
+                        }
+                      >
+                        <Consumer>
+                          <ThemeProvider
+                            theme={
+                              Object {
+                                "@atlaskit-shared-theme/item": Object {
+                                  "active": Object {
+                                    "background": "transparent",
+                                  },
+                                  "default": Object {
+                                    "background": "transparent",
+                                    "secondaryText": "#6B778C",
+                                    "text": "#091E42",
+                                  },
+                                  "display": "block",
+                                  "hover": Object {
+                                    "background": "#EBECF0",
+                                  },
+                                  "padding": Object {
+                                    "default": Object {
+                                      "bottom": 8,
+                                      "left": 8,
+                                      "right": 8,
+                                      "top": 8,
+                                    },
+                                  },
+                                  "width": Object {
+                                    "default": "100%",
+                                  },
+                                },
+                              }
+                            }
+                          >
+                            <SwitcherItem
+                              createAnalyticsEvent={[Function]}
+                              description="some-instance"
+                              href="https://app.opsgenie.com"
+                              icon={
+                                <Unknown
+                                  theme="product"
+                                />
+                              }
+                              onClick={[Function]}
+                              onExpandClick={[Function]}
+                              tooltipContent={
+                                <span>
+                                  Show more sites
+                                </span>
+                              }
+                            >
+                              <styled.div>
+                                <div
+                                  className="c0"
+                                >
+                                  <Item
+                                    autoFocus={false}
+                                    createAnalyticsEvent={[Function]}
+                                    description="some-instance"
+                                    elemBefore={
+                                      <Unknown
+                                        theme="product"
+                                      />
+                                    }
+                                    href="https://app.opsgenie.com"
+                                    isCompact={false}
+                                    isDisabled={false}
+                                    isHidden={false}
+                                    onClick={[Function]}
+                                    onExpandClick={[Function]}
+                                    role="button"
+                                    shouldAllowMultiline={false}
+                                    tooltipContent={
+                                      <span>
+                                        Show more sites
+                                      </span>
+                                    }
+                                  >
+                                    <styled.a
+                                      aria-disabled={false}
+                                      autoFocus={false}
+                                      createAnalyticsEvent={[Function]}
+                                      description="some-instance"
+                                      elemBefore={
+                                        <Unknown
+                                          theme="product"
+                                        />
+                                      }
+                                      href="https://app.opsgenie.com"
+                                      innerRef={[Function]}
+                                      isCompact={false}
+                                      isDisabled={false}
+                                      isHidden={false}
+                                      onClick={[Function]}
+                                      onExpandClick={[Function]}
+                                      onKeyDown={[Function]}
+                                      onMouseDown={[Function]}
+                                      role="button"
+                                      shouldAllowMultiline={false}
+                                      tabIndex={null}
+                                      tooltipContent={
+                                        <span>
+                                          Show more sites
+                                        </span>
+                                      }
+                                    >
+                                      <a
+                                        aria-disabled={false}
+                                        autoFocus={false}
+                                        className="c4"
+                                        href="https://app.opsgenie.com"
+                                        onClick={[Function]}
+                                        onKeyDown={[Function]}
+                                        onMouseDown={[Function]}
+                                        role="button"
+                                        tabIndex={null}
+                                      >
+                                        <Styled(styled.span)
+                                          isCompact={false}
+                                        >
+                                          <styled.span
+                                            className="c5"
+                                            isCompact={false}
+                                          >
+                                            <span
+                                              className="c5 c6"
+                                            >
+                                              <Component
+                                                theme="product"
+                                              >
+                                                <styled.div
+                                                  bgColor="#0052CC"
+                                                  iconElevation={[Function]}
+                                                >
+                                                  <div
+                                                    className="c7"
+                                                  >
+                                                    <JiraSoftwareIcon
+                                                      iconColor="#FFFFFF"
+                                                      iconGradientStart="inherit"
+                                                      iconGradientStop="inherit"
+                                                      label=""
+                                                      primaryColor="#FFFFFF"
+                                                      size="small"
+                                                      textColor="currentColor"
+                                                    >
+                                                      <Wrapper
+                                                        iconColor="#FFFFFF"
+                                                        iconGradientStart="inherit"
+                                                        iconGradientStop="inherit"
+                                                        label=""
+                                                        primaryColor="#FFFFFF"
+                                                        size="small"
+                                                        svg={[Function]}
+                                                        textColor="currentColor"
+                                                      >
+                                                        <styled.span
+                                                          dangerouslySetInnerHTML={
+                                                            Object {
+                                                              "__html": "<canvas height=\\"32\\" width=\\"32\\" aria-hidden=\\"true\\"></canvas>
+  <svg viewBox=\\"0 0 32 32\\" xmlns=\\"http://www.w3.org/2000/svg\\" focusable=\\"false\\" aria-hidden=\\"true\\">
+    <defs>
+      <linearGradient x1=\\"108.695%\\" x2=\\"12.439%\\" y1=\\"-14.936%\\" y2=\\"45.215%\\" id=\\"uid3-1\\">
+        <stop stop-color=\\"inherit\\" stop-opacity=\\"0.4\\" offset=\\"0%\\"></stop>
+        <stop stop-color=\\"inherit\\" offset=\\"100%\\"></stop>
+      </linearGradient>
+      <linearGradient x1=\\"0%\\" x2=\\"91.029%\\" y1=\\"118.55%\\" y2=\\"63.971%\\" id=\\"uid3-2\\">
+        <stop stop-color=\\"inherit\\" stop-opacity=\\"0.4\\" offset=\\"0%\\"></stop>
+        <stop stop-color=\\"inherit\\" offset=\\"100%\\"></stop>
+      </linearGradient>
+    </defs>
+    <g stroke=\\"none\\" stroke-width=\\"1\\" fill-rule=\\"nonzero\\">
+      <path d=\\"M15.9669691 29.3616152C17.2195568 28.1097726 17.9233158 26.4114623 17.9233158 24.6405626 17.9233158 22.8696629 17.2195568 21.1713527 15.9669691 19.91951L7.26805808 11.2489111 3.31143376 15.2055354C2.89743442 15.6200502 2.89743442 16.291565 3.31143376 16.7060799L15.9669691 29.3616152zM28.6225045 15.2055354L15.9669691 2.55 15.9280399 2.58892922C13.3485687 5.19994003 13.3612164 9.40374108 15.9563521 11.9991833L24.6623412 20.6662432 28.6225045 16.7060799C29.0365039 16.291565 29.0365039 15.6200502 28.6225045 15.2055354z\\" fill=\\"currentColor\\"/>
+      <path d=\\"M15.9669691,11.9921053 C13.3718335,9.39666304 13.3591857,5.19286199 15.938657,2.58185118 L6.91061706,11.6063521 L11.6316697,16.3274047 L15.9669691,11.9921053 Z\\" fill=\\"url(#uid3-1\\"/>
+      <path d=\\"M20.2951906,15.5912886 L15.9669691,19.91951 C17.2195568,21.1713527 17.9233158,22.8696629 17.9233158,24.6405626 C17.9233158,26.4114623 17.2195568,28.1097726 15.9669691,29.3616152 L25.0162432,20.3123412 L20.2951906,15.5912886 Z\\" fill=\\"url(#uid3-2\\"/>
+    </g>
+  </svg>",
+                                                            }
+                                                          }
+                                                          iconColor="#FFFFFF"
+                                                          iconGradientStart="inherit"
+                                                          iconGradientStop="inherit"
+                                                          primaryColor="#FFFFFF"
+                                                          role="presentation"
+                                                          size="small"
+                                                          textColor="currentColor"
+                                                        >
+                                                          <span
+                                                            className="c8"
+                                                            dangerouslySetInnerHTML={
+                                                              Object {
+                                                                "__html": "<canvas height=\\"32\\" width=\\"32\\" aria-hidden=\\"true\\"></canvas>
+  <svg viewBox=\\"0 0 32 32\\" xmlns=\\"http://www.w3.org/2000/svg\\" focusable=\\"false\\" aria-hidden=\\"true\\">
+    <defs>
+      <linearGradient x1=\\"108.695%\\" x2=\\"12.439%\\" y1=\\"-14.936%\\" y2=\\"45.215%\\" id=\\"uid3-1\\">
+        <stop stop-color=\\"inherit\\" stop-opacity=\\"0.4\\" offset=\\"0%\\"></stop>
+        <stop stop-color=\\"inherit\\" offset=\\"100%\\"></stop>
+      </linearGradient>
+      <linearGradient x1=\\"0%\\" x2=\\"91.029%\\" y1=\\"118.55%\\" y2=\\"63.971%\\" id=\\"uid3-2\\">
+        <stop stop-color=\\"inherit\\" stop-opacity=\\"0.4\\" offset=\\"0%\\"></stop>
+        <stop stop-color=\\"inherit\\" offset=\\"100%\\"></stop>
+      </linearGradient>
+    </defs>
+    <g stroke=\\"none\\" stroke-width=\\"1\\" fill-rule=\\"nonzero\\">
+      <path d=\\"M15.9669691 29.3616152C17.2195568 28.1097726 17.9233158 26.4114623 17.9233158 24.6405626 17.9233158 22.8696629 17.2195568 21.1713527 15.9669691 19.91951L7.26805808 11.2489111 3.31143376 15.2055354C2.89743442 15.6200502 2.89743442 16.291565 3.31143376 16.7060799L15.9669691 29.3616152zM28.6225045 15.2055354L15.9669691 2.55 15.9280399 2.58892922C13.3485687 5.19994003 13.3612164 9.40374108 15.9563521 11.9991833L24.6623412 20.6662432 28.6225045 16.7060799C29.0365039 16.291565 29.0365039 15.6200502 28.6225045 15.2055354z\\" fill=\\"currentColor\\"/>
+      <path d=\\"M15.9669691,11.9921053 C13.3718335,9.39666304 13.3591857,5.19286199 15.938657,2.58185118 L6.91061706,11.6063521 L11.6316697,16.3274047 L15.9669691,11.9921053 Z\\" fill=\\"url(#uid3-1\\"/>
+      <path d=\\"M20.2951906,15.5912886 L15.9669691,19.91951 C17.2195568,21.1713527 17.9233158,22.8696629 17.9233158,24.6405626 C17.9233158,26.4114623 17.2195568,28.1097726 15.9669691,29.3616152 L25.0162432,20.3123412 L20.2951906,15.5912886 Z\\" fill=\\"url(#uid3-2\\"/>
+    </g>
+  </svg>",
+                                                              }
+                                                            }
+                                                            role="presentation"
+                                                            size="small"
+                                                          />
+                                                        </styled.span>
+                                                      </Wrapper>
+                                                    </JiraSoftwareIcon>
+                                                  </div>
+                                                </styled.div>
+                                              </Component>
+                                            </span>
+                                          </styled.span>
+                                        </Styled(styled.span)>
+                                        <styled.span>
+                                          <span
+                                            className="c9"
+                                          >
+                                            <styled.span
+                                              allowMultiline={false}
+                                            >
+                                              <span
+                                                className="c10"
+                                              >
+                                                Jira Software
+                                              </span>
+                                            </styled.span>
+                                            <styled.span
+                                              isCompact={false}
+                                              isDisabled={false}
+                                            >
+                                              <span
+                                                className="c11"
+                                              >
+                                                some-instance
+                                              </span>
+                                            </styled.span>
+                                          </span>
+                                        </styled.span>
+                                      </a>
+                                    </styled.a>
+                                  </Item>
+                                </div>
+                              </styled.div>
+                            </SwitcherItem>
+                          </ThemeProvider>
+                        </Consumer>
+                      </Component>
+                    </div>
+                  </styled.div>
+                </Styled(styled.div)>
+              </Consumer>
+            </Component>
+            <Tooltip
+              content={
+                <span>
+                  Show more sites
+                </span>
+              }
+              hideTooltipOnMouseDown={true}
+              position="top"
+            >
+              <div
+                onBlur={[Function]}
+                onClick={[Function]}
+                onFocus={[Function]}
+                onMouseDown={[Function]}
+                onMouseOut={[Function]}
+                onMouseOver={[Function]}
+              >
+                <Component
+                  isParentHovered={false}
+                >
+                  <Consumer>
+                    <Styled(styled.div)
+                      isParentHovered={false}
+                      tokens={
+                        Object {
+                          "hover": Object {
+                            "background": "#F4F5F7",
+                          },
+                        }
+                      }
+                    >
+                      <styled.div
+                        className="c12"
+                        isParentHovered={false}
+                        tokens={
+                          Object {
+                            "hover": Object {
+                              "background": "#F4F5F7",
+                            },
+                          }
+                        }
+                      >
+                        <div
+                          className="c12 c3"
+                        >
+                          <Component
+                            data-test-id="switcher-expand-toggle"
+                            icon={
+                              <styled.div>
+                                <ChevronDownIcon
+                                  label="Expand"
+                                />
+                              </styled.div>
+                            }
+                            onClick={[Function]}
+                            onKeyDown={[Function]}
+                          >
+                            <Consumer>
+                              <ThemeProvider
+                                theme={
+                                  Object {
+                                    "@atlaskit-shared-theme/item": Object {
+                                      "active": Object {
+                                        "background": "transparent",
+                                      },
+                                      "default": Object {
+                                        "background": "transparent",
+                                        "secondaryText": "#6B778C",
+                                        "text": "#091E42",
+                                      },
+                                      "display": "block",
+                                      "hover": Object {
+                                        "background": "#EBECF0",
+                                      },
+                                      "padding": Object {
+                                        "default": Object {
+                                          "bottom": 8,
+                                          "left": 8,
+                                          "right": 8,
+                                          "top": 8,
+                                        },
+                                      },
+                                      "width": Object {
+                                        "default": "100%",
+                                      },
+                                    },
+                                  }
+                                }
+                              >
+                                <SwitcherItem
+                                  data-test-id="switcher-expand-toggle"
+                                  icon={
+                                    <styled.div>
+                                      <ChevronDownIcon
+                                        label="Expand"
+                                      />
+                                    </styled.div>
+                                  }
+                                  onClick={[Function]}
+                                  onKeyDown={[Function]}
+                                >
+                                  <styled.div>
+                                    <div
+                                      className="c0"
+                                    >
+                                      <Item
+                                        autoFocus={false}
+                                        data-test-id="switcher-expand-toggle"
+                                        description=""
+                                        elemBefore={
+                                          <styled.div>
+                                            <ChevronDownIcon
+                                              label="Expand"
+                                            />
+                                          </styled.div>
+                                        }
+                                        isCompact={false}
+                                        isDisabled={false}
+                                        isHidden={false}
+                                        onClick={[Function]}
+                                        onKeyDown={[Function]}
+                                        role="button"
+                                        shouldAllowMultiline={false}
+                                      >
+                                        <styled.span
+                                          aria-disabled={false}
+                                          autoFocus={false}
+                                          data-test-id="switcher-expand-toggle"
+                                          description=""
+                                          elemBefore={
+                                            <styled.div>
+                                              <ChevronDownIcon
+                                                label="Expand"
+                                              />
+                                            </styled.div>
+                                          }
+                                          innerRef={[Function]}
+                                          isCompact={false}
+                                          isDisabled={false}
+                                          isHidden={false}
+                                          onClick={[Function]}
+                                          onKeyDown={[Function]}
+                                          onMouseDown={[Function]}
+                                          role="button"
+                                          shouldAllowMultiline={false}
+                                          tabIndex={0}
+                                        >
+                                          <span
+                                            aria-disabled={false}
+                                            autoFocus={false}
+                                            className="c13"
+                                            data-test-id="switcher-expand-toggle"
+                                            onClick={[Function]}
+                                            onKeyDown={[Function]}
+                                            onMouseDown={[Function]}
+                                            role="button"
+                                            tabIndex={0}
+                                          >
+                                            <Styled(styled.span)
+                                              isCompact={false}
+                                            >
+                                              <styled.span
+                                                className="c5"
+                                                isCompact={false}
+                                              >
+                                                <span
+                                                  className="c5 c6"
+                                                >
+                                                  <styled.div>
+                                                    <div
+                                                      className="c14"
+                                                    >
+                                                      <ChevronDownIcon
+                                                        label="Expand"
+                                                      >
+                                                        <Icon
+                                                          dangerouslySetGlyph="<svg width=\\"24\\" height=\\"24\\" viewBox=\\"0 0 24 24\\" focusable=\\"false\\" role=\\"presentation\\"><path d=\\"M8.292 10.293a1.009 1.009 0 0 0 0 1.419l2.939 2.965c.218.215.5.322.779.322s.556-.107.769-.322l2.93-2.955a1.01 1.01 0 0 0 0-1.419.987.987 0 0 0-1.406 0l-2.298 2.317-2.307-2.327a.99.99 0 0 0-1.406 0z\\" fill=\\"currentColor\\" fill-rule=\\"evenodd\\"/></svg>"
+                                                          label="Expand"
+                                                        >
+                                                          <styled.span
+                                                            aria-label="Expand"
+                                                            dangerouslySetInnerHTML={
+                                                              Object {
+                                                                "__html": "<svg width=\\"24\\" height=\\"24\\" viewBox=\\"0 0 24 24\\" focusable=\\"false\\" role=\\"presentation\\"><path d=\\"M8.292 10.293a1.009 1.009 0 0 0 0 1.419l2.939 2.965c.218.215.5.322.779.322s.556-.107.769-.322l2.93-2.955a1.01 1.01 0 0 0 0-1.419.987.987 0 0 0-1.406 0l-2.298 2.317-2.307-2.327a.99.99 0 0 0-1.406 0z\\" fill=\\"currentColor\\" fill-rule=\\"evenodd\\"/></svg>",
+                                                              }
+                                                            }
+                                                            role="img"
+                                                          >
+                                                            <span
+                                                              aria-label="Expand"
+                                                              className="c15"
+                                                              dangerouslySetInnerHTML={
+                                                                Object {
+                                                                  "__html": "<svg width=\\"24\\" height=\\"24\\" viewBox=\\"0 0 24 24\\" focusable=\\"false\\" role=\\"presentation\\"><path d=\\"M8.292 10.293a1.009 1.009 0 0 0 0 1.419l2.939 2.965c.218.215.5.322.779.322s.556-.107.769-.322l2.93-2.955a1.01 1.01 0 0 0 0-1.419.987.987 0 0 0-1.406 0l-2.298 2.317-2.307-2.327a.99.99 0 0 0-1.406 0z\\" fill=\\"currentColor\\" fill-rule=\\"evenodd\\"/></svg>",
+                                                                }
+                                                              }
+                                                              role="img"
+                                                            />
+                                                          </styled.span>
+                                                        </Icon>
+                                                      </ChevronDownIcon>
+                                                    </div>
+                                                  </styled.div>
+                                                </span>
+                                              </styled.span>
+                                            </Styled(styled.span)>
+                                            <styled.span>
+                                              <span
+                                                className="c9"
+                                              >
+                                                <styled.span
+                                                  allowMultiline={false}
+                                                >
+                                                  <span
+                                                    className="c10"
+                                                  />
+                                                </styled.span>
+                                              </span>
+                                            </styled.span>
+                                          </span>
+                                        </styled.span>
+                                      </Item>
+                                    </div>
+                                  </styled.div>
+                                </SwitcherItem>
+                              </ThemeProvider>
+                            </Consumer>
+                          </Component>
+                        </div>
+                      </styled.div>
+                    </Styled(styled.div)>
+                  </Consumer>
+                </Component>
+              </div>
+            </Tooltip>
+          </div>
+        </styled.div>
+      </div>
+    </styled.div>
+  </SwitcherItemWithDropDown>
+</WithAnalyticsEvents(SwitcherItemWithDropDown)>
+`;
+
+exports[`Atlassian Switcher - ItemWithDropdown renders an item with multiple sites correctly and clicking expand shows children sites 3`] = `
+.c8 {
+  color: #FFFFFF;
+  display: inline-block;
+  fill: currentColor;
+  height: 24px;
+  position: relative;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.c8 > svg {
+  fill: inherit;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+.c8 > canvas {
+  display: block;
+  height: 100%;
+  visibility: hidden;
+}
+
+.c8 stop {
+  stop-color: currentColor;
+}
+
+.c6 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  padding-bottom: 1px;
+}
+
+.c5 {
+  margin-right: 8px;
+}
+
+.c9 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  margin: 0;
+  overflow: hidden;
+}
+
+.c9:first-child {
+  margin: 0;
+}
+
+.c10 {
+  display: block;
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 1.1428571428571428;
+  padding-bottom: 1px;
+}
+
+.c11 {
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #6B778C;
+  font-size: 11px;
+  line-height: 1.2727272727272727;
+  padding-bottom: 1px;
+}
+
+*:hover > * > .c11 {
+  color: #6B778C;
+}
+
+*:active > * > .c11 {
+  color: #6B778C;
+}
+
+.c0 {
+  -webkit-animation: ljGnjM 500ms ease forwards;
+  animation: ljGnjM 500ms ease forwards;
+  opacity: 0;
+}
+
+.c15 {
+  color: currentColor;
+  display: inline-block;
+  fill: #FFFFFF;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.c15 > svg {
+  max-height: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  vertical-align: bottom;
+}
+
+.c15 stop {
+  stop-color: currentColor;
+}
+
+.c3 {
+  border-radius: 3px;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+}
+
+.c2 {
+  width: 100%;
+  overflow: hidden;
+}
+
+.c12 {
+  max-height: 47px;
+  cursor: pointer;
+  margin-left: 2px;
+}
+
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  box-sizing: border-box;
+  border-radius: 3px;
+}
+
+.c14 {
+  width: 32px;
+  height: 32px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  margin-right: -8px;
+  margin-bottom: -1px;
+}
+
+.c7 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  box-shadow: 0 1px 1px rgba(9,30,66,0.25),0 0 1px 1px rgba(9,30,66,0.13);
+  background-color: #0052CC;
+  overflow: hidden;
+}
+
+.c4.c4 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 3px;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: none;
+  -ms-flex: none;
+  flex: none;
+  background-color: transparent;
+  color: #091E42;
+  fill: transparent;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  padding: 7px 8px 7px 8px;
+  width: 100%;
+}
+
+.c4.c4:focus {
+  color: #091E42;
+}
+
+.c4.c4:hover {
+  background-color: #EBECF0;
+  fill: #EBECF0;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4.c4:active {
+  background-color: transparent;
+  fill: transparent;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4.c4:focus {
+  box-shadow: 0 0 0 2px #4C9AFF inset;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4.c4:focus {
+  outline: none;
+  position: relative;
+}
+
+.c13.c13 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 3px;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: none;
+  -ms-flex: none;
+  flex: none;
+  background-color: transparent;
+  color: #091E42;
+  fill: transparent;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  padding: 8px 8px 7px 8px;
+  width: 100%;
+}
+
+.c13.c13:focus {
+  color: #091E42;
+}
+
+.c13.c13:hover {
+  background-color: #EBECF0;
+  fill: #EBECF0;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c13.c13:active {
+  background-color: transparent;
+  fill: transparent;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c13.c13:focus {
+  box-shadow: 0 0 0 2px #4C9AFF inset;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c13.c13:focus {
+  outline: none;
+  position: relative;
+}
+
+<WithAnalyticsEvents(SwitcherItemWithDropDown)
+  childIcon={
+    <Unknown
+      theme="subtle"
+    />
+  }
+  childItems={
+    Array [
+      Object {
+        "avatar": "https://site-admin-avatar-cdn.staging.public.atl-paas.net/avatars/240/rocket.png",
+        "href": "https://site00.atlassian.net/secure/BrowseProjects.jspa?selectedProjectType=software",
+        "label": "site00",
+      },
+      Object {
+        "avatar": "https://site-admin-avatar-cdn.stg.public.atl-paas.net/avatars/240/rocket.png",
+        "href": "https://site10.atlassian.net/secure/BrowseProjects.jspa?selectedProjectType=software",
+        "label": "site10",
+      },
+      Object {
+        "avatar": null,
+        "href": "https://site30.atlassian.net/secure/BrowseProjects.jspa?selectedProjectType=software",
+        "label": "site30",
+      },
+    ]
+  }
+  description="some-instance"
+  href="https://app.opsgenie.com"
+  icon={
+    <Unknown
+      theme="product"
+    />
+  }
+  tooltipContent={
+    <span>
+      Show more sites
+    </span>
+  }
+>
+  <SwitcherItemWithDropDown
+    childIcon={
+      <Unknown
+        theme="subtle"
+      />
+    }
+    childItems={
+      Array [
+        Object {
+          "avatar": "https://site-admin-avatar-cdn.staging.public.atl-paas.net/avatars/240/rocket.png",
+          "href": "https://site00.atlassian.net/secure/BrowseProjects.jspa?selectedProjectType=software",
+          "label": "site00",
+        },
+        Object {
+          "avatar": "https://site-admin-avatar-cdn.stg.public.atl-paas.net/avatars/240/rocket.png",
+          "href": "https://site10.atlassian.net/secure/BrowseProjects.jspa?selectedProjectType=software",
+          "label": "site10",
+        },
+        Object {
+          "avatar": null,
+          "href": "https://site30.atlassian.net/secure/BrowseProjects.jspa?selectedProjectType=software",
+          "label": "site30",
+        },
+      ]
+    }
+    createAnalyticsEvent={[Function]}
+    description="some-instance"
+    href="https://app.opsgenie.com"
+    icon={
+      <Unknown
+        theme="product"
+      />
+    }
+    onChildItemClick={[Function]}
+    onExpandClick={[Function]}
+    onItemClick={[Function]}
+    tooltipContent={
+      <span>
+        Show more sites
+      </span>
+    }
+  >
+    <styled.div>
+      <div
+        className="c0"
+      >
+        <styled.div
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+        >
+          <div
+            className="c1"
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+          >
+            <Component
+              isParentHovered={false}
+            >
+              <Consumer>
+                <Styled(styled.div)
+                  isParentHovered={false}
+                  tokens={
+                    Object {
+                      "hover": Object {
+                        "background": "#F4F5F7",
+                      },
+                    }
+                  }
+                >
+                  <styled.div
+                    className="c2"
+                    isParentHovered={false}
+                    tokens={
+                      Object {
+                        "hover": Object {
+                          "background": "#F4F5F7",
+                        },
+                      }
+                    }
+                  >
+                    <div
+                      className="c2 c3"
+                    >
+                      <Component
+                        createAnalyticsEvent={[Function]}
+                        description="some-instance"
+                        href="https://app.opsgenie.com"
+                        icon={
+                          <Unknown
+                            theme="product"
+                          />
+                        }
+                        onClick={[Function]}
+                        onExpandClick={[Function]}
+                        tooltipContent={
+                          <span>
+                            Show more sites
+                          </span>
+                        }
+                      >
+                        <Consumer>
+                          <ThemeProvider
+                            theme={
+                              Object {
+                                "@atlaskit-shared-theme/item": Object {
+                                  "active": Object {
+                                    "background": "transparent",
+                                  },
+                                  "default": Object {
+                                    "background": "transparent",
+                                    "secondaryText": "#6B778C",
+                                    "text": "#091E42",
+                                  },
+                                  "display": "block",
+                                  "hover": Object {
+                                    "background": "#EBECF0",
+                                  },
+                                  "padding": Object {
+                                    "default": Object {
+                                      "bottom": 8,
+                                      "left": 8,
+                                      "right": 8,
+                                      "top": 8,
+                                    },
+                                  },
+                                  "width": Object {
+                                    "default": "100%",
+                                  },
+                                },
+                              }
+                            }
+                          >
+                            <SwitcherItem
+                              createAnalyticsEvent={[Function]}
+                              description="some-instance"
+                              href="https://app.opsgenie.com"
+                              icon={
+                                <Unknown
+                                  theme="product"
+                                />
+                              }
+                              onClick={[Function]}
+                              onExpandClick={[Function]}
+                              tooltipContent={
+                                <span>
+                                  Show more sites
+                                </span>
+                              }
+                            >
+                              <styled.div>
+                                <div
+                                  className="c0"
+                                >
+                                  <Item
+                                    autoFocus={false}
+                                    createAnalyticsEvent={[Function]}
+                                    description="some-instance"
+                                    elemBefore={
+                                      <Unknown
+                                        theme="product"
+                                      />
+                                    }
+                                    href="https://app.opsgenie.com"
+                                    isCompact={false}
+                                    isDisabled={false}
+                                    isHidden={false}
+                                    onClick={[Function]}
+                                    onExpandClick={[Function]}
+                                    role="button"
+                                    shouldAllowMultiline={false}
+                                    tooltipContent={
+                                      <span>
+                                        Show more sites
+                                      </span>
+                                    }
+                                  >
+                                    <styled.a
+                                      aria-disabled={false}
+                                      autoFocus={false}
+                                      createAnalyticsEvent={[Function]}
+                                      description="some-instance"
+                                      elemBefore={
+                                        <Unknown
+                                          theme="product"
+                                        />
+                                      }
+                                      href="https://app.opsgenie.com"
+                                      innerRef={[Function]}
+                                      isCompact={false}
+                                      isDisabled={false}
+                                      isHidden={false}
+                                      onClick={[Function]}
+                                      onExpandClick={[Function]}
+                                      onKeyDown={[Function]}
+                                      onMouseDown={[Function]}
+                                      role="button"
+                                      shouldAllowMultiline={false}
+                                      tabIndex={null}
+                                      tooltipContent={
+                                        <span>
+                                          Show more sites
+                                        </span>
+                                      }
+                                    >
+                                      <a
+                                        aria-disabled={false}
+                                        autoFocus={false}
+                                        className="c4"
+                                        href="https://app.opsgenie.com"
+                                        onClick={[Function]}
+                                        onKeyDown={[Function]}
+                                        onMouseDown={[Function]}
+                                        role="button"
+                                        tabIndex={null}
+                                      >
+                                        <Styled(styled.span)
+                                          isCompact={false}
+                                        >
+                                          <styled.span
+                                            className="c5"
+                                            isCompact={false}
+                                          >
+                                            <span
+                                              className="c5 c6"
+                                            >
+                                              <Component
+                                                theme="product"
+                                              >
+                                                <styled.div
+                                                  bgColor="#0052CC"
+                                                  iconElevation={[Function]}
+                                                >
+                                                  <div
+                                                    className="c7"
+                                                  >
+                                                    <JiraSoftwareIcon
+                                                      iconColor="#FFFFFF"
+                                                      iconGradientStart="inherit"
+                                                      iconGradientStop="inherit"
+                                                      label=""
+                                                      primaryColor="#FFFFFF"
+                                                      size="small"
+                                                      textColor="currentColor"
+                                                    >
+                                                      <Wrapper
+                                                        iconColor="#FFFFFF"
+                                                        iconGradientStart="inherit"
+                                                        iconGradientStop="inherit"
+                                                        label=""
+                                                        primaryColor="#FFFFFF"
+                                                        size="small"
+                                                        svg={[Function]}
+                                                        textColor="currentColor"
+                                                      >
+                                                        <styled.span
+                                                          dangerouslySetInnerHTML={
+                                                            Object {
+                                                              "__html": "<canvas height=\\"32\\" width=\\"32\\" aria-hidden=\\"true\\"></canvas>
+  <svg viewBox=\\"0 0 32 32\\" xmlns=\\"http://www.w3.org/2000/svg\\" focusable=\\"false\\" aria-hidden=\\"true\\">
+    <defs>
+      <linearGradient x1=\\"108.695%\\" x2=\\"12.439%\\" y1=\\"-14.936%\\" y2=\\"45.215%\\" id=\\"uid3-1\\">
+        <stop stop-color=\\"inherit\\" stop-opacity=\\"0.4\\" offset=\\"0%\\"></stop>
+        <stop stop-color=\\"inherit\\" offset=\\"100%\\"></stop>
+      </linearGradient>
+      <linearGradient x1=\\"0%\\" x2=\\"91.029%\\" y1=\\"118.55%\\" y2=\\"63.971%\\" id=\\"uid3-2\\">
+        <stop stop-color=\\"inherit\\" stop-opacity=\\"0.4\\" offset=\\"0%\\"></stop>
+        <stop stop-color=\\"inherit\\" offset=\\"100%\\"></stop>
+      </linearGradient>
+    </defs>
+    <g stroke=\\"none\\" stroke-width=\\"1\\" fill-rule=\\"nonzero\\">
+      <path d=\\"M15.9669691 29.3616152C17.2195568 28.1097726 17.9233158 26.4114623 17.9233158 24.6405626 17.9233158 22.8696629 17.2195568 21.1713527 15.9669691 19.91951L7.26805808 11.2489111 3.31143376 15.2055354C2.89743442 15.6200502 2.89743442 16.291565 3.31143376 16.7060799L15.9669691 29.3616152zM28.6225045 15.2055354L15.9669691 2.55 15.9280399 2.58892922C13.3485687 5.19994003 13.3612164 9.40374108 15.9563521 11.9991833L24.6623412 20.6662432 28.6225045 16.7060799C29.0365039 16.291565 29.0365039 15.6200502 28.6225045 15.2055354z\\" fill=\\"currentColor\\"/>
+      <path d=\\"M15.9669691,11.9921053 C13.3718335,9.39666304 13.3591857,5.19286199 15.938657,2.58185118 L6.91061706,11.6063521 L11.6316697,16.3274047 L15.9669691,11.9921053 Z\\" fill=\\"url(#uid3-1\\"/>
+      <path d=\\"M20.2951906,15.5912886 L15.9669691,19.91951 C17.2195568,21.1713527 17.9233158,22.8696629 17.9233158,24.6405626 C17.9233158,26.4114623 17.2195568,28.1097726 15.9669691,29.3616152 L25.0162432,20.3123412 L20.2951906,15.5912886 Z\\" fill=\\"url(#uid3-2\\"/>
+    </g>
+  </svg>",
+                                                            }
+                                                          }
+                                                          iconColor="#FFFFFF"
+                                                          iconGradientStart="inherit"
+                                                          iconGradientStop="inherit"
+                                                          primaryColor="#FFFFFF"
+                                                          role="presentation"
+                                                          size="small"
+                                                          textColor="currentColor"
+                                                        >
+                                                          <span
+                                                            className="c8"
+                                                            dangerouslySetInnerHTML={
+                                                              Object {
+                                                                "__html": "<canvas height=\\"32\\" width=\\"32\\" aria-hidden=\\"true\\"></canvas>
+  <svg viewBox=\\"0 0 32 32\\" xmlns=\\"http://www.w3.org/2000/svg\\" focusable=\\"false\\" aria-hidden=\\"true\\">
+    <defs>
+      <linearGradient x1=\\"108.695%\\" x2=\\"12.439%\\" y1=\\"-14.936%\\" y2=\\"45.215%\\" id=\\"uid3-1\\">
+        <stop stop-color=\\"inherit\\" stop-opacity=\\"0.4\\" offset=\\"0%\\"></stop>
+        <stop stop-color=\\"inherit\\" offset=\\"100%\\"></stop>
+      </linearGradient>
+      <linearGradient x1=\\"0%\\" x2=\\"91.029%\\" y1=\\"118.55%\\" y2=\\"63.971%\\" id=\\"uid3-2\\">
+        <stop stop-color=\\"inherit\\" stop-opacity=\\"0.4\\" offset=\\"0%\\"></stop>
+        <stop stop-color=\\"inherit\\" offset=\\"100%\\"></stop>
+      </linearGradient>
+    </defs>
+    <g stroke=\\"none\\" stroke-width=\\"1\\" fill-rule=\\"nonzero\\">
+      <path d=\\"M15.9669691 29.3616152C17.2195568 28.1097726 17.9233158 26.4114623 17.9233158 24.6405626 17.9233158 22.8696629 17.2195568 21.1713527 15.9669691 19.91951L7.26805808 11.2489111 3.31143376 15.2055354C2.89743442 15.6200502 2.89743442 16.291565 3.31143376 16.7060799L15.9669691 29.3616152zM28.6225045 15.2055354L15.9669691 2.55 15.9280399 2.58892922C13.3485687 5.19994003 13.3612164 9.40374108 15.9563521 11.9991833L24.6623412 20.6662432 28.6225045 16.7060799C29.0365039 16.291565 29.0365039 15.6200502 28.6225045 15.2055354z\\" fill=\\"currentColor\\"/>
+      <path d=\\"M15.9669691,11.9921053 C13.3718335,9.39666304 13.3591857,5.19286199 15.938657,2.58185118 L6.91061706,11.6063521 L11.6316697,16.3274047 L15.9669691,11.9921053 Z\\" fill=\\"url(#uid3-1\\"/>
+      <path d=\\"M20.2951906,15.5912886 L15.9669691,19.91951 C17.2195568,21.1713527 17.9233158,22.8696629 17.9233158,24.6405626 C17.9233158,26.4114623 17.2195568,28.1097726 15.9669691,29.3616152 L25.0162432,20.3123412 L20.2951906,15.5912886 Z\\" fill=\\"url(#uid3-2\\"/>
+    </g>
+  </svg>",
+                                                              }
+                                                            }
+                                                            role="presentation"
+                                                            size="small"
+                                                          />
+                                                        </styled.span>
+                                                      </Wrapper>
+                                                    </JiraSoftwareIcon>
+                                                  </div>
+                                                </styled.div>
+                                              </Component>
+                                            </span>
+                                          </styled.span>
+                                        </Styled(styled.span)>
+                                        <styled.span>
+                                          <span
+                                            className="c9"
+                                          >
+                                            <styled.span
+                                              allowMultiline={false}
+                                            >
+                                              <span
+                                                className="c10"
+                                              >
+                                                Jira Software
+                                              </span>
+                                            </styled.span>
+                                            <styled.span
+                                              isCompact={false}
+                                              isDisabled={false}
+                                            >
+                                              <span
+                                                className="c11"
+                                              >
+                                                some-instance
+                                              </span>
+                                            </styled.span>
+                                          </span>
+                                        </styled.span>
+                                      </a>
+                                    </styled.a>
+                                  </Item>
+                                </div>
+                              </styled.div>
+                            </SwitcherItem>
+                          </ThemeProvider>
+                        </Consumer>
+                      </Component>
+                    </div>
+                  </styled.div>
+                </Styled(styled.div)>
+              </Consumer>
+            </Component>
+            <Tooltip
+              content={
+                <span>
+                  Show more sites
+                </span>
+              }
+              hideTooltipOnMouseDown={true}
+              position="top"
+            >
+              <div
+                onBlur={[Function]}
+                onClick={[Function]}
+                onFocus={[Function]}
+                onMouseDown={[Function]}
+                onMouseOut={[Function]}
+                onMouseOver={[Function]}
+              >
+                <Component
+                  isParentHovered={false}
+                >
+                  <Consumer>
+                    <Styled(styled.div)
+                      isParentHovered={false}
+                      tokens={
+                        Object {
+                          "hover": Object {
+                            "background": "#F4F5F7",
+                          },
+                        }
+                      }
+                    >
+                      <styled.div
+                        className="c12"
+                        isParentHovered={false}
+                        tokens={
+                          Object {
+                            "hover": Object {
+                              "background": "#F4F5F7",
+                            },
+                          }
+                        }
+                      >
+                        <div
+                          className="c12 c3"
+                        >
+                          <Component
+                            data-test-id="switcher-expand-toggle"
+                            icon={
+                              <styled.div>
+                                <ChevronDownIcon
+                                  label="Expand"
+                                />
+                              </styled.div>
+                            }
+                            onClick={[Function]}
+                            onKeyDown={[Function]}
+                          >
+                            <Consumer>
+                              <ThemeProvider
+                                theme={
+                                  Object {
+                                    "@atlaskit-shared-theme/item": Object {
+                                      "active": Object {
+                                        "background": "transparent",
+                                      },
+                                      "default": Object {
+                                        "background": "transparent",
+                                        "secondaryText": "#6B778C",
+                                        "text": "#091E42",
+                                      },
+                                      "display": "block",
+                                      "hover": Object {
+                                        "background": "#EBECF0",
+                                      },
+                                      "padding": Object {
+                                        "default": Object {
+                                          "bottom": 8,
+                                          "left": 8,
+                                          "right": 8,
+                                          "top": 8,
+                                        },
+                                      },
+                                      "width": Object {
+                                        "default": "100%",
+                                      },
+                                    },
+                                  }
+                                }
+                              >
+                                <SwitcherItem
+                                  data-test-id="switcher-expand-toggle"
+                                  icon={
+                                    <styled.div>
+                                      <ChevronDownIcon
+                                        label="Expand"
+                                      />
+                                    </styled.div>
+                                  }
+                                  onClick={[Function]}
+                                  onKeyDown={[Function]}
+                                >
+                                  <styled.div>
+                                    <div
+                                      className="c0"
+                                    >
+                                      <Item
+                                        autoFocus={false}
+                                        data-test-id="switcher-expand-toggle"
+                                        description=""
+                                        elemBefore={
+                                          <styled.div>
+                                            <ChevronDownIcon
+                                              label="Expand"
+                                            />
+                                          </styled.div>
+                                        }
+                                        isCompact={false}
+                                        isDisabled={false}
+                                        isHidden={false}
+                                        onClick={[Function]}
+                                        onKeyDown={[Function]}
+                                        role="button"
+                                        shouldAllowMultiline={false}
+                                      >
+                                        <styled.span
+                                          aria-disabled={false}
+                                          autoFocus={false}
+                                          data-test-id="switcher-expand-toggle"
+                                          description=""
+                                          elemBefore={
+                                            <styled.div>
+                                              <ChevronDownIcon
+                                                label="Expand"
+                                              />
+                                            </styled.div>
+                                          }
+                                          innerRef={[Function]}
+                                          isCompact={false}
+                                          isDisabled={false}
+                                          isHidden={false}
+                                          onClick={[Function]}
+                                          onKeyDown={[Function]}
+                                          onMouseDown={[Function]}
+                                          role="button"
+                                          shouldAllowMultiline={false}
+                                          tabIndex={0}
+                                        >
+                                          <span
+                                            aria-disabled={false}
+                                            autoFocus={false}
+                                            className="c13"
+                                            data-test-id="switcher-expand-toggle"
+                                            onClick={[Function]}
+                                            onKeyDown={[Function]}
+                                            onMouseDown={[Function]}
+                                            role="button"
+                                            tabIndex={0}
+                                          >
+                                            <Styled(styled.span)
+                                              isCompact={false}
+                                            >
+                                              <styled.span
+                                                className="c5"
+                                                isCompact={false}
+                                              >
+                                                <span
+                                                  className="c5 c6"
+                                                >
+                                                  <styled.div>
+                                                    <div
+                                                      className="c14"
+                                                    >
+                                                      <ChevronDownIcon
+                                                        label="Expand"
+                                                      >
+                                                        <Icon
+                                                          dangerouslySetGlyph="<svg width=\\"24\\" height=\\"24\\" viewBox=\\"0 0 24 24\\" focusable=\\"false\\" role=\\"presentation\\"><path d=\\"M8.292 10.293a1.009 1.009 0 0 0 0 1.419l2.939 2.965c.218.215.5.322.779.322s.556-.107.769-.322l2.93-2.955a1.01 1.01 0 0 0 0-1.419.987.987 0 0 0-1.406 0l-2.298 2.317-2.307-2.327a.99.99 0 0 0-1.406 0z\\" fill=\\"currentColor\\" fill-rule=\\"evenodd\\"/></svg>"
+                                                          label="Expand"
+                                                        >
+                                                          <styled.span
+                                                            aria-label="Expand"
+                                                            dangerouslySetInnerHTML={
+                                                              Object {
+                                                                "__html": "<svg width=\\"24\\" height=\\"24\\" viewBox=\\"0 0 24 24\\" focusable=\\"false\\" role=\\"presentation\\"><path d=\\"M8.292 10.293a1.009 1.009 0 0 0 0 1.419l2.939 2.965c.218.215.5.322.779.322s.556-.107.769-.322l2.93-2.955a1.01 1.01 0 0 0 0-1.419.987.987 0 0 0-1.406 0l-2.298 2.317-2.307-2.327a.99.99 0 0 0-1.406 0z\\" fill=\\"currentColor\\" fill-rule=\\"evenodd\\"/></svg>",
+                                                              }
+                                                            }
+                                                            role="img"
+                                                          >
+                                                            <span
+                                                              aria-label="Expand"
+                                                              className="c15"
+                                                              dangerouslySetInnerHTML={
+                                                                Object {
+                                                                  "__html": "<svg width=\\"24\\" height=\\"24\\" viewBox=\\"0 0 24 24\\" focusable=\\"false\\" role=\\"presentation\\"><path d=\\"M8.292 10.293a1.009 1.009 0 0 0 0 1.419l2.939 2.965c.218.215.5.322.779.322s.556-.107.769-.322l2.93-2.955a1.01 1.01 0 0 0 0-1.419.987.987 0 0 0-1.406 0l-2.298 2.317-2.307-2.327a.99.99 0 0 0-1.406 0z\\" fill=\\"currentColor\\" fill-rule=\\"evenodd\\"/></svg>",
+                                                                }
+                                                              }
+                                                              role="img"
+                                                            />
+                                                          </styled.span>
+                                                        </Icon>
+                                                      </ChevronDownIcon>
+                                                    </div>
+                                                  </styled.div>
+                                                </span>
+                                              </styled.span>
+                                            </Styled(styled.span)>
+                                            <styled.span>
+                                              <span
+                                                className="c9"
+                                              >
+                                                <styled.span
+                                                  allowMultiline={false}
+                                                >
+                                                  <span
+                                                    className="c10"
+                                                  />
+                                                </styled.span>
+                                              </span>
+                                            </styled.span>
+                                          </span>
+                                        </styled.span>
+                                      </Item>
+                                    </div>
+                                  </styled.div>
+                                </SwitcherItem>
+                              </ThemeProvider>
+                            </Consumer>
+                          </Component>
+                        </div>
+                      </styled.div>
+                    </Styled(styled.div)>
+                  </Consumer>
+                </Component>
+              </div>
+            </Tooltip>
+          </div>
+        </styled.div>
+      </div>
+    </styled.div>
+  </SwitcherItemWithDropDown>
+</WithAnalyticsEvents(SwitcherItemWithDropDown)>
+`;
+
+exports[`Atlassian Switcher - ItemWithDropdown renders single site item correctly 1`] = `
+.c8 {
+  color: #FFFFFF;
+  display: inline-block;
+  fill: currentColor;
+  height: 24px;
+  position: relative;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.c8 > svg {
+  fill: inherit;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+.c8 > canvas {
+  display: block;
+  height: 100%;
+  visibility: hidden;
+}
+
+.c8 stop {
+  stop-color: currentColor;
+}
+
+.c6 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  padding-bottom: 1px;
+}
+
+.c5 {
+  margin-right: 8px;
+}
+
+.c9 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  margin: 0;
+  overflow: hidden;
+}
+
+.c9:first-child {
+  margin: 0;
+}
+
+.c10 {
+  display: block;
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 1.1428571428571428;
+  padding-bottom: 1px;
+}
+
+.c0 {
+  -webkit-animation: ljGnjM 500ms ease forwards;
+  animation: ljGnjM 500ms ease forwards;
+  opacity: 0;
+}
+
+.c3 {
+  border-radius: 3px;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+}
+
+.c2 {
+  width: 100%;
+  overflow: hidden;
+}
+
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  box-sizing: border-box;
+  border-radius: 3px;
+}
+
+.c7 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  box-shadow: 0 1px 1px rgba(9,30,66,0.25),0 0 1px 1px rgba(9,30,66,0.13);
+  background-color: #0052CC;
+  overflow: hidden;
+}
+
+.c4.c4 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 3px;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: none;
+  -ms-flex: none;
+  flex: none;
+  background-color: transparent;
+  color: #091E42;
+  fill: transparent;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  padding: 8px 8px 7px 8px;
+  width: 100%;
+}
+
+.c4.c4:focus {
+  color: #091E42;
+}
+
+.c4.c4:hover {
+  background-color: #EBECF0;
+  fill: #EBECF0;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4.c4:active {
+  background-color: transparent;
+  fill: transparent;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4.c4:focus {
+  box-shadow: 0 0 0 2px #4C9AFF inset;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4.c4:focus {
+  outline: none;
+  position: relative;
+}
+
+<WithAnalyticsEvents(SwitcherItemWithDropDown)
+  childIcon={
+    <Unknown
+      theme="subtle"
+    />
+  }
+  childItems={Array []}
+  description="some-instance"
+  href="https://app.opsgenie.com"
+  icon={
+    <Unknown
+      theme="product"
+    />
+  }
+  tooltipContent={
+    <span>
+      Show more sites
+    </span>
+  }
+>
+  <SwitcherItemWithDropDown
+    childIcon={
+      <Unknown
+        theme="subtle"
+      />
+    }
+    childItems={Array []}
+    createAnalyticsEvent={[Function]}
+    description="some-instance"
+    href="https://app.opsgenie.com"
+    icon={
+      <Unknown
+        theme="product"
+      />
+    }
+    onChildItemClick={[Function]}
+    onExpandClick={[Function]}
+    onItemClick={[Function]}
+    tooltipContent={
+      <span>
+        Show more sites
+      </span>
+    }
+  >
+    <styled.div>
+      <div
+        className="c0"
+      >
+        <styled.div
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+        >
+          <div
+            className="c1"
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+          >
+            <Component
+              isParentHovered={false}
+            >
+              <Consumer>
+                <Styled(styled.div)
+                  isParentHovered={false}
+                  tokens={
+                    Object {
+                      "hover": Object {
+                        "background": "#F4F5F7",
+                      },
+                    }
+                  }
+                >
+                  <styled.div
+                    className="c2"
+                    isParentHovered={false}
+                    tokens={
+                      Object {
+                        "hover": Object {
+                          "background": "#F4F5F7",
+                        },
+                      }
+                    }
+                  >
+                    <div
+                      className="c2 c3"
+                    >
+                      <Component
+                        createAnalyticsEvent={[Function]}
+                        description={null}
+                        href="https://app.opsgenie.com"
+                        icon={
+                          <Unknown
+                            theme="product"
+                          />
+                        }
+                        onClick={[Function]}
+                        onExpandClick={[Function]}
+                        tooltipContent={
+                          <span>
+                            Show more sites
+                          </span>
+                        }
+                      >
+                        <Consumer>
+                          <ThemeProvider
+                            theme={
+                              Object {
+                                "@atlaskit-shared-theme/item": Object {
+                                  "active": Object {
+                                    "background": "transparent",
+                                  },
+                                  "default": Object {
+                                    "background": "transparent",
+                                    "secondaryText": "#6B778C",
+                                    "text": "#091E42",
+                                  },
+                                  "display": "block",
+                                  "hover": Object {
+                                    "background": "#EBECF0",
+                                  },
+                                  "padding": Object {
+                                    "default": Object {
+                                      "bottom": 8,
+                                      "left": 8,
+                                      "right": 8,
+                                      "top": 8,
+                                    },
+                                  },
+                                  "width": Object {
+                                    "default": "100%",
+                                  },
+                                },
+                              }
+                            }
+                          >
+                            <SwitcherItem
+                              createAnalyticsEvent={[Function]}
+                              description={null}
+                              href="https://app.opsgenie.com"
+                              icon={
+                                <Unknown
+                                  theme="product"
+                                />
+                              }
+                              onClick={[Function]}
+                              onExpandClick={[Function]}
+                              tooltipContent={
+                                <span>
+                                  Show more sites
+                                </span>
+                              }
+                            >
+                              <styled.div>
+                                <div
+                                  className="c0"
+                                >
+                                  <Item
+                                    autoFocus={false}
+                                    createAnalyticsEvent={[Function]}
+                                    description={null}
+                                    elemBefore={
+                                      <Unknown
+                                        theme="product"
+                                      />
+                                    }
+                                    href="https://app.opsgenie.com"
+                                    isCompact={false}
+                                    isDisabled={false}
+                                    isHidden={false}
+                                    onClick={[Function]}
+                                    onExpandClick={[Function]}
+                                    role="button"
+                                    shouldAllowMultiline={false}
+                                    tooltipContent={
+                                      <span>
+                                        Show more sites
+                                      </span>
+                                    }
+                                  >
+                                    <styled.a
+                                      aria-disabled={false}
+                                      autoFocus={false}
+                                      createAnalyticsEvent={[Function]}
+                                      description={null}
+                                      elemBefore={
+                                        <Unknown
+                                          theme="product"
+                                        />
+                                      }
+                                      href="https://app.opsgenie.com"
+                                      innerRef={[Function]}
+                                      isCompact={false}
+                                      isDisabled={false}
+                                      isHidden={false}
+                                      onClick={[Function]}
+                                      onExpandClick={[Function]}
+                                      onKeyDown={[Function]}
+                                      onMouseDown={[Function]}
+                                      role="button"
+                                      shouldAllowMultiline={false}
+                                      tabIndex={null}
+                                      tooltipContent={
+                                        <span>
+                                          Show more sites
+                                        </span>
+                                      }
+                                    >
+                                      <a
+                                        aria-disabled={false}
+                                        autoFocus={false}
+                                        className="c4"
+                                        href="https://app.opsgenie.com"
+                                        onClick={[Function]}
+                                        onKeyDown={[Function]}
+                                        onMouseDown={[Function]}
+                                        role="button"
+                                        tabIndex={null}
+                                      >
+                                        <Styled(styled.span)
+                                          isCompact={false}
+                                        >
+                                          <styled.span
+                                            className="c5"
+                                            isCompact={false}
+                                          >
+                                            <span
+                                              className="c5 c6"
+                                            >
+                                              <Component
+                                                theme="product"
+                                              >
+                                                <styled.div
+                                                  bgColor="#0052CC"
+                                                  iconElevation={[Function]}
+                                                >
+                                                  <div
+                                                    className="c7"
+                                                  >
+                                                    <OpsGenieIcon
+                                                      iconColor="#FFFFFF"
+                                                      iconGradientStart="inherit"
+                                                      iconGradientStop="inherit"
+                                                      label=""
+                                                      primaryColor="#FFFFFF"
+                                                      size="small"
+                                                      textColor="currentColor"
+                                                    >
+                                                      <Wrapper
+                                                        iconColor="#FFFFFF"
+                                                        iconGradientStart="inherit"
+                                                        iconGradientStop="inherit"
+                                                        label=""
+                                                        primaryColor="#FFFFFF"
+                                                        size="small"
+                                                        svg={[Function]}
+                                                        textColor="currentColor"
+                                                      >
+                                                        <styled.span
+                                                          dangerouslySetInnerHTML={
+                                                            Object {
+                                                              "__html": "<canvas height=\\"32\\" width=\\"32\\" aria-hidden=\\"true\\"></canvas>
+  <svg viewBox=\\"0 0 32 32\\" xmlns=\\"http://www.w3.org/2000/svg\\" focusable=\\"false\\" aria-hidden=\\"true\\">
+    <defs>
+      <linearGradient id=\\"uid2-1\\" x1=\\"50%\\" x2=\\"50%\\" y1=\\"0%\\" y2=\\"100%\\">
+        <stop
+          offset=\\"0%\\"
+          stop-color=\\"inherit\\"
+        />
+        <stop
+          offset=\\"82%\\"
+          stop-color=\\"inherit\\"
+          stop-opacity=\\"0.4\\"
+        />
+      </linearGradient>
+      <linearGradient id=\\"uid2-2\\" x1=\\"7.133%\\" x2=\\"50%\\" y1=\\"13.352%\\" y2=\\"58.228%\\">
+        <stop
+          offset=\\"0%\\"
+          stop-color=\\"inherit\\"
+        />
+        <stop
+          offset=\\"100%\\"
+          stop-color=\\"inherit\\"
+          stop-opacity=\\"0.4\\"
+        />
+      </linearGradient>
+    </defs>
+    <g fill=\\"none\\" fill-rule=\\"evenodd\\">
+      <circle cx=\\"16\\" cy=\\"10\\" r=\\"6\\" fill=\\"url(#uid2-1)\\" fill-rule=\\"nonzero\\"/>
+      <path fill=\\"url(#uid2-2)\\" fill-rule=\\"nonzero\\" d=\\"M15.4917902,27.8535048 C11.5895108,25.3649677 8.34369777,21.9735337 6.02870456,17.9658651 C5.84991535,17.6419027 5.96743197,17.2343451 6.2912577,17.0553085 L6.31918889,17.0553085 L10.8440409,14.8208136 C11.1613558,14.6649408 11.5451782,14.7822878 11.7210802,15.088953 C14.0054511,18.9171632 17.3801037,21.9767185 21.4132015,23.876104 C19.9238268,25.3786979 18.2733698,26.7125519 16.4917267,27.8535048 C16.1850328,28.0418894 15.7984841,28.0418894 15.4917902,27.8535048 Z\\"/>
+      <path fill=\\"currentColor\\" fill-rule=\\"nonzero\\" d=\\"M16.5084854,27.8535048 C20.4118869,25.3663345 23.6579925,21.9745949 25.971571,17.9658651 C26.1485439,17.6413306 26.0345395,17.23488 25.7146041,17.0497222 L25.6810867,17.0497222 L21.1506484,14.8152274 C20.834975,14.6599316 20.4529644,14.7774733 20.2791954,15.0833668 C17.9924232,18.9191667 14.6087636,21.9817774 10.5647291,23.876104 C12.0560656,25.3787865 13.7083825,26.7126296 15.4917902,27.8535048 C15.802544,28.0488317 16.1977316,28.0488317 16.5084854,27.8535048 Z\\"/>
+    </g>
+  </svg>",
+                                                            }
+                                                          }
+                                                          iconColor="#FFFFFF"
+                                                          iconGradientStart="inherit"
+                                                          iconGradientStop="inherit"
+                                                          primaryColor="#FFFFFF"
+                                                          role="presentation"
+                                                          size="small"
+                                                          textColor="currentColor"
+                                                        >
+                                                          <span
+                                                            className="c8"
+                                                            dangerouslySetInnerHTML={
+                                                              Object {
+                                                                "__html": "<canvas height=\\"32\\" width=\\"32\\" aria-hidden=\\"true\\"></canvas>
+  <svg viewBox=\\"0 0 32 32\\" xmlns=\\"http://www.w3.org/2000/svg\\" focusable=\\"false\\" aria-hidden=\\"true\\">
+    <defs>
+      <linearGradient id=\\"uid2-1\\" x1=\\"50%\\" x2=\\"50%\\" y1=\\"0%\\" y2=\\"100%\\">
+        <stop
+          offset=\\"0%\\"
+          stop-color=\\"inherit\\"
+        />
+        <stop
+          offset=\\"82%\\"
+          stop-color=\\"inherit\\"
+          stop-opacity=\\"0.4\\"
+        />
+      </linearGradient>
+      <linearGradient id=\\"uid2-2\\" x1=\\"7.133%\\" x2=\\"50%\\" y1=\\"13.352%\\" y2=\\"58.228%\\">
+        <stop
+          offset=\\"0%\\"
+          stop-color=\\"inherit\\"
+        />
+        <stop
+          offset=\\"100%\\"
+          stop-color=\\"inherit\\"
+          stop-opacity=\\"0.4\\"
+        />
+      </linearGradient>
+    </defs>
+    <g fill=\\"none\\" fill-rule=\\"evenodd\\">
+      <circle cx=\\"16\\" cy=\\"10\\" r=\\"6\\" fill=\\"url(#uid2-1)\\" fill-rule=\\"nonzero\\"/>
+      <path fill=\\"url(#uid2-2)\\" fill-rule=\\"nonzero\\" d=\\"M15.4917902,27.8535048 C11.5895108,25.3649677 8.34369777,21.9735337 6.02870456,17.9658651 C5.84991535,17.6419027 5.96743197,17.2343451 6.2912577,17.0553085 L6.31918889,17.0553085 L10.8440409,14.8208136 C11.1613558,14.6649408 11.5451782,14.7822878 11.7210802,15.088953 C14.0054511,18.9171632 17.3801037,21.9767185 21.4132015,23.876104 C19.9238268,25.3786979 18.2733698,26.7125519 16.4917267,27.8535048 C16.1850328,28.0418894 15.7984841,28.0418894 15.4917902,27.8535048 Z\\"/>
+      <path fill=\\"currentColor\\" fill-rule=\\"nonzero\\" d=\\"M16.5084854,27.8535048 C20.4118869,25.3663345 23.6579925,21.9745949 25.971571,17.9658651 C26.1485439,17.6413306 26.0345395,17.23488 25.7146041,17.0497222 L25.6810867,17.0497222 L21.1506484,14.8152274 C20.834975,14.6599316 20.4529644,14.7774733 20.2791954,15.0833668 C17.9924232,18.9191667 14.6087636,21.9817774 10.5647291,23.876104 C12.0560656,25.3787865 13.7083825,26.7126296 15.4917902,27.8535048 C15.802544,28.0488317 16.1977316,28.0488317 16.5084854,27.8535048 Z\\"/>
+    </g>
+  </svg>",
+                                                              }
+                                                            }
+                                                            role="presentation"
+                                                            size="small"
+                                                          />
+                                                        </styled.span>
+                                                      </Wrapper>
+                                                    </OpsGenieIcon>
+                                                  </div>
+                                                </styled.div>
+                                              </Component>
+                                            </span>
+                                          </styled.span>
+                                        </Styled(styled.span)>
+                                        <styled.span>
+                                          <span
+                                            className="c9"
+                                          >
+                                            <styled.span
+                                              allowMultiline={false}
+                                            >
+                                              <span
+                                                className="c10"
+                                              >
+                                                Opsgenie
+                                              </span>
+                                            </styled.span>
+                                          </span>
+                                        </styled.span>
+                                      </a>
+                                    </styled.a>
+                                  </Item>
+                                </div>
+                              </styled.div>
+                            </SwitcherItem>
+                          </ThemeProvider>
+                        </Consumer>
+                      </Component>
+                    </div>
+                  </styled.div>
+                </Styled(styled.div)>
+              </Consumer>
+            </Component>
+          </div>
+        </styled.div>
+      </div>
+    </styled.div>
+  </SwitcherItemWithDropDown>
+</WithAnalyticsEvents(SwitcherItemWithDropDown)>
+`;

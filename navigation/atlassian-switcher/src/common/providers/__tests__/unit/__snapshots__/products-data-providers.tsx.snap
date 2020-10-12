@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`products-data-providers should render using a custom provider 1`] = `
+<WithAnalyticsEvents(DataProvider(my-provider))>
+  <Component />
+</WithAnalyticsEvents(DataProvider(my-provider))>
+`;
+
+exports[`products-data-providers should render using the default provider 1`] = `
+<WithAnalyticsEvents(DataProvider(availableProducts))>
+  <Component />
+</WithAnalyticsEvents(DataProvider(availableProducts))>
+`;

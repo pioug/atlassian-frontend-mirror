@@ -1,0 +1,6 @@
+src/
+example-helpers/
+examples/
+
+# Ignoring generated index.ts
+index.ts

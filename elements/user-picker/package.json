@@ -1,0 +1,65 @@
+{
+  "name": "@atlaskit/user-picker",
+  "version": "6.7.1",
+  "description": "Fabric component for display a dropdown to select a user from",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "author": "Atlassian Pty Ltd",
+  "license": "Apache-2.0",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "module:es2019": "dist/es2019/index.js",
+  "types": "dist/types/index.d.ts",
+  "sideEffects": false,
+  "atlaskit:src": "src/index.ts",
+  "atlassian": {
+    "team": "Search & Smarts: Smart Experience",
+    "deprecatedAutoEntryPoints": true,
+    "releaseModel": "continuous",
+    "website": {
+      "name": "User Picker"
+    }
+  },
+  "config": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@atlaskit/analytics-next": "^8.0.0",
+    "@atlaskit/avatar": "^20.0.0",
+    "@atlaskit/field-base": "^15.0.0",
+    "@atlaskit/icon": "^21.1.0",
+    "@atlaskit/lozenge": "^10.0.4",
+    "@atlaskit/select": "^13.0.0",
+    "@atlaskit/tag": "^11.0.0",
+    "@atlaskit/theme": "^11.0.0",
+    "@atlaskit/tooltip": "^17.0.0",
+    "lodash": "^4.17.15",
+    "memoize-one": "^5.1.0",
+    "tslib": "^2.0.0",
+    "uuid": "^3.1.0"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0",
+    "react-intl": "^2.6.0",
+    "styled-components": "^3.2.6"
+  },
+  "devDependencies": {
+    "@atlaskit/analytics-viewer": "^0.4.0",
+    "@atlaskit/button": "^15.1.0",
+    "@atlaskit/docs": "*",
+    "@atlaskit/elements-test-helpers": "^0.7.0",
+    "@atlaskit/textfield": "^4.0.0",
+    "@atlaskit/util-data-test": "^14.0.0",
+    "@types/uuid": "^3.4.4",
+    "enzyme": "^3.10.0",
+    "enzyme-react-intl": "^2.0.6",
+    "react-intl": "^2.6.0"
+  },
+  "keywords": [
+    "fabric",
+    "ui"
+  ]
+}

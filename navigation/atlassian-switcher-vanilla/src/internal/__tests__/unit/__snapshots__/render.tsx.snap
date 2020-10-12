@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`render should render the switcher with analytics and intl providers 1`] = `
+<div>
+  <IntlProvider>
+    <AnalyticsListener
+      channel="*"
+      onEvent={[Function]}
+    >
+      <LoadableComponent
+        appearance="standalone"
+        cloudId="some-cloud-id"
+        disableCustomLinks={true}
+        disableHeadings={true}
+        disableRecentContainers={true}
+        product="opsgenie"
+      />
+    </AnalyticsListener>
+  </IntlProvider>
+</div>
+`;

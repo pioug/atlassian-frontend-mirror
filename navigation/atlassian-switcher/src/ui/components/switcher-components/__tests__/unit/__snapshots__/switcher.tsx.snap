@@ -1,0 +1,336 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Switcher should be able to disable switch to section header with "disableSwitchToHeading" 1`] = `
+<NavigationAnalyticsContext
+  data={
+    Object {
+      "attributes": Object {
+        "itemsCount": 0,
+      },
+    }
+  }
+>
+  <SwitcherWrapper
+    appearance="drawer"
+  >
+    <WithAnalyticsEvents(class_3)
+      data={
+        Object {
+          "adminLinks": Array [],
+          "fixedLinks": Array [],
+          "joinableSiteLinks": Array [],
+          "joinableSiteProductLinks": Array [],
+          "licensedProducts": Array [],
+          "numberOfSites": 0,
+          "suggestedProducts": Array [],
+        }
+      }
+      subject="atlassianSwitcher"
+    />
+    <WithAnalyticsEvents(class_2)
+      data={
+        Object {
+          "duration": 0,
+        }
+      }
+      subject="atlassianSwitcherAvailableProducts"
+    />
+    <WithAnalyticsEvents(class_1)
+      data={
+        Object {
+          "duration": 0,
+          "emptyRender": true,
+        }
+      }
+      subject="atlassianSwitcherJoinableSites"
+    />
+    <WithAnalyticsEvents(class_1)
+      data={
+        Object {
+          "duration": 0,
+          "emptyRender": true,
+        }
+      }
+      subject="atlassianSwitcherRecommendedProducts"
+    />
+    <WithAnalyticsEvents(class_1)
+      data={
+        Object {
+          "duration": 0,
+          "emptyRender": true,
+        }
+      }
+      subject="atlassianSwitcherDiscoverMore"
+    />
+    <WithAnalyticsEvents(class_1)
+      data={
+        Object {
+          "duration": 0,
+          "emptyRender": true,
+        }
+      }
+      subject="atlassianSwitcherRecentContainers"
+    />
+    <WithAnalyticsEvents(class_1)
+      data={
+        Object {
+          "duration": 0,
+          "emptyRender": true,
+        }
+      }
+      subject="atlassianSwitcherCustomLinks"
+    />
+    <Component
+      adminLinks={Array []}
+      appearance="drawer"
+      disableHeading={true}
+      fixedLinks={Array []}
+      licensedProductLinks={Array []}
+      onDiscoverMoreClicked={[Function]}
+      suggestedProductLinks={Array []}
+      triggerXFlow={[Function]}
+    />
+    <Component
+      appearance="drawer"
+      joinableSiteLinks={Array []}
+      licensedProductLinks={Array []}
+      rawProviderResults={
+        Object {
+          "addProductsPermission": Object {
+            "data": false,
+            "status": "complete",
+          },
+          "availableProducts": Object {
+            "data": Object {
+              "sites": Array [],
+            },
+            "status": "complete",
+          },
+          "collaborationGraphRecentContainers": Object {
+            "data": Object {
+              "collaborationGraphEntities": Array [],
+            },
+            "status": "complete",
+          },
+          "customLinks": Object {
+            "data": Array [],
+            "status": "complete",
+          },
+          "isXFlowEnabled": Object {
+            "data": false,
+            "status": "complete",
+          },
+          "joinableSites": Object {
+            "data": Object {
+              "sites": Array [],
+            },
+            "status": "complete",
+          },
+          "managePermission": Object {
+            "data": false,
+            "status": "complete",
+          },
+          "productRecommendations": Object {
+            "data": Array [],
+            "status": "complete",
+          },
+          "provisionedProducts": Object {
+            "data": Object {},
+            "status": "complete",
+          },
+          "recentContainers": Object {
+            "data": Object {
+              "data": Array [],
+            },
+            "status": "complete",
+          },
+          "userSiteData": Object {
+            "data": Object {
+              "currentSite": Object {
+                "products": Array [],
+                "url": "",
+              },
+            },
+            "status": "complete",
+          },
+        }
+      }
+    />
+    <Component
+      appearance="drawer"
+      recentLinks={Array []}
+    />
+    <Component
+      appearance="drawer"
+      customLinks={Array []}
+    />
+  </SwitcherWrapper>
+</NavigationAnalyticsContext>
+`;
+
+exports[`Switcher should render sections with headers by default 1`] = `
+<NavigationAnalyticsContext
+  data={
+    Object {
+      "attributes": Object {
+        "itemsCount": 0,
+      },
+    }
+  }
+>
+  <SwitcherWrapper
+    appearance="drawer"
+  >
+    <WithAnalyticsEvents(class_3)
+      data={
+        Object {
+          "adminLinks": Array [],
+          "fixedLinks": Array [],
+          "joinableSiteLinks": Array [],
+          "joinableSiteProductLinks": Array [],
+          "licensedProducts": Array [],
+          "numberOfSites": 0,
+          "suggestedProducts": Array [],
+        }
+      }
+      subject="atlassianSwitcher"
+    />
+    <WithAnalyticsEvents(class_2)
+      data={
+        Object {
+          "duration": 0,
+        }
+      }
+      subject="atlassianSwitcherAvailableProducts"
+    />
+    <WithAnalyticsEvents(class_1)
+      data={
+        Object {
+          "duration": 0,
+          "emptyRender": true,
+        }
+      }
+      subject="atlassianSwitcherJoinableSites"
+    />
+    <WithAnalyticsEvents(class_1)
+      data={
+        Object {
+          "duration": 0,
+          "emptyRender": true,
+        }
+      }
+      subject="atlassianSwitcherRecommendedProducts"
+    />
+    <WithAnalyticsEvents(class_1)
+      data={
+        Object {
+          "duration": 0,
+          "emptyRender": true,
+        }
+      }
+      subject="atlassianSwitcherDiscoverMore"
+    />
+    <WithAnalyticsEvents(class_1)
+      data={
+        Object {
+          "duration": 0,
+          "emptyRender": true,
+        }
+      }
+      subject="atlassianSwitcherRecentContainers"
+    />
+    <WithAnalyticsEvents(class_1)
+      data={
+        Object {
+          "duration": 0,
+          "emptyRender": true,
+        }
+      }
+      subject="atlassianSwitcherCustomLinks"
+    />
+    <Component
+      adminLinks={Array []}
+      appearance="drawer"
+      fixedLinks={Array []}
+      licensedProductLinks={Array []}
+      onDiscoverMoreClicked={[Function]}
+      suggestedProductLinks={Array []}
+      triggerXFlow={[Function]}
+    />
+    <Component
+      appearance="drawer"
+      joinableSiteLinks={Array []}
+      licensedProductLinks={Array []}
+      rawProviderResults={
+        Object {
+          "addProductsPermission": Object {
+            "data": false,
+            "status": "complete",
+          },
+          "availableProducts": Object {
+            "data": Object {
+              "sites": Array [],
+            },
+            "status": "complete",
+          },
+          "collaborationGraphRecentContainers": Object {
+            "data": Object {
+              "collaborationGraphEntities": Array [],
+            },
+            "status": "complete",
+          },
+          "customLinks": Object {
+            "data": Array [],
+            "status": "complete",
+          },
+          "isXFlowEnabled": Object {
+            "data": false,
+            "status": "complete",
+          },
+          "joinableSites": Object {
+            "data": Object {
+              "sites": Array [],
+            },
+            "status": "complete",
+          },
+          "managePermission": Object {
+            "data": false,
+            "status": "complete",
+          },
+          "productRecommendations": Object {
+            "data": Array [],
+            "status": "complete",
+          },
+          "provisionedProducts": Object {
+            "data": Object {},
+            "status": "complete",
+          },
+          "recentContainers": Object {
+            "data": Object {
+              "data": Array [],
+            },
+            "status": "complete",
+          },
+          "userSiteData": Object {
+            "data": Object {
+              "currentSite": Object {
+                "products": Array [],
+                "url": "",
+              },
+            },
+            "status": "complete",
+          },
+        }
+      }
+    />
+    <Component
+      appearance="drawer"
+      recentLinks={Array []}
+    />
+    <Component
+      appearance="drawer"
+      customLinks={Array []}
+    />
+  </SwitcherWrapper>
+</NavigationAnalyticsContext>
+`;

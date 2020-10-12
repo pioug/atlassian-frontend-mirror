@@ -1,0 +1,2 @@
+// Dutch
+export default {};

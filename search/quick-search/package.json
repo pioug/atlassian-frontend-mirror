@@ -1,0 +1,50 @@
+{
+  "name": "@atlaskit/quick-search",
+  "version": "8.0.3",
+  "description": "A quick-search component",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "author": "Atlassian Pty Ltd",
+  "license": "Apache-2.0",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "module:es2019": "dist/es2019/index.js",
+  "types": "dist/types/index.d.ts",
+  "atlaskit:src": "src/index.ts",
+  "atlassian": {
+    "team": "Search & Smarts: Search Experience",
+    "deprecatedAutoEntryPoints": true,
+    "releaseModel": "continuous",
+    "website": {
+      "name": "Quick Search"
+    }
+  },
+  "dependencies": {
+    "@atlaskit/analytics": "^8.0.0",
+    "@atlaskit/avatar": "^20.0.0",
+    "@atlaskit/icon": "^21.0.0",
+    "@atlaskit/item": "^12.0.0",
+    "@atlaskit/spinner": "^15.0.0",
+    "@atlaskit/theme": "^11.0.0",
+    "@babel/runtime": "^7.0.0",
+    "keycode": "^2.1.7",
+    "tslib": "^2.0.0"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0",
+    "styled-components": "^3.2.6"
+  },
+  "devDependencies": {
+    "@atlaskit/avatar": "^20.0.0",
+    "@atlaskit/docs": "*",
+    "@atlaskit/drawer": "^6.0.0",
+    "@atlaskit/navigation": "^37.0.0",
+    "enzyme": "^3.10.0",
+    "prop-types": "^15.5.10",
+    "react": "^16.8.0",
+    "sinon": "^2.2.0",
+    "uuid": "^3.1.0"
+  }
+}

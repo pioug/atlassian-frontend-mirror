@@ -1,0 +1,89 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ArticleContent Match snapshot 1`] = `
+.emotion-1,
+.emotion-1:hover,
+.emotion-1:active,
+.emotion-1:focus,
+.emotion-1:visited,
+.emotion-1:disabled,
+.emotion-1[disabled] {
+  -webkit-align-items: baseline;
+  -webkit-box-align: baseline;
+  -ms-flex-align: baseline;
+  align-items: baseline;
+  border-width: 0;
+  border-radius: 3px;
+  box-sizing: border-box;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-size: inherit;
+  font-style: normal;
+  font-family: inherit;
+  font-weight: 500;
+  max-width: 100%;
+  position: relative;
+  text-align: center;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  -webkit-transition: background 0.1s ease-out,box-shadow 0.15s cubic-bezier(0.47,0.03,0.49,1.38);
+  transition: background 0.1s ease-out,box-shadow 0.15s cubic-bezier(0.47,0.03,0.49,1.38);
+  white-space: nowrap;
+  background: rgba(9,30,66,0.04);
+  color: #42526E !important;
+  cursor: pointer;
+  height: 2.2857142857142856em;
+  line-height: 2.2857142857142856em;
+  padding: 0 10px;
+  vertical-align: middle;
+  width: auto;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  outline: none;
+}
+
+.emotion-1::-moz-focus-inner,
+.emotion-1:hover::-moz-focus-inner,
+.emotion-1:active::-moz-focus-inner,
+.emotion-1:focus::-moz-focus-inner,
+.emotion-1:visited::-moz-focus-inner,
+.emotion-1:disabled::-moz-focus-inner,
+.emotion-1[disabled]::-moz-focus-inner {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.emotion-0 {
+  -webkit-transition: opacity 0.3s;
+  transition: opacity 0.3s;
+  opacity: 1;
+  margin: 0 2px;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  -webkit-flex-shrink: 1;
+  -ms-flex-negative: 1;
+  flex-shrink: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+<button
+  class="emotion-1"
+  tabindex="0"
+  type="button"
+>
+  <span
+    class="emotion-0"
+  >
+    No
+  </span>
+</button>
+`;

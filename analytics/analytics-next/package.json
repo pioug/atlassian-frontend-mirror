@@ -1,0 +1,80 @@
+{
+  "name": "@atlaskit/analytics-next",
+  "version": "8.0.1",
+  "description": "React components, HOCs and hooks to assist with tracking user activity with React components",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "author": "Atlassian Pty Ltd",
+  "license": "Apache-2.0",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "module:es2019": "dist/es2019/index.js",
+  "types": "dist/types/index.d.ts",
+  "sideEffects": false,
+  "atlaskit:src": "src/index.ts",
+  "atlassian": {
+    "team": "AFP: App Infrastructure",
+    "releaseModel": "scheduled",
+    "website": {
+      "name": "Analytics next"
+    }
+  },
+  "./types": "./src/types.ts",
+  "af:exports": {
+    "./types": "./src/types.ts",
+    "./AnalyticsContext": "./src/components/AnalyticsContext/index.tsx",
+    "./AnalyticsListener": "./src/components/AnalyticsListener/index.tsx",
+    "./AnalyticsErrorBoundary": "./src/components/AnalyticsErrorBoundary.tsx",
+    "./withAnalyticsEvents": "./src/hocs/withAnalyticsEvents.tsx",
+    "./withAnalyticsContext": "./src/hocs/withAnalyticsContext.tsx",
+    "./usePlatformLeafEventHandler": "./src/hooks/usePlatformLeafEventHandler.ts",
+    "./useAnalyticsEvents": "./src/hooks/useAnalyticsEvents.ts",
+    "./useCallbackWithAnalytics": "./src/hooks/useCallbackWithAnalytics.ts",
+    "./usePatchedProps": "./src/hooks/usePatchedProps.ts",
+    "./AnalyticsEvent": "./src/events/AnalyticsEvent.ts",
+    "./UIAnalyticsEvent": "./src/events/UIAnalyticsEvent.ts",
+    "./createAndFireEvents": "./src/utils/createAndFireEvent.ts"
+  },
+  "dependencies": {
+    "@atlaskit/analytics-next-stable-react-context": "1.0.1",
+    "prop-types": "^15.5.10",
+    "tslib": "^2.0.0",
+    "use-memo-one": "^1.1.1"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0"
+  },
+  "devDependencies": {
+    "@atlaskit/build-utils": "*",
+    "@atlaskit/button": "^15.1.0",
+    "@atlaskit/docs": "*",
+    "@atlaskit/ssr": "*",
+    "@atlaskit/textfield": "^4.0.0",
+    "@testing-library/react": "^8.0.1",
+    "enzyme": "^3.10.0",
+    "react-dom": "^16.8.0",
+    "redux": "^3.7.2",
+    "storybook-addon-performance": "0.12.0"
+  },
+  "techstack": {
+    "@atlassian/frontend": {
+      "import-structure": "atlassian-conventions"
+    },
+    "@repo/internal": {
+      "ui-components": [
+        "lite-mode"
+      ],
+      "analytics": [
+        "analytics-next"
+      ],
+      "theming": [
+        "new-theming-api"
+      ],
+      "deprecation": [
+        "no-deprecated-imports"
+      ]
+    }
+  }
+}

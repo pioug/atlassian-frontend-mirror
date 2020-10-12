@@ -1,0 +1,132 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BackButton Should match snapshot 1`] = `
+.emotion-2 {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.emotion-1,
+.emotion-1:hover,
+.emotion-1:active,
+.emotion-1:focus,
+.emotion-1:visited,
+.emotion-1:disabled,
+.emotion-1[disabled] {
+  -webkit-align-items: baseline;
+  -webkit-box-align: baseline;
+  -ms-flex-align: baseline;
+  align-items: baseline;
+  border-width: 0;
+  border-radius: 3px;
+  box-sizing: border-box;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-size: inherit;
+  font-style: normal;
+  font-family: inherit;
+  font-weight: 500;
+  max-width: 100%;
+  position: relative;
+  text-align: center;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  -webkit-transition: background 0.1s ease-out,box-shadow 0.15s cubic-bezier(0.47,0.03,0.49,1.38);
+  transition: background 0.1s ease-out,box-shadow 0.15s cubic-bezier(0.47,0.03,0.49,1.38);
+  white-space: nowrap;
+  background: none;
+  color: #42526E !important;
+  cursor: pointer;
+  height: 2.2857142857142856em;
+  line-height: 2.2857142857142856em;
+  padding: 0 2px;
+  vertical-align: middle;
+  width: auto;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  outline: none;
+}
+
+.emotion-1::-moz-focus-inner,
+.emotion-1:hover::-moz-focus-inner,
+.emotion-1:active::-moz-focus-inner,
+.emotion-1:focus::-moz-focus-inner,
+.emotion-1:visited::-moz-focus-inner,
+.emotion-1:disabled::-moz-focus-inner,
+.emotion-1[disabled]::-moz-focus-inner {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.emotion-0 {
+  -webkit-transition: opacity 0.3s;
+  transition: opacity 0.3s;
+  opacity: 1;
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 0;
+  -webkit-flex-grow: 0;
+  -ms-flex-positive: 0;
+  flex-grow: 0;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  line-height: 0;
+  font-size: 0;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  margin: 0 2px;
+}
+
+<div
+  class="emotion-2"
+>
+  <div>
+    <button
+      class="emotion-1"
+      tabindex="0"
+      type="button"
+    >
+      <span
+        class="emotion-0"
+      >
+        <span
+          aria-label="Close"
+          class="sc-htpNat ebstqi"
+          role="img"
+        >
+          <svg
+            focusable="false"
+            height="24"
+            role="presentation"
+            viewBox="0 0 24 24"
+            width="24"
+          >
+            <path
+              d="M15.185 7.4l-3.184 3.185-3.186-3.186a.507.507 0 0 0-.712.003l-.7.701a.496.496 0 0 0-.004.712l3.185 3.184L7.4 15.185a.507.507 0 0 0 .004.712l.7.7c.206.207.516.2.712.004l3.186-3.185 3.184 3.185a.507.507 0 0 0 .712-.004l.701-.7a.496.496 0 0 0 .003-.712l-3.186-3.186 3.186-3.184a.507.507 0 0 0-.003-.712l-.7-.7a.508.508 0 0 0-.36-.153.5.5 0 0 0-.353.15z"
+              fill="currentColor"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
+      </span>
+    </button>
+  </div>
+</div>
+`;

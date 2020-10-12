@@ -1,0 +1,55 @@
+{
+  "name": "@atlaskit/tree",
+  "version": "8.1.1",
+  "description": "A React Component for displaying expandable and sortable tree hierarchies",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "author": "Atlassian Pty Ltd",
+  "license": "Apache-2.0",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "module:es2019": "dist/es2019/index.js",
+  "types": "dist/types/index.d.ts",
+  "sideEffects": false,
+  "atlaskit:src": "src/index.ts",
+  "atlassian": {
+    "team": "Confluence Backbone",
+    "deprecatedAutoEntryPoints": true,
+    "releaseModel": "continuous",
+    "website": {
+      "name": "Tree"
+    }
+  },
+  "dependencies": {
+    "css-box-model": "^1.2.0",
+    "react-beautiful-dnd-next": "11.0.5",
+    "tslib": "^2.0.0"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0"
+  },
+  "devDependencies": {
+    "@atlaskit/build-utils": "*",
+    "@atlaskit/button": "^15.1.0",
+    "@atlaskit/docs": "*",
+    "@atlaskit/icon": "^21.0.0",
+    "@atlaskit/navigation": "^37.0.0",
+    "@atlaskit/spinner": "^15.0.0",
+    "@atlaskit/ssr": "*",
+    "@atlaskit/theme": "^11.0.0",
+    "@atlaskit/visual-regression": "*",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.15.1",
+    "exenv": "^1.2.2",
+    "react-dom": "^16.8.0",
+    "styled-components": "^3.2.6",
+    "wait-for-expect": "^1.2.0"
+  },
+  "keywords": [
+    "atlaskit",
+    "react",
+    "ui"
+  ]
+}

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 41 (35326) - http://www.bohemiancoding.com/sketch -->
+    <title>Done</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="24-x-20" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="editor-24x20/editor-done" fill="#A1DCC4">
+            <g id="check" transform="translate(2.000000, 4.000000)">
+                <path d="M3.16564164,6.89951467 C2.97539446,6.70637871 2.66546153,6.7078825 2.47552459,6.90070352 L1.18248183,8.21338031 C0.991587885,8.40717286 0.989942114,8.7197019 1.18758597,8.92034685 L6.67982192,14.4959789 C6.8735348,14.6926332 7.18853946,14.691685 7.38390826,14.4933496 L18.4834996,3.22521804 C18.6786429,3.02711165 18.6811307,2.70844326 18.4911937,2.51562224 L17.1981509,1.20294545 C17.007257,1.0091529 16.6982277,1.0086748 16.502939,1.2069289 L7.38013805,10.4682537 C7.18707701,10.6642463 6.87069672,10.6608286 6.68609713,10.473426 L3.16564164,6.89951467 Z" id="Path-3"></path>
+            </g>
+        </g>
+    </g>
+</svg>

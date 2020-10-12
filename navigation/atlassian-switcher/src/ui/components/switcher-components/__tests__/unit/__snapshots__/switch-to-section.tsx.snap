@@ -1,0 +1,3054 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SwitchToSection when disableSwitchToHeading is false should render with expected title "Switch to" when showStartLink is false 1`] = `
+.c7 {
+  height: 24px;
+  width: 24px;
+  color: #FFFFFF;
+  display: inline-block;
+  fill: #FFFFFF;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.c7 > svg {
+  height: 24px;
+  width: 24px;
+  max-height: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  vertical-align: bottom;
+}
+
+.c7 stop {
+  stop-color: currentColor;
+}
+
+.c5 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  padding-bottom: 1px;
+}
+
+.c4 {
+  margin-right: 8px;
+}
+
+.c8 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  margin: 0;
+  overflow: hidden;
+}
+
+.c8:first-child {
+  margin: 0;
+}
+
+.c9 {
+  display: block;
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 1.1428571428571428;
+  padding-bottom: 1px;
+}
+
+.c1 {
+  -webkit-animation: ljGnjM 500ms ease forwards;
+  animation: ljGnjM 500ms ease forwards;
+  opacity: 0;
+}
+
+.c0 {
+  padding: 8px 0;
+}
+
+.c2 {
+  font-size: 0.7857142857142857em;
+  font-style: inherit;
+  line-height: 1.4545454545454546;
+  color: #6B778C;
+  font-weight: 700;
+  margin-top: 16px;
+  text-transform: uppercase;
+  margin-left: 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 8px;
+}
+
+.c6 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  box-shadow: 0 1px 1px rgba(9,30,66,0.25),0 0 1px 1px rgba(9,30,66,0.13);
+  background-color: #0052CC;
+  overflow: hidden;
+}
+
+.c3.c3 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 3px;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: none;
+  -ms-flex: none;
+  flex: none;
+  background-color: transparent;
+  color: #091E42;
+  fill: transparent;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  padding: 8px 8px 7px 8px;
+  width: 100%;
+}
+
+.c3.c3:focus {
+  color: #091E42;
+}
+
+.c3.c3:hover {
+  background-color: #EBECF0;
+  fill: #EBECF0;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c3.c3:active {
+  background-color: transparent;
+  fill: transparent;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c3.c3:focus {
+  box-shadow: 0 0 0 2px #4C9AFF inset;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c3.c3:focus {
+  outline: none;
+  position: relative;
+}
+
+<AnalyticsListener
+  channel="*"
+  onEvent={[Function]}
+>
+  <IntlProvider
+    locale="en"
+  >
+    <Component
+      adminLinks={Array []}
+      appearance="drawer"
+      disableHeading={false}
+      fixedLinks={
+        Array [
+          Object {
+            "Icon": [Function],
+            "href": "http://admin.atlassian.com",
+            "key": "admin",
+            "label": "Administration",
+          },
+        ]
+      }
+      isDiscoverSectionEnabled={true}
+      licensedProductLinks={Array []}
+      onDiscoverMoreClicked={[MockFunction]}
+      showNewHeading={false}
+      showStartLink={false}
+      suggestedProductLinks={Array []}
+      triggerXFlow={[MockFunction]}
+    >
+      <Component
+        appearance="drawer"
+        sectionId="switchTo"
+        title={
+          <Unknown
+            defaultMessage="Switch to"
+            description="In a context in which users are able to switch between products, this text is the title of the category displaying the products the user is able to switch to."
+            id="fabric.atlassianSwitcher.switchTo"
+          />
+        }
+      >
+        <NavigationAnalyticsContext
+          data={
+            Object {
+              "attributes": Object {
+                "group": "switchTo",
+                "groupItemsCount": 3,
+              },
+            }
+          }
+        >
+          <AnalyticsContext
+            data={
+              Object {
+                "navigationCtx": Object {
+                  "attributes": Object {
+                    "group": "switchTo",
+                    "groupItemsCount": 3,
+                  },
+                },
+              }
+            }
+          >
+            <Section
+              appearance="drawer"
+              sectionId="switchTo"
+              title={
+                <Unknown
+                  defaultMessage="Switch to"
+                  description="In a context in which users are able to switch between products, this text is the title of the category displaying the products the user is able to switch to."
+                  id="fabric.atlassianSwitcher.switchTo"
+                />
+              }
+            >
+              <SectionContainer>
+                <section
+                  className="c0"
+                >
+                  <styled.div>
+                    <div
+                      className="c1"
+                    >
+                      <SectionTitle
+                        appearance="drawer"
+                      >
+                        <h1
+                          className="c2"
+                        >
+                          <Component
+                            defaultMessage="Switch to"
+                            description="In a context in which users are able to switch between products, this text is the title of the category displaying the products the user is able to switch to."
+                            id="fabric.atlassianSwitcher.switchTo"
+                          >
+                            <FormattedMessage
+                              defaultMessage="Switch to"
+                              description="In a context in which users are able to switch between products, this text is the title of the category displaying the products the user is able to switch to."
+                              id="fabric.atlassianSwitcher.switchTo"
+                              values={Object {}}
+                            >
+                              Switch to
+                            </FormattedMessage>
+                          </Component>
+                        </h1>
+                      </SectionTitle>
+                    </div>
+                  </styled.div>
+                  <NavigationAnalyticsContext
+                    data={
+                      Object {
+                        "attributes": Object {
+                          "domain": "admin.atlassian.com",
+                          "groupIndex": 0,
+                          "itemId": "admin",
+                          "itemType": "product",
+                          "productType": undefined,
+                        },
+                      }
+                    }
+                    key="admin"
+                  >
+                    <AnalyticsContext
+                      data={
+                        Object {
+                          "navigationCtx": Object {
+                            "attributes": Object {
+                              "domain": "admin.atlassian.com",
+                              "groupIndex": 0,
+                              "itemId": "admin",
+                              "itemType": "product",
+                              "productType": undefined,
+                            },
+                          },
+                        }
+                      }
+                    >
+                      <WithAnalyticsEvents()
+                        href="http://admin.atlassian.com"
+                        icon={
+                          <Unknown
+                            theme="product"
+                          />
+                        }
+                        onClick={[Function]}
+                      >
+                        <Component
+                          createAnalyticsEvent={[Function]}
+                          href="http://admin.atlassian.com"
+                          icon={
+                            <Unknown
+                              theme="product"
+                            />
+                          }
+                          onClick={[Function]}
+                        >
+                          <Consumer>
+                            <ThemeProvider
+                              theme={
+                                Object {
+                                  "@atlaskit-shared-theme/item": Object {
+                                    "active": Object {
+                                      "background": "transparent",
+                                    },
+                                    "default": Object {
+                                      "background": "transparent",
+                                      "secondaryText": "#6B778C",
+                                      "text": "#091E42",
+                                    },
+                                    "display": "block",
+                                    "hover": Object {
+                                      "background": "#EBECF0",
+                                    },
+                                    "padding": Object {
+                                      "default": Object {
+                                        "bottom": 8,
+                                        "left": 8,
+                                        "right": 8,
+                                        "top": 8,
+                                      },
+                                    },
+                                    "width": Object {
+                                      "default": "100%",
+                                    },
+                                  },
+                                }
+                              }
+                            >
+                              <SwitcherItem
+                                createAnalyticsEvent={[Function]}
+                                href="http://admin.atlassian.com"
+                                icon={
+                                  <Unknown
+                                    theme="product"
+                                  />
+                                }
+                                onClick={[Function]}
+                              >
+                                <styled.div>
+                                  <div
+                                    className="c1"
+                                  >
+                                    <Item
+                                      autoFocus={false}
+                                      createAnalyticsEvent={[Function]}
+                                      description=""
+                                      elemBefore={
+                                        <Unknown
+                                          theme="product"
+                                        />
+                                      }
+                                      href="http://admin.atlassian.com"
+                                      isCompact={false}
+                                      isDisabled={false}
+                                      isHidden={false}
+                                      onClick={[Function]}
+                                      role="button"
+                                      shouldAllowMultiline={false}
+                                    >
+                                      <styled.a
+                                        aria-disabled={false}
+                                        autoFocus={false}
+                                        createAnalyticsEvent={[Function]}
+                                        description=""
+                                        elemBefore={
+                                          <Unknown
+                                            theme="product"
+                                          />
+                                        }
+                                        href="http://admin.atlassian.com"
+                                        innerRef={[Function]}
+                                        isCompact={false}
+                                        isDisabled={false}
+                                        isHidden={false}
+                                        onClick={[Function]}
+                                        onKeyDown={[Function]}
+                                        onMouseDown={[Function]}
+                                        role="button"
+                                        shouldAllowMultiline={false}
+                                        tabIndex={null}
+                                      >
+                                        <a
+                                          aria-disabled={false}
+                                          autoFocus={false}
+                                          className="c3"
+                                          href="http://admin.atlassian.com"
+                                          onClick={[Function]}
+                                          onKeyDown={[Function]}
+                                          onMouseDown={[Function]}
+                                          role="button"
+                                          tabIndex={null}
+                                        >
+                                          <Styled(styled.span)
+                                            isCompact={false}
+                                          >
+                                            <styled.span
+                                              className="c4"
+                                              isCompact={false}
+                                            >
+                                              <span
+                                                className="c4 c5"
+                                              >
+                                                <Component
+                                                  theme="product"
+                                                >
+                                                  <styled.div
+                                                    bgColor="#0052CC"
+                                                    iconElevation={[Function]}
+                                                  >
+                                                    <div
+                                                      className="c6"
+                                                    >
+                                                      <SettingsIcon
+                                                        iconColor="#FFFFFF"
+                                                        primaryColor="#FFFFFF"
+                                                        size="medium"
+                                                      >
+                                                        <Icon
+                                                          dangerouslySetGlyph="<svg width=\\"24\\" height=\\"24\\" viewBox=\\"0 0 24 24\\" focusable=\\"false\\" role=\\"presentation\\"><path d=\\"M11.701 16.7a5.002 5.002 0 1 1 0-10.003 5.002 5.002 0 0 1 0 10.004m8.368-3.117a1.995 1.995 0 0 1-1.346-1.885c0-.876.563-1.613 1.345-1.885a.48.48 0 0 0 .315-.574 8.947 8.947 0 0 0-.836-1.993.477.477 0 0 0-.598-.195 2.04 2.04 0 0 1-1.29.08 1.988 1.988 0 0 1-1.404-1.395 2.04 2.04 0 0 1 .076-1.297.478.478 0 0 0-.196-.597 8.98 8.98 0 0 0-1.975-.826.479.479 0 0 0-.574.314 1.995 1.995 0 0 1-1.885 1.346 1.994 1.994 0 0 1-1.884-1.345.482.482 0 0 0-.575-.315c-.708.2-1.379.485-2.004.842a.47.47 0 0 0-.198.582A2.002 2.002 0 0 1 4.445 7.06a.478.478 0 0 0-.595.196 8.946 8.946 0 0 0-.833 1.994.48.48 0 0 0 .308.572 1.995 1.995 0 0 1 1.323 1.877c0 .867-.552 1.599-1.324 1.877a.479.479 0 0 0-.308.57 8.99 8.99 0 0 0 .723 1.79.477.477 0 0 0 .624.194c.595-.273 1.343-.264 2.104.238.117.077.225.185.302.3.527.8.512 1.58.198 2.188a.473.473 0 0 0 .168.628 8.946 8.946 0 0 0 2.11.897.474.474 0 0 0 .57-.313 1.995 1.995 0 0 1 1.886-1.353c.878 0 1.618.567 1.887 1.353a.475.475 0 0 0 .57.313 8.964 8.964 0 0 0 2.084-.883.473.473 0 0 0 .167-.631c-.318-.608-.337-1.393.191-2.195.077-.116.185-.225.302-.302.772-.511 1.527-.513 2.125-.23a.477.477 0 0 0 .628-.19 8.925 8.925 0 0 0 .728-1.793.478.478 0 0 0-.314-.573\\" fill=\\"currentColor\\" fill-rule=\\"evenodd\\"/></svg>"
+                                                          iconColor="#FFFFFF"
+                                                          primaryColor="#FFFFFF"
+                                                          size="medium"
+                                                        >
+                                                          <styled.span
+                                                            dangerouslySetInnerHTML={
+                                                              Object {
+                                                                "__html": "<svg width=\\"24\\" height=\\"24\\" viewBox=\\"0 0 24 24\\" focusable=\\"false\\" role=\\"presentation\\"><path d=\\"M11.701 16.7a5.002 5.002 0 1 1 0-10.003 5.002 5.002 0 0 1 0 10.004m8.368-3.117a1.995 1.995 0 0 1-1.346-1.885c0-.876.563-1.613 1.345-1.885a.48.48 0 0 0 .315-.574 8.947 8.947 0 0 0-.836-1.993.477.477 0 0 0-.598-.195 2.04 2.04 0 0 1-1.29.08 1.988 1.988 0 0 1-1.404-1.395 2.04 2.04 0 0 1 .076-1.297.478.478 0 0 0-.196-.597 8.98 8.98 0 0 0-1.975-.826.479.479 0 0 0-.574.314 1.995 1.995 0 0 1-1.885 1.346 1.994 1.994 0 0 1-1.884-1.345.482.482 0 0 0-.575-.315c-.708.2-1.379.485-2.004.842a.47.47 0 0 0-.198.582A2.002 2.002 0 0 1 4.445 7.06a.478.478 0 0 0-.595.196 8.946 8.946 0 0 0-.833 1.994.48.48 0 0 0 .308.572 1.995 1.995 0 0 1 1.323 1.877c0 .867-.552 1.599-1.324 1.877a.479.479 0 0 0-.308.57 8.99 8.99 0 0 0 .723 1.79.477.477 0 0 0 .624.194c.595-.273 1.343-.264 2.104.238.117.077.225.185.302.3.527.8.512 1.58.198 2.188a.473.473 0 0 0 .168.628 8.946 8.946 0 0 0 2.11.897.474.474 0 0 0 .57-.313 1.995 1.995 0 0 1 1.886-1.353c.878 0 1.618.567 1.887 1.353a.475.475 0 0 0 .57.313 8.964 8.964 0 0 0 2.084-.883.473.473 0 0 0 .167-.631c-.318-.608-.337-1.393.191-2.195.077-.116.185-.225.302-.302.772-.511 1.527-.513 2.125-.23a.477.477 0 0 0 .628-.19 8.925 8.925 0 0 0 .728-1.793.478.478 0 0 0-.314-.573\\" fill=\\"currentColor\\" fill-rule=\\"evenodd\\"/></svg>",
+                                                              }
+                                                            }
+                                                            primaryColor="#FFFFFF"
+                                                            role="presentation"
+                                                            size="medium"
+                                                          >
+                                                            <span
+                                                              className="c7"
+                                                              dangerouslySetInnerHTML={
+                                                                Object {
+                                                                  "__html": "<svg width=\\"24\\" height=\\"24\\" viewBox=\\"0 0 24 24\\" focusable=\\"false\\" role=\\"presentation\\"><path d=\\"M11.701 16.7a5.002 5.002 0 1 1 0-10.003 5.002 5.002 0 0 1 0 10.004m8.368-3.117a1.995 1.995 0 0 1-1.346-1.885c0-.876.563-1.613 1.345-1.885a.48.48 0 0 0 .315-.574 8.947 8.947 0 0 0-.836-1.993.477.477 0 0 0-.598-.195 2.04 2.04 0 0 1-1.29.08 1.988 1.988 0 0 1-1.404-1.395 2.04 2.04 0 0 1 .076-1.297.478.478 0 0 0-.196-.597 8.98 8.98 0 0 0-1.975-.826.479.479 0 0 0-.574.314 1.995 1.995 0 0 1-1.885 1.346 1.994 1.994 0 0 1-1.884-1.345.482.482 0 0 0-.575-.315c-.708.2-1.379.485-2.004.842a.47.47 0 0 0-.198.582A2.002 2.002 0 0 1 4.445 7.06a.478.478 0 0 0-.595.196 8.946 8.946 0 0 0-.833 1.994.48.48 0 0 0 .308.572 1.995 1.995 0 0 1 1.323 1.877c0 .867-.552 1.599-1.324 1.877a.479.479 0 0 0-.308.57 8.99 8.99 0 0 0 .723 1.79.477.477 0 0 0 .624.194c.595-.273 1.343-.264 2.104.238.117.077.225.185.302.3.527.8.512 1.58.198 2.188a.473.473 0 0 0 .168.628 8.946 8.946 0 0 0 2.11.897.474.474 0 0 0 .57-.313 1.995 1.995 0 0 1 1.886-1.353c.878 0 1.618.567 1.887 1.353a.475.475 0 0 0 .57.313 8.964 8.964 0 0 0 2.084-.883.473.473 0 0 0 .167-.631c-.318-.608-.337-1.393.191-2.195.077-.116.185-.225.302-.302.772-.511 1.527-.513 2.125-.23a.477.477 0 0 0 .628-.19 8.925 8.925 0 0 0 .728-1.793.478.478 0 0 0-.314-.573\\" fill=\\"currentColor\\" fill-rule=\\"evenodd\\"/></svg>",
+                                                                }
+                                                              }
+                                                              role="presentation"
+                                                              size="medium"
+                                                            />
+                                                          </styled.span>
+                                                        </Icon>
+                                                      </SettingsIcon>
+                                                    </div>
+                                                  </styled.div>
+                                                </Component>
+                                              </span>
+                                            </styled.span>
+                                          </Styled(styled.span)>
+                                          <styled.span>
+                                            <span
+                                              className="c8"
+                                            >
+                                              <styled.span
+                                                allowMultiline={false}
+                                              >
+                                                <span
+                                                  className="c9"
+                                                >
+                                                  Administration
+                                                </span>
+                                              </styled.span>
+                                            </span>
+                                          </styled.span>
+                                        </a>
+                                      </styled.a>
+                                    </Item>
+                                  </div>
+                                </styled.div>
+                              </SwitcherItem>
+                            </ThemeProvider>
+                          </Consumer>
+                        </Component>
+                      </WithAnalyticsEvents()>
+                    </AnalyticsContext>
+                  </NavigationAnalyticsContext>
+                </section>
+              </SectionContainer>
+            </Section>
+          </AnalyticsContext>
+        </NavigationAnalyticsContext>
+      </Component>
+    </Component>
+  </IntlProvider>
+</AnalyticsListener>
+`;
+
+exports[`SwitchToSection when disableSwitchToHeading is false should render with expected title "Switch toAtlassian Start" when showStartLink is true 1`] = `
+.emotion-2 {
+  -webkit-align-items: baseline;
+  -webkit-box-align: baseline;
+  -ms-flex-align: baseline;
+  align-items: baseline;
+  border-width: 0;
+  border-radius: 3px;
+  box-sizing: border-box;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-size: inherit;
+  font-style: normal;
+  font-family: inherit;
+  font-weight: 500;
+  max-width: 100%;
+  position: relative;
+  text-align: center;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  -webkit-transition: background 0.1s ease-out,box-shadow 0.15s cubic-bezier(0.47,0.03,0.49,1.38);
+  transition: background 0.1s ease-out,box-shadow 0.15s cubic-bezier(0.47,0.03,0.49,1.38);
+  white-space: nowrap;
+  background: none;
+  color: #0052CC !important;
+  cursor: pointer;
+  height: 2.2857142857142856em;
+  line-height: 2.2857142857142856em;
+  padding: 0 10px;
+  vertical-align: middle;
+  width: auto;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.emotion-2:visited {
+  background: none;
+  color: #0052CC !important;
+}
+
+.emotion-2:hover {
+  background: none;
+  color: #0065FF !important;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  -webkit-transition-duration: 0s,0.15s;
+  transition-duration: 0s,0.15s;
+}
+
+.emotion-2:focus {
+  background: none;
+  color: #0052CC !important;
+  box-shadow: 0 0 0 2px #4C9AFF;
+  -webkit-transition-duration: 0s,0.2s;
+  transition-duration: 0s,0.2s;
+  outline: none;
+}
+
+.emotion-2:active {
+  background: none;
+  color: #0747A6 !important;
+  -webkit-transition-duration: 0s,0s;
+  transition-duration: 0s,0s;
+}
+
+.emotion-2[data-firefox-is-active="true"] {
+  background: none;
+  color: #0747A6 !important;
+  -webkit-transition-duration: 0s,0s;
+  transition-duration: 0s,0s;
+}
+
+.emotion-2[disabled] {
+  background: none;
+  color: #A5ADBA !important;
+  cursor: not-allowed;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.emotion-2[data-has-overlay="true"] {
+  cursor: default;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.emotion-2[data-has-overlay="true"]:not([disabled]):hover,
+.emotion-2[data-has-overlay="true"]:not([disabled]):active {
+  background: none;
+  color: #0052CC !important;
+}
+
+.emotion-2::-moz-focus-inner {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.emotion-0 {
+  -webkit-transition: opacity 0.3s;
+  transition: opacity 0.3s;
+  opacity: 1;
+  margin: 0 2px;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  -webkit-flex-shrink: 1;
+  -ms-flex-negative: 1;
+  flex-shrink: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.emotion-1 {
+  -webkit-transition: opacity 0.3s;
+  transition: opacity 0.3s;
+  opacity: 1;
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 0;
+  -webkit-flex-grow: 0;
+  -ms-flex-positive: 0;
+  flex-grow: 0;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  line-height: 0;
+  font-size: 0;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  margin: 0 2px;
+}
+
+.c9 {
+  height: 24px;
+  width: 24px;
+  color: #FFFFFF;
+  display: inline-block;
+  fill: #FFFFFF;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.c9 > svg {
+  height: 24px;
+  width: 24px;
+  max-height: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  vertical-align: bottom;
+}
+
+.c9 stop {
+  stop-color: currentColor;
+}
+
+.c4 {
+  height: 16px;
+  width: 16px;
+  color: currentColor;
+  display: inline-block;
+  fill: #FFFFFF;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.c4 > svg {
+  height: 16px;
+  width: 16px;
+  max-height: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  vertical-align: bottom;
+}
+
+.c4 stop {
+  stop-color: currentColor;
+}
+
+.c7 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  padding-bottom: 1px;
+}
+
+.c6 {
+  margin-right: 8px;
+}
+
+.c10 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  margin: 0;
+  overflow: hidden;
+}
+
+.c10:first-child {
+  margin: 0;
+}
+
+.c11 {
+  display: block;
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 1.1428571428571428;
+  padding-bottom: 1px;
+}
+
+.c2 {
+  -webkit-animation: ljGnjM 500ms ease forwards;
+  animation: ljGnjM 500ms ease forwards;
+  opacity: 0;
+}
+
+.c0 {
+  padding: 8px 0;
+}
+
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: nowrap;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  -webkit-align-items: baseline;
+  -webkit-box-align: baseline;
+  -ms-flex-align: baseline;
+  align-items: baseline;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+  margin-left: 8px;
+  position: relative;
+  margin-bottom: 16px;
+}
+
+.c3 {
+  font-size: 1.1428571428571428em;
+  font-style: inherit;
+  line-height: 1.25;
+  color: #172B4D;
+  font-weight: 600;
+  -webkit-letter-spacing: -0.006em;
+  -moz-letter-spacing: -0.006em;
+  -ms-letter-spacing: -0.006em;
+  letter-spacing: -0.006em;
+  margin-top: 24px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 0;
+  -webkit-flex: 1 1 0%;
+  -ms-flex: 1 1 0%;
+  flex: 1 1 0%;
+}
+
+.c8 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  box-shadow: 0 1px 1px rgba(9,30,66,0.25),0 0 1px 1px rgba(9,30,66,0.13);
+  background-color: #0052CC;
+  overflow: hidden;
+}
+
+.c5.c5 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 3px;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: none;
+  -ms-flex: none;
+  flex: none;
+  background-color: transparent;
+  color: #091E42;
+  fill: transparent;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  padding: 8px 8px 7px 8px;
+  width: 100%;
+}
+
+.c5.c5:focus {
+  color: #091E42;
+}
+
+.c5.c5:hover {
+  background-color: #EBECF0;
+  fill: #EBECF0;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c5.c5:active {
+  background-color: transparent;
+  fill: transparent;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c5.c5:focus {
+  box-shadow: 0 0 0 2px #4C9AFF inset;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c5.c5:focus {
+  outline: none;
+  position: relative;
+}
+
+<AnalyticsListener
+  channel="*"
+  onEvent={[Function]}
+>
+  <IntlProvider
+    locale="en"
+  >
+    <Component
+      adminLinks={Array []}
+      appearance="drawer"
+      disableHeading={false}
+      fixedLinks={
+        Array [
+          Object {
+            "Icon": [Function],
+            "href": "http://admin.atlassian.com",
+            "key": "admin",
+            "label": "Administration",
+          },
+        ]
+      }
+      isDiscoverSectionEnabled={true}
+      licensedProductLinks={Array []}
+      onDiscoverMoreClicked={[MockFunction]}
+      showNewHeading={true}
+      showStartLink={true}
+      suggestedProductLinks={Array []}
+      triggerXFlow={[MockFunction]}
+    >
+      <Component
+        actionSubject="atlassianLink"
+        sectionId="switchTo"
+        title={
+          <Unknown
+            defaultMessage="Switch to"
+            description="In a context in which users are able to switch between products, this text is the title of the category displaying the products the user is able to switch to."
+            id="fabric.atlassianSwitcher.switchTo"
+          />
+        }
+        titleLink={
+          Object {
+            "Icon": [Function],
+            "href": "https://start.atlassian.com",
+            "key": "atlassian-start",
+            "label": <Unknown
+              defaultMessage="Atlassian Start"
+              description="The text of a link redirecting the user to the Start site"
+              id="fabric.atlassianSwitcher.start"
+            />,
+          }
+        }
+      >
+        <NavigationAnalyticsContext
+          data={
+            Object {
+              "attributes": Object {
+                "group": "switchTo",
+                "groupItemsCount": 3,
+              },
+            }
+          }
+        >
+          <AnalyticsContext
+            data={
+              Object {
+                "navigationCtx": Object {
+                  "attributes": Object {
+                    "group": "switchTo",
+                    "groupItemsCount": 3,
+                  },
+                },
+              }
+            }
+          >
+            <SectionWithLinkItem
+              actionSubject="atlassianLink"
+              sectionId="switchTo"
+              title={
+                <Unknown
+                  defaultMessage="Switch to"
+                  description="In a context in which users are able to switch between products, this text is the title of the category displaying the products the user is able to switch to."
+                  id="fabric.atlassianSwitcher.switchTo"
+                />
+              }
+              titleLink={
+                Object {
+                  "Icon": [Function],
+                  "href": "https://start.atlassian.com",
+                  "key": "atlassian-start",
+                  "label": <Unknown
+                    defaultMessage="Atlassian Start"
+                    description="The text of a link redirecting the user to the Start site"
+                    id="fabric.atlassianSwitcher.start"
+                  />,
+                }
+              }
+            >
+              <SectionContainer>
+                <section
+                  className="c0"
+                >
+                  <TitleSectionFadeIn>
+                    <styled.div
+                      className="c1"
+                    >
+                      <div
+                        className="c1 c2"
+                      >
+                        <SectionTitle>
+                          <h1
+                            className="c3"
+                          >
+                            <Component
+                              defaultMessage="Switch to"
+                              description="In a context in which users are able to switch between products, this text is the title of the category displaying the products the user is able to switch to."
+                              id="fabric.atlassianSwitcher.switchTo"
+                            >
+                              <FormattedMessage
+                                defaultMessage="Switch to"
+                                description="In a context in which users are able to switch between products, this text is the title of the category displaying the products the user is able to switch to."
+                                id="fabric.atlassianSwitcher.switchTo"
+                                values={Object {}}
+                              >
+                                Switch to
+                              </FormattedMessage>
+                            </Component>
+                          </h1>
+                        </SectionTitle>
+                        <NavigationAnalyticsContext
+                          data={
+                            Object {
+                              "attributes": Object {
+                                "domain": "start.atlassian.com",
+                                "groupIndex": 0,
+                                "itemId": "atlassian-start",
+                                "itemType": "product",
+                                "productType": undefined,
+                              },
+                            }
+                          }
+                          key="atlassian-start"
+                        >
+                          <AnalyticsContext
+                            data={
+                              Object {
+                                "navigationCtx": Object {
+                                  "attributes": Object {
+                                    "domain": "start.atlassian.com",
+                                    "groupIndex": 0,
+                                    "itemId": "atlassian-start",
+                                    "itemType": "product",
+                                    "productType": undefined,
+                                  },
+                                },
+                              }
+                            }
+                          >
+                            <WithAnalyticsEvents(ItemLink)
+                              actionSubject="atlassianLink"
+                              css={
+                                Object {
+                                  "&.section-link": Object {
+                                    "fontWeight": 400,
+                                    "height": "1.4285714285714286em",
+                                    "lineHeight": "1.4285714285714286em",
+                                  },
+                                }
+                              }
+                              href="https://start.atlassian.com"
+                              iconAfter={
+                                <ShortcutIcon
+                                  label=""
+                                  size="small"
+                                />
+                              }
+                              label={
+                                <Unknown
+                                  defaultMessage="Atlassian Start"
+                                  description="The text of a link redirecting the user to the Start site"
+                                  id="fabric.atlassianSwitcher.start"
+                                />
+                              }
+                              testId="section-title__link"
+                            >
+                              <ItemLink
+                                actionSubject="atlassianLink"
+                                createAnalyticsEvent={[Function]}
+                                css={
+                                  Object {
+                                    "&.section-link": Object {
+                                      "fontWeight": 400,
+                                      "height": "1.4285714285714286em",
+                                      "lineHeight": "1.4285714285714286em",
+                                    },
+                                  }
+                                }
+                                href="https://start.atlassian.com"
+                                iconAfter={
+                                  <ShortcutIcon
+                                    label=""
+                                    size="small"
+                                  />
+                                }
+                                label={
+                                  <Unknown
+                                    defaultMessage="Atlassian Start"
+                                    description="The text of a link redirecting the user to the Start site"
+                                    id="fabric.atlassianSwitcher.start"
+                                  />
+                                }
+                                onClick={[Function]}
+                                testId="section-title__link"
+                              >
+                                <ForwardRef(Button)
+                                  appearance="link"
+                                  className="section-link"
+                                  css={
+                                    Object {
+                                      "&.section-link": Object {
+                                        "fontWeight": 400,
+                                        "height": "1.4285714285714286em",
+                                        "lineHeight": "1.4285714285714286em",
+                                      },
+                                    }
+                                  }
+                                  href="https://start.atlassian.com"
+                                  iconAfter={
+                                    <ShortcutIcon
+                                      label=""
+                                      size="small"
+                                    />
+                                  }
+                                  onClick={[Function]}
+                                  rel="noopener noreferrer"
+                                  target="_blank"
+                                  testId="section-title__link"
+                                >
+                                  <Consumer>
+                                    <ForwardRef(ButtonWithMode)
+                                      appearance="link"
+                                      className="section-link"
+                                      css={
+                                        Object {
+                                          "&.section-link": Object {
+                                            "fontWeight": 400,
+                                            "height": "1.4285714285714286em",
+                                            "lineHeight": "1.4285714285714286em",
+                                          },
+                                        }
+                                      }
+                                      href="https://start.atlassian.com"
+                                      iconAfter={
+                                        <ShortcutIcon
+                                          label=""
+                                          size="small"
+                                        />
+                                      }
+                                      mode="light"
+                                      onClick={[Function]}
+                                      rel="noopener noreferrer"
+                                      target="_blank"
+                                      testId="section-title__link"
+                                    >
+                                      <ForwardRef(ButtonBase)
+                                        appearance="link"
+                                        buttonCss={
+                                          Object {
+                                            "&::-moz-focus-inner": Object {
+                                              "border": 0,
+                                              "margin": 0,
+                                              "padding": 0,
+                                            },
+                                            "&:active": Object {
+                                              "background": "none",
+                                              "color": "#0747A6 !important",
+                                              "transitionDuration": "0s, 0s",
+                                            },
+                                            "&:focus": Object {
+                                              "background": "none",
+                                              "boxShadow": "0 0 0 2px #4C9AFF",
+                                              "color": "#0052CC !important",
+                                              "outline": "none",
+                                              "transitionDuration": "0s, 0.2s",
+                                            },
+                                            "&:hover": Object {
+                                              "background": "none",
+                                              "color": "#0065FF !important",
+                                              "textDecoration": "underline",
+                                              "transitionDuration": "0s, 0.15s",
+                                            },
+                                            "&:visited": Object {
+                                              "background": "none",
+                                              "color": "#0052CC !important",
+                                            },
+                                            "&[data-firefox-is-active=\\"true\\"]": Object {
+                                              "background": "none",
+                                              "color": "#0747A6 !important",
+                                              "transitionDuration": "0s, 0s",
+                                            },
+                                            "&[data-has-overlay=\\"true\\"]": Object {
+                                              "cursor": "default",
+                                              "textDecoration": "none",
+                                            },
+                                            "&[data-has-overlay=\\"true\\"]:not([disabled]):hover, &[data-has-overlay=\\"true\\"]:not([disabled]):active": Object {
+                                              "background": "none",
+                                              "color": "#0052CC !important",
+                                            },
+                                            "&[disabled]": Object {
+                                              "background": "none",
+                                              "color": "#A5ADBA !important",
+                                              "cursor": "not-allowed",
+                                              "textDecoration": "none",
+                                            },
+                                            "alignItems": "baseline",
+                                            "background": "none",
+                                            "borderRadius": 3,
+                                            "borderWidth": 0,
+                                            "boxSizing": "border-box",
+                                            "color": "#0052CC !important",
+                                            "cursor": "pointer",
+                                            "display": "inline-flex",
+                                            "fontFamily": "inherit",
+                                            "fontSize": "inherit",
+                                            "fontStyle": "normal",
+                                            "fontWeight": 500,
+                                            "height": "2.2857142857142856em",
+                                            "justifyContent": "center",
+                                            "lineHeight": "2.2857142857142856em",
+                                            "maxWidth": "100%",
+                                            "padding": "0 10px",
+                                            "position": "relative",
+                                            "textAlign": "center",
+                                            "textDecoration": "none",
+                                            "transition": "background 0.1s ease-out, box-shadow 0.15s cubic-bezier(0.47, 0.03, 0.49, 1.38)",
+                                            "verticalAlign": "middle",
+                                            "whiteSpace": "nowrap",
+                                            "width": "auto",
+                                          }
+                                        }
+                                        className="section-link"
+                                        css={
+                                          Object {
+                                            "&.section-link": Object {
+                                              "fontWeight": 400,
+                                              "height": "1.4285714285714286em",
+                                              "lineHeight": "1.4285714285714286em",
+                                            },
+                                          }
+                                        }
+                                        href="https://start.atlassian.com"
+                                        iconAfter={
+                                          <ShortcutIcon
+                                            label=""
+                                            size="small"
+                                          />
+                                        }
+                                        onClick={[Function]}
+                                        onMouseDown={[Function]}
+                                        onMouseUp={[Function]}
+                                        rel="noopener noreferrer"
+                                        target="_blank"
+                                        testId="section-title__link"
+                                      >
+                                        <a
+                                          className="section-link emotion-2"
+                                          data-testid="section-title__link"
+                                          disabled={false}
+                                          href="https://start.atlassian.com"
+                                          onClick={[Function]}
+                                          onMouseDown={[Function]}
+                                          onMouseUp={[Function]}
+                                          rel="noopener noreferrer"
+                                          tabIndex={0}
+                                          target="_blank"
+                                        >
+                                          <span
+                                            className="emotion-0"
+                                          >
+                                            <Component
+                                              defaultMessage="Atlassian Start"
+                                              description="The text of a link redirecting the user to the Start site"
+                                              id="fabric.atlassianSwitcher.start"
+                                            >
+                                              <FormattedMessage
+                                                defaultMessage="Atlassian Start"
+                                                description="The text of a link redirecting the user to the Start site"
+                                                id="fabric.atlassianSwitcher.start"
+                                                values={Object {}}
+                                              >
+                                                Atlassian Start
+                                              </FormattedMessage>
+                                            </Component>
+                                          </span>
+                                          <span
+                                            className="emotion-1"
+                                          >
+                                            <ShortcutIcon
+                                              label=""
+                                              size="small"
+                                            >
+                                              <Icon
+                                                dangerouslySetGlyph="<svg width=\\"24\\" height=\\"24\\" viewBox=\\"0 0 24 24\\" focusable=\\"false\\" role=\\"presentation\\"><g fill=\\"currentColor\\"><path d=\\"M19.005 19c-.003 0-.005.002-.005.002l.005-.002zM5 19.006c0-.004-.002-.006-.005-.006H5v.006zM5 4.994V5v-.006zM19 19v-6h2v6.002A1.996 1.996 0 0 1 19.005 21H4.995A1.996 1.996 0 0 1 3 19.006V4.994C3 3.893 3.896 3 4.997 3H11v2H5v14h14zM5 4.994V5v-.006zm0 14.012c0-.004-.002-.006-.005-.006H5v.006zM11 5H5v14h14v-6h2v6.002A1.996 1.996 0 0 1 19.005 21H4.995A1.996 1.996 0 0 1 3 19.006V4.994C3 3.893 3.896 3 4.997 3H11v2zm8 0v3a1 1 0 0 0 2 0V4a1 1 0 0 0-1-1h-4a1 1 0 0 0 0 2h3z\\"/><path d=\\"M12.707 12.707l8-8a1 1 0 1 0-1.414-1.414l-8 8a1 1 0 0 0 1.414 1.414z\\"/></g></svg>"
+                                                label=""
+                                                size="small"
+                                              >
+                                                <styled.span
+                                                  dangerouslySetInnerHTML={
+                                                    Object {
+                                                      "__html": "<svg width=\\"24\\" height=\\"24\\" viewBox=\\"0 0 24 24\\" focusable=\\"false\\" role=\\"presentation\\"><g fill=\\"currentColor\\"><path d=\\"M19.005 19c-.003 0-.005.002-.005.002l.005-.002zM5 19.006c0-.004-.002-.006-.005-.006H5v.006zM5 4.994V5v-.006zM19 19v-6h2v6.002A1.996 1.996 0 0 1 19.005 21H4.995A1.996 1.996 0 0 1 3 19.006V4.994C3 3.893 3.896 3 4.997 3H11v2H5v14h14zM5 4.994V5v-.006zm0 14.012c0-.004-.002-.006-.005-.006H5v.006zM11 5H5v14h14v-6h2v6.002A1.996 1.996 0 0 1 19.005 21H4.995A1.996 1.996 0 0 1 3 19.006V4.994C3 3.893 3.896 3 4.997 3H11v2zm8 0v3a1 1 0 0 0 2 0V4a1 1 0 0 0-1-1h-4a1 1 0 0 0 0 2h3z\\"/><path d=\\"M12.707 12.707l8-8a1 1 0 1 0-1.414-1.414l-8 8a1 1 0 0 0 1.414 1.414z\\"/></g></svg>",
+                                                    }
+                                                  }
+                                                  role="presentation"
+                                                  size="small"
+                                                >
+                                                  <span
+                                                    className="c4"
+                                                    dangerouslySetInnerHTML={
+                                                      Object {
+                                                        "__html": "<svg width=\\"24\\" height=\\"24\\" viewBox=\\"0 0 24 24\\" focusable=\\"false\\" role=\\"presentation\\"><g fill=\\"currentColor\\"><path d=\\"M19.005 19c-.003 0-.005.002-.005.002l.005-.002zM5 19.006c0-.004-.002-.006-.005-.006H5v.006zM5 4.994V5v-.006zM19 19v-6h2v6.002A1.996 1.996 0 0 1 19.005 21H4.995A1.996 1.996 0 0 1 3 19.006V4.994C3 3.893 3.896 3 4.997 3H11v2H5v14h14zM5 4.994V5v-.006zm0 14.012c0-.004-.002-.006-.005-.006H5v.006zM11 5H5v14h14v-6h2v6.002A1.996 1.996 0 0 1 19.005 21H4.995A1.996 1.996 0 0 1 3 19.006V4.994C3 3.893 3.896 3 4.997 3H11v2zm8 0v3a1 1 0 0 0 2 0V4a1 1 0 0 0-1-1h-4a1 1 0 0 0 0 2h3z\\"/><path d=\\"M12.707 12.707l8-8a1 1 0 1 0-1.414-1.414l-8 8a1 1 0 0 0 1.414 1.414z\\"/></g></svg>",
+                                                      }
+                                                    }
+                                                    role="presentation"
+                                                    size="small"
+                                                  />
+                                                </styled.span>
+                                              </Icon>
+                                            </ShortcutIcon>
+                                          </span>
+                                        </a>
+                                      </ForwardRef(ButtonBase)>
+                                    </ForwardRef(ButtonWithMode)>
+                                  </Consumer>
+                                </ForwardRef(Button)>
+                              </ItemLink>
+                            </WithAnalyticsEvents(ItemLink)>
+                          </AnalyticsContext>
+                        </NavigationAnalyticsContext>
+                      </div>
+                    </styled.div>
+                  </TitleSectionFadeIn>
+                  <NavigationAnalyticsContext
+                    data={
+                      Object {
+                        "attributes": Object {
+                          "domain": "admin.atlassian.com",
+                          "groupIndex": 0,
+                          "itemId": "admin",
+                          "itemType": "product",
+                          "productType": undefined,
+                        },
+                      }
+                    }
+                    key="admin"
+                  >
+                    <AnalyticsContext
+                      data={
+                        Object {
+                          "navigationCtx": Object {
+                            "attributes": Object {
+                              "domain": "admin.atlassian.com",
+                              "groupIndex": 0,
+                              "itemId": "admin",
+                              "itemType": "product",
+                              "productType": undefined,
+                            },
+                          },
+                        }
+                      }
+                    >
+                      <WithAnalyticsEvents()
+                        href="http://admin.atlassian.com"
+                        icon={
+                          <Unknown
+                            theme="product"
+                          />
+                        }
+                        onClick={[Function]}
+                      >
+                        <Component
+                          createAnalyticsEvent={[Function]}
+                          href="http://admin.atlassian.com"
+                          icon={
+                            <Unknown
+                              theme="product"
+                            />
+                          }
+                          onClick={[Function]}
+                        >
+                          <Consumer>
+                            <ThemeProvider
+                              theme={
+                                Object {
+                                  "@atlaskit-shared-theme/item": Object {
+                                    "active": Object {
+                                      "background": "transparent",
+                                    },
+                                    "default": Object {
+                                      "background": "transparent",
+                                      "secondaryText": "#6B778C",
+                                      "text": "#091E42",
+                                    },
+                                    "display": "block",
+                                    "hover": Object {
+                                      "background": "#EBECF0",
+                                    },
+                                    "padding": Object {
+                                      "default": Object {
+                                        "bottom": 8,
+                                        "left": 8,
+                                        "right": 8,
+                                        "top": 8,
+                                      },
+                                    },
+                                    "width": Object {
+                                      "default": "100%",
+                                    },
+                                  },
+                                }
+                              }
+                            >
+                              <SwitcherItem
+                                createAnalyticsEvent={[Function]}
+                                href="http://admin.atlassian.com"
+                                icon={
+                                  <Unknown
+                                    theme="product"
+                                  />
+                                }
+                                onClick={[Function]}
+                              >
+                                <styled.div>
+                                  <div
+                                    className="c2"
+                                  >
+                                    <Item
+                                      autoFocus={false}
+                                      createAnalyticsEvent={[Function]}
+                                      description=""
+                                      elemBefore={
+                                        <Unknown
+                                          theme="product"
+                                        />
+                                      }
+                                      href="http://admin.atlassian.com"
+                                      isCompact={false}
+                                      isDisabled={false}
+                                      isHidden={false}
+                                      onClick={[Function]}
+                                      role="button"
+                                      shouldAllowMultiline={false}
+                                    >
+                                      <styled.a
+                                        aria-disabled={false}
+                                        autoFocus={false}
+                                        createAnalyticsEvent={[Function]}
+                                        description=""
+                                        elemBefore={
+                                          <Unknown
+                                            theme="product"
+                                          />
+                                        }
+                                        href="http://admin.atlassian.com"
+                                        innerRef={[Function]}
+                                        isCompact={false}
+                                        isDisabled={false}
+                                        isHidden={false}
+                                        onClick={[Function]}
+                                        onKeyDown={[Function]}
+                                        onMouseDown={[Function]}
+                                        role="button"
+                                        shouldAllowMultiline={false}
+                                        tabIndex={null}
+                                      >
+                                        <a
+                                          aria-disabled={false}
+                                          autoFocus={false}
+                                          className="c5"
+                                          href="http://admin.atlassian.com"
+                                          onClick={[Function]}
+                                          onKeyDown={[Function]}
+                                          onMouseDown={[Function]}
+                                          role="button"
+                                          tabIndex={null}
+                                        >
+                                          <Styled(styled.span)
+                                            isCompact={false}
+                                          >
+                                            <styled.span
+                                              className="c6"
+                                              isCompact={false}
+                                            >
+                                              <span
+                                                className="c6 c7"
+                                              >
+                                                <Component
+                                                  theme="product"
+                                                >
+                                                  <styled.div
+                                                    bgColor="#0052CC"
+                                                    iconElevation={[Function]}
+                                                  >
+                                                    <div
+                                                      className="c8"
+                                                    >
+                                                      <SettingsIcon
+                                                        iconColor="#FFFFFF"
+                                                        primaryColor="#FFFFFF"
+                                                        size="medium"
+                                                      >
+                                                        <Icon
+                                                          dangerouslySetGlyph="<svg width=\\"24\\" height=\\"24\\" viewBox=\\"0 0 24 24\\" focusable=\\"false\\" role=\\"presentation\\"><path d=\\"M11.701 16.7a5.002 5.002 0 1 1 0-10.003 5.002 5.002 0 0 1 0 10.004m8.368-3.117a1.995 1.995 0 0 1-1.346-1.885c0-.876.563-1.613 1.345-1.885a.48.48 0 0 0 .315-.574 8.947 8.947 0 0 0-.836-1.993.477.477 0 0 0-.598-.195 2.04 2.04 0 0 1-1.29.08 1.988 1.988 0 0 1-1.404-1.395 2.04 2.04 0 0 1 .076-1.297.478.478 0 0 0-.196-.597 8.98 8.98 0 0 0-1.975-.826.479.479 0 0 0-.574.314 1.995 1.995 0 0 1-1.885 1.346 1.994 1.994 0 0 1-1.884-1.345.482.482 0 0 0-.575-.315c-.708.2-1.379.485-2.004.842a.47.47 0 0 0-.198.582A2.002 2.002 0 0 1 4.445 7.06a.478.478 0 0 0-.595.196 8.946 8.946 0 0 0-.833 1.994.48.48 0 0 0 .308.572 1.995 1.995 0 0 1 1.323 1.877c0 .867-.552 1.599-1.324 1.877a.479.479 0 0 0-.308.57 8.99 8.99 0 0 0 .723 1.79.477.477 0 0 0 .624.194c.595-.273 1.343-.264 2.104.238.117.077.225.185.302.3.527.8.512 1.58.198 2.188a.473.473 0 0 0 .168.628 8.946 8.946 0 0 0 2.11.897.474.474 0 0 0 .57-.313 1.995 1.995 0 0 1 1.886-1.353c.878 0 1.618.567 1.887 1.353a.475.475 0 0 0 .57.313 8.964 8.964 0 0 0 2.084-.883.473.473 0 0 0 .167-.631c-.318-.608-.337-1.393.191-2.195.077-.116.185-.225.302-.302.772-.511 1.527-.513 2.125-.23a.477.477 0 0 0 .628-.19 8.925 8.925 0 0 0 .728-1.793.478.478 0 0 0-.314-.573\\" fill=\\"currentColor\\" fill-rule=\\"evenodd\\"/></svg>"
+                                                          iconColor="#FFFFFF"
+                                                          primaryColor="#FFFFFF"
+                                                          size="medium"
+                                                        >
+                                                          <styled.span
+                                                            dangerouslySetInnerHTML={
+                                                              Object {
+                                                                "__html": "<svg width=\\"24\\" height=\\"24\\" viewBox=\\"0 0 24 24\\" focusable=\\"false\\" role=\\"presentation\\"><path d=\\"M11.701 16.7a5.002 5.002 0 1 1 0-10.003 5.002 5.002 0 0 1 0 10.004m8.368-3.117a1.995 1.995 0 0 1-1.346-1.885c0-.876.563-1.613 1.345-1.885a.48.48 0 0 0 .315-.574 8.947 8.947 0 0 0-.836-1.993.477.477 0 0 0-.598-.195 2.04 2.04 0 0 1-1.29.08 1.988 1.988 0 0 1-1.404-1.395 2.04 2.04 0 0 1 .076-1.297.478.478 0 0 0-.196-.597 8.98 8.98 0 0 0-1.975-.826.479.479 0 0 0-.574.314 1.995 1.995 0 0 1-1.885 1.346 1.994 1.994 0 0 1-1.884-1.345.482.482 0 0 0-.575-.315c-.708.2-1.379.485-2.004.842a.47.47 0 0 0-.198.582A2.002 2.002 0 0 1 4.445 7.06a.478.478 0 0 0-.595.196 8.946 8.946 0 0 0-.833 1.994.48.48 0 0 0 .308.572 1.995 1.995 0 0 1 1.323 1.877c0 .867-.552 1.599-1.324 1.877a.479.479 0 0 0-.308.57 8.99 8.99 0 0 0 .723 1.79.477.477 0 0 0 .624.194c.595-.273 1.343-.264 2.104.238.117.077.225.185.302.3.527.8.512 1.58.198 2.188a.473.473 0 0 0 .168.628 8.946 8.946 0 0 0 2.11.897.474.474 0 0 0 .57-.313 1.995 1.995 0 0 1 1.886-1.353c.878 0 1.618.567 1.887 1.353a.475.475 0 0 0 .57.313 8.964 8.964 0 0 0 2.084-.883.473.473 0 0 0 .167-.631c-.318-.608-.337-1.393.191-2.195.077-.116.185-.225.302-.302.772-.511 1.527-.513 2.125-.23a.477.477 0 0 0 .628-.19 8.925 8.925 0 0 0 .728-1.793.478.478 0 0 0-.314-.573\\" fill=\\"currentColor\\" fill-rule=\\"evenodd\\"/></svg>",
+                                                              }
+                                                            }
+                                                            primaryColor="#FFFFFF"
+                                                            role="presentation"
+                                                            size="medium"
+                                                          >
+                                                            <span
+                                                              className="c9"
+                                                              dangerouslySetInnerHTML={
+                                                                Object {
+                                                                  "__html": "<svg width=\\"24\\" height=\\"24\\" viewBox=\\"0 0 24 24\\" focusable=\\"false\\" role=\\"presentation\\"><path d=\\"M11.701 16.7a5.002 5.002 0 1 1 0-10.003 5.002 5.002 0 0 1 0 10.004m8.368-3.117a1.995 1.995 0 0 1-1.346-1.885c0-.876.563-1.613 1.345-1.885a.48.48 0 0 0 .315-.574 8.947 8.947 0 0 0-.836-1.993.477.477 0 0 0-.598-.195 2.04 2.04 0 0 1-1.29.08 1.988 1.988 0 0 1-1.404-1.395 2.04 2.04 0 0 1 .076-1.297.478.478 0 0 0-.196-.597 8.98 8.98 0 0 0-1.975-.826.479.479 0 0 0-.574.314 1.995 1.995 0 0 1-1.885 1.346 1.994 1.994 0 0 1-1.884-1.345.482.482 0 0 0-.575-.315c-.708.2-1.379.485-2.004.842a.47.47 0 0 0-.198.582A2.002 2.002 0 0 1 4.445 7.06a.478.478 0 0 0-.595.196 8.946 8.946 0 0 0-.833 1.994.48.48 0 0 0 .308.572 1.995 1.995 0 0 1 1.323 1.877c0 .867-.552 1.599-1.324 1.877a.479.479 0 0 0-.308.57 8.99 8.99 0 0 0 .723 1.79.477.477 0 0 0 .624.194c.595-.273 1.343-.264 2.104.238.117.077.225.185.302.3.527.8.512 1.58.198 2.188a.473.473 0 0 0 .168.628 8.946 8.946 0 0 0 2.11.897.474.474 0 0 0 .57-.313 1.995 1.995 0 0 1 1.886-1.353c.878 0 1.618.567 1.887 1.353a.475.475 0 0 0 .57.313 8.964 8.964 0 0 0 2.084-.883.473.473 0 0 0 .167-.631c-.318-.608-.337-1.393.191-2.195.077-.116.185-.225.302-.302.772-.511 1.527-.513 2.125-.23a.477.477 0 0 0 .628-.19 8.925 8.925 0 0 0 .728-1.793.478.478 0 0 0-.314-.573\\" fill=\\"currentColor\\" fill-rule=\\"evenodd\\"/></svg>",
+                                                                }
+                                                              }
+                                                              role="presentation"
+                                                              size="medium"
+                                                            />
+                                                          </styled.span>
+                                                        </Icon>
+                                                      </SettingsIcon>
+                                                    </div>
+                                                  </styled.div>
+                                                </Component>
+                                              </span>
+                                            </styled.span>
+                                          </Styled(styled.span)>
+                                          <styled.span>
+                                            <span
+                                              className="c10"
+                                            >
+                                              <styled.span
+                                                allowMultiline={false}
+                                              >
+                                                <span
+                                                  className="c11"
+                                                >
+                                                  Administration
+                                                </span>
+                                              </styled.span>
+                                            </span>
+                                          </styled.span>
+                                        </a>
+                                      </styled.a>
+                                    </Item>
+                                  </div>
+                                </styled.div>
+                              </SwitcherItem>
+                            </ThemeProvider>
+                          </Consumer>
+                        </Component>
+                      </WithAnalyticsEvents()>
+                    </AnalyticsContext>
+                  </NavigationAnalyticsContext>
+                </section>
+              </SectionContainer>
+            </SectionWithLinkItem>
+          </AnalyticsContext>
+        </NavigationAnalyticsContext>
+      </Component>
+    </Component>
+  </IntlProvider>
+</AnalyticsListener>
+`;
+
+exports[`SwitchToSection when disableSwitchToHeading is true should render with expected title "" when showStartLink is false 1`] = `
+.c6 {
+  height: 24px;
+  width: 24px;
+  color: #FFFFFF;
+  display: inline-block;
+  fill: #FFFFFF;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.c6 > svg {
+  height: 24px;
+  width: 24px;
+  max-height: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  vertical-align: bottom;
+}
+
+.c6 stop {
+  stop-color: currentColor;
+}
+
+.c4 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  padding-bottom: 1px;
+}
+
+.c3 {
+  margin-right: 8px;
+}
+
+.c7 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  margin: 0;
+  overflow: hidden;
+}
+
+.c7:first-child {
+  margin: 0;
+}
+
+.c8 {
+  display: block;
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 1.1428571428571428;
+  padding-bottom: 1px;
+}
+
+.c1 {
+  -webkit-animation: ljGnjM 500ms ease forwards;
+  animation: ljGnjM 500ms ease forwards;
+  opacity: 0;
+}
+
+.c0 {
+  padding: 8px 0;
+}
+
+.c5 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  box-shadow: 0 1px 1px rgba(9,30,66,0.25),0 0 1px 1px rgba(9,30,66,0.13);
+  background-color: #0052CC;
+  overflow: hidden;
+}
+
+.c2.c2 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 3px;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: none;
+  -ms-flex: none;
+  flex: none;
+  background-color: transparent;
+  color: #091E42;
+  fill: transparent;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  padding: 8px 8px 7px 8px;
+  width: 100%;
+}
+
+.c2.c2:focus {
+  color: #091E42;
+}
+
+.c2.c2:hover {
+  background-color: #EBECF0;
+  fill: #EBECF0;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c2.c2:active {
+  background-color: transparent;
+  fill: transparent;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c2.c2:focus {
+  box-shadow: 0 0 0 2px #4C9AFF inset;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c2.c2:focus {
+  outline: none;
+  position: relative;
+}
+
+<AnalyticsListener
+  channel="*"
+  onEvent={[Function]}
+>
+  <IntlProvider
+    locale="en"
+  >
+    <Component
+      adminLinks={Array []}
+      appearance="drawer"
+      disableHeading={true}
+      fixedLinks={
+        Array [
+          Object {
+            "Icon": [Function],
+            "href": "http://admin.atlassian.com",
+            "key": "admin",
+            "label": "Administration",
+          },
+        ]
+      }
+      isDiscoverSectionEnabled={true}
+      licensedProductLinks={Array []}
+      onDiscoverMoreClicked={[MockFunction]}
+      showNewHeading={false}
+      showStartLink={false}
+      suggestedProductLinks={Array []}
+      triggerXFlow={[MockFunction]}
+    >
+      <Component
+        appearance="drawer"
+        sectionId="switchTo"
+        title={null}
+      >
+        <NavigationAnalyticsContext
+          data={
+            Object {
+              "attributes": Object {
+                "group": "switchTo",
+                "groupItemsCount": 3,
+              },
+            }
+          }
+        >
+          <AnalyticsContext
+            data={
+              Object {
+                "navigationCtx": Object {
+                  "attributes": Object {
+                    "group": "switchTo",
+                    "groupItemsCount": 3,
+                  },
+                },
+              }
+            }
+          >
+            <Section
+              appearance="drawer"
+              sectionId="switchTo"
+              title={null}
+            >
+              <SectionContainer>
+                <section
+                  className="c0"
+                >
+                  <NavigationAnalyticsContext
+                    data={
+                      Object {
+                        "attributes": Object {
+                          "domain": "admin.atlassian.com",
+                          "groupIndex": 0,
+                          "itemId": "admin",
+                          "itemType": "product",
+                          "productType": undefined,
+                        },
+                      }
+                    }
+                    key="admin"
+                  >
+                    <AnalyticsContext
+                      data={
+                        Object {
+                          "navigationCtx": Object {
+                            "attributes": Object {
+                              "domain": "admin.atlassian.com",
+                              "groupIndex": 0,
+                              "itemId": "admin",
+                              "itemType": "product",
+                              "productType": undefined,
+                            },
+                          },
+                        }
+                      }
+                    >
+                      <WithAnalyticsEvents()
+                        href="http://admin.atlassian.com"
+                        icon={
+                          <Unknown
+                            theme="product"
+                          />
+                        }
+                        onClick={[Function]}
+                      >
+                        <Component
+                          createAnalyticsEvent={[Function]}
+                          href="http://admin.atlassian.com"
+                          icon={
+                            <Unknown
+                              theme="product"
+                            />
+                          }
+                          onClick={[Function]}
+                        >
+                          <Consumer>
+                            <ThemeProvider
+                              theme={
+                                Object {
+                                  "@atlaskit-shared-theme/item": Object {
+                                    "active": Object {
+                                      "background": "transparent",
+                                    },
+                                    "default": Object {
+                                      "background": "transparent",
+                                      "secondaryText": "#6B778C",
+                                      "text": "#091E42",
+                                    },
+                                    "display": "block",
+                                    "hover": Object {
+                                      "background": "#EBECF0",
+                                    },
+                                    "padding": Object {
+                                      "default": Object {
+                                        "bottom": 8,
+                                        "left": 8,
+                                        "right": 8,
+                                        "top": 8,
+                                      },
+                                    },
+                                    "width": Object {
+                                      "default": "100%",
+                                    },
+                                  },
+                                }
+                              }
+                            >
+                              <SwitcherItem
+                                createAnalyticsEvent={[Function]}
+                                href="http://admin.atlassian.com"
+                                icon={
+                                  <Unknown
+                                    theme="product"
+                                  />
+                                }
+                                onClick={[Function]}
+                              >
+                                <styled.div>
+                                  <div
+                                    className="c1"
+                                  >
+                                    <Item
+                                      autoFocus={false}
+                                      createAnalyticsEvent={[Function]}
+                                      description=""
+                                      elemBefore={
+                                        <Unknown
+                                          theme="product"
+                                        />
+                                      }
+                                      href="http://admin.atlassian.com"
+                                      isCompact={false}
+                                      isDisabled={false}
+                                      isHidden={false}
+                                      onClick={[Function]}
+                                      role="button"
+                                      shouldAllowMultiline={false}
+                                    >
+                                      <styled.a
+                                        aria-disabled={false}
+                                        autoFocus={false}
+                                        createAnalyticsEvent={[Function]}
+                                        description=""
+                                        elemBefore={
+                                          <Unknown
+                                            theme="product"
+                                          />
+                                        }
+                                        href="http://admin.atlassian.com"
+                                        innerRef={[Function]}
+                                        isCompact={false}
+                                        isDisabled={false}
+                                        isHidden={false}
+                                        onClick={[Function]}
+                                        onKeyDown={[Function]}
+                                        onMouseDown={[Function]}
+                                        role="button"
+                                        shouldAllowMultiline={false}
+                                        tabIndex={null}
+                                      >
+                                        <a
+                                          aria-disabled={false}
+                                          autoFocus={false}
+                                          className="c2"
+                                          href="http://admin.atlassian.com"
+                                          onClick={[Function]}
+                                          onKeyDown={[Function]}
+                                          onMouseDown={[Function]}
+                                          role="button"
+                                          tabIndex={null}
+                                        >
+                                          <Styled(styled.span)
+                                            isCompact={false}
+                                          >
+                                            <styled.span
+                                              className="c3"
+                                              isCompact={false}
+                                            >
+                                              <span
+                                                className="c3 c4"
+                                              >
+                                                <Component
+                                                  theme="product"
+                                                >
+                                                  <styled.div
+                                                    bgColor="#0052CC"
+                                                    iconElevation={[Function]}
+                                                  >
+                                                    <div
+                                                      className="c5"
+                                                    >
+                                                      <SettingsIcon
+                                                        iconColor="#FFFFFF"
+                                                        primaryColor="#FFFFFF"
+                                                        size="medium"
+                                                      >
+                                                        <Icon
+                                                          dangerouslySetGlyph="<svg width=\\"24\\" height=\\"24\\" viewBox=\\"0 0 24 24\\" focusable=\\"false\\" role=\\"presentation\\"><path d=\\"M11.701 16.7a5.002 5.002 0 1 1 0-10.003 5.002 5.002 0 0 1 0 10.004m8.368-3.117a1.995 1.995 0 0 1-1.346-1.885c0-.876.563-1.613 1.345-1.885a.48.48 0 0 0 .315-.574 8.947 8.947 0 0 0-.836-1.993.477.477 0 0 0-.598-.195 2.04 2.04 0 0 1-1.29.08 1.988 1.988 0 0 1-1.404-1.395 2.04 2.04 0 0 1 .076-1.297.478.478 0 0 0-.196-.597 8.98 8.98 0 0 0-1.975-.826.479.479 0 0 0-.574.314 1.995 1.995 0 0 1-1.885 1.346 1.994 1.994 0 0 1-1.884-1.345.482.482 0 0 0-.575-.315c-.708.2-1.379.485-2.004.842a.47.47 0 0 0-.198.582A2.002 2.002 0 0 1 4.445 7.06a.478.478 0 0 0-.595.196 8.946 8.946 0 0 0-.833 1.994.48.48 0 0 0 .308.572 1.995 1.995 0 0 1 1.323 1.877c0 .867-.552 1.599-1.324 1.877a.479.479 0 0 0-.308.57 8.99 8.99 0 0 0 .723 1.79.477.477 0 0 0 .624.194c.595-.273 1.343-.264 2.104.238.117.077.225.185.302.3.527.8.512 1.58.198 2.188a.473.473 0 0 0 .168.628 8.946 8.946 0 0 0 2.11.897.474.474 0 0 0 .57-.313 1.995 1.995 0 0 1 1.886-1.353c.878 0 1.618.567 1.887 1.353a.475.475 0 0 0 .57.313 8.964 8.964 0 0 0 2.084-.883.473.473 0 0 0 .167-.631c-.318-.608-.337-1.393.191-2.195.077-.116.185-.225.302-.302.772-.511 1.527-.513 2.125-.23a.477.477 0 0 0 .628-.19 8.925 8.925 0 0 0 .728-1.793.478.478 0 0 0-.314-.573\\" fill=\\"currentColor\\" fill-rule=\\"evenodd\\"/></svg>"
+                                                          iconColor="#FFFFFF"
+                                                          primaryColor="#FFFFFF"
+                                                          size="medium"
+                                                        >
+                                                          <styled.span
+                                                            dangerouslySetInnerHTML={
+                                                              Object {
+                                                                "__html": "<svg width=\\"24\\" height=\\"24\\" viewBox=\\"0 0 24 24\\" focusable=\\"false\\" role=\\"presentation\\"><path d=\\"M11.701 16.7a5.002 5.002 0 1 1 0-10.003 5.002 5.002 0 0 1 0 10.004m8.368-3.117a1.995 1.995 0 0 1-1.346-1.885c0-.876.563-1.613 1.345-1.885a.48.48 0 0 0 .315-.574 8.947 8.947 0 0 0-.836-1.993.477.477 0 0 0-.598-.195 2.04 2.04 0 0 1-1.29.08 1.988 1.988 0 0 1-1.404-1.395 2.04 2.04 0 0 1 .076-1.297.478.478 0 0 0-.196-.597 8.98 8.98 0 0 0-1.975-.826.479.479 0 0 0-.574.314 1.995 1.995 0 0 1-1.885 1.346 1.994 1.994 0 0 1-1.884-1.345.482.482 0 0 0-.575-.315c-.708.2-1.379.485-2.004.842a.47.47 0 0 0-.198.582A2.002 2.002 0 0 1 4.445 7.06a.478.478 0 0 0-.595.196 8.946 8.946 0 0 0-.833 1.994.48.48 0 0 0 .308.572 1.995 1.995 0 0 1 1.323 1.877c0 .867-.552 1.599-1.324 1.877a.479.479 0 0 0-.308.57 8.99 8.99 0 0 0 .723 1.79.477.477 0 0 0 .624.194c.595-.273 1.343-.264 2.104.238.117.077.225.185.302.3.527.8.512 1.58.198 2.188a.473.473 0 0 0 .168.628 8.946 8.946 0 0 0 2.11.897.474.474 0 0 0 .57-.313 1.995 1.995 0 0 1 1.886-1.353c.878 0 1.618.567 1.887 1.353a.475.475 0 0 0 .57.313 8.964 8.964 0 0 0 2.084-.883.473.473 0 0 0 .167-.631c-.318-.608-.337-1.393.191-2.195.077-.116.185-.225.302-.302.772-.511 1.527-.513 2.125-.23a.477.477 0 0 0 .628-.19 8.925 8.925 0 0 0 .728-1.793.478.478 0 0 0-.314-.573\\" fill=\\"currentColor\\" fill-rule=\\"evenodd\\"/></svg>",
+                                                              }
+                                                            }
+                                                            primaryColor="#FFFFFF"
+                                                            role="presentation"
+                                                            size="medium"
+                                                          >
+                                                            <span
+                                                              className="c6"
+                                                              dangerouslySetInnerHTML={
+                                                                Object {
+                                                                  "__html": "<svg width=\\"24\\" height=\\"24\\" viewBox=\\"0 0 24 24\\" focusable=\\"false\\" role=\\"presentation\\"><path d=\\"M11.701 16.7a5.002 5.002 0 1 1 0-10.003 5.002 5.002 0 0 1 0 10.004m8.368-3.117a1.995 1.995 0 0 1-1.346-1.885c0-.876.563-1.613 1.345-1.885a.48.48 0 0 0 .315-.574 8.947 8.947 0 0 0-.836-1.993.477.477 0 0 0-.598-.195 2.04 2.04 0 0 1-1.29.08 1.988 1.988 0 0 1-1.404-1.395 2.04 2.04 0 0 1 .076-1.297.478.478 0 0 0-.196-.597 8.98 8.98 0 0 0-1.975-.826.479.479 0 0 0-.574.314 1.995 1.995 0 0 1-1.885 1.346 1.994 1.994 0 0 1-1.884-1.345.482.482 0 0 0-.575-.315c-.708.2-1.379.485-2.004.842a.47.47 0 0 0-.198.582A2.002 2.002 0 0 1 4.445 7.06a.478.478 0 0 0-.595.196 8.946 8.946 0 0 0-.833 1.994.48.48 0 0 0 .308.572 1.995 1.995 0 0 1 1.323 1.877c0 .867-.552 1.599-1.324 1.877a.479.479 0 0 0-.308.57 8.99 8.99 0 0 0 .723 1.79.477.477 0 0 0 .624.194c.595-.273 1.343-.264 2.104.238.117.077.225.185.302.3.527.8.512 1.58.198 2.188a.473.473 0 0 0 .168.628 8.946 8.946 0 0 0 2.11.897.474.474 0 0 0 .57-.313 1.995 1.995 0 0 1 1.886-1.353c.878 0 1.618.567 1.887 1.353a.475.475 0 0 0 .57.313 8.964 8.964 0 0 0 2.084-.883.473.473 0 0 0 .167-.631c-.318-.608-.337-1.393.191-2.195.077-.116.185-.225.302-.302.772-.511 1.527-.513 2.125-.23a.477.477 0 0 0 .628-.19 8.925 8.925 0 0 0 .728-1.793.478.478 0 0 0-.314-.573\\" fill=\\"currentColor\\" fill-rule=\\"evenodd\\"/></svg>",
+                                                                }
+                                                              }
+                                                              role="presentation"
+                                                              size="medium"
+                                                            />
+                                                          </styled.span>
+                                                        </Icon>
+                                                      </SettingsIcon>
+                                                    </div>
+                                                  </styled.div>
+                                                </Component>
+                                              </span>
+                                            </styled.span>
+                                          </Styled(styled.span)>
+                                          <styled.span>
+                                            <span
+                                              className="c7"
+                                            >
+                                              <styled.span
+                                                allowMultiline={false}
+                                              >
+                                                <span
+                                                  className="c8"
+                                                >
+                                                  Administration
+                                                </span>
+                                              </styled.span>
+                                            </span>
+                                          </styled.span>
+                                        </a>
+                                      </styled.a>
+                                    </Item>
+                                  </div>
+                                </styled.div>
+                              </SwitcherItem>
+                            </ThemeProvider>
+                          </Consumer>
+                        </Component>
+                      </WithAnalyticsEvents()>
+                    </AnalyticsContext>
+                  </NavigationAnalyticsContext>
+                </section>
+              </SectionContainer>
+            </Section>
+          </AnalyticsContext>
+        </NavigationAnalyticsContext>
+      </Component>
+    </Component>
+  </IntlProvider>
+</AnalyticsListener>
+`;
+
+exports[`SwitchToSection when disableSwitchToHeading is true should render with expected title "Atlassian Start" when showStartLink is true 1`] = `
+.emotion-2 {
+  -webkit-align-items: baseline;
+  -webkit-box-align: baseline;
+  -ms-flex-align: baseline;
+  align-items: baseline;
+  border-width: 0;
+  border-radius: 3px;
+  box-sizing: border-box;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-size: inherit;
+  font-style: normal;
+  font-family: inherit;
+  font-weight: 500;
+  max-width: 100%;
+  position: relative;
+  text-align: center;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  -webkit-transition: background 0.1s ease-out,box-shadow 0.15s cubic-bezier(0.47,0.03,0.49,1.38);
+  transition: background 0.1s ease-out,box-shadow 0.15s cubic-bezier(0.47,0.03,0.49,1.38);
+  white-space: nowrap;
+  background: none;
+  color: #0052CC !important;
+  cursor: pointer;
+  height: 2.2857142857142856em;
+  line-height: 2.2857142857142856em;
+  padding: 0 10px;
+  vertical-align: middle;
+  width: auto;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.emotion-2:visited {
+  background: none;
+  color: #0052CC !important;
+}
+
+.emotion-2:hover {
+  background: none;
+  color: #0065FF !important;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  -webkit-transition-duration: 0s,0.15s;
+  transition-duration: 0s,0.15s;
+}
+
+.emotion-2:focus {
+  background: none;
+  color: #0052CC !important;
+  box-shadow: 0 0 0 2px #4C9AFF;
+  -webkit-transition-duration: 0s,0.2s;
+  transition-duration: 0s,0.2s;
+  outline: none;
+}
+
+.emotion-2:active {
+  background: none;
+  color: #0747A6 !important;
+  -webkit-transition-duration: 0s,0s;
+  transition-duration: 0s,0s;
+}
+
+.emotion-2[data-firefox-is-active="true"] {
+  background: none;
+  color: #0747A6 !important;
+  -webkit-transition-duration: 0s,0s;
+  transition-duration: 0s,0s;
+}
+
+.emotion-2[disabled] {
+  background: none;
+  color: #A5ADBA !important;
+  cursor: not-allowed;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.emotion-2[data-has-overlay="true"] {
+  cursor: default;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.emotion-2[data-has-overlay="true"]:not([disabled]):hover,
+.emotion-2[data-has-overlay="true"]:not([disabled]):active {
+  background: none;
+  color: #0052CC !important;
+}
+
+.emotion-2::-moz-focus-inner {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.emotion-0 {
+  -webkit-transition: opacity 0.3s;
+  transition: opacity 0.3s;
+  opacity: 1;
+  margin: 0 2px;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  -webkit-flex-shrink: 1;
+  -ms-flex-negative: 1;
+  flex-shrink: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.emotion-1 {
+  -webkit-transition: opacity 0.3s;
+  transition: opacity 0.3s;
+  opacity: 1;
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 0;
+  -webkit-flex-grow: 0;
+  -ms-flex-positive: 0;
+  flex-grow: 0;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  line-height: 0;
+  font-size: 0;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  margin: 0 2px;
+}
+
+.c8 {
+  height: 24px;
+  width: 24px;
+  color: #FFFFFF;
+  display: inline-block;
+  fill: #FFFFFF;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.c8 > svg {
+  height: 24px;
+  width: 24px;
+  max-height: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  vertical-align: bottom;
+}
+
+.c8 stop {
+  stop-color: currentColor;
+}
+
+.c3 {
+  height: 16px;
+  width: 16px;
+  color: currentColor;
+  display: inline-block;
+  fill: #FFFFFF;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.c3 > svg {
+  height: 16px;
+  width: 16px;
+  max-height: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  vertical-align: bottom;
+}
+
+.c3 stop {
+  stop-color: currentColor;
+}
+
+.c6 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  padding-bottom: 1px;
+}
+
+.c5 {
+  margin-right: 8px;
+}
+
+.c9 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  margin: 0;
+  overflow: hidden;
+}
+
+.c9:first-child {
+  margin: 0;
+}
+
+.c10 {
+  display: block;
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 1.1428571428571428;
+  padding-bottom: 1px;
+}
+
+.c2 {
+  -webkit-animation: ljGnjM 500ms ease forwards;
+  animation: ljGnjM 500ms ease forwards;
+  opacity: 0;
+}
+
+.c0 {
+  padding: 8px 0;
+}
+
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: nowrap;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  -webkit-align-items: baseline;
+  -webkit-box-align: baseline;
+  -ms-flex-align: baseline;
+  align-items: baseline;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+  margin-left: 8px;
+  position: relative;
+  margin-bottom: 16px;
+}
+
+.c7 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  box-shadow: 0 1px 1px rgba(9,30,66,0.25),0 0 1px 1px rgba(9,30,66,0.13);
+  background-color: #0052CC;
+  overflow: hidden;
+}
+
+.c4.c4 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 3px;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: none;
+  -ms-flex: none;
+  flex: none;
+  background-color: transparent;
+  color: #091E42;
+  fill: transparent;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  padding: 8px 8px 7px 8px;
+  width: 100%;
+}
+
+.c4.c4:focus {
+  color: #091E42;
+}
+
+.c4.c4:hover {
+  background-color: #EBECF0;
+  fill: #EBECF0;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4.c4:active {
+  background-color: transparent;
+  fill: transparent;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4.c4:focus {
+  box-shadow: 0 0 0 2px #4C9AFF inset;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4.c4:focus {
+  outline: none;
+  position: relative;
+}
+
+<AnalyticsListener
+  channel="*"
+  onEvent={[Function]}
+>
+  <IntlProvider
+    locale="en"
+  >
+    <Component
+      adminLinks={Array []}
+      appearance="drawer"
+      disableHeading={true}
+      fixedLinks={
+        Array [
+          Object {
+            "Icon": [Function],
+            "href": "http://admin.atlassian.com",
+            "key": "admin",
+            "label": "Administration",
+          },
+        ]
+      }
+      isDiscoverSectionEnabled={true}
+      licensedProductLinks={Array []}
+      onDiscoverMoreClicked={[MockFunction]}
+      showNewHeading={true}
+      showStartLink={true}
+      suggestedProductLinks={Array []}
+      triggerXFlow={[MockFunction]}
+    >
+      <Component
+        actionSubject="atlassianLink"
+        sectionId="switchTo"
+        title={null}
+        titleLink={
+          Object {
+            "Icon": [Function],
+            "href": "https://start.atlassian.com",
+            "key": "atlassian-start",
+            "label": <Unknown
+              defaultMessage="Atlassian Start"
+              description="The text of a link redirecting the user to the Start site"
+              id="fabric.atlassianSwitcher.start"
+            />,
+          }
+        }
+      >
+        <NavigationAnalyticsContext
+          data={
+            Object {
+              "attributes": Object {
+                "group": "switchTo",
+                "groupItemsCount": 3,
+              },
+            }
+          }
+        >
+          <AnalyticsContext
+            data={
+              Object {
+                "navigationCtx": Object {
+                  "attributes": Object {
+                    "group": "switchTo",
+                    "groupItemsCount": 3,
+                  },
+                },
+              }
+            }
+          >
+            <SectionWithLinkItem
+              actionSubject="atlassianLink"
+              sectionId="switchTo"
+              title={null}
+              titleLink={
+                Object {
+                  "Icon": [Function],
+                  "href": "https://start.atlassian.com",
+                  "key": "atlassian-start",
+                  "label": <Unknown
+                    defaultMessage="Atlassian Start"
+                    description="The text of a link redirecting the user to the Start site"
+                    id="fabric.atlassianSwitcher.start"
+                  />,
+                }
+              }
+            >
+              <SectionContainer>
+                <section
+                  className="c0"
+                >
+                  <TitleSectionFadeIn>
+                    <styled.div
+                      className="c1"
+                    >
+                      <div
+                        className="c1 c2"
+                      >
+                        <NavigationAnalyticsContext
+                          data={
+                            Object {
+                              "attributes": Object {
+                                "domain": "start.atlassian.com",
+                                "groupIndex": 0,
+                                "itemId": "atlassian-start",
+                                "itemType": "product",
+                                "productType": undefined,
+                              },
+                            }
+                          }
+                          key="atlassian-start"
+                        >
+                          <AnalyticsContext
+                            data={
+                              Object {
+                                "navigationCtx": Object {
+                                  "attributes": Object {
+                                    "domain": "start.atlassian.com",
+                                    "groupIndex": 0,
+                                    "itemId": "atlassian-start",
+                                    "itemType": "product",
+                                    "productType": undefined,
+                                  },
+                                },
+                              }
+                            }
+                          >
+                            <WithAnalyticsEvents(ItemLink)
+                              actionSubject="atlassianLink"
+                              css={
+                                Object {
+                                  "&.section-link": Object {
+                                    "fontWeight": 400,
+                                    "height": "1.4285714285714286em",
+                                    "lineHeight": "1.4285714285714286em",
+                                  },
+                                }
+                              }
+                              href="https://start.atlassian.com"
+                              iconAfter={
+                                <ShortcutIcon
+                                  label=""
+                                  size="small"
+                                />
+                              }
+                              label={
+                                <Unknown
+                                  defaultMessage="Atlassian Start"
+                                  description="The text of a link redirecting the user to the Start site"
+                                  id="fabric.atlassianSwitcher.start"
+                                />
+                              }
+                              testId="section-title__link"
+                            >
+                              <ItemLink
+                                actionSubject="atlassianLink"
+                                createAnalyticsEvent={[Function]}
+                                css={
+                                  Object {
+                                    "&.section-link": Object {
+                                      "fontWeight": 400,
+                                      "height": "1.4285714285714286em",
+                                      "lineHeight": "1.4285714285714286em",
+                                    },
+                                  }
+                                }
+                                href="https://start.atlassian.com"
+                                iconAfter={
+                                  <ShortcutIcon
+                                    label=""
+                                    size="small"
+                                  />
+                                }
+                                label={
+                                  <Unknown
+                                    defaultMessage="Atlassian Start"
+                                    description="The text of a link redirecting the user to the Start site"
+                                    id="fabric.atlassianSwitcher.start"
+                                  />
+                                }
+                                onClick={[Function]}
+                                testId="section-title__link"
+                              >
+                                <ForwardRef(Button)
+                                  appearance="link"
+                                  className="section-link"
+                                  css={
+                                    Object {
+                                      "&.section-link": Object {
+                                        "fontWeight": 400,
+                                        "height": "1.4285714285714286em",
+                                        "lineHeight": "1.4285714285714286em",
+                                      },
+                                    }
+                                  }
+                                  href="https://start.atlassian.com"
+                                  iconAfter={
+                                    <ShortcutIcon
+                                      label=""
+                                      size="small"
+                                    />
+                                  }
+                                  onClick={[Function]}
+                                  rel="noopener noreferrer"
+                                  target="_blank"
+                                  testId="section-title__link"
+                                >
+                                  <Consumer>
+                                    <ForwardRef(ButtonWithMode)
+                                      appearance="link"
+                                      className="section-link"
+                                      css={
+                                        Object {
+                                          "&.section-link": Object {
+                                            "fontWeight": 400,
+                                            "height": "1.4285714285714286em",
+                                            "lineHeight": "1.4285714285714286em",
+                                          },
+                                        }
+                                      }
+                                      href="https://start.atlassian.com"
+                                      iconAfter={
+                                        <ShortcutIcon
+                                          label=""
+                                          size="small"
+                                        />
+                                      }
+                                      mode="light"
+                                      onClick={[Function]}
+                                      rel="noopener noreferrer"
+                                      target="_blank"
+                                      testId="section-title__link"
+                                    >
+                                      <ForwardRef(ButtonBase)
+                                        appearance="link"
+                                        buttonCss={
+                                          Object {
+                                            "&::-moz-focus-inner": Object {
+                                              "border": 0,
+                                              "margin": 0,
+                                              "padding": 0,
+                                            },
+                                            "&:active": Object {
+                                              "background": "none",
+                                              "color": "#0747A6 !important",
+                                              "transitionDuration": "0s, 0s",
+                                            },
+                                            "&:focus": Object {
+                                              "background": "none",
+                                              "boxShadow": "0 0 0 2px #4C9AFF",
+                                              "color": "#0052CC !important",
+                                              "outline": "none",
+                                              "transitionDuration": "0s, 0.2s",
+                                            },
+                                            "&:hover": Object {
+                                              "background": "none",
+                                              "color": "#0065FF !important",
+                                              "textDecoration": "underline",
+                                              "transitionDuration": "0s, 0.15s",
+                                            },
+                                            "&:visited": Object {
+                                              "background": "none",
+                                              "color": "#0052CC !important",
+                                            },
+                                            "&[data-firefox-is-active=\\"true\\"]": Object {
+                                              "background": "none",
+                                              "color": "#0747A6 !important",
+                                              "transitionDuration": "0s, 0s",
+                                            },
+                                            "&[data-has-overlay=\\"true\\"]": Object {
+                                              "cursor": "default",
+                                              "textDecoration": "none",
+                                            },
+                                            "&[data-has-overlay=\\"true\\"]:not([disabled]):hover, &[data-has-overlay=\\"true\\"]:not([disabled]):active": Object {
+                                              "background": "none",
+                                              "color": "#0052CC !important",
+                                            },
+                                            "&[disabled]": Object {
+                                              "background": "none",
+                                              "color": "#A5ADBA !important",
+                                              "cursor": "not-allowed",
+                                              "textDecoration": "none",
+                                            },
+                                            "alignItems": "baseline",
+                                            "background": "none",
+                                            "borderRadius": 3,
+                                            "borderWidth": 0,
+                                            "boxSizing": "border-box",
+                                            "color": "#0052CC !important",
+                                            "cursor": "pointer",
+                                            "display": "inline-flex",
+                                            "fontFamily": "inherit",
+                                            "fontSize": "inherit",
+                                            "fontStyle": "normal",
+                                            "fontWeight": 500,
+                                            "height": "2.2857142857142856em",
+                                            "justifyContent": "center",
+                                            "lineHeight": "2.2857142857142856em",
+                                            "maxWidth": "100%",
+                                            "padding": "0 10px",
+                                            "position": "relative",
+                                            "textAlign": "center",
+                                            "textDecoration": "none",
+                                            "transition": "background 0.1s ease-out, box-shadow 0.15s cubic-bezier(0.47, 0.03, 0.49, 1.38)",
+                                            "verticalAlign": "middle",
+                                            "whiteSpace": "nowrap",
+                                            "width": "auto",
+                                          }
+                                        }
+                                        className="section-link"
+                                        css={
+                                          Object {
+                                            "&.section-link": Object {
+                                              "fontWeight": 400,
+                                              "height": "1.4285714285714286em",
+                                              "lineHeight": "1.4285714285714286em",
+                                            },
+                                          }
+                                        }
+                                        href="https://start.atlassian.com"
+                                        iconAfter={
+                                          <ShortcutIcon
+                                            label=""
+                                            size="small"
+                                          />
+                                        }
+                                        onClick={[Function]}
+                                        onMouseDown={[Function]}
+                                        onMouseUp={[Function]}
+                                        rel="noopener noreferrer"
+                                        target="_blank"
+                                        testId="section-title__link"
+                                      >
+                                        <a
+                                          className="section-link emotion-2"
+                                          data-testid="section-title__link"
+                                          disabled={false}
+                                          href="https://start.atlassian.com"
+                                          onClick={[Function]}
+                                          onMouseDown={[Function]}
+                                          onMouseUp={[Function]}
+                                          rel="noopener noreferrer"
+                                          tabIndex={0}
+                                          target="_blank"
+                                        >
+                                          <span
+                                            className="emotion-0"
+                                          >
+                                            <Component
+                                              defaultMessage="Atlassian Start"
+                                              description="The text of a link redirecting the user to the Start site"
+                                              id="fabric.atlassianSwitcher.start"
+                                            >
+                                              <FormattedMessage
+                                                defaultMessage="Atlassian Start"
+                                                description="The text of a link redirecting the user to the Start site"
+                                                id="fabric.atlassianSwitcher.start"
+                                                values={Object {}}
+                                              >
+                                                Atlassian Start
+                                              </FormattedMessage>
+                                            </Component>
+                                          </span>
+                                          <span
+                                            className="emotion-1"
+                                          >
+                                            <ShortcutIcon
+                                              label=""
+                                              size="small"
+                                            >
+                                              <Icon
+                                                dangerouslySetGlyph="<svg width=\\"24\\" height=\\"24\\" viewBox=\\"0 0 24 24\\" focusable=\\"false\\" role=\\"presentation\\"><g fill=\\"currentColor\\"><path d=\\"M19.005 19c-.003 0-.005.002-.005.002l.005-.002zM5 19.006c0-.004-.002-.006-.005-.006H5v.006zM5 4.994V5v-.006zM19 19v-6h2v6.002A1.996 1.996 0 0 1 19.005 21H4.995A1.996 1.996 0 0 1 3 19.006V4.994C3 3.893 3.896 3 4.997 3H11v2H5v14h14zM5 4.994V5v-.006zm0 14.012c0-.004-.002-.006-.005-.006H5v.006zM11 5H5v14h14v-6h2v6.002A1.996 1.996 0 0 1 19.005 21H4.995A1.996 1.996 0 0 1 3 19.006V4.994C3 3.893 3.896 3 4.997 3H11v2zm8 0v3a1 1 0 0 0 2 0V4a1 1 0 0 0-1-1h-4a1 1 0 0 0 0 2h3z\\"/><path d=\\"M12.707 12.707l8-8a1 1 0 1 0-1.414-1.414l-8 8a1 1 0 0 0 1.414 1.414z\\"/></g></svg>"
+                                                label=""
+                                                size="small"
+                                              >
+                                                <styled.span
+                                                  dangerouslySetInnerHTML={
+                                                    Object {
+                                                      "__html": "<svg width=\\"24\\" height=\\"24\\" viewBox=\\"0 0 24 24\\" focusable=\\"false\\" role=\\"presentation\\"><g fill=\\"currentColor\\"><path d=\\"M19.005 19c-.003 0-.005.002-.005.002l.005-.002zM5 19.006c0-.004-.002-.006-.005-.006H5v.006zM5 4.994V5v-.006zM19 19v-6h2v6.002A1.996 1.996 0 0 1 19.005 21H4.995A1.996 1.996 0 0 1 3 19.006V4.994C3 3.893 3.896 3 4.997 3H11v2H5v14h14zM5 4.994V5v-.006zm0 14.012c0-.004-.002-.006-.005-.006H5v.006zM11 5H5v14h14v-6h2v6.002A1.996 1.996 0 0 1 19.005 21H4.995A1.996 1.996 0 0 1 3 19.006V4.994C3 3.893 3.896 3 4.997 3H11v2zm8 0v3a1 1 0 0 0 2 0V4a1 1 0 0 0-1-1h-4a1 1 0 0 0 0 2h3z\\"/><path d=\\"M12.707 12.707l8-8a1 1 0 1 0-1.414-1.414l-8 8a1 1 0 0 0 1.414 1.414z\\"/></g></svg>",
+                                                    }
+                                                  }
+                                                  role="presentation"
+                                                  size="small"
+                                                >
+                                                  <span
+                                                    className="c3"
+                                                    dangerouslySetInnerHTML={
+                                                      Object {
+                                                        "__html": "<svg width=\\"24\\" height=\\"24\\" viewBox=\\"0 0 24 24\\" focusable=\\"false\\" role=\\"presentation\\"><g fill=\\"currentColor\\"><path d=\\"M19.005 19c-.003 0-.005.002-.005.002l.005-.002zM5 19.006c0-.004-.002-.006-.005-.006H5v.006zM5 4.994V5v-.006zM19 19v-6h2v6.002A1.996 1.996 0 0 1 19.005 21H4.995A1.996 1.996 0 0 1 3 19.006V4.994C3 3.893 3.896 3 4.997 3H11v2H5v14h14zM5 4.994V5v-.006zm0 14.012c0-.004-.002-.006-.005-.006H5v.006zM11 5H5v14h14v-6h2v6.002A1.996 1.996 0 0 1 19.005 21H4.995A1.996 1.996 0 0 1 3 19.006V4.994C3 3.893 3.896 3 4.997 3H11v2zm8 0v3a1 1 0 0 0 2 0V4a1 1 0 0 0-1-1h-4a1 1 0 0 0 0 2h3z\\"/><path d=\\"M12.707 12.707l8-8a1 1 0 1 0-1.414-1.414l-8 8a1 1 0 0 0 1.414 1.414z\\"/></g></svg>",
+                                                      }
+                                                    }
+                                                    role="presentation"
+                                                    size="small"
+                                                  />
+                                                </styled.span>
+                                              </Icon>
+                                            </ShortcutIcon>
+                                          </span>
+                                        </a>
+                                      </ForwardRef(ButtonBase)>
+                                    </ForwardRef(ButtonWithMode)>
+                                  </Consumer>
+                                </ForwardRef(Button)>
+                              </ItemLink>
+                            </WithAnalyticsEvents(ItemLink)>
+                          </AnalyticsContext>
+                        </NavigationAnalyticsContext>
+                      </div>
+                    </styled.div>
+                  </TitleSectionFadeIn>
+                  <NavigationAnalyticsContext
+                    data={
+                      Object {
+                        "attributes": Object {
+                          "domain": "admin.atlassian.com",
+                          "groupIndex": 0,
+                          "itemId": "admin",
+                          "itemType": "product",
+                          "productType": undefined,
+                        },
+                      }
+                    }
+                    key="admin"
+                  >
+                    <AnalyticsContext
+                      data={
+                        Object {
+                          "navigationCtx": Object {
+                            "attributes": Object {
+                              "domain": "admin.atlassian.com",
+                              "groupIndex": 0,
+                              "itemId": "admin",
+                              "itemType": "product",
+                              "productType": undefined,
+                            },
+                          },
+                        }
+                      }
+                    >
+                      <WithAnalyticsEvents()
+                        href="http://admin.atlassian.com"
+                        icon={
+                          <Unknown
+                            theme="product"
+                          />
+                        }
+                        onClick={[Function]}
+                      >
+                        <Component
+                          createAnalyticsEvent={[Function]}
+                          href="http://admin.atlassian.com"
+                          icon={
+                            <Unknown
+                              theme="product"
+                            />
+                          }
+                          onClick={[Function]}
+                        >
+                          <Consumer>
+                            <ThemeProvider
+                              theme={
+                                Object {
+                                  "@atlaskit-shared-theme/item": Object {
+                                    "active": Object {
+                                      "background": "transparent",
+                                    },
+                                    "default": Object {
+                                      "background": "transparent",
+                                      "secondaryText": "#6B778C",
+                                      "text": "#091E42",
+                                    },
+                                    "display": "block",
+                                    "hover": Object {
+                                      "background": "#EBECF0",
+                                    },
+                                    "padding": Object {
+                                      "default": Object {
+                                        "bottom": 8,
+                                        "left": 8,
+                                        "right": 8,
+                                        "top": 8,
+                                      },
+                                    },
+                                    "width": Object {
+                                      "default": "100%",
+                                    },
+                                  },
+                                }
+                              }
+                            >
+                              <SwitcherItem
+                                createAnalyticsEvent={[Function]}
+                                href="http://admin.atlassian.com"
+                                icon={
+                                  <Unknown
+                                    theme="product"
+                                  />
+                                }
+                                onClick={[Function]}
+                              >
+                                <styled.div>
+                                  <div
+                                    className="c2"
+                                  >
+                                    <Item
+                                      autoFocus={false}
+                                      createAnalyticsEvent={[Function]}
+                                      description=""
+                                      elemBefore={
+                                        <Unknown
+                                          theme="product"
+                                        />
+                                      }
+                                      href="http://admin.atlassian.com"
+                                      isCompact={false}
+                                      isDisabled={false}
+                                      isHidden={false}
+                                      onClick={[Function]}
+                                      role="button"
+                                      shouldAllowMultiline={false}
+                                    >
+                                      <styled.a
+                                        aria-disabled={false}
+                                        autoFocus={false}
+                                        createAnalyticsEvent={[Function]}
+                                        description=""
+                                        elemBefore={
+                                          <Unknown
+                                            theme="product"
+                                          />
+                                        }
+                                        href="http://admin.atlassian.com"
+                                        innerRef={[Function]}
+                                        isCompact={false}
+                                        isDisabled={false}
+                                        isHidden={false}
+                                        onClick={[Function]}
+                                        onKeyDown={[Function]}
+                                        onMouseDown={[Function]}
+                                        role="button"
+                                        shouldAllowMultiline={false}
+                                        tabIndex={null}
+                                      >
+                                        <a
+                                          aria-disabled={false}
+                                          autoFocus={false}
+                                          className="c4"
+                                          href="http://admin.atlassian.com"
+                                          onClick={[Function]}
+                                          onKeyDown={[Function]}
+                                          onMouseDown={[Function]}
+                                          role="button"
+                                          tabIndex={null}
+                                        >
+                                          <Styled(styled.span)
+                                            isCompact={false}
+                                          >
+                                            <styled.span
+                                              className="c5"
+                                              isCompact={false}
+                                            >
+                                              <span
+                                                className="c5 c6"
+                                              >
+                                                <Component
+                                                  theme="product"
+                                                >
+                                                  <styled.div
+                                                    bgColor="#0052CC"
+                                                    iconElevation={[Function]}
+                                                  >
+                                                    <div
+                                                      className="c7"
+                                                    >
+                                                      <SettingsIcon
+                                                        iconColor="#FFFFFF"
+                                                        primaryColor="#FFFFFF"
+                                                        size="medium"
+                                                      >
+                                                        <Icon
+                                                          dangerouslySetGlyph="<svg width=\\"24\\" height=\\"24\\" viewBox=\\"0 0 24 24\\" focusable=\\"false\\" role=\\"presentation\\"><path d=\\"M11.701 16.7a5.002 5.002 0 1 1 0-10.003 5.002 5.002 0 0 1 0 10.004m8.368-3.117a1.995 1.995 0 0 1-1.346-1.885c0-.876.563-1.613 1.345-1.885a.48.48 0 0 0 .315-.574 8.947 8.947 0 0 0-.836-1.993.477.477 0 0 0-.598-.195 2.04 2.04 0 0 1-1.29.08 1.988 1.988 0 0 1-1.404-1.395 2.04 2.04 0 0 1 .076-1.297.478.478 0 0 0-.196-.597 8.98 8.98 0 0 0-1.975-.826.479.479 0 0 0-.574.314 1.995 1.995 0 0 1-1.885 1.346 1.994 1.994 0 0 1-1.884-1.345.482.482 0 0 0-.575-.315c-.708.2-1.379.485-2.004.842a.47.47 0 0 0-.198.582A2.002 2.002 0 0 1 4.445 7.06a.478.478 0 0 0-.595.196 8.946 8.946 0 0 0-.833 1.994.48.48 0 0 0 .308.572 1.995 1.995 0 0 1 1.323 1.877c0 .867-.552 1.599-1.324 1.877a.479.479 0 0 0-.308.57 8.99 8.99 0 0 0 .723 1.79.477.477 0 0 0 .624.194c.595-.273 1.343-.264 2.104.238.117.077.225.185.302.3.527.8.512 1.58.198 2.188a.473.473 0 0 0 .168.628 8.946 8.946 0 0 0 2.11.897.474.474 0 0 0 .57-.313 1.995 1.995 0 0 1 1.886-1.353c.878 0 1.618.567 1.887 1.353a.475.475 0 0 0 .57.313 8.964 8.964 0 0 0 2.084-.883.473.473 0 0 0 .167-.631c-.318-.608-.337-1.393.191-2.195.077-.116.185-.225.302-.302.772-.511 1.527-.513 2.125-.23a.477.477 0 0 0 .628-.19 8.925 8.925 0 0 0 .728-1.793.478.478 0 0 0-.314-.573\\" fill=\\"currentColor\\" fill-rule=\\"evenodd\\"/></svg>"
+                                                          iconColor="#FFFFFF"
+                                                          primaryColor="#FFFFFF"
+                                                          size="medium"
+                                                        >
+                                                          <styled.span
+                                                            dangerouslySetInnerHTML={
+                                                              Object {
+                                                                "__html": "<svg width=\\"24\\" height=\\"24\\" viewBox=\\"0 0 24 24\\" focusable=\\"false\\" role=\\"presentation\\"><path d=\\"M11.701 16.7a5.002 5.002 0 1 1 0-10.003 5.002 5.002 0 0 1 0 10.004m8.368-3.117a1.995 1.995 0 0 1-1.346-1.885c0-.876.563-1.613 1.345-1.885a.48.48 0 0 0 .315-.574 8.947 8.947 0 0 0-.836-1.993.477.477 0 0 0-.598-.195 2.04 2.04 0 0 1-1.29.08 1.988 1.988 0 0 1-1.404-1.395 2.04 2.04 0 0 1 .076-1.297.478.478 0 0 0-.196-.597 8.98 8.98 0 0 0-1.975-.826.479.479 0 0 0-.574.314 1.995 1.995 0 0 1-1.885 1.346 1.994 1.994 0 0 1-1.884-1.345.482.482 0 0 0-.575-.315c-.708.2-1.379.485-2.004.842a.47.47 0 0 0-.198.582A2.002 2.002 0 0 1 4.445 7.06a.478.478 0 0 0-.595.196 8.946 8.946 0 0 0-.833 1.994.48.48 0 0 0 .308.572 1.995 1.995 0 0 1 1.323 1.877c0 .867-.552 1.599-1.324 1.877a.479.479 0 0 0-.308.57 8.99 8.99 0 0 0 .723 1.79.477.477 0 0 0 .624.194c.595-.273 1.343-.264 2.104.238.117.077.225.185.302.3.527.8.512 1.58.198 2.188a.473.473 0 0 0 .168.628 8.946 8.946 0 0 0 2.11.897.474.474 0 0 0 .57-.313 1.995 1.995 0 0 1 1.886-1.353c.878 0 1.618.567 1.887 1.353a.475.475 0 0 0 .57.313 8.964 8.964 0 0 0 2.084-.883.473.473 0 0 0 .167-.631c-.318-.608-.337-1.393.191-2.195.077-.116.185-.225.302-.302.772-.511 1.527-.513 2.125-.23a.477.477 0 0 0 .628-.19 8.925 8.925 0 0 0 .728-1.793.478.478 0 0 0-.314-.573\\" fill=\\"currentColor\\" fill-rule=\\"evenodd\\"/></svg>",
+                                                              }
+                                                            }
+                                                            primaryColor="#FFFFFF"
+                                                            role="presentation"
+                                                            size="medium"
+                                                          >
+                                                            <span
+                                                              className="c8"
+                                                              dangerouslySetInnerHTML={
+                                                                Object {
+                                                                  "__html": "<svg width=\\"24\\" height=\\"24\\" viewBox=\\"0 0 24 24\\" focusable=\\"false\\" role=\\"presentation\\"><path d=\\"M11.701 16.7a5.002 5.002 0 1 1 0-10.003 5.002 5.002 0 0 1 0 10.004m8.368-3.117a1.995 1.995 0 0 1-1.346-1.885c0-.876.563-1.613 1.345-1.885a.48.48 0 0 0 .315-.574 8.947 8.947 0 0 0-.836-1.993.477.477 0 0 0-.598-.195 2.04 2.04 0 0 1-1.29.08 1.988 1.988 0 0 1-1.404-1.395 2.04 2.04 0 0 1 .076-1.297.478.478 0 0 0-.196-.597 8.98 8.98 0 0 0-1.975-.826.479.479 0 0 0-.574.314 1.995 1.995 0 0 1-1.885 1.346 1.994 1.994 0 0 1-1.884-1.345.482.482 0 0 0-.575-.315c-.708.2-1.379.485-2.004.842a.47.47 0 0 0-.198.582A2.002 2.002 0 0 1 4.445 7.06a.478.478 0 0 0-.595.196 8.946 8.946 0 0 0-.833 1.994.48.48 0 0 0 .308.572 1.995 1.995 0 0 1 1.323 1.877c0 .867-.552 1.599-1.324 1.877a.479.479 0 0 0-.308.57 8.99 8.99 0 0 0 .723 1.79.477.477 0 0 0 .624.194c.595-.273 1.343-.264 2.104.238.117.077.225.185.302.3.527.8.512 1.58.198 2.188a.473.473 0 0 0 .168.628 8.946 8.946 0 0 0 2.11.897.474.474 0 0 0 .57-.313 1.995 1.995 0 0 1 1.886-1.353c.878 0 1.618.567 1.887 1.353a.475.475 0 0 0 .57.313 8.964 8.964 0 0 0 2.084-.883.473.473 0 0 0 .167-.631c-.318-.608-.337-1.393.191-2.195.077-.116.185-.225.302-.302.772-.511 1.527-.513 2.125-.23a.477.477 0 0 0 .628-.19 8.925 8.925 0 0 0 .728-1.793.478.478 0 0 0-.314-.573\\" fill=\\"currentColor\\" fill-rule=\\"evenodd\\"/></svg>",
+                                                                }
+                                                              }
+                                                              role="presentation"
+                                                              size="medium"
+                                                            />
+                                                          </styled.span>
+                                                        </Icon>
+                                                      </SettingsIcon>
+                                                    </div>
+                                                  </styled.div>
+                                                </Component>
+                                              </span>
+                                            </styled.span>
+                                          </Styled(styled.span)>
+                                          <styled.span>
+                                            <span
+                                              className="c9"
+                                            >
+                                              <styled.span
+                                                allowMultiline={false}
+                                              >
+                                                <span
+                                                  className="c10"
+                                                >
+                                                  Administration
+                                                </span>
+                                              </styled.span>
+                                            </span>
+                                          </styled.span>
+                                        </a>
+                                      </styled.a>
+                                    </Item>
+                                  </div>
+                                </styled.div>
+                              </SwitcherItem>
+                            </ThemeProvider>
+                          </Consumer>
+                        </Component>
+                      </WithAnalyticsEvents()>
+                    </AnalyticsContext>
+                  </NavigationAnalyticsContext>
+                </section>
+              </SectionContainer>
+            </SectionWithLinkItem>
+          </AnalyticsContext>
+        </NavigationAnalyticsContext>
+      </Component>
+    </Component>
+  </IntlProvider>
+</AnalyticsListener>
+`;

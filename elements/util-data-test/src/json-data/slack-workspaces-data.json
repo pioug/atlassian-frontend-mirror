@@ -1,0 +1,19 @@
+{
+  "teams": [
+      {
+        "id": "0",
+        "avatar": "https://ptc-directory-sited-static.us-east-1.staging.public.atl-paas.net/teams/avatars/1.svg",
+        "name": "Confluence"
+      },
+      {
+        "id": "1",
+        "avatar": "https://ptc-directory-sited-static.us-east-1.staging.public.atl-paas.net/teams/avatars/0.svg",
+        "name": "Trello"
+      },
+      {
+        "id": "2",
+        "avatar": "https://ptc-directory-sited-static.us-east-1.staging.public.atl-paas.net/teams/avatars/2.svg",
+        "name": "Jira"
+      }
+  ]
+}

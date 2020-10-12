@@ -1,0 +1,56 @@
+{
+  "name": "@atlaskit/focused-task-close-account",
+  "version": "0.13.5",
+  "description": "This package contains all of the UI components needed to assemble the focused tasks for deactivating and deleting users' accounts in accordance with the GDPR \"Right to be forgotten\".",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "author": "Atlassian Pty Ltd",
+  "license": "Apache-2.0",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "module:es2019": "dist/es2019/index.js",
+  "types": "dist/types/index.d.ts",
+  "atlaskit:src": "src/index.ts",
+  "atlassian": {
+    "team": "People and Teams Collective",
+    "deprecatedAutoEntryPoints": true,
+    "releaseModel": "scheduled",
+    "website": {
+      "name": "Focused Task Close Account"
+    }
+  },
+  "dependencies": {
+    "@atlaskit/avatar": "^20.0.0",
+    "@atlaskit/button": "^15.1.0",
+    "@atlaskit/drawer": "^6.0.0",
+    "@atlaskit/icon": "^21.0.0",
+    "@atlaskit/inline-dialog": "^13.0.0",
+    "@atlaskit/section-message": "^5.0.0",
+    "@atlaskit/theme": "^11.0.0",
+    "enzyme": "^3.10.0"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0",
+    "react-intl": "^2.6.0",
+    "react-transition-group": "^4.4.1",
+    "styled-components": "^3.2.6"
+  },
+  "devDependencies": {
+    "@atlaskit/checkbox": "^11.0.0",
+    "@atlaskit/docs": "*",
+    "react-intl": "^2.6.0"
+  },
+  "keywords": [
+    "ui",
+    "gdpr",
+    "right",
+    "erasure",
+    "forgotten",
+    "focusedTaskCloseAccount",
+    "deleteUserDrawer",
+    "deactivateUserDrawer"
+  ]
+}

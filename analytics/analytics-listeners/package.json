@@ -1,0 +1,45 @@
+{
+  "name": "@atlaskit/analytics-listeners",
+  "version": "7.0.4",
+  "description": "Fabric analytics listeners to be used by the products",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "author": "Atlassian Pty Ltd",
+  "license": "Apache-2.0",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "module:es2019": "dist/es2019/index.js",
+  "types": "dist/types/index.d.ts",
+  "atlaskit:src": "src/index.ts",
+  "atlassian": {
+    "team": "AFP: App Infrastructure",
+    "deprecatedAutoEntryPoints": true,
+    "releaseModel": "continuous"
+  },
+  "config": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@atlaskit/analytics-gas-types": "^5.0.0",
+    "@atlaskit/analytics-namespaced-context": "^5.1.0",
+    "@atlaskit/analytics-next": "^8.0.0",
+    "lodash": "^4.17.15",
+    "tslib": "^2.0.0"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0"
+  },
+  "devDependencies": {
+    "@atlaskit/button": "^15.1.0",
+    "@atlaskit/docs": "*",
+    "enzyme": "^3.10.0",
+    "jest-in-case": "^1.0.2",
+    "react": "^16.8.0"
+  },
+  "keywords": [
+    "fabric",
+    "ui"
+  ]
+}

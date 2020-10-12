@@ -1,0 +1,56 @@
+{
+  "name": "@atlaskit/contextual-survey",
+  "version": "2.0.4",
+  "description": "A React component used to ask the user for feedback",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "author": "Atlassian Pty Ltd",
+  "license": "Apache-2.0",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "module:es2019": "dist/es2019/index.js",
+  "types": "dist/types/index.d.ts",
+  "sideEffects": false,
+  "atlaskit:src": "src/index.ts",
+  "atlassian": {
+    "team": "Personalization",
+    "deprecatedAutoEntryPoints": true,
+    "releaseModel": "continuous",
+    "website": {
+      "name": "Contextual Survey"
+    }
+  },
+  "dependencies": {
+    "@atlaskit/button": "^15.1.0",
+    "@atlaskit/checkbox": "^11.0.0",
+    "@atlaskit/form": "^8.0.0",
+    "@atlaskit/icon": "^21.1.0",
+    "@atlaskit/textarea": "^3.0.0",
+    "@atlaskit/theme": "^11.0.0",
+    "@atlaskit/tooltip": "^17.0.0",
+    "@babel/runtime": "^7.0.0",
+    "@emotion/core": "^10.0.9",
+    "react-transition-group": "^4.4.1",
+    "tslib": "^2.0.0"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0"
+  },
+  "devDependencies": {
+    "@atlaskit/checkbox": "^11.0.0",
+    "@atlaskit/docs": "*",
+    "@testing-library/react": "^8.0.1"
+  },
+  "keywords": [
+    "atlaskit",
+    "react",
+    "ui"
+  ],
+  "techstack": {
+    "@atlassian/frontend": {
+      "import-structure": "atlassian-conventions"
+    }
+  }
+}

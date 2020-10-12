@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`isOpen snapshot 1`] = `
+<InjectIntl(MessagesIntlProvider)>
+  <WithAnalyticsContext(WithAnalyticsEvents(DrawerBase))
+    icon={[Function]}
+    isOpen={false}
+    onClose={[MockFunction]}
+    width="full"
+  >
+    <styled.div>
+      a
+      <Footer
+        currentScreenIdx={0}
+        numScreens={3}
+        onCancel={[MockFunction]}
+        onNext={[Function]}
+        onPrevious={[Function]}
+        secondaryActions={
+          <Memo(CustomThemeButton)
+            appearance="subtle-link"
+            href="https://hello.atlassian.net"
+            spacing="none"
+            target="_blank"
+          >
+            <FormattedMessage
+              defaultMessage="Learn more"
+              description="Text for a link to a page where a user can learn more about a particular topic"
+              id="focused-task-close-account.learnMore"
+              values={Object {}}
+            />
+             
+          </Memo(CustomThemeButton)>
+        }
+        submitButton={
+          <div
+            id="submit"
+          />
+        }
+      />
+    </styled.div>
+  </WithAnalyticsContext(WithAnalyticsEvents(DrawerBase))>
+</InjectIntl(MessagesIntlProvider)>
+`;
+
+exports[`learnMoreLink display Learn more link is displayed when the link is passed in the props 1`] = `
+<CustomThemeButton
+  appearance="subtle-link"
+  href="https://hello.atlassian.net"
+  spacing="none"
+  target="_blank"
+>
+  <FormattedMessage
+    defaultMessage="Learn more"
+    description="Text for a link to a page where a user can learn more about a particular topic"
+    id="focused-task-close-account.learnMore"
+    values={Object {}}
+  />
+   
+</CustomThemeButton>
+`;

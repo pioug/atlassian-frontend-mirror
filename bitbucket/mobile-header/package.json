@@ -1,0 +1,47 @@
+{
+  "name": "@atlaskit/mobile-header",
+  "version": "5.0.3",
+  "description": "A React component rendering a mobile header",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "author": "Atlassian Pty Ltd",
+  "license": "Apache-2.0",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "module:es2019": "dist/es2019/index.js",
+  "types": "dist/types/index.d.ts",
+  "atlaskit:src": "src/index.ts",
+  "atlassian": {
+    "team": "Bitbucket: CoreX",
+    "deprecatedAutoEntryPoints": true,
+    "releaseModel": "continuous",
+    "website": {
+      "name": "Mobile Header"
+    }
+  },
+  "dependencies": {
+    "@atlaskit/banner": "^11.0.0",
+    "@atlaskit/button": "^15.1.0",
+    "@atlaskit/icon": "^21.0.0",
+    "@atlaskit/theme": "^11.0.0",
+    "tslib": "^2.0.0"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0",
+    "styled-components": "^3.2.6"
+  },
+  "devDependencies": {
+    "@atlaskit/docs": "*",
+    "@atlaskit/navigation": "^37.0.0",
+    "enzyme": "^3.10.0",
+    "react-dom": "^16.8.0",
+    "react-test-renderer": "^16.8.0"
+  },
+  "techstack": {
+    "@atlassian/frontend": {
+      "import-structure": "atlassian-conventions"
+    }
+  }
+}

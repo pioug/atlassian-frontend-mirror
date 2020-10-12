@@ -1,0 +1,44 @@
+{
+  "name": "@atlaskit/util-service-support",
+  "version": "6.0.1",
+  "description": "A library of support classes for integrating React components with REST HTTP services",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "author": "Atlassian Pty Ltd",
+  "license": "Apache-2.0",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "module:es2019": "dist/es2019/index.js",
+  "types": "dist/types/index.d.ts",
+  "atlaskit:src": "src/index.ts",
+  "atlassian": {
+    "deprecatedAutoEntryPoints": true,
+    "releaseModel": "continuous"
+  },
+  "config": {
+    "access": "public"
+  },
+  "dependencies": {
+    "tslib": "^2.0.0",
+    "url": "^0.11.0",
+    "url-search-params": "^0.10.0"
+  },
+  "devDependencies": {
+    "@atlaskit/docs": "*",
+    "es6-promise": "^4.0.5",
+    "fetch-mock": "^8.0.0",
+    "sinon": "^2.2.0"
+  },
+  "keywords": [
+    "fabric",
+    "ui",
+    "private"
+  ],
+  "techstack": {
+    "@atlassian/frontend": {
+      "tree-shaking": []
+    }
+  }
+}

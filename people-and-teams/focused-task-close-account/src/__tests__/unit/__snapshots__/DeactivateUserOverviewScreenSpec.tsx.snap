@@ -1,0 +1,237 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DeactivateUserOverviewScreen 1`] = `
+<InjectIntl(MessagesIntlProvider)>
+  <styled.div>
+    <styled.div>
+      <FormattedMessage
+        defaultMessage="Deactivate account"
+        description="Heading for the screen that explains what happens when an admin deactivates a user's account"
+        id="focused-task-close-account.deactivate-account.overview.heading.admin"
+        values={Object {}}
+      />
+    </styled.div>
+    <FormattedMessage
+      defaultMessage="You're about to deactivate the user account of:"
+      description="First line for the screen when the admin is about to deactivate another user"
+      id="focused-task-close-account.deactivate-account.overview.first.line.admin"
+      tagName="p"
+      values={Object {}}
+    />
+    <UserInfo
+      user={
+        Object {
+          "avatarUrl": "",
+          "email": "catherine.hirons@acme.com",
+          "fullName": "Catherine Hirons",
+        }
+      }
+    />
+    <FormattedMessage
+      defaultMessage="When you deactivate the account:"
+      description="A paragraph explaining that the admin is about to deactivate another user"
+      id="focused-task-close-account.deactivate-account.overview.paragraph.about-to-deactivate.admin"
+      values={Object {}}
+    />
+    <styled.ul>
+      <li>
+        <FormattedHTMLMessage
+          defaultMessage="{fullName} will <b>immediately lose access</b> to all Atlassian account services. They currently have access to: "
+          description="A paragraph explaining that upon deactivation the user will lose access to certain services. The second sentence is to begin a list of services the user-to-be-deactivated can currently access. {fullName} is filled in by the web app."
+          id="focused-task-close-account.deactivate-account.overview.paragraph.loseAccess.admin"
+          tagName="p"
+          values={
+            Object {
+              "fullName": "Catherine Hirons",
+            }
+          }
+        />
+        <styled.div>
+          <DropdownList
+            accessibleSites={
+              Array [
+                "hello.atlassian.net",
+                "acme.atlassian.net",
+                "test.atlassian.net",
+                "bitflix.atlassian.net",
+                "Bitbucket",
+              ]
+            }
+          />
+        </styled.div>
+      </li>
+      <li>
+        <FormattedHTMLMessage
+          defaultMessage="Their personal data, such as their full name and email address, and content they've created will remain in Atlassian account services."
+          description="A paragraph explaining what will happen to the user's personal data"
+          id="focused-task-close-account.deactivate-account.overview.paragraph.personal-data.admin"
+          values={Object {}}
+        />
+      </li>
+      <li>
+        <FormattedMessage
+          defaultMessage="We'll no longer bill you for them."
+          description="A paragraph explaining the billing for the products"
+          id="focused-task-close-account.deactivate-account.overview.paragraph.billing.admin"
+          values={Object {}}
+        />
+      </li>
+    </styled.ul>
+    <FormattedMessage
+      defaultMessage="You can reactivate the account at any time."
+      description="First line for the screen when the admin is about to deactivate another user"
+      id="focused-task-close-account.deactivate-account.overview.last.line.admin"
+      tagName="p"
+      values={Object {}}
+    />
+  </styled.div>
+</InjectIntl(MessagesIntlProvider)>
+`;
+
+exports[`accessibleSites display text displayed is different when no accessibleSites prop is passed 1`] = `
+<InjectIntl(MessagesIntlProvider)>
+  <styled.div>
+    <styled.div>
+      <FormattedMessage
+        defaultMessage="Deactivate account"
+        description="Heading for the screen that explains what happens when an admin deactivates a user's account"
+        id="focused-task-close-account.deactivate-account.overview.heading.admin"
+        values={Object {}}
+      />
+    </styled.div>
+    <FormattedMessage
+      defaultMessage="You're about to deactivate the user account of:"
+      description="First line for the screen when the admin is about to deactivate another user"
+      id="focused-task-close-account.deactivate-account.overview.first.line.admin"
+      tagName="p"
+      values={Object {}}
+    />
+    <UserInfo
+      user={
+        Object {
+          "avatarUrl": "",
+          "email": "catherine.hirons@acme.com",
+          "fullName": "Catherine Hirons",
+        }
+      }
+    />
+    <FormattedMessage
+      defaultMessage="When you deactivate the account:"
+      description="A paragraph explaining that the admin is about to deactivate another user"
+      id="focused-task-close-account.deactivate-account.overview.paragraph.about-to-deactivate.admin"
+      values={Object {}}
+    />
+    <styled.ul>
+      <li>
+        <FormattedHTMLMessage
+          defaultMessage="{fullName} will <b>immediately lose access</b> to all Atlassian account services. Currently, they don’t have access to any, except services like Community and Marketplace. "
+          description="A paragraph explaining that upon deactivation the user will lose access to certain services. The second sentence is to begin a list of services the user-to-be-deactivated can currently access. {fullName} is filled in by the web app."
+          id="focused-task-close-account.deactivate-account.overview.paragraph.loseAccess.admin.noSites"
+          values={
+            Object {
+              "fullName": "Catherine Hirons",
+            }
+          }
+        />
+      </li>
+      <li>
+        <FormattedHTMLMessage
+          defaultMessage="Their personal data, such as their full name and email address, and content they've created will remain in Atlassian account services."
+          description="A paragraph explaining what will happen to the user's personal data"
+          id="focused-task-close-account.deactivate-account.overview.paragraph.personal-data.admin"
+          values={Object {}}
+        />
+      </li>
+      <li>
+        <FormattedMessage
+          defaultMessage="We'll no longer bill you for them."
+          description="A paragraph explaining the billing for the products"
+          id="focused-task-close-account.deactivate-account.overview.paragraph.billing.admin"
+          values={Object {}}
+        />
+      </li>
+    </styled.ul>
+    <FormattedMessage
+      defaultMessage="You can reactivate the account at any time."
+      description="First line for the screen when the admin is about to deactivate another user"
+      id="focused-task-close-account.deactivate-account.overview.last.line.admin"
+      tagName="p"
+      values={Object {}}
+    />
+  </styled.div>
+</InjectIntl(MessagesIntlProvider)>
+`;
+
+exports[`accessibleSites display text displayed is different when no accessibleSites prop is passed for current user 1`] = `
+<InjectIntl(MessagesIntlProvider)>
+  <styled.div>
+    <styled.div>
+      <FormattedMessage
+        defaultMessage="Deactivate account"
+        description="Heading for the screen that explains what happens when a user's account is deactivated"
+        id="focused-task-close-account.deactivate-account.overview.heading.self"
+        values={Object {}}
+      />
+    </styled.div>
+    <FormattedMessage
+      defaultMessage="You're about to deactivate the user account of:"
+      description="First line for the screen when the user is about to deactivate self"
+      id="focused-task-close-account.deactivate-account.overview.first.line.self"
+      tagName="p"
+      values={Object {}}
+    />
+    <UserInfo
+      user={
+        Object {
+          "avatarUrl": "",
+          "email": "catherine.hirons@acme.com",
+          "fullName": "Catherine Hirons",
+        }
+      }
+    />
+    <FormattedMessage
+      defaultMessage="When you deactivate the account:"
+      description="A paragraph explaining that user is about to deactivate their own account"
+      id="focused-task-close-account.deactivate-account.overview.paragraph.about-to-deactivate.self"
+      values={Object {}}
+    />
+    <styled.ul>
+      <li>
+        <FormattedHTMLMessage
+          defaultMessage="You'll <b>immediately lose access</b> to all Atlassian account services. Currently, you don’t have access to any, except services like Community and Marketplace."
+          description="A paragraph explaining that upon deactivation the user will lose access to certain services. The second sentence is to begin a list of services the user-to-be-deactivated can currently access."
+          id="focused-task-close-account.deactivate-account.overview.paragraph.loseAccess.self.noSites"
+          values={
+            Object {
+              "fullName": "Catherine Hirons",
+            }
+          }
+        />
+      </li>
+      <li>
+        <FormattedHTMLMessage
+          defaultMessage="Their personal data, such as their full name and email address, and content they've created will remain in Atlassian account services."
+          description="A paragraph explaining what will happen to the user's personal data"
+          id="focused-task-close-account.deactivate-account.overview.paragraph.personal-data.self"
+          values={Object {}}
+        />
+      </li>
+      <li>
+        <FormattedMessage
+          defaultMessage="We'll no longer bill you for them."
+          description="A paragraph explaining the billing for the products"
+          id="focused-task-close-account.deactivate-account.overview.paragraph.billing.self"
+          values={Object {}}
+        />
+      </li>
+    </styled.ul>
+    <FormattedMessage
+      defaultMessage="You can reactivate the account at any time."
+      description="First line for the screen when the user is about to deactivate self"
+      id="focused-task-close-account.deactivate-account.overview.last.line.self"
+      tagName="p"
+      values={Object {}}
+    />
+  </styled.div>
+</InjectIntl(MessagesIntlProvider)>
+`;

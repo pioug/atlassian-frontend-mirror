@@ -1,0 +1,2 @@
+// Hungarian
+export default {};

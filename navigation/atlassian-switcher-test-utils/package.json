@@ -1,0 +1,31 @@
+{
+  "name": "@atlaskit/atlassian-switcher-test-utils",
+  "version": "0.5.1",
+  "description": "App switcher test utilities.",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "author": "Atlassian Pty Ltd",
+  "license": "Apache-2.0",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "module:es2019": "dist/es2019/index.js",
+  "types": "dist/types/index.d.ts",
+  "sideEffects": false,
+  "atlaskit:src": "src/index.ts",
+  "atlassian": {
+    "team": "People and Teams Collective",
+    "deprecatedAutoEntryPoints": true,
+    "releaseModel": "continuous"
+  },
+  "scripts": {
+    "lint": "(cd ../../.. && yarn eslint 'packages/navigation/atlassian-switcher-test-utils/**/*.{ts,tsx,ts}')",
+    "typecheck": "NODE_OPTIONS=--max-old-space-size=4096 tsc --noEmit --project ./tsconfig.json"
+  },
+  "dependencies": {
+    "fetch-mock": "^8.0.0",
+    "memoize-one": "^5.1.0",
+    "tslib": "^2.0.0"
+  }
+}

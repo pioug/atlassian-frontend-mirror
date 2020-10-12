@@ -1,0 +1,553 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Profilecard ProfileCard fullName property should match snapshot when fullName and nickName are equal 1`] = `
+<styled.div
+  customElevation="e200"
+>
+  <styled.div
+    isDisabledUser={false}
+  >
+    <styled.div>
+      <Avatar
+        borderColor="#FFFFFF"
+        size="xlarge"
+      />
+    </styled.div>
+    <styled.div>
+      <styled.div>
+        <styled.span
+          noMeta={true}
+        >
+          Same Same
+        </styled.span>
+        <IconLabel
+          icon="email"
+        />
+        <IconLabel
+          icon="time"
+        />
+        <IconLabel
+          icon="companyName"
+        >
+          Atlassian
+        </IconLabel>
+        <IconLabel
+          icon="location"
+        />
+      </styled.div>
+    </styled.div>
+  </styled.div>
+</styled.div>
+`;
+
+exports[`Profilecard ProfileCard fullName property should match snapshot when fullName and nickName are set 1`] = `
+<styled.div
+  customElevation="e200"
+>
+  <styled.div
+    isDisabledUser={false}
+  >
+    <styled.div>
+      <Avatar
+        borderColor="#FFFFFF"
+        size="xlarge"
+      />
+    </styled.div>
+    <styled.div>
+      <styled.div>
+        <styled.span
+          noMeta={true}
+        >
+          full name test (jscrazy) 
+        </styled.span>
+        <IconLabel
+          icon="email"
+        />
+        <IconLabel
+          icon="time"
+        />
+        <IconLabel
+          icon="companyName"
+        >
+          Atlassian
+        </IconLabel>
+        <IconLabel
+          icon="location"
+        />
+      </styled.div>
+    </styled.div>
+  </styled.div>
+</styled.div>
+`;
+
+exports[`Profilecard ProfileCard fullName property should match snapshot when nickName is missing 1`] = `
+<styled.div
+  customElevation="e200"
+>
+  <styled.div
+    isDisabledUser={false}
+  >
+    <styled.div>
+      <Avatar
+        borderColor="#FFFFFF"
+        size="xlarge"
+      />
+    </styled.div>
+    <styled.div>
+      <styled.div>
+        <styled.span
+          noMeta={true}
+        >
+          full name test
+        </styled.span>
+        <IconLabel
+          icon="email"
+        />
+        <IconLabel
+          icon="time"
+        />
+        <IconLabel
+          icon="companyName"
+        >
+          Atlassian
+        </IconLabel>
+        <IconLabel
+          icon="location"
+        />
+      </styled.div>
+    </styled.div>
+  </styled.div>
+</styled.div>
+`;
+
+exports[`Profilecard ProfileCard status property should match snapshot when status=closed and disabledAccountMessage is defined 1`] = `
+<styled.div
+  customElevation="e200"
+>
+  <styled.div
+    isDisabledUser={true}
+  >
+    <styled.div>
+      <Avatar
+        borderColor="#FFFFFF"
+        size="xlarge"
+      />
+    </styled.div>
+    <styled.div>
+      <styled.div>
+        <styled.span
+          isDisabledAccount={true}
+          noMeta={true}
+        >
+          jscrazy
+        </styled.span>
+        <styled.div>
+          <Lozenge
+            appearance="default"
+            isBold={true}
+            maxWidth={200}
+          >
+            <FormattedMessage
+              defaultMessage="Account deleted"
+              description="A text in a grey lozenge shows that this user is closed/deleted"
+              id="pt.profile-card.closed.account"
+              values={Object {}}
+            />
+          </Lozenge>
+        </styled.div>
+        <styled.div>
+          <p>
+            this is a custom message for closed account
+          </p>
+        </styled.div>
+      </styled.div>
+    </styled.div>
+  </styled.div>
+</styled.div>
+`;
+
+exports[`Profilecard ProfileCard status property should match snapshot when status=closed and hasDisabledAccountLozenge=false 1`] = `
+<styled.div
+  customElevation="e200"
+>
+  <styled.div
+    isDisabledUser={true}
+  >
+    <styled.div>
+      <Avatar
+        borderColor="#FFFFFF"
+        size="xlarge"
+      />
+    </styled.div>
+    <styled.div>
+      <styled.div>
+        <styled.span
+          isDisabledAccount={true}
+          noMeta={true}
+        >
+          jscrazy
+        </styled.span>
+        <styled.div>
+          <p>
+            <FormattedMessage
+              defaultMessage="You can no longer collaborate with this person."
+              description="A first sentence of a long text explains this user is inactive/closed"
+              id="pt.profile-card.general.msg.disabled.user"
+              values={Object {}}
+            />
+             
+            <FormattedMessage
+              defaultMessage="Their account has been deleted."
+              description="A long text explains this user is closed when we do not know the date of starting to close"
+              id="pt.profile-card.closed.account.no.date"
+              values={Object {}}
+            />
+          </p>
+        </styled.div>
+      </styled.div>
+    </styled.div>
+  </styled.div>
+</styled.div>
+`;
+
+exports[`Profilecard ProfileCard status property should match snapshot when status=closed and status modified date is defined 1`] = `
+<styled.div
+  customElevation="e200"
+>
+  <styled.div
+    isDisabledUser={true}
+  >
+    <styled.div>
+      <Avatar
+        borderColor="#FFFFFF"
+        size="xlarge"
+      />
+    </styled.div>
+    <styled.div>
+      <styled.div>
+        <styled.span
+          isDisabledAccount={true}
+          noMeta={true}
+        >
+          jscrazy
+        </styled.span>
+        <styled.div>
+          <Lozenge
+            appearance="default"
+            isBold={true}
+            maxWidth={200}
+          >
+            <FormattedMessage
+              defaultMessage="Account deleted"
+              description="A text in a grey lozenge shows that this user is closed/deleted"
+              id="pt.profile-card.closed.account"
+              values={Object {}}
+            />
+          </Lozenge>
+        </styled.div>
+        <styled.div>
+          <p>
+            <FormattedMessage
+              defaultMessage="You can no longer collaborate with this person."
+              description="A first sentence of a long text explains this user is inactive/closed"
+              id="pt.profile-card.general.msg.disabled.user"
+              values={Object {}}
+            />
+             
+            <FormattedMessage
+              defaultMessage="Their account has been deleted."
+              description="A long text explains this user is closed when we do not know the date of starting to close"
+              id="pt.profile-card.closed.account.no.date"
+              values={Object {}}
+            />
+          </p>
+        </styled.div>
+      </styled.div>
+    </styled.div>
+  </styled.div>
+</styled.div>
+`;
+
+exports[`Profilecard ProfileCard status property should match snapshot when status=closed and status modified date is unknown 1`] = `
+<styled.div
+  customElevation="e200"
+>
+  <styled.div
+    isDisabledUser={true}
+  >
+    <styled.div>
+      <Avatar
+        borderColor="#FFFFFF"
+        size="xlarge"
+      />
+    </styled.div>
+    <styled.div>
+      <styled.div>
+        <styled.span
+          isDisabledAccount={true}
+          noMeta={true}
+        >
+          jscrazy
+        </styled.span>
+        <styled.div>
+          <Lozenge
+            appearance="default"
+            isBold={true}
+            maxWidth={200}
+          >
+            <FormattedMessage
+              defaultMessage="Account deleted"
+              description="A text in a grey lozenge shows that this user is closed/deleted"
+              id="pt.profile-card.closed.account"
+              values={Object {}}
+            />
+          </Lozenge>
+        </styled.div>
+        <styled.div>
+          <p>
+            <FormattedMessage
+              defaultMessage="You can no longer collaborate with this person."
+              description="A first sentence of a long text explains this user is inactive/closed"
+              id="pt.profile-card.general.msg.disabled.user"
+              values={Object {}}
+            />
+             
+            <FormattedMessage
+              defaultMessage="Their account has been deleted."
+              description="A long text explains this user is closed when we do not know the date of starting to close"
+              id="pt.profile-card.closed.account.no.date"
+              values={Object {}}
+            />
+          </p>
+        </styled.div>
+      </styled.div>
+    </styled.div>
+  </styled.div>
+</styled.div>
+`;
+
+exports[`Profilecard ProfileCard status property should match snapshot when status=inactive and disabledAccountMessage is defined 1`] = `
+<styled.div
+  customElevation="e200"
+>
+  <styled.div
+    isDisabledUser={true}
+  >
+    <styled.div>
+      <Avatar
+        borderColor="#FFFFFF"
+        size="xlarge"
+      />
+    </styled.div>
+    <styled.div>
+      <styled.div>
+        <styled.span
+          isDisabledAccount={true}
+          noMeta={true}
+        >
+          full name test
+        </styled.span>
+        <styled.div>
+          <Lozenge
+            appearance="default"
+            isBold={true}
+            maxWidth={200}
+          >
+            <FormattedMessage
+              defaultMessage="Account deactivated"
+              description="A text in a grey lozenge shows that this user is inactive"
+              id="pt.profile-card.inactive.account"
+              values={Object {}}
+            />
+          </Lozenge>
+        </styled.div>
+        <styled.div>
+          <p>
+            this is a custom message for inactive account
+          </p>
+        </styled.div>
+        <IconLabel
+          icon="companyName"
+        >
+          Atlassian
+        </IconLabel>
+      </styled.div>
+    </styled.div>
+  </styled.div>
+</styled.div>
+`;
+
+exports[`Profilecard ProfileCard status property should match snapshot when status=inactive and hasDisabledAccountLozenge=false 1`] = `
+<styled.div
+  customElevation="e200"
+>
+  <styled.div
+    isDisabledUser={true}
+  >
+    <styled.div>
+      <Avatar
+        borderColor="#FFFFFF"
+        size="xlarge"
+      />
+    </styled.div>
+    <styled.div>
+      <styled.div>
+        <styled.span
+          isDisabledAccount={true}
+          noMeta={true}
+        >
+          full name test
+        </styled.span>
+        <styled.div>
+          <p>
+            <FormattedMessage
+              defaultMessage="You can no longer collaborate with this person."
+              description="A first sentence of a long text explains this user is inactive/closed"
+              id="pt.profile-card.general.msg.disabled.user"
+              values={Object {}}
+            />
+             
+            <FormattedMessage
+              defaultMessage="Their account has been deactivated."
+              description="A long text explains this user is inactive when we do not know the date of starting to deactivate"
+              id="pt.profile-card.inactive.account.no.date"
+              values={Object {}}
+            />
+          </p>
+        </styled.div>
+        <IconLabel
+          icon="companyName"
+        >
+          Atlassian
+        </IconLabel>
+      </styled.div>
+    </styled.div>
+  </styled.div>
+</styled.div>
+`;
+
+exports[`Profilecard ProfileCard status property should match snapshot when status=inactive and status modified date is defined 1`] = `
+<styled.div
+  customElevation="e200"
+>
+  <styled.div
+    isDisabledUser={true}
+  >
+    <styled.div>
+      <Avatar
+        borderColor="#FFFFFF"
+        size="xlarge"
+      />
+    </styled.div>
+    <styled.div>
+      <styled.div>
+        <styled.span
+          isDisabledAccount={true}
+          noMeta={true}
+        >
+          full name test
+        </styled.span>
+        <styled.div>
+          <Lozenge
+            appearance="default"
+            isBold={true}
+            maxWidth={200}
+          >
+            <FormattedMessage
+              defaultMessage="Account deactivated"
+              description="A text in a grey lozenge shows that this user is inactive"
+              id="pt.profile-card.inactive.account"
+              values={Object {}}
+            />
+          </Lozenge>
+        </styled.div>
+        <styled.div>
+          <p>
+            <FormattedMessage
+              defaultMessage="You can no longer collaborate with this person."
+              description="A first sentence of a long text explains this user is inactive/closed"
+              id="pt.profile-card.general.msg.disabled.user"
+              values={Object {}}
+            />
+             
+            <FormattedMessage
+              defaultMessage="Their account has been deactivated."
+              description="A long text explains this user is inactive when we do not know the date of starting to deactivate"
+              id="pt.profile-card.inactive.account.no.date"
+              values={Object {}}
+            />
+          </p>
+        </styled.div>
+        <IconLabel
+          icon="companyName"
+        >
+          Atlassian
+        </IconLabel>
+      </styled.div>
+    </styled.div>
+  </styled.div>
+</styled.div>
+`;
+
+exports[`Profilecard ProfileCard status property should match snapshot when status=inactive and status modified date is unknown 1`] = `
+<styled.div
+  customElevation="e200"
+>
+  <styled.div
+    isDisabledUser={true}
+  >
+    <styled.div>
+      <Avatar
+        borderColor="#FFFFFF"
+        size="xlarge"
+      />
+    </styled.div>
+    <styled.div>
+      <styled.div>
+        <styled.span
+          isDisabledAccount={true}
+          noMeta={true}
+        >
+          full name test
+        </styled.span>
+        <styled.div>
+          <Lozenge
+            appearance="default"
+            isBold={true}
+            maxWidth={200}
+          >
+            <FormattedMessage
+              defaultMessage="Account deactivated"
+              description="A text in a grey lozenge shows that this user is inactive"
+              id="pt.profile-card.inactive.account"
+              values={Object {}}
+            />
+          </Lozenge>
+        </styled.div>
+        <styled.div>
+          <p>
+            <FormattedMessage
+              defaultMessage="You can no longer collaborate with this person."
+              description="A first sentence of a long text explains this user is inactive/closed"
+              id="pt.profile-card.general.msg.disabled.user"
+              values={Object {}}
+            />
+             
+            <FormattedMessage
+              defaultMessage="Their account has been deactivated."
+              description="A long text explains this user is inactive when we do not know the date of starting to deactivate"
+              id="pt.profile-card.inactive.account.no.date"
+              values={Object {}}
+            />
+          </p>
+        </styled.div>
+        <IconLabel
+          icon="companyName"
+        >
+          Atlassian
+        </IconLabel>
+      </styled.div>
+    </styled.div>
+  </styled.div>
+</styled.div>
+`;

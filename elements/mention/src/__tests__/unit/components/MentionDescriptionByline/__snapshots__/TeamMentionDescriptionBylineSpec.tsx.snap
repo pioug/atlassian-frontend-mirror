@@ -1,0 +1,83 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Team mention description should not render Team Mention description component if context is not given 1`] = `null`;
+
+exports[`Team mention description should render Team Mention description component with less than 50 members, includes you 1`] = `
+.c0 {
+  color: #7A869A;
+  font-size: 12px;
+  margin-top: 2px;
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+<span
+  class="c0"
+>
+  <span>
+    5 members, including you
+  </span>
+</span>
+`;
+
+exports[`Team mention description should render Team Mention description component with less than 50 members, not including you 1`] = `
+.c0 {
+  color: #7A869A;
+  font-size: 12px;
+  margin-top: 2px;
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+<span
+  class="c0"
+>
+  <span>
+    4 members
+  </span>
+</span>
+`;
+
+exports[`Team mention description should render Team Mention description component with more than 50 members, includes you 1`] = `
+.c0 {
+  color: #7A869A;
+  font-size: 12px;
+  margin-top: 2px;
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+<span
+  class="c0"
+>
+  <span>
+    50+ members, including you
+  </span>
+</span>
+`;
+
+exports[`Team mention description should render Team Mention description component with more than 50 members, not including you 1`] = `
+.c0 {
+  color: #7A869A;
+  font-size: 12px;
+  margin-top: 2px;
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+<span
+  class="c0"
+>
+  <span>
+    50+ members
+  </span>
+</span>
+`;

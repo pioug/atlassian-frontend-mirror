@@ -1,0 +1,44 @@
+{
+  "name": "@atlaskit/quiz-widget",
+  "version": "2.0.0",
+  "description": "A React component that gives a possibility to pass quizzes",
+  "author": "Atlassian Pty Ltd",
+  "license": "Apache-2.0",
+  "af:exports": {},
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "atlassian": {
+    "team": "Jira Training App",
+    "releaseModel": "continuous",
+    "website": {
+      "name": "QuizWidget"
+    }
+  },
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "module:es2019": "dist/es2019/index.js",
+  "types": "dist/types/index.d.ts",
+  "sideEffects": false,
+  "atlaskit:src": "src/index.ts",
+  "dependencies": {
+    "@atlaskit/button": "^15.1.0",
+    "@atlaskit/icon": "^21.1.2",
+    "@atlaskit/radio": "^5.0.1",
+    "@atlaskit/spinner": "^15.0.3",
+    "@emotion/styled": "^10.0.7",
+    "tslib": "^2.0.0"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0"
+  },
+  "devDependencies": {
+    "@atlaskit/build-utils": "*",
+    "@atlaskit/docs": "*",
+    "@testing-library/react": "^8.0.1",
+    "enzyme": "^3.10.0",
+    "wait-for-expect": "^1.2.0"
+  }
+}

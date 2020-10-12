@@ -1,0 +1,83 @@
+{
+  "name": "@atlaskit/emoji",
+  "version": "63.0.9",
+  "description": "Fabric emoji React components",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "author": "Atlassian Pty Ltd",
+  "license": "Apache-2.0",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "module:es2019": "dist/es2019/index.js",
+  "types": "dist/types/index.d.ts",
+  "sideEffects": false,
+  "atlaskit:src": "src/index.ts",
+  "atlassian": {
+    "team": "People and Teams Collective",
+    "deprecatedAutoEntryPoints": true,
+    "releaseModel": "scheduled",
+    "website": {
+      "name": "Emoji"
+    }
+  },
+  "config": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@atlaskit/analytics-next": "^8.0.0",
+    "@atlaskit/button": "^15.1.0",
+    "@atlaskit/field-base": "^15.0.0",
+    "@atlaskit/icon": "^21.1.0",
+    "@atlaskit/media-client": "^11.0.0",
+    "@atlaskit/spinner": "^15.0.0",
+    "@atlaskit/theme": "^11.0.0",
+    "@atlaskit/tooltip": "^17.0.0",
+    "@atlaskit/util-service-support": "^6.0.0",
+    "@babel/runtime": "^7.0.0",
+    "classnames": "^2.2.5",
+    "js-search": "^1.3.7",
+    "lru-fast": "^0.2.2",
+    "prop-types": "^15.5.10",
+    "react-virtualized": "^9.8.0",
+    "tslib": "^2.0.0",
+    "typestyle": "^1.4.4",
+    "uuid": "^3.1.0"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0",
+    "react-intl": "^2.6.0",
+    "rxjs": "^5.5.0"
+  },
+  "devDependencies": {
+    "@atlaskit/docs": "*",
+    "@atlaskit/editor-test-helpers": "^13.0.0",
+    "@atlaskit/elements-test-helpers": "^0.7.0",
+    "@atlaskit/layer": "^9.0.0",
+    "@atlaskit/media-core": "^32.1.0",
+    "@atlaskit/section-message": "^5.0.0",
+    "@atlaskit/util-data-test": "^14.0.0",
+    "@atlaskit/visual-regression": "*",
+    "@types/js-search": "^1.4.0",
+    "@types/react-virtualized": "^9.18.12",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.15.1",
+    "es6-promise": "^4.0.5",
+    "fetch-mock": "^8.0.0",
+    "jest-fetch-mock": "^2.1.2",
+    "p-wait-for": "^3.1.0",
+    "react": "^16.8.0",
+    "react-addons-perf": "^15.3.2",
+    "react-intl": "^2.6.0",
+    "rxjs": "^5.5.0",
+    "sinon": "^2.2.0",
+    "wait-for-expect": "^1.2.0"
+  },
+  "keywords": [
+    "fabric",
+    "ui",
+    "teams"
+  ]
+}

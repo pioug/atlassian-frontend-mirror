@@ -1,0 +1,71 @@
+{
+  "name": "@atlaskit/atlassian-switcher",
+  "version": "8.5.3",
+  "description": "App switcher component for Atlassian products.",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "author": "Atlassian Pty Ltd",
+  "license": "Apache-2.0",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "module:es2019": "dist/es2019/index.js",
+  "types": "dist/types/index.d.ts",
+  "sideEffects": false,
+  "atlaskit:src": "src/index.ts",
+  "atlassian": {
+    "team": "People and Teams Collective",
+    "deprecatedAutoEntryPoints": true,
+    "releaseModel": "continuous",
+    "website": {
+      "name": "Atlassian Switcher"
+    }
+  },
+  "scripts": {
+    "lint": "(cd ../../.. && yarn eslint 'packages/navigation/atlassian-switcher/**/*.{ts,tsx,ts}')",
+    "typecheck": "NODE_OPTIONS=--max-old-space-size=4096 tsc --noEmit --project ./tsconfig.json"
+  },
+  "dependencies": {
+    "@atlaskit/analytics-gas-types": "^5.0.0",
+    "@atlaskit/analytics-namespaced-context": "^5.1.0",
+    "@atlaskit/analytics-next": "^8.0.0",
+    "@atlaskit/avatar-group": "^8.0.0",
+    "@atlaskit/button": "^15.1.0",
+    "@atlaskit/icon": "^21.1.0",
+    "@atlaskit/item": "^12.0.0",
+    "@atlaskit/logo": "^13.0.0",
+    "@atlaskit/lozenge": "^10.0.0",
+    "@atlaskit/theme": "^11.0.0",
+    "@atlaskit/tooltip": "^17.0.0",
+    "lodash": "^4.17.15",
+    "memoize-one": "^5.1.0",
+    "react-loadable": "^5.1.0",
+    "tslib": "^2.0.0"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0",
+    "react-intl": "^2.6.0",
+    "styled-components": "^3.2.6"
+  },
+  "devDependencies": {
+    "@atlaskit/atlassian-navigation": "^0.12.0",
+    "@atlaskit/atlassian-switcher-test-utils": "^0.5.0",
+    "@atlaskit/docs": "*",
+    "@atlaskit/drawer": "^6.0.0",
+    "@atlaskit/form": "^8.1.0",
+    "@atlaskit/inline-dialog": "^13.0.0",
+    "@atlaskit/navigation": "^37.0.0",
+    "@atlaskit/navigation-next": "^9.0.0",
+    "@atlaskit/page": "^12.0.0",
+    "@atlaskit/popup": "^1.0.0",
+    "@atlaskit/textfield": "^4.0.0",
+    "bolt": "^0.24.4",
+    "enzyme": "^3.10.0",
+    "fetch-mock": "^8.0.0",
+    "react": "^16.8.0",
+    "react-intl": "^2.6.0",
+    "wait-for-expect": "^1.2.0"
+  }
+}

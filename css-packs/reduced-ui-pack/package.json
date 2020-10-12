@@ -1,0 +1,52 @@
+{
+  "name": "@atlaskit/reduced-ui-pack",
+  "version": "13.0.4",
+  "description": "CSS classes which provide styling for a reduced number of Atlaskit components.",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "author": "Atlassian Pty Ltd",
+  "license": "Apache-2.0",
+  "main": "dist/bundle.css",
+  "module": "dist/bundle.css",
+  "module:es2019": "dist/bundle.css",
+  "atlaskit:src": "src/bundle.css",
+  "atlaskit:designLink": "https://atlassian.design/guidelines/product/overview",
+  "atlassian": {
+    "team": "Design System Team",
+    "releaseModel": "scheduled",
+    "website": {
+      "name": "Reduced UI Pack"
+    }
+  },
+  "scripts": {
+    "ak-postbuild": "mkdir -p dist && cp src/bundle.css dist/bundle.css && cp src/icons-sprite.svg dist/icons-sprite.svg",
+    "update": "yarn build-css && yarn run sprite",
+    "sprite": "node ./bin/buildSprite.js",
+    "build-css": "babel-node --ignore WE_WILL_NOT_IGNORE_ANYTHING build/js-to-css.js --config-file=../../../babel.config.js --env-name=production:cjs"
+  },
+  "files": [
+    "dist/bundle.css",
+    "dist/icons-sprite.svg"
+  ],
+  "dependencies": {
+    "@atlaskit/theme": "^11.0.0",
+    "fbjs": "^1.0.0"
+  },
+  "peerDependencies": {
+    "@atlaskit/css-reset": "^6.0.2"
+  },
+  "devDependencies": {
+    "@atlaskit/docs": "*",
+    "@atlaskit/icon": "^21.0.0",
+    "@atlaskit/section-message": "^5.0.0",
+    "@babel/node": "^7.0.0",
+    "cheerio": "^0.22.0",
+    "glob": "^7.1.2",
+    "mkdirp": "^0.5.1",
+    "react": "^16.8.0",
+    "svg-sprite": "^1.4.0"
+  },
+  "af:exports": {}
+}

@@ -1,0 +1,103 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<FabricAnalyticsListeners /> FabricAnalyticsListener should render all listeners 1`] = `
+<PeopleTeamsAnalyticsListener
+  client={
+    Object {
+      "sendOperationalEvent": [MockFunction],
+      "sendScreenEvent": [MockFunction],
+      "sendTrackEvent": [MockFunction],
+      "sendUIEvent": [MockFunction],
+    }
+  }
+  logger={
+    Logger {
+      "logLevel": 4,
+    }
+  }
+>
+  <MediaAnalyticsListener
+    client={
+      Object {
+        "sendOperationalEvent": [MockFunction],
+        "sendScreenEvent": [MockFunction],
+        "sendTrackEvent": [MockFunction],
+        "sendUIEvent": [MockFunction],
+      }
+    }
+    logger={
+      Logger {
+        "logLevel": 4,
+      }
+    }
+  >
+    <NavigationListener
+      client={
+        Object {
+          "sendOperationalEvent": [MockFunction],
+          "sendScreenEvent": [MockFunction],
+          "sendTrackEvent": [MockFunction],
+          "sendUIEvent": [MockFunction],
+        }
+      }
+      logger={
+        Logger {
+          "logLevel": 4,
+        }
+      }
+    >
+      <AtlaskitListener
+        client={
+          Object {
+            "sendOperationalEvent": [MockFunction],
+            "sendScreenEvent": [MockFunction],
+            "sendTrackEvent": [MockFunction],
+            "sendUIEvent": [MockFunction],
+          }
+        }
+        logger={
+          Logger {
+            "logLevel": 4,
+          }
+        }
+      >
+        <FabricEditorListener
+          client={
+            Object {
+              "sendOperationalEvent": [MockFunction],
+              "sendScreenEvent": [MockFunction],
+              "sendTrackEvent": [MockFunction],
+              "sendUIEvent": [MockFunction],
+            }
+          }
+          logger={
+            Logger {
+              "logLevel": 4,
+            }
+          }
+        >
+          <FabricElementsListener
+            client={
+              Object {
+                "sendOperationalEvent": [MockFunction],
+                "sendScreenEvent": [MockFunction],
+                "sendTrackEvent": [MockFunction],
+                "sendUIEvent": [MockFunction],
+              }
+            }
+            logger={
+              Logger {
+                "logLevel": 4,
+              }
+            }
+          >
+            <div>
+              Child
+            </div>
+          </FabricElementsListener>
+        </FabricEditorListener>
+      </AtlaskitListener>
+    </NavigationListener>
+  </MediaAnalyticsListener>
+</PeopleTeamsAnalyticsListener>
+`;

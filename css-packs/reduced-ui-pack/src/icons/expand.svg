@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 3.8.3 (29802) - http://www.bohemiancoding.com/sketch -->
+    <title>Expand</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="expand" fill="currentColor">
+            <g transform="translate(6.000000, 8.000000)" id="Path-6">
+                <path d="M6.58397485,0.375962279 L3.58397485,2.37596228 L4.41602515,2.37596228 L1.41602515,0.375962279 C1.07137863,0.146197935 0.605726624,0.239328336 0.375962279,0.583974853 C0.146197935,0.928621369 0.239328336,1.39427338 0.583974853,1.62403772 L3.58397485,3.62403772 L4,3.90138782 L4.41602515,3.62403772 L7.41602515,1.62403772 C7.76067166,1.39427338 7.85380207,0.928621369 7.62403772,0.583974853 C7.39427338,0.239328336 6.92862137,0.146197935 6.58397485,0.375962279 L6.58397485,0.375962279 Z"></path>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,69 @@
+{
+  "name": "@atlaskit/help",
+  "version": "2.2.3",
+  "description": "A cross-product help component",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "author": "Atlassian Pty Ltd",
+  "license": "Apache-2.0",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "module:es2019": "dist/es2019/index.js",
+  "types": "dist/types/index.d.ts",
+  "sideEffects": false,
+  "atlaskit:src": "src/index.ts",
+  "atlassian": {
+    "team": "Jira Platform: SPA / Endeavour (Help squad)",
+    "deprecatedAutoEntryPoints": true,
+    "releaseModel": "continuous",
+    "website": {
+      "name": "Help"
+    }
+  },
+  "dependencies": {
+    "@atlaskit/analytics": "^8.0.0",
+    "@atlaskit/analytics-next": "^8.0.0",
+    "@atlaskit/button": "^15.1.0",
+    "@atlaskit/checkbox": "^11.0.0",
+    "@atlaskit/form": "^8.0.0",
+    "@atlaskit/help-article": "^2.0.0",
+    "@atlaskit/help-layout": "^2.0.0",
+    "@atlaskit/icon": "^21.0.0",
+    "@atlaskit/item": "^12.0.0",
+    "@atlaskit/radio": "^5.0.0",
+    "@atlaskit/section-message": "^5.0.0",
+    "@atlaskit/spinner": "^15.0.0",
+    "@atlaskit/textarea": "^3.0.0",
+    "@atlaskit/textfield": "^4.0.0",
+    "@atlaskit/theme": "^11.0.0",
+    "@emotion/core": "^10.0.9",
+    "@emotion/styled": "^10.0.7",
+    "lodash": "^4.17.15",
+    "react-animate-height": "^2.0.5",
+    "react-transition-group": "^4.4.1",
+    "tslib": "^2.0.0"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0",
+    "react-intl": "^2.6.0",
+    "styled-components": "^3.2.6"
+  },
+  "devDependencies": {
+    "@atlaskit/docs": "*",
+    "@atlaskit/navigation": "^37.0.0",
+    "@atlaskit/page": "^12.0.0",
+    "@atlaskit/right-side-panel": "^0.4.0",
+    "algoliasearch": "^3.33.0",
+    "enzyme": "^3.10.0",
+    "react-test-renderer": "^16.8.0"
+  },
+  "keywords": [
+    "atlaskit",
+    "react",
+    "ui",
+    "help"
+  ]
+}

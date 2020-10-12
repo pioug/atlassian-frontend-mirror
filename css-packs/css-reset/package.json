@@ -1,0 +1,46 @@
+{
+  "name": "@atlaskit/css-reset",
+  "version": "6.0.2",
+  "description": "Base stylesheet for ADG",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "author": "Atlassian Pty Ltd",
+  "license": "Apache-2.0",
+  "main": "dist/bundle.css",
+  "module": "dist/bundle.css",
+  "module:es2019": "dist/bundle.css",
+  "types": "dist/types/index.d.ts",
+  "atlaskit:src": "src/index.ts",
+  "atlaskit:designLink": "https://atlassian.design/guidelines/product/overview",
+  "atlassian": {
+    "team": "Design System Team",
+    "deprecatedAutoEntryPoints": true,
+    "releaseModel": "scheduled",
+    "website": {
+      "name": "Css Reset"
+    }
+  },
+  "scripts": {
+    "build-css": "ts-node --compiler-options='{ \"module\": \"CommonJS\", \"allowJs\": true }' build/js-to-css.ts",
+    "ak-postbuild": "yarn build-css"
+  },
+  "dependencies": {
+    "@atlaskit/theme": "^11.0.0",
+    "fbjs": "^1.0.0",
+    "mkdirp": "^0.5.1"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0"
+  },
+  "devDependencies": {
+    "@atlaskit/docs": "*",
+    "ts-node": "^6.1.1"
+  },
+  "keywords": [
+    "atlaskit",
+    "css",
+    "ui"
+  ]
+}

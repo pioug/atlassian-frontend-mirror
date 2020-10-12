@@ -1,0 +1,44 @@
+{
+  "name": "@atlaskit/analytics",
+  "version": "8.0.2",
+  "description": "The Atlaskit Component Analytics Framework",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "author": "Atlassian Pty Ltd",
+  "license": "Apache-2.0",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "module:es2019": "dist/es2019/index.js",
+  "types": "dist/types/index.d.ts",
+  "sideEffects": false,
+  "atlaskit:src": "src/index.js",
+  "atlassian": {
+    "team": "Atlassian Frontend Platform",
+    "deprecatedAutoEntryPoints": true,
+    "releaseModel": "continuous",
+    "website": {
+      "name": "Analytics",
+      "deprecated": "Please use the @atlaskit/analytics-next package instead."
+    }
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.0.0",
+    "prop-types": "^15.5.10"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0"
+  },
+  "devDependencies": {
+    "@atlaskit/build-utils": "*",
+    "@atlaskit/docs": "*",
+    "@atlaskit/section-message": "^5.0.0",
+    "@atlaskit/ssr": "*",
+    "enzyme": "^3.10.0",
+    "react-dom": "^16.8.0",
+    "react-redux": "^5.1.2",
+    "redux": "^3.7.2",
+    "wait-for-expect": "^1.2.0"
+  }
+}

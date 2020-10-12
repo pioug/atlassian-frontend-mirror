@@ -1,0 +1,73 @@
+{
+  "name": "@atlaskit/reactions",
+  "version": "18.1.6",
+  "description": "Reactions component",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "author": "Atlassian Pty Ltd",
+  "license": "Apache-2.0",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "module:es2019": "dist/es2019/index.js",
+  "types": "dist/types/index.d.ts",
+  "atlaskit:src": "src/index.ts",
+  "atlassian": {
+    "team": "People and Teams Collective",
+    "deprecatedAutoEntryPoints": true,
+    "releaseModel": "scheduled",
+    "website": {
+      "name": "Reactions"
+    }
+  },
+  "config": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@atlaskit/analytics-gas-types": "^5.0.0",
+    "@atlaskit/analytics-namespaced-context": "^5.1.0",
+    "@atlaskit/analytics-next": "^8.0.0",
+    "@atlaskit/analytics-viewer": "^0.4.0",
+    "@atlaskit/button": "^15.1.0",
+    "@atlaskit/emoji": "^63.0.0",
+    "@atlaskit/icon": "^21.1.0",
+    "@atlaskit/popper": "^5.0.0",
+    "@atlaskit/theme": "^11.0.0",
+    "@atlaskit/tooltip": "^17.0.0",
+    "@atlaskit/util-service-support": "^6.0.0",
+    "classnames": "^2.2.5",
+    "react-transition-group": "^4.4.1",
+    "tslib": "^2.0.0",
+    "typestyle": "^1.4.4"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0",
+    "react-intl": "^2.6.0"
+  },
+  "devDependencies": {
+    "@atlaskit/docs": "^9.0.0",
+    "@atlaskit/editor-test-helpers": "^13.0.0",
+    "@atlaskit/elements-test-helpers": "^0.7.0",
+    "@atlaskit/tooltip": "^17.0.0",
+    "@atlaskit/util-data-test": "^14.0.0",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.15.1",
+    "es6-promise": "^4.0.5",
+    "fetch-mock": "^8.0.0",
+    "jest-fetch-mock": "^2.1.2",
+    "react": "^16.8.0",
+    "react-intl": "^2.6.0",
+    "wait-for-expect": "^1.2.0"
+  },
+  "keywords": [
+    "fabric",
+    "ui"
+  ],
+  "techstack": {
+    "@atlassian/frontend": {
+      "tree-shaking": []
+    }
+  }
+}

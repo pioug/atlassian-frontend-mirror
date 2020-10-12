@@ -1,0 +1,2 @@
+// French
+export default {};

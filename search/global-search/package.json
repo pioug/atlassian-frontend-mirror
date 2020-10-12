@@ -1,0 +1,74 @@
+{
+  "name": "@atlaskit/global-search",
+  "version": "13.0.6",
+  "description": "A cross-product search component (batteries included)",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "author": "Atlassian Pty Ltd",
+  "license": "Apache-2.0",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "module:es2019": "dist/es2019/index.js",
+  "types": "dist/types/index.d.ts",
+  "atlaskit:src": "src/index.ts",
+  "atlassian": {
+    "team": "Search & Smarts: Search Experience",
+    "deprecatedAutoEntryPoints": true,
+    "releaseModel": "continuous",
+    "website": {
+      "name": "Global search"
+    }
+  },
+  "dependencies": {
+    "@atlaskit/analytics": "^8.0.0",
+    "@atlaskit/analytics-gas-types": "^5.0.0",
+    "@atlaskit/analytics-next": "^8.0.0",
+    "@atlaskit/avatar": "^20.0.0",
+    "@atlaskit/badge": "^14.0.0",
+    "@atlaskit/button": "^15.1.0",
+    "@atlaskit/checkbox": "^11.0.0",
+    "@atlaskit/feedback-collector": "^6.0.0",
+    "@atlaskit/flag": "^14.0.0",
+    "@atlaskit/icon": "^21.0.0",
+    "@atlaskit/icon-file-type": "^6.0.0",
+    "@atlaskit/icon-object": "^6.0.0",
+    "@atlaskit/item": "^12.0.0",
+    "@atlaskit/logo": "^13.0.0",
+    "@atlaskit/quick-search": "^8.0.0",
+    "@atlaskit/theme": "^11.0.0",
+    "@atlaskit/util-service-support": "^6.0.0",
+    "@babel/runtime": "^7.0.0",
+    "deep-equal": "^1.0.1",
+    "keycode": "^2.1.7",
+    "lodash": "^4.17.15",
+    "memoize-one": "^5.1.0",
+    "react-intl": "^2.6.0",
+    "rusha": "^0.8.13",
+    "tslib": "^2.0.0",
+    "uuid": "^3.1.0"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0",
+    "react-intl": "^2.6.0",
+    "styled-components": "^3.2.6"
+  },
+  "devDependencies": {
+    "@atlaskit/docs": "*",
+    "@atlaskit/drawer": "^6.0.0",
+    "@atlaskit/global-navigation": "^10.0.0",
+    "@atlaskit/navigation-next": "^9.0.0",
+    "@atlaskit/page": "^12.0.0",
+    "@atlaskit/quick-search": "^8.0.0",
+    "@types/deep-equal": "^1.0.1",
+    "@types/seedrandom": "^2.4.27",
+    "enzyme": "^3.10.0",
+    "fetch-mock": "^8.0.0",
+    "mockdate": "^3.0.2",
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0",
+    "react-test-renderer": "^16.8.0",
+    "seedrandom": "^2.4.4"
+  }
+}

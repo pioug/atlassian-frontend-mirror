@@ -1,0 +1,476 @@
+{
+  "channels": [
+      {
+          "id": "CC49REWN6",
+          "name": "general",
+          "type": "public"
+      },
+      {
+          "id": "CUERPC0LB",
+          "name": "mkobierski-connie-test",
+          "type": "public"
+      },
+      {
+          "id": "CCFCBRMHP",
+          "name": "pi-announcements",
+          "type": "public"
+      },
+      {
+          "id": "CC3J21188",
+          "name": "random",
+          "type": "public"
+      }
+  ],
+  "dms": [
+      {
+          "id": "UC9EML1CZ",
+          "displayName": "AvM",
+          "name": "Aaron van Meerten",
+          "type": "directMessage"
+      },
+      {
+          "id": "UCC395WL9",
+          "displayName": "Alex",
+          "name": "Alex Chaniotis",
+          "type": "directMessage"
+      },
+      {
+          "id": "UGKLJ06RK",
+          "displayName": "",
+          "name": "Andrew Sokolov",
+          "type": "directMessage"
+      },
+      {
+          "id": "UHPDNDQR4",
+          "displayName": "Andrew Sokolov Dev",
+          "name": "Andrew Sokolov Dev",
+          "type": "directMessage"
+      },
+      {
+          "id": "UT2LYL6JU",
+          "displayName": "Andrii Pinchuk",
+          "name": "Andrii Pinchuk",
+          "type": "directMessage"
+      },
+      {
+          "id": "UKCVCC5EJ",
+          "displayName": "Anton",
+          "name": "Anton",
+          "type": "directMessage"
+      },
+      {
+          "id": "UC6UA9EDN",
+          "displayName": "arti",
+          "name": "Arti Kumar",
+          "type": "directMessage"
+      },
+      {
+          "id": "UCGASBQG7",
+          "displayName": "carob",
+          "name": "Caroline Bartle",
+          "type": "directMessage"
+      },
+      {
+          "id": "UKBT7P3HR",
+          "displayName": "random",
+          "name": "Daniel Eads",
+          "type": "directMessage"
+      },
+      {
+          "id": "UCB9MSQQ6",
+          "displayName": "Donovan",
+          "name": "Donovan Kolbly",
+          "type": "directMessage"
+      },
+      {
+          "id": "UL10NL99U",
+          "displayName": "Ellie M",
+          "name": "Ellie M",
+          "type": "directMessage"
+      },
+      {
+          "id": "UM0FCAVLN",
+          "displayName": "Emil Prime",
+          "name": "Emil Prime",
+          "type": "directMessage"
+      },
+      {
+          "id": "UKQJCPFM5",
+          "displayName": "emil",
+          "name": "Emil Sohlberg",
+          "type": "directMessage"
+      },
+      {
+          "id": "UL0LLDP46",
+          "displayName": "Erika",
+          "name": "Erika",
+          "type": "directMessage"
+      },
+      {
+          "id": "UH4N2RPPS",
+          "displayName": "erinw",
+          "name": "Erin Wilbur",
+          "type": "directMessage"
+      },
+      {
+          "id": "UC3UNCZG9",
+          "displayName": "jacobmacelroy",
+          "name": "Jacob MacElroy",
+          "type": "directMessage"
+      },
+      {
+          "id": "UC5FC8QDD",
+          "displayName": "Jervill",
+          "name": "Jer",
+          "type": "directMessage"
+      },
+      {
+          "id": "UHDC21UF4",
+          "displayName": "Jer Test",
+          "name": "Jer Test",
+          "type": "directMessage"
+      },
+      {
+          "id": "UHYLN7GKY",
+          "displayName": "Joe Beef",
+          "name": "Joe Beef",
+          "type": "directMessage"
+      },
+      {
+          "id": "UC8JGLBMX",
+          "displayName": "brainicorn",
+          "name": "Jonathan Doklovic",
+          "type": "directMessage"
+      },
+      {
+          "id": "UG2PJFFHC",
+          "displayName": "",
+          "name": "Jonno Katahanas",
+          "type": "directMessage"
+      },
+      {
+          "id": "UKG0V3PUL",
+          "displayName": "Kane Narraway",
+          "name": "Kane Narraway",
+          "type": "directMessage"
+      },
+      {
+          "id": "UUYPK32E4",
+          "displayName": "Kartik Lad",
+          "name": "Kartik Lad",
+          "type": "directMessage"
+      },
+      {
+          "id": "UQ1FQT3U2",
+          "displayName": "Keno Cabazares",
+          "name": "Keno Cabazares",
+          "type": "directMessage"
+      },
+      {
+          "id": "UC5KA072S",
+          "displayName": "Kristin",
+          "name": "Kristin Hamilton",
+          "type": "directMessage"
+      },
+      {
+          "id": "UC7LU9ZGS",
+          "displayName": "",
+          "name": "Luiz Silva",
+          "type": "directMessage"
+      },
+      {
+          "id": "UVDSXH0JJ",
+          "displayName": "Maciej Guest",
+          "name": "Maciej Guest",
+          "type": "directMessage"
+      },
+      {
+          "id": "UU81CJS5S",
+          "displayName": "mkobierski",
+          "name": "Maciej Kobierski",
+          "type": "directMessage"
+      },
+      {
+          "id": "UC48VHGEL",
+          "displayName": "pizza",
+          "name": "Matt Skoog",
+          "type": "directMessage"
+      },
+      {
+          "id": "UE7KY7FV0",
+          "displayName": "Matty",
+          "name": "Matthias Schreck",
+          "type": "directMessage"
+      },
+      {
+          "id": "UHBAH7K08",
+          "displayName": "",
+          "name": "Max Yokha",
+          "type": "directMessage"
+      },
+      {
+          "id": "UC42R4R36",
+          "displayName": "linder",
+          "name": "Michael Linder",
+          "type": "directMessage"
+      },
+      {
+          "id": "UCGT0RZ09",
+          "displayName": "miroki",
+          "name": "Miro Kirov",
+          "type": "directMessage"
+      },
+      {
+          "id": "UF46A66P2",
+          "displayName": "Mykhailo Vlasov",
+          "name": "Mykhailo Vlasov",
+          "type": "directMessage"
+      },
+      {
+          "id": "UFH5K9FGC",
+          "displayName": "Mykhailo Vlasov (SoftServe)",
+          "name": "Mykhailo Vlasov (SoftServe)",
+          "type": "directMessage"
+      },
+      {
+          "id": "USMUR6R5Y",
+          "displayName": "Mykhailo Vlasov (UIB)",
+          "name": "Mykhailo Vlasov (UIB)",
+          "type": "directMessage"
+      },
+      {
+          "id": "UQGC2CX4H",
+          "displayName": "Mykyta Kletchenkov",
+          "name": "Mykyta Kletchenkov",
+          "type": "directMessage"
+      },
+      {
+          "id": "UEQNT4ETS",
+          "displayName": "natedogg",
+          "name": "Nat Jones",
+          "type": "directMessage"
+      },
+      {
+          "id": "UCM0F95BM",
+          "displayName": "nat",
+          "name": "Natalie Johnson",
+          "type": "directMessage"
+      },
+      {
+          "id": "UC3NWRZA5",
+          "displayName": "000000",
+          "name": "Nick Rundquist",
+          "type": "directMessage"
+      },
+      {
+          "id": "UCF9RG06A",
+          "displayName": "nickturskyi",
+          "name": "Nick Turskyi",
+          "type": "directMessage"
+      },
+      {
+          "id": "UQYR2R6PP",
+          "displayName": "Offirmo (Yves perso)",
+          "name": "Offirmo (Yves perso)",
+          "type": "directMessage"
+      },
+      {
+          "id": "UGJ0WMFH9",
+          "displayName": "yanzay",
+          "name": "Oleksii Grachov",
+          "type": "directMessage"
+      },
+      {
+          "id": "UQGC2DAN5",
+          "displayName": "",
+          "name": "Olexandr Danchenko",
+          "type": "directMessage"
+      },
+      {
+          "id": "UC3J5AYPJ",
+          "displayName": "Pramod",
+          "name": "Pramod Busam",
+          "type": "directMessage"
+      },
+      {
+          "id": "UC3NWRUHF",
+          "displayName": "Rahul",
+          "name": "Rahul Patil",
+          "type": "directMessage"
+      },
+      {
+          "id": "UDHPZ0ZN3",
+          "displayName": "",
+          "name": "Ricardo",
+          "type": "directMessage"
+      },
+      {
+          "id": "UC7TAHLAZ",
+          "displayName": "ryan",
+          "name": "Ryan Crumley",
+          "type": "directMessage"
+      },
+      {
+          "id": "UQ2R1KALT",
+          "displayName": "Sabrina Display Name",
+          "name": "Sabrina Full Name",
+          "type": "directMessage"
+      },
+      {
+          "id": "UC46D5W5R",
+          "displayName": "trisaratops",
+          "name": "Sara Dubs",
+          "type": "directMessage"
+      },
+      {
+          "id": "URQPFNM9D",
+          "displayName": "Sean Guest",
+          "name": "Sean Guest",
+          "type": "directMessage"
+      },
+      {
+          "id": "UGDMBR8K1",
+          "displayName": "",
+          "name": "Sean Waters",
+          "type": "directMessage"
+      },
+      {
+          "id": "UKK9UUF8U",
+          "displayName": "Seth Gholson",
+          "name": "Seth Gholson",
+          "type": "directMessage"
+      },
+      {
+          "id": "UC4DWKZPF",
+          "displayName": "MagnumPI",
+          "name": "Shane Wade",
+          "type": "directMessage"
+      },
+      {
+          "id": "UQ7QT398B",
+          "displayName": "Stage Linder",
+          "name": "Stage Linder",
+          "type": "directMessage"
+      },
+      {
+          "id": "UC4S4NC93",
+          "displayName": "",
+          "name": "Stas Visov",
+          "type": "directMessage"
+      },
+      {
+          "id": "UC7LD6RG8",
+          "displayName": "goldsmith",
+          "name": "Steve Goldsmith",
+          "type": "directMessage"
+      },
+      {
+          "id": "ULADEGJBG",
+          "displayName": "Subatra Dewi",
+          "name": "Subatra Dewi",
+          "type": "directMessage"
+      },
+      {
+          "id": "UCC4QFZEF",
+          "displayName": "",
+          "name": "Tanguy Crusson",
+          "type": "directMessage"
+      },
+      {
+          "id": "UCKF5ETL2",
+          "displayName": "",
+          "name": "Tim Pettersen",
+          "type": "directMessage"
+      },
+      {
+          "id": "UC49RENAW",
+          "displayName": "trev",
+          "name": "Trevor Thompson",
+          "type": "directMessage"
+      },
+      {
+          "id": "UD0R2HAJW",
+          "displayName": "Viach",
+          "name": "Viach Kakovskyi",
+          "type": "directMessage"
+      },
+      {
+          "id": "UEFUL8D9P",
+          "displayName": "",
+          "name": "Viach Personal",
+          "type": "directMessage"
+      },
+      {
+          "id": "UEMEHHG4V",
+          "displayName": "Vitalii Saienko",
+          "name": "Vitalii Saienko",
+          "type": "directMessage"
+      },
+      {
+          "id": "UQE9H3YJC",
+          "displayName": "Yves-Emmanuel Jutard",
+          "name": "Yves-Emmanuel Jutard",
+          "type": "directMessage"
+      },
+      {
+          "id": "UV65BCAAJ",
+          "displayName": "joff",
+          "name": "joff",
+          "type": "directMessage"
+      },
+      {
+          "id": "UR3F4ESES",
+          "displayName": "",
+          "name": "milavsky",
+          "type": "directMessage"
+      },
+      {
+          "id": "UQM4QB7GF",
+          "displayName": "",
+          "name": "mlinder",
+          "type": "directMessage"
+      },
+      {
+          "id": "UNW8B0E9K",
+          "displayName": "multiChannelGuest",
+          "name": "multiChannelGuest",
+          "type": "directMessage"
+      },
+      {
+          "id": "UR19F3DRT",
+          "displayName": "",
+          "name": "nmalecki",
+          "type": "directMessage"
+      },
+      {
+          "id": "URJEUFAMB",
+          "displayName": "",
+          "name": "rdutra",
+          "type": "directMessage"
+      },
+      {
+          "id": "UR3F4F4G6",
+          "displayName": "",
+          "name": "sbettini",
+          "type": "directMessage"
+      },
+      {
+          "id": "UGS9988ET",
+          "displayName": "",
+          "name": "trev2",
+          "type": "directMessage"
+      },
+      {
+          "id": "UNPP6C93K",
+          "displayName": "trevSingleChannelGuest",
+          "name": "trevSingleChannelGuest",
+          "type": "directMessage"
+      },
+      {
+          "id": "UNHCWT6BU",
+          "displayName": "",
+          "name": "trevorSingleChannelGuest",
+          "type": "directMessage"
+      }
+  ]
+}

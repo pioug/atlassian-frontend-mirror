@@ -1,0 +1,214 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DeleteUserContentPreviewScreen renders snapshot for personal accounts when isCurrentUser is true 1`] = `
+<InjectIntl(MessagesIntlProvider)>
+  <styled.div>
+    <styled.div>
+      <FormattedMessage
+        defaultMessage="How would you prefer your deleted account to appear?"
+        description="Heading for the screen that explains how users would prefer to be remembered"
+        id="focused-task-close-account.delete-account.content-preview.heading.self"
+        values={Object {}}
+      />
+    </styled.div>
+    <FormattedMessage
+      defaultMessage="After your account is deleted, you’ll appear as “Former user” to other users. Please take a moment to answer our survey question."
+      description="First paragraph for the survey for personal accounts"
+      id="focused-task-close-account.delete-account.content-preview.paragraph.survey.self"
+      tagName="p"
+      values={Object {}}
+    />
+    <FormattedMessage
+      defaultMessage="If we gave you a choice, how would you like to appear to other users?"
+      description="Second paragraph for the survey for personal accounts"
+      id="focused-task-close-account.delete-account.content-preview.line.survey.self"
+      tagName="p"
+      values={Object {}}
+    />
+    <styled.div
+      className="nameSectionCard"
+      isSelected={false}
+      onClick={[Function]}
+    >
+      <styled.div>
+        <Avatar
+          size="large"
+          src=""
+        />
+      </styled.div>
+      <styled.div>
+        Catherine Hirons
+      </styled.div>
+    </styled.div>
+    <styled.div
+      className="formerUserSectionCard"
+      isSelected={false}
+      onClick={[Function]}
+    >
+      <styled.div>
+        <Avatar
+          size="large"
+          src=""
+        />
+      </styled.div>
+      <styled.div>
+        <FormattedMessage
+          defaultMessage="Former user"
+          description="The display name for a user when they do not select their name"
+          id="focused-task-close-account.delete-account.content-preview.formerUser"
+          values={Object {}}
+        />
+      </styled.div>
+    </styled.div>
+    <FormattedHTMLMessage
+      defaultMessage="Note: Answering this survey will help us make a better experience for all users, including those deleting their accounts. You’ll still appear as “Former user” after you delete your account."
+      description="Note to users that they would still be saved as Former User"
+      id="focused-task-close-account.delete-account.content-preview.footnote.self"
+      tagName="p"
+      values={Object {}}
+    />
+  </styled.div>
+</InjectIntl(MessagesIntlProvider)>
+`;
+
+exports[`DeleteUserContentPreviewScreen renders snapshot for unmanaged accounts when isCurrentUser is false 1`] = `
+<InjectIntl(MessagesIntlProvider)>
+  <styled.div>
+    <styled.div>
+      <FormattedMessage
+        defaultMessage="How would you prefer the deleted user to appear?"
+        description="Heading for the screen that explains admin would prefer user to be remembered"
+        id="focused-task-close-account.delete-account.content-preview.heading.admin"
+        values={Object {}}
+      />
+    </styled.div>
+    <FormattedMessage
+      defaultMessage="After the user’s account is deleted, they’ll appear as “Former user” to other users. Please take a moment to answer our survey question."
+      description="First paragraph for the survey for admins"
+      id="focused-task-close-account.delete-account.content-preview.paragraph.survey.admin"
+      tagName="p"
+      values={Object {}}
+    />
+    <FormattedMessage
+      defaultMessage="If we gave you a choice, how would you like the deleted user to appear to other users?"
+      description="Second paragraph for the survey for admins"
+      id="focused-task-close-account.delete-account.content-preview.line.survey.admin"
+      tagName="p"
+      values={Object {}}
+    />
+    <styled.div
+      className="nameSectionCard"
+      isSelected={false}
+      onClick={[Function]}
+    >
+      <styled.div>
+        <Avatar
+          size="large"
+          src=""
+        />
+      </styled.div>
+      <styled.div>
+        Catherine Hirons
+      </styled.div>
+    </styled.div>
+    <styled.div
+      className="formerUserSectionCard"
+      isSelected={false}
+      onClick={[Function]}
+    >
+      <styled.div>
+        <Avatar
+          size="large"
+          src=""
+        />
+      </styled.div>
+      <styled.div>
+        <FormattedMessage
+          defaultMessage="Former user"
+          description="The display name for a user when they do not select their name"
+          id="focused-task-close-account.delete-account.content-preview.formerUser"
+          values={Object {}}
+        />
+      </styled.div>
+    </styled.div>
+    <FormattedHTMLMessage
+      defaultMessage="Note: Answering this survey will help us make a better experience for all users. The user will still appear as “Former user” after you delete their account."
+      description="Note to admins that the users would still be saved as Former User"
+      id="focused-task-close-account.delete-account.content-preview.footnote.admin"
+      tagName="p"
+      values={Object {}}
+    />
+  </styled.div>
+</InjectIntl(MessagesIntlProvider)>
+`;
+
+exports[`handleClickSelection changes the isSelected parameter of the element 1`] = `
+<InjectIntl(MessagesIntlProvider)>
+  <styled.div>
+    <styled.div>
+      <FormattedMessage
+        defaultMessage="How would you prefer the deleted user to appear?"
+        description="Heading for the screen that explains admin would prefer user to be remembered"
+        id="focused-task-close-account.delete-account.content-preview.heading.admin"
+        values={Object {}}
+      />
+    </styled.div>
+    <FormattedMessage
+      defaultMessage="After the user’s account is deleted, they’ll appear as “Former user” to other users. Please take a moment to answer our survey question."
+      description="First paragraph for the survey for admins"
+      id="focused-task-close-account.delete-account.content-preview.paragraph.survey.admin"
+      tagName="p"
+      values={Object {}}
+    />
+    <FormattedMessage
+      defaultMessage="If we gave you a choice, how would you like the deleted user to appear to other users?"
+      description="Second paragraph for the survey for admins"
+      id="focused-task-close-account.delete-account.content-preview.line.survey.admin"
+      tagName="p"
+      values={Object {}}
+    />
+    <styled.div
+      className="nameSectionCard"
+      isSelected={true}
+      onClick={[Function]}
+    >
+      <styled.div>
+        <Avatar
+          size="large"
+          src=""
+        />
+      </styled.div>
+      <styled.div>
+        Catherine Hirons
+      </styled.div>
+    </styled.div>
+    <styled.div
+      className="formerUserSectionCard"
+      isSelected={false}
+      onClick={[Function]}
+    >
+      <styled.div>
+        <Avatar
+          size="large"
+          src=""
+        />
+      </styled.div>
+      <styled.div>
+        <FormattedMessage
+          defaultMessage="Former user"
+          description="The display name for a user when they do not select their name"
+          id="focused-task-close-account.delete-account.content-preview.formerUser"
+          values={Object {}}
+        />
+      </styled.div>
+    </styled.div>
+    <FormattedHTMLMessage
+      defaultMessage="Note: Answering this survey will help us make a better experience for all users. The user will still appear as “Former user” after you delete their account."
+      description="Note to admins that the users would still be saved as Former User"
+      id="focused-task-close-account.delete-account.content-preview.footnote.admin"
+      tagName="p"
+      values={Object {}}
+    />
+  </styled.div>
+</InjectIntl(MessagesIntlProvider)>
+`;

@@ -1,0 +1,58 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Atlassian Switcher basic snapshot 1`] = `
+<InjectIntl(SwitcherIntlProdiver)>
+  <NavigationAnalyticsContext
+    data={
+      Object {
+        "attributes": Object {
+          "featureFlags": Object {
+            "disableCustomLinks": false,
+            "disableRecentContainers": false,
+            "disableSwitchToHeading": false,
+            "isCollaborationGraphRecentContainersEnabled": false,
+            "isDefaultEditionFreeExperimentEnabled": false,
+            "isDiscoverMoreForEveryoneEnabled": false,
+            "isDiscoverSectionEnabled": false,
+            "isEmceeLinkEnabled": false,
+            "isProductStoreInTrelloConfluenceFirstEnabled": false,
+            "isProductStoreInTrelloJSWFirstEnabled": false,
+            "xflow": true,
+          },
+        },
+        "componentName": "atlassianSwitcher",
+        "packageName": "@atlaskit/atlassian-switcher",
+        "packageVersion": "999.9.9",
+        "source": "atlassianSwitcher",
+      }
+    }
+  >
+    <WithAnalyticsEvents(InjectIntl(ErrorBoundary))
+      appearance="drawer"
+      product="jira"
+    >
+      <LoadableComponent
+        appearance="drawer"
+        cloudId="CLOUD_ID"
+        features={
+          Object {
+            "disableCustomLinks": false,
+            "disableRecentContainers": false,
+            "disableSwitchToHeading": false,
+            "isCollaborationGraphRecentContainersEnabled": false,
+            "isDefaultEditionFreeExperimentEnabled": false,
+            "isDiscoverMoreForEveryoneEnabled": false,
+            "isDiscoverSectionEnabled": false,
+            "isEmceeLinkEnabled": false,
+            "isProductStoreInTrelloConfluenceFirstEnabled": false,
+            "isProductStoreInTrelloJSWFirstEnabled": false,
+            "xflow": true,
+          }
+        }
+        product="jira"
+        triggerXFlow={[Function]}
+      />
+    </WithAnalyticsEvents(InjectIntl(ErrorBoundary))>
+  </NavigationAnalyticsContext>
+</InjectIntl(SwitcherIntlProdiver)>
+`;

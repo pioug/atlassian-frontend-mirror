@@ -1,0 +1,79 @@
+{
+  "name": "@atlaskit/atlassian-navigation",
+  "version": "0.12.1",
+  "description": "A horizontal navigation component for Atlassian products.",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "author": "Atlassian Pty Ltd",
+  "license": "Apache-2.0",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "module:es2019": "dist/es2019/index.js",
+  "types": "dist/types/index.d.ts",
+  "sideEffects": false,
+  "atlaskit:src": "src/index.ts",
+  "atlassian": {
+    "team": "Design System Team",
+    "deprecatedAutoEntryPoints": true,
+    "releaseModel": "scheduled",
+    "website": {
+      "name": "Atlassian navigation"
+    }
+  },
+  "dependencies": {
+    "@atlaskit/analytics-namespaced-context": "^5.1.0",
+    "@atlaskit/button": "^15.1.0",
+    "@atlaskit/icon": "^21.1.0",
+    "@atlaskit/logo": "*",
+    "@atlaskit/popup": "^1.0.0",
+    "@atlaskit/theme": "^11.0.0",
+    "@atlaskit/tooltip": "^17.0.0",
+    "@atlaskit/width-detector": "^3.0.0",
+    "@emotion/core": "^10.0.9",
+    "chromatism": "^2.6.0",
+    "lodash": "^4.17.15"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0"
+  },
+  "devDependencies": {
+    "@atlaskit/analytics-next": "*",
+    "@atlaskit/atlassian-notifications": "*",
+    "@atlaskit/atlassian-switcher": "*",
+    "@atlaskit/atlassian-switcher-test-utils": "*",
+    "@atlaskit/badge": "*",
+    "@atlaskit/docs": "*",
+    "@atlaskit/drawer": "*",
+    "@atlaskit/menu": "*",
+    "@atlaskit/notification-indicator": "*",
+    "@atlaskit/notification-log-client": "*",
+    "@atlaskit/spinner": "*",
+    "@atlaskit/visual-regression": "*",
+    "@testing-library/react": "^8.0.1",
+    "jest-axe": "^4.0.0",
+    "jest-emotion": "^10.0.32",
+    "react": "^16.8.0",
+    "react-intl": "^2.6.0"
+  },
+  "techstack": {
+    "@atlassian/frontend": {
+      "import-structure": "atlassian-conventions"
+    },
+    "@repo/internal": {
+      "ui-components": [
+        "lite-mode"
+      ],
+      "analytics": [
+        "analytics-next"
+      ],
+      "theming": [
+        "new-theming-api"
+      ],
+      "deprecation": [
+        "no-deprecated-imports"
+      ]
+    }
+  }
+}

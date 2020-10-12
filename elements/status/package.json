@@ -1,0 +1,55 @@
+{
+  "name": "@atlaskit/status",
+  "version": "0.10.4",
+  "description": "Fabric Status React Components",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "author": "Atlassian Pty Ltd",
+  "license": "Apache-2.0",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "module:es2019": "dist/es2019/index.js",
+  "types": "dist/types/index.d.ts",
+  "atlaskit:src": "src/index.ts",
+  "atlassian": {
+    "team": "Editor",
+    "deprecatedAutoEntryPoints": true,
+    "releaseModel": "scheduled",
+    "website": {
+      "name": "Status"
+    }
+  },
+  "config": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@atlaskit/analytics-next": "^8.0.0",
+    "@atlaskit/icon": "^21.0.0",
+    "@atlaskit/lozenge": "^10.0.0",
+    "@atlaskit/textfield": "^4.0.0",
+    "@atlaskit/theme": "^11.0.0",
+    "styled-components": "^3.2.6"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0",
+    "react-intl": "^2.6.0"
+  },
+  "devDependencies": {
+    "@atlaskit/docs": "^9.0.0",
+    "@atlaskit/editor-test-helpers": "^13.0.0",
+    "@atlaskit/elements-test-helpers": "^0.7.0",
+    "@atlaskit/visual-regression": "*",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.15.1",
+    "react": "^16.8.0",
+    "react-intl": "^2.6.0"
+  },
+  "keywords": [
+    "ui",
+    "date",
+    "fabric",
+    "editor"
+  ]
+}

@@ -1,0 +1,2 @@
+// Slovak
+export default {};

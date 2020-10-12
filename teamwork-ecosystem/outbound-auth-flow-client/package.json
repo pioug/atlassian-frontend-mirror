@@ -1,0 +1,34 @@
+{
+  "name": "@atlaskit/outbound-auth-flow-client",
+  "version": "3.1.1",
+  "description": "Front-end library for starting outbound auth flows",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "author": "Atlassian Pty Ltd",
+  "license": "Apache-2.0",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "module:es2019": "dist/es2019/index.js",
+  "types": "dist/types/index.d.ts",
+  "atlaskit:src": "src/index.ts",
+  "atlassian": {
+    "team": "Ecosystem Capabilities",
+    "deprecatedAutoEntryPoints": true,
+    "releaseModel": "continuous"
+  },
+  "config": {
+    "access": "public"
+  },
+  "dependencies": {
+    "tslib": "^2.0.0"
+  },
+  "devDependencies": {
+    "@atlaskit/docs": "*"
+  },
+  "keywords": [
+    "fabric",
+    "ui"
+  ]
+}

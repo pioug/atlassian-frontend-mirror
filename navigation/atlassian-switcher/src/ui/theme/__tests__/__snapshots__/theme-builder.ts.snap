@@ -1,0 +1,80 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`utils/theme-builder creating a proper theme childItemTheme should match snapshot 1`] = `
+Object {
+  "default": Object {
+    "background": "#e5ffff",
+    "secondaryText": "#03396c",
+    "text": "#0000B2",
+  },
+  "hover": Object {
+    "background": "#ccffff",
+    "secondaryText": "#03396c",
+    "text": "#0000B2",
+  },
+}
+`;
+
+exports[`utils/theme-builder creating a proper theme itemTheme should match snapshot 1`] = `
+Object {
+  "default": Object {
+    "secondaryText": "#03396c",
+    "text": "#0000B2",
+  },
+  "hover": Object {
+    "background": "#ccffff",
+    "secondaryText": "#03396c",
+    "text": "#0000B2",
+  },
+}
+`;
+
+exports[`utils/theme-builder creating a proper theme topLevelItemWrapperTheme should match snapshot 1`] = `
+Object {
+  "default": Object {
+    "secondaryText": "#03396c",
+    "text": "#0000B2",
+  },
+  "hover": Object {
+    "background": "#ccffff",
+    "secondaryText": "#03396c",
+    "text": "#0000B2",
+  },
+}
+`;
+
+exports[`utils/theme-builder creating a theme without passing all the props will fallback to default childItemTheme should match snapshot 1`] = `
+Object {
+  "default": Object {
+    "text": "#0000B2",
+  },
+  "hover": Object {
+    "background": "#ccffff",
+    "text": "#0000B2",
+  },
+}
+`;
+
+exports[`utils/theme-builder creating a theme without passing all the props will fallback to default itemTheme should match snapshot 1`] = `
+Object {
+  "default": Object {
+    "text": "#0000B2",
+  },
+  "hover": Object {
+    "background": "#ccffff",
+    "text": "#0000B2",
+  },
+}
+`;
+
+exports[`utils/theme-builder creating a theme without passing all the props will fallback to default topLevelItemWrapperTheme should match snapshot 1`] = `
+Object {
+  "default": Object {
+    "text": "#0000B2",
+  },
+  "hover": Object {
+    "background": "#ccffff",
+    "text": "#0000B2",
+  },
+}
+`;

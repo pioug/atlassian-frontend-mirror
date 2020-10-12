@@ -1,0 +1,85 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ArticlesListItem Should match snapshot 1`] = `
+.emotion-3 {
+  position: relative;
+  box-sizing: border-box;
+  padding: 8px;
+  display: block;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  cursor: pointer;
+  color: #6B778C;
+  border-radius: 3px;
+}
+
+.emotion-3:hover,
+.emotion-3:focus,
+.emotion-3:visited,
+.emotion-3:active {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  outline: none;
+  outline-offset: none;
+}
+
+.emotion-3:focus {
+  box-shadow: #4C9AFF 0px 0px 0px 2px inset;
+}
+
+.emotion-3:hover {
+  background-color: #EBECF0;
+}
+
+.emotion-3:active {
+  background-color: #DEEBFF;
+}
+
+.emotion-1 {
+  width: 100%;
+  white-space: nowrap;
+}
+
+.emotion-0 {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  color: #172B4D;
+  font-size: 14px;
+  font-weight: 600;
+  display: block;
+  line-height: 20px;
+  white-space: normal;
+  overflow-x: hidden;
+  margin-bottom: 8px;
+}
+
+.emotion-2 {
+  display: block;
+  line-height: 20px;
+  color: #505F79;
+  margin: 0;
+}
+
+<a
+  aria-disabled="false"
+  class="emotion-3"
+  href=""
+  role="button"
+>
+  <div
+    class="emotion-1"
+  >
+    <span
+      class="emotion-0"
+    >
+      mockArticle title
+    </span>
+    
+  </div>
+  <p
+    class="emotion-2"
+  >
+    mockArticle description
+  </p>
+</a>
+`;

@@ -1,0 +1,160 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Dropdown list button renders sites list 1`] = `
+<Fragment>
+  <styled.ul>
+    <li
+      key="0"
+    >
+      hello.atlassian.net
+    </li>
+    <li
+      key="1"
+    >
+      acme.atlassian.net
+    </li>
+    <li
+      key="2"
+    >
+      test.atlassian.net
+    </li>
+  </styled.ul>
+  <styled.div>
+    <FormattedMessage
+      defaultMessage="Other Atlassian account services, such as Atlassian Community and Marketplace. "
+      description="A paragraph explaining that upon deletion the user may also lose access to services that weren't listed prior."
+      id="focused-task-close-account.delete-account.overview.paragraph.loseAccess.footnote"
+      values={Object {}}
+    />
+  </styled.div>
+</Fragment>
+`;
+
+exports[`Dropdown list button renders sites list with collapse button for more than 3 sites after been expanded 1`] = `
+<Fragment>
+  <styled.ul>
+    <li
+      key="0"
+    >
+      hello.atlassian.net
+    </li>
+    <li
+      key="1"
+    >
+      acme.atlassian.net
+    </li>
+    <li
+      key="2"
+    >
+      test.atlassian.net
+    </li>
+    <li
+      key="3"
+    >
+      bitflix.atlassian.net
+    </li>
+  </styled.ul>
+  <styled.div>
+    <FormattedMessage
+      defaultMessage="Other Atlassian account services, such as Atlassian Community and Marketplace. "
+      description="A paragraph explaining that upon deletion the user may also lose access to services that weren't listed prior."
+      id="focused-task-close-account.delete-account.overview.paragraph.loseAccess.footnote"
+      values={Object {}}
+    />
+  </styled.div>
+  <styled.div>
+    <CustomThemeButton
+      appearance="link"
+      onClick={[Function]}
+      spacing="none"
+    >
+      <FormattedMessage
+        defaultMessage="Show less"
+        description="Button text displaying text on collapse"
+        id="focused-task-close-account.delete-account.drop-down-collapse-button"
+        values={Object {}}
+      />
+    </CustomThemeButton>
+  </styled.div>
+</Fragment>
+`;
+
+exports[`Dropdown list button renders sites list with expand button for more than 3 sites 1`] = `
+<Fragment>
+  <styled.ul>
+    <li
+      key="0"
+    >
+      hello.atlassian.net
+    </li>
+    <li
+      key="1"
+    >
+      acme.atlassian.net
+    </li>
+    <li
+      key="2"
+    >
+      test.atlassian.net
+    </li>
+  </styled.ul>
+  <styled.div>
+    <CustomThemeButton
+      appearance="link"
+      onClick={[Function]}
+      spacing="none"
+    >
+      <FormattedMessage
+        defaultMessage="{num} more"
+        description="Button text displaying number of available sites greater than 3 on expand"
+        id="focused-task-close-account.delete-account.drop-down-expand-button"
+        values={
+          Object {
+            "num": 1,
+          }
+        }
+      />
+    </CustomThemeButton>
+  </styled.div>
+</Fragment>
+`;
+
+exports[`Dropdown list button renders sites list with expand button for more than 3 sites after been collapsed 1`] = `
+<Fragment>
+  <styled.ul>
+    <li
+      key="0"
+    >
+      hello.atlassian.net
+    </li>
+    <li
+      key="1"
+    >
+      acme.atlassian.net
+    </li>
+    <li
+      key="2"
+    >
+      test.atlassian.net
+    </li>
+  </styled.ul>
+  <styled.div>
+    <CustomThemeButton
+      appearance="link"
+      onClick={[Function]}
+      spacing="none"
+    >
+      <FormattedMessage
+        defaultMessage="{num} more"
+        description="Button text displaying number of available sites greater than 3 on expand"
+        id="focused-task-close-account.delete-account.drop-down-expand-button"
+        values={
+          Object {
+            "num": 1,
+          }
+        }
+      />
+    </CustomThemeButton>
+  </styled.div>
+</Fragment>
+`;

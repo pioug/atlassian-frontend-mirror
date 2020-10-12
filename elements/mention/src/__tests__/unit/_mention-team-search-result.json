@@ -1,0 +1,63 @@
+[
+  {
+    "id": "54be0e8c-22ab-44b6-91a7-1952307942d4",
+    "description": "",
+    "displayName": "A test team",
+    "members": [
+      {
+        "id": "655363:47234240-9aed-488b-86e5-5a9a4a92e3fc",
+        "name": "Lap Tran"
+      },
+      {
+        "id": "655363:5d191b9d-70e5-4e77-919b-b9733f7e087f",
+        "name": "Jeremy Evans"
+      },
+      {
+        "id": "655363:a5b38060-4fc7-4485-a6ee-ef213480027b",
+        "name": "Tung Thanh Dang"
+      }
+    ],
+    "largeHeaderImageUrl": "https://ptc-directory-sited-static.us-east-1.staging.public.atl-paas.net/teams/avatars/0.svg",
+    "smallHeaderImageUrl": "https://ptc-directory-sited-static.us-east-1.staging.public.atl-paas.net/teams/avatars/0.svg",
+    "largeAvatarImageUrl": "https://ptc-directory-sited-static.us-east-1.staging.public.atl-paas.net/teams/avatars/0.svg",
+    "smallAvatarImageUrl": "https://ptc-directory-sited-static.us-east-1.staging.public.atl-paas.net/teams/avatars/0.svg"
+  },
+  {
+    "id": "c368d8ec-bd71-4599-acfd-c9a4f20f04ba",
+    "description": "",
+    "displayName": "A test team 2",
+    "members": [
+      {
+        "id": "5aa8a33835e5a02a84dea083",
+        "name": "Ishan Somasiri"
+      }
+    ],
+    "largeHeaderImageUrl": "https://ptc-directory-sited-static.us-east-1.staging.public.atl-paas.net/teams/avatars/1.svg",
+    "smallHeaderImageUrl": "https://ptc-directory-sited-static.us-east-1.staging.public.atl-paas.net/teams/avatars/1.svg",
+    "largeAvatarImageUrl": "https://ptc-directory-sited-static.us-east-1.staging.public.atl-paas.net/teams/avatars/1.svg",
+    "smallAvatarImageUrl": "https://ptc-directory-sited-static.us-east-1.staging.public.atl-paas.net/teams/avatars/1.svg"
+  },
+  {
+    "id": "ef06a9c3-9a4b-4385-8adb-70947fe94961",
+    "description": "",
+    "displayName": "ashima-test-team",
+    "members": [
+      {
+        "id": "5b0df437c808774020514a4b",
+        "name": "Robin Wu"
+      },
+      {
+        "id": "5bbeeabb7b872475cd9540de",
+        "name": "Ashima Goel"
+      },
+      {
+        "id": "655363:048d4a80-495b-4b45-87e2-4e258458f2d5",
+        "name": "Ran Ding"
+      }
+    ],
+    "largeHeaderImageUrl": "https://ptc-directory-sited-static.us-east-1.staging.public.atl-paas.net/teams/avatars/2.svg",
+    "smallHeaderImageUrl": "https://ptc-directory-sited-static.us-east-1.staging.public.atl-paas.net/teams/avatars/2.svg",
+    "largeAvatarImageUrl": "https://ptc-directory-sited-static.us-east-1.staging.public.atl-paas.net/teams/avatars/2.svg",
+    "smallAvatarImageUrl": "https://ptc-directory-sited-static.us-east-1.staging.public.atl-paas.net/teams/avatars/2.svg"
+  }
+]

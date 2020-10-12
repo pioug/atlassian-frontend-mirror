@@ -1,0 +1,14 @@
+{
+  "overrides": [
+    {
+      "files": [
+        "src/i18n/*.js",
+        "src/internal/i18n-util.js"
+      ],
+      "rules": {
+        "flowtype/require-valid-file-annotation": "off",
+        "camelcase": "off"
+      }
+    }
+  ]
+}

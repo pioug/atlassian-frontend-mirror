@@ -1,0 +1,295 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RelatedArticles Should match snapshot 1`] = `
+.emotion-23 {
+  position: relative;
+}
+
+.emotion-3 {
+  position: relative;
+  box-sizing: border-box;
+  padding: 8px;
+  display: block;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  cursor: pointer;
+  color: #6B778C;
+  border-radius: 3px;
+  border: 0;
+  padding: 8px;
+  margin-bottom: 0;
+}
+
+.emotion-3:hover,
+.emotion-3:focus,
+.emotion-3:visited,
+.emotion-3:active {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  outline: none;
+  outline-offset: none;
+}
+
+.emotion-3:focus {
+  box-shadow: #4C9AFF 0px 0px 0px 2px inset;
+}
+
+.emotion-3:hover {
+  background-color: #EBECF0;
+}
+
+.emotion-3:active {
+  background-color: #DEEBFF;
+}
+
+.emotion-1 {
+  width: 100%;
+  white-space: nowrap;
+}
+
+.emotion-0 {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  color: #172B4D;
+  font-size: 14px;
+  font-weight: 600;
+  display: block;
+  line-height: 20px;
+  white-space: normal;
+  overflow-x: hidden;
+  margin-bottom: 8px;
+}
+
+.emotion-2 {
+  display: block;
+  line-height: 20px;
+  color: #505F79;
+  margin: 0;
+}
+
+.emotion-22 {
+  padding: 8px 0;
+}
+
+.emotion-22 span {
+  margin: 0;
+}
+
+.emotion-21,
+.emotion-21:hover,
+.emotion-21:active,
+.emotion-21:focus,
+.emotion-21:visited,
+.emotion-21:disabled,
+.emotion-21[disabled] {
+  -webkit-align-items: baseline;
+  -webkit-box-align: baseline;
+  -ms-flex-align: baseline;
+  align-items: baseline;
+  border-width: 0;
+  border-radius: 3px;
+  box-sizing: border-box;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-size: inherit;
+  font-style: normal;
+  font-family: inherit;
+  font-weight: 500;
+  max-width: 100%;
+  position: relative;
+  text-align: center;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  -webkit-transition: background 0.1s ease-out,box-shadow 0.15s cubic-bezier(0.47,0.03,0.49,1.38);
+  transition: background 0.1s ease-out,box-shadow 0.15s cubic-bezier(0.47,0.03,0.49,1.38);
+  white-space: nowrap;
+  background: none;
+  color: #0052CC !important;
+  cursor: pointer;
+  height: 1.7142857142857142em;
+  line-height: 1.7142857142857142em;
+  padding: 0 10px;
+  vertical-align: middle;
+  width: auto;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  outline: none;
+}
+
+.emotion-21::-moz-focus-inner,
+.emotion-21:hover::-moz-focus-inner,
+.emotion-21:active::-moz-focus-inner,
+.emotion-21:focus::-moz-focus-inner,
+.emotion-21:visited::-moz-focus-inner,
+.emotion-21:disabled::-moz-focus-inner,
+.emotion-21[disabled]::-moz-focus-inner {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.emotion-20 {
+  -webkit-transition: opacity 0.3s;
+  transition: opacity 0.3s;
+  opacity: 1;
+  margin: 0 2px;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  -webkit-flex-shrink: 1;
+  -ms-flex-negative: 1;
+  flex-shrink: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+<div
+  class="emotion-23"
+>
+  <div>
+    <a
+      aria-disabled="false"
+      class="emotion-3"
+      href=""
+      role="button"
+    >
+      <div
+        class="emotion-1"
+      >
+        <span
+          class="emotion-0"
+        >
+          mockArticle title
+        </span>
+        
+      </div>
+      <p
+        class="emotion-2"
+      >
+        mockArticle description
+      </p>
+    </a>
+    <a
+      aria-disabled="false"
+      class="emotion-3"
+      href=""
+      role="button"
+    >
+      <div
+        class="emotion-1"
+      >
+        <span
+          class="emotion-0"
+        >
+          mockArticle title
+        </span>
+        
+      </div>
+      <p
+        class="emotion-2"
+      >
+        mockArticle description
+      </p>
+    </a>
+    <a
+      aria-disabled="false"
+      class="emotion-3"
+      href=""
+      role="button"
+    >
+      <div
+        class="emotion-1"
+      >
+        <span
+          class="emotion-0"
+        >
+          mockArticle title
+        </span>
+        
+      </div>
+      <p
+        class="emotion-2"
+      >
+        mockArticle description
+      </p>
+    </a>
+  </div>
+  <div
+    aria-hidden="true"
+    class="rah-static rah-static--height-zero"
+    style="height: 0px; overflow: hidden;"
+  >
+    <div
+      style="display: none;"
+    >
+      <a
+        aria-disabled="false"
+        class="emotion-3"
+        href=""
+        role="button"
+      >
+        <div
+          class="emotion-1"
+        >
+          <span
+            class="emotion-0"
+          >
+            mockArticle title
+          </span>
+          
+        </div>
+        <p
+          class="emotion-2"
+        >
+          mockArticle description
+        </p>
+      </a>
+      <a
+        aria-disabled="false"
+        class="emotion-3"
+        href=""
+        role="button"
+      >
+        <div
+          class="emotion-1"
+        >
+          <span
+            class="emotion-0"
+          >
+            mockArticle title
+          </span>
+          
+        </div>
+        <p
+          class="emotion-2"
+        >
+          mockArticle description
+        </p>
+      </a>
+    </div>
+  </div>
+  <div
+    class="emotion-22"
+  >
+    <button
+      class="emotion-21"
+      tabindex="0"
+      type="button"
+    >
+      <span
+        class="emotion-20"
+      >
+        <span>
+          Show 2 more articles
+        </span>
+      </span>
+    </button>
+  </div>
+</div>
+`;

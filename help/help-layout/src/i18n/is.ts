@@ -1,0 +1,2 @@
+// Icelandic
+export default {};

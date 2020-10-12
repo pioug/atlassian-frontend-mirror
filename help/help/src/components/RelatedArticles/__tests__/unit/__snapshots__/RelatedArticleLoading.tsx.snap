@@ -1,0 +1,187 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RelatedArticlesLoading Should match snapshot 1`] = `
+@keyframes animation-0 {
+  0% {
+    background-position: -300px 0;
+  }
+
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+@keyframes animation-0 {
+  0% {
+    background-position: -300px 0;
+  }
+
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+@keyframes animation-0 {
+  0% {
+    background-position: -300px 0;
+  }
+
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.emotion-19 {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.emotion-5 {
+  display: block;
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 16px;
+  box-sizing: border-box;
+}
+
+.emotion-0 {
+  position: relative;
+  height: 11px;
+  margin-top: 0;
+  width: 60px;
+  border-radius: 2px;
+  -webkit-animation-duration: 1.2s;
+  animation-duration: 1.2s;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-name: animation-0;
+  animation-name: animation-0;
+  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear;
+  background-color: #EBECF0;
+  background-image: linear-gradient( to right, #EBECF0 10%, #DFE1E6 20%, #EBECF0 30% );
+  background-repeat: no-repeat;
+}
+
+.emotion-1 {
+  position: relative;
+  height: 1rem;
+  margin-top: 4px;
+  width: 100%;
+  border-radius: 2px;
+  -webkit-animation-duration: 1.2s;
+  animation-duration: 1.2s;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-name: animation-0;
+  animation-name: animation-0;
+  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear;
+  background-color: #EBECF0;
+  background-image: linear-gradient( to right, #EBECF0 10%, #DFE1E6 20%, #EBECF0 30% );
+  background-repeat: no-repeat;
+}
+
+.emotion-2 {
+  position: relative;
+  height: 1rem;
+  margin-top: 8px;
+  width: 100%;
+  border-radius: 2px;
+  -webkit-animation-duration: 1.2s;
+  animation-duration: 1.2s;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-name: animation-0;
+  animation-name: animation-0;
+  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear;
+  background-color: #EBECF0;
+  background-image: linear-gradient( to right, #EBECF0 10%, #DFE1E6 20%, #EBECF0 30% );
+  background-repeat: no-repeat;
+}
+
+.emotion-18 {
+  background-color: rgba(9,30,66,0.08);
+  height: 2px;
+  width: 100%;
+  padding: 0 16px;
+  margin-top: 16px;
+  box-sizing: border-box;
+}
+
+<ul
+  aria-label="Loading"
+  class="emotion-19"
+  role="img"
+>
+  <li
+    class="emotion-5"
+  >
+    <div
+      class="emotion-0"
+    />
+    <div
+      class="emotion-1"
+    />
+    <div
+      class="emotion-2"
+    />
+    <div
+      class="emotion-1"
+    />
+    <div
+      class="emotion-1"
+    />
+  </li>
+  <li
+    class="emotion-5"
+  >
+    <div
+      class="emotion-0"
+    />
+    <div
+      class="emotion-1"
+    />
+    <div
+      class="emotion-2"
+    />
+    <div
+      class="emotion-1"
+    />
+    <div
+      class="emotion-1"
+    />
+  </li>
+  <li
+    class="emotion-5"
+  >
+    <div
+      class="emotion-0"
+    />
+    <div
+      class="emotion-1"
+    />
+    <div
+      class="emotion-2"
+    />
+    <div
+      class="emotion-1"
+    />
+    <div
+      class="emotion-1"
+    />
+  </li>
+  <div
+    class="emotion-18"
+  />
+</ul>
+`;

@@ -1,0 +1,69 @@
+{
+  "name": "@atlaskit/share",
+  "version": "0.23.4",
+  "description": "Fabric Share Element",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "author": "Atlassian Pty Ltd",
+  "license": "Apache-2.0",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "module:es2019": "dist/es2019/index.js",
+  "types": "dist/types/index.d.ts",
+  "atlaskit:src": "src/index.ts",
+  "atlassian": {
+    "team": "People and Teams Collective",
+    "deprecatedAutoEntryPoints": true,
+    "releaseModel": "continuous",
+    "website": {
+      "name": "Share"
+    }
+  },
+  "config": {
+    "access": "private"
+  },
+  "dependencies": {
+    "@atlaskit/analytics-next": "^8.0.0",
+    "@atlaskit/button": "^15.1.0",
+    "@atlaskit/field-text-area": "^8.0.0",
+    "@atlaskit/form": "^8.1.0",
+    "@atlaskit/icon": "^21.1.0",
+    "@atlaskit/popup": "^1.0.0",
+    "@atlaskit/portal": "^4.0.0",
+    "@atlaskit/section-message": "^5.0.0",
+    "@atlaskit/select": "^13.0.0",
+    "@atlaskit/theme": "^11.0.0",
+    "@atlaskit/tooltip": "^17.0.0",
+    "@atlaskit/user-picker": "^6.5.4",
+    "@atlaskit/util-service-support": "^6.0.0",
+    "fast-deep-equal": "^3.1.1",
+    "memoize-one": "^5.1.0",
+    "tiny-invariant": "^0.0.3",
+    "tslib": "^2.0.0"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0",
+    "react-intl": "^2.6.0",
+    "styled-components": "^3.2.6"
+  },
+  "devDependencies": {
+    "@atlaskit/docs": "^9.0.0",
+    "@atlaskit/editor-test-helpers": "^13.0.0",
+    "@atlaskit/flag": "^14.0.0",
+    "@atlaskit/toggle": "^11.0.0",
+    "@atlaskit/util-data-test": "^14.0.0",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.15.1",
+    "jest-fetch-mock": "^2.1.2",
+    "react": "^16.8.0",
+    "react-intl": "^2.6.0"
+  },
+  "keywords": [
+    "ui",
+    "share",
+    "fabric",
+    "teams"
+  ]
+}

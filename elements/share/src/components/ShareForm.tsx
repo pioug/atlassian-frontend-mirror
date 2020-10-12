@@ -1,0 +1,268 @@
+import Button from '@atlaskit/button/custom-theme-button';
+import Form from '@atlaskit/form';
+import ErrorIcon from '@atlaskit/icon/glyph/error';
+import { R400 } from '@atlaskit/theme/colors';
+import { gridSize } from '@atlaskit/theme/constants';
+import { multiply } from '@atlaskit/theme/math';
+import Tooltip from '@atlaskit/tooltip';
+import { LoadOptions, OptionData, Value } from '@atlaskit/user-picker';
+import React from 'react';
+import { FormattedMessage, injectIntl, InjectedIntlProps } from 'react-intl';
+import styled from 'styled-components';
+import { messages } from '../i18n';
+import {
+  Comment,
+  ConfigResponse,
+  DialogContentState,
+  FormChildrenArgs,
+  ProductName,
+  SlackTeamsResponse,
+} from '../types';
+import { CommentField } from './CommentField';
+import CopyLinkButton from './CopyLinkButton';
+import { ShareHeader } from './ShareHeader';
+import { UserPickerField } from './UserPickerField';
+import SlackButton from './SlackButton';
+
+const SubmitButtonWrapper = styled.div`
+  display: flex;
+  margin-left: auto;
+`;
+
+const CenterAlignedIconWrapper = styled.div`
+  display: flex;
+  align-self: center;
+  padding: 0 10px;
+
+  > div {
+    line-height: 1;
+  }
+`;
+const SlackCopyWrapper = styled.div`
+  font-size: 13px;
+  color: #9b9b9b;
+  width: 100%;
+  text-align: center;
+  margin-bottom: 18px;
+`;
+
+export const FormWrapper = styled.div`
+  /* jira has a class override font settings on h1 in gh-custom-field-pickers.css */
+  #ghx-modes-tools #ghx-share & h1:first-child {
+    margin-top: 0;
+  }
+`;
+
+export const FormFooter = styled.div`
+  margin-bottom: ${multiply(gridSize, 1)}px;
+  display: flex;
+  justify-content: flex-start;
+`;
+
+const FormField = styled.div`
+  margin-bottom: 12px;
+`;
+
+type ShareError = {
+  message: string;
+};
+
+export type ShareData = {
+  users: OptionData[];
+  comment: Comment;
+};
+
+export type Props = {
+  config?: ConfigResponse;
+  copyLink: string;
+  isSharing?: boolean;
+  loadOptions?: LoadOptions;
+  onLinkCopy?: (link: string) => void;
+  onSubmit?: (data: ShareData) => void;
+  shareError?: ShareError;
+  submitButtonLabel?: React.ReactNode;
+  title?: React.ReactNode;
+  contentPermissions?: React.ReactNode;
+  onDismiss?: (data: ShareData) => void;
+  defaultValue?: DialogContentState;
+  isFetchingConfig?: boolean;
+  product: ProductName;
+  enableShareToSlack?: boolean;
+  toggleShareToSlack?: () => void;
+  slackTeams: SlackTeamsResponse;
+  onUserInputChange?: (query?: string, sessionId?: string) => void;
+  enableSmartUserPicker?: boolean;
+  loggedInAccountId?: string;
+  cloudId?: string;
+  onUserSelectionChange?: (value: Value) => void;
+  fieldsFooter?: React.ReactNode;
+  selectPortalRef?: React.Ref<HTMLDivElement>;
+  isPublicLink?: boolean;
+};
+
+export type InternalFormProps = FormChildrenArgs<ShareData> &
+  Props &
+  InjectedIntlProps;
+
+class InternalForm extends React.PureComponent<InternalFormProps> {
+  static defaultProps = {
+    onSubmit: () => {},
+  };
+
+  componentWillUnmount() {
+    const { onDismiss, getValues } = this.props;
+    if (onDismiss) {
+      onDismiss(getValues());
+    }
+  }
+
+  renderSubmitButton = () => {
+    const {
+      intl: { formatMessage },
+      isSharing,
+      shareError,
+      submitButtonLabel,
+      isPublicLink,
+    } = this.props;
+    const shouldShowWarning = shareError && !isSharing;
+    const buttonAppearance = !shouldShowWarning ? 'primary' : 'warning';
+    const sendLabel = isPublicLink
+      ? messages.formSendPublic
+      : messages.formSend;
+    const buttonLabel = shareError ? messages.formRetry : sendLabel;
+    const ButtonLabelWrapper =
+      buttonAppearance === 'warning' ? 'strong' : React.Fragment;
+
+    return (
+      <SubmitButtonWrapper>
+        <CenterAlignedIconWrapper>
+          {shouldShowWarning && (
+            <Tooltip
+              content={<FormattedMessage {...messages.shareFailureMessage} />}
+              position="top"
+            >
+              <ErrorIcon
+                label={formatMessage(messages.shareFailureIconLabel)}
+                primaryColor={R400}
+              />
+            </Tooltip>
+          )}
+        </CenterAlignedIconWrapper>
+        <Button
+          appearance={buttonAppearance}
+          type="submit"
+          isLoading={isSharing}
+        >
+          <ButtonLabelWrapper>
+            {submitButtonLabel || <FormattedMessage {...buttonLabel} />}
+          </ButtonLabelWrapper>
+        </Button>
+      </SubmitButtonWrapper>
+    );
+  };
+
+  shouldShowShareToSlack = (): Boolean => {
+    const { slackTeams, enableShareToSlack } = this.props;
+
+    if (slackTeams.length && enableShareToSlack) {
+      return true;
+    }
+
+    return false;
+  };
+
+  render() {
+    const {
+      formProps,
+      title,
+      contentPermissions,
+      loadOptions,
+      onLinkCopy,
+      copyLink,
+      defaultValue,
+      config,
+      isFetchingConfig,
+      product,
+      toggleShareToSlack,
+      onUserInputChange,
+      enableSmartUserPicker,
+      loggedInAccountId,
+      cloudId,
+      onUserSelectionChange,
+      fieldsFooter,
+      selectPortalRef,
+      isPublicLink,
+    } = this.props;
+    return (
+      <FormWrapper>
+        <form {...formProps}>
+          <ShareHeader title={title} contentPermissions={contentPermissions} />
+          <FormField>
+            <UserPickerField
+              onInputChange={onUserInputChange}
+              onChange={onUserSelectionChange}
+              loadOptions={loadOptions}
+              defaultValue={defaultValue && defaultValue.users}
+              config={config}
+              isLoading={isFetchingConfig}
+              product={product}
+              enableSmartUserPicker={enableSmartUserPicker}
+              loggedInAccountId={loggedInAccountId}
+              cloudId={cloudId}
+              selectPortalRef={selectPortalRef}
+              isPublicLink={isPublicLink}
+            />
+          </FormField>
+          {config && config.allowComment && (
+            <FormField>
+              <CommentField
+                defaultValue={defaultValue && defaultValue.comment}
+              />
+            </FormField>
+          )}
+          {fieldsFooter}
+          <FormFooter>
+            <CopyLinkButton
+              onLinkCopy={onLinkCopy}
+              link={copyLink}
+              isPublicLink={isPublicLink}
+            />
+            {this.renderSubmitButton()}
+          </FormFooter>
+          {this.shouldShowShareToSlack() && (
+            <>
+              <SlackCopyWrapper>
+                <FormattedMessage {...messages.shareToSlackOption} />
+              </SlackCopyWrapper>
+              <SlackButton
+                onClick={toggleShareToSlack}
+                shouldFitContainer={true}
+                text={<FormattedMessage {...messages.shareToSlackButtonText} />}
+              />
+            </>
+          )}
+        </form>
+      </FormWrapper>
+    );
+  }
+}
+
+const InternalFormWithIntl = injectIntl(InternalForm);
+
+export const ShareForm: React.FC<Props> = props => (
+  <Form<ShareData> onSubmit={props.onSubmit!}>
+    {({ formProps, getValues }) => (
+      <InternalFormWithIntl
+        {...props}
+        formProps={formProps}
+        getValues={getValues}
+      />
+    )}
+  </Form>
+);
+
+ShareForm.defaultProps = {
+  isSharing: false,
+  product: 'confluence',
+  onSubmit: () => {},
+};

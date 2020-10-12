@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GlobalQuickSearchWrapper should render AbTestProvider wrapper matching snapshot 1`] = `
+<ABTestProvider
+  context="confluence"
+  crossProductSearchClient={
+    CachingCrossProductSearchClientImpl {
+      "RESULT_LIMIT": 10,
+      "abTestDataCache": Promise {},
+      "cloudId": "123",
+      "crossProductRecentsCache": undefined,
+      "isUserAnonymous": false,
+      "serviceConfig": Object {
+        "url": "/gateway/api/xpsearch-aggregator",
+      },
+    }
+  }
+>
+  <Component />
+</ABTestProvider>
+`;
+
+exports[`GlobalQuickSearchWrapper should render PrefetchedResultsProvider wrapper matching snapshot 1`] = `
+<InjectIntl(MessagesIntlProvider)>
+  <Consumer>
+    <Component />
+  </Consumer>
+</InjectIntl(MessagesIntlProvider)>
+`;

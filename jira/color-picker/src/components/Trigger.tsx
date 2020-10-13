@@ -34,6 +34,7 @@ export default class ColorCard extends React.PureComponent<Props> {
         aria-label={label}
         aria-expanded={expanded}
         aria-haspopup
+        type="button"
       >
         <ColorCardContent color={value || 'transparent'} />
       </ColorCardButton>

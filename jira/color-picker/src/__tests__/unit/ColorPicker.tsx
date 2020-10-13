@@ -5,6 +5,7 @@ import {
   ColorPickerWithoutAnalytics as ColorPicker,
   ColorPickerProps,
 } from '../..';
+import Trigger from '../../components/Trigger';
 
 describe('ColorPicker', () => {
   test('should pass default popperProps to PopupSelect', () => {
@@ -40,5 +41,18 @@ describe('ColorPicker', () => {
     const select = wrapper.find('PopupSelect');
 
     expect(select.prop('popperProps')).toEqual(popperProps);
+  });
+
+  test('should not submit form when click on trigger', () => {
+    const mockSubmit = jest.fn();
+    const wrapper = shallow(
+      <form onSubmit={mockSubmit}>
+        <Trigger value="blue" label="Blue" expanded={false} />
+      </form>,
+    );
+
+    expect(wrapper.find(Trigger).length).toBe(1);
+    wrapper.find(Trigger).simulate('click');
+    expect(mockSubmit.mock.calls.length).toBe(0);
   });
 });

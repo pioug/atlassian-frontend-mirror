@@ -1,5 +1,11 @@
 # @atlaskit/color-picker
 
+## 1.0.6
+
+### Patch Changes
+
+- [`9429370cc0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9429370cc0) - [ux] Selecting a color no longer submits a parent form
+
 ## 1.0.5
 
 ### Patch Changes

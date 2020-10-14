@@ -1,5 +1,11 @@
 # @atlaskit/page-layout
 
+## 0.10.6
+
+### Patch Changes
+
+- [`d540cd1042`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d540cd1042) - [ux] Moving cursor away from current browser was causing side nav expand unexpectedly. This issue has been fixed now and the flyout will close as mouse will leave browser.
+
 ## 0.10.5
 
 ### Patch Changes

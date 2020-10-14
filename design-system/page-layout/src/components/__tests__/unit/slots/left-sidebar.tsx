@@ -898,6 +898,71 @@ describe('Left sidebar', () => {
       expect(getDimension('leftSidebarFlyoutWidth')).toEqual('240px');
     });
 
+    it('should collapse flyout when mouse leaves the browser', () => {
+      const { getByTestId } = render(
+        <PageLayout testId="grid">
+          <Content>
+            <LeftSidebar testId="component" width={200}>
+              Contents
+            </LeftSidebar>
+            <Main testId="main">Main</Main>
+          </Content>
+        </PageLayout>,
+      );
+      const leftSidebar = getByTestId('component');
+      expect(leftSidebar).toHaveStyleDeclaration(
+        'width',
+        'var(--leftSidebarWidth,0px)',
+      );
+      act(() => {
+        fireEvent.mouseOver(leftSidebar);
+        jest.runAllTimers();
+      });
+      expect(leftSidebar).toHaveStyleDeclaration('width', '20px');
+      expect(leftSidebar.querySelector('style')!.innerHTML).toEqual(
+        expect.stringContaining(':root{--leftSidebarWidth:20px;}'),
+      );
+
+      act(() => {
+        fireEvent.mouseLeave(leftSidebar);
+        jest.runAllTimers();
+      });
+
+      expect(leftSidebar).toHaveStyleDeclaration(
+        'width',
+        'var(--leftSidebarWidth,0px)',
+      );
+      expect(leftSidebar.lastElementChild).toHaveStyleDeclaration(
+        'width',
+        'var(--leftSidebarWidth,0px)',
+      );
+    });
+
+    it('should call onFlyoutCollapse callbacks when mouse leaves the browser', () => {
+      const onFlyoutCollapse = jest.fn();
+      const { getByTestId } = render(
+        <PageLayout testId="grid">
+          <Content>
+            <LeftSidebar
+              testId="component"
+              width={200}
+              onFlyoutCollapse={onFlyoutCollapse}
+            >
+              Contents
+            </LeftSidebar>
+            <Main testId="main">Main</Main>
+          </Content>
+        </PageLayout>,
+      );
+
+      act(() => {
+        fireEvent.mouseOver(getByTestId('component'));
+        fireEvent.mouseLeave(getByTestId('component'));
+        jest.runAllTimers();
+      });
+      expect(onFlyoutCollapse).toHaveBeenCalledTimes(1);
+    });
+
     it('should expand flyout when mouse enters the LeftSidebar when isFixed is false', () => {
       const { getByTestId } = render(
         <PageLayout testId="grid">

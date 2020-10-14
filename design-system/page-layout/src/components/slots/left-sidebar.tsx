@@ -222,12 +222,20 @@ const LeftSidebar = (props: LeftSidebarProps) => {
     registerSkipLink({ id, skipLinkTitle });
   }
 
+  const onMouseLeave = (event: ReactMouseEvent) => {
+    onFlyoutCollapse && onFlyoutCollapse();
+    setTimeout(() => {
+      setLeftSidebarState({ ...leftSidebarState, isFlyoutOpen: false });
+    }, FLYOUT_DELAY);
+  };
+
   return (
     <div
       ref={leftSideBarRef}
       css={leftSidebarStyles(isFixed, isFlyoutOpen)}
       data-testid={testId}
       onMouseOver={onMouseOver}
+      onMouseLeave={onMouseLeave}
       id={id}
       {...getPageLayoutSlotSelector('left-sidebar')}
     >
